@@ -174,6 +174,12 @@ describe("the request itself", () => {
     expect(screen.getByRole("img")).toHaveAttribute("loading", "lazy");
   });
 
+  it("loads only an explicitly prioritized lead eagerly", () => {
+    renderImage({ priority: true });
+    expect(screen.getByRole("img")).toHaveAttribute("loading", "eager");
+    expect(screen.getByRole("img")).toHaveAttribute("fetchpriority", "high");
+  });
+
   it("never renders an empty alt — the photo IS the article's content", () => {
     renderImage({ imageAlt: null });
     expect(screen.getByRole("img")).toHaveAttribute(

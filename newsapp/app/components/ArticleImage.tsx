@@ -38,6 +38,7 @@ export const ArticleImage = ({
   rights,
   className = "",
   aspect = "aspect-[16/10]",
+  priority = false,
 }: {
   image: string | null | undefined;
   imageAlt?: string | null;
@@ -52,6 +53,8 @@ export const ArticleImage = ({
   rights?: ImageRights | null;
   className?: string;
   aspect?: string;
+  /** Only the single above-the-fold lead may opt out of lazy loading. */
+  priority?: boolean;
 }) => {
   const name = outlet.outlet || outlet.domain;
   const [stage, setStage] = useState<ImageStage>(() =>
@@ -83,7 +86,8 @@ export const ArticleImage = ({
           // headline. Never empty: a decorative-image role would be a lie —
           // this IS the article's content.
           alt={imageAlt || title || name}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
           decoding="async"
           // ⚠️ NOT "no-referrer". Stripping the referer would hide from the
           // outlet that the traffic is ours, which is the opposite of what an

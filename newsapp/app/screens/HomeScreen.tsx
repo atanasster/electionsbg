@@ -2,9 +2,8 @@
 // search), blindspot rail, story cards, and the latest-articles wire beneath.
 
 import { useMemo, useState } from "react";
-import { EyeOff, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
@@ -21,12 +20,12 @@ import {
   useOutlets,
   useStats,
   useTaxonomy,
-  type ArticleRecord,
   type Outlet,
   type Story,
 } from "../data";
 import { StoryCard } from "../components/StoryCard";
-import { ArticleCard } from "../components/ArticleCard";
+import { LeadStory } from "../components/LeadStory";
+import { buildHomeHierarchy, HOME_SUPPORTING_LIMIT } from "../homeHierarchy";
 
 const TIMEFRAMES = [
   { days: 0, label: "Всички" },
@@ -36,16 +35,14 @@ const TIMEFRAMES = [
 ] as const;
 
 const STORY_GRID = "grid gap-3 sm:grid-cols-2 lg:grid-cols-3";
-const STORY_PAGE_SIZE = 30;
-const BLINDSPOT_LIMIT = 3;
-
 const withinDays = (iso: string | null | undefined, days: number): boolean => {
   if (!days) return true;
   if (!iso) return false;
   const t = new Date(iso).getTime();
   // Unparseable dates (NaN) drop out of time-filtered views rather than
   // silently passing every window.
-  return Number.isFinite(t) && Date.now() - t <= days * 86400_000;
+  const age = Date.now() - t;
+  return Number.isFinite(t) && age >= 0 && age <= days * 86400_000;
 };
 
 const storyMatches = (
@@ -64,24 +61,6 @@ const storyMatches = (
   return true;
 };
 
-const articleMatches = (
-  article: ArticleRecord,
-  category: string,
-  days: number,
-  q: string,
-): boolean => {
-  if (!withinDays(article.published, days)) return false;
-  if (category !== "all") {
-    const topics = article.analysis?.topics ?? [];
-    if (!topics.some((t) => t.category === category)) return false;
-  }
-  if (q) {
-    const haystack = `${article.title ?? ""} ${article.excerpt ?? ""} ${article.topic ?? ""}`;
-    if (!haystack.toLowerCase().includes(q)) return false;
-  }
-  return true;
-};
-
 export const HomeScreen = () => {
   const stats = useStats();
   const home = useHome();
@@ -89,9 +68,8 @@ export const HomeScreen = () => {
   const outlets = useOutlets();
 
   const [category, setCategory] = useState<string>("all");
-  const [days, setDays] = useState<number>(0);
+  const [days, setDays] = useState<number>(30);
   const [query, setQuery] = useState("");
-  const [latestLimit, setLatestLimit] = useState(30);
 
   const q = query.trim().toLowerCase();
   const categories = taxonomy.data?.categories ?? null;
@@ -103,21 +81,6 @@ export const HomeScreen = () => {
       ),
     [home.data, category, days, q],
   );
-  // side = the wing of the spectrum with ZERO coverage (the missing one).
-  const blindspots = useMemo(
-    () =>
-      filteredStories.flatMap((s) =>
-        s.blindspot ? [{ story: s, side: s.blindspot.side }] : [],
-      ),
-    [filteredStories],
-  );
-  const filteredLatest = useMemo(
-    () =>
-      (home.data?.articles ?? []).filter((a) =>
-        articleMatches(a, category, days, q),
-      ),
-    [home.data, category, days, q],
-  );
   // The whole record, not just the name: the card's image needs the outlet's
   // logo (the fallback rung) and its hotlink verdict.
   const outletByDomain = useMemo(() => {
@@ -125,6 +88,10 @@ export const HomeScreen = () => {
     for (const o of outlets.data?.outlets ?? []) map.set(o.domain, o);
     return map;
   }, [outlets.data]);
+  const hierarchy = useMemo(
+    () => buildHomeHierarchy(filteredStories, home.data?.articles ?? []),
+    [filteredStories, home.data?.articles],
+  );
 
   return (
     <div className="space-y-8">
@@ -225,51 +192,14 @@ export const HomeScreen = () => {
         </Card>
       ) : null}
 
-      {/* Blindspots — stories covered by only one wing of the spectrum. */}
-      {blindspots.length > 0 ? (
-        <section aria-labelledby="blindspot-heading">
-          <div className="mb-2 flex items-center gap-2">
-            <EyeOff className="size-4 text-primary" />
-            <h2
-              id="blindspot-heading"
-              className="text-sm font-semibold uppercase tracking-wide"
-            >
-              Слепи петна
-            </h2>
-            <span className="text-xs text-muted-foreground">
-              истории, отразявани само от едната страна на спектъра
-            </span>
-          </div>
-          <div className={STORY_GRID}>
-            {blindspots.slice(0, BLINDSPOT_LIMIT).map(({ story, side }) => (
-              <div key={story.id} className="relative">
-                <Badge
-                  className="absolute -top-2 left-3 z-10"
-                  variant="default"
-                >
-                  {side === "right"
-                    ? "без десни източници"
-                    : "без леви източници"}
-                </Badge>
-                <StoryCard story={story} taxonomy={categories} />
-              </div>
-            ))}
-          </div>
-          {blindspots.length > BLINDSPOT_LIMIT ? (
-            <p className="mt-2 text-xs text-muted-foreground">
-              +{blindspots.length - BLINDSPOT_LIMIT} още в общия фийд долу.
-            </p>
-          ) : null}
-        </section>
-      ) : null}
-
-      {/* Story feed */}
+      {/* One deterministic lead, followed by a finite supporting briefing. */}
       <section aria-labelledby="stories-heading">
         <h2
           id="stories-heading"
           className="mb-2 text-sm font-semibold uppercase tracking-wide"
         >
-          Истории ({filteredStories.length})
+          Последно анализирани (
+          {hierarchy.supporting.length + (hierarchy.lead ? 1 : 0)})
         </h2>
         {home.loading && !home.data ? (
           <div className={STORY_GRID}>
@@ -277,68 +207,47 @@ export const HomeScreen = () => {
               <Skeleton key={i} className="h-44 rounded-xl" />
             ))}
           </div>
-        ) : home.error && !home.data ? null : filteredStories.length === 0 ? (
+        ) : home.error && !home.data ? null : !hierarchy.lead &&
+          !hierarchy.supporting.length ? (
           <Card className="p-6 text-sm text-muted-foreground">
             Няма истории за избраните филтри.
           </Card>
         ) : (
-          <div className={STORY_GRID}>
-            {filteredStories.slice(0, STORY_PAGE_SIZE).map((story) => (
-              <StoryCard key={story.id} story={story} taxonomy={categories} />
-            ))}
-          </div>
-        )}
-        {filteredStories.length > STORY_PAGE_SIZE ? (
-          <p className="mt-2 text-xs text-muted-foreground">
-            Показват се първите {STORY_PAGE_SIZE} от {filteredStories.length}{" "}
-            истории — стеснете филтрите, за да видите останалите.
-          </p>
-        ) : null}
-      </section>
-
-      {/* Analyzed, rights-cleared home feed. */}
-      <section aria-labelledby="latest-heading">
-        <h2
-          id="latest-heading"
-          className="mb-2 text-sm font-semibold uppercase tracking-wide"
-        >
-          Анализирани статии ({filteredLatest.length})
-        </h2>
-        {home.error && !home.data ? null : home.loading && !home.data ? (
-          <div className="space-y-2">
-            {[0, 1, 2].map((i) => (
-              <Skeleton key={i} className="h-10" />
-            ))}
-          </div>
-        ) : (
-          <>
-            <div className={STORY_GRID}>
-              {filteredLatest.slice(0, latestLimit).map((article) => (
-                <ArticleCard
-                  key={`${article.domain}/${article.id}`}
-                  article={article}
-                  outlet={outletByDomain.get(article.domain)}
-                />
-              ))}
-            </div>
-            {filteredLatest.length > latestLimit ? (
-              <div className="py-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setLatestLimit((n) => n + 30)}
-                >
-                  Покажи още ({filteredLatest.length - latestLimit})
-                </Button>
+          <div className="space-y-5">
+            {hierarchy.lead ? (
+              <LeadStory
+                item={hierarchy.lead}
+                taxonomy={categories}
+                outlet={outletByDomain.get(hierarchy.lead.imageArticle.domain)}
+              />
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Няма сравнение с достатъчно източници; показваме анализирани
+                статии.
+              </p>
+            )}
+            {hierarchy.supporting.length ? (
+              <div className={STORY_GRID}>
+                {hierarchy.supporting.map((item) => (
+                  <StoryCard
+                    key={item.story.id}
+                    story={item.story}
+                    taxonomy={categories}
+                    imageArticle={item.imageArticle}
+                    outlet={outletByDomain.get(item.imageArticle.domain)}
+                    kind={item.kind}
+                  />
+                ))}
               </div>
             ) : null}
-            {filteredLatest.length === 0 ? (
-              <p className="py-4 text-sm text-muted-foreground">
-                Няма статии за избраните филтри.
-              </p>
-            ) : null}
-          </>
+          </div>
         )}
+        {filteredStories.length > HOME_SUPPORTING_LIMIT + 1 ? (
+          <p className="mt-2 text-xs text-muted-foreground">
+            Показват се водещата и {HOME_SUPPORTING_LIMIT} подбрани истории от{" "}
+            {filteredStories.length} — стеснете филтрите, за да видите други.
+          </p>
+        ) : null}
       </section>
     </div>
   );
