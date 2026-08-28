@@ -199,7 +199,10 @@ HOTLINK_COLUMN_PREFIX = "hotlink_ok"
 # returning 200 answers only whether delivery works; it says nothing about
 # whether we may publish the photograph. `image_rights` is therefore carried
 # beside the image and kept separate from `hotlink_ok`.
-IMAGE_RIGHTS_STATUSES = frozenset({
+IMAGE_RIGHTS_POLICY_PATH = (
+    Path(__file__).resolve().parents[1] / "config" / "image_rights_policy.json"
+)
+IMAGE_RIGHTS_KNOWN_STATUSES = frozenset({
     "publisher_permission", "licensed", "cc", "public_domain",
     "official_reuse_policy", "unknown", "blocked",
 })
@@ -208,6 +211,80 @@ IMAGE_RIGHTS_KEYS = (
     "licence_url", "source_url", "checked_at", "display_home",
 )
 IMAGE_RIGHTS_REQUIRED_KEYS = frozenset(IMAGE_RIGHTS_KEYS)
+IMAGE_RIGHTS_KNOWN_EVIDENCE = frozenset({
+    "credit_text", "credit_url", "licence_name", "licence_url",
+    "source_url", "checked_at",
+})
+
+
+def load_image_rights_policy(path: Path) -> dict:
+    """Load the approved home-image policy or stop closed with a clear error."""
+    try:
+        policy = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"invalid image-rights policy file {path}: {exc}") from exc
+    if not isinstance(policy, dict):
+        raise ValueError("image-rights policy must be an object")
+    required = {
+        "version", "approved_on", "approved_by_role", "scope",
+        "default_decision", "permitted_statuses", "denied_statuses",
+        "required_evidence", "delivery_is_not_permission", "legal_review",
+    }
+    missing = sorted(required - policy.keys())
+    if missing:
+        raise ValueError(
+            f"image-rights policy missing required keys: {', '.join(missing)}"
+        )
+    if policy["version"] != 1:
+        raise ValueError("image-rights policy version must be 1")
+    if policy["scope"] != "news_home" or policy["default_decision"] != "deny":
+        raise ValueError("image-rights policy must deny by default for news_home")
+    if policy["delivery_is_not_permission"] is not True:
+        raise ValueError("image-rights policy must separate delivery from permission")
+    if policy["legal_review"] != "required_before_public_launch":
+        raise ValueError("image-rights policy must require legal review before launch")
+    if not isinstance(policy["approved_by_role"], str) or not policy["approved_by_role"].strip():
+        raise ValueError("image-rights policy approved_by_role must be non-empty")
+    try:
+        approved = date.fromisoformat(policy["approved_on"])
+    except (TypeError, ValueError) as exc:
+        raise ValueError("image-rights policy approved_on must be an ISO date") from exc
+    if policy["approved_on"] != approved.isoformat():
+        raise ValueError("image-rights policy approved_on must be a canonical ISO date")
+
+    sets = {}
+    for key in ("permitted_statuses", "denied_statuses", "required_evidence"):
+        values = policy[key]
+        if (not isinstance(values, list) or not values
+                or any(not isinstance(value, str) or not value.strip()
+                       for value in values)
+                or len(values) != len(set(values))):
+            raise ValueError(f"image-rights policy {key} must be unique strings")
+        sets[key] = frozenset(values)
+    permitted = sets["permitted_statuses"]
+    denied = sets["denied_statuses"]
+    if permitted & denied:
+        raise ValueError("image-rights policy status sets must be disjoint")
+    if permitted | denied != IMAGE_RIGHTS_KNOWN_STATUSES:
+        raise ValueError("image-rights policy must classify every known status once")
+    if sets["required_evidence"] != IMAGE_RIGHTS_KNOWN_EVIDENCE:
+        raise ValueError("image-rights policy must require the complete evidence set")
+    return policy
+
+
+IMAGE_RIGHTS_POLICY = load_image_rights_policy(IMAGE_RIGHTS_POLICY_PATH)
+IMAGE_RIGHTS_PERMITTED_STATUSES = frozenset(
+    IMAGE_RIGHTS_POLICY["permitted_statuses"]
+)
+IMAGE_RIGHTS_DENIED_STATUSES = frozenset(
+    IMAGE_RIGHTS_POLICY["denied_statuses"]
+)
+IMAGE_RIGHTS_STATUSES = (
+    IMAGE_RIGHTS_PERMITTED_STATUSES | IMAGE_RIGHTS_DENIED_STATUSES
+)
+IMAGE_RIGHTS_REQUIRED_EVIDENCE = frozenset(
+    IMAGE_RIGHTS_POLICY["required_evidence"]
+)
 
 # Ownership. Four dated registry columns, ALL HAND-ENTERED — see the block
 # comment in outlets.json's builder for why none of it may be inferred.
@@ -342,7 +419,7 @@ def image_rights_block(raw, *, article: str) -> dict | None:
         raise ValueError(f"{article}: invalid image_rights status {status!r}")
     if not isinstance(raw.get("display_home"), bool):
         raise ValueError(f"{article}: image_rights.display_home must be boolean")
-    if status in {"unknown", "blocked"} and raw["display_home"]:
+    if status in IMAGE_RIGHTS_DENIED_STATUSES and raw["display_home"]:
         raise ValueError(
             f"{article}: {status} image rights cannot allow home display"
         )
@@ -371,11 +448,19 @@ def image_rights_block(raw, *, article: str) -> dict | None:
         raise ValueError(
             f"{article}: image_rights.checked_at must be a canonical ISO date"
         )
-    if raw["display_home"] and status not in {"unknown", "blocked"}:
-        if not raw.get("licence_name") or not raw.get("licence_url"):
+    if raw["display_home"] and status not in IMAGE_RIGHTS_PERMITTED_STATUSES:
+        raise ValueError(
+            f"{article}: {status} is not permitted by the image-rights policy"
+        )
+    if raw["display_home"]:
+        missing_evidence = sorted(
+            key for key in IMAGE_RIGHTS_REQUIRED_EVIDENCE
+            if not isinstance(raw.get(key), str) or not raw[key].strip()
+        )
+        if missing_evidence:
             raise ValueError(
-                f"{article}: display-cleared {status} rights require licence_name "
-                "and licence_url evidence"
+                f"{article}: display-cleared {status} rights require non-empty "
+                f"evidence: {', '.join(missing_evidence)}"
             )
     return {key: raw.get(key) for key in IMAGE_RIGHTS_KEYS}
 

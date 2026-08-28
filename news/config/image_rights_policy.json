@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "approved_on": "2026-08-28",
+  "approved_by_role": "product_owner",
+  "scope": "news_home",
+  "default_decision": "deny",
+  "permitted_statuses": [
+    "publisher_permission",
+    "licensed",
+    "cc",
+    "public_domain",
+    "official_reuse_policy"
+  ],
+  "denied_statuses": ["unknown", "blocked"],
+  "required_evidence": [
+    "credit_text",
+    "credit_url",
+    "licence_name",
+    "licence_url",
+    "source_url",
+    "checked_at"
+  ],
+  "delivery_is_not_permission": true,
+  "legal_review": "required_before_public_launch"
+}

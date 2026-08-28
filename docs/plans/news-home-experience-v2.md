@@ -311,6 +311,18 @@ Rules:
 Obtain a Bulgarian/EU media-law review of the final policy and any publisher agreement. This
 document is product research, not legal advice.
 
+### 8.1 Approved interim source policy — 2026-08-28
+
+The product owner approved the conservative, fail-closed source policy on 2026-08-28:
+only documented publisher permission, appropriately licensed sources/agency access,
+compatible Creative Commons work, public-domain work, and official institutional media
+libraries with explicit reuse terms may qualify. Hotlink availability never qualifies by
+itself. The authoritative policy and launch caveat are recorded in
+[`docs/policies/news-image-rights.md`](../policies/news-image-rights.md), with the validator
+allowlist in [`news/config/image_rights_policy.json`](../../news/config/image_rights_policy.json).
+Legal review and any necessary publisher outreach remain a pre-launch requirement; this
+approval does not represent either one.
+
 ## 9. Data and editorial eligibility
 
 ### 9.1 Home item contract

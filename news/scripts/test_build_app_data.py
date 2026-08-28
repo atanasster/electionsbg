@@ -29,7 +29,8 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_app_data import (  # noqa: E402
-    AXIS_POSITIONS, TOPIC_MIN_POSITIONED, axis_spread)
+    AXIS_POSITIONS, TOPIC_MIN_POSITIONED, axis_spread,
+    load_image_rights_policy)
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
 
@@ -369,7 +370,75 @@ class MetadataAndBudget(unittest.TestCase):
                 )
                 proc = self.run_build()
                 self.assertNotEqual(proc.returncode, 0)
-                self.assertIn("require licence_name and licence_url", proc.stderr)
+                self.assertIn("require non-empty evidence", proc.stderr)
+
+    def test_display_cleared_status_rejects_blank_licence_name(self):
+        self.write_article(
+            "ex.bg", "20260822-a1-abc.json",
+            image_rights={
+                "status": "cc",
+                "creator": "Иван Иванов",
+                "credit_text": "Снимка: Иван Иванов / CC BY 4.0",
+                "credit_url": "https://example.org/photo",
+                "licence_name": "   ",
+                "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+                "source_url": "https://example.org/photo",
+                "checked_at": "2026-08-28",
+                "display_home": True,
+            },
+        )
+        proc = self.run_build()
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("licence_name", proc.stderr)
+
+    def test_machine_policy_is_conservative_and_fail_closed(self):
+        policy_path = (
+            Path(SCRIPT).resolve().parents[1]
+            / "config" / "image_rights_policy.json"
+        )
+        policy = json.loads(policy_path.read_text())
+        self.assertEqual(policy["default_decision"], "deny")
+        self.assertEqual(policy["scope"], "news_home")
+        self.assertTrue(policy["delivery_is_not_permission"])
+        self.assertEqual(
+            set(policy["permitted_statuses"]),
+            {
+                "publisher_permission", "licensed", "cc", "public_domain",
+                "official_reuse_policy",
+            },
+        )
+        self.assertEqual(set(policy["denied_statuses"]), {"unknown", "blocked"})
+        self.assertEqual(
+            policy["legal_review"], "required_before_public_launch"
+        )
+
+    def test_policy_loader_rejects_semantic_drift(self):
+        policy_path = (
+            Path(SCRIPT).resolve().parents[1]
+            / "config" / "image_rights_policy.json"
+        )
+        valid = json.loads(policy_path.read_text())
+        cases = {
+            "overlap": lambda p: p["denied_statuses"].append("cc"),
+            "omission": lambda p: p["denied_statuses"].remove("unknown"),
+            "allow_default": lambda p: p.update(default_decision="allow"),
+            "delivery_permission": lambda p: p.update(
+                delivery_is_not_permission=False
+            ),
+            "missing_evidence": lambda p: p["required_evidence"].remove(
+                "licence_name"
+            ),
+            "bad_approval_date": lambda p: p.update(approved_on="28/08/2026"),
+            "bad_version": lambda p: p.update(version=2),
+        }
+        for label, mutate in cases.items():
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as tmp:
+                candidate = json.loads(json.dumps(valid))
+                mutate(candidate)
+                path = Path(tmp) / "policy.json"
+                path.write_text(json.dumps(candidate))
+                with self.assertRaises(ValueError):
+                    load_image_rights_policy(path)
 
     def test_image_rights_reject_unsafe_urls_and_malformed_dates(self):
         cases = (
