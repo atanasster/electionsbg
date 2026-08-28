@@ -14,9 +14,19 @@
 // n=4 is decoration with a number attached, and the shortfall is itself the
 // most useful thing we can currently say.
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -35,9 +45,12 @@ import {
 } from "../data";
 import { LEANING_META, RUSSIA_META, bgArticles } from "../labels";
 import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
-import { LoadMore } from "../components/LoadMore";
 
 const PAGE_SIZE = 15;
+
+type SortKey = "label" | "primary_count" | "outlet_count" | "disagreement";
+type SortDirection = "asc" | "desc";
+type AxisFilter = "all" | "leaning" | "russia_stance";
 
 /**
  * The off-topic bucket. Shown, dashed and counted — never dropped.
@@ -114,11 +127,44 @@ const Spread = ({ axis }: { axis: AxisSpread }) => (
   </span>
 );
 
+const pageNumbers = (page: number, total: number): number[] => {
+  const start = Math.max(1, Math.min(page - 1, total - 2));
+  return Array.from({ length: Math.min(3, total) }, (_, i) => start + i);
+};
+
+/** The editorial ranking used by the default disagreement sort. */
+const compareDisagreement = (
+  a: TaxonomyCategory,
+  b: TaxonomyCategory,
+  direction: SortDirection,
+): number => {
+  const ax = a.spread[dominantAxis(a)];
+  const bx = b.spread[dominantAxis(b)];
+  // A measured topic always outranks an unmeasured one. Reversing the arrow
+  // changes low-to-high within the earned measurements, not whether a sample
+  // of two is allowed to leap above a sample of twenty.
+  if (ax.enough !== bx.enough) return ax.enough ? -1 : 1;
+  if (ax.enough && bx.enough) {
+    const delta = (ax.spread ?? 0) - (bx.spread ?? 0);
+    return direction === "asc" ? delta : -delta;
+  }
+  // Below the floor there is no disagreement value to sort. Volume remains
+  // the stable fallback, as stated in the notice shown above the table.
+  return b.article_count - a.article_count;
+};
+
 export const TopicsScreen = () => {
   const taxonomy = useTaxonomy();
-  const [limit, setLimit] = useState(PAGE_SIZE);
+  const [query, setQuery] = useState("");
+  const [axisFilter, setAxisFilter] = useState<AxisFilter>("all");
+  const [sort, setSort] = useState<{
+    key: SortKey;
+    direction: SortDirection;
+  }>({ key: "disagreement", direction: "desc" });
+  const [page, setPage] = useState(1);
+  const q = query.trim().toLocaleLowerCase("bg");
 
-  const rows = useMemo(() => {
+  const allRows = useMemo(() => {
     // ⚠️ EITHER count, not `article_count` alone. `article_count` sums the
     // taxonomy's declared subcategories; `primary_count` keys on the category
     // itself. An article whose subcategory has since been retired from
@@ -127,42 +173,153 @@ export const TopicsScreen = () => {
     const list = (taxonomy.data?.categories ?? []).filter(
       (c) => c.article_count > 0 || c.primary_count > 0,
     );
-    return list.sort((a, b) => {
-      // ⚠️ Sorted by DISAGREEMENT, and a topic without the sample for it can
-      // never outrank one that has it — otherwise a single 2.0 read off two
-      // articles tops the board. Below the floor we fall back to volume, so
-      // the ordering is still stable and legible while the corpus fills up.
-      const ax = a.spread[dominantAxis(a)];
-      const bx = b.spread[dominantAxis(b)];
-      if (ax.enough !== bx.enough) return ax.enough ? -1 : 1;
-      if (ax.enough && bx.enough) return (bx.spread ?? 0) - (ax.spread ?? 0);
-      // Off-topic sinks among the below-floor rows: it is shown and counted,
-      // but it is not a subject anyone came here to read about.
+    return list;
+  }, [taxonomy.data]);
+
+  const rows = useMemo(() => {
+    const filtered = allRows.filter((c) => {
+      if (q && !c.label.bg.toLocaleLowerCase("bg").includes(q)) return false;
+      return axisFilter === "all" || dominantAxis(c) === axisFilter;
+    });
+    return [...filtered].sort((a, b) => {
+      // The off-topic bucket is always disclosed but never promoted as a
+      // subject, whichever reader-selected ordering is active.
       const aOff = a.id === OFF_TOPIC;
       const bOff = b.id === OFF_TOPIC;
       if (aOff !== bOff) return aOff ? 1 : -1;
-      return b.article_count - a.article_count;
+      if (sort.key === "disagreement") {
+        return compareDisagreement(a, b, sort.direction);
+      }
+      const direction = sort.direction === "asc" ? 1 : -1;
+      if (sort.key === "label") {
+        return direction * a.label.bg.localeCompare(b.label.bg, "bg");
+      }
+      return (
+        direction * (a[sort.key] - b[sort.key]) ||
+        a.label.bg.localeCompare(b.label.bg, "bg")
+      );
     });
-  }, [taxonomy.data]);
+  }, [allRows, axisFilter, q, sort]);
 
-  const measurable = rows.filter((c) => c.spread[dominantAxis(c)].enough);
+  const inScope = allRows.filter((c) => c.id !== OFF_TOPIC);
+  const measurable = inScope.filter((c) => c.spread[dominantAxis(c)].enough);
+  const primaryArticles = inScope.reduce((sum, c) => sum + c.primary_count, 0);
+  const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  const shown = rows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  useEffect(() => setPage(1), [axisFilter, q, sort]);
+  useEffect(() => setPage((p) => Math.min(p, totalPages)), [totalPages]);
+
+  const changeSort = (key: SortKey) => {
+    setSort((current) =>
+      current.key === key
+        ? {
+            key,
+            direction: current.direction === "asc" ? "desc" : "asc",
+          }
+        : {
+            key,
+            direction: key === "label" ? "asc" : "desc",
+          },
+    );
+  };
+
+  const sortButton = (
+    key: SortKey,
+    label: string,
+    align: "left" | "right" = "left",
+  ) => {
+    const selected = sort.key === key;
+    const Icon = !selected
+      ? ArrowUpDown
+      : sort.direction === "asc"
+        ? ArrowUp
+        : ArrowDown;
+    return (
+      <button
+        type="button"
+        onClick={() => changeSort(key)}
+        className={`group inline-flex w-full items-center gap-1.5 py-1 text-[11px] font-semibold uppercase tracking-[0.04em] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+          align === "right" ? "justify-end" : "justify-start"
+        }`}
+        aria-label={`Подреди по ${label}`}
+      >
+        {label}
+        <Icon
+          className={`size-3.5 shrink-0 ${selected ? "text-foreground" : "opacity-35 group-hover:opacity-70"}`}
+          aria-hidden
+        />
+      </button>
+    );
+  };
+
+  const ariaSort = (key: SortKey) =>
+    sort.key === key
+      ? sort.direction === "asc"
+        ? ("ascending" as const)
+        : ("descending" as const)
+      : ("none" as const);
 
   return (
-    <div className="space-y-4">
-      <header>
-        <h1 className="font-title text-3xl">Теми</h1>
-        <p className="mt-1 max-w-2xl text-muted-foreground">
-          Не по обем, а по разминаване: колко различно изданията отразяват една
-          и съща тема. Разсейването е стандартното отклонение на позициите по
-          скалата −2…+2 — 0 значи, че всички са в една посока, 2 — че се делят
-          между двете крайности.
+    <div className="space-y-5">
+      <header className="border-b pb-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
+          Карта на отразяването
         </p>
+        <div className="mt-2 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div>
+            <h1 className="font-title text-4xl leading-none sm:text-5xl">
+              Теми
+            </h1>
+            <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
+              Къде българските медии се разминават — по политическата ос или в
+              отношението към Русия — и колко голяма е извадката зад сигнала.
+            </p>
+          </div>
+          <p className="max-w-sm border-l-2 border-[hsl(var(--editorial-kicker))] pl-3 text-xs leading-relaxed text-muted-foreground">
+            Разсейване публикуваме при поне {TOPIC_MIN_POSITIONED} статии с
+            приложима оценка. Под прага показваме недостига, не подвеждаща
+            стойност.
+          </p>
+        </div>
       </header>
+
+      {taxonomy.data ? (
+        <section
+          className="grid grid-cols-3 divide-x overflow-hidden rounded-md border bg-card"
+          aria-label="Обобщение на темите"
+        >
+          <div className="p-3 sm:p-4">
+            <div className="font-title text-2xl tabular-nums sm:text-3xl">
+              {inScope.length}
+            </div>
+            <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
+              теми в обхвата
+            </div>
+          </div>
+          <div className="p-3 sm:p-4">
+            <div className="font-title text-2xl tabular-nums sm:text-3xl">
+              {primaryArticles.toLocaleString("bg-BG")}
+            </div>
+            <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
+              статии в темите
+            </div>
+          </div>
+          <div className="p-3 sm:p-4">
+            <div className="font-title text-2xl tabular-nums sm:text-3xl">
+              {measurable.length}/{inScope.length}
+            </div>
+            <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
+              с достатъчна извадка
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {/* ⚠️ The state of the measure, stated before the table rather than left
           for the reader to infer from a column of dashes. */}
-      {taxonomy.data && rows.length > 0 && measurable.length === 0 ? (
-        <Card className="border-dashed p-4 text-sm text-muted-foreground">
+      {taxonomy.data && allRows.length > 0 && measurable.length === 0 ? (
+        <Card className="border-dashed bg-muted/15 p-4 text-sm text-muted-foreground">
           <strong className="font-medium text-foreground">
             Нито една тема още не стига прага.
           </strong>{" "}
@@ -173,75 +330,171 @@ export const TopicsScreen = () => {
         </Card>
       ) : null}
 
-      {taxonomy.error && !taxonomy.data ? (
-        <Card className="p-4 text-sm text-destructive">
-          Темите не се заредиха: {taxonomy.error.message}
-        </Card>
-      ) : taxonomy.loading && !taxonomy.data ? (
-        <Skeleton className="h-96 rounded-xl" />
-      ) : (
-        <Card className="overflow-x-auto p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead scope="col">Тема</TableHead>
-                <TableHead scope="col" className="text-right">
-                  Статии
-                </TableHead>
-                <TableHead scope="col" className="text-right">
-                  Издания
-                </TableHead>
-                <TableHead scope="col" className="min-w-44">
-                  Разсейване
-                </TableHead>
-                <TableHead
-                  scope="col"
-                  className="min-w-40 hidden md:table-cell"
-                >
-                  Разпределение
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {rows.slice(0, limit).map((c) => (
-                <Row key={c.id} category={c} />
-              ))}
-              {rows.length === 0 ? (
-                <TableRow>
-                  <TableCell
-                    colSpan={5}
-                    className="py-6 text-center text-muted-foreground"
-                  >
-                    Няма анализирани статии по нито една тема.
-                  </TableCell>
-                </TableRow>
-              ) : null}
-            </TableBody>
-          </Table>
-          {rows.length > limit ? (
-            <LoadMore
-              remaining={rows.length - limit}
-              onMore={() => setLimit((n) => n + PAGE_SIZE)}
+      <Card className="overflow-hidden p-0">
+        <div className="flex flex-col gap-3 border-b bg-muted/20 p-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="relative w-full sm:max-w-sm">
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Търсене на тема…"
+              className="bg-background pl-9"
+              aria-label="Търсене на тема"
             />
-          ) : null}
-        </Card>
-      )}
+          </div>
+          <div className="flex items-center justify-between gap-3 sm:justify-end">
+            <label
+              htmlFor="topic-axis"
+              className="text-xs font-medium text-muted-foreground"
+            >
+              Водеща ос
+            </label>
+            <select
+              id="topic-axis"
+              value={axisFilter}
+              onChange={(e) => setAxisFilter(e.target.value as AxisFilter)}
+              className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="all">Всички</option>
+              <option value="leaning">Политическа</option>
+              <option value="russia_stance">Спрямо Русия</option>
+            </select>
+          </div>
+        </div>
 
-      <p className="text-xs text-muted-foreground">
-        Броят до разсейването е статиите с{" "}
-        <strong className="font-medium text-foreground">
-          приложима оценка
-        </strong>{" "}
-        по съответната ос — не всички по темата. Неутралната оценка участва в
-        разпределението в средата на скалата; извън него остават само
-        материалите, за които тази ос не е приложима.
-      </p>
-      <p className="text-xs text-muted-foreground">
-        Оста се избира за всяка тема поотделно — тази с повече заели позиция
-        статии. Украйна се дели по отношението към Русия, бюджетът — по
-        политическата ос; една обща ос за всички теми би показала грешното
-        разминаване или никакво.
-      </p>
+        {taxonomy.error && !taxonomy.data ? (
+          <div className="p-4 text-sm text-destructive">
+            Темите не се заредиха: {taxonomy.error.message}
+          </div>
+        ) : taxonomy.loading && !taxonomy.data ? (
+          <Skeleton className="m-4 h-96 rounded-xl" />
+        ) : (
+          <>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-muted/35 hover:bg-muted/35">
+                    <TableHead
+                      scope="col"
+                      aria-sort={ariaSort("label")}
+                      className="min-w-48"
+                    >
+                      {sortButton("label", "Тема")}
+                    </TableHead>
+                    <TableHead
+                      scope="col"
+                      aria-sort={ariaSort("primary_count")}
+                      className="hidden text-right sm:table-cell"
+                    >
+                      {sortButton("primary_count", "Статии", "right")}
+                    </TableHead>
+                    <TableHead
+                      scope="col"
+                      aria-sort={ariaSort("outlet_count")}
+                      className="hidden text-right lg:table-cell"
+                    >
+                      {sortButton("outlet_count", "Издания", "right")}
+                    </TableHead>
+                    <TableHead
+                      scope="col"
+                      aria-sort={ariaSort("disagreement")}
+                      className="min-w-44"
+                    >
+                      {sortButton("disagreement", "Разсейване")}
+                    </TableHead>
+                    <TableHead
+                      scope="col"
+                      className="hidden min-w-48 md:table-cell"
+                    >
+                      Разпределение
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {shown.map((c) => (
+                    <Row key={c.id} category={c} />
+                  ))}
+                  {rows.length === 0 ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={5}
+                        className="py-12 text-center text-muted-foreground"
+                      >
+                        {allRows.length === 0
+                          ? "Няма анализирани статии по нито една тема."
+                          : "Няма съвпадения."}
+                      </TableCell>
+                    </TableRow>
+                  ) : null}
+                </TableBody>
+              </Table>
+            </div>
+
+            {rows.length > 0 ? (
+              <div className="flex flex-col gap-3 border-t bg-muted/15 px-3 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-xs text-muted-foreground">
+                  Показани {(page - 1) * PAGE_SIZE + 1}–
+                  {Math.min(page * PAGE_SIZE, rows.length)} от {rows.length}
+                </p>
+                <nav
+                  className="flex items-center gap-1"
+                  aria-label="Страници на темите"
+                >
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="size-8"
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    disabled={page === 1}
+                    aria-label="Предишна страница"
+                  >
+                    <ChevronLeft className="size-4" />
+                  </Button>
+                  {pageNumbers(page, totalPages).map((n) => (
+                    <Button
+                      key={n}
+                      variant={n === page ? "default" : "ghost"}
+                      size="icon"
+                      className="size-8 tabular-nums"
+                      onClick={() => setPage(n)}
+                      aria-label={`Страница ${n}`}
+                      aria-current={n === page ? "page" : undefined}
+                    >
+                      {n}
+                    </Button>
+                  ))}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="size-8"
+                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                    disabled={page === totalPages}
+                    aria-label="Следваща страница"
+                  >
+                    <ChevronRight className="size-4" />
+                  </Button>
+                </nav>
+              </div>
+            ) : null}
+          </>
+        )}
+      </Card>
+
+      <div className="grid gap-2 border-t pt-4 text-xs leading-relaxed text-muted-foreground md:grid-cols-2 md:gap-6">
+        <p>
+          Броят до разсейването е статиите с{" "}
+          <strong className="font-medium text-foreground">
+            приложима оценка
+          </strong>{" "}
+          по съответната ос — не всички по темата. Неутралната оценка участва в
+          разпределението в средата на скалата.
+        </p>
+        <p>
+          Оста се избира за всяка тема поотделно — тази с повече заели позиция
+          статии. Така външната политика може да се чете спрямо Русия, а
+          бюджетът — по политическата ос.
+        </p>
+      </div>
     </div>
   );
 };
@@ -253,27 +506,36 @@ const Row = ({ category: c }: { category: TaxonomyCategory }) => {
   const meta = axis === "leaning" ? LEANING_META : RUSSIA_META;
 
   return (
-    <TableRow className={offTopic ? "opacity-70" : undefined}>
+    <TableRow className={offTopic ? "opacity-70" : "group"}>
       <TableCell>
         {/* Only a topic with its own route is a link — the rest are subjects
             we classify but do not yet have a page for, and a dead link is a
             promise the site does not keep. */}
         {c.route ? (
-          <Link to={c.route} className="font-medium hover:text-primary">
+          <Link
+            to={c.route}
+            className="font-semibold underline-offset-4 hover:text-[hsl(var(--editorial-kicker))] hover:underline"
+          >
             {c.label.bg}
           </Link>
         ) : (
-          <span className="font-medium">{c.label.bg}</span>
+          <span className="font-semibold">{c.label.bg}</span>
         )}
         {offTopic ? (
           <span className="ml-2 rounded border border-dashed px-1.5 py-0.5 text-[11px] text-muted-foreground">
             извън обхвата
           </span>
         ) : null}
+        <div className="mt-1 text-xs tabular-nums text-muted-foreground sm:hidden">
+          {c.primary_count !== c.article_count
+            ? `${c.primary_count}/${c.article_count} статии`
+            : articles(c.primary_count)}{" "}
+          · {c.outlet_count} {c.outlet_count === 1 ? "издание" : "издания"}
+        </div>
       </TableCell>
       {/* Both numbers, because they answer different questions and the gap is
           exactly what explains an empty row. */}
-      <TableCell className="text-right tabular-nums">
+      <TableCell className="hidden text-right tabular-nums sm:table-cell">
         <span
           title={`${c.primary_count} с основна тема, ${c.article_count} споменавания общо`}
         >
@@ -283,7 +545,7 @@ const Row = ({ category: c }: { category: TaxonomyCategory }) => {
           ) : null}
         </span>
       </TableCell>
-      <TableCell className="text-right tabular-nums text-muted-foreground">
+      <TableCell className="hidden text-right tabular-nums text-muted-foreground lg:table-cell">
         {c.outlet_count}
       </TableCell>
       <TableCell>

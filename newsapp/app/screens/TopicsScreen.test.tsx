@@ -5,7 +5,7 @@
 // positioned articles showing "2.00" looks exactly like one with two hundred;
 // and a dash where a shortfall belongs reads as "these outlets agree".
 
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -414,6 +414,51 @@ describe("the shortfall", () => {
     expect(
       within(rowFor("Единайсет")).getByText(`11 статии от нужните ${FLOOR}`),
     ).toBeVisible();
+  });
+});
+
+describe("directory controls", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("announces disagreement as the default sort", async () => {
+    await renderTopics([topic()]);
+    expect(
+      screen.getByRole("columnheader", { name: "Разсейване" }),
+    ).toHaveAttribute("aria-sort", "descending");
+  });
+
+  it("sorts alphabetically when the topic header is selected", async () => {
+    await renderTopics([
+      topic({ id: "z", label: { bg: "Ядро", en: "Core" } }),
+      topic({ id: "a", label: { bg: "Анализ", en: "Analysis" } }),
+    ]);
+    fireEvent.click(screen.getByRole("button", { name: "Подреди по Тема" }));
+    expect(names()[0]).toContain("Анализ");
+    expect(names()[1]).toContain("Ядро");
+  });
+
+  it("searches and paginates without carrying the old page", async () => {
+    await renderTopics(
+      Array.from({ length: 17 }, (_, i) =>
+        topic({
+          id: `topic-${i}`,
+          label: { bg: `Тема ${i}`, en: `Topic ${i}` },
+          article_count: 100 - i,
+          primary_count: 100 - i,
+        }),
+      ),
+    );
+    expect(document.querySelectorAll("tbody tr")).toHaveLength(15);
+    expect(screen.getByText("Показани 1–15 от 17")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Следваща страница" }));
+    expect(screen.getByText("Показани 16–17 от 17")).toBeVisible();
+    fireEvent.change(screen.getByRole("textbox", { name: "Търсене на тема" }), {
+      target: { value: "Тема 1" },
+    });
+    expect(screen.getByText(/Показани 1–.* от/)).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Предишна страница" }),
+    ).toBeDisabled();
   });
 });
 
