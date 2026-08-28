@@ -628,7 +628,86 @@ HOME_OMIT = frozenset({"section_path", "first_seen", "keywords", "content_chars"
 HOME_ITEM_LIMIT = 60
 HOME_STORY_LIMIT = 30
 HOME_WINDOW_DAYS = 30
-HOME_GZIP_BUDGET_BYTES = 40 * 1024
+# 33 KiB keeps both Bulgarian and English search fallback fields. Measured
+# 2026-08-28 at 32,803 bytes with gzip-6; the previous unprojected bundle was
+# 40,314 bytes at gzip-9, so this remains a materially tighter launch ceiling.
+HOME_GZIP_BUDGET_BYTES = 33 * 1024
+HOME_STORY_FIELDS = frozenset({
+    "id", "title_bg", "title_en", "summary_bg", "summary_en",
+    "last_published", "topics", "aggregates",
+})
+
+
+def utc_instant(value: str | None) -> datetime | None:
+    """Parse an aware ISO instant and normalize it for deterministic ranking."""
+    try:
+        parsed = datetime.fromisoformat(value or "")
+    except ValueError:
+        return None
+    return parsed.astimezone(timezone.utc) if parsed.tzinfo is not None else None
+
+
+def home_gzip_size(payload: bytes) -> int:
+    """The launch budget uses the same gzip level documented for the CDN."""
+    return len(gzip.compress(payload, compresslevel=6))
+
+
+def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Choose a breadth-first lead, then recent support, without orphan rows."""
+    floor = datetime(1970, 1, 1, tzinfo=timezone.utc)
+
+    def newest_key(record: dict) -> tuple:
+        return (
+            -(utc_instant(record.get("published")) or floor).timestamp(),
+            record.get("domain") or "", record.get("id") or "",
+        )
+
+    eligible_by_story: dict[str, list[dict]] = {}
+    for record in eligible:
+        if story_id := record.get("story_id"):
+            eligible_by_story.setdefault(story_id, []).append(record)
+    for records in eligible_by_story.values():
+        records.sort(key=newest_key)
+
+    candidates = [story for story in stories if story["id"] in eligible_by_story]
+    leads = [
+        story for story in candidates
+        if (story.get("aggregates") or {}).get("outlet_count", 0) >= 2
+        and (story.get("aggregates") or {}).get("article_count", 0) >= 2
+        and bool((story.get("summary_bg") or "").strip())
+    ]
+    leads.sort(key=lambda story: (
+        -(story.get("aggregates") or {}).get("outlet_count", 0),
+        -(utc_instant(story.get("last_published")) or floor).timestamp(),
+        story["id"],
+    ))
+    lead = leads[0] if leads else None
+    supporting = [story for story in candidates if story["id"] != (lead or {}).get("id")]
+    supporting.sort(key=lambda story: (
+        -(utc_instant(story.get("last_published")) or floor).timestamp(),
+        -(story.get("aggregates") or {}).get("outlet_count", 0),
+        story["id"],
+    ))
+    selected = (([lead] if lead else []) + supporting)[:HOME_STORY_LIMIT]
+
+    # Reserve one representative per selected story before filling the global
+    # article cap. This makes every serialized story renderable even when one
+    # very large cluster would otherwise consume all 60 slots.
+    representatives = [eligible_by_story[story["id"]][0] for story in selected]
+    representative_keys = {(row.get("domain"), row.get("id")) for row in representatives}
+    selected_ids = {story["id"] for story in selected}
+    extras = [
+        row for row in eligible
+        if row.get("story_id") in selected_ids
+        and (row.get("domain"), row.get("id")) not in representative_keys
+    ]
+    representatives.sort(key=newest_key)
+    extras.sort(key=newest_key)
+    articles = representatives + extras[:HOME_ITEM_LIMIT - len(representatives)]
+    return articles, [
+        {key: value for key, value in story.items() if key in HOME_STORY_FIELDS}
+        for story in selected
+    ]
 
 # The gzip ceiling for latest.json. Not a guess: measured 2026-08-26 at 600
 # records, 174.7 KB gzip BEFORE the metadata fields and 183 KB after, and the
@@ -1424,16 +1503,16 @@ def main() -> int:
         and (record["domain"], record["id"]) in home_analysis_ids
         and (record.get("image_rights") or {}).get("display_home") is True
     ]
-    eligible.sort(key=lambda record: record["published"], reverse=True)
-    home_articles = [
+    eligible.sort(key=lambda record: (
+        -(utc_instant(record.get("published")) or datetime(
+            1970, 1, 1, tzinfo=timezone.utc)).timestamp(),
+        record.get("domain") or "", record.get("id") or "",
+    ))
+    eligible_articles = [
         {key: value for key, value in record.items() if key not in HOME_OMIT}
-        for record in eligible[:HOME_ITEM_LIMIT]
+        for record in eligible
     ]
-    eligible_story_ids = {record.get("story_id") for record in home_articles
-                          if record.get("story_id")}
-    home_stories = [story for story in stories if story["id"] in eligible_story_ids][
-        :HOME_STORY_LIMIT
-    ]
+    home_articles, home_stories = select_home_payload(eligible_articles, stories)
     home_path = out_dir / "home.json"
     write_json(home_path, {
         "version": 1,
@@ -1443,7 +1522,7 @@ def main() -> int:
         "articles": home_articles,
         "stories": home_stories,
     })
-    home_gzip = len(gzip.compress(home_path.read_bytes(), 9))
+    home_gzip = home_gzip_size(home_path.read_bytes())
     if home_gzip > HOME_GZIP_BUDGET_BYTES:
         raise ValueError(
             f"home.json is {home_gzip} bytes gzipped, over the "

@@ -6,7 +6,12 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { relativeTime, topicLabel } from "../labels";
-import type { ArticleRecord, Outlet, Story, TaxonomyCategory } from "../data";
+import type {
+  ArticleRecord,
+  HomeStory,
+  Outlet,
+  TaxonomyCategory,
+} from "../data";
 import type { HomeStoryKind } from "../homeHierarchy";
 import { LeanSpectrum, StanceSpectrum } from "./SpectrumBar";
 import { ArticleImage } from "./ArticleImage";
@@ -19,7 +24,7 @@ export const StoryCard = ({
   outlet,
   kind,
 }: {
-  story: Story;
+  story: HomeStory;
   taxonomy: TaxonomyCategory[] | null;
   imageArticle?: ArticleRecord;
   outlet?: Outlet;

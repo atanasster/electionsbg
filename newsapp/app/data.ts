@@ -227,6 +227,19 @@ export interface Story {
   members: StoryMember[];
 }
 
+/** The deliberately compact story contract serialized in home.json. */
+export type HomeStory = Pick<
+  Story,
+  | "id"
+  | "title_bg"
+  | "title_en"
+  | "summary_bg"
+  | "summary_en"
+  | "last_published"
+  | "topics"
+  | "aggregates"
+>;
+
 export interface OutletOwner {
   name: string;
   /** One of the eight controlled values; null when the cell was blank or unrecognised. */
@@ -611,7 +624,7 @@ export interface HomeBundle {
   eligibility: "published_recent_analyzed_and_image_rights_cleared";
   window_days: number;
   articles: ArticleRecord[];
-  stories: Story[];
+  stories: HomeStory[];
 }
 
 export const isHomeBundle = (value: unknown): value is HomeBundle => {

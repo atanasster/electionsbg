@@ -1,4 +1,4 @@
-import type { ArticleRecord, Story } from "./data";
+import type { ArticleRecord, HomeStory } from "./data";
 import { canDisplayHomeImage } from "./components/imageRights";
 
 export const HOME_SUPPORTING_LIMIT = 15;
@@ -6,7 +6,7 @@ export const HOME_SUPPORTING_LIMIT = 15;
 export type HomeStoryKind = "comparison" | "analyzed_article";
 
 export interface HomeStoryItem {
-  story: Story;
+  story: HomeStory;
   imageArticle: ArticleRecord;
   kind: HomeStoryKind;
 }
@@ -16,7 +16,7 @@ export interface HomeHierarchy {
   supporting: HomeStoryItem[];
 }
 
-export const homeStoryKind = (story: Story): HomeStoryKind =>
+export const homeStoryKind = (story: HomeStory): HomeStoryKind =>
   story.aggregates.outlet_count >= 2 && story.aggregates.article_count >= 2
     ? "comparison"
     : "analyzed_article";
@@ -51,7 +51,7 @@ const isEligibleArticle = (article: ArticleRecord): boolean =>
  * representative image cannot leak back into the image-led surface.
  */
 export const buildHomeHierarchy = (
-  stories: Story[],
+  stories: HomeStory[],
   articles: ArticleRecord[],
   supportingLimit = HOME_SUPPORTING_LIMIT,
 ): HomeHierarchy => {

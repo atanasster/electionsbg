@@ -16,6 +16,7 @@ the non-numeric-rank crash guard.
 Run:  python3 news/scripts/test_build_app_data.py
 """
 
+import gzip
 import json
 import os
 import re
@@ -29,8 +30,9 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_app_data import (  # noqa: E402
-    AXIS_POSITIONS, TOPIC_MIN_POSITIONED, axis_spread,
-    load_image_rights_policy)
+    AXIS_POSITIONS, HOME_GZIP_BUDGET_BYTES, HOME_ITEM_LIMIT,
+    HOME_STORY_FIELDS, HOME_STORY_LIMIT, TOPIC_MIN_POSITIONED, axis_spread,
+    home_gzip_size, load_image_rights_policy, select_home_payload)
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
 
@@ -518,9 +520,17 @@ class MetadataAndBudget(unittest.TestCase):
             home["eligibility"],
             "published_recent_analyzed_and_image_rights_cleared",
         )
-        self.assertEqual([row["domain"] for row in home["articles"]], ["cleared.bg"])
-        self.assertIn("image_alt", home["articles"][0])
-        self.assertLessEqual(len(home["articles"]), 60)
+        # No fixture story points at the eligible record, so the compact
+        # bundle correctly emits neither half of an unrenderable pair.
+        self.assertEqual(home["articles"], [])
+        self.assertLessEqual(len(home["articles"]), HOME_ITEM_LIMIT)
+        for story in home["stories"]:
+            self.assertEqual(set(story), HOME_STORY_FIELDS)
+        self.assertLessEqual(
+            home_gzip_size((Path(self.out_dir) / "home.json").read_bytes()),
+            HOME_GZIP_BUDGET_BYTES,
+        )
+
 
     def test_partial_or_cross_article_analysis_never_enters_home(self):
         self.write_article("ex.bg", "20260822-a.json", url="https://ex.bg/a")
@@ -1468,6 +1478,70 @@ class TopicDistributions(BuildAppDataFixture):
         self.assertEqual(row["spread"]["leaning"],
                          {"spread": None, "n": 0, "enough": False})
 
+
+
+class HomePayloadSelection(unittest.TestCase):
+    def story(self, idx, *, outlets=1, published=None, title_bg="Заглавие"):
+        return {
+            "id": f"s{idx:02d}", "title_bg": title_bg,
+            "title_en": f"English {idx}", "summary_bg": "Резюме",
+            "summary_en": f"Summary {idx}",
+            "last_published": published or f"2026-08-{idx + 1:02d}T00:00:00+00:00",
+            "topics": [], "aggregates": {
+                "article_count": max(2, outlets), "outlet_count": outlets,
+                "by_leaning": {}, "by_russia_stance": {}, "by_domain": {},
+            },
+            "members": ["must not reach home.json"],
+        }
+
+    def article(self, story_id, idx, published):
+        return {
+            "id": f"a{idx:03d}", "domain": f"d{idx:03d}.bg",
+            "story_id": story_id, "published": published,
+        }
+
+    def test_caps_are_stable_breadth_first_and_have_no_orphans(self):
+        stories = [self.story(i) for i in range(HOME_STORY_LIMIT + 1)]
+        stories[0] = self.story(
+            0, outlets=5, published="2026-08-01T00:00:00+00:00"
+        )
+        articles = [
+            self.article(story["id"], i, story["last_published"])
+            for i, story in enumerate(stories)
+        ]
+        articles.extend(
+            self.article(stories[-1]["id"], i, "2026-08-31T00:00:00+00:00")
+            for i in range(100, 170)
+        )
+        got_articles, got_stories = select_home_payload(articles, stories)
+        self.assertEqual(len(got_stories), HOME_STORY_LIMIT)
+        self.assertEqual(got_stories[0]["id"], "s00")
+        self.assertLessEqual(len(got_articles), HOME_ITEM_LIMIT)
+        selected = {story["id"] for story in got_stories}
+        self.assertEqual({row["story_id"] for row in got_articles}, selected)
+        self.assertTrue(all(set(story) == HOME_STORY_FIELDS for story in got_stories))
+
+    def test_iso_offsets_rank_as_instants_and_english_fallback_survives(self):
+        older = self.story(
+            1, published="2026-08-28T10:30:00+03:00", title_bg=None
+        )
+        newer = self.story(2, published="2026-08-28T08:00:00+00:00")
+        articles = [
+            self.article(older["id"], 1, older["last_published"]),
+            self.article(newer["id"], 2, newer["last_published"]),
+        ]
+        _, got = select_home_payload(articles, [older, newer])
+        self.assertEqual([row["id"] for row in got], [newer["id"], older["id"]])
+        self.assertIsNone(got[1]["title_bg"])
+        self.assertEqual(got[1]["title_en"], "English 1")
+        self.assertEqual(got[1]["summary_en"], "Summary 1")
+
+    def test_wire_measurement_matches_documented_gzip_level(self):
+        payload = b"home payload " * 1000
+        self.assertEqual(
+            home_gzip_size(payload),
+            len(gzip.compress(payload, compresslevel=6)),
+        )
 
 
 class WithholdsAlteredNames(unittest.TestCase):
