@@ -21,6 +21,17 @@ import {
 } from "./prerender";
 import { HUB_ROUTES, buildRoutes } from "./prerenderRoutes";
 
+describe("about hub contract", () => {
+  it("has its own indexable transparency-page metadata", () => {
+    const about = HUB_ROUTES.find((route) => route.path === "about");
+    expect(about).toMatchObject({
+      title: "За редакцията | Наясно Новини",
+    });
+    expect(about?.description).toContain("редакционните принципи");
+    expect(about?.noindex).not.toBe(true);
+  });
+});
+
 // A template that carries every tag applyHead rewrites, in the shape
 // newsapp/index.html actually uses.
 const TEMPLATE = `<!doctype html>

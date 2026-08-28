@@ -12,6 +12,7 @@ import { TopicsScreen } from "./app/screens/TopicsScreen";
 import { ArticleScreen } from "./app/screens/ArticleScreen";
 import { MethodologyScreen } from "./app/screens/MethodologyScreen";
 import { SavedScreen } from "./app/screens/SavedScreen";
+import { AboutScreen } from "./app/screens/AboutScreen";
 
 const NotFoundScreen = () => (
   <section className="py-12">
@@ -142,6 +143,7 @@ export const App = () => {
           <Route path="/article/:domain/:id" element={<ArticleScreen />} />
           <Route path="/methodology" element={<MethodologyScreen />} />
           <Route path="/saved" element={<SavedScreen />} />
+          <Route path="/about" element={<AboutScreen />} />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </main>
@@ -153,7 +155,7 @@ export const App = () => {
         <ul className="flex flex-wrap items-center gap-1">
           {[
             ["https://electionsbg.com", "electionsbg.com"],
-            ["https://electionsbg.com/about", "за нас"],
+            ["/about", "за редакцията"],
             ["https://github.com/atanasster/electionsbg", "отворен код"],
             ["/methodology", "методология"],
           ].map(([href, label]) => (

@@ -71,6 +71,12 @@ export const HUB_ROUTES: PrerenderRoute[] = [
     sitemap: false,
     noindex: true,
   },
+  {
+    path: "about",
+    title: "За редакцията | Наясно Новини",
+    description:
+      "Мисията, редакционните принципи и отговорността зад Наясно Новини — проект за сравнение на българското медийно отразяване.",
+  },
 ];
 
 const outletTitle = (name: string): string =>

@@ -25,6 +25,10 @@ describe("news shell accessibility", () => {
     expect(screen.getByRole("link", { name: "Към историите" })).toHaveClass(
       "underline",
     );
+    expect(screen.getByRole("link", { name: "за редакцията" })).toHaveAttribute(
+      "href",
+      "/about",
+    );
 
     await user.click(
       screen.getByRole("button", { name: "Включи светла тема" }),
