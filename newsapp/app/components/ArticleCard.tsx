@@ -17,6 +17,7 @@ import { relativeTime } from "../labels";
 import type { ArticleRecord, Outlet } from "../data";
 import { AiBadge, LeanBadge, StanceBadge } from "./Badges";
 import { ArticleImage } from "./ArticleImage";
+import { canDisplayHomeImage } from "./imageRights";
 
 export const ArticleCard = ({
   article,
@@ -33,7 +34,9 @@ export const ArticleCard = ({
   return (
     <Card className="flex h-full flex-col overflow-hidden">
       <ArticleImage
-        image={article.image}
+        // Home cards fail closed: an available URL or a review record is not
+        // enough. Only an explicit, policy-cleared decision may show a photo.
+        image={canDisplayHomeImage(article) ? article.image : null}
         imageAlt={article.image_alt}
         rights={article.image_rights}
         title={article.title}

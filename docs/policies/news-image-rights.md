@@ -62,3 +62,13 @@ Before public launch, obtain a Bulgarian/EU media-law review of this policy and
 any publisher or agency agreement. If that review narrows a permission, the
 affected records become `blocked` immediately; uncertainty becomes `unknown`,
 never an inferred approval.
+
+## Review queue
+
+Run `npm run news:image-rights-queue` to rebuild
+`news/review/image_rights_queue.json`. The queue contains analyzed articles
+whose image is missing, whose rights have not been reviewed, or whose review
+ended as `unknown`. It deliberately excludes cleared and blocked decisions.
+Queue membership is never publication permission; home cards independently
+require `image_rights.display_home === true` and otherwise use the outlet
+logo/monogram fallback.
