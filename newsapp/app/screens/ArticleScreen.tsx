@@ -51,12 +51,12 @@ import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
 
 /**
- * One axis: its label, its verdict, its confidence, and the sentence the
- * rubric quoted.
+ * One axis: its label, its verdict, its confidence, and the evidence text the
+ * rubric returned (which may be a quote OR a concrete paraphrase).
  *
  * ⚠️ Renders even when `evidence` is empty — with the absence stated. A
- * verdict whose evidence silently vanishes is exactly the unsupported claim
- * this page exists to avoid making.
+ * verdict whose justification silently vanishes is exactly the unsupported
+ * claim this page exists to avoid making.
  */
 const AxisCard = ({
   title,
@@ -70,37 +70,52 @@ const AxisCard = ({
   color: string;
   confidence: number | null | undefined;
   evidence: string | null | undefined;
-}) => (
-  <Card className="p-4">
-    <div className="flex flex-wrap items-center justify-between gap-2">
-      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        {title}
+}) => {
+  const confidencePct =
+    typeof confidence === "number" &&
+    Number.isFinite(confidence) &&
+    confidence >= 0 &&
+    confidence <= 1
+      ? Math.round(confidence * 100)
+      : null;
+  return (
+    <Card className="p-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          {title}
+        </h3>
+        {confidencePct !== null ? (
+          <span
+            className="text-xs text-muted-foreground"
+            aria-label={`Увереност на модела: ${confidencePct} процента`}
+          >
+            увереност {confidencePct}%
+          </span>
+        ) : null}
       </div>
-      {typeof confidence === "number" ? (
-        <span className="text-xs text-muted-foreground">
-          увереност {confidence.toFixed(1)}
-        </span>
-      ) : null}
-    </div>
-    <div className="mt-2 flex items-center gap-2">
-      <span
-        aria-hidden
-        className="inline-block size-2.5 rounded-sm"
-        style={{ backgroundColor: color }}
-      />
-      <span className="font-title text-lg">{verdict}</span>
-    </div>
-    {evidence ? (
-      <blockquote className="mt-3 border-l-2 border-primary pl-3 text-sm text-foreground/90">
-        „{evidence}"
-      </blockquote>
-    ) : (
-      <p className="mt-3 text-sm text-muted-foreground">
-        Моделът не е цитирал изречение за тази оценка.
-      </p>
-    )}
-  </Card>
-);
+      <div className="mt-2 flex items-center gap-2">
+        <span
+          aria-hidden
+          className="inline-block size-2.5 rounded-sm"
+          style={{ backgroundColor: color }}
+        />
+        <p className="font-title text-lg">{verdict}</p>
+      </div>
+      {evidence ? (
+        <div className="mt-3 border-l-2 border-primary pl-3 text-sm text-foreground/90">
+          <p>{evidence}</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Обосновка, посочена от модела — може да е цитат или перифраза
+          </p>
+        </div>
+      ) : (
+        <p className="mt-3 text-sm text-muted-foreground">
+          Моделът не е посочил обосновка за тази оценка.
+        </p>
+      )}
+    </Card>
+  );
+};
 
 /**
  * A scale label and colour, tolerating a missing/value the app has never seen.
@@ -186,6 +201,9 @@ export const ArticleScreen = () => {
     (m) => m.article_id !== article.id,
   );
   const categories = taxonomy.data?.categories ?? null;
+  const hasAnalysisProvenance = Boolean(
+    analysis?.model?.trim() && analysis.analyzed_at,
+  );
 
   return (
     <article className="py-6">
@@ -291,8 +309,40 @@ export const ArticleScreen = () => {
       </div>
 
       {analysis ? (
-        <>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <section className="mt-8" aria-labelledby="article-analysis-heading">
+          <div className="flex flex-wrap items-end justify-between gap-2 border-b pb-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[hsl(var(--editorial-kicker))]">
+                {hasAnalysisProvenance
+                  ? "Проверима оценка"
+                  : "Непълна следа на анализа"}
+              </p>
+              <h2
+                id="article-analysis-heading"
+                className="mt-1 font-title text-2xl"
+              >
+                Нашият анализ
+              </h2>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Анализирано{" "}
+              {analysis.analyzed_at
+                ? formatDateTime(analysis.analyzed_at)
+                : "без дата"}
+              {analysis.model
+                ? ` · модел ${analysis.model}`
+                : " · моделът не е записан"}{" "}
+              ·{" "}
+              <Link
+                to="/methodology"
+                className="font-medium text-primary underline underline-offset-4"
+              >
+                методология
+              </Link>
+            </p>
+          </div>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <AxisCard
               title="Политическо рамкиране на материала"
               {...scaleOf(LEANING_META, analysis.leaning?.label)}
@@ -348,7 +398,7 @@ export const ArticleScreen = () => {
             entities={analysis.entities}
             links={analysis.entity_links}
           />
-        </>
+        </section>
       ) : (
         // ⚠️ NO badges. At 8.4% analysed this is the common state, and it must
         // read as "not yet judged" — never as "judged neutral", which is what
@@ -394,22 +444,6 @@ export const ArticleScreen = () => {
             </p>
           )}
         </section>
-      ) : null}
-
-      {/* ⚠️ A judgment with no attribution is not checkable, and the model
-          will change. */}
-      {analysis ? (
-        <p className="mt-8 text-xs text-muted-foreground">
-          Анализирано{" "}
-          {analysis.analyzed_at ? formatDateTime(analysis.analyzed_at) : "—"}
-          {analysis.model ? ` от ${analysis.model}` : ""} ·{" "}
-          <Link
-            to="/methodology"
-            className="text-primary underline-offset-4 hover:underline"
-          >
-            как се правят тези оценки
-          </Link>
-        </p>
       ) : null}
     </article>
   );

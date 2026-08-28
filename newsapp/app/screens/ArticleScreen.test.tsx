@@ -156,8 +156,11 @@ describe("the evidence", () => {
     await renderAt([
       article({ analysis: analysed() } as Partial<ArticleRecord>),
     ]);
-    expect(await screen.findByText("увереност 0.7")).toBeVisible();
-    expect(screen.getByText("увереност 0.9")).toBeVisible();
+    expect(await screen.findByText("увереност 70%")).toBeVisible();
+    expect(screen.getByText("увереност 90%")).toBeVisible();
+    expect(
+      screen.getByLabelText("Увереност на модела: 70 процента"),
+    ).toBeVisible();
   });
 
   it("SAYS SO when an axis carries no quoted sentence", async () => {
@@ -166,7 +169,22 @@ describe("the evidence", () => {
     const a = analysed();
     a.leaning!.evidence = "";
     await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
-    expect(await screen.findByText(/не е цитирал изречение/)).toBeVisible();
+    expect(await screen.findByText(/не е посочил обосновка/)).toBeVisible();
+  });
+
+  it("does not claim that untyped evidence is a verbatim source quotation", async () => {
+    await renderAt([
+      article({ analysis: analysed() } as Partial<ArticleRecord>),
+    ]);
+    expect(
+      await screen.findAllByText(
+        "Обосновка, посочена от модела — може да е цитат или перифраза",
+      ),
+    ).toHaveLength(2);
+    expect(screen.queryByText(/Цитат от материала/)).not.toBeInTheDocument();
+    expect(screen.getByText(/Материалът представя/)).toHaveTextContent(
+      "Материалът представя и двете страни с равен обем.",
+    );
   });
 });
 
@@ -206,6 +224,68 @@ describe("attribution", () => {
     const line = await screen.findByText(/Анализирано/);
     expect(line).toHaveTextContent("GLM-5.3");
     expect(line).toHaveTextContent("2026");
+    expect(
+      screen.getByRole("heading", { name: "Нашият анализ" }),
+    ).toBeVisible();
+  });
+
+  it("places provenance before the verdict evidence in reading order", async () => {
+    await renderAt([
+      article({ analysis: analysed() } as Partial<ArticleRecord>),
+    ]);
+    const provenance = await screen.findByText(/Анализирано/);
+    const evidence = screen.getByText(/Материалът представя и двете страни/);
+    expect(
+      provenance.compareDocumentPosition(evidence) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("uses axis names—not verdicts—as the card headings", async () => {
+    await renderAt([
+      article({ analysis: analysed() } as Partial<ArticleRecord>),
+    ]);
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: "Политическо рамкиране на материала",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { level: 3, name: "Отношение към Русия" }),
+    ).toBeVisible();
+    expect(
+      screen.queryByRole("heading", {
+        name: "Без ясно идеологическо рамкиране",
+      }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("states when model provenance is missing", async () => {
+    const a = analysed();
+    a.model = null;
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    expect(await screen.findByText("Непълна следа на анализа")).toBeVisible();
+    expect(screen.getByText(/моделът не е записан/)).toBeVisible();
+  });
+
+  it("omits malformed confidence while retaining zero and one", async () => {
+    const a = analysed();
+    a.leaning!.confidence = 0;
+    a.russia_stance!.confidence = 1;
+    await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
+    expect(screen.getByText("увереност 0%")).toBeVisible();
+    expect(screen.getByText("увереност 100%")).toBeVisible();
+
+    const bad = analysed();
+    bad.leaning!.confidence = 1.4;
+    await renderAt(
+      [article({ id: "a2", analysis: bad } as Partial<ArticleRecord>)],
+      {
+        id: "a2",
+      },
+    );
+    expect(screen.queryByText("увереност 140%")).not.toBeInTheDocument();
   });
 });
 
@@ -217,7 +297,7 @@ describe("the unanalysed state", () => {
     // yet judged" — never as "judged neutral", which an empty badge row says.
     await renderAt([article()]);
     expect(await screen.findByText(/още не е анализирана/)).toBeVisible();
-    expect(screen.queryByText("увереност 0.7")).not.toBeInTheDocument();
+    expect(screen.queryByText("увереност 70%")).not.toBeInTheDocument();
     expect(
       screen.queryByText(/Политическо рамкиране на материала/),
     ).not.toBeInTheDocument();
