@@ -194,6 +194,41 @@ class TestPartyToneV2(FixtureTestCase):
         saved = self.saved_record()
         self.assertEqual(saved["party_tones_version"], 2)
         self.assertEqual(saved["party_tones"][0]["party_id"], "gerb")
+        self.assertEqual(saved["party_tone_evidence_gate_version"], 1)
+        self.assertIs(saved["party_tones"][0]["evidence_grounded"], False)
+
+    def test_evidence_gate_is_deterministic_and_routes_failure_to_review(self):
+        self.write_party_gazetteer()
+        a = self.record()
+        evidence = a["party_tones"][0]["evidence"]
+        domain, fname, rec = self.articles["a1"]
+        rec["content"] = f"Увод. {evidence} Заключение."
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+        self.save(a)
+        saved = self.saved_record()
+        self.assertIs(saved["party_tones"][0]["evidence_grounded"], True)
+        self.assertNotIn("evidence grounding needs review",
+                         saved.get("review", {}).get("party_tones", ""))
+
+        unsupported = self.record()
+        unsupported["url"] = "https://test.bg/beta"
+        unsupported["article_path"] = self.analysis_path("a2")
+        self.save(unsupported)
+        saved_path = os.path.join(
+            self.root, self.index()["articles"]["https://test.bg/beta"]["path"])
+        with open(saved_path, encoding="utf-8") as fh:
+            saved = json.load(fh)
+        self.assertIs(saved["party_tones"][0]["evidence_grounded"], False)
+        self.assertIn("evidence grounding needs review",
+                      saved["review"]["party_tones"])
+
+    def test_evidence_gate_refuses_negation_inverted_token_overlap(self):
+        import analyze_articles as aa
+        self.assertFalse(aa.party_tone_evidence_grounded(
+            "ГЕРБ получи подкрепа за бюджета",
+            {"content": "ГЕРБ не получи подкрепа за бюджета."}))
 
     def test_unique_alias_resolves_without_rewriting_display_text(self):
         self.write_party_gazetteer()

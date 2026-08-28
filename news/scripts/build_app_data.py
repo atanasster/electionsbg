@@ -916,6 +916,33 @@ def compact_analysis(rec: dict, article: dict) -> dict:
     ents = verified_entities(rec.get("entities"), bad)
     prose = verified_prose(rec, ("summary_bg", "summary_en"), bad,
                            rec.get("entities"), [article])
+    # A sentiment assertion is publishable only when its evidence is grounded
+    # in this exact article. New records carry the saved decision; legacy
+    # records are checked here so a missing flag can never mean "approved".
+    # Mentions are copied below on their own path and are deliberately not
+    # coupled to this filter.
+    party_tones = []
+    try:
+        import analyze_articles as aa
+        current_gate = aa.PARTY_TONE_EVIDENCE_GATE_VERSION
+        saved_gate = rec.get("party_tone_evidence_gate_version")
+        for tone in rec.get("party_tones") or []:
+            if not isinstance(tone, dict):
+                continue
+            grounded = tone.get("evidence_grounded")
+            # Trust a saved decision only when it was produced by the current
+            # gate. Legacy/stale records are rechecked, so a future v2 cannot
+            # accidentally grandfather every v1 approval forever.
+            approved = (grounded is True) if saved_gate == current_gate else (
+                aa.party_tone_evidence_grounded(
+                    str(tone.get("evidence") or ""), article))
+            if approved:
+                party_tones.append(tone)
+    except Exception:  # noqa: BLE001
+        # Failure closed: the historical analysis stays on disk, but an
+        # unverified sentiment claim does not enter a public bundle.
+        party_tones = []
+
     return {
         "summary_bg": prose.get("summary_bg", rec.get("summary_bg")),
         "summary_en": prose.get("summary_en", rec.get("summary_en")),
@@ -944,7 +971,7 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         # defaulted, so no consumer can count a silence as a zero.
         **({"mentions": rec["mentions"]} if rec.get("mentions") is not None
            else {}),
-        "party_tones": rec.get("party_tones"),
+        "party_tones": party_tones,
         "topics": rec.get("topics"),
         "quality": rec.get("quality"),
         "site_relevant": rec.get("site_relevant"),

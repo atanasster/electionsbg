@@ -1462,6 +1462,76 @@ class TopicDistributions(BuildAppDataFixture):
         self.assertIsNone(got[1]["id"])
         self.assertEqual(got[1]["candidates"], ["a", "b"])
 
+    def test_ungrounded_tone_is_withheld_without_losing_mention_backlink(self):
+        self.write_corpus("ex.bg", "20260822-a1-abc.json",
+                          corpus_article("ex.bg", "20260822-a1-abc.json",
+                                         "https://ex.bg/a/1", "ГЕРБ обсъжда бюджет",
+                                         "2026-08-22T00:00:00+00:00"))
+        rec = self.analysis_record("https://ex.bg/a/1", "ex.bg",
+                                   "ex.bg/20260822-a1-abc.json")
+        rec["entities"]["parties"] = ["ГЕРБ"]
+        rec["mentions"] = [{
+            "kind": "party", "surface": "ГЕРБ", "basis": "gazetteer_exact",
+            "id": "gerb", "role": "subject",
+        }]
+        rec["party_tones"] = [{
+            "party": "ГЕРБ", "party_id": "gerb", "tone": "favorable",
+            "confidence": 0.95, "evidence": "Несъществуваща похвала за партията",
+            "evidence_grounded": False,
+        }]
+        self.write_analysis("ex.bg", "20260822-a1-abc.json", rec)
+        self.run_build()
+        got = self.load("articles/ex.bg.json")["articles"][0]["analysis"]
+        self.assertEqual(got["party_tones"], [])
+        self.assertEqual(got["mentions"][0]["id"], "gerb")
+
+    def test_current_and_legacy_grounded_tones_reach_the_bundle(self):
+        evidence = "ГЕРБ получи подкрепа за бюджета"
+        for suffix, current in (("current", True), ("legacy", False)):
+            fname = f"20260822-{suffix}-abc.json"
+            url = f"https://ex.bg/a/{suffix}"
+            article = corpus_article("ex.bg", fname, url, "Бюджет",
+                                     "2026-08-22T00:00:00+00:00")
+            article["content"] = f"Увод. {evidence}. Заключение."
+            self.write_corpus("ex.bg", fname, article)
+            rec = self.analysis_record(url, "ex.bg", f"ex.bg/{fname}")
+            rec["party_tones"] = [{
+                "party": "ГЕРБ", "party_id": "gerb", "tone": "favorable",
+                "confidence": 0.9, "evidence": evidence,
+            }]
+            if current:
+                rec["party_tone_evidence_gate_version"] = 1
+                rec["party_tones"][0]["evidence_grounded"] = True
+            self.write_analysis("ex.bg", fname, rec)
+        self.run_build()
+        rows = self.load("articles/ex.bg.json")["articles"]
+        self.assertEqual([len(row["analysis"]["party_tones"]) for row in rows],
+                         [1, 1])
+
+    def test_stale_true_gate_is_rechecked_and_negation_is_withheld(self):
+        fname = "20260822-stale-abc.json"
+        url = "https://ex.bg/a/stale"
+        article = corpus_article("ex.bg", fname, url, "Бюджет",
+                                 "2026-08-22T00:00:00+00:00")
+        article["content"] = "ГЕРБ не получи подкрепа за бюджета."
+        self.write_corpus("ex.bg", fname, article)
+        rec = self.analysis_record(url, "ex.bg", f"ex.bg/{fname}")
+        rec["mentions"] = [{
+            "kind": "party", "surface": "ГЕРБ", "basis": "gazetteer_exact",
+            "id": "gerb", "role": "subject",
+        }]
+        rec["party_tone_evidence_gate_version"] = 0
+        rec["party_tones"] = [{
+            "party": "ГЕРБ", "party_id": "gerb", "tone": "favorable",
+            "confidence": 0.9, "evidence": "ГЕРБ получи подкрепа за бюджета",
+            "evidence_grounded": True,
+        }]
+        self.write_analysis("ex.bg", fname, rec)
+        self.run_build()
+        got = self.load("articles/ex.bg.json")["articles"][0]["analysis"]
+        self.assertEqual(got["party_tones"], [])
+        self.assertEqual(got["mentions"][0]["id"], "gerb")
+
     def test_a_topic_nobody_wrote_about_is_empty_not_absent(self):
         # An untouched category must still carry the keys, with n=0 — a
         # missing key and "nobody took a position" are different, and a

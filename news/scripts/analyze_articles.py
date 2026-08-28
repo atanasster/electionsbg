@@ -103,6 +103,7 @@ RUSSIA_LABELS = {"strong_pro_russia", "pro_russia", "neutral", "anti_russia", "s
 AI_VERDICTS = {"likely_human", "unclear", "likely_ai"}
 TONE_LABELS = {"favorable", "unfavorable", "neutral", "mixed"}
 PARTY_TONES_VERSION = 2
+PARTY_TONE_EVIDENCE_GATE_VERSION = 1
 PARTY_TONE_RAW_KEYS = frozenset({"party", "tone", "confidence", "evidence"})
 STORY_ACTIONS = {"new_story", "same_story", "none"}
 ENTITY_BUCKETS = ("people", "parties", "institutions", "companies", "places")
@@ -1106,8 +1107,27 @@ def enrich_party_tones(analysis: dict) -> None:
     analysis["party_tones_version"] = PARTY_TONES_VERSION
 
 
+def gate_party_tone_evidence(analysis: dict, rec: dict) -> None:
+    """Stamp the deterministic evidence decision without deleting history.
+
+    A failed gate withholds only the sentiment assertion at publication time.
+    The underlying party/person/institution mention remains a separate fact
+    and can still power reciprocal backlinks.
+    """
+    for tone in analysis.get("party_tones") or []:
+        tone["evidence_grounded"] = party_tone_evidence_grounded(
+            str(tone.get("evidence") or ""), rec)
+    analysis["party_tone_evidence_gate_version"] = (
+        PARTY_TONE_EVIDENCE_GATE_VERSION)
+
+
 def party_tone_evidence_grounded(evidence: str, rec: dict) -> bool:
-    """Conservative grounding signal; a false result routes to review."""
+    """Quote-safe grounding signal; paraphrases route to review.
+
+    Gate v1 deliberately requires a normalized contiguous substring. Token
+    overlap loses order and can approve a meaning reversed by one omitted
+    negation ("получи" versus "не получи").
+    """
     try:
         import resolve_mentions as rm
     except Exception:  # noqa: BLE001
@@ -1116,16 +1136,7 @@ def party_tone_evidence_grounded(evidence: str, rec: dict) -> bool:
     folded = rm.fold(evidence or "").strip()
     if not folded:
         return False
-    if folded in article:
-        return True
-    article_tokens = set(rm.TOKEN_RE.findall(article))
-    evidence_tokens = [
-        token for token in rm.TOKEN_RE.findall(folded)
-        if len(token) >= 4 and token not in STOPWORDS
-    ]
-    return (len(evidence_tokens) >= 4
-            and sum(token in article_tokens for token in evidence_tokens)
-            / len(evidence_tokens) >= 0.60)
+    return folded in article
 
 
 def check_mention_provenance(mentions: list, rec: dict) -> list:
@@ -1323,6 +1334,9 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
     if "party_tones_version" in a:
         errs.append("party_tones_version: computed at save time — an analyst "
                     "may not claim that its own output passed v2 enrichment")
+    if "party_tone_evidence_gate_version" in a:
+        errs.append("party_tone_evidence_gate_version: computed at save time — "
+                    "an analyst may not claim that its own evidence passed")
 
     tones = a.get("party_tones")
     if not isinstance(tones, list):
@@ -1493,12 +1507,16 @@ def save_one(a: dict, tax, cats: dict, index: dict, stats: dict) -> list:
     if errs:
         return errs
 
-    # Identity and version are pipeline facts, never model claims.
-    enrich_party_tones(a)
     try:
         _, review_article = load_corpus_article(a["article_path"])
     except FileNotFoundError:  # validation already proved it; defensive only
         review_article = {}
+
+    # Identity, evidence grounding, and their versions are pipeline facts,
+    # never model claims. Keep a failed tone for audit/history; public bundle
+    # generation filters it independently from the mention/backlink layer.
+    enrich_party_tones(a)
+    gate_party_tone_evidence(a, review_article)
 
     # ⚠️ STAMPED AFTER VALIDATION, so a rejected record never carries one, and
     # computed here rather than accepted from the analyst — a model asked „do
