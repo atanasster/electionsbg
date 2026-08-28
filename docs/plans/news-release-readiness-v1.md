@@ -71,3 +71,39 @@ long-credit `scrollWidth === clientWidth` result remains recorded above; the Vit
 environment does not perform CSS layout, so the test does not pretend to measure it.
 `scripts/news_home_layout.test.ts` reads the production stylesheet in the Node test project
 and gates the base, two-column and three-column `minmax(0, 1fr)` rules.
+
+## T5.3 Accessibility and theming
+
+Audited 2026-08-28 against WCAG 2.1 AA with the accessibility skill and the same local
+browser build. The shell respects system preference until the reader chooses a theme, the
+toggle has a state-specific accessible name, and the choice persists locally. Colors in
+components use semantic tokens; hardcoded colors are confined to data-visualization hues
+whose adjacent text labels carry the same meaning.
+
+Browser checks on the homepage found one `h1`, an `h1→h2→h3` hierarchy, one each of
+`header/main/footer`, two labelled nav landmarks, no duplicate IDs, no unnamed interactive
+elements, and 16/16 rendered images with alt attributes. The existing skip-link component
+test gates the `#news-main` target; browser keyboard focus automation could not reliably
+advance focus in the in-app browser and is therefore not claimed as a manual pass.
+
+Observed color pairs and WCAG contrast ratios:
+
+| Mode | Pair | Ratio | Requirement |
+| --- | --- | ---: | ---: |
+| Light | foreground `rgb(35,30,26)` / background `rgb(249,246,241)` | 15.31:1 | 4.5:1 |
+| Light | muted `rgb(100,91,84)` / background | 6.15:1 | 4.5:1 |
+| Light | editorial kicker `rgb(141,56,32)` / background | 7.16:1 | 4.5:1 |
+| Light | border `rgb(149,133,117)` / background | 3.31:1 | 3:1 |
+| Dark | foreground `rgb(241,236,229)` / background `rgb(17,21,29)` | 15.55:1 | 4.5:1 |
+| Dark | muted `rgb(183,176,164)` / background | 8.50:1 | 4.5:1 |
+
+Focus rings use a dedicated magenta `--ring: 329 86% 50%` token. Its lowest calculated
+contrast across the actual adjacent background, foreground, primary, secondary and card
+surfaces is 3.48:1; the ranges are 3.48–4.04:1 in light mode and 3.48–4.37:1 in dark mode. The
+3 px skip-link offset exposes the page background between its dark fill and outline.
+`scripts/news_accessibility.test.ts` extracts the light and dark selector blocks, calculates
+from their audited tokens, and gates normal text (4.5:1), borders, and focus rings against
+every audited adjacent control surface (3:1). Keyboard focus traversal remains an open manual check; this
+is a contrast/implementation pass, not a claimed interaction pass. Existing
+component tests cover image alt/fallback behavior, filter pressed state, live-region status,
+skip target, theme action naming, and native button/link semantics.
