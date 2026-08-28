@@ -7,7 +7,7 @@
 // a sentence, never by an empty strip, because an empty strip reads as "this
 // outlet has no leaning" rather than "we have not measured it".
 
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -214,6 +214,62 @@ describe("retired outlets", () => {
       }),
     ]);
     expect(within(rowFor("Оттеглен")).getByText("оттеглен")).toBeVisible();
+  });
+});
+
+describe("directory controls", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("sorts by monthly visits descending by default, with missing data last", async () => {
+    await renderList([
+      outlet({ domain: "small.bg", outlet: "Малък", visits: 200_000 }),
+      outlet({ domain: "missing.bg", outlet: "Без данни", visits: null }),
+      outlet({ domain: "large.bg", outlet: "Голям", visits: 2_000_000 }),
+    ]);
+    const names = [...document.querySelectorAll("tbody tr")].map(
+      (r) => r.querySelectorAll("td")[1]?.textContent,
+    );
+    expect(names).toEqual([
+      expect.stringContaining("Голям"),
+      expect.stringContaining("Малък"),
+      expect.stringContaining("Без данни"),
+    ]);
+    expect(
+      screen.getByRole("columnheader", { name: "Посещения/мес" }),
+    ).toHaveAttribute("aria-sort", "descending");
+  });
+
+  it("re-sorts when a sortable column is selected", async () => {
+    await renderList([
+      outlet({ domain: "z.bg", outlet: "Явор" }),
+      outlet({ domain: "a.bg", outlet: "Алфа" }),
+    ]);
+    fireEvent.click(
+      screen.getByRole("button", { name: "Подреди по Източник" }),
+    );
+    const names = [...document.querySelectorAll("tbody tr")].map(
+      (r) => r.querySelectorAll("td")[1]?.textContent,
+    );
+    expect(names[0]).toContain("Алфа");
+    expect(names[1]).toContain("Явор");
+  });
+
+  it("paginates the directory and reports the visible range", async () => {
+    await renderList(
+      Array.from({ length: 17 }, (_, i) =>
+        outlet({
+          domain: `site-${i}.bg`,
+          outlet: `Медия ${i}`,
+          rank: i + 1,
+          visits: 1_000_000 - i,
+        }),
+      ),
+    );
+    expect(document.querySelectorAll("tbody tr")).toHaveLength(15);
+    expect(screen.getByText("Показани 1–15 от 17")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Следваща страница" }));
+    expect(document.querySelectorAll("tbody tr")).toHaveLength(2);
+    expect(screen.getByText("Показани 16–17 от 17")).toBeVisible();
   });
 });
 
