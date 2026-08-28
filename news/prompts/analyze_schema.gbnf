@@ -31,7 +31,7 @@ evid        ::= "\"evidence\"" ws ":" ws string
 entities    ::= "\"entities\"" ws ":" ws "{" ws "\"people\"" ws ":" ws strings "," ws "\"parties\"" ws ":" ws strings "," ws "\"institutions\"" ws ":" ws strings "," ws "\"companies\"" ws ":" ws strings "," ws "\"places\"" ws ":" ws strings ws "}"
 
 tones       ::= "\"party_tones\"" ws ":" ws "[" ws (tone (ws "," ws tone)*)? ws "]"
-tone        ::= "{" ws "\"party\"" ws ":" ws string "," ws "\"tone\"" ws ":" ws tone_lab ws "}"
+tone        ::= "{" ws "\"party\"" ws ":" ws string "," ws "\"tone\"" ws ":" ws tone_lab "," ws conf "," ws evid ws "}"
 tone_lab    ::= "\"favorable\"" | "\"mixed\"" | "\"neutral\"" | "\"unfavorable\""
 
 topics      ::= "\"topics\"" ws ":" ws "[" ws (topic (ws "," ws topic)*)? ws "]"

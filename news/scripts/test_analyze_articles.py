@@ -83,6 +83,12 @@ def analysis(path, url, domain, *, verdict="ok", leaning="neutral", russia="not_
     return a
 
 
+def party_tone(party="ГЕРБ", tone="neutral", confidence=0.8,
+               evidence="Материалът представя позицията фактически и без оценка."):
+    return {"party": party, "tone": tone, "confidence": confidence,
+            "evidence": evidence}
+
+
 class FixtureTestCase(unittest.TestCase):
     def setUp(self):
         self.root = tempfile.mkdtemp(prefix="analyze_articles_test_")
@@ -141,6 +147,159 @@ class FixtureTestCase(unittest.TestCase):
     def story(self, story_id):
         with open(os.path.join(self.root, "news", "data", "analysis", "stories", story_id + ".json")) as fh:
             return json.load(fh)
+
+    def write_party_gazetteer(self, *, contested=False):
+        entries = [{
+            "kind": "party", "id": "gerb", "canonical": "ГЕРБ",
+            "forms": [
+                {"surface": "ГЕРБ", "resolvable": True,
+                 "id": "gerb", "why": "party name"},
+                {"surface": "Граждани за европейско развитие на България",
+                 "resolvable": True, "id": "gerb", "why": "unique alias"},
+            ],
+        }, {
+            "kind": "party", "id": "bsp", "canonical": "БСП",
+            "forms": [{"surface": "БСП", "resolvable": True,
+                       "id": "bsp", "why": "party name"}],
+        }]
+        if contested:
+            entries.append({
+                "kind": "party", "id": "other", "canonical": "Друга",
+                "forms": [{"surface": "ГЕРБ", "resolvable": True,
+                           "id": "other", "why": "contested"}],
+            })
+        with open(os.path.join(self.root, "news", "data", "gazetteer.json"),
+                  "w", encoding="utf-8") as fh:
+            json.dump({"version": 1, "entries": entries}, fh,
+                      ensure_ascii=False)
+
+
+class TestPartyToneV2(FixtureTestCase):
+    def record(self):
+        a = analysis(self.analysis_path("a1"), "https://test.bg/alpha",
+                     "test.bg")
+        a["entities"]["parties"] = ["ГЕРБ"]
+        a["party_tones"] = [party_tone()]
+        return a
+
+    def saved_record(self):
+        path = os.path.join(self.root, self.index()["articles"]
+                            ["https://test.bg/alpha"]["path"])
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh)
+
+    def test_save_stamps_version_and_resolved_identity(self):
+        self.write_party_gazetteer()
+        self.save(self.record())
+        saved = self.saved_record()
+        self.assertEqual(saved["party_tones_version"], 2)
+        self.assertEqual(saved["party_tones"][0]["party_id"], "gerb")
+
+    def test_unique_alias_resolves_without_rewriting_display_text(self):
+        self.write_party_gazetteer()
+        a = self.record()
+        alias = "Граждани за европейско развитие на България"
+        a["entities"]["parties"] = [alias]
+        a["party_tones"] = [party_tone(party=alias)]
+        self.save(a)
+        saved = self.saved_record()
+        self.assertEqual(saved["party_tones"][0]["party"], alias)
+        self.assertEqual(saved["party_tones"][0]["party_id"], "gerb")
+
+    def test_multiple_parties_are_covered_and_enriched_independently(self):
+        self.write_party_gazetteer()
+        a = self.record()
+        a["entities"]["parties"] = ["ГЕРБ", "БСП"]
+        a["party_tones"] = [party_tone(), party_tone(
+            party="БСП", tone="unfavorable",
+            evidence="Материалът критикува действията на БСП без насрещна позиция.")]
+        self.save(a)
+        saved = self.saved_record()
+        self.assertEqual(
+            [(t["party"], t["party_id"]) for t in saved["party_tones"]],
+            [("ГЕРБ", "gerb"), ("БСП", "bsp")])
+
+        missing = self.record()
+        missing["entities"]["parties"] = ["ГЕРБ", "БСП"]
+        out = self.save(missing, expect=3)
+        self.assertIn("БСП", " ".join(out["failed"][0]["errors"]))
+
+    def test_contested_identity_is_never_guessed(self):
+        self.write_party_gazetteer(contested=True)
+        self.save(self.record())
+        saved = self.saved_record()
+        self.assertIsNone(saved["party_tones"][0]["party_id"])
+        self.assertIn("unresolved party identity",
+                      saved["review"]["party_tones"])
+
+    def test_every_entity_party_requires_exactly_one_tone(self):
+        a = self.record()
+        a["party_tones"] = []
+        out = self.save(a, expect=3)
+        self.assertIn("missing assessments",
+                      " ".join(out["failed"][0]["errors"]))
+
+    def test_tone_for_absent_party_rejects(self):
+        a = self.record()
+        a["entities"]["parties"] = []
+        out = self.save(a, expect=3)
+        self.assertIn("not in entities.parties",
+                      " ".join(out["failed"][0]["errors"]))
+
+    def test_duplicates_reject(self):
+        a = self.record()
+        a["party_tones"].append(party_tone())
+        out = self.save(a, expect=3)
+        self.assertIn("duplicate party",
+                      " ".join(out["failed"][0]["errors"]))
+
+    def test_model_cannot_supply_identity_or_version(self):
+        a = self.record()
+        a["party_tones"][0]["party_id"] = "gerb"
+        a["party_tones_version"] = 2
+        out = self.save(a, expect=3)
+        errors = " ".join(out["failed"][0]["errors"])
+        self.assertIn("party_id is computed", errors)
+        self.assertIn("computed at save time", errors)
+
+    def test_invalid_confidence_and_thin_evidence_reject(self):
+        a = self.record()
+        a["party_tones"][0].update(
+            confidence=True, evidence="ГЕРБ е neutral")
+        out = self.save(a, expect=3)
+        errors = " ".join(out["failed"][0]["errors"])
+        self.assertIn("number in [0,1]", errors)
+        self.assertIn("must explain", errors)
+
+    def test_neutral_label_only_evidence_rejects_but_concrete_basis_passes(self):
+        a = self.record()
+        a["party_tones"][0]["evidence"] = "ГЕРБ е представена неутрално днес"
+        out = self.save(a, expect=3)
+        self.assertIn("factual or balanced",
+                      " ".join(out["failed"][0]["errors"]))
+
+        concrete = self.record()
+        concrete["party_tones"][0]["evidence"] = (
+            "Материалът цитира предложението и насрещния отговор без оценъчни думи.")
+        self.save(concrete)
+
+    def test_mixed_requires_two_sided_evidence(self):
+        a = self.record()
+        a["party_tones"] = [party_tone(
+            tone="mixed",
+            evidence="Материалът оценява действията на партията положително")]
+        out = self.save(a, expect=3)
+        self.assertIn("both directions",
+                      " ".join(out["failed"][0]["errors"]))
+
+    def test_non_publishable_record_cannot_carry_party_claim(self):
+        a = self.record()
+        a["quality"]["verdict"] = "too_short"
+        a["story"]["action"] = "none"
+        a["topics"] = []
+        out = self.save(a, expect=3)
+        self.assertIn("non-publishable",
+                      " ".join(out["failed"][0]["errors"]))
 
 
 class TestQueueOrdering(FixtureTestCase):

@@ -201,6 +201,51 @@ def record_review(analysis: dict) -> dict:
         mismatch = political_not_applicable(analysis)
         if mismatch:
             out["leaning"] = mismatch
+
+    tone_reasons = []
+    party_mentions = {
+        str(m.get("id")) for m in (analysis.get("mentions") or [])
+        if isinstance(m, dict) and m.get("kind") == "party" and m.get("id")
+    }
+    tone_ids = {
+        str(t.get("party_id")) for t in (analysis.get("party_tones") or [])
+        if isinstance(t, dict) and t.get("party_id")
+    }
+    missing_candidates = sorted(party_mentions - tone_ids)
+    if missing_candidates:
+        tone_reasons.append(
+            "resolved party candidates absent from model entities/tones: "
+            + ", ".join(missing_candidates))
+    rec = analysis.get("_article")
+    for tone in analysis.get("party_tones") or []:
+        if not isinstance(tone, dict):
+            tone_reasons.append("party tone is not an object")
+            continue
+        party = tone.get("party") or "(unknown party)"
+        ident = tone.get("party_id")
+        if ident is None:
+            tone_reasons.append(f"{party}: unresolved party identity")
+        elif party_mentions and str(ident) not in party_mentions:
+            tone_reasons.append(
+                f"{party}: canonical identity disagrees with party mentions")
+        why = field_review(tone.get("tone"), tone.get("confidence"))
+        if why:
+            tone_reasons.append(f"{party}: {why}")
+        if tone.get("tone") == "mixed":
+            tone_reasons.append(
+                f"{party}: mixed requires both directions to be checked")
+        if isinstance(rec, dict):
+            try:
+                import analyze_articles as aa
+                if not aa.party_tone_evidence_grounded(
+                        str(tone.get("evidence") or ""), rec):
+                    tone_reasons.append(
+                        f"{party}: evidence grounding needs review")
+            except Exception:  # noqa: BLE001
+                tone_reasons.append(
+                    f"{party}: evidence grounding could not run")
+    if tone_reasons:
+        out["party_tones"] = "; ".join(dict.fromkeys(tone_reasons))
     return out
 
 
@@ -221,7 +266,7 @@ def main() -> int:
         description="List the analysed records that need another look.")
     ap.add_argument("--field", default=None,
                     help="only this field (leaning / russia_stance / "
-                         "ai_generated)")
+                         "ai_generated / party_tones)")
     # ⚠️ 0 MEANS UNLIMITED, and it has to: run_nightly.sh passes it to get
     # the whole queue into the report, and `rows[:0]` shipped
     # `needing_review: 16, shown: 0, queue: []` every night at exit 0 — a
@@ -282,6 +327,20 @@ def main() -> int:
         block = {}
         for field in review:
             b = a.get(field)
+            if field == "party_tones":
+                items = []
+                for tone in b if isinstance(b, list) else []:
+                    if not isinstance(tone, dict):
+                        continue
+                    items.append({
+                        "party": tone.get("party"),
+                        "party_id": tone.get("party_id"),
+                        "tone": tone.get("tone"),
+                        "confidence": tone.get("confidence"),
+                        "evidence": str(tone.get("evidence") or "")[:200],
+                    })
+                block[field] = {"items": items, "why": review[field]}
+                continue
             # ⚠️ THE SAME GUARD AS record_review's, and its absence here was
             # a SECOND instance of the same crash: record_review flagged the
             # malformed field correctly and then this loop called `.get` on

@@ -356,6 +356,44 @@ class PerRecord(unittest.TestCase):
                            "discriminating")
 
 
+class PartyToneRouting(unittest.TestCase):
+    def rec(self, **tone_over):
+        tone = {
+            "party": "ГЕРБ", "party_id": "gerb", "tone": "neutral",
+            "confidence": 0.8,
+            "evidence": "Материалът представя позицията фактически и без оценка.",
+        }
+        tone.update(tone_over)
+        return {
+            "leaning": {"label": "neutral", "confidence": 0.8},
+            "russia_stance": {"label": "not_applicable", "confidence": 0.9},
+            "ai_generated": {"verdict": "likely_human", "confidence": 0.8},
+            "party_tones": [tone],
+        }
+
+    def test_unresolved_party_is_reviewed(self):
+        self.assertIn("unresolved party identity",
+                      record_review(self.rec(party_id=None))["party_tones"])
+
+    def test_low_confidence_positioned_tone_is_reviewed(self):
+        got = record_review(self.rec(tone="unfavorable", confidence=0.6))
+        self.assertIn("below", got["party_tones"])
+
+    def test_mixed_is_always_reviewed(self):
+        got = record_review(self.rec(tone="mixed", confidence=1.0))
+        self.assertIn("both directions", got["party_tones"])
+
+    def test_clean_neutral_tone_needs_no_review_without_article_context(self):
+        self.assertNotIn("party_tones", record_review(self.rec()))
+
+    def test_resolved_candidate_missing_from_empty_model_output_is_reviewed(self):
+        rec = self.rec()
+        rec["party_tones"] = []
+        rec["entities"] = {"parties": []}
+        rec["mentions"] = [{"kind": "party", "id": "gerb"}]
+        self.assertIn("absent from model", record_review(rec)["party_tones"])
+
+
 class TheQueueReader(unittest.TestCase):
     """`main()` — driven through the CLI, because that is how it is used.
 
@@ -446,6 +484,17 @@ class TheQueueReader(unittest.TestCase):
         _, out = self.run_cli("--limit", "0", "--json")
         row = out["queue"][0]["fields"]["ai_generated"]
         self.assertIn("no byline", row["evidence"])
+
+    def test_a_party_tone_row_preserves_the_values_under_review(self):
+        self.write("a1", party_tones=[{
+            "party": "ГЕРБ", "party_id": None, "tone": "unfavorable",
+            "confidence": 0.62, "evidence": "Конкретно неблагоприятно описание",
+        }])
+        _, out = self.run_cli("--field", "party_tones", "--json")
+        row = out["queue"][0]["fields"]["party_tones"]
+        self.assertEqual(row["items"][0]["party"], "ГЕРБ")
+        self.assertEqual(row["items"][0]["tone"], "unfavorable")
+        self.assertIn("неблагоприятно", row["items"][0]["evidence"])
 
     def test_the_floors_travel_with_the_queue(self):
         # A queue whose thresholds are invisible cannot be argued with.

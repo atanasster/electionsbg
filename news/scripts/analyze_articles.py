@@ -102,6 +102,8 @@ LEANING_LABELS = {"strong_conservative", "conservative", "neutral", "progressive
 RUSSIA_LABELS = {"strong_pro_russia", "pro_russia", "neutral", "anti_russia", "strong_anti_russia", "not_applicable"}
 AI_VERDICTS = {"likely_human", "unclear", "likely_ai"}
 TONE_LABELS = {"favorable", "unfavorable", "neutral", "mixed"}
+PARTY_TONES_VERSION = 2
+PARTY_TONE_RAW_KEYS = frozenset({"party", "tone", "confidence", "evidence"})
 STORY_ACTIONS = {"new_story", "same_story", "none"}
 ENTITY_BUCKETS = ("people", "parties", "institutions", "companies", "places")
 
@@ -1050,6 +1052,68 @@ def _resolver():
 _RESOLVER_CACHE: list = []
 # Set when a record's mentions could not be checked against the gazetteer.
 MENTIONS_UNVERIFIED: list = []
+PARTY_IDS_UNVERIFIED: list = []
+
+
+def _party_claims(name: str):
+    """Return unique gazetteer claims for one party label, or None offline."""
+    got = _RESOLVER_CACHE[0] if _RESOLVER_CACHE else _resolver()
+    if not _RESOLVER_CACHE:
+        _RESOLVER_CACHE.append(got)
+    if got is None:
+        PARTY_IDS_UNVERIFIED.append(True)
+        return None
+    rm, gaz = got
+    key = rm.fold(" ".join(rm.TOKEN_RE.findall(name or "")))
+    unique = {}
+    for claim in gaz.by_surface.get(key, []):
+        if claim.get("kind") != "party":
+            continue
+        identity = (claim.get("id"), claim.get("anchor_for"),
+                    claim.get("canonical"), bool(claim.get("resolvable")))
+        unique[identity] = claim
+    return list(unique.values())
+
+
+def party_id_for_name(name: str) -> str | None:
+    """Resolve only a uniquely claimed, explicitly resolvable party surface."""
+    claims = _party_claims(name)
+    if claims is None or len(claims) != 1:
+        return None
+    claim = claims[0]
+    ident = claim.get("id")
+    return str(ident) if claim.get("resolvable") and ident else None
+
+
+def enrich_party_tones(analysis: dict) -> None:
+    """Stamp deterministic identity and the assessed-schema version."""
+    analysis["party_tones"] = [
+        {**tone, "party_id": party_id_for_name(tone["party"])}
+        for tone in analysis.get("party_tones") or []
+    ]
+    analysis["party_tones_version"] = PARTY_TONES_VERSION
+
+
+def party_tone_evidence_grounded(evidence: str, rec: dict) -> bool:
+    """Conservative grounding signal; a false result routes to review."""
+    try:
+        import resolve_mentions as rm
+    except Exception:  # noqa: BLE001
+        return False
+    article = rm.fold(rm.article_text(rec))
+    folded = rm.fold(evidence or "").strip()
+    if not folded:
+        return False
+    if folded in article:
+        return True
+    article_tokens = set(rm.TOKEN_RE.findall(article))
+    evidence_tokens = [
+        token for token in rm.TOKEN_RE.findall(folded)
+        if len(token) >= 4 and token not in STOPWORDS
+    ]
+    return (len(evidence_tokens) >= 4
+            and sum(token in article_tokens for token in evidence_tokens)
+            / len(evidence_tokens) >= 0.60)
 
 
 def check_mention_provenance(mentions: list, rec: dict) -> list:
@@ -1244,14 +1308,86 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
         errs.append("review: computed at save time — an analyst may not set "
                     "whether its own output needs checking")
 
+    if "party_tones_version" in a:
+        errs.append("party_tones_version: computed at save time — an analyst "
+                    "may not claim that its own output passed v2 enrichment")
+
     tones = a.get("party_tones")
     if not isinstance(tones, list):
         errs.append("party_tones: must be a list")
     else:
-        for t in tones:
-            if not isinstance(t, dict) or not isinstance(t.get("party"), str) or not t["party"].strip() \
-                    or t.get("tone") not in TONE_LABELS:
-                errs.append(f"party_tones entry must be {{party: str, tone in {sorted(TONE_LABELS)}}}: {t!r}")
+        tone_names = []
+        for i, t in enumerate(tones):
+            at = f"party_tones[{i}]"
+            if not isinstance(t, dict):
+                errs.append(f"{at}: must be an object")
+                continue
+            unknown = sorted(set(t) - PARTY_TONE_RAW_KEYS)
+            if unknown:
+                errs.append(f"{at}: unknown keys {unknown}; party_id is "
+                            "computed after validation")
+            party = t.get("party")
+            if not isinstance(party, str) or not party.strip():
+                errs.append(f"{at}.party: must be a non-empty string")
+            else:
+                tone_names.append(party)
+            if t.get("tone") not in TONE_LABELS:
+                errs.append(f"{at}.tone must be one of {sorted(TONE_LABELS)}")
+            confidence = t.get("confidence")
+            if not is_num(confidence) or not 0 <= confidence <= 1:
+                errs.append(f"{at}.confidence must be a number in [0,1]")
+            evidence = t.get("evidence")
+            if not isinstance(evidence, str) or not evidence.strip():
+                errs.append(f"{at}.evidence: required (quote or concrete paraphrase)")
+            elif len(evidence.split()) < 4:
+                errs.append(f"{at}.evidence: must explain the article's treatment, "
+                            "not merely repeat a label")
+            if (t.get("tone") == "neutral" and isinstance(evidence, str)
+                    and isinstance(party, str)):
+                try:
+                    import resolve_mentions as rm
+                    discarded = {
+                        *rm.TOKEN_RE.findall(rm.fold(party)),
+                        "neutral", "неутрален", "неутрална", "неутрално",
+                        "партия", "партията", "представен", "представена",
+                        "представено", "днес",
+                    }
+                    content = [
+                        token for token in rm.TOKEN_RE.findall(rm.fold(evidence))
+                        if len(token) >= 4 and token not in discarded
+                        and token not in STOPWORDS
+                    ]
+                    if len(content) < 3:
+                        errs.append(f"{at}.evidence: neutral must explain the "
+                                    "factual or balanced treatment")
+                except Exception:  # noqa: BLE001
+                    pass
+            if t.get("tone") == "mixed" and isinstance(evidence, str):
+                markers = (" но ", " докато ", " същевременно ",
+                           "от една страна", ";", ". ")
+                padded = f" {evidence.casefold()} "
+                if not any(marker in padded for marker in markers):
+                    errs.append(f"{at}.evidence: mixed requires both directions")
+        if len(tone_names) != len(set(tone_names)):
+            errs.append("party_tones: duplicate party entries are not allowed")
+
+        party_entities = ent.get("parties") if isinstance(ent, dict) else None
+        if isinstance(party_entities, list):
+            if len(party_entities) != len(set(party_entities)):
+                errs.append("entities.parties: duplicate entries are not allowed")
+            publishable = (quality is not None
+                           and quality.get("verdict") == "ok"
+                           and a.get("site_relevant") is True)
+            if publishable:
+                missing = sorted(set(party_entities) - set(tone_names))
+                extra = sorted(set(tone_names) - set(party_entities))
+                if missing:
+                    errs.append(f"party_tones: missing assessments for {missing}")
+                if extra:
+                    errs.append(f"party_tones: parties not in entities.parties {extra}")
+            elif party_entities or tone_names:
+                errs.append("non-publishable analyses must have empty "
+                            "entities.parties and party_tones")
 
     topics = a.get("topics")
     primary_cats = []
@@ -1345,12 +1481,19 @@ def save_one(a: dict, tax, cats: dict, index: dict, stats: dict) -> list:
     if errs:
         return errs
 
+    # Identity and version are pipeline facts, never model claims.
+    enrich_party_tones(a)
+    try:
+        _, review_article = load_corpus_article(a["article_path"])
+    except FileNotFoundError:  # validation already proved it; defensive only
+        review_article = {}
+
     # ⚠️ STAMPED AFTER VALIDATION, so a rejected record never carries one, and
     # computed here rather than accepted from the analyst — a model asked „do
     # you need checking?" answers the way it answers everything else. The rule
     # is a pure function of (label, confidence); see review_routing.py for why
     # a bare confidence threshold routes exactly backwards.
-    review = record_review(a)
+    review = record_review({**a, "_article": review_article})
     if review:
         a["review"] = review
     else:
@@ -1490,6 +1633,10 @@ def cmd_save(args) -> int:
         stats["mentions_unverified"] = (
             "no gazetteer — mention ids were NOT checked against the "
             "dictionary pass; run news/scripts/build_gazetteer.py")
+    if PARTY_IDS_UNVERIFIED:
+        stats["party_ids_unverified"] = (
+            "no gazetteer — party tone identities were left unresolved; "
+            "run news/scripts/build_gazetteer.py")
     return emit(0 if not stats["failed"] else 3, mode="save_batch" if args.save_batch else "save_analysis", **stats)
 
 

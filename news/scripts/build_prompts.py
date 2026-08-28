@@ -33,6 +33,7 @@ ROOT = Path(os.environ.get("DATA_BG_ROOT") or
             Path(__file__).resolve().parents[2])
 PROMPTS = ROOT / "news" / "prompts"
 TOPICS = ROOT / "news" / "topics.json"
+SYSTEM_SOURCE = PROMPTS / "analyze_system.source.md"
 
 # ⚠️ 6,000 characters. Measured over the 4,280-article corpus: p50 is 1,754,
 # p90 is 6,213 and p99 is 14,882 — so this touches ~10.5% of articles and only
@@ -100,7 +101,7 @@ evid        ::= "\\"evidence\\"" ws ":" ws string
 entities    ::= "\\"entities\\"" ws ":" ws "{{" ws "\\"people\\"" ws ":" ws strings "," ws "\\"parties\\"" ws ":" ws strings "," ws "\\"institutions\\"" ws ":" ws strings "," ws "\\"companies\\"" ws ":" ws strings "," ws "\\"places\\"" ws ":" ws strings ws "}}"
 
 tones       ::= "\\"party_tones\\"" ws ":" ws "[" ws (tone (ws "," ws tone)*)? ws "]"
-tone        ::= "{{" ws "\\"party\\"" ws ":" ws string "," ws "\\"tone\\"" ws ":" ws tone_lab ws "}}"
+tone        ::= "{{" ws "\\"party\\"" ws ":" ws string "," ws "\\"tone\\"" ws ":" ws tone_lab "," ws conf "," ws evid ws "}}"
 tone_lab    ::= {gbnf_alt(aa.TONE_LABELS)}
 
 topics      ::= "\\"topics\\"" ws ":" ws "[" ws (topic (ws "," ws topic)*)? ws "]"
@@ -192,7 +193,9 @@ def build_json_schema(doc: dict) -> dict:
                            "companies", "places")}),
         "party_tones": {"type": "array", "items": _obj({
             "party": string,
-            "tone": {"type": "string", "enum": sorted(aa.TONE_LABELS)}})},
+            "tone": {"type": "string", "enum": sorted(aa.TONE_LABELS)},
+            "confidence": prob,
+            "evidence": string})},
         "topics": {"type": "array", "items": _obj({
             "category": {"type": "string", "enum": sorted(cats)},
             # ⚠️ NULLABLE, and expressed as a type UNION rather than as an
@@ -208,6 +211,8 @@ def build_json_schema(doc: dict) -> dict:
 def write(check: bool) -> int:
     doc = json.loads(TOPICS.read_text(encoding="utf-8"))
     outputs = {
+        PROMPTS / "analyze_system.md": SYSTEM_SOURCE.read_text(
+            encoding="utf-8"),
         PROMPTS / "taxonomy_compact.json": json.dumps(
             {"version": doc.get("version"),
              "categories": compact_taxonomy(doc)},
