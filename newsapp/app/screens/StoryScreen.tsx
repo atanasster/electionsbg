@@ -15,6 +15,7 @@ import { EntityChips } from "../components/EntityChips";
 import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { RelatedStories } from "../components/RelatedStories";
+import { ReaderActions } from "../components/ReaderActions";
 import { resolveRelatedStories } from "./relatedStories";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
@@ -217,6 +218,10 @@ export const StoryScreen = () => {
             <h1 className="font-title text-3xl leading-tight">
               {story.title_bg ?? story.title_en ?? "(без заглавие)"}
             </h1>
+            <ReaderActions
+              path={`/story/${story.id}`}
+              title={story.title_bg ?? story.title_en ?? "Наясно новини"}
+            />
             {story.title_en && story.title_bg ? (
               <p className="mt-1 text-sm italic text-muted-foreground">
                 {story.title_en}

@@ -69,6 +69,12 @@ describe("urlFor", () => {
 });
 
 describe("applyHead", () => {
+  it("marks a linked personal utility page noindex,follow", () => {
+    const { html, missing } = applyHead(TEMPLATE, route({ noindex: true }));
+    expect(missing).toEqual([]);
+    expect(html).toContain('<meta name="robots" content="noindex,follow" />');
+  });
+
   it("gives the page its OWN title and canonical", () => {
     const { html, missing } = applyHead(TEMPLATE, route());
     expect(missing).toEqual([]);

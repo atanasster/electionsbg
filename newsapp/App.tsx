@@ -11,6 +11,7 @@ import { OutletScreen } from "./app/screens/OutletScreen";
 import { TopicsScreen } from "./app/screens/TopicsScreen";
 import { ArticleScreen } from "./app/screens/ArticleScreen";
 import { MethodologyScreen } from "./app/screens/MethodologyScreen";
+import { SavedScreen } from "./app/screens/SavedScreen";
 
 const NotFoundScreen = () => (
   <section className="py-12">
@@ -31,6 +32,7 @@ const NAV = [
   { to: "/", label: "Истории", end: true },
   { to: "/outlets", label: "Източници" },
   { to: "/topics", label: "Теми" },
+  { to: "/saved", label: "Запазени" },
   { to: "/methodology", label: "Методология" },
 ] as const;
 
@@ -139,6 +141,7 @@ export const App = () => {
           <Route path="/topics" element={<TopicsScreen />} />
           <Route path="/article/:domain/:id" element={<ArticleScreen />} />
           <Route path="/methodology" element={<MethodologyScreen />} />
+          <Route path="/saved" element={<SavedScreen />} />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </main>

@@ -23,8 +23,9 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { NEWS_SITE, newsUrlFor } from "./app/site";
 
-export const SITE = "https://news.electionsbg.com";
+export const SITE = NEWS_SITE;
 
 export type PrerenderRoute = {
   /** Path WITHOUT a trailing slash. "" is the root. */
@@ -46,6 +47,8 @@ export type PrerenderRoute = {
    * deliberately gives it no <loc>. Same rule here.
    */
   sitemap?: boolean;
+  /** Utility/personal pages may be linked for humans but excluded from search. */
+  noindex?: boolean;
 };
 
 const esc = (s: string): string =>
@@ -64,8 +67,7 @@ export const clamp = (raw: string, max = 155): string => {
 
 /** Absolute, slash-free URL for a route path. */
 export const urlFor = (routePath: string): string => {
-  const clean = routePath.replace(/^\/+|\/+$/g, "");
-  return clean ? `${SITE}/${clean}` : `${SITE}/`;
+  return newsUrlFor(routePath);
 };
 
 /**
@@ -110,6 +112,12 @@ export const applyHead = (
     `<meta name="description" content="${description}" />`,
     "description",
   );
+  if (route.noindex && !/<meta\s+name="robots"/i.test(html)) {
+    html = html.replace(
+      /<\/head>/,
+      '<meta name="robots" content="noindex,follow" />\n</head>',
+    );
+  }
   swap(
     /<link rel="canonical" href="[^"]*"\s*\/?>/,
     `<link rel="canonical" href="${url}" />`,

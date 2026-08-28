@@ -51,6 +51,7 @@ import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { Breadcrumbs } from "../components/Breadcrumbs";
+import { ReaderActions } from "../components/ReaderActions";
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -260,6 +261,10 @@ export const ArticleScreen = () => {
       <h1 className="mt-3 max-w-4xl font-title text-3xl leading-tight">
         {article.title ?? "(без заглавие)"}
       </h1>
+      <ReaderActions
+        path={`/article/${domain}/${article.id}`}
+        title={article.title ?? "Наясно новини"}
+      />
 
       <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
         <div>

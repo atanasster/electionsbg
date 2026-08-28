@@ -63,6 +63,14 @@ export const HUB_ROUTES: PrerenderRoute[] = [
     description:
       "Какво измерваме, как, и какво този корпус не покрива. Всяка статия се оценява поотделно, с цитат от самия материал.",
   },
+  {
+    path: "saved",
+    title: "Запазени истории и статии | Наясно Новини",
+    description:
+      "Личният ви списък със запазени истории и статии. Данните остават само в браузъра и не се синхронизират.",
+    sitemap: false,
+    noindex: true,
+  },
 ];
 
 const outletTitle = (name: string): string =>
