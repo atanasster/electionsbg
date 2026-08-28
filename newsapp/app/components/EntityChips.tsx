@@ -1,10 +1,10 @@
 // Entity chips, with a link where the name earned one.
 //
-// ⚠️ A CHIP IS A LINK ONLY WHEN THE GAZETTEER RESOLVED IT OUTRIGHT. The
-// `entity_links` sidecar carries a name only when it produced a
-// `gazetteer_exact` match against a route the main site actually serves —
-// everything else stays plain text. A chip that looked like a link and went
-// nowhere would be worse than no link at all.
+// ⚠️ A CHIP IS A LINK ONLY WHEN THE GAZETTEER RESOLVED IT OUTRIGHT OR A
+// hand-verified entity override resolved it after the model classified its
+// bucket. The `entity_links` sidecar carries only names whose main-site route
+// is actually served; everything else stays plain text. A chip that looked
+// like a link and went nowhere would be worse than no link at all.
 //
 // ⚠️ THE CANONICAL NAME IS SHOWN, and that is not decoration. All eight
 // people this resolves today matched on a TWO-PART form („Иван Христанов" →

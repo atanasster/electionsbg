@@ -24,10 +24,12 @@ import re
 import sys
 import unicodedata
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(os.environ.get("DATA_BG_ROOT") or
             Path(__file__).resolve().parents[2])
 GAZETTEER = ROOT / "news" / "data" / "gazetteer.json"
+ENTITY_LINK_OVERRIDES = ROOT / "news" / "data" / "entity_link_overrides.json"
 
 # Surfaces are matched over TOKENS, not with one giant alternation: 12,914
 # forms in a single regex is slow to compile and slower to run, and the
@@ -442,8 +444,10 @@ if __name__ == "__main__":
 # the article. The common-word and given-name hazards do not apply, because
 # nobody put „места" in `entities.places` — the model put „София" there.
 #
-# What DOES still apply is the identity rule, unchanged: a surface may only
-# claim an identity it owns. Only `gazetteer_exact` produces a link.
+# What DOES still apply is the identity rule: a surface may only claim an
+# identity it owns. A link therefore needs `gazetteer_exact` or a
+# hand-verified entity-list override. Overrides are deliberately unavailable
+# to the free-text scan above.
 #
 # ⚠️ MEASURED, so the ceiling is known rather than assumed. Over the 365
 # analyses: 8 of 138 distinct people resolve, 54 of 138 places, 3 of 7
@@ -467,10 +471,27 @@ EKATTE_RE = re.compile(r"^[0-9]{5}$")
 # link to a 404.
 ENTITY_ROUTES = {
     "person": "/person/{id}",
-    "party": "/party/{id}",
     "institution": "/awarder/{id}",
     "place:settlement": "/settlement/{id}",
 }
+
+
+def entity_href(route_key: str, ident: str, canonical: str) -> str | None:
+    """A served main-site URL for an entity identity.
+
+    ⚠️ Party pages are the exception to the site's otherwise id-shaped
+    routes: `/party/:id` is historically named, but `:id` is a CIK nickname
+    such as `ДПС` or `ПрБ`, NOT the stable canonical id `p_16`/`p_20`.
+    Sending the canonical id renders the party-not-found screen shown by the
+    news link regression. The gazetteer's canonical party label is exactly
+    the route nickname, so it is the path segment here; `id` remains the
+    stable identity carried in the sidecar.
+    """
+    if route_key == "party":
+        slug = canonical.strip()
+        return MAIN_SITE + "/party/" + quote(slug, safe="") if slug else None
+    route = ENTITY_ROUTES.get(route_key)
+    return MAIN_SITE + route.format(id=ident) if route else None
 
 
 # ⚠️ BULGARIAN INSTITUTIONS TAKE THE DEFINITE ARTICLE AND PERSONAL NAMES DO
@@ -564,9 +585,6 @@ def entity_link(name: str, gaz: "Gazetteer") -> dict | None:
         place_kind, _, code = ident.partition(":")
         route_key = f"place:{place_kind}"
         plain_id = code
-    route = ENTITY_ROUTES.get(route_key)
-    if not route:
-        return None
     if route_key == "place:settlement" and not EKATTE_RE.match(plain_id):
         # ⚠️⚠️ A COUNTRY IS NOT A SETTLEMENT. `place_dim` stores foreign
         # countries under kind='settlement' with a two-letter code — ZA is
@@ -576,16 +594,67 @@ def entity_link(name: str, gaz: "Gazetteer") -> dict | None:
         # other direction. A real settlement page is keyed by a bare 5-digit
         # EKATTE, and 5,257 of 5,272 rows are one.
         return None
+    href = entity_href(route_key, plain_id, won["canonical"])
+    if not href:
+        return None
     return {
         "kind": kind,
         "id": plain_id,
         "canonical": won["canonical"],
         "form_kind": won.get("form_kind", "name"),
-        "href": MAIN_SITE + route.format(id=plain_id),
+        "href": href,
     }
 
 
-def entity_links(entities: dict, gaz: "Gazetteer") -> dict:
+def load_entity_link_overrides() -> dict:
+    """Hand-verified links for MODEL-CLASSIFIED entity strings.
+
+    These do not enter the free-text gazetteer. That distinction is what
+    makes a contextual override such as „Димитър Стоянов“ + „МО“ safe: the
+    same two-part name in an unrelated article remains ambiguous and plain.
+    """
+    if not ENTITY_LINK_OVERRIDES.exists():
+        return {"links": [], "refused": []}
+    return json.loads(ENTITY_LINK_OVERRIDES.read_text(encoding="utf-8"))
+
+
+def entity_override_link(name: str, bucket: str, entities: dict,
+                         overrides: dict) -> dict | None:
+    """Resolve one curated entity-list override, including its context gate."""
+    expected_kind = {
+        "people": "person",
+        "parties": "party",
+        "institutions": "institution",
+        "places": "place",
+    }.get(bucket)
+    if not expected_kind:
+        return None
+    present = {fold(v) for values in (entities or {}).values()
+               for v in (values or [])}
+    matches = [o for o in overrides.get("links") or []
+               if o.get("kind") == expected_kind
+               and fold(o.get("surface") or "") == fold(name)]
+    for o in matches:
+        required = {fold(v) for v in o.get("requires_any") or []}
+        if required and not (required & present):
+            continue
+        ident = str(o.get("id") or "").strip()
+        canonical = str(o.get("canonical") or "").strip()
+        href = entity_href(o["kind"], ident, canonical)
+        if not ident or not canonical or not href:
+            continue
+        return {
+            "kind": o["kind"],
+            "id": ident,
+            "canonical": canonical,
+            "form_kind": "curated_entity",
+            "href": href,
+        }
+    return None
+
+
+def entity_links(entities: dict, gaz: "Gazetteer",
+                 overrides: dict | None = None) -> dict:
     """name → link, for every entity string that earned one.
 
     ⚠️ Keyed on the NAME AS THE MODEL WROTE IT, so a renderer can look up the
@@ -594,11 +663,17 @@ def entity_links(entities: dict, gaz: "Gazetteer") -> dict:
     renderer would happily turn into a dead link.
     """
     out = {}
-    for names in (entities or {}).values():
+    override_doc = (load_entity_link_overrides()
+                    if overrides is None else overrides)
+    for bucket, names in (entities or {}).items():
         for name in names or []:
             if name in out:
                 continue
-            link = entity_link(name, gaz)
+            # Curated, model-classified overrides lead. They are deliberately
+            # unavailable to resolve(), so they cannot turn an ambiguous
+            # two-part name in arbitrary prose into a person claim.
+            link = entity_override_link(
+                name, bucket, entities, override_doc) or entity_link(name, gaz)
             if link:
                 out[name] = link
     return out

@@ -1,0 +1,84 @@
+{
+ "version": 1,
+ "why": "Hand-verified links for entity strings that the free-text gazetteer must refuse as ambiguous, too short, or outside its derived awarder-name rules. These entries are consulted only after the analysis model has classified the string into the matching entity bucket.",
+ "rules": [
+  "Every link names a route that the main site actually serves and carries review evidence.",
+  "requires_any is a context gate over the complete article or story entity set; without one of those entities the override does not apply.",
+  "Refused entries document institutions visible in news stories for which electionsbg.com has no corresponding entity page."
+ ],
+ "verified_on": "2026-08-28",
+ "links": [
+  {
+   "surface": "Димитър Стоянов",
+   "kind": "person",
+   "id": "mp-5118",
+   "canonical": "Димитър Желязков Стоянов",
+   "requires_any": ["МО", "Министерство на отбраната"],
+   "evidence": "The local person layer records mp-5118 with an official_exec cabinet role and the story identifies this surface as the defence minister. The МО context gate prevents unrelated people with the same two-part name from inheriting this link."
+  },
+  {
+   "surface": "Румен Радев",
+   "kind": "person",
+   "id": "mp-5142",
+   "canonical": "Румен Георгиев Радев",
+   "evidence": "The local person layer records mp-5142 with source=president and role=president. This is the conventional two-part public name of Bulgaria's president; the canonical three-part identity remains visible on the chip link."
+  },
+  {
+   "surface": "ДПС",
+   "kind": "party",
+   "id": "p_16",
+   "canonical": "ДПС",
+   "evidence": "data/canonical_parties.json assigns the exact nickname ДПС to p_16 across election cycles from 2005 through 2026. It was missing only because the generic gazetteer floor excludes three-character surfaces."
+  },
+  {
+   "surface": "БНР",
+   "kind": "institution",
+   "id": "000672343",
+   "canonical": "Българско национално радио",
+   "evidence": "Verified in the local awarder_search registry on 2026-08-28: EIK 000672343 carries only the plain and /БНР/ spellings of Българско национално радио, with 608 contracts, and has a served /awarder page."
+  },
+  {
+   "surface": "БТА",
+   "kind": "institution",
+   "id": "000695071",
+   "canonical": "Българска телеграфна агенция",
+   "evidence": "Verified in the local awarder_search registry on 2026-08-28: EIK 000695071 carries only the plain and /БТА/ spellings of Българска телеграфна агенция, with 116 contracts, and has a served /awarder page."
+  },
+  {
+   "surface": "Министерски съвет",
+   "kind": "institution",
+   "id": "000695025",
+   "canonical": "Министерски съвет",
+   "evidence": "Verified in the local awarder_search registry on 2026-08-28: EIK 000695025 carries the short and expanded /МС/ spellings of the same body, with 605 contracts, and has a served /awarder page."
+  },
+  {
+   "surface": "Народно събрание",
+   "kind": "institution",
+   "id": "000695018",
+   "canonical": "Народно събрание",
+   "evidence": "Verified in the local awarder_search registry on 2026-08-28: EIK 000695018 carries the short and expanded /НС/ spellings of the same body, with 608 contracts, and has a served /awarder page."
+  }
+ ],
+ "refused": [
+  {
+   "surface": "КСНС",
+   "why": "The Consultative Council for National Security is a consultative body under the presidency, not a separate legal awarder in our registry, and electionsbg.com has no KSNS entity route to link to."
+  },
+  {
+   "surface": "НАТО",
+   "why": "International organisation with no corresponding electionsbg.com institution or awarder page."
+  },
+  {
+   "surface": "ИРНА",
+   "why": "Foreign news agency with no corresponding electionsbg.com institution or outlet page."
+  },
+  {
+   "surface": "„Гардиън“",
+   "why": "Foreign media outlet with no corresponding electionsbg.com institution or outlet page."
+  },
+  {
+   "surface": "Европейски съвет",
+   "why": "EU institution with no corresponding electionsbg.com institution or awarder page."
+  }
+ ]
+}

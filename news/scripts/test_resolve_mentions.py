@@ -9,13 +9,15 @@ through as a refusal.
 Run:  python3 news/scripts/test_resolve_mentions.py
 """
 
+import json
 import os
 import sys
 import unittest
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from resolve_mentions import (  # noqa: E402
-    undefinite_forms,
+    undefinite_forms, entity_links,
     BASIS_RANK, Gazetteer, article_text, dedupe, decide, fold, resolve)
 
 
@@ -319,6 +321,67 @@ class RefusalIsCarriedThrough(unittest.TestCase):
         # once in the last paragraph. Only the model can tell them apart.
         g = gz(person("Иван Петров", f("Иван Петров", True, "ip-1")))
         self.assertEqual(resolve("Иван Петров", g)[0]["role"], "mention")
+
+
+class CuratedEntityLinks(unittest.TestCase):
+    def setUp(self):
+        self.g = gz()
+        self.overrides = {"links": [
+            {"surface": "Димитър Стоянов", "kind": "person",
+             "id": "mp-5118", "canonical": "Димитър Желязков Стоянов",
+             "requires_any": ["МО"], "evidence": "verified fixture"},
+            {"surface": "ДПС", "kind": "party", "id": "p_16",
+             "canonical": "ДПС", "evidence": "verified fixture"},
+        ]}
+
+    def test_a_contextual_person_override_needs_its_context(self):
+        bare = {"people": ["Димитър Стоянов"], "institutions": []}
+        self.assertNotIn("Димитър Стоянов",
+                         entity_links(bare, self.g, self.overrides))
+        contextual = {"people": ["Димитър Стоянов"],
+                      "institutions": ["МО"]}
+        link = entity_links(contextual, self.g, self.overrides)["Димитър Стоянов"]
+        self.assertEqual(link["id"], "mp-5118")
+        self.assertEqual(link["form_kind"], "curated_entity")
+
+    def test_an_override_cannot_cross_entity_kinds(self):
+        wrong = {"people": ["ДПС"]}
+        self.assertNotIn("ДПС", entity_links(wrong, self.g, self.overrides))
+        right = {"parties": ["ДПС"]}
+        link = entity_links(right, self.g, self.overrides)["ДПС"]
+        self.assertEqual(link["id"], "p_16")
+        self.assertEqual(link["href"],
+                         "https://electionsbg.com/party/%D0%94%D0%9F%D0%A1")
+
+    def test_a_gazetteer_party_uses_its_nickname_not_canonical_id_in_the_url(self):
+        g = gz({"kind": "party", "canonical": "ПрБ",
+                "forms": [f("Прогресивна България", True, "p_20")]})
+        got = entity_links(
+            {"parties": ["Прогресивна България"]}, g, {"links": []})
+        link = got["Прогресивна България"]
+        self.assertEqual(link["id"], "p_20")
+        self.assertEqual(link["href"],
+                         "https://electionsbg.com/party/%D0%9F%D1%80%D0%91")
+
+    def test_the_committed_crosswalk_is_reviewable_and_non_contradictory(self):
+        path = (Path(__file__).resolve().parents[1] / "data"
+                / "entity_link_overrides.json")
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        links = doc["links"]
+        keys = [(o["kind"], fold(o["surface"])) for o in links]
+        self.assertEqual(len(keys), len(set(keys)))
+        for o in links:
+            self.assertIn(o["kind"],
+                          ("person", "party", "institution", "place"))
+            self.assertTrue(o["id"], o["surface"])
+            self.assertTrue(o["canonical"], o["surface"])
+            self.assertGreater(len(o.get("evidence") or ""), 60,
+                               o["surface"])
+        linked = {fold(o["surface"]) for o in links}
+        for refusal in doc["refused"]:
+            self.assertNotIn(fold(refusal["surface"]), linked)
+            self.assertGreater(len(refusal.get("why") or ""), 60,
+                               refusal["surface"])
 
 
 class Dedupe(unittest.TestCase):

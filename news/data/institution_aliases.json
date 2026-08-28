@@ -103,9 +103,9 @@
    "why": "international bodies with no Bulgarian EIK and no page on this site"
   },
   {
-   "alias": "БТА · БНТ · Нова телевизия · „24 часа“",
+   "alias": "БНТ · Нова телевизия · „24 часа“",
    "eik": null,
-   "why": "media outlets. They belong to the OUTLET layer of the news app, not to the procurement register — linking them to an awarder page would answer a question nobody asked."
+   "why": "media outlets without a reviewed main-site entity mapping. БТА is deliberately absent from this refusal: as a model-classified institution it has a verified awarder link in entity_link_overrides.json."
   }
  ]
 }

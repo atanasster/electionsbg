@@ -439,10 +439,12 @@ export const isLinkableMention = (m: Mention): boolean =>
 /**
  * A resolved entity, and where it lives on the MAIN site.
  *
- * ⚠️ Present only for a name the gazetteer matched OUTRIGHT
- * (`gazetteer_exact`) against a route electionsbg.com actually serves. A
- * name that did not resolve is ABSENT from the map rather than present with
- * a null href — a renderer would happily turn a null into a dead link.
+ * ⚠️ Present only for a name the gazetteer matched outright OR a
+ * hand-verified, model-classified entity override, against a route
+ * electionsbg.com actually serves. Overrides never enter the free-text
+ * resolver. A name that did not resolve is ABSENT from the map rather than
+ * present with a null href — a renderer would happily turn a null into a
+ * dead link.
  *
  * ⚠️ `canonical` must be SHOWN. All eight people this resolves today matched
  * on a two-part form, which is how newsrooms write them and is unique among
