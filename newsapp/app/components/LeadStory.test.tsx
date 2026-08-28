@@ -58,7 +58,9 @@ describe("LeadStory accessibility", () => {
       name: /Кредит за изображението/,
     });
     const licence = screen.getByRole("link", { name: /Условия на лиценза/ });
-    const cta = screen.getByRole("link", { name: "Сравни отразяването" });
+    const cta = screen.getByRole("link", {
+      name: "Сравни отразяването: Водеща история",
+    });
     expect(credit).toHaveAttribute(
       "href",
       "https://commons.wikimedia.org/photo",

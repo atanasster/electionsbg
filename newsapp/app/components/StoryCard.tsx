@@ -1,7 +1,9 @@
 // Story card in the home feed — the ground.news vocabulary: canonical title,
 // summary, coverage count, lean spectrum, topic chips, relative time. The
-// whole card links to /story/:id.
+// content column links to /story/:id; image credit/licence remain independent
+// links, so the surface must never become one invalid nested anchor.
 
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +32,9 @@ export const StoryCard = ({
   outlet?: Outlet;
   kind?: HomeStoryKind;
 }) => {
+  const title = story.title_bg ?? story.title_en ?? "(без заглавие)";
+  const action =
+    kind === "comparison" ? "Сравни отразяването" : "Прочети анализа";
   const primary = story.topics.find((t) => t.primary) ?? story.topics[0];
   const leaningCount = Object.entries(story.aggregates.by_leaning).reduce(
     (sum, [label, count]) =>
@@ -48,78 +53,90 @@ export const StoryCard = ({
         : "russia"
       : null;
   return (
-    <Card className="flex h-full flex-col overflow-hidden transition-shadow hover:shadow-md">
-      {imageArticle ? (
-        <ArticleImage
-          image={canDisplayHomeImage(imageArticle) ? imageArticle.image : null}
-          imageAlt={imageArticle.image_alt}
-          rights={imageArticle.image_rights}
-          articleUrl={imageArticle.url}
-          outlet={
-            outlet ?? {
-              domain: imageArticle.domain,
-              outlet: imageArticle.domain,
-              logo: null,
-              hotlink_ok: null,
+    <article className="h-full">
+      <Card className="news-story-card flex h-full flex-col overflow-hidden">
+        {imageArticle ? (
+          <ArticleImage
+            image={
+              canDisplayHomeImage(imageArticle) ? imageArticle.image : null
             }
-          }
-          className="rounded-none"
-        />
-      ) : null}
-      <Link
-        to={`/story/${story.id}`}
-        className="group flex flex-1 flex-col p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
-      >
-        {kind ? (
-          <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-primary">
-            {kind === "comparison"
-              ? "Сравнение на отразяването"
-              : "Анализирана статия"}
-          </p>
+            imageAlt={imageArticle.image_alt}
+            rights={imageArticle.image_rights}
+            articleUrl={imageArticle.url}
+            outlet={
+              outlet ?? {
+                domain: imageArticle.domain,
+                outlet: imageArticle.domain,
+                logo: null,
+                hotlink_ok: null,
+              }
+            }
+            className="rounded-none"
+          />
         ) : null}
-        <div className="flex items-baseline justify-between gap-2 text-xs text-muted-foreground">
-          <span>
-            {story.aggregates.outlet_count}{" "}
-            {story.aggregates.outlet_count === 1 ? "медия" : "медии"}
-            {" · "}
-            {story.aggregates.article_count}{" "}
-            {story.aggregates.article_count === 1 ? "статия" : "статии"}
-          </span>
-          <time dateTime={story.last_published ?? undefined}>
-            {relativeTime(story.last_published)}
-          </time>
-        </div>
-        <h3 className="mt-1.5 font-title text-lg leading-snug group-hover:text-primary">
-          {story.title_bg ?? story.title_en ?? "(без заглавие)"}
-        </h3>
-        {story.summary_bg ? (
-          <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
-            {story.summary_bg}
-          </p>
-        ) : null}
-        {signal ? (
-          <div className="mt-3 space-y-1.5">
-            <p className="text-xs font-medium text-muted-foreground">
-              {signal === "leaning"
-                ? "Политическо рамкиране"
-                : "Позиция спрямо Русия"}
+        <Link
+          to={`/story/${story.id}`}
+          aria-label={`${action}: ${title}`}
+          className="news-story-link group flex flex-1 flex-col p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+        >
+          {kind ? (
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-primary">
+              {kind === "comparison"
+                ? "Сравнение на отразяването"
+                : "Анализирана статия"}
             </p>
-            {signal === "leaning" ? (
-              <LeanSpectrum counts={story.aggregates.by_leaning} />
-            ) : (
-              <StanceSpectrum counts={story.aggregates.by_russia_stance} />
-            )}
+          ) : null}
+          <div className="flex items-baseline justify-between gap-2 text-xs text-muted-foreground">
+            <span>
+              {story.aggregates.outlet_count}{" "}
+              {story.aggregates.outlet_count === 1 ? "медия" : "медии"}
+              {" · "}
+              {story.aggregates.article_count}{" "}
+              {story.aggregates.article_count === 1 ? "статия" : "статии"}
+            </span>
+            <time dateTime={story.last_published ?? undefined}>
+              {relativeTime(story.last_published)}
+            </time>
           </div>
-        ) : null}
-        {primary ? (
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            <Badge variant="secondary" className="font-normal">
-              {topicLabel(taxonomy, primary.category, primary.subcategory) ??
-                primary.category}
-            </Badge>
-          </div>
-        ) : null}
-      </Link>
-    </Card>
+          <h3 className="mt-1.5 font-title text-lg leading-snug group-hover:text-primary">
+            {title}
+          </h3>
+          {story.summary_bg ? (
+            <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
+              {story.summary_bg}
+            </p>
+          ) : null}
+          {signal ? (
+            <div className="mt-3 space-y-1.5">
+              <p className="text-xs font-medium text-muted-foreground">
+                {signal === "leaning"
+                  ? "Политическо рамкиране"
+                  : "Позиция спрямо Русия"}
+              </p>
+              {signal === "leaning" ? (
+                <LeanSpectrum counts={story.aggregates.by_leaning} />
+              ) : (
+                <StanceSpectrum counts={story.aggregates.by_russia_stance} />
+              )}
+            </div>
+          ) : null}
+          {primary ? (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              <Badge variant="secondary" className="font-normal">
+                {topicLabel(taxonomy, primary.category, primary.subcategory) ??
+                  primary.category}
+              </Badge>
+            </div>
+          ) : null}
+          <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-[hsl(var(--editorial-kicker))] underline-offset-4 group-hover:underline">
+            {action}
+            <ArrowRight
+              className="size-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden
+            />
+          </span>
+        </Link>
+      </Card>
+    </article>
   );
 };
