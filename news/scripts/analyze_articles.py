@@ -380,6 +380,7 @@ def day_prefix(value):
 
 
 _RANK_CACHE = None
+_OUTLET_NAMES_CACHE = None
 
 
 def outlet_ranks():
@@ -416,6 +417,57 @@ def outlet_ranks():
         pass
     _RANK_CACHE = ranks   # cached even when empty, so a missing registry is
     return _RANK_CACHE    # not re-read once per call
+
+
+def outlet_names():
+    """Folded publisher names from the source registry.
+
+    This is deliberately derived from the same registry the pipeline uses to
+    identify publishers. A hand-maintained deny-list would turn today's
+    OFFNews correction into another one-off and miss the next cited outlet.
+    """
+    global _OUTLET_NAMES_CACHE
+    if _OUTLET_NAMES_CACHE is not None:
+        return _OUTLET_NAMES_CACHE
+    names = set()
+    path = os.path.join(DATA_DIR, "bg_news_sites.csv")
+    try:
+        with open(path, newline="", encoding="utf-8") as fh:
+            for row in csv.DictReader(fh):
+                name = " ".join((row.get("outlet") or "").split())
+                if name:
+                    names.add(name.casefold())
+    except (OSError, csv.Error):
+        pass
+    _OUTLET_NAMES_CACHE = frozenset(names)
+    return _OUTLET_NAMES_CACHE
+
+
+# A publisher following one of these phrases is evidence attribution, not a
+# corporate subject. The check below requires EVERY occurrence to have this
+# shape, so a story about a media sale that also cites the outlet once remains
+# valid.
+SOURCE_ATTRIBUTION_TAIL = re.compile(
+    r"(?:съобщава|съобщи|според|пише|предаде|цитира|по информация на)\s*$",
+    re.IGNORECASE,
+)
+
+
+def company_outlets_used_only_as_sources(entities: dict, rec: dict) -> list[str]:
+    """Known outlets wrongly placed in companies when only cited as sources."""
+    text = "\n".join(str(rec.get(k) or "")
+                     for k in ("title", "description", "content"))
+    bad = []
+    known = outlet_names()
+    for raw in (entities or {}).get("companies") or []:
+        name = " ".join(str(raw).split())
+        if not name or name.casefold() not in known:
+            continue
+        hits = list(re.finditer(re.escape(name), text, re.IGNORECASE))
+        if hits and all(SOURCE_ATTRIBUTION_TAIL.search(
+                text[max(0, hit.start() - 80):hit.start()]) for hit in hits):
+            bad.append(name)
+    return bad
 
 
 def corpus_domains():
@@ -1164,6 +1216,12 @@ def validate_analysis(a: dict, tax, cats: dict, index: dict) -> list:
         for k in ent:
             if k not in ENTITY_BUCKETS:
                 errs.append(f"entities.{k}: unknown bucket (use {ENTITY_BUCKETS})")
+        if isinstance(ent.get("companies"), list):
+            for outlet in company_outlets_used_only_as_sources(ent, rec):
+                errs.append(
+                    f"entities.companies: {outlet!r} is a registered news "
+                    "outlet used only in source-attribution phrases; a cited "
+                    "publisher is a source, not a company central to the story")
 
     # ⚠️ OPTIONAL, and absent is not empty. Every one of the 365 analyses on
     # disk predates this block; treating a missing `mentions` as "this article

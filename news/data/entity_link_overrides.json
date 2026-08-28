@@ -57,6 +57,44 @@
    "id": "000695018",
    "canonical": "Народно събрание",
    "evidence": "Verified in the local awarder_search registry on 2026-08-28: EIK 000695018 carries the short and expanded /НС/ spellings of the same body, with 608 contracts, and has a served /awarder page."
+  },
+  {
+   "surface": "КЗК",
+   "kind": "institution",
+   "id": "kzk",
+   "canonical": "Комисия за защита на конкуренцията",
+   "path": "/procurement/appeals",
+   "evidence": "The main site serves a dedicated reviewed КЗК surface at /procurement/appeals. The apparent awarder EIK 000698612 is deliberately not used because it also carries unrelated school and power-company names."
+  },
+  {
+   "surface": "О-Рент",
+   "kind": "company",
+   "id": "206268628",
+   "canonical": "О-РЕНТ",
+   "evidence": "Verified from the full Commerce Registry browser shown for this story: exact company О-РЕНТ, EIK 206268628, with a served /company/206268628 page and five public contracts."
+  },
+  {
+   "surface": "Инжконсулт",
+   "kind": "company",
+   "id": "130083729",
+   "canonical": "ИНЖКОНСУЛТ",
+   "evidence": "Verified from the full Commerce Registry browser shown for this story: exact company ИНЖКОНСУЛТ, EIK 130083729, with a served /company/130083729 page and 153 public contracts."
+  },
+  {
+   "surface": "Земекоп",
+   "kind": "company",
+   "id": "201256929",
+   "canonical": "ЗЕМЕКОП",
+   "evidence": "Verified from the full Commerce Registry browser shown for this story: exact company ЗЕМЕКОП, EIK 201256929, with a served /company/201256929 page and four public contracts."
+  },
+  {
+   "surface": "Безмер",
+   "kind": "place",
+   "id": "03229",
+   "canonical": "Безмер, община Тунджа, област Ямбол",
+   "path": "/settlement/03229",
+   "requires_text_any": ["авиобаза Безмер", "авиобаза „Безмер“", "летище Безмер"],
+   "evidence": "The bare name is ambiguous between two Bulgarian settlements and remains refused. In aviation context, авиобаза Безмер identifies settlement EKATTE 03229 in Tundzha municipality, Yambol oblast; the served destination is /settlement/03229."
   }
  ],
  "refused": [

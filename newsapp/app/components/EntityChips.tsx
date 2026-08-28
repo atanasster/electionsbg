@@ -28,7 +28,8 @@ const ENTITY_CHIP_LIMIT = 8;
 const KIND_LABEL: Record<EntityLink["kind"], string> = {
   person: "профил",
   party: "партия",
-  institution: "възложител",
+  institution: "институция",
+  company: "фирма",
   place: "населено място",
 };
 

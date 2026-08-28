@@ -450,12 +450,12 @@ if __name__ == "__main__":
 # to the free-text scan above.
 #
 # ⚠️ MEASURED, so the ceiling is known rather than assumed. Over the 365
-# analyses: 8 of 138 distinct people resolve, 54 of 138 places, 3 of 7
-# parties, 9 of 121 institutions and 0 of 30 companies. The people are the
-# ones that matter — MPs and ministers — and the institutions are low for a
-# reason no threshold can fix: a Bulgarian article writes „МВР", while the
-# registry holds „Министерство на вътрешните работи". An abbreviation
-# crosswalk is separate work.
+# analyses at the original rollout: 8 of 138 distinct people, 54 of 138
+# places, 3 of 7 parties, 9 of 121 institutions and 0 of 30 companies. The
+# curated crosswalk now covers verified abbreviations and company names, but
+# the safe default remains plain text: no threshold can infer that „МВР" is
+# the registry's „Министерство на вътрешните работи", or choose one company
+# from several sharing a short trading name.
 
 # Where each kind lives on the MAIN site. ⚠️ Absolute URLs: the news app is a
 # different origin, so a relative href would 404 against news.electionsbg.com.
@@ -472,6 +472,7 @@ EKATTE_RE = re.compile(r"^[0-9]{5}$")
 ENTITY_ROUTES = {
     "person": "/person/{id}",
     "institution": "/awarder/{id}",
+    "company": "/company/{id}",
     "place:settlement": "/settlement/{id}",
 }
 
@@ -619,12 +620,13 @@ def load_entity_link_overrides() -> dict:
 
 
 def entity_override_link(name: str, bucket: str, entities: dict,
-                         overrides: dict) -> dict | None:
+                         overrides: dict, context_text: str = "") -> dict | None:
     """Resolve one curated entity-list override, including its context gate."""
     expected_kind = {
         "people": "person",
         "parties": "party",
         "institutions": "institution",
+        "companies": "company",
         "places": "place",
     }.get(bucket)
     if not expected_kind:
@@ -638,9 +640,21 @@ def entity_override_link(name: str, bucket: str, entities: dict,
         required = {fold(v) for v in o.get("requires_any") or []}
         if required and not (required & present):
             continue
+        required_text = {fold(v) for v in o.get("requires_text_any") or []}
+        context_fold = fold(context_text or "")
+        if required_text and not any(v in context_fold for v in required_text):
+            continue
         ident = str(o.get("id") or "").strip()
         canonical = str(o.get("canonical") or "").strip()
-        href = entity_href(o["kind"], ident, canonical)
+        # A curated entity may name a dedicated served surface instead of
+        # the kind's default profile route. КЗК is the motivating case: the
+        # procurement EIK is an umbrella polluted by unrelated awarder names,
+        # while /procurement/appeals is the site's reviewed КЗК surface.
+        # Paths stay main-site relative so this file cannot turn an entity
+        # chip into an arbitrary external link.
+        path = str(o.get("path") or "").strip()
+        href = (MAIN_SITE + path if path.startswith("/") and not path.startswith("//")
+                else entity_href(o["kind"], ident, canonical))
         if not ident or not canonical or not href:
             continue
         return {
@@ -654,7 +668,8 @@ def entity_override_link(name: str, bucket: str, entities: dict,
 
 
 def entity_links(entities: dict, gaz: "Gazetteer",
-                 overrides: dict | None = None) -> dict:
+                 overrides: dict | None = None,
+                 context_text: str = "") -> dict:
     """name → link, for every entity string that earned one.
 
     ⚠️ Keyed on the NAME AS THE MODEL WROTE IT, so a renderer can look up the
@@ -673,7 +688,7 @@ def entity_links(entities: dict, gaz: "Gazetteer",
             # unavailable to resolve(), so they cannot turn an ambiguous
             # two-part name in arbitrary prose into a person claim.
             link = entity_override_link(
-                name, bucket, entities, override_doc) or entity_link(name, gaz)
+                name, bucket, entities, override_doc, context_text) or entity_link(name, gaz)
             if link:
                 out[name] = link
     return out

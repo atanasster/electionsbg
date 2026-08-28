@@ -800,13 +800,13 @@ def gazetteer():
     return _GAZ[0]
 
 
-def links_for(entities: dict) -> dict:
+def links_for(entities: dict, context_text: str = "") -> dict:
     """name → main-site link, for the entity strings that earned one."""
     gaz = gazetteer()
     if gaz is None or not entities:
         return {}
     import resolve_mentions as rm
-    return rm.entity_links(entities, gaz)
+    return rm.entity_links(entities, gaz, context_text=context_text)
 
 
 # ── Names the article never wrote ─────────────────────────────────────────
@@ -930,7 +930,9 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         # aggregate (see the MENTION_KINDS note in analyze_articles.py). A
         # name that did not resolve is simply absent, so a renderer cannot
         # turn a null into a dead link.
-        **({"entity_links": links} if (links := links_for(ents))
+        **({"entity_links": links} if (links := links_for(
+            ents, "\n".join(str(article.get(k) or "")
+                             for k in ("title", "description", "content"))))
            else {}),
         # ⚠️ The resolved, linkable SIBLING of `entities` — not a replacement.
         # `entities` stays a dict of plain strings because story clustering
@@ -1475,7 +1477,15 @@ def main() -> int:
                         {**EMPTY_STORY_ENTITIES,
                          **(st.get("entities") or {})}, st_bad)),
                     **({"entity_links": slinks}
-                       if (slinks := links_for(ents)) else {}),
+                       if (slinks := links_for(
+                           ents,
+                           "\n".join([
+                               str(st.get("canonical_title_bg") or ""),
+                               str(st.get("summary_bg") or ""),
+                               *("\n".join(str(article.get(k) or "")
+                                            for k in ("title", "description", "content"))
+                                 for article in st_texts),
+                           ]))) else {}),
                     "aggregates": {**EMPTY_STORY_AGGREGATES,
                                    **(st.get("aggregates") or {})},
                     "blindspot": blindspot_of(members),

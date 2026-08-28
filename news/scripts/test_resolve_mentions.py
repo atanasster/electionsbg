@@ -332,6 +332,16 @@ class CuratedEntityLinks(unittest.TestCase):
              "requires_any": ["МО"], "evidence": "verified fixture"},
             {"surface": "ДПС", "kind": "party", "id": "p_16",
              "canonical": "ДПС", "evidence": "verified fixture"},
+            {"surface": "О-Рент", "kind": "company", "id": "206268628",
+             "canonical": "О-РЕНТ", "evidence": "verified fixture"},
+            {"surface": "КЗК", "kind": "institution", "id": "kzk",
+             "canonical": "Комисия за защита на конкуренцията",
+             "path": "/procurement/appeals", "evidence": "verified fixture"},
+            {"surface": "Безмер", "kind": "place", "id": "03229",
+             "canonical": "Безмер, община Тунджа, област Ямбол",
+             "path": "/settlement/03229",
+             "requires_text_any": ["авиобаза Безмер"],
+             "evidence": "verified fixture"},
         ]}
 
     def test_a_contextual_person_override_needs_its_context(self):
@@ -363,6 +373,29 @@ class CuratedEntityLinks(unittest.TestCase):
         self.assertEqual(link["href"],
                          "https://electionsbg.com/party/%D0%9F%D1%80%D0%91")
 
+    def test_a_curated_company_uses_the_served_company_route(self):
+        got = entity_links(
+            {"companies": ["О-Рент"]}, self.g, self.overrides)
+        self.assertEqual(got["О-Рент"]["kind"], "company")
+        self.assertEqual(got["О-Рент"]["href"],
+                         "https://electionsbg.com/company/206268628")
+
+    def test_a_curated_entity_may_use_a_reviewed_main_site_path(self):
+        got = entity_links(
+            {"institutions": ["КЗК"]}, self.g, self.overrides)
+        self.assertEqual(got["КЗК"]["href"],
+                         "https://electionsbg.com/procurement/appeals")
+
+    def test_an_ambiguous_place_override_needs_its_textual_context(self):
+        entities = {"places": ["Безмер"]}
+        self.assertNotIn(
+            "Безмер", entity_links(entities, self.g, self.overrides))
+        got = entity_links(
+            entities, self.g, self.overrides,
+            context_text="Самолетите напуснаха авиобаза Безмер.")
+        self.assertEqual(got["Безмер"]["href"],
+                         "https://electionsbg.com/settlement/03229")
+
     def test_the_committed_crosswalk_is_reviewable_and_non_contradictory(self):
         path = (Path(__file__).resolve().parents[1] / "data"
                 / "entity_link_overrides.json")
@@ -372,7 +405,7 @@ class CuratedEntityLinks(unittest.TestCase):
         self.assertEqual(len(keys), len(set(keys)))
         for o in links:
             self.assertIn(o["kind"],
-                          ("person", "party", "institution", "place"))
+                          ("person", "party", "institution", "company", "place"))
             self.assertTrue(o["id"], o["surface"])
             self.assertTrue(o["canonical"], o["surface"])
             self.assertGreater(len(o.get("evidence") or ""), 60,
@@ -382,6 +415,22 @@ class CuratedEntityLinks(unittest.TestCase):
             self.assertNotIn(fold(refusal["surface"]), linked)
             self.assertGreater(len(refusal.get("why") or ""), 60,
                                refusal["surface"])
+
+    def test_the_construction_cartel_story_links_only_verified_entities(self):
+        entities = {
+            "institutions": ["КЗК", "Европейска комисия"],
+            "companies": ["О-Рент", "Инжконсулт", "Земекоп"],
+        }
+        got = entity_links(entities, self.g)
+        self.assertEqual(
+            {name: link["href"] for name, link in got.items()},
+            {
+                "КЗК": "https://electionsbg.com/procurement/appeals",
+                "О-Рент": "https://electionsbg.com/company/206268628",
+                "Инжконсулт": "https://electionsbg.com/company/130083729",
+                "Земекоп": "https://electionsbg.com/company/201256929",
+            },
+        )
 
 
 class Dedupe(unittest.TestCase):

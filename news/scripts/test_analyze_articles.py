@@ -92,6 +92,9 @@ class FixtureTestCase(unittest.TestCase):
         os.makedirs(os.path.join(self.root, "news", "scripts"))
         with open(os.path.join(self.root, "news", "topics.json"), "w", encoding="utf-8") as fh:
             json.dump(TAXONOMY, fh, ensure_ascii=False)
+        with open(os.path.join(self.root, "news", "data", "bg_news_sites.csv"),
+                  "w", encoding="utf-8") as fh:
+            fh.write("rank,domain,outlet\n1,offnews.bg,OFFNews\n")
         self.articles = {
             "a1": ("test.bg", "20260821-alpha.json",
                    corpus_article("test.bg", "a1", "https://test.bg/alpha", "Алфа събитие", "2026-08-21T10:00:00+00:00")),
@@ -1323,6 +1326,30 @@ class Mentions(FixtureTestCase):
             expect=3)
         self.assertTrue(any("entities.people" in e for r in out["failed"]
                             for e in r["errors"]), out)
+
+    def test_a_registered_outlet_cited_only_as_a_source_is_not_a_company(self):
+        domain, fname, rec = self.articles["a1"]
+        rec["content"] = (
+            "Комисията установи нарушение, съобщава OFFNews. " * 12)
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+        a = analysis(self.analysis_path("a1"), rec["url"], domain)
+        a["entities"]["companies"] = ["OFFNews"]
+        out = self.save(a, expect=3)
+        msgs = [e for row in out["failed"] for e in row["errors"]]
+        self.assertTrue(any("source, not a company" in e for e in msgs), msgs)
+
+    def test_a_registered_outlet_may_be_a_company_when_it_is_the_subject(self):
+        domain, fname, rec = self.articles["a1"]
+        rec["content"] = (
+            "OFFNews смени собственика си след приключване на сделката. " * 12)
+        with open(os.path.join(self.root, "news", "data", domain, fname),
+                  "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, ensure_ascii=False)
+        a = analysis(self.analysis_path("a1"), rec["url"], domain)
+        a["entities"]["companies"] = ["OFFNews"]
+        self.save(a)
 
     def test_mentions_is_not_accepted_as_a_sixth_entity_bucket(self):
         out = self.save(

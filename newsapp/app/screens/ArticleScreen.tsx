@@ -479,14 +479,16 @@ export const ArticleScreen = () => {
  * ⚠️ MOST OF THEM ARE NOT LINKS, AND THE CAPTION SAYS SO. The identity layer
  * keys on three-part Bulgarian names while newsrooms write two, so a name is
  * linked only when it matches exactly ONE public figure. Measured over the
- * 365 analyses: 8 of 138 distinct people resolve, 54 of 138 places, 3 of 7
- * parties, 9 of 121 institutions and 0 of 30 companies.
+ * original 365-analysis rollout: 8 of 138 distinct people, 54 of 138 places,
+ * 3 of 7 parties, 9 of 121 institutions and 0 of 30 companies. Curated,
+ * hand-verified institution and company links have since been added without
+ * weakening the default identity rule.
  *
  * ⚠️ The institution figure is low for a reason no threshold can fix, and it
  * is worth knowing before someone tries to loosen the match: a Bulgarian
  * article writes „МВР", while the registry holds „Министерство на
  * вътрешните работи". None of the abbreviations exists as a surface at all.
- * That needs a crosswalk.
+ * Those names need a reviewed crosswalk; unresolved ones remain plain text.
  *
  * The caption is NARROWED rather than removed: an unexplained plain chip
  * beside a linked one invites the reader to assume the plain one is

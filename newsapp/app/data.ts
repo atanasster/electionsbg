@@ -452,7 +452,7 @@ export const isLinkableMention = (m: Mention): boolean =>
  * right person, and they can only perform it if they can see who we picked.
  */
 export interface EntityLink {
-  kind: "person" | "party" | "institution" | "place";
+  kind: "person" | "party" | "institution" | "company" | "place";
   id: string;
   /** The registry's own spelling — „Иван Маркос Христанов" for „Иван Христанов". */
   canonical: string;
