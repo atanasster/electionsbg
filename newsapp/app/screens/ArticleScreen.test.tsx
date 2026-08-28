@@ -11,9 +11,9 @@
 //   - an unanalysed article renders NO badges, because at 8.4% analysed
 //     "not yet judged" must never read as "judged neutral".
 
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ArticleRecord, Outlet, Story } from "../data";
 
 const analysed = (): NonNullable<ArticleRecord["analysis"]> => ({
@@ -137,6 +137,8 @@ const renderAt = async (
   );
 };
 
+afterEach(() => Reflect.deleteProperty(window, "naiasnoNewsAnalytics"));
+
 describe("the evidence", () => {
   beforeEach(() => vi.resetModules());
 
@@ -192,6 +194,8 @@ describe("the outbound link", () => {
   beforeEach(() => vi.resetModules());
 
   it("points at the outlet and opens externally", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
     await renderAt([
       article({ analysis: analysed() } as Partial<ArticleRecord>),
     ]);
@@ -200,6 +204,13 @@ describe("the outbound link", () => {
     ).closest("a");
     expect(link).toHaveAttribute("href", "https://ex.bg/a/1");
     expect(link).toHaveAttribute("target", "_blank");
+    fireEvent.click(link!);
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "source_open",
+        surface: "article",
+      }),
+    );
   });
 
   it("says the full text stays at the source", async () => {

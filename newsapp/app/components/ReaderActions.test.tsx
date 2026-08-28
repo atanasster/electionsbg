@@ -16,6 +16,7 @@ describe("ReaderActions", () => {
   });
 
   afterEach(() => {
+    Reflect.deleteProperty(window, "naiasnoNewsAnalytics");
     if (shareDescriptor)
       Object.defineProperty(navigator, "share", shareDescriptor);
     else Reflect.deleteProperty(navigator, "share");
@@ -24,7 +25,9 @@ describe("ReaderActions", () => {
     else Reflect.deleteProperty(navigator, "clipboard");
   });
 
-  it("saves and removes a page locally with a pressed-state contract", () => {
+  it("saves and removes a page locally with a pressed-state contract", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
     render(<ReaderActions path="/story/a" title="История" />);
     const save = screen.getByRole("button", { name: "Запази" });
     fireEvent.click(save);
@@ -35,13 +38,29 @@ describe("ReaderActions", () => {
     expect(JSON.parse(localStorage.getItem(SAVED_NEWS_KEY) ?? "[]")).toEqual([
       "/story/a",
     ]);
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_save",
+        content: "story",
+        saved: true,
+      }),
+    );
     fireEvent.click(screen.getByRole("button", { name: "Запазено" }));
     expect(JSON.parse(localStorage.getItem(SAVED_NEWS_KEY) ?? "[]")).toEqual(
       [],
     );
+    await waitFor(() =>
+      expect(sink).toHaveBeenLastCalledWith({
+        name: "reader_save",
+        content: "story",
+        saved: false,
+      }),
+    );
   });
 
   it("uses the native share sheet when available", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
     const share = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "share", {
       configurable: true,
@@ -55,9 +74,19 @@ describe("ReaderActions", () => {
         url: "https://news.electionsbg.com/story/a",
       }),
     );
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_share",
+        content: "story",
+        method: "native",
+        outcome: "opened",
+      }),
+    );
   });
 
   it("falls back to copying the canonical page URL", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
     Object.defineProperty(navigator, "share", {
       configurable: true,
       value: undefined,
@@ -77,6 +106,14 @@ describe("ReaderActions", () => {
     expect(screen.getByRole("status")).toHaveTextContent(
       "Връзката е копирана.",
     );
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_share",
+        content: "article",
+        method: "clipboard",
+        outcome: "copied",
+      }),
+    );
   });
 
   it("resynchronizes saved state when a route component is reused", () => {
@@ -95,6 +132,8 @@ describe("ReaderActions", () => {
   });
 
   it("keeps cancellation quiet and reports missing share APIs", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
     Object.defineProperty(navigator, "share", {
       configurable: true,
       value: vi
@@ -105,6 +144,14 @@ describe("ReaderActions", () => {
     fireEvent.click(screen.getByRole("button", { name: "Сподели" }));
     await waitFor(() => expect(navigator.share).toHaveBeenCalled());
     expect(screen.getByRole("status")).toBeEmptyDOMElement();
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_share",
+        content: "story",
+        method: "native",
+        outcome: "cancelled",
+      }),
+    );
 
     Object.defineProperty(navigator, "share", {
       configurable: true,
@@ -119,9 +166,19 @@ describe("ReaderActions", () => {
     expect(screen.getByRole("status")).toHaveTextContent(
       "Копирайте адреса от адресната лента.",
     );
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_share",
+        content: "story",
+        method: "unavailable",
+        outcome: "failed",
+      }),
+    );
   });
 
   it("announces native-share and clipboard failures", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
     Object.defineProperty(navigator, "share", {
       configurable: true,
       value: vi.fn().mockRejectedValue(new Error("failed")),
@@ -132,6 +189,14 @@ describe("ReaderActions", () => {
       expect(screen.getByRole("status")).toHaveTextContent(
         "Споделянето не успя.",
       ),
+    );
+    await waitFor(() =>
+      expect(sink).toHaveBeenLastCalledWith({
+        name: "reader_share",
+        content: "story",
+        method: "native",
+        outcome: "failed",
+      }),
     );
 
     Object.defineProperty(navigator, "share", {
@@ -148,6 +213,45 @@ describe("ReaderActions", () => {
       expect(screen.getByRole("status")).toHaveTextContent(
         "Споделянето не успя.",
       ),
+    );
+    await waitFor(() => expect(sink).toHaveBeenCalledTimes(2));
+    expect(sink).toHaveBeenLastCalledWith({
+      name: "reader_share",
+      content: "story",
+      method: "clipboard",
+      outcome: "failed",
+    });
+  });
+
+  it("treats clipboard AbortError as a clipboard failure", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    Object.defineProperty(navigator, "share", {
+      configurable: true,
+      value: undefined,
+    });
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: vi
+          .fn()
+          .mockRejectedValue(new DOMException("blocked", "AbortError")),
+      },
+    });
+    render(<ReaderActions path="/article/example/a" title="A" />);
+    fireEvent.click(screen.getByRole("button", { name: "Сподели" }));
+    await waitFor(() =>
+      expect(screen.getByRole("status")).toHaveTextContent(
+        "Споделянето не успя.",
+      ),
+    );
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_share",
+        content: "article",
+        method: "clipboard",
+        outcome: "failed",
+      }),
     );
   });
 });

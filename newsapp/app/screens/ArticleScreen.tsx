@@ -52,6 +52,7 @@ import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ReaderActions } from "../components/ReaderActions";
+import { emitNewsEvent } from "../analytics";
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -310,6 +311,9 @@ export const ArticleScreen = () => {
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                emitNewsEvent({ name: "source_open", surface: "article" })
+              }
               className="flex items-center gap-3 rounded-md border border-primary p-3 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <ExternalLink className="size-4 shrink-0 text-primary" />

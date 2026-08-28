@@ -3,6 +3,7 @@ import { Bookmark, Check, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { readSavedNewsFromBrowser, writeSavedNewsToBrowser } from "./savedNews";
 import { newsUrlFor } from "../site";
+import { emitNewsEvent } from "../analytics";
 
 export const ReaderActions = ({
   path,
@@ -32,6 +33,11 @@ export const ReaderActions = ({
       return;
     }
     setSaved(nextSaved);
+    emitNewsEvent({
+      name: "reader_save",
+      content: path.startsWith("/story/") ? "story" : "article",
+      saved: nextSaved,
+    });
     setMessage(
       nextSaved ? "Запазено в този браузър." : "Премахнато от запазените.",
     );
@@ -39,19 +45,56 @@ export const ReaderActions = ({
 
   const share = async () => {
     const url = newsUrlFor(path);
+    const attemptedMethod =
+      typeof navigator.share === "function" ? "native" : "clipboard";
     try {
       if (navigator.share) {
         await navigator.share({ title, url });
+        emitNewsEvent({
+          name: "reader_share",
+          content: path.startsWith("/story/") ? "story" : "article",
+          method: "native",
+          outcome: "opened",
+        });
         setMessage("Споделянето е отворено.");
       } else if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(url);
+        emitNewsEvent({
+          name: "reader_share",
+          content: path.startsWith("/story/") ? "story" : "article",
+          method: "clipboard",
+          outcome: "copied",
+        });
         setMessage("Връзката е копирана.");
       } else {
+        emitNewsEvent({
+          name: "reader_share",
+          content: path.startsWith("/story/") ? "story" : "article",
+          method: "unavailable",
+          outcome: "failed",
+        });
         setMessage("Копирайте адреса от адресната лента.");
       }
     } catch (error) {
-      if ((error as DOMException)?.name !== "AbortError")
+      if (
+        attemptedMethod === "native" &&
+        (error as DOMException)?.name === "AbortError"
+      ) {
+        emitNewsEvent({
+          name: "reader_share",
+          content: path.startsWith("/story/") ? "story" : "article",
+          method: "native",
+          outcome: "cancelled",
+        });
+      } else {
+        emitNewsEvent({
+          name: "reader_share",
+          content: path.startsWith("/story/") ? "story" : "article",
+          method: attemptedMethod,
+          outcome: "failed",
+        });
         setMessage("Споделянето не успя.");
+      }
     }
   };
 

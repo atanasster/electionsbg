@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { TaxonomyCategory } from "../data";
 import { HOME_TIMEFRAMES } from "../homeFilters";
+import { emitNewsEvent } from "../analytics";
 
 export const HomeFilterControls = ({
   categories,
@@ -40,7 +41,14 @@ export const HomeFilterControls = ({
           variant={category === "all" ? "default" : "outline"}
           className="shrink-0 rounded-full"
           aria-pressed={category === "all"}
-          onClick={() => onCategoryChange("all")}
+          onClick={() => {
+            emitNewsEvent({
+              name: "home_filter",
+              filter: "category",
+              active: false,
+            });
+            onCategoryChange("all");
+          }}
         >
           Всички
         </Button>
@@ -52,7 +60,14 @@ export const HomeFilterControls = ({
             variant={category === item.id ? "default" : "outline"}
             className="shrink-0 rounded-full"
             aria-pressed={category === item.id}
-            onClick={() => onCategoryChange(item.id)}
+            onClick={() => {
+              emitNewsEvent({
+                name: "home_filter",
+                filter: "category",
+                active: true,
+              });
+              onCategoryChange(item.id);
+            }}
           >
             {item.label.bg} · {categoryCounts.get(item.id) ?? 0}
           </Button>
@@ -72,7 +87,14 @@ export const HomeFilterControls = ({
               variant={days === timeframe.days ? "secondary" : "ghost"}
               className="shrink-0"
               aria-pressed={days === timeframe.days}
-              onClick={() => onDaysChange(timeframe.days)}
+              onClick={() => {
+                emitNewsEvent({
+                  name: "home_filter",
+                  filter: "period",
+                  active: timeframe.days !== 30,
+                });
+                onDaysChange(timeframe.days);
+              }}
             >
               {timeframe.label}
             </Button>
@@ -89,7 +111,19 @@ export const HomeFilterControls = ({
           />
         </div>
         {filtersActive ? (
-          <Button type="button" variant="ghost" size="sm" onClick={onReset}>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              emitNewsEvent({
+                name: "home_filter",
+                filter: "reset",
+                active: false,
+              });
+              onReset();
+            }}
+          >
             Изчисти
           </Button>
         ) : null}

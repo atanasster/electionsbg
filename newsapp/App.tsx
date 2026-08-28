@@ -13,6 +13,7 @@ import { ArticleScreen } from "./app/screens/ArticleScreen";
 import { MethodologyScreen } from "./app/screens/MethodologyScreen";
 import { SavedScreen } from "./app/screens/SavedScreen";
 import { AboutScreen } from "./app/screens/AboutScreen";
+import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
 
 const NotFoundScreen = () => (
   <section className="py-12">
@@ -43,6 +44,7 @@ export const App = () => {
 
   return (
     <div className="news-shell flex min-h-dvh flex-col bg-background text-foreground">
+      <AnalyticsRouteTracker />
       <a href="#news-main" className="news-skip-link">
         Към основното съдържание
       </a>

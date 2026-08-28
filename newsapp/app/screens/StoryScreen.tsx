@@ -16,6 +16,7 @@ import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { RelatedStories } from "../components/RelatedStories";
 import { ReaderActions } from "../components/ReaderActions";
+import { emitNewsEvent } from "../analytics";
 import { resolveRelatedStories } from "./relatedStories";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
@@ -260,7 +261,14 @@ export const StoryScreen = () => {
               title="Политическо рамкиране на материалите"
               segments={lean.segments}
               selected={leanFilter}
-              onSelect={setLeanFilter}
+              onSelect={(value) => {
+                emitNewsEvent({
+                  name: "story_filter",
+                  axis: "leaning",
+                  active: value !== null,
+                });
+                setLeanFilter(value);
+              }}
               note={
                 lean.naCount > 0
                   ? `${lean.naCount} от материалите са извън политическата ос и не участват в лентата.`
@@ -271,7 +279,14 @@ export const StoryScreen = () => {
               title="Позиция спрямо Русия"
               segments={stanceSegments}
               selected={stanceFilter}
-              onSelect={setStanceFilter}
+              onSelect={(value) => {
+                emitNewsEvent({
+                  name: "story_filter",
+                  axis: "russia",
+                  active: value !== null,
+                });
+                setStanceFilter(value);
+              }}
             />
           </div>
 
