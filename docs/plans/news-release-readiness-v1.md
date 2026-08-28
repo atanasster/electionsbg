@@ -157,3 +157,65 @@ reviewed descriptive alt text when present, and exposes new-tab behavior in acce
 `ArticleImage.test.tsx`, and the coverage gate protect those distinctions.
 The coverage gate also identity-checks status, creator, credit text/URL, licence name/URL,
 source URL and review date against the committed selection; mutation tests cover every field.
+
+## T5.6 Staged rollout and rollback
+
+No production deployment was performed during this implementation audit. The release is a
+four-stage decision, and each stage leaves an inspectable artifact rather than relying on a
+fresh build during promotion.
+
+| Stage | Action | Exit criterion |
+| --- | --- | --- |
+| 0 — candidate | Run `npm run news:release:gate` locally | image gate, Python/JS suites, news-app tests, production build and resource budgets all pass in one command |
+| 1 — unlisted public preview | Run `npm run deploy:news:preview` | named `news-candidate` Firebase preview URL opens; desktop/mobile smoke checks pass; no production traffic changes |
+| 2 — moderated validation | Run the protocol in `news-moderated-validation-v1.md` against that exact preview | five participants complete the core tasks; no severity-1 issue; observations and decisions are recorded |
+| 3 — production | Set the recorded immutable version, then run `NEWS_VERSION_ID=<version> npm run deploy:news:promote` only after an explicit release decision | Firebase clones that exact reviewed version to `live`; production smoke checks pass |
+
+The preview URL is public to anyone who possesses it; it is unlisted, not access-controlled.
+Never put sensitive or test personal data in the candidate. The preview expires after seven days. If validation takes longer, deploy a new candidate and
+repeat the checks; do not promote an expired or superseded URL. Firebase Hosting has no
+percentage traffic split for this site, so a “limited rollout” can only mean limited
+announcement/discovery after production, not a technical cohort. Keep the first 24 hours
+unannounced beyond the validation group, then broaden links only after the checks below stay
+green.
+
+### Release checklist and evidence
+
+The gate writes `dist-news/.release-manifest.json`, containing the Git HEAD plus a content
+identity for every tracked change and every non-ignored untracked news/build/release input,
+and a SHA-256 for every deployable file. Preview upload first verifies both identities and bypasses the Firebase
+predeploy rebuild; a post-gate source, Hosting-config or dist change therefore refuses upload.
+The release owner records that candidate identity, gate output,
+preview URL, Firebase version ID, validation notes, decision time and operator before
+promotion. Immediately before promotion, confirm the recorded version ID is still the version
+participants reviewed; promotion refuses to run without `NEWS_VERSION_ID`. Immediately after promotion, verify `/`, one
+multi-source story, one article evidence page, one outlet page, `/methodology` and
+`/corrections` on desktop and mobile. For each, check status/canonical, images and visible
+attribution, navigation, theme, console errors and horizontal overflow. Re-run
+`npm run news:image-coverage:gate` against the promoted commit and retain the command output
+with the release record.
+
+Stop promotion—or roll back immediately—if any of these occurs:
+
+- an image lacks visible attribution or its rights identity differs from the reviewed record;
+- a story attributes a claim, stance or political classification to the wrong article/outlet;
+- a correction/report path is unavailable, or a severity-1 moderated-validation issue remains;
+- a core route fails, returns the wrong canonical, has persistent client errors or horizontal
+  overflow, or the release gate/performance budget fails;
+- the deployed artifact cannot be tied to the candidate commit and recorded preview.
+
+### Rollback
+
+In Firebase Hosting, use the `electionsbg-news` site’s release history to roll back `live` to
+the immediately preceding known-good release. This is deliberately a console operation: the
+CLI exposes preview deployment and channel cloning but no direct `hosting:rollback` command.
+After rollback, repeat the production smoke set above, record the restored release/version and
+incident reason, and keep announcements paused. Fixes start again at Stage 0 with a new
+candidate; never overwrite the evidence for the failed one.
+
+The scripts are intentionally separated: `news:release:gate` contains no Firebase command,
+`deploy:news:preview` verifies the gated hashes, bypasses a second build and cannot target
+`live`; `deploy:news:promote` requires and clones an immutable Firebase version rather than a
+mutable channel head. `scripts/news_release_contract.test.ts` and
+`scripts/news_release_manifest.test.ts` gate those properties so future command edits fail
+closed.

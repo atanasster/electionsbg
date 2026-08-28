@@ -14,11 +14,13 @@ is the only version of this that stays true.
 Run:  python3 news/scripts/run_tests.py [-v]
 """
 
+import os
 import subprocess
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent.parent
 
 
 def main() -> int:
@@ -32,9 +34,13 @@ def main() -> int:
         return 2
 
     failed = []
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.pathsep.join(
+        part for part in (str(ROOT), env.get("PYTHONPATH", "")) if part
+    )
     for path in files:
         proc = subprocess.run([sys.executable, str(path), *sys.argv[1:]],
-                              cwd=HERE.parent.parent)
+                              cwd=ROOT, env=env)
         mark = "ok  " if proc.returncode == 0 else "FAIL"
         print(f"  {mark}  {path.name}", file=sys.stderr)
         if proc.returncode != 0:
