@@ -154,6 +154,7 @@ export const governanceMenu: MenuItem[] = [
       { title: "subsidies_nav", link: "/subsidies" },
       { title: "sectors_hub_nav", link: "/governance/sectors" },
       { title: "mf_browse_nav", link: "/governance/municipal-finance" },
+      { title: "mp_page_title", link: "/governance/mayor-pay" },
       { title: "sector_schools_title", link: "/education" },
       { title: "gov_hub_parliament_title", link: "/parliament" },
       { title: "menu_group_declarations", link: "/governance/declarations" },

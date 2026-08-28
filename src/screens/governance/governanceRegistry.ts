@@ -119,6 +119,20 @@ export const GOV_HUB_CLUSTERS: {
         accent: TILE_ACCENTS.rose,
       },
       {
+        // A national comparison of the mayors who administer the same local
+        // institutions as the council and municipal-finance tiles. It belongs
+        // in accountability: this is a declared-income transparency surface,
+        // not a municipal-budget measure.
+        id: "mayor-pay",
+        titleKey: "mp_page_title",
+        descKey: "gov_hub_mayor_pay_desc",
+        to: "/governance/mayor-pay",
+        // `magenta` is already used on /procurement, not on this hub. The
+        // palette deliberately permits cross-page reuse while the hub test
+        // keeps every simultaneous tile distinct.
+        accent: TILE_ACCENTS.magenta,
+      },
+      {
         // The cross-cutting view of the person layer that /officials/assets and
         // /mp-assets each slice. Sits in accountability rather than under Декларации
         // because it spans nine registers, only one of which is the declarations one.

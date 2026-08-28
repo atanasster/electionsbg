@@ -603,6 +603,37 @@ const MunicipalFinance: FC = () => (
   </SceneFrame>
 );
 
+// Mayor pay — a municipality silhouette beside annual-income bars. The bars
+// use no ordinal/risk colour: the comparison is a declared fact, not a grade.
+const MayorPay: FC = () => (
+  <SceneFrame>
+    <path
+      d="M46 96 V52 L86 30 L126 52 V96 H46 Z"
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path d="M40 52 H132" stroke="var(--sector)" strokeWidth="5" />
+    <g fill="var(--sector)" opacity=".8">
+      {[0, 1, 2].map((i) => (
+        <rect key={i} x={58 + i * 22} y={64} width={10} height={12} rx={1} />
+      ))}
+    </g>
+    {[44, 65, 84].map((height, index) => (
+      <rect
+        key={height}
+        x={178 + index * 34}
+        y={100 - height}
+        width={20}
+        height={height}
+        rx={3}
+        fill="var(--sector)"
+        opacity={0.45 + index * 0.18}
+      />
+    ))}
+  </SceneFrame>
+);
+
 // Училища и матури — a school facade with a matura grade badge. Moved here
 // from sectorScenes.tsx with the tile (see governanceRegistry).
 const Schools: FC = () => (
@@ -689,6 +720,7 @@ const Companies: FC = () => (
 
 export const GOV_HUB_SCENES: Record<string, FC> = {
   "municipal-finance": MunicipalFinance,
+  "mayor-pay": MayorPay,
   persons: PersonsScene,
   demographics: Demographics,
   schools: Schools,

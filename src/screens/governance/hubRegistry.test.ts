@@ -15,6 +15,7 @@ import { GOV_HUB_CLUSTERS } from "./governanceRegistry";
 import { GOV_HUB_SCENES } from "./governanceScenes";
 import { DECLARATION_TILES } from "./declarationsRegistry";
 import { DECLARATION_SCENES } from "./declarationsScenes";
+import { governanceMenu } from "@/layout/header/reportMenus";
 
 describe("the governance hub registries", () => {
   test("every /governance tile id has a scene", () => {
@@ -101,6 +102,25 @@ describe("the governance hub registries", () => {
       gov.descKey,
       "the two connections descriptions were merged — if that is intended, update this test and the tile comment together",
     );
+  });
+
+  test("mayor pay is a discoverable governance-accountability tile", () => {
+    const tile = GOV_HUB_CLUSTERS.flatMap((cluster) => cluster.tiles).find(
+      (candidate) => candidate.id === "mayor-pay",
+    );
+    assert.ok(tile, "/governance lost the mayor-pay entry point");
+    assert.equal(tile.to, "/governance/mayor-pay");
+    assert.equal(tile.titleKey, "mp_page_title");
+  });
+
+  test("the header menu keeps the mayor-pay entry point", () => {
+    const leaves = governanceMenu.flatMap((item) => item.subMenu ?? []);
+    const mayorPay = leaves.filter(
+      (item) =>
+        item.title === "mp_page_title" &&
+        item.link === "/governance/mayor-pay",
+    );
+    assert.equal(mayorPay.length, 1);
   });
 
   test("no accent is used twice on /governance", () => {
