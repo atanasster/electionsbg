@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   bgArticles,
+  formatDate,
   formatVisits,
   LEANING_META,
   relativeTime,
@@ -28,6 +29,13 @@ import {
 } from "../components/SpectrumBar";
 import { ArticleRecordRow } from "../components/ArticleRow";
 import { LoadMore } from "../components/LoadMore";
+import { Breadcrumbs } from "../components/Breadcrumbs";
+import {
+  outletHomepage,
+  publishableOwner,
+  retirementReasonBg,
+  safeHttpUrl,
+} from "../sourceTransparency";
 
 const PAGE_SIZE = 20;
 
@@ -99,6 +107,86 @@ const Measure = ({
 
 /** The smallest base a conduct rate may be computed over. */
 const CONDUCT_MIN_BASE = 20;
+
+const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
+  const owner = publishableOwner(outlet.owner);
+  const ownerSource = owner ? safeHttpUrl(owner.source) : null;
+  const homepage = outletHomepage(outlet.domain);
+  return (
+    <section aria-labelledby="source-identity-heading">
+      <Card className="p-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2
+              id="source-identity-heading"
+              className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
+            >
+              За източника
+            </h2>
+            {homepage ? (
+              <a
+                href={homepage}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="mt-1 inline-block font-medium underline underline-offset-4"
+              >
+                Отвори {outlet.domain} ↗
+              </a>
+            ) : (
+              <span className="mt-1 block text-sm text-muted-foreground">
+                Адресът на сайта е невалиден
+              </span>
+            )}
+          </div>
+          {outlet.retired ? (
+            <Badge
+              variant="outline"
+              className="font-normal text-muted-foreground"
+            >
+              оттеглен източник
+            </Badge>
+          ) : null}
+        </div>
+
+        {owner && ownerSource ? (
+          <div className="mt-4 border-t pt-3 text-sm">
+            <p className="font-medium">Вписан собственик: {owner.name}</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Това е собственикът, посочен в регистъра — не твърдение за
+              действителен контрол или редакционна независимост.
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              <a
+                href={ownerSource}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="underline underline-offset-2"
+              >
+                Източник на справката ↗
+              </a>
+              {` · проверено ${formatDate(owner.checked)}`}
+            </p>
+          </div>
+        ) : (
+          <p className="mt-4 border-t pt-3 text-sm text-muted-foreground">
+            {outlet.owner
+              ? "Данните за собствеността са непълни и не се публикуват."
+              : "Собствеността още не е проверена. Това не означава, че собственикът е неизвестен."}
+          </p>
+        )}
+
+        {outlet.retired ? (
+          <p className="mt-3 text-xs text-muted-foreground">
+            Причина за оттегляне: {retirementReasonBg(outlet.retired_reason)}
+            {outlet.retired_on
+              ? ` · от ${formatDate(outlet.retired_on)}`
+              : " · датата не е записана"}
+          </p>
+        ) : null}
+      </Card>
+    </section>
+  );
+};
 
 const ConductSection = ({
   outlet,
@@ -222,25 +310,16 @@ export const OutletScreen = () => {
 
   return (
     <div className="space-y-6">
-      <nav className="text-sm text-muted-foreground" aria-label="Път">
-        <Link to="/outlets" className="hover:text-primary">
-          Източници
-        </Link>
-        <span className="px-1.5">/</span>
-        <span className="text-foreground">{outlet.outlet}</span>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { label: "Източници", to: "/outlets" },
+          { label: outlet.outlet },
+        ]}
+      />
 
       <header className="space-y-2">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="font-title text-3xl">{outlet.outlet}</h1>
-          <a
-            href={`https://${outlet.domain}`}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="text-sm text-muted-foreground underline-offset-4 hover:text-primary hover:underline"
-          >
-            {outlet.domain} ↗
-          </a>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {outlet.rank ? (
@@ -272,6 +351,8 @@ export const OutletScreen = () => {
           </Badge>
         </div>
       </header>
+
+      <SourceIdentity outlet={outlet} />
 
       <ConductSection outlet={outlet} corpus={corpusConduct} />
 

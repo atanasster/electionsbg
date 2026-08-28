@@ -49,6 +49,7 @@ import { EntityChips } from "../components/EntityChips";
 import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -207,6 +208,15 @@ export const ArticleScreen = () => {
 
   return (
     <article className="py-6">
+      <div className="mb-4">
+        <Breadcrumbs
+          items={[
+            { label: "Източници", to: "/outlets" },
+            { label: outletName, to: `/outlet/${domain}` },
+            { label: "Материал" },
+          ]}
+        />
+      </div>
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
         <Link
           to={`/outlet/${domain}`}

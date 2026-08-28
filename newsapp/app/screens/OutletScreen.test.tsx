@@ -183,6 +183,81 @@ describe("the header badges", () => {
   });
 });
 
+describe("source transparency", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("shows registry ownership with its source, date and control caveat", async () => {
+    await renderProfile(
+      outlet({
+        owner: {
+          name: "Пример Медиа АД",
+          category: "company",
+          source: "https://registry.example/owner",
+          checked: "2026-08-20",
+        },
+      }),
+    );
+    expect(
+      await screen.findByText(/Вписан собственик: Пример Медиа АД/),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/не твърдение за действителен контрол/),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /Източник на справката/ }),
+    ).toHaveAttribute("href", "https://registry.example/owner");
+    expect(screen.getByText(/проверено 20 август 2026/)).toBeVisible();
+  });
+
+  it("distinguishes not-yet-checked ownership from unknown ownership", async () => {
+    await renderProfile(outlet({ owner: null }));
+    expect(
+      await screen.findByText(/Собствеността още не е проверена/),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/не означава, че собственикът е неизвестен/),
+    ).toBeVisible();
+  });
+
+  it("withholds incomplete or unsafe ownership claims", async () => {
+    await renderProfile(
+      outlet({
+        owner: {
+          name: "Непроверено дружество",
+          category: "company",
+          source: "javascript:alert(1)",
+          checked: null,
+        },
+      }),
+    );
+    expect(screen.queryByText(/Вписан собственик/)).not.toBeInTheDocument();
+    expect(
+      await screen.findByText(/данните за собствеността са непълни/i),
+    ).toBeVisible();
+    expect(document.querySelector('a[href^="javascript:"]')).toBeNull();
+  });
+
+  it("prints why and when a source was retired", async () => {
+    await renderProfile(
+      outlet({
+        retired: true,
+        retired_reason: "bot_refused",
+        retired_on: "2026-08-12",
+      }),
+    );
+    expect(await screen.findByText(/Причина за оттегляне/)).toHaveTextContent(
+      "изданието отказва автоматизиран достъп · от 12 август 2026",
+    );
+  });
+
+  it("always states missing retirement metadata", async () => {
+    await renderProfile(outlet({ retired: true }));
+    expect(
+      await screen.findByText(/причината не е записана/),
+    ).toHaveTextContent("датата не е записана");
+  });
+});
+
 describe("the spectrum floor", () => {
   beforeEach(() => vi.resetModules());
 

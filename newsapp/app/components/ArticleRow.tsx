@@ -68,6 +68,7 @@ export const ArticleRow = ({
             target="_blank"
             rel="noreferrer noopener"
             className="text-sm leading-snug hover:text-primary"
+            aria-label={`${title ?? "Без заглавие"} — прочети оригинала в ${outletName ?? domain} (отваря се в нов раздел)`}
           >
             {title ?? "(без заглавие)"}
           </a>
@@ -87,18 +88,16 @@ export const ArticleRow = ({
               история →
             </Link>
           ) : null}
-          {url ? (
+          {url && articleId ? (
             <a
               href={url}
               target="_blank"
               rel="noreferrer noopener"
-              title="Прочети в източника"
+              title={`Прочети в ${outletName ?? domain}`}
+              aria-label={`Прочети оригинала „${title ?? "без заглавие"}" в ${outletName ?? domain} (отваря се в нов раздел)`}
               className="text-muted-foreground hover:text-primary"
             >
-              <ExternalLink
-                className="size-3.5"
-                aria-label="Външна препратка"
-              />
+              <ExternalLink className="size-3.5" aria-hidden />
             </a>
           ) : null}
         </div>
