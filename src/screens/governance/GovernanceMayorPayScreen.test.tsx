@@ -110,6 +110,22 @@ describe("GovernanceMayorPayScreen", () => {
     expect(screen.getByText("mp_table_no_matches")).toBeVisible();
   });
 
+  it("finds a mayor by first and family name without requiring the patronymic", () => {
+    renderScreen([
+      row({
+        obshtina: "SOF",
+        name_bg: "Столична община",
+        mayor_name: "Васил Александров Терзиев",
+      }),
+    ]);
+
+    fireEvent.change(screen.getByLabelText("mp_page_search"), {
+      target: { value: "Васил Терзиев" },
+    });
+    expect(screen.getByText("Столична община")).toBeVisible();
+    expect(screen.getByText("Васил Александров Терзиев")).toBeVisible();
+  });
+
   it("puts the active sort state on the table header", () => {
     renderScreen([row()]);
     const ratioHeader = screen

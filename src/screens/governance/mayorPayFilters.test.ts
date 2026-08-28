@@ -51,6 +51,16 @@ const rows: MayorPayRankingRow[] = [
   }),
 ];
 
+const sofiaRow = row({
+  obshtina: "SOF",
+  name_bg: "Столична община",
+  name_en: "Sofia (capital municipality)",
+  mayor_name: "Васил Александров Терзиев",
+  income_eur: 79_194,
+  population: 1_274_290,
+  income_per_1000_residents_eur: 62,
+});
+
 describe("defaultAscFor", () => {
   it("name starts ascending (A→Z); every numeric column starts descending (high→low)", () => {
     expect(defaultAscFor("name")).toBe(true);
@@ -115,5 +125,37 @@ describe("applyMayorPayFilter — search", () => {
   it("folds case and separators, like the sibling screen's search", () => {
     const found = applyMayorPayFilter(rows, "балчик", "name", true);
     expect(found.map((r) => r.obshtina)).toEqual(["B"]);
+  });
+
+  it("matches first + family name past the stored patronymic, in either order", () => {
+    expect(
+      applyMayorPayFilter([...rows, sofiaRow], "Васил Терзиев", "name", true).map(
+        (r) => r.obshtina,
+      ),
+    ).toEqual(["SOF"]);
+    expect(
+      applyMayorPayFilter([...rows, sofiaRow], "Терзиев Васил", "name", true).map(
+        (r) => r.obshtina,
+      ),
+    ).toEqual(["SOF"]);
+  });
+
+  it("normalizes repeated separators and supports Latin-typed names", () => {
+    expect(
+      applyMayorPayFilter([...rows, sofiaRow], "васил   терзиев", "name", true).map(
+        (r) => r.obshtina,
+      ),
+    ).toEqual(["SOF"]);
+    expect(
+      applyMayorPayFilter([...rows, sofiaRow], "Vasil Terziev", "name", true).map(
+        (r) => r.obshtina,
+      ),
+    ).toEqual(["SOF"]);
+  });
+
+  it("requires every term to match the same row", () => {
+    expect(applyMayorPayFilter([...rows, sofiaRow], "Васил Втори", "name", true)).toEqual(
+      [],
+    );
   });
 });

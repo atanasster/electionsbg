@@ -5,7 +5,7 @@
 // way municipalFinanceFilters.ts's applyFilters does for its sibling screen.
 
 import type { MayorPayRankingRow } from "@/data/officials/useMayorPayRanking";
-import { foldName } from "./municipalFinanceFilters";
+import { searchMatches } from "@/lib/translitSearch";
 
 export type MayorPaySortKey = "perThousand" | "income" | "population" | "name";
 
@@ -30,20 +30,40 @@ const sortKey = (
 export const defaultAscFor = (sort: MayorPaySortKey): boolean =>
   sort === "name";
 
+/**
+ * Match a natural person/place query against one mayor-pay row.
+ *
+ * Bulgarian names usually carry a patronymic, so a reader's first + family
+ * query ("Васил Терзиев") is not a contiguous substring of the stored full
+ * name ("Васил Александров Терзиев"). Split the query and require every term
+ * to occur somewhere in this same row. `searchMatches` also keeps the shared
+ * Cyrillic/Latin and shliokavitsa tolerance used by the registry browsers.
+ */
+export const mayorPaySearchMatches = (
+  row: MayorPayRankingRow,
+  query: string,
+): boolean => {
+  const terms = query
+    .normalize("NFC")
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter(Boolean);
+  if (terms.length === 0) return true;
+  const haystack = [
+    row.name_bg,
+    row.name_en ?? "",
+    row.mayor_name,
+  ].join(" ");
+  return terms.every((term) => searchMatches(haystack, term));
+};
+
 export const applyMayorPayFilter = (
   rows: MayorPayRankingRow[],
   q: string,
   sort: MayorPaySortKey,
   asc: boolean,
 ): MayorPayRankingRow[] => {
-  const needle = foldName(q);
-  const filtered = needle
-    ? rows.filter(
-        (r) =>
-          foldName(r.name_bg).includes(needle) ||
-          foldName(r.name_en ?? "").includes(needle) ||
-          foldName(r.mayor_name).includes(needle),
-      )
+  const filtered = q.trim()
+    ? rows.filter((r) => mayorPaySearchMatches(r, q))
     : rows;
   return [...filtered].sort((a, b) => {
     const ka = sortKey(a, sort);
