@@ -65,6 +65,20 @@ def measure(data_dir: Path, selections_path: Path, queue_path: Path,
                 or rights["source_url"] != selection.get("source_url")):
             invalid.append(f"selection-mismatch:{selection['article_id']}")
             continue
+        expected_rights = {
+            "status": ("public_domain" if selection.get("licence_name") == "CC0"
+                       else "cc"),
+            "creator": selection.get("creator"),
+            "credit_text": selection.get("credit_text"),
+            "credit_url": selection.get("source_url"),
+            "licence_name": selection.get("licence_name"),
+            "licence_url": selection.get("licence_url"),
+            "source_url": selection.get("source_url"),
+            "checked_at": selection.get("reviewed_at"),
+        }
+        if any(rights.get(key) != value for key, value in expected_rights.items()):
+            invalid.append(f"attribution-mismatch:{selection['article_id']}")
+            continue
         try:
             published = datetime.fromisoformat(article["published"])
         except (KeyError, TypeError, ValueError):

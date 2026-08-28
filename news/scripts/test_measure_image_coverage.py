@@ -21,7 +21,11 @@ class ImageCoverageTest(unittest.TestCase):
             selections.append({"article_id": aid,
                                "article_path": f"news/data/x.bg/a{i}.json",
                                "article_url": url, "image_url": image,
-                               "source_url": source})
+                               "source_url": source, "creator": "A",
+                               "credit_text": "Credit",
+                               "licence_name": "CC BY 4.0",
+                               "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+                               "reviewed_at": "2026-08-28"})
             rights = {"status": "cc", "creator": "A", "credit_text": "Credit",
                       "credit_url": source, "licence_name": "CC BY 4.0",
                       "licence_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -79,3 +83,23 @@ class ImageCoverageTest(unittest.TestCase):
         report = measure(data, sp, qp, as_of=date(2026, 8, 28))
         self.assertEqual(report["measured"]["comparison_stories"], 0)
         self.assertFalse(report["launch_ready"])
+
+    def test_every_reviewed_attribution_field_is_identity_gated(self):
+        mutations = {
+            "status": "public_domain", "creator": "Wrong",
+            "credit_text": "Wrong", "credit_url": "https://wrong.example/",
+            "licence_name": "CC0", "licence_url": "https://wrong.example/license",
+            "source_url": "https://wrong.example/source", "checked_at": "2026-08-27",
+        }
+        for field, value in mutations.items():
+            with self.subTest(field=field):
+                data, sp, qp = self.fixture()
+                article = data / "x.bg/a0.json"
+                record = json.loads(article.read_text())
+                record["image_rights"][field] = value
+                article.write_text(json.dumps(record))
+                report = measure(data, sp, qp, as_of=date(2026, 8, 28))
+                self.assertFalse(report["launch_ready"])
+                self.assertTrue(any(item.startswith("attribution-mismatch:x.bg/a0")
+                                    or item.startswith("selection-mismatch:x.bg/a0")
+                                    for item in report["measured"]["invalid_selected_records"]))

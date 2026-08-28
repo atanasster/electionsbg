@@ -131,3 +131,29 @@ weaker duplicate.
 `scripts/news_performance_budget.test.ts` gates the threshold and multi-failure behavior.
 The JS budget has the least headroom; additions should prefer route-level lazy loading or
 removing shared entry cost rather than raising the limit without a recorded decision.
+
+## T5.5 Image rights and attribution
+
+`npm run news:image-coverage:gate` passed on 2026-08-28 against the committed selection,
+review queue and analysis index:
+
+- 28 reviewed selections resolve to the same article URL, stored image and recorded source;
+- all 28 are current inside the 30-day window and 8 are multi-outlet comparison stories;
+- zero invalid/unknown selected rights and zero unresolved selections;
+- the rebuilt review queue is structurally equal to the committed queue;
+- all five launch checks are true (`launch_ready: true`).
+
+The generated home bundle contains 28 unique eligible articles. Every one has
+`display_home: true`, a non-empty credit text and credit URL, and a named licence; statuses
+are only `cc` or `public_domain`. This is a point-in-time audit of selected records, not a
+claim that arbitrary publisher images are reusable.
+
+The build remains fail-closed: missing/malformed rights stay off the homepage; `unknown`
+and `blocked` may never carry `display_home`; unsafe URLs and malformed dates fail the data
+build. `ArticleImage` visibly renders creator/source and linked licence beside every reviewed
+photo, uses source/article attribution for fallbacks, gives content images the record’s
+reviewed descriptive alt text when present, and exposes new-tab behavior in accessible link names. Delivery
+(`hotlink_ok`) remains separate from permission (`image_rights`). Existing Python data tests,
+`ArticleImage.test.tsx`, and the coverage gate protect those distinctions.
+The coverage gate also identity-checks status, creator, credit text/URL, licence name/URL,
+source URL and review date against the committed selection; mutation tests cover every field.
