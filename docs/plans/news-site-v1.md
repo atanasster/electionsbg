@@ -249,6 +249,11 @@ corpus path. The mismatch is cosmetic and the record is the source of truth.
 
 ### T0.6 — images: how they are served, and the credit they carry ⚠️ NEW
 
+> **Superseded for rights policy on 2026-08-28.** The delivery/fallback measurements below
+> remain valid, but hotlink success and visible attribution do not establish permission to
+> display a photograph. `news-home-experience-v2.md` replaces that assumption with a
+> per-article rights record. Read every „hotlink“ decision below as delivery behavior only.
+
 An article photo is somebody else's copyrighted work, and the first draft was silent on both
 how we serve it and what we say about it. **Measured**, requesting each domain's `og:image`
 with our own bot UA and a `news.electionsbg.com` referer:

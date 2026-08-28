@@ -50,8 +50,9 @@ import re
 import signal
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
 LEANING_LABELS = {
@@ -194,6 +195,20 @@ LOGO_COLUMN_PREFIX = "logo_url"
 # a policy signal, and re-asking on every card is both pointless and rude.
 HOTLINK_COLUMN_PREFIX = "hotlink_ok"
 
+# Image display rights are an ARTICLE claim, not an outlet/CDN claim. A server
+# returning 200 answers only whether delivery works; it says nothing about
+# whether we may publish the photograph. `image_rights` is therefore carried
+# beside the image and kept separate from `hotlink_ok`.
+IMAGE_RIGHTS_STATUSES = frozenset({
+    "publisher_permission", "licensed", "cc", "public_domain",
+    "official_reuse_policy", "unknown", "blocked",
+})
+IMAGE_RIGHTS_KEYS = (
+    "status", "creator", "credit_text", "credit_url", "licence_name",
+    "licence_url", "source_url", "checked_at", "display_home",
+)
+IMAGE_RIGHTS_REQUIRED_KEYS = frozenset(IMAGE_RIGHTS_KEYS)
+
 # Ownership. Four dated registry columns, ALL HAND-ENTERED — see the block
 # comment in outlets.json's builder for why none of it may be inferred.
 OWNER_COLUMN_PREFIXES = ("owner", "owner_category", "owner_source",
@@ -302,6 +317,67 @@ def tri_state(raw) -> bool | None:
     if got in ("no", "false", "0"):
         return False
     return None
+
+
+def image_rights_block(raw, *, article: str) -> dict | None:
+    """Validate and copy an article's explicit image-rights decision.
+
+    Missing means nobody has reviewed the image and stays absent. A present
+    block is strict: silently dropping a typo from rights metadata can turn a
+    reviewed photograph back into an unreviewed one without failing the build.
+    Unknown/blocked records may be kept for the review trail, but can never be
+    marked for home display.
+    """
+    if raw is None:
+        return None
+    if not isinstance(raw, dict):
+        raise ValueError(f"{article}: image_rights must be an object")
+    missing = sorted(IMAGE_RIGHTS_REQUIRED_KEYS - raw.keys())
+    if missing:
+        raise ValueError(
+            f"{article}: image_rights missing required keys: {', '.join(missing)}"
+        )
+    status = raw.get("status")
+    if status not in IMAGE_RIGHTS_STATUSES:
+        raise ValueError(f"{article}: invalid image_rights status {status!r}")
+    if not isinstance(raw.get("display_home"), bool):
+        raise ValueError(f"{article}: image_rights.display_home must be boolean")
+    if status in {"unknown", "blocked"} and raw["display_home"]:
+        raise ValueError(
+            f"{article}: {status} image rights cannot allow home display"
+        )
+    for key in ("credit_text", "credit_url", "source_url", "checked_at"):
+        if not isinstance(raw.get(key), str) or not raw[key].strip():
+            raise ValueError(f"{article}: image_rights.{key} must be non-empty")
+    for key in ("creator", "licence_name", "licence_url"):
+        if raw.get(key) is not None and not isinstance(raw[key], str):
+            raise ValueError(f"{article}: image_rights.{key} must be string or null")
+    for key in ("credit_url", "source_url", "licence_url"):
+        value = raw.get(key)
+        if value is None and key == "licence_url":
+            continue
+        parsed = urlparse(value)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+            raise ValueError(
+                f"{article}: image_rights.{key} must be an absolute http(s) URL"
+            )
+    try:
+        checked = date.fromisoformat(raw["checked_at"])
+    except ValueError as exc:
+        raise ValueError(
+            f"{article}: image_rights.checked_at must be an ISO date"
+        ) from exc
+    if raw["checked_at"] != checked.isoformat():
+        raise ValueError(
+            f"{article}: image_rights.checked_at must be a canonical ISO date"
+        )
+    if raw["display_home"] and status not in {"unknown", "blocked"}:
+        if not raw.get("licence_name") or not raw.get("licence_url"):
+            raise ValueError(
+                f"{article}: display-cleared {status} rights require licence_name "
+                "and licence_url evidence"
+            )
+    return {key: raw.get(key) for key in IMAGE_RIGHTS_KEYS}
 
 
 def owner_block(meta: dict) -> dict | None:
@@ -982,6 +1058,14 @@ def main() -> int:
                 "first_seen": art.get("fetched_at"),
                 "story_id": None,
             }
+            rights = image_rights_block(
+                art.get("image_rights"), article=f"{domain}/{fp.name}"
+            )
+            if rights is not None:
+                # Omit an unreviewed block rather than adding nine null fields
+                # to every feed row. Absence and status=unknown are distinct,
+                # but both fail closed once the renderer gate lands.
+                rec["image_rights"] = rights
             if analysis:
                 # Resolved story membership comes from the index (the decision block
                 # carries story_id only for same_story attachments).

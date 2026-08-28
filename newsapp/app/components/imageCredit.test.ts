@@ -1,9 +1,9 @@
 // A static gate over the newsapp sources: no image may be rendered except
 // through ArticleImage, which is the only component that attaches a credit.
 //
-// ⚠️ THIS IS A LICENCE CONDITION, NOT A STYLE RULE. An article photo is
-// somebody else's copyrighted work. We hotlink it and attribute it, and the
-// attribution has to be enforced by something other than a comment — a review
+// ⚠️ THIS IS AN ATTRIBUTION INVARIANT, NOT A RIGHTS DECISION. Rights are
+// recorded per article; this gate ensures an eligible rendered photo cannot
+// lose its visible credit during a component refactor — a review
 // proved that replacing <ArticleImage> with a bare <img> inside ArticleCard
 // left all 19 component tests passing, `tsc --noEmit` at exit 0 and eslint
 // clean, because ArticleCard has no test file of its own.
@@ -83,7 +83,7 @@ describe("every rendered image carries a credit", () => {
     const src = stripComments(
       readFileSync(join(APP_DIR, CREDITED_IMAGE), "utf-8"),
     );
-    expect(src).toContain("© {name}");
+    expect(src).toContain("{creditText}");
     // no prop named like a switch for it
     expect(src).not.toMatch(/\b(hideCredit|showCredit|noCredit)\b/);
     // ⚠️ The check is on what PRECEDES the anchor, not what is inside it: the

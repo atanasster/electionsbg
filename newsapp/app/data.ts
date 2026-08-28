@@ -97,6 +97,35 @@ export interface AnalysisBlock {
   analyzed_at: string | null;
 }
 
+export type ImageRightsStatus =
+  | "publisher_permission"
+  | "licensed"
+  | "cc"
+  | "public_domain"
+  | "official_reuse_policy"
+  | "unknown"
+  | "blocked";
+
+/**
+ * The reviewed basis for displaying one article image.
+ *
+ * This is deliberately separate from `Outlet.hotlink_ok`: delivery success
+ * is not permission. Absence means the image has not been reviewed. Unknown
+ * and blocked decisions may remain as review metadata, but `display_home`
+ * must be false for both.
+ */
+export interface ImageRights {
+  status: ImageRightsStatus;
+  creator: string | null;
+  credit_text: string;
+  credit_url: string;
+  licence_name: string | null;
+  licence_url: string | null;
+  source_url: string;
+  checked_at: string;
+  display_home: boolean;
+}
+
 export interface ArticleRecord {
   id: string;
   domain: string;
@@ -113,14 +142,10 @@ export interface ArticleRecord {
    */
   excerpt: string | null;
   content_chars: number | null;
-  /**
-   * The outlet's lead image, HOTLINKED. ⚠️ Present is not the same as usable
-   * and the URL cannot tell you which: some outlets put a branding redirector
-   * or the author's portrait here, and roughly a quarter refuse a request
-   * carrying our referer. Every renderer needs an onError fallback and every
-   * rendered image needs a visible credit.
-   */
+  /** The outlet-declared lead image URL. Presence is neither usability nor permission. */
   image: string | null;
+  /** Absent until a human/process has recorded the display basis. */
+  image_rights?: ImageRights | null;
   canonical: string | null;
   /** What the page DECLARES, not what it is — two outlets say "en" while publishing Bulgarian. */
   language: string | null;

@@ -245,6 +245,17 @@ class MetadataAndBudget(unittest.TestCase):
             "language": "bg",
             "section_path": ["Начало", "Икономика"],
             "updated": "2026-08-22T11:00:00+00:00",
+            "image_rights": {
+                "status": "cc",
+                "creator": "Иван Иванов",
+                "credit_text": "Снимка: Иван Иванов / CC BY 4.0",
+                "credit_url": "https://example.org/photo",
+                "licence_name": "CC BY 4.0",
+                "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+                "source_url": "https://example.org/photo",
+                "checked_at": "2026-08-28",
+                "display_home": True,
+            },
         })
         rec.update(over)
         d = os.path.join(self.data_dir, domain)
@@ -259,12 +270,15 @@ class MetadataAndBudget(unittest.TestCase):
                      "similarweb_visits_jul2026" + extra_cols + "\n")
             fh.write("1,mass,ex.bg,Пример,news,national,1M" + extra_vals + "\n")
 
-    def build(self):
-        proc = subprocess.run(
+    def run_build(self):
+        return subprocess.run(
             [sys.executable, SCRIPT, "--data-dir", self.data_dir,
              "--out", self.out_dir, "--quiet", "--json"],
             capture_output=True, text=True,
             env=dict(os.environ, DATA_BG_ROOT=self.root))
+
+    def build(self):
+        proc = self.run_build()
         self.assertEqual(proc.returncode, 0, proc.stderr)
         return json.loads(proc.stdout), proc.stderr
 
@@ -281,8 +295,109 @@ class MetadataAndBudget(unittest.TestCase):
                           ("canonical", "https://ex.bg/a/1"),
                           ("language", "bg"),
                           ("section_path", ["Начало", "Икономика"]),
-                          ("updated", "2026-08-22T11:00:00+00:00")):
+                          ("updated", "2026-08-22T11:00:00+00:00"),
+                          ("image_rights", {
+                              "status": "cc",
+                              "creator": "Иван Иванов",
+                              "credit_text": "Снимка: Иван Иванов / CC BY 4.0",
+                              "credit_url": "https://example.org/photo",
+                              "licence_name": "CC BY 4.0",
+                              "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+                              "source_url": "https://example.org/photo",
+                              "checked_at": "2026-08-28",
+                              "display_home": True,
+                          })):
             self.assertEqual(rec.get(key), want, key)
+
+    def test_missing_image_rights_stays_absent(self):
+        self.write_article("ex.bg", "20260822-a1-abc.json", image_rights=None)
+        self.build()
+        rec = self.load("articles/ex.bg.json")["articles"][0]
+        self.assertNotIn("image_rights", rec)
+
+    def test_unknown_or_blocked_rights_cannot_enable_home_display(self):
+        for status in ("unknown", "blocked"):
+            with self.subTest(status=status):
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json",
+                    image_rights={
+                        "status": status,
+                        "creator": None,
+                        "credit_text": "Проверен източник",
+                        "credit_url": "https://ex.bg/a/1",
+                        "licence_name": None,
+                        "licence_url": None,
+                        "source_url": "https://ex.bg/a/1",
+                        "checked_at": "2026-08-28",
+                        "display_home": True,
+                    },
+                )
+                proc = self.run_build()
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn(
+                    f"{status} image rights cannot allow home display", proc.stderr
+                )
+
+    def test_malformed_image_rights_fail_the_build(self):
+        self.write_article(
+            "ex.bg", "20260822-a1-abc.json",
+            image_rights={"status": "licensed"},
+        )
+        proc = self.run_build()
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("image_rights missing required keys", proc.stderr)
+
+    def test_display_cleared_status_requires_licence_evidence(self):
+        for status in (
+            "publisher_permission", "licensed", "cc", "public_domain",
+            "official_reuse_policy",
+        ):
+            with self.subTest(status=status):
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json",
+                    image_rights={
+                        "status": status,
+                        "creator": "Иван Иванов",
+                        "credit_text": "Снимка: Иван Иванов",
+                        "credit_url": "https://ex.bg/credit",
+                        "licence_name": None,
+                        "licence_url": None,
+                        "source_url": "https://ex.bg/a/1",
+                        "checked_at": "2026-08-28",
+                        "display_home": True,
+                    },
+                )
+                proc = self.run_build()
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn("require licence_name and licence_url", proc.stderr)
+
+    def test_image_rights_reject_unsafe_urls_and_malformed_dates(self):
+        cases = (
+            ("credit_url", "javascript:alert(1)", "absolute http(s) URL"),
+            ("source_url", "/relative", "absolute http(s) URL"),
+            ("licence_url", "ftp://example.org/licence", "absolute http(s) URL"),
+            ("checked_at", "recently", "must be an ISO date"),
+        )
+        for key, value, message in cases:
+            with self.subTest(key=key):
+                rights = {
+                    "status": "cc",
+                    "creator": "Иван Иванов",
+                    "credit_text": "Снимка: Иван Иванов / CC BY 4.0",
+                    "credit_url": "https://example.org/photo",
+                    "licence_name": "CC BY 4.0",
+                    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+                    "source_url": "https://example.org/photo",
+                    "checked_at": "2026-08-28",
+                    "display_home": True,
+                }
+                rights[key] = value
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json", image_rights=rights
+                )
+                proc = self.run_build()
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn(message, proc.stderr)
 
     def test_the_shared_feed_omits_the_article_only_fields(self):
         """section_path and image_alt are read on the article page, which

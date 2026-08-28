@@ -6,9 +6,10 @@ Run:  python3 news/scripts/probe_hotlink.py            # dry run, prints a table
 
 Why this exists:
 
-    The app HOTLINKS article images — it makes no copy, the request reaches
-    the publisher, and a photo they withdraw disappears here too. That is the
-    right arrangement, and roughly a quarter of outlets refuse it.
+    The app currently hotlinks article images: the request reaches the
+    publisher and a withdrawn photo disappears here too. This probe measures
+    DELIVERY ONLY. A successful response is not a licence or display-rights
+    decision; those live in each article's `image_rights` block.
 
     Measured 2026-08-26 over the 13 domains that carry a stored image, with
     our own bot UA and a news.electionsbg.com Referer: 10 serve normally and
@@ -30,9 +31,9 @@ Why this exists:
 
 What the column means, and what it does NOT:
 
-    `yes`  a sampled image was served                → hotlink it
+    `yes`  a sampled image was served                → delivery is possible
     `no`   the sample was refused (403) or missing   → go straight to the logo
-    ``     never probed                              → hotlink it and let the
+    ``     never probed                              → attempt delivery and let the
                                                        component's onError
                                                        fallback do the work
 

@@ -1,15 +1,28 @@
 // ArticleImage — the credit and the fallback ladder.
 //
 // ⚠️ The credit is the reason this component exists rather than an <img> tag.
-// An article photo is somebody else's copyrighted work; we hotlink it and
-// attribute it, and "attribute it" has to be enforced by something other than
-// a comment. Every test below that asserts a credit is asserting a licence
-// condition, not a layout preference.
+// Credit is always required by our presentation policy, but is not itself a
+// licence. Rights eligibility and CDN delivery are separate gates.
 
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ArticleImage } from "./ArticleImage";
 import { initialStage, monogramOf } from "./imageFallback";
+
+const rights = (
+  over: Partial<NonNullable<Parameters<typeof ArticleImage>[0]["rights"]>> = {},
+) => ({
+  status: "cc" as const,
+  creator: "Иван Иванов",
+  credit_text: "Снимка: Иван Иванов / CC BY 4.0",
+  credit_url: "https://photos.example/ivan",
+  licence_name: "CC BY 4.0",
+  licence_url: "https://creativecommons.org/licenses/by/4.0/",
+  source_url: "https://ex.bg/a/1",
+  checked_at: "2026-08-28",
+  display_home: true,
+  ...over,
+});
 
 const outlet = (
   over: Partial<Parameters<typeof ArticleImage>[0]["outlet"]> = {},
@@ -28,50 +41,53 @@ const renderImage = (props: Partial<Parameters<typeof ArticleImage>[0]> = {}) =>
       title="Заглавие на статията"
       articleUrl="https://ex.bg/a/1"
       outlet={outlet()}
+      rights={rights()}
       {...props}
     />,
   );
 
 // ⚠️ toBeVisible, never toBeInTheDocument. A review proved that adding
 // `hidden` to the credit anchor left all 19 tests green — and an invisible
-// credit is not a credit. Presence is not the licence condition; visibility is.
+// credit is not a credit. Presence is not the presentation condition; visibility is.
 describe("the credit", () => {
   it("renders on a photo", () => {
     renderImage();
-    expect(screen.getByText("© Примерен вестник")).toBeVisible();
+    expect(screen.getByText("Снимка: Иван Иванов / CC BY 4.0")).toBeVisible();
   });
 
   it("renders when there is NO image at all", () => {
     // The monogram rung. A card with no photo still shows an outlet's work.
     renderImage({ image: null, outlet: outlet({ logo: null }) });
-    expect(screen.getByText("© Примерен вестник")).toBeVisible();
+    expect(screen.getByText("Примерен вестник")).toBeVisible();
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
   it("renders on the logo rung", () => {
     renderImage({ image: null });
-    expect(screen.getByText("© Примерен вестник")).toBeVisible();
+    expect(screen.getByText("Примерен вестник")).toBeVisible();
   });
 
-  it("links to the SOURCE article, not to our own page", () => {
+  it("uses the recorded creator credit and link instead of inventing outlet copyright", () => {
     renderImage();
-    const link = screen.getByText("© Примерен вестник").closest("a");
-    expect(link).toHaveAttribute("href", "https://ex.bg/a/1");
+    const link = screen
+      .getByText("Снимка: Иван Иванов / CC BY 4.0")
+      .closest("a");
+    expect(link).toHaveAttribute("href", "https://photos.example/ivan");
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
   });
 
-  it("falls back to the outlet's site when the article URL is missing", () => {
-    renderImage({ articleUrl: null });
-    expect(screen.getByText("© Примерен вестник").closest("a")).toHaveAttribute(
+  it("falls back to the outlet's site for a logo when the article URL is missing", () => {
+    renderImage({ image: null, articleUrl: null });
+    expect(screen.getByText("Примерен вестник").closest("a")).toHaveAttribute(
       "href",
       "https://ex.bg/",
     );
   });
 
   it("names the domain when the outlet has no display name", () => {
-    renderImage({ outlet: outlet({ outlet: "" }) });
-    expect(screen.getByText("© ex.bg")).toBeVisible();
+    renderImage({ image: null, outlet: outlet({ outlet: "" }) });
+    expect(screen.getByText("ex.bg")).toBeVisible();
   });
 });
 
@@ -93,7 +109,7 @@ describe("the fallback ladder", () => {
       "src",
       "https://ex.bg/logo.png",
     );
-    expect(screen.getByText("© Примерен вестник")).toBeVisible();
+    expect(screen.getByText("Примерен вестник")).toBeVisible();
   });
 
   it("drops to the monogram when the logo fails too", () => {
@@ -186,6 +202,7 @@ describe("recycling", () => {
         title="Друго заглавие"
         articleUrl="https://ex.bg/a/2"
         outlet={outlet()}
+        rights={rights({ source_url: "https://ex.bg/a/2" })}
       />,
     );
     expect(screen.getByRole("img")).toHaveAttribute(

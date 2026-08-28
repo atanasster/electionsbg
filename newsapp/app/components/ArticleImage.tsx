@@ -2,14 +2,15 @@
 // because the three are not separable.
 //
 // ⚠️ EVERY RENDERED IMAGE CARRIES A VISIBLE CREDIT THAT LINKS TO THE SOURCE
-// ARTICLE. An article photo is somebody else's copyrighted work. We hotlink
-// it — no copy is made, the request reaches the publisher, and a photo they
-// withdraw disappears here too — and the credit is what makes that an
-// attribution rather than an appropriation. There is deliberately no prop to
-// turn it off.
+// ARTICLE. This is a presentation invariant, not proof of permission:
+// delivery (`hotlink_ok`), attribution, and display rights are three separate
+// facts. The rights state lives on the article record and will become the
+// fail-closed eligibility gate; this component continues to own delivery and
+// fallback behavior.
 //
-// ⚠️ The credit links OUT, never to our own article page. A credit pointing
-// at us would be a link that looks like attribution and isn't.
+// ⚠️ A reviewed photo credit links to its recorded credit URL, never to our
+// own page. Logo/monogram fallbacks identify the outlet and link to its
+// article, but make no copyright claim.
 //
 // Why a fallback ladder rather than a plain <img>: measured 2026-08-26 with
 // our own bot UA and a news.electionsbg.com referer, 10 of 13 outlets serve
@@ -25,7 +26,7 @@
 // and the layout never depend on the image loading.
 
 import { useEffect, useState } from "react";
-import type { Outlet } from "../data";
+import type { ImageRights, Outlet } from "../data";
 import { initialStage, monogramOf, type ImageStage } from "./imageFallback";
 
 export const ArticleImage = ({
@@ -34,6 +35,7 @@ export const ArticleImage = ({
   title,
   outlet,
   articleUrl,
+  rights,
   className = "",
   aspect = "aspect-[16/10]",
 }: {
@@ -44,8 +46,10 @@ export const ArticleImage = ({
   outlet: Pick<Outlet, "domain" | "outlet" | "logo"> & {
     hotlink_ok?: boolean | null;
   };
-  /** Where the credit points. Falls back to the outlet page if absent. */
+  /** Where an outlet fallback points. Falls back to the outlet page if absent. */
   articleUrl: string | null;
+  /** Reviewed attribution/rights record. Delivery still uses outlet.hotlink_ok. */
+  rights?: ImageRights | null;
   className?: string;
   aspect?: string;
 }) => {
@@ -62,6 +66,11 @@ export const ArticleImage = ({
   }, [image, outlet.hotlink_ok, outlet.logo]);
 
   const src = stage === "photo" ? image : stage === "logo" ? outlet.logo : null;
+  const hasReviewedCredit = stage === "photo" && rights;
+  const creditText = hasReviewedCredit ? rights.credit_text : name;
+  const creditHref = hasReviewedCredit
+    ? rights.credit_url
+    : (articleUrl ?? `https://${outlet.domain}/`);
 
   return (
     <div
@@ -103,13 +112,17 @@ export const ArticleImage = ({
       {/* Rendered on EVERY rung, including the monogram: the card still shows
           an outlet's work and still names them. */}
       <a
-        href={articleUrl ?? `https://${outlet.domain}/`}
+        href={creditHref}
         target="_blank"
         rel="noopener noreferrer"
         className="absolute bottom-1 right-1 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold text-white backdrop-blur-[2px] transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        title={`Снимка: ${name} — към материала`}
+        title={
+          hasReviewedCredit
+            ? `${rights.credit_text} — към кредита`
+            : `${name} — към материала`
+        }
       >
-        © {name}
+        {creditText}
       </a>
     </div>
   );
