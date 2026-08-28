@@ -24,7 +24,25 @@ import { Link } from "@/ux/Link";
 import { useMayorPay } from "@/data/officials/useMayorPay";
 import { formatEur, formatCount } from "@/lib/currency";
 
-export const MyAreaMayorPayTile: FC<{ obshtina: string }> = ({ obshtina }) => {
+type MayorPayCardProps = {
+  obshtina: string;
+  /**
+   * A person page may retain historic offices.  A declaration is only shown
+   * there when the API identifies that same person as the municipality's
+   * current mayor, rather than silently assigning a successor's filing to
+   * the former officeholder.
+   */
+  expectedMayorSlug?: string;
+  /** A settlement is governed by the parent municipality's mayor, not one of
+   * its own unless it has a separate kmetstvo office. */
+  scope?: "municipality" | "parentMunicipality";
+};
+
+export const MayorPayCard: FC<MayorPayCardProps> = ({
+  obshtina,
+  expectedMayorSlug,
+  scope = "municipality",
+}) => {
   const { t, i18n } = useTranslation();
   const { data } = useMayorPay(obshtina);
 
@@ -32,7 +50,9 @@ export const MyAreaMayorPayTile: FC<{ obshtina: string }> = ({ obshtina }) => {
   // does not resolve (a within-city район, a currently-ambiguous mid-term
   // seat) and one whose corpus simply is not loaded look the same from here,
   // and neither is worth a placeholder on 265 dashboards.
-  if (!data) return null;
+  if (!data || (expectedMayorSlug && data.mayor_slug !== expectedMayorSlug)) {
+    return null;
+  }
 
   const locale = i18n.language;
 
@@ -40,7 +60,13 @@ export const MyAreaMayorPayTile: FC<{ obshtina: string }> = ({ obshtina }) => {
     <Card className="p-4">
       <div className="flex items-center gap-2 mb-1">
         <Banknote className="h-4 w-4 text-muted-foreground" />
-        <h3 className="font-semibold">{t("mp_tile_title")}</h3>
+        <h3 className="font-semibold">
+          {t(
+            scope === "parentMunicipality"
+              ? "mp_tile_parent_municipality_title"
+              : "mp_tile_title",
+          )}
+        </h3>
       </div>
 
       {data.income_eur == null ? (
@@ -95,3 +121,7 @@ export const MyAreaMayorPayTile: FC<{ obshtina: string }> = ({ obshtina }) => {
     </Card>
   );
 };
+
+// Backwards-compatible My Area name. The same verified contextual card is
+// deliberately shared by person and local-election pages.
+export const MyAreaMayorPayTile = MayorPayCard;

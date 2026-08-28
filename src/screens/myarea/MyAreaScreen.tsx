@@ -28,7 +28,7 @@ import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
 import { MyAreaMunicipalFiscalTile } from "./MyAreaMunicipalFiscalTile";
-import { MyAreaMayorPayTile } from "./MyAreaMayorPayTile";
+import { MayorPayCard } from "./MyAreaMayorPayTile";
 import { MyAreaProcurementTile } from "./MyAreaProcurementTile";
 import { MyAreaTendersTile } from "./MyAreaTendersTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
@@ -259,6 +259,16 @@ export const MyAreaScreen: FC = () => {
             /settlement/:id direct routes. */}
         <MyAreaGovernmentCard obshtina={area.obshtina} />
 
+        {/* The declaration belongs to the municipality mayor. On a settlement
+            page, say that explicitly so it is never confused with the
+            separately elected кмет на кметство above. */}
+        <MayorPayCard
+          obshtina={area.obshtina}
+          scope={
+            area.kind === "settlement" ? "parentMunicipality" : "municipality"
+          }
+        />
+
         {/* ⚠️ MOUNTED HERE, NOT INSIDE THE CARD ABOVE, and the difference is availability. The
             card returns null when it has neither an officials roster nor a local-election
             bundle — two ingests with nothing to do with the identity layer this links into — so
@@ -301,12 +311,6 @@ export const MyAreaScreen: FC = () => {
             also suits it: three bars at one scale read better wide than in a
             half column. Self-hides when the município has no МФ return. */}
         <MyAreaMunicipalFiscalTile obshtina={area.obshtina} />
-        {/* Declared mayor pay vs. the município's own population — a separate
-            corpus (declarations, not budget execution) from the fiscal tile
-            above, so it is its own tile rather than a row inside it.
-            Self-hides for a район with no city-wide mayor of its own and for
-            the rare município mid-way through an unresolved mayor change. */}
-        <MyAreaMayorPayTile obshtina={area.obshtina} />
         {/* Interreg — separate from the EU-projects tile above BECAUSE it is a
             separate corpus (ИСУН holds none of it), and pinned here because
             cross-border money lands almost entirely on border municipalities,

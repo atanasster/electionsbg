@@ -23,6 +23,8 @@ import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useLocalSettlement } from "@/data/local/useLocalSettlement";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useLocalPlaceTrend } from "@/data/local/useLocalPlaceTrends";
+import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
+import { MayorPayCard } from "@/screens/myarea/MyAreaMayorPayTile";
 import { LocalPlaceTrendsTile } from "./LocalPlaceTrendsTile";
 import { LocalMayorRunoffBar } from "./LocalMayorRunoffBar";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
@@ -540,6 +542,17 @@ export const LocalSettlementDashboardCards: FC<{
       {municipality ? (
         <DashboardSection id="local-overview" title={t("local_sec_councils")}>
           <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
+          {/* This is current accountability information, not a result from a
+              historic election. Keep it off old result pages, and label its
+              municipal scope so it cannot be read as a kmetstvo mayor's pay. */}
+          {cycle === LATEST_LOCAL_CYCLE ? (
+            <div className="mt-3">
+              <MayorPayCard
+                obshtina={municipality.obshtinaCode}
+                scope="parentMunicipality"
+              />
+            </div>
+          ) : null}
         </DashboardSection>
       ) : null}
     </div>

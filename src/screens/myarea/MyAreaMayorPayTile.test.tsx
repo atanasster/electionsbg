@@ -25,7 +25,7 @@ vi.mock("@/data/officials/useMayorPay", async (orig) => ({
   useMayorPay: (o?: string) => mockMayorPay(o),
 }));
 
-import { MyAreaMayorPayTile } from "./MyAreaMayorPayTile";
+import { MayorPayCard, MyAreaMayorPayTile } from "./MyAreaMayorPayTile";
 
 const payload = (over: Partial<MayorPayPayload> = {}): MayorPayPayload =>
   ({
@@ -110,5 +110,28 @@ describe("MyAreaMayorPayTile", () => {
     renderTile(payload({ source_url: null }));
     expect(screen.queryByText("mp_tile_source")).toBeNull();
     expect(screen.getByText("mp_tile_compare")).toBeVisible();
+  });
+
+  it("does not assign a current mayor's filing to a different person profile", () => {
+    mockMayorPay.mockReturnValue({ data: payload(), isPending: false });
+    const { container } = render(
+      <MemoryRouter>
+        <MayorPayCard
+          obshtina="DOB03"
+          expectedMayorSlug="former-mayor-123"
+        />
+      </MemoryRouter>,
+    );
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it("uses an explicit parent-municipality title on settlement surfaces", () => {
+    mockMayorPay.mockReturnValue({ data: payload(), isPending: false });
+    render(
+      <MemoryRouter>
+        <MayorPayCard obshtina="DOB03" scope="parentMunicipality" />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("mp_tile_parent_municipality_title")).toBeVisible();
   });
 });

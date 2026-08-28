@@ -68,6 +68,8 @@ import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
 import { useNoindex } from "@/lib/useNoindex";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
+import { MayorPayCard } from "@/screens/myarea/MyAreaMayorPayTile";
+import { mayorPayObshtinaForRoles } from "./mayorPay";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
@@ -188,6 +190,11 @@ const PersonDashboardBody: FC<{
       })),
     [p.roles, i18n.language],
   );
+
+  // `PersonProfile` can include a past municipal office. The card also checks
+  // its API response against `p.slug`, so this code only selects a possible
+  // place; it never presents a successor's declaration as this person's pay.
+  const mayorPayObshtina = mayorPayObshtinaForRoles(p.roles);
 
   // Which voting records this person has, earliest first. `mpId != null` rather than an
   // mp-role check is deliberate — it is the SAME condition the national card is gated on
@@ -631,6 +638,17 @@ const PersonDashboardBody: FC<{
               </Card>
             </DashboardSection>
           )}
+
+          {/* The card self-hides if this profile's office is historic. It is
+              intentionally not wrapped in DashboardSection: that wrapper
+              would leave an orphan heading when the response identifies a
+              successor as the current mayor. */}
+          {mayorPayObshtina ? (
+            <MayorPayCard
+              obshtina={mayorPayObshtina}
+              expectedMayorSlug={p.slug}
+            />
+          ) : null}
 
           {/* Declared-wealth trajectory (Court of Audit), across every tier the person filed in.
             Self-hides below 2 asset-bearing years, so it shows only where there is a real
