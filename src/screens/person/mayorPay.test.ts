@@ -25,6 +25,12 @@ describe("mayorPayObshtinaForRoles", () => {
     expect(mayorPayObshtinaForRoles([role()])).toBe("BLG11");
   });
 
+  it("accepts a municipal-officials mayor role too", () => {
+    expect(
+      mayorPayObshtinaForRoles([role({ source: "official_muni" })]),
+    ).toBe("BLG11");
+  });
+
   it("does not mistake a settlement or non-mayor office for a municipality mayor", () => {
     expect(
       mayorPayObshtinaForRoles([

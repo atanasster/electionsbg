@@ -6,8 +6,9 @@
 per-municipality/My Area tile). **T1 was NOT built as specified below — it was bypassed.** See
 the note at the top of §T1: the shipped code joins through
 `municipal_officials_table.obshtina`, which the person-identity layer had already resolved,
-rather than building the name-fold resolver this section describes. The remaining UI work is
-discoverability, the dashboard rework, and contextual placement on person/local pages.
+rather than building the name-fold resolver this section describes. The serving and UI work is
+now complete: discoverability, the dashboard rework, and contextual placement on person/local
+pages shipped on 2026-08-28.
 **Triggered by:** fact-checking gospodari.com's 2026-08-24 piece ("Кметове на малки населени места
 декларират петцифрени заплати") against our own `declaration`/`declaration_income` corpus. Every
 figure in the article checked out (see the audit in this conversation), but the audit surfaced
@@ -29,6 +30,20 @@ own site, even though we hold the numbers.
 - This is a freshness and transformation audit, not an assertion that every sitting mayor has
   filed. Missing/unreadable filings and genuinely ambiguous concurrent mayors remain explicitly
   represented as absence, never as zero.
+
+## Implementation completion — 2026-08-28
+
+- `/governance/mayor-pay` is now reachable from the Governance hub and header menu, and its
+  redundant top-20 chart was replaced with coverage, fiscal-year, median-income and
+  per-1,000-resident KPI cards above the sortable explorer.
+- The same cited card appears beside municipal government on My Area pages; settlement views
+  explicitly identify it as the **parent municipality** mayor's income.
+- It also appears on the current regular local-election municipality and settlement pages. It is
+  deliberately withheld from historical election results so a later officeholder's declaration is
+  never framed as the old winner's pay.
+- A mayor's person profile renders the card only when the serving response's `mayor_slug` matches
+  that profile. The profile selector accepts both elected-local and municipal-officials role
+  sources; a former mayor therefore gets neither a stale attribution nor an empty section shell.
 
 ---
 

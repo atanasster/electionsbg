@@ -28,7 +28,6 @@ import {
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
-import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
 import {
   districtRayonGovernanceId,
   findCityRayon,
@@ -68,6 +67,7 @@ import { IndicatorsTile } from "./dashboard/IndicatorsTile";
 import { OfficialsDiffTile } from "./dashboard/OfficialsDiffTile";
 import { MunicipalOfficialsRosterTile } from "./dashboard/MunicipalOfficialsRosterTile";
 import { MayorPayCard } from "./myarea/MyAreaMayorPayTile";
+import { shouldShowMayorPayOnLocalPage } from "./myarea/mayorPayPlacement";
 import {
   MayorVsCouncilTile,
   TopCouncillorsTile,
@@ -1312,7 +1312,7 @@ const MunicipalityResults: FC<{
       {/* Current declaration data is intentionally separate from the elected
           result above. Older result pages must not imply that a later mayor's
           filing belonged to their historic winner. */}
-      {!isSofiaRayon && cycle === LATEST_LOCAL_CYCLE ? (
+      {shouldShowMayorPayOnLocalPage(cycle, isSofiaRayon) ? (
         <div className="mt-4">
           <MayorPayCard obshtina={municipality.obshtinaCode} />
         </div>
