@@ -1,0 +1,99 @@
+/* Editorial skin for the standalone news product. The main elections app
+   keeps its existing palette; this scope begins at App's .news-shell. */
+.news-shell {
+  --background: 42 38% 96%;
+  --foreground: 28 16% 12%;
+  --card: 42 44% 98%;
+  --card-foreground: 28 16% 12%;
+  --popover: 42 44% 98%;
+  --popover-foreground: 28 16% 12%;
+  --editorial-kicker: 13 63% 34%;
+  --primary: 28 16% 12%;
+  --primary-foreground: 42 44% 98%;
+  --secondary: 39 25% 91%;
+  --secondary-foreground: 28 16% 18%;
+  --muted: 39 23% 92%;
+  --muted-foreground: 28 9% 36%;
+  --accent: 13 63% 44%;
+  --accent-foreground: 42 44% 98%;
+  --border: 31 13% 52%;
+  --input: 31 13% 52%;
+  --ring: 28 16% 12%;
+  --radius: 0.375rem;
+  background-image: linear-gradient(
+    to bottom,
+    hsl(var(--foreground) / 0.025) 1px,
+    transparent 1px
+  );
+  background-size: 100% 4rem;
+}
+
+.dark .news-shell {
+  --background: 220 25% 9%;
+  --foreground: 39 29% 92%;
+  --card: 220 22% 12%;
+  --card-foreground: 39 29% 92%;
+  --popover: 220 22% 12%;
+  --popover-foreground: 39 29% 92%;
+  --editorial-kicker: 32 72% 68%;
+  --primary: 39 29% 92%;
+  --primary-foreground: 220 25% 9%;
+  --secondary: 218 18% 17%;
+  --secondary-foreground: 39 24% 88%;
+  --muted: 218 18% 16%;
+  --muted-foreground: 37 12% 68%;
+  --accent: 32 72% 62%;
+  --accent-foreground: 220 25% 9%;
+  --border: 216 12% 52%;
+  --input: 216 12% 52%;
+  --ring: 39 29% 92%;
+}
+
+.news-masthead {
+  box-shadow: 0 1px 0 hsl(var(--foreground) / 0.06);
+}
+
+.news-skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 60;
+  padding: 0.5rem 0.75rem;
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+}
+
+.news-skip-link:focus-visible {
+  outline: 3px solid hsl(var(--ring));
+  outline-offset: 3px;
+  transform: translateY(0);
+}
+
+.news-main {
+  max-width: 84rem;
+}
+
+.news-home-intro {
+  position: relative;
+}
+
+.news-home-intro::after {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 4.5rem;
+  height: 3px;
+  content: "";
+  background: hsl(var(--accent));
+}
+
+.news-footer {
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--foreground) / 0.025),
+    transparent 35%,
+    hsl(var(--foreground) / 0.025)
+  );
+}

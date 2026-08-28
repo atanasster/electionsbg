@@ -95,9 +95,14 @@ export const HomeScreen = () => {
 
   return (
     <div className="space-y-8">
-      <section>
-        <h1 className="font-title text-3xl">Всяка страна на всяка история</h1>
-        <p className="mt-1 max-w-2xl text-muted-foreground">
+      <section className="news-home-intro border-b pb-6">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
+          Независим медиен преглед
+        </p>
+        <h1 className="max-w-3xl font-title text-4xl leading-[1.05] sm:text-5xl">
+          Всяка страна на всяка история
+        </h1>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
           Сравнете как българските медии отразяват едни и същи събития — спектър
           на пристрастията, позиция спрямо Русия и сигнали за ИИ-генерирано
           съдържание.

@@ -17,7 +17,10 @@ const NotFoundScreen = () => (
     <h1 className="font-title text-3xl">Страницата не е намерена</h1>
     <p className="mt-2 text-muted-foreground">
       Адресът не съществува.{" "}
-      <Link to="/" className="text-primary underline-offset-4 hover:underline">
+      <Link
+        to="/"
+        className="font-medium text-primary underline underline-offset-4"
+      >
         Към историите
       </Link>
     </p>
@@ -36,8 +39,11 @@ export const App = () => {
   const isDark = theme === themeDark;
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b-2 bg-muted/95 backdrop-blur shadow-sm">
+    <div className="news-shell flex min-h-dvh flex-col bg-background text-foreground">
+      <a href="#news-main" className="news-skip-link">
+        Към основното съдържание
+      </a>
+      <header className="news-masthead sticky top-0 z-40 border-b bg-background">
         <div className="container flex flex-wrap items-center justify-between gap-2 px-2 py-2.5 sm:px-4">
           <div className="flex items-center gap-4">
             <Link
@@ -47,7 +53,9 @@ export const App = () => {
             >
               <Logo className="size-7" />
               <span className="font-title">
-                <span className="text-popover-foreground">Наясно</span>
+                <span className="text-[hsl(var(--editorial-kicker))]">
+                  Наясно
+                </span>
                 <span className="pl-1 font-semibold uppercase text-primary">
                   Новини
                 </span>
@@ -88,8 +96,8 @@ export const App = () => {
               variant="outline"
               size="icon"
               onClick={() => setTheme(isDark ? themeLight : themeDark)}
-              aria-label="Тема (светла/тъмна)"
-              title="Светла/тъмна тема"
+              aria-label={isDark ? "Включи светла тема" : "Включи тъмна тема"}
+              title={isDark ? "Включи светла тема" : "Включи тъмна тема"}
             >
               {isDark ? "☀" : "☾"}
             </Button>
@@ -119,7 +127,10 @@ export const App = () => {
         </nav>
       </header>
 
-      <main className="container flex-1 px-2 py-6 sm:px-4">
+      <main
+        id="news-main"
+        className="news-main container flex-1 px-2 py-6 sm:px-4"
+      >
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/story/:id" element={<StoryScreen />} />
@@ -132,7 +143,7 @@ export const App = () => {
         </Routes>
       </main>
 
-      <footer className="flex flex-wrap items-center justify-between gap-2 bg-muted p-4 text-sm">
+      <footer className="news-footer flex flex-wrap items-center justify-between gap-2 border-t bg-background p-4 text-sm">
         <div className="hidden font-medium lowercase text-secondary-foreground sm:block">
           © {new Date().getFullYear()} · всички права запазени
         </div>

@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 // HSL theme variables / light+dark palette (App.css).
 import "@/index.css";
 import "@/App.css";
+import "./news.css";
 import { ThemeContextProvider } from "@/theme/ThemeContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { App } from "./App";
