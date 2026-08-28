@@ -1,18 +1,9 @@
 // Home — the ground.news feed: stats strip, filters (category / timeframe /
 // search), blindspot rail, story cards, and the latest-articles wire beneath.
 
-import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { relativeTime } from "../labels";
 import {
@@ -21,45 +12,14 @@ import {
   useStats,
   useTaxonomy,
   type Outlet,
-  type Story,
 } from "../data";
 import { StoryCard } from "../components/StoryCard";
 import { LeadStory } from "../components/LeadStory";
+import { HomeFilterControls } from "../components/HomeFilterControls";
 import { buildHomeHierarchy, HOME_SUPPORTING_LIMIT } from "../homeHierarchy";
-
-const TIMEFRAMES = [
-  { days: 0, label: "Всички" },
-  { days: 1, label: "24 часа" },
-  { days: 7, label: "7 дни" },
-  { days: 30, label: "30 дни" },
-] as const;
+import { filterHomeStories, homeCategoryCounts } from "../homeFilters";
 
 const STORY_GRID = "grid gap-3 sm:grid-cols-2 lg:grid-cols-3";
-const withinDays = (iso: string | null | undefined, days: number): boolean => {
-  if (!days) return true;
-  if (!iso) return false;
-  const t = new Date(iso).getTime();
-  // Unparseable dates (NaN) drop out of time-filtered views rather than
-  // silently passing every window.
-  const age = Date.now() - t;
-  return Number.isFinite(t) && age >= 0 && age <= days * 86400_000;
-};
-
-const storyMatches = (
-  story: Story,
-  category: string,
-  days: number,
-  q: string,
-): boolean => {
-  if (category !== "all" && !story.topics.some((t) => t.category === category))
-    return false;
-  if (!withinDays(story.last_published, days)) return false;
-  if (q) {
-    const haystack = `${story.title_bg ?? ""} ${story.title_en ?? ""} ${story.summary_bg ?? ""}`;
-    if (!haystack.toLowerCase().includes(q)) return false;
-  }
-  return true;
-};
 
 export const HomeScreen = () => {
   const stats = useStats();
@@ -70,17 +30,57 @@ export const HomeScreen = () => {
   const [category, setCategory] = useState<string>("all");
   const [days, setDays] = useState<number>(30);
   const [query, setQuery] = useState("");
+  const [now, setNow] = useState(() => Date.now());
+  const [announcedCount, setAnnouncedCount] = useState<number | null>(null);
 
-  const q = query.trim().toLowerCase();
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
   const categories = taxonomy.data?.categories ?? null;
+  const facetedStories = useMemo(
+    () =>
+      filterHomeStories(home.data?.stories ?? [], {
+        category: "all",
+        days,
+        query,
+        now,
+      }),
+    [home.data?.stories, days, query, now],
+  );
+  const categoryCounts = useMemo(
+    () => homeCategoryCounts(facetedStories),
+    [facetedStories],
+  );
+  const availableCategories = useMemo(
+    () =>
+      (categories ?? []).filter(
+        (item) =>
+          item.id !== "not-site-relevant" &&
+          (categoryCounts.has(item.id) || item.id === category),
+      ),
+    [categories, categoryCounts, category],
+  );
 
   const filteredStories = useMemo(
     () =>
-      (home.data?.stories ?? []).filter((s) =>
-        storyMatches(s, category, days, q),
-      ),
-    [home.data, category, days, q],
+      filterHomeStories(home.data?.stories ?? [], {
+        category,
+        days,
+        query,
+        now,
+      }),
+    [home.data?.stories, category, days, query, now],
   );
+  useEffect(() => {
+    if (!home.data) return;
+    const timer = window.setTimeout(
+      () => setAnnouncedCount(filteredStories.length),
+      300,
+    );
+    return () => window.clearTimeout(timer);
+  }, [filteredStories.length, home.data]);
   // The whole record, not just the name: the card's image needs the outlet's
   // logo (the fallback rung) and its hotlink verdict.
   const outletByDomain = useMemo(() => {
@@ -129,55 +129,26 @@ export const HomeScreen = () => {
         </div>
       </section>
 
-      {/* Filters */}
-      <section
-        className="flex flex-wrap items-center gap-2"
-        aria-label="Филтри"
-      >
-        <Select value={category} onValueChange={setCategory}>
-          <SelectTrigger className="w-56" aria-label="Тема">
-            <SelectValue placeholder="Тема" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Всички теми</SelectItem>
-            {(categories ?? [])
-              .filter((c) => c.id !== "not-site-relevant")
-              .map((c) => (
-                <SelectItem key={c.id} value={c.id}>
-                  {c.label.bg} ({c.story_count})
-                </SelectItem>
-              ))}
-          </SelectContent>
-        </Select>
-        <Select
-          value={String(days)}
-          onValueChange={(v) => {
-            const next = TIMEFRAMES.find((t) => String(t.days) === v);
-            if (next) setDays(next.days);
-          }}
-        >
-          <SelectTrigger className="w-36" aria-label="Период">
-            <SelectValue placeholder="Период" />
-          </SelectTrigger>
-          <SelectContent>
-            {TIMEFRAMES.map((t) => (
-              <SelectItem key={t.days} value={String(t.days)}>
-                {t.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <div className="relative min-w-52 flex-1">
-          <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Търсене в заглавия и резюмета…"
-            className="pl-8"
-            aria-label="Търсене"
-          />
-        </div>
-      </section>
+      <HomeFilterControls
+        categories={availableCategories}
+        categoryCounts={categoryCounts}
+        category={category}
+        days={days}
+        query={query}
+        onCategoryChange={setCategory}
+        onDaysChange={setDays}
+        onQueryChange={setQuery}
+        onReset={() => {
+          setCategory("all");
+          setDays(30);
+          setQuery("");
+        }}
+      />
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {announcedCount === null
+          ? ""
+          : `${announcedCount} ${announcedCount === 1 ? "история" : "истории"}`}
+      </p>
 
       {home.error && !home.data ? (
         <Card className="p-4 text-sm text-destructive">
