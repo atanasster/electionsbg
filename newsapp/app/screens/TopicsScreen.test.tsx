@@ -245,6 +245,14 @@ describe("the two counts", () => {
 describe("the shortfall", () => {
   beforeEach(() => vi.resetModules());
 
+  it("explains that neutral evaluations participate in the distribution", async () => {
+    await renderTopics([topic()]);
+    expect(
+      screen.getByText(/Неутралната оценка участва в разпределението/),
+    ).toBeVisible();
+    expect(screen.queryByText(/те не влизат нито в разсейването/)).toBeNull();
+  });
+
   it("states how far off it is, rather than showing a dash", async () => {
     // ⚠️ „—" and „0.00" both read as "these outlets agree". Neither is a
     // claim we have earned below the floor.
@@ -286,7 +294,9 @@ describe("the shortfall", () => {
       }),
     ]);
     expect(
-      within(rowFor("Нула")).getByText("нито една статия не заема позиция"),
+      within(rowFor("Нула")).getByText(
+        "нито една статия няма приложима оценка",
+      ),
     ).toBeVisible();
     expect(
       within(rowFor("Малко")).getByText(`3 статии от нужните ${FLOOR}`),
@@ -399,7 +409,7 @@ describe("the shortfall", () => {
       }),
     ]);
     expect(
-      within(rowFor("Двайсет и една")).getByText("от 21 статия"),
+      within(rowFor("Двайсет и една")).getByText("от 21 статии"),
     ).toBeVisible();
     expect(
       within(rowFor("Единайсет")).getByText(`11 статии от нужните ${FLOOR}`),

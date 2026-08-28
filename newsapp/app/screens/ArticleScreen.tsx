@@ -32,6 +32,7 @@ import {
   QUALITY_META,
   RUSSIA_META,
   formatDateTime,
+  bgMedia,
   relativeTime,
 } from "../labels";
 import {
@@ -394,7 +395,7 @@ export const ArticleScreen = () => {
           {(analysis.ai_generated?.signals ?? []).length > 0 ? (
             <Card className="mt-3 p-4">
               <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Сигнали за ИИ-генериран текст
+                Сигнали за възможна употреба на ИИ
               </div>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
                 {analysis.ai_generated!.signals.map((sig) => (
@@ -431,7 +432,7 @@ export const ArticleScreen = () => {
               to={`/story/${story.id}`}
               className="text-sm text-primary underline-offset-4 hover:underline"
             >
-              Цялата история · {story.aggregates.outlet_count} медии
+              Цялата история · {bgMedia(story.aggregates.outlet_count)}
             </Link>
           </div>
           {siblings.length > 0 ? (

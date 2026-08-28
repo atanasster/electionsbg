@@ -7,7 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  bgAnalyzedArticles,
   bgArticles,
+  outletScopeLabel,
+  outletTierLabel,
+  outletTypeLabel,
   formatDate,
   formatVisits,
   LEANING_META,
@@ -326,13 +330,13 @@ export const OutletScreen = () => {
             <Badge variant="secondary">#{outlet.rank} в каталога</Badge>
           ) : null}
           {outlet.tier ? (
-            <Badge variant="secondary">{outlet.tier}</Badge>
+            <Badge variant="secondary">{outletTierLabel(outlet.tier)}</Badge>
           ) : null}
           {outlet.type ? (
-            <Badge variant="secondary">{outlet.type}</Badge>
+            <Badge variant="secondary">{outletTypeLabel(outlet.type)}</Badge>
           ) : null}
           {outlet.scope ? (
-            <Badge variant="secondary">{outlet.scope}</Badge>
+            <Badge variant="secondary">{outletScopeLabel(outlet.scope)}</Badge>
           ) : null}
           {outlet.visits != null ? (
             <Badge variant="secondary">
@@ -340,8 +344,7 @@ export const OutletScreen = () => {
             </Badge>
           ) : null}
           <Badge variant="secondary">
-            {/* One definition, shared with /topics — this was a private copy
-                carrying the same n===1 gap (21 статии, not 21 статия). */}
+            {/* One definition shared with every count surface. */}
             {bgArticles(outlet.article_count)} в корпуса
           </Badge>
           <Badge variant="secondary">
@@ -393,8 +396,8 @@ export const OutletScreen = () => {
           {outlet.analyzed_count === 0
             ? "Още няма анализирани статии от този източник — разпределенията се появяват, когато анализът го достигне."
             : positionedCount(outlet.leaning) === 0
-              ? `Анализирани са ${outlet.analyzed_count} статии и нито една не заема позиция по политическата ос. Това не е липса на данни — повечето материали просто не са политически.`
-              : `От ${outlet.analyzed_count} анализирани статии само ${positionedCount(outlet.leaning)} заемат позиция. Това е твърде малко за разпределение: лента, начертана върху толкова материал, изглежда точно като лента върху сто.`}
+              ? `Анализът обхваща ${bgArticles(outlet.analyzed_count)} и нито една няма приложима оценка по тази скала.`
+              : `От ${bgAnalyzedArticles(outlet.analyzed_count)} само ${positionedCount(outlet.leaning)} ${positionedCount(outlet.leaning) === 1 ? "участва" : "участват"} в разпределението. Това е твърде малко за надеждна лента.`}
         </Card>
       )}
 

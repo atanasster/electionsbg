@@ -81,7 +81,9 @@ describe("the sample floor", () => {
     ]);
     const row = rowFor("Блиц");
     expect(
-      within(row).getByText(/от 2 анализирани само 2 заемат позиция/),
+      within(row).getByText(
+        /от 2 анализирани статии само 2 участват в разпределението/,
+      ),
     ).toBeVisible();
     expect(row.querySelector('span[style*="background"]')).toBeNull();
   });
@@ -114,7 +116,9 @@ describe("the sample floor", () => {
       within(rowFor("Нула")).getByText("няма анализирани статии"),
     ).toBeVisible();
     expect(
-      within(rowFor("Малко")).getByText(/от 3 анализирани само 3 заемат/),
+      within(rowFor("Малко")).getByText(
+        /от 3 анализирани статии само 3 участват/,
+      ),
     ).toBeVisible();
   });
 
@@ -127,7 +131,7 @@ describe("the sample floor", () => {
       }),
     ]);
     expect(
-      within(rowFor("Един")).getByText(/само 1 заема позиция/),
+      within(rowFor("Един")).getByText(/само 1 участва в разпределението/),
     ).toBeVisible();
   });
 
@@ -140,6 +144,17 @@ describe("the sample floor", () => {
     const cells = [...rowFor("Блиц").querySelectorAll("td")];
     const coverage = cells.find((c) => c.textContent?.includes("/96"));
     expect(coverage?.textContent).toBe("2/96");
+  });
+
+  it("announces singular coverage with correct agreement", async () => {
+    await renderList([
+      outlet({ outlet: "Една", analyzed_count: 1, article_count: 1 }),
+    ]);
+    expect(
+      within(rowFor("Една")).getByLabelText(
+        "1 анализирана статия от 1 събрана статия",
+      ),
+    ).toBeVisible();
   });
 
   it("keeps the header and every body row at the same width", async () => {

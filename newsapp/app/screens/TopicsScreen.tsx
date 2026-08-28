@@ -81,13 +81,13 @@ const Shortfall = ({
   <span className="text-xs text-muted-foreground">
     {/* ⚠️ THREE states, not two — the third is real and common. „Управление
         и кабинет" is tagged on 7 articles and is the MAIN subject of none, so
-        „нито една статия не заема позиция" is the wrong fact about it: no
+        „нито една статия няма приложима оценка" is the wrong fact about it: no
         article was ever asked. Only a topic somebody actually wrote about can
         be short of positions. */}
     {primaryCount === 0
       ? "само като второстепенна тема"
       : axis.n === 0
-        ? "нито една статия не заема позиция"
+        ? "нито една статия няма приложима оценка"
         : `${articles(axis.n)} от нужните ${TOPIC_MIN_POSITIONED}`}
   </span>
 );
@@ -228,12 +228,13 @@ export const TopicsScreen = () => {
       )}
 
       <p className="text-xs text-muted-foreground">
-        Броят до разсейването е статиите, които{" "}
-        <strong className="font-medium text-foreground">заемат позиция</strong>{" "}
-        по съответната ос — не всички по темата. Мнозинството от анализираните
-        материали получават „без пристрастие" или „без позиция"; те не влизат
-        нито в разсейването, нито в лентата вдясно, защото липсата на позиция не
-        е позиция в средата.
+        Броят до разсейването е статиите с{" "}
+        <strong className="font-medium text-foreground">
+          приложима оценка
+        </strong>{" "}
+        по съответната ос — не всички по темата. Неутралната оценка участва в
+        разпределението в средата на скалата; извън него остават само
+        материалите, за които тази ос не е приложима.
       </p>
       <p className="text-xs text-muted-foreground">
         Оста се избира за всяка тема поотделно — тази с повече заели позиция

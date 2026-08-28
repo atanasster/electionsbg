@@ -5,7 +5,13 @@ import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { relativeTime } from "../labels";
+import {
+  bgAnalyzedArticles,
+  bgArticles,
+  bgMedia,
+  bgStories,
+  relativeTime,
+} from "../labels";
 import {
   useHome,
   useOutlets,
@@ -105,7 +111,7 @@ export const HomeScreen = () => {
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
           Сравнете как българските медии отразяват едни и същи събития — спектър
           на политическото рамкиране, позиция спрямо Русия и сигнали за
-          ИИ-генерирано съдържание.
+          съдържание, вероятно генерирано с ИИ.
         </p>
         {/* Stats strip — one glance at corpus + analysis coverage. */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -115,15 +121,15 @@ export const HomeScreen = () => {
             </span>
           ) : stats.data ? (
             <>
-              <Badge variant="secondary">{stats.data.stories} истории</Badge>
+              <Badge variant="secondary">{bgStories(stats.data.stories)}</Badge>
               <Badge variant="secondary">
-                {stats.data.analyzed_articles} анализирани статии (
+                {bgAnalyzedArticles(stats.data.analyzed_articles)} (
                 {stats.data.analyzed_pct}%)
               </Badge>
               <Badge variant="secondary">
-                {stats.data.total_articles} статии общо
+                {bgArticles(stats.data.total_articles)} общо
               </Badge>
-              <Badge variant="secondary">{stats.data.domains} медии</Badge>
+              <Badge variant="secondary">{bgMedia(stats.data.domains)}</Badge>
               <span className="text-xs text-muted-foreground">
                 обновено {relativeTime(stats.data.generated_at)}
               </span>
@@ -157,7 +163,7 @@ export const HomeScreen = () => {
 
       {home.error && !home.data ? (
         <Card className="p-4 text-sm text-destructive">
-          Началният фийд не се зареди: {home.error.message}
+          Началната страница не се зареди: {home.error.message}
         </Card>
       ) : null}
       {(taxonomy.error && !taxonomy.data) ||

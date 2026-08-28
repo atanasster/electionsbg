@@ -270,7 +270,9 @@ describe("the spectrum floor", () => {
       }),
     );
     expect(
-      await screen.findByText(/От 40 анализирани статии само 3 заемат позиция/),
+      await screen.findByText(
+        /От 40 анализирани статии само 3 участват в разпределението/,
+      ),
     ).toBeVisible();
   });
 
@@ -281,7 +283,9 @@ describe("the spectrum floor", () => {
     await renderProfile(
       outlet({ analyzed_count: 100, leaning: { not_applicable: 100 } }),
     );
-    expect(await screen.findByText(/нито една не заема позиция/)).toBeVisible();
+    expect(
+      await screen.findByText(/нито една няма приложима оценка/),
+    ).toBeVisible();
     expect(
       screen.queryByText(/Още няма анализирани статии/),
     ).not.toBeInTheDocument();
@@ -291,6 +295,15 @@ describe("the spectrum floor", () => {
     await renderProfile(outlet({ analyzed_count: 0 }));
     expect(
       await screen.findByText(/Още няма анализирани статии/),
+    ).toBeVisible();
+  });
+
+  it("uses singular copy below the spectrum floor", async () => {
+    await renderProfile(
+      outlet({ analyzed_count: 1, article_count: 1, leaning: { neutral: 1 } }),
+    );
+    expect(
+      await screen.findByText(/От 1 анализирана статия само 1 участва/),
     ).toBeVisible();
   });
 

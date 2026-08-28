@@ -231,24 +231,81 @@ export const formatVisits = (visits: number | null): string => {
   return String(visits);
 };
 
+const TIER_BG: Record<string, string> = {
+  mass: "масова медия",
+  editorial: "редакционна медия",
+  long_tail: "малка/нишова медия",
+};
+const TYPE_BG: Record<string, string> = {
+  aggregator: "агрегатор",
+  "TV news": "телевизионни новини",
+  agency: "агенция",
+  "analysis/culture": "анализи и култура",
+  business: "бизнес медия",
+  "business TV": "бизнес телевизия",
+  "business monthly": "месечно бизнес издание",
+  "business/markets": "бизнес и пазари",
+  commentary: "коментарна медия",
+  daily: "всекидневник",
+  "human rights/social": "права на човека и социални теми",
+  "independent commentary": "независими коментари",
+  "independent news": "независими новини",
+  investigative: "разследваща медия",
+  "investigative/data": "разследвания и данни",
+  "municipal governance": "общинско управление",
+  news: "новинарска медия",
+  "news/lifestyle": "новини и начин на живот",
+  newspaper: "вестник",
+  "portal+news": "портал и новини",
+  "public TV news": "обществена телевизия",
+  "public radio news": "обществено радио",
+  "public-service intl": "международна обществена медия",
+  "radio news": "радио новини",
+  regional: "регионална медия",
+  "regional newspaper": "регионален вестник",
+  "state news agency": "държавна информационна агенция",
+  "tabloid news": "таблоидни новини",
+  "tabloid newspaper": "таблоиден вестник",
+  "weekly newspaper": "седмичен вестник",
+  "weekly/business": "седмично бизнес издание",
+};
+const SCOPE_BG: Record<string, string> = {
+  national: "национален обхват",
+  Blagoevgrad: "Благоевград",
+  Burgas: "Бургас",
+  Haskovo: "Хасково",
+  Plovdiv: "Пловдив",
+  Varna: "Варна",
+};
+
+const controlledLabel = (
+  map: Record<string, string>,
+  value: string | null,
+  fallback: string,
+) => (value ? (map[value] ?? fallback) : null);
+export const outletTierLabel = (value: string | null): string | null =>
+  controlledLabel(TIER_BG, value, "неуточнена група");
+export const outletTypeLabel = (value: string | null): string | null =>
+  controlledLabel(TYPE_BG, value, "неуточнен тип");
+export const outletScopeLabel = (value: string | null): string | null =>
+  controlledLabel(SCOPE_BG, value, "неуточнен обхват");
+
 /**
  * Bulgarian number agreement for „статия" / „статии" — THE one definition.
  *
- * ⚠️ The rule is on the LAST DIGIT, not on the value. Every numeral ending in
- * 1 takes the singular EXCEPT the teens: 1 статия, 21 статия, 101 статия, but
- * 11 статии. An `n === 1` test is right for exactly one number and wrong for
- * every other one that ends in 1 — and 21 is reachable on both screens that
- * use this, since the topic floor is 20 and outlets carry hundreds.
- *
- * It lives here rather than in either screen because it existed twice, with
- * the same gap in both copies, which is how a formatting rule comes to be
- * fixed on one page and left wrong on the other.
+ * These count labels use the singular only for the exact count 1; all other
+ * counts use the plural. It lives here so every screen follows the same rule.
  */
-export const bgArticleNoun = (n: number): string => {
-  const abs = Math.abs(Math.trunc(n));
-  const teens = abs % 100 >= 11 && abs % 100 <= 14;
-  return !teens && abs % 10 === 1 ? "статия" : "статии";
-};
+export const bgArticleNoun = (n: number): string =>
+  Math.abs(n) === 1 ? "статия" : "статии";
 
-/** „21 статия" — the count and its noun, agreeing. */
+/** „1 статия", „21 статии" — the count and its noun, agreeing. */
 export const bgArticles = (n: number): string => `${n} ${bgArticleNoun(n)}`;
+export const bgStories = (n: number): string =>
+  `${n} ${Math.abs(n) === 1 ? "история" : "истории"}`;
+export const bgMedia = (n: number): string =>
+  `${n} ${Math.abs(n) === 1 ? "медия" : "медии"}`;
+export const bgAnalyzedArticles = (n: number): string =>
+  `${n} ${Math.abs(n) === 1 ? "анализирана статия" : "анализирани статии"}`;
+export const bgCollectedArticles = (n: number): string =>
+  `${n} ${Math.abs(n) === 1 ? "събрана статия" : "събрани статии"}`;

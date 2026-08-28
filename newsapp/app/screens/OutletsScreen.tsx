@@ -17,7 +17,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatVisits } from "../labels";
+import {
+  bgAnalyzedArticles,
+  bgCollectedArticles,
+  formatVisits,
+  outletScopeLabel,
+  outletTypeLabel,
+} from "../labels";
 import { hasSpectrum, positionedCount, useOutlets, type Outlet } from "../data";
 import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
 import { LoadMore } from "../components/LoadMore";
@@ -31,7 +37,7 @@ const Coverage = ({ outlet: o }: { outlet: Outlet }) => {
   return (
     <span
       className={enough ? "text-foreground" : "text-muted-foreground"}
-      title={`${o.analyzed_count} анализирани от ${o.article_count} събрани`}
+      aria-label={`${bgAnalyzedArticles(o.analyzed_count)} от ${bgCollectedArticles(o.article_count)}`}
     >
       {o.analyzed_count}
       <span className="text-muted-foreground">/{o.article_count}</span>
@@ -41,8 +47,8 @@ const Coverage = ({ outlet: o }: { outlet: Outlet }) => {
 
 /** What stands where a bar would be. A sentence, never an empty strip. */
 const TooFewSpectrum = ({ outlet: o }: { outlet: Outlet }) => {
-  // ⚠️ THREE states, not two. "Nothing read", "read but nobody takes a
-  // position" and "too few take a position" are different facts about an
+  // ⚠️ THREE states, not two. "Nothing read", "read but nothing is
+  // applicable to the scale" and "too few are applicable" are different facts about an
   // outlet, and the middle one is the commonest: not_applicable is the
   // majority verdict, so an outlet with 100 analysed articles can have 0
   // positioned. Collapsing them said "няма анализирани статии" about
@@ -53,10 +59,10 @@ const TooFewSpectrum = ({ outlet: o }: { outlet: Outlet }) => {
       {o.analyzed_count === 0
         ? "няма анализирани статии"
         : positioned === 0
-          ? `${o.analyzed_count} анализирани, нито една не заема позиция`
+          ? `${bgAnalyzedArticles(o.analyzed_count)}, нито една няма приложима оценка`
           : positioned === 1
-            ? `от ${o.analyzed_count} анализирани само 1 заема позиция`
-            : `от ${o.analyzed_count} анализирани само ${positioned} заемат позиция`}
+            ? `от ${bgAnalyzedArticles(o.analyzed_count)} само 1 участва в разпределението`
+            : `от ${bgAnalyzedArticles(o.analyzed_count)} само ${positioned} участват в разпределението`}
     </span>
   );
 };
@@ -202,10 +208,10 @@ export const OutletsScreen = () => {
                     ) : null}
                   </TableCell>
                   <TableCell className="hidden md:table-cell text-muted-foreground">
-                    {o.type ?? "—"}
+                    {outletTypeLabel(o.type) ?? "—"}
                   </TableCell>
                   <TableCell className="hidden lg:table-cell text-muted-foreground">
-                    {o.scope ?? "—"}
+                    {outletScopeLabel(o.scope) ?? "—"}
                   </TableCell>
                   <TableCell className="hidden lg:table-cell text-right tabular-nums text-muted-foreground">
                     {formatVisits(o.visits)}
