@@ -16,6 +16,7 @@ import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
 import { RelatedStories } from "../components/RelatedStories";
 import { ReaderActions } from "../components/ReaderActions";
+import { ReportIssueLink } from "../components/ReportIssueLink";
 import { emitNewsEvent } from "../analytics";
 import { resolveRelatedStories } from "./relatedStories";
 
@@ -223,6 +224,9 @@ export const StoryScreen = () => {
               path={`/story/${story.id}`}
               title={story.title_bg ?? story.title_en ?? "Наясно новини"}
             />
+            <div className="mt-2">
+              <ReportIssueLink path={`/story/${story.id}`} />
+            </div>
             {story.title_en && story.title_bg ? (
               <p className="mt-1 text-sm italic text-muted-foreground">
                 {story.title_en}

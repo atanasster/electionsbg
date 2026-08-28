@@ -14,6 +14,7 @@ import { MethodologyScreen } from "./app/screens/MethodologyScreen";
 import { SavedScreen } from "./app/screens/SavedScreen";
 import { AboutScreen } from "./app/screens/AboutScreen";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
+import { CorrectionsScreen } from "./app/screens/CorrectionsScreen";
 
 const NotFoundScreen = () => (
   <section className="py-12">
@@ -146,6 +147,7 @@ export const App = () => {
           <Route path="/methodology" element={<MethodologyScreen />} />
           <Route path="/saved" element={<SavedScreen />} />
           <Route path="/about" element={<AboutScreen />} />
+          <Route path="/corrections" element={<CorrectionsScreen />} />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </main>
@@ -158,6 +160,7 @@ export const App = () => {
           {[
             ["https://electionsbg.com", "electionsbg.com"],
             ["/about", "за редакцията"],
+            ["/corrections", "поправки"],
             ["https://github.com/atanasster/electionsbg", "отворен код"],
             ["/methodology", "методология"],
           ].map(([href, label]) => (

@@ -14,6 +14,7 @@ describe("privacy-preserving news analytics", () => {
     ["/article/domain/private-id", "article"],
     ["/outlet/example.bg", "outlet"],
     ["/missing?query=private", "other"],
+    ["/corrections", "corrections"],
   ] as const)(
     "reduces %s to a low-cardinality route family",
     (path, expected) => {

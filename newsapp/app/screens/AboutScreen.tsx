@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
+import { RIGHT_OF_REPLY_POLICY } from "../corrections";
 
 export const AboutScreen = () => (
   <article className="mx-auto max-w-4xl py-6">
@@ -84,14 +85,21 @@ export const AboutScreen = () => (
         свързана статия, нарушение на права за изображение или аналитична
         оценка. Посочете точния адрес и проверими основания. Екипът преглежда
         сигнала; потвърдена грешка се поправя или материалът се оттегля, а
-        промяната се отбелязва с дата. Несъгласие без нови проверими факти се
-        записва като право на отговор, не като автоматична промяна на оценката.
-        Не обещаваме срок, който не можем надеждно да спазим.
+        промяната се отбелязва с дата. Общата обратна връзка се разглежда като
+        сигнал, но сама по себе си не е право на отговор.{" "}
+        {RIGHT_OF_REPLY_POLICY} Не обещаваме срок, който не можем надеждно да
+        спазим.
       </p>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
         В момента има само публичен GitHub канал и няма частен канал за
         чувствителни доказателства. Това е ограничение на текущия процес.
       </p>
+      <Link
+        to="/corrections"
+        className="mt-3 inline-block font-medium text-primary hover:underline"
+      >
+        Процес и публичен регистър
+      </Link>
     </section>
 
     <section className="mt-8 border-t pt-6">

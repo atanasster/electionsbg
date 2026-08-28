@@ -93,6 +93,15 @@ describe("StoryScreen analytics", () => {
         </Routes>
       </MemoryRouter>,
     );
+    const reportBody = new URL(
+      screen
+        .getByRole("link", { name: /Сигнализирай проблем/ })
+        .getAttribute("href")!,
+    ).searchParams.get("body");
+    expect(reportBody).toContain(
+      "https://news.electionsbg.com/story/private-story-id",
+    );
+    expect(reportBody).not.toMatch(/Тестова история|private-member|\?/);
 
     const progressive = screen.getByRole("button", {
       name: /Прогресивно ·/,

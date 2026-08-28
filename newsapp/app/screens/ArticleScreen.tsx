@@ -52,6 +52,7 @@ import { SummaryPair } from "../components/SummaryPair";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ReaderActions } from "../components/ReaderActions";
+import { ReportIssueLink } from "../components/ReportIssueLink";
 import { emitNewsEvent } from "../analytics";
 
 /**
@@ -266,6 +267,9 @@ export const ArticleScreen = () => {
         path={`/article/${domain}/${article.id}`}
         title={article.title ?? "Наясно новини"}
       />
+      <div className="mt-2">
+        <ReportIssueLink path={`/article/${domain}/${id}`} />
+      </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
         <div>

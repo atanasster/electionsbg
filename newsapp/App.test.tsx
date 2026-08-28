@@ -29,10 +29,27 @@ describe("news shell accessibility", () => {
       "href",
       "/about",
     );
+    expect(screen.getByRole("link", { name: "поправки" })).toHaveAttribute(
+      "href",
+      "/corrections",
+    );
 
     await user.click(
       screen.getByRole("button", { name: "Включи светла тема" }),
     );
     expect(setTheme).toHaveBeenCalledWith(themeLight);
+  });
+
+  it("renders the corrections workflow at its public route", () => {
+    render(
+      <ThemeContext.Provider value={{ theme: themeLight, setTheme: vi.fn() }}>
+        <MemoryRouter initialEntries={["/corrections"]}>
+          <App />
+        </MemoryRouter>
+      </ThemeContext.Provider>,
+    );
+    expect(
+      screen.getByRole("heading", { name: "Поправки и право на отговор" }),
+    ).toBeVisible();
   });
 });

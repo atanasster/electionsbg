@@ -8,6 +8,7 @@ export type NewsRouteFamily =
   | "methodology"
   | "saved"
   | "about"
+  | "corrections"
   | "other";
 
 type ContentType = "story" | "article";
@@ -57,6 +58,7 @@ export const newsRouteFamily = (pathname: string): NewsRouteFamily => {
   if (pathname === "/methodology") return "methodology";
   if (pathname === "/saved") return "saved";
   if (pathname === "/about") return "about";
+  if (pathname === "/corrections") return "corrections";
   return "other";
 };
 
@@ -70,6 +72,7 @@ const ROUTES = new Set<NewsRouteFamily>([
   "methodology",
   "saved",
   "about",
+  "corrections",
   "other",
 ]);
 const CONTENT = new Set<ContentType>(["story", "article"]);

@@ -32,6 +32,19 @@ describe("about hub contract", () => {
   });
 });
 
+describe("corrections hub contract", () => {
+  it("publishes a dedicated, indexable trust route", () => {
+    expect(
+      HUB_ROUTES.find((route) => route.path === "corrections"),
+    ).toMatchObject({
+      title: "Поправки и право на отговор | Наясно Новини",
+    });
+    const route = HUB_ROUTES.find((item) => item.path === "corrections");
+    expect(route?.noindex).not.toBe(true);
+    expect(route?.sitemap).not.toBe(false);
+  });
+});
+
 // A template that carries every tag applyHead rewrites, in the shape
 // newsapp/index.html actually uses.
 const TEMPLATE = `<!doctype html>

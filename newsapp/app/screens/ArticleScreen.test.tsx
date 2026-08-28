@@ -193,6 +193,18 @@ describe("the evidence", () => {
 describe("the outbound link", () => {
   beforeEach(() => vi.resetModules());
 
+  it("prefills the canonical analysis path without article text or query data", async () => {
+    await renderAt([
+      article({ analysis: analysed() } as Partial<ArticleRecord>),
+    ]);
+    const href = screen
+      .getByRole("link", { name: /Сигнализирай проблем/ })
+      .getAttribute("href")!;
+    const body = new URL(href).searchParams.get("body");
+    expect(body).toContain("https://news.electionsbg.com/article/ex.bg/a1");
+    expect(body).not.toMatch(/Правителството|Кабинетът|\?/);
+  });
+
   it("points at the outlet and opens externally", async () => {
     const sink = vi.fn();
     window.naiasnoNewsAnalytics = sink;
