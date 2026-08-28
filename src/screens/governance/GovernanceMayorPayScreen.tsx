@@ -32,15 +32,6 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Link } from "@/ux/Link";
@@ -57,10 +48,19 @@ import {
   type MayorPaySortKey,
 } from "./mayorPayFilters";
 
-const TOP_N = 20;
-
 const eur0 = (v: number | null, locale: string): string =>
   v == null ? "—" : formatEur(v, locale);
+
+const median = (values: number[]): number | null => {
+  if (values.length === 0) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[middle - 1] + sorted[middle]) / 2
+    : sorted[middle];
+};
+
+type CoverageFilter = "all" | "withIncome" | "withoutIncome";
 
 export const GovernanceMayorPayScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -69,11 +69,8 @@ export const GovernanceMayorPayScreen: FC = () => {
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<MayorPaySortKey>("perThousand");
   const [asc, setAsc] = useState(false);
-
-  const withRatio = useMemo(
-    () => rows.filter((r) => r.income_per_1000_residents_eur != null),
-    [rows],
-  );
+  const [year, setYear] = useState<number | null>(null);
+  const [coverage, setCoverage] = useState<CoverageFilter>("all");
 
   // The newest fiscal year any row actually carries — not assumed to be a
   // fixed year, since the corpus moves. A row whose OWN fiscal_year is older
@@ -88,26 +85,57 @@ export const GovernanceMayorPayScreen: FC = () => {
     [rows],
   );
 
-  const chartData = useMemo(
+  const shown = useMemo(
     () =>
-      [...withRatio]
-        .sort(
-          (a, b) =>
-            (b.income_per_1000_residents_eur ?? 0) -
-            (a.income_per_1000_residents_eur ?? 0),
-        )
-        .slice(0, TOP_N)
-        .map((r) => ({
-          name: locale === "bg" ? r.name_bg : (r.name_en ?? r.name_bg),
-          value: r.income_per_1000_residents_eur ?? 0,
-          obshtina: r.obshtina,
-        })),
-    [withRatio, locale],
+      applyMayorPayFilter(
+        rows.filter((r) => {
+          if (year != null && r.fiscal_year !== year) return false;
+          if (coverage === "withIncome") return r.income_eur != null;
+          if (coverage === "withoutIncome") return r.income_eur == null;
+          return true;
+        }),
+        q,
+        sort,
+        asc,
+      ),
+    [rows, year, coverage, q, sort, asc],
   );
 
-  const shown = useMemo(
-    () => applyMayorPayFilter(rows, q, sort, asc),
-    [rows, q, sort, asc],
+  const years = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          rows.flatMap((r) => (r.fiscal_year == null ? [] : [r.fiscal_year])),
+        ),
+      ).sort((a, b) => b - a),
+    [rows],
+  );
+
+  const incomeRows = useMemo(
+    () => rows.filter((r) => r.income_eur != null),
+    [rows],
+  );
+  const medianIncome = useMemo(
+    () => median(incomeRows.map((r) => r.income_eur!)),
+    [incomeRows],
+  );
+  const medianPerThousand = useMemo(
+    () =>
+      median(
+        rows.flatMap((r) =>
+          r.income_per_1000_residents_eur == null
+            ? []
+            : [r.income_per_1000_residents_eur],
+        ),
+      ),
+    [rows],
+  );
+  const newestYearCount = useMemo(
+    () =>
+      latestYear == null
+        ? 0
+        : rows.filter((r) => r.fiscal_year === latestYear).length,
+    [rows, latestYear],
   );
 
   const sortBy = (key: MayorPaySortKey) => {
@@ -129,16 +157,12 @@ export const GovernanceMayorPayScreen: FC = () => {
       </p>
       {rows.length > 0 && latestYear != null && (
         <p className="text-xs text-muted-foreground mt-1">
-          {/* No `year` here on purpose. The sentence used to read „N of M
-              municipalities have a declaration for <latestYear>", which is false
-              whenever a filing season has only just opened: latestYear is a MAX
-              over fiscal_year, so a couple of early filers move it while almost
-              every row is still on the previous year. Measured 2026-08-25 — 249
-              rows at 2025, 2 at 2026, and the sentence claimed 249 for 2026. The
-              per-row year is carried by the „(<year>)" marker beside each amount,
-              which is the only place it can be said truthfully. */}
+          {/* The coverage sentence does not interpolate `latestYear`: that value is
+              a maximum, so it does not describe the whole table when a new filing
+              season has only just opened. The KPI states its own exact count, and
+              every row still carries its own year beside the amount. */}
           {t("mp_page_coverage", {
-            withIncome: withRatio.length,
+            withIncome: incomeRows.length,
             total: rows.length,
           })}
         </p>
@@ -158,67 +182,32 @@ export const GovernanceMayorPayScreen: FC = () => {
         </p>
       )}
 
-      {chartData.length > 0 && (
-        <Card className="mt-4">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">
-              {t("mp_chart_title", { n: TOP_N })}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-3 md:p-4">
-            <div className="h-[520px] min-w-0">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={chartData}
-                  layout="vertical"
-                  margin={{ top: 8, right: 24, bottom: 0, left: 8 }}
-                >
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    className="stroke-border"
-                    horizontal={false}
-                  />
-                  <XAxis
-                    type="number"
-                    tick={{ fontSize: 11 }}
-                    className="fill-muted-foreground"
-                    tickFormatter={(v) => eur0(v as number, locale)}
-                  />
-                  <YAxis
-                    type="category"
-                    dataKey="name"
-                    width={120}
-                    tick={{ fontSize: 11 }}
-                    className="fill-muted-foreground"
-                  />
-                  <Tooltip
-                    cursor={{ fill: "hsl(var(--muted) / 0.4)" }}
-                    formatter={(v: number) => [
-                      eur0(v, locale),
-                      t("mp_chart_tooltip_value"),
-                    ]}
-                    labelFormatter={(l) => String(l)}
-                    contentStyle={{
-                      fontSize: 12,
-                      borderRadius: 8,
-                      background: "hsl(var(--card))",
-                      border: "1px solid hsl(var(--border))",
-                      color: "hsl(var(--card-foreground))",
-                    }}
-                  />
-                  <Bar
-                    dataKey="value"
-                    radius={[0, 3, 3, 0]}
-                    fill="hsl(var(--primary))"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            <p className="mt-2 text-[11px] text-muted-foreground/80">
-              {t("mp_chart_footnote")}
-            </p>
-          </CardContent>
-        </Card>
+      {rows.length > 0 && (
+        <section
+          className="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 mt-6"
+          aria-label={t("mp_dashboard_label")}
+        >
+          <MetricCard
+            label={t("mp_kpi_coverage")}
+            value={`${incomeRows.length}/${rows.length}`}
+            detail={t("mp_kpi_coverage_detail")}
+          />
+          <MetricCard
+            label={t("mp_kpi_latest_year")}
+            value={latestYear == null ? "—" : String(latestYear)}
+            detail={t("mp_kpi_latest_year_detail", { count: newestYearCount })}
+          />
+          <MetricCard
+            label={t("mp_kpi_median_income")}
+            value={eur0(medianIncome, locale)}
+            detail={t("mp_kpi_median_income_detail")}
+          />
+          <MetricCard
+            label={t("mp_kpi_median_per_thousand")}
+            value={eur0(medianPerThousand, locale)}
+            detail={t("mp_kpi_median_per_thousand_detail")}
+          />
+        </section>
       )}
 
       <div className="flex flex-wrap items-center gap-2 mt-6 mb-4">
@@ -230,63 +219,149 @@ export const GovernanceMayorPayScreen: FC = () => {
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
+        <select
+          aria-label={t("mp_filter_year")}
+          className="h-9 rounded-md border bg-background px-3 text-sm"
+          value={year ?? "all"}
+          onChange={(e) =>
+            setYear(e.target.value === "all" ? null : Number(e.target.value))
+          }
+        >
+          <option value="all">{t("mp_filter_all_years")}</option>
+          {years.map((optionYear) => (
+            <option key={optionYear} value={optionYear}>
+              {optionYear}
+            </option>
+          ))}
+        </select>
+        <div
+          className="flex rounded-md border p-0.5"
+          role="group"
+          aria-label={t("mp_filter_coverage")}
+        >
+          {(["all", "withIncome", "withoutIncome"] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setCoverage(option)}
+              className={cn(
+                "rounded px-2 py-1 text-xs",
+                coverage === option && "bg-primary text-primary-foreground",
+              )}
+            >
+              {t(`mp_filter_${option}`)}
+            </button>
+          ))}
+        </div>
         <span className="text-xs text-muted-foreground">
           {t("mp_page_showing", { shown: shown.length, total: rows.length })}
         </span>
       </div>
 
       {shown.length > 0 && (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b text-left">
-                <th className="py-2 pr-3 font-medium">
-                  <SortHeader
-                    label={t("mp_col_municipality")}
-                    active={sort === "name"}
-                    asc={asc}
-                    onClick={() => sortBy("name")}
-                  />
-                </th>
-                <th className="py-2 px-2 font-medium">{t("mp_col_mayor")}</th>
-                <th className="py-2 px-2 font-medium text-right">
-                  <SortHeader
-                    label={t("mp_col_population")}
-                    active={sort === "population"}
-                    asc={asc}
-                    onClick={() => sortBy("population")}
-                  />
-                </th>
-                <th className="py-2 px-2 font-medium text-right">
-                  <SortHeader
-                    label={t("mp_col_income")}
-                    active={sort === "income"}
-                    asc={asc}
-                    onClick={() => sortBy("income")}
-                  />
-                </th>
-                <th className="py-2 pl-2 font-medium text-right">
-                  <SortHeader
-                    label={t("mp_col_per_thousand")}
-                    active={sort === "perThousand"}
-                    asc={asc}
-                    onClick={() => sortBy("perThousand")}
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {shown.map((r) => (
-                <Row
-                  key={r.obshtina}
-                  row={r}
-                  locale={locale}
-                  latestYear={latestYear}
-                />
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">{t("mp_table_title")}</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto px-4 pb-4">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b text-left">
+                    <th
+                      className="py-2 pr-3 font-medium"
+                      aria-sort={
+                        sort === "name"
+                          ? asc
+                            ? "ascending"
+                            : "descending"
+                          : "none"
+                      }
+                    >
+                      <SortHeader
+                        label={t("mp_col_municipality")}
+                        active={sort === "name"}
+                        asc={asc}
+                        onClick={() => sortBy("name")}
+                      />
+                    </th>
+                    <th className="py-2 px-2 font-medium">
+                      {t("mp_col_mayor")}
+                    </th>
+                    <th
+                      className="py-2 px-2 font-medium text-right"
+                      aria-sort={
+                        sort === "population"
+                          ? asc
+                            ? "ascending"
+                            : "descending"
+                          : "none"
+                      }
+                    >
+                      <SortHeader
+                        label={t("mp_col_population")}
+                        active={sort === "population"}
+                        asc={asc}
+                        onClick={() => sortBy("population")}
+                      />
+                    </th>
+                    <th
+                      className="py-2 px-2 font-medium text-right"
+                      aria-sort={
+                        sort === "income"
+                          ? asc
+                            ? "ascending"
+                            : "descending"
+                          : "none"
+                      }
+                    >
+                      <SortHeader
+                        label={t("mp_col_income")}
+                        active={sort === "income"}
+                        asc={asc}
+                        onClick={() => sortBy("income")}
+                      />
+                    </th>
+                    <th
+                      className="py-2 pl-2 font-medium text-right"
+                      aria-sort={
+                        sort === "perThousand"
+                          ? asc
+                            ? "ascending"
+                            : "descending"
+                          : "none"
+                      }
+                    >
+                      <SortHeader
+                        label={t("mp_col_per_thousand")}
+                        active={sort === "perThousand"}
+                        asc={asc}
+                        onClick={() => sortBy("perThousand")}
+                      />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shown.map((r) => (
+                    <Row
+                      key={r.obshtina}
+                      row={r}
+                      locale={locale}
+                      latestYear={latestYear}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      {rows.length > 0 && shown.length === 0 && (
+        <Card>
+          <CardContent className="py-8 text-center text-sm text-muted-foreground">
+            {t("mp_table_no_matches")}
+          </CardContent>
+        </Card>
       )}
 
       <p className="text-xs text-muted-foreground mt-4 max-w-3xl">
@@ -295,6 +370,24 @@ export const GovernanceMayorPayScreen: FC = () => {
     </div>
   );
 };
+
+const MetricCard: FC<{ label: string; value: string; detail: string }> = ({
+  label,
+  value,
+  detail,
+}) => (
+  <Card>
+    <CardHeader className="pb-1">
+      <CardTitle className="text-sm font-medium text-muted-foreground">
+        {label}
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className="text-2xl font-semibold tabular-nums">{value}</div>
+      <p className="mt-1 text-xs text-muted-foreground">{detail}</p>
+    </CardContent>
+  </Card>
+);
 
 const SortHeader: FC<{
   label: string;
@@ -306,7 +399,6 @@ const SortHeader: FC<{
     type="button"
     onClick={onClick}
     className={cn("hover:underline", active && "font-semibold")}
-    aria-sort={active ? (asc ? "ascending" : "descending") : "none"}
   >
     {label}
     {active && (asc ? " ↑" : " ↓")}
