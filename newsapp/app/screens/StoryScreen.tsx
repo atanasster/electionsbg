@@ -9,11 +9,13 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MixBar, type MixSegment } from "@/ux/MixBar";
 import { formatDate, LEANING_META, relativeTime, RUSSIA_META } from "../labels";
-import { useOutlets, useStories, useTaxonomy, type Story } from "../data";
+import { useOutlets, useStories, useTaxonomy } from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { EntityChips } from "../components/EntityChips";
 import { TopicChips } from "../components/TopicChips";
 import { SummaryPair } from "../components/SummaryPair";
+import { RelatedStories } from "../components/RelatedStories";
+import { resolveRelatedStories } from "./relatedStories";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
 type StanceGroup = "pro" | "neutral" | "anti" | "n/a";
@@ -152,10 +154,7 @@ export const StoryScreen = () => {
 
   const related = useMemo(() => {
     if (!story) return [];
-    const all = stories.data?.stories ?? [];
-    return story.related_story_ids
-      .map((rid) => all.find((s) => s.id === rid))
-      .filter((s): s is Story => Boolean(s));
+    return resolveRelatedStories(story, stories.data?.stories ?? []);
   }, [story, stories.data]);
 
   const categories = taxonomy.data?.categories ?? null;
@@ -384,22 +383,7 @@ export const StoryScreen = () => {
             </Card>
           ) : null}
 
-          {related.length > 0 ? (
-            <Card className="p-4">
-              <h2 className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Свързани истории
-              </h2>
-              <ul className="space-y-2 text-sm">
-                {related.map((r) => (
-                  <li key={r.id}>
-                    <Link to={`/story/${r.id}`} className="hover:text-primary">
-                      {r.title_bg ?? r.title_en ?? r.id}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          ) : null}
+          <RelatedStories stories={related} />
         </aside>
       </div>
     </div>
