@@ -209,10 +209,16 @@ const waitForPg = async (): Promise<void> => {
 };
 
 export const loadPg = async (): Promise<{
+  /** Rows read from the month shards — NOT the final `contracts` row count. */
   rows: number;
   years: string[];
   batchId: number;
   rowsNew: number;
+  /**
+   * Synthetic `obed-` carrier rows rebuild_consortium() minted, which have no
+   * shard row. `rows + consortiumCarriers` is `count(*) FROM contracts`.
+   */
+  consortiumCarriers: number;
 }> => {
   await waitForPg();
   await exec(readFileSync(FN_FILE, "utf8"));
@@ -271,6 +277,7 @@ export const loadPg = async (): Promise<{
   const { rows, years } = readShards();
   let batchId = 0;
   let rowsNew = 0;
+  let consortiumCarriers = 0;
 
   // Stage the fresh corpus into an unlogged table FIRST, on its own connection
   // and OUTSIDE the merge transaction — this streamed 754 MB COPY over the Cloud
@@ -349,6 +356,18 @@ export const loadPg = async (): Promise<{
     // and tags рамк frameworks. Runs BEFORE the search rebuilds so the synthetic
     // carrier EIKs land in contractor_search. See 087_procurement_consortium.sql.
     await c.query("SELECT rebuild_consortium()");
+
+    // Count the synthetic carriers it just minted, so the run's log line can
+    // report the TABLE count beside the SHARD count. Those two legitimately
+    // differ by exactly this number — the carriers have no shard row by
+    // construction — and reporting only the shard count has already cost one
+    // investigation into a 2,680-row "leak" that was this. Read inside the tx
+    // so the figure belongs to this load rather than to whatever a later
+    // concurrent write leaves behind.
+    const carriers = await c.query<{ n: string }>(
+      "SELECT count(*) AS n FROM contracts WHERE contractor_eik LIKE 'obed-%'",
+    );
+    consortiumCarriers = Number(carriers.rows[0].n);
 
     // Contract-name search index — distinct contractor as they appear in the
     // corpus (covers contractors absent from TR). Rebuilt each load.
@@ -669,7 +688,13 @@ export const loadPg = async (): Promise<{
   // on the TRUNCATE path.
   await vacuumAfterReload("procurement_normalcy_cache");
 
-  return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
+  return {
+    rows: rows.length,
+    years: [...years].sort(),
+    batchId,
+    rowsNew,
+    consortiumCarriers,
+  };
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
@@ -679,9 +704,15 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   }
   const t0 = Date.now();
   loadPg()
-    .then(async ({ rows, years, batchId, rowsNew }) => {
+    .then(async ({ rows, years, batchId, rowsNew, consortiumCarriers }) => {
+      // Report the SHARD count and the TABLE count separately. They differ by the
+      // synthetic obed- consortium carriers rebuild_consortium() mints, which have
+      // no shard row — so a line quoting only `rows` reads as a row leak against
+      // `SELECT count(*) FROM contracts`. See 087_procurement_consortium.sql.
       console.log(
-        `loaded ${rows} contracts → Postgres (${years[0]}..${years.at(-1)}) in ${((Date.now() - t0) / 1000).toFixed(1)}s` +
+        `loaded ${rows} shard rows → ${rows + consortiumCarriers} contracts ` +
+          `(+${consortiumCarriers} consortium carriers) in Postgres ` +
+          `(${years[0]}..${years.at(-1)}) in ${((Date.now() - t0) / 1000).toFixed(1)}s` +
           `  [batch ${batchId}: ${rowsNew} new]`,
       );
       await end();

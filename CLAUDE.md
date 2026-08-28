@@ -627,6 +627,63 @@ disjoint on it and only one is a defect (plan:
   That sweep is **open work, not done**; `dedup_contract_keys.ts` cannot find them because it
   groups by the STORED key, so a stale-keyed row is a singleton group and is skipped.
 
+### `count(*) FROM contracts` is NOT the shard count — and the delta is 2,680 synthetic rows
+
+⚠️ **`data/procurement/index.json` and `count(*) FROM contracts` answer DIFFERENT questions,
+and comparing them reads as a corpus defect.** Measured 2026-08-28: the shards hold **407,464**
+rows (403,976 `contract` + 3,488 `contractAmendment`, matching `index.json`) while BOTH the
+local and the Cloud SQL `contracts` tables hold **410,144**. The difference is exactly the
+**2,680 synthetic `obed-` consortium carrier rows** minted by `rebuild_consortium()` (087),
+which have no shard row by construction:
+
+```
+407,464  contracts WHERE contractor_eik NOT LIKE 'obed-%'   ==  shard rows, exactly
+  2,680  contracts WHERE contractor_eik LIKE 'obed-%'       ==  1,633 distinct carrier EIKs
+410,144  count(*)                                           ==  local AND cloud, identical
+```
+
+Three things make this look like a local↔cloud asymmetry when it is not:
+
+- ⚠️ **The loader's log line USED to print only the SHARD count** — `loaded 407464 contracts
+  → Postgres`, i.e. `rows.length` from `readShards()` — so a `db:load:pg:cloud` that ended
+  with the table at 410,144 reported 407,464, and the two read as a 2,680-row leak when they
+  were the same successful load. Fixed 2026-08-28: it now reports both, as
+  `loaded 407464 shard rows → 410144 contracts (+2680 consortium carriers) in Postgres …`.
+  **An older run's output still carries the bare shard count**, so a log quoted from before
+  that date is the pre-fix form and is not evidence of a leak.
+- ⚠️ **The parity guard also compares at 407,464, and that is correct.** `load_pg.ts` opens
+  ONE `withTx` (line 302) that runs the merge upsert, `CONTRACTS_MERGE_DELETE_SQL`, the
+  live-vs-stage parity check, and then `rebuild_consortium()` — all before COMMIT. So the
+  guard sees the pre-transform state by design, and **407,464 is never observable in a
+  committed table**. Any reading of it came from `index.json` or from the log, not from SQL.
+- **The merge is NOT upsert-only.** `CONTRACTS_MERGE_DELETE_SQL` is a full unscoped anti-join
+  DELETE (`DELETE FROM contracts c WHERE NOT EXISTS (… contracts_stage s WHERE s.key = c.key)`),
+  so a row `reconcile_cross_source` evicts from the shards IS removed from the cloud table on
+  the next load. "Cloud needs no separate command — the pass rewrites shards" holds; evicted
+  rows do not accumulate on prod.
+
+**No money is over-stated by the extra rows.** 087 MOVES a joint award's value onto the
+carrier and zeroes the members, so the total is invariant — measured on both databases,
+`sum(amount_eur) WHERE tag = 'contract'` = **93,915,805,242.82**, equal to
+`index.json.totals.totalEur` to the cent, with members summing to **0.00** and carriers to
+€6,226,327,402.79.
+
+⚠️ **THREE money bases are in play here and none of them is wrong — check which one a figure
+uses before calling two surfaces inconsistent.** `hub_stats.json`'s `totalEur`
+(93,705,741,501) excludes the 628 empty-`contractor_eik` rows (€210,063,742.05, the documented
+empty-string key); `index.json.totals.totalEur` (93,915,805,242.82) includes them at
+`tag = 'contract'`; and the contracts browser's `aggregates.sumAmountEur`
+(99,863,878,635) is the ALL-TAG sum, amendments included. The ROW COUNT, by contrast, does
+agree everywhere: `hub_stats.json` publishes `contracts: 410144` and
+`/api/db/table?resource=contracts` returns `total: 410144`, so the hub tile and the table
+beneath it are counting the same corpus.
+
+The gate is `pg_roundtrip.data.test.ts`, whose assertion is
+`byKey.size - syntheticCount === onDisk` ("row count: Postgres (minus synthetic consortium
+carriers) vs month shards"). It passes. A future audit comparing the two numbers should
+subtract the carriers first, or just run that gate.
+
+
 ### Sector EIK rosters — `edu` is the widest, and the trap it documents
 
 A sector's awarder allowlist is declared in up to four places (reference data →
@@ -3571,7 +3628,39 @@ a re-resolve would reuse its slug.
   43,261 on BOTH databases.
 
 So the whole cost of not resolving was ~75 private individuals and ~218 tr/ngo roles (0.06% /
-0.11%). ⚠️ **Do not read the "~37 min" above as current** — it was measured 2026-08-11, before
+0.11%).
+
+⚠️ **`graph_edge` is the surface where that drift shows up as a scary-looking number, and it
+is the SAME finding — decompose it before investigating.** Re-measured 2026-08-28: local
+**202,638** vs cloud **202,352**, a 286-edge gap. It decomposes exactly and needs no new
+hypothesis:
+
+| arm | local | cloud | gap |
+| --- | ----- | ----- | --- |
+| `tr_owner` | 92,208 | 92,000 | 208 |
+| `tr_role` | 109,486 | 109,416 | 70 |
+| `procurement` | 944 | 936 | 8 |
+
+208 + 70 = **278**, which is EXACTLY the `person_role` gap at `source IN ('tr','ngo')`
+(201,694 vs 201,416) — a 1:1 correspondence, so the owner/role arms carry no independent
+divergence. The procurement arm's 8 sits against a `company_politicians` gap of 9, consistent
+with the documented 26-pair `SELECT DISTINCT (person_id, eik)` fold.
+
+Three things keep it benign, and the first is the one worth checking rather than assuming:
+
+- **It is NOT a strict superset.** Diffed by natural key (`person.slug`, `eik`, `kind`) rather
+  than by `person_id` — which is a positional ordinal and differs between databases — there are
+  **404 local-only and 126 cloud-only** edges, netting 278. That two-sided shape is slug drift,
+  not loss.
+- **Nobody who matters is unreachable.** The 404 local-only edges span 254 people: **223 are
+  not public figures** (Tier-V private owners) and **31 are — and all 31 are present on cloud
+  under prod's own slug**, checked by `display_name`. Zero genuinely absent. Same result as the
+  2026-08-27 sweep above, which is why testing by slug rather than by name would mislead here.
+- **No money consequence.** `company_public_money` — the ONE broad per-EIK money basis, which
+  is what `graph_company_node` denormalizes — is **81,474 rows on BOTH** databases. The
+  divergence is in the person↔company edge set from resolve history, never in the money.
+
+⚠️ **Do not read the "~37 min" above as current** — it was measured 2026-08-11, before
 the 2026-08-22 box upgrade, and the two other figures re-measured on 2026-08-27 came in 7.5× and
 10.5× faster. The 8-minute CASCADE outage is the argument that survives, not the runtime.
 **Trigger to actually run it:** an input to the person layer moves (`cacbg_officials`/`cacbg_local`
