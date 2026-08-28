@@ -69,6 +69,28 @@ def endpoint() -> str:
     return check_local(os.environ.get("NEWS_LLM_URL") or DEFAULT_URL)
 
 
+def request_headers(target: str) -> dict:
+    """Authentication and attribution for an OpenAI-compatible endpoint.
+
+    Local servers need neither. Hosted endpoints use NEWS_LLM_API_KEY; the
+    OpenRouter-specific key is accepted only for openrouter.ai so setting it
+    cannot accidentally authenticate a different remote host.
+    """
+    headers = {"Content-Type": "application/json"}
+    host = (urlparse(target).hostname or "").lower()
+    key = os.environ.get("NEWS_LLM_API_KEY")
+    if not key and host == "openrouter.ai":
+        key = os.environ.get("OPENROUTER_API_KEY")
+    if key:
+        headers["Authorization"] = f"Bearer {key}"
+    if host == "openrouter.ai":
+        headers["HTTP-Referer"] = os.environ.get(
+            "NEWS_LLM_SITE_URL", "https://electionsbg.com")
+        headers["X-Title"] = os.environ.get(
+            "NEWS_LLM_APP_NAME", "Naiasno news analysis eval")
+    return headers
+
+
 def complete(system: str, user: str, *, model: str,
              grammar: str | None = None,
              json_schema: dict | None = None,
@@ -132,19 +154,36 @@ def complete(system: str, user: str, *, model: str,
             "json_schema": {"name": "analysis", "strict": True,
                             "schema": json_schema},
         }
-    body = json.dumps(payload).encode("utf-8")
     # ⚠️ THE GUARD APPLIES TO `url=` TOO. `url or endpoint()` let a caller
     # pass a remote address directly and bypass the localhost check entirely
     # — the whole protection on a client that posts the full text of every
     # article we hold.
     target = check_local(url) if url else endpoint()
+    target_host = (urlparse(target).hostname or "").lower()
+    if target_host == "openrouter.ai":
+        # OpenRouter otherwise may choose a provider endpoint that silently
+        # ignores response_format even when the model page lists it. Their
+        # documented routing guard makes support a requirement, not a hint.
+        if json_schema:
+            payload["provider"] = {"require_parameters": True}
+        # The local-server chat-template flag above is not an OpenRouter API
+        # control. Without its unified reasoning setting, small reasoning
+        # models can spend all 2048 output tokens thinking and return no
+        # content. `none` is preferred; providers that cannot disable it map
+        # to their smallest supported budget. Reasoning is never requested
+        # back because it is not an analysis artifact.
+        if os.environ.get("NEWS_LLM_THINKING") != "1":
+            payload["reasoning"] = {"effort": "none", "exclude": True}
+    # Encode only after endpoint-specific controls are added. Encoding above
+    # this block makes the payload mutations look right in a code review but
+    # sends neither of them — caught by test_openrouter_requires_schema_*.
+    body = json.dumps(payload).encode("utf-8")
 
     last = None
     for attempt in range(1, MAX_ATTEMPTS + 1):
         started = time.monotonic()
         req = urllib.request.Request(
-            target, data=body,
-            headers={"Content-Type": "application/json"}, method="POST")
+            target, data=body, headers=request_headers(target), method="POST")
         try:
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 doc = json.loads(resp.read().decode("utf-8"))
@@ -157,18 +196,23 @@ def complete(system: str, user: str, *, model: str,
             # leaves `content` empty — which every caller then reports as a
             # JSON parse failure at column 1, sending whoever reads it to
             # look for a malformed answer that was never produced.
-            if not (msg.get("content") or "").strip() \
-                    and (msg.get("reasoning_content") or "").strip():
+            usage = doc.get("usage") or {}
+            completion_detail = usage.get("completion_tokens_details") or {}
+            reasoning_tokens = completion_detail.get("reasoning_tokens") or 0
+            if not (msg.get("content") or "").strip() and (
+                    (msg.get("reasoning_content") or "").strip()
+                    or (msg.get("reasoning") or "").strip()
+                    or reasoning_tokens):
                 raise LlmError(
                     "reasoning_only",
                     f"the model returned only chain-of-thought "
-                    f"({len(msg['reasoning_content'])} chars) and no answer — "
+                    f"({reasoning_tokens} reasoning tokens) and no answer — "
                     f"finish_reason={choices[0].get('finish_reason')!r}. "
                     "Raise --max-tokens, or unset NEWS_LLM_THINKING=1.")
             return {
                 "text": msg.get("content") or "",
                 "model": doc.get("model") or model,
-                "usage": doc.get("usage") or {},
+                "usage": usage,
                 "elapsed_s": round(time.monotonic() - started, 2),
                 "attempts": attempt,
             }

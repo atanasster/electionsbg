@@ -196,6 +196,49 @@ class TheClient(unittest.TestCase):
                 "NEWS_LLM_ALLOW_REMOTE": "1"}, clear=False):
             self.assertTrue(llm_client.endpoint().startswith("https://"))
 
+    def test_openrouter_key_is_sent_only_to_openrouter(self):
+        with mock.patch.dict(os.environ,
+                             {"OPENROUTER_API_KEY": "secret"}, clear=False):
+            got = llm_client.request_headers(
+                "https://openrouter.ai/api/v1/chat/completions")
+            self.assertEqual(got["Authorization"], "Bearer secret")
+            other = llm_client.request_headers(
+                "https://api.example.com/v1/chat/completions")
+            self.assertNotIn("Authorization", other)
+
+    def test_generic_hosted_key_is_explicit(self):
+        with mock.patch.dict(os.environ,
+                             {"NEWS_LLM_API_KEY": "generic"}, clear=False):
+            got = llm_client.request_headers(
+                "https://api.example.com/v1/chat/completions")
+            self.assertEqual(got["Authorization"], "Bearer generic")
+
+    def test_openrouter_requires_schema_support_and_disables_reasoning(self):
+        import io
+        seen = {}
+
+        class Resp(io.BytesIO):
+            def __enter__(self_): return self_
+            def __exit__(self_, *args): return False
+
+        def fake(req, timeout=None):
+            seen["body"] = json.loads(req.data.decode("utf-8"))
+            return Resp(json.dumps({
+                "choices": [{"message": {"content": "{}"}}]
+            }).encode("utf-8"))
+
+        with mock.patch.dict(os.environ,
+                             {"NEWS_LLM_ALLOW_REMOTE": "1"}, clear=False), \
+                mock.patch.object(llm_client.urllib.request, "urlopen", fake):
+            llm_client.complete(
+                "s", "u", model="m",
+                json_schema={"type": "object"},
+                url="https://openrouter.ai/api/v1/chat/completions")
+        self.assertEqual(seen["body"]["provider"],
+                         {"require_parameters": True})
+        self.assertEqual(seen["body"]["reasoning"],
+                         {"effort": "none", "exclude": True})
+
     def test_every_localhost_spelling_is_accepted(self):
         for host in ("127.0.0.1", "localhost", "0.0.0.0"):
             with self.subTest(host=host):
@@ -482,6 +525,16 @@ class ReasoningModels(unittest.TestCase):
         # own parse error is the honest report of it.
         r, _ = self.respond({"choices": [{"message": {"content": ""}}]})
         self.assertEqual(r["text"], "")
+
+    def test_hidden_reasoning_tokens_with_no_answer_are_NAMED(self):
+        with self.assertRaises(llm_client.LlmError) as ctx:
+            self.respond({
+                "choices": [{"finish_reason": "length",
+                             "message": {"content": ""}}],
+                "usage": {"completion_tokens_details": {
+                    "reasoning_tokens": 2046}},
+            })
+        self.assertEqual(ctx.exception.kind, "reasoning_only")
 
 
 class FencedJson(unittest.TestCase):

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "purpose": "Small, deliberately difficult smoke evaluation over already-analysed articles. Existing GLM-5.3 judgments are an agreement reference, not human gold.",
+  "models": [
+    "z-ai/glm-5.2:free",
+    "nvidia/nemotron-3-super-120b-a12b:free",
+    "google/gemma-4-26b-a4b-it:free",
+    "liquid/lfm-2.5-2.6b:free",
+    "dots-studio/dots-3-note-preview:free",
+    "minimax/minimax-m3:free"
+  ],
+  "articles": [
+    "news/data/actualno.com/20260822-tramvaj-izleze-ot-relsite-v-sofija-news-2631550-f8b5bc4a.json",
+    "news/data/actualno.com/20260822-tv-programa-sport-po-televizijata-dnes-22-avgust-2026-news-2-79345d28.json",
+    "news/data/actualno.com/20260822-masovi-nerednosti-50-narushenija-pri-64-proverki-na-nap-na-s-232295c7.json",
+    "news/data/actualno.com/20260822-bojanov-peevski-moje-da-se-e-snishil-no-oshte-si-ima-prokura-0fffec05.json",
+    "news/data/168chasa.bg/20260822-23430547-c58ae51b.json",
+    "news/data/actualno.com/20260822-ujasen-ot-ruskata-ataka-makron-speshno-prashta-raketi-prehva-3535b268.json",
+    "news/data/actualno.com/20260822-trymp-i-mysk-spyvat-ukrajna-sys-starlink-no-tja-shte-testva--c1477f43.json",
+    "news/data/glasove.com/nodate-1-yuni-1942-g-razstrelyan-e-gen-vladimir-zaimov-umiram-za-ba-fd4c5004.json",
+    "news/data/pogled.info/20260822-33-000-tona-varhu-arkticheskiya-led-anatomiya-na-ogavaneto-v-a572621f.json"
+  ]
+}
