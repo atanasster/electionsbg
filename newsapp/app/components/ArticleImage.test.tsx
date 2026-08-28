@@ -38,13 +38,22 @@ const renderImage = (props: Partial<Parameters<typeof ArticleImage>[0]> = {}) =>
   render(
     <ArticleImage
       image="https://cdn.ex.bg/photo.jpg"
-      title="Заглавие на статията"
       articleUrl="https://ex.bg/a/1"
       outlet={outlet()}
       rights={rights()}
       {...props}
     />,
   );
+
+// Decorative images intentionally have no accessible `img` role. These tests
+// inspect the DOM element because they verify delivery/fallback mechanics.
+const imageElement = () =>
+  document.querySelector("img") as HTMLImageElement | null;
+const requiredImage = () => {
+  const image = imageElement();
+  expect(image).not.toBeNull();
+  return image!;
+};
 
 // ⚠️ toBeVisible, never toBeInTheDocument. A review proved that adding
 // `hidden` to the credit anchor left all 19 tests green — and an invisible
@@ -59,7 +68,7 @@ describe("the credit", () => {
     // The monogram rung. A card with no photo still shows an outlet's work.
     renderImage({ image: null, outlet: outlet({ logo: null }) });
     expect(screen.getByText("Примерен вестник")).toBeVisible();
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(imageElement()).not.toBeInTheDocument();
   });
 
   it("renders on the logo rung", () => {
@@ -77,12 +86,29 @@ describe("the credit", () => {
     expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
   });
 
+  it("keeps the credit source and licence conditions as separate links", () => {
+    renderImage();
+    const credit = screen.getByRole("link", {
+      name: /Кредит за изображението/,
+    });
+    expect(credit).toHaveAttribute("href", "https://photos.example/ivan");
+    expect(credit).toHaveClass("focus-visible:ring-foreground");
+    const licence = screen.getByRole("link", {
+      name: /Условия на лиценза: CC BY 4.0/,
+    });
+    expect(licence).toHaveTextContent("CC BY 4.0");
+    expect(licence).toHaveClass("focus-visible:ring-foreground");
+    expect(licence).toHaveAttribute(
+      "href",
+      "https://creativecommons.org/licenses/by/4.0/",
+    );
+  });
+
   it("falls back to the outlet's site for a logo when the article URL is missing", () => {
     renderImage({ image: null, articleUrl: null });
-    expect(screen.getByText("Примерен вестник").closest("a")).toHaveAttribute(
-      "href",
-      "https://ex.bg/",
-    );
+    expect(
+      screen.getByRole("link", { name: /към сайта на медията/ }),
+    ).toHaveAttribute("href", "https://ex.bg/");
   });
 
   it("names the domain when the outlet has no display name", () => {
@@ -94,7 +120,7 @@ describe("the credit", () => {
 describe("the fallback ladder", () => {
   it("starts on the photo when nothing says otherwise", () => {
     renderImage();
-    expect(screen.getByRole("img")).toHaveAttribute(
+    expect(requiredImage()).toHaveAttribute(
       "src",
       "https://cdn.ex.bg/photo.jpg",
     );
@@ -104,26 +130,24 @@ describe("the fallback ladder", () => {
     // ⚠️ Measured: 3 of 13 outlets refuse a request carrying our referer, and
     // the failure is per-request — nothing at build time can predict it.
     renderImage();
-    fireEvent.error(screen.getByRole("img"));
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "src",
-      "https://ex.bg/logo.png",
-    );
+    fireEvent.error(requiredImage());
+    expect(requiredImage()).toHaveAttribute("src", "https://ex.bg/logo.png");
+    expect(requiredImage()).toHaveAttribute("alt", "");
     expect(screen.getByText("Примерен вестник")).toBeVisible();
   });
 
   it("drops to the monogram when the logo fails too", () => {
     renderImage();
-    fireEvent.error(screen.getByRole("img"));
-    fireEvent.error(screen.getByRole("img"));
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    fireEvent.error(requiredImage());
+    fireEvent.error(requiredImage());
+    expect(imageElement()).not.toBeInTheDocument();
     expect(screen.getByText("ПВ")).toBeInTheDocument();
   });
 
   it("goes straight to the monogram when a failing photo has no logo behind it", () => {
     renderImage({ outlet: outlet({ logo: null }) });
-    fireEvent.error(screen.getByRole("img"));
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    fireEvent.error(requiredImage());
+    expect(imageElement()).not.toBeInTheDocument();
   });
 });
 
@@ -132,10 +156,7 @@ describe("the hotlink verdict", () => {
     // A 403 is a policy signal. Re-requesting on every card is pointless and
     // rude, and the logo says the same thing without asking again.
     renderImage({ outlet: outlet({ hotlink_ok: false }) });
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "src",
-      "https://ex.bg/logo.png",
-    );
+    expect(requiredImage()).toHaveAttribute("src", "https://ex.bg/logo.png");
   });
 
   it("still tries when the outlet was never probed", () => {
@@ -143,7 +164,7 @@ describe("the hotlink verdict", () => {
     // outlet is happy to serve; a wrong `true` costs one request that onError
     // already handles.
     renderImage({ outlet: outlet({ hotlink_ok: null }) });
-    expect(screen.getByRole("img")).toHaveAttribute(
+    expect(requiredImage()).toHaveAttribute(
       "src",
       "https://cdn.ex.bg/photo.jpg",
     );
@@ -151,7 +172,7 @@ describe("the hotlink verdict", () => {
 
   it("tries when the outlet has accepted us", () => {
     renderImage({ outlet: outlet({ hotlink_ok: true }) });
-    expect(screen.getByRole("img")).toHaveAttribute(
+    expect(requiredImage()).toHaveAttribute(
       "src",
       "https://cdn.ex.bg/photo.jpg",
     );
@@ -163,7 +184,7 @@ describe("the request itself", () => {
     // ⚠️ NOT "no-referrer". Stripping it would "fix" a 403 by concealing the
     // requester, which is the opposite of what an attributing link is for.
     renderImage();
-    expect(screen.getByRole("img")).toHaveAttribute(
+    expect(requiredImage()).toHaveAttribute(
       "referrerpolicy",
       "no-referrer-when-downgrade",
     );
@@ -171,26 +192,25 @@ describe("the request itself", () => {
 
   it("lazy-loads, so a 600-item feed does not fetch 600 photos", () => {
     renderImage();
-    expect(screen.getByRole("img")).toHaveAttribute("loading", "lazy");
+    expect(requiredImage()).toHaveAttribute("loading", "lazy");
   });
 
   it("loads only an explicitly prioritized lead eagerly", () => {
     renderImage({ priority: true });
-    expect(screen.getByRole("img")).toHaveAttribute("loading", "eager");
-    expect(screen.getByRole("img")).toHaveAttribute("fetchpriority", "high");
+    expect(requiredImage()).toHaveAttribute("loading", "eager");
+    expect(requiredImage()).toHaveAttribute("fetchpriority", "high");
   });
 
-  it("never renders an empty alt — the photo IS the article's content", () => {
+  it("uses a trimmed source description and otherwise avoids repeating the heading", () => {
     renderImage({ imageAlt: null });
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "alt",
-      "Заглавие на статията",
-    );
-    renderImage({ imageAlt: "Надпис от изданието" });
-    expect(screen.getAllByRole("img")[1]).toHaveAttribute(
+    expect(requiredImage()).toHaveAttribute("alt", "");
+    renderImage({ imageAlt: "  Надпис от изданието  " });
+    expect(document.querySelectorAll("img")[1]).toHaveAttribute(
       "alt",
       "Надпис от изданието",
     );
+    renderImage({ imageAlt: "   " });
+    expect(document.querySelectorAll("img")[2]).toHaveAttribute("alt", "");
   });
 });
 
@@ -199,19 +219,18 @@ describe("recycling", () => {
     // A list re-render can hand this component a new article; a stage left on
     // "monogram" from the previous one would suppress a perfectly good photo.
     const { rerender } = renderImage();
-    fireEvent.error(screen.getByRole("img"));
-    fireEvent.error(screen.getByRole("img"));
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    fireEvent.error(requiredImage());
+    fireEvent.error(requiredImage());
+    expect(imageElement()).not.toBeInTheDocument();
     rerender(
       <ArticleImage
         image="https://cdn.ex.bg/other.jpg"
-        title="Друго заглавие"
         articleUrl="https://ex.bg/a/2"
         outlet={outlet()}
         rights={rights({ source_url: "https://ex.bg/a/2" })}
       />,
     );
-    expect(screen.getByRole("img")).toHaveAttribute(
+    expect(requiredImage()).toHaveAttribute(
       "src",
       "https://cdn.ex.bg/other.jpg",
     );

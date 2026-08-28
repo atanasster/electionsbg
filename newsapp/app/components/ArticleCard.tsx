@@ -39,7 +39,6 @@ export const ArticleCard = ({
         image={canDisplayHomeImage(article) ? article.image : null}
         imageAlt={article.image_alt}
         rights={article.image_rights}
-        title={article.title}
         articleUrl={article.url}
         outlet={
           outlet ?? {

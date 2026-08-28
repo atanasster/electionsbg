@@ -32,7 +32,6 @@ import { initialStage, monogramOf, type ImageStage } from "./imageFallback";
 export const ArticleImage = ({
   image,
   imageAlt,
-  title,
   outlet,
   articleUrl,
   rights,
@@ -42,7 +41,6 @@ export const ArticleImage = ({
 }: {
   image: string | null | undefined;
   imageAlt?: string | null;
-  title: string | null;
   /** The outlet, for the credit, the logo rung and the monogram. */
   outlet: Pick<Outlet, "domain" | "outlet" | "logo"> & {
     hotlink_ok?: boolean | null;
@@ -74,60 +72,83 @@ export const ArticleImage = ({
   const creditHref = hasReviewedCredit
     ? rights.credit_url
     : (articleUrl ?? `https://${outlet.domain}/`);
+  // A real description is useful. Repeating the adjacent card/article title
+  // is not: when the source supplied no alt, the image is decorative beside
+  // the same heading and credit. Logo/monogram rungs are decorative too.
+  const alt = stage === "photo" ? imageAlt?.trim() || "" : "";
+  const fallbackDestination = articleUrl
+    ? "към материала"
+    : "към сайта на медията";
 
   return (
-    <div
-      className={`relative overflow-hidden rounded-md bg-muted ${aspect} ${className}`}
-    >
-      {src ? (
-        <img
-          src={src}
-          // The outlet's own alt where there is one (5% of records), else the
-          // headline. Never empty: a decorative-image role would be a lie —
-          // this IS the article's content.
-          alt={imageAlt || title || name}
-          loading={priority ? "eager" : "lazy"}
-          fetchPriority={priority ? "high" : "auto"}
-          decoding="async"
-          // ⚠️ NOT "no-referrer". Stripping the referer would hide from the
-          // outlet that the traffic is ours, which is the opposite of what an
-          // attribution-carrying link is for — and it would "fix" a 403 by
-          // concealing who is asking.
-          referrerPolicy="no-referrer-when-downgrade"
-          className={
-            stage === "photo"
-              ? "size-full object-cover"
-              : "size-full object-contain p-4"
-          }
-          onError={() =>
-            setStage((s) =>
-              s === "photo" && outlet.logo ? "logo" : "monogram",
-            )
-          }
-        />
-      ) : (
-        <div
-          className="flex size-full items-center justify-center font-title text-2xl font-semibold text-muted-foreground"
-          aria-hidden
-        >
-          {monogramOf(name)}
-        </div>
-      )}
+    <figure className={`overflow-hidden rounded-md bg-muted ${className}`}>
+      <div className={`relative ${aspect}`}>
+        {src ? (
+          <img
+            src={src}
+            // The outlet's own alt where there is one (5% of records), else the
+            // headline. Never empty: a decorative-image role would be a lie —
+            // this IS the article's content.
+            alt={alt}
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
+            decoding="async"
+            // ⚠️ NOT "no-referrer". Stripping the referer would hide from the
+            // outlet that the traffic is ours, which is the opposite of what an
+            // attribution-carrying link is for — and it would "fix" a 403 by
+            // concealing who is asking.
+            referrerPolicy="no-referrer-when-downgrade"
+            className={
+              stage === "photo"
+                ? "size-full object-cover"
+                : "size-full object-contain p-4"
+            }
+            onError={() =>
+              setStage((s) =>
+                s === "photo" && outlet.logo ? "logo" : "monogram",
+              )
+            }
+          />
+        ) : (
+          <div
+            className="flex size-full items-center justify-center font-title text-2xl font-semibold text-muted-foreground"
+            aria-hidden
+          >
+            {monogramOf(name)}
+          </div>
+        )}
+      </div>
       {/* Rendered on EVERY rung, including the monogram: the card still shows
           an outlet's work and still names them. */}
-      <a
-        href={creditHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute bottom-1 right-1 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold text-white backdrop-blur-[2px] transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        title={
-          hasReviewedCredit
-            ? `${rights.credit_text} — към кредита`
-            : `${name} — към материала`
-        }
-      >
-        {creditText}
-      </a>
-    </div>
+      <figcaption className="flex flex-wrap items-center gap-x-1 border-t bg-card px-2 py-1.5 text-xs leading-snug text-card-foreground">
+        <a
+          href={creditHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-sm underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+          aria-label={
+            hasReviewedCredit
+              ? `Кредит за изображението: ${rights.credit_text} (отваря се в нов прозорец)`
+              : `${name} — ${fallbackDestination} (отваря се в нов прозорец)`
+          }
+        >
+          {creditText}
+        </a>
+        {hasReviewedCredit && rights.licence_name && rights.licence_url ? (
+          <>
+            <span aria-hidden>·</span>
+            <a
+              href={rights.licence_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              aria-label={`Условия на лиценза: ${rights.licence_name} (отварят се в нов прозорец)`}
+            >
+              {rights.licence_name}
+            </a>
+          </>
+        ) : null}
+      </figcaption>
+    </figure>
   );
 };

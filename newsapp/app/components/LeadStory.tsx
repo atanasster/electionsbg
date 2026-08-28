@@ -33,7 +33,6 @@ export const LeadStory = ({
         image={canDisplayHomeImage(imageArticle) ? imageArticle.image : null}
         imageAlt={imageArticle.image_alt}
         rights={imageArticle.image_rights}
-        title={story.title_bg ?? story.title_en}
         articleUrl={imageArticle.url}
         outlet={source}
         aspect="aspect-[16/10] md:aspect-auto md:min-h-80"
@@ -57,9 +56,9 @@ export const LeadStory = ({
             ? "Сравнение на отразяването"
             : "Анализирана статия"}
         </p>
-        <h2 className="mt-1 font-title text-2xl leading-tight md:text-3xl">
+        <h3 className="mt-1 font-title text-2xl leading-tight md:text-3xl">
           {story.title_bg ?? story.title_en ?? "(без заглавие)"}
-        </h2>
+        </h3>
         {story.summary_bg ? (
           <p className="mt-3 line-clamp-3 text-sm text-muted-foreground">
             {story.summary_bg}

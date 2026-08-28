@@ -238,7 +238,6 @@ export const ArticleScreen = () => {
             image={article.image}
             imageAlt={article.image_alt}
             rights={article.image_rights}
-            title={article.title}
             articleUrl={article.url}
             outlet={
               outlet ?? {

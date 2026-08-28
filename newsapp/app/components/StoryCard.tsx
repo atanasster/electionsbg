@@ -49,7 +49,6 @@ export const StoryCard = ({
           image={canDisplayHomeImage(imageArticle) ? imageArticle.image : null}
           imageAlt={imageArticle.image_alt}
           rights={imageArticle.image_rights}
-          title={story.title_bg ?? story.title_en}
           articleUrl={imageArticle.url}
           outlet={
             outlet ?? {
