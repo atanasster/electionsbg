@@ -1,12 +1,13 @@
 # Mayor pay vs population — closing the gaps found auditing the gospodari.com salary article — v1
 
-**Status:** T2's serving layer is SHIPPED (`186_mayor_pay.sql`,
+**Status:** T1 and T2's serving/UI layer are SHIPPED (`186_mayor_pay.sql`,
 `mayor_pay_ranking()`/`mayor_pay_by_obshtina()`, wired into `functions/db_routes.js` as
-`mayor-pay-ranking`/`mayor-pay`, gated by `scripts/db/tests/mayor_pay.data.test.ts`). **T1 was
-NOT built as specified below — it was bypassed.** See the note at the top of §T1: the shipped
-code joins through `municipal_officials_table.obshtina`, which the person-identity layer had
-already resolved, rather than building the name-fold resolver this section describes. No UI
-yet (T2's D/F/B options are still open).
+`mayor-pay-ranking`/`mayor-pay`, a ranked page at `/governance/mayor-pay`, and the
+per-municipality/My Area tile). **T1 was NOT built as specified below — it was bypassed.** See
+the note at the top of §T1: the shipped code joins through
+`municipal_officials_table.obshtina`, which the person-identity layer had already resolved,
+rather than building the name-fold resolver this section describes. The remaining UI work is
+discoverability, the dashboard rework, and contextual placement on person/local pages.
 **Triggered by:** fact-checking gospodari.com's 2026-08-24 piece ("Кметове на малки населени места
 декларират петцифрени заплати") against our own `declaration`/`declaration_income` corpus. Every
 figure in the article checked out (see the audit in this conversation), but the audit surfaced
@@ -14,6 +15,20 @@ three data gaps and one clean feature opportunity: nobody can currently see this
 own site, even though we hold the numbers.
 **Evidence re-derived:** 2026-08-25 against local Postgres (`electionsbg`, docker, port 5433) and
 `HEAD`.
+
+## Operational audit — 2026-08-28
+
+- The Court of Audit municipal-register watcher last checked the 2026 list on **2026-08-27
+  21:05Z**. Its fingerprint and 6,499-record count are unchanged since the successful municipal
+  ingest on **2026-08-15**, so the committed/local corpus is current to the latest observed
+  source listing.
+- `npm run test:unit -- scripts/db/tests/mayor_pay.data.test.ts` passed **8/8** against local
+  Postgres. The gate re-checks a broad national coverage floor, the single labor-income category, the
+  multi-income Несебър counterexample, rank derivation, ambiguity refusal, the arithmetic,
+  Sofia's code bridge, and an unknown municipality.
+- This is a freshness and transformation audit, not an assertion that every sitting mayor has
+  filed. Missing/unreadable filings and genuinely ambiguous concurrent mayors remain explicitly
+  represented as absence, never as zero.
 
 ---
 
