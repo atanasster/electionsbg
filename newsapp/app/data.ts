@@ -605,6 +605,46 @@ export const useStories = () =>
   useData<{ generated_at: string; stories: Story[] }>("/stories.json");
 export const useLatest = () =>
   useData<{ generated_at: string; articles: ArticleRecord[] }>("/latest.json");
+export interface HomeBundle {
+  version: 1;
+  generated_at: string;
+  eligibility: "published_recent_analyzed_and_image_rights_cleared";
+  window_days: number;
+  articles: ArticleRecord[];
+  stories: Story[];
+}
+
+export const isHomeBundle = (value: unknown): value is HomeBundle => {
+  if (!value || typeof value !== "object") return false;
+  const bundle = value as Partial<HomeBundle>;
+  return (
+    bundle.version === 1 &&
+    bundle.eligibility ===
+      "published_recent_analyzed_and_image_rights_cleared" &&
+    Array.isArray(bundle.articles) &&
+    Array.isArray(bundle.stories) &&
+    bundle.articles.every(
+      (article) =>
+        Boolean(article.analysis) &&
+        article.image_rights?.display_home === true &&
+        article.image_rights.status !== "unknown" &&
+        article.image_rights.status !== "blocked",
+    )
+  );
+};
+
+export const useHome = () => {
+  const state = useData<unknown>("/home.json");
+  if (state.data && !isHomeBundle(state.data)) {
+    return {
+      ...state,
+      data: null,
+      error: new Error("Невалиден договор на началния фийд"),
+      loading: false,
+    };
+  }
+  return { ...state, data: state.data as HomeBundle | null };
+};
 export const useTaxonomy = () =>
   useData<{ version: number; categories: TaxonomyCategory[] }>(
     "/taxonomy.json",

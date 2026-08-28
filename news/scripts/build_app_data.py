@@ -28,6 +28,7 @@ and writes the app-facing bundles consumed by the standalone newsapp's data clie
   stories.json              all story clusters: canonical titles, summaries, aggregates,
                             members joined to corpus headlines, computed blindspot flag
   latest.json               the N most recent articles corpus-wide (compact + analysis)
+  home.json                 analyzed, rights-cleared article cards only
   articles/<domain>.json    compact per-outlet article list; analyzed articles carry the
                             full analysis block so /article/:domain/:id is a single fetch
 
@@ -50,7 +51,7 @@ import re
 import signal
 import subprocess
 import sys
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -622,6 +623,12 @@ def write_json(path: Path, payload) -> None:
 # decision with a reason rather than a field somebody forgot; the per-domain
 # bundle keeps them, and the article page reads that.
 FEED_OMIT = frozenset({"section_path", "image_alt", "first_seen"})
+HOME_OMIT = frozenset({"section_path", "first_seen", "keywords", "content_chars",
+                       "canonical", "language", "updated"})
+HOME_ITEM_LIMIT = 60
+HOME_STORY_LIMIT = 30
+HOME_WINDOW_DAYS = 30
+HOME_GZIP_BUDGET_BYTES = 40 * 1024
 
 # The gzip ceiling for latest.json. Not a guess: measured 2026-08-26 at 600
 # records, 174.7 KB gzip BEFORE the metadata fields and 183 KB after, and the
@@ -865,6 +872,27 @@ def compact_analysis(rec: dict, article: dict) -> dict:
     }
 
 
+def validate_publishable_analysis(rec: dict, article: dict, *, identity: str) -> None:
+    """Reject partial or cross-article analysis before it can reach public bundles."""
+    if rec.get("domain") != article.get("domain") or rec.get("url") != article.get("url"):
+        raise ValueError(f"{identity}: analysis identity does not match article")
+    if (rec.get("quality") or {}).get("verdict") != "ok":
+        raise ValueError(f"{identity}: analysis quality is not publishable")
+    if rec.get("site_relevant") is not True:
+        raise ValueError(f"{identity}: analysis is not site-relevant")
+    required = {
+        "summary_bg": isinstance(rec.get("summary_bg"), str) and bool(rec["summary_bg"].strip()),
+        "leaning": (rec.get("leaning") or {}).get("label") in LEANING_LABELS,
+        "russia_stance": (rec.get("russia_stance") or {}).get("label") in RUSSIA_LABELS,
+        "ai_generated": (rec.get("ai_generated") or {}).get("verdict") in AI_VERDICTS,
+        "topics": isinstance(rec.get("topics"), list) and bool(rec["topics"]),
+        "analyzed_at": isinstance(rec.get("analyzed_at"), str),
+    }
+    missing = [key for key, valid in required.items() if not valid]
+    if missing:
+        raise ValueError(f"{identity}: incomplete publishable analysis: {', '.join(missing)}")
+
+
 def attach_scoop_lag(members: list[dict]) -> None:
     """Stamp each member with how far behind the cluster's first sighting it is.
 
@@ -1099,6 +1127,7 @@ def main() -> int:
 
     articles_by_domain: dict[str, list[dict]] = {}
     all_latest: list[dict] = []
+    home_analysis_ids: set[tuple[str, str]] = set()
     leaning_by_domain: dict[str, dict[str, int]] = {}
     russia_by_domain: dict[str, dict[str, int]] = {}
     ai_by_domain: dict[str, dict[str, int]] = {}
@@ -1152,6 +1181,14 @@ def main() -> int:
                 # but both fail closed once the renderer gate lands.
                 rec["image_rights"] = rights
             if analysis:
+                try:
+                    validate_publishable_analysis(
+                        analysis, art, identity=f"{domain}/{fp.name}"
+                    )
+                except ValueError:
+                    pass
+                else:
+                    home_analysis_ids.add((domain, fp.stem))
                 # Resolved story membership comes from the index (the decision block
                 # carries story_id only for same_story attachments).
                 rec["story_id"] = story_index.get(art.get("url")) or (
@@ -1368,6 +1405,50 @@ def main() -> int:
             )
     stories.sort(key=lambda s: s.get("last_published") or "", reverse=True)
     write_json(out_dir / "stories.json", {"generated_at": generated_at, "stories": stories})
+
+    # ---- home.json -------------------------------------------------------------------
+    dated = []
+    for record in all_latest:
+        try:
+            published = datetime.fromisoformat(record.get("published") or "")
+        except ValueError:
+            continue
+        if published.tzinfo is None:
+            continue
+        dated.append((published.astimezone(timezone.utc), record))
+    newest = max((published for published, _ in dated), default=None)
+    cutoff = newest - timedelta(days=HOME_WINDOW_DAYS) if newest else None
+    eligible = [
+        record for published, record in dated
+        if cutoff is not None and published >= cutoff
+        and (record["domain"], record["id"]) in home_analysis_ids
+        and (record.get("image_rights") or {}).get("display_home") is True
+    ]
+    eligible.sort(key=lambda record: record["published"], reverse=True)
+    home_articles = [
+        {key: value for key, value in record.items() if key not in HOME_OMIT}
+        for record in eligible[:HOME_ITEM_LIMIT]
+    ]
+    eligible_story_ids = {record.get("story_id") for record in home_articles
+                          if record.get("story_id")}
+    home_stories = [story for story in stories if story["id"] in eligible_story_ids][
+        :HOME_STORY_LIMIT
+    ]
+    home_path = out_dir / "home.json"
+    write_json(home_path, {
+        "version": 1,
+        "generated_at": generated_at,
+        "eligibility": "published_recent_analyzed_and_image_rights_cleared",
+        "window_days": HOME_WINDOW_DAYS,
+        "articles": home_articles,
+        "stories": home_stories,
+    })
+    home_gzip = len(gzip.compress(home_path.read_bytes(), 9))
+    if home_gzip > HOME_GZIP_BUDGET_BYTES:
+        raise ValueError(
+            f"home.json is {home_gzip} bytes gzipped, over the "
+            f"{HOME_GZIP_BUDGET_BYTES}-byte launch budget"
+        )
 
     # ---- taxonomy.json (with usage counts) -------------------------------------------
     def count_for(cat_id: str, sub_id: str | None) -> int:

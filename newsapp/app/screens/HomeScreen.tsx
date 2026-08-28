@@ -17,10 +17,9 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { relativeTime } from "../labels";
 import {
-  useLatest,
+  useHome,
   useOutlets,
   useStats,
-  useStories,
   useTaxonomy,
   type ArticleRecord,
   type Outlet,
@@ -85,8 +84,7 @@ const articleMatches = (
 
 export const HomeScreen = () => {
   const stats = useStats();
-  const stories = useStories();
-  const latest = useLatest();
+  const home = useHome();
   const taxonomy = useTaxonomy();
   const outlets = useOutlets();
 
@@ -100,10 +98,10 @@ export const HomeScreen = () => {
 
   const filteredStories = useMemo(
     () =>
-      (stories.data?.stories ?? []).filter((s) =>
+      (home.data?.stories ?? []).filter((s) =>
         storyMatches(s, category, days, q),
       ),
-    [stories.data, category, days, q],
+    [home.data, category, days, q],
   );
   // side = the wing of the spectrum with ZERO coverage (the missing one).
   const blindspots = useMemo(
@@ -115,10 +113,10 @@ export const HomeScreen = () => {
   );
   const filteredLatest = useMemo(
     () =>
-      (latest.data?.articles ?? []).filter((a) =>
+      (home.data?.articles ?? []).filter((a) =>
         articleMatches(a, category, days, q),
       ),
-    [latest.data, category, days, q],
+    [home.data, category, days, q],
   );
   // The whole record, not just the name: the card's image needs the outlet's
   // logo (the fallback rung) and its hotlink verdict.
@@ -139,7 +137,11 @@ export const HomeScreen = () => {
         </p>
         {/* Stats strip — one glance at corpus + analysis coverage. */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          {stats.data ? (
+          {stats.error && !stats.data ? (
+            <span className="text-sm text-destructive">
+              Статистиката не се зареди.
+            </span>
+          ) : stats.data ? (
             <>
               <Badge variant="secondary">{stats.data.stories} истории</Badge>
               <Badge variant="secondary">
@@ -210,9 +212,9 @@ export const HomeScreen = () => {
         </div>
       </section>
 
-      {stories.error && !stories.data ? (
+      {home.error && !home.data ? (
         <Card className="p-4 text-sm text-destructive">
-          Данните не се заредиха: {stories.error.message}
+          Началният фийд не се зареди: {home.error.message}
         </Card>
       ) : null}
       {(taxonomy.error && !taxonomy.data) ||
@@ -269,13 +271,13 @@ export const HomeScreen = () => {
         >
           Истории ({filteredStories.length})
         </h2>
-        {stories.loading && !stories.data ? (
+        {home.loading && !home.data ? (
           <div className={STORY_GRID}>
             {[0, 1, 2].map((i) => (
               <Skeleton key={i} className="h-44 rounded-xl" />
             ))}
           </div>
-        ) : filteredStories.length === 0 ? (
+        ) : home.error && !home.data ? null : filteredStories.length === 0 ? (
           <Card className="p-6 text-sm text-muted-foreground">
             Няма истории за избраните филтри.
           </Card>
@@ -294,19 +296,15 @@ export const HomeScreen = () => {
         ) : null}
       </section>
 
-      {/* Latest wire */}
+      {/* Analyzed, rights-cleared home feed. */}
       <section aria-labelledby="latest-heading">
         <h2
           id="latest-heading"
           className="mb-2 text-sm font-semibold uppercase tracking-wide"
         >
-          Последни статии ({filteredLatest.length})
+          Анализирани статии ({filteredLatest.length})
         </h2>
-        {latest.error && !latest.data ? (
-          <Card className="p-4 text-sm text-destructive">
-            Последните статии не се заредиха: {latest.error.message}
-          </Card>
-        ) : latest.loading && !latest.data ? (
+        {home.error && !home.data ? null : home.loading && !home.data ? (
           <div className="space-y-2">
             {[0, 1, 2].map((i) => (
               <Skeleton key={i} className="h-10" />

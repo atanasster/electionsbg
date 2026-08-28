@@ -481,6 +481,57 @@ class MetadataAndBudget(unittest.TestCase):
         self.assertEqual(feed["image"], "https://cdn.ex.bg/lead.jpg")
         self.assertEqual(feed["language"], "bg")
 
+    def test_home_bundle_requires_analysis_and_explicit_image_clearance(self):
+        fixtures = (
+            ("cleared.bg", "https://cleared.bg/a", True, True),
+            ("raw.bg", "https://raw.bg/a", False, True),
+            ("held.bg", "https://held.bg/a", True, False),
+        )
+        for domain, url, analyzed, display_home in fixtures:
+            rights = {
+                "status": "cc", "creator": "Автор", "credit_text": "Кредит",
+                "credit_url": "https://example.org/photo",
+                "licence_name": "CC BY 4.0",
+                "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+                "source_url": "https://example.org/photo",
+                "checked_at": "2026-08-28", "display_home": display_home,
+            }
+            fname = "20260822-a.json"
+            self.write_article(domain, fname, url=url, image_rights=rights)
+            if analyzed:
+                directory = Path(self.data_dir) / "analysis" / "articles" / domain
+                directory.mkdir(parents=True, exist_ok=True)
+                (directory / fname).write_text(json.dumps({
+                    "domain": domain, "url": url, "summary_bg": "Резюме",
+                    "analyzed_at": "2026-08-28T00:00:00+00:00",
+                    "quality": {"verdict": "ok", "notes": None},
+                    "site_relevant": True,
+                    "leaning": {"label": "neutral", "confidence": 0.8},
+                    "russia_stance": {"label": "not_applicable", "confidence": 0.8},
+                    "ai_generated": {"verdict": "likely_human", "confidence": 0.8},
+                    "topics": [{"category": "society", "subcategory": "human-interest",
+                                "primary": True}],
+                }))
+        self.build()
+        home = self.load("home.json")
+        self.assertEqual(
+            home["eligibility"],
+            "published_recent_analyzed_and_image_rights_cleared",
+        )
+        self.assertEqual([row["domain"] for row in home["articles"]], ["cleared.bg"])
+        self.assertIn("image_alt", home["articles"][0])
+        self.assertLessEqual(len(home["articles"]), 60)
+
+    def test_partial_or_cross_article_analysis_never_enters_home(self):
+        self.write_article("ex.bg", "20260822-a.json", url="https://ex.bg/a")
+        directory = Path(self.data_dir) / "analysis" / "articles" / "ex.bg"
+        directory.mkdir(parents=True)
+        (directory / "20260822-a.json").write_text(json.dumps({
+            "domain": "other.bg", "url": "https://ex.bg/a", "summary_bg": "Резюме",
+        }))
+        self.build()
+        self.assertEqual(self.load("home.json")["articles"], [])
+
     def test_omitting_from_the_feed_does_not_strip_the_bundle(self):
         """The two share one record object.
 
