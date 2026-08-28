@@ -142,7 +142,7 @@
 @media (min-width: 640px) {
   .news-source-row {
     grid-template-areas: "meta content action";
-    grid-template-columns: 9.75rem minmax(0, 1fr) 2rem;
+    grid-template-columns: 13.5rem minmax(0, 1fr) 2rem;
     gap: 1rem;
   }
 }
