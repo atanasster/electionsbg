@@ -24,6 +24,7 @@ import { LeadStory } from "../components/LeadStory";
 import { HomeFilterControls } from "../components/HomeFilterControls";
 import { buildHomeHierarchy, HOME_SUPPORTING_LIMIT } from "../homeHierarchy";
 import { filterHomeStories, homeCategoryCounts } from "../homeFilters";
+import { useUrlHomeFilters } from "../useUrlHomeFilters";
 
 // The explicit one-column track is minmax(0, 1fr). Without it, CSS Grid's
 // implicit `auto` track expands to a long image-credit's min-content width and
@@ -36,9 +37,6 @@ export const HomeScreen = () => {
   const taxonomy = useTaxonomy();
   const outlets = useOutlets();
 
-  const [category, setCategory] = useState<string>("all");
-  const [days, setDays] = useState<number>(30);
-  const [query, setQuery] = useState("");
   const [now, setNow] = useState(() => Date.now());
   const [announcedCount, setAnnouncedCount] = useState<number | null>(null);
 
@@ -48,6 +46,15 @@ export const HomeScreen = () => {
   }, []);
 
   const categories = taxonomy.data?.categories ?? null;
+  const {
+    category,
+    days,
+    query,
+    setCategory,
+    setDays,
+    setQuery,
+    clearFilters,
+  } = useUrlHomeFilters(categories?.map((item) => item.id) ?? null);
   const facetedStories = useMemo(
     () =>
       filterHomeStories(home.data?.stories ?? [], {
@@ -152,11 +159,7 @@ export const HomeScreen = () => {
         onCategoryChange={setCategory}
         onDaysChange={setDays}
         onQueryChange={setQuery}
-        onReset={() => {
-          setCategory("all");
-          setDays(30);
-          setQuery("");
-        }}
+        onReset={clearFilters}
       />
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         {announcedCount === null
