@@ -1,0 +1,97 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076137-velikobritania-s-broshura-kam-migrantite-ne-iznasilv-1186f03d.json",
+  "url": "https://fakti.bg/life/1076137-velikobritania-s-broshura-kam-migrantite-ne-iznasilvaite",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:43:38.908807+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined political report linking an official asylum-seeker guide to partisan reactions and migration-policy debate."
+  },
+  "summary_bg": "Британското вътрешно министерство публикува деветстраничен наръчник за кандидати за убежище, който обяснява сексуалното съгласие, забраната на насилието и правата на жените. Консерваторите и Reform UK критикуват правителството, че брошурата признава интеграционен проблем, докато кабинетът я защитава като превенция.",
+  "summary_en": "The UK Home Office published a nine-page guide for asylum seekers explaining sexual consent, bans on violence and women's rights. Conservatives and Reform UK argue it admits an integration problem, while the government presents it as prevention.",
+  "leaning": {
+    "label": "strong_conservative",
+    "confidence": 0.86,
+    "evidence": "Сензационното заглавие и изрази като „безпрецедентен ход“ и „миграционна криза“ приемат рамката на десните критици, дори когато се цитира официалният документ."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "named byline",
+      "link to official government guide",
+      "specific party and shadow-minister reactions"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Юсуф"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "ясен",
+      "Иран",
+      "Афганистан"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Юсуф",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "ясен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Ясен (place, settlement, settlement:87583)",
+        "Ясен (place, settlement, settlement:87597)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Афганистан",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AF",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "demographics",
+      "subcategory": "migration",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T14:39:11+00:00"
+}

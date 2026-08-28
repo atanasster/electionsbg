@@ -1,0 +1,119 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-mz-s-krachka-nazad-tcentarat-za-asistirana-reproduktcia-niam-b22c8d4f.json",
+  "url": "https://offnews.bg/zdrave/mz-s-krachka-nazad-tcentarat-za-asistirana-reproduktcia-niama-da-se-873102.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:34:07.779475+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A detailed briefing report testing the health minister's reform plan against leaked-analysis claims and stakeholder positions."
+  },
+  "summary_bg": "Здравният министър Катя Ивкова обявява, че РЗИ ще останат териториални дирекции към министерството със споделени административни услуги, а Центърът за асистирана репродукция няма да бъде вливан в НЗОК. Тя определя част от публичния спор като политически пиар, но потвърждава автентичността на функционалния анализ, който ще служи за политически решения.",
+  "summary_en": "Health Minister Katya Ivkova said regional health inspectorates would remain as ministry territorial directorates with shared administration, while the Assisted Reproduction Centre would not merge into the NHIF. She called part of the public controversy political PR but confirmed the functional analysis was authentic and would inform decisions.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Материалът предава обясненията на министъра и ги поставя срещу предишните твърдения и позиции, вместо да приема едната страна."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "press-briefing questions",
+      "direct quotations",
+      "comparison with functional-analysis and stakeholder claims"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Петкова",
+      "Катя Ивкова",
+      "Кунчев"
+    ],
+    "parties": [],
+    "institutions": [
+      "МЗ"
+    ],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "МЗ",
+      "basis": "gazetteer_exact",
+      "id": "000695317",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Петкова",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Атанаска Асенова Петкова (person, regulator, atanaska-asenova-petkova-3c1ad8)",
+        "Венцислава Иванова Петкова (person, revenue_agency, ventsislava-ivanova-petkova-210436)",
+        "Десита Динкова Петкова (person, mp, mp-4988)",
+        "Димитринка Петкова Петкова (person, regional_governor, dimitrinka-petkova-petkova-599b04)",
+        "Иванка Петкова Петкова (person, regional_governor, ivanka-petkova-petkova-c7c17f)",
+        "Кристина Николаева Петкова (person, mp, mp-4869)",
+        "Мария Малинова Петкова (person, cabinet, mariya-malinova-petkova-d69ead)",
+        "Невена Евстатиева Петкова (person, mp, mp-3142)",
+        "Нина Пламенова Петкова (person, mayor, nina-plamenova-petkova-56b9bf)",
+        "Татяна Минчева Петкова (person, regional_governor, tatyana-mincheva-petkova-38e108)",
+        "Теменужка Петрова Петкова (person, mp, mp-5207)",
+        "Юлияна Дончева Петкова (person, mp, mp-672)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Катя Ивкова",
+      "basis": "gazetteer_exact",
+      "id": "katya-georgieva-ivkova-cccb95",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Кунчев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Атанас Славчев Кунчев (person, mayor, atanas-slavchev-kunchev-b7cc19)",
+        "Георги Валериев Кунчев (person, mp, mp-5328)",
+        "Красимир Вълов Кунчев (person, regional_governor, krasimir-vlov-kunchev-7d4553)",
+        "Митко Христов Кунчев (person, mp, mp-3220)",
+        "Тихомир Цветанов Кунчев (person, revenue_agency, tihomir-tsvetanov-kunchev-e52424)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": true
+    },
+    {
+      "category": "healthcare",
+      "subcategory": "nzok",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

@@ -1,0 +1,110 @@
+{
+  "article_path": "news/data/dir.bg/20260825-kitay-protiv-nezakonnite-ednostranni-sanktsii-na-sasht-sresh-bb488f63.json",
+  "url": "https://dnes.dir.bg/svyat/kitay-protiv-nezakonnite-ednostranni-sanktsii-na-sasht-sreshtu-iran",
+  "domain": "dir.bg",
+  "analyzed_at": "2026-08-28T15:20:32.136462+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete multi-source report on Chinese opposition to US sanctions and Iran-Oman talks over Hormuz."
+  },
+  "summary_bg": "Китай възразява срещу планираното разширяване на американските санкции срещу Иран и търговските му партньори. Успоредно Иран и Оман обсъждат временен навигационен коридор и разминиране на Ормузкия проток.",
+  "summary_en": "China opposed planned expansion of US sanctions against Iran and its trading partners. Separately, Iran and Oman discussed a temporary navigation corridor and demining operation in the Strait of Hormuz.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.95,
+    "evidence": "Представя китайските, американските, иранските и оманските позиции с приписване."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на материала."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named byline",
+      "BBC, AFP, Reuters and BTA sourcing",
+      "specific diplomatic proposal"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Лин Цзян",
+      "Скот Бесент",
+      "Доналд Тръмп",
+      "Си Дзинпин",
+      "Али Маданизадех",
+      "Саид Бадр Албусаиди",
+      "Абас Арагчи"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [
+      "Би Би Си"
+    ],
+    "places": [
+      "Китай",
+      "САЩ",
+      "Иран",
+      "Пекин",
+      "Техеран",
+      "Оман",
+      "Ормузкия проток"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Оман",
+      "basis": "gazetteer_exact",
+      "id": "settlement:53504",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "воден",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Воден (place, settlement, settlement:11627)",
+        "Воден (place, settlement, settlement:11644)",
+        "Воден (place, settlement, settlement:11658)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-25T09:00:00+00:00"
+}

@@ -1,0 +1,120 @@
+{
+  "article_path": "news/data/money.bg/20260820-problemat-na-nato-s-boepripasite-ne-e-lipsata-na-finansirane-8a73367b.json",
+  "url": "https://money.bg/economics/problemat-na-nato-s-boepripasite-ne-e-lipsata-na-finansirane-a-na-pamuk.html",
+  "domain": "money.bg",
+  "analyzed_at": "2026-08-28T15:18:02.228446+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete explanatory article connecting ammunition production to cotton-linter supply and Bulgarian agriculture."
+  },
+  "summary_bg": "Европейското производство на боеприпаси е ограничено от недостиг на памучен линтер за нитроцелулоза, като над 70% от доставките идват от Китай. България е един от малкото производители на памук в ЕС, но секторът остава малък и ограничен от напояването.",
+  "summary_en": "European ammunition production is constrained by a shortage of cotton linters used for nitrocellulose, with more than 70% of supplies coming from China. Bulgaria is one of the EU's few cotton producers, but its sector remains small and limited by irrigation needs.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Текстът анализира индустриална верига и публична подкрепа с конкретни данни, без идеологическа оценка."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Войната в Украйна е контекст за търсенето на боеприпаси, без оценъчен език към Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "Wall Street Journal sourcing",
+      "named industry executive",
+      "Bulgaria-specific subsidy and acreage figures"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Доналд Тръмп",
+      "Армин Папергер"
+    ],
+    "parties": [],
+    "institutions": [
+      "НАТО",
+      "Държавен фонд Земеделие",
+      "ЕС"
+    ],
+    "companies": [
+      "Rheinmetall",
+      "The Wall Street Journal"
+    ],
+    "places": [
+      "Украйна",
+      "Китай",
+      "България",
+      "Гърция",
+      "Испания"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Държавен фонд \"Земеделие",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "ДЪРЖАВЕН ФОНД \"ЗЕМЕДЕЛИЕ (institution, 121100421)",
+        "Държавен фонд \"Земеделие\" (institution, 121100421)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    },
+    {
+      "category": "farm-subsidies",
+      "subcategory": "dfz-payments",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T13:01:30+00:00"
+}

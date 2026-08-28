@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/lupa.bg/nodate-polenta-kachamak-s-domati-i-pesto-421203news-e83ba657.json",
+  "url": "https://lupa.bg/news/polenta-kachamak-s-domati-i-pesto_421203news.html",
+  "domain": "lupa.bg",
+  "analyzed_at": "2026-08-28T15:40:30.710299+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A recipe ingredient and preparation block, not a news article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A recipe ingredient and preparation block, not a news article.",
+  "summary_en": "The record does not contain a reliably extracted full article: A recipe ingredient and preparation block, not a news article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "A cooking recipe has no political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "A cooking recipe has no Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "recipe instructions rather than news prose"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

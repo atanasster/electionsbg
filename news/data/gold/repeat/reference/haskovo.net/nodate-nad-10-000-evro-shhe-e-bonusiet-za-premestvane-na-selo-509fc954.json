@@ -1,0 +1,82 @@
+{
+  "article_path": "news/data/haskovo.net/nodate-nad-10-000-evro-shhe-e-bonusiet-za-premestvane-na-selo-509fc954.json",
+  "url": "https://haskovo.net/news/635524/nad-10-000-evro-shhe-e-bonusiet-za-premestvane-na-selo",
+  "domain": "haskovo.net",
+  "analyzed_at": "2026-08-28T15:52:09.491260+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "селище"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "селище",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Селище (place, settlement, settlement:66055)",
+        "Селище (place, settlement, settlement:66069)",
+        "Селище (place, settlement, settlement:70799)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "demographics",
+      "subcategory": "migration",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

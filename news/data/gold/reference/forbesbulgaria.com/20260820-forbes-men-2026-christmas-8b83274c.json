@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/forbesbulgaria.com/20260820-forbes-men-2026-christmas-8b83274c.json",
+  "url": "https://forbesbulgaria.com/forbes-men-2026-christmas/",
+  "domain": "forbesbulgaria.com",
+  "analyzed_at": "2026-08-28T15:10:51.772248+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "The extractor returned an empty body."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The extractor returned an empty body.",
+  "summary_en": "The record does not contain a reliably extracted full article: The extractor returned an empty body.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T11:57:43+00:00"
+}

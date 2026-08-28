@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/burgas24.bg/nodate-termsofuse-45f6d651.json",
+  "url": "https://www.burgas24.bg/pages/termsofuse.html",
+  "domain": "burgas24.bg",
+  "analyzed_at": "2026-08-28T15:39:03.927677+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A website terms-of-use and copyright page, not a news article; the title is empty and the body consists of legal clauses."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A website terms-of-use and copyright page, not a news article; the title is empty and the body consists of legal clauses.",
+  "summary_en": "The record does not contain a reliably extracted full article: A website terms-of-use and copyright page, not a news article; the title is empty and the body consists of legal clauses.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Legal website terms contain no article framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Legal website terms contain no article framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "legal boilerplate rather than news prose"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

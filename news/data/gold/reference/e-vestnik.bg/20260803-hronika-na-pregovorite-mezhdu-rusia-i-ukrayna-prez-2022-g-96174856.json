@@ -1,0 +1,124 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260803-hronika-na-pregovorite-mezhdu-rusia-i-ukrayna-prez-2022-g-96174856.json",
+  "url": "https://e-vestnik.bg/40900/hronika-na-pregovorite-mezhdu-rusia-i-ukrayna-prez-2022-g/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:22:40.018698+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A detailed chronological reconstruction of the 2022 Russia-Ukraine negotiations and unresolved draft provisions."
+  },
+  "summary_bg": "Хрониката проследява преговорите от Беларус и Анталия до Истанбулското комюнике и последвалите проекти. Тя показва постигнатите сближавания, но и нерешените спорове за сигурността, армията, територията и руското вето, поради които подписан мирен договор не е имало.",
+  "summary_en": "The chronology follows negotiations from Belarus and Antalya to the Istanbul Communiqué and later drafts. It documents areas of convergence but also unresolved disputes over security, armed forces, territory, and a Russian veto, showing that no peace treaty was signed.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Подробна политическа хроника, която разграничава предложения, твърдения и опровержения."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.9,
+    "evidence": "Руските начални условия са определени като капитулация, териториите като окупирани, а исканото вето е обяснено като възможност Русия да блокира защита срещу собствено нападение."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "detailed round-by-round chronology",
+      "specific draft provisions",
+      "contrasting participant claims",
+      "minor grammatical errors"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Дмитрий Песков",
+      "Сергей Лавров",
+      "Дмитро Кулеба",
+      "Мевлют Чавушоглу",
+      "Михаил Подоляк",
+      "Зеленски",
+      "Путин",
+      "Реджеп Ердоган",
+      "Давид Арахамия"
+    ],
+    "parties": [],
+    "institutions": [
+      "НАТО",
+      "ЕС",
+      "Роскомнадзор"
+    ],
+    "companies": [],
+    "places": [
+      "Русия",
+      "Украйна",
+      "Беларус",
+      "Анталия",
+      "Истанбул",
+      "Крим",
+      "Донецк",
+      "Луганск",
+      "Буча"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Беларус",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BY",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "правда",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Правда (place, settlement, settlement:57981)",
+        "Правда (place, settlement, settlement:57995)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-03T13:21:13+00:00"
+}

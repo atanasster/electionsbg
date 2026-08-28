@@ -1,0 +1,75 @@
+{
+  "article_path": "news/data/news.bg/20260814-komandir-na-aviobaza-graf-ignatievo-predpochita-mig-29-pred--e2c92b8c.json",
+  "url": "https://news.bg/politics/komandir-na-aviobaza-graf-ignatievo-predpochita-mig-29-pred-f-16.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:48:27.478752+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete BNR interview report presenting the air-base commander's operational case for retaining MiG-29 during F-16 transition."
+  },
+  "summary_bg": "Командирът на авиобаза „Граф Игнатиево“ Методи Орлов настоява МиГ-29 да се поддържа до края на жизнения му цикъл през 2029–2030 г., докато екипите усвояват F-16. Според него повече изправни самолети увеличават защитата, а познатата платформа освобождава хора и време за сложния преход към новия тип.",
+  "summary_en": "Graf Ignatievo air-base commander Metodi Orlov argues MiG-29s should be maintained through their 2029–2030 service life while teams learn the F-16. More operational aircraft improve defence, he says, and the familiar platform frees personnel and time for the complex transition.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.86,
+    "evidence": "Аргументът е оперативен и приписан на военен командир, без партийна или идеологическа рамка."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Материалът защитава временното използване на руски МиГ-29 по практически причини, без похвала на Русия или нейната политика."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "BNR interview attribution",
+      "repeated operational rationale",
+      "manufacturer service-life detail"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Методи Орлов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Граф Игнатиево"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Граф Игнатиево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:17806",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Методи Орлов",
+      "basis": "gazetteer_exact",
+      "id": "metodi-petrov-orlov-5cf3e2",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-14T07:24:00+00:00"
+}

@@ -1,0 +1,110 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260617-mondial-2026-anglia-gradi-zvezden-otbor-tsyalo-desetiletie-i-9f1c5fd7.json",
+  "url": "https://e-vestnik.bg/40810/mondial-2026-anglia-gradi-zvezden-otbor-tsyalo-desetiletie-i-go-ostavi-u-doma/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:29:08.900339+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete, internally coherent pre-tournament sports analysis synthesising roster choices, expert reactions and England's development strategy."
+  },
+  "summary_bg": "Анализът разглежда спорния състав на Англия за Мондиал 2026, от който Томас Тухел оставя извън групата няколко големи атакуващи звезди. Той противопоставя дългогодишните инвестиции в таланти на прагматичния избор на селекционера и проследява критиките на бивши национали и балансa на отбора.",
+  "summary_en": "The analysis examines England's controversial 2026 World Cup squad, from which Thomas Tuchel omitted several major attacking stars. It contrasts years of investment in talent with the coach's pragmatic selection and surveys criticism from former internationals and the squad's balance.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.99,
+    "evidence": "Спортен анализ без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.7,
+    "signals": [
+      "polished multi-source synthesis without a byline",
+      "recurrent rhetorical contrast structure",
+      "dense exhaustive roster context"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "звезден",
+      "Канада",
+      "Мексико",
+      "Хърватия",
+      "Северна Америка",
+      "Саудитска Арабия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "звезден",
+      "basis": "gazetteer_exact",
+      "id": "settlement:30475",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Канада",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Мексико",
+      "basis": "gazetteer_exact",
+      "id": "settlement:MX",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Хърватия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:HR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Северна Америка",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:NA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Саудитска Арабия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "sports",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-06-17T16:10:22+00:00"
+}

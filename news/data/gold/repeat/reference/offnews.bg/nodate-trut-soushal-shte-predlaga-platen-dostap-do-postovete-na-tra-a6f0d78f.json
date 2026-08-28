@@ -1,0 +1,73 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-trut-soushal-shte-predlaga-platen-dostap-do-postovete-na-tra-a6f0d78f.json",
+  "url": "https://offnews.bg/medii/trut-soushal-shte-predlaga-platen-dostap-do-postovete-na-tramp-870849.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:52:09.639758+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Камен"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Камен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Камен (place, settlement, settlement:35657)",
+        "Камен (place, settlement, settlement:35660)",
+        "Камен (place, settlement, settlement:35674)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    },
+    {
+      "category": "media-press",
+      "subcategory": "media-ownership",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

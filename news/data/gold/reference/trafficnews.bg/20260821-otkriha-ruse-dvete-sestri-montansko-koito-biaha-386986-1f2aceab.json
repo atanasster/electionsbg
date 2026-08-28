@@ -1,0 +1,125 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-otkriha-ruse-dvete-sestri-montansko-koito-biaha-386986-1f2aceab.json",
+  "url": "https://trafficnews.bg/plovdiv/otkriha-ruse-dvete-sestri-montansko-koito-biaha-386986/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:25:42.209330+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete police and human-interest update about two missing minors being found safely."
+  },
+  "summary_bg": "Двете непълнолетни сестри от село Лехчево, издирвани три дни, са открити невредими в Русе и предадени на полицията. Родителите им пътуват да ги приберат, а органите на реда ще изясняват обстоятелствата около напускането и пътуването им.",
+  "summary_en": "Two underage sisters from the village of Lehchevo who had been missing for three days were found safe in Ruse and taken to a police station. Their parents were travelling to collect them, while police would establish how and why they left and travelled there.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Полицейска хроника без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.78,
+    "signals": [
+      "family-sourced update",
+      "specific search chronology",
+      "pending police clarification"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Василева"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Русе",
+      "Лехчево",
+      "Бояна",
+      "София",
+      "Хайредин"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русе",
+      "basis": "gazetteer_exact",
+      "id": "settlement:63427",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Лехчево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:43517",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Бояна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:05978",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Василева",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Айлин Лютфи Дахилова- Василева (person, cabinet, ailin-lyutfi-dahilova-vasileva-006439)",
+        "Бойка Маркова Василева (person, agency_head, boika-markova-vasileva-2dcdac)",
+        "Бонка Сергеева Василева (person, mp, mp-3260)",
+        "Ваня Иванова Василева (person, mp, mp-4745)",
+        "Виктория Димитрова Василева (person, mp, mp-4551)",
+        "Зорка Николова Милева - Василева (person, agency_head, zorka-nikolova-mileva-vasileva-9c79c7)",
+        "Зорница Валентинова Василева (person, cabinet, zornitsa-valentinova-vasileva-0b165a)",
+        "Ивелина Веселинова Василева (person, mp, mp-3101)",
+        "Лозана Илиева Василева (person, agency_head, lozana-ilieva-vasileva-383abf)",
+        "Марина Веселинова Василева (person, deputy_minister, marina-veselinova-vasileva-abf8b9)",
+        "Марина Пенчева Василева (person, mp, mp-590)",
+        "Мима Тодорова Василева (person, mp, mp-791)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Хайредин",
+      "basis": "gazetteer_exact",
+      "id": "settlement:77102",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "crime-blotter",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T17:42:00+00:00"
+}

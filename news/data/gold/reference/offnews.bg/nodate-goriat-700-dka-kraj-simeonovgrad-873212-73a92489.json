@@ -1,0 +1,127 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-goriat-700-dka-kraj-simeonovgrad-873212-73a92489.json",
+  "url": "https://offnews.bg/112/goriat-700-dka-kraj-simeonovgrad-873212.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:29:09.010537+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A very short but complete emergency update giving location, affected land types, response resources and settlement risk; one unrelated teaser trails the extraction."
+  },
+  "summary_bg": "Пожар е обхванал 700 декара край селата Дряново, Тянево и Троян в община Симеоновград. Засегнати са гора, стърнище и друга растителност, на място работят пет пожарни автомобила и няма опасност за населените места.",
+  "summary_en": "A fire covered 700 decares near the villages of Dryanovo, Tyanevo and Troyan in Simeonovgrad municipality. Forest, stubble and other vegetation were affected, five fire engines were deployed and settlements were not in danger.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.96,
+    "evidence": "Кратко фактологично съобщение, основано на данни от областната администрация."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.72,
+    "signals": [
+      "regional administration attribution",
+      "specific affected-area breakdown",
+      "brief breaking-news format"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "община Симеоновград"
+    ],
+    "companies": [],
+    "places": [
+      "Симеоновград",
+      "Хасково",
+      "Дряново",
+      "Тянево",
+      "Троян"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Симеоновград",
+      "basis": "gazetteer_exact",
+      "id": "settlement:47278",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "община Симеоновград",
+      "basis": "gazetteer_exact",
+      "id": "000903729",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Хасково",
+      "basis": "gazetteer_exact",
+      "id": "settlement:77195",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Дряново",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Дряново (place, obshtina, obshtina:GAB12)",
+        "Дряново (place, settlement, settlement:23947)",
+        "Дряново (place, settlement, settlement:23950)",
+        "Дряново (place, settlement, settlement:23964)",
+        "Дряново (place, settlement, settlement:23978)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Тянево",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Тянево (place, settlement, settlement:73818)",
+        "Тянево (place, settlement, settlement:73821)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Троян",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Троян (place, obshtina, obshtina:LOV34)",
+        "Троян (place, settlement, settlement:73198)",
+        "Троян (place, settlement, settlement:73208)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

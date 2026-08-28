@@ -1,0 +1,168 @@
+{
+  "article_path": "news/data/novavarna.net/20260821-d181d0bcd0b5d0bdd0b8-d0b2d18ad0b2-d0b2d0b8d0ba-d0b2d0b0d180d-5ded4ac6.json",
+  "url": "https://novavarna.net/2026/08/21/%d1%81%d0%bc%d0%b5%d0%bd%d0%b8-%d0%b2%d1%8a%d0%b2-%d0%b2%d0%b8%d0%ba-%d0%b2%d0%b0%d1%80%d0%bd%d0%b0-%d0%bc%d0%b8%d0%bd%d0%b8%d1%81%d1%82%d1%8a%d1%80-%d1%88%d0%b8%d1%88%d0%ba%d0%be%d0%b2/",
+  "domain": "novavarna.net",
+  "analyzed_at": "2026-08-28T15:32:34.188593+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete regional-infrastructure report based on a ministerial visit, covering water failures, roads and several major projects."
+  },
+  "summary_bg": "Регионалният министър Иван Шишков свързва авариите на ВиК–Варна с некачествени материали и обявява смяна на ръководството. Той критикува тънкия асфалт и незаконното строителство и дава актуална информация за Аспаруховия мост и магистралите „Черно море“, „Хемус“ и Русе–Маказа.",
+  "summary_en": "Regional Development Minister Ivan Shishkov blamed Varna water-network failures on poor materials and announced a management change. He criticised thin asphalt and illegal construction and updated plans for Asparuhov Bridge and the Black Sea, Hemus and Ruse–Makaza motorways.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Текстът предава критичните оценки и обещания на министъра без собствена партийна позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.76,
+    "signals": [
+      "named local visit",
+      "direct ministerial quotation",
+      "project-by-project infrastructure detail"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Шишков",
+      "Иван Шишков"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Варна",
+      "България",
+      "Бургас",
+      "Турция",
+      "Румъния",
+      "Велико Търново",
+      "Русе",
+      "Бяла"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Варна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10135",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Шишков",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Георги Атанасов Шишков (person, mp, mp-2007)",
+        "Григор Димитров Шишков (person, mp, mp-1786)",
+        "Димитър Григоров Шишков (person, mp, mp-2547)",
+        "Димитър Костадинов Шишков (person, security_service, dimitr-kostadinov-shishkov-299f7d)",
+        "Иван Димитров Шишков (person, mp, mp-5090)",
+        "Младен Николов Шишков (person, mp, mp-4807)",
+        "Спас Иванов Шишков (person, revenue_agency, spas-ivanov-shishkov-c4771a)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Иван Шишков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Велико Търново",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10447",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русе",
+      "basis": "gazetteer_exact",
+      "id": "settlement:63427",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Бяла",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Бяла (place, obshtina, obshtina:RSE04)",
+        "Бяла (place, obshtina, obshtina:VAR05)",
+        "Бяла (place, settlement, settlement:07598)",
+        "Бяла (place, settlement, settlement:07603)",
+        "Бяла (place, settlement, settlement:07613)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "water-vik",
+      "primary": true
+    },
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "roads",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T13:54:21+00:00"
+}

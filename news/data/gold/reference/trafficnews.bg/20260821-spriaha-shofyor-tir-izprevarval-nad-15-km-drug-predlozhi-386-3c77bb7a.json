@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-spriaha-shofyor-tir-izprevarval-nad-15-km-drug-predlozhi-386-3c77bb7a.json",
+  "url": "https://trafficnews.bg/trafik/spriaha-shofyor-tir-izprevarval-nad-15-km-drug-predlozhi-386978/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:46:46.429397+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete police-operation report with two distinct enforcement actions and a road-safety warning."
+  },
+  "summary_bg": "Пътна полиция санкционира шофьор на камион за забранено изпреварване, продължило над 1,5 км по магистрала „Тракия“. Друг турски шофьор е задържан, след като предлага подкуп, за да избегне наказание за неправилно изпреварване.",
+  "summary_en": "Traffic police sanctioned a truck driver for a prohibited overtake lasting more than 1.5 km on the Trakia motorway. Another Turkish driver was detained after offering a bribe to avoid punishment for an improper overtake.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Полицейската информация и предупреждението са предадени без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "National Police quotation",
+      "specific enforcement operation",
+      "two distinct driver outcomes"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "Главна дирекция \"Национална полиция"
+    ],
+    "companies": [],
+    "places": [
+      "Тракия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Тракия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:72970",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Главна дирекция \"Национална полиция",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "interior-mvr",
+      "primary": true
+    },
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "roads",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T15:33:00+00:00"
+}

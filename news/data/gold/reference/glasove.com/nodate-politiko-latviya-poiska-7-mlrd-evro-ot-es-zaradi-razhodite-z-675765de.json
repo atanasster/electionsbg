@@ -1,0 +1,162 @@
+{
+  "article_path": "news/data/glasove.com/nodate-politiko-latviya-poiska-7-mlrd-evro-ot-es-zaradi-razhodite-z-675765de.json",
+  "url": "https://glasove.com/ikonomika/politiko-latviya-poiska-7-mlrd-evro-ot-es-zaradi-razhodite-za-otbrana-i-zagubite-ot-prekasnatata-targoviya-s-rusiya",
+  "domain": "glasove.com",
+  "analyzed_at": "2026-08-28T15:20:32.170445+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete but repetitive Politico-based report with stray SEO-like words embedded in the copy."
+  },
+  "summary_bg": "Латвия иска допълнителни 7 млрд. евро от ЕС за нарасналите разходи за отбрана и загубите от прекъснатата търговия с Русия. Правителството настоява за твърда политика към Москва, докато опозицията иска компенсации за санкциите и бъдещо възстановяване на икономическите връзки.",
+  "summary_en": "Latvia is seeking an additional €7 billion from the EU for higher defence spending and losses from disrupted trade with Russia. The government advocates a hard line toward Moscow, while the opposition wants compensation for sanctions and eventual restoration of economic ties.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Излага правителствената и опозиционната позиция и бюджетните аргументи без собствен партиен извод."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Представя както възпирането и по-твърдите мерки срещу Русия, така и искането за възстановяване на отношенията."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.7,
+    "signals": [
+      "heavy repetition",
+      "stray SEO phrases inside prose",
+      "Politico facts and quotations",
+      "no byline"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Андрис Кулбергс",
+      "Айнарс Шлесерс"
+    ],
+    "parties": [],
+    "institutions": [
+      "ЕС",
+      "НАТО",
+      "Европейската комисия",
+      "Руската централна банка"
+    ],
+    "companies": [
+      "Политико"
+    ],
+    "places": [
+      "Латвия",
+      "Русия",
+      "Украйна",
+      "Рига",
+      "Брюксел",
+      "Белгия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Испания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:ES",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швеция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Нидерландия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Белгия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BE",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "budget-fiscal",
+      "subcategory": "state-budget",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

@@ -1,0 +1,63 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076116-sezonat-na-pojarite-okolo-1000-dushi-baha-evakuirani-38e79c62.json",
+  "url": "https://fakti.bg/world/1076116-sezonat-na-pojarite-okolo-1000-dushi-baha-evakuirani-v-iztochnata-chast-na-ispania",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:52:09.661123+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Испания"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Испания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:ES",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:53:50+00:00"
+}

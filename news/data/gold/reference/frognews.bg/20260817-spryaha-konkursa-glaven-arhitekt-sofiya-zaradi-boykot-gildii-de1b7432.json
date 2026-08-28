@@ -1,0 +1,140 @@
+{
+  "article_path": "news/data/frognews.bg/20260817-spryaha-konkursa-glaven-arhitekt-sofiya-zaradi-boykot-gildii-de1b7432.json",
+  "url": "https://frognews.bg/novini/spryaha-konkursa-glaven-arhitekt-sofiya-zaradi-boykot-gildiite.html",
+  "domain": "frognews.bg",
+  "analyzed_at": "2026-08-28T15:42:05.864614+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete BGNES-based municipal appointment report explaining the legal obstacle, official request and interim management."
+  },
+  "summary_bg": "Кметът Васил Терзиев временно спира конкурса за главен архитект на София, след като двете професионални организации отказват представители в изпитната комисия. Тъй като участието им е законово необходимо, общината иска указания от регионалния министър и кабинета, а временно длъжността продължава да изпълнява Татяна Герганова.",
+  "summary_en": "Mayor Vasil Terziev temporarily halted Sofia's chief architect competition after two professional bodies refused to nominate exam-panel members. Because their participation is legally required, the city sought guidance from the regional minister and cabinet, while Tatyana Gerganova remains acting chief architect.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Процедурният проблем, законовото изискване и временният статус са описани без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "BGNES attribution",
+      "specific professional bodies and statutory requirement",
+      "interim appointment chronology"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Васил Терзиев",
+      "Терзиев",
+      "Иван Шишков",
+      "Недев"
+    ],
+    "parties": [],
+    "institutions": [
+      "Столична община"
+    ],
+    "companies": [],
+    "places": [
+      "София",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Васил Терзиев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Терзиев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Васил Александров Терзиев (person, mayor, vasil-aleksandrov-terziev-049f64)",
+        "Красимир Бориславов Терзиев (person, mp, mp-5187)",
+        "Людмил Аспарухов Терзиев (person, mayor, lyudmil-asparuhov-terziev-8c2388)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Иван Шишков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "Столична община",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Столична община (institution, 000696327)",
+        "Столична община (place, obshtina, obshtina:SFO_CITY)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Недев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Веселин Жеков Недев (person, mp, mp-4373)",
+        "Георги Недков Недев (person, regional_governor, georgi-nedkov-nedev-5b17a6)",
+        "Георги Николов Недев (person, mp, mp-2522)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "officials-people",
+      "subcategory": "appointments",
+      "primary": true
+    },
+    {
+      "category": "local-news",
+      "subcategory": "local-councils",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-17T18:17:00+00:00"
+}

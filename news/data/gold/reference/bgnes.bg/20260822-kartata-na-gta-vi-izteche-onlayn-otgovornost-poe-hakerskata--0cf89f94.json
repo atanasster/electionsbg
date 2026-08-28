@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/bgnes.bg/20260822-kartata-na-gta-vi-izteche-onlayn-otgovornost-poe-hakerskata--0cf89f94.json",
+  "url": "https://www.bgnes.bg/kartata-na-gta-vi-izteche-onlayn-otgovornost-poe-hakerskata-grupa-cyberleek",
+  "domain": "bgnes.bg",
+  "analyzed_at": "2026-08-28T15:45:09.790368+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete cyber incident report distinguishing unverified leaked content, the claimant's motive, takedowns and court discovery requests."
+  },
+  "summary_bg": "Група, нарекла се Cyberleek, публикува предполагаеми кадри и карта на GTA VI и представя теча като протест срещу дигиталните лицензи и практиките на издателите. Rockstar и Take-Two не потвърждават автентичността, а Take-Two иска съдът да задължи Microsoft и Discord да разкрият данни за профилите.",
+  "summary_en": "A group calling itself Cyberleek published alleged GTA VI footage and a map, presenting the leak as a protest against digital licensing and publisher practices. Rockstar and Take-Two have not authenticated it, while Take-Two seeks court orders for Microsoft and Discord account data.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.88,
+    "evidence": "Претенциите, мотивът и автентичността са ясно приписани и материалът включва позицията и правните действия на компанията."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "specific court request and deadline",
+      "platform takedowns",
+      "extended claimant quotation with verification caveat"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T16:25:00+00:00"
+}

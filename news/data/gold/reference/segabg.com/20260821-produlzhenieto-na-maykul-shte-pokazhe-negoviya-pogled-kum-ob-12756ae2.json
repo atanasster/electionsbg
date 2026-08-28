@@ -1,0 +1,82 @@
+{
+  "article_path": "news/data/segabg.com/20260821-produlzhenieto-na-maykul-shte-pokazhe-negoviya-pogled-kum-ob-12756ae2.json",
+  "url": "https://www.segabg.com/category-culture/produlzhenieto-na-maykul-shte-pokazhe-negoviya-pogled-kum-obvineniyata-pedofiliya",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:39:04.008469+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete entertainment-industry report with interview quotations, production context and careful attribution of abuse allegations."
+  },
+  "summary_bg": "Продължението на биографичния филм „Майкъл“ ще разгледа гледната точка на Майкъл Джексън към обвиненията в сексуално насилие над деца, които първата част не обхваща. Племенникът и изпълнител на ролята Джафар Джексън защитава семейната позиция, а режисьорът Антоан Фукуа обяснява защо сцените са били отложени.",
+  "summary_en": "The sequel to the biopic Michael will address Michael Jackson's perspective on child sexual-abuse allegations omitted from the first film. His nephew and lead actor Jaafar Jackson defends the family's position, while director Antoine Fuqua explains why those scenes were deferred.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.94,
+    "evidence": "Развлекателна новина, която приписва спорните твърдения и няма партийна рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "Deadline attribution",
+      "new interview quotations",
+      "specific production and editing chronology"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "крайна",
+      "първенец"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "първенец",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Първенец (place, settlement, settlement:59032)",
+        "Първенец (place, settlement, settlement:59046)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T13:03:38+00:00"
+}

@@ -1,0 +1,233 @@
+{
+  "article_path": "news/data/news.bg/20260821-ot-restorant-v-dragalevtsi-sa-zaglushavali-letishte-sofiya-b15d31f5.json",
+  "url": "https://news.bg/crime/ot-restorant-v-dragalevtsi-sa-zaglushavali-letishte-sofiya.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:45:09.816118+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete on-scene follow-up contrasting DANS's announcement with restaurant representatives' account and the airport's operational status."
+  },
+  "summary_bg": "Представители на ресторант „Келари“ в „Драгалевци“ казват, че полицията проверява обекта, но не е открила заглушител и заведението работи нормално. ДАНС по-рано съобщава за неутрализиран мощен GPS заглушител в охраняван комплекс, а летище София заявява, че полетите не са засегнати.",
+  "summary_en": "Representatives of the Kelari restaurant in Dragalevtsi said police searched but found no jammer and the venue remained open. DANS had announced a powerful GPS jammer neutralised in a guarded compound, while Sofia Airport said flights were unaffected.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.92,
+    "evidence": "Материалът ясно противопоставя твърдението на службата, проверката на място и позициите на ресторанта и летището."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Русия не е назована и няма приписване на произход или мотив."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "BTA on-scene reporting",
+      "named restaurant representatives",
+      "airport press-office confirmation"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Николай Иванов",
+      "Иванов",
+      "Йорданов"
+    ],
+    "parties": [],
+    "institutions": [
+      "Държавна агенция \"Национална сигурност"
+    ],
+    "companies": [],
+    "places": [
+      "София",
+      "Васил Левски"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Иванов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "Държавна агенция \"Национална сигурност",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Държавна агенция \"Национална сигурност (institution, 129009710)",
+        "Държавна агенция \"Национална сигурност\" (institution, 129009710)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Иванов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Койчев Иванов (person, mp, mp-5124)",
+        "Андрей Алексиев Иванов (person, mayor, andrei-aleksiev-ivanov-a940ef)",
+        "Боян Минков Иванов (person, mayor, boyan-minkov-ivanov-de5a2e)",
+        "Валентин Николов Иванов (person, mp, mp-2447)",
+        "Велко Вълканов Иванов (person, mp, mp-2284)",
+        "Владимир Иванов Иванов (person, mp, mp-1524)",
+        "Георги Пинчев Иванов (person, mp, mp-2251)",
+        "Георги Стефанов Иванов (person, audit_court, georgi-stefanov-ivanov-6b9de7)",
+        "Георги Хрисимиров Иванов (person, mp, mp-4847)",
+        "Деян Иванов Иванов (person, mayor, deyan-ivanov-ivanov-fff5a9)",
+        "Дими Първанов Иванов (person, security_service, dimi-prvanov-ivanov-1ae9ca)",
+        "Димитър Ангелов Иванов (person, mp, mp-4906)",
+        "Димитър Иванов Иванов (person, mayor, dimitr-ivanov-ivanov-4a1c9e)",
+        "Димитър Иванов Иванов (person, military_command, dimitr-ivanov-ivanov-5e8820)",
+        "Димитър Цветанов Иванов (person, regional_governor, dimitr-tsvetanov-ivanov-4946f6)",
+        "Димитър Цонков Иванов (person, mp, mp-2231)",
+        "Евгений Спасов Иванов (person, mp, mp-806)",
+        "Емил Кирилов Иванов (person, mp, mp-1567)",
+        "Жеко Стоянов Иванов (person, mp, mp-1811)",
+        "Здравко Владимиров Иванов (person, mayor, zdravko-vladimirov-ivanov-68fa5b-2)",
+        "ИВО КИРИЛОВ ИВАНОВ (person, regional_governor, ivo-kirilov-ivanov-9932e2)",
+        "Ивайло Ангелов Иванов (person, mp, mp-4430)",
+        "Иван Валентинов Иванов (person, mp, mp-4818)",
+        "Иван Георгиев Иванов (person, mp, mp-1822)",
+        "Иван Данаилов Иванов (person, mp, mp-5012)",
+        "Иван Димитров Иванов (person, mp, mp-928)",
+        "Иван Димов Иванов (person, mp, mp-2760)",
+        "Иван Драганов Иванов (person, military_command, ivan-draganov-ivanov-57b333)",
+        "Иван Йосифов Иванов (person, mp, mp-2196)",
+        "Иван Кирилов Иванов (person, mp, mp-2400)",
+        "Иван Костадинов Иванов (person, mp, mp-2194)",
+        "Иван Любчев Иванов (person, regional_governor, ivan-lyubchev-ivanov-10b24d)",
+        "Иван Матеев Иванов (person, mp, mp-793)",
+        "Иван Миленов Иванов (person, party_leader, ivan-milenov-ivanov-288106)",
+        "Иван Николаев Иванов (person, mp, mp-1044)",
+        "Иван Николаев Иванов (person, regulator, ivan-nikolaev-ivanov-b459ff)",
+        "Иван Николов Иванов (person, mp, mp-1835)",
+        "Иван Пейков Иванов (person, deputy_minister, ivan-peikov-ivanov-fbb0f4)",
+        "Иван Пенков Иванов (person, mp, mp-2408)",
+        "Иван Петков Иванов (person, regional_governor, ivan-petkov-ivanov-edc70f)",
+        "Иван Петров Иванов (person, mp, mp-1059)",
+        "Иван Славов Иванов (person, mp, mp-2496)",
+        "Иван Тодоров Иванов (person, mayor, ivan-todorov-ivanov-0f30fa)",
+        "Иван Тодоров Иванов (person, mp, mp-891)",
+        "Ивелин Статев Иванов (person, mp, mp-4272)",
+        "Иво Венелинов Иванов (person, military_command, ivo-venelinov-ivanov-210d29)",
+        "Иво Диков Иванов (person, regulator, ivo-dikov-ivanov-8fb424)",
+        "Йордан Яворов Иванов (person, mp, mp-5193)",
+        "Йохан Цветанов Иванов (person, revenue_agency, iohan-tsvetanov-ivanov-c53d41)",
+        "Калин Ивайлов Иванов (person, mp, mp-3787)",
+        "Калоян Тошков Иванов (person, mp, mp-5111)",
+        "Красимир Веселинов Иванов (person, regional_governor, krasimir-veselinov-ivanov-27da82)",
+        "Красимир Цеков Иванов (person, mp, mp-5211)",
+        "ЛЮБЕН ИВАНОВ ИВАНОВ (person, mp, mp-5082)",
+        "Лъчезар Богомилов Иванов (person, mp, mp-5126)",
+        "Любомир Тодоров Иванов (person, mp, mp-920)",
+        "Мартин Стоянов Иванов (person, mp, mp-2558)",
+        "Мирослав Николаев Иванов (person, mp, mp-5300)",
+        "Михаил Ванюшев Иванов (person, regional_governor, mihail-vanyushev-ivanov-6f3b0a)",
+        "Момчил Кунчев Иванов (person, mp, mp-3572)",
+        "Недко Георгиев Иванов (person, regional_governor, nedko-georgiev-ivanov-473165)",
+        "Николай Георгиев Иванов (person, mp, mp-2784)",
+        "Павлин Стоилов Иванов (person, regional_governor, pavlin-stoilov-ivanov-873cb4)",
+        "Пламен Иванов Иванов (person, mp, mp-2115)",
+        "Пламен Колев Иванов (person, regulator, plamen-kolev-ivanov-3e4464)",
+        "Радослав Теодоров Иванов (person, mp, mp-816)",
+        "Росен Живков Иванов (person, mp, mp-2778)",
+        "Росен Красимиров Иванов (person, mp, mp-4761)",
+        "Румен Иванов Иванов (person, mp, mp-2440)",
+        "Свилен Филипов Иванов (person, mp, mp-2560)",
+        "Симеон Ненов Иванов (person, mp, mp-5210)",
+        "Славомир Тодоров Иванов (person, regional_governor, slavomir-todorov-ivanov-76a3fa)",
+        "Станислав Георгиев Иванов (person, mp, mp-4931)",
+        "Станислав Стоянов Иванов (person, mp, mp-2695)",
+        "Стефан Неделчев Иванов (person, regional_governor, stefan-nedelchev-ivanov-e5f1cd)",
+        "Стоян Иванов Иванов (person, mp, mp-854)",
+        "Стоян Проданов Иванов (person, mp, mp-185)",
+        "Стоян Щилиянов Иванов (person, cabinet, stoyan-shtiliyanov-ivanov-960abc)",
+        "Тихомир Иванов Иванов (person, regulator, tihomir-ivanov-ivanov-60b2c3)",
+        "Тодор Георгиев Иванов (person, regional_governor, todor-georgiev-ivanov-ec31d7)",
+        "Тодор Динков Иванов (person, regional_governor, todor-dinkov-ivanov-453851)",
+        "Тома Иванов Иванов (person, agency_head, toma-ivanov-ivanov-69e7f9)",
+        "Христо Иванов Иванов (person, mp, mp-2040)",
+        "Христо Любомиров Иванов (person, mp, mp-4536)",
+        "Янко Атанасов Иванов (person, deputy_minister, yanko-atanasov-ivanov-951b12)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Йорданов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Янакиев Йорданов (person, regulator, aleksandr-yanakiev-iordanov-8871c6)",
+        "Анатолий Великов Йорданов (person, mp, mp-912)",
+        "Антоний Йорданов Йорданов (person, mp, mp-1512)",
+        "Валери Стефчев Йорданов (person, regional_governor, valeri-stefchev-iordanov-554eab)",
+        "Георги Йорданов Йорданов (person, mp, mp-2838)",
+        "Данаил Славчев Йорданов (person, mayor, danail-slavchev-iordanov-16a695)",
+        "Даниел Петков Йорданов (person, mp, mp-2793)",
+        "Димитър Цвятков Йорданов (person, mp, mp-31)",
+        "Емануил Николов Йорданов (person, mp, mp-2016)",
+        "Йордан Василев Йорданов (person, mp, mp-1856)",
+        "Йордан Илиев Йорданов (person, mp, mp-2795)",
+        "Йордан Петков Йорданов (person, mp, mp-805)",
+        "Йордан Тошков Йорданов (person, mayor, iordan-toshkov-iordanov-03b561)",
+        "Кирил Петров Йорданов (person, mp, mp-2062)",
+        "Красимир Йорданов Йорданов (person, mp, mp-4915)",
+        "Минчо Йорданов Йорданов (person, regional_governor, mincho-iordanov-iordanov-db3d01)",
+        "Пламен Веселинов Йорданов (person, mp, mp-2404)",
+        "Пламен Димитров Йорданов (person, military_command, plamen-dimitrov-iordanov-6dc7c9)",
+        "Пламен Христов Йорданов (person, deputy_minister, plamen-hristov-iordanov-383f59)",
+        "Руденко Радев Йорданов (person, mp, mp-785)",
+        "Станимир Петров Йорданов (person, military_command, stanimir-petrov-iordanov-eec596)",
+        "Янко Стоянов Йорданов (person, mayor, yanko-stoyanov-iordanov-e85c57)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Васил Левски",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Васил Левски (place, settlement, settlement:10207)",
+        "Васил Левски (place, settlement, settlement:10210)",
+        "Васил Левски (place, settlement, settlement:10224)",
+        "Васил Левски (place, settlement, settlement:10238)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T18:28:02+00:00"
+}

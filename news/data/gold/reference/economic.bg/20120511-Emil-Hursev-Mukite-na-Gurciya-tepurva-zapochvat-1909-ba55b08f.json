@@ -1,0 +1,97 @@
+{
+  "article_path": "news/data/economic.bg/20120511-Emil-Hursev-Mukite-na-Gurciya-tepurva-zapochvat-1909-ba55b08f.json",
+  "url": "https://www.economic.bg/bg/a/view/Emil-Hursev-Mukite-na-Gurciya-tepurva-zapochvat-1909",
+  "domain": "economic.bg",
+  "analyzed_at": "2026-08-28T15:30:38.384127+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantial original interview on Greece's debt crisis, euro membership, fiscal adjustment and spillovers to Bulgaria."
+  },
+  "summary_bg": "Финансистът Емил Хърсев очаква Гърция да остане в еврозоната, но да премине през продължителен спад на доходите и БВП при строга фискална политика. Той смята, че най-тежките преки ефекти за България вече са настъпили и допуска преместване на гръцки производства у нас.",
+  "summary_en": "Financier Emil Harsev expects Greece to remain in the euro area but undergo a prolonged decline in incomes and GDP under strict fiscal policy. He says the worst direct effects on Bulgaria have already occurred and sees scope for Greek production to relocate there.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.72,
+    "evidence": "Събеседникът защитава строга фискална политика, отхвърля напускането на еврото и описва болезнената корекция като неизбежна."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.98,
+    "signals": [
+      "named interviewer",
+      "extended spontaneous Q&A",
+      "publication predates modern generative AI"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Гърция",
+      "България",
+      "Франция",
+      "Германия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "budget-fiscal",
+      "subcategory": "debt",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "eu",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2012-05-11T06:29:44+00:00"
+}

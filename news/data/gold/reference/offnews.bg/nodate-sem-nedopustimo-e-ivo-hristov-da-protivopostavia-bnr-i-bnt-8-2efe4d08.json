@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-sem-nedopustimo-e-ivo-hristov-da-protivopostavia-bnr-i-bnt-8-2efe4d08.json",
+  "url": "https://offnews.bg/medii/sem-nedopustimo-e-ivo-hristov-da-protivopostavia-bnr-i-bnt-872645.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:42:05.855425+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete regulator statement defending both public broadcasters and linking their independence to European law; one unrelated teaser trails it."
+  },
+  "summary_bg": "СЕМ определя като неприемливо изпълнителната власт да противопоставя БНР и БНТ. Регулаторът посочва доверието, аудиторията, професионалните стандарти и обществените каузи на двете медии и припомня изискванията на Европейския акт за свобода на медиите.",
+  "summary_en": "The media regulator called it unacceptable for the executive to pit BNR and BNT against each other. It cited both public broadcasters' trust, audiences, professional standards and public causes and recalled the European Media Freedom Act's independence requirements.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.68,
+    "evidence": "Материалът без контрапункт защитава независимостта на обществените медии и европейските гаранции срещу натиск от изпълнителната власт."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "formal regulator statement",
+      "Reuters Institute reference",
+      "specific EU legal framework"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иво Христов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Иво Христов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "media-press",
+      "subcategory": "press-freedom",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

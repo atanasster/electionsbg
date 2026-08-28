@@ -1,0 +1,48 @@
+{
+  "article_path": "news/data/24chasa.bg/20260822-23428820-6466af40.json",
+  "url": "https://www.24chasa.bg/spravochnik/article/23428820",
+  "domain": "24chasa.bg",
+  "analyzed_at": "2026-08-28T15:10:51.769918+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "Only the headline was extracted; the feature body is absent."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only the headline was extracted; the feature body is absent.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only the headline was extracted; the feature body is absent.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Александрова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T13:37:00+00:00"
+}

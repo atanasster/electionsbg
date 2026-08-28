@@ -1,0 +1,93 @@
+{
+  "article_path": "news/data/bgdnes.bg/20260821-23428624-d0b8ff14.json",
+  "url": "https://www.bgdnes.bg/polezno/article/23428624",
+  "domain": "bgdnes.bg",
+  "analyzed_at": "2026-08-28T15:27:31.251182+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short road-traffic advisory based on an API announcement."
+  },
+  "summary_bg": "На 24 август АПИ ще подмени тол камера по път I-4 Микре–Ловеч край село Голец. Движението към Микре временно ще бъде ограничено и трафикът ще минава двупосочно в свободната лента, затова водачите са призовани да спазват сигнализацията.",
+  "summary_en": "On 24 August the Road Infrastructure Agency will replace a toll camera on the I-4 Mikre–Lovech road near Golets. The Mikre-bound lane will temporarily close and traffic will run both ways in the open lane, with drivers urged to follow temporary signs.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Практическо пътно съобщение без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.78,
+    "signals": [
+      "API press-centre attribution",
+      "precise road segment and traffic arrangement",
+      "standard public advisory"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "АПИ"
+    ],
+    "companies": [],
+    "places": [
+      "Микре",
+      "Ловеч",
+      "Голец"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Микре",
+      "basis": "gazetteer_exact",
+      "id": "settlement:48060",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Ловеч",
+      "basis": "gazetteer_exact",
+      "id": "settlement:43952",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "АПИ",
+      "basis": "gazetteer_exact",
+      "id": "000695089",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Голец",
+      "basis": "gazetteer_exact",
+      "id": "settlement:15552",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "roads",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:15:00+00:00"
+}

@@ -1,0 +1,62 @@
+{
+  "article_path": "news/data/vesti.bg/20260821-kzk-razkri-kartel-pri-obshtestveni-porychki-za-stroitelna-te-f3d1fe44.json",
+  "url": "https://www.vesti.bg/bulgaria/kzk-razkri-kartel-pri-obshtestveni-porychki-za-stroitelna-tehnika-6268153",
+  "domain": "vesti.bg",
+  "analyzed_at": "2026-08-28T15:10:51.813358+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete regulator-based report with allegations, evidence, procedure, and remedies."
+  },
+  "summary_bg": "КЗК установява координация между три дружества в 11 обществени поръчки за строителна и добивна техника през 2022–2024 г. Регулаторът описва обмен на офертна информация, идентични IP адреси и прилагане за пръв път на механизъм за споразумение, освобождаване от санкция и задължителни програми за съответствие.",
+  "summary_en": "The competition regulator found coordination among three companies in 11 public tenders for construction and mining equipment in 2022–2024. It cites exchanged bid information and identical IP addresses, and describes the first use of a settlement mechanism, immunity from a fine, and mandatory compliance programmes.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.95,
+    "evidence": "Текстът преразказва решението и мотивите на КЗК с ясно приписване и без партийна или идеологическа оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "named byline",
+      "detailed legal references",
+      "regulator press-release structure"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "Комисията за защита на конкуренцията",
+      "КЗК",
+      "Европейската комисия"
+    ],
+    "companies": [
+      "О-Рент",
+      "Инжконсулт",
+      "Земекоп"
+    ],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "procurement",
+      "subcategory": "overpricing-cartels",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T10:24:00+00:00"
+}

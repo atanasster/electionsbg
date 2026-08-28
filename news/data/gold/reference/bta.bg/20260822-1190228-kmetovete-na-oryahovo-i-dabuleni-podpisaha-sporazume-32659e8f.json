@@ -1,0 +1,110 @@
+{
+  "article_path": "news/data/bta.bg/20260822-1190228-kmetovete-na-oryahovo-i-dabuleni-podpisaha-sporazume-32659e8f.json",
+  "url": "https://www.bta.bg/bg/news/bulgaria/1190228-kmetovete-na-oryahovo-i-dabuleni-podpisaha-sporazumenie-za-pobratimyavane-na-dva",
+  "domain": "bta.bg",
+  "analyzed_at": "2026-08-28T15:37:32.990276+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete original local-correspondent report with ceremony, council approval, statements and prior chronology."
+  },
+  "summary_bg": "Кметовете на Оряхово и румънския Дъбулени подписват споразумение за побратимяване, подкрепено единодушно от общинския съвет в Оряхово. Двете страни очакват общи проекти и надграждане на отношенията, а церемонията включва и почит към пенсиониращи се образователни директори.",
+  "summary_en": "The mayors of Oryahovo and Romania's Dăbuleni signed a twinning agreement unanimously supported by Oryahovo's municipal council. Both sides expect joint projects and closer relations, while the ceremony also honoured retiring education directors.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.92,
+    "evidence": "Положителният церемониален тон е приписан на участниците и няма партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.96,
+    "signals": [
+      "named local BTA correspondent",
+      "on-site ceremony detail",
+      "multiple local quotations"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Росен Добрев",
+      "Цонева"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Оряхово",
+      "Румъния"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Оряхово",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Оряхово (place, obshtina, obshtina:VRC31)",
+        "Оряхово (place, settlement, settlement:54020)",
+        "Оряхово (place, settlement, settlement:54033)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Росен Добрев",
+      "basis": "gazetteer_exact",
+      "id": "rosen-zhekov-dobrev-207156",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Цонева",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Антоанета Димитрова Цонева (person, mp, mp-4265)",
+        "Гергана Руменова Цонева (person, regional_governor, gergana-rumenova-tsoneva-a71209)",
+        "Десислава Цветанова Цонева (person, mp, mp-3303)",
+        "Кристияна Любомирова Цонева (person, cabinet, kristiyana-lyubomirova-tsoneva-e1b4b8)",
+        "Мила Иванова Ненова Цонева (person, agency_head, mila-ivanova-nenova-tsoneva-b948df)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "local-councils",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T18:15:00+00:00"
+}

@@ -1,0 +1,87 @@
+{
+  "article_path": "news/data/bgdnes.bg/20260822-23432206-a3444350.json",
+  "url": "https://www.bgdnes.bg/zdrave/article/23432206",
+  "domain": "bgdnes.bg",
+  "analyzed_at": "2026-08-28T15:39:03.877209+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantial human-interest feature combining BBC interviews, personal stories, social trends and psychological distinction between solitude and loneliness."
+  },
+  "summary_bg": "Млади инфлуенсъри популяризират самостоятелните занимания и оспорват стигмата, че човек трябва постоянно да е социален, успешен и обвързан. Чрез истории и експертен контекст материалът разграничава доброволното усамотение, което носи свобода, от болезнената самота и социалната изолация.",
+  "summary_en": "Young influencers promote doing things alone and challenge the stigma that people must always be social, successful and partnered. Through personal stories and expert context, the feature distinguishes chosen solitude, which can bring freedom, from painful loneliness and isolation.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.66,
+    "evidence": "Материалът оспорва традиционни очаквания за брак, социалност и женски успех и валидира различни лични избори."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "BBC interview attribution",
+      "multiple personal accounts",
+      "nuanced psychological distinction"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "скала",
+      "Канада",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "скала",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Скала (place, settlement, settlement:66682)",
+        "Скала (place, settlement, settlement:66696)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Канада",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "society",
+      "subcategory": "human-interest",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T14:05:00+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-trut-soushal-shte-predlaga-platen-dostap-do-postovete-na-tra-a6f0d78f.json",
+  "url": "https://offnews.bg/medii/trut-soushal-shte-predlaga-platen-dostap-do-postovete-na-tramp-870849.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:46:46.627976+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Reuters/BTA business report with product, target customers, company rationale, missing price and market-impact examples."
+  },
+  "summary_bg": "Trump Media ще продава чрез Truth API по-бърз достъп в реално време до публикациите на Доналд Тръмп и други влиятелни профили. Услугата е насочена към банки, финансови доставчици и алгоритмични търговци, тъй като публикациите на президента често движат пазарите, но цена не е обявена.",
+  "summary_en": "Trump Media will sell faster real-time access through Truth API to posts by Donald Trump and other influential accounts. It targets banks, financial-data firms and algorithmic traders because the president's posts often move markets, but no price was announced.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.86,
+    "evidence": "Продуктът, бизнес аргументът и пазарните ефекти са представени фактологично без подкрепа или атака срещу Тръмп."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "Reuters and BTA attribution",
+      "named interim CEO quotation",
+      "specific launch date and missing-price caveat"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Камен"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Камен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Камен (place, settlement, settlement:35657)",
+        "Камен (place, settlement, settlement:35660)",
+        "Камен (place, settlement, settlement:35674)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    },
+    {
+      "category": "media-press",
+      "subcategory": "media-ownership",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

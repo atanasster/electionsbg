@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/168chasa.bg/20260822-23432707-f40c7fc6.json",
+  "url": "https://www.168chasa.bg/article/23432707",
+  "domain": "168chasa.bg",
+  "analyzed_at": "2026-08-28T15:39:03.745251+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete agency obituary with confirmation, career chronology and institutional significance."
+  },
+  "summary_bg": "Бившият естонски премиер, централен банкер и европейски комисар Сим Калас е починал на 77 години, съобщава дъщеря му Кая Калас. Той има водеща роля в Естония след независимостта, участва в присъединяването към ЕС и по-късно отговаря за администрацията, борбата с измамите и транспорта в Европейската комисия.",
+  "summary_en": "Former Estonian prime minister, central banker and European commissioner Siim Kallas died aged 77, his daughter Kaja Kallas announced. He played a leading role after Estonian independence, helped its EU accession and later handled administration, anti-fraud and transport portfolios at the European Commission.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Некрологът фактологично обобщава публичната кариера без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Независимостта на Естония е исторически контекст, без оценъчна рамка към Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "DPA and BTA attribution",
+      "family announcement and government confirmation",
+      "detailed office chronology"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "eu",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T17:42:11+00:00"
+}

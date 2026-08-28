@@ -1,0 +1,89 @@
+{
+  "article_path": "news/data/bgdnes.bg/20260821-23422956-de8c7784.json",
+  "url": "https://www.bgdnes.bg/futbol/article/23422956",
+  "domain": "bgdnes.bg",
+  "analyzed_at": "2026-08-28T15:32:34.228217+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete sports-facility update with construction status, capacity, amenities and planned events."
+  },
+  "summary_bg": "Реконструкцията на стадион „Българска армия“ е към края си и ЦСКА очаква отваряне през октомври. Поставени са седалките и озеленяването, обявена е технологична конференция, а клубът се надява първият мач да е срещу „Лудогорец“; стадионът ще има 18 540 места и 28 VIP ложи.",
+  "summary_en": "Reconstruction of the Bulgarian Army stadium is nearing completion and CSKA expects it to open in October. Seats and landscaping are finished, a technology conference is announced, and the club hopes the first match will be against Ludogorets; capacity will be 18,540 with 28 VIP boxes.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.99,
+    "evidence": "Спортна инфраструктурна новина без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "specific construction observations",
+      "event and match dates",
+      "detailed capacity and amenity figures"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Трайчо Трайков"
+    ],
+    "parties": [],
+    "institutions": [
+      "район \"Средец"
+    ],
+    "companies": [],
+    "places": [
+      "Европа"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "район \"Средец",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "РАЙОН \"СРЕДЕЦ (institution, 000696327)",
+        "Район \"Средец\" (institution, 000696327)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Трайчо Трайков",
+      "basis": "gazetteer_exact",
+      "id": "traicho-dimitrov-traikov-207438",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "sports",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:30:00+00:00"
+}

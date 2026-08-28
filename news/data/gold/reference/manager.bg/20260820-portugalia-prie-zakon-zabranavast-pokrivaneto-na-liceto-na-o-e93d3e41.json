@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/manager.bg/20260820-portugalia-prie-zakon-zabranavast-pokrivaneto-na-liceto-na-o-e93d3e41.json",
+  "url": "https://manager.bg/свят/portugalia-prie-zakon-zabranavast-pokrivaneto-na-liceto-na-obstestveni-mesta",
+  "domain": "manager.bg",
+  "analyzed_at": "2026-08-28T15:48:27.425581+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Euronews-based legislative report with the law's text, political coalition, legal objections and discrimination concerns."
+  },
+  "summary_bg": "Португалският президент утвърждава забрана за прикриване на лицето на обществени места и за принуждаване към покриване по религиозни, полови или други причини. Законът е предложен от крайнодясната Chega и подкрепен от десницата, докато леви партии и правни организации предупреждават за ислямофобия и противоконституционност.",
+  "summary_en": "Portugal's president approved a ban on face covering in public and on forcing someone to cover for religious, gender or other reasons. Proposed by far-right Chega and backed by the right, it drew warnings from left parties and legal bodies about Islamophobia and constitutionality.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.86,
+    "evidence": "Материалът представя аргумента за идентификация, политическата подкрепа и правните и ислямофобски възражения на опонентите."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "Euronews attribution",
+      "named legal institutions",
+      "party-by-party voting positions"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [
+      "Социалдемократическа партия"
+    ],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Португалия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Португалия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PT",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "Социалдемократическа партия",
+      "basis": "gazetteer_exact",
+      "id": "p_110",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "society",
+      "subcategory": "minorities",
+      "primary": true
+    },
+    {
+      "category": "parliament",
+      "subcategory": "legislation",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T08:59:51+00:00"
+}

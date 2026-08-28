@@ -1,0 +1,115 @@
+{
+  "article_path": "news/data/petel.bg/20260822-Peev-za-zaglushitelya-Imalo-e-vliyanie-varhu-GPS-signalite-n-bcd98ba0.json",
+  "url": "https://petel.bg/Peev-za-zaglushitelya--Imalo-e-vliyanie-varhu-GPS-signalite--no-tova-ne-e-povliyalo-varhu-bezopasnostta-na-poletite__665705",
+  "domain": "petel.bg",
+  "analyzed_at": "2026-08-28T15:39:03.983503+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete BTA/bTV report explaining the GPS disruption, operational fallback and official safety assessment."
+  },
+  "summary_bg": "Транспортният министър Георги Пеев потвърждава, че мощен заглушител в охраняван комплекс в „Драгалевци“ е повлиял GPS сигналите над София, но не и безопасността на полетите. ДАНС и КРС локализират и спират източника, а самолетите преминават към наземна конвенционална навигация при компрометиран сигнал.",
+  "summary_en": "Transport Minister Georgi Peev confirmed that a powerful jammer in a guarded Dragalevtsi compound affected GPS signals over Sofia but not flight safety. Security and communications agencies located and stopped it, while aircraft switch to ground-based conventional navigation when satellite signals are compromised.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Материалът предава официалното уверение и техническото обяснение, без да спекулира за собственик или мотив."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Русия не е назована и произходът или мотивът на заглушителя не са приписани."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "bTV interview and BTA attribution",
+      "specific agency response",
+      "technical navigation fallback explanation"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Пеев",
+      "Георги Пеев"
+    ],
+    "parties": [],
+    "institutions": [
+      "ДАНС"
+    ],
+    "companies": [],
+    "places": [
+      "София",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Пеев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Георги Генчев Пеев (person, cabinet, georgi-genchev-peev-6cf1b8)",
+        "Йоан Пейчев Пеев (person, regional_governor, ioan-peichev-peev-5a1f32)",
+        "Слави Пеев Пеев (person, revenue_agency, slavi-peev-peev-c385f4)",
+        "Станимир Димитров Пеев (person, agency_head, stanimir-dimitrov-peev-8f7f85)",
+        "Цветан Божидаров Пеев (person, inspectorate, tsvetan-bozhidarov-peev-b0acda)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Георги Пеев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "ДАНС",
+      "basis": "gazetteer_exact",
+      "id": "129009710",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": true
+    },
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "public-transport",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T10:21:29+00:00"
+}

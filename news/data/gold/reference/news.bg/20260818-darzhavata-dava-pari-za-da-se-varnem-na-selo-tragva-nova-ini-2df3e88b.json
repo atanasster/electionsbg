@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/news.bg/20260818-darzhavata-dava-pari-za-da-se-varnem-na-selo-tragva-nova-ini-2df3e88b.json",
+  "url": "https://news.bg/society/darzhavata-dava-pari-za-da-se-varnem-na-selo-tragva-nova-initsiativa.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:37:33.177616+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete programme preview combining ministerial statements and an independent check of the EU-funds system."
+  },
+  "summary_bg": "Вторият модул на „Избирам България“ ще насърчава около 1200 души да се преместят от големи към малки населени места и да започнат работа. Европейското финансиране покрива преместване, настаняване, интернет и транспорт, а Агенцията по заетостта ще помага за намиране на работа.",
+  "summary_en": "The second Choose Bulgaria module will encourage around 1,200 people to move from large to small settlements and take jobs. EU funding covers moving, accommodation, internet and transport, while the Employment Agency will help find work.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.62,
+    "evidence": "Държавната и европейска субсидия за регионална мобилност е представена положително, макар условията да са проверени в ИСУН."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "BGNES ministerial interview",
+      "Sega check in the EU-funds system",
+      "specific benefit ceilings"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "demographics",
+      "subcategory": "migration",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-18T06:28:00+00:00"
+}

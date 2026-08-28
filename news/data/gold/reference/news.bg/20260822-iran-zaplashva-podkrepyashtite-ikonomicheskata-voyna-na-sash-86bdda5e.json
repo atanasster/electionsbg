@@ -1,0 +1,83 @@
+{
+  "article_path": "news/data/news.bg/20260822-iran-zaplashva-podkrepyashtite-ikonomicheskata-voyna-na-sash-86bdda5e.json",
+  "url": "https://news.bg/int-economics/iran-zaplashva-podkrepyashtite-ikonomicheskata-voyna-na-sasht-strani.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:29:08.981625+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete agency-based report on Iranian threats, US pressure and the stalled ceasefire arrangements."
+  },
+  "summary_bg": "Иран предупреждава съседните държави, че ще атакува интересите им и ще спре износа на петрол през Персийския залив, ако подкрепят американската кампания за икономически натиск. Заплахата идва на фона на затворения Ормузки проток и застой в преговорите след меморандума, прекратил военните действия.",
+  "summary_en": "Iran warned neighbouring states it would attack their interests and halt Gulf oil exports if they supported the US economic-pressure campaign. The threat comes amid the closure of the Strait of Hormuz and stalled talks following the memorandum that ended hostilities.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Заплахите и американската политика са ясно приписани, а материалът добавя договорния контекст без редакционна подкрепа."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "Anadolu attribution",
+      "verbatim state-television quotations",
+      "specific ceasefire and shipping context"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Иран",
+      "Азия",
+      "Катар"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Катар",
+      "basis": "gazetteer_exact",
+      "id": "settlement:QA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T21:41:36+00:00"
+}

@@ -1,0 +1,48 @@
+{
+  "article_path": "news/data/toest.bg/20250620-glasovete-na-amerika-broy-3-06ca0644.json",
+  "url": "https://www.toest.bg/glasovete-na-amerika-broy-3/",
+  "domain": "toest.bg",
+  "analyzed_at": "2026-08-28T15:52:08.808234+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "client_render_shell",
+    "notes": "Independent repeat pass found no complete analyzable article body."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.25,
+    "signals": [
+      "insufficient text or inconclusive authorship signals"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "воден"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2025-06-20T09:35:25+00:00"
+}

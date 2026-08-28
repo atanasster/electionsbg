@@ -1,0 +1,194 @@
+{
+  "article_path": "news/data/pogled.info/20240908-vloomberg-imidzhat-na-germaniya-kato-avtomobilna-svrahdarzha-aebaac13.json",
+  "url": "https://pogled.info/svetoven/evropa/vloomberg-imidzhat-na-germaniya-kato-avtomobilna-svrahdarzhava-se-razrushava-poradi-udara-po-Volkswagen.173204",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:18:02.364879+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete translated Bloomberg feature on Volkswagen and Germany, followed by unrelated digest teasers."
+  },
+  "summary_bg": "Плановете на Volkswagen за възможно затваряне на германски заводи са представени като символ на отслабващата конкурентоспособност на германския индустриален модел. Анализът свързва кризата с бавния преход към електромобили, зависимостта от Китай, високите разходи и политическото недоволство в Източна Германия.",
+  "summary_en": "Volkswagen's possible German plant closures are presented as a symbol of weakening competitiveness in Germany's industrial model. The analysis links the crisis to a slow electric-vehicle transition, dependence on China, high costs, and political discontent in eastern Germany.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Икономическият анализ излага корпоративни грешки и структурни разходи, без да защитава партийна или идеологическа програма."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.65,
+    "evidence": "Евтиният руски газ е посочен само като загубен икономически фактор; останалите руски теми са несвързани автоматични тийзъри."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "Bloomberg attribution",
+      "named factory workers, economists, and union officials",
+      "detailed industrial history",
+      "unrelated site trailers"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Олаф Шолц",
+      "Доналд Тръмп"
+    ],
+    "parties": [
+      "Алтернатива за Германия"
+    ],
+    "institutions": [],
+    "companies": [
+      "Volkswagen",
+      "ING",
+      "Bloomberg"
+    ],
+    "places": [
+      "Германия",
+      "Цвикау",
+      "Саксония",
+      "Китай",
+      "Русия",
+      "Украйна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "светлина",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Светлина (place, settlement, settlement:65560)",
+        "Светлина (place, settlement, settlement:65574)",
+        "Светлина (place, settlement, settlement:65588)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Яков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Витанов",
+      "basis": "gazetteer_exact",
+      "id": "nikolai-vitanov-vitanov-325bc6",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [
+    {
+      "party": "Алтернатива за Германия",
+      "tone": "neutral"
+    }
+  ],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2024-09-08T18:14:02+00:00"
+}

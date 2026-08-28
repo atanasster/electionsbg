@@ -1,0 +1,175 @@
+{
+  "article_path": "news/data/blitz.bg/20260819-in-memoriam-shumnaliev-gradeshe-kashti-ot-dumi-news1167948-f290ab78.json",
+  "url": "https://blitz.bg/nad-55/in-memoriam-shumnaliev-gradeshe-kashti-ot-dumi_news1167948.html",
+  "domain": "blitz.bg",
+  "analyzed_at": "2026-08-28T15:27:31.201894+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete first-person literary obituary and remembrance built around the author's past conversations with the deceased writer."
+  },
+  "summary_bg": "Авторът припомня писателя и журналист Димитър Шумналиев чрез лични впечатления, оценка на книгите му и дълги откъси от предишен разговор. Текстът проследява трудното му образование, ранната работа, отношението му към писателския занаят и характерния му хумор.",
+  "summary_en": "The author remembers writer and journalist Dimitar Shumnaliev through personal impressions, an assessment of his books and long passages from an earlier conversation. The piece traces his difficult education, early jobs, views on writing as a craft and characteristic humour.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Литературен некролог без съвременна партийна или идеологическа теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на текста."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.98,
+    "signals": [
+      "distinctive first-person voice",
+      "personal recollections",
+      "long idiosyncratic interview excerpts"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Боян Биолчев",
+      "Орлов",
+      "Русев"
+    ],
+    "parties": [
+      "Дано"
+    ],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "тънкото",
+      "София",
+      "Франция",
+      "Искър",
+      "Кремиковци",
+      "Горна Василица",
+      "Бояна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "тънкото",
+      "basis": "gazetteer_exact",
+      "id": "settlement:73599",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Боян Биолчев",
+      "basis": "gazetteer_exact",
+      "id": "boyan-asenov-biolchev-8a8b72",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Орлов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Искър",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Искър (place, obshtina, obshtina:PVN23)",
+        "Искър (place, obshtina, obshtina:S2414)",
+        "Искър (place, settlement, settlement:14888)",
+        "Искър (place, settlement, settlement:32860)",
+        "Искър (place, settlement, settlement:55782)",
+        "Искър (place, settlement, settlement:68134-2414)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Кремиковци",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134-2422",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Горна Василица",
+      "basis": "gazetteer_exact",
+      "id": "settlement:18561",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "Дано",
+      "basis": "gazetteer_exact",
+      "id": "p_145",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Бояна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:05978",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Русев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Владимир Николаев Русев (person, regional_governor, vladimir-nikolaev-rusev-4e1d90)",
+        "Владимир Стоянов Русев (person, mp, mp-3249)",
+        "Добромир Стайков Русев (person, revenue_agency, dobromir-staikov-rusev-a49f18)",
+        "Йовчо Маринов Русев (person, mp, mp-2182)",
+        "Николай Русев Русев (person, military_command, nikolai-rusev-rusev-5cbef1)",
+        "Пламен Тенев Русев (person, mp, mp-1118)",
+        "Радослав Русев Русев (person, deputy_minister, radoslav-rusev-rusev-a30f2e)",
+        "Румен Йорданов Русев (person, mp, mp-1929)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-19T11:08:00+00:00"
+}

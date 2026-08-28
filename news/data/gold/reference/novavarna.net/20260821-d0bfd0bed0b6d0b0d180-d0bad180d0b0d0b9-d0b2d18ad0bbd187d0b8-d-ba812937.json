@@ -1,0 +1,84 @@
+{
+  "article_path": "news/data/novavarna.net/20260821-d0bfd0bed0b6d0b0d180-d0bad180d0b0d0b9-d0b2d18ad0bbd187d0b8-d-ba812937.json",
+  "url": "https://novavarna.net/2026/08/21/%d0%bf%d0%be%d0%b6%d0%b0%d1%80-%d0%ba%d1%80%d0%b0%d0%b9-%d0%b2%d1%8a%d0%bb%d1%87%d0%b8-%d0%b4%d0%be%d0%bb-%d0%b5%d0%ba%d0%b8%d0%bf%d0%b8-%d0%bd%d0%b0-%d0%bf%d0%be%d0%b6%d0%b0%d1%80%d0%bd%d0%b0%d1%82/",
+  "domain": "novavarna.net",
+  "analyzed_at": "2026-08-28T15:43:38.981510+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete local emergency update with time, official source, likely cause, response and resolved risk."
+  },
+  "summary_bg": "Сухи треви са се самозапалили край железопътната линия до Вълчи дол около 14:40 ч. Пожарен екип е ограничил огъня, а ОДМВР–Варна съобщава, че ситуацията е овладяна и няма риск за населението или инфраструктурата.",
+  "summary_en": "Dry grass ignited near the railway line by Valchi Dol at about 2:40 pm. Firefighters contained it, and Varna police said the situation was under control with no risk to people or infrastructure.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.96,
+    "evidence": "Кратък официално източен бедствен отчет без политическа оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.6,
+    "signals": [
+      "inflated generic language around a simple incident",
+      "repeated praise of rapid professional response",
+      "formulaic resolution paragraph"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "МВР"
+    ],
+    "companies": [],
+    "places": [
+      "Вълчи дол",
+      "Варна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Вълчи дол",
+      "basis": "gazetteer_exact",
+      "id": "settlement:12574",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Варна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10135",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T13:00:53+00:00"
+}

@@ -1,0 +1,93 @@
+{
+  "article_path": "news/data/profit.bg/20260821-2026082104493204956-34760b46.json",
+  "url": "https://profit.bg/article/2026082104493204956",
+  "domain": "profit.bg",
+  "analyzed_at": "2026-08-28T15:40:30.762019+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantial Financial Times-based market analysis with named investors, yield moves, policy actions and fiscal context."
+  },
+  "summary_bg": "Американското финансово министерство планира да удвои обратно изкупуваните дългосрочни облигации, но инвеститорите се съмняват, че Скот Бесънт може трайно да понижи доходността при дълг от 40 трилиона долара и висока инфлация. Първоначалното рали бързо отслабва, а анализът разглежда сблъсъка с „облигационните стражи“ на огромния пазар.",
+  "summary_en": "The US Treasury plans to at least double buybacks of long-term bonds, but investors doubt Scott Bessent can durably lower yields amid $40 trillion of debt and high inflation. The initial rally quickly faded, and the analysis examines his confrontation with bond-market vigilantes.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Материалът е скептичен към инструмента, но опира на пазарна реакция, данни и именувани инвеститори, а не партийна позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на анализа."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "Financial Times sourcing",
+      "named investment executives",
+      "specific intraday yield and policy chronology"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "министерство на финансите"
+    ],
+    "companies": [],
+    "places": [
+      "Иран",
+      "крайна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "министерство на финансите",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "budget-fiscal",
+      "subcategory": "debt",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "gdp-inflation",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T04:49:32+00:00"
+}

@@ -1,0 +1,180 @@
+{
+  "article_path": "news/data/profit.bg/20260822-2026082117483845067-4267d33c.json",
+  "url": "https://profit.bg/article/2026082117483845067",
+  "domain": "profit.bg",
+  "analyzed_at": "2026-08-28T15:15:15.987409+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete historical feature on the discovery, removal, and competing restitution claims surrounding Priam's Treasure."
+  },
+  "summary_bg": "Съкровището на Приам е изнесено от Османската империя от Хайнрих Шлиман, дарено на Германия и отнесено в Москва от съветските войски след Втората световна война. Турция настоява артефактите да се върнат в Троя, но Германия и Русия също претендират за тях.",
+  "summary_en": "Heinrich Schliemann removed Priam's Treasure from the Ottoman Empire, later donated it to Germany, and Soviet troops carried it to Moscow after the Second World War. Turkey wants the artefacts returned to Troy, while Germany and Russia also claim them.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Културно-правният спор е представен чрез историческа хроника и позициите на претендиращите държави."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Русия е един от трима претенденти и настоящ пазител; текстът описва съветското пренасяне и отказания достъп без геополитическо рамкиране."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "New York Times sourcing",
+      "named experts and officials",
+      "detailed archaeological chronology"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Зейнеп Боз",
+      "Хайнрих Шлиман",
+      "Рейчъл Каусър",
+      "Рюстем Аслан"
+    ],
+    "parties": [],
+    "institutions": [
+      "Пушкинския музей",
+      "Министерство на културата и туризма"
+    ],
+    "companies": [
+      "The New York Times"
+    ],
+    "places": [
+      "Турция",
+      "Гърция",
+      "Германия",
+      "Русия",
+      "Москва",
+      "Троя",
+      "Берлин"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Воден",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Воден (place, settlement, settlement:11627)",
+        "Воден (place, settlement, settlement:11644)",
+        "Воден (place, settlement, settlement:11658)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Елена",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Елена (place, obshtina, obshtina:VTR13)",
+        "Елена (place, settlement, settlement:27190)",
+        "Елена (place, settlement, settlement:27200)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Министерство на културата",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "нова сила",
+      "basis": "gazetteer_exact",
+      "id": "p_117",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "society",
+      "subcategory": "human-interest",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T09:04:00+00:00"
+}

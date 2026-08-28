@@ -1,0 +1,70 @@
+{
+  "article_path": "news/data/bgdnes.bg/20260821-23424346-243a7c4f.json",
+  "url": "https://www.bgdnes.bg/zdrave/article/23424346",
+  "domain": "bgdnes.bg",
+  "analyzed_at": "2026-08-28T15:32:34.214600+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete broadcast-derived report on the children's hospital and restructuring of regional health administration."
+  },
+  "summary_bg": "Здравният министър Катя Ивкова поставя завършването на Националната детска болница в рамките на мандата като основна цел и обещава план за персонала до месец. Тя описва превръщането на РЗИ в териториални дирекции на министерството и централизиране на правни, счетоводни и кадрови услуги.",
+  "summary_en": "Health Minister Katya Ivkova makes completion of the National Children's Hospital during the government's term a central goal and promises a staffing plan within a month. She describes turning regional health inspectorates into ministry directorates and centralising legal, accounting and HR services.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Текстът предава целите и аргументите на министъра без редакционна партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "BNT attribution",
+      "verbatim policy explanations",
+      "specific one-month staffing milestone"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Катя Ивкова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Катя Ивкова",
+      "basis": "gazetteer_exact",
+      "id": "katya-georgieva-ivkova-cccb95",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "hospitals",
+      "primary": true
+    },
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T05:29:00+00:00"
+}

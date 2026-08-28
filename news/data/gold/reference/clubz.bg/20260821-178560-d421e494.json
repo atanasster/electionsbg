@@ -1,0 +1,120 @@
+{
+  "article_path": "news/data/clubz.bg/20260821-178560-d421e494.json",
+  "url": "https://clubz.bg/178560",
+  "domain": "clubz.bg",
+  "analyzed_at": "2026-08-28T15:30:38.625418+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete police-and-prosecution briefing report with alleged method, arrests, charges and custody decisions."
+  },
+  "summary_bg": "Двама мъже, единият на 19 години, са обвинени, че чрез видеовръзки заблуждавали хора за несъществуващи дългове, показвали оръжия и искали четирицифрени суми. Единият е под домашен арест, другият е задържан под стража, а разследващите още не съобщават броя на пострадалите.",
+  "summary_en": "Two men, one aged 19, were accused of using video calls to deceive people about non-existent debts, display weapons and demand four-figure sums. One was placed under house arrest, the other remanded in custody, while investigators had not disclosed the number of victims.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Криминална хроника без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "joint police-prosecution briefing",
+      "named police official",
+      "specific custody outcomes"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Марио Киричков"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "София",
+      "Костинброд",
+      "Сливница",
+      "стража",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Костинброд",
+      "basis": "gazetteer_exact",
+      "id": "settlement:38978",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Сливница",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Сливница (place, obshtina, obshtina:SFO45)",
+        "Сливница (place, settlement, settlement:67369)",
+        "Сливница (place, settlement, settlement:67372)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "стража",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Стража (place, settlement, settlement:69585)",
+        "Стража (place, settlement, settlement:69599)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Марио Киричков",
+      "basis": "gazetteer_exact",
+      "id": "mario-pandeliev-kirichkov-6bd461",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "crime-blotter",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T08:00:22+00:00"
+}

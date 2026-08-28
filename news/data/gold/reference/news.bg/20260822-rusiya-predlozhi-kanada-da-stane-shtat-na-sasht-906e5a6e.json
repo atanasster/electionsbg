@@ -1,0 +1,74 @@
+{
+  "article_path": "news/data/news.bg/20260822-rusiya-predlozhi-kanada-da-stane-shtat-na-sasht-906e5a6e.json",
+  "url": "https://news.bg/int-economics/rusiya-predlozhi-kanada-da-stane-shtat-na-sasht.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:45:09.806946+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete TASS-based diplomatic and trade report built around a Russian official's sarcastic social-media intervention."
+  },
+  "summary_bg": "Руският представител Кирил Дмитриев саркастично предлага Канада да стане 52-рия американски щат на фона на подновен търговски спор със САЩ. Материалът описва спрени преговори, 50% американски мита, канадски ответни мерки и противоречиви съобщения за постигната сделка.",
+  "summary_en": "Russian envoy Kirill Dmitriev sarcastically suggested Canada become the 52nd US state amid a renewed trade dispute. The report describes suspended talks, 50% US tariffs, Canadian retaliation and conflicting announcements about a trade deal.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Сарказмът е ясно приписан на руския представител, а останалият текст изрежда позициите на Канада и САЩ."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.76,
+    "evidence": "Руският представител получава централно място и ТАСС е източникът, но публикацията не възхвалява Русия или нейната политика."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.78,
+    "signals": [
+      "TASS attribution",
+      "specific social-media exchange",
+      "multi-official trade chronology"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Русия",
+      "Канада"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Канада",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T20:36:07+00:00"
+}

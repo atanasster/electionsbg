@@ -1,0 +1,51 @@
+{
+  "article_path": "news/data/bird.bg/20260325-sarafov-2025-973a370d.json",
+  "url": "https://bird.bg/sarafov-2025/",
+  "domain": "bird.bg",
+  "analyzed_at": "2026-08-28T15:52:08.800128+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "paywall_shell",
+    "notes": "Independent repeat pass found no complete analyzable article body."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.25,
+    "signals": [
+      "insufficient text or inconclusive authorship signals"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Стоев",
+      "Гешев",
+      "Борисов",
+      "Пеевски"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-03-25T10:56:15+00:00"
+}

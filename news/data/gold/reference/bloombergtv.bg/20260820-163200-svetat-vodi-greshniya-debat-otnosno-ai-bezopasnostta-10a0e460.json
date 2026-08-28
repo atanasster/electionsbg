@@ -1,0 +1,161 @@
+{
+  "article_path": "news/data/bloombergtv.bg/20260820-163200-svetat-vodi-greshniya-debat-otnosno-ai-bezopasnostta-10a0e460.json",
+  "url": "https://www.bloombergtv.bg/a/94-bloomberg-opinion/163200-svetat-vodi-greshniya-debat-otnosno-ai-bezopasnostta",
+  "domain": "bloombergtv.bg",
+  "analyzed_at": "2026-08-28T15:30:38.579019+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete analytical commentary arguing for capability- and risk-based AI safety rather than a simple open-versus-closed model divide."
+  },
+  "summary_bg": "Коментарът твърди, че безопасността на изкуствения интелект не трябва да се свежда до спор между отворени и затворени модели, защото злоупотреби и защити се срещат и при двата вида. На фона на китайската стратегия за отворен код авторът призовава за международни стандарти, тестове и управление според конкретните способности и киберрискове.",
+  "summary_en": "The commentary argues that AI safety should not be reduced to an open-versus-closed model debate because misuse and defensive benefits occur with both. Against China's open-source strategy, it calls for international standards, testing and governance based on concrete capabilities and cyber risks.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.64,
+    "evidence": "Коментарът защитава международна координация и риск-базирана регулация на технологичните компании, като отхвърля интересите на отделен корпоративен лагер."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "sustained authored argument",
+      "specific industry incidents and named sources",
+      "Bloomberg opinion structure"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Георгиев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Китай",
+      "долина",
+      "Япония",
+      "Германия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "долина",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Долина (place, settlement, settlement:21957)",
+        "Долина (place, settlement, settlement:21960)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Георгиев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Ангел Жеков Георгиев (person, mp, mp-5185)",
+        "Андрей Красимиров Георгиев (person, deputy_minister, andrei-krasimirov-georgiev-da54f4)",
+        "Андрей Любомиров Георгиев (person, regional_governor, andrei-lyubomirov-georgiev-a7d653)",
+        "Борислав Пламенов Георгиев (person, mp, mp-5182)",
+        "Васил Йорданов Георгиев (person, mp, mp-3372)",
+        "Вилизар Петров Георгиев (person, agency_head, vilizar-petrov-georgiev-c54a6f)",
+        "Владимир Владимиров Георгиев (person, mp, mp-4871)",
+        "Георг Даниелов Георгиев (person, mp, mp-5117)",
+        "Георги Валентинов Георгиев (person, mp, mp-4797)",
+        "Георги Ганчев Георгиев (person, regional_governor, georgi-ganchev-georgiev-cc1f91)",
+        "Георги Димитров Георгиев (person, cabinet, georgi-dimitrov-georgiev-63ef11)",
+        "Георги Димитров Георгиев (person, mp, mp-2255)",
+        "Георги Иванов Георгиев (person, mp, mp-5113)",
+        "Георги Иванов Георгиев (person, party_leader, georgi-ivanov-georgiev-111910)",
+        "Георги Илиев Георгиев (person, regional_governor, georgi-iliev-georgiev-7f4906)",
+        "Георги Йорданов Георгиев (person, regional_governor, georgi-iordanov-georgiev-4a78f1)",
+        "Георги Киров Георгиев (person, mayor, georgi-kirov-georgiev-39a918)",
+        "Георги Миланов Георгиев (person, mayor, georgi-milanov-georgiev-77e9ec)",
+        "Георги Миланов Георгиев (person, mp, mp-105)",
+        "Георги Николаев Георгиев (person, mp, mp-5101)",
+        "Георги Петров Георгиев (person, mp, mp-5282)",
+        "Георги Сашев Георгиев (person, mayor, georgi-sashev-georgiev-96f4ba)",
+        "Георги Станчев Георгиев (person, mp, mp-3993)",
+        "Данаил Валериев Георгиев (person, mp, mp-3251)",
+        "Даниел Георгиев Георгиев (person, mp, mp-1536)",
+        "Дарин Димитров Георгиев (person, mp, mp-4474)",
+        "Делян Младенов Георгиев (person, mayor, delyan-mladenov-georgiev-95ed88)",
+        "Димитър Величков Георгиев (person, mp, mp-2849)",
+        "Димитър Янков Георгиев (person, military_command, dimitr-yankov-georgiev-aba8f8)",
+        "Димо Чавдаров Георгиев (person, mp, mp-3229)",
+        "Емил Константинов Георгиев (person, mp, mp-67)",
+        "Емил Ценов Георгиев (person, mp, mp-3781)",
+        "Захари Димитров Георгиев (person, mp, mp-1695)",
+        "Любомир Петров Георгиев (person, regulator, lyubomir-petrov-georgiev-733594)",
+        "Мартин Иванов Георгиев (person, mep, martin-ivanov-georgiev-70024a)",
+        "Мизи Иванов Георгиев (person, security_service, mizi-ivanov-georgiev-a0f96b)",
+        "Николай Кирилов Георгиев (person, mayor, nikolai-kirilov-georgiev-5d5f3a)",
+        "Петър Георгиев Георгиев (person, deputy_minister, petr-georgiev-georgiev-b31568)",
+        "Петър Димов Георгиев (person, mp, mp-2109)",
+        "Петър Стефанов Георгиев (person, mp, mp-1936)",
+        "Румен Николов Георгиев (person, mp, mp-3155)",
+        "Светослав Георгиев Георгиев (person, mp, mp-3256)",
+        "Станимир Димитров Георгиев (person, deputy_minister, stanimir-dimitrov-georgiev-b21573)",
+        "Стефко Николов Георгиев (person, social_fund, stefko-nikolov-georgiev-290f38)",
+        "Стоян Иванов Георгиев (person, mp, mp-4273)",
+        "Тервел Николов Георгиев (person, mp, mp-4798)",
+        "Тихомир Недев Георгиев (person, mp, mp-4029)",
+        "Тодор Йорданов Георгиев (person, mp, mp-1136)",
+        "Христо Любенов Георгиев (person, mp, mp-832)",
+        "Цвети Тошков Георгиев (person, inspectorate, tsveti-toshkov-georgiev-f94872)",
+        "Цвятко Георгиев Георгиев (person, agency_head, tsvyatko-georgiev-georgiev-6c44cf)",
+        "Чавдар Георгиев Георгиев (person, mp, mp-2419)",
+        "Чавдар Христов Георгиев (person, deputy_minister, chavdar-hristov-georgiev-faee89)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T18:00:00+00:00"
+}

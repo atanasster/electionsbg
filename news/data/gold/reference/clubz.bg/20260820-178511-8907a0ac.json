@@ -1,0 +1,74 @@
+{
+  "article_path": "news/data/clubz.bg/20260820-178511-8907a0ac.json",
+  "url": "https://clubz.bg/178511",
+  "domain": "clubz.bg",
+  "analyzed_at": "2026-08-28T15:43:38.893401+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Anadolu/BTA defence-technology report with developer, mission set, endurance, depth, speed and sensors."
+  },
+  "summary_bg": "Турция представя автономния дълбоководен дрон „Дерингьоз“ на военноморското изложение „Текнофест – Синя родина“. Разработеният от „Аселсан“ апарат работи до 600 метра дълбочина за 5–15 часа и е предназначен за противоминни операции, защита на инфраструктура и подводни инспекции.",
+  "summary_en": "Turkey unveiled the autonomous deep-sea drone Deringöz at the Teknofest Blue Homeland naval exhibition. Developed by Aselsan, it operates to 600 metres for 5–15 hours and is intended for mine countermeasures, infrastructure protection and underwater inspection.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Технологичните параметри и официалното предназначение са предадени без геополитическа оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "Anadolu and BTA attribution",
+      "named developer",
+      "specific sensor and endurance specifications"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Турция",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T08:05:08+00:00"
+}

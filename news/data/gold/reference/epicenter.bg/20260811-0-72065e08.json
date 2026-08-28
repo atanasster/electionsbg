@@ -1,0 +1,83 @@
+{
+  "article_path": "news/data/epicenter.bg/20260811-0-72065e08.json",
+  "url": "https://epicenter.bg/article/Po-skoro-ot-ochakvanoto--Rusiya-sazdava-svoy-analog-na-Starlink-na-Mask/428426/7/0",
+  "domain": "epicenter.bg",
+  "analyzed_at": "2026-08-28T15:15:15.637368+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete technology and military-capability report based on an attributed Ukrainian intelligence interview."
+  },
+  "summary_bg": "Русия ускорява изграждането на нискоорбиталната система „Рассвет“, планирана като аналог на Starlink с 292 спътника до 2027 г. Украинското военно разузнаване предупреждава, че пълното съзвездие би осигурило независима и устойчива комуникационна мрежа за руските въоръжени сили.",
+  "summary_en": "Russia is accelerating deployment of the low-orbit Rassvet system, planned as a Starlink analogue with 292 satellites by 2027. Ukrainian military intelligence warns that a complete constellation would give Russia's armed forces an independent and resilient communications network.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Технологично-военният материал не заема позиция по консервативно-прогресивната ос."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Описва военния риск за Украйна чрез ясно приписани оценки на украинското разузнаване, без допълнителна оценъчна рамка."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.75,
+    "signals": [
+      "named intelligence official",
+      "specific satellite counts and dates",
+      "attributed interview"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Вадим Скибицки"
+    ],
+    "parties": [],
+    "institutions": [
+      "ГРУ",
+      "Министерството на отбраната на Украйна"
+    ],
+    "companies": [
+      "Бюро 1440",
+      "Starlink"
+    ],
+    "places": [
+      "Русия",
+      "Украйна",
+      "Москва"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "intelligence",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-11T09:27:00+00:00"
+}

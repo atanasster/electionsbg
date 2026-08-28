@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/manager.bg/20260820-chetirikratniat-shampion-vav-formula-1-verstapen-udalzi-dogo-0f3990ef.json",
+  "url": "https://manager.bg/sport/chetirikratniat-shampion-vav-formula-1-verstapen-udalzi-dogovora-si-s-red-bull",
+  "domain": "manager.bg",
+  "analyzed_at": "2026-08-28T15:42:05.882312+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete team-announcement report with contract terms, career statistics, prior doubts and current standings."
+  },
+  "summary_bg": "Макс Верстапен удължава договора си с Red Bull до края на 2030 г., две години след предишния срок. Материалът припомня четирите му титли, 71 победи и 131 подиума, критиките му към правилата и болида и настоящото класиране преди състезанието в Зандвоорт.",
+  "summary_en": "Max Verstappen extended his Red Bull contract through 2030, two years beyond its previous end. The report recalls his four titles, 71 wins and 131 podiums, his criticism of rules and car, and current standings before the Zandvoort race.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Спортна новина без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.72,
+    "evidence": "Даниил Квят е споменат само в историческата хронология на отбора, без оценка на Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "team press-service attribution",
+      "contract comparison",
+      "career and standings statistics"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "sports",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T09:51:43+00:00"
+}

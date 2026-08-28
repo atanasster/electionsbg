@@ -1,0 +1,79 @@
+{
+  "article_path": "news/data/pik.bg/20260821-хора-с-увреждания-на-факелно-шествие-из-софия-news1350555-10f5e5e5.json",
+  "url": "https://pik.bg/хора-с-увреждания-на-факелно-шествие-из-софия-news1350555.html",
+  "domain": "pik.bg",
+  "analyzed_at": "2026-08-28T15:40:30.670737+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A short but complete protest report with route, organisers, participants, slogan and demands."
+  },
+  "summary_bg": "Хора с увреждания, близки и доброволци провеждат факелно шествие от Столичната община до Народното събрание за достъпна градска среда, транспорт и независим живот. Движение „Мобилност“ описва светлините като символ на видимост, достойнство и надежда.",
+  "summary_en": "Disabled people, relatives and volunteers held a torchlight march from Sofia Municipality to Parliament for an accessible urban environment, transport and independent living. The Mobility movement described the lights as symbols of visibility, dignity and hope.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.78,
+    "evidence": "Материалът представя без контрапункт искания за права, достъпност и независим живот на хора с увреждания."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.76,
+    "signals": [
+      "specific march route",
+      "named organiser",
+      "event slogan and symbolism"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "София",
+      "светлина"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "светлина",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Светлина (place, settlement, settlement:65560)",
+        "Светлина (place, settlement, settlement:65574)",
+        "Светлина (place, settlement, settlement:65588)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "society",
+      "subcategory": "protests",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T09:15:00+00:00"
+}

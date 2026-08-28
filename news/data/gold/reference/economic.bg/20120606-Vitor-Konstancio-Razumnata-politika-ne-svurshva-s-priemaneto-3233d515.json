@@ -1,0 +1,97 @@
+{
+  "article_path": "news/data/economic.bg/20120606-Vitor-Konstancio-Razumnata-politika-ne-svurshva-s-priemaneto-3233d515.json",
+  "url": "https://www.economic.bg/bg/a/view/Vitor-Konstancio-Razumnata-politika-ne-svurshva-s-priemaneto-na-evroto-3742",
+  "domain": "economic.bg",
+  "analyzed_at": "2026-08-28T15:25:42.157421+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantial original interview with the ECB vice-president covering fiscal policy, bank regulation, the euro area and Bulgaria."
+  },
+  "summary_bg": "Заместник-председателят на ЕЦБ Витор Констанцио обсъжда фискалния пакт, растежа, Базел III, банковата стабилност и бъдещето на еврозоната. Той подчертава, че приемането на еврото не заменя разумната икономическа политика и коментира условията и ползите за България.",
+  "summary_en": "ECB Vice-President Vítor Constâncio discusses the fiscal compact, growth, Basel III, banking stability and the euro area's future. He stresses that euro adoption is no substitute for sound economic policy and comments on the conditions and benefits for Bulgaria.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.78,
+    "evidence": "Интервюто подкрепя институционална европейска интеграция, фискална дисциплина и пазарни реформи, съчетани с растеж и финансова стабилност, без българска партийна рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на интервюто."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.97,
+    "signals": [
+      "named interviewer",
+      "long-form question-and-answer structure",
+      "publication predates modern generative AI"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Португалия",
+      "България",
+      "Европа",
+      "Гърция"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Португалия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PT",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "gdp-inflation",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "eu",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2012-06-06T08:39:47+00:00"
+}

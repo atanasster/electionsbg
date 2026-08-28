@@ -1,0 +1,141 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-ruski-pravitelstven-samolet-navleze-v-balgaria-873032-9fa98642.json",
+  "url": "https://offnews.bg/obshtestvo/ruski-pravitelstven-samolet-navleze-v-balgaria-873032.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:13:14.239047+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete report on a Russian government flight through Bulgarian airspace and the competing descriptions of its destination centre."
+  },
+  "summary_bg": "Руски правителствен самолет преминава през българското въздушно пространство и каца в Ниш, където се намира Сръбско-руският хуманитарен център. Материалът отбелязва забраната за руски полети в ЕС и противопоставя хуманитарното обяснение на опасения за разузнавателна функция.",
+  "summary_en": "A Russian government aircraft crossed Bulgarian airspace and landed in Niš, home to the Serbian-Russian Humanitarian Centre. The report notes the ban on Russian flights in European airspace and contrasts the humanitarian explanation with concerns about an intelligence role.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Политико-сигурностната новина излага руско-сръбската позиция и западните опасения с приписване."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.75,
+    "evidence": "Материалът отбелязва санкционната забрана и съмненията за военно-разузнавателна дейност, но включва и руското хуманитарно обяснение без собствен категоричен извод."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.75,
+    "signals": [
+      "specific flight altitude, speed and route",
+      "named journalist",
+      "attributed BGNews context",
+      "unrelated footer teaser"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Калин Манолов",
+      "Александър Вучич"
+    ],
+    "parties": [],
+    "institutions": [
+      "Сръбско-руски хуманитарен център"
+    ],
+    "companies": [
+      "Flightradar"
+    ],
+    "places": [
+      "България",
+      "Бургас",
+      "Сърбия",
+      "Ниш",
+      "Русия",
+      "САЩ",
+      "София"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Милков",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Мирослав Светославов Милков (person, security_service, miroslav-svetoslavov-milkov-4910e5)",
+        "Николай Милков Милков (person, cabinet, nikolai-milkov-milkov-127dbc)",
+        "Пенчо Пламенов Милков (person, mp, mp-2863)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Манолов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Венциславов Манолов (person, regional_governor, aleksandr-ventsislavov-manolov-7f04ac)",
+        "Емануил Александров Манолов (person, mayor, emanuil-aleksandrov-manolov-574936)",
+        "Емануил Младенов Манолов (person, mayor, emanuil-mladenov-manolov-0deb8c)",
+        "Красимир Милчев Манолов (person, security_service, krasimir-milchev-manolov-085011)",
+        "Манол Василев Манолов (person, mp, mp-4381)",
+        "Петър Станиславов Манолов (person, mp, mp-203)",
+        "Светослав Емилов Манолов (person, security_service, svetoslav-emilov-manolov-9e2e9e)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Сърбия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

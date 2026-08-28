@@ -1,0 +1,155 @@
+{
+  "article_path": "news/data/pogled.info/20260822-kitay-otbelyazva-rast-na-novosazdadenite-predpriyatiya-s-chu-25962db8.json",
+  "url": "https://pogled.info/svetoven/pogled-kitai/kitay-otbelyazva-rast-na-novosazdadenite-predpriyatiya-s-chuzhdestranno-uchastie-vav-visokotehnologichnite-otrasli.196283",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:20:32.332894+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A short complete official-data brief followed by a much longer unrelated digest trailer."
+  },
+  "summary_bg": "Китай отчита 37 711 нови предприятия с чуждестранно участие за седем месеца, ръст от 4,4%, докато реално използваните преки инвестиции спадат с 6,2%. Правителствен план предвижда по-лесен пазарен достъп и процедури за инвеститорите.",
+  "summary_en": "China recorded 37,711 newly established foreign-funded enterprises over seven months, up 4.4%, while utilised foreign direct investment fell 6.2%. A government plan aims to ease market access and investor procedures.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Кратък икономически отчет с официални числа и мерки."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.95,
+    "evidence": "Русия се среща само в несвързани автоматични тийзъри след основната статия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.75,
+    "signals": [
+      "official statistics",
+      "specific policy measures",
+      "large unrelated site trailer"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "Министерството на търговията"
+    ],
+    "companies": [],
+    "places": [
+      "Китай"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Яков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Витанов",
+      "basis": "gazetteer_exact",
+      "id": "nikolai-vitanov-vitanov-325bc6",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T18:30:00+00:00"
+}

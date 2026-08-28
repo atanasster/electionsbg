@@ -1,0 +1,111 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-skrining-za-virusen-hepatit-sred-riskovi-grupi-shte-se-izvar-95bcdd8d.json",
+  "url": "https://offnews.bg/zdrave/skrining-za-virusen-hepatit-sred-riskovi-grupi-shte-se-izvarshva-v-sof-873193.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:48:27.434425+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete public-health service notice with organisers, target, dates, locations and programme context."
+  },
+  "summary_bg": "СРЗИ, гастроентеролози и здравни медиатори организират безплатни изследвания за хепатит B и C за рискови групи в София на 24 и 26 август. Пунктовете са в „Христо Ботев“ и „Красна поляна“, а инициативата е част от националната програма за превенция на вирусните хепатити 2026–2030 г.",
+  "summary_en": "Sofia health inspectors, gastroenterologists and health mediators will offer free hepatitis B and C tests for at-risk groups on 24 and 26 August. Sites are in Hristo Botev and Krasna Polyana, under the 2026–2030 national viral-hepatitis prevention programme.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.66,
+    "evidence": "Публикацията подкрепя безплатен целеви скрининг и здравни медиатори за уязвими групи без критичен контрапункт."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "health inspectorate attribution",
+      "specific dates and addresses",
+      "national programme reference"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Златаров",
+      "Ботев"
+    ],
+    "parties": [],
+    "institutions": [
+      "район \"Слатина"
+    ],
+    "companies": [],
+    "places": [
+      "София",
+      "Красна поляна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Златаров",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "person",
+      "surface": "Ботев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Ботьо Илиев Ботев (person, mp, mp-113)",
+        "Цоньо Георгиев Ботев (person, mp, mp-2035)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "район \"Слатина",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "РАЙОН \"СЛАТИНА (institution, 000696327)",
+        "Район \"Слатина\" (institution, 000696327)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Красна поляна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134-2511",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

@@ -1,0 +1,79 @@
+{
+  "article_path": "news/data/mediapool.bg/20260821-postignata-e-finalna-dogovorka-za-novata-formula-na-minimaln-92b21018.json",
+  "url": "https://www.mediapool.bg/postignata-e-finalna-dogovorka-za-novata-formula-na-minimalnata-zaplata-obnovena-news386756.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:35:53.971816+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete updated report distinguishing agreement on the mechanism from disagreement on the 2027 amount."
+  },
+  "summary_bg": "Правителство, синдикати и работодатели постигат договорка за механизма на минималната заплата, който може да се приложи от 2027 г. след законови промени. Диапазонът е 620,20–672,80 евро, адекватността ще се оценява периодично, но конкретният размер за 2027 г. остава без консенсус.",
+  "summary_en": "The government, unions and employers agreed on a minimum-wage mechanism that could apply from 2027 after legal changes. The corridor is €620.20–€672.80 and adequacy will be reviewed periodically, but there is still no consensus on the exact 2027 amount.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.92,
+    "evidence": "Обновеният текст ясно отделя постигнатото споразумение от оставащото несъгласие и приписва изявленията."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "updated live report",
+      "ministry attribution",
+      "specific legal instruments and review interval"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Гълъб Донев",
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Гълъб Донев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5158",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "social-pensions",
+      "subcategory": "min-wage",
+      "primary": true
+    },
+    {
+      "category": "parliament",
+      "subcategory": "legislation",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T18:23:53+00:00"
+}

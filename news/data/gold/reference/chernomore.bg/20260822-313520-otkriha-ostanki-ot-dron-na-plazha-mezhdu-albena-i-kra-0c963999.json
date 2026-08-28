@@ -1,0 +1,102 @@
+{
+  "article_path": "news/data/chernomore.bg/20260822-313520-otkriha-ostanki-ot-dron-na-plazha-mezhdu-albena-i-kra-0c963999.json",
+  "url": "https://www.chernomore.bg/a/10-bulgaria/313520-otkriha-ostanki-ot-dron-na-plazha-mezhdu-albena-i-kranevo",
+  "domain": "chernomore.bg",
+  "analyzed_at": "2026-08-28T15:35:53.910463+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A short but complete breaking-news report with witness, governor and agency confirmation; origin remains explicitly unresolved."
+  },
+  "summary_bg": "На плажа между Албена и Кранево са открити останки от безпилотен летателен апарат. Областният управител на Добрич потвърждава сигнала, а служители на Гранична полиция и МВР трябва да установят произхода и начина за обезвреждане и отстраняване.",
+  "summary_en": "Remains of an unmanned aircraft were found on the beach between Albena and Kranevo. Dobrich's regional governor confirmed the report, while Border Police and Interior Ministry staff were to establish its origin and how to neutralise and remove it.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.96,
+    "evidence": "Кратка проверена информация, която не спекулира за произхода."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Произходът на дрона е неизвестен и Русия не е назована; приписването би било спекулация."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "bTV witness attribution",
+      "named regional governor",
+      "explicitly pending official identification"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Руслан Томов"
+    ],
+    "parties": [],
+    "institutions": [
+      "МВР"
+    ],
+    "companies": [],
+    "places": [
+      "Кранево",
+      "Добрич"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Кранево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:39459",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Добрич",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Добрич (place, mir, mir:DOB)",
+        "Добрич (place, oblast, oblast:DOB)",
+        "Добрич (place, obshtina, obshtina:DOB28)",
+        "Добрич (place, settlement, settlement:21539)",
+        "Добрич (place, settlement, settlement:21542)",
+        "Добрич (place, settlement, settlement:72624)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Руслан Томов",
+      "basis": "gazetteer_exact",
+      "id": "ruslan-strahilov-tomov-1c3371",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "interior-mvr",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T11:00:00+00:00"
+}

@@ -1,0 +1,84 @@
+{
+  "article_path": "news/data/haskovo.net/nodate-nad-10-000-evro-shhe-e-bonusiet-za-premestvane-na-selo-509fc954.json",
+  "url": "https://haskovo.net/news/635524/nad-10-000-evro-shhe-e-bonusiet-za-premestvane-na-selo",
+  "domain": "haskovo.net",
+  "analyzed_at": "2026-08-28T15:37:33.255274+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete programme explainer with funding envelope, eligibility, benefit amounts and employment-retention conditions."
+  },
+  "summary_bg": "До над 10 000 евро могат да достигнат стимулите по „Избирам България“ за преместване от град над 50 000 души в по-малко населено място и започване на работа. Програмата разполага с 15 млн. евро и финансира преместване, жилище, транспорт и еднократен бонус при запазена заетост за поне 1050 участници.",
+  "summary_en": "Choose Bulgaria incentives can exceed €10,000 for moving from a city above 50,000 residents to a smaller settlement and taking a job. The €15 million programme funds moving, housing, transport and a one-off job-retention bonus for at least 1,050 participants.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.62,
+    "evidence": "Програмата за публично субсидирана трудова и регионална мобилност е представена като полезна възможност без критичен контрапункт."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "social ministry announcement",
+      "specific programme financing",
+      "detailed reimbursement conditions"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "селище"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "селище",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Селище (place, settlement, settlement:66055)",
+        "Селище (place, settlement, settlement:66069)",
+        "Селище (place, settlement, settlement:70799)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "demographics",
+      "subcategory": "migration",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

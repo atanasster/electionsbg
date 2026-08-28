@@ -1,0 +1,63 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-sem-nedopustimo-e-ivo-hristov-da-protivopostavia-bnr-i-bnt-8-2efe4d08.json",
+  "url": "https://offnews.bg/medii/sem-nedopustimo-e-ivo-hristov-da-protivopostavia-bnr-i-bnt-872645.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:52:09.598081+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иво Христов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Иво Христов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "media-press",
+      "subcategory": "press-freedom",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

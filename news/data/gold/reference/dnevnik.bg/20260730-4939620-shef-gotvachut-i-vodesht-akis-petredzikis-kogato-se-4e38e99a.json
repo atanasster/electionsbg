@@ -1,0 +1,48 @@
+{
+  "article_path": "news/data/dnevnik.bg/20260730-4939620-shef-gotvachut-i-vodesht-akis-petredzikis-kogato-se-4e38e99a.json",
+  "url": "https://www.dnevnik.bg/bacchus/2026/07/29/4939620_shef-gotvachut_i_vodesht_akis_petredzikis_kogato_se/",
+  "domain": "dnevnik.bg",
+  "analyzed_at": "2026-08-28T15:09:19.198364+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "The extracted interview stops mid-sentence after a few pull quotes and does not contain a complete article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The extracted interview stops mid-sentence after a few pull quotes and does not contain a complete article.",
+  "summary_en": "The record does not contain a reliably extracted full article: The extracted interview stops mid-sentence after a few pull quotes and does not contain a complete article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Гърция"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-07-30T05:00:00+00:00"
+}

@@ -1,0 +1,109 @@
+{
+  "article_path": "news/data/frognews.bg/20260817-gotvi-mashtabni-merki-sreshtu-rusiya-prez-septemvri-884d5bf1.json",
+  "url": "https://frognews.bg/novini/gotvi-mashtabni-merki-sreshtu-rusiya-prez-septemvri.html",
+  "domain": "frognews.bg",
+  "analyzed_at": "2026-08-28T15:22:39.941717+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete report summarising Kaja Kallas's case for expanded EU sanctions."
+  },
+  "summary_bg": "Кая Калас обявява, че ЕС подготвя значително разширяване на санкциите срещу Русия заради цивилните жертви в Украйна и хибридните операции в Европа. Тя настоява натискът да расте до прекратяване на войната.",
+  "summary_en": "Kaja Kallas said the EU was preparing a major expansion of sanctions against Russia because of civilian casualties in Ukraine and hybrid operations in Europe. She argued that pressure should increase until the war ends.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.7,
+    "evidence": "Без контрапункт подкрепя обща европейска политика, санкции и защита на Украйна и цивилните."
+  },
+  "russia_stance": {
+    "label": "strong_anti_russia",
+    "confidence": 0.98,
+    "evidence": "Руските удари са „систематичен терор“, а Москва е обвинена в саботаж, шпионаж, кибератаки и изпитване на европейската отбрана."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "Welt interview attribution",
+      "direct quotations",
+      "specific sanctions package"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Кая Калас"
+    ],
+    "parties": [],
+    "institutions": [
+      "ЕС"
+    ],
+    "companies": [
+      "Welt"
+    ],
+    "places": [
+      "Русия",
+      "Украйна",
+      "Москва",
+      "Крим",
+      "Европа",
+      "Полша",
+      "Румъния"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Полша",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-17T16:43:00+00:00"
+}

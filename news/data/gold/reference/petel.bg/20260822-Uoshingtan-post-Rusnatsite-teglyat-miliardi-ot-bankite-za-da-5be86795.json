@@ -1,0 +1,92 @@
+{
+  "article_path": "news/data/petel.bg/20260822-Uoshingtan-post-Rusnatsite-teglyat-miliardi-ot-bankite-za-da-5be86795.json",
+  "url": "https://petel.bg/Uoshingtan-post--Rusnatsite-teglyat-miliardi-ot-bankite--za-da-ne-konfiskuvat-parite-im__665752",
+  "domain": "petel.bg",
+  "analyzed_at": "2026-08-28T15:18:02.413705+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Washington Post/BTA-based report on deposit outflows and wartime strain in Russia's banking system."
+  },
+  "summary_bg": "Руски вложители и компании изтеглят и прехвърлят милиарди заради страх от конфискация, ограничения и икономическите последици от войната. Отливът влошава банковата ликвидност и затруднява финансирането на руския бюджет и военните разходи чрез облигации.",
+  "summary_en": "Russian depositors and companies are withdrawing and transferring billions amid fears of confiscation, restrictions, and the war's economic effects. The outflow is weakening bank liquidity and complicating bond financing of Russia's budget and military spending.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Икономическият материал използва данни и експертни оценки, без позиция по българската идеологическа ос."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.85,
+    "evidence": "Подчертава общественото недоверие, застоя, дефицита и затрудненото финансиране на Кремъл и войната, включително оценката, че Русия не може да спечели война на изтощение."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "Washington Post and BTA attribution",
+      "central-bank figures",
+      "named banking experts",
+      "detailed financial mechanism"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Тарас Скворцов",
+      "Александра Прокопенко",
+      "Андрей Клепач"
+    ],
+    "parties": [],
+    "institutions": [
+      "Руската централна банка",
+      "Министерството на финансите"
+    ],
+    "companies": [
+      "Сбербанк",
+      "ВЕБ",
+      "Уошингтън пост"
+    ],
+    "places": [
+      "Русия",
+      "Украйна",
+      "Кремъл"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "gdp-inflation",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T16:18:03+00:00"
+}

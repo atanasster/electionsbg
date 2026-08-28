@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/actualno.com/20260821-absolutno-neochakvan-efekt-dopamin-za-21-avgust-news-2629371-af8a1454.json",
+  "url": "https://www.actualno.com/society/absolutno-neochakvan-efekt-dopamin-za-21-avgust-news_2629371.html",
+  "domain": "actualno.com",
+  "analyzed_at": "2026-08-28T15:09:19.181636+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short social-media amusement item with an introduction and embedded post."
+  },
+  "summary_bg": "Вечерната рубрика „Допамин“ предлага кратък забавен клип с котки като лек финал на новинарския ден. Материалът препраща и към предишно издание на рубриката.",
+  "summary_en": "The evening “Dopamine” feature offers a short amusing cat clip as a light close to the news day. It also links to an earlier installment of the feature.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Забавният клип няма политическо съдържание."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.7,
+    "signals": [
+      "named byline",
+      "recurring editorial feature",
+      "specific embedded social post"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "misc-filler",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T22:30:00+00:00"
+}

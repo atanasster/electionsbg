@@ -1,0 +1,73 @@
+{
+  "article_path": "news/data/bta.bg/20260822-1190124-pochinala-e-emiliya-topalova-edin-ot-osnovatelite-na-28378ce3.json",
+  "url": "https://www.bta.bg/bg/news/lik/1190124-pochinala-e-emiliya-topalova-edin-ot-osnovatelite-na-kukleniya-teatar-v-ruse",
+  "domain": "bta.bg",
+  "analyzed_at": "2026-08-28T15:52:09.587194+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Топалова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Русе"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Топалова",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Русе",
+      "basis": "gazetteer_exact",
+      "id": "settlement:63427",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:15:50+00:00"
+}

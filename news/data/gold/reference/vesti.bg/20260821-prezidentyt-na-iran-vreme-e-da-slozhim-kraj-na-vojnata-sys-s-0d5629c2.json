@@ -1,0 +1,84 @@
+{
+  "article_path": "news/data/vesti.bg/20260821-prezidentyt-na-iran-vreme-e-da-slozhim-kraj-na-vojnata-sys-s-0d5629c2.json",
+  "url": "https://www.vesti.bg/sviat/prezidentyt-na-iran-vreme-e-da-slozhim-kraj-na-vojnata-sys-sasht-6268176",
+  "domain": "vesti.bg",
+  "analyzed_at": "2026-08-28T15:15:15.805131+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete AFP-based report presenting Iranian, US and Chinese positions on the war and sanctions."
+  },
+  "summary_bg": "Иранският президент Масуд Пезешкиан призовава за край на войната със САЩ, твърдейки, че Техеран е в силна позиция. Иран обвинява Вашингтон в икономически тероризъм, САЩ подготвят нов санкционен натиск, а Китай също критикува санкциите.",
+  "summary_en": "Iranian President Masoud Pezeshkian called for an end to the war with the United States, saying Tehran was negotiating from strength. Iran accused Washington of economic terrorism, the US prepared additional sanctions pressure, and China also criticised the sanctions.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Международната новина приписва обвиненията и позициите на Иран, САЩ и Китай."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на материала."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "AFP attribution",
+      "multiple attributed government positions",
+      "named officials"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Масуд Пезешкиан",
+      "Скот Бесент",
+      "Доналд Тръмп"
+    ],
+    "parties": [],
+    "institutions": [
+      "МВнР на Иран"
+    ],
+    "companies": [],
+    "places": [
+      "Иран",
+      "САЩ",
+      "Техеран",
+      "Вашингтон",
+      "Китай",
+      "Пекин"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T12:23:00+00:00"
+}

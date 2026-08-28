@@ -1,0 +1,146 @@
+{
+  "article_path": "news/data/lupa.bg/nodate-es-i-rumaniya-izprashtat-helikopteri-na-sarbiya-za-borba-s-p-eadded9d.json",
+  "url": "https://lupa.bg/news/es-i-rumaniya-izprashtat-helikopteri-na-sarbiya-za-borba-s-pozharite_422275news.html",
+  "domain": "lupa.bg",
+  "analyzed_at": "2026-08-28T15:30:38.555809+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete emergency-cooperation report with affected area, international deployments and local conditions."
+  },
+  "summary_bg": "ЕС, Румъния и Русия изпращат авиация, пожарникари и техника в помощ на Сърбия срещу големи горски пожари. Най-тежко е положението в резервата „Делиблатски пясъци“, където са засегнати над 3500 хектара, има евакуации и около 400 души работят всеки ден.",
+  "summary_en": "The EU, Romania and Russia sent aircraft, firefighters and equipment to help Serbia fight major wildfires. The worst conditions were in the Deliblato Sands reserve, where more than 3,500 hectares were affected, residents were evacuated and around 400 people worked daily.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Международната помощ и пожарната обстановка са описани фактологично."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.88,
+    "evidence": "Руският Ил-76 е представен като един от няколко международни приноса с техническо описание, без похвала или критика на Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.76,
+    "signals": [
+      "named officials",
+      "specific multinational deployments",
+      "location-by-location fire status"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Румъния",
+      "Сърбия",
+      "Чехия",
+      "Словакия",
+      "Германия",
+      "Русия",
+      "България",
+      "Бела",
+      "Кралево"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Сърбия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Чехия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Словакия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SK",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Бела",
+      "basis": "gazetteer_exact",
+      "id": "settlement:03263",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Кралево",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Кралево (place, settlement, settlement:39390)",
+        "Кралево (place, settlement, settlement:39400)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "eu",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

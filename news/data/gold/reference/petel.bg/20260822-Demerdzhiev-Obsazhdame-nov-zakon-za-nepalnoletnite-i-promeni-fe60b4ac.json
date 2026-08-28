@@ -1,0 +1,90 @@
+{
+  "article_path": "news/data/petel.bg/20260822-Demerdzhiev-Obsazhdame-nov-zakon-za-nepalnoletnite-i-promeni-fe60b4ac.json",
+  "url": "https://petel.bg/Demerdzhiev--Obsazhdame-nov-zakon-za-nepalnoletnite-i-promeni-v-Nakazatelniya-kodeks__665670",
+  "domain": "petel.bg",
+  "analyzed_at": "2026-08-28T15:32:34.201162+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete policy report detailing proposed juvenile-law, criminal-code and social-media measures with attributed ministerial reasoning."
+  },
+  "summary_bg": "Вътрешният министър Иван Демерджиев съобщава, че се обсъждат нов закон за противообществените прояви на непълнолетни и промени в Наказателния кодекс с различни наказания според обществената опасност. Правителството разглежда и възрастови ограничения и по-силен контрол в социалните мрежи, паралелно с мерки срещу онлайн радикализацията и наркотиците.",
+  "summary_en": "Interior Minister Ivan Demerdzhiev says a new juvenile delinquency law and Criminal Code changes are being considered, with penalties adjusted to the social danger of offences. The government is also examining age restrictions and stronger social-media controls alongside measures against online radicalisation and drugs.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.76,
+    "evidence": "Материалът приписва рестриктивните и смекчаващи варианти на министъра и не заема самостоятелна партийна позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "named broadcast source",
+      "multiple direct quotations",
+      "specific legislative alternatives"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иван Демерджиев"
+    ],
+    "parties": [],
+    "institutions": [
+      "МВР"
+    ],
+    "companies": [],
+    "places": [
+      "Канада"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Иван Демерджиев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5104",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Канада",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "parliament",
+      "subcategory": "legislation",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T00:30:00+00:00"
+}

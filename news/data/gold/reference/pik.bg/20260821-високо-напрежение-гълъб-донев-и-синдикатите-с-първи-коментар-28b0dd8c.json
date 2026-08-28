@@ -1,0 +1,83 @@
+{
+  "article_path": "news/data/pik.bg/20260821-високо-напрежение-гълъб-донев-и-синдикатите-с-първи-коментар-28b0dd8c.json",
+  "url": "https://pik.bg/високо-напрежение-гълъб-донев-и-синдикатите-с-първи-коментар-след-сделката-за-минималната--news1350690.html",
+  "domain": "pik.bg",
+  "analyzed_at": "2026-08-28T15:34:07.752990+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete briefing report despite sensational headline styling, with government and union positions on mechanism and amount."
+  },
+  "summary_bg": "Финансовият министър Гълъб Донев обявява консенсус за принципите на нов механизъм за минималната заплата според международни и европейски правила, но няма съгласие за конкретната сума през 2027 г. Синдикатите настояват за по-висока стойност, работодателите – за по-ниска, а горната обсъждана граница е 672,80 евро.",
+  "summary_en": "Finance Minister Galab Donev announced consensus on principles for a new minimum-wage mechanism based on international and EU rules, but no agreement on the 2027 amount. Unions seek a higher figure, employers a lower one, and the discussed upper bound is €672.80.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Въпреки сензационното заглавие, текстът цитира отделно правителството и синдикатите и ясно отбелязва липсата на съгласие."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "live briefing quotations",
+      "named social partner",
+      "specific negotiated range"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Гълъб Донев",
+      "Атанас Кацарчев",
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Гълъб Донев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5158",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Атанас Кацарчев",
+      "basis": "gazetteer_exact",
+      "id": "atanas-slavchev-katsarchev-2778f0",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "social-pensions",
+      "subcategory": "min-wage",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T16:48:00+00:00"
+}

@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/mediapool.bg/20260821-kolektivniyat-dogovor-v-pivovarniya-bransh-veche-vazhi-za-vs-cba9a2de.json",
+  "url": "https://www.mediapool.bg/kolektivniyat-dogovor-v-pivovarniya-bransh-veche-vazhi-za-vsichki-raboteshti-v-sektora-news386728.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:35:53.956626+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete labour-policy report listing signatories, duration, wage floors, leave, safety and training provisions."
+  },
+  "summary_bg": "Министър Наталия Ефремова разпростира колективния договор в пивоварния бранш върху всички работещи до юли 2028 г. Той предвижда повече отпуск, допълнителни възнаграждения и безопасност, както и минимални заплати от 803 евро в големите и 630 евро в по-малките предприятия.",
+  "summary_en": "Minister Natalia Efremova extended the brewing-sector collective agreement to all workers until July 2028. It provides more leave, supplementary pay and safety measures, with minimum wages of €803 in large firms and €630 in smaller enterprises.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.66,
+    "evidence": "Материалът без критичен контрапункт представя разширяването на колективното договаряне и по-благоприятните трудови условия като постижение."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "specific ministerial order",
+      "named employer and union signatories",
+      "exact sector wage floors"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": true
+    },
+    {
+      "category": "social-pensions",
+      "subcategory": "min-wage",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T09:39:00+00:00"
+}

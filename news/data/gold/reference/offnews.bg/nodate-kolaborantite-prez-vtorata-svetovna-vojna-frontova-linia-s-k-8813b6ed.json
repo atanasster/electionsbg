@@ -1,0 +1,95 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-kolaborantite-prez-vtorata-svetovna-vojna-frontova-linia-s-k-8813b6ed.json",
+  "url": "https://offnews.bg/istoria/kolaborantite-prez-vtorata-svetovna-vojna-frontova-linia-s-kamen-neve-872573.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:46:46.596018+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete programme introduction defining the historical question, scale, competing motives and guest; an unrelated teaser trails it."
+  },
+  "summary_bg": "Предаването „Фронтова линия“ с Камен Невенкин разглежда антисъветския колаборационизъм през Втората световна война. Анонсът посочва около 1,5 млн. съветски граждани, подпомагали Германия по различни мотиви, и поставя въпроси за генерал Власов, личния избор и ролята на цели народи.",
+  "summary_en": "The Front Line programme with Kamen Nevenkin examines anti-Soviet collaboration during the Second World War. Its introduction cites about 1.5 million Soviet citizens who aided Germany for varying reasons and asks about General Vlasov, individual choice and the role of whole peoples.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Анонсът представя различни мотиви — антикомунизъм, възприемане на германците като освободители и принуда — без еднозначна идеологическа присъда."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Съветската история е основна тема, но формулировката е изследователска и посочва множество мотиви вместо съвременна про- или антируска теза."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "named programme and guest",
+      "specific episode framing",
+      "invitation for later audience questions"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Йончев",
+      "Власов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Камен"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Камен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Камен (place, settlement, settlement:35657)",
+        "Камен (place, settlement, settlement:35660)",
+        "Камен (place, settlement, settlement:35674)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Йончев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Бисер Иванов Йончев (person, security_service, biser-ivanov-ionchev-c8b5b0)",
+        "Илиян Славейков Йончев (person, mp, mp-4995)",
+        "Красимир Николаев Йончев (person, security_service, krasimir-nikolaev-ionchev-197e4b)",
+        "Румен Маринов Йончев (person, mp, mp-3949)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Власов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "misc-filler",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

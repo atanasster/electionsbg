@@ -1,0 +1,107 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260618-vliatelna-maga-blogarka-byah-zhertva-na-ruskata-propaganda-cfab7996.json",
+  "url": "https://e-vestnik.bg/40815/vliatelna-maga-blogarka-byah-zhertva-na-ruskata-propaganda/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:13:14.096327+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete commentary built around Laura Loomer's public reversal on Russia and Ukraine."
+  },
+  "summary_bg": "MAGA блогърката Лаура Лумер признава, че е повтаряла руски пропагандни тези и вече осъжда войната и преследването на християни в Украйна. Анализът свързва промяната ѝ с конфликтите ѝ с други консервативни инфлуенсъри и посещение на член на екипа ѝ в Украйна.",
+  "summary_en": "MAGA blogger Laura Loomer says she had repeated Russian propaganda narratives and now condemns the war and persecution of Christians in Ukraine. The analysis links her shift to disputes with other conservative influencers and a visit to Ukraine by a member of her team.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.7,
+    "evidence": "Материалът разглежда вътрешен спор в MAGA среда и представя Лумер като потенциално полезен съюзник, но остава критичен към искреността ѝ."
+  },
+  "russia_stance": {
+    "label": "strong_anti_russia",
+    "confidence": 0.95,
+    "evidence": "Русия е описана като водеща „брутална война“, убиваща цивилни и християни, подкрепяща неонацисти и използваща пропаганда за емоционална манипулация."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "extended contextual argument",
+      "named political relationships",
+      "qualified conclusion about sincerity"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Лаура Лумер",
+      "Доналд Тръмп",
+      "Хилари Клинтън",
+      "Майк Уолц",
+      "Нетаняху",
+      "Кендис Оуенс",
+      "Такър Карлсън"
+    ],
+    "parties": [],
+    "institutions": [
+      "MAGA",
+      "RT"
+    ],
+    "companies": [],
+    "places": [
+      "Русия",
+      "Украйна",
+      "САЩ",
+      "Израел",
+      "Иран",
+      "Санкт Петербург",
+      "Одеса",
+      "Киев"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Израел",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-06-18T10:19:06+00:00"
+}

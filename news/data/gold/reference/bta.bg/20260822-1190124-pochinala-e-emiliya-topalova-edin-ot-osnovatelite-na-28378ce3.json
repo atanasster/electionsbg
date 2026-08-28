@@ -1,0 +1,75 @@
+{
+  "article_path": "news/data/bta.bg/20260822-1190124-pochinala-e-emiliya-topalova-edin-ot-osnovatelite-na-28378ce3.json",
+  "url": "https://www.bta.bg/bg/news/lik/1190124-pochinala-e-emiliya-topalova-edin-ot-osnovatelite-na-kukleniya-teatar-v-ruse",
+  "domain": "bta.bg",
+  "analyzed_at": "2026-08-28T15:42:05.811198+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete original local obituary with institutional source, career significance, awards and quotations."
+  },
+  "summary_bg": "Емилия Топалова, една от основателките на Държавния куклен театър в Русе, е починала. От 1960 г. тя изгражда професионалната русенска куклена сцена и играе множество роли, а приносът ѝ е отличен с орден „Кирил и Методий“ и Златна значка на Съюза на артистите.",
+  "summary_en": "Emilia Topalova, a founder of the Ruse State Puppet Theatre, has died. From 1960 she helped build the city's professional puppet stage and performed many roles, receiving the Order of Cyril and Methodius and the actors' union gold badge.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.99,
+    "evidence": "Културен некролог без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.96,
+    "signals": [
+      "named BTA correspondent",
+      "direct local-theatre source",
+      "specific awards and career dates"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Топалова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Русе"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Топалова",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Русе",
+      "basis": "gazetteer_exact",
+      "id": "settlement:63427",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:15:50+00:00"
+}

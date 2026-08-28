@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/mediapool.bg/20260821-zadalzhavat-obshtinite-turisticheskiyat-danak-da-otiva-za-re-8a69f2cd.json",
+  "url": "https://www.mediapool.bg/zadalzhavat-obshtinite-turisticheskiyat-danak-da-otiva-za-reklama-i-patishta-news386738.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:32:34.245586+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete BTA-based policy report on earmarking local tourist-tax revenue and planned tourism legislation."
+  },
+  "summary_bg": "Промени в Закона за туризма ще задължат общините да влагат поне половината туристически данък в събития и транспортна свързаност, а остатъка – в инфраструктура. Министър Илин Димитров обещава и правила за статута на курортите и изсветляване на сектора с цел удвояване на чуждите туристи за четири години.",
+  "summary_en": "Tourism Act changes would require municipalities to spend at least half of tourist-tax revenue on events and transport links and the rest on infrastructure. Minister Ilin Dimitrov also promises resort-status rules and measures to formalise the sector, aiming to double foreign visitors in four years.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Предложенията и целите са приписани на министъра и предадени без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "BTA attribution",
+      "named minister at a specific location",
+      "concrete tax earmark and visitor target"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Илин Димитров"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Илин Димитров",
+      "basis": "gazetteer_exact",
+      "id": "mp-5067",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "budget-fiscal",
+      "subcategory": "municipal-budget",
+      "primary": true
+    },
+    {
+      "category": "parliament",
+      "subcategory": "legislation",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T11:31:57+00:00"
+}

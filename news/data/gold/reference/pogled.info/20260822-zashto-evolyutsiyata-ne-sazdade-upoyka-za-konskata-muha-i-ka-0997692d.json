@@ -1,0 +1,102 @@
+{
+  "article_path": "news/data/pogled.info/20260822-zashto-evolyutsiyata-ne-sazdade-upoyka-za-konskata-muha-i-ka-0997692d.json",
+  "url": "https://pogled.info/interesen/zashto-evolyutsiyata-ne-sazdade-upoyka-za-konskata-muha-i-kak-tova-razkriva-logistikata-na-biomasata.196270",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:45:09.842003+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A full biological explainer, but with conspicuously inflated pseudo-technical rhetoric and confident unsupported optimisation claims."
+  },
+  "summary_bg": "Материалът сравнява храненето на конските мухи, щръклиците и комарите и обяснява болезненото ухапване чрез устройство на устния апарат и предполагаеми енергийни разходи. Той твърди, че бързото механично разрязване прави анестезията еволюционно ненужна и свързва стратегията с достъпа до кръвна биомаса.",
+  "summary_en": "The article compares horseflies, botflies and mosquitoes and explains the painful bite through mouthpart anatomy and alleged energetic costs. It argues that rapid mechanical cutting makes anaesthesia evolutionarily unnecessary and links the strategy to access to blood biomass.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Биологичен материал без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.88,
+    "signals": [
+      "overwrought section headings",
+      "repetitive optimisation and logistics metaphors",
+      "confident mechanistic claims without named sources"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "конска",
+      "студена",
+      "Бразилия",
+      "воден"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "конска",
+      "basis": "gazetteer_exact",
+      "id": "settlement:41126",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "студена",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Студена (place, settlement, settlement:70038)",
+        "Студена (place, settlement, settlement:70041)",
+        "Студена (place, settlement, settlement:70055)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Бразилия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "воден",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Воден (place, settlement, settlement:11627)",
+        "Воден (place, settlement, settlement:11644)",
+        "Воден (place, settlement, settlement:11658)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "misc-filler",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T18:15:00+00:00"
+}

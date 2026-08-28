@@ -1,0 +1,90 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-ruskite-z-kanali-podiviaha-ot-gniav-tcisterna-na-lukojl-v-ba-3b1b3e30.json",
+  "url": "https://offnews.bg/sviat/ruskite-z-kanali-podiviaha-ot-gniav-tcisterna-na-lukojl-v-balgaria-pa-872956.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:13:13.976501+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short report quoting reactions from Russian pro-war channels to a photograph from a Bulgarian airport."
+  },
+  "summary_bg": "Снимка от българско летище показва цистерна на „Лукойл“ да зарежда украински товарен Ан-124, което предизвиква гневни и саркастични реакции в руски Z-канали. Публикацията свързва самолета с превоз на тежко въоръжение за украинската армия.",
+  "summary_en": "A photograph from a Bulgarian airport shows a Lukoil tanker refuelling a Ukrainian An-124 cargo aircraft, prompting angry and sarcastic reactions in Russian pro-war channels. The report links the aircraft to transporting heavy weapons for Ukraine's armed forces.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Темата е политико-военна, но не заема позиция по българската консервативно-прогресивна ос."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.85,
+    "evidence": "Заглавието казва, че Z-каналите „подивяха“, а текстът ги нарича „Z-пропагандисти“ и възпроизвежда осмиващи противоречието им реакции."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.7,
+    "signals": [
+      "specific photograph-based news hook",
+      "quoted social-channel reactions",
+      "unrelated footer teaser"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "ВСУ"
+    ],
+    "companies": [
+      "Лукойл"
+    ],
+    "places": [
+      "България",
+      "Украйна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Светослав",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Светослав (place, settlement, settlement:65615)",
+        "Светослав (place, settlement, settlement:65629)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

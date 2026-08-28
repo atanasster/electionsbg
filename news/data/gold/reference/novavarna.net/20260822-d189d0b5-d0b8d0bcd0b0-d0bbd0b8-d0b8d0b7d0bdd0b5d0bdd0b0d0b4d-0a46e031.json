@@ -1,0 +1,74 @@
+{
+  "article_path": "news/data/novavarna.net/20260822-d189d0b5-d0b8d0bcd0b0-d0bbd0b8-d0b8d0b7d0bdd0b5d0bdd0b0d0b4d-0a46e031.json",
+  "url": "https://novavarna.net/2026/08/22/%d1%89%d0%b5-%d0%b8%d0%bc%d0%b0-%d0%bb%d0%b8-%d0%b8%d0%b7%d0%bd%d0%b5%d0%bd%d0%b0%d0%b4%d0%b8-%d0%b2%d1%8a%d0%b2-%d0%b2%d1%80%d0%b5%d0%bc%d0%b5%d1%82%d0%be-%d0%ba%d1%80%d0%b0%d0%b9-%d0%bc%d0%be%d1%80/",
+  "domain": "novavarna.net",
+  "analyzed_at": "2026-08-28T15:42:05.874502+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete forecast for the country, mountains and coast with temperatures, wind, rain and sea conditions."
+  },
+  "summary_bg": "В неделя се очаква предимно слънчево време с температури до 38 градуса, но следобед в Южна и Югозападна България са възможни кратки валежи и гръмотевици. По Черноморието ще е 27–29 градуса, водата е 24–25 градуса и вълнението е слабо.",
+  "summary_en": "Sunday will be mostly sunny with highs up to 38°C, though brief afternoon showers and thunderstorms are possible in southern and southwestern Bulgaria. The coast will reach 27–29°C, with water at 24–25°C and slight waves.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Прогноза за времето без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.5,
+    "signals": [
+      "generic expanded forecast prose",
+      "no explicit meteorological source in extracted text",
+      "formulaic regional sections"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "София"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "weather",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T10:31:10+00:00"
+}

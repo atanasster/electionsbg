@@ -1,0 +1,139 @@
+{
+  "article_path": "news/data/news.bg/20260822-zashto-iran-vse-oshte-ne-se-e-predal-c61fc74d.json",
+  "url": "https://news.bg/konflikti/zashto-iran-vse-oshte-ne-se-e-predal.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:15:15.928898+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete translated policy analysis of the Iranian regime's resilience and negotiating strategy."
+  },
+  "summary_bg": "Анализът обяснява защо иранското ръководство не приема американските условия въпреки военния и икономически натиск. Той свързва устойчивостта на режима с опита на ветераните от Ирано-иракската война, контрола на КГИР, готовността за репресии и надеждата да наложи по-неизгодна сделка на САЩ.",
+  "summary_en": "The analysis explains why Iran's leadership has not accepted US terms despite military and economic pressure. It links the regime's resilience to veterans of the Iran-Iraq War, Revolutionary Guard control, willingness to repress dissent, and a strategy of forcing the United States into a less favourable deal.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Статията е външнополитически режимен анализ, без позиция по българската консервативно-прогресивна ос."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на анализа."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named Atlantic Council author",
+      "long historical argument",
+      "specific regime figures and protest analysis"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Доналд Тръмп",
+      "Андрю Пийк",
+      "Мохамад Хатами",
+      "Моджтаба Хаменей",
+      "Мохамад Галибаф",
+      "Масуд Пезешкиан",
+      "Ахмад Вахиди",
+      "Мохсен Резаи",
+      "Башар ал-Асад"
+    ],
+    "parties": [],
+    "institutions": [
+      "Atlantic Council",
+      "КГИР"
+    ],
+    "companies": [],
+    "places": [
+      "Иран",
+      "САЩ",
+      "Ирак",
+      "Сирия",
+      "Техеран"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Ирак",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IQ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "воден",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Воден (place, settlement, settlement:11627)",
+        "Воден (place, settlement, settlement:11644)",
+        "Воден (place, settlement, settlement:11658)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Сирия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SY",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Саудитска Арабия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T08:00:00+00:00"
+}

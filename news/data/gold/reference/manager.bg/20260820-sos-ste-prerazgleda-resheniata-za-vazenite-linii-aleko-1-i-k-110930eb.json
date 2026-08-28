@@ -1,0 +1,112 @@
+{
+  "article_path": "news/data/manager.bg/20260820-sos-ste-prerazgleda-resheniata-za-vazenite-linii-aleko-1-i-k-110930eb.json",
+  "url": "https://manager.bg/политика/sos-ste-prerazgleda-resheniata-za-vazenite-linii-aleko-1-i-knazevo-kopitoto-",
+  "domain": "manager.bg",
+  "analyzed_at": "2026-08-28T15:25:42.063781+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A concise but complete municipal-governance report explaining the returned decisions and stated legal and environmental objections."
+  },
+  "summary_bg": "Столичният общински съвет ще прегласува плановете за лифтовете „Алеко 1“ и „Княжево–Копитото“ и решението за ледена пързалка в Княжевската градина. Областният управител връща решенията заради липса на екологична оценка и възможно противоречие с плана за управление на Витоша.",
+  "summary_en": "Sofia Municipal Council will reconsider plans for the Aleko 1 and Knyazhevo–Kopitoto lifts and a decision on an ice rink in Knyazheska Garden. The regional governor returned the decisions over a missing environmental assessment and a possible conflict with Vitosha's management plan.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Текстът фактологично описва дневния ред и мотивите на областния управител без оценка на политическите страни."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.78,
+    "signals": [
+      "specific council agenda",
+      "dated administrative acts",
+      "concise newsroom report"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Йовелина Тихова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "София",
+      "Княжево",
+      "Витоша",
+      "градина"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Йовелина Тихова",
+      "basis": "gazetteer_exact",
+      "id": "iovelina-neicheva-tihova-a9f1de",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Княжево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:37407",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Витоша",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134-2317",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "градина",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Градина (place, settlement, settlement:17470)",
+        "Градина (place, settlement, settlement:17484)",
+        "Градина (place, settlement, settlement:17498)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "local-councils",
+      "primary": true
+    },
+    {
+      "category": "environment",
+      "subcategory": "protected-areas",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T05:52:36+00:00"
+}

@@ -1,0 +1,144 @@
+{
+  "article_path": "news/data/frognews.bg/20260822-golyam-pozhar-obhvana-700-dekara-kray-tri-sela-simeonovgrads-7f47ea32.json",
+  "url": "https://frognews.bg/novini/golyam-pozhar-obhvana-700-dekara-kray-tri-sela-simeonovgradsko.html",
+  "domain": "frognews.bg",
+  "analyzed_at": "2026-08-28T15:27:31.243140+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short emergency report with affected-area breakdown, response resources and risk to settlements."
+  },
+  "summary_bg": "Пожар е обхванал около 700 декара край три села в община Симеоновград, включително гора, стърнища и друга растителност. Пет пожарни автомобила участват в гасенето, няма опасност за населените места, а областта отчита поредица от големи пожари и санкционирани причинители.",
+  "summary_en": "A fire covered about 700 decares near three villages in Simeonovgrad municipality, including forest, stubble and other vegetation. Five fire engines were fighting it, settlements were not at risk, and the region reported a succession of large fires and sanctioned offenders.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Фактологично бедствено съобщение с приписани данни от администрацията и пожарната."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "regional administration attribution",
+      "specific land-cover breakdown",
+      "fire-service context"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "община Симеоновград",
+      "община Харманли"
+    ],
+    "companies": [],
+    "places": [
+      "Дряново",
+      "Тянево",
+      "Троян",
+      "Хасково",
+      "Иваново"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "община Симеоновград",
+      "basis": "gazetteer_exact",
+      "id": "000903729",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Дряново",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Дряново (place, obshtina, obshtina:GAB12)",
+        "Дряново (place, settlement, settlement:23947)",
+        "Дряново (place, settlement, settlement:23950)",
+        "Дряново (place, settlement, settlement:23964)",
+        "Дряново (place, settlement, settlement:23978)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Тянево",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Тянево (place, settlement, settlement:73818)",
+        "Тянево (place, settlement, settlement:73821)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Троян",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Троян (place, obshtina, obshtina:LOV34)",
+        "Троян (place, settlement, settlement:73198)",
+        "Троян (place, settlement, settlement:73208)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Хасково",
+      "basis": "gazetteer_exact",
+      "id": "settlement:77195",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иваново",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Иваново (place, obshtina, obshtina:RSE13)",
+        "Иваново (place, settlement, settlement:32086)",
+        "Иваново (place, settlement, settlement:32095)",
+        "Иваново (place, settlement, settlement:32100)",
+        "Иваново (place, settlement, settlement:32113)",
+        "Иваново (place, settlement, settlement:32929)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "община Харманли",
+      "basis": "gazetteer_exact",
+      "id": "000903939",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T17:15:00+00:00"
+}

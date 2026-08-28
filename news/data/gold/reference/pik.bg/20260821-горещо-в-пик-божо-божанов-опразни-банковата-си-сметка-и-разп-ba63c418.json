@@ -1,0 +1,88 @@
+{
+  "article_path": "news/data/pik.bg/20260821-горещо-в-пик-божо-божанов-опразни-банковата-си-сметка-и-разп-ba63c418.json",
+  "url": "https://pik.bg/горещо-в-пик-божо-божанов-опразни-банковата-си-сметка-и-разпродаде-акциите-документ-news1350144.html",
+  "domain": "pik.bg",
+  "analyzed_at": "2026-08-28T15:32:34.260616+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantive but openly insinuating report comparing two annual asset declarations and presenting unexplained changes as possible wrongdoing."
+  },
+  "summary_bg": "ПИК сравнява имуществените декларации на депутата Божидар Божанов и отбелязва, че декларираните през 2024 г. 60 000 лв. и малък пакет акции липсват в декларацията за 2025 г. Без доказателства за нарушение текстът внушава, че декларацията е невярна или парите са похарчени, и посочва парламентарните му доходи и допълнителни средства.",
+  "summary_en": "PIK compares MP Bozhidar Bozhanov's asset declarations and notes that BGN 60,000 and a small share portfolio declared in 2024 are absent in 2025. Without evidence of wrongdoing, it insinuates either a false declaration or extravagant spending and lists his parliamentary income and allowances.",
+  "leaning": {
+    "label": "strong_conservative",
+    "confidence": 0.94,
+    "evidence": "Материалът използва подигравателни определения за съпредседател на „Да, България“ и представя недоказани подозрения като двоичен избор между лъжа и прахосничество."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "partisan tabloid voice",
+      "specific declaration-year comparison",
+      "document-led but rhetorical presentation"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Божидар Божанов",
+      "Божанов"
+    ],
+    "parties": [
+      "Да, България"
+    ],
+    "institutions": [
+      "Сметната палата",
+      "Народното събрание"
+    ],
+    "companies": [
+      "Nvidia"
+    ],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Божидар Божанов",
+      "basis": "gazetteer_exact",
+      "id": "mp-5229",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [
+    {
+      "party": "Да, България",
+      "tone": "unfavorable"
+    }
+  ],
+  "topics": [
+    {
+      "category": "officials-people",
+      "subcategory": "declarations-conflicts",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:21:00+00:00"
+}

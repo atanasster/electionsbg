@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/marica.bg/20260822-shumni-avtomobili-tormozqt-jitelite-na-draginovo-3cd744bd.json",
+  "url": "https://www.marica.bg/region/pazardjik/shumni-avtomobili-tormozqt-jitelite-na-draginovo",
+  "domain": "marica.bg",
+  "analyzed_at": "2026-08-28T15:48:27.448005+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short local complaint report with described pattern, affected residents, alleged unlicensed drivers and requested police response."
+  },
+  "summary_bg": "Жители на Драгиново се оплакват от системно форсиране на автомобили и мотори вечер и през нощта и твърдят, че понякога шофират неправоспособни лица. Те настояват полицията да засили контрола, защото шумът пречи на деца, възрастни и работещи хора.",
+  "summary_en": "Residents of Draginovo complain about repeated revving of cars and motorcycles at night and allege that some drivers are unlicensed. They want stronger police enforcement because the noise disturbs children, older people and workers.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Местните твърдения и искането за контрол са ясно приписани, без партийна рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "named byline",
+      "direct resident quotation",
+      "specific recurring local pattern"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Драгиново"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Драгиново",
+      "basis": "gazetteer_exact",
+      "id": "settlement:23234",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "municipal-problems",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:22:00+00:00"
+}

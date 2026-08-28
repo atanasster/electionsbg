@@ -1,0 +1,126 @@
+{
+  "article_path": "news/data/segabg.com/20260819-za-iznenada-na-heyturite-burgas-ili-gabrovo-shte-e-evropeysk-e083daf4.json",
+  "url": "https://www.segabg.com/category-video/za-iznenada-na-heyturite-burgas-ili-gabrovo-shte-e-evropeyska-stolica",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:22:40.084312+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short commentary and video introduction about competing municipal culture bids."
+  },
+  "summary_bg": "Бургас и Габрово се подготвят от две години за кандидатури за Европейска столица на културата през 2032 г. Авторът смята, че двата града са изпреварили потенциалните конкуренти, а Габрово работи с Велико Търново.",
+  "summary_en": "Burgas and Gabrovo have spent two years preparing bids for European Capital of Culture 2032. The author argues that both are ahead of potential competitors, while Gabrovo is partnering with Veliko Tarnovo.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Положителният тон е към местна културна подготовка, не към политическа идеология."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "specific municipal bid timeline",
+      "named journalist and camera operator",
+      "opinionated local voice"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Диян Божидаров",
+      "Михаил Дечев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Бургас",
+      "Габрово",
+      "България",
+      "Дания",
+      "Велико Търново"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Габрово",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Габрово (place, mir, mir:GAB)",
+        "Габрово (place, oblast, oblast:GAB)",
+        "Габрово (place, obshtina, obshtina:GAB05)",
+        "Габрово (place, settlement, settlement:14204)",
+        "Габрово (place, settlement, settlement:14218)",
+        "Габрово (place, settlement, settlement:14221)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Дания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DK",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Велико Търново",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10447",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Дечев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Дечо Петров Дечев (person, social_fund, decho-petrov-dechev-154400)",
+        "Деян Цанков Дечев (person, mp, mp-4903)",
+        "Емил Иванов Дечев (person, cabinet, emil-ivanov-dechev-bbc6e2)",
+        "Станислав Насков Дечев (person, mp, mp-2640)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "municipal-problems",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-19T12:02:53+00:00"
+}

@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/lupa.bg/nodate-vaorazheni-otvlyakoha-60-poklonnici-po-vreme-na-molitva-v-ni-c428f091.json",
+  "url": "https://lupa.bg/news/vaorazheni-otvlyakoha-60-poklonnici-po-vreme-na-molitva-v-nigeriya_422280news.html",
+  "domain": "lupa.bg",
+  "analyzed_at": "2026-08-28T15:40:30.558250+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Reuters-based crime report with police confirmation, witness limits, rescue status and regional pattern."
+  },
+  "summary_bg": "Въоръжени мъже са отвлекли над 60 поклонници от джамия в нигерийския щат Нигер по време на петъчната молитва. Полицията съобщава, че няма жертви и се провежда спасителна операция, а Ройтерс отбелязва, че масовите отвличания за откуп са чести в Северна Нигерия.",
+  "summary_en": "Armed men abducted more than 60 worshippers from a mosque in Nigeria's Niger State during Friday prayers. Police reported no deaths and an ongoing rescue operation, while Reuters noted that mass kidnappings for ransom are common in northern Nigeria.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.96,
+    "evidence": "Потвърдените и непотвърдените детайли са ясно разграничени и няма политическа позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "Reuters attribution",
+      "named police spokesperson",
+      "explicit independent-verification caveat"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Нигерия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Нигерия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "crime-blotter",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

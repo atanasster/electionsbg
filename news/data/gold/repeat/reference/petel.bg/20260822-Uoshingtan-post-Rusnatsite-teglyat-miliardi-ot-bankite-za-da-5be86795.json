@@ -1,0 +1,77 @@
+{
+  "article_path": "news/data/petel.bg/20260822-Uoshingtan-post-Rusnatsite-teglyat-miliardi-ot-bankite-za-da-5be86795.json",
+  "url": "https://petel.bg/Uoshingtan-post--Rusnatsite-teglyat-miliardi-ot-bankite--za-da-ne-konfiskuvat-parite-im__665752",
+  "domain": "petel.bg",
+  "analyzed_at": "2026-08-28T15:52:09.080930+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.82,
+    "evidence": "Independent rereading assessed the article's own framing of Russia, not merely quoted mentions."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Украйна",
+      "Русия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "gdp-inflation",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T16:18:03+00:00"
+}

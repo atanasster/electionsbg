@@ -1,0 +1,123 @@
+{
+  "article_path": "news/data/dir.bg/20260825-ukrayna-nato-iran-i-osaden-amerikanets-sa-versiite-zashto-sh-b5a677f0.json",
+  "url": "https://dnes.dir.bg/svyat/ukrayna-nato-iran-i-osaden-amerikanets-sa-versiite-zashto-shefat-na-tsru-otide-v-moskva",
+  "domain": "dir.bg",
+  "analyzed_at": "2026-08-28T15:13:14.250846+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete synthesis of explicitly unconfirmed explanations for the CIA director's Moscow visit."
+  },
+  "summary_bg": "Директорът на ЦРУ Джон Ратклиф посещава Москва без официално обяснение, а медии и коментатори предлагат версии за Украйна, НАТО, Иран и освобождаване на американски затворник. Публикацията ясно обозначава повечето твърдения като версии, предупреждения или спекулации.",
+  "summary_en": "CIA Director John Ratcliffe visited Moscow without an official explanation, prompting media and commentators to suggest links to Ukraine, NATO, Iran, or the release of an American prisoner. The report explicitly labels most claims as theories, warnings, or speculation.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Материалът не приема нито една версия за визитата и системно ги приписва на конкретни източници."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Споменава възможна руска мобилизация и провокация срещу НАТО като разузнавателна версия, но не я представя като установен факт."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "multiple named and attributed sources",
+      "explicit uncertainty handling",
+      "specific market reaction"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Джон Ратклиф",
+      "Владимир Путин",
+      "Александър Юнашев",
+      "Ксения Собчак",
+      "Чарлз Цимерман",
+      "Кирил Буданов",
+      "Майкъл Вайс"
+    ],
+    "parties": [],
+    "institutions": [
+      "ЦРУ",
+      "НАТО",
+      "ГРУ"
+    ],
+    "companies": [
+      "The Wall Street Journal",
+      "Axios"
+    ],
+    "places": [
+      "Москва",
+      "Украйна",
+      "Русия",
+      "Иран",
+      "САЩ",
+      "Полша",
+      "Скандинавия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Полша",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PL",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "intelligence",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-25T09:00:00+00:00"
+}

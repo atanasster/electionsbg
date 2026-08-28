@@ -1,0 +1,109 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-skrining-za-virusen-hepatit-sred-riskovi-grupi-shte-se-izvar-95bcdd8d.json",
+  "url": "https://offnews.bg/zdrave/skrining-za-virusen-hepatit-sred-riskovi-grupi-shte-se-izvarshva-v-sof-873193.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:52:09.669417+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Златаров",
+      "Ботев"
+    ],
+    "parties": [],
+    "institutions": [
+      "район \"Слатина"
+    ],
+    "companies": [],
+    "places": [
+      "София",
+      "Красна поляна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Златаров",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "person",
+      "surface": "Ботев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Ботьо Илиев Ботев (person, mp, mp-113)",
+        "Цоньо Георгиев Ботев (person, mp, mp-2035)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "район \"Слатина",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "РАЙОН \"СЛАТИНА (institution, 000696327)",
+        "Район \"Слатина\" (institution, 000696327)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Красна поляна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134-2511",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

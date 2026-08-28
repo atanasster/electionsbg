@@ -1,0 +1,82 @@
+{
+  "article_path": "news/data/epicenter.bg/20260822-0-d9e1de42.json",
+  "url": "https://epicenter.bg/article/Makron-obeshta-raketi-prehvashtachi-za-Ukrayna-sled-ruska-ataka-sreshtu-Krivoy-rog/429187/7/0",
+  "domain": "epicenter.bg",
+  "analyzed_at": "2026-08-28T15:15:16.015449+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short BTA report on promised air-defence missiles after Russian attacks."
+  },
+  "summary_bg": "Еманюел Макрон обещава ракети прехващачи за Украйна след руска атака срещу търговски център в Кривой рог. Франция призовава и други държави да подпомогнат украинската противовъздушна отбрана и свиква среща на „Коалицията на желаещите“.",
+  "summary_en": "Emmanuel Macron promised interceptor missiles for Ukraine after a Russian attack on a shopping centre in Kryvyi Rih. France urged other countries to support Ukrainian air defence and convened a Coalition of the Willing meeting.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Фактологична външнополитическа новина с приписани изказвания."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.9,
+    "evidence": "Руските удари са рамкирани чрез „ужаса и съчувствието“ на Макрон и необходимостта Украйна да получи защита."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "BTA attribution",
+      "specific leaders and meeting",
+      "wire-copy structure"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Еманюел Макрон",
+      "Володимир Зеленски",
+      "Фридрих Мерц",
+      "Анди Бърнам"
+    ],
+    "parties": [],
+    "institutions": [
+      "Коалицията на желаещите"
+    ],
+    "companies": [],
+    "places": [
+      "Франция",
+      "Украйна",
+      "Кривой рог"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T14:17:00+00:00"
+}

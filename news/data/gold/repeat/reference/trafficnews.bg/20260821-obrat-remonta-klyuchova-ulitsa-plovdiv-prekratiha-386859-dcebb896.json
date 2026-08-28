@@ -1,0 +1,87 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-obrat-remonta-klyuchova-ulitsa-plovdiv-prekratiha-386859-dcebb896.json",
+  "url": "https://trafficnews.bg/plovdiv/obrat-remonta-klyuchova-ulitsa-plovdiv-prekratiha-386859/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:52:09.357088+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Камен Петков",
+      "Емил Русинов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Пловдив"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Пловдив",
+      "basis": "gazetteer_exact",
+      "id": "settlement:56784",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Камен Петков",
+      "basis": "gazetteer_exact",
+      "id": "mp-1029",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Емил Русинов",
+      "basis": "gazetteer_exact",
+      "id": "emil-georgiev-rusinov-ba19ab",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "procurement",
+      "subcategory": "kzk-appeals",
+      "primary": true
+    },
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "roads",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:00:00+00:00"
+}

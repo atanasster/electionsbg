@@ -1,0 +1,132 @@
+{
+  "article_path": "news/data/bnrnews.bg/20260821-balgariya-beshe-predstavena-sred-25-kulturi-na-uchilishtna-a-f4839fc5.json",
+  "url": "https://bnrnews.bg/radiobulgaria/post/518337/balgariya-beshe-predstavena-sred-25-kulturi-na-uchilishtna-asambleya-v-nova-zelandiya",
+  "domain": "bnrnews.bg",
+  "analyzed_at": "2026-08-28T15:25:42.052031+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short diaspora report with a named participant, event, school and family source."
+  },
+  "summary_bg": "Четиринайсетгодишната Клоуи Дилли представя България на културна асамблея в училище в Крайстчърч, Нова Зеландия, с народна носия и разказ на български и английски. Роденото в Нова Зеландия момиче говори български у дома и учи в българско училище в Сидни.",
+  "summary_en": "Fourteen-year-old Chloe Dilly represented Bulgaria at a cultural assembly at a Christchurch school in New Zealand, wearing folk dress and speaking in Bulgarian and English. Born in New Zealand, she speaks Bulgarian at home and attends a Bulgarian school in Sydney.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Човешка история за българската общност зад граница без партийна или идеологическа позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "BTA family attribution",
+      "specific bilingual school event",
+      "editor credit"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Атанасов",
+      "Петър Берон"
+    ],
+    "parties": [],
+    "institutions": [
+      "БЪЛГАРСКО НАЦИОНАЛНО РАДИО"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "Нова Зеландия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Нова Зеландия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Атанасов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "АТАНАС ДУЧЕВ АТАНАСОВ (person, regional_governor, atanas-duchev-atanasov-439eb6)",
+        "Александър Кирилов Атанасов (person, mp, mp-1956)",
+        "Асен Георгиев Атанасов (person, regional_governor, asen-georgiev-atanasov-efaaee)",
+        "Атанас Владимиров Атанасов (person, mp, mp-4859)",
+        "Атанас Георгиев Атанасов (person, deputy_minister, atanas-georgiev-atanasov-ab5fc3)",
+        "Атанас Петров Атанасов (person, cabinet, atanas-petrov-atanasov-0131d1)",
+        "Атанас Петров Атанасов (person, mp, mp-5121)",
+        "Атанас Цветанов Атанасов (person, mayor, atanas-tsvetanov-atanasov-009ceb)",
+        "Бойко Атанасов Атанасов (person, regulator, boiko-atanasov-atanasov-d2c6d6)",
+        "Валентин Христов Атанасов (person, mayor, valentin-hristov-atanasov-0ac2ef)",
+        "Велко Ангелов Атанасов (person, security_service, velko-angelov-atanasov-f96f89)",
+        "Виктор Христов Атанасов (person, deputy_minister, viktor-hristov-atanasov-dbdd0a)",
+        "Генчо Ангелов Атанасов (person, security_service, gencho-angelov-atanasov-2aff92)",
+        "Димитър Йорданов Атанасов (person, mp, mp-860)",
+        "Дончо Свободанов Атанасов (person, mp, mp-2224)",
+        "ЕМИЛ ЙОРДАНОВ АТАНАСОВ (person, regional_governor, emil-iordanov-atanasov-f21786)",
+        "Емил Цветанов Атанасов (person, regional_governor, emil-tsvetanov-atanasov-aeb8b4)",
+        "Иван Асенов Атанасов (person, mp, mp-2203)",
+        "Иво Георгиев Атанасов (person, mp, mp-4043)",
+        "Иво Първанов Атанасов (person, mp, mp-2049)",
+        "Кирчо Георгиев Атанасов (person, mp, mp-2306)",
+        "Наско Руменов Атанасов (person, regulator, nasko-rumenov-atanasov-2f6fbb)",
+        "Огнян Атанасов Атанасов (person, regulator, ognyan-atanasov-atanasov-ba1c88)",
+        "Огнян Огнянов Атанасов (person, mayor, ognyan-ognyanov-atanasov-312800)",
+        "Пенко Атанасов Атанасов (person, mp, mp-1728)",
+        "Славчо Стоев Атанасов (person, mp, mp-2840)",
+        "Цветко Илиев Атанасов (person, inspectorate, tsvetko-iliev-atanasov-897cc2)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Петър Берон",
+      "basis": "gazetteer_exact",
+      "id": "mp-202",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "БЪЛГАРСКО НАЦИОНАЛНО РАДИО",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "diaspora",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T11:38:29+00:00"
+}

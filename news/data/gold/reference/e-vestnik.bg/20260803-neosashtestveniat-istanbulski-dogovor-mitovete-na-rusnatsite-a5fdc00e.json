@@ -1,0 +1,130 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260803-neosashtestveniat-istanbulski-dogovor-mitovete-na-rusnatsite-a5fdc00e.json",
+  "url": "https://e-vestnik.bg/40899/neosashtestveniat-istanbulski-dogovor-mitovete-na-rusnatsite/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:10:51.858455+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantive analytical reconstruction of the 2022 Istanbul negotiations and disputed claims about an alleged peace agreement."
+  },
+  "summary_bg": "Анализът оспорва тезата, че Русия и Украйна са имали готов мирен договор през 2022 г., провален от Борис Джонсън и Володимир Зеленски. Той проследява проектите и оставащите спорове за гаранциите за сигурност, числеността на украинската армия, територията и руското право на вето.",
+  "summary_en": "The analysis disputes the claim that Russia and Ukraine had a completed 2022 peace deal that Boris Johnson and Volodymyr Zelensky derailed. It traces the drafts and unresolved disputes over security guarantees, the size of Ukraine's armed forces, territory, and a proposed Russian veto.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.75,
+    "evidence": "Текстът заема ясна позиция по войната и дезинформацията, но не я рамкира по българската консервативно-прогресивна ос."
+  },
+  "russia_stance": {
+    "label": "strong_anti_russia",
+    "confidence": 0.95,
+    "evidence": "Още в началото нарича твърдението за готов договор „митовете на руснаците“ и представя руските условия като капитулация, ултиматум и възможност Русия да блокира защита срещу собствено нападение."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "long chronological reconstruction",
+      "specific disputed draft provisions",
+      "named quotations and dates",
+      "occasional typographical errors"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Путин",
+      "Борис Джонсън",
+      "Зеленски",
+      "Юлия Галямина",
+      "Реджеп Ердоган",
+      "Лавров",
+      "Михаил Подоляк"
+    ],
+    "parties": [],
+    "institutions": [
+      "Роскомнадзор",
+      "ЕС",
+      "НАТО"
+    ],
+    "companies": [],
+    "places": [
+      "Русия",
+      "Украйна",
+      "Истанбул",
+      "Германия",
+      "Беларус",
+      "Анталия",
+      "Крим",
+      "Донбас",
+      "Буча"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Беларус",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BY",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "правда",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Правда (place, settlement, settlement:57981)",
+        "Правда (place, settlement, settlement:57995)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-03T13:22:52+00:00"
+}

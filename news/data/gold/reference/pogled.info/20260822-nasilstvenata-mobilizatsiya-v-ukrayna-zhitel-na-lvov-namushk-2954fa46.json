@@ -1,0 +1,184 @@
+{
+  "article_path": "news/data/pogled.info/20260822-nasilstvenata-mobilizatsiya-v-ukrayna-zhitel-na-lvov-namushk-2954fa46.json",
+  "url": "https://pogled.info/svetoven/ukraina/nasilstvenata-mobilizatsiya-v-ukrayna-zhitel-na-lvov-namushka-lovets-na-hora-toy-napadna-politsay-i-beshe-prostrelyan.196257",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:22:39.968974+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantive editorial analysis of clashes around Ukrainian mobilisation, followed by unrelated site teasers."
+  },
+  "summary_bg": "След смъртоносен сблъсък между жител на Лвов, служител на наборен център и полицай публикацията твърди, че съпротивата срещу мобилизацията се превръща в общонационален модел. Тя изброява други инциденти в Одеса, Черниговска и Винишка област.",
+  "summary_en": "After a deadly clash involving a Lviv resident, a recruitment officer and a police officer, the article argues that resistance to mobilisation is becoming a nationwide pattern. It lists other incidents in Odesa, Chernihiv and Vinnytsia regions.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.75,
+    "evidence": "Военно-вътрешнополитическият анализ няма позиция по българската идеологическа ос."
+  },
+  "russia_stance": {
+    "label": "strong_pro_russia",
+    "confidence": 0.95,
+    "evidence": "Заглавието нарича наборния служител „ловец на хора“, а текстът представя украинската мобилизация като системно неправна и насилствена без украински институционален контекст или войната като причина."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.65,
+    "signals": [
+      "generic media attribution",
+      "uniform analytic headings",
+      "strong propagandistic framing",
+      "unrelated digest trailer"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Максим Козицки"
+    ],
+    "parties": [],
+    "institutions": [
+      "ТНЦ",
+      "Националната полиция на Украйна"
+    ],
+    "companies": [],
+    "places": [
+      "Украйна",
+      "Лвов",
+      "Одеса",
+      "Черниговска област",
+      "Винишка област"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "ловец",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Ловец (place, settlement, settlement:43921)",
+        "Ловец (place, settlement, settlement:43935)",
+        "Ловец (place, settlement, settlement:43949)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "крайници",
+      "basis": "gazetteer_exact",
+      "id": "settlement:39339",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Яков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Витанов",
+      "basis": "gazetteer_exact",
+      "id": "nikolai-vitanov-vitanov-325bc6",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T04:15:20+00:00"
+}

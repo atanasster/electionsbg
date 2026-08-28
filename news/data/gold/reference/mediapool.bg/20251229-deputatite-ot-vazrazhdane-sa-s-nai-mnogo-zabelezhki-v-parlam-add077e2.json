@@ -1,0 +1,326 @@
+{
+  "article_path": "news/data/mediapool.bg/20251229-deputatite-ot-vazrazhdane-sa-s-nai-mnogo-zabelezhki-v-parlam-add077e2.json",
+  "url": "https://www.mediapool.bg/deputatite-ot-vazrazhdane-sa-s-nai-mnogo-zabelezhki-v-parlamenta-news378725.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:22:40.134233+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete BTA-based parliamentary conduct report followed by the standard outlet footer."
+  },
+  "summary_bg": "Дванадесет от 26-те депутати със забележки през годината са от „Възраждане“, а трите порицания също са наложени на нейни представители. Костадин Костадинов и Радостин Василев имат по девет забележки.",
+  "summary_en": "Twelve of the 26 MPs formally reprimanded during the year belong to Vazrazhdane, and all three stronger censures also went to its representatives. Kostadin Kostadinov and Radostin Vasilev each received nine reprimands.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Справката описва дисциплинарни данни и конкретни поводи за депутати от няколко партии."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "„Възраждане“ е описана като проруска партия, но материалът не анализира или оценява руската политика."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "BTA attribution",
+      "detailed parliamentary counts",
+      "standard Mediapool footer"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Костадин Костадинов",
+      "Цончо Ганев",
+      "Искра Михайлова",
+      "Радостин Василев",
+      "Манол Пейков",
+      "Ивайло Мирчев",
+      "Тошко Йорданов",
+      "Кирил Петков",
+      "Виктор Папазов",
+      "Станислав Анастасов",
+      "Драгомир Стойнев",
+      "Станислав Балабанов",
+      "Деян Петков"
+    ],
+    "parties": [
+      "Възраждане",
+      "МЕЧ",
+      "ГЕРБ",
+      "Величие",
+      "Продължаваме промяната- Демократична България",
+      "Има такъв народ"
+    ],
+    "institutions": [
+      "парламента",
+      "Конституционния съд"
+    ],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Възраждане",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Възраждане (party, p_7)",
+        "Възраждане (place, settlement, settlement:68134-2403)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Костадин Костадинов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Цончо Ганев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5234",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Михайлов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Андрей Николаев Михайлов (person, mp, mp-3674)",
+        "Бисер Николов Михайлов (person, regional_governor, biser-nikolov-mihailov-8c3dcf)",
+        "Валентин Михайлов Михайлов (person, regional_governor, valentin-mihailov-mihailov-fb0b07)",
+        "Васил Николаев Михайлов (person, mp, mp-2287)",
+        "Васил Радославов Михайлов (person, regional_governor, vasil-radoslavov-mihailov-0365d0)",
+        "Георги Георгиев Михайлов (person, mp, mp-3533)",
+        "Георги Димитров Михайлов (person, mp, mp-1774)",
+        "Дако Нейков Михайлов (person, mp, mp-2242)",
+        "Евгений Светославов Михайлов (person, mp, mp-2219)",
+        "Ивелин Людмилов Михайлов (person, mp, mp-5006)",
+        "Иво Георгиев Михайлов (person, mp, mp-5233)",
+        "Кирил Йорданов Михайлов (person, military_command, kiril-iordanov-mihailov-4983c4)",
+        "Маргарит Тенев Михайлов (person, military_command, margarit-tenev-mihailov-b9db1a)",
+        "Мариан Неделчев Михайлов (person, security_service, marian-nedelchev-mihailov-966edd)",
+        "Мирослав Даниелов Михайлов (person, regional_governor, miroslav-danielov-mihailov-5dc458)",
+        "Митко Михайлов Михайлов (person, regional_governor, mitko-mihailov-mihailov-d68d4c)",
+        "Михаил Ивов Михайлов (person, mp, mp-5088)",
+        "Михаил Рашков Михайлов (person, mp, mp-2149)",
+        "Михаил Стамов Михайлов (person, regulator, mihail-stamov-mihailov-20541c)",
+        "Николай Боянов Михайлов (person, mp, mp-201)",
+        "Огнян Асенов Михайлов (person, regional_governor, ognyan-asenov-mihailov-ff9eaf)",
+        "Павел Михайлов Михайлов (person, mayor, pavel-mihailov-mihailov-9bcf7b-2)",
+        "Росен Динев Михайлов (person, mp, mp-1931)",
+        "Росен Светлозаров Михайлов (person, regional_governor, rosen-svetlozarov-mihailov-ff69eb)",
+        "Светомир Константинов Михайлов (person, mp, mp-901)",
+        "Станимир Боянов Михайлов (person, deputy_minister, stanimir-boyanov-mihailov-88dd8a)",
+        "Станко Петров Михайлов (person, mp, mp-1969)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Костадинов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Антон Симеонов Костадинов (person, deputy_minister, anton-simeonov-kostadinov-13abf3)",
+        "Атанас Петров Костадинов (person, mp, mp-3254)",
+        "Бисер Славчев Костадинов (person, security_service, biser-slavchev-kostadinov-cc36b7)",
+        "Божидар Петров Костадинов (person, deputy_minister, bozhidar-petrov-kostadinov-4daf21)",
+        "Евтим Костадинов Костадинов (person, mp, mp-49)",
+        "Емил Ангелов Костадинов (person, regional_governor, emil-angelov-kostadinov-62cafa)",
+        "Емил Страхилов Костадинов (person, mp, mp-1648)",
+        "Ивайло Симеонов Костадинов (person, mp, mp-4996)",
+        "Йордан Димитров Костадинов (person, mp, mp-42)",
+        "Камен Костов Костадинов (person, mp, mp-2752)",
+        "Костадин Тодоров Костадинов (person, mp, mp-5258)",
+        "Методи Теохаров Костадинов (person, mp, mp-1704)",
+        "Мирослав Георгиев Костадинов (person, military_command, miroslav-georgiev-kostadinov-75e76a)",
+        "Николай Димитров Костадинов (person, mp, mp-864)",
+        "Николай Костов Костадинов (person, regional_governor, nikolai-kostov-kostadinov-e5ee10)",
+        "Николай Кръстев Костадинов (person, mp, mp-3871)",
+        "Румен Любомиров Костадинов (person, mayor, rumen-lyubomirov-kostadinov-9154e0)",
+        "Сергей Митков Костадинов (person, secretary_general, sergei-mitkov-kostadinov-32da86)",
+        "Симеон Димитров Костадинов (person, regional_governor, simeon-dimitrov-kostadinov-2acb2e)",
+        "Тодор Иванов Костадинов (person, mp, mp-2043)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Радостин Василев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Манол Пейков",
+      "basis": "gazetteer_exact",
+      "id": "mp-4800",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "party",
+      "surface": "Продължаваме промяната",
+      "basis": "gazetteer_exact",
+      "id": "p_67",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "ГЕРБ",
+      "basis": "gazetteer_exact",
+      "id": "gerb",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Ивайло Мирчев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5244",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "party",
+      "surface": "ПП-ДБ",
+      "basis": "gazetteer_exact",
+      "id": "p_6",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Йорданов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Янакиев Йорданов (person, regulator, aleksandr-yanakiev-iordanov-8871c6)",
+        "Анатолий Великов Йорданов (person, mp, mp-912)",
+        "Антоний Йорданов Йорданов (person, mp, mp-1512)",
+        "Валери Стефчев Йорданов (person, regional_governor, valeri-stefchev-iordanov-554eab)",
+        "Георги Йорданов Йорданов (person, mp, mp-2838)",
+        "Данаил Славчев Йорданов (person, mayor, danail-slavchev-iordanov-16a695)",
+        "Даниел Петков Йорданов (person, mp, mp-2793)",
+        "Димитър Цвятков Йорданов (person, mp, mp-31)",
+        "Емануил Николов Йорданов (person, mp, mp-2016)",
+        "Йордан Василев Йорданов (person, mp, mp-1856)",
+        "Йордан Илиев Йорданов (person, mp, mp-2795)",
+        "Йордан Петков Йорданов (person, mp, mp-805)",
+        "Йордан Тошков Йорданов (person, mayor, iordan-toshkov-iordanov-03b561)",
+        "Кирил Петров Йорданов (person, mp, mp-2062)",
+        "Красимир Йорданов Йорданов (person, mp, mp-4915)",
+        "Минчо Йорданов Йорданов (person, regional_governor, mincho-iordanov-iordanov-db3d01)",
+        "Пламен Веселинов Йорданов (person, mp, mp-2404)",
+        "Пламен Димитров Йорданов (person, military_command, plamen-dimitrov-iordanov-6dc7c9)",
+        "Пламен Христов Йорданов (person, deputy_minister, plamen-hristov-iordanov-383f59)",
+        "Руденко Радев Йорданов (person, mp, mp-785)",
+        "Станимир Петров Йорданов (person, military_command, stanimir-petrov-iordanov-eec596)",
+        "Янко Стоянов Йорданов (person, mayor, yanko-stoyanov-iordanov-e85c57)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Росен Желязков",
+      "basis": "gazetteer_exact",
+      "id": "mp-5293",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Кирил Петков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Виктор Папазов",
+      "basis": "gazetteer_exact",
+      "id": "mp-4858",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Искра Михайлова",
+      "basis": "gazetteer_exact",
+      "id": "mp-5273",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Станислав Анастасов",
+      "basis": "gazetteer_exact",
+      "id": "mp-5224",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Драгомир Стойнев",
+      "basis": "gazetteer_exact",
+      "id": "mp-4917",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Станислав Балабанов",
+      "basis": "gazetteer_exact",
+      "id": "mp-4900",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Деян Петков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "parliament",
+      "subcategory": "mp-conduct",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2025-12-29T11:05:41+00:00"
+}

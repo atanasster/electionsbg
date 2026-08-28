@@ -1,0 +1,74 @@
+{
+  "article_path": "news/data/flagman.bg/20260822-388349-cbaf0cf1.json",
+  "url": "https://www.flagman.bg/article/388349",
+  "domain": "flagman.bg",
+  "analyzed_at": "2026-08-28T15:46:46.612420+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined aviation explainer covering map projection, great-circle routing, diversion airports, winds and economics."
+  },
+  "summary_bg": "Самолетите редовно пресичат Тихия океан, но маршрутите изглеждат извити на плоска карта, защото следват по-къси големи окръжности около Аляска и Алеутите. Достъпът до резервни летища, ветровете, горивото и правилата за безопасност допълнително променят трасето.",
+  "summary_en": "Aircraft cross the Pacific daily, but routes look curved on flat maps because they follow shorter great-circle paths near Alaska and the Aleutians. Access to diversion airports, winds, fuel and safety rules further alter the track.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Авиационен образователен материал без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.94,
+    "evidence": "Русия не е оценъчен предмет на обяснението."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.72,
+    "signals": [
+      "named byline",
+      "coherent misconception-to-explanation structure",
+      "aviation operational caveats"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Азия",
+      "Северна Америка"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Северна Америка",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:NA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "public-transport",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T14:30:00+00:00"
+}

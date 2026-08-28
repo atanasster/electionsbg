@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/moreto.net/20260822-novini-44a20349.json",
+  "url": "https://www.moreto.net/novini.php?n=534255",
+  "domain": "moreto.net",
+  "analyzed_at": "2026-08-28T15:37:33.266376+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "The marine forecast is cut off mid-sentence after a few conditions and temperatures, followed by an ad-block funding appeal; the full forecast was not extracted."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The marine forecast is cut off mid-sentence after a few conditions and temperatures, followed by an ad-block funding appeal; the full forecast was not extracted.",
+  "summary_en": "The record does not contain a reliably extracted full article: The marine forecast is cut off mid-sentence after a few conditions and temperatures, followed by an ad-block funding appeal; the full forecast was not extracted.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "A truncated weather fragment has no political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient and truncated forecast text"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T10:18:14+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "article_path": "news/data/svobodnoslovo.eu/nodate-141573-024ba9b8.json",
+  "url": "https://svobodnoslovo.eu/politika/priznanieto-na-dogan-22-ma-oblastni-predsedateli-podkrepyat-peevski-smenyame-gi/141573",
+  "domain": "svobodnoslovo.eu",
+  "analyzed_at": "2026-08-28T15:09:19.184027+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "Only the political headline was extracted; there is no article body to adjudicate."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only the political headline was extracted; there is no article body to adjudicate.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only the political headline was extracted; there is no article body to adjudicate.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Доган",
+      "Пеевски",
+      "Джевдет Чакъров"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

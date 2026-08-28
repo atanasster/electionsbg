@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/chernomore.bg/20260822-313491-slanchevo-i-goreshto-vreme-v-tsyalata-strana-dnes-53b3b847.json",
+  "url": "https://www.chernomore.bg/a/10-bulgaria/313491-slanchevo-i-goreshto-vreme-v-tsyalata-strana-dnes",
+  "domain": "chernomore.bg",
+  "analyzed_at": "2026-08-28T15:39:03.994672+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete daily forecast covering the country, coast and mountains with temperatures, wind, sea state and showers."
+  },
+  "summary_bg": "В събота се очаква слънчево и горещо време с температури 34–39 градуса, около 35 в София и до 29 по морето. Следобед в планините на Западна България ще има локални кратки валежи, морската вода е 25 градуса, а вълнението – три бала.",
+  "summary_en": "Saturday will be sunny and hot at 34–39°C, around 35°C in Sofia and up to 29°C on the coast. Local afternoon showers are expected over western mountains, sea temperature is 25°C and wave height is force three.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Прогноза за времето без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.72,
+    "signals": [
+      "standard meteorological structure",
+      "region-specific conditions",
+      "sea and mountain measurements"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "weather",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T06:30:00+00:00"
+}

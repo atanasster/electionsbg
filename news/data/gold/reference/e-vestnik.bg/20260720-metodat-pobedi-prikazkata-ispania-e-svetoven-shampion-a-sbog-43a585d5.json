@@ -1,0 +1,96 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260720-metodat-pobedi-prikazkata-ispania-e-svetoven-shampion-a-sbog-43a585d5.json",
+  "url": "https://e-vestnik.bg/40882/metodat-pobedi-prikazkata-ispania-e-svetoven-shampion-a-sboguvaneto-na-mesi-stana-gorchivo/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:27:31.266835+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A full match analysis with detailed statistics, chronology, quotations and tournament context; the prose shows several synthesis-like patterns but is internally coherent."
+  },
+  "summary_bg": "Испания побеждава Аржентина с 1:0 след продължения във финала на световното първенство, след като доминира играта, а Феран Торес отбелязва решаващия гол. Анализът описва статистическото превъзходство, червения картон на Енцо Фернандес, края на шестия Мондиал за Лионел Меси и индивидуалните награди.",
+  "summary_en": "Spain beat Argentina 1–0 after extra time in the World Cup final after dominating play, with Ferran Torres scoring the decisive goal. The analysis covers Spain's statistical superiority, Enzo Fernández's dismissal, the end of Lionel Messi's sixth World Cup and the individual awards.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.99,
+    "evidence": "Спортен анализ без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.68,
+    "signals": [
+      "highly compressed synthesis of many outlets and statistics",
+      "repeated balanced rhetorical contrasts",
+      "no byline despite exhaustive polished recap"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Испания",
+      "Аржентина",
+      "Белгия",
+      "червен"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Испания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:ES",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Аржентина",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Белгия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "червен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Червен (place, settlement, settlement:80437)",
+        "Червен (place, settlement, settlement:80443)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "sports",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-07-20T10:19:19+00:00"
+}

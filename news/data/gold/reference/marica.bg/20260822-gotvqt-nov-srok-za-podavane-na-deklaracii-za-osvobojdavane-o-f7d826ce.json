@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/marica.bg/20260822-gotvqt-nov-srok-za-podavane-na-deklaracii-za-osvobojdavane-o-f7d826ce.json",
+  "url": "https://www.marica.bg/region/haskovo/gotvqt-nov-srok-za-podavane-na-deklaracii-za-osvobojdavane-ot-taksa-smet-v-haskovo",
+  "domain": "marica.bg",
+  "analyzed_at": "2026-08-28T15:35:53.788450+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete local-government report explaining the legal reason, new deadline, eligible properties and submission channels."
+  },
+  "summary_bg": "Кметът на Хасково предлага собствениците на незастроени или неизползвани имоти да подават декларации за освобождаване от такса смет до 31 октомври на предходната година. Промяната синхронизира местната наредба със закона, допуска електронно подаване и според общината не води до нови разходи или тежести.",
+  "summary_en": "Haskovo's mayor proposes that owners of undeveloped or unused properties file waste-fee exemption declarations by 31 October of the preceding year. The change aligns the local ordinance with national law, allows electronic submission and is said to add no costs or burdens.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Процедурният текст обяснява предложението и мотивите без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named byline",
+      "specific ordinance and statutory change",
+      "detailed filing channels"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Станислав Дечев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Хасково"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Хасково",
+      "basis": "gazetteer_exact",
+      "id": "settlement:77195",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Станислав Дечев",
+      "basis": "gazetteer_exact",
+      "id": "mp-2640",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "budget-fiscal",
+      "subcategory": "municipal-budget",
+      "primary": true
+    },
+    {
+      "category": "local-news",
+      "subcategory": "local-councils",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:26:00+00:00"
+}

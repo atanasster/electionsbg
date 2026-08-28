@@ -1,0 +1,81 @@
+{
+  "article_path": "news/data/vesti.bg/20260822-ukrainskoto-zname-be-izdignato-pred-sgradata-na-evropejskata-8fd1e89d.json",
+  "url": "https://www.vesti.bg/sviat/ukrainskoto-zname-be-izdignato-pred-sgradata-na-evropejskata-komisiia-6268249",
+  "domain": "vesti.bg",
+  "analyzed_at": "2026-08-28T15:15:15.794494+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short report on a symbolic European Commission ceremony."
+  },
+  "summary_bg": "Украинското знаме е издигнато пред сградата на Европейската комисия в Брюксел преди Деня на независимостта. Урсула фон дер Лайен заявява, че Украйна ще възвърне свободата и сигурността си и ще заеме мястото си в Европейския съюз.",
+  "summary_en": "Ukraine's flag was raised outside the European Commission in Brussels ahead of Independence Day. Ursula von der Leyen said Ukraine would regain its freedom and security and take its place in the European Union.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.65,
+    "evidence": "Публикацията без контрапункт приветства европейската интеграция, суверенитета и европейския път на Украйна."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.85,
+    "evidence": "Русия не е назована; материалът е за символична подкрепа и европейското членство на Украйна."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "specific ceremony",
+      "embedded official post",
+      "directly attributed quotation"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Урсула фон дер Лайен"
+    ],
+    "parties": [],
+    "institutions": [
+      "Европейската комисия",
+      "ЕК",
+      "Европейския съюз"
+    ],
+    "companies": [],
+    "places": [
+      "Украйна",
+      "Брюксел",
+      "Европа"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "eu",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T17:26:00+00:00"
+}

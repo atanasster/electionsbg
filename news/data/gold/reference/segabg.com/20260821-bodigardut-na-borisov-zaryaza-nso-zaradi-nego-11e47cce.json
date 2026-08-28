@@ -1,0 +1,150 @@
+{
+  "article_path": "news/data/segabg.com/20260821-bodigardut-na-borisov-zaryaza-nso-zaradi-nego-11e47cce.json",
+  "url": "https://www.segabg.com/hot/category-bulgaria/bodigardut-na-borisov-zaryaza-nso-zaradi-nego",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:29:08.966408+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete reported follow-up using a photograph, an NSO response and prior public statements to establish the guard's changed employment."
+  },
+  "summary_bg": "Дългогодишен служител на НСО е забелязан да охранява Бойко Борисов в Русе, след като държавната му охрана е свалена. НСО потвърждава, че човекът вече не е служител на службата, а „Сега“ припомня противоположните политически оценки за решението да се прекрати охраната на Борисов и Делян Пеевски.",
+  "summary_en": "A long-serving NSO officer was seen guarding Boyko Borissov in Ruse after state protection was withdrawn. The NSO confirmed the man no longer worked for the service, while Sega recalls opposing political assessments of ending protection for Borissov and Delyan Peevski.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.65,
+    "evidence": "Заглавието и фокусът поставят под критичен поглед продължаващата лична охрана на лидера на ГЕРБ, но текстът включва неговата и партийната позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "direct newsroom inquiry to NSO",
+      "photo-based observation",
+      "dated quotations from several officials"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Бойко Борисов",
+      "Делян Пеевски",
+      "Томислав Дончев",
+      "Иван Демерджиев"
+    ],
+    "parties": [
+      "ГЕРБ",
+      "Прогресивна България"
+    ],
+    "institutions": [
+      "Националната служба за охрана",
+      "НСО",
+      "Министерството на вътрешните работи",
+      "Министерския съвет",
+      "МВР"
+    ],
+    "companies": [],
+    "places": [
+      "Русе",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Бойко Борисов",
+      "basis": "gazetteer_exact",
+      "id": "mp-5186",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "party",
+      "surface": "ГЕРБ",
+      "basis": "gazetteer_exact",
+      "id": "gerb",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русе",
+      "basis": "gazetteer_exact",
+      "id": "settlement:63427",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "Прогресивна България",
+      "basis": "gazetteer_exact",
+      "id": "p_20",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Делян Пеевски",
+      "basis": "gazetteer_exact",
+      "id": "mp-5100",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Томислав Дончев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5091",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Иван Демерджиев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5104",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [
+    {
+      "party": "ГЕРБ",
+      "tone": "unfavorable"
+    },
+    {
+      "party": "Прогресивна България",
+      "tone": "neutral"
+    }
+  ],
+  "topics": [
+    {
+      "category": "parliament",
+      "subcategory": "mp-conduct",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "intelligence",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T09:40:48+00:00"
+}

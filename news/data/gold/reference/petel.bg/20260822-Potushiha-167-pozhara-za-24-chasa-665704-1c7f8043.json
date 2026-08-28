@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/petel.bg/20260822-Potushiha-167-pozhara-za-24-chasa-665704-1c7f8043.json",
+  "url": "https://petel.bg/Potushiha-167-pozhara-za-24-chasa__665704",
+  "domain": "petel.bg",
+  "analyzed_at": "2026-08-28T15:37:33.297683+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete daily Interior Ministry incident bulletin with fire, damage, rescue and false-call counts."
+  },
+  "summary_bg": "Пожарните служби са ликвидирали 167 пожара и са реагирали на 219 сигнала за денонощие без жертви или пострадали. Тридесет и три пожара са с материални щети, извършени са 44 спасителни и помощни операции и са отчетени осем фалшиви повиквания.",
+  "summary_en": "Fire services extinguished 167 fires and responded to 219 incidents in one day with no deaths or injuries. Thirty-three fires caused material damage, 44 rescue and assistance operations were performed, and eight false calls were recorded.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.98,
+    "evidence": "Статистически оперативен бюлетин без политическа оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.78,
+    "signals": [
+      "Interior Ministry attribution",
+      "standard incident taxonomy",
+      "internally reconciled operational counts"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "МВР"
+    ],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "interior-mvr",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T10:14:30+00:00"
+}

@@ -1,0 +1,143 @@
+{
+  "article_path": "news/data/dir.bg/20260825-shefat-na-tsru-e-pristignal-v-moskva-s-amerikanskiya-voennot-5a7f3851.json",
+  "url": "https://dnes.dir.bg/svyat/shefat-na-tsru-e-pristignal-v-moskva-s-amerikanskiya-voennotransporten-samolet",
+  "domain": "dir.bg",
+  "analyzed_at": "2026-08-28T15:20:32.013445+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete CBS-based report on the CIA director's visit and relevant prisoner exchanges."
+  },
+  "summary_bg": "Директорът на ЦРУ Джон Ратклиф е пристигнал в Москва, но правителствата и агенцията не съобщават целта на визитата. Новината припомня ролята му в размени на затворници и застоя в преговорите за Украйна.",
+  "summary_en": "CIA Director John Ratcliffe arrived in Moscow, but governments and the agency did not disclose the purpose of the visit. The report recalls his role in prisoner exchanges and the stalemate in talks over Ukraine.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.95,
+    "evidence": "Фактите и неизвестните са ясно отделени и приписани на CBS News."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Описва присъди, контрабанда за руската армия и предупреждение преди нахлуването, но не спекулира за визитата."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named byline",
+      "CBS sourcing",
+      "specific prisoner exchanges"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Джон Ратклиф",
+      "Ксения Карелина",
+      "Артур Петров",
+      "Еван Гершкович",
+      "Пол Уилън",
+      "Уилям Бърнс",
+      "Владимир Путин"
+    ],
+    "parties": [],
+    "institutions": [
+      "ЦРУ"
+    ],
+    "companies": [
+      "CBS News",
+      "Уолстрийт Джърнъл"
+    ],
+    "places": [
+      "Москва",
+      "Русия",
+      "САЩ",
+      "Украйна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Петров",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Андриян Георгиев Петров (person, regional_governor, andriyan-georgiev-petrov-1711e1)",
+        "Благомир Петров Петров (person, security_service, blagomir-petrov-petrov-2d8bb7)",
+        "Валентин Петков Петров (person, mp, mp-5219)",
+        "Валентин Трифонов Петров (person, regulator, valentin-trifonov-petrov-c0bbf7)",
+        "Веселин Методиев Петров (person, mp, mp-2282)",
+        "Владимир Петров Петров (person, regional_governor, vladimir-petrov-petrov-a32953)",
+        "Володя Богданов Петров (person, revenue_agency, volodya-bogdanov-petrov-4a3493)",
+        "Георги Йовчев Петров (person, mayor, georgi-iovchev-petrov-456b7c)",
+        "Георги Светломиров Петров (person, mp, mp-5137)",
+        "Даниел Петров Петров (person, mp, mp-4752)",
+        "Димитър Бисеров Петров (person, mp, mp-5110)",
+        "Димитър Бойчев Петров (person, mp, mp-3103)",
+        "Димитър Владимиров Петров (person, mp, mp-1789)",
+        "Димитър Георгиев Петров (person, mayor, dimitr-georgiev-petrov-df346b)",
+        "Димитър Христов Петров (person, military_command, dimitr-hristov-petrov-211b99)",
+        "Димо Петров Петров (person, mp, mp-1798)",
+        "Драгомир Стефанов Петров (person, mp, mp-4813)",
+        "Ивайло Валериев Петров (person, mp, mp-5149)",
+        "Ивайло Иванов Петров (person, regional_governor, ivailo-ivanov-petrov-0c9631)",
+        "Илия Петров Петров (person, mp, mp-2051)",
+        "Красимир Петров Петров (person, mp, mp-2385)",
+        "Любен Йорданов Петров (person, mp, mp-2164)",
+        "Мирослав Николов Петров (person, regional_governor, miroslav-nikolov-petrov-26012a)",
+        "Митко Петров Петров (person, regional_governor, mitko-petrov-petrov-56d005)",
+        "Момчил Бончев Петров (person, mp, mp-5324)",
+        "Николай Стефанов Петров (person, regional_governor, nikolai-stefanov-petrov-128e36)",
+        "Павлин Павлов Петров (person, deputy_minister, pavlin-pavlov-petrov-35aa62)",
+        "Павлин Стефанов Петров (person, mp, mp-5001)",
+        "Петър Георгиев Петров (person, mayor, petr-georgiev-petrov-c13017)",
+        "Петър Георгиев Петров (person, mp, mp-4349)",
+        "Петър Иванов Петров (person, mp, mp-2456)",
+        "Петър Костадинов Петров (person, mp, mp-2614)",
+        "Петър Методиев Петров (person, mp, mp-936)",
+        "Петър Ненов Петров (person, mp, mp-2005)",
+        "Петър Николаев Петров (person, mp, mp-5247)",
+        "Петър Тодоров Петров (person, regional_governor, petr-todorov-petrov-211229)",
+        "Петър Христов Петров (person, mp, mp-2657)",
+        "Пешо Тодоров Петров (person, security_service, pesho-todorov-petrov-654789)",
+        "Пламен Тачев Петров (person, mp, mp-4786)",
+        "Росен Петров Петров (person, mp, mp-2377)",
+        "Силви Кирилов Петров (person, mp, mp-4938)",
+        "Стоян Тонев Петров (person, mp, mp-5098)",
+        "Христо Кирилов Петров (person, mp, mp-2039)",
+        "Христо Христов Петров (person, mp, mp-4316)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "intelligence",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-25T09:00:00+00:00"
+}

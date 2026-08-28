@@ -1,0 +1,48 @@
+{
+  "article_path": "news/data/narod.bg/20260808-d0bdd18fd0bcd0b0-d0bfd0b0d180d0b8-d181d18ad0bad180d0b0d189d0-7f8a508f.json",
+  "url": "https://narod.bg/2026/08/08/%d0%bd%d1%8f%d0%bc%d0%b0-%d0%bf%d0%b0%d1%80%d0%b8-%d1%81%d1%8a%d0%ba%d1%80%d0%b0%d1%89%d0%b0%d0%b2%d0%b0%d1%82-%d1%81%d0%ba%d0%b0%d1%82%d0%b0%d0%b2%d0%ba%d0%b8%d1%82%d0%b5-%d0%b2%d1%8a%d0%b2-%d0%b2/",
+  "domain": "narod.bg",
+  "analyzed_at": "2026-08-28T15:09:19.038299+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "Only the headline and outlet name were extracted; there is no article body."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only the headline and outlet name were extracted; there is no article body.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only the headline and outlet name were extracted; there is no article body.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Гълъб Донев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-08T00:00:00+00:00"
+}

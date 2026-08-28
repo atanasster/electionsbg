@@ -1,0 +1,201 @@
+{
+  "article_path": "news/data/pogled.info/20260822-putin-drapna-spirachkite-glavnata-tayna-na-rekordniya-udar-p-df769002.json",
+  "url": "https://pogled.info/svetoven/russia/putin-drapna-spirachkite-glavnata-tayna-na-rekordniya-udar-po-kiev-kakvo-ne-ni-kazva-ministerstvoto-na-otbranata-kodovo-ime-oreshnik-2m.196252",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:52:09.040742+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "strong_pro_russia",
+    "confidence": 0.82,
+    "evidence": "Independent rereading assessed the article's own framing of Russia, not merely quoted mentions."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Антонов",
+      "Яков",
+      "Трифонов",
+      "Николай Витанов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Орешник",
+      "Украйна",
+      "Молдова",
+      "Китай",
+      "Швейцария",
+      "Азия",
+      "Иран",
+      "Европа",
+      "Русия",
+      "Япония"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Орешник",
+      "basis": "gazetteer_exact",
+      "id": "settlement:53802",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Молдова",
+      "basis": "gazetteer_exact",
+      "id": "settlement:MD",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Антонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Арлин Григоров Антонов (person, mp, mp-1738)",
+        "Борислав Антониев Антонов (person, mp, mp-3659)",
+        "Васил Миланов Антонов (person, mp, mp-2826)",
+        "Ивайло Петров Антонов (person, regional_governor, ivailo-petrov-antonov-183037)",
+        "Иван Милков Антонов (person, regional_governor, ivan-milkov-antonov-69d9fb)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Яков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Витанов",
+      "basis": "gazetteer_exact",
+      "id": "nikolai-vitanov-vitanov-325bc6",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T03:26:17+00:00"
+}

@@ -1,0 +1,87 @@
+{
+  "article_path": "news/data/marica.bg/20260822-bojidar-saraboyukov-ostana-osmi-na-diamantenata-liga-v-lozan-ba3c0204.json",
+  "url": "https://www.marica.bg/sport/drugi/bojidar-saraboyukov-ostana-osmi-na-diamantenata-liga-v-lozana",
+  "domain": "marica.bg",
+  "analyzed_at": "2026-08-28T15:45:09.899379+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined athletics result with attempts, best mark, seasonal comparison and podium standings."
+  },
+  "summary_bg": "Божидар Саръбоюков завършва осми в скока на дължина на Диамантената лига в Лозана с 7,88 метра, първият му резултат под осем метра през сезона. Победител е Милтиадис Тентоглу с 8,24 метра, следван от Симон Ехамер и Лука Бошкович.",
+  "summary_en": "Bozhidar Saraboyukov finished eighth in the Lausanne Diamond League long jump at 7.88 metres, his first sub-eight-metre result of the season. Miltiadis Tentoglou won with 8.24 metres ahead of Simon Ehammer and Luka Boskovic.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Спортен резултат без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "named byline",
+      "attempt and ranking detail",
+      "season and prior championship comparison"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Швейцария",
+      "първенец",
+      "Гърция"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "първенец",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Първенец (place, settlement, settlement:59032)",
+        "Първенец (place, settlement, settlement:59046)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "sports",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T04:37:00+00:00"
+}

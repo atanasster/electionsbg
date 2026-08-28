@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/marica.bg/20260822-aria-razgoreshti-mrejata-s-plajni-seksi-snimki-e4c9a92b.json",
+  "url": "https://www.marica.bg/lajfstajl/aria-razgoreshti-mrejata-s-plajni-seksi-snimki",
+  "domain": "marica.bg",
+  "analyzed_at": "2026-08-28T15:43:38.951844+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete but repetitive celebrity social-media item about vacation photos and audience reactions."
+  },
+  "summary_bg": "Фолкпевицата Ариа публикува снимки от плажната си почивка, които събират реакции и харесвания в социалните мрежи. Материалът припомня провокативния ѝ публичен образ и няколко песни от репертоара ѝ.",
+  "summary_en": "Folk singer Aria posted beach-holiday photographs that attracted reactions and likes on social media. The item recalls her provocative public image and several songs in her repertoire.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Знаменитостна публикация без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.64,
+    "signals": [
+      "highly repetitive generic phrasing",
+      "no new reporting beyond social-media photos",
+      "formulaic paragraph-level restatement"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T20:20:00+00:00"
+}

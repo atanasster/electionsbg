@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/chernomore.bg/20260821-313480-sluchay-na-zaushka-e-registriran-vav-varna-ab264aba.json",
+  "url": "https://www.chernomore.bg/a/2-varna/313480-sluchay-na-zaushka-e-registriran-vav-varna",
+  "domain": "chernomore.bg",
+  "analyzed_at": "2026-08-28T15:39:03.896995+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete regional health-surveillance bulletin with disease, vaccination and epidemiological-investigation counts."
+  },
+  "summary_bg": "РЗИ–Варна отчита един случай на заушка, 97 чревни инфекции, 51 остри респираторни заболявания и други зарази за седмицата. Имунизационният кабинет е поставил ваксини срещу редица заболявания, а инспекцията е извършила 98 епидемиологични проучвания.",
+  "summary_en": "Varna's health inspectorate reported one mumps case, 97 intestinal infections, 51 acute respiratory illnesses and other infections for the week. Its clinic administered several types of vaccines and the inspectorate conducted 98 epidemiological investigations.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.98,
+    "evidence": "Официален статистически здравен бюлетин без политическа оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "weekly RZI report",
+      "disease-by-disease counts",
+      "vaccination and investigation totals"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Варна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Варна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10135",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T14:45:00+00:00"
+}

@@ -1,0 +1,93 @@
+{
+  "article_path": "news/data/mediapool.bg/20251229-izdirvat-22-godishen-mladezh-izcheznal-v-raiona-na-zlatnite--bbed00ef.json",
+  "url": "https://www.mediapool.bg/izdirvat-22-godishen-mladezh-izcheznal-v-raiona-na-zlatnite-mostove-na-vitosha-news378739.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:30:38.613266+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short missing-person alert with official and volunteer sources and a public call for information."
+  },
+  "summary_bg": "Полицията, Планинската спасителна служба и доброволци издирват 22-годишен мъж в района на „Златните мостове“ на Витоша. Той се е отправил към планината след среща с приятели във Владая, а екипите използват дрон и призовават свидетели да подадат сигнал на 112.",
+  "summary_en": "Police, Mountain Rescue and volunteers were searching for a 22-year-old man around Zlatnite Mostove on Vitosha. He headed toward the mountain after meeting friends in Vladaya, while teams used a drone and asked witnesses to call 112.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.99,
+    "evidence": "Сигнал за изчезнал човек без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "BTA and BNR attribution",
+      "specific rescue operation",
+      "public information appeal"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "МВР"
+    ],
+    "companies": [],
+    "places": [
+      "Витоша",
+      "Владая",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Витоша",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134-2317",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Владая",
+      "basis": "gazetteer_exact",
+      "id": "settlement:11394",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "crime-blotter",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2025-12-29T16:41:59+00:00"
+}

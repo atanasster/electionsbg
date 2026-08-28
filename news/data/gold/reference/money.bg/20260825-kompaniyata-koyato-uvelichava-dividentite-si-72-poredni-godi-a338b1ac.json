@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/money.bg/20260825-kompaniyata-koyato-uvelichava-dividentite-si-72-poredni-godi-a338b1ac.json",
+  "url": "https://money.bg/business/kompaniyata-koyato-uvelichava-dividentite-si-72-poredni-godini.html",
+  "domain": "money.bg",
+  "analyzed_at": "2026-08-28T15:43:38.876104+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Yahoo Finance-based company profile with dividend record, business model, investment plans and risk explanation."
+  },
+  "summary_bg": "American States Water увеличава дивидента си за 72-ра поредна година и оглавява списъка Dividend Kings с 361 поредни тримесечни плащания. Регулираните водни и електрически услуги осигуряват предвидими приходи, а компанията планира инвестиции до 220 млн. долара и нови придобивания.",
+  "summary_en": "American States Water raised its dividend for a 72nd consecutive year and leads the Dividend Kings list with 361 uninterrupted quarterly payments. Regulated water and electricity services provide predictable cash flow, while it plans up to $220 million in investment and new acquisitions.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.6,
+    "evidence": "Инвестиционният профил възхвалява стабилността, дивидентите и регулираната доходност, но не прави партийна теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.76,
+    "signals": [
+      "Yahoo Finance attribution",
+      "specific dividend history",
+      "business-segment and capital-plan detail"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-25T07:05:07+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "ref": "news/data/gold/reference",
+  "hyp": "news/data/gold/repeat/reference",
+  "ref_records": 240,
+  "hyp_records": 50,
+  "scored": 50,
+  "missing_from_hyp": 190,
+  "extra_in_hyp": 0,
+  "fields": {
+    "quality": {
+      "n": 50,
+      "accuracy": 0.98,
+      "confusion": {
+        "too_short->client_render_shell": 1
+      }
+    },
+    "topics": {
+      "n": 40,
+      "top1": 1.0,
+      "no_primary_in_reference": 10,
+      "confusion": {}
+    },
+    "mentions": {
+      "true_positives": 141,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "leaning": {
+      "n": 50,
+      "macro_f1": 0.978,
+      "ordinal_kappa": {
+        "kappa": 0.953,
+        "n": 35,
+        "excluded": 15
+      }
+    },
+    "russia_stance": {
+      "n": 50,
+      "macro_f1": 0.927,
+      "ordinal_kappa": {
+        "kappa": 0.939,
+        "n": 9,
+        "excluded": 41
+      }
+    },
+    "ai_generated": {
+      "n": 50,
+      "macro_f1": 0.917
+    }
+  },
+  "no_overall_score": "Fields are reported separately because majority not_applicable classes would dominate a single aggregate."
+}

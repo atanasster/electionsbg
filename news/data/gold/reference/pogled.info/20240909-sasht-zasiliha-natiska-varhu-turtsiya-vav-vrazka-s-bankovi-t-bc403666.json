@@ -1,0 +1,174 @@
+{
+  "article_path": "news/data/pogled.info/20240909-sasht-zasiliha-natiska-varhu-turtsiya-vav-vrazka-s-bankovi-t-bc403666.json",
+  "url": "https://pogled.info/svetoven/sasht-zasiliha-natiska-varhu-turtsiya-vav-vrazka-s-bankovi-tranzaktsii-s-rusiya.173226",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:13:14.277797+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "The lead article is complete, but it is followed by a long set of unrelated article teasers."
+  },
+  "summary_bg": "Турски банки засилват проверките и ограниченията върху преводи от и към Русия след нов американски санкционен пакет. Руският посланик и представител на Ziraat описват блокирани преводи и закрити сметки, като дипломатът обвинява Запада в целенасочено разрушаване на руско-турското сътрудничество.",
+  "summary_en": "Turkish banks have intensified checks and restrictions on transfers to and from Russia following a new US sanctions package. Russia's ambassador and a Ziraat representative describe blocked transfers and closed accounts, while the ambassador accuses the West of deliberately undermining Russian-Turkish cooperation.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Икономическо-санкционната тема не заема позиция по българската ляво-дясна ос."
+  },
+  "russia_stance": {
+    "label": "pro_russia",
+    "confidence": 0.85,
+    "evidence": "Публикацията разчита само на руски дипломатически и банкови източници и оставя без контрапункт твърдението, че Западът „целенасочено разрушава“ сътрудничеството."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.65,
+    "signals": [
+      "source-led wire structure",
+      "specific named bank and diplomat",
+      "large unrelated digest trailer"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Алексей Ерхов"
+    ],
+    "parties": [],
+    "institutions": [
+      "САЩ"
+    ],
+    "companies": [
+      "Ziraat"
+    ],
+    "places": [
+      "Турция",
+      "Русия",
+      "Анкара"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Яков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Витанов",
+      "basis": "gazetteer_exact",
+      "id": "nikolai-vitanov-vitanov-325bc6",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2024-09-09T08:11:03+00:00"
+}

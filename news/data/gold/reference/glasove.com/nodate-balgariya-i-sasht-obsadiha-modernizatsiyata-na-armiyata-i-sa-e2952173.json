@@ -1,0 +1,123 @@
+{
+  "article_path": "news/data/glasove.com/nodate-balgariya-i-sasht-obsadiha-modernizatsiyata-na-armiyata-i-sa-e2952173.json",
+  "url": "https://glasove.com/novini/balgariya-i-sasht-obsadiha-modernizatsiyata-na-armiyata-i-savmestnite-proekti",
+  "domain": "glasove.com",
+  "analyzed_at": "2026-08-28T15:29:08.927628+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete defence-ministry report on an official bilateral call and specific F-16 procurement issues, despite minor extraction debris."
+  },
+  "summary_bg": "Министърът на отбраната Димитър Стоянов и американският помощник-секретар Уилям Капелети обсъждат ускоряване на проектите за модернизация и доставките на F-16 Block 70. България пита и за употребявани F-16 като временно решение, докато продължава да използва МиГ-29 за охрана на въздушното пространство.",
+  "summary_en": "Defence Minister Dimitar Stoyanov and US Assistant Secretary William Cappelletti discussed accelerating modernisation projects and F-16 Block 70 deliveries. Bulgaria also asked about used F-16s as an interim option while continuing to use MiG-29s for air policing.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.88,
+    "evidence": "Официалната информация е предадена без редакционна оценка, макар да представя само институционалната позиция."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.72,
+    "evidence": "МиГ-29 е споменат като налична техника, без оценка на Русия или войната."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "defence ministry attribution",
+      "named participants",
+      "specific contract and delivery details"
+    ]
+  },
+  "entities": {
+    "people": [
+      "димитър стоянов",
+      "Емил Ефтимов",
+      "Любомир Монов"
+    ],
+    "parties": [],
+    "institutions": [
+      "министерство на отбраната"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "европа"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "министерство на отбраната",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "димитър стоянов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Димитър Анастасов Стоянов (person, mp, mp-2239)",
+        "Димитър Желязков Стоянов (person, mp, mp-5118)",
+        "Димитър Кинов Стоянов (person, mp, mp-193)",
+        "Димитър Стоянов Стоянов (person, mp, mp-2747)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Емил Ефтимов",
+      "basis": "gazetteer_exact",
+      "id": "emil-vasilev-eftimov-868c9f",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Любомир Монов",
+      "basis": "gazetteer_exact",
+      "id": "lyubomir-bogdanov-monov-31789e",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

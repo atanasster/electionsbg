@@ -1,0 +1,98 @@
+{
+  "article_path": "news/data/bnrnews.bg/20260819-mvr-prizna-za-formalen-podhod-sreshtu-detskata-agresiya-gotv-89bf0208.json",
+  "url": "https://bnrnews.bg/radiobulgaria/post/517451/mvr-prizna-za-formalen-podhod-sreshtu-detskata-agresiya-gotvi-nov-zakon",
+  "domain": "bnrnews.bg",
+  "analyzed_at": "2026-08-28T15:35:54.024879+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short institutional report with the proposed law, diagnosis of past failure and concrete prevention campaign."
+  },
+  "summary_bg": "МВР подготвя нов закон за противообществените прояви на непълнолетни, след като министър Иван Демерджиев определя досегашните мерки като формални и неефективни. Вместо трудно приложима забрана на социалните мрежи ведомството планира засилен контрол и кампания срещу насилието в над 1000 училища.",
+  "summary_en": "The Interior Ministry is preparing a new juvenile delinquency law after Minister Ivan Demerdzhiev called previous measures formal and ineffective. Rather than a hard-to-enforce social-media ban, it plans stronger controls and an anti-violence campaign in more than 1,000 schools.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.86,
+    "evidence": "Материалът предава самокритиката и плана на МВР без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "ministerial event attribution",
+      "specific campaign reach",
+      "editor credit"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иван Демерджиев",
+      "Георги Вълчев"
+    ],
+    "parties": [],
+    "institutions": [
+      "МВР",
+      "БЪЛГАРСКО НАЦИОНАЛНО РАДИО"
+    ],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Иван Демерджиев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5104",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Георги Вълчев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "БЪЛГАРСКО НАЦИОНАЛНО РАДИО",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "parliament",
+      "subcategory": "legislation",
+      "primary": true
+    },
+    {
+      "category": "education",
+      "subcategory": "schools",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-19T13:32:41+00:00"
+}

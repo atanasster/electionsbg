@@ -1,0 +1,85 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076139-rusnacite-napredvat-kam-pokrovsk-i-harkov-vsu-udarih-8dca67da.json",
+  "url": "https://fakti.bg/world/1076139-rusnacite-napredvat-kam-pokrovsk-i-harkov-vsu-udariha-eisk-i-samara",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:13:14.308658+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete battlefield roundup combining attributed Ukrainian reports, civilian casualties, and Ukrainian strikes in Russia."
+  },
+  "summary_bg": "Руските сили напредват край Покровск и в Харковска област, докато удари по Кривой Рог и Запорожие причиняват много цивилни жертви. Украйна отвръща с атаки срещу петролна и военна логистика в Ейск и Самара, а материалът завършва с възстановена техника от Украинската народна република.",
+  "summary_en": "Russian forces advanced near Pokrovsk and in Kharkiv Province as strikes on Kryvyi Rih and Zaporizhzhia caused heavy civilian casualties. Ukraine retaliated against oil and military logistics in Yeysk and Samara, while the report closes with restored equipment from the Ukrainian People's Republic.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Военният обзор не заема позиция по българската консервативно-прогресивна ос."
+  },
+  "russia_stance": {
+    "label": "strong_anti_russia",
+    "confidence": 0.95,
+    "evidence": "Силите са „руски окупационни“, ударът по мола е „брутален“ и „целенасочен“, а украинските действия са „успешна контраоперация“ срещу „тила на врага“."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.6,
+    "signals": [
+      "highly structured multi-section roundup",
+      "dense source citations",
+      "promotional language for one side",
+      "unusual unrelated historical closing section"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иван Федоров",
+      "Вячеслав Федорищев",
+      "Евген Коновалец"
+    ],
+    "parties": [],
+    "institutions": [
+      "ВСУ",
+      "DeepState",
+      "Генералния щаб на Въоръжените сили на Украйна"
+    ],
+    "companies": [
+      "Ozon",
+      "УкрАрмоТех"
+    ],
+    "places": [
+      "Украйна",
+      "Покровск",
+      "Харковска област",
+      "Кривой Рог",
+      "Запорожие",
+      "Ейск",
+      "Самара",
+      "Русия",
+      "Киев"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T15:01:44+00:00"
+}

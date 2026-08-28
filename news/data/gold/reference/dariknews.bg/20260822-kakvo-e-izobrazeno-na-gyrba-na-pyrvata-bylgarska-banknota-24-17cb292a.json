@@ -1,0 +1,101 @@
+{
+  "article_path": "news/data/dariknews.bg/20260822-kakvo-e-izobrazeno-na-gyrba-na-pyrvata-bylgarska-banknota-24-17cb292a.json",
+  "url": "https://dariknews.bg/regioni/gabrovo/kakvo-e-izobrazeno-na-gyrba-na-pyrvata-bylgarska-banknota-2463991",
+  "domain": "dariknews.bg",
+  "analyzed_at": "2026-08-28T15:42:05.844167+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete museum feature with named curator, project funding, launch event and historical details of the banknote."
+  },
+  "summary_bg": "Регионалният исторически музей в Габрово използва добавена реалност, за да показва гърба и неизвестни детайли от първата българска банкнота и още четири експоната. Банкнотата е 20 лева с номер 000001, издадена през 1885 г. и отпечатана в Санкт Петербург.",
+  "summary_en": "Gabrovo's Regional History Museum uses augmented reality to reveal the reverse and lesser-known details of Bulgaria's first banknote and four other exhibits. The banknote is the 20-lev number 000001, issued in 1885 and printed in Saint Petersburg.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Музейна и историческа новина без съвременна партийна рамка."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Санкт Петербург се споменава единствено като историческо място на печат, без оценка на Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "named museum curator",
+      "specific funded project and launch event",
+      "exact banknote number and issue history"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Кирков"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Габрово",
+      "габровци",
+      "равно"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Габрово",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Габрово (place, mir, mir:GAB)",
+        "Габрово (place, oblast, oblast:GAB)",
+        "Габрово (place, obshtina, obshtina:GAB05)",
+        "Габрово (place, settlement, settlement:14204)",
+        "Габрово (place, settlement, settlement:14218)",
+        "Габрово (place, settlement, settlement:14221)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "габровци",
+      "basis": "gazetteer_exact",
+      "id": "settlement:14235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "равно",
+      "basis": "gazetteer_exact",
+      "id": "settlement:61203",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Кирков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "municipal-problems",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T04:00:00+00:00"
+}

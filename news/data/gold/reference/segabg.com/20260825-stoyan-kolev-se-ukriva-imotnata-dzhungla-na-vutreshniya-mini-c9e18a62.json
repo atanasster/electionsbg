@@ -1,0 +1,149 @@
+{
+  "article_path": "news/data/segabg.com/20260825-stoyan-kolev-se-ukriva-imotnata-dzhungla-na-vutreshniya-mini-c9e18a62.json",
+  "url": "https://www.segabg.com/category-then/stoyan-kolev-se-ukriva-imotnata-dzhungla-na-vutreshniya-ministur",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:35:53.994539+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete satirical column using an invented narrative to mock the fugitive influencer case, policing failures and government rhetoric."
+  },
+  "summary_bg": "Сатиричният текст измисля, че издирваният инфлуенсър Стоян Колев се крие в „имотната джунгла“ на вътрешния министър и че електронната му гривна се е самозаглушила от възхищение към TikTok. Чрез абсурдни цитати от Иван Демерджиев и Антон Кутев колоната осмива МВР, технологичните оправдания и революционната реторика на властта.",
+  "summary_en": "The satire invents a story in which fugitive influencer Stoyan Kolev hides in the interior minister's 'property jungle' and his electronic tag disables itself out of admiration for TikTok. Through absurd quotations attributed to Ivan Demerdzhiev and Anton Kutev, it mocks police, technological excuses and the government's revolutionary rhetoric.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.68,
+    "evidence": "Сатирата атакува правителствени фигури чрез подигравки с „класова борба“, „прогресивното човечество“ и неспособността на МВР."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.94,
+    "signals": [
+      "sustained comic voice",
+      "locally specific political wordplay",
+      "deliberate absurdist section structure"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Колев",
+      "Демерджиев",
+      "Антон Кутев"
+    ],
+    "parties": [],
+    "institutions": [
+      "МВР",
+      "СДВР",
+      "ДАНС",
+      "КРС"
+    ],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Колев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Борис Тодоров Колев (person, mp, mp-2298)",
+        "Валентин Колев Колев (person, regional_governor, valentin-kolev-kolev-b81ac6)",
+        "Генчо Донев Колев (person, mayor, gencho-donev-kolev-3a0e05)",
+        "Георги Велков Колев (person, mp, mp-1064)",
+        "Георги Колев Колев (person, mp, mp-2707)",
+        "Георги Николов Колев (person, mp, mp-1777)",
+        "Димитър Асенов Колев (person, mp, mp-934)",
+        "Иван Дечков Колев (person, mp, mp-1043)",
+        "Кирил Красимиров Колев (person, mp, mp-1666)",
+        "Кольо Велков Колев (person, mp, mp-1881)",
+        "Красимир Крумов Колев (person, regional_governor, krasimir-krumov-kolev-49c13f)",
+        "Лъчезар Стефанов Колев (person, security_service, lchezar-stefanov-kolev-8fe957)",
+        "Миланчо Петров Колев (person, mp, mp-1864)",
+        "Никола Павлов Колев (person, regulator, nikola-pavlov-kolev-7897d3)",
+        "Николай Добринов Колев (person, regulator, nikolai-dobrinov-kolev-24f8b6)",
+        "Николай Красенов Колев (person, regional_governor, nikolai-krasenov-kolev-b4f404)",
+        "Николай Тонев Колев (person, mayor, nikolai-tonev-kolev-56f5a4)",
+        "Орлин Димитров Колев (person, regulator, orlin-dimitrov-kolev-4dcb23)",
+        "Орлин Колев (person, regulator, orlin-kolev-19722g)",
+        "Радостин Колев Колев (person, mp, mp-4624)",
+        "Светослав Бончев Колев (person, mp, mp-3481)",
+        "Христо Колев Колев (person, regional_governor, hristo-kolev-kolev-5141a8)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "СДВР",
+      "basis": "gazetteer_exact",
+      "id": "129009938",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "ДАНС",
+      "basis": "gazetteer_exact",
+      "id": "129009710",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "КРС",
+      "basis": "gazetteer_exact",
+      "id": "121747864",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Демерджиев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "person",
+      "surface": "Антон Кутев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5141",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "interior-mvr",
+      "primary": true
+    },
+    {
+      "category": "media-press",
+      "subcategory": "disinformation",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-25T20:07:09+00:00"
+}

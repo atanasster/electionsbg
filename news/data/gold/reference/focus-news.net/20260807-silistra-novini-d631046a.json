@@ -1,0 +1,49 @@
+{
+  "article_path": "news/data/focus-news.net/20260807-silistra-novini-d631046a.json",
+  "url": "https://www.focus-news.net/novini/regioni/silistra-novini",
+  "domain": "focus-news.net",
+  "analyzed_at": "2026-08-28T15:09:19.166364+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "This is a category landing-page label for Silistra news, not an article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: This is a category landing-page label for Silistra news, not an article.",
+  "summary_en": "The record does not contain a reliably extracted full article: This is a category landing-page label for Silistra news, not an article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Силистра",
+      "България"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-07T17:51:17+00:00"
+}

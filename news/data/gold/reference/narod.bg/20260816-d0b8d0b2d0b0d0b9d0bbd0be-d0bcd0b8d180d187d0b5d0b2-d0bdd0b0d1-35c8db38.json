@@ -1,0 +1,48 @@
+{
+  "article_path": "news/data/narod.bg/20260816-d0b8d0b2d0b0d0b9d0bbd0be-d0bcd0b8d180d187d0b5d0b2-d0bdd0b0d1-35c8db38.json",
+  "url": "https://narod.bg/2026/08/16/%d0%b8%d0%b2%d0%b0%d0%b9%d0%bb%d0%be-%d0%bc%d0%b8%d1%80%d1%87%d0%b5%d0%b2-%d0%bd%d0%b0%d1%81%d1%8a%d1%81%d0%ba%d0%b2%d0%b0-%d0%b1%d1%83%d0%bd%d1%82%d0%be%d0%b2%d0%b5-%d1%81%d1%80%d0%b5%d1%89%d1%83/",
+  "domain": "narod.bg",
+  "analyzed_at": "2026-08-28T15:09:19.186132+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "Only the headline and outlet name were extracted; there is no article body."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only the headline and outlet name were extracted; there is no article body.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only the headline and outlet name were extracted; there is no article body.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Ивайло Мирчев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-16T00:00:00+00:00"
+}

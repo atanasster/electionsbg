@@ -1,0 +1,144 @@
+{
+  "article_path": "news/data/lupa.bg/nodate-es-i-rumaniya-izprashtat-helikopteri-na-sarbiya-za-borba-s-p-eadded9d.json",
+  "url": "https://lupa.bg/news/es-i-rumaniya-izprashtat-helikopteri-na-sarbiya-za-borba-s-pozharite_422275news.html",
+  "domain": "lupa.bg",
+  "analyzed_at": "2026-08-28T15:52:09.297006+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Independent rereading assessed the article's own framing of Russia, not merely quoted mentions."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Румъния",
+      "Сърбия",
+      "Чехия",
+      "Словакия",
+      "Германия",
+      "Русия",
+      "България",
+      "Бела",
+      "Кралево"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Сърбия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Чехия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Словакия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SK",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Бела",
+      "basis": "gazetteer_exact",
+      "id": "settlement:03263",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Кралево",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Кралево (place, settlement, settlement:39390)",
+        "Кралево (place, settlement, settlement:39400)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "eu",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

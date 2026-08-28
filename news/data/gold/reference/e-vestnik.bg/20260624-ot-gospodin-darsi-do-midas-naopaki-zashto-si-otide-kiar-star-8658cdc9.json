@@ -1,0 +1,87 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260624-ot-gospodin-darsi-do-midas-naopaki-zashto-si-otide-kiar-star-8658cdc9.json",
+  "url": "https://e-vestnik.bg/40825/ot-gospodin-darsi-do-midas-naopaki-zashto-si-otide-kiar-starmar/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:40:30.690095+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete political retrospective with chronology, quotations, electoral context and an extended explanation of a prime minister's resignation."
+  },
+  "summary_bg": "Анализът проследява как Киър Стармър връща Лейбъристката партия на власт през 2024 г., но подава оставка две години по-късно след загуба на доверие в парламентарната група. Текстът разглежда юридическата му кариера, отстъплението от леви обещания, слабата изборна база и политическите решения, които превръщат образа му от стабилен технократ в „Мидас наопаки“.",
+  "summary_en": "The analysis traces how Keir Starmer returned Labour to power in 2024 but resigned two years later after losing his parliamentary group's confidence. It examines his legal career, retreat from left-wing pledges, weak electoral base and decisions that changed his image from stable technocrat to a 'reverse Midas'.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.7,
+    "evidence": "Материалът е критичен към Стармър и отляво, и заради управленска неефективност, без ясно да защитава конкурентна идеология."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.9,
+    "evidence": "Ако външната политика се споменава по-нататък, тя не прави Русия основен оценъчен предмет."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.7,
+    "signals": [
+      "unattributed polished long-form synthesis",
+      "dense biographical and electoral fact compression",
+      "repeated literary framing and balanced contrasts"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "ясен",
+      "Украйна",
+      "Иран"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "ясен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Ясен (place, settlement, settlement:87583)",
+        "Ясен (place, settlement, settlement:87597)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "government",
+      "subcategory": "coalition-politics",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-06-23T23:08:20+00:00"
+}

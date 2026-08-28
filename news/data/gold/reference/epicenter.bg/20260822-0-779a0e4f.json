@@ -1,0 +1,94 @@
+{
+  "article_path": "news/data/epicenter.bg/20260822-0-779a0e4f.json",
+  "url": "https://epicenter.bg/article/Germaniya-planira-arsenal-ot-dalekoboyni-orazhiya-za-pochti-12-mlrd--evro/429188/7/0",
+  "domain": "epicenter.bg",
+  "analyzed_at": "2026-08-28T15:18:02.250793+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Politico-based report on Germany's planned long-range conventional arsenal."
+  },
+  "summary_bg": "Германия планира близо 12 млрд. евро за крилати, американски и съвместно разработвани далекобойни оръжия, предназначени да възпират Русия. Първите системи трябва да влязат на въоръжение през 2027 г., а британско-германските разработки са планирани за следващото десетилетие.",
+  "summary_en": "Germany plans to spend nearly €12 billion on cruise missiles, US systems, and jointly developed long-range weapons intended to deter Russia. The first systems are due in 2027, with British-German projects planned for the following decade.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Фактологично представя отбранителни планове, бюджет и процедури за одобрение."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.85,
+    "evidence": "Русия е рамкирана като нарастваща заплаха, която може да атакува НАТО и срещу която е необходим нов възпиращ арсенал."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "Politico attribution",
+      "specific programme components and costs",
+      "named suppliers and parliamentary approval caveat"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Фридрих Мерц"
+    ],
+    "parties": [],
+    "institutions": [
+      "НАТО",
+      "Бундестага",
+      "Министерството на отбраната"
+    ],
+    "companies": [
+      "Covenant Industries",
+      "Fire Point"
+    ],
+    "places": [
+      "Германия",
+      "Русия",
+      "Украйна",
+      "Великобритания",
+      "САЩ"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T14:18:00+00:00"
+}

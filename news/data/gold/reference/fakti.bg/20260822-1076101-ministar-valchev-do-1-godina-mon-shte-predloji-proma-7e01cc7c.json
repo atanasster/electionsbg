@@ -1,0 +1,94 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076101-ministar-valchev-do-1-godina-mon-shte-predloji-proma-7e01cc7c.json",
+  "url": "https://fakti.bg/bulgaria/1076101-ministar-valchev-do-1-godina-mon-shte-predloji-promana-v-modela-na-finansirane-v-obrazovanieto",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:45:09.770210+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined broadcast report with financing diagnosis, examples, teacher-pay context and school-aid timing."
+  },
+  "summary_bg": "Министър Георги Вълчев обещава до година промяна на училищното финансиране, за да намали натиска върху малките училища и зависимостта от броя ученици. Той дава примери за незаслужени оценки и укрити отсъствия и защитава продължаващо увеличение на учителските заплати.",
+  "summary_en": "Minister Georgi Valchev promises within a year to change school funding to reduce pressure on small schools and dependence on pupil numbers. He cites undeserved grades and hidden absences and supports continued increases in teacher pay.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.86,
+    "evidence": "Планът и критиката са приписани на министъра с конкретни примери, без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named byline",
+      "Nova television interview",
+      "specific historical and workforce examples"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Вълчев",
+      "Георги Вълчев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Вълчев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Николов Вълчев (person, mp, mp-4876)",
+        "Андрей Христов Вълчев (person, mp, mp-4753)",
+        "Венко Стоянов Вълчев (person, mp, mp-1761)",
+        "Веселин Петров Вълчев (person, regional_governor, veselin-petrov-vlchev-c928b7)",
+        "Витко Здравков Вълчев (person, mp, mp-5176)",
+        "Георги Александров Вълчев (person, cabinet, georgi-aleksandrov-vlchev-156c19)",
+        "Даниел Василев Вълчев (person, mp, mp-191)",
+        "Димитър Георгиев Вълчев (person, regional_governor, dimitr-georgiev-vlchev-48ca20)",
+        "Ивайло Ванев Вълчев (person, mp, mp-4170)",
+        "Кирил Александров Вълчев (person, media_head, kiril-aleksandrov-vlchev-4bbcaa)",
+        "Красимир Георгиев Вълчев (person, mp, mp-5128)",
+        "Наско Колев Вълчев (person, revenue_agency, nasko-kolev-vlchev-98c244)",
+        "Радослав Йорданов Вълчев (person, mp, mp-5225)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Георги Вълчев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "education",
+      "subcategory": "schools",
+      "primary": true
+    },
+    {
+      "category": "budget-fiscal",
+      "subcategory": "state-budget",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T11:40:19+00:00"
+}

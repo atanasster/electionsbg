@@ -1,0 +1,201 @@
+{
+  "article_path": "news/data/pogled.info/20260822-putin-drapna-spirachkite-glavnata-tayna-na-rekordniya-udar-p-df769002.json",
+  "url": "https://pogled.info/svetoven/russia/putin-drapna-spirachkite-glavnata-tayna-na-rekordniya-udar-po-kiev-kakvo-ne-ni-kazva-ministerstvoto-na-otbranata-kodovo-ime-oreshnik-2m.196252",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:18:02.291420+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantive military analysis followed by a long unrelated digest trailer."
+  },
+  "summary_bg": "Анализът твърди, че Русия е променила въздушната си кампания към балистични ракети и реактивни дронове, които украинската ПВО трудно прихваща. Описва удари по авиационна инфраструктура и заводи като ефективен начин за ограничаване на украинските способности.",
+  "summary_en": "The analysis claims Russia has shifted its air campaign toward ballistic missiles and jet-powered drones that Ukrainian air defences struggle to intercept. It presents strikes on aviation infrastructure and factories as an effective way to constrain Ukrainian capabilities.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.75,
+    "evidence": "Военно-техническият анализ няма позиция по българската идеологическа ос."
+  },
+  "russia_stance": {
+    "label": "strong_pro_russia",
+    "confidence": 0.95,
+    "evidence": "Представя руските удари като високоефективни, украинското прихващане като клонящо към нула и целите като военни възли, без цивилни последици или украинска гледна точка."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.65,
+    "signals": [
+      "no named author",
+      "uniform technical register",
+      "generic claim to foreign media and military analyses",
+      "large unrelated digest trailer"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Путин"
+    ],
+    "parties": [],
+    "institutions": [
+      "НАТО",
+      "ПВО"
+    ],
+    "companies": [
+      "Антонов"
+    ],
+    "places": [
+      "Русия",
+      "Украйна",
+      "Киев",
+      "Одеса",
+      "Полтава"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Орешник",
+      "basis": "gazetteer_exact",
+      "id": "settlement:53802",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Молдова",
+      "basis": "gazetteer_exact",
+      "id": "settlement:MD",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Антонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Арлин Григоров Антонов (person, mp, mp-1738)",
+        "Борислав Антониев Антонов (person, mp, mp-3659)",
+        "Васил Миланов Антонов (person, mp, mp-2826)",
+        "Ивайло Петров Антонов (person, regional_governor, ivailo-petrov-antonov-183037)",
+        "Иван Милков Антонов (person, regional_governor, ivan-milkov-antonov-69d9fb)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Яков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Витанов",
+      "basis": "gazetteer_exact",
+      "id": "nikolai-vitanov-vitanov-325bc6",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T03:26:17+00:00"
+}

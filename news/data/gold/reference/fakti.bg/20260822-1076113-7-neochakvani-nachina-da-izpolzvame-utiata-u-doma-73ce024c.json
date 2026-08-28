@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076113-7-neochakvani-nachina-da-izpolzvame-utiata-u-doma-73ce024c.json",
+  "url": "https://fakti.bg/life/1076113-7-neochakvani-nachina-da-izpolzvame-utiata-u-doma",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:42:05.827622+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined household-advice list attributed to Martha Stewart, with safety caveats and step-by-step uses."
+  },
+  "summary_bg": "Материалът предлага седем нестандартни употреби на ютията у дома, включително премахване на восък, пастели и лепило и освежаване на текстил. За всяка задача са дадени стъпки, ниска температура и предупреждения за проверка на материала и защита на повърхностите.",
+  "summary_en": "The article offers seven unusual household uses for an iron, including removing wax, crayon and adhesive and refreshing textiles. Each task includes steps, low-heat guidance and warnings to test materials and protect surfaces.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Домакински съвети без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.76,
+    "signals": [
+      "named byline",
+      "Martha Stewart attribution",
+      "material-specific safety caveats"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "misc-filler",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:34:04+00:00"
+}

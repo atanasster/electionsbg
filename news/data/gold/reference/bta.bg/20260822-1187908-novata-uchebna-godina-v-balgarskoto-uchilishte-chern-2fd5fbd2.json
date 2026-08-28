@@ -1,0 +1,70 @@
+{
+  "article_path": "news/data/bta.bg/20260822-1187908-novata-uchebna-godina-v-balgarskoto-uchilishte-chern-2fd5fbd2.json",
+  "url": "https://www.bta.bg/bg/bg-world/1187908-novata-uchebna-godina-v-balgarskoto-uchilishte-chernorizets-hrabar-v-hamburg-s",
+  "domain": "bta.bg",
+  "analyzed_at": "2026-08-28T15:45:09.867738+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete diaspora school announcement with schedule, quoted invitation, administration and curriculum context."
+  },
+  "summary_bg": "Българското училище „Черноризец Храбър“ в Хамбург открива учебната година на 22 август с отделно посрещане за предучилищната група и първи клас. Училището се управлява от сдружение и преподава български език, литература, история и география по учебния план на МОН.",
+  "summary_en": "The Chernorizets Hrabar Bulgarian school in Hamburg opens its school year on 22 August with a separate welcome for preschool and first grade. Run by an association, it teaches Bulgarian language, literature, history and geography under Bulgaria's education curriculum.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Практическа новина за българско училище зад граница без партийна рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.94,
+    "signals": [
+      "named BTA reporter",
+      "school Facebook announcement",
+      "specific curriculum and organisation detail"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "diaspora",
+      "primary": true
+    },
+    {
+      "category": "education",
+      "subcategory": "schools",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T05:30:00+00:00"
+}

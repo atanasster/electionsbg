@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/chernomore.bg/20260822-313487-vremeto-vav-varna-na-22-avgust-2026-84724956.json",
+  "url": "https://www.chernomore.bg/a/2-varna/313487-vremeto-vav-varna-na-22-avgust-2026",
+  "domain": "chernomore.bg",
+  "analyzed_at": "2026-08-28T15:40:30.675030+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete concise local forecast including temperatures, cloud, wind, sea conditions and daylight."
+  },
+  "summary_bg": "Във Варна се очаква слънчево време с максимална температура около 29 градуса, слаб източен вятър и временно ниска облачност сутринта. Морската вода е 24–25 градуса, вълнението е три бала, а денят продължава 13 часа и 42 минути.",
+  "summary_en": "Varna will be sunny with a high around 29°C, light easterly wind and brief low morning cloud. Sea temperature is 24–25°C, waves are force three and daylight lasts 13 hours 42 minutes.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Прогноза за времето без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.7,
+    "signals": [
+      "standard local forecast structure",
+      "sea-state observations",
+      "sunrise and lunar phase detail"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Варна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Варна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10135",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "weather",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T05:30:00+00:00"
+}

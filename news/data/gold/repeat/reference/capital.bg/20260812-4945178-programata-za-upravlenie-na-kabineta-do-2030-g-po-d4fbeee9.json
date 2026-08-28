@@ -1,0 +1,287 @@
+{
+  "article_path": "news/data/capital.bg/20260812-4945178-programata-za-upravlenie-na-kabineta-do-2030-g-po-d4fbeee9.json",
+  "url": "https://www.capital.bg/politika_i_ikonomika/bulgaria/2026/08/12/4945178_programata_za_upravlenie_na_kabineta_do_2030_g_po/",
+  "domain": "capital.bg",
+  "analyzed_at": "2026-08-28T15:52:08.886132+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Румен Радев",
+      "Радев",
+      "Борисов",
+      "Пламен Тончев"
+    ],
+    "parties": [],
+    "institutions": [
+      "Народно събрание",
+      "МО",
+      "МВР",
+      "ДАНС"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "раздел",
+      "Европа",
+      "София",
+      "Пловдив",
+      "Варна",
+      "Русе",
+      "Бургас",
+      "Белене",
+      "Чирен",
+      "Гърция",
+      "Румъния",
+      "Северна Македония"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Румен Радев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Румен Георгиев Радев (person, president, mp-5142)",
+        "Румен Събев Радев (person, cabinet, rumen-sbev-radev-b6ce45)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "раздел",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Раздел (place, settlement, settlement:61724)",
+        "Раздел (place, settlement, settlement:61738)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Радев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Валентин Иванов Радев (person, mp, mp-4382)",
+        "Димитър Борисов Радев (person, central_bank, dimitr-borisov-radev-8ea8b1)",
+        "Димитър Радев (person, regulator, dimitar-radev-1ow3w1)",
+        "Евгений Николов Радев (person, security_service, evgenii-nikolov-radev-295450)",
+        "Елин Асенов Радев (person, mayor, elin-asenov-radev-b52558)",
+        "Емил Йорданов Радев (person, mp, mp-1568)",
+        "Муравей Георгиев Радев (person, mp, mp-2147)",
+        "Румен Георгиев Радев (person, president, mp-5142)",
+        "Румен Събев Радев (person, cabinet, rumen-sbev-radev-b6ce45)",
+        "Стефан Николов Радев (person, mayor, stefan-nikolov-radev-bd2315)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Пловдив",
+      "basis": "gazetteer_exact",
+      "id": "settlement:56784",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Варна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10135",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русе",
+      "basis": "gazetteer_exact",
+      "id": "settlement:63427",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Борисов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Бойко Методиев Борисов (person, mp, mp-5186)",
+        "Борис Вангелов Борисов (person, mp, mp-2790)",
+        "Борислав Иванов Борисов (person, mp, mp-2681)",
+        "Борислав Илиев Борисов (person, regional_governor, borislav-iliev-borisov-b4cba9)",
+        "Борислав Михайлов Борисов (person, mp, mp-2483)",
+        "Борислав Николов Борисов (person, mp, mp-1869)",
+        "Борислав Славчев Борисов (person, mp, mp-670)",
+        "Георги Христов Борисов (person, mp, mp-1708)",
+        "Жоро Христофоров Борисов (person, agency_head, zhoro-hristoforov-borisov-792ab1)",
+        "Иван Маринов Борисов (person, regional_governor, ivan-marinov-borisov-8791ae)",
+        "Йордан Петров Борисов (person, mp, mp-833)",
+        "Лъчезар Димитров Борисов (person, mp, mp-3054)",
+        "Николай Андреев Борисов (person, regional_governor, nikolai-andreev-borisov-64ce18)",
+        "Христо Симеонов Борисов (person, mp, mp-4456)",
+        "Юрий Митков Борисов (person, mp, mp-1884)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Белене",
+      "basis": "gazetteer_exact",
+      "id": "settlement:03366",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Чирен",
+      "basis": "gazetteer_exact",
+      "id": "settlement:81400",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Народно събрание",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МО",
+      "basis": "gazetteer_exact",
+      "id": "000695324",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Северна Македония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:MK",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "ДАНС",
+      "basis": "gazetteer_exact",
+      "id": "129009710",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Пламен Тончев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "government",
+      "subcategory": "cabinet-formation",
+      "primary": true
+    },
+    {
+      "category": "budget-fiscal",
+      "subcategory": "state-budget",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-12T19:37:00+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/bgdnes.bg/20260821-23420640-14d01b49.json",
+  "url": "https://www.bgdnes.bg/shou/article/23420640",
+  "domain": "bgdnes.bg",
+  "analyzed_at": "2026-08-28T15:37:33.302131+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A very brief but self-contained celebrity social-media item consisting of a quotation and contextual description."
+  },
+  "summary_bg": "Актьорът Филип Буков предупреждава последователите си да не приемат сериозно шеговитите му публикации. Той споделя посланието с видео от тренировка във фитнеса.",
+  "summary_en": "Actor Filip Bukov told followers not to take his joking posts seriously. He shared the message alongside a video from a gym workout.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Кратка знаменитостна публикация без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.68,
+    "signals": [
+      "specific social-media quotation",
+      "tabloid celebrity voice",
+      "self-contained contextual detail"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T12:00:00+00:00"
+}

@@ -1,0 +1,94 @@
+{
+  "article_path": "news/data/frognews.bg/20260821-bez-saglasie-minimalnata-zaplata-pravitelstvoto-istoricheski-4864947a.json",
+  "url": "https://frognews.bg/politika/bez-saglasie-minimalnata-zaplata-pravitelstvoto-istoricheski-probiv.html",
+  "domain": "frognews.bg",
+  "analyzed_at": "2026-08-28T15:34:07.818975+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete explanatory report comparing the proposed formula and competing government, union and employer positions."
+  },
+  "summary_bg": "Социалните партньори не постигат съгласие за минималната заплата през 2027 г., въпреки че правителството нарича преговорите исторически пробив. Обсъждат се диапазон 620–677 евро и четири равнопретеглени показателя, докато КНСБ и КТ „Подкрепа“ искат по-високи стойности и работодателите настояват за допълнителни данни.",
+  "summary_en": "Social partners failed to agree on the 2027 minimum wage despite the government calling the talks a historic breakthrough. A €620–677 corridor and four equally weighted indicators are discussed, while the two main unions seek higher values and employers want more data.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Заглавието подчертава противоречието, а текстът представя конкретно всички страни и формулата."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "specific negotiation positions",
+      "formula components",
+      "named ministers and unions"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Гълъб Донев",
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "равна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "равна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Равна (place, settlement, settlement:61073)",
+        "Равна (place, settlement, settlement:61090)",
+        "Равна (place, settlement, settlement:61100)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Гълъб Донев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5158",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "social-pensions",
+      "subcategory": "min-wage",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T15:40:00+00:00"
+}

@@ -1,0 +1,171 @@
+{
+  "article_path": "news/data/segabg.com/20260821-novata-formula-dade-67280-evro-minimalna-zaplata-0cd6a6f9.json",
+  "url": "https://www.segabg.com/hot/category-bulgaria/novata-formula-dade-67280-evro-minimalna-zaplata",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:35:53.931004+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete explanatory report with the formula inputs, numerical proposals and positions of all negotiating sides."
+  },
+  "summary_bg": "Новата формула определя 672,80 евро като горна граница за минималната заплата през 2027 г., но синдикати и работодатели не се споразумяват за размера. Работодателите предлагат 646,50 евро, синдикатите искат около 690 евро, а окончателното решение остава за правителството.",
+  "summary_en": "The new formula sets €672.80 as the upper bound for the 2027 minimum wage, but unions and employers did not agree on an amount. Employers proposed €646.50, unions sought about €690, and the final decision remains with the government.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Позициите и числата на всяка страна са представени отделно и точно."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "four-hour negotiation detail",
+      "named representatives",
+      "specific formula indicators and calculations"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Димитров",
+      "Митрев",
+      "Гълъб Донев",
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Димитров",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Апостол Иванов Димитров (person, mp, mp-18)",
+        "Благой Николаев Димитров (person, mp, mp-1836)",
+        "Богдан Димитров Димитров (person, party_leader, bogdan-dimitrov-dimitrov-8e6a66)",
+        "Бранимир Цанков Димитров (person, security_service, branimir-tsankov-dimitrov-27c873)",
+        "Валентин Вълчев Димитров (person, mayor, valentin-vlchev-dimitrov-2c58d8)",
+        "Валентин Христов Димитров (person, regional_governor, valentin-hristov-dimitrov-168f19)",
+        "Валери Георгиев Димитров (person, mp, mp-650)",
+        "Валери Райков Димитров (person, regional_governor, valeri-raikov-dimitrov-34cacb)",
+        "Венцеслав Асенов Димитров (person, mp, mp-2283)",
+        "Владимир Димитров Димитров (person, regional_governor, vladimir-dimitrov-dimitrov-651e6d)",
+        "Владимир Иванов Димитров (person, mp, mp-630)",
+        "Владислав Евгениев Димитров (person, mp, mp-933)",
+        "Георги Иванов Димитров (person, mayor, georgi-ivanov-dimitrov-b6eaa4)",
+        "Георги Йорданов Димитров (person, mp, mp-176)",
+        "Дарин Иванов Димитров (person, mp, mp-2414)",
+        "Деян Михайлов Димитров (person, regional_governor, deyan-mihailov-dimitrov-15bae1)",
+        "Дилян Станимиров Димитров (person, mp, mp-2873)",
+        "Димитър Велев Димитров (person, mp, mp-2238)",
+        "Димитър Генчев Димитров (person, regulator, dimitr-genchev-dimitrov-cc36a1)",
+        "Димитър Георгиев Димитров (person, mp, mp-2237)",
+        "Димитър Иванов Димитров (person, mp, mp-2023)",
+        "Димитър Илиев Димитров (person, mp, mp-564)",
+        "Димитър Колев Димитров (person, mayor, dimitr-kolev-dimitrov-ad6644)",
+        "Димитър Колев Димитров (person, mp, mp-1860)",
+        "Димитър Николов Димитров (person, mp, mp-2234)",
+        "Димитър Петров Димитров (person, mp, mp-2233)",
+        "Димитър Спасов Димитров (person, mp, mp-2501)",
+        "Диян Кирилов Димитров (person, regional_governor, diyan-kirilov-dimitrov-ad94d2)",
+        "Доброслав Дилянов Димитров (person, mp, mp-1558)",
+        "Дончо Йорданов Димитров (person, mp, mp-2225)",
+        "Драгомир Иванов Димитров (person, regional_governor, dragomir-ivanov-dimitrov-fbf922)",
+        "Евгени Стоянов Димитров (person, mp, mp-1804)",
+        "Емил Делчев Димитров (person, mp, mp-1034)",
+        "Жоро Димитров Димитров (person, secretary_general, zhoro-dimitrov-dimitrov-ec13de)",
+        "Здравко Димитров Димитров (person, mp, mp-2545)",
+        "Здравко Димитров Димитров (person, regional_governor, zdravko-dimitrov-dimitrov-3c0f58)",
+        "ИВАН ГРИГОРОВ ДИМИТРОВ (person, party_leader, ivan-grigorov-dimitrov-2e09b5)",
+        "Иван Димитров Димитров (person, regional_governor, ivan-dimitrov-dimitrov-9bd7bd)",
+        "Иван Драгомиров Димитров (person, mp, mp-5144)",
+        "Иван Йорданов Димитров (person, mp, mp-3537)",
+        "Иван Колев Димитров (person, mp, mp-1830)",
+        "Иван Тодоров Димитров (person, mp, mp-2500)",
+        "Иван Христов Димитров (person, mp, mp-2188)",
+        "Иван Цветков Димитров (person, regulator, ivan-tsvetkov-dimitrov-6c03f1)",
+        "Илин Павлинов Димитров (person, mp, mp-5067)",
+        "Илко Димитров Димитров (person, mp, mp-792)",
+        "Йордан Александров Димитров (person, regional_governor, iordan-aleksandrov-dimitrov-1b45aa)",
+        "Калин Николов Димитров (person, mp, mp-2178)",
+        "Кирчо Димитров Димитров (person, mp, mp-990)",
+        "Константин Стефанов Димитров (person, mp, mp-141)",
+        "Костадин Димитров Димитров (person, mayor, kostadin-dimitrov-dimitrov-6a6fdd)",
+        "Кристиян Роберт Димитров (person, mp, mp-1688)",
+        "Лазар Йорданов Димитров (person, revenue_agency, lazar-iordanov-dimitrov-ee04fb)",
+        "Мартин Димитров Димитров (person, mp, mp-5245)",
+        "Милен Атанасов Димитров (person, regional_governor, milen-atanasov-dimitrov-cc208b)",
+        "Митко Иванов Димитров (person, mp, mp-124)",
+        "Никола Ангелов Димитров (person, mp, mp-4907)",
+        "Николай Кирилов Димитров (person, mayor, nikolai-kirilov-dimitrov-60a289)",
+        "Павел Илиев Димитров (person, mp, mp-865)",
+        "Панайот Йорданов Димитров (person, regional_governor, panaiot-iordanov-dimitrov-02b5f7)",
+        "Петър Величков Димитров (person, cabinet, petr-velichkov-dimitrov-01e50e)",
+        "Петър Владимиров Димитров (person, mp, mp-899)",
+        "Петър Христов Димитров (person, mp, mp-3458)",
+        "Петър Христов Димитров (person, regional_governor, petr-hristov-dimitrov-a6b57c)",
+        "Радостин Иванов Димитров (person, mp, mp-1933)",
+        "Румен Ангелов Димитров (person, deputy_minister, rumen-angelov-dimitrov-5ec07b)",
+        "Свилен Колев Димитров (person, mp, mp-2127)",
+        "Спас Симеонов Димитров (person, mp, mp-1917)",
+        "Стефан Димитров Димитров (person, cabinet, stefan-dimitrov-dimitrov-10f6ab)",
+        "Стефан Йорданов Димитров (person, regional_governor, stefan-iordanov-dimitrov-771f8e)",
+        "Тодор Атанасов Димитров (person, mp, mp-971)",
+        "Филип Димитров Димитров (person, mp, mp-1897)",
+        "Христо Иванов Димитров (person, mp, mp-2041)",
+        "Цветан Василев Димитров (person, deputy_minister, tsvetan-vasilev-dimitrov-c92372)",
+        "Цветан Иванов Димитров (person, mp, mp-2024)",
+        "Юлиан Георгиев Димитров (person, mp, mp-5329)",
+        "Юлиян Тодоров Димитров (person, regional_governor, yuliyan-todorov-dimitrov-b63871)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Митрев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "person",
+      "surface": "Гълъб Донев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5158",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "social-pensions",
+      "subcategory": "min-wage",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T15:15:16+00:00"
+}

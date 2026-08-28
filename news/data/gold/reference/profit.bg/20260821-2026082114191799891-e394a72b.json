@@ -1,0 +1,102 @@
+{
+  "article_path": "news/data/profit.bg/20260821-2026082114191799891-e394a72b.json",
+  "url": "https://profit.bg/article/2026082114191799891",
+  "domain": "profit.bg",
+  "analyzed_at": "2026-08-28T15:30:38.604143+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete BTA-based legal and diplomatic report with attributed allegations and procedural status."
+  },
+  "summary_bg": "Турция е започнала процедура за червен бюлетин на Интерпол за Бенямин Нетаняху и други лица заради прехващането на хуманитарната флотилия „Глобал Сумуд“. Турският министър на правосъдието посочва национални заповеди за арест и обвинения в геноцид, престъпления срещу човечеството и други престъпления.",
+  "summary_en": "Turkey began seeking an Interpol red notice for Benjamin Netanyahu and others over the interception of the Global Sumud humanitarian flotilla. The Turkish justice minister cited domestic arrest warrants and allegations including genocide and crimes against humanity.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.88,
+    "evidence": "Всички тежки обвинения са ясно приписани на турските власти и медии, без редакционно установяване на вина."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "BTA and Turkish press attribution",
+      "named justice minister",
+      "specific procedural and charge list"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "министерство на външните работи"
+    ],
+    "companies": [],
+    "places": [
+      "Турция",
+      "червен",
+      "Израел"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "червен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Червен (place, settlement, settlement:80437)",
+        "Червен (place, settlement, settlement:80443)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "министерство на външните работи",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Израел",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IL",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "judiciary",
+      "subcategory": "high-profile-cases",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T14:24:00+00:00"
+}

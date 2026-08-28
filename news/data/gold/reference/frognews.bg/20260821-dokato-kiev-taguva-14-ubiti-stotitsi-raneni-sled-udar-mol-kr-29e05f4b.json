@@ -1,0 +1,77 @@
+{
+  "article_path": "news/data/frognews.bg/20260821-dokato-kiev-taguva-14-ubiti-stotitsi-raneni-sled-udar-mol-kr-29e05f4b.json",
+  "url": "https://frognews.bg/svqt/dokato-kiev-taguva-14-ubiti-stotitsi-raneni-sled-udar-mol-krivoi-rog.html",
+  "domain": "frognews.bg",
+  "analyzed_at": "2026-08-28T15:10:51.890134+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete report on Russian strikes and casualties, with attributed Ukrainian and Russian regional accounts."
+  },
+  "summary_bg": "Руски дронове поразяват търговски център в Кривой Рог, като според местните власти загиват 14 души и 121 са ранени. Материалът включва и други руски удари, украинска атака в Белгородска област и траура в Киев след предходен тежък обстрел.",
+  "summary_en": "Russian drones struck a shopping centre in Kryvyi Rih, killing 14 people and injuring 121 according to local authorities. The report also covers other Russian strikes, a Ukrainian attack in Belgorod Province, and mourning in Kyiv after an earlier heavy bombardment.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Политико-военната новина е фактологична и приписва оценъчните думи на Зеленски и местните власти, без позиция по българската идеологическа ос."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.9,
+    "evidence": "Заглавието и подборът акцентират върху цивилните жертви от руски удари, а текстът цитира определението „абсолютно циничен и мерзък удар“, макар да споменава и украинска атака в Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "attributed casualty figures",
+      "named local officials",
+      "embedded contemporaneous social post",
+      "wire-report structure"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Олександър Викул",
+      "Зеленски",
+      "Иван Вигивски"
+    ],
+    "parties": [],
+    "institutions": [
+      "градския Съвет за отбрана"
+    ],
+    "companies": [],
+    "places": [
+      "Кривой Рог",
+      "Украйна",
+      "Днепропетровска област",
+      "Николаевска област",
+      "Белгородска област",
+      "Киев"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T16:05:00+00:00"
+}

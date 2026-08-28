@@ -1,0 +1,84 @@
+{
+  "article_path": "news/data/vesti.bg/20260822-franciia-uskoriava-dostavkata-na-voenna-pomosht-za-ukrajna-6-ad899c85.json",
+  "url": "https://www.vesti.bg/sviat/franciia-uskoriava-dostavkata-na-voenna-pomosht-za-ukrajna-6268245",
+  "domain": "vesti.bg",
+  "analyzed_at": "2026-08-28T15:18:02.326236+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short report based on Zelensky's announcement of accelerated French military aid."
+  },
+  "summary_bg": "Володимир Зеленски съобщава, че Франция ще ускори доставките на модерна военна техника и ракети за украинската противовъздушна отбрана. Париж е готов и да предостави лицензи за производство на ракети в Украйна.",
+  "summary_en": "Volodymyr Zelensky said France would accelerate deliveries of modern military equipment and missiles for Ukrainian air defence. Paris is also prepared to license missile production in Ukraine.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.85,
+    "evidence": "Новината преразказва украинско изявление и технически детайли без позиция по българската ос."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.85,
+    "evidence": "Русия не е назована; материалът е за конкретна френско-украинска доставка."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "named byline",
+      "embedded official post",
+      "specific weapons-system detail"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Володимир Зеленски",
+      "Еманюел Макрон"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Украйна",
+      "Франция",
+      "Париж",
+      "Киев"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T15:41:00+00:00"
+}

@@ -1,0 +1,105 @@
+{
+  "article_path": "news/data/dariknews.bg/20260822-rumynskiiat-decebal-zadylzhitelna-spirka-do-bylgarskata-gran-ec2c758a.json",
+  "url": "https://dariknews.bg/novini/liubopitno/rumynskiiat-decebal-zadylzhitelna-spirka-do-bylgarskata-granica-2464345",
+  "domain": "dariknews.bg",
+  "analyzed_at": "2026-08-28T15:32:34.141566+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete travel feature with monument history, dimensions, construction detail, prices and visitor logistics."
+  },
+  "summary_bg": "Скалният релеф на дакийския владетел Дечебал при Железни врата в Румъния е представен като близка туристическа дестинация за българи. Материалът описва размерите му, десетгодишното опасно изграждане, частното финансиране и лодъчните маршрути до паметника и околните пещери.",
+  "summary_en": "The rock relief of Dacian ruler Decebalus at Romania's Iron Gates is presented as a nearby destination for Bulgarian tourists. The feature covers its dimensions, hazardous ten-year construction, private financing and boat trips to the monument and nearby caves.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.99,
+    "evidence": "Туристически материал без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.72,
+    "signals": [
+      "practical visitor pricing",
+      "specific construction history",
+      "travel-feature structure"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "пролом",
+      "Румъния",
+      "Европа",
+      "скала",
+      "Видин"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "пролом",
+      "basis": "gazetteer_exact",
+      "id": "settlement:58616",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "скала",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Скала (place, settlement, settlement:66682)",
+        "Скала (place, settlement, settlement:66696)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Видин",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10971",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "misc-filler",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T05:36:00+00:00"
+}

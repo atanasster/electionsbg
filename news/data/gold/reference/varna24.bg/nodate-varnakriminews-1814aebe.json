@@ -1,0 +1,49 @@
+{
+  "article_path": "news/data/varna24.bg/nodate-varnakriminews-1814aebe.json",
+  "url": "https://www.varna24.bg/novini/varna/varnakriminews",
+  "domain": "varna24.bg",
+  "analyzed_at": "2026-08-28T15:09:19.188963+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A crime-category teaser truncated with an ellipsis, followed by address and newsletter boilerplate."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A crime-category teaser truncated with an ellipsis, followed by address and newsletter boilerplate.",
+  "summary_en": "The record does not contain a reliably extracted full article: A crime-category teaser truncated with an ellipsis, followed by address and newsletter boilerplate.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Варна",
+      "Пловдив"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

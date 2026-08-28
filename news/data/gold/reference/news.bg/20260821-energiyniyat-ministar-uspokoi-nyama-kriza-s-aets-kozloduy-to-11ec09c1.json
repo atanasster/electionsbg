@@ -1,0 +1,132 @@
+{
+  "article_path": "news/data/news.bg/20260821-energiyniyat-ministar-uspokoi-nyama-kriza-s-aets-kozloduy-to-11ec09c1.json",
+  "url": "https://news.bg/energy/energiyniyat-ministar-uspokoi-nyama-kriza-s-aets-kozloduy-tokat-e-osiguren.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:48:27.489500+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined ministry-briefing report with reduced output, river-level cause, system balance, contingency generation and long-term need."
+  },
+  "summary_bg": "АЕЦ „Козлодуй“ работи с намалена мощност заради ниското ниво на Дунав, но енергийната система, износът и снабдяването на домакинствата са осигурени. Министър Ива Петрова казва, че други централи могат да заместят мощността, внос не се налага и ще се търси дългосрочно решение при бъдещи засушавания.",
+  "summary_en": "Kozloduy nuclear plant is operating at reduced power because of low Danube levels, but the grid, exports and household supply remain secure. Minister Iva Petrova says other plants can replace output, imports are unnecessary and a long-term solution is needed for future droughts.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Уверенията и резервните планове са приписани на министъра, АЕЦ и НЕК; заглавието не скрива намалената мощност."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "named byline",
+      "multi-official briefing",
+      "specific grid, export and replacement-capacity claims"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Ива Петрова",
+      "Петрова",
+      "Георги Добрев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Козлодуй"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Козлодуй",
+      "basis": "gazetteer_exact",
+      "id": "settlement:37798",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Ива Петрова",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Петрова",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Адриана Василева Петрова (person, secretary_general, adriana-vasileva-petrova-30707b)",
+        "Антоанета Желязкова Петрова (person, regional_governor, antoaneta-zhelyazkova-petrova-ae67c5)",
+        "Бисерка Борова Петрова (person, mp, mp-917)",
+        "Валя Стефанова Петрова (person, cabinet, valya-stefanova-petrova-271eb4)",
+        "Вяра Димитрова Петрова (person, mp, mp-1076)",
+        "Вяра Радкова Петрова (person, mp, mp-5278)",
+        "ДЕСИСЛАВА ЕВГЕНИЕВА ПЕТРОВА (person, regional_governor, desislava-evgenieva-petrova-61ce68)",
+        "Даниела Маринова Петрова (person, mp, mp-858)",
+        "Златица Георгиева Петрова (person, agency_head, zlatitsa-georgieva-petrova-a81c6a)",
+        "Ива Венциславова Петрова (person, deputy_minister, iva-ventsislavova-petrova-c05e81)",
+        "Ивелина Петрова Петрова (person, regional_governor, ivelina-petrova-petrova-63c294)",
+        "Клара Петкова Петрова (person, mp, mp-567)",
+        "Константина Венциславова Петрова (person, mp, mp-4756)",
+        "Кристияна Методиева Петрова (person, mp, mp-880)",
+        "Маргарита Василева Петрова (person, mp, mp-2076)",
+        "Мариета Иванова Петрова (person, mayor, marieta-ivanova-petrova-6aa81c)",
+        "Маринела Пиринова Петрова (person, deputy_minister, marinela-pirinova-petrova-aedbfb)",
+        "Мария Михайлова Петрова (person, cabinet, mariya-mihailova-petrova-2306a7)",
+        "Мария Цветанова Петрова (person, mp, mp-3439)",
+        "Марта Георгиева Петрова (person, agency_head, marta-georgieva-petrova-d86570)",
+        "Милена Иванова Петрова (person, regional_governor, milena-ivanova-petrova-fe4115)",
+        "Мирослава Петрова Петрова (person, mp, mp-4378)",
+        "Надежда Петрова Петрова (person, cabinet, nadezhda-petrova-petrova-faa7b5)",
+        "Надя Йорданова Петрова (person, mp, mp-5155)",
+        "Нели Рускова Петрова (person, mp, mp-2759)",
+        "Паунита Михайлова Петрова (person, mp, mp-3409)",
+        "Румяна Любенова Петрова (person, mp, mp-5261)",
+        "Султанка Димитрова Петрова (person, mp, mp-2564)",
+        "ТАНЯ РАЙЧЕВА ПЕТРОВА (person, deputy_minister, tanya-raicheva-petrova-012408)",
+        "Таня Тодорова Петрова (person, mp, mp-3116)",
+        "Христина Георгиева Петрова (person, mp, mp-649)",
+        "Цанка Тодорова Петрова (person, regulator, tsanka-todorova-petrova-189571)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Георги Добрев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "energy",
+      "subcategory": "nuclear",
+      "primary": true
+    },
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T11:38:00+00:00"
+}

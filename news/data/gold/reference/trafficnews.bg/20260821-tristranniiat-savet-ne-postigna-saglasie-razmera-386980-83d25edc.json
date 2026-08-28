@@ -1,0 +1,103 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-tristranniiat-savet-ne-postigna-saglasie-razmera-386980-83d25edc.json",
+  "url": "https://trafficnews.bg/bulgaria/tristranniiat-savet-ne-postigna-saglasie-razmera-386980/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:34:07.697334+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete labour-policy report presenting government, union and employer positions and the proposed wage corridor."
+  },
+  "summary_bg": "Правителство, синдикати и работодатели не постигат съгласие за размера на минималната заплата през 2027 г., макар да продължават работа по нов механизъм. Синдикатите искат по-висока и устойчива база, работодателите предлагат по-ниска стойност, а правителството ще вземе окончателното решение в рамките на обсъждания диапазон.",
+  "summary_en": "The government, unions and employers failed to agree on the 2027 minimum wage despite continuing work on a new mechanism. Unions seek a higher sustainable floor, employers propose a lower amount, and the government will make the final decision within the discussed range.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Материалът отделя и приписва позициите на синдикати, работодатели и правителство."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "post-meeting quotations",
+      "named representatives",
+      "detailed mechanism timeline"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Атанас Кацарчев",
+      "Гълъб Донев",
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "равна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Атанас Кацарчев",
+      "basis": "gazetteer_exact",
+      "id": "atanas-slavchev-katsarchev-2778f0",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Гълъб Донев",
+      "basis": "gazetteer_exact",
+      "id": "mp-5158",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "равна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Равна (place, settlement, settlement:61073)",
+        "Равна (place, settlement, settlement:61090)",
+        "Равна (place, settlement, settlement:61100)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "social-pensions",
+      "subcategory": "min-wage",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T16:08:00+00:00"
+}

@@ -1,0 +1,218 @@
+{
+  "article_path": "news/data/bgnes.bg/20260820-20-mln-evro-i-nadprevara-s-vremeto-burgas-zapochna-podgotovk-6173a1cc.json",
+  "url": "https://www.bgnes.bg/20-mln-evro-i-nadprevara-s-vremeto-burgas-zapochna-podgotovkata-za-evroviziq",
+  "domain": "bgnes.bg",
+  "analyzed_at": "2026-08-28T15:27:31.137838+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete agency report with detailed government and mayoral statements, funding figures, procurement deadlines and logistical plans."
+  },
+  "summary_bg": "Правителството предвижда около 20 млн. евро през 2026 г. за подготовката на Бургас за „Евровизия“, включително 15 млн. евро гаранция, а още средства ще има в бюджета за 2027 г. Вицепремиерът Иво Христов и кметът Димитър Николов описват ускорени обществени поръчки, инфраструктурни и технически задачи и тестов концерт до края на годината.",
+  "summary_en": "The government plans about €20 million in 2026 to prepare Burgas for Eurovision, including a €15 million guarantee, with further funding in the 2027 budget. Deputy Prime Minister Ivo Hristov and Mayor Dimitar Nikolov describe accelerated procurement, infrastructure and technical work, and a test concert by year-end.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Агенционният текст е положително ориентиран към официалния план, но приписва всички оценки и дава проверими бюджетни и процедурни детайли."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "agency attribution",
+      "on-site meeting quotations",
+      "specific procurement and venue milestones"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иво Христов",
+      "Димитър Николов",
+      "Христов",
+      "Николов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Бургас",
+      "България",
+      "Китай"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Иво Христов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Димитър Николов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Димитър Андонов Николов (person, mp, mp-4575)",
+        "Димитър Николов Николов (person, mayor, dimitr-nikolov-nikolov-34bd74)",
+        "Димитър Стойков Николов (person, mp, mp-4739)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Христов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Асен Асенов Христов (person, mp, mp-2002)",
+        "Валентин Венциславов Христов (person, mayor, valentin-ventsislavov-hristov-aff4c9)",
+        "Валентин Йорданов Христов (person, mp, mp-1991)",
+        "Васил Димитров Христов (person, mayor, vasil-dimitrov-hristov-12d555)",
+        "Велислав Руменов Христов (person, party_leader, velislav-rumenov-hristov-6f814b)",
+        "Георги Паскалев Христов (person, regulator, georgi-paskalev-hristov-9c678d)",
+        "Дилян Йорданов Христов (person, security_service, dilyan-iordanov-hristov-6b3b34)",
+        "Емануил Христов Христов (person, agency_head, emanuil-hristov-hristov-2980b8)",
+        "Емил Маринов Христов (person, mp, mp-2716)",
+        "ИВАЙЛО ХАРАЛАМПИЕВ ХРИСТОВ (person, deputy_minister, ivailo-haralampiev-hristov-d9d3e8)",
+        "Ивайло Христов Христов (person, mp, mp-5218)",
+        "Иван Петров Христов (person, regional_governor, ivan-petrov-hristov-5b1758)",
+        "Иво Ангелов Христов (person, mp, mp-3346)",
+        "Калин Димитров Христов (person, central_bank, kalin-dimitrov-hristov-e3774a)",
+        "Кристиян Христов Христов (person, mayor, kristiyan-hristov-hristov-3f192f)",
+        "Лазар Валентинов Христов (person, security_service, lazar-valentinov-hristov-370f0f)",
+        "Любомир Димитров Христов (person, mp, mp-4923)",
+        "Людмил Христов Христов (person, regional_governor, lyudmil-hristov-hristov-ba7812)",
+        "Маринчо Христов Христов (person, regional_governor, marincho-hristov-hristov-890f81)",
+        "Минко Найденов Христов (person, mp, mp-2081)",
+        "Михаил Ивайлов Христов (person, mp, mp-2701)",
+        "Моньо Христов Христов (person, mp, mp-2148)",
+        "Николай Емилов Христов (person, mp, mp-3432)",
+        "Николай Иванов Христов (person, mp, mp-2097)",
+        "Павел Алексеев Христов (person, mp, mp-4632)",
+        "Пламен Трифонов Христов (person, mp, mp-2692)",
+        "Пламен Христов Христов (person, regional_governor, plamen-hristov-hristov-7424b5)",
+        "Росен Иванов Христов (person, cabinet, rosen-ivanov-hristov-62720a)",
+        "Румен Димитров Христов (person, mp, mp-5152)",
+        "Румен Христов Христов (person, regional_governor, rumen-hristov-hristov-1a2991)",
+        "Сашко Дончев Христов (person, security_service, sashko-donchev-hristov-5bc243)",
+        "Слави Драганов Христов (person, regional_governor, slavi-draganov-hristov-85ec6c)",
+        "Станимир Христов Христов (person, military_command, stanimir-hristov-hristov-8f1fd1-2)",
+        "Стоян Христов Христов (person, regional_governor, stoyan-hristov-hristov-d0a59e)",
+        "Христо Атанасов Христов (person, mayor, hristo-atanasov-hristov-69c3c2)",
+        "Христо Видолов Христов (person, mayor, hristo-vidolov-hristov-0bbb0d)",
+        "Христо Георгиев Христов (person, military_command, hristo-georgiev-hristov-19b69b)",
+        "Христо Георгиев Христов (person, mp, mp-2001)",
+        "Христо Димитров Христов (person, mayor, hristo-dimitrov-hristov-54f8e5)",
+        "Христо Димитров Христов (person, mp, mp-876)",
+        "Христо Иванов Христов (person, mp, mp-1894)",
+        "Цветомил Ресенков Христов (person, security_service, tsvetomil-resenkov-hristov-a2d088)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Николов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Ангелов Николов (person, cabinet, aleksandr-angelov-nikolov-593df5)",
+        "Александър Богданов Николов (person, mp, mp-3455)",
+        "Александър Георгиев Николов (person, mp, mp-3872)",
+        "Андрей Петров Николов (person, regional_governor, andrei-petrov-nikolov-2c3b0c)",
+        "Бисер Каменов Николов (person, regional_governor, biser-kamenov-nikolov-8d8b76)",
+        "Борис Стефанов Николов (person, mp, mp-782)",
+        "ВЛАДИМИР ДИМИТРОВ НИКОЛОВ (person, party_leader, vladimir-dimitrov-nikolov-d1373d)",
+        "Валентин Алексиев Николов (person, mp, mp-2670)",
+        "Владимир Милчев Николов (person, mp, mp-5188)",
+        "Владимир Николов Николов (person, mp, mp-2263)",
+        "Владислав Тошков Николов (person, mp, mp-2824)",
+        "Генко Стефанов Николов (person, secretary_general, genko-stefanov-nikolov-504cc7)",
+        "Георги Николов Николов (person, deputy_minister, georgi-nikolov-nikolov-dad9af)",
+        "Георги Николов Николов (person, mp, mp-2252)",
+        "Данаил Валентинов Николов (person, deputy_minister, danail-valentinov-nikolov-16ca6e)",
+        "Деян Николаев Николов (person, mp, mp-4314)",
+        "Димитър Андонов Николов (person, mp, mp-4575)",
+        "Димитър Николов Николов (person, mayor, dimitr-nikolov-nikolov-34bd74)",
+        "Димитър Стойков Николов (person, mp, mp-4739)",
+        "Иван Василев Николов (person, mp, mp-2019)",
+        "Ивелин Николаев Николов (person, mp, mp-940)",
+        "Ивелин Николов Николов (person, mp, mp-892)",
+        "Йото Пламенов Николов (person, revenue_agency, ioto-plamenov-nikolov-b637a9)",
+        "Красимир Николов Николов (person, cabinet, krasimir-nikolov-nikolov-1f44e8)",
+        "Красимир Христов Николов (person, mp, mp-3148)",
+        "Марин Райков Николов (person, deputy_minister, marin-raikov-nikolov-28a0bb)",
+        "Никола Благоев Николов (person, cabinet, nikola-blagoev-nikolov-b3158b)",
+        "Никола Богданов Николов (person, mp, mp-746)",
+        "Никола Джипов Николов (person, mp, mp-2093)",
+        "Николай Асенов Николов (person, regional_governor, nikolai-asenov-nikolov-90e6fb)",
+        "Николай Рачев Николов (person, deputy_minister, nikolai-rachev-nikolov-31c5b7)",
+        "Николай Руменов Николов (person, regional_governor, nikolai-rumenov-nikolov-73b521)",
+        "Николай Симеонов Николов (person, mp, mp-662)",
+        "Николай Славев Николов (person, deputy_minister, nikolai-slavev-nikolov-17dfea)",
+        "Орлин Георгиев Николов (person, social_fund, orlin-georgiev-nikolov-690f24)",
+        "Петър Николаев Николов (person, mp, mp-4590)",
+        "Пламен Николаев Николов (person, mp, mp-3710)",
+        "Райко Маринов Николов (person, cabinet, raiko-marinov-nikolov-d8847d)",
+        "Станислав Николаев Николов (person, regional_governor, stanislav-nikolaev-nikolov-183388)",
+        "Томи Младенов Николов (person, regional_governor, tomi-mladenov-nikolov-2d3f8f)",
+        "Цветозар Милчов Николов (person, revenue_agency, tsvetozar-milchov-nikolov-e86f55)",
+        "Юри Валентинов Николов (person, security_service, yuri-valentinov-nikolov-fbafa5)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "budget-fiscal",
+      "subcategory": "state-budget",
+      "primary": true
+    },
+    {
+      "category": "procurement",
+      "subcategory": "tenders",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T11:02:00+00:00"
+}

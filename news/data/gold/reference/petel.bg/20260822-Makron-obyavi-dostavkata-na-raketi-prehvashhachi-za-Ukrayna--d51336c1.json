@@ -1,0 +1,74 @@
+{
+  "article_path": "news/data/petel.bg/20260822-Makron-obyavi-dostavkata-na-raketi-prehvashhachi-za-Ukrayna--d51336c1.json",
+  "url": "https://petel.bg/Makron-obyavi-dostavkata-na-raketi-prehvashhachi-za-Ukrayna__665751",
+  "domain": "petel.bg",
+  "analyzed_at": "2026-08-28T15:15:15.757316+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short AFP/BTA report on promised air-defence support after Russian strikes."
+  },
+  "summary_bg": "Еманюел Макрон обещава френски ракети прехващачи за украинската противовъздушна отбрана след руски удари по Кривой Рог. Той призовава и други държави да помогнат и свиква среща на „Коалицията на желаещите“ с Фридрих Мерц и Анди Бърнам.",
+  "summary_en": "Emmanuel Macron promised French interceptor missiles for Ukraine's air defence after Russian strikes on Kryvyi Rih. He urged other countries to help and convened a Coalition of the Willing meeting with Friedrich Merz and Andy Burnham.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Фактологична външнополитическа новина с приписани изказвания."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.9,
+    "evidence": "Руските балистични атаки са рамкирани през „ужаса“ на Макрон и необходимостта Украйна да получи средства за защита."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "AFP and BTA attribution",
+      "direct social-media quote",
+      "wire-copy structure"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Еманюел Макрон",
+      "Володимир Зеленски",
+      "Фридрих Мерц",
+      "Анди Бърнам"
+    ],
+    "parties": [],
+    "institutions": [
+      "Коалицията на желаещите"
+    ],
+    "companies": [],
+    "places": [
+      "Франция",
+      "Украйна",
+      "Кривой рог"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T16:08:47+00:00"
+}

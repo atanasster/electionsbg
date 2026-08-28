@@ -1,0 +1,55 @@
+{
+  "article_path": "news/data/bnrnews.bg/20260820-chasat-na-radio-balgariya-broy-111-c7b2a016.json",
+  "url": "https://bnrnews.bg/radiobulgaria/post/517903/chasat-na-radio-balgariya-broy-111",
+  "domain": "bnrnews.bg",
+  "analyzed_at": "2026-08-28T15:29:09.006232+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A programme schedule and contact notice with no episode content or substantive article body."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A programme schedule and contact notice with no episode content or substantive article body.",
+  "summary_en": "The record does not contain a reliably extracted full article: A programme schedule and contact notice with no episode content or substantive article body.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Програмно съобщение без политическа теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "programme metadata rather than prose article"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Стоименова",
+      "Ботев",
+      "Мартинов"
+    ],
+    "parties": [],
+    "institutions": [
+      "БЪЛГАРСКО НАЦИОНАЛНО РАДИО"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "Виетнам"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T12:00:28+00:00"
+}

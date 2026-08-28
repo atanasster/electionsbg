@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/epicenter.bg/20260822-0-f5f234b1.json",
+  "url": "https://epicenter.bg/article/Eksperti-veshtayat-nay-tezhkata-i-surova-zima-za-Ukrayna-ot-2014-godina-nasam/429161/7/0",
+  "domain": "epicenter.bg",
+  "analyzed_at": "2026-08-28T15:22:39.815301+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "The stored body concatenates several unrelated items—winter energy risk, a Zaluzhny rumour, EU aid, and a Polish-Ukrainian local dispute—rather than one coherent article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The stored body concatenates several unrelated items—winter energy risk, a Zaluzhny rumour, EU aid, and a Polish-Ukrainian local dispute—rather than one coherent article.",
+  "summary_en": "The record does not contain a reliably extracted full article: The stored body concatenates several unrelated items—winter energy risk, a Zaluzhny rumour, EU aid, and a Polish-Ukrainian local dispute—rather than one coherent article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Украйна",
+      "шумен",
+      "правда",
+      "Швеция",
+      "Полша",
+      "Европа",
+      "Германия"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T08:51:00+00:00"
+}

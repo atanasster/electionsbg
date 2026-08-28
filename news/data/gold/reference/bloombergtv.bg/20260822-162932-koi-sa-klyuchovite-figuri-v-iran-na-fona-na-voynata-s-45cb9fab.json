@@ -1,0 +1,103 @@
+{
+  "article_path": "news/data/bloombergtv.bg/20260822-162932-koi-sa-klyuchovite-figuri-v-iran-na-fona-na-voynata-s-45cb9fab.json",
+  "url": "https://www.bloombergtv.bg/a/2-novini/162932-koi-sa-klyuchovite-figuri-v-iran-na-fona-na-voynata-sas-sasht-i-izrael",
+  "domain": "bloombergtv.bg",
+  "analyzed_at": "2026-08-28T15:15:15.869219+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Bloomberg profile guide to Iran's principal leaders during the war."
+  },
+  "summary_bg": "Профилът представя ключовите твърдолинейни, консервативни, реформаторски и технократски фигури в иранското ръководство след промени, предизвикани от войната със САЩ и Израел. За всеки са описани институционалната роля, военните връзки, санкциите и позицията за преговори или продължаване на конфликта.",
+  "summary_en": "The profile introduces the hard-line, conservative, reformist and technocratic figures leading Iran after wartime upheaval caused by conflict with the United States and Israel. It outlines each person's institutional role, military links, sanctions status, and position on negotiations or continued fighting.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Политическите ориентации са описателни характеристики на ирански фигури, а не редакционна позиция по българската ос."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на анализа."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "Bloomberg profile format",
+      "specific institutional biographies",
+      "named sanctions and historical events"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Моджтаба Хаменей",
+      "Али Хаменей",
+      "Мохсен Резаи",
+      "Масуд Пезешкиан",
+      "Ебрахим Раиси"
+    ],
+    "parties": [],
+    "institutions": [
+      "IRGC",
+      "Върховния съвет за национална сигурност"
+    ],
+    "companies": [
+      "Bloomberg"
+    ],
+    "places": [
+      "Иран",
+      "САЩ",
+      "Израел",
+      "Техеран"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Израел",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Рамадан",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Оман",
+      "basis": "gazetteer_exact",
+      "id": "settlement:53504",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T13:03:00+00:00"
+}

@@ -1,0 +1,93 @@
+{
+  "article_path": "news/data/blitz.bg/20260822-klimatolog-balkanskiyat-poluostrov-e-nay-goreshtata-chast-na-977aa42a.json",
+  "url": "https://blitz.bg/analizi-i-komentari/klimatolog-balkanskiyat-poluostrov-e-nay-goreshtata-chast-na-evropa-v-momenta_news1168406.html",
+  "domain": "blitz.bg",
+  "analyzed_at": "2026-08-28T15:30:38.502777+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete broadcast-derived weather forecast with measured anomalies, rainfall ranges and fire-risk warning."
+  },
+  "summary_bg": "Климатологът Симеон Матев отчита Балканите като най-горещата част на Европа с температури около и над 40 градуса. Очакват се временно захлаждане, локално значителни валежи, много висок риск от пожари и кратък нов горещ пик в края на август.",
+  "summary_en": "Climatologist Simeon Matev says the Balkans are currently Europe's hottest region, with temperatures around and above 40°C. A temporary cooling, locally heavy rain, very high fire risk and another brief heat peak at the end of August are expected.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Прогноза за времето без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "named television guest",
+      "specific regional forecast",
+      "source outlet attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Матев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Европа",
+      "България",
+      "Сърбия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Сърбия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Матев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "weather",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:28:00+00:00"
+}

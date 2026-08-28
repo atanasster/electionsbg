@@ -1,0 +1,109 @@
+{
+  "article_path": "news/data/glasove.com/nodate-tramp-zatana-v-iran-i-grandiozna-koruptsiya-dogodina-shte-go-66fb7c16.json",
+  "url": "https://glasove.com/komentari/tramp-zatana-v-iran-i-grandiozna-koruptsiya-dogodina-shte-go-mahnat-ot-beliya-dom",
+  "domain": "glasove.com",
+  "analyzed_at": "2026-08-28T15:52:09.325127+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "strong_progressive",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Independent rereading assessed the article's own framing of Russia, not merely quoted mentions."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [
+      "нова сила"
+    ],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Иран",
+      "патица",
+      "Саудитска Арабия",
+      "Катар",
+      "Албания"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "нова сила",
+      "basis": "gazetteer_exact",
+      "id": "p_117",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "патица",
+      "basis": "gazetteer_exact",
+      "id": "settlement:55568",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Саудитска Арабия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Катар",
+      "basis": "gazetteer_exact",
+      "id": "settlement:QA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Албания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AL",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

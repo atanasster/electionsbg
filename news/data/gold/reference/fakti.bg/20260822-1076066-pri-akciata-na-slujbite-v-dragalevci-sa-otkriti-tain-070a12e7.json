@@ -1,0 +1,98 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076066-pri-akciata-na-slujbite-v-dragalevci-sa-otkriti-tain-070a12e7.json",
+  "url": "https://fakti.bg/bulgaria/1076066-pri-akciata-na-slujbite-v-dragalevci-sa-otkriti-taini-koridori-i-tunel",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:48:27.441325+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A concise but complete bylined Nova-sourced investigative update with search locations, physical findings and seized evidence."
+  },
+  "summary_bg": "МВР, ДАНС и КРС продължават разследването на GPS заглушителя в „Драгалевци“, като при претърсвания намират тайни коридори и тунел между ресторант и къща. Проверяват се свързани имоти в София и Капитан Андреево, откъдето охранители опитали да изхвърлят техника; иззети са устройства, видеозаписи, оръжия и радиостанции.",
+  "summary_en": "Police, security and communications agencies continued investigating the Dragalevtsi GPS jammer, finding secret passages and a tunnel between a restaurant and house. Linked Sofia and Kapitan Andreevo properties were searched; guards allegedly tried to discard equipment, and devices, video records, weapons and radios were seized.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Твърденията са приписани на Nova и текущата акция; няма партийна оценка, макар информацията да е драматична."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Русия не е назована и произходът или предназначението не са приписани."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "named byline",
+      "Nova attribution",
+      "specific search and seizure details"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "МВР",
+      "ДАНС",
+      "КРС"
+    ],
+    "companies": [],
+    "places": [
+      "Капитан Андреево"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "ДАНС",
+      "basis": "gazetteer_exact",
+      "id": "129009710",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "КРС",
+      "basis": "gazetteer_exact",
+      "id": "121747864",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Капитан Андреево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:36110",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "interior-mvr",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T08:22:44+00:00"
+}

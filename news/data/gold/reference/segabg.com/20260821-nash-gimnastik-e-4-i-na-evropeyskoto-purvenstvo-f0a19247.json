@@ -1,0 +1,188 @@
+{
+  "article_path": "news/data/segabg.com/20260821-nash-gimnastik-e-4-i-na-evropeyskoto-purvenstvo-f0a19247.json",
+  "url": "https://www.segabg.com/category-sport/nash-gimnastik-e-4-i-na-evropeyskoto-purvenstvo",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:39:03.964248+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete competition report with scores, ranking, comparison to qualifying and forthcoming Bulgarian finalists."
+  },
+  "summary_bg": "Давид Иванов завършва четвърти на кон с гривни на европейското първенство по гимнастика в Загреб с 14,700 точки, само на 0,200 от медал. Материалът дава класирането, предстоящите български финали и индивидуалните квоти за световното първенство.",
+  "summary_en": "David Ivanov finished fourth on pommel horse at the European Gymnastics Championships in Zagreb with 14.700 points, 0.200 short of a medal. The report gives the ranking, upcoming Bulgarian finals and individual World Championship quotas.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.99,
+    "evidence": "Спортен репортаж без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.75,
+    "evidence": "Руски гимнастик е споменат единствено в резултатното класиране, без оценка на Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "exact apparatus scores",
+      "qualification comparison",
+      "next-day finals context"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иванов",
+      "Трифонов",
+      "Пенев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Иванов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Койчев Иванов (person, mp, mp-5124)",
+        "Андрей Алексиев Иванов (person, mayor, andrei-aleksiev-ivanov-a940ef)",
+        "Боян Минков Иванов (person, mayor, boyan-minkov-ivanov-de5a2e)",
+        "Валентин Николов Иванов (person, mp, mp-2447)",
+        "Велко Вълканов Иванов (person, mp, mp-2284)",
+        "Владимир Иванов Иванов (person, mp, mp-1524)",
+        "Георги Пинчев Иванов (person, mp, mp-2251)",
+        "Георги Стефанов Иванов (person, audit_court, georgi-stefanov-ivanov-6b9de7)",
+        "Георги Хрисимиров Иванов (person, mp, mp-4847)",
+        "Деян Иванов Иванов (person, mayor, deyan-ivanov-ivanov-fff5a9)",
+        "Дими Първанов Иванов (person, security_service, dimi-prvanov-ivanov-1ae9ca)",
+        "Димитър Ангелов Иванов (person, mp, mp-4906)",
+        "Димитър Иванов Иванов (person, mayor, dimitr-ivanov-ivanov-4a1c9e)",
+        "Димитър Иванов Иванов (person, military_command, dimitr-ivanov-ivanov-5e8820)",
+        "Димитър Цветанов Иванов (person, regional_governor, dimitr-tsvetanov-ivanov-4946f6)",
+        "Димитър Цонков Иванов (person, mp, mp-2231)",
+        "Евгений Спасов Иванов (person, mp, mp-806)",
+        "Емил Кирилов Иванов (person, mp, mp-1567)",
+        "Жеко Стоянов Иванов (person, mp, mp-1811)",
+        "Здравко Владимиров Иванов (person, mayor, zdravko-vladimirov-ivanov-68fa5b-2)",
+        "ИВО КИРИЛОВ ИВАНОВ (person, regional_governor, ivo-kirilov-ivanov-9932e2)",
+        "Ивайло Ангелов Иванов (person, mp, mp-4430)",
+        "Иван Валентинов Иванов (person, mp, mp-4818)",
+        "Иван Георгиев Иванов (person, mp, mp-1822)",
+        "Иван Данаилов Иванов (person, mp, mp-5012)",
+        "Иван Димитров Иванов (person, mp, mp-928)",
+        "Иван Димов Иванов (person, mp, mp-2760)",
+        "Иван Драганов Иванов (person, military_command, ivan-draganov-ivanov-57b333)",
+        "Иван Йосифов Иванов (person, mp, mp-2196)",
+        "Иван Кирилов Иванов (person, mp, mp-2400)",
+        "Иван Костадинов Иванов (person, mp, mp-2194)",
+        "Иван Любчев Иванов (person, regional_governor, ivan-lyubchev-ivanov-10b24d)",
+        "Иван Матеев Иванов (person, mp, mp-793)",
+        "Иван Миленов Иванов (person, party_leader, ivan-milenov-ivanov-288106)",
+        "Иван Николаев Иванов (person, mp, mp-1044)",
+        "Иван Николаев Иванов (person, regulator, ivan-nikolaev-ivanov-b459ff)",
+        "Иван Николов Иванов (person, mp, mp-1835)",
+        "Иван Пейков Иванов (person, deputy_minister, ivan-peikov-ivanov-fbb0f4)",
+        "Иван Пенков Иванов (person, mp, mp-2408)",
+        "Иван Петков Иванов (person, regional_governor, ivan-petkov-ivanov-edc70f)",
+        "Иван Петров Иванов (person, mp, mp-1059)",
+        "Иван Славов Иванов (person, mp, mp-2496)",
+        "Иван Тодоров Иванов (person, mayor, ivan-todorov-ivanov-0f30fa)",
+        "Иван Тодоров Иванов (person, mp, mp-891)",
+        "Ивелин Статев Иванов (person, mp, mp-4272)",
+        "Иво Венелинов Иванов (person, military_command, ivo-venelinov-ivanov-210d29)",
+        "Иво Диков Иванов (person, regulator, ivo-dikov-ivanov-8fb424)",
+        "Йордан Яворов Иванов (person, mp, mp-5193)",
+        "Йохан Цветанов Иванов (person, revenue_agency, iohan-tsvetanov-ivanov-c53d41)",
+        "Калин Ивайлов Иванов (person, mp, mp-3787)",
+        "Калоян Тошков Иванов (person, mp, mp-5111)",
+        "Красимир Веселинов Иванов (person, regional_governor, krasimir-veselinov-ivanov-27da82)",
+        "Красимир Цеков Иванов (person, mp, mp-5211)",
+        "ЛЮБЕН ИВАНОВ ИВАНОВ (person, mp, mp-5082)",
+        "Лъчезар Богомилов Иванов (person, mp, mp-5126)",
+        "Любомир Тодоров Иванов (person, mp, mp-920)",
+        "Мартин Стоянов Иванов (person, mp, mp-2558)",
+        "Мирослав Николаев Иванов (person, mp, mp-5300)",
+        "Михаил Ванюшев Иванов (person, regional_governor, mihail-vanyushev-ivanov-6f3b0a)",
+        "Момчил Кунчев Иванов (person, mp, mp-3572)",
+        "Недко Георгиев Иванов (person, regional_governor, nedko-georgiev-ivanov-473165)",
+        "Николай Георгиев Иванов (person, mp, mp-2784)",
+        "Павлин Стоилов Иванов (person, regional_governor, pavlin-stoilov-ivanov-873cb4)",
+        "Пламен Иванов Иванов (person, mp, mp-2115)",
+        "Пламен Колев Иванов (person, regulator, plamen-kolev-ivanov-3e4464)",
+        "Радослав Теодоров Иванов (person, mp, mp-816)",
+        "Росен Живков Иванов (person, mp, mp-2778)",
+        "Росен Красимиров Иванов (person, mp, mp-4761)",
+        "Румен Иванов Иванов (person, mp, mp-2440)",
+        "Свилен Филипов Иванов (person, mp, mp-2560)",
+        "Симеон Ненов Иванов (person, mp, mp-5210)",
+        "Славомир Тодоров Иванов (person, regional_governor, slavomir-todorov-ivanov-76a3fa)",
+        "Станислав Георгиев Иванов (person, mp, mp-4931)",
+        "Станислав Стоянов Иванов (person, mp, mp-2695)",
+        "Стефан Неделчев Иванов (person, regional_governor, stefan-nedelchev-ivanov-e5f1cd)",
+        "Стоян Иванов Иванов (person, mp, mp-854)",
+        "Стоян Проданов Иванов (person, mp, mp-185)",
+        "Стоян Щилиянов Иванов (person, cabinet, stoyan-shtiliyanov-ivanov-960abc)",
+        "Тихомир Иванов Иванов (person, regulator, tihomir-ivanov-ivanov-60b2c3)",
+        "Тодор Георгиев Иванов (person, regional_governor, todor-georgiev-ivanov-ec31d7)",
+        "Тодор Динков Иванов (person, regional_governor, todor-dinkov-ivanov-453851)",
+        "Тома Иванов Иванов (person, agency_head, toma-ivanov-ivanov-69e7f9)",
+        "Христо Иванов Иванов (person, mp, mp-2040)",
+        "Христо Любомиров Иванов (person, mp, mp-4536)",
+        "Янко Атанасов Иванов (person, deputy_minister, yanko-atanasov-ivanov-951b12)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Пенев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Веселин Вълев Пенев (person, mp, mp-1517)",
+        "Веселин Малинов Пенев (person, regional_governor, veselin-malinov-penev-ab46ec)",
+        "Георги Пенев Пенев (person, military_command, georgi-penev-penev-dd9fc2)",
+        "Милко Асенов Пенев (person, mp, mp-3522)",
+        "Николай Димитров Пенев (person, mp, mp-2656)",
+        "Петко Илиев Пенев (person, mp, mp-2105)",
+        "Ради Димитров Пенев (person, security_service, radi-dimitrov-penev-2f6711)",
+        "Радко Димитров Пенев (person, military_command, radko-dimitrov-penev-d5c1fc)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "sports",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T18:01:51+00:00"
+}

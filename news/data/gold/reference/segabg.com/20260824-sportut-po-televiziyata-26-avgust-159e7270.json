@@ -1,0 +1,59 @@
+{
+  "article_path": "news/data/segabg.com/20260824-sportut-po-televiziyata-26-avgust-159e7270.json",
+  "url": "https://www.segabg.com/category-sport/sportut-po-televiziyata-26-avgust",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:30:38.618348+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A bare television sports schedule listing fixtures and times, not a prose news article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A bare television sports schedule listing fixtures and times, not a prose news article.",
+  "summary_en": "The record does not contain a reliably extracted full article: A bare television sports schedule listing fixtures and times, not a prose news article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Спортна програмна таблица без политическа теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "schedule metadata rather than authored prose"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Левски"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Финландия",
+      "България",
+      "Молдова",
+      "Австрия",
+      "Франция",
+      "Италия",
+      "Сърбия",
+      "Гърция",
+      "Германия",
+      "Турция"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-24T11:34:56+00:00"
+}

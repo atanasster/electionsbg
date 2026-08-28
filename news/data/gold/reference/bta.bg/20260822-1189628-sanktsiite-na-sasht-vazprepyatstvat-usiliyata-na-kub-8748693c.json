@@ -1,0 +1,96 @@
+{
+  "article_path": "news/data/bta.bg/20260822-1189628-sanktsiite-na-sasht-vazprepyatstvat-usiliyata-na-kub-8748693c.json",
+  "url": "https://www.bta.bg/bg/news/economy/1189628-sanktsiite-na-sasht-vazprepyatstvat-usiliyata-na-kuba-da-otvori-ikonomikata-za-c",
+  "domain": "bta.bg",
+  "analyzed_at": "2026-08-28T15:20:32.204623+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Associated Press report presenting multiple perspectives on Cuban reforms and US sanctions."
+  },
+  "summary_bg": "Куба разширява възможностите за частен бизнес и чужди инвестиции, но американските санкции, енергийната криза и ембаргото ограничават реформите. Кубински, американски и независими експерти спорят дали целта на Вашингтон е либерализация или смяна на режима.",
+  "summary_en": "Cuba is expanding opportunities for private business and foreign investment, but US sanctions, the energy crisis, and the embargo constrain the reforms. Cuban, US, and independent experts disagree over whether Washington seeks liberalisation or regime change.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "AP материалът включва кубинския посланик, Държавния департамент и експерти с различни оценки."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на материала."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.95,
+    "signals": [
+      "BTA byline",
+      "Associated Press sourcing",
+      "multiple named experts",
+      "detailed reform measures"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Ернесто Соберон Гусман",
+      "Марко Рубио",
+      "Доналд Тръмп",
+      "Уилям ЛеоГранде",
+      "Джон Кавулич",
+      "Мигел Диас-Канел",
+      "Барак Обама"
+    ],
+    "parties": [],
+    "institutions": [
+      "ООН",
+      "Държавният департамент на САЩ"
+    ],
+    "companies": [
+      "Мелиа",
+      "Асошиейтед прес"
+    ],
+    "places": [
+      "САЩ",
+      "Куба",
+      "Хавана",
+      "Венецуела"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Куба",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Южна Америка",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:SA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T09:33:24+00:00"
+}

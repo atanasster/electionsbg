@@ -1,0 +1,267 @@
+{
+  "article_path": "news/data/pik.bg/20260821-горещо-политическо-лято-калфин-разкодира-посланието-на-лавро-b46b2dc6.json",
+  "url": "https://pik.bg/горещо-политическо-лято-калфин-разкодира-посланието-на-лавров-за-радев-и-разкри-има-ли-реа-news1350475.html",
+  "domain": "pik.bg",
+  "analyzed_at": "2026-08-28T15:18:02.188737+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete extended interview covering Iran, Russia, Ukraine, NATO, and the Bulgarian government's first 100 days."
+  },
+  "summary_bg": "Ивайло Калфин оценява риска от ирански удари като ограничен, но настоява България да работи за край на конфликта и да подобри противоракетната си отбрана. Той тълкува думите на Сергей Лавров като опит за влияние върху проруски настроени българи и критикува неясната комуникация на кабинета на Румен Радев.",
+  "summary_en": "Ivaylo Kalfin considers the risk of Iranian strikes limited but urges Bulgaria to work for an end to the conflict and improve missile defence. He interprets Sergei Lavrov's comments as an attempt to influence pro-Russian Bulgarians and criticises the Rumen Radev cabinet's unclear communication.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.65,
+    "evidence": "Подкрепя ЕС, общата европейска отбрана, институционална яснота и дистанция от руска зависимост, без силна социално-икономическа позиция."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.9,
+    "evidence": "Калфин описва думите на Лавров като заиграване с хора, които искат България „да сме зависими от Русия“, и защитава координацията с ЕС и помощта за Украйна."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "long verbatim interview answers",
+      "specific Bulgarian policy disputes",
+      "spoken-language repetitions"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Ивайло Калфин",
+      "Румен Радев",
+      "Сергей Лавров"
+    ],
+    "parties": [],
+    "institutions": [
+      "НАТО",
+      "Европейския съюз"
+    ],
+    "companies": [
+      "Financial Times",
+      "Дарик"
+    ],
+    "places": [
+      "България",
+      "Иран",
+      "САЩ",
+      "Израел",
+      "Русия",
+      "Украйна",
+      "Европа"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Ивайло Калфин",
+      "basis": "gazetteer_exact",
+      "id": "mp-2484",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Радев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Валентин Иванов Радев (person, mp, mp-4382)",
+        "Димитър Борисов Радев (person, central_bank, dimitr-borisov-radev-8ea8b1)",
+        "Димитър Радев (person, regulator, dimitar-radev-1ow3w1)",
+        "Евгений Николов Радев (person, security_service, evgenii-nikolov-radev-295450)",
+        "Елин Асенов Радев (person, mayor, elin-asenov-radev-b52558)",
+        "Емил Йорданов Радев (person, mp, mp-1568)",
+        "Муравей Георгиев Радев (person, mp, mp-2147)",
+        "Румен Георгиев Радев (person, president, mp-5142)",
+        "Румен Събев Радев (person, cabinet, rumen-sbev-radev-b6ce45)",
+        "Стефан Николов Радев (person, mayor, stefan-nikolov-radev-bd2315)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Румен Радев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Румен Георгиев Радев (person, president, mp-5142)",
+        "Румен Събев Радев (person, cabinet, rumen-sbev-radev-b6ce45)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Безмер",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Безмер (place, settlement, settlement:03215)",
+        "Безмер (place, settlement, settlement:03229)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Израел",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Италия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IT",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Бойко Борисов",
+      "basis": "gazetteer_exact",
+      "id": "mp-5186",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Делян Пеевски",
+      "basis": "gazetteer_exact",
+      "id": "mp-5100",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Илияна Йотова",
+      "basis": "gazetteer_exact",
+      "id": "mp-1588",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "party",
+      "surface": "Прогресивна България",
+      "basis": "gazetteer_exact",
+      "id": "p_20",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Стефанов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Ангел Георгиев Стефанов (person, mayor, angel-georgiev-stefanov-02c075-2)",
+        "Бранимир Огнянов Стефанов (person, regional_governor, branimir-ognyanov-stefanov-8b5d9a)",
+        "Васил Стефанов Стефанов (person, mp, mp-5014)",
+        "Георги Сашков Стефанов (person, cabinet, georgi-sashkov-stefanov-49b96d)",
+        "Димитър Венков Стефанов (person, mayor, dimitr-venkov-stefanov-b35968-2)",
+        "Димитър Георгиев Стефанов (person, mp, mp-1790)",
+        "Димитър Иванов Стефанов (person, mp, mp-585)",
+        "Красимир Неделчев Стефанов (person, mp, mp-1597)",
+        "МИЛЧО АТАНАСОВ СТЕФАНОВ (person, regional_governor, milcho-atanasov-stefanov-3d6b64)",
+        "Николай Иванов Стефанов (person, cabinet, nikolai-ivanov-stefanov-02ca4f)",
+        "Стефан Красимиров Стефанов (person, regional_governor, stefan-krasimirov-stefanov-87a721)",
+        "Стефан Маринов Стефанов (person, mp, mp-1866)",
+        "Стойко Стойчев Стефанов (person, mayor, stoiko-stoichev-stefanov-e8c114)",
+        "Христо Валентинов Стефанов (person, deputy_minister, hristo-valentinov-stefanov-d253f8)",
+        "Цанко Илиев Стефанов (person, secretary_general, tsanko-iliev-stefanov-3ea42a)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "government",
+      "subcategory": "coalition-politics",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T19:30:00+00:00"
+}

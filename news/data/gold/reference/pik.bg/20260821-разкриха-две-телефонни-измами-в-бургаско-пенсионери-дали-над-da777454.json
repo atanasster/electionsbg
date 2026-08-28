@@ -1,0 +1,116 @@
+{
+  "article_path": "news/data/pik.bg/20260821-разкриха-две-телефонни-измами-в-бургаско-пенсионери-дали-над-da777454.json",
+  "url": "https://pik.bg/разкриха-две-телефонни-измами-в-бургаско-пенсионери-дали-над-7000-евро-news1350574.html",
+  "domain": "pik.bg",
+  "analyzed_at": "2026-08-28T15:22:40.092653+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short police brief on two telephone fraud cases."
+  },
+  "summary_bg": "Полицията задържа двама мъже за телефонни измами, при които възрастни хора от Порой и Трояново са предали общо 7250 евро. Заподозрените са признали участие, а документирането на дейността продължава.",
+  "summary_en": "Police detained two men over telephone scams in which elderly residents of Poroy and Troyanovo handed over a total of €7,250. The suspects confessed and the investigation continues.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Криминална полицейска хроника без политическа тема."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "specific police units",
+      "exact dates and amounts",
+      "brief police-release structure"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "ОДМВР – Бургас",
+      "Районното управление в Камено"
+    ],
+    "companies": [],
+    "places": [
+      "Бургаска област",
+      "Камено",
+      "Научене",
+      "Порой",
+      "Трояново"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Камено",
+      "basis": "gazetteer_exact",
+      "id": "settlement:35883",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Научене",
+      "basis": "gazetteer_exact",
+      "id": "settlement:51161",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Порой",
+      "basis": "gazetteer_exact",
+      "id": "settlement:57790",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Трояново",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Трояново (place, settlement, settlement:73211)",
+        "Трояново (place, settlement, settlement:73225)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "община Камено",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "crime-blotter",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T14:15:00+00:00"
+}

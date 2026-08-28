@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-blizo-7000-uchenitsi-se-iaviavat-popravitelen-zrelosten-3868-2cf9b408.json",
+  "url": "https://trafficnews.bg/bulgaria/blizo-7000-uchenitsi-se-iaviavat-popravitelen-zrelosten-386894/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:35:54.014215+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete education-ministry service report with candidate, school, invigilator, schedule and prior-result figures."
+  },
+  "summary_bg": "Близо 7000 зрелостници се явяват на августовската поправителна матура по български език и литература в 435 училища с над 2600 квестори. Следващите изпити са на 24 и 25 август, резултатите ще излязат до 4 септември, а материалът припомня по-високия среден резултат от редовната сесия.",
+  "summary_en": "Nearly 7,000 students were taking the August resit matriculation exam in Bulgarian language and literature at 435 schools with more than 2,600 invigilators. Further exams follow on 24 and 25 August, results are due by 4 September, and the report recalls improved regular-session averages.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.96,
+    "evidence": "Фактологично образователно съобщение с официални данни."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "education ministry attribution",
+      "detailed exam logistics",
+      "comparison with prior session results"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Таня Панчева"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Таня Панчева",
+      "basis": "gazetteer_exact",
+      "id": "tanya-ralcheva-pancheva-3227c2",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "education",
+      "subcategory": "schools",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T05:01:00+00:00"
+}

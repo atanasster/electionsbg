@@ -1,0 +1,263 @@
+{
+  "article_path": "news/data/flagman.bg/20260821-388303-bc60f442.json",
+  "url": "https://www.flagman.bg/article/388303",
+  "domain": "flagman.bg",
+  "analyzed_at": "2026-08-28T15:27:31.227613+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete opinionated political report quoting an MP's post and selected hostile reader comments, then arguing against his interpretation."
+  },
+  "summary_bg": "Депутатът от ПП-ДБ Мирослав Иванов нарича вицепремиера Иво Христов „тотално неадекватен“ заради сравнение между Бургас и София покрай „Евровизия“. Флагман представя критични коментари на бургаски избиратели и защитава контекста на думите на Христов, като осмива атаката на Иванов срещу града, от който е избран.",
+  "summary_en": "PP–DB MP Miroslav Ivanov called Deputy Prime Minister Ivo Hristov 'totally inadequate' over a comparison between Burgas and Sofia connected to Eurovision. Flagman highlights hostile comments from Burgas voters and defends the context of Hristov's remarks, mocking Ivanov's attack on the city that elected him.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.78,
+    "evidence": "Текстът открито осмива депутат от ПП-ДБ, подбира враждебни коментари към него и защитава правителствения представител и местната власт в Бургас."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "locally specific polemical voice",
+      "quoted social-media comments",
+      "argument developed around a public post"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Мирослав Иванов",
+      "Иво Христов"
+    ],
+    "parties": [
+      "ПП-ДБ"
+    ],
+    "institutions": [
+      "Народното събрание",
+      "Европейския съюз за радио и телевизия"
+    ],
+    "companies": [],
+    "places": [
+      "Бургас",
+      "София"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Мирослав Иванов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Иво Христов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "ПП-ДБ",
+      "basis": "gazetteer_exact",
+      "id": "p_6",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Иванов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Койчев Иванов (person, mp, mp-5124)",
+        "Андрей Алексиев Иванов (person, mayor, andrei-aleksiev-ivanov-a940ef)",
+        "Боян Минков Иванов (person, mayor, boyan-minkov-ivanov-de5a2e)",
+        "Валентин Николов Иванов (person, mp, mp-2447)",
+        "Велко Вълканов Иванов (person, mp, mp-2284)",
+        "Владимир Иванов Иванов (person, mp, mp-1524)",
+        "Георги Пинчев Иванов (person, mp, mp-2251)",
+        "Георги Стефанов Иванов (person, audit_court, georgi-stefanov-ivanov-6b9de7)",
+        "Георги Хрисимиров Иванов (person, mp, mp-4847)",
+        "Деян Иванов Иванов (person, mayor, deyan-ivanov-ivanov-fff5a9)",
+        "Дими Първанов Иванов (person, security_service, dimi-prvanov-ivanov-1ae9ca)",
+        "Димитър Ангелов Иванов (person, mp, mp-4906)",
+        "Димитър Иванов Иванов (person, mayor, dimitr-ivanov-ivanov-4a1c9e)",
+        "Димитър Иванов Иванов (person, military_command, dimitr-ivanov-ivanov-5e8820)",
+        "Димитър Цветанов Иванов (person, regional_governor, dimitr-tsvetanov-ivanov-4946f6)",
+        "Димитър Цонков Иванов (person, mp, mp-2231)",
+        "Евгений Спасов Иванов (person, mp, mp-806)",
+        "Емил Кирилов Иванов (person, mp, mp-1567)",
+        "Жеко Стоянов Иванов (person, mp, mp-1811)",
+        "Здравко Владимиров Иванов (person, mayor, zdravko-vladimirov-ivanov-68fa5b-2)",
+        "ИВО КИРИЛОВ ИВАНОВ (person, regional_governor, ivo-kirilov-ivanov-9932e2)",
+        "Ивайло Ангелов Иванов (person, mp, mp-4430)",
+        "Иван Валентинов Иванов (person, mp, mp-4818)",
+        "Иван Георгиев Иванов (person, mp, mp-1822)",
+        "Иван Данаилов Иванов (person, mp, mp-5012)",
+        "Иван Димитров Иванов (person, mp, mp-928)",
+        "Иван Димов Иванов (person, mp, mp-2760)",
+        "Иван Драганов Иванов (person, military_command, ivan-draganov-ivanov-57b333)",
+        "Иван Йосифов Иванов (person, mp, mp-2196)",
+        "Иван Кирилов Иванов (person, mp, mp-2400)",
+        "Иван Костадинов Иванов (person, mp, mp-2194)",
+        "Иван Любчев Иванов (person, regional_governor, ivan-lyubchev-ivanov-10b24d)",
+        "Иван Матеев Иванов (person, mp, mp-793)",
+        "Иван Миленов Иванов (person, party_leader, ivan-milenov-ivanov-288106)",
+        "Иван Николаев Иванов (person, mp, mp-1044)",
+        "Иван Николаев Иванов (person, regulator, ivan-nikolaev-ivanov-b459ff)",
+        "Иван Николов Иванов (person, mp, mp-1835)",
+        "Иван Пейков Иванов (person, deputy_minister, ivan-peikov-ivanov-fbb0f4)",
+        "Иван Пенков Иванов (person, mp, mp-2408)",
+        "Иван Петков Иванов (person, regional_governor, ivan-petkov-ivanov-edc70f)",
+        "Иван Петров Иванов (person, mp, mp-1059)",
+        "Иван Славов Иванов (person, mp, mp-2496)",
+        "Иван Тодоров Иванов (person, mayor, ivan-todorov-ivanov-0f30fa)",
+        "Иван Тодоров Иванов (person, mp, mp-891)",
+        "Ивелин Статев Иванов (person, mp, mp-4272)",
+        "Иво Венелинов Иванов (person, military_command, ivo-venelinov-ivanov-210d29)",
+        "Иво Диков Иванов (person, regulator, ivo-dikov-ivanov-8fb424)",
+        "Йордан Яворов Иванов (person, mp, mp-5193)",
+        "Йохан Цветанов Иванов (person, revenue_agency, iohan-tsvetanov-ivanov-c53d41)",
+        "Калин Ивайлов Иванов (person, mp, mp-3787)",
+        "Калоян Тошков Иванов (person, mp, mp-5111)",
+        "Красимир Веселинов Иванов (person, regional_governor, krasimir-veselinov-ivanov-27da82)",
+        "Красимир Цеков Иванов (person, mp, mp-5211)",
+        "ЛЮБЕН ИВАНОВ ИВАНОВ (person, mp, mp-5082)",
+        "Лъчезар Богомилов Иванов (person, mp, mp-5126)",
+        "Любомир Тодоров Иванов (person, mp, mp-920)",
+        "Мартин Стоянов Иванов (person, mp, mp-2558)",
+        "Мирослав Николаев Иванов (person, mp, mp-5300)",
+        "Михаил Ванюшев Иванов (person, regional_governor, mihail-vanyushev-ivanov-6f3b0a)",
+        "Момчил Кунчев Иванов (person, mp, mp-3572)",
+        "Недко Георгиев Иванов (person, regional_governor, nedko-georgiev-ivanov-473165)",
+        "Николай Георгиев Иванов (person, mp, mp-2784)",
+        "Павлин Стоилов Иванов (person, regional_governor, pavlin-stoilov-ivanov-873cb4)",
+        "Пламен Иванов Иванов (person, mp, mp-2115)",
+        "Пламен Колев Иванов (person, regulator, plamen-kolev-ivanov-3e4464)",
+        "Радослав Теодоров Иванов (person, mp, mp-816)",
+        "Росен Живков Иванов (person, mp, mp-2778)",
+        "Росен Красимиров Иванов (person, mp, mp-4761)",
+        "Румен Иванов Иванов (person, mp, mp-2440)",
+        "Свилен Филипов Иванов (person, mp, mp-2560)",
+        "Симеон Ненов Иванов (person, mp, mp-5210)",
+        "Славомир Тодоров Иванов (person, regional_governor, slavomir-todorov-ivanov-76a3fa)",
+        "Станислав Георгиев Иванов (person, mp, mp-4931)",
+        "Станислав Стоянов Иванов (person, mp, mp-2695)",
+        "Стефан Неделчев Иванов (person, regional_governor, stefan-nedelchev-ivanov-e5f1cd)",
+        "Стоян Иванов Иванов (person, mp, mp-854)",
+        "Стоян Проданов Иванов (person, mp, mp-185)",
+        "Стоян Щилиянов Иванов (person, cabinet, stoyan-shtiliyanov-ivanov-960abc)",
+        "Тихомир Иванов Иванов (person, regulator, tihomir-ivanov-ivanov-60b2c3)",
+        "Тодор Георгиев Иванов (person, regional_governor, todor-georgiev-ivanov-ec31d7)",
+        "Тодор Динков Иванов (person, regional_governor, todor-dinkov-ivanov-453851)",
+        "Тома Иванов Иванов (person, agency_head, toma-ivanov-ivanov-69e7f9)",
+        "Христо Иванов Иванов (person, mp, mp-2040)",
+        "Христо Любомиров Иванов (person, mp, mp-4536)",
+        "Янко Атанасов Иванов (person, deputy_minister, yanko-atanasov-ivanov-951b12)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Христов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Асен Асенов Христов (person, mp, mp-2002)",
+        "Валентин Венциславов Христов (person, mayor, valentin-ventsislavov-hristov-aff4c9)",
+        "Валентин Йорданов Христов (person, mp, mp-1991)",
+        "Васил Димитров Христов (person, mayor, vasil-dimitrov-hristov-12d555)",
+        "Велислав Руменов Христов (person, party_leader, velislav-rumenov-hristov-6f814b)",
+        "Георги Паскалев Христов (person, regulator, georgi-paskalev-hristov-9c678d)",
+        "Дилян Йорданов Христов (person, security_service, dilyan-iordanov-hristov-6b3b34)",
+        "Емануил Христов Христов (person, agency_head, emanuil-hristov-hristov-2980b8)",
+        "Емил Маринов Христов (person, mp, mp-2716)",
+        "ИВАЙЛО ХАРАЛАМПИЕВ ХРИСТОВ (person, deputy_minister, ivailo-haralampiev-hristov-d9d3e8)",
+        "Ивайло Христов Христов (person, mp, mp-5218)",
+        "Иван Петров Христов (person, regional_governor, ivan-petrov-hristov-5b1758)",
+        "Иво Ангелов Христов (person, mp, mp-3346)",
+        "Калин Димитров Христов (person, central_bank, kalin-dimitrov-hristov-e3774a)",
+        "Кристиян Христов Христов (person, mayor, kristiyan-hristov-hristov-3f192f)",
+        "Лазар Валентинов Христов (person, security_service, lazar-valentinov-hristov-370f0f)",
+        "Любомир Димитров Христов (person, mp, mp-4923)",
+        "Людмил Христов Христов (person, regional_governor, lyudmil-hristov-hristov-ba7812)",
+        "Маринчо Христов Христов (person, regional_governor, marincho-hristov-hristov-890f81)",
+        "Минко Найденов Христов (person, mp, mp-2081)",
+        "Михаил Ивайлов Христов (person, mp, mp-2701)",
+        "Моньо Христов Христов (person, mp, mp-2148)",
+        "Николай Емилов Христов (person, mp, mp-3432)",
+        "Николай Иванов Христов (person, mp, mp-2097)",
+        "Павел Алексеев Христов (person, mp, mp-4632)",
+        "Пламен Трифонов Христов (person, mp, mp-2692)",
+        "Пламен Христов Христов (person, regional_governor, plamen-hristov-hristov-7424b5)",
+        "Росен Иванов Христов (person, cabinet, rosen-ivanov-hristov-62720a)",
+        "Румен Димитров Христов (person, mp, mp-5152)",
+        "Румен Христов Христов (person, regional_governor, rumen-hristov-hristov-1a2991)",
+        "Сашко Дончев Христов (person, security_service, sashko-donchev-hristov-5bc243)",
+        "Слави Драганов Христов (person, regional_governor, slavi-draganov-hristov-85ec6c)",
+        "Станимир Христов Христов (person, military_command, stanimir-hristov-hristov-8f1fd1-2)",
+        "Стоян Христов Христов (person, regional_governor, stoyan-hristov-hristov-d0a59e)",
+        "Христо Атанасов Христов (person, mayor, hristo-atanasov-hristov-69c3c2)",
+        "Христо Видолов Христов (person, mayor, hristo-vidolov-hristov-0bbb0d)",
+        "Христо Георгиев Христов (person, military_command, hristo-georgiev-hristov-19b69b)",
+        "Христо Георгиев Христов (person, mp, mp-2001)",
+        "Христо Димитров Христов (person, mayor, hristo-dimitrov-hristov-54f8e5)",
+        "Христо Димитров Христов (person, mp, mp-876)",
+        "Христо Иванов Христов (person, mp, mp-1894)",
+        "Цветомил Ресенков Христов (person, security_service, tsvetomil-resenkov-hristov-a2d088)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [
+    {
+      "party": "ПП-ДБ",
+      "tone": "unfavorable"
+    }
+  ],
+  "topics": [
+    {
+      "category": "parliament",
+      "subcategory": "mp-conduct",
+      "primary": true
+    },
+    {
+      "category": "local-news",
+      "subcategory": "municipal-problems",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T14:00:00+00:00"
+}

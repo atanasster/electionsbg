@@ -1,0 +1,119 @@
+{
+  "article_path": "news/data/manager.bg/20260820-stolichna-obstina-poiska-ot-bnt-podrobna-obratna-vrazka-za-k-584621d0.json",
+  "url": "https://manager.bg/българия/stolichna-obstina-poiska-ot-bnt-podrobna-obratna-vrazka-za-kandidaturata-si-za-evrovizia-2027-",
+  "domain": "manager.bg",
+  "analyzed_at": "2026-08-28T15:22:40.116965+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete municipal transparency report based on official statements."
+  },
+  "summary_bg": "Столична община иска от БНТ подробни оценки и мотиви за неуспешната кандидатура на София за домакин на „Евровизия 2027“. Общината настоява допустимите части от кандидатурите да станат публични, като едновременно обещава подкрепа за избрания домакин Бургас.",
+  "summary_en": "Sofia Municipality asked Bulgarian National Television for detailed scores and reasons behind Sofia's unsuccessful Eurovision 2027 hosting bid. It wants publishable portions of the bids released while pledging support for the selected host, Burgas.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.65,
+    "evidence": "Публикацията приема институционалната прозрачност, публичните мотиви и отчетността като средство за обществено доверие."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "official letter",
+      "direct mayor and deputy-mayor quotations",
+      "procedure-specific details"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Милена Милотинова",
+      "Васил Терзиев",
+      "Ирина Дакова"
+    ],
+    "parties": [],
+    "institutions": [
+      "Столична община",
+      "Българската национална телевизия",
+      "БНТ"
+    ],
+    "companies": [],
+    "places": [
+      "София",
+      "България",
+      "Бургас"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "Столична община",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Столична община (institution, 000696327)",
+        "Столична община (place, obshtina, obshtina:SFO_CITY)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Васил Терзиев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Дакова",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "municipal-problems",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T08:30:45+00:00"
+}

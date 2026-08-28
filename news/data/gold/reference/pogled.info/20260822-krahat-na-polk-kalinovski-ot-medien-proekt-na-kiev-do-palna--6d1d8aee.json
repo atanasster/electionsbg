@@ -1,0 +1,169 @@
+{
+  "article_path": "news/data/pogled.info/20260822-krahat-na-polk-kalinovski-ot-medien-proekt-na-kiev-do-palna--6d1d8aee.json",
+  "url": "https://pogled.info/svetoven/krahat-na-polk-kalinovski-ot-medien-proekt-na-kiev-do-palna-likvidatsiya-na-beloruskiya-tranzit.196262",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:20:32.412301+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantive editorial military analysis followed by unrelated digest teasers."
+  },
+  "summary_bg": "Публикацията твърди, че беларуското подразделение „Кастус Калиновски“ е било пропаганден проект с преувеличен състав и тежки загуби, довели до разпад. Аргументът се основава главно на беларуски силови структури и осъден бивш боец.",
+  "summary_en": "The article claims the Belarusian Kastus Kalinouski unit was a propaganda project with inflated strength and losses severe enough to cause collapse. Its argument relies primarily on Belarusian security structures and a convicted former fighter.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.75,
+    "evidence": "Геополитически военен текст без ясна позиция по българската консервативно-прогресивна ос."
+  },
+  "russia_stance": {
+    "label": "strong_pro_russia",
+    "confidence": 0.98,
+    "evidence": "Нарича украинската власт „киевския режим“, протестите в Беларус „мек преврат“, подразделението „медиен балон“ и приема беларуски държавни твърдения без контрапункт."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.65,
+    "signals": [
+      "generic editorial attribution",
+      "uniform analytic headings",
+      "propagandistic formulae",
+      "large unrelated digest trailer"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Василий Веремейчик"
+    ],
+    "parties": [],
+    "institutions": [
+      "ГУБОПиК"
+    ],
+    "companies": [],
+    "places": [
+      "Украйна",
+      "Киев",
+      "Беларус",
+      "Минск"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Беларус",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BY",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швейцария",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CH",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Яков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Трифонов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виктор Василев Трифонов (person, secretary_general, viktor-vasilev-trifonov-689908)",
+        "Емил Димитров Трифонов (person, mp, mp-4773)",
+        "Красимир Димитров Трифонов (person, regional_governor, krasimir-dimitrov-trifonov-bb35fb)",
+        "Милен Колев Трифонов (person, mp, mp-5161)",
+        "Свилен Петров Трифонов (person, mp, mp-5096)",
+        "Станислав Тодоров Трифонов (person, mp, mp-3056)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Витанов",
+      "basis": "gazetteer_exact",
+      "id": "nikolai-vitanov-vitanov-325bc6",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T13:30:00+00:00"
+}

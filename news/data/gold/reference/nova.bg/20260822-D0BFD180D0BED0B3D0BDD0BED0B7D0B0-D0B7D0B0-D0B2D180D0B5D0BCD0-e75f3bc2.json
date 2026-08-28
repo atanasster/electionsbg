@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/nova.bg/20260822-D0BFD180D0BED0B3D0BDD0BED0B7D0B0-D0B7D0B0-D0B2D180D0B5D0BCD0-e75f3bc2.json",
+  "url": "https://nova.bg/news/view/2026/08/22/548627/%D0%BF%D1%80%D0%BE%D0%B3%D0%BD%D0%BE%D0%B7%D0%B0-%D0%B7%D0%B0-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D1%82%D0%BE-22082026-%D0%BE%D0%B1%D0%B5%D0%B4%D0%BD%D0%B0/",
+  "domain": "nova.bg",
+  "analyzed_at": "2026-08-28T15:09:19.191149+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "The record contains only a link invitation to view the forecast elsewhere, with no forecast text."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The record contains only a link invitation to view the forecast elsewhere, with no forecast text.",
+  "summary_en": "The record does not contain a reliably extracted full article: The record contains only a link invitation to view the forecast elsewhere, with no forecast text.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T10:15:34+00:00"
+}

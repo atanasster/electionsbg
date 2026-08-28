@@ -1,0 +1,78 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-spriaha-shofyor-tir-izprevarval-nad-15-km-drug-predlozhi-386-3c77bb7a.json",
+  "url": "https://trafficnews.bg/trafik/spriaha-shofyor-tir-izprevarval-nad-15-km-drug-predlozhi-386978/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:52:09.628543+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "Главна дирекция \"Национална полиция"
+    ],
+    "companies": [],
+    "places": [
+      "Тракия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Тракия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:72970",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Главна дирекция \"Национална полиция",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "interior-mvr",
+      "primary": true
+    },
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "roads",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T15:33:00+00:00"
+}

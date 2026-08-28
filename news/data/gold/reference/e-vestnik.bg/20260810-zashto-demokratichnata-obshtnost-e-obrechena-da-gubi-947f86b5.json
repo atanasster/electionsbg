@@ -1,0 +1,110 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260810-zashto-demokratichnata-obshtnost-e-obrechena-da-gubi-947f86b5.json",
+  "url": "https://e-vestnik.bg/40916/zashto-demokratichnata-obshtnost-e-obrechena-da-gubi/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:15:15.775743+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete argumentative political essay diagnosing strategic failures of Bulgaria's democratic parties."
+  },
+  "summary_bg": "Авторът твърди, че партиите на „демократичната общност“ губят заради елитарен език, погрешно самоопределяне като единна десница и мобилизация по второстепенни оси. Той предлага широка коалиция около независими институции, конкурентен пазар и конкретна борба със завладяната държава и олигархичните схеми.",
+  "summary_en": "The author argues that Bulgaria's “democratic community” parties lose because of elitist language, a mistaken identity as a unified right, and mobilisation along secondary divides. He proposes a broad coalition around independent institutions, competitive markets, and concrete opposition to state capture and oligarchic schemes.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.8,
+    "evidence": "Текстът защитава антикорупцията като системна промяна, независими институции и широка коалиция отвъд традиционното ляво-дясно, като изрично приема социално либерални и прогресивни избиратели."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.85,
+    "evidence": "Говори за „силни проруски наративи“, „мащабна пропаганда“, „руската заплаха“ и определя позициите на Радев като последователно пропутински."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "sustained original political argument",
+      "Bulgaria-specific strategic examples",
+      "editorial donation note"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Радев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "Русия",
+      "Украйна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Радев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Валентин Иванов Радев (person, mp, mp-4382)",
+        "Димитър Борисов Радев (person, central_bank, dimitr-borisov-radev-8ea8b1)",
+        "Димитър Радев (person, regulator, dimitar-radev-1ow3w1)",
+        "Евгений Николов Радев (person, security_service, evgenii-nikolov-radev-295450)",
+        "Елин Асенов Радев (person, mayor, elin-asenov-radev-b52558)",
+        "Емил Йорданов Радев (person, mp, mp-1568)",
+        "Муравей Георгиев Радев (person, mp, mp-2147)",
+        "Румен Георгиев Радев (person, president, mp-5142)",
+        "Румен Събев Радев (person, cabinet, rumen-sbev-radev-b6ce45)",
+        "Стефан Николов Радев (person, mayor, stefan-nikolov-radev-bd2315)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "elections-parliamentary",
+      "subcategory": "campaign",
+      "primary": true
+    },
+    {
+      "category": "society",
+      "subcategory": "protests",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-10T08:18:27+00:00"
+}

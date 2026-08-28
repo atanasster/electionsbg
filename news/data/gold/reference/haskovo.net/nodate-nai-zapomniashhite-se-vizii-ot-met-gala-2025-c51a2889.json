@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/haskovo.net/nodate-nai-zapomniashhite-se-vizii-ot-met-gala-2025-c51a2889.json",
+  "url": "https://haskovo.net/galeria/2654/nai-zapomniashhite-se-vizii-ot-met-gala-2025",
+  "domain": "haskovo.net",
+  "analyzed_at": "2026-08-28T15:39:03.957647+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A short but complete photo-gallery introduction identifying the event theme and its cultural fashion focus; company boilerplate trails it."
+  },
+  "summary_bg": "Мет Гала 2025 е посветена на темата „Superfine: Tailoring Black Style“, която поставя черната елегантност и дендизма в центъра. Краткият текст представя събитието като празник на мода, история, черна култура и индивидуалност, придружен от снимки.",
+  "summary_en": "The 2025 Met Gala used the theme 'Superfine: Tailoring Black Style', centring Black elegance and dandyism. The short gallery introduction presents the event as a celebration of fashion, history, Black culture and individuality.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.94,
+    "evidence": "Модна галерия без политическа теза по оценяваната ос."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.45,
+    "signals": [
+      "generic polished gallery introduction",
+      "no byline",
+      "BGNES photo attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

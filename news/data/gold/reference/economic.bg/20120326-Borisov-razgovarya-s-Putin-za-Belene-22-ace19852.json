@@ -1,0 +1,100 @@
+{
+  "article_path": "news/data/economic.bg/20120326-Borisov-razgovarya-s-Putin-za-Belene-22-ace19852.json",
+  "url": "https://www.economic.bg/bg/a/view/Borisov-razgovarya-s-Putin-za-Belene-22",
+  "domain": "economic.bg",
+  "analyzed_at": "2026-08-28T15:18:02.159984+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short RIA Novosti-based report on a bilateral energy discussion."
+  },
+  "summary_bg": "Владимир Путин и Бойко Борисов са обсъдили по телефона двустранни и международни енергийни проекти. Българският енергиен министър трябва да посети Москва за допълнителни разговори с руските партньори.",
+  "summary_en": "Vladimir Putin and Boyko Borisov discussed bilateral and international energy projects by telephone. Bulgaria's energy minister was expected to visit Moscow for further talks with Russian counterparts.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.95,
+    "evidence": "Кратката новина преразказва официално съобщение без оценка на правителството или енергийния проект."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.95,
+    "evidence": "Русия е представена като страна в двустранни енергийни преговори без положително или отрицателно рамкиране."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "2012 wire report",
+      "RIA Novosti attribution",
+      "direct official quotation"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Владимир Путин",
+      "Бойко Борисов",
+      "Дмитрий Песков"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Русия",
+      "България",
+      "Москва"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Бойко Борисов",
+      "basis": "gazetteer_exact",
+      "id": "mp-5186",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Белене",
+      "basis": "gazetteer_exact",
+      "id": "settlement:03366",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "energy",
+      "subcategory": "nuclear",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2012-03-26T03:18:12+00:00"
+}

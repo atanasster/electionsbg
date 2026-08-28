@@ -1,0 +1,104 @@
+{
+  "article_path": "news/data/flagman.bg/20260822-388336-48b17311.json",
+  "url": "https://www.flagman.bg/article/388336",
+  "domain": "flagman.bg",
+  "analyzed_at": "2026-08-28T15:43:38.965985+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined education-policy report with ministerial examples, funding mechanism, deadline and school-calendar detail."
+  },
+  "summary_bg": "МОН ще предложи до година нов модел за финансиране на училищата, който да намали зависимостта от броя ученици. Министър Георги Вълчев твърди, че сегашната система насърчава укриване на отсъствия и незаслужени оценки, особено за да се запазят субсидии и малки училища.",
+  "summary_en": "The Education Ministry will propose within a year a school-funding model less dependent on student numbers. Minister Georgi Valchev says the current system encourages hidden absences and undeserved grades, especially to preserve subsidies and small schools.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Материалът подробно предава диагнозата и плана на министъра, с конкретни примери, без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named byline",
+      "BTA ministerial interview",
+      "locally specific historical example"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Вълчев",
+      "Георги Вълчев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "звънец"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Вълчев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Николов Вълчев (person, mp, mp-4876)",
+        "Андрей Христов Вълчев (person, mp, mp-4753)",
+        "Венко Стоянов Вълчев (person, mp, mp-1761)",
+        "Веселин Петров Вълчев (person, regional_governor, veselin-petrov-vlchev-c928b7)",
+        "Витко Здравков Вълчев (person, mp, mp-5176)",
+        "Георги Александров Вълчев (person, cabinet, georgi-aleksandrov-vlchev-156c19)",
+        "Даниел Василев Вълчев (person, mp, mp-191)",
+        "Димитър Георгиев Вълчев (person, regional_governor, dimitr-georgiev-vlchev-48ca20)",
+        "Ивайло Ванев Вълчев (person, mp, mp-4170)",
+        "Кирил Александров Вълчев (person, media_head, kiril-aleksandrov-vlchev-4bbcaa)",
+        "Красимир Георгиев Вълчев (person, mp, mp-5128)",
+        "Наско Колев Вълчев (person, revenue_agency, nasko-kolev-vlchev-98c244)",
+        "Радослав Йорданов Вълчев (person, mp, mp-5225)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Георги Вълчев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "звънец",
+      "basis": "gazetteer_exact",
+      "id": "settlement:30555",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "education",
+      "subcategory": "schools",
+      "primary": true
+    },
+    {
+      "category": "budget-fiscal",
+      "subcategory": "state-budget",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T09:00:00+00:00"
+}

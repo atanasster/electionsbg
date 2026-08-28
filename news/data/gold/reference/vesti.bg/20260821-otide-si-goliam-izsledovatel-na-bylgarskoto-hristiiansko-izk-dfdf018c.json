@@ -1,0 +1,110 @@
+{
+  "article_path": "news/data/vesti.bg/20260821-otide-si-goliam-izsledovatel-na-bylgarskoto-hristiiansko-izk-dfdf018c.json",
+  "url": "https://www.vesti.bg/bulgaria/otide-si-goliam-izsledovatel-na-bylgarskoto-hristiiansko-izkustvo-6268154",
+  "domain": "vesti.bg",
+  "analyzed_at": "2026-08-28T15:30:38.545365+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete museum-sourced obituary with career, scholarship and funeral information."
+  },
+  "summary_bg": "На 19 август е починала изкуствоведката Теофана Матакиева-Лилкова, дългогодишен уредник, ръководител и директор в Националния исторически музей. Тя изследва българското християнско изкуство, изгражда музейната колекция от икони и църковна утвар и публикува каталози и дисертация за свети Иван Рилски.",
+  "summary_en": "Art historian Teofana Matakieva-Lilkova, a long-serving curator, department head and director at the National History Museum, died on 19 August. She researched Bulgarian Christian art, developed the museum's icons and church objects collection, and published catalogues and a dissertation on Saint Ivan of Rila.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Професионален некролог без политическа теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "museum attribution",
+      "specific career chronology",
+      "funeral details"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "София",
+      "България",
+      "манастир",
+      "Германия",
+      "възраждане"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "манастир",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Манастир (place, settlement, settlement:46975)",
+        "Манастир (place, settlement, settlement:46989)",
+        "Манастир (place, settlement, settlement:46992)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "възраждане",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Възраждане (party, p_7)",
+        "Възраждане (place, settlement, settlement:68134-2403)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T10:23:00+00:00"
+}

@@ -1,0 +1,95 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-dvama-dushi-biaha-ubiti-a-52-raneni-pri-ruska-ataka-sreshtu--654fc000.json",
+  "url": "https://offnews.bg/sviat/dvama-dushi-biaha-ubiti-a-52-raneni-pri-ruska-ataka-sreshtu-naj-go-873180.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:20:32.152208+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete short Ukrinform-based report on civilian casualties from a Russian drone attack."
+  },
+  "summary_bg": "Руски дронове удрят най-големия мол в Кривой Рог, като първоначално са съобщени двама загинали и 52 ранени, сред тях шест деца. Местните власти предупреждават, че броят на жертвите може да нарасне.",
+  "summary_en": "Russian drones struck the largest shopping centre in Kryvyi Rih, initially leaving two dead and 52 injured, including six children. Local authorities warned that the toll could rise.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Военната новина приписва всички данни на местния съвет за отбрана и Ukrinform."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.9,
+    "evidence": "Фокусът е върху цивилните жертви от редовни руски атаки срещу града, без руска версия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "Ukrinform attribution",
+      "direct Telegram updates",
+      "evolving casualty count",
+      "unrelated footer teaser"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Олександър Викул",
+      "Володимир Зеленски"
+    ],
+    "parties": [],
+    "institutions": [
+      "градския Съвет за отбрана"
+    ],
+    "companies": [],
+    "places": [
+      "Кривой Рог",
+      "Украйна",
+      "Днепропетровска област",
+      "Русия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Камен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Камен (place, settlement, settlement:35657)",
+        "Камен (place, settlement, settlement:35660)",
+        "Камен (place, settlement, settlement:35674)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/dariknews.bg/20260821-pochina-vdovicata-na-henri-kisindzhyr-2464341-b6ea1bc7.json",
+  "url": "https://dariknews.bg/novini/sviat/pochina-vdovicata-na-henri-kisindzhyr-2464341",
+  "domain": "dariknews.bg",
+  "analyzed_at": "2026-08-28T15:46:46.602605+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete AP obituary with death confirmation, career, family history and burial information; analytics code trails it."
+  },
+  "summary_bg": "Нанси Кисинджър, вдовица на бившия американски държавен секретар Хенри Кисинджър, е починала на 92 години в дома си в Кънектикът. Тя е работила във външнополитически изследвания и благотворителност и ще бъде погребана до съпруга си в Арлингтън.",
+  "summary_en": "Nancy Kissinger, widow of former US Secretary of State Henry Kissinger, died aged 92 at her Connecticut home. She worked in foreign-policy research and philanthropy and will be buried beside her husband at Arlington.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Кратък личен некролог без оценка на политиката на съпруга ѝ."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "AP attribution",
+      "named property manager confirmation",
+      "specific burial and biographical detail"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T19:01:00+00:00"
+}

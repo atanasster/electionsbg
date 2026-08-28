@@ -1,0 +1,96 @@
+{
+  "article_path": "news/data/fakti.bg/20260825-1076763-misteriata-se-razplita-direktorat-na-cru-djon-ratkli-4453ac25.json",
+  "url": "https://fakti.bg/world/1076763-misteriata-se-razplita-direktorat-na-cru-djon-ratklif-beshe-na-taina-vizita-v-rusia",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:18:01.987275+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete multi-source report about an unconfirmed-purpose visit by the CIA director to Moscow."
+  },
+  "summary_bg": "Директорът на ЦРУ Джон Ратклиф е посетил Москва, но американските и руските власти не съобщават целта и срещите му. Материалът поставя визитата в контекста на размени на затворници и блокирани преговори за Украйна.",
+  "summary_en": "CIA Director John Ratcliffe visited Moscow, but US and Russian authorities did not disclose the purpose or his meetings. The report places the visit in the context of prisoner exchanges and stalled talks over Ukraine.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Всички неизвестни около визитата са обозначени, а фактите са приписани на CBS, Reuters, BTA and flight-tracking data."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Споменава руското нашествие и предупреждението от 2021 г., но не спекулира за настоящата визита и представя двустранния контекст фактологично."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "named wire sources",
+      "specific prisoner exchanges",
+      "explicit uncertainty",
+      "minor editing error"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Джон Ратклиф",
+      "Ксения Карелина",
+      "Еван Гершкович",
+      "Пол Уилън",
+      "Уилям Бърнс",
+      "Владимир Путин",
+      "Доналд Тръмп"
+    ],
+    "parties": [],
+    "institutions": [
+      "ЦРУ"
+    ],
+    "companies": [
+      "CBS News",
+      "Axios",
+      "Flightradar24"
+    ],
+    "places": [
+      "Москва",
+      "Русия",
+      "САЩ",
+      "Украйна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "intelligence",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-25T15:18:04+00:00"
+}

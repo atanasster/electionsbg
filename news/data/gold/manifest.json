@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "completed_at": "2026-08-28",
+  "status": "pass",
+  "selection": {
+    "file": "news/data/gold/gold_set.json",
+    "sha256": "43252b2156cffcb78260ceef4b5837251d33046ebc6323bb7b21cdffe2fed23e",
+    "seed": "naiasno-gold-v1",
+    "requested": 250,
+    "actual": 240,
+    "shortfall": {
+      "person_linked": 10
+    }
+  },
+  "validation": {
+    "primary_records": 240,
+    "unique_article_paths": 240,
+    "unique_urls": 240,
+    "schema_errors": 0,
+    "missing": 0,
+    "extra": 0,
+    "duplicates": 0
+  },
+  "primary_distribution": {
+    "quality": {
+      "ok": 194,
+      "too_short": 19,
+      "non_article": 19,
+      "paywall_shell": 5,
+      "client_render_shell": 3
+    },
+    "leaning": {
+      "strong_progressive": 1,
+      "progressive": 27,
+      "neutral": 114,
+      "conservative": 8,
+      "strong_conservative": 2,
+      "not_applicable": 88
+    },
+    "russia_stance": {
+      "strong_anti_russia": 6,
+      "anti_russia": 12,
+      "neutral": 24,
+      "pro_russia": 1,
+      "strong_pro_russia": 3,
+      "not_applicable": 194
+    },
+    "ai_generated": {
+      "likely_human": 178,
+      "likely_ai": 8,
+      "unclear": 54
+    },
+    "site_relevant": {
+      "true": 156,
+      "false": 84
+    },
+    "mentions_total": 868
+  },
+  "repeat": {
+    "seed": 20260828,
+    "records": 50,
+    "indices": [6, 8, 10, 11, 14, 28, 34, 36, 40, 42, 52, 58, 59, 66, 69, 71, 72, 91, 98, 100, 108, 112, 121, 122, 124, 128, 133, 143, 144, 156, 157, 158, 164, 165, 168, 170, 186, 189, 191, 192, 195, 201, 209, 210, 220, 226, 229, 230, 234, 235],
+    "allocation": {
+      "quality_short": 5,
+      "quality_no_body": 2,
+      "russia_dense": 10,
+      "entity_rich": 10,
+      "person_linked": 6,
+      "no_author": 5,
+      "mainstream": 12
+    },
+    "score_file": "news/data/gold/repeat/score.json"
+  },
+  "production_analysis_mutated": false
+}

@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076116-sezonat-na-pojarite-okolo-1000-dushi-baha-evakuirani-38e79c62.json",
+  "url": "https://fakti.bg/world/1076116-sezonat-na-pojarite-okolo-1000-dushi-baha-evakuirani-v-iztochnata-chast-na-ispania",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:48:27.240502+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined DPA-based wildfire report with evacuation, area, likely cause, response resources and climate context."
+  },
+  "summary_bg": "Около 1000 души са евакуирани заради неовладян пожар край Гатова във Валенсия, вероятно причинен от мълния, който е изгорил над 400 хектара. Военни, пожарникари и авиация участват в гасенето, а сушата и рекордните температури увеличават риска; в Испания тази година са изгорели 297 000 хектара.",
+  "summary_en": "About 1,000 people were evacuated because of an uncontrolled fire near Gátova in Valencia, likely caused by lightning, that burned over 400 hectares. Military, firefighters and aircraft responded, while drought and record heat increase risk; Spain has lost 297,000 hectares this year.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.66,
+    "evidence": "Материалът изрично свързва сушата и рекордните температури с климатичните промени, но основната част е фактологична бедствена информация."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named byline",
+      "DPA attribution",
+      "official, television and EU fire-system sources"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Испания"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Испания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:ES",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:53:50+00:00"
+}

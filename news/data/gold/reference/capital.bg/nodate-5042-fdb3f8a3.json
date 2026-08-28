@@ -1,0 +1,51 @@
+{
+  "article_path": "news/data/capital.bg/nodate-5042-fdb3f8a3.json",
+  "url": "https://www.capital.bg/podcast/5042/?ref=header-hamburger",
+  "domain": "capital.bg",
+  "analyzed_at": "2026-08-28T15:37:33.213362+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "client_render_shell",
+    "notes": "Only a two-sentence podcast-series introduction was extracted; nearly the entire remaining body is consent-management vendor and device-data boilerplate rather than episode content."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only a two-sentence podcast-series introduction was extracted; nearly the entire remaining body is consent-management vendor and device-data boilerplate rather than episode content.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only a two-sentence podcast-series introduction was extracted; nearly the entire remaining body is consent-management vendor and device-data boilerplate rather than episode content.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "The substantive podcast content is absent from the extraction."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "The substantive podcast content is absent from the extraction."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "consent-management shell dominates extracted body"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Василев",
+      "Делян Пеевски"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

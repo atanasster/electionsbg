@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/svobodnoslovo.eu/nodate-145811-4521d811.json",
+  "url": "https://svobodnoslovo.eu/bulgaria/nay-dyasnata-darzhava-v-sveta/145811",
+  "domain": "svobodnoslovo.eu",
+  "analyzed_at": "2026-08-28T15:10:51.773545+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "The extractor returned an empty body, so the headline cannot be adjudicated as an article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The extractor returned an empty body, so the headline cannot be adjudicated as an article.",
+  "summary_en": "The record does not contain a reliably extracted full article: The extractor returned an empty body, so the headline cannot be adjudicated as an article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

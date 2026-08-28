@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/news.bg/20260821-vlastta-s-ogromna-ambitsiya-za-natsionalnata-detska-bolnitsa-68b0e0ed.json",
+  "url": "https://news.bg/health/vlastta-s-ogromna-ambitsiya-za-natsionalnata-detska-bolnitsa.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:34:07.800407+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete broadcast-derived policy update with hospital, staffing and administrative-reform commitments."
+  },
+  "summary_bg": "Здравният министър Катя Ивкова обещава Националната детска болница да бъде завършена в мандата и планът за персонала да е готов до месец. Тя определя проекта като национален приоритет и описва промени в РЗИ, спешната помощ и съвета по цени и реимбурсиране на лекарствата.",
+  "summary_en": "Health Minister Katya Ivkova pledged to complete the National Children's Hospital within the government's term and produce a staffing plan within a month. She called it a national priority and outlined changes to health inspectorates, emergency care and the medicines pricing and reimbursement council.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Заявките на министъра са предадени като обещания и твърдения, без редакционна партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "BNT interview attribution",
+      "multiple direct quotations",
+      "specific staffing deadline"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Катя Ивкова"
+    ],
+    "parties": [],
+    "institutions": [
+      "МЗ"
+    ],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Катя Ивкова",
+      "basis": "gazetteer_exact",
+      "id": "katya-georgieva-ivkova-cccb95",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "МЗ",
+      "basis": "gazetteer_exact",
+      "id": "000695317",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "hospitals",
+      "primary": true
+    },
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:31:00+00:00"
+}

@@ -1,0 +1,49 @@
+{
+  "article_path": "news/data/narod.bg/20260814-d0b1d18ad0bbd0b3d0b0d180d0b8d18f-d0b7d0b0d0bfd0b0d0b7d0b2d0b-c931ae2f.json",
+  "url": "https://narod.bg/2026/08/14/%d0%b1%d1%8a%d0%bb%d0%b3%d0%b0%d1%80%d0%b8%d1%8f-%d0%b7%d0%b0%d0%bf%d0%b0%d0%b7%d0%b2%d0%b0-%d0%b2%d1%8a%d0%b3%d0%bb%d0%b8%d1%89%d0%bd%d0%b8%d1%82%d0%b5-%d1%86%d0%b5%d0%bd%d1%82%d1%80%d0%b0%d0%bb/",
+  "domain": "narod.bg",
+  "analyzed_at": "2026-08-28T15:09:19.172392+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "Only the headline and outlet name were extracted; there is no article body."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only the headline and outlet name were extracted; there is no article body.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only the headline and outlet name were extracted; there is no article body.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "раздел"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-14T00:00:00+00:00"
+}

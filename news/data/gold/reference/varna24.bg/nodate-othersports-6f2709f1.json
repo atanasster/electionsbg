@@ -1,0 +1,50 @@
+{
+  "article_path": "news/data/varna24.bg/nodate-othersports-6f2709f1.json",
+  "url": "https://www.varna24.bg/sport/othersports",
+  "domain": "varna24.bg",
+  "analyzed_at": "2026-08-28T15:09:19.192820+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "Only address and newsletter boilerplate from a sports category page were extracted."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only address and newsletter boilerplate from a sports category page were extracted.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only address and newsletter boilerplate from a sports category page were extracted.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "Пловдив",
+      "Варна"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

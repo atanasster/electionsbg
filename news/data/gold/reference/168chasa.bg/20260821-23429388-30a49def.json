@@ -1,0 +1,93 @@
+{
+  "article_path": "news/data/168chasa.bg/20260821-23429388-30a49def.json",
+  "url": "https://www.168chasa.bg/article/23429388",
+  "domain": "168chasa.bg",
+  "analyzed_at": "2026-08-28T15:27:31.169155+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantial reported feature combining research, expert interviews and three personal histories of youth gambling harm."
+  },
+  "summary_bg": "Материалът разглежда растящата хазартна зависимост сред деца и младежи чрез европейски данни, интервюта с бивши крупиета и психолог и три лични истории. Той описва лесния достъп до онлайн казина с чужди документи, нормализирането на залозите и тежките семейни, финансови и криминални последици.",
+  "summary_en": "The feature examines rising gambling addiction among children and young adults through European data, interviews with former dealers and a psychologist, and three personal stories. It describes easy access to online casinos using others' documents, normalisation of betting, and severe family, financial and criminal consequences.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.62,
+    "evidence": "Материалът рамкира детския хазарт като обществен и регулаторен проблем и дава приоритет на защита на уязвими непълнолетни."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.94,
+    "signals": [
+      "original expert interviews",
+      "anonymous source with occupational detail",
+      "multiple developed personal narratives"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Бобева"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Португалия",
+      "Пловдив",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Португалия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PT",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Бобева",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Пловдив",
+      "basis": "gazetteer_exact",
+      "id": "settlement:56784",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "society",
+      "subcategory": "human-interest",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T17:38:00+00:00"
+}

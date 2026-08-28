@@ -1,0 +1,65 @@
+{
+  "article_path": "news/data/bta.bg/20260823-1190262-nay-malko-petima-postradali-pri-zemetresenieto-s-mag-098ad1a2.json",
+  "url": "https://www.bta.bg/bg/news/world/1190262-nay-malko-petima-postradali-pri-zemetresenieto-s-magnitud-5-9-v-yaponiya-nyama-",
+  "domain": "bta.bg",
+  "analyzed_at": "2026-08-28T15:43:38.923645+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete AP-based disaster report with competing magnitude estimates, injuries, infrastructure effects and official response."
+  },
+  "summary_bg": "Земетресение с магнитуд около 5,9 разтърсва Източна Япония и Токио, ранява поне петима души, но не създава риск от цунами. Има закъснения на влакове, спукан водопровод и кратко прекъсване на тока, а правителството създава кризисен щаб.",
+  "summary_en": "An earthquake of about magnitude 5.9 struck eastern Japan and Tokyo, injuring at least five people but posing no tsunami risk. It delayed trains, broke a water pipe and briefly cut power, while the government created an emergency team.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.98,
+    "evidence": "Фактологичен бедствен репортаж с ясно приписани измервания и последици."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.96,
+    "signals": [
+      "named BTA reporter",
+      "AP attribution",
+      "multiple official and transport-operator sources"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Япония"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Япония",
+      "basis": "gazetteer_exact",
+      "id": "settlement:JP",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "misc-filler",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-23T00:28:00+00:00"
+}

@@ -1,0 +1,153 @@
+{
+  "article_path": "news/data/offnews.bg/nodate-bolnitcite-ne-triabva-da-pecheliat-ot-tova-che-lekuvat-kasno-11b4c79d.json",
+  "url": "https://offnews.bg/zdrave/bolnitcite-ne-triabva-da-pecheliat-ot-tova-che-lekuvat-kasno-kazva-s-869461.html",
+  "domain": "offnews.bg",
+  "analyzed_at": "2026-08-28T15:37:33.129822+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A long original interview on hospital incentives, prevention, public health, staffing and reforms, introduced with clear editorial context."
+  },
+  "summary_bg": "Бившият служебен здравен министър Михаил Околийски критикува модела, който плаща на болниците за повече и по-късно лечение вместо за профилактика и резултати. Интервюто разглежда клиничните пътеки, доходите на директори и медици, амбулаторната и палиативната грижа, психичното здраве и нуждата от измерими управленски показатели.",
+  "summary_en": "Former caretaker health minister Mihail Okoliyski criticises a model that rewards hospitals for more and later treatment rather than prevention and outcomes. The interview covers clinical pathways, executive and staff pay, outpatient and palliative care, mental health and measurable management indicators.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.76,
+    "evidence": "Интервюто защитава профилактика, обществено здраве, пациентски права и реформиране на пазарните стимули в болничната система."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на интервюто."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.96,
+    "signals": [
+      "named interviewer and guest",
+      "extended topic-responsive answers",
+      "specific administrative experience and policy tradeoffs"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Михаил Околийски",
+      "Ангелова",
+      "Андрей Гюров"
+    ],
+    "parties": [],
+    "institutions": [
+      "МЗ"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "Суходол",
+      "ясен",
+      "Камен"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Михаил Околийски",
+      "basis": "gazetteer_exact",
+      "id": "mihail-aleksandrov-okoliiski-96c65c",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Ангелова",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Евгения Даниелова Ангелова (person, mp, mp-2641)",
+        "Ралица Тодорова Ангелова (person, mp, mp-4117)",
+        "Янина Огнянова Ангелова (person, revenue_agency, yanina-ognyanova-angelova-fe6618)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Андрей Гюров",
+      "basis": "gazetteer_exact",
+      "id": "mp-4160",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МЗ",
+      "basis": "gazetteer_exact",
+      "id": "000695317",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Суходол",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Суходол (place, settlement, settlement:70322)",
+        "Суходол (place, settlement, settlement:70336)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "ясен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Ясен (place, settlement, settlement:87583)",
+        "Ясен (place, settlement, settlement:87597)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Камен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Камен (place, settlement, settlement:35657)",
+        "Камен (place, settlement, settlement:35660)",
+        "Камен (place, settlement, settlement:35674)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": true
+    },
+    {
+      "category": "healthcare",
+      "subcategory": "hospitals",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

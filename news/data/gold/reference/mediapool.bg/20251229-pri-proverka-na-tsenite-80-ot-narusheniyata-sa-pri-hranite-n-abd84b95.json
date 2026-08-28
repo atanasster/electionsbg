@@ -1,0 +1,87 @@
+{
+  "article_path": "news/data/mediapool.bg/20251229-pri-proverka-na-tsenite-80-ot-narusheniyata-sa-pri-hranite-n-abd84b95.json",
+  "url": "https://www.mediapool.bg/pri-proverka-na-tsenite-80-ot-narusheniyata-sa-pri-hranite-news378730.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:35:53.944918+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete regulator-based update with inspection distribution, enforcement change and named officials."
+  },
+  "summary_bg": "КЗП съобщава, че 80% от нарушенията при проверки на цените са при храните, 10% при лекарствата, а останалите при стоки за бита. КЗП и НАП разширяват проверките и след 1 януари ще налагат директно санкции вместо предписания при нарушения на правилата около въвеждането на еврото.",
+  "summary_en": "The consumer regulator says 80% of price-inspection violations concerned food, 10% medicines and the rest household goods. It and the revenue agency will expand checks and, after 1 January, impose sanctions directly rather than issue warnings for euro-changeover violations.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Официалните резултати и бъдещото прилагане на закона са представени без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "regulator attribution",
+      "named officials at a formal mechanism meeting",
+      "specific inspection shares"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Александър Колячев",
+      "Христо Марков",
+      "Росен Желязков"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Александър Колячев",
+      "basis": "gazetteer_exact",
+      "id": "aleksandr-lenkov-kolyachev-f737ef",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Христо Марков",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Христо Ганчев Марков (person, mp, mp-756)",
+        "Христо Иванов Марков (person, regional_governor, hristo-ivanov-markov-e961d1)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Росен Желязков",
+      "basis": "gazetteer_exact",
+      "id": "mp-5293",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "prices-consumption",
+      "subcategory": "food",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2025-12-29T13:24:42+00:00"
+}

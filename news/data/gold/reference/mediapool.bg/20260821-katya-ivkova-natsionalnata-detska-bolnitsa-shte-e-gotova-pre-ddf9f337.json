@@ -1,0 +1,125 @@
+{
+  "article_path": "news/data/mediapool.bg/20260821-katya-ivkova-natsionalnata-detska-bolnitsa-shte-e-gotova-pre-ddf9f337.json",
+  "url": "https://www.mediapool.bg/katya-ivkova-natsionalnata-detska-bolnitsa-shte-e-gotova-prez-2030-g-news386720.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:27:31.342500+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete interview-based policy report covering the children's hospital and several concrete health-administration reforms."
+  },
+  "summary_bg": "Здравният министър Катя Ивкова обещава Националната детска болница да бъде готова през 2030 г. и представя реформи, които включват превръщане на РЗИ в териториални дирекции, общо управление на въздушната и наземната спешна помощ и промени в лекарствената политика и контрола върху дефицитите.",
+  "summary_en": "Health Minister Katya Ivkova says the National Children's Hospital will be ready in 2030 and outlines reforms turning regional health inspectorates into territorial directorates, jointly managing air and ground emergency care, and changing medicines policy and shortage controls.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Материалът подробно предава програмата на министъра и включва конкретни срокове и структури, без редакционна партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "BNT interview attribution",
+      "multiple verbatim ministerial statements",
+      "specific institutional reform detail"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Катя Ивкова",
+      "Румен Радев",
+      "Иван Шишков"
+    ],
+    "parties": [],
+    "institutions": [
+      "център за спешна медицинска помощ"
+    ],
+    "companies": [],
+    "places": [
+      "крайна",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Катя Ивкова",
+      "basis": "gazetteer_exact",
+      "id": "katya-georgieva-ivkova-cccb95",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Румен Радев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Румен Георгиев Радев (person, president, mp-5142)",
+        "Румен Събев Радев (person, cabinet, rumen-sbev-radev-b6ce45)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "център за спешна медицинска помощ",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Иван Шишков",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": true
+    },
+    {
+      "category": "healthcare",
+      "subcategory": "hospitals",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:27:09+00:00"
+}

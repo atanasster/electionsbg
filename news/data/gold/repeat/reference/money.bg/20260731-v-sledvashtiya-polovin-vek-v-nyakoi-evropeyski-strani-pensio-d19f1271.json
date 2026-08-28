@@ -1,0 +1,216 @@
+{
+  "article_path": "news/data/money.bg/20260731-v-sledvashtiya-polovin-vek-v-nyakoi-evropeyski-strani-pensio-d19f1271.json",
+  "url": "https://money.bg/career/v-sledvashtiya-polovin-vek-v-nyakoi-evropeyski-strani-pensionnata-vazrast-shte-dostigne-74-g-nay-golyamoto-uvelichenie-e-13-g.html",
+  "domain": "money.bg",
+  "analyzed_at": "2026-08-28T15:52:09.137034+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Европа",
+      "Дания",
+      "Норвегия",
+      "Исландия",
+      "Нидерландия",
+      "България",
+      "Малта",
+      "Франция",
+      "Чехия",
+      "Словакия",
+      "Гърция",
+      "Турция",
+      "Италия",
+      "Швеция",
+      "Кипър",
+      "Словения",
+      "Люксембург",
+      "Полша"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Дания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DK",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Норвегия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Исландия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IS",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Нидерландия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Малта",
+      "basis": "gazetteer_exact",
+      "id": "settlement:MT",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Чехия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Словакия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SK",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Италия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IT",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швеция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Кипър",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CY",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Словения",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SI",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Люксембург",
+      "basis": "gazetteer_exact",
+      "id": "settlement:LU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Полша",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PL",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "social-pensions",
+      "subcategory": "pensions",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-07-31T13:03:02+00:00"
+}

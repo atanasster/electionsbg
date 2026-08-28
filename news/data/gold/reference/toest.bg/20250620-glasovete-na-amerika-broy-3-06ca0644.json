@@ -1,0 +1,48 @@
+{
+  "article_path": "news/data/toest.bg/20250620-glasovete-na-amerika-broy-3-06ca0644.json",
+  "url": "https://www.toest.bg/glasovete-na-amerika-broy-3/",
+  "domain": "toest.bg",
+  "analyzed_at": "2026-08-28T15:10:51.777805+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "The extractor returned an empty body."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The extractor returned an empty body.",
+  "summary_en": "The record does not contain a reliably extracted full article: The extractor returned an empty body.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "воден"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2025-06-20T09:35:25+00:00"
+}

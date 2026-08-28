@@ -1,0 +1,79 @@
+{
+  "article_path": "news/data/pogled.info/20260822-prilovat-v-papua-nova-gvineya-izvadi-ot-syankata-vid-uloven--0abe1d85.json",
+  "url": "https://pogled.info/interesen/prilovat-v-papua-nova-gvineya-izvadi-ot-syankata-vid-uloven-za-posledno-prez-1970-g.196246",
+  "domain": "pogled.info",
+  "analyzed_at": "2026-08-28T15:48:27.395640+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A full science explainer about rediscovery through fishery bycatch, but written with formulaic pseudo-technical grandiosity and unsupported certainty."
+  },
+  "summary_bg": "Рядък вид акула, известен от един екземпляр от 1970 г., е открит отново чрез наблюдение на прилова на местни рибари в Папуа Нова Гвинея. Материалът противопоставя скъпите експедиции на систематичното събиране на данни от занаятчийски риболов и описва морфологията, местообитанието и нуждата от опазване.",
+  "summary_en": "A rare shark known from one 1970 specimen was rediscovered by monitoring local fishers' bycatch in Papua New Guinea. The article contrasts expensive expeditions with systematic artisanal-fishery data and describes morphology, habitat and conservation needs.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.58,
+    "evidence": "Природозащитният извод и уважението към местното знание са прогресивни сигнали, но текстът е предимно научнопопулярен."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.9,
+    "signals": [
+      "formulaic dramatic section headings",
+      "repeated logistics and budget metaphors",
+      "high-confidence scientific narrative without named study or researchers"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Бразилия",
+      "воден"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Бразилия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "воден",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Воден (place, settlement, settlement:11627)",
+        "Воден (place, settlement, settlement:11644)",
+        "Воден (place, settlement, settlement:11658)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "protected-areas",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T15:01:00+00:00"
+}

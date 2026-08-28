@@ -1,0 +1,124 @@
+{
+  "article_path": "news/data/dariknews.bg/20260821-izdirvat-stoiana-stefanova-ot-kazanlyk-za-posledno-e-vidiana-151fb68d.json",
+  "url": "https://dariknews.bg/regioni/stara-zagora/izdirvat-stoiana-stefanova-ot-kazanlyk-za-posledno-e-vidiana-s-kuche-chihuahua-2464336",
+  "domain": "dariknews.bg",
+  "analyzed_at": "2026-08-28T15:43:38.884301+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete police missing-person notice with identifying description, last-seen detail and public appeal; analytics code trails it."
+  },
+  "summary_bg": "Полицията в Стара Загора издирва 78-годишната Стояна Стефанова от Казанлък, която е в неизвестност от 20 август. Тя е описана с облекло и външни белези, няма документи и телефон и е видяна последно с бяло куче чихуахуа.",
+  "summary_en": "Stara Zagora police are searching for 78-year-old Stoyana Stefanova from Kazanlak, missing since 20 August. Her clothes and appearance are described; she has no documents or phone and was last seen with a white Chihuahua.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Полицейски сигнал за изчезнал човек без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "police and family request",
+      "precise physical description",
+      "public contact appeal"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Стефанова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Казанлък",
+      "Стара Загора",
+      "бяла",
+      "черна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Стефанова",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Адриана Георгиева Стоименова Стефанова (person, deputy_minister, adriana-georgieva-stoimenova-stefanova-6c1a05)",
+        "Антоанета Андонова Стефанова (person, mp, mp-3352)",
+        "Галина Димитрова Стефанова (person, party_leader, galina-dimitrova-stefanova-e45b7f)",
+        "Гергана Желязкова Стефанова (person, mp, mp-2659)",
+        "Ели Николаева Стефанова (person, revenue_agency, eli-nikolaeva-stefanova-9e6f8b)",
+        "Елиза Петрова Стефанова (person, agency_head, eliza-petrova-stefanova-0d8e15)",
+        "Рада Георгиева Стефанова (person, cabinet, rada-georgieva-stefanova-d5533c)",
+        "Рена Енчева Стефанова (person, mp, mp-3957)",
+        "Стефка Здравкова Стефанова (person, regional_governor, stefka-zdravkova-stefanova-1d9b35)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Казанлък",
+      "basis": "gazetteer_exact",
+      "id": "settlement:35167",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Стара Загора",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68850",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "бяла",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Бяла (place, obshtina, obshtina:RSE04)",
+        "Бяла (place, obshtina, obshtina:VAR05)",
+        "Бяла (place, settlement, settlement:07598)",
+        "Бяла (place, settlement, settlement:07603)",
+        "Бяла (place, settlement, settlement:07613)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "черна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Черна (place, settlement, settlement:80769)",
+        "Черна (place, settlement, settlement:80772)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "crime-blotter",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T16:27:00+00:00"
+}

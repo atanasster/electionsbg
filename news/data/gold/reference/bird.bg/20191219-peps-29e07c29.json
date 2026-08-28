@@ -1,0 +1,48 @@
+{
+  "article_path": "news/data/bird.bg/20191219-peps-29e07c29.json",
+  "url": "https://bird.bg/peps/",
+  "domain": "bird.bg",
+  "analyzed_at": "2026-08-28T15:09:19.160952+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "Only the page title and outlet name were extracted."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only the page title and outlet name were extracted.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only the page title and outlet name were extracted.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "КПКОНПИ"
+    ],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2019-12-19T10:50:17+00:00"
+}

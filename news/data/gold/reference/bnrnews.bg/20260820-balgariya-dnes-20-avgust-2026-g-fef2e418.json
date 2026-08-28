@@ -1,0 +1,60 @@
+{
+  "article_path": "news/data/bnrnews.bg/20260820-balgariya-dnes-20-avgust-2026-g-fef2e418.json",
+  "url": "https://bnrnews.bg/radiobulgaria/post/517967/balgariya-dnes-20-avgust-2026-g",
+  "domain": "bnrnews.bg",
+  "analyzed_at": "2026-08-28T15:25:42.181896+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A radio programme running order with timestamps and credits, not a substantive news article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A radio programme running order with timestamps and credits, not a substantive news article.",
+  "summary_en": "The record does not contain a reliably extracted full article: A radio programme running order with timestamps and credits, not a substantive news article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Програмна схема без политическа теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "programme metadata rather than prose article"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Михайлов",
+      "Стефанова",
+      "Кръстева",
+      "Григоров",
+      "Петров"
+    ],
+    "parties": [],
+    "institutions": [
+      "БЪЛГАРСКО НАЦИОНАЛНО РАДИО"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "София",
+      "Жеравна",
+      "Росен",
+      "Варна"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T19:00:36+00:00"
+}

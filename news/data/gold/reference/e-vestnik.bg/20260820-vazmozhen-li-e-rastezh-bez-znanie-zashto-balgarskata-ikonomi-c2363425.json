@@ -1,0 +1,115 @@
+{
+  "article_path": "news/data/e-vestnik.bg/20260820-vazmozhen-li-e-rastezh-bez-znanie-zashto-balgarskata-ikonomi-c2363425.json",
+  "url": "https://e-vestnik.bg/40933/vazmozhen-li-e-rastezh-bez-znanie-zashto-balgarskata-ikonomika-opira-do-hora-a-ne-do-kapital/",
+  "domain": "e-vestnik.bg",
+  "analyzed_at": "2026-08-28T15:29:08.946821+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A coherent data-rich economic analysis synthesising energy, digital-skills, labour and infrastructure evidence."
+  },
+  "summary_bg": "България съчетава бърз ръст на батерийното съхранение, добра цифрова инфраструктура, ниски данъци и разходи за труд с остър недостиг на цифрови умения и преквалификация. Анализът твърди, че човешкият капитал и претоварената електропреносна мрежа, а не липсата на капитал, ограничават устойчивия растеж.",
+  "summary_en": "Bulgaria combines rapid battery-storage growth, strong digital infrastructure, low taxes and labour costs with a severe shortage of digital skills and retraining. The analysis argues that human capital and a congested power grid, rather than capital scarcity, constrain sustainable growth.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.78,
+    "evidence": "Текстът съчетава пазарни предимства, европейска интеграция и призив за преквалификация без партийна позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_ai",
+    "confidence": 0.64,
+    "signals": [
+      "unattributed polished synthesis across several reports",
+      "high density of neatly contrasted statistics",
+      "formulaic thesis-and-constraints structure"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "Чили",
+      "Австралия",
+      "Румъния",
+      "Гърция",
+      "Германия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Чили",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Австралия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": true
+    },
+    {
+      "category": "energy",
+      "subcategory": "electricity",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T06:46:28+00:00"
+}

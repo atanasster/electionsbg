@@ -1,0 +1,96 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076066-pri-akciata-na-slujbite-v-dragalevci-sa-otkriti-tain-070a12e7.json",
+  "url": "https://fakti.bg/bulgaria/1076066-pri-akciata-na-slujbite-v-dragalevci-sa-otkriti-taini-koridori-i-tunel",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:52:09.676112+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "МВР",
+      "ДАНС",
+      "КРС"
+    ],
+    "companies": [],
+    "places": [
+      "Капитан Андреево"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "ДАНС",
+      "basis": "gazetteer_exact",
+      "id": "129009710",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "КРС",
+      "basis": "gazetteer_exact",
+      "id": "121747864",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Капитан Андреево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:36110",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "interior-mvr",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T08:22:44+00:00"
+}

@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/dariknews.bg/20260821-dyrzhavata-dava-pari-ako-se-premestite-da-zhiveete-i-rabotit-c424cdce.json",
+  "url": "https://dariknews.bg/novini/bylgariia/dyrzhavata-dava-pari-ako-se-premestite-da-zhiveete-i-rabotite-v-malyk-grad-ili-selo-2464305",
+  "domain": "dariknews.bg",
+  "analyzed_at": "2026-08-28T15:34:07.565089+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete programme explainer with eligibility, benefit amounts, duration, employment conditions and application route."
+  },
+  "summary_bg": "Мярката „Избирам България“ ще подпомага работещи хора, които се местят от град над 50 000 жители в по-малко населено място. Предвидени са до 480 евро за преместване, месечна помощ за жилище и пътуване и еднократен стимул при запазване на работа, като се очакват поне 1050 участници.",
+  "summary_en": "The Choose Bulgaria programme will support working-age people moving from cities above 50,000 residents to smaller settlements. It offers up to €480 for moving, monthly housing and commuting support, and a one-off job-retention payment, with at least 1,050 participants expected.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.62,
+    "evidence": "Програмата е представена положително като държавна субсидия за регионална мобилност и заетост, без критичен контрапункт."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "ministry attribution",
+      "precise eligibility and reimbursement rules",
+      "specific programme component"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "demographics",
+      "subcategory": "migration",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "labor-market",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T10:26:00+00:00"
+}

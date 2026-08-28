@@ -1,0 +1,87 @@
+{
+  "article_path": "news/data/money.bg/20260822-da-se-pensionirash-s-eur270-miliona-kak-nikos-likos-prodade--b88b9930.json",
+  "url": "https://money.bg/wealth/da-se-pensionirash-s-eur270-miliona-kak-nikos-likos-prodade-130-godishniya-semeen-biznes-na-yapontsite.html",
+  "domain": "money.bg",
+  "analyzed_at": "2026-08-28T15:46:46.665348+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete company-sale profile with ownership, valuation, historical development and buyer strategy."
+  },
+  "summary_bg": "Гръцкият предприемач Никос Ликос се договаря да продаде 74,6% от Austriacard на японската DNP при оценка около 363 млн. евро, което прави дела му над 270 млн. евро. Материалът проследява как 130-годишната семейна печатница се превръща в международна компания за идентификация, плащания и дигитализация.",
+  "summary_en": "Greek entrepreneur Nikos Lykos agreed to sell 74.6% of Austriacard to Japan's DNP at a roughly €363 million valuation, making his stake worth more than €270 million. The profile traces how a 130-year-old family printer became an international identity, payments and digitisation company.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.58,
+    "evidence": "Предприемаческата история и голямата продажба са представени възхитително, но без партийна или регулаторна теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.78,
+    "signals": [
+      "specific shareholding and offer terms",
+      "multi-generation company history",
+      "buyer and international expansion context"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "крайна",
+      "Европа",
+      "Африка"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Африка",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AF",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T15:40:03+00:00"
+}

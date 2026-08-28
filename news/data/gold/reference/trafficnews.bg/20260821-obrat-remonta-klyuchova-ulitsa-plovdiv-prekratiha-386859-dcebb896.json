@@ -1,0 +1,89 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-obrat-remonta-klyuchova-ulitsa-plovdiv-prekratiha-386859-dcebb896.json",
+  "url": "https://trafficnews.bg/plovdiv/obrat-remonta-klyuchova-ulitsa-plovdiv-prekratiha-386859/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:34:07.736149+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A detailed original procurement report using the mayoral decision, tender documents, bids, project scope and funding status."
+  },
+  "summary_bg": "Поръчката за реконструкция на ул. „Арх. Камен Петков“ в Пловдив за близо 2,8 млн. евро без ДДС е прекратена след жалба и установени неотстраними несъответствия между сметката и проекта. Четири фирми са подали оферти, процедурата ще започне отначало след преработка, а финансиране още не е осигурено.",
+  "summary_en": "A nearly €2.8 million pre-VAT tender to rebuild Plovdiv's Arch. Kamen Petkov Street was cancelled after a complaint and unfixable discrepancies between the cost schedule and design. Four companies bid, the procedure must restart after revision, and funding is not yet secured.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.92,
+    "evidence": "Репортажът се опира на решение, документация, суми и оферти без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.94,
+    "signals": [
+      "named byline",
+      "prior outlet reporting",
+      "exact bids and technical project scope"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Камен Петков",
+      "Емил Русинов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Пловдив"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Пловдив",
+      "basis": "gazetteer_exact",
+      "id": "settlement:56784",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Камен Петков",
+      "basis": "gazetteer_exact",
+      "id": "mp-1029",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Емил Русинов",
+      "basis": "gazetteer_exact",
+      "id": "emil-georgiev-rusinov-ba19ab",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "procurement",
+      "subcategory": "kzk-appeals",
+      "primary": true
+    },
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "roads",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:00:00+00:00"
+}

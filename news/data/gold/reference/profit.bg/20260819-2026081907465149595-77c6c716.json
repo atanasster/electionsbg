@@ -1,0 +1,59 @@
+{
+  "article_path": "news/data/profit.bg/20260819-2026081907465149595-77c6c716.json",
+  "url": "https://profit.bg/article/2026081907465149595",
+  "domain": "profit.bg",
+  "analyzed_at": "2026-08-28T15:37:33.281587+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete science-and-policy feature with project design, named partners, physical explanation, uncertainty and criticism."
+  },
+  "summary_bg": "Британският проект Operation Blue Skies за 5 млн. паунда ще тества дали AI може да прогнозира зоните за кондензационни следи и да насочва самолетите около тях. Google, държавата, метеоролози и университети ще работят 30 месеца, тъй като следите може да формират близо една трета от климатичния отпечатък на авиацията.",
+  "summary_en": "The £5 million UK Operation Blue Skies project will test whether AI can forecast contrail-forming zones and route aircraft around them. Google, government, meteorologists and universities will work for 30 months because contrails may account for nearly a third of aviation's climate impact.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.68,
+    "evidence": "Материалът приема климатичното въздействие като проблем за публично финансирани технологични действия и включва научна несигурност и критика."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "BBC interview attribution",
+      "named technical lead and project partners",
+      "scientific uncertainty and policy context"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "climate",
+      "primary": true
+    },
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "public-transport",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-19T07:46:51+00:00"
+}

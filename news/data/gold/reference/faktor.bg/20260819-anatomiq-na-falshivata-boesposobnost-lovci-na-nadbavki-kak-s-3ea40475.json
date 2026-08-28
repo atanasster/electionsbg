@@ -1,0 +1,134 @@
+{
+  "article_path": "news/data/faktor.bg/20260819-anatomiq-na-falshivata-boesposobnost-lovci-na-nadbavki-kak-s-3ea40475.json",
+  "url": "https://faktor.bg/anatomiq-na-falshivata-boesposobnost-lovci-na-nadbavki-kak-shtabnata-byurokraciq-prizemi-balgarskite-iztrebiteli",
+  "domain": "faktor.bg",
+  "analyzed_at": "2026-08-28T15:18:02.128325+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete, strongly argued external critique of Bulgarian Air Force staffing, flight-hour incentives, and command culture."
+  },
+  "summary_bg": "Полк. Владимир Миленски твърди, че висши щабни офицери изразходват ограничени летателни часове, за да запазят надбавки, докато бойните пилоти не получават достатъчна подготовка. Той призовава за промяна на командната култура, кадровите правила и управлението на ресурсите във ВВС.",
+  "summary_en": "Col. Vladimir Milenski argues that senior staff officers consume scarce flight hours to preserve allowances while operational pilots receive insufficient training. He calls for changes to command culture, personnel rules, and resource management in Bulgaria's Air Force.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.7,
+    "evidence": "Антикорупционната и институционално-реформаторска рамка доминира: привилегирована каста, разхищение на публичен ресурс и нужда от системна промяна."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.95,
+    "evidence": "НАТО е организационен стандарт в анализа, но Русия и руската политика не са предмет."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "named expert author",
+      "domain-specific operational argument",
+      "distinctive polemical voice",
+      "continuation of a prior part"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Владимир Миленски"
+    ],
+    "parties": [],
+    "institutions": [
+      "Атлантически съвет на България",
+      "ВВС",
+      "НАТО"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "София"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Владимир Миленски",
+      "basis": "gazetteer_exact",
+      "id": "vladimir-strahilov-milenski-792e9c",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "военновъздушни сили",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Николай Русев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Полша",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Словакия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SK",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    },
+    {
+      "category": "budget-fiscal",
+      "subcategory": "budget-execution",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-19T10:14:00+00:00"
+}

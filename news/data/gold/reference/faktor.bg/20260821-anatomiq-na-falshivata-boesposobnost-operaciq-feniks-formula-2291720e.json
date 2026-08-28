@@ -1,0 +1,185 @@
+{
+  "article_path": "news/data/faktor.bg/20260821-anatomiq-na-falshivata-boesposobnost-operaciq-feniks-formula-2291720e.json",
+  "url": "https://faktor.bg/anatomiq-na-falshivata-boesposobnost-operaciq-feniks-formulata-za-raboteshta-balgarska-aviaciq",
+  "domain": "faktor.bg",
+  "analyzed_at": "2026-08-28T15:20:32.264896+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete reform proposal concluding a series on Bulgarian Air Force capability and spending."
+  },
+  "summary_bg": "Полк. Владимир Миленски предлага „Операция Феникс“ за преструктуриране на ВВС след години разходи, недостатъчни летателни часове и забавена подготовка за F-16. Той защитава западна съвместимост, временни решения със съюзници и прекратяване на поддръжката на остарели МиГ-29.",
+  "summary_en": "Col. Vladimir Milenski proposes Operation Phoenix to restructure Bulgaria's Air Force after years of spending, insufficient flying hours, and delayed F-16 preparation. He supports Western interoperability, interim allied solutions, and ending support for obsolete MiG-29s.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.75,
+    "evidence": "Доминира системно-реформаторска и антикорупционна критика към партийни зависимости, омерта и неефективно публично управление."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.75,
+    "evidence": "Защитава предоставянето на МиГ-ове на Украйна и преминаването от старата съветска система към западни съюзнически решения."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "named expert series",
+      "detailed comparative procurement examples",
+      "distinctive polemical voice"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Владимир Миленски",
+      "Димитър Стоянов"
+    ],
+    "parties": [],
+    "institutions": [
+      "ВВС",
+      "Министерството на отбраната",
+      "Народното събрание",
+      "НАТО",
+      "ЕС"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "Полша",
+      "Украйна",
+      "Румъния",
+      "Словакия",
+      "САЩ"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Полша",
+      "basis": "gazetteer_exact",
+      "id": "settlement:PL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Димитър Стоянов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Димитър Анастасов Стоянов (person, mp, mp-2239)",
+        "Димитър Желязков Стоянов (person, mp, mp-5118)",
+        "Димитър Кинов Стоянов (person, mp, mp-193)",
+        "Димитър Стоянов Стоянов (person, mp, mp-2747)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Румъния",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Словакия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SK",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Чехия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Безмер",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Безмер (place, settlement, settlement:03215)",
+        "Безмер (place, settlement, settlement:03229)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "Народно събрание",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Долна Митрополия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:22215",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Гърция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:GR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МО",
+      "basis": "gazetteer_exact",
+      "id": "000695324",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T10:45:00+00:00"
+}

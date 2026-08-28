@@ -1,0 +1,173 @@
+{
+  "article_path": "news/data/bloombergtv.bg/20260821-163263-ikonomicheskoto-zadushavane-na-iran-e-nay-malko-bolez-5b156dcf.json",
+  "url": "https://www.bloombergtv.bg/a/94-bloomberg-opinion/163263-ikonomicheskoto-zadushavane-na-iran-e-nay-malko-bolezneniyat-kray-na-voynata",
+  "domain": "bloombergtv.bg",
+  "analyzed_at": "2026-08-28T15:20:32.368195+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete first-person Bloomberg opinion analysis of economic pressure as an alternative to further war."
+  },
+  "summary_bg": "Авторът смята, че санкциите рядко свалят режими, но икономическият натиск е най-малко лошият останал вариант за прекратяване на войната с Иран. Анализът разглежда петролната блокада, инфлацията, контрабандните маршрути и способността на Техеран да издържи по-дълго от очакваното.",
+  "summary_en": "The author argues that sanctions rarely topple regimes but economic pressure is the least bad remaining option for ending the war with Iran. The analysis examines the oil blockade, inflation, smuggling routes, and Tehran's ability to endure longer than expected.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Критикува започването и планирането на войната, но оценява прагматично наличните опции, без българска партийна рамка."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Москва е спомената само като един от маршрутите, помогнали на Иран да заобикаля натиска."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "first-person field experience",
+      "sustained economic argument",
+      "specific inflation and oil figures",
+      "Bloomberg opinion style"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Доналд Тръмп",
+      "Бенямин Нетаняху",
+      "Масуд Нили",
+      "Мохамад Багер Галибаф",
+      "Масуд Пезешкиан",
+      "Скот Бесънт"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [
+      "Bloomberg"
+    ],
+    "places": [
+      "Иран",
+      "САЩ",
+      "Ирак",
+      "Венецуела",
+      "Куба",
+      "Русия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Ирак",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IQ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Венецуела",
+      "basis": "gazetteer_exact",
+      "id": "settlement:VE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Куба",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Афганистан",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AF",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азербайджан",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Армения",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AM",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Казахстан",
+      "basis": "gazetteer_exact",
+      "id": "settlement:KZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Оман",
+      "basis": "gazetteer_exact",
+      "id": "settlement:53504",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "gdp-inflation",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T04:33:00+00:00"
+}

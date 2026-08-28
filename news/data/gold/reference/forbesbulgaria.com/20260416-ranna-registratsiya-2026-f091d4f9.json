@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/forbesbulgaria.com/20260416-ranna-registratsiya-2026-f091d4f9.json",
+  "url": "https://forbesbulgaria.com/store/event-tickets/hr-employer-branding-forum-and-awards-2026/ranna-registratsiya-2026/",
+  "domain": "forbesbulgaria.com",
+  "analyzed_at": "2026-08-28T15:10:51.775647+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "The event page has an empty extracted body."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The event page has an empty extracted body.",
+  "summary_en": "The record does not contain a reliably extracted full article: The event page has an empty extracted body.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-04-16T13:08:36+00:00"
+}

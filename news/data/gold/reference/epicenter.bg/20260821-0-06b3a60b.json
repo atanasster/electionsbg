@@ -1,0 +1,240 @@
+{
+  "article_path": "news/data/epicenter.bg/20260821-0-06b3a60b.json",
+  "url": "https://epicenter.bg/article/Lili-Ivanova/429083/6/0",
+  "domain": "epicenter.bg",
+  "analyzed_at": "2026-08-28T15:25:41.908636+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete entertainment feature previewing a concert and explaining the history and new arrangement of a well-known song."
+  },
+  "summary_bg": "Лили Иванова ще изпълни песента „Боянският майстор“ в нов аранжимент с Пловдивския филхармоничен оркестър и хор „Плевен“ на концерта си пред храм-паметника „Александър Невски“. Материалът припомня историята и авторите на песента и описва подготовката за спектакъла пред около 8000 души.",
+  "summary_en": "Lili Ivanova will perform 'The Boyana Master' in a new arrangement with the Plovdiv Philharmonic Orchestra and the Pleven choir at her concert outside Alexander Nevsky Cathedral. The feature recalls the song's history and creators and describes preparations for the roughly 8,000-person show.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Материалът е музикален анонс без политически субект или идеологическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "named interview subjects",
+      "historical song detail",
+      "direct quotations attributed to the production team"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Лили Иванова",
+      "Йосифов",
+      "Ангел Попов",
+      "Ковачев",
+      "Янева",
+      "Кръстев",
+      "Чалъков",
+      "Димитрова"
+    ],
+    "parties": [],
+    "institutions": [
+      "Столична община"
+    ],
+    "companies": [],
+    "places": [
+      "София",
+      "зограф",
+      "Плевен"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Лили Иванова",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Йосифов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Ивалин Костов Йосифов (person, mp, mp-2008)",
+        "Любомир Драгомиров Йосифов (person, deputy_minister, lyubomir-dragomirov-iosifov-2cc4b9)",
+        "Любомир Калинов Йосифов (person, secretary_general, lyubomir-kalinov-iosifov-6f4a62)",
+        "Тодор Жаков Йосифов (person, mp, mp-856)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "зограф",
+      "basis": "gazetteer_exact",
+      "id": "settlement:31303",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Плевен",
+      "basis": "gazetteer_exact",
+      "id": "settlement:56722",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Ангел Попов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Ковачев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Андрей Андреев Ковачев (person, mep, andrei-andreev-kovachev-7ea526)",
+        "Георги Александров Ковачев (person, mp, mp-2395)",
+        "Данаил Борисов Ковачев (person, regional_governor, danail-borisov-kovachev-ce6725)",
+        "Начо Янков Ковачев (person, regional_governor, nacho-yankov-kovachev-7d7309)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Янева",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Анна Георгиева Янева (person, mp, mp-1000)",
+        "Даниела Георгиева Янева (person, revenue_agency, daniela-georgieva-yaneva-123683)",
+        "Елена Димитрова Янева (person, mp, mp-2215)",
+        "Юлия Кузманова Янева (person, mp, mp-2032)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Кръстев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Антоний Венциславов Кръстев (person, mp, mp-1129)",
+        "Атанас Савов Кръстев (person, mp, mp-1964)",
+        "Валентин Игнатов Кръстев (person, military_command, valentin-ignatov-krstev-1c410f)",
+        "Васил Христов Кръстев (person, cabinet, vasil-hristov-krstev-c54cd2)",
+        "Георги Николаев Кръстев (person, mp, mp-4816)",
+        "Златин Страшимиров Кръстев (person, deputy_minister, zlatin-strashimirov-krstev-41393f)",
+        "Иван Кръстев Кръстев (person, deputy_minister, ivan-krstev-krstev-cbafb7-2)",
+        "Красен Георгиев Кръстев (person, mp, mp-5083)",
+        "Кристиян Борисов Кръстев (person, mp, mp-2169)",
+        "Кръстю Цончев Кръстев (person, cabinet, krstyu-tsonchev-krstev-927ca6)",
+        "Лъчезар Борисов Кръстев (person, revenue_agency, lchezar-borisov-krstev-171d6b)",
+        "Никола Христов Кръстев (person, mp, mp-3047)",
+        "Павлин Павлов Кръстев (person, mp, mp-4762)",
+        "Тихомир Евгениев Кръстев (person, mp, mp-5087)",
+        "Тони Венков Кръстев (person, agency_head, toni-venkov-krstev-1737ff)",
+        "Цветослав Василев Кръстев (person, mp, mp-1960)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Чалъков",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Борислав Божинов Чалъков (person, media_head, borislav-bozhinov-chalkov-8f17d8)",
+        "Георги Динков Чалъков (person, regional_governor, georgi-dinkov-chalkov-5db84e)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Димитрова",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Антония Кънчева Димитрова (person, mp, mp-3505)",
+        "Виолина Драгомирова Димитрова (person, security_service, violina-dragomirova-dimitrova-11a490)",
+        "Галина Иванчева Димитрова (person, mp, mp-3308)",
+        "Галя Пенкова Димитрова (person, deputy_minister, galya-penkova-dimitrova-071ab6)",
+        "Даниела Добрева Димитрова (person, mp, mp-2940)",
+        "Деница Ивайлова Димитрова (person, mp, mp-790)",
+        "Диана Станчева Димитрова (person, mp, mp-5078)",
+        "Диляна Николова Димитрова (person, mp, mp-2241)",
+        "Елина Георгиева Димитрова (person, regional_governor, elina-georgieva-dimitrova-6d8f81)",
+        "Емилияна Михайлова Димитрова (person, agency_head, emiliyana-mihailova-dimitrova-036066)",
+        "Ивелина Ганчева Димитрова (person, regulator, ivelina-gancheva-dimitrova-158225)",
+        "Ирена Василева Димитрова (person, deputy_minister, irena-vasileva-dimitrova-abcb4d)",
+        "КАТЯ ГЕОРГИЕВА ДИМИТРОВА (person, regional_governor, katya-georgieva-dimitrova-f67087-2)",
+        "Красена Георгиева Димитрова (person, inspectorate, krasena-georgieva-dimitrova-472e65)",
+        "Лилия Маринова Димитрова (person, mp, mp-5084)",
+        "Мадлена Петкова Димитрова (person, revenue_agency, madlena-petkova-dimitrova-a7d8ec)",
+        "Мария Златкова Димитрова (person, mp, mp-5062)",
+        "Мая Йорданова Димитрова (person, mp, mp-4754)",
+        "Нели Стойчева Димитрова (person, mp, mp-4311)",
+        "Нина Борисова Димитрова (person, mp, mp-4993)",
+        "Оля Георгиева Димитрова (person, agency_head, olya-georgieva-dimitrova-2a40d1)",
+        "Петя Божидарова Димитрова (person, mp, mp-4862)",
+        "Поля Светлинова Занева - Димитрова (person, deputy_minister, polya-svetlinova-zaneva-dimitrova-4f7077)",
+        "Розалия Панова Димитрова (person, revenue_agency, rozaliya-panova-dimitrova-794256)",
+        "Росица Гълъбова Димитрова (person, cabinet, rositsa-glbova-dimitrova-0c140f)",
+        "Росица Тодорова Димитрова (person, deputy_minister, rositsa-todorova-dimitrova-b70526)",
+        "София Владимирова Димитрова (person, regulator, sofiya-vladimirova-dimitrova-a04274)",
+        "Стойка Колева Димитрова (person, regional_governor, stoika-koleva-dimitrova-f009ac)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "Столична община",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Столична община (institution, 000696327)",
+        "Столична община (place, obshtina, obshtina:SFO_CITY)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T10:11:00+00:00"
+}

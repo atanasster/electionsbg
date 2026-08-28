@@ -1,0 +1,88 @@
+{
+  "article_path": "news/data/mediapool.bg/20260821-po-zaraka-na-putin-ruskite-gradove-shte-badat-ukraseni-s-mat-5ffba2ae.json",
+  "url": "https://www.mediapool.bg/po-zaraka-na-putin-ruskite-gradove-shte-badat-ukraseni-s-matryoshki-i-balalaiki-news386739.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:13:14.222852+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete report followed by the outlet's standard donation and forum footer."
+  },
+  "summary_bg": "Руски държавен проект по поръчение на Владимир Путин предлага матрьошки, балалайки, брези и други традиционни символи като стандарт за градска среда. Инициативата е представена като визуален израз на гражданска идентичност, традиционни ценности и културен суверенитет.",
+  "summary_en": "A Russian state-backed project commissioned by Vladimir Putin proposes matryoshka dolls, balalaikas, birch trees and other traditional symbols as a standard for urban spaces. The initiative is presented as a visual expression of civic identity, traditional values and cultural sovereignty.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.75,
+    "evidence": "Централната рамка е държавно насърчаване на традиции, „традиционни ценности“, национална идентичност и културен суверенитет."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Текстът описва и леко иронизира държавната естетическа инициатива, но не оценява руската външна политика или войната."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "multiple attributed Russian sources",
+      "named designers and officials",
+      "standard Mediapool footer"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Владимир Путин",
+      "Андрей Радаев",
+      "Анна Харичева",
+      "Александър Харичев",
+      "Олга Мусиенко",
+      "Елена Ямпольская"
+    ],
+    "parties": [],
+    "institutions": [
+      "националния център Русия"
+    ],
+    "companies": [],
+    "places": [
+      "Русия",
+      "Екатеринбург"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Елена",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Елена (place, obshtina, obshtina:VTR13)",
+        "Елена (place, settlement, settlement:27190)",
+        "Елена (place, settlement, settlement:27200)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T11:40:13+00:00"
+}

@@ -1,0 +1,79 @@
+{
+  "article_path": "news/data/chernomore.bg/20260821-313474-turtsiya-izdade-mezhdunarodna-zapoved-za-arest-na-net-0848884f.json",
+  "url": "https://www.chernomore.bg/a/15-sviat/313474-turtsiya-izdade-mezhdunarodna-zapoved-za-arest-na-netanyahu",
+  "domain": "chernomore.bg",
+  "analyzed_at": "2026-08-28T15:40:30.706218+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A very short but complete AFP-based diplomatic and legal update with allegations clearly attributed to Turkey."
+  },
+  "summary_bg": "Турция е издала международна заповед за арест на Бенямин Нетаняху във връзка с разследване на спирането на хуманитарна флотилия за Газа. Турските власти вече обвиняват израелския премиер и други представители в геноцид за действията във войната.",
+  "summary_en": "Turkey issued an international arrest warrant for Benjamin Netanyahu over an investigation into stopping a humanitarian flotilla for Gaza. Turkish authorities had already accused the Israeli prime minister and other officials of genocide over the war.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.86,
+    "evidence": "Тежките обвинения са приписани на турските власти и източника АФП."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "AFP attribution",
+      "named justice minister source",
+      "concise procedural update"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Турция",
+      "Израел"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Израел",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IL",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "judiciary",
+      "subcategory": "high-profile-cases",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T13:30:00+00:00"
+}

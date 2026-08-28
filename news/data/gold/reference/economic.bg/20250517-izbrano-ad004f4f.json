@@ -1,0 +1,50 @@
+{
+  "article_path": "news/data/economic.bg/20250517-izbrano-ad004f4f.json",
+  "url": "http://www.economic.bg/bg/a/topics/izbrano",
+  "domain": "economic.bg",
+  "analyzed_at": "2026-08-28T15:34:07.809241+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A section landing-page extraction containing a sequence of unrelated article teasers rather than one article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A section landing-page extraction containing a sequence of unrelated article teasers rather than one article.",
+  "summary_en": "The record does not contain a reliably extracted full article: A section landing-page extraction containing a sequence of unrelated article teasers rather than one article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Несвързани заглавни анонси без обща политическа теза."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Няма самостоятелен материал за оценка."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "aggregated teaser list rather than authored article"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Росен Желязков"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2025-05-17T12:04:30+00:00"
+}

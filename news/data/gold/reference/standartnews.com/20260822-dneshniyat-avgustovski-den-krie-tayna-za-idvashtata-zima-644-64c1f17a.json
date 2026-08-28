@@ -1,0 +1,79 @@
+{
+  "article_path": "news/data/standartnews.com/20260822-dneshniyat-avgustovski-den-krie-tayna-za-idvashtata-zima-644-64c1f17a.json",
+  "url": "https://www.standartnews.com/balgariya-obshtestvo/dneshniyat-avgustovski-den-krie-tayna-za-idvashtata-zima-644412.html",
+  "domain": "standartnews.com",
+  "analyzed_at": "2026-08-28T15:48:27.461262+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined religion-and-folklore feature combining the Orthodox calendar, hagiography, folk beliefs and seasonal sayings."
+  },
+  "summary_bg": "На 22 август православният календар почита мъчениците Агатоник, Зотик, Теопрепий, Евлалия и преподобна Антуса. Материалът разказва житията им и добавя народни поверия за хамбарите, гората, добрите дела и природните знаци, по които се предсказвали есента и зимата.",
+  "summary_en": "On 22 August the Orthodox calendar honours the martyrs Agathonicus, Zoticus, Theoprepius and Eulalia and the venerable Anthusa. The feature recounts their lives and adds folk beliefs about granaries, forests, good deeds and natural signs used to predict autumn and winter.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Религиозно-фолклорен материал без съвременна политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.74,
+    "signals": [
+      "named byline",
+      "combined church-calendar and folk-tradition structure",
+      "specific hagiographic names and places"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Тракия",
+      "студена"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Тракия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:72970",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "студена",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Студена (place, settlement, settlement:70038)",
+        "Студена (place, settlement, settlement:70041)",
+        "Студена (place, settlement, settlement:70055)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "society",
+      "subcategory": "religion",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T03:59:08+00:00"
+}

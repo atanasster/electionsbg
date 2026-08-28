@@ -1,0 +1,135 @@
+{
+  "article_path": "news/data/clubz.bg/20260820-178509-6a0ca3c1.json",
+  "url": "https://clubz.bg/178509",
+  "domain": "clubz.bg",
+  "analyzed_at": "2026-08-28T15:15:15.829031+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete multi-source report on Ukrainian anti-corruption investigations and their political consequences."
+  },
+  "summary_bg": "Украинското антикорупционно бюро разследва предполагаемо изпиране на 150 млн. гривни, свързано с президентската канцелария, депутати и държавна банка. Уволненията и обиските засилват натиска върху Володимир Зеленски, пораждат призиви за избори и опасения за доверието на съюзниците и съпротивата срещу Русия.",
+  "summary_en": "Ukraine's anti-corruption bureau is investigating alleged laundering of 150 million hryvnias linked to the presidential office, lawmakers and a state bank. Dismissals and searches have increased pressure on Volodymyr Zelensky, prompting calls for elections and concerns about allied trust and resistance to Russia.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.7,
+    "evidence": "Материалът рамкира независимите антикорупционни разследвания, отчетността на властта и доверието в институциите като централни обществени ценности."
+  },
+  "russia_stance": {
+    "label": "anti_russia",
+    "confidence": 0.7,
+    "evidence": "Руските действия са назовани „пълномащабното руско нахлуване“ и „руската инвазия“, а украинската война е рамкирана като съпротива."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "multiple named cases and suspects",
+      "British and French source synthesis",
+      "standard Club Z support footer"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Ирина Мудра",
+      "Володимир Зеленски",
+      "Герман Галушченко",
+      "Тимур Миндич",
+      "Андрий Ермак",
+      "Михайло Федоров",
+      "Олга Стефанишина",
+      "Вадим Столар",
+      "Сергий Корецки",
+      "Олга Айвазовска"
+    ],
+    "parties": [
+      "Опозиционна платформа – За живота"
+    ],
+    "institutions": [
+      "НАБУ",
+      "Европейския съюз"
+    ],
+    "companies": [
+      "Енергоатом",
+      "Квартал 95",
+      "Сенс Банк",
+      "Алфа-Банк"
+    ],
+    "places": [
+      "Украйна",
+      "Израел",
+      "САЩ",
+      "Русия",
+      "Киев"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Герман",
+      "basis": "gazetteer_exact",
+      "id": "settlement:14831",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Израел",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Министерство на правосъдието",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "officials-people",
+      "subcategory": "official-investigations",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T07:53:40+00:00"
+}

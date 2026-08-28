@@ -1,0 +1,150 @@
+{
+  "article_path": "news/data/vesti.bg/20260822-naprezhenieto-mezhdu-turciia-i-izrael-zaradi-siriia-se-izost-26966986.json",
+  "url": "https://www.vesti.bg/sviat/naprezhenieto-mezhdu-turciia-i-izrael-zaradi-siriia-se-izostri-do-kraen-predel-obzor-6268218",
+  "domain": "vesti.bg",
+  "analyzed_at": "2026-08-28T15:52:09.181573+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.8,
+    "evidence": "Independent rereading assessed editorial framing, source choice, and evaluative language."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Ахмед"
+    ],
+    "parties": [],
+    "institutions": [
+      "Министерство на външните работи",
+      "Министерство на отбраната"
+    ],
+    "companies": [],
+    "places": [
+      "Турция",
+      "Израел",
+      "Сирия",
+      "Катар",
+      "Египет",
+      "Саудитска Арабия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Израел",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IL",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Сирия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SY",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Министерство на външните работи",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Министерство на отбраната",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Ахмед",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Айджан Юсеин Ахмед (person, mayor, aidzhan-yusein-ahmed-04b4bf)",
+        "Бейнур Мехмед Ахмед (person, regional_governor, beinur-mehmed-ahmed-00164a)",
+        "Гюнер Нихат Ахмед (person, mp, mp-4137)",
+        "Мустафа Фахри Ахмед (person, mp, mp-2551)",
+        "Селвие Мустафа Ахмед (person, regional_governor, selvie-mustafa-ahmed-87f488)",
+        "Юксел Осман Ахмед (person, mp, mp-4939)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Катар",
+      "basis": "gazetteer_exact",
+      "id": "settlement:QA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Египет",
+      "basis": "gazetteer_exact",
+      "id": "settlement:EG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Саудитска Арабия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SA",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T07:01:00+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "article_path": "news/data/dnevnik.bg/20260730-4940972-noma-otvaria-otnovo-v-kopenhagen-s-mikrosezonni-menj-d9bfeb39.json",
+  "url": "https://www.dnevnik.bg/bacchus/2026/07/30/4940972_noma_otvaria_otnovo_v_kopenhagen_s_mikrosezonni_menjuta/",
+  "domain": "dnevnik.bg",
+  "analyzed_at": "2026-08-28T15:10:51.766525+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "paywall_shell",
+    "notes": "The body is only a subscription prompt and introductory offer; no article text is available."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: The body is only a subscription prompt and introductory offer; no article text is available.",
+  "summary_en": "The record does not contain a reliably extracted full article: The body is only a subscription prompt and introductory offer; no article text is available.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-07-30T09:23:00+00:00"
+}

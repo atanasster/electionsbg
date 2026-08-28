@@ -1,0 +1,84 @@
+{
+  "article_path": "news/data/profit.bg/20260820-2026082008403326868-81aa3bd0.json",
+  "url": "https://profit.bg/article/2026082008403326868",
+  "domain": "profit.bg",
+  "analyzed_at": "2026-08-28T15:30:38.524033+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A substantial evidence review reporting named researchers, international and Bulgarian prevalence data, health outcomes and proposed regulation."
+  },
+  "summary_bg": "Мащабен преглед на научните данни свързва употребата на вейпове от младежи с кашлица, хрипове, астма, никотинова зависимост и последващо пушене. Педиатри предлагат стандартизирани опаковки, скриване на продуктите в магазините и ограничения на привлекателните аромати, а материалът добавя европейски и български данни.",
+  "summary_en": "A large evidence review links youth vaping to cough, wheezing, asthma, nicotine dependence and later smoking. Paediatricians propose standardised packaging, keeping products out of sight in shops and restricting appealing flavours, while the article adds European and Bulgarian prevalence data.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.68,
+    "evidence": "Материалът подкрепя по-строга обществено-здравна регулация за защита на деца, опирайки се на медицински доказателства."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "named medical review and co-author",
+      "Guardian attribution",
+      "multiple international and national datasets"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "Министерство на здравеопазването"
+    ],
+    "companies": [],
+    "places": [
+      "Европа",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Министерство на здравеопазването",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "healthcare",
+      "subcategory": "reforms",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T08:40:33+00:00"
+}

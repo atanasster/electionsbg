@@ -1,0 +1,130 @@
+{
+  "article_path": "news/data/bnrnews.bg/20260821-balgariya-beshe-predstavena-sred-25-kulturi-na-uchilishtna-a-f4839fc5.json",
+  "url": "https://bnrnews.bg/radiobulgaria/post/518337/balgariya-beshe-predstavena-sred-25-kulturi-na-uchilishtna-asambleya-v-nova-zelandiya",
+  "domain": "bnrnews.bg",
+  "analyzed_at": "2026-08-28T15:52:09.122621+00:00",
+  "model": "Codex GPT-5 independent repeat adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "Independent repeat pass found a complete analyzable article."
+  },
+  "summary_bg": "Независима повторна анотация за надеждност; редакционното резюме не се преоценява в този проход.",
+  "summary_en": "Independent reliability re-annotation; the editorial summary is not re-evaluated in this pass.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "The article contains no substantive material to assess this axis."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "independent assessment of prose structure, specificity, and attribution"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Атанасов",
+      "Петър Берон"
+    ],
+    "parties": [],
+    "institutions": [
+      "БЪЛГАРСКО НАЦИОНАЛНО РАДИО"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "Нова Зеландия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Нова Зеландия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NZ",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Атанасов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "АТАНАС ДУЧЕВ АТАНАСОВ (person, regional_governor, atanas-duchev-atanasov-439eb6)",
+        "Александър Кирилов Атанасов (person, mp, mp-1956)",
+        "Асен Георгиев Атанасов (person, regional_governor, asen-georgiev-atanasov-efaaee)",
+        "Атанас Владимиров Атанасов (person, mp, mp-4859)",
+        "Атанас Георгиев Атанасов (person, deputy_minister, atanas-georgiev-atanasov-ab5fc3)",
+        "Атанас Петров Атанасов (person, cabinet, atanas-petrov-atanasov-0131d1)",
+        "Атанас Петров Атанасов (person, mp, mp-5121)",
+        "Атанас Цветанов Атанасов (person, mayor, atanas-tsvetanov-atanasov-009ceb)",
+        "Бойко Атанасов Атанасов (person, regulator, boiko-atanasov-atanasov-d2c6d6)",
+        "Валентин Христов Атанасов (person, mayor, valentin-hristov-atanasov-0ac2ef)",
+        "Велко Ангелов Атанасов (person, security_service, velko-angelov-atanasov-f96f89)",
+        "Виктор Христов Атанасов (person, deputy_minister, viktor-hristov-atanasov-dbdd0a)",
+        "Генчо Ангелов Атанасов (person, security_service, gencho-angelov-atanasov-2aff92)",
+        "Димитър Йорданов Атанасов (person, mp, mp-860)",
+        "Дончо Свободанов Атанасов (person, mp, mp-2224)",
+        "ЕМИЛ ЙОРДАНОВ АТАНАСОВ (person, regional_governor, emil-iordanov-atanasov-f21786)",
+        "Емил Цветанов Атанасов (person, regional_governor, emil-tsvetanov-atanasov-aeb8b4)",
+        "Иван Асенов Атанасов (person, mp, mp-2203)",
+        "Иво Георгиев Атанасов (person, mp, mp-4043)",
+        "Иво Първанов Атанасов (person, mp, mp-2049)",
+        "Кирчо Георгиев Атанасов (person, mp, mp-2306)",
+        "Наско Руменов Атанасов (person, regulator, nasko-rumenov-atanasov-2f6fbb)",
+        "Огнян Атанасов Атанасов (person, regulator, ognyan-atanasov-atanasov-ba1c88)",
+        "Огнян Огнянов Атанасов (person, mayor, ognyan-ognyanov-atanasov-312800)",
+        "Пенко Атанасов Атанасов (person, mp, mp-1728)",
+        "Славчо Стоев Атанасов (person, mp, mp-2840)",
+        "Цветко Илиев Атанасов (person, inspectorate, tsvetko-iliev-atanasov-897cc2)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Петър Берон",
+      "basis": "gazetteer_exact",
+      "id": "mp-202",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "institution",
+      "surface": "БЪЛГАРСКО НАЦИОНАЛНО РАДИО",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "diaspora",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T11:38:29+00:00"
+}

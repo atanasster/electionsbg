@@ -1,0 +1,122 @@
+{
+  "article_path": "news/data/profit.bg/20260819-2026081909264032713-73f30ae1.json",
+  "url": "https://profit.bg/article/2026081909264032713",
+  "domain": "profit.bg",
+  "analyzed_at": "2026-08-28T15:20:32.457212+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete investigative explainer based on sanctions, officials, and multiple expert sources."
+  },
+  "summary_bg": "Европейски институции и експерти предупреждават, че руски риболовни кораби се използват за разузнаване, картографиране и възможни саботажи на подводна инфраструктура. Материалът проследява санкции срещу две компании и разрастването на хибридните операции след нахлуването в Украйна.",
+  "summary_en": "European institutions and experts warn that Russian fishing vessels are being used for intelligence gathering, mapping, and possible sabotage of undersea infrastructure. The report traces sanctions against two companies and the expansion of hybrid operations since the invasion of Ukraine.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Сигурностен анализ с ясно приписани обвинения, отговор на засегната компания и исторически сравнения."
+  },
+  "russia_stance": {
+    "label": "strong_anti_russia",
+    "confidence": 0.95,
+    "evidence": "Руската държава е рамкирана като организатор на шпионаж, саботаж и дестабилизация, определени като най-активна заплаха за западната инфраструктура."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "Financial Times and Euronews sourcing",
+      "multiple named specialists",
+      "historical counterexamples",
+      "specific sanctioned companies"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Еспен Барт Ейде",
+      "Костас Кадис",
+      "Ерленд Хайер",
+      "Джеймс Апатурай",
+      "Марк Рюте",
+      "Мария Владимирова"
+    ],
+    "parties": [],
+    "institutions": [
+      "ЕС",
+      "НАТО"
+    ],
+    "companies": [
+      "Norebo JSC",
+      "Murman Sea Food",
+      "Financial Times",
+      "Euronews"
+    ],
+    "places": [
+      "Русия",
+      "Норвегия",
+      "Украйна",
+      "Европа",
+      "Москва",
+      "Балтийско море"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Норвегия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NO",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Владимирова",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Мирослава Димитрова Владимирова (person, secretary_general, miroslava-dimitrova-vladimirova-4c4acd)",
+        "Христина Андонова Владимирова (person, secretary_general, hristina-andonova-vladimirova-109325)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "intelligence",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-19T09:26:40+00:00"
+}

@@ -1,0 +1,110 @@
+{
+  "article_path": "news/data/fakti.bg/20260822-1076141-mo-vms-izpalniha-zadachi-po-transportirane-na-chasti-fae4f2bb.json",
+  "url": "https://fakti.bg/bulgaria/1076141-mo-vms-izpalniha-zadachi-po-transportirane-na-chasti-ot-bezpilotni-letatelni-aparati",
+  "domain": "fakti.bg",
+  "analyzed_at": "2026-08-28T15:46:46.542379+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bylined defence-ministry update identifying two recovered objects, their classification and safe transport."
+  },
+  "summary_bg": "Екипи на Военноморските сили са обследвали части от два дрона, открити между Албена и Кранево и край „Ракитника“. Единият е класифициран като дрон-примамка без взрив, а двата обекта са транспортирани до Военноморската база във Варна при мерки за безопасност.",
+  "summary_en": "Navy teams examined parts of two drones found between Albena and Kranevo and near Rakitnika. One was classified as a decoy drone without explosives, and both objects were safely transported to Varna Naval Base.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.96,
+    "evidence": "Официален технически отчет без спекулация за произхода на обектите."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Произходът не е посочен и Русия не е назована."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "named byline",
+      "defence ministry attribution",
+      "specific classification and chain of orders"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "МО",
+      "МВР"
+    ],
+    "companies": [],
+    "places": [
+      "Варна",
+      "Кранево",
+      "Добрич"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "МО",
+      "basis": "gazetteer_exact",
+      "id": "000695324",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Варна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10135",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Кранево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:39459",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Добрич",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Добрич (place, mir, mir:DOB)",
+        "Добрич (place, oblast, oblast:DOB)",
+        "Добрич (place, obshtina, obshtina:DOB28)",
+        "Добрич (place, settlement, settlement:21539)",
+        "Добрич (place, settlement, settlement:21542)",
+        "Добрич (place, settlement, settlement:72624)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T15:34:17+00:00"
+}

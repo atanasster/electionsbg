@@ -1,0 +1,50 @@
+{
+  "article_path": "news/data/toest.bg/20260429-yana-kurshiyska-bibliotekite-sa-hram-na-komunikatsiyata-a61cf9ae.json",
+  "url": "https://www.toest.bg/yana-kurshiyska-bibliotekite-sa-hram-na-komunikatsiyata/",
+  "domain": "toest.bg",
+  "analyzed_at": "2026-08-28T15:09:19.174830+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "too_short",
+    "notes": "Only the interview headline was extracted; the interview body is absent."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: Only the interview headline was extracted; the interview body is absent.",
+  "summary_en": "The record does not contain a reliably extracted full article: Only the interview headline was extracted; the interview body is absent.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for political framing."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "No substantive article body is available for Russia framing."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.2,
+    "signals": [
+      "insufficient article text for authorship assessment"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иванова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Бургас"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-04-29T10:16:43+00:00"
+}

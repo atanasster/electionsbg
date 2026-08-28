@@ -1,0 +1,101 @@
+{
+  "article_path": "news/data/news.bg/20260822-transportniyat-ministar-uveryava-nyama-risk-za-letishteto-sl-dd96bab2.json",
+  "url": "https://news.bg/crime/transportniyat-ministar-uveryava-nyama-risk-za-letishteto-sled-moshtniya-gps-zaglushitel.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:42:05.677654+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete bTV interview report explaining GPS interference, agency response, fallback navigation and safety assessment."
+  },
+  "summary_bg": "Транспортният министър Георги Пеев заявява, че неутрализиран от ДАНС заглушител е повлиял GPS сигналите над София, но не е застрашил полетите. При смущение самолетите преминават към наземна конвенционална навигация, а ДАНС и КРС са локализирали и спрели източника.",
+  "summary_en": "Transport Minister Georgi Peev said a jammer neutralised by the security agency affected GPS signals over Sofia but did not endanger flights. Aircraft switch to ground-based conventional navigation during interference, while security and communications agencies located and stopped the source.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.84,
+    "evidence": "Техническото уверение е приписано на министъра и няма спекулация за мотив или собственик."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Русия не е назована и произходът на заглушителя не е приписан."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "bTV interview",
+      "multiple direct quotations",
+      "technical fallback-navigation detail"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Георги Пеев",
+      "Пеев"
+    ],
+    "parties": [],
+    "institutions": [
+      "ДАНС"
+    ],
+    "companies": [],
+    "places": [
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "ДАНС",
+      "basis": "gazetteer_exact",
+      "id": "129009710",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Георги Пеев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Пеев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Георги Генчев Пеев (person, cabinet, georgi-genchev-peev-6cf1b8)",
+        "Йоан Пейчев Пеев (person, regional_governor, ioan-peichev-peev-5a1f32)",
+        "Слави Пеев Пеев (person, revenue_agency, slavi-peev-peev-c385f4)",
+        "Станимир Димитров Пеев (person, agency_head, stanimir-dimitrov-peev-8f7f85)",
+        "Цветан Божидаров Пеев (person, inspectorate, tsvetan-bozhidarov-peev-b0acda)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T08:47:00+00:00"
+}

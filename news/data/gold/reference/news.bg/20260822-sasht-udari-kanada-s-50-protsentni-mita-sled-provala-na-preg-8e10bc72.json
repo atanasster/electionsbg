@@ -1,0 +1,79 @@
+{
+  "article_path": "news/data/news.bg/20260822-sasht-udari-kanada-s-50-protsentni-mita-sled-provala-na-preg-8e10bc72.json",
+  "url": "https://news.bg/int-politics/sasht-udari-kanada-s-50-protsentni-mita-sled-provala-na-pregovorite.html",
+  "domain": "news.bg",
+  "analyzed_at": "2026-08-28T15:46:46.644629+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Reuters/AP trade report with scope, economic scale, competing blame and retaliation timeline."
+  },
+  "summary_bg": "САЩ налагат 50% мита върху канадски стоки за около 20 млрд. долара след провал на търговските преговори. Мерките обхващат малко над 5% от канадския износ за САЩ, Канада обещава ответни мита от 8 септември, а двете страни взаимно се обвиняват за провала.",
+  "summary_en": "The US imposed 50% tariffs on about $20 billion of Canadian goods after trade talks failed. They cover just over 5% of Canadian exports to the US, Canada promises matching tariffs from 8 September, and both sides blame each other.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Материалът дава икономическия мащаб и взаимните обвинения на двете правителства."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.88,
+    "signals": [
+      "Reuters and AP attribution",
+      "specific tariff scope and timing",
+      "multiple named government positions"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Канада",
+      "Мексико"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Канада",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Мексико",
+      "basis": "gazetteer_exact",
+      "id": "settlement:MX",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    },
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T14:50:56+00:00"
+}

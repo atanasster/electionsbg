@@ -1,0 +1,54 @@
+{
+  "article_path": "news/data/haskovo.net/nodate-zielt-kod-za-zega-v-siebota-v-xaskovsko-f2773740.json",
+  "url": "https://haskovo.net/news/635556/zielt-kod-za-zega-v-siebota-v-xaskovsko",
+  "domain": "haskovo.net",
+  "analyzed_at": "2026-08-28T15:09:19.153255+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A short but complete local weather brief with forecast details for Saturday night and Sunday."
+  },
+  "summary_bg": "НИМХ обявява жълт код за жега в Хасковска област. Очакват се слънчево и тихо време и максимални температури около 37 градуса, с леко повишение в неделя.",
+  "summary_en": "The weather service has issued a yellow heat warning for Haskovo Province. Sunny and calm conditions are forecast, with highs around 37°C and a slight rise on Sunday.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Материалът е метеорологична прогноза без политическа тема."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.75,
+    "signals": [
+      "specific local forecast",
+      "attributed to NIMH",
+      "minor spelling error"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "weather",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

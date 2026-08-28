@@ -1,0 +1,133 @@
+{
+  "article_path": "news/data/mediapool.bg/20260821-parite-v-broi-v-es-rastat-vapreki-digitalnite-plashtaniya-ne-ed49b67c.json",
+  "url": "https://www.mediapool.bg/parite-v-broi-v-es-rastat-vapreki-digitalnite-plashtaniya-news386717.html",
+  "domain": "mediapool.bg",
+  "analyzed_at": "2026-08-28T15:27:31.012691+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete Guardian- and ECB-based explainer on the paradoxical growth of cash holdings as digital payments expand."
+  },
+  "summary_bg": "Количеството евробанкноти в обращение расте, макар употребата на кеш за ежедневни плащания да намалява. ЕЦБ свързва тенденцията с подготовката на домакинствата за пожари, бедствия, войни и прекъсвания след кибератаки и настоява да се запази мрежата от банкомати.",
+  "summary_en": "The stock of euro banknotes in circulation is rising even as cash use in everyday transactions declines. The ECB links the trend to household preparation for fires, disasters, wars and cyber-related outages, and argues that ATM networks should be preserved.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Материалът предава данни и експертни обяснения на ЕЦБ без партийна оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Споменават се общо войни и враждебни събития, но не и Русия."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "Guardian attribution",
+      "named ECB economist",
+      "specific circulation figures and national guidance"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Европа",
+      "Франция",
+      "Испания",
+      "Австрия",
+      "Финландия",
+      "Германия",
+      "Швеция",
+      "Нидерландия"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Франция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Испания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:ES",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Австрия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AT",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Финландия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:FI",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Швеция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Нидерландия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:NL",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "gdp-inflation",
+      "primary": true
+    },
+    {
+      "category": "security-defense",
+      "subcategory": "cyber",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T05:12:08+00:00"
+}

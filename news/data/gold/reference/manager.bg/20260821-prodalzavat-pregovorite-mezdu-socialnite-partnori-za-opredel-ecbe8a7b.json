@@ -1,0 +1,80 @@
+{
+  "article_path": "news/data/manager.bg/20260821-prodalzavat-pregovorite-mezdu-socialnite-partnori-za-opredel-ecbe8a7b.json",
+  "url": "https://manager.bg/българия/prodalzavat-pregovorite-mezdu-socialnite-partnori-za-opredelane-na-minimalnata-zaplata",
+  "domain": "manager.bg",
+  "analyzed_at": "2026-08-28T15:37:33.162926+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete pre-meeting policy explainer covering the four indicators, range design and negotiating positions."
+  },
+  "summary_bg": "Правителство, бизнес и синдикати продължават преговорите за нов механизъм на минималната заплата, основан на медианна и средна заплата, инфлация на малката кошница и производителност. КНСБ иска поне 50 евро ръст през 2027 г., докато бизнесът изчаква данните и министърът не посочва предварителна горна граница.",
+  "summary_en": "The government, businesses and unions continue negotiating a minimum-wage mechanism based on median and average wages, small-basket inflation and productivity. CITUB seeks at least a €50 rise in 2027, while employers await data and the minister declines to pre-announce an upper bound.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.92,
+    "evidence": "Всички страни, индикатори и неизвестни са представени без предпочитание към една позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.84,
+    "signals": [
+      "BNR attribution",
+      "specific scheduled meeting",
+      "technical explanation of median wage"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Наталия Ефремова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "равна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "равна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Равна (place, settlement, settlement:61073)",
+        "Равна (place, settlement, settlement:61090)",
+        "Равна (place, settlement, settlement:61100)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Наталия Ефремова",
+      "basis": "gazetteer_exact",
+      "id": "nataliya-dimitrova-efremova-225958",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "social-pensions",
+      "subcategory": "min-wage",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T06:56:31+00:00"
+}

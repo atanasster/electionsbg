@@ -1,0 +1,128 @@
+{
+  "article_path": "news/data/bgnes.bg/20260821-podupravitelqt-na-bnb-dimitar-radev-evroto-e-ramka-stabilnos-2b7ef447.json",
+  "url": "https://www.bgnes.bg/podupravitelqt-na-bnb-dimitar-radev-evroto-e-ramka-stabilnostta-e-izbor",
+  "domain": "bgnes.bg",
+  "analyzed_at": "2026-08-28T15:32:34.103396+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete attributed central-bank policy essay assessing the first seven months of euro adoption and future stability risks."
+  },
+  "summary_bg": "Управителят на БНБ Димитър Радев оценява техническото въвеждане на еврото като успешно, но предупреждава, че обществената оценка ще зависи от цени, лихви, кредит и сигурност на спестяванията. Той защитава консервативна надзорна и макропруденциална политика, фискална дисциплина и постоянен мониторинг на инфлацията и кредитния цикъл.",
+  "summary_en": "BNB Governor Dimitar Radev judges the technical euro changeover successful but says public assessment will depend on prices, rates, credit and savings security. He advocates conservative supervision and macroprudential policy, fiscal discipline and continued monitoring of inflation and the credit cycle.",
+  "leaning": {
+    "label": "conservative",
+    "confidence": 0.8,
+    "evidence": "Авторът изрично защитава консервативен превантивен надзор, фискална дисциплина и предпазливост към кредитни и ценови рискове."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не е предмет на анализа."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "attributed central-bank publication",
+      "detailed institutional reasoning",
+      "long consistent first-person policy argument"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Димитър Радев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "ясен",
+      "България",
+      "Русия",
+      "Украйна",
+      "крайна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Димитър Радев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "full_name",
+      "candidates": [
+        "Димитър Борисов Радев (person, central_bank, dimitr-borisov-radev-8ea8b1)",
+        "Димитър Радев (person, regulator, dimitar-radev-1ow3w1)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "ясен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Ясен (place, settlement, settlement:87583)",
+        "Ясен (place, settlement, settlement:87597)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "gdp-inflation",
+      "primary": true
+    },
+    {
+      "category": "budget-fiscal",
+      "subcategory": "budget-execution",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T17:54:00+00:00"
+}

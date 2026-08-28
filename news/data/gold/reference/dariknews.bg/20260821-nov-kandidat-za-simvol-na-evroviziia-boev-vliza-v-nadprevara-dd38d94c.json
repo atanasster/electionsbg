@@ -1,0 +1,119 @@
+{
+  "article_path": "news/data/dariknews.bg/20260821-nov-kandidat-za-simvol-na-evroviziia-boev-vliza-v-nadprevara-dd38d94c.json",
+  "url": "https://dariknews.bg/novini/liubopitno/nov-kandidat-za-simvol-na-evroviziia-boev-vliza-v-nadprevarata-2464286",
+  "domain": "dariknews.bg",
+  "analyzed_at": "2026-08-28T15:25:42.123457+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete conservation-oriented feature explaining the mascot proposal, the bird's story and the reintroduction campaign."
+  },
+  "summary_bg": "„Зелени Балкани“ предлага брадатия лешояд за символ на България на „Евровизия 2027“, свързвайки го с възстановяването на изчезналия у нас вид. Организацията посочва историята на птицата Боев и международната природозащитна работа, докато материалът изброява и други предложени талисмани за конкурса в Бургас.",
+  "summary_en": "Green Balkans proposed the bearded vulture as Bulgaria's symbol for Eurovision 2027, linking it to efforts to restore the species after it stopped breeding in the country. The group cites the story of the bird Boev and international conservation work, while the article also lists other proposed mascots for the Burgas contest.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.96,
+    "evidence": "Природозащитна и културна инициатива без политически субект или идеологическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.72,
+    "signals": [
+      "specific NGO proposal",
+      "named individual bird and travelled distance",
+      "context from several conservation groups"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Боев"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "Европа",
+      "чайка",
+      "Бургас",
+      "розово"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Боев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "чайка",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Чайка (place, settlement, settlement:80073)",
+        "Чайка (place, settlement, settlement:80087)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "розово",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Розово (place, settlement, settlement:62973)",
+        "Розово (place, settlement, settlement:62983)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "environment",
+      "subcategory": "protected-areas",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T08:28:00+00:00"
+}

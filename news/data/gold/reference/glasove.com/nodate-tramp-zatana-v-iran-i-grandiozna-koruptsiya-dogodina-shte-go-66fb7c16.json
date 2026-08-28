@@ -1,0 +1,111 @@
+{
+  "article_path": "news/data/glasove.com/nodate-tramp-zatana-v-iran-i-grandiozna-koruptsiya-dogodina-shte-go-66fb7c16.json",
+  "url": "https://glasove.com/komentari/tramp-zatana-v-iran-i-grandiozna-koruptsiya-dogodina-shte-go-mahnat-ot-beliya-dom",
+  "domain": "glasove.com",
+  "analyzed_at": "2026-08-28T15:32:34.164815+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete strongly opinionated geopolitical column predicting Trump's resignation and arguing from polling, corruption claims and the Iran war."
+  },
+  "summary_bg": "Колумнистът прогнозира, че Доналд Тръмп ще напусне Белия дом през април 2027 г. след изборна загуба на републиканците, срив на одобрението и натиск от разследвания. Текстът свързва евентуално наследяване от Джей Ди Ванс с интересите на технологични милиардери и обвинява Тръмп в провал в Иран и семейна корупция.",
+  "summary_en": "The columnist predicts Donald Trump will leave the White House in April 2027 after Republican electoral losses, collapsing approval and investigative pressure. The piece links a possible succession by JD Vance to tech-billionaire interests and accuses Trump of failure in Iran and family corruption.",
+  "leaning": {
+    "label": "strong_progressive",
+    "confidence": 0.92,
+    "evidence": "Авторът открито и многократно атакува Тръмп и републиканците, приема обвинения в корупция и прогнозира политическото му отстраняване."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.58,
+    "evidence": "Ако Русия се появява в по-късната геополитическа аргументация, тя не е основната оценъчна ос; фокусът е Тръмп, Иран и американската политика."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.9,
+    "signals": [
+      "distinctive first-person polemical voice",
+      "self-reference to an earlier prediction",
+      "idiosyncratic metaphors and asides"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [
+      "нова сила"
+    ],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Иран",
+      "патица",
+      "Саудитска Арабия",
+      "Катар",
+      "Албания"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "party",
+      "surface": "нова сила",
+      "basis": "gazetteer_exact",
+      "id": "p_117",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "патица",
+      "basis": "gazetteer_exact",
+      "id": "settlement:55568",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Саудитска Арабия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:SA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Катар",
+      "basis": "gazetteer_exact",
+      "id": "settlement:QA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Албания",
+      "basis": "gazetteer_exact",
+      "id": "settlement:AL",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "foreign-policy",
+      "subcategory": "bilateral",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

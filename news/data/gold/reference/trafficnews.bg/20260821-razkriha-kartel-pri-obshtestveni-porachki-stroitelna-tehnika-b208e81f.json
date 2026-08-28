@@ -1,0 +1,62 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-razkriha-kartel-pri-obshtestveni-porachki-stroitelna-tehnika-b208e81f.json",
+  "url": "https://trafficnews.bg/bulgaria/razkriha-kartel-pri-obshtestveni-porachki-stroitelna-tehnika-386935/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:13:14.333230+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete regulator-based report on coordinated bids in 11 public procurements."
+  },
+  "summary_bg": "КЗК установява, че „О-Рент“, „Инжконсулт“ и „Земекоп“ са координирали оферти в 11 обществени поръчки за строителна техника. Решението описва обмен на чувствителна информация, идентични IP адреси, споразумение и освобождаване от санкция срещу съдействие.",
+  "summary_en": "The competition regulator found that O-Rent, Inzhkonsult and Zemekop coordinated bids in 11 public tenders for construction equipment. The decision describes exchanged sensitive information, identical IP addresses, a settlement, and immunity in return for cooperation.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.95,
+    "evidence": "Текстът следва съобщението на КЗК и представя правните механизми без идеологическа оценка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.8,
+    "signals": [
+      "detailed regulator press-release structure",
+      "specific legal mechanism",
+      "company and procurement counts"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "Комисията за защита на конкуренцията",
+      "КЗК",
+      "Европейската комисия"
+    ],
+    "companies": [
+      "О-Рент",
+      "Инжконсулт",
+      "Земекоп"
+    ],
+    "places": []
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "procurement",
+      "subcategory": "overpricing-cartels",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T11:11:00+00:00"
+}

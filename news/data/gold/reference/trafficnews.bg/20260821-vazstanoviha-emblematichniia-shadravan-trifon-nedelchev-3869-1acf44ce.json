@@ -1,0 +1,238 @@
+{
+  "article_path": "news/data/trafficnews.bg/20260821-vazstanoviha-emblematichniia-shadravan-trifon-nedelchev-3869-1acf44ce.json",
+  "url": "https://trafficnews.bg/plovdiv/vazstanoviha-emblematichniia-shadravan-trifon-nedelchev-386943/",
+  "domain": "trafficnews.bg",
+  "analyzed_at": "2026-08-28T15:25:42.077937+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete locally focused report, apparently based on a municipal release, with extensive historical and restoration detail."
+  },
+  "summary_bg": "Община Пловдив е завършила реставрацията на шадравана на Трифон Неделчев в двора на Драматичния театър. Материалът описва композицията от 1987 г., новото осветление, биографията на автора и други възстановени произведения на монументалното изкуство в града.",
+  "summary_en": "Plovdiv Municipality has completed restoration of Trifon Nedelchev's fountain in the Drama Theatre courtyard. The report describes the 1987 composition, its new lighting, the artist's biography and other restored works of monumental art in the city.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.78,
+    "evidence": "Похвалният тон следва общинско съобщение за културен обект, но не изразява партийна или идеологическа позиция."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.72,
+    "signals": [
+      "municipal press-release style",
+      "specific art-history detail",
+      "named collaborators and techniques"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Неделчев",
+      "Стоянов",
+      "Стойков",
+      "Томова"
+    ],
+    "parties": [],
+    "institutions": [
+      "Община Пловдив"
+    ],
+    "companies": [],
+    "places": [
+      "баня",
+      "градина",
+      "Тракия",
+      "Марково",
+      "София",
+      "Германия",
+      "Пловдив",
+      "България"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Неделчев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Мирослав Колев Неделчев (person, agency_head, miroslav-kolev-nedelchev-1f2db8)",
+        "Николай Георгиев Неделчев (person, regional_governor, nikolai-georgiev-nedelchev-f13d92)",
+        "Светослав Неделчев Неделчев (person, mp, mp-866)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "Община Пловдив",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "баня",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Баня (place, settlement, settlement:02693)",
+        "Баня (place, settlement, settlement:02703)",
+        "Баня (place, settlement, settlement:02717)",
+        "Баня (place, settlement, settlement:02720)",
+        "Баня (place, settlement, settlement:02734)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Стоянов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Красимиров Стоянов (person, cabinet, aleksandr-krasimirov-stoyanov-5b5791)",
+        "Атанас Славчев Стоянов (person, mp, mp-2737)",
+        "Божидар Димитров Стоянов (person, mp, mp-845)",
+        "Борис Янев Стоянов (person, mp, mp-2296)",
+        "Борислав Тодоров Стоянов (person, mp, mp-871)",
+        "Виктор Стоянов Стоянов (person, deputy_minister, viktor-stoyanov-stoyanov-db2f59)",
+        "Ганчо Добрев Стоянов (person, mp, mp-1770)",
+        "Димитър Анастасов Стоянов (person, mp, mp-2239)",
+        "Димитър Желязков Стоянов (person, mp, mp-5118)",
+        "Димитър Кинов Стоянов (person, mp, mp-193)",
+        "Димитър Стоянов Стоянов (person, mp, mp-2747)",
+        "Евгении Борисов Стоянов (person, deputy_minister, evgenii-borisov-stoyanov-535399)",
+        "Иван Йорданов Стоянов (person, regional_governor, ivan-iordanov-stoyanov-10423b)",
+        "Ивелин Стоянов Стоянов (person, mp, mp-3324)",
+        "Илко Стоянов Стоянов (person, mp, mp-3091)",
+        "Йордан Свеженов Стоянов (person, mp, mp-3076)",
+        "Калин Георгиев Стоянов (person, mp, mp-5112)",
+        "Коста Георгиев Стоянов (person, mp, mp-5060)",
+        "Людмил Василев Стоянов (person, regional_governor, lyudmil-vasilev-stoyanov-f9617c)",
+        "Маноил Борисов Стоянов (person, revenue_agency, manoil-borisov-stoyanov-6836d8)",
+        "Никола Руменов Стоянов (person, cabinet, nikola-rumenov-stoyanov-328b01)",
+        "Огнян Иванов Стоянов (person, regional_governor, ognyan-ivanov-stoyanov-1748e7)",
+        "Петър Кръстев Стоянов (person, mp, mp-2110)",
+        "Петър Стефанов Стоянов (person, mp, mp-1935)",
+        "Ради Николов Стоянов (person, mp, mp-1686)",
+        "Румен Василев Стоянов (person, mp, mp-1451)",
+        "СТОЯН ПЕТРОВ СТОЯНОВ (person, regional_governor, stoyan-petrov-stoyanov-5bb586)",
+        "Сашо Начев Стоянов (person, mp, mp-2124)",
+        "Светлин Костов Стоянов (person, mp, mp-3642)",
+        "Станислав Добринов Стоянов (person, mp, mp-4194)",
+        "Станислав Иванов Стоянов (person, mp, mp-2953)",
+        "Тодор Христов Стоянов (person, deputy_minister, todor-hristov-stoyanov-b8f2f3)",
+        "Христо Николов Стоянов (person, mp, mp-2038)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "градина",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Градина (place, settlement, settlement:17470)",
+        "Градина (place, settlement, settlement:17484)",
+        "Градина (place, settlement, settlement:17498)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Тракия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:72970",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Стойков",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Стойчев Стойков (person, mp, mp-1070)",
+        "Йордан Георгиев Стойков (person, mp, mp-1586)",
+        "Костадин Томов Стойков (person, mp, mp-4703)",
+        "Цанко Иванов Стойков (person, military_command, tsanko-ivanov-stoikov-582903)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Томова",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname"
+    },
+    {
+      "kind": "place",
+      "surface": "Марково",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Марково (place, settlement, settlement:47295)",
+        "Марково (place, settlement, settlement:47305)",
+        "Марково (place, settlement, settlement:47319)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Германия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:DE",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Пловдив",
+      "basis": "gazetteer_exact",
+      "id": "settlement:56784",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "municipal-problems",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-21T12:21:00+00:00"
+}

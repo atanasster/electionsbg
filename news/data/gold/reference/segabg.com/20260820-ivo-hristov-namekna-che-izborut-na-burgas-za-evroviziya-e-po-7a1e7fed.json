@@ -1,0 +1,216 @@
+{
+  "article_path": "news/data/segabg.com/20260820-ivo-hristov-namekna-che-izborut-na-burgas-za-evroviziya-e-po-7a1e7fed.json",
+  "url": "https://www.segabg.com/hot/category-culture/ivo-hristov-namekna-che-izborut-na-burgas-za-evroviziya-e-politicheski",
+  "domain": "segabg.com",
+  "analyzed_at": "2026-08-28T15:25:42.099966+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete report combining statements from the deputy prime minister, both mayors and Sofia Municipality about the disputed host-city selection and public financing."
+  },
+  "summary_bg": "Вицепремиерът Иво Христов защитава избора на Бургас за домакин на „Евровизия 2027“ с критика към управлението на София и обявява 20 млн. евро за подготовка. Кметът Васил Терзиев предупреждава срещу политическо отношение към столицата, а общината иска от БНТ подробни мотиви за отхвърлянето на кандидатурата ѝ.",
+  "summary_en": "Deputy Prime Minister Ivo Hristov defended choosing Burgas to host Eurovision 2027 by criticising Sofia's governance and announced €20 million for preparations. Mayor Vasil Terziev warned against politically motivated treatment of the capital, while Sofia Municipality requested BNT's detailed reasons for rejecting its bid.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.82,
+    "evidence": "Заглавието прави ограничен извод от думите на Христов, но текстът представя дословно позициите на правителството, Бургас и София."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "multiple attributed political quotations",
+      "specific funding breakdown",
+      "municipal letter and social-media response"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иво Христов",
+      "Димитър Николов",
+      "Васил Терзиев",
+      "Милена Милотинова"
+    ],
+    "parties": [
+      "ПП-ДБ"
+    ],
+    "institutions": [
+      "Министерски съвет",
+      "Столична община",
+      "Българска национална телевизия",
+      "БНТ"
+    ],
+    "companies": [],
+    "places": [
+      "Бургас",
+      "София",
+      "България",
+      "Китай"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "person",
+      "surface": "Иво Христов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Бургас",
+      "basis": "gazetteer_exact",
+      "id": "settlement:07079",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Васил Терзиев",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "party",
+      "surface": "ПП-ДБ",
+      "basis": "gazetteer_exact",
+      "id": "p_6",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Христов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Асен Асенов Христов (person, mp, mp-2002)",
+        "Валентин Венциславов Христов (person, mayor, valentin-ventsislavov-hristov-aff4c9)",
+        "Валентин Йорданов Христов (person, mp, mp-1991)",
+        "Васил Димитров Христов (person, mayor, vasil-dimitrov-hristov-12d555)",
+        "Велислав Руменов Христов (person, party_leader, velislav-rumenov-hristov-6f814b)",
+        "Георги Паскалев Христов (person, regulator, georgi-paskalev-hristov-9c678d)",
+        "Дилян Йорданов Христов (person, security_service, dilyan-iordanov-hristov-6b3b34)",
+        "Емануил Христов Христов (person, agency_head, emanuil-hristov-hristov-2980b8)",
+        "Емил Маринов Христов (person, mp, mp-2716)",
+        "ИВАЙЛО ХАРАЛАМПИЕВ ХРИСТОВ (person, deputy_minister, ivailo-haralampiev-hristov-d9d3e8)",
+        "Ивайло Христов Христов (person, mp, mp-5218)",
+        "Иван Петров Христов (person, regional_governor, ivan-petrov-hristov-5b1758)",
+        "Иво Ангелов Христов (person, mp, mp-3346)",
+        "Калин Димитров Христов (person, central_bank, kalin-dimitrov-hristov-e3774a)",
+        "Кристиян Христов Христов (person, mayor, kristiyan-hristov-hristov-3f192f)",
+        "Лазар Валентинов Христов (person, security_service, lazar-valentinov-hristov-370f0f)",
+        "Любомир Димитров Христов (person, mp, mp-4923)",
+        "Людмил Христов Христов (person, regional_governor, lyudmil-hristov-hristov-ba7812)",
+        "Маринчо Христов Христов (person, regional_governor, marincho-hristov-hristov-890f81)",
+        "Минко Найденов Христов (person, mp, mp-2081)",
+        "Михаил Ивайлов Христов (person, mp, mp-2701)",
+        "Моньо Христов Христов (person, mp, mp-2148)",
+        "Николай Емилов Христов (person, mp, mp-3432)",
+        "Николай Иванов Христов (person, mp, mp-2097)",
+        "Павел Алексеев Христов (person, mp, mp-4632)",
+        "Пламен Трифонов Христов (person, mp, mp-2692)",
+        "Пламен Христов Христов (person, regional_governor, plamen-hristov-hristov-7424b5)",
+        "Росен Иванов Христов (person, cabinet, rosen-ivanov-hristov-62720a)",
+        "Румен Димитров Христов (person, mp, mp-5152)",
+        "Румен Христов Христов (person, regional_governor, rumen-hristov-hristov-1a2991)",
+        "Сашко Дончев Христов (person, security_service, sashko-donchev-hristov-5bc243)",
+        "Слави Драганов Христов (person, regional_governor, slavi-draganov-hristov-85ec6c)",
+        "Станимир Христов Христов (person, military_command, stanimir-hristov-hristov-8f1fd1-2)",
+        "Стоян Христов Христов (person, regional_governor, stoyan-hristov-hristov-d0a59e)",
+        "Христо Атанасов Христов (person, mayor, hristo-atanasov-hristov-69c3c2)",
+        "Христо Видолов Христов (person, mayor, hristo-vidolov-hristov-0bbb0d)",
+        "Христо Георгиев Христов (person, military_command, hristo-georgiev-hristov-19b69b)",
+        "Христо Георгиев Христов (person, mp, mp-2001)",
+        "Христо Димитров Христов (person, mayor, hristo-dimitrov-hristov-54f8e5)",
+        "Христо Димитров Христов (person, mp, mp-876)",
+        "Христо Иванов Христов (person, mp, mp-1894)",
+        "Цветомил Ресенков Христов (person, security_service, tsvetomil-resenkov-hristov-a2d088)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Димитър Николов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Димитър Андонов Николов (person, mp, mp-4575)",
+        "Димитър Николов Николов (person, mayor, dimitr-nikolov-nikolov-34bd74)",
+        "Димитър Стойков Николов (person, mp, mp-4739)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Китай",
+      "basis": "gazetteer_exact",
+      "id": "settlement:CN",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Терзиев",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Васил Александров Терзиев (person, mayor, vasil-aleksandrov-terziev-049f64)",
+        "Красимир Бориславов Терзиев (person, mp, mp-5187)",
+        "Людмил Аспарухов Терзиев (person, mayor, lyudmil-asparuhov-terziev-8c2388)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [
+    {
+      "party": "ПП-ДБ",
+      "tone": "unfavorable"
+    }
+  ],
+  "topics": [
+    {
+      "category": "local-news",
+      "subcategory": "local-councils",
+      "primary": true
+    },
+    {
+      "category": "budget-fiscal",
+      "subcategory": "municipal-budget",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-20T10:16:07+00:00"
+}

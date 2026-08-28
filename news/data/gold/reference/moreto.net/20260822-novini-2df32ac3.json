@@ -1,0 +1,119 @@
+{
+  "article_path": "news/data/moreto.net/20260822-novini-2df32ac3.json",
+  "url": "https://www.moreto.net/novini.php?n=534257",
+  "domain": "moreto.net",
+  "analyzed_at": "2026-08-28T15:39:03.972698+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete local event announcement with source, schedule, performers, location and history."
+  },
+  "summary_bg": "Дванадесетото издание на „Най-дългата вечеря на плажа“ в „Аспарухово“ ще събере жители и гости с програма за деца, народна музика, танци и сценични изкуства. Кулминацията е концерт на Крисия и Веселин Маринов, а събитието започва в 19:30 ч.",
+  "summary_en": "The 12th Longest Dinner on the Beach in Asparuhovo will offer children's activities, folk music, dance and stage performances. A concert by Krisia and Veselin Marinov is the climax, with the event starting at 7:30 pm.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.98,
+    "evidence": "Местен развлекателен анонс без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.74,
+    "signals": [
+      "named district mayor source",
+      "specific programme timing",
+      "12-year local event context"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Маринов",
+      "Ивайло Маринов"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Аспарухово",
+      "Варна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Аспарухово",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Аспарухово (place, settlement, settlement:00775)",
+        "Аспарухово (place, settlement, settlement:00789)",
+        "Аспарухово (place, settlement, settlement:00792)",
+        "Аспарухово (place, settlement, settlement:00802)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Маринов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Великов Маринов (person, mp, mp-1851)",
+        "Александър Иванов Маринов (person, mp, mp-2275)",
+        "Антонио Тодоров Маринов (person, social_fund, antonio-todorov-marinov-51e329)",
+        "Владимир Маринов Маринов (person, mp, mp-3700)",
+        "Зарко Филипов Маринов (person, mp, mp-3731)",
+        "Ивайло Илков Маринов (person, mayor, ivailo-ilkov-marinov-ad7184)",
+        "Иван Бранимиров Маринов (person, regional_governor, ivan-branimirov-marinov-32b32c)",
+        "Марин Василев Маринов (person, mp, mp-4557)",
+        "Марин Йорданов Маринов (person, mp, mp-828)",
+        "Марин Славчев Маринов (person, regional_governor, marin-slavchev-marinov-0ae8a2)",
+        "Младен Найденов Маринов (person, mp, mp-5125)",
+        "Неделчо Кръстев Маринов (person, regional_governor, nedelcho-krstev-marinov-bd0a8d)",
+        "Николай Николов Маринов (person, mp, mp-1962)",
+        "Павел Маринов Маринов (person, mp, mp-1634)",
+        "Петър Ясенов Маринов (person, mp, mp-3658)",
+        "Робертино Тодоров Маринов (person, regional_governor, robertino-todorov-marinov-97b823)",
+        "Стефан Христов Маринов (person, mp, mp-4989)",
+        "Чавдар Любомиров Маринов (person, deputy_minister, chavdar-lyubomirov-marinov-7d0678)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Ивайло Маринов",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Варна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:10135",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T11:20:19+00:00"
+}

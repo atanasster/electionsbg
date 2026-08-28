@@ -1,0 +1,79 @@
+{
+  "article_path": "news/data/frognews.bg/20260822-krizata-seuta-prodaljava-18-pogrebani-bez-imena-hiliadi-osht-9e55d928.json",
+  "url": "https://frognews.bg/novini/krizata-seuta-prodaljava--18-pogrebani-bez-imena-hiliadi-oshte-grada.html",
+  "domain": "frognews.bg",
+  "analyzed_at": "2026-08-28T15:43:38.938277+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete migration-crisis follow-up with death toll, burial procedure, NGO demand, government dispute and conditions in the enclave."
+  },
+  "summary_bg": "Три седмици след масовото преминаване от Мароко към Сеута 18 неидентифицирани мигранти са погребани, а общият брой на загиналите надхвърля 90. Мароканска правозащитна организация иска погребенията да спрат до идентификация, докато Сеута твърди, че Рабат не приема телата, а стотици хора отново се събират на плажа.",
+  "summary_en": "Three weeks after a mass crossing from Morocco into Ceuta, 18 unidentified migrants were buried and the death toll exceeded 90. A Moroccan rights group wants burials halted for identification, while Ceuta says Rabat will not accept bodies and hundreds have returned to the beach.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.78,
+    "evidence": "Фокусът е върху човешката цена, идентификацията, правата на семействата и условията за мигрантите, с критично разглеждане на властите."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.82,
+    "signals": [
+      "specific burial and identification procedure",
+      "named rights organisation",
+      "competing Ceuta and Morocco positions"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Мароко",
+      "тръстика"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Мароко",
+      "basis": "gazetteer_exact",
+      "id": "settlement:MA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "тръстика",
+      "basis": "gazetteer_exact",
+      "id": "settlement:73376",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "demographics",
+      "subcategory": "migration",
+      "primary": true
+    },
+    {
+      "category": "society",
+      "subcategory": "minorities",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T15:10:00+00:00"
+}

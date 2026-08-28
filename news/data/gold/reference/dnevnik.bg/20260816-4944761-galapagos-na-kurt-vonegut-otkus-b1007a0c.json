@@ -1,0 +1,53 @@
+{
+  "article_path": "news/data/dnevnik.bg/20260816-4944761-galapagos-na-kurt-vonegut-otkus-b1007a0c.json",
+  "url": "https://www.dnevnik.bg/knigi/2026/08/16/4944761_galapagos_na_kurt_vonegut_otkus/",
+  "domain": "dnevnik.bg",
+  "analyzed_at": "2026-08-28T15:43:38.746907+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "non_article",
+    "notes": "A publisher-supplied promotional introduction followed by a copyrighted book excerpt, not an original news article."
+  },
+  "summary_bg": "Записът не съдържа надеждно извлечена пълна статия: A publisher-supplied promotional introduction followed by a copyrighted book excerpt, not an original news article.",
+  "summary_en": "The record does not contain a reliably extracted full article: A publisher-supplied promotional introduction followed by a copyrighted book excerpt, not an original news article.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "A literary excerpt is not a political news article for this evaluation."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "A literary excerpt is not a Russia-framing news article for this evaluation."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.99,
+    "signals": [
+      "identified 1985 novel excerpt",
+      "named author, translator and publisher",
+      "pre-generative-AI literary source"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Иванова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "люлка",
+      "подслон"
+    ]
+  },
+  "mentions": [],
+  "party_tones": [],
+  "topics": [],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-16T09:33:00+00:00"
+}

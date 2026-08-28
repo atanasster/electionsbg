@@ -1,0 +1,83 @@
+{
+  "article_path": "news/data/petel.bg/20260822-Otchetoha-rekorden-trafik-na-leki-avtomobili-ot-Turtsiya-pre-1d5b2b42.json",
+  "url": "https://petel.bg/Otchetoha-rekorden-trafik-na-leki-avtomobili-ot-Turtsiya-prez-Kapitan-Andreevo__665701",
+  "domain": "petel.bg",
+  "analyzed_at": "2026-08-28T15:29:08.721407+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete BTA-based border-traffic report with volumes, waiting times, staffing and migration-control context."
+  },
+  "summary_bg": "Над 5300 автомобила са влезли от Турция през „Капитан Андреево“ за денонощие, което „Гранична полиция“ определя като рекорд. Всички трасета работят с допълнителни служители, а напливът е свързан със завръщането на хора от турски произход към Западна Европа след летните отпуски.",
+  "summary_en": "More than 5,300 cars entered from Turkey through Kapitan Andreevo in one day, a record according to Border Police. All lanes were operating with extra staff, while the surge was linked to people of Turkish origin returning to Western Europe after summer holidays.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.94,
+    "evidence": "Фактологичен транспортен и граничен отчет с приписани данни."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.86,
+    "signals": [
+      "BTA attribution",
+      "named border inspector",
+      "specific waiting times and staffing measures"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Турция",
+      "Капитан Андреево",
+      "Европа"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Турция",
+      "basis": "gazetteer_exact",
+      "id": "settlement:TR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Капитан Андреево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:36110",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "infrastructure-transport",
+      "subcategory": "roads",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T09:56:23+00:00"
+}

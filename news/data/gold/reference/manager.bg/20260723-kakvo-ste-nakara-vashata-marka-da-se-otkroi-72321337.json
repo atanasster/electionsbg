@@ -1,0 +1,106 @@
+{
+  "article_path": "news/data/manager.bg/20260723-kakvo-ste-nakara-vashata-marka-da-se-otkroi-72321337.json",
+  "url": "https://manager.bg/маркетинг/kakvo-ste-nakara-vashata-marka-da-se-otkroi-",
+  "domain": "manager.bg",
+  "analyzed_at": "2026-08-28T15:45:09.882788+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete marketing commentary using survey evidence and practical examples to argue for distinctive human brand voice amid AI-generated sameness."
+  },
+  "summary_bg": "Коментарът твърди, че масовото използване на AI и шаблони е уеднаквило онлайн комуникацията и намалява доверието към марките. Данни от проучвания показват по-слаба ангажираност с AI съдържание, затова авторът препоръчва човешки глас, конкретни истории, несъвършенство и ясна позиция.",
+  "summary_en": "The commentary argues that widespread AI and template use has homogenised online communication and reduced trust in brands. Survey data show weaker engagement with AI content, so it recommends a human voice, concrete stories, imperfection and a clear point of view.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 0.9,
+    "evidence": "Маркетингов съвет без партийна или обществено-политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.72,
+    "signals": [
+      "first-person coined concept",
+      "named survey sources",
+      "specific experiential marketing examples"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Тодорова"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "ясен",
+      "крайна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "ясен",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Ясен (place, settlement, settlement:87583)",
+        "Ясен (place, settlement, settlement:87597)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Тодорова",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Виолета Иванова Тодорова (person, regional_governor, violeta-ivanova-todorova-a14705)",
+        "Десислава Ангелова Тодорова (person, mp, mp-3240)",
+        "Илияна Веселинова Тодорова (person, deputy_minister, iliyana-veselinova-todorova-7aa8b0)",
+        "Камелия Кирилова Тодорова (person, cabinet, kameliya-kirilova-todorova-1cddae)",
+        "Мариана Георгиева Тодорова (person, mp, mp-2609)",
+        "Мария Тодорова Тодорова (person, mp, mp-5064)",
+        "Мария Цецкова Тодорова (person, mayor, mariya-tsetskova-todorova-ba60a7)",
+        "Николета Костова Тодорова (person, mp, mp-5069)",
+        "Росица Иванова Тодорова (person, regional_governor, rositsa-ivanova-todorova-114e4d)",
+        "Светла Петрова Тодорова (person, regulator, svetla-petrova-todorova-306599)",
+        "Филипина Валентинова Тодорова (person, revenue_agency, filipina-valentinova-todorova-8e8360)",
+        "Християна Анастасова Тодорова (person, mp, mp-3285)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-07-23T13:31:33+00:00"
+}

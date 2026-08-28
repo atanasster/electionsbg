@@ -1,0 +1,97 @@
+{
+  "article_path": "news/data/economic.bg/20120615-Deyan-Duneshki-Modernizaciyata-na-postite-ste-produlji-4393-ff494240.json",
+  "url": "https://www.economic.bg/bg/a/view/Deyan-Duneshki-Modernizaciyata-na-postite-ste-produlji-4393",
+  "domain": "economic.bg",
+  "analyzed_at": "2026-08-28T15:29:08.859970+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A long original interview with the head of Bulgarian Posts about liberalisation, technology, finances, services and restructuring."
+  },
+  "summary_bg": "Ръководителят на „Български пощи“ Деян Дънешки описва модернизацията чрез интегрирани гишета и информационни системи след либерализирането на пазара. Интервюто разглежда конкуренцията, финансовите услуги, инвестициите, загубите, персонала и ролята на държавната компания в малките населени места.",
+  "summary_en": "Bulgarian Posts chief Deyan Daneshki describes modernisation through integrated service counters and information systems after market liberalisation. The interview covers competition, financial services, investment, losses, staffing and the state company's role in small settlements.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.86,
+    "evidence": "Интервюто поставя критични стопански въпроси и дава думата на ръководителя без партийна агитация."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.98,
+    "signals": [
+      "named interviewer",
+      "extended question-and-answer exchange",
+      "publication predates modern generative AI"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "Български пощи ЕАД",
+      "Министерски съвет"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "крайна"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "institution",
+      "surface": "Български пощи ЕАД",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "Министерски съвет",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "крайна",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Крайна (place, settlement, settlement:39311)",
+        "Крайна (place, settlement, settlement:41277)"
+      ]
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "economy",
+      "subcategory": "companies-fdi",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2012-06-15T05:59:55+00:00"
+}

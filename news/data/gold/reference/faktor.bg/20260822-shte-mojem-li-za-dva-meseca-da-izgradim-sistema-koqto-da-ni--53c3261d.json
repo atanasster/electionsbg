@@ -1,0 +1,141 @@
+{
+  "article_path": "news/data/faktor.bg/20260822-shte-mojem-li-za-dva-meseca-da-izgradim-sistema-koqto-da-ni--53c3261d.json",
+  "url": "https://faktor.bg/shte-mojem-li-za-dva-meseca-da-izgradim-sistema-koqto-da-ni-zashtitava-efikasno-ot-porazqvane-ot-iranski-ili-ruski-raketi",
+  "domain": "faktor.bg",
+  "analyzed_at": "2026-08-28T15:22:40.063969+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete polemical security commentary arguing that the Iran and Ukraine wars directly affect Bulgaria."
+  },
+  "summary_bg": "Авторът отхвърля тезата, че войните в Украйна и Близкия изток „не са наши“, и ги свързва с обща заплаха от авторитарни режими. Той обвинява българските политици в подценяване на Русия и Иран и настоява за съюзническа противоракетна отбрана и подкрепа за Украйна.",
+  "summary_en": "The author rejects claims that the wars in Ukraine and the Middle East are “not ours,” linking them to a common threat from authoritarian regimes. He accuses Bulgarian politicians of underestimating Russia and Iran and calls for allied missile defence and support for Ukraine.",
+  "leaning": {
+    "label": "progressive",
+    "confidence": 0.8,
+    "evidence": "Защитава демократичните общества, съюзническата солидарност и Украйна срещу авторитаризъм и критикува национално-изолационисткото „не наша война“."
+  },
+  "russia_stance": {
+    "label": "strong_anti_russia",
+    "confidence": 0.98,
+    "evidence": "Русия е „тоталитарна азиатщина“, агресор и окупатор, който безмилостно бомбардира цивилна инфраструктура и подготвя ескалация и хибридни атаки."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "distinctive first-person polemic",
+      "Bulgaria-specific historical analogy",
+      "extended strategic argument"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [
+      "НАТО",
+      "ДАНС"
+    ],
+    "companies": [
+      "Файненшъл таймс",
+      "БГНЕС"
+    ],
+    "places": [
+      "България",
+      "Иран",
+      "Русия",
+      "Украйна",
+      "СССР",
+      "Европа"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Иран",
+      "basis": "gazetteer_exact",
+      "id": "settlement:IR",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Русия",
+      "basis": "gazetteer_exact",
+      "id": "settlement:RU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Украйна",
+      "basis": "gazetteer_exact",
+      "id": "settlement:UA",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Кардам",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Кардам (place, settlement, settlement:36467)",
+        "Кардам (place, settlement, settlement:36470)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "ДАНС",
+      "basis": "gazetteer_exact",
+      "id": "129009710",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    },
+    {
+      "category": "foreign-policy",
+      "subcategory": "ukraine",
+      "primary": false
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T14:27:27+00:00"
+}

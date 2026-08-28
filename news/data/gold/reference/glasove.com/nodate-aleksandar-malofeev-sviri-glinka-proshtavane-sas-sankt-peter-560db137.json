@@ -1,0 +1,85 @@
+{
+  "article_path": "news/data/glasove.com/nodate-aleksandar-malofeev-sviri-glinka-proshtavane-sas-sankt-peter-560db137.json",
+  "url": "https://glasove.com/muzikata-na-glasove/aleksandar-malofeev-sviri-glinka-proshtavane-sas-sankt-peterburg-chuchuligata",
+  "domain": "glasove.com",
+  "analyzed_at": "2026-08-28T15:10:51.829243+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete culture and music profile, although it shifts abruptly from Glinka to a separate Handel performance."
+  },
+  "summary_bg": "Публикацията представя изпълнения на пианиста Александър Малофеев на „Чучулигата“ от Глинка и Менует в сол мажор от Хендел. Акцентът е върху новия му албум, руската музикална традиция и стила на интерпретациите му.",
+  "summary_en": "The piece presents pianist Alexander Malofeev performing Glinka's “The Lark” and Handel's Minuet in G major. It focuses on his new album, Russian musical tradition, and his interpretive style.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Материалът е музикален портрет без политическа тема."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 0.95,
+    "evidence": "Русия, Москва и руските композитори са културно-биографичен контекст, без оценка на руската държава или политика."
+  },
+  "ai_generated": {
+    "verdict": "unclear",
+    "confidence": 0.55,
+    "signals": [
+      "no byline",
+      "uniform promotional register",
+      "abrupt unexplained transition from Glinka to Handel",
+      "specific concert metadata"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Александър Малофеев",
+      "Михаил Глинка",
+      "Нестор Кукольник",
+      "Георг Фридрих Хендел"
+    ],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "Санкт Петербург",
+      "Берлин",
+      "Москва",
+      "Европа",
+      "Азия",
+      "Америка",
+      "Frankfurt"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Азия",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:AS",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "celebrities",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": null
+}

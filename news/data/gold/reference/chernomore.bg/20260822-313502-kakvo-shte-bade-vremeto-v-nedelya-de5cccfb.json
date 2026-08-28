@@ -1,0 +1,74 @@
+{
+  "article_path": "news/data/chernomore.bg/20260822-313502-kakvo-shte-bade-vremeto-v-nedelya-de5cccfb.json",
+  "url": "https://www.chernomore.bg/a/10-bulgaria/313502-kakvo-shte-bade-vremeto-v-nedelya",
+  "domain": "chernomore.bg",
+  "analyzed_at": "2026-08-28T15:40:30.720264+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete NIMH forecast covering overnight, national, coast, mountains and two-day outlook."
+  },
+  "summary_bg": "В неделя ще е предимно слънчево, но следобед в Южна и Югозападна България се очакват кратки валежи и гръмотевици; максималните температури са 33–38 градуса. По морето ще е 27–29 градуса, а в понеделник и вторник температурите постепенно ще се понижават.",
+  "summary_en": "Sunday will be mostly sunny, with afternoon showers and thunderstorms in southern and southwestern Bulgaria and highs of 33–38°C. The coast will reach 27–29°C, while temperatures will gradually ease on Monday and Tuesday.",
+  "leaning": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Прогноза за времето без политическа рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.78,
+    "signals": [
+      "NIMH attribution",
+      "multi-region forecast",
+      "two-day outlook"
+    ]
+  },
+  "entities": {
+    "people": [],
+    "parties": [],
+    "institutions": [],
+    "companies": [],
+    "places": [
+      "България",
+      "София"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "София",
+      "basis": "gazetteer_exact",
+      "id": "settlement:68134",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "not-site-relevant",
+      "subcategory": "weather",
+      "primary": true
+    }
+  ],
+  "site_relevant": false,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T09:15:00+00:00"
+}

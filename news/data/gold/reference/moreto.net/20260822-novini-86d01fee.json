@@ -1,0 +1,164 @@
+{
+  "article_path": "news/data/moreto.net/20260822-novini-86d01fee.json",
+  "url": "https://www.moreto.net/novini.php?n=534253",
+  "domain": "moreto.net",
+  "analyzed_at": "2026-08-28T15:22:40.101462+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete defence-ministry based report on interim fighter-aircraft options."
+  },
+  "summary_bg": "Министър Димитър Стоянов обсъжда със САЩ ускоряване на доставките по двата договора за F-16 и възможност България да получи употребявани самолети за охрана на въздушното пространство. Американската страна заявява готовност за съдействие.",
+  "summary_en": "Defence Minister Dimitar Stoyanov discussed accelerating deliveries under Bulgaria's two F-16 contracts and obtaining used aircraft for interim air policing with US officials. The American side expressed readiness to assist.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.95,
+    "evidence": "Официална новина за отбранителни доставки и способности без оценъчна рамка."
+  },
+  "russia_stance": {
+    "label": "not_applicable",
+    "confidence": 1.0,
+    "evidence": "Русия не се споменава."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.85,
+    "signals": [
+      "specific participants",
+      "contract and aircraft details",
+      "ministry-release structure"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Димитър Стоянов",
+      "Уилям Дж. Капелети-младши",
+      "Емил Ефтимов",
+      "Любомир Монов"
+    ],
+    "parties": [],
+    "institutions": [
+      "Военновъздушни сили",
+      "Министерството на отбраната",
+      "НАТО"
+    ],
+    "companies": [],
+    "places": [
+      "България",
+      "САЩ"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "България",
+      "basis": "gazetteer_exact",
+      "id": "settlement:BG",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Димитър Стоянов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "two_part",
+      "candidates": [
+        "Димитър Анастасов Стоянов (person, mp, mp-2239)",
+        "Димитър Желязков Стоянов (person, mp, mp-5118)",
+        "Димитър Кинов Стоянов (person, mp, mp-193)",
+        "Димитър Стоянов Стоянов (person, mp, mp-2747)"
+      ]
+    },
+    {
+      "kind": "institution",
+      "surface": "Военновъздушни сили",
+      "basis": "not_in_gazetteer",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Стоянов",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "surname",
+      "candidates": [
+        "Александър Красимиров Стоянов (person, cabinet, aleksandr-krasimirov-stoyanov-5b5791)",
+        "Атанас Славчев Стоянов (person, mp, mp-2737)",
+        "Божидар Димитров Стоянов (person, mp, mp-845)",
+        "Борис Янев Стоянов (person, mp, mp-2296)",
+        "Борислав Тодоров Стоянов (person, mp, mp-871)",
+        "Виктор Стоянов Стоянов (person, deputy_minister, viktor-stoyanov-stoyanov-db2f59)",
+        "Ганчо Добрев Стоянов (person, mp, mp-1770)",
+        "Димитър Анастасов Стоянов (person, mp, mp-2239)",
+        "Димитър Желязков Стоянов (person, mp, mp-5118)",
+        "Димитър Кинов Стоянов (person, mp, mp-193)",
+        "Димитър Стоянов Стоянов (person, mp, mp-2747)",
+        "Евгении Борисов Стоянов (person, deputy_minister, evgenii-borisov-stoyanov-535399)",
+        "Иван Йорданов Стоянов (person, regional_governor, ivan-iordanov-stoyanov-10423b)",
+        "Ивелин Стоянов Стоянов (person, mp, mp-3324)",
+        "Илко Стоянов Стоянов (person, mp, mp-3091)",
+        "Йордан Свеженов Стоянов (person, mp, mp-3076)",
+        "Калин Георгиев Стоянов (person, mp, mp-5112)",
+        "Коста Георгиев Стоянов (person, mp, mp-5060)",
+        "Людмил Василев Стоянов (person, regional_governor, lyudmil-vasilev-stoyanov-f9617c)",
+        "Маноил Борисов Стоянов (person, revenue_agency, manoil-borisov-stoyanov-6836d8)",
+        "Никола Руменов Стоянов (person, cabinet, nikola-rumenov-stoyanov-328b01)",
+        "Огнян Иванов Стоянов (person, regional_governor, ognyan-ivanov-stoyanov-1748e7)",
+        "Петър Кръстев Стоянов (person, mp, mp-2110)",
+        "Петър Стефанов Стоянов (person, mp, mp-1935)",
+        "Ради Николов Стоянов (person, mp, mp-1686)",
+        "Румен Василев Стоянов (person, mp, mp-1451)",
+        "СТОЯН ПЕТРОВ СТОЯНОВ (person, regional_governor, stoyan-petrov-stoyanov-5bb586)",
+        "Сашо Начев Стоянов (person, mp, mp-2124)",
+        "Светлин Костов Стоянов (person, mp, mp-3642)",
+        "Станислав Добринов Стоянов (person, mp, mp-4194)",
+        "Станислав Иванов Стоянов (person, mp, mp-2953)",
+        "Тодор Христов Стоянов (person, deputy_minister, todor-hristov-stoyanov-b8f2f3)",
+        "Христо Николов Стоянов (person, mp, mp-2038)"
+      ]
+    },
+    {
+      "kind": "place",
+      "surface": "Европа",
+      "basis": "gazetteer_exact",
+      "id": "obshtina:EU",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "person",
+      "surface": "Емил Ефтимов",
+      "basis": "gazetteer_exact",
+      "id": "emil-vasilev-eftimov-868c9f",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "person",
+      "surface": "Любомир Монов",
+      "basis": "gazetteer_exact",
+      "id": "lyubomir-bogdanov-monov-31789e",
+      "role": "mention",
+      "form_kind": "two_part"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T08:23:46+00:00"
+}

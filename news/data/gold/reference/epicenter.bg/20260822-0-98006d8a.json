@@ -1,0 +1,117 @@
+{
+  "article_path": "news/data/epicenter.bg/20260822-0-98006d8a.json",
+  "url": "https://epicenter.bg/article/Otkriha-ostanki-ot-dron-na-plazha-mezhdu-Albena-i-Kranevo/429170/2/0",
+  "domain": "epicenter.bg",
+  "analyzed_at": "2026-08-28T15:10:51.795580+00:00",
+  "model": "Codex GPT-5 independent gold adjudication",
+  "taxonomy_version": 1,
+  "quality": {
+    "verdict": "ok",
+    "notes": "A complete report describing the discovery, official response, and competing clues about a drone's origin."
+  },
+  "summary_bg": "На плажа между Албена и Кранево са намерени двигателят и витлото на дрон, изхвърлени от морето. Полиция, Гранична полиция и Военноморските сили обезопасяват района, а произходът остава непотвърден въпреки предположения за украински или руски апарат „Орлан“.",
+  "summary_en": "Drone wreckage containing an engine and propeller was found on the beach between Albena and Kranevo. Police, Border Police and the Navy secured the area; its origin remains unconfirmed despite suggestions that it may be Ukrainian or a Russian Orlan aircraft.",
+  "leaning": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Материалът приписва предположенията на очевидци и интернет проверка и два пъти подчертава, че произходът не е официално потвърден."
+  },
+  "russia_stance": {
+    "label": "neutral",
+    "confidence": 0.9,
+    "evidence": "Руският произход е представен като непотвърдена техническа хипотеза, наред с украинска версия, без оценка на руската политика."
+  },
+  "ai_generated": {
+    "verdict": "likely_human",
+    "confidence": 0.75,
+    "signals": [
+      "specific 112 call time",
+      "named regional governor",
+      "attributed eyewitness and institutional reporting",
+      "some duplicated paragraphs consistent with aggregation"
+    ]
+  },
+  "entities": {
+    "people": [
+      "Руслан Томов"
+    ],
+    "parties": [],
+    "institutions": [
+      "Гранична полиция",
+      "МВР",
+      "Общинския съвет по сигурност в Балчик",
+      "Военноморските сили"
+    ],
+    "companies": [],
+    "places": [
+      "Албена",
+      "Кранево",
+      "Добрич",
+      "Балчик",
+      "Санкт Петербург"
+    ]
+  },
+  "mentions": [
+    {
+      "kind": "place",
+      "surface": "Кранево",
+      "basis": "gazetteer_exact",
+      "id": "settlement:39459",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "institution",
+      "surface": "МВР",
+      "basis": "gazetteer_exact",
+      "id": "000695235",
+      "role": "mention",
+      "form_kind": "name"
+    },
+    {
+      "kind": "place",
+      "surface": "Добрич",
+      "basis": "ambiguous_refused",
+      "id": null,
+      "role": "mention",
+      "form_kind": "name",
+      "candidates": [
+        "Добрич (place, mir, mir:DOB)",
+        "Добрич (place, oblast, oblast:DOB)",
+        "Добрич (place, obshtina, obshtina:DOB28)",
+        "Добрич (place, settlement, settlement:21539)",
+        "Добрич (place, settlement, settlement:21542)",
+        "Добрич (place, settlement, settlement:72624)"
+      ]
+    },
+    {
+      "kind": "person",
+      "surface": "Руслан Томов",
+      "basis": "gazetteer_exact",
+      "id": "ruslan-strahilov-tomov-1c3371",
+      "role": "mention",
+      "form_kind": "two_part"
+    },
+    {
+      "kind": "place",
+      "surface": "Балчик",
+      "basis": "gazetteer_exact",
+      "id": "settlement:02508",
+      "role": "mention",
+      "form_kind": "name"
+    }
+  ],
+  "party_tones": [],
+  "topics": [
+    {
+      "category": "security-defense",
+      "subcategory": "defense",
+      "primary": true
+    }
+  ],
+  "site_relevant": true,
+  "story": {
+    "action": "none"
+  },
+  "published": "2026-08-22T12:30:00+00:00"
+}
