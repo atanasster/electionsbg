@@ -1,7 +1,6 @@
 // Bulgarian labels, fixed display orders and colors for the analysis scales.
-// The leaning axis reads left→right (progressive→conservative), mirroring the
-// ground.news spectrum; colors are fixed hex values chosen to read on both the
-// light (cream) and dark (navy) theme cards.
+// The framing axis reads left→right (progressive→conservative). These labels
+// describe the MATERIAL'S framing, never a permanent property of an outlet.
 
 import type {
   AiVerdict,
@@ -32,23 +31,35 @@ export type ScaleMeta = { label: string; short: string; color: string };
 
 export const LEANING_META: Record<Leaning, ScaleMeta> = {
   strong_progressive: {
-    label: "Силно прогресивно",
+    label: "Силно прогресивно рамкиране",
     short: "Сл. прогресивно",
     color: "#1d4ed8",
   },
-  progressive: { label: "Прогресивно", short: "Прогресивно", color: "#3b82f6" },
-  neutral: { label: "Център", short: "Център", color: "#94a3b8" },
+  progressive: {
+    label: "Прогресивно рамкиране",
+    short: "Прогресивно",
+    color: "#3b82f6",
+  },
+  neutral: {
+    label: "Без ясно идеологическо рамкиране",
+    short: "Без ясно рамкиране",
+    color: "#94a3b8",
+  },
   conservative: {
-    label: "Консервативно",
+    label: "Консервативно рамкиране",
     short: "Консервативно",
     color: "#f97316",
   },
   strong_conservative: {
-    label: "Силно консервативно",
+    label: "Силно консервативно рамкиране",
     short: "Сл. консервативно",
     color: "#c2410c",
   },
-  not_applicable: { label: "Без пристрастие", short: "—", color: "#71717a" },
+  not_applicable: {
+    label: "Извън политическата ос",
+    short: "Извън оста",
+    color: "#71717a",
+  },
 };
 
 // Spectrum hues deliberately diverge from the leaning blues/oranges so the two
@@ -60,14 +71,22 @@ export const RUSSIA_META: Record<RussiaStance, ScaleMeta> = {
     color: "#b91c1c",
   },
   pro_russia: { label: "Проруска", short: "Проруска", color: "#ef4444" },
-  neutral: { label: "Неутрална", short: "Неутрална", color: "#94a3b8" },
+  neutral: {
+    label: "Без ясно изразена позиция към Русия",
+    short: "Без ясна позиция",
+    color: "#94a3b8",
+  },
   anti_russia: { label: "Антируска", short: "Антируска", color: "#0d9488" },
   strong_anti_russia: {
     label: "Силно антируска",
     short: "Сл. антируска",
     color: "#0f766e",
   },
-  not_applicable: { label: "Без позиция", short: "—", color: "#71717a" },
+  not_applicable: {
+    label: "Русия не е спомената",
+    short: "Не е спомената",
+    color: "#71717a",
+  },
 };
 
 export const AI_META: Record<

@@ -226,7 +226,9 @@ describe("the spectrum floor", () => {
         leaning: { neutral: SPECTRUM_MIN_ANALYSED - 10, progressive: 10 },
       }),
     );
-    expect(await screen.findByText(/Пристрастие по статии/)).toBeVisible();
+    expect(
+      await screen.findByText(/Политическо рамкиране по статии/),
+    ).toBeVisible();
   });
 
   it("survives a bundle built before `conduct` existed", async () => {

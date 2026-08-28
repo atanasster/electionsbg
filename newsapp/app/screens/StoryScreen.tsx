@@ -43,9 +43,9 @@ const LEAN_GROUPS: {
   label: string;
   meta: keyof typeof LEANING_META;
 }[] = [
-  { g: "left", label: "Ляво", meta: "progressive" },
-  { g: "center", label: "Център", meta: "neutral" },
-  { g: "right", label: "Дясно", meta: "conservative" },
+  { g: "left", label: "Прогресивно", meta: "progressive" },
+  { g: "center", label: "Без ясно рамкиране", meta: "neutral" },
+  { g: "right", label: "Консервативно", meta: "conservative" },
 ];
 const STANCE_GROUPS: {
   g: Exclude<StanceGroup, "n/a">;
@@ -253,13 +253,13 @@ export const StoryScreen = () => {
           {/* Interactive spectrums — clicking a group filters the member list. */}
           <div className="space-y-3">
             <MixBar
-              title="Спектър на пристрастията"
+              title="Политическо рамкиране на материалите"
               segments={lean.segments}
               selected={leanFilter}
               onSelect={setLeanFilter}
               note={
                 lean.naCount > 0
-                  ? `${lean.naCount} от източниците са без оценено пристрастие (извън спектъра).`
+                  ? `${lean.naCount} от материалите са извън политическата ос и не участват в лентата.`
                   : undefined
               }
             />

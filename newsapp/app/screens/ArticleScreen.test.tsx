@@ -218,7 +218,9 @@ describe("the unanalysed state", () => {
     await renderAt([article()]);
     expect(await screen.findByText(/още не е анализирана/)).toBeVisible();
     expect(screen.queryByText("увереност 0.7")).not.toBeInTheDocument();
-    expect(screen.queryByText(/Политическа ос/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Политическо рамкиране на материала/),
+    ).not.toBeInTheDocument();
   });
 
   it("says explicitly that absence is not neutrality", async () => {
@@ -340,16 +342,16 @@ describe("mentions", () => {
 describe("failure and edges", () => {
   beforeEach(() => vi.resetModules());
 
-  it("falls back to the not-applicable label when a verdict is null", async () => {
-    // ⚠️ null is not "unknown". A record whose rubric returned no leaning
-    // must read as „Без пристрастие", the app's own name for that state —
-    // not as an em dash, which reads as missing data.
+  it("does not manufacture a not-applicable verdict when the value is null", async () => {
     const a = analysed() as unknown as Record<string, unknown>;
     (a.leaning as Record<string, unknown>).label = null;
     await renderAt([
       article({ analysis: a } as unknown as Partial<ArticleRecord>),
     ]);
-    expect(await screen.findByText("Без пристрастие")).toBeVisible();
+    expect(await screen.findByText("Оценката не е налична")).toBeVisible();
+    expect(
+      screen.queryByText("Извън политическата ос"),
+    ).not.toBeInTheDocument();
   });
 
   it("survives a label the app has never seen", async () => {
@@ -368,6 +370,7 @@ describe("failure and edges", () => {
     expect(
       await screen.findByText(/Материалът представя и двете страни/),
     ).toBeVisible();
+    expect(screen.getByText("Оценката не е налична")).toBeVisible();
   });
 
   it("says so when the article is not in the corpus", async () => {

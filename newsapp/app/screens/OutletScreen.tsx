@@ -285,7 +285,7 @@ export const OutletScreen = () => {
         >
           <Card className="p-4">
             <h2 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              Пристрастие по статии
+              Политическо рамкиране по статии
             </h2>
             <LeanSpectrum
               counts={outlet.leaning}

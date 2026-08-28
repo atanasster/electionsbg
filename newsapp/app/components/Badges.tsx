@@ -37,6 +37,7 @@ const MetaBadge = ({
     <Badge
       variant="outline"
       title={`${titlePrefix}: ${m.label}`}
+      aria-label={`${titlePrefix}: ${m.label}`}
       style={{ borderColor: `${m.color}66` }}
     >
       <span
@@ -59,7 +60,7 @@ export const LeanBadge = ({
   <MetaBadge
     value={leaning}
     meta={LEANING_META}
-    titlePrefix="Пристрастие"
+    titlePrefix="Политическо рамкиране на материала"
     short={short}
   />
 );
@@ -74,7 +75,7 @@ export const StanceBadge = ({
   <MetaBadge
     value={stance}
     meta={RUSSIA_META}
-    titlePrefix="Позиция спрямо Русия"
+    titlePrefix="Позиция на материала спрямо Русия"
     short={short}
   />
 );

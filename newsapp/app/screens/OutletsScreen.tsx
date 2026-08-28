@@ -105,8 +105,8 @@ export const OutletsScreen = () => {
         <h1 className="font-title text-3xl">Източници</h1>
         <p className="mt-1 max-w-2xl text-muted-foreground">
           Каталог на българските медии в корпуса — тип, обхват, посещаемост и
-          разпределения по пристрастие, позиция спрямо Русия и ИИ-сигнали (от
-          анализираните статии).
+          разпределения на политическото рамкиране, позицията спрямо Русия и
+          ИИ-сигналите в анализираните статии.
         </p>
       </header>
 
@@ -155,13 +155,13 @@ export const OutletsScreen = () => {
                   Анализ
                 </TableHead>
                 <TableHead scope="col" className="min-w-40">
-                  Пристрастие
+                  Рамкиране на статиите
                 </TableHead>
                 <TableHead
                   scope="col"
                   className="min-w-40 hidden md:table-cell"
                 >
-                  Позиция РФ
+                  Позиция на статиите спрямо Русия
                 </TableHead>
               </TableRow>
             </TableHeader>

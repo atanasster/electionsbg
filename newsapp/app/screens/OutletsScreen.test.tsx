@@ -151,6 +151,19 @@ describe("the sample floor", () => {
       expect(tr.querySelectorAll("td").length).toBe(heads);
     }
   });
+
+  it("describes distributions as article judgments, not outlet traits", async () => {
+    await renderList([outlet()]);
+    expect(
+      screen.getByRole("columnheader", { name: "Рамкиране на статиите" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("columnheader", {
+        name: "Позиция на статиите спрямо Русия",
+      }),
+    ).toBeVisible();
+    expect(screen.queryByText(/пристрастие/i)).not.toBeInTheDocument();
+  });
 });
 
 describe("retired outlets", () => {

@@ -104,8 +104,8 @@ export const HomeScreen = () => {
         </h1>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
           Сравнете как българските медии отразяват едни и същи събития — спектър
-          на пристрастията, позиция спрямо Русия и сигнали за ИИ-генерирано
-          съдържание.
+          на политическото рамкиране, позиция спрямо Русия и сигнали за
+          ИИ-генерирано съдържание.
         </p>
         {/* Stats strip — one glance at corpus + analysis coverage. */}
         <div className="mt-4 flex flex-wrap items-center gap-2">

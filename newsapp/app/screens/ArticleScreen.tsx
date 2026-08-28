@@ -103,7 +103,7 @@ const AxisCard = ({
 );
 
 /**
- * A scale label and colour, tolerating a value the app has never seen.
+ * A scale label and colour, tolerating a missing/value the app has never seen.
  *
  * ⚠️ The bundle passes rubric labels through VERBATIM, so an unrecognised one
  * is a JSON value away — and a bare `META[label].label` on an unknown key
@@ -115,10 +115,10 @@ const scaleOf = (
   meta: Record<string, { label: string; color: string }>,
   key: string | null | undefined,
 ): { verdict: string; color: string } => {
-  const hit = meta[key ?? ""] ?? meta.not_applicable;
+  const hit = key ? meta[key] : null;
   return hit
     ? { verdict: hit.label, color: hit.color }
-    : { verdict: key ?? "—", color: "#71717a" };
+    : { verdict: "Оценката не е налична", color: "#71717a" };
 };
 
 /** A label from a META record, or null when the app has never seen the key. */
@@ -294,7 +294,7 @@ export const ArticleScreen = () => {
         <>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <AxisCard
-              title="Политическа ос"
+              title="Политическо рамкиране на материала"
               {...scaleOf(LEANING_META, analysis.leaning?.label)}
               confidence={analysis.leaning?.confidence}
               evidence={analysis.leaning?.evidence}
