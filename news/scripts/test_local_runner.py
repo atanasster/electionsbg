@@ -11,6 +11,7 @@ import http.client
 import json
 import os
 import subprocess
+import tempfile
 import urllib.error
 import sys
 import unittest
@@ -23,6 +24,7 @@ import analyze_articles as aa  # noqa: E402
 import analyze_local  # noqa: E402
 import build_prompts  # noqa: E402
 import llm_client  # noqa: E402
+import test_analyze_articles as article_fixtures  # noqa: E402
 
 SCRIPTS = Path(__file__).resolve().parent
 PROMPTS = SCRIPTS.parent / "prompts"
@@ -239,6 +241,52 @@ class TheClient(unittest.TestCase):
         self.assertEqual(seen["body"]["reasoning"],
                          {"effort": "none", "exclude": True})
 
+    def test_response_identity_and_provider_are_returned_for_provenance(self):
+        import io
+
+        class Resp(io.BytesIO):
+            def __enter__(self_): return self_
+            def __exit__(self_, *args): return False
+
+        doc = {"id": "gen-123", "model": "served-model", "provider": "fast",
+               "choices": [{"message": {"content": "{}"}}],
+               "usage": {"prompt_tokens": 10, "completion_tokens": 2}}
+        with mock.patch.object(llm_client.urllib.request, "urlopen",
+                               lambda req, timeout=None: Resp(
+                                   json.dumps(doc).encode("utf-8"))):
+            got = llm_client.complete("s", "u", model="requested")
+        self.assertEqual(got["response_id"], "gen-123")
+        self.assertEqual(got["provider"], "fast")
+        self.assertEqual(got["request"]["max_tokens"], 2048)
+        self.assertTrue(got["request"]["body_sha256"].startswith("sha256:"))
+        self.assertGreaterEqual(got["transport_elapsed_s"],
+                                got["attempt_elapsed_s"])
+
+    def test_request_fingerprint_changes_with_reasoning_and_token_budget(self):
+        import io
+
+        class Resp(io.BytesIO):
+            def __enter__(self_): return self_
+            def __exit__(self_, *args): return False
+
+        def fake(req, timeout=None):
+            return Resp(json.dumps({
+                "choices": [{"message": {"content": "{}"}}]
+            }).encode("utf-8"))
+
+        hashes = []
+        for effort, tokens in (("none", 512), ("low", 512), ("low", 4096)):
+            with mock.patch.dict(os.environ, {
+                    "NEWS_LLM_ALLOW_REMOTE": "1",
+                    "NEWS_LLM_REASONING_EFFORT": effort}, clear=False), \
+                    mock.patch.object(llm_client.urllib.request, "urlopen", fake):
+                got = llm_client.complete(
+                    "s", "u", model="m", max_tokens=tokens,
+                    json_schema={"type": "object"},
+                    url="https://openrouter.ai/api/v1/chat/completions")
+            hashes.append(got["request"]["body_sha256"])
+        self.assertEqual(len(set(hashes)), 3)
+
     def test_every_localhost_spelling_is_accepted(self):
         for host in ("127.0.0.1", "localhost", "0.0.0.0"):
             with self.subTest(host=host):
@@ -359,6 +407,36 @@ class Saving(unittest.TestCase):
                                                  "failed": []})):
             self.assertTrue(analyze_local.save([1, 2], stats))
         self.assertEqual(stats["saved"], 2)
+
+    def test_real_save_subprocess_preserves_provenance_unchanged(self):
+        with tempfile.TemporaryDirectory(prefix="provenance_save_") as td:
+            root = Path(td)
+            corpus_dir = root / "news" / "data" / "test.bg"
+            corpus_dir.mkdir(parents=True)
+            (root / "news" / "topics.json").write_text(
+                json.dumps(article_fixtures.TAXONOMY, ensure_ascii=False),
+                encoding="utf-8")
+            article = article_fixtures.corpus_article(
+                "test.bg", "a", "https://test.bg/a", "Заглавие",
+                "2026-08-22T00:00:00+00:00")
+            article_path = "news/data/test.bg/a.json"
+            (root / article_path).write_text(
+                json.dumps(article, ensure_ascii=False), encoding="utf-8")
+            rec = article_fixtures.analysis(
+                article_path, article["url"], article["domain"])
+            rec["analysis_provenance"] = {
+                "version": 1, "model_requested": "requested",
+                "model_served": "served", "user_prompt_sha256": "sha256:u",
+            }
+            stats = {"saved": 0, "rejected": [], "save_failed": []}
+            with mock.patch.object(analyze_local, "ROOT", root):
+                self.assertTrue(analyze_local.save([rec], stats))
+            index = json.loads((root / "news" / "data" / "analysis"
+                                / "index.json").read_text(encoding="utf-8"))
+            saved_path = root / index["articles"][article["url"]]["path"]
+            saved = json.loads(saved_path.read_text(encoding="utf-8"))
+            self.assertEqual(saved["analysis_provenance"],
+                             rec["analysis_provenance"])
 
     def test_the_canary_is_keyed_on_the_first_record_BUILT(self):
         # ⚠️ `n == 1` was the QUEUE index, so an unreadable first article
@@ -497,6 +575,78 @@ class TheRecord(unittest.TestCase):
             {"path": "p", "domain": "x.bg"}, {"url": "u"},
             {"text": "{}", "model": "gemma-4-12b-q4"}, "whatever", 1, [])
         self.assertEqual(rec["model"], "gemma-4-12b-q4")
+
+    def test_prompt_model_usage_and_claim_provenance_are_persisted(self):
+        prompt = {
+            "system_prompt_sha256": "sha256:system",
+            "json_schema_sha256": "sha256:schema",
+            "grammar_sha256": "sha256:grammar",
+            "taxonomy_prompt_sha256": "sha256:taxonomy",
+            "user_prompt_sha256": "sha256:user",
+            "body_truncated": False,
+            "max_body_chars": 6000,
+        }
+        rec = analyze_local.record_from(
+            {"path": "p", "domain": "x.bg"}, {"url": "u"},
+            {"text": json.dumps({"analysis_provenance": {"version": 999}}),
+             "model": "served", "response_id": "gen-1", "provider": "p",
+             "usage": {"prompt_tokens": 12, "total_tokens": 20,
+                       "ignored": "large-provider-object"},
+             "attempt_elapsed_s": 0.75, "transport_elapsed_s": 1.25,
+             "attempts": 2, "request": {"body_sha256": "sha256:req"}},
+            "requested", 1, [], prompt)
+        got = rec["analysis_provenance"]
+        self.assertEqual(got["version"], 1)
+        self.assertEqual(got["model_requested"], "requested")
+        self.assertEqual(got["model_served"], "served")
+        self.assertEqual(got["response_id"], "gen-1")
+        self.assertEqual(got["usage"], {"prompt_tokens": 12,
+                                         "total_tokens": 20})
+        self.assertEqual(got["user_prompt_sha256"], "sha256:user")
+        self.assertEqual(got["claim_sources"]["evidence"], "model_output")
+        self.assertEqual(got["request"]["body_sha256"], "sha256:req")
+        self.assertEqual(got["schema_generation_attempt"], 1)
+        self.assertEqual(got["cumulative_usage"], got["usage"])
+
+    def test_loaded_prompt_hashes_match_the_exact_assets(self):
+        import hashlib
+        assets = analyze_local.load_prompt_assets()
+        got = assets["provenance"]
+        system = (PROMPTS / "analyze_system.md").read_text(encoding="utf-8")
+        expected_system = "sha256:" + hashlib.sha256(
+            system.encode("utf-8")).hexdigest()
+        self.assertEqual(got["system_prompt_sha256"], expected_system)
+        self.assertTrue(all(value.startswith("sha256:")
+                            for value in got.values()))
+
+    def test_usage_rejects_nonfinite_negative_boolean_and_implausible_values(self):
+        got = analyze_local.bounded_usage({
+            "prompt_tokens": -1,
+            "completion_tokens": True,
+            "total_tokens": analyze_local.MAX_USAGE_TOKENS + 1,
+            "cost": float("nan"),
+        })
+        self.assertEqual(got, {})
+        for bad in (float("inf"), -0.01,
+                    analyze_local.MAX_USAGE_COST_USD + 1):
+            self.assertNotIn("cost", analyze_local.bounded_usage({"cost": bad}))
+
+    def test_schema_retry_provenance_carries_cumulative_billed_usage(self):
+        def rec(response, cost):
+            return analyze_local.record_from(
+                {"path": "p", "domain": "x.bg"}, {"url": "u"},
+                {"text": "{}", "model": "m", "response_id": response,
+                 "usage": {"prompt_tokens": 10, "completion_tokens": 2,
+                           "total_tokens": 12, "cost": cost}},
+                "m", 1, [])
+        first, accepted = rec("first", 0.001), rec("accepted", 0.002)
+        analyze_local.carry_schema_attempts(accepted, [first])
+        got = accepted["analysis_provenance"]
+        self.assertEqual(got["schema_generation_attempt"], 2)
+        self.assertEqual([a["response_id"] for a in got["schema_attempts"]],
+                         ["first", "accepted"])
+        self.assertEqual(got["cumulative_usage"]["total_tokens"], 24)
+        self.assertAlmostEqual(got["cumulative_usage"]["cost"], 0.003)
 
     def test_the_url_comes_from_the_CORPUS_record(self):
         # ⚠️ The queue carries no `url` — reading item["url"] raised KeyError

@@ -14,6 +14,7 @@ set alongside it, so that cannot happen by accident.
 """
 
 import http.client
+import hashlib
 import json
 import os
 import socket
@@ -98,7 +99,7 @@ def complete(system: str, user: str, *, model: str,
              temperature: float = 0.2,
              timeout: int = DEFAULT_TIMEOUT,
              url: str | None = None) -> dict:
-    """One completion. Returns {"text", "model", "usage", "elapsed_s"}.
+    """One completion with response, request, usage, and timing metadata.
 
     ⚠️ `grammar` is passed through as llama.cpp's `grammar` field. A server
     that ignores it will happily return free-form JSON — which is why
@@ -184,10 +185,23 @@ def complete(system: str, user: str, *, model: str,
     # this block makes the payload mutations look right in a code review but
     # sends neither of them — caught by test_openrouter_requires_schema_*.
     body = json.dumps(payload).encode("utf-8")
+    request_meta = {
+        "body_sha256": "sha256:" + hashlib.sha256(body).hexdigest(),
+        "endpoint_class": ("openrouter" if target_host == "openrouter.ai"
+                           else "local" if target_host in LOCAL_HOSTS
+                           else "remote"),
+        "endpoint_origin": f"{urlparse(target).scheme}://{urlparse(target).netloc}",
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+        "thinking_enabled": os.environ.get("NEWS_LLM_THINKING") == "1",
+        "reasoning": payload.get("reasoning"),
+        "provider_routing": payload.get("provider"),
+    }
 
     last = None
+    request_started = time.monotonic()
     for attempt in range(1, MAX_ATTEMPTS + 1):
-        started = time.monotonic()
+        attempt_started = time.monotonic()
         req = urllib.request.Request(
             target, data=body, headers=request_headers(target), method="POST")
         try:
@@ -215,12 +229,25 @@ def complete(system: str, user: str, *, model: str,
                     f"({reasoning_tokens} reasoning tokens) and no answer — "
                     f"finish_reason={choices[0].get('finish_reason')!r}. "
                     "Raise --max-tokens, or unset NEWS_LLM_THINKING=1.")
+            finished = time.monotonic()
+            attempt_elapsed = round(finished - attempt_started, 2)
+            transport_elapsed = round(finished - request_started, 2)
             return {
                 "text": msg.get("content") or "",
                 "model": doc.get("model") or model,
+                # Provider response identity is audit metadata, not model
+                # output. Keep it separate so a saved analysis can be traced
+                # to one exact hosted generation without retaining reasoning.
+                "response_id": doc.get("id"),
+                "provider": doc.get("provider"),
                 "usage": usage,
-                "elapsed_s": round(time.monotonic() - started, 2),
+                # Backward-compatible name for benchmark callers; its scope
+                # is now explicit beside the end-to-end transport duration.
+                "elapsed_s": attempt_elapsed,
+                "attempt_elapsed_s": attempt_elapsed,
+                "transport_elapsed_s": transport_elapsed,
                 "attempts": attempt,
+                "request": request_meta,
             }
         except urllib.error.HTTPError as exc:
             last = LlmError(f"http_{exc.code}", exc.read()[:300].decode(

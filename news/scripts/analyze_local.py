@@ -21,7 +21,9 @@ Run:  python3 news/scripts/analyze_local.py --limit 20 --model gemma-4-12b
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import hashlib
 import json
+import math
 import re
 import os
 import subprocess
@@ -45,6 +47,68 @@ ANALYZE = SCRIPTS / "analyze_articles.py"
 # produces free-form JSON that fails every time — and discovering that after
 # 200 requests has burned the whole nightly window on a misconfiguration.
 FIRST_RECORD_IS_A_CANARY = True
+ANALYSIS_PROVENANCE_VERSION = 1
+MAX_USAGE_TOKENS = 1_000_000_000
+MAX_USAGE_COST_USD = 1_000_000
+
+
+def sha256_text(value: str) -> str:
+    return "sha256:" + hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def prompt_asset_provenance(assets: dict) -> dict:
+    """Hashes of the exact prompt contracts sent to the model."""
+    schema = json.dumps(assets["json_schema"], ensure_ascii=False,
+                        sort_keys=True, separators=(",", ":"))
+    return {
+        "system_prompt_sha256": sha256_text(assets["system"]),
+        "json_schema_sha256": sha256_text(schema),
+        "grammar_sha256": sha256_text(assets["grammar"]),
+        "taxonomy_prompt_sha256": sha256_text(assets["taxonomy"]),
+    }
+
+
+def bounded_usage(raw: dict) -> dict:
+    """Keep only finite, non-negative, plausible billing counters."""
+    out = {}
+    for key in ("prompt_tokens", "completion_tokens", "total_tokens"):
+        value = raw.get(key)
+        if (isinstance(value, int) and not isinstance(value, bool)
+                and 0 <= value <= MAX_USAGE_TOKENS):
+            out[key] = value
+    cost = raw.get("cost")
+    if (isinstance(cost, (int, float)) and not isinstance(cost, bool)
+            and math.isfinite(cost) and 0 <= cost <= MAX_USAGE_COST_USD):
+        out["cost"] = cost
+    return out
+
+
+def generation_summary(record: dict) -> dict:
+    provenance = record.get("analysis_provenance") or {}
+    return {
+        "response_id": provenance.get("response_id"),
+        "provider": provenance.get("provider"),
+        "model_served": provenance.get("model_served"),
+        "usage": provenance.get("usage") or {},
+        "transport_elapsed_s": provenance.get("transport_elapsed_s"),
+        "transport_attempts": provenance.get("transport_attempts"),
+    }
+
+
+def carry_schema_attempts(record: dict, previous: list[dict]) -> None:
+    """Attach charged validator-retry attempts to the accepted generation."""
+    if not isinstance(record.get("analysis_provenance"), dict):
+        return
+    attempts = [generation_summary(item) for item in previous] + [
+        generation_summary(record)]
+    cumulative = {}
+    for attempt in attempts:
+        for key, value in attempt["usage"].items():
+            cumulative[key] = cumulative.get(key, 0) + value
+    provenance = record["analysis_provenance"]
+    provenance["schema_generation_attempt"] = len(attempts)
+    provenance["schema_attempts"] = attempts
+    provenance["cumulative_usage"] = cumulative
 
 
 def run_analyze(*args, stdin: str | None = None) -> tuple[int, dict]:
@@ -120,8 +184,16 @@ def analyze_one(item: dict, assets: dict, model: str, max_tokens: int,
         return {"kind": "llm_failed", "path": item["path"],
                 "error_kind": exc.kind, "detail": exc.detail[:200]}
     try:
+        asset_provenance = (assets.get("provenance")
+                            or prompt_asset_provenance(assets))
+        request_provenance = {
+            **asset_provenance,
+            "user_prompt_sha256": sha256_text(prompt),
+            "body_truncated": len(article.get("content") or "") > MAX_BODY_CHARS,
+            "max_body_chars": MAX_BODY_CHARS,
+        }
         record = record_from(item, article, answer, model, taxonomy_version,
-                             item.get("mentions") or [])
+                             item.get("mentions") or [], request_provenance)
     except (json.JSONDecodeError, KeyError, TypeError) as exc:
         return {"kind": "parse_failed", "path": item["path"],
                 "detail": str(exc)[:200]}
@@ -156,7 +228,7 @@ def load_prompt_assets() -> dict:
         raise SystemExit(json.dumps({
             "error": "missing_prompts", "missing": missing,
             "hint": "run python3 news/scripts/build_prompts.py"}))
-    return {
+    assets = {
         "system": (PROMPTS / "analyze_system.md").read_text(encoding="utf-8"),
         "grammar": (PROMPTS / "analyze_schema.gbnf").read_text(encoding="utf-8"),
         # ⚠️ The SAME contract for a provider with no GBNF — see
@@ -169,6 +241,8 @@ def load_prompt_assets() -> dict:
         "taxonomy": (PROMPTS / "taxonomy_compact.json").read_text(
             encoding="utf-8"),
     }
+    assets["provenance"] = prompt_asset_provenance(assets)
+    return assets
 
 
 def build_user_prompt(rec: dict, mentions: list, taxonomy: str) -> str:
@@ -226,7 +300,8 @@ def parse_answer(text: str) -> dict:
 
 
 def record_from(item: dict, article: dict, answer: dict, model: str,
-                taxonomy_version: int, mentions: list) -> dict:
+                taxonomy_version: int, mentions: list,
+                request_provenance: dict | None = None) -> dict:
     """Assemble the analysis record the validator expects.
 
     ⚠️ `url` comes from the CORPUS RECORD, not from the queue item — the
@@ -237,7 +312,30 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
     will check against is the only version that can be right.
     """
     parsed = parse_answer(answer["text"])
+    served_model = answer.get("model") or model
+    usage = bounded_usage(answer.get("usage") or {})
+    provenance = {
+        **(request_provenance or {}),
+        "version": ANALYSIS_PROVENANCE_VERSION,
+        "model_requested": model,
+        "model_served": served_model,
+        "response_id": answer.get("response_id"),
+        "provider": answer.get("provider"),
+        "request": answer.get("request") or {},
+        "usage": usage,
+        "attempt_elapsed_s": answer.get("attempt_elapsed_s"),
+        "transport_elapsed_s": answer.get("transport_elapsed_s"),
+        "transport_attempts": answer.get("attempts"),
+        "claim_sources": {
+            "confidence": "model_output",
+            "evidence": "model_output",
+            "party_tone_grounding": "deterministic_gate_v1",
+        },
+    }
     rec = {
+        # Model output first: pipeline-owned identity and provenance below
+        # overwrite any names an unconstrained response tried to mint.
+        **parsed,
         "article_path": item["path"],
         "url": article.get("url"),
         "domain": item["domain"],
@@ -245,9 +343,9 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
         # ⚠️ The SERVER's model id, not the flag we passed. A run pointed at a
         # server holding a different model would otherwise record a name
         # nobody served, and the whole point of Tier 4 is comparing models.
-        "model": answer.get("model") or model,
+        "model": served_model,
         "taxonomy_version": taxonomy_version,
-        **parsed,
+        "analysis_provenance": provenance,
         # ⚠️ ALWAYS "none" — see the module docstring. Clustering is not this
         # script's job and a wrong merge cannot be undone automatically.
         # ⚠️ „none" DETACHES, and on a REDO that deletes the story. The
@@ -260,6 +358,7 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
     }
     if mentions:
         rec["mentions"] = mentions
+    carry_schema_attempts(rec, [])
     return rec
 
 
@@ -411,6 +510,7 @@ def main() -> int:
                 record_worker_failure(stats, retry)
                 break
             stats["answered"] += 1
+            carry_schema_attempts(retry["record"], [result["record"]])
             ok, last_attempt_stats = save_attempt(retry["record"])
         merge_save_stats(stats, last_attempt_stats)
         if ok:
@@ -450,7 +550,8 @@ def main() -> int:
                     merge_save_stats(stats, attempt_stats)
                 else:
                     stats["schema_retry_attempted"] += 1
-                    retry_queue.append((result["item"], attempt_stats))
+                    retry_queue.append((result["item"], attempt_stats,
+                                        result["record"]))
 
     # A second bounded wave preserves the four-request ceiling: retrying in
     # the main thread while the first pool was active would create a fifth
@@ -459,17 +560,19 @@ def main() -> int:
         with ThreadPoolExecutor(max_workers=args.workers) as pool:
             pending = {
                 pool.submit(analyze_one, item, assets, args.model,
-                            args.max_tokens, taxonomy_version): (item, first_stats)
-                for item, first_stats in retry_queue
+                            args.max_tokens, taxonomy_version): (
+                                item, first_stats, first_record)
+                for item, first_stats, first_record in retry_queue
             }
             for future in as_completed(pending):
-                item, first_stats = pending[future]
+                item, first_stats, first_record = pending[future]
                 result = future.result()
                 if result["kind"] != "record":
                     merge_save_stats(stats, first_stats)
                     record_worker_failure(stats, result)
                     continue
                 stats["answered"] += 1
+                carry_schema_attempts(result["record"], [first_record])
                 ok, attempt_stats = save_attempt(result["record"])
                 merge_save_stats(stats, attempt_stats)
                 if ok:
