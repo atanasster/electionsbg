@@ -1,6 +1,6 @@
 ---
 name: process-watch-report
-description: Compare state/watch/* (what the daily watcher discovered) against state/ingest/* (what each downstream skill last ingested) and invoke every skill whose mapped sources have changed since its last successful run. Use when the user says "process today's watch report", "sync data based on the watcher", "refresh everything that changed", "run the right skills for what changed", or otherwise asks to act on what the daily watcher found. Robust to multi-day gaps between orchestrator runs — never misses an intermediate-day change.
+description: Compare state/watch/* (what the daily watcher discovered) against state/ingest/* (what each downstream skill last ingested) and invoke every skill whose mapped sources have changed since its last successful run, timing every step into an append-only trace, then committing the result and handing the publish off to /upload-watch-changes. Use when the user says "process today's watch report", "sync data based on the watcher", "refresh everything that changed", "run the right skills for what changed", or otherwise asks to act on what the daily watcher found. Robust to multi-day gaps between orchestrator runs — never misses an intermediate-day change.
 allowed-tools:
   - Read
   - Bash
@@ -557,6 +557,91 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `Регистър на физическите лица в несъстоятелност (РНФЛ)` (`rnfl_insolvency`) | _no skill — nothing to ingest, and no `update-*` skill exists for this source; do not go looking for one. Surface under **"Manual action required"**, NOT `## Skipped`: an operator reads `docs/plans/rnfl-insolvency-v1.md` §T2 and DECIDES, then stamps with `npx tsx scripts/stamp-ingest.ts rnfl_insolvency --summary "…"` — nothing else clears it, and since the expected answer is "not yet, still gated" for months, an unstamped flip re-surfaces on every run for ever. Trigger = `/statistic-rnfl` serving a REAL statistics page; **a 200 alone is not enough** — the watcher compares the body against `/home-rnfl`, because a 302 back to the landing page also answers 200, so check `meta.statsBytes` / `meta.statsHash` before acting. The OTHER T2 trigger the plan names — a bulk export appearing on data.egov.bg — is **watched by nothing** (`egov_commerce` is pinned to the single TR daily-filings dataset UUID and would not see a new РНФЛ dataset under the same org), so that half needs a human to look. The `дело №1` probe is ADVISORY: it can only fire if file numbers are sequential from 1, which is unverified, so its silence must NEVER be read as "still empty". No table, loader or `recent_updates` row exists for this source. The plan refuses enumeration by file number (§2) and any probe carrying a personal identifier (§4)._ |
 | `council_minutes`                               | `update-council-minutes` (re-runs `npm run council:scrape -- --per-councillor` — walks every município wired in `data/council/sources.json` that isn't `phase1Defer`, downloads new protokol/decision PDFs/DOCX/HTML since the per-município watermark, extracts aggregate `{for, against, abstain}` tallies + `adopted/rejected/returned/unknown` result + Решение № titles via `lib/tally.ts`, and merges into the slim `data/council/index.json` + per-município votes shards under `data/council/votes/<obshtina>.json` (feeding the "Как гласуваха в съвета" My-Area tile) + per-resolution shards under `data/council/{obshtina}/{YYYY}/`. `--per-councillor` is NOT optional on this path: without it no scrape emits `tally.perCouncillor` at all, which is what froze the named-vote half of the corpus from 2026-05-29 to 2026-08-16 with nothing reporting it. `--ocr` stays opt-in (~$1.85/session for Sofia's mojibake full-session protokols — see `lib/pdf_chunk_ocr.ts`). **Then publish to Postgres: `npm run db:load:council:pg` locally and `npm run db:load:council:pg:cloud` for prod — nothing runs the cloud half automatically, and skipping it leaves prod on the previous vintage at a 200.**)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
+## Performance trace — EVERY step is timed
+
+This orchestrator is the longest-running thing in the repo: a single run can invoke a
+dozen ingest skills and then a `db:refresh` that is a **75-link `&&` chain**. Until 2026-08-29
+none of it was measured, so "the run took four hours" was the only fact available and it
+names nothing to fix.
+
+So every step this skill takes is timed and appended to a durable trace:
+
+```
+state/perf/process-watch-report.jsonl     ← this skill
+state/perf/upload-watch-changes.jsonl     ← /upload-watch-changes (the publish half)
+```
+
+**APPEND-ONLY, and committed.** One JSONL row per step, one `session` per orchestrator
+invocation. The point is the HISTORY, not this run: a step is only diagnosable against its
+own past durations, so the file is never truncated and never gitignored (a per-machine log
+would be empty on the machine that later does the optimisation work — which is why the
+extension is `.jsonl` and not `.log`, the latter being covered by `.gitignore`).
+
+### The three commands
+
+```bash
+# once, at the very top of the run — every step below carries this id.
+# ⚠️ PASTE THE PRINTED ID into each later command. `$S` below is shorthand: a shell
+# variable does NOT survive between tool calls, and `--session ""` files rows under a
+# blank session that no rollup can group.
+npm run -s perf:step -- session
+
+# a shell command: measured exactly, exit code propagated (so `&&` still works)
+npm run -s perf:step -- run --run process-watch-report --session "$S" \
+  --step "myarea:alerts" --phase derive -- npm run myarea:alerts
+
+# an `&&`-chain package script: ONE ROW PER LINK, plus a whole-chain total
+npm run -s perf:chain -- db:refresh --session "$S" --phase ingest
+
+# something this process did not run — a Skill invocation, a manual wait
+date -u +%FT%TZ         # before — read the stamp; it does not survive the tool call
+# … Skill(update-procurement) …
+npm run -s perf:step -- record --run process-watch-report --session "$S" \
+  --step "update-procurement" --phase ingest --started 2026-08-29T05:12:33Z --status ok \
+  --notes "3 210 new contracts"
+
+# read the trace back (also step 10 below)
+npm run -s perf:report -- --run process-watch-report --last 5
+```
+
+Four rules, each of which is a way the trace goes quietly WRONG rather than absent — and a
+wrong duration is worse than a missing one, because it sends the optimisation work to the
+wrong step:
+
+- ⚠️ **Never wrap a chain in `perf:step run`.** `npm run db:refresh` under `perf:step` yields
+  ONE number for 75 links, which answers "was it slow" and nothing about WHERE — and "where"
+  is the entire question when the chain is an hour long. Use `perf:chain`, which reads the
+  chain text out of `package.json` (so it cannot drift from what `npm run` would have done),
+  runs each link through `sh -c` in order, and aborts on the first non-zero exit exactly as
+  `&&` does. Same applies to `tr:daily-refresh` (7 links).
+- ⚠️ **`--step` labels are compared ACROSS sessions, so keep them deterministic.** No dates,
+  no counts, no row totals in the label — those go in `--notes`. A label that changes per run
+  makes every run look like a first run and the per-step history never accumulates.
+- ⚠️ **Record a SKIPPED step rather than omitting it.** `--status skipped` with a `--notes`
+  reason. An unmeasured step and a fast step are indistinguishable in the trace, and a step
+  skipped four runs in five is exactly the one whose real cost gets forgotten.
+- **A failed step is still a step.** `perf:step run` records the non-zero exit and then
+  propagates it; do not swallow the row when the orchestrator halts. Aborted runs are the
+  most interesting rows in the file.
+
+`phase` is the coarse grouping — `plan` | `ingest` | `derive` | `verify` | `publish` |
+`commit`. Use it consistently; it is what lets a later analysis say "the derive block is
+40% of the run" without re-classifying every step by hand.
+
+### Reading the trace
+
+`npm run perf:report` prints two views, and the second is the worklist:
+
+- **Last N sessions** — total work and that session's five slowest steps.
+- **Cost by step, ranked by TOTAL across all sessions.** Ranked by total rather than by
+  median on purpose: a 4 s step that runs sixty times costs more than a 90 s step that runs
+  once, and the cheapest win is usually the one that repeats.
+
+⚠️ A session's total is the **sum of its steps' own durations**, never `end − start`. The
+gap between two steps is the agent thinking, or the operator answering a prompt, or a manual
+download — real wall-clock, but not work this pipeline can attribute or optimise. Reporting
+it as "the run took X" would credit the pipeline with time it never spent.
+
 ## Procedure
 
 ### Step 0 — read "Manual downloads needed" first
@@ -581,7 +666,24 @@ A source can appear in BOTH this section and `## Changed` — they answer differ
 first, then re-run the orchestrator.
 
 
-1. **Enumerate state.** Inspect both directories via Bash. Each watcher source has `lastChanged`; each ingested skill has `lastSuccessfulIngest`.
+1. **Open the trace, then enumerate state.** The FIRST command of the run mints the session
+   id every later step carries — do it before anything else, because a step recorded under a
+   fresh id is a step that vanishes from this run's rollup:
+
+   ```bash
+   npm run -s perf:step -- session
+   ```
+
+   ⚠️⚠️ **SUBSTITUTE THE LITERAL ID INTO EVERY LATER COMMAND.** Each Bash tool call is a fresh
+   shell, so `S=$(…)` set in one call is EMPTY in the next and `--session ""` files the row under
+   a blank session no rollup can group. `$S` in the examples means "paste what this printed"
+   (`--session 20260829T051233Z-a1b2`). Mint it ONCE — a second `session` call starts a second
+   run as far as every report is concerned.
+
+   Lost it? Read it back rather than minting a new one:
+   `tail -1 state/perf/process-watch-report.jsonl | jq -r .session`.
+
+   Then inspect both state directories via Bash. Each watcher source has `lastChanged`; each ingested skill has `lastSuccessfulIngest`.
 
    ```bash
    # Watcher state — one per source
@@ -626,9 +728,45 @@ first, then re-run the orchestrator.
 
    Wait for user confirmation (or proceed automatically if they already said "go" / "run all" / "yes proceed"). If the queue is empty, print "Nothing to ingest — every changed source has already been processed since its last change" and stop.
 
-4. **Invoke each skill in sequence.** Use the `Skill` tool, one skill at a time. Don't parallelise — they can conflict on `data/` writes. Capture each invocation's actual stdout (counts, file paths, status) for the final summary. Do NOT paraphrase as "done" — quote specifics.
+4. **Invoke each skill in sequence — and time each one.** Use the `Skill` tool, one skill at a
+   time. Don't parallelise — they can conflict on `data/` writes. Capture each invocation's actual
+   stdout (counts, file paths, status) for the final summary. Do NOT paraphrase as "done" — quote
+   specifics.
+
+   A `Skill` call is not a shell command, so it cannot be wrapped by `perf:step run`. Bracket it
+   instead — capture the clock immediately BEFORE the invocation and record immediately after:
+
+   ```bash
+   date -u +%FT%TZ                     # ← run this, READ the output, then invoke the Skill
+   ```
+
+   ⚠️ Same rule as the session id: `T0=$(date +%s)` would be gone by the next tool call. Read the
+   printed stamp and paste it literally (`--started 2026-08-29T05:12:33Z`); `--started` accepts an
+   ISO stamp or epoch seconds. If the start time is lost entirely, use `--seconds <n>` with your
+   own estimate and say in `--notes` that it is estimated — an honest estimate beats a hole, and a
+   hole reads as "fast" for ever.
+
+   ```bash
+   npm run -s perf:step -- record --run process-watch-report --session "$S" \
+     --step "update-procurement" --phase ingest --started "$T0" --status ok \
+     --notes "3 210 new contracts, 41 new tenders"
+   ```
+
+   ⚠️ **`--step` is the SKILL NAME and nothing else** — no date, no count. It is the key the
+   per-step history joins on across sessions; a label carrying today's numbers makes every run
+   look like a first run. The counts belong in `--notes`, which is free text.
+
+   A skill that ran and found nothing still gets a row (`--status ok`, notes `"no new data"`); a
+   skill that was queued and then NOT run gets `--status skipped` with the reason. Omitting either
+   makes an unmeasured step indistinguishable from a fast one.
 
    Before the next invocation, run `git diff --stat data/` to capture what physically changed on disk vs. what the skill claims. The diff is truth; skill output is narration.
+
+   **A skill whose body is an `&&`-chain is worth expanding.** `update-procurement` ends in
+   `db:refresh` (75 links) and `tr-daily-refresh` is itself 7 links. When a skill's own procedure
+   tells you to run one of those, run it as `npm run -s perf:chain -- <script> --session "$S"`
+   instead of `npm run <script>`: identical semantics, one trace row per link. That is where the
+   hours are, and a single row for the whole chain names nothing to fix.
 
 5. **Stamp success.** After each skill completes without error, run:
 
@@ -659,8 +797,10 @@ first, then re-run the orchestrator.
 6. **Final post-step: rebuild the My-Area alerts feed.** After every queued skill has run (or the queue was empty), unconditionally run:
 
    ```bash
-   npm run myarea:alerts
-   npm run myarea:alerts:cloud
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "myarea:alerts" --phase derive -- npm run myarea:alerts
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "myarea:alerts:cloud" --phase publish -- npm run myarea:alerts:cloud
    ```
 
    ⚠️ **BOTH lines, and the second is not optional.** Since json-retirement-v2 Tier 4b the feed is stored in Postgres (`myarea_alerts`, migration 184) rather than written as 290 files under `data/myarea/alerts/` — so a local-only run leaves **prod serving the previous vintage at a 200**, with `git diff --stat data/` empty and nothing red anywhere. This is the same class as the C1 rollcall gap: the local half looks like a complete run. The builder composes the events in TypeScript (they carry bilingual prose) and only the storage moved; 184's header has the reasoning.
@@ -677,7 +817,8 @@ first, then re-run the orchestrator.
 7. **Final post-step: refresh the data map.** After the alerts feed, unconditionally run:
 
    ```bash
-   npm run data:map
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "data:map" --phase derive -- npm run data:map
    ```
 
    This rebuilds `data/data_map.json` — the `/data` map manifest — baking the latest per-source freshness from `state/watch` and reflecting the watched-sources registry. Like the alerts feed it's a derived rebuild (a function of what's now in `data/` + the registry), not an upstream ingest, so don't stamp it as a skill. The write is **churn-free**: if nothing but the `generatedAt` stamp would change, the file is left untouched, so a quiet day produces no diff. The manifest lives under `data/`, so it ships to the live SPA via the same `bucket:sync` below — no Firebase site deploy is needed to refresh the map.
@@ -685,7 +826,8 @@ first, then re-run the orchestrator.
 8. **Final post-step: verify the `db:refresh`-generated artifacts actually reached the bucket.** After the data map, unconditionally run:
 
    ```bash
-   npm run db:check-generated
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "db:check-generated" --phase verify --ok-exit 1 -- npm run db:check-generated
    ```
 
    **SIX** COMMITTED artifacts are bucket-served static GCS blobs that a hub reads. FIVE are regenerated from Postgres by `db:refresh` — `procurement/derived/hub_stats.json`, `procurement/derived/sector_stats.json`, `culture/derived/hub_stats.json`, `governance/hub_stats.json`, `governance/declarations_hub_stats.json` — and their registry is `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`. The sixth, `parliament/votes/derived/hub_stats.json`, is written by `rebuildDerived` from in-memory objects and published by that script's own `--upload` list, so `REFRESH_GENERATORS` structurally cannot hold it; its registry is `UPLOAD_PUBLISHED_ARTIFACTS` in the same file. This command reads BOTH, compares each local file's BYTES against the live bucket object, and prints the exact `bucket:sync:paths` line for any that differ. **It never uploads** — emit that line in Next-steps like every other production command (see "What this skill does NOT do"). Exit 1 means something is unpublished.
@@ -733,8 +875,13 @@ first, then re-run the orchestrator.
 8b. **Final post-step: verify Cloud SQL is running the same schema objects as local.** After the artifact check, unconditionally run:
 
    ```bash
-   npm run db:check-cloud
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "db:check-cloud" --phase verify --ok-exit 1 -- npm run db:check-cloud
    ```
+
+   `--ok-exit 1` because both verifiers exit 1 when they FIND something — that is the
+   finding, not a crash, and recording it as a trace failure every run would make the
+   failure count meaningless. The exit code still reaches you; read the output.
 
    It diffs every public FUNCTION body, VIEW/matview definition and relation between local Postgres and the Cloud SQL proxy, and reports only objects some `schema/pg/*.sql` file still CREATEs — so local scratch tables are classified as scratch and need no allowlist. Read-only; it prints the `apply_functions.ts` line and exits 1.
 
@@ -750,7 +897,22 @@ first, then re-run the orchestrator.
 
    ⚠️ **Do NOT paste the emitted command blind.** Several of these files open with `DROP MATERIALIZED VIEW` and rebuild WITH DATA in one transaction (156), so applying them blocks that matview's readers — off-peak only — and where a LOADER is the documented path because it also REFRESHes, use the loader (156 → `npm run db:load:budget-hub:pg:cloud`). Order matters: a `LANGUAGE sql` body is validated at CREATE, so a file reading another file's object must follow it.
 
-9. **Sync Cloud SQL for the PG-backed datasets that changed.** Most skills write static JSON under `data/` and ship via `bucket:sync` — those need **no** Cloud SQL step. But a few datasets are ALSO served live from Postgres (local Docker **and** Cloud SQL). Each PG-backed skill reloads the LOCAL Postgres tables inside its own run (procurement/tenders/awarder-seats via `update-procurement`'s `db:refresh`; TR + NGO register via `tr-daily-refresh`'s chained `db:load:tr:pg`; NGO funding via `db:load:ngo-funding:pg`; EU funds via `db:load:funds:pg`). Cloud SQL is a **production** target, so — exactly like `bucket:sync` — do NOT auto-run it: instead **emit the matching `db:load:*:cloud` command(s) in the Next-steps output** whenever a PG-backed skill ran this session.
+9. **Resolve the Cloud SQL publish set — and RECORD it, do not run it.** Most skills write static JSON under `data/` and ship via `bucket:sync` — those need **no** Cloud SQL step. But a few datasets are ALSO served live from Postgres (local Docker **and** Cloud SQL). Each PG-backed skill reloads the LOCAL Postgres tables inside its own run (procurement/tenders/awarder-seats via `update-procurement`'s `db:refresh`; TR + NGO register via `tr-daily-refresh`'s chained `db:load:tr:pg`; NGO funding via `db:load:ngo-funding:pg`; EU funds via `db:load:funds:pg`). Cloud SQL is a **production** target, so this skill never touches it.
+
+   **Since 2026-08-29 the resolved set is WRITTEN DOWN rather than printed.** Append each command to the upload manifest as you determine it (step 12 finishes the file; `write` merges, so calling it repeatedly is how the list is built):
+
+   ```bash
+   npx tsx scripts/upload_manifest.ts write --session "$S" \
+     --cloud "npm run db:load:pg:cloud" \
+     --cloud "npm run db:load:tenders:pg:cloud" \
+     --cloud "npm run db:load:awarder-seats:pg:cloud"
+   ```
+
+   ⚠️ **ORDER IS LOAD-BEARING and the manifest preserves it verbatim.** `--cloud` is repeatable and the list is de-duplicated first-seen-order — never re-sorted — because a loader that reads another's output must follow it (facts before derived on roll-call; `db:load:tr-company-place:pg:cloud` after `db:resolve:persons:cloud`; the whole person-layer block below). Emit them in the order you would have run them.
+
+   ⚠️ **A PG-served tree is a `--cloud` entry, NEVER a `--paths` entry.** `isExcluded` in `scripts/bucket_sync_paths.ts` refuses every PG-served and every retired tree — 20+ branches today and growing every time a family moves to Postgres, so read the list from the guard (or from `bucket:sync:paths:dry`, which prints its per-path reason) rather than from any restatement. Putting one in `--paths` produces a refusal at publish time, and worse, reads as "the data was shipped" when nothing was.
+
+   The table below is still the source of what to emit; `/upload-watch-changes` is what runs it.
 
    | PG-backed skill that ran this session                                           | Cloud SQL sync command(s) to emit                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
    | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -889,6 +1051,104 @@ npm run db:load:employer-links:pg:cloud     # 165+168 — a pure derivation over
 
    For a whole-DB reconcile instead of per-dataset (e.g. several PG-backed skills ran, or disaster recovery): `npm run db:sync:cloud -- --yes` — pg_dump local → pg_restore cloud, destructive (`--clean`), so local must be the source of truth first. Note this includes the unregenerable КЗК tier-2 outcome rows, so run `update-kzk-appeals` locally before syncing.
 
+10. **Close the trace and read it back.** After the publish set is resolved, print this session's
+    timings — it is part of the deliverable, not a debugging aside:
+
+    ```bash
+    npm run -s perf:report -- --run process-watch-report --last 3
+    ```
+
+    Two things to actually look at rather than paste:
+
+    - **The session's slowest steps.** If a step is materially slower than its own median in the
+      "cost by step" table, say so in the summary. That comparison is the whole reason the trace
+      is append-only — a duration means nothing on its own.
+    - **Steps with no row.** Compare the row count against what you ran. A step you forgot to
+      record is a hole that reads as "fast" forever.
+
+    Nothing here fails the run. A slow step is a finding for later, not a reason to stop.
+
+11. **Commit the run — automatically, by explicit pathspec.** A run's whole output is files on
+    disk: refreshed artifacts under `data/`, the ingest markers, the public change log, the data
+    map, this run's trace, and the upload manifest. Leaving them uncommitted is what lets a later
+    session's `git add -A` sweep them into an unrelated commit under a misleading message.
+
+    So commit at the end of every run, without asking. This is the ONE place this repo's
+    "commit only when asked" default is pre-authorised, because the operator asked for it here.
+
+    ```bash
+    # 1. See what moved — and ONLY in the trees this orchestrator writes.
+    git status --porcelain -- data state/watch state/ingest state/perf state/upload public
+    ```
+
+    ⚠️⚠️ **NEVER `git add -A`, and never a bare `git commit`.** A bare `git commit` ships the
+    WHOLE INDEX, and in this repo the index is almost never clean at session start — a concurrent
+    process runs `git add -A` mid-session and other sessions leave work staged. Commit by
+    pathspec, which builds from HEAD plus exactly those paths and leaves every other index entry
+    untouched and still staged:
+
+    ```bash
+    git commit -m "watch: ingest <source labels> (<one-line recap>)" \
+      -- data/... state/ingest/... state/perf/process-watch-report.jsonl state/upload/pending.json
+    ```
+
+    Four rules, each of which has already gone wrong here at least once:
+
+    - **Name every path; sweep none.** Expand the `--` list from the `git status` above. If a
+      file in those trees is shown as already STAGED (a first-column `M`/`A`), it is not yours —
+      leave it out and say so in the summary.
+    - **Nothing outside those five trees.** Source changes, test changes, skill edits and
+      `news/**` belong to whoever was editing them. This orchestrator is data-only.
+    - **`git commit -- <path>` reads the WORKING TREE, not the index.** You cannot partially
+      commit a file another session is also editing; check `git diff -- <path>` first, and an
+      EMPTY diff on a file you just wrote means somebody else already committed it.
+    - **No `Co-Authored-By` trailer.** Plain message body, end.
+
+    Commit even when only markers moved (a no-data run still advances `state/ingest/*` and the
+    trace) — that is a real, meaningful commit. The only run that commits nothing is one where
+    `git status` on those five trees is empty.
+
+    Capture the sha for the manifest: `COMMIT=$(git rev-parse --short HEAD)`.
+
+12. **Hand off to the upload, then ASK.** The commit is the end of the INGEST half. Nothing has
+    reached production: the bucket still serves the previous vintage of every file this run wrote,
+    and Cloud SQL still holds the previous vintage of every PG-backed dataset.
+
+    Finish the manifest — the bucket subtrees this run touched, the skills that ran, the commit —
+    and then ask:
+
+    ```bash
+    npx tsx scripts/upload_manifest.ts write --session "$S" --commit "$COMMIT" \
+      --skills update-procurement,update-funds \
+      --paths myarea,budget,data_map.json,data-changes.json \
+      --notes "<one line: what a reader would see change>"
+    npx tsx scripts/upload_manifest.ts show
+    ```
+
+    `--paths` are `bucket:sync:paths` arguments — the subtrees under `data/` that actually moved,
+    derived from step 11's `git status`, never a guess. `data_map.json` and `data-changes.json` are
+    almost always among them. PG-served trees do NOT go here (see step 9).
+
+    Then put the question to the user plainly, and **stop**:
+
+    > Ingest committed as `<sha>`. Nothing is live yet — the bucket and Cloud SQL are both still
+    > on the previous vintage.
+    >
+    > Upload to cloud now? Run **`/upload-watch-changes`** — it reads the manifest this run just
+    > wrote (N bucket path(s), M cloud command(s)) and times every step into
+    > `state/perf/upload-watch-changes.jsonl`.
+
+    ⚠️ **Do NOT invoke `/upload-watch-changes` yourself.** The bucket and Cloud SQL are production
+    and the publish is the operator's call — the same rule that has always kept `bucket:sync` out
+    of this skill's own run. Wait for them to say yes.
+
+    ⚠️ **A pending manifest is a DEBT, and it survives across runs on purpose.** If the operator
+    defers the upload, the file stays on disk and the NEXT orchestrator run merges into it rather
+    than replacing it, so the first run's subtrees cannot be lost. Read it at the top of every run
+    (`npx tsx scripts/upload_manifest.ts show`) and say so in the plan when one is already
+    pending — "yesterday's ingest is still unpublished" is a fact the operator needs before
+    deciding what to run today.
+
 ## Bootstrap (first orchestrator run after this migration)
 
 When `state/ingest/<skill>.json` is missing for a queued skill, you have two paths — ASK the user which:
@@ -905,7 +1165,7 @@ For a clean clone, an explicit backfill, or when the user is unsure whether exis
 
 Default to asking unless the user said "bootstrap markers" or "run all" or similar upfront.
 
-6. **Final summary (REQUIRED).** Once all skills have run, print a structured per-skill recap. This is the deliverable — never collapse it into "all done" or a single paragraph. Format:
+13. **Final summary (REQUIRED).** Once all skills have run, print a structured per-skill recap. This is the deliverable — never collapse it into "all done" or a single paragraph. Format:
 
    ```markdown
    # Watch report ingest — YYYY-MM-DD
@@ -926,13 +1186,26 @@ Default to asking unless the user said "bootstrap markers" or "run all" or simil
 
    - **<source label>**: short reason + suggested next step.
 
+   ## Timings
+
+   | step | this run | median | notes |
+   | --- | --- | --- | --- |
+   | <step> | <duration> | <its own median> | slower/faster than usual, or blank |
+
+   Total work: <sum of step durations> across <N> steps. Slowest: <step> (<duration>).
+
    ## Next steps
 
-   - `git status` summary if there are uncommitted changes
-   - Suggested commit message (one per logical group of files)
-   - Suggested bucket deploy command — see "Bucket deploy" below
+   - **Committed**: `<sha>` — <N> files. (Or: "nothing to commit" when the five trees were clean.)
+   - **Not yet live**: run `/upload-watch-changes` — <N> bucket path(s), <M> cloud command(s).
    - Whether to `git push` or hold
    ```
+
+   **The Timings table is REQUIRED and is not the same thing as the perf report.** Paste the
+   handful of rows that matter — the slowest steps, plus any step materially off its own median —
+   with the comparison, not the raw numbers. "db:refresh 1h 12m (median 47m)" is the sentence;
+   "db:refresh 1h 12m" is a number nobody can act on. Take both columns from
+   `npm run perf:report`; do not recompute them by hand.
 
    **For a "no changes detected" run** (skill executed but found nothing new — e.g. `update-rollcall` walking past the last known stenogram id and finding no new sessions), explicitly write `**Status**: ok — no data changes detected` and `**Files changed**: none`. Do NOT silently omit the skill from the summary — the user must see that it ran and found nothing.
 
@@ -942,39 +1215,29 @@ Default to asking unless the user said "bootstrap markers" or "run all" or simil
 
    **Quote concrete numbers from skill stdout.** If `update-rollcall` printed `+ 2026-05-09 (id 11124): 11 item(s), 2640 rows · 37 unresolved id(s) → sessions/2026-05-09.json`, that's the kind of detail that belongs in **Captured**. If `update-macro` printed `Loading gdpGrowth (eurostat)... 84 points (latest 2025 Q4)` for 22 indicators, summarise: "22 indicators refreshed; latest period 2025 Q4 (quarterly), 2025 (annual)" — but if any indicator's count changed, name it.
 
-   ### Bucket deploy
+   ### Publishing is a SEPARATE skill now
 
-   After committing, `data/` lives in two places: the git repo (history, audit) and `gs://data-electionsbg-com` (what the live SPA fetches). The bucket is the one users see. The Next steps section MUST always include the deploy commands when anything under `data/` was modified.
+   After committing, `data/` lives in two places: the git repo (history, audit) and
+   `gs://data-electionsbg-com` (what the live SPA fetches). The bucket is the one users see, and
+   Cloud SQL is the one `/api/db` serves. **Neither is touched by this skill.**
 
-   **Prefer the scoped sync.** The orchestrator always knows exactly which subtrees it touched, so emit those:
+   Both are published by **`/upload-watch-changes`**, which reads the manifest step 12 wrote —
+   so this skill's job at the end is to have named the right `--paths` and `--cloud` entries, not
+   to print sync commands. The mechanics that used to live here (scoped vs whole-tree sync, the
+   refused PG-served trees, deletions, gzip transport encoding, the Cloud SQL proxy) moved to that
+   skill's own procedure, where they are executed rather than quoted.
 
-   ```bash
-   npm run bucket:sync:paths:dry -- myarea budget data_map.json data-changes.json   # preview
-   npm run bucket:sync:paths     -- myarea budget data_map.json data-changes.json   # push
-   ```
+   Two things stay this skill's responsibility, because only it knows them:
 
-   `bucket:sync` (the whole-tree rsync) must enumerate **both** full listings before diffing — ~1.03M local files and ~761k bucket objects — and its `-x` exclusions filter only AFTER enumeration, so the PG-served `procurement/`, `funds/` and `prices/` are walked anyway. That fixed overhead is ~30 min _regardless of churn_. Scoped to a typical day's subtrees it is ~1 min (measured 2026-07-10). Same flags, same result.
+   - **`--paths` is derived from step 11's `git status`, never guessed.** A subtree a skill wrote
+     and the manifest omits is a subtree that stays stale on the bucket at a 200, with the commit
+     looking complete. This is the single most common publish miss in this repo's history.
+   - **When `Files changed` is "none" for every skill and no PG-backed skill ran, write no
+     manifest at all** — an empty manifest is a debt the next run has to reason about for nothing.
+     Say "nothing to publish" in Next steps instead.
 
-   Reach for the full `npm run bucket:sync` only after a run that rewrote unknown parts of the tree (e.g. `npm run prod`).
-
-   `bucket:sync:paths` REFUSES `procurement/` (except `roads.json` + `derived/mp_party.json`), `funds/`, `parliament/company-connections/` and `_cache/` — the PG-served trees the whole-tree sync merely excludes by regex.
-
-   **Never sync `prices`.** Since migration 048 the price layer is Postgres-only: every dashboard payload lives in `price_payloads` and is served by `/api/db/price-payload`. The whole-tree `bucket:sync` excludes `^prices/.*`, and the two files still under `data/prices/` — `product_slugs.json` (prerender + sitemap) and `product_overrides.json` (an input to `rebuild_catalog`) — are read from the local repo path at build time and never fetched over HTTP. `bucket:sync:paths` deliberately still ACCEPTS `prices` so the one-time `--delete` reap of the orphaned pre-048 tree remains possible; don't pass it in a routine sync.
-
-   **Deletions.** Neither sync passes `-d`, so a file removed from `data/` lingers on the bucket and is served forever (e.g. three `prices/settlement/*.json` dropped 2026-07-10 and stayed live). When a skill _removes_ files, dry-run the delete and read the "Would remove" lines before executing:
-
-   ```bash
-   npm run bucket:sync:paths:dry -- --delete prices
-   npm run bucket:sync:paths     -- --delete prices
-   ```
-
-   Never pass `--delete` for a subtree this run didn't fully regenerate, and never wire `-d` into the whole-tree `bucket:sync` — it would delete bucket-served artifacts that are simply absent from this machine.
-
-   `-j json,svg,xml,txt,html,css,md` controls which extensions get gzip **transport** encoding, not which files upload. Cache-Control is `public,max-age=300,must-revalidate`.
-
-   When `Files changed` is "none" for every skill, omit the bucket-sync lines from Next steps — there's nothing new to push. If even one skill wrote files, include them.
-
-   Code/UI changes are out of scope for this orchestrator (`npm run deploy` deploys the Firebase bundle and is not needed for pure-data refresh).
+   Code/UI changes are out of scope for this orchestrator (`npm run deploy` deploys the Firebase
+   bundle and is not needed for pure-data refresh).
 
 ## Examples
 
@@ -1066,22 +1329,34 @@ data/macro.json | 12 ++++++++----
 ## Skipped (no automated handler)
 _(none)_
 
+## Timings
+
+| step | this run | median | notes |
+| --- | --- | --- | --- |
+| update-macro | 2m 41s | 2m 12s | +22% — 7 upstream releases vs the usual 1-2 |
+| update-financing | 18s | 17s | |
+| myarea:alerts | 41s | 39s | |
+| data:map | 3s | 3s | |
+| db:check-generated | 11s | 11s | |
+| db:check-cloud | 34s | 33s | |
+
+Total work: 4m 28s across 6 steps. Slowest: `update-macro` (2m 41s).
+
 ## Next steps
-- 1 file modified: `data/macro.json`. Suggested commit:
+- **Committed**: `a1b2c3d` — 4 files (`data/macro.json`, `data/data-changes.json`,
+  `data/data_map.json`, `state/ingest/update-macro.json`), plus the trace.
 ```bash
-git add data/macro.json
-git commit -m "macro: refresh through 2026 Q1 (7 new Eurostat releases)"
+git commit -m "macro: refresh through 2026 Q1 (7 new Eurostat releases)" \
+  -- data/macro.json data/data-changes.json data/data_map.json \
+     state/ingest/update-macro.json state/ingest/update-financing.json \
+     state/perf/process-watch-report.jsonl state/upload/pending.json
 ````
 
-- Deploy to bucket (fresh data takes ≤ 1h to propagate):
-  ```bash
-  npm run bucket:sync:dry    # preview
-  npm run bucket:sync        # push to gs://data-electionsbg-com
-  ```
-- Cloud SQL sync: none needed — neither `update-macro` nor `update-financing` is a
-  Postgres-backed dataset (both are static JSON). If a PG-backed skill had run
-  (e.g. `update-procurement`, `tr-daily-refresh`, `update-funds`), the matching
-  `db:load:*:cloud` command(s) from Procedure step 9 would be listed here.
+- **Not yet live**: run `/upload-watch-changes` — 3 bucket path(s)
+  (`macro.json`, `data_map.json`, `data-changes.json`), 0 cloud command(s). Neither
+  `update-macro` nor `update-financing` is a Postgres-backed dataset, so the manifest
+  carries no `:cloud` entries; had a PG-backed skill run (`update-procurement`,
+  `tr-daily-refresh`, `update-funds`), step 9's commands would be in it.
 - No `git push` needed yet — user decides.
 
 ````
@@ -1114,8 +1389,9 @@ This orchestrator MUST NOT claim success it didn't earn. Specifically:
 ## What this skill does NOT do
 
 - **Does not re-run the watcher.** State files are the input. If you want fresh fingerprints, run `npm run watch` first.
-- **Does not commit or push.** Each downstream skill handles its own commit policy. After all skills finish, the user decides whether to `git push`.
-- **Does not auto-sync Cloud SQL.** Cloud SQL is production — like `bucket:sync`, the orchestrator only reloads LOCAL Postgres (inside each PG-backed skill) and then *emits* the `db:load:*:cloud` command(s) for the user to run (Procedure step 9). Never runs them itself.
+- **Does not PUSH.** It DOES commit — automatically, by explicit pathspec, at step 11 (that is this repo's one pre-authorised commit; everywhere else the rule is "commit only when asked"). Pushing stays the user's call. It never sweeps the index and never commits outside `data/`, `state/watch/`, `state/ingest/`, `state/perf/` and `state/upload/`.
+- **Does not publish anything.** Neither the bucket nor Cloud SQL — both are production. It reloads LOCAL Postgres (inside each PG-backed skill), then RECORDS the ordered `db:load:*:cloud` set and the touched bucket subtrees into `state/upload/pending.json` and asks the user to run `/upload-watch-changes`. It never invokes that skill itself.
+- **Does not judge its own timings.** It measures every step into `state/perf/process-watch-report.jsonl` and reports what is slower than usual; it never skips or reorders work to go faster. Optimisation is a separate decision made from the accumulated trace.
 - **Does not auto-retry the watcher's Errors section.** Surfaced to the user only.
 - **Does not silently skip failed skills.** A downstream failure halts the orchestrator until the user decides how to proceed (see Data-integrity contract above).
 - **Does not skip a queued skill just because the latest report doesn't mention it.** The decision is state-driven (`lastChanged` vs `lastSuccessfulIngest`), not report-driven. Multi-day gaps still get fully ingested.
@@ -1132,7 +1408,22 @@ ls -t data-reports/ | head -5
 # Trigger this orchestrator (you, by saying "process today's watch report")
 # — the user invokes it via /process-watch-report in chat.
 
-# Sync Cloud SQL after a PG-backed ingest (Procedure step 9) — proxy on :5434 + .pgpass.
+# --- the performance trace (Procedure steps 1, 4, 6-8b, 10) ---
+npm run -s perf:step -- session               # once per run; PASTE the id, don't use a var
+npm run -s perf:step -- run    --run process-watch-report --session "$S" --step X --phase derive -- <cmd>
+npm run -s perf:step -- record --run process-watch-report --session "$S" --step X --phase ingest --started "$T0"
+npm run -s perf:chain -- db:refresh --session "$S" --phase ingest   # one row PER LINK
+npm run -s perf:report -- --run process-watch-report --last 5
+npm run -s perf:chain -- db:refresh --dry-run                       # list the links, run nothing
+
+# --- the ingest → publish handoff (Procedure steps 9, 12) ---
+npx tsx scripts/upload_manifest.ts show       # is yesterday's ingest still unpublished?
+npx tsx scripts/upload_manifest.ts write --session "$S" --commit "$COMMIT" \
+  --skills update-procurement --paths myarea,data_map.json --cloud "npm run db:load:pg:cloud"
+# then: /upload-watch-changes  ← the user runs it; this skill never does
+
+# Cloud SQL commands the manifest carries — /upload-watch-changes runs them.
+# Listed here because step 9 is where the set is RESOLVED (proxy on :5434 + .pgpass).
 # Per-dataset (non-destructive; rebuilds cloud matviews too):
 npm run db:load:pg:cloud                # procurement contracts
 npm run db:load:tenders:pg:cloud        # tenders
