@@ -17,6 +17,7 @@ import { aopDebarred } from "./aop_debarred";
 import { ofacSanctions } from "./ofac_sanctions";
 import { comdosDs } from "./comdos_ds";
 import { regulatorRosters } from "./regulator_rosters";
+import { personLinkOverrides } from "./person_link_overrides";
 import { rnflInsolvency } from "./rnfl_insolvency";
 import { kzkAppeals } from "./kzk_appeals";
 import { kzkDecisions } from "./kzk_decisions";
@@ -142,6 +143,7 @@ export const SOURCES: WatchSource[] = [
   ofacSanctions, // person-layer sanctions facet (→ update-persons)
   comdosDs, // person-layer ДС/COMDOS facet (→ update-persons)
   regulatorRosters, // person-layer regulator facet (→ update-persons)
+  personLinkOverrides, // committed adjudications changed (→ update-persons)
   rnflInsolvency, // РНФЛ личен фалит (→ NO skill — operator reads docs/plans/rnfl-insolvency-v1.md)
   mcDkiRegister,
   nfcFilmRegister,

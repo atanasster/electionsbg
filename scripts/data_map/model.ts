@@ -59,6 +59,11 @@ export interface SourceGroupDef {
  *    publisher we do not read.
  */
 export const WATCH_ONLY_SOURCES: Record<string, string> = {
+  person_link_overrides:
+    "Repository-local maintenance trigger, not a publisher: hashes the audited " +
+    "data/person/link_overrides.json registry so a changed identity decision queues " +
+    "update-persons. Its person dataset and public surfaces are already represented on " +
+    "the map; adding a source node would falsely claim an external origin.",
   rnfl_insolvency:
     "РНФЛ (личен фалит) went live 2026-08-03 EMPTY and has no list, search or " +
     "export endpoint — every read route is a lookup keyed by file number or a " +

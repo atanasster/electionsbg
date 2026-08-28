@@ -54,6 +54,7 @@ import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "./bridgeB";
 import { TIER_V_SERVED_IDENTITIES_SQL } from "./tierV";
 import { PERSON_GUID_SQL_PATTERN } from "../officials/slug_identity";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
+import { loadOverrideRegistry, mergeOverrideRows } from "./overrideRegistry";
 import { chooseStableSlug } from "./slugLock";
 import { candidacyRegions, pickPrimaryMir } from "./candidateRegions";
 import { mirToOblast } from "../../src/data/parliament/nsFolders";
@@ -1600,10 +1601,15 @@ async function main(): Promise<void> {
   // Human adjudication (plan §3 tier 4) — the audited person_link_override rows, applied as
   // the LAST tier below so a hand-decided merge/split always wins over the automatic result.
   // The schema is already applied above (SCHEMA_FILES), so the ref columns exist.
+  const dbOverrides = await allRows<OverrideRow>(
+    `SELECT override_id, kind, fold_a, fold_b, ref_a, ref_b FROM person_link_override`,
+  );
+  const committedOverrides = loadOverrideRegistry();
   const overrides = parseOverrides(
-    await allRows<OverrideRow>(
-      `SELECT override_id, kind, fold_a, fold_b, ref_a, ref_b FROM person_link_override`,
-    ),
+    mergeOverrideRows(committedOverrides, dbOverrides),
+  );
+  console.log(
+    `person overrides: ${committedOverrides.length} committed + ${dbOverrides.length} DB hotfix(es)`,
   );
 
   // GOLD-KEY ALIASING. A mention can carry TWO independent gold keys — the parliament MP
