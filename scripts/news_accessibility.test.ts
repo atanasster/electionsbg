@@ -86,6 +86,7 @@ describe("news light/dark accessibility tokens", () => {
     [light, "light"],
     [dark, "dark"],
   ] as const)("meets AA contrast in %s mode", (tokens, _mode) => {
+    void _mode;
     expect(ratio(tokens.fg as Hsl, tokens.bg as Hsl)).toBeGreaterThanOrEqual(
       4.5,
     );

@@ -288,17 +288,26 @@ npm run db:load:declarations:pg
 npm run db:load:declarations:pg -- --resolve
 npm run db:load:official-candidate-links:pg
 npm run db:load:person-elections:pg
+npm run db:load:council:pg
 npm run db:load:persons-browse:pg
+npm run db:gen-declarations-hub-stats
 npm run db:load:person-search:pg
 npm run db:load:graph:pg
 npm run data:local-person-refresh
 ```
 
+`db:load:council:pg` is a person-resolve dependency, not merely a council-ingest step:
+`council_vote.person_id` is `ON DELETE SET NULL`, so rebuilding `person` clears every named-vote
+attribution until the council loader re-resolves it. The declarations hub generator is likewise
+required after `person_browse_table` because its committed headline counts are copied from that
+projection.
+
 For production, follow the full `update-persons` publish sequence rather than copying local rows.
 In particular: load the place/judicial/TR-name prerequisites, run the Cloud SQL resolve, run both
-declaration phases, rebuild candidate links/elections/persons-browse/search/graph, load slug
-redirect maps, mint the prerender slug manifest from Cloud SQL, and stamp local-election person
-links from the serving database before bucket sync.
+declaration phases, rebuild candidate links/elections/council/persons-browse/search/graph,
+regenerate the declarations hub snapshot from the serving projection, load slug redirect maps,
+mint the prerender slug manifest from Cloud SQL, and stamp local-election person links from the
+serving database before bucket sync.
 
 ---
 
@@ -370,6 +379,29 @@ new operation must not change any existing person grouping by itself.
 
 ---
 
+## Implementation result (2026-08-28)
+
+Implemented in four path-scoped commits: ref-merge semantics (`db16bcaa65`), the committed audited
+registry (`dd62c01f5e`), the two target decisions (`97dad0a653`), and the ref-keyed regression gate
+(`2420d59b4e`). Local acceptance produced:
+
+- persons: 65,120 → 65,118 (`-2`), with candidate roles unchanged at 125,085 total roles;
+- the three target refs all map to one active person and one live slug;
+- electoral rows remain distinct: ИТН 2021 (48), ПП 2022 (120), ПП-ДБ 2023 (104);
+- review groups: 3,478 → 3,477, and the target identical-name review group is absent;
+- exactly two historical slugs remain as direct redirects to the live slug;
+- persons browser exposes `parties_n = 3` with `p_0`, `p_67`, and `p_6`;
+- council attribution was restored to 43,261/46,121 named votes after the person rebuild;
+- local-election person-link regeneration was churn-free (0 bundles rewritten).
+
+Acceptance: `test:person` 261 passed / 1 skipped; `test:data` 1,905 passed / 29 skipped;
+target gate 6/6; lint and production build green. The all-project `test:unit` command exited
+non-zero with 12,583 passing / 31 skipped, two unrelated OG-card coverage failures, and one
+database grant test timing out under full-suite contention; that database test passed 2/2 in
+isolation.
+
+---
+
 ## 6. UI acceptance
 
 After the rebuilt data is running locally:
@@ -384,6 +416,11 @@ After the rebuilt data is running locally:
 6. Searching/filtering by ИТН, ПП or ПП-ДБ can all find the unified person because
    `party_codes` contains the full career, while `party_primary` may remain the resolver's latest /
    most representative scalar.
+
+Completed locally on 2026-08-28: all six checks passed. Search returns one target row with three
+parties; the party-change facet narrows it to that row; the profile retains the 2021 ИТН, 2022 ПП
+and 2023 ПП-ДБ candidacies; both retired person slugs land directly on the live profile; all three
+candidate detail URLs show the same identity; and each of the three party facets finds it.
 
 ---
 

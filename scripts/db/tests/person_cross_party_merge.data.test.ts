@@ -19,26 +19,20 @@ const HISTORICAL_SLUGS = [
   "velislava-petrova-c65qon",
 ];
 
-const reachable = async (): Promise<boolean> => {
-  try {
-    const [row] = await allRows<{ ok: boolean }>(
-      `SELECT bool_and(to_regclass(rel) IS NOT NULL) AS ok
+let skip: string | false = false;
+try {
+  const [row] = await allRows<{ ok: boolean }>(
+    `SELECT bool_and(to_regclass(rel) IS NOT NULL) AS ok
          FROM unnest(ARRAY[
            'public.candidate_person', 'public.person_election_stats',
            'public.person_slug_retired', 'public.person', 'public.person_role',
            'public.person_review_candidate', 'public.person_browse_table'
          ]) rel`,
-    );
-    return row?.ok === true;
-  } catch {
-    return false;
-  }
-};
-
-const haveDb = await reachable();
-const skip = haveDb
-  ? false
-  : "Postgres unreachable / person electoral tables absent";
+  );
+  if (!row?.ok) skip = "person electoral tables absent";
+} catch {
+  skip = "Postgres unreachable";
+}
 reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
@@ -178,10 +172,14 @@ test.skipIf(skip)(
 );
 
 test.skipIf(skip)("the namesake review group is resolved", async () => {
+  const [mapping] = await mappings();
+  assert.ok(mapping, "target candidacy mappings are absent");
   const [row] = await allRows<{ n: string }>(
     `SELECT count(*)::text AS n
        FROM person_review_candidate
-      WHERE group_key = 'velislava-petrova-zou4w9'`,
+      WHERE person_id = $1
+        AND reason = 'identical_fullname'`,
+    [mapping.person_id],
   );
   assert.equal(Number(row.n), 0);
 });
