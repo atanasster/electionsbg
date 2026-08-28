@@ -14,7 +14,9 @@ import {
 function repository(): { repo: string; build: string } {
   const repo = fs.mkdtempSync(path.join(os.tmpdir(), "news-release-repo-"));
   execFileSync("git", ["init", "-q"], { cwd: repo });
-  execFileSync("git", ["config", "user.email", "test@example.com"], { cwd: repo });
+  execFileSync("git", ["config", "user.email", "test@example.com"], {
+    cwd: repo,
+  });
   execFileSync("git", ["config", "user.name", "Release Test"], { cwd: repo });
   fs.writeFileSync(path.join(repo, ".gitignore"), "dist-news/\n");
   fs.writeFileSync(path.join(repo, "firebase.json"), "{}\n");
@@ -33,7 +35,10 @@ describe("news release manifest", () => {
     fs.writeFileSync(path.join(root, "index.html"), "candidate");
     fs.writeFileSync(path.join(root, "assets", "entry.js"), "entry");
     fs.writeFileSync(path.join(root, MANIFEST_NAME), "ignored");
-    expect(Object.keys(hashBuild(root))).toEqual(["assets/entry.js", "index.html"]);
+    expect(Object.keys(hashBuild(root))).toEqual([
+      "assets/entry.js",
+      "index.html",
+    ]);
   });
 
   it("fails closed when a gated file changes", () => {
@@ -41,7 +46,9 @@ describe("news release manifest", () => {
     writeManifest(build, repo);
     expect(verifyManifest(build, repo)).toBeTruthy();
     fs.writeFileSync(path.join(build, "index.html"), "changed");
-    expect(() => verifyManifest(build, repo)).toThrow(/changed after the release gate/);
+    expect(() => verifyManifest(build, repo)).toThrow(
+      /changed after the release gate/,
+    );
   });
 
   it("requires a valid manifest and an index entry", () => {
@@ -60,12 +67,19 @@ describe("news release manifest", () => {
     expect(verifyManifest(build, repo)).toEqual(manifest);
 
     fs.writeFileSync(path.join(repo, "firebase.json"), '{"changed":true}\n');
-    expect(() => verifyManifest(build, repo)).toThrow(/repository inputs changed/);
+    expect(() => verifyManifest(build, repo)).toThrow(
+      /repository inputs changed/,
+    );
 
     fs.writeFileSync(path.join(repo, "firebase.json"), "{}\n");
     writeManifest(build, repo);
     fs.mkdirSync(path.join(repo, "newsapp"));
-    fs.writeFileSync(path.join(repo, "newsapp", "new-release-input.ts"), "export {};\n");
-    expect(() => verifyManifest(build, repo)).toThrow(/repository inputs changed/);
+    fs.writeFileSync(
+      path.join(repo, "newsapp", "new-release-input.ts"),
+      "export {};\n",
+    );
+    expect(() => verifyManifest(build, repo)).toThrow(
+      /repository inputs changed/,
+    );
   });
 });

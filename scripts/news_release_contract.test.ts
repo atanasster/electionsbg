@@ -42,6 +42,8 @@ describe("news release contract", () => {
     expect(scripts["deploy:news:promote"]).toBe(
       'test -n "$NEWS_VERSION_ID" && firebase hosting:clone "electionsbg-news:@$NEWS_VERSION_ID" electionsbg-news:live -P news',
     );
-    expect(scripts["deploy:news:promote"]).not.toMatch(/build|deploy --only|news-candidate electionsbg-news:live/);
+    expect(scripts["deploy:news:promote"]).not.toMatch(
+      /build|deploy --only|news-candidate electionsbg-news:live/,
+    );
   });
 });

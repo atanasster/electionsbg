@@ -11,7 +11,5 @@ export const mayorPayObshtinaForRoles = (
 ): string | null =>
   roles.find(
     (role) =>
-      role.role === "mayor" &&
-      role.placeKind === "obshtina" &&
-      role.placeCode,
+      role.role === "mayor" && role.placeKind === "obshtina" && role.placeCode,
   )?.placeCode ?? null;

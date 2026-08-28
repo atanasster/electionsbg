@@ -129,33 +129,45 @@ describe("applyMayorPayFilter — search", () => {
 
   it("matches first + family name past the stored patronymic, in either order", () => {
     expect(
-      applyMayorPayFilter([...rows, sofiaRow], "Васил Терзиев", "name", true).map(
-        (r) => r.obshtina,
-      ),
+      applyMayorPayFilter(
+        [...rows, sofiaRow],
+        "Васил Терзиев",
+        "name",
+        true,
+      ).map((r) => r.obshtina),
     ).toEqual(["SOF"]);
     expect(
-      applyMayorPayFilter([...rows, sofiaRow], "Терзиев Васил", "name", true).map(
-        (r) => r.obshtina,
-      ),
+      applyMayorPayFilter(
+        [...rows, sofiaRow],
+        "Терзиев Васил",
+        "name",
+        true,
+      ).map((r) => r.obshtina),
     ).toEqual(["SOF"]);
   });
 
   it("normalizes repeated separators and supports Latin-typed names", () => {
     expect(
-      applyMayorPayFilter([...rows, sofiaRow], "васил   терзиев", "name", true).map(
-        (r) => r.obshtina,
-      ),
+      applyMayorPayFilter(
+        [...rows, sofiaRow],
+        "васил   терзиев",
+        "name",
+        true,
+      ).map((r) => r.obshtina),
     ).toEqual(["SOF"]);
     expect(
-      applyMayorPayFilter([...rows, sofiaRow], "Vasil Terziev", "name", true).map(
-        (r) => r.obshtina,
-      ),
+      applyMayorPayFilter(
+        [...rows, sofiaRow],
+        "Vasil Terziev",
+        "name",
+        true,
+      ).map((r) => r.obshtina),
     ).toEqual(["SOF"]);
   });
 
   it("requires every term to match the same row", () => {
-    expect(applyMayorPayFilter([...rows, sofiaRow], "Васил Втори", "name", true)).toEqual(
-      [],
-    );
+    expect(
+      applyMayorPayFilter([...rows, sofiaRow], "Васил Втори", "name", true),
+    ).toEqual([]);
   });
 });

@@ -85,7 +85,7 @@ describe("news light/dark accessibility tokens", () => {
   it.each([
     [light, "light"],
     [dark, "dark"],
-  ] as const)("meets AA contrast in %s mode", (tokens) => {
+  ] as const)("meets AA contrast in %s mode", (tokens, _mode) => {
     expect(ratio(tokens.fg as Hsl, tokens.bg as Hsl)).toBeGreaterThanOrEqual(
       4.5,
     );

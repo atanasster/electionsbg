@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "vitest";
-import {
-  governanceMenu,
-  localMenu,
-  type MenuItem,
-} from "./reportMenus";
+import { governanceMenu, localMenu, type MenuItem } from "./reportMenus";
 
 const flatten = (items: MenuItem[]): MenuItem[] =>
   items.flatMap((item) => [item, ...flatten(item.subMenu ?? [])]);

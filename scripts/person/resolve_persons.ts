@@ -1602,7 +1602,7 @@ async function main(): Promise<void> {
   // The schema is already applied above (SCHEMA_FILES), so the ref columns exist.
   const overrides = parseOverrides(
     await allRows<OverrideRow>(
-      `SELECT kind, fold_a, fold_b, ref_a, ref_b FROM person_link_override`,
+      `SELECT override_id, kind, fold_a, fold_b, ref_a, ref_b FROM person_link_override`,
     ),
   );
 
@@ -1740,17 +1740,18 @@ async function main(): Promise<void> {
   });
 
   // TIER 4 — human overrides (plan §3), applied LAST so a hand-decided merge/split always
-  // wins: a fold-level merge unions two persons the automatic tiers left in different blocks,
-  // a fold-level split peels apart a wrong cross-block union, and a ref-level split ISOLATES
-  // one mention — vetoing even a Tier-0 gold union, the mis-merge a name fold is too coarse
-  // to target (a CIK candidacy bound by matchMp() to the wrong same-name MP). A no-override
-  // corpus returns mergedGroups untouched.
+  // wins. Fold merges bridge name variants; ref merges join exact verified mentions without
+  // absorbing their namesakes; fold/ref splits undo either class (a ref split can veto even
+  // a Tier-0 gold union). A no-override corpus returns mergedGroups untouched.
   const ovMentions = mentions.map((m) => ({
     id: m.id,
     source: m.source,
     ref: m.raw.ref,
     hardId: m.hardId ?? null,
     nameFold: m.nameFold,
+    electionDate:
+      m.source === "candidate" ? (m.raw.ref.split(":", 1)[0] ?? null) : null,
+    party: m.raw.cParty,
   }));
   const overriddenGroups = applyOverrides(mergedGroups, ovMentions, overrides);
 

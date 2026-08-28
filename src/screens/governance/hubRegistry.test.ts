@@ -117,8 +117,7 @@ describe("the governance hub registries", () => {
     const leaves = governanceMenu.flatMap((item) => item.subMenu ?? []);
     const mayorPay = leaves.filter(
       (item) =>
-        item.title === "mp_page_title" &&
-        item.link === "/governance/mayor-pay",
+        item.title === "mp_page_title" && item.link === "/governance/mayor-pay",
     );
     assert.equal(mayorPay.length, 1);
   });

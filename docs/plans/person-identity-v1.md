@@ -448,21 +448,23 @@ carries the MP's gold `hardId`, and Tier-0 (explicitly exempt from every cluster
 unions it onto the MP — so the wrong candidacy and the real MP share BOTH the fold and the hardId.
 No fold-level key can target just the one candidacy.
 
-**The fix — a mention-specific ref key.** Added nullable `ref_a`/`ref_b` columns (081, idempotent
+**The fix — mention-specific ref keys.** Added nullable `ref_a`/`ref_b` columns (081, idempotent
 `ADD COLUMN IF NOT EXISTS` + `DROP NOT NULL` on the fold columns so an already-migrated DB self-heals
-on the next resolve). Three operations now share the one audited table
+on the next resolve). Four operations now share the one audited table
 (`kind`, `note`, `decided_by`, `decided_at` preserved):
 
 | kind + key | meaning | undoes |
 |---|---|---|
 | `merge` + `fold_a`,`fold_b` | union the two name folds into one person (`confidence='manual'`) | a marriage rename / translit variant that scattered one person across two blocks |
+| `merge` + `ref_a`,`ref_b` | union only the two exact source mentions (`confidence='manual'`) | verified same-fold or cross-fold records without absorbing every namesake |
 | `split` + `fold_a`,`fold_b` | forbid two DIFFERENT folds from auto-merging (peel every `fold_b` mention off any component holding `fold_a`) | a wrong **cross-block** gold/merge union of two folds |
 | `split` + `ref_a` | **ISOLATE ONE mention** by its source-native ref (`{election}:{slug}`, `mp:{id}`, an officials slug, …); it never unions into any person, **vetoing even a Tier-0 gold union**; forms its own person | a candidacy `matchMp()` bound to the WRONG same-name MP — the coarse-key gap above |
 
 `ref_a` is matched against three keys per mention — the resolver mention id
 (`candidate:2024_06_09:c-26-…`), the bare ref (`2024_06_09:c-26-…`), and `{source}:{ref}` — so an
-operator names a mention by whichever id they have. Precedence inside the tier: **merge → fold-split
-→ ref-split** (a split always wins over a merge). Confidence is recomputed from the final members
+operator names a mention by whichever id they have. Ref merges require both endpoints to resolve
+exactly once; a missing/ambiguous ref aborts the resolve. Precedence inside the tier: **fold-merge →
+ref-merge → fold-split → ref-split** (a split always wins over a merge). Confidence is recomputed from the final members
 (shared hard id → `exact_id`; an override-merged component → `manual`; else `high`), mirroring the
 resolver's own rule so untouched components keep their baseline.
 

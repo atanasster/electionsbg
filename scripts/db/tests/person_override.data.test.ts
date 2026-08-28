@@ -1,10 +1,8 @@
 // End-to-end gate for the human-override tier (scripts/person/overrides.ts +
 // person_link_override, 081_person_identity.sql). Constructs a same-name mis-merge — two
-// mentions sharing a gold mp-id hardId AND a name fold — inserts a REF-LEVEL SPLIT override
-// into Postgres, loads it back through the exact SELECT the resolver runs, applies it, and
-// asserts the wrong mention is separated onto its own person. Proves the mechanism the task
-// asked for: a genuine mis-merge undone by DATA, not code — and that a ref-split can veto a
-// Tier-0 gold union a name fold is too coarse to target.
+// mentions sharing a gold mp-id hardId AND a name fold — and exercises both mention-scoped
+// operations through Postgres: a REF-SPLIT that can veto the bad gold union, and a REF-MERGE
+// that joins only two selected same-fold people without absorbing a third namesake.
 //
 //   npm run test:data
 //
@@ -34,6 +32,8 @@ const SCHEMA_081 = path.resolve(
 
 // A ref that cannot collide with a real candidacy (year 2099), so cleanup is exact.
 const TEST_REF = "2099_01_01:c-99-override-test";
+const TEST_MERGE_A = "2099_02_01:c-98-override-merge-a";
+const TEST_MERGE_B = "2099_03_01:c-98-override-merge-b";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -53,16 +53,18 @@ reportSkip(import.meta.url, skip);
 
 beforeAll(async () => {
   if (!haveDb) return;
-  await allRows(`DELETE FROM person_link_override WHERE ref_a = $1`, [
-    TEST_REF,
-  ]);
+  await allRows(
+    `DELETE FROM person_link_override WHERE ref_a = ANY($1::text[])`,
+    [[TEST_REF, TEST_MERGE_A]],
+  );
 });
 
 afterAll(async () => {
   if (haveDb)
-    await allRows(`DELETE FROM person_link_override WHERE ref_a = $1`, [
-      TEST_REF,
-    ]);
+    await allRows(
+      `DELETE FROM person_link_override WHERE ref_a = ANY($1::text[])`,
+      [[TEST_REF, TEST_MERGE_A]],
+    );
   await end();
 });
 
@@ -148,6 +150,54 @@ test.skipIf(skip)(
     assert.ok(
       mpGroup.ids.includes(good.id),
       "the MP keeps its correctly-bound candidacy",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "a ref-level merge joins only the selected same-name mentions",
+  async () => {
+    const fold = await foldName("Велислава Иванова Петрова");
+    const mk = (ref: string): OvMention => ({
+      id: `candidate:${ref}`,
+      source: "candidate",
+      ref,
+      hardId: null,
+      nameFold: fold,
+    });
+    const a = mk(TEST_MERGE_A);
+    const b = mk(TEST_MERGE_B);
+    const namesake = mk("2099_04_01:c-98-override-namesake");
+    const mentions = [a, b, namesake];
+    const groups: OGroup[] = mentions.map((m) => ({
+      ids: [m.id],
+      confidence: "high",
+    }));
+
+    await allRows(
+      `INSERT INTO person_link_override (kind, ref_a, ref_b, note, decided_by)
+       VALUES ('merge', $1, $2, 'data-test: verified same person', 'test')`,
+      [TEST_MERGE_A, TEST_MERGE_B],
+    );
+    const parsed = parseOverrides(
+      await allRows<OverrideRow>(
+        `SELECT override_id, kind, fold_a, fold_b, ref_a, ref_b
+           FROM person_link_override WHERE ref_a = $1`,
+        [TEST_MERGE_A],
+      ),
+    );
+    assert.deepEqual(parsed.refMerges, [[TEST_MERGE_A, TEST_MERGE_B]]);
+
+    const after = applyOverrides(groups, mentions, parsed);
+    assert.equal(after.length, 2, "only two of three namesakes should join");
+    const merged = after.find((g) => g.ids.includes(a.id));
+    assert.ok(merged, "selected first mention survives");
+    assert.deepEqual(merged!.ids.sort(), [a.id, b.id].sort());
+    assert.equal(merged!.confidence, "manual");
+    assert.deepEqual(
+      after.find((g) => g.ids.includes(namesake.id))!.ids,
+      [namesake.id],
+      "unselected namesake stays separate",
     );
   },
 );

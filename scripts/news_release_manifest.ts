@@ -103,22 +103,32 @@ export function writeManifest(root: string, repoRoot: string): ReleaseManifest {
   return manifest;
 }
 
-export function verifyManifest(root: string, repoRoot: string): ReleaseManifest {
+export function verifyManifest(
+  root: string,
+  repoRoot: string,
+): ReleaseManifest {
   const manifestPath = path.join(root, MANIFEST_NAME);
   if (!fs.existsSync(manifestPath))
     throw new Error("release manifest missing; run npm run news:release:gate");
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as ReleaseManifest;
+  const manifest = JSON.parse(
+    fs.readFileSync(manifestPath, "utf8"),
+  ) as ReleaseManifest;
   if (manifest.schema !== 1 || !manifest.candidate || !manifest.files)
     throw new Error("release manifest has an invalid shape");
   if (candidateIdentity(repoRoot) !== manifest.candidate)
-    throw new Error("repository inputs changed after the release gate; run it again");
+    throw new Error(
+      "repository inputs changed after the release gate; run it again",
+    );
   const current = hashBuild(root);
   if (JSON.stringify(current) !== JSON.stringify(manifest.files))
     throw new Error("dist-news changed after the release gate; run it again");
   return manifest;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(import.meta.filename)) {
+if (
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === path.resolve(import.meta.filename)
+) {
   const mode = process.argv[2];
   const repoRoot = path.resolve(import.meta.dirname, "..");
   const buildRoot = path.join(repoRoot, "dist-news");
@@ -130,5 +140,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(import.met
         : (() => {
             throw new Error("usage: news_release_manifest.ts <write|verify>");
           })();
-  console.log(JSON.stringify({ candidate: manifest.candidate, files: Object.keys(manifest.files).length }));
+  console.log(
+    JSON.stringify({
+      candidate: manifest.candidate,
+      files: Object.keys(manifest.files).length,
+    }),
+  );
 }

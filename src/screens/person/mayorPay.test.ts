@@ -26,15 +26,19 @@ describe("mayorPayObshtinaForRoles", () => {
   });
 
   it("accepts a municipal-officials mayor role too", () => {
-    expect(
-      mayorPayObshtinaForRoles([role({ source: "official_muni" })]),
-    ).toBe("BLG11");
+    expect(mayorPayObshtinaForRoles([role({ source: "official_muni" })])).toBe(
+      "BLG11",
+    );
   });
 
   it("does not mistake a settlement or non-mayor office for a municipality mayor", () => {
     expect(
       mayorPayObshtinaForRoles([
-        role({ role: "village_mayor", placeKind: "settlement", placeCode: "04298" }),
+        role({
+          role: "village_mayor",
+          placeKind: "settlement",
+          placeCode: "04298",
+        }),
         role({ role: "councillor" }),
       ]),
     ).toBeNull();

@@ -144,11 +144,13 @@ export const GovernanceMayorPayScreen: FC = () => {
       if (row.fiscal_year == null) continue;
       counts.set(row.fiscal_year, (counts.get(row.fiscal_year) ?? 0) + 1);
     }
-    return [...counts.entries()]
-      .sort(([yearA, countA], [yearB, countB]) =>
-        countA === countB ? yearB - yearA : countB - countA,
-      )
-      .map(([fiscalYear, count]) => ({ fiscalYear, count }))[0] ?? null;
+    return (
+      [...counts.entries()]
+        .sort(([yearA, countA], [yearB, countB]) =>
+          countA === countB ? yearB - yearA : countB - countA,
+        )
+        .map(([fiscalYear, count]) => ({ fiscalYear, count }))[0] ?? null
+    );
   }, [rows]);
 
   const kpis = useMemo<HubKpi[]>(

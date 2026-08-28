@@ -19,9 +19,7 @@ vi.mock("@/data/officials/useMayorPayRanking", async (orig) => ({
 
 import { GovernanceMayorPayScreen } from "./GovernanceMayorPayScreen";
 
-const row = (
-  over: Partial<MayorPayRankingRow> = {},
-): MayorPayRankingRow =>
+const row = (over: Partial<MayorPayRankingRow> = {}): MayorPayRankingRow =>
   ({
     obshtina: "DOB03",
     name_bg: "Балчик",
@@ -100,7 +98,9 @@ describe("GovernanceMayorPayScreen", () => {
     expect(screen.getByText("Варна")).toBeVisible();
     expect(screen.queryByText("Балчик")).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "mp_filter_withoutIncome" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "mp_filter_withoutIncome" }),
+    );
     expect(screen.getByText("Варна")).toBeVisible();
     expect(screen.queryByText("Балчик")).toBeNull();
   });
@@ -149,13 +149,11 @@ describe("GovernanceMayorPayScreen", () => {
 
     const dominantCell = screen
       .getByText("mp_kpi_dominant_year")
-      .closest("[data-kpi-cell]");
+      .closest<HTMLElement>("[data-kpi-cell]");
     expect(dominantCell).not.toBeNull();
     expect(within(dominantCell!).getByText("2025")).toBeVisible();
     expect(
-      screen.getByText(
-        'mp_kpi_dominant_year_detail:{"count":2,"total":3}',
-      ),
+      screen.getByText('mp_kpi_dominant_year_detail:{"count":2,"total":3}'),
     ).toBeVisible();
   });
 

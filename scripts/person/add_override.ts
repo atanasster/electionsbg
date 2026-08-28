@@ -2,7 +2,7 @@
 // identity mis-merge in the person resolver (scripts/person/resolve_persons.ts + overrides.ts,
 // plan §3 tier 4). The row is applied on the NEXT `npm run db:resolve:persons`.
 //
-// Three operations (see overrides.ts for the semantics):
+// Four operations (see overrides.ts for the semantics):
 //
 //   # isolate one wrongly-merged candidacy (ref-level split — vetoes even a gold union):
 //   npm run person:override -- split --ref 2024_06_09:c-26-monika-georgieva-vasileva \
@@ -11,6 +11,10 @@
 //   # union one person the resolver scattered across two blocks (marriage rename):
 //   npm run person:override -- merge --name-a "Галя Стоянова Желязкова" \
 //     --name-b "Галя Стоянова Василева" --note "same person, renamed" --by atanasster
+//
+//   # union two exact source mentions while leaving same-name people alone:
+//   npm run person:override -- merge --ref 2021_11_14:c-24-velislava-ivanova-petrova \
+//     --ref-b 2022_10_02:c-9-velislava-ivanova-petrova --note "same person" --by atanasster
 //
 //   # forbid two different folds from auto-merging (fold-level split):
 //   npm run person:override -- split --name-a "Иван Петров Иванов" --name-b "..." --by ...
@@ -40,6 +44,7 @@ const usage = (): void => {
   console.error(
     `usage:
   npm run person:override -- split --ref <election:slug | mp:id> [--ref-b <ref>] [--note ..] [--by ..]
+  npm run person:override -- merge --ref <ref-a> --ref-b <ref-b> --note <why> [--by ..]
   npm run person:override -- merge --name-a "<Cyrillic name>" --name-b "<Cyrillic name>" [--note ..] [--by ..]
   npm run person:override -- split --name-a "<name>" --name-b "<name>" [--note ..] [--by ..]
   (--fold-a/--fold-b substitute a pre-folded value for --name-a/--name-b)`,
@@ -67,6 +72,10 @@ async function main(): Promise<void> {
   );
 
   const ref = arg("--ref");
+  const nameA = arg("--name-a");
+  const nameB = arg("--name-b");
+  const explicitFoldA = arg("--fold-a");
+  const explicitFoldB = arg("--fold-b");
   const note = arg("--note") ?? null;
   const by = arg("--by") ?? "operator";
 
@@ -75,14 +84,26 @@ async function main(): Promise<void> {
   let ref_a: string | null = null;
   let ref_b: string | null = null;
 
-  if (kind === "split" && ref) {
+  if (ref) {
+    if (nameA || nameB || explicitFoldA || explicitFoldB) {
+      console.error("fold/name targets and ref targets cannot be mixed.");
+      usage();
+      await end();
+      process.exit(1);
+    }
     ref_a = ref;
     ref_b = arg("--ref-b") ?? null;
+    if (kind === "merge" && (!ref_b || !note)) {
+      console.error(
+        "a ref-level merge needs --ref, --ref-b, and an audit --note.",
+      );
+      usage();
+      await end();
+      process.exit(1);
+    }
   } else {
-    const nameA = arg("--name-a");
-    const nameB = arg("--name-b");
-    fold_a = arg("--fold-a") ?? (nameA ? await fold(nameA) : null);
-    fold_b = arg("--fold-b") ?? (nameB ? await fold(nameB) : null);
+    fold_a = explicitFoldA ?? (nameA ? await fold(nameA) : null);
+    fold_b = explicitFoldB ?? (nameB ? await fold(nameB) : null);
     if (!fold_a || !fold_b) {
       console.error(
         kind === "merge"
@@ -103,7 +124,7 @@ async function main(): Promise<void> {
   );
 
   const target = ref_a
-    ? `ref-split ${ref_a}${ref_b ? ` + ${ref_b}` : ""}`
+    ? `ref-${kind} ${ref_a}${ref_b ? ` <-> ${ref_b}` : ""}`
     : `${kind} ${fold_a} <-> ${fold_b}`;
   console.log(`inserted override #${row.override_id}: ${target} (by ${by})`);
   console.log(

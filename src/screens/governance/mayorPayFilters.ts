@@ -48,11 +48,7 @@ export const mayorPaySearchMatches = (
     .split(/[^\p{L}\p{N}]+/u)
     .filter(Boolean);
   if (terms.length === 0) return true;
-  const haystack = [
-    row.name_bg,
-    row.name_en ?? "",
-    row.mayor_name,
-  ].join(" ");
+  const haystack = [row.name_bg, row.name_en ?? "", row.mayor_name].join(" ");
   return terms.every((term) => searchMatches(haystack, term));
 };
 

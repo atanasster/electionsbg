@@ -116,10 +116,7 @@ describe("MyAreaMayorPayTile", () => {
     mockMayorPay.mockReturnValue({ data: payload(), isPending: false });
     const { container } = render(
       <MemoryRouter>
-        <MayorPayCard
-          obshtina="DOB03"
-          expectedMayorSlug="former-mayor-123"
-        />
+        <MayorPayCard obshtina="DOB03" expectedMayorSlug="former-mayor-123" />
       </MemoryRouter>,
     );
     expect(container).toBeEmptyDOMElement();
