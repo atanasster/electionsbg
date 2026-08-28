@@ -1,19 +1,59 @@
 {
-  "updatedAt": "2026-08-28T22:47:48.048Z",
+  "updatedAt": "2026-08-28T23:10:39.100Z",
   "entries": [
+    {
+      "timestamp": "2026-08-28T23:10:39.100Z",
+      "date": "2026-08-28",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-08-28 (+1 daily archive; 833,080 store rows, 169 settlements, 86 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-08-28T23:03:46.221Z",
+      "date": "2026-08-28",
+      "skill": "update-macro",
+      "summary": "Макро показателите обновени до второто тримесечие на 2026 г. (Евростат преиздаде 7 набора)",
+      "source": "Евростат — макроикономически показатели (България)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-28T23:02:31.983Z",
+      "date": "2026-08-28",
+      "skill": "update-open-calls",
+      "summary": "ИСУН: 55 отворени процедури; 1 приключила от последната проверка",
+      "source": "ИСУН 2020 — отворени процедури"
+    },
+    {
+      "timestamp": "2026-08-28T23:00:03.545Z",
+      "date": "2026-08-28",
+      "skill": "update-rollcall",
+      "summary": "2 нови пленарни заседания (27 и 28 август 2026 г.) — 17 гласувания, 4080 записа",
+      "source": "Народно събрание — поименни гласувания",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-28T23:00:01.476Z",
+      "date": "2026-08-28",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: 149 нови договора от 58 възложителя; ТЕD: 218 277 обявления; корпусът е 407 599 записа",
+      "source": "ЦАИС ЕОП (storage.eop.bg) + TED (api.ted.europa.eu)"
+    },
     {
       "timestamp": "2026-08-28T22:47:48.048Z",
       "date": "2026-08-28",
       "skill": "update-persons",
       "summary": "Профилите на публичните лица преизчислени — 65 119 лица, 125 085 длъжности",
       "source": "Регистър на лицата (обединена самоличност)"
-    },
-    {
-      "timestamp": "2026-08-28T00:08:12.289Z",
-      "date": "2026-08-28",
-      "skill": "update-prices",
-      "summary": "КЗП retail prices refreshed through 2026-08-27 (+1 daily archive; 986,352 store rows, 169 settlements, 88 chains)",
-      "source": "КЗП Колко струва (retail prices)"
     },
     {
       "timestamp": "2026-08-27T22:34:17.938Z",
