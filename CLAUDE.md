@@ -1878,33 +1878,52 @@ affiliation AT CAST TIME: 179 of 2,366 seats change party mid-term, so grouping 
 `rollcall.data.test.ts` holds both, plus the 26 recycled `mp_id`s that make `(ns, mp_id)`
 the only safe key.
 
-**`/api/db/session?date=` + `/api/db/session-item?item=`** split the day file that
-`/votes/<date>` currently downloads whole — 482 KB on an average day, 4.97 MB on
-2025-06-19, because that file carries every MP's vote on every item. The day route is the
-agenda and the tallies (14 buffers); the item route is one item's per-MP votes (~64 — the
-PK scan is 7, and the joins onto `mp_seat` and `party_dim` for names and party labels are
-the rest). Neither can be planned into the seq scan that costs 21,904 buffers, because the
-item route is driven from an explicit `item_id` rather than a join on date.
+**`/api/db/session?date=` + `/api/db/session-casts?date=` + `/api/db/session-item?item=`**
+replaced the day file `/votes/<date>` used to download whole — 482 KB on an average day,
+4.97 MB on 2025-06-19, because that file carried every MP's vote on every item. The day
+route is the agenda and the tallies (14 buffers); `session-casts` is that day's per-MP
+matrix; `session-item` is one item's per-MP votes (~64 — the PK scan is 7, and the joins
+onto `mp_seat` and `party_dim` for names and party labels are the rest). Neither of the
+last two can be planned into the seq scan that costs 21,904 buffers, because both are
+driven from an explicit key rather than a join on date.
+
+⚠️ **The SCREEN uses the first TWO — `session-item` is the deep-link route, not the
+screen's data path.** `useRollcallSession.tsx` fetches `session` + `session-casts` in one
+pass, because `SessionScreen` renders the whole day's matrix rather than expanding one
+item at a time. An earlier draft of this section named the pair as `session` +
+`session-item`; that was a prediction, and it is not what shipped.
 
 Unlike every matview, the day route does **not** filter `superseded_by`: it is the day's
 RECORD rather than a statistic over it, and a motion put to the floor twice is a fact about
 the day.
 
-**`SessionScreen` is not yet on these routes**, and `data/parliament/votes/sessions/` is
-still bucket-served. Retiring it needs, in order: the screen moved onto the two routes
-(it currently reads `mpNames`, `mpParty` and every item's `votes` from the file);
-the routes verified on prod; then `bucket_sync_paths.ts` gaining BOTH an `isExcluded`
-refusal and a `CHILD_EXCLUDES` entry for `parliament/votes/sessions` — one without the
-other still lets `bucket:sync:paths -- parliament` re-upload all 613 files — **and** the
-`-x` regex in both `bucket:sync` and `bucket:sync:dry` in `package.json`, which is a third
-place `bucket_sync_paths.test.ts` holds in lockstep.
+**[json-retirement-v2 Tier 1] THE RETIREMENT IS DONE — this section described it as pending
+until 2026-08-29, and the sync guard is what settles it.** `SessionScreen` is on the routes
+above; `parliament/votes/sessions/` and `parliament/votes/derived/per-mp/` are excluded
+from every sync path (the `isExcluded` refusal, its `CHILD_EXCLUDES` twin, and the `-x`
+regex in both `bucket:sync` and `bucket:sync:dry` — the three places
+`bucket_sync_paths.test.ts` holds in lockstep); and the objects are **GONE, not frozen**:
+`gsutil ls` returns "matched no objects" for both trees. `derived/dissents.json` and
+`derived/party_pair_breaks.json` went with them.
 
-⚠️ **The last step is NOT a scoped `--delete`, and an earlier version of this paragraph said
-it was.** `gsutil rsync -x` excludes a match from DELETION as well as from upload ("not copied
-or deleted", per gsutil's own help), and `syncPaths` passes `-x` together with `-d` — so once
-the exclusions are in place, no sync will ever remove those objects, and scoping a sync to the
-subtree is refused by `isExcluded` by design. The exclusion FREEZES the bucket copy. Removing
-it is an explicit `gsutil -m rm -r gs://<bucket>/parliament/votes/sessions`.
+**The FILES stay on disk, and that is the design** — `load_rollcall_pg.ts` reads them as
+its load source and `scripts/prerender/votesFacts.ts` reads them for each `/votes/<date>`
+body, both from `PROJECT_ROOT`, never the bucket. What was retired is the BUCKET COPY,
+which nothing fetched.
+
+⚠️ **Consequence for a publish: a scoped `bucket:sync:paths -- parliament/votes` pushes
+NEITHER the new session files NOR the per-MP shards, and that is correct.** Both reach
+production through `db:load:rollcall:pg:cloud` + `db:load:rollcall-derived:pg:cloud`. A
+sync that reports 0 session objects after an ingest that wrote two is the guard working,
+not a missed upload — measured 2026-08-29, when it read as a defect and was not one.
+
+⚠️ **An exclusion FREEZES; only an `rm` retires. Keep this rule even though this family is
+closed**, because it governs every tree in the frozen list below. `gsutil rsync -x`
+excludes a match from DELETION as well as from upload ("not copied or deleted", per
+gsutil's own help), and `syncPaths` passes `-x` together with `-d` — so once the exclusions
+are in place no sync will ever remove those objects, and scoping a sync to the subtree is
+refused by `isExcluded` by design. Removing them is an explicit
+`gsutil -m rm -r gs://<bucket>/<tree>`, which is what closed this one.
 
 **[2026-08-16] Under `parliament/`, EIGHT families are in that frozen state** — the eight
 site-hygiene-v1 T6b excluded: `mp-connections/`, `official-connections/`, `by-id/` and five
