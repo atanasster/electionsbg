@@ -107,6 +107,79 @@ class StandaloneBundle(unittest.TestCase):
         self.assertTrue(combined)
 
 
+class DirectNewsFolder(unittest.TestCase):
+    def test_copied_news_folder_runs_without_repository_siblings(self):
+        with tempfile.TemporaryDirectory(prefix="direct_news_") as td:
+            news = Path(td) / "news"
+            news.mkdir()
+            runtime = [rel for rel in bundle.RUNTIME_SCRIPTS + bundle.SEED_FILES
+                       if rel.startswith("news/")]
+            for rel in runtime:
+                source = bundle.ROOT / rel
+                target = news / Path(rel).relative_to("news")
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+            shutil.copytree(bundle.ROOT / "news/prompts", news / "prompts")
+            shutil.copytree(bundle.ROOT / "news/standalone", news / "standalone")
+            for name in (
+                "run_hourly.sh", "install_cron.sh", "setup.sh",
+                "verify_install.py", "package.json", ".env.api.example",
+                ".env.model.example", ".env.upload.example",
+                ".env.pipeline.example",
+            ):
+                shutil.copy2(bundle.ROOT / "news" / name, news / name)
+            for name in ("api", "model", "upload", "pipeline"):
+                shutil.copy2(news / f".env.{name}.example", news / f".env.{name}")
+            (news / "app-data").mkdir()
+            (news / "mentions").mkdir()
+
+            verify = subprocess.run(
+                [sys.executable, str(news / "verify_install.py")], cwd=news,
+                text=True, capture_output=True)
+            self.assertEqual(verify.returncode, 0, verify.stderr + verify.stdout)
+            default_run = subprocess.run(
+                ["bash", str(news / "run_hourly.sh"), "--dry-run"], cwd=news,
+                text=True, capture_output=True, timeout=60)
+            self.assertEqual(default_run.returncode, 0,
+                             default_run.stderr + default_run.stdout)
+            self.assertNotIn("command not found", default_run.stderr)
+            default_rows = [json.loads(line) for line in default_run.stdout.splitlines()
+                            if line.startswith("{")]
+            upload = next(row for row in default_rows
+                          if row.get("mode") == "news_gcs_upload")
+            self.assertFalse(upload["public_enabled"])
+            self.assertEqual([scope["name"] for scope in upload["scopes"]],
+                             ["archive"])
+
+            upload_env = news / ".env.upload"
+            config = upload_env.read_text(encoding="utf-8")
+            config = config.replace("NEWS_ENABLE_PUBLIC_UPLOAD=0",
+                                    "NEWS_ENABLE_PUBLIC_UPLOAD=1")
+            config = config.replace("NEWS_PUBLIC_GCS_URI=",
+                                    "NEWS_PUBLIC_GCS_URI=gs://public/news/app-data")
+            config = config.replace("NEWS_MENTIONS_GCS_URI=",
+                                    "NEWS_MENTIONS_GCS_URI=gs://public/news/mentions")
+            upload_env.write_text(config, encoding="utf-8")
+            enabled_run = subprocess.run(
+                ["bash", str(news / "run_hourly.sh"), "--dry-run"], cwd=news,
+                text=True, capture_output=True, timeout=60)
+            self.assertEqual(enabled_run.returncode, 0,
+                             enabled_run.stderr + enabled_run.stdout)
+            enabled_rows = [json.loads(line) for line in enabled_run.stdout.splitlines()
+                            if line.startswith("{")]
+            enabled_upload = next(row for row in enabled_rows
+                                  if row.get("mode") == "news_gcs_upload")
+            mentions = next(scope for scope in enabled_upload["scopes"]
+                            if scope["name"] == "public_mentions")
+            self.assertEqual(Path(mentions["source"]), news / "mentions")
+            cron = subprocess.run(
+                ["bash", str(news / "install_cron.sh"), "--print"], cwd=news,
+                text=True, capture_output=True)
+            self.assertEqual(cron.returncode, 0, cron.stderr)
+            self.assertIn("0 * * * *", cron.stdout)
+            self.assertIn(str(news / "run_hourly.sh"), cron.stdout)
+
+
 class UploadPolicy(unittest.TestCase):
     def test_archive_versioning_parser(self):
         self.assertTrue(uploader.versioning_enabled(

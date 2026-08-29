@@ -47,7 +47,8 @@ import resolve_mentions as rm  # noqa: E402
 ROOT = Path(os.environ.get("DATA_BG_ROOT") or
             Path(__file__).resolve().parents[2])
 NEWS_DATA = ROOT / "news" / "data"
-OUT_DIR = ROOT / "data" / "news" / "mentions"
+OUT_DIR = Path(os.environ.get("NEWS_MENTIONS_DIR") or
+               ROOT / "data" / "news" / "mentions")
 
 # ⚠️ Only kinds whose id is a KEY THE MAIN SITE ALREADY ROUTES ON: a person
 # slug is `/person/:slug`, an institution EIK is `/company/:eik`, a party id

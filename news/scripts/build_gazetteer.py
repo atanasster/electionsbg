@@ -909,9 +909,21 @@ def build_aliases() -> tuple[list, dict]:
 
 def build_parties() -> tuple[list, dict]:
     src = ROOT / "data" / "canonical_parties.json"
-    if not src.exists():
-        return [], {"parties": 0, "parties_source": "absent"}
-    return party_entries(json.loads(src.read_text(encoding="utf-8")))
+    if src.exists():
+        return party_entries(json.loads(src.read_text(encoding="utf-8")))
+
+    # A copied `news/` folder deliberately has no sibling `data/` tree. Keep
+    # its already-vetted party entries when a database-backed gazetteer rebuild
+    # is otherwise possible, rather than silently deleting party resolution.
+    # The full repository still uses canonical_parties.json above.
+    if OUT.exists():
+        current = json.loads(OUT.read_text(encoding="utf-8"))
+        rows = [row for row in current.get("entries") or []
+                if row.get("kind") == "party"]
+        if rows:
+            return rows, {"parties": len(rows),
+                          "parties_source": "existing_news_gazetteer"}
+    return [], {"parties": 0, "parties_source": "absent"}
 
 
 def party_entries(doc: dict) -> tuple[list, dict]:

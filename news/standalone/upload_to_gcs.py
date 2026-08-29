@@ -80,6 +80,8 @@ def public_upload_enabled() -> bool:
 
 def commands(public_ready: bool, public_enabled: bool) -> list[dict]:
     archive = uri("NEWS_ARCHIVE_GCS_URI", delete_scope=False)
+    mentions_source = Path(os.environ.get("NEWS_MENTIONS_DIR") or
+                           ROOT / "data" / "news" / "mentions")
     scopes = [{
         "name": "archive",
         "source": ROOT / "news" / "data",
@@ -103,11 +105,11 @@ def commands(public_ready: bool, public_enabled: bool) -> list[dict]:
             },
             {
                 "name": "public_mentions",
-                "source": ROOT / "data" / "news" / "mentions",
+                "source": mentions_source,
                 "destination": mentions,
                 "argv": ["gsutil", "-m", "-h", PUBLIC_CACHE, "rsync",
                          "-r", "-d", "-j", "json",
-                         str(ROOT / "data" / "news" / "mentions"), mentions],
+                         str(mentions_source), mentions],
                 "deletes_remote": True,
             },
         ]

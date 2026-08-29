@@ -187,7 +187,7 @@ def merge_save_stats(target: dict, source: dict) -> None:
 
 
 def analyze_one(item: dict, assets: dict, model: str, max_tokens: int,
-                taxonomy_version: int) -> dict:
+                taxonomy_version: int, temperature: float = 0.2) -> dict:
     """Build one record without writing shared state; safe in a worker."""
     try:
         article = json.loads((ROOT / item["path"]).read_text(encoding="utf-8"))
@@ -200,7 +200,7 @@ def analyze_one(item: dict, assets: dict, model: str, max_tokens: int,
         answer = llm_client.complete(
             assets["system"], prompt, model=model,
             grammar=assets["grammar"], json_schema=assets["json_schema"],
-            max_tokens=max_tokens)
+            max_tokens=max_tokens, temperature=temperature)
     except llm_client.LlmError as exc:
         return {"kind": "llm_failed", "path": item["path"],
                 "error_kind": exc.kind, "detail": exc.detail[:200]}
@@ -334,15 +334,16 @@ def generation_summary_from_answer(answer: dict) -> dict:
 
 def analyze_routed(item: dict, assets: dict, paid_model: str, max_tokens: int,
                    taxonomy_version: int, triage_model: str | None,
-                   triage_timeout: int) -> dict:
+                   triage_timeout: int, temperature: float = 0.2) -> dict:
     if not triage_model:
         return analyze_one(item, assets, paid_model, max_tokens,
-                           taxonomy_version)
+                           taxonomy_version, temperature)
     triage = triage_one(item, assets, triage_model, triage_timeout,
                         taxonomy_version)
     if triage["kind"] == "record":
         return triage
-    paid = analyze_one(item, assets, paid_model, max_tokens, taxonomy_version)
+    paid = analyze_one(item, assets, paid_model, max_tokens, taxonomy_version,
+                       temperature)
     if paid.get("kind") == "record":
         paid["record"]["analysis_provenance"]["triage_fallback"] = {
             "model_requested": triage_model,
@@ -577,6 +578,8 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true",
                     help="build the prompts and print one, calling no model")
     ap.add_argument("--max-tokens", type=int, default=2048)
+    ap.add_argument("--temperature", type=float,
+                    default=float(os.environ.get("NEWS_LLM_TEMPERATURE", "0.2")))
     ap.add_argument("--workers", type=int,
                     default=int(os.environ.get("NEWS_LLM_WORKERS", "4")),
                     help="concurrent completion requests (default 4)")
@@ -592,9 +595,11 @@ def main() -> int:
                     help="seconds for one no-retry free triage request")
     args = ap.parse_args()
     if (args.workers < 1 or args.schema_retries not in (0, 1)
+            or not 0 <= args.temperature <= 2
             or args.triage_timeout < 1):
         ap.error("--workers must be at least 1, --schema-retries must be 0 or 1, "
-                 "and --triage-timeout must be positive")
+                 "--temperature must be between 0 and 2, and "
+                 "--triage-timeout must be positive")
 
     assets = load_prompt_assets()
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
@@ -655,7 +660,7 @@ def main() -> int:
             remaining = items[position:]
             break
         result = analyze_one(item, assets, args.model, args.max_tokens,
-                             taxonomy_version)
+                             taxonomy_version, args.temperature)
         if result["kind"] != "record":
             if record_worker_failure(stats, result):
                 remaining = []
@@ -671,7 +676,7 @@ def main() -> int:
                 break
             stats["schema_retry_attempted"] += 1
             retry = analyze_one(item, assets, args.model, args.max_tokens,
-                                taxonomy_version)
+                                taxonomy_version, args.temperature)
             if retry["kind"] != "record":
                 record_worker_failure(stats, retry)
                 break
@@ -703,7 +708,8 @@ def main() -> int:
             pending = {
                 pool.submit(analyze_routed, item, assets, args.model,
                             args.max_tokens, taxonomy_version,
-                            args.triage_model, args.triage_timeout): item
+                            args.triage_model, args.triage_timeout,
+                            args.temperature): item
                 for item in remaining
             }
             for future in as_completed(pending):
@@ -731,7 +737,8 @@ def main() -> int:
         with ThreadPoolExecutor(max_workers=args.workers) as pool:
             pending = {
                 pool.submit(analyze_one, item, assets, args.model,
-                            args.max_tokens, taxonomy_version): (
+                            args.max_tokens, taxonomy_version,
+                            args.temperature): (
                                 item, first_stats, first_record)
                 for item, first_stats, first_record in retry_queue
             }

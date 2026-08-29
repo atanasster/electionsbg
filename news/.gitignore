@@ -1,0 +1,12 @@
+.env.api
+.env.model
+.env.upload
+.env.pipeline
+!.env.api.example
+!.env.model.example
+!.env.upload.example
+!.env.pipeline.example
+credentials/
+mentions/
+node_modules/
+var/

@@ -32,6 +32,8 @@ else
   DEFAULT_MODEL=local-model
 fi
 MODEL=${NEWS_LLM_MODEL:-$DEFAULT_MODEL}
+MAX_TOKENS=${NEWS_LLM_MAX_TOKENS:-2048}
+TEMPERATURE=${NEWS_LLM_TEMPERATURE:-0.2}
 WORKERS=${NEWS_LLM_WORKERS:-4}
 SCHEMA_RETRIES=${NEWS_LLM_SCHEMA_RETRIES:-1}
 ARTICLES_PER_SOURCE=${NEWS_ARTICLES_PER_SOURCE:-20}
@@ -107,7 +109,20 @@ require_uint "NEWS_ARTICLES_PER_SOURCE" "$ARTICLES_PER_SOURCE"
 require_uint "NEWS_BROWSER_TIMEOUT" "$BROWSER_TIMEOUT"
 require_uint "NEWS_STAGE_TIMEOUT" "$STAGE_TIMEOUT"
 require_uint "NEWS_LLM_WORKERS" "$WORKERS"
+require_uint "NEWS_LLM_MAX_TOKENS" "$MAX_TOKENS"
 [ "$WORKERS" -ge 1 ] || { echo "NEWS_LLM_WORKERS must be at least 1" >&2; exit 2; }
+[ "$MAX_TOKENS" -ge 1 ] || { echo "NEWS_LLM_MAX_TOKENS must be at least 1" >&2; exit 2; }
+if ! NEWS_TEMPERATURE="$TEMPERATURE" python3 -c '
+import os
+try:
+    value = float(os.environ["NEWS_TEMPERATURE"])
+except ValueError:
+    raise SystemExit(1)
+raise SystemExit(0 if 0 <= value <= 2 else 1)
+'; then
+  echo "NEWS_LLM_TEMPERATURE must be a number between 0 and 2" >&2
+  exit 2
+fi
 case $SCHEMA_RETRIES in
   0|1) ;;
   *) echo "NEWS_LLM_SCHEMA_RETRIES must be 0 or 1" >&2; exit 2 ;;
@@ -301,7 +316,8 @@ elif [ "$MODEL_PROBE_CODE" -ne 0 ]; then
     'import json; print(json.dumps({"skipped": "model_unavailable"}))'
 else
   stage analyze python3 news/scripts/analyze_local.py \
-    --limit "$LIMIT" --model "$MODEL" --workers "$WORKERS" \
+    --limit "$LIMIT" --model "$MODEL" --max-tokens "$MAX_TOKENS" \
+    --temperature "$TEMPERATURE" --workers "$WORKERS" \
     --schema-retries "$SCHEMA_RETRIES"
 fi
 

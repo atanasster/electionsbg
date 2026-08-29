@@ -1,0 +1,9 @@
+{
+  "name": "naiasno-news-machine",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Self-contained Bulgarian news acquisition and analysis runtime",
+  "dependencies": {
+    "playwright": "1.59.1"
+  }
+}

@@ -2,18 +2,47 @@
 # One unattended acquire -> analyze -> derive -> upload transaction.
 set -uo pipefail
 
-ROOT=$(cd "$(dirname "$0")" && pwd)
-export DATA_BG_ROOT="$ROOT"
-CONFIG="$ROOT/config.env"
-if [ ! -f "$CONFIG" ]; then
-  echo "missing $CONFIG — copy config.env.example and fill it in" >&2
-  exit 2
+SCRIPT_ROOT=$(cd "$(dirname "$0")" && pwd)
+if [ -n "${NEWS_DEPLOY_ROOT:-}" ]; then
+  NEWS_ROOT=$(cd "$NEWS_DEPLOY_ROOT" && pwd)
+  ROOT=$(cd "$NEWS_ROOT/.." && pwd)
+  OPERATIONS_ROOT="$NEWS_ROOT"
+  CONFIG_FILES=(
+    "$NEWS_ROOT/.env.api"
+    "$NEWS_ROOT/.env.model"
+    "$NEWS_ROOT/.env.upload"
+    "$NEWS_ROOT/.env.pipeline"
+  )
+  VERIFY=(python3 "$NEWS_ROOT/verify_install.py" --quiet)
+  PIPELINE="$NEWS_ROOT/scripts/run_nightly.sh"
+  UPLOADER="$NEWS_ROOT/standalone/upload_to_gcs.py"
+  export NEWS_MENTIONS_DIR="$NEWS_ROOT/mentions"
+else
+  ROOT="$SCRIPT_ROOT"
+  NEWS_ROOT="$ROOT/news"
+  OPERATIONS_ROOT="$ROOT"
+  CONFIG_FILES=("$ROOT/config.env")
+  VERIFY=(python3 "$ROOT/verify_bundle.py" --quiet)
+  PIPELINE="$ROOT/news/scripts/run_nightly.sh"
+  UPLOADER="$ROOT/upload_to_gcs.py"
 fi
-set -a
-# shellcheck disable=SC1090
-. "$CONFIG"
-set +a
-export PATH="${NEWS_EXTRA_PATH:-/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin}:$ROOT/news/scripts/bin:${PATH:-}"
+export DATA_BG_ROOT="$ROOT"
+for config in "${CONFIG_FILES[@]}"; do
+  if [ ! -f "$config" ]; then
+    echo "missing $config — run setup.sh and fill in the environment files" >&2
+    exit 2
+  fi
+  set -a
+  # Configuration files are assignment-only. Fail immediately if a malformed
+  # line is interpreted as a command; the pipeline itself deliberately runs
+  # without errexit so it can report every stage.
+  set -e
+  # shellcheck disable=SC1090
+  . "$config"
+  set +e
+  set +a
+done
+export PATH="${NEWS_EXTRA_PATH:-/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin}:$NEWS_ROOT/scripts/bin:${PATH:-}"
 
 DRY=0
 case ${1:-} in
@@ -21,12 +50,11 @@ case ${1:-} in
   --dry-run) DRY=1 ;;
   *) echo "usage: $0 [--dry-run]" >&2; exit 2 ;;
 esac
-if [ "$DRY" -eq 0 ] && grep -q 'REPLACE_ME' "$CONFIG"; then
-  echo "config.env still contains REPLACE_ME placeholders" >&2
+if [ "$DRY" -eq 0 ] && grep -q 'REPLACE_ME' "${CONFIG_FILES[@]}"; then
+  echo "environment files still contain REPLACE_ME placeholders" >&2
   exit 2
 fi
-
-VAR_DIR="$ROOT/var"
+VAR_DIR="$OPERATIONS_ROOT/var"
 REPORT_DIR="$VAR_DIR/reports"
 LOCK_DIR="$VAR_DIR/hourly.lock"
 mkdir -p "$REPORT_DIR"
@@ -66,7 +94,35 @@ acquire_lock() {
 if ! acquire_lock; then exit 0; fi
 trap 'release_lock; exit 130' HUP INT TERM
 
-if ! python3 "$ROOT/verify_bundle.py" --quiet; then
+case ${NEWS_GCS_ACTIVATE_SERVICE_ACCOUNT:-0} in
+  0) ;;
+  1)
+    if [ "$DRY" -eq 0 ]; then
+      [ -f "${GOOGLE_APPLICATION_CREDENTIALS:-}" ] || {
+        echo "GCS service-account JSON is missing: ${GOOGLE_APPLICATION_CREDENTIALS:-unset}" >&2
+        release_lock
+        exit 2
+      }
+      command -v gcloud >/dev/null 2>&1 || {
+        echo "gcloud is required to activate the upload service account" >&2
+        release_lock
+        exit 2
+      }
+      if ! gcloud auth activate-service-account \
+          --key-file="$GOOGLE_APPLICATION_CREDENTIALS" --quiet >/dev/null; then
+        release_lock
+        exit 2
+      fi
+    fi
+    ;;
+  *)
+    echo "NEWS_GCS_ACTIVATE_SERVICE_ACCOUNT must be 0 or 1" >&2
+    release_lock
+    exit 2
+    ;;
+esac
+
+if ! "${VERIFY[@]}"; then
   release_lock
   exit 2
 fi
@@ -89,15 +145,15 @@ if [ "${NEWS_SKIP_BROWSER:-0}" = "1" ]; then ARGS+=(--skip-browser); fi
 if [ "$DRY" -eq 1 ]; then ARGS+=(--dry-run); fi
 
 if command -v caffeinate >/dev/null 2>&1; then
-  caffeinate -s bash "$ROOT/news/scripts/run_nightly.sh" "${ARGS[@]}" \
+  caffeinate -s bash "$PIPELINE" "${ARGS[@]}" \
     > "$PIPELINE_STDOUT"
 else
-  bash "$ROOT/news/scripts/run_nightly.sh" "${ARGS[@]}" > "$PIPELINE_STDOUT"
+  bash "$PIPELINE" "${ARGS[@]}" > "$PIPELINE_STDOUT"
 fi
 PIPELINE_CODE=$?
 cat "$PIPELINE_STDOUT"
 
-PIPELINE_REPORT="$ROOT/news/data/_nightly/$RUN_ID.json"
+PIPELINE_REPORT="$NEWS_ROOT/data/_nightly/$RUN_ID.json"
 if [ ! -f "$PIPELINE_REPORT" ]; then PIPELINE_REPORT=""; fi
 
 UPLOAD_ARGS=()
@@ -107,7 +163,7 @@ else
   UPLOAD_ARGS+=(--archive-only)
 fi
 if [ "$DRY" -eq 1 ]; then UPLOAD_ARGS+=(--dry-run); fi
-python3 "$ROOT/upload_to_gcs.py" "${UPLOAD_ARGS[@]}" > "$UPLOAD_STDOUT"
+python3 "$UPLOADER" "${UPLOAD_ARGS[@]}" > "$UPLOAD_STDOUT"
 UPLOAD_CODE=$?
 cat "$UPLOAD_STDOUT"
 

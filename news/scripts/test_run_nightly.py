@@ -115,6 +115,21 @@ class NightlyRunnerContractTests(unittest.TestCase):
             proc = self.run_runner_at(runner, "--dry-run", env=env)
             self.assertEqual(proc.returncode, 0, proc.stderr)
 
+    def test_rejects_invalid_model_parameters_from_environment(self):
+        with tempfile.TemporaryDirectory() as temp:
+            runner = self.copy_runner(Path(temp))
+            for name, value, expected in (
+                ("NEWS_LLM_MAX_TOKENS", "0", "must be at least 1"),
+                ("NEWS_LLM_MAX_TOKENS", "many", "non-negative integer"),
+                ("NEWS_LLM_TEMPERATURE", "hot", "number between 0 and 2"),
+                ("NEWS_LLM_TEMPERATURE", "2.1", "number between 0 and 2"),
+            ):
+                with self.subTest(name=name, value=value):
+                    env = {**os.environ, name: value}
+                    proc = self.run_runner_at(runner, "--dry-run", env=env)
+                    self.assertEqual(proc.returncode, 2)
+                    self.assertIn(expected, proc.stderr)
+
     def test_timeout_wrapper_kills_the_descendant_process_group(self):
         with tempfile.TemporaryDirectory() as temp:
             marker = Path(temp) / "descendant-survived"
