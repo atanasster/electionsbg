@@ -13,6 +13,7 @@ Run:
 """
 
 import argparse
+import hashlib
 import json
 import os
 import statistics
@@ -49,6 +50,201 @@ def percentile(values: list[float], q: float):
         return None
     xs = sorted(values)
     return round(xs[round((len(xs) - 1) * q)], 2)
+
+
+def sha256_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
+def canonical_sha256(value) -> str:
+    encoded = json.dumps(value, ensure_ascii=False, sort_keys=True,
+                         separators=(",", ":")).encode("utf-8")
+    return sha256_bytes(encoded)
+
+
+def reference_path_for(config: dict, article_path: str) -> str:
+    article = Path(article_path)
+    return str(Path(config["reference_dir"]) / article.parent.name / article.name)
+
+
+def verify_frozen_inputs(config: dict) -> list[dict]:
+    """Refuse a benchmark whose named frozen inputs changed underneath it."""
+    mismatches = []
+    frozen = any(key in config for key in (
+        "article_hashes", "reference_hashes", "selection"))
+    if not frozen:
+        return mismatches
+    articles = config.get("articles") or []
+    if (not isinstance(articles, list)
+            or not all(isinstance(path, str) for path in articles)):
+        return [{"field": "articles", "error": "must_be_string_list"}]
+    if len(articles) != len(set(articles)):
+        mismatches.append({"field": "articles", "error": "duplicates"})
+    article_paths = set(articles)
+    article_hashes = config.get("article_hashes") or {}
+    reference_hashes = config.get("reference_hashes") or {}
+    if not isinstance(article_hashes, dict):
+        article_hashes = {}
+        mismatches.append({"field": "article_hashes",
+                           "error": "must_be_object"})
+    if not isinstance(reference_hashes, dict):
+        reference_hashes = {}
+        mismatches.append({"field": "reference_hashes",
+                           "error": "must_be_object"})
+    reference_dir = config.get("reference_dir")
+    if not isinstance(reference_dir, str):
+        mismatches.append({"field": "reference_dir",
+                           "error": "required_for_frozen_config"})
+        expected_references = set()
+    else:
+        expected_references = {
+            reference_path_for(config, path) for path in articles}
+    for field, expected, actual in (
+            ("article_hashes", article_paths, set(article_hashes)),
+            ("reference_hashes", expected_references, set(reference_hashes))):
+        if expected != actual:
+            mismatches.append({
+                "field": field, "error": "coverage_mismatch",
+                "missing": sorted(expected - actual),
+                "extra": sorted(actual - expected),
+            })
+    for field in ("article_hashes", "reference_hashes"):
+        values = article_hashes if field == "article_hashes" else reference_hashes
+        for rel, expected in values.items():
+            path = ROOT / rel
+            actual = (hashlib.sha256(path.read_bytes()).hexdigest()
+                      if path.exists() else None)
+            if actual != expected:
+                mismatches.append({"field": field, "path": rel,
+                                   "expected": expected, "actual": actual})
+    selection = config.get("selection") or {}
+    if selection.get("selected") != len(articles):
+        mismatches.append({"field": "selection.selected",
+                           "expected": len(articles),
+                           "actual": selection.get("selected")})
+    rows = []
+    if not mismatches:
+        for article_path in sorted(articles):
+            ref_path = reference_path_for(config, article_path)
+            reference = json.loads((ROOT / ref_path).read_text(encoding="utf-8"))
+            rows.append({
+                "article_path": article_path,
+                "reference_path": ref_path,
+                "category": next((topic.get("category")
+                                  for topic in reference.get("topics") or []
+                                  if isinstance(topic, dict)
+                                  and topic.get("primary")), None),
+                "article_sha256": article_hashes[article_path],
+                "reference_sha256": reference_hashes[ref_path],
+                "party_tone_pairs": len(reference.get("party_tones") or []),
+            })
+        actual_selection = canonical_sha256(rows)
+        if selection.get("selection_sha256") != actual_selection:
+            mismatches.append({"field": "selection.selection_sha256",
+                               "expected": selection.get("selection_sha256"),
+                               "actual": actual_selection})
+    return mismatches
+
+
+def benchmark_contract(config_path: Path, config: dict, models: list[str],
+                       assets: dict, prompts: dict[str, str], args,
+                       is_local: bool) -> dict:
+    """Everything that makes raw replies comparable within one run."""
+    target = args.url
+    parsed = urlparse(target)
+    is_openrouter = (parsed.hostname or "").lower() == "openrouter.ai"
+    thinking = os.environ.get("NEWS_LLM_THINKING") == "1"
+    reasoning = None
+    if is_openrouter and not thinking:
+        reasoning = {"effort": (os.environ.get("NEWS_LLM_REASONING_EFFORT")
+                                or "none").strip(), "exclude": True}
+    return {
+        "version": 1,
+        "config_path": str(config_path.relative_to(ROOT)),
+        "config_sha256": sha256_bytes(config_path.read_bytes()),
+        "selection_sha256": (config.get("selection") or {}).get(
+            "selection_sha256"),
+        "models": models,
+        "prompt_assets": analyze_local.prompt_asset_provenance(assets),
+        "user_prompt_sha256": {
+            path: analyze_local.sha256_text(prompt)
+            for path, prompt in sorted(prompts.items())
+        },
+        "request": {
+            "endpoint": target,
+            "endpoint_origin": f"{parsed.scheme}://{parsed.netloc}",
+            "endpoint_class": ("openrouter" if is_openrouter else
+                               "local" if is_local else "remote"),
+            "max_tokens": args.max_tokens,
+            "temperature": 0.2,
+            "timeout_seconds": args.timeout,
+            "thinking_enabled": thinking,
+            "reasoning": reasoning,
+            "provider_routing": ({"require_parameters": True}
+                                 if is_openrouter else None),
+            "transport_attempt_limit": llm_client.MAX_ATTEMPTS,
+            "grammar_enabled": is_local,
+            "strict_json_schema": True,
+        },
+        "reference_kind": config.get("reference_kind"),
+        "score_mentions": bool(config.get("score_mentions", False)),
+    }
+
+
+def prepare_run_manifest(out: Path, contract: dict,
+                         resume: bool) -> tuple[str, str | None]:
+    """Create or verify the immutable contract for one output directory."""
+    manifest_path = out / "run_manifest.json"
+    digest = canonical_sha256(contract)
+    existing_files = list(out.rglob("*")) if out.exists() else []
+    if manifest_path.exists():
+        try:
+            existing = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as exc:
+            return digest, f"unreadable_run_manifest: {exc}"
+        if existing != contract:
+            return digest, "run_manifest_mismatch"
+        if existing_files and not resume:
+            return digest, "output_exists_use_resume_or_new_out"
+        return digest, None
+    if existing_files:
+        return digest, "legacy_or_unmanifested_output_refused"
+    write_json(manifest_path, contract)
+    return digest, None
+
+
+def resumed_answer_error(answer: dict, contract_sha: str,
+                         user_prompt_sha: str, requested_model: str,
+                         expected_request: dict) -> str | None:
+    benchmark = answer.get("benchmark") or {}
+    if benchmark.get("contract_sha256") != contract_sha:
+        return "contract_sha256_mismatch"
+    if benchmark.get("user_prompt_sha256") != user_prompt_sha:
+        return "user_prompt_sha256_mismatch"
+    if benchmark.get("requested_model") != requested_model:
+        return "requested_model_mismatch"
+    request = answer.get("request") or {}
+    for key, expected in expected_request.items():
+        if request.get(key) != expected:
+            return f"request_{key}_mismatch"
+    return None
+
+
+def resumed_row(article_path: str, answer: dict,
+                errors: list) -> dict:
+    """Reconstruct a row without relabeling final-attempt time as wall time."""
+    return {
+        "article_path": article_path,
+        "status": "valid" if not errors else "rejected",
+        "elapsed_s": answer.get("transport_elapsed_s"),
+        "final_attempt_elapsed_s": answer.get(
+            "attempt_elapsed_s", answer.get("elapsed_s")),
+        "attempts": answer.get("attempts"),
+        "usage": answer.get("usage"),
+        "served_model": answer.get("model"),
+        "errors": errors,
+        "resumed_from_raw": True,
+    }
 
 
 def analysis_path(article_path: str) -> Path:
@@ -135,6 +331,10 @@ def main() -> int:
 
     config_path = ROOT / args.config
     config = json.loads(config_path.read_text(encoding="utf-8"))
+    if mismatches := verify_frozen_inputs(config):
+        print(json.dumps({"error": "frozen_input_hash_mismatch",
+                          "mismatches": mismatches}, ensure_ascii=False))
+        return 2
     models = args.models or config["models"]
     configured_reference = config.get("reference_dir")
     reference_kind = config.get(
@@ -174,6 +374,7 @@ def main() -> int:
     ref_dir = out / "reference"
 
     items = []
+    prompts = {}
     for article_path in config["articles"]:
         article = json.loads((ROOT / article_path).read_text(encoding="utf-8"))
         code, queue = analyze_local.run_analyze("--redo", article_path)
@@ -189,16 +390,30 @@ def main() -> int:
             print(json.dumps({"error": "missing_reference",
                               "article": article_path}))
             return 2
-        write_json(ref_dir / item["domain"] / Path(article_path).name,
+        prompt = analyze_local.build_user_prompt(
+            article, item.get("mentions") or [], assets["taxonomy"])
+        prompts[item["path"]] = prompt
+        items.append((item, article, ref, prompt))
+
+    contract = benchmark_contract(
+        config_path, config, models, assets, prompts, args, is_local)
+    contract_sha, manifest_error = prepare_run_manifest(
+        out, contract, args.resume)
+    if manifest_error:
+        print(json.dumps({"error": "benchmark_run_manifest_refused",
+                          "detail": manifest_error, "output": str(out)},
+                         ensure_ascii=False))
+        return 2
+    for item, _article, ref, _prompt in items:
+        write_json(ref_dir / item["domain"] / ref.name,
                    json.loads(ref.read_text(encoding="utf-8")))
-        items.append((item, article))
 
     model_reports = []
     for model in models:
         model_dir = out / "models" / safe_name(model)
         hyp_dir = model_dir / "analyses"
         rows = []
-        for item, article in items:
+        for item, article, _ref, prompt in items:
             # The frozen samples are necessarily REDO items, so their queue
             # records can carry a story_id from the reference analysis.
             # Keeping that old clustering decision makes a model response
@@ -208,8 +423,13 @@ def main() -> int:
             # prior story to preserve. Story clustering is deterministic and
             # deliberately outside this model eval, so remove that state.
             eval_item = {**item, "story_id": None}
-            prompt = analyze_local.build_user_prompt(
-                article, item.get("mentions") or [], assets["taxonomy"])
+            prompt_sha = contract["user_prompt_sha256"][item["path"]]
+            _target, _body, expected_request = llm_client.prepare_request(
+                assets["system"], prompt, model=model,
+                grammar=assets["grammar"] if is_local else None,
+                json_schema=assets["json_schema"],
+                max_tokens=args.max_tokens, temperature=0.2,
+                max_attempts=llm_client.MAX_ATTEMPTS, url=args.url)
             started = time.monotonic()
             raw_path = (model_dir / "raw" / item["domain"]
                         / Path(item["path"]).name)
@@ -217,6 +437,14 @@ def main() -> int:
             try:
                 if args.resume and raw_path.exists():
                     answer = json.loads(raw_path.read_text(encoding="utf-8"))
+                    if error := resumed_answer_error(
+                            answer, contract_sha, prompt_sha, model,
+                            expected_request):
+                        print(json.dumps({
+                            "error": "resume_raw_contract_mismatch",
+                            "detail": error, "raw": str(raw_path),
+                        }, ensure_ascii=False))
+                        return 2
                     record = analyze_local.record_from(
                         eval_item, article, answer, model, taxonomy_version,
                         item.get("mentions") or [])
@@ -227,17 +455,7 @@ def main() -> int:
                     hyp_path.unlink(missing_ok=True)
                     if not errors:
                         write_json(hyp_path, record)
-                    rows.append({
-                        "article_path": item["path"],
-                        "status": "valid" if not errors else "rejected",
-                        "elapsed_s": answer.get("elapsed_s"),
-                        "final_attempt_elapsed_s": answer.get("elapsed_s"),
-                        "attempts": answer.get("attempts"),
-                        "usage": answer.get("usage"),
-                        "served_model": answer.get("model"),
-                        "errors": errors,
-                        "resumed_from_raw": True,
-                    })
+                    rows.append(resumed_row(item["path"], answer, errors))
                     continue
                 # OpenRouter does not expose llama.cpp GBNF. Strict JSON
                 # Schema is the equivalent contract for endpoints that list
@@ -249,6 +467,14 @@ def main() -> int:
                     max_tokens=args.max_tokens, timeout=args.timeout,
                     url=args.url)
                 wall_elapsed = round(time.monotonic() - started, 2)
+                answer["benchmark"] = {
+                    "contract_sha256": contract_sha,
+                    "user_prompt_sha256": prompt_sha,
+                    "requested_model": model,
+                }
+                if answer.get("request") != expected_request:
+                    raise RuntimeError(
+                        "llm_client request metadata drifted after preparation")
                 write_json(raw_path, answer)
                 record = analyze_local.record_from(
                     eval_item, article, answer, model, taxonomy_version,
@@ -295,6 +521,8 @@ def main() -> int:
                 "median": round(statistics.median(latencies), 2) if latencies else None,
                 "p90": percentile(latencies, .9),
                 "total": round(sum(latencies), 2),
+                "reported_rows": len(latencies),
+                "attempted_rows": len(rows),
             },
             "reference_agreement": score(
                 ref_dir, hyp_dir, score_mentions=score_mentions) if valid else None,
@@ -308,6 +536,7 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "config": str(config_path.relative_to(ROOT)),
         "output": str(out),
+        "run_contract_sha256": contract_sha,
         "reference_kind": reference_kind,
         "accuracy_warning": (
             "Scores are against the repository's completed adjudicated gold "

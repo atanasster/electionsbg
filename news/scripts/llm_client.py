@@ -92,6 +92,64 @@ def request_headers(target: str) -> dict:
     return headers
 
 
+def prepare_request(system: str, user: str, *, model: str,
+                    grammar: str | None = None,
+                    json_schema: dict | None = None,
+                    max_tokens: int = 2048,
+                    temperature: float = 0.2,
+                    max_attempts: int = MAX_ATTEMPTS,
+                    url: str | None = None) -> tuple[str, bytes, dict]:
+    """Build the exact request body and auditable metadata without sending it."""
+    if max_attempts < 1:
+        raise ValueError("max_attempts must be at least 1")
+    payload = {
+        "model": model,
+        "messages": [{"role": "system", "content": system},
+                     {"role": "user", "content": user}],
+        "max_tokens": max_tokens,
+        # Low, not zero: greedy constrained decoding can lock into repetition.
+        "temperature": temperature,
+        "stream": False,
+    }
+    if os.environ.get("NEWS_LLM_THINKING") != "1":
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
+    if grammar:
+        payload["grammar"] = grammar
+    if json_schema:
+        payload["response_format"] = {
+            "type": "json_schema",
+            "json_schema": {"name": "analysis", "strict": True,
+                            "schema": json_schema},
+        }
+    # This guard must apply to explicit url= callers too: the body contains
+    # the full article text.
+    target = check_local(url) if url else endpoint()
+    target_host = (urlparse(target).hostname or "").lower()
+    if target_host == "openrouter.ai":
+        if json_schema:
+            payload["provider"] = {"require_parameters": True}
+        if os.environ.get("NEWS_LLM_THINKING") != "1":
+            effort = (os.environ.get("NEWS_LLM_REASONING_EFFORT") or
+                      "none").strip()
+            payload["reasoning"] = {"effort": effort, "exclude": True}
+    # Encode only after endpoint-specific controls are added.
+    body = json.dumps(payload).encode("utf-8")
+    request_meta = {
+        "body_sha256": "sha256:" + hashlib.sha256(body).hexdigest(),
+        "endpoint_class": ("openrouter" if target_host == "openrouter.ai"
+                           else "local" if target_host in LOCAL_HOSTS
+                           else "remote"),
+        "endpoint_origin": f"{urlparse(target).scheme}://{urlparse(target).netloc}",
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+        "thinking_enabled": os.environ.get("NEWS_LLM_THINKING") == "1",
+        "reasoning": payload.get("reasoning"),
+        "provider_routing": payload.get("provider"),
+        "transport_attempt_limit": max_attempts,
+    }
+    return target, body, request_meta
+
+
 def complete(system: str, user: str, *, model: str,
              grammar: str | None = None,
              json_schema: dict | None = None,
@@ -122,85 +180,10 @@ def complete(system: str, user: str, *, model: str,
     that does not understand the field ignores it, so this is safe to send
     to llama.cpp, LM Studio and Ollama alike.
     """
-    if max_attempts < 1:
-        raise ValueError("max_attempts must be at least 1")
-    payload = {
-        "model": model,
-        "messages": [{"role": "system", "content": system},
-                     {"role": "user", "content": user}],
-        "max_tokens": max_tokens,
-        # ⚠️ Low, not zero. Greedy decoding on a constrained grammar can lock
-        # into a repetition the grammar permits; a little temperature is the
-        # cheapest way out and costs nothing on a judgment task where the
-        # grammar already bounds the shape.
-        "temperature": temperature,
-        "stream": False,
-    }
-    if os.environ.get("NEWS_LLM_THINKING") != "1":
-        payload["chat_template_kwargs"] = {"enable_thinking": False}
-    if grammar:
-        payload["grammar"] = grammar
-    if json_schema:
-        # ⚠️ THE OTHER WAY TO SAY THE SAME THING, for a provider with no
-        # GBNF. llama.cpp takes `grammar`; OpenRouter and the OpenAI-shaped
-        # APIs take `response_format` — so a run against a hosted model has
-        # no constraint at all unless this is sent, and an unconstrained
-        # model invents its own schema rather than failing (measured:
-        # `status`, `political_bias`, `party_sentiment` where the rubric asks
-        # for `quality`, `leaning`, `party_tones`).
-        #
-        # ⚠️ `strict: true` is what makes it a CONSTRAINT rather than a hint.
-        # Without it a provider treats the schema as advisory and the reply
-        # is unconstrained again — indistinguishable, in the payload, from a
-        # provider that never supported it.
-        payload["response_format"] = {
-            "type": "json_schema",
-            "json_schema": {"name": "analysis", "strict": True,
-                            "schema": json_schema},
-        }
-    # ⚠️ THE GUARD APPLIES TO `url=` TOO. `url or endpoint()` let a caller
-    # pass a remote address directly and bypass the localhost check entirely
-    # — the whole protection on a client that posts the full text of every
-    # article we hold.
-    target = check_local(url) if url else endpoint()
-    target_host = (urlparse(target).hostname or "").lower()
-    if target_host == "openrouter.ai":
-        # OpenRouter otherwise may choose a provider endpoint that silently
-        # ignores response_format even when the model page lists it. Their
-        # documented routing guard makes support a requirement, not a hint.
-        if json_schema:
-            payload["provider"] = {"require_parameters": True}
-        # The local-server chat-template flag above is not an OpenRouter API
-        # control. Without its unified reasoning setting, small reasoning
-        # models can spend all 2048 output tokens thinking and return no
-        # content. `none` is preferred; providers that cannot disable it map
-        # to their smallest supported budget. Reasoning is never requested
-        # back because it is not an analysis artifact.
-        if os.environ.get("NEWS_LLM_THINKING") != "1":
-            # Some OpenRouter endpoints advertise reasoning controls but
-            # reject `none` because reasoning is mandatory (measured on both
-            # GPT-OSS sizes). Let a benchmark request their cheapest accepted
-            # tier explicitly while preserving `none` as the ordinary default.
-            effort = (os.environ.get("NEWS_LLM_REASONING_EFFORT") or
-                      "none").strip()
-            payload["reasoning"] = {"effort": effort, "exclude": True}
-    # Encode only after endpoint-specific controls are added. Encoding above
-    # this block makes the payload mutations look right in a code review but
-    # sends neither of them — caught by test_openrouter_requires_schema_*.
-    body = json.dumps(payload).encode("utf-8")
-    request_meta = {
-        "body_sha256": "sha256:" + hashlib.sha256(body).hexdigest(),
-        "endpoint_class": ("openrouter" if target_host == "openrouter.ai"
-                           else "local" if target_host in LOCAL_HOSTS
-                           else "remote"),
-        "endpoint_origin": f"{urlparse(target).scheme}://{urlparse(target).netloc}",
-        "max_tokens": max_tokens,
-        "temperature": temperature,
-        "thinking_enabled": os.environ.get("NEWS_LLM_THINKING") == "1",
-        "reasoning": payload.get("reasoning"),
-        "provider_routing": payload.get("provider"),
-        "transport_attempt_limit": max_attempts,
-    }
+    target, body, request_meta = prepare_request(
+        system, user, model=model, grammar=grammar, json_schema=json_schema,
+        max_tokens=max_tokens, temperature=temperature,
+        max_attempts=max_attempts, url=url)
 
     last = None
     request_started = time.monotonic()
