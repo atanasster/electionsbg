@@ -974,9 +974,13 @@ first, then re-run the orchestrator.
                                               #   the ~29 min cloud resolve, not a 5 min one.
    npm run db:load:declarations:pg:cloud       # phase 1 — rewrites subject_ref AND is what the
                                                #   resolve reads for the register gold key
-   npm run db:resolve:persons:cloud            # 1733 s (28.9 min) measured 2026-08-11 on a
-                                               #   49,627-filing corpus; the "~5 min, 2026-08-05"
-                                               #   this line used to claim was 5.8x optimistic
+   npm run db:resolve:persons:cloud            # 7m 35s measured 2026-08-29 on
+                                               #   db-perf-optimized-N-2 (61,743 filings).
+                                               #   Earlier figures on this line — "~5 min"
+                                               #   (2026-08-05) then 1733 s / 28.9 min
+                                               #   (2026-08-11, db-g1-small) — are both
+                                               #   superseded; the second over-stated by ~4x
+                                               #   and was used to argue against running it.
    # AFTER the resolve — 115 drops person_role.place, taking the municipal roster matview with it
    npm run db:load:declarations:pg:cloud -- --resolve   # re-applies 102, rebuilds that matview
 npm run db:load:employer-links:pg:cloud     # 165+168 — a pure derivation over

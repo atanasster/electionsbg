@@ -1356,7 +1356,12 @@ Phase 2 is not optional even though nothing here reads `person_id`: phase 1 TRUN
 two commands works and costs a measured **~8 minutes of 500s** on `/persons`,
 `/officials/assets`, `/mp-assets` and `/declarations/crypto` (phase 1 NULLs every
 `person_id`; phase 2 runs 090's `DROP MATERIALIZED VIEW … CASCADE`, and a DbDataTable
-resource has no `missingMigration` degrade). The values are derived from immutable filings,
+resource has no `missingMigration` degrade). **Re-measured 2026-08-29 on
+`db-perf-optimized-N-2`, 61,743 filings: phase 1 = 39 s, phase 2 = 4m52s** — so the PAIR is
+~5m30s of loader wall-clock. ⚠️ That is the loaders' runtime, NOT a re-measurement of the
+outage: nothing polled the four pages during that run, so the ~8-minute figure above stands
+un-rechecked. Note the window is bounded by the pair only when nothing runs BETWEEN them —
+insert a resolve, as the person chain does, and the degraded span is the whole span. The values are derived from immutable filings,
 so they are identical whichever database computes them — the `ship_filed_position.ts`
 argument — and `scripts/db/ship_held_abroad.ts` writes them into the rows already there:
 
@@ -1501,7 +1506,8 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg npx tsx scripts/db/a
 Measured: 21.8 s local, **8m02s on Cloud SQL**, during which `/persons`, `/officials/assets`
 and `/declarations/crypto` answer **500** — DbDataTable resources have no `missingMigration`
 degrade. Off-peak only. Prefer `db:load:declarations:pg:cloud -- --resolve` (which applies the
-same files in its own order) unless the CASCADE dependents have been resolved against the
+same files in its own order — **measured 4m52s on `db-perf-optimized-N-2`, 2026-08-29**, i.e.
+about half the hand-run apply above) unless the CASCADE dependents have been resolved against the
 TARGET database, which is what makes the short command safe.
 
 **⚠️ After SHIPPING VALUES, refresh — do NOT re-apply.** Only three matviews read
@@ -3618,9 +3624,11 @@ graph edges — and `person_slug_retired` diverges in BOTH directions: 849 slugs
 cloud, and 533 shared slugs pointing at DIFFERENT targets. Since
 `db:resolve:persons:cloud` re-mints against prod's own accumulated lock table and cannot
 import local's identity decisions, running it would churn `/person` URLs without converging
-anything — at the cost of a ~37 min resolve plus the declarations phase-1/phase-2 and council
+anything — at the cost of the resolve plus the declarations phase-1/phase-2 and council
 re-attach chain, during which 090's CASCADE leaves `/persons`, `/officials/assets`,
-`/mp-assets` and `/declarations/crypto` at 500 for ~8 minutes. Prod is self-consistent on its
+`/mp-assets` and `/declarations/crypto` at 500. ⚠️ **The runtime half of that argument is
+dead: the resolve is 7m35s, not the ~37 min this paragraph used to quote** (measured
+2026-08-29 — see below). What survives is the CASCADE outage and the churn, not the cost. Prod is self-consistent on its
 own terms, which is the bar that matters: `person_slug_retired` = 24,910 rows, **0** without
 a target, **0** targets missing from `person`, **0** chains.
 
@@ -3679,9 +3687,30 @@ Three things keep it benign, and the first is the one worth checking rather than
   is what `graph_company_node` denormalizes — is **81,474 rows on BOTH** databases. The
   divergence is in the person↔company edge set from resolve history, never in the money.
 
-⚠️ **Do not read the "~37 min" above as current** — it was measured 2026-08-11, before
-the 2026-08-22 box upgrade, and the two other figures re-measured on 2026-08-27 came in 7.5× and
-10.5× faster. The 8-minute CASCADE outage is the argument that survives, not the runtime.
+⚠️ **THE WHOLE CHAIN WAS RE-MEASURED 2026-08-29 on `db-perf-optimized-N-2`** (61,743
+filings, 1,023,014-company TR corpus), end to end in manifest order — **18m14s for all 13
+steps**, against the ~37 min this section used to quote for the resolve ALONE. The old
+figure was measured 2026-08-11 on the retired `db-g1-small`; it over-stated by ~4×, and it
+was being used as a reason not to run the chain:
+
+| step | 2026-08-29 |
+| --- | --- |
+| `db:resolve:persons:cloud` | **7m 35s** (was 1733 s / 28.9 min on `db-g1-small`) |
+| `db:load:declarations:pg:cloud -- --resolve` | 4m 52s |
+| `db:load:person-search:pg:cloud` | 1m 23s |
+| `db:load:person-elections:pg:cloud` | 1m 18s |
+| `db:load:persons-browse:pg:cloud` | 56s |
+| `db:load:graph:pg:cloud` | 44s |
+| `db:load:declarations:pg:cloud` (phase 1) | 39s |
+| `db:load:tr-company-place:pg:cloud` | 28s |
+| `db:load:tr-name-fold-people:pg:cloud` | 7s |
+| `place-dim` / `judicial-bodies` / `official-candidate-links` / `person:slugs:cloud` | 2–3s each |
+
+**The CASCADE outage is what survives as an argument, not the runtime** — and note it was
+NOT re-measured: nothing polled the four pages during the run. What IS verified is that they
+were healthy afterwards (`persons`, `crypto_holdings`, `abroad_holdings`,
+`officials_rankings` all HTTP 200), that phase 1 carried `filed_position`/`filed_institution`
+for **61,743/61,743** filings, and that phase 2 left **0/61,743** `person_id` NULL.
 **Trigger to actually run it:** an input to the person layer moves (`cacbg_officials`/`cacbg_local`
 — phase 1 FIRST, `ivss_declarations`, `cik_results`, `erik_campaign_financing`, or a curated
 sanctions/ДС/regulator edit), or cloud `person_role` at tr/ngo drifts past ~1% of local (~2,000
