@@ -53,6 +53,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             (("--articles-per-source",), "--articles-per-source requires N"),
             (("--browser-timeout", "slow"),
              "--browser-timeout must be a non-negative integer"),
+            (("--run-id",), "--run-id requires ID"),
+            (("--run-id", "bad/id"), "--run-id must contain only"),
         ):
             with self.subTest(args=args):
                 proc = self.run_runner(*args)
@@ -66,7 +68,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             first = self.run_runner_at(
                 runner, "--dry-run", "--articles-per-source", "3",
                 "--browser-timeout", "15", "--workers", "4",
-                "--schema-retries", "1", "--skip-browser")
+                "--schema-retries", "1", "--skip-browser",
+                "--run-id", "wrapper-test")
             second = self.run_runner_at(runner, "--dry-run")
             self.assertEqual(first.returncode, 0, first.stderr)
             self.assertEqual(second.returncode, 0, second.stderr)
@@ -80,6 +83,15 @@ class NightlyRunnerContractTests(unittest.TestCase):
                                     for s in data["stages"]))
                 self.assertEqual(data["acquisition"]["direct"]["skipped"], "dry_run")
                 self.assertEqual(data["acquisition"]["browser"]["skipped"], "dry_run")
+            first_report = __import__("json").loads(
+                (root / "news/data/_nightly/wrapper-test.json").read_text(
+                    encoding="utf-8"))
+            self.assertEqual(first_report["run_id"], "wrapper-test")
+
+            reused = self.run_runner_at(
+                runner, "--dry-run", "--run-id", "wrapper-test")
+            self.assertEqual(reused.returncode, 2)
+            self.assertIn("artifact already exists", reused.stderr)
 
     def test_live_owner_lock_skips_before_any_stage_starts(self):
         with tempfile.TemporaryDirectory() as temp:

@@ -12,7 +12,7 @@
 # than ending at the first one. Each stage records its own exit code instead.
 #
 # Usage:  news/scripts/run_nightly.sh [--limit N] [--model NAME]
-#          [--workers N] [--schema-retries 0|1] [--dry-run]
+#          [--workers N] [--schema-retries 0|1] [--run-id ID] [--dry-run]
 set -uo pipefail
 
 cd "$(dirname "$0")/../.." || exit 2
@@ -39,6 +39,7 @@ BROWSER_TIMEOUT=${NEWS_BROWSER_TIMEOUT:-600}
 STAGE_TIMEOUT=${NEWS_STAGE_TIMEOUT:-7200}
 SKIP_BROWSER=0
 DRY=0
+REQUESTED_RUN_ID=""
 require_uint() {
   case ${2:-} in
     *[!0-9]*|"") echo "$1 must be a non-negative integer" >&2; exit 2 ;;
@@ -88,6 +89,16 @@ while [ $# -gt 0 ]; do
       require_uint "--stage-timeout" "$2"
       STAGE_TIMEOUT=$2; shift 2
       ;;
+    --run-id)
+      [ "$#" -ge 2 ] || { echo "--run-id requires ID" >&2; exit 2; }
+      case $2 in
+        ""|*[!A-Za-z0-9._-]*)
+          echo "--run-id must contain only letters, digits, dot, underscore, or dash" >&2
+          exit 2
+          ;;
+      esac
+      REQUESTED_RUN_ID=$2; shift 2
+      ;;
     --dry-run) DRY=1; shift ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
@@ -103,7 +114,7 @@ case $SCHEMA_RETRIES in
 esac
 
 STAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-RUN_ID="$(date -u +%Y-%m-%dT%H%M%SZ)-$$"
+RUN_ID=${REQUESTED_RUN_ID:-"$(date -u +%Y-%m-%dT%H%M%SZ)-$$"}
 OUT_DIR="$ROOT/news/data/_nightly"
 mkdir -p "$OUT_DIR"
 LOCK_DIR="$OUT_DIR/pipeline.lock"
@@ -160,6 +171,13 @@ trap 'release_lock; exit 130' HUP INT TERM
 REPORT="$OUT_DIR/$RUN_ID.json"
 DIRECT_SUMMARY="$OUT_DIR/$RUN_ID.direct.jsonl"
 BROWSER_SUMMARY="$OUT_DIR/$RUN_ID.browser.jsonl"
+for artifact in "$REPORT" "$DIRECT_SUMMARY" "$BROWSER_SUMMARY" \
+                "$OUT_DIR/$RUN_ID.stages.jsonl"; do
+  if [ -e "$artifact" ]; then
+    echo "run artifact already exists: $artifact" >&2
+    finish 2
+  fi
+done
 STAGES_EXPECTED=9
 REPORT_INTEGRITY_FAILED=0
 LAST_STAGE_NAME=""
@@ -321,7 +339,7 @@ fi
 # heredoc replaced the file as stdin, the reader saw the script text instead
 # of the stages, and the report said `stages_run: 0` while a perfectly good
 # stages file sat next to it.
-STAMP="$STAMP" REPORT="$REPORT" STAGES="$STAGES" \
+STAMP="$STAMP" RUN_ID="$RUN_ID" REPORT="$REPORT" STAGES="$STAGES" \
 DIRECT_SUMMARY="$DIRECT_SUMMARY" BROWSER_SUMMARY="$BROWSER_SUMMARY" python3 - <<'PYEOF'
 import json, os
 stamp, dest = os.environ["STAMP"], os.environ["REPORT"]
@@ -329,6 +347,7 @@ with open(os.environ["STAGES"], encoding="utf-8") as fh:
     stages = [json.loads(line) for line in fh if line.strip()]
 failed = [s["stage"] for s in stages if s["exit"] != 0]
 report = {
+    "run_id": os.environ["RUN_ID"],
     "generated_at": stamp,
     "stages": stages,
     "failed_stages": failed,
