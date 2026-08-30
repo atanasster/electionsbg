@@ -1,12 +1,12 @@
 {
-  "detail": "статистика: няма · дело №1: няма запис · номенклатури 4d2ef77a1a374f1e",
-  "fingerprint": "stats:absent register:empty schema:4d2ef77a1a374f1e",
-  "lastChanged": "2026-08-18T06:08:36.914Z",
-  "lastChecked": "2026-08-24T21:36:43.386Z",
+  "detail": "статистика: публикувана (16775B) · дело №1: няма запис · номенклатури 4d2ef77a1a374f1e",
+  "fingerprint": "stats:present register:empty schema:4d2ef77a1a374f1e",
+  "lastChanged": "2026-08-30T21:39:24.467Z",
+  "lastChecked": "2026-08-30T21:39:24.467Z",
   "meta": {
-    "statistics": "absent",
-    "statsBytes": 0,
-    "statsHash": null,
+    "statistics": "present",
+    "statsBytes": 16775,
+    "statsHash": "c02f02d500696357",
     "register": "empty",
     "schema": "4d2ef77a1a374f1e"
   }
