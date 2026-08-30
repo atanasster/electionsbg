@@ -1,12 +1,46 @@
 {
-  "updatedAt": "2026-08-30T02:50:59.324Z",
+  "updatedAt": "2026-08-30T23:57:57.478Z",
   "entries": [
     {
-      "timestamp": "2026-08-30T02:50:59.324Z",
+      "timestamp": "2026-08-30T23:57:57.478Z",
       "date": "2026-08-30",
       "skill": "update-prices",
-      "summary": "КЗП retail prices refreshed through 2026-08-29 (+1 daily archive; 1,162,897 store rows, 169 settlements, 84 chains)",
+      "summary": "КЗП retail prices refreshed through 2026-08-30 (+1 daily archive; 1,027,847 store rows, 169 settlements, 85 chains)",
       "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-08-30T23:52:02.109Z",
+      "date": "2026-08-30",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: +18 complaints for 2026 (8025 total)",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-08-30T23:47:56.786Z",
+      "date": "2026-08-30",
+      "skill": "update-procurement",
+      "summary": "eop_procurement: +20 EOP rows / 11 buyers, tenders 238,304 (+222); corpus 407,685 shard rows == PG, €93.99bn; geo map 2180 stable",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-08-30T23:34:55.560Z",
+      "date": "2026-08-30",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 65 119 лица, 125 085 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-08-30T22:40:34.815Z",
+      "date": "2026-08-30",
+      "skill": "update-macro",
+      "summary": "bnb_auctions: +1 domestic ДЦК auction 2026-08-24 (€95M 10y, 4.39% yield) — 67 auctions total",
+      "source": "BNB domestic ДЦК auctions",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
     },
     {
       "timestamp": "2026-08-30T01:38:17.551Z",
@@ -34,13 +68,6 @@
       "skill": "update-procurement",
       "summary": "ЦАИС ЕОП self-heal: 96 нови договора от 57 възложителя; 238 303 процедури; корпус 404 194 договора, €93,99 млрд.",
       "source": "ЦАИС ЕОП (storage.eop.bg)"
-    },
-    {
-      "timestamp": "2026-08-30T01:15:47.110Z",
-      "date": "2026-08-30",
-      "skill": "update-persons",
-      "summary": "Профилите на публичните лица преизчислени — 65 119 лица, 125 085 длъжности",
-      "source": "Регистър на лицата (обединена самоличност)"
     },
     {
       "timestamp": "2026-08-29T00:31:47.918Z",

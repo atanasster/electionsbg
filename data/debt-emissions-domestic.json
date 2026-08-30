@@ -1,10 +1,26 @@
 {
-  "fetchedAt": "2026-07-29T12:16:34.141Z",
+  "fetchedAt": "2026-08-30T22:40:11.480Z",
   "country": "BG",
   "source": {
     "bnbAuctions": "https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm"
   },
   "emissions": [
+    {
+      "id": "BG-2026-08-24-218",
+      "market": "domestic",
+      "type": "treasury_bond",
+      "bnbEmissionNumber": "BG 20 400 26 218",
+      "issueDate": "2026-08-24",
+      "maturityDate": "2036-02-11",
+      "termYears": 10,
+      "currency": "EUR",
+      "principalMillion": 95.003,
+      "couponPct": 3.5,
+      "settlementYieldPct": 4.39,
+      "titleEn": "€95M 10y domestic",
+      "titleBg": "€95M, 10y ДЦК",
+      "notes": "BNB auction 2026-08-24; reopening of emission originally issued 2026-02-11"
+    },
     {
       "id": "BG-2026-07-27-119",
       "market": "domestic",
