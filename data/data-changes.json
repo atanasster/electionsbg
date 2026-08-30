@@ -1,6 +1,47 @@
 {
-  "updatedAt": "2026-08-29T00:31:47.918Z",
+  "updatedAt": "2026-08-30T01:44:29.447Z",
   "entries": [
+    {
+      "timestamp": "2026-08-30T01:44:29.447Z",
+      "date": "2026-08-30",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-08-29 (+1 daily archive; 1,162,897 store rows, 169 settlements, 84 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-08-30T01:38:17.551Z",
+      "date": "2026-08-30",
+      "skill": "update-council-minutes",
+      "summary": "Решения на общински съвети — 19 нови решения от Разград; общо 4832 решения и 46 121 поименни гласувания",
+      "source": "Протоколи на общинските съвети"
+    },
+    {
+      "timestamp": "2026-08-30T01:28:43.251Z",
+      "date": "2026-08-30",
+      "skill": "update-macro",
+      "summary": "Макроикономически показатели обновени — оборот в търговията на дребно до Q2 2026 г.",
+      "source": "Eurostat (макро показатели за България)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-30T01:27:47.135Z",
+      "date": "2026-08-30",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП self-heal: 96 нови договора от 57 възложителя; 238 303 процедури; корпус 404 194 договора, €93,99 млрд.",
+      "source": "ЦАИС ЕОП (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-08-30T01:15:47.110Z",
+      "date": "2026-08-30",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 65 119 лица, 125 085 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-08-29T00:31:47.918Z",
       "date": "2026-08-29",

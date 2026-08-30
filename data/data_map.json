@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-28T22:59:48.087Z",
+  "generatedAt": "2026-08-30T01:45:16.334Z",
   "nodes": [
     {
       "id": "src:water",
@@ -410,7 +410,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-28T21:39:23.265Z",
+      "freshness": "2026-08-29T21:39:24.345Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -432,7 +432,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-08-28T21:39:23.265Z"
+          "freshness": "2026-08-29T21:39:24.345Z"
         },
         {
           "id": "egov_budget_execution",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-28T21:39:23.265Z",
+      "freshness": "2026-08-29T21:39:24.345Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-28T21:39:23.265Z"
+          "freshness": "2026-08-29T21:39:24.345Z"
         }
       ],
       "x": 28,
@@ -1050,7 +1050,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-26T22:43:35.855Z",
+      "freshness": "2026-08-29T21:39:24.345Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1069,7 +1069,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-08-26T22:43:35.855Z"
+          "freshness": "2026-08-29T21:39:24.345Z"
         },
         {
           "id": "municipal_naredba",
@@ -1259,7 +1259,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-28T21:39:23.265Z",
+      "freshness": "2026-08-29T21:39:24.345Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1271,7 +1271,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-28T21:39:23.265Z"
+          "freshness": "2026-08-29T21:39:24.345Z"
         },
         {
           "id": "eurostat_policy",
@@ -1586,7 +1586,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-28T21:39:23.265Z",
+      "freshness": "2026-08-29T21:39:24.345Z",
       "skills": [
         "update-prices"
       ],
@@ -1596,7 +1596,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-28T21:39:23.265Z"
+          "freshness": "2026-08-29T21:39:24.345Z"
         }
       ],
       "x": 28,

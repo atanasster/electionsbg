@@ -1,0 +1,43 @@
+{
+  "session": "20260830T001251Z-e296",
+  "createdAt": "2026-08-30T01:46:59.155Z",
+  "skills": [
+    "tr-daily-refresh",
+    "update-procurement",
+    "update-macro",
+    "update-council-minutes",
+    "update-prices"
+  ],
+  "paths": [
+    "administration",
+    "culture",
+    "governance",
+    "macro.json",
+    "data_map.json",
+    "data-changes.json",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run db:load:council:pg:cloud",
+    "npm run prices:ingest:cloud",
+    "npm run myarea:alerts:cloud"
+  ],
+  "notes": "TR daily + ЦАИС ЕОП gap-fill (96 rows) + macro retail Q2 + RAZ26 council +19 + prices 2026-08-29"
+}
