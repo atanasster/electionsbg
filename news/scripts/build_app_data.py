@@ -698,7 +698,7 @@ def home_gzip_size(payload: bytes) -> int:
 
 
 def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Choose a breadth-first lead, then recent support, without orphan rows."""
+    """Choose the newest eligible stories first, without orphan article rows."""
     floor = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
     def newest_key(record: dict) -> tuple:
@@ -715,25 +715,12 @@ def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list
         records.sort(key=newest_key)
 
     candidates = [story for story in stories if story["id"] in eligible_by_story]
-    leads = [
-        story for story in candidates
-        if (story.get("aggregates") or {}).get("outlet_count", 0) >= 2
-        and (story.get("aggregates") or {}).get("article_count", 0) >= 2
-        and bool((story.get("summary_bg") or "").strip())
-    ]
-    leads.sort(key=lambda story: (
-        -(story.get("aggregates") or {}).get("outlet_count", 0),
-        -(utc_instant(story.get("last_published")) or floor).timestamp(),
-        story["id"],
-    ))
-    lead = leads[0] if leads else None
-    supporting = [story for story in candidates if story["id"] != (lead or {}).get("id")]
-    supporting.sort(key=lambda story: (
+    candidates.sort(key=lambda story: (
         -(utc_instant(story.get("last_published")) or floor).timestamp(),
         -(story.get("aggregates") or {}).get("outlet_count", 0),
         story["id"],
     ))
-    selected = (([lead] if lead else []) + supporting)[:HOME_STORY_LIMIT]
+    selected = candidates[:HOME_STORY_LIMIT]
 
     # Reserve one representative per selected story before filling the global
     # article cap. This makes every serialized story renderable even when one

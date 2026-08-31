@@ -30,11 +30,6 @@ const newestFirst = (a: ArticleRecord, b: ArticleRecord): number =>
   instant(b.published) - instant(a.published) ||
   `${a.domain}/${a.id}`.localeCompare(`${b.domain}/${b.id}`);
 
-const leadRank = (a: HomeStoryItem, b: HomeStoryItem): number =>
-  b.story.aggregates.outlet_count - a.story.aggregates.outlet_count ||
-  instant(b.story.last_published) - instant(a.story.last_published) ||
-  a.story.id.localeCompare(b.story.id);
-
 const supportingRank = (a: HomeStoryItem, b: HomeStoryItem): number =>
   instant(b.story.last_published) - instant(a.story.last_published) ||
   b.story.aggregates.outlet_count - a.story.aggregates.outlet_count ||
@@ -72,11 +67,8 @@ export const buildHomeHierarchy = (
 
   const lead =
     [...items]
-      .filter(
-        (item) =>
-          item.kind === "comparison" && Boolean(item.story.summary_bg?.trim()),
-      )
-      .sort(leadRank)[0] ?? null;
+      .filter((item) => Boolean(item.story.summary_bg?.trim()))
+      .sort(supportingRank)[0] ?? null;
   const supporting = items
     .filter((item) => item.story.id !== lead?.story.id)
     .sort(supportingRank)

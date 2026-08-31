@@ -59,7 +59,7 @@ const article = (
   }) as ArticleRecord;
 
 describe("home hierarchy", () => {
-  it("prefers a broad comparison for the lead and removes it from support", () => {
+  it("uses the newest eligible story as the lead and removes it from support", () => {
     const broad = story("broad", 4, "2026-08-27T09:00:00+00:00");
     const fresh = story("fresh", 2, "2026-08-28T09:00:00+00:00");
     const single = story("single", 1, "2026-08-29T09:00:00+00:00");
@@ -72,9 +72,9 @@ describe("home hierarchy", () => {
       ],
     );
 
-    expect(result.lead?.story.id).toBe("broad");
+    expect(result.lead?.story.id).toBe("single");
     expect(result.supporting.map((item) => item.story.id)).not.toContain(
-      "broad",
+      "single",
     );
   });
 
@@ -118,7 +118,7 @@ describe("home hierarchy", () => {
     },
   );
 
-  it("keeps a summary-less comparison out of the hero but in support", () => {
+  it("keeps a summary-less story out of the hero but in support", () => {
     const noSummary = story("no-summary", 3, "2026-08-28T09:00:00Z");
     noSummary.summary_bg = " ";
     const result = buildHomeHierarchy(
@@ -141,9 +141,10 @@ describe("home hierarchy", () => {
         article("c", later.id, later.last_published!),
       ],
     );
+    expect(result.lead?.story.id).toBe("later");
     expect(result.supporting.map((item) => item.story.id)).toEqual([
-      "later",
       "earlier",
+      "lead",
     ]);
   });
 

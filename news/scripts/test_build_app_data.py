@@ -1613,7 +1613,7 @@ class HomePayloadSelection(unittest.TestCase):
             "story_id": story_id, "published": published,
         }
 
-    def test_caps_are_stable_breadth_first_and_have_no_orphans(self):
+    def test_caps_are_stable_newest_first_and_have_no_orphans(self):
         stories = [self.story(i) for i in range(HOME_STORY_LIMIT + 1)]
         stories[0] = self.story(
             0, outlets=5, published="2026-08-01T00:00:00+00:00"
@@ -1628,7 +1628,8 @@ class HomePayloadSelection(unittest.TestCase):
         )
         got_articles, got_stories = select_home_payload(articles, stories)
         self.assertEqual(len(got_stories), HOME_STORY_LIMIT)
-        self.assertEqual(got_stories[0]["id"], "s00")
+        self.assertEqual(got_stories[0]["id"], stories[-1]["id"])
+        self.assertNotIn("s00", {story["id"] for story in got_stories})
         self.assertLessEqual(len(got_articles), HOME_ITEM_LIMIT)
         selected = {story["id"] for story in got_stories}
         self.assertEqual({row["story_id"] for row in got_articles}, selected)
