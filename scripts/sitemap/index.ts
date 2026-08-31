@@ -110,6 +110,25 @@ const urlEntry = (url: string, lastmod: string): string => {
 // moves on its own cadence and is written by an ingest (the КФН archive); decide it
 // per family. electionAwareMod is the third option and already pins the four
 // election families to the election date, which is why those never churn.
+//
+// ⚠️ THERE IS A FOURTH OPTION AND IT BEATS ALL THREE WHERE IT APPLIES: a date the
+// PAYLOAD ITSELF CARRIES. enumerateVotes stamps each session and item with `s.date`
+// — the sitting's own date — which is immune to clone time, to mtime and to
+// regeneration alike. That is why sitemap_votes.xml re-stamped 18 of 3,352 shared
+// URLs on the 2026-08-31 mint while sitemap_local.xml re-stamped all 3,126. Prefer
+// it wherever the data has such a field; fall back to fileMod only when it does
+// not. Visible candidates: /funds/procedure/* (procedure catalogue dates),
+// /judiciary and /local/*, all of which re-stamp 100% today.
+//
+// ⚠️ AND THE INDEX IS A 22nd STAMP SITE, with a DIFFERENT fix — do not conflate it
+// with the 20 above. Each <sitemap> entry in sitemap_index.xml used to be stamped
+// `today` unconditionally, so on the 2026-08-31 mint the index advertised a fresh
+// date for six shards that were BYTE-IDENTICAL to HEAD (candidates, candidates_2,
+// pensions, regions, sections, settlements) — and a sitemap index's lastmod exists
+// precisely to tell a crawler whether re-fetching that shard is worthwhile. It now
+// derives from the shard's own newest <lastmod> (shardLastmod, below), which is
+// self-consistent by construction and carries none of the fresh-clone downside that
+// has stalled the per-URL migration. It was separable, so it was done.
 const safeFileMod = (file: string): string => {
   try {
     const m = fs.statSync(file).mtime.toISOString().slice(0, 10);
@@ -1025,6 +1044,28 @@ for (const f of fs.readdirSync(`${projectPath}/public`)) {
   }
 }
 
+/** A shard's own newest <lastmod> — what the index should advertise for it.
+ *
+ *  ⚠️ NOT `today`. That was the previous behaviour and it made the index claim a
+ *  fresh date for every shard on every mint, including ones byte-identical to the
+ *  committed copy — six of sixteen on the 2026-08-31 mint. The index's lastmod is
+ *  the signal a crawler uses to decide whether re-fetching the shard is worth it,
+ *  so saying "yes" for an unchanged shard spends the signal for nothing, on the
+ *  same reliability budget the per-URL note above is about.
+ *
+ *  Derived from the emitted lines rather than tracked alongside them, so the index
+ *  can never claim a shard is newer than its own newest URL. Falls back to today
+ *  for a shard carrying no <lastmod> at all, which cannot happen while urlEntry is
+ *  the only writer — "unknown" is not a date. */
+const shardLastmod = (lines: string[]): string => {
+  let max = "";
+  for (const line of lines) {
+    const m = /<lastmod>([^<]+)<\/lastmod>/.exec(line);
+    if (m && m[1] > max) max = m[1];
+  }
+  return max || today;
+};
+
 const writtenFiles: Array<{ name: string; lastmod: string }> = [];
 for (const [bucket, urls] of buckets.entries()) {
   // Shard within a bucket if needed.
@@ -1034,7 +1075,7 @@ for (const [bucket, urls] of buckets.entries()) {
     const fileName = `sitemap_${bucket}${suffix}.xml`;
     const xml = `${xmlHeader}${urlsetOpen}\r\n${slice.join("\r\n")}\r\n${urlsetClose}`;
     fs.writeFileSync(`${projectPath}/public/${fileName}`, xml, "utf-8");
-    writtenFiles.push({ name: fileName, lastmod: today });
+    writtenFiles.push({ name: fileName, lastmod: shardLastmod(slice) });
   }
 }
 
