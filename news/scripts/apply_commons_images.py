@@ -10,9 +10,13 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 try:
-    from .commons_rights import canonical_licence_url, is_https_host
+    from .commons_rights import (
+        canonical_licence_url,
+        commons_thumbnail_url,
+        is_https_host,
+    )
 except ImportError:  # direct script execution
-    from commons_rights import canonical_licence_url, is_https_host
+    from commons_rights import canonical_licence_url, commons_thumbnail_url, is_https_host
 
 
 def desired_rights(selection: dict) -> dict:
@@ -65,12 +69,19 @@ def apply(selections_path: Path, root: Path) -> list[Path]:
         date.fromisoformat(selection["reviewed_at"])
         if not is_https_host(selection["image_url"], "upload.wikimedia.org"):
             raise ValueError(f"selection image_url is not Wikimedia upload HTTPS: {path}")
+        display_image = commons_thumbnail_url(selection["image_url"])
         if not is_https_host(selection["source_url"], "commons.wikimedia.org"):
             raise ValueError(f"selection source_url is not Commons HTTPS: {path}")
         source_title = unquote(urlparse(selection["source_url"]).path.rsplit("/", 1)[-1])
         if source_title.replace("_", " ") != selection["file_title"].replace("_", " "):
             raise ValueError(f"selection file/source mismatch: {path}")
         wanted = desired_rights(selection)
+        accepted_images = {selection["image_url"], display_image}
+        # One repair release emitted WebP derivatives without MediaWiki's
+        # required `.png` output suffix. Accept only that exact same-file URL
+        # so replay can migrate it; unrelated reviewed images still fail.
+        if display_image.endswith(".webp.png"):
+            accepted_images.add(display_image[:-4])
         current = article.get("image_rights")
         if isinstance(current, dict) and current.get("status") in {"blocked", "unknown"}:
             raise ValueError(f"refusing to overwrite {current['status']} decision: {path}")
@@ -79,11 +90,11 @@ def apply(selections_path: Path, root: Path) -> list[Path]:
             # Permit a one-time schema enrichment for the same reviewed image,
             # but never a different image, authority, creator or review date.
             immutable = ("creator", "licence_name", "source_url", "checked_at")
-            if article.get("image") != selection["image_url"] or any(
+            if article.get("image") not in accepted_images or any(
                 comparable.get(key) != wanted.get(key) for key in immutable
             ):
                 raise ValueError(f"refusing to supersede existing rights: {path}")
-        article["image"] = selection["image_url"]
+        article["image"] = display_image
         article["image_alt"] = f"Илюстрация: {selection['subject']}"
         article["image_rights"] = wanted
         replacements.append((path, json.dumps(article, ensure_ascii=False) + "\n"))

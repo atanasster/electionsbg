@@ -32,7 +32,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_app_data import (  # noqa: E402
     AXIS_POSITIONS, HOME_GZIP_BUDGET_BYTES, HOME_ITEM_LIMIT,
     HOME_STORY_FIELDS, HOME_STORY_LIMIT, TOPIC_MIN_POSITIONED, axis_spread,
-    home_gzip_size, load_image_rights_policy, select_home_payload)
+    home_gzip_size, load_image_rights_policy, select_home_payload,
+    validate_display_image)
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
 
@@ -580,8 +581,8 @@ class MetadataAndBudget(unittest.TestCase):
         for key in ("section_path", "image_alt"):
             self.assertIn(key, build_app_data.FEED_OMIT, key)
 
-    def test_the_feed_budget_warns_when_exceeded(self):
-        """Documented but unchecked is a comment, not a budget."""
+    def test_the_feed_budget_fails_when_exceeded(self):
+        """The hourly uploader must not publish an oversized hot feed."""
         sys.path.insert(0, os.path.dirname(SCRIPT))
         import build_app_data  # noqa: E402
         self.assertGreater(build_app_data.FEED_GZIP_BUDGET_BYTES, 0)
@@ -599,9 +600,51 @@ class MetadataAndBudget(unittest.TestCase):
             capture_output=True, text=True,
             env=dict(os.environ, DATA_BG_ROOT=self.root),
             cwd=os.path.dirname(SCRIPT))
-        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertNotEqual(proc.returncode, 0, proc.stderr)
         self.assertIn("over the", proc.stderr)
         self.assertIn("PAGINATE", proc.stderr)
+
+    def test_latest_must_be_positive(self):
+        proc = subprocess.run(
+            [sys.executable, SCRIPT, "--data-dir", self.data_dir,
+             "--out", self.out_dir, "--latest", "0", "--quiet"],
+            capture_output=True, text=True,
+            env=dict(os.environ, DATA_BG_ROOT=self.root))
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("--latest must be positive", proc.stderr)
+
+    def test_commons_publication_boundary_requires_thumbnail_and_identity(self):
+        rights = {
+            "status": "cc", "display_home": True,
+            "licence_name": "CC BY 4.0",
+            "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+            "source_url": "https://commons.wikimedia.org/wiki/File:A.jpg",
+            "credit_url": "https://commons.wikimedia.org/wiki/File:A.jpg",
+        }
+        thumb = (
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/"
+            "A.jpg/960px-A.jpg"
+        )
+        validate_display_image(thumb, rights, article="ex.bg/a.json")
+        with self.assertRaisesRegex(ValueError, "<=960px derivative"):
+            validate_display_image(
+                "https://upload.wikimedia.org/wikipedia/commons/a/ab/A.jpg",
+                rights, article="ex.bg/a.json")
+        bad = dict(rights, licence_url="https://example.org/fake")
+        with self.assertRaisesRegex(ValueError, "mismatched CC licence"):
+            validate_display_image(thumb, bad, article="ex.bg/a.json")
+        wrong_file = dict(
+            rights,
+            source_url="https://commons.wikimedia.org/wiki/File:B.jpg",
+        )
+        with self.assertRaisesRegex(ValueError, "attribution file must match"):
+            validate_display_image(thumb, wrong_file, article="ex.bg/a.json")
+        wrong_credit = dict(
+            rights,
+            credit_url="https://commons.wikimedia.org/wiki/File:B.jpg",
+        )
+        with self.assertRaisesRegex(ValueError, "attribution file must match"):
+            validate_display_image(thumb, wrong_credit, article="ex.bg/a.json")
 
     def test_the_budget_check_is_silent_under_budget(self):
         """Half the gate. Proving the warning CAN fire leaves `if True:`

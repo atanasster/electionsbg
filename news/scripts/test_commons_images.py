@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 from news.scripts import source_commons_images as source
 from news.scripts.apply_commons_images import apply
+from news.scripts.commons_rights import commons_thumbnail_url, is_commons_thumbnail_url
 from news.scripts.source_commons_images import (
     load_search_cache,
     needs_commons_replacement,
@@ -32,7 +33,8 @@ class CommonsImagesTest(unittest.TestCase):
         row = {
             "article_id": "example.bg/a", "article_path": "news/data/example.bg/a.json",
             "article_url": "https://example.bg/a", "subject": "София",
-            "file_title": "File:A.jpg", "image_url": "https://upload.wikimedia.org/a.jpg",
+            "file_title": "File:A.jpg",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/A.jpg",
             "source_url": "https://commons.wikimedia.org/wiki/File:A.jpg",
             "creator": "Author", "commons_credit": "Designated credit",
             "credit_text": "Илюстрация · A.jpg · Designated credit · Author · CC BY 4.0",
@@ -134,10 +136,43 @@ class CommonsImagesTest(unittest.TestCase):
         first = self.article.read_bytes()
         saved = json.loads(first)
         self.assertEqual(saved["image_alt"], "Илюстрация: София")
+        self.assertEqual(
+            saved["image"],
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/A.jpg/960px-A.jpg",
+        )
+        self.assertTrue(is_commons_thumbnail_url(saved["image"]))
         self.assertEqual(saved["image_rights"]["credit_text"], self.row()["credit_text"])
         self.assertEqual(saved["image_rights"]["checked_at"], "2026-08-28")
         apply(self.selection, self.root)
         self.assertEqual(self.article.read_bytes(), first)
+
+    def test_thumbnail_derivative_is_bounded_and_original_is_not(self):
+        original = self.row()["image_url"]
+        derived = commons_thumbnail_url(original)
+        self.assertFalse(is_commons_thumbnail_url(original))
+        self.assertTrue(is_commons_thumbnail_url(derived, max_width=960))
+        self.assertFalse(is_commons_thumbnail_url(derived, max_width=640))
+
+    def test_thumbnail_suffix_rules_cover_current_selection_formats(self):
+        cases = (
+            ("Photo.jpg", "960px-Photo.jpg"),
+            ("Photo.JPEG", "960px-Photo.JPEG"),
+            ("Map.png", "960px-Map.png"),
+            ("Map.webp", "960px-Map.webp.png"),
+        )
+        for filename, expected_tail in cases:
+            with self.subTest(filename=filename):
+                original = (
+                    "https://upload.wikimedia.org/wikipedia/commons/a/ab/"
+                    + filename
+                )
+                thumbnail = commons_thumbnail_url(original)
+                self.assertTrue(thumbnail.endswith(expected_tail), thumbnail)
+                self.assertTrue(is_commons_thumbnail_url(thumbnail), thumbnail)
+        self.assertFalse(is_commons_thumbnail_url(
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/"
+            "Map.webp/960px-Map.webp"
+        ))
 
     def test_stale_replay_cannot_reopen_blocked_decision(self):
         self.write([self.row()])

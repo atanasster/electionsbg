@@ -37,7 +37,7 @@ bundled — the app shows excerpts/summaries and links out to the source (ground
 keeping the whole bundle set ~5 MB and free of republication concerns.
 
 Run:  python3 news/scripts/build_app_data.py [--data-dir news/data] [--out news/app-data]
-      [--latest 600] [--quiet] [--json]
+      [--latest 150] [--quiet] [--json]
 """
 
 from __future__ import annotations
@@ -54,6 +54,23 @@ import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
+
+try:
+    from .commons_rights import (
+        canonical_licence_url,
+        commons_source_file_title,
+        commons_thumbnail_file_title,
+        is_commons_thumbnail_url,
+        is_https_host,
+    )
+except ImportError:  # direct script execution
+    from commons_rights import (
+        canonical_licence_url,
+        commons_source_file_title,
+        commons_thumbnail_file_title,
+        is_commons_thumbnail_url,
+        is_https_host,
+    )
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
 LEANING_LABELS = {
@@ -466,6 +483,34 @@ def image_rights_block(raw, *, article: str) -> dict | None:
     return {key: raw.get(key) for key in IMAGE_RIGHTS_KEYS}
 
 
+def validate_display_image(image: str | None, rights: dict, *, article: str) -> None:
+    """Fail closed on Commons identity, licence and delivery at publication."""
+    if not rights.get("display_home"):
+        return
+    status = rights.get("status")
+    if status in {"cc", "public_domain"}:
+        canonical = canonical_licence_url(rights.get("licence_name"))
+        if not canonical or rights.get("licence_url", "").rstrip("/") != canonical.rstrip("/"):
+            raise ValueError(f"{article}: unsupported or mismatched CC licence")
+    commons_record = (
+        is_https_host(rights.get("source_url") or "", "commons.wikimedia.org")
+        or is_https_host(image or "", "upload.wikimedia.org")
+    )
+    if not commons_record:
+        return
+    if not is_https_host(rights.get("source_url") or "", "commons.wikimedia.org"):
+        raise ValueError(f"{article}: Commons image requires a Commons source URL")
+    if not is_https_host(rights.get("credit_url") or "", "commons.wikimedia.org"):
+        raise ValueError(f"{article}: Commons image requires a Commons credit URL")
+    if not is_commons_thumbnail_url(image or "", max_width=960):
+        raise ValueError(f"{article}: Commons home image must be a <=960px derivative")
+    displayed = commons_thumbnail_file_title(image or "")
+    source = commons_source_file_title(rights.get("source_url") or "")
+    credit = commons_source_file_title(rights.get("credit_url") or "")
+    if not displayed or displayed != source or displayed != credit:
+        raise ValueError(f"{article}: Commons image and attribution file must match")
+
+
 def owner_block(meta: dict) -> dict | None:
     """The ownership claim for one outlet, or None when nothing is recorded.
 
@@ -622,11 +667,11 @@ def write_json(path: Path, payload) -> None:
 # Record keys the shared feed does NOT carry. Named once so the omission is a
 # decision with a reason rather than a field somebody forgot; the per-domain
 # bundle keeps them, and the article page reads that.
-FEED_OMIT = frozenset({"section_path", "image_alt", "first_seen"})
+FEED_OMIT = frozenset({"section_path", "image_alt", "first_seen", "keywords"})
 HOME_OMIT = frozenset({"section_path", "first_seen", "keywords", "content_chars",
                        "canonical", "language", "updated"})
-HOME_ITEM_LIMIT = 60
-HOME_STORY_LIMIT = 30
+HOME_ITEM_LIMIT = 32
+HOME_STORY_LIMIT = 16
 HOME_WINDOW_DAYS = 30
 # 33 KiB keeps both Bulgarian and English search fallback fields. Measured
 # 2026-08-28 at 32,803 bytes with gzip-6; the previous unprojected bundle was
@@ -692,7 +737,7 @@ def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list
 
     # Reserve one representative per selected story before filling the global
     # article cap. This makes every serialized story renderable even when one
-    # very large cluster would otherwise consume all 60 slots.
+    # very large cluster would otherwise consume all 32 slots.
     representatives = [eligible_by_story[story["id"]][0] for story in selected]
     representative_keys = {(row.get("domain"), row.get("id")) for row in representatives}
     selected_ids = {story["id"] for story in selected}
@@ -709,19 +754,18 @@ def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list
         for story in selected
     ]
 
-# The gzip ceiling for latest.json. Not a guess: measured 2026-08-26 at 600
-# records, 174.7 KB gzip BEFORE the metadata fields and 183 KB after, and the
-# corpus grows ~1-2 KB per day. Past this the answer is to PAGINATE the feed,
-# never to raise the number — every page in the app downloads this file before
-# it can paint.
+# The gzip ceiling for latest.json. The default hot window is deliberately 150
+# records: after the analyzed corpus was backfilled in 2026-08, 600 rich
+# records reached 752 KB gzip. Full history remains in per-domain bundles and
+# stories.json; this shared feed is only the recent lookup window.
 #
 # ⚠️ Measured at gzip -9 while a CDN typically serves -6, so the real wire size
 # is a few percent HIGHER than what this check sees. That is the safe
 # direction (the check trips slightly late rather than early), but do not read
 # a figure here as the bytes a reader downloads.
 #
-# ⚠️ FEED_OMIT buys only ~1.5 KB. The expensive unconsumed field is `keywords`
-# at ~17 KB gzip — no screen renders it today. Drop that before widening this.
+# `keywords` is omitted because no screen renders it; do not add complete
+# analysis evidence or article bodies to this shared hot window.
 FEED_GZIP_BUDGET_BYTES = 220 * 1024
 
 
@@ -1114,7 +1158,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--data-dir", type=Path, default=REPO / "news" / "data")
     ap.add_argument("--out", type=Path, default=REPO / "news" / "app-data")
-    ap.add_argument("--latest", type=int, default=600)
+    ap.add_argument("--latest", type=int, default=150)
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument(
         "--stamp", action="store_true",
@@ -1129,6 +1173,8 @@ def main() -> int:
         "shared with fetch_latest_articles.py / save_articles.py / analyze_articles.py)",
     )
     args = ap.parse_args()
+    if args.latest < 1:
+        ap.error("--latest must be positive")
 
     data_dir: Path = args.data_dir
     out_dir: Path = args.out
@@ -1284,6 +1330,9 @@ def main() -> int:
                 art.get("image_rights"), article=f"{domain}/{fp.name}"
             )
             if rights is not None:
+                validate_display_image(
+                    art.get("image"), rights, article=f"{domain}/{fp.name}"
+                )
                 # Omit an unreviewed block rather than adding nine null fields
                 # to every feed row. Absence and status=unknown are distinct,
                 # but both fail closed once the renderer gate lands.
@@ -1404,14 +1453,16 @@ def main() -> int:
     # ⚠️ CHECKED, not merely documented. A budget nothing enforces is a
     # comment, and this one guards the file every page downloads before it can
     # paint — the failure mode is a slow app, which nobody bisects to a JSON
-    # field. Warns rather than aborts: the bundle is still correct and a build
-    # that refuses to finish over a size is worse than one that says so.
+    # field. This is a publication gate: an hourly uploader must not mistake
+    # an oversized hot bundle for a clean build.
     feed_gzip = len(gzip.compress(latest_path.read_bytes(), 9))
     if feed_gzip > FEED_GZIP_BUDGET_BYTES:
-        print(f"  ! latest.json is {feed_gzip / 1024:.0f} KB gzipped, over the "
-              f"{FEED_GZIP_BUDGET_BYTES / 1024:.0f} KB budget. PAGINATE the "
-              f"feed or drop a field from it — do not raise the budget: every "
-              f"page in the app downloads this file.", file=sys.stderr)
+        raise ValueError(
+            f"latest.json is {feed_gzip / 1024:.0f} KB gzipped, over the "
+            f"{FEED_GZIP_BUDGET_BYTES / 1024:.0f} KB budget. PAGINATE the "
+            f"feed or drop a field from it — do not raise the budget: every "
+            f"page in the app downloads this file."
+        )
 
     # ---- stories.json ----------------------------------------------------------------
     stories_dir = data_dir / "analysis" / "stories"
@@ -1787,6 +1838,8 @@ def main() -> int:
         "outlets": len(outlets),
         "files": total_files,
         "bytes": total_bytes,
+        "latest_gzip_bytes": feed_gzip,
+        "latest_over_budget": feed_gzip > FEED_GZIP_BUDGET_BYTES,
         # ⚠️ REPORTED, never silent. These are person names an article does
         # not contain, dropped from what we publish — a quiet withholding is
         # indistinguishable from a model that stopped naming anyone.
