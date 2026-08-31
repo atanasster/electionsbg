@@ -65,7 +65,8 @@ CREATE INDEX IF NOT EXISTS idx_graph_company_money
 
 -- ── PERSON NODES: one per person with ≥1 edge, denormalized from person_browse ──────────────────
 -- `public_money_eur` = Σ over the person's DISTINCT linked company nodes. The graph uses the BROAD
--- basis THROUGHOUT (127: contracts∪subsidies∪funds on the company node, summed here) — this
+-- basis THROUGHOUT (127: contracts∪subsidies∪funds∪interreg on the company node, summed here;
+-- the interreg arm is `interreg_eur`, added after this comment was first written) — this
 -- INTENTIONALLY differs from person_browse.public_money_eur, which is contracts-ONLY for public
 -- figures (dual basis, 120). The graph's signal is "total public money the tie touches", not
 -- procurement-specific exposure, so one broad basis is correct here; the P3.3 loader must NOT try

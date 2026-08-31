@@ -1329,7 +1329,42 @@ export const DATASETS: DatasetDef[] = [
       bg: "Договорите и бенефициентите по еврофондовете с геокодирани проекти по общини и интегрити проверки срещу декларациите и черните списъци.",
       en: "EU-funds contracts and beneficiaries with geocoded projects per municipality and integrity checks against declarations and debarment lists.",
     },
+    // `path` covers the ИСУН corpus only. data/funds/interreg/ sits inside this
+    // directory but belongs to ds:interreg — a load source, not a served tree.
     path: "data/funds/",
+    tags: ["fiscal", "local"],
+  },
+  {
+    // Its own node rather than a member of `funds`, for the same reason
+    // src:keep_eu is its own source group: the two corpora are DISJOINT.
+    // Interreg is managed on Jems, so fund_projects holds zero Interreg rows —
+    // the ИСУН corpus cannot answer a question about cross-border money, and
+    // the two totals measure different things (an ИСУН figure is a contract's
+    // own value, an Interreg figure one partner's published budget). Until
+    // 2026-08-31 src:keep_eu edged into ds:funds, which asserted the merge this
+    // very source group's own `desc` says is impossible.
+    id: "interreg",
+    label: {
+      bg: "Interreg (трансгранични)",
+      en: "Interreg (cross-border)",
+    },
+    detail: {
+      bg: "проекти и партньори по границата",
+      en: "cross-border projects and partners",
+    },
+    desc: {
+      bg: "Проектите, партньорствата и бюджетите по програмите Interreg, от базата на INTERACT (keep.eu). Interreg се управлява на Jems, а не през ИСУН — затова тези проекти липсват изцяло в корпуса на еврофондовете и двете суми никога не се събират. Понеже парите са трансгранични по дефиниция, липсата падаше изцяло върху граничните общини.",
+      en: "Interreg projects, partnerships and budgets from INTERACT's keep.eu database. Interreg is managed on Jems rather than ИСУН, so these projects are absent from the EU-funds corpus entirely and the two totals are never added together. Because the money is cross-border by definition, that gap fell entirely on the border municipalities.",
+    },
+    // No `path`, and NOT because there is no JSON: data/funds/interreg/
+    // {index,operations,partners}.json is committed (~11 MB). Those three files
+    // are db:load:interreg:pg's INPUT, not something a reader fetches — no
+    // dataUrl() call anywhere resolves them, and every surface reads
+    // interreg_operations / interreg_partners / interreg_programmes (migration
+    // 137) through /api/db/interreg-*. So the precedent is ds:municipal_fiscal
+    // (a committed load source with no path), not ds:agri or ds:prices (which
+    // genuinely have no JSON at all). T0b replaces this comment with
+    // serving: "pg" + tables[], where the distinction becomes checkable.
     tags: ["fiscal", "local"],
   },
   {
@@ -2190,12 +2225,17 @@ export const EDGES: [string, string][] = [
   // Renders on /funds (the band-1 tile) and /funds/calls, both of which live under the `funds`
   // feature node — there is no separate feature for the browse page.
   ["ds:opencalls", "f:funds"],
-  // keep.eu → the SAME dataset node, because a reader looking for "European
-  // money for my municipality" is looking in one place — but it is a separate
-  // SOURCE edge, because ИСУН and Interreg are disjoint corpora on different
-  // systems, and the whole reason this ingest exists is that the ИСУН edge alone
-  // was silently missing every cross-border euro.
-  ["src:keep_eu", "ds:funds"],
+  // keep.eu → its OWN dataset node. Until 2026-08-31 this edge pointed at
+  // ds:funds on the reasoning that a reader looking for "European money for my
+  // municipality" looks in one place. That reasoning described a reader, not the
+  // data: ИСУН and Interreg are disjoint corpora on different systems
+  // (fund_projects holds zero Interreg rows), their totals measure different
+  // things — an ИСУН figure is a contract's own value, an Interreg figure one
+  // partner's published budget — and funds_fit_basis() ships a basis
+  // declaration inside every payload precisely so no consumer merges them. The
+  // one-place reading is served by ds:interreg → f:funds below, which puts both
+  // corpora on the /funds surface without claiming they are one dataset.
+  ["src:keep_eu", "ds:interreg"],
   ["src:dfz", "ds:agri"],
   ["src:egov", "ds:ngo"],
   ["src:ec_fts", "ds:ngo"],
@@ -2256,6 +2296,28 @@ export const EDGES: [string, string][] = [
   ["ds:funds", "f:funds"],
   ["ds:funds", "f:mps"],
   ["ds:funds", "f:governance"],
+  // Interreg's consumers, each traced to a reader file:
+  //   f:funds       src/screens/funds/{InterregTile,FundsInterregScreen,
+  //                 FundsInterregIndexScreen,FitResolverTile}.tsx
+  //   f:governance  src/screens/myarea/MyAreaInterregTile.tsx
+  //   f:procurement src/screens/components/procurement/CompanyInterregTile.tsx
+  //   f:culture     src/screens/culture/cultureFundSources.ts (migration 191's
+  //                 culture_interreg_thematic) — see the culture block below.
+  // No f:ai edge, and the reason is narrow rather than general: AI edges are
+  // derived from AI_PATH_RULES, which classifies the BUCKET paths in ai/'s
+  // fetchData() calls, and ai/tools/interregArm.ts reads /api/db/interreg-*
+  // instead. Being PG-served is not itself disqualifying — ds:prices is
+  // PG-served and does carry an f:ai edge, via the fuel.json bucket path.
+  ["ds:interreg", "f:funds"],
+  ["ds:interreg", "f:governance"],
+  ["ds:interreg", "f:procurement"],
+  // /culture/funds/interreg reads all three fund corpora side by side
+  // (cultureFundSources.ts: isun · agri · interreg, migrations 189-191). All
+  // three edges were missing, not just the new one — ds:interreg merely made
+  // the gap visible.
+  ["ds:interreg", "f:culture"],
+  ["ds:funds", "f:culture"],
+  ["ds:agri", "f:culture"],
   ["ds:agri", "f:agri"],
   ["ds:agri", "f:mps"],
   ["ds:budget", "f:budget"],
