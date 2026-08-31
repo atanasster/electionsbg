@@ -1,74 +1,63 @@
 {
   "obshtina": "BGS27",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
-    {
-      "contractNumber": "BG-RRP-4.020-0121",
-      "title": "Обновяване на инфраструктурата и мерки за повишаване на енергината ефективност, ремонт и доставка на оборудване и обзавеждане на сградта на Районно управление Полиция - гр. Приморско",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 474917.43,
-      "totalEur": 464836.77,
-      "paidEur": 406895.77,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Приморско",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0042",
-      "title": "ПОДКРЕПА ЗА ЕНЕРГИЙНО ОБНОВЯВАНЕ НА СГРАДА В СФЕРАТА НА УСЛУГИТЕ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 247861.03,
-      "totalEur": 209257.56,
-      "paidEur": 128719.69,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сити - д ЕООД",
-      "detectedAt": "2026-08-24"
-    },
     {
       "contractNumber": "BG16RFPR001-1.004-2507",
       "title": "Подобряване на производствения капацитет на СЪНДЕЙ ХОТЕЛИ ООД",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
       "prevTotalEur": 102170.67,
-      "totalEur": 102170.67,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
+      "totalEur": 102047.98,
+      "paidEur": 76535.99,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
       "beneficiaryName": "Съндей хотели ООД",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0602",
-      "title": "Изграждане на дигитален клуб в град Китен",
+      "contractNumber": "BG16RFPR001-1.004-2762",
+      "title": "Увеличаване на производствения капацитет на Крома груп ЕООД (увеличаване капацитета за подготовка, готвене и съхранение на хранителни продукти).",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 13339.79,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"СВОБОДА-1948\"",
-      "detectedAt": "2026-08-24"
+      "prevTotalEur": 59424.65,
+      "totalEur": 59136.17,
+      "paidEur": 44352.16,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Крома груп ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1417",
+      "title": "Подобряване на производствения капацитет на заведение за бързо хранене",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 30577.95,
+      "totalEur": 23145.34,
+      "paidEur": 17359,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Темпро плюс ООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

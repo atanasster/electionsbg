@@ -1,195 +1,85 @@
 {
   "obshtina": "LOV33",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0067",
-      "title": "Внедряване на мерки за енергийна ефективност в Сграда №1 и Сграда №2 на РУ Луковит и в Сграда на РУ Тетевен",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 964527.62,
-      "totalEur": 955700.84,
-      "paidEur": 901540.1,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Областна дирекция на Министерство на вътрешните работи гр. Ловеч",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-3.008-0351",
-      "title": "Подкрепа за прехода към кръгова икономика",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 500861.53,
-      "totalEur": 500861.53,
-      "paidEur": 250430.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Камакс ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.003-0306",
-      "title": "Внедряване на иновация в бизнес процесите в \"Енерджи плюс\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 350234.94,
-      "totalEur": 350234.94,
-      "paidEur": 63126.35,
+      "contractNumber": "BG16RFPR001-1.008-0615",
+      "title": "Внедряване на иновативна единна система за автоматизирано тестване на индустриални IoT решения, базирана на технологии от Индустрия 4.0",
+      "type": "new",
+      "totalEur": 337248.13,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Енерджи плюс ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Скорпион 7 ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG05SFPR002-2.012-0079",
-      "title": "Иновативни здравно-социални услуги в община Тетевен",
+      "contractNumber": "BG-RRP-7.008-0007",
+      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северозападен район",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 262969.75,
-      "totalEur": 262969.75,
-      "paidEur": 188989.22,
+      "prevTotalEur": 39956422.08,
+      "totalEur": 39956422.08,
+      "paidEur": 14482084.03,
       "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": ",,А1 България“ ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG06AFSP001-1.001-0071",
+      "title": "Стратегия за Водено от общностите местно развитие на СНЦ \"МИГ- Тетевен\" за програмния период 2023 - 2027",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 749894.93,
+      "totalEur": 749894.93,
+      "paidEur": 111632.09,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2023BG06AFSP001",
+      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
+      "beneficiaryName": "Сдружение с нестопанска цел \"Местна инициативна група - Тетевен\"",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0149",
+      "title": "Адаптирана работна среда в Камакс ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 91757.26,
+      "totalEur": 87163.67,
+      "paidEur": 87163.67,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Тетевен",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Камакс ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0156",
-      "title": "Изграждане на училищна STEM среда в Начално училище \"Хаджи Генчо\", гр. Тетевен",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 85376.68,
-      "totalEur": 129051.09,
-      "paidEur": 85376.69,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Начално училище \"Хаджи генчо\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0259",
-      "title": "\"Център за млади учени и изследователи\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 66007.99,
-      "totalEur": 69141.58,
-      "paidEur": 66008.01,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Георги Бенковски\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0020",
-      "title": "\"Змейови песни\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 56026.15,
-      "totalEur": 56026.1,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Талантс Сдружение",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0205",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"РАЗВИТИЕ - 1931 Г",
+      "contractNumber": "BG16RFPR001-2.004-0578",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в ДД ООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 35290.88,
-      "totalEur": 35290.88,
-      "paidEur": 14290.95,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Развитие - 1931 г",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0047",
-      "title": "Изграждане на дигитален клуб в Тетевен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 20451.67,
-      "totalEur": 20451.67,
-      "paidEur": 19816.31,
+      "prevTotalEur": 62501.29,
+      "totalEur": 62501.29,
+      "paidEur": 13435.44,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Съгласие 1869\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16FFPR003-2.006-0037",
-      "title": "Единно здраве за Северозападен регион",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 2188.33,
-      "totalEur": 2186.01,
-      "paidEur": 2186.01,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Тетевен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1062",
-      "title": "Въвеждане на мерки за Енергийна ефективност и основен ремонт на покрив на многофамилна жилищна сграда бл. \"Тетевянка\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 427390.78,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Тетевен",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДД ООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

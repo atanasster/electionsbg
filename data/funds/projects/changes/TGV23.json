@@ -1,70 +1,24 @@
 {
   "obshtina": "TGV23",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-2.003-0005",
-      "title": "Надграждане на капацитета на компостираща инсталация за разделно събрани биоразградими битови отпадъци за нуждите на РСУО за Регион Борово (Бяла, Област Русе)",
+      "contractNumber": "BG05SFPR002-2.003-0056",
+      "title": "Бъдеще за децата в община Опака",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1805179.9,
-      "totalEur": 1805179.9,
-      "paidEur": 432307.05,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Бяла",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.010-0006",
-      "title": "Изграждане и доставка на оборудване и обзавеждане на център за резидентна грижа за възрастни хора в надтрудоспособна възраст без увреждания в с.Гърчиново, община Опака",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1262065.12,
-      "totalEur": 1262065.12,
-      "paidEur": 923131.1,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 199997.01,
+      "totalEur": 190076.24,
+      "paidEur": 190076.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Община Опака",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0454",
-      "title": "Изграждане на дигитален клуб в ПРОБУДА - 1922 в гр./с. Опака",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 17360.29,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Пробуда - 1922",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1151",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"ПРОСВЕТА-1959\" в с. Люблен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 11470.93,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"ПРОСВЕТА-1959\"",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

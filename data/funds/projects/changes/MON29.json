@@ -1,304 +1,96 @@
 {
   "obshtina": "MON29",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0103",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"Бетон Монтана\" ЕООД",
+      "contractNumber": "BG05SFPR002-1.032-0001",
+      "title": "\"Повишаване ефективността на държавния здравен контрол\"",
       "type": "new",
-      "totalEur": 458992.96,
+      "totalEur": 2045167.52,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Министерство на здравеопазването",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.008-0749",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в „БАЛКАН“ АД",
+      "type": "new",
+      "totalEur": 441756.19,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Бетон монтана\" ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "„Балкан“ АД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16FFPR002-5.001-0017",
-      "title": "Прилагане на мерки за подобряване качеството на въздуха в община Монтана",
+      "contractNumber": "BG-RRP-7.008-0007",
+      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северозападен район",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 11092679.1,
-      "totalEur": 11092679.1,
-      "paidEur": 3318725.05,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Монтана",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.018-0001",
-      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа за пълнолетни лица с интелектуални затруднения, пълнолетни лица с деменция и Център за специализирана подкрепа за лица с увреждания и техните семейства",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 2473546.2,
-      "totalEur": 2473546.2,
-      "paidEur": 1508979.83,
+      "prevTotalEur": 39956422.08,
+      "totalEur": 39956422.08,
+      "paidEur": 14482084.03,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Монтана",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.014-0024",
-      "title": "Изграждане на център за високи постижения в Професионална гимназия по строителство, архитектура и компютърни науки „Проф. арх. Ст. Стефанов“ с предоставяне на модерно и иновативно образование и обучение",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1770518.07,
-      "totalEur": 1770518.07,
-      "paidEur": 1588963.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по строителство, Архитектура и компютърни науки \"Проф. АРХ. Стефан Стефанов\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0026",
-      "title": "Иновативни здравно-социални услуги в община Монтана",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1234824.36,
-      "totalEur": 1234824.36,
-      "paidEur": 438789.07,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Монтана",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": ",,А1 България“ ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
       "contractNumber": "BG14MFPR001-2.002-0005",
       "title": "Въвеждане на високотехнологични решения при производство на аквакултури в стопанствата на дружеството",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 720735.47,
-      "totalEur": 720735.47,
+      "totalEur": 720657.09,
       "paidEur": 432394.25,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG14MFPR001",
       "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
       "beneficiaryName": "ФИШ Инвест ООД",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0052",
-      "title": "Изграждане на комбиниран проект за производство на електрическа енергия от фотоволтаична централа с мощност 999,765 KW и ЛСС с мощност 450 KW",
+      "contractNumber": "BG16RFPR001-1.001-0391",
+      "title": "Определяне на ролята на UV-спектрофотометрията като система за ранно предупреждение (СРП) за наличие/значимост на цианотоксини в повърхностни води",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 374521.3,
-      "totalEur": 374521.3,
-      "paidEur": 0,
+      "prevTotalEur": 210267.04,
+      "totalEur": 210267.04,
+      "paidEur": 97959.74,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Болкан СЪН пауър ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFOP002-2.040-1409",
-      "title": "Подобряване на производствения капацитет в \"Енджиен бит\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 253901.2,
-      "totalEur": 253901.2,
-      "paidEur": 205332.7,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2014BG16RFOP002",
-      "programName": "Иновации и конкурентоспособност",
-      "beneficiaryName": "Енджиен БИТ ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0178",
-      "title": "Подобряване условията на труд във \"Франстил и Ко\" ЕАД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 199753.94,
-      "totalEur": 199753.93,
-      "paidEur": 199753.93,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Франстил и КО ЕАД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFOP002-2.001-1275",
-      "title": "Технологична модернизация в Ултраком ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 183528.22,
-      "totalEur": 183528.22,
-      "paidEur": 128469.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2014BG16RFOP002",
-      "programName": "Иновации и конкурентоспособност",
-      "beneficiaryName": "Ултраком ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2235",
-      "title": "Подкрепа за семейно предприятие - ЕЛИТ-06 ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 117903.35,
-      "totalEur": 117898.79,
-      "paidEur": 76634.21,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕЛИТ-06 ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Делфин ПРОЕКТ-ЕКОТЕХНИКА ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2642",
-      "title": "Подобряване на производствения капацитет на ИЗДАТЕЛСТВО ТАЙМЛАЙНС ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 104858.3,
-      "totalEur": 104201.28,
-      "paidEur": 76066.95,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Издателство таймлайнс ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1089",
-      "title": "Дигитални пространства",
+      "contractNumber": "BG-RRP-4.021-0290",
+      "title": "Устойчиво енергийно обновяване на сгради в сферата на търговията и услугите",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 79360.68,
-      "totalEur": 79360.68,
-      "paidEur": 59661.78,
+      "prevTotalEur": 59552.53,
+      "totalEur": 59552.53,
+      "paidEur": 28214.09,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Специализирани бизнес системи АД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1198",
-      "title": "Подобряване на производствения капацитет на \"„ЛОЗАНОВ ДЕНТАЛ - АМБУЛАТОРИЯ ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ - ИНДИВИДУАЛНА ПРАКТИКА ПО ДЕНТАЛНА МЕДИЦИНА\" ЕООД, чрез придобиване на ДМА за предлагане на нов вид дентални услуги в кабинета в град Монтана – рентгенография за секторни снимки и цифрово вземане на отпечатъци.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 52679.43,
-      "totalEur": 34735.36,
-      "paidEur": 26051.52,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Лозанов дентал - амбулатория за първична Медицинска помощ - индивидуална практика по дентална Медицина ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1753",
-      "title": "Подобряване на производствения капацитет на \"Хаус Консулт\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 22729.67,
-      "totalEur": 20240.6,
-      "paidEur": 15180.44,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Хаус консулт ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0810",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"НАРОДНА ПРОСВЕТА - 1926\" - с. Д-Р ЙОСИФОВО",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 9804.81,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Народна просвета - 1926\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1196",
-      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище Събуждане-1922 г.“, село Стубел",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 12398.79,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище ”Събуждане-1922 г.\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1062",
-      "title": "Изграждане на дигитален клуб в ИЗГРЕВ-1927 С. СТУДЕНО БУЧЕ в с. Студено буче",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 12455.85,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище ИЗГРЕВ-1927 с. Студено буче",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Ахат ООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

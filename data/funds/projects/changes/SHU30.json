@@ -1,600 +1,309 @@
 {
   "obshtina": "SHU30",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0525",
-      "title": "Инвестиция в технологии от областта на Индустрия 4.0 в „Лес Комерс 94 ЕООД“",
+      "contractNumber": "BG05SFPR002-1.032-0001",
+      "title": "\"Повишаване ефективността на държавния здравен контрол\"",
       "type": "new",
-      "totalEur": 310645.23,
+      "totalEur": 2045167.52,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Министерство на здравеопазването",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.008-0290",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в КРИСТАЛ ГЛАС-ХОЛДИНГ ЕАД",
+      "type": "new",
+      "totalEur": 1312409.33,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЛЕС Комерс 94",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Кристал ГЛАС-ХОЛДИНГ ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-3.007-0006",
-      "title": "„Развитие на Индустриален Парк Шумен АД, чрез изграждане, реконструкция и рехабилитация на довеждащата и вътрешната технически инфраструктури в границите на индустриалния парк с цел привличане на допълнителни инвеститори”",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 2202381.65,
-      "totalEur": 2137118.76,
-      "paidEur": 1709695,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Оператор на индустриален парк шумен ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.007-0045",
-      "title": "ПОДОБРЯВАНЕ НА ЕНЕРГИЙНАТА ЕФЕКТИВНОСТ И МОДЕРНИЗАЦИЯ НА ОБРАЗОВАТЕЛНАТА СРЕДА В III ОУ \"Д.БЛАГОЕВ\" ГР. ШУМЕН",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1908410.47,
-      "totalEur": 1908410.47,
-      "paidEur": 1816564.71,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-3.006-0017",
-      "title": "Изграждане на нови фотоволтаични системи за собствено потребление в комбинация с батерии",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 1123901.36,
-      "totalEur": 1108901.36,
-      "paidEur": 488027.5,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Виас ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.003-0533",
-      "title": "Внедряване на Иновативни мехатронни станции за автоматизирано и роботизирано заваряване на дъна и муфи на водосъдържатели с обем от 30 до 1500 литра в “НЕС - НОВИ ЕНЕРГИЙНИ СИСТЕМИ” ООД, Шумен",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 682038.56,
-      "totalEur": 583200,
-      "paidEur": 262440.02,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "НЕС - Нови енергийни системи ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0079",
-      "title": "Енергийно обновяване на сградата на Дидис ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 392454.88,
-      "totalEur": 392454.88,
-      "paidEur": 196273.41,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Дидис ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0163",
-      "title": "Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрически автомобил, включително свързана зарядна станция за предоставяне на социалните услуги в Община Шумен.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 383509.58,
-      "totalEur": 383509.58,
-      "paidEur": 187552.77,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0215",
-      "title": "Изграждане на училищна STEM среда",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 180802.76,
-      "totalEur": 185630.65,
-      "paidEur": 180802.78,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по икономика",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16FFPR002-3.011-0004",
-      "title": "„Подобряване състоянието на Черния лешояд (А079 Aegypius monachus), чрез извършване на подхранване в площадка в защитена зона BG0002038 „Провадийско-Роякско плато“ - област Шумен, общ. Шумен, с. Ивански.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 142886.36,
-      "totalEur": 142886.36,
-      "paidEur": 5595.58,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Национално ЛОВНО-РИБАРСКО сдружение \"Съюз на ловците и риболовците в българия\" (Нлрс - слрб)",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0635",
-      "title": "Подобряване на производствения капацитет на фирма \"ИНКО-СИСТЕМС - ТАКЕВ И С-ИЕ\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102053.86,
-      "totalEur": 102038.52,
-      "paidEur": 76528.89,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ИНКО-СИСТЕМС - Такев и С-ИЕ ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-2214",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92926.23,
-      "totalEur": 92926.23,
-      "paidEur": 91194.24,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Обединено училище \"Христо Ботев\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1266",
-      "title": "Повишаване на енергийната ефективност МОНЧА ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 84319.58,
-      "totalEur": 84319.58,
-      "paidEur": 13315.25,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Монча\" ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1407",
-      "title": "Подобряване производствения капацитет на Артпринт ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 82982.67,
-      "totalEur": 82982.67,
-      "paidEur": 62237,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Артпринт ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1627",
-      "title": "Подобряване на производствения капацитет на \"ПС ДИКСИ\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 81739.35,
-      "totalEur": 81712.75,
-      "paidEur": 61284.54,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ПС Дикси ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.016-0031",
-      "title": "\"Опиянение и гняв. Изследвания върху авторитарния характер\" - една постановка на немският арт колектив ЛИГНА",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 64658.93,
-      "totalEur": 61815.49,
+      "contractNumber": "BG16RFPR001-1.008-0452",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в България Пласт Трейд ЕООД",
+      "type": "new",
+      "totalEur": 852345.32,
       "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "България Пласт Трейд ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.008-0141",
+      "title": "Повишаване на нивото на дигитализация на СКОРПИОН 84 ЕООД чрез инвестиции за въвеждане на технологии от областта на Индустрия 4.0",
+      "type": "new",
+      "totalEur": 459780.81,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Скорпион 84 ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.008-0394",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в предприятие Елина-7 ООД",
+      "type": "new",
+      "totalEur": 431044.62,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Елина-7\" ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-7.008-0002",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на Североизточен район за планиране",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 31565297.1,
+      "totalEur": 31565297.1,
+      "paidEur": 13849742.3,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Виваком България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.001-0391",
+      "title": "Определяне на ролята на UV-спектрофотометрията като система за ранно предупреждение (СРП) за наличие/значимост на цианотоксини в повърхностни води",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 210267.04,
+      "totalEur": 210267.04,
+      "paidEur": 97959.74,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Делфин ПРОЕКТ-ЕКОТЕХНИКА ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0176",
+      "title": "Подобряване енергийните характеристики на административна сграда на \"КЪНСТРАКШЪН ГРУП\" ЕООД, чрез изпълнение на устойчиви интегрирани високоефективни енергийни мерки",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 200033.15,
+      "totalEur": 200033.15,
+      "paidEur": 108009.23,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Кънстракшън груп ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1031",
+      "title": "Подкрепа за семейно предприятие \"Арматурен цех 2000\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 135000,
+      "totalEur": 135000,
+      "paidEur": 76693.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Арматурен ЦЕХ 2000 ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1602",
+      "title": "Подобряване на производствения капацитет на фирма Химера ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 100177.57,
+      "totalEur": 100086.78,
+      "paidEur": 75065.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Химера ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0998",
+      "title": "Изграждане на дигитален клуб \"Шумен\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 22046.91,
+      "totalEur": 35020.76,
+      "paidEur": 17510.38,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Таймлайн продакшънс ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Стопанска камара - Шумен",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0722",
-      "title": "Подобряване на производствения капацитет в предприятието",
+      "contractNumber": "BG16RFPR001-1.012-0559",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 64473.91,
-      "totalEur": 60976.66,
-      "paidEur": 45732.49,
+      "prevTotalEur": 34172.19,
+      "totalEur": 34172.19,
+      "paidEur": 23920.54,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Зеленчуци ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"НОН - Стоп\" ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1614",
-      "title": "Подобряване на капацитета за предоставяне на услуги на фирма \"ЕЙЧ КЮ ИНВЕСТ\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 54534.39,
-      "totalEur": 54508.09,
-      "paidEur": 40881.07,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕЙЧ КЮ Инвест ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1966",
-      "title": "Подобряване на производствения капацитет на фирма \"Вълеви 2010\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 43469.44,
-      "totalEur": 35611.22,
-      "paidEur": 26708.45,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Вълеви 2010 ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0647",
-      "title": "Изграждане на дигитален клуб в град Шумен",
+      "contractNumber": "BG-RRP-1.024-0091",
+      "title": "„Изграждане на дигитален клуб в гр. Шумен",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 26587.18,
       "totalEur": 26587.18,
-      "paidEur": 21345.37,
+      "paidEur": 17450.37,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище ,,Отец Паисий 1929\"",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Шумен",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0928",
-      "title": "Подобряване на капацитета за предоставяне на услуги на фирма \"АРХЕЯ\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 18813.37,
-      "totalEur": 18577.79,
-      "paidEur": 13933.37,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Архея ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1067",
-      "title": "Изграждане на дигитален клуб в с. Ивански, обл. Шумен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 17281.3,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \" Просвета - 1880 \"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0175",
-      "title": "изграждане на дигитален клуб в Народно Читалище Христо Ботев- 1907 - с.Мараш",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 11363.58,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Христо Ботев - 1907 - с.Мараш",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0197",
-      "title": "Дигитален клуб \"За нас\" с. Илия Блъсково",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14082.51,
-      "totalEur": 14082.51,
-      "paidEur": 11659.64,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ Просвета - 1925",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0049",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Софийско шосе\" блок 4",
+      "contractNumber": "BG-RRP-4.023-1097",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Ришки проход\" № 18",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 836017.16,
+      "prevTotalEur": 523981.54,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1119",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Цар Освободител\" № 10",
+      "contractNumber": "BG-RRP-4.023-0683",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Съединение\" № 205",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 958860.06,
+      "prevTotalEur": 135978.66,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0436",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Марица\" № 18",
+      "contractNumber": "BG-RRP-4.023-0517",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Софийско шосе\" блок 14",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 566897.52,
+      "prevTotalEur": 562663.52,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0698",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Марица\" №20",
+      "contractNumber": "BG-RRP-4.023-1121",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Марица\" № 24",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 534398.32,
+      "prevTotalEur": 342329.54,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1118",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Дедеагач\" № 1",
+      "contractNumber": "BG-RRP-4.023-0701",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Марица\" № 16",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 658573.73,
+      "prevTotalEur": 557181.89,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1115",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Цар Освободител\" № 64",
+      "contractNumber": "BG-RRP-4.023-1557",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Никола Вапцаров\" № 3",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 814598.93,
+      "prevTotalEur": 433223.59,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0050",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Васил Априлов\" № 3, вх. 1, 2, 3 и 4",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 673849.21,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1176",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Софийско шосе\" блок 6",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 521875.87,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0711",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, жк \"Херсон\" блок №8",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 262941.39,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1107",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Ришки проход\" № 34",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 693911.7,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1092",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, ул. \"Генерал Драгомиров\" №56",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1050146.32,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

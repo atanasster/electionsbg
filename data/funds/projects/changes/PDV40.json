@@ -1,40 +1,38 @@
 {
   "obshtina": "PDV40",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0701",
-      "title": "Изграждане на дигитален клуб в ПРОСВЕТА - 1862 ГР. ПЕРУЩИЦА в гр./с. Перущица",
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 17383.92,
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище просвета - 1862 ГР. Перущица",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0032",
-      "title": "\"Фестивал на шевицата - Традицията среща бъдещето\"",
+      "contractNumber": "BG16RFPR001-1.012-0072",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 7995.26,
-      "totalEur": 7285.82,
+      "prevTotalEur": 31665.84,
+      "totalEur": 31665.84,
       "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Народно читалище Алеко Константинов-1954 г.-ГР. Пловдив\" НЧ",
-      "detectedAt": "2026-08-24"
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Хидройоникс ЕООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

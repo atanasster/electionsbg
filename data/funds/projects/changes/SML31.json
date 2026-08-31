@@ -1,244 +1,36 @@
 {
   "obshtina": "SML31",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0511",
-      "title": "Инвестиция за въвеждане на технологии от областта на Индустрия 4.0 в Косара-Р ЕООД",
+      "contractNumber": "BG05SFPR002-1.032-0001",
+      "title": "\"Повишаване ефективността на държавния здравен контрол\"",
       "type": "new",
-      "totalEur": 460144.29,
+      "totalEur": 2045167.52,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Косара-Р ЕООД",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Министерство на здравеопазването",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16FFPR002-5.001-0013",
-      "title": "МЕРКИ ЗА ПОДОБРЯВАНЕ КАЧЕСТВОТО НА АТМОСФЕРНИЯ ВЪЗДУХ В ОБЩИНА СМОЛЯН – ФАЗА 2",
+      "contractNumber": "BG05SFPR003-1.001-0237",
+      "title": "Топъл обяд в община Смолян",
       "type": "modified",
       "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 10410632.27,
-      "totalEur": 10410632.27,
-      "paidEur": 1176269.12,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.010-0061",
-      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане с оглед реформиране на съществуващ Дом за стари хора в Община Смолян",
-      "type": "modified",
-      "changedFields": [
+        "totalEur",
+        "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 3141128.03,
-      "totalEur": 3141128.03,
-      "paidEur": 2702572.96,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 361098.31,
+      "totalEur": 466913.11,
+      "paidEur": 315844.86,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.008-0009",
-      "title": "Младежки център - Смолян",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1891779.93,
-      "totalEur": 1891779.93,
-      "paidEur": 1748095.86,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0088",
-      "title": "Иновативни здравно-социални услуги в община Смолян",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 531128.92,
-      "totalEur": 531128.92,
-      "paidEur": 298125.37,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2573",
-      "title": "\"Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Блок Възход, ул. Б. Шукеров №14, гр. Смолян\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 491597.69,
-      "totalEur": 491597.69,
-      "paidEur": 471517.09,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0307",
-      "title": "Енергийно обновяване на сграда на Народно читалище „Проф. д-р Асен Златаров 1927” с. Смилян, Община Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 432099.03,
-      "totalEur": 431813.13,
-      "paidEur": 401135.61,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0034",
-      "title": "Изпълнение на мерки за енергийно обновяване на хотелски комплекс \"Кипарис Алфа\" Смолян",
-      "type": "modified",
-      "changedFields": [
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 239641.04,
-      "totalEur": 239641.04,
-      "paidEur": 153387.56,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Д и к ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0169",
-      "title": "\"Инсталиране на фотоволтаични системи в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство и зарядна станция за предоставяне на социални услуги на територията на Община Смолян\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 223516.25,
-      "totalEur": 223516.25,
-      "paidEur": 162860.4,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0541",
-      "title": "Подобряване на екологосъобразното поведение и работната среда в Косара-Р ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 199978.37,
-      "totalEur": 199941.19,
-      "paidEur": 199941.18,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "КОСАРА-Р ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0140",
-      "title": "Повишаване на ефективността на процесите в Косара Стил-Р ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102248.15,
-      "totalEur": 102241,
-      "paidEur": 76680.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Косара СТИЛ-Р ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2530",
-      "title": "Подобряване на производственият капацитет на Амбулатория за първична медицинска помощ по дентална медицина Индивидуална практика-др.Хаджиев",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102217.47,
-      "totalEur": 101918.31,
-      "paidEur": 76438.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Амбулатория за първична Медицинска помощ по дентална Медицина – индивидуална практика Д-Р Хаджиев ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0692",
-      "title": "Подобряване на производствения капацитет на \" Елкорект-Кокаров\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102257.02,
-      "totalEur": 100080.56,
-      "paidEur": 75060.44,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"ЕЛКОРЕКТ-КОКАРОВ\" ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2514",
-      "title": "Подобряване на производственият капацитет на РАЙДЕНТ - Амбулатория за първична медицинска помощ по дентална медицина - групова практика ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 96634.17,
-      "totalEur": 96634.16,
-      "paidEur": 72475.61,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Райдент - Амбулатория за първична медицинска помощ по дентална медицина - групова практика ООД",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
       "contractNumber": "BG-RRP-13.011-0025",
@@ -249,81 +41,16 @@
       ],
       "prevTotalEur": 88102.38,
       "totalEur": 88102.38,
-      "paidEur": 57588,
+      "paidEur": 87648.53,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1676",
-      "title": "Адаптирана работна среда в Киприда ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 84918.37,
-      "totalEur": 84918.37,
-      "paidEur": 83926.06,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Киприда ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1348",
-      "title": "Дигитална среда за всички",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 75604.83,
-      "totalEur": 75604.83,
-      "paidEur": 46767.64,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Информатика ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1612",
-      "title": "Инвестиции в енергийна ефективност и използване на енергия от възобновяеми източници в предприятие \"Е ЕНД С ИМОТИ\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 102069.08,
-      "totalEur": 74181.49,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Е ЕНД с имоти\" ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2379",
-      "title": "Подобряване производствения капацитет и пазарното присъствие на \"Нанка криейтив\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 41700.97,
-      "totalEur": 41700.97,
-      "paidEur": 27930.96,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Нанка криейтив ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2510",
-      "title": "Подобряване на производственият капацитет на ДИЧЕВ КОНСУЛТ ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-1199",
+      "title": "Повишаване на производствения капацитет в ГОРАН-ПИК ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -331,209 +58,32 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 33612.02,
-      "totalEur": 33388.87,
-      "paidEur": 25041.65,
+      "prevTotalEur": 69441.74,
+      "totalEur": 68435.58,
+      "paidEur": 51326.75,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ДИЧЕВ-КОНСУЛТ ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "ГОРАН-ПИК ЕООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16FFPR003-2.005-0005",
-      "title": "Техническа подкрепа за изпълнение на ИТИ инструмента за Община Смолян",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 31938.67,
-      "totalEur": 31938.67,
-      "paidEur": 31938.66,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0281",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
+      "contractNumber": "BG-RRP-4.024-0096",
+      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Пековата къща, ул. Проф. Асен Василев №7, гр. Смолян",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 30933.15,
-      "totalEur": 30984.29,
-      "paidEur": 30933.15,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0236",
-      "title": "Подобряване на конкурентоспособността на семейното предприятие „Витасин“ ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 25053.3,
-      "totalEur": 25053.3,
-      "paidEur": 18789.98,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Витасин ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0307",
-      "title": "Подобряване капацитета и пазарното представяне на Технокомплекс ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 18687.72,
-      "totalEur": 18255.33,
-      "paidEur": 13691.5,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Технокомплекс ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1361",
-      "title": "Изграждане на дигитален клуб в НЧ \" България - 1937\" в с. Могилица",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 13937.14,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \" България - 1937\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0505",
-      "title": "Подобряване капацитета на ресторант Леандро Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 12946.68,
-      "totalEur": 8353.34,
-      "paidEur": 6265.01,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЛЕАНДРА-СМОЛЯН ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0114",
-      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Блок 45, ул. Арх. Петър Петров №5, гр. Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 743752.68,
+      "prevTotalEur": 82327.17,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0115",
-      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Блок 20, бул. България №37, гр. Смолян\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 350425.98,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0113",
-      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Блок 48, ул. Полк. Дичо Петров №10, гр. Смолян\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 666685.1,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0216",
-      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Блок Б-3, ул. Атанас Беров №3, гр. Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 995154.23,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0098",
-      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Кискинови, ул. Станевска №9, гр. Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 104815.4,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

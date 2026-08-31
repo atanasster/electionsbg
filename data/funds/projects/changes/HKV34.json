@@ -1,293 +1,301 @@
 {
   "obshtina": "HKV34",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.007-0004",
-      "title": "Пилотна енергийна общност Хасково",
+      "contractNumber": "BG16FFPR003-4.014-0045",
+      "title": "Преход към енергийно устойчива образователна инфраструктура",
       "type": "new",
-      "totalEur": 346049.36,
+      "totalEur": 3443046.36,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.034-0148",
-      "title": "Изграждане и въвеждане в експлоатация на самостоятелни съоръжения за съхранение на електрическа енергия от възобновяеми източници",
+      "contractNumber": "BG05SFPR002-1.032-0001",
+      "title": "\"Повишаване ефективността на държавния здравен контрол\"",
+      "type": "new",
+      "totalEur": 2045167.52,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Министерство на здравеопазването",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG05SFPR001-3.009-0018",
+      "title": "Център за иновации и умения на бъдещето",
+      "type": "new",
+      "totalEur": 861811.68,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по дървообработване и строителство Цар Иван Асен Втори",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 5017584,
-      "totalEur": 5017584,
-      "paidEur": 1569472.38,
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Крита 10 ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-1.011-0013",
-      "title": "„Ремонт и рехабилитация на общежития към Център за подкрепа за личностно развитие - Обединени ученически общежития, гр. Хасково, община Хасково“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 3061324.95,
-      "totalEur": 3061324.95,
-      "paidEur": 2744453.56,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.003-0299",
-      "title": "Внедряване на Система за координиране на множество от автоматизирани роботи за почистване",
+      "contractNumber": "BG16FFPR002-2.002-0001",
+      "title": "Техническа рекултивация на Клетка 1 (нова) от Регионален център за третиране на неопасни отпадъци в землището на с. Гарваново, Община Хасково",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 761313.61,
-      "totalEur": 760672.89,
-      "paidEur": 342302.8,
+      "prevTotalEur": 602654.81,
+      "totalEur": 1178690.37,
+      "paidEur": 88595.52,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2271",
+      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес: гр. Хасково, ул. \"Цар Страшимир\" 5-9",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 831479.71,
+      "totalEur": 829992.49,
+      "paidEur": 829956.71,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Бонанза – Професионално почистване ЕООД",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1765",
+      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на многофамилна жилищна сграда с адрес гр. Хасково, жк Орфей бл.38",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 654212.89,
+      "totalEur": 651545.14,
+      "paidEur": 651301.77,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2280",
+      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес: гр. Хасково, ж.к. Орфей, блок 12",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 645651.6,
+      "totalEur": 643906,
+      "paidEur": 643875.33,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
     },
     {
       "contractNumber": "BG-RRP-4.023-1419",
       "title": "Въвеждане на мерки за повишаване на енергийната ефективност на многофамилна жилищна сграда с адрес гр. Хасково, ул. \"Стефан Стамболов\" №27",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 646071.33,
-      "totalEur": 646071.33,
+      "totalEur": 643812.58,
       "paidEur": 643781.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0079",
-      "title": "Енергийно обновяване на сградата на Драматично-куклен театър \"Иван Димов\", гр. Хасково",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 536952.76,
-      "totalEur": 531893.86,
-      "paidEur": 531893.86,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2228",
-      "title": "Подобряване на производствения капацитет във ВЕЛВАС ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 102258.38,
-      "paidEur": 76693.78,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Велвас ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1643",
-      "title": "Подобряване на производствения капацитет на „Калинови - консулт” ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102253.26,
-      "totalEur": 97503.02,
-      "paidEur": 73127.26,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Калинови - консулт ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0212",
-      "title": "ЕВРОПА - ХАРМОНИЯ И СЕТИВНОСТ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 75816.79,
-      "totalEur": 67976.67,
-      "paidEur": 6823.19,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Младежко сдружение - българия Сдружение",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.003-0024",
-      "title": "Внедряване на продуктова иновация в Полимерметал ЕООД - ЕЛАСТИЧНИ ВИБРОИЗОЛАЦИОННИ ЕЛЕМЕНТИ ЗА ТРАМВАЙНИ РЕЛСИ по собствен регистриран полезен модел \"ЗВУКОИЗОЛИРАЩ И ЗВУКОПОГЛЪЩАЩ КОМПОЗИТЕН МАТЕРИАЛ\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 57264.69,
-      "totalEur": 57260,
-      "paidEur": 28630,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Полимерметал ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.024-0055",
-      "title": "Градовете Пловдив и Хасково - домакини на Kitee International Music and Art Festival - Финландия",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 57101.08,
-      "totalEur": 57062.4,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сдружение \"Национално сдружение за единство и партньорство\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16FFPR003-2.005-0017",
-      "title": "Техническа подкрепа за община Хасково в изпълнение на ИТИ",
+      "contractNumber": "BG16FFPR003-4.001-0142",
+      "title": "Подкрепа за устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Хасково, бул. \"Георги Сава Раковски\" № 19",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 31938.67,
-      "totalEur": 31938.67,
-      "paidEur": 21434.69,
+      "prevTotalEur": 637999.13,
+      "totalEur": 637999.13,
+      "paidEur": 236648.51,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0998",
-      "title": "Eнергийна ефективност и използване на енергия от възобновяеми източници в \"Пластер АРТ\" ЕООД, гр. Хасково.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 31332.58,
-      "totalEur": 29979.29,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Пластер АРТ ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1208",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"ЗОРА-1982\" гр. Хасково",
+      "contractNumber": "BG16FFPR003-4.001-0139",
+      "title": "Подкрепа за устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Хасково, ул. \"Св. Св. Кирил и Методий\" № 105",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 26587.18,
-      "totalEur": 26587.18,
-      "paidEur": 24320.74,
+      "prevTotalEur": 590300.32,
+      "totalEur": 590300.32,
+      "paidEur": 219625.67,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"ЗОРА-1982\"",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFTA001-1.010-0121",
-      "title": "Повишаване административния капацитет на Съюз за възстановяване и развитие за осигуряване на по-висока ефективност на реализираните проекти, финансирани от програмите от Споразумението за партньорство 2021 – 2027 и разработването на Споразумението за партньорство и програмите за следващи програмни периоди (2027 +)",
+      "contractNumber": "BG16FFPR003-4.001-0179",
+      "title": "Подкрепа за устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Хасково, бул. \"Георги Сава Раковски\" № 25",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 26130.54,
-      "totalEur": 26130.54,
-      "paidEur": 6044.78,
+      "prevTotalEur": 533356.05,
+      "totalEur": 533356.05,
+      "paidEur": 198644.77,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Съюз за възстановяване и развитие",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0660",
-      "title": "Изграждане на дигитален клуб с. Узунджово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17382.9,
-      "totalEur": 17382.9,
-      "paidEur": 17282.8,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"ЦВЯТ-1898\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1171",
-      "title": "Подобряване капацитета на Джи Ел Ен ЕООД, град Хасково за предоставяне на услуги за обслужване и ремонт на автомобили",
+      "contractNumber": "BG-RRP-4.023-2077",
+      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес гр. Хасково, ж.к. Дружба 1, ул. \"Цар Самуил\" № 3-9",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 36143.22,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 513678.94,
+      "totalEur": 512026.49,
+      "paidEur": 511995.82,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0167",
+      "title": "Подкрепа за устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Хасково, ж.к. Бадема, блок 7",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 488583.97,
+      "totalEur": 488583.97,
+      "paidEur": 181989.8,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2257",
+      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес: гр. Хасково, ул. \"Стара планина\" № 18-20 и 22-24",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 446236.95,
+      "totalEur": 445491.4,
+      "paidEur": 445248.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1483",
+      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес: гр. Хасково, ж.к. Орфей, блок 40",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 397122,
+      "totalEur": 395210.03,
+      "paidEur": 395179.36,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1214",
+      "title": "Подобряване на производствения капацитет и ефективността на процесите в Ти Ай Инженеринг ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.37,
+      "paidEur": 76693.77,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ДЖИ ЕЛ ЕН ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Ти Ай Инженеринг ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0235",
+      "title": "Енергийна ефективност в ПАК Дизайн ЕООД.",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 101945.98,
+      "totalEur": 101945.98,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ПАК дизайн ЕООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

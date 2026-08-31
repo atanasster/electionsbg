@@ -1,6 +1,6 @@
 {
   "obshtina": "JAM03",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-11.018-0045",
@@ -11,65 +11,28 @@
       ],
       "prevTotalEur": 6129414.51,
       "totalEur": 6129414.51,
-      "paidEur": 3424473.98,
+      "paidEur": 3612488.75,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Болярово",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.020-0025",
-      "title": "\"Енергоефективна реконструкция на сградата на НЧ \"Ана Маймункова\" с. Воден, община Болярово",
+      "contractNumber": "BG-RRP-13.009-0084",
+      "title": "\"Инсталиране на фотоволтаични системи върху сгради, предоставящи социални услуги и закупуване на електрическо превозно средство и зарядна станция в община Болярово\"",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 506173.01,
-      "totalEur": 489180.09,
-      "paidEur": 460895.42,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "община Болярово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0024",
-      "title": "Мерки за подобряване на енергийната ефективност на общинска сграда, град Болярово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 271674.5,
-      "totalEur": 258473.57,
-      "paidEur": 249187.01,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 157418.59,
+      "totalEur": 157418.59,
+      "paidEur": 94784.95,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Болярово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG06RDNP001-4.012-1289",
-      "title": "Закупуване на земеделска техника за растениевъдно стопанство",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 108535.6,
-      "totalEur": 108535.61,
-      "paidEur": 54267.45,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "Йордан",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

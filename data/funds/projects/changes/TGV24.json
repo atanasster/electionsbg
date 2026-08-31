@@ -1,235 +1,24 @@
 {
   "obshtina": "TGV24",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0365",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в „Чугунена арматура България“ АД чрез Интелигентна система за стругово-фрезови операции",
-      "type": "new",
-      "totalEur": 869196.2,
+      "contractNumber": "BG-RRP-4.023-0383",
+      "title": "“Подобряване на енергийната ефективност в многофамилна жилищна сграда в гр. Попово в ж.к. „Младост” бл.113",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 183242.19,
+      "totalEur": 0,
       "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Чугунена арматура България\" АД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.018-0012",
-      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания в Община Попово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 3699523.05,
-      "totalEur": 3699523.05,
-      "paidEur": 1383280.8,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Попово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0103",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в ПИ с идентификатор 37469.27.5 и 37469.27.7 по КККР на землище с. Ковачевец, Община Попово.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 921355.64,
-      "totalEur": 921355.64,
-      "paidEur": 458701.48,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Синтезия енерджи ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0953",
-      "title": "Подобряване на енергийната ефективност в многофамилна жилищна сграда в гр. Попово в ж.к. „Младост” бл.6",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 658371.22,
-      "totalEur": 625555.74,
-      "paidEur": 464876.03,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Попово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0781",
-      "title": "Подобряване на енергийната ефективност в многофамилна жилищна сграда в гр. Попово в ж.к. \"Русаля\" № 29,30,31",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 515619.9,
-      "totalEur": 513992.86,
-      "paidEur": 513992.86,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Попово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0181",
-      "title": "Енергийно ефективно обновяване на производствената база на \"Чугунена арматура България\" АД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 513132.79,
-      "totalEur": 513132.79,
-      "paidEur": 255645.42,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Чугунена арматура българия АД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0089",
-      "title": "Иновативни здравно-социални услуги в община Попово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 298170.14,
-      "totalEur": 298170.14,
-      "paidEur": 147820.74,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Попово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2146",
-      "title": "Подобряване на енергийната ефективност в многофамилна жилищна сграда в гр. Попово в ж.к. \"Русаля\" бл. 26",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 291915.28,
-      "totalEur": 291915.28,
-      "paidEur": 291200.38,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Попово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0140",
-      "title": "Подобряване енергийната ефективност чрез енергийно обновяване на сградния фонд на \"ДУДО СТРОЙ \" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 233455.36,
-      "totalEur": 233455.36,
-      "paidEur": 112737.7,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Дудо строй ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0771",
-      "title": "Подобряване на енергийната ефективност на многофамилна жилищна сграда в с. Садина, община Попово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 124602.82,
-      "totalEur": 124602.82,
-      "paidEur": 124307.15,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Попово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0152",
-      "title": "Проектно предложение по програма BG-RRP-1.015 - „Училищна STEM среда\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 92543.87,
-      "totalEur": 92952.86,
-      "paidEur": 92543.87,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Васил Левски\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0906",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи в ОУ \"Антон Страшимиров\" село Светлен",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 88678.39,
-      "totalEur": 92942.43,
-      "paidEur": 88678.41,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"АН.СТРАШИМИРОВ\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0771",
-      "title": "Център за обучение по дигитални компетенции",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 46488.21,
-      "totalEur": 46488.21,
-      "paidEur": 43102.57,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \"СВ.СВ.КИРИЛ и Методий - 1882\" гр. Попово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0461",
-      "title": "Създаване на дигитален клуб към Народно читалище \"В.М. Гаршин - 1902\", с. Светлен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 13779.01,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"В.М. Гаршин - 1902\"",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

@@ -1,102 +1,25 @@
 {
   "obshtina": "DOB03",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0082",
-      "title": "Внедряване на мерки за енергийна ефективност в Сградата на Народно читалище \"Паисий Хилендарски- 1870\"",
+      "contractNumber": "BG16RFPR001-1.004-1534",
+      "title": "Подобряване на производствения капацитет и оптимизиране на бизнес процесите в Хелиос БГ ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 693311.79,
-      "totalEur": 693311.79,
-      "paidEur": 609263.15,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2553",
-      "title": "Внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда, находяща се в град Балчик, ж.к.Балик, бл.11, вх. А и Б",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 511144.22,
-      "totalEur": 511144.22,
-      "paidEur": 509869.29,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0223",
-      "title": "Енергийно обновяване на сградата на хотел \"Феникс\", с. Кранево",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 113935.49,
-      "totalEur": 113935.49,
-      "paidEur": 49138.28,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сънсолар",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2543",
-      "title": "Внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда, находяща се в град Балчик, ул. “ген. Владимир Заимов“ № 2",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 108859.43,
-      "totalEur": 108859.43,
-      "paidEur": 108614.64,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-1413",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 35324.64,
-      "totalEur": 35324.64,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 62633.26,
+      "totalEur": 61387,
+      "paidEur": 46040.25,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Шоколино ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0656",
-      "title": "изграждане на дигитален клуб в Народно читалище Христо Смирненски -1941г - с.Сенокос",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 13002.69,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Христо Смирненски -1941г - с.Сенокос",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Хелиос БГ ООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

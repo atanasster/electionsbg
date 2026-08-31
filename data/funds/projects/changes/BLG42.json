@@ -1,70 +1,39 @@
 {
   "obshtina": "BLG42",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0100",
-      "title": "Топъл обяд в община Сатовча",
+      "contractNumber": "BG-RRP-7.008-0003",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Национален план за възстановяване и устойчивост (НПВУ) на Република България - Югозападен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2632422.4,
-      "totalEur": 2632422.4,
-      "paidEur": 1929926.37,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Сатовча",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0044",
-      "title": "Иновативни здравно-социални услуги в община Сатовча",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 191324.42,
-      "totalEur": 191324.42,
-      "paidEur": 111639.74,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Сатовча",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0216",
-      "title": "Училище без агресия",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 155516.79,
-      "totalEur": 155516.79,
-      "paidEur": 31103.35,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Христо Смирненски\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0954",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"Просвета 1937\"с.Плетена",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17120.1,
-      "totalEur": 17120.1,
-      "paidEur": 17066.77,
+      "prevTotalEur": 42468011.79,
+      "totalEur": 42468011.79,
+      "paidEur": 19091385.13,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище\"Просвета 1937\", Плетена",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1038",
+      "title": "Подобряване на производствения капацитет на семейно шивашко предприятие „Зейнтекс“ ООД посредством придобиване на високотехнологично кроялно оборудване",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
+      "paidEur": 76693.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Зейнтекс ООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

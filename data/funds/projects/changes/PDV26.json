@@ -1,166 +1,113 @@
 {
   "obshtina": "PDV26",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0561",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в „Инстал Инженеринг СВ”",
+      "contractNumber": "BG16RFPR001-1.008-0317",
+      "title": "Индустрия 4.0 в Киприда ЕООД",
       "type": "new",
-      "totalEur": 888439.56,
+      "totalEur": 460162.7,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Инстал инженеринг СВ ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Киприда\" ЕООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.008-0383",
-      "title": "Повишаване на нивото на дигитализация на \"ЛУМБРЕКО\" ЕООД чрез инвестиции за въвеждане на технологии от областта на Индустрия 4.0",
+      "contractNumber": "BG16RFPR001-1.008-0105",
+      "title": "Повишаване на нивото на дигитализация на ДАНКО СИСТЕМС ООД чрез инвестиции за въвеждане на технологии от областта на Индустрия 4.0",
       "type": "new",
-      "totalEur": 335509.74,
+      "totalEur": 349570.37,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Лумбреко\" ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Данко системс ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.008-0398",
-      "title": "Въвеждане на технологии в областта на Индустрия 4.0 в \"АЛУТРЕЙДИНГ\" ЕООД",
-      "type": "new",
-      "totalEur": 235141.25,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Алутрейдинг\" ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0304",
-      "title": "„По - здравословна и адаптирана към предизвикателствата на климатичния преход работна среда във „ВАКИ - ХИМ“ ООД“",
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 199659.48,
-      "totalEur": 199659.48,
-      "paidEur": 199659.48,
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Ваки - ХИМ ООД",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2400",
-      "title": "Подобряване на производствения капацитет в семейното предприятие ДЕЙЗИ ЛУКС ЕООД",
+      "contractNumber": "BG16RFPR001-2.004-2118",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Стройгруп 7 ЕООД.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 101170.2,
+      "totalEur": 101170.2,
+      "paidEur": 50585.1,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Стройгруп 7 ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0404",
+      "title": "Подобряване производствения капацитети и услугите на \"ГРОЗДАНОВ 64\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 120175,
-      "totalEur": 109367,
-      "paidEur": 69798.02,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 100446.85,
+      "totalEur": 100446.87,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Дейзи лукс ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Грозданов 64\" ЕООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2638",
-      "title": "Подобряване на производствения капацитет в ДЖАРАЛЕКС ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 102258.38,
-      "paidEur": 76693.78,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Джаралекс ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1676",
-      "title": "Адаптирана работна среда в Киприда ЕООД",
+      "contractNumber": "BG06RDNP001-4.012-0801",
+      "title": "Модернизация и въвеждане на иновативни решения в стопанството на „БИМАКС АГРО“ ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 84918.37,
-      "totalEur": 84918.37,
-      "paidEur": 83926.06,
+      "prevTotalEur": 88821.62,
+      "totalEur": 88821.62,
+      "paidEur": 44410.8,
+      "status": "Сключен",
+      "programCode": "2014BG06RDNP001",
+      "programName": "Програма за развитие на селските райони",
+      "beneficiaryName": "Бимакс агро ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1351",
+      "title": "Адаптирана работна среда в „АГРОСТАР 2016“ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 99856.46,
+      "totalEur": 51055.8,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Киприда ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1320",
-      "title": "Подобряване производствения капацитет и ефективността на процесите в автосервиз \"БЪЧВАРОВ РЕЙСИНГ\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 31916.57,
-      "totalEur": 31903.05,
-      "paidEur": 23927.29,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Бъчваров рейсинг\" ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0120",
-      "title": "Подобряване конкурентоспособността на „ТОП 5“ ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 21167.48,
-      "totalEur": 18894.66,
-      "paidEur": 14171,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ТОП 5 ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-1382",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 35312.88,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Идея груп ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Агростар 2016 ЕООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

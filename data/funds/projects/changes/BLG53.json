@@ -1,42 +1,40 @@
 {
   "obshtina": "BLG53",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0300",
-      "title": "Енергийна ефективност и обновяване на СГРАДИ ЗА АДМИНИСТРАТИВНИ УСЛУГИ СОБСТВЕНОСТ НА ОБЩИНА ЯКОРУДА - ПОЖАРНА СЛУЖБА в гр. Якоруда, кметство Бунцево и кметство Юруково",
+      "contractNumber": "BG-RRP-7.008-0003",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Национален план за възстановяване и устойчивост (НПВУ) на Република България - Югозападен район за планиране",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 944094.32,
-      "totalEur": 936617.73,
-      "paidEur": 901118.65,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Якоруда",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0249",
-      "title": "BG-RRP-1.015 „Училищна STEM среда“ от Националния план за възстановяване и устойчивост",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 138509.96,
-      "totalEur": 139050.74,
-      "paidEur": 138509.97,
+      "prevTotalEur": 42468011.79,
+      "totalEur": 42468011.79,
+      "paidEur": 19091385.13,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"СВ.СВ. кирил и Методий\"",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.003-0045",
+      "title": "Бъдеще за децата в община Якоруда",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 199997.42,
+      "totalEur": 199820.54,
+      "paidEur": 199820.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Якоруда",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

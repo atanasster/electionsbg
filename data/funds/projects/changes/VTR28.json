@@ -1,420 +1,280 @@
 {
   "obshtina": "VTR28",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0539",
-      "title": "Повишаване на нивото на дигитализация на ВИКТОРИ-2000 ЕООД чрез инвестиции за въвеждане на технологии от областта на Индустрия 4.0",
+      "contractNumber": "BG16RFPR001-1.008-0754",
+      "title": "Въвеждане на Киберфизична система и Индустриален интернет на нещата в предприятието Фаво АД",
       "type": "new",
-      "totalEur": 467320.78,
+      "totalEur": 897357.65,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ВИКТОРИ-2000 ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Фаво\" АД",
+      "detectedAt": "2026-08-31"
     },
     {
       "contractNumber": "BG-RRP-11.010-0032",
       "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане с оглед реформиране на Дом за стари хора \"Мария Луиза\" град Свищов",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
       "prevTotalEur": 6464187.34,
       "totalEur": 6464187.34,
-      "paidEur": 7376172.25,
+      "paidEur": 5477346.55,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-11.018-0048",
-      "title": "Изграждане и оборудване на нови социални услуги в Община Свищов: -Резидентна грижа за пълнолетни лица с физически увреждания /РГПЛФУ/ -Резидентна грижа за пълнолетни лица с интелектуални затруднения /РГПЛИЗ/ -Център за специализирана подкрепа за лица с увреждания и техните семейства /ЦСПЛУТС/“",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1988231.09,
-      "totalEur": 1988231.09,
-      "paidEur": 1929023.55,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0010",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Младост 3“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1448838.53,
-      "totalEur": 1448832.72,
-      "paidEur": 1448832.72,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0005",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Победа 2016“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1273427.18,
-      "totalEur": 1273427.07,
-      "paidEur": 1262929.54,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0018",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Рила 12“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1250697.42,
-      "totalEur": 1250665.3,
-      "paidEur": 1250665.3,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0009",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците „Надежда - 4“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1183027.13,
-      "totalEur": 1183027.09,
-      "paidEur": 1183027.09,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0004",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Напредък 2016“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1105480.74,
-      "totalEur": 1105479.99,
-      "paidEur": 1105479.98,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0001",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците „Нова Витоша“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1064721.5,
-      "totalEur": 1064718.42,
-      "paidEur": 1064718.43,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0028",
-      "title": "Устойчиво енергийно обновяване на публичен сграден фонд за култура на територията на община Свищов",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1081059.92,
-      "totalEur": 1016169.02,
-      "paidEur": 962352.1,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.009-0001",
-      "title": "Изграждане на Младежки център в гр. Свищов",
+      "contractNumber": "BG16FFPR003-2.006-0089",
+      "title": "Изграждане на инфраструктура, подпомагаща бизнеса",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 919379.35,
-      "totalEur": 919379.35,
-      "paidEur": 859112.1,
+      "prevTotalEur": 5679154.3,
+      "totalEur": 5679154.3,
+      "paidEur": 2449733.31,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0033",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Патриарх Евтимий 68“ – гр. Свищов.",
+      "contractNumber": "BG-RRP-4.023-0032",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Патриарх Евтимий 74“ – гр. Свищов.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 734345.65,
-      "totalEur": 734340,
-      "paidEur": 734340,
+      "prevTotalEur": 1436812.24,
+      "totalEur": 1436809.18,
+      "paidEur": 1436809.18,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0036",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Надежда“ – гр. Свищов.",
+      "contractNumber": "BG-RRP-4.023-0029",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Патриарх Евтимий 2019“ – гр. Свищов.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 685795.66,
-      "totalEur": 685155.7,
-      "paidEur": 683296.29,
+      "prevTotalEur": 644062.02,
+      "totalEur": 644043.58,
+      "paidEur": 644043.58,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0008",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Градево 2 - Свищов“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 464932.36,
-      "totalEur": 464362.85,
-      "paidEur": 464362.85,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0030",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците „Дунав 4Г“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 450221.34,
-      "totalEur": 450221.34,
-      "paidEur": 450221.33,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0013",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Дунав-Мир“ – гр. Свищов.",
+      "contractNumber": "BG-RRP-4.023-0035",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците „Единство“ – гр. Свищов.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 449698.72,
-      "totalEur": 449692.81,
-      "paidEur": 449692.81,
+      "prevTotalEur": 448111.59,
+      "totalEur": 448111.57,
+      "paidEur": 448111.57,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0006",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Съединение Свищов“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 329186.53,
-      "totalEur": 329186.53,
-      "paidEur": 329186.53,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1106",
-      "title": "Адаптирана работна среда в Томика Метал АД",
+      "contractNumber": "BG05SFPR002-2.012-0070",
+      "title": "Иновативни здравно-социални услуги в община Свищов",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 124282,
-      "totalEur": 124282,
-      "paidEur": 99425.6,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 342058.89,
+      "totalEur": 342058.89,
+      "paidEur": 273647.11,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Томика - метал АД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1717",
-      "title": "Подобряване производствения капацитет на \"Лимеса 1\"ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 101000.6,
-      "totalEur": 101000.6,
-      "paidEur": 75750.45,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Лимеса - 1 ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0905",
-      "title": "Иновации в печата: Внедряване на LED UV широкоформатен принтер за трансформация на рекламните решения на КЪСТЪМ УЪРКШОП ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 64934.07,
-      "totalEur": 62684.38,
-      "paidEur": 47013.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Къстъм уъркшоп ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0483",
-      "title": "Изграждане на дигитален клуб в село Вардим",
+      "contractNumber": "BG16RFPR001-2.004-1028",
+      "title": "Енергийна ефективност в РОБСОВ ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 11163.14,
+      "prevTotalEur": 78776.79,
+      "totalEur": 78776.79,
+      "paidEur": 48144.89,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище\"Трудолюбие 1907\"",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Робсов ЕООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0103",
-      "title": "\"Ева\" - в подкрепа на донорството",
+      "contractNumber": "BG-RRP-4.024-0069",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците „Албена 2018“ – гр. Свищов.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 8925.62,
-      "totalEur": 8804.24,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "АРТ Будилник Сдружение",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-3.006-0417",
-      "title": "Изграждане на нови фотоволтаични системи за собствено потребление в комбинация с батерии",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 125317.64,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"ВИКТОРИ-2000\" ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0075",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Зорница“ – гр. Свищов.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 266782.22,
+      "prevTotalEur": 181171.03,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0070",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Ралица“ – гр. Свищов.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 187700.79,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0081",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Кантона“ – гр. Свищов.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 478724.57,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0079",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Гр. Свищов, ул. \"Д-р Г. Атанасович\" № 1 А\" - гр. Свищов",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 117835.6,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0078",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Милановци“ – гр. Свищов.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 119289.16,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0077",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Преспа“ – гр. Свищов.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 330375.12,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0076",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Рожен“ – гр. Свищов.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 267724.79,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0084",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Славейков 7“ – гр. Свищов.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 738078.65,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

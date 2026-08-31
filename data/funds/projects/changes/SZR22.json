@@ -1,22 +1,24 @@
 {
   "obshtina": "SZR22",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.021-0394",
-      "title": "ЕНЕРГИЙНО ОБНОВЯВАНЕ НА „АМТек” ООД",
+      "contractNumber": "BG-RRP-13.009-0196",
+      "title": "Повишаване на енергийната ефективност в сектора на социалните услуги в община Мъглиж",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 334011.65,
-      "totalEur": 334011.65,
-      "paidEur": 181710.57,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 108456,
+      "totalEur": 99712.88,
+      "paidEur": 99712.88,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "„АМТек“ ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Община Мъглиж",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

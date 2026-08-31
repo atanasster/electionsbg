@@ -1,22 +1,38 @@
 {
   "obshtina": "PER19",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.001-0193",
-      "title": "Саниране на блок Ильо Вайвода гр. Земен",
+      "contractNumber": "BG-RRP-7.008-0003",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Национален план за възстановяване и устойчивост (НПВУ) на Република България - Югозападен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 452766.55,
-      "totalEur": 452766.55,
-      "paidEur": 303761.58,
+      "prevTotalEur": 42468011.79,
+      "totalEur": 42468011.79,
+      "paidEur": 19091385.13,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0194",
+      "title": "Прилагане мерки за Енергийна ефективност на жилищен блок ул. \"Земенски манастир\" № 46",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 247819.92,
+      "totalEur": 247819.92,
+      "paidEur": 168146.15,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Земен",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

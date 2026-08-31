@@ -1,108 +1,54 @@
 {
   "obshtina": "BGS17",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.009-0013",
-      "title": "ИЗГРАЖДАНЕ НА МЛАДЕЖКИ ЦЕНТЪР - гр. ПОМОРИЕ",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 920172.86,
-      "totalEur": 920172.86,
-      "paidEur": 883744.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Поморие",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0133",
-      "title": "ПОДКРЕПА ЗА ЕНЕРГИЙНО ОБНОВЯВАНЕ НА СГРАДИ В СФЕРАТА НА УСЛУГИТЕ",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 339178,
-      "totalEur": 339178,
-      "paidEur": 178262.3,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Тръпков турс ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0130",
-      "title": "Иновативни здравно-социални услуги в община Поморие",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 275415.28,
-      "totalEur": 275415.28,
-      "paidEur": 101888.71,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Поморие",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0388",
-      "title": "\"Наблюдавам, експериментирам, успявам\"в Основно училище Георги Стойков Раковски",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 92604.08,
-      "totalEur": 92951.72,
-      "paidEur": 92604.08,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Георги сава Раковски\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2453",
-      "title": "Подобряване на производствения капацитет на АСАНСЬОРЕН СЕРВИЗ-ПОМОРИЕ 2 ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 47906.03,
-      "totalEur": 0,
+      "contractNumber": "BG16RFPR001-1.008-0273",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в Алпин Билдинг ЕООД",
+      "type": "new",
+      "totalEur": 253089.48,
       "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Асансьорен СЕРВИЗ-ПОМОРИЕ 2 ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Алпин билдинг ЕООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.024-0118",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда с адрес: кв. Свобода, бл. №27, гр. Поморие, Община Поморие",
+      "contractNumber": "BG-RRP-4.023-2644",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с адрес: кв. Свобода, бл. №25, гр. Поморие, Община Поморие",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "status"
+      ],
+      "prevTotalEur": 1163553.9,
+      "totalEur": 1163553.89,
+      "paidEur": 1162633.57,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Поморие",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0354",
+      "title": "Подкрепа за внедряване на високотехнологично оборудване на семейното предприятие \"Миноа плюс\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 333771.27,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Поморие",
-      "detectedAt": "2026-08-24"
+      "prevTotalEur": 59716.33,
+      "totalEur": 41130.87,
+      "paidEur": 30848.13,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Миноа плюс ЕООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

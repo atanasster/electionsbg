@@ -1,91 +1,58 @@
 {
   "obshtina": "SFO17",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.033-0030",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия с инсталирана мощност над 200 kW",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 562421.08,
-      "totalEur": 562421.07,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Уеърхаузинг ЕНД логистикс ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0221",
-      "title": "\"Топъл обяд в община Елин Пелин\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 353874.55,
-      "totalEur": 353874.55,
-      "paidEur": 324489.89,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Елин Пелин",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1707",
-      "title": "Изграждане на училищна STEM среда в СУ „Васил Левски“ гр. Елин Пелин",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 185595.71,
-      "totalEur": 185595.71,
-      "paidEur": 166429.8,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Васил Левски\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1264",
-      "title": "Подобряване на производствения капацитет и повишаване на конкурентоспособност на КОММСЕТ ООД",
+      "contractNumber": "BG05SFPR002-2.003-0073",
+      "title": "Равни възможности за децата",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 101695.96,
-      "totalEur": 101012.05,
-      "paidEur": 75759.04,
+      "prevTotalEur": 197466.46,
+      "totalEur": 197020.25,
+      "paidEur": 197020.25,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Коммсет ООД",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Света богородица Сдружение",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-1037",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в ПРО ФАРМАЦИЯ ЕООД.",
+      "contractNumber": "BG16RFPR001-1.012-1960",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "paidEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 100375.18,
-      "totalEur": 100375.18,
-      "paidEur": 50187.59,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 23006.08,
+      "totalEur": 23006.08,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ПРО Фармация ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Пулвис\" ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0249",
+      "title": "ПОДКРЕПА ЗА УСТОЙЧИВО ЕНЕРГИЙНО ОБНОВЯВАНЕ НА ЖИЛИЩНИЯ СГРАДЕН ФОНД -ЕТАП I- Устойчиво енергийно обновяване в община Елин Пелин - многофамилна жилищна сграда Бели Брези - 4",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 443714.03,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Елин Пелин",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

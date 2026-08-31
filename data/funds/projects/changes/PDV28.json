@@ -1,58 +1,38 @@
 {
   "obshtina": "PDV28",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-2.003-0032",
-      "title": "Подкрепа за ученици с таланти в областта на СТЕМ и спорта в Община Садово",
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 352955.55,
-      "totalEur": 352955.55,
-      "paidEur": 70591.11,
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0156",
+      "title": "Повишаване на енергийната ефективност в сектора на социалните услуги в Община Садово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 192281.2,
+      "totalEur": 192281.2,
+      "paidEur": 65398.3,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Садово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0364",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ХРИСТО СМИРНЕНСКИ\" - гр. САДОВО",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 15065.15,
-      "paidEur": 15065.15,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Смирненски\" - гр. Садово",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-2075",
-      "title": "ЗАКУПУВАНЕ НА ЗЕМЕДЕЛСКА ТЕХНИКА ЗА ПРОИЗВОДСТВО НА ЗЕЛЕНЧУЦИ С ЦЕЛ ТЕХНОЛОГИЧНА И ЕКОЛОГИЧНА МОДЕРНИЗАЦИЯ НА ОТДЕЛНИТЕ ФАЗИ НА ПРОИЗВОДСТВЕНИТЕ ПРОЦЕСИ В СТОПАНСТВОТО",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 54618.76,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Авеста ЕООД",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

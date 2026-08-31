@@ -1,22 +1,40 @@
 {
   "obshtina": "BLG28",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0202",
-      "title": "Иновативни здравно-социални услуги в община Кресна",
+      "contractNumber": "BG-RRP-7.008-0003",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Национален план за възстановяване и устойчивост (НПВУ) на Република България - Югозападен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 88258.49,
-      "totalEur": 88258.49,
-      "paidEur": 62243.31,
+      "prevTotalEur": 42468011.79,
+      "totalEur": 42468011.79,
+      "paidEur": 19091385.13,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0273",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в гр.Кресна, ул. Перун №11",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 123858.86,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кресна",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

@@ -1,7 +1,23 @@
 {
   "obshtina": "PAZ03",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
+    {
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
     {
       "contractNumber": "BG-RRP-11.018-0063",
       "title": "Изграждане и оборудване на три броя нови социални услуги за РГПЛИЗ и един брой ЦСПЛУТС в гр. Батак, общ. Батак",
@@ -11,82 +27,28 @@
       ],
       "prevTotalEur": 2982974.79,
       "totalEur": 2982974.79,
-      "paidEur": 2477150.55,
+      "paidEur": 2980089.43,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Батак",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0107",
-      "title": "Въвеждане на енергийноефективни мерки в административна сграда на Община Батак, с идентификатор 02837.501.735.4 по КК на гр. Батак, община Батак, област Пазарджик",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 493405.32,
-      "totalEur": 487459.57,
-      "paidEur": 474165.99,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Батак",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0205",
-      "title": "Енергийно обновяване на сграда в сферата на туризма",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 241585.41,
-      "totalEur": 241585.41,
-      "paidEur": 156867.49,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Братя пашкулеви ООД",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
       "contractNumber": "BG-RRP-13.009-0045",
       "title": "„Закупуване на електрическо превозно средство и свързана зарядна станция за целите на предоставяне на социалната услуга „Център за социална рехабилитация и интеграция“ гр. Батак, делегирана от държавата дейност“.",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 58082.76,
+      "prevTotalEur": 57600,
       "totalEur": 57600,
-      "paidEur": 0,
+      "paidEur": 57600,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Батак",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.019-0140",
-      "title": "Зелена енергия: ESG умения за устойчиво бъдеще",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 75429.36,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Национална Електрическа компания ЕАД (НЕК)",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

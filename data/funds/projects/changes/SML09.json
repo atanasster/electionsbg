@@ -1,58 +1,98 @@
 {
   "obshtina": "SML09",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0184",
-      "title": "Топъл обяд в Община Девин",
+      "contractNumber": "BG16RFPR001-1.008-0142",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"Балдаран Спринг\" АД",
+      "type": "new",
+      "totalEur": 1389180.04,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Балдаран спринг\" АД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.008-0356",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"БУЛКРАФТ\" ООД",
+      "type": "new",
+      "totalEur": 491000,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Булкрафт ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 399636.88,
-      "totalEur": 399636.88,
-      "paidEur": 272068.56,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Девин",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0166",
-      "title": "Изграждане на дигитален клуб НЧ \"Родопска просвета - 1923\" град Девин",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 34687.58,
-      "paidEur": 17343.79,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \"Родопска просвета - 1923\" град Девин",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2745",
-      "title": "Подобряване на производствения капацитет на \"Евро Болкан\" ЕООД",
+      "contractNumber": "BG16FFPR002-3.011-0009",
+      "title": "„Подобряване състоянието на Черния лешояд (А079 Aegypius monachus), чрез извършване на подхранване в площадка в защитена зона BG0002063 “Западни-Родопи“ - област Смолян, община Девин, гр. Девин.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 142886.36,
+      "totalEur": 142886.36,
+      "paidEur": 11862.8,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Национално ЛОВНО-РИБАРСКО сдружение \"Съюз на ловците и риболовците в българия\" (Нлрс - слрб)",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0186",
+      "title": "„Подкрепа за устойчиво енергийно обновяване на Блок „Остров, гр. Девин, община Девин, ул. „Цветан Зангов“ № 1А“",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 36996.06,
+      "prevTotalEur": 427450.53,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Евро болкан ЕООД",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Девин",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0193",
+      "title": "„Подкрепа за устойчиво енергийно обновяване на Блок „Родопи-14“, гр. Девин“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 181698.9,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Девин",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

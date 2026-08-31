@@ -1,108 +1,34 @@
 {
   "obshtina": "KRZ21",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0216",
-      "title": "Топъл обяд в община Момчилград",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1975147.74,
-      "totalEur": 1975147.74,
-      "paidEur": 1571437.28,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Момчилград",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0014",
-      "title": "ПОДКРЕПА ЗА ЕНЕРГИЙНО ОБНОВЯВАНЕ НА СГРАДИ НА ХРАНИНВЕСТ - ХРАНМАШКОМПЛЕКТ АД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 503004.13,
-      "totalEur": 501894.68,
-      "paidEur": 224748.22,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Хранинвест - хранмашкомплект АД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16FFPR002-3.011-0010",
-      "title": "„Подобряване състоянието на Черния лешояд (А079 Aegypius monachus), чрез извършване на подхранване в площадка в защитена зона BG0002013 „Студен кладенец“ - област Кърджали, общ. Момчилград, с. Гургулица.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 142903.24,
-      "totalEur": 142903.24,
-      "paidEur": 51170.58,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Национално ЛОВНО-РИБАРСКО сдружение \"Съюз на ловците и риболовците в българия\" (Нлрс - слрб)",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG06RDNP001-19.807-0002",
-      "title": "Закупуване на оборудване за фермерски магазин с транжорна",
-      "type": "modified",
-      "changedFields": [
-        "totalEur"
-      ],
-      "prevTotalEur": 122699.82,
-      "totalEur": 122699.83,
+      "contractNumber": "BG16RFPR001-1.008-0152",
+      "title": "Въвеждане на технологии от Индустрия 4.0 в дейността на „НАР“ ООД",
+      "type": "new",
+      "totalEur": 262258.34,
       "paidEur": 0,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "Върбица милк ЕООД",
-      "detectedAt": "2026-08-24"
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"НАР\" ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1755",
-      "title": "Адаптиране на работната среда в \"Сайбилдинг\" ЕООД към прехода към климатични неутрална икономика и променящите се модели на работа и подобряване условията за безопасност на труда за работниците в предприятието",
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 120769.52,
-      "totalEur": 111186.19,
-      "paidEur": 111186.19,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Сайбилдинг ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-2164",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 30923.93,
-      "totalEur": 60581.92,
-      "paidEur": 30923.93,
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Никола й. Вапцаров\"",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

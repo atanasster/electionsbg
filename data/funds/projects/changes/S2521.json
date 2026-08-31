@@ -1,50 +1,60 @@
 {
   "obshtina": "S2521",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0107",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в Проинстал ООД",
-      "type": "new",
-      "totalEur": 459651.4,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Проинстал ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR001-2.003-0049",
-      "title": "Талантите на Нови Искър",
+      "contractNumber": "BG-RRP-7.008-0003",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Национален план за възстановяване и устойчивост (НПВУ) на Република България - Югозападен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 376080.74,
-      "totalEur": 376080.74,
-      "paidEur": 75216.15,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "СО-Район \"Нови Искър\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0445",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"СВЕТЛИНА С.КУБРАТОВО - 1915\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 10167.13,
+      "prevTotalEur": 42468011.79,
+      "totalEur": 42468011.79,
+      "paidEur": 19091385.13,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Светлина С.КУБРАТОВО - 1915\"",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0681",
+      "title": "Подобряване на производствения капацитет в БИАСО ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 101747.08,
+      "totalEur": 100800,
+      "paidEur": 75600,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Биасо ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2582",
+      "title": "Подкрепа за семейното предприятие ДОРОНОВ И СИН ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 66049.88,
+      "totalEur": 66033.87,
+      "paidEur": 49525.4,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Доронов и СИН ЕООД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

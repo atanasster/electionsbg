@@ -1,60 +1,57 @@
 {
   "obshtina": "VID30",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.020-0127",
-      "title": "Създаване на културни продукти чрез провеждането на традиционен празник на селото Трифон Зарезан, Празника на народната носия в с. Неговановци и Приказен карнавал в Неговановци",
+      "contractNumber": "BG16RFPR001-1.004-1806",
+      "title": "Подобряване на производствения капацитет на СЕЙФТИ КОНТРОЛ ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 65854.39,
-      "totalEur": 61589.65,
-      "paidEur": 17780.69,
+      "prevTotalEur": 102257.35,
+      "totalEur": 98257.51,
+      "paidEur": 73693.13,
       "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Сейфти контрол ЕООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0388",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ЗЕМЕДЕЛЕЦ - 1874\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 11799.52,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Земеделец - 1874\" НЧ",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0137",
+      "title": "Дигитален клуб - НЧ \"Светлина - 1928\", с. Неговановци",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14308,
+      "totalEur": 14308,
+      "paidEur": 6051.15,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище „Светлина – 1928“ с. Неговановци",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.017-0006",
-      "title": "Представяне пред българската публика на съвременни български продукции - “Народни песни и танци от село Гомотарци\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 9049.87,
-      "totalEur": 8369.23,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище “Просвета-1928”, с. Гомотарци",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.017-0031",
-      "title": "„Традиции, танци и музика от сърцето на Брегово“ – Представяне на съвременни български продукции пред българската публика",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8206.23,
-      "totalEur": 8127.19,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Развитие - 1897\" с. Брегово",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

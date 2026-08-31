@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T23:40:21.331Z",
+  "generatedAt": "2026-08-31T01:22:49.358Z",
   "totals": {
     "programmeCount": 47,
     "highConcentrationCount": 18,
@@ -163,11 +163,11 @@
       "programName": "Програма \"Образование\" 2021-2027",
       "period": "2021-27",
       "fundType": "ESF",
-      "totalEur": 772444390.83,
+      "totalEur": 773501605.66,
       "paidEur": 295156210.94,
-      "contractCount": 599,
-      "beneficiaryCount": 502,
-      "hhi": 5216.8,
+      "contractCount": 603,
+      "beneficiaryCount": 504,
+      "hhi": 5202.6,
       "hhiBand": "high",
       "top1Share": 0.72,
       "top1Name": "Министерство на образованието и науката",
@@ -178,29 +178,14 @@
       "programName": "Програма \"Транспортна свързаност\" 2021-2027",
       "period": "2021-27",
       "fundType": "ERDF",
-      "totalEur": 2695196833.27,
+      "totalEur": 2757704911.68,
       "paidEur": 615851740.87,
-      "contractCount": 46,
+      "contractCount": 47,
       "beneficiaryCount": 16,
-      "hhi": 4258.2,
+      "hhi": 4290.6,
       "hhiBand": "high",
-      "top1Share": 0.49,
+      "top1Share": 0.5,
       "top1Name": "Държавно предприятие \"Национална компания Железопътна Инфраструктура\"",
-      "debarredFlag": false
-    },
-    {
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "period": "2021-27",
-      "fundType": "ESF",
-      "totalEur": 1389386943.62,
-      "paidEur": 779782599.16,
-      "contractCount": 2032,
-      "beneficiaryCount": 1454,
-      "hhi": 3439.6,
-      "hhiBand": "high",
-      "top1Share": 0.58,
-      "top1Name": "Агенция по заетостта",
       "debarredFlag": false
     },
     {
@@ -231,6 +216,21 @@
       "hhiBand": "high",
       "top1Share": 0.44,
       "top1Name": "Държавна агенция за бежанците при Министерския съвет (ДАБ при МС)",
+      "debarredFlag": false
+    },
+    {
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "period": "2021-27",
+      "fundType": "ESF",
+      "totalEur": 1441162829.24,
+      "paidEur": 783178594.96,
+      "contractCount": 2033,
+      "beneficiaryCount": 1454,
+      "hhi": 3232.9,
+      "hhiBand": "high",
+      "top1Share": 0.56,
+      "top1Name": "Агенция по заетостта",
       "debarredFlag": false
     },
     {
@@ -269,7 +269,7 @@
       "period": "2021-27",
       "fundType": "Other",
       "totalEur": 98716700.92,
-      "paidEur": 32401201.25,
+      "paidEur": 34833687.35,
       "contractCount": 83,
       "beneficiaryCount": 80,
       "hhi": 2369.9,
@@ -358,13 +358,13 @@
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
       "period": "2021-27",
       "fundType": "ERDF",
-      "totalEur": 1540060999.18,
-      "paidEur": 409518461.9,
-      "contractCount": 6932,
-      "beneficiaryCount": 5649,
-      "hhi": 1704.8,
+      "totalEur": 1593745331.46,
+      "paidEur": 414183886.56,
+      "contractCount": 7036,
+      "beneficiaryCount": 5692,
+      "hhi": 1592.1,
       "hhiBand": "moderate",
-      "top1Share": 0.41,
+      "top1Share": 0.4,
       "top1Name": "Фонд мениджър на финансови инструменти в България ЕАД",
       "debarredFlag": false
     },
@@ -399,21 +399,6 @@
       "debarredFlag": false
     },
     {
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "period": "2021-27",
-      "fundType": "ESF",
-      "totalEur": 245861912.25,
-      "paidEur": 177201342.48,
-      "contractCount": 251,
-      "beneficiaryCount": 225,
-      "hhi": 1220.9,
-      "hhiBand": "low",
-      "top1Share": 0.34,
-      "top1Name": "Агенция за социално подпомагане",
-      "debarredFlag": false
-    },
-    {
       "programCode": "SBRP",
       "programName": "Програма за научни изследвания и иновации",
       "period": "2014-20",
@@ -429,12 +414,27 @@
       "debarredFlag": false
     },
     {
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "period": "2021-27",
+      "fundType": "ESF",
+      "totalEur": 224031846.28,
+      "paidEur": 177201342.48,
+      "contractCount": 251,
+      "beneficiaryCount": 225,
+      "hhi": 833.4,
+      "hhiBand": "low",
+      "top1Share": 0.28,
+      "top1Name": "Агенция за социално подпомагане",
+      "debarredFlag": false
+    },
+    {
       "programCode": "2021BG16RFPR002",
       "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
       "period": "2021-27",
       "fundType": "ERDF",
-      "totalEur": 514097071.46,
-      "paidEur": 189518681.54,
+      "totalEur": 514082029.25,
+      "paidEur": 190235808.17,
       "contractCount": 183,
       "beneficiaryCount": 162,
       "hhi": 709.7,
@@ -695,7 +695,7 @@
       "eik": "000695317",
       "name": "Министерство на здравеопазването",
       "programmeCount": 5,
-      "totalEur": 755250125.46,
+      "totalEur": 757295292.98,
       "topProgrammes": [
         {
           "programCode": "2021BG-RRP",
@@ -715,7 +715,7 @@
         {
           "programCode": "2021BG05SFPR002",
           "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-          "eur": 29961694.02
+          "eur": 32006861.54
         },
         {
           "programCode": "HEALTH",
@@ -1005,7 +1005,7 @@
       "eik": "121015056",
       "name": "Агенция за социално подпомагане",
       "programmeCount": 4,
-      "totalEur": 362901185.73,
+      "totalEur": 390971516.73,
       "topProgrammes": [
         {
           "programCode": "2014BG05M9OP001",
@@ -1013,9 +1013,9 @@
           "eur": 163868474.69
         },
         {
-          "programCode": "2021BG05SFPR003",
-          "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-          "eur": 83805828.19
+          "programCode": "2021BG05SFPR002",
+          "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+          "eur": 98451062.62
         },
         {
           "programCode": "2014BG05FMOP001",
@@ -1023,9 +1023,9 @@
           "eur": 66793523.2
         },
         {
-          "programCode": "2021BG05SFPR002",
-          "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-          "eur": 48433359.65
+          "programCode": "2021BG05SFPR003",
+          "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+          "eur": 61858456.22
         }
       ]
     },

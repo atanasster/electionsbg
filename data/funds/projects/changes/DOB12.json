@@ -1,72 +1,60 @@
 {
   "obshtina": "DOB12",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0199",
-      "title": "Иновативни здравно-социални услуги в община Генерал Тошево",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 244820.24,
-      "totalEur": 244820.24,
-      "paidEur": 186095.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Генерал тошево",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0958",
-      "title": "„Училищна STEM среда 2024\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 97800.49,
-      "totalEur": 97800.49,
-      "paidEur": 95802.92,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Никола Йонков Вапцаров\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1747",
-      "title": "Училищна STEM среда",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92278.5,
-      "totalEur": 92278.5,
-      "paidEur": 91440.01,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Йордан Йовков\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-3411",
-      "title": "Модернизация на земеделското стопанство на КСИНТО ООД",
+      "contractNumber": "BG-RRP-4.023-0851",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда находяща се на ул. Г. С. Раковски\" 1 в гр. Генерал Тошево",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 356881.32,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 424885.09,
+      "totalEur": 424849.6,
+      "paidEur": 424849.61,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Ксинто ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Община Генерал тошево",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0489",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда находяща се на ул.\"Георги Кирков\" № 1 в град Генерал Тошево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 316400.04,
+      "totalEur": 316400.02,
+      "paidEur": 316400.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Генерал тошево",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0496",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда находяща се на ул. \"Велико Маринов\" №4 в гр. Генерал Тошево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 258863.82,
+      "totalEur": 257722.9,
+      "paidEur": 257722.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Генерал тошево",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

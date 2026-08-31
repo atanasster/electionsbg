@@ -1,110 +1,38 @@
 {
   "obshtina": "RAZ14",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
-    {
-      "contractNumber": "BG-RRP-4.020-0143",
-      "title": "„Енергийно обновяване на публичен сграден фонд за предоставяне на административни услуги на ул. “Дунав” 2 и ул. “Васил Левски” 70 в гр.Исперих“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 819259.57,
-      "totalEur": 797329.04,
-      "paidEur": 797329.03,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Исперих",
-      "detectedAt": "2026-08-24"
-    },
     {
       "contractNumber": "BG-RRP-11.018-0023",
       "title": "«Изграждане и оборудване на нова социална услуга за резидентна грижа в с.Голям Поровец, община Исперих»,",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
       "prevTotalEur": 783164.53,
       "totalEur": 783164.53,
-      "paidEur": 1002467.1,
+      "paidEur": 777408.5,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Исперих",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0716",
-      "title": "Дигитален клуб - Народно Читалище \"Просвета 1920\" с. Старо Селище",
+      "contractNumber": "BG05SFPR002-2.012-0090",
+      "title": "Иновативни здравно-социални услуги в община Исперих",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14311.06,
-      "totalEur": 14311.06,
-      "paidEur": 7795.87,
+      "prevTotalEur": 238383.76,
+      "totalEur": 238383.76,
+      "paidEur": 190707.01,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Просвета 1920\" с. Старо Селище",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1268",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"НАУКА-1937\" в с. Тодорово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"НАУКА-1937\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1142",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"Развитие - 1928 г.\" с. Лудогорци в с. Лудогорци",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Развитие - 1928 г.\" с. Лудогорци",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0229",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в жк.„Васил Априлов“, блок№2, вх.Д, гр. Исперих",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 238043.19,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Община Исперих",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

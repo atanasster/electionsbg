@@ -1,40 +1,56 @@
 {
   "obshtina": "PVN21",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-2.005-0001",
-      "title": "Рекултивация на клетка 1 на регионално депо за битови отпадъци на Регион Левски (Никопол)",
+      "contractNumber": "BG-RRP-7.008-0007",
+      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северозападен район",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1116848.1,
-      "totalEur": 1116848.1,
-      "paidEur": 211013.71,
+      "prevTotalEur": 39956422.08,
+      "totalEur": 39956422.08,
+      "paidEur": 14482084.03,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Никопол",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": ",,А1 България“ ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16FFPR003-2.006-0027",
-      "title": "Единно здраве за Северозападен регион",
+      "contractNumber": "BG-RRP-4.023-2559",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд в Община Никопол чрез изпълнение на мерки за енергийна ефективност в многофамилна жилищна сграда в град Никопол, ул. „Васил Левски“ №73-75",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 2188.33,
-      "totalEur": 2186.01,
-      "paidEur": 2186.01,
+      "prevTotalEur": 320137.69,
+      "totalEur": 319264.43,
+      "paidEur": 319264.42,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Никопол",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.002-0152",
+      "title": "Укрепване общинския капацитет на Община Никопол",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 31675.04,
+      "totalEur": 31675.04,
+      "paidEur": 31675.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Никопол",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

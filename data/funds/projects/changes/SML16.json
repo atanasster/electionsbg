@@ -1,106 +1,34 @@
 {
   "obshtina": "SML16",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.021-0301",
-      "title": "Енергийно обновяване на сгради на \"Горубсо – Мадан\" АД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1440402.59,
-      "totalEur": 1362609.41,
-      "paidEur": 612473.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Горубсо - мадан АД",
-      "detectedAt": "2026-08-24"
+      "contractNumber": "BG16RFPR001-1.008-0257",
+      "title": "Повишаване на нивото на дигитализация на ГРАНД ООД чрез инвестиции за въвеждане натехнологии от областта на Индустрия 4.0",
+      "type": "new",
+      "totalEur": 375282.11,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Гранд ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.021-0069",
-      "title": "Енергийно обновяване на производствена сграда в \"Механичен завод\" АД",
+      "contractNumber": "BG-RRP-7.008-0004",
+      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 202273.87,
-      "totalEur": 202273.87,
-      "paidEur": 129561.64,
+      "prevTotalEur": 41520255.34,
+      "totalEur": 41520255.34,
+      "paidEur": 18494862.13,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Механичен завод АД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0029",
-      "title": "Иновативни здравно-социални услуги в община Мадан",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 152866.24,
-      "totalEur": 152866.24,
-      "paidEur": 122292.99,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Мадан",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.013-0011",
-      "title": "Насърчаване на социалната икономика в община Мадан",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 89251.07,
-      "totalEur": 89251.07,
-      "paidEur": 17850.21,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Мадан",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0198",
-      "title": "\"Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Мадан\"",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 58082.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Мадан",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0308",
-      "title": "Енергийно обновяване на производствена сграда в \"СИМ-75\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 40778.8,
-      "totalEur": 39916.84,
-      "paidEur": 25945.95,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "СИМ - 75 ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "\"Цетин България\" ЕАД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

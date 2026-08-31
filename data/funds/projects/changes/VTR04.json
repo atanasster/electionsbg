@@ -1,668 +1,198 @@
 {
   "obshtina": "VTR04",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0032",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"ВИМАРД ИНВЕСТ\" ООД",
+      "contractNumber": "BG05SFPR002-1.032-0001",
+      "title": "\"Повишаване ефективността на държавния здравен контрол\"",
       "type": "new",
-      "totalEur": 866818.69,
+      "totalEur": 2045167.52,
       "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Вимард инвест ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.008-0645",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в ДЕНИ - НИКОЛАЙ АСЕНОВ 76 ЕООД",
-      "type": "new",
-      "totalEur": 290925.09,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Дени - николай Асенов 76 ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.008-0604",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в Колос ЕООД",
-      "type": "new",
-      "totalEur": 242882.56,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Колос ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16FFPR003-1.001-0016",
-      "title": "„Устойчива градска мобилност на град Велико Търново“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 21417315.71,
-      "totalEur": 21417315.71,
-      "paidEur": 367461.56,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Велико Търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16FFPR002-5.001-0015",
-      "title": "За по-чист въздух в община Велико Търново, чрез подмяна на отоплителните уреди на твърдо гориво с екологични алтернативи",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 13153959.86,
-      "totalEur": 13153959.86,
-      "paidEur": 3060649.98,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR002-1.014-0015",
-      "title": "Център за компетентност „Чисти технологии за устойчива околна среда – води, отпадъци, енергия за кръгова икономика“ (Clean&Circle)",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 5512570,
-      "totalEur": 5512570,
-      "paidEur": 1374314.05,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR002",
-      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
-      "beneficiaryName": "Софийски университет „Св. Климент Охридски“",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR002-1.014-0008",
-      "title": "Устойчиво развитие на Център за компетентност „Квазар“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 4175715.68,
-      "totalEur": 4175715.68,
-      "paidEur": 1430477.27,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR002",
-      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
-      "beneficiaryName": "Институт по роботика „Св. Ап. и Ев. Матей“",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.007-0113",
-      "title": "„Модернизация на образователна среда на Профилирана езикова гимназия „Проф. д-р Асен Златаров“, гр. Велико Търново ”",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 2223143.91,
-      "totalEur": 2223143.91,
-      "paidEur": 445065.66,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико Търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.010-0083",
-      "title": "Реформиране на Дом за стари хора \"Св.Иван Рилски\" село Балван, общ. Велико Търново",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1858053.34,
-      "totalEur": 1858053.34,
-      "paidEur": 1262392.55,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико Търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0105",
-      "title": "„Енергийно обновяване на Изложбени зали „Рафаел Михайлов“, гр. Велико Търново“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1133118.7,
-      "totalEur": 1116984.13,
-      "paidEur": 1081429.09,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16FFPR003-2.006-0066",
-      "title": "„Обособяване на Старопланински хъб от рекреационни зони за устойчив туризъм и зелени пространства за културни и социални иновации“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 831088.83,
-      "totalEur": 831088.83,
-      "paidEur": 331602.44,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Сдружение \"Туристическо дружество \"ТРАПЕЗИЦА-1902\"",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1345",
-      "title": "Енергийно обновяване на жилищен сграден фонд в Велико Търново, ул. \"Бяла Бона\" №16 и №18",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 751992.66,
-      "totalEur": 751992.66,
-      "paidEur": 746117.03,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0111",
-      "title": "\"Зелена енергия за социалните услуги на територията на Община Велико Търново\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 704539.38,
-      "totalEur": 704539.38,
-      "paidEur": 507629.74,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико Търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1664",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците \"Гр. Велико Търново, ул. \"Иларион Драгостинов\" 11, вх. А, Б, В\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 576407,
-      "totalEur": 576407,
-      "paidEur": 574735.39,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1220",
-      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново , ул. Ил. Драгостинов №15, бл. 26, вх. А, Б, В",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 517723.51,
-      "totalEur": 517723.51,
-      "paidEur": 515562.05,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0087",
-      "title": "ЕНЕРГИЙНО ОБНОВЯВАНЕ НА МАГАЗИН ЗОРА ВЕЛИКО ТЪРНОВО",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 349110.1,
-      "totalEur": 344044.52,
-      "paidEur": 153239.94,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЗОРА-М.М.С. ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.001-0153",
-      "title": "Разработване на продуктова иновация от РеконАрт (БГ) ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 340776.04,
-      "totalEur": 340775.49,
-      "paidEur": 204465.61,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "РеконАрт (БГ) ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0158",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия от БУЛ-ГРУП 2000 ЕООД.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 331111.2,
-      "totalEur": 331111.18,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "БУЛ-ГРУП 2000 ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1796",
-      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново, кв. Картала, ул. Васил Петлешков №2",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 179078.99,
-      "totalEur": 179078.99,
-      "paidEur": 177640.06,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1354",
-      "title": "Адаптирана работна среда във Вемат ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 177161.83,
-      "totalEur": 177161.83,
-      "paidEur": 176711.98,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Вемат ЕООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Министерство на здравеопазването",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-1367",
-      "title": "Подобряване на енергийната ефективност на \"Д-Медия\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 139437.99,
-      "totalEur": 139437.99,
-      "paidEur": 51117.97,
-      "status": "Приключен (към датата на приключване)",
+      "contractNumber": "BG16RFPR001-1.008-0294",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в Алумина Елит 2003 ЕООД",
+      "type": "new",
+      "totalEur": 843631.6,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Д - медия ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Алумина Елит 2003 ЕООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-2400",
-      "title": "Изграждане на нова фотоволтаична система за собствено потребление в Сира ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 101170.2,
-      "totalEur": 101170.2,
-      "paidEur": 50585.1,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сира ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1053",
-      "title": "Повишаване на енергийната ефективност и използване на енергия от възобновяеми източници в ДИМАРА ЕООД",
+      "contractNumber": "BG-RRP-7.008-0006",
+      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северен централен район",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 91388.78,
-      "totalEur": 91388.78,
-      "paidEur": 20915.7,
+      "prevTotalEur": 28777113.55,
+      "totalEur": 28777113.55,
+      "paidEur": 11592450.4,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Димара ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1398",
-      "title": "Подобряване на производствения капацитет на СИРИУС ВТ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 86148.76,
-      "totalEur": 84345.9,
-      "paidEur": 63259.42,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сириус ВТ ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1497",
-      "title": "Подобряване производствения капацитет и пазарното представяне на „Сладкия кът“ ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 74731.28,
-      "totalEur": 74678.35,
-      "paidEur": 56008.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сладкия КЪТ ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-2230",
-      "title": "„Повишаване на енергийната ефективност чрез инсталиране на система за локално съхранение на електроенергия с батерия и инвертор с мощност 100 kW“",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 65896.83,
-      "totalEur": 65896.83,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Планекс инфраструктура\" ЕООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0175",
-      "title": "Реките на хората",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 63162.75,
-      "totalEur": 57997.46,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Колективът Фондация",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": ",,А1 България“ ЕАД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0814",
-      "title": "Адаптиране на работната среда в МОБАЛ \"Д-р Стефан Черкезов\" АД, Велико Търново",
+      "contractNumber": "BG-RRP-11.010-0082",
+      "title": "Реформиране на Дом за стари хора \"Венета Ботева\" гр. Велико Търново",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 57523.87,
-      "totalEur": 57523.87,
-      "paidEur": 44797.5,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Многопрофилна областна болница за активно лечение \"Д-Р стефан Черкезов\" АД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFTA001-1.010-0027",
-      "title": "Укрепване на капацитета - нови възможности за участие и ангажираност",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 48225.31,
-      "totalEur": 48225.31,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение „Дигитална национална коалиция”",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0766",
-      "title": "Подобряване на енергийната ефективност на \"ВЕТЕРИНАРНА КЛИНИКА - КОЗЛУДЖА\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status",
-        "durationMonths"
-      ],
-      "prevTotalEur": 47551.72,
-      "totalEur": 47551.72,
-      "paidEur": 23766.35,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Ветеринарна клиника - козлуджа\" ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1507",
-      "title": "Подобряване на производствения капацитет в семейната фирма МЕГАТРАФ ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 43715.46,
-      "totalEur": 40458.31,
-      "paidEur": 30343.73,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Мегатраф ООД",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-2023",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързвани класни стаи (ВОСКС)",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 30372.03,
-      "totalEur": 30422.35,
-      "paidEur": 30372.04,
+      "prevTotalEur": 3947914.19,
+      "totalEur": 3947914.19,
+      "paidEur": 2960918.92,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Христо Смирненски\"",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Община Велико Търново",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1299",
-      "title": "Дигитален клуб \"Светлина\" при Народно читалище \"Светлина–2021\", гр. Велико Търново",
+      "contractNumber": "BG-RRP-11.018-0053",
+      "title": "\"Изграждане на сграда - Център за специализирана подкрепа за лица с увреждания и техните семейства и 2 бр. Резидентна грижа за пълнолетни лица с деменция\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 26657.05,
-      "totalEur": 26657.05,
-      "paidEur": 25749.33,
+      "prevTotalEur": 2093103.78,
+      "totalEur": 2093103.78,
+      "paidEur": 1434447.29,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Светлина–2021\"",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Община Велико Търново",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0737",
-      "title": "Регионалната библиотека - партньор в информационната ера",
+      "contractNumber": "BG-RRP-4.028-0006",
+      "title": "Устойчиви енергийно ефективни системи за външно изкуствено осветление на територията на община Велико Търново",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 26587.19,
-      "totalEur": 26587.19,
-      "paidEur": 26301.55,
+      "prevTotalEur": 962413.57,
+      "totalEur": 962413.57,
+      "paidEur": 871516.31,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Регионална библиотека \"Петко Р. Славейков\"",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Община Велико Търново",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0027",
-      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска. 2. Изложба за Райна Кабаиванска. 3. Концерт на джаз/поп изпълнител 4. Изпълнение на танцов състав (народни танци). 5. Представяне на класически български филм за деца и възрастни.",
+      "contractNumber": "BG-RRP-4.023-0778",
+      "title": "Енергийно обновяване на жилищен сграден фонд в град Велико Търново, ул. Ниш № 6",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 8717.53,
-      "totalEur": 8675.07,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 706042.22,
+      "totalEur": 706042.22,
+      "paidEur": 701771,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"\"Просвета 1907\", с. Беляковец",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Община Велико търново",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0034",
-      "title": "Представяне пред българската публика на съвременна българска продукция - \"Прожекция на филм и изложба за Райна Кабаиванска\".",
+      "contractNumber": "BG16RFPR001-1.001-0391",
+      "title": "Определяне на ролята на UV-спектрофотометрията като система за ранно предупреждение (СРП) за наличие/значимост на цианотоксини в повърхностни води",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 8768.66,
-      "totalEur": 8630.61,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"\"Напредък-1911\", с. Шемшево",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0503",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 7361.58,
-      "totalEur": 7361.58,
-      "paidEur": 0,
+      "prevTotalEur": 210267.04,
+      "totalEur": 210267.04,
+      "paidEur": 97959.74,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Елиника ООД",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": "Делфин ПРОЕКТ-ЕКОТЕХНИКА ООД",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0033",
-      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска 2. Представяне пред българската публика класически български филм. 3. Изпълнение на танцов състав (народни танци)",
+      "contractNumber": "BG-RRP-4.023-1801",
+      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново, ул. Баба Мота №3",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 199881.08,
+      "totalEur": 199881.08,
+      "paidEur": 190418.48,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Велико търново",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2038",
+      "title": "Подобряване на производствения капацитет на ДОКА 43 ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 80784.12,
+      "totalEur": 80733.88,
+      "paidEur": 60550.41,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Дока 43 ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0914",
+      "title": "Модернизация на производствения процес: инвестиция във висококачествени машини за Кристи МОД ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 50694.59,
+      "totalEur": 45900,
+      "paidEur": 34425.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "КРИСТИ-МОД ООД",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16RFPR002-1.005-0177",
+      "title": "Дигитализация и оптимизация на 3D съдържание за VR/AR чрез реверсивно инженерство и обучение",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 6592.34,
-      "totalEur": 6116.09,
+      "prevTotalEur": 15042.21,
+      "totalEur": 0,
       "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"Напредък - 1903\", с. Ветринци",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0036",
-      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска. 2. Изложба за Райна Кабаиванска. 3. Концерт на джаз/поп изпълнител 4. Изпълнение на танцов състав (народни танци). 5. Представяне на класически български филм за деца и възрастни.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 5443.47,
-      "totalEur": 5076.8,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"Съгласие - Дебелец 1887\", гр. Дебелец",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0039",
-      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска 2. Представяне пред българската публика класически български филм. 3. Изпълнение на танцов състав (народни танци)",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 6592.34,
-      "totalEur": 5060.51,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"Просвета 1922\", с. Момин сбор",
-      "detectedAt": "2026-08-24"
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR002",
+      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
+      "beneficiaryName": "Имаджинарика",
+      "detectedAt": "2026-08-31"
     }
   ]
 }

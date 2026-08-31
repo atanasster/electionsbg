@@ -1,57 +1,72 @@
 {
   "obshtina": "HKV33",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0161",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници с АС мощност 5MW и ЛСС за съхранение на електроенергия с мощност 2 MW и капацитет 6 MWh",
+      "contractNumber": "BG16FFPR003-4.001-0078",
+      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, бул. ,,България“, бл. № 27, вх. А и вх. Б, гр. Харманли\"",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 1411165.6,
-      "totalEur": 1411165.59,
-      "paidEur": 0,
+      "prevTotalEur": 973222.01,
+      "totalEur": 973222.01,
+      "paidEur": 433701.29,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Импулс солар ЕООД",
-      "detectedAt": "2026-08-24"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-08-31"
     },
     {
-      "contractNumber": "BG-RRP-4.020-0164",
-      "title": "Енергийно обновяване на общинска сграда за административно обслужване с идентификатор 77181.11.120.2 по плана на гр. Харманли",
+      "contractNumber": "BG16FFPR003-4.001-0076",
+      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, ж.к. Тракия бл. 14, вх. А, Б, В, гр. Харманли\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 920768.34,
+      "totalEur": 920768.34,
+      "paidEur": 397690.04,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0066",
+      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, ул. „Бенковска“ № 16, гр. Харманли\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 697177.63,
+      "totalEur": 697177.63,
+      "paidEur": 313784.83,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-08-31"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0303",
+      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, ул. Александър Стамболийски № 97, вх. А и вх. Б, гр. Харманли\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 373749.51,
-      "totalEur": 364321.9,
-      "paidEur": 364321.9,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 104507.43,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Харманли",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0072",
-      "title": "Иновативни здравно-социални услуги в община Харманли",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 280172.95,
-      "totalEur": 280172.95,
-      "paidEur": 224138.36,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Харманли",
-      "detectedAt": "2026-08-24"
+      "detectedAt": "2026-08-31"
     }
   ]
 }

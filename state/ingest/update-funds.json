@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-24T23:43:16.126Z",
+  "lastSuccessfulIngest": "2026-08-31T01:25:39.817Z",
   "skill": "update-funds",
-  "summary": "53,122 beneficiaries · 82,162 contracts · €44.02bn contracted / €18.21bn paid; 173 MP pairs; published --full to Cloud SQL (WAF worked around via --file)"
+  "summary": "ИСУН: 53,134 beneficiaries · 82,283 contracts · €44,203,891,603 contracted / €18,863,547,857 paid (+121 new, 741 modified); both exports operator-downloaded (F5 WAF refuses the automated /ExportToExcel path)"
 }

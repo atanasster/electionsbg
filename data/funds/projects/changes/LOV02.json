@@ -1,40 +1,22 @@
 {
   "obshtina": "LOV02",
-  "generatedAt": "2026-08-24T23:39:53.733Z",
+  "generatedAt": "2026-08-31T01:22:08.226Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0042",
-      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане на Център за резидентна грижа за възрастни хора в надтрудоспособна възраст без увреждания",
+      "contractNumber": "BG-RRP-7.008-0007",
+      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северозападен район",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 1702912.86,
-      "totalEur": 1702912.86,
-      "paidEur": 1542846.03,
+      "prevTotalEur": 39956422.08,
+      "totalEur": 39956422.08,
+      "paidEur": 14482084.03,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Априлци",
-      "detectedAt": "2026-08-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0072",
-      "title": "\"Устойчиво енергийно обновяване на общинска административна сграда гр. Априлци\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1022173.35,
-      "totalEur": 695817.27,
-      "paidEur": 615802.25,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Априлци",
-      "detectedAt": "2026-08-24"
+      "beneficiaryName": ",,А1 България“ ЕАД",
+      "detectedAt": "2026-08-31"
     }
   ]
 }
