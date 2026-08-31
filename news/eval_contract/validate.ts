@@ -1,10 +1,13 @@
 #!/usr/bin/env tsx
 /** Dependency-free TypeScript peer of validate.py. */
 
-import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { canonicalJson, canonicalSha256 } from "./canonical.js";
+
+export { canonicalJson as stableJson } from "./canonical.js";
 
 type JsonObject = Record<string, unknown>;
 
@@ -26,6 +29,8 @@ const SCHEMAS: Record<string, string> = {
 const CONTRACT = object(
   JSON.parse(readFileSync(join(ROOT, "contract.json"), "utf8")),
 );
+const RFC3339 =
+  /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(Z|[+-]\d{2}:\d{2})$/;
 
 function object(value: unknown): JsonObject {
   return value !== null && typeof value === "object" && !Array.isArray(value)
@@ -75,42 +80,72 @@ function pointer(root: JsonObject, reference: string): JsonObject {
 
 function formatMatches(name: string, value: string): boolean {
   if (name === "uri") {
+    if (/\s/u.test(value)) return false;
     try {
       const parsed = new URL(value);
-      return Boolean(parsed.protocol && parsed.host);
+      return (
+        (parsed.protocol === "http:" || parsed.protocol === "https:") &&
+        Boolean(parsed.hostname) &&
+        !parsed.username &&
+        !parsed.password
+      );
     } catch {
       return false;
     }
   }
   if (name === "date-time") {
-    return (
-      /(?:Z|[+-]\d{2}:\d{2})$/.test(value) && !Number.isNaN(Date.parse(value))
-    );
+    const match = RFC3339.exec(value);
+    if (!match) return false;
+    const [
+      ,
+      yearText,
+      monthText,
+      dayText,
+      hourText,
+      minuteText,
+      secondText,
+      zone,
+    ] = match;
+    const year = Number(yearText);
+    const month = Number(monthText);
+    const day = Number(dayText);
+    const hour = Number(hourText);
+    const minute = Number(minuteText);
+    const second = Number(secondText);
+    const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+    const monthDays = [
+      31,
+      leap ? 29 : 28,
+      31,
+      30,
+      31,
+      30,
+      31,
+      31,
+      30,
+      31,
+      30,
+      31,
+    ];
+    if (
+      year < 1 ||
+      month < 1 ||
+      month > 12 ||
+      day < 1 ||
+      day > monthDays[month - 1] ||
+      hour > 23 ||
+      minute > 59 ||
+      second > 59
+    )
+      return false;
+    if (zone !== "Z") {
+      const offsetHour = Number(zone.slice(1, 3));
+      const offsetMinute = Number(zone.slice(4, 6));
+      if (offsetHour > 23 || offsetMinute > 59) return false;
+    }
+    return true;
   }
   return true;
-}
-
-export function stableJson(value: unknown): string {
-  if (
-    value === null ||
-    typeof value === "string" ||
-    typeof value === "boolean"
-  ) {
-    return JSON.stringify(value);
-  }
-  if (typeof value === "number") {
-    if (!Number.isFinite(value))
-      throw new Error("non-finite number is not canonical JSON");
-    if (Number.isInteger(value) && !Number.isSafeInteger(value))
-      throw new Error("integer exceeds the cross-language safe range");
-    return Object.is(value, -0) ? "0" : JSON.stringify(value);
-  }
-  if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
-  const record = object(value);
-  const fields = Object.keys(record)
-    .sort()
-    .map((key) => `${JSON.stringify(key)}:${stableJson(record[key])}`);
-  return `{${fields.join(",")}}`;
 }
 
 function equal(left: unknown, right: unknown): boolean {
@@ -260,7 +295,7 @@ export function validateSchema(
     if (typeof schema.maxItems === "number" && value.length > schema.maxItems)
       errors.push(`${path}: too many items`);
     if (schema.uniqueItems === true) {
-      const normalized = value.map(stableJson);
+      const normalized = value.map(canonicalJson);
       if (new Set(normalized).size !== normalized.length)
         errors.push(`${path}: duplicate items`);
     }
@@ -318,7 +353,7 @@ export function validateSchema(
 }
 
 function sha256Json(value: unknown): string {
-  return `sha256:${createHash("sha256").update(stableJson(value), "utf8").digest("hex")}`;
+  return canonicalSha256(value);
 }
 
 function partyKey(value: JsonObject): string {
@@ -469,8 +504,14 @@ function eventSemantics(value: JsonObject): string[] {
 function manifestSemantics(value: JsonObject, records: unknown): string[] {
   const codes = new Set<string>();
   const groups = new Map<string, unknown>();
-  for (const raw of array(value.entries)) {
-    const entry = object(raw);
+  const entries = array(value.entries).map(object);
+  const entryKeys = new Set<string>();
+  for (const entry of entries) {
+    if (typeof entry.article_key === "string") {
+      if (entryKeys.has(entry.article_key))
+        codes.add("duplicate_manifest_entry");
+      entryKeys.add(entry.article_key);
+    }
     if (typeof entry.group_id !== "string" || !entry.group_id) {
       codes.add("missing_group_id");
       continue;
@@ -494,6 +535,23 @@ function manifestSemantics(value: JsonObject, records: unknown): string[] {
     const statistics = object(value.label_statistics);
     if (statistics.total_records !== rows.length)
       codes.add("statistics_mismatch");
+    if (entries.length !== rows.length) codes.add("record_count_mismatch");
+    const recordKeys = new Set<string>();
+    rows.forEach((raw, index) => {
+      const record = object(raw);
+      const recordKey = record.article_key;
+      if (typeof recordKey === "string") {
+        if (recordKeys.has(recordKey)) codes.add("duplicate_dataset_record");
+        recordKeys.add(recordKey);
+      }
+      const entry = entries[index];
+      if (!entry || record !== raw) return;
+      if (recordKey !== entry.article_key) codes.add("record_entry_mismatch");
+      for (const field of ["content_sha256", "analysis_sha256"]) {
+        if (Object.hasOwn(record, field) && record[field] !== entry[field])
+          codes.add("record_entry_mismatch");
+      }
+    });
     if (
       rows.length > 0 &&
       rows.every(

@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "json": [
+    {
+      "id": "null",
+      "value": null,
+      "canonical": "null",
+      "sha256": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "id": "unicode_code_point_key_order",
+      "value": { "😀": 1, "a": 2, "é": 3, "é": 4 },
+      "canonical": "{\"a\":2,\"é\":4,\"é\":3,\"😀\":1}",
+      "sha256": "sha256:844cd2a40a5955fe5df278d6bc2f6cf99b63b22f141c88afe3ea56ce0621df16"
+    },
+    {
+      "id": "number_spelling",
+      "value": [1.0, -0.0, 1.25, 1e-7, 1e-6],
+      "canonical": "[1,0,1.25,1e-7,0.000001]",
+      "sha256": "sha256:9489694056eb437563687da59581ef07223f4013f91c32f07678bc432f050dee"
+    },
+    {
+      "id": "nested_and_escaped",
+      "value": {
+        "z": ["quote\"", "line\n", "ж"],
+        "a": { "b": true, "a": null }
+      },
+      "canonical": "{\"a\":{\"a\":null,\"b\":true},\"z\":[\"quote\\\"\",\"line\\n\",\"ж\"]}",
+      "sha256": "sha256:92ec1f9a91c7a20df18554a617a400076dea852c0702abbd74d86dd2f3d43c11"
+    },
+    {
+      "id": "safe_integer_boundaries",
+      "value": [9007199254740991, -9007199254740991],
+      "canonical": "[9007199254740991,-9007199254740991]",
+      "sha256": "sha256:84bad60c1793654a7cdca854230af90af531ecc8f7656e2c7b2bd91890017b37"
+    },
+    {
+      "id": "number_thresholds_and_precision",
+      "value": [
+        0.000001, 9.999999999999997e-7, 1.0000000000000002e-6,
+        1.2345678901234567e-7, 1.2345678901234567
+      ],
+      "canonical": "[0.000001,9.999999999999997e-7,0.0000010000000000000002,1.2345678901234566e-7,1.2345678901234567]",
+      "sha256": "sha256:239c18fc19db053bc997a43ff4392917304d63bf66c375ec474bd7242dfe2285"
+    },
+    {
+      "id": "control_and_astral_strings",
+      "value": ["\u0000", "\t", "😀", "𐀀"],
+      "canonical": "[\"\\u0000\",\"\\t\",\"😀\",\"𐀀\"]",
+      "sha256": "sha256:cad3e5492b0b29d1f78a68855b96eefb605cfd33e68033f05d524e1c84e68c87"
+    }
+  ],
+  "errors": [
+    {
+      "id": "unsafe_integer",
+      "value": 9007199254740992,
+      "error": "integer exceeds the cross-language safe range"
+    },
+    {
+      "id": "negative_unsafe_integer",
+      "value": -9007199254740992,
+      "error": "integer exceeds the cross-language safe range"
+    },
+    {
+      "id": "integer_at_exponent_threshold",
+      "value": 1e21,
+      "error": "integer exceeds the cross-language safe range"
+    },
+    {
+      "id": "lone_high_surrogate",
+      "value": "\ud800",
+      "error": "string contains an unpaired surrogate"
+    },
+    {
+      "id": "lone_low_surrogate",
+      "value": "\udfff",
+      "error": "string contains an unpaired surrogate"
+    }
+  ],
+  "content": [
+    {
+      "id": "empty",
+      "value": "",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "bulgarian_newlines",
+      "value": "Ред 1\nРед 2\n",
+      "sha256": "sha256:4f3661fb987f130f9c02e519f2fcd738ca7c64484508f4999c2ead6b136d6ac2"
+    },
+    {
+      "id": "astral_scalar",
+      "value": "😀",
+      "sha256": "sha256:f0443a342c5ef54783a111b51ba56c938e474c32324d90c3a60c9c8e3a37e2d9"
+    }
+  ],
+  "content_errors": [
+    {
+      "id": "lone_high_surrogate",
+      "value": "\ud800",
+      "error": "string contains an unpaired surrogate"
+    },
+    {
+      "id": "lone_low_surrogate",
+      "value": "\udfff",
+      "error": "string contains an unpaired surrogate"
+    }
+  ],
+  "analysis": [
+    {
+      "id": "two_axis_analysis",
+      "value": {
+        "russia_stance": { "label": "neutral" },
+        "leaning": { "label": "progressive" }
+      },
+      "sha256": "sha256:bf9f1bf4df9820ae6a6e0ad55ab429dd2b56acba673e7dc9d9b1b4d300b8dfef"
+    }
+  ]
+}

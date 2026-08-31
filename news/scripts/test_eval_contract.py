@@ -192,6 +192,71 @@ class FixtureParity(unittest.TestCase):
         result = self.assert_parity(fixture)
         self.assertIn("statistics_mismatch", result["error_codes"])
 
+    def test_manifest_records_are_ordered_and_bound_to_entries(self):
+        fixture = copy.deepcopy(self.fixtures()[12])
+        fixture["records"][0]["article_key"] = "example.bg/different"
+        fixture["value"]["records_sha256"] = contract_validate._sha256_json(
+            fixture["records"])
+        result = self.assert_parity(fixture)
+        self.assertTrue(result["schema_valid"])
+        self.assertIn("record_entry_mismatch", result["error_codes"])
+        self.assertNotIn("records_hash_mismatch", result["error_codes"])
+
+    def test_manifest_duplicate_and_count_errors_match_both_runtimes(self):
+        duplicate = copy.deepcopy(self.fixtures()[12])
+        duplicate["value"]["entries"].append(
+            copy.deepcopy(duplicate["value"]["entries"][0]))
+        duplicate["records"].append(copy.deepcopy(duplicate["records"][0]))
+        duplicate["value"]["records_sha256"] = contract_validate._sha256_json(
+            duplicate["records"])
+        duplicate["value"]["label_statistics"]["total_records"] = 2
+        result = self.assert_parity(duplicate)
+        self.assertTrue(result["schema_valid"])
+        self.assertIn("duplicate_manifest_entry", result["error_codes"])
+        self.assertIn("duplicate_dataset_record", result["error_codes"])
+
+        empty = copy.deepcopy(self.fixtures()[12])
+        empty["records"] = []
+        empty["value"]["records_sha256"] = contract_validate._sha256_json([])
+        result = self.assert_parity(empty)
+        self.assertIn("record_count_mismatch", result["error_codes"])
+        self.assertIn("statistics_mismatch", result["error_codes"])
+
+    def test_http_url_format_is_strict_and_cross_runtime(self):
+        valid = ["https://example.bg/article-1", "http://example.bg:8080/a"]
+        invalid = [
+            "https://exa mple.bg/article-1",
+            "ftp://example.bg/article-1",
+            "https://user:secret@example.bg/article-1",
+            "https://example.bg:bad/article-1",
+        ]
+        for url, expected in [(value, True) for value in valid] + [
+                (value, False) for value in invalid]:
+            with self.subTest(url=url):
+                fixture = copy.deepcopy(self.fixtures()[12])
+                fixture["value"]["entries"][0]["url"] = url
+                result = self.assert_parity(fixture)
+                self.assertEqual(expected, result["schema_valid"])
+
+    def test_rfc3339_format_is_strict_and_cross_runtime(self):
+        valid = [
+            "2028-02-29T23:59:59Z",
+            "2026-08-31T08:00:00.123456789+02:30",
+        ]
+        invalid = [
+            "2026-08-31X08:00:00+00:00",
+            "2026-02-30T08:00:00Z",
+            "2026-08-31T08:00:00+24:00",
+            "2026-08-31T08:00:00",
+        ]
+        for timestamp, expected in [(value, True) for value in valid] + [
+                (value, False) for value in invalid]:
+            with self.subTest(timestamp=timestamp):
+                fixture = copy.deepcopy(self.fixtures()[12])
+                fixture["value"]["created_at"] = timestamp
+                result = self.assert_parity(fixture)
+                self.assertEqual(expected, result["schema_valid"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -31,13 +31,22 @@ hash; an analysis hash is optional only when no model analysis existed at select
 Changing a stored article's content invalidates an adjudication until it is revalidated. A
 model rerun alone does not invalidate a human decision about unchanged content.
 
-Canonical records use sorted object keys, UTF-8 strings, Unicode code-point length and the
-ECMAScript JSON number spelling. Integer-valued numbers outside JavaScript's safe range
+Canonical records use sorted object keys, UTF-8 Unicode-scalar strings, Unicode code-point
+length and the ECMAScript JSON number spelling. Unpaired UTF-16 surrogates are rejected in
+values, object keys and article content. Integer-valued numbers outside JavaScript's safe range
 (`±(2^53-1)`) are rejected instead of being rounded differently by Python and TypeScript.
 Party surface keys use trim + NFC + locale-independent lowercase in both runtimes.
+`canonical.py` and `canonical.ts` are the only hashing implementations; the validators and
+pipeline callers import them rather than maintaining another serializer.
 
 Schemas use JSON Schema draft 2020-12. Dataset manifests bind both selection inputs and the
 ordered frozen label records, and require a group ID for every split assignment. Semantic checks
 that JSON Schema cannot express—such as duplicate canonical party IDs, scope-correct reason
 codes, model-relative dispositions, matching statistics, and group leakage across dataset
 splits—belong in the matching Python and TypeScript validators.
+
+The `uri` format is deliberately narrower than generic JSON Schema URI: public source URLs
+must be absolute HTTP(S) URLs without whitespace or embedded credentials. Timestamps use the
+RFC 3339 calendar form `YYYY-MM-DDTHH:MM:SS[.fraction](Z|±HH:MM)` with real calendar dates.
+Manifest entries and frozen records are positionally linked by `article_key` and by content or
+analysis hashes whenever the record carries them; neither side may contain a duplicate key.

@@ -11,15 +11,15 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import hashlib
 import json
 import math
 import re
 import unicodedata
-from decimal import Decimal
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
+
+from canonical import canonical_json, canonical_sha256
 
 
 ROOT = Path(__file__).resolve().parent
@@ -30,6 +30,9 @@ SCHEMAS = {
     "dataset_manifest": ROOT / "dataset_manifest.schema.json",
 }
 CONTRACT = json.loads((ROOT / "contract.json").read_text(encoding="utf-8"))
+RFC3339 = re.compile(
+    r"^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})"
+    r"(?:\.\d{1,9})?(Z|[+-]\d{2}:\d{2})$")
 
 
 def _is_number(value: Any) -> bool:
@@ -66,9 +69,24 @@ def _pointer(root: dict, reference: str) -> dict:
 
 def _format_matches(name: str, value: str) -> bool:
     if name == "uri":
-        parsed = urlparse(value)
-        return bool(parsed.scheme and parsed.netloc)
+        if any(character.isspace() for character in value):
+            return False
+        try:
+            parsed = urlparse(value)
+            port = parsed.port
+        except ValueError:
+            return False
+        return bool(
+            parsed.scheme in {"http", "https"}
+            and parsed.hostname
+            and parsed.username is None
+            and parsed.password is None
+            and (port is None or 0 < port <= 65535)
+        )
     if name == "date-time":
+        match = RFC3339.fullmatch(value)
+        if match is None:
+            return False
         try:
             parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
         except ValueError:
@@ -175,49 +193,7 @@ def validate_schema(schema: dict, value: Any, *, root: dict | None = None,
 
 
 def _stable_json(value: Any) -> str:
-    if value is None:
-        return "null"
-    if isinstance(value, bool):
-        return "true" if value else "false"
-    if isinstance(value, str):
-        return json.dumps(value, ensure_ascii=False)
-    if isinstance(value, (int, float)):
-        return _stable_number(value)
-    if isinstance(value, list):
-        return "[" + ",".join(_stable_json(item) for item in value) + "]"
-    if isinstance(value, dict):
-        fields = (
-            f"{json.dumps(key, ensure_ascii=False)}:{_stable_json(value[key])}"
-            for key in sorted(value)
-        )
-        return "{" + ",".join(fields) + "}"
-    raise TypeError(f"not a JSON value: {type(value).__name__}")
-
-
-def _stable_number(value: int | float) -> str:
-    if isinstance(value, bool):
-        raise ValueError("non-finite number is not canonical JSON")
-    if isinstance(value, int):
-        if abs(value) > 9_007_199_254_740_991:
-            raise ValueError("integer exceeds the cross-language safe range")
-        return str(value)
-    if not math.isfinite(value):
-        raise ValueError("non-finite number is not canonical JSON")
-    if value == 0:
-        return "0"
-    if value.is_integer() and abs(value) > 9_007_199_254_740_991:
-        raise ValueError("integer exceeds the cross-language safe range")
-    if value.is_integer() and abs(value) < 1e21:
-        return str(int(value))
-    decimal = Decimal(repr(value))
-    absolute = abs(value)
-    if 1e-6 <= absolute < 1e21:
-        return format(decimal, "f").rstrip("0").rstrip(".")
-    coefficient, exponent = format(decimal.normalize(), "e").split("e")
-    coefficient = coefficient.rstrip("0").rstrip(".")
-    exponent_value = int(exponent)
-    sign = "+" if exponent_value >= 0 else ""
-    return f"{coefficient}e{sign}{exponent_value}"
+    return canonical_json(value)
 
 
 def _json_equal(left: Any, right: Any) -> bool:
@@ -241,8 +217,7 @@ def _json_equal(left: Any, right: Any) -> bool:
 
 
 def _sha256_json(value: Any) -> str:
-    digest = hashlib.sha256(_stable_json(value).encode("utf-8")).hexdigest()
-    return f"sha256:{digest}"
+    return canonical_sha256(value)
 
 
 def _party_key(value: dict) -> str:
@@ -363,7 +338,14 @@ def _event_semantics(value: dict) -> list[str]:
 def _manifest_semantics(value: dict, records: list | None) -> list[str]:
     codes: set[str] = set()
     groups: dict[str, str] = {}
-    for entry in value.get("entries") or []:
+    entries = value.get("entries") or []
+    entry_keys: set[str] = set()
+    for entry in entries:
+        article_key = entry.get("article_key")
+        if isinstance(article_key, str):
+            if article_key in entry_keys:
+                codes.add("duplicate_manifest_entry")
+            entry_keys.add(article_key)
         group = entry.get("group_id")
         if not group:
             codes.add("missing_group_id")
@@ -381,6 +363,24 @@ def _manifest_semantics(value: dict, records: list | None) -> list[str]:
         statistics = value.get("label_statistics") or {}
         if statistics.get("total_records") != len(records):
             codes.add("statistics_mismatch")
+        if len(entries) != len(records):
+            codes.add("record_count_mismatch")
+        record_keys: set[str] = set()
+        for index, record in enumerate(records):
+            record_key = (record.get("article_key")
+                          if isinstance(record, dict) else None)
+            if isinstance(record_key, str):
+                if record_key in record_keys:
+                    codes.add("duplicate_dataset_record")
+                record_keys.add(record_key)
+            if index >= len(entries) or not isinstance(record, dict):
+                continue
+            entry = entries[index]
+            if record_key != entry.get("article_key"):
+                codes.add("record_entry_mismatch")
+            for field in ("content_sha256", "analysis_sha256"):
+                if field in record and record.get(field) != entry.get(field):
+                    codes.add("record_entry_mismatch")
         if records and all(isinstance(record, dict)
                            and isinstance(record.get("evaluation"), dict)
                            for record in records):
