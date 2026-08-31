@@ -10,6 +10,7 @@ export const HomeFilterControls = ({
   categoryCounts,
   category,
   days,
+  defaultDays,
   query,
   onCategoryChange,
   onDaysChange,
@@ -20,6 +21,7 @@ export const HomeFilterControls = ({
   categoryCounts: Map<string, number>;
   category: string;
   days: number;
+  defaultDays: number;
   query: string;
   onCategoryChange: (value: string) => void;
   onDaysChange: (value: number) => void;
@@ -27,7 +29,7 @@ export const HomeFilterControls = ({
   onReset: () => void;
 }) => {
   const filtersActive =
-    category !== "all" || days !== 30 || Boolean(query.trim());
+    category !== "all" || days !== defaultDays || Boolean(query.trim());
   return (
     <section className="space-y-3" aria-label="Филтри на историите">
       <div
@@ -91,7 +93,7 @@ export const HomeFilterControls = ({
                 emitNewsEvent({
                   name: "home_filter",
                   filter: "period",
-                  active: timeframe.days !== 30,
+                  active: timeframe.days !== defaultDays,
                 });
                 onDaysChange(timeframe.days);
               }}

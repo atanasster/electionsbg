@@ -6,6 +6,8 @@ export const HOME_TIMEFRAMES = [
   { days: 30, label: "30 дни" },
 ] as const;
 
+export const HOME_MIN_DEFAULT_STORIES = 6;
+
 export interface HomeFilterState {
   category: string;
   days: number;
@@ -29,6 +31,17 @@ export const storyWithinDays = (
   const age = now - published;
   return Number.isFinite(published) && age >= 0 && age <= days * 86_400_000;
 };
+
+/** Pick the narrowest briefing window that can stand on its own. */
+export const defaultHomeDays = (
+  stories: HomeStory[],
+  now = Date.now(),
+  minimum = HOME_MIN_DEFAULT_STORIES,
+): number =>
+  stories.filter((story) => storyWithinDays(story.last_published, 1, now))
+    .length >= minimum
+    ? 1
+    : 7;
 
 export const normalizeHomeSearch = (value: string): string =>
   value

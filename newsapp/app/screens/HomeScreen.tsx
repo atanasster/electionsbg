@@ -23,7 +23,11 @@ import { StoryCard } from "../components/StoryCard";
 import { LeadStory } from "../components/LeadStory";
 import { HomeFilterControls } from "../components/HomeFilterControls";
 import { buildHomeHierarchy, HOME_SUPPORTING_LIMIT } from "../homeHierarchy";
-import { filterHomeStories, homeCategoryCounts } from "../homeFilters";
+import {
+  defaultHomeDays,
+  filterHomeStories,
+  homeCategoryCounts,
+} from "../homeFilters";
 import { useUrlHomeFilters } from "../useUrlHomeFilters";
 
 // The explicit one-column track is minmax(0, 1fr). Without it, CSS Grid's
@@ -46,6 +50,10 @@ export const HomeScreen = () => {
   }, []);
 
   const categories = taxonomy.data?.categories ?? null;
+  const adaptiveDefaultDays = useMemo(
+    () => defaultHomeDays(home.data?.stories ?? [], now),
+    [home.data?.stories, now],
+  );
   const {
     category,
     days,
@@ -54,7 +62,11 @@ export const HomeScreen = () => {
     setDays,
     setQuery,
     clearFilters,
-  } = useUrlHomeFilters(categories?.map((item) => item.id) ?? null);
+    daysExplicit,
+  } = useUrlHomeFilters(
+    categories?.map((item) => item.id) ?? null,
+    adaptiveDefaultDays,
+  );
   const facetedStories = useMemo(
     () =>
       filterHomeStories(home.data?.stories ?? [], {
@@ -155,12 +167,18 @@ export const HomeScreen = () => {
         categoryCounts={categoryCounts}
         category={category}
         days={days}
+        defaultDays={adaptiveDefaultDays}
         query={query}
         onCategoryChange={setCategory}
         onDaysChange={setDays}
         onQueryChange={setQuery}
         onReset={clearFilters}
       />
+      {home.data && !daysExplicit && adaptiveDefaultDays > 1 ? (
+        <p className="-mt-5 text-xs text-muted-foreground" role="status">
+          Няма достатъчно истории за 24 часа — показваме последните 7 дни.
+        </p>
+      ) : null}
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         {announcedCount === null
           ? ""
@@ -186,7 +204,7 @@ export const HomeScreen = () => {
           id="stories-heading"
           className="mb-2 text-sm font-semibold uppercase tracking-wide"
         >
-          Последно анализирани (
+          Последни истории (
           {hierarchy.supporting.length + (hierarchy.lead ? 1 : 0)})
         </h2>
         {home.loading && !home.data ? (

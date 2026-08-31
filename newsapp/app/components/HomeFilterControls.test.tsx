@@ -17,6 +17,7 @@ describe("HomeFilterControls", () => {
         categoryCounts={new Map([["society", 2]])}
         category="society"
         days={7}
+        defaultDays={1}
         query=""
         onCategoryChange={vi.fn()}
         onDaysChange={vi.fn()}
@@ -43,6 +44,7 @@ describe("HomeFilterControls", () => {
         categoryCounts={new Map()}
         category="all"
         days={30}
+        defaultDays={30}
         query=""
         onCategoryChange={vi.fn()}
         onDaysChange={vi.fn()}
@@ -57,6 +59,7 @@ describe("HomeFilterControls", () => {
         categoryCounts={new Map()}
         category="all"
         days={30}
+        defaultDays={30}
         query="тест"
         onCategoryChange={vi.fn()}
         onDaysChange={vi.fn()}
@@ -84,6 +87,7 @@ describe("HomeFilterControls", () => {
         categoryCounts={new Map([["society", 2]])}
         category="all"
         days={30}
+        defaultDays={30}
         query="частно търсене"
         onCategoryChange={vi.fn()}
         onDaysChange={vi.fn()}
@@ -99,5 +103,31 @@ describe("HomeFilterControls", () => {
       [{ name: "home_filter", filter: "period", active: true }],
     ]);
     expect(JSON.stringify(sink.mock.calls)).not.toContain("частно");
+  });
+
+  it("reports period activity against the adaptive default", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    render(
+      <HomeFilterControls
+        categories={[]}
+        categoryCounts={new Map()}
+        category="all"
+        days={1}
+        defaultDays={1}
+        query=""
+        onCategoryChange={vi.fn()}
+        onDaysChange={vi.fn()}
+        onQueryChange={vi.fn()}
+        onReset={vi.fn()}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "24 часа" }));
+    fireEvent.click(screen.getByRole("button", { name: "30 дни" }));
+    await waitFor(() => expect(sink).toHaveBeenCalledTimes(2));
+    expect(sink.mock.calls).toEqual([
+      [{ name: "home_filter", filter: "period", active: false }],
+      [{ name: "home_filter", filter: "period", active: true }],
+    ]);
   });
 });

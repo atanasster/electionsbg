@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { Story } from "./data";
 import {
+  defaultHomeDays,
   filterHomeStories,
   homeCategoryCounts,
   normalizeHomeSearch,
@@ -33,6 +34,23 @@ describe("home filters", () => {
     expect(storyWithinDays("2026-08-28T12:00:00Z", 0, NOW)).toBe(false);
     expect(storyWithinDays("2026/08/28 12:00:00", 30, NOW)).toBe(false);
     expect(storyWithinDays("2026-08-28T15:00:00+03:00", 7, NOW)).toBe(true);
+  });
+
+  it("defaults to the shortest window with enough eligible stories", () => {
+    const recent = Array.from({ length: 6 }, (_, index) =>
+      story(`recent-${index}`, "2026-08-28T11:00:00Z"),
+    );
+    expect(defaultHomeDays(recent, NOW)).toBe(1);
+
+    recent.splice(0, 2);
+    const weekly = [
+      ...recent,
+      story("weekly-1", "2026-08-25T11:00:00Z"),
+      story("weekly-2", "2026-08-24T11:00:00Z"),
+    ];
+    expect(defaultHomeDays(weekly, NOW)).toBe(7);
+    expect(defaultHomeDays(weekly.slice(0, 5), NOW)).toBe(7);
+    expect(defaultHomeDays([], NOW)).toBe(7);
   });
 
   it("normalizes Unicode and whitespace and searches the English summary", () => {

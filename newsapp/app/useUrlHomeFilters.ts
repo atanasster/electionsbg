@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { HOME_TIMEFRAMES } from "./homeFilters";
 
 export const HOME_DEFAULT_CATEGORY = "all";
-export const HOME_DEFAULT_DAYS = 30;
+export const HOME_FALLBACK_DAYS = 30;
 export const HOME_QUERY_MAX = 200;
 export const HOME_FILTER_PARAMS = ["category", "days", "q"] as const;
 
@@ -22,10 +22,12 @@ export interface UrlHomeFilters {
   setDays: (value: number) => void;
   setQuery: (value: string) => void;
   clearFilters: () => void;
+  daysExplicit: boolean;
 }
 
 export const useUrlHomeFilters = (
   categoryIds: readonly string[] | null,
+  defaultDays = HOME_FALLBACK_DAYS,
 ): UrlHomeFilters => {
   const [params, setParams] = useSearchParams();
 
@@ -42,8 +44,13 @@ export const useUrlHomeFilters = (
       ? rawCategory
       : HOME_DEFAULT_CATEGORY;
 
-  const rawDays = Number(params.get("days"));
-  const days = VALID_DAYS.has(rawDays) ? rawDays : HOME_DEFAULT_DAYS;
+  const rawDaysParam = params.get("days");
+  const rawDays = Number(rawDaysParam);
+  const safeDefaultDays = VALID_DAYS.has(defaultDays)
+    ? defaultDays
+    : HOME_FALLBACK_DAYS;
+  const daysExplicit = rawDaysParam !== null && VALID_DAYS.has(rawDays);
+  const days = daysExplicit ? rawDays : safeDefaultDays;
   // URL input is untrusted too: cap it on read as well as on write. Do not trim
   // it, because the input should round-trip exactly while the matcher already
   // normalises whitespace.
@@ -71,8 +78,8 @@ export const useUrlHomeFilters = (
   );
   const setDays = useCallback(
     (value: number) =>
-      write("days", value === HOME_DEFAULT_DAYS ? null : String(value)),
-    [write],
+      write("days", value === safeDefaultDays ? null : String(value)),
+    [safeDefaultDays, write],
   );
   const setQuery = useCallback(
     (value: string) => write("q", value.slice(0, HOME_QUERY_MAX) || null),
@@ -97,5 +104,6 @@ export const useUrlHomeFilters = (
     setDays,
     setQuery,
     clearFilters,
+    daysExplicit,
   };
 };
