@@ -1,0 +1,21 @@
+{
+  "session": "20260831T010638Z-c999",
+  "createdAt": "2026-08-31T01:27:07.632Z",
+  "commit": "ca479a9007",
+  "skills": [
+    "update-funds"
+  ],
+  "paths": [
+    "data-changes.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:funds:pg:cloud -- --full",
+    "npm run db:load:funds-fit:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
+    "npm run myarea:alerts:cloud"
+  ],
+  "notes": "ISUN both arms current (browser-downloaded exports); +121 new / 741 modified contracts"
+}
