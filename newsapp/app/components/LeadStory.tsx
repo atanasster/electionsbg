@@ -39,7 +39,7 @@ export const LeadStory = ({
           rights={imageArticle.image_rights}
           articleUrl={imageArticle.url}
           outlet={source}
-          aspect="aspect-[16/10] md:aspect-auto md:min-h-80"
+          aspect="aspect-[16/10]"
           className="rounded-none md:col-span-3"
           priority
         />

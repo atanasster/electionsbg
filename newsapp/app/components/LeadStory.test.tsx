@@ -54,6 +54,11 @@ describe("LeadStory accessibility", () => {
     expect(
       screen.getByRole("img", { name: "Описателен надпис" }),
     ).toHaveAttribute("loading", "eager");
+    const imageFrame = screen.getByRole("img", {
+      name: "Описателен надпис",
+    }).parentElement;
+    expect(imageFrame).toHaveClass("aspect-[16/10]");
+    expect(imageFrame).not.toHaveClass("md:aspect-auto", "md:min-h-80");
     const credit = screen.getByRole("link", {
       name: /Кредит за изображението/,
     });
