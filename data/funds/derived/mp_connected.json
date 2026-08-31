@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-24T23:37:53.204Z",
+  "generatedAt": "2026-08-31T01:15:15.158Z",
   "total": 173,
   "mpCount": 148,
   "beneficiaryCount": 166,
-  "contractedEur": 3605804522.97,
-  "paidEur": 1852555350.23,
+  "contractedEur": 3605817496.82,
+  "paidEur": 1852554481.06,
   "entries": [
     {
       "mpId": 4507,
@@ -56,7 +56,7 @@
       ],
       "contractCount": 3,
       "contractedEur": 211393371.05,
-      "paidEur": 102972176.51
+      "paidEur": 102970855.17
     },
     {
       "mpId": 5098,
@@ -228,7 +228,7 @@
       "mpId": 3427,
       "mpName": "Петко Ангелов Кущирев",
       "beneficiaryEik": "200712697",
-      "beneficiaryName": "ПАК Дизайн ЕООД",
+      "beneficiaryName": "ПАК дизайн ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1501,7 +1501,7 @@
       ],
       "contractCount": 3,
       "contractedEur": 98370.68,
-      "paidEur": 34488.73
+      "paidEur": 34940.9
     },
     {
       "mpId": 3428,
@@ -1946,6 +1946,22 @@
       "paidEur": 5112.92
     },
     {
+      "mpId": 1064,
+      "mpName": "Георги Велков Колев",
+      "beneficiaryEik": "000935698",
+      "beneficiaryName": "Стопанска камара - Шумен",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 35020.76,
+      "paidEur": 17510.38
+    },
+    {
       "mpId": 3694,
       "mpName": "Атанас Димитров Михнев",
       "beneficiaryEik": "204033505",
@@ -2252,22 +2268,6 @@
       "contractCount": 1,
       "contractedEur": 24640.16,
       "paidEur": 24405.34
-    },
-    {
-      "mpId": 1064,
-      "mpName": "Георги Велков Колев",
-      "beneficiaryEik": "000935698",
-      "beneficiaryName": "Стопанска камара - Шумен",
-      "orgType": "Нестопанска организация",
-      "relations": [
-        {
-          "kind": "ngo_board",
-          "isCurrent": true
-        }
-      ],
-      "contractCount": 1,
-      "contractedEur": 22046.91,
-      "paidEur": 17510.38
     },
     {
       "mpId": 3287,

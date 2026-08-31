@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-24T23:37:53.721Z",
+  "generatedAt": "2026-08-31T01:15:17.690Z",
   "totals": {
-    "flaggedEiks": 279,
+    "flaggedEiks": 281,
     "mpOnly": 147,
-    "officialOnly": 113,
+    "officialOnly": 115,
     "both": 19,
     "debarredFlagged": 0,
-    "contractedEur": 7462385413.08,
-    "paidEur": 3143106559.52,
-    "procurementEur": 2619563582.53
+    "contractedEur": 7527254427.14,
+    "paidEur": 3170645183.55,
+    "procurementEur": 2620151785.22
   },
   "top": [
     {
       "eik": "130823243",
       "name": "ДП Национална компания \"Железопътна инфраструктура\"",
       "orgType": "Държавна администрация",
-      "contractCount": 41,
-      "contractedEur": 3132476293.72,
-      "paidEur": 944089031.55,
+      "contractCount": 42,
+      "contractedEur": 3194984372.13,
+      "paidEur": 964824579.34,
       "mps": [],
       "officials": [
         {
@@ -100,7 +100,7 @@
       "procurementEur": 6214272.94,
       "procurementContractCount": 7,
       "debarred": false,
-      "exposureScore": 28.17
+      "exposureScore": 28.19
     },
     {
       "eik": "203740812",
@@ -280,7 +280,7 @@
       "orgType": "Компания",
       "contractCount": 10,
       "contractedEur": 917831040.48,
-      "paidEur": 681876276.52,
+      "paidEur": 686672194.36,
       "mps": [],
       "officials": [
         {
@@ -383,7 +383,7 @@
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 313004624.8,
-      "paidEur": 104334176.86,
+      "paidEur": 106118698.05,
       "mps": [],
       "officials": [
         {
@@ -417,7 +417,7 @@
       "orgType": "Компания",
       "contractCount": 3,
       "contractedEur": 211393371.05,
-      "paidEur": 102972176.51,
+      "paidEur": 102970855.17,
       "mps": [
         {
           "mpId": 3551,
@@ -933,7 +933,7 @@
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 60547390.45,
-      "paidEur": 3331134.29,
+      "paidEur": 3456889.56,
       "mps": [],
       "officials": [
         {
@@ -2969,7 +2969,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 4,
       "contractedEur": 11125443.23,
-      "paidEur": 8120573.17,
+      "paidEur": 8213211.36,
       "mps": [],
       "officials": [
         {
@@ -3410,6 +3410,59 @@
       "exposureScore": 20.28
     },
     {
+      "eik": "123535874",
+      "name": "„Университетска многопрофилна болница за активно лечение „Проф. д-р Стоян Киркович” АД, гр. Стара Загора",
+      "orgType": "Компания",
+      "contractCount": 3,
+      "contractedEur": 7137374.1,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "filka-nikolova-simeonova-7fcefb",
+          "name": "Филка Николова Симеонова",
+          "category": "hospital_head",
+          "tier": "executive",
+          "role": "hospital_head",
+          "institution": "УМБАЛ  - проф. д-р Ст. Киркович\" АД, гр. Стара Загора",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2026,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "irena-blagoeva-milanova-c12fb6",
+          "name": "Ирена Благоева Миланова",
+          "category": "hospital_head",
+          "tier": "executive",
+          "role": "hospital_head",
+          "institution": "УМБАЛ  - проф. д-р Ст. Киркович\" АД, гр. Стара Загора",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2026,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 18321.29,
+      "procurementContractCount": 1,
+      "debarred": false,
+      "exposureScore": 19.82
+    },
+    {
       "eik": "176968825",
       "name": "Сдружение за научноизследователска и развойна дейност",
       "orgType": "Научноизследователска организация",
@@ -3535,59 +3588,6 @@
       "exposureScore": 20.88
     },
     {
-      "eik": "123535874",
-      "name": "Университетска многопрофилна болница за активно лечение - проф., Д-Р стоян киркович",
-      "orgType": "Компания",
-      "contractCount": 2,
-      "contractedEur": 5254687.91,
-      "paidEur": 0,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "filka-nikolova-simeonova-7fcefb",
-          "name": "Филка Николова Симеонова",
-          "category": "hospital_head",
-          "tier": "executive",
-          "role": "hospital_head",
-          "institution": "УМБАЛ  - проф. д-р Ст. Киркович\" АД, гр. Стара Загора",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2026,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        },
-        {
-          "slug": "irena-blagoeva-milanova-c12fb6",
-          "name": "Ирена Благоева Миланова",
-          "category": "hospital_head",
-          "tier": "executive",
-          "role": "hospital_head",
-          "institution": "УМБАЛ  - проф. д-р Ст. Киркович\" АД, гр. Стара Загора",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2026,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 18321.29,
-      "procurementContractCount": 1,
-      "debarred": false,
-      "exposureScore": 19.52
-    },
-    {
       "eik": "121706255",
       "name": "\"Национална компания индустриални зони\" ЕАД (Нкиз ЕАД)",
       "orgType": "Компания",
@@ -3639,7 +3639,7 @@
     },
     {
       "eik": "200712697",
-      "name": "ПАК Дизайн ЕООД",
+      "name": "ПАК дизайн ЕООД",
       "orgType": "Компания",
       "contractCount": 11,
       "contractedEur": 4471490.53,
@@ -3913,9 +3913,9 @@
     "201617476",
     "201617654",
     "201616805",
+    "123535874",
     "176968825",
     "201619580",
-    "123535874",
     "121706255",
     "126529015",
     "200712697",
@@ -3961,6 +3961,7 @@
     "131336103",
     "202918009",
     "103929677",
+    "201609173",
     "107515210",
     "201498495",
     "115740153",
@@ -4050,6 +4051,7 @@
     "205945260",
     "200067887",
     "121406838",
+    "000935698",
     "126652270",
     "204033505",
     "205421457",
@@ -4076,7 +4078,6 @@
     "204124990",
     "177132923",
     "000703172",
-    "000935698",
     "203414994",
     "000083868",
     "112043028",
@@ -4102,6 +4103,7 @@
     "175271486",
     "112649921",
     "202823511",
+    "111582001",
     "203486246",
     "107029685",
     "202850864",
