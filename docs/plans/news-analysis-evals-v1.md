@@ -768,7 +768,11 @@ until the effective-analysis reconciliation gate exists.
 ### Phase 3 — export and publication overlay
 
 1. Implement deterministic raw export, offline review/promotion, accepted-snapshot export and
-   last-known-good behavior.
+   last-known-good behavior. The accepted exporter reads only current adjudication documents,
+   validates and allowlists each record, verifies document/article identity and gold eligibility,
+   sorts by article key, hashes the canonical record array and atomically replaces a private
+   `0600` snapshot. Empty, unavailable or malformed reads fail before replacement so the prior
+   accepted snapshot remains intact.
 2. Implement the shared effective-analysis resolver.
 3. Apply it to story recomputation and `build_app_data.py`.
 4. Add public human-review provenance and stale/under-review rendering.

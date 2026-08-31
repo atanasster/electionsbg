@@ -178,6 +178,7 @@ not reuse the public Function runtime identity. The commands are deliberately fi
 
 ```bash
 npm run news:evals:export
+npm run news:evals:export-accepted
 npm run news:evals:review-bundle
 npm run news:evals:apply-review -- --file /absolute/path/to/review-command.json
 ```
@@ -189,6 +190,13 @@ Both the export and review bundle are atomically written with mode `0600` under 
 `news/data/evals/`. The review bundle groups individual evidence and community distributions with
 the full locally archived article; it marks content-hash drift rather than hiding stale feedback.
 Community counts are context and never preselect an answer.
+
+The accepted export separately reads only current `news_eval_adjudications`, requires every
+document to be a normalized, schema-valid accepted decision whose document ID matches its article
+key, sorts by article key and binds the record array to a canonical SHA-256. An empty, malformed or
+unavailable read fails before the atomic write, preserving `news/data/evals/accepted/current.json`
+as the last-known-good pipeline snapshot. It deliberately remains private operational state; the
+public build later projects only reviewed fields and public provenance from it.
 
 A submission review command uses `submission_reviewed` or `submission_quarantined` and exactly one
 source ID. An acceptance command uses `adjudication_accepted`, one or more non-quarantined source

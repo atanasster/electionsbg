@@ -11,6 +11,7 @@ import {
   buildLocalReviewBundle,
   FirestoreOperatorStore,
   readRawSubmissionExport,
+  serializeAcceptedAdjudicationSnapshot,
   serializeRawSubmissionExport,
   verifyProjectTaskRelease,
   writeAtomicPrivateFile,
@@ -23,6 +24,7 @@ function usage(): string {
   return [
     "Usage:",
     "  operator-cli export --project electionsbg-news --out PATH",
+    "  operator-cli export-accepted --project electionsbg-news --out PATH",
     "  operator-cli review-bundle --input PATH --article-root news/data --out PATH",
     "  operator-cli apply --project electionsbg-news --file PATH",
     "  operator-cli sync-tasks --project electionsbg-news --file PATH --live-manifest-url URL",
@@ -121,6 +123,28 @@ async function main(): Promise<void> {
     await writeAtomicPrivateFile(
       destination,
       serializeRawSubmissionExport(exported),
+    );
+    process.stdout.write(
+      `${canonicalJson({
+        status: "written",
+        out: destination,
+        record_count: exported.manifest.record_count,
+        records_sha256: exported.manifest.records_sha256,
+        firestore_read_time: exported.manifest.firestore_read_time,
+      })}\n`,
+    );
+    return;
+  }
+  if (command === "export-accepted") {
+    requireOptions(options, ["project", "out"]);
+    const project = options.project!;
+    const destination = resolve(options.out!);
+    const exported = await withStore(project, (store) =>
+      store.exportAcceptedAdjudications(project),
+    );
+    await writeAtomicPrivateFile(
+      destination,
+      serializeAcceptedAdjudicationSnapshot(exported),
     );
     process.stdout.write(
       `${canonicalJson({

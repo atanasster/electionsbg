@@ -92,6 +92,37 @@ export type RawSubmissionExport = Readonly<{
   records: readonly RawSubmissionRecord[];
 }>;
 
+export type AcceptedAdjudicationRecord = Readonly<{
+  schema_version: 1;
+  rubric_version: "news-article-evaluation-v1";
+  article_key: string;
+  task_revision: number;
+  content_sha256: string;
+  analysis_sha256: string;
+  source_submission_ids: readonly string[];
+  operator_actor: Readonly<{ kind: "maintainer"; id: string }>;
+  adjudicated_at: string;
+  revision: number;
+  evaluation: JsonObject;
+  public_explanation: string | null;
+  gold_eligible: boolean;
+  status: "accepted";
+  last_operation_id: string;
+}>;
+
+export type AcceptedAdjudicationSnapshot = Readonly<{
+  manifest: Readonly<{
+    schema_version: 1;
+    snapshot_kind: "news-eval-accepted-adjudications";
+    project_id: string;
+    firestore_read_time: string;
+    rubric_version: "news-article-evaluation-v1";
+    record_count: number;
+    records_sha256: string;
+  }>;
+  records: readonly AcceptedAdjudicationRecord[];
+}>;
+
 export type ReviewCommand =
   | Readonly<{
       schemaVersion: 1;
@@ -207,6 +238,27 @@ const TASK_FIELDS = [
   "accepts_public_evals",
   "revision",
   "updated_at",
+] as const;
+const ADJUDICATION_STORAGE_FIELDS = [
+  "schema_version",
+  "article_key",
+  "task_revision",
+  "content_sha256",
+  "analysis_sha256",
+  "source_submission_ids",
+  "operator_actor",
+  "adjudicated_at",
+  "revision",
+  "evaluation",
+  "public_explanation",
+  "gold_eligible",
+  "status",
+  "last_operation_id",
+] as const;
+const ADJUDICATION_EXPORT_FIELDS = [
+  "schema_version",
+  "rubric_version",
+  ...ADJUDICATION_STORAGE_FIELDS.slice(1),
 ] as const;
 
 function object(value: unknown, label: string): JsonObject {
@@ -895,6 +947,200 @@ export function validateRawSubmissionExport(value: RawSubmissionExport): void {
   }
 }
 
+function acceptedAdjudicationRecord(
+  value: unknown,
+  label: string,
+  documentId?: string,
+): AcceptedAdjudicationRecord {
+  const raw = jsonObject(value, label);
+  exactKeys(
+    raw,
+    documentId
+      ? ADJUDICATION_STORAGE_FIELDS
+      : ADJUDICATION_EXPORT_FIELDS,
+    label,
+  );
+  if (
+    raw.schema_version !== 1 ||
+    (!documentId && raw.rubric_version !== RUBRIC)
+  )
+    throw new Error(`${label} has an unsupported contract`);
+  const key = articleKey(raw.article_key);
+  if (documentId && documentId !== encodedArticleKey(key))
+    throw new Error(`${label} document ID does not match article_key`);
+  if (
+    !Array.isArray(raw.source_submission_ids) ||
+    raw.source_submission_ids.length === 0 ||
+    raw.source_submission_ids.length > 200
+  )
+    throw new Error(`${label}.source_submission_ids must be bounded`);
+  const sourceIds = raw.source_submission_ids.map((item) =>
+    stringValue(item, `${label} source submission ID`, 128),
+  );
+  if (new Set(sourceIds).size !== sourceIds.length)
+    throw new Error(`${label}.source_submission_ids contains duplicates`);
+  const actor = object(raw.operator_actor, `${label}.operator_actor`);
+  exactKeys(actor, ["kind", "id"], `${label}.operator_actor`);
+  if (actor.kind !== "maintainer")
+    throw new Error(`${label}.operator_actor must be a maintainer`);
+  const evaluation = jsonObject(raw.evaluation, `${label}.evaluation`);
+  const schemaErrors = validateSchema(ARTICLE_SCHEMA, evaluation);
+  if (schemaErrors.length > 0)
+    throw new Error(
+      `${label}.evaluation is invalid: ${schemaErrors.join("; ")}`,
+    );
+  const goldEligible =
+    ["leaning", "russia_stance"].every(
+      (field) =>
+        object(evaluation[field], `${label}.evaluation.${field}`)
+          .disposition !== "unable_to_judge",
+    ) && evaluation.parties_confirmed_complete === true;
+  if (raw.gold_eligible !== goldEligible)
+    throw new Error(`${label}.gold_eligible is inconsistent`);
+  if (raw.status !== "accepted")
+    throw new Error(`${label}.status is not accepted`);
+  const operationId = stringValue(
+    raw.last_operation_id,
+    `${label}.last_operation_id`,
+    96,
+  );
+  if (!IDENTIFIER.test(operationId))
+    throw new Error(`${label}.last_operation_id is invalid`);
+  const normalized: AcceptedAdjudicationRecord = {
+    schema_version: 1,
+    rubric_version: RUBRIC,
+    article_key: key,
+    task_revision: safeInteger(
+      raw.task_revision,
+      `${label}.task_revision`,
+      1,
+    ),
+    content_sha256: hash(raw.content_sha256, `${label}.content_sha256`),
+    analysis_sha256: hash(raw.analysis_sha256, `${label}.analysis_sha256`),
+    source_submission_ids: [...sourceIds].sort(compareText),
+    operator_actor: {
+      kind: "maintainer",
+      id: stringValue(actor.id, `${label}.operator_actor.id`, 128),
+    },
+    adjudicated_at: isoTimestamp(
+      raw.adjudicated_at,
+      `${label}.adjudicated_at`,
+    ),
+    revision: safeInteger(raw.revision, `${label}.revision`, 1),
+    evaluation,
+    public_explanation:
+      raw.public_explanation === null
+        ? null
+        : nullableString(
+            raw.public_explanation,
+            `${label}.public_explanation`,
+          ),
+    gold_eligible: goldEligible,
+    status: "accepted",
+    last_operation_id: operationId,
+  };
+  if (!documentId && canonicalJson(normalized) !== canonicalJson(raw))
+    throw new Error(`${label} is not normalized`);
+  return normalized;
+}
+
+export function buildAcceptedAdjudicationSnapshot(
+  projectId: string,
+  snapshot: OperatorQuerySnapshot,
+): AcceptedAdjudicationSnapshot {
+  const records = snapshot.docs
+    .map((item) =>
+      acceptedAdjudicationRecord(
+        item.data(),
+        `accepted adjudication ${item.id}`,
+        item.id,
+      ),
+    )
+    .sort((left, right) => compareText(left.article_key, right.article_key));
+  if (records.length === 0)
+    throw new Error(
+      "Firestore returned no accepted adjudications; retaining the last known-good snapshot",
+    );
+  return {
+    manifest: {
+      schema_version: 1,
+      snapshot_kind: "news-eval-accepted-adjudications",
+      project_id: stringValue(projectId, "project ID", 128),
+      firestore_read_time: isoTimestamp(
+        snapshot.readTime,
+        "Firestore read time",
+      ),
+      rubric_version: RUBRIC,
+      record_count: records.length,
+      records_sha256: canonicalSha256(records),
+    },
+    records,
+  };
+}
+
+export function validateAcceptedAdjudicationSnapshot(
+  value: AcceptedAdjudicationSnapshot,
+): void {
+  const root = object(value, "accepted adjudication snapshot");
+  exactKeys(root, ["manifest", "records"], "accepted adjudication snapshot");
+  const manifest = object(root.manifest, "accepted adjudication manifest");
+  exactKeys(
+    manifest,
+    [
+      "schema_version",
+      "snapshot_kind",
+      "project_id",
+      "firestore_read_time",
+      "rubric_version",
+      "record_count",
+      "records_sha256",
+    ],
+    "accepted adjudication manifest",
+  );
+  if (
+    manifest.schema_version !== 1 ||
+    manifest.snapshot_kind !== "news-eval-accepted-adjudications" ||
+    manifest.rubric_version !== RUBRIC
+  )
+    throw new Error("accepted adjudication snapshot contract is unsupported");
+  stringValue(manifest.project_id, "project_id", 128);
+  isoTimestamp(manifest.firestore_read_time, "firestore_read_time");
+  if (!Array.isArray(root.records) || root.records.length === 0)
+    throw new Error("accepted adjudication snapshot is empty");
+  const records = root.records.map((record, index) =>
+    acceptedAdjudicationRecord(record, `accepted adjudication ${index}`),
+  );
+  if (safeInteger(manifest.record_count, "record_count", 1) !== records.length)
+    throw new Error("accepted adjudication record count does not match");
+  if (manifest.records_sha256 !== canonicalSha256(records))
+    throw new Error("accepted adjudication records hash does not match");
+  for (let index = 0; index < records.length; index += 1) {
+    if (
+      index > 0 &&
+      compareText(records[index - 1]!.article_key, records[index]!.article_key) >=
+        0
+    )
+      throw new Error(
+        "accepted adjudication records are duplicated or not sorted",
+      );
+  }
+}
+
+export function serializeAcceptedAdjudicationSnapshot(
+  value: AcceptedAdjudicationSnapshot,
+): string {
+  validateAcceptedAdjudicationSnapshot(value);
+  return `${canonicalJson(value)}\n`;
+}
+
+export function parseAcceptedAdjudicationSnapshot(
+  serialized: string,
+): AcceptedAdjudicationSnapshot {
+  const value = JSON.parse(serialized) as AcceptedAdjudicationSnapshot;
+  validateAcceptedAdjudicationSnapshot(value);
+  return value;
+}
+
 function increment(target: JsonObject, label: string): void {
   target[label] = safeInteger(target[label] ?? 0, `count ${label}`) + 1;
 }
@@ -1159,6 +1405,15 @@ export class FirestoreOperatorStore {
       .collection("news_eval_submissions")
       .get();
     return buildRawSubmissionExport(projectId, snapshot);
+  }
+
+  async exportAcceptedAdjudications(
+    projectId: string,
+  ): Promise<AcceptedAdjudicationSnapshot> {
+    const snapshot = await this.#database
+      .collection("news_eval_adjudications")
+      .get();
+    return buildAcceptedAdjudicationSnapshot(projectId, snapshot);
   }
 
   async apply(commandValue: unknown): Promise<ApplyReviewResult> {

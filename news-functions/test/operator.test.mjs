@@ -8,12 +8,15 @@ import test from "node:test";
 
 import { canonicalSha256 } from "../lib/eval-contract/canonical.js";
 import {
+  buildAcceptedAdjudicationSnapshot,
   buildLocalReviewBundle,
   buildRawSubmissionExport,
   deriveTaskRevision,
   FirestoreOperatorStore,
+  parseAcceptedAdjudicationSnapshot,
   parseRawSubmissionExport,
   parseReviewCommand,
+  serializeAcceptedAdjudicationSnapshot,
   serializeRawSubmissionExport,
   writeAtomicPrivateFile,
   verifyLiveTaskRelease,
@@ -186,6 +189,26 @@ function acceptanceCommand(overrides = {}) {
     evaluation: clone(evaluation),
     public_explanation: "Проверено спрямо целия оригинален материал.",
     reason: "Accepted after local editorial review.",
+    ...overrides,
+  };
+}
+
+function adjudication(overrides = {}) {
+  return {
+    schema_version: 1,
+    article_key: ARTICLE_KEY,
+    task_revision: 4,
+    content_sha256: CONTENT_HASH,
+    analysis_sha256: ANALYSIS_HASH,
+    source_submission_ids: ["submission-0001"],
+    operator_actor: { kind: "maintainer", id: "editor@example.test" },
+    adjudicated_at: NOW,
+    revision: 1,
+    evaluation: clone(evaluation),
+    public_explanation: "Проверено спрямо целия оригинален материал.",
+    gold_eligible: true,
+    status: "accepted",
+    last_operation_id: "accept-operation-0001",
     ...overrides,
   };
 }
@@ -385,6 +408,92 @@ test("raw export fails closed on missing read time or private model-label fields
       }),
     /unexpected fields/,
   );
+});
+
+test("accepted snapshot is deterministic, allowlisted, hashed, and round-trips", () => {
+  const secondKey = "second.example/article-2";
+  const exported = buildAcceptedAdjudicationSnapshot("electionsbg-news", {
+    readTime: new Date("2026-08-31T12:30:00.000Z"),
+    docs: [
+      snapshot(
+        Buffer.from(secondKey, "utf8").toString("base64url"),
+        adjudication({
+          article_key: secondKey,
+          last_operation_id: "accept-operation-0002",
+        }),
+      ),
+      snapshot(TASK_ID, adjudication()),
+    ],
+  });
+  assert.deepEqual(
+    exported.records.map((record) => record.article_key),
+    [ARTICLE_KEY, secondKey],
+  );
+  assert.equal(exported.manifest.record_count, 2);
+  assert.match(exported.manifest.records_sha256, /^sha256:[a-f0-9]{64}$/);
+  assert.equal(exported.records[0].rubric_version, "news-article-evaluation-v1");
+  const serialized = serializeAcceptedAdjudicationSnapshot(exported);
+  assert.deepEqual(parseAcceptedAdjudicationSnapshot(serialized), exported);
+
+  const tampered = serialized.replace(
+    '"public_explanation":"Проверено спрямо целия оригинален материал."',
+    '"public_explanation":"Подменено."',
+  );
+  assert.throws(
+    () => parseAcceptedAdjudicationSnapshot(tampered),
+    /hash does not match/,
+  );
+});
+
+test("accepted snapshot fails closed on empty, malformed, or mismatched reads", () => {
+  assert.throws(
+    () =>
+      buildAcceptedAdjudicationSnapshot("electionsbg-news", {
+        readTime: new Date(NOW),
+        docs: [],
+      }),
+    /last known-good/,
+  );
+  assert.throws(
+    () =>
+      buildAcceptedAdjudicationSnapshot("electionsbg-news", {
+        readTime: new Date(NOW),
+        docs: [snapshot("wrong-document-id", adjudication())],
+      }),
+    /document ID does not match/,
+  );
+  assert.throws(
+    () =>
+      buildAcceptedAdjudicationSnapshot("electionsbg-news", {
+        readTime: new Date(NOW),
+        docs: [snapshot(TASK_ID, adjudication({ status: "superseded" }))],
+      }),
+    /status is not accepted/,
+  );
+  assert.throws(
+    () =>
+      buildAcceptedAdjudicationSnapshot("electionsbg-news", {
+        readTime: new Date(NOW),
+        docs: [snapshot(TASK_ID, adjudication({ private_note: "must fail" }))],
+      }),
+    /unexpected fields/,
+  );
+});
+
+test("a failed accepted export leaves the last-known-good private file untouched", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "news-eval-accepted-"));
+  const destination = join(directory, "current.json");
+  await writeAtomicPrivateFile(destination, "known-good\n");
+  assert.throws(
+    () =>
+      buildAcceptedAdjudicationSnapshot("electionsbg-news", {
+        readTime: new Date(NOW),
+        docs: [],
+      }),
+    /last known-good/,
+  );
+  assert.equal(await readFile(destination, "utf8"), "known-good\n");
+  assert.equal((await stat(destination)).mode & 0o777, 0o600);
 });
 
 test("atomic private writes replace only after a complete write", async () => {

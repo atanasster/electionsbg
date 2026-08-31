@@ -344,6 +344,7 @@
     "news:evals:test:emulator": "npm --prefix news-functions run build && NEWS_EVAL_EMULATOR_ADAPTERS=true NEWS_EVAL_LOCAL_ORIGINS=http://127.0.0.1:5002 npx --yes firebase-tools@15.18.0 --config firebase.news-evals-emulator.json emulators:exec --only functions,firestore,hosting --project demo-news-evals \"node news-functions/test/emulator.integration.mjs\"",
     "news:evals:test": "npm --prefix news-functions test",
     "news:evals:export": "npm --prefix news-functions run build && node news-functions/lib/operator-cli.js export --project electionsbg-news --out news/data/evals/public-submissions/current.jsonl",
+    "news:evals:export-accepted": "npm --prefix news-functions run build && node news-functions/lib/operator-cli.js export-accepted --project electionsbg-news --out news/data/evals/accepted/current.json",
     "news:evals:review-bundle": "npm --prefix news-functions run build && node news-functions/lib/operator-cli.js review-bundle --input news/data/evals/public-submissions/current.jsonl --article-root news/data --out news/data/evals/review/current.json",
     "news:evals:apply-review": "npm --prefix news-functions run build && node news-functions/lib/operator-cli.js apply --project electionsbg-news",
     "news:evals:tasks:dry": "python3 news/scripts/sync_eval_tasks.py --include-review-reasons --review-limit 50",
