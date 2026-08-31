@@ -11,6 +11,8 @@ const files = [
   "canonical.ts",
   "validate.ts",
   "contract.json",
+  "article_evaluation.schema.json",
+  "event.schema.json",
   "submission_request.schema.json",
 ];
 

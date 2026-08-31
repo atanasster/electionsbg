@@ -708,6 +708,11 @@ until the effective-analysis reconciliation gate exists.
    corresponding foreign actual request to fail at the application origin gate. Treat malformed
    JSON as a platform-level `400` because Firebase's parser runs before the handler.
 6. Add local Admin-SDK export/review/promotion commands; expose no adjudication HTTP endpoint.
+   The raw JSONL export is allowlisted, sorted and record-set hashed, refuses an empty/invalid read
+   so the last-known-good file survives, and is replaced atomically with mode `0600`. Build the
+   review bundle only from that validated snapshot plus the full local article archive. Apply
+   strict maintainer command manifests in one transaction with the immutable event: stale content,
+   revision conflicts, quarantined sources and operation-ID reuse all write nothing.
 
 ### Phase 2 — task sync and public UI
 

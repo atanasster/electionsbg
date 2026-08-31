@@ -60,6 +60,17 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
   const nestedInstall = workflow.indexOf("npm --prefix news-functions ci");
   const nestedTests = workflow.indexOf("npm run news:evals:test");
   assert.ok(nestedInstall >= 0 && nestedInstall < nestedTests);
+  assert.match(scripts["news:evals:export"], /operator-cli\.js export/);
+  assert.match(scripts["news:evals:export"], /--project electionsbg-news/);
+  assert.match(
+    scripts["news:evals:review-bundle"],
+    /operator-cli\.js review-bundle/,
+  );
+  assert.match(scripts["news:evals:apply-review"], /operator-cli\.js apply/);
+  assert.match(
+    scripts["news:evals:apply-review"],
+    /--project electionsbg-news/,
+  );
 
   const newsHosting = firebase.hosting.find((entry) => entry.target === "news");
   assert.deepEqual(newsHosting.rewrites[0], {
@@ -170,6 +181,7 @@ test("only the isolated Function binds the two eval secrets", () => {
   assert.match(source, /defineSecret\(TURNSTILE_SECRET_NAME\)/);
   assert.match(source, /defineJsonSecret\(HMAC_KEYRING_SECRET_NAME\)/);
   assert.match(source, /secrets: \[turnstileSecret, hmacKeyringSecret\]/);
+  assert.doesNotMatch(source, /operator|adjudication|exportSubmissions/);
 
   for (const path of ["functions/index.js"]) {
     const other = readFileSync(resolve(ROOT, path), "utf8");
@@ -192,7 +204,12 @@ test("only the isolated Function binds the two eval secrets", () => {
 });
 
 test("the deployed schema copy is byte-identical to the shared contract", () => {
-  for (const name of ["contract.json", "submission_request.schema.json"]) {
+  for (const name of [
+    "contract.json",
+    "article_evaluation.schema.json",
+    "event.schema.json",
+    "submission_request.schema.json",
+  ]) {
     assert.deepEqual(
       readFileSync(resolve(ROOT, `news-functions/lib/eval-contract/${name}`)),
       readFileSync(resolve(ROOT, `news/eval_contract/${name}`)),

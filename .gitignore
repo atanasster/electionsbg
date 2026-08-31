@@ -437,3 +437,11 @@ __pycache__/
 # for a tree nothing reads out of git. `bucket:sync` and
 # `bucket:sync:paths -- news` both carry it; neither excludes it.
 /data/news/
+
+# Public news-evaluation operator snapshots and review bundles contain raw
+# anonymous submissions and full archived article text. They are local,
+# service-account-produced working state; frozen reviewed gold revisions live
+# separately under news/data/gold/ when deliberately promoted.
+/news/data/evals/public-submissions/
+/news/data/evals/review/
+/news/data/evals/accepted/

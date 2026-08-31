@@ -465,6 +465,17 @@ function evaluationSemantics(
   return [[...codes].sort(), goldEligible];
 }
 
+export function validateEvaluationSemantics(
+  value: Readonly<JsonObject>,
+  task: Readonly<JsonObject>,
+): Readonly<{ errorCodes: string[]; goldEligible: boolean }> {
+  const [errorCodes, goldEligible] = evaluationSemantics(
+    value as JsonObject,
+    task as JsonObject,
+  );
+  return { errorCodes, goldEligible };
+}
+
 function submissionSemantics(value: JsonObject, task: JsonObject): string[] {
   const evaluation = object(value.evaluation);
   const codes = reasonScopeCodes(evaluation);

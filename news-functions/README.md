@@ -164,6 +164,59 @@ Never run bare `firebase deploy --only functions` from the shared root configura
 multiple codebases and can deploy them to the wrong project. Use only the project- and
 codebase-qualified scripts committed in the root `package.json`.
 
+## Offline operator workflow
+
+Review and promotion are local Admin-SDK operations, never HTTP routes. Use Application Default
+Credentials for a dedicated news-eval service account with the minimum Firestore permissions; do
+not reuse the public Function runtime identity. The commands are deliberately fixed to
+`electionsbg-news` (a `demo-*` project is accepted only when `FIRESTORE_EMULATOR_HOST` is set).
+
+```bash
+npm run news:evals:export
+npm run news:evals:review-bundle
+npm run news:evals:apply-review -- --file /absolute/path/to/review-command.json
+```
+
+The export reads only `news_eval_submissions`, strips `abuse_ref` and every non-allowlisted field,
+sorts by article key/time/submission ID, hashes the canonical record array and writes JSONL with
+the Firestore read time. An unavailable, malformed or empty read never replaces the prior file.
+Both the export and review bundle are atomically written with mode `0600` under gitignored
+`news/data/evals/`. The review bundle groups individual evidence and community distributions with
+the full locally archived article; it marks content-hash drift rather than hiding stale feedback.
+Community counts are context and never preselect an answer.
+
+A submission review command uses `submission_reviewed` or `submission_quarantined` and exactly one
+source ID. An acceptance command uses `adjudication_accepted`, one or more non-quarantined source
+IDs, the reviewed task revision and analysis/content hashes, the expected current adjudication
+revision (`0` for the first), and a complete evaluation object. Example shape:
+
+```json
+{
+  "schema_version": 1,
+  "operation_id": "accept-20260831-article-0001",
+  "occurred_at": "2026-08-31T12:00:00Z",
+  "actor": { "kind": "maintainer", "id": "editor@example.com" },
+  "action": "adjudication_accepted",
+  "article_key": "example.bg/article-1",
+  "content_sha256": "sha256:<64 lowercase hex characters>",
+  "source_submission_ids": ["<submission UUID>"],
+  "expected_task_revision": 4,
+  "analysis_sha256": "sha256:<64 lowercase hex characters>",
+  "expected_adjudication_revision": 0,
+  "evaluation": { "schema_version": 1 },
+  "public_explanation": "Editorial explanation after full-text review.",
+  "reason": "Accepted after local editorial review."
+}
+```
+
+The abbreviated `evaluation` above is only a shape illustration; the command validator requires
+the complete shared article-evaluation schema. Acceptance rechecks the current task/content,
+vocabularies, dispositions, party completeness, source states and revision, then atomically writes
+the adjudication, promotion status and immutable audit event. Reusing an operation ID is allowed
+only for an exact idempotent retry. Replacing an accepted adjudication also appends a supersession
+event in the same transaction. Deferring requires no write: leave the item in the private review
+bundle until a maintainer makes an explicit reviewed, quarantined or accepted decision.
+
 Do not grant this runtime access to `news/data`, the private article archive, Cloud SQL, or the
 main Functions project's secrets. Public submissions are untrusted observations; later operator
 tools export and adjudicate them locally.

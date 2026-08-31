@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 import { deleteApp, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
+import { FirestoreOperatorStore } from "../lib/operator.js";
+
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "../..");
 const PROJECT_ID = process.env.GCLOUD_PROJECT ?? "demo-news-evals";
@@ -315,6 +317,99 @@ try {
     `${FIRESTORE_ORIGIN}/v1/projects/${PROJECT_ID}/databases/(default)/documents/news_eval_tasks/${TASK_ID}`,
   );
   assert.equal(directFirestore.status, 403);
+
+  const operator = new FirestoreOperatorStore(database);
+  const exported = await operator.exportSubmissions(PROJECT_ID);
+  assert.equal(exported.manifest.record_count, 1);
+  assert.equal(
+    exported.records[0].submission_id,
+    accepted.json?.submission?.submission_id,
+  );
+  assert.doesNotMatch(JSON.stringify(exported), /must never cross|abuse_ref/);
+
+  await database.doc(`news_eval_tasks/${TASK_ID}`).update({
+    model_labels: {
+      leaning: "neutral",
+      russia_stance: "not_applicable",
+      party_tones: [],
+    },
+  });
+  const sourceSubmissionId = exported.records[0].submission_id;
+  const reviewResult = await operator.apply({
+    schema_version: 1,
+    operation_id: "emulator-review-operation-0001",
+    occurred_at: "2026-08-31T13:00:00.000Z",
+    actor: { kind: "maintainer", id: "emulator-editor" },
+    action: "submission_reviewed",
+    article_key: ARTICLE_KEY,
+    content_sha256: CONTENT_HASH,
+    source_submission_ids: [sourceSubmissionId],
+    reason: "Emulator integration review.",
+  });
+  assert.equal(reviewResult.status, "reviewed");
+  assert.equal(reviewResult.idempotent, false);
+
+  const acceptanceCommand = {
+    schema_version: 1,
+    operation_id: "emulator-accept-operation-0001",
+    occurred_at: "2026-08-31T13:01:00.000Z",
+    actor: { kind: "maintainer", id: "emulator-editor" },
+    action: "adjudication_accepted",
+    article_key: ARTICLE_KEY,
+    content_sha256: CONTENT_HASH,
+    source_submission_ids: [sourceSubmissionId],
+    expected_task_revision: 4,
+    analysis_sha256: ANALYSIS_HASH,
+    expected_adjudication_revision: 0,
+    evaluation: exported.records[0].evaluation,
+    public_explanation: "Проверено спрямо оригиналния материал.",
+    reason: "Emulator integration acceptance.",
+  };
+  const promotionResult = await operator.apply(acceptanceCommand);
+  assert.equal(promotionResult.status, "accepted");
+  assert.equal(promotionResult.adjudicationRevision, 1);
+  assert.equal(promotionResult.idempotent, false);
+  assert.equal((await operator.apply(acceptanceCommand)).idempotent, true);
+
+  const promotedSubmission = await database
+    .doc(`news_eval_submissions/${sourceSubmissionId}`)
+    .get();
+  assert.equal(promotedSubmission.data()?.status, "promoted");
+  const adjudication = await database
+    .doc(`news_eval_adjudications/${TASK_ID}`)
+    .get();
+  assert.equal(adjudication.data()?.revision, 1);
+  assert.equal(adjudication.data()?.analysis_sha256, ANALYSIS_HASH);
+  const acceptanceEvent = await database
+    .doc("news_eval_events/emulator-accept-operation-0001")
+    .get();
+  assert.equal(acceptanceEvent.data()?.action, "adjudication_accepted");
+
+  const beforeConflict = JSON.stringify({
+    submission: promotedSubmission.data(),
+    adjudication: adjudication.data(),
+    events: await collectionDocuments(database, "news_eval_events"),
+  });
+  await assert.rejects(
+    () =>
+      operator.apply({
+        ...acceptanceCommand,
+        operation_id: "emulator-accept-operation-0002",
+        expected_task_revision: 3,
+        expected_adjudication_revision: 1,
+      }),
+    /task or analysis revision is stale/,
+  );
+  const afterConflict = JSON.stringify({
+    submission: (
+      await database.doc(`news_eval_submissions/${sourceSubmissionId}`).get()
+    ).data(),
+    adjudication: (
+      await database.doc(`news_eval_adjudications/${TASK_ID}`).get()
+    ).data(),
+    events: await collectionDocuments(database, "news_eval_events"),
+  });
+  assert.equal(afterConflict, beforeConflict);
 
   console.log("news eval emulator integration: all assertions passed");
 } finally {
