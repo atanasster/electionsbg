@@ -28,6 +28,7 @@
 import { useEffect, useState } from "react";
 import type { ImageRights, Outlet } from "../data";
 import { initialStage, monogramOf, type ImageStage } from "./imageFallback";
+import { compactImageCredit } from "./imageCredit";
 
 export const ArticleImage = ({
   image,
@@ -38,6 +39,7 @@ export const ArticleImage = ({
   className = "",
   aspect = "aspect-[16/10]",
   priority = false,
+  creditVariant = "full",
 }: {
   image: string | null | undefined;
   imageAlt?: string | null;
@@ -53,6 +55,8 @@ export const ArticleImage = ({
   aspect?: string;
   /** Only the single above-the-fold lead may opt out of lazy loading. */
   priority?: boolean;
+  /** Dense cards show a structured short credit; detail pages keep the full record. */
+  creditVariant?: "compact" | "full";
 }) => {
   const name = outlet.outlet || outlet.domain;
   const [stage, setStage] = useState<ImageStage>(() =>
@@ -68,7 +72,11 @@ export const ArticleImage = ({
 
   const src = stage === "photo" ? image : stage === "logo" ? outlet.logo : null;
   const hasReviewedCredit = stage === "photo" && rights;
-  const creditText = hasReviewedCredit ? rights.credit_text : name;
+  const creditText = hasReviewedCredit
+    ? creditVariant === "compact"
+      ? compactImageCredit(rights)
+      : rights.credit_text
+    : name;
   const creditHref = hasReviewedCredit
     ? rights.credit_url
     : (articleUrl ?? `https://${outlet.domain}/`);
@@ -86,9 +94,8 @@ export const ArticleImage = ({
         {src ? (
           <img
             src={src}
-            // The outlet's own alt where there is one (5% of records), else the
-            // headline. Never empty: a decorative-image role would be a lie —
-            // this IS the article's content.
+            // Use the outlet's own description when present. Otherwise the
+            // empty alt avoids repeating the adjacent linked story title.
             alt={alt}
             loading={priority ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : "auto"}
@@ -120,12 +127,18 @@ export const ArticleImage = ({
       </div>
       {/* Rendered on EVERY rung, including the monogram: the card still shows
           an outlet's work and still names them. */}
-      <figcaption className="flex flex-wrap items-center gap-x-1 border-t bg-card px-2 py-1.5 text-xs leading-snug text-card-foreground">
+      <figcaption
+        className={`flex flex-wrap items-center gap-x-1 border-t bg-card px-2 leading-snug ${
+          creditVariant === "compact"
+            ? "py-1 text-[11px] font-normal text-muted-foreground"
+            : "py-1.5 text-xs text-card-foreground"
+        }`}
+      >
         <a
           href={creditHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+          className="min-w-0 max-w-full break-words rounded-sm underline-offset-2 [overflow-wrap:anywhere] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           aria-label={
             hasReviewedCredit
               ? `Кредит за изображението: ${rights.credit_text} (отваря се в нов прозорец)`

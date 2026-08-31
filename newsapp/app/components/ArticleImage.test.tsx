@@ -104,6 +104,18 @@ describe("the credit", () => {
     );
   });
 
+  it("allows long unbroken card credits to wrap without clipping", () => {
+    renderImage({ creditVariant: "compact" });
+    expect(
+      screen.getByRole("link", { name: /Кредит за изображението/ }),
+    ).toHaveClass(
+      "min-w-0",
+      "max-w-full",
+      "break-words",
+      "[overflow-wrap:anywhere]",
+    );
+  });
+
   it("falls back to the outlet's site for a logo when the article URL is missing", () => {
     renderImage({ image: null, articleUrl: null });
     expect(
