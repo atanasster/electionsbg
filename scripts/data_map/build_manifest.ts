@@ -30,6 +30,7 @@ import {
   DATASETS,
   type DatasetDef,
   type DatasetServing,
+  UNCLAIMED,
   EDGES,
   FEATURES,
   SOURCE_GROUPS,
@@ -224,8 +225,20 @@ const assertServedPath = (
   d: DatasetDef,
   onFail: (msg: string) => never,
 ): void => {
-  if (!d.path || !d.path.startsWith("data/")) return;
-  const rel = d.path.replace(/^data\//, "").replace(/\/$/, "");
+  if (!d.path) return;
+  if (!d.path.startsWith("data/"))
+    onFail(
+      `dataset "${d.id}": path ${d.path} is not under data/. Both prior exceptions ` +
+        `(public/{election}/ and public/*.geojson) named trees that do not exist — ` +
+        `the served copies are data/{election}/ and data/maps/.`,
+    );
+  // A {template} segment is a real path shape (one tree per election/cycle), so
+  // check the part above it rather than skipping the node entirely.
+  const rel = d.path
+    .replace(/^data\//, "")
+    .replace(/\{[^}]*\}.*$/, "")
+    .replace(/\/$/, "");
+  if (!rel) return;
   const why = isExcluded(rel);
   if (why)
     onFail(
@@ -233,6 +246,94 @@ const assertServedPath = (
         `excludes it (${why}). Nothing published means nothing a reader can fetch — ` +
         `either name a served subtree, or use serving "pg" and drop the path.`,
     );
+};
+
+/**
+ * Rule 5 — coverage. Every relation in `public` is claimed by exactly one
+ * dataset node, or named in UNCLAIMED with a reason. This is the extensibility
+ * contract: a corpus that lands in Postgres without anyone deciding which
+ * dataset it belongs to fails the build on the commit that adds it, rather
+ * than being found by an audit weeks later (which is how ds:interreg and
+ * ds:health were both found).
+ *
+ * Postgres-OPTIONAL by design: `npm run prebuild` runs on machines and in CI
+ * with no database, and a coverage gate that cannot see the catalogue must
+ * skip rather than fail — a false red on every no-DB build would get the gate
+ * deleted. It logs the skip so the difference between "checked, clean" and
+ * "could not check" stays visible.
+ */
+const validateRelationCoverage = async (): Promise<void> => {
+  const { getPool, dbReachable, pinLocalDatabase } =
+    await import("../db/lib/pg");
+  // Always the LOCAL database: an ambient DATABASE_URL (a shell left pointing at
+  // the Cloud SQL proxy) would otherwise validate the map against production.
+  pinLocalDatabase();
+  if (!(await dbReachable())) {
+    console.warn(
+      "data_map: relation-coverage gate SKIPPED — no reachable Postgres. " +
+        "A new corpus can land unmapped until this runs against a database.",
+    );
+    return;
+  }
+  // Past this point a query failure is a REAL error and must surface. Catching
+  // it here as "no database" is indistinguishable from the CI skip above.
+  const pool = getPool();
+  const { rows } = await pool.query<{ relname: string }>(
+    `SELECT c.relname FROM pg_class c
+       JOIN pg_namespace n ON n.oid = c.relnamespace
+      WHERE c.relkind IN ('r', 'm') AND n.nspname = 'public'`,
+  );
+
+  const claimed = new Map<string, string>();
+  for (const d of DATASETS)
+    for (const t of d.tables ?? []) claimed.set(t, d.id);
+
+  const live = new Set(rows.map((r) => r.relname));
+  const unmapped = [...live]
+    .filter((r) => !claimed.has(r) && !(r in UNCLAIMED))
+    .sort();
+  if (unmapped.length)
+    fail(
+      `${unmapped.length} Postgres relation(s) belong to no dataset node:\n  ` +
+        unmapped.join("\n  ") +
+        `\n\nAdd each to the owning DatasetDef's tables[] in model.ts — or, if it is ` +
+        `scratch, ingest plumbing or an operator override, to UNCLAIMED with the reason. ` +
+        `A whole corpus with no node is a MISSING DATASET, not an UNCLAIMED entry.`,
+    );
+
+  // ── The ABSENT direction only WARNS, and that asymmetry is load-bearing ────
+  // "A live relation nobody claims" is monotone: the relation exists, so
+  // somebody created it and owes it a home. "A claimed relation that is absent"
+  // is not — six loaders are REFRESH_EXCLUSIONS members (db:load:tr:pg,
+  // db:load:tender-dossier:pg, db:load:budget:pg, db:load:cr-*, company-founded),
+  // so a machine that ran the documented `db:refresh` in full legitimately has
+  // no tr_companies, tender_dossier or budget_* at all. Failing on that would
+  // red-build a correctly set-up fresh clone — and against an EMPTY database it
+  // would instruct the operator to delete all 20 correct UNCLAIMED entries.
+  const ghosts = Object.keys(UNCLAIMED)
+    .filter((r) => !live.has(r))
+    .sort();
+  const claimedGhosts = [...claimed.entries()]
+    .filter(([r]) => !live.has(r))
+    .map(([r, d]) => `${r} (ds:${d})`)
+    .sort();
+  if (ghosts.length || claimedGhosts.length)
+    console.warn(
+      `data_map: ${ghosts.length + claimedGhosts.length} declared relation(s) are ` +
+        `absent from this database — expected when a REFRESH_EXCLUSIONS loader has ` +
+        `not run here, a defect only if they are gone for good:\n  ` +
+        [...ghosts.map((g) => `${g} (UNCLAIMED)`), ...claimedGhosts].join(
+          "\n  ",
+        ),
+    );
+
+  console.log(
+    `data_map: relation coverage OK — ${claimed.size} claimed, ` +
+      `${Object.keys(UNCLAIMED).length} explicitly unclaimed, ${live.size} live.`,
+  );
+  // Without this the pooled connection keeps the process alive ~9.4s past the
+  // last write (measured: 11.9s with a database against 2.5s without).
+  await pool.end();
 };
 
 export const validateDatasetServing = (
@@ -532,6 +633,9 @@ const main = async (): Promise<void> => {
   const ai = deriveAiEdges();
   const edges: [string, string][] = [...EDGES, ...ai.edges];
   validate(edges);
+  // Rule 5 needs a database, so it sits here rather than inside the sync
+  // validate(); it skips (loudly) when Postgres is unreachable.
+  await validateRelationCoverage();
   const nodes = buildNodes();
   await layout(nodes, edges);
   const tiers = buildTiers(nodes);

@@ -7,9 +7,9 @@
 // (src: → ds:) and validate() only checks tiers. The correction lived in a
 // comment, which is exactly what a comment cannot enforce.
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { DATASETS, EDGES, SOURCE_GROUPS, FEATURES } from "./model";
+import { DATASETS, EDGES, SOURCE_GROUPS, FEATURES, UNCLAIMED } from "./model";
 import type { DatasetDef } from "./model";
 import { validateDatasetServing } from "./build_manifest";
 
@@ -200,7 +200,10 @@ describe("dataset serving contract", () => {
         seen.add(t);
       }
     }
-    expect(seen.size).toBeGreaterThan(40);
+    // 218 relations are claimed today. A floor of 40 would let four fifths of
+    // the triage be deleted silently; this tracks the real number loosely
+    // enough to survive an ordinary corpus change.
+    expect(seen.size).toBeGreaterThan(200);
   });
 });
 
@@ -234,5 +237,57 @@ describe("build_manifest is import-safe", () => {
       readFileSync(path.join(ROOT, "data/data_map.json"), "utf8"),
     ) as { edges: unknown[] };
     expect(now.edges.length).toBe(manifest.edges.length);
+  });
+});
+
+describe("relation coverage (rule 5)", () => {
+  // The gate itself needs Postgres and runs in build_manifest.ts. These assert
+  // the parts that hold without a database.
+  it("never both claims and excuses the same relation", () => {
+    const claimed = new Set(DATASETS.flatMap((d) => d.tables ?? []));
+    const both = Object.keys(UNCLAIMED).filter((r) => claimed.has(r));
+    expect(both).toEqual([]);
+  });
+
+  it("gives every unclaimed relation a real reason", () => {
+    // "" or "todo" would turn the escape hatch into a silent allow-list.
+    const weak = Object.entries(UNCLAIMED).filter(
+      ([, why]) =>
+        why.trim().length < 12 || /^(todo|tbd|n\/a)$/i.test(why.trim()),
+    );
+    expect(weak).toEqual([]);
+  });
+
+  it("keeps the health corpus on the map", () => {
+    // ds:health did not exist until the coverage gate found 15 НЗОК relations
+    // owned by nobody — its watchers sat in the 23-source src:ministries group,
+    // whose dataset edges are Pensions, Budget, Municipal fiscal, Macro and
+    // Local government. Regressing it would re-hide the whole health pack.
+    const health = DATASETS.find((d) => d.id === "health");
+    expect(health).toBeDefined();
+    expect(health!.tables ?? []).toContain("nzok_hospital_payments");
+    expect(
+      EDGES.filter(([from]) => from === "ds:health").length,
+    ).toBeGreaterThan(0);
+  });
+});
+
+describe("dataset paths name trees that exist", () => {
+  // Both prior exceptions to the data/ rule pointed at nothing: `ls public/20*`
+  // is empty and the repo holds zero .geojson files, while the readers fetch
+  // /maps/regions/{code}.json and /{election}/sections/…. DataMapPanel renders
+  // `path` to readers, so a dead path is a visible false statement.
+  it("every declared path is under data/ and resolves on disk", () => {
+    const missing = DATASETS.filter((d) => d.path).flatMap((d) => {
+      const p = d.path!;
+      if (!p.startsWith("data/")) return [`${d.id}: ${p} is not under data/`];
+      // Resolve the part above any {template} segment.
+      const base = p.replace(/\{[^}]*\}.*$/, "").replace(/\/$/, "");
+      if (!base || base === "data") return [];
+      return existsSync(path.join(ROOT, base))
+        ? []
+        : [`${d.id}: ${p} does not exist`];
+    });
+    expect(missing).toEqual([]);
   });
 });

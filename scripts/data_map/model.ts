@@ -187,6 +187,11 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/tourism\//, dataset: "indicators" }, // Eurostat tourism nights (visitors.json)
+  // BEFORE the generic /budget/ rule: ai/tools/nzok.ts fetches six
+  // /budget/nzok/*.json literals, and first-match-wins would otherwise credit
+  // every one of them to ds:budget — the same mis-attribution the keep_eu edge
+  // made, one tier down.
+  { pattern: /^\/budget\/nzok\//, dataset: "health" },
   { pattern: /^\/budget\//, dataset: "budget" },
   { pattern: /^\/customs\//, dataset: "budget" },
   // macro_fdi must precede the generic `macro` rule below (first match wins),
@@ -1210,6 +1215,49 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
   },
 ];
 
+/**
+ * Relations deliberately owned by NO dataset node. Rule 5 (the coverage gate)
+ * fails on any public relation that is neither claimed via `DatasetDef.tables`
+ * nor listed here — so a new corpus cannot land without someone deciding where
+ * it belongs. That gate is what surfaced ds:health: 15 НЗОК relations claimed
+ * by nobody, on a map where the health watchers sat in a 23-source
+ * src:ministries group whose dataset edges are Pensions, Budget, Municipal
+ * fiscal, Macro and Local government.
+ *
+ * Only two kinds of relation belong here. A CORPUS with no node does not —
+ * that is a missing dataset, and the whole point of the gate is to make
+ * someone add it.
+ */
+export const UNCLAIMED: Record<string, string> = {
+  // ── scratch and staging: a human's working copy, or a load's landing zone ──
+  _pid_before: "one-off before/after snapshot from a person-id migration",
+  _pp_bak: "hand-made backup taken during a payloads rebuild",
+  _pwy_before: "one-off before/after snapshot from a person_wealth_year change",
+  _shard_keys: "scratch key list from a shard reconciliation",
+  tmp_all_slugs: "scratch, from a person-slug audit",
+  tmp_rank_slugs: "scratch, from a person-slug audit",
+  price_stage: "UNLOGGED staging table for the daily price load",
+
+  // ── ingest plumbing: about HOW data arrived, not about any dataset ─────────
+  meta: "ingest bookkeeping (schema/corpus version markers)",
+  ingest_batches: "per-load changelog rows behind recent_updates()",
+  ingest_first_seen: "first-seen timestamps behind recent_updates()",
+  changelog_days: "per-(source, day) coalesced ingest changelog",
+  contract_first_seen: "first-seen timestamps for contracts, same changelog",
+  mp_roster_meta: "roster vintage marker for the MP loader",
+
+  // ── identity plumbing: the resolver's own state, spanning every people set ─
+  person_slug_lock: "resolver state — which slug a mention has been locked to",
+  person_slug_retired: "retired → active slug redirects for /person URLs",
+  person_review_candidate: "resolver queue of unresolved identity candidates",
+  person_link_evidence: "curated identity evidence, operator-entered",
+  person_link_override: "curated identity overrides, operator-entered",
+  person_source: "registry of the people datasets the resolver reads",
+
+  // ── operator overrides ────────────────────────────────────────────────────
+  price_product_overrides: "hand-curated product-clustering corrections",
+};
+
 export const DATASETS: DatasetDef[] = [
   {
     id: "water",
@@ -1220,7 +1268,8 @@ export const DATASETS: DatasetDef[] = [
       en: "The Bulgarian Water Holding group's consolidated public procurement (by operator and by function) and the riverbed-cleaning contracts (by awarder, by year, largest), from the АОП/ЦАИС ЕОП register.",
     },
     path: "data/water/",
-    serving: "bucket",
+    serving: "both",
+    tables: ["water_operator_geo"],
     tags: ["fiscal"],
   },
   {
@@ -1234,8 +1283,11 @@ export const DATASETS: DatasetDef[] = [
       bg: "Резултатите от всеки парламентарен вот от 2005 г. насам — по секция, населено място, община и област, с машинно/хартиено разделение, преференции и деривирания рисков индекс.",
       en: "Every parliamentary vote since 2005 — by section, settlement, municipality and region, with machine/paper splits, preferences and the derived risk index.",
     },
-    path: "public/{election}/",
-    serving: "bucket",
+    // `public/` is where these were BUILT to years ago; the served tree — and
+    // what dataUrl() resolves — is data/{election}/. `ls public/20*` is empty.
+    path: "data/{election}/",
+    serving: "both",
+    tables: ["candidate_person", "person_election_stats"],
     tags: ["elections"],
   },
   {
@@ -1267,6 +1319,8 @@ export const DATASETS: DatasetDef[] = [
     path: "data/parliament/votes/",
     serving: "both",
     tables: [
+      "mp_assets_rankings_table",
+      "cabinets",
       "vote_item",
       "vote_cast",
       "vote_day",
@@ -1302,6 +1356,24 @@ export const DATASETS: DatasetDef[] = [
     },
     serving: "pg",
     tables: [
+      "tr_companies",
+      "tr_officers",
+      "tr_person_roles",
+      "tr_name_fold_people",
+      "company_politicians",
+      "company_public_money",
+      "company_browse_table",
+      "company_person_roles",
+      "company_officer_counts",
+      "officer_name_counts",
+      "owner_name_counts",
+      "company_founded",
+      "company_nkid",
+      "person",
+      "person_role",
+      "person_alias",
+      "person_search",
+      "person_browse_table",
       "graph_edge",
       "graph_company_node",
       "graph_person_node",
@@ -1326,6 +1398,11 @@ export const DATASETS: DatasetDef[] = [
     path: "data/officials/",
     serving: "both",
     tables: [
+      "officials_rankings_table",
+      "person_wealth_year",
+      "person_cohort_wealth",
+      "person_crypto_table",
+      "person_abroad_table",
       "declaration",
       "declaration_asset",
       "declaration_employer_link",
@@ -1376,6 +1453,47 @@ export const DATASETS: DatasetDef[] = [
     serving: "both",
     path: "data/procurement/projects/",
     tables: [
+      "appealed_ocids",
+      "upheld_ocids",
+      "buyer_appeal_stats",
+      "awarder_seats",
+      "awarder_totals",
+      "awarder_search",
+      "awarder_kindex_ranking",
+      "awarder_risk_grade_ranking",
+      "awarder_risk_grade_scoped",
+      "contract_risk_cache",
+      "contract_risk_meta",
+      "contractor_rank",
+      "contractor_scope_kpis",
+      "contractor_search",
+      "cpv_catalog",
+      "debarred",
+      "procurement_scopes",
+      "procurement_payloads",
+      "procurement_geo_payloads",
+      "procurement_settlement_rank",
+      "procurement_settlement_payloads",
+      "procurement_by_settlement_cache",
+      "procurement_risk_indexes_cache",
+      "procurement_normalcy_cache",
+      "procurement_ngo_foreign_link",
+      "sector_contractor_stats",
+      "dual_corpus_rankings_cache",
+      "kzk_appeals_summary_cache",
+      "tender_dossier",
+      "tender_notice",
+      "tender_announcement",
+      "tender_buyer_profile",
+      "tender_contract_item",
+      "tender_document",
+      "tender_document_text",
+      "tender_search_text",
+      "tender_normalcy_cache",
+      "nace_cpv_allow",
+      "nace_cpv_opinion",
+      "nace_cpv_universal",
+      "grant_contract_link",
       "contracts",
       "tenders",
       "procurement_annexes",
@@ -1428,6 +1546,7 @@ export const DATASETS: DatasetDef[] = [
     // directory but belongs to ds:interreg — a load source, not a served tree.
     serving: "pg",
     tables: [
+      "funds_hub_stats_cache",
       "fund_projects",
       "fund_beneficiaries",
       "fund_payloads",
@@ -1513,6 +1632,47 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    // The НЗОК corpus had no dataset node at all until 2026-08-31, and the
+    // coverage gate (rule 5) is what surfaced it: 15 relations claimed by
+    // nobody. Its watchers sit in src:ministries — a 23-source group whose
+    // dataset edges are Pensions, State budget, Municipal fiscal, Macro and
+    // Local government — so every hospital payment, drug price and clinical
+    // activity was invisible on /data. Same shape as the ds:interreg gap.
+    id: "health",
+    label: { bg: "Здравеопазване (НЗОК)", en: "Health (НЗОК)" },
+    detail: {
+      bg: "плащания, лекарства, дейности",
+      en: "payments, medicines, activity",
+    },
+    desc: {
+      bg: "Какво плаща НЗОК и на кого — плащанията по болници за болнична помощ, реимбурсът на лекарства по INN и по опаковка, клиничната дейност по пътеки (случаи и ЗОЛ) и месечното касово изпълнение. От отчетите на НЗОК и МЗ.",
+      en: "What the health fund pays and to whom — per-hospital payments for inpatient care, medicine reimbursement by INN and by pack, clinical activity per pathway (cases and insured patients), and monthly cash execution. From the НЗОК and МЗ reports.",
+    },
+    // "both": data/budget/nzok/{budget,execution,execution_history}.json are
+    // bucket-served (src/data/budget/useBudget.tsx), while the hospital, drug
+    // and activity screens read /api/db/nzok-*.
+    serving: "both",
+    path: "data/budget/nzok/",
+    tables: [
+      "nzok_hospital_payments",
+      "nzok_hospital_geo",
+      "nzok_hospital_financials",
+      "nzok_payment_coverage",
+      "nzok_drug_quarterly",
+      "nzok_drug_overpay",
+      "nzok_drug_overpay_by_inn",
+      "nzok_drug_overpay_by_hospital",
+      "nzok_drug_pack_stats",
+      "nzok_pathway_tariffs",
+      "nzok_activities",
+      "nzok_activity_proc_periods",
+      "nzok_activity_facility_periods",
+      "nzok_activity_monthly",
+      "nzok_eeof_nzok_parity",
+    ],
+    tags: ["fiscal"],
+  },
+  {
     id: "judiciary",
     label: { bg: "Съдебна власт", en: "The judiciary" },
     detail: {
@@ -1526,6 +1686,7 @@ export const DATASETS: DatasetDef[] = [
     path: "data/judiciary/",
     serving: "both",
     tables: [
+      "judiciary_payloads",
       "judicial_body",
       "judicial_body_alias",
       "judicial_body_source_name",
@@ -1579,7 +1740,8 @@ export const DATASETS: DatasetDef[] = [
       en: "The outcome layer beside МВР's money: national road-traffic deaths by year from Eurostat (708 peak 2015 → 478 in 2024), paired with МВР patrol-car procurement. The МВР group's procurement (~75 units, ~€1.9bn) comes from the contracts corpus; the spend-vs-crime scatter reuses data/regional.json.",
     },
     path: "data/security/",
-    serving: "bucket",
+    serving: "both",
+    tables: ["mvr_directorate_geo"],
     tags: ["indicators"],
   },
   {
@@ -1594,7 +1756,8 @@ export const DATASETS: DatasetDef[] = [
       en: "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (~€7.3bn, 15 entities) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector.",
     },
     path: "data/transport/",
-    serving: "bucket",
+    serving: "both",
+    tables: ["transport_project_link", "transport_facility_geo"],
     tags: ["indicators"],
   },
   {
@@ -1609,7 +1772,8 @@ export const DATASETS: DatasetDef[] = [
       en: "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (the body group in ADMIN_SECTOR_EIKS) comes from the contracts corpus.",
     },
     path: "data/administration/",
-    serving: "bucket",
+    serving: "both",
+    tables: ["admin_services"],
     tags: ["fiscal", "indicators"],
   },
   {
@@ -1745,6 +1909,7 @@ export const DATASETS: DatasetDef[] = [
     path: "data/budget/",
     serving: "both",
     tables: [
+      "excise_warehouses",
       "budget_admin_fact",
       "budget_admin_node",
       "budget_admin_procurement",
@@ -1811,7 +1976,8 @@ export const DATASETS: DatasetDef[] = [
       en: "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region. Also a per-school layer (/education + the /school report cards): ДЗИ results, performance versus the community's socioeconomic context (a Census-2021 index) and 7→12 value-added against the 7th-grade НВО intake, plus textbook-market concentration (from procurement, CPV 22112).",
     },
     path: "data/schools/index.json",
-    serving: "bucket",
+    serving: "both",
+    tables: ["schools", "school_scores", "school_context", "school_payloads"],
     tags: ["indicators"],
   },
   {
@@ -1846,6 +2012,7 @@ export const DATASETS: DatasetDef[] = [
     path: "data/local_taxes/",
     serving: "both",
     tables: [
+      "myarea_alerts",
       "council_muni",
       "council_muni_code",
       "council_resolution",
@@ -1911,8 +2078,11 @@ export const DATASETS: DatasetDef[] = [
       bg: "Геоконтурите и координатите, върху които стъпват всички карти — области, общини, населени места, столичните райони и адресите на секциите.",
       en: "The boundaries and coordinates under every map — regions, municipalities, settlements, Sofia districts and polling-station locations.",
     },
-    path: "public/*.geojson",
-    serving: "bucket",
+    // Not "public/*.geojson": the repo contains zero .geojson files, and the
+    // readers fetch /maps/europe/countries.json and /maps/regions/{code}.json.
+    path: "data/maps/",
+    serving: "both",
+    tables: ["place_dim", "tr_company_place"],
     tags: ["elections", "local", "indicators"],
   },
 ];
@@ -2430,6 +2600,13 @@ export const EDGES: [string, string][] = [
   // one-place reading is served by ds:interreg → f:funds below, which puts both
   // corpora on the /funds surface without claiming they are one dataset.
   ["src:keep_eu", "ds:interreg"],
+  // The НЗОК/МЗ watchers (nzok_hospital_bmp, nzok_drug_quarterly,
+  // nzok_execution_b1, nzok_activities, nzok_drug_unit_prices, mh_eeof_quarterly)
+  // live in src:ministries, a 23-source group. A dedicated src:nzok group would
+  // be truer — the five corpora added since (TED, АДФИ, ЦПРС, АОП experts, ИСУН
+  // clean delivery) each got their own — but splitting an existing group moves
+  // watchers between them, so it is left as follow-up rather than folded in here.
+  ["src:ministries", "ds:health"],
   ["src:dfz", "ds:agri"],
   ["src:egov", "ds:ngo"],
   ["src:ec_fts", "ds:ngo"],
@@ -2512,6 +2689,11 @@ export const EDGES: [string, string][] = [
   ["ds:interreg", "f:culture"],
   ["ds:funds", "f:culture"],
   ["ds:agri", "f:culture"],
+  // ds:health's readers: src/screens/components/procurement/nzok/* and
+  // sectorPacks.tsx (the /awarder/121858220 pack) on the procurement surface,
+  // src/data/budget/useBudget.tsx on the budget one.
+  ["ds:health", "f:procurement"],
+  ["ds:health", "f:budget"],
   ["ds:agri", "f:agri"],
   ["ds:agri", "f:mps"],
   ["ds:budget", "f:budget"],
