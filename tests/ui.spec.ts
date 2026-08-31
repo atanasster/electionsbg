@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import { test, expect, type Page, type ConsoleMessage } from "@playwright/test";
 import { TICK_MAX_CHARS } from "../src/screens/budget/budgetFunctionalBars";
+import { MAYOR_PAY_BAND_CELLS } from "../src/screens/governance/mayorPayHubFigures";
+import { stripJsxComments } from "../src/ux/infographic/stripJsxComments";
 
 // Same routes as seo.spec, but here we boot the SPA and verify it actually
 // renders without runtime errors at desktop and mobile viewports. The same
@@ -812,7 +814,110 @@ const HUB_HEAD_BUDGETS: {
     cells: 2,
     asideRows: 3,
   },
+  // A RANKING, and a third shape again: identity + freshness + deck + a full search field +
+  // a 4-cell band + a one-line note, with NO scope control (the page has no `?pscope` — its
+  // window is whatever year each mayor last filed for) and NO evidence rail (the ranked
+  // table below IS the list, the /procurement/contracts argument).
+  //
+  // ⚠️ IT SHIPPED WITH NO ENTRY HERE AT ALL. The head landed on 2026-08-28 (fc4fb81bf8) and
+  // this list had no completeness gate, so for three days the page had no ceiling, no
+  // rendered `cells` assertion and no rendered one-h1 check while every test in this file
+  // was green. `every HubHead screen has a height budget` below is what closes that, and
+  // `HUB_HEAD_SCREENS` under it is what lets that clause name the screen behind a path.
+  //
+  // ⚠️ `cells` IS `MAYOR_PAY_BAND_CELLS`, NOT A LITERAL 4. The band is a declared array, so
+  // its size is read from the module that declares it — the rule `COUNTED_WAITS` in
+  // scripts/prerender/ogAndSitemapCoverage.test.ts follows for the same band. A hand-copied
+  // 4 here would keep this gate green through a drop to three cells, which is exactly the
+  // direction `mayorPayHubFigures.ts`'s header records the og gate already failed in.
+  //
+  // ⚠️ THE BAND IS ALL-OR-NOTHING (`mayorPayHubKpis` returns four cells or none), so a count
+  // of 0 means „the corpus did not load", never „a cell was withheld" — unlike /companies
+  // and /persons above, whose counts are the landing's own size. Its source is a DEPLOYED
+  // function route (`/api/db/mayor-pay-ranking`, migration 186), which the hosting emulator
+  // forwards, so this entry also goes red if that migration ever leaves Cloud SQL — the
+  // /companies-and-188 shape, and red is the right answer there too.
+  //
+  // ⚠️ IF THIS TRIPS, CHECK FOR A FIFTH CELL BEFORE TOUCHING THE NOTE. The note is one
+  // sentence — that the rows can span filing years — and it is the only thing on the page
+  // saying so; `mayorPayHubFigures.ts`'s header records that its FIRST sentence was already
+  // cut, for restating the band's own coverage cell, so what is left is the residue rather
+  // than padding. The band's captions are the next-least trimmable: „последните налични
+  // декларации" and the per-1000-residents basis are what keep four figures on three bases
+  // from reading as one scale, and none of them is a salary.
+  //
+  // 375 px measured 2026-08-31 at 1280 (the desktop project's viewport) against a built
+  // dist/ on the hosting emulator, with the band loaded — `KpiCellSkeleton` carries no
+  // `data-kpi-cell`, so the 4 above is the real band and not a reserved slot. ~17% slack,
+  // the band its neighbours sit in, and the second-narrowest head in the tree after
+  // /procurement/contracts — the rail and the scope pill are both absent.
+  {
+    path: "/governance/mayor-pay",
+    maxPx: 440,
+    measured: 375,
+    cells: MAYOR_PAY_BAND_CELLS,
+  },
 ];
+
+/** The screen behind each budgeted path, so the completeness clause below can ask „does
+ *  every HubHead screen have a budget?" — a question the paths alone cannot answer.
+ *
+ *  Kept beside the list rather than as a field ON each entry so the entries keep their
+ *  reasoning unbroken; the clause asserts the two key sets are IDENTICAL, so neither can
+ *  gain a member without the other. */
+const HUB_HEAD_SCREENS: Record<string, string> = {
+  "/governance": "src/screens/GovernanceScreen.tsx",
+  "/procurement": "src/screens/ProcurementScreen.tsx",
+  "/funds": "src/screens/FundsScreen.tsx",
+  "/procurement/contracts": "src/screens/dev/ContractsBrowserDbScreen.tsx",
+  "/parliament": "src/screens/ParliamentHubScreen.tsx",
+  "/budget": "src/screens/budget/BudgetHubScreen.tsx",
+  "/consumption": "src/screens/ConsumptionScreen.tsx",
+  "/subsidies": "src/screens/SubsidiesDashboardScreen.tsx",
+  "/persons": "src/screens/persons/PersonsBrowserScreen.tsx",
+  "/companies": "src/screens/dev/CompaniesBrowseDbScreen.tsx",
+  "/governance/declarations":
+    "src/screens/governance/GovernanceDeclarationsScreen.tsx",
+  "/governance/mayor-pay":
+    "src/screens/governance/GovernanceMayorPayScreen.tsx",
+  "/culture": "src/screens/culture/CultureHubScreen.tsx",
+  "/governance/sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
+  "/indicators": "src/screens/indicators/IndicatorsLandingScreen.tsx",
+  "/parliamentary/analysis": "src/screens/analysis/AnalysisHubScreen.tsx",
+  "/parliamentary/reports": "src/screens/reports/hub/ReportsHubScreen.tsx",
+};
+
+/** HubHead call sites with no height budget, and why. A real debt, named so that the LIST
+ *  shrinks rather than the rule — the `NOT_YET` idiom from
+ *  scripts/prerender/ogAndSitemapCoverage.test.ts. */
+const NO_BUDGET: Record<string, string> = {
+  // Four routes (/culture/funds/:arm) behind one screen, so a budget here pins one arm and
+  // says nothing about the other three. Open work rather than a decision against it: the
+  // honest form is four entries, one per arm, which is four measurements nobody has taken.
+  "src/screens/culture/CultureFundsSourceScreen.tsx":
+    "one screen behind four parameterised routes — a budget would pin one arm",
+};
+
+/** Every `<HubHead` call site under src/screens, comment-stripped so a screen that merely
+ *  MENTIONS the component in prose is not counted, and `.test.tsx` dropped because a string
+ *  literal in an assertion message survives the stripper. Both filters are the ones
+ *  scripts/prerender/ogAndSitemapCoverage.test.ts records having needed. */
+const headScreens = (): string[] => {
+  const root = path.resolve(process.cwd(), "src/screens");
+  const out: string[] = [];
+  const walk = (dir: string) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) walk(full);
+      else if (e.name.endsWith(".tsx") && !e.name.includes(".test.")) {
+        if (/<HubHead\b/.test(stripJsxComments(fs.readFileSync(full, "utf8"))))
+          out.push(path.relative(process.cwd(), full));
+      }
+    }
+  };
+  walk(root);
+  return out.sort();
+};
 
 test.describe("hub head — the §3.0 height budget", () => {
   // Desktop only: the budget is stated at `lg`, and on Pixel 7 the same head is legitimately
@@ -849,6 +954,48 @@ test.describe("hub head — the §3.0 height budget", () => {
         ).toHaveCount(asideRows + 1); // the rows plus the rail's own action link
     });
   }
+
+  // A STATIC clause, and it lives here rather than in hubHead.gates.test.ts because it reads
+  // the budget list DIRECTLY — putting it there would mean parsing this array back out of
+  // this file's source, the „a gate that can no longer see its subject" shape that file's own
+  // header warns about. Sitting inside this describe means it runs once, on the desktop
+  // project; nothing about it is a claim about the `lg` layout.
+  test("every HubHead screen has a height budget", () => {
+    const screens = headScreens();
+    // Non-vacuity: a renamed component or a broken walk would otherwise pass on nothing.
+    expect(screens.length, "no screen renders HubHead").toBeGreaterThan(2);
+
+    const known = new Set([
+      ...Object.values(HUB_HEAD_SCREENS),
+      ...Object.keys(NO_BUDGET),
+    ]);
+    const unlisted = screens.filter((f) => !known.has(f));
+    expect(
+      unlisted,
+      `these render a HubHead and have no §3.0 height budget — give each one an entry, or ` +
+        `NO_BUDGET it with a reason: ${unlisted.join(", ")}`,
+    ).toEqual([]);
+
+    // …and no mapping or exemption outlives the screen it names. A renamed file would
+    // otherwise sit here for ever, exempting nothing.
+    for (const [p, f] of Object.entries(HUB_HEAD_SCREENS))
+      expect(
+        screens,
+        `${p} is mapped to ${f}, which renders no HubHead`,
+      ).toContain(f);
+    for (const f of Object.keys(NO_BUDGET))
+      expect(
+        screens,
+        `${f} is exempted from a budget it no longer needs`,
+      ).toContain(f);
+
+    // …and the map and the budgets describe the same set of pages, so neither can gain a
+    // member alone.
+    expect(
+      Object.keys(HUB_HEAD_SCREENS).sort(),
+      "HUB_HEAD_SCREENS and HUB_HEAD_BUDGETS name different pages",
+    ).toEqual(HUB_HEAD_BUDGETS.map((b) => b.path).sort());
+  });
 
   // One h1 per page is gated statically in hubHead.gates.test.ts, but that gate reads SOURCE.
   // This is the rendered half: a screen could still mount a second heading through a shared

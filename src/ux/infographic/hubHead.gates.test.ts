@@ -142,7 +142,52 @@ const HUB_SCREENS = [
   // ONE module, TWO hubs — /parliamentary/analysis and /parliamentary/reports read one
   // payload through one pair of helpers and their `risk` cell is literally the same figure.
   "src/screens/analysis/analysisHubFigures.ts",
+  // The /funds band, joined 2026-08-31 for the /budget reason: its screen is listed above
+  // and a basis window can be typed in either file.
+  "src/screens/funds/fundsHubFigures.ts",
+  // ⚠️ EVERYTHING FROM HERE DOWN IS A `<HubHead` CALL SITE, AND THAT HALF OF THIS LIST IS NOW
+  // GATED — see „names every screen that renders a head" below. It was not, and the hole was
+  // not hypothetical: on 2026-08-31 EIGHT hub screens sat outside this list, so a basis window
+  // typed into /culture's, /indicators', /governance/sectors', /governance/declarations' or
+  // either /parliamentary hub's OWN head was unreadable by the scan above — the figures module
+  // beside each was listed and the screen was not. The figures modules stay ungated: they are
+  // a naming convention rather than a call site, so a new band module is still added by hand.
+  //
+  // Membership costs nothing — the scan is a regex over lines — so the question a new screen
+  // raises is not „does this page need it" but „is it a HubHead call site". That is why
+  // /governance/mayor-pay is here despite being DECLARATIONS-based rather than scope-based:
+  // nothing about it moves with `?pscope`, but its basis lines name FILING years, which is the
+  // same string shape the scan reads. Its band module is listed beside it for the /budget
+  // reason — the head's own copy still lives in the screen.
+  "src/screens/analysis/AnalysisHubScreen.tsx",
+  "src/screens/reports/hub/ReportsHubScreen.tsx",
+  "src/screens/culture/CultureHubScreen.tsx",
+  // Four routes (/culture/funds/:arm) behind ONE screen. It is the only HubHead call site with
+  // no §3.0 height budget in tests/ui.spec.ts, which that file's own NO_BUDGET map records.
+  "src/screens/culture/CultureFundsSourceScreen.tsx",
+  "src/screens/governance/GovernanceDeclarationsScreen.tsx",
+  "src/screens/governance/GovernanceSectorsScreen.tsx",
+  "src/screens/governance/GovernanceMayorPayScreen.tsx",
+  "src/screens/governance/mayorPayHubFigures.ts",
+  "src/screens/indicators/IndicatorsLandingScreen.tsx",
 ];
+
+/** Every `<HubHead` call site under src/screens, comment-stripped so a screen that merely
+ *  MENTIONS the component in prose is not counted — `ContractsAnalysisStrip.tsx` and
+ *  `CultureFundsBreakdown.tsx` both do, and neither renders one.
+ *
+ *  ⚠️ TESTS ARE NOT SCREENS, for the reason `scripts/prerender/ogAndSitemapCoverage.test.ts`
+ *  records at its own copy of this filter: the stripper removes comments, not STRING literals,
+ *  so an assertion message quoting `<HubHead` reads as a call site. */
+const headScreens = (): string[] =>
+  execSync("grep -rl 'HubHead' src/screens --include=*.tsx", {
+    encoding: "utf8",
+  })
+    .trim()
+    .split("\n")
+    .filter(Boolean)
+    .filter((f) => !f.includes(".test."))
+    .filter((f) => /<HubHead\b/.test(stripJsx(read(f))));
 
 /** The subset whose KPI cells are an ARRAY LITERAL with `to: "…"` written out, so a source
  *  slice can read the destinations. It is ONE screen, and the other two are covered by
@@ -155,6 +200,31 @@ const HUB_SCREENS = [
  *  the same on /funds, matching `kpisFor` and slicing an empty block. A gate green because it
  *  can no longer see its subject is the failure this file has already shipped once. */
 const SOURCE_KPI_SCREENS = ["src/screens/ProcurementScreen.tsx"];
+
+describe("hub head — the lists name every screen", () => {
+  // ⚠️ THE DEFECT THIS CLOSES IS A LIST THAT QUIETLY STOPPED DESCRIBING THE TREE, not a
+  // screen that renders wrongly. `/governance/mayor-pay` adopted a head on 2026-08-28
+  // (fc4fb81bf8) and reached neither this list nor `HUB_HEAD_BUDGETS` in tests/ui.spec.ts —
+  // so it had no §3.0 height budget, no rendered `cells` assertion and no rendered one-h1
+  // check, with every gate in both files green. It was found by the ONE clause of this shape
+  // that already existed (`the map names every HubHead screen` in
+  // scripts/prerender/ogAndSitemapCoverage.test.ts), which is this clause's template.
+  //
+  // Both lists now carry one: this asserts membership HERE, and tests/ui.spec.ts asserts a
+  // budget entry. Neither subsumes the other — a screen can legitimately have no budget
+  // (/culture/funds/:arm has none) and still need the basis-year scan.
+  it("names every screen that renders a head", () => {
+    const screens = headScreens();
+    // Non-vacuity: a renamed component or a broken grep would otherwise pass on nothing.
+    expect(screens.length, "no screen renders HubHead").toBeGreaterThan(2);
+    const unlisted = screens.filter((f) => !HUB_SCREENS.includes(f));
+    expect(
+      unlisted,
+      `these render a HubHead and are outside HUB_SCREENS, so the basis-year scan cannot ` +
+        `read their head copy: ${unlisted.join(", ")}`,
+    ).toEqual([]);
+  });
+});
 
 describe("hub head — the basis line", () => {
   // The band's whole thesis is that a figure without its denominator is a false sentence, so
