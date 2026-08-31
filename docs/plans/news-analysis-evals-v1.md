@@ -728,7 +728,15 @@ until the effective-analysis reconciliation gate exists.
    conflicting public revision, derive the task revision independently on both sides, and exclude
    membership from the authoritative sealed gold/party-benchmark artifacts on every selection
    path.
-2. Add noindex public eval routes with no Auth dependency.
+2. Add noindex public eval routes with no Auth dependency. The queue hub is always prerendered,
+   while one purpose-built article shell is derived for each task in the coherent public
+   `evals/queue.json`; both families set `noindex,follow` and `sitemap: false` so a direct task URL
+   cannot inherit the homepage head. A present queue is validated fail-closed against its schema,
+   rubric, count, task identities and current public-data revision. Hosting routes any unqueued or
+   deployment-skewed `/evals/article/**` URL to a generic prerendered noindex fallback before the
+   homepage catch-all. The React route layer renders without an Auth provider, login/profile
+   surface or private article fetch. Route analytics collapse both paths to one low-cardinality
+   `evals` value and never include article identity.
 3. Build queue filters, random sampling and the responsive article workspace.
 4. Add visually hidden-until-submit model comparison, local-only draft autosave, Turnstile and
    keyboard/accessibility support.

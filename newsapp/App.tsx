@@ -15,6 +15,8 @@ import { SavedScreen } from "./app/screens/SavedScreen";
 import { AboutScreen } from "./app/screens/AboutScreen";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
 import { CorrectionsScreen } from "./app/screens/CorrectionsScreen";
+import { EvalsScreen } from "./app/screens/EvalsScreen";
+import { EvalArticleScreen } from "./app/screens/EvalArticleScreen";
 
 const NotFoundScreen = () => (
   <section className="py-12">
@@ -148,6 +150,11 @@ export const App = () => {
           <Route path="/saved" element={<SavedScreen />} />
           <Route path="/about" element={<AboutScreen />} />
           <Route path="/corrections" element={<CorrectionsScreen />} />
+          <Route path="/evals" element={<EvalsScreen />} />
+          <Route
+            path="/evals/article/:domain/:id"
+            element={<EvalArticleScreen />}
+          />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </main>

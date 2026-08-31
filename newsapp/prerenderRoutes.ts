@@ -7,7 +7,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { clamp, type PrerenderRoute } from "./prerender";
+import { createHash } from "node:crypto";
+import { clamp, safeSegment, type PrerenderRoute } from "./prerender";
 
 type Bundle = Record<string, unknown>;
 
@@ -83,13 +84,142 @@ export const HUB_ROUTES: PrerenderRoute[] = [
     description:
       "Как се подават и разглеждат сигнали, как отбелязваме поправки и оттегляния и публичният регистър на редакционните промени.",
   },
+  {
+    path: "evals",
+    title: "Публично оценяване на анализи | Наясно Новини",
+    description:
+      "Експериментално публично оценяване на политическото рамкиране, позицията спрямо Русия и отношението към партии в избрани статии — без регистрация.",
+    sitemap: false,
+    noindex: true,
+  },
 ];
+
+/**
+ * Hosting rewrites an unqueued /evals/article/** URL to this file. Exact
+ * generated task files win before rewrites, while unknown/stale task URLs
+ * still receive a non-homepage noindex head before React renders the route.
+ */
+export const EVAL_ARTICLE_FALLBACK_ROUTE: PrerenderRoute = {
+  path: "evals/article",
+  title: "Оценяване на статия | Наясно Новини",
+  description:
+    "Публично експериментално оценяване на анализ на статия. Формулярът е достъпен само за материали в текущата публична опашка.",
+  sitemap: false,
+  noindex: true,
+};
+
+export const BASE_ROUTES: PrerenderRoute[] = [
+  ...HUB_ROUTES,
+  EVAL_ARTICLE_FALLBACK_ROUTE,
+];
+
+const EVAL_RUBRIC = "news-article-evaluation-v1";
+const MAX_EVAL_TASKS = 200;
+const SHA256 = /^sha256:[0-9a-f]{64}$/;
+
+const canonicalJson = (value: unknown): string => {
+  if (value === null || typeof value === "boolean" || typeof value === "string")
+    return JSON.stringify(value);
+  if (typeof value === "number" && Number.isSafeInteger(value))
+    return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    const fields = Object.entries(value as Bundle)
+      .sort(([left], [right]) => (left < right ? -1 : left > right ? 1 : 0))
+      .map(([key, child]) => `${JSON.stringify(key)}:${canonicalJson(child)}`);
+    return `{${fields.join(",")}}`;
+  }
+  throw new Error("prerender: eval queue contains a non-canonical JSON value");
+};
+
+const canonicalSha256 = (value: unknown): string =>
+  `sha256:${createHash("sha256").update(canonicalJson(value), "utf8").digest("hex")}`;
+
+const normalizedTimestamp = (value: unknown): string | null => {
+  if (typeof value !== "string") return null;
+  const milliseconds = Date.parse(value);
+  return Number.isFinite(milliseconds)
+    ? new Date(milliseconds).toISOString()
+    : null;
+};
+
+const evalQueueTasks = (queue: Bundle, publicRevision: unknown): Bundle[] => {
+  if (queue.schema_version !== 1 || queue.rubric_version !== EVAL_RUBRIC) {
+    throw new Error("prerender: eval queue has an unsupported contract");
+  }
+  const queueRevision = normalizedTimestamp(queue.public_data_revision);
+  const generatedAt = normalizedTimestamp(queue.generated_at);
+  const appDataRevision = normalizedTimestamp(publicRevision);
+  if (
+    !queueRevision ||
+    queueRevision !== appDataRevision ||
+    generatedAt !== queueRevision
+  ) {
+    throw new Error(
+      "prerender: eval queue does not match the current public app-data revision",
+    );
+  }
+  if (
+    !Array.isArray(queue.tasks) ||
+    queue.tasks.length === 0 ||
+    queue.tasks.length > MAX_EVAL_TASKS ||
+    queue.task_count !== queue.tasks.length ||
+    !SHA256.test(String(queue.tasks_sha256 ?? "")) ||
+    queue.tasks_sha256 !== canonicalSha256(queue.tasks)
+  ) {
+    throw new Error("prerender: eval queue task inventory is invalid");
+  }
+
+  const seen = new Set<string>();
+  return queue.tasks.map((raw, index) => {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+      throw new Error(`prerender: eval queue task ${index} is not an object`);
+    }
+    const task = raw as Bundle;
+    const domain = String(task.domain ?? "").trim();
+    const id = String(task.article_id ?? "").trim();
+    const title = String(task.title ?? "").trim();
+    const key = `${domain}/${id}`;
+    let taskUrl: URL;
+    try {
+      taskUrl = new URL(String(task.url ?? ""));
+    } catch {
+      throw new Error(`prerender: eval queue task ${index} has an invalid URL`);
+    }
+    if (
+      !domain ||
+      !id ||
+      !title ||
+      title.length > 500 ||
+      safeSegment(domain) !== domain ||
+      safeSegment(id) !== id ||
+      task.article_key !== key ||
+      taskUrl.protocol !== "https:" ||
+      !SHA256.test(String(task.content_sha256 ?? "")) ||
+      !SHA256.test(String(task.analysis_sha256 ?? "")) ||
+      !Number.isSafeInteger(task.task_revision) ||
+      Number(task.task_revision) <= 0 ||
+      !task.model_labels ||
+      typeof task.model_labels !== "object" ||
+      Array.isArray(task.model_labels) ||
+      !Array.isArray(task.review_fields) ||
+      !Array.isArray(task.dataset_ids)
+    ) {
+      throw new Error(`prerender: eval queue task ${index} is invalid`);
+    }
+    if (seen.has(key)) {
+      throw new Error(`prerender: duplicate eval queue task ${key}`);
+    }
+    seen.add(key);
+    return task;
+  });
+};
 
 const outletTitle = (name: string): string =>
   `${name} — профил на изданието | Наясно Новини`;
 
 export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
-  const routes: PrerenderRoute[] = [...HUB_ROUTES];
+  const routes: PrerenderRoute[] = [...BASE_ROUTES];
 
   const outlets = read(dataDir, "outlets.json");
   for (const o of (outlets?.outlets as Bundle[] | undefined) ?? []) {
@@ -178,6 +308,27 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       ogType: "article",
       image: (a.image as string) ?? null,
       lastmod: (a.published as string) ?? null,
+    });
+  }
+
+  // Evaluation pages are public utilities, not editorial content. Only the
+  // exact tasks in the public queue get a direct-load shell; each shell is
+  // noindex and absent from the sitemap so it can never inherit the homepage
+  // SEO head through Hosting's SPA fallback.
+  const evalQueue = read(dataDir, "evals/queue.json");
+  for (const task of evalQueue
+    ? evalQueueTasks(evalQueue, outlets?.generated_at)
+    : []) {
+    const domain = String(task.domain ?? "").trim();
+    const id = String(task.article_id ?? "").trim();
+    const title = String(task.title ?? "").trim();
+    routes.push({
+      path: `evals/article/${domain}/${id}`,
+      title: `Оценяване: ${clamp(title, 64)} | Наясно Новини`,
+      description:
+        "Публично експериментално оценяване на анализ на статия. Не е необходим профил; изпратената оценка не променя автоматично публикувания анализ.",
+      sitemap: false,
+      noindex: true,
     });
   }
 

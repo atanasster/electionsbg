@@ -6,9 +6,16 @@
 // a sitemap that omits a family makes those pages invisible with nothing to
 // say so. So the assertions here are about the CONTRACT, not about markup.
 
-import { existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import {
   applyHead,
@@ -19,7 +26,22 @@ import {
   writeRoute,
   type PrerenderRoute,
 } from "./prerender";
-import { HUB_ROUTES, buildRoutes } from "./prerenderRoutes";
+import { BASE_ROUTES, HUB_ROUTES, buildRoutes } from "./prerenderRoutes";
+
+const canonicalJson = (value: unknown): string => {
+  if (value === null || typeof value === "boolean" || typeof value === "string")
+    return JSON.stringify(value);
+  if (typeof value === "number" && Number.isSafeInteger(value))
+    return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  const fields = Object.entries(value as Record<string, unknown>)
+    .sort(([left], [right]) => (left < right ? -1 : left > right ? 1 : 0))
+    .map(([key, child]) => `${JSON.stringify(key)}:${canonicalJson(child)}`);
+  return `{${fields.join(",")}}`;
+};
+
+const canonicalSha256 = (value: unknown): string =>
+  `sha256:${createHash("sha256").update(canonicalJson(value), "utf8").digest("hex")}`;
 
 describe("about hub contract", () => {
   it("has its own indexable transparency-page metadata", () => {
@@ -42,6 +64,22 @@ describe("corrections hub contract", () => {
     const route = HUB_ROUTES.find((item) => item.path === "corrections");
     expect(route?.noindex).not.toBe(true);
     expect(route?.sitemap).not.toBe(false);
+  });
+});
+
+describe("evaluation route contract", () => {
+  it("keeps the public, no-login queue out of search", () => {
+    expect(HUB_ROUTES.find((route) => route.path === "evals")).toMatchObject({
+      title: "Публично оценяване на анализи | Наясно Новини",
+      sitemap: false,
+      noindex: true,
+    });
+  });
+
+  it("always emits the generic article fallback as noindex", () => {
+    expect(
+      BASE_ROUTES.find((route) => route.path === "evals/article"),
+    ).toMatchObject({ sitemap: false, noindex: true });
   });
 });
 
@@ -336,7 +374,7 @@ describe("buildRoutes", () => {
     // ⚠️ A build on a checkout with no app-data must still produce a site
     // with a homepage. Failing to an EMPTY sitemap would be the silent shape.
     const routes = buildRoutes("/nonexistent");
-    expect(routes.map((r) => r.path)).toEqual(HUB_ROUTES.map((r) => r.path));
+    expect(routes.map((r) => r.path)).toEqual(BASE_ROUTES.map((r) => r.path));
     expect(routes.some((r) => r.path === "")).toBe(true);
   });
 
@@ -401,6 +439,38 @@ describe("buildRoutes against a corpus", () => {
       ],
     }),
   );
+  mkdirSync(join(dir, "evals"));
+  const evalTasks = [
+    {
+      article_key: "ex.bg/a-eval",
+      domain: "ex.bg",
+      article_id: "a-eval",
+      url: "https://ex.bg/a-eval",
+      title: "Статия за обществена проверка",
+      content_sha256: `sha256:${"b".repeat(64)}`,
+      analysis_sha256: `sha256:${"c".repeat(64)}`,
+      model_labels: {
+        leaning: "neutral",
+        russia_stance: "neutral",
+        party_tones: [],
+      },
+      review_fields: [],
+      dataset_ids: ["community-pilot-v1"],
+      task_revision: 123,
+    },
+  ];
+  writeFileSync(
+    join(dir, "evals", "queue.json"),
+    JSON.stringify({
+      schema_version: 1,
+      generated_at: "2026-08-26T00:00:00+00:00",
+      public_data_revision: "2026-08-26T00:00:00+00:00",
+      rubric_version: "news-article-evaluation-v1",
+      task_count: 1,
+      tasks_sha256: canonicalSha256(evalTasks),
+      tasks: evalTasks,
+    }),
+  );
 
   const longSummaryDir = mkdtempSync(join(tmpdir(), "news-long-"));
   writeFileSync(
@@ -451,6 +521,18 @@ describe("buildRoutes against a corpus", () => {
     expect(byPath.get("story/s-multi")!.sitemap).not.toBe(false);
   });
 
+  it("gives every queued eval article a purpose-built noindex shell", () => {
+    const evaluation = byPath.get("evals/article/ex.bg/a-eval");
+    expect(evaluation).toMatchObject({ sitemap: false, noindex: true });
+    expect(evaluation?.title).toContain("Статия за обществена проверка");
+    const rendered = applyHead(TEMPLATE, evaluation!);
+    expect(rendered.missing).toEqual([]);
+    expect(rendered.html).toContain(
+      '<meta name="robots" content="noindex,follow" />',
+    );
+    expect(renderSitemap(routes)).not.toContain("/evals/article/");
+  });
+
   it("skips a story with no title rather than emitting an empty one", () => {
     expect(byPath.has("story/s-untitled")).toBe(false);
   });
@@ -497,8 +579,125 @@ describe("a corrupt bundle", () => {
   it("still builds the hubs when the bundles are simply ABSENT", () => {
     const dir = mkdtempSync(join(tmpdir(), "news-empty-"));
     expect(buildRoutes(dir).map((r) => r.path)).toEqual(
-      HUB_ROUTES.map((r) => r.path),
+      BASE_ROUTES.map((r) => r.path),
     );
+  });
+});
+
+describe("the eval queue fails closed", () => {
+  const revision = "2026-08-26T00:00:00+00:00";
+  const task = {
+    article_key: "ex.bg/a1",
+    domain: "ex.bg",
+    article_id: "a1",
+    url: "https://ex.bg/a1",
+    title: "Статия за проверка",
+    content_sha256: `sha256:${"1".repeat(64)}`,
+    analysis_sha256: `sha256:${"2".repeat(64)}`,
+    model_labels: {
+      leaning: "neutral",
+      russia_stance: "neutral",
+      party_tones: [],
+    },
+    review_fields: [],
+    dataset_ids: ["community-pilot-v1"],
+    task_revision: 123,
+  };
+  const queue = (over: Record<string, unknown> = {}) => {
+    const tasks = over.tasks ?? [task];
+    return {
+      schema_version: 1,
+      generated_at: revision,
+      public_data_revision: revision,
+      rubric_version: "news-article-evaluation-v1",
+      task_count: Array.isArray(tasks) ? tasks.length : 1,
+      tasks_sha256: canonicalSha256(tasks),
+      tasks,
+      ...over,
+    };
+  };
+  const build = (payload: object) => {
+    const dir = mkdtempSync(join(tmpdir(), "news-eval-queue-"));
+    writeFileSync(
+      join(dir, "outlets.json"),
+      JSON.stringify({ generated_at: revision, outlets: [] }),
+    );
+    mkdirSync(join(dir, "evals"));
+    writeFileSync(join(dir, "evals", "queue.json"), JSON.stringify(payload));
+    return () => buildRoutes(dir);
+  };
+
+  it("accepts the Python-generated Unicode queue and canonical hash", () => {
+    const fixture = JSON.parse(
+      readFileSync(
+        join(
+          process.cwd(),
+          "news",
+          "eval_contract",
+          "fixtures",
+          "task_sync_pair.json",
+        ),
+        "utf-8",
+      ),
+    );
+    const publicRevision = fixture.queue.public_data_revision;
+    const appDataRevision = publicRevision.replace(".000Z", ".000987+00:00");
+    const dir = mkdtempSync(join(tmpdir(), "news-eval-unicode-"));
+    writeFileSync(
+      join(dir, "outlets.json"),
+      JSON.stringify({ generated_at: appDataRevision, outlets: [] }),
+    );
+    mkdirSync(join(dir, "evals"));
+    writeFileSync(
+      join(dir, "evals", "queue.json"),
+      JSON.stringify(fixture.queue),
+    );
+    expect(
+      buildRoutes(dir).some(
+        (route) => route.path === "evals/article/primer.bg/статия-1",
+      ),
+    ).toBe(true);
+  });
+
+  it("refuses a stale public revision", () => {
+    expect(
+      build(
+        queue({
+          generated_at: "2026-08-25T00:00:00+00:00",
+          public_data_revision: "2026-08-25T00:00:00+00:00",
+        }),
+      ),
+    ).toThrow(/current public app-data revision/);
+  });
+
+  it("refuses a count mismatch or a non-array inventory", () => {
+    expect(build(queue({ task_count: 2 }))).toThrow(/inventory is invalid/);
+    expect(
+      build(queue({ tasks: {}, tasks_sha256: `sha256:${"3".repeat(64)}` })),
+    ).toThrow(/inventory is invalid/);
+  });
+
+  it("refuses an inventory hash mismatch", () => {
+    expect(build(queue({ tasks_sha256: `sha256:${"3".repeat(64)}` }))).toThrow(
+      /inventory is invalid/,
+    );
+  });
+
+  it("refuses duplicate task identities", () => {
+    expect(build(queue({ task_count: 2, tasks: [task, task] }))).toThrow(
+      /duplicate eval queue task/,
+    );
+  });
+
+  it("refuses one malformed task among valid tasks", () => {
+    expect(
+      build(
+        queue({
+          task_count: 2,
+          tasks: [task, { ...task, article_key: "ex.bg/wrong" }],
+        }),
+      ),
+    ).toThrow(/task 1 is invalid/);
   });
 });
 

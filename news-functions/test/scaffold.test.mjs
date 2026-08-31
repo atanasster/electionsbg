@@ -87,6 +87,14 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
     source: "/api/news-evals/**",
     function: { functionId: "newsEvals", region: "europe-west3" },
   });
+  assert.deepEqual(newsHosting.rewrites[1], {
+    source: "/evals/article/**",
+    destination: "/evals/article/index.html",
+  });
+  assert.deepEqual(newsHosting.rewrites[2], {
+    source: "**",
+    destination: "/index.html",
+  });
   const broadHeader = newsHosting.headers.findIndex(
     (entry) => entry.source === "**",
   );

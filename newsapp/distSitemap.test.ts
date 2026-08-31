@@ -63,6 +63,15 @@ describeBuilt("the shipped sitemap", () => {
     expect(slashed).toEqual([]);
   });
 
+  it("keeps public evaluation utilities out of the sitemap", () => {
+    expect(
+      locs().some((loc) => {
+        const pathname = new URL(loc).pathname;
+        return pathname === "/evals" || pathname.startsWith("/evals/");
+      }),
+    ).toBe(false);
+  });
+
   it("covers every route family, not just the hubs", () => {
     // A family dropped from buildRoutes vanishes from the sitemap silently.
     const all = locs().join("\n");
@@ -130,5 +139,31 @@ describeBuilt("the prerendered pages", () => {
         ),
     );
     expect(broken).toEqual([]);
+  });
+
+  it("ships the evaluation hub as a dedicated noindex page", () => {
+    const file = path.join(DIST, "evals", "index.html");
+    expect(fs.existsSync(file)).toBe(true);
+    const html = fs.readFileSync(file, "utf-8");
+    expect(html).toContain('<meta name="robots" content="noindex,follow" />');
+    expect(html).toContain(
+      "<title>Публично оценяване на анализи | Наясно Новини</title>",
+    );
+    expect(html).toContain(
+      '<link rel="canonical" href="https://news.electionsbg.com/evals" />',
+    );
+  });
+
+  it("ships a noindex fallback for unqueued evaluation article URLs", () => {
+    const file = path.join(DIST, "evals", "article", "index.html");
+    expect(fs.existsSync(file)).toBe(true);
+    const html = fs.readFileSync(file, "utf-8");
+    expect(html).toContain('<meta name="robots" content="noindex,follow" />');
+    expect(html).toContain(
+      "<title>Оценяване на статия | Наясно Новини</title>",
+    );
+    expect(html).not.toContain(
+      '<link rel="canonical" href="https://news.electionsbg.com/" />',
+    );
   });
 });

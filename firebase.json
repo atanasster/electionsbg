@@ -540,6 +540,10 @@
           }
         },
         {
+          "source": "/evals/article/**",
+          "destination": "/evals/article/index.html"
+        },
+        {
           "source": "**",
           "destination": "/index.html"
         }
