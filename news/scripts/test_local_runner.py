@@ -570,16 +570,43 @@ class ThePrompt(unittest.TestCase):
 
 
 class TheRecord(unittest.TestCase):
-    def test_the_story_action_is_always_none(self):
-        # ⚠️ Clustering is NOT this script's job: it needs the candidate set,
-        # the canonical titles and a judgment about whether two events are the
-        # same event — and „merges of distinct events cannot be undone".
+    def test_publishable_unclustered_article_gets_a_safe_singleton_story(self):
+        # The unattended runner must never merge two events. Creating a
+        # one-member story loses no information and makes the analysis visible.
+        model = {
+            "quality": {"verdict": "ok"},
+            "site_relevant": True,
+            "summary_bg": "Българско резюме",
+            "summary_en": "English summary",
+        }
         rec = analyze_local.record_from(
             {"path": "news/data/x.bg/a.json", "domain": "x.bg"},
-            {"url": "https://x.bg/a"},
-            {"text": '{"quality": {"verdict": "ok"}}', "model": "srv"},
+            {"url": "https://x.bg/a", "title": "Заглавие"},
+            {"text": json.dumps(model), "model": "srv"},
             "flag-model", 1, [])
-        self.assertEqual(rec["story"], {"action": "none"})
+        self.assertEqual(rec["story"], {
+            "action": "new_story",
+            "canonical_title_bg": "Заглавие",
+            "canonical_title_en": "English summary",
+            "summary_bg": "Българско резюме",
+            "summary_en": "English summary",
+            "related_story_ids": [],
+        })
+
+    def test_nonpublishable_article_stays_detached_and_redo_keeps_membership(self):
+        answer = {"text": json.dumps({
+            "quality": {"verdict": "ok"}, "site_relevant": False,
+            "summary_bg": "БГ", "summary_en": "EN",
+        })}
+        detached = analyze_local.record_from(
+            {"path": "p", "domain": "x.bg"}, {"url": "u"},
+            answer, "m", 1, [])
+        attached = analyze_local.record_from(
+            {"path": "p", "domain": "x.bg", "story_id": "story-1"},
+            {"url": "u"}, answer, "m", 1, [])
+        self.assertEqual(detached["story"], {"action": "none"})
+        self.assertEqual(attached["story"], {
+            "action": "same_story", "story_id": "story-1"})
 
     def test_the_SERVER_model_id_wins_over_the_flag(self):
         # ⚠️ A run pointed at a server holding a different model would

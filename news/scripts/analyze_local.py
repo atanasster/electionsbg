@@ -6,14 +6,13 @@ SKILL.md` — 262 lines of prose an agent reads. A Mac mini running a 12B at
 03:00 has no agent, so the branching became code and only the rubric stayed
 as prompt text (`news/prompts/analyze_system.md`).
 
-⚠️ IT DOES NOT DECIDE STORY MEMBERSHIP. Clustering needs the candidate set,
-the canonical titles and a judgment about whether two events are the same
-event — the part of the skill least suited to a 12B and the one whose
-mistakes cannot be undone automatically ("merges of distinct events cannot be
-undone"). Every record this writes carries `story.action = "none"`, which the
-validator already requires for non-ok records and permits for the rest. The
-articles are judged; the clustering stays a separate, human-or-better-model
-pass. Stated here rather than discovered from an empty /story page.
+⚠️ IT DOES NOT MERGE STORIES. Same-event clustering needs the candidate set
+and a judgment about whether two events are really one event — the part least
+suited to a small unattended model, and a wrong merge cannot be undone
+automatically. A publishable article that has no story instead receives its
+own singleton story. That operation loses no information, makes the accepted
+analysis visible, and leaves a later human-or-better-model pass free to move
+it into a real comparison cluster. Redos preserve existing membership.
 
 Run:  python3 news/scripts/analyze_local.py --limit 20 --model gemma-4-12b
       python3 news/scripts/analyze_local.py --dry-run --limit 1
@@ -565,15 +564,27 @@ def record_from(item: dict, article: dict, answer: dict, model: str,
         "model": served_model,
         "taxonomy_version": taxonomy_version,
         "analysis_provenance": provenance,
-        # ⚠️ ALWAYS "none" — see the module docstring. Clustering is not this
-        # script's job and a wrong merge cannot be undone automatically.
-        # ⚠️ „none" DETACHES, and on a REDO that deletes the story. The
-        # queue carries the article's existing story_id (see cmd_redo); a
-        # record that had one keeps it, and only a genuinely unclustered
-        # article gets „none". Clustering is still not this script's job —
-        # it never CREATES or MOVES a story, it only declines to destroy one.
-        "story": ({"action": "same_story", "story_id": item["story_id"]}
-                  if item.get("story_id") else {"action": "none"}),
+        # A wrong MERGE is destructive; a singleton is not. New publishable
+        # articles receive a one-member story so the story-led home page can
+        # show them immediately. A redo preserves existing membership, while
+        # bad-quality/out-of-scope records remain detached as required.
+        "story": (
+            {"action": "same_story", "story_id": item["story_id"]}
+            if item.get("story_id") else
+            {
+                "action": "new_story",
+                "canonical_title_bg": (
+                    str(article.get("title") or parsed.get("summary_bg") or "").strip()),
+                "canonical_title_en": str(
+                    parsed.get("summary_en") or article.get("title") or "").strip(),
+                "summary_bg": str(parsed.get("summary_bg") or "").strip(),
+                "summary_en": str(parsed.get("summary_en") or "").strip(),
+                "related_story_ids": [],
+            }
+            if ((parsed.get("quality") or {}).get("verdict") == "ok"
+                and parsed.get("site_relevant") is True)
+            else {"action": "none"}
+        ),
     }
     if mentions:
         rec["mentions"] = mentions
