@@ -31,6 +31,11 @@ hash; an analysis hash is optional only when no model analysis existed at select
 Changing a stored article's content invalidates an adjudication until it is revalidated. A
 model rerun alone does not invalidate a human decision about unchanged content.
 
+Canonical records use sorted object keys, UTF-8 strings, Unicode code-point length and the
+ECMAScript JSON number spelling. Integer-valued numbers outside JavaScript's safe range
+(`±(2^53-1)`) are rejected instead of being rounded differently by Python and TypeScript.
+Party surface keys use trim + NFC + locale-independent lowercase in both runtimes.
+
 Schemas use JSON Schema draft 2020-12. Dataset manifests bind both selection inputs and the
 ordered frozen label records, and require a group ID for every split assignment. Semantic checks
 that JSON Schema cannot express—such as duplicate canonical party IDs, scope-correct reason
