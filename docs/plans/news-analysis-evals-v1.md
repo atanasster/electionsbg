@@ -828,8 +828,12 @@ until the effective-analysis reconciliation gate exists.
    adjudications, future/invalid dates and task-ineligible records; balances public party-presence,
    Russia and leaning sampling signals under reported outlet/time caps; emits no reference labels;
    and reproduces byte-for-byte under `--check` before passing the real task builder in dry-run.
-2. Run a public pilot, export raw submissions and report completion, disagreement, duplication,
-   quarantine and per-stratum coverage without calling agreement accuracy.
+2. Prepare the offline reporting gate for a public pilot; launching the pilot and exporting real
+   submissions remain gated on explicit rollout authorization. `report_community_eval_pilot.py`
+   validates the frozen sample plus the exact task revision, analysis hash and model snapshot for
+   every usable row; excludes quarantined, content-stale, task-stale and off-batch observations;
+   and reports completion, community/model disagreement, repeat divergence and per-stratum
+   coverage without calling agreement accuracy or exposing notes, evidence or private IDs.
 3. Review/promote a subset offline using the locally stored full articles, then complete at least
    the already-planned 50 independent party-pair overlap for gold use.
 4. Export a versioned adjudicated dataset, group-aware splits and agreement report; keep raw
