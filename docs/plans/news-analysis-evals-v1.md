@@ -780,7 +780,12 @@ until the effective-analysis reconciliation gate exists.
    judged fields with `confidence: null`, preserves the current original-model values separately,
    and returns a `needs_revalidation` marker without applying the overlay when article content has
    changed. A model-only change does not invalidate a content-bound human decision.
-3. Apply it to story recomputation and `build_app_data.py`.
+3. Apply it to story recomputation and `build_app_data.py`. The builder loads the optional
+   private accepted snapshot once, resolves each matching article before any public counts or
+   compact projections, refuses unmatched snapshot records, and recomputes every touched story
+   in memory from the effective member analyses. Model analysis and story files stay immutable;
+   a content-stale adjudication still marks the story as touched but contributes only the current
+   model values because its overlay is withheld.
 4. Add public human-review provenance and stale/under-review rendering.
 5. Add article/story/party aggregate reconciliation and release-manifest hash.
 6. Generate proposed public correction-log entries for already-published changes.

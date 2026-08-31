@@ -29,6 +29,8 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from news.eval_contract.canonical import (  # noqa: E402
+    analysis_sha256, canonical_sha256, content_sha256)
 from build_app_data import (  # noqa: E402
     AXIS_POSITIONS, HOME_GZIP_BUDGET_BYTES, HOME_ITEM_LIMIT,
     HOME_STORY_FIELDS, HOME_STORY_LIMIT, TOPIC_MIN_POSITIONED, axis_spread,
@@ -104,18 +106,124 @@ class BuildAppDataFixture(unittest.TestCase):
         with open(os.path.join(d, fname), "w", encoding="utf-8") as fh:
             json.dump(record, fh, ensure_ascii=False)
 
-    def run_build(self, *extra):
-        # ⚠️ DATA_BG_ROOT, or the fixture taxonomy written in setUp is dead
-        # code and every test here silently reads the PRODUCTION
-        # news/topics.json — which is how a taxonomy-count assertion can pass
-        # while asserting nothing about the fixture it claims to use.
-        proc = subprocess.run(
+    def write_accepted_snapshot(self, article, analysis, *, leaning="conservative",
+                                russia="anti_russia",
+                                project_id="electionsbg-news"):
+        article_key = f'{analysis["domain"]}/{Path(analysis["article_path"]).stem}'
+        record = {
+            "schema_version": 1,
+            "rubric_version": "news-article-evaluation-v1",
+            "article_key": article_key,
+            "url": analysis["url"],
+            "task_revision": 1,
+            "content_sha256": content_sha256(article["content"]),
+            "analysis_sha256": analysis_sha256(analysis),
+            "source_submission_ids": ["submission-0001"],
+            "operator_actor": {"kind": "maintainer", "id": "test-maintainer"},
+            "adjudicated_at": "2026-08-31T12:00:00.000Z",
+            "revision": 1,
+            "evaluation": {
+                "schema_version": 1,
+                "leaning": {
+                    "label": leaning, "disposition": "changed",
+                    "evidence": "Целият материал подкрепя коригираната оценка.",
+                    "reason_codes": ["model_missed_context"],
+                },
+                "russia_stance": {
+                    "label": russia, "disposition": "changed",
+                    "evidence": "Целият материал заема ясна позиция спрямо Русия.",
+                    "reason_codes": ["model_missed_context"],
+                },
+                "parties_confirmed_complete": True,
+                "party_tones": [],
+                "removed_model_parties": [],
+                "public_note": "Проверено спрямо целия оригинален материал.",
+            },
+            "model_labels": {
+                "leaning": analysis["leaning"]["label"],
+                "russia_stance": analysis["russia_stance"]["label"],
+                "party_tones": [],
+            },
+            "public_explanation": "Проверено спрямо целия оригинален материал.",
+            "gold_eligible": True,
+            "status": "accepted",
+            "last_operation_id": "accept-operation-0001",
+        }
+        records = [record]
+        snapshot = {
+            "manifest": {
+                "schema_version": 1,
+                "snapshot_kind": "news-eval-accepted-adjudications",
+                "project_id": project_id,
+                "firestore_read_time": "2026-08-31T12:30:00.000Z",
+                "rubric_version": "news-article-evaluation-v1",
+                "record_count": 1,
+                "records_sha256": canonical_sha256(records),
+            },
+            "records": records,
+        }
+        path = Path(self.data_dir) / "evals" / "accepted" / "current.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(snapshot, ensure_ascii=False), encoding="utf-8")
+        return record
+
+    def write_story_membership(self, domain, fname, article, analysis,
+                               *, story_id="story-accepted", write_story=True):
+        url = article["url"]
+        path = analysis["article_path"]
+        analysis_dir = Path(self.data_dir) / "analysis"
+        analysis_dir.mkdir(parents=True, exist_ok=True)
+        (analysis_dir / "index.json").write_text(json.dumps({
+            "version": 1, "updated_at": "now", "stories": {},
+            "articles": {url: {
+                "path": path, "story_id": story_id, "domain": domain,
+                "analyzed_at": "now",
+            }},
+        }), encoding="utf-8")
+        stories_dir = analysis_dir / "stories"
+        if write_story:
+            stories_dir.mkdir(parents=True, exist_ok=True)
+            (stories_dir / f"{story_id}.json").write_text(json.dumps({
+                "id": story_id,
+                "canonical_title_bg": "Приета оценка",
+                "canonical_title_en": "Accepted evaluation",
+                "summary_bg": "Резюме", "summary_en": "Summary",
+                "created_at": "now", "updated_at": "now",
+                "topics": [], "related_story_ids": [],
+                "members": [{
+                    "domain": domain, "article_path": path, "url": url,
+                    "published": article["published"],
+                    "leaning": analysis["leaning"]["label"],
+                    "russia_stance": analysis["russia_stance"]["label"],
+                    "added_at": "now",
+                }],
+                "entities": {"people": [], "parties": [], "institutions": [],
+                             "companies": [], "places": []},
+                "aggregates": {
+                    "article_count": 1, "outlet_count": 1,
+                    "by_leaning": {analysis["leaning"]["label"]: 1},
+                    "by_russia_stance": {
+                        analysis["russia_stance"]["label"]: 1},
+                    "by_domain": {domain: 1},
+                },
+            }, ensure_ascii=False), encoding="utf-8")
+        return stories_dir
+
+    def run_build_process(self, *extra):
+        return subprocess.run(
             [sys.executable, SCRIPT,
              "--data-dir", self.data_dir, "--out", self.out_dir, "--quiet", "--json",
              *extra],
             capture_output=True, text=True,
             env=dict(os.environ, DATA_BG_ROOT=self.root),
         )
+
+    def run_build(self, *extra):
+        # ⚠️ DATA_BG_ROOT, or the fixture taxonomy written in setUp is dead
+        # code and every test here silently reads the PRODUCTION
+        # news/topics.json — which is how a taxonomy-count assertion can pass
+        # while asserting nothing about the fixture it claims to use.
+        proc = self.run_build_process(*extra)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         return json.loads(proc.stdout)
 
@@ -209,6 +317,142 @@ class BuildAppDataTest(BuildAppDataFixture):
         cats = {c["id"]: c for c in self.load("taxonomy.json")["categories"]}
         self.assertEqual(cats["healthcare"]["article_count"], 1)
         self.assertEqual(cats["society"]["article_count"], 0)
+
+    def test_accepted_analysis_drives_article_and_touched_story_projection(self):
+        domain = "example.bg"
+        fname = "article-accepted.json"
+        url = "https://example.bg/article-accepted"
+        path = f"news/data/{domain}/{fname}"
+        article = corpus_article(
+            domain, fname, url, "Приета оценка", "2026-08-22T00:00:00+00:00")
+        analysis = self.analysis_record(
+            url, domain, path, leaning="progressive", russia="not_applicable")
+        self.write_corpus(domain, fname, article)
+        self.write_analysis(domain, fname, analysis)
+        self.write_accepted_snapshot(article, analysis)
+
+        stories_dir = self.write_story_membership(
+            domain, fname, article, analysis)
+
+        self.run_build()
+
+        public_article = self.load(f"articles/{domain}.json")["articles"][0]
+        self.assertEqual(public_article["analysis"]["leaning"]["label"], "conservative")
+        self.assertIsNone(public_article["analysis"]["leaning"]["confidence"])
+        self.assertEqual(public_article["analysis"]["russia_stance"]["label"], "anti_russia")
+        story = self.load("stories.json")["stories"][0]
+        self.assertEqual(story["members"][0]["leaning"], "conservative")
+        self.assertEqual(story["members"][0]["russia_stance"], "anti_russia")
+        self.assertEqual(story["aggregates"]["by_leaning"], {"conservative": 1})
+        self.assertEqual(story["aggregates"]["by_russia_stance"], {"anti_russia": 1})
+        outlet = next(
+            item for item in self.load("outlets.json")["outlets"]
+            if item["domain"] == domain)
+        self.assertEqual(outlet["leaning"], {"conservative": 1})
+        self.assertEqual(outlet["russia_stance"], {"anti_russia": 1})
+        society = next(
+            item for item in self.load("taxonomy.json")["categories"]
+            if item["id"] == "society")
+        self.assertEqual(society["leaning"], {"conservative": 1})
+        self.assertEqual(society["russia_stance"], {"anti_russia": 1})
+
+        # Publication overlays are in-memory only.
+        stored_analysis = json.loads(
+            (Path(self.data_dir) / "analysis" / "articles" / domain / fname)
+            .read_text(encoding="utf-8"))
+        stored_story = json.loads(
+            (stories_dir / "story-accepted.json").read_text(encoding="utf-8"))
+        self.assertEqual(stored_analysis["leaning"]["label"], "progressive")
+        self.assertEqual(stored_story["aggregates"]["by_leaning"], {"progressive": 1})
+
+    def test_stale_accepted_content_keeps_model_values_and_recomputes_story(self):
+        domain = "example.bg"
+        fname = "article-stale.json"
+        url = "https://example.bg/article-stale"
+        path = f"news/data/{domain}/{fname}"
+        original = corpus_article(
+            domain, fname, url, "Стара оценка", "2026-08-22T00:00:00+00:00")
+        analysis = self.analysis_record(
+            url, domain, path, leaning="progressive", russia="not_applicable")
+        self.write_corpus(domain, fname, original)
+        self.write_analysis(domain, fname, analysis)
+        self.write_accepted_snapshot(original, analysis)
+        stories_dir = self.write_story_membership(
+            domain, fname, original, analysis, story_id="story-stale")
+        stored_story_path = stories_dir / "story-stale.json"
+        stored_story = json.loads(stored_story_path.read_text(encoding="utf-8"))
+        stored_story["members"][0]["leaning"] = "conservative"
+        stored_story["members"][0]["russia_stance"] = "anti_russia"
+        stored_story["aggregates"]["by_leaning"] = {"conservative": 1}
+        stored_story["aggregates"]["by_russia_stance"] = {"anti_russia": 1}
+        stored_story_path.write_text(
+            json.dumps(stored_story, ensure_ascii=False), encoding="utf-8")
+        edited = {**original, "content": "Редактиран текст. " * 40}
+        edited["content_chars"] = len(edited["content"])
+        self.write_corpus(domain, fname, edited)
+
+        self.run_build()
+
+        public_article = self.load(f"articles/{domain}.json")["articles"][0]
+        self.assertEqual(public_article["analysis"]["leaning"]["label"], "progressive")
+        self.assertEqual(public_article["analysis"]["leaning"]["confidence"], 0.7)
+        story = self.load("stories.json")["stories"][0]
+        self.assertEqual(story["aggregates"]["by_leaning"], {"progressive": 1})
+        self.assertEqual(
+            story["aggregates"]["by_russia_stance"], {"not_applicable": 1})
+        self.assertEqual(
+            json.loads(stored_story_path.read_text(encoding="utf-8"))
+            ["aggregates"]["by_leaning"],
+            {"conservative": 1},
+        )
+
+    def test_wrong_project_unmatched_article_and_missing_story_fail_before_write(self):
+        domain = "example.bg"
+        fname = "article-fail.json"
+        url = "https://example.bg/article-fail"
+        path = f"news/data/{domain}/{fname}"
+        article = corpus_article(
+            domain, fname, url, "Отказана оценка", "2026-08-22T00:00:00+00:00")
+        analysis = self.analysis_record(url, domain, path)
+        self.write_corpus(domain, fname, article)
+        self.write_analysis(domain, fname, analysis)
+        self.write_accepted_snapshot(
+            article, analysis, project_id="demo-news-evals")
+        output = Path(self.out_dir)
+        output.mkdir(parents=True, exist_ok=True)
+        sentinel = output / "sentinel.json"
+        sentinel.write_text('{"keep":true}', encoding="utf-8")
+
+        wrong_project = self.run_build_process()
+        self.assertNotEqual(wrong_project.returncode, 0)
+        self.assertIn("project_id", wrong_project.stderr)
+        self.assertEqual(sentinel.read_text(encoding="utf-8"), '{"keep":true}')
+        self.assertEqual(list(output.iterdir()), [sentinel])
+
+        self.write_accepted_snapshot(article, analysis)
+        snapshot_path = (Path(self.data_dir) / "evals" / "accepted" /
+                         "current.json")
+        snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+        snapshot["records"][0]["article_key"] = f"{domain}/absent-article"
+        snapshot["manifest"]["records_sha256"] = canonical_sha256(
+            snapshot["records"])
+        snapshot_path.write_text(
+            json.dumps(snapshot, ensure_ascii=False), encoding="utf-8")
+        unmatched = self.run_build_process()
+        self.assertNotEqual(unmatched.returncode, 0)
+        self.assertIn("absent from the coherent corpus/analysis", unmatched.stderr)
+        self.assertEqual(list(output.iterdir()), [sentinel])
+
+        self.write_accepted_snapshot(article, analysis)
+        self.write_story_membership(
+            domain, fname, article, analysis,
+            story_id="story-missing", write_story=False)
+        missing_story = self.run_build_process()
+        self.assertNotEqual(missing_story.returncode, 0)
+        self.assertIn("cannot recompute touched story story-missing",
+                      missing_story.stderr)
+        self.assertEqual(sentinel.read_text(encoding="utf-8"), '{"keep":true}')
+        self.assertEqual(list(output.iterdir()), [sentinel])
 
     def test_non_numeric_rank_does_not_crash(self):
         url = "https://example.bg/a3"

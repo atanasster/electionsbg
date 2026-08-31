@@ -43,6 +43,7 @@ Run:  python3 news/scripts/build_app_data.py [--data-dir news/data] [--out news/
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import gzip
 import json
@@ -70,6 +71,11 @@ try:
         write_story_merge_queue,
     )
     from .home_health import evaluate_home_payload
+    from .effective_analysis import (
+        effective_analysis,
+        load_accepted_adjudications,
+    )
+    from .analyze_articles import recompute_story as recompute_analysis_story
 except ImportError:  # direct script execution
     from commons_rights import (
         canonical_licence_url,
@@ -85,6 +91,11 @@ except ImportError:  # direct script execution
         write_story_merge_queue,
     )
     from home_health import evaluate_home_payload
+    from effective_analysis import (
+        effective_analysis,
+        load_accepted_adjudications,
+    )
+    from analyze_articles import recompute_story as recompute_analysis_story
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
 LEANING_LABELS = {
@@ -114,6 +125,7 @@ QUALITY_VERDICTS = {
     "not_bulgarian",
     "non_article",
 }
+ACCEPTED_SNAPSHOT_PROJECT_ID = "electionsbg-news"
 # Per-outlet CONDUCT, always as counts beside their denominators.
 #
 # ⚠️ Three measures were planned; two are shipped. Republication is NOT
@@ -990,9 +1002,11 @@ def compact_analysis(rec: dict, article: dict) -> dict:
             # Trust a saved decision only when it was produced by the current
             # gate. Legacy/stale records are rechecked, so a future v2 cannot
             # accidentally grandfather every v1 approval forever.
-            approved = (grounded is True) if saved_gate == current_gate else (
-                aa.party_tone_evidence_grounded(
-                    str(tone.get("evidence") or ""), article))
+            human_accepted = (rec.get("human_review") or {}).get("status") == "accepted"
+            approved = (grounded is True) if (
+                human_accepted or saved_gate == current_gate
+            ) else aa.party_tone_evidence_grounded(
+                str(tone.get("evidence") or ""), article)
             if approved:
                 party_tones.append(tone)
     except Exception:  # noqa: BLE001
@@ -1172,6 +1186,11 @@ def main() -> int:
     ap.add_argument("--data-dir", type=Path, default=REPO / "news" / "data")
     ap.add_argument("--out", type=Path, default=REPO / "news" / "app-data")
     ap.add_argument("--latest", type=int, default=150)
+    ap.add_argument(
+        "--accepted-snapshot", type=Path,
+        help="private accepted-adjudication snapshot (defaults to "
+             "<data-dir>/evals/accepted/current.json when present)",
+    )
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument(
         "--stamp", action="store_true",
@@ -1285,6 +1304,20 @@ def main() -> int:
     conduct_by_domain: dict[str, dict[str, int]] = {}
     topic_axes: dict[str, dict] = {}
     analysis_by_url, analysis_by_id = load_analysis(data_dir)
+    accepted_path = args.accepted_snapshot or (
+        data_dir / "evals" / "accepted" / "current.json")
+    if accepted_path.exists():
+        accepted = load_accepted_adjudications(
+            accepted_path,
+            expected_project_id=ACCEPTED_SNAPSHOT_PROJECT_ID,
+        )
+    elif args.accepted_snapshot is not None:
+        raise ValueError(f"accepted snapshot does not exist: {accepted_path}")
+    else:
+        accepted = None
+    pending_accepted = set(accepted.by_article) if accepted else set()
+    effective_by_url: dict[str, dict] = {}
+    accepted_article_urls: set[str] = set()
     story_index = load_story_index(data_dir)
     domain_names = sorted(
         d.name
@@ -1351,6 +1384,15 @@ def main() -> int:
                 # but both fail closed once the renderer gate lands.
                 rec["image_rights"] = rights
             if analysis:
+                article_key = f"{domain}/{fp.stem}"
+                accepted_record = (
+                    accepted.by_article.get(article_key) if accepted else None
+                )
+                analysis = effective_analysis(analysis, art, accepted_record)
+                effective_by_url[analysis.get("url")] = analysis
+                if accepted_record is not None:
+                    pending_accepted.discard(article_key)
+                    accepted_article_urls.add(analysis["url"])
                 try:
                     validate_publishable_analysis(
                         analysis, art, identity=f"{domain}/{fp.name}"
@@ -1426,6 +1468,52 @@ def main() -> int:
         records.sort(key=lambda r: r.get("published") or "", reverse=True)
         articles_by_domain[domain] = records
 
+    if pending_accepted:
+        raise ValueError(
+            "accepted snapshot names articles absent from the coherent corpus/analysis: "
+            + ", ".join(sorted(pending_accepted))
+        )
+
+    # Resolve every indexed story touched by an accepted or stale adjudication
+    # before writing a single public bundle. Article acceptance alone is not a
+    # coherent publication: a missing/corrupt story would otherwise leave a
+    # corrected article beside stale story distributions from an earlier run.
+    touched_story_urls: dict[str, set[str]] = {}
+    for url in accepted_article_urls:
+        if story_id := story_index.get(url):
+            touched_story_urls.setdefault(story_id, set()).add(url)
+    recomputed_touched_stories: dict[str, dict] = {}
+    stories_dir = data_dir / "analysis" / "stories"
+    for story_id, expected_urls in sorted(touched_story_urls.items()):
+        story_path = stories_dir / f"{story_id}.json"
+        try:
+            story = json.loads(story_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ValueError(
+                f"cannot recompute touched story {story_id}: {exc}") from exc
+        if not isinstance(story, dict) or story.get("id") != story_id:
+            raise ValueError(
+                f"cannot recompute touched story {story_id}: identity mismatch")
+        member_urls = {
+            member.get("url") for member in story.get("members") or []
+            if isinstance(member, dict)
+        }
+        missing_members = expected_urls - member_urls
+        if missing_members:
+            raise ValueError(
+                f"touched story {story_id} is missing accepted members: "
+                + ", ".join(sorted(missing_members))
+            )
+        recomputed = recompute_analysis_story(
+            copy.deepcopy(story), effective_by_url)
+        recomputed_urls = {
+            member.get("url") for member in recomputed.get("members") or []
+        }
+        if not expected_urls <= recomputed_urls:
+            raise ValueError(
+                f"touched story {story_id} could not retain every accepted member")
+        recomputed_touched_stories[story_id] = recomputed
+
     # ---- per-domain bundles --------------------------------------------------------
     for domain, records in articles_by_domain.items():
         write_json(
@@ -1478,16 +1566,18 @@ def main() -> int:
         )
 
     # ---- stories.json ----------------------------------------------------------------
-    stories_dir = data_dir / "analysis" / "stories"
     stories = []
     story_topic_counts: dict[str, int] = {}
     if stories_dir.is_dir():
         corpus_records = {(r["domain"], r["id"]): r for r in all_latest}
         for fp in sorted(stories_dir.glob("*.json")):
-            try:
-                st = json.loads(fp.read_text(encoding="utf-8"))
-            except (OSError, json.JSONDecodeError):
-                continue
+            if fp.stem in recomputed_touched_stories:
+                st = copy.deepcopy(recomputed_touched_stories[fp.stem])
+            else:
+                try:
+                    st = json.loads(fp.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError):
+                    continue
             members = []
             for m in st.get("members") or []:
                 article_id = Path(m["article_path"]).stem if m.get("article_path") else None

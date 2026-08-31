@@ -11,18 +11,30 @@ from __future__ import annotations
 import copy
 import json
 import re
+import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import urlparse
 
-from news.eval_contract.canonical import (
-    analysis_sha256,
-    canonical_sha256,
-    content_sha256,
-)
-from news.eval_contract.validate import validate_article_evaluation
+try:
+    from news.eval_contract.canonical import (
+        analysis_sha256,
+        canonical_sha256,
+        content_sha256,
+    )
+    from news.eval_contract.validate import validate_article_evaluation
+except ModuleNotFoundError:  # direct execution from news/scripts
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from news.eval_contract.canonical import (  # type: ignore[no-redef]
+        analysis_sha256,
+        canonical_sha256,
+        content_sha256,
+    )
+    from news.eval_contract.validate import (  # type: ignore[no-redef]
+        validate_article_evaluation,
+    )
 
 
 RUBRIC_VERSION = "news-article-evaluation-v1"
@@ -226,7 +238,11 @@ def validate_accepted_adjudication(value: Any, *, label: str = "adjudication") -
     return normalized
 
 
-def load_accepted_adjudications(path: Path) -> AcceptedAdjudications:
+def load_accepted_adjudications(
+    path: Path,
+    *,
+    expected_project_id: str | None = None,
+) -> AcceptedAdjudications:
     """Read and fully verify one atomically exported accepted snapshot."""
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -244,7 +260,11 @@ def load_accepted_adjudications(path: Path) -> AcceptedAdjudications:
     if (manifest["snapshot_kind"] != "news-eval-accepted-adjudications"
             or manifest["rubric_version"] != RUBRIC_VERSION):
         raise EffectiveAnalysisError("accepted snapshot contract is unsupported")
-    _text(manifest["project_id"], "accepted snapshot project_id", 128)
+    project_id = _text(
+        manifest["project_id"], "accepted snapshot project_id", 128)
+    if expected_project_id is not None and project_id != expected_project_id:
+        raise EffectiveAnalysisError(
+            "accepted snapshot project_id does not match the publication project")
     read_time = _timestamp(
         manifest["firestore_read_time"], "accepted snapshot firestore_read_time")
     if read_time != manifest["firestore_read_time"]:
