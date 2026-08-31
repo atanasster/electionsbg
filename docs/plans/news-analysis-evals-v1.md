@@ -737,7 +737,14 @@ until the effective-analysis reconciliation gate exists.
    homepage catch-all. The React route layer renders without an Auth provider, login/profile
    surface or private article fetch. Route analytics collapse both paths to one low-cardinality
    `evals` value and never include article identity.
-3. Build queue filters, random sampling and the responsive article workspace.
+3. Build queue filters, random sampling and the responsive article workspace. The browser reads
+   only the strict public queue projection, orders review/strong-label/party-bearing tasks
+   deterministically, and supports combined axis, party-presence, date, outlet, topic, dataset and
+   review-field filters with client pagination plus random choice from the filtered result. The
+   article workspace uses only the public article excerpt and original/public-analysis links,
+   stacks on mobile and splits context from a sticky evaluation panel on desktop. All scalar and
+   party controls start unselected, support an explicit unable/no-party answer and local party
+   add/remove, and remain local-only until the submission step is wired.
 4. Add visually hidden-until-submit model comparison, local-only draft autosave, Turnstile and
    keyboard/accessibility support.
 5. Add the public experimental link on eligible `ArticleScreen` pages.

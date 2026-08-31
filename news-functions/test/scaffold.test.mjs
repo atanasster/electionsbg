@@ -73,6 +73,14 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
   );
   assert.match(scripts["news:evals:tasks:write"], /sync_eval_tasks\.py/);
   assert.match(scripts["news:evals:tasks:write"], /--write/);
+  assert.ok(
+    scripts["build:news"].indexOf("npm run news:data") <
+      scripts["build:news"].indexOf("npm run news:evals:tasks:write"),
+  );
+  assert.ok(
+    scripts["build:news"].indexOf("npm run news:evals:tasks:write") <
+      scripts["build:news"].indexOf("vite build --config vite.config.news.ts"),
+  );
   assert.match(scripts["news:evals:tasks:sync"], /operator-cli\.js sync-tasks/);
   assert.match(scripts["news:evals:tasks:sync"], /electionsbg-news/);
   assert.match(scripts["news:evals:tasks:sync"], /--live-manifest-url https:/);

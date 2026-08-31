@@ -21,7 +21,7 @@
     "news:home-health:gate": "python3 news/scripts/home_health.py --enforce --json",
     "dev:news": "vite --config vite.config.news.ts",
     "typecheck:news": "tsc -p newsapp/tsconfig.json --noEmit",
-    "build:news": "npm run news:data && tsc -p newsapp/tsconfig.json --noEmit && vite build --config vite.config.news.ts",
+    "build:news": "npm run news:data && npm run news:evals:tasks:write && tsc -p newsapp/tsconfig.json --noEmit && vite build --config vite.config.news.ts",
     "news:perf:gate": "tsx scripts/news_performance_budget.ts",
     "news:cards:visual": "playwright test --config playwright.news.config.ts",
     "news:release:gate": "npm run news:image-coverage:gate && npm run news:test && vitest run newsapp scripts/news_accessibility.test.ts scripts/news_home_layout.test.ts scripts/news_performance_budget.test.ts scripts/news_release_contract.test.ts scripts/news_release_manifest.test.ts && npm run news:cards:visual && npm run build:news && npm run news:home-health:gate && npm run news:perf:gate && tsx scripts/news_release_manifest.ts write",
