@@ -8,8 +8,8 @@ write.
 `newsEvals` recognizes only `POST /api/news-evals/submit` and
 `GET /api/news-evals/aggregate/:domain/:articleId`. It enforces exact production/emulator origins,
 JSON media type, a 64 KiB request limit and the shared submission schema. Aggregate requests reject
-all bodies. Schema-valid submissions and aggregate reads still return `503` without touching
-storage until the following transaction step is complete.
+all bodies. A configured runtime writes schema- and task-valid submissions in one Firestore
+transaction; tests may omit the store adapter deliberately and then receive a fail-closed `503`.
 
 The submit boundary now verifies every schema-valid request with Cloudflare Siteverify on the
 server. A successful response must carry the exact `news.electionsbg.com` hostname,
@@ -34,6 +34,21 @@ but binds every semantic evaluation field. HMAC lookup uses the active key plus 
 keys. Add a new active version during normal rotation; do not drop an old version until every
 durable record using it has been migrated or intentionally retired. No raw browser nonce,
 idempotency key, evidence text or request body appears in derived keys or security metrics.
+
+The transaction writes one append-only raw submission, durable opaque dedupe records, short-lived
+rate/abuse sidecars and bounded materialized counters. The per-article aggregate contains only the
+two scalar-axis maps and numeric totals. Party-tone counters live in separate
+`news_eval_party_aggregates` documents keyed by article, task revision and a SHA-256 digest of the
+canonical party key; each shard can therefore contain only one party identity and four tone
+counters. Only parties already present in the trusted task snapshot receive online counter shards;
+visitor-added identities remain in the bounded raw submission for offline review. This prevents an
+anonymous client from minting durable shard IDs. Task model labels are projected through an exact
+field/vocabulary allowlist before they enter either a submission or its public receipt, so extra
+private task fields cannot leak through a malformed sync document. A task revision change starts a
+fresh current aggregate instead of mixing labels from different article or analysis snapshots.
+Exact idempotent retries return the original receipt and do not increment any counter. Persistent
+daily-limit responses use the actual seconds until the next UTC-day bucket, while the separate
+per-instance Siteverify-attempt limit retains its one-minute retry window.
 
 ```bash
 npm run news:evals:test
@@ -75,8 +90,9 @@ decisions address documents by exact key and never query by expiry.
 
 Public aggregate distributions are explicitly disabled while the only diversity hint is a
 client-resettable browser nonce. The backend may collect and aggregate for offline review, but the
-GET route must return only a “more evaluations needed” state until the contract enables release
-after a trustworthy independent diversity control is proven.
+GET route returns only a “more evaluations needed” state—without counts—until the contract enables
+release after a trustworthy independent diversity control is proven. Enabling that future path
+also requires an explicit, bounded read design for the revision-scoped party shards.
 
 Before the first Function deploy, create the two project-scoped secrets interactively:
 

@@ -478,6 +478,13 @@ function submissionSemantics(value: JsonObject, task: JsonObject): string[] {
   return [...codes].sort();
 }
 
+export function validateSubmissionSemantics(
+  value: Readonly<JsonObject>,
+  task: Readonly<JsonObject>,
+): string[] {
+  return submissionSemantics(value as JsonObject, task as JsonObject);
+}
+
 function eventSemantics(value: JsonObject): string[] {
   const codes = new Set<string>();
   const target = object(value.target);

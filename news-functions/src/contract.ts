@@ -18,6 +18,19 @@ export type PublicAbusePolicy = Readonly<{
   rateMetadataRetentionHours: number;
 }>;
 
+export type PublicAggregatePolicy = Readonly<{
+  publicDistributionEnabled: boolean;
+  minimumValidSubmissions: number;
+  minimumDistinctBrowserBuckets: number;
+  strongAgreementFraction: number;
+}>;
+
+export type PublicLabelVocabularies = Readonly<{
+  leaning: readonly string[];
+  russiaStance: readonly string[];
+  partyTone: readonly string[];
+}>;
+
 const CONTRACT = JSON.parse(
   readFileSync(
     fileURLToPath(new URL("./eval-contract/contract.json", import.meta.url)),
@@ -57,17 +70,53 @@ function disabledFlag(value: unknown, path: string): false {
   return false;
 }
 
+function vocabulary(value: unknown, path: string): readonly string[] {
+  if (!Array.isArray(value) || value.length < 1 || value.length > 32)
+    throw new Error(`${path} must be a non-empty bounded array`);
+  const entries = value.map((entry, index) =>
+    nonemptyString(entry, `${path}[${index}]`),
+  );
+  if (new Set(entries).size !== entries.length)
+    throw new Error(`${path} must not contain duplicates`);
+  return Object.freeze(entries);
+}
+
 const root = object(CONTRACT, "contract");
 const limits = object(root.limits, "contract.limits");
+const vocabularies = object(root.vocabularies, "contract.vocabularies");
 const abuse = object(
   root.public_abuse_controls,
   "contract.public_abuse_controls",
+);
+const aggregate = object(
+  root.community_aggregate_release,
+  "contract.community_aggregate_release",
 );
 
 export const PUBLIC_REQUEST_BYTES = positiveInteger(
   limits.public_request_bytes,
   "contract.limits.public_request_bytes",
   10 * 1024 * 1024,
+);
+
+export const PUBLIC_PARTY_DECISIONS = positiveInteger(
+  limits.party_decisions,
+  "contract.limits.party_decisions",
+  100,
+);
+
+export const PUBLIC_LABEL_VOCABULARIES: PublicLabelVocabularies = Object.freeze(
+  {
+    leaning: vocabulary(vocabularies.leaning, "contract.vocabularies.leaning"),
+    russiaStance: vocabulary(
+      vocabularies.russia_stance,
+      "contract.vocabularies.russia_stance",
+    ),
+    partyTone: vocabulary(
+      vocabularies.party_tone,
+      "contract.vocabularies.party_tone",
+    ),
+  },
 );
 
 const parsedAbusePolicy: PublicAbusePolicy = {
@@ -139,3 +188,33 @@ if (
 
 export const PUBLIC_ABUSE_POLICY: PublicAbusePolicy =
   Object.freeze(parsedAbusePolicy);
+
+const strongAgreementFraction = aggregate.strong_agreement_fraction;
+if (typeof aggregate.public_distribution_enabled !== "boolean")
+  throw new Error(
+    "contract community public distribution flag must be boolean",
+  );
+if (
+  typeof strongAgreementFraction !== "number" ||
+  !Number.isFinite(strongAgreementFraction) ||
+  strongAgreementFraction <= 0 ||
+  strongAgreementFraction > 1
+)
+  throw new Error(
+    "contract community strong agreement fraction must be in (0, 1]",
+  );
+
+export const PUBLIC_AGGREGATE_POLICY: PublicAggregatePolicy = Object.freeze({
+  publicDistributionEnabled: aggregate.public_distribution_enabled,
+  minimumValidSubmissions: positiveInteger(
+    aggregate.minimum_valid_submissions,
+    "contract.community_aggregate_release.minimum_valid_submissions",
+    1_000_000,
+  ),
+  minimumDistinctBrowserBuckets: positiveInteger(
+    aggregate.minimum_distinct_browser_buckets,
+    "contract.community_aggregate_release.minimum_distinct_browser_buckets",
+    1_000_000,
+  ),
+  strongAgreementFraction,
+});

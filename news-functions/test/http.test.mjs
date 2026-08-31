@@ -410,7 +410,12 @@ test("valid submissions verify Turnstile before deriving anonymous abuse keys", 
         },
       },
     }),
-    onPreparedSubmission: (context) => prepared.push(context),
+    store: {
+      async submit(input) {
+        prepared.push(input.abuse);
+        return { kind: "task_unavailable" };
+      },
+    },
   };
   const request = {
     method: "POST",
@@ -423,7 +428,7 @@ test("valid submissions verify Turnstile before deriving anonymous abuse keys", 
     body: structuredClone(validSubmission),
   };
   const result = await invokeAsync(request, runtimeConfig);
-  assertSafeError(result, 503, "service_unavailable");
+  assertSafeError(result, 409, "task_unavailable");
   assert.equal(prepared.length, 1);
   assert.equal(prepared[0].day, "2026-08-31");
   assert.doesNotMatch(
@@ -543,8 +548,10 @@ test("clock, lazy security, and submission failures keep stable boundaries", asy
     securedConfig(
       { kind: "valid" },
       {
-        onPreparedSubmission: async () => {
-          throw new Error("storage detail");
+        store: {
+          submit: async () => {
+            throw new Error("storage detail");
+          },
         },
       },
     ),
@@ -579,4 +586,122 @@ test("security telemetry is bounded and never receives request identifiers", asy
     JSON.stringify(recorded),
     /fixture-token|fixture-browser|fixture-stale|Материалът/,
   );
+});
+
+test("submission transaction outcomes map to stable public responses", async () => {
+  const request = {
+    method: "POST",
+    path: "/api/news-evals/submit",
+    headers: { "content-type": "application/json" },
+    body: structuredClone(validSubmission),
+  };
+  const receipt = {
+    submission_id: "submission-1",
+    status: "raw",
+    article_key: validSubmission.article_key,
+    task_revision: validSubmission.base_task_revision,
+    submitted_at: "2026-08-31T10:15:00.000Z",
+    evaluation: validSubmission.evaluation,
+    model_labels: {
+      leaning: "neutral",
+      russia_stance: "not_applicable",
+      party_tones: [],
+    },
+  };
+  for (const [outcome, status, code] of [
+    [{ kind: "task_not_found" }, 404, "task_not_found"],
+    [{ kind: "task_unavailable" }, 409, "task_unavailable"],
+    [{ kind: "task_conflict", currentRevision: 5 }, 409, "stale_task"],
+    [{ kind: "invalid_evaluation" }, 422, "invalid_evaluation"],
+    [{ kind: "idempotency_conflict" }, 409, "idempotency_conflict"],
+    [{ kind: "duplicate_article_revision" }, 409, "duplicate_submission"],
+    [
+      { kind: "rate_limited", scope: "browser", retryAfterSeconds: 12_345 },
+      429,
+      "rate_limited",
+    ],
+  ]) {
+    const result = await invokeAsync(
+      request,
+      securedConfig(
+        { kind: "valid" },
+        { store: { submit: async () => outcome } },
+      ),
+    );
+    assertSafeError(result, status, code);
+    if (code === "stale_task")
+      assert.equal(result.json.error.current_revision, 5);
+    if (code === "rate_limited")
+      assert.equal(result.headers.get("retry-after"), "12345");
+  }
+
+  for (const [created, status, idempotent] of [
+    [true, 201, false],
+    [false, 200, true],
+  ]) {
+    const result = await invokeAsync(
+      request,
+      securedConfig(
+        { kind: "valid" },
+        {
+          store: {
+            submit: async () => ({
+              kind: "accepted",
+              created,
+              receipt,
+            }),
+          },
+        },
+      ),
+    );
+    assert.equal(result.status, status);
+    assert.equal(result.json.idempotent, idempotent);
+    assert.equal(result.json.submission.submission_id, "submission-1");
+    assert.equal(result.headers.get("cache-control"), "no-store");
+  }
+});
+
+test("aggregate reads never expose withheld distributions", async () => {
+  const request = {
+    method: "GET",
+    path: "/api/news-evals/aggregate/example.bg/article-1",
+    headers: { origin: "https://news.electionsbg.com" },
+  };
+  const withheld = await invokeAsync(request, {
+    ...config,
+    store: {
+      aggregate: async ({ articleKey }) => ({
+        kind: "withheld",
+        articleKey,
+        taskRevision: 4,
+        validSubmissionCount: 500,
+      }),
+    },
+  });
+  assert.equal(withheld.status, 200);
+  assert.deepEqual(withheld.json, {
+    article_key: "example.bg/article-1",
+    task_revision: 4,
+    state: "more_evaluations_needed",
+    public_distribution: false,
+  });
+  assert.doesNotMatch(withheld.body, /500|counts|submission_id/);
+  assert.equal(withheld.headers.get("cache-control"), "no-store");
+
+  const missing = await invokeAsync(request, {
+    ...config,
+    store: { aggregate: async () => ({ kind: "task_not_found" }) },
+  });
+  assertSafeError(missing, 404, "task_not_found");
+
+  const failed = await invokeAsync(request, {
+    ...config,
+    store: {
+      aggregate: async () => {
+        throw new Error("database detail");
+      },
+    },
+  });
+  assertSafeError(failed, 503, "service_unavailable");
+  assert.doesNotMatch(failed.body, /database detail/);
 });

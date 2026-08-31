@@ -15,6 +15,11 @@ import {
   type SecurityEvent,
   type SecurityMetrics,
 } from "./security.js";
+import type {
+  AggregateOutcome,
+  EvaluationStore,
+  SubmitOutcome,
+} from "./storage.js";
 import type { TurnstileVerifier } from "./turnstile.js";
 import type { TurnstileVerification } from "./turnstile.js";
 
@@ -45,8 +50,8 @@ export type HttpConfig = {
   }>;
   attemptLimiter?: AttemptLimiter;
   metrics?: SecurityMetrics;
+  store?: EvaluationStore;
   clock?: Clock;
-  onPreparedSubmission?(context: AbuseContext): void | Promise<void>;
 };
 
 type Route =
@@ -137,6 +142,10 @@ function error(
   message: string,
 ): void {
   response.status(status).send(JSON.stringify({ error: { code, message } }));
+}
+
+function json(response: ResponseLike, status: number, payload: unknown): void {
+  response.status(status).send(JSON.stringify(payload));
 }
 
 function setBaseHeaders(response: ResponseLike): void {
@@ -358,8 +367,24 @@ async function processSubmission(
     return;
   }
 
+  const store = config.store;
+  if (!store) {
+    recordMetric(metrics, "configuration_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+  let outcome: SubmitOutcome;
   try {
-    await config.onPreparedSubmission?.(abuseContext);
+    outcome = await store.submit({
+      request: requestBody,
+      abuse: abuseContext,
+      now,
+    });
   } catch {
     recordMetric(metrics, "submission_unavailable");
     error(
@@ -370,12 +395,141 @@ async function processSubmission(
     );
     return;
   }
-  error(
-    response,
-    503,
-    "service_unavailable",
-    "Evaluation submission is not enabled yet.",
-  );
+  switch (outcome.kind) {
+    case "accepted":
+      json(response, outcome.created ? 201 : 200, {
+        submission: outcome.receipt,
+        idempotent: !outcome.created,
+      });
+      return;
+    case "task_not_found":
+      error(
+        response,
+        404,
+        "task_not_found",
+        "This evaluation task was not found.",
+      );
+      return;
+    case "task_unavailable":
+      error(
+        response,
+        409,
+        "task_unavailable",
+        "This evaluation task is not accepting submissions.",
+      );
+      return;
+    case "task_conflict":
+      json(response, 409, {
+        error: {
+          code: "stale_task",
+          message: "The article analysis changed. Reload before evaluating it.",
+          current_revision: outcome.currentRevision,
+        },
+      });
+      return;
+    case "invalid_evaluation":
+      error(
+        response,
+        422,
+        "invalid_evaluation",
+        "The evaluation is inconsistent with the active task.",
+      );
+      return;
+    case "idempotency_conflict":
+      error(
+        response,
+        409,
+        "idempotency_conflict",
+        "This idempotency key was already used for another request.",
+      );
+      return;
+    case "duplicate_article_revision":
+      error(
+        response,
+        409,
+        "duplicate_submission",
+        "This browser already evaluated this article revision.",
+      );
+      return;
+    case "rate_limited":
+      response.set("Retry-After", String(outcome.retryAfterSeconds));
+      error(
+        response,
+        429,
+        "rate_limited",
+        "The anonymous evaluation limit was reached. Please try later.",
+      );
+  }
+}
+
+async function processAggregate(
+  route: Extract<Route, { kind: "aggregate" }>,
+  response: ResponseLike,
+  config: HttpConfig,
+): Promise<void> {
+  const store = config.store;
+  if (!store) {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Community aggregates are not enabled yet.",
+    );
+    return;
+  }
+  let now: Date;
+  try {
+    now = (config.clock ?? systemClock).now();
+    if (!Number.isFinite(now.getTime())) throw new Error("invalid clock");
+  } catch {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Community aggregates are temporarily unavailable.",
+    );
+    return;
+  }
+  let outcome: AggregateOutcome;
+  try {
+    outcome = await store.aggregate({
+      articleKey: `${route.domain}/${route.articleId}`,
+      now,
+    });
+  } catch {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Community aggregates are temporarily unavailable.",
+    );
+    return;
+  }
+  if (outcome.kind === "task_not_found") {
+    error(
+      response,
+      404,
+      "task_not_found",
+      "This evaluation task was not found.",
+    );
+    return;
+  }
+  if (outcome.kind === "withheld") {
+    json(response, 200, {
+      article_key: outcome.articleKey,
+      task_revision: outcome.taskRevision,
+      state: "more_evaluations_needed",
+      public_distribution: false,
+    });
+    return;
+  }
+  json(response, 200, {
+    article_key: outcome.articleKey,
+    task_revision: outcome.taskRevision,
+    state: "released",
+    public_distribution: true,
+    aggregate: outcome.aggregate,
+  });
 }
 
 export function allowedOrigins(
@@ -458,13 +612,16 @@ export function handleNewsEvalsRequest(
       );
       return;
     }
-    error(
-      response,
-      503,
-      "service_unavailable",
-      "Community aggregates are not enabled yet.",
-    );
-    return;
+    if (!config.store) {
+      error(
+        response,
+        503,
+        "service_unavailable",
+        "Community aggregates are not enabled yet.",
+      );
+      return;
+    }
+    return processAggregate(route, response, config);
   }
 
   const [mediaType = ""] = (header(request, "content-type") ?? "").split(

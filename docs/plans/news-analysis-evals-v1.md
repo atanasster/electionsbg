@@ -232,15 +232,19 @@ news_eval_abuse/{abuseRef}
 
 news_eval_dedupe/{opaqueLookupKey}
   kind: idempotency | browser_article_revision
-  key_version, request_fingerprint, submission_id
+  key_version, submission_id; request_fingerprint only for idempotency
   article_key + task_revision only on the article-scoped tombstone
   created_at; deliberately no expires_at / TTL
 
 news_eval_aggregates/{articleKeyEncoded}
   valid_submission_count, distinct_browser_count
-  per-axis label counts, party-pair/tone counts
+  per-axis label counts, party_pair_count
   model_disagreement_count, updated_at
   public_distribution_enabled: false until an independent diversity signal is proven
+
+news_eval_party_aggregates/{articleKeyEncoded--taskRevision--partyKeyHash}
+  article_key, task_revision, task-backed canonical party key + display snapshot
+  four-value tone_counts, updated_at
 
 news_eval_rate/{rotatingAbuseKey}
   scope: global | browser, day, submission_count, expires_at
@@ -332,12 +336,22 @@ the browser is not protection. The function verifies hostname/action, exact arti
 payload limits, task/content revision, label schema and abuse limits before writing anything.
 
 The submission transaction reads the active task and rotating rate documents, refuses duplicates,
-appends one raw submission and increments bounded aggregate counters. A changed task revision
-returns `409` so the visitor reloads the current article rather than evaluating an old analysis.
+appends one raw submission and increments bounded aggregate counters. Party counters are stored in
+fixed-size, task-revision-scoped party documents so user-supplied party surfaces cannot grow the
+single per-article aggregate toward Firestore's document limit. Only identities already present in
+the trusted task snapshot get an online shard; visitor-added parties remain in the bounded raw
+submission for offline review. Model labels are projected through an explicit vocabulary/field
+allowlist before storage or a public receipt. A changed task revision returns `409` so the visitor
+reloads the current article rather than evaluating an old analysis; a newly active revision starts
+a fresh current aggregate materialization. Persistent daily-limit responses identify the actual
+next UTC-day reset rather than advertising the one-minute Siteverify-attempt window.
 
-`aggregate` returns counts only after the public threshold in section 6.4 is met. It never returns
-individual notes, abuse hashes, submission IDs or low-sample distributions. Operator review and
-adjudication use local Admin-SDK scripts, not a public HTTP endpoint.
+`aggregate` currently returns only a generic “more evaluations needed” state. Public counts and
+distributions remain contract-disabled even above the numeric threshold because a resettable
+browser nonce is not evidence of independent evaluators. A future release requires both an
+explicit contract flag and a trustworthy independent diversity signal, plus bounded reads for the
+party shards. It never returns individual notes, abuse hashes or submission IDs. Operator review
+and adjudication use local Admin-SDK scripts, not a public HTTP endpoint.
 
 The API applies the same label, party-coverage and evidence validation as the Python pipeline.
 Put shared JSON Schema fixtures under a language-neutral directory and run parity tests against
