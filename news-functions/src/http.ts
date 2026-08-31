@@ -171,9 +171,23 @@ function applyCors(
 }
 
 function requestSize(request: RequestLike): number {
-  if (request.rawBody) return request.rawBody.byteLength;
+  if (request.rawBody !== undefined) return request.rawBody.byteLength;
   try {
     const serialized = JSON.stringify(request.body);
+    const method = (request.method ?? "GET").toUpperCase();
+    const contentLength = header(request, "content-length")?.trim();
+    const transferEncoding = header(request, "transfer-encoding")?.trim();
+    if (
+      (method === "GET" || method === "HEAD" || method === "OPTIONS") &&
+      serialized === "{}" &&
+      (contentLength === undefined || /^0+$/.test(contentLength)) &&
+      !transferEncoding
+    ) {
+      // Firebase's Express adapter synthesizes `body: {}` for requests that
+      // arrived without a body. Only treat that exact, undeclared shape as
+      // empty; a raw or transfer-encoded body still follows the byte gate.
+      return 0;
+    }
     return serialized === undefined ? 0 : Buffer.byteLength(serialized, "utf8");
   } catch {
     return MAX_REQUEST_BYTES + 1;

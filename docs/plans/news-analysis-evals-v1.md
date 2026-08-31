@@ -700,7 +700,13 @@ until the effective-analysis reconciliation gate exists.
 3. Implement server-side Turnstile verification, versioned-HMAC rate limits, idempotency and
    abuse-metadata retention.
 4. Implement transactional submission/dedupe/aggregate writes and thresholded aggregate reads.
-5. Add Firestore/functions emulator tests with fake Turnstile and clock/HMAC adapters.
+5. Add Firestore/functions emulator tests with fake Turnstile and clock/HMAC adapters. Use a
+   separate `demo-*` Hosting → Function → Firestore configuration whose wrapper has no production
+   secret declarations, and gate route, byte-limit, persistence/privacy, idempotency, aggregate
+   withholding and deny-all browser-rule behavior. Keep pure-handler CORS assertions because the
+   Firebase CLI debug wrapper reflects foreign preflights before application code; require the
+   corresponding foreign actual request to fail at the application origin gate. Treat malformed
+   JSON as a platform-level `400` because Firebase's parser runs before the handler.
 6. Add local Admin-SDK export/review/promotion commands; expose no adjudication HTTP endpoint.
 
 ### Phase 2 — task sync and public UI
@@ -805,6 +811,7 @@ npm run build:news
 npm run news:perf:gate
 npm run news:release:gate
 npm --prefix news-functions test
+npm run news:evals:test:emulator
 ```
 
 ## 12. Definition of done

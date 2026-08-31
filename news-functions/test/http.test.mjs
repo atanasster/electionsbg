@@ -305,6 +305,49 @@ test("all recognized routes enforce the exact public request byte boundary", () 
   );
 });
 
+test("framework-synthesized empty GET bodies remain bodyless", async () => {
+  const path = "/api/news-evals/aggregate/example.bg/article-1";
+  for (const headers of [{}, { "content-length": "0" }]) {
+    const result = await invokeAsync(
+      { method: "GET", path, headers, body: {} },
+      {
+        ...config,
+        store: {
+          aggregate: async ({ articleKey }) => ({
+            kind: "withheld",
+            articleKey,
+            taskRevision: 1,
+            validSubmissionCount: 0,
+          }),
+        },
+      },
+    );
+    assert.equal(result.status, 200);
+    assert.equal(result.json.state, "more_evaluations_needed");
+  }
+
+  assertSafeError(
+    invoke({
+      method: "GET",
+      path,
+      headers: { "content-length": "2" },
+      body: {},
+    }),
+    400,
+    "unexpected_body",
+  );
+  assertSafeError(
+    invoke({
+      method: "GET",
+      path,
+      headers: { "transfer-encoding": "chunked" },
+      body: {},
+    }),
+    400,
+    "unexpected_body",
+  );
+});
+
 test("submit rejects media type, body shape, and schema before storage", () => {
   assertSafeError(
     submit({ headers: { "content-type": "text/plain" } }),

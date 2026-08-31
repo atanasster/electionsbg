@@ -1,0 +1,11 @@
+{
+  "name": "naiasno-news-evals-emulator-wrapper",
+  "private": true,
+  "main": "index.js",
+  "type": "module",
+  "engines": { "node": "22" },
+  "dependencies": {
+    "firebase-admin": "^13.0.0",
+    "firebase-functions": "^7.2.5"
+  }
+}

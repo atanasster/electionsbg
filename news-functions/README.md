@@ -53,12 +53,41 @@ per-instance Siteverify-attempt limit retains its one-minute retry window.
 ```bash
 npm run news:evals:test
 npm run emulator:news:evals
+npm run news:evals:test:emulator
 ```
 
-The emulator command uses `firebase.news-evals.json`, which contains only this source. Firebase
-does not filter emulator sources by a `functions:codebase` suffix, so do not substitute the shared
-root `firebase.json`. The main and AI emulators have their own isolated configs for the same
-reason.
+The interactive command and integration gate use `firebase.news-evals-emulator.json`, a demo-only
+Hosting → Function → Firestore stack. Its separate `news-functions/emulator-package` wrapper binds
+deterministic fake Turnstile, clock and HMAC adapters only when all three guards hold:
+`NEWS_EVAL_EMULATOR_ADAPTERS=true`, `FUNCTIONS_EMULATOR=true`, and a `demo-*` project ID. The
+wrapper declares no production secrets. Production deploys continue to use
+`firebase.news-evals.json` and `news-functions/src/index.ts`, where both Secret Manager values are
+mandatory. Never deploy with the emulator config.
+
+All news-eval Firebase scripts invoke the exactly pinned `firebase-tools@15.18.0`; CI installs that
+same version and the isolated `news-functions/package-lock.json` before running them. This keeps
+the debug CORS and body-parser behavior exercised locally identical to the CI gate.
+
+Firebase does not filter emulator sources by a `functions:codebase` suffix, so do not substitute
+the shared root `firebase.json`. The main and AI emulators have their own isolated configs for the
+same reason.
+
+The integration gate seeds Firestore through the Admin SDK, sends real requests through Hosting,
+and verifies route near-misses, exact request-size limits, challenge failure, stale revisions,
+accepted/idempotent/duplicate submissions, stored-data privacy, withheld aggregates and deny-all
+browser rules. Two emulator framework behaviors sit outside the handler:
+
+- the Firebase CLI's debug CORS wrapper answers a true foreign `OPTIONS` request with a reflected
+  origin; the gate therefore proves that the corresponding foreign `POST` still reaches the
+  application's origin check and is rejected. Pure handler tests pin the intended production
+  preflight response: `403` with no allow-origin header;
+- malformed JSON is rejected by Firebase's Express body parser before the handler runs. The
+  integration gate pins the platform-level `400`, while pure handler tests own the stable JSON
+  errors for requests that reach application code.
+
+These are emulator observations, not permission to widen CORS or expose parser details. The gate
+also deliberately keeps IP-derived controls disabled: local forwarding behavior does not prove
+the production Hosting proxy's trusted client-address source.
 
 ## One-time Firestore provisioning
 
@@ -125,10 +154,11 @@ Preflight responses remain ordinary HTTP `no-store`, while `Access-Control-Max-A
 browsers to cache the fixed, uncredentialed CORS permission for ten minutes. This does not cache an
 API response or widen the exact origin allowlist.
 
-The P1.5 emulator gate must exercise actual requests through Firebase Hosting—not only the pure
-handler—including malformed JSON, route near-misses, rejected preflight origins, the 65,536/65,537
-byte boundary, forwarded paths, and final cache/CORS/content-type headers. Storage must remain
-closed until that integration gate passes.
+The P1.5 emulator gate exercises actual requests through Firebase Hosting—not only the pure
+handler—including malformed JSON, route near-misses, a foreign-origin preflight and rejected
+actual request, the 65,536/65,537 byte boundary, forwarded paths, final
+cache/CORS/content-type headers, persistence and Firestore rules. It must remain green before any
+public rollout.
 
 Never run bare `firebase deploy --only functions` from the shared root configuration. It includes
 multiple codebases and can deploy them to the wrong project. Use only the project- and

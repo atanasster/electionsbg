@@ -51,7 +51,7 @@ jobs:
         run: npx playwright install-deps chromium
 
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: npm install -g firebase-tools@15.18.0
 
       - name: Lint
         run: npm run lint
@@ -67,6 +67,19 @@ jobs:
       # redirect parser are tested only on a developer's machine.
       - name: Cloud Function tests
         run: npm run functions:test
+
+      # The public evaluator has an isolated Node package plus a real
+      # Hosting -> Function -> Firestore boundary gate. The latter uses a
+      # demo-* project and guarded fake security adapters; it cannot reach
+      # production services or load production secrets.
+      - name: Install news evaluation Function dependencies
+        run: npm --prefix news-functions ci
+
+      - name: News evaluation Function tests
+        run: npm run news:evals:test
+
+      - name: News evaluation emulator integration
+        run: npm run news:evals:test:emulator
 
       # The webServer config in playwright.config.ts boots `firebase
       # emulators:start --only hosting`, which serves dist/. So the dist

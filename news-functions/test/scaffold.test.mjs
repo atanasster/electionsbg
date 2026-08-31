@@ -31,7 +31,35 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
     scripts["deploy:news:evals:public-route"],
     "npm run deploy:news:evals && npm run deploy:news",
   );
-  assert.match(scripts["emulator:news:evals"], /-P news/);
+  assert.match(scripts["emulator:news:evals"], /--project demo-news-evals/);
+  assert.match(
+    scripts["emulator:news:evals"],
+    /--only functions,firestore,hosting/,
+  );
+  assert.match(scripts["news:evals:test:emulator"], /demo-news-evals/);
+  assert.match(
+    scripts["news:evals:test:emulator"],
+    /NEWS_EVAL_EMULATOR_ADAPTERS=true/,
+  );
+  for (const scriptName of [
+    "deploy:news:evals",
+    "deploy:news:evals:rules",
+    "emulator:news:evals",
+    "news:evals:test:emulator",
+    "news:evals:firestore:list",
+    "provision:news:evals:firestore",
+    "configure:news:evals:secrets",
+  ]) {
+    assert.match(scripts[scriptName], /npx --yes firebase-tools@15\.18\.0/);
+  }
+
+  const workflow = readFileSync(
+    resolve(ROOT, ".github/workflows/test.yml"),
+    "utf8",
+  );
+  const nestedInstall = workflow.indexOf("npm --prefix news-functions ci");
+  const nestedTests = workflow.indexOf("npm run news:evals:test");
+  assert.ok(nestedInstall >= 0 && nestedInstall < nestedTests);
 
   const newsHosting = firebase.hosting.find((entry) => entry.target === "news");
   assert.deepEqual(newsHosting.rewrites[0], {
@@ -53,7 +81,11 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
   const emulatorBoundaries = [
     ["emulator", "firebase.main-functions.json", ["functions"]],
     ["emulator:ai", "firebase.ai-functions.json", ["functions"]],
-    ["emulator:news:evals", "firebase.news-evals.json", ["news-functions"]],
+    [
+      "emulator:news:evals",
+      "firebase.news-evals-emulator.json",
+      ["news-functions/emulator-package"],
+    ],
   ];
   for (const [scriptName, configName, expectedSources] of emulatorBoundaries) {
     assert.match(scripts[scriptName], new RegExp(`--config ${configName}`));
@@ -63,6 +95,24 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
       expectedSources,
     );
   }
+  const isolated = readJson("firebase.news-evals-emulator.json");
+  assert.equal(isolated.functions[0].codebase, "news-evals-emulator");
+  assert.equal(isolated.hosting.public, "news-functions/emulator-public");
+  assert.deepEqual(isolated.hosting.rewrites, [
+    {
+      source: "/api/news-evals/**",
+      function: { functionId: "newsEvals", region: "europe-west3" },
+    },
+  ]);
+  assert.equal(isolated.emulators.hosting.port, 5002);
+
+  const production = readJson("firebase.news-evals.json");
+  assert.equal(production.functions[0].source, "news-functions");
+  assert.equal("hosting" in production, false);
+  assert.doesNotMatch(
+    scripts["deploy:news:evals"],
+    /firebase\.news-evals-emulator\.json|demo-news-evals/,
+  );
 });
 
 test("Firestore remains closed to every browser read and write", () => {
@@ -129,6 +179,16 @@ test("only the isolated Function binds the two eval secrets", () => {
       `${path} must not receive news-eval secrets`,
     );
   }
+
+  const emulatorWrapper = readFileSync(
+    resolve(ROOT, "news-functions/emulator-package/index.js"),
+    "utf8",
+  );
+  assert.match(emulatorWrapper, /emulatorAdapters/);
+  assert.doesNotMatch(
+    emulatorWrapper,
+    /define(?:Json)?Secret|NEWS_EVAL_(?:TURNSTILE_SECRET|HMAC_KEYRING)/,
+  );
 });
 
 test("the deployed schema copy is byte-identical to the shared contract", () => {

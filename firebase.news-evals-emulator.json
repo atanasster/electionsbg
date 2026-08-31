@@ -1,0 +1,35 @@
+{
+  "functions": [
+    {
+      "source": "news-functions/emulator-package",
+      "codebase": "news-evals-emulator",
+      "runtime": "nodejs22"
+    }
+  ],
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": {
+    "public": "news-functions/emulator-public",
+    "ignore": ["**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/news-evals/**",
+        "function": { "functionId": "newsEvals", "region": "europe-west3" }
+      }
+    ],
+    "headers": [
+      {
+        "source": "/api/news-evals/**",
+        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      }
+    ]
+  },
+  "emulators": {
+    "hosting": { "port": 5002 },
+    "functions": { "port": 5001 },
+    "firestore": { "port": 8080 },
+    "ui": { "enabled": false },
+    "singleProjectMode": true
+  }
+}
