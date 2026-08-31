@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { FixedWindowAttemptLimiter, parseHmacKeyring } from "../lib/abuse.js";
 import { allowedOrigins, handleNewsEvalsRequest } from "../lib/http.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -20,8 +21,26 @@ const publicRequestBytes = JSON.parse(
 const config = {
   allowedOrigins: new Set(["https://news.electionsbg.com"]),
 };
+const testKeyring = parseHmacKeyring({
+  active: "v1",
+  keys: {
+    v1: "test-only HMAC secret with at least thirty-two bytes",
+  },
+});
 
-function invoke(request, initialHeaders = {}) {
+function securedConfig(verification, overrides = {}) {
+  return {
+    ...config,
+    attemptLimiter: new FixedWindowAttemptLimiter(120),
+    security: () => ({
+      hmacKeyring: testKeyring,
+      turnstileVerifier: { verify: async () => verification },
+    }),
+    ...overrides,
+  };
+}
+
+function beginInvoke(request, initialHeaders = {}, runtimeConfig = config) {
   const headers = new Map(
     Object.entries(initialHeaders).map(([name, value]) => [
       name.toLowerCase(),
@@ -55,13 +74,28 @@ function invoke(request, initialHeaders = {}) {
       body = value;
     },
   };
-  handleNewsEvalsRequest(request, response, config);
+  const completion = handleNewsEvalsRequest(request, response, runtimeConfig);
   return {
-    status,
-    headers,
-    body,
-    json: body ? JSON.parse(body) : undefined,
+    completion,
+    finish: () => ({
+      status,
+      headers,
+      body,
+      json: body ? JSON.parse(body) : undefined,
+    }),
   };
+}
+
+function invoke(request, initialHeaders = {}) {
+  const invocation = beginInvoke(request, initialHeaders);
+  assert.equal(invocation.completion, undefined);
+  return invocation.finish();
+}
+
+async function invokeAsync(request, runtimeConfig, initialHeaders = {}) {
+  const invocation = beginInvoke(request, initialHeaders, runtimeConfig);
+  await invocation.completion;
+  return invocation.finish();
 }
 
 function submit(overrides = {}) {
@@ -300,7 +334,249 @@ test("legal JSON outside the canonical subset returns a stable 422", () => {
   }
 });
 
+test("the whole canonical subset is rejected before Turnstile", async () => {
+  let verificationCalls = 0;
+  const runtimeConfig = securedConfig(
+    { kind: "valid" },
+    {
+      security: () => ({
+        hmacKeyring: testKeyring,
+        turnstileVerifier: {
+          verify: async () => {
+            verificationCalls += 1;
+            return { kind: "valid" };
+          },
+        },
+      }),
+    },
+  );
+  const mutations = [
+    (body) => {
+      body.evaluation.leaning.evidence = JSON.parse('"\\ud800"');
+    },
+    (body) => {
+      body.evaluation.public_note = JSON.parse('"\\udfff"');
+    },
+    (body) => {
+      body.evaluation.party_tones.push({
+        party: JSON.parse('"\\ud800"'),
+        party_id: null,
+        tone: "neutral",
+        evidence: "Конкретна фактическа основа.",
+        reason_codes: [],
+      });
+    },
+    (body) => {
+      body.base_task_revision = Number.MAX_SAFE_INTEGER + 1;
+    },
+  ];
+  for (const mutate of mutations) {
+    const body = structuredClone(validSubmission);
+    mutate(body);
+    const result = await invokeAsync(
+      {
+        method: "POST",
+        path: "/api/news-evals/submit",
+        headers: { "content-type": "application/json" },
+        body,
+      },
+      runtimeConfig,
+    );
+    assertSafeError(result, 422, "invalid_request");
+  }
+  assert.equal(verificationCalls, 0);
+});
+
 test("a schema-valid submission remains storage-closed", () => {
   const result = submit();
   assertSafeError(result, 503, "service_unavailable");
+});
+
+test("valid submissions verify Turnstile before deriving anonymous abuse keys", async () => {
+  const prepared = [];
+  const fixedClock = { now: () => new Date("2026-08-31T10:15:00.000Z") };
+  const runtimeConfig = {
+    ...config,
+    clock: fixedClock,
+    attemptLimiter: new FixedWindowAttemptLimiter(120),
+    security: () => ({
+      hmacKeyring: testKeyring,
+      turnstileVerifier: {
+        async verify(input) {
+          assert.equal(input.token, "fixture-token");
+          assert.equal(input.remoteIp, null);
+          assert.deepEqual(input.now, fixedClock.now());
+          return { kind: "valid" };
+        },
+      },
+    }),
+    onPreparedSubmission: (context) => prepared.push(context),
+  };
+  const request = {
+    method: "POST",
+    path: "/api/news-evals/submit",
+    headers: {
+      origin: "https://news.electionsbg.com",
+      "content-type": "application/json",
+      "x-forwarded-for": "198.51.100.5",
+    },
+    body: structuredClone(validSubmission),
+  };
+  const result = await invokeAsync(request, runtimeConfig);
+  assertSafeError(result, 503, "service_unavailable");
+  assert.equal(prepared.length, 1);
+  assert.equal(prepared[0].day, "2026-08-31");
+  assert.doesNotMatch(
+    JSON.stringify(prepared[0]),
+    /192\.0\.2\.10|198\.51\.100\.5|fixture-browser|fixture-stale/,
+  );
+});
+
+test("Turnstile rejection and outage return stable non-leaking errors", async () => {
+  for (const [verification, status, code] of [
+    [{ kind: "invalid", reason: "provider_rejected" }, 422, "challenge_failed"],
+    [{ kind: "unavailable", reason: "network" }, 503, "challenge_unavailable"],
+  ]) {
+    const result = await invokeAsync(
+      {
+        method: "POST",
+        path: "/api/news-evals/submit",
+        headers: {
+          origin: "https://news.electionsbg.com",
+          "content-type": "application/json",
+        },
+        body: structuredClone(validSubmission),
+      },
+      securedConfig(verification),
+    );
+    assertSafeError(result, status, code);
+  }
+
+  const thrown = await invokeAsync(
+    {
+      method: "POST",
+      path: "/api/news-evals/submit",
+      headers: { "content-type": "application/json" },
+      body: structuredClone(validSubmission),
+    },
+    securedConfig(
+      { kind: "valid" },
+      {
+        security: () => ({
+          hmacKeyring: testKeyring,
+          turnstileVerifier: {
+            verify: async () => {
+              throw new Error("provider details must not escape");
+            },
+          },
+        }),
+      },
+    ),
+  );
+  assertSafeError(thrown, 503, "challenge_unavailable");
+  assert.doesNotMatch(thrown.body, /provider details/);
+});
+
+test("the per-instance attempt cap rejects before Siteverify", async () => {
+  let verifies = 0;
+  const result = await invokeAsync(
+    {
+      method: "POST",
+      path: "/api/news-evals/submit",
+      headers: { "content-type": "application/json" },
+      body: structuredClone(validSubmission),
+    },
+    securedConfig(
+      { kind: "valid" },
+      {
+        attemptLimiter: { allow: () => false },
+        security: () => ({
+          hmacKeyring: testKeyring,
+          turnstileVerifier: {
+            verify: async () => {
+              verifies += 1;
+              return { kind: "valid" };
+            },
+          },
+        }),
+      },
+    ),
+  );
+  assertSafeError(result, 429, "rate_limited");
+  assert.equal(result.headers.get("retry-after"), "60");
+  assert.equal(verifies, 0);
+});
+
+test("clock, lazy security, and submission failures keep stable boundaries", async () => {
+  const request = {
+    method: "POST",
+    path: "/api/news-evals/submit",
+    headers: { "content-type": "application/json" },
+    body: structuredClone(validSubmission),
+  };
+  const clockFailure = await invokeAsync(
+    request,
+    securedConfig(
+      { kind: "valid" },
+      {
+        clock: {
+          now: () => {
+            throw new Error("clock detail");
+          },
+        },
+      },
+    ),
+  );
+  assertSafeError(clockFailure, 503, "service_unavailable");
+
+  const configurationFailure = await invokeAsync(request, {
+    ...config,
+    attemptLimiter: new FixedWindowAttemptLimiter(120),
+    security: () => {
+      throw new Error("secret detail");
+    },
+  });
+  assertSafeError(configurationFailure, 503, "service_unavailable");
+
+  const storageFailure = await invokeAsync(
+    request,
+    securedConfig(
+      { kind: "valid" },
+      {
+        onPreparedSubmission: async () => {
+          throw new Error("storage detail");
+        },
+      },
+    ),
+  );
+  assertSafeError(storageFailure, 503, "service_unavailable");
+  assert.doesNotMatch(storageFailure.body, /challenge|storage detail/i);
+});
+
+test("security telemetry is bounded and never receives request identifiers", async () => {
+  const recorded = [];
+  const result = await invokeAsync(
+    {
+      method: "POST",
+      path: "/api/news-evals/submit",
+      headers: { "content-type": "application/json" },
+      body: structuredClone(validSubmission),
+    },
+    securedConfig(
+      { kind: "invalid", reason: "provider_rejected" },
+      {
+        metrics: {
+          record: (...fields) => recorded.push(fields),
+        },
+      },
+    ),
+  );
+  assertSafeError(result, 422, "challenge_failed");
+  assert.equal(recorded.length, 1);
+  assert.equal(recorded[0][0], "challenge_invalid_provider");
+  assert.equal(typeof recorded[0][1], "number");
+  assert.doesNotMatch(
+    JSON.stringify(recorded),
+    /fixture-token|fixture-browser|fixture-stale|Материалът/,
+  );
 });

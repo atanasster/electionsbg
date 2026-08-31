@@ -20,7 +20,11 @@
       "type": "string",
       "pattern": "^[^/]{1,253}/[^/]{1,255}$"
     },
-    "base_task_revision": { "type": "integer", "minimum": 1 },
+    "base_task_revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
     "content_sha256": {
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$"
@@ -33,7 +37,7 @@
       "type": "string",
       "pattern": "^[A-Za-z0-9_-]{16,128}$"
     },
-    "turnstile_token": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "turnstile_token": { "type": "string", "minLength": 1, "maxLength": 2048 },
     "browser_nonce": {
       "type": ["string", "null"],
       "pattern": "^[A-Za-z0-9_-]{16,128}$"
@@ -88,10 +92,7 @@
       "required": ["label", "evidence", "reason_codes"],
       "properties": {
         "label": {
-          "anyOf": [
-            { "$ref": "#/$defs/leaningLabel" },
-            { "type": "null" }
-          ]
+          "anyOf": [{ "$ref": "#/$defs/leaningLabel" }, { "type": "null" }]
         },
         "evidence": { "type": ["string", "null"], "maxLength": 600 },
         "reason_codes": { "$ref": "#/$defs/reasonCodes" }
@@ -104,10 +105,7 @@
       "required": ["label", "evidence", "reason_codes"],
       "properties": {
         "label": {
-          "anyOf": [
-            { "$ref": "#/$defs/russiaLabel" },
-            { "type": "null" }
-          ]
+          "anyOf": [{ "$ref": "#/$defs/russiaLabel" }, { "type": "null" }]
         },
         "evidence": { "type": ["string", "null"], "maxLength": 600 },
         "reason_codes": { "$ref": "#/$defs/reasonCodes" }
@@ -121,7 +119,9 @@
       },
       "then": {
         "properties": {
-          "reason_codes": { "contains": { "const": "insufficient_public_context" } }
+          "reason_codes": {
+            "contains": { "const": "insufficient_public_context" }
+          }
         }
       },
       "else": {

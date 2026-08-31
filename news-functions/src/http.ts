@@ -1,7 +1,22 @@
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-
+import {
+  deriveAbuseContext,
+  systemClock,
+  type AbuseContext,
+  type AttemptLimiter,
+  type Clock,
+  type HmacKeyring,
+} from "./abuse.js";
+import { PUBLIC_REQUEST_BYTES } from "./contract.js";
+import { canonicalJson } from "./eval-contract/canonical.js";
 import { validateSchema } from "./eval-contract/validate.js";
+import {
+  boundedLatency,
+  noOpSecurityMetrics,
+  type SecurityEvent,
+  type SecurityMetrics,
+} from "./security.js";
+import type { TurnstileVerifier } from "./turnstile.js";
+import type { TurnstileVerification } from "./turnstile.js";
 
 type HeaderValue = string | string[] | undefined;
 
@@ -24,6 +39,14 @@ export type ResponseLike = {
 
 export type HttpConfig = {
   allowedOrigins: ReadonlySet<string>;
+  security?(): Readonly<{
+    turnstileVerifier: TurnstileVerifier;
+    hmacKeyring: HmacKeyring;
+  }>;
+  attemptLimiter?: AttemptLimiter;
+  metrics?: SecurityMetrics;
+  clock?: Clock;
+  onPreparedSubmission?(context: AbuseContext): void | Promise<void>;
 };
 
 type Route =
@@ -37,37 +60,10 @@ type Route =
 
 const PRODUCTION_ORIGIN = "https://news.electionsbg.com";
 const LOCAL_ORIGINS = ["http://127.0.0.1:5190", "http://localhost:5190"];
-const CONTRACT = JSON.parse(
-  readFileSync(
-    fileURLToPath(new URL("./eval-contract/contract.json", import.meta.url)),
-    "utf8",
-  ),
-) as Record<string, unknown>;
-const limits = CONTRACT.limits;
-const publicRequestBytes =
-  limits !== null && typeof limits === "object"
-    ? (limits as Record<string, unknown>).public_request_bytes
-    : undefined;
-if (
-  !Number.isSafeInteger(publicRequestBytes) ||
-  (publicRequestBytes as number) < 1 ||
-  (publicRequestBytes as number) > 10 * 1024 * 1024
-)
-  throw new Error(
-    "contract limits.public_request_bytes must be a safe positive integer",
-  );
-const MAX_REQUEST_BYTES = publicRequestBytes as number;
-const SUBMISSION_SCHEMA = JSON.parse(
-  readFileSync(
-    fileURLToPath(
-      new URL(
-        "./eval-contract/submission_request.schema.json",
-        import.meta.url,
-      ),
-    ),
-    "utf8",
-  ),
-) as Record<string, unknown>;
+import submissionSchema from "./eval-contract/submission_request.schema.json" with { type: "json" };
+
+const MAX_REQUEST_BYTES = PUBLIC_REQUEST_BYTES;
+const SUBMISSION_SCHEMA = submissionSchema as Record<string, unknown>;
 
 const DOMAIN_LABEL = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 const ASCII_TLD = /^[a-z]{2,63}$/;
@@ -175,6 +171,213 @@ function requestSize(request: RequestLike): number {
   }
 }
 
+function recordMetric(
+  metrics: SecurityMetrics,
+  event: SecurityEvent,
+  latencyMilliseconds?: number,
+): void {
+  try {
+    metrics.record(event, boundedLatency(latencyMilliseconds ?? Number.NaN));
+  } catch {
+    // Telemetry must never alter a public request outcome.
+  }
+}
+
+function challengeEvent(
+  verification: Exclude<TurnstileVerification, { kind: "valid" }>,
+): SecurityEvent {
+  if (verification.kind === "invalid") {
+    switch (verification.reason) {
+      case "provider_rejected":
+        return "challenge_invalid_provider";
+      case "hostname_mismatch":
+        return "challenge_invalid_hostname";
+      case "action_mismatch":
+        return "challenge_invalid_action";
+      case "invalid_timestamp":
+        return "challenge_invalid_timestamp";
+      case "expired_timestamp":
+        return "challenge_expired";
+    }
+  }
+  switch (verification.reason) {
+    case "network":
+      return "challenge_unavailable_network";
+    case "timeout":
+      return "challenge_unavailable_timeout";
+    case "http":
+      return "challenge_unavailable_http";
+    case "provider_configuration":
+      return "challenge_unavailable_configuration";
+    case "provider_internal":
+      return "challenge_unavailable_internal";
+    case "invalid_response":
+      return "challenge_unavailable_response";
+  }
+}
+
+async function processSubmission(
+  requestBody: Record<string, unknown>,
+  response: ResponseLike,
+  config: HttpConfig,
+): Promise<void> {
+  const metrics = config.metrics ?? noOpSecurityMetrics;
+  let now: Date;
+  try {
+    now = (config.clock ?? systemClock).now();
+    if (!Number.isFinite(now.getTime())) throw new Error("invalid clock");
+  } catch {
+    recordMetric(metrics, "clock_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+
+  const attemptLimiter = config.attemptLimiter;
+  if (!attemptLimiter || !config.security) {
+    recordMetric(metrics, "configuration_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+  let attemptAllowed: boolean;
+  try {
+    attemptAllowed = attemptLimiter.allow(now);
+  } catch {
+    recordMetric(metrics, "configuration_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+  if (!attemptAllowed) {
+    recordMetric(metrics, "attempt_limited");
+    response.set("Retry-After", "60");
+    error(
+      response,
+      429,
+      "rate_limited",
+      "Too many evaluation attempts. Please try again shortly.",
+    );
+    return;
+  }
+
+  let security: ReturnType<NonNullable<HttpConfig["security"]>>;
+  try {
+    security = config.security();
+  } catch {
+    recordMetric(metrics, "configuration_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+
+  const startedAt = Date.now();
+  let verification;
+  try {
+    verification = await security.turnstileVerifier.verify({
+      token: String(requestBody.turnstile_token),
+      remoteIp: null,
+      now,
+    });
+  } catch {
+    recordMetric(
+      metrics,
+      "challenge_unavailable_network",
+      Date.now() - startedAt,
+    );
+    error(
+      response,
+      503,
+      "challenge_unavailable",
+      "The browser challenge could not be verified. Please try again.",
+    );
+    return;
+  }
+  if (verification.kind === "invalid") {
+    recordMetric(metrics, challengeEvent(verification), Date.now() - startedAt);
+    error(
+      response,
+      422,
+      "challenge_failed",
+      "The browser challenge is invalid or expired. Please try again.",
+    );
+    return;
+  }
+  if (verification.kind === "unavailable") {
+    recordMetric(metrics, challengeEvent(verification), Date.now() - startedAt);
+    error(
+      response,
+      503,
+      "challenge_unavailable",
+      "The browser challenge could not be verified. Please try again.",
+    );
+    return;
+  }
+  recordMetric(metrics, "challenge_valid", Date.now() - startedAt);
+
+  let abuseContext: AbuseContext;
+  try {
+    abuseContext = deriveAbuseContext(
+      {
+        articleKey: String(requestBody.article_key),
+        taskRevision: Number(requestBody.base_task_revision),
+        idempotencyKey: String(requestBody.idempotency_key),
+        browserNonce:
+          typeof requestBody.browser_nonce === "string"
+            ? requestBody.browser_nonce
+            : null,
+        semanticRequest: requestBody,
+        now,
+      },
+      security.hmacKeyring,
+    );
+  } catch {
+    recordMetric(metrics, "abuse_context_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+
+  try {
+    await config.onPreparedSubmission?.(abuseContext);
+  } catch {
+    recordMetric(metrics, "submission_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+  error(
+    response,
+    503,
+    "service_unavailable",
+    "Evaluation submission is not enabled yet.",
+  );
+}
+
 export function allowedOrigins(
   environment: NodeJS.ProcessEnv = process.env,
 ): ReadonlySet<string> {
@@ -206,7 +409,7 @@ export function handleNewsEvalsRequest(
   request: RequestLike,
   response: ResponseLike,
   config: HttpConfig = { allowedOrigins: allowedOrigins() },
-): void {
+): void | Promise<void> {
   setBaseHeaders(response);
   const route = matchRoute(requestPath(request));
   if (!route) {
@@ -312,10 +515,31 @@ export function handleNewsEvalsRequest(
     );
     return;
   }
-  error(
-    response,
-    503,
-    "service_unavailable",
-    "Evaluation submission is not enabled yet.",
-  );
+  try {
+    canonicalJson(request.body);
+  } catch {
+    error(
+      response,
+      422,
+      "invalid_request",
+      "The request body does not match the evaluation schema.",
+    );
+    return;
+  }
+
+  const submission = request.body as Record<string, unknown>;
+  if (!config.attemptLimiter || !config.security) {
+    recordMetric(
+      config.metrics ?? noOpSecurityMetrics,
+      "configuration_unavailable",
+    );
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Evaluation submission is temporarily unavailable.",
+    );
+    return;
+  }
+  return processSubmission(submission, response, config);
 }

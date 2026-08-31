@@ -9,7 +9,31 @@ write.
 `GET /api/news-evals/aggregate/:domain/:articleId`. It enforces exact production/emulator origins,
 JSON media type, a 64 KiB request limit and the shared submission schema. Aggregate requests reject
 all bodies. Schema-valid submissions and aggregate reads still return `503` without touching
-storage until the following abuse and transaction steps are complete.
+storage until the following transaction step is complete.
+
+The submit boundary now verifies every schema-valid request with Cloudflare Siteverify on the
+server. A successful response must carry the exact `news.electionsbg.com` hostname,
+`news-evaluation-submit` action and a fresh challenge timestamp. Tokens are never logged or stored.
+The Function binds two Secret Manager values only to this codebase:
+
+- `NEWS_EVAL_TURNSTILE_SECRET` — the private Siteverify secret;
+- `NEWS_EVAL_HMAC_KEYRING` — a JSON object such as
+  `{"active":"v2","keys":{"v2":"<32+ random bytes>","v1":"<previous key>"}}`, used for
+  domain-separated anonymous abuse keys.
+
+The Function deliberately does not trust `request.ip` or forwarding headers and omits Siteverify's
+optional `remoteip`. Firebase Hosting's exact proxy chain must be proven by a P1.5 integration test
+before any IP-derived control can be proposed. A fixed per-instance minute window protects the
+Siteverify dependency itself; the persistent browser/global counters in the transaction layer are
+the anonymous submission controls. This is rate-limit friction, not authentication.
+
+Browser-day keys rotate by UTC day. Browser/article/task tombstones and idempotency records remain
+durable across days so a retry or revisit cannot mint a second effective vote for the same task
+revision. Their request fingerprint excludes the one-use Turnstile token and disposable retry keys,
+but binds every semantic evaluation field. HMAC lookup uses the active key plus retained previous
+keys. Add a new active version during normal rotation; do not drop an old version until every
+durable record using it has been migrated or intentionally retired. No raw browser nonce,
+idempotency key, evidence text or request body appears in derived keys or security metrics.
 
 ```bash
 npm run news:evals:test
@@ -32,11 +56,37 @@ npm run news:evals:firestore:list
 # Only when (default) is absent:
 npm run provision:news:evals:firestore
 npm run deploy:news:evals:rules
+npm run provision:news:evals:ttl
+npm run news:evals:ttl:list
 npm run news:evals:firestore:list
 ```
 
 The rules deploy requires the database to exist. Confirm the project shown by the CLI is
 `electionsbg-news` before creation; a database location cannot be changed later.
+The two TTL policies target the timestamp field `expires_at` in the `news_eval_abuse` and
+`news_eval_rate` collection groups. The 72-hour value is the logical online expiry; Firestore TTL
+deletion is asynchronous and typically occurs within another 24 hours, so code must stop using an
+expired document immediately. Point-in-time recovery can retain recoverable versions for up to
+seven days after deletion. Restrict PITR/restore and export IAM to operators, and make every export
+tool omit live and recovered abuse collections. Durable opaque idempotency records and
+browser/article/task tombstones live in `news_eval_dedupe` without TTL and remain excluded from
+all datasets. The provisioning command exempts TTL timestamps from single-field indexing; rate
+decisions address documents by exact key and never query by expiry.
+
+Public aggregate distributions are explicitly disabled while the only diversity hint is a
+client-resettable browser nonce. The backend may collect and aggregate for offline review, but the
+GET route must return only a “more evaluations needed” state until the contract enables release
+after a trustworthy independent diversity control is proven.
+
+Before the first Function deploy, create the two project-scoped secrets interactively:
+
+```bash
+npm run configure:news:evals:secrets
+```
+
+Enter the keyring as valid JSON. Do not put either value in `.env`, emulator output, test fixtures
+or deployment logs. Emulator tests inject fake verifier/HMAC adapters and do not need the
+production values.
 
 Routine backend deployment is explicit:
 

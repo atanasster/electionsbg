@@ -93,6 +93,42 @@ test("Firestore provisioning choices are explicit and news-project scoped", () =
   assert.match(provision, /--delete-protection=ENABLED/);
   assert.match(provision, /--point-in-time-recovery=ENABLED/);
   assert.match(provision, /-P news/);
+
+  const ttl = scripts["provision:news:evals:ttl"];
+  for (const collection of ["news_eval_abuse", "news_eval_rate"]) {
+    assert.match(ttl, new RegExp(`--collection-group=${collection}`));
+  }
+  assert.match(ttl, /expires_at/);
+  assert.match(ttl, /--database='\(default\)'/);
+  assert.match(ttl, /--enable-ttl/);
+  assert.match(ttl, /indexes fields update expires_at/);
+  assert.match(ttl, /--disable-indexes/);
+  assert.match(ttl, /--project=electionsbg-news/);
+
+  const secrets = scripts["configure:news:evals:secrets"];
+  assert.match(secrets, /NEWS_EVAL_TURNSTILE_SECRET/);
+  assert.match(secrets, /NEWS_EVAL_HMAC_KEYRING/);
+  assert.match(secrets, /firebase\.news-evals\.json/);
+  assert.match(secrets, /-P news/);
+});
+
+test("only the isolated Function binds the two eval secrets", () => {
+  const source = readFileSync(
+    resolve(ROOT, "news-functions/src/index.ts"),
+    "utf8",
+  );
+  assert.match(source, /defineSecret\(TURNSTILE_SECRET_NAME\)/);
+  assert.match(source, /defineJsonSecret\(HMAC_KEYRING_SECRET_NAME\)/);
+  assert.match(source, /secrets: \[turnstileSecret, hmacKeyringSecret\]/);
+
+  for (const path of ["functions/index.js"]) {
+    const other = readFileSync(resolve(ROOT, path), "utf8");
+    assert.doesNotMatch(
+      other,
+      /NEWS_EVAL_(?:TURNSTILE_SECRET|HMAC_KEYRING)/,
+      `${path} must not receive news-eval secrets`,
+    );
+  }
 });
 
 test("the deployed schema copy is byte-identical to the shared contract", () => {
@@ -102,4 +138,23 @@ test("the deployed schema copy is byte-identical to the shared contract", () => 
       readFileSync(resolve(ROOT, `news/eval_contract/${name}`)),
     );
   }
+  const contract = readJson("news/eval_contract/contract.json");
+  const schema = readJson("news/eval_contract/submission_request.schema.json");
+  assert.equal(
+    schema.properties.turnstile_token.maxLength,
+    contract.public_abuse_controls.turnstile_token_characters,
+  );
+  assert.equal(
+    contract.public_abuse_controls.trusted_client_ip_available,
+    false,
+  );
+  assert.equal("ip_daily_submissions" in contract.public_abuse_controls, false);
+  assert.equal(
+    contract.community_aggregate_release.public_distribution_enabled,
+    false,
+  );
+  assert.equal(
+    schema.properties.base_task_revision.maximum,
+    Number.MAX_SAFE_INTEGER,
+  );
 });

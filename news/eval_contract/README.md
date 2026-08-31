@@ -54,3 +54,16 @@ The public HTTP boundary derives its request limit from `limits.public_request_b
 recognized route above that UTF-8 byte count before route-specific handling, and rejects any body on
 aggregate GET requests. Article-key domains use lowercase ASCII DNS labels (canonical `xn--`
 punycode is supported), with the DNS label and 253-character hostname limits enforced.
+
+`public_abuse_controls` is the versioned no-login abuse policy. It fixes the expected Turnstile
+hostname/action and its official 2,048-character, five-minute token boundary, plus generous
+experimental caps. Client IP is explicitly unavailable: the Function ignores request/forwarding
+addresses and omits Siteverify `remoteip` until the Hosting proxy topology is proven. A local
+per-instance minute window protects Siteverify; browser-day and global counters provide anonymous
+friction and are neither identity nor evidence that community agreement is correct. Short-lived
+abuse/rate documents carry an `expires_at` timestamp and are excluded from every dataset export.
+Opaque idempotency bindings and browser/article/task tombstones are durable and separately excluded
+from datasets; HMAC rotation retains previous lookup keys until those records are migrated or
+retired.
+`community_aggregate_release.public_distribution_enabled` is false while browser nonce is the only
+diversity hint; sample floors are reserved for a future independently protected release gate.

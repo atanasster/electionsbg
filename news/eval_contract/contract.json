@@ -77,10 +77,26 @@
     "removed_model_parties": 30,
     "reason_codes_per_decision": 6
   },
+  "public_abuse_controls": {
+    "turnstile_action": "news-evaluation-submit",
+    "turnstile_hostname": "news.electionsbg.com",
+    "turnstile_token_characters": 2048,
+    "turnstile_timeout_milliseconds": 5000,
+    "turnstile_max_age_seconds": 300,
+    "turnstile_future_skew_seconds": 60,
+    "siteverify_attempts_per_instance_minute": 120,
+    "trusted_client_ip_available": false,
+    "browser_daily_submissions": 50,
+    "global_daily_submissions": 5000,
+    "abuse_metadata_retention_hours": 72,
+    "rate_metadata_retention_hours": 72,
+    "meaning": "Anonymous abuse friction, never evaluator identity or correctness. IP bucketing is disabled until the Firebase Hosting proxy chain is proven by integration tests."
+  },
   "community_aggregate_release": {
+    "public_distribution_enabled": false,
+    "disabled_reason": "Anonymous collection currently has only a client-resettable browser diversity hint. Public distributions remain withheld until a trustworthy independent diversity control is proven.",
     "minimum_valid_submissions": 5,
     "minimum_distinct_browser_buckets": 3,
-    "minimum_distinct_ip_day_buckets": 3,
     "strong_agreement_fraction": 0.8,
     "meaning": "community agreement, never correctness"
   },

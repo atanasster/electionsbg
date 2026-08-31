@@ -223,20 +223,27 @@ news_eval_tasks/{articleKeyEncoded}
 news_eval_submissions/{submissionId}
   schema_version, mode: community
   task identity + hashes
-  abuse_ref, submitted_at, base_task_revision, idempotency_key_hash
+  abuse_ref, submitted_at, base_task_revision
   field decisions, reason codes, optional public note
   status: raw | quarantined | reviewed | promoted
 
 news_eval_abuse/{abuseRef}
-  anonymous_browser_hash, ip_day_hash, created_at, expires_at
+  submission_id, created_at, expires_at
+
+news_eval_dedupe/{opaqueLookupKey}
+  kind: idempotency | browser_article_revision
+  key_version, request_fingerprint, submission_id
+  article_key + task_revision only on the article-scoped tombstone
+  created_at; deliberately no expires_at / TTL
 
 news_eval_aggregates/{articleKeyEncoded}
-  valid_submission_count, distinct_browser_count, distinct_ip_day_count
+  valid_submission_count, distinct_browser_count
   per-axis label counts, party-pair/tone counts
   model_disagreement_count, updated_at
+  public_distribution_enabled: false until an independent diversity signal is proven
 
 news_eval_rate/{rotatingAbuseKey}
-  day, submission_count, article_keys[]
+  scope: global | browser, day, submission_count, expires_at
 
 news_eval_adjudications/{articleKeyEncoded}
   schema_version, task identity + content hash
@@ -254,9 +261,16 @@ news_eval_datasets/{datasetId}
   required fields, answer_visibility, status, current_revision
 ```
 
-The backend never stores raw IP addresses, Turnstile tokens or raw browser IDs. Abuse keys are
-secret-keyed HMACs with short rotation periods. They are excluded from every public, research and
-gold export. A browser ID is a disposable anti-duplication hint, not a person identifier.
+The backend never stores or trusts IP addresses, forwarding headers, Turnstile tokens or raw
+browser IDs. IP bucketing stays disabled until the Firebase Hosting proxy topology is proven by an
+integration test. Abuse keys are secret-keyed, versioned HMACs and are excluded from every public,
+research and gold export. A browser ID is a disposable anti-duplication hint, not a person
+identifier. Browser/article/task and idempotency tombstones are durable; only browser-day/global
+rate sidecars use the 72-hour logical TTL. PITR can retain deleted sidecars for seven days, so
+restore/export IAM stays operator-only and exporters omit both live and recovered abuse data.
+The public aggregate endpoint withholds distributions and “strong community agreement” claims while
+the only diversity hint is a client-resettable browser nonce; collection and offline adjudication
+continue without presenting that hint as independent people.
 
 ### 5.3 Annotation shape
 
@@ -269,8 +283,8 @@ type ScalarDecision<L extends string> = {
 };
 
 type PartyDecision = {
-  party: string;                 // snapshot of article wording
-  party_id: string | null;       // chosen only from canonical search results
+  party: string; // snapshot of article wording
+  party_id: string | null; // chosen only from canonical search results
   tone: "favorable" | "unfavorable" | "neutral" | "mixed";
   evidence: string;
   disposition: "confirmed" | "changed" | "added";
@@ -452,11 +466,12 @@ For every eligible article, add “Help improve this analysis — experimental�
 `AxisCard` itself into an in-place form.
 
 After submission, reveal a field-by-field comparison with the model and explain that one public
-response does not change the published analysis. Show a community distribution only when there
-are at least 5 valid submissions from at least 3 distinct browser and 3 distinct rotating IP-day
-buckets. Call 80%+ agreement “strong community agreement,” never “correct.” Below those floors,
-show only that more evaluations are needed. These controls deter casual duplication; they do not
-prove independent people and cannot create gold truth.
+response does not change the published analysis. During anonymous experimental collection, withhold
+community distributions and “strong community agreement” because the disposable browser nonce is
+client-resettable and no independent diversity signal is proven. The contract retains conservative
+sample floors for a future release gate, but `public_distribution_enabled: false` is authoritative.
+Collection may report only that more evaluations are needed. These controls deter casual
+duplication; they do not prove independent people and cannot create gold truth.
 
 After acceptance and the next data build, public axis cards show:
 
@@ -620,9 +635,11 @@ adjudicated and license/privacy reviewed.
 - Keep Firestore client access denied. The public Function is the only browser write path.
 - Exact allowlist for news production origins and localhost test configuration; reject a present
   foreign origin and non-JSON form posts.
-- Rate-limit by secret-keyed rotating IP-day HMAC plus a disposable browser ID, with a global
-  emergency cap and one effective submission per article/browser/task revision. Neither key is
-  identity, and a determined visitor can replace both; this is abuse friction, not trust.
+- Protect Siteverify with a per-instance fixed-minute attempt cap, and submission writes with a
+  secret-keyed rotating browser-day HMAC plus a global emergency cap and one effective submission
+  per article/browser/task revision. The browser hint is not identity and a determined visitor can
+  replace it; this is abuse friction, not trust. Do not use an IP bucket until Hosting establishes a
+  trustworthy address source.
 - Require an idempotency key so a retry cannot create a second vote after the Turnstile token has
   already been consumed.
 - Cap request size, evidence length, party count, note length and submissions per day. Reject
@@ -630,8 +647,10 @@ adjudicated and license/privacy reviewed.
 - App Check may be monitored or added as a second app-attestation layer, but it does not prove
   independent people and must not raise a community aggregate to gold status.
 - Do not log request bodies, excerpts, evidence text, browser IDs, raw IPs or public notes.
-- Keep abuse metadata in a sidecar/short-retention field, delete it after the operating window,
-  and exclude it from every export. Preserve the evaluation itself without the abuse key.
+- Keep rate metadata in a sidecar with a 72-hour logical expiry and exclude it from every export.
+  TTL physical deletion may lag by about 24 hours and PITR can retain recoverable versions for up
+  to seven days. Preserve durable opaque idempotency and article/browser/task tombstones outside
+  TTL, never in a dataset export.
 - `no-store` on submit responses; no analytics on form contents. Public thresholded aggregate
   responses may use a short cache tied to the task revision.
 - Audit every offline promotion, rejection and supersession. Raw anonymous submissions remain
@@ -664,7 +683,7 @@ until the effective-analysis reconciliation gate exists.
 1. Scaffold `news-functions/` as the isolated Firebase codebase and provision Firestore in the
    `electionsbg-news` project with deny-all client rules.
 2. Implement exact routing, schema validation, errors and no-store/CORS behavior.
-3. Implement server-side Turnstile verification, rotating-HMAC rate limits, idempotency and
+3. Implement server-side Turnstile verification, versioned-HMAC rate limits, idempotency and
    abuse-metadata retention.
 4. Implement transactional submission/dedupe/aggregate writes and thresholded aggregate reads.
 5. Add Firestore/functions emulator tests with fake Turnstile and clock/HMAC adapters.
@@ -725,7 +744,8 @@ until the effective-analysis reconciliation gate exists.
 - wrong Turnstile hostname/action or present foreign origin -> rejected;
 - invalid domain/ID/path traversal -> 400/404 without private storage lookup;
 - direct Firestore browser access -> denied;
-- rotating IP/browser/global limits and duplicate article submission -> 429/duplicate response;
+- Siteverify attempt, browser/global limits and duplicate article submission -> 429/duplicate
+  response;
 - idempotent retry returns the original result without incrementing aggregates twice;
 - low-sample aggregate remains private and public response says only “more needed”;
 - raw public submissions cannot call or manufacture an accepted adjudication;
