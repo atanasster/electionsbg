@@ -43,7 +43,7 @@ export const LeadStory = ({
           className="rounded-none md:col-span-3"
           priority
         />
-        <div className="flex flex-col justify-center p-5 md:col-span-2 md:p-7">
+        <div className="flex flex-col justify-start p-5 md:col-span-2 md:p-7">
           <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
             {primary ? (
               <Badge variant="secondary" className="font-normal">
