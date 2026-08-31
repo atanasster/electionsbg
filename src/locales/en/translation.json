@@ -5475,5 +5475,16 @@
   "products_filter_multi_hint": "only products with a price from more than one chain",
   "products_filter_loose": "priced per kilo (loose)",
   "products_filter_loose_hint": "fruit, vegetables and meat priced per kilogram",
-  "products_search_results": "Found {{n}} products."
+  "products_search_results": "Found {{n}} products.",
+  "prices_head_eyebrow": "CONSUMPTION · PRICES",
+  "prices_head_title": "Prices after the euro",
+  "prices_head_deck": "The CPC basket since 1 January — by product, chain and place. A monitoring index, not the official inflation rate.",
+  "prices_kpi_basket": "The price basket",
+  "prices_kpi_basket_basis": "against {{from}} · mean of the last {{days}} reporting days, to {{asOf}}",
+  "prices_kpi_dearer": "Products that got dearer",
+  "prices_kpi_dearer_basis": "of the products priced both on {{from}} and now — another {{cheaper}}% got cheaper, the rest are unchanged",
+  "prices_kpi_chain_basis": "the cheapest {{products}}-product basket on {{asOf}} — {{ranked}} of {{total}} reporting chains are comparable",
+  "prices_kpi_deal": "Biggest discount",
+  "prices_kpi_deal_basis": "the largest discount among the deals as of {{asOf}}, against the regular price",
+  "prices_kpi_note": "The figures above measure different things and do not add up — under each is what it measures. They all come from CPC price monitoring, not from the official NSI inflation rate."
 }

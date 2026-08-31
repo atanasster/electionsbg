@@ -6,7 +6,12 @@
 // that clause lives there; without it this extraction would buy nothing.
 
 import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
-import { fmtEur, type HubStats } from "@/data/prices/usePrices";
+import {
+  fmtEur,
+  fmtPriceDate,
+  signedPct,
+  type HubStats,
+} from "@/data/prices/usePrices";
 import { formatDate } from "@/lib/formatDate";
 
 type T = (key: string, opts?: Record<string, unknown>) => string;
@@ -41,16 +46,6 @@ export const promotedTiles = (kpis: HubKpi[]): Set<string> => {
 /** Every tile any band cell could ever displace — for gates, never for rendering. */
 export const CONSUMPTION_BAND_TILES =
   Object.values(TILES_BY_DESTINATION).flat();
-
-/** A percentage with an explicit sign. `−` is U+2212, not a hyphen: beside „+3,8%" a
- *  hyphen-minus is visibly shorter and sits at the wrong height. */
-const signedPct = (n: number, locale: string, dp = 1): string => {
-  const mag = Math.abs(n).toLocaleString(locale, {
-    minimumFractionDigits: dp,
-    maximumFractionDigits: dp,
-  });
-  return `${n > 0 ? "+" : n < 0 ? "−" : ""}${mag}%`;
-};
 
 /** The head's four figures.
  *
@@ -91,9 +86,15 @@ export const consumptionHubKpis = (
     out.push({
       value: signedPct(stats.basketChangePct, locale),
       label: t("cons_kpi_basket"),
+      // ⚠️ `fmtPriceDate`, NOT `formatDate` — the PRICES corpus's own calendar-day formatter.
+      // /prices bands this same figure from this same blob and links here for it, and the
+      // two used different formatters: identical in bg, divergent in EN („30 Aug 2026" here
+      // against „Aug 30, 2026" there). One figure, one caption, so one formatter — and this
+      // is the side that moves, because `fmtPriceDate` is what every other prices surface
+      // uses and has its own gate keeping them on it.
       basis: t("cons_kpi_basket_basis", {
-        from: formatDate(stats.basketFrom, lang),
-        asOf: formatDate(stats.basketAsOf, lang),
+        from: fmtPriceDate(stats.basketFrom, lang === "bg" ? "bg" : "en"),
+        asOf: fmtPriceDate(stats.basketAsOf, lang === "bg" ? "bg" : "en"),
         days: nf.format(stats.basketWindowDays),
       }),
       to: "/prices",

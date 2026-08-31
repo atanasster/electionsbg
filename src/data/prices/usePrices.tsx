@@ -615,6 +615,29 @@ export const fmtEur = (n: number, lang: "bg" | "en", dp = 2): string => {
 };
 
 /** Signed percent string, e.g. +4.1% / −2.3%. `frac` is a fraction (0.041). */
+/** A percentage with an explicit sign, in the reader's locale.
+ *
+ *  ⚠️ `−` IS U+2212, NOT A HYPHEN. Beside „+3,8%" a hyphen-minus is visibly shorter and sits
+ *  at the wrong height.
+ *
+ *  ⚠️ AND IT IS LOCALE-AWARE, WHICH `fmtPct` BELOW IS NOT — that one formats with `toFixed`
+ *  and therefore always emits a DOT. Both are correct in their place: `fmtPct` takes a
+ *  FRACTION and predates the hub heads, this takes a PERCENT and is what the KPI bands use.
+ *  Where the two meet on one card the dot reads as a different kind of number rather than a
+ *  different separator, which is why the /prices hero's food-inflation row moved onto this.
+ *
+ *  ⚠️ IT LIVES HERE RATHER THAN IN EITHER BAND because BOTH bands over the hub-stats blob
+ *  print this figure — `pricesHubFigures.ts` and `consumptionHubFigures.ts`, whose first cell
+ *  links at the other's page — and each had its own verbatim copy while claiming in a comment
+ *  that they "must spell this figure alike". One home is what makes that true. */
+export const signedPct = (n: number, locale: string, dp = 1): string => {
+  const mag = Math.abs(n).toLocaleString(locale, {
+    minimumFractionDigits: dp,
+    maximumFractionDigits: dp,
+  });
+  return `${n > 0 ? "+" : n < 0 ? "−" : ""}${mag}%`;
+};
+
 export const fmtPct = (frac: number, dp = 1): string => {
   const pct = frac * 100;
   const sign = pct > 0 ? "+" : pct < 0 ? "−" : "";

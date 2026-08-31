@@ -1,12 +1,16 @@
 // /prices — the КЗП "Колко струва" BASKET DASHBOARD.
 //
-// The basket index since the euro up top, then the euro verdict as a full-width
-// BAND (it is the page's headline question, and as a 1/3-width cell it set its
-// row's height and left ~200px of dead space either side), then eight linked
-// tiles: category movers, cheapest chains, cheapest places, deals, €/kg value,
-// the EU comparison (food + fuel + electricity + gas on one basis) and the
-// price map — each fronting its sub-page. The maps live on their own page
-// (/prices/map).
+// A `HubHead` first — identity, deck, the „колко струва X" search box in its own slot, and a
+// four-cell KPI band whose figures live in `prices/pricesHubFigures.ts` rather than here.
+// Four of the page's numbers are the band's now, and §3.1 rule 5 is resolved four different
+// ways below because each tile held its figure differently; the module beside the band
+// documents which and why.
+//
+// Then the basket index card (its CHART, the number having moved up), the euro verdict as a
+// full-width BAND (as a 1/3-width cell it set its row's height and left ~200px of dead space
+// either side), then eight linked tiles: category movers, cheapest chains, cheapest places,
+// deals, €/kg value, the EU comparison (food + fuel + electricity + gas on one basis) and the
+// price map — each fronting its sub-page. The maps live on their own page (/prices/map).
 //
 // A monitoring basket index, NOT official CPI. Every figure here goes through
 // headlineIndex / comparableChains so the page cannot quote a day the feed
@@ -27,11 +31,15 @@ import {
   Tag,
   ArrowRight,
 } from "lucide-react";
-import { SEO } from "@/ux/SEO";
-import { Title } from "@/ux/Title";
+import { HubHead } from "@/ux/infographic";
 import { Link } from "@/ux/Link";
 import { Card } from "@/components/ui/card";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import {
+  pricesHubKpis,
+  pricesKpiNote,
+  promotedTiles,
+} from "@/screens/prices/pricesHubFigures";
 import { PriceCoverageNote } from "@/screens/components/prices/PriceCoverageNote";
 import { PriceIndexTrendChart } from "@/screens/components/prices/PriceIndexTrendChart";
 import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
@@ -49,6 +57,7 @@ import {
   useHubStats,
   fmtEur,
   fmtPct,
+  signedPct,
   fmtPriceDate,
   priceChangeColor,
 } from "@/data/prices/usePrices";
@@ -118,7 +127,7 @@ export const PricesScreen: FC = () => {
   const { data: ranking } = usePriceRanking();
   const { data: chains } = useNationalChains();
   const { data: deals } = useDeals();
-  const { data: hub } = useHubStats();
+  const { data: hub, isPending: hubPending } = useHubStats();
   // The anchored place's own basket. The anchor is an area id, so it resolves
   // through the shared resolver first, then through resolvePriceKeys — which is
   // what maps a Sofia район onto the one city-wide panel the КЗП tree actually
@@ -272,20 +281,65 @@ export const PricesScreen: FC = () => {
   const chainLo = chainRows[0]?.basket;
   const chainHi = chainRows[chainRows.length - 1]?.basket;
 
+  // ── The head's band. §3.1 rule 5 — a figure is the band's OR a tile's, never both.
+  const nf = useMemo(
+    () => new Intl.NumberFormat(i18n.language),
+    [i18n.language],
+  );
+  const kpis = useMemo(
+    () =>
+      pricesHubKpis(
+        hub,
+        // ⚠️ `hub.cheapestChains[0]`, NOT `chainRows[0]`. Both are „the cheapest chain" and
+        // they are not the same row: the blob's list is pre-filtered to chains pricing the
+        // WHOLE common basket, which is the filter `comparableChains` also applies — but the
+        // blob is what carries `comparableChainCount` / `rankedChainCount`, and a cell whose
+        // value came from one source and whose denominators came from another is a caption
+        // that can silently stop describing its own number.
+        hub?.cheapestChains?.[0],
+        deals?.latestDate,
+        i18n.language,
+        lang,
+        nf,
+        t,
+      ),
+    [hub, deals?.latestDate, i18n.language, lang, nf, t],
+  );
+  // DERIVED from the cells that rendered — a blob older than the bundle carries a figure
+  // without the fields that caption it, and a constant list would blank the tile too.
+  const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
+
   return (
     <>
-      <SEO title={title} description={description} />
       <ConsumptionBreadcrumb section={title} className="mt-4 mb-2" />
-      <Title description={description}>{title}</Title>
 
-      {/* "Колко струва X" is the question most readers arrive with, and until
-          now the only route to a product was the four deals or the four €/kg
-          rows. The endpoint and the component both already existed — the hub at
-          /consumption has carried this box all along. Above the grid, not in
-          it: a search field is not a tile. */}
-      <div className="mt-4">
-        <ConsumptionSearchTile />
-      </div>
+      {/* `HubHead` emits the page's <h1> AND its <SEO>, so the old <Title> + <SEO> pair is
+          gone rather than kept beside it — two <h1>s is the defect `hubHead.gates.test.ts`
+          globs for, and two <SEO>s is a last-writer-wins race over the canonical.
+
+          "Колко струва X" is the question most readers arrive with, and the search box now
+          sits in the head's own slot rather than loose above the grid — the /persons and
+          /parliament shape, and the reason those two heads are wider than /procurement's. */}
+      <HubHead
+        eyebrow={t("prices_head_eyebrow")}
+        // ⚠️ A SHORT NOUN PHRASE, not the sentence it started as. `HubHead`'s `title` feeds
+        // the <h1>, the og:title AND the document <title> from one string, so „Какво се случи
+        // с цените след еврото" made the tab read „Избори | Какво се случи…" and dropped the
+        // word „Цени" from every in-app share. The sentence lives in the DECK, which is what
+        // a deck is for.
+        title={t("prices_head_title")}
+        seoDescription={description}
+        deck={t("prices_head_deck")}
+        search={<ConsumptionSearchTile />}
+        kpis={kpis}
+        // ⚠️ CONDITIONAL, never a bare `{4}`. A 404 is an ANSWER — the band, the note and
+        // three tile demotions all key off this blob, so without a reservation the head grows
+        // several hundred px when it lands AND the hero's big number paints and then
+        // vanishes. But an unconditional count leaves four skeletons pulsing for ever on a
+        // corpus that has no blob, which `SubsidiesHubHead.test.tsx` records shipping.
+        kpisPending={hubPending ? 4 : undefined}
+        kpiNote={pricesKpiNote(kpis, t)}
+      />
 
       {/* Where the reader is. The anchor is URL-only (?area=), so this is also
           how it gets set — and once it is, every other place surface on the
@@ -299,34 +353,55 @@ export const PricesScreen: FC = () => {
           already jumped.
 
           EIGHT tiles: the fuel tile merged into "Спрямо ЕС" and the place tile
-          replaced it. (The search box is not one of them — it sits above the
-          grid, since a search field is not a tile.) */}
+          replaced it. The search box is not one of them and no longer sits above the grid
+          either — it is in the head's own `search` slot; see the <HubHead> comment. */}
       <div className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Hero — the basket index since the euro */}
-        <Card className="col-span-full flex flex-wrap items-center justify-between gap-x-6 gap-y-3 p-5">
+        {/* ⚠️ A TEST HOOK, because `.col-span-full` is not one: the verdict tile carries the
+            same class and `HubHead`'s own band block is `lg:col-span-2`, so a positional
+            query picked the head instead of this card and asserted over the wrong element. */}
+        <Card
+          data-testid="prices-hero"
+          className="col-span-full flex flex-wrap items-center justify-between gap-x-6 gap-y-3 p-5"
+        >
           <div className="min-w-0">
             <div className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground">
               <ShoppingBasket className="size-4" />
               {T("Кошница на цените", "Price basket")}
             </div>
-            {change != null ? (
+            {/* ⚠️ §3.1 RULE 5 — the headline moved into the band and the hero does NOT
+                repeat it. The CHART stays, which is what makes this the one demotion on
+                the page that leaves something behind: the number is the band's, the shape
+                is the hero's, and the 100 reference line still says „dearer or cheaper
+                than on euro day" at a glance.
+
+                ⚠️ AND THE BASE/AS-OF CLAUSES GO WITH IT, because a caption is only a
+                caption OF something. „спрямо 2 яну · числото е към 30 авг" under no figure
+                describes the chart's own axis and reads as a second, missing statistic —
+                the lone-caption shape `InfographicTile` guards against by construction and
+                a hand-rolled Card does not. The band's basis carries both, verbatim. */}
+            {change == null || promoted.has("hero") ? null : (
               <div
                 className={`text-4xl font-bold tabular-nums ${priceChangeColor(change)}`}
               >
                 {fmtPct(change)}
               </div>
-            ) : null}
+            )}
             <div className="text-xs text-muted-foreground">
-              {T("спрямо", "vs")} {baselineLabel}
-              {/* The window's END, not just its base. The figure is a mean of
-                  the last usable days, and when the feed's tail is withheld
-                  that window can close days before the corpus does — a caption
-                  naming only the baseline is silent about the half that moved. */}
-              {headline
-                ? ` · ${T("числото е към", "figure as of")} ${fmtPriceDate(headline.d, lang)}`
-                : ""}
+              {promoted.has("hero") ? null : (
+                <>
+                  {T("спрямо", "vs")} {baselineLabel}
+                  {headline
+                    ? ` · ${T("числото е към", "figure as of")} ${fmtPriceDate(headline.d, lang)}`
+                    : ""}
+                </>
+              )}
+              {/* ⚠️ THE LEADING SEPARATOR IS CONDITIONAL NOW. This clause used to follow the
+                  base/as-of text unconditionally; with the hero demoted it can be FIRST, and
+                  a hard-coded „ · " then opens the caption with a dangling middot — the exact
+                  shape `sectorsHubFigures.ts` records shipping on an optional period. */}
               {index
-                ? ` · ${index.coverage.settlements} ${T("локации", "locations")} · ${index.coverage.chains} ${T("вериги", "chains")}`
+                ? `${promoted.has("hero") ? "" : " · "}${index.coverage.settlements} ${T("локации", "locations")} · ${index.coverage.chains} ${T("вериги", "chains")}`
                 : ""}
               {chainLo != null && chainHi != null && !chainsFellBack
                 ? ` · ${T("кошница на верига", "basket per chain")} ${fmtEur(chainLo, lang)}–${fmtEur(chainHi, lang)}`
@@ -356,12 +431,25 @@ export const PricesScreen: FC = () => {
                         "official food inflation, y/y",
                       )}
                     </dt>
+                    {/* ⚠️ `signedPct`, NOT `fmtPct`, and ONLY because the band moved in
+                        above it. `fmtPct` formats with `toFixed`, which is locale-blind and
+                        always emits a DOT — fine when it was the only percentage in the
+                        card, and wrong the moment „−1,0%" sits 40px higher in the head:
+                        „+3.8%" beside it reads as a different KIND of number rather than a
+                        different separator. The shared helper has ~20 other callers across
+                        the prices surfaces and changing its signature is not this step's
+                        job; this is the one call site the band put in direct contrast. */}
                     <dd className="font-medium tabular-nums">
-                      {fmtPct(hub.foodInflationPct / 100)}
+                      {signedPct(hub.foodInflationPct, i18n.language)}
                     </dd>
                   </div>
                 ) : null}
-                {hub.biggestDealPct != null ? (
+                {/* ⚠️ NOT THE RULE-5 DEMOTION — that is the Deals TILE, which is where the
+                    same figure actually renders as a headline. This line is a secondary
+                    restatement in the hero's stat row and was demoted instead for one
+                    revision, which left the real duplicate untouched. It is withheld for the
+                    same reason all the same: the band publishes this number. */}
+                {hub.biggestDealPct != null && !promoted.has("deals") ? (
                   <div className="flex items-baseline gap-1">
                     <dt className="text-muted-foreground">
                       {T("най-голяма промоция", "biggest deal")}
@@ -397,6 +485,17 @@ export const PricesScreen: FC = () => {
             and left ~200px of white space in the tiles either side. As a band
             it gets the width its content needs and the remaining eight tiles
             fall into two clean rows. */}
+        {/* ⚠️ THE ONE DEMOTION HERE THAT KEEPS THE TILE AND CHANGES ITS JOB. The band's
+            „21% поскъпнали" is this tile's own headline, and rule 5 asks for the tile to
+            give it up — but this tile has no metric to blank: its whole body is a
+            three-bucket BAR, and 21% is one of the three labels on it. Removing the tile
+            would take the page's best explanatory graphic with it, and blanking the label
+            would leave a bar segment nobody can read.
+
+            So the tile stays whole and the HEADING stops repeating the question the head
+            now asks. Its title was „Виновно ли е еврото?" directly beneath an <h1> reading
+            „Какво се случи с цените след еврото" — the same question twice, 200px apart. It
+            is now what the tile actually shows: the split behind the band's figure. */}
         <DashTile
           // NOT /consumption/overview#euro: that page renders this very
           // component, differing only by the clause `compact` drops, so the
@@ -404,7 +503,11 @@ export const PricesScreen: FC = () => {
           // product browser, which is the genuine drill-down — one destination,
           // not two competing ones.
           to="/consumption/products"
-          title={T("Виновно ли е еврото?", "Is the euro to blame?")}
+          title={
+            promoted.has("verdict")
+              ? T("Как се разпределят продуктите", "How the products split")
+              : T("Виновно ли е еврото?", "Is the euro to blame?")
+          }
           icon={Coins}
           className="col-span-full"
         >
@@ -441,8 +544,31 @@ export const PricesScreen: FC = () => {
         >
           {chainRows.length ? (
             <div className="text-xs">
+              {/* ⚠️ §3.1 RULE 5, AS A LIST RATHER THAN A METRIC. The band names the
+                  CHEAPEST chain by name and price, so this tile starts at the SECOND — the
+                  same shape as the analysis hub's rail omitting the band's own critical
+                  count. Blanking the tile outright would be the wrong demotion here: the
+                  rows below the leader are the decomposition, and they are the only place
+                  on the page a reader can see how close the runners-up are.
+
+                  ⚠️ THE SLICE IS OFF `chainRows`, NOT `hub.cheapestChains`. Both are
+                  filtered to chains pricing the whole basket, but only `chainRows` is the
+                  full ranking — `cheapestChains` is the top five, so slicing that would
+                  silently shorten the tile to four rows and then three. */}
+              {/* ⚠️ FILTERED BY EIK, NOT SLICED BY POSITION. The band's cell comes from the
+                  HUB-STATS blob and this list from the CHAINS blob — two independently
+                  fetched payloads, both `staleTime: Infinity`, so a session spanning a
+                  rebuild can hold two vintages. `slice(1)` assumes position 0 is the row the
+                  band named; when that assumption breaks it drops a chain nobody promoted
+                  AND repeats the one that was. */}
               <ChainBasketList
-                chains={chainRows}
+                chains={
+                  promoted.has("chains")
+                    ? chainRows.filter(
+                        (r) => r.eik !== hub?.cheapestChains?.[0]?.eik,
+                      )
+                    : chainRows
+                }
                 basketSize={chains!.commonBasketSize}
                 lang={lang}
                 limit={4}
@@ -527,25 +653,38 @@ export const PricesScreen: FC = () => {
               the discount is measured against (build_payloads' promo gate), so
               the two numbers and the percentage always agree. */}
           <ul className="space-y-1 text-xs">
-            {(deals?.deals ?? []).slice(0, 4).map((d) => (
-              <li key={d.slug}>
-                <div className="flex justify-between gap-2">
-                  <Link
-                    to={`/product/${d.slug}`}
-                    className="min-w-0 truncate hover:underline"
-                  >
-                    {sentenceCase(d.title)}
-                  </Link>
-                  <span className="shrink-0 tabular-nums text-green-700 dark:text-green-400">
-                    −{d.discPct}%
-                  </span>
-                </div>
-                <div className="tabular-nums text-[11px] text-muted-foreground">
-                  {fmtEur(d.promo, lang)}{" "}
-                  <s className="opacity-70">{fmtEur(d.reg, lang)}</s>
-                </div>
-              </li>
-            ))}
+            {/* ⚠️ §3.1 RULE 5, THE CHAINS TREATMENT — the band names the biggest discount
+                (`biggestDealPct` IS `deals[0].discPct`, same array, same ordering), so this
+                list starts at the SECOND. Without it „−54%" rendered twice on one page, and
+                the demotion that WAS applied blanked the wrong copy: a small line in the
+                hero's `<dl>`, not the tile the band cell actually links to.
+
+                The window still shows four rows — `slice(from, from + 4)`, not a fixed
+                `slice(1, 4)`, which would quietly shorten the tile to three. */}
+            {(deals?.deals ?? [])
+              .slice(
+                promoted.has("deals") ? 1 : 0,
+                (promoted.has("deals") ? 1 : 0) + 4,
+              )
+              .map((d) => (
+                <li key={d.slug}>
+                  <div className="flex justify-between gap-2">
+                    <Link
+                      to={`/product/${d.slug}`}
+                      className="min-w-0 truncate hover:underline"
+                    >
+                      {sentenceCase(d.title)}
+                    </Link>
+                    <span className="shrink-0 tabular-nums text-green-700 dark:text-green-400">
+                      −{d.discPct}%
+                    </span>
+                  </div>
+                  <div className="tabular-nums text-[11px] text-muted-foreground">
+                    {fmtEur(d.promo, lang)}{" "}
+                    <s className="opacity-70">{fmtEur(d.reg, lang)}</s>
+                  </div>
+                </li>
+              ))}
           </ul>
         </DashTile>
 

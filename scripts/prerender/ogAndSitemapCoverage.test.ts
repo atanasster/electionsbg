@@ -940,6 +940,7 @@ describe("a hub's og capture anchors on its head", () => {
     "culture-hub": "src/screens/culture/CultureHubScreen.tsx",
     "governance-sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
     indicators: "src/screens/indicators/IndicatorsLandingScreen.tsx",
+    prices: "src/screens/PricesScreen.tsx",
     "analysis-hub": "src/screens/analysis/AnalysisHubScreen.tsx",
     "reports-hub": "src/screens/reports/hub/ReportsHubScreen.tsx",
   };
@@ -1029,6 +1030,19 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
+    // ⚠️ NOT THE `governance-sectors` SHAPE — this one cannot be paid by re-anchoring,
+    // because `/og/prices.png` is not produced by capture-screens.ts at all. It has its own
+    // bespoke script (scripts/og/screenshot_prices.ts) and therefore no entry here, which is
+    // why registering the screen surfaced „no capture entry" rather than a wrong anchor.
+    // Paying it means giving /prices a real entry anchored on `[data-hub-head]` and retiring
+    // the bespoke script — a step of its own, not a re-shoot.
+    // ⚠️ AND THE CARD ON DISK IS STALE, which this entry also suppresses. `NOT_YET` skips the
+    // FRESHNESS clause too, and `/og/prices.png` dates from 2026-06-09 while
+    // `screenshot_prices.ts` clips {0,0,1200,630} — exactly the page top this change
+    // rewrote. So the share card depicts a head that does not exist, and nothing in the
+    // suite will say so until this entry goes.
+    prices:
+      "the card comes from the bespoke scripts/og/screenshot_prices.ts, so there is no capture entry to anchor — migrate it to capture-screens.ts; the committed card also predates the head",
     // ⚠️ PAID OFF 2026-08-27, within the same run that booked them — `analysis-hub` and
     // `reports-hub` were re-anchored on `[data-hub-head]` and re-shot, the
     // `governance-sectors` / `indicators` treatment. Both were the cheap kind: the card was

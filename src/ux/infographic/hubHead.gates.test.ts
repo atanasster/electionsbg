@@ -44,6 +44,15 @@ const stripJsx = stripJsxComments;
  *  translated captions. */
 const id = (k: string): string => k;
 
+/** A test `t` that RENDERS ITS INTERPOLATED ARGUMENTS, as `key:arg1:arg2:…`.
+ *
+ *  ⚠️ `id` ABOVE DROPS THEM, so any clause comparing two bands' `basis` strings through it is
+ *  comparing two i18n KEYS and nothing else. That is vacuous wherever the claim is about the
+ *  captions rather than the keys — measured: the „two hubs caption the shared basket figure
+ *  alike" clause stayed green while the two rendered its dates through different formatters. */
+const withArgs = (k: string, o?: Record<string, unknown>): string =>
+  o ? [k, ...Object.values(o).map(String)].join(":") : k;
+
 import {
   FUNDS_STATS_FIXTURE,
   FUNDS_INDEX_FIXTURE,
@@ -94,6 +103,18 @@ import {
   promotedStats,
 } from "@/screens/analysis/analysisHubFigures";
 import type { AnalysisStat } from "@/data/analysis/useAnalysisStats";
+import {
+  PRICE_BAND_TILES,
+  pricesHubKpis,
+  promotedTiles as pricesPromotedTiles,
+} from "@/screens/prices/pricesHubFigures";
+// ⚠️ THE SAME FIXTURE THE BUILDER GATE USES — the `subsidiesHubStats.fixture.ts` convention.
+// It was two literals, each headed „verbatim from the live blob" and neither the same object,
+// so the two gates' four-cell bands were built from different numbers.
+import {
+  PRICES_DEALS_AS_OF,
+  PRICES_STATS_FIXTURE,
+} from "@/screens/prices/pricesHubStats.fixture";
 import { AGRI_STATS_FIXTURE } from "@/screens/subsidies/subsidiesHubStats.fixture";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
@@ -145,6 +166,10 @@ const HUB_SCREENS = [
   // The /funds band, joined 2026-08-31 for the /budget reason: its screen is listed above
   // and a basis window can be typed in either file.
   "src/screens/funds/fundsHubFigures.ts",
+  // ⚠️ THE SECOND BAND OVER THE `hub-stats` BLOB. `consumptionHubFigures.ts` is the first,
+  // and ITS first cell links AT /prices — so that figure is on two hubs by design, and the
+  // thing to watch is the two captioning it differently rather than either showing it.
+  "src/screens/prices/pricesHubFigures.ts",
   // ⚠️ EVERYTHING FROM HERE DOWN IS A `<HubHead` CALL SITE, AND THAT HALF OF THIS LIST IS NOW
   // GATED — see „names every screen that renders a head" below. It was not, and the hole was
   // not hypothetical: on 2026-08-31 EIGHT hub screens sat outside this list, so a basis window
@@ -161,6 +186,7 @@ const HUB_SCREENS = [
   // reason — the head's own copy still lives in the screen.
   "src/screens/analysis/AnalysisHubScreen.tsx",
   "src/screens/reports/hub/ReportsHubScreen.tsx",
+  "src/screens/PricesScreen.tsx",
   "src/screens/culture/CultureHubScreen.tsx",
   // Four routes (/culture/funds/:arm) behind ONE screen. It is the only HubHead call site with
   // no §3.0 height budget in tests/ui.spec.ts, which that file's own NO_BUDGET map records.
@@ -879,6 +905,115 @@ describe("hub head — the band and the tiles are disjoint", () => {
       hrefOf,
       t: id,
     });
+
+  const pricesBand = () =>
+    pricesHubKpis(
+      PRICES_STATS_FIXTURE,
+      PRICES_STATS_FIXTURE.cheapestChains[0],
+      PRICES_DEALS_AS_OF,
+      "bg",
+      "bg",
+      new Intl.NumberFormat("bg"),
+      id,
+    );
+
+  it("no /prices KPI figure is also a tile metric", () => {
+    const kpis = pricesBand();
+    expect(kpis.length, "the prices fixture produced no KPI cells").toBe(4);
+    expect([...pricesPromotedTiles(kpis)].sort()).toEqual(
+      [...PRICE_BAND_TILES].sort(),
+    );
+    for (const c of kpis)
+      expect(
+        pricesPromotedTiles([c]).size,
+        `${c.to} (${c.value}) displaces no tile`,
+      ).toBe(1);
+    expect(
+      new Set(kpis.map((k) => k.value)).size,
+      "two /prices KPI cells render the same string",
+    ).toBe(kpis.length);
+  });
+
+  it("no two /prices KPI cells share a destination", () => {
+    const tos = pricesBand().map((k) => String(k.to));
+    expect(tos).toHaveLength(4);
+    expect(new Set(tos).size, `duplicate in ${tos.join(", ")}`).toBe(4);
+    // ⚠️ AND NONE OF THEM IS THE PAGE ITSELF. §3.1 rule 4 asks a KPI to link somewhere that
+    // can NAME its rows; /prices is where the reader already is.
+    for (const to of tos) expect(to).not.toBe("/prices");
+  });
+
+  it("⚠️ /prices bands ONE money figure, not two of the same magnitude", () => {
+    // An earlier draft put the cheapest CHAIN basket beside the cheapest OBLAST basket —
+    // €14,56 and €13,59, twelve products each. The screen's own tile comment warns those are
+    // different bases (one chain's price against the MEDIAN of each settlement's cheapest),
+    // and two ranges of one magnitude read as one scale whatever the captions say.
+    expect(pricesBand().filter((k) => /€/.test(k.value))).toHaveLength(1);
+  });
+
+  it("⚠️ /prices and /consumption caption the SHARED basket figure alike", () => {
+    // The two hubs band the same `hub-stats` blob and /consumption's first cell links AT
+    // /prices, so this figure is on both pages by design. What must never happen is two
+    // captions for it — so both are built from the same three fields, in the same order.
+    const consumption = consumptionHubKpis(
+      PRICES_STATS_FIXTURE,
+      "bg",
+      "bg",
+      new Intl.NumberFormat("bg"),
+      withArgs,
+    );
+    const here = pricesHubKpis(
+      PRICES_STATS_FIXTURE,
+      PRICES_STATS_FIXTURE.cheapestChains[0],
+      PRICES_DEALS_AS_OF,
+      "bg",
+      "bg",
+      new Intl.NumberFormat("bg"),
+      withArgs,
+    )[0];
+    const there = consumption[0];
+    expect(there.to, "the /consumption band no longer links at /prices").toBe(
+      "/prices",
+    );
+    expect(here.value, "the two hubs print the basket differently").toBe(
+      there.value,
+    );
+    // ⚠️ AND THE CAPTION, WHICH IS WHAT THIS CLAUSE IS ABOUT. Asserting the VALUE alone can
+    // only fail on a formatter change — both bands call one `signedPct` on one field — so it
+    // said nothing about the thing it names, and was green across a real divergence: the two
+    // hubs rendered the basket's dates through different formatters (`fmtPriceDate` vs
+    // `formatDate`), which agree in bg and differ in EN („Aug 30, 2026" / „30 Aug 2026").
+    // The test `t` is `key:arg1:arg2:…`, so the interpolated arguments are readable.
+    const args = (basis: string) => basis.split(":").slice(1);
+    expect(
+      args(here.basis),
+      "the two hubs caption the shared basket figure with different values",
+    ).toEqual(args(there.basis));
+
+    // ⚠️ AND IN EN, WHICH IS THE ONLY LANGUAGE THE DIVERGENCE WAS VISIBLE IN. bg renders
+    // „30.08.2026 г." through both formatters, so a bg-only comparison is green across the
+    // defect — which is what it was.
+    const hereEn = pricesHubKpis(
+      PRICES_STATS_FIXTURE,
+      PRICES_STATS_FIXTURE.cheapestChains[0],
+      PRICES_DEALS_AS_OF,
+      "en",
+      "en",
+      new Intl.NumberFormat("en"),
+      withArgs,
+    )[0];
+    const thereEn = consumptionHubKpis(
+      PRICES_STATS_FIXTURE,
+      "en",
+      "en",
+      new Intl.NumberFormat("en"),
+      withArgs,
+    )[0];
+    expect(
+      args(hereEn.basis),
+      "the two hubs caption the shared basket figure differently in EN",
+    ).toEqual(args(thereEn.basis));
+  });
 
   it("no /parliamentary/analysis KPI figure is also a tile metric", () => {
     const kpis = analysisBand();

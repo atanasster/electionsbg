@@ -814,6 +814,24 @@ const HUB_HEAD_BUDGETS: {
     cells: 2,
     asideRows: 3,
   },
+  // Identity + deck + a full ConsumptionSearchTile in the slot + a 4-cell band + a two-clause
+  // note. No scope control (the corpus is one continuous daily series, not a windowed one)
+  // and no evidence aside yet.
+  //
+  // ⚠️ THE SEARCH SLOT IS WHY THIS SITS WITH /funds AND /budget rather than with the compact
+  // heads: it is a whole TILE, not an input — „колко струва X" is the question most readers
+  // arrive at this page with, and the trade docs/plans/funds-module-v2.md §5.2 asks for is
+  // look-up before read.
+  //
+  // ⚠️ IF THIS TRIPS, DO NOT SHORTEN THE NOTE. Its second clause — „това не е официалната
+  // инфлация на НСИ" — is the single most likely misreading of this page: the sibling
+  // /consumption band prints the official food rate at +3,8% against this basket's −1,0%,
+  // and every other disclaimer saying so is far below the fold. Check for a fifth cell, or
+  // for a basis growing a clause, first.
+  //
+  // 508 px with a sentence title; 492 once it shortened to „Цените след еврото". Measured
+  // 2026-08-31 at 1280.
+  { path: "/prices", maxPx: 570, measured: 492, cells: 4 },
   // A RANKING, and a third shape again: identity + freshness + deck + a full search field +
   // a 4-cell band + a one-line note, with NO scope control (the page has no `?pscope` — its
   // window is whatever year each mayor last filed for) and NO evidence rail (the ranked
@@ -876,6 +894,7 @@ const HUB_HEAD_SCREENS: Record<string, string> = {
   "/subsidies": "src/screens/SubsidiesDashboardScreen.tsx",
   "/persons": "src/screens/persons/PersonsBrowserScreen.tsx",
   "/companies": "src/screens/dev/CompaniesBrowseDbScreen.tsx",
+  "/prices": "src/screens/PricesScreen.tsx",
   "/governance/declarations":
     "src/screens/governance/GovernanceDeclarationsScreen.tsx",
   "/governance/mayor-pay":
