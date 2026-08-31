@@ -421,9 +421,24 @@ test.skipIf(mutationSkip)(
     //     less idx_person_role_source_ref too       10,092 buffers  ~10.8 ms
     //     less idx_person_role_ref as well          10,076 buffers  ~11.8 ms   (adds nothing)
     //
-    // Those are LOCAL figures on that date and nothing else — Cloud SQL is unmeasured here,
-    // and the 10,274 the ceiling above was written against was measured on the pre-index body,
-    // not restamped onto this box.
+    // Those are LOCAL figures on that date, and the 10,274 the ceiling above was written
+    // against was measured on the pre-index body — not restamped onto this box.
+    //
+    // ⚠️ CLOUD SQL, measured the same day on `db-perf-optimized-N-2` via the proxy, READ-ONLY
+    // (no DDL — see the mutationSkip note above for why this test never drops there). The
+    // premises transfer exactly: person_role is 325,686 rows against local's 325,761, and
+    // `source='mp'` is **3,852 on both**, visibility map 100% on both, all five indexes
+    // present. So does the baseline — `mp_tr_roles(2670)` is **350 buffers** warm (local 343),
+    // i.e. the 6,000 budget is honest on the serving box too. What does NOT transfer is
+    // wall-clock: the same call is 57-134 ms there against ~1.9 ms locally, and the seq-scan
+    // node this gate exists to prevent is **7,630 buffers / 1,094 ms** (3,146 hit + 4,484 read
+    // — it is NOT resident in the 5.3 GB shared_buffers) against ~46 ms locally, ~24x worse.
+    //
+    // So the gate's BUFFER dimension is portable and its cost dimension understates prod by an
+    // order of magnitude. The middle row of the table below is the one figure that could not be
+    // re-measured on cloud read-only: isolating it needs the partial index gone, and no GUC
+    // hides one index from the planner. It transfers by construction — the fallback scans the
+    // 3,852 `source='mp'` rows, and that count is identical on both boxes.
     //
     // What changed is the PLAN, not the corpus. With only the partial index gone the subject
     // lookup does not seq-scan: it takes `Index Scan using idx_person_role_source_ref`,
