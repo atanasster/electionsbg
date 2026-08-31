@@ -126,4 +126,7 @@ python3 verify_bundle.py        # detect copied/edited runtime files
 Keep `config.env` mode `600`. Rotate `var/cron.log` with the host's normal log
 rotation policy. Alert on a non-zero `pipeline_exit`/`upload_exit`, a growing
 `analysis_backlog.pending_total`, repeated source freshness alerts, or hourly
-`already_running` skips.
+`already_running` skips. The `analyze` stage's `result.billing` object is the
+run-level OpenRouter bill; unlike per-article provenance, it also counts
+token-ceiling, parse, validation, and probe responses that produced no saved
+analysis.

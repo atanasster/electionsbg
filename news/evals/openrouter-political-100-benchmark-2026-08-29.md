@@ -5,7 +5,10 @@
 Use `z-ai/glm-5.3-flash` as the default complete-schema analyzer. On this
 political set it returned 94 valid records, had an 8.44 s median, and cost
 $0.000733 per billed response. At 1,000 accepted articles/day the measured
-valid-rate-adjusted budget is **$0.78/day or $23.39/month**.
+valid-rate-adjusted budget is **$0.78/day or $23.39/month**. The later
+1,487-article live batch measured **$26.00/month per 1,000 accepted
+articles/day** after probes, retries, failures, and recovery; use that later
+figure for operations and retain this one as the frozen benchmark result.
 
 Use `openai/gpt-oss-20b` only when minimizing token spend matters more than
 political-field quality. Its adjusted budget is **$0.27/day or $8.13/month**

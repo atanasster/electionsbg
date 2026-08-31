@@ -97,11 +97,74 @@ def bounded_usage(raw: dict) -> dict:
         if (isinstance(value, int) and not isinstance(value, bool)
                 and 0 <= value <= MAX_USAGE_TOKENS):
             out[key] = value
+    prompt_details = raw.get("prompt_tokens_details")
+    prompt_details = prompt_details if isinstance(prompt_details, dict) else {}
+    completion_details = raw.get("completion_tokens_details")
+    completion_details = (completion_details
+                          if isinstance(completion_details, dict) else {})
+    token_details = {
+        "cached_prompt_tokens": prompt_details.get("cached_tokens"),
+        "reasoning_tokens": completion_details.get("reasoning_tokens"),
+    }
+    for key, value in token_details.items():
+        if (isinstance(value, int) and not isinstance(value, bool)
+                and 0 <= value <= MAX_USAGE_TOKENS):
+            out[key] = value
     cost = raw.get("cost")
     if (isinstance(cost, (int, float)) and not isinstance(cost, bool)
             and math.isfinite(cost) and 0 <= cost <= MAX_USAGE_COST_USD):
         out["cost"] = cost
     return out
+
+
+def _percentile(values: list[float], quantile: float) -> float | None:
+    if not values:
+        return None
+    ordered = sorted(values)
+    index = round((len(ordered) - 1) * quantile)
+    return ordered[index]
+
+
+def summarize_run_billing() -> dict:
+    """The complete decoded-response bill, including unusable generations."""
+    events = llm_client.usage_events()
+    usages = [bounded_usage(event.get("usage") or {}) for event in events]
+    providers = {}
+    finishes = {}
+    elapsed = []
+    for event in events:
+        provider = event.get("provider") or "unknown"
+        providers[provider] = providers.get(provider, 0) + 1
+        finish = event.get("finish_reason") or "unknown"
+        finishes[finish] = finishes.get(finish, 0) + 1
+        duration = event.get("transport_elapsed_s")
+        if (isinstance(duration, (int, float))
+                and not isinstance(duration, bool) and math.isfinite(duration)
+                and duration >= 0):
+            elapsed.append(float(duration))
+    totals = {
+        key: sum(usage.get(key, 0) for usage in usages)
+        for key in ("prompt_tokens", "completion_tokens", "total_tokens",
+                    "cached_prompt_tokens", "reasoning_tokens")
+    }
+    costs = [usage["cost"] for usage in usages if "cost" in usage]
+    return {
+        "responses": len(events),
+        "responses_with_usage": sum(bool(usage) for usage in usages),
+        "responses_with_cost": len(costs),
+        **totals,
+        "cost_usd": round(sum(costs), 12),
+        "providers": providers,
+        "finish_reasons": finishes,
+        "transport_latency_s": {
+            "median": _percentile(elapsed, 0.5),
+            "p90": _percentile(elapsed, 0.9),
+        },
+    }
+
+
+def with_run_billing(payload: dict) -> dict:
+    return {**payload, "billing": summarize_run_billing()}
 
 
 def generation_summary(record: dict) -> dict:
@@ -577,7 +640,7 @@ def main() -> int:
                                                       "local-model"))
     ap.add_argument("--dry-run", action="store_true",
                     help="build the prompts and print one, calling no model")
-    ap.add_argument("--max-tokens", type=int, default=2048)
+    ap.add_argument("--max-tokens", type=int, default=4096)
     ap.add_argument("--temperature", type=float,
                     default=float(os.environ.get("NEWS_LLM_TEMPERATURE", "0.2")))
     ap.add_argument("--workers", type=int,
@@ -601,6 +664,8 @@ def main() -> int:
                  "--temperature must be between 0 and 2, and "
                  "--triage-timeout must be positive")
 
+    llm_client.reset_usage_events()
+
     assets = load_prompt_assets()
     taxonomy_version = json.loads(assets["taxonomy"]).get("version")
 
@@ -610,8 +675,9 @@ def main() -> int:
                                          json_schema=assets["json_schema"])
         constraint_proven = ok and detail == "enforced"
         if not ok:
-            print(json.dumps({"mode": "analyze_local", "model": args.model,
-                              "aborted": detail}, ensure_ascii=False))
+            print(json.dumps(with_run_billing({
+                "mode": "analyze_local", "model": args.model,
+                "aborted": detail}), ensure_ascii=False))
             return 2
 
     if args.redo:
@@ -623,12 +689,13 @@ def main() -> int:
         # ⚠️ A redo names its own targets, so a partial result is a FAILURE
         # rather than a short queue — `missing` rides through so the caller
         # learns which article it asked for and did not get.
-        print(json.dumps({"error": "queue_failed", **queue}))
+        print(json.dumps(with_run_billing({"error": "queue_failed", **queue})))
         return 2
     items = queue.get("queue") or []
     if not items:
-        print(json.dumps({"mode": "analyze_local", "queued": 0,
-                          "note": "nothing unanalysed"}))
+        print(json.dumps(with_run_billing({
+            "mode": "analyze_local", "queued": 0,
+            "note": "nothing unanalysed"})))
         return 0
 
     if args.dry_run:
@@ -764,6 +831,7 @@ def main() -> int:
     # neither key.
     # Counts beside their denominator, never a bare rate.
     stats["rejected_count"] = len(stats["rejected"])
+    stats["billing"] = summarize_run_billing()
     print(json.dumps(stats, ensure_ascii=False))
     # ⚠️ Non-zero when NOTHING was saved but something was queued, AND when a
     # save call itself failed. A cron job that always exits 0 reports a broken

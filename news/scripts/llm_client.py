@@ -18,6 +18,7 @@ import hashlib
 import json
 import os
 import socket
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -40,6 +41,46 @@ MAX_ATTEMPTS = 3
 BACKOFF_SECONDS = 2.0
 
 LOCAL_HOSTS = frozenset({"127.0.0.1", "localhost", "::1", "0.0.0.0"})
+
+# Process-local operational meter. Per-article provenance deliberately keeps
+# only generations that reach a saved record; that is the right audit trail
+# for the article and the wrong bill for the RUN. A constrained response can
+# still be charged when it ends at the token ceiling, cannot be parsed, or is
+# rejected by the validator. Keep those response envelopes in memory so the
+# runner can report the complete bill without retaining prompts or answers.
+_USAGE_EVENTS = []
+_USAGE_LOCK = threading.Lock()
+
+
+def reset_usage_events() -> None:
+    with _USAGE_LOCK:
+        _USAGE_EVENTS.clear()
+
+
+def usage_events() -> list[dict]:
+    with _USAGE_LOCK:
+        return list(_USAGE_EVENTS)
+
+
+def _record_usage_event(doc: dict, choice: dict | None, *,
+                        attempt_elapsed_s: float,
+                        transport_elapsed_s: float,
+                        attempt: int) -> None:
+    """Meter one decoded provider response, including unusable responses."""
+    usage = doc.get("usage")
+    usage = usage if isinstance(usage, dict) else {}
+    event = {
+        "response_id": doc.get("id"),
+        "model_served": doc.get("model"),
+        "provider": doc.get("provider"),
+        "usage": usage,
+        "finish_reason": (choice or {}).get("finish_reason"),
+        "attempt_elapsed_s": attempt_elapsed_s,
+        "transport_elapsed_s": transport_elapsed_s,
+        "transport_attempts": attempt,
+    }
+    with _USAGE_LOCK:
+        _USAGE_EVENTS.append(event)
 
 
 class LlmError(RuntimeError):
@@ -195,6 +236,13 @@ def complete(system: str, user: str, *, model: str,
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 doc = json.loads(resp.read().decode("utf-8"))
             choices = doc.get("choices") or []
+            finished = time.monotonic()
+            attempt_elapsed = round(finished - attempt_started, 2)
+            transport_elapsed = round(finished - request_started, 2)
+            _record_usage_event(
+                doc, choices[0] if choices else None,
+                attempt_elapsed_s=attempt_elapsed,
+                transport_elapsed_s=transport_elapsed, attempt=attempt)
             if not choices:
                 raise LlmError("empty_response", json.dumps(doc)[:300])
             msg = choices[0].get("message") or {}
@@ -203,8 +251,11 @@ def complete(system: str, user: str, *, model: str,
             # leaves `content` empty — which every caller then reports as a
             # JSON parse failure at column 1, sending whoever reads it to
             # look for a malformed answer that was never produced.
-            usage = doc.get("usage") or {}
-            completion_detail = usage.get("completion_tokens_details") or {}
+            usage = doc.get("usage")
+            usage = usage if isinstance(usage, dict) else {}
+            completion_detail = usage.get("completion_tokens_details")
+            completion_detail = (completion_detail
+                                 if isinstance(completion_detail, dict) else {})
             reasoning_tokens = completion_detail.get("reasoning_tokens") or 0
             if not (msg.get("content") or "").strip() and (
                     (msg.get("reasoning_content") or "").strip()
@@ -216,9 +267,6 @@ def complete(system: str, user: str, *, model: str,
                     f"({reasoning_tokens} reasoning tokens) and no answer — "
                     f"finish_reason={choices[0].get('finish_reason')!r}. "
                     "Raise --max-tokens, or unset NEWS_LLM_THINKING=1.")
-            finished = time.monotonic()
-            attempt_elapsed = round(finished - attempt_started, 2)
-            transport_elapsed = round(finished - request_started, 2)
             return {
                 "text": msg.get("content") or "",
                 "model": doc.get("model") or model,

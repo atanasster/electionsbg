@@ -4,7 +4,13 @@
 
 Use `z-ai/glm-5.3-flash` as the initial production model for the complete news-analysis schema. It was the best speed/reliability/quality compromise: 21/22 valid responses, 8.95 s median latency, and an observed $0.000655 per ordinary article.
 
-Budget about **$20.58/month for 1,000 accepted articles/day** or **$30.86/month for 1,500/day**, including the measured retry overhead. A political-heavy workload with longer outputs measured closer to **$34.98/month per 1,000 articles/day** before retries.
+The later 1,487-article live batch supersedes this small-sample operating
+budget: **$26.00/month for 1,000 accepted articles/day**, including probes,
+schema retries, failures, and a 4,096-token recovery pass. At the measured
+900–1,000 incoming articles/day, budget **$22.99–$25.55/month**. See
+`openrouter-live-batch-2026-08-31.md`. The comparison tables below retain
+their original benchmark figures so the model-to-model experiment stays
+reproducible.
 
 `upstage/solar-pro4` is the lowest-cost credible alternative: about **$7.64/month per 1,000 accepted articles/day** after measured retry overhead. It is much slower and less schema-reliable than GLM, but its field accuracy was generally better than similarly priced GPT-OSS 20B.
 

@@ -639,11 +639,25 @@ class TheRecord(unittest.TestCase):
             "completion_tokens": True,
             "total_tokens": analyze_local.MAX_USAGE_TOKENS + 1,
             "cost": float("nan"),
+            "prompt_tokens_details": [],
+            "completion_tokens_details": "bad",
         })
         self.assertEqual(got, {})
         for bad in (float("inf"), -0.01,
                     analyze_local.MAX_USAGE_COST_USD + 1):
             self.assertNotIn("cost", analyze_local.bounded_usage({"cost": bad}))
+
+    def test_usage_keeps_cache_and_reasoning_counters(self):
+        got = analyze_local.bounded_usage({
+            "prompt_tokens": 100,
+            "completion_tokens": 30,
+            "total_tokens": 130,
+            "cost": 0.00125,
+            "prompt_tokens_details": {"cached_tokens": 80},
+            "completion_tokens_details": {"reasoning_tokens": 12},
+        })
+        self.assertEqual(got["cached_prompt_tokens"], 80)
+        self.assertEqual(got["reasoning_tokens"], 12)
 
     def test_schema_retry_provenance_carries_cumulative_billed_usage(self):
         def rec(response, cost):
@@ -936,14 +950,29 @@ class ReasoningModels(unittest.TestCase):
         self.assertEqual(r["text"], "")
 
     def test_hidden_reasoning_tokens_with_no_answer_are_NAMED(self):
+        llm_client.reset_usage_events()
         with self.assertRaises(llm_client.LlmError) as ctx:
             self.respond({
+                "id": "charged-failure", "model": "served",
+                "provider": "FallbackProvider",
                 "choices": [{"finish_reason": "length",
                              "message": {"content": ""}}],
-                "usage": {"completion_tokens_details": {
-                    "reasoning_tokens": 2046}},
+                "usage": {
+                    "prompt_tokens": 100, "completion_tokens": 2048,
+                    "total_tokens": 2148, "cost": 0.0025,
+                    "prompt_tokens_details": {"cached_tokens": 80},
+                    "completion_tokens_details": {
+                        "reasoning_tokens": 2046}},
             })
         self.assertEqual(ctx.exception.kind, "reasoning_only")
+        billing = analyze_local.summarize_run_billing()
+        self.assertEqual(billing["responses"], 1)
+        self.assertEqual(billing["responses_with_cost"], 1)
+        self.assertEqual(billing["cost_usd"], 0.0025)
+        self.assertEqual(billing["cached_prompt_tokens"], 80)
+        self.assertEqual(billing["reasoning_tokens"], 2046)
+        self.assertEqual(billing["providers"], {"FallbackProvider": 1})
+        self.assertEqual(billing["finish_reasons"], {"length": 1})
 
 
 class FencedJson(unittest.TestCase):

@@ -55,7 +55,7 @@ Edit `/opt/naiasno/news/.env.model`:
 
 ```dotenv
 NEWS_LLM_MODEL=z-ai/glm-5.3-flash
-NEWS_LLM_MAX_TOKENS=2048
+NEWS_LLM_MAX_TOKENS=4096
 NEWS_LLM_TEMPERATURE=0.2
 NEWS_LLM_REASONING_EFFORT=low
 NEWS_LLM_THINKING=0
@@ -69,8 +69,11 @@ To switch models later, change this file only. The next hourly run uses the
 new model and records it in each analysis's provenance. Set `NEWS_LLM_THINKING`
 to `1` only for a model that requires its reasoning channel. Reduce workers if
 the provider rate-limits concurrent requests. `NEWS_LLM_MAX_TOKENS` controls
-the paid analysis response budget. `NEWS_LLM_TEMPERATURE` controls sampling
-and accepts values from 0 through 2.
+the paid analysis response budget. The 4,096 default is measured: the
+2,048-token live pass ended 126 of 1,547 generations at the ceiling, while
+the 4,096 retry ended 10 of 178 there at essentially the same mean request
+cost. `NEWS_LLM_TEMPERATURE` controls sampling and accepts values from 0
+through 2.
 
 ## 5. Configure GCS credentials and destinations
 
@@ -178,6 +181,19 @@ To remove only this job:
 - Full local corpus and analysis: `news/data/`
 - Hidden reciprocal backlink shards: `news/mentions/`
 - Public news-app bundles: `news/app-data/`
+
+Each `analyze` stage result contains a `billing` object for the complete run,
+including generations that failed parsing or validation. Inspect the newest
+stage report with:
+
+```bash
+jq '.stages[] | select(.stage == "analyze") | .result.billing' \
+  "$(ls -t news/data/_nightly/*.json | head -1)"
+```
+
+`responses_with_cost` should equal `responses` on OpenRouter. A lower number
+means the provider returned one or more decoded responses without billing
+metadata, so the printed `cost_usd` is a lower bound.
 
 Never replace the live `news/` directory with a clean copy that omits
 `news/data/`, `.env.*`, `credentials/`, `mentions/`, or `var/`. Copy code and
