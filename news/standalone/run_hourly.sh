@@ -12,6 +12,7 @@ if [ -n "${NEWS_DEPLOY_ROOT:-}" ]; then
     "$NEWS_ROOT/.env.model"
     "$NEWS_ROOT/.env.upload"
     "$NEWS_ROOT/.env.pipeline"
+    "$NEWS_ROOT/.env.evals"
   )
   VERIFY=(python3 "$NEWS_ROOT/verify_install.py" --quiet)
   PIPELINE="$NEWS_ROOT/scripts/run_nightly.sh"
@@ -24,7 +25,7 @@ else
   CONFIG_FILES=("$ROOT/config.env")
   VERIFY=(python3 "$ROOT/verify_bundle.py" --quiet)
   PIPELINE="$ROOT/news/scripts/run_nightly.sh"
-  UPLOADER="$ROOT/upload_to_gcs.py"
+UPLOADER="$ROOT/upload_to_gcs.py"
 fi
 export DATA_BG_ROOT="$ROOT"
 for config in "${CONFIG_FILES[@]}"; do
@@ -130,6 +131,7 @@ fi
 RUN_ID="$(date -u +%Y-%m-%dT%H%M%SZ)-$$"
 PIPELINE_STDOUT="$REPORT_DIR/$RUN_ID.pipeline.stdout"
 UPLOAD_STDOUT="$REPORT_DIR/$RUN_ID.upload.json"
+EVAL_SYNC_STDOUT="$REPORT_DIR/$RUN_ID.eval-task-sync.json"
 COMBINED="$REPORT_DIR/$RUN_ID.json"
 
 ARGS=(
@@ -167,15 +169,36 @@ python3 "$UPLOADER" "${UPLOAD_ARGS[@]}" > "$UPLOAD_STDOUT"
 UPLOAD_CODE=$?
 cat "$UPLOAD_STDOUT"
 
+EVAL_SYNC_ARGS=(task-sync --upload-result "$UPLOAD_STDOUT")
+if [ "$DRY" -eq 1 ]; then EVAL_SYNC_ARGS+=(--dry-run); fi
+timeout "$NEWS_STAGE_TIMEOUT" python3 "$NEWS_ROOT/scripts/eval_runtime.py" \
+  "${EVAL_SYNC_ARGS[@]}" \
+  > "$EVAL_SYNC_STDOUT"
+EVAL_SYNC_CODE=$?
+cat "$EVAL_SYNC_STDOUT"
+
 RUN_ID="$RUN_ID" PIPELINE_CODE="$PIPELINE_CODE" UPLOAD_CODE="$UPLOAD_CODE" \
+EVAL_SYNC_CODE="$EVAL_SYNC_CODE" \
 PIPELINE_REPORT="$PIPELINE_REPORT" PIPELINE_STDOUT="$PIPELINE_STDOUT" \
-UPLOAD_STDOUT="$UPLOAD_STDOUT" COMBINED="$COMBINED" python3 -c '
+UPLOAD_STDOUT="$UPLOAD_STDOUT" EVAL_SYNC_STDOUT="$EVAL_SYNC_STDOUT" \
+COMBINED="$COMBINED" python3 -c '
 import json, os
 upload = None
 try:
     upload = json.loads(open(os.environ["UPLOAD_STDOUT"], encoding="utf-8").read())
 except Exception as exc:
     upload = {"error": f"unreadable upload result: {exc}"}
+try:
+    eval_sync = json.loads(open(os.environ["EVAL_SYNC_STDOUT"], encoding="utf-8").read())
+except Exception as exc:
+    eval_sync = {"error": f"unreadable eval task-sync result: {exc}"}
+pipeline_evals = None
+if os.environ["PIPELINE_REPORT"]:
+    try:
+        pipeline = json.loads(open(os.environ["PIPELINE_REPORT"], encoding="utf-8").read())
+        pipeline_evals = pipeline.get("evals")
+    except Exception:
+        pipeline_evals = None
 result = {
     "mode": "news_hourly",
     "run_id": os.environ["RUN_ID"],
@@ -184,6 +207,9 @@ result = {
     "pipeline_stdout": os.environ["PIPELINE_STDOUT"],
     "upload_exit": int(os.environ["UPLOAD_CODE"]),
     "upload": upload,
+    "eval_task_sync_exit": int(os.environ["EVAL_SYNC_CODE"]),
+    "eval_task_sync": eval_sync,
+    "evals": pipeline_evals,
 }
 with open(os.environ["COMBINED"], "w", encoding="utf-8") as fh:
     json.dump(result, fh, ensure_ascii=False, indent=1)
@@ -192,5 +218,6 @@ print(json.dumps(result, ensure_ascii=False))
 REPORT_CODE=$?
 release_lock
 if [ "$REPORT_CODE" -ne 0 ]; then exit 2; fi
-if [ "$PIPELINE_CODE" -ne 0 ] || [ "$UPLOAD_CODE" -ne 0 ]; then exit 1; fi
+if [ "$PIPELINE_CODE" -ne 0 ] || [ "$UPLOAD_CODE" -ne 0 ] || \
+   [ "$EVAL_SYNC_CODE" -ne 0 ]; then exit 1; fi
 exit 0

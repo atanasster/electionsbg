@@ -24,6 +24,7 @@ ENV_FILES=(
   "$NEWS_ROOT/.env.model"
   "$NEWS_ROOT/.env.upload"
   "$NEWS_ROOT/.env.pipeline"
+  "$NEWS_ROOT/.env.evals"
 )
 if [ "$MODE" != "uninstall" ]; then
   for path in "${ENV_FILES[@]}"; do

@@ -443,6 +443,21 @@ def build(root: Path, app_data: Path, selections: list[Path],
     if missing_public:
         raise SyncError("selected articles are not in public app-data: " + ", ".join(missing_public))
 
+    # An accepted adjudication is already the editorial answer. Keeping that
+    # article in the public queue would compare new visitors with the obsolete
+    # model label while the article page displays the accepted human value.
+    # Drop it from the desired active set; the post-publication task sync then
+    # deactivates the prior Firestore task. Content-stale decisions remain in
+    # review because their public analysis still uses the current model value.
+    excluded_accepted = []
+    for key in sorted(selected):
+        analysis = public_articles[key].get("analysis")
+        review = analysis.get("human_review") if isinstance(analysis, dict) else None
+        if isinstance(review, dict) and review.get("status") == "accepted":
+            excluded_accepted.append(key)
+            selected.pop(key)
+            routed.pop(key, None)
+
     tasks = []
     failures = []
     for key in sorted(selected):
@@ -503,6 +518,7 @@ def build(root: Path, app_data: Path, selections: list[Path],
         "public_data_revision": public_revision,
         "public_articles_scanned": len(public_articles),
         "task_count": len(tasks),
+        "excluded_accepted_count": len(excluded_accepted),
         "dataset_count": len(purposes),
         "by_dataset": dict(sorted(Counter(
             dataset for task in tasks for dataset in task["dataset_ids"]

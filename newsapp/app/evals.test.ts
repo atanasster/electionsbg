@@ -50,10 +50,11 @@ describe("public eval queue contract", () => {
     expect(JSON.stringify(parsed)).not.toMatch(/content"|evidence|public_note/);
   });
 
-  it("rejects empty, duplicate, malformed, and unsupported queues", async () => {
-    await expect(parseEvalQueue(await queue([]))).rejects.toThrow(
-      /Невалиден договор/,
-    );
+  it("accepts an empty deactivation queue but rejects malformed inventories", async () => {
+    await expect(parseEvalQueue(await queue([]))).resolves.toMatchObject({
+      task_count: 0,
+      tasks: [],
+    });
     await expect(parseEvalQueue(await queue([task(), task()]))).rejects.toThrow(
       /Повторена задача/,
     );

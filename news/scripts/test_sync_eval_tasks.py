@@ -149,6 +149,22 @@ class TaskSyncTest(unittest.TestCase):
             changed["tasks"][0]["revision"],
         )
 
+    def test_accepted_human_answer_is_removed_from_the_desired_public_queue(self):
+        public_file = self.app / "articles" / "example.bg.json"
+        public = sync.read_json(public_file)
+        public["articles"][0]["analysis"]["human_review"] = {
+            "status": "accepted",
+        }
+        # The effective public label may now differ from the immutable model;
+        # exclusion must happen before make_task's model-coherence check.
+        public["articles"][0]["analysis"]["leaning"]["label"] = "neutral"
+        self.write(public_file, public)
+        manifest, queue, report = sync.build(
+            self.root, self.app, [self.selection], False, 0)
+        self.assertEqual(manifest["task_count"], 0)
+        self.assertEqual(queue["tasks"], [])
+        self.assertEqual(report["excluded_accepted_count"], 1)
+
     def test_selection_must_be_explicitly_public_and_never_gold(self):
         selection = sync.read_json(self.selection)
         selection["dataset_id"] = "sealed-gold-v1"

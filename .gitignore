@@ -33,6 +33,7 @@ ai/m0/finetune/recall_embeddings.json
 # build's sweep — keep it out of git either way.
 dist.old-*
 .env.*
+!news/.env.*.example
 *.cache
 
 # Firebase functions: local secret values for the emulator (defineSecret reads

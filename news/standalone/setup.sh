@@ -12,13 +12,13 @@ need() {
   }
 }
 need python3 "install Python 3.10+ (Homebrew python is suitable)"
-need node "install Node.js 20+"
+need node "install Node.js 22+"
 need npm "installed with Node.js"
 need gsutil "install the Google Cloud CLI and authenticate this machine"
 
 python3 -c 'import sys; assert sys.version_info >= (3, 10), "Python 3.10+ required"'
-node -e 'const [major]=process.versions.node.split(".").map(Number); if (major < 20) process.exit(2)' || {
-  echo "Node.js 20+ required" >&2
+node -e 'const [major]=process.versions.node.split(".").map(Number); if (major < 22) process.exit(2)' || {
+  echo "Node.js 22+ required" >&2
   exit 2
 }
 python3 verify_bundle.py
@@ -32,6 +32,8 @@ else
 fi
 
 npm install --omit=dev
+npm --prefix news-functions install
+npm --prefix news-functions run build
 npx playwright install chromium
 mkdir -p var/reports news/app-data data/news/mentions
 echo "setup complete; run ./run_hourly.sh --dry-run, then ./install_cron.sh"

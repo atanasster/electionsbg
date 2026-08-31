@@ -30,10 +30,10 @@ $EDITOR config.env
 ./install_cron.sh
 ```
 
-`setup.sh` verifies bundle hashes, checks Python 3.10+, Node 20+, npm and
-`gsutil`, installs the pinned Playwright runtime, and downloads Chromium. It
-does not install system packages or authenticate GCS. Authenticate the machine
-with a least-privilege service account before enabling cron.
+`setup.sh` verifies bundle hashes, checks Python 3.10+, Node 22+, npm and
+`gsutil`, builds the bundled eval operator, installs the pinned Playwright
+runtime, and downloads Chromium. It does not install system packages or
+authenticate GCS or Firestore.
 
 ## Hourly behavior
 
@@ -47,6 +47,16 @@ The outer PID lock covers acquisition, analysis **and** upload. If a slow
 browser sweep is still running at the next hour, that invocation reports
 `already_running` and exits successfully instead of corrupting state. The
 inner pipeline has its own lock as a second guard.
+
+The eval order is split across the publication commit. Before bundle generation
+the runtime exports raw submissions and the accepted snapshot with the dedicated
+eval identity, retains a validated last-known-good snapshot on transient export
+failure, reports its age plus current/stale/missing article counts, and writes
+private correction proposals. It then builds the desired public task queue into
+the same immutable app-data version. Only after the GCS `manifest.json`
+compare-and-swap succeeds does it activate that exact task manifest in
+Firestore. A failed or disabled public upload never activates tasks for routes
+readers cannot inspect.
 
 Each run writes:
 
@@ -62,6 +72,23 @@ recomputes and gates the selected payload; the ladder is diagnostic, not an
 independently verified count. It blocks public upload when
 there is no story from the last 24 hours or when any implicit-default story is
 older than seven days.
+
+`NEWS_EVAL_MODE=disabled` is the pre-pilot default. `optional` may report and
+skip a missing eval identity only before accepted overrides exist. Use
+`required` once the pilot or human overrides are live: an unavailable operator,
+invalid/future/expired accepted snapshot, failed task build, or failed
+post-manifest task sync makes the hourly run non-zero and prevents the public
+pointer from advancing where applicable. The accepted snapshot SLA defaults to
+26 hours. Empty desired queues are real releases, not missing work: their live
+release proof atomically deactivates the last Firestore tasks.
+
+The eval service-account JSON named by
+`NEWS_EVAL_GOOGLE_APPLICATION_CREDENTIALS` must differ from the GCS path in
+`GOOGLE_APPLICATION_CREDENTIALS`; the runtime resolves both and refuses reuse.
+Grant the eval identity only the Firestore/Admin permissions required by the
+operator. Never grant the public uploader Firestore access. Configure
+reproducible community selections through `NEWS_EVAL_SELECTIONS_JSON`, a JSON
+array of runtime-contained paths.
 
 ## Storage boundary
 
@@ -151,7 +178,9 @@ python3 verify_bundle.py        # detect copied/edited runtime files
 ```
 
 Keep `config.env` mode `600`. Rotate `var/cron.log` with the host's normal log
-rotation policy. Alert on a non-zero `pipeline_exit`/`upload_exit`, a growing
+rotation policy. Alert on a non-zero `pipeline_exit`/`upload_exit`/
+`eval_task_sync_exit`, any `evals.export.alerts`, an accepted snapshot near its
+SLA, a growing
 `analysis_backlog.pending_total`, repeated source freshness alerts, or hourly
 `already_running` skips. The `analyze` stage's `result.billing` object is the
 run-level OpenRouter bill; unlike per-article provenance, it also counts

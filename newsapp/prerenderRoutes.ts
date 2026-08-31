@@ -161,7 +161,6 @@ const evalQueueTasks = (queue: Bundle, publicRevision: unknown): Bundle[] => {
   }
   if (
     !Array.isArray(queue.tasks) ||
-    queue.tasks.length === 0 ||
     queue.tasks.length > MAX_EVAL_TASKS ||
     queue.task_count !== queue.tasks.length ||
     !SHA256.test(String(queue.tasks_sha256 ?? "")) ||

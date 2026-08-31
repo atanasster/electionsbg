@@ -77,8 +77,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             self.assertEqual(len(reports), 2)
             for report in reports:
                 data = __import__("json").loads(report.read_text(encoding="utf-8"))
-                self.assertEqual(data["stages_run"], 12)
-                self.assertEqual(data["stages_ok"], 12)
+                self.assertEqual(data["stages_run"], 14)
+                self.assertEqual(data["stages_ok"], 14)
                 self.assertTrue(all(s["result"] == {"skipped": "dry_run"}
                                     for s in data["stages"]))
                 self.assertEqual(data["acquisition"]["direct"]["skipped"], "dry_run")
@@ -167,7 +167,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             for name in ("build_prompts.py", "build_gazetteer.py",
                          "build_image_rights_queue.py", "source_commons_images.py",
                          "review_routing.py", "build_mention_index.py",
-                         "build_app_data.py", "home_health.py"):
+                         "eval_runtime.py", "build_app_data.py",
+                         "home_health.py"):
                 (runner.parent / name).write_text("print('{}')\n", encoding="utf-8")
             runner.write_text(source, encoding="utf-8")
             proc = self.run_runner_at(runner, "--skip-browser")

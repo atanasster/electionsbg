@@ -16,6 +16,7 @@ ROOT = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2
 
 RUNTIME_SCRIPTS = (
     "news/scripts/apply_commons_images.py",
+    "news/scripts/app_data_inventory.py",
     "news/scripts/analyze_articles.py",
     "news/scripts/analyze_local.py",
     "news/scripts/build_app_data.py",
@@ -24,6 +25,8 @@ RUNTIME_SCRIPTS = (
     "news/scripts/build_mention_index.py",
     "news/scripts/build_prompts.py",
     "news/scripts/commons_rights.py",
+    "news/scripts/effective_analysis.py",
+    "news/scripts/eval_runtime.py",
     "news/scripts/fetch_latest_articles.py",
     "news/scripts/harvest_browser.mjs",
     "news/scripts/llm_client.py",
@@ -31,11 +34,13 @@ RUNTIME_SCRIPTS = (
     "news/scripts/home_health.py",
     "news/scripts/resolve_mentions.py",
     "news/scripts/review_routing.py",
+    "news/scripts/propose_eval_corrections.py",
     "news/scripts/run_nightly.sh",
     "news/scripts/save_all_browser.sh",
     "news/scripts/save_all_direct.sh",
     "news/scripts/save_articles.py",
     "news/scripts/source_commons_images.py",
+    "news/scripts/sync_eval_tasks.py",
     "news/scripts/bin/timeout",
 )
 SEED_FILES = (
@@ -143,6 +148,24 @@ def build(out: Path, with_state: bool) -> dict:
         if source.is_file():
             rel = str(source.relative_to(ROOT))
             copy_file(rel, rel, out, immutable)
+    for source in sorted((ROOT / "news" / "eval_contract").rglob("*")):
+        if source.is_file() and "__pycache__" not in source.parts:
+            rel = str(source.relative_to(ROOT))
+            copy_file(rel, rel, out, immutable)
+    operator_files = [
+        ROOT / "news-functions" / name
+        for name in ("package.json", "package-lock.json", "tsconfig.json")
+    ]
+    operator_files.extend(
+        path for directory in ("src", "scripts")
+        for path in sorted((ROOT / "news-functions" / directory).rglob("*"))
+        if (path.is_file()
+            and "eval-contract" not in path.relative_to(
+                ROOT / "news-functions").parts)
+    )
+    for source in operator_files:
+        rel = str(source.relative_to(ROOT))
+        copy_file(rel, rel, out, immutable)
     for source, destination in STANDALONE_MAP.items():
         copy_file(source, destination, out, immutable)
     for rel in ("news/app-data", "data/news/mentions", "var/reports"):

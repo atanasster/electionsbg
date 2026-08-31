@@ -718,7 +718,7 @@ until the effective-analysis reconciliation gate exists.
 
 1. Implement `sync_eval_tasks.py`, the static public queue projection and dry-run/report modes.
    Intersect every requested task with one coherent public app-data revision, refuse sealed/gold
-   selections and empty/oversized manifests, derive a stable task revision from content, analysis
+   selections and oversized manifests, derive a stable task revision from content, analysis
    and compact labels, then write the private hashed manifest and public queue without activating
    anything. The queue is written first and the private manifest last as its local commit marker;
    the manifest binds the queue's canonical hash. Only after that exact public app-data revision is
@@ -727,7 +727,8 @@ until the effective-analysis reconciliation gate exists.
    set and deactivates stale tasks without deleting history. Refuse rollback to an older or
    conflicting public revision, derive the task revision independently on both sides, and exclude
    membership from the authoritative sealed gold/party-benchmark artifacts on every selection
-   path.
+   path. An empty desired set is accepted only through the same exact live-release proof, so the
+   last completed task can be deactivated without inventing a sentinel public task.
 2. Add noindex public eval routes with no Auth dependency. The queue hub is always prerendered,
    while one purpose-built article shell is derived for each task in the coherent public
    `evals/queue.json`; both families set `noindex,follow` and `sitemap: false` so a direct task URL
@@ -810,7 +811,13 @@ until the effective-analysis reconciliation gate exists.
    `news/data/evals/corrections/` tree, mode 0600 and atomic; a maintainer must still edit and
    manually add any approved wording to `CORRECTIONS`.
 7. Wire export/task-sync ordering, credentials, reports and failure policy into the standalone
-   bundle/runtime.
+   bundle/runtime. The hourly chain now exports or retains the accepted last-known-good snapshot
+   before effective bundle generation, writes the desired public task queue, binds publication to
+   the exact post-task app-data tree SHA, advances the immutable manifest, and only then activates
+   Firestore task metadata against the verified live release. Dedicated eval credentials cannot
+   reuse the uploader identity; disabled/optional/required modes, snapshot-age failure policy,
+   empty-queue deactivation and structured export/task-sync reporting are covered in the copyable
+   standalone runtime and its verification tests.
 
 ### Phase 4 — eval promotion and feedback loop
 

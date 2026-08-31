@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -16,11 +15,17 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from news.scripts.app_data_inventory import tree_inventory  # noqa: E402
+
 GS_URI = re.compile(r"^gs://([^/]+)(?:/(.+?))?/?$")
 EXPECTED_STAGES = (
     "acquire_direct", "acquire_browser", "probe_model", "check_prompts",
     "common_words", "analyze", "image_rights_queue", "image_candidates",
-    "review_queue", "mention_index", "bundles", "home_health",
+    "review_queue", "mention_index", "eval_export", "bundles",
+    "eval_task_build", "home_health",
 )
 ARCHIVE_EXCLUDE = (
     r"(^|/)(_browser|_html|_nightly|evals|gold)(/|$)|"
@@ -83,7 +88,8 @@ def load_report(
     if (report.get("failed_stages") != failed_all
             or report.get("stages_ok") != len(rows) - len(failed_all)):
         return False, "invalid_pipeline_report: summary does not match stages"
-    failed = [name for name in ("mention_index", "bundles", "home_health")
+    failed = [name for name in (
+        "mention_index", "eval_export", "bundles", "eval_task_build", "home_health")
               if stages[name]["exit"] != 0]
     if failed:
         return False, f"public_not_ready: failed={failed}"
@@ -114,6 +120,32 @@ def public_upload_enabled() -> bool:
     return value == "1"
 
 
+def expected_publication_inventory(stages: dict[str, dict]) -> dict:
+    """Choose the last stage that can mutate the public app-data tree."""
+    bundle_result = stages["bundles"].get("result")
+    task_build_result = stages["eval_task_build"].get("result")
+    if (isinstance(task_build_result, dict)
+            and task_build_result.get("exit") == 0):
+        inventory = task_build_result.get("publication_inventory")
+        if not isinstance(inventory, dict):
+            raise ValueError(
+                "successful eval task build omitted the final app-data inventory")
+        if set(inventory) != {"generated_at", "sha256", "files", "bytes"}:
+            raise ValueError(
+                "successful eval task build returned a malformed final inventory")
+        parse_aware_instant(inventory["generated_at"], "task inventory generated_at")
+        if (type(inventory["files"]) is not int or inventory["files"] < 1
+                or type(inventory["bytes"]) is not int or inventory["bytes"] < 0
+                or not isinstance(inventory["sha256"], str)
+                or re.fullmatch(r"[a-f0-9]{64}", inventory["sha256"]) is None):
+            raise ValueError(
+                "successful eval task build returned a malformed final inventory")
+        return inventory
+    if not isinstance(bundle_result, dict):
+        raise ValueError("bundle stage omitted its app-data inventory")
+    return bundle_result
+
+
 def parse_aware_instant(value: object, label: str) -> datetime:
     if not isinstance(value, str) or not ISO_INSTANT.fullmatch(value):
         raise ValueError(f"{label} must be a timezone-aware ISO instant")
@@ -124,33 +156,6 @@ def parse_aware_instant(value: object, label: str) -> datetime:
     if parsed.tzinfo is None or parsed.utcoffset() is None:
         raise ValueError(f"{label} must be a timezone-aware ISO instant")
     return parsed.astimezone(timezone.utc)
-
-
-def tree_inventory(root: Path) -> dict:
-    files = []
-    total_bytes = 0
-    digest = hashlib.sha256()
-    paths = sorted(path for path in root.rglob("*")
-                   if path.is_file() and path.name != ".DS_Store")
-    unexpected = [path.relative_to(root).as_posix() for path in paths
-                  if path.suffix != ".json"]
-    if unexpected:
-        raise ValueError(f"app-data snapshot contains non-JSON files: {unexpected[:3]}")
-    for path in paths:
-        relative = path.relative_to(root).as_posix()
-        body = path.read_bytes()
-        file_digest = hashlib.sha256(body).hexdigest()
-        files.append({"path": relative, "bytes": len(body), "sha256": file_digest})
-        total_bytes += len(body)
-        digest.update(f"{relative}\0{len(body)}\0{file_digest}\n".encode())
-    if not files:
-        raise ValueError("app-data snapshot contains no JSON files")
-    return {
-        "sha256": digest.hexdigest(),
-        "files": len(files),
-        "bytes": total_bytes,
-        "inventory": files,
-    }
 
 
 def materialize_snapshot(source: Path, destination: Path) -> dict:
@@ -199,6 +204,8 @@ def publication_manifest(
         expected_bundle.get("generated_at") != generated_at
         or expected_bundle.get("files") != bundle["files"]
         or expected_bundle.get("bytes") != bundle["bytes"]
+        or (expected_bundle.get("sha256") is not None
+            and expected_bundle.get("sha256") != bundle["sha256"])
     ):
         raise ValueError("app-data snapshot does not match the pipeline bundle result")
     if expected_health is not None and expected_health != health:
@@ -443,7 +450,7 @@ def main() -> int:
             report = json.loads(args.report.read_text(encoding="utf-8"))
             publication_id = args.expected_run_id or report.get("run_id")
             stages = {row["stage"]: row for row in report["stages"]}
-            bundle_result = stages["bundles"].get("result")
+            expected_inventory = expected_publication_inventory(stages)
             health_result = stages["home_health"].get("result")
             expected_health = (health_result.get("health")
                                if isinstance(health_result, dict) else None)
@@ -468,7 +475,7 @@ def main() -> int:
                     app_data_source = snapshot
                 publication = publication_manifest(
                     publication_id, app_data_source,
-                    (bundle_result if isinstance(bundle_result, dict) else {})
+                    (expected_inventory if isinstance(expected_inventory, dict) else {})
                     if not args.dry_run else None,
                     expected_health if not args.dry_run else None)
         scopes = commands(

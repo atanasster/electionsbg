@@ -200,7 +200,7 @@ for artifact in "$REPORT" "$DIRECT_SUMMARY" "$BROWSER_SUMMARY" \
     finish 2
   fi
 done
-STAGES_EXPECTED=12
+STAGES_EXPECTED=14
 REPORT_INTEGRITY_FAILED=0
 LAST_STAGE_NAME=""
 LAST_STAGE_CODE=0
@@ -364,7 +364,19 @@ else
   stage mention_index python3 news/scripts/build_mention_index.py --json
 fi
 
-# ── 9. App bundles ─────────────────────────────────────────────────────────
+# ── 9. Accepted eval snapshot ──────────────────────────────────────────────
+# Export after acquisition/analysis but before bundle construction so every
+# effective human override and its provenance hash belong to this exact run.
+# The command retains last-known-good files on remote/export failure and turns
+# an expired accepted snapshot into a publication-blocking stage failure.
+if [ "$DRY" = 1 ]; then
+  stage eval_export python3 -c \
+    'import json; print(json.dumps({"skipped": "dry_run"}))'
+else
+  stage eval_export python3 news/scripts/eval_runtime.py export
+fi
+
+# ── 10. App bundles ────────────────────────────────────────────────────────
 if [ "$DRY" = 1 ]; then
   stage bundles python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
@@ -372,7 +384,17 @@ else
   stage bundles python3 news/scripts/build_app_data.py --quiet --json
 fi
 
-# ── 10. Actual homepage freshness gate ─────────────────────────────────────
+# ── 11. Desired public eval tasks ──────────────────────────────────────────
+# This writes the queue into the just-built app-data version and the private
+# task manifest that binds it. Firestore activation happens only after upload.
+if [ "$DRY" = 1 ]; then
+  stage eval_task_build python3 -c \
+    'import json; print(json.dumps({"skipped": "dry_run"}))'
+else
+  stage eval_task_build python3 news/scripts/eval_runtime.py task-build
+fi
+
+# ── 12. Actual homepage freshness gate ─────────────────────────────────────
 # This reads the just-built home.json and verifies the exact implicit payload:
 # no broad-corpus proxy and no image-selection proxy can certify freshness.
 if [ "$DRY" = 1 ]; then
@@ -382,7 +404,7 @@ else
   stage home_health python3 news/scripts/home_health.py --enforce --json
 fi
 
-# ── 11. Report ─────────────────────────────────────────────────────────────
+# ── 13. Report ─────────────────────────────────────────────────────────────
 # ⚠️ The stages come in by PATH, not on stdin. `python3 - < "$STAGES"
 # <<'PYEOF'` applies both redirections and the LATER one wins — so the
 # heredoc replaced the file as stdin, the reader saw the script text instead
@@ -422,6 +444,11 @@ home_health = next((s.get("result", {}) for s in stages
                     if s.get("stage") == "home_health"), {})
 if isinstance(home_health, dict):
     report["home_health"] = home_health
+report["evals"] = {
+    name.removeprefix("eval_"): next(
+        (s.get("result", {}) for s in stages if s.get("stage") == name), {})
+    for name in ("eval_export", "eval_task_build")
+}
 acquisition = {}
 for stage_name, artifact_env in (("acquire_direct", "DIRECT_SUMMARY"),
                                  ("acquire_browser", "BROWSER_SUMMARY")):

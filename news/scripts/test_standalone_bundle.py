@@ -12,6 +12,7 @@ from pathlib import Path
 from unittest import mock
 
 import build_standalone_bundle as bundle
+from news.scripts import eval_runtime
 
 
 def load_uploader():
@@ -76,8 +77,13 @@ class StandaloneBundle(unittest.TestCase):
         self.assertGreaterEqual(len(self.manifest["files"]), 30)
         for rel in ("run_hourly.sh", "upload_to_gcs.py",
                     "news/scripts/run_nightly.sh",
+                    "news/scripts/app_data_inventory.py",
+                    "news/scripts/eval_runtime.py",
+                    "news/scripts/propose_eval_corrections.py",
                     "news/scripts/source_commons_images.py",
                     "news/scripts/harvest_browser.mjs",
+                    "news/eval_contract/contract.json",
+                    "news-functions/src/operator-cli.ts",
                     "news/prompts/analyze_schema.json",
                     "news/data/gazetteer.json"):
             self.assertTrue((self.out / rel).is_file(), rel)
@@ -166,15 +172,16 @@ class DirectNewsFolder(unittest.TestCase):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, target)
             shutil.copytree(bundle.ROOT / "news/prompts", news / "prompts")
+            shutil.copytree(bundle.ROOT / "news/eval_contract", news / "eval_contract")
             shutil.copytree(bundle.ROOT / "news/standalone", news / "standalone")
             for name in (
                 "run_hourly.sh", "install_cron.sh", "setup.sh",
                 "verify_install.py", "package.json", ".env.api.example",
                 ".env.model.example", ".env.upload.example",
-                ".env.pipeline.example",
+                ".env.pipeline.example", ".env.evals.example",
             ):
                 shutil.copy2(bundle.ROOT / "news" / name, news / name)
-            for name in ("api", "model", "upload", "pipeline"):
+            for name in ("api", "model", "upload", "pipeline", "evals"):
                 shutil.copy2(news / f".env.{name}.example", news / f".env.{name}")
             (news / "app-data").mkdir()
             (news / "mentions").mkdir()
@@ -227,6 +234,99 @@ class DirectNewsFolder(unittest.TestCase):
 
 
 class UploadPolicy(unittest.TestCase):
+    def test_task_build_inventory_binds_changed_and_empty_eval_queues(self):
+        with tempfile.TemporaryDirectory(prefix="news_eval_inventory_") as td:
+            root = Path(td)
+            app_data = root / "news/app-data"
+            app_data.mkdir(parents=True)
+            generated_at = "2026-08-31T07:00:00Z"
+            (app_data / "home.json").write_text(json.dumps({
+                "generated_at": generated_at,
+                "home_health": {"ready": True},
+            }), encoding="utf-8")
+            (app_data / "stats.json").write_text(json.dumps({
+                "generated_at": generated_at,
+                "accepted_snapshot_records_sha256": None,
+            }), encoding="utf-8")
+            stale_inventory = {
+                "generated_at": generated_at,
+                **uploader.tree_inventory(app_data),
+            }
+            runtime_config = eval_runtime.RuntimeConfig(
+                mode="required",
+                credential=Path("/private/eval.json"),
+                operator_cli=Path("/private/operator-cli.js"),
+                unavailable_reason=None,
+                max_snapshot_age_hours=26,
+                live_manifest_url=eval_runtime.LIVE_MANIFEST_URL,
+            )
+            queues = [
+                {"task_count": 1, "tasks": [{"article_key": "a.bg/1"}]},
+                {"task_count": 1, "tasks": [{"article_key": "b.bg/2"}]},
+                {"task_count": 0, "tasks": []},
+            ]
+            previous = stale_inventory
+            for queue in queues:
+                def write_queue(*_args, **_kwargs):
+                    queue_path = app_data / "evals/queue.json"
+                    queue_path.parent.mkdir(parents=True, exist_ok=True)
+                    queue_path.write_text(json.dumps(queue), encoding="utf-8")
+                    return mock.Mock(
+                        returncode=0,
+                        stdout='{"mode":"news_eval_task_sync"}\n',
+                        stderr="",
+                    )
+
+                with mock.patch(
+                    "news.scripts.eval_runtime.runtime_config",
+                    return_value=runtime_config,
+                ), mock.patch(
+                    "news.scripts.eval_runtime.subprocess.run",
+                    side_effect=write_queue,
+                ):
+                    result, code = eval_runtime.task_build_operation(root)
+                self.assertEqual(code, 0)
+                final_inventory = result["publication_inventory"]
+                stages = {
+                    "bundles": {"result": stale_inventory},
+                    "eval_task_build": {"result": result},
+                }
+                self.assertEqual(
+                    uploader.expected_publication_inventory(stages),
+                    final_inventory,
+                )
+                manifest = uploader.publication_manifest(
+                    "hour-1", app_data, final_inventory, {"ready": True})
+                self.assertEqual(manifest["bundle"]["sha256"],
+                                 final_inventory["sha256"])
+                with self.assertRaisesRegex(
+                    ValueError, "pipeline bundle result"
+                ):
+                    uploader.publication_manifest(
+                        "hour-1", app_data, previous, {"ready": True})
+                previous = final_inventory
+
+            broken_values = [
+                None,
+                {key: value for key, value in previous.items()
+                 if key != "sha256"},
+                {**previous, "sha256": None},
+                {**previous, "sha256": "not-a-sha"},
+            ]
+            for broken in broken_values:
+                with self.subTest(broken=broken):
+                    broken_result = {"exit": 0}
+                    if broken is not None:
+                        broken_result["publication_inventory"] = broken
+                    broken_stages = {
+                        "bundles": {"result": stale_inventory},
+                        "eval_task_build": {"result": broken_result},
+                    }
+                    with self.assertRaisesRegex(
+                        ValueError, "omitted the final|malformed final"
+                    ):
+                        uploader.expected_publication_inventory(broken_stages)
+
     def test_archive_versioning_parser(self):
         self.assertTrue(uploader.versioning_enabled(
             "gs://private-bucket: Enabled"))

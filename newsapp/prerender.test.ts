@@ -670,6 +670,13 @@ describe("the eval queue fails closed", () => {
     ).toThrow(/current public app-data revision/);
   });
 
+  it("accepts an empty queue as an explicit deactivate-all release", () => {
+    const routes = build(queue({ tasks: [] }))();
+    expect(
+      routes.some((route) => route.path.startsWith("evals/article/")),
+    ).toBe(false);
+  });
+
   it("refuses a count mismatch or a non-array inventory", () => {
     expect(build(queue({ task_count: 2 }))).toThrow(/inventory is invalid/);
     expect(

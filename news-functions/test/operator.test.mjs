@@ -905,6 +905,31 @@ test("live release proof binds the active pointer, immutable queue bytes, and ma
     await verifyLiveTaskRelease(manifest, manifestUrl, fetcher),
     releaseProof(manifest),
   );
+  const liveV2 = {
+    ...live,
+    version: 2,
+    accepted_snapshot_records_sha256: "a".repeat(64),
+  };
+  assert.deepEqual(
+    await verifyLiveTaskRelease(manifest, manifestUrl, async (url) =>
+      response(url === manifestUrl ? JSON.stringify(liveV2) : queueBody),
+    ),
+    releaseProof(manifest),
+  );
+  await assert.rejects(
+    () =>
+      verifyLiveTaskRelease(manifest, manifestUrl, async (url) =>
+        response(
+          url === manifestUrl
+            ? JSON.stringify({
+                ...liveV2,
+                accepted_snapshot_records_sha256: "not-a-hash",
+              })
+            : queueBody,
+        ),
+      ),
+    /accepted snapshot hash is invalid/,
+  );
   await assert.rejects(
     () =>
       verifyLiveTaskRelease(manifest, manifestUrl, async (url) =>
@@ -1078,11 +1103,10 @@ test("task sync refuses rollback and same-generation conflicts without writes", 
   }
 });
 
-test("task sync refuses empty, tampered, and private-field manifests without writes", async () => {
+test("task sync refuses tampered and private-field manifests without writes", async () => {
   const database = new FakeFirestore();
   const store = new FirestoreOperatorStore(database);
   for (const manifest of [
-    syncManifest([]),
     { ...syncManifest([syncTask()]), tasks_sha256: CONTENT_HASH },
     syncManifest([syncTask(ARTICLE_KEY, { private_excerpt: "never upload" })]),
     syncManifest([syncTask(ARTICLE_KEY, { revision: 7 })]),
@@ -1116,6 +1140,28 @@ test("task sync refuses empty, tampered, and private-field manifests without wri
     ),
   );
   assert.equal(database.documents.size, 0);
+});
+
+test("a live empty queue explicitly deactivates every remaining public task", async () => {
+  const database = new FakeFirestore([
+    ["news_eval_tasks/active-1", { accepts_public_evals: true }],
+    ["news_eval_tasks/active-2", { accepts_public_evals: true }],
+  ]);
+  const manifest = syncManifest([]);
+  const result = await new FirestoreOperatorStore(database).syncTasks(
+    manifest,
+    releaseProof(manifest),
+  );
+  assert.equal(result.taskCount, 0);
+  assert.equal(result.deactivated, 2);
+  assert.equal(
+    database.documents.get("news_eval_tasks/active-1").accepts_public_evals,
+    false,
+  );
+  assert.equal(
+    database.documents.get("news_eval_tasks/active-2").accepts_public_evals,
+    false,
+  );
 });
 
 test("task sync ignores lifetime inactive history while bounding active plus desired", async () => {

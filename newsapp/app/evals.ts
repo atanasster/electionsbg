@@ -195,7 +195,6 @@ export const parseEvalQueue = async (value: unknown): Promise<EvalQueue> => {
     !generatedAt ||
     generatedAt !== publicRevision ||
     !Array.isArray(tasks) ||
-    tasks.length === 0 ||
     tasks.length > 200 ||
     queue.task_count !== tasks.length ||
     typeof queue.tasks_sha256 !== "string" ||

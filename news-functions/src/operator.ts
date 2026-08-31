@@ -556,8 +556,8 @@ function taskSyncManifest(value: unknown): {
     raw.rubric_version !== RUBRIC
   )
     throw new Error("task sync manifest contract is unsupported");
-  if (!Array.isArray(raw.tasks) || raw.tasks.length === 0)
-    throw new Error("task sync manifest must not be empty");
+  if (!Array.isArray(raw.tasks))
+    throw new Error("task sync manifest tasks must be an array");
   if (raw.tasks.length > 200)
     throw new Error("task sync manifest exceeds the 200-task safety cap");
   const generatedAt = isoTimestamp(raw.generated_at, "manifest generated_at");
@@ -590,7 +590,7 @@ function taskSyncManifest(value: unknown): {
     )
       throw new Error("task sync tasks are not strictly sorted");
   }
-  if (safeInteger(raw.task_count, "task_count", 1) !== tasks.length)
+  if (safeInteger(raw.task_count, "task_count") !== tasks.length)
     throw new Error("task sync task_count does not match");
   const tasksHash = hash(raw.tasks_sha256, "tasks_sha256");
   const queueHash = hash(raw.queue_sha256, "queue_sha256");
@@ -695,8 +695,16 @@ export async function verifyLiveTaskRelease(
     throw new Error("live publication manifest is not valid JSON");
   }
   const live = object(liveValue, "live publication manifest");
-  if (live.version !== 1 || live.home_health_ready !== true)
-    throw new Error("live publication manifest is not a ready v1 release");
+  if ((live.version !== 1 && live.version !== 2) || live.home_health_ready !== true)
+    throw new Error("live publication manifest is not a ready supported release");
+  if (live.version === 2) {
+    const acceptedHash = live.accepted_snapshot_records_sha256;
+    if (
+      acceptedHash !== null &&
+      (typeof acceptedHash !== "string" || !/^[a-f0-9]{64}$/u.test(acceptedHash))
+    )
+      throw new Error("live publication accepted snapshot hash is invalid");
+  }
   const runId = stringValue(live.run_id, "live publication run_id", 128);
   if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u.test(runId))
     throw new Error("live publication run_id is invalid");
@@ -761,7 +769,7 @@ export async function verifyLiveTaskRelease(
       queue.public_data_revision,
       "live eval queue public_data_revision",
     ) !== parsed.manifest.public_data_revision ||
-    safeInteger(queue.task_count, "live eval queue task_count", 1) !==
+    safeInteger(queue.task_count, "live eval queue task_count") !==
       parsed.tasks.length
   )
     throw new Error("live eval queue metadata does not match task manifest");
