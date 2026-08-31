@@ -746,7 +746,19 @@ until the effective-analysis reconciliation gate exists.
    party controls start unselected, support an explicit unable/no-party answer and local party
    add/remove, and remain local-only until the submission step is wired.
 4. Add visually hidden-until-submit model comparison, local-only draft autosave, Turnstile and
-   keyboard/accessibility support.
+   keyboard/accessibility support. The implemented browser boundary keeps one revision-scoped
+   draft and one opaque browser nonce in `localStorage`, never treats either as identity, and
+   fails safely when storage is disabled. Both scalar axes require an explicit choice and evidence
+   unless the evaluator selects unable-to-judge; parties require an explicit complete-set
+   decision, per-party tone/evidence, and reasons for removing model-detected identities. Added
+   party names remain unmatched proposals for offline review. A fresh explicitly rendered
+   Turnstile token is consumed and reset after every attempt, the private Siteverify secret never
+   enters a `VITE_*` variable, and a missing public site key disables only submission—not drafting.
+   Ctrl/Command+Enter submits only a complete online form, ordinary Enter remains untouched, and
+   an unfinished-navigation warning is paired with local autosave. Accepted receipts are parsed
+   through an exact allowlist before the field-by-field model comparison is revealed; no community
+   distribution is shown, and the receipt explains that one response does not change the analysis.
+   Queue cards use only a local browser marker to indicate an already submitted task.
 5. Add the public experimental link on eligible `ArticleScreen` pages.
 
 ### Phase 3 — export and publication overlay

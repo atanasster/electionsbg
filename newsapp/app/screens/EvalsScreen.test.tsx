@@ -4,6 +4,12 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ArticleRecord } from "../data";
 import type { EvalQueue, EvalTask } from "../evals";
+import type { EvaluationSubmissionRequest } from "../evalSubmission";
+
+const submitMock =
+  vi.fn<
+    (task: EvalTask, request: EvaluationSubmissionRequest) => Promise<unknown>
+  >();
 
 const task = (over: Partial<EvalTask> = {}): EvalTask => ({
   article_key: "ex.bg/a1",
@@ -84,6 +90,53 @@ const article = (): ArticleRecord =>
     story_id: "story-1",
   }) as ArticleRecord;
 
+const accepted = (target: EvalTask, request: EvaluationSubmissionRequest) => ({
+  idempotent: false,
+  submission: {
+    submission_id: "submission-id-1234",
+    status: "raw" as const,
+    article_key: target.article_key,
+    task_revision: target.task_revision,
+    submitted_at: "2026-08-31T12:00:00.000Z",
+    evaluation: {
+      schema_version: 1,
+      ...request.evaluation,
+      leaning: {
+        ...request.evaluation.leaning,
+        disposition: "changed" as const,
+      },
+      russia_stance: {
+        ...request.evaluation.russia_stance,
+        disposition: "unable_to_judge" as const,
+      },
+    },
+    model_labels: target.model_labels,
+  },
+});
+
+const completeNoPartyForm = async (
+  user: ReturnType<typeof userEvent.setup>,
+) => {
+  await user.click(
+    screen.getByRole("radio", { name: "Прогресивно рамкиране" }),
+  );
+  await user.type(
+    screen.getAllByLabelText(/Кратко основание \(задължително\)/i)[0]!,
+    "Авторът защитава мярката.",
+  );
+  await user.click(
+    screen.getAllByRole("radio", { name: "Не мога да преценя" })[1]!,
+  );
+  await user.click(
+    screen.getByRole("checkbox", {
+      name: "Няма съществено спомената политическа партия",
+    }),
+  );
+  await user.click(
+    screen.getByRole("button", { name: "Завърши тестова проверка" }),
+  );
+};
+
 const renderWorkspace = async (tasks: EvalTask[]) => {
   vi.resetModules();
   vi.doMock("../evals", async (importOriginal) => ({
@@ -102,6 +155,30 @@ const renderWorkspace = async (tasks: EvalTask[]) => {
       loading: false,
     }),
   }));
+  vi.doMock("../evalSubmission", async (importOriginal) => ({
+    ...(await importOriginal<typeof import("../evalSubmission")>()),
+    TURNSTILE_SITE_KEY: "test-public-key",
+    submitEvaluation: submitMock,
+  }));
+  vi.doMock("../components/TurnstileWidget", () => ({
+    TurnstileWidget: ({
+      onToken,
+      onStateChange,
+    }: {
+      onToken: (token: string | null) => void;
+      onStateChange: (state: string) => void;
+    }) => (
+      <button
+        type="button"
+        onClick={() => {
+          onToken("test-turnstile-token");
+          onStateChange("verified");
+        }}
+      >
+        Завърши тестова проверка
+      </button>
+    ),
+  }));
   const { EvalArticleScreen } = await import("./EvalArticleScreen");
   render(
     <MemoryRouter initialEntries={["/evals/article/ex.bg/a1"]}>
@@ -116,7 +193,10 @@ const renderWorkspace = async (tasks: EvalTask[]) => {
 };
 
 describe("public evaluation queue", () => {
-  beforeEach(() => vi.resetModules());
+  beforeEach(() => {
+    vi.resetModules();
+    localStorage.clear();
+  });
   afterEach(() => vi.restoreAllMocks());
 
   it("renders without account UI and filters by party coverage", async () => {
@@ -159,10 +239,22 @@ describe("public evaluation queue", () => {
     );
     expect(screen.getByText("Избрана задача")).toBeVisible();
   });
+
+  it("shows only a browser-local completion marker", async () => {
+    const target = task();
+    const { markLocalEvalComplete } = await import("../evalSubmission");
+    markLocalEvalComplete(target);
+    await renderQueue([target]);
+    expect(screen.getByText("изпратена от този браузър")).toBeVisible();
+  });
 });
 
 describe("public article evaluation workspace", () => {
-  beforeEach(() => vi.resetModules());
+  beforeEach(() => {
+    vi.resetModules();
+    localStorage.clear();
+    submitMock.mockReset();
+  });
   afterEach(() => vi.restoreAllMocks());
 
   it("uses public context and starts with no model choice selected", async () => {
@@ -183,6 +275,14 @@ describe("public article evaluation workspace", () => {
     ).toHaveAttribute("href", "https://ex.bg/a1");
     expect(screen.getByText("моделът е скрит")).toBeVisible();
     expect(
+      screen.getByText(
+        "Представянето е фактическо или балансирано без ясна посока.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByText("Русия няма съдържателна роля в материала."),
+    ).toBeVisible();
+    expect(
       [
         ...document.querySelectorAll<HTMLInputElement>('input[type="radio"]'),
       ].filter((input) => input.checked),
@@ -192,6 +292,11 @@ describe("public article evaluation workspace", () => {
     expect(
       within(party).getByRole("radio", { name: "позитивен" }),
     ).not.toBeChecked();
+    expect(
+      within(party).getByText(
+        "Има едновременно благоприятни и критични сигнали.",
+      ),
+    ).toBeVisible();
   });
 
   it("names each party group and preserves canonical drafts through no-party", async () => {
@@ -250,6 +355,96 @@ describe("public article evaluation workspace", () => {
     expect(screen.getByText("Партия Б")).toBeVisible();
     await user.click(screen.getByRole("button", { name: "Премахни Партия Б" }));
     expect(screen.queryByText("Партия Б")).toBeNull();
+  });
+
+  it("submits anonymously and reveals the model comparison only after acceptance", async () => {
+    const user = userEvent.setup();
+    const target = task();
+    submitMock.mockImplementation(async (_task, request) =>
+      accepted(target, request),
+    );
+    await renderWorkspace([target]);
+    expect(
+      screen.queryByRole("heading", { name: "Сравнение с модела" }),
+    ).toBeNull();
+    await completeNoPartyForm(user);
+    await user.click(screen.getByRole("button", { name: "Изпрати оценката" }));
+    expect(submitMock).toHaveBeenCalledTimes(1);
+    expect(
+      await screen.findByRole("heading", { name: "Сравнение с модела" }),
+    ).toBeVisible();
+    expect(screen.getByText(/Моделните оценки бяха скрити/)).toBeVisible();
+    expect(
+      screen.getByText(/Силно прогресивно рамкиране/, { selector: "dd" }),
+    ).toBeVisible();
+  });
+
+  it("rotates a rejected idempotency key before a recoverable retry", async () => {
+    const user = userEvent.setup();
+    const target = task();
+    await renderWorkspace([target]);
+    const { EvaluationSubmissionError } = await import("../evalSubmission");
+    submitMock
+      .mockRejectedValueOnce(
+        new EvaluationSubmissionError("idempotency_conflict", 409),
+      )
+      .mockImplementationOnce(async (_task, request) =>
+        accepted(target, request),
+      );
+    await completeNoPartyForm(user);
+    await user.click(screen.getByRole("button", { name: "Изпрати оценката" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Формата е променена",
+    );
+    const firstKey = submitMock.mock.calls[0]![1].idempotency_key;
+    await user.click(
+      screen.getByRole("button", { name: "Завърши тестова проверка" }),
+    );
+    await user.click(screen.getByRole("button", { name: "Изпрати оценката" }));
+    expect(
+      await screen.findByRole("heading", { name: "Сравнение с модела" }),
+    ).toBeVisible();
+    expect(submitMock.mock.calls[1]![1].idempotency_key).not.toBe(firstKey);
+  });
+
+  it("reuses the key after an ambiguous network failure and keeps the draft", async () => {
+    const user = userEvent.setup();
+    const target = task();
+    await renderWorkspace([target]);
+    const { EvaluationSubmissionError } = await import("../evalSubmission");
+    submitMock
+      .mockRejectedValueOnce(new EvaluationSubmissionError("network_error", 0))
+      .mockImplementationOnce(async (_task, request) =>
+        accepted(target, request),
+      );
+    await completeNoPartyForm(user);
+    await user.click(screen.getByRole("button", { name: "Изпрати оценката" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Черновата е запазена",
+    );
+    const firstKey = submitMock.mock.calls[0]![1].idempotency_key;
+    await user.click(
+      screen.getByRole("button", { name: "Завърши тестова проверка" }),
+    );
+    await user.click(screen.getByRole("button", { name: "Изпрати оценката" }));
+    expect(submitMock.mock.calls[1]![1].idempotency_key).toBe(firstKey);
+  });
+
+  it("keeps model comparison hidden and offers reload for a stale task", async () => {
+    const user = userEvent.setup();
+    await renderWorkspace([task()]);
+    const { EvaluationSubmissionError } = await import("../evalSubmission");
+    submitMock.mockRejectedValueOnce(
+      new EvaluationSubmissionError("stale_task", 409, 124),
+    );
+    await completeNoPartyForm(user);
+    await user.click(screen.getByRole("button", { name: "Изпрати оценката" }));
+    expect(
+      await screen.findByRole("button", { name: "Презареди задачата" }),
+    ).toBeVisible();
+    expect(
+      screen.queryByRole("heading", { name: "Сравнение с модела" }),
+    ).toBeNull();
   });
 
   it("refuses an article outside the current public queue", async () => {

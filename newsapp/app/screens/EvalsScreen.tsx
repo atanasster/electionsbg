@@ -18,6 +18,7 @@ import {
   type EvalTask,
 } from "../evals";
 import { formatDate, LEANING_META, RUSSIA_META } from "../labels";
+import { localEvalCompleted } from "../evalSubmission";
 
 const PAGE_SIZE = 12;
 const REVIEW_FIELD_LABELS: Record<string, string> = {
@@ -75,6 +76,9 @@ const TaskCard = ({ task }: { task: EvalTask }) => (
       </Link>
     </h2>
     <div className="mt-3 flex flex-wrap gap-1.5 text-xs">
+      {localEvalCompleted(task) ? (
+        <Badge>изпратена от този браузър</Badge>
+      ) : null}
       {task.model_labels.party_tones.length ? (
         <Badge variant="outline">
           {task.model_labels.party_tones.length}{" "}

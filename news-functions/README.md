@@ -14,6 +14,11 @@ transaction; tests may omit the store adapter deliberately and then receive a fa
 The submit boundary now verifies every schema-valid request with Cloudflare Siteverify on the
 server. A successful response must carry the exact `news.electionsbg.com` hostname,
 `news-evaluation-submit` action and a fresh challenge timestamp. Tokens are never logged or stored.
+The news frontend must be built with the matching public widget key as
+`VITE_NEWS_EVAL_TURNSTILE_SITE_KEY`. This value is safe to expose in the browser; it is not the
+server secret. A missing public key deliberately leaves the submit control unavailable while local
+drafts continue to work. Configure the production build environment during rollout—do not commit a
+real key or copy the private Siteverify secret into any `VITE_*` variable.
 The Function binds two Secret Manager values only to this codebase:
 
 - `NEWS_EVAL_TURNSTILE_SECRET` — the private Siteverify secret;
