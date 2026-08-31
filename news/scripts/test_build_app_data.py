@@ -17,6 +17,7 @@ Run:  python3 news/scripts/test_build_app_data.py
 """
 
 import gzip
+import copy
 import json
 import os
 import re
@@ -34,8 +35,9 @@ from news.eval_contract.canonical import (  # noqa: E402
 from build_app_data import (  # noqa: E402
     AXIS_POSITIONS, HOME_GZIP_BUDGET_BYTES, HOME_ITEM_LIMIT,
     HOME_STORY_FIELDS, HOME_STORY_LIMIT, TOPIC_MIN_POSITIONED, axis_spread,
-    home_gzip_size, load_image_rights_policy, select_home_payload,
+    compact_analysis, home_gzip_size, load_image_rights_policy, select_home_payload,
     validate_display_image)
+from effective_analysis import effective_analysis  # noqa: E402
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
 
@@ -340,6 +342,23 @@ class BuildAppDataTest(BuildAppDataFixture):
         self.assertEqual(public_article["analysis"]["leaning"]["label"], "conservative")
         self.assertIsNone(public_article["analysis"]["leaning"]["confidence"])
         self.assertEqual(public_article["analysis"]["russia_stance"]["label"], "anti_russia")
+        self.assertEqual(public_article["analysis"]["human_review"], {
+            "status": "accepted",
+            "adjudicated_at": "2026-08-31T12:00:00.000Z",
+            "revision": 1,
+            "fields": {
+                "leaning": "changed",
+                "russia_stance": "changed",
+                "party_tones": "accepted",
+            },
+            "public_explanation": "Проверено спрямо целия оригинален материал.",
+        })
+        public_analysis_json = json.dumps(
+            public_article["analysis"], ensure_ascii=False)
+        for private_key in (
+                "operator_actor", "source_submission_ids", "content_sha256",
+                "analysis_sha256", "original_model", "last_operation_id"):
+            self.assertNotIn(private_key, public_analysis_json)
         story = self.load("stories.json")["stories"][0]
         self.assertEqual(story["members"][0]["leaning"], "conservative")
         self.assertEqual(story["members"][0]["russia_stance"], "anti_russia")
@@ -396,6 +415,9 @@ class BuildAppDataTest(BuildAppDataFixture):
         public_article = self.load(f"articles/{domain}.json")["articles"][0]
         self.assertEqual(public_article["analysis"]["leaning"]["label"], "progressive")
         self.assertEqual(public_article["analysis"]["leaning"]["confidence"], 0.7)
+        self.assertEqual(
+            public_article["analysis"]["human_review"]["status"],
+            "needs_revalidation")
         story = self.load("stories.json")["stories"][0]
         self.assertEqual(story["aggregates"]["by_leaning"], {"progressive": 1})
         self.assertEqual(
@@ -453,6 +475,27 @@ class BuildAppDataTest(BuildAppDataFixture):
                       missing_story.stderr)
         self.assertEqual(sentinel.read_text(encoding="utf-8"), '{"keep":true}')
         self.assertEqual(list(output.iterdir()), [sentinel])
+
+    def test_present_malformed_review_or_retained_confidence_fails_closed(self):
+        domain = "example.bg"
+        fname = "article-malformed-review.json"
+        url = "https://example.bg/article-malformed-review"
+        path = f"news/data/{domain}/{fname}"
+        article = corpus_article(
+            domain, fname, url, "Проверка", "2026-08-22T00:00:00+00:00")
+        analysis = self.analysis_record(url, domain, path)
+        accepted = self.write_accepted_snapshot(article, analysis)
+        effective = effective_analysis(analysis, article, accepted)
+
+        malformed = copy.deepcopy(effective)
+        del malformed["human_review"]["fields"]["leaning"]
+        with self.assertRaisesRegex(ValueError, "disposition is invalid"):
+            compact_analysis(malformed, article)
+
+        contradictory = copy.deepcopy(effective)
+        contradictory["leaning"]["confidence"] = 0.99
+        with self.assertRaisesRegex(ValueError, "must not retain model confidence"):
+            compact_analysis(contradictory, article)
 
     def test_non_numeric_rank_does_not_crash(self):
         url = "https://example.bg/a3"

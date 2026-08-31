@@ -1,6 +1,11 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createDataClient, DATA_REFRESH_MS, useDataWithClient } from "./data";
+import {
+  createDataClient,
+  DATA_REFRESH_MS,
+  parseOutletArticlesBundle,
+  useDataWithClient,
+} from "./data";
 
 const response = (body: unknown, status = 200) =>
   Promise.resolve({
@@ -195,5 +200,98 @@ describe("versioned news data client", () => {
     expect(hook.result.current.data).toEqual({ value: "new" });
     hook.unmount();
     expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("keeps the previous good data when a refresh parser fails", async () => {
+    vi.useFakeTimers();
+    let body: unknown = { valid: true, revision: 1 };
+    const fetcher = vi.fn(() => response(body));
+    const client = createDataClient("/news-data", {
+      usePublicationManifest: false,
+      fetcher: fetcher as unknown as typeof fetch,
+    });
+    const parse = (value: unknown) => {
+      if (
+        !value ||
+        typeof value !== "object" ||
+        !(value as { valid?: unknown }).valid
+      )
+        throw new Error("invalid refreshed bundle");
+      return value as { valid: true; revision: number };
+    };
+    const hook = renderHook(() =>
+      useDataWithClient("/articles/example.json", client, parse),
+    );
+    await act(async () => {
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(hook.result.current.data).toEqual({ valid: true, revision: 1 });
+
+    body = { valid: false, revision: 2 };
+    await act(async () => {
+      vi.advanceTimersByTime(DATA_REFRESH_MS);
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(hook.result.current.data).toEqual({ valid: true, revision: 1 });
+    expect(hook.result.current.error?.message).toBe("invalid refreshed bundle");
+    hook.unmount();
+  });
+});
+
+describe("article provenance parsing", () => {
+  const bundle = (confidence: number | null, disposition = "changed") => ({
+    domain: "example.bg",
+    outlet: "Пример",
+    generated_at: "2026-08-31T12:00:00Z",
+    articles: [
+      {
+        id: "article-1",
+        domain: "example.bg",
+        analysis: {
+          leaning: { label: "progressive", confidence, evidence: "Основание" },
+          russia_stance: {
+            label: "not_applicable",
+            confidence: 0.8,
+            evidence: "Основание",
+          },
+          party_tones: [],
+          human_review: {
+            status: "accepted",
+            adjudicated_at: "2026-08-31T12:00:00.000Z",
+            revision: 1,
+            fields: {
+              leaning: disposition,
+              russia_stance: "unable_to_judge",
+              party_tones: "accepted",
+            },
+            public_explanation: null,
+          },
+        },
+      },
+    ],
+  });
+
+  it("accepts mixed model/editorial provenance and rejects malformed or contradictory blocks", () => {
+    expect(parseOutletArticlesBundle(bundle(null))).toBeTruthy();
+
+    const malformed = bundle(null);
+    Reflect.deleteProperty(
+      malformed.articles[0].analysis.human_review.fields,
+      "leaning",
+    );
+    expect(() => parseOutletArticlesBundle(malformed)).toThrow(
+      /редакционната проверка/,
+    );
+
+    expect(() => parseOutletArticlesBundle(bundle(0.9))).toThrow(
+      /редакционната проверка/,
+    );
+    expect(
+      parseOutletArticlesBundle(bundle(0.9, "unable_to_judge")),
+    ).toBeTruthy();
   });
 });

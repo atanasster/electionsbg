@@ -132,6 +132,7 @@ const renderAt = async (
     evalTasks?: EvalTask[] | null;
     evalLoading?: boolean;
     evalError?: Error | null;
+    bundleError?: Error | null;
   } = {},
 ) => {
   vi.resetModules();
@@ -139,7 +140,7 @@ const renderAt = async (
     ...(await importOriginal<typeof import("../data")>()),
     useOutletArticles: () => ({
       data: { domain: "ex.bg", outlet: "Примерен вестник", articles },
-      error: null,
+      error: opts.bundleError ?? null,
       loading: false,
     }),
     useOutlets: () => ({
@@ -417,6 +418,149 @@ describe("attribution", () => {
       },
     );
     expect(screen.queryByText("увереност 140%")).not.toBeInTheDocument();
+  });
+});
+
+describe("human review provenance", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("labels accepted fields as editorial, omits model confidence, and links policy", async () => {
+    const a = analysed();
+    a.leaning = {
+      label: "conservative",
+      confidence: null,
+      evidence: "Редакционната проверка отчита ясно консервативно рамкиране.",
+    };
+    a.russia_stance = {
+      label: "anti_russia",
+      confidence: null,
+      evidence: "Редакционната проверка отчита критично отношение към Русия.",
+    };
+    a.human_review = {
+      status: "accepted",
+      adjudicated_at: "2026-08-31T12:00:00.000Z",
+      revision: 2,
+      fields: {
+        leaning: "changed",
+        russia_stance: "confirmed",
+        party_tones: "accepted",
+      },
+      public_explanation: "Проверено спрямо целия оригинален материал.",
+    };
+
+    await renderAt([article({ analysis: a })]);
+
+    expect(
+      await screen.findByText("Проверено от редакционния екип"),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/Проверено спрямо целия оригинален материал/),
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(/Обосновка от редакционната проверка/),
+    ).toHaveLength(2);
+    expect(screen.queryByText(/увереност \d+%/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByLabelText(/Увереност на модела/),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "методологията" })).toHaveAttribute(
+      "href",
+      "/methodology",
+    );
+    expect(
+      screen.getByRole("link", { name: "регистъра на поправките" }),
+    ).toHaveAttribute("href", "/corrections");
+  });
+
+  it("marks stale decisions as excluded and keeps current model provenance", async () => {
+    const a = analysed();
+    a.human_review = {
+      status: "needs_revalidation",
+      adjudicated_at: "2026-08-31T12:00:00.000Z",
+      revision: 1,
+      fields: {
+        leaning: "changed",
+        russia_stance: "confirmed",
+        party_tones: "accepted",
+      },
+      public_explanation: "Старо обяснение, което вече не се прилага.",
+    };
+
+    await renderAt([article({ analysis: a })]);
+
+    expect(
+      await screen.findByText("Оценката е в повторна проверка"),
+    ).toBeVisible();
+    expect(screen.getByText(/Предишното решение е изключено/)).toBeVisible();
+    expect(screen.getByText("увереност 70%")).toBeVisible();
+    expect(screen.getAllByText(/Обосновка, посочена от модела/)).toHaveLength(
+      2,
+    );
+    expect(screen.queryByText(/Старо обяснение/)).not.toBeInTheDocument();
+  });
+
+  it("describes a queued public task as non-authoritative experimental review", async () => {
+    await renderAt([article({ analysis: analysed() })], {
+      evalTasks: [evalTask()],
+    });
+
+    expect(
+      await screen.findByText("Анализът е включен в обществена проверка"),
+    ).toBeVisible();
+    expect(screen.getByText(/Отделен отговор не променя/)).toBeVisible();
+  });
+
+  it("keeps an unable-to-judge axis model-sourced beside an editorial axis", async () => {
+    const a = analysed();
+    a.leaning = {
+      label: "conservative",
+      confidence: null,
+      evidence: "Редакционно основание за политическата ос.",
+    };
+    a.human_review = {
+      status: "accepted",
+      adjudicated_at: "2026-08-31T12:00:00.000Z",
+      revision: 1,
+      fields: {
+        leaning: "changed",
+        russia_stance: "unable_to_judge",
+        party_tones: "accepted",
+      },
+      public_explanation: null,
+    };
+
+    await renderAt([article({ analysis: a })]);
+
+    expect(
+      screen.getAllByText(/Обосновка от редакционната проверка/),
+    ).toHaveLength(1);
+    expect(screen.getAllByText(/Обосновка, посочена от модела/)).toHaveLength(
+      1,
+    );
+    expect(screen.getByText("увереност 90%")).toBeVisible();
+    expect(screen.queryByText("увереност 70%")).not.toBeInTheDocument();
+  });
+
+  it("does not crash or claim editorial provenance for a malformed block", async () => {
+    const a = analysed();
+    a.human_review = { status: "accepted" } as unknown as NonNullable<
+      ArticleRecord["analysis"]
+    >["human_review"];
+
+    await renderAt([article({ analysis: a })]);
+
+    expect(await screen.findByText("Нашият анализ")).toBeVisible();
+    expect(screen.queryByText("Проверено от редакционния екип")).toBeNull();
+    expect(screen.getByText("увереност 70%")).toBeVisible();
+  });
+
+  it("keeps rendering the last valid article when a refresh is rejected", async () => {
+    await renderAt([article({ analysis: analysed() })], {
+      bundleError: new Error("invalid refreshed provenance"),
+    });
+
+    expect(await screen.findByText("Нашият анализ")).toBeVisible();
+    expect(screen.queryByText(/Материалът не се зареди/)).toBeNull();
   });
 });
 

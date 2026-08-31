@@ -47,6 +47,18 @@ export interface TopicRef {
   primary: boolean;
 }
 
+export interface HumanReviewProvenance {
+  status: "accepted" | "needs_revalidation";
+  adjudicated_at: string;
+  revision: number;
+  fields: {
+    leaning: "confirmed" | "changed" | "unable_to_judge";
+    russia_stance: "confirmed" | "changed" | "unable_to_judge";
+    party_tones: "accepted";
+  };
+  public_explanation: string | null;
+}
+
 export interface AnalysisBlock {
   summary_bg: string | null;
   summary_en: string | null;
@@ -95,6 +107,8 @@ export interface AnalysisBlock {
   site_relevant: boolean | null;
   model: string | null;
   analyzed_at: string | null;
+  /** Safe public projection; private actors, source IDs and hashes never ship. */
+  human_review?: HumanReviewProvenance;
 }
 
 export type ImageRightsStatus =
@@ -732,9 +746,12 @@ export function fetchData<T>(path: string): Promise<T> {
 // Minimal data hook — one fetch in flight per version + path. Mounted screens
 // poll the release pointer every minute and when a backgrounded tab is shown.
 
+const unsafeDataCast = <T>(value: unknown): T => value as T;
+
 export const useDataWithClient = <T>(
   path: string | null,
   client: Pick<ReturnType<typeof createDataClient>, "fetchData">,
+  parse: (value: unknown) => T = unsafeDataCast,
 ) => {
   const [state, setState] = useState<{
     data: T | null;
@@ -755,7 +772,8 @@ export const useDataWithClient = <T>(
         setState((prev) => ({ data: prev.data, error: null, loading: true }));
       }
       client
-        .fetchData<T>(path)
+        .fetchData<unknown>(path)
+        .then(parse)
         .then((data) => {
           if (live && request === requestSequence) {
             setState({ data, error: null, loading: false });
@@ -783,13 +801,15 @@ export const useDataWithClient = <T>(
       window.clearInterval(interval);
       document.removeEventListener("visibilitychange", refreshVisible);
     };
-  }, [client, path]);
+  }, [client, parse, path]);
 
   return state;
 };
 
-export const useData = <T>(path: string | null) =>
-  useDataWithClient<T>(path, defaultDataClient);
+export const useData = <T>(
+  path: string | null,
+  parse: (value: unknown) => T = unsafeDataCast,
+) => useDataWithClient<T>(path, defaultDataClient, parse);
 
 // ---- typed bundle loaders -------------------------------------------------------
 //
@@ -1011,7 +1031,138 @@ export const useTaxonomy = () =>
   );
 export const useOutlets = () =>
   useData<{ generated_at: string; outlets: Outlet[] }>("/outlets.json");
+
+const exactRecordKeys = (
+  value: Record<string, unknown>,
+  expected: readonly string[],
+): boolean => {
+  const keys = Object.keys(value).sort();
+  return (
+    keys.length === expected.length &&
+    keys.every((key, index) => key === [...expected].sort()[index])
+  );
+};
+
+const validPublicAxis = (
+  value: unknown,
+): value is NonNullable<AnalysisBlock["leaning"]> => {
+  if (!isPlainRecord(value)) return false;
+  const confidence = value.confidence;
+  return (
+    confidence === null ||
+    (typeof confidence === "number" &&
+      Number.isFinite(confidence) &&
+      confidence >= 0 &&
+      confidence <= 1)
+  );
+};
+
+export const isPublicHumanReview = (
+  value: unknown,
+  analysis: Pick<AnalysisBlock, "leaning" | "russia_stance" | "party_tones">,
+): value is HumanReviewProvenance => {
+  if (
+    !isPlainRecord(value) ||
+    !exactRecordKeys(value, [
+      "status",
+      "adjudicated_at",
+      "revision",
+      "fields",
+      "public_explanation",
+    ]) ||
+    (value.status !== "accepted" && value.status !== "needs_revalidation") ||
+    typeof value.adjudicated_at !== "string" ||
+    !Number.isFinite(Date.parse(value.adjudicated_at)) ||
+    !Number.isInteger(value.revision) ||
+    (value.revision as number) < 1 ||
+    (value.public_explanation !== null &&
+      typeof value.public_explanation !== "string") ||
+    !isPlainRecord(value.fields) ||
+    !exactRecordKeys(value.fields, ["leaning", "russia_stance", "party_tones"])
+  )
+    return false;
+  const scalarDispositions = [
+    "confirmed",
+    "changed",
+    "unable_to_judge",
+  ] as const;
+  if (
+    !scalarDispositions.includes(
+      value.fields.leaning as (typeof scalarDispositions)[number],
+    ) ||
+    !scalarDispositions.includes(
+      value.fields.russia_stance as (typeof scalarDispositions)[number],
+    ) ||
+    value.fields.party_tones !== "accepted" ||
+    !validPublicAxis(analysis.leaning) ||
+    !validPublicAxis(analysis.russia_stance) ||
+    !Array.isArray(analysis.party_tones)
+  )
+    return false;
+  if (value.status === "accepted") {
+    for (const field of ["leaning", "russia_stance"] as const) {
+      if (
+        value.fields[field] !== "unable_to_judge" &&
+        analysis[field]?.confidence !== null
+      )
+        return false;
+    }
+    if (
+      analysis.party_tones.some((item) => {
+        if (!isPlainRecord(item)) return true;
+        return (item as unknown as Record<string, unknown>).confidence !== null;
+      })
+    )
+      return false;
+  }
+  return true;
+};
+
+export interface OutletArticlesBundle {
+  domain: string;
+  outlet: string;
+  generated_at: string;
+  articles: ArticleRecord[];
+}
+
+export const parseOutletArticlesBundle = (
+  value: unknown,
+): OutletArticlesBundle => {
+  if (
+    !isPlainRecord(value) ||
+    typeof value.domain !== "string" ||
+    typeof value.outlet !== "string" ||
+    typeof value.generated_at !== "string" ||
+    !Array.isArray(value.articles)
+  )
+    throw new Error("Невалиден договор на пакета със статии");
+  for (const rawArticle of value.articles) {
+    if (
+      !isPlainRecord(rawArticle) ||
+      typeof rawArticle.id !== "string" ||
+      typeof rawArticle.domain !== "string"
+    )
+      throw new Error("Невалиден договор на статия");
+    if (rawArticle.analysis === undefined) continue;
+    if (!isPlainRecord(rawArticle.analysis))
+      throw new Error("Невалиден договор на анализа");
+    if (
+      "human_review" in rawArticle.analysis &&
+      !isPublicHumanReview(
+        rawArticle.analysis.human_review,
+        rawArticle.analysis as unknown as Pick<
+          AnalysisBlock,
+          "leaning" | "russia_stance" | "party_tones"
+        >,
+      )
+    )
+      throw new Error("Невалиден договор на редакционната проверка");
+  }
+  return value as unknown as OutletArticlesBundle;
+};
+
 export const useOutletArticles = (domain: string | null) =>
-  useData<{ domain: string; outlet: string; articles: ArticleRecord[] }>(
+  useData<OutletArticlesBundle>(
     domain ? `/articles/${domain}.json` : null,
+    parseOutletArticlesBundle,
   );

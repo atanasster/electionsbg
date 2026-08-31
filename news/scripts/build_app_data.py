@@ -1014,6 +1014,7 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         # unverified sentiment claim does not enter a public bundle.
         party_tones = []
 
+    human_review = compact_human_review(rec)
     return {
         "summary_bg": prose.get("summary_bg", rec.get("summary_bg")),
         "summary_en": prose.get("summary_en", rec.get("summary_en")),
@@ -1048,6 +1049,111 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         "site_relevant": rec.get("site_relevant"),
         "model": rec.get("model"),
         "analyzed_at": rec.get("analyzed_at"),
+        **({"human_review": human_review} if human_review else {}),
+    }
+
+
+def compact_human_review(rec: dict) -> dict | None:
+    """Project only public editorial provenance from the private resolver block.
+
+    Source submission IDs, operator identity, article/body hashes and the
+    original model snapshot deliberately have no path into app-data.
+    """
+    if "human_review" not in rec:
+        return None
+    value = rec["human_review"]
+    if not isinstance(value, dict):
+        raise ValueError("human_review must be an object when present")
+    status = value.get("status")
+    if status not in {"accepted", "needs_revalidation"}:
+        raise ValueError("human_review.status is invalid")
+    expected_keys = {
+        "schema_version", "status", "adjudication_revision",
+        "adjudicated_at", "reviewed_content_sha256",
+        "reviewed_analysis_sha256", "current_analysis_sha256",
+        "analysis_changed_since_review", "public_explanation", "fields",
+    }
+    if status == "needs_revalidation":
+        expected_keys.add("stale_reason")
+    if (set(value) != expected_keys
+            or type(value.get("schema_version")) is not int
+            or value.get("schema_version") != 1):
+        raise ValueError("human_review fields are invalid")
+    if (status == "needs_revalidation"
+            and value.get("stale_reason") != "content_changed"):
+        raise ValueError("human_review stale reason is invalid")
+    adjudicated_at = value.get("adjudicated_at")
+    revision = value.get("adjudication_revision")
+    fields = value.get("fields")
+    try:
+        parsed_review_date = datetime.fromisoformat(
+            adjudicated_at.replace("Z", "+00:00")
+            if isinstance(adjudicated_at, str) else "")
+    except ValueError as exc:
+        raise ValueError("human_review date is invalid") from exc
+    if (not isinstance(adjudicated_at, str)
+            or parsed_review_date.tzinfo is None
+            or isinstance(revision, bool) or not isinstance(revision, int)
+            or revision < 1 or not isinstance(fields, dict)):
+        raise ValueError("human_review public provenance is invalid")
+    for field in (
+            "reviewed_content_sha256", "reviewed_analysis_sha256",
+            "current_analysis_sha256"):
+        if not isinstance(value.get(field), str) or not re.fullmatch(
+                r"sha256:[0-9a-f]{64}", value[field]):
+            raise ValueError(f"human_review {field} is invalid")
+    if not isinstance(value.get("analysis_changed_since_review"), bool):
+        raise ValueError("human_review analysis-change marker is invalid")
+    allowed = {
+        "leaning": {"confirmed", "changed", "unable_to_judge"},
+        "russia_stance": {"confirmed", "changed", "unable_to_judge"},
+        "party_tones": {"accepted"},
+    }
+    public_fields = {}
+    for field, dispositions in allowed.items():
+        disposition = fields.get(field)
+        if disposition not in dispositions:
+            raise ValueError(f"human_review disposition is invalid for {field}")
+        public_fields[field] = disposition
+    if set(fields) != set(allowed):
+        raise ValueError("human_review field dispositions are incomplete")
+    explanation = value.get("public_explanation")
+    if explanation is not None and not isinstance(explanation, str):
+        raise ValueError("human_review public explanation is invalid")
+    original = rec.get("original_model")
+    if not isinstance(original, dict):
+        raise ValueError("human_review is missing original model provenance")
+    for field in ("leaning", "russia_stance"):
+        current_axis = rec.get(field)
+        if not isinstance(current_axis, dict):
+            raise ValueError(f"human-reviewed {field} must be an object")
+        disposition = public_fields[field]
+        if status == "needs_revalidation" or disposition == "unable_to_judge":
+            if current_axis != original.get(field):
+                raise ValueError(
+                    f"non-overridden human-reviewed {field} changed model provenance")
+        elif current_axis.get("confidence") is not None:
+            raise ValueError(
+                f"human-overridden {field} must not retain model confidence")
+    current_parties = rec.get("party_tones")
+    if not isinstance(current_parties, list):
+        raise ValueError("human-reviewed party_tones must be an array")
+    if status == "needs_revalidation":
+        if current_parties != original.get("party_tones"):
+            raise ValueError(
+                "stale human-reviewed party_tones changed model provenance")
+    elif any(
+        not isinstance(item, dict) or item.get("confidence") is not None
+        for item in current_parties
+    ):
+        raise ValueError(
+            "human-overridden party_tones must not retain model confidence")
+    return {
+        "status": status,
+        "adjudicated_at": adjudicated_at,
+        "revision": revision,
+        "fields": public_fields,
+        "public_explanation": explanation,
     }
 
 

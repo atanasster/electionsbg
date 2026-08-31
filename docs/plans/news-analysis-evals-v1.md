@@ -786,7 +786,12 @@ until the effective-analysis reconciliation gate exists.
    in memory from the effective member analyses. Model analysis and story files stay immutable;
    a content-stale adjudication still marks the story as touched but contributes only the current
    model values because its overlay is withheld.
-4. Add public human-review provenance and stale/under-review rendering.
+4. Add public human-review provenance and stale/under-review rendering. App-data exposes only
+   status, review date/revision, field dispositions and the maintainer-written public explanation;
+   operator identity, source submission IDs, hashes and the private original-model sidecar remain
+   private. Accepted fields are labelled as editorially reviewed and carry no model confidence;
+   content-stale decisions are visibly excluded, while queued public tasks are explicitly described
+   as experimental review that cannot change publication without editorial acceptance.
 5. Add article/story/party aggregate reconciliation and release-manifest hash.
 6. Generate proposed public correction-log entries for already-published changes.
 7. Wire export/task-sync ordering, credentials, reports and failure policy into the standalone

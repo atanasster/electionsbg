@@ -44,6 +44,7 @@ import {
   type ArticleRecord,
   type Outlet,
   type EntityLink,
+  isPublicHumanReview,
 } from "../data";
 import { ArticleImage } from "../components/ArticleImage";
 import { EntityChips } from "../components/EntityChips";
@@ -70,12 +71,14 @@ const AxisCard = ({
   color,
   confidence,
   evidence,
+  source = "model",
 }: {
   title: string;
   verdict: string;
   color: string;
   confidence: number | null | undefined;
   evidence: string | null | undefined;
+  source?: "model" | "editorial";
 }) => {
   const confidencePct =
     typeof confidence === "number" &&
@@ -111,12 +114,16 @@ const AxisCard = ({
         <div className="mt-3 border-l-2 border-primary pl-3 text-sm text-foreground/90">
           <p>{evidence}</p>
           <p className="mt-1 text-xs text-muted-foreground">
-            Обосновка, посочена от модела — може да е цитат или перифраза
+            {source === "editorial"
+              ? "Обосновка от редакционната проверка — може да е цитат или перифраза"
+              : "Обосновка, посочена от модела — може да е цитат или перифраза"}
           </p>
         </div>
       ) : (
         <p className="mt-3 text-sm text-muted-foreground">
-          Моделът не е посочил обосновка за тази оценка.
+          {source === "editorial"
+            ? "Редакционната проверка не е публикувала обосновка за тази оценка."
+            : "Моделът не е посочил обосновка за тази оценка."}
         </p>
       )}
     </Card>
@@ -172,7 +179,7 @@ export const ArticleScreen = () => {
   const taxonomy = useTaxonomy();
   const evalQueue = useEvalQueue();
 
-  if (bundle.error) {
+  if (bundle.error && !bundle.data) {
     return (
       <section className="py-8">
         <h1 className="font-title text-3xl">Статия</h1>
@@ -219,6 +226,23 @@ export const ArticleScreen = () => {
           (task) => task.domain === domain && task.article_id === article.id,
         )
       : undefined;
+  const reviewCandidate = analysis?.human_review;
+  const humanReview =
+    analysis &&
+    reviewCandidate &&
+    isPublicHumanReview(reviewCandidate, analysis)
+      ? reviewCandidate
+      : undefined;
+  const acceptedReview = humanReview?.status === "accepted";
+  const staleReview = humanReview?.status === "needs_revalidation";
+  const leaningSource =
+    acceptedReview && humanReview.fields.leaning !== "unable_to_judge"
+      ? "editorial"
+      : "model";
+  const russiaSource =
+    acceptedReview && humanReview.fields.russia_stance !== "unable_to_judge"
+      ? "editorial"
+      : "model";
 
   return (
     <article className="py-6">
@@ -388,18 +412,83 @@ export const ArticleScreen = () => {
             </p>
           </div>
 
+          {acceptedReview ? (
+            <Card
+              className="mt-4 border-primary/40 bg-primary/5 p-4"
+              role="status"
+            >
+              <p className="font-semibold">Проверено от редакционния екип</p>
+              <p className="mt-1 text-sm text-foreground/90">
+                Приетата проверка е от{" "}
+                {formatDateTime(humanReview.adjudicated_at)}.
+                {humanReview.public_explanation
+                  ? ` ${humanReview.public_explanation}`
+                  : ""}
+              </p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Човешки проверените полета нямат увереност на модела. Вижте{" "}
+                <Link
+                  className="rounded-sm font-medium text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  to="/methodology"
+                >
+                  методологията
+                </Link>{" "}
+                и{" "}
+                <Link
+                  className="rounded-sm font-medium text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  to="/corrections"
+                >
+                  регистъра на поправките
+                </Link>
+                .
+              </p>
+            </Card>
+          ) : staleReview ? (
+            <Card
+              className="mt-4 border-[hsl(var(--editorial-kicker)/0.5)] bg-[hsl(var(--editorial-kicker)/0.08)] p-4"
+              role="status"
+            >
+              <p className="font-semibold">Оценката е в повторна проверка</p>
+              <p className="mt-1 text-sm text-foreground/90">
+                Оригиналният материал е променен след редакционната проверка от{" "}
+                {formatDateTime(humanReview.adjudicated_at)}. Предишното решение
+                е изключено; показани са текущите моделни оценки.
+              </p>
+            </Card>
+          ) : evalTask ? (
+            <Card className="mt-4 border-border bg-muted/40 p-4" role="status">
+              <p className="font-semibold">
+                Анализът е включен в обществена проверка
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Това е експериментално събиране на оценки. Отделен отговор не
+                променя публикувания анализ без редакционно приемане.
+              </p>
+            </Card>
+          ) : null}
+
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <AxisCard
               title="Политическо рамкиране на материала"
               {...scaleOf(LEANING_META, analysis.leaning?.label)}
-              confidence={analysis.leaning?.confidence}
+              confidence={
+                leaningSource === "editorial"
+                  ? null
+                  : analysis.leaning?.confidence
+              }
               evidence={analysis.leaning?.evidence}
+              source={leaningSource}
             />
             <AxisCard
               title="Отношение към Русия"
               {...scaleOf(RUSSIA_META, analysis.russia_stance?.label)}
-              confidence={analysis.russia_stance?.confidence}
+              confidence={
+                russiaSource === "editorial"
+                  ? null
+                  : analysis.russia_stance?.confidence
+              }
               evidence={analysis.russia_stance?.evidence}
+              source={russiaSource}
             />
           </div>
 
