@@ -96,6 +96,7 @@ export type AcceptedAdjudicationRecord = Readonly<{
   schema_version: 1;
   rubric_version: "news-article-evaluation-v1";
   article_key: string;
+  url: string;
   task_revision: number;
   content_sha256: string;
   analysis_sha256: string;
@@ -104,6 +105,7 @@ export type AcceptedAdjudicationRecord = Readonly<{
   adjudicated_at: string;
   revision: number;
   evaluation: JsonObject;
+  model_labels: JsonObject;
   public_explanation: string | null;
   gold_eligible: boolean;
   status: "accepted";
@@ -242,6 +244,7 @@ const TASK_FIELDS = [
 const ADJUDICATION_STORAGE_FIELDS = [
   "schema_version",
   "article_key",
+  "url",
   "task_revision",
   "content_sha256",
   "analysis_sha256",
@@ -250,6 +253,7 @@ const ADJUDICATION_STORAGE_FIELDS = [
   "adjudicated_at",
   "revision",
   "evaluation",
+  "model_labels",
   "public_explanation",
   "gold_eligible",
   "status",
@@ -288,6 +292,27 @@ function stringValue(value: unknown, label: string, maximum = 512): string {
   )
     throw new Error(`${label} must be a bounded non-empty string`);
   return value;
+}
+
+export function strictHttpsUrl(value: unknown, label = "URL"): string {
+  const result = stringValue(value, label, 2048);
+  if (/\s/u.test(result)) throw new Error(`${label} must not contain whitespace`);
+  if (!result.startsWith("https://"))
+    throw new Error(`${label} must be an absolute HTTPS URL`);
+  let parsed: URL;
+  try {
+    parsed = new URL(result);
+  } catch {
+    throw new Error(`${label} is invalid`);
+  }
+  if (
+    parsed.protocol !== "https:" ||
+    !parsed.hostname ||
+    parsed.username ||
+    parsed.password
+  )
+    throw new Error(`${label} must be an HTTPS URL without credentials`);
+  return result;
 }
 
 function nullableString(
@@ -434,8 +459,7 @@ function normalizedTask(value: unknown, label: string): JsonObject {
   const [domain, ident] = key.split("/");
   if (raw.domain !== domain || raw.article_id !== ident)
     throw new Error(`${label} identity fields disagree`);
-  const url = stringValue(raw.url, `${label}.url`, 2048);
-  if (!/^https:\/\//u.test(url)) throw new Error(`${label}.url must be HTTPS`);
+  const url = strictHttpsUrl(raw.url, `${label}.url`);
   const promptHashes = object(raw.prompt_hashes, `${label}.prompt_hashes`);
   if (Object.keys(promptHashes).length > 20)
     throw new Error(`${label}.prompt_hashes is too large`);
@@ -989,13 +1013,17 @@ function acceptedAdjudicationRecord(
     throw new Error(
       `${label}.evaluation is invalid: ${schemaErrors.join("; ")}`,
     );
-  const goldEligible =
-    ["leaning", "russia_stance"].every(
-      (field) =>
-        object(evaluation[field], `${label}.evaluation.${field}`)
-          .disposition !== "unable_to_judge",
-    ) && evaluation.parties_confirmed_complete === true;
-  if (raw.gold_eligible !== goldEligible)
+  const trustedModelLabels = modelLabels(
+    firestoreJson(raw.model_labels, `${label}.model_labels`),
+  );
+  const semantics = validateEvaluationSemantics(evaluation, {
+    model_labels: trustedModelLabels,
+  });
+  if (semantics.errorCodes.length > 0)
+    throw new Error(
+      `${label}.evaluation is semantically invalid: ${semantics.errorCodes.join(", ")}`,
+    );
+  if (raw.gold_eligible !== semantics.goldEligible)
     throw new Error(`${label}.gold_eligible is inconsistent`);
   if (raw.status !== "accepted")
     throw new Error(`${label}.status is not accepted`);
@@ -1010,6 +1038,7 @@ function acceptedAdjudicationRecord(
     schema_version: 1,
     rubric_version: RUBRIC,
     article_key: key,
+    url: strictHttpsUrl(raw.url, `${label}.url`),
     task_revision: safeInteger(
       raw.task_revision,
       `${label}.task_revision`,
@@ -1028,6 +1057,7 @@ function acceptedAdjudicationRecord(
     ),
     revision: safeInteger(raw.revision, `${label}.revision`, 1),
     evaluation,
+    model_labels: trustedModelLabels,
     public_explanation:
       raw.public_explanation === null
         ? null
@@ -1035,7 +1065,7 @@ function acceptedAdjudicationRecord(
             raw.public_explanation,
             `${label}.public_explanation`,
           ),
-    gold_eligible: goldEligible,
+    gold_eligible: semantics.goldEligible,
     status: "accepted",
     last_operation_id: operationId,
   };
@@ -1668,6 +1698,23 @@ export class FirestoreOperatorStore {
         ? jsonObject(currentSnapshot.data(), "current adjudication")
         : null;
       if (matchingEvent(eventSnapshot, command, "adjudication", encoded)) {
+        try {
+          acceptedAdjudicationRecord(
+            current,
+            "current adjudication",
+            encoded,
+          );
+          const event = jsonObject(
+            eventSnapshot.data(),
+            "existing operator event",
+          );
+          if (event.after_sha256 !== stateHash(current))
+            throw new Error("event state hash does not match");
+        } catch {
+          throw new Error(
+            "operator event exists but adjudication state does not match",
+          );
+        }
         if (
           !current ||
           current.last_operation_id !== command.operationId ||
@@ -1722,6 +1769,7 @@ export class FirestoreOperatorStore {
           `adjudication revision conflict: expected ${command.expectedAdjudicationRevision}, current ${currentRevision}`,
         );
       const trustedModelLabels = modelLabels(firestoreJson(task.model_labels));
+      const taskUrl = strictHttpsUrl(task.url, "evaluation task URL");
       const semantics = validateEvaluationSemantics(command.evaluation, {
         model_labels: trustedModelLabels,
       });
@@ -1750,6 +1798,7 @@ export class FirestoreOperatorStore {
       const after: JsonObject = {
         schema_version: 1,
         article_key: command.articleKey,
+        url: taskUrl,
         task_revision: command.expectedTaskRevision,
         content_sha256: command.contentSha256,
         analysis_sha256: command.analysisSha256,
@@ -1758,6 +1807,7 @@ export class FirestoreOperatorStore {
         adjudicated_at: command.occurredAt,
         revision: nextRevision,
         evaluation: command.evaluation,
+        model_labels: trustedModelLabels,
         public_explanation: command.publicExplanation,
         gold_eligible: semantics.goldEligible,
         status: "accepted",

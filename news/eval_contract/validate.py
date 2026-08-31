@@ -19,7 +19,10 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-from canonical import canonical_json, canonical_sha256
+try:
+    from .canonical import canonical_json, canonical_sha256
+except ImportError:  # direct script execution
+    from canonical import canonical_json, canonical_sha256
 
 
 ROOT = Path(__file__).resolve().parent
@@ -294,6 +297,31 @@ def _evaluation_semantics(value: dict, task: dict) -> tuple[list[str], bool]:
         for field in ("leaning", "russia_stance")
     ) and value.get("parties_confirmed_complete") is True
     return sorted(codes), gold_eligible
+
+
+def validate_article_evaluation(value: Any, model_labels: Any) -> dict:
+    """Validate one accepted evaluation against its frozen model-label snapshot.
+
+    This is the public Python boundary used by the publication resolver. The
+    model labels come from the adjudication record, not from a later model
+    rerun, so dispositions remain verifiable without making a human decision
+    stale merely because the model changed.
+    """
+    schema = json.loads(SCHEMAS["article_evaluation"].read_text(encoding="utf-8"))
+    schema_errors = validate_schema(schema, value)
+    if schema_errors or not isinstance(value, dict) or not isinstance(model_labels, dict):
+        return {
+            "schema_errors": schema_errors or ["$.model_labels: expected object"],
+            "error_codes": [],
+            "gold_eligible": False,
+        }
+    semantic_codes, gold_eligible = _evaluation_semantics(
+        value, {"model_labels": model_labels})
+    return {
+        "schema_errors": schema_errors,
+        "error_codes": semantic_codes,
+        "gold_eligible": gold_eligible and not semantic_codes,
+    }
 
 
 def _submission_semantics(value: dict, task: dict) -> list[str]:

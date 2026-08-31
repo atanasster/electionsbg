@@ -1,0 +1,17 @@
+{
+  "valid": [
+    "https://example.bg/article-1",
+    "https://example.bg:443/path?query=yes#section",
+    "https://пример.бг/новина"
+  ],
+  "invalid": [
+    "http://example.bg/article-1",
+    "https:example.bg/article-1",
+    "https://",
+    "https://user:secret@example.bg/article-1",
+    "https://example.bg:70000/article-1",
+    "https://example.bg:bad/article-1",
+    "https://example.bg/article 1",
+    " https://example.bg/article-1"
+  ]
+}

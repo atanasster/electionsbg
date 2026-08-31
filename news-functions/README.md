@@ -193,7 +193,9 @@ Community counts are context and never preselect an answer.
 
 The accepted export separately reads only current `news_eval_adjudications`, requires every
 document to be a normalized, schema-valid accepted decision whose document ID matches its article
-key, sorts by article key and binds the record array to a canonical SHA-256. An empty, malformed or
+key, and carries the reviewed URL plus the frozen model-label snapshot that makes each
+`confirmed`/`changed` disposition independently re-checkable after later model reruns. It sorts by
+article key and binds the record array to a canonical SHA-256. An empty, malformed or
 unavailable read fails before the atomic write, preserving `news/data/evals/accepted/current.json`
 as the last-known-good pipeline snapshot. It deliberately remains private operational state; the
 public build later projects only reviewed fields and public provenance from it.

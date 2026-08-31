@@ -18,10 +18,18 @@ import {
   parseReviewCommand,
   serializeAcceptedAdjudicationSnapshot,
   serializeRawSubmissionExport,
+  strictHttpsUrl,
   writeAtomicPrivateFile,
   verifyLiveTaskRelease,
   verifyProjectTaskRelease,
 } from "../lib/operator.js";
+
+const urlVectors = JSON.parse(
+  readFileSync(
+    new URL("../../news/eval_contract/url_vectors.json", import.meta.url),
+    "utf8",
+  ),
+);
 
 const CONTENT_HASH = `sha256:${"a".repeat(64)}`;
 const OTHER_CONTENT_HASH = `sha256:${"c".repeat(64)}`;
@@ -197,6 +205,7 @@ function adjudication(overrides = {}) {
   return {
     schema_version: 1,
     article_key: ARTICLE_KEY,
+    url: "https://example.bg/article-1",
     task_revision: 4,
     content_sha256: CONTENT_HASH,
     analysis_sha256: ANALYSIS_HASH,
@@ -205,6 +214,7 @@ function adjudication(overrides = {}) {
     adjudicated_at: NOW,
     revision: 1,
     evaluation: clone(evaluation),
+    model_labels: clone(modelLabels),
     public_explanation: "Проверено спрямо целия оригинален материал.",
     gold_eligible: true,
     status: "accepted",
@@ -216,6 +226,7 @@ function adjudication(overrides = {}) {
 function task(overrides = {}) {
   return {
     article_key: ARTICLE_KEY,
+    url: "https://example.bg/article-1",
     revision: 4,
     content_sha256: CONTENT_HASH,
     analysis_sha256: ANALYSIS_HASH,
@@ -380,6 +391,13 @@ test("raw export is sorted, hashed, allowlisted, and round-trips as JSONL", () =
     () => parseRawSubmissionExport(tampered),
     /hash does not match/,
   );
+});
+
+test("the shared HTTPS URL vectors match the operator boundary", () => {
+  for (const value of urlVectors.valid)
+    assert.equal(strictHttpsUrl(value), value);
+  for (const value of urlVectors.invalid)
+    assert.throws(() => strictHttpsUrl(value), /URL|HTTPS|credentials|whitespace/);
 });
 
 test("raw export fails closed on missing read time or private model-label fields", () => {
@@ -668,6 +686,8 @@ test("accepted adjudication promotes sources and appends one atomic audit event"
   assert.equal(adjudication.revision, 1);
   assert.equal(adjudication.status, "accepted");
   assert.equal(adjudication.content_sha256, CONTENT_HASH);
+  assert.equal(adjudication.url, "https://example.bg/article-1");
+  assert.deepEqual(adjudication.model_labels, modelLabels);
   assert.equal(adjudication.gold_eligible, true);
   assert.equal(
     database.documents.get("news_eval_submissions/submission-0001").status,
@@ -695,6 +715,33 @@ test("accepted adjudication promotes sources and appends one atomic audit event"
     () => store.apply(acceptanceCommand({ expected_adjudication_revision: 7 })),
     /state does not match/,
   );
+});
+
+test("idempotent acceptance retries reject drift in every frozen field", async () => {
+  for (const mutate of [
+    (current) => delete current.url,
+    (current) => {
+      current.url = "https://example.bg/changed";
+    },
+    (current) => delete current.model_labels,
+    (current) => {
+      current.model_labels = { ...current.model_labels, leaning: "progressive" };
+    },
+  ]) {
+    const database = new FakeFirestore([
+      ["news_eval_tasks/" + TASK_ID, task()],
+      ["news_eval_submissions/submission-0001", submission("submission-0001")],
+    ]);
+    const store = new FirestoreOperatorStore(database);
+    await store.apply(acceptanceCommand());
+    mutate(database.documents.get(`news_eval_adjudications/${TASK_ID}`));
+    const before = clone([...database.documents]);
+    await assert.rejects(
+      () => store.apply(acceptanceCommand()),
+      /adjudication state does not match/,
+    );
+    assert.deepEqual([...database.documents], before);
+  }
 });
 
 test("stale, conflicting, quarantined, and semantically invalid promotion fail without writes", async () => {
@@ -778,6 +825,7 @@ test("superseding an adjudication increments revision and records supersession",
   const current = {
     schema_version: 1,
     article_key: ARTICLE_KEY,
+    url: "https://example.bg/article-1",
     task_revision: 4,
     content_sha256: CONTENT_HASH,
     analysis_sha256: ANALYSIS_HASH,
@@ -786,6 +834,7 @@ test("superseding an adjudication increments revision and records supersession",
     adjudicated_at: "2026-08-30T12:00:00.000Z",
     revision: 1,
     evaluation: clone(evaluation),
+    model_labels: clone(modelLabels),
     public_explanation: null,
     gold_eligible: true,
     status: "accepted",

@@ -773,7 +773,13 @@ until the effective-analysis reconciliation gate exists.
    sorts by article key, hashes the canonical record array and atomically replaces a private
    `0600` snapshot. Empty, unavailable or malformed reads fail before replacement so the prior
    accepted snapshot remains intact.
-2. Implement the shared effective-analysis resolver.
+2. Implement the shared effective-analysis resolver. Accepted records freeze the reviewed URL and
+   model-label snapshot so dispositions remain verifiable even after a model rerun. The Python
+   boundary strictly verifies the accepted snapshot, article identity, URL, body hash, evaluation
+   schema and task-relative semantics; it deep-copies the immutable model analysis, applies only
+   judged fields with `confidence: null`, preserves the current original-model values separately,
+   and returns a `needs_revalidation` marker without applying the overlay when article content has
+   changed. A model-only change does not invalidate a content-bound human decision.
 3. Apply it to story recomputation and `build_app_data.py`.
 4. Add public human-review provenance and stale/under-review rendering.
 5. Add article/story/party aggregate reconciliation and release-manifest hash.
