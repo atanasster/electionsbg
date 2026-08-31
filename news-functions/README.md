@@ -220,3 +220,49 @@ bundle until a maintainer makes an explicit reviewed, quarantined or accepted de
 Do not grant this runtime access to `news/data`, the private article archive, Cloud SQL, or the
 main Functions project's secrets. Public submissions are untrusted observations; later operator
 tools export and adjudicate them locally.
+
+## Public task synchronization
+
+`news/scripts/sync_eval_tasks.py` produces the static public queue and its private activation
+manifest. It intersects explicit public community selections and/or deterministic review-router
+cases with the current `news/app-data/articles/*.json` build, subtracts membership found in the
+authoritative private gold/party-benchmark artifacts, then verifies that each public record still
+matches its local analysis. It reads the private article body only to derive `content_sha256`;
+neither the body, evidence nor sealed membership enters Firestore or the public queue.
+
+```bash
+# Read-only report over the 50 highest-priority deterministic review cases.
+npm run news:evals:tasks:dry
+
+# Build the private manifest and public queue before publishing app-data.
+npm run news:evals:tasks:write
+
+# Only after that exact app-data revision is live, atomically sync Firestore.
+npm run news:evals:tasks:sync
+
+# Add a deliberately public community batch (repeat --selection as needed).
+python3 news/scripts/sync_eval_tasks.py \
+  --selection /absolute/path/to/community-selection.json \
+  --write
+```
+
+Selections must declare `source_kind: community_sample`,
+`answer_visibility: model_hidden_until_submit` and `public_eligible: true`. Dataset IDs that look
+sealed or gold are refused; the existing benchmark/gold choices are never silently reused as
+community work. Empty, mixed-public-revision, label-drift and over-200-task manifests fail before
+any output or Firestore write. The static queue is replaced first with mode `0644`; only then is
+the private manifest replaced with mode `0600` as the local commit marker. The queue contains
+only already-public metadata, compact labels and hashes. If either write fails, the prior
+activation manifest survives.
+
+The Admin SDK sync uses one Firestore transaction to activate/update the desired set, deactivate
+tasks that left the manifest (without deleting their history), and stamp the manifest state.
+Task revisions are stable hashes of content, analysis and compact model labels, so an unrelated
+hourly bundle timestamp does not invalidate a visitor's form while any substantive analysis
+change does. `news:evals:tasks:sync` fetches the stable public `manifest.json` and its immutable
+`evals/queue.json`, verifies the publication inventory byte hash, public revision and canonical
+queue hash, and only then opens the Firestore transaction. Generation and activation are
+deliberately separate, so an early command or failed upload cannot expose an unreadable task. As
+with export/adjudication, run the sync only with the dedicated news-eval service account; the
+browser remains anonymous and has no direct Firestore access. Inactive history is retained but is
+not scanned on later syncs; only the bounded active set plus desired IDs participates.

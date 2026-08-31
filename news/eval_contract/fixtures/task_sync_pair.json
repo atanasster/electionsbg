@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "producer": "news/scripts/sync_eval_tasks.py",
+  "manifest": {
+    "schema_version": 1,
+    "manifest_kind": "news-eval-task-sync",
+    "generated_at": "2026-08-31T11:00:00.000Z",
+    "public_data_revision": "2026-08-31T11:00:00.000Z",
+    "rubric_version": "news-article-evaluation-v1",
+    "task_count": 1,
+    "tasks_sha256": "sha256:bf689faacc0ce3478ac27f38d28a8c478c2b7641b1c38d770c1ee33ed6723985",
+    "queue_sha256": "sha256:f1194994c9293314ba3b95f5a04e1d33e77ca5af86c65c840d5cfed09fbf49a3",
+    "tasks": [
+      {
+        "schema_version": 1,
+        "rubric_version": "news-article-evaluation-v1",
+        "article_key": "primer.bg/статия-1",
+        "domain": "primer.bg",
+        "article_id": "статия-1",
+        "url": "https://primer.bg/статия-1",
+        "title": "Проверка на обществена позиция",
+        "published": "2026-08-31T09:00:00.000Z",
+        "story_id": "story-unicode-1",
+        "primary_topic": "government",
+        "outlet": "primer.bg",
+        "content_sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "public_data_revision": "2026-08-31T11:00:00.000Z",
+        "analysis_sha256": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "model": "fixture-model",
+        "analyzed_at": "2026-08-31T10:00:00.000Z",
+        "prompt_hashes": {
+          "analysis": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+        },
+        "model_labels": {
+          "leaning": "progressive",
+          "russia_stance": "anti_russia",
+          "party_tones": [
+            {
+              "party": "Продължаваме промяната – Демократична България",
+              "party_id": "pp-db",
+              "tone": "mixed"
+            }
+          ]
+        },
+        "review_reasons": {
+          "party_tones": "Проверете смесеното отношение."
+        },
+        "dataset_ids": ["community-unicode-v1"],
+        "accepts_public_evals": true,
+        "revision": 17970187968370,
+        "updated_at": "2026-08-31T11:00:00.000Z"
+      }
+    ]
+  },
+  "queue": {
+    "schema_version": 1,
+    "generated_at": "2026-08-31T11:00:00.000Z",
+    "public_data_revision": "2026-08-31T11:00:00.000Z",
+    "rubric_version": "news-article-evaluation-v1",
+    "task_count": 1,
+    "tasks_sha256": "sha256:9c08a73d5537111dad7d6ef1674db2f3826c24852b0c8dfb346f1fa1c2c1fe24",
+    "tasks": [
+      {
+        "article_key": "primer.bg/статия-1",
+        "domain": "primer.bg",
+        "article_id": "статия-1",
+        "url": "https://primer.bg/статия-1",
+        "title": "Проверка на обществена позиция",
+        "published": "2026-08-31T09:00:00.000Z",
+        "story_id": "story-unicode-1",
+        "primary_topic": "government",
+        "outlet": "primer.bg",
+        "content_sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "analysis_sha256": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "model_labels": {
+          "leaning": "progressive",
+          "russia_stance": "anti_russia",
+          "party_tones": [
+            {
+              "party": "Продължаваме промяната – Демократична България",
+              "party_id": "pp-db",
+              "tone": "mixed"
+            }
+          ]
+        },
+        "dataset_ids": ["community-unicode-v1"],
+        "review_fields": ["party_tones"],
+        "task_revision": 17970187968370
+      }
+    ]
+  }
+}

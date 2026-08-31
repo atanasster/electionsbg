@@ -12,6 +12,7 @@ import {
   FirestoreOperatorStore,
   readRawSubmissionExport,
   serializeRawSubmissionExport,
+  verifyProjectTaskRelease,
   writeAtomicPrivateFile,
   type OperatorFirestore,
 } from "./operator.js";
@@ -24,6 +25,7 @@ function usage(): string {
     "  operator-cli export --project electionsbg-news --out PATH",
     "  operator-cli review-bundle --input PATH --article-root news/data --out PATH",
     "  operator-cli apply --project electionsbg-news --file PATH",
+    "  operator-cli sync-tasks --project electionsbg-news --file PATH --live-manifest-url URL",
   ].join("\n");
 }
 
@@ -158,6 +160,24 @@ async function main(): Promise<void> {
     const commandValue = JSON.parse(await readFile(file, "utf8"));
     const result = await withStore(project, (store) =>
       store.apply(commandValue),
+    );
+    process.stdout.write(`${canonicalJson(result)}\n`);
+    return;
+  }
+  if (command === "sync-tasks") {
+    requireOptions(options, ["project", "file", "live-manifest-url"]);
+    const project = options.project!;
+    const file = resolve(options.file!);
+    const manifest = JSON.parse(await readFile(file, "utf8"));
+    const proof = await verifyProjectTaskRelease(
+      project,
+      manifest,
+      options["live-manifest-url"]!,
+      (url, init) => fetch(url, init),
+      process.env.FIRESTORE_EMULATOR_HOST,
+    );
+    const result = await withStore(project, (store) =>
+      store.syncTasks(manifest, proof),
     );
     process.stdout.write(`${canonicalJson(result)}\n`);
     return;

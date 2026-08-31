@@ -717,6 +717,17 @@ until the effective-analysis reconciliation gate exists.
 ### Phase 2 — task sync and public UI
 
 1. Implement `sync_eval_tasks.py`, the static public queue projection and dry-run/report modes.
+   Intersect every requested task with one coherent public app-data revision, refuse sealed/gold
+   selections and empty/oversized manifests, derive a stable task revision from content, analysis
+   and compact labels, then write the private hashed manifest and public queue without activating
+   anything. The queue is written first and the private manifest last as its local commit marker;
+   the manifest binds the queue's canonical hash. Only after that exact public app-data revision is
+   live, verify the stable public release pointer, immutable queue byte inventory and canonical
+   queue hash, then send the manifest through an Admin-SDK transaction that activates the desired
+   set and deactivates stale tasks without deleting history. Refuse rollback to an older or
+   conflicting public revision, derive the task revision independently on both sides, and exclude
+   membership from the authoritative sealed gold/party-benchmark artifacts on every selection
+   path.
 2. Add noindex public eval routes with no Auth dependency.
 3. Build queue filters, random sampling and the responsive article workspace.
 4. Add visually hidden-until-submit model comparison, local-only draft autosave, Turnstile and

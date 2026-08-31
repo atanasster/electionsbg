@@ -71,6 +71,16 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
     scripts["news:evals:apply-review"],
     /--project electionsbg-news/,
   );
+  assert.match(scripts["news:evals:tasks:write"], /sync_eval_tasks\.py/);
+  assert.match(scripts["news:evals:tasks:write"], /--write/);
+  assert.match(scripts["news:evals:tasks:sync"], /operator-cli\.js sync-tasks/);
+  assert.match(scripts["news:evals:tasks:sync"], /electionsbg-news/);
+  assert.match(scripts["news:evals:tasks:sync"], /--live-manifest-url https:/);
+  assert.match(
+    scripts["news:evals:tasks:sync"],
+    /https:\/\/storage\.googleapis\.com\/data-electionsbg-com\/news\/app-data\/manifest\.json/,
+  );
+  assert.doesNotMatch(scripts["news:evals:tasks:sync"], /sync_eval_tasks\.py/);
 
   const newsHosting = firebase.hosting.find((entry) => entry.target === "news");
   assert.deepEqual(newsHosting.rewrites[0], {

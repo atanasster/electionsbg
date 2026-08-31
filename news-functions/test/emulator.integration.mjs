@@ -6,7 +6,8 @@ import { fileURLToPath } from "node:url";
 import { deleteApp, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-import { FirestoreOperatorStore } from "../lib/operator.js";
+import { canonicalSha256 } from "../lib/eval-contract/canonical.js";
+import { deriveTaskRevision, FirestoreOperatorStore } from "../lib/operator.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "../..");
@@ -410,6 +411,68 @@ try {
     events: await collectionDocuments(database, "news_eval_events"),
   });
   assert.equal(afterConflict, beforeConflict);
+
+  const syncedTask = {
+    schema_version: 1,
+    rubric_version: "news-article-evaluation-v1",
+    article_key: ARTICLE_KEY,
+    domain: "example.bg",
+    article_id: "article-1",
+    url: "https://example.bg/article-1",
+    title: "Emulator public article",
+    published: "2026-08-31T09:00:00.000Z",
+    story_id: "story-1",
+    primary_topic: "government",
+    outlet: "example.bg",
+    content_sha256: CONTENT_HASH,
+    public_data_revision: "2026-08-31T11:00:00.000Z",
+    analysis_sha256: ANALYSIS_HASH,
+    model: "emulator-model",
+    analyzed_at: "2026-08-31T10:00:00.000Z",
+    prompt_hashes: {},
+    model_labels: {
+      leaning: "neutral",
+      russia_stance: "not_applicable",
+      party_tones: [],
+    },
+    review_reasons: { leaning: "Emulator review route." },
+    dataset_ids: ["community-emulator-v1"],
+    accepts_public_evals: true,
+    revision: deriveTaskRevision(CONTENT_HASH, ANALYSIS_HASH, {
+      leaning: "neutral",
+      russia_stance: "not_applicable",
+      party_tones: [],
+    }),
+    updated_at: "2026-08-31T11:00:00.000Z",
+  };
+  const taskManifest = {
+    schema_version: 1,
+    manifest_kind: "news-eval-task-sync",
+    generated_at: "2026-08-31T11:00:00.000Z",
+    public_data_revision: "2026-08-31T11:00:00.000Z",
+    rubric_version: "news-article-evaluation-v1",
+    task_count: 1,
+    tasks_sha256: canonicalSha256([syncedTask]),
+    queue_sha256: `sha256:${"d".repeat(64)}`,
+    tasks: [syncedTask],
+  };
+  const releaseProof = {
+    publicDataRevision: taskManifest.public_data_revision,
+    queueSha256: taskManifest.queue_sha256,
+    runId: "emulator-release-20260831",
+    liveManifestUrl: "https://example.test/news/app-data/manifest.json",
+  };
+  const taskSync = await operator.syncTasks(taskManifest, releaseProof);
+  assert.equal(taskSync.updated, 1);
+  assert.equal(taskSync.unchanged, 0);
+  const taskSyncRetry = await operator.syncTasks(taskManifest, releaseProof);
+  assert.equal(taskSyncRetry.updated, 0);
+  assert.equal(taskSyncRetry.unchanged, 1);
+  assert.equal(
+    (await database.doc("news_eval_sync/task_manifest").get()).data()
+      ?.tasks_sha256,
+    taskManifest.tasks_sha256,
+  );
 
   console.log("news eval emulator integration: all assertions passed");
 } finally {

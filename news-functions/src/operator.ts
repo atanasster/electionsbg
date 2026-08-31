@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { chmod, mkdir, open, readFile, rename, rm } from "node:fs/promises";
 import { dirname } from "node:path";
 
@@ -32,13 +32,24 @@ export type OperatorQuerySnapshot = Readonly<{
   readTime?: unknown;
 }>;
 
-type OperatorCollectionReference = Readonly<{
-  doc(id: string): OperatorDocumentReference;
+type OperatorQueryReference = Readonly<{
+  path: string;
   get(): Promise<OperatorQuerySnapshot>;
 }>;
 
+type OperatorCollectionReference = OperatorQueryReference &
+  Readonly<{
+    doc(id: string): OperatorDocumentReference;
+    where(
+      fieldPath: string,
+      operator: "==",
+      value: unknown,
+    ): OperatorQueryReference;
+  }>;
+
 type OperatorTransaction = Readonly<{
   get(reference: OperatorDocumentReference): Promise<OperatorDocumentSnapshot>;
+  get(reference: OperatorQueryReference): Promise<OperatorQuerySnapshot>;
   set(
     reference: OperatorDocumentReference,
     data: JsonObject,
@@ -119,6 +130,33 @@ export type ApplyReviewResult = Readonly<{
   goldEligible?: boolean;
 }>;
 
+export type TaskSyncResult = Readonly<{
+  taskCount: number;
+  activated: number;
+  updated: number;
+  unchanged: number;
+  deactivated: number;
+  tasksSha256: string;
+}>;
+
+export type TaskReleaseProof = Readonly<{
+  publicDataRevision: string;
+  queueSha256: string;
+  runId: string;
+  liveManifestUrl: string;
+}>;
+
+type LiveFetch = (
+  url: string,
+  init: Readonly<{ cache: "no-store" }>,
+) => Promise<
+  Readonly<{
+    ok: boolean;
+    status: number;
+    arrayBuffer(): Promise<ArrayBuffer>;
+  }>
+>;
+
 const ARTICLE_KEY = /^[^/]{1,253}\/[^/]{1,255}$/;
 const SHA256 = /^sha256:[a-f0-9]{64}$/;
 const IDENTIFIER = /^[A-Za-z0-9_-]{16,96}$/;
@@ -143,6 +181,33 @@ const RUSSIA = new Set([
   "not_applicable",
 ]);
 const PARTY_TONE = new Set(["favorable", "unfavorable", "neutral", "mixed"]);
+const PRODUCTION_TASK_MANIFEST_URL =
+  "https://storage.googleapis.com/data-electionsbg-com/news/app-data/manifest.json";
+const TASK_FIELDS = [
+  "schema_version",
+  "rubric_version",
+  "article_key",
+  "domain",
+  "article_id",
+  "url",
+  "title",
+  "published",
+  "story_id",
+  "primary_topic",
+  "outlet",
+  "content_sha256",
+  "public_data_revision",
+  "analysis_sha256",
+  "model",
+  "analyzed_at",
+  "prompt_hashes",
+  "model_labels",
+  "review_reasons",
+  "dataset_ids",
+  "accepts_public_evals",
+  "revision",
+  "updated_at",
+] as const;
 
 function object(value: unknown, label: string): JsonObject {
   if (value === null || typeof value !== "object" || Array.isArray(value))
@@ -180,6 +245,10 @@ function nullableString(
 ): string | null {
   if (value === null) return null;
   return stringValue(value, label, maximum);
+}
+
+function nullableTimestamp(value: unknown, label: string): string | null {
+  return value === null ? null : isoTimestamp(value, label);
 }
 
 function safeInteger(value: unknown, label: string, minimum = 0): number {
@@ -288,6 +357,368 @@ function modelLabels(value: unknown): JsonObject {
     };
   });
   return { leaning, russia_stance: russia, party_tones: parties };
+}
+
+export function deriveTaskRevision(
+  contentHash: string,
+  analysisHash: string,
+  labels: JsonObject,
+): number {
+  const digest = canonicalSha256({
+    rubric_version: RUBRIC,
+    content_sha256: contentHash,
+    analysis_sha256: analysisHash,
+    model_labels: labels,
+  }).slice("sha256:".length);
+  return Number.parseInt(digest.slice(0, 12), 16) + 1;
+}
+
+function normalizedTask(value: unknown, label: string): JsonObject {
+  const raw = object(value, label);
+  exactKeys(raw, TASK_FIELDS, label);
+  if (raw.schema_version !== 1 || raw.rubric_version !== RUBRIC)
+    throw new Error(`${label} has an unsupported contract`);
+  const key = articleKey(raw.article_key);
+  const [domain, ident] = key.split("/");
+  if (raw.domain !== domain || raw.article_id !== ident)
+    throw new Error(`${label} identity fields disagree`);
+  const url = stringValue(raw.url, `${label}.url`, 2048);
+  if (!/^https:\/\//u.test(url)) throw new Error(`${label}.url must be HTTPS`);
+  const promptHashes = object(raw.prompt_hashes, `${label}.prompt_hashes`);
+  if (Object.keys(promptHashes).length > 20)
+    throw new Error(`${label}.prompt_hashes is too large`);
+  const normalizedPromptHashes: JsonObject = {};
+  for (const name of Object.keys(promptHashes).sort(compareText)) {
+    stringValue(name, `${label} prompt hash name`, 128);
+    normalizedPromptHashes[name] = hash(
+      promptHashes[name],
+      `${label}.prompt_hashes.${name}`,
+    );
+  }
+  const reasons = object(raw.review_reasons, `${label}.review_reasons`);
+  if (Object.keys(reasons).length > 10)
+    throw new Error(`${label}.review_reasons is too large`);
+  const normalizedReasons: JsonObject = {};
+  for (const field of Object.keys(reasons).sort(compareText))
+    normalizedReasons[stringValue(field, `${label} review field`, 64)] =
+      stringValue(reasons[field], `${label}.review_reasons.${field}`, 600);
+  if (!Array.isArray(raw.dataset_ids) || raw.dataset_ids.length > 20)
+    throw new Error(`${label}.dataset_ids must be a bounded array`);
+  const datasetIds = raw.dataset_ids.map((item) =>
+    stringValue(item, `${label} dataset ID`, 128),
+  );
+  if (new Set(datasetIds).size !== datasetIds.length)
+    throw new Error(`${label}.dataset_ids contains duplicates`);
+  if (raw.accepts_public_evals !== true)
+    throw new Error(`${label} must be active`);
+  const contentHash = hash(raw.content_sha256, `${label}.content_sha256`);
+  const analysisHash = hash(raw.analysis_sha256, `${label}.analysis_sha256`);
+  const labels = modelLabels(firestoreJson(raw.model_labels));
+  const revision = safeInteger(raw.revision, `${label}.revision`, 1);
+  if (revision !== deriveTaskRevision(contentHash, analysisHash, labels))
+    throw new Error(`${label}.revision does not match its task inputs`);
+  return {
+    schema_version: 1,
+    rubric_version: RUBRIC,
+    article_key: key,
+    domain,
+    article_id: ident,
+    url,
+    title: stringValue(raw.title, `${label}.title`, 500),
+    published: nullableTimestamp(raw.published, `${label}.published`),
+    story_id:
+      raw.story_id === null
+        ? null
+        : stringValue(raw.story_id, `${label}.story_id`, 160),
+    primary_topic:
+      raw.primary_topic === null
+        ? null
+        : stringValue(raw.primary_topic, `${label}.primary_topic`, 128),
+    outlet: stringValue(raw.outlet, `${label}.outlet`, 160),
+    content_sha256: contentHash,
+    public_data_revision: isoTimestamp(
+      raw.public_data_revision,
+      `${label}.public_data_revision`,
+    ),
+    analysis_sha256: analysisHash,
+    model:
+      raw.model === null ? null : stringValue(raw.model, `${label}.model`, 160),
+    analyzed_at: nullableTimestamp(raw.analyzed_at, `${label}.analyzed_at`),
+    prompt_hashes: normalizedPromptHashes,
+    model_labels: labels,
+    review_reasons: normalizedReasons,
+    dataset_ids: [...datasetIds].sort(compareText),
+    accepts_public_evals: true,
+    revision,
+    updated_at: isoTimestamp(raw.updated_at, `${label}.updated_at`),
+  };
+}
+
+function taskSyncManifest(value: unknown): {
+  manifest: JsonObject;
+  tasks: JsonObject[];
+} {
+  const raw = object(value, "task sync manifest");
+  exactKeys(
+    raw,
+    [
+      "schema_version",
+      "manifest_kind",
+      "generated_at",
+      "public_data_revision",
+      "rubric_version",
+      "task_count",
+      "tasks_sha256",
+      "queue_sha256",
+      "tasks",
+    ],
+    "task sync manifest",
+  );
+  if (
+    raw.schema_version !== 1 ||
+    raw.manifest_kind !== "news-eval-task-sync" ||
+    raw.rubric_version !== RUBRIC
+  )
+    throw new Error("task sync manifest contract is unsupported");
+  if (!Array.isArray(raw.tasks) || raw.tasks.length === 0)
+    throw new Error("task sync manifest must not be empty");
+  if (raw.tasks.length > 200)
+    throw new Error("task sync manifest exceeds the 200-task safety cap");
+  const generatedAt = isoTimestamp(raw.generated_at, "manifest generated_at");
+  const publicRevision = isoTimestamp(
+    raw.public_data_revision,
+    "manifest public_data_revision",
+  );
+  if (generatedAt !== publicRevision)
+    throw new Error("task sync generation must equal its public revision");
+  const tasks = raw.tasks.map((task, index) =>
+    normalizedTask(task, `task ${index}`),
+  );
+  const seen = new Set<string>();
+  for (let index = 0; index < tasks.length; index += 1) {
+    const task = tasks[index]!;
+    const key = task.article_key as string;
+    if (seen.has(key))
+      throw new Error("task sync manifest has duplicate tasks");
+    seen.add(key);
+    if (
+      task.updated_at !== generatedAt ||
+      task.public_data_revision !== publicRevision
+    )
+      throw new Error(
+        "task sync task revision metadata disagrees with manifest",
+      );
+    if (
+      index > 0 &&
+      compareText(tasks[index - 1]!.article_key as string, key) >= 0
+    )
+      throw new Error("task sync tasks are not strictly sorted");
+  }
+  if (safeInteger(raw.task_count, "task_count", 1) !== tasks.length)
+    throw new Error("task sync task_count does not match");
+  const tasksHash = hash(raw.tasks_sha256, "tasks_sha256");
+  const queueHash = hash(raw.queue_sha256, "queue_sha256");
+  if (canonicalSha256(tasks) !== tasksHash)
+    throw new Error("task sync tasks hash does not match");
+  return {
+    manifest: {
+      schema_version: 1,
+      manifest_kind: "news-eval-task-sync",
+      generated_at: generatedAt,
+      public_data_revision: publicRevision,
+      rubric_version: RUBRIC,
+      task_count: tasks.length,
+      tasks_sha256: tasksHash,
+      queue_sha256: queueHash,
+    },
+    tasks,
+  };
+}
+
+function taskReleaseProof(value: unknown): TaskReleaseProof {
+  const raw = object(value, "task release proof");
+  exactKeys(
+    raw,
+    ["publicDataRevision", "queueSha256", "runId", "liveManifestUrl"],
+    "task release proof",
+  );
+  const liveManifestUrl = stringValue(
+    raw.liveManifestUrl,
+    "task release proof liveManifestUrl",
+    2048,
+  );
+  const parsedUrl = new URL(liveManifestUrl);
+  if (
+    parsedUrl.protocol !== "https:" ||
+    parsedUrl.username ||
+    parsedUrl.password ||
+    parsedUrl.search ||
+    parsedUrl.hash ||
+    !parsedUrl.pathname.endsWith("/manifest.json")
+  )
+    throw new Error("task release proof has an unsafe live manifest URL");
+  const runId = stringValue(raw.runId, "task release proof runId", 128);
+  if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u.test(runId))
+    throw new Error("task release proof runId is invalid");
+  return {
+    publicDataRevision: isoTimestamp(
+      raw.publicDataRevision,
+      "task release proof publicDataRevision",
+    ),
+    queueSha256: hash(raw.queueSha256, "task release proof queueSha256"),
+    runId,
+    liveManifestUrl: parsedUrl.toString(),
+  };
+}
+
+async function fetchedBytes(
+  fetcher: LiveFetch,
+  url: string,
+  label: string,
+  maximum: number,
+): Promise<Buffer> {
+  const response = await fetcher(url, { cache: "no-store" });
+  if (!response.ok)
+    throw new Error(`${label} returned HTTP ${response.status}`);
+  const body = Buffer.from(await response.arrayBuffer());
+  if (body.byteLength > maximum)
+    throw new Error(`${label} exceeds its byte limit`);
+  return body;
+}
+
+export async function verifyLiveTaskRelease(
+  manifestValue: unknown,
+  liveManifestUrlValue: string,
+  fetcher: LiveFetch,
+): Promise<TaskReleaseProof> {
+  const parsed = taskSyncManifest(manifestValue);
+  const liveUrl = new URL(
+    stringValue(liveManifestUrlValue, "live manifest URL", 2048),
+  );
+  if (
+    liveUrl.protocol !== "https:" ||
+    liveUrl.username ||
+    liveUrl.password ||
+    liveUrl.search ||
+    liveUrl.hash ||
+    !liveUrl.pathname.endsWith("/manifest.json")
+  )
+    throw new Error(
+      "live manifest URL must be a plain HTTPS manifest.json URL",
+    );
+  const liveBytes = await fetchedBytes(
+    fetcher,
+    liveUrl.toString(),
+    "live publication manifest",
+    2_000_000,
+  );
+  let liveValue: unknown;
+  try {
+    liveValue = JSON.parse(liveBytes.toString("utf8"));
+  } catch {
+    throw new Error("live publication manifest is not valid JSON");
+  }
+  const live = object(liveValue, "live publication manifest");
+  if (live.version !== 1 || live.home_health_ready !== true)
+    throw new Error("live publication manifest is not a ready v1 release");
+  const runId = stringValue(live.run_id, "live publication run_id", 128);
+  if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u.test(runId))
+    throw new Error("live publication run_id is invalid");
+  const liveRevision = isoTimestamp(
+    live.generated_at,
+    "live publication generated_at",
+  );
+  if (liveRevision !== parsed.manifest.public_data_revision)
+    throw new Error("live publication revision does not match task manifest");
+  const dataBase = stringValue(
+    live.data_base,
+    "live publication data_base",
+    256,
+  );
+  if (dataBase !== `versions/${runId}`)
+    throw new Error("live publication data_base is invalid");
+  const bundle = object(live.bundle, "live publication bundle");
+  if (!Array.isArray(bundle.inventory) || bundle.inventory.length > 20_000)
+    throw new Error("live publication inventory is invalid");
+  const queueEntries = bundle.inventory.filter(
+    (entry) =>
+      entry !== null &&
+      typeof entry === "object" &&
+      !Array.isArray(entry) &&
+      (entry as JsonObject).path === "evals/queue.json",
+  );
+  if (queueEntries.length !== 1)
+    throw new Error("live publication inventory must contain one eval queue");
+  const queueEntry = object(queueEntries[0], "live eval queue inventory entry");
+  const rawQueueHash = stringValue(
+    queueEntry.sha256,
+    "live eval queue inventory SHA-256",
+    64,
+  );
+  if (!/^[a-f0-9]{64}$/u.test(rawQueueHash))
+    throw new Error("live eval queue inventory SHA-256 is invalid");
+  const baseUrl = new URL("./", liveUrl);
+  const queueUrl = new URL(`${dataBase}/evals/queue.json`, baseUrl);
+  if (queueUrl.origin !== liveUrl.origin)
+    throw new Error("live eval queue URL changes origin");
+  const queueBytes = await fetchedBytes(
+    fetcher,
+    queueUrl.toString(),
+    "live eval queue",
+    2_000_000,
+  );
+  if (createHash("sha256").update(queueBytes).digest("hex") !== rawQueueHash)
+    throw new Error("live eval queue bytes do not match publication inventory");
+  let queueValue: unknown;
+  try {
+    queueValue = JSON.parse(queueBytes.toString("utf8"));
+  } catch {
+    throw new Error("live eval queue is not valid JSON");
+  }
+  const queue = object(queueValue, "live eval queue");
+  if (
+    queue.schema_version !== 1 ||
+    queue.rubric_version !== RUBRIC ||
+    isoTimestamp(queue.generated_at, "live eval queue generated_at") !==
+      parsed.manifest.generated_at ||
+    isoTimestamp(
+      queue.public_data_revision,
+      "live eval queue public_data_revision",
+    ) !== parsed.manifest.public_data_revision ||
+    safeInteger(queue.task_count, "live eval queue task_count", 1) !==
+      parsed.tasks.length
+  )
+    throw new Error("live eval queue metadata does not match task manifest");
+  const queueHash = canonicalSha256(queue);
+  if (queueHash !== parsed.manifest.queue_sha256)
+    throw new Error("live eval queue hash does not match task manifest");
+  return {
+    publicDataRevision: liveRevision,
+    queueSha256: queueHash,
+    runId,
+    liveManifestUrl: liveUrl.toString(),
+  };
+}
+
+export async function verifyProjectTaskRelease(
+  projectId: string,
+  manifestValue: unknown,
+  liveManifestUrlValue: string,
+  fetcher: LiveFetch,
+  firestoreEmulatorHost?: string,
+): Promise<TaskReleaseProof> {
+  const liveUrl = new URL(liveManifestUrlValue).toString();
+  if (projectId === "electionsbg-news") {
+    if (liveUrl !== PRODUCTION_TASK_MANIFEST_URL)
+      throw new Error(
+        "production task sync requires the exact production app-data manifest",
+      );
+  } else if (!firestoreEmulatorHost || !/^demo-[a-z0-9-]+$/u.test(projectId)) {
+    throw new Error(
+      "task release verification requires electionsbg-news or an explicit demo emulator project",
+    );
+  }
+  return verifyLiveTaskRelease(manifestValue, liveUrl, fetcher);
 }
 
 function submissionRecord(
@@ -735,6 +1166,146 @@ export class FirestoreOperatorStore {
     if (command.action === "adjudication_accepted")
       return this.#acceptAdjudication(command);
     return this.#reviewSubmission(command);
+  }
+
+  async syncTasks(
+    manifestValue: unknown,
+    releaseProofValue: unknown,
+  ): Promise<TaskSyncResult> {
+    const parsed = taskSyncManifest(manifestValue);
+    const releaseProof = taskReleaseProof(releaseProofValue);
+    if (
+      releaseProof.publicDataRevision !==
+        parsed.manifest.public_data_revision ||
+      releaseProof.queueSha256 !== parsed.manifest.queue_sha256
+    )
+      throw new Error("task release proof does not match task manifest");
+    const desired = new Map(
+      parsed.tasks.map((task) => [task.article_key as string, task]),
+    );
+    const desiredIds = new Set(
+      [...desired.keys()].map((key) => encodedArticleKey(key)),
+    );
+    const taskCollection = this.#database.collection("news_eval_tasks");
+    const stateRef = this.#database
+      .collection("news_eval_sync")
+      .doc("task_manifest");
+    return this.#database.runTransaction(async (transaction) => {
+      const currentSnapshot = await transaction.get(
+        taskCollection.where("accepts_public_evals", "==", true),
+      );
+      const references = new Map<string, OperatorDocumentReference>();
+      const snapshots = new Map<string, OperatorDocumentSnapshot>();
+      for (const snapshot of currentSnapshot.docs) {
+        references.set(snapshot.id, taskCollection.doc(snapshot.id));
+        snapshots.set(snapshot.id, snapshot);
+      }
+      for (const key of desired.keys()) {
+        const id = encodedArticleKey(key);
+        references.set(id, taskCollection.doc(id));
+      }
+      if (references.size > 400)
+        throw new Error("task sync touches more than 400 task documents");
+      for (const [id, reference] of [...references].sort(([left], [right]) =>
+        compareText(left, right),
+      )) {
+        if (!snapshots.has(id))
+          snapshots.set(id, await transaction.get(reference));
+      }
+      const stateSnapshot = await transaction.get(stateRef);
+      if (stateSnapshot.exists) {
+        const currentState = jsonObject(
+          stateSnapshot.data(),
+          "existing task manifest state",
+        );
+        const currentGeneratedAt = isoTimestamp(
+          currentState.generated_at,
+          "existing task manifest generated_at",
+        );
+        const currentHash = hash(
+          currentState.tasks_sha256,
+          "existing task manifest tasks_sha256",
+        );
+        const currentQueueHash = hash(
+          currentState.queue_sha256,
+          "existing task manifest queue_sha256",
+        );
+        const currentPublicRevision = isoTimestamp(
+          currentState.public_data_revision,
+          "existing task manifest public_data_revision",
+        );
+        const incomingGeneratedAt = parsed.manifest.generated_at as string;
+        const incomingPublicRevision = parsed.manifest
+          .public_data_revision as string;
+        const incomingHash = parsed.manifest.tasks_sha256 as string;
+        if (
+          currentPublicRevision > incomingPublicRevision ||
+          currentGeneratedAt > incomingGeneratedAt
+        )
+          throw new Error("task sync refuses rollback to an older manifest");
+        if (
+          (currentPublicRevision === incomingPublicRevision ||
+            currentGeneratedAt === incomingGeneratedAt) &&
+          (currentHash !== incomingHash ||
+            currentQueueHash !== parsed.manifest.queue_sha256)
+        )
+          throw new Error(
+            "task sync manifest conflicts with the existing generation",
+          );
+      }
+      let activated = 0;
+      let updated = 0;
+      let unchanged = 0;
+      let deactivated = 0;
+      for (const [key, task] of desired) {
+        const id = encodedArticleKey(key);
+        const snapshot = snapshots.get(id)!;
+        const current = snapshot.exists
+          ? jsonObject(snapshot.data(), `existing task ${key}`)
+          : null;
+        if (current && canonicalJson(current) === canonicalJson(task)) {
+          unchanged += 1;
+          continue;
+        }
+        if (!current || current.accepts_public_evals !== true) activated += 1;
+        else updated += 1;
+        transaction.set(references.get(id)!, task);
+      }
+      for (const [id, snapshot] of snapshots) {
+        if (!snapshot.exists) continue;
+        const current = jsonObject(snapshot.data(), `existing task ${id}`);
+        if (desiredIds.has(id)) continue;
+        if (current.accepts_public_evals === true) {
+          transaction.set(
+            references.get(id)!,
+            {
+              accepts_public_evals: false,
+              updated_at: parsed.manifest.generated_at,
+              deactivated_by_manifest_sha256: parsed.manifest.tasks_sha256,
+            },
+            { merge: true },
+          );
+          deactivated += 1;
+        }
+      }
+      transaction.set(stateRef, {
+        ...parsed.manifest,
+        live_release: {
+          public_data_revision: releaseProof.publicDataRevision,
+          queue_sha256: releaseProof.queueSha256,
+          run_id: releaseProof.runId,
+          manifest_url: releaseProof.liveManifestUrl,
+        },
+      });
+      return {
+        taskCount: parsed.tasks.length,
+        activated,
+        updated,
+        unchanged,
+        deactivated,
+        tasksSha256: parsed.manifest.tasks_sha256 as string,
+      };
+    });
   }
 
   async #reviewSubmission(
