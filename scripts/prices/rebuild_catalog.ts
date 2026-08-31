@@ -19,7 +19,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { PoolClient } from "pg";
-import { withClient, allRows } from "../db/lib/pg";
+import { withClient, allRows, vacuumAfterReload } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import { canonicalize, mayMergeAcrossChains, type Canon } from "./lib/canon";
 import { unitPricedByPid } from "./seed_dict";
@@ -436,6 +436,22 @@ export const rebuildCatalog = async (): Promise<void> => {
        FROM price_products`,
     [today],
   );
+  // ⚠️ NOT COSMETIC, AND NOT ONLY ABOUT THE ONE-OFF ALTER. This rebuild UPDATEs EVERY row of
+  // price_products (`SET current_min_eur = NULL, chain_count = 0` and then back), so the table
+  // accumulates a full generation of dead tuples daily — and the first run after 048 grew
+  // `title_fold` also REWRITES the heap into a new relfilenode, whose visibility map is EMPTY.
+  // Measured 2026-08-31 straight after that ALTER, on both databases: relpages 4352,
+  // relallvisible 0. `price_products_browse` then stops being planable as an index-only scan,
+  // which is the index this repo has a whole paragraph about — it is what makes the
+  // /consumption/products arrival 27 buffers instead of 19,261.
+  //
+  // ⚠️ A BARE `ANALYZE` IS THE DISGUISE, NOT HALF THE FIX: it stamps last_analyze and never
+  // touches the visibility map, so the table reads as freshly maintained in exactly the state
+  // worth fixing. `vacuumAfterReload` reads the map back and warns (never throws — the load has
+  // already committed) when a long-running transaction held the horizon and it marked nothing.
+  // Measured: 0.4 s local, 1.5 s on Cloud SQL.
+  await vacuumAfterReload("price_products");
+
   const n = Number(stats.n);
   console.log(
     `[catalog] ${n.toLocaleString()} products · ` +

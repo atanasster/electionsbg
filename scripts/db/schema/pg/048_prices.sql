@@ -84,8 +84,37 @@ CREATE TABLE IF NOT EXISTS price_products (
   current_min_eur double precision,
   pct_since_euro  numeric(8,3),
   first_seen      date NOT NULL,
-  last_seen       date NOT NULL       -- retire vanished products by this, never DELETE
+  last_seen       date NOT NULL,      -- retire vanished products by this, never DELETE
+  -- SEARCH FOLD (Streamlined-System romanization), same shape as tenders.buyer_fold /
+  -- contractor_rank.name_fold. See the reconcile ALTER below for what it is FOR.
+  title_fold      text GENERATED ALWAYS AS (translit_bg_latin(title)) STORED
 );
+
+-- ⚠️ WRITTEN TWICE ON PURPOSE — the 003_tr_search.sql rule. `CREATE TABLE IF NOT EXISTS` is
+-- a no-op on a warm database, so a column added only above reaches a fresh clone and nowhere
+-- else; this ALTER is what actually reaches every database that already has the table.
+--
+-- WHAT IT IS FOR: /consumption/products searches `title` through the shared registry engine,
+-- and without a fold that search is a RAW Cyrillic substring match — so „kafe" returned ZERO
+-- rows against 181 products whose title contains КАФЕ, and so did every other Latin-typed
+-- spelling a Bulgarian actually uses. `db_table.js` gives the column `searchCol: "title_fold"`
+-- + `searchFold: true`, which routes it through the same two arms every other registry
+-- resource gets: `translit_bg_latin(query)` for the plain romanization, and
+-- `shlyo_query_fold(...)` for the keyboard substitutions („6" = ш, „4" = ч, „q" = я).
+--
+-- ⚠️ THIS MAKES 048 DEPEND ON 000_search_fns.sql, which is why both of its appliers
+-- (scripts/prices/ingest.ts and scripts/prices/build_payloads.ts) now apply 000 first. A
+-- GENERATED expression is resolved at CREATE/ALTER time, so against a database without
+-- translit_bg_latin this raises 42883 and — under execEach — leaves the table without the
+-- column while every other statement in the file succeeds.
+--
+-- ⚠️ It REWRITES the table (a STORED generated column always does), so it takes an
+-- AccessExclusiveLock for the duration. Measured locally at 124,120 rows: ~1 s. execEach
+-- commits it on its own; do NOT fold this file into an `exec`-applied path, where the lock
+-- would be held for the whole migration including the multi-million-row price_last_seen seed.
+ALTER TABLE price_products
+  ADD COLUMN IF NOT EXISTS title_fold text
+    GENERATED ALWAYS AS (translit_bg_latin(title)) STORED;
 
 -- A chain's own listing. chain_code is chain-internal, NOT a barcode:
 -- code '000006' is three unrelated products at three chains. Never join on it.
@@ -290,6 +319,12 @@ DROP INDEX IF EXISTS price_products_browse;
 CREATE INDEX IF NOT EXISTS price_products_browse ON price_products (chain_count DESC NULLS LAST, product_id) WHERE chain_count > 0;
 CREATE INDEX IF NOT EXISTS price_products_since   ON price_products (pct_since_euro) WHERE chain_count > 1 AND pct_since_euro IS NOT NULL;
 CREATE INDEX IF NOT EXISTS price_products_trgm   ON price_products USING gin (title gin_trgm_ops);
+-- The fold's own trigram index. BOTH are needed and neither replaces the other: the RAW one
+-- serves /api/db/price-search, which ORs Latin→CYRILLIC candidates against `title`
+-- (shlyoCandidates in db_routes.js), while this one serves the registry engine's searchFold
+-- arms, which compare Latin against Latin. Dropping either turns its consumer's ILIKE into a
+-- seq scan of the whole catalogue.
+CREATE INDEX IF NOT EXISTS price_products_title_fold_trgm ON price_products USING gin (title_fold gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS price_grid_days_day   ON price_grid_days (day);
 CREATE INDEX IF NOT EXISTS price_grid_days_pid   ON price_grid_days (pid, day);
 CREATE INDEX IF NOT EXISTS price_chain_grid_eik  ON price_chain_grid_days (eik, day);

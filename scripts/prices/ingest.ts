@@ -33,6 +33,16 @@ const ROOT = path.resolve(
 );
 const RAW_DIR = path.join(ROOT, "raw_data/prices");
 
+// ⚠️ 000 FIRST, AND IT IS NOT OPTIONAL. 048 declares `price_products.title_fold` as
+// `GENERATED ALWAYS AS (translit_bg_latin(title)) STORED`, and a generated expression is
+// resolved at CREATE/ALTER time — so against a database without that function the statement
+// raises 42883 and, under execEach, leaves the catalogue without its search fold while every
+// other statement in the file succeeds. 000 is idempotent (CREATE EXTENSION IF NOT EXISTS,
+// CREATE OR REPLACE FUNCTION), so this is free on a warm database.
+const SEARCH_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/000_search_fns.sql",
+);
 const PRICES_SCHEMA = path.join(ROOT, "scripts/db/schema/pg/048_prices.sql");
 
 const argv = process.argv.slice(2);
@@ -72,6 +82,7 @@ const main = async (): Promise<void> => {
   // multi-million-row seed INSERT — on tables /api/db/price-history and
   // /api/db/price-product read. Statement-at-a-time releases each lock as it
   // goes.
+  await execEach(fs.readFileSync(SEARCH_SCHEMA, "utf8"));
   await execEach(fs.readFileSync(PRICES_SCHEMA, "utf8"));
 
   await withClient(async (c) => {

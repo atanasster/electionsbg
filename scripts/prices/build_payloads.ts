@@ -34,6 +34,13 @@ const PAYLOADS_MERGE: StageMergeSpec = {
 };
 import { buildPriceIndex, type Emit } from "./build_index";
 
+// ⚠️ 000 FIRST — see the identical note in ingest.ts. 048's `price_products.title_fold` is a
+// GENERATED column over translit_bg_latin, resolved at CREATE/ALTER time, so a database
+// without that function silently ends up with no search fold. Idempotent, free when warm.
+const SEARCH_SCHEMA = path.join(
+  path.dirname(new URL(import.meta.url).pathname),
+  "../db/schema/pg/000_search_fns.sql",
+);
 const PRICES_SCHEMA = path.join(
   path.dirname(new URL(import.meta.url).pathname),
   "../db/schema/pg/048_prices.sql",
@@ -149,6 +156,7 @@ export const buildPayloads = async (): Promise<void> => {
   // until the last statement — which includes the multi-million-row seed — on
   // tables /api/db/price-history and /api/db/price-product read. The seed itself
   // is guarded by NOT EXISTS, so on a warm database this is a no-op.
+  await execEach(fs.readFileSync(SEARCH_SCHEMA, "utf8"));
   await execEach(fs.readFileSync(PRICES_SCHEMA, "utf8"));
 
   const grids = await loadGridsFromPg();

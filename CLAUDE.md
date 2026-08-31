@@ -891,6 +891,71 @@ withdraws a `(store, sku)` deletes that row, so the table matches the corrected 
 than asserting a price the source now says was never filed. Any future non-shrink gate must
 exempt that case. Plan: `docs/plans/prices-chain-absence-v1.md`.
 
+⚠️ **`price_products.title_fold` is a DEPLOY-ORDER dependency of `deploy:db`, and getting it
+backwards is a 500 on every products search.** 048 declares it
+`GENERATED ALWAYS AS (translit_bg_latin(title)) STORED`, and `db_table.js` gives the
+`price_products.title` column `searchCol: "title_fold"` + `searchFold: true` — so the engine
+emits the column name unconditionally. A missing COLUMN is **42703**, which no degrade helper
+in `db_routes.js` handles (they cover 42883 / 42P01), and `badRequest()` rethrows anything that
+is not a `DbRequestError`. Ship the DDL FIRST, then the function:
+
+```bash
+psql "$DATABASE_URL" -c "ALTER TABLE price_products ADD COLUMN IF NOT EXISTS title_fold text GENERATED ALWAYS AS (translit_bg_latin(title)) STORED;" -c "CREATE INDEX IF NOT EXISTS price_products_title_fold_trgm ON price_products USING gin (title_fold gin_trgm_ops);" -c "VACUUM (ANALYZE, PARALLEL 0) price_products;"
+npm run deploy:db
+```
+
+⚠️⚠️ **THE `VACUUM` IS THE STEP THAT LOOKS OPTIONAL AND IS NOT — `ANALYZE` ALONE IS THE
+DISGUISE.** A STORED generated column REWRITES the heap into a new relfilenode, whose
+visibility map is EMPTY — the same mechanism the „reload visibility map" section describes for
+`VACUUM FULL` and for a TRUNCATE-reload. Measured 2026-08-31, immediately after the ALTER **and
+after an `ANALYZE`**, on BOTH databases: `relpages 4352 · relallvisible 0 · 0.0%`. So
+`price_products_browse` — the index this file already has a paragraph about, because it is what
+makes the `/consumption/products` arrival 27 buffers instead of 19,261 — stops being planable
+as an index-only scan, silently, with `last_analyze` freshly stamped. One `VACUUM (ANALYZE,
+PARALLEL 0)` restores it (measured: 0.4 s local, 1.5 s cloud, back to 98.8% / 98.7%).
+`PARALLEL 0` stays for the reason the visibility-map section gives.
+
+**Applied to Cloud SQL 2026-08-31** at 124,120 rows: ALTER **12.2 s**, index **2.7 s**, VACUUM
+**1.5 s** — 16.4 s in total, off-peak. Verified afterwards that `app_readonly` reads the new
+column (the grant is TABLE-level — `app_readonly=r/postgres` — so a column added later is
+covered and needs no new GRANT; `has_column_privilege` confirms it), and that the two databases
+return identical counts for every probe term, i.e. they are the same corpus vintage.
+
+Four things about it are easy to get backwards:
+
+- **Do NOT apply 048 through `apply_functions.ts`.** That uses `exec` (one transaction), which
+  is exactly what this file's own header forbids: the ALTER's AccessExclusiveLock would be held
+  until the last statement, and the last statements include the multi-million-row
+  `price_last_seen` seed, on tables `/api/db/price-history` and `/api/db/price-product` read.
+  The two statements above are what `execEach` would run; `npm run prices:payloads:cloud` and
+  the daily ingest also carry them, correctly, one statement at a time.
+- **The ALTER REWRITES the table** — every STORED generated column does — so it takes an
+  AccessExclusiveLock for the duration. Measured locally at 124,120 rows: **~10 s including the
+  index build and ANALYZE.** Off-peak, and expect longer on Cloud SQL.
+- **048 now depends on `000_search_fns.sql`**, because a GENERATED expression is resolved at
+  ALTER time. Both of its appliers (`scripts/prices/ingest.ts`, `scripts/prices/build_payloads.ts`)
+  apply 000 first for that reason; under `execEach` a missing `translit_bg_latin` would raise
+  42883 on that one statement and leave the catalogue without its fold while every other
+  statement in the file succeeded.
+
+**What it buys, measured 2026-08-31 over the 46,682 browsable products:** the search box was a
+RAW Cyrillic substring match, so „kafe" returned **0** rows against 1,389 titles containing
+КАФЕ — and „mlyako" 0 against 2,366, „sirene" 0 against 1,499, „banani" 0 against 85. There is
+no error and no empty-state distinction, so „no such product" and „this box cannot see
+Cyrillic" render identically at a 200. The keyboard arm (`shlyo_query_fold`, 141) comes with
+it: „6okolad" 0 → **968**, „4erven" 0 → **593**.
+
+⚠️ **`price_products_trgm` (gin over the RAW title) STAYS — it is a different consumer.**
+`/api/db/price-search` ORs Latin→**Cyrillic** candidates (`shlyoCandidates` in `db_routes.js`)
+against `title`, because that route predates the fold; the registry engine compares Latin
+against Latin. So the two search paths differ in coverage, and the dropdown is WIDER on one
+class: the phonetic i-glide spellings („mliako" → мляко, „iaica" → яйца) that
+`shlyo_query_fold` leaves alone. Unifying them is open work — the shape that would keep every
+arm on ONE index is to fold each Cyrillic candidate back through `translit_bg_latin` rather
+than OR-ing the raw column in, which the engine's own „OR across DIFFERENT indexes is slow"
+measurement (292 → 722 buffers) rules out. Gate:
+`scripts/db/tests/prices_search_fold.data.test.ts`.
+
 ### The two committed artifacts `db:refresh` regenerates
 
 `data/procurement/derived/hub_stats.json` (the nine `/procurement` hub stat-tile numbers) and

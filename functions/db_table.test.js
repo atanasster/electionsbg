@@ -1917,3 +1917,78 @@ test("a search still ORs the pre-existing arms — the dossier only ADDS hits", 
     assert.ok(whereSql.includes(arm), `${arm} arm present`);
   assert.ok(whereSql.includes(" OR "), "arms are ORed, not ANDed");
 });
+
+// ── price_products: the search fold ─────────────────────────────────────────
+//
+// /consumption/products' whole purpose is a search box, and until 048 grew
+// `title_fold` that box was a RAW Cyrillic substring match. Measured against the
+// local corpus (46,682 browsable products): „kafe" returned 0 rows where 1,389
+// titles contain КАФЕ, „mlyako" 0 against 2,366, „sirene" 0 against 1,499, and
+// „banani" 0 against 85. Every one of those is a spelling a Bulgarian actually
+// types. There is no error and no empty-state distinction — the page answers
+// „Няма резултати" about a catalogue that holds them.
+
+const priceProducts = REGISTRY.price_products;
+
+test("price_products searches the FOLD, so a Latin-typed term meets a Cyrillic title", () => {
+  const { whereSql } = buildWhere(priceProducts, {
+    filters: { global: "kafe" },
+  });
+  assert.ok(whereSql.includes("title_fold"), "the fold column is the target");
+  assert.ok(
+    whereSql.includes("translit_bg_latin"),
+    "the QUERY is folded too — both sides meet in one Latin space",
+  );
+  // ⚠️ The RAW column must NOT be the search target any more. A regression that
+  // dropped `searchCol` would still emit a `title ILIKE` arm, still return rows
+  // for Cyrillic queries, and still answer 0 for every Latin one — i.e. it would
+  // look green in every smoke test and reintroduce the exact reported bug.
+  assert.ok(
+    !/\btitle ILIKE/.test(whereSql),
+    "the raw title arm is gone — searchCol redirects it",
+  );
+});
+
+test("price_products keeps FILTER and SORT on the raw title, not the fold", () => {
+  // `searchCol` redirects the free-text arm ONLY. `title` is what a reader sees,
+  // so a column filter and an ORDER BY must address it — folding those would
+  // sort „Ябълки" by its romanization and make a `title` filter case- and
+  // script-fold in a way the column's own values do not.
+  const { whereSql } = buildWhere(priceProducts, {
+    filters: { columns: [{ id: "title", value: "МЛЯКО" }] },
+  });
+  assert.ok(whereSql.includes("title ILIKE"), "the filter is on the raw column");
+  assert.ok(!whereSql.includes("title_fold"), "…and not on the fold");
+});
+
+test("price_products gets the shliokavitsa arm, gated on the trigger", () => {
+  // The keyboard half: „6" = ш, „4" = ч, „q" = я. Measured locally, „6okolad"
+  // returns 0 from the plain fold arm and 968 with this one.
+  const shlyo = buildWhere(priceProducts, {
+    filters: { global: "6okolad" },
+  }).whereSql;
+  assert.ok(SHLYO_TRIGGER_RAW.test("6okolad"), "the term trips the gate");
+  assert.ok(shlyo.includes("shlyo_query_fold"), "the second needle is present");
+  // …and NOT on an ordinary term. Ungated the rewrite injects rows nobody asked
+  // for — see SHLYO_TRIGGER_RAW's own header for the measurement.
+  const plain = buildWhere(priceProducts, {
+    filters: { global: "kafe" },
+  }).whereSql;
+  assert.ok(
+    !plain.includes("shlyo_query_fold"),
+    "an ordinary Latin term does not trip it",
+  );
+});
+
+test("price_products does NOT opt into searchFoldTokens", () => {
+  // Scoped to person_browse_table.name_fold on purpose: it ANDs one arm per word,
+  // and product titles („ПРЯСНО МЛЯКО ВЕРЕЯ 3% 1Л") are phrases whose selectivity
+  // under that AND has not been measured against this corpus. A decision, not an
+  // oversight — so it is pinned rather than left to drift.
+  assert.equal(priceProducts.columns.title.searchFoldTokens, undefined);
+  const { whereSql } = buildWhere(priceProducts, {
+    filters: { global: "mlyako vereya" },
+  });
+  // One arm, not two ANDed ones.
+  assert.equal((whereSql.match(/title_fold ILIKE/g) || []).length, 1);
+});

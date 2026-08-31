@@ -122,6 +122,13 @@ const RELOADED: ReadonlyArray<{
   // straight after that seed: 0 of 8,829 pages all-visible.
   { table: "price_last_seen", loader: "npm run prices" },
   { table: "price_current", loader: "npm run prices" },
+  // `price_products` is UPDATEd row-for-row by rebuild_catalog every day (chain_count and
+  // current_min_eur are zeroed and re-set), so it accumulates a full generation of dead tuples
+  // daily — and 048's `title_fold` (a STORED generated column) REWROTE the heap the first time
+  // it was applied, leaving relallvisible 0 of 4,352 pages on both databases. That is the one
+  // index-only scan on this table that matters: price_products_browse is what makes the
+  // /consumption/products arrival 27 buffers instead of 19,261.
+  { table: "price_products", loader: "npm run prices" },
   {
     table: "declaration_employer_link",
     loader: "db:load:employer-links:pg",

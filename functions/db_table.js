@@ -1743,8 +1743,38 @@ const REGISTRY = {
       // product), so a unique id is what keeps paging deterministic.
       product_id: { type: "int" },
       slug: { type: "text" },
-      // search:true is backed by price_products_trgm (gin, title gin_trgm_ops).
-      title: { type: "text", sort: true, filter: "text", search: true },
+      // ⚠️ SEARCHED THROUGH THE FOLD, FILTERED AND SORTED ON THE RAW COLUMN. `searchCol` only
+      // redirects the free-text arm; `filter: "text"` and `sort` still address `title` itself,
+      // which is what a reader sees.
+      //
+      // Before the fold this was a RAW Cyrillic substring match, and the consequence was not
+      // subtle: „kafe" returned ZERO rows against the 181 products whose title contains КАФЕ,
+      // and so did every other Latin-typed spelling a Bulgarian actually uses — on a page whose
+      // whole purpose is a search box. `searchFold` routes it through the two arms every other
+      // registry resource already gets: `translit_bg_latin(query)` against `title_fold` (so
+      // „kafe", „mlyako", „sirene" and Cyrillic „кафе" all meet in one Latin space), plus the
+      // gated `shlyo_query_fold(...)` arm for the keyboard substitutions („6" = ш, „4" = ч,
+      // „q" = я). Backed by price_products_title_fold_trgm (048).
+      //
+      // ⚠️ NOT `searchFoldTokens`. That flag is scoped to person_browse_table.name_fold and
+      // ANDs one arm per word; product titles are „ПРЯСНО МЛЯКО ВЕРЕЯ 3% 1Л", where a
+      // multi-word query is normally a contiguous phrase and where the AND's selectivity has
+      // not been measured against this corpus. A decision, not an oversight.
+      //
+      // ⚠️ price_products_trgm (gin over the RAW title) STAYS. It is not this arm's index —
+      // it serves /api/db/price-search, which ORs Latin→CYRILLIC candidates (shlyoCandidates
+      // in db_routes.js) against `title` because that route predates the fold. The two search
+      // paths therefore differ: the dropdown also catches the phonetic i-glide spellings
+      // („mliako", „biuro") that shlyo_query_fold leaves alone, while this one is indexed,
+      // paginated and aggregate-safe. Unifying them is open work, not an accident.
+      title: {
+        type: "text",
+        sort: true,
+        filter: "text",
+        search: true,
+        searchCol: "title_fold",
+        searchFold: true,
+      },
       pid: { type: "int", sort: true, filter: "in" },
       brand: { type: "text", filter: "text" },
       net_qty: { type: "number", sort: true, filter: "range" },
