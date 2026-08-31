@@ -29,8 +29,21 @@ import {
   ANALYSIS_BAND,
   REPORTS_BAND,
 } from "@/screens/analysis/analysisHubFigures";
+// The two hubs whose head figures come from a GIT-TRACKED payload. Imported so the
+// card-figure fingerprint below is derived by the SAME pure functions the page renders
+// through — a projection written out by hand here would be a second opinion about what
+// the card shows, and would drift from it silently.
+import {
+  sectorsHubEvidence,
+  sectorsHubKpis,
+} from "@/screens/governance/sectorsHubFigures";
+import { BAND_INDICATORS } from "@/screens/indicators/indicatorsHubFigures";
+import { KPI_REGISTRY } from "@/screens/indicators/indicatorsRegistry";
+import { pickAtOrBefore } from "@/data/macro/kpiSelectors";
+import elections from "@/data/json/elections.json";
 import fs from "node:fs";
 import { execFileSync, execSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { stripJsxComments } from "../../src/ux/infographic/stripJsxComments";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,14 +67,20 @@ const REPO = path.resolve(
 const read = (p: string) => fs.readFileSync(path.join(REPO, p), "utf8");
 const ORIGIN = SITE_ORIGIN;
 
-// The three GIT-TRACKED payloads the card-freshness clause below treats as sources — the
-// only hub figures a tracked file can move — asserted OUTSIDE it, deliberately.
+// The three GIT-TRACKED payloads the card-FIGURE clause below projects onto what each card
+// shows — the only hub figures a tracked file can move.
 //
-// ⚠️ THAT CLAUSE STANDS DOWN IN CI. `actions/checkout@v6` fetches depth 1, so it skips as
-// a shallow clone, and its per-path `no commit found for …` expectation is the only place
-// their presence is ever established. Absence would then be invisible on exactly the run
-// that matters. These are committed, so a missing one is a broken working copy rather
-// than a supported state — see scripts/lib/assert_committed.ts.
+// ⚠️ THE REASON HAS CHANGED, AND THE OLD ONE IS WHY THIS LINE IS WORTH READING. Until
+// 2026-08-31 these three were SOURCES of the card-freshness clause, which stands down on a
+// shallow clone — and CI has one (`actions/checkout@v6` is depth 1) — so its per-path
+// `no commit found for …` expectation was the only place their presence was ever
+// established, and absence was invisible on exactly the run that mattered. That clause no
+// longer names them at all. The fingerprint clause `read()`s all three UNCONDITIONALLY and
+// does not stand down, so a missing file is now a plain ENOENT rather than a silent pass.
+//
+// It is kept regardless: an ENOENT mid-clause names the file and nothing else, while these
+// are committed, so a missing one is a broken working copy rather than a supported state —
+// and saying so by name is the whole point of scripts/lib/assert_committed.ts.
 assertCommitted(
   "data/macro.json",
   "data/macro_peers.json",
@@ -1165,28 +1184,43 @@ describe("a hub's og capture anchors on its head", () => {
     // reddens nothing. PER-HUB rather than global, so an unrelated hub is not reddened by a
     // sibling's edit; the same measurement the HubHead line above rests on applies here too:
     // folding both in reddens zero additional cards today.
-    // ⚠️ A HUB MAY DECLARE MORE THAN ONE SOURCE, and `governance-sectors` is why. Its
-    // figures come from a GIT-TRACKED payload (data/procurement/derived/sector_stats.json),
-    // unlike the `/api/db` heads whose numbers move with no tracked file — so a corpus
-    // reload CAN redden its card here, and the only reason it would not is this map holding
-    // one path per slug.
+    // ⚠️⚠️ CODE ONLY — A DATA PAYLOAD IS NOT A SOURCE HERE, AND PUTTING ONE BACK IS THE
+    // DEFECT THIS SPLIT EXISTS TO END. `indicators` and `governance-sectors` used to name
+    // their git-tracked payloads (data/macro.json, data/macro_peers.json,
+    // data/procurement/derived/sector_stats.json) beside their figures modules. A COMMIT
+    // TIME is a fair proxy for „was the card drawn from this code"; it is a terrible one
+    // for „does the card still show this payload's numbers", because these files are
+    // rewritten by the DAILY watcher and the card renders them at one compact decimal.
+    //
+    // Measured 2026-08-31 by re-deriving the rendered band from every committed vintage:
+    // data/macro.json moved 20 times in 21 days and moved a band figure ONCE (the
+    // 2026-08-14 Eurostat quarter); sector_stats.json moved 20 times and moved the card 4
+    // times, all on 2026-08-13 and all structural. Since both heads shipped on 2026-08-26,
+    // 0 of 7 payload commits moved either card — and the two PNGs on disk still hash to the
+    // md5s recorded when they were last verified. The clause was red on every one of them.
+    //
+    // Worse, the escape hatch inverted: `NON_RENDERING_SOURCE` is sha-pinned so it EXPIRES
+    // on the next commit of the file, which is right for a rare code change and turns a
+    // daily payload into a recurring manual chore (re-shoot twice, compare md5, write a
+    // paragraph, bump the sha). Commit 1d540ee2bd is that chore, paid once already.
+    //
+    // ⚠️ AND THE ASYMMETRY WAS AN ACCIDENT OF STORAGE, NOT A PROPERTY OF THE CARD. Six of
+    // the eight head cards draw from `/api/db` hub-stats blobs, so no tracked file moves
+    // when their numbers do and they were under NO figure rule at all — see this clause's
+    // own „WHAT THIS CANNOT SEE" note. Only these two were held to a stricter standard,
+    // purely because their payload happens to be committed JSON.
+    //
+    // Figure staleness is now checked properly, by the RENDERED FINGERPRINT clause below —
+    // which is silent on a refresh that moves nothing visible and fires exactly on the one
+    // that does.
     const FIGURES: Record<string, string | string[]> = {
       budget: "src/screens/budget/budgetHubFigures.ts",
       funds: "src/screens/funds/fundsHubFigures.ts",
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
-      indicators: [
-        "src/screens/indicators/indicatorsHubFigures.ts",
-        // BOTH payloads are git-tracked, so a refresh of either moves every figure on this
-        // card and CAN redden it. The band reads the first, the peer rail the second.
-        "data/macro.json",
-        "data/macro_peers.json",
-      ],
-      "governance-sectors": [
-        "src/screens/governance/sectorsHubFigures.ts",
-        "data/procurement/derived/sector_stats.json",
-      ],
+      indicators: "src/screens/indicators/indicatorsHubFigures.ts",
+      "governance-sectors": "src/screens/governance/sectorsHubFigures.ts",
       "governance-declarations":
         "src/screens/governance/declarationsHubFigures.ts",
     };
@@ -1233,48 +1267,16 @@ describe("a hub's og capture anchors on its head", () => {
           "head builds and draws nothing. Verified: re-shooting governance-declarations " +
           "produced an identical md5 (4738a7bb9af3358ef031ccfc828ea401).",
       },
-      // ⚠️ THE TWO DATA ENTRIES BELOW ARE A DIFFERENT KIND FROM THE ONE ABOVE, and the
-      // difference is worth knowing before extending either. `HubHead.tsx` is CODE that drew
-      // nothing; these are the card's own FIGURES, refreshed by the daily ingest. So they are
-      // the case this clause is most for and least able to judge: a payload moves every day,
-      // and whether the card moved with it is decided by ROUNDING, not by the diff.
-      "data/macro.json": {
-        sha: "378f80acde16c202e5c9504061128b0c21085865",
-        why:
-          "The 2026-08-27 macro refresh (6 Eurostat releases) moved OTHER series — the four " +
-          "the band draws are untouched: gdpGrowth/inflation/unemployment/govDebt are the " +
-          "same length (86/86/69/85) with the same last point (2026-Q2 2.7, 2026-Q2 5.83, " +
-          "2026-Q1 3, 2026-Q1 28.5), which is exactly what the card shows. Verified by " +
-          "re-shooting twice against separately-started dev servers: identical md5 " +
-          "(a8b4910df51d55824cc6983fdf22a96e).",
-      },
-      // Same commit as macro.json, and it needs its OWN entry rather than riding that one:
-      // the clause reduces to the NEWEST source, so exempting only macro.json promotes this
-      // file to the maximum and the card stays red at the identical timestamp.
-      "data/macro_peers.json": {
-        sha: "378f80acde16c202e5c9504061128b0c21085865",
-        why:
-          "Ships in the same refresh commit as data/macro.json and feeds the peer rail. The " +
-          "rail is unchanged (Безработица 1/27, Брутен държавен дълг 3/27, Растеж 7/22, " +
-          "Инфлация 26/27). Covered by the same byte-identical re-shoot as macro.json — one " +
-          "capture verifies every source of a card at once, since the card is a function of " +
-          "all of them.",
-      },
-      // ⚠️ THE FRAGILE ONE: unlike the two above, these figures DID move — the card is
-      // unchanged only because both land inside the same rounded string. The next refresh
-      // that crosses a rounding boundary WILL move the card, and this entry expires on its
-      // own then (the sha stops matching), which is the correct default. Do not read this
-      // entry as „sector_stats never moves the card".
-      "data/procurement/derived/sector_stats.json": {
-        sha: "82fd0d1927f48f23bfc9dcbf11f63d223452cfc6",
-        why:
-          "The 2026-08-27 procurement refresh moved two of the four procurement-basis " +
-          "sectors by ~0.006% — water 3,273,381,511 → 3,273,951,511 and energy " +
-          "10,271,933,257 → 10,273,420,413 — and both still render €3,3 млрд. and €10,3 " +
-          "млрд.; the headline sum 29.636bn → 29.638bn still renders €29,6 млрд., and the " +
-          "rail's ordering is unchanged. Verified by re-shooting twice: identical md5 " +
-          "(710f562634292854e9ea1b609e62dfcb).",
-      },
+      // ⚠️ THE TWO DATA ENTRIES THAT USED TO SIT HERE ARE GONE, and deliberately not
+      // replaced. `data/macro.json`, `data/macro_peers.json` and
+      // `data/procurement/derived/sector_stats.json` each needed an entry re-verified on
+      // every daily refresh, because a sha-pinned exemption expires the next time its file
+      // is committed — the correct default for a rare code change, and a treadmill for a
+      // payload the watcher rewrites nightly. Those three are no longer SOURCES for this
+      // clause at all (see FIGURES above); their staleness is checked by the fingerprint
+      // clause below, which compares what the card SHOWS rather than when a file moved.
+      //
+      // The remaining kind is the one this map was built for: CODE that draws nothing.
     };
     const shaOf = (rel: string) =>
       execFileSync("git", ["log", "-1", "--format=%H", "--", rel], {
@@ -1356,6 +1358,332 @@ describe("a hub's og capture anchors on its head", () => {
           .join(
             " ",
           )}\` (dev server up), then LOOK at the PNG: ${stale.join("; ")}`,
+    ).toEqual([]);
+  });
+
+  // ─── the figure half: what the card SHOWS, not when a file moved ───────────────────
+  //
+  // ⚠️ THIS IS THE CLAUSE THE ONE ABOVE SAYS IT CANNOT BE. Its „WHAT THIS CANNOT SEE" note
+  // is explicit that a commit-time comparison means „the card is at least as new as the
+  // code that draws it" and never „the numbers are current" — and for the six `/api/db`
+  // heads that remains true, because their figures move with no tracked file and nothing
+  // here can reach them. For the TWO hubs whose payload IS committed, it can: re-derive
+  // what the card shows straight from that payload, through the page's own pure functions,
+  // and compare it to what was recorded when the card was last shot.
+  //
+  // ⚠️ THE POINT IS THE ROUNDING, AND IT IS WHY A COMMIT TIME CANNOT DO THIS JOB. The band
+  // renders compact euro at ONE decimal — „€29,6 млрд." — so its granularity is ~0.34% of
+  // the total while a daily self-heal moves it 0.004–0.03%. Measured 2026-08-31 over 20
+  // committed vintages of each payload: macro.json moved a band figure ONCE (a new Eurostat
+  // quarter), sector_stats.json four times (all structural, all on one day). Roughly 40
+  // publishes to 1 real move. A fingerprint is silent on the other 39 and fires on the one,
+  // which a commit time cannot distinguish — and the sectors total is currently 8.6M EUR
+  // (0.029%, ~4-7 daily self-heals) from crossing into „€29,7 млрд.", so the real move is
+  // days away and would have arrived as the 40th identical false alarm.
+  //
+  // ⚠️ DERIVED THROUGH THE PAGE'S OWN FUNCTIONS, never re-implemented. `sectorsHubKpis` and
+  // `sectorsHubEvidence` ARE what /governance/sectors renders; the indicators projection
+  // walks `KPI_REGISTRY[key].format` and `pickAtOrBefore` exactly as
+  // `IndicatorsLandingScreen` builds `bandPoints`. A hand-written projection would be a
+  // second opinion about what the card shows and would drift from it with nothing failing —
+  // the same defect this file's `declared_label`-style consolidation notes warn about.
+  //
+  // ⚠️ IT FAILS SAFE. The fingerprint is recorded HERE rather than written by the capture
+  // script, so re-shooting a card without updating the constant leaves the clause RED — a
+  // card is presumed stale until a human has looked, which is `NON_RENDERING_SOURCE`'s rule
+  // one level up. (Having `capture-screens.ts` emit a sidecar beside each PNG would make
+  // the record automatic and is the better end state; it is not done here because a partial
+  // re-shoot writes a partial sidecar, and that needs its own design.)
+
+  /** The card is shot at the DEFAULT election, so the band resolves against that quarter.
+   *  Derived from the corpus rather than written down: a new election legitimately moves
+   *  every cell, and the fingerprint should move with it. */
+  const latestElectionAsOf = (): { year: number; quarter: 1 | 2 | 3 | 4 } => {
+    const names = (elections as Array<{ name: string }>)
+      .map((e) => e.name)
+      .filter((n) => /^\d{4}_\d{2}_\d{2}$/.test(n))
+      .sort();
+    const latest = names[names.length - 1];
+    const [y, m] = latest.split("_").map(Number);
+    return {
+      year: y,
+      quarter: (Math.floor((m - 1) / 3) + 1) as 1 | 2 | 3 | 4,
+    };
+  };
+
+  /** Renders the i18n key plus its interpolations, so a basis whose COUNT or YEAR moved
+   *  shows up in the fingerprint. The translations themselves are code, not data, and are
+   *  covered by the commit-time clause above. */
+  const stubT = (k: string, o?: Record<string, unknown>) =>
+    o ? [k, ...Object.values(o).map(String)].join(":") : k;
+
+  /** `Intl` groups digits with U+00A0 and U+202F („133 275", „€29,6 млрд."), which are
+   *  invisible in a diff and untypeable in the recorded literal below — so a human updating
+   *  a fingerprint after a re-shoot would produce a string that looks identical and compares
+   *  unequal, for ever. Folded to a plain space: the distinction is an `Intl` formatting
+   *  artifact, never a figure moving, and this constant has to be maintainable BY HAND. */
+  const typeable = (s: string) => s.replace(/[\u00a0\u202f]/g, " ");
+
+  /** The scope key the sectors payload should be projected at, READ OUT OF THE CAPTURE
+   *  ENTRY rather than pinned here.
+   *
+   *  ⚠️ THE COUPLING IS THE POINT. `sector_stats.json` is keyed by scope (30 of them), and
+   *  the card is shot at whatever `routePath` says. Hard-coding `all` while the entry says
+   *  `?pscope=ns` would validate the full-corpus numbers against a card showing the
+   *  parliament window — a GREEN gate asserting the wrong scope, which is the „one scope's
+   *  figures under another scope's caption" defect the hub rules name explicitly.
+   *
+   *  ⚠️ AN ENTRY WITH NO EXPLICIT `pscope` IS REFUSED, not defaulted. The page's own default
+   *  is `ns:<latest election>`, so guessing it here would be a second opinion about a
+   *  default that lives in `useScope` — and guessing wrong is silent. */
+  const sectorsScopeKey = (): string => {
+    const entry = entryFor("governance-sectors") ?? "";
+    const m = /[?&]pscope=([^"&\s]+)/.exec(entry);
+    expect(
+      m?.[1],
+      "the governance-sectors capture no longer pins an explicit ?pscope — this projection " +
+        "cannot know which of the 30 scope keys the card shows, so it must not guess",
+    ).toBeTruthy();
+    return m![1];
+  };
+
+  /** /governance/sectors — the band's four cells and the evidence rail, at the scope its
+   *  capture entry pins. */
+  const sectorsFigures = (): string => {
+    const key = sectorsScopeKey();
+    const payload = JSON.parse(
+      read("data/procurement/derived/sector_stats.json"),
+    );
+    const stats = payload[key];
+    expect(
+      stats,
+      `sector_stats.json carries no "${key}" scope — the capture entry and the payload ` +
+        "disagree about which window this card shows",
+    ).toBeTruthy();
+    // `period` is undefined on the all-corpus scope BY DESIGN (`scopeProcurementPeriod`
+    // returns none), which is the branch the card is shot on.
+    const kpis = sectorsHubKpis(
+      stats,
+      "bg",
+      undefined,
+      stubT,
+      (id) => id,
+      (id) => `/sector/${id}`,
+      "/procurement?pscope=all",
+    );
+    const rail = sectorsHubEvidence(
+      stats,
+      "bg",
+      stubT,
+      (id) => id,
+      (id) => `/sector/${id}`,
+    );
+    return typeable(
+      [
+        ...kpis.map((k) => `${k.label}=${k.value} [${k.basis}]`),
+        "|",
+        ...(rail?.rows ?? []).map((r) => `${r.id}=${r.value}`),
+      ].join(" "),
+    );
+  };
+
+  /** /indicators — the band's four cells and the peer rail's ranks, mirroring
+   *  `IndicatorsLandingScreen`'s `bandPoints` and `peerRanks`. */
+  const indicatorsFigures = (): string => {
+    // ⚠️ THE SAME COUPLING, one page over: `latestElectionAsOf()` is the right anchor only
+    // while the capture carries no `?elections=`. It does not today; pinned so that adding
+    // one fails here rather than silently fingerprinting a different quarter than the card.
+    expect(
+      entryFor("indicators") ?? "",
+      "the indicators capture now pins an election — latestElectionAsOf() is no longer the " +
+        "asOf this card resolves against",
+    ).not.toContain("elections=");
+    const macro = JSON.parse(read("data/macro.json"));
+    const peers = JSON.parse(read("data/macro_peers.json"));
+    const asOf = latestElectionAsOf();
+    const band: string[] = [];
+    const rail: string[] = [];
+    for (const key of BAND_INDICATORS) {
+      const entry = KPI_REGISTRY[key];
+      const meta = macro.indicators?.[key];
+      const point = pickAtOrBefore(macro.series?.[key], asOf);
+      // A withheld cell is part of the card's shape, so it is RECORDED rather than
+      // skipped — a series losing its last point would otherwise shorten the band with
+      // the fingerprint unchanged.
+      if (!entry || !meta || !point) {
+        band.push(`${key}=withheld`);
+        continue;
+      }
+      // ⚠️ `titleBg` IS IN HERE FOR A REASON — it is the one payload-driven string the card
+      // renders that an earlier cut of this projection dropped, and dropping it was the
+      // COARSE direction (a missed real change, not a false alarm). The card prints it
+      // twice per indicator: as the KPI cell's label and as the peer-rail row's label. A
+      // refresh that re-words a series title moves eight visible strings, and without this
+      // the fingerprint would be silent about all eight — the exact failure this clause
+      // exists to end, one field over.
+      band.push(
+        `${key}=${entry.format(point.value)} [${meta.titleBg} · ${meta.unitLabelBg} · ${point.period}]`,
+      );
+      // The rail row renders only when the distribution's period matches the figure's —
+      // the screen's own strict compare, restated because the screen resolves it inline.
+      const dist = peers.indicators?.[key]?.latestDistribution;
+      if (!dist || !point.period || !dist.period) continue;
+      if (dist.period !== point.period) continue;
+      if (!dist.rank || !dist.total) continue;
+      rail.push(`${key}=${dist.rank}/${dist.total}`);
+    }
+    return typeable([...band, "|", ...rail].join(" "));
+  };
+
+  /** slug → the projection, the payloads behind it, and what the CARD ON DISK shows.
+   *
+   *  ⚠️ THE `figures` STRING IS THE RECORD OF A HUMAN HAVING LOOKED. Update it only
+   *  together with a re-shoot of that card — never to make a red clause green, which is
+   *  the one move that turns this into a rubber stamp. The remedy the failure prints is a
+   *  re-shoot for exactly that reason. */
+  const CARD_FIGURES: Record<
+    string,
+    {
+      payloads: string[];
+      project: () => string;
+      figures: string;
+      shot: string;
+      /** md5 of the PNG as recorded. See the clause below for why BOTH this and `shot`
+       *  are asserted — they catch opposite halves of the same dishonesty. */
+      md5: string;
+    }
+  > = {
+    "governance-sectors": {
+      payloads: ["data/procurement/derived/sector_stats.json"],
+      project: sectorsFigures,
+      md5: "710f562634292854e9ea1b609e62dfcb",
+      // NOT re-shot, and that is the result rather than an omission: this projection is
+      // BYTE-IDENTICAL at the card's own commit (6b1e0d3381) and at HEAD, across five
+      // intervening payload refreshes. The old clause reddened this card on every one of
+      // them. Measured headroom 2026-08-31: the procurement total is €8.6m (0.029%) below
+      // the boundary into „€29,7 млрд.", i.e. ~4-7 more daily self-heals — so this entry is
+      // expected to fire soon, for real, and that firing is the clause working.
+      shot: "2026-08-26",
+      figures:
+        "sectors_kpi_procurement=€29,6 млрд. [sectors_kpi_procurement_basis:4] " +
+        "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
+        "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
+        "administration=133 275 [sectors_kpi_headcount_basis:2025] " +
+        "| energy=€10,3 млрд. roads=€8,8 млрд. transport=€7,3 млрд. water=€3,3 млрд.",
+    },
+    indicators: {
+      payloads: ["data/macro.json", "data/macro_peers.json"],
+      project: indicatorsFigures,
+      md5: "aaf81b9466e0a20767031c4198ee0e48",
+      // ⚠️ RE-SHOT 2026-08-31, AND THIS CLAUSE IS WHY — the first real thing it found. The
+      // 2026-08-26 card carried „Растеж на реалния БВП · 7 от 22" on its peer rail; more
+      // member states have since reported 2026-Q2, so Bulgaria's growth rank is 8 of 24.
+      // Everything else on the card was unchanged, which is exactly why the commit-time
+      // clause could not surface it: both payloads had ALSO moved on 08-27, 08-28, 08-29
+      // and 08-30 without touching a pixel, so the one commit that mattered arrived as the
+      // fifth identical false alarm and was cleared by a sha bump like the other four.
+      shot: "2026-08-31",
+      figures:
+        "gdpGrowth=2.7% [Растеж на реалния БВП · % спрямо същия период предходна " +
+        "година (реален, SCA) · 2026-Q2] " +
+        "inflation=5.8% [Инфлация (ХИПЦ) · % спрямо предходната година (ХИПЦ, " +
+        "тримес. ср.) · 2026-Q2] " +
+        "unemployment=3.0% [Безработица · % от активното население (сезонно " +
+        "изгладено) · 2026-Q1] " +
+        "govDebt=28.5% [Брутен държавен дълг · % от БВП · 2026-Q1] " +
+        "| gdpGrowth=8/24 inflation=26/27 unemployment=1/27 govDebt=3/27",
+    },
+  };
+
+  it("no hub card shows a figure its payload has since moved", () => {
+    const moved: string[] = [];
+    const checked: string[] = [];
+    // ⚠️ `shot` AND `md5` ARE BOTH ASSERTED, AND NEITHER IS REDUNDANT — they catch OPPOSITE
+    // halves of the same dishonesty, which is why the obvious "just pick one" is wrong:
+    //
+    //   • `md5` catches a card RE-SHOT WITHOUT BEING RECORDED — the bytes moved and the
+    //     fingerprint beside them did not, so the record has quietly stopped describing the
+    //     file. It reads the PNG, so it works everywhere, CI included.
+    //   • `shot` catches the RUBBER STAMP, which is the failure this clause invites: a red
+    //     run cleared by pasting the `payload now` line from the output into `figures`, with
+    //     no PNG re-shot and no human looking. md5 is BLIND to that — the card did not change
+    //     — and only "was the card committed at least as recently as the date its own record
+    //     claims" can see it.
+    //
+    // That is `NON_RENDERING_SOURCE`'s doctrine one level up: a claim is safe when it
+    // EXPIRES on its own, not when its docblock asks nicely.
+    //
+    // ⚠️ THE `shot` HALF STANDS DOWN ON A SHALLOW CLONE, and CI has one — `git log -1` then
+    // returns the same commit for every path. Skipped with a distinct reason rather than
+    // passing, but only that half: `md5` runs regardless, so the clause never checks nothing.
+    const shallow =
+      execSync("git rev-parse --is-shallow-repository", {
+        encoding: "utf8",
+      }).trim() === "true";
+    if (shallow)
+      reportSkip(
+        import.meta.url,
+        "shallow clone — the `shot` half of card-figure provenance is unverifiable",
+      );
+    for (const [slug, spec] of Object.entries(CARD_FIGURES)) {
+      if (NOT_YET[slug]) continue;
+      const rel = `public/og/${slug}.png`;
+      expect(
+        createHash("md5")
+          .update(fs.readFileSync(path.join(REPO, rel)))
+          .digest("hex"),
+        `${rel} has been re-shot since its figures were recorded — re-derive the ` +
+          "fingerprint and update `figures`, `shot` and `md5` together",
+      ).toBe(spec.md5);
+      if (!shallow) {
+        const cardAt =
+          Number(
+            execFileSync("git", ["log", "-1", "--format=%ct", "--", rel], {
+              encoding: "utf8",
+            }).trim(),
+          ) * 1000;
+        expect(cardAt, `no commit found for ${rel}`).toBeGreaterThan(0);
+        expect(
+          cardAt,
+          `${slug}: \`shot\` claims ${spec.shot} but ${rel} was last committed ` +
+            `${new Date(cardAt).toISOString().slice(0, 10)} — the record was updated ` +
+            "without re-shooting the card, which is the one move that makes this clause a " +
+            "rubber stamp",
+        ).toBeGreaterThanOrEqual(Date.parse(spec.shot));
+      }
+      const now = spec.project();
+      // Non-vacuity per projection: one that started returning nothing — a payload shape
+      // change, a renamed scope key — would otherwise match a recorded empty string and
+      // report every card as current for ever.
+      expect(
+        now.replace(/[|\s]/g, "").length,
+        `${slug}: the projection produced nothing — the payload's shape has changed, so ` +
+          "this card is no longer being checked against anything",
+      ).toBeGreaterThan(20);
+      if (now !== spec.figures)
+        moved.push(
+          `${slug}:\n     card (${spec.shot}) ${spec.figures}\n     payload now  ${now}`,
+        );
+      checked.push(slug);
+    }
+    // ⚠️ COUNTS THE CARDS ACTUALLY CHECKED, not the map's size. The first cut asserted
+    // `Object.keys(CARD_FIGURES).length > 1` — the size of the DECLARATION — so putting both
+    // slugs in `NOT_YET` would have left this checking zero cards and reading green. That is
+    // the arithmetic-right/claim-false shape the freshness clause's own non-vacuity note
+    // records having shipped once; both siblings above count `checked`.
+    expect(
+      checked.length,
+      "no card's figures are being checked",
+    ).toBeGreaterThan(1);
+    expect(
+      moved,
+      `these cards show figures the committed payload has since moved — re-shoot with ` +
+        `\`npx tsx scripts/og/capture-screens.ts ${moved
+          .map((l) => l.split(":")[0])
+          .join(
+            " ",
+          )}\` (dev server up), LOOK at the PNG, then update \`figures\` and ` +
+        `\`shot\` here to match:\n  ${moved.join("\n  ")}`,
     ).toEqual([]);
   });
 

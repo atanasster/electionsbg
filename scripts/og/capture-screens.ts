@@ -781,10 +781,13 @@ const captures: Capture[] = [
     //
     // ⚠️ AN ABSENT PAYLOAD IS CAUGHT: the band comes from macro.json and the skeleton cells
     // carry no `data-kpi-cell`, so a 404 times out here and the previous card survives.
-    // Figure STALENESS is caught too — both payloads (data/macro.json and
-    // data/macro_peers.json) are GIT-TRACKED, so the coverage gate's freshness clause
-    // compares the card against them. §10's „look at the png" is still the only thing that
-    // can judge the picture.
+    // Figure STALENESS is caught too, but NOT by the freshness clause — that comparison was
+    // removed on 2026-08-31 because both payloads are rewritten by the DAILY watcher, so a
+    // commit-time comparison reddened this card on every refresh while the PNG was
+    // byte-identical. It is now the coverage gate's card-FIGURE clause, which re-derives
+    // this band and this rail from the two payloads and compares what the card SHOWS. That
+    // clause is what caught the rail moving „Растеж 7 от 22" -> „8 от 24". §10's „look at
+    // the png" is still the only thing that can judge the picture.
     //
     // ⚠️ THIS CLAUSE HAS AN EXPIRY, and it is worth knowing before it fires. The rail's real
     // precondition is not „the latest election" but „`latestDistribution.period` still equals
