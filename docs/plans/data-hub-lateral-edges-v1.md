@@ -16,15 +16,19 @@ manifest on 2026-08-03. The three measurements in §1 are the ones that decide t
 
 | Tier | Deliverable |
 |---|---|
-| **T0** | Add the `ds:interreg` node the corpus has been missing, so T1 has an endpoint to attach to (§10.1) |
+| **T0a** | Add the `ds:interreg` node the corpus has been missing, so T1 has an endpoint to attach to (§1b.1) |
+| **T0b** | `serving` + `tables[]` on `DatasetDef`, and the coverage gate that keeps the map complete (§1b.2) |
 | **T1** | Lateral `dataset ↔ dataset` edges on the data map, labelled by join key, weighted by measured overlap |
 | **T2** | `/data` as a navigation hub — a browsable dataset directory, not just a canvas |
-| **T3** | `/db` — hide the ~47 non-data relations, and replace the 10 sample queries with a purpose-organised library |
+| **T3** | `/db` — hide the ~57 non-data relations, **group the remaining 208 by owning dataset** (§13.2), and replace the 10 sample queries with a purpose-organised library |
 | **T4** | **EGN-hash person key** — make the `person_id` spine EXACT for TR company attribution, then retire the three stale GCS shard families it made obsolete (§11.1–§11.7) |
 | **T5** | Retire the `connections*` family — 5,429 tracked files / 49.9 MB + a gitignored 78 MB frozen serving copy, all replaced by the PG graph engine months ago (§11.8) |
 
-T0 is a prerequisite for three of T1's links and is worth shipping on its own regardless: the
-current `src:keep_eu → ds:funds` edge makes a false claim about the corpus today (§8.4).
+T0 is specified in **§1b**. T0a is a prerequisite for three of T1's links and is worth shipping
+on its own regardless: the current `src:keep_eu → ds:funds` edge makes a false claim about the
+corpus today, contradicting `src:keep_eu`'s own description (§1b.1). T0b is the higher-leverage
+half — T1's `measure`, T3's grouping and T3's use as a privacy control all resolve through it
+(§1b.2).
 T1 and T3 are independent. T2 depends on T1 only for the "what links to what" surface;
 it can ship without it.
 
@@ -209,6 +213,126 @@ thing".
 
 ---
 
+## 1b. T0 — the two model changes T1 depends on
+
+Both were found by audit after the plan was drafted (§10.1, §13.5). Neither is large; together
+they are the highest-leverage work in the document, because T1's `measure`, T3's grouping and
+the map's own extensibility gate all resolve through them.
+
+### 1b.1 T0a — the `ds:interreg` node
+
+**The map currently contradicts itself inside one file.** `src:keep_eu`'s own `desc` in
+[model.ts:521](../../scripts/data_map/model.ts#L521) reads:
+
+> *"Interreg does not run through ИСУН (it is managed on Jems), which is why these projects are
+> absent from the rest of the EU-funds corpus."*
+
+— and then [model.ts:2198](../../scripts/data_map/model.ts#L2198) edges it into `ds:funds`, the
+node for that very corpus. The source node states the disjointness; the edge denies it.
+
+Measured, local PG:
+
+```
+interreg_operations  1,958      interreg_partners  12,015      interreg_programmes  22
+Bulgarian partner rows  1,494   published budget  €401,768,495   placed rows  1,471
+```
+
+Add the node (`DATASETS`, mirroring `ds:funds`) and re-point the edge:
+
+```ts
+{
+  id: "interreg",
+  label:  { bg: "Interreg (трансгранични)", en: "Interreg (cross-border)" },
+  detail: { bg: "проекти и партньори по границата", en: "cross-border projects and partners" },
+  desc: {
+    bg: "Проектите, партньорствата и бюджетите по програмите Interreg, от базата на INTERACT (keep.eu). Interreg се управлява на Jems, а не през ИСУН — затова тези проекти липсват изцяло в корпуса на еврофондовете и двете суми никога не се събират.",
+    en: "Interreg projects, partnerships and budgets from INTERACT's keep.eu database. Interreg is managed on Jems rather than ИСУН, so these projects are absent from the EU-funds corpus entirely and the two totals are never added together.",
+  },
+  serving: "pg",
+  tables: ["interreg_programmes", "interreg_operations", "interreg_partners"],
+  tags: ["fiscal", "local"],
+}
+```
+
+```diff
+- ["src:keep_eu", "ds:funds"],
++ ["src:keep_eu", "ds:interreg"],
+```
+
+Then the boundary link from §2.1 carries the relationship the edge used to assert falsely:
+
+```ts
+{ a: "interreg", b: "funds", kind: "boundary",
+  note: { bg: "различни системи — сумите не се събират", en: "different systems — never add the totals" } }
+```
+
+Two things to get right, both measured:
+
+- **Do not give `ds:interreg` a `ds:funds` join link "for completeness".** They share no key by
+  construction; a `boundary` link is the whole point (§2.1).
+- **Its place link is sparse** — 1,471 of 12,015 partner rows carry an EKATTE (12.2%), all of
+  which resolve. The `of` denominator (§2.1) is what stops the map printing coverage it does not
+  have (§10.6).
+
+### 1b.2 T0b — `serving` and `tables[]` on `DatasetDef`
+
+`DatasetDef` today is `{ id, label, detail, desc, path?, tags }`
+([model.ts:92](../../scripts/data_map/model.ts#L92)). `path` is the only provenance field, and
+the JSON retirement has left it meaning three incompatible things (§13.5):
+a bucket-served location, a PG load source that `isExcluded` deliberately never uploads
+(`ds:procurement`, `ds:funds`, `ds:opencalls`), or `null` for PG-only datasets
+(`ds:agri`, `ds:prices`).
+
+```ts
+export interface DatasetDef {
+  id: string;
+  label: Lang; detail: Lang; desc: Lang;
+  /** Representative path. Now means ONLY "where the JSON a reader fetches lives". */
+  path?: string;
+  /** What a reader actually fetches. Required. */
+  serving: "bucket" | "pg" | "both";
+  /** The PG relations this node owns. Required when serving is "pg" or "both". */
+  tables?: string[];
+  tags: string[];
+}
+```
+
+Rules the build enforces:
+
+1. `serving: "bucket"` → `path` required, `tables` forbidden.
+2. `serving: "pg"` → `tables` required, `path` **forbidden** — this is what stops a node
+   advertising a tree that is never published.
+3. `serving: "both"` → both required; the `path` must not be `isExcluded`.
+4. **Every table named exists**, and **no table is claimed by two nodes**.
+5. **Coverage:** every non-noise relation in `public` is claimed by exactly one node, or is
+   listed in an explicit `UNCLAIMED` array with a reason. Shared infrastructure
+   (`place_dim`, `tr_company_place`) and the `n` plumbing relations go there by name.
+
+Rule 5 is the extensibility contract the plan has been asserting and does not have: it turns
+"a corpus was added and nobody put it on the map" from something an audit finds four weeks
+later (§10.1, §13.7) into a red build on the commit that adds the migration.
+
+**Sequencing note.** Rule 5 fails loudly on first introduction — there are **208** real
+relations on prod and 34 dataset nodes. Land it in two commits: the fields and rules 1–4 first,
+then rule 5 with the initial `UNCLAIMED` array populated from whatever the first run reports, so
+the triage is reviewable rather than buried in the same diff as the model change.
+
+**What T0b unblocks, and why it is not a tidy-up:**
+
+- **T1** — `measure: { left: "contracts.contractor_eik", … }` currently names raw tables inline
+  per link, with nothing checking `contracts` belongs to `ds:procurement`. With `tables[]` the
+  build validates it, and a link whose endpoint does not own its measured column fails.
+- **T3** — grouping 208 relations by owning dataset is the only way the console listing stays
+  navigable (§13.2); `tables[]` is that grouping.
+- **T3 as a privacy control** — §12.3 requires `person_egn_anchor` to be unreadable from `/db`
+  and notes a route gate does not cover it. A curated list keyed on `tables[]` does: a relation
+  no node claims is not listed and not queryable. **Sequence T0b + T3 before that column
+  reaches any database `/db` can reach.**
+- **T2** — the dataset directory can state "served from Cloud SQL" vs "JSON on the bucket"
+  instead of printing a path that may be a lie.
+
+---
+
 ## 2. T1 — lateral edges on the map
 
 ### 2.1 Model (`scripts/data_map/model.ts`)
@@ -268,9 +392,9 @@ join graph over 33 datasets is a hairball. Selection rule: a link earns a place 
 either already exploited by a shipped feature, or is one of the cross-linking-strategy
 opportunities. Each is one line of `note` explaining what the join *answers*.
 
-**Prerequisite: `ds:interreg` does not exist yet** (§10.1). Adding the node — edged from the
-already-correct `src:keep_eu` — is T1 step zero, not a follow-up: until it lands, the corpus
-is folded into `ds:funds` and three of the links above have no endpoint to attach to.
+**Prerequisite: `ds:interreg` does not exist yet.** Adding the node — edged from the
+already-correct `src:keep_eu` — is **T0a, specified in §1b.1**, not a follow-up: until it lands,
+the corpus is folded into `ds:funds` and three of the links above have no endpoint to attach to.
 
 ### 2.2 Build (`scripts/data_map/build_manifest.ts`)
 
@@ -521,10 +645,12 @@ does not exist, fails the build.
 
 | Step | Depends on | Notes |
 |---|---|---|
-| 0. `ds:interreg` node; re-point `src:keep_eu` at it | — | Corrects a false claim live today (§8.4); unblocks 3 links |
+| 0a. `ds:interreg` node; re-point `src:keep_eu` at it | — | Corrects a false claim live today; unblocks 3 links (§1b.1) |
+| 0b. `serving` + `tables[]` + rules 1–4 | — | ~40 lines of model; no behaviour change yet (§1b.2) |
+| 0c. Coverage gate (rule 5) + initial `UNCLAIMED` triage | 0a, 0b | Separate commit — fails loudly across 208 relations on first run |
 | 1. `db_catalog.js` + schema filter + dev/prod de-duplication | — | Ships value immediately; nothing else needed |
 | 2. Query library by purpose | 1 | Independent of the map |
-| 3. `LINKS` model + build validation + measurement | 0 | Generator-only, no UI |
+| 3. `LINKS` model + build validation + measurement | 0a, 0b | `measure` resolves table names through `tables[]` |
 | 4. Manifest `links` + `version: 2` + client coercion | 3 | |
 | 5. Handles, `links` lens, `linked` node status, panel section | 4 | |
 | 6. Tour + query deep-links | 2, 5 | The join that makes both halves one feature |
@@ -540,7 +666,10 @@ does not exist, fails the build.
 | 16. Resolve the `connections.json` `/data` catalogue entry | 14, and T2 if re-pointing | §11.8b 4 — a published download; **may not be silently deleted** |
 | 17. Retire `connections*` + `company-connections/` from the bucket and git | 15, 16 | §11.8b 5–8; `gsutil`-verify 11.8a first |
 
-Steps 1–2 and 0/3–5 are two independent tracks; 8–13 are a third, and it is the long one.
+Steps 1–2 and 0a/0b/3–5 are two independent tracks; 8–13 are a third, and it is the long one.
+One crossing: **step 1 (`/db`) now follows 0b**, since the console's relation grouping and its
+sensitive-table exclusion both key on `tables[]` (§1b.2) — which also makes 0b+1 a prerequisite
+of step 9, where `person_egn_anchor` first reaches a database (§12.3).
 **14–17 are a fourth and depend on none of the others** — the graph engine that replaces those
 artifacts shipped in `a8f07765d8`. They are sequenced here so the `bucket_sync_paths` gate in
 step 8 of §11.8b is written once, covering both sweeps.
@@ -1956,17 +2085,18 @@ map presence     none      SPA route   none
 The corpus is file-based (no PG), served by a separate functions deploy, and has no route in the
 main SPA.
 
-**This is a scope decision, not a defect** — and it should be made explicitly rather than by
-omission, because `/data` claims to be the map of what the project holds. Three options:
+**DECIDED 2026-08-31: out of scope.** News is a separate product with its own functions
+deploy, no PG tables and no route in this SPA; it does not get a dataset node, and T0b's
+coverage gate (§1b.2 rule 5) never sees it because that gate walks `public` relations and news
+has none.
 
-1. **Out of scope** — news is a separate product; state it in the map's own copy so a reader is
-   not left wondering. Cheapest, and defensible while it has no SPA surface.
-2. **A dataset node with no feature edges** — honest about the corpus, honest that nothing on
-   this site reads it yet.
-3. **Full membership** — only once it has a route and a reader.
+Two consequences to keep honest, since the decision is by choice and not by oversight:
 
-Recommend (1) now and (2) when the news product gets a page. What must not happen is the status
-quo, where the one skill missing from the map is missing silently.
+- `update-news-sites` stays the one `update-*` skill absent from the map. Any future gate
+  asserting "every `update-*` skill reaches a dataset node" must carry it as a named exemption
+  with this reason, or it will re-surface as a defect every time someone re-runs the audit.
+- Revisit when the news product gets a route in this SPA — at that point option (2), a dataset
+  node with no feature edges, becomes the honest representation.
 
 ### 13.8 Revised sequencing
 
