@@ -38,6 +38,7 @@ import {
   sectorsHubKpis,
 } from "@/screens/governance/sectorsHubFigures";
 import { BAND_INDICATORS } from "@/screens/indicators/indicatorsHubFigures";
+import { MAYOR_PAY_BAND_CELLS } from "@/screens/governance/mayorPayHubFigures";
 import { KPI_REGISTRY } from "@/screens/indicators/indicatorsRegistry";
 import { pickAtOrBefore } from "@/data/macro/kpiSelectors";
 import elections from "@/data/json/elections.json";
@@ -957,6 +958,23 @@ describe("a hub's og capture anchors on its head", () => {
   const SUB_PAGE_CAPTURES: Record<string, string> = {
     "governance-declarations":
       "src/screens/governance/GovernanceDeclarationsScreen.tsx",
+    // ⚠️ JOINED 2026-08-31, AND THE ROUTE IT TOOK IS THE POINT. The screen adopted a
+    // `HubHead` on 2026-08-28 (fc4fb81bf8) and landed in NEITHER map, which is exactly what
+    // the „every HubHead screen is named" clause below exists to catch — it caught it. The
+    // decision that clause demands is head-card or not, and this is a head card: unlike
+    // `/persons` and `/companies` in SUB_PAGE_HEADS, whose value really is their ROWS, this
+    // page is a RANKING, and its head states what the ranking measures (coverage 249/259,
+    // the base year, and the two medians, each with a basis). „Челопеч is top" without those
+    // four is a bar chart with no unit.
+    //
+    // ⚠️ AND THE CHOICE IS LOAD-BEARING RATHER THAN TIDY, which is the part worth keeping.
+    // Under SUB_PAGE_HEADS this card would have been covered by `SIZED_CARDS`' dimension
+    // check ALONE — and the stale 2026-08-25 PNG passed that at 2400x1260 while depicting a
+    // bar chart the screen no longer renders. Here it also picks up the head-anchor, the
+    // viewport and the FRESHNESS clauses, and it is the last of those that turns the next
+    // such staleness into a red run instead of a card nobody re-shoots.
+    "governance-mayor-pay":
+      "src/screens/governance/GovernanceMayorPayScreen.tsx",
   };
 
   /** Committed cards that are NOT hub heads and still must be the corpus's size.
@@ -1223,6 +1241,23 @@ describe("a hub's og capture anchors on its head", () => {
       "governance-sectors": "src/screens/governance/sectorsHubFigures.ts",
       "governance-declarations":
         "src/screens/governance/declarationsHubFigures.ts",
+      // ⚠️ TWO PATHS, AND THE SECOND IS NOT A FIGURES MODULE. The re-anchored crop is 630 px
+      // and this head is ~336 of it, so the card ALSO shows the filter bar and the first two
+      // ranked rows (Челопеч €84 524, Чавдар €68 192). That ordering comes from
+      // `applyMayorPayFilter`'s comparator — including its „not on file sorts LAST in both
+      // directions" rule, which that module's own header records as having already been a
+      // bug once. Without the second path a change to it moves what the card shows and
+      // reddens nothing.
+      //
+      // The cost is stated rather than hidden: most edits to the filter module do not touch
+      // the DEFAULT view, so this will occasionally demand a re-shoot that changes no pixel.
+      // That is the right way round — the alternative is a card that silently stops matching
+      // its own page — and `NON_RENDERING_SOURCE` is where such a case gets named and
+      // verified rather than waved through.
+      "governance-mayor-pay": [
+        "src/screens/governance/mayorPayHubFigures.ts",
+        "src/screens/governance/mayorPayFilters.ts",
+      ],
     };
 
     /** Cards that PREDATE a source and are nonetheless current, each with the reason.
@@ -1687,7 +1722,14 @@ describe("a hub's og capture anchors on its head", () => {
     ).toEqual([]);
   });
 
-  /** Cards whose head can render SHORT, and must therefore wait on a cell COUNT.
+  /** Cards whose wait must assert a cell COUNT — because the band can render SHORT, or to
+   *  pin an all-or-nothing band against a later „simplification".
+   *
+   *  ⚠️ THE SECOND HALF OF THAT SENTENCE ARRIVED WITH `governance-mayor-pay`, and for one
+   *  commit the docstring did not: the map said „cards whose head can render short" while
+   *  its newest member opens by saying it is not one. A map whose contract disagrees with
+   *  its contents can only be resolved by reading an entry-level comment, which is how the
+   *  member after next gets classified wrong.
    *
    *  ⚠️ NOTHING ELSE IN THIS FILE LOOKS AT `waitFor`, so a later „simplification" to
    *  `waitFor: "[data-hub-head]"` passes every other clause here and silently restores the
@@ -1707,6 +1749,17 @@ describe("a hub's og capture anchors on its head", () => {
   const COUNTED_WAITS: Record<string, number> = {
     "governance-sectors": 4,
     indicators: 4,
+    // ⚠️ HERE THE COUNT IS EXACT, NOT A FLOOR. The two literals above can legitimately
+    // render short and the chain is what stops a short card being shot; this band is
+    // all-or-nothing — either the ranking loaded or it did not — so it renders 4 or 0.
+    //
+    // ⚠️ AND IT IS DERIVED, because this band IS a declared array and so falls under the
+    // rule the two entries below state rather than the exception the two above take. It
+    // was a hand-written `4` for one commit, which fails in the ugly direction: drop to
+    // three cells and THIS clause stays green (`hops >= cells - 1`) while the capture
+    // SELECTOR still demands four siblings and never resolves — `captureOne` throws, the
+    // runner keeps the PREVIOUS card, and the only signal is a line of stderr.
+    "governance-mayor-pay": MAYOR_PAY_BAND_CELLS,
     // ⚠️ DERIVED FROM THE BANDS THEMSELVES, not restated. A literal `2` here is a second
     // copy of `REPORTS_BAND.length`, so adding a third stat to that array would leave the
     // wait demanding two, this clause asserting two, every test green — and a SHORT band

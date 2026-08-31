@@ -50,6 +50,7 @@ import {
   defaultAscFor,
   type MayorPaySortKey,
 } from "./mayorPayFilters";
+import { mayorPayHubKpis } from "./mayorPayHubFigures";
 
 const eur0 = (v: number | null, locale: string): string =>
   v == null ? "—" : formatEur(v, locale);
@@ -153,35 +154,20 @@ export const GovernanceMayorPayScreen: FC = () => {
     );
   }, [rows]);
 
+  // Built by `mayorPayHubFigures.ts` rather than inline — see that file's header: a band
+  // built inline is invisible to `hubHead.gates.test.ts`, and its cell COUNT is pinned by
+  // the og capture gate, which must read it from one place rather than hand-copy it.
   const kpis = useMemo<HubKpi[]>(
     () =>
-      rows.length === 0
-        ? []
-        : [
-            {
-              value: `${incomeRows.length}/${rows.length}`,
-              label: t("mp_kpi_coverage"),
-              basis: t("mp_kpi_coverage_detail"),
-            },
-            {
-              value: dominantYear ? String(dominantYear.fiscalYear) : "—",
-              label: t("mp_kpi_dominant_year"),
-              basis: t("mp_kpi_dominant_year_detail", {
-                count: dominantYear?.count ?? 0,
-                total: rows.length,
-              }),
-            },
-            {
-              value: eur0(medianIncome, locale),
-              label: t("mp_kpi_median_income"),
-              basis: t("mp_kpi_median_income_detail"),
-            },
-            {
-              value: eur0(medianPerThousand, locale),
-              label: t("mp_kpi_median_per_thousand"),
-              basis: t("mp_kpi_median_per_thousand_detail"),
-            },
-          ],
+      mayorPayHubKpis(
+        rows.length,
+        incomeRows.length,
+        dominantYear,
+        medianIncome,
+        medianPerThousand,
+        t,
+        (v) => eur0(v, locale),
+      ),
     [
       dominantYear,
       incomeRows.length,

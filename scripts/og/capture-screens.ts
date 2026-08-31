@@ -1764,15 +1764,44 @@ const captures: Capture[] = [
   },
 
   // --- registers and rankings whose hero is their table ------------------------
+  // ⚠️ WITH ONE EXCEPTION, AND IT IS THE FIRST ENTRY. `governance-mayor-pay` was moved onto
+  // its HEAD on 2026-08-31, so its hero is no longer its table — it is left here rather than
+  // relocated to the head-anchored cluster ~400 lines above because the block is otherwise
+  // ordered by PAGE FAMILY, and splitting the governance rankings across two sections to
+  // follow an anchor is the smaller of the two prices. Read the divider as "where the
+  // governance registers live", and each entry's own anchor as the truth.
   {
     slug: "governance-mayor-pay",
     routePath: "governance/mayor-pay",
-    // The hero is the top-20 ranked bar chart, not the table beneath it — but the
-    // chart only paints once rows arrive, so WAIT on the table body (which is why
-    // it sits in this section) and ANCHOR on the heading, which is what frames
-    // chart + title together.
-    waitFor: "table tbody tr",
-    anchor: "h1",
+    // ⚠️ RE-ANCHORED ON THE HEAD (§5.3), 2026-08-31 — the `governance-sectors` / `indicators`
+    // move, with ONE DIFFERENCE THAT MATTERS FOR ANYONE DEBUGGING A SIMILAR CARD. Those two
+    // anchored on a tile grid and genuinely cut the band out of the crop. This one anchored
+    // on `h1`, which sits ~24px inside the head, so the band would have been inside the crop
+    // already: measured off the new card, the h1 top is ~30 CSS px in and the band's bottom
+    // ~336, against a 630 px crop.
+    //
+    // So the anchor was NOT what was wrong here — the CARD was. It was shot on 2026-08-25
+    // (8d378e10b0) from a page that had no `HubHead` at all; the screen adopted one on
+    // 2026-08-28 (fc4fb81bf8) and dropped the top-20 bar chart the card led with. There were
+    // no four figures to crop out, because there were no four figures. The RE-SHOOT is what
+    // put them on the card; the re-anchor adds the eyebrow and the freshness line („най-нова
+    // декларация: 2026") and is what the coverage gate's head clauses require.
+    //
+    // ⚠️ THE WAIT COUNTS FOUR CELLS, and here that is EXACT rather than a floor: the band is
+    // all-or-nothing (`mayorPayHubKpis` returns 4 cells or none), so it renders 4 or 0.
+    //
+    // ⚠️ THE `table tbody tr` WAIT IT REPLACES WAS NOT WEAKER — do not read it that way. The
+    // table renders off the same `rows` in the same React commit and the capture applies no
+    // filters, so its presence IMPLIED the band. It was simply a claim about a part of the
+    // page this card no longer leads with. What makes the cell chain a real data gate is
+    // that `KpiCellSkeleton` carries no `data-kpi-cell` (see HubHead.tsx), so the head div
+    // can paint with the band still pending and the chain will not resolve on it.
+    //
+    // No `:has(aside a)` arm, unlike its siblings: this head carries no evidence rail, so
+    // requiring one would time out on a page that is rendering correctly.
+    waitFor:
+      "[data-hub-head] [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell] ~ [data-kpi-cell]",
+    anchor: "[data-hub-head]",
     viewport: OG_CLIP_VIEWPORT,
     settleMs: 2500,
   },
