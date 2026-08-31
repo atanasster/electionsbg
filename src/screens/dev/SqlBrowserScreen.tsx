@@ -22,6 +22,17 @@ import { Prec } from "@codemirror/state";
 import { sql, PostgreSQL } from "@codemirror/lang-sql";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ALL_QUERIES, LIBRARY } from "./sqlLibrary";
 import { Input } from "@/components/ui/input";
 import { useNoindex } from "@/lib/useNoindex";
 
@@ -71,111 +82,6 @@ interface SavedQuery {
 const HISTORY_KEY = "sqlbrowser.history.v1";
 const SAVED_KEY = "sqlbrowser.saved.v1";
 const HISTORY_MAX = 50;
-
-// Sample queries, grouped by domain. Each new DB table SHOULD add at least one
-// sample here (a table-only query + a join that shows what the table unlocks) so
-// the public console teaches the data as it grows. Keep groups contiguous — the
-// toolbar renders one labeled cluster per group.
-const SAMPLES: Array<{ group: string; label: string; sql: string }> = [
-  {
-    group: "Contracts",
-    label: "Top contractors",
-    sql: `SELECT contractor_eik, MIN(contractor_name) AS contractor_name,
-       ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
-FROM contracts
-WHERE tag = 'contract'
-GROUP BY contractor_eik
-ORDER BY eur DESC NULLS LAST
-LIMIT 25;`,
-  },
-  {
-    group: "Contracts",
-    label: "Top awarders",
-    sql: `SELECT awarder_eik, MIN(awarder_name) AS awarder_name,
-       ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
-FROM contracts
-WHERE tag = 'contract'
-GROUP BY awarder_eik
-ORDER BY eur DESC NULLS LAST
-LIMIT 25;`,
-  },
-  {
-    group: "Contracts",
-    label: "Single-bidder",
-    sql: `SELECT date, awarder_name, contractor_name, amount_eur
-FROM contracts
-WHERE tag = 'contract' AND number_of_tenderers = 1
-ORDER BY amount_eur DESC NULLS LAST
-LIMIT 50;`,
-  },
-  {
-    group: "Tenders",
-    label: "Biggest tenders",
-    sql: `-- Announced procedures. estimated_value_eur is a FORECAST
--- (прогнозна стойност), NOT contracted spend.
-SELECT publication_date, buyer_name, subject,
-       ROUND(estimated_value_eur) AS forecast_eur, procedure_type
-FROM tenders
-WHERE estimated_value_eur IS NOT NULL AND NOT is_cancelled
-ORDER BY estimated_value_eur DESC NULLS LAST
-LIMIT 50;`,
-  },
-  {
-    group: "Tenders",
-    label: "Forecast vs actual",
-    sql: `-- Procedure -> award lineage (tenders.ocid = contracts.ocid):
--- the announced forecast next to what was actually contracted.
-SELECT t.buyer_name, t.subject,
-       ROUND(t.estimated_value_eur) AS forecast_eur,
-       ROUND(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract')) AS awarded_eur
-FROM tenders t
-JOIN contracts c ON c.ocid = t.ocid
-WHERE t.estimated_value_eur IS NOT NULL
-GROUP BY t.unp, t.buyer_name, t.subject, t.estimated_value_eur
-ORDER BY awarded_eur DESC NULLS LAST
-LIMIT 50;`,
-  },
-  {
-    group: "Registry",
-    label: "Contractors × TR officers",
-    sql: `SELECT c.contractor_eik, MIN(c.contractor_name) AS contractor_name,
-       o.roles, o.name AS officer,
-       ROUND(SUM(c.amount_eur)) AS eur, COUNT(*) AS n
-FROM contracts c
-JOIN tr_officers o ON o.uic = c.contractor_eik
-WHERE c.tag = 'contract' AND o.active = 1
-GROUP BY c.contractor_eik, o.roles, o.name
-ORDER BY eur DESC NULLS LAST
-LIMIT 50;`,
-  },
-  {
-    group: "Registry",
-    label: "Contractor → TR company",
-    sql: `SELECT co.uic, co.name, co.legal_form, co.status,
-       ROUND(SUM(c.amount_eur)) AS eur
-FROM contracts c
-JOIN tr_companies co ON co.uic = c.contractor_eik
-WHERE c.tag = 'contract'
-GROUP BY co.uic
-ORDER BY eur DESC NULLS LAST
-LIMIT 50;`,
-  },
-  {
-    group: "Search",
-    label: "Name search",
-    sql: `SELECT * FROM search_companies('лукойл', 20);`,
-  },
-  {
-    group: "Search",
-    label: "Unified search",
-    sql: `SELECT * FROM search_all('лукойл', 30);`,
-  },
-  {
-    group: "Search",
-    label: "Recent updates",
-    sql: `SELECT * FROM recent_updates(1, 100);`,
-  },
-];
 
 // ---- result cell → app deep-links -----------------------------------------
 // Make entity columns clickable: an EIK/UIC opens the company (or awarder) page;
@@ -302,7 +208,7 @@ export const SqlBrowserScreen = () => {
   // reader typed. Not prerendered, not in the sitemap (site-hygiene-v1 T2).
   useNoindex();
   const [schema, setSchema] = useState<SchemaResponse | null>(null);
-  const [sqlText, setSqlText] = useState(SAMPLES[0].sql);
+  const [sqlText, setSqlText] = useState(LIBRARY[0].queries[0].sql);
   const [limit, setLimit] = useState(1000);
   const [result, setResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -705,22 +611,57 @@ export const SqlBrowserScreen = () => {
       {/* Main */}
       <main className="flex min-w-0 flex-1 flex-col">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-border p-2">
-          {[...new Set(SAMPLES.map((s) => s.group))].map((group) => (
-            <div key={group} className="flex items-center gap-1">
-              <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground/70">
-                {group}
-              </span>
-              {SAMPLES.filter((s) => s.group === group).map((s) => (
-                <button
-                  key={s.label}
-                  onClick={() => setSqlText(s.sql)}
-                  className="rounded border border-border bg-muted/40 px-2 py-1 text-xs hover:bg-muted"
-                >
-                  {s.label}
-                </button>
+          {/* One grouped menu, not a pill row: 31 queries across 12 purposes is
+              not a toolbar, and the row already wrapped at 10. Radix
+              DropdownMenu (never Select, never a native <select>) — see
+              PackSelect.tsx for why modal={false} is load-bearing. */}
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="flex h-7 items-center gap-2 rounded-md border border-input px-2 text-xs text-secondary-foreground focus:outline-none focus:ring-1 focus:ring-ring [&[data-state=open]>svg]:rotate-180"
+              >
+                Query library
+                <ChevronDown className="size-4 shrink-0 opacity-50 transition-transform duration-200" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="start"
+              className="max-h-[70vh] w-[26rem] overflow-y-auto"
+            >
+              {LIBRARY.map((g, gi) => (
+                <DropdownMenuGroup key={g.purpose}>
+                  {gi > 0 && <DropdownMenuSeparator />}
+                  <DropdownMenuLabel className="text-[10px] uppercase tracking-wide text-muted-foreground/70">
+                    {g.purpose}
+                  </DropdownMenuLabel>
+                  {g.queries.map((q) => (
+                    <DropdownMenuItem
+                      key={q.label}
+                      onSelect={() => setSqlText(q.sql)}
+                      className="flex cursor-default flex-col items-start gap-0.5 py-1.5"
+                    >
+                      <span className="text-xs font-medium">
+                        {q.label}
+                        {q.cost && q.cost !== "fast" && (
+                          <span className="ml-1.5 font-normal text-muted-foreground">
+                            · {q.cost}
+                          </span>
+                        )}
+                      </span>
+                      {/* What the reader learns, not what the SQL does. */}
+                      <span className="text-[11px] leading-snug text-muted-foreground">
+                        {q.answers}
+                      </span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuGroup>
               ))}
-            </div>
-          ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <span className="text-[11px] text-muted-foreground">
+            {ALL_QUERIES.length} queries · {LIBRARY.length} topics
+          </span>
         </div>
 
         <div className="border-b border-border">
