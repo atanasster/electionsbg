@@ -15,6 +15,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ArticleRecord, Outlet, Story } from "../data";
+import type { EvalTask } from "../evals";
 
 const analysed = (): NonNullable<ArticleRecord["analysis"]> => ({
   summary_bg: "Кабинетът отложи решението.",
@@ -99,9 +100,39 @@ const outlet = (over: Partial<Outlet> = {}): Outlet =>
     ...over,
   }) as Outlet;
 
+const evalTask = (over: Partial<EvalTask> = {}): EvalTask => ({
+  article_key: "ex.bg/a1",
+  domain: "ex.bg",
+  article_id: "a1",
+  url: "https://ex.bg/a/1",
+  title: "Правителството отложи решението",
+  published: "2026-08-22T09:00:00+00:00",
+  story_id: null,
+  primary_topic: "politics",
+  outlet: "Примерен вестник",
+  content_sha256: `sha256:${"1".repeat(64)}`,
+  analysis_sha256: `sha256:${"2".repeat(64)}`,
+  model_labels: {
+    leaning: "neutral",
+    russia_stance: "not_applicable",
+    party_tones: [],
+  },
+  review_fields: ["leaning", "russia_stance", "party_tones"],
+  dataset_ids: ["public-pilot-v1"],
+  task_revision: 1,
+  ...over,
+});
+
 const renderAt = async (
   articles: ArticleRecord[],
-  opts: { outlets?: Outlet[]; stories?: Story[]; id?: string } = {},
+  opts: {
+    outlets?: Outlet[];
+    stories?: Story[];
+    id?: string;
+    evalTasks?: EvalTask[] | null;
+    evalLoading?: boolean;
+    evalError?: Error | null;
+  } = {},
 ) => {
   vi.resetModules();
   vi.doMock("../data", async (importOriginal) => ({
@@ -125,6 +156,27 @@ const renderAt = async (
       data: { version: 1, categories: [] },
       error: null,
       loading: false,
+    }),
+  }));
+  vi.doMock("../evals", async (importOriginal) => ({
+    ...(await importOriginal<typeof import("../evals")>()),
+    useEvalQueue: () => ({
+      data:
+        opts.evalTasks === null
+          ? null
+          : {
+              schema_version: 1,
+              generated_at: "2026-08-31T00:00:00.000Z",
+              public_data_revision: "2026-08-31T00:00:00.000Z",
+              rubric_version: "news-article-evaluation-v1",
+              task_count: opts.evalTasks?.length ?? 0,
+              tasks_sha256: `sha256:${"0".repeat(64)}`,
+              tasks: opts.evalTasks ?? [],
+            },
+      error:
+        opts.evalError ??
+        (opts.evalTasks === null ? new Error("invalid queue") : null),
+      loading: opts.evalLoading ?? false,
     }),
   }));
   const { ArticleScreen } = await import("./ArticleScreen");
@@ -232,6 +284,62 @@ describe("the outbound link", () => {
     expect(
       await screen.findByText(/Пълният текст остава при източника/),
     ).toBeVisible();
+  });
+});
+
+describe("the experimental evaluation entry point", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("links an eligible article to its public evaluation workspace", async () => {
+    await renderAt([article({ analysis: analysed() })], {
+      evalTasks: [evalTask()],
+    });
+
+    expect(
+      await screen.findByRole("link", {
+        name: "Помогнете да подобрим анализа — експериментално",
+      }),
+    ).toHaveAttribute("href", "/evals/article/ex.bg/a1");
+  });
+
+  it("does not invite evaluation when the article is outside the queue", async () => {
+    await renderAt([article({ analysis: analysed() })], {
+      evalTasks: [evalTask({ article_id: "a2", article_key: "ex.bg/a2" })],
+    });
+
+    expect(
+      screen.queryByRole("link", { name: /Помогнете да подобрим анализа/ }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("fails closed when the public queue is unavailable or invalid", async () => {
+    await renderAt([article({ analysis: analysed() })], { evalTasks: null });
+
+    expect(
+      screen.queryByRole("link", { name: /Помогнете да подобрим анализа/ }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Сигнализирай проблем/ }),
+    ).toBeVisible();
+  });
+
+  it.each([
+    { evalLoading: true, evalError: null, state: "refreshing" },
+    {
+      evalLoading: false,
+      evalError: new Error("refresh failed"),
+      state: "errored",
+    },
+  ])("fails closed with retained queue data while $state", async (state) => {
+    await renderAt([article({ analysis: analysed() })], {
+      evalTasks: [evalTask()],
+      evalLoading: state.evalLoading,
+      evalError: state.evalError,
+    });
+
+    expect(
+      screen.queryByRole("link", { name: /Помогнете да подобрим анализа/ }),
+    ).not.toBeInTheDocument();
   });
 });
 

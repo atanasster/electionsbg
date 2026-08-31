@@ -54,6 +54,7 @@ import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ReaderActions } from "../components/ReaderActions";
 import { ReportIssueLink } from "../components/ReportIssueLink";
 import { emitNewsEvent } from "../analytics";
+import { evalTaskPath, useEvalQueue } from "../evals";
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -169,6 +170,7 @@ export const ArticleScreen = () => {
   const outlets = useOutlets();
   const stories = useStories();
   const taxonomy = useTaxonomy();
+  const evalQueue = useEvalQueue();
 
   if (bundle.error) {
     return (
@@ -209,6 +211,14 @@ export const ArticleScreen = () => {
   const hasAnalysisProvenance = Boolean(
     analysis?.model?.trim() && analysis.analyzed_at,
   );
+  // The strict queue projection is the sole eligibility list. If it is
+  // absent, loading, or invalid, the ordinary article page remains unchanged.
+  const evalTask =
+    !evalQueue.loading && !evalQueue.error
+      ? evalQueue.data?.tasks.find(
+          (task) => task.domain === domain && task.article_id === article.id,
+        )
+      : undefined;
 
   return (
     <article className="py-6">
@@ -267,8 +277,20 @@ export const ArticleScreen = () => {
         path={`/article/${domain}/${article.id}`}
         title={article.title ?? "Наясно новини"}
       />
-      <div className="mt-2">
+      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
         <ReportIssueLink path={`/article/${domain}/${id}`} />
+        {evalTask ? (
+          <Link
+            to={evalTaskPath(evalTask)}
+            aria-label="Помогнете да подобрим анализа — експериментално"
+            className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Помогнете да подобрим анализа
+            <span className="ml-1 text-xs font-normal text-muted-foreground">
+              — експериментално
+            </span>
+          </Link>
+        ) : null}
       </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">

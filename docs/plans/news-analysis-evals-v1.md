@@ -759,7 +759,11 @@ until the effective-analysis reconciliation gate exists.
    through an exact allowlist before the field-by-field model comparison is revealed; no community
    distribution is shown, and the receipt explains that one response does not change the analysis.
    Queue cards use only a local browser marker to indicate an already submitted task.
-5. Add the public experimental link on eligible `ArticleScreen` pages.
+5. Add the public experimental link on eligible `ArticleScreen` pages. Eligibility is derived
+   only from the already validated public queue: an exact domain/article-ID match gets a nearby
+   “Помогнете да подобрим анализа — експериментално” link to the standalone workspace. Missing,
+   loading, invalid or deployment-skewed queue data fails closed and leaves the normal article
+   page and `ReportIssueLink` unchanged; there is no inferred or fallback eligibility.
 
 ### Phase 3 — export and publication overlay
 
