@@ -80,14 +80,37 @@
 -- split_part(…, ':', 1) or it silently sees only the bare half. That is
 -- reference_mp_id_not_person_key, and it cost this plan a wrong overlap measurement once
 -- already (827 pairs vs the true 1,294 at the time).
--- ⚠️ THIS INDEX IS NOT OPTIONAL, AND IT LIVES HERE RATHER THAN IN 081 ON PURPOSE.
+-- ⚠️ THIS INDEX LIVES HERE RATHER THAN IN 081 ON PURPOSE.
 --
 -- `person_role.ref` at source 'mp' carries two shapes, so the lookup is on an EXPRESSION —
--- and `idx_person_role_source_ref` cannot serve `split_part(ref, ':', 1) = $1`. Measured on
--- this function before the index: 64.4 ms and 10,274 buffers for ONE profile, of which 9,424
--- were this one filter scanning every mp row (3,848 removed). After: 7.5 ms, and ~0.75 ms
--- per call averaged over a 300-MP sample. That is the same defect class as 081's missing
--- `idx_person_role_ref`, which cost 74 s across 23,916 probes and is documented in CLAUDE.md.
+-- and `idx_person_role_source_ref` cannot serve `split_part(ref, ':', 1) = $1` as an index
+-- CONDITION. Measured on this function before the index: 64.4 ms and 10,274 buffers for ONE
+-- profile, of which 9,424 were this one filter scanning every mp row (3,848 removed). After:
+-- 7.5 ms, and ~0.75 ms per call averaged over a 300-MP sample. That is the same defect class
+-- as 081's missing `idx_person_role_ref`, which cost 74 s across 23,916 probes and is
+-- documented in CLAUDE.md.
+--
+-- ⚠️ CORRECTION, measured 2026-08-31 on the LOCAL docker Postgres (electionsbg-pg, :5433) —
+-- this header said "NOT OPTIONAL" and the figures above were being read as "without this index
+-- the call is 10,274 buffers". That is no longer what happens, and the older figures are NOT
+-- restamped onto this box: they stand as measured, on their own date.
+--
+-- Dropping this index alone does NOT produce the seq scan. `idx_person_role_source_ref` picks
+-- the query up as `Index Cond: (source = 'mp')` plus a `Filter` that discards 3,849 of the
+-- 3,852 mp rows — it cannot serve the expression, but it CAN bound the scan, and source='mp'
+-- is only 1.2% of person_role's 325,761 rows. Warm, on the busiest MP (2670, 14 roles):
+--
+--     all indexes present                          343 buffers   ~1.9 ms
+--     less idx_person_role_mp_id                   760 buffers   ~2.3 ms
+--     less idx_person_role_source_ref too       10,092 buffers  ~10.8 ms   ← the seq scan
+--     less idx_person_role_ref as well          10,076 buffers  ~11.8 ms   (adds nothing)
+--
+-- So this index is a 2.2x optimisation on a serving path, not the thing standing between the
+-- call and a whole-table scan — worth its keep (it is partial, ~3.9k rows) but not load-bearing
+-- alone. What the buffer budget in mp_tr_roles.data.test.ts actually rests on is "the subject
+-- lookup is not a seq scan", and EITHER index is enough to hold that. Its mutation check is
+-- anchored on the pair for exactly this reason; anchoring on this index alone stopped
+-- discriminating (777 buffers against an `> 8,000` assertion) and that is how this was found.
 --
 -- It is in THIS file because 081 is applied only by `db:resolve:persons` (a multi-hour
 -- rebuild) and `add_override.ts`, so an index added there would not reach a serving database

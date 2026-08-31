@@ -19,7 +19,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { allRows, withClient, end } from "../lib/pg";
+import { allRows, withClient, end, isServingDatabase } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(
@@ -368,9 +368,14 @@ const worstBuffers = (text: string): number =>
 test.skipIf(skip)(
   "one profile's payload stays inside its buffer budget",
   async () => {
-    // The ceiling exists because the pre-index body was 10,274 buffers for ONE profile — the
+    // The ceiling exists because the unindexed body was 10,274 buffers for ONE profile — the
     // whole cost being `split_part(ref,':',1)` scanning every mp row. Measured on the busiest
     // MP (a real payload, not an empty one), so it bounds what a reader actually pays for.
+    //
+    // ⚠️ THAT SEQ-SCAN SHAPE NOW NEEDS **BOTH** person_role LOOKUP INDEXES GONE, NOT ONE — see
+    // the discrimination test below for the measurements. `idx_person_role_mp_id` alone is a
+    // 2.2x optimisation here, not the thing standing between this call and the budget, so a
+    // failure message naming it as "the usual cause" would send a reader to the wrong index.
     const mp = await busiestMp();
     const plan = await allRows<{ "QUERY PLAN": string }>(
       `EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT) SELECT mp_tr_roles(${mp})`,
@@ -383,28 +388,70 @@ test.skipIf(skip)(
     );
     assert.ok(
       worst < 6_000,
-      `mp_tr_roles(${mp}) touched ${worst} buffers (budget 6,000). The usual cause is ` +
-        `idx_person_role_mp_id missing — 150 creates it, and without it this is 10,274+.`,
+      `mp_tr_roles(${mp}) touched ${worst} buffers (budget 6,000). The usual cause is the ` +
+        `subject lookup falling back to a seq scan on person_role, which needs BOTH ` +
+        `idx_person_role_mp_id (150) and idx_person_role_source_ref (081) to be absent — ` +
+        `~10,100 buffers. Losing only the first is ~760 and stays inside this budget.`,
     );
   },
 );
 
-test.skipIf(skip)(
+// The mutation check is the one test in this file that WRITES (a DDL drop it rolls back), and
+// it now drops an index the whole person layer reads. `withClient` keeps BEGIN/DROP/ROLLBACK on
+// one connection, which is what makes it safe — this is the second belt, not the first: an
+// allowlist-based refusal to attempt it at all against the Cloud SQL proxy. Everything else in
+// this file is read-only and still runs there.
+const mutationSkip =
+  skip ||
+  (isServingDatabase() ? "serving database — DDL mutation refused" : false);
+
+test.skipIf(mutationSkip)(
   "the buffer ceiling still discriminates",
   async () => {
-    // A ceiling that cannot fail is not a gate. Drop the index inside a rolled-back
+    // A ceiling that cannot fail is not a gate. Drop the indexes inside a rolled-back
     // transaction and assert the same call blows the budget.
+    //
+    // ⚠️ THE ANCHOR IS THE **PAIR**, AND IT USED TO BE `idx_person_role_mp_id` ALONE — which
+    // stopped discriminating. Re-measured 2026-08-31 on the LOCAL docker Postgres
+    // (electionsbg-pg, :5433; person_role 325,761 rows, 3,852 at source='mp', visibility map
+    // 7,633/7,633 pages), warm, on the busiest MP (2670, 14 roles):
+    //
+    //     all indexes present                          343 buffers   ~1.9 ms
+    //     less idx_person_role_mp_id                   760 buffers   ~2.3 ms   ← was the anchor
+    //     less idx_person_role_source_ref too       10,092 buffers  ~10.8 ms
+    //     less idx_person_role_ref as well          10,076 buffers  ~11.8 ms   (adds nothing)
+    //
+    // Those are LOCAL figures on that date and nothing else — Cloud SQL is unmeasured here,
+    // and the 10,274 the ceiling above was written against was measured on the pre-index body,
+    // not restamped onto this box.
+    //
+    // What changed is the PLAN, not the corpus. With only the partial index gone the subject
+    // lookup does not seq-scan: it takes `Index Scan using idx_person_role_source_ref`,
+    // `Index Cond: (source = 'mp')` + `Filter: split_part(ref,':',1) = …`, discarding 3,849 of
+    // 3,852 rows for a few hundred buffers — cheap in absolute terms only because source='mp'
+    // is 1.2% of person_role. Take that index away too and it becomes `Parallel Seq Scan on
+    // person_role` (108,586 rows removed per worker, 7,661 buffers), which is the shape the
+    // 10,274 figure names. So the honest claim the budget rests on is "the subject lookup is
+    // not a seq scan", and at least one of the two indexes is enough to keep it that way.
+    //
+    // ⚠️ `idx_person_role_mp_id` IS STILL WORTH ITS KEEP — do not read this as a case for
+    // deleting it. It halves the call (343 vs 760) for a partial index over ~3.9k rows. What is
+    // no longer true is 150's header claim that it is what keeps this call off a seq scan.
     //
     // ⚠️ ONE PINNED CLIENT, NOT `allRows`. allRows goes through the POOL, so BEGIN, DROP INDEX
     // and ROLLBACK can each land on a DIFFERENT connection — which autocommits the DROP and
     // permanently removes a serving index from whatever DATABASE_URL names, the Cloud SQL
     // proxy included. person_connections.data.test.ts uses withClient for exactly this reason.
+    // That hazard got WORSE when this test moved to the pair: `idx_person_role_source_ref` is
+    // read by the whole person layer, not just this function, so an escaped DROP would degrade
+    // far more than one profile block. Hence the serving-database skip below as a second belt.
     const mp = await busiestMp();
     let worst = 0;
     await withClient(async (c) => {
       await c.query("BEGIN");
       try {
         await c.query("DROP INDEX idx_person_role_mp_id");
+        await c.query("DROP INDEX idx_person_role_source_ref");
         const plan = await c.query(
           `EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT) SELECT mp_tr_roles(${mp})`,
         );
@@ -419,8 +466,11 @@ test.skipIf(skip)(
     });
     assert.ok(
       worst > 8_000,
-      `without idx_person_role_mp_id the call touched only ${worst} buffers — the ceiling ` +
-        `above is no longer measuring the index it was written for.`,
+      `without idx_person_role_mp_id AND idx_person_role_source_ref the call touched only ` +
+        `${worst} buffers — the ceiling above is no longer measuring anything. Re-measure ` +
+        `before widening this: the point is that the budget can be blown, so the fix is to ` +
+        `re-anchor on whatever index now keeps the subject lookup off a seq scan, never to ` +
+        `lower this number until it passes.`,
     );
   },
   60_000,
