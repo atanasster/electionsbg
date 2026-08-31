@@ -822,7 +822,12 @@ until the effective-analysis reconciliation gate exists.
 ### Phase 4 — eval promotion and feedback loop
 
 1. Build a new reproducible public sampling batch; do not expose or relabel the sealed existing
-   gold selections as community tasks.
+   gold selections as community tasks. `community-pilot-v1` freezes 120 task-contract-compatible
+   articles from one public-data revision with one article per story group, deterministic seed and
+   content hashes. The selector excludes authoritative sealed/benchmark membership, accepted
+   adjudications, future/invalid dates and task-ineligible records; balances public party-presence,
+   Russia and leaning sampling signals under reported outlet/time caps; emits no reference labels;
+   and reproduces byte-for-byte under `--check` before passing the real task builder in dry-run.
 2. Run a public pilot, export raw submissions and report completion, disagreement, duplication,
    quarantine and per-stratum coverage without calling agreement accuracy.
 3. Review/promote a subset offline using the locally stored full articles, then complete at least
