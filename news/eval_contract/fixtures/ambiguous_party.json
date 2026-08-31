@@ -1,0 +1,50 @@
+{
+  "fixture_version": 1,
+  "id": "ambiguous_party",
+  "schema_target": "article_evaluation",
+  "purpose": "community",
+  "task": {
+    "revision": 4,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "model_labels": {
+      "leaning": "neutral",
+      "russia_stance": "not_applicable",
+      "party_tones": []
+    }
+  },
+  "expected": {
+    "schema_valid": true,
+    "semantic_valid": true,
+    "gold_eligible": true,
+    "error_codes": []
+  },
+  "value": {
+    "schema_version": 1,
+    "leaning": {
+      "label": "neutral",
+      "disposition": "confirmed",
+      "evidence": "Материалът не предпочита една от представените позиции.",
+      "reason_codes": []
+    },
+    "russia_stance": {
+      "label": "not_applicable",
+      "disposition": "confirmed",
+      "evidence": "Русия не е предмет на материала.",
+      "reason_codes": []
+    },
+    "parties_confirmed_complete": true,
+    "party_tones": [
+      {
+        "party": "Съюзът",
+        "party_id": null,
+        "tone": "neutral",
+        "evidence": "Името е двусмислено и е споменато без оценка.",
+        "disposition": "added",
+        "reason_codes": ["party_missing"]
+      }
+    ],
+    "removed_model_parties": [],
+    "public_note": "Каноничната идентичност не може да се определи без догадка."
+  }
+}

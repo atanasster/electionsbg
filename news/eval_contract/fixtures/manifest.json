@@ -1,0 +1,18 @@
+{
+  "fixture_version": 1,
+  "cases": [
+    "valid_complete_gold.json",
+    "partial_correction.json",
+    "confirm_unchanged.json",
+    "unable_to_judge.json",
+    "no_party.json",
+    "multi_party.json",
+    "ambiguous_party.json",
+    "stale_content.json",
+    "task_revision_conflict.json",
+    "invalid_event_target.json",
+    "invalid_event_null_hashes.json",
+    "invalid_manifest_missing_group.json",
+    "invalid_manifest_records_hash.json"
+  ]
+}

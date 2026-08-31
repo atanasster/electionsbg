@@ -1,0 +1,27 @@
+{
+  "fixture_version": 1,
+  "id": "invalid_event_target",
+  "schema_target": "event",
+  "purpose": "operator_audit",
+  "expected": {
+    "schema_valid": false,
+    "semantic_valid": false,
+    "gold_eligible": false,
+    "error_codes": ["invalid_action_target"]
+  },
+  "value": {
+    "schema_version": 1,
+    "event_id": "fixture-event-0001",
+    "occurred_at": "2026-08-31T08:00:00Z",
+    "actor": { "kind": "service", "id": "fixture" },
+    "action": "gold_promoted",
+    "target": {
+      "kind": "submission",
+      "id": "submission-1",
+      "article_key": "example.bg/article-1"
+    },
+    "before_sha256": null,
+    "after_sha256": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "reason": null
+  }
+}

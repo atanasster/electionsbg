@@ -1,0 +1,50 @@
+{
+  "fixture_version": 1,
+  "id": "valid_complete_gold",
+  "schema_target": "article_evaluation",
+  "purpose": "gold",
+  "task": {
+    "revision": 4,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "model_labels": {
+      "leaning": "neutral",
+      "russia_stance": "anti_russia",
+      "party_tones": [{ "party": "ГЕРБ", "party_id": "gerb", "tone": "neutral" }]
+    }
+  },
+  "expected": {
+    "schema_valid": true,
+    "semantic_valid": true,
+    "gold_eligible": true,
+    "error_codes": []
+  },
+  "value": {
+    "schema_version": 1,
+    "leaning": {
+      "label": "progressive",
+      "disposition": "changed",
+      "evidence": "Авторският текст подкрепя по-широка социална защита като предпочитана политика.",
+      "reason_codes": ["model_missed_context"]
+    },
+    "russia_stance": {
+      "label": "anti_russia",
+      "disposition": "confirmed",
+      "evidence": "Русия е описана като агресор, а не само цитирана от външен говорител.",
+      "reason_codes": []
+    },
+    "parties_confirmed_complete": true,
+    "party_tones": [
+      {
+        "party": "ГЕРБ",
+        "party_id": "gerb",
+        "tone": "unfavorable",
+        "evidence": "Партията е пряко критикувана за решението в авторския разказ.",
+        "disposition": "changed",
+        "reason_codes": ["tone_misread"]
+      }
+    ],
+    "removed_model_parties": [],
+    "public_note": "Прочетен е целият оригинален материал."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "fixture_version": 1,
+  "id": "confirm_unchanged",
+  "schema_target": "article_evaluation",
+  "purpose": "community",
+  "task": {
+    "revision": 4,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "model_labels": {
+      "leaning": "neutral",
+      "russia_stance": "anti_russia",
+      "party_tones": [{ "party": "ГЕРБ", "party_id": "gerb", "tone": "neutral" }]
+    }
+  },
+  "expected": {
+    "schema_valid": true,
+    "semantic_valid": true,
+    "gold_eligible": true,
+    "error_codes": []
+  },
+  "value": {
+    "schema_version": 1,
+    "leaning": {
+      "label": "neutral",
+      "disposition": "confirmed",
+      "evidence": "Материалът представя противоположните позиции без авторска оценка.",
+      "reason_codes": []
+    },
+    "russia_stance": {
+      "label": "anti_russia",
+      "disposition": "confirmed",
+      "evidence": "Авторският разказ определя действията на Русия като агресия.",
+      "reason_codes": []
+    },
+    "parties_confirmed_complete": true,
+    "party_tones": [
+      {
+        "party": "ГЕРБ",
+        "party_id": "gerb",
+        "tone": "neutral",
+        "evidence": "Действията на партията са описани фактологично.",
+        "disposition": "confirmed",
+        "reason_codes": []
+      }
+    ],
+    "removed_model_parties": [],
+    "public_note": null
+  }
+}

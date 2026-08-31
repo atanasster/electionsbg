@@ -1,0 +1,41 @@
+{
+  "fixture_version": 1,
+  "id": "no_party",
+  "schema_target": "article_evaluation",
+  "purpose": "gold",
+  "task": {
+    "revision": 4,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "model_labels": {
+      "leaning": "not_applicable",
+      "russia_stance": "not_applicable",
+      "party_tones": []
+    }
+  },
+  "expected": {
+    "schema_valid": true,
+    "semantic_valid": true,
+    "gold_eligible": true,
+    "error_codes": []
+  },
+  "value": {
+    "schema_version": 1,
+    "leaning": {
+      "label": "not_applicable",
+      "disposition": "confirmed",
+      "evidence": "Текстът е спортен резултат без политическо съдържание.",
+      "reason_codes": []
+    },
+    "russia_stance": {
+      "label": "not_applicable",
+      "disposition": "confirmed",
+      "evidence": "Русия не е предмет на материала.",
+      "reason_codes": []
+    },
+    "parties_confirmed_complete": true,
+    "party_tones": [],
+    "removed_model_parties": [],
+    "public_note": "Няма смислено представена партия."
+  }
+}

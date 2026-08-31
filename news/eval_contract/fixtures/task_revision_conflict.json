@@ -1,0 +1,49 @@
+{
+  "fixture_version": 1,
+  "id": "task_revision_conflict",
+  "schema_target": "submission_request",
+  "purpose": "community",
+  "task": {
+    "article_key": "example.bg/article-1",
+    "revision": 5,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "model_labels": {
+      "leaning": "neutral",
+      "russia_stance": "not_applicable",
+      "party_tones": []
+    }
+  },
+  "expected": {
+    "schema_valid": true,
+    "semantic_valid": false,
+    "gold_eligible": false,
+    "error_codes": ["task_revision_conflict"]
+  },
+  "value": {
+    "schema_version": 1,
+    "article_key": "example.bg/article-1",
+    "base_task_revision": 4,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "idempotency_key": "fixture-conflict-01",
+    "turnstile_token": "fixture-token",
+    "browser_nonce": "fixture-browser-01",
+    "evaluation": {
+      "leaning": {
+        "label": "neutral",
+        "evidence": "Материалът представя позициите без авторско предпочитание.",
+        "reason_codes": []
+      },
+      "russia_stance": {
+        "label": "not_applicable",
+        "evidence": "Русия не е предмет на материала.",
+        "reason_codes": []
+      },
+      "parties_confirmed_complete": true,
+      "party_tones": [],
+      "removed_model_parties": [],
+      "public_note": null
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "fixture_version": 1,
+  "id": "multi_party",
+  "schema_target": "article_evaluation",
+  "purpose": "gold",
+  "task": {
+    "revision": 4,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "model_labels": {
+      "leaning": "neutral",
+      "russia_stance": "not_applicable",
+      "party_tones": [{ "party": "ГЕРБ", "party_id": "gerb", "tone": "neutral" }]
+    }
+  },
+  "expected": {
+    "schema_valid": true,
+    "semantic_valid": true,
+    "gold_eligible": true,
+    "error_codes": []
+  },
+  "value": {
+    "schema_version": 1,
+    "leaning": {
+      "label": "neutral",
+      "disposition": "confirmed",
+      "evidence": "Основните конкуриращи се позиции са представени симетрично.",
+      "reason_codes": []
+    },
+    "russia_stance": {
+      "label": "not_applicable",
+      "disposition": "confirmed",
+      "evidence": "Материалът не разглежда Русия.",
+      "reason_codes": []
+    },
+    "parties_confirmed_complete": true,
+    "party_tones": [
+      {
+        "party": "ГЕРБ",
+        "party_id": "gerb",
+        "tone": "neutral",
+        "evidence": "Позицията е цитирана без авторска оценка.",
+        "disposition": "confirmed",
+        "reason_codes": []
+      },
+      {
+        "party": "Продължаваме промяната",
+        "party_id": "p_67",
+        "tone": "mixed",
+        "evidence": "Текстът едновременно признава реформата и критикува изпълнението ѝ.",
+        "disposition": "added",
+        "reason_codes": ["party_missing"]
+      }
+    ],
+    "removed_model_parties": [],
+    "public_note": null
+  }
+}

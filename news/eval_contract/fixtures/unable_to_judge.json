@@ -1,0 +1,41 @@
+{
+  "fixture_version": 1,
+  "id": "unable_to_judge",
+  "schema_target": "article_evaluation",
+  "purpose": "community",
+  "task": {
+    "revision": 4,
+    "content_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "analysis_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "model_labels": {
+      "leaning": "neutral",
+      "russia_stance": "not_applicable",
+      "party_tones": []
+    }
+  },
+  "expected": {
+    "schema_valid": true,
+    "semantic_valid": true,
+    "gold_eligible": false,
+    "error_codes": ["incomplete_for_gold"]
+  },
+  "value": {
+    "schema_version": 1,
+    "leaning": {
+      "label": null,
+      "disposition": "unable_to_judge",
+      "evidence": null,
+      "reason_codes": ["insufficient_public_context"]
+    },
+    "russia_stance": {
+      "label": null,
+      "disposition": "unable_to_judge",
+      "evidence": "Оригиналният източник вече не е достъпен.",
+      "reason_codes": ["insufficient_public_context"]
+    },
+    "parties_confirmed_complete": true,
+    "party_tones": [],
+    "removed_model_parties": [],
+    "public_note": null
+  }
+}
