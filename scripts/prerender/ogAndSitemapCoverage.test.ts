@@ -1030,19 +1030,11 @@ describe("a hub's og capture anchors on its head", () => {
   /** Hubs whose card does not yet frame the head, with the reason. A real debt, named so the
    *  list shrinks rather than the rule. */
   const NOT_YET: Record<string, string> = {
-    // ⚠️ NOT THE `governance-sectors` SHAPE — this one cannot be paid by re-anchoring,
-    // because `/og/prices.png` is not produced by capture-screens.ts at all. It has its own
-    // bespoke script (scripts/og/screenshot_prices.ts) and therefore no entry here, which is
-    // why registering the screen surfaced „no capture entry" rather than a wrong anchor.
-    // Paying it means giving /prices a real entry anchored on `[data-hub-head]` and retiring
-    // the bespoke script — a step of its own, not a re-shoot.
-    // ⚠️ AND THE CARD ON DISK IS STALE, which this entry also suppresses. `NOT_YET` skips the
-    // FRESHNESS clause too, and `/og/prices.png` dates from 2026-06-09 while
-    // `screenshot_prices.ts` clips {0,0,1200,630} — exactly the page top this change
-    // rewrote. So the share card depicts a head that does not exist, and nothing in the
-    // suite will say so until this entry goes.
-    prices:
-      "the card comes from the bespoke scripts/og/screenshot_prices.ts, so there is no capture entry to anchor — migrate it to capture-screens.ts; the committed card also predates the head",
+    // ⚠️ PAID OFF 2026-08-31, and it was the one shape a re-shoot could NOT fix: /prices had
+    // no capture entry at all, because its card came from a bespoke
+    // `scripts/og/screenshot_prices.ts` that clipped a blind {0,0,1200,630} from the page
+    // top. It now has a real entry anchored on `[data-hub-head]`, and that script is deleted.
+    //
     // ⚠️ PAID OFF 2026-08-27, within the same run that booked them — `analysis-hub` and
     // `reports-hub` were re-anchored on `[data-hub-head]` and re-shot, the
     // `governance-sectors` / `indicators` treatment. Both were the cheap kind: the card was
@@ -1249,6 +1241,11 @@ describe("a hub's og capture anchors on its head", () => {
       budget: "src/screens/budget/budgetHubFigures.ts",
       funds: "src/screens/funds/fundsHubFigures.ts",
       consumption: "src/screens/consumption/consumptionHubFigures.ts",
+      // ⚠️ ADDED WITH THE `NOT_YET` REMOVAL, and it has to be: dropping that entry is what
+      // puts /prices under the freshness clause for the first time, and without this the
+      // clause watches the SCREEN while every value, every basis, the note and every rail
+      // row live in the figures module beside it.
+      prices: "src/screens/prices/pricesHubFigures.ts",
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
       indicators: "src/screens/indicators/indicatorsHubFigures.ts",

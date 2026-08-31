@@ -908,6 +908,54 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "prices",
+    routePath: "prices",
+    // ⚠️ MIGRATED OFF `scripts/og/screenshot_prices.ts` (§5.3), 2026-08-31 — and unlike the
+    // `governance-sectors` / `indicators` / `analysis-hub` re-anchors, this one could not be
+    // paid by a re-shoot: /prices had no entry here at all. Its card came from a bespoke
+    // script that clipped a blind {0,0,1200,630} from the page top, waited on an `svg
+    // polyline` the chart no longer renders, and scrolled a `#prices` anchor that does not
+    // exist. That script is deleted; this is the whole of the card now.
+    //
+    // ⚠️ THE WAIT NAMES EVERY CELL, for the reason the /consumption entry below states at
+    // length and which is sharper here: these four cells are guarded on four INDEPENDENT
+    // field groups — the basket window, the euro-verdict pair, the chain denominators and
+    // the DEALS payload's own build day — and each is withheld rather than captioned
+    // vaguely when its own fields are missing. A blob short of any one arm still renders a
+    // band, so a guard naming two cells is satisfied by a short one and the runner
+    // overwrites a good card with it, reporting success.
+    //
+    // One arm per destination. The chain cell's href is per-EIK, so it is matched by prefix.
+    // The aside needs its own proof of presence: it is REFUSED outright when the ranking
+    // cannot fill it, and it comes from a different payload than the band.
+    waitFor:
+      '[data-hub-head]:has(a[href^="/consumption/categories"])' +
+      ':has(a[href^="/consumption/products"]):has(a[href^="/consumption/chain/"])' +
+      ':has(a[href^="/consumption/deals"]):has(aside a[href^="/consumption/region/"])' +
+      " [data-kpi-cell]",
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+  },
+  {
+    slug: "prices-map",
+    routePath: "prices/map",
+    // ⚠️ ITS OWN CARD SINCE 2026-09-01, and the reason is a side effect of re-anchoring
+    // /prices. The two pages SHARED `/og/prices.png`: the old bespoke script clipped a blind
+    // {0,0,1200,630} from the /prices page top, which happened to include the choropleth's
+    // upper third, so the map page's share image showed a map by accident. Anchoring the
+    // /prices card on its hub head — correct for /prices — left this page, whose <title> is
+    // „Карта на цените в България по общини", advertising a card with no map on it.
+    //
+    // ⚠️ THE WAIT IS THE CHOROPLETH'S OWN GEOMETRY, not the card that frames it. The metric
+    // buttons and the source line render before the shapes do — `PriceChoropleth` needs a
+    // MEASURED size before it draws anything — so waiting on the Card would shoot an empty
+    // box the width of the page.
+    waitFor: '[data-og="prices-map"] svg path',
+    anchor: '[data-og="prices-map"]',
+    settleMs: 3000,
+  },
+  {
     slug: "consumption",
     // No `?elections=` — the head reads only the prices blob, and the frame no longer
     // contains anything the election context feeds.

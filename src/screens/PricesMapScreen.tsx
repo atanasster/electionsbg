@@ -64,7 +64,13 @@ export const PricesMapScreen: FC = () => {
       />
       <Title description={description}>{title}</Title>
 
-      <Card className="my-4 p-4">
+      {/* ⚠️ A CAPTURE ANCHOR. This page shared `/og/prices.png` with /prices, whose card used
+          to be a blind clip of the page top and happened to include the choropleth's upper
+          third; once that card was re-anchored on the hub head, this page's share image
+          stopped containing a map at all — while its own <title> is „Карта на цените в
+          България по общини". A page whose card depicts a different page is the defect §5.3
+          exists for, so this card is shot from here. */}
+      <Card data-og="prices-map" className="my-4 p-4">
         <div className="mb-3 flex flex-wrap gap-1.5">
           {metrics.map((m) => (
             <button
