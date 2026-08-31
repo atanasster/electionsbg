@@ -19,7 +19,14 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { allRows, withClient, end, isServingDatabase } from "../lib/pg";
+import {
+  allRows,
+  withClient,
+  end,
+  isServingDatabase,
+  connectionUrl,
+} from "../lib/pg";
+import { isLocalCompose } from "../bootstrap_roles";
 import { reportSkip } from "../../lib/report_skip";
 
 const ROOT = path.resolve(
@@ -372,10 +379,17 @@ test.skipIf(skip)(
     // whole cost being `split_part(ref,':',1)` scanning every mp row. Measured on the busiest
     // MP (a real payload, not an empty one), so it bounds what a reader actually pays for.
     //
-    // ⚠️ THAT SEQ-SCAN SHAPE NOW NEEDS **BOTH** person_role LOOKUP INDEXES GONE, NOT ONE — see
+    // ⚠️ THAT FULL-SCAN SHAPE NOW NEEDS **BOTH** person_role LOOKUP INDEXES GONE, NOT ONE — see
     // the discrimination test below for the measurements. `idx_person_role_mp_id` alone is a
     // 2.2x optimisation here, not the thing standing between this call and the budget, so a
     // failure message naming it as "the usual cause" would send a reader to the wrong index.
+    //
+    // ⚠️ AND THE DEGRADED SHAPE IS NOT A SEQ SCAN — do not go looking for one. With both
+    // indexes gone the planner takes `Index Only Scan using person_role_pkey` (Heap Fetches: 0)
+    // and traverses the whole composite key. Verified 2026-08-31 via auto_explain
+    // (log_nested_statements) on the local docker Postgres; an earlier draft of this file named
+    // a `Parallel Seq Scan` here, which is the shape a hand-written probe of the same predicate
+    // takes, not the shape this function takes.
     const mp = await busiestMp();
     const plan = await allRows<{ "QUERY PLAN": string }>(
       `EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT) SELECT mp_tr_roles(${mp})`,
@@ -389,21 +403,50 @@ test.skipIf(skip)(
     assert.ok(
       worst < 6_000,
       `mp_tr_roles(${mp}) touched ${worst} buffers (budget 6,000). The usual cause is the ` +
-        `subject lookup falling back to a seq scan on person_role, which needs BOTH ` +
-        `idx_person_role_mp_id (150) and idx_person_role_source_ref (081) to be absent — ` +
-        `~10,100 buffers. Losing only the first is ~760 and stays inside this budget.`,
+        `subject lookup falling back to a FULL SCAN of person_role — an Index Only Scan over ` +
+        `person_role_pkey, NOT a Seq Scan — which needs BOTH idx_person_role_mp_id (150) and ` +
+        `idx_person_role_source_ref (081) to be absent: ~10,100 buffers. Losing only the ` +
+        `first is ~760 and stays inside this budget.`,
     );
   },
 );
 
 // The mutation check is the one test in this file that WRITES (a DDL drop it rolls back), and
 // it now drops an index the whole person layer reads. `withClient` keeps BEGIN/DROP/ROLLBACK on
-// one connection, which is what makes it safe — this is the second belt, not the first: an
-// allowlist-based refusal to attempt it at all against the Cloud SQL proxy. Everything else in
-// this file is read-only and still runs there.
-const mutationSkip =
-  skip ||
-  (isServingDatabase() ? "serving database — DDL mutation refused" : false);
+// one connection, which is what makes it safe — this is the second belt, not the first.
+// Everything else in this file is read-only and still runs against any target.
+//
+// ⚠️ THE SECOND BELT IS `isLocalCompose`, NOT `isServingDatabase` — the two fail in OPPOSITE
+// directions and only one of them is safe here. `isServingUrl` is an ALLOWLIST for the one
+// standard Cloud SQL proxy address (127.0.0.1:5434), and its own header says every
+// unrecognised target must read as "not serving" — correct for its existing callers, which
+// use it to WITHHOLD a write, and exactly backwards for a caller that uses it to PERMIT a
+// DROP. Measured 2026-08-31: it answers false for `localhost:5434` (the same production
+// database, spelled with a hostname instead of the loopback literal), for a proxy on any
+// other port, for a direct Cloud SQL IP, for a `/cloudsql/` unix socket and for a malformed
+// URL — every one of which would have run the DROP. So the requirement is POSITIVE: the
+// target must be the docker-compose Postgres, which is the check `bootstrap_roles.ts` already
+// uses to gate its own destructive DDL, and which returns false on anything it cannot
+// identify. The `isServingDatabase()` arm is kept ahead of it only to name the proxy
+// specifically in the skip line; it is not what holds the door.
+//
+// The cost of a positive requirement is a gate that stands down silently on an unusual local
+// URL, so the reason is reported rather than computed and dropped (report_skip.ts exists for
+// precisely that failure).
+const mutationSkip: string | false = skip
+  ? skip
+  : isServingDatabase()
+    ? "serving database (Cloud SQL proxy) — DDL mutation refused"
+    : !isLocalCompose(connectionUrl())
+      ? "not the docker-compose Postgres — DDL mutation refused (the ceiling above still ran)"
+      : false;
+// Not when the whole file is standing down — `skip` was already reported above, and
+// repeating it as a second line reads as two independent failures.
+if (!skip)
+  reportSkip(
+    import.meta.url,
+    mutationSkip && `discrimination check: ${mutationSkip}`,
+  );
 
 test.skipIf(mutationSkip)(
   "the buffer ceiling still discriminates",
@@ -424,30 +467,58 @@ test.skipIf(mutationSkip)(
     // Those are LOCAL figures on that date, and the 10,274 the ceiling above was written
     // against was measured on the pre-index body — not restamped onto this box.
     //
-    // ⚠️ CLOUD SQL, measured the same day on `db-perf-optimized-N-2` via the proxy, READ-ONLY
-    // (no DDL — see the mutationSkip note above for why this test never drops there). The
-    // premises transfer exactly: person_role is 325,686 rows against local's 325,761, and
-    // `source='mp'` is **3,852 on both**, visibility map 100% on both, all five indexes
-    // present. So does the baseline — `mp_tr_roles(2670)` is **350 buffers** warm (local 343),
-    // i.e. the 6,000 budget is honest on the serving box too. What does NOT transfer is
-    // wall-clock: the same call is 57-134 ms there against ~1.9 ms locally, and the seq-scan
-    // node this gate exists to prevent is **7,630 buffers / 1,094 ms** (3,146 hit + 4,484 read
-    // — it is NOT resident in the 5.3 GB shared_buffers) against ~46 ms locally, ~24x worse.
+    // ⚠️ CLOUD SQL, measured on `db-perf-optimized-N-2` via the proxy, READ-ONLY (no DDL — see
+    // the mutationSkip note above for why this test never drops there). The premises transfer
+    // exactly, re-verified 2026-08-31: person_role is 325,686 rows against local's 325,761,
+    // `source='mp'` is **3,852 on both**, visibility map 100% on both (7,630/7,630 pages), all
+    // five lookup indexes present. So does the PASSING side — `mp_tr_roles(2670)` is **350
+    // buffers** warm there against local's 343, so the 6,000 budget is honest on the serving
+    // box too, and the whole file runs green against the proxy with this one test skipped.
     //
-    // So the gate's BUFFER dimension is portable and its cost dimension understates prod by an
-    // order of magnitude. The middle row of the table below is the one figure that could not be
-    // re-measured on cloud read-only: isolating it needs the partial index gone, and no GUC
-    // hides one index from the planner. It transfers by construction — the fallback scans the
-    // 3,852 `source='mp'` rows, and that count is identical on both boxes.
+    // ⚠️ THE FAILING SIDE IS NOT MEASURED THERE AND CANNOT BE, so do not read "the buffer
+    // dimension is portable" as covering it. What the degraded call traverses is
+    // `person_role_pkey`, and that index is **8,871 pages on cloud against 9,788 locally** — so
+    // the pair-dropped figure there should land near ~9.2k rather than local's 10,092: still
+    // over this test's 8,000, but on ~15% headroom rather than ~26%. An INFERENCE from index
+    // size, not a measurement. Re-anchor from a real number if it ever matters.
+    //
+    // ⚠️ WALL-CLOCK DOES NOT TRANSFER, AND THE TWO NUMBERS MUST BE THE SAME METRIC. Server-side
+    // `Execution Time`, warm, six samples each: **6.4-8.5 ms on cloud against 1.8-2.7 ms
+    // locally**, i.e. ~3-4x. The client ROUND-TRIP through the proxy is 47-92 ms for the same
+    // call, but that is the connection's cost and comparing it against a local server-side
+    // figure manufactures a ~24x gap out of the units. An earlier draft of this comment did
+    // exactly that and concluded the gate "understates prod by an order of magnitude"; it does
+    // not.
+    //
+    // ⚠️ A FIGURE OF 7,630 BUFFERS BELONGS TO A DIFFERENT QUERY. That is a forced seq scan of
+    // person_role on cloud — it equals that table's `relpages` exactly, which is what gives it
+    // away — obtained by disabling index scans on a hand-written probe of the same predicate.
+    // It is NOT the node this gate produces (see the pkey traversal below), and it sits BELOW
+    // the 8,000 assertion, so quoting it as the degraded cost reads as though this check would
+    // fail on the serving box. It would not; that is not the plan it would measure.
+    //
+    // The middle row of the table above is the one figure that could not be re-measured on
+    // cloud read-only: isolating it needs the partial index gone, and no GUC hides one index
+    // from the planner. It transfers by construction — the fallback scans the 3,852
+    // `source='mp'` rows, and that count is identical on both boxes.
     //
     // What changed is the PLAN, not the corpus. With only the partial index gone the subject
-    // lookup does not seq-scan: it takes `Index Scan using idx_person_role_source_ref`,
+    // lookup stays bounded: it takes `Index Scan using idx_person_role_source_ref`,
     // `Index Cond: (source = 'mp')` + `Filter: split_part(ref,':',1) = …`, discarding 3,849 of
     // 3,852 rows for a few hundred buffers — cheap in absolute terms only because source='mp'
-    // is 1.2% of person_role. Take that index away too and it becomes `Parallel Seq Scan on
-    // person_role` (108,586 rows removed per worker, 7,661 buffers), which is the shape the
-    // 10,274 figure names. So the honest claim the budget rests on is "the subject lookup is
-    // not a seq scan", and at least one of the two indexes is enough to keep it that way.
+    // is 1.2% of person_role. Take that index away too and nothing is left to bound it, so it
+    // walks the whole table: `Index Only Scan using person_role_pkey`, `Heap Fetches: 0`,
+    // 9,752 buffers for the scan node and 10,092 for the call.
+    //
+    // ⚠️ IT IS NOT A SEQ SCAN, despite what an earlier draft of this comment said. The
+    // `Parallel Seq Scan on person_role` with 108,586 rows removed per worker is what a
+    // hand-written probe of the same predicate does; the FUNCTION reaches the pkey instead, and
+    // the two differ by ~2,400 buffers in the direction that matters (7,633 vs 10,092), so the
+    // stronger-looking claim is also the smaller number. Verified 2026-08-31 with auto_explain
+    // (`log_nested_statements=on`, `log_level=notice`) on the local docker Postgres — EXPLAIN
+    // on `SELECT mp_tr_roles(…)` shows only the outer Result node, which is why this went
+    // unnoticed. So the honest claim the budget rests on is "the subject lookup does not scan
+    // all of person_role", and either index is enough to keep it that way.
     //
     // ⚠️ `idx_person_role_mp_id` IS STILL WORTH ITS KEEP — do not read this as a case for
     // deleting it. It halves the call (343 vs 760) for a partial index over ~3.9k rows. What is
@@ -455,8 +526,8 @@ test.skipIf(mutationSkip)(
     //
     // ⚠️ ONE PINNED CLIENT, NOT `allRows`. allRows goes through the POOL, so BEGIN, DROP INDEX
     // and ROLLBACK can each land on a DIFFERENT connection — which autocommits the DROP and
-    // permanently removes a serving index from whatever DATABASE_URL names, the Cloud SQL
-    // proxy included. person_connections.data.test.ts uses withClient for exactly this reason.
+    // permanently removes a serving index from whatever DATABASE_URL names. This is the belt
+    // that holds on EVERY target, including the ones `mutationSkip` cannot recognise. person_connections.data.test.ts uses withClient for exactly this reason.
     // That hazard got WORSE when this test moved to the pair: `idx_person_role_source_ref` is
     // read by the whole person layer, not just this function, so an escaped DROP would degrade
     // far more than one profile block. Hence the serving-database skip below as a second belt.

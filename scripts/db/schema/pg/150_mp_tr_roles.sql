@@ -102,15 +102,23 @@
 --
 --     all indexes present                          343 buffers   ~1.9 ms
 --     less idx_person_role_mp_id                   760 buffers   ~2.3 ms
---     less idx_person_role_source_ref too       10,092 buffers  ~10.8 ms   ← the seq scan
+--     less idx_person_role_source_ref too       10,092 buffers  ~10.8 ms   ← the full scan
 --     less idx_person_role_ref as well          10,076 buffers  ~11.8 ms   (adds nothing)
+--
+-- ⚠️ THE THIRD ROW IS NOT A SEQ SCAN. With both lookup indexes gone the planner takes
+-- `Index Only Scan using person_role_pkey` (Heap Fetches: 0, 9,752 buffers on the scan node)
+-- and walks the whole composite key — verified 2026-08-31 with auto_explain, since EXPLAIN on
+-- `SELECT mp_tr_roles(…)` shows only the outer Result node. A `Parallel Seq Scan on person_role`
+-- is what a hand-written probe of the same predicate does (7,633 buffers, i.e. the table's
+-- relpages), not what this function does; an earlier draft of this header said otherwise.
 --
 -- So this index is a 2.2x optimisation on a serving path, not the thing standing between the
 -- call and a whole-table scan — worth its keep (it is partial, ~3.9k rows) but not load-bearing
 -- alone. What the buffer budget in mp_tr_roles.data.test.ts actually rests on is "the subject
--- lookup is not a seq scan", and EITHER index is enough to hold that. Its mutation check is
--- anchored on the pair for exactly this reason; anchoring on this index alone stopped
--- discriminating (777 buffers against an `> 8,000` assertion) and that is how this was found.
+-- lookup does not scan all of person_role", and EITHER index is enough to hold that. Its
+-- mutation check is anchored on the pair for exactly this reason; anchoring on this index
+-- alone stopped discriminating (777 buffers against an `> 8,000` assertion) and that is how
+-- this was found.
 --
 -- It is in THIS file because 081 is applied only by `db:resolve:persons` (a multi-hour
 -- rebuild) and `add_override.ts`, so an index added there would not reach a serving database
