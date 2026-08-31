@@ -96,16 +96,23 @@ function formatMatches(name: string, value: string): boolean {
   if (name === "date-time") {
     const match = RFC3339.exec(value);
     if (!match) return false;
-    const [
-      ,
-      yearText,
-      monthText,
-      dayText,
-      hourText,
-      minuteText,
-      secondText,
-      zone,
-    ] = match;
+    const yearText = match[1];
+    const monthText = match[2];
+    const dayText = match[3];
+    const hourText = match[4];
+    const minuteText = match[5];
+    const secondText = match[6];
+    const zone = match[7];
+    if (
+      !yearText ||
+      !monthText ||
+      !dayText ||
+      !hourText ||
+      !minuteText ||
+      !secondText ||
+      !zone
+    )
+      return false;
     const year = Number(yearText);
     const month = Number(monthText);
     const day = Number(dayText);
@@ -127,12 +134,14 @@ function formatMatches(name: string, value: string): boolean {
       30,
       31,
     ];
+    const maximumDay = monthDays[month - 1];
     if (
       year < 1 ||
       month < 1 ||
       month > 12 ||
       day < 1 ||
-      day > monthDays[month - 1] ||
+      maximumDay === undefined ||
+      day > maximumDay ||
       hour > 23 ||
       minute > 59 ||
       second > 59
@@ -616,7 +625,9 @@ function labelStatistics(records: JsonObject[]): JsonObject {
 
 export function validateFixture(fixture: JsonObject): FixtureResult {
   const target = String(fixture.schema_target);
-  const schema = object(JSON.parse(readFileSync(SCHEMAS[target], "utf8")));
+  const schemaPath = SCHEMAS[target];
+  if (!schemaPath) throw new Error(`unknown schema target: ${target}`);
+  const schema = object(JSON.parse(readFileSync(schemaPath, "utf8")));
   const value = object(fixture.value);
   const schemaErrors = validateSchema(schema, value);
   let semanticCodes: string[];
@@ -664,7 +675,8 @@ export function validateFixtures(): FixtureResult[] {
   );
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+const entryPoint = process.argv[1];
+if (entryPoint && fileURLToPath(import.meta.url) === entryPoint) {
   if (process.argv.includes("--fixture-stdin")) {
     const fixture = object(JSON.parse(readFileSync(0, "utf8")));
     process.stdout.write(`${JSON.stringify(validateFixture(fixture))}\n`);

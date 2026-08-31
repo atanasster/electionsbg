@@ -70,6 +70,7 @@
     }
   },
   "limits": {
+    "public_request_bytes": 65536,
     "evidence_characters": 600,
     "public_note_characters": 600,
     "party_decisions": 30,

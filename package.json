@@ -333,6 +333,7 @@
     "deploy:news": "firebase deploy --only hosting:news -P news",
     "deploy:news:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:news -P news",
     "deploy:news:evals": "npm --prefix news-functions test && firebase --config firebase.news-evals.json deploy --only functions:news-evals,firestore:rules -P news",
+    "deploy:news:evals:public-route": "npm run deploy:news:evals && npm run deploy:news",
     "deploy:news:evals:rules": "firebase --config firebase.news-evals.json deploy --only firestore:rules -P news",
     "deploy:news:preview": "tsx scripts/news_release_manifest.ts verify && SKIP_PREDEPLOY=1 firebase hosting:channel:deploy news-candidate --only news -P news --expires 7d",
     "deploy:news:promote": "test -n \"$NEWS_VERSION_ID\" && firebase hosting:clone \"electionsbg-news:@$NEWS_VERSION_ID\" electionsbg-news:live -P news",

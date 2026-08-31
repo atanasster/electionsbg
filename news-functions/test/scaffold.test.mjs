@@ -4,8 +4,6 @@ import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { closedScaffoldHandler } from "../lib/index.js";
-
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "../..");
 const readJson = (path) =>
@@ -29,7 +27,28 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
   assert.match(scripts["deploy:news:evals"], /firebase\.news-evals\.json/);
   assert.match(scripts["deploy:news:evals"], /firestore:rules/);
   assert.match(scripts["deploy:news:evals"], /-P news/);
+  assert.equal(
+    scripts["deploy:news:evals:public-route"],
+    "npm run deploy:news:evals && npm run deploy:news",
+  );
   assert.match(scripts["emulator:news:evals"], /-P news/);
+
+  const newsHosting = firebase.hosting.find((entry) => entry.target === "news");
+  assert.deepEqual(newsHosting.rewrites[0], {
+    source: "/api/news-evals/**",
+    function: { functionId: "newsEvals", region: "europe-west3" },
+  });
+  const broadHeader = newsHosting.headers.findIndex(
+    (entry) => entry.source === "**",
+  );
+  const apiHeader = newsHosting.headers.findIndex(
+    (entry) => entry.source === "/api/news-evals/**",
+  );
+  assert.ok(broadHeader >= 0 && apiHeader > broadHeader);
+  assert.deepEqual(newsHosting.headers[apiHeader], {
+    source: "/api/news-evals/**",
+    headers: [{ key: "Cache-Control", value: "no-store" }],
+  });
 
   const emulatorBoundaries = [
     ["emulator", "firebase.main-functions.json", ["functions"]],
@@ -65,44 +84,6 @@ test("the isolated package has no private archive or Cloud SQL dependency", () =
   assert.equal(manifest.main, "lib/index.js");
 });
 
-test("the scaffold handler is closed and uncacheable for every request", () => {
-  for (const request of [
-    { method: "GET", path: "/aggregate/example" },
-    { method: "POST", path: "/submit" },
-    { method: "OPTIONS", path: "/submit" },
-  ]) {
-    const headers = new Map();
-    let status = 0;
-    let body = "";
-    const response = {
-      set(name, value) {
-        headers.set(name.toLowerCase(), value);
-        return this;
-      },
-      status(value) {
-        status = value;
-        return this;
-      },
-      send(value) {
-        body = value;
-      },
-    };
-    closedScaffoldHandler(request, response);
-    assert.equal(status, 503);
-    assert.equal(headers.get("cache-control"), "no-store");
-    assert.equal(
-      headers.get("content-type"),
-      "application/json; charset=utf-8",
-    );
-    assert.deepEqual(JSON.parse(body), {
-      error: {
-        code: "not_implemented",
-        message: "The public evaluation API is not enabled yet.",
-      },
-    });
-  }
-});
-
 test("Firestore provisioning choices are explicit and news-project scoped", () => {
   const scripts = readJson("package.json").scripts;
   const provision = scripts["provision:news:evals:firestore"];
@@ -112,4 +93,13 @@ test("Firestore provisioning choices are explicit and news-project scoped", () =
   assert.match(provision, /--delete-protection=ENABLED/);
   assert.match(provision, /--point-in-time-recovery=ENABLED/);
   assert.match(provision, /-P news/);
+});
+
+test("the deployed schema copy is byte-identical to the shared contract", () => {
+  for (const name of ["contract.json", "submission_request.schema.json"]) {
+    assert.deepEqual(
+      readFileSync(resolve(ROOT, `news-functions/lib/eval-contract/${name}`)),
+      readFileSync(resolve(ROOT, `news/eval_contract/${name}`)),
+    );
+  }
 });

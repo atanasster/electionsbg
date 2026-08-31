@@ -15,7 +15,10 @@ function compareCodePoints(left: string, right: string): number {
   const a = [...left];
   const b = [...right];
   for (let index = 0; index < Math.min(a.length, b.length); index += 1) {
-    const difference = a[index].codePointAt(0)! - b[index].codePointAt(0)!;
+    const leftPoint = a[index]?.codePointAt(0);
+    const rightPoint = b[index]?.codePointAt(0);
+    if (leftPoint === undefined || rightPoint === undefined) break;
+    const difference = leftPoint - rightPoint;
     if (difference !== 0) return difference;
   }
   return a.length - b.length;

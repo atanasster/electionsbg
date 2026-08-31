@@ -533,6 +533,13 @@
       ],
       "rewrites": [
         {
+          "source": "/api/news-evals/**",
+          "function": {
+            "functionId": "newsEvals",
+            "region": "europe-west3"
+          }
+        },
+        {
           "source": "**",
           "destination": "/index.html"
         }
@@ -544,6 +551,15 @@
             {
               "key": "Cache-Control",
               "value": "no-cache, max-age=0, must-revalidate"
+            }
+          ]
+        },
+        {
+          "source": "/api/news-evals/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
             }
           ]
         },

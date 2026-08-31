@@ -50,3 +50,7 @@ must be absolute HTTP(S) URLs without whitespace or embedded credentials. Timest
 RFC 3339 calendar form `YYYY-MM-DDTHH:MM:SS[.fraction](Z|±HH:MM)` with real calendar dates.
 Manifest entries and frozen records are positionally linked by `article_key` and by content or
 analysis hashes whenever the record carries them; neither side may contain a duplicate key.
+The public HTTP boundary derives its request limit from `limits.public_request_bytes`, rejects every
+recognized route above that UTF-8 byte count before route-specific handling, and rejects any body on
+aggregate GET requests. Article-key domains use lowercase ASCII DNS labels (canonical `xn--`
+punycode is supported), with the DNS label and 253-character hostname limits enforced.
