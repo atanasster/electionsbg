@@ -3041,6 +3041,53 @@ export const TIERS: { kind: "source" | "dataset" | "feature"; label: Lang }[] =
 /** Guided walkthroughs — each step highlights one node with a short narration. */
 export const TOURS: TourDef[] = [
   {
+    // The lateral-link tour: five hops that are only reachable BECAUSE the
+    // corpora share keys. Every figure quoted here is a measured overlap from
+    // LINKS above, so the tour cannot drift from what the map draws.
+    id: "linked",
+    title: {
+      bg: "Как се свързват данните",
+      en: "How the data connects",
+    },
+    steps: [
+      {
+        node: "ds:procurement",
+        text: {
+          bg: "Започваме с обществените поръчки: близо 410 000 договора, всеки с ЕИК на изпълнителя.",
+          en: "Start with public procurement: nearly 410,000 contracts, each carrying its contractor's company number.",
+        },
+      },
+      {
+        node: "ds:connections",
+        text: {
+          bg: "Този ЕИК е ключът към Търговския регистър — 18 713 изпълнителя се намират там като фирми със собственици и управители.",
+          en: "That company number is the key into the Commerce Registry — 18,713 contractors are found there as companies with owners and directors.",
+        },
+      },
+      {
+        node: "ds:funds",
+        text: {
+          bg: "Същият ключ показва кой получава и европейски средства: 40 265 фирми се появяват и в двата масива.",
+          en: "The same key shows who also receives EU money: 40,265 companies appear in both corpora.",
+        },
+      },
+      {
+        node: "ds:interreg",
+        text: {
+          bg: "Interreg обаче се управлява на друга система и не минава през ИСУН — затова е отделен масив, а двете суми никога не се събират.",
+          en: "Interreg, though, runs on a different system and never passes through ИСУН — so it is a separate dataset, and the two totals are never added together.",
+        },
+      },
+      {
+        node: "ds:officials",
+        text: {
+          bg: "А през лицата се затваря кръгът: 5 612 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+          en: "And people close the circle: 5,612 officials who file asset declarations also hold a role in the company registry.",
+        },
+      },
+    ],
+  },
+  {
     id: "ballot",
     title: {
       bg: "Как протоколът става карта",

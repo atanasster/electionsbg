@@ -8,6 +8,7 @@
 // `amount_eur`). Two more returned zero rows, which teaches nothing.
 import { describe, expect, it } from "vitest";
 import { ALL_QUERIES, LIBRARY } from "../../../src/screens/dev/sqlLibrary";
+import { LINKS } from "../../data_map/model";
 import { getPool, pinLocalDatabase, dbReachable } from "../lib/pg";
 
 pinLocalDatabase();
@@ -122,6 +123,68 @@ describe.skipIf(!reachable)("the documented traps are load-bearing", () => {
 });
 
 describe("library shape (no database needed)", () => {
+  it("gives every query a stable, unique id", () => {
+    // `/db?q=<id>` is a shareable URL and the map links to it, so an id that
+    // churns breaks a published link.
+    const ids = ALL_QUERIES.map((q) => q.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(ids.filter((i) => !/^[a-z0-9-]+$/.test(i))).toEqual([]);
+  });
+
+  it("only ONE query claims each link", () => {
+    // build_manifest resolves with .find(), so a second claim on the same link
+    // is silently dropped — and the one dropped was the query that actually
+    // spanned both corpora.
+    const seen = new Map<string, string>();
+    const dupes: string[] = [];
+    for (const q of ALL_QUERIES.filter((x) => x.walks)) {
+      const { a, b, key } = q.walks!;
+      const [x, y] = [a, b].sort();
+      const k = `${x}|${y}|${key}`;
+      if (seen.has(k)) dupes.push(`${k}: ${seen.get(k)} and ${q.id}`);
+      else seen.set(k, q.id);
+    }
+    expect(dupes).toEqual([]);
+  });
+
+  it("actually WALKS the link it claims", () => {
+    // The first cut tagged 9 queries and not one touched both sides of its
+    // link — "who owns a company" was tagged connections↔procurement while
+    // reading only tr_owner_share for a single hardcoded EIK. The gate checked
+    // that the LINK existed, which every wrong tag also satisfies. This checks
+    // the query mentions both of the link's measured tables.
+    const bad: string[] = [];
+    for (const q of ALL_QUERIES.filter((x) => x.walks)) {
+      const { a, b, key } = q.walks!;
+      const [x, y] = [a, b].sort();
+      const link = LINKS.find(
+        (l) => l.a === x && l.b === y && (l.key ?? "boundary") === key,
+      );
+      if (!link?.measure) continue; // a boundary link has no tables to touch
+      for (const ref of [link.measure.left, link.measure.right]) {
+        const tbl = ref.split(".")[0];
+        if (!new RegExp(`\\b${tbl}\\b`, "i").test(q.sql))
+          bad.push(`${q.id} does not read ${tbl}`);
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+
+  it("only claims to walk links that exist", () => {
+    // A `walks` tag naming no declared link would render a dead "run this
+    // query" affordance — or worse, silently none, which is how it would go
+    // unnoticed.
+    const declared = new Set(
+      LINKS.map((l) => `${l.a}|${l.b}|${l.key ?? "boundary"}`),
+    );
+    const bogus = ALL_QUERIES.filter((q) => q.walks).filter((q) => {
+      const { a, b, key } = q.walks!;
+      const [x, y] = [a, b].sort();
+      return !declared.has(`${x}|${y}|${key}`);
+    });
+    expect(bogus.map((q) => q.id)).toEqual([]);
+  });
+
   it("covers the corpora the console previously ignored", () => {
     // The old 10 samples were Contracts / Tenders / Registry / Search only.
     const purposes = LIBRARY.map((g) => g.purpose)

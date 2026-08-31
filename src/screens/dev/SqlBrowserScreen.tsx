@@ -8,6 +8,7 @@
 //
 // See docs/plans/postgres-migration-v1.md.
 
+import { useSearchParams } from "react-router-dom";
 import {
   Fragment,
   useCallback,
@@ -208,7 +209,40 @@ export const SqlBrowserScreen = () => {
   // reader typed. Not prerendered, not in the sitemap (site-hygiene-v1 T2).
   useNoindex();
   const [schema, setSchema] = useState<SchemaResponse | null>(null);
-  const [sqlText, setSqlText] = useState(LIBRARY[0].queries[0].sql);
+  // `?q=<library id>` seeds the editor, so the map's "Links to" rows can offer
+  // "run this query" and the map's claim ("these two join on ЕИК") becomes
+  // executable in one click rather than a diagram. Only a KNOWN id is honoured
+  // — never raw SQL from the URL, which would let a link hand a visitor a
+  // query written by whoever sent it.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const seeded = useMemo(() => {
+    const id = searchParams.get("q");
+    return id ? ALL_QUERIES.find((x) => x.id === id) : undefined;
+  }, [searchParams]);
+  const [sqlText, setSqlText] = useState(
+    () => seeded?.sql ?? LIBRARY[0].queries[0].sql,
+  );
+
+  /**
+   * Set the editor AND keep `?q=` honest. Anything that is not a library pick
+   * clears the param, because otherwise the URL keeps naming a query the
+   * editor no longer holds — and that URL is shareable, so it would hand
+   * somebody else different SQL from what the sender was looking at.
+   */
+  const setSql = useCallback(
+    (sql: string, libraryId?: string) => {
+      setSqlText(sql);
+      setSearchParams(
+        (p) => {
+          if (libraryId) p.set("q", libraryId);
+          else p.delete("q");
+          return p;
+        },
+        { replace: true },
+      );
+    },
+    [setSearchParams],
+  );
   const [limit, setLimit] = useState(1000);
   const [result, setResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -561,7 +595,7 @@ export const SqlBrowserScreen = () => {
                 key={i}
                 className="mb-1 block w-full truncate rounded border border-border bg-background/50 px-2 py-1 text-left font-mono hover:bg-muted"
                 title={q}
-                onClick={() => setSqlText(q)}
+                onClick={() => setSql(q)}
               >
                 {q.replace(/\s+/g, " ")}
               </button>
@@ -585,7 +619,7 @@ export const SqlBrowserScreen = () => {
                 <button
                   className="flex-1 truncate rounded border border-border bg-background/50 px-2 py-1 text-left hover:bg-muted"
                   title={q.sql}
-                  onClick={() => setSqlText(q.sql)}
+                  onClick={() => setSql(q.sql)}
                 >
                   {q.name}
                 </button>
@@ -638,7 +672,11 @@ export const SqlBrowserScreen = () => {
                   {g.queries.map((q) => (
                     <DropdownMenuItem
                       key={q.label}
-                      onSelect={() => setSqlText(q.sql)}
+                      onSelect={() => {
+                        // replace, not push: flipping through the library
+                        // should not fill the back button with editor states.
+                        setSql(q.sql, q.id);
+                      }}
                       className="flex cursor-default flex-col items-start gap-0.5 py-1.5"
                     >
                       <span className="text-xs font-medium">
@@ -670,7 +708,7 @@ export const SqlBrowserScreen = () => {
             height="34vh"
             theme={dark ? oneDark : undefined}
             extensions={extensions}
-            onChange={setSqlText}
+            onChange={(v) => setSql(v)}
             onCreateEditor={(view) => (viewRef.current = view)}
             basicSetup={{ autocompletion: true }}
           />

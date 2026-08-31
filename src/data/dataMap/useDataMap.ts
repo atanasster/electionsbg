@@ -94,6 +94,8 @@ export type DataMapLink = {
   overlap?: number;
   /** What the overlap is a share OF, when the key is sparse. */
   of?: DataMapLang;
+  /** A /db library query id that walks this link, resolved at build time. */
+  query?: string;
 };
 
 export type DataMapManifest = {

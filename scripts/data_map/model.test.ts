@@ -10,6 +10,7 @@ import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import {
+  TOURS,
   DATASETS,
   EDGES,
   SOURCE_GROUPS,
@@ -448,5 +449,48 @@ describe("validateLinks", () => {
         measure: { left: "x.y", right: "z.w" },
       }),
     ).toMatch(/must not be measured/);
+  });
+});
+
+describe("the lateral-links tour", () => {
+  // Its prose quotes MEASURED overlaps. A corpus reload moves those, and
+  // because a tour step drives the panel selection, the frozen number would
+  // render on the same screen as the live one.
+  const tour = TOURS.find((t) => t.id === "linked");
+  const overlapOf = (a: string, b: string, key: string) => {
+    const [x, y] = [a, b].sort();
+    return manifestLinksById.get(`${x}|${y}|${key}`);
+  };
+  const manifestLinksById = new Map(
+    (manifest.links ?? []).map((l) => [
+      `${l.a.replace("ds:", "")}|${l.b.replace("ds:", "")}|${l.key ?? "boundary"}`,
+      l.overlap,
+    ]),
+  );
+
+  it("exists and walks datasets that are on the map", () => {
+    expect(tour).toBeDefined();
+    const ids = new Set(manifest.nodes.map((n) => n.id));
+    expect(tour!.steps.filter((s) => !ids.has(s.node))).toEqual([]);
+  });
+
+  it("quotes numbers that still match the measured overlaps", () => {
+    // Each pair is (link, the figure the tour states).
+    const quoted: [string, string, string, number][] = [
+      ["connections", "procurement", "eik", 18713],
+      ["connections", "funds", "eik", 40265],
+      ["connections", "officials", "person_id", 5612],
+    ];
+    const drifted = quoted
+      .filter(([a, b, k, n]) => overlapOf(a, b, k) !== n)
+      .map(
+        ([a, b, k, n]) =>
+          `${a}↔${b} (${k}): tour says ${n}, measured ${overlapOf(a, b, k)}`,
+      );
+    expect(drifted).toEqual([]);
+    // and the prose really does contain them, so the check is not vacuous
+    const prose = JSON.stringify(tour);
+    for (const [, , , n] of quoted)
+      expect(prose).toContain(n.toLocaleString("en-US"));
   });
 });

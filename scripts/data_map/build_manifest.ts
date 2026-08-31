@@ -23,6 +23,7 @@ import { fileURLToPath, pathToFileURL } from "url";
 import ELK from "elkjs/lib/elk.bundled.js";
 import type { ElkNode } from "elkjs/lib/elk-api";
 import { SOURCES } from "../watch/sources/index";
+import { ALL_QUERIES } from "../../src/screens/dev/sqlLibrary";
 import { isExcluded } from "../bucket_sync_paths";
 import type { Cadence } from "../watch/types";
 import {
@@ -113,6 +114,12 @@ export interface ManifestLink {
   overlap?: number;
   /** What the overlap is a share OF, when the key is sparse. */
   of?: Lang;
+  /**
+   * A /db library query that walks this link, if one exists — resolved HERE
+   * rather than in the panel so the 20 KB of SQL never reaches the /data
+   * bundle just to look up nine ids.
+   */
+  query?: string;
 }
 
 export interface DataMapManifest {
@@ -371,6 +378,19 @@ const closePoolIfOpen = async (): Promise<void> => {
     /* never opened, or already closed — nothing to do */
   }
 };
+
+export /**
+ * The /db library query that walks a given link, matched on the `walks` tag.
+ * Undirected, like the link itself.
+ */
+const queryForLink = (a: string, b: string, key: string): string | undefined =>
+  ALL_QUERIES.find(
+    (q) =>
+      q.walks &&
+      q.walks.key === key &&
+      ((q.walks.a === a && q.walks.b === b) ||
+        (q.walks.a === b && q.walks.b === a)),
+  )?.id;
 
 export const validateLinks = (
   links: LinkDef[] = LINKS,
@@ -885,6 +905,9 @@ const main = async (): Promise<void> => {
         label: l.note,
         ...(o ? { overlap: o.overlap } : {}),
         ...(l.measure?.of ? { of: l.measure.of } : {}),
+        ...(queryForLink(l.a, l.b, l.key ?? "boundary")
+          ? { query: queryForLink(l.a, l.b, l.key ?? "boundary") }
+          : {}),
       };
     }),
   };

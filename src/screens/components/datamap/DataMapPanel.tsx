@@ -302,6 +302,18 @@ export const DataMapPanel: FC<Props> = ({
                   <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
                     {link.label[lang]}
                   </p>
+                  {/* What turns the map's claim ("these two join on ЕИК") into
+                      something a reader can run, rather than a diagram. The
+                      link names a library query id — never raw SQL in a URL. */}
+                  {link.query ? (
+                    <Link
+                      to={`/db?q=${link.query}`}
+                      className="mt-0.5 inline-flex items-center gap-1 text-xs text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+                    >
+                      {t("data_map_run_query")}
+                      <ArrowUpRight className="size-3" />
+                    </Link>
+                  ) : null}
                 </li>
               ))}
             </ul>

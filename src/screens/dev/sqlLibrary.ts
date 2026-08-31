@@ -16,12 +16,21 @@
 export type QueryCost = "fast" | "medium" | "slow";
 
 export interface LibraryQuery {
+  /** Stable slug — this is what `/db?q=<id>` names, so it must not churn. */
+  id: string;
   label: string;
   /** One line: the question this answers, in the reader's terms. */
   answers: string;
   sql: string;
   /** Rough guide so a visitor knows before running. Prod is slower than local. */
   cost?: QueryCost;
+  /**
+   * The lateral link this query walks: the two dataset ids and the join key.
+   * Lets the map's "Links to" row offer "run this query", which is what makes
+   * the map's claim ("these two join on ЕИК") executable rather than a
+   * diagram. Checked against LINKS by sqlLibrary.data.test.ts.
+   */
+  walks?: { a: string; b: string; key: string };
 }
 
 export interface LibraryGroup {
@@ -34,6 +43,7 @@ export const LIBRARY: LibraryGroup[] = [
     purpose: "Public money — who receives it",
     queries: [
       {
+        id: "top-contractors",
         label: "Top contractors",
         answers: "Which companies have been paid the most across all contracts",
         cost: "medium",
@@ -48,6 +58,7 @@ ORDER BY eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "companies-by-all-public-money",
         label: "Companies by all public money",
         answers:
           "Who received the most across contracts, farm subsidies, EU funds and Interreg combined",
@@ -64,6 +75,7 @@ ORDER BY public_money_eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "contractors-ranked-and-scoped",
         label: "Contractors, ranked and scoped",
         answers:
           "The leaderboard the /procurement/contractors page draws, for one time window",
@@ -83,6 +95,7 @@ LIMIT 25;`,
     purpose: "Public money — who spends it",
     queries: [
       {
+        id: "top-awarders",
         label: "Top awarders",
         answers: "Which public bodies award the most money",
         cost: "medium",
@@ -95,6 +108,7 @@ ORDER BY eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "where-a-buyer-sits",
         label: "Where a buyer sits",
         answers:
           "The settlement, município and oblast a contracting authority is seated in",
@@ -105,6 +119,7 @@ ORDER BY oblast, municipality, settlement
 LIMIT 50;`,
       },
       {
+        id: "biggest-tenders",
         label: "Biggest tenders",
         answers: "The largest procedures put out to tender, by forecast value",
         cost: "fast",
@@ -119,6 +134,7 @@ ORDER BY estimated_value_eur DESC NULLS LAST
 LIMIT 50;`,
       },
       {
+        id: "forecast-vs-actual",
         label: "Forecast vs actual",
         answers:
           "How the announced value compares with what was eventually awarded",
@@ -137,6 +153,7 @@ ORDER BY awarded_eur DESC NULLS LAST
 LIMIT 50;`,
       },
       {
+        id: "one-buyer-s-procurement-profile",
         label: "One buyer's procurement profile",
         answers:
           "What a single authority buys, from whom, and how competitively",
@@ -156,6 +173,7 @@ FROM awarder_procurement('000695089') AS p;`,
     purpose: "Risk & competition",
     queries: [
       {
+        id: "single-bidder-contracts",
         label: "Single-bidder contracts",
         answers: "The largest contracts where only one company bid",
         cost: "fast",
@@ -166,6 +184,7 @@ ORDER BY amount_eur DESC NULLS LAST
 LIMIT 50;`,
       },
       {
+        id: "riskiest-buyers",
         label: "Riskiest buyers",
         answers: "Authorities whose contracts fire the most red flags, A–F",
         cost: "fast",
@@ -178,6 +197,7 @@ FROM awarder_risk_grade_top('all', 20, 0) AS t,
 LIMIT 20;`,
       },
       {
+        id: "appeals-and-how-they-ended",
         label: "Appeals and how they ended",
         answers: "Recent КЗК complaints against procurement decisions",
         cost: "fast",
@@ -197,6 +217,7 @@ LIMIT 30;`,
     purpose: "People & roles",
     queries: [
       {
+        id: "find-a-person",
         label: "Find a person",
         answers: "One name across every people dataset the project holds",
         cost: "fast",
@@ -208,6 +229,7 @@ ORDER BY public_money_eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "a-person-s-declared-wealth-by-year",
         label: "A person's declared wealth by year",
         answers: "What one official declared, year by year, and how it moved",
         cost: "fast",
@@ -222,6 +244,7 @@ ORDER BY w.net_eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "money-declared-abroad",
         label: "Money declared abroad",
         answers:
           "Which officials declare bank or investment holdings outside Bulgaria",
@@ -242,6 +265,7 @@ LIMIT 25;`,
     purpose: "Companies & ownership",
     queries: [
       {
+        id: "who-owns-a-company",
         label: "Who owns a company",
         answers: "The current cap table for one EIK, as percentages",
         cost: "fast",
@@ -251,12 +275,14 @@ LIMIT 25;`,
 SELECT * FROM tr_owner_share WHERE uic = '104119056' LIMIT 50;`,
       },
       {
+        id: "officers-of-a-company",
         label: "Officers of a company",
         answers: "Directors, managers and owners on record for one EIK",
         cost: "fast",
         sql: `SELECT * FROM company_officers('204332614') LIMIT 30;`,
       },
       {
+        id: "politically-connected-companies",
         label: "Politically connected companies",
         answers:
           "Firms linked to an MP or official, and the public money they hold",
@@ -272,6 +298,7 @@ LIMIT 25;`,
     purpose: "Places",
     queries: [
       {
+        id: "companies-registered-in-a-place",
         label: "Companies registered in a place",
         answers:
           "Which firms are seated in one settlement, ranked by public money",
@@ -285,6 +312,7 @@ ORDER BY money_eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "municipal-financial-health",
         label: "Municipal financial health",
         answers:
           "The quarterly indicators that decide whether a município is in fiscal difficulty",
@@ -304,6 +332,7 @@ LIMIT 50;`,
     purpose: "EU money — can I apply",
     queries: [
       {
+        id: "what-is-open-right-now",
         label: "What is open right now",
         answers: "Calls a reader could apply to today, with their deadlines",
         cost: "fast",
@@ -313,6 +342,7 @@ LIMIT 50;`,
 SELECT * FROM open_calls_list('open', 'call', NULL, NULL, 50);`,
       },
       {
+        id: "base-rates-for-a-procedure",
         label: "Base rates for a procedure",
         answers:
           "How many applicants a procedure funded before, and the median grant",
@@ -325,6 +355,7 @@ ORDER BY project_count DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "clean-delivery-register",
         label: "Clean delivery register",
         answers:
           "EU-funded contracts that finished with no financial correction",
@@ -341,6 +372,7 @@ SELECT * FROM isun_clean_delivery_coverage LIMIT 10;`,
     purpose: "Cross-border (Interreg)",
     queries: [
       {
+        id: "interreg-operations",
         label: "Interreg operations",
         answers:
           "Cross-border projects and their budgets — the corpus ИСУН does not hold",
@@ -355,6 +387,7 @@ ORDER BY total_budget_eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "bulgarian-interreg-partners",
         label: "Bulgarian Interreg partners",
         answers: "Which Bulgarian organisations take part, and for how much",
         cost: "fast",
@@ -372,6 +405,7 @@ LIMIT 25;`,
     purpose: "Parliament & voting",
     queries: [
       {
+        id: "voting-twins",
         label: "Voting twins",
         answers: "Which MPs vote together most often",
         cost: "medium",
@@ -387,6 +421,7 @@ ORDER BY cosine DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "party-cohesion",
         label: "Party cohesion",
         answers: "How often a party's MPs vote the same way",
         cost: "fast",
@@ -397,6 +432,7 @@ ORDER BY ns DESC, mean_cohesion DESC NULLS LAST
 LIMIT 30;`,
       },
       {
+        id: "a-day-in-the-chamber",
         label: "A day in the chamber",
         answers: "Every vote taken on one sitting day, with its outcome",
         cost: "fast",
@@ -415,6 +451,7 @@ LIMIT 30;`,
     purpose: "Health (НЗОК)",
     queries: [
       {
+        id: "what-the-health-fund-pays-each-hospital",
         label: "What the health fund pays each hospital",
         answers: "Per-hospital payments for inpatient care",
         cost: "fast",
@@ -425,6 +462,7 @@ ORDER BY cumulative_eur DESC NULLS LAST
 LIMIT 25;`,
       },
       {
+        id: "medicine-reimbursement-by-molecule",
         label: "Medicine reimbursement by molecule",
         answers: "What the fund spends per active substance",
         cost: "fast",
@@ -437,15 +475,98 @@ LIMIT 30;`,
     ],
   },
   {
+    // Every query here JOINS two corpora — these are what the map's lateral
+    // links point at, so a reader can run the claim rather than read it. A
+    // query that touches only one side would make the "run this query"
+    // affordance decorative, which is exactly what the first cut shipped.
+    purpose: "Where the corpora meet",
+    queries: [
+      {
+        id: "contractors-in-the-registry",
+        label: "Contractors in the company registry",
+        answers:
+          "Procurement winners matched to their Commerce Registry record — the ЕИК link",
+        cost: "medium",
+        walks: { a: "connections", b: "procurement", key: "eik" },
+        sql: `-- The ЕИК link: contracts.contractor_eik × tr_companies.uic.
+SELECT co.uic, co.name, co.legal_form, co.status,
+       ROUND(SUM(c.amount_eur)) AS eur, COUNT(*) AS contracts
+FROM contracts c
+JOIN tr_companies co ON co.uic = c.contractor_eik
+WHERE c.tag = 'contract'
+GROUP BY co.uic, co.name, co.legal_form, co.status
+ORDER BY eur DESC NULLS LAST
+LIMIT 25;`,
+      },
+      {
+        id: "both-contracts-and-eu-funds",
+        label: "Both contracts and EU funds",
+        answers: "Companies that take public contracts AND EU grants",
+        cost: "medium",
+        walks: { a: "funds", b: "procurement", key: "eik" },
+        sql: `-- Two DIFFERENT money bases: a contract's own value against a grant's.
+-- They are shown side by side, never summed into one figure.
+SELECT b.eik, b.name AS beneficiary,
+       ROUND(b.contracted_eur) AS funds_contracted_eur,
+       ROUND((SELECT SUM(c.amount_eur) FROM contracts c
+               WHERE c.contractor_eik = b.eik AND c.tag = 'contract')) AS procurement_eur
+FROM fund_beneficiaries b
+WHERE EXISTS (SELECT 1 FROM contracts c
+               WHERE c.contractor_eik = b.eik AND c.tag = 'contract')
+ORDER BY b.contracted_eur DESC NULLS LAST
+LIMIT 25;`,
+      },
+      {
+        id: "officials-who-hold-company-roles",
+        label: "Officials who hold company roles",
+        answers:
+          "Declaring officials who also appear in the Commerce Registry — the person link",
+        cost: "fast",
+        walks: { a: "connections", b: "officials", key: "person_id" },
+        sql: `-- person_role must be SCOPED to registry sources. Unscoped it holds a row
+-- for every declarant too, so the join answers "does this person exist" and
+-- returns 100% — a true count and a false sentence.
+SELECT p.display_name, count(DISTINCT r.ref) AS company_roles,
+       min(d.institution) AS institution
+FROM declaration d
+JOIN person p ON p.person_id = d.person_id
+JOIN person_role r ON r.person_id = d.person_id AND r.source IN ('tr','ngo')
+GROUP BY p.person_id, p.display_name
+ORDER BY company_roles DESC
+LIMIT 25;`,
+      },
+      {
+        id: "hospitals-that-also-buy",
+        label: "Hospitals that also run procurement",
+        answers:
+          "Facilities the health fund pays which are themselves contracting authorities",
+        cost: "fast",
+        walks: { a: "health", b: "procurement", key: "eik" },
+        sql: `-- The same legal entity on both sides: a hospital is paid by НЗОК and is
+-- itself a ЗОП contracting authority.
+SELECT n.eik, MIN(n.name) AS hospital,
+       ROUND(MAX(n.cumulative_eur)) AS nzok_eur,
+       ROUND(SUM(c.amount_eur)) AS awarded_eur
+FROM nzok_hospital_payments n
+JOIN contracts c ON c.awarder_eik = n.eik AND c.tag = 'contract'
+GROUP BY n.eik
+ORDER BY awarded_eur DESC NULLS LAST
+LIMIT 25;`,
+      },
+    ],
+  },
+  {
     purpose: "Search across everything",
     queries: [
       {
+        id: "name-search",
         label: "Name search",
         answers: "One name across companies, officers and contractors at once",
         cost: "fast",
         sql: `SELECT * FROM search_companies('лукойл', 20);`,
       },
       {
+        id: "unified-search",
         label: "Unified search",
         answers:
           "Companies, officers and non-registry contractors in one ranked feed",
@@ -458,6 +579,7 @@ LIMIT 30;`,
     purpose: "Data quality & freshness",
     queries: [
       {
+        id: "what-changed-recently",
         label: "What changed recently",
         answers: "New rows across every dataset, newest first",
         cost: "medium",
@@ -466,6 +588,7 @@ LIMIT 30;`,
 SELECT * FROM recent_updates(7, 100);`,
       },
       {
+        id: "corpus-sizes",
         label: "Corpus sizes",
         answers:
           "How big each table is — an estimate, stale until autovacuum runs",

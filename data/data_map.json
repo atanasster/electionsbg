@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-08-31T22:15:25.297Z",
+  "generatedAt": "2026-08-31T23:44:43.813Z",
   "nodes": [
     {
       "id": "src:water",
@@ -5198,6 +5198,50 @@
   ],
   "tours": [
     {
+      "id": "linked",
+      "title": {
+        "bg": "Как се свързват данните",
+        "en": "How the data connects"
+      },
+      "steps": [
+        {
+          "node": "ds:procurement",
+          "text": {
+            "bg": "Започваме с обществените поръчки: близо 410 000 договора, всеки с ЕИК на изпълнителя.",
+            "en": "Start with public procurement: nearly 410,000 contracts, each carrying its contractor's company number."
+          }
+        },
+        {
+          "node": "ds:connections",
+          "text": {
+            "bg": "Този ЕИК е ключът към Търговския регистър — 18 713 изпълнителя се намират там като фирми със собственици и управители.",
+            "en": "That company number is the key into the Commerce Registry — 18,713 contractors are found there as companies with owners and directors."
+          }
+        },
+        {
+          "node": "ds:funds",
+          "text": {
+            "bg": "Същият ключ показва кой получава и европейски средства: 40 265 фирми се появяват и в двата масива.",
+            "en": "The same key shows who also receives EU money: 40,265 companies appear in both corpora."
+          }
+        },
+        {
+          "node": "ds:interreg",
+          "text": {
+            "bg": "Interreg обаче се управлява на друга система и не минава през ИСУН — затова е отделен масив, а двете суми никога не се събират.",
+            "en": "Interreg, though, runs on a different system and never passes through ИСУН — so it is a separate dataset, and the two totals are never added together."
+          }
+        },
+        {
+          "node": "ds:officials",
+          "text": {
+            "bg": "А през лицата се затваря кръгът: 5 612 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,612 officials who file asset declarations also hold a role in the company registry."
+          }
+        }
+      ]
+    },
+    {
       "id": "ballot",
       "title": {
         "bg": "Как протоколът става карта",
@@ -5334,7 +5378,8 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18713
+      "overlap": 18713,
+      "query": "contractors-in-the-registry"
     },
     {
       "id": "funds|procurement|eik",
@@ -5346,7 +5391,8 @@
         "bg": "кой е получил и обществени поръчки, и европейски средства",
         "en": "who received both public contracts and EU funds"
       },
-      "overlap": 5702
+      "overlap": 5702,
+      "query": "both-contracts-and-eu-funds"
     },
     {
       "id": "connections|funds|eik",
@@ -5394,7 +5440,8 @@
         "bg": "болниците, които НЗОК плаща, като възложители на поръчки",
         "en": "the hospitals the health fund pays, as procurement buyers"
       },
-      "overlap": 169
+      "overlap": 169,
+      "query": "hospitals-that-also-buy"
     },
     {
       "id": "connections|health|eik",
@@ -5520,7 +5567,8 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5612
+      "overlap": 5612,
+      "query": "officials-who-hold-company-roles"
     },
     {
       "id": "elections|officials|person_id",
