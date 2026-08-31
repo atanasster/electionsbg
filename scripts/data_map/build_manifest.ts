@@ -19,14 +19,17 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import ELK from "elkjs/lib/elk.bundled.js";
 import type { ElkNode } from "elkjs/lib/elk-api";
 import { SOURCES } from "../watch/sources/index";
+import { isExcluded } from "../bucket_sync_paths";
 import type { Cadence } from "../watch/types";
 import {
   AI_PATH_RULES,
   DATASETS,
+  type DatasetDef,
+  type DatasetServing,
   EDGES,
   FEATURES,
   SOURCE_GROUPS,
@@ -73,6 +76,10 @@ export interface ManifestNode {
   cadence?: Cadence;
   freshness?: string;
   path?: string;
+  /** What a reader fetches: "bucket" | "pg" | "both". */
+  serving?: DatasetServing;
+  /** Postgres relations this dataset owns (pg/both only). */
+  tables?: string[];
   skills?: string[];
   sources?: ManifestSourceRef[];
   x: number;
@@ -192,6 +199,86 @@ const deriveAiEdges = (): { edges: [string, string][]; paths: number } => {
   };
 };
 
+/**
+ * Rules 1-4 of the `serving` contract (plan §1b.2). Rule 5 — every non-noise
+ * relation claimed by exactly one node — needs a live database and lands
+ * separately.
+ *
+ * The point of rule 2 in particular: before `serving` existed, `path` meant
+ * "where the JSON lives" OR "a load source nothing publishes" OR nothing at
+ * all, and three nodes (ds:procurement, ds:funds, ds:opencalls) advertised
+ * `data/` trees that `isExcluded` refuses to upload. A reader was told the data
+ * was somewhere it is deliberately never served from.
+ */
+/**
+ * A declared `path` must be a tree the bucket actually publishes. Applies to
+ * BOTH "bucket" and "both" — this check originally ran only on "both", of which
+ * there were no instances, so the invariant that motivated the whole `serving`
+ * field was enforced nowhere it could fire.
+ *
+ * public/ paths are build outputs rather than synced data/ trees (and
+ * `public/*.geojson` is a glob, not a sync-relative path), so they are exempt
+ * rather than silently handed to isExcluded().
+ */
+const assertServedPath = (
+  d: DatasetDef,
+  onFail: (msg: string) => never,
+): void => {
+  if (!d.path || !d.path.startsWith("data/")) return;
+  const rel = d.path.replace(/^data\//, "").replace(/\/$/, "");
+  const why = isExcluded(rel);
+  if (why)
+    onFail(
+      `dataset "${d.id}": serving "${d.serving}" names path ${d.path}, but bucket sync ` +
+        `excludes it (${why}). Nothing published means nothing a reader can fetch — ` +
+        `either name a served subtree, or use serving "pg" and drop the path.`,
+    );
+};
+
+export const validateDatasetServing = (
+  datasets: DatasetDef[] = DATASETS,
+  onFail: (msg: string) => never = fail,
+): void => {
+  const claimed = new Map<string, string>();
+  for (const d of datasets) {
+    const where = `dataset "${d.id}"`;
+    if (d.serving === "bucket") {
+      if (!d.path)
+        onFail(
+          `${where}: serving "bucket" requires a path (what readers fetch)`,
+        );
+      if (d.tables?.length)
+        onFail(
+          `${where}: serving "bucket" must not declare tables — use "both" if it owns relations`,
+        );
+      assertServedPath(d, onFail);
+    } else {
+      if (!d.tables?.length)
+        onFail(
+          `${where}: serving "${d.serving}" requires tables[] naming the relations it owns`,
+        );
+      if (d.serving === "pg" && d.path)
+        onFail(
+          `${where}: serving "pg" must not carry a path — ${d.path} is a load source, ` +
+            `not something a reader fetches. Use "both" only if a served JSON tree also exists.`,
+        );
+      if (d.serving === "both") {
+        if (!d.path) onFail(`${where}: serving "both" requires a path`);
+        assertServedPath(d, onFail);
+      }
+    }
+    for (const t of d.tables ?? []) {
+      const prev = claimed.get(t);
+      if (prev)
+        onFail(
+          `relation "${t}" is claimed by two datasets ("${prev}" and "${d.id}") — ` +
+            `exactly one node may own it`,
+        );
+      claimed.set(t, d.id);
+    }
+  }
+};
+
 const validate = (edges: [string, string][]): void => {
   const registryIds = new Set(SOURCES.map((s) => s.id));
   const placed = new Map<string, string>();
@@ -256,6 +343,8 @@ const validate = (edges: [string, string][]): void => {
   }
   const orphans = [...nodeIds].filter((id) => !connected.has(id));
   if (orphans.length) fail(`node(s) with no edges: ${orphans.join(", ")}`);
+
+  validateDatasetServing();
 
   const viewTags = new Set(VIEWS.map((v) => v.tag).filter(Boolean) as string[]);
   for (const n of [...SOURCE_GROUPS, ...DATASETS, ...FEATURES]) {
@@ -334,6 +423,8 @@ const buildNodes = (): ManifestNode[] => {
       desc: d.desc,
       tags: d.tags,
       path: d.path,
+      serving: d.serving,
+      ...(d.tables?.length ? { tables: d.tables } : {}),
       x: 0,
       y: 0,
       w: NODE_W,
@@ -480,7 +571,15 @@ const main = async (): Promise<void> => {
   );
 };
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Only build when RUN as a script. Without this guard, importing anything from
+// this module (model.test.ts imports validateDatasetServing) starts main(),
+// which lays the graph out and writes data/data_map.json — so `npm run
+// test:unit` silently repaired a stale committed manifest mid-run, turning the
+// drift test into "fail once, green on re-run" with the artifact quietly
+// modified. Measured: a manifest doctored to 174 edges came back as 178.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

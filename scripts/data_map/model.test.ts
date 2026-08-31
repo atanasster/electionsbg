@@ -10,6 +10,8 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { DATASETS, EDGES, SOURCE_GROUPS, FEATURES } from "./model";
+import type { DatasetDef } from "./model";
+import { validateDatasetServing } from "./build_manifest";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const manifest = JSON.parse(
@@ -112,5 +114,125 @@ describe("committed manifest", () => {
       (e) => e.from.startsWith("ds:") && e.to.startsWith("ds:"),
     );
     expect(lateral).toEqual([]);
+  });
+});
+
+describe("dataset serving contract", () => {
+  // Rules 1-4 of plan §1b.2. `serving` exists because `path` used to mean three
+  // incompatible things at once, and three nodes advertised data/ trees that
+  // bucket sync deliberately never uploads.
+  const base = {
+    label: { bg: "x", en: "x" },
+    detail: { bg: "x", en: "x" },
+    desc: { bg: "x", en: "x" },
+    tags: ["fiscal"],
+  };
+  const check = (d: Partial<DatasetDef>): string | null => {
+    let msg: string | null = null;
+    validateDatasetServing([{ id: "t", ...base, ...d } as DatasetDef], (m) => {
+      msg = m;
+      throw new Error(m);
+    });
+    return msg;
+  };
+  const err = (d: Partial<DatasetDef>): string => {
+    try {
+      check(d);
+    } catch (e) {
+      return (e as Error).message;
+    }
+    throw new Error("expected a validation failure, got none");
+  };
+
+  it("accepts the real model", () => {
+    expect(() => validateDatasetServing()).not.toThrow();
+  });
+
+  it("rule 1 — bucket needs a path and may not own relations", () => {
+    expect(err({ serving: "bucket" })).toMatch(/requires a path/);
+    expect(
+      err({ serving: "bucket", path: "data/x/", tables: ["contracts"] }),
+    ).toMatch(/must not declare tables/);
+  });
+
+  it("rule 2 — pg needs tables and may not advertise a path", () => {
+    expect(err({ serving: "pg" })).toMatch(/requires tables\[\]/);
+    expect(
+      err({ serving: "pg", path: "data/funds/", tables: ["fund_projects"] }),
+    ).toMatch(/must not carry a path/);
+  });
+
+  it("rule 3 — both may not name a bucket-excluded path", () => {
+    // data/funds/ IS excluded (it is a Cloud SQL load source), so declaring it
+    // as served is the exact error this rule exists to catch.
+    expect(
+      err({ serving: "both", path: "data/funds/", tables: ["fund_projects"] }),
+    ).toMatch(/bucket sync excludes it/);
+    // a genuinely served tree is fine
+    expect(() =>
+      check({ serving: "both", path: "data/water/", tables: ["contracts"] }),
+    ).not.toThrow();
+  });
+
+  it("rule 4 — a relation is owned by exactly one dataset", () => {
+    let msg = "";
+    expect(() =>
+      validateDatasetServing(
+        [
+          { id: "a", ...base, serving: "pg", tables: ["contracts"] },
+          { id: "b", ...base, serving: "pg", tables: ["contracts"] },
+        ] as DatasetDef[],
+        (m) => {
+          msg = m;
+          throw new Error(m);
+        },
+      ),
+    ).toThrow();
+    expect(msg).toMatch(/claimed by two datasets/);
+  });
+
+  it("every pg/both dataset names only real, non-duplicated relations", () => {
+    const seen = new Set<string>();
+    for (const d of DATASETS) {
+      if (d.serving === "bucket") continue;
+      for (const t of d.tables ?? []) {
+        expect(seen.has(t), `${t} claimed twice`).toBe(false);
+        seen.add(t);
+      }
+    }
+    expect(seen.size).toBeGreaterThan(40);
+  });
+});
+
+describe("build_manifest is import-safe", () => {
+  // model.test.ts imports validateDatasetServing from build_manifest.ts. Before
+  // the entry-point guard, that import ran main() — laying out the graph and
+  // writing data/data_map.json — so `npm run test:unit` silently repaired a
+  // stale committed manifest mid-run: the drift test above would fail once and
+  // pass on re-run, with the artifact quietly modified. Measured: a manifest
+  // doctored down to 174 edges came back as 178 after one test run.
+  //
+  // A static check, because the failure is an import side effect: by the time a
+  // runtime assertion could observe it, the write has already happened.
+  it("only builds when run as a script", () => {
+    const src = readFileSync(
+      path.join(ROOT, "scripts/data_map/build_manifest.ts"),
+      "utf8",
+    );
+    expect(src).toMatch(
+      /if \(import\.meta\.url === pathToFileURL\(process\.argv\[1\][^)]*\)\.href\) \{\s*\n\s*main\(\)/,
+    );
+    // and nowhere an unguarded top-level call
+    expect(src).not.toMatch(/^main\(\)/m);
+  });
+
+  it("leaves the committed manifest untouched when imported", () => {
+    // The import at the top of this file has already happened; if the guard
+    // regressed, the manifest on disk would differ from what we read at module
+    // scope.
+    const now = JSON.parse(
+      readFileSync(path.join(ROOT, "data/data_map.json"), "utf8"),
+    ) as { edges: unknown[] };
+    expect(now.edges.length).toBe(manifest.edges.length);
   });
 });

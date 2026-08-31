@@ -89,13 +89,35 @@ export const WATCH_ONLY_SOURCES: Record<string, string> = {
     "not remove this entry expecting a dataset to appear.",
 };
 
+/**
+ * "bucket" — readers fetch JSON from the GCS tree at `path`.
+ * "pg"     — readers hit /api/db/*; any data/ tree is a LOAD SOURCE, not
+ *            something served, so `path` must be absent.
+ * "both"   — a served JSON tree AND owned relations.
+ */
+export type DatasetServing = "bucket" | "pg" | "both";
+
 export interface DatasetDef {
   id: string;
   label: Lang;
   detail: Lang;
   desc: Lang;
-  /** Representative path under data/ or public/ (shown in the detail panel). */
+  /**
+   * Where the JSON a reader actually fetches lives. It used to mean three
+   * different things: that, OR a PG load source `isExcluded` deliberately never
+   * uploads (ds:procurement, ds:funds and ds:opencalls each carried one), OR
+   * nothing at all for PG-only datasets. So the map told a reader "the data is
+   * at data/funds/" about a tree that is never published. `serving` is what
+   * disambiguates it, and validateDatasetServing() enforces the pairing.
+   */
   path?: string;
+  /** What a reader actually fetches. */
+  serving: DatasetServing;
+  /**
+   * The Postgres relations this node OWNS — required when `serving` is "pg" or
+   * "both". Exactly one dataset may claim a given relation.
+   */
+  tables?: string[];
   tags: string[];
 }
 
@@ -1198,6 +1220,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The Bulgarian Water Holding group's consolidated public procurement (by operator and by function) and the riverbed-cleaning contracts (by awarder, by year, largest), from the АОП/ЦАИС ЕОП register.",
     },
     path: "data/water/",
+    serving: "bucket",
     tags: ["fiscal"],
   },
   {
@@ -1212,6 +1235,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Every parliamentary vote since 2005 — by section, settlement, municipality and region, with machine/paper splits, preferences and the derived risk index.",
     },
     path: "public/{election}/",
+    serving: "bucket",
     tags: ["elections"],
   },
   {
@@ -1226,6 +1250,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Mayor and council results from every regular cycle since 2007 plus the partial and new elections in between. Per-polling-station data (both the mayor and council ballots) powers the section maps.",
     },
     path: "data/{cycle}_mi/",
+    serving: "bucket",
     tags: ["local", "elections"],
   },
   {
@@ -1240,6 +1265,28 @@ export const DATASETS: DatasetDef[] = [
       en: "Every roll-call vote with derived metrics — party loyalty, attendance, MP similarity and group cohesion.",
     },
     path: "data/parliament/votes/",
+    serving: "both",
+    tables: [
+      "vote_item",
+      "vote_cast",
+      "vote_day",
+      "mp_seat",
+      "party_dim",
+      "bill",
+      "mp_attendance",
+      "mp_dissent",
+      "mp_similarity",
+      "mp_vote_norm",
+      "mp_loyalty",
+      "party_cohesion",
+      "party_cohesion_summary",
+      "party_pair_break",
+      "mp_roster",
+      "mp_profile",
+      "mp_profile_detail",
+      "mp_car",
+      "mp_cars_table",
+    ],
     tags: ["parliament"],
   },
   {
@@ -1253,7 +1300,13 @@ export const DATASETS: DatasetDef[] = [
       bg: "Бизнес връзките между хора във властта и фирми — обща собственост (Търговски регистър) и обществени поръчки, изчислени на живо от графовия слой в Postgres.",
       en: "Business ties between people in power and companies — shared ownership (Commerce Registry) and public procurement, computed live from the Postgres graph engine.",
     },
-    path: "scripts/db/load_graph_pg.ts",
+    serving: "pg",
+    tables: [
+      "graph_edge",
+      "graph_company_node",
+      "graph_person_node",
+      "graph_payloads",
+    ],
     tags: ["parliament"],
   },
   {
@@ -1271,6 +1324,20 @@ export const DATASETS: DatasetDef[] = [
       en: "Declared assets of cabinet members, governors and the municipal tier — mayors, council chairs, councillors.",
     },
     path: "data/officials/",
+    serving: "both",
+    tables: [
+      "declaration",
+      "declaration_asset",
+      "declaration_employer_link",
+      "declaration_event",
+      "declaration_income",
+      "declaration_obligation",
+      "declaration_stake",
+      "declaration_stake_company",
+      "declaration_subject_alias",
+      "official_candidate_link",
+      "official_roster",
+    ],
     tags: ["parliament", "local"],
   },
   {
@@ -1285,6 +1352,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Declared party income and spending for every campaign plus annual reports — including individual donors.",
     },
     path: "data/financing/",
+    serving: "bucket",
     tags: ["elections"],
   },
   {
@@ -1298,7 +1366,32 @@ export const DATASETS: DatasetDef[] = [
       bg: "Всички договори от АОП (OCDS емисията) плюс попълване от ЦАИС ЕОП за малките възложители, които АОП пропуска — по месеци, изпълнители и възложители, с локализация до населено място и кръстосване с фирмите, свързани с депутати и длъжностни лица.",
       en: "Every procurement contract from АОП (the OCDS feed) plus a ЦАИС ЕОП gap-fill for the small contracting authorities АОП omits — by month, contractor and awarder, localised to settlement level and cross-referenced against companies tied to MPs and public officials.",
     },
-    path: "data/procurement/",
+    // "both", and the split is unusually fine-grained: data/procurement/ as a
+    // whole is a Cloud SQL load source, but bucket_sync_paths.ts carves out an
+    // allow-list inside it — roads.json, derived/{hub_stats,sector_stats,
+    // mp_party}.json and projects/** are published and read by live hooks
+    // (useProcurementHubStats, useSectorStats, useMpParty, useRoadGeometry,
+    // useProjectFile, ai/tools/projectLifecycle.ts). So `path` names a served
+    // subtree rather than the excluded root.
+    serving: "both",
+    path: "data/procurement/projects/",
+    tables: [
+      "contracts",
+      "tenders",
+      "procurement_annexes",
+      "tender_subcontracting",
+      "ted_notice",
+      "ted_coverage",
+      "adfi_inspection",
+      "adfi_coverage",
+      "cprs_firm",
+      "cprs_licence",
+      "aop_expert",
+      "aop_expert_area",
+      "aop_expert_coverage",
+      "kzk_appeals",
+      "kzk_decisions",
+    ],
     tags: ["fiscal"],
   },
   {
@@ -1315,7 +1408,9 @@ export const DATASETS: DatasetDef[] = [
       bg: "Регистърът на юридическите лица с нестопанска цел (сдружения, фондации, читалища) от общата база на Търговския регистър — управителни съвети, представляващи и настоятелства, цели и статут за обществена полза, гражданство на членовете, плюс полученото публично и външно финансиране (държавни субсидии, пряко управлявани средства от ЕС). Само в базата данни — сървира се от Postgres, без статични JSON файлове.",
       en: "The register of non-profit legal entities (associations, foundations, community centres) from the shared Commerce Registry database — management boards, representatives and boards of trustees, objectives and public-benefit status, member nationality, plus the public and external funding received (state subsidies, directly-managed EU funds). Database-only — served live from Postgres, no static JSON.",
     },
-    path: "raw_data/tr/state.sqlite",
+    serving: "both",
+    path: "data/ngo/",
+    tables: ["ngo_details", "ngo_funding", "ngo_signals", "ngo_board_links"],
     tags: ["fiscal", "parliament"],
   },
   {
@@ -1331,7 +1426,16 @@ export const DATASETS: DatasetDef[] = [
     },
     // `path` covers the ИСУН corpus only. data/funds/interreg/ sits inside this
     // directory but belongs to ds:interreg — a load source, not a served tree.
-    path: "data/funds/",
+    serving: "pg",
+    tables: [
+      "fund_projects",
+      "fund_beneficiaries",
+      "fund_payloads",
+      "fund_fit",
+      "isun_clean_contract",
+      "isun_clean_beneficiary",
+      "isun_clean_delivery_coverage",
+    ],
     tags: ["fiscal", "local"],
   },
   {
@@ -1363,8 +1467,10 @@ export const DATASETS: DatasetDef[] = [
     // interreg_operations / interreg_partners / interreg_programmes (migration
     // 137) through /api/db/interreg-*. So the precedent is ds:municipal_fiscal
     // (a committed load source with no path), not ds:agri or ds:prices (which
-    // genuinely have no JSON at all). T0b replaces this comment with
-    // serving: "pg" + tables[], where the distinction becomes checkable.
+    // genuinely have no JSON at all). `serving: "pg"` + `tables[]` below now
+    // carry that distinction as data, where the build can check it.
+    serving: "pg",
+    tables: ["interreg_programmes", "interreg_operations", "interreg_partners"],
     tags: ["fiscal", "local"],
   },
   {
@@ -1378,7 +1484,8 @@ export const DATASETS: DatasetDef[] = [
       bg: "Регистър на процедурите, приемащи проекти сега — с краен срок, бюджет и допустими кандидати, доколкото източникът ги публикува. Три отделни неща, които никога не се смесват: отворена процедура с публикуван краен срок, очакван прием по индикативен график (период, не срок) и проект на насоки за обсъждане (още не се кандидатства). Съхранява се в Postgres (open_calls); зареждащият никога не изтрива, така че затворените процедури остават като архив.",
       en: "A register of procedures currently accepting applications — with the deadline, budget and eligible applicants, as far as the source publishes them. Three separate things that are never mixed: an open call with a published deadline, an expected intake from an indicative schedule (a period, not a deadline), and draft guidance out for consultation (you cannot apply yet). Stored in Postgres (open_calls); the loader never deletes, so closed calls remain as an archive.",
     },
-    path: "data/opencalls/",
+    serving: "pg",
+    tables: ["open_calls", "open_calls_crawl"],
     tags: ["fiscal", "local"],
   },
   {
@@ -1392,6 +1499,17 @@ export const DATASETS: DatasetDef[] = [
       bg: "Изплатените субсидии от ДФ „Земеделие“ по бенефициент, схема и област — с концентрация, топ получатели и връзка към поръчки и еврофондове по ЕИК. Съхранява се директно в Postgres (agri_subsidies, agri_payloads).",
       en: "Subsidies paid by the State Fund Agriculture by beneficiary, scheme and region — with concentration, top recipients and an EIK link to procurement and EU funds. Stored directly in Postgres (agri_subsidies, agri_payloads).",
     },
+    serving: "pg",
+    tables: [
+      "agri_subsidies",
+      "agri_payloads",
+      "agri_beneficiary",
+      "agri_beneficiary_year",
+      "agri_scheme_year",
+      "agri_cross_programme",
+      "agri_political_link",
+      "agri_hub_stats_cache",
+    ],
     tags: ["fiscal"],
   },
   {
@@ -1406,6 +1524,17 @@ export const DATASETS: DatasetDef[] = [
       en: "The movement of cases through Bulgaria's courts since 2018 — filed, resolved and pending, the share closed inside the three-month deadline, judge posts and both official workload measures (per post and actual), by court tier and by individual court (a geocoded workload map). Plus the full magistrate roster's asset-declaration index and the companies they declare, cross-linked to public procurement and — through shared officers — to politicians.",
     },
     path: "data/judiciary/",
+    serving: "both",
+    tables: [
+      "judicial_body",
+      "judicial_body_alias",
+      "judicial_body_source_name",
+      "court_load",
+      "magistrate",
+      "magistrate_company",
+      "magistrate_filing",
+      "magistrate_filing_asset",
+    ],
     tags: ["fiscal"],
   },
   {
@@ -1420,6 +1549,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Bulgaria's defence spending as a share of GDP (the road to the 5% target), the equipment-vs-personnel split, the flagship programs (F-16, Stryker, patrol ships), the record post-2022 arms exports and force readiness.",
     },
     path: "data/defense/",
+    serving: "bucket",
     tags: ["fiscal", "indicators"],
   },
   {
@@ -1434,6 +1564,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember, the household electricity price vs the EU from Eurostat, and a power-plant registry (capacity and ownership) from Global Energy Monitor. The state energy group's (БЕХ) procurement comes from the contracts corpus.",
     },
     path: "data/energy/",
+    serving: "bucket",
     tags: ["indicators", "prices"],
   },
   {
@@ -1448,6 +1579,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The outcome layer beside МВР's money: national road-traffic deaths by year from Eurostat (708 peak 2015 → 478 in 2024), paired with МВР patrol-car procurement. The МВР group's procurement (~75 units, ~€1.9bn) comes from the contracts corpus; the spend-vs-crime scatter reuses data/regional.json.",
     },
     path: "data/security/",
+    serving: "bucket",
     tags: ["indicators"],
   },
   {
@@ -1462,6 +1594,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (~€7.3bn, 15 entities) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector.",
     },
     path: "data/transport/",
+    serving: "bucket",
     tags: ["indicators"],
   },
   {
@@ -1476,6 +1609,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (the body group in ADMIN_SECTOR_EIKS) comes from the contracts corpus.",
     },
     path: "data/administration/",
+    serving: "bucket",
     tags: ["fiscal", "indicators"],
   },
   {
@@ -1490,6 +1624,7 @@ export const DATASETS: DatasetDef[] = [
       en: "АСП benefits by type (child allowances, disability, heating aid, GMI — national/annual) and the poverty-reduction effect of social transfers vs the EU (Eurostat ilc_li10/ilc_li02). The МТСП budget by benefit type comes from the budget tree; the group's procurement from the contracts corpus. Pensions (НОИ) are a separate view.",
     },
     path: "data/social/",
+    serving: "bucket",
     tags: ["fiscal", "indicators"],
   },
   {
@@ -1504,6 +1639,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The National Film Center's state subsidy for film (2014–2025) — by discipline (feature, documentary, animation), by producer and by year, with the concentration of money among the most-funded producers. Plus НФК grant success rates, the state cultural institutes by oblast, the national artistic-commission compositions (who decides the film money), and municipal & community-centre culture (Sofia's „Култура“ programme by direction and the national читалища subsidy).",
     },
     path: "data/culture/",
+    serving: "bucket",
     tags: ["fiscal"],
   },
   {
@@ -1518,6 +1654,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Bulgaria's pension system from the NSSI statistical yearbook — average pension and cash payments by oblast, the distribution of pensioners by pension size (minimum and cap), and the national wage–insurable-income–pension series, plus who pays for ДОО (contributions vs the state-budget transfer). Also the private pension funds (pillars 2 & 3) from КФН — net assets and insured persons per fund.",
     },
     path: "data/budget/noi/pensions.json",
+    serving: "bucket",
     tags: ["fiscal"],
   },
   {
@@ -1532,6 +1669,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Planned revenue and transfers per fund from art. 1–8 of the Social Security Budget Act — the Pensions fund, art. 69 (uniformed services) pensions, non-contributory pensions, work-injury, sickness & maternity and unemployment, plus НОИ's own budget. This is the LAW's plan; cash execution comes separately from НОИ's monthly B1 report. The headline is a sum of the fund lines, not a consolidated budget — inter-fund transfers are not eliminated, so the two sides are not netted against each other.",
     },
     path: "data/budget/noi/fund_plan.json",
+    serving: "bucket",
     tags: ["fiscal"],
   },
   {
@@ -1553,6 +1691,7 @@ export const DATASETS: DatasetDef[] = [
     // unrelated datasets), so `path` names the larger file and the description
     // names the sibling.
     path: "data/budget/noi/mod_schedule.json",
+    serving: "bucket",
     tags: ["fiscal"],
   },
   {
@@ -1567,6 +1706,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The mixed fiscal frame for 2026 — the year has no single law: the ЗБДОО and ЗБНЗОК are promulgated, the ЗДБРБ is not, so the state side runs on a bridging law. Every line carries its kind: law, interim law, execution (monthly КФП annualised on the 2022–2025 seasonal profile) or a value carried from an older year. The balance is DERIVED from revenue and expenditure — its own seasonality does not survive the subtraction, so it is never extrapolated directly. There is no 2026 plan line and will not be one until the ЗДБРБ passes.",
     },
     path: "data/budget/derived/fy2026_frame.json",
+    serving: "bucket",
     tags: ["fiscal"],
   },
   {
@@ -1587,6 +1727,8 @@ export const DATASETS: DatasetDef[] = [
     // under data/budget/municipal_fiscal/ is the loader's input and is excluded
     // from bucket sync twice over, so naming it here would invite a reader of
     // /data to expect a download that does not exist.
+    serving: "pg",
+    tables: ["municipal_fiscal", "obshtina_population"],
     tags: ["fiscal", "local"],
   },
   {
@@ -1601,6 +1743,27 @@ export const DATASETS: DatasetDef[] = [
       en: "Budget law versus cash execution — by ministry and programme, with the revenue breakdown (VAT, excise, customs), municipal budgets, the investment programme and NSSI funds.",
     },
     path: "data/budget/",
+    serving: "both",
+    tables: [
+      "budget_admin_fact",
+      "budget_admin_node",
+      "budget_admin_procurement",
+      "budget_cofog",
+      "budget_document",
+      "budget_fiscal_year",
+      "budget_fiscal_year_figure",
+      "budget_hub_stats_cache",
+      "budget_kfp_observation",
+      "budget_kfp_snapshot_line",
+      "budget_kfp_snapshot_section",
+      "budget_muni_capital_project",
+      "budget_muni_execution",
+      "budget_muni_ipop_project",
+      "budget_muni_transfer",
+      "budget_peer_band",
+      "budget_personnel",
+      "budget_program_fact",
+    ],
     tags: ["fiscal"],
   },
   {
@@ -1615,6 +1778,7 @@ export const DATASETS: DatasetDef[] = [
       en: "National macro series and EU comparisons — growth, inflation, debt, the fiscal reserve, COFOG spending structure, governance indicators and the cabinet timeline.",
     },
     path: "data/macro.json",
+    serving: "bucket",
     tags: ["indicators", "fiscal"],
   },
   {
@@ -1632,6 +1796,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Monthly foreign-direct-investment flows into Bulgaria from the balance of payments (BPM6) since 2010 — total, equity, reinvested earnings and debt instruments, plus the year-to-date cumulative versus the same period a year earlier.",
     },
     path: "data/macro_fdi.json",
+    serving: "bucket",
     tags: ["indicators", "fiscal"],
   },
   {
@@ -1646,6 +1811,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region. Also a per-school layer (/education + the /school report cards): ДЗИ results, performance versus the community's socioeconomic context (a Census-2021 index) and 7→12 value-added against the 7th-grade НВО intake, plus textbook-market concentration (from procurement, CPV 22112).",
     },
     path: "data/schools/index.json",
+    serving: "bucket",
     tags: ["indicators"],
   },
   {
@@ -1660,6 +1826,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Census 2021 by education, age and ethnicity, GRAO address registers and vital statistics — the base for demographic vote analysis.",
     },
     path: "data/census/",
+    serving: "bucket",
     tags: ["indicators", "elections"],
   },
   {
@@ -1677,6 +1844,14 @@ export const DATASETS: DatasetDef[] = [
     // every other value in it is a filesystem path. The Postgres half is said
     // in `desc`, which is what the agri and ngo nodes do.
     path: "data/local_taxes/",
+    serving: "both",
+    tables: [
+      "council_muni",
+      "council_muni_code",
+      "council_resolution",
+      "council_vote",
+      "municipal_officials_table",
+    ],
     tags: ["local"],
   },
   {
@@ -1691,6 +1866,23 @@ export const DATASETS: DatasetDef[] = [
       en: "The consumer basket since euro adoption — min/average/max prices by settlement and product, category indices, chain comparison and a ~118,000-product catalogue with price history. Stored directly in Postgres (price_facts, price_products, price_payloads); no static JSON.",
     },
     // No `path`: Postgres-only, like ds:agri. Served live via /api/db/price-*.
+    serving: "pg",
+    tables: [
+      "price_facts",
+      "price_products",
+      "price_skus",
+      "price_stores",
+      "price_chains",
+      "price_current",
+      "price_last_seen",
+      "price_payloads",
+      "price_product_days",
+      "price_chain_days",
+      "price_chain_grid_days",
+      "price_grid_days",
+      "price_kzp_cats",
+      "price_kzp_products",
+    ],
     tags: ["prices"],
   },
   {
@@ -1705,6 +1897,7 @@ export const DATASETS: DatasetDef[] = [
       en: "Pre-election surveys for every vote with each agency's measured accuracy against the real result.",
     },
     path: "data/polls/",
+    serving: "bucket",
     tags: ["elections"],
   },
   {
@@ -1719,6 +1912,7 @@ export const DATASETS: DatasetDef[] = [
       en: "The boundaries and coordinates under every map — regions, municipalities, settlements, Sofia districts and polling-station locations.",
     },
     path: "public/*.geojson",
+    serving: "bucket",
     tags: ["elections", "local", "indicators"],
   },
 ];

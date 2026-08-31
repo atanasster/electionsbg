@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-31T19:43:36.432Z",
+  "generatedAt": "2026-08-31T20:16:29.553Z",
   "nodes": [
     {
       "id": "src:water",
@@ -2399,6 +2399,7 @@
         "fiscal"
       ],
       "path": "data/water/",
+      "serving": "bucket",
       "x": 378,
       "y": 1865,
       "w": 240,
@@ -2423,6 +2424,7 @@
         "elections"
       ],
       "path": "public/{election}/",
+      "serving": "bucket",
       "x": 378,
       "y": 764,
       "w": 240,
@@ -2448,6 +2450,7 @@
         "elections"
       ],
       "path": "data/{cycle}_mi/",
+      "serving": "bucket",
       "x": 378,
       "y": 842,
       "w": 240,
@@ -2472,6 +2475,28 @@
         "parliament"
       ],
       "path": "data/parliament/votes/",
+      "serving": "both",
+      "tables": [
+        "vote_item",
+        "vote_cast",
+        "vote_day",
+        "mp_seat",
+        "party_dim",
+        "bill",
+        "mp_attendance",
+        "mp_dissent",
+        "mp_similarity",
+        "mp_vote_norm",
+        "mp_loyalty",
+        "party_cohesion",
+        "party_cohesion_summary",
+        "party_pair_break",
+        "mp_roster",
+        "mp_profile",
+        "mp_profile_detail",
+        "mp_car",
+        "mp_cars_table"
+      ],
       "x": 378,
       "y": 3222,
       "w": 240,
@@ -2495,7 +2520,13 @@
       "tags": [
         "parliament"
       ],
-      "path": "scripts/db/load_graph_pg.ts",
+      "serving": "pg",
+      "tables": [
+        "graph_edge",
+        "graph_company_node",
+        "graph_person_node",
+        "graph_payloads"
+      ],
       "x": 378,
       "y": 3066,
       "w": 240,
@@ -2521,6 +2552,20 @@
         "local"
       ],
       "path": "data/officials/",
+      "serving": "both",
+      "tables": [
+        "declaration",
+        "declaration_asset",
+        "declaration_employer_link",
+        "declaration_event",
+        "declaration_income",
+        "declaration_obligation",
+        "declaration_stake",
+        "declaration_stake_company",
+        "declaration_subject_alias",
+        "official_candidate_link",
+        "official_roster"
+      ],
       "x": 378,
       "y": 2832,
       "w": 240,
@@ -2545,6 +2590,7 @@
         "elections"
       ],
       "path": "data/financing/",
+      "serving": "bucket",
       "x": 378,
       "y": 2988,
       "w": 240,
@@ -2568,7 +2614,25 @@
       "tags": [
         "fiscal"
       ],
-      "path": "data/procurement/",
+      "path": "data/procurement/projects/",
+      "serving": "both",
+      "tables": [
+        "contracts",
+        "tenders",
+        "procurement_annexes",
+        "tender_subcontracting",
+        "ted_notice",
+        "ted_coverage",
+        "adfi_inspection",
+        "adfi_coverage",
+        "cprs_firm",
+        "cprs_licence",
+        "aop_expert",
+        "aop_expert_area",
+        "aop_expert_coverage",
+        "kzk_appeals",
+        "kzk_decisions"
+      ],
       "x": 378,
       "y": 2174,
       "w": 240,
@@ -2593,7 +2657,14 @@
         "fiscal",
         "parliament"
       ],
-      "path": "raw_data/tr/state.sqlite",
+      "path": "data/ngo/",
+      "serving": "both",
+      "tables": [
+        "ngo_details",
+        "ngo_funding",
+        "ngo_signals",
+        "ngo_board_links"
+      ],
       "x": 378,
       "y": 2520,
       "w": 240,
@@ -2618,7 +2689,16 @@
         "fiscal",
         "local"
       ],
-      "path": "data/funds/",
+      "serving": "pg",
+      "tables": [
+        "fund_projects",
+        "fund_beneficiaries",
+        "fund_payloads",
+        "fund_fit",
+        "isun_clean_contract",
+        "isun_clean_beneficiary",
+        "isun_clean_delivery_coverage"
+      ],
       "x": 378,
       "y": 2910,
       "w": 240,
@@ -2642,6 +2722,12 @@
       "tags": [
         "fiscal",
         "local"
+      ],
+      "serving": "pg",
+      "tables": [
+        "interreg_programmes",
+        "interreg_operations",
+        "interreg_partners"
       ],
       "x": 378,
       "y": 2754,
@@ -2667,7 +2753,11 @@
         "fiscal",
         "local"
       ],
-      "path": "data/opencalls/",
+      "serving": "pg",
+      "tables": [
+        "open_calls",
+        "open_calls_crawl"
+      ],
       "x": 378,
       "y": 3144,
       "w": 240,
@@ -2690,6 +2780,17 @@
       },
       "tags": [
         "fiscal"
+      ],
+      "serving": "pg",
+      "tables": [
+        "agri_subsidies",
+        "agri_payloads",
+        "agri_beneficiary",
+        "agri_beneficiary_year",
+        "agri_scheme_year",
+        "agri_cross_programme",
+        "agri_political_link",
+        "agri_hub_stats_cache"
       ],
       "x": 378,
       "y": 3300,
@@ -2715,6 +2816,17 @@
         "fiscal"
       ],
       "path": "data/judiciary/",
+      "serving": "both",
+      "tables": [
+        "judicial_body",
+        "judicial_body_alias",
+        "judicial_body_source_name",
+        "court_load",
+        "magistrate",
+        "magistrate_company",
+        "magistrate_filing",
+        "magistrate_filing_asset"
+      ],
       "x": 378,
       "y": 2252,
       "w": 240,
@@ -2740,6 +2852,7 @@
         "indicators"
       ],
       "path": "data/defense/",
+      "serving": "bucket",
       "x": 378,
       "y": 374,
       "w": 240,
@@ -2765,6 +2878,7 @@
         "prices"
       ],
       "path": "data/energy/",
+      "serving": "bucket",
       "x": 378,
       "y": 1544,
       "w": 240,
@@ -2789,6 +2903,7 @@
         "indicators"
       ],
       "path": "data/security/",
+      "serving": "bucket",
       "x": 378,
       "y": 1076,
       "w": 240,
@@ -2813,6 +2928,7 @@
         "indicators"
       ],
       "path": "data/transport/",
+      "serving": "bucket",
       "x": 378,
       "y": 608,
       "w": 240,
@@ -2838,6 +2954,7 @@
         "indicators"
       ],
       "path": "data/administration/",
+      "serving": "bucket",
       "x": 378,
       "y": 1232,
       "w": 240,
@@ -2863,6 +2980,7 @@
         "indicators"
       ],
       "path": "data/social/",
+      "serving": "bucket",
       "x": 378,
       "y": 1466,
       "w": 240,
@@ -2887,6 +3005,7 @@
         "fiscal"
       ],
       "path": "data/culture/",
+      "serving": "bucket",
       "x": 378,
       "y": 2021,
       "w": 240,
@@ -2911,6 +3030,7 @@
         "fiscal"
       ],
       "path": "data/budget/noi/pensions.json",
+      "serving": "bucket",
       "x": 378,
       "y": 1700,
       "w": 240,
@@ -2935,6 +3055,7 @@
         "fiscal"
       ],
       "path": "data/budget/noi/fund_plan.json",
+      "serving": "bucket",
       "x": 378,
       "y": 2676,
       "w": 240,
@@ -2959,6 +3080,7 @@
         "fiscal"
       ],
       "path": "data/budget/noi/mod_schedule.json",
+      "serving": "bucket",
       "x": 378,
       "y": 2598,
       "w": 240,
@@ -2983,6 +3105,7 @@
         "fiscal"
       ],
       "path": "data/budget/derived/fy2026_frame.json",
+      "serving": "bucket",
       "x": 378,
       "y": 1943,
       "w": 240,
@@ -3006,6 +3129,11 @@
       "tags": [
         "fiscal",
         "local"
+      ],
+      "serving": "pg",
+      "tables": [
+        "municipal_fiscal",
+        "obshtina_population"
       ],
       "x": 378,
       "y": 1622,
@@ -3031,6 +3159,27 @@
         "fiscal"
       ],
       "path": "data/budget/",
+      "serving": "both",
+      "tables": [
+        "budget_admin_fact",
+        "budget_admin_node",
+        "budget_admin_procurement",
+        "budget_cofog",
+        "budget_document",
+        "budget_fiscal_year",
+        "budget_fiscal_year_figure",
+        "budget_hub_stats_cache",
+        "budget_kfp_observation",
+        "budget_kfp_snapshot_line",
+        "budget_kfp_snapshot_section",
+        "budget_muni_capital_project",
+        "budget_muni_execution",
+        "budget_muni_ipop_project",
+        "budget_muni_transfer",
+        "budget_peer_band",
+        "budget_personnel",
+        "budget_program_fact"
+      ],
       "x": 378,
       "y": 1778,
       "w": 240,
@@ -3056,6 +3205,7 @@
         "fiscal"
       ],
       "path": "data/macro.json",
+      "serving": "bucket",
       "x": 378,
       "y": 1154,
       "w": 240,
@@ -3081,6 +3231,7 @@
         "fiscal"
       ],
       "path": "data/macro_fdi.json",
+      "serving": "bucket",
       "x": 378,
       "y": 920,
       "w": 240,
@@ -3105,6 +3256,7 @@
         "indicators"
       ],
       "path": "data/schools/index.json",
+      "serving": "bucket",
       "x": 378,
       "y": 1310,
       "w": 240,
@@ -3130,6 +3282,7 @@
         "elections"
       ],
       "path": "data/census/",
+      "serving": "bucket",
       "x": 378,
       "y": 998,
       "w": 240,
@@ -3154,6 +3307,14 @@
         "local"
       ],
       "path": "data/local_taxes/",
+      "serving": "both",
+      "tables": [
+        "council_muni",
+        "council_muni_code",
+        "council_resolution",
+        "council_vote",
+        "municipal_officials_table"
+      ],
       "x": 378,
       "y": 1388,
       "w": 240,
@@ -3176,6 +3337,23 @@
       },
       "tags": [
         "prices"
+      ],
+      "serving": "pg",
+      "tables": [
+        "price_facts",
+        "price_products",
+        "price_skus",
+        "price_stores",
+        "price_chains",
+        "price_current",
+        "price_last_seen",
+        "price_payloads",
+        "price_product_days",
+        "price_chain_days",
+        "price_chain_grid_days",
+        "price_grid_days",
+        "price_kzp_cats",
+        "price_kzp_products"
       ],
       "x": 378,
       "y": 452,
@@ -3201,6 +3379,7 @@
         "elections"
       ],
       "path": "data/polls/",
+      "serving": "bucket",
       "x": 378,
       "y": 686,
       "w": 240,
@@ -3227,6 +3406,7 @@
         "indicators"
       ],
       "path": "public/*.geojson",
+      "serving": "bucket",
       "x": 378,
       "y": 530,
       "w": 240,
