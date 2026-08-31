@@ -58,6 +58,10 @@ const cli = command({
       source: args.source,
       at: args.at,
     });
+    // null = suppressed as a publish (appendDataChange already said why). The
+    // orchestrator runs this CLI with no DATABASE_URL, so it never trips —
+    // it is reachable only from a shell with a cloud URL exported.
+    if (!entry) return;
     console.log(
       `✓ appended ${entry.skill} @ ${entry.timestamp} — ${entry.summary}`,
     );

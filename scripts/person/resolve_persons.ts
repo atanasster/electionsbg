@@ -2682,6 +2682,14 @@ async function main(): Promise<void> {
     // The person_* tables are Postgres-only and write nothing under data/, so
     // the orchestrator's `git diff --stat data/` gate never sees this layer.
     // Self-report, the way every other PG-migrated dataset does.
+    //
+    // `dedupeSameDay` rather than `dedupeKey` because a full re-derivation of the
+    // person layer has no data day to key on — it legitimately recurs on every
+    // run. That is safe HERE only because the `:cloud` twin passes `--no-stamp`,
+    // so the publish never reaches this branch; appendDataChange now refuses a
+    // serving-database append too, which is the belt to that brace. Keep
+    // `--no-stamp`: it also suppresses writeIngestState above, which the central
+    // guard does not cover.
     appendDataChange({
       skill: INGEST_SKILL,
       summary: `Профилите на публичните лица преизчислени — ${personRows.length.toLocaleString("bg-BG")} лица, ${roleRows.length.toLocaleString("bg-BG")} длъжности`,

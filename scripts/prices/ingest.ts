@@ -163,8 +163,19 @@ const main = async (): Promise<void> => {
   // rarely) — the orchestrator's generic filesystem gate would never fire. So
   // the ingest reports its own change here, based on what it actually loaded,
   // and process-watch-report skips the generic append for update-prices.
-  // dedupeSameDay makes a same-day re-run (or a stray orchestrator append)
-  // replace rather than duplicate. Skip on backfill (a one-off operator step).
+  // dedupeKey is the LAST LOADED DAY, not the wall clock: this same code runs
+  // twice per publish cycle (`npm run prices`, then `prices:ingest:cloud` =
+  // the same script against Cloud SQL), and the pair straddles UTC midnight
+  // often enough to have published one refresh as two days of activity three
+  // times — 2026-07-28, 2026-08-28 and 2026-08-31. Keying on the data day
+  // collapses them however far apart the two runs land, and — unlike summary
+  // equality — still collapses them when the cloud database was further behind
+  // and loaded a different number of archives ("+2" vs "+1"), which is what the
+  // 2026-07-28 pair looks like. The cloud run no longer reports at all
+  // (appendDataChange suppresses a publish centrally); this is the belt to that
+  // brace, and the thing that also covers a plain local re-run near midnight.
+  //
+  // Skip on backfill (a one-off operator step replaying known history).
   if (loaded.length && !has("--backfill")) {
     const last = loaded[loaded.length - 1];
     const daysWord =
@@ -175,7 +186,7 @@ const main = async (): Promise<void> => {
       skill: "update-prices",
       summary: `КЗП retail prices refreshed through ${last.day} (+${daysWord}; ${last.observations.toLocaleString()} store rows, ${last.settlements} settlements, ${last.chains} chains)`,
       source: "КЗП Колко струва (retail prices)",
-      dedupeSameDay: true,
+      dedupeKey: last.day,
     });
   }
 };

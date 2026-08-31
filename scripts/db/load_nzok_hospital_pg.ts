@@ -849,6 +849,16 @@ const main = async (): Promise<void> => {
   // `git diff data/`) replaces rather than duplicates. `data/data-changes.json` is
   // git-tracked AND bucket-served, so it still has to be committed and synced; the
   // banner says so.
+  //
+  // Deliberately NOT `dedupeKey` (which `update-prices` uses): a restatement has
+  // no stable payload identity to key on — the row set differs per database, so
+  // the cloud run's delta against the CLOUD previous vintage need not match the
+  // local one — and the signal being ONE-SHOT means a later, genuinely different
+  // restatement must not collapse into an earlier one. What used to double-report
+  // here is the `:cloud` twin (`db:load:nzok-hospital:pg:cloud` is this same
+  // loader re-run against Cloud SQL, which sees the same restatements); that is
+  // handled centrally now — appendDataChange suppresses any append made while
+  // pointed at the serving database.
   if (delta.restatedRows > 0) {
     const eur = Math.round(delta.restatedEur).toLocaleString("en-US");
     const valueOnly = delta.restatedRows - delta.restatedMonthOnly;

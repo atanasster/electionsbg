@@ -40,7 +40,7 @@ This:
    - `build_product_days.ts` — per-product daily-minimum history for the prerendered head (~3k products),
    - `build_payloads.ts` — `buildPriceIndex` (unchanged Jevons maths, now reading `price_grid_days`) into `price_payloads`,
    - `export_slugs.ts` — the top ~3k product slugs to `data/prices/product_slugs.json` (the one committed artifact; drives prerender + sitemap),
-4. **self-reports its `/data/updates` row** via `appendDataChange` when it loaded ≥1 day (so the orchestrator must NOT run `append-data-change.ts` for it — see `process-watch-report`).
+4. **self-reports its `/data/updates` row** via `appendDataChange` when it loaded ≥1 day (so the orchestrator must NOT run `append-data-change.ts` for it — see `process-watch-report`). The row is keyed on the **loaded price day** (`dedupeKey`), not on the wall clock, and the cloud half (`prices:ingest:cloud`) does not report at all — it is the same script re-run to publish, and the two runs straddle UTC midnight often enough to have published one refresh as two days of activity three times.
 
 ## Methodology notes (keep stable)
 
