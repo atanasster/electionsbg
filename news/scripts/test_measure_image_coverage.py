@@ -5,6 +5,7 @@ from datetime import date
 from pathlib import Path
 
 from news.scripts.build_image_rights_queue import build_queue
+from news.scripts.commons_rights import commons_thumbnail_url
 from news.scripts.measure_image_coverage import measure
 
 
@@ -16,11 +17,15 @@ class ImageCoverageTest(unittest.TestCase):
         selections, articles, stories = [], {}, {}
         for i in range(24):
             aid = f"x.bg/a{i}"; url = f"https://x.bg/{i}"; sid = f"s{i % 8}"
-            image = f"https://upload.wikimedia.org/{i}.jpg"
+            original = (
+                "https://upload.wikimedia.org/wikipedia/commons/a/ab/"
+                f"{i}.jpg"
+            )
+            image = commons_thumbnail_url(original)
             source = f"https://commons.wikimedia.org/wiki/File:{i}.jpg"
             selections.append({"article_id": aid,
                                "article_path": f"news/data/x.bg/a{i}.json",
-                               "article_url": url, "image_url": image,
+                               "article_url": url, "image_url": original,
                                "source_url": source, "creator": "A",
                                "credit_text": "Credit",
                                "licence_name": "CC BY 4.0",
@@ -100,6 +105,36 @@ class ImageCoverageTest(unittest.TestCase):
                 article.write_text(json.dumps(record))
                 report = measure(data, sp, qp, as_of=date(2026, 8, 28))
                 self.assertFalse(report["launch_ready"])
-                self.assertTrue(any(item.startswith("attribution-mismatch:x.bg/a0")
+                self.assertTrue(any(item.startswith("rights:x.bg/a0")
+                                    or item.startswith("attribution-mismatch:x.bg/a0")
                                     or item.startswith("selection-mismatch:x.bg/a0")
                                     for item in report["measured"]["invalid_selected_records"]))
+
+    def test_selection_width_and_commons_file_identity_fail_closed(self):
+        data, sp, qp = self.fixture()
+        article = data / "x.bg/a0.json"
+        record = json.loads(article.read_text())
+        record["image"] = record["image"].replace("/960px-", "/640px-")
+        article.write_text(json.dumps(record))
+        report = measure(data, sp, qp, as_of=date(2026, 8, 28))
+        self.assertTrue(any(
+            item.startswith("selection-mismatch:x.bg/a0")
+            for item in report["measured"]["invalid_selected_records"]
+        ))
+
+        data, sp, qp = self.fixture()
+        selections = json.loads(sp.read_text())
+        wrong_source = "https://commons.wikimedia.org/wiki/File:B.jpg"
+        selections["selections"][0]["source_url"] = wrong_source
+        sp.write_text(json.dumps(selections))
+        article = data / "x.bg/a0.json"
+        record = json.loads(article.read_text())
+        record["image_rights"]["source_url"] = wrong_source
+        record["image_rights"]["credit_url"] = wrong_source
+        article.write_text(json.dumps(record))
+        report = measure(data, sp, qp, as_of=date(2026, 8, 28))
+        self.assertTrue(any(
+            item.startswith("rights:x.bg/a0")
+            and "attribution file must match" in item
+            for item in report["measured"]["invalid_selected_records"]
+        ))

@@ -9,11 +9,13 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 try:
-    from .build_app_data import image_rights_block
+    from .build_app_data import image_rights_block, validate_display_image
     from .build_image_rights_queue import build_queue
+    from .commons_rights import commons_thumbnail_url
 except ImportError:
-    from build_app_data import image_rights_block
+    from build_app_data import image_rights_block, validate_display_image
     from build_image_rights_queue import build_queue
+    from commons_rights import commons_thumbnail_url
 
 MIN_CURRENT = 24
 MIN_COMPARISONS = 8
@@ -57,11 +59,16 @@ def measure(data_dir: Path, selections_path: Path, queue_path: Path,
         try:
             rights = image_rights_block(article.get("image_rights"),
                                         article=selection["article_id"])
+            expected_image = commons_thumbnail_url(selection.get("image_url") or "")
+            if rights:
+                validate_display_image(
+                    article.get("image"), rights, article=selection["article_id"]
+                )
         except ValueError as exc:
             invalid.append(f"rights:{selection['article_id']}:{exc}")
             continue
         if (not rights or not rights["display_home"]
-                or article.get("image") != selection.get("image_url")
+                or article.get("image") != expected_image
                 or rights["source_url"] != selection.get("source_url")):
             invalid.append(f"selection-mismatch:{selection['article_id']}")
             continue
