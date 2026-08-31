@@ -1775,3 +1775,211 @@ Settle these before the first line of code; each changes what gets built.
 | 4 | Private schema for `person_egn_anchor` vs catalogue filter (§12.3 says schema) | repo owner |
 | 5 | Verify `gs://…/parliament/company-connections/` before writing §11.8a as an outage | anyone, `gsutil` |
 | 6 | Confirm the 15 GB re-parse can run on the machine that will do it (§12.2) | operator |
+
+---
+
+## 13. Third-pass audit — 2026-08-31, after 1,606 commits
+
+The plan was drafted 2026-08-03. Four weeks and **1,606 commits** later, every quantity in it
+is stale and two of its findings have been fixed. Re-measured against local Postgres, the live
+`/api/sql` endpoints and the committed manifest.
+
+### 13.1 Nothing in T1–T3 has been built
+
+```
+manifest links[]        0        LinkDef in model.ts   absent
+manifest version        1        functions/db_catalog.js  absent
+SqlBrowser SAMPLES     10        useSearchParams in /db   0
+SqlBrowser groups       4  (Contracts / Tenders / Registry / Search)
+```
+
+So the plan is still actionable as written — but it is now aimed at a corpus roughly twice the
+size it was scoped against.
+
+### 13.2 Scale re-baseline — every figure in §4.1, §6.4 and §6.5 is superseded
+
+| Quantity | Plan (2026-08-03) | Now (2026-08-31) |
+|---|---:|---:|
+| Prod relations listed by `/db` | 158 | **265** |
+| …of which non-data | 47 (30%) | **57 (22%)** |
+| …of which real data | 111 | **208** |
+| Public SQL functions | 221 | **324** |
+| PG migrations | ~146 | **193** |
+| Map nodes | 100 | **106** |
+| Dataset nodes | 33 | **34** |
+| Source groups | 41 | **46** |
+| Watch sources | 105 | **116** |
+| `update-*` skills | 33 | **35** |
+
+**This changes T3's design, not just its numbers.** §4.3 proposes hiding the noise and keeping
+a flat alphabetical list. That was defensible at 111 real relations; at **208** it is not — a
+flat list is no longer navigable regardless of how well it is filtered. T3 needs the relations
+**grouped by domain** (the `ds:*` a relation belongs to), which is the same node→table mapping
+§13.5 says is missing. The two are one piece of work.
+
+The non-data *share* fell (30% → 22%) because real data grew faster than noise, but the
+absolute count rose (47 → 57) and the same scratch tables are still first in the listing on
+prod: `_pwy_before`, `tmp_all_slugs`, `tmp_rank_slugs`, `price_stage`.
+
+### 13.3 ✅ Two findings are fixed — and one fix disproves my diagnosis
+
+- **§6.1's prod outage is resolved.** `/api/db/table?q={"resource":"persons"}` returns rows at
+  200. The person-layer matviews reached Cloud SQL.
+- **§6.2's `recent_updates()` timeout is fixed** — `SELECT count(*) FROM recent_updates(1,100)`
+  returns 100 inside the 8 s budget.
+
+⚠️ **But it was not fixed the way §6.2 proposed, and the difference matters.** Commit
+`9a9b703579` — *"recent_updates: NOT MATERIALIZED on the cutoff CTE — 23.8 s to 36 ms"*. The
+non-sargable `d.day = f.first_seen_at::date` join **is still in the file**, untouched.
+
+So the root cause was **CTE materialisation**, not the join shape. PG12+ materialises a CTE by
+default, which fenced the `cutoff` timestamp off from the planner and blocked predicate
+pushdown into `idx_ifs_seen`; `NOT MATERIALIZED` lifts the fence and the existing indexes do
+the rest. §6.2 correctly recorded that the sargable rewrite *"does not survive inlining into
+the full function"* without knowing why — this is why. The reusable lesson is the one §6.2 half
+learned: **a branch measured in isolation plans differently from the same branch inside the
+function**, and a CTE is an optimisation fence before it is a readability device.
+
+### 13.4 🔴 §1.3's premise has substantially eroded — the conclusion needs a new argument
+
+§1.3 justifies "curate, don't derive" with: *"of the 32 dataset nodes, roughly a third have no
+Postgres representation at all — `ds:elections`, `ds:polls`, `ds:macro`, `ds:budget`,
+`ds:demographics`, `ds:culture`, `ds:local`, `ds:geo` …"*. Re-probed against `pg_class`:
+
+| Named as JSON-only | Now |
+|---|---|
+| `ds:budget` | ❌ **wrong** — `budget_kfp_*`, `budget_admin_*`, `budget_muni_*`, `budget_personnel`, `budget_cofog`, `budget_peer_band` (migrations 152–157) |
+| `ds:demographics` | ❌ `obshtina_population` (149) |
+| `ds:geo` | ❌ `place_dim`, `tr_company_place` |
+| `ds:elections` | ❌ `candidate_person`, `person_election_stats` |
+| `ds:localgov` | ❌ `council_muni`, `council_resolution`, `council_vote`, `municipal_fiscal`, `municipal_officials_table` (149, 160–161) |
+| `ds:parliament` | ❌ `vote_day`, `mp_loyalty`, `party_cohesion_summary`, `party_pair_break` (180–183) |
+| `ds:culture` / `ds:polls` / `ds:macro` | ✅ still JSON-only |
+
+That is the `json-retirement-v2` programme landing (12 steps shipped as of its own progress
+table). Only **three** of the eight named datasets are still JSON-only.
+
+**The conclusion still holds, but not for the stated reason.** Deriving links from
+`pg_catalog` remains wrong because **a dataset node is not a table, and the mapping is
+many-to-many and editorial**:
+
+- `ds:procurement` spans `contracts`, `tenders`, `procurement_annexes`, `ted_notice`,
+  `adfi_inspection`, `cprs_licence`, `aop_expert`, `tender_subcontracting` — eight corpora from
+  seven publishers under one node;
+- `place_dim` is shared infrastructure half the map joins through, so FK-derivation would make
+  it a hub linking everything to everything;
+- and three nodes still have no PG side at all, so a derived generator would silently omit them.
+
+Rewrite §1.3's argument on that basis. The measured ratio should be dropped, not updated — it
+will erode again with the very next retirement tier (§11.7 and §11.8 in this same document plan
+the next two), and it was never the load-bearing part.
+
+### 13.5 🔴 New model gap: `path` is doing three incompatible jobs
+
+A dataset node's only provenance field is `path`, and post-retirement it means three different
+things with no way to tell them apart:
+
+| Node | `path` | What it actually means |
+|---|---|---|
+| `ds:procurement` | `data/procurement/` | **PG load source, bucket-EXCLUDED** — never uploaded |
+| `ds:funds` | `data/funds/` | same (`isExcluded`: *"served from Cloud SQL"*) |
+| `ds:opencalls` | `data/opencalls/` | same |
+| `ds:parliament` | `data/parliament/votes/` | partly retired — `derived/per-mp/` objects deleted |
+| `ds:agri`, `ds:prices` | `null` | PG-only, no JSON at all |
+| `ds:water`, `ds:culture` | `data/…/` | genuinely bucket-served |
+
+So the map tells a reader "the data is at `data/funds/`" about a tree that is deliberately
+never published, while two PG-only datasets say nothing at all. This is invisible today because
+nothing renders `path` prominently — it becomes wrong the moment T2 builds a dataset directory
+on top of it.
+
+**One model change closes this and unblocks two other pieces of the plan:**
+
+```ts
+interface DatasetDef {
+  // …
+  serving: "bucket" | "pg" | "both";   // what a reader actually fetches
+  tables?: string[];                   // the PG relations this node owns
+}
+```
+
+`tables[]` is the node→table mapping that **does not exist anywhere in the repo today**
+(`grep -n "tables" scripts/data_map/model.ts` matches only prose in `desc` strings). It is
+required by three separate things already in this plan:
+
+1. **§2.1's `measure: {left, right}`** puts raw table names inline in every `LinkDef`, so the
+   mapping is implicit and duplicated once per link — and nothing checks that
+   `contracts.contractor_eik` belongs to `ds:procurement`.
+2. **T3's grouped relation listing** (§13.2) needs exactly this to group 208 relations by domain.
+3. **A coverage gate**: with `tables[]` declared, the build can assert every non-noise PG
+   relation is claimed by exactly one dataset node — which is what would have caught
+   `ds:interreg` missing, and would catch the next corpus automatically.
+
+That third point is the extensibility contract the plan says it wants and does not yet have.
+
+⚠️ **And it is the enforcement point §12.3 is missing.** That section requires
+`person_egn_anchor` to be unreadable from `/db`, and notes that a route gate does not cover it.
+T3's curated relation list is exactly the non-route mechanism that does: with `tables[]`
+declared per dataset, a relation that no node claims is not listed and not queryable, and a
+relation marked sensitive can be excluded explicitly rather than by hoping nobody guesses its
+name. **This makes T3 a privacy dependency of the T4 work, not merely a tidy-up** — sequence it
+before `person_egn_anchor` reaches any database `/db` can reach.
+
+### 13.6 Still open, unchanged since the second pass
+
+- **`ds:interreg` still does not exist** (§10.1). `src:keep_eu → ds:funds` is unchanged four
+  weeks on, still folding Jems into ИСУН. T0 stands.
+- **The same 8 source groups carry no `skills[]`** (§8.3): `src:water`, `src:ec_fts`,
+  `src:eu_policy_anchors`, `src:bg_fiscal_anchors`, `src:oil_bulletin`, `src:security`,
+  `src:transport`, `src:geo`.
+- **README is unchanged** — 636 lines / **549,607 bytes**, `Data sources` still 14%, `Data flow`
+  still 44%. §7 stands as written.
+
+**Good news the audit found:** the five corpora added since the plan (TED, АДФИ, ЦПРС, АОП
+experts, ИСУН clean delivery) each got their **own** source group edging to exactly one dataset
+— `src:ted`, `src:adfi`, `src:cprs`, `src:aop_experts`, `src:isun_clean_delivery` → the right
+target. That is the opposite of the `src:egov` catch-all pattern §8.2 complains about, and it
+suggests the discipline is improving without a gate. `ds:municipal_fiscal` was added as its own
+node too.
+
+### 13.7 🟡 A whole product appeared that the map does not know about
+
+```
+news/            621 MB   13,756 data files
+news-functions/   95 MB   its own Cloud Functions deploy
+skills           analyze-news-article · fetch-news-articles · save-news-articles · update-news-sites
+PG tables        0
+map presence     none      SPA route   none
+```
+
+`update-news-sites` is **the only `update-*` skill not on the map**, which is how it surfaced.
+The corpus is file-based (no PG), served by a separate functions deploy, and has no route in the
+main SPA.
+
+**This is a scope decision, not a defect** — and it should be made explicitly rather than by
+omission, because `/data` claims to be the map of what the project holds. Three options:
+
+1. **Out of scope** — news is a separate product; state it in the map's own copy so a reader is
+   not left wondering. Cheapest, and defensible while it has no SPA surface.
+2. **A dataset node with no feature edges** — honest about the corpus, honest that nothing on
+   this site reads it yet.
+3. **Full membership** — only once it has a route and a reader.
+
+Recommend (1) now and (2) when the news product gets a page. What must not happen is the status
+quo, where the one skill missing from the map is missing silently.
+
+### 13.8 Revised sequencing
+
+T0 grows a second item, and it is the higher-value half:
+
+| Step | Was | Now |
+|---|---|---|
+| **T0a** | `ds:interreg` node | unchanged (§10.1) |
+| **T0b** | — | **`serving` + `tables[]` on `DatasetDef`, plus the coverage gate** (§13.5) |
+| T1 | `LINKS` + measurement | `measure` now resolves table names *through* `tables[]` |
+| T3 | hide noise, flat list | hide noise, **group by owning dataset** (§13.2) |
+
+T0b is the change with the most leverage in this plan: it is ~40 lines of model plus a build
+assertion, and it simultaneously fixes the `path` ambiguity, gives T3 its grouping, gives T1's
+`measure` a validated home, and turns "a new corpus was added and nobody put it on the map"
+from a thing discovered by manual audit into a red build.
