@@ -4,7 +4,11 @@
 
 import { Link } from "react-router-dom";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
-import { fmtEur, euroPctSafe } from "@/data/prices/usePrices";
+import {
+  fmtEur,
+  euroPctSafe,
+  EURO_PCT_FLAT_BAND,
+} from "@/data/prices/usePrices";
 
 export interface ProductRow {
   slug: string;
@@ -86,10 +90,14 @@ export const buildProductColumns = (
             {raw == null ? T("нов", "new") : "—"}
           </span>
         );
+      // ⚠️ THE SHARED BAND, not a literal. The „Поскъпнали"/„Поевтинели" picker on
+      // /consumption/products filters `pct_since_euro` at exactly this edge, so a second copy
+      // here would let the colour and the filter disagree — a grey row inside a „поскъпнали"
+      // view, which reads as the filter having returned the wrong rows.
       const cls =
-        v > 0.1
+        v > EURO_PCT_FLAT_BAND
           ? "text-red-600 dark:text-red-400"
-          : v < -0.1
+          : v < -EURO_PCT_FLAT_BAND
             ? "text-green-600 dark:text-green-400"
             : "text-muted-foreground";
       const sign = v > 0 ? "+" : v < 0 ? "−" : "";

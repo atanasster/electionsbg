@@ -626,6 +626,19 @@ export const fmtPct = (frac: number, dp = 1): string => {
 // per-piece↔per-kg unit change, or product-identity drift under one canon_key.
 // Treat them as "no reliable baseline" so the UI never shows a "+429%".
 export const EURO_PCT_ARTIFACT = 100;
+
+/** Below this many PERCENT, a `pct_since_euro` reads as „no change".
+ *
+ *  ⚠️ ONE CONSTANT, TWO CONSUMERS THAT MUST AGREE: `productColumns.tsx` paints the cell red
+ *  above it and green below its negative, and `useUrlProductFilters`' „Поскъпнали"/„Поевтинели"
+ *  filter uses the same edge as its inner range bound. Two literal `0.1`s is a drift that shows
+ *  up as a grey „+0.05%" row inside a „поскъпнали" view — arithmetically defensible and, to a
+ *  reader, a filter that returned the wrong rows.
+ *
+ *  It is a PERCENT, unlike `PRICE_FLAT_BAND` above, which is a fraction (0.001) over the basket
+ *  index. Same idea, different unit, deliberately different name. */
+export const EURO_PCT_FLAT_BAND = 0.1;
+
 /** pct_since_euro (a PERCENT), or null when it's an implausible artifact. */
 export const euroPctSafe = (pct: number | null | undefined): number | null =>
   pct == null || Math.abs(pct) > EURO_PCT_ARTIFACT ? null : pct;
