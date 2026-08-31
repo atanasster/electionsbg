@@ -70,7 +70,7 @@ Three destinations are deliberately separate:
 | Data | Local path | GCS behavior | Intended access |
 | --- | --- | --- | --- |
 | Full articles, analysis, state | `news/data` | additive archive; **never remote-delete** | private |
-| News app JSON | `news/app-data` | opt-in exact sync with remote deletion, 5-minute cache | public after explicit cutover |
+| News app JSON | `news/app-data` | opt-in immutable `versions/<run-id>` upload; stable manifest advances last | public after explicit cutover |
 | Party/person/institution backlinks | `data/news/mentions` | opt-in exact sync with remote deletion, 5-minute cache | public only after explicit cutover |
 
 The archive excludes transient browser/HTML caches, nightly reports, evals and
@@ -84,21 +84,36 @@ even when Firebase does not link to them. Keep both public URI settings empty
 until the deliberate cutover. Enabling publication requires setting the flag
 to `1` and configuring two disjoint, non-root prefixes.
 
-The current Firebase news deployment still embeds `/news-data` at build time.
-Hourly archive upload does **not** redeploy Firebase. A later news-app release
-can enable the hot uploads and set
+The Firebase build keeps `/news-data` as its local/dev fallback. A production
+news-app release can enable the hot uploads and set the stable prefix as
 `VITE_NEWS_DATA_BASE_URL=https://storage.googleapis.com/data-electionsbg-com/news/app-data`
-and, eventually, move the Firebase project to the main site. Until that
-explicit cutover, these GCS objects are a ready serving layer and archive.
+The browser revalidates `manifest.json` from that prefix every minute; unchanged
+bundle responses remain cached for five minutes. The manifest points at one immutable
+`versions/<run-id>` tree, so a browser stays on the previous complete release
+while an hourly upload is in flight or fails. `/news-data` does not require a
+manifest and remains the development/prerender path.
 
 ## GCS setup
 
 Use one private bucket for archive history and isolated prefixes in the
-existing public data bucket for derived files. The private archive needs object
+existing public data bucket for derived files. Before the cutover, run
+`npm run bucket:cors`; `scripts/bucket_cors.json` is the authoritative policy
+and includes `https://news.electionsbg.com`. The private archive needs object
 create/update/list plus permission to read the bucket's versioning setting; it
-does not need object-delete. Each public exact-sync prefix additionally needs
-object-delete. Public-prefix sync uses `-d`, so never configure a bucket root
-or overlapping parent/child prefixes; the uploader refuses both.
+does not need object-delete. The public app prefix needs create/update/list;
+version objects use create-only generation preconditions, while the stable
+`manifest.json` uses compare-and-swap and refuses a newer remote pointer. It is
+replaced only after the complete app version and mentions transfers succeed.
+The mentions exact-sync prefix additionally needs object-delete.
+Never configure a bucket root or overlapping parent/child prefixes; the
+uploader refuses both.
+
+Version directories are deliberately not deleted by the hourly transaction.
+Their URL is content-bound by the pipeline timestamp plus a SHA-256 inventory,
+and a run ID cannot be reused—even after a partial upload. Retry with a new run.
+Apply a bucket lifecycle rule only after choosing a rollback window; retaining
+at least the previous few releases lets an already-open browser finish safely
+and gives operators a pointer-only rollback.
 
 Recommended private-archive policy:
 
@@ -116,9 +131,14 @@ only bucket versioning preserves the prior generation.
 The uploader refuses to publish hot JSON unless public upload is explicitly
 enabled, the full twelve-stage report is structurally intact, and the
 `mention_index`, `bundles`, and exact-payload `home_health` stages succeeded.
-It archives first and does not
-advance public data if that archive transfer fails. It can still archive newly
-acquired raw data after an analysis/model failure.
+It archives first and does not advance `manifest.json` if the archive, version,
+or mentions transfer fails. It can still archive newly acquired raw data after
+an analysis/model failure.
+
+For cutover verification, send an `Origin: https://news.electionsbg.com` HEAD
+request to `manifest.json`, then inspect it and one referenced `home.json` with
+`gsutil stat`. The manifest must be `no-cache`; version objects must be
+`public,max-age=31536000,immutable` and `application/json`.
 
 ## Operations
 

@@ -1,7 +1,6 @@
 // Types + fetcher for the static bundles produced by
-// news/scripts/build_app_data.py (served from /news-data/ — the vite dev
-// middleware in prod shape). One promise cache per path, evicted on rejection
-// so a transient failure doesn't pin a rejected promise.
+// news/scripts/build_app_data.py. Development serves /news-data/ directly;
+// production may follow a revalidated manifest to one immutable hourly tree.
 
 import { useEffect, useState } from "react";
 import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
@@ -553,27 +552,190 @@ export interface Stats {
   articles_by_domain: Record<string, number>;
 }
 
-const BASE: string = import.meta.env.VITE_NEWS_DATA_BASE_URL || "/news-data";
+const CONFIGURED_BASE: string = (
+  import.meta.env.VITE_NEWS_DATA_BASE_URL || "/news-data"
+).replace(/\/$/, "");
+const USE_PUBLICATION_MANIFEST = Boolean(
+  import.meta.env.VITE_NEWS_DATA_BASE_URL,
+);
 
-const cache = new Map<string, Promise<unknown>>();
+export const DATA_REFRESH_MS = 5 * 60 * 1_000;
+export const PUBLICATION_POLL_MS = 60 * 1_000;
+const MANIFEST_REFRESH_MS = PUBLICATION_POLL_MS;
+const FAILED_MANIFEST_RETRY_MS = 15 * 1_000;
+const PUBLICATION_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
+const ISO_INSTANT =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 
-export function fetchData<T>(path: string): Promise<T> {
-  let promise = cache.get(path) as Promise<T> | undefined;
-  if (!promise) {
-    promise = fetch(`${BASE}${path}`).then((res) => {
-      if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
-      return res.json() as Promise<T>;
-    });
-    cache.set(path, promise);
-    promise.catch(() => cache.delete(path));
-  }
-  return promise;
+export interface NewsPublicationManifest {
+  version: 1;
+  run_id: string;
+  generated_at: string;
+  data_base: string;
+  home_health_ready: true;
+  bundle: {
+    sha256: string;
+    files: number;
+    bytes: number;
+    inventory: Array<{ path: string; bytes: number; sha256: string }>;
+  };
 }
 
-// Minimal data hook — one fetch in flight per path thanks to the promise cache
-// above, so many components can ask for the same bundle independently.
+const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("publication manifest: root must be an object");
+  }
+  const row = value as Record<string, unknown>;
+  const runId = row.run_id;
+  const bundle = row.bundle as Record<string, unknown> | undefined;
+  const inventory = bundle?.inventory;
+  const validInventory =
+    Array.isArray(inventory) &&
+    inventory.length === bundle?.files &&
+    inventory.every((item) => {
+      if (!item || typeof item !== "object" || Array.isArray(item))
+        return false;
+      const file = item as Record<string, unknown>;
+      return (
+        typeof file.path === "string" &&
+        /^(?!\/)(?!.*(?:^|\/)\.\.(?:\/|$)).+\.json$/.test(file.path) &&
+        Number.isInteger(file.bytes) &&
+        (file.bytes as number) >= 0 &&
+        typeof file.sha256 === "string" &&
+        /^[a-f0-9]{64}$/.test(file.sha256)
+      );
+    });
+  const inventoryPaths = validInventory
+    ? (inventory as Array<{ path: string }>).map((item) => item.path)
+    : [];
+  if (
+    row.version !== 1 ||
+    typeof runId !== "string" ||
+    !PUBLICATION_ID.test(runId) ||
+    row.data_base !== `versions/${runId}` ||
+    typeof row.generated_at !== "string" ||
+    !ISO_INSTANT.test(row.generated_at) ||
+    !Number.isFinite(Date.parse(row.generated_at)) ||
+    row.home_health_ready !== true ||
+    !bundle ||
+    typeof bundle.sha256 !== "string" ||
+    !/^[a-f0-9]{64}$/.test(bundle.sha256) ||
+    !Number.isInteger(bundle.files) ||
+    (bundle.files as number) < 1 ||
+    !Number.isInteger(bundle.bytes) ||
+    (bundle.bytes as number) < 1 ||
+    !validInventory ||
+    new Set(inventoryPaths).size !== inventoryPaths.length ||
+    (inventory as Array<{ bytes: number }>).reduce(
+      (total, item) => total + item.bytes,
+      0,
+    ) !== bundle.bytes
+  ) {
+    throw new Error("publication manifest: invalid or unsafe release pointer");
+  }
+  return row as unknown as NewsPublicationManifest;
+};
 
-export const useData = <T>(path: string | null) => {
+type DataCacheEntry = { promise: Promise<unknown>; expiresAt: number };
+
+/**
+ * Version-aware JSON client used by the production app and directly by tests.
+ * A stable manifest is the only mutable object. Every bundle URL below it is
+ * immutable, so a reader can never observe half of an hourly upload.
+ */
+export const createDataClient = (
+  base: string,
+  options: {
+    usePublicationManifest?: boolean;
+    now?: () => number;
+    fetcher?: typeof fetch;
+  } = {},
+) => {
+  const root = base.replace(/\/$/, "");
+  const useManifest = options.usePublicationManifest ?? true;
+  const now = options.now ?? Date.now;
+  const fetcher = options.fetcher ?? fetch;
+  const dataCache = new Map<string, DataCacheEntry>();
+  let activeManifest: NewsPublicationManifest | null = null;
+  let manifestExpiresAt = 0;
+  let manifestPromise: Promise<NewsPublicationManifest> | null = null;
+
+  const resolveBase = async (): Promise<string> => {
+    if (!useManifest) return root;
+    const instant = now();
+    if (activeManifest && instant < manifestExpiresAt) {
+      return `${root}/${activeManifest.data_base}`;
+    }
+    if (!manifestPromise) {
+      manifestPromise = fetcher(`${root}/manifest.json`, {
+        cache: "no-store",
+      })
+        .then(async (response) => {
+          if (!response.ok) {
+            throw new Error(`manifest.json: HTTP ${response.status}`);
+          }
+          const next = parsePublicationManifest(await response.json());
+          if (activeManifest?.run_id !== next.run_id) dataCache.clear();
+          activeManifest = next;
+          manifestExpiresAt = now() + MANIFEST_REFRESH_MS;
+          return next;
+        })
+        .catch((error: unknown) => {
+          // A warm reader stays on the last complete immutable version when
+          // the pointer cannot be refreshed. Cold readers fail closed.
+          if (activeManifest) {
+            manifestExpiresAt = now() + FAILED_MANIFEST_RETRY_MS;
+            return activeManifest;
+          }
+          throw error;
+        })
+        .finally(() => {
+          manifestPromise = null;
+        });
+    }
+    const manifest = await manifestPromise;
+    return `${root}/${manifest.data_base}`;
+  };
+
+  const fetchData = async <T>(path: string): Promise<T> => {
+    const resolvedBase = await resolveBase();
+    const key = `${resolvedBase}${path}`;
+    const instant = now();
+    let entry = dataCache.get(key);
+    if (!entry || entry.expiresAt <= instant) {
+      const promise = fetcher(key, { cache: "force-cache" }).then(
+        (response) => {
+          if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+          return response.json();
+        },
+      );
+      entry = { promise, expiresAt: instant + DATA_REFRESH_MS };
+      dataCache.set(key, entry);
+      promise.catch(() => {
+        if (dataCache.get(key)?.promise === promise) dataCache.delete(key);
+      });
+    }
+    return entry.promise as Promise<T>;
+  };
+
+  return { fetchData };
+};
+
+const defaultDataClient = createDataClient(CONFIGURED_BASE, {
+  usePublicationManifest: USE_PUBLICATION_MANIFEST,
+});
+
+export function fetchData<T>(path: string): Promise<T> {
+  return defaultDataClient.fetchData<T>(path);
+}
+
+// Minimal data hook — one fetch in flight per version + path. Mounted screens
+// poll the release pointer every minute and when a backgrounded tab is shown.
+
+export const useDataWithClient = <T>(
+  path: string | null,
+  client: Pick<ReturnType<typeof createDataClient>, "fetchData">,
+) => {
   const [state, setState] = useState<{
     data: T | null;
     error: Error | null;
@@ -586,28 +748,48 @@ export const useData = <T>(path: string | null) => {
       return;
     }
     let live = true;
-    setState((prev) => ({ data: prev.data, error: null, loading: true }));
-    fetchData<T>(path)
-      .then((data) => {
-        if (live) setState({ data, error: null, loading: false });
-      })
-      .catch((error: unknown) => {
-        // Keep the last good bundle on a failed refresh — consumers can still
-        // render it next to the error flag instead of blanking.
-        if (live)
-          setState((prev) => ({
-            data: prev.data,
-            error: error instanceof Error ? error : new Error(String(error)),
-            loading: false,
-          }));
-      });
+    let requestSequence = 0;
+    const load = (initial: boolean) => {
+      const request = ++requestSequence;
+      if (initial) {
+        setState((prev) => ({ data: prev.data, error: null, loading: true }));
+      }
+      client
+        .fetchData<T>(path)
+        .then((data) => {
+          if (live && request === requestSequence) {
+            setState({ data, error: null, loading: false });
+          }
+        })
+        .catch((error: unknown) => {
+          // Keep the last good bundle on a failed refresh — consumers can still
+          // render it next to the error flag instead of blanking.
+          if (live && request === requestSequence)
+            setState((prev) => ({
+              data: prev.data,
+              error: error instanceof Error ? error : new Error(String(error)),
+              loading: false,
+            }));
+        });
+    };
+    load(true);
+    const interval = window.setInterval(() => load(false), PUBLICATION_POLL_MS);
+    const refreshVisible = () => {
+      if (document.visibilityState === "visible") load(false);
+    };
+    document.addEventListener("visibilitychange", refreshVisible);
     return () => {
       live = false;
+      window.clearInterval(interval);
+      document.removeEventListener("visibilitychange", refreshVisible);
     };
-  }, [path]);
+  }, [client, path]);
 
   return state;
 };
+
+export const useData = <T>(path: string | null) =>
+  useDataWithClient<T>(path, defaultDataClient);
 
 // ---- typed bundle loaders -------------------------------------------------------
 //

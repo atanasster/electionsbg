@@ -25,6 +25,17 @@ def load_uploader():
 
 uploader = load_uploader()
 
+PUBLICATION = {
+    "version": 1,
+    "run_id": "test-run",
+    "generated_at": "2026-08-31T07:00:00Z",
+    "data_base": "versions/test-run",
+    "home_health_ready": True,
+    "bundle": {"sha256": "a" * 64, "files": 1, "bytes": 2,
+               "inventory": [{"path": "home.json", "bytes": 2,
+                              "sha256": "b" * 64}]},
+}
+
 
 def valid_report(run_id: str = "test-run") -> dict:
     stages = [
@@ -275,7 +286,7 @@ class UploadPolicy(unittest.TestCase):
             "NEWS_ARCHIVE_GCS_URI": "gs://private-bucket/news/archive",
         }, clear=False):
             with self.assertRaisesRegex(ValueError, "non-empty prefix"):
-                uploader.commands(True, True)
+                uploader.commands(True, True, PUBLICATION)
 
     def test_public_upload_is_opt_in_and_delete_scopes_are_disjoint(self):
         base = {
@@ -292,8 +303,24 @@ class UploadPolicy(unittest.TestCase):
         with mock.patch.dict(os.environ, {**base,
                                           "NEWS_ENABLE_PUBLIC_UPLOAD": "1"},
                              clear=False):
-            scopes = uploader.commands(True, uploader.public_upload_enabled())
-            self.assertEqual(len(scopes), 3)
+            scopes = uploader.commands(
+                True, uploader.public_upload_enabled(), PUBLICATION)
+            self.assertEqual([scope["name"] for scope in scopes], [
+                "archive", "public_app_data_version", "public_mentions",
+                "public_app_data_manifest",
+            ])
+            self.assertEqual(
+                scopes[1]["destination"],
+                "gs://public/news/app-data/versions/test-run")
+            self.assertTrue(any("max-age=31536000" in arg
+                                for arg in scopes[1]["argv"]))
+            self.assertIn("x-goog-if-generation-match:0", scopes[1]["argv"])
+            self.assertNotIn("rsync", scopes[1]["argv"])
+            self.assertEqual(
+                scopes[-1]["destination"],
+                "gs://public/news/app-data/manifest.json")
+            self.assertTrue(any("no-cache" in arg
+                                for arg in scopes[-1]["argv"]))
             self.assertFalse(uploader.same_or_nested_scope(
                 base["NEWS_PUBLIC_GCS_URI"], base["NEWS_MENTIONS_GCS_URI"]))
             self.assertTrue(uploader.same_or_nested_scope(
@@ -305,9 +332,132 @@ class UploadPolicy(unittest.TestCase):
                     uploader, "run_scope",
                     return_value={"name": "archive", "exit": 1}):
                 results = uploader.execute_scopes(scopes, False)
-            self.assertEqual(len(results), 3)
-            self.assertEqual(results[1]["skipped"], "archive_failed")
-            self.assertEqual(results[2]["skipped"], "archive_failed")
+            self.assertEqual(len(results), 4)
+            self.assertEqual(
+                results[1]["skipped"], "previous_scope_failed:archive")
+            self.assertEqual(
+                results[3]["skipped"], "previous_scope_failed:archive")
+
+    def test_manifest_is_last_and_never_advances_after_version_failure(self):
+        base = {
+            "NEWS_ARCHIVE_GCS_URI": "gs://private/news/archive",
+            "NEWS_PUBLIC_GCS_URI": "gs://public/news/app-data",
+            "NEWS_MENTIONS_GCS_URI": "gs://public/news/mentions",
+        }
+        with mock.patch.dict(os.environ, base, clear=False):
+            scopes = uploader.commands(True, True, PUBLICATION)
+        outcomes = [
+            {"name": "archive", "exit": 0},
+            {"name": "public_app_data_version", "exit": 1},
+        ]
+        with mock.patch.object(uploader, "run_scope", side_effect=outcomes):
+            results = uploader.execute_scopes(scopes, False)
+        self.assertEqual(
+            results[-1]["skipped"],
+            "previous_scope_failed:public_app_data_version")
+        self.assertEqual(results[-1]["name"], "public_app_data_manifest")
+
+    def test_publication_manifest_is_tied_to_a_healthy_home_payload(self):
+        with tempfile.TemporaryDirectory(prefix="news_manifest_") as td:
+            app_data = Path(td)
+            (app_data / "home.json").write_text(json.dumps({
+                "generated_at": "2026-08-31T07:00:00Z",
+                "home_health": {"ready": True},
+            }), encoding="utf-8")
+            manifest = uploader.publication_manifest("hour-1", app_data)
+            self.assertEqual(manifest["run_id"], "hour-1")
+            self.assertEqual(manifest["data_base"], "versions/hour-1")
+            self.assertEqual(manifest["bundle"]["files"], 1)
+            self.assertEqual(len(manifest["bundle"]["sha256"]), 64)
+            self.assertEqual(manifest["bundle"]["inventory"][0]["path"],
+                             "home.json")
+            rebound = uploader.publication_manifest("hour-1", app_data, {
+                "generated_at": "2026-08-31T07:00:00Z",
+                "files": manifest["bundle"]["files"],
+                "bytes": manifest["bundle"]["bytes"],
+            }, {"ready": True})
+            self.assertEqual(rebound["bundle"], manifest["bundle"])
+            with self.assertRaisesRegex(ValueError, "safe for a version path"):
+                uploader.publication_manifest("../escape", app_data)
+            with self.assertRaisesRegex(ValueError, "pipeline bundle result"):
+                uploader.publication_manifest("hour-1", app_data, {
+                    "generated_at": "2026-08-31T06:00:00Z",
+                    "files": 1,
+                    "bytes": manifest["bundle"]["bytes"],
+                })
+            for invalid in ("2026-08-31", "2026-08-31T07:00:00", "not-a-date"):
+                (app_data / "home.json").write_text(json.dumps({
+                    "generated_at": invalid,
+                    "home_health": {"ready": True},
+                }), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "timezone-aware"):
+                    uploader.publication_manifest("hour-1", app_data)
+            (app_data / "home.json").write_text(json.dumps({
+                "generated_at": "2026-08-31T07:00:00Z",
+                "home_health": {"ready": False},
+            }), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "health is not ready"):
+                uploader.publication_manifest("hour-2", app_data)
+
+    def test_snapshot_detects_a_changing_source_tree(self):
+        inventory = {"sha256": "a" * 64, "files": 1, "bytes": 2,
+                     "inventory": []}
+        changed = {**inventory, "sha256": "b" * 64}
+        with tempfile.TemporaryDirectory(prefix="news_snapshot_") as td:
+            source = Path(td) / "source"
+            destination = Path(td) / "snapshot"
+            source.mkdir()
+            (source / "home.json").write_text("{}", encoding="utf-8")
+            with mock.patch.object(
+                    uploader, "tree_inventory",
+                    side_effect=[inventory, inventory, changed]):
+                with self.assertRaisesRegex(ValueError, "changed while"):
+                    uploader.materialize_snapshot(source, destination)
+
+    def test_manifest_activation_is_generation_guarded_and_monotonic(self):
+        base = {
+            "NEWS_ARCHIVE_GCS_URI": "gs://private/news/archive",
+            "NEWS_PUBLIC_GCS_URI": "gs://public/news/app-data",
+            "NEWS_MENTIONS_GCS_URI": "gs://public/news/mentions",
+        }
+        with mock.patch.dict(os.environ, base, clear=False):
+            scope = uploader.commands(True, True, PUBLICATION)[-1]
+        older = {**PUBLICATION, "run_id": "old-run",
+                 "data_base": "versions/old-run",
+                 "generated_at": "2026-08-31T06:00:00Z"}
+        with mock.patch.object(uploader, "remote_manifest",
+                               return_value=(older, 42)), \
+             mock.patch.object(uploader.subprocess, "run",
+                               return_value=mock.Mock(returncode=0)) as run:
+            result = uploader.run_scope(scope, False)
+        self.assertEqual(result["exit"], 0)
+        actual = run.call_args.args[0]
+        self.assertIn("x-goog-if-generation-match:42", actual)
+
+        newer = {**PUBLICATION, "run_id": "new-run",
+                 "data_base": "versions/new-run",
+                 "generated_at": "2026-08-31T08:00:00Z"}
+        with mock.patch.object(uploader, "remote_manifest",
+                               return_value=(newer, 43)), \
+             mock.patch.object(uploader.subprocess, "run") as refused:
+            result = uploader.run_scope(scope, False)
+        self.assertEqual(result["error"], "stale_publication_refused")
+        refused.assert_not_called()
+
+    def test_remote_manifest_generation_conflict_fails_activation(self):
+        base = {
+            "NEWS_ARCHIVE_GCS_URI": "gs://private/news/archive",
+            "NEWS_PUBLIC_GCS_URI": "gs://public/news/app-data",
+            "NEWS_MENTIONS_GCS_URI": "gs://public/news/mentions",
+        }
+        with mock.patch.dict(os.environ, base, clear=False):
+            scope = uploader.commands(True, True, PUBLICATION)[-1]
+        with mock.patch.object(uploader, "remote_manifest",
+                               return_value=(None, 0)), \
+             mock.patch.object(uploader.subprocess, "run",
+                               return_value=mock.Mock(returncode=1)):
+            result = uploader.run_scope(scope, False)
+        self.assertEqual(result["exit"], 1)
 
     def test_archive_and_public_bucket_must_differ(self):
         script = bundle.ROOT / "news/standalone/upload_to_gcs.py"

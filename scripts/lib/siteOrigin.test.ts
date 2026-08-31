@@ -102,6 +102,15 @@ describe("copies that cannot import the constant", () => {
     const origins = cfg.flatMap((c) => c.origin ?? []);
     expect(origins, `${f} must allow ${SITE_ORIGIN}`).toContain(SITE_ORIGIN);
   });
+
+  it("the GCS CORS config allows the production news app", () => {
+    const f = "scripts/bucket_cors.json";
+    const cfg = JSON.parse(read(f)) as { origin?: string[] }[];
+    const origins = cfg.flatMap((c) => c.origin ?? []);
+    expect(origins, `${f} must allow the hot-data news origin`).toContain(
+      "https://news.electionsbg.com",
+    );
+  });
 });
 
 describe("no stray origin literals in the SEO-critical paths", () => {

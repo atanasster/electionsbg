@@ -121,7 +121,27 @@ sync is additive and never removes remote history.
 
 Keep `NEWS_ENABLE_PUBLIC_UPLOAD=0` until the news-app cutover. At cutover, set
 it to `1` and fill two disjoint non-root prefixes. Those public prefixes need
-object-delete because stale derived JSON is removed with scoped `rsync -d`.
+object-create for the create-only version uploads; the mentions prefix also
+needs object-delete for its scoped `rsync -d`. App JSON is snapshotted, hashed,
+and uploaded under an immutable `versions/<run-id>` path; `manifest.json` at
+the configured app prefix is generation-guarded and replaced last only after
+every transfer succeeds. Reuse of a partially uploaded run ID is refused—run
+again with a new ID.
+Point `VITE_NEWS_DATA_BASE_URL` at that stable app prefix, not at a version.
+
+Before deploying that build, apply the authoritative public-bucket CORS policy
+and verify both metadata classes:
+
+```bash
+npm run bucket:cors
+curl -fsSI -H 'Origin: https://news.electionsbg.com' \
+  https://storage.googleapis.com/data-electionsbg-com/news/app-data/manifest.json
+gsutil stat gs://data-electionsbg-com/news/app-data/manifest.json
+gsutil stat gs://data-electionsbg-com/news/app-data/versions/RUN_ID/home.json
+```
+
+The response must allow `https://news.electionsbg.com`; the pointer must be
+`no-cache`, and the versioned object must be one-year `immutable` JSON.
 
 ## 6. Tune hourly capacity
 
@@ -146,7 +166,8 @@ python3 verify_install.py
 ./install_cron.sh --print
 ```
 
-The dry run performs all eleven pipeline stages without fetching, calling the
+The dry run performs all twelve pipeline stages (ending in `home_health`)
+without fetching, calling the
 model, or uploading. It must show `pipeline_exit: 0`. With public upload left
 disabled, the upload plan contains only the private archive scope.
 
