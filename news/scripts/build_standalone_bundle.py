@@ -27,6 +27,8 @@ RUNTIME_SCRIPTS = (
     "news/scripts/fetch_latest_articles.py",
     "news/scripts/harvest_browser.mjs",
     "news/scripts/llm_client.py",
+    "news/scripts/home_event_dedupe.py",
+    "news/scripts/home_health.py",
     "news/scripts/resolve_mentions.py",
     "news/scripts/review_routing.py",
     "news/scripts/run_nightly.sh",
@@ -98,14 +100,30 @@ def include_state(out: Path, source: Path | None = None) -> int:
         shutil.copytree(data_source, destination, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns(".DS_Store", "__pycache__"))
         copied += sum(path.is_file() for path in destination.rglob("*"))
-    cache = source / "news" / "review" / "commons_candidates.json"
-    if cache.is_file():
+    caches = (
+        source / "news" / "review" / "commons_candidates.json",
+        source / "news" / "review" / "story_merge_queue.json",
+    )
+    for cache in caches:
+        if not cache.is_file():
+            continue
         value = json.loads(cache.read_text(encoding="utf-8"))
-        if (not isinstance(value, dict) or value.get("version") not in {1, 2}
-                or not isinstance(value.get("items"), list)
-                or (value.get("version") == 2
-                    and not isinstance(value.get("search_cache"), dict))):
-            raise ValueError(f"invalid Commons cache: {cache}")
+        if cache.name == "story_merge_queue.json":
+            valid = (
+                isinstance(value, dict)
+                and value.get("version") == 1
+                and isinstance(value.get("items"), list)
+            )
+        else:
+            valid = (
+                isinstance(value, dict)
+                and value.get("version") in {1, 2}
+                and isinstance(value.get("items"), list)
+                and (value.get("version") != 2
+                     or isinstance(value.get("search_cache"), dict))
+            )
+        if not valid:
+            raise ValueError(f"invalid review cache: {cache}")
         target = out / "news" / "review" / cache.name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(cache, target)

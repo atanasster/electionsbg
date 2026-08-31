@@ -92,10 +92,15 @@ export const buildHomeHierarchy = (
           isLeadItem(item) && Boolean(item.story.summary_bg?.trim()),
       )
       .sort(supportingRank)[0] ?? null;
+  const visibleSupportingLimit = lead
+    ? supportingLimit
+    : supportingLimit > 0
+      ? supportingLimit + 1
+      : 0;
   const supporting = items
     .filter((item) => item.story.id !== lead?.story.id)
     .sort(supportingRank)
-    .slice(0, Math.max(0, supportingLimit));
+    .slice(0, Math.max(0, visibleSupportingLimit));
 
   return {
     lead,

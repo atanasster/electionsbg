@@ -17,7 +17,7 @@ GS_URI = re.compile(r"^gs://([^/]+)(?:/(.+?))?/?$")
 EXPECTED_STAGES = (
     "acquire_direct", "acquire_browser", "probe_model", "check_prompts",
     "common_words", "analyze", "image_rights_queue", "image_candidates",
-    "review_queue", "mention_index", "bundles",
+    "review_queue", "mention_index", "bundles", "home_health",
 )
 ARCHIVE_EXCLUDE = (
     r"(^|/)(_browser|_html|_nightly|evals|gold)(/|$)|"
@@ -40,7 +40,12 @@ def uri(name: str, *, delete_scope: bool) -> str:
     return value
 
 
-def load_report(path: Path | None, expected_run_id: str | None = None) -> tuple[bool, str]:
+def load_report(
+    path: Path | None,
+    expected_run_id: str | None = None,
+    *,
+    allow_dry_run: bool = False,
+) -> tuple[bool, str]:
     if path is None:
         return False, "archive_only"
     try:
@@ -65,10 +70,27 @@ def load_report(path: Path | None, expected_run_id: str | None = None) -> tuple[
     if (report.get("failed_stages") != failed_all
             or report.get("stages_ok") != len(rows) - len(failed_all)):
         return False, "invalid_pipeline_report: summary does not match stages"
-    failed = [name for name in ("mention_index", "bundles")
+    failed = [name for name in ("mention_index", "bundles", "home_health")
               if stages[name]["exit"] != 0]
     if failed:
         return False, f"public_not_ready: failed={failed}"
+    if allow_dry_run and all(
+        isinstance(row.get("result"), dict)
+        and row["result"].get("skipped") == "dry_run"
+        for row in rows
+    ):
+        return True, "ready_dry_run"
+    health = stages["home_health"].get("result")
+    if not (
+        isinstance(health, dict)
+        and health.get("mode") == "home_health"
+        and health.get("ready") is True
+        and health.get("declared_selected_payload_matches") is True
+        and health.get("eligibility_counts_verified") is False
+        and isinstance(health.get("health"), dict)
+        and health["health"].get("ready") is True
+    ):
+        return False, "public_not_ready: invalid home_health verdict"
     return True, "ready"
 
 
@@ -193,7 +215,10 @@ def main() -> int:
     if args.expected_run_id and not args.report:
         ap.error("--expected-run-id requires --report")
     public_ready, reason = load_report(
-        None if args.archive_only else args.report, args.expected_run_id)
+        None if args.archive_only else args.report,
+        args.expected_run_id,
+        allow_dry_run=args.dry_run,
+    )
     try:
         public_enabled = public_upload_enabled()
         scopes = commands(public_ready, public_enabled)

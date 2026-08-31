@@ -69,6 +69,7 @@ try:
         rejected_story_pairs,
         write_story_merge_queue,
     )
+    from .home_health import evaluate_home_payload
 except ImportError:  # direct script execution
     from commons_rights import (
         canonical_licence_url,
@@ -83,6 +84,7 @@ except ImportError:  # direct script execution
         rejected_story_pairs,
         write_story_merge_queue,
     )
+    from home_health import evaluate_home_payload
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
 LEANING_LABELS = {
@@ -1596,6 +1598,10 @@ def main() -> int:
         dated.append((published.astimezone(timezone.utc), record))
     newest = max((published for published, _ in dated), default=None)
     cutoff = newest - timedelta(days=HOME_WINDOW_DAYS) if newest else None
+    recent_records = [
+        record for published, record in dated
+        if cutoff is not None and published >= cutoff
+    ]
     eligible = [
         record for published, record in dated
         if cutoff is not None and published >= cutoff
@@ -1649,7 +1655,7 @@ def main() -> int:
         ),
     )
     home_path = out_dir / "home.json"
-    write_json(home_path, {
+    home_payload = {
         "version": 3,
         "generated_at": generated_at,
         "eligibility": "published_recent_analyzed_with_cleared_images_only",
@@ -1658,7 +1664,21 @@ def main() -> int:
         "merge_proposals": home_merge_proposals,
         "articles": home_articles,
         "stories": home_stories,
-    })
+    }
+    home_payload["home_health"] = evaluate_home_payload(
+        home_payload,
+        {
+            "recent_raw": len(recent_records),
+            "recent_analyzed": len(eligible),
+            "recent_story_linked": sum(bool(record.get("story_id")) for record in eligible),
+            "recent_image_cleared": sum(
+                bool(record.get("image"))
+                and (record.get("image_rights") or {}).get("display_home") is True
+                for record in eligible
+            ),
+        },
+    )
+    write_json(home_path, home_payload)
     home_gzip = home_gzip_size(home_path.read_bytes())
     if home_gzip > HOME_GZIP_BUDGET_BYTES:
         raise ValueError(
@@ -1889,6 +1909,7 @@ def main() -> int:
         "bytes": total_bytes,
         "latest_gzip_bytes": feed_gzip,
         "latest_over_budget": feed_gzip > FEED_GZIP_BUDGET_BYTES,
+        "home_health": home_payload["home_health"],
         # ⚠️ REPORTED, never silent. These are person names an article does
         # not contain, dropped from what we publish — a quiet withholding is
         # indistinguishable from a model that stopped naming anyone.

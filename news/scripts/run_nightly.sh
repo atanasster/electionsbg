@@ -200,7 +200,7 @@ for artifact in "$REPORT" "$DIRECT_SUMMARY" "$BROWSER_SUMMARY" \
     finish 2
   fi
 done
-STAGES_EXPECTED=11
+STAGES_EXPECTED=12
 REPORT_INTEGRITY_FAILED=0
 LAST_STAGE_NAME=""
 LAST_STAGE_CODE=0
@@ -372,7 +372,17 @@ else
   stage bundles python3 news/scripts/build_app_data.py --quiet --json
 fi
 
-# ── 10. Report ─────────────────────────────────────────────────────────────
+# ── 10. Actual homepage freshness gate ─────────────────────────────────────
+# This reads the just-built home.json and verifies the exact implicit payload:
+# no broad-corpus proxy and no image-selection proxy can certify freshness.
+if [ "$DRY" = 1 ]; then
+  stage home_health python3 -c \
+    'import json; print(json.dumps({"skipped": "dry_run"}))'
+else
+  stage home_health python3 news/scripts/home_health.py --enforce --json
+fi
+
+# ── 11. Report ─────────────────────────────────────────────────────────────
 # ⚠️ The stages come in by PATH, not on stdin. `python3 - < "$STAGES"
 # <<'PYEOF'` applies both redirections and the LATER one wins — so the
 # heredoc replaced the file as stdin, the reader saw the script text instead
@@ -408,6 +418,10 @@ if isinstance(total, int) and isinstance(analysed, int):
         "analyzed_total": analysed,
         "pending_total": max(0, total - analysed),
     }
+home_health = next((s.get("result", {}) for s in stages
+                    if s.get("stage") == "home_health"), {})
+if isinstance(home_health, dict):
+    report["home_health"] = home_health
 acquisition = {}
 for stage_name, artifact_env in (("acquire_direct", "DIRECT_SUMMARY"),
                                  ("acquire_browser", "BROWSER_SUMMARY")):

@@ -56,6 +56,12 @@ Each run writes:
 
 The configured analysis limit is queue capacity, not spend. Already analyzed
 articles are skipped, so running 24 times/day does not re-bill the corpus.
+The `home_health` stage records the exact default story IDs, ages, comparison
+count, image availability and a builder-reported eligibility ladder. It
+recomputes and gates the selected payload; the ladder is diagnostic, not an
+independently verified count. It blocks public upload when
+there is no story from the last 24 hours or when any implicit-default story is
+older than seven days.
 
 ## Storage boundary
 
@@ -108,8 +114,9 @@ are normally immutable, but an analysis at the same path can be replaced, and
 only bucket versioning preserves the prior generation.
 
 The uploader refuses to publish hot JSON unless public upload is explicitly
-enabled, the full eleven-stage report is structurally intact, and both the
-`mention_index` and `bundles` stages succeeded. It archives first and does not
+enabled, the full twelve-stage report is structurally intact, and the
+`mention_index`, `bundles`, and exact-payload `home_health` stages succeeded.
+It archives first and does not
 advance public data if that archive transfer fails. It can still archive newly
 acquired raw data after an analysis/model failure.
 

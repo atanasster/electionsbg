@@ -130,6 +130,11 @@ class HomeEventDedupe(unittest.TestCase):
         )
         self.assertEqual(initial["items"][0]["status"], "pending")
         self.assertEqual(initial["items"][0]["candidate"]["title_bg"], second["title_bg"])
+        unchanged = build_story_merge_queue(
+            initial, proposals, {"s1": first, "s2": second},
+            "2026-08-31T08:00:00Z",
+        )
+        self.assertEqual(unchanged, initial)
         reviewed = {
             **initial,
             "items": [{**initial["items"][0], "status": "rejected"}],
@@ -146,6 +151,7 @@ class HomeEventDedupe(unittest.TestCase):
         )
         self.assertEqual([item["id"] for item in kept], ["s1", "s2"])
         self.assertEqual(proposals, [])
+
 
 
 if __name__ == "__main__":

@@ -255,12 +255,14 @@ def build_story_merge_queue(
             proposal["keeper_story_id"], proposal["candidate_story_id"]
         )
         prior = prior_by_id.get(proposal_id, {})
+        unchanged_active = prior.get("active") is True
         current[proposal_id] = {
             "id": proposal_id,
             "status": prior.get("status", "pending"),
             "active": True,
             "first_seen": prior.get("first_seen", generated_at),
-            "last_seen": generated_at,
+            "last_seen": prior.get("last_seen", generated_at)
+            if unchanged_active else generated_at,
             "keeper": _story_context(stories_by_id.get(proposal["keeper_story_id"])),
             "matched": _story_context(stories_by_id.get(proposal["matched_story_id"])),
             "candidate": _story_context(stories_by_id.get(proposal["candidate_story_id"])),
@@ -278,14 +280,21 @@ def build_story_merge_queue(
         current.values(),
         key=lambda item: (not item["active"], item["status"] != "pending", item["id"]),
     )
+    counts = {
+        "total": len(items),
+        "active": sum(item["active"] for item in items),
+        "pending": sum(item["status"] == "pending" for item in items),
+    }
+    if (
+        previous.get("version") == 1
+        and previous.get("items") == items
+        and previous.get("counts") == counts
+    ):
+        return previous
     return {
         "version": 1,
         "generated_at": generated_at,
-        "counts": {
-            "total": len(items),
-            "active": sum(item["active"] for item in items),
-            "pending": sum(item["status"] == "pending" for item in items),
-        },
+        "counts": counts,
         "items": items,
     }
 

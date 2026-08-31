@@ -177,4 +177,24 @@ describe("home hierarchy", () => {
       ).supporting,
     ).toEqual([]);
   });
+
+  it("uses the vacant lead slot for a sixteenth text-first story", () => {
+    const stories = Array.from({ length: 16 }, (_, index) => {
+      const item = story(
+        `text-${index}`,
+        1,
+        `2026-08-28T${String(23 - index).padStart(2, "0")}:00:00Z`,
+      );
+      return item;
+    });
+    const articles = stories.map((item, index) =>
+      article(`a-${index}`, item.id, item.last_published!, {
+        image: null,
+        image_rights: undefined,
+      }),
+    );
+    const result = buildHomeHierarchy(stories, articles);
+    expect(result.lead).toBeNull();
+    expect(result.supporting).toHaveLength(16);
+  });
 });

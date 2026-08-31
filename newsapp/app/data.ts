@@ -634,8 +634,37 @@ export interface HomeMergeProposal {
   topic: [string, string | null] | null;
 }
 
+export interface HomeHealth {
+  version: 1;
+  default_days: 1 | 7;
+  thresholds: {
+    stories_for_24h_default: number;
+    maximum_implicit_days: 7;
+    newest_story_max_hours: 24;
+  };
+  counts: Record<string, number>;
+  default_age_hours: {
+    newest_hours: number | null;
+    median_hours: number | null;
+    oldest_hours: number | null;
+  };
+  default_payload: Array<{
+    id: string;
+    title_bg: string | null;
+    last_published: string | null;
+    age_hours: number;
+    comparison: boolean;
+    image_eligible: boolean;
+  }>;
+  checks: Record<string, boolean>;
+  ready: boolean;
+}
+
 const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every((item) => typeof item === "string");
+
+const isPlainRecord = (value: unknown): value is Record<string, unknown> =>
+  Boolean(value) && typeof value === "object" && !Array.isArray(value);
 
 const isHomeMergeProposal = (value: unknown): value is HomeMergeProposal => {
   if (!value || typeof value !== "object") return false;
@@ -666,6 +695,86 @@ const isHomeMergeProposal = (value: unknown): value is HomeMergeProposal => {
   );
 };
 
+const HOME_HEALTH_COUNTS = [
+  "recent_raw",
+  "recent_analyzed",
+  "recent_story_linked",
+  "recent_image_cleared",
+  "selected_unique_events",
+  "selected_within_24h",
+  "default_visible",
+  "default_comparisons",
+  "default_image_eligible",
+  "merge_proposals",
+] as const;
+
+const HOME_HEALTH_CHECKS = [
+  "selected_payload_not_empty",
+  "has_story_within_24h",
+  "default_window_at_most_7_days",
+  "default_payload_not_empty",
+  "selected_story_ids_unique",
+  "default_story_ids_unique",
+  "default_oldest_within_window",
+  "no_future_story_timestamps",
+  "every_default_story_has_analyzed_article",
+] as const;
+
+const isNullableAge = (value: unknown): value is number | null =>
+  value === null ||
+  (typeof value === "number" && Number.isFinite(value) && value >= 0);
+
+const isHomeHealth = (value: unknown): value is HomeHealth => {
+  if (!isPlainRecord(value)) return false;
+  const health = value as Partial<HomeHealth>;
+  if (
+    !isPlainRecord(health.thresholds) ||
+    !isPlainRecord(health.counts) ||
+    !isPlainRecord(health.default_age_hours) ||
+    !isPlainRecord(health.checks)
+  )
+    return false;
+  const thresholds = health.thresholds as unknown as Record<string, unknown>;
+  const counts = health.counts as Record<string, unknown>;
+  const ages = health.default_age_hours as unknown as Record<string, unknown>;
+  const checks = health.checks as Record<string, unknown>;
+  const requiredChecksAreTrue = HOME_HEALTH_CHECKS.every(
+    (key) => checks[key] === true,
+  );
+  return (
+    health.version === 1 &&
+    (health.default_days === 1 || health.default_days === 7) &&
+    thresholds.stories_for_24h_default === 6 &&
+    thresholds.maximum_implicit_days === 7 &&
+    thresholds.newest_story_max_hours === 24 &&
+    HOME_HEALTH_COUNTS.every(
+      (key) => Number.isInteger(counts[key]) && Number(counts[key]) >= 0,
+    ) &&
+    isNullableAge(ages.newest_hours) &&
+    isNullableAge(ages.median_hours) &&
+    isNullableAge(ages.oldest_hours) &&
+    HOME_HEALTH_CHECKS.every((key) => typeof checks[key] === "boolean") &&
+    Array.isArray(health.default_payload) &&
+    health.default_payload.every(
+      (item) =>
+        Boolean(item?.id?.trim()) &&
+        typeof item.age_hours === "number" &&
+        Number.isFinite(item.age_hours) &&
+        item.age_hours >= 0 &&
+        (item.title_bg === null || typeof item.title_bg === "string") &&
+        (item.last_published === null ||
+          typeof item.last_published === "string") &&
+        typeof item.comparison === "boolean" &&
+        typeof item.image_eligible === "boolean",
+    ) &&
+    health.default_payload.length === counts.default_visible &&
+    new Set(health.default_payload.map((item) => item.id)).size ===
+      health.default_payload.length &&
+    typeof health.ready === "boolean" &&
+    health.ready === requiredChecksAreTrue
+  );
+};
+
 export interface HomeBundle {
   version: 3;
   generated_at: string;
@@ -673,6 +782,7 @@ export interface HomeBundle {
   window_days: number;
   event_dedupe: "conservative_title_entity_v1";
   merge_proposals: HomeMergeProposal[];
+  home_health: HomeHealth;
   articles: ArticleRecord[];
   stories: HomeStory[];
 }
@@ -687,6 +797,7 @@ export const isHomeBundle = (value: unknown): value is HomeBundle => {
     bundle.event_dedupe === "conservative_title_entity_v1" &&
     Array.isArray(bundle.merge_proposals) &&
     bundle.merge_proposals.every(isHomeMergeProposal) &&
+    isHomeHealth(bundle.home_health) &&
     Array.isArray(bundle.articles) &&
     Array.isArray(bundle.stories) &&
     bundle.articles.every(

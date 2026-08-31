@@ -27,8 +27,20 @@ uploader = load_uploader()
 
 
 def valid_report(run_id: str = "test-run") -> dict:
-    stages = [{"stage": name, "exit": 0}
-              for name in uploader.EXPECTED_STAGES]
+    stages = [
+        {
+            "stage": name,
+            "exit": 0,
+            "result": ({
+                "mode": "home_health",
+                "ready": True,
+                "declared_selected_payload_matches": True,
+                "eligibility_counts_verified": False,
+                "health": {"ready": True},
+            } if name == "home_health" else {}),
+        }
+        for name in uploader.EXPECTED_STAGES
+    ]
     return {
         "run_id": run_id,
         "stages": stages,
@@ -228,7 +240,10 @@ class UploadPolicy(unittest.TestCase):
             self.assertEqual(
                 uploader.load_report(report, "test-run"), (True, "ready"))
             failed = valid_report()
-            failed["stages"][-2]["exit"] = 1
+            next(
+                stage for stage in failed["stages"]
+                if stage["stage"] == "mention_index"
+            )["exit"] = 1
             failed["failed_stages"] = ["mention_index"]
             failed["stages_ok"] = len(failed["stages"]) - 1
             report.write_text(json.dumps(failed), encoding="utf-8")
@@ -245,6 +260,13 @@ class UploadPolicy(unittest.TestCase):
             ready, reason = uploader.load_report(report, "different-run")
             self.assertFalse(ready)
             self.assertIn("run_id mismatch", reason)
+
+            invalid_health = valid_report()
+            invalid_health["stages"][-1]["result"] = {}
+            report.write_text(json.dumps(invalid_health), encoding="utf-8")
+            ready, reason = uploader.load_report(report)
+            self.assertFalse(ready)
+            self.assertIn("invalid home_health verdict", reason)
 
     def test_public_delete_scope_rejects_bucket_root(self):
         with mock.patch.dict(os.environ, {

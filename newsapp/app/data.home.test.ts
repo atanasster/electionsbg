@@ -8,6 +8,45 @@ const bundle = (status = "cc", display_home = true) => ({
   window_days: 30,
   event_dedupe: "conservative_title_entity_v1",
   merge_proposals: [],
+  home_health: {
+    version: 1,
+    default_days: 1,
+    thresholds: {
+      stories_for_24h_default: 6,
+      maximum_implicit_days: 7,
+      newest_story_max_hours: 24,
+    },
+    counts: {
+      recent_raw: 0,
+      recent_analyzed: 0,
+      recent_story_linked: 0,
+      recent_image_cleared: 0,
+      selected_unique_events: 0,
+      selected_within_24h: 0,
+      default_visible: 0,
+      default_comparisons: 0,
+      default_image_eligible: 0,
+      merge_proposals: 0,
+    },
+    default_age_hours: {
+      newest_hours: null,
+      median_hours: null,
+      oldest_hours: null,
+    },
+    default_payload: [],
+    checks: {
+      selected_payload_not_empty: false,
+      has_story_within_24h: false,
+      default_window_at_most_7_days: true,
+      default_payload_not_empty: false,
+      selected_story_ids_unique: true,
+      default_story_ids_unique: true,
+      default_oldest_within_window: false,
+      no_future_story_timestamps: true,
+      every_default_story_has_analyzed_article: true,
+    },
+    ready: false,
+  },
   stories: [],
   articles: [
     {
@@ -76,5 +115,20 @@ describe("home bundle runtime contract", () => {
     expect(isHomeBundle({ ...bundle(), merge_proposals: [proposal] })).toBe(
       true,
     );
+  });
+
+  it.each([
+    { default_age_hours: undefined },
+    { counts: [] },
+    { checks: [] },
+    { thresholds: { maximum_implicit_days: 7, newest_story_max_hours: 24 } },
+    { ready: true },
+  ])("rejects malformed home health: %o", (over) => {
+    expect(
+      isHomeBundle({
+        ...bundle(),
+        home_health: { ...bundle().home_health, ...over },
+      }),
+    ).toBe(false);
   });
 });
