@@ -71,7 +71,7 @@ describe("StoryCard interaction scent", () => {
     expect(screen.queryByText("Сравни отразяването")).toBeNull();
     expect(screen.queryByText("Прочети анализа")).toBeNull();
     expect(screen.queryByText("Анализирана статия")).toBeNull();
-    expect(screen.getByText("Втори източник")).toBeVisible();
+    expect(screen.getAllByText("Втори източник")).toHaveLength(2);
     expect(screen.getByText("Пример")).toBeVisible();
     const links = screen.getAllByRole("link");
     expect(links.map((link) => link.getAttribute("href"))).toEqual([

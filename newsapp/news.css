@@ -90,27 +90,85 @@
 }
 
 .news-shell .news-story-card {
-  border-color: hsl(var(--border) / 0.72);
-  box-shadow: 0 1px 2px hsl(var(--foreground) / 0.05);
+  position: relative;
+  border-color: hsl(var(--border) / 0.48);
+  border-radius: 0.75rem;
+  box-shadow:
+    0 1px 2px hsl(var(--foreground) / 0.035),
+    0 8px 24px hsl(var(--foreground) / 0.025);
   transition:
     border-color 160ms ease,
     box-shadow 160ms ease,
     transform 160ms ease;
 }
 
+.news-shell .news-story-card--text::before {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 3px;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    hsl(var(--editorial-kicker)),
+    hsl(var(--editorial-kicker) / 0.18) 42%,
+    transparent 76%
+  );
+}
+
+.news-shell .news-story-card--text .news-card-body {
+  padding-top: 1.125rem;
+}
+
+.news-story-link {
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+}
+
+.news-story-heading {
+  text-wrap: balance;
+}
+
+.news-story-summary {
+  max-width: 68ch;
+}
+
+.news-story-sources,
+.news-image-credit--compact {
+  color: hsl(var(--muted-foreground) / 0.86);
+  letter-spacing: 0.005em;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .news-shell .news-story-card:has(.news-story-link:hover) {
-    border-color: hsl(var(--editorial-kicker) / 0.72);
+    border-color: hsl(var(--editorial-kicker) / 0.58);
     box-shadow:
-      0 12px 28px hsl(var(--foreground) / 0.09),
-      0 2px 5px hsl(var(--foreground) / 0.06);
-    transform: translateY(-2px);
+      0 10px 24px hsl(var(--foreground) / 0.075),
+      0 2px 5px hsl(var(--foreground) / 0.045);
+    transform: translateY(-1px);
+  }
+
+  .news-shell .news-story-link:hover .news-story-heading {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
   }
 }
 
 .news-shell .news-story-card:focus-within {
   border-color: hsl(var(--ring));
-  box-shadow: 0 0 0 1px hsl(var(--ring));
+  box-shadow:
+    0 0 0 2px hsl(var(--ring) / 0.28),
+    0 8px 24px hsl(var(--foreground) / 0.06);
+}
+
+@media (max-width: 639px) {
+  .news-card-meta {
+    align-items: flex-start;
+  }
+
+  .news-story-sources {
+    margin-top: 0.75rem;
+  }
 }
 
 /* Story sources use stable tracks so outlet-name length cannot move either

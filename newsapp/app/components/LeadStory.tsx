@@ -44,8 +44,8 @@ export const LeadStory = ({
           priority
           creditVariant="compact"
         />
-        <div className="flex min-w-0 flex-col justify-start p-5 md:col-span-2 md:p-7">
-          <div className="flex min-w-0 items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="news-card-body flex min-w-0 flex-col justify-start p-5 md:col-span-2 md:p-7">
+          <div className="news-card-meta flex min-w-0 items-center justify-between gap-3 text-xs text-muted-foreground">
             {primary ? (
               <Badge
                 variant="secondary"
@@ -68,11 +68,11 @@ export const LeadStory = ({
             to={`/story/${story.id}`}
             className="news-story-link group mt-4 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
-            <h3 className="font-title text-2xl leading-tight transition-colors group-hover:text-[hsl(var(--editorial-kicker))] md:text-3xl">
+            <h3 className="news-story-heading font-title text-2xl leading-tight transition-colors group-hover:text-[hsl(var(--editorial-kicker))] md:text-3xl">
               {title}
             </h3>
             {story.summary_bg ? (
-              <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+              <p className="news-story-summary mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                 {story.summary_bg}
               </p>
             ) : null}
@@ -82,7 +82,7 @@ export const LeadStory = ({
             articleCount={story.aggregates.article_count}
             outlets={outlets}
             limit={3}
-            className="mt-5"
+            className="news-story-sources mt-5"
           />
         </div>
       </Card>

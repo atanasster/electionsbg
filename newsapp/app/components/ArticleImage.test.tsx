@@ -105,7 +105,7 @@ describe("the credit", () => {
   });
 
   it("allows long unbroken card credits to wrap without clipping", () => {
-    renderImage({ creditVariant: "compact" });
+    const { container } = renderImage({ creditVariant: "compact" });
     expect(
       screen.getByRole("link", { name: /Кредит за изображението/ }),
     ).toHaveClass(
@@ -113,6 +113,21 @@ describe("the credit", () => {
       "max-w-full",
       "break-words",
       "[overflow-wrap:anywhere]",
+    );
+    expect(container.querySelector("figcaption")).toHaveClass(
+      "news-image-credit--compact",
+      "text-[11px]",
+    );
+  });
+
+  it("does not apply compact styling to full detail attribution", () => {
+    const { container } = renderImage();
+    expect(container.querySelector("figcaption")).not.toHaveClass(
+      "news-image-credit--compact",
+    );
+    expect(container.querySelector("figcaption")).toHaveClass(
+      "text-xs",
+      "text-card-foreground",
     );
   });
 

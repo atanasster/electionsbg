@@ -77,8 +77,8 @@ export const StoryCard = ({
             creditVariant="compact"
           />
         ) : null}
-        <div className="flex min-w-0 flex-1 flex-col p-4">
-          <div className="flex min-w-0 items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="news-card-body flex min-w-0 flex-1 flex-col p-4">
+          <div className="news-card-meta flex min-w-0 items-center justify-between gap-3 text-xs text-muted-foreground">
             {primary ? (
               <Badge
                 variant="secondary"
@@ -101,11 +101,11 @@ export const StoryCard = ({
             to={`/story/${story.id}`}
             className="news-story-link group mt-3 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
-            <h3 className="line-clamp-3 font-title text-xl leading-[1.22] transition-colors group-hover:text-[hsl(var(--editorial-kicker))]">
+            <h3 className="news-story-heading line-clamp-3 font-title text-xl leading-[1.22] transition-colors group-hover:text-[hsl(var(--editorial-kicker))]">
               {title}
             </h3>
             {story.summary_bg ? (
-              <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="news-story-summary mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                 {story.summary_bg}
               </p>
             ) : null}
@@ -114,7 +114,7 @@ export const StoryCard = ({
             byDomain={story.aggregates.by_domain}
             articleCount={story.aggregates.article_count}
             outlets={outlets}
-            className="mt-4"
+            className="news-story-sources mt-4"
           />
           {signal ? (
             <div className="mt-3 space-y-1.5">

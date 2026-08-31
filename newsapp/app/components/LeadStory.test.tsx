@@ -86,7 +86,7 @@ describe("LeadStory accessibility", () => {
     expect(storyLink).toHaveAttribute("href", "/story/story");
     expect(screen.queryByText("Сравни отразяването")).toBeNull();
     expect(screen.queryByText("Анализирана статия")).toBeNull();
-    expect(screen.getByText("Втори източник")).toBeVisible();
+    expect(screen.getAllByText("Втори източник")).toHaveLength(2);
     expect(screen.getByText("Пример")).toBeVisible();
     await user.tab();
     expect(credit).toHaveFocus();

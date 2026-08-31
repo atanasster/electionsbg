@@ -130,7 +130,7 @@ export const ArticleImage = ({
       <figcaption
         className={`flex flex-wrap items-center gap-x-1 border-t bg-card px-2 leading-snug ${
           creditVariant === "compact"
-            ? "py-1 text-[11px] font-normal text-muted-foreground"
+            ? "news-image-credit--compact py-1 text-[11px] font-normal text-muted-foreground"
             : "py-1.5 text-xs text-card-foreground"
         }`}
       >

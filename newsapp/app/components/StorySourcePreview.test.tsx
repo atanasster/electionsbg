@@ -34,7 +34,7 @@ describe("selectStorySources", () => {
 
 describe("StorySourcePreview", () => {
   it("renders a single publication without a redundant count", () => {
-    render(
+    const { container } = render(
       <StorySourcePreview
         byDomain={{ "alpha.bg": 1 }}
         articleCount={1}
@@ -42,13 +42,13 @@ describe("StorySourcePreview", () => {
       />,
     );
 
-    expect(screen.getByText("Алфа")).toBeVisible();
+    expect(container.querySelector(".sm\\:hidden")).toHaveTextContent("Алфа");
     expect(screen.queryByText(/публикаци/)).toBeNull();
-    expect(screen.getByText("Източници:")).toHaveClass("sr-only");
+    expect(screen.getByText("Източници:").parentElement).toHaveClass("sr-only");
   });
 
   it("shows top publications and the honest number of remaining outlets", () => {
-    render(
+    const { container } = render(
       <StorySourcePreview
         byDomain={{
           "alpha.bg": 1,
@@ -61,12 +61,18 @@ describe("StorySourcePreview", () => {
       />,
     );
 
-    expect(screen.getByText("Бета")).toBeVisible();
-    expect(screen.getByText("Алфа")).toBeVisible();
-    expect(screen.getByText("+2 още")).toBeVisible();
-    expect(screen.getByText("5 публикации")).toBeVisible();
-    expect(screen.getByText(", и още 2 медии")).toHaveClass("sr-only");
-    expect(screen.getByText("; общо 5 публикации")).toHaveClass("sr-only");
+    expect(container.querySelector(".sm\\:hidden")).toHaveTextContent(
+      "Бета · +3 още · 5 публикации",
+    );
+    expect(container.querySelector(".hidden.sm\\:inline")).toHaveTextContent(
+      "Бета · Алфа · +2 още · 5 публикации",
+    );
+    expect(screen.getByText(", и още 2 медии").parentElement).toHaveClass(
+      "sr-only",
+    );
+    expect(screen.getByText("; общо 5 публикации").parentElement).toHaveClass(
+      "sr-only",
+    );
   });
 
   it("omits the duplicate-article suffix when counts describe only outlets", () => {
@@ -79,7 +85,7 @@ describe("StorySourcePreview", () => {
     );
 
     expect(screen.queryByText("2 публикации")).toBeNull();
-    expect(screen.getByText("Източници:")).toHaveClass("sr-only");
+    expect(screen.getByText("Източници:").parentElement).toHaveClass("sr-only");
   });
 
   it("allows an unbroken fallback domain to wrap inside a card", () => {
