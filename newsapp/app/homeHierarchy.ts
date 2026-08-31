@@ -7,12 +7,16 @@ export type HomeStoryKind = "comparison" | "analyzed_article";
 
 export interface HomeStoryItem {
   story: HomeStory;
-  imageArticle: ArticleRecord;
+  imageArticle: ArticleRecord | null;
   kind: HomeStoryKind;
 }
 
+export interface HomeLeadStoryItem extends HomeStoryItem {
+  imageArticle: ArticleRecord;
+}
+
 export interface HomeHierarchy {
-  lead: HomeStoryItem | null;
+  lead: HomeLeadStoryItem | null;
   supporting: HomeStoryItem[];
 }
 
@@ -35,15 +39,21 @@ const supportingRank = (a: HomeStoryItem, b: HomeStoryItem): number =>
   b.story.aggregates.outlet_count - a.story.aggregates.outlet_count ||
   a.story.id.localeCompare(b.story.id);
 
-const isEligibleArticle = (article: ArticleRecord): boolean =>
-  Boolean(article.analysis && article.image && canDisplayHomeImage(article));
+const hasDisplayImage = (article: ArticleRecord): boolean =>
+  Boolean(article.image && canDisplayHomeImage(article));
+
+const representativeRank = (a: ArticleRecord, b: ArticleRecord): number =>
+  Number(hasDisplayImage(b)) - Number(hasDisplayImage(a)) || newestFirst(a, b);
+
+const isLeadItem = (item: HomeStoryItem): item is HomeLeadStoryItem =>
+  Boolean(item.imageArticle && hasDisplayImage(item.imageArticle));
 
 /**
  * Build the finite, deterministic home briefing.
  *
- * Every item must have an article from home.json, which is the server's
- * analyzed + rights-cleared eligibility boundary. A story without such a
- * representative image cannot leak back into the image-led surface.
+ * Every item must have an analyzed article from home.json. Supporting stories
+ * may be text-first; the lead remains image-led and therefore requires the
+ * server's explicit rights-cleared display decision.
  */
 export const buildHomeHierarchy = (
   stories: HomeStory[],
@@ -52,22 +62,35 @@ export const buildHomeHierarchy = (
 ): HomeHierarchy => {
   const articlesByStory = new Map<string, ArticleRecord[]>();
   for (const article of articles) {
-    if (!article.story_id || !isEligibleArticle(article)) continue;
+    if (!article.story_id || !article.analysis) continue;
     const bucket = articlesByStory.get(article.story_id) ?? [];
     bucket.push(article);
     articlesByStory.set(article.story_id, bucket);
   }
 
   const items = stories.flatMap<HomeStoryItem>((story) => {
-    const imageArticle = articlesByStory.get(story.id)?.sort(newestFirst)[0];
-    return imageArticle
-      ? [{ story, imageArticle, kind: homeStoryKind(story) }]
+    const representative = articlesByStory
+      .get(story.id)
+      ?.sort(representativeRank)[0];
+    return representative
+      ? [
+          {
+            story,
+            imageArticle: hasDisplayImage(representative)
+              ? representative
+              : null,
+            kind: homeStoryKind(story),
+          },
+        ]
       : [];
   });
 
   const lead =
     [...items]
-      .filter((item) => Boolean(item.story.summary_bg?.trim()))
+      .filter(
+        (item): item is HomeLeadStoryItem =>
+          isLeadItem(item) && Boolean(item.story.summary_bg?.trim()),
+      )
       .sort(supportingRank)[0] ?? null;
   const supporting = items
     .filter((item) => item.story.id !== lead?.story.id)

@@ -28,7 +28,7 @@ export const StoryCard = ({
 }: {
   story: HomeStory;
   taxonomy: TaxonomyCategory[] | null;
-  imageArticle?: ArticleRecord;
+  imageArticle?: ArticleRecord | null;
   outlet?: Outlet;
   kind?: HomeStoryKind;
 }) => {
@@ -73,7 +73,17 @@ export const StoryCard = ({
             }
             className="rounded-none"
           />
-        ) : null}
+        ) : (
+          <div
+            aria-hidden
+            className="flex aspect-[16/10] items-end bg-muted px-4 py-3 text-xs font-medium text-muted-foreground"
+          >
+            {primary
+              ? (topicLabel(taxonomy, primary.category, primary.subcategory) ??
+                primary.category)
+              : "Наясно новини"}
+          </div>
+        )}
         <Link
           to={`/story/${story.id}`}
           aria-label={`${action}: ${title}`}

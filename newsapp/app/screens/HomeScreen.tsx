@@ -240,7 +240,11 @@ export const HomeScreen = () => {
                     story={item.story}
                     taxonomy={categories}
                     imageArticle={item.imageArticle}
-                    outlet={outletByDomain.get(item.imageArticle.domain)}
+                    outlet={
+                      item.imageArticle
+                        ? outletByDomain.get(item.imageArticle.domain)
+                        : undefined
+                    }
                     kind={item.kind}
                   />
                 ))}

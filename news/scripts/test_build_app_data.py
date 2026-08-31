@@ -188,6 +188,11 @@ class BuildAppDataTest(BuildAppDataFixture):
         self.assertEqual(article["story_id"], "20260822-s1")
         story = self.load("stories.json")["stories"][0]
         self.assertEqual(story["members"][0]["title"], "Заглавие")
+        home = self.load("home.json")
+        self.assertEqual([row["id"] for row in home["stories"]], ["20260822-s1"])
+        self.assertEqual(len(home["articles"]), 1)
+        self.assertEqual(home["articles"][0]["story_id"], "20260822-s1")
+        self.assertIsNone(home["articles"][0]["image"])
 
     def test_category_without_subcategory_counted(self):
         url = "https://example.bg/a2"
@@ -484,7 +489,7 @@ class MetadataAndBudget(unittest.TestCase):
         self.assertEqual(feed["image"], "https://cdn.ex.bg/lead.jpg")
         self.assertEqual(feed["language"], "bg")
 
-    def test_home_bundle_requires_analysis_and_explicit_image_clearance(self):
+    def test_home_bundle_requires_analysis_and_strips_uncleared_images(self):
         fixtures = (
             ("cleared.bg", "https://cleared.bg/a", True, True),
             ("raw.bg", "https://raw.bg/a", False, True),
@@ -519,8 +524,9 @@ class MetadataAndBudget(unittest.TestCase):
         home = self.load("home.json")
         self.assertEqual(
             home["eligibility"],
-            "published_recent_analyzed_and_image_rights_cleared",
+            "published_recent_analyzed_with_cleared_images_only",
         )
+        self.assertEqual(home["version"], 2)
         # No fixture story points at the eligible record, so the compact
         # bundle correctly emits neither half of an unrenderable pair.
         self.assertEqual(home["articles"], [])
@@ -626,6 +632,8 @@ class MetadataAndBudget(unittest.TestCase):
             "A.jpg/960px-A.jpg"
         )
         validate_display_image(thumb, rights, article="ex.bg/a.json")
+        with self.assertRaisesRegex(ValueError, "requires an image URL"):
+            validate_display_image(None, rights, article="ex.bg/a.json")
         with self.assertRaisesRegex(ValueError, "<=960px derivative"):
             validate_display_image(
                 "https://upload.wikimedia.org/wikipedia/commons/a/ab/A.jpg",
@@ -1649,6 +1657,16 @@ class HomePayloadSelection(unittest.TestCase):
         self.assertIsNone(got[1]["title_bg"])
         self.assertEqual(got[1]["title_en"], "English 1")
         self.assertEqual(got[1]["summary_en"], "Summary 1")
+
+    def test_a_cleared_image_is_the_story_representative_even_when_older(self):
+        item = self.story(1)
+        text = self.article(item["id"], 1, "2026-08-28T10:00:00+00:00")
+        text["image"] = None
+        cleared = self.article(item["id"], 2, "2026-08-28T09:00:00+00:00")
+        cleared["image"] = "https://upload.wikimedia.org/photo.jpg"
+        cleared["image_rights"] = {"display_home": True}
+        got, _ = select_home_payload([text, cleared], [item])
+        self.assertEqual(got[0]["id"], cleared["id"])
 
     def test_wire_measurement_matches_documented_gzip_level(self):
         payload = b"home payload " * 1000

@@ -23,9 +23,9 @@ const story = (id: string, published: string): HomeStory => ({
 });
 
 const home = (stories: HomeStory[]): HomeBundle => ({
-  version: 1,
+  version: 2,
   generated_at: "2026-08-31T07:00:00Z",
-  eligibility: "published_recent_analyzed_and_image_rights_cleared",
+  eligibility: "published_recent_analyzed_with_cleared_images_only",
   window_days: 30,
   stories,
   articles: [],

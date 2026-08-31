@@ -77,4 +77,25 @@ describe("StoryCard interaction scent", () => {
     await user.tab();
     expect(storyLink).toHaveFocus();
   });
+
+  it("renders a safe text-first fallback when no cleared image exists", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <StoryCard
+          story={story}
+          taxonomy={null}
+          kind="comparison"
+          imageArticle={null}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(container.querySelector("img")).toBeNull();
+    expect(screen.getAllByText("society")).toHaveLength(2);
+    expect(
+      screen.getByRole("link", {
+        name: "Сравни отразяването: История с ясен път",
+      }),
+    ).toHaveAttribute("href", "/story/story-1");
+  });
 });

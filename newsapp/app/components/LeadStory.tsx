@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import type { Outlet, TaxonomyCategory } from "../data";
-import type { HomeStoryItem } from "../homeHierarchy";
+import type { HomeLeadStoryItem } from "../homeHierarchy";
 import { relativeTime, topicLabel } from "../labels";
 import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
@@ -13,7 +13,7 @@ export const LeadStory = ({
   outlet,
   taxonomy,
 }: {
-  item: HomeStoryItem;
+  item: HomeLeadStoryItem;
   outlet?: Outlet;
   taxonomy: TaxonomyCategory[] | null;
 }) => {

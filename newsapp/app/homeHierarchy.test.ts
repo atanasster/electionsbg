@@ -84,7 +84,7 @@ describe("home hierarchy", () => {
     );
   });
 
-  it("drops stories without an eligible representative image article", () => {
+  it("drops stories without an analyzed representative article", () => {
     const result = buildHomeHierarchy(
       [
         story("eligible", 2, "2026-08-28T09:00:00Z"),
@@ -105,18 +105,37 @@ describe("home hierarchy", () => {
   it.each([
     { image: null },
     { image_rights: undefined },
-    { image_rights: { status: "blocked", display_home: true } },
-    { image_rights: { status: "cc", display_home: false } },
+    { image: null, image_rights: { status: "blocked", display_home: false } },
+    { image: null, image_rights: { status: "cc", display_home: false } },
   ] as Partial<ArticleRecord>[])(
-    "fails closed for an ineligible representative: %o",
+    "keeps an analyzed text-first representative out of the lead: %o",
     (over) => {
       const result = buildHomeHierarchy(
         [story("held", 2, "2026-08-28T09:00:00Z")],
         [article("a", "held", "2026-08-28T09:00:00Z", over)],
       );
-      expect(result).toEqual({ lead: null, supporting: [] });
+      expect(result.lead).toBeNull();
+      expect(result.supporting).toHaveLength(1);
+      expect(result.supporting[0]?.story.id).toBe("held");
+      expect(result.supporting[0]?.imageArticle).toBeNull();
     },
   );
+
+  it("prefers an older cleared image within a story over a newer text row", () => {
+    const item = story("mixed", 2, "2026-08-28T10:00:00Z");
+    const cleared = article("cleared", item.id, "2026-08-28T09:00:00Z");
+    const result = buildHomeHierarchy(
+      [item],
+      [
+        cleared,
+        article("text", item.id, "2026-08-28T10:00:00Z", {
+          image: null,
+          image_rights: undefined,
+        }),
+      ],
+    );
+    expect(result.lead?.imageArticle.id).toBe(cleared.id);
+  });
 
   it("keeps a summary-less story out of the hero but in support", () => {
     const noSummary = story("no-summary", 3, "2026-08-28T09:00:00Z");

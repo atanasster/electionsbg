@@ -487,6 +487,8 @@ def validate_display_image(image: str | None, rights: dict, *, article: str) -> 
     """Fail closed on Commons identity, licence and delivery at publication."""
     if not rights.get("display_home"):
         return
+    if not isinstance(image, str) or not image.strip():
+        raise ValueError(f"{article}: home display clearance requires an image URL")
     status = rights.get("status")
     if status in {"cc", "public_domain"}:
         canonical = canonical_licence_url(rights.get("licence_name"))
@@ -698,7 +700,7 @@ def home_gzip_size(payload: bytes) -> int:
 
 
 def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Choose the newest eligible stories first, without orphan article rows."""
+    """Choose recent analyzed stories, preferring a cleared image representative."""
     floor = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
     def newest_key(record: dict) -> tuple:
@@ -712,7 +714,13 @@ def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list
         if story_id := record.get("story_id"):
             eligible_by_story.setdefault(story_id, []).append(record)
     for records in eligible_by_story.values():
-        records.sort(key=newest_key)
+        records.sort(key=lambda record: (
+            not (
+                bool(record.get("image"))
+                and (record.get("image_rights") or {}).get("display_home") is True
+            ),
+            *newest_key(record),
+        ))
 
     candidates = [story for story in stories if story["id"] in eligible_by_story]
     candidates.sort(key=lambda story: (
@@ -723,8 +731,8 @@ def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list
     selected = candidates[:HOME_STORY_LIMIT]
 
     # Reserve one representative per selected story before filling the global
-    # article cap. This makes every serialized story renderable even when one
-    # very large cluster would otherwise consume all 32 slots.
+    # article cap. A rights-cleared image wins within the story; otherwise its
+    # newest analyzed article supports a deliberately text-first card.
     representatives = [eligible_by_story[story["id"]][0] for story in selected]
     representative_keys = {(row.get("domain"), row.get("id")) for row in representatives}
     selected_ids = {story["id"] for story in selected}
@@ -1576,23 +1584,30 @@ def main() -> int:
         record for published, record in dated
         if cutoff is not None and published >= cutoff
         and (record["domain"], record["id"]) in home_analysis_ids
-        and (record.get("image_rights") or {}).get("display_home") is True
     ]
     eligible.sort(key=lambda record: (
         -(utc_instant(record.get("published")) or datetime(
             1970, 1, 1, tzinfo=timezone.utc)).timestamp(),
         record.get("domain") or "", record.get("id") or "",
     ))
-    eligible_articles = [
-        {key: value for key, value in record.items() if key not in HOME_OMIT}
-        for record in eligible
-    ]
+    eligible_articles = []
+    for record in eligible:
+        projected = {
+            key: value for key, value in record.items() if key not in HOME_OMIT
+        }
+        # Publisher images remain useful on their source article, but an
+        # unreviewed/denied image has no place in the home wire payload. Nulling
+        # it here makes the legal boundary independent of rendering code.
+        if (record.get("image_rights") or {}).get("display_home") is not True:
+            projected["image"] = None
+            projected["image_alt"] = None
+        eligible_articles.append(projected)
     home_articles, home_stories = select_home_payload(eligible_articles, stories)
     home_path = out_dir / "home.json"
     write_json(home_path, {
-        "version": 1,
+        "version": 2,
         "generated_at": generated_at,
-        "eligibility": "published_recent_analyzed_and_image_rights_cleared",
+        "eligibility": "published_recent_analyzed_with_cleared_images_only",
         "window_days": HOME_WINDOW_DAYS,
         "articles": home_articles,
         "stories": home_stories,

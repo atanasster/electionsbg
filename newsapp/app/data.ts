@@ -4,6 +4,7 @@
 // so a transient failure doesn't pin a rejected promise.
 
 import { useEffect, useState } from "react";
+import { isPermittedHomeImageStatus } from "./imageRightsPolicy";
 
 export type Leaning =
   | "strong_progressive"
@@ -621,9 +622,9 @@ export const useStories = () =>
 export const useLatest = () =>
   useData<{ generated_at: string; articles: ArticleRecord[] }>("/latest.json");
 export interface HomeBundle {
-  version: 1;
+  version: 2;
   generated_at: string;
-  eligibility: "published_recent_analyzed_and_image_rights_cleared";
+  eligibility: "published_recent_analyzed_with_cleared_images_only";
   window_days: number;
   articles: ArticleRecord[];
   stories: HomeStory[];
@@ -633,17 +634,18 @@ export const isHomeBundle = (value: unknown): value is HomeBundle => {
   if (!value || typeof value !== "object") return false;
   const bundle = value as Partial<HomeBundle>;
   return (
-    bundle.version === 1 &&
+    bundle.version === 2 &&
     bundle.eligibility ===
-      "published_recent_analyzed_and_image_rights_cleared" &&
+      "published_recent_analyzed_with_cleared_images_only" &&
     Array.isArray(bundle.articles) &&
     Array.isArray(bundle.stories) &&
     bundle.articles.every(
       (article) =>
         Boolean(article.analysis) &&
-        article.image_rights?.display_home === true &&
-        article.image_rights.status !== "unknown" &&
-        article.image_rights.status !== "blocked",
+        (article.image_rights?.display_home === true
+          ? Boolean(article.image) &&
+            isPermittedHomeImageStatus(article.image_rights.status)
+          : article.image == null),
     )
   );
 };

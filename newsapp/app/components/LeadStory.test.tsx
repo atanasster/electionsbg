@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import type { ArticleRecord, Story } from "../data";
-import type { HomeStoryItem } from "../homeHierarchy";
+import type { HomeLeadStoryItem } from "../homeHierarchy";
 import { LeadStory } from "./LeadStory";
 
 const imageArticle = {
@@ -41,7 +41,11 @@ const story = {
 describe("LeadStory accessibility", () => {
   it("keeps credit, licence and CTA in keyboard order and uses h3", async () => {
     const user = userEvent.setup();
-    const item = { story, imageArticle, kind: "comparison" } as HomeStoryItem;
+    const item = {
+      story,
+      imageArticle,
+      kind: "comparison",
+    } as HomeLeadStoryItem;
     render(
       <MemoryRouter>
         <LeadStory item={item} taxonomy={null} />
