@@ -815,8 +815,8 @@ const HUB_HEAD_BUDGETS: {
     asideRows: 3,
   },
   // Identity + deck + a full ConsumptionSearchTile in the slot + a 4-cell band + a two-clause
-  // note. No scope control (the corpus is one continuous daily series, not a windowed one)
-  // and no evidence aside yet.
+  // note, plus an evidence rail of the four cheapest oblasts. No scope control — the corpus
+  // is one continuous daily series, not a windowed one.
   //
   // ⚠️ THE SEARCH SLOT IS WHY THIS SITS WITH /funds AND /budget rather than with the compact
   // heads: it is a whole TILE, not an input — „колко струва X" is the question most readers
@@ -829,9 +829,13 @@ const HUB_HEAD_BUDGETS: {
   // and every other disclaimer saying so is far below the fold. Check for a fifth cell, or
   // for a basis growing a clause, first.
   //
+  // ⚠️ THE RAIL DOES NOT DRIVE THE HEIGHT HERE, unlike /governance/sectors and /indicators:
+  // the search TILE fills the identity column beside it at `lg`, so the aside sits alongside
+  // rather than under. Measured — 492 both with and without it.
+  //
   // 508 px with a sentence title; 492 once it shortened to „Цените след еврото". Measured
   // 2026-08-31 at 1280.
-  { path: "/prices", maxPx: 570, measured: 492, cells: 4 },
+  { path: "/prices", maxPx: 570, measured: 492, cells: 4, asideRows: 4 },
   // A RANKING, and a third shape again: identity + freshness + deck + a full search field +
   // a 4-cell band + a one-line note, with NO scope control (the page has no `?pscope` — its
   // window is whatever year each mayor last filed for) and NO evidence rail (the ranked

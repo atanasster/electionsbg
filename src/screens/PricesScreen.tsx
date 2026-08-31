@@ -36,6 +36,9 @@ import { Link } from "@/ux/Link";
 import { Card } from "@/components/ui/card";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import {
+  EVIDENCE_PLACES,
+  filterCanonicalOblasts,
+  pricesHubEvidence,
   pricesHubKpis,
   pricesKpiNote,
   promotedTiles,
@@ -250,9 +253,23 @@ export const PricesScreen: FC = () => {
   const down = catMovers.slice(-3).reverse();
 
   // cheapest oblasts
-  const oblastLevels = (ranking?.places ?? [])
-    .filter((p) => p.tier === "oblast" && p.basketLevel != null)
-    .sort((a, b) => a.basketLevel! - b.basketLevel!);
+  // ⚠️⚠️ `filterCanonicalOblasts` IS PART OF THE DEFINITION, not a rail-only concern. The
+  // payload's „oblast" tier is МИР-keyed and carries the Пловдив CITY row (€13,59) beside
+  // обл. Пловдив (€17,68) plus Sofia's three districts named „23"/„24"/„25" — so every
+  // consumer of this list was ranking a city against provinces. The spread below said
+  // „разлика между най-евтината и най-скъпата област" over exactly that pair.
+  //
+  // ⚠️ MEMOIZED because it feeds the rail's `useMemo`, and a fresh array identity every
+  // render made both that memo and `promoted`'s decoration.
+  const oblastLevels = useMemo(
+    () =>
+      filterCanonicalOblasts(
+        (ranking?.places ?? []).filter(
+          (p) => p.tier === "oblast" && p.basketLevel != null,
+        ),
+      ).sort((a, b) => a.basketLevel! - b.basketLevel!),
+    [ranking],
+  );
   const oblastSpread =
     oblastLevels.length >= 2
       ? {
@@ -263,10 +280,10 @@ export const PricesScreen: FC = () => {
             oblastLevels[0].basketLevel!,
         }
       : null;
-  const cheapestOblasts = (ranking?.places ?? [])
-    .filter((p) => p.tier === "oblast" && p.basketLevel != null)
-    .sort((a, b) => a.basketLevel! - b.basketLevel!)
-    .slice(0, 4);
+  // ⚠️ THE SAME ROWS AS THE RAIL'S, FROM ONE EXPRESSION. The whole justification for
+  // withholding the „Най-евтини области" tile is that the rail's rows ARE these rows; two
+  // independent slices that happen to agree would let that claim rot silently.
+  const cheapestOblasts = oblastLevels.slice(0, EVIDENCE_PLACES);
 
   // national chain basket range (cheapest → priciest), over the chains that
   // can actually be compared — see comparableChains.
@@ -307,7 +324,53 @@ export const PricesScreen: FC = () => {
   );
   // DERIVED from the cells that rendered — a blob older than the bundle carries a figure
   // without the fields that caption it, and a constant list would blank the tile too.
-  const promoted = useMemo(() => promotedTiles(kpis), [kpis]);
+
+  // The rail: where the basket is cheapest by PLACE — the question no band cell asks. Its €
+  // is deliberately NOT a band cell: it is the median of each settlement's cheapest price,
+  // which is not comparable with the band's one-chain basket even though both are twelve
+  // products in euro. See `pricesHubEvidence`.
+  const evidence = useMemo(
+    () =>
+      pricesHubEvidence(
+        // `oblastLevels` is ALREADY filtered to real oblasts — see its definition, where the
+        // filter now lives so that `cheapestOblasts` and `oblastSpread` get it too. Filtering
+        // again here would be harmless and misleading: it would say the constraint is the
+        // rail's, when it belongs to every consumer of that list.
+        //
+        // Narrowed to the three fields the rail needs; `basketLevel` is non-null by the
+        // filter that built `oblastLevels`, which the payload type cannot express.
+        oblastLevels.map((o) => ({
+          code: o.code,
+          name: o.name,
+          basketLevel: o.basketLevel!,
+        })),
+        {
+          asOf: ranking?.coverage?.latestDate,
+          // ⚠️ THE RANKING PAYLOAD'S OWN BASKET SIZE, not the chains blob's. The rows come
+          // from `ranking`, and reading the denominator off a DIFFERENT payload is the rule
+          // this module states for the band's chain cell — a caption whose figure and whose
+          // denominator come from two independently-fetched blobs can stop describing its own
+          // number. It also made the rail appear a beat after the rows were ready.
+          products: ranking?.commonBasketSize,
+        },
+        lang,
+        nf,
+        t,
+      ),
+    [
+      oblastLevels,
+      ranking?.coverage?.latestDate,
+      ranking?.commonBasketSize,
+      lang,
+      nf,
+      t,
+    ],
+  );
+  // DERIVED from what actually rendered — both the cells AND the rail's rows.
+  const promoted = useMemo(
+    () => promotedTiles(kpis, evidence),
+    [kpis, evidence],
+  );
 
   return (
     <>
@@ -339,6 +402,7 @@ export const PricesScreen: FC = () => {
         // corpus that has no blob, which `SubsidiesHubHead.test.tsx` records shipping.
         kpisPending={hubPending ? 4 : undefined}
         kpiNote={pricesKpiNote(kpis, t)}
+        evidence={evidence}
       />
 
       {/* Where the reader is. The anchor is URL-only (?area=), so this is also
@@ -352,10 +416,13 @@ export const PricesScreen: FC = () => {
           the sidebar-free container is still narrow but the column count has
           already jumped.
 
-          EIGHT tiles: the fuel tile merged into "Спрямо ЕС" and the place tile
-          replaced it. The search box is not one of them and no longer sits above the grid
+          EIGHT tiles — seven whenever the head's rail renders, which withholds „Най-евтини
+          области": the fuel tile merged into "Спрямо ЕС" and the place tile replaced it. The search box is not one of them and no longer sits above the grid
           either — it is in the head's own `search` slot; see the <HubHead> comment. */}
-      <div className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div
+        data-testid="prices-grid"
+        className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      >
         {/* Hero — the basket index since the euro */}
         {/* ⚠️ A TEST HOOK, because `.col-span-full` is not one: the verdict tile carries the
             same class and `HubHead`'s own band block is `lg:col-span-2`, so a positional
@@ -585,43 +652,50 @@ export const PricesScreen: FC = () => {
           ) : null}
         </DashTile>
 
-        {/* Cheapest places → map */}
-        <DashTile
-          to="/prices/map"
-          title={T("Най-евтини области", "Cheapest oblasts")}
-          loading={!ranking}
-          skeletonRows={5}
-          icon={MapPin}
-        >
-          {/* A DIFFERENT basis from the hero's per-chain range, 40px away and
+        {/* ⚠️ WITHHELD WHEN THE HEAD'S RAIL CARRIES IT — §3.1 again, and the only demotion on
+            this page that removes a tile rather than changing one. The rail's four rows ARE
+            these four rows: same places, same €, same `/consumption/region/:code` links. And
+            nothing is lost by it, because this tile's destination is `/prices/map`, which is
+            ALSO the „Карта на цените" tile's four cells below — the grid carried two tiles
+            pointing at one page, so what goes is the duplicate. */}
+        {promoted.has("oblasts") ? null : (
+          <DashTile
+            to="/prices/map"
+            title={T("Най-евтини области", "Cheapest oblasts")}
+            loading={!ranking}
+            skeletonRows={5}
+            icon={MapPin}
+          >
+            {/* A DIFFERENT basis from the hero's per-chain range, 40px away and
               previously sharing its word. Both sum the same 12 products, but a
               chain figure is what ONE chain charges, and this is built per
               product from the MEDIAN across the oblast's settlements of each
               settlement's cheapest price (build_index's addAggregateRow) — a
               typical settlement's floor, not the region's. "Най-евтини
               магазини" would read as the latter and overstate it. */}
-          <div className="mb-1 text-[11px] text-muted-foreground">
-            {T(
-              "най-ниски цени в типично населено място",
-              "lowest prices in a typical settlement",
-            )}
-          </div>
-          <ul className="space-y-0.5 text-xs">
-            {cheapestOblasts.map((p) => (
-              <li key={p.code} className="flex justify-between gap-2">
-                <Link
-                  to={`/consumption/region/${p.code}`}
-                  className="min-w-0 truncate hover:underline"
-                >
-                  {p.name}
-                </Link>
-                <span className="shrink-0 tabular-nums text-muted-foreground">
-                  {fmtEur(p.basketLevel!, lang)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </DashTile>
+            <div className="mb-1 text-[11px] text-muted-foreground">
+              {T(
+                "най-ниски цени в типично населено място",
+                "lowest prices in a typical settlement",
+              )}
+            </div>
+            <ul className="space-y-0.5 text-xs">
+              {cheapestOblasts.map((p) => (
+                <li key={p.code} className="flex justify-between gap-2">
+                  <Link
+                    to={`/consumption/region/${p.code}`}
+                    className="min-w-0 truncate hover:underline"
+                  >
+                    {p.name}
+                  </Link>
+                  <span className="shrink-0 tabular-nums text-muted-foreground">
+                    {fmtEur(p.basketLevel!, lang)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </DashTile>
+        )}
         <PriceCoverageNote
           coverage={ranking?.coverage}
           className="-mt-2 px-1"
@@ -799,19 +873,26 @@ export const PricesScreen: FC = () => {
           loading={!ranking}
           icon={MapIcon}
         >
-          {/* Was prose alone among eight data cards. The spread is the reason
-              to open the map, so the card states it: the same figure the
-              "Най-евтини области" tile lists, at both ends. */}
+          {/* Was prose alone among the data cards. The spread is the reason to open the map,
+              so the card states it — at both ends when it can.
+
+              ⚠️ §3.1 RULE 5 REACHES HERE TOO, and it is the easy half to miss: the CHEAPEST
+              row is `oblastLevels[0]`, i.e. literally the head rail's first row — same label,
+              same formatter, same string — so while the rail renders this card leads with the
+              DEAREST end and the GAP. The gap is what actually earns the card: it is the
+              reason to open a map, and the rail does not show it. */}
           {oblastSpread ? (
             <div className="text-xs">
-              <div className="flex justify-between gap-2">
-                <span className="min-w-0 truncate">
-                  {oblastSpread.cheapest.name}
-                </span>
-                <span className="shrink-0 tabular-nums text-green-700 dark:text-green-400">
-                  {fmtEur(oblastSpread.cheapest.basketLevel!, lang)}
-                </span>
-              </div>
+              {promoted.has("oblasts") ? null : (
+                <div className="flex justify-between gap-2">
+                  <span className="min-w-0 truncate">
+                    {oblastSpread.cheapest.name}
+                  </span>
+                  <span className="shrink-0 tabular-nums text-green-700 dark:text-green-400">
+                    {fmtEur(oblastSpread.cheapest.basketLevel!, lang)}
+                  </span>
+                </div>
+              )}
               <div className="flex justify-between gap-2">
                 <span className="min-w-0 truncate">
                   {oblastSpread.dearest.name}

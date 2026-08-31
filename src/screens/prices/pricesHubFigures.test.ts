@@ -14,7 +14,10 @@ import {
 } from "./pricesHubStats.fixture";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import {
+  EVIDENCE_PLACES,
+  filterCanonicalOblasts,
   PRICE_BAND_TILES,
+  pricesHubEvidence,
   pricesHubKpis,
   pricesKpiNote,
   promotedTiles,
@@ -235,5 +238,156 @@ describe("signedPct", () => {
     expect(signedPct(3.8, "bg")).toBe("+3,8%");
     expect(fmtPct(0.038)).toBe("+3.8%");
     expect(signedPct(3.8, "bg")).not.toBe(fmtPct(0.038));
+  });
+});
+
+describe("the evidence rail", () => {
+  /** Verbatim from /api/db/price-payload?kind=ranking, oblast tier, 2026-08-31. */
+  // ⚠️ VERBATIM FROM THE LIVE PAYLOAD, МИР ARTIFACTS INCLUDED — the whole point of this
+  // fixture is that `tier: "oblast"` is not a list of oblasts.
+  const RAW = [
+    { code: "PDV-00", name: "Пловдив", basketLevel: 13.59 },
+    { code: "KNL", name: "Кюстендил", basketLevel: 14.35 },
+    { code: "DOB", name: "Добрич", basketLevel: 14.36 },
+    { code: "GAB", name: "Габрово", basketLevel: 14.42 },
+    { code: "BGS", name: "Бургас", basketLevel: 14.48 },
+    { code: "S23", name: "23", basketLevel: 16.33 },
+    { code: "PDV", name: "обл. Пловдив", basketLevel: 17.68 },
+  ];
+  const OBLASTS = filterCanonicalOblasts(RAW);
+  const META = { asOf: "2026-08-30", products: 12 };
+  const rail = (
+    oblasts = OBLASTS,
+    meta: {
+      asOf: string | null | undefined;
+      products: number | null | undefined;
+    } = META,
+  ) => pricesHubEvidence(oblasts, meta, "bg", nf, t);
+
+  it("⚠️⚠️ ranks OBLASTS, and the МИР artifacts are not among them", () => {
+    // THE DEFECT THIS CLAUSE EXISTS FOR, and it shipped for one revision. The payload's
+    // „oblast" tier is МИР-keyed: it carries `PDV-00` („Пловдив" — the CITY, €13,59) beside
+    // `PDV` („обл. Пловдив", €17,68), and Sofia's three districts named „23"/„24"/„25". A
+    // naive sort therefore headed a „най-евтини области" list with the city of Пловдив while
+    // Пловдив OBLAST sat fourth-DEAREST — a false claim about a named place, in the head.
+    expect(rail()!.rows.map((r) => r.id)).toEqual(["KNL", "DOB", "GAB", "BGS"]);
+    // Non-vacuity: the artifacts really are in the input and really would have won.
+    expect(RAW[0].code).toBe("PDV-00");
+    expect(RAW[0].basketLevel).toBeLessThan(OBLASTS[0].basketLevel);
+    expect(RAW.map((r) => r.code)).toContain("S23");
+  });
+
+  it("strips the tier word the dropped row made necessary", () => {
+    // The payload names PDV „обл. Пловдив" only to tell it apart from the `PDV-00` row this
+    // list no longer contains; under a heading about oblasts that reads as a stutter.
+    const withPdv = pricesHubEvidence(
+      filterCanonicalOblasts([
+        { code: "PDV", name: "обл. Пловдив", basketLevel: 10 },
+        ...RAW,
+      ]),
+      META,
+      "bg",
+      nf,
+      t,
+    );
+    expect(withPdv!.rows[0].label).toBe("Пловдив");
+  });
+
+  it("links each row to its own region page", () => {
+    for (const r of rail()!.rows)
+      expect(String(r.to)).toMatch(/^\/consumption\/region\//);
+    expect(String(rail()!.action?.to)).toBe("/prices/map");
+  });
+
+  it("⚠️⚠️ says in the basis that this € is NOT one chain's price", () => {
+    // THE CLAUSE THIS RAIL EXISTS FOR. Пловдив's €13,59 and the band's €14,56 are both
+    // twelve products in euro and are NOT comparable: the band's is what ONE CHAIN charges,
+    // this is the MEDIAN across an oblast's settlements of each settlement's CHEAPEST price.
+    // That is exactly why the place figure is a rail and not a fifth band cell — and the
+    // screen's own tile comment records that the two „previously shared a word".
+    expect(bgCorpus.prices_evidence_basis).toMatch(
+      /не е цената на една верига/,
+    );
+    expect(enCorpus.prices_evidence_basis).toMatch(/not one chain's price/i);
+    expect(bgCorpus.prices_evidence_basis).toMatch(/медиана/);
+  });
+
+  it("⚠️ carries BOTH denominators, its day, and the omission of Sofia", () => {
+    // Four rows out of the ones that could be ranked, out of 28 oblasts. „30" was the
+    // payload's МИР row count and is not a number of oblasts at all — Bulgaria has 28.
+    //
+    // ⚠️ AND THE MISSING CAPITAL IS NAMED. Sofia-grad appears in this payload ONLY as its
+    // three МИР slices, so a list of real oblasts has no Sofia — and a „where is it cheapest"
+    // list silently missing the largest city is its own defect.
+    const basis = rail()!.basis!;
+    expect(basis).toContain("28");
+    expect(basis).toContain("12");
+    expect(basis).toContain("2026");
+    // ⚠️ ON THE ARGUMENTS, not the string — the test `t` renders „key:arg1:arg2:…" and the
+    // DATE is „30.08.2026 г.", so a naive `not.toContain("30")` fails against correct code.
+    expect(basis.split(":").slice(1)).not.toContain("30");
+    expect(bgCorpus.prices_evidence_basis).toMatch(/София-град/);
+    expect(enCorpus.prices_evidence_basis).toMatch(/Sofia city/i);
+  });
+
+  it("REFUSES rather than shortening when the ranking cannot fill it", () => {
+    // A two-row „най-евтини области" is a claim about a corpus that was not ranked.
+    expect(rail(OBLASTS.slice(0, 2))).toBeUndefined();
+    expect(rail(OBLASTS, { asOf: null, products: 12 })).toBeUndefined();
+    expect(rail([])).toBeUndefined();
+    // TEST-001: the `products` arm too — the field whose SOURCE moved in this same step, from
+    // the chains blob to the ranking one the rows come from.
+    expect(
+      rail(OBLASTS, { asOf: "2026-08-30", products: null }),
+    ).toBeUndefined();
+    expect(rail(OBLASTS, { asOf: "2026-08-30", products: 0 })).toBeUndefined();
+  });
+
+  it("⚠️ the basis's row count IS `EVIDENCE_PLACES`, not a literal beside it", () => {
+    // It was a bare „4" in both locales while the value producing it was a TypeScript
+    // constant whose own docblock invites the one-token edit — which would then ship a
+    // five-row list captioned „4 от 27" in both languages with every test green. It is the
+    // only `*_evidence_basis` in the corpus that hardcoded its count.
+    for (const corpus of [bgCorpus, enCorpus])
+      expect(corpus.prices_evidence_basis).toContain("{{shown}}");
+    expect(rail()!.basis!.split(":")).toContain(String(EVIDENCE_PLACES));
+  });
+
+  it("shows exactly EVIDENCE_PLACES rows, however long the ranking is", () => {
+    expect(rail()!.rows).toHaveLength(EVIDENCE_PLACES);
+  });
+});
+
+describe("band ↔ RAIL, §3.1", () => {
+  const RAIL = pricesHubEvidence(
+    [
+      { code: "PDV-00", name: "Пловдив", basketLevel: 13.59 },
+      { code: "KNL", name: "Кюстендил", basketLevel: 14.35 },
+      { code: "DOB", name: "Добрич", basketLevel: 14.36 },
+      { code: "GAB", name: "Габрово", basketLevel: 14.42 },
+    ],
+    { asOf: "2026-08-30", products: 12 },
+    "bg",
+    nf,
+    t,
+  );
+
+  it("the rail displaces the oblasts tile, which no CELL does", () => {
+    // §3.1: a rail row is a figure no tile and no KPI shows, and these four rows ARE that
+    // tile's four rows — same places, same €, same destinations.
+    expect(promotedTiles(band()).has("oblasts")).toBe(false);
+    expect(promotedTiles(band(), RAIL).has("oblasts")).toBe(true);
+  });
+
+  it("does not displace it when the rail was refused", () => {
+    expect(promotedTiles(band(), undefined).has("oblasts")).toBe(false);
+  });
+
+  it("no rail row repeats a band cell's value", () => {
+    const bandValues = new Set(band().map((k) => k.value));
+    for (const r of RAIL!.rows)
+      expect(bandValues.has(r.value), `${r.label} repeats a KPI value`).toBe(
+        false,
+      );
   });
 });

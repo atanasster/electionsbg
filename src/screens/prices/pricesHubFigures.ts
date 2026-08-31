@@ -37,7 +37,9 @@
 // instead, where it is a list of named places rather than a number beside another number.
 // ═══════════════════════════════════════════════════════════════════════════════════════
 
-import type { HubKpi } from "@/ux/infographic/HubHead";
+import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
+import { OBLAST_NAME, oblastToCanon } from "@/lib/regionalOblast";
+import { bareOblastName } from "@/lib/oblastName";
 import {
   fmtEur,
   fmtPriceDate,
@@ -77,7 +79,7 @@ export interface PriceKpi extends HubKpi {
  *             `useEuroVerdict()` while the band reads hub-stats.
  *    chains   a LIST, so it starts at the second row rather than blanking.
  *    deals    a LIST too, and resolved the same way — see the tile. */
-export type PriceTile = "hero" | "verdict" | "chains" | "deals";
+export type PriceTile = "hero" | "verdict" | "chains" | "deals" | "oblasts";
 
 /** The tiles whose metric this band is carrying, derived from the cells that rendered.
  *
@@ -86,10 +88,28 @@ export type PriceTile = "hero" | "verdict" | "chains" | "deals";
  *  fields that caption them — and a constant list would blank the tile anyway, taking the
  *  number off the page altogether rather than merely out of the head. That is a silent
  *  DELETION, and `consumptionHubFigures.ts` records it happening. */
-export const promotedTiles = (kpis: PriceKpi[]): Set<PriceTile> =>
-  new Set(kpis.flatMap((k) => (k.tile ? [k.tile] : [])));
+export const promotedTiles = (
+  kpis: PriceKpi[],
+  evidence?: HubEvidence,
+): Set<PriceTile> => {
+  const out = new Set(kpis.flatMap((k) => (k.tile ? [k.tile] : [])));
+  // ⚠️ THE RAIL COUNTS TOO. Its rows are „Най-евтини области"' own rows — same places, same
+  // €, same destinations — so without this the page printed each of them twice, once in the
+  // head and once in the grid. Same rule and same fix as /governance/sectors.
+  //
+  // ⚠️ AND THAT TILE'S DESTINATION IS NOT LOST WITH IT: `/prices/map` is ALSO the „Карта на
+  // цените" tile's, four cells down. The grid carried two tiles pointing at one page; this
+  // demotion removes the duplicate rather than a route.
+  if (evidence?.rows.length) out.add("oblasts");
+  return out;
+};
 
-/** Every tile any cell could displace — for gates, never for rendering. */
+/** Every tile a BAND CELL could displace — for gates, never for rendering.
+ *
+ *  ⚠️ `oblasts` IS NOT HERE, and that is the point: it is displaced by the evidence RAIL, not
+ *  by a cell, so `promotedTiles` unions the rail's own rows in — the `sectorsHubFigures.ts`
+ *  shape. §3.1's rule is that a rail row is a figure no tile and no KPI shows, and this
+ *  rail's four rows ARE that tile's four rows, verbatim. */
 export const PRICE_BAND_TILES: readonly PriceTile[] = [
   "hero",
   "verdict",
@@ -259,3 +279,109 @@ export const pricesHubKpis = (
  *  below two cells, where there is nothing to read across. */
 export const pricesKpiNote = (kpis: PriceKpi[], t: T): string | undefined =>
   kpis.length < 2 ? undefined : t("prices_kpi_note");
+
+/** One oblast's basket level, as the caller resolved it from the ranking payload.
+ *
+ *  ⚠️⚠️ THE PAYLOAD'S `tier: "oblast"` IS KEYED ON МИР CODES, NOT OBLAST CODES, and reading
+ *  it as a list of provinces publishes a false claim about a named place. Measured on the
+ *  live payload: 31 rows, containing BOTH `PDV` („обл. Пловдив", €17,68) and `PDV-00`
+ *  („Пловдив" — the CITY, one settlement, €13,59), plus Sofia's three МИР named literally
+ *  „23"/„24"/„25". So a naive sort put „Пловдив 13,59 €" at the top of a list captioned
+ *  „най-евтини области" — when Пловдив oblast is the FOURTH-DEAREST of the thirty, 30% above
+ *  the row bearing its name. That shipped for one revision.
+ *
+ *  `filterCanonicalOblasts` below is the only supported way to build this list. */
+export interface OblastLevel {
+  code: string;
+  name: string;
+  basketLevel: number;
+}
+
+/** Keep the rows that really are an oblast, dropping the МИР artifacts.
+ *
+ *  ⚠️ IT DROPS RATHER THAN FOLDS, and it has to: `PDV-00`'s €13,59 and `PDV`'s €17,68 are two
+ *  different MEASUREMENTS over two different settlement sets, so folding them means choosing
+ *  one or averaging two medians — and a median cannot be re-derived from this payload.
+ *  `oblastToCanon` is used as a PREDICATE (is this code its own canonical form?), never as a
+ *  re-key.
+ *
+ *  ⚠️ THE COST IS SOFIA-GRAD, AND IT IS NAMED IN THE BASIS RATHER THAN HIDDEN. The capital
+ *  appears in this payload only as its three МИР slices, so a list of real oblasts has 27 of
+ *  28 and no Sofia. A „where is it cheapest" list silently missing the largest city is its own
+ *  defect; stating the omission is what makes the other 27 readable. */
+export const filterCanonicalOblasts = <T extends { code: string }>(
+  rows: T[],
+): T[] =>
+  rows.filter((r) => oblastToCanon(r.code) === r.code && !!OBLAST_NAME[r.code]);
+
+/** How many oblasts Bulgaria has — the rail's true denominator, and NOT the payload's row
+ *  count, which is 31 МИР codes. */
+export const OBLAST_TOTAL = 28;
+
+/** How many places the rail names. Four, like the tile it replaces — a rail is a sample the
+ *  reader can scan, and the action beside it goes to all thirty. */
+export const EVIDENCE_PLACES = 4;
+
+/** The head's evidence rail: where the basket is cheapest, by place.
+ *
+ *  ⚠️⚠️ IT IS HERE RATHER THAN IN THE BAND FOR A SPECIFIC REASON — see this file's header.
+ *  Пловдив's €13,59 and the band's €14,56 are both twelve products in euro, and they are NOT
+ *  comparable: the band's is what ONE CHAIN charges, this is the MEDIAN across an oblast's
+ *  settlements of each settlement's CHEAPEST price — „the lowest prices in a typical
+ *  settlement", not the region's floor and not any one shop's basket. Side by side as two
+ *  band cells they would read as one scale; as a labelled list of places under its own
+ *  heading, with that distinction in the basis, they do not. The screen's own tile comment
+ *  records that these two „previously shared a word".
+ *
+ *  ⚠️ IT ANSWERS A QUESTION NO CELL ASKS. The band says what happened and where it is
+ *  cheapest BY SHOP; „where" by PLACE is the page's second question and appears nowhere else
+ *  in the head.
+ *
+ *  ⚠️ THE ROW COUNT AND THE TOTAL ARE BOTH IN THE BASIS. Four rows out of thirty oblasts,
+ *  and without the denominator a four-item list reads as „these are the cheap ones" — the
+ *  same rule /budget's aside follows, and the reason `sectorsHubEvidence` states its own.
+ *
+ *  ⚠️ REFUSED, NEVER SHORTENED, when the ranking cannot fill it: a two-row „най-евтини
+ *  области" is a claim about a corpus that was not ranked. */
+export const pricesHubEvidence = (
+  oblasts: OblastLevel[],
+  /** The ranking payload's own day and the common basket size — the rail's denominators. */
+  meta: {
+    asOf: string | null | undefined;
+    products: number | null | undefined;
+  },
+  lang: "bg" | "en",
+  nf: Intl.NumberFormat,
+  t: T,
+): HubEvidence | undefined => {
+  if (oblasts.length < EVIDENCE_PLACES) return undefined;
+  if (!meta.asOf || !meta.products) return undefined;
+  return {
+    heading: t("prices_evidence_heading"),
+    basis: t("prices_evidence_basis", {
+      // ⚠️ INTERPOLATED, never a literal „4" in the string. It is the only `*_evidence_basis`
+      // in the corpus that hardcoded its own row count, and `EVIDENCE_PLACES`' docblock
+      // invites the one-token edit that would then ship a five-row list captioned „4 от 27"
+      // in both languages with every test green.
+      shown: nf.format(EVIDENCE_PLACES),
+      products: nf.format(meta.products),
+      asOf: fmtPriceDate(meta.asOf, lang),
+      ranked: nf.format(oblasts.length),
+      total: nf.format(OBLAST_TOTAL),
+    }),
+    rows: oblasts.slice(0, EVIDENCE_PLACES).map((o) => ({
+      // The oblast CODE, not the name: two places can share a name and React then reuses the
+      // wrong row.
+      id: o.code,
+      // ⚠️ THE TIER WORD COMES OFF. The payload names PDV „обл. Пловдив" — a prefix that
+      // exists only to tell it apart from the `PDV-00` city row this list no longer contains
+      // — and under a heading about oblasts „обл. Пловдив" reads as a stutter.
+      label: bareOblastName(o.name),
+      // ⚠️ `fmtEur`, the prices module's own — the same formatter the page this rail links
+      // into uses for the same figure.
+      value: fmtEur(o.basketLevel, lang),
+      to: `/consumption/region/${o.code}`,
+    })),
+    action: { to: "/prices/map", label: t("prices_evidence_action") },
+  };
+};

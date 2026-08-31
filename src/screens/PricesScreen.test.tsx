@@ -64,6 +64,26 @@ const INDEX = {
   },
 };
 
+/** The RANKING payload — the rail's own source, and a third blob. */
+const RANKING = {
+  coverage: { latestDate: "2026-08-30", chains: 85 },
+  // ⚠️ THE RANKING'S OWN BASKET SIZE. The rail's denominator comes from the payload its rows
+  // come from, not from the chains blob.
+  commonBasketSize: 12,
+  places: [
+    // ⚠️ THE МИР ARTIFACTS ARE IN THE FIXTURE ON PURPOSE — `tier: "oblast"` is МИР-keyed and
+    // carries the Пловдив CITY row (€13,59) beside обл. Пловдив (€17,68).
+    { code: "PDV-00", name: "Пловдив", tier: "oblast", basketLevel: 13.59 },
+    { code: "PDV", name: "обл. Пловдив", tier: "oblast", basketLevel: 17.68 },
+    { code: "S23", name: "23", tier: "oblast", basketLevel: 16.33 },
+    { code: "KNL", name: "Кюстендил", tier: "oblast", basketLevel: 14.35 },
+    { code: "DOB", name: "Добрич", tier: "oblast", basketLevel: 14.36 },
+    { code: "GAB", name: "Габрово", tier: "oblast", basketLevel: 14.42 },
+    { code: "BGS", name: "Бургас", tier: "oblast", basketLevel: 14.48 },
+    { code: "KRZ", name: "Кърджали", tier: "oblast", basketLevel: 19.93 },
+  ],
+};
+
 const CHAINS = {
   commonBasketSize: 12,
   national: [
@@ -98,7 +118,9 @@ const mount = (hub: unknown = HUB) => {
             ? CHAINS
             : u.includes("kind=deals")
               ? DEALS
-              : null;
+              : u.includes("kind=ranking")
+                ? RANKING
+                : null;
       return body
         ? { ok: true, status: 200, json: async () => body }
         : { ok: false, status: 404, json: async () => null };
@@ -253,6 +275,144 @@ describe("PricesScreen", () => {
     // against the broken version. Measured: that is exactly what happened.
     const tile = gridTile("/consumption/deals");
     expect(tile!.textContent).toContain("54%");
+  });
+
+  it("renders the rail, and it is the only place the oblasts appear", async () => {
+    // ⚠️ `evidence={evidence}` IS COVERED BY NOTHING ELSE. A prop computed and never passed
+    // compiles, type-checks and renders a head with no aside — it happened once on /culture.
+    mount();
+    await waitFor(() =>
+      expect(document.querySelector("[data-hub-head] aside")).not.toBeNull(),
+    );
+    const aside = document.querySelector("[data-hub-head] aside")!;
+    // ⚠️ КЮСТЕНДИЛ, NOT ПЛОВДИВ. The payload's cheapest „oblast" row is the CITY of Пловдив;
+    // the rail ranks real oblasts, where Пловдив is nowhere near the top.
+    expect(aside.textContent).toContain("Кюстендил");
+    expect(aside.textContent).not.toContain("Пловдив");
+    const rows = [...aside.querySelectorAll('a[href^="/consumption/region/"]')];
+    expect(rows).toHaveLength(4);
+
+    // …and the „Най-евтини области" tile is gone, because those ARE its rows.
+    const outside = [
+      ...document.querySelectorAll('a[href^="/consumption/region/"]'),
+    ].filter((a) => !a.closest("[data-hub-head]"));
+    expect(
+      outside,
+      "the oblasts tile still lists the rail's rows",
+    ).toHaveLength(0);
+    expect(document.body.textContent).not.toContain("Cheapest oblasts");
+    // ⚠️ AND ITS DESTINATION SURVIVES: /prices/map is the „Карта на цените" tile's too, so
+    // what the demotion removed is a duplicate route rather than a route.
+    expect(document.body.textContent).toContain("Price map");
+
+    // ⚠️ AND NO TILE ANYWHERE REPEATS A RAIL ROW — the clause that catches the half both
+    // builder gates are blind to. They compare rail values against BAND CELL values only, so
+    // the „Карта на цените" tile went on printing `oblastLevels[0]` — the rail's own first
+    // row, same label, same formatter — in plain <span>s that no href query can see.
+    const railRows = [...aside.querySelectorAll("li")].map(
+      (li) => li.textContent ?? "",
+    );
+    expect(railRows.length).toBeGreaterThan(0);
+    // ⚠️ A TEST HOOK, not `.grid` — that matched an earlier grid on the page (the search
+    // tile's), so the loop below ran over an element containing none of the tiles and passed
+    // against a map tile that WAS repeating the rail's first row. Measured.
+    const grid = document.querySelector('[data-testid="prices-grid"]')!;
+    for (const row of railRows) {
+      const label = row.replace(/[\d\s,.€]+$/, "").trim();
+      const value = row.slice(label.length).trim();
+      expect(label.length, `unparsed rail row: ${row}`).toBeGreaterThan(1);
+      expect(
+        grid.textContent,
+        `the grid repeats the rail's ${label} ${value}`,
+      ).not.toContain(`${label}${value}`);
+    }
+  });
+
+  it("keeps the oblasts tile when the rail was refused", async () => {
+    // ⚠️ THE PAYLOAD DROPPED HERE IS `ranking`, WHICH IS ALSO THE TILE'S OWN SOURCE, so what
+    // this pins is only that the tile's HEADING comes back — it renders a skeleton, and there
+    // are no places to reach. That is worth pinning (the demotion must be conditional) but it
+    // is not the degrade that breaks, which is the clause below.
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        const u = String(url);
+        const body = u.includes("hub-stats")
+          ? HUB
+          : u.includes("kind=index")
+            ? INDEX
+            : u.includes("kind=chains")
+              ? CHAINS
+              : u.includes("kind=deals")
+                ? DEALS
+                : null;
+        return body
+          ? { ok: true, status: 200, json: async () => body }
+          : { ok: false, status: 404, json: async () => null };
+      }),
+    );
+    render(<PricesScreen />, {
+      wrapper: ({ children }) => (
+        <QueryClientProvider
+          client={
+            new QueryClient({ defaultOptions: { queries: { retry: false } } })
+          }
+        >
+          <MemoryRouter initialEntries={["/prices"]}>{children}</MemoryRouter>
+        </QueryClientProvider>
+      ),
+    });
+    await waitFor(() => expect(cells()).toHaveLength(4));
+    expect(document.querySelector("[data-hub-head] aside")).toBeNull();
+    expect(document.body.textContent).toContain("Cheapest oblasts");
+  });
+
+  it("⚠️ keeps the tile's ROWS when the ranking is there and the rail is not", async () => {
+    // TEST-003, and the state that actually breaks: `ranking` present, `chains` absent. The
+    // rail needs a basket size and the tile does not, so the tile renders four REAL rows
+    // while the head shows no aside — which is the only degrade where a reader can still see
+    // the places. Dropping `ranking` instead tests a skeleton.
+    //
+    // ⚠️ IT FAILS IF THE RAIL'S DENOMINATOR MOVES BACK TO THE CHAINS BLOB, which is the
+    // point: the rail's rows and its denominators must come from one payload.
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        const u = String(url);
+        const body = u.includes("hub-stats")
+          ? HUB
+          : u.includes("kind=index")
+            ? INDEX
+            : u.includes("kind=deals")
+              ? DEALS
+              : u.includes("kind=ranking")
+                ? RANKING
+                : null;
+        return body
+          ? { ok: true, status: 200, json: async () => body }
+          : { ok: false, status: 404, json: async () => null };
+      }),
+    );
+    render(<PricesScreen />, {
+      wrapper: ({ children }) => (
+        <QueryClientProvider
+          client={
+            new QueryClient({ defaultOptions: { queries: { retry: false } } })
+          }
+        >
+          <MemoryRouter initialEntries={["/prices"]}>{children}</MemoryRouter>
+        </QueryClientProvider>
+      ),
+    });
+    await waitFor(() =>
+      expect(document.querySelector("[data-hub-head] aside")).not.toBeNull(),
+    );
+    // The rail is built from `ranking` alone, so it renders — and the tile it displaces is
+    // gone, with the places still reachable from the head.
+    expect(document.body.textContent).not.toContain("Cheapest oblasts");
+    expect(
+      document.querySelector("[data-hub-head] aside")!.textContent,
+    ).toContain("Кюстендил");
   });
 
   it("renders NO band, and no promotion, when the blob is missing", async () => {

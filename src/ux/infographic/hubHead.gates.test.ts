@@ -105,6 +105,7 @@ import {
 import type { AnalysisStat } from "@/data/analysis/useAnalysisStats";
 import {
   PRICE_BAND_TILES,
+  pricesHubEvidence,
   pricesHubKpis,
   promotedTiles as pricesPromotedTiles,
 } from "@/screens/prices/pricesHubFigures";
@@ -932,6 +933,39 @@ describe("hub head — the band and the tiles are disjoint", () => {
       new Set(kpis.map((k) => k.value)).size,
       "two /prices KPI cells render the same string",
     ).toBe(kpis.length);
+  });
+
+  it("/prices' rail answers a question no CELL asks, and repeats none of them", () => {
+    // ⚠️ ITS € IS DELIBERATELY NOT A FIFTH CELL. Пловдив's €13,59 and the band's €14,56 are
+    // both twelve products in euro and are NOT comparable — one chain's price against the
+    // MEDIAN of each settlement's cheapest — so as two band cells they would read as one
+    // scale. As a labelled list of PLACES under its own heading they do not.
+    const e = pricesHubEvidence(
+      // ⚠️ ALREADY FILTERED — `tier: "oblast"` in the payload is МИР-keyed and carries the
+      // Пловдив CITY row beside обл. Пловдив; see `filterCanonicalOblasts`.
+      [
+        { code: "KNL", name: "Кюстендил", basketLevel: 14.35 },
+        { code: "DOB", name: "Добрич", basketLevel: 14.36 },
+        { code: "GAB", name: "Габрово", basketLevel: 14.42 },
+        { code: "BGS", name: "Бургас", basketLevel: 14.48 },
+      ],
+      { asOf: "2026-08-30", products: 12 },
+      "bg",
+      new Intl.NumberFormat("bg"),
+      id,
+    );
+    expect(e?.rows).toHaveLength(4);
+    for (const r of e!.rows)
+      expect(String(r.to)).toMatch(/^\/consumption\/region\//);
+    expect(String(e?.action?.to)).toBe("/prices/map");
+    const bandValues = new Set(pricesBand().map((k) => k.value));
+    for (const r of e!.rows)
+      expect(bandValues.has(r.value), `${r.label} repeats a KPI value`).toBe(
+        false,
+      );
+    // …and it displaces a TILE, which no cell does — the `sectorsHubEvidence` shape.
+    expect(pricesPromotedTiles(pricesBand()).has("oblasts")).toBe(false);
+    expect(pricesPromotedTiles(pricesBand(), e).has("oblasts")).toBe(true);
   });
 
   it("no two /prices KPI cells share a destination", () => {
