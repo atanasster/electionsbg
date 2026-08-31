@@ -9,9 +9,16 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { DATASETS, EDGES, SOURCE_GROUPS, FEATURES, UNCLAIMED } from "./model";
+import {
+  DATASETS,
+  EDGES,
+  SOURCE_GROUPS,
+  FEATURES,
+  UNCLAIMED,
+  LINKS,
+} from "./model";
 import type { DatasetDef } from "./model";
-import { validateDatasetServing } from "./build_manifest";
+import { validateDatasetServing, validateLinks } from "./build_manifest";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const manifest = JSON.parse(
@@ -19,6 +26,13 @@ const manifest = JSON.parse(
 ) as {
   nodes: { id: string; kind: string }[];
   edges: { id: string; from: string; to: string }[];
+  links?: {
+    a: string;
+    b: string;
+    kind: string;
+    key?: string;
+    overlap?: number;
+  }[];
 };
 
 const pair = (e: { from: string; to: string }) => `${e.from} -> ${e.to}`;
@@ -289,5 +303,150 @@ describe("dataset paths name trees that exist", () => {
         : [`${d.id}: ${p} does not exist`];
     });
     expect(missing).toEqual([]);
+  });
+});
+
+describe("lateral links", () => {
+  const manifestLinks: {
+    a: string;
+    b: string;
+    kind: string;
+    key?: string;
+    overlap?: number;
+  }[] = manifest.links ?? [];
+
+  it("stores every pair sorted, once", () => {
+    // Sorted endpoints are what stop the same pair being declared twice in
+    // opposite directions and rendering as two edges.
+    const seen = new Set<string>();
+    for (const l of LINKS) {
+      expect(l.a < l.b, `${l.a} ↔ ${l.b} is not sorted`).toBe(true);
+      const k = `${l.a}|${l.b}|${l.key ?? "boundary"}`;
+      expect(seen.has(k), `duplicate ${k}`).toBe(false);
+      seen.add(k);
+    }
+  });
+
+  it("keeps boundary links keyless", () => {
+    // ds:interreg ↔ ds:funds is real and is NOT a join: Jems and ИСУН share no
+    // rows. Giving it a key — or an overlap of 0 — would state the opposite of
+    // what the link means.
+    const boundary = LINKS.filter((l) => l.kind === "boundary");
+    expect(boundary.length).toBeGreaterThan(0);
+    for (const l of boundary) {
+      expect(l.key).toBeUndefined();
+      expect(l.measure).toBeUndefined();
+    }
+  });
+
+  it("names only datasets that exist", () => {
+    const ids = new Set(DATASETS.map((d) => d.id));
+    const unknown = LINKS.flatMap((l) => [l.a, l.b].filter((x) => !ids.has(x)));
+    expect(unknown).toEqual([]);
+  });
+
+  it("reaches the manifest with a measured overlap", () => {
+    expect(manifestLinks.length).toBe(LINKS.length);
+    const joins = manifestLinks.filter((l) => l.kind === "join");
+    const unmeasured = joins.filter((l) => typeof l.overlap !== "number");
+    expect(unmeasured).toEqual([]);
+    // Every measured overlap is non-zero: the build fails on either zero, and
+    // a link silently carrying 0 would render as "these datasets share
+    // nothing" about a join we declared on purpose.
+    expect(joins.filter((l) => (l.overlap ?? 0) <= 0)).toEqual([]);
+  });
+
+  it("keeps enough links to be a corpus map", () => {
+    // Without a floor, 16 of the 17 joins could be deleted and every other
+    // assertion here would still pass.
+    expect(LINKS.filter((l) => l.kind !== "boundary").length).toBeGreaterThan(
+      14,
+    );
+    expect(new Set(LINKS.map((l) => l.key)).size).toBeGreaterThan(3);
+  });
+
+  it("has an overlap on every committed join link", () => {
+    // The no-database build carries values forward from this file. If that path
+    // ever regresses, the committed manifest ships with them stripped — and
+    // bucket:sync publishes it. This is what would catch that.
+    const joins = manifestLinks.filter((l) => l.kind === "join");
+    expect(joins.filter((l) => typeof l.overlap !== "number")).toEqual([]);
+  });
+
+  it("scopes any link into person_role", () => {
+    // Unscoped, person_role holds a row per candidate and per declarant, so the
+    // join measures "does this person exist" and returns exactly 100%. The map
+    // would have published "29,711 candidates also hold company roles" — a true
+    // count and a false sentence. Truth, scoped to registry roles: 7,340.
+    const unscoped = LINKS.filter(
+      (l) =>
+        l.measure?.right?.startsWith("person_role.") && !l.measure.rightWhere,
+    ).map((l) => `${l.a} ↔ ${l.b}`);
+    expect(unscoped).toEqual([]);
+  });
+
+  it("never lets a lateral link into the ELK edge list", () => {
+    // The layout reason: 15 of these in the layout graph split the dataset
+    // tier into five columns and double the width.
+    const lateralPairs = new Set(LINKS.map((l) => `ds:${l.a}|ds:${l.b}`));
+    const leaked = manifest.edges.filter(
+      (e) =>
+        lateralPairs.has(`${e.from}|${e.to}`) ||
+        lateralPairs.has(`${e.to}|${e.from}`),
+    );
+    expect(leaked).toEqual([]);
+  });
+});
+
+describe("validateLinks", () => {
+  // Its five arms had no test at all; each is pinned by the shape it rejects.
+  const base = { note: { bg: "x", en: "x" } };
+  const err = (link: Record<string, unknown>): string => {
+    try {
+      validateLinks([{ ...base, ...link } as never], (m: string) => {
+        throw new Error(m);
+      });
+    } catch (e) {
+      return (e as Error).message;
+    }
+    throw new Error("expected a validation failure, got none");
+  };
+
+  it("accepts the real link set", () => {
+    expect(() => validateLinks()).not.toThrow();
+  });
+
+  it("rejects an unknown dataset", () => {
+    expect(err({ a: "aaa", b: "zzz", key: "eik" })).toMatch(/unknown dataset/);
+  });
+
+  it("rejects an unsorted pair", () => {
+    // Sorted endpoints are what stop one relationship being declared twice in
+    // opposite directions and drawn as two links.
+    expect(err({ a: "procurement", b: "funds", key: "eik" })).toMatch(
+      /must be sorted/,
+    );
+  });
+
+  it("rejects a self-link", () => {
+    expect(err({ a: "funds", b: "funds", key: "eik" })).toMatch(/self-link/);
+  });
+
+  it("rejects a join with no key", () => {
+    expect(err({ a: "funds", b: "procurement" })).toMatch(/needs a key/);
+  });
+
+  it("rejects a boundary that carries a key or a measure", () => {
+    expect(
+      err({ a: "funds", b: "interreg", kind: "boundary", key: "eik" }),
+    ).toMatch(/must not declare a key/);
+    expect(
+      err({
+        a: "funds",
+        b: "interreg",
+        kind: "boundary",
+        measure: { left: "x.y", right: "z.w" },
+      }),
+    ).toMatch(/must not be measured/);
   });
 });

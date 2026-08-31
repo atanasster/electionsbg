@@ -31,6 +31,8 @@ import {
   type DatasetDef,
   type DatasetServing,
   UNCLAIMED,
+  LINKS,
+  type LinkDef,
   EDGES,
   FEATURES,
   SOURCE_GROUPS,
@@ -98,6 +100,21 @@ export interface ManifestTier {
   h: number;
 }
 
+export interface ManifestLink {
+  id: string;
+  /** Both `ds:*`, sorted — the pair is undirected. */
+  a: string;
+  b: string;
+  /** Absent on a boundary link, which has no shared key by construction. */
+  key?: string;
+  kind: "join" | "boundary";
+  label: Lang;
+  /** Distinct keys present on BOTH sides; absent when not measurable. */
+  overlap?: number;
+  /** What the overlap is a share OF, when the key is sparse. */
+  of?: Lang;
+}
+
 export interface DataMapManifest {
   version: number;
   generatedAt: string;
@@ -105,6 +122,8 @@ export interface DataMapManifest {
   edges: { id: string; from: string; to: string }[];
   views: { id: string; label: Lang; tag: string | null }[];
   tiers: ManifestTier[];
+  /** Lateral dataset↔dataset links. NEVER an ELK input — see §1.1. */
+  links: ManifestLink[];
   tours: { id: string; title: Lang; steps: { node: string; text: Lang }[] }[];
 }
 
@@ -331,9 +350,206 @@ const validateRelationCoverage = async (): Promise<void> => {
     `data_map: relation coverage OK — ${claimed.size} claimed, ` +
       `${Object.keys(UNCLAIMED).length} explicitly unclaimed, ${live.size} live.`,
   );
-  // Without this the pooled connection keeps the process alive ~9.4s past the
-  // last write (measured: 11.9s with a database against 2.5s without).
-  await pool.end();
+  // NOT pool.end() here: measureLinks() runs after this and would find the
+  // pool closed, then report "no reachable Postgres" — a skip indistinguishable
+  // from the CI one. main() closes it once, after the last consumer.
+};
+
+export /**
+ * Lateral links: validate the shape, then MEASURE each join's overlap against
+ * Postgres. Postgres-optional — with no database the committed manifest's
+ * existing overlaps are carried forward (a build that stripped them on every
+ * no-DB machine would churn the file), and only a NEW link with no prior value
+ * is an error.
+ */
+/** Closes the shared pg pool if this build ever opened one. */
+const closePoolIfOpen = async (): Promise<void> => {
+  try {
+    const { getPool } = await import("../db/lib/pg");
+    await getPool().end();
+  } catch {
+    /* never opened, or already closed — nothing to do */
+  }
+};
+
+export const validateLinks = (
+  links: LinkDef[] = LINKS,
+  onFail: (msg: string) => never = fail,
+): void => {
+  const ids = new Set(DATASETS.map((d) => d.id));
+  const seen = new Set<string>();
+  for (const l of links) {
+    const where = `link ${l.a} ↔ ${l.b}`;
+    for (const side of [l.a, l.b])
+      if (!ids.has(side)) onFail(`${where}: unknown dataset "${side}"`);
+    if (l.a === l.b) onFail(`${where}: self-link`);
+    if (l.a >= l.b)
+      onFail(
+        `${where}: endpoints must be sorted (a < b) so a pair cannot be declared twice ` +
+          `in both directions`,
+      );
+    const pair = `${l.a}|${l.b}|${l.key ?? l.kind ?? "join"}`;
+    if (seen.has(pair)) onFail(`${where}: duplicate link for key ${l.key}`);
+    seen.add(pair);
+
+    if (l.kind === "boundary") {
+      // The whole point of a boundary is that there is no key. Giving it one —
+      // or an overlap of 0 — says the opposite of what it means.
+      if (l.key) onFail(`${where}: a boundary link must not declare a key`);
+      if (l.measure) onFail(`${where}: a boundary link must not be measured`);
+    } else if (!l.key) {
+      onFail(`${where}: a join link needs a key`);
+    }
+  }
+};
+
+const measureLinks = async (): Promise<Record<string, { overlap: number }>> => {
+  const linkId = (l: LinkDef) => `${l.a}|${l.b}|${l.key ?? "boundary"}`;
+
+  // Carry forward what the COMMITTED manifest already measured. An empty map
+  // would emit every link with no overlap, the churn-free guard would see a
+  // real diff, and the file would be rewritten with all 17 values stripped —
+  // on every no-DB machine, including CI's `prebuild`, and then published by
+  // bucket:sync. The docstring used to claim this behaviour without doing it.
+  const prior: Record<string, { overlap: number }> = {};
+  try {
+    const committed = JSON.parse(fs.readFileSync(OUT_FILE, "utf8")) as {
+      links?: { id: string; overlap?: number }[];
+    };
+    for (const l of committed.links ?? [])
+      if (typeof l.overlap === "number") prior[l.id] = { overlap: l.overlap };
+  } catch {
+    /* first build, or no committed manifest yet */
+  }
+
+  const { getPool, dbReachable, pinLocalDatabase } =
+    await import("../db/lib/pg");
+  pinLocalDatabase();
+  if (!(await dbReachable())) {
+    const unmeasured = LINKS.filter((l) => l.measure && !prior[linkId(l)]).map(
+      (l) => `${l.a} ↔ ${l.b} (${l.key})`,
+    );
+    if (unmeasured.length)
+      fail(
+        `no reachable Postgres, and these link(s) have no previously measured ` +
+          `overlap to carry forward:\n  ${unmeasured.join("\n  ")}\n` +
+          `Run the build once against a database before committing a new link.`,
+      );
+    console.warn(
+      `data_map: link overlaps NOT measured — no reachable Postgres; carrying ` +
+        `forward ${Object.keys(prior).length} value(s) from the committed manifest.`,
+    );
+    return prior;
+  }
+  const pool = getPool();
+  const col = (ref: string, normalise?: string) => {
+    const [tbl, c] = ref.split(".");
+    // replaceAll: a normaliser mentioning $1 twice otherwise leaves the second
+    // as a live PG bind placeholder.
+    const expr = normalise ? normalise.split("$1").join(`"${c}"`) : `"${c}"`;
+    return { tbl, expr };
+  };
+  const live = new Set(
+    (
+      await pool.query<{ relname: string }>(
+        `SELECT c.relname FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+          WHERE c.relkind IN ('r','m') AND n.nspname = 'public'`,
+      )
+    ).rows.map((r) => r.relname),
+  );
+  const out: Record<string, { overlap: number }> = {};
+  const skipped: string[] = [];
+  for (const l of LINKS) {
+    if (!l.measure) continue;
+    const L = col(l.measure.left, l.measure.normalise);
+    const R = col(l.measure.right, l.measure.normalise);
+    // ⚠️ SKIP, never fail, on an absent relation. Eight of these links land on
+    // tr_companies, whose only loader is a REFRESH_EXCLUSIONS member — so a
+    // machine that ran the documented `db:refresh` in full legitimately has no
+    // such table, and failing would red-build a correctly set-up clone. Worse,
+    // an EMPTY table would route to the DEAD arm below and tell the operator to
+    // delete a correct link. This is the same asymmetry validateRelationCoverage
+    // settles: only "a live relation nobody claims" is monotone.
+    if (!live.has(L.tbl) || !live.has(R.tbl)) {
+      skipped.push(
+        `${l.a} ↔ ${l.b} (${l.key}): ${!live.has(L.tbl) ? L.tbl : R.tbl} not present`,
+      );
+      continue;
+    }
+    const lw = l.measure.leftWhere ? ` AND (${l.measure.leftWhere})` : "";
+    const rw = l.measure.rightWhere ? ` AND (${l.measure.rightWhere})` : "";
+    const sql = `
+      WITH a AS (SELECT DISTINCT ${L.expr} AS k FROM "${L.tbl}" WHERE ${L.expr} IS NOT NULL${lw}),
+           b AS (SELECT DISTINCT ${R.expr} AS k FROM "${R.tbl}" WHERE ${R.expr} IS NOT NULL${rw})
+      SELECT (SELECT count(*) FROM a) AS a_n,
+             (SELECT count(*) FROM b) AS b_n,
+             (SELECT count(*) FROM a JOIN b USING (k)) AS both_n`;
+    let r;
+    try {
+      r = await pool.query<{ a_n: string; b_n: string; both_n: string }>(sql);
+    } catch (e) {
+      fail(
+        `link ${l.a} ↔ ${l.b} (${l.key}): measuring ${l.measure.left} against ` +
+          `${l.measure.right} failed — ${(e as Error).message}`,
+      );
+    }
+    const aN = Number(r!.rows[0].a_n);
+    const bN = Number(r!.rows[0].b_n);
+    const overlap = Number(r!.rows[0].both_n);
+
+    // ── The two zeroes ────────────────────────────────────────────────────
+    // Both fail, with DIFFERENT messages, because the fixes are opposite. A
+    // key that is absent or all-NULL is a DEAD link: remove it, or fix the
+    // ingest (declaration_asset.ekatte is 100% NULL across 258,723 rows, and a
+    // curated list with no measurement would have shipped it as a confident
+    // claim). Two populated sides that do not intersect is a NORMALISATION
+    // GAP: open_calls.programme_code measures 0 of 14 against
+    // fund_projects.program_code only because ИСУН prefixes the 4-digit
+    // period — 12 of 14 once stripped. A blanket "fail on 0" would have
+    // rejected that real link and taught the next author to delete it.
+    if (overlap === 0) {
+      if (aN === 0 || bN === 0)
+        fail(
+          `link ${l.a} ↔ ${l.b} (${l.key}): DEAD — ` +
+            `${aN === 0 ? l.measure.left : l.measure.right} has no non-NULL values at all. ` +
+            `Remove the link, or fix the ingest that should be filling it.`,
+        );
+      const sample = async (ref: string, normalise?: string) => {
+        const c = col(ref, normalise);
+        const q = await pool.query<{ k: string }>(
+          `SELECT DISTINCT ${c.expr} AS k FROM "${c.tbl}" WHERE ${c.expr} IS NOT NULL LIMIT 3`,
+        );
+        return q.rows.map((x) => x.k).join(", ");
+      };
+      fail(
+        `link ${l.a} ↔ ${l.b} (${l.key}): NORMALISATION GAP — both sides are populated ` +
+          `(${aN} and ${bN} distinct values) but they do not intersect.\n` +
+          `  ${l.measure.left}: ${await sample(l.measure.left, l.measure.normalise)}\n` +
+          `  ${l.measure.right}: ${await sample(l.measure.right, l.measure.normalise)}\n` +
+          `Declare a measure.normalise expression that brings the two encodings together, ` +
+          `or drop the link if they genuinely name different things.`,
+      );
+    }
+    out[linkId(l)] = { overlap };
+  }
+  if (skipped.length)
+    console.warn(
+      `data_map: ${skipped.length} link(s) not measured — corpus absent here:\n  ` +
+        skipped.join("\n  "),
+    );
+  const measured = Object.keys(out).length;
+  console.log(
+    `data_map: measured ${measured} lateral link overlap(s) — ` +
+      Object.entries(out)
+        .sort((x, y) => y[1].overlap - x[1].overlap)
+        .slice(0, 4)
+        .map(
+          ([k, v]) =>
+            `${k.split("|").slice(0, 2).join("↔")} ${v.overlap.toLocaleString()}`,
+        )
+        .join(", "),
+  );
+  return out;
 };
 
 export const validateDatasetServing = (
@@ -446,6 +662,7 @@ const validate = (edges: [string, string][]): void => {
   if (orphans.length) fail(`node(s) with no edges: ${orphans.join(", ")}`);
 
   validateDatasetServing();
+  validateLinks();
 
   const viewTags = new Set(VIEWS.map((v) => v.tag).filter(Boolean) as string[]);
   for (const n of [...SOURCE_GROUPS, ...DATASETS, ...FEATURES]) {
@@ -636,6 +853,10 @@ const main = async (): Promise<void> => {
   // Rule 5 needs a database, so it sits here rather than inside the sync
   // validate(); it skips (loudly) when Postgres is unreachable.
   await validateRelationCoverage();
+  const linkOverlaps = await measureLinks();
+  // One close, after the last consumer: a pooled connection otherwise keeps the
+  // process alive ~9.4s past the final write.
+  await closePoolIfOpen();
   const nodes = buildNodes();
   await layout(nodes, edges);
   const tiers = buildTiers(nodes);
@@ -648,6 +869,22 @@ const main = async (): Promise<void> => {
     views: VIEWS,
     tiers,
     tours: TOURS,
+    // NOT in `edges`: these never reach ELK (§1.1 — 15 of them shatter the
+    // dataset tier into five columns and double the graph width).
+    links: LINKS.map((l) => {
+      const id = `${l.a}|${l.b}|${l.key ?? "boundary"}`;
+      const o = linkOverlaps[id];
+      return {
+        id,
+        a: `ds:${l.a}`,
+        b: `ds:${l.b}`,
+        ...(l.key ? { key: l.key } : {}),
+        kind: l.kind ?? "join",
+        label: l.note,
+        ...(o ? { overlap: o.overlap } : {}),
+        ...(l.measure?.of ? { of: l.measure.of } : {}),
+      };
+    }),
   };
 
   // Churn-free write: keep the existing file (and its `generatedAt`) when the

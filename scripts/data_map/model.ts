@@ -1228,6 +1228,288 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
  * that is a missing dataset, and the whole point of the gate is to make
  * someone add it.
  */
+/**
+ * LATERAL links: dataset ↔ dataset relationships, rendered beside the lineage
+ * graph and NEVER fed to ELK. Measured: 15 lateral edges in the layout graph
+ * shatter the dataset tier from one column into five and double the width
+ * (1602 → 3192px), because ELK routes an intra-partition edge by promoting one
+ * endpoint into a new layer — which is the lane metaphor the map is built on.
+ *
+ * Curated, not derived. A pg_catalog FK sweep would cover the money half of the
+ * corpus and silently omit the elections half; three datasets still have no
+ * Postgres side at all, and `place_dim` would derive as a hub linking
+ * everything to everything.
+ */
+export type JoinKey =
+  | "eik"
+  | "person_id"
+  | "ekatte"
+  | "procedure"
+  | "programme";
+
+export interface LinkDef {
+  /** Dataset ids without the `ds:` prefix, stored in sorted order. */
+  a: string;
+  b: string;
+  note: Lang;
+  /**
+   * "join" (default) — the two share a key.
+   * "boundary" — real relationship, NO shared key, and the point is that the
+   * two must not be merged. Renders with no key chip and no overlap.
+   */
+  kind?: "join" | "boundary";
+  /** Required for a join, absent for a boundary. */
+  key?: JoinKey;
+  /** Both sides in Postgres → the build measures the overlap and stamps it. */
+  measure?: {
+    /** "table.column" on each side. */
+    left: string;
+    right: string;
+    /** SQL applied to BOTH sides before comparing; `$1` is the column. */
+    normalise?: string;
+    /**
+     * Predicate narrowing a side to the rows the link is ACTUALLY about.
+     * Without it a link into `person_role` measures "does this person exist in
+     * the person layer" — that table holds a row per candidate and per
+     * declarant, so the overlap came back at exactly 100% and the map would
+     * have published "29,711 candidates also hold company roles" (truth:
+     * 7,340). A true count, a false sentence.
+     */
+    leftWhere?: string;
+    rightWhere?: string;
+    /** What the overlap is a share OF, when the key is sparse. */
+    of?: Lang;
+  };
+}
+
+export const LINKS: LinkDef[] = [
+  {
+    a: "connections",
+    b: "procurement",
+    key: "eik",
+    note: {
+      bg: "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
+      en: "which procurement contractors are companies in the Commerce Registry",
+    },
+    measure: { left: "contracts.contractor_eik", right: "tr_companies.uic" },
+  },
+  {
+    a: "funds",
+    b: "procurement",
+    key: "eik",
+    note: {
+      bg: "кой е получил и обществени поръчки, и европейски средства",
+      en: "who received both public contracts and EU funds",
+    },
+    measure: {
+      left: "contracts.contractor_eik",
+      right: "fund_beneficiaries.eik",
+    },
+  },
+  {
+    a: "connections",
+    b: "funds",
+    key: "eik",
+    note: {
+      bg: "бенефициентите по еврофондове като фирми в регистъра",
+      en: "EU-funds beneficiaries as registered companies",
+    },
+    measure: { left: "fund_beneficiaries.eik", right: "tr_companies.uic" },
+  },
+  {
+    a: "agri",
+    b: "procurement",
+    key: "eik",
+    note: {
+      bg: "кой взема и земеделски субсидии, и обществени поръчки",
+      en: "who takes both farm subsidies and public contracts",
+    },
+    measure: {
+      left: "contracts.contractor_eik",
+      right: "agri_beneficiary.eik",
+    },
+  },
+  {
+    a: "agri",
+    b: "connections",
+    key: "eik",
+    note: {
+      bg: "земеделските бенефициенти като фирми в регистъра",
+      en: "farm-subsidy beneficiaries as registered companies",
+    },
+    measure: { left: "agri_beneficiary.eik", right: "tr_companies.uic" },
+  },
+  {
+    a: "health",
+    b: "procurement",
+    key: "eik",
+    note: {
+      bg: "болниците, които НЗОК плаща, като възложители на поръчки",
+      en: "the hospitals the health fund pays, as procurement buyers",
+    },
+    measure: {
+      left: "nzok_hospital_payments.eik",
+      right: "contracts.awarder_eik",
+    },
+  },
+  {
+    a: "connections",
+    b: "health",
+    key: "eik",
+    note: {
+      bg: "болниците като фирми в Търговския регистър",
+      en: "hospitals as companies in the Commerce Registry",
+    },
+    measure: { left: "nzok_hospital_payments.eik", right: "tr_companies.uic" },
+  },
+  {
+    a: "connections",
+    b: "interreg",
+    key: "eik",
+    note: {
+      bg: "българските партньори по Interreg като фирми в регистъра",
+      en: "Bulgarian Interreg partners as registered companies",
+    },
+    measure: { left: "interreg_partners.eik", right: "tr_companies.uic" },
+  },
+  {
+    a: "interreg",
+    b: "procurement",
+    key: "eik",
+    note: {
+      bg: "партньори по Interreg, които печелят и обществени поръчки",
+      en: "Interreg partners who also win public contracts",
+    },
+    measure: {
+      left: "interreg_partners.eik",
+      right: "contracts.contractor_eik",
+    },
+  },
+  {
+    a: "funds",
+    b: "interreg",
+    kind: "boundary",
+    note: {
+      bg: "трансгранични пари, публикувани отделно — двете суми никога не се събират",
+      en: "cross-border money, published separately — never add the two totals",
+    },
+  },
+  {
+    a: "funds",
+    b: "opencalls",
+    key: "procedure",
+    note: {
+      bg: "какво се е случило с кандидатствалите по същата процедура преди",
+      en: "what happened to everyone who applied to this same procedure before",
+    },
+    measure: { left: "open_calls.code", right: "fund_fit.procedure_code" },
+  },
+  {
+    a: "funds",
+    b: "opencalls",
+    key: "programme",
+    note: {
+      bg: "отворените приеми и вече договореното по същата програма",
+      en: "open calls and what the same programme has already contracted",
+    },
+    // ИСУН's awarded corpus prefixes the 4-digit period (2021BG16RFPR001)
+    // and the open-calls crawl does not (BG16FFPR002). Without this the pair
+    // measures 0 of 14 and reads as a dead link; with it, 12 of 14.
+    measure: {
+      left: "open_calls.programme_code",
+      right: "fund_projects.program_code",
+      normalise: "regexp_replace($1, '^[0-9]{4}', '')",
+    },
+  },
+  {
+    a: "geo",
+    b: "interreg",
+    key: "ekatte",
+    note: {
+      bg: "къде в страната стъпват трансграничните проекти",
+      en: "where in the country the cross-border projects land",
+    },
+    measure: {
+      left: "interreg_partners.ekatte",
+      right: "place_dim.code",
+      of: {
+        bg: "от партньорските редове с разпознато място",
+        en: "of the partner rows with a resolved place",
+      },
+    },
+  },
+  {
+    a: "geo",
+    b: "procurement",
+    key: "ekatte",
+    note: {
+      bg: "в кое населено място е седалището на възложителя",
+      en: "which settlement a contracting authority is seated in",
+    },
+    measure: { left: "awarder_seats.ekatte", right: "place_dim.code" },
+  },
+  {
+    a: "connections",
+    b: "geo",
+    key: "ekatte",
+    note: {
+      bg: "къде са регистрирани фирмите",
+      en: "where companies are registered",
+    },
+    measure: {
+      left: "tr_company_place.ekatte",
+      right: "place_dim.code",
+      of: {
+        bg: "от фирмите с разпознато седалище",
+        en: "of the companies with a resolved seat",
+      },
+    },
+  },
+  {
+    a: "connections",
+    b: "officials",
+    key: "person_id",
+    note: {
+      bg: "кой деклариращ се води и в Търговския регистър",
+      en: "which declaring officials also appear in the Commerce Registry",
+    },
+    measure: {
+      left: "declaration.person_id",
+      right: "person_role.person_id",
+      // Registry roles only: unscoped, person_role holds a row for every
+      // declarant, so the join answers itself.
+      rightWhere: "source IN ('tr','ngo')",
+    },
+  },
+  {
+    a: "elections",
+    b: "officials",
+    key: "person_id",
+    note: {
+      bg: "кой кандидат после заема публична длъжност",
+      en: "which candidates later hold public office",
+    },
+    measure: {
+      left: "candidate_person.person_id",
+      right: "declaration.person_id",
+    },
+  },
+  {
+    a: "connections",
+    b: "elections",
+    key: "person_id",
+    note: {
+      bg: "кой кандидат участва и във фирми",
+      en: "which candidates also hold company roles",
+    },
+    measure: {
+      left: "candidate_person.person_id",
+      right: "person_role.person_id",
+      rightWhere: "source IN ('tr','ngo')",
+    },
+  },
+];
+
 export const UNCLAIMED: Record<string, string> = {
   // ── scratch and staging: a human's working copy, or a load's landing zone ──
   _pid_before: "one-off before/after snapshot from a person-id migration",

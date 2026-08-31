@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-31T20:43:49.152Z",
+  "generatedAt": "2026-08-31T22:11:14.896Z",
   "nodes": [
     {
       "id": "src:water",
@@ -410,7 +410,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-29T21:39:24.345Z",
+      "freshness": "2026-08-31T21:38:48.506Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -432,7 +432,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-08-29T21:39:24.345Z"
+          "freshness": "2026-08-31T21:38:48.506Z"
         },
         {
           "id": "egov_budget_execution",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-30T21:39:24.467Z",
+      "freshness": "2026-08-31T21:38:48.506Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-30T21:39:24.467Z"
+          "freshness": "2026-08-31T21:38:48.506Z"
         }
       ],
       "x": 28,
@@ -680,7 +680,7 @@
       "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-28T21:39:23.265Z",
+      "freshness": "2026-08-31T21:38:48.506Z",
       "skills": [
         "update-open-calls"
       ],
@@ -690,7 +690,7 @@
           "label": "ИСУН — отворени процедури",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
           "cadence": "daily",
-          "freshness": "2026-08-28T21:39:23.265Z"
+          "freshness": "2026-08-31T21:38:48.506Z"
         },
         {
           "id": "sp2023_indicative",
@@ -1050,7 +1050,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-29T21:39:24.345Z",
+      "freshness": "2026-08-31T21:38:48.506Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1069,7 +1069,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-08-29T21:39:24.345Z"
+          "freshness": "2026-08-31T21:38:48.506Z"
         },
         {
           "id": "municipal_naredba",
@@ -1259,7 +1259,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-30T21:39:24.467Z",
+      "freshness": "2026-08-31T21:38:48.506Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1271,7 +1271,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-29T21:39:24.345Z"
+          "freshness": "2026-08-31T21:38:48.506Z"
         },
         {
           "id": "eurostat_policy",
@@ -1586,7 +1586,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-30T21:39:24.467Z",
+      "freshness": "2026-08-31T21:38:48.506Z",
       "skills": [
         "update-prices"
       ],
@@ -1596,7 +1596,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-30T21:39:24.467Z"
+          "freshness": "2026-08-31T21:38:48.506Z"
         }
       ],
       "x": 28,
@@ -2061,7 +2061,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-08-28T21:39:23.265Z",
+      "freshness": "2026-08-31T21:38:48.506Z",
       "skills": [
         "update-procurement"
       ],
@@ -2071,7 +2071,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-08-28T21:39:23.265Z"
+          "freshness": "2026-08-31T21:38:48.506Z"
         }
       ],
       "x": 28,
@@ -5321,6 +5321,230 @@
           }
         }
       ]
+    }
+  ],
+  "links": [
+    {
+      "id": "connections|procurement|eik",
+      "a": "ds:connections",
+      "b": "ds:procurement",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
+        "en": "which procurement contractors are companies in the Commerce Registry"
+      },
+      "overlap": 18713
+    },
+    {
+      "id": "funds|procurement|eik",
+      "a": "ds:funds",
+      "b": "ds:procurement",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "кой е получил и обществени поръчки, и европейски средства",
+        "en": "who received both public contracts and EU funds"
+      },
+      "overlap": 5702
+    },
+    {
+      "id": "connections|funds|eik",
+      "a": "ds:connections",
+      "b": "ds:funds",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "бенефициентите по еврофондове като фирми в регистъра",
+        "en": "EU-funds beneficiaries as registered companies"
+      },
+      "overlap": 40265
+    },
+    {
+      "id": "agri|procurement|eik",
+      "a": "ds:agri",
+      "b": "ds:procurement",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "кой взема и земеделски субсидии, и обществени поръчки",
+        "en": "who takes both farm subsidies and public contracts"
+      },
+      "overlap": 772
+    },
+    {
+      "id": "agri|connections|eik",
+      "a": "ds:agri",
+      "b": "ds:connections",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "земеделските бенефициенти като фирми в регистъра",
+        "en": "farm-subsidy beneficiaries as registered companies"
+      },
+      "overlap": 13399
+    },
+    {
+      "id": "health|procurement|eik",
+      "a": "ds:health",
+      "b": "ds:procurement",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "болниците, които НЗОК плаща, като възложители на поръчки",
+        "en": "the hospitals the health fund pays, as procurement buyers"
+      },
+      "overlap": 169
+    },
+    {
+      "id": "connections|health|eik",
+      "a": "ds:connections",
+      "b": "ds:health",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "болниците като фирми в Търговския регистър",
+        "en": "hospitals as companies in the Commerce Registry"
+      },
+      "overlap": 256
+    },
+    {
+      "id": "connections|interreg|eik",
+      "a": "ds:connections",
+      "b": "ds:interreg",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "българските партньори по Interreg като фирми в регистъра",
+        "en": "Bulgarian Interreg partners as registered companies"
+      },
+      "overlap": 121
+    },
+    {
+      "id": "interreg|procurement|eik",
+      "a": "ds:interreg",
+      "b": "ds:procurement",
+      "key": "eik",
+      "kind": "join",
+      "label": {
+        "bg": "партньори по Interreg, които печелят и обществени поръчки",
+        "en": "Interreg partners who also win public contracts"
+      },
+      "overlap": 42
+    },
+    {
+      "id": "funds|interreg|boundary",
+      "a": "ds:funds",
+      "b": "ds:interreg",
+      "kind": "boundary",
+      "label": {
+        "bg": "трансгранични пари, публикувани отделно — двете суми никога не се събират",
+        "en": "cross-border money, published separately — never add the two totals"
+      }
+    },
+    {
+      "id": "funds|opencalls|procedure",
+      "a": "ds:funds",
+      "b": "ds:opencalls",
+      "key": "procedure",
+      "kind": "join",
+      "label": {
+        "bg": "какво се е случило с кандидатствалите по същата процедура преди",
+        "en": "what happened to everyone who applied to this same procedure before"
+      },
+      "overlap": 27
+    },
+    {
+      "id": "funds|opencalls|programme",
+      "a": "ds:funds",
+      "b": "ds:opencalls",
+      "key": "programme",
+      "kind": "join",
+      "label": {
+        "bg": "отворените приеми и вече договореното по същата програма",
+        "en": "open calls and what the same programme has already contracted"
+      },
+      "overlap": 12
+    },
+    {
+      "id": "geo|interreg|ekatte",
+      "a": "ds:geo",
+      "b": "ds:interreg",
+      "key": "ekatte",
+      "kind": "join",
+      "label": {
+        "bg": "къде в страната стъпват трансграничните проекти",
+        "en": "where in the country the cross-border projects land"
+      },
+      "overlap": 160,
+      "of": {
+        "bg": "от партньорските редове с разпознато място",
+        "en": "of the partner rows with a resolved place"
+      }
+    },
+    {
+      "id": "geo|procurement|ekatte",
+      "a": "ds:geo",
+      "b": "ds:procurement",
+      "key": "ekatte",
+      "kind": "join",
+      "label": {
+        "bg": "в кое населено място е седалището на възложителя",
+        "en": "which settlement a contracting authority is seated in"
+      },
+      "overlap": 905
+    },
+    {
+      "id": "connections|geo|ekatte",
+      "a": "ds:connections",
+      "b": "ds:geo",
+      "key": "ekatte",
+      "kind": "join",
+      "label": {
+        "bg": "къде са регистрирани фирмите",
+        "en": "where companies are registered"
+      },
+      "overlap": 4018,
+      "of": {
+        "bg": "от фирмите с разпознато седалище",
+        "en": "of the companies with a resolved seat"
+      }
+    },
+    {
+      "id": "connections|officials|person_id",
+      "a": "ds:connections",
+      "b": "ds:officials",
+      "key": "person_id",
+      "kind": "join",
+      "label": {
+        "bg": "кой деклариращ се води и в Търговския регистър",
+        "en": "which declaring officials also appear in the Commerce Registry"
+      },
+      "overlap": 5612
+    },
+    {
+      "id": "elections|officials|person_id",
+      "a": "ds:elections",
+      "b": "ds:officials",
+      "key": "person_id",
+      "kind": "join",
+      "label": {
+        "bg": "кой кандидат после заема публична длъжност",
+        "en": "which candidates later hold public office"
+      },
+      "overlap": 3220
+    },
+    {
+      "id": "connections|elections|person_id",
+      "a": "ds:connections",
+      "b": "ds:elections",
+      "key": "person_id",
+      "kind": "join",
+      "label": {
+        "bg": "кой кандидат участва и във фирми",
+        "en": "which candidates also hold company roles"
+      },
+      "overlap": 7340
     }
   ]
 }
