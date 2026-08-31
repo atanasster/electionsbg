@@ -37,10 +37,16 @@ interface ColumnInfo {
   notnull: boolean;
   indexed: boolean;
 }
+type RelationVisibility = "data" | "derived" | "internal";
 interface TableInfo {
   db: string;
   table: string;
+  /** Meaningless for views; an ESTIMATE otherwise, stale until autovacuum. */
   rowCount: number;
+  /** n_live_tup is an ESTIMATE and reads 0 until autovacuum runs. */
+  rowCountIsEstimate?: boolean;
+  kind?: string;
+  visibility?: RelationVisibility;
   columns: ColumnInfo[];
   indexes: IndexInfo[];
 }
@@ -303,6 +309,7 @@ export const SqlBrowserScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const [tab, setTab] = useState<"schema" | "history" | "saved">("schema");
+  const [showDerived, setShowDerived] = useState(false);
   const [filter, setFilter] = useState("");
   const [expandedTables, setExpandedTables] = useState<Set<string>>(new Set());
   const [history, setHistory] = useState<string[]>(() =>
@@ -425,12 +432,28 @@ export const SqlBrowserScreen = () => {
     });
 
   const f = filter.trim().toLowerCase();
-  const filteredTables = (schema?.tables ?? []).filter(
-    (t) =>
+  // 57 of production's 265 relations are not data — scratch a human left
+  // behind, ingest plumbing, extension views, precomputes and serving blobs.
+  // `_pwy_before` (33,026 rows) was the first entry a visitor saw.
+  //
+  // Hiding is a LISTING decision, never a security one: app_readonly holds
+  // SELECT on everything, so a hidden relation stays queryable by name — and a
+  // filter typed by hand still finds it, which is why the search below ignores
+  // visibility entirely.
+  const filteredTables = (schema?.tables ?? []).filter((t) => {
+    const matches =
       !f ||
       `${t.db}.${t.table}`.toLowerCase().includes(f) ||
-      t.columns.some((c) => c.name.toLowerCase().includes(f)),
-  );
+      t.columns.some((c) => c.name.toLowerCase().includes(f));
+    if (!matches) return false;
+    if (f) return true; // an explicit search sees everything
+    const v = t.visibility ?? "data";
+    return v === "data" || (v === "derived" && showDerived);
+  });
+  const hiddenCount = (schema?.tables ?? []).filter((t) => {
+    const v = t.visibility ?? "data";
+    return v === "internal" || (v === "derived" && !showDerived);
+  }).length;
 
   // Sorted view of result rows.
   const displayRows = useMemo(() => {
@@ -516,6 +539,21 @@ export const SqlBrowserScreen = () => {
                   {schema.databases.map((d) => d.name).join(" · ")}
                 </div>
               )}
+              {!f && hiddenCount > 0 && (
+                <button
+                  className="mt-1 text-[11px] text-accent hover:underline"
+                  onClick={() => setShowDerived((v) => !v)}
+                  title={
+                    showDerived
+                      ? "Hide precomputes, serving blobs and search indexes"
+                      : "Show precomputes, serving blobs and search indexes. Scratch and ingest plumbing stay hidden — but every relation is still queryable by name, and searching finds it."
+                  }
+                >
+                  {showDerived
+                    ? "Hide derived tables"
+                    : `Show derived tables (${hiddenCount} hidden)`}
+                </button>
+              )}
             </div>
             <div className="min-h-0 flex-1 overflow-auto px-2 pb-3 text-sm">
               {filteredTables.map((t) => {
@@ -528,12 +566,18 @@ export const SqlBrowserScreen = () => {
                       <button
                         className="flex-1 truncate text-left font-mono text-[13px] font-medium hover:text-accent"
                         onClick={() => toggleTable(key)}
-                        title={`${t.rowCount.toLocaleString()} rows`}
+                        title={
+                          t.kind === "v"
+                            ? "view — no row count"
+                            : `~${t.rowCount.toLocaleString()} rows (estimate; stale until autovacuum runs)`
+                        }
                       >
                         {open ? "▾ " : "▸ "}
                         {label}{" "}
                         <span className="text-muted-foreground">
-                          {t.rowCount.toLocaleString()}
+                          {t.kind === "v"
+                            ? "—"
+                            : `~${t.rowCount.toLocaleString()}`}
                         </span>
                       </button>
                       <button

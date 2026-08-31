@@ -38,7 +38,11 @@ interface IndexInfo {
 interface TableInfo {
   db: string; // schema name
   table: string;
+  /** Meaningless for views (no n_live_tup); an ESTIMATE otherwise. */
   rowCount: number;
+  rowCountIsEstimate: boolean;
+  kind: string;
+  visibility: RelationVisibility;
   columns: ColumnInfo[];
   indexes: IndexInfo[];
 }
@@ -52,7 +56,18 @@ const dsnLabel = (): string => {
   }
 };
 
-const NON_SYSTEM = "table_schema NOT IN ('pg_catalog','information_schema')";
+// The SAME classification the deployed function uses (functions/sql_lib.js).
+// This file used to carry a near-verbatim copy of readSchema under a "keep the
+// two in sync" comment; sharing the catalog is what makes that true.
+import { createRequire } from "node:module";
+const require_ = createRequire(import.meta.url);
+const { classifyRelation, SCHEMA_SQL } = require_(
+  "../functions/db_catalog.js",
+) as {
+  classifyRelation: (name: string, schema?: string) => RelationVisibility;
+  SCHEMA_SQL: { tables: string; columns: string; primaryKeys: string };
+};
+type RelationVisibility = "data" | "derived" | "internal";
 
 const readSchema = async (): Promise<unknown> => {
   const tables = await allRows<{
@@ -60,39 +75,16 @@ const readSchema = async (): Promise<unknown> => {
     name: string;
     kind: string;
     est: string;
-  }>(
-    `SELECT n.nspname AS schema, c.relname AS name, c.relkind::text AS kind,
-            COALESCE(st.n_live_tup, c.reltuples)::bigint AS est
-     FROM pg_class c
-     JOIN pg_namespace n ON n.oid = c.relnamespace
-     LEFT JOIN pg_stat_user_tables st ON st.relid = c.oid
-     WHERE c.relkind IN ('r','v','m')
-       AND n.nspname NOT IN ('pg_catalog','information_schema')
-       AND n.nspname NOT LIKE 'pg_temp%'
-     ORDER BY n.nspname, c.relname`,
-  );
+  }>(SCHEMA_SQL.tables);
   const cols = await allRows<{
     schema: string;
     tbl: string;
     col: string;
     typ: string;
     nullable: string;
-  }>(
-    `SELECT table_schema AS schema, table_name AS tbl, column_name AS col,
-            data_type AS typ, is_nullable AS nullable
-     FROM information_schema.columns
-     WHERE ${NON_SYSTEM}
-     ORDER BY table_schema, table_name, ordinal_position`,
-  );
+  }>(SCHEMA_SQL.columns);
   const pks = await allRows<{ schema: string; tbl: string; col: string }>(
-    `SELECT tc.table_schema AS schema, tc.table_name AS tbl,
-            kcu.column_name AS col
-     FROM information_schema.table_constraints tc
-     JOIN information_schema.key_column_usage kcu
-       ON kcu.constraint_name = tc.constraint_name
-      AND kcu.table_schema = tc.table_schema
-     WHERE tc.constraint_type = 'PRIMARY KEY'
-       AND tc.table_schema NOT IN ('pg_catalog','information_schema')`,
+    SCHEMA_SQL.primaryKeys,
   );
   const idx = await allRows<{
     schema: string;
@@ -146,6 +138,9 @@ const readSchema = async (): Promise<unknown> => {
       db: t.schema,
       table: t.name,
       rowCount: t.kind === "v" ? 0 : Number(t.est),
+      rowCountIsEstimate: t.kind !== "v",
+      kind: t.kind,
+      visibility: classifyRelation(t.name, t.schema),
       columns: colsByTable.get(k) ?? [],
       indexes: [...(idxByTable.get(k)?.values() ?? [])],
     };

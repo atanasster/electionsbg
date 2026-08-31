@@ -2,42 +2,20 @@
 // makeSql). Every query runs in a READ ONLY transaction with a statement_timeout
 // and a server-side row cap (via cursor), so an arbitrary SELECT over the open
 // data (TR + procurement) can't write, run forever, or return a million rows.
-// Mirrors vite/sql-browser.ts (the dev version) — keep the two in sync.
+// Shares its catalogue query and relation classification with the dev server
+// (vite/sql-browser.ts) through db_catalog.js, so the two cannot drift.
 
 const NON_SYSTEM = "table_schema NOT IN ('pg_catalog','information_schema')";
 
 // Schema tree for the explorer: user tables/views + columns, PKs, indexes,
 // estimated row counts.
+const { classifyRelation, SCHEMA_SQL } = require("./db_catalog");
+
 async function readSchema(pool) {
   const q = (sql) => pool.query(sql).then((r) => r.rows);
-  const tables = await q(
-    `SELECT n.nspname AS schema, c.relname AS name, c.relkind::text AS kind,
-            COALESCE(st.n_live_tup, c.reltuples)::bigint AS est
-     FROM pg_class c
-     JOIN pg_namespace n ON n.oid = c.relnamespace
-     LEFT JOIN pg_stat_user_tables st ON st.relid = c.oid
-     WHERE c.relkind IN ('r','v','m')
-       AND n.nspname NOT IN ('pg_catalog','information_schema')
-       AND n.nspname NOT LIKE 'pg_temp%'
-     ORDER BY n.nspname, c.relname`,
-  );
-  const cols = await q(
-    `SELECT table_schema AS schema, table_name AS tbl, column_name AS col,
-            data_type AS typ, is_nullable AS nullable
-     FROM information_schema.columns
-     WHERE ${NON_SYSTEM}
-     ORDER BY table_schema, table_name, ordinal_position`,
-  );
-  const pks = await q(
-    `SELECT tc.table_schema AS schema, tc.table_name AS tbl,
-            kcu.column_name AS col
-     FROM information_schema.table_constraints tc
-     JOIN information_schema.key_column_usage kcu
-       ON kcu.constraint_name = tc.constraint_name
-      AND kcu.table_schema = tc.table_schema
-     WHERE tc.constraint_type = 'PRIMARY KEY'
-       AND tc.table_schema NOT IN ('pg_catalog','information_schema')`,
-  );
+  const tables = await q(SCHEMA_SQL.tables);
+  const cols = await q(SCHEMA_SQL.columns);
+  const pks = await q(SCHEMA_SQL.primaryKeys);
   const idx = await q(
     `SELECT ns.nspname AS schema, t.relname AS tbl, i.relname AS idx,
             ix.indisunique AS uniq, a.attname AS col
@@ -81,7 +59,16 @@ async function readSchema(pool) {
     return {
       db: t.schema,
       table: t.name,
+      // Stays a NUMBER. A view has no n_live_tup, so 0 here is meaningless —
+      // but emitting null would crash any already-deployed bundle calling
+      // .toLocaleString() on it, and /db has no ErrorBoundary. `kind` is what
+      // tells a caller not to render this; see rowCountIsEstimate too.
       rowCount: t.kind === "v" ? 0 : Number(t.est),
+      // ⚠️ An ESTIMATE (n_live_tup), stale until autovacuum runs: a table
+      // freshly loaded with 258 rows still reports 0. Never act on it.
+      rowCountIsEstimate: t.kind !== "v",
+      kind: t.kind,
+      visibility: classifyRelation(t.name, t.schema),
       columns: colsByTable.get(k) ?? [],
       indexes: [...(idxByTable.get(k)?.values() ?? [])],
     };
