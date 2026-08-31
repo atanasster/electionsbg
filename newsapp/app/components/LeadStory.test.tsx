@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
-import type { ArticleRecord, Story } from "../data";
+import type { ArticleRecord, Outlet, Story } from "../data";
 import type { HomeLeadStoryItem } from "../homeHierarchy";
 import { LeadStory } from "./LeadStory";
 
@@ -35,11 +35,20 @@ const story = {
   summary_bg: "Синтезирано резюме",
   last_published: "2026-08-28T09:00:00Z",
   topics: [],
-  aggregates: { outlet_count: 2, article_count: 2 },
+  aggregates: {
+    outlet_count: 2,
+    article_count: 2,
+    by_domain: { "example.bg": 1, "second.bg": 1 },
+  },
 } as unknown as Story;
 
+const outlets = [
+  { domain: "example.bg", outlet: "Пример", rank: 2 },
+  { domain: "second.bg", outlet: "Втори източник", rank: 1 },
+] as Outlet[];
+
 describe("LeadStory accessibility", () => {
-  it("keeps credit, licence and CTA in keyboard order and uses h3", async () => {
+  it("keeps credit, licence and story link in keyboard order and uses h3", async () => {
     const user = userEvent.setup();
     const item = {
       story,
@@ -48,7 +57,7 @@ describe("LeadStory accessibility", () => {
     } as HomeLeadStoryItem;
     render(
       <MemoryRouter>
-        <LeadStory item={item} taxonomy={null} />
+        <LeadStory item={item} taxonomy={null} outlets={outlets} />
       </MemoryRouter>,
     );
 
@@ -67,19 +76,23 @@ describe("LeadStory accessibility", () => {
       name: /Кредит за изображението/,
     });
     const licence = screen.getByRole("link", { name: /Условия на лиценза/ });
-    const cta = screen.getByRole("link", {
-      name: "Сравни отразяването: Водеща история",
+    const storyLink = screen.getByRole("link", {
+      name: "Водеща история Синтезирано резюме",
     });
     expect(credit).toHaveAttribute(
       "href",
       "https://commons.wikimedia.org/photo",
     );
-    expect(cta).toHaveAttribute("href", "/story/story");
+    expect(storyLink).toHaveAttribute("href", "/story/story");
+    expect(screen.queryByText("Сравни отразяването")).toBeNull();
+    expect(screen.queryByText("Анализирана статия")).toBeNull();
+    expect(screen.getByText("Втори източник")).toBeVisible();
+    expect(screen.getByText("Пример")).toBeVisible();
     await user.tab();
     expect(credit).toHaveFocus();
     await user.tab();
     expect(licence).toHaveFocus();
     await user.tab();
-    expect(cta).toHaveFocus();
+    expect(storyLink).toHaveFocus();
   });
 });

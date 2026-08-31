@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
-import type { ArticleRecord, HomeStory } from "../data";
+import type { ArticleRecord, HomeStory, Outlet } from "../data";
 import { StoryCard } from "./StoryCard";
 
 const story = {
@@ -18,9 +18,14 @@ const story = {
     article_count: 2,
     by_leaning: { neutral: 2 },
     by_russia_stance: {},
-    by_domain: {},
+    by_domain: { "example.bg": 1, "second.bg": 1 },
   },
 } satisfies HomeStory;
+
+const outlets = [
+  { domain: "example.bg", outlet: "Пример", rank: 2 },
+  { domain: "second.bg", outlet: "Втори източник", rank: 1 },
+] as Outlet[];
 
 const imageArticle = {
   id: "article-1",
@@ -45,7 +50,7 @@ const imageArticle = {
 } as ArticleRecord;
 
 describe("StoryCard interaction scent", () => {
-  it("exposes one descriptive story link with a visible action label", async () => {
+  it("links the headline and summary without a redundant CTA", async () => {
     const user = userEvent.setup();
     render(
       <MemoryRouter>
@@ -54,15 +59,20 @@ describe("StoryCard interaction scent", () => {
           taxonomy={null}
           kind="comparison"
           imageArticle={imageArticle}
+          outlets={outlets}
         />
       </MemoryRouter>,
     );
 
     const storyLink = screen.getByRole("link", {
-      name: "Сравни отразяването: История с ясен път",
+      name: "История с ясен път Кратко резюме",
     });
     expect(storyLink).toHaveAttribute("href", "/story/story-1");
-    expect(screen.getByText("Сравни отразяването")).toBeVisible();
+    expect(screen.queryByText("Сравни отразяването")).toBeNull();
+    expect(screen.queryByText("Прочети анализа")).toBeNull();
+    expect(screen.queryByText("Анализирана статия")).toBeNull();
+    expect(screen.getByText("Втори източник")).toBeVisible();
+    expect(screen.getByText("Пример")).toBeVisible();
     const links = screen.getAllByRole("link");
     expect(links.map((link) => link.getAttribute("href"))).toEqual([
       "https://commons.wikimedia.org/photo",
@@ -86,15 +96,18 @@ describe("StoryCard interaction scent", () => {
           taxonomy={null}
           kind="comparison"
           imageArticle={null}
+          outlets={outlets}
         />
       </MemoryRouter>,
     );
 
     expect(container.querySelector("img")).toBeNull();
-    expect(screen.getAllByText("society")).toHaveLength(2);
+    expect(container.querySelector("figure")).toBeNull();
+    expect(container.querySelector(".aspect-\\[16\\/10\\]")).toBeNull();
+    expect(screen.getAllByText("society")).toHaveLength(1);
     expect(
       screen.getByRole("link", {
-        name: "Сравни отразяването: История с ясен път",
+        name: "История с ясен път Кратко резюме",
       }),
     ).toHaveAttribute("href", "/story/story-1");
   });

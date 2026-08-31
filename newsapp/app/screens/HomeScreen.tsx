@@ -12,13 +12,7 @@ import {
   bgStories,
   relativeTime,
 } from "../labels";
-import {
-  useHome,
-  useOutlets,
-  useStats,
-  useTaxonomy,
-  type Outlet,
-} from "../data";
+import { useHome, useOutlets, useStats, useTaxonomy } from "../data";
 import { StoryCard } from "../components/StoryCard";
 import { LeadStory } from "../components/LeadStory";
 import { HomeFilterControls } from "../components/HomeFilterControls";
@@ -109,13 +103,9 @@ export const HomeScreen = () => {
     );
     return () => window.clearTimeout(timer);
   }, [filteredStories.length, home.data]);
-  // The whole record, not just the name: the card's image needs the outlet's
-  // logo (the fallback rung) and its hotlink verdict.
-  const outletByDomain = useMemo(() => {
-    const map = new Map<string, Outlet>();
-    for (const o of outlets.data?.outlets ?? []) map.set(o.domain, o);
-    return map;
-  }, [outlets.data]);
+  // Cards need the full registry for named source previews and the image
+  // fallback rung. Missing registry rows still degrade to their domain.
+  const outletRegistry = outlets.data?.outlets ?? [];
   const hierarchy = useMemo(
     () => buildHomeHierarchy(filteredStories, home.data?.articles ?? []),
     [filteredStories, home.data?.articles],
@@ -224,7 +214,7 @@ export const HomeScreen = () => {
               <LeadStory
                 item={hierarchy.lead}
                 taxonomy={categories}
-                outlet={outletByDomain.get(hierarchy.lead.imageArticle.domain)}
+                outlets={outletRegistry}
               />
             ) : (
               <p className="text-sm text-muted-foreground">
@@ -240,11 +230,7 @@ export const HomeScreen = () => {
                     story={item.story}
                     taxonomy={categories}
                     imageArticle={item.imageArticle}
-                    outlet={
-                      item.imageArticle
-                        ? outletByDomain.get(item.imageArticle.domain)
-                        : undefined
-                    }
+                    outlets={outletRegistry}
                     kind={item.kind}
                   />
                 ))}

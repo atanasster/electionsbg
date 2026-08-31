@@ -1,9 +1,8 @@
-// Story card in the home feed — the ground.news vocabulary: canonical title,
-// summary, coverage count, lean spectrum, topic chips, relative time. The
-// content column links to /story/:id; image credit/licence remain independent
+// Story card in the home feed — a canonical title and summary, one useful
+// comparison signal, named publications, topic and relative time. The title +
+// summary form the one story link; image credit/licence remain independent
 // links, so the surface must never become one invalid nested anchor.
 
-import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,23 +17,22 @@ import type { HomeStoryKind } from "../homeHierarchy";
 import { LeanSpectrum, StanceSpectrum } from "./SpectrumBar";
 import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
+import { StorySourcePreview } from "./StorySourcePreview";
 
 export const StoryCard = ({
   story,
   taxonomy,
   imageArticle,
-  outlet,
+  outlets,
   kind,
 }: {
   story: HomeStory;
   taxonomy: TaxonomyCategory[] | null;
   imageArticle?: ArticleRecord | null;
-  outlet?: Outlet;
+  outlets: readonly Outlet[];
   kind?: HomeStoryKind;
 }) => {
   const title = story.title_bg ?? story.title_en ?? "(без заглавие)";
-  const action =
-    kind === "comparison" ? "Сравни отразяването" : "Прочети анализа";
   const primary = story.topics.find((t) => t.primary) ?? story.topics[0];
   const leaningCount = Object.entries(story.aggregates.by_leaning).reduce(
     (sum, [label, count]) =>
@@ -54,7 +52,11 @@ export const StoryCard = ({
       : null;
   return (
     <article className="h-full">
-      <Card className="news-story-card flex h-full flex-col overflow-hidden">
+      <Card
+        className={`news-story-card flex h-full min-w-0 flex-col overflow-hidden ${
+          imageArticle ? "" : "news-story-card--text"
+        }`}
+      >
         {imageArticle ? (
           <ArticleImage
             image={
@@ -64,7 +66,7 @@ export const StoryCard = ({
             rights={imageArticle.image_rights}
             articleUrl={imageArticle.url}
             outlet={
-              outlet ?? {
+              outlets.find((item) => item.domain === imageArticle.domain) ?? {
                 domain: imageArticle.domain,
                 outlet: imageArticle.domain,
                 logo: null,
@@ -72,50 +74,48 @@ export const StoryCard = ({
               }
             }
             className="rounded-none"
+            creditVariant="compact"
           />
-        ) : (
-          <div
-            aria-hidden
-            className="flex aspect-[16/10] items-end bg-muted px-4 py-3 text-xs font-medium text-muted-foreground"
-          >
-            {primary
-              ? (topicLabel(taxonomy, primary.category, primary.subcategory) ??
-                primary.category)
-              : "Наясно новини"}
-          </div>
-        )}
-        <Link
-          to={`/story/${story.id}`}
-          aria-label={`${action}: ${title}`}
-          className="news-story-link group flex flex-1 flex-col p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
-        >
-          {kind ? (
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-primary">
-              {kind === "comparison"
-                ? "Сравнение на отразяването"
-                : "Анализирана статия"}
-            </p>
-          ) : null}
-          <div className="flex items-baseline justify-between gap-2 text-xs text-muted-foreground">
-            <span>
-              {story.aggregates.outlet_count}{" "}
-              {story.aggregates.outlet_count === 1 ? "медия" : "медии"}
-              {" · "}
-              {story.aggregates.article_count}{" "}
-              {story.aggregates.article_count === 1 ? "статия" : "статии"}
-            </span>
-            <time dateTime={story.last_published ?? undefined}>
+        ) : null}
+        <div className="flex min-w-0 flex-1 flex-col p-4">
+          <div className="flex min-w-0 items-center justify-between gap-3 text-xs text-muted-foreground">
+            {primary ? (
+              <Badge
+                variant="secondary"
+                className="min-w-0 max-w-[75%] truncate font-normal"
+              >
+                {topicLabel(taxonomy, primary.category, primary.subcategory) ??
+                  primary.category}
+              </Badge>
+            ) : (
+              <span />
+            )}
+            <time
+              className="shrink-0 whitespace-nowrap"
+              dateTime={story.last_published ?? undefined}
+            >
               {relativeTime(story.last_published)}
             </time>
           </div>
-          <h3 className="mt-1.5 font-title text-lg leading-snug group-hover:text-primary">
-            {title}
-          </h3>
-          {story.summary_bg ? (
-            <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
-              {story.summary_bg}
-            </p>
-          ) : null}
+          <Link
+            to={`/story/${story.id}`}
+            className="news-story-link group mt-3 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+          >
+            <h3 className="line-clamp-3 font-title text-xl leading-[1.22] transition-colors group-hover:text-[hsl(var(--editorial-kicker))]">
+              {title}
+            </h3>
+            {story.summary_bg ? (
+              <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                {story.summary_bg}
+              </p>
+            ) : null}
+          </Link>
+          <StorySourcePreview
+            byDomain={story.aggregates.by_domain}
+            articleCount={story.aggregates.article_count}
+            outlets={outlets}
+            className="mt-4"
+          />
           {signal ? (
             <div className="mt-3 space-y-1.5">
               <p className="text-xs font-medium text-muted-foreground">
@@ -130,22 +130,7 @@ export const StoryCard = ({
               )}
             </div>
           ) : null}
-          {primary ? (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              <Badge variant="secondary" className="font-normal">
-                {topicLabel(taxonomy, primary.category, primary.subcategory) ??
-                  primary.category}
-              </Badge>
-            </div>
-          ) : null}
-          <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-[hsl(var(--editorial-kicker))] underline-offset-4 group-hover:underline">
-            {action}
-            <ArrowRight
-              className="size-4 transition-transform group-hover:translate-x-0.5"
-              aria-hidden
-            />
-          </span>
-        </Link>
+        </div>
       </Card>
     </article>
   );
