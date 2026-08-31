@@ -1,0 +1,40 @@
+{
+  "session": "20260830T223459Z-6829",
+  "createdAt": "2026-08-31T00:00:46.598Z",
+  "commit": "c17dc8a7b4",
+  "skills": [
+    "update-procurement",
+    "update-kzk-appeals",
+    "update-prices",
+    "update-macro"
+  ],
+  "paths": [
+    "procurement/derived/hub_stats.json",
+    "culture/derived/hub_stats.json",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "data-changes.json",
+    "data_map.json",
+    "debt-emissions-domestic.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/procurement/kzk_appeals.ts --year 2026 --apply",
+    "npm run prices:ingest:cloud",
+    "npm run myarea:alerts:cloud"
+  ],
+  "notes": "EOP gap-fill + KZK +18 appeals + BNB auction + prices 08-30; funds skipped (ISUN WAF)"
+}
