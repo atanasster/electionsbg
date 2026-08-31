@@ -107,7 +107,22 @@ export type DataMapManifest = {
   links: DataMapLink[];
 };
 
-export type DataMapLens = "none" | "cadence" | "origin" | "fresh";
+export type DataMapLens = "none" | "cadence" | "origin" | "fresh" | "links";
+
+/** Colour per join key, so the lens legend and the edges cannot disagree. */
+export const DATA_MAP_KEY_COLOR: Record<DataMapJoinKey, string> = {
+  eik: "hsl(var(--chart-1))",
+  person_id: "hsl(var(--chart-2))",
+  ekatte: "hsl(var(--chart-3))",
+  procedure: "hsl(var(--chart-4))",
+  programme: "hsl(var(--chart-5))",
+};
+
+/** Lateral neighbours of a node — ONE hop, never a closure. */
+export const dataMapLinkNeighbours = (
+  links: DataMapLink[],
+  nodeId: string,
+): DataMapLink[] => links.filter((l) => l.a === nodeId || l.b === nodeId);
 
 /** Lens value → CSS color expression, applied to source-group nodes. */
 export const dataMapLensColor = (

@@ -3,7 +3,13 @@ import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
 import { cn } from "@/lib/utils";
 import type { DataMapKind, DataMapNode } from "@/data/dataMap/useDataMap";
 
-export type NodeStatus = "base" | "dim" | "hot" | "selected";
+export type NodeStatus =
+  | "base"
+  | "dim"
+  | "hot"
+  /** A lateral-link neighbour of the selection — distinct from lineage "hot". */
+  | "linked"
+  | "selected";
 
 export type CardNodeData = {
   node: DataMapNode;
@@ -75,9 +81,11 @@ export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
           ? "opacity-[0.16]"
           : status === "selected"
             ? "border-accent shadow-[0_0_0_2px_hsl(var(--accent)/0.55)]"
-            : status === "hot"
-              ? "border-accent/70"
-              : "border-border hover:border-accent/60",
+            : status === "linked"
+              ? "border-accent/40 border-dashed"
+              : status === "hot"
+                ? "border-accent/70"
+                : "border-border hover:border-accent/60",
       )}
     >
       <Handle
@@ -115,6 +123,34 @@ export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
         className={handleClass}
         isConnectable={false}
       />
+      {/* Lateral links join two cards in the SAME column, which are stacked
+          vertically — a Right→Left edge would exit the side, wrap around and
+          cross every card between them. These are attached to by id.
+
+          ⚠️ ORDER MATTERS, and getting it wrong is invisible. React Flow reads
+          handleBounds.source as querySelectorAll(".source") in DOM order, and a
+          lineage edge sets no sourceHandle, so it takes source[0]. With these
+          rendered BEFORE the Right handle, all 108 dataset→feature edges left
+          from the card's top-centre instead of its right edge — a silent
+          regression on the pre-existing layer. Keep them last. */}
+      {node.kind === "dataset" && (
+        <>
+          <Handle
+            id="lat-t"
+            type="source"
+            position={Position.Top}
+            className={handleClass}
+            isConnectable={false}
+          />
+          <Handle
+            id="lat-b"
+            type="source"
+            position={Position.Bottom}
+            className={handleClass}
+            isConnectable={false}
+          />
+        </>
+      )}
     </div>
   );
 });

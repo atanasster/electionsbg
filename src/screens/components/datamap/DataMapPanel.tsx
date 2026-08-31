@@ -5,11 +5,13 @@ import { ArrowUpRight, Play, X } from "lucide-react";
 import { Card, CardContent } from "@/ux/Card";
 import { Anchor } from "@/ux/Anchor";
 import { cn } from "@/lib/utils";
+import { formatCount } from "@/lib/currency";
 import type {
   DataMapKind,
   DataMapManifest,
   DataMapNode,
 } from "@/data/dataMap/useDataMap";
+import { dataMapLinkNeighbours } from "@/data/dataMap/useDataMap";
 import { formatDateLong } from "@/lib/formatDate";
 
 type Props = {
@@ -76,6 +78,20 @@ export const DataMapPanel: FC<Props> = ({
     [manifest.nodes],
   );
   const node = selectedId ? byId.get(selectedId) : undefined;
+  // Lateral neighbours of the selection, ONE hop. Empty for every non-dataset
+  // node, and the section is omitted entirely rather than shown empty.
+  const links = useMemo(
+    () =>
+      selectedId
+        ? dataMapLinkNeighbours(manifest.links, selectedId)
+            .map((l) => ({
+              link: l,
+              other: byId.get(l.a === selectedId ? l.b : l.a),
+            }))
+            .filter((x) => !!x.other)
+        : [],
+    [manifest.links, selectedId, byId],
+  );
 
   const { upstream, downstream } = useMemo(() => {
     if (!node) return { upstream: [], downstream: [] };
@@ -250,6 +266,45 @@ export const DataMapPanel: FC<Props> = ({
                 />
               ))}
             </div>
+          </div>
+        ) : null}
+
+        {links.length ? (
+          <div>
+            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              {t("data_map_group_links")}
+            </h4>
+            <ul className="space-y-1.5">
+              {links.map(({ link, other }) => (
+                <li key={link.id} className="text-sm">
+                  <button
+                    type="button"
+                    onClick={() => onSelect(other!.id)}
+                    className="text-left text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
+                  >
+                    {other!.label[lang]}
+                  </button>
+                  <span className="ml-1.5 text-xs text-muted-foreground">
+                    {link.kind === "boundary"
+                      ? `· ${t("data_map_key_boundary")}`
+                      : `· ${t(`data_map_key_${link.key === "person_id" ? "person" : link.key}`)}`}
+                    {/* The overlap is a COUNT of shared keys. Where the key is
+                        sparse the link declares what it is a share of, and that
+                        caveat is printed with it — 1,471 of 12,015 Interreg
+                        partner rows carry a place, so a bare number beside the
+                        dataset name would claim coverage it does not have. */}
+                    {typeof link.overlap === "number"
+                      ? ` · ${formatCount(link.overlap, lang === "bg" ? "bg-BG" : "en-GB", 0)}${
+                          link.of ? ` ${link.of[lang]}` : ""
+                        }`
+                      : ""}
+                  </span>
+                  <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
+                    {link.label[lang]}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
 

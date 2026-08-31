@@ -3,14 +3,18 @@ import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
-import { useDataMap, type DataMapLens } from "@/data/dataMap/useDataMap";
+import {
+  DATA_MAP_KEY_COLOR,
+  useDataMap,
+  type DataMapLens,
+} from "@/data/dataMap/useDataMap";
 import { useDataChanges } from "@/data/dataChanges/useDataChanges";
 import { DataMapCanvas } from "@/screens/components/datamap/DataMapCanvas";
 import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
 import { DataMapTourBar } from "@/screens/components/datamap/DataMapTourBar";
 import { DataNav } from "@/screens/components/DataNav";
 
-const LENSES: DataMapLens[] = ["none", "cadence", "origin", "fresh"];
+const LENSES: DataMapLens[] = ["none", "cadence", "origin", "fresh", "links"];
 
 // Legend entries per lens: colour expression + i18n key.
 const LENS_LEGEND: Record<
@@ -31,6 +35,19 @@ const LENS_LEGEND: Record<
     { color: "hsl(var(--chart-2))", labelKey: "data_map_origin_eu" },
     { color: "hsl(var(--chart-5))", labelKey: "data_map_origin_intl" },
     { color: "hsl(var(--chart-3))", labelKey: "data_map_origin_community" },
+  ],
+  // Derived from DATA_MAP_KEY_COLOR so the legend and the drawn edges cannot
+  // disagree about what a colour means.
+  links: [
+    { color: DATA_MAP_KEY_COLOR.eik, labelKey: "data_map_key_eik" },
+    { color: DATA_MAP_KEY_COLOR.person_id, labelKey: "data_map_key_person" },
+    { color: DATA_MAP_KEY_COLOR.ekatte, labelKey: "data_map_key_ekatte" },
+    { color: DATA_MAP_KEY_COLOR.procedure, labelKey: "data_map_key_procedure" },
+    { color: DATA_MAP_KEY_COLOR.programme, labelKey: "data_map_key_programme" },
+    {
+      color: "hsl(var(--muted-foreground))",
+      labelKey: "data_map_key_boundary",
+    },
   ],
   fresh: [
     { color: "hsl(var(--chart-1))", labelKey: "data_map_fresh_7" },

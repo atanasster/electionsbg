@@ -1,5 +1,6 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import {
+  ConnectionMode,
   Background,
   BackgroundVariant,
   Controls,
@@ -13,8 +14,11 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import "./datamap.css";
+import { formatCount } from "@/lib/currency";
 import {
   dataMapClosure,
+  dataMapLinkNeighbours,
+  DATA_MAP_KEY_COLOR,
   dataMapLensColor,
   type DataMapKind,
   type DataMapLens,
@@ -102,6 +106,21 @@ const InnerCanvas: FC<Props> = ({
     [manifest.edges, selectedId, hoverId],
   );
 
+  // ONE hop, deliberately not a closure: lateral links are a different
+  // relationship from lineage, and walking them transitively would light up
+  // roughly half the graph on any selection.
+  const linkNeighbours = useMemo(
+    () =>
+      selectedId
+        ? new Set(
+            dataMapLinkNeighbours(manifest.links, selectedId).map((l) =>
+              l.a === selectedId ? l.b : l.a,
+            ),
+          )
+        : null,
+    [manifest.links, selectedId],
+  );
+
   const viewIds = useMemo(() => {
     if (!viewTag) return null;
     return new Set(
@@ -127,7 +146,13 @@ const InnerCanvas: FC<Props> = ({
       let status: NodeStatus = "base";
       if (selectedId) {
         status =
-          n.id === selectedId ? "selected" : closure?.has(n.id) ? "hot" : "dim";
+          n.id === selectedId
+            ? "selected"
+            : closure?.has(n.id)
+              ? "hot"
+              : linkNeighbours?.has(n.id)
+                ? "linked"
+                : "dim";
       } else if (viewIds) {
         status = viewIds.has(n.id) ? "base" : "dim";
       }
@@ -168,6 +193,7 @@ const InnerCanvas: FC<Props> = ({
     lang,
     selectedId,
     closure,
+    linkNeighbours,
     viewIds,
     freshness,
     freshLabel,
@@ -176,6 +202,53 @@ const InnerCanvas: FC<Props> = ({
     onSelect,
     now,
   ]);
+
+  // Lateral links, drawn from a SEPARATE array and never part of the lineage
+  // edge list (§1.1: 15 of them in the ELK graph split the dataset tier into
+  // five columns). Hidden unless the `links` lens is on or a node is selected —
+  // 18 extra edges over a portrait graph by default would make the map less
+  // legible, which inverts the point.
+  const lateralEdges: Edge[] = useMemo(() => {
+    const show = lens === "links" || !!selectedId;
+    if (!show) return [];
+    const posY = new Map(manifest.nodes.map((n) => [n.id, n.y]));
+    return manifest.links
+      .filter((l) => !selectedId || l.a === selectedId || l.b === selectedId)
+      .map((l) => {
+        // Pick top vs bottom by sign of Δy so the edge leaves toward its
+        // partner instead of wrapping around the card.
+        const aAbove = (posY.get(l.a) ?? 0) <= (posY.get(l.b) ?? 0);
+        const color =
+          l.kind === "boundary"
+            ? "hsl(var(--muted-foreground))"
+            : (l.key && DATA_MAP_KEY_COLOR[l.key]) ||
+              "hsl(var(--muted-foreground))";
+        return {
+          id: `lat:${l.id}`,
+          source: l.a,
+          target: l.b,
+          sourceHandle: aAbove ? "lat-b" : "lat-t",
+          targetHandle: aAbove ? "lat-t" : "lat-b",
+          type: "straight",
+          // A boundary link is NOT a join: dashed and grey, with no key colour,
+          // so it cannot be read as "these two share a key".
+          style: {
+            stroke: color,
+            strokeWidth: selectedId ? 1.8 : 1.2,
+            strokeDasharray: l.kind === "boundary" ? "2 4" : "5 4",
+            opacity: selectedId ? 0.85 : 0.45,
+          },
+          label:
+            selectedId && l.kind === "join" && typeof l.overlap === "number"
+              ? formatCount(l.overlap, lang === "bg" ? "bg-BG" : "en-GB", 0)
+              : undefined,
+          labelStyle: { fontSize: 10, fill: "hsl(var(--muted-foreground))" },
+          labelBgStyle: { fill: "hsl(var(--background))", fillOpacity: 0.85 },
+          focusable: false,
+          selectable: false,
+        } satisfies Edge;
+      });
+  }, [manifest.links, manifest.nodes, lens, selectedId, lang]);
 
   const edges: Edge[] = useMemo(
     () =>
@@ -224,12 +297,25 @@ const InnerCanvas: FC<Props> = ({
   // The absolute fill wrapper gives React Flow a definite height — the
   // screen's outer container is a flex item, where a bare percentage-height
   // chain collapses to 0.
+  // Lineage first so the lateral dashes draw over it rather than under.
+  const allEdges = useMemo(
+    () => [...edges, ...lateralEdges],
+    [edges, lateralEdges],
+  );
+
+  // connectionMode: Loose, not the default Strict. Under Strict,
+  // getEdgePosition resolves targetHandle against handleBounds.target ONLY, so
+  // an edge aimed at a type="source" handle returns null and paints nothing —
+  // with no console warning at all. Measured before that prop existed: 182
+  // lineage edges rendered and 0 lateral ones, while 72 lat-* handles sat in
+  // the DOM. The lateral handles are sources because a link is undirected.
   return (
     <div className="absolute inset-0">
       <ReactFlow
+        connectionMode={ConnectionMode.Loose}
         className="datamap-flow"
         nodes={nodes}
-        edges={edges}
+        edges={allEdges}
         nodeTypes={nodeTypes}
         fitView
         fitViewOptions={{ padding: 0.03, maxZoom: 1.15 }}
