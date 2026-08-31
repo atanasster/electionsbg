@@ -64,6 +64,38 @@ export type DataMapTour = {
   steps: { node: string; text: DataMapLang }[];
 };
 
+/**
+ * A lateral dataset↔dataset relationship. NOT in `edges`: those drive the ELK
+ * lineage layout and the closure highlight, and 15 lateral edges in that graph
+ * split the dataset tier into five columns. These are rendered separately.
+ */
+/**
+ * Mirrors JoinKey in scripts/data_map/model.ts. Kept a union rather than
+ * `string` because step 5 colour-codes links by it: a widened type means a new
+ * key silently renders with no colour instead of failing the exhaustive switch.
+ */
+export type DataMapJoinKey =
+  | "eik"
+  | "person_id"
+  | "ekatte"
+  | "procedure"
+  | "programme";
+
+export type DataMapLink = {
+  id: string;
+  /** Both `ds:*`, sorted — the pair is undirected. */
+  a: string;
+  b: string;
+  /** Absent on a boundary link, which has no shared key by construction. */
+  key?: DataMapJoinKey;
+  kind: "join" | "boundary";
+  label: DataMapLang;
+  /** Distinct keys present on BOTH sides. */
+  overlap?: number;
+  /** What the overlap is a share OF, when the key is sparse. */
+  of?: DataMapLang;
+};
+
 export type DataMapManifest = {
   version: number;
   generatedAt: string;
@@ -72,6 +104,7 @@ export type DataMapManifest = {
   views: DataMapView[];
   tiers: DataMapTier[];
   tours: DataMapTour[];
+  links: DataMapLink[];
 };
 
 export type DataMapLens = "none" | "cadence" | "origin" | "fresh";
@@ -127,9 +160,12 @@ const fetchDataMap = async (): Promise<DataMapManifest> => {
   const m = (await res.json()) as DataMapManifest;
   // The manifest is code-coupled but cached at the CDN (and in the browser),
   // so a returning visitor can get a freshly-hashed JS bundle paired with an
-  // older cached data_map.json that predates a field (e.g. `tours`, added in
-  // v2). Coerce every array field so no consumer reads `.length`/`.map` of
-  // undefined — the page renders with whatever the cached copy carries and
+  // older cached data_map.json that predates a field. `tours` is the worked
+  // example: it shipped in 3d7b36577c while `version` stayed at 1, so every
+  // published manifest carries tours AND says v1 — meaning `version` records
+  // when someone remembered to bump it, not what the file contains. Do not
+  // branch on it; coerce every array field instead, so no consumer reads
+  // `.length`/`.map` of undefined — the page renders with whatever the cached copy carries and
   // self-heals once the cache refreshes.
   return {
     ...m,
@@ -138,6 +174,9 @@ const fetchDataMap = async (): Promise<DataMapManifest> => {
     views: m.views ?? [],
     tiers: m.tiers ?? [],
     tours: m.tours ?? [],
+    // v2 added `links`. A returning visitor can pair a fresh bundle with a
+    // cached v1 manifest, so this must never be read as undefined.
+    links: m.links ?? [],
   };
 };
 

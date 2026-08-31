@@ -862,7 +862,9 @@ const main = async (): Promise<void> => {
   const tiers = buildTiers(nodes);
 
   const manifest: DataMapManifest = {
-    version: 1,
+    // v2: adds the lateral `links` array (step 4). Older cached copies have
+    // no such field, which useDataMap coerces to [].
+    version: 2,
     generatedAt: new Date().toISOString(),
     nodes,
     edges: edges.map(([from, to], i) => ({ id: `e${i}`, from, to })),
