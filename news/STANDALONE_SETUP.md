@@ -127,8 +127,15 @@ object-delete because stale derived JSON is removed with scoped `rsync -d`.
 
 Edit `/opt/naiasno/news/.env.pipeline` if needed. The defaults fetch the latest
 20 items per source, analyze up to 100 pending articles, use four concurrent
-model requests, and allow a stage up to two hours. Already-analyzed articles
-are skipped, so running hourly does not re-bill them.
+model requests, and allow a stage up to two hours. Each run also adds up to 24
+licensed Commons candidate sets, making at most 12 uncached searches. Search
+results (including empty results) are cached and shared by equal subjects, so
+running hourly does not repeat old searches. Already-analyzed articles are
+skipped, so running hourly does not re-bill them.
+
+`NEWS_IMAGE_CANDIDATE_REQUESTS` is a hard ceiling on actual HTTP attempts,
+including retry attempts. A stateful standalone export (`--include-state`)
+copies the cache; the rights queue itself is deterministic and is regenerated.
 
 ## 7. Validate before enabling cron
 
@@ -139,7 +146,7 @@ python3 verify_install.py
 ./install_cron.sh --print
 ```
 
-The dry run performs all nine pipeline stages without fetching, calling the
+The dry run performs all eleven pipeline stages without fetching, calling the
 model, or uploading. It must show `pipeline_exit: 0`. With public upload left
 disabled, the upload plan contains only the private archive scope.
 
@@ -181,6 +188,15 @@ To remove only this job:
 - Full local corpus and analysis: `news/data/`
 - Hidden reciprocal backlink shards: `news/mentions/`
 - Public news-app bundles: `news/app-data/`
+- Commons review queue/cache: `news/review/image_rights_queue.json` and
+  `news/review/commons_candidates.json`
+
+The hourly Commons stage only proposes appropriately licensed replacements;
+it never publishes one automatically. After visually checking relevance and
+licence metadata, add the exact choice to
+`news/config/commons_image_selections.json` and run
+`python3 news/scripts/apply_commons_images.py`. The next hourly bundle build
+will then admit that article under the fail-closed image-rights policy.
 
 Each `analyze` stage result contains a `billing` object for the complete run,
 including generations that failed parsing or validation. Inspect the newest

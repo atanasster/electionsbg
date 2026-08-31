@@ -37,6 +37,8 @@ TEMPERATURE=${NEWS_LLM_TEMPERATURE:-0.2}
 WORKERS=${NEWS_LLM_WORKERS:-4}
 SCHEMA_RETRIES=${NEWS_LLM_SCHEMA_RETRIES:-1}
 ARTICLES_PER_SOURCE=${NEWS_ARTICLES_PER_SOURCE:-20}
+IMAGE_CANDIDATE_LIMIT=${NEWS_IMAGE_CANDIDATE_LIMIT:-24}
+IMAGE_CANDIDATE_REQUESTS=${NEWS_IMAGE_CANDIDATE_REQUESTS:-12}
 BROWSER_TIMEOUT=${NEWS_BROWSER_TIMEOUT:-600}
 STAGE_TIMEOUT=${NEWS_STAGE_TIMEOUT:-7200}
 SKIP_BROWSER=0
@@ -106,12 +108,17 @@ while [ $# -gt 0 ]; do
   esac
 done
 require_uint "NEWS_ARTICLES_PER_SOURCE" "$ARTICLES_PER_SOURCE"
+require_uint "NEWS_IMAGE_CANDIDATE_LIMIT" "$IMAGE_CANDIDATE_LIMIT"
+require_uint "NEWS_IMAGE_CANDIDATE_REQUESTS" "$IMAGE_CANDIDATE_REQUESTS"
 require_uint "NEWS_BROWSER_TIMEOUT" "$BROWSER_TIMEOUT"
 require_uint "NEWS_STAGE_TIMEOUT" "$STAGE_TIMEOUT"
 require_uint "NEWS_LLM_WORKERS" "$WORKERS"
 require_uint "NEWS_LLM_MAX_TOKENS" "$MAX_TOKENS"
 [ "$WORKERS" -ge 1 ] || { echo "NEWS_LLM_WORKERS must be at least 1" >&2; exit 2; }
 [ "$MAX_TOKENS" -ge 1 ] || { echo "NEWS_LLM_MAX_TOKENS must be at least 1" >&2; exit 2; }
+[ "$IMAGE_CANDIDATE_LIMIT" -ge 1 ] || {
+  echo "NEWS_IMAGE_CANDIDATE_LIMIT must be at least 1" >&2; exit 2;
+}
 if ! NEWS_TEMPERATURE="$TEMPERATURE" python3 -c '
 import os
 try:
@@ -193,7 +200,7 @@ for artifact in "$REPORT" "$DIRECT_SUMMARY" "$BROWSER_SUMMARY" \
     finish 2
   fi
 done
-STAGES_EXPECTED=9
+STAGES_EXPECTED=11
 REPORT_INTEGRITY_FAILED=0
 LAST_STAGE_NAME=""
 LAST_STAGE_CODE=0
@@ -321,7 +328,23 @@ else
     --schema-retries "$SCHEMA_RETRIES"
 fi
 
-# ── 6. Review queue ────────────────────────────────────────────────────────
+# ── 6. Image-rights queue + cached Commons candidates ─────────────────────
+# Publisher images are not presumed reusable. The first stage rebuilds the
+# fail-closed editorial queue; the second fills a persistent query cache with
+# licensed replacement candidates. It never applies a candidate or grants
+# display rights without the separate reviewed-selection step.
+if [ "$DRY" = 1 ]; then
+  stage image_rights_queue python3 -c \
+    'import json; print(json.dumps({"skipped": "dry_run"}))'
+  stage image_candidates python3 -c \
+    'import json; print(json.dumps({"skipped": "dry_run"}))'
+else
+  stage image_rights_queue python3 news/scripts/build_image_rights_queue.py --json
+  stage image_candidates python3 news/scripts/source_commons_images.py \
+    --limit "$IMAGE_CANDIDATE_LIMIT" --max-requests "$IMAGE_CANDIDATE_REQUESTS"
+fi
+
+# ── 7. Analysis review queue ───────────────────────────────────────────────
 # ⚠️ A pipeline that knows what it does not know is worth more than one
 # confidently wrong on a tenth of its political framing calls — and nobody is
 # watching, so the queue has to arrive in the report rather than wait to be
@@ -333,7 +356,7 @@ else
   stage review_queue python3 news/scripts/review_routing.py --limit 0 --json
 fi
 
-# ── 7. Reciprocal index ────────────────────────────────────────────────────
+# ── 8. Reciprocal index ────────────────────────────────────────────────────
 if [ "$DRY" = 1 ]; then
   stage mention_index python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
@@ -341,7 +364,7 @@ else
   stage mention_index python3 news/scripts/build_mention_index.py --json
 fi
 
-# ── 8. App bundles ─────────────────────────────────────────────────────────
+# ── 9. App bundles ─────────────────────────────────────────────────────────
 if [ "$DRY" = 1 ]; then
   stage bundles python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
@@ -349,7 +372,7 @@ else
   stage bundles python3 news/scripts/build_app_data.py --quiet --json
 fi
 
-# ── 9. Report ──────────────────────────────────────────────────────────────
+# ── 10. Report ─────────────────────────────────────────────────────────────
 # ⚠️ The stages come in by PATH, not on stdin. `python3 - < "$STAGES"
 # <<'PYEOF'` applies both redirections and the LATER one wins — so the
 # heredoc replaced the file as stdin, the reader saw the script text instead

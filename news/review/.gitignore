@@ -1,0 +1,3 @@
+# Mutable hourly Commons query/result cache. Keep it when copying the live
+# news folder, but do not turn routine ingestion into repository churn.
+commons_candidates.json

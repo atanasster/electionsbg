@@ -15,6 +15,8 @@ REQUIRED_FILES = frozenset({
     "upload_to_gcs.py",
     "news/scripts/run_nightly.sh",
     "news/scripts/analyze_local.py",
+    "news/scripts/build_image_rights_queue.py",
+    "news/scripts/source_commons_images.py",
     "news/scripts/save_all_direct.sh",
     "news/scripts/save_all_browser.sh",
     "news/scripts/bin/timeout",
@@ -22,7 +24,28 @@ REQUIRED_FILES = frozenset({
     "news/data/bg_news_sites.csv",
     "news/data/gazetteer.json",
 })
-REQUIRED_MUTABLE_SEEDS = frozenset({"news/data/common_words.json"})
+REQUIRED_MUTABLE_SEEDS = frozenset({
+    "news/data/common_words.json",
+    "news/config/commons_image_selections.json",
+    "news/config/commons_search_overrides.json",
+})
+
+
+def mutable_seed_error(root: Path, rel: str) -> str | None:
+    path = root / rel
+    if not path.is_file():
+        return "mutable_seed_missing"
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return "mutable_seed_invalid_json"
+    if rel.endswith("commons_image_selections.json"):
+        if (not isinstance(value, dict) or value.get("version") != 1
+                or not isinstance(value.get("selections"), list)):
+            return "mutable_selections_invalid_shape"
+    if rel.endswith("commons_search_overrides.json") and not isinstance(value, dict):
+        return "mutable_overrides_invalid_shape"
+    return None
 
 
 def manifest_errors(manifest: object) -> list[dict]:
@@ -79,8 +102,9 @@ def main() -> int:
             failures.append({"path": rel, "expected": expected,
                              "actual": actual})
     for rel in REQUIRED_MUTABLE_SEEDS:
-        if not (ROOT / rel).is_file():
-            failures.append({"path": rel, "error": "mutable_seed_missing"})
+        error = mutable_seed_error(ROOT, rel)
+        if error:
+            failures.append({"path": rel, "error": error})
     result = {"mode": "verify_bundle", "files": len(files),
               "failures": failures}
     if failures or not args.quiet:

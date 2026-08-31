@@ -1,10 +1,19 @@
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
+from news.scripts import source_commons_images as source
 from news.scripts.apply_commons_images import apply
-from news.scripts.source_commons_images import plain, search_term
+from news.scripts.source_commons_images import (
+    load_search_cache,
+    needs_commons_replacement,
+    plain,
+    search_cache_key,
+    search_term,
+)
 
 
 class CommonsImagesTest(unittest.TestCase):
@@ -43,6 +52,81 @@ class CommonsImagesTest(unittest.TestCase):
         self.assertEqual(search_term(
             {"entities": {"people": ["Име"], "places": ["София"]}}, "Заглавие"
         ), "Име")
+
+    def test_missing_publisher_review_gets_a_licensed_replacement_search(self):
+        self.assertTrue(needs_commons_replacement({"reason": "missing_image"}))
+        self.assertTrue(needs_commons_replacement({"reason": "missing_review"}))
+        self.assertFalse(needs_commons_replacement({"reason": "unknown_rights"}))
+        self.assertFalse(needs_commons_replacement({"reason": "blocked"}))
+
+    def test_search_cache_reuses_subjects_and_preserves_empty_results(self):
+        prior = {
+            "search_cache": {
+                "ормузки проток": {
+                    "term": "Ормузки  проток",
+                    "candidates": [],
+                },
+            },
+            "items": [{
+                "search_term": "Едуар Филип",
+                "candidates": [{"file_title": "File:E.jpg"}],
+            }],
+        }
+        cache = load_search_cache(prior)
+        self.assertIn(search_cache_key(" Ормузки\nпроток "), cache)
+        self.assertEqual(cache["ормузки проток"]["candidates"], [])
+        self.assertEqual(
+            cache[search_cache_key("едуар филип")]["candidates"][0]["file_title"],
+            "File:E.jpg",
+        )
+
+    def test_main_reuses_one_empty_query_across_articles_and_runs(self):
+        queue = Path(self.tmp.name) / "queue.json"
+        out = Path(self.tmp.name) / "cache.json"
+        analysis_dir = self.root / "analysis" / "articles" / "example.bg"
+        analysis_dir.mkdir(parents=True)
+        items = []
+        for name in ("a", "b"):
+            url = f"https://example.bg/{name}"
+            (analysis_dir / f"{name}.json").write_text(json.dumps({
+                "domain": "example.bg", "url": url, "site_relevant": True,
+                "entities": {"places": ["Ормузки проток"]},
+            }))
+            items.append({
+                "id": f"example.bg/{name}", "domain": "example.bg",
+                "article_url": url,
+                "article_path": f"news/data/example.bg/{name}.json",
+                "title": name, "reason": "missing_review",
+            })
+        queue.write_text(json.dumps({"items": items}))
+        argv = ["source_commons_images.py", "--data-dir", str(self.root),
+                "--queue", str(queue), "--out", str(out), "--limit", "8"]
+        calls = []
+
+        def empty(term, *, limit=8, attempt_budget=3):
+            calls.append((term, attempt_budget))
+            return [], 1
+
+        with patch.object(source, "commons_search", side_effect=empty), patch.object(
+                sys, "argv", argv):
+            self.assertEqual(source.main(), 0)
+            self.assertEqual(source.main(), 0)
+        self.assertEqual(len(calls), 1)
+        saved = json.loads(out.read_text())
+        self.assertEqual(saved["items"], [])
+        self.assertEqual(
+            saved["search_cache"][search_cache_key("Ормузки проток")]["candidates"],
+            [],
+        )
+
+    def test_retry_loop_never_exceeds_raw_request_budget(self):
+        with patch.object(source.urllib.request, "urlopen",
+                          side_effect=source.urllib.error.URLError("offline")) as opened, \
+                patch.object(source.time, "sleep"), patch.object(
+                    source.random, "random", return_value=0):
+            with self.assertRaises(source.urllib.error.URLError):
+                source.commons_search("subject", attempt_budget=2)
+        self.assertEqual(opened.call_count, 2)
 
     def test_apply_preserves_exact_credit_and_is_idempotent(self):
         self.write([self.row()])

@@ -77,8 +77,8 @@ class NightlyRunnerContractTests(unittest.TestCase):
             self.assertEqual(len(reports), 2)
             for report in reports:
                 data = __import__("json").loads(report.read_text(encoding="utf-8"))
-                self.assertEqual(data["stages_run"], 9)
-                self.assertEqual(data["stages_ok"], 9)
+                self.assertEqual(data["stages_run"], 11)
+                self.assertEqual(data["stages_ok"], 11)
                 self.assertTrue(all(s["result"] == {"skipped": "dry_run"}
                                     for s in data["stages"]))
                 self.assertEqual(data["acquisition"]["direct"]["skipped"], "dry_run")
@@ -165,6 +165,7 @@ class NightlyRunnerContractTests(unittest.TestCase):
                 'stage probe_model python3 news/scripts/llm_client.py',
                 "stage probe_model python3 -c 'import json,sys; print(json.dumps({})); sys.exit(1)'")
             for name in ("build_prompts.py", "build_gazetteer.py",
+                         "build_image_rights_queue.py", "source_commons_images.py",
                          "review_routing.py", "build_mention_index.py",
                          "build_app_data.py"):
                 (runner.parent / name).write_text("print('{}')\n", encoding="utf-8")

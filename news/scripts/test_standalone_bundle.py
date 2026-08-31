@@ -52,6 +52,7 @@ class StandaloneBundle(unittest.TestCase):
         self.assertGreaterEqual(len(self.manifest["files"]), 30)
         for rel in ("run_hourly.sh", "upload_to_gcs.py",
                     "news/scripts/run_nightly.sh",
+                    "news/scripts/source_commons_images.py",
                     "news/scripts/harvest_browser.mjs",
                     "news/prompts/analyze_schema.json",
                     "news/data/gazetteer.json"):
@@ -65,10 +66,31 @@ class StandaloneBundle(unittest.TestCase):
 
         common_words = self.out / "news/data/common_words.json"
         common_words.write_text('{"generated_at":"next-hour"}\n', encoding="utf-8")
+        selections = self.out / "news/config/commons_image_selections.json"
+        selection_data = json.loads(selections.read_text(encoding="utf-8"))
+        selection_data["selections"].append({"editorial": "mutable"})
+        selections.write_text(json.dumps(selection_data), encoding="utf-8")
         verify = subprocess.run(
             [sys.executable, str(self.out / "verify_bundle.py")],
             cwd=self.out, text=True, capture_output=True)
         self.assertEqual(verify.returncode, 0, verify.stderr + verify.stdout)
+
+    def test_include_state_carries_valid_commons_cache(self):
+        with tempfile.TemporaryDirectory() as source_temp:
+            source_root = Path(source_temp)
+            (source_root / "news/data").mkdir(parents=True)
+            cache = source_root / "news/review/commons_candidates.json"
+            cache.parent.mkdir(parents=True)
+            cache.write_text(json.dumps({
+                "version": 2, "items": [], "search_cache": {
+                    "none": {"term": "None", "candidates": []},
+                },
+            }), encoding="utf-8")
+            copied = bundle.include_state(self.out, source_root)
+        self.assertEqual(copied, 1)
+        saved = json.loads((
+            self.out / "news/review/commons_candidates.json").read_text())
+        self.assertEqual(saved["search_cache"]["none"]["candidates"], [])
 
     def test_manifest_validation_fails_closed(self):
         manifest_path = self.out / "bundle-manifest.json"

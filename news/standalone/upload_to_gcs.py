@@ -16,7 +16,8 @@ ROOT = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2
 GS_URI = re.compile(r"^gs://([^/]+)(?:/(.+?))?/?$")
 EXPECTED_STAGES = (
     "acquire_direct", "acquire_browser", "probe_model", "check_prompts",
-    "common_words", "analyze", "review_queue", "mention_index", "bundles",
+    "common_words", "analyze", "image_rights_queue", "image_candidates",
+    "review_queue", "mention_index", "bundles",
 )
 ARCHIVE_EXCLUDE = (
     r"(^|/)(_browser|_html|_nightly|evals|gold)(/|$)|"

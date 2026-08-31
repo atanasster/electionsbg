@@ -108,7 +108,7 @@ are normally immutable, but an analysis at the same path can be replaced, and
 only bucket versioning preserves the prior generation.
 
 The uploader refuses to publish hot JSON unless public upload is explicitly
-enabled, the full nine-stage report is structurally intact, and both the
+enabled, the full eleven-stage report is structurally intact, and both the
 `mention_index` and `bundles` stages succeeded. It archives first and does not
 advance public data if that archive transfer fails. It can still archive newly
 acquired raw data after an analysis/model failure.
@@ -130,3 +130,11 @@ rotation policy. Alert on a non-zero `pipeline_exit`/`upload_exit`, a growing
 run-level OpenRouter bill; unlike per-article provenance, it also counts
 token-ceiling, parse, validation, and probe responses that produced no saved
 analysis.
+
+Every hourly run also refreshes the fail-closed image-rights queue and sources
+Commons replacements. `NEWS_IMAGE_CANDIDATE_REQUESTS` caps actual HTTP
+attempts, including retries;
+responses and empty results are persisted in
+`news/review/commons_candidates.json` and reused across articles with the same
+subject. Candidates remain unpublished until a reviewer records a selection
+and runs `news/scripts/apply_commons_images.py`.

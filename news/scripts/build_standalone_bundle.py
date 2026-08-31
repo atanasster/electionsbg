@@ -15,12 +15,15 @@ from pathlib import Path
 ROOT = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
 
 RUNTIME_SCRIPTS = (
+    "news/scripts/apply_commons_images.py",
     "news/scripts/analyze_articles.py",
     "news/scripts/analyze_local.py",
     "news/scripts/build_app_data.py",
     "news/scripts/build_gazetteer.py",
+    "news/scripts/build_image_rights_queue.py",
     "news/scripts/build_mention_index.py",
     "news/scripts/build_prompts.py",
+    "news/scripts/commons_rights.py",
     "news/scripts/fetch_latest_articles.py",
     "news/scripts/harvest_browser.mjs",
     "news/scripts/llm_client.py",
@@ -30,10 +33,13 @@ RUNTIME_SCRIPTS = (
     "news/scripts/save_all_browser.sh",
     "news/scripts/save_all_direct.sh",
     "news/scripts/save_articles.py",
+    "news/scripts/source_commons_images.py",
     "news/scripts/bin/timeout",
 )
 SEED_FILES = (
     "news/topics.json",
+    "news/config/commons_image_selections.json",
+    "news/config/commons_search_overrides.json",
     "news/config/image_rights_policy.json",
     "news/data/bg_news_sites.csv",
     "news/data/common_words.json",
@@ -54,6 +60,11 @@ STANDALONE_MAP = {
     "news/standalone/verify_bundle.py": "verify_bundle.py",
 }
 STATE_DIRS = frozenset({"analysis", "_state", "_rejected", "_quarantine"})
+MUTABLE_SEEDS = frozenset({
+    "news/data/common_words.json",
+    "news/config/commons_image_selections.json",
+    "news/config/commons_search_overrides.json",
+})
 EXECUTABLES = frozenset({
     "install_cron.sh", "run_hourly.sh", "setup.sh", "upload_to_gcs.py",
     "verify_bundle.py", *RUNTIME_SCRIPTS,
@@ -74,18 +85,31 @@ def copy_file(source_rel: str, destination_rel: str, out: Path,
         immutable.add(destination_rel)
 
 
-def include_state(out: Path) -> int:
-    source_root = ROOT / "news" / "data"
+def include_state(out: Path, source: Path | None = None) -> int:
+    source = source or ROOT
+    source_root = source / "news" / "data"
     copied = 0
-    for source in sorted(source_root.iterdir()):
-        if not source.is_dir():
+    for data_source in sorted(source_root.iterdir()):
+        if not data_source.is_dir():
             continue
-        if source.name not in STATE_DIRS and "." not in source.name:
+        if data_source.name not in STATE_DIRS and "." not in data_source.name:
             continue
-        destination = out / "news" / "data" / source.name
-        shutil.copytree(source, destination, dirs_exist_ok=True,
+        destination = out / "news" / "data" / data_source.name
+        shutil.copytree(data_source, destination, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns(".DS_Store", "__pycache__"))
         copied += sum(path.is_file() for path in destination.rglob("*"))
+    cache = source / "news" / "review" / "commons_candidates.json"
+    if cache.is_file():
+        value = json.loads(cache.read_text(encoding="utf-8"))
+        if (not isinstance(value, dict) or value.get("version") not in {1, 2}
+                or not isinstance(value.get("items"), list)
+                or (value.get("version") == 2
+                    and not isinstance(value.get("search_cache"), dict))):
+            raise ValueError(f"invalid Commons cache: {cache}")
+        target = out / "news" / "review" / cache.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(cache, target)
+        copied += 1
     return copied
 
 
@@ -96,7 +120,7 @@ def build(out: Path, with_state: bool) -> dict:
     immutable: set[str] = set()
     for rel in RUNTIME_SCRIPTS + SEED_FILES:
         copy_file(rel, rel, out, immutable,
-                  mutable_seed=rel == "news/data/common_words.json")
+                  mutable_seed=rel in MUTABLE_SEEDS)
     for source in sorted((ROOT / "news" / "prompts").iterdir()):
         if source.is_file():
             rel = str(source.relative_to(ROOT))
@@ -115,7 +139,7 @@ def build(out: Path, with_state: bool) -> dict:
         "built_at": datetime.now(timezone.utc).isoformat(),
         "state_included": with_state,
         "state_files": state_files,
-        "mutable_seeds": ["news/data/common_words.json"],
+        "mutable_seeds": sorted(MUTABLE_SEEDS),
         "files": hashes,
     }
     (out / "bundle-manifest.json").write_text(
