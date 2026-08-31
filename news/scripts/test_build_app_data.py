@@ -526,7 +526,8 @@ class MetadataAndBudget(unittest.TestCase):
             home["eligibility"],
             "published_recent_analyzed_with_cleared_images_only",
         )
-        self.assertEqual(home["version"], 2)
+        self.assertEqual(home["version"], 3)
+        self.assertEqual(home["event_dedupe"], "conservative_title_entity_v1")
         # No fixture story points at the eligible record, so the compact
         # bundle correctly emits neither half of an unrenderable pair.
         self.assertEqual(home["articles"], [])
@@ -1634,7 +1635,7 @@ class HomePayloadSelection(unittest.TestCase):
             self.article(stories[-1]["id"], i, "2026-08-31T00:00:00+00:00")
             for i in range(100, 170)
         )
-        got_articles, got_stories = select_home_payload(articles, stories)
+        got_articles, got_stories, proposals = select_home_payload(articles, stories)
         self.assertEqual(len(got_stories), HOME_STORY_LIMIT)
         self.assertEqual(got_stories[0]["id"], stories[-1]["id"])
         self.assertNotIn("s00", {story["id"] for story in got_stories})
@@ -1642,6 +1643,7 @@ class HomePayloadSelection(unittest.TestCase):
         selected = {story["id"] for story in got_stories}
         self.assertEqual({row["story_id"] for row in got_articles}, selected)
         self.assertTrue(all(set(story) == HOME_STORY_FIELDS for story in got_stories))
+        self.assertEqual(proposals, [])
 
     def test_iso_offsets_rank_as_instants_and_english_fallback_survives(self):
         older = self.story(
@@ -1652,7 +1654,7 @@ class HomePayloadSelection(unittest.TestCase):
             self.article(older["id"], 1, older["last_published"]),
             self.article(newer["id"], 2, newer["last_published"]),
         ]
-        _, got = select_home_payload(articles, [older, newer])
+        _, got, _ = select_home_payload(articles, [older, newer])
         self.assertEqual([row["id"] for row in got], [newer["id"], older["id"]])
         self.assertIsNone(got[1]["title_bg"])
         self.assertEqual(got[1]["title_en"], "English 1")
@@ -1665,8 +1667,63 @@ class HomePayloadSelection(unittest.TestCase):
         cleared = self.article(item["id"], 2, "2026-08-28T09:00:00+00:00")
         cleared["image"] = "https://upload.wikimedia.org/photo.jpg"
         cleared["image_rights"] = {"display_home": True}
-        got, _ = select_home_payload([text, cleared], [item])
+        got, _, _ = select_home_payload([text, cleared], [item])
         self.assertEqual(got[0]["id"], cleared["id"])
+
+    def test_home_emits_a_merge_proposal_and_one_card_for_a_strong_event_match(self):
+        first = self.story(
+            1,
+            published="2026-08-31T06:00:00+00:00",
+            title_bg="Андрей Гюров обявява на 31 август дали ще се кандидатира за президент",
+        )
+        second = self.story(
+            2,
+            published="2026-08-31T05:00:00+00:00",
+            title_bg="Андрей Гюров казва на 31 август дали ще се кандидатира за президент",
+        )
+        for item in (first, second):
+            item["topics"] = [{
+                "category": "politics", "subcategory": "elections", "primary": True,
+            }]
+            item["entities"] = {
+                "people": ["Андрей Гюров"], "parties": [], "institutions": [],
+                "companies": [], "places": [],
+            }
+        articles = [
+            self.article(first["id"], 1, first["last_published"]),
+            self.article(second["id"], 2, second["last_published"]),
+        ]
+        _, selected, proposals = select_home_payload(articles, [first, second])
+        self.assertEqual([item["id"] for item in selected], [first["id"]])
+        self.assertEqual(proposals[0]["keeper_story_id"], first["id"])
+        self.assertEqual(proposals[0]["candidate_story_id"], second["id"])
+
+    def test_duplicates_do_not_hide_later_unique_stories(self):
+        duplicates = []
+        for idx in range(64):
+            item = self.story(
+                idx,
+                published="2026-08-31T06:00:00+00:00",
+                title_bg="Еднакво важно събитие с напълно еднакво заглавие",
+            )
+            duplicates.append(item)
+        unique = [
+            self.story(
+                100 + idx,
+                published="2026-08-31T05:00:00+00:00",
+                title_bg=f"Самостоятелна тема номер {100 + idx} различен казус",
+            )
+            for idx in range(20)
+        ]
+        candidates = duplicates + unique
+        articles = [
+            self.article(item["id"], idx, item["last_published"])
+            for idx, item in enumerate(candidates)
+        ]
+        _, selected, _ = select_home_payload(articles, candidates)
+        self.assertEqual(len(selected), HOME_STORY_LIMIT)
+        self.assertEqual(selected[0]["id"], duplicates[0]["id"])
+        self.assertEqual(len({item["title_bg"] for item in selected}), HOME_STORY_LIMIT)
 
     def test_wire_measurement_matches_documented_gzip_level(self):
         payload = b"home payload " * 1000

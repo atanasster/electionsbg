@@ -28,7 +28,7 @@ and writes the app-facing bundles consumed by the standalone newsapp's data clie
   stories.json              all story clusters: canonical titles, summaries, aggregates,
                             members joined to corpus headlines, computed blindspot flag
   latest.json               the N most recent articles corpus-wide (compact + analysis)
-  home.json                 analyzed, rights-cleared article cards only
+  home.json                 recent analyzed stories; only cleared images survive
   articles/<domain>.json    compact per-outlet article list; analyzed articles carry the
                             full analysis block so /article/:domain/:id is a single fetch
 
@@ -63,6 +63,12 @@ try:
         is_commons_thumbnail_url,
         is_https_host,
     )
+    from .home_event_dedupe import (
+        build_story_merge_queue,
+        dedupe_home_events,
+        rejected_story_pairs,
+        write_story_merge_queue,
+    )
 except ImportError:  # direct script execution
     from commons_rights import (
         canonical_licence_url,
@@ -70,6 +76,12 @@ except ImportError:  # direct script execution
         commons_thumbnail_file_title,
         is_commons_thumbnail_url,
         is_https_host,
+    )
+    from home_event_dedupe import (
+        build_story_merge_queue,
+        dedupe_home_events,
+        rejected_story_pairs,
+        write_story_merge_queue,
     )
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
@@ -699,7 +711,10 @@ def home_gzip_size(payload: bytes) -> int:
     return len(gzip.compress(payload, compresslevel=6))
 
 
-def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list[dict], list[dict]]:
+def select_home_payload(
+    eligible: list[dict], stories: list[dict],
+    rejected_pairs: set[frozenset[str]] | None = None,
+) -> tuple[list[dict], list[dict], list[dict]]:
     """Choose recent analyzed stories, preferring a cleared image representative."""
     floor = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
@@ -728,7 +743,8 @@ def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list
         -(story.get("aggregates") or {}).get("outlet_count", 0),
         story["id"],
     ))
-    selected = candidates[:HOME_STORY_LIMIT]
+    unique_events, merge_proposals = dedupe_home_events(candidates, rejected_pairs)
+    selected = unique_events[:HOME_STORY_LIMIT]
 
     # Reserve one representative per selected story before filling the global
     # article cap. A rights-cleared image wins within the story; otherwise its
@@ -747,7 +763,7 @@ def select_home_payload(eligible: list[dict], stories: list[dict]) -> tuple[list
     return articles, [
         {key: value for key, value in story.items() if key in HOME_STORY_FIELDS}
         for story in selected
-    ]
+    ], merge_proposals
 
 # The gzip ceiling for latest.json. The default hot window is deliberately 150
 # records: after the analyzed corpus was backfilled in 2026-08, 600 rich
@@ -1602,13 +1618,44 @@ def main() -> int:
             projected["image"] = None
             projected["image_alt"] = None
         eligible_articles.append(projected)
-    home_articles, home_stories = select_home_payload(eligible_articles, stories)
+    story_merge_queue_path = REPO / "news" / "review" / "story_merge_queue.json"
+    previous_story_merge_queue = None
+    if story_merge_queue_path.exists():
+        try:
+            previous_story_merge_queue = json.loads(
+                story_merge_queue_path.read_text(encoding="utf-8")
+            )
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ValueError(
+                f"cannot read story merge review queue {story_merge_queue_path}: {exc}"
+            ) from exc
+    home_articles, home_stories, all_home_merge_proposals = select_home_payload(
+        eligible_articles,
+        stories,
+        rejected_story_pairs(previous_story_merge_queue),
+    )
+    selected_home_story_ids = {story["id"] for story in home_stories}
+    home_merge_proposals = [
+        proposal for proposal in all_home_merge_proposals
+        if proposal["keeper_story_id"] in selected_home_story_ids
+    ]
+    write_story_merge_queue(
+        story_merge_queue_path,
+        build_story_merge_queue(
+            previous_story_merge_queue,
+            all_home_merge_proposals,
+            {story["id"]: story for story in stories},
+            generated_at,
+        ),
+    )
     home_path = out_dir / "home.json"
     write_json(home_path, {
-        "version": 2,
+        "version": 3,
         "generated_at": generated_at,
         "eligibility": "published_recent_analyzed_with_cleared_images_only",
         "window_days": HOME_WINDOW_DAYS,
+        "event_dedupe": "conservative_title_entity_v1",
+        "merge_proposals": home_merge_proposals,
         "articles": home_articles,
         "stories": home_stories,
     })

@@ -621,11 +621,58 @@ export const useStories = () =>
   useData<{ generated_at: string; stories: Story[] }>("/stories.json");
 export const useLatest = () =>
   useData<{ generated_at: string; articles: ArticleRecord[] }>("/latest.json");
+export interface HomeMergeProposal {
+  keeper_story_id: string;
+  matched_story_id: string;
+  candidate_story_id: string;
+  confidence: "high";
+  shared_title_tokens: string[];
+  shared_entities: string[];
+  shared_places: string[];
+  title_jaccard: number;
+  published_gap_hours: number;
+  topic: [string, string | null] | null;
+}
+
+const isStringArray = (value: unknown): value is string[] =>
+  Array.isArray(value) && value.every((item) => typeof item === "string");
+
+const isHomeMergeProposal = (value: unknown): value is HomeMergeProposal => {
+  if (!value || typeof value !== "object") return false;
+  const item = value as Partial<HomeMergeProposal>;
+  const validTopic =
+    item.topic === null ||
+    (Array.isArray(item.topic) &&
+      item.topic.length === 2 &&
+      typeof item.topic[0] === "string" &&
+      (item.topic[1] === null || typeof item.topic[1] === "string"));
+  return (
+    Boolean(item.keeper_story_id?.trim()) &&
+    Boolean(item.matched_story_id?.trim()) &&
+    Boolean(item.candidate_story_id?.trim()) &&
+    item.confidence === "high" &&
+    isStringArray(item.shared_title_tokens) &&
+    isStringArray(item.shared_entities) &&
+    isStringArray(item.shared_places) &&
+    typeof item.title_jaccard === "number" &&
+    Number.isFinite(item.title_jaccard) &&
+    item.title_jaccard >= 0 &&
+    item.title_jaccard <= 1 &&
+    typeof item.published_gap_hours === "number" &&
+    Number.isFinite(item.published_gap_hours) &&
+    item.published_gap_hours >= 0 &&
+    item.published_gap_hours <= 48 &&
+    validTopic
+  );
+};
+
 export interface HomeBundle {
-  version: 2;
+  version: 3;
   generated_at: string;
   eligibility: "published_recent_analyzed_with_cleared_images_only";
   window_days: number;
+  event_dedupe: "conservative_title_entity_v1";
+  merge_proposals: HomeMergeProposal[];
   articles: ArticleRecord[];
   stories: HomeStory[];
 }
@@ -634,9 +681,12 @@ export const isHomeBundle = (value: unknown): value is HomeBundle => {
   if (!value || typeof value !== "object") return false;
   const bundle = value as Partial<HomeBundle>;
   return (
-    bundle.version === 2 &&
+    bundle.version === 3 &&
     bundle.eligibility ===
       "published_recent_analyzed_with_cleared_images_only" &&
+    bundle.event_dedupe === "conservative_title_entity_v1" &&
+    Array.isArray(bundle.merge_proposals) &&
+    bundle.merge_proposals.every(isHomeMergeProposal) &&
     Array.isArray(bundle.articles) &&
     Array.isArray(bundle.stories) &&
     bundle.articles.every(
