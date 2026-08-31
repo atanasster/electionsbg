@@ -800,7 +800,15 @@ until the effective-analysis reconciliation gate exists.
    in an aggregate. `stats.json` records the validated accepted-record-set SHA-256 (or explicit
    null for a model-only build); publication-manifest v2 copies that hash while the browser keeps
    a narrow v1 compatibility reader for the rollout boundary.
-6. Generate proposed public correction-log entries for already-published changes.
+6. Generate proposed public correction-log entries for already-published changes. The private,
+   dry-run-by-default `propose_eval_corrections.py` command now requires each accepted record to
+   match a strict production-project public-task proof, independently re-derives its frozen task
+   revision, and emits deterministic proposals only for changed scalar/party values. Confirmed or
+   unable-to-judge fields create no entry. Output contains controlled Bulgarian draft wording and
+   optional maintainer-authored context, never visitor notes, evidence, submission/operator IDs or
+   an automatic publication path. A write is explicitly requested, confined to the gitignored
+   `news/data/evals/corrections/` tree, mode 0600 and atomic; a maintainer must still edit and
+   manually add any approved wording to `CORRECTIONS`.
 7. Wire export/task-sync ordering, credentials, reports and failure policy into the standalone
    bundle/runtime.
 
