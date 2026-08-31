@@ -351,7 +351,7 @@ EMPTY_STORY_ENTITIES = {"people": [], "parties": [], "institutions": [],
                         "companies": [], "places": []}
 EMPTY_STORY_AGGREGATES = {"article_count": 0, "outlet_count": 0,
                           "by_leaning": {}, "by_russia_stance": {},
-                          "by_domain": {}}
+                          "by_party_tone": {}, "by_domain": {}}
 
 # CSV column headers carry a data-vintage suffix (_aug2026); match by prefix so a new
 # vintage only changes the suffix, not this script.
@@ -1157,6 +1157,90 @@ def compact_human_review(rec: dict) -> dict | None:
     }
 
 
+def expected_story_aggregates(story: dict, analyses: dict[str, dict]) -> tuple[list[str], dict]:
+    """Independently derive public story counts from effective analyses.
+
+    This deliberately does not call ``recompute_story``: it is the release
+    assertion for that function, so sharing the counting implementation would
+    let one defect manufacture both the output and its proof.
+    """
+    urls: list[str] = []
+    by_leaning: dict[str, int] = {}
+    by_russia: dict[str, int] = {}
+    by_domain: dict[str, int] = {}
+    by_party_tone: dict[str, dict[str, int]] = {}
+    seen_urls: set[str] = set()
+    for member in story.get("members") or []:
+        if not isinstance(member, dict):
+            raise ValueError(f"story {story.get('id')} has a malformed member")
+        url = member.get("url")
+        analysis = analyses.get(url)
+        if analysis is None:
+            continue
+        if url in seen_urls:
+            raise ValueError(f"story {story.get('id')} repeats member URL {url}")
+        seen_urls.add(url)
+        urls.append(url)
+        domain = analysis.get("domain")
+        leaning = (analysis.get("leaning") or {}).get("label")
+        russia = (analysis.get("russia_stance") or {}).get("label")
+        if (not isinstance(domain, str) or leaning not in LEANING_LABELS
+                or russia not in RUSSIA_LABELS):
+            raise ValueError(
+                f"story {story.get('id')} has an invalid effective member {url}")
+        by_domain[domain] = by_domain.get(domain, 0) + 1
+        by_leaning[leaning] = by_leaning.get(leaning, 0) + 1
+        by_russia[russia] = by_russia.get(russia, 0) + 1
+        seen_pairs: set[tuple[str, str]] = set()
+        for item in analysis.get("party_tones") or []:
+            if not isinstance(item, dict):
+                raise ValueError(
+                    f"story {story.get('id')} has a malformed party tone for {url}")
+            party, tone = item.get("party"), item.get("tone")
+            if (not isinstance(party, str) or not party.strip()
+                    or tone not in {"favorable", "unfavorable", "neutral", "mixed"}):
+                raise ValueError(
+                    f"story {story.get('id')} has an invalid party tone for {url}")
+            pair = (party, tone)
+            if pair in seen_pairs:
+                continue
+            seen_pairs.add(pair)
+            tones = by_party_tone.setdefault(party, {})
+            tones[tone] = tones.get(tone, 0) + 1
+    return urls, {
+        "article_count": len(urls),
+        "outlet_count": len(by_domain),
+        "by_leaning": by_leaning,
+        "by_russia_stance": by_russia,
+        "by_party_tone": by_party_tone,
+        "by_domain": by_domain,
+    }
+
+
+def reconcile_effective_story(story: dict, recomputed: dict,
+                              analyses: dict[str, dict]) -> None:
+    expected_urls, expected_aggregates = expected_story_aggregates(story, analyses)
+    actual_members = recomputed.get("members")
+    if not isinstance(actual_members, list):
+        raise ValueError(f"story {story.get('id')} recompute returned no members")
+    actual_urls = [member.get("url") for member in actual_members
+                   if isinstance(member, dict)]
+    if actual_urls != expected_urls:
+        raise ValueError(f"story {story.get('id')} member reconciliation failed")
+    for member in actual_members:
+        analysis = analyses[member["url"]]
+        if (member.get("domain") != analysis.get("domain")
+                or member.get("leaning")
+                != (analysis.get("leaning") or {}).get("label")
+                or member.get("russia_stance")
+                != (analysis.get("russia_stance") or {}).get("label")):
+            raise ValueError(
+                f"story {story.get('id')} effective member labels did not reconcile")
+    if recomputed.get("aggregates") != expected_aggregates:
+        raise ValueError(
+            f"story {story.get('id')} effective aggregate reconciliation failed")
+
+
 def validate_publishable_analysis(rec: dict, article: dict, *, identity: str) -> None:
     """Reject partial or cross-article analysis before it can reach public bundles."""
     if rec.get("domain") != article.get("domain") or rec.get("url") != article.get("url"):
@@ -1421,9 +1505,10 @@ def main() -> int:
         raise ValueError(f"accepted snapshot does not exist: {accepted_path}")
     else:
         accepted = None
+    accepted_snapshot_records_sha256 = (
+        accepted.records_sha256 if accepted is not None else None)
     pending_accepted = set(accepted.by_article) if accepted else set()
-    effective_by_url: dict[str, dict] = {}
-    accepted_article_urls: set[str] = set()
+    story_effective_by_url: dict[str, dict] = {}
     story_index = load_story_index(data_dir)
     domain_names = sorted(
         d.name
@@ -1495,24 +1580,44 @@ def main() -> int:
                     accepted.by_article.get(article_key) if accepted else None
                 )
                 analysis = effective_analysis(analysis, art, accepted_record)
-                effective_by_url[analysis.get("url")] = analysis
                 if accepted_record is not None:
                     pending_accepted.discard(article_key)
-                    accepted_article_urls.add(analysis["url"])
+                publishable = True
                 try:
                     validate_publishable_analysis(
                         analysis, art, identity=f"{domain}/{fp.name}"
                     )
                 except ValueError:
-                    pass
+                    publishable = False
                 else:
                     home_analysis_ids.add((domain, fp.stem))
-                # Resolved story membership comes from the index (the decision block
-                # carries story_id only for same_story attachments).
-                rec["story_id"] = story_index.get(art.get("url")) or (
-                    analysis.get("story") or {}
-                ).get("story_id")
-                rec["analysis"] = compact_analysis(analysis, art)
+                public_analysis = compact_analysis(analysis, art)
+                # The public projection may evidence-filter legacy model party
+                # tones, but its scalar values must be the exact effective
+                # values. Story reconciliation below consumes this same public
+                # party set so a story can never count a claim its article hid.
+                if (public_analysis.get("leaning") != analysis.get("leaning")
+                        or public_analysis.get("russia_stance")
+                        != analysis.get("russia_stance")):
+                    raise ValueError(
+                        f"{domain}/{fp.name}: public analysis diverged from effective source")
+                public_effective = copy.deepcopy(analysis)
+                # Story recomputation needs the corpus pointer. Older compact
+                # analysis fixtures/records may omit it even though identity
+                # is otherwise publishable; derive it from the exact corpus
+                # file already joined above without mutating model state.
+                public_effective["article_path"] = (
+                    analysis.get("article_path")
+                    or f"news/data/{domain}/{fp.name}")
+                public_effective["party_tones"] = copy.deepcopy(
+                    public_analysis.get("party_tones") or [])
+                if publishable:
+                    # Resolved membership comes ONLY from the authoritative
+                    # index. The analysis block is the raw model decision;
+                    # invalid/partial analyses are explicitly unclustered.
+                    rec["story_id"] = story_index.get(art.get("url"))
+                    story_effective_by_url[analysis["url"]] = public_effective
+                rec["analysis"] = public_analysis
                 analyzed_by_domain[domain] = analyzed_by_domain.get(domain, 0) + 1
                 lean = (analysis.get("leaning") or {}).get("label")
                 stance = (analysis.get("russia_stance") or {}).get("label")
@@ -1580,45 +1685,60 @@ def main() -> int:
             + ", ".join(sorted(pending_accepted))
         )
 
-    # Resolve every indexed story touched by an accepted or stale adjudication
-    # before writing a single public bundle. Article acceptance alone is not a
-    # coherent publication: a missing/corrupt story would otherwise leave a
-    # corrected article beside stale story distributions from an earlier run.
-    touched_story_urls: dict[str, set[str]] = {}
-    for url in accepted_article_urls:
-        if story_id := story_index.get(url):
-            touched_story_urls.setdefault(story_id, set()).add(url)
-    recomputed_touched_stories: dict[str, dict] = {}
+    # The index is the authoritative resolved membership join. Restrict it to
+    # coherent public analyses: stale index rows for removed corpus records are
+    # not public members, but every live indexed member must have exactly one
+    # matching story file membership.
+    unindexed_effective_urls = set(story_effective_by_url) - set(story_index)
+    if unindexed_effective_urls:
+        raise ValueError(
+            "coherent public analyses are absent from analysis/index.json: "
+            + ", ".join(sorted(unindexed_effective_urls)))
+    indexed_story_urls: dict[str, set[str]] = {}
+    for url, story_id in story_index.items():
+        if url in story_effective_by_url:
+            indexed_story_urls.setdefault(story_id, set()).add(url)
+
+    # Resolve and independently reconcile EVERY story before writing a single
+    # public bundle. Accepted/stale articles make this mandatory for their
+    # stories, while doing the same for the rest prevents an old model story
+    # file from quietly surviving beside newly rebuilt article/outlet counts.
+    recomputed_stories: dict[str, dict] = {}
     stories_dir = data_dir / "analysis" / "stories"
-    for story_id, expected_urls in sorted(touched_story_urls.items()):
-        story_path = stories_dir / f"{story_id}.json"
+    for story_path in sorted(stories_dir.glob("*.json")) if stories_dir.is_dir() else []:
+        story_id = story_path.stem
         try:
             story = json.loads(story_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
             raise ValueError(
-                f"cannot recompute touched story {story_id}: {exc}") from exc
-        if not isinstance(story, dict) or story.get("id") != story_id:
-            raise ValueError(
-                f"cannot recompute touched story {story_id}: identity mismatch")
+                f"cannot reconcile story {story_id}: {exc}") from exc
+        if not isinstance(story, dict) or (
+                story.get("id", story.get("story_id")) != story_id):
+            raise ValueError(f"cannot reconcile story {story_id}: identity mismatch")
+        # Legacy story fixtures/files used `story_id`; normalize in memory so
+        # the public contract remains the current `id` shape.
+        story["id"] = story_id
         member_urls = {
             member.get("url") for member in story.get("members") or []
             if isinstance(member, dict)
         }
-        missing_members = expected_urls - member_urls
-        if missing_members:
+        effective_member_urls = {
+            url for url in member_urls if url in story_effective_by_url}
+        expected_urls = indexed_story_urls.get(story_id, set())
+        if effective_member_urls != expected_urls:
             raise ValueError(
-                f"touched story {story_id} is missing accepted members: "
-                + ", ".join(sorted(missing_members))
-            )
+                f"story {story_id} membership does not match analysis/index.json: "
+                f"file_only={sorted(effective_member_urls - expected_urls)}, "
+                f"index_only={sorted(expected_urls - effective_member_urls)}")
         recomputed = recompute_analysis_story(
-            copy.deepcopy(story), effective_by_url)
-        recomputed_urls = {
-            member.get("url") for member in recomputed.get("members") or []
-        }
-        if not expected_urls <= recomputed_urls:
-            raise ValueError(
-                f"touched story {story_id} could not retain every accepted member")
-        recomputed_touched_stories[story_id] = recomputed
+            copy.deepcopy(story), story_effective_by_url)
+        reconcile_effective_story(story, recomputed, story_effective_by_url)
+        recomputed_stories[story_id] = recomputed
+    missing_story_files = set(indexed_story_urls) - set(recomputed_stories)
+    if missing_story_files:
+        raise ValueError(
+            "analysis/index.json references missing story files: "
+            + ", ".join(sorted(missing_story_files)))
 
     # ---- per-domain bundles --------------------------------------------------------
     for domain, records in articles_by_domain.items():
@@ -1677,8 +1797,8 @@ def main() -> int:
     if stories_dir.is_dir():
         corpus_records = {(r["domain"], r["id"]): r for r in all_latest}
         for fp in sorted(stories_dir.glob("*.json")):
-            if fp.stem in recomputed_touched_stories:
-                st = copy.deepcopy(recomputed_touched_stories[fp.stem])
+            if fp.stem in recomputed_stories:
+                st = copy.deepcopy(recomputed_stories[fp.stem])
             else:
                 try:
                     st = json.loads(fp.read_text(encoding="utf-8"))
@@ -2059,6 +2179,10 @@ def main() -> int:
         {
             "generated_at": generated_at,
             "taxonomy_version": taxonomy_doc.get("version"),
+            # The records hash from the fully validated accepted snapshot.
+            # Null means the build used model analysis only; it never means an
+            # unreadable/invalid snapshot, because that fails before output.
+            "accepted_snapshot_records_sha256": accepted_snapshot_records_sha256,
             "total_articles": total_articles,
             "analyzed_articles": analyzed_total,
             "analyzed_pct": round(100 * analyzed_total / total_articles, 1) if total_articles else 0,
@@ -2106,6 +2230,7 @@ def main() -> int:
         "latest_gzip_bytes": feed_gzip,
         "latest_over_budget": feed_gzip > FEED_GZIP_BUDGET_BYTES,
         "home_health": home_payload["home_health"],
+        "accepted_snapshot_records_sha256": accepted_snapshot_records_sha256,
         # ⚠️ REPORTED, never silent. These are person names an article does
         # not contain, dropped from what we publish — a quiet withholding is
         # indistinguishable from a model that stopped naming anyone.

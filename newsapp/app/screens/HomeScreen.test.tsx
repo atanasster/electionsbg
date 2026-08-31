@@ -18,6 +18,7 @@ const story = (id: string, published: string): HomeStory => ({
     outlet_count: 1,
     by_leaning: {},
     by_russia_stance: {},
+    by_party_tone: {},
     by_domain: {},
   },
 });

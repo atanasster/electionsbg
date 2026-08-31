@@ -18,6 +18,7 @@ const story = {
     article_count: 2,
     by_leaning: { neutral: 2 },
     by_russia_stance: {},
+    by_party_tone: {},
     by_domain: { "example.bg": 1, "second.bg": 1 },
   },
 } satisfies HomeStory;

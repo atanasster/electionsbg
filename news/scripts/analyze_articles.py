@@ -611,16 +611,35 @@ def recompute_story(story: dict, analyses: dict) -> dict:
                 if name not in entities[k]:
                     entities[k].append(name)
     story["entities"] = entities
-    by_leaning, by_russia, by_domain = {}, {}, {}
+    by_leaning, by_russia, by_domain, by_party_tone = {}, {}, {}, {}
     for m in members:
         by_leaning[m["leaning"]] = by_leaning.get(m["leaning"], 0) + 1
         by_russia[m["russia_stance"]] = by_russia.get(m["russia_stance"], 0) + 1
         by_domain[m["domain"]] = by_domain.get(m["domain"], 0) + 1
+        # Count public tone assertions, not merely party mentions. One article
+        # can legitimately contribute to several parties, but never more than
+        # once to the same party/tone pair. The party label is the stable key
+        # available in the model record; the eval resolver preserves it exactly.
+        seen_party_tones = set()
+        for item in analyses[m["url"]].get("party_tones") or []:
+            if not isinstance(item, dict):
+                continue
+            party, tone = item.get("party"), item.get("tone")
+            if (not isinstance(party, str) or not party.strip()
+                    or tone not in {"favorable", "unfavorable", "neutral", "mixed"}):
+                continue
+            pair = (party, tone)
+            if pair in seen_party_tones:
+                continue
+            seen_party_tones.add(pair)
+            tones = by_party_tone.setdefault(party, {})
+            tones[tone] = tones.get(tone, 0) + 1
     story["aggregates"] = {
         "article_count": len(members),
         "outlet_count": len(by_domain),
         "by_leaning": by_leaning,
         "by_russia_stance": by_russia,
+        "by_party_tone": by_party_tone,
         "by_domain": by_domain,
     }
     story["updated_at"] = now_iso()

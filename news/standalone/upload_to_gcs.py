@@ -174,11 +174,24 @@ def publication_manifest(
         raise ValueError("pipeline run_id is not safe for a version path")
     try:
         home = json.loads((app_data / "home.json").read_text(encoding="utf-8"))
+        stats = json.loads((app_data / "stats.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise ValueError(f"cannot build publication manifest: {exc}") from exc
     health = home.get("home_health") if isinstance(home, dict) else None
     generated_at = home.get("generated_at") if isinstance(home, dict) else None
     parse_aware_instant(generated_at, "home generated_at")
+    if not isinstance(stats, dict) or stats.get("generated_at") != generated_at:
+        raise ValueError(
+            "cannot build publication manifest: stats generation does not match home")
+    if "accepted_snapshot_records_sha256" not in stats:
+        raise ValueError(
+            "cannot build publication manifest: accepted snapshot provenance is missing")
+    accepted_hash = stats["accepted_snapshot_records_sha256"]
+    if accepted_hash is not None and (
+            not isinstance(accepted_hash, str)
+            or re.fullmatch(r"[a-f0-9]{64}", accepted_hash) is None):
+        raise ValueError(
+            "cannot build publication manifest: invalid accepted snapshot hash")
     if not isinstance(health, dict) or health.get("ready") is not True:
         raise ValueError("cannot build publication manifest: home health is not ready")
     bundle = tree_inventory(app_data)
@@ -191,11 +204,12 @@ def publication_manifest(
     if expected_health is not None and expected_health != health:
         raise ValueError("app-data home health does not match the pipeline gate")
     return {
-        "version": 1,
+        "version": 2,
         "run_id": publication_id,
         "generated_at": generated_at,
         "data_base": f"versions/{publication_id}",
         "home_health_ready": True,
+        "accepted_snapshot_records_sha256": accepted_hash,
         "bundle": bundle,
     }
 
@@ -435,11 +449,12 @@ def main() -> int:
                                if isinstance(health_result, dict) else None)
             if args.dry_run and not (ROOT / "news/app-data/home.json").is_file():
                 publication = {
-                    "version": 1,
+                    "version": 2,
                     "run_id": publication_id,
                     "generated_at": report.get("generated_at") or "dry-run",
                     "data_base": f"versions/{publication_id}",
                     "home_health_ready": True,
+                    "accepted_snapshot_records_sha256": None,
                     "bundle": {"sha256": "0" * 64, "files": 0,
                                "bytes": 0, "inventory": []},
                 }

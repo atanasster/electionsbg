@@ -15,11 +15,12 @@ const response = (body: unknown, status = 200) =>
   } as Response);
 
 const manifest = (runId: string) => ({
-  version: 1,
+  version: 2,
   run_id: runId,
   generated_at: "2026-08-31T07:00:00Z",
   data_base: `versions/${runId}`,
   home_health_ready: true,
+  accepted_snapshot_records_sha256: null,
   bundle: {
     sha256: "a".repeat(64),
     files: 1,
@@ -60,6 +61,37 @@ describe("versioned news data client", () => {
       "https://data.example/news/manifest.json",
       "https://data.example/news/versions/run-2/home.json",
     ]);
+  });
+
+  it("accepts a legacy v1 pointer but rejects an invalid v2 accepted-snapshot hash", async () => {
+    const legacy = { ...manifest("legacy"), version: 1 } as Record<
+      string,
+      unknown
+    >;
+    delete legacy.accepted_snapshot_records_sha256;
+    const legacyClient = createDataClient("https://data.example/news", {
+      fetcher: vi
+        .fn()
+        .mockResolvedValueOnce(await response(legacy))
+        .mockResolvedValueOnce(
+          await response({ ok: true }),
+        ) as unknown as typeof fetch,
+    });
+    await expect(legacyClient.fetchData("/home.json")).resolves.toEqual({
+      ok: true,
+    });
+
+    const invalidClient = createDataClient("https://data.example/news", {
+      fetcher: vi.fn(() =>
+        response({
+          ...manifest("bad-hash"),
+          accepted_snapshot_records_sha256: "not-a-hash",
+        }),
+      ) as unknown as typeof fetch,
+    });
+    await expect(invalidClient.fetchData("/home.json")).rejects.toThrow(
+      "invalid or unsafe release pointer",
+    );
   });
 
   it("deduplicates concurrent bundle requests within one version", async () => {

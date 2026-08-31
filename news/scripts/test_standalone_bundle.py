@@ -26,11 +26,12 @@ def load_uploader():
 uploader = load_uploader()
 
 PUBLICATION = {
-    "version": 1,
+    "version": 2,
     "run_id": "test-run",
     "generated_at": "2026-08-31T07:00:00Z",
     "data_base": "versions/test-run",
     "home_health_ready": True,
+    "accepted_snapshot_records_sha256": None,
     "bundle": {"sha256": "a" * 64, "files": 1, "bytes": 2,
                "inventory": [{"path": "home.json", "bytes": 2,
                               "sha256": "b" * 64}]},
@@ -364,10 +365,17 @@ class UploadPolicy(unittest.TestCase):
                 "generated_at": "2026-08-31T07:00:00Z",
                 "home_health": {"ready": True},
             }), encoding="utf-8")
+            (app_data / "stats.json").write_text(json.dumps({
+                "generated_at": "2026-08-31T07:00:00Z",
+                "accepted_snapshot_records_sha256": "c" * 64,
+            }), encoding="utf-8")
             manifest = uploader.publication_manifest("hour-1", app_data)
+            self.assertEqual(manifest["version"], 2)
+            self.assertEqual(
+                manifest["accepted_snapshot_records_sha256"], "c" * 64)
             self.assertEqual(manifest["run_id"], "hour-1")
             self.assertEqual(manifest["data_base"], "versions/hour-1")
-            self.assertEqual(manifest["bundle"]["files"], 1)
+            self.assertEqual(manifest["bundle"]["files"], 2)
             self.assertEqual(len(manifest["bundle"]["sha256"]), 64)
             self.assertEqual(manifest["bundle"]["inventory"][0]["path"],
                              "home.json")
@@ -398,6 +406,28 @@ class UploadPolicy(unittest.TestCase):
             }), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "health is not ready"):
                 uploader.publication_manifest("hour-2", app_data)
+            (app_data / "home.json").write_text(json.dumps({
+                "generated_at": "2026-08-31T07:00:00Z",
+                "home_health": {"ready": True},
+            }), encoding="utf-8")
+            (app_data / "stats.json").write_text(json.dumps({
+                "generated_at": "2026-08-31T07:00:00Z",
+                "accepted_snapshot_records_sha256": "not-a-hash",
+            }), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "invalid accepted snapshot hash"):
+                uploader.publication_manifest("hour-2", app_data)
+            (app_data / "stats.json").write_text(json.dumps({
+                "generated_at": "2026-08-31T07:00:00Z",
+            }), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "provenance is missing"):
+                uploader.publication_manifest("hour-2", app_data)
+            (app_data / "stats.json").write_text(json.dumps({
+                "generated_at": "2026-08-31T07:00:00Z",
+                "accepted_snapshot_records_sha256": None,
+            }), encoding="utf-8")
+            self.assertIsNone(
+                uploader.publication_manifest("hour-2", app_data)
+                ["accepted_snapshot_records_sha256"])
 
     def test_snapshot_detects_a_changing_source_tree(self):
         inventory = {"sha256": "a" * 64, "files": 1, "bytes": 2,

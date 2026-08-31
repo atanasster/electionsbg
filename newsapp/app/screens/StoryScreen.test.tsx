@@ -25,6 +25,7 @@ const story: Story = {
     outlet_count: 2,
     by_leaning: { progressive: 1, conservative: 1 },
     by_russia_stance: { pro_russia: 1, anti_russia: 1 },
+    by_party_tone: {},
     by_domain: { "left.example": 1, "right.example": 1 },
   },
   blindspot: null,

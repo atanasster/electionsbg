@@ -25,6 +25,7 @@ const story = (id: string, related: string[] = []): Story =>
       outlet_count: 0,
       by_leaning: {},
       by_russia_stance: {},
+      by_party_tone: {},
       by_domain: {},
     },
     blindspot: null,

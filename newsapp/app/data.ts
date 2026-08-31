@@ -235,6 +235,8 @@ export interface Story {
     outlet_count: number;
     by_leaning: Partial<Record<Leaning, number>>;
     by_russia_stance: Partial<Record<RussiaStance, number>>;
+    /** Party label → tone → number of member articles making that tone claim. */
+    by_party_tone: Record<string, Partial<Record<Tone, number>>>;
     by_domain: Record<string, number>;
   };
   blindspot: { side: "left" | "right" } | null;
@@ -555,6 +557,7 @@ export const dominantAxis = (
 export interface Stats {
   generated_at: string;
   taxonomy_version: number;
+  accepted_snapshot_records_sha256: string | null;
   total_articles: number;
   analyzed_articles: number;
   analyzed_pct: number;
@@ -582,11 +585,13 @@ const ISO_INSTANT =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 
 export interface NewsPublicationManifest {
-  version: 1;
+  /** v1 is accepted during migration; every newly generated release is v2. */
+  version: 1 | 2;
   run_id: string;
   generated_at: string;
   data_base: string;
   home_health_ready: true;
+  accepted_snapshot_records_sha256?: string | null;
   bundle: {
     sha256: string;
     files: number;
@@ -622,8 +627,15 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
   const inventoryPaths = validInventory
     ? (inventory as Array<{ path: string }>).map((item) => item.path)
     : [];
+  const validAcceptedSnapshotHash =
+    row.version === 1
+      ? row.accepted_snapshot_records_sha256 === undefined
+      : row.version === 2 &&
+        (row.accepted_snapshot_records_sha256 === null ||
+          (typeof row.accepted_snapshot_records_sha256 === "string" &&
+            /^[a-f0-9]{64}$/.test(row.accepted_snapshot_records_sha256)));
   if (
-    row.version !== 1 ||
+    (row.version !== 1 && row.version !== 2) ||
     typeof runId !== "string" ||
     !PUBLICATION_ID.test(runId) ||
     row.data_base !== `versions/${runId}` ||
@@ -631,6 +643,7 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
     !ISO_INSTANT.test(row.generated_at) ||
     !Number.isFinite(Date.parse(row.generated_at)) ||
     row.home_health_ready !== true ||
+    !validAcceptedSnapshotHash ||
     !bundle ||
     typeof bundle.sha256 !== "string" ||
     !/^[a-f0-9]{64}$/.test(bundle.sha256) ||

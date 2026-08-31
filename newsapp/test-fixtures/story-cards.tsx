@@ -43,6 +43,7 @@ const story = (
     ),
     by_leaning: { neutral: 2, progressive: 1 },
     by_russia_stance: { neutral: 2, anti_russia: 1 },
+    by_party_tone: {},
     by_domain: byDomain,
   },
 });

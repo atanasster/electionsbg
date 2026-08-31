@@ -792,7 +792,14 @@ until the effective-analysis reconciliation gate exists.
    private. Accepted fields are labelled as editorially reviewed and carry no model confidence;
    content-stale decisions are visibly excluded, while queued public tasks are explicitly described
    as experimental review that cannot change publication without editorial acceptance.
-5. Add article/story/party aggregate reconciliation and release-manifest hash.
+5. Add article/story/party aggregate reconciliation and release-manifest hash. The build now
+   creates the public article projection from each effective analysis, recomputes every story in
+   memory, and checks member identity plus leaning, Russia, domain and party-tone counts through
+   an independent implementation before writing any bundle. Story party counts use the same
+   evidence-filtered public claims as article pages, so a hidden model claim cannot survive only
+   in an aggregate. `stats.json` records the validated accepted-record-set SHA-256 (or explicit
+   null for a model-only build); publication-manifest v2 copies that hash while the browser keeps
+   a narrow v1 compatibility reader for the rollout boundary.
 6. Generate proposed public correction-log entries for already-published changes.
 7. Wire export/task-sync ordering, credentials, reports and failure policy into the standalone
    bundle/runtime.

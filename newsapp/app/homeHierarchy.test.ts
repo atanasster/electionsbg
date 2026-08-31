@@ -25,6 +25,7 @@ const story = (id: string, outlets: number, published: string): Story =>
       outlet_count: outlets,
       by_leaning: {},
       by_russia_stance: {},
+      by_party_tone: {},
       by_domain: {},
     },
     blindspot: null,

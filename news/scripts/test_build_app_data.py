@@ -36,7 +36,7 @@ from build_app_data import (  # noqa: E402
     AXIS_POSITIONS, HOME_GZIP_BUDGET_BYTES, HOME_ITEM_LIMIT,
     HOME_STORY_FIELDS, HOME_STORY_LIMIT, TOPIC_MIN_POSITIONED, axis_spread,
     compact_analysis, home_gzip_size, load_image_rights_policy, select_home_payload,
-    validate_display_image)
+    reconcile_effective_story, validate_display_image)
 from effective_analysis import effective_analysis  # noqa: E402
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
@@ -72,6 +72,67 @@ def corpus_article(domain, fname, url, title, published, content="x" * 500):
         "site_name": None, "content": content, "content_chars": len(content),
         "fetched_at": "2026-08-23T00:00:00+00:00",
     }
+
+
+def ensure_fixture_story_membership(data_dir: str) -> None:
+    """Give ordinary success fixtures the production index/story invariant.
+
+    Failure-path tests call the raw subprocess helper instead, so mutations of
+    a missing/omitted/crossed index row are never repaired by this convenience.
+    """
+    root = Path(data_dir)
+    analysis_root = root / "analysis"
+    article_root = analysis_root / "articles"
+    if not article_root.is_dir():
+        return
+    index_path = analysis_root / "index.json"
+    try:
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        index = {"version": 1, "updated_at": "now", "stories": {}, "articles": {}}
+    articles = index.setdefault("articles", {})
+    stories = index.setdefault("stories", {})
+    stories_dir = analysis_root / "stories"
+    stories_dir.mkdir(parents=True, exist_ok=True)
+    for domain_dir in sorted(article_root.iterdir()):
+        if not domain_dir.is_dir():
+            continue
+        for analysis_path in sorted(domain_dir.glob("*.json")):
+            analysis = json.loads(analysis_path.read_text(encoding="utf-8"))
+            url = analysis.get("url")
+            if not isinstance(url, str) or url in articles:
+                continue
+            safe_domain = re.sub(r"[^a-z0-9]+", "-", domain_dir.name.lower()).strip("-")
+            story_id = f"fixture-{safe_domain}-{analysis_path.stem}"
+            article_path = analysis.get("article_path")
+            articles[url] = {
+                "path": article_path, "story_id": story_id,
+                "domain": analysis.get("domain"), "analyzed_at": "now",
+            }
+            stories[story_id] = {"path": f"news/data/analysis/stories/{story_id}.json"}
+            (stories_dir / f"{story_id}.json").write_text(json.dumps({
+                "id": story_id,
+                "canonical_title_bg": "Fixture story",
+                "canonical_title_en": "Fixture story",
+                "summary_bg": analysis.get("summary_bg"),
+                "summary_en": analysis.get("summary_en"),
+                "created_at": "now", "updated_at": "now",
+                "topics": analysis.get("topics") or [],
+                "related_story_ids": [],
+                "members": [{
+                    "domain": analysis.get("domain"),
+                    "article_path": article_path, "url": url,
+                    "published": analysis.get("published"),
+                    "leaning": (analysis.get("leaning") or {}).get("label"),
+                    "russia_stance": (
+                        analysis.get("russia_stance") or {}).get("label"),
+                    "added_at": "now",
+                }],
+                "entities": analysis.get("entities") or {},
+                "aggregates": {},
+            }, ensure_ascii=False), encoding="utf-8")
+    index_path.parent.mkdir(parents=True, exist_ok=True)
+    index_path.write_text(json.dumps(index, ensure_ascii=False), encoding="utf-8")
 
 
 class BuildAppDataFixture(unittest.TestCase):
@@ -110,6 +171,7 @@ class BuildAppDataFixture(unittest.TestCase):
 
     def write_accepted_snapshot(self, article, analysis, *, leaning="conservative",
                                 russia="anti_russia",
+                                party_tones=None,
                                 project_id="electionsbg-news"):
         article_key = f'{analysis["domain"]}/{Path(analysis["article_path"]).stem}'
         record = {
@@ -137,7 +199,7 @@ class BuildAppDataFixture(unittest.TestCase):
                     "reason_codes": ["model_missed_context"],
                 },
                 "parties_confirmed_complete": True,
-                "party_tones": [],
+                "party_tones": party_tones or [],
                 "removed_model_parties": [],
                 "public_note": "Проверено спрямо целия оригинален материал.",
             },
@@ -225,6 +287,7 @@ class BuildAppDataFixture(unittest.TestCase):
         # code and every test here silently reads the PRODUCTION
         # news/topics.json — which is how a taxonomy-count assertion can pass
         # while asserting nothing about the fixture it claims to use.
+        ensure_fixture_story_membership(self.data_dir)
         proc = self.run_build_process(*extra)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         return json.loads(proc.stdout)
@@ -331,7 +394,11 @@ class BuildAppDataTest(BuildAppDataFixture):
             url, domain, path, leaning="progressive", russia="not_applicable")
         self.write_corpus(domain, fname, article)
         self.write_analysis(domain, fname, analysis)
-        self.write_accepted_snapshot(article, analysis)
+        self.write_accepted_snapshot(article, analysis, party_tones=[{
+            "party": "Партия А", "party_id": "party-a", "tone": "favorable",
+            "evidence": "Материалът описва партията положително.",
+            "disposition": "added", "reason_codes": ["party_missing"],
+        }])
 
         stories_dir = self.write_story_membership(
             domain, fname, article, analysis)
@@ -342,6 +409,9 @@ class BuildAppDataTest(BuildAppDataFixture):
         self.assertEqual(public_article["analysis"]["leaning"]["label"], "conservative")
         self.assertIsNone(public_article["analysis"]["leaning"]["confidence"])
         self.assertEqual(public_article["analysis"]["russia_stance"]["label"], "anti_russia")
+        self.assertEqual(public_article["analysis"]["party_tones"][0]["party"], "Партия А")
+        self.assertIsNone(
+            public_article["analysis"]["party_tones"][0]["confidence"])
         self.assertEqual(public_article["analysis"]["human_review"], {
             "status": "accepted",
             "adjudicated_at": "2026-08-31T12:00:00.000Z",
@@ -364,6 +434,17 @@ class BuildAppDataTest(BuildAppDataFixture):
         self.assertEqual(story["members"][0]["russia_stance"], "anti_russia")
         self.assertEqual(story["aggregates"]["by_leaning"], {"conservative": 1})
         self.assertEqual(story["aggregates"]["by_russia_stance"], {"anti_russia": 1})
+        self.assertEqual(story["aggregates"]["by_party_tone"], {
+            "Партия А": {"favorable": 1},
+        })
+        stats = self.load("stats.json")
+        snapshot = json.loads(
+            (Path(self.data_dir) / "evals" / "accepted" / "current.json")
+            .read_text(encoding="utf-8"))
+        self.assertEqual(
+            stats["accepted_snapshot_records_sha256"],
+            snapshot["manifest"]["records_sha256"],
+        )
         outlet = next(
             item for item in self.load("outlets.json")["outlets"]
             if item["domain"] == domain)
@@ -471,9 +552,74 @@ class BuildAppDataTest(BuildAppDataFixture):
             story_id="story-missing", write_story=False)
         missing_story = self.run_build_process()
         self.assertNotEqual(missing_story.returncode, 0)
-        self.assertIn("cannot recompute touched story story-missing",
+        self.assertIn("analysis/index.json references missing story files: story-missing",
                       missing_story.stderr)
         self.assertEqual(sentinel.read_text(encoding="utf-8"), '{"keep":true}')
+        self.assertEqual(list(output.iterdir()), [sentinel])
+
+    def test_model_only_story_membership_failures_happen_before_output(self):
+        domain = "example.bg"
+        fname = "article-indexed.json"
+        url = "https://example.bg/article-indexed"
+        path = f"news/data/{domain}/{fname}"
+        article = corpus_article(
+            domain, fname, url, "Индекс", "2026-08-22T00:00:00+00:00")
+        analysis = self.analysis_record(url, domain, path)
+        self.write_corpus(domain, fname, article)
+        self.write_analysis(domain, fname, analysis)
+        output = Path(self.out_dir)
+        output.mkdir(parents=True, exist_ok=True)
+        sentinel = output / "sentinel.json"
+        sentinel.write_text('{"keep":true}', encoding="utf-8")
+
+        stories_dir = self.write_story_membership(
+            domain, fname, article, analysis,
+            story_id="story-missing", write_story=False)
+        missing = self.run_build_process()
+        self.assertNotEqual(missing.returncode, 0)
+        self.assertIn("references missing story files: story-missing", missing.stderr)
+        self.assertEqual(list(output.iterdir()), [sentinel])
+
+        self.write_story_membership(
+            domain, fname, article, analysis, story_id="story-omits")
+        story_path = stories_dir / "story-omits.json"
+        story = json.loads(story_path.read_text(encoding="utf-8"))
+        story["members"] = []
+        story_path.write_text(json.dumps(story), encoding="utf-8")
+        omitted = self.run_build_process()
+        self.assertNotEqual(omitted.returncode, 0)
+        self.assertIn("index_only=['https://example.bg/article-indexed']", omitted.stderr)
+        self.assertEqual(list(output.iterdir()), [sentinel])
+
+        story["members"] = [{
+            "domain": domain, "article_path": path, "url": url,
+            "published": article["published"], "leaning": "progressive",
+            "russia_stance": "not_applicable", "added_at": "now",
+        }]
+        story_path.write_text(json.dumps(story), encoding="utf-8")
+        index_path = Path(self.data_dir) / "analysis" / "index.json"
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["articles"][url]["story_id"] = "story-elsewhere"
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+        crossed = self.run_build_process()
+        self.assertNotEqual(crossed.returncode, 0)
+        self.assertIn("file_only=['https://example.bg/article-indexed']", crossed.stderr)
+        self.assertEqual(list(output.iterdir()), [sentinel])
+
+        # The raw model decision is not resolved membership. With no index row
+        # it must neither become a public fallback link nor bypass the gate.
+        analysis_path = (Path(self.data_dir) / "analysis" / "articles" /
+                         domain / fname)
+        stored_analysis = json.loads(analysis_path.read_text(encoding="utf-8"))
+        stored_analysis["story"] = {
+            "action": "same_story", "story_id": "story-raw-fallback"}
+        analysis_path.write_text(json.dumps(stored_analysis), encoding="utf-8")
+        index["articles"] = {}
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+        story_path.unlink()
+        unindexed = self.run_build_process()
+        self.assertNotEqual(unindexed.returncode, 0)
+        self.assertIn("absent from analysis/index.json", unindexed.stderr)
         self.assertEqual(list(output.iterdir()), [sentinel])
 
     def test_present_malformed_review_or_retained_confidence_fails_closed(self):
@@ -574,6 +720,7 @@ class MetadataAndBudget(unittest.TestCase):
             env=dict(os.environ, DATA_BG_ROOT=self.root))
 
     def build(self):
+        ensure_fixture_story_membership(self.data_dir)
         proc = self.run_build()
         self.assertEqual(proc.returncode, 0, proc.stderr)
         return json.loads(proc.stdout), proc.stderr
@@ -815,9 +962,14 @@ class MetadataAndBudget(unittest.TestCase):
         )
         self.assertEqual(home["version"], 3)
         self.assertEqual(home["event_dedupe"], "conservative_title_entity_v1")
-        # No fixture story points at the eligible record, so the compact
-        # bundle correctly emits neither half of an unrenderable pair.
-        self.assertEqual(home["articles"], [])
+        # The fixture harness gives every coherent analysis the same resolved
+        # singleton membership production requires. Unanalysed raw.bg stays
+        # out; the reviewed image survives and the uncleared one is stripped.
+        by_domain = {article["domain"]: article for article in home["articles"]}
+        self.assertEqual(set(by_domain), {"cleared.bg", "held.bg"})
+        self.assertEqual(by_domain["cleared.bg"]["image"],
+                         "https://cdn.cleared.bg/lead.jpg")
+        self.assertIsNone(by_domain["held.bg"]["image"])
         self.assertLessEqual(len(home["articles"]), HOME_ITEM_LIMIT)
         for story in home["stories"]:
             self.assertEqual(set(story), HOME_STORY_FIELDS)
@@ -1054,6 +1206,37 @@ class MetadataAndBudget(unittest.TestCase):
                                url=f"https://{dom}/a/1",
                                fetched_at=fetched,
                                published="2026-08-22T09:00:00+00:00")
+            analysis_dir = os.path.join(
+                self.data_dir, "analysis", "articles", dom)
+            os.makedirs(analysis_dir, exist_ok=True)
+            with open(os.path.join(analysis_dir, "20260822-a1-abc.json"), "w",
+                      encoding="utf-8") as fh:
+                json.dump({
+                    "domain": dom, "url": f"https://{dom}/a/1",
+                    "article_path": f"news/data/{dom}/20260822-a1-abc.json",
+                    "published": "2026-08-22T09:00:00+00:00",
+                    "summary_bg": "Резюме", "summary_en": "Summary",
+                    "leaning": {"label": "neutral", "confidence": 0.7,
+                                "evidence": "Неутрално."},
+                    "russia_stance": {"label": "not_applicable", "confidence": 0.7,
+                                       "evidence": "Не се отнася."},
+                    "ai_generated": {"verdict": "likely_human", "confidence": 0.7,
+                                     "signals": []},
+                    "entities": {"people": [], "parties": [], "institutions": [],
+                                 "companies": [], "places": []},
+                    "party_tones": [], "topics": [{
+                        "category": "society", "subcategory": "human-interest",
+                        "primary": True,
+                    }],
+                    "quality": {"verdict": "ok", "notes": None},
+                    "site_relevant": True, "model": "test", "analyzed_at": "now",
+                }, fh, ensure_ascii=False)
+        index_path = os.path.join(self.data_dir, "analysis", "index.json")
+        with open(index_path, "w", encoding="utf-8") as fh:
+            json.dump({"articles": {
+                "https://fast.bg/a/1": {"story_id": "s1"},
+                "https://slow.bg/a/1": {"story_id": "s1"},
+            }}, fh)
         d = os.path.join(self.data_dir, "analysis", "stories")
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "s1.json"), "w", encoding="utf-8") as fh:
@@ -2125,6 +2308,33 @@ class WithholdsAlteredNames(unittest.TestCase):
             {"people": ["Антон Славчев"]},
             [{"content": "Нищо общо. " * 20}, self.article])
         self.assertEqual(good, [])
+
+
+class EffectiveStoryReconciliation(unittest.TestCase):
+    def test_independent_gate_rejects_a_party_aggregate_mutation(self):
+        url = "https://example.bg/member"
+        analysis = {
+            "url": url, "domain": "example.bg",
+            "leaning": {"label": "neutral"},
+            "russia_stance": {"label": "not_applicable"},
+            "party_tones": [{"party": "Партия А", "tone": "mixed"}],
+        }
+        story = {"id": "story-1", "members": [{"url": url}]}
+        recomputed = {
+            "members": [{
+                "url": url, "domain": "example.bg", "leaning": "neutral",
+                "russia_stance": "not_applicable",
+            }],
+            "aggregates": {
+                "article_count": 1, "outlet_count": 1,
+                "by_leaning": {"neutral": 1},
+                "by_russia_stance": {"not_applicable": 1},
+                "by_party_tone": {"Партия А": {"favorable": 1}},
+                "by_domain": {"example.bg": 1},
+            },
+        }
+        with self.assertRaisesRegex(ValueError, "aggregate reconciliation"):
+            reconcile_effective_story(story, recomputed, {url: analysis})
 
 if __name__ == "__main__":
     unittest.main()
