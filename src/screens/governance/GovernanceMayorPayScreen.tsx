@@ -254,14 +254,12 @@ export const GovernanceMayorPayScreen: FC = () => {
         }
         kpis={kpis}
         kpisPending={isPending ? 4 : undefined}
-        kpiNote={
-          rows.length > 0
-            ? t("mp_page_coverage", {
-                withIncome: incomeRows.length,
-                total: rows.length,
-              })
-            : undefined
-        }
+        // ⚠️ THE COVERAGE FIGURE IS DELIBERATELY NOT HERE — see `mayorPayHubFigures.ts`'s
+        // header. It used to open this line as „249 от 259 общини имат разчетен деклариран
+        // доход", which is verbatim what the band's first cell already says two lines above,
+        // and the SECOND cell prints its own unrelated „249 от 259" between them. What is
+        // left is the one thing no cell can carry: that the rows can span filing years.
+        kpiNote={rows.length > 0 ? t("mp_page_coverage") : undefined}
       />
 
       {isPending && (

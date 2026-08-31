@@ -72,7 +72,36 @@ describe("the band", () => {
       eur,
     );
     expect(cells[0].value).toBe("249/259");
-    expect(cells[1].basis).toBe("mp_kpi_dominant_year_detail:111:259");
+    expect(cells[1].basis).toBe("mp_kpi_dominant_year_detail:111:2025");
+  });
+
+  it("gives the year cell a basis that cannot be read as the coverage cell restated", () => {
+    // The reason the assertion above is not enough. On the live corpus both counts are 249,
+    // so „249 от 259 общини с налична стойност" and „249 от 259 общини са с декларация за
+    // тази година" sat ~200px apart in the same shape and read as one restated fact — the
+    // conflation 8d378e10b0 shipped, one layer up. Two things keep them visibly separate,
+    // and both are only checkable on the COINCIDING input the distinguishable one above
+    // cannot use:
+    //
+    //   • the year basis names its YEAR cohort, so the two sentences differ even when the
+    //     numbers do not;
+    //   • it carries NO denominator, so the „N от M" shape occurs exactly once in the band.
+    //
+    // ⚠️ `totalRows` must therefore never reach that call. Restoring it would pass every
+    // other clause in this file.
+    const [coverage, year] = mayorPayHubKpis(
+      259,
+      249,
+      { fiscalYear: 2025, count: 249 },
+      1,
+      2,
+      t,
+      eur,
+    );
+    expect(coverage.value).toBe("249/259");
+    expect(year.basis).toContain("2025");
+    expect(year.basis).not.toContain("259");
+    expect(year.basis).not.toBe(coverage.basis);
   });
 
   it("is all-or-nothing: an empty corpus renders no cells, never a short band", () => {

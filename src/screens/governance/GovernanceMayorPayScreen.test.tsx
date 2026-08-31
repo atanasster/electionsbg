@@ -153,7 +153,7 @@ describe("GovernanceMayorPayScreen", () => {
     expect(dominantCell).not.toBeNull();
     expect(within(dominantCell!).getByText("2025")).toBeVisible();
     expect(
-      screen.getByText('mp_kpi_dominant_year_detail:{"count":2,"total":3}'),
+      screen.getByText('mp_kpi_dominant_year_detail:{"count":2,"year":2025}'),
     ).toBeVisible();
   });
 

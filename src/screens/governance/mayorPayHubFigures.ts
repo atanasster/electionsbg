@@ -35,6 +35,20 @@
 // words: dividing one person's declared income by the population of the place they govern
 // is CONTEXT — it puts Челопеч's 1,456 residents beside Sofia's — and never a judgement
 // about whether the income is high.
+//
+// ⚠️⚠️ CELLS 1 AND 2 COUNT DIFFERENT SETS AND MUST NOT SHARE A SENTENCE SHAPE. Cell 1 is
+// „has a resolved labour-income row" over every municipality; cell 2 is „filed for the
+// dominant year". Today both are 249 of 259 — a coincidence, since `mayor_pay_ranking()`
+// takes each mayor's LATEST filing whatever its year, so a mayor who filed for a NEWER year
+// is in cell 1 and not in cell 2. Rendered as two „N от M"s ~200px apart they read as one
+// restated fact, which is the defect `8d378e10b0` already shipped once („the coverage line
+// claimed 249 filings for a year 2 mayors have filed"). So cell 2's basis names its YEAR
+// cohort and carries no denominator — there is deliberately no `total` in that call, and the
+// gate below feeds the two cells distinguishable numbers so a re-conflation fails.
+//
+// The same rule retired the head's `kpiNote`'s first sentence: it restated cell 1 in cell
+// 1's own words, a third print of one figure. What is left there is the only thing the band
+// cannot say — that the rows can span years.
 // ═══════════════════════════════════════════════════════════════════════════════════════
 
 import type { HubKpi } from "@/ux/infographic/HubHead";
@@ -92,7 +106,7 @@ export const mayorPayHubKpis = (
           label: t("mp_kpi_dominant_year"),
           basis: t("mp_kpi_dominant_year_detail", {
             count: dominantYear?.count ?? 0,
-            total: totalRows,
+            year: dominantYear?.fiscalYear ?? 0,
           }),
         },
         {
