@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electionsbg.com/schemas/news/article-evaluation-v1.json",
+  "title": "News article evaluation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "leaning",
+    "russia_stance",
+    "parties_confirmed_complete",
+    "party_tones",
+    "removed_model_parties",
+    "public_note"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "leaning": { "$ref": "#/$defs/leaningDecision" },
+    "russia_stance": { "$ref": "#/$defs/russiaDecision" },
+    "parties_confirmed_complete": { "const": true },
+    "party_tones": {
+      "type": "array",
+      "maxItems": 30,
+      "items": { "$ref": "#/$defs/partyDecision" }
+    },
+    "removed_model_parties": {
+      "type": "array",
+      "maxItems": 30,
+      "items": { "$ref": "#/$defs/removedParty" }
+    },
+    "public_note": {
+      "type": ["string", "null"],
+      "maxLength": 600
+    }
+  },
+  "$defs": {
+    "reasonCode": {
+      "enum": [
+        "model_missed_context",
+        "model_overweighted_quote",
+        "label_too_strong",
+        "label_too_weak",
+        "neutral_vs_not_applicable",
+        "insufficient_public_context",
+        "wrong_party_identity",
+        "party_missing",
+        "party_not_meaningful",
+        "tone_misread",
+        "other"
+      ]
+    },
+    "reasonCodes": {
+      "type": "array",
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/reasonCode" }
+    },
+    "leaningLabel": {
+      "enum": [
+        "strong_progressive",
+        "progressive",
+        "neutral",
+        "conservative",
+        "strong_conservative",
+        "not_applicable"
+      ]
+    },
+    "russiaLabel": {
+      "enum": [
+        "strong_pro_russia",
+        "pro_russia",
+        "neutral",
+        "anti_russia",
+        "strong_anti_russia",
+        "not_applicable"
+      ]
+    },
+    "scalarDecisionBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "disposition", "evidence", "reason_codes"],
+      "properties": {
+        "label": {},
+        "disposition": {
+          "enum": ["confirmed", "changed", "unable_to_judge"]
+        },
+        "evidence": {
+          "type": ["string", "null"],
+          "maxLength": 600
+        },
+        "reason_codes": { "$ref": "#/$defs/reasonCodes" }
+      }
+    },
+    "leaningDecision": {
+      "allOf": [
+        { "$ref": "#/$defs/scalarDecisionBase" },
+        {
+          "properties": {
+            "label": {
+              "anyOf": [
+                { "$ref": "#/$defs/leaningLabel" },
+                { "type": "null" }
+              ]
+            }
+          }
+        },
+        { "$ref": "#/$defs/scalarDecisionConditions" }
+      ]
+    },
+    "russiaDecision": {
+      "allOf": [
+        { "$ref": "#/$defs/scalarDecisionBase" },
+        {
+          "properties": {
+            "label": {
+              "anyOf": [
+                { "$ref": "#/$defs/russiaLabel" },
+                { "type": "null" }
+              ]
+            }
+          }
+        },
+        { "$ref": "#/$defs/scalarDecisionConditions" }
+      ]
+    },
+    "scalarDecisionConditions": {
+      "if": {
+        "properties": { "disposition": { "const": "unable_to_judge" } },
+        "required": ["disposition"]
+      },
+      "then": {
+        "properties": {
+          "label": { "type": "null" },
+          "evidence": { "type": ["string", "null"] }
+        }
+      },
+      "else": {
+        "properties": {
+          "label": { "not": { "type": "null" } },
+          "evidence": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "partyDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "party",
+        "party_id",
+        "tone",
+        "evidence",
+        "disposition",
+        "reason_codes"
+      ],
+      "properties": {
+        "party": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "party_id": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "tone": {
+          "enum": ["favorable", "unfavorable", "neutral", "mixed"]
+        },
+        "evidence": { "type": "string", "minLength": 1, "maxLength": 600 },
+        "disposition": { "enum": ["confirmed", "changed", "added"] },
+        "reason_codes": { "$ref": "#/$defs/reasonCodes" }
+      }
+    },
+    "removedParty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["party", "party_id", "reason_code"],
+      "properties": {
+        "party": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "party_id": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "reason_code": {
+          "enum": ["wrong_party_identity", "party_not_meaningful", "other"]
+        }
+      }
+    }
+  }
+}

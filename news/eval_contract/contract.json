@@ -1,0 +1,99 @@
+{
+  "contract": "news-article-evaluation",
+  "schema_version": 1,
+  "rubric_version": "news-article-evaluation-v1",
+  "vocabularies": {
+    "leaning": [
+      "strong_progressive",
+      "progressive",
+      "neutral",
+      "conservative",
+      "strong_conservative",
+      "not_applicable"
+    ],
+    "russia_stance": [
+      "strong_pro_russia",
+      "pro_russia",
+      "neutral",
+      "anti_russia",
+      "strong_anti_russia",
+      "not_applicable"
+    ],
+    "party_tone": ["favorable", "unfavorable", "neutral", "mixed"],
+    "scalar_disposition": ["confirmed", "changed", "unable_to_judge"],
+    "party_disposition": ["confirmed", "changed", "added"]
+  },
+  "reason_codes": {
+    "model_missed_context": {
+      "scopes": ["leaning", "russia_stance", "party_tones"],
+      "description": "Relevant context changes the judgment made from the cited passage."
+    },
+    "model_overweighted_quote": {
+      "scopes": ["leaning", "russia_stance", "party_tones"],
+      "description": "A quotation was treated as the article's own position."
+    },
+    "label_too_strong": {
+      "scopes": ["leaning", "russia_stance"],
+      "description": "The direction is plausible but the intensity is overstated."
+    },
+    "label_too_weak": {
+      "scopes": ["leaning", "russia_stance"],
+      "description": "The direction is plausible but the intensity is understated."
+    },
+    "neutral_vs_not_applicable": {
+      "scopes": ["leaning", "russia_stance"],
+      "description": "The axis is absent rather than substantively neutral, or vice versa."
+    },
+    "insufficient_public_context": {
+      "scopes": ["leaning", "russia_stance", "party_tones"],
+      "description": "The public excerpt and available source are insufficient to judge."
+    },
+    "wrong_party_identity": {
+      "scopes": ["party_tones"],
+      "description": "The named party was mapped to the wrong canonical party."
+    },
+    "party_missing": {
+      "scopes": ["party_tones"],
+      "description": "A meaningfully treated party is absent from the model set."
+    },
+    "party_not_meaningful": {
+      "scopes": ["party_tones"],
+      "description": "The model party is only incidental and should not be scored."
+    },
+    "tone_misread": {
+      "scopes": ["party_tones"],
+      "description": "The party treatment has the wrong favorable, unfavorable, neutral or mixed tone."
+    },
+    "other": {
+      "scopes": ["leaning", "russia_stance", "party_tones"],
+      "description": "A documented reason not covered by the registry."
+    }
+  },
+  "limits": {
+    "evidence_characters": 600,
+    "public_note_characters": 600,
+    "party_decisions": 30,
+    "removed_model_parties": 30,
+    "reason_codes_per_decision": 6
+  },
+  "community_aggregate_release": {
+    "minimum_valid_submissions": 5,
+    "minimum_distinct_browser_buckets": 3,
+    "minimum_distinct_ip_day_buckets": 3,
+    "strong_agreement_fraction": 0.8,
+    "meaning": "community agreement, never correctness"
+  },
+  "hash_format": "sha256:<64 lowercase hexadecimal characters>",
+  "article_key_format": "<domain>/<article_id>",
+  "event_actions": [
+    "submission_quarantined",
+    "submission_reviewed",
+    "submission_rejected",
+    "adjudication_accepted",
+    "adjudication_deferred",
+    "adjudication_superseded",
+    "adjudication_stale",
+    "gold_promoted"
+  ],
+  "dataset_layers": ["community_raw", "community_weak", "adjudicated_gold"]
+}

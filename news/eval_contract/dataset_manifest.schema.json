@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electionsbg.com/schemas/news/evaluation-dataset-manifest-v1.json",
+  "title": "News evaluation dataset manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "revision",
+    "layer",
+    "purpose",
+    "rubric_version",
+    "selection_manifest_sha256",
+    "records_sha256",
+    "created_at",
+    "required_fields",
+    "answer_visibility",
+    "allowed_uses",
+    "known_selection_bias",
+    "label_statistics",
+    "community_context",
+    "adjudication_statistics",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "dataset_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"
+    },
+    "revision": { "type": "integer", "minimum": 1 },
+    "layer": {
+      "enum": ["community_raw", "community_weak", "adjudicated_gold"]
+    },
+    "purpose": { "type": "string", "minLength": 1, "maxLength": 600 },
+    "rubric_version": { "const": "news-article-evaluation-v1" },
+    "selection_manifest_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "records_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "required_fields": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["leaning", "russia_stance", "party_tones"] }
+    },
+    "answer_visibility": { "enum": ["blind", "visible_after_submit"] },
+    "allowed_uses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "community_reporting",
+          "error_analysis",
+          "prompt_development",
+          "model_training",
+          "model_selection",
+          "sealed_release_evaluation"
+        ]
+      }
+    },
+    "sealed_test": { "type": "boolean", "default": false },
+    "known_selection_bias": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 600 }
+    },
+    "label_statistics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_records", "leaning", "russia_stance", "party_tones"],
+      "properties": {
+        "total_records": { "type": "integer", "minimum": 0 },
+        "leaning": { "$ref": "#/$defs/leaningStatistics" },
+        "russia_stance": { "$ref": "#/$defs/russiaStatistics" },
+        "party_tones": { "$ref": "#/$defs/partyToneStatistics" }
+      }
+    },
+    "community_context": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_submission_count",
+            "distinct_browser_bucket_count",
+            "distinct_ip_day_bucket_count",
+            "quarantined_submission_count",
+            "agreement_summary"
+          ],
+          "properties": {
+            "source_submission_count": { "type": "integer", "minimum": 0 },
+            "distinct_browser_bucket_count": { "type": "integer", "minimum": 0 },
+            "distinct_ip_day_bucket_count": { "type": "integer", "minimum": 0 },
+            "quarantined_submission_count": { "type": "integer", "minimum": 0 },
+            "agreement_summary": {
+              "type": ["string", "null"],
+              "maxLength": 600,
+              "description": "Community agreement only; never an accuracy claim."
+            }
+          }
+        }
+      ]
+    },
+    "adjudication_statistics": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["independently_labeled_records", "overlap_records", "agreement"],
+          "properties": {
+            "independently_labeled_records": { "type": "integer", "minimum": 0 },
+            "overlap_records": { "type": "integer", "minimum": 0 },
+            "agreement": {
+              "type": "object",
+              "additionalProperties": { "type": "number", "minimum": -1, "maximum": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "article_key": {
+            "type": "string",
+            "pattern": "^[^/]{1,253}/[^/]{1,255}$"
+          },
+          "url": { "type": "string", "format": "uri" },
+          "content_sha256": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "analysis_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "group_id": { "type": "string", "minLength": 1, "maxLength": 512 },
+          "selection_reason": { "type": "string", "minLength": 1, "maxLength": 600 },
+          "split": { "enum": ["train", "dev", "test"] }
+        },
+        "required": [
+          "article_key",
+          "url",
+          "content_sha256",
+          "group_id",
+          "selection_reason",
+          "split"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "statisticBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label_counts", "missing_count", "unable_to_judge_count"],
+      "properties": {
+        "label_counts": {},
+        "missing_count": { "type": "integer", "minimum": 0 },
+        "unable_to_judge_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "leaningStatistics": {
+      "allOf": [
+        { "$ref": "#/$defs/statisticBase" },
+        {
+          "properties": {
+            "label_counts": { "$ref": "#/$defs/leaningCounts" }
+          }
+        }
+      ]
+    },
+    "russiaStatistics": {
+      "allOf": [
+        { "$ref": "#/$defs/statisticBase" },
+        {
+          "properties": {
+            "label_counts": { "$ref": "#/$defs/russiaCounts" }
+          }
+        }
+      ]
+    },
+    "partyToneStatistics": {
+      "allOf": [
+        { "$ref": "#/$defs/statisticBase" },
+        {
+          "properties": {
+            "label_counts": { "$ref": "#/$defs/partyToneCounts" }
+          }
+        }
+      ]
+    },
+    "leaningCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strong_progressive": { "type": "integer", "minimum": 0 },
+        "progressive": { "type": "integer", "minimum": 0 },
+        "neutral": { "type": "integer", "minimum": 0 },
+        "conservative": { "type": "integer", "minimum": 0 },
+        "strong_conservative": { "type": "integer", "minimum": 0 },
+        "not_applicable": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "russiaCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strong_pro_russia": { "type": "integer", "minimum": 0 },
+        "pro_russia": { "type": "integer", "minimum": 0 },
+        "neutral": { "type": "integer", "minimum": 0 },
+        "anti_russia": { "type": "integer", "minimum": 0 },
+        "strong_anti_russia": { "type": "integer", "minimum": 0 },
+        "not_applicable": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "partyToneCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "favorable": { "type": "integer", "minimum": 0 },
+        "unfavorable": { "type": "integer", "minimum": 0 },
+        "neutral": { "type": "integer", "minimum": 0 },
+        "mixed": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

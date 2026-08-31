@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electionsbg.com/schemas/news/evaluation-event-v1.json",
+  "title": "News evaluation operator event v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "occurred_at",
+    "actor",
+    "action",
+    "target",
+    "before_sha256",
+    "after_sha256"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "event_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{16,128}$"
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "enum": ["maintainer", "service"] },
+        "id": { "type": "string", "minLength": 1, "maxLength": 128 }
+      }
+    },
+    "action": {
+      "enum": [
+        "submission_quarantined",
+        "submission_reviewed",
+        "submission_rejected",
+        "adjudication_accepted",
+        "adjudication_deferred",
+        "adjudication_superseded",
+        "adjudication_stale",
+        "gold_promoted"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "article_key"],
+      "properties": {
+        "kind": { "enum": ["submission", "adjudication", "dataset"] },
+        "id": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "article_key": {
+          "type": ["string", "null"],
+          "pattern": "^[^/]{1,253}/[^/]{1,255}$"
+        }
+      }
+    },
+    "before_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "after_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "reason": { "type": ["string", "null"], "maxLength": 600 }
+  },
+  "allOf": [
+    {
+      "anyOf": [
+        {
+          "properties": {
+            "before_sha256": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          }
+        },
+        {
+          "properties": {
+            "after_sha256": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "enum": [
+              "submission_quarantined",
+              "submission_reviewed",
+              "submission_rejected"
+            ]
+          }
+        },
+        "required": ["action"]
+      },
+      "then": {
+        "properties": {
+          "target": {
+            "properties": {
+              "kind": { "const": "submission" },
+              "article_key": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "enum": [
+              "adjudication_accepted",
+              "adjudication_deferred",
+              "adjudication_superseded",
+              "adjudication_stale"
+            ]
+          }
+        },
+        "required": ["action"]
+      },
+      "then": {
+        "properties": {
+          "target": {
+            "properties": {
+              "kind": { "const": "adjudication" },
+              "article_key": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "action": { "const": "gold_promoted" } },
+        "required": ["action"]
+      },
+      "then": {
+        "properties": {
+          "target": {
+            "properties": {
+              "kind": { "const": "dataset" },
+              "article_key": { "type": "null" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

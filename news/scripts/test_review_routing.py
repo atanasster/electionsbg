@@ -172,6 +172,16 @@ class PoliticalNotApplicable(unittest.TestCase):
                          record_review(self.rec(category="not-site-relevant")))
         self.assertNotIn("leaning", record_review(self.rec(category="sports")))
 
+    def test_a_policy_beat_without_a_party_is_not_invented_as_political(self):
+        for category in ("economy", "healthcare", "environment"):
+            with self.subTest(category=category):
+                self.assertNotIn("leaning", record_review(self.rec(category=category)))
+
+    def test_a_policy_beat_with_a_party_is_flagged(self):
+        record = self.rec(category="economy")
+        record["entities"] = {"parties": ["ГЕРБ"]}
+        self.assertIn("leaning", record_review(record))
+
     def test_a_NON_OK_record_is_not_flagged(self):
         # ⚠️ A paywall shell or a listing page is correctly not_applicable —
         # the rubric requires the full record shape with not_applicable on

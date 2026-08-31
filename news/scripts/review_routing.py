@@ -125,11 +125,21 @@ def field_review(label, confidence) -> str | None:
 # a prompt change is not retroactive: every record already on disk was
 # produced under the old wording. Flagging the combination is what makes those
 # records actionable instead of invisible.
-POLITICAL_CATEGORIES = frozenset({
+INHERENTLY_POLITICAL_CATEGORIES = frozenset({
     "government", "parliament", "elections-parliamentary", "elections-local",
     "judiciary", "procurement", "state-budget", "foreign-policy",
-    "security-defense", "economy", "energy", "healthcare", "education",
-    "social-pensions", "environment", "media-press", "eu-funds",
+    "security-defense",
+})
+
+# These are policy beats, not proof that an individual article has a
+# political dimension. A company-results story is still `economy`, a patient
+# advice piece is still `healthcare`, and a wildfire report is still
+# `environment`. Treat the beat as political only when the analysis also
+# found a party; otherwise this rule turns ordinary subject taxonomy into a
+# fabricated leaning judgment and floods the review queue.
+POLICY_CATEGORIES = frozenset({
+    "economy", "energy", "healthcare", "education", "social-pensions",
+    "environment", "media-press", "eu-funds",
 })
 
 
@@ -149,7 +159,14 @@ def political_not_applicable(analysis: dict) -> str | None:
     if not analysis.get("site_relevant"):
         return None
     category = primary_category(analysis)
-    if category not in POLITICAL_CATEGORIES:
+    if category not in INHERENTLY_POLITICAL_CATEGORIES | POLICY_CATEGORIES:
+        return None
+    parties = (analysis.get("entities") or {}).get("parties") or []
+    party_mentions = [
+        mention for mention in (analysis.get("mentions") or [])
+        if isinstance(mention, dict) and mention.get("kind") == "party"
+    ]
+    if category in POLICY_CATEGORIES and not (parties or party_mentions):
         return None
     leaning = analysis.get("leaning")
     if not isinstance(leaning, dict) or leaning.get("label") != "not_applicable":
