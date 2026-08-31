@@ -15,4 +15,19 @@ describe("news home supporting-grid CSS contract", () => {
       /@media \(min-width: 1024px\)[\s\S]*?\.news-supporting-grid\s*{[^}]*repeat\(3,\s*minmax\(0,\s*1fr\)\)/,
     );
   });
+
+  it("keeps card interaction polish responsive and content-driven", () => {
+    const css = fs.readFileSync(path.resolve("newsapp/news.css"), "utf8");
+    expect(css).toContain(".news-shell .news-story-card--text::before");
+    expect(css).toContain(".news-shell .news-story-card:focus-within");
+    expect(css).toContain("@media (prefers-reduced-motion: reduce)");
+    const cardBodyRules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].filter(
+      ([, selector]) =>
+        selector.includes("news-story-card") &&
+        selector.includes("news-card-body"),
+    );
+    expect(cardBodyRules.length).toBeGreaterThan(0);
+    for (const [, selector, declarations] of cardBodyRules)
+      expect(declarations, selector.trim()).not.toMatch(/\bmin-height\s*:/);
+  });
 });

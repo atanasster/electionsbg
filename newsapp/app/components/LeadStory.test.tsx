@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
@@ -84,8 +84,17 @@ describe("LeadStory accessibility", () => {
       "https://commons.wikimedia.org/photo",
     );
     expect(storyLink).toHaveAttribute("href", "/story/story");
-    expect(screen.queryByText("Сравни отразяването")).toBeNull();
-    expect(screen.queryByText("Анализирана статия")).toBeNull();
+    expect(
+      within(storyLink).getByRole("heading", {
+        level: 3,
+        name: "Водеща история",
+      }),
+    ).toBeVisible();
+    expect(within(storyLink).getByText("Синтезирано резюме")).toBeVisible();
+    expect(screen.queryByText(/сравни отразяването/i)).toBeNull();
+    expect(screen.queryByText(/прочети анализа/i)).toBeNull();
+    expect(screen.queryByText(/анализирана статия/i)).toBeNull();
+    expect(document.querySelector("a a")).toBeNull();
     expect(screen.getAllByText("Втори източник")).toHaveLength(2);
     expect(screen.getByText("Пример")).toBeVisible();
     await user.tab();

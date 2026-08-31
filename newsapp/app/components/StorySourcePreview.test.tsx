@@ -75,6 +75,26 @@ describe("StorySourcePreview", () => {
     );
   });
 
+  it("shows two names on wider cards but one name plus one remaining on mobile", () => {
+    const { container } = render(
+      <StorySourcePreview
+        byDomain={{ "alpha.bg": 1, "beta.bg": 1 }}
+        articleCount={2}
+        outlets={outlets}
+      />,
+    );
+
+    expect(container.querySelector(".sm\\:hidden")).toHaveTextContent(
+      "Бета · +1 още",
+    );
+    expect(container.querySelector(".hidden.sm\\:inline")).toHaveTextContent(
+      "Бета · Алфа",
+    );
+    expect(
+      container.querySelector(".hidden.sm\\:inline"),
+    ).not.toHaveTextContent("+");
+  });
+
   it("omits the duplicate-article suffix when counts describe only outlets", () => {
     render(
       <StorySourcePreview

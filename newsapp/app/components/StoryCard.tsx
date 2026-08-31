@@ -51,10 +51,10 @@ export const StoryCard = ({
         : "russia"
       : null;
   return (
-    <article className="h-full">
+    <article className={imageArticle ? "h-full" : "self-start"}>
       <Card
-        className={`news-story-card flex h-full min-w-0 flex-col overflow-hidden ${
-          imageArticle ? "" : "news-story-card--text"
+        className={`news-story-card flex min-w-0 flex-col overflow-hidden ${
+          imageArticle ? "h-full" : "news-story-card--text"
         }`}
       >
         {imageArticle ? (

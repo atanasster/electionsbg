@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
@@ -52,7 +52,7 @@ const imageArticle = {
 describe("StoryCard interaction scent", () => {
   it("links the headline and summary without a redundant CTA", async () => {
     const user = userEvent.setup();
-    render(
+    const { container } = render(
       <MemoryRouter>
         <StoryCard
           story={story}
@@ -68,9 +68,17 @@ describe("StoryCard interaction scent", () => {
       name: "История с ясен път Кратко резюме",
     });
     expect(storyLink).toHaveAttribute("href", "/story/story-1");
-    expect(screen.queryByText("Сравни отразяването")).toBeNull();
-    expect(screen.queryByText("Прочети анализа")).toBeNull();
-    expect(screen.queryByText("Анализирана статия")).toBeNull();
+    expect(
+      within(storyLink).getByRole("heading", {
+        level: 3,
+        name: "История с ясен път",
+      }),
+    ).toBeVisible();
+    expect(within(storyLink).getByText("Кратко резюме")).toBeVisible();
+    expect(storyLink).toHaveClass("focus-visible:ring-2");
+    expect(screen.queryByText(/сравни отразяването/i)).toBeNull();
+    expect(screen.queryByText(/прочети анализа/i)).toBeNull();
+    expect(screen.queryByText(/анализирана статия/i)).toBeNull();
     expect(screen.getAllByText("Втори източник")).toHaveLength(2);
     expect(screen.getByText("Пример")).toBeVisible();
     const links = screen.getAllByRole("link");
@@ -80,6 +88,14 @@ describe("StoryCard interaction scent", () => {
       "/story/story-1",
     ]);
     expect(document.querySelector("a a")).toBeNull();
+    const caption = document.querySelector("figcaption");
+    expect(caption).not.toBeNull();
+    expect(within(caption!).getByText("Изображение: Автор")).toBeVisible();
+    expect(within(caption!).getByText("CC BY 4.0")).toBeVisible();
+    expect(caption).not.toHaveTextContent("http");
+    expect(caption?.textContent?.match(/CC BY 4\.0/g)).toHaveLength(1);
+    expect(container.querySelector(".news-story-card")).toHaveClass("h-full");
+    expect(container.querySelector("article")).toHaveClass("h-full");
     await user.tab();
     expect(links[0]).toHaveFocus();
     await user.tab();
@@ -104,6 +120,10 @@ describe("StoryCard interaction scent", () => {
     expect(container.querySelector("img")).toBeNull();
     expect(container.querySelector("figure")).toBeNull();
     expect(container.querySelector(".aspect-\\[16\\/10\\]")).toBeNull();
+    const textCard = container.querySelector(".news-story-card--text");
+    expect(textCard).not.toBeNull();
+    expect(textCard).not.toHaveClass("h-full");
+    expect(textCard?.closest("article")).toHaveClass("self-start");
     expect(screen.getAllByText("society")).toHaveLength(1);
     expect(
       screen.getByRole("link", {
