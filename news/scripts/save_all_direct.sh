@@ -44,19 +44,25 @@ run_one() {
   d="$1"; n="$2"
   out=$(timeout 1200 python3 scripts/save_articles.py "$d" "$n" 2>/dev/null)
   rc=$?
-  if [ "$rc" -eq 124 ] && [ -z "$out" ]; then
+  if [ -z "$out" ]; then
     # A shell-level kill: the saver never reached its own state write, so the
     # failure would go unrecorded and --intake-report would show the domain as
-    # healthy. Record it here instead.
-    python3 - "$d" <<'PYEOF' 2>/dev/null || true
+    # healthy. The saver promises one JSON object on every owned outcome, so
+    # even exit 0 with empty stdout is a launcher/contract failure. Record all
+    # empty-output exits here; non-empty saver-owned errors stay untouched.
+    # This function is exported to `bash -c` workers. A heredoc inside an
+    # exported function is reconstructed by Bash 3.2 as `PYEOF\n || true`,
+    # which is a syntax error and prevents every worker from importing the
+    # function. Keep the recovery payload in one `-c` argument instead.
+    python3 -c '
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path("scripts").resolve()))
 import save_articles as sa
-domain = sys.argv[1]
+domain, status = sys.argv[1:3]
 st = sa.load_state(domain)
 sa.record_domain_failure(domain, st, "timeout_or_crash",
-                         "killed by the sweep's 1200s timeout")
-PYEOF
+                         f"sweep worker produced no summary (exit {status})")
+' "$d" "$rc" 2>/dev/null || true
   fi
   if [ -n "$out" ]; then
     # the saver always prints exactly one JSON object — pass it through,
