@@ -2,42 +2,36 @@
 // in its own module so the component file stays fast-refresh-clean and the
 // filter/guard logic is unit-testable.
 
-import { Coins, Globe } from "lucide-react";
 import { type SearchGroup } from "@/ux/search/EntitySearchTile";
-import { decodeEntities } from "@/lib/decodeEntities";
+import {
+  fundItems,
+  interregItems,
+  type FundProjectRow,
+  type InterregOperationRow,
+} from "@/screens/components/search/procurementSearchSource";
 
-export interface FundRow {
-  contractNumber: string;
-  title: string;
-  beneficiaryEik: string | null;
-  beneficiaryName: string | null;
-  programName: string | null;
-  totalEur: number | null;
-}
+export type FundRow = FundProjectRow;
 
 /**
  * Build the ЕВРОФОНДОВЕ (ИСУН) dropdown group from fund-search rows. Distinct from
- * ЗОП — these are EU-grant projects (no procurement lineage); each row routes to
- * its beneficiary's /company/:eik funds tile, so rows WITHOUT a beneficiaryEik are
- * dropped. Filters first and returns null when nothing is linkable, so the
- * dropdown never shows a stray empty header.
+ * ЗОП — these are EU-grant projects, with no procurement lineage.
+ *
+ * ⚠️ A ROW LINKS TO THE PROJECT, NOT TO ITS BENEFICIARY, AND NO ROW IS DROPPED. This
+ * builder used to route each hit to `/company/:beneficiaryEik` and FILTER OUT any project
+ * whose beneficiary EIK the corpus cannot key — so a reader searching for a project landed
+ * on a company page, and real projects were silently absent from a search that had found
+ * them. `/funds/contract/:number` is the project's own page (the route `FundsFinder` already
+ * used), and `contract_number` is present on every row, so neither compromise was needed.
+ * The mapping lives in `procurementSearchSource` so the home, the funds finder and this tile
+ * cannot disagree about where an ИСУН hit goes.
+ *
+ * Returns null when there are no rows, so the dropdown never shows a stray empty header.
  */
 export const fundSearchGroup = (
   funds: FundRow[],
   bg: boolean,
 ): SearchGroup | null => {
-  const items = funds
-    .filter((f) => f.beneficiaryEik)
-    .map((f) => ({
-      id: `fund-${f.contractNumber}`,
-      to: `/company/${f.beneficiaryEik}`,
-      primary: decodeEntities(f.title),
-      secondary: decodeEntities(
-        [f.programName, f.beneficiaryName].filter(Boolean).join(" · "),
-      ),
-      amountEur: f.totalEur,
-      icon: Coins,
-    }));
+  const items = fundItems({ funds });
   if (items.length === 0) return null;
   return {
     key: "funds",
@@ -46,17 +40,7 @@ export const fundSearchGroup = (
   };
 };
 
-export interface InterregRow {
-  keepId: number;
-  title: string;
-  programmeBg: string | null;
-  period: string;
-  bgBudgetEur: number | null;
-  /** The Bulgarian partner name that matched, when the hit came through the
-   *  partner arm rather than the (English) title — so a Cyrillic search can
-   *  show WHY a Latin-titled project is in the list. */
-  partnerHit: string | null;
-}
+export type InterregRow = InterregOperationRow;
 
 /**
  * Build the INTERREG dropdown group.
@@ -80,17 +64,6 @@ export const interregSearchGroup = (
   return {
     key: "interreg",
     label: bg ? "Interreg (трансгранични)" : "Interreg (cross-border)",
-    items: rows.map((r) => ({
-      id: `interreg-${r.keepId}`,
-      to: `/funds/interreg/${r.keepId}`,
-      // keep.eu publishes titles in English only, so this is the English one on
-      // both language surfaces rather than an invented translation.
-      primary: decodeEntities(r.title),
-      secondary: decodeEntities(
-        [r.programmeBg, r.period, r.partnerHit].filter(Boolean).join(" · "),
-      ),
-      amountEur: r.bgBudgetEur,
-      icon: Globe,
-    })),
+    items: interregItems({ interreg: rows }),
   };
 };

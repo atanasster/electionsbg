@@ -35,6 +35,10 @@ import { HubSearch } from "@/ux/search/HubSearch";
 import type { HubSearchSource } from "@/ux/search/hubSearchSources";
 import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import { decodeEntities } from "@/lib/decodeEntities";
+import {
+  fundProjectHref,
+  interregHref,
+} from "@/screens/components/search/procurementSearchSource";
 
 // Only the fields this box renders. The destination pages fetch the full rows.
 interface FundRow {
@@ -92,6 +96,12 @@ const joinSub = (parts: (string | null | undefined)[]): string | undefined => {
  *    but HubSearch's all-failed empty state still renders a bare „Няма съвпадения.“ Making that
  *    say "search failed" is a change to the SHARED component (it would also affect /parliament
  *    and /governance/declarations), so it is flagged rather than made here. */
+// ⚠️ ITS OWN IN-FLIGHT CACHE, AND IT STAYS PRIVATE. This box asks the same endpoint as
+// `procurementSearchSource`'s shared request but with `&limit=6`, and that module keys its
+// cache on the QUERY alone — so folding the two together without folding `limit` into the key
+// would answer this 6-row box with a 20-row response, or the reverse. The two are never
+// mounted on one page, so the duplication costs nothing today; the destinations they produce
+// ARE shared (`fundProjectHref` / `interregHref`), which is the half that must not disagree.
 const makeSharedFetch = (): ((
   q: string,
   signal: AbortSignal,
@@ -136,7 +146,7 @@ export const FundsFinder: FC<{ className?: string }> = ({ className }) => {
           const d = await shared(q, signal);
           return (d.funds ?? []).map((r) => ({
             id: r.contractNumber,
-            to: `/funds/contract/${encodeURIComponent(r.contractNumber)}`,
+            to: fundProjectHref(r.contractNumber),
             primary: decodeEntities(r.title?.trim() || r.contractNumber),
             secondary: joinSub([r.beneficiaryName, r.programName]),
             amountEur: r.totalEur,
@@ -166,7 +176,7 @@ export const FundsFinder: FC<{ className?: string }> = ({ className }) => {
           const d = await shared(q, signal);
           return (d.interreg ?? []).map((r) => ({
             id: String(r.keepId),
-            to: `/funds/interreg/${encodeURIComponent(String(r.keepId))}`,
+            to: interregHref(r.keepId),
             primary: decodeEntities(r.title?.trim() || String(r.keepId)),
             secondary: joinSub([r.programmeBg, r.period, r.partnerHit]),
             amountEur: r.bgBudgetEur,

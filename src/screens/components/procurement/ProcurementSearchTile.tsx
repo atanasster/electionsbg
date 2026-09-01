@@ -14,13 +14,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { To, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  Briefcase,
-  Landmark,
-  Receipt,
-  ClipboardList,
-  FolderPlus,
-} from "lucide-react";
+import { Briefcase, Landmark, FolderPlus } from "lucide-react";
 import {
   EntitySearchTile,
   type SearchGroup,
@@ -36,6 +30,13 @@ import {
   EMPTY_PEOPLE,
   type PersonSearchResult,
 } from "./personSearchGroups";
+import {
+  contractItems,
+  moreCountLabel,
+  tenderItems,
+  type ProcurementContractRow,
+  type ProcurementTenderRow,
+} from "@/screens/components/search/procurementSearchSource";
 import { projectHref } from "@/data/procurement/projectStore";
 import { decodeEntities } from "@/lib/decodeEntities";
 
@@ -45,26 +46,11 @@ interface EntityRow {
   contracts: number;
   contractsEur: number;
 }
-interface ContractRow {
-  key: string;
-  title: string;
-  date: string;
-  awarderName: string;
-  contractorName: string;
-  amountEur: number | null;
-}
-interface TenderRow {
-  unp: string;
-  subject: string;
-  publicationDate: string;
-  buyerName: string;
-  estimatedValueEur: number | null;
-}
 interface DbResults {
   companies: EntityRow[];
   awarders: EntityRow[];
-  contracts: ContractRow[];
-  tenders: TenderRow[];
+  contracts: ProcurementContractRow[];
+  tenders: ProcurementTenderRow[];
   funds: FundRow[];
   interreg: InterregRow[];
   // Total matches (bounded to 100 server-side; equals the shown length when the
@@ -88,11 +74,6 @@ const EMPTY: DbResults = {
   tendersTotal: 0,
   altQuery: null,
 };
-
-/** "6 of 12" suffix for a capped preview: the bounded total (100 → "99+") when
- *  there's more than shown, else nothing. */
-const moreCount = (shown: number, total: number): string =>
-  total > shown ? ` (${total >= 100 ? "99+" : total})` : "";
 
 export const ProcurementSearchTile: FC = () => {
   const { t, i18n } = useTranslation();
@@ -204,17 +185,12 @@ export const ProcurementSearchTile: FC = () => {
           label:
             (t("procurement_search_see_all_contracts") ||
               "See all in Contracts") +
-            moreCount(db.contracts.length, db.contractsTotal),
+            moreCountLabel(db.contractsTotal, db.contracts.length),
           to: seeAllTo("/procurement/contracts"),
         },
-        items: db.contracts.map((c) => ({
-          id: `contract-${c.key}`,
-          to: `/procurement/contract/${c.key}`,
-          primary: decodeEntities(c.title),
-          secondary: `${c.date} · ${decodeEntities(c.contractorName || c.awarderName)}`,
-          amountEur: c.amountEur,
-          icon: Receipt,
-        })),
+        // Shared with the home finder and the funds box, so the three cannot disagree
+        // about where a contract goes or what its subtitle names.
+        items: contractItems(db),
       });
     if (db.tenders.length > 0)
       g.push({
@@ -223,17 +199,10 @@ export const ProcurementSearchTile: FC = () => {
         seeAll: {
           label:
             (t("procurement_search_see_all_tenders") || "See all in Tenders") +
-            moreCount(db.tenders.length, db.tendersTotal),
+            moreCountLabel(db.tendersTotal, db.tenders.length),
           to: seeAllTo("/procurement/tenders"),
         },
-        items: db.tenders.map((td) => ({
-          id: `tender-${td.unp}`,
-          to: `/tenders/${td.unp}`,
-          primary: decodeEntities(td.subject),
-          secondary: `${td.publicationDate} · ${decodeEntities(td.buyerName)}`,
-          amountEur: td.estimatedValueEur,
-          icon: ClipboardList,
-        })),
+        items: tenderItems(db),
       });
     // ЕВРОФОНДОВЕ · ИСУН projects (§4.1) — built by a pure helper so the
     // "no linkable rows → no empty header" guard is unit-tested.
