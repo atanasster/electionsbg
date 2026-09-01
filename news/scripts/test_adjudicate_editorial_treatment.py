@@ -202,5 +202,34 @@ class WorkspaceTests(unittest.TestCase):
         self.assertEqual(len(flat), len(set(flat)), f"duplicate keys: {flat}")
 
 
+    def test_the_party_under_judgment_stays_visible_while_scrolling(self):
+        """The sidebar scrolls, and the party bar was its first child — so the
+        one fact the party-tone pickers depend on scrolled away exactly as they
+        came into view. Pinned, and named on the heading as well."""
+
+        page = tool.PAGE
+        party_rule = page.split(".party{", 1)[1].split("}", 1)[0]
+        aside_rule = page.split("aside{", 1)[1].split("}", 1)[0]
+        self.assertIn("position:sticky", party_rule)
+        # The sticky offset must cancel the panel's padding, or the bar pins
+        # one padding-width down and content scrolls through the strip above
+        # it. Measured at 1400x900: offset 18 -> 0 after this.
+        padding = int(aside_rule.split("padding:", 1)[1].split("px", 1)[0])
+        self.assertIn(f"top:-{padding}px", party_rule)
+        self.assertIn(f"margin:-{padding}px", party_rule)
+        self.assertIn("axparty", page)
+        self.assertIn("axis==='party_tone'&&r.party_surface", page)
+
+    def test_the_party_surface_is_never_injected_as_html(self):
+        """It is corpus text, so it goes in through textContent on every path.
+        The heading builds DOM nodes rather than interpolating for this reason."""
+
+        page = tool.PAGE
+        for line in page.splitlines():
+            if "party_surface" in line and "innerHTML" in line:
+                self.fail(f"party_surface reaches innerHTML: {line.strip()}")
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

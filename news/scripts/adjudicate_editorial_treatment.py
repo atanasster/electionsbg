@@ -279,6 +279,7 @@ aside{position:sticky;top:49px;max-height:calc(100vh - 49px);overflow:auto;
 padding:18px;border-left:1px solid var(--line);background:var(--panel)}
 .axis{margin-bottom:20px}
 .axis h3{margin:0 0 2px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+.axis h3 .axparty{color:var(--ink);text-transform:none;letter-spacing:0}
 .axis .hint{font-size:12px;color:var(--dim);margin:0 0 8px}
 .opt{display:block;width:100%;text-align:left;margin:3px 0;padding:7px 10px;border-radius:6px;
 border:1px solid var(--line);background:#1c2029;cursor:pointer;font-size:13px}
@@ -288,8 +289,9 @@ border:1px solid var(--line);border-radius:4px;padding:0 4px;color:var(--dim);fo
 .opt.on kbd{border-color:rgba(255,255,255,.5);color:#fff}
 textarea{width:100%;background:#1c2029;color:var(--ink);border:1px solid var(--line);
 border-radius:6px;padding:8px;font:inherit;font-size:13px;min-height:60px}
-.party{background:#2a2036;border:1px solid #46325c;border-radius:6px;padding:8px 10px;
-margin-bottom:14px;font-size:14px}
+.party{position:sticky;top:-18px;z-index:2;background:#2a2036;border:0;
+border-bottom:1px solid #46325c;border-radius:0;padding:10px 18px;
+margin:-18px -18px 14px;font-size:14px}
 .rubric{font-size:12.5px;color:var(--dim);border-top:1px solid var(--line);margin-top:16px;padding-top:12px}
 .rubric b{color:var(--ink)}
 .rubric li{margin-bottom:6px}
@@ -392,7 +394,13 @@ function render(){const r=S.rows[i];
   const host=document.getElementById('axes');host.innerHTML='';
   for(const axis of S.scored_axes){
     const box=document.createElement('div');box.className='axis';
-    box.innerHTML=`<h3>${axis.replace('_',' ')}</h3><p class="hint">${HINT[axis]}</p>`;
+    const h=document.createElement('h3');h.textContent=axis.replace('_',' ');
+    if(axis==='party_tone'&&r.party_surface){
+      const tag=document.createElement('span');tag.className='axparty';
+      tag.textContent=' — '+r.party_surface;h.appendChild(tag)}
+    const hint=document.createElement('p');hint.className='hint';
+    hint.textContent=HINT[axis];
+    box.appendChild(h);box.appendChild(hint);
     S.axes[axis].forEach((label,n)=>{
       const b=document.createElement('button');b.className='opt';
       const k=KEYS[axis][label===S.off_scale[axis]?5:n];
