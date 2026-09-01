@@ -26,7 +26,7 @@ These decisions are implementation constraints, not open design questions.
 2. Preserve `/`, `/elections/:date`, `/local/:cycle`, and every current place/result leaf. Do not introduce redirects or a new `/elections/:kind/:cycle/...` family in v1.
 3. Merge the two top-navigation election menus into one Elections menu, but preserve every existing destination.
 4. Use one shared page grammar and shared primitives. Keep parliamentary and local outcome contracts as discriminated types; do not normalize mayor and council votes into a single ranking.
-5. Create a small, generated `surface` projection per route scope. It is a display projection of canonical result files, not a new result authority.
+5. Create a small, generated `surface` projection **only for the scopes that pass the emission test in §5.0**. It is a display projection of canonical result files, not a new result authority, and it is not emitted for a level whose canonical shard is already inside the budget.
 6. Keep geometry, full history, vote-flow matrices, long candidate lists, and evidence tables out of the surface projection and lazy-load them through the existing hooks.
 7. On mobile, the ranked result precedes the map in DOM and visual order. On desktop, they appear side by side.
 8. A map always has a complete text/list equivalent. Color is never the only winner or state encoding.
@@ -36,6 +36,9 @@ These decisions are implementation constraints, not open design questions.
 12. A statistical signal is a review lead, never evidence of fraud. Every signal must expose scope, metric, baseline, sample size, status, and an evidence destination.
 13. Generated surface data lands invisibly before each UI migration. Every migrated page retains a legacy fallback until its generated artifact passes data and route tests.
 14. Every new canonical page ships with prerender, both sitemap declarations/artifacts, canonical metadata, internal reachability, and a dedicated OG image in the same phase.
+15. `/elections` **reads `?elections` and captions the cycle it is showing**; it never silently overrides it. `elections` is in the `usePreserveParams` allowlist (`src/ux/usePreserveParams.tsx`), so every in-app link carries it and a link cannot clear it. The hub falls back to the latest event **only when the param is absent or names an unknown cycle**, and the scope bar always names the cycle whose numbers are on screen. See §3.1a.
+16. `/elections` is a hub in the repo's sense and composes `HubHead`. `ElectionScopeBar` and `ElectionOutcomeStrip` belong to the **result pages**, which are not hubs. See §6.0.
+17. **Publication is part of the phase that generates the artifact, not a later step.** A phase that writes a `data/**` file and does not sync it to the bucket is incomplete, and its browser gates are vacuous — CI fetches from the live bucket. See §9.0.
 
 ## 3. Existing contracts to preserve
 
@@ -59,6 +62,39 @@ Local:
 - complete mayor/council/section and leaderboard leaves remain unchanged.
 
 The parliamentary route names are historically one geographic level off. User-facing copy and the new surface types must use the real level; route segments remain untouched in v1.
+
+### 3.1a The `?elections` contract
+
+`elections` is one of the global params `usePreserveParams` carries across every `@/ux/Link`
+navigation (`src/ux/usePreserveParams.tsx` — the list is an allowlist, so anything absent is
+stripped and anything present survives every hop). Two consequences bind this work:
+
+- **A link into `/elections` cannot clear the selected cycle.** A reader who was on
+  `/elections/2013_05_12` arrives carrying `?elections=2013_05_12`. A hub that "defaults to the
+  latest election event" therefore renders the latest cycle's outcome canvas while
+  `ElectionContext` — and every other reader of that param on the page — resolves 2013. The two
+  disagree silently, at a 200.
+- **The same param is the reason a scoped figure needs a caption.** This is the documented
+  hub-of-hubs rule: a `?pscope` destination can be forced by a link, `?elections` cannot, so the
+  honest move is to quote the SELECTED cycle and let the caption name it.
+
+The resolution, fixed by decision 15:
+
+1. `/elections` resolves its cycle as `?elections` → the latest event, in that order, and
+   validates the param against `src/data/json/elections.json` and
+   `src/data/json/local_elections.json` before using it.
+2. The scope bar names the resolved cycle and its status in words. A hub showing 2013 must say
+   2013; it may offer "switch to the latest" as an explicit control, never as a silent default.
+3. An unknown or malformed `?elections` value falls back to the latest event **and says so**,
+   rather than rendering an empty first screen.
+4. Selecting a different election from the hub writes `?elections` rather than holding the
+   choice in client-only state, so the cycle survives the navigation into
+   `/elections/:date` or `/local/:cycle`.
+
+Gate: a route test that loads `/elections?elections=<older cycle>` and asserts the rendered
+outcome canvas, the scope-bar cycle label and `ElectionContext` all name the same cycle; and a
+second that loads `/elections?elections=not-a-cycle` and asserts the named fallback rather than
+a blank canvas.
 
 ### Existing data authorities
 
@@ -151,9 +187,16 @@ type ElectionSurfaceV1 = {
     result: ElectionResultStatus;
     updatedAt?: string;
     countedPct?: number;
-    sourceLabel: "cik";
+    sourceLabel: ElectionSourceLabel; // see "The source authority is not single-valued"
     sourceUrl?: string;
     downloadUrl?: string;
+    // Present only where a second authority has been compared against the first
+    // for this scope. Absent means "not reconciled", never "they agree".
+    reconciliation?: {
+      against: ElectionSourceLabel;
+      agrees: boolean;
+      to: string; // the destination that shows the comparison
+    };
   };
   ballots: ElectionSurfaceBallot[];
   facts: ElectionSurfaceFact[]; // maximum 4 across active ballot
@@ -200,24 +243,120 @@ type ElectionStandout = {
 };
 ```
 
+### The source authority is not single-valued
+
+`sourceLabel: "cik"` is a closed literal with one member, and the corpus already contains a
+second authority for the local tier. `/sverka` is a routed page whose entire subject is that the
+two disagree, and every regular local cycle ships the comparison it renders:
+`data/<cycle>/officials_diff.json` plus 288 per-município sidecars under
+`officials_diff/`. On the 2023 cycle its own summary reports 288 municipalities checked,
+280 mayor matches, 2 replaced, 6 present in the officials roster and absent from CIK, and
+4,240 of 4,986 elected councillors matched.
+
+A status contract that can only say "cik" cannot represent that page, and — worse — it makes
+"the CEC result" and "the CEC result, which the officials roster contradicts here" render
+identically.
+
+The v1 resolution:
+
+```ts
+type ElectionSourceLabel = "cik" | "officials_roster";
+```
+
+Three rules on it:
+
+- **CIK remains the RESULT authority.** `officials_roster` never supplies votes, seats or a
+  winner. It is only ever the `against` side of a `reconciliation`, so widening the literal
+  cannot let a second corpus quietly become the source of a number.
+- **Absent `reconciliation` means NOT RECONCILED, never "they agree".** This is the same rule as
+  `turnoutBasis: "unavailable"` and as the standout-suppression rule: a missing comparison is a
+  missing comparison. Only the local tier has one at all, so the field is absent on every
+  parliamentary surface by construction, and a UI that renders "confirmed" from its absence is
+  the defect this shape exists to prevent.
+- **The surface carries the flag and the link, never the diff.** `officials_diff.json` and its
+  sidecars stay where they are and are fetched by `/sverka` and the município page as they are
+  today; the surface holds one boolean and one destination, per §5's no-evidence-tables rule.
+
+Data gate: for every local município surface, `reconciliation` is present iff a sidecar exists
+for that município in that cycle, `agrees` re-derives from the sidecar rather than from a
+stored copy, and `to` resolves to a live route. If v1 declines to wire this, say so here as a
+decision and keep the literal widened — an unused second member costs nothing, and a
+single-valued literal that has to be widened later changes every emitted file.
+
 Do not store translated sentences in generated files. Do not emit a standout when its denominator, baseline, or evidence destination is missing.
+
+### 5.0 Which levels get an artifact
+
+**A surface is emitted only where the canonical shard cannot already serve the first screen.**
+The projection exists to remove bytes and fan-out, so a level whose canonical file is already
+inside the budget below gets no second file; the shell reads that shard through the same
+`surfacePath.ts` indirection and a thin adapter.
+
+Measured against the corpus on 2026-09-01, before any generator work:
+
+| level                         | canonical file today                                                              | measured           | budget | emit?                              |
+| ----------------------------- | --------------------------------------------------------------------------------- | ------------------ | ------ | ---------------------------------- |
+| parliamentary country         | `data/<cycle>/national_summary.json`                                              | **14.4 KB**        | 24 KiB | no — inside budget                 |
+| parliamentary region / abroad | computed client-side across shards                                                | fan-out            | 16 KiB | **yes** — no single canonical file |
+| parliamentary municipality    | `municipalities/<code>.json`                                                      | **1.9 KB**         | 16 KiB | no — inside budget                 |
+| parliamentary settlement      | `settlements/<ekatte>.json`, mean over 5,658                                      | **8.9 KB**         | 16 KiB | no — inside budget                 |
+| parliamentary section         | `sections/by-oblast/<oblast>.json`, 12,721 sections in 32 shards                  | not route-sized    | 8 KiB  | **yes** — sidecar or re-shard      |
+| local country                 | `index.json` + `regions_summary` + `national_leaders` + `national_municipalities` | 4-file fan-out     | 24 KiB | **yes**                            |
+| local region                  | `region/<oblast>.json`                                                            | measure in Phase 1 | 16 KiB | measure                            |
+| local municipality            | `municipalities/<code>.json`, e.g. `BGS01`                                        | **58 KB**          | 16 KiB | **yes** — 3.6x over                |
+| local settlement              | parent municipality bundle                                                        | inherits the 58 KB | 16 KiB | **yes**                            |
+| local section                 | `sections/<obshtina>/<code>.json`, mean over 12,591                               | **6.1 KB**         | 8 KiB  | no — embed a `surface` key         |
+
+So the projection is worth building for the **local municipality/settlement tree, local country,
+parliamentary region/abroad, and parliamentary section** — and for the other four levels a
+second artifact would be a second fetch of the same bytes.
+
+**The cost of getting this wrong is not a byte budget, it is an object count.** Emitting
+settlement and section surfaces for all 13 parliamentary cycles is
+`(5,365 + 12,721 + 306 + 32) x 13`, roughly **240,000 new bucket objects** against the ~761,000
+already in `gs://data-electionsbg-com`. `scripts/bucket_sync_paths.ts` records why that is not
+free: `bucket:sync` must build both full listings before it diffs anything, and with
+`parallel_process_count = 1` (the macOS multiprocessing workaround) that enumeration is
+single-process and dominates at **~30 minutes regardless of churn**. A scoped
+`bucket:sync:paths` is the mitigation, not a reason to skip the count.
+
+Two rules follow:
+
+- **Cycle coverage is bounded and stated.** v1 generates for the latest parliamentary cycle and
+  the latest two regular local cycles. Backfilling earlier cycles is a separate, measured
+  decision with its own object-count line; the shell falls back to the legacy composition for
+  any cycle with no artifact, which is the same path a missing artifact already takes.
+- **Section artifacts are sharded, never flat.** 12,721 files in one directory is a listing and
+  filesystem cost with no upside; shard by oblast prefix the way
+  `sections/by-oblast/` already does.
+
+Exit criterion for Phase 1 (replaces "tighten if under 70% of a ceiling"): the emit column above
+is re-measured against generated output, every `no` row is confirmed still inside its budget, and
+every `yes` row shows the reduction that justified it. A level that generates an artifact no
+smaller than the file it replaces is dropped from the generator rather than shipped.
 
 ### Artifact paths
 
-Artifacts stay inside each existing cycle directory:
+Artifacts stay inside each existing cycle directory, **for the levels §5.0 emits**:
 
 ```text
-data/<cycle>/surface/country.json
-data/<cycle>/surface/region/<oblast>.json
-data/<cycle>/surface/municipality/<obshtina>.json
-data/<cycle>/surface/settlement/<ekatte>.json
-data/<cycle>/surface/section/<sectionCode>.json
-data/<local-cycle>/surface/section/<obshtina>/<sectionCode>.json
+data/<local-cycle>/surface/country.json
+data/<cycle>/surface/region/<oblast>.json                     # parliamentary + local
+data/<local-cycle>/surface/municipality/<obshtina>.json
+data/<local-cycle>/surface/settlement/<ekatte>.json
+data/<cycle>/surface/section/by-oblast/<oblast>/<sectionCode>.json   # parliamentary only
 ```
+
+Levels §5.0 marks `no` have no path here: the shell reads
+`data/<cycle>/national_summary.json`, `municipalities/<code>.json`,
+`settlements/<ekatte>.json` and the local `sections/<obshtina>/<code>.json` directly, through
+`surfacePath.ts` and a per-level adapter, so the runtime contract is identical either way.
 
 `region/32.json` declares `place.level: "abroad"`. Local generation never emits an abroad artifact.
 
-Avoid duplicating an already route-sized detail file. Local section details are already emitted one station at a time, so the preferred implementation is to add a `surface` projection to `data/<local-cycle>/sections/<obshtina>/<sectionCode>.json` and let `surfacePath.ts` read that file. Use the sidecar path above only where changing the canonical detail shape would break an existing consumer. Parliamentary sections currently live in oblast shards, so they need a route-sized sidecar unless the underlying section publication is refactored first. Record generated file-count and total-byte deltas alongside the per-file budget; a fast page is not sufficient justification for an uncontrolled six-figure file expansion.
+Avoid duplicating an already route-sized detail file. Local section details are already emitted one station at a time at a measured 6.1 KB mean, so the implementation adds a `surface` key to `data/<local-cycle>/sections/<obshtina>/<sectionCode>.json` and `surfacePath.ts` reads that file. Parliamentary sections live in 32 oblast shards, so they are the one level that genuinely needs new route-sized files; shard them under `by-oblast/` and count them.
+
+Record generated file-count and total-byte deltas alongside the per-file budget, per cycle and per level, and put the numbers in the Phase 1 commit message. A fast page is not sufficient justification for an uncontrolled six-figure file expansion.
 
 ### Size and fetch budgets
 
@@ -227,13 +366,161 @@ Avoid duplicating an already route-sized detail file. Local section details are 
 - no geometry, history series, flow matrix, full candidate list, or full section list in a surface;
 - one surface request may determine the strip, ranking, status, and standouts;
 - the map may issue its current result/geometry requests, but the first result may not fan out across child-place bundles;
-- new chart/map libraries remain outside the entry chunk and are loaded only when their panel mounts.
+- new chart/map libraries remain outside the entry chunk and are loaded only when their panel mounts;
+- **the place finder's index is inside the page budget, and it is the largest number in this design.** The fat index behind the global search costs `sections_index.json` **755 KB** + `settlements.json` **963 KB** + `municipalities.json` **42 KB**, about **1.76 MB raw** — roughly 70x the country surface. A finder mounted in `ElectionScopeBar` pays that on every election page at every level, which would make the surface budget above decorative. See §6.2.
 
-These are initial ceilings. Measure actual output after the first country and municipality fixtures and tighten before merging if the maximum is less than 70% of a ceiling.
+These are initial ceilings, and §5.0's emit column is re-measured against them at the end of Phase 1. Tighten a ceiling before merging if the maximum is less than 70% of it; **drop the level from the generator** if the artifact is no smaller than the canonical file it replaces.
+
+### 5.1 Where the election copy lives, and what it costs
+
+The corpus is ONE flat i18next namespace partitioned across files: `src/locales/<lang>/translation.json`
+is the core chunk every page downloads before it can paint (**713 KB** raw in Bulgarian), and each
+deferred bundle in `LOCALE_BUNDLES` — today `["budget", "methodology"]` — ships only with the routes
+tagged `withBundle(...)`. `tests/perf.spec.ts` pins per-language brotli budgets on the core chunk.
+
+**This work's copy goes to CORE, and that is a decision with a bill attached rather than a default.**
+`scripts/i18n/bundles.ts` proves a key may be deferred only when no route outside the bundle can
+statically reach the module that names it. Election copy is named by `/` — the parliamentary country
+page is the site's homepage — so the reachability analysis will refuse to defer essentially all of it.
+An `elections` bundle would hold the residue and not the matrix.
+
+The matrix is the part to size before writing it, because it multiplies:
+
+- one label per fact code, per level where the code is legal;
+- one per ballot kind, and per round where a runoff can occur;
+- one per map mode and per result status;
+- one per standout signal, plus its baseline phrasing;
+- one per absence state — "not held here", "no valid denominator", "not reconciled" — which are the
+  strings this design most depends on and the easiest to leave untranslated.
+
+So Phase 2 carries an explicit budget step:
+
+1. enumerate the key set from the descriptor matrix and the fact/standout enums **before** writing
+   copy, and record its size;
+2. measure the core chunk's brotli delta in both languages;
+3. re-ratchet `tests/perf.spec.ts` in the same commit, or — if the delta is large enough to need a
+   lever — split an `elections` bundle for the copy the analysis proves is exclusive to the
+   `/elections` and `/local/**` routes, and re-run `scripts/i18n/split_bundles.ts --apply`.
+
+Two rules that are cheap now and expensive later. **Fact codes, status values, turnout bases and
+standout signals are enum keys, never prose in the generated file** — a translated sentence in an
+artifact makes the English page the Bulgarian one with English headings, and the locale-parity test
+must assert both corpora carry a key for every enum member the generator can emit. And **write
+Bulgarian, not a translation of the English**: a phrase that parses but that nobody says is the
+recurring failure here, and election copy is written next to its English sibling.
 
 No new runtime package is expected. Use the existing React Query, cmdk/search catalogs, map implementations, Tailwind primitives, i18n, Vitest, and Playwright stack. A new dependency requires a measured reason and an entry-chunk comparison.
 
 ## 6. Descriptor and component architecture
+
+### 6.0 Relationship to the hub system
+
+**`/elections` is a hub and the result pages are not.** That distinction decides which shared
+primitives each side composes, and it has to be stated because the two halves of this plan look
+alike and obey different written gates.
+
+|                           | `/elections`                                   | result pages (`/`, `/municipality/:id`, `/settlement/:id`, `/sections/:id`, `/section/:id`, `/local/**`) |
+| ------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| head                      | `HubHead`                                      | `PlaceHeader` + `ElectionScopeBar`                                                                       |
+| owns `<h1>` and `<SEO>`   | `HubHead`                                      | the existing screen                                                                                      |
+| first substantive section | `ElectionOutcomeCanvas` for the resolved cycle | `ElectionOutcomeCanvas`                                                                                  |
+| tiles                     | a registry + bands + scenes                    | none — deeper `DashboardSection` bodies                                                                  |
+| finder                    | yes, in the head                               | see §6.2                                                                                                 |
+
+**`/elections` composes `HubHead`.** It is the repo's one hub head (`src/ux/infographic/HubHead.tsx`,
+rendered by 20 screens) and it exists because thirteen hubs had each composed their own and no
+two agreed. Building a fourteenth bespoke header here is the drift that component was created
+to end. Concretely, three written gates apply the moment this screen renders one:
+
+- `src/ux/infographic/hubHead.gates.test.ts` globs `grep -rl HubHead src/screens` and **fails on
+  any screen outside its `HUB_SCREENS` list** — add `/elections` in the same commit;
+- the same file asserts **no screen renders both `HubHead` and `<Title>`**, because that emits two
+  `h1`s. So Phase 3's "dedicated SEO title, description, canonical, H1" is satisfied _through_
+  `HubHead`, not beside it;
+- `tests/ui.spec.ts` "hub head — the §3.0 height budget" plus "every HubHead screen has a height
+  budget" requires an entry in `HUB_HEAD_BUDGETS` carrying `maxPx`, the measured height and the
+  `data-kpi-cell` count. The cell count is not decoration: a head that lost its band is
+  comfortably inside its own height budget, which is how eight hubs passed a height assertion
+  with zero KPI cells.
+
+**The election exception is about ORDER, not about opting out of the head.** `dashboard-hub`
+SKILL.md §3.0.1 exempts an election results front from the "no hero visual above the fold" rule
+so the outcome canvas can be the first substantive section. It does not exempt the page from
+having a hub head. So on `/elections` the order is: `HubHead` (eyebrow + freshness, `h1`, deck,
+the cycle control from §3.1a, the KPI band) → `ElectionOutcomeCanvas` → tile bands.
+
+**The KPI band and the outcome strip are not the same component and must not restate each
+other.** The band is a corpus-level claim with a declared basis per figure; the strip is this
+place's outcome. On `/elections` only one of them appears above the canvas — the band — and the
+strip belongs to the result pages. Where both exist on one page, §7.1's disjointness gate binds.
+
+### 6.1 Tile registry, scenes and bands
+
+Phase 3's "curated entry links to analyses, reports, places, and partial local elections" is a
+tile band, and it inherits the band gates the sibling hubs already carry. Add these files, and
+their gate, in the same phase:
+
+```text
+src/screens/elections/electionsRegistry.ts    pure data, no JSX — BANDS with tiles NESTED
+src/screens/elections/electionsScenes.tsx     id -> bespoke 300x116 SVG scene
+src/screens/elections/electionsHubBands.test.ts
+```
+
+Derive `ELECTIONS_TILES = ELECTIONS_BANDS.flatMap(b => b.tiles)` rather than maintaining a
+second list, so an orphan or a duplicate is unrepresentable rather than merely detectable. The
+gate reads the **registry**, never the screen's source. What it must assert:
+
+- every tile id has a scene — `InfographicTile` renders `<Scene />` unguarded, so a missing one
+  is `undefined` as a component type: "Element type is invalid" and a white screen;
+- no accent repeats on the **composed page**, across every registry the screen renders;
+- every band has a description, and no band heading is an instruction or a container word
+  („Разгледай", „Още") — a hub's headings are its table of contents;
+- no band leaves a lone tile on the last `xl` row (4 columns; 4/3/4 beats 3/3/5);
+- every `to` is absolute and routed, and no tile carries a per-tile CTA;
+- the screen does not statically import the registry to read a constant from it
+  (`src/entryGraph.test.ts`), and the registry does not build an i18n key by template.
+
+### 6.2 The finder is a `HubSearch` configuration, not a new component
+
+The repo already has both halves and the plan should consume them rather than restate them:
+
+- **the rows** — `src/data/search/placeSearchItems.ts` (`buildPlaceItems`) is the single source
+  of truth for how a settlement / município / Sofia район becomes a search row, and
+  `SearchIndexType` in `src/data/search/useSearchItems.tsx` already types every level this
+  finder needs: `s` settlement, `m` município, `d` район, `r` region, **`c` polling section**;
+- **the component** — `src/ux/search/HubSearch.tsx` is the hub adapter and owns the card, the
+  combobox/listbox ARIA, keyboard navigation, highlighting and the empty states. Declare sources
+  in an `electionsSearch.ts` beside the tile registry.
+
+So `ElectionPlaceFinder` is a thin configuration over `HubSearch`, not a new search surface, and
+it drops out of §6's "New files" list as a component.
+
+Two rules from the hub-search convention bind directly on this feature:
+
+- **Scope ranks, it never filters.** Use `scopedSources()` to mint the in-scope / out-of-scope
+  pair. This is exactly what the plan's "local-unavailable places" requirement needs: a place
+  with no local page is an out-of-scope hit with a named label, never an absent row. „Your
+  settlement does not exist" is a far worse answer than „your settlement held no local election
+  in this cycle", and the destination scopes itself anyway.
+- **The two halves are independent SOURCES, each with its own cap** — never one ranked scan that
+  is partitioned afterwards. A partition can only surface an out-of-scope row if the ranked scan
+  reached one, so the second group renders empty and the box has silently become a filter.
+- **Name the second group for the scope it is outside**, never „други".
+
+**Where the finder mounts is a budget decision, not a layout one.** Per §5's added budget line,
+the fat index is ~1.76 MB raw. Options, in order of preference:
+
+1. mount it on `/elections` only, in the `HubHead` search slot, and let result pages keep
+   `PlaceHeader`'s existing place switcher;
+2. mount it in `ElectionScopeBar` but build the index **lazily on open**, as the global search
+   already does, so a reader who never opens it pays nothing;
+3. use the slim `useAreaSearchItems` index, accepting that it carries no `c` (section) rows.
+
+Whichever is chosen, the Phase 2 runtime gates must include a network assertion that a result
+page which does not open the finder issues no place-catalog request.
+
+Route resolution still goes through `placeViewUrl`/`localUrl`, including Sofia and city-district
+special cases.
 
 ### New files
 
@@ -247,7 +534,9 @@ src/screens/elections/ElectionsHubScreen.tsx
 src/screens/elections/ElectionResultsShell.tsx
 src/screens/elections/electionSurfaceDescriptors.ts
 src/screens/elections/ElectionScopeBar.tsx
-src/screens/elections/ElectionPlaceFinder.tsx
+src/screens/elections/electionsSearch.ts          # HubSearch sources — see §6.2, not a new component
+src/screens/elections/electionsRegistry.ts        # see §6.1
+src/screens/elections/electionsScenes.tsx         # see §6.1
 src/screens/elections/ElectionStatusRow.tsx
 src/screens/elections/ElectionOutcomeStrip.tsx
 src/screens/elections/ElectionOutcomeCanvas.tsx
@@ -292,13 +581,16 @@ Do not build a universal component with dozens of optional props. `ElectionResul
 
 ### Finder
 
-Build `ElectionPlaceFinder` from `src/data/search/placeSearchItems.ts` and the existing place catalogs. Route resolution must go through `placeViewUrl`/`localUrl`, including Sofia and city-district special cases.
+Configured, not built — see §6.2 for the `HubSearch` + `scopedSources()` composition, the
+`placeSearchItems` rows and the index-payload decision. The behavioural requirements:
 
 - Results are grouped by region, municipality, settlement, and section.
 - The current election kind and cycle are preserved when a destination exists.
-- Local-unavailable places show a disabled explanation or fall back to the nearest served parent; they never lead to an empty page.
+- Local-unavailable places surface as an out-of-scope group with a named label, never as an
+  absent row and never as a link to an empty page.
 - Abroad search is parliamentary-only.
 - Selecting a polling section while switching kind explicitly announces the settlement fallback.
+- A "see all" is shipped only where the destination reads the query param.
 
 ## 7. Standout selection rules
 
@@ -322,7 +614,52 @@ Rules:
 - Benford-only output never receives a headline slot;
 - deterministic tie-breaking is metric, then sample size, then stable place/result ID.
 
-The implementation phase must freeze numeric thresholds in a short method note beside the selector and expose them in the source panel. Threshold changes require fixture updates.
+**Numeric thresholds are frozen in Phase 0, not "in the implementation phase".** A threshold
+chosen while fitting fixtures is a threshold fitted to the corpus: whoever writes the selector
+will pick the value that makes the sample look right, and the review that follows cannot tell
+that from a value chosen on the merits. Every threshold therefore lands in
+`docs/methodology/election-surfaces.md` with the reasoning **before** `standouts.ts` is written,
+and the file is what the selector and the source panel both read.
+
+Each threshold is recorded with four fields, because a bare number is not reviewable:
+
+| field            | what it answers                                                                                             |
+| ---------------- | ----------------------------------------------------------------------------------------------------------- |
+| value            | the number itself, with its unit                                                                            |
+| basis            | why this value and not one 20% either side — a distribution, a statutory line, a reader-legibility argument |
+| minimum sample   | below which the signal is suppressed rather than emitted at low confidence                                  |
+| what it excludes | the cases this value deliberately drops, so a later widening is a decision and not a bug fix                |
+
+The set to freeze in Phase 0, at minimum: the margin below which a contest is "close"; the
+turnout change that counts as a departure and the minimum registered-voter base beneath it; the
+council-fragmentation index and its floor; the minimum section count for any section-derived
+signal; and, for every review signal, the existing published threshold it inherits — a review
+lead must not invent a second definition of a flag the reports already publish under a
+different one.
+
+Two consequences: the thresholds are exposed in the source panel because a reader cannot judge
+"stands out" without them, and a threshold change requires a fixture update **and** an edit to
+the methodology file in the same commit. `standouts.ts` importing its constants from a module
+whose header points at that file is the cheapest way to keep the two from drifting.
+
+### 7.1 A figure appears once per screen
+
+The surface has three figure-bearing regions on one screen — the strip (at most four facts), the
+ranked result, and the standouts (at most three) — and on `/elections` a `HubHead` KPI band as
+well. Nothing in the contract stops "winner margin 6.2 pts" appearing in all of them, and the
+same number rendered twice on one page reads as two different facts.
+
+The rule, and the gate:
+
+- **the strip and the standouts are disjoint by fact code**;
+- **no standout restates the ranked result's first row** — a standout whose metric is the
+  winner's share or margin is suppressed at generation time, because the canvas already says it;
+- **on `/elections`, no KPI band value equals a tile metric on the same page**, and no two KPI
+  cells share a destination. These are the sibling hubs' existing gates and they apply
+  unchanged;
+- where a figure genuinely belongs in two places, it is removed from the **weaker** one: the
+  band carries a declared basis and sits above the fold, so it wins over a tile metric; the
+  canvas is the page's answer, so it wins over a standout.
 
 ## 8. Level-by-level composition
 
@@ -353,7 +690,62 @@ all migrated levels → measured reduction → optional URL study
 
 The data generator is the only hard blocker for production migration. SEO/OG work for `/elections`, fixture-based component work, and finder/navigation tests can proceed after the schema freezes, but none should merge with invented fixture-only facts in the live route.
 
+### 9.0 Publication, and why every browser gate is vacuous without it
+
+**CI fetches election data from the live production bucket.**
+`.github/workflows/test.yml` sets `VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com`
+on the Build step, and `public/` carries no election symlink — only `myarea` and `procurement`.
+So a Playwright run reads whatever is in the bucket at that moment, not what is on the branch.
+
+Combine that with `ElectionSurfaceBoundary`'s legacy fallback and the failure mode is exact:
+**until an artifact is published, every gate in Phases 2 to 6 passes while rendering the legacy
+body.** The plan's own runtime gate — "a missing/corrupt surface falls back without an empty
+first screen" — is _satisfied_ by that state. Nothing is red. Nothing has been tested.
+
+Three rules, and none is optional:
+
+1. **Publication is a numbered step inside the phase that generates the artifact**, before that
+   phase's browser gates run. Not §12 step 1 in the abstract, and not "at rollout".
+2. **Every browser gate over a migrated level carries an anti-vacuity assertion.** Assert a
+   marker the shared shell renders and the legacy body cannot — a `data-surface-shell="<level>"`
+   attribute on `ElectionResultsShell`'s root — and assert it is **present**, not merely that
+   the page rendered something. A gate that only checks "the ranked result precedes the map" is
+   satisfied by a legacy page that happens to be ordered that way.
+3. **A boundary fallback is logged and counted, never silent.** `ElectionSurfaceBoundary` emits
+   one console warning per process naming the level and the reason (absent / wrong
+   `schemaVersion` / malformed), and the Playwright suites fail on that warning for any level
+   already migrated. That log, not latency, is how an operator learns the sync never ran.
+
+The publication commands, and the three files that have to know about a new `data/**` path:
+
+```bash
+npm run bucket:sync:paths -- --dry-run <cycle>   # read the object count before writing it
+npm run bucket:sync:paths -- <cycle>
+npm run bucket:gz                                # only if a new file joins the hot list
+```
+
+- `scripts/bucket_sync_paths.ts` — `isExcluded` guards the top-level ARGUMENT and
+  `CHILD_EXCLUDES` guards the subtree; a scoped sync walks into subtrees, so both halves have
+  to agree about a new path. Confirm the existing per-cycle behaviour already covers
+  `data/<cycle>/surface/` before adding anything, and say so in the commit.
+- `scripts/bucket_gzip.ts` — `PER_ELECTION_FILES` is the per-cycle hot list
+  (`candidates.json`, `national_summary.json`, `region_votes.json`, `sections_index.json`). A
+  country surface belongs there; 12,721 section surfaces do not (the shard-size threshold
+  exists for exactly this).
+- `scripts/db/refresh_coverage.ts` — `UPLOAD_PUBLISHED_ARTIFACTS` plus
+  `npm run db:check-generated`, which byte-compares a committed artifact against the bucket and
+  prints its own remedy. A new artifact reports `404 — the artifact has NEVER been published`,
+  which is the state this section exists to make visible.
+
+The precedent is not hypothetical: `culture/derived/hub_stats.json` shipped committed, with its
+generator in the chain and every gate green, while the bucket object returned **404 for two
+days** and the hub drew its tiles with no numbers at a 200.
+
 ### Phase 0 — definitions and executable prototypes
+
+**Prerequisite, before any Phase 0 work:** commit
+`src/screens/dashboard/electionsResultsFirst.gates.test.ts`. It is currently **untracked**, and
+Phase 4 step 7 upgrades it — a plan cannot upgrade a baseline that is not in the repository.
 
 **Goal:** remove ambiguity before data generation or route changes.
 
@@ -361,7 +753,7 @@ Work:
 
 1. Add `surfaceTypes.ts` with the discriminated contracts above.
 2. Add `electionSurfaceDescriptors.ts` for every kind/level combination.
-3. Freeze status vocabulary, turnout bases, fact priority, and standout categories in `docs/methodology/election-surfaces.md`.
+3. Freeze status vocabulary, turnout bases, fact priority, standout categories **and every numeric standout threshold** in `docs/methodology/election-surfaces.md`, each threshold carrying value, basis, minimum sample and what it excludes (§7). Thresholds are a Phase 0 design decision precisely because deferring them means fitting them to the fixtures.
 4. Create static fixture payloads for:
    - parliamentary country;
    - parliamentary abroad;
@@ -422,9 +814,15 @@ Data gates:
 - every standout evidence route/file exists;
 - every map mode is allowed by the data available at that scope;
 - artifact budgets pass for the largest country, municipality, settlement, and section cases;
-- deterministic rebuild produces byte-identical JSON.
+- **§5.0's emit column is re-measured against generated output**: every `no` level is confirmed still inside its budget, every `yes` level shows the reduction that justified it, and a level whose artifact is no smaller than the file it replaces is dropped from the generator;
+- **the object-count delta is recorded** per cycle and per level, and is inside the bound §5.0 sets;
+- deterministic rebuild produces byte-identical JSON. `status.updatedAt` is therefore taken from the source file's mtime or the ingest ledger and **never stamped at generation time** — a generator that reads the clock either fails this gate or makes it vacuous.
 
-Exit criterion: all current parliamentary cycles and regular local cycles can generate valid artifacts, and the latest cycles pass reconciliation and size gates.
+Publication (step 8, and part of this phase per §9.0):
+
+8. Dry-run the scoped sync, read the object count, then sync `data/<cycle>/surface/` for every generated cycle and confirm the objects are served. `npm run db:check-generated` for any artifact that joins `UPLOAD_PUBLISHED_ARTIFACTS`.
+
+Exit criterion: the emitting cycles generate valid artifacts, the latest cycles pass reconciliation and size gates, **and the artifacts are readable from the bucket** — verified by fetching one country, one municipality and one section URL, not inferred from a green build.
 
 ### Phase 2 — shared runtime primitives
 
@@ -437,18 +835,20 @@ Work:
 3. Implement scope bar, finder, status row, strip, canvas, ranking, standouts, and source panel.
 4. Reuse existing maps through adapters; do not import Leaflet/d3/recharts into the shell module.
 5. Add loading skeletons with fixed dimensions matching the final ranking/map layout.
-6. Add Bulgarian and English keys to the core election copy with locale parity tests. Keep long existing analysis copy in its current bundles.
+6. Add Bulgarian and English keys per §5.1: enumerate the key set from the descriptor matrix and the fact/standout enums first, measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Locale-parity tests must assert both corpora carry a key for **every enum member the generator can emit**, absence states included. Keep long existing analysis copy in its current bundles.
 
 Runtime gates:
 
 - one surface fetch produces identity facts/ranking/status/standouts;
-- a missing/corrupt surface falls back without an empty first screen;
+- **anti-vacuity: the shell's `data-surface-shell="<level>"` marker is PRESENT** on every level under test, so a run that silently rendered the legacy body fails instead of passing (see §9.0);
+- a missing/corrupt surface falls back without an empty first screen, **and logs the reason once per process**;
+- a result page that does not open the finder issues no place-catalog request (§6.2);
 - map modules stay lazy and absent on the section composition;
 - screen-reader labels include value, unit, candidate/party, and basis;
 - selected map feature is reflected in the ranked list and vice versa;
 - no layout shift when the map arrives.
 
-Exit criterion: fixture and live-data component tests pass while every production page still renders its legacy composition.
+Exit criterion: fixture and live-data component tests pass while every production page still renders its legacy composition — and the live-data tests are demonstrated to be reading the published artifact rather than falling back, by breaking the marker assertion once and watching it fire.
 
 ### Phase 3 — `/elections`, combined navigation, and route artifacts
 
@@ -456,23 +856,26 @@ Exit criterion: fixture and live-data component tests pass while every productio
 
 Route/UI work:
 
-1. Add a static `elections` route before `elections/:date` in `src/routes.tsx`, lazy-loading `ElectionsHubScreen`.
-2. `/elections` defaults to the latest election event and offers Parliamentary/Local selection with explicit dates/status. Selection navigates to the existing canonical full result (`/elections/:date` or `/local/:cycle`) rather than inventing a hidden client-only result state.
-3. The lead area uses one latest-event outcome canvas, not two simultaneous maps. A compact adjacent latest-cycle link exposes the other election kind.
-4. Add one “Find my place” control and curated entry links to analyses, reports, places, and partial local elections below the lead result.
-5. Merge `electionsMenu` and `localMenu` in `src/layout/header/reportMenus.ts`; update `Header.tsx` to render one Elections top-level item. Preserve all current leaves, grouped as Results, Places, Analysis and review, and Partial/local administration.
-6. Keep the current Parliamentary and Local pills in `PlaceViewNav` in v1; the shared `ElectionScopeBar` provides the family relationship. Re-evaluate pill consolidation only with the optional URL migration.
+1. Add a static `elections` route in `src/routes.tsx`, lazy-loading `ElectionsHubScreen`. (React Router v7 ranks a static segment above `elections/:date` on its own, so declaration order is belt-and-braces rather than a constraint — do not treat it as load-bearing.)
+2. `ElectionsHubScreen` renders `HubHead` per §6.0 — eyebrow + freshness, `h1`, deck, the cycle control, and a 3–5 figure KPI band with a declared basis per figure. It must **not** also render `<Title>`. Add the screen to `HUB_SCREENS` in `src/ux/infographic/hubHead.gates.test.ts` and to `HUB_HEAD_BUDGETS` in `tests/ui.spec.ts` in this commit, with the measured height and `data-kpi-cell` count.
+3. `/elections` resolves its cycle per §3.1a — `?elections` first, latest event as the fallback, the resolved cycle named in the scope control. It offers Parliamentary/Local selection with explicit dates/status, and selection navigates to the existing canonical full result (`/elections/:date` or `/local/:cycle`) writing `?elections`, not a hidden client-only result state.
+4. The lead area uses one outcome canvas for the resolved cycle, not two simultaneous maps. A compact adjacent link exposes the other election kind.
+5. Add the finder (a `HubSearch` configuration per §6.2, in the head's search slot) and the tile bands from the `electionsRegistry` per §6.1, below the outcome canvas. Ship `electionsHubBands.test.ts` in this commit.
+6. Merge `electionsMenu` and `localMenu` in `src/layout/header/reportMenus.ts`; update `Header.tsx` to render one Elections top-level item. Preserve all current leaves, grouped as Results, Places, Analysis and review, and Partial/local administration. **Two things the merge must decide explicitly rather than by omission:** `electionsMenu`'s top-level link is currently `/` under `nav_elections`, so promoting `/elections` silently removes the homepage from the top nav — give `/` its own named leaf; and `localMenu` currently carries `/governance/mayor-pay`, a governance leaf that should not migrate into an Elections menu by accident.
+7. Keep the current Parliamentary and Local pills in `PlaceViewNav` in v1; the shared `ElectionScopeBar` provides the family relationship. Re-evaluate pill consolidation only with the optional URL migration.
 
 Artifact work in the same commit:
 
-1. Add `/elections` BG and `/en/elections` to `scripts/prerender/routes.ts`.
-2. Add the static path to `scripts/sitemap/route_defs.ts` and regenerate committed sitemaps.
-3. Add dedicated SEO title, description, canonical, H1, and indexable body.
-4. Add a dedicated `public/og/elections.png` capture in `scripts/og/capture-screens.ts`, anchored to the rendered outcome canvas.
-5. Add `/elections` to `scripts/og/capture_routes.test.ts`, `scripts/prerender/ogAndSitemapCoverage.test.ts`, and `tests/seo.spec.ts`.
+1. Add `/elections` to `scripts/prerender/routes.ts` via `staticPage({...})` with an `english:` block — no leading or trailing slash on `path`, and the EN root convention is `/en`, never `/en/`. Write a real `bodyHtml`: it is the only part of the page a crawler that runs no JS ever sees.
+2. Add the path to **both** lists in `scripts/sitemap/route_defs.ts` — `routeDefs(year)` for the Bulgarian `<loc>` and `ENGLISH_STATIC_PAGES` for `/en/elections`. They are not derived from one another, and the EN list alone gets the mirror indexed and not the original (the live `/sofia/*` and `/consumption/*` class). Point `file:` at the artifact the page renders, e.g. `data/${year}/national_summary.json`, not at `ElectionsHubScreen.tsx`, or `lastmod` is the date somebody last touched the JSX — and note that a `file:` which does not exist **skips the entry silently**. Then run `npm run sitemap` and COMMIT `public/sitemap*.xml`; the command is manual and its output is committed, so the entries alone change nothing.
+3. Add dedicated SEO title, description, canonical, H1, and indexable body — via `HubHead`, which owns the `h1` and the `<SEO>`. The deck and the SEO description are different sentences written for different readers; do not write one and reuse it as the other.
+4. Add a dedicated `public/og/elections.png` capture in `scripts/og/capture-screens.ts`, anchored on a `data-og` attribute (a class name gets renamed silently by a refactor) on the head, with a `waitFor` naming something that exists only after the data loads — a head shot before its numbers arrive is a screenshot of a skeleton. Then **open the PNG and look at it**; a capture reports success on any 1200x630 clip it managed to take.
+5. Add `/elections` to `scripts/og/capture_routes.test.ts`, `scripts/prerender/ogAndSitemapCoverage.test.ts`, and `tests/seo.spec.ts` with a `minBodyChars` — the suite checks body length only for routes listed there.
 6. Add a direct header link and at least one contextual link from `/` and `/local/:cycle` so reachability does not depend on the sitemap.
 
-Exit criterion: `/elections` is unique, indexable, reachable, bilingual, and all existing election links still resolve to their original destinations.
+Ordering within the phase: the og capture and `npm run sitemap` run **before** `npm run build`, because `vite build` copies `public/` into `dist/` — run them after and they ship one deploy late. Both are the steps that get skipped, because neither is wired into anything.
+
+Exit criterion: `/elections` is unique, indexable, reachable, bilingual, has a `<loc>` in the committed sitemap in both languages and an `og:image` that resolves to a file on disk, and all existing election links still resolve to their original destinations.
 
 ### Phase 4 — country and region migration
 
@@ -503,7 +906,9 @@ Work:
 6. Abroad uses the parliamentary region adapter, total votes cast, country/city ranking, and no turnout fact/card.
 7. Upgrade `electionsResultsFirst.gates.test.ts` from legacy source scanning to rendered shell/descriptor assertions; retain a route-level anti-vacuity test.
 
-Exit criterion: country, region, and abroad pass the shared result-first gates, and every old deep result/analysis remains reachable within one click from its migrated page.
+Publication and vacuity (§9.0): the country/region/abroad artifacts for the cycles under test are in the bucket before this phase's browser gates run, and each migrated route asserts `data-surface-shell` is present, so a run that silently fell back to the legacy body fails.
+
+Exit criterion: country, region, and abroad pass the shared result-first gates **while demonstrably rendering the shared shell**, and every old deep result/analysis remains reachable within one click from its migrated page.
 
 ### Phase 5 — municipality migration
 
@@ -525,7 +930,9 @@ Work:
 5. Keep district mayors, settlement mayors, council members, trends, officials reconciliation, and section analysis below the shared surface.
 6. Preserve Sofia city/rayon and Plovdiv/Varna district behavior through existing catalogs and adapters.
 
-Exit criterion: task 2 — “Who is mayor, which group leads the council, and are they the same?” — is answerable without scrolling on 390 px and 1440 px for outright, runoff, split-control, independent, and city-district fixtures.
+Publication and vacuity (§9.0): the local municipality/settlement artifacts — the levels §5.0's measurements most justify, at 58 KB for `BGS01` against a 16 KiB budget — are published before this phase's browser gates run, and every migrated route asserts the `data-surface-shell` marker.
+
+Exit criterion: task 2 — “Who is mayor, which group leads the council, and are they the same?” — is answerable without scrolling on 390 px and 1440 px for outright, runoff, split-control, independent, and city-district fixtures, on the shared shell rather than the fallback.
 
 ### Phase 6 — settlement and section migration
 
@@ -551,7 +958,9 @@ Work:
 6. Kind switching from a section falls back to the settlement and announces why section codes do not map reliably between election kinds/cycles.
 7. Add source-link reconciliation tests for CEC protocol, scan, video, and download URLs.
 
-Exit criterion: task 4 — open the official protocol for a station — succeeds from both parliamentary and local section pages, and no page combines unlike ballots.
+Publication and vacuity (§9.0): parliamentary section artifacts are the one new route-sized family (§5.0), so this phase carries the largest object-count delta — dry-run the scoped sync, record the count, publish, then run the browser gates with the `data-surface-shell` assertion. Local sections publish as a `surface` key on the existing per-station file and need no new objects.
+
+Exit criterion: task 4 — open the official protocol for a station — succeeds from both parliamentary and local section pages, no page combines unlike ballots, and both section compositions render the shared shell rather than the fallback.
 
 ### Phase 7 — progressive reduction and analysis integration
 
@@ -597,7 +1006,8 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - independent/local-only groups retain their existing canonical buckets;
 - status and update time come from source/ingest metadata, not browser time;
 - no abroad turnout without an approved basis;
-- absent ballot and zero-vote ballot are distinct.
+- absent ballot and zero-vote ballot are distinct;
+- `status.reconciliation` is present iff an `officials_diff` sidecar exists for that município and cycle, and `agrees` re-derives from the sidecar; its absence never renders as agreement.
 
 ### Component/accessibility
 
@@ -613,6 +1023,9 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 
 ### Route/navigation
 
+- `/elections?elections=<older cycle>` renders that cycle in the canvas, the scope bar and `ElectionContext` alike; a malformed value falls back to the latest event **and says so** (§3.1a);
+- every migrated route asserts the `data-surface-shell` marker is present, so a silent fallback to the legacy body fails rather than passes (§9.0);
+- the merged Elections menu keeps a named leaf for `/`, and does not absorb `/governance/mayor-pay`;
 - every kind/level descriptor resolves to a live canonical route;
 - finder destinations exist for representative normal, Sofia, city-district, abroad, and section-fallback cases;
 - all previous menu destinations still appear after menu merge;
@@ -626,19 +1039,25 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - per-election and place pages keep their existing canonicals in v1;
 - every new page has prerender, sitemap, and dedicated OG coverage;
 - OG capture waits for a populated result canvas, not its skeleton;
-- committed sitemap contains both language variants where supported;
+- committed sitemap contains both language variants where supported, from **both** `route_defs.ts` lists — a page in `ENGLISH_STATIC_PAGES` and not in `routeDefs(year)` has its mirror indexed and not its original;
+- every `routeDefs` `file:` exists on disk — a missing one skips the entry with no warning;
+- every `ogImage` path resolves to a file under `public/og/`, and the captured PNG has been opened and looked at;
 - no route falls through to home shell metadata.
 
 ### Performance
 
-- raw surface budgets enforced in unit/data tests;
+- raw surface budgets enforced in unit/data tests, and §5.0's emit column re-measured against generated output;
+- the generated object-count delta is recorded per cycle and per level and is inside §5.0's bound;
+- the place finder's index is not fetched by a page whose finder was never opened (§6.2);
+- `/elections` head is inside the `dashboard-hub` SKILL.md §3.0 height budget, with the expected `data-kpi-cell` count;
 - `/elections` route chunk remains lazy from the app entry;
 - heavy map/chart vendor chunks do not join the entry static graph;
 - result text becomes available before or independently of map geometry;
 - CLS below 0.1 for `/elections`, parliamentary/local country, one municipality, and both section variants;
 - localhost LCP smoke below the existing 4 s ceiling;
 - no first-screen child-bundle fanout;
-- exactly one language bundle is fetched.
+- exactly one language bundle is fetched;
+- the core locale chunk's brotli size is inside the re-ratcheted `tests/perf.spec.ts` budget in both languages, with the delta recorded (§5.1).
 
 ### Required representative fixtures/routes
 
@@ -658,17 +1077,40 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 Exact commands may be narrowed per phase, but the final v1 gate is:
 
 ```bash
+# 1. generate
 npm run data -- --election-surfaces
 npm run data -- --local-rollups --election-surfaces
+
+# 2. unit / data / artifact gates
 npx vitest run scripts/elections src/data/elections src/screens/elections
 npx vitest run scripts/tests/election/surfaces.data.test.ts
 npx vitest run src/data/local/placeViews.test.ts src/locales/parity.test.ts
+npx vitest run src/ux/infographic/hubHead.gates.test.ts src/screens/elections/electionsHubBands.test.ts
 npx vitest run scripts/prerender/ogAndSitemapCoverage.test.ts scripts/og/capture_routes.test.ts
-npm run sitemap
+
+# 3. PUBLISH — before any browser gate, because CI reads the live bucket (§9.0)
+npm run bucket:sync:paths -- --dry-run <cycle>     # read the object count first
+npm run bucket:sync:paths -- <cycle>
+npm run db:check-generated
+
+# 4. manual public/ writers — BEFORE the build, which copies public/ into dist/
+npx tsx scripts/og/capture-screens.ts elections     # then open the PNG and look at it
+npm run sitemap                                     # rewrites public/sitemap*.xml — COMMIT it
+
+# 5. build and browser gates
 npm run build
 npm run test:seo
 npm run test:perf
+npm run test:unit -- tests/ui.spec.ts               # hub head height + data-kpi-cell count
 ```
+
+Two things about this block are load-bearing rather than cosmetic:
+
+- **Step 3 precedes every browser gate.** CI fetches election data from the production bucket
+  (§9.0), so a suite run before the sync exercises the legacy fallback and passes on nothing.
+- **Step 4 precedes step 5.** `vite build` copies `public/` into `dist/`, so an og capture or a
+  sitemap regenerated afterwards ships one deploy late. Neither is wired into anything, which is
+  why both are the steps that get skipped.
 
 Before using this block, implement the CLI so one standalone `--election-surfaces` run discovers both parliamentary and local cycle directories; do not make operators repeat the second line if the final interface can safely cover both.
 
@@ -686,7 +1128,7 @@ For every phase:
 
 Roll out by data capability, not a global boolean feature flag.
 
-1. Deploy additive `surface` JSON files; no UI reads them yet.
+1. Publish additive `surface` JSON to the bucket; no UI reads them yet. This is per-phase (§9.0), not a single event at the end — an artifact that is committed but unpublished makes that phase's browser gates vacuous rather than red.
 2. Deploy shared components with `ElectionSurfaceBoundary` legacy fallback.
 3. Launch `/elections` and combined navigation.
 4. Enable country/region adapters.
@@ -704,27 +1146,36 @@ Rollback boundaries:
 
 Do not silently fall back after a valid surface request returns malformed data. Log the schema error, render the legacy page, and fail the data/monitoring gate so the corruption is visible.
 
+**The fallback is the rollback mechanism and it is also the vacuity trap, so it is instrumented in both directions.** Every fallback logs once per process with the level and the reason; the browser suites fail on that log for any level already migrated, and assert the `data-surface-shell` marker is present. Without both halves, "renders the legacy body" is simultaneously the designed rollback and an undetected regression.
+
 ## 13. Risks and mitigations
 
-| Risk                                        | Mitigation                                                                                                             |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Shared UI erases mayor/council differences  | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                            |
-| Projection drifts from canonical files      | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                       |
-| First surface becomes another KPI band      | Hard fact/standout caps and required map+ranking composition                                                           |
-| Large scope files create fanout or slow LCP | Small route projection, no geometry/history, request and byte budgets                                                  |
-| Abroad shows impossible turnout             | Required turnout basis and `region/32` negative data/UI tests                                                          |
-| Statistical flags imply wrongdoing          | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                |
-| Route cleanup breaks SEO                    | No v1 migration; route artifacts ship atomically; optional migration separately approved                               |
-| New shell loses existing depth              | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                          |
-| Sofia/district edge cases regress           | Finder/routes use existing catalogs; mandatory special-case fixture set                                                |
-| Local older cycles lack ballot fields       | Availability-driven panels; missing is not zero; per-cycle data gates                                                  |
-| Duplicate `/` and `/elections` content      | `/elections` is a concise cross-kind entry with unique copy/links; `/` remains the full parliamentary result canonical |
+| Risk                                        | Mitigation                                                                                                                             |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Shared UI erases mayor/council differences  | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                            |
+| Projection drifts from canonical files      | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                       |
+| First surface becomes another KPI band      | Hard fact/standout caps and required map+ranking composition                                                                           |
+| Large scope files create fanout or slow LCP | Small route projection, no geometry/history, request and byte budgets                                                                  |
+| Abroad shows impossible turnout             | Required turnout basis and `region/32` negative data/UI tests                                                                          |
+| Statistical flags imply wrongdoing          | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                |
+| Route cleanup breaks SEO                    | No v1 migration; route artifacts ship atomically; optional migration separately approved                                               |
+| New shell loses existing depth              | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                          |
+| Sofia/district edge cases regress           | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                |
+| Local older cycles lack ballot fields       | Availability-driven panels; missing is not zero; per-cycle data gates                                                                  |
+| Artifacts generated but never published     | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build |
+| Browser gates green on the legacy fallback  | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)               |
+| A six-figure object expansion for no gain   | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                |
+| `/elections` becomes a 14th bespoke header  | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                      |
+| Duplicate `/` and `/elections` content      | `/elections` is a concise cross-kind entry with unique copy/links; `/` remains the full parliamentary result canonical                 |
 
 ## 14. Definition of done
 
 v1 is complete only when all of the following are true:
 
-- `/elections` is the visible top-navigation entry for parliamentary and local elections;
+- `/elections` is the visible top-navigation entry for parliamentary and local elections, `/` still has a named leaf, and the hub composes `HubHead` with an entry in `HUB_SCREENS` and `HUB_HEAD_BUDGETS`;
+- every generated artifact is published and served from the bucket, verified by fetch and by `db:check-generated` — not inferred from a green build;
+- every migrated level is demonstrated to render the shared shell rather than the legacy fallback;
+- `/elections` honours `?elections` and names the cycle whose numbers are on screen;
 - every requested level uses the shared scope/status grammar where data exists;
 - country and region show map plus ranked result first;
 - municipality makes mayor, runoff, council, majority, and split control immediately legible;
