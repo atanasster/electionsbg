@@ -1,6 +1,55 @@
 {
-  "updatedAt": "2026-08-31T01:25:40.278Z",
+  "updatedAt": "2026-09-01T05:59:04.949Z",
   "entries": [
+    {
+      "timestamp": "2026-09-01T05:59:04.949Z",
+      "date": "2026-09-01",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-08-31 (+1 daily archive; 1,103,692 store rows, 165 settlements, 87 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-08-31"
+    },
+    {
+      "timestamp": "2026-09-01T05:53:03.271Z",
+      "date": "2026-09-01",
+      "skill": "update-council-minutes",
+      "summary": "Решения на общински съвети — Габрово с 253 нови решения и поименни гласувания",
+      "source": "Общински съвет Габрово (протоколи)"
+    },
+    {
+      "timestamp": "2026-09-01T05:39:57.160Z",
+      "date": "2026-09-01",
+      "skill": "update-macro",
+      "summary": "Макро показатели обновени — БВП 2026 Q2 (+2.7%), инфлация 5.83%, сравнение с ЕС",
+      "source": "Eurostat + World Bank WGI",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-01T05:38:18.192Z",
+      "date": "2026-09-01",
+      "skill": "update-open-calls",
+      "summary": "Отворени процедури обновени — 57 отворени покани в ИСУН, 2 нови",
+      "source": "ИСУН 2020 — отворени процедури"
+    },
+    {
+      "timestamp": "2026-09-01T05:35:41.876Z",
+      "date": "2026-09-01",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки обновени — 19 нови договора, 238 304 процедури, 218 478 обявления в TED",
+      "source": "ЦАИС ЕОП + TED (api.ted.europa.eu)"
+    },
+    {
+      "timestamp": "2026-09-01T05:00:14.316Z",
+      "date": "2026-09-01",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 65 119 лица, 125 085 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-08-31T01:25:40.278Z",
       "date": "2026-08-31",
