@@ -96,8 +96,23 @@ describe("StoryCard interaction scent", () => {
     expect(within(caption!).getByText("CC BY 4.0")).toBeVisible();
     expect(caption).not.toHaveTextContent("http");
     expect(caption?.textContent?.match(/CC BY 4\.0/g)).toHaveLength(1);
-    expect(container.querySelector(".news-story-card")).toHaveClass("h-full");
-    expect(container.querySelector("article")).toHaveClass("h-full");
+    // The STRUCTURE §4.4 changes, not the height mechanism it retires.
+    // `h-full`/`self-start` is what the side thumbnail replaces, so pinning it
+    // here would fail the release gate before the rewrite could land. Card
+    // HEIGHT is measured against the rendered page in
+    // `tests/news/home-grid.spec.ts` — ⚠️ currently `test.fail()`, i.e.
+    // documenting the live defect; those become enforced bounds when Phase 1
+    // removes the annotations.
+    //
+    // What is asserted instead is that the media block and the body are
+    // SIBLINGS inside the card. That holds for today's stacked anatomy and for
+    // a side thumbnail, and nothing else in this test covers it — unlike
+    // `figure`, which `figcaption` above already implies.
+    const figure = container.querySelector("figure");
+    expect(figure).not.toBeNull();
+    expect(figure!.parentElement).toBe(
+      container.querySelector(".news-card-body")!.parentElement,
+    );
     await user.tab();
     expect(links[0]).toHaveFocus();
     await user.tab();
@@ -124,8 +139,19 @@ describe("StoryCard interaction scent", () => {
     expect(container.querySelector(".aspect-\\[16\\/10\\]")).toBeNull();
     const textCard = container.querySelector(".news-story-card--text");
     expect(textCard).not.toBeNull();
-    expect(textCard).not.toHaveClass("h-full");
-    expect(textCard?.closest("article")).toHaveClass("self-start");
+    // A text-first card has NO media column at all — not an empty one (§4.4
+    // AC#5: "reserve no fake media slot"). §4.4 keeps this falsifiable: the
+    // thumbnail becomes a sibling of the body, present on an image-led card
+    // and absent here. No optional chain — `expect(undefined).not.toBeNull()`
+    // passes, so a chained assertion would carry no weight of its own.
+    //
+    // ⚠️ `--text` is queried here while `scripts/news_home_layout.test.ts`
+    // deliberately de-pinned it in the CSS. That is not an oversight: §4.4 may
+    // widen the KICKER to every card, but the modifier is retained as the DOM
+    // marker for "this card has no media". If §4.4 removes the class as well,
+    // this query moves to `.news-story-card` and the assertions below stand.
+    expect(textCard!.querySelector("figure")).toBeNull();
+    expect(textCard!.querySelector(".news-card-body")).not.toBeNull();
     expect(screen.getAllByText("society")).toHaveLength(1);
     expect(
       screen.getByRole("link", {

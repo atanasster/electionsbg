@@ -138,6 +138,20 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 kind="comparison"
               />
             </div>
+            {/* Same story, same kind, same sources as image-led-single-source
+                — media is the ONLY difference, so a height comparison between
+                the two means what it says. The pre-existing text fixture below
+                differs in `kind` as well, and a comparison card carries a
+                spectrum block the analyzed one does not. */}
+            <div data-testid="text-only-same-story">
+              <StoryCard
+                story={singleStory}
+                taxonomy={null}
+                imageArticle={null}
+                outlets={outlets}
+                kind="analyzed_article"
+              />
+            </div>
             <div data-testid="long-content-fallback-source">
               <StoryCard
                 story={overflowStory}
