@@ -455,6 +455,7 @@
         "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
         "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run budget:test",
         "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run ai:test",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run ai:harness",
         "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build"
       ]
     },
@@ -518,6 +519,7 @@
         }
       ],
       "predeploy": [
+        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run ai:harness",
         "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build:ai"
       ]
     },

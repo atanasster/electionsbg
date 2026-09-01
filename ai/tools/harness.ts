@@ -10,6 +10,7 @@ import { join } from "node:path";
 import { route } from "../orchestrator/router";
 import { fetchData, setFetcher, setDbFetcher } from "./dataClient";
 import { nodeDbFetcher } from "./dbFetcherNode";
+import { dbReachable } from "../../scripts/db/lib/pg";
 import { runTool } from "./registry";
 import {
   detectTaxChange,
@@ -64,6 +65,27 @@ const printEnvelope = (e: Envelope) => {
 };
 
 const run = async () => {
+  // This harness is a hosting PREDEPLOY gate (firebase.json, both the `main`
+  // and `ai` targets), so an unreachable store must FAIL rather than skip. A
+  // gate that skips is a gate that passes by never running, and both defects
+  // this has caught would have sailed straight through one: kfnFunds reading a
+  // retired file shape, and the ssp parity literal pricing a group that
+  // already self-pays. risk_parity.harness.ts skips instead, correctly — it is
+  // a standalone tool in no deploy path.
+  //
+  // Probing here rather than letting the first fetchDb throw is what makes the
+  // failure actionable: a raw ECONNREFUSED from inside a tool reads as a
+  // broken tool, not as a stopped container.
+  if (!(await dbReachable())) {
+    console.error(
+      "✗ ai:harness needs the local Postgres store — it runs the real " +
+        "/api/db route handlers, not a re-implementation.\n" +
+        "  Start it with `npm run db:pg:up`, or set SKIP_PREDEPLOY=1 to skip " +
+        "the predeploy gates entirely.",
+    );
+    process.exit(1);
+  }
+
   const ctxEn: ToolContext = { lang: "en", election: "2026_04_19" };
   const ctxBg: ToolContext = { lang: "bg", election: "2026_04_19" };
 
