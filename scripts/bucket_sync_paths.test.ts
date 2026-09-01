@@ -445,6 +445,31 @@ describe("retired connections artifacts", () => {
     expect(hit("connections.json")).toBe(false);
   });
 
+  it("keeps every retired path out of a sync manifest, and only those", () => {
+    // §11.8b step 8. The bucket objects are gone and the 5,428 files are
+    // untracked, so the only way they come back is a sync that re-uploads what
+    // is still on disk — 37 MB of shards deliberately retained as the last
+    // record of what the name-matched graph published.
+    const RETIRED = [
+      "parliament/official-connections/2258.json",
+      "parliament/mp-connections/2258.json",
+      "parliament/company-connections/831915352.json",
+      "parliament/connections-rankings.json",
+      "parliament/connections-rankings-top.json",
+      "parliament/connections-search.json",
+      "parliament/connections-stats.json",
+      "parliament/connections-top-pairs.json",
+      "parliament/connections-party-matrix.json",
+      "parliament/company-connections-stats.json",
+    ];
+    for (const rel of RETIRED)
+      expect(isExcluded(rel), `${rel} would sync`).not.toBeNull();
+    // …and the one that must NOT be swept up with them. It is a published
+    // download: advertised on /data in both languages, kept by bucket_gzip.ts,
+    // still tracked in git and still on the bucket.
+    expect(isExcluded("parliament/connections.json")).toBeNull();
+  });
+
   it("SPARES connections.json, and retires the two rankings files", () => {
     // ⚠️ THE CLAUSE THAT MATTERS. connections.json was on the retirement list
     // until someone looked in `ai/`. It is a PUBLISHED dataset, offered for

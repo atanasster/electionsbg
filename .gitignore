@@ -298,6 +298,29 @@ data/_cache/isun_clean_delivery/
 /data/parliament/mp-management/
 /data/parliament/companies-by-ekatte/
 /data/parliament/companies-by-obshtina/
+# The per-MP and per-official connection shards, plus the five connections*
+# singletons. Retired by data-hub-lateral-edges-v1 §11.8b: the last three
+# readers moved to Postgres (the two AI ranking tools to /api/db/graph-mp-rankings,
+# companyConnections to /api/db/company-connections via migration 158), and the
+# builder was deleted in 2026-08. Nothing regenerates any of them.
+#
+# Left on disk rather than deleted — 37 MB — because they are the only surviving
+# record of what the NAME-MATCHED graph published before the gated person layer
+# refused it: 410 (MP, company) attributions of 2,014, and a "top MPs" file that
+# was never sorted. Recovering them after this means checking out a commit
+# before the untrack.
+#
+# ⚠️ NOT connections.json: it is a published download, advertised on /data in
+# both languages, and it stays tracked AND on the bucket. bucket_gzip.ts and
+# CATALOG_SPECS both still name it.
+/data/parliament/official-connections/
+/data/parliament/mp-connections/
+/data/parliament/connections-rankings.json
+/data/parliament/connections-rankings-top.json
+/data/parliament/connections-search.json
+/data/parliament/connections-stats.json
+/data/parliament/connections-top-pairs.json
+/data/parliament/connections-party-matrix.json
 
 # Bulky regenerable budget files — same convention as procurement above. The
 # small metadata (index.json, kfp.json, documents.json, classification/,
