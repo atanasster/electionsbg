@@ -802,6 +802,74 @@ Update:
   `EvalsScreen.tsx`, `ArticleFeedbackScreen.tsx`, `newsapp/prerender.test.ts`,
   `newsapp/test-fixtures/story-cards.tsx` and tests.
 
+#### Evaluator submission contract and form behavior
+
+The user-facing evaluation and correction forms submit the same semantic
+fields that an accepted v2 adjudication stores. A scalar decision carries:
+
+```json
+{
+  "disposition": "changed",
+  "label": "progressive",
+  "treatment_basis": "critical_context",
+  "mixed_evidence": false,
+  "evidence_quotes": ["..."],
+  "evidence": "Why the quoted passage supports this judgment.",
+  "reason_codes": ["wrong_treatment_basis"]
+}
+```
+
+A party decision has the same treatment fields plus the displayed party
+surface and an identity selection. The form never accepts an arbitrary
+canonical ID in free text: the evaluator chooses a reviewed candidate or
+„unresolved", and the server stamps exact ID, country, identity status and
+identity version. Added parties and identity corrections use the same picker.
+
+The quote controls enforce §3.7 visibly:
+
+- directional + non-mixed: one quote slot;
+- neutral + non-mixed or `not_applicable`: no quote slots;
+- any `mixed_evidence=true` decision: two quote slots, labelled for the two
+  directions; `not_applicable` disables mixed evidence;
+- party decisions never offer the `not_applicable` basis;
+- changing label/basis/mixed state never silently discards entered quotes —
+  the form asks before clearing an incompatible slot;
+- each slot accepts selection from the hash-bound source text where it is
+  displayed, with paste as an accessible fallback. The UI shows grounded,
+  duplicate and not-found states without relying on color.
+
+Evaluation tasks expose only the hash-bound source text the evaluator is
+allowed to see: full article text where publication rights permit, otherwise a
+bounded excerpt plus the source link. If that material cannot support the
+required quote or context, the evaluator chooses `unable_to_judge`; the form
+must not invite an invented paraphrase as a quote. Article-feedback users may
+paste a span from the linked source, which the server verifies against the
+stored corpus article.
+
+Client validation is guidance; server validation is authoritative. The
+evaluation contract adds `evidence_quotes_per_decision=2`, a per-quote limit
+of 300 characters and a total quote limit of 600 characters, then validates:
+
+- exact 0/1/2 cardinality from label and mixed state;
+- every quote non-empty, unique and a normalized contiguous substring of the
+  hash-bound article/excerpt while preserving the submitted verbatim text;
+- basis/label applicability, party identity selection, reason-code scope and
+  bounded analytical `evidence`;
+- task revision, content hash, analysis hash, evaluation `rubric_version` and
+  target `analysis_rubric_version` before accepting the submission.
+
+A malformed or stale decision rejects atomically with a field-specific error;
+the backend never trims it into a different valid judgment. Public feedback
+without the required grounded structure may remain a non-adjudicative report,
+but it cannot enter gold, override analysis or count toward release metrics.
+
+When an operator accepts a valid submission, the accepted snapshot preserves
+label/tone, basis, mixed flag, verbatim quote list, analytical reason and reason
+codes. `effective_analysis.py` applies the complete decision, re-runs the v2
+grounding gate, stamps analysis/evidence/party-identity versions and preserves
+the original model block. It must not copy only label + evidence or set
+`evidence_grounded=true` merely because a human submission was accepted.
+
 Every task, submission, accepted adjudication and feedback target carries
 `analysis_rubric_version`. A v1 submission cannot override a v2 analysis.
 Task hashes include the rubric and model-label version, so an in-flight old task
@@ -972,7 +1040,12 @@ Update `ArticleScreen.tsx` first:
 
 Update `EvalArticleScreen.tsx` and feedback screens with five ordered party
 choices, basis choice and mixed-evidence control. Strong endpoints and mixed
-evidence require a written reason.
+evidence require a written reason. Implement the Tier 2 evaluator contract in
+the forms, including dynamic 0/1/2 quote slots, source selection/paste,
+grounding errors, the reviewed party-identity picker and a pre-submit summary
+of every structured decision. Draft state survives validation errors and a
+stale-version response; retry never silently changes the user's labels,
+quotes, basis or mixed flag.
 
 #### Story comparison
 
@@ -1072,6 +1145,14 @@ Exposure order:
 - **`evidence_quotes` cardinality is exact**: zero for non-mixed
   neutral/not-applicable, one for a non-mixed directional label and two for
   mixed evidence; each quote is grounded separately (B1);
+- **submission round-trip preserves the complete v2 decision** through browser
+  draft → request schema → function validation/storage → accepted snapshot →
+  `effective_analysis`, including basis, mixed flag, quote list, analytical
+  reason, reason codes and identity choice;
+- **submission validation fails closed** for wrong quote cardinality,
+  duplicate/not-found/over-limit quotes, invalid basis-label combinations,
+  arbitrary party IDs and stale content/analysis/rubric versions; raw feedback
+  lacking this structure remains non-adjudicative;
 - **axis applicability is independent**: political-topic + leaning
   `not_applicable` is routed, while political-topic + Russia
   `not_applicable` is valid when Russia is absent;
@@ -1091,6 +1172,12 @@ Exposure order:
 - all five positions, both directions, neutral, absent, withheld and invalid
   values;
 - basis and mixed copy;
+- quote-slot transitions for directional, neutral, not-applicable and mixed
+  decisions, including confirmation before incompatible draft quotes clear;
+- keyboard text selection and paste fallback, per-quote grounded/not-found
+  errors, accessible direction labels and focus on the first invalid field;
+- accepted, rejected and stale submission states preserve the user's complete
+  draft and never imply that unstructured feedback changed the analysis;
 - article-party subject is always named beside its treatment;
 - keyboard/focus behavior and accessible segment names;
 - color independence in light/dark modes;
@@ -1185,6 +1272,10 @@ the affected source analyses and all derived aggregates before re-enabling.
 - The selected model clears each field's frozen release gate, including zero
   unsupported evidence and wrong party links in the audited sample.
 - Public corrections and accepted evaluations are rubric-version-safe.
+- User evaluation/correction forms submit and round-trip the complete v2
+  structure — treatment basis, mixed flag, grounded 0/1/2 quote list,
+  analytical reason, reason codes and reviewed party identity — with stale and
+  malformed submissions failing closed.
 - Story, topic and outlet aggregates reconcile exactly and expose denominators,
   dates and sample floors without a net outlet rating.
 - Article, story, evaluation, methodology and eligible aggregate surfaces use
