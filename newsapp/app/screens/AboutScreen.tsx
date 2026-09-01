@@ -8,10 +8,10 @@ export const AboutScreen = () => {
   return (
     <article className="mx-auto max-w-4xl py-6">
       <header>
-        <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <p className="app-eyebrow">
           {tr("За редакцията", "About the newsroom")}
         </p>
-        <h1 className="mt-1 font-title text-3xl">
+        <h1 className="app-page-title mt-1">
           {tr("За Наясно Новини", "About Naiasno News")}
         </h1>
         <p className="mt-3 max-w-3xl text-lg leading-relaxed text-foreground/90">
@@ -24,7 +24,7 @@ export const AboutScreen = () => {
 
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         <Card className="p-5">
-          <h2 className="font-title text-xl">
+          <h2 className="app-section-title">
             {tr("Какво публикуваме", "What we publish")}
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-foreground/90">
@@ -35,7 +35,7 @@ export const AboutScreen = () => {
           </p>
         </Card>
         <Card className="p-5">
-          <h2 className="font-title text-xl">
+          <h2 className="app-section-title">
             {tr("Кой носи отговорност", "Editorial responsibility")}
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-foreground/90">
@@ -46,7 +46,7 @@ export const AboutScreen = () => {
           </p>
         </Card>
         <Card className="p-5">
-          <h2 className="font-title text-xl">
+          <h2 className="app-section-title">
             {tr("Редакционни принципи", "Editorial principles")}
           </h2>
           <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-foreground/90">
@@ -77,7 +77,7 @@ export const AboutScreen = () => {
           </ul>
         </Card>
         <Card className="p-5">
-          <h2 className="font-title text-xl">
+          <h2 className="app-section-title">
             {tr("Проверимост", "Verifiability")}
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-foreground/90">
@@ -101,7 +101,7 @@ export const AboutScreen = () => {
       </div>
 
       <section className="mt-8 border-t pt-6">
-        <h2 className="font-title text-xl">
+        <h2 className="app-section-title">
           {tr("Собственост и финансиране", "Ownership and funding")}
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-foreground/90">
@@ -113,7 +113,7 @@ export const AboutScreen = () => {
       </section>
 
       <section className="mt-8 border-t pt-6">
-        <h2 className="font-title text-xl">
+        <h2 className="app-section-title">
           {tr("Поправки и право на отговор", "Corrections and right of reply")}
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-foreground/90">
@@ -137,7 +137,7 @@ export const AboutScreen = () => {
       </section>
 
       <section className="mt-8 border-t pt-6">
-        <h2 className="font-title text-xl">{tr("Екип", "Team")}</h2>
+        <h2 className="app-section-title">{tr("Екип", "Team")}</h2>
         <p className="mt-2 text-sm leading-relaxed text-foreground/90">
           {tr(
             "electionsbg.com се поддържа от Мартин Стоянов и Атанас Стоянов. Повече за опита и ролята им е публикувано в основната страница на проекта.",
@@ -154,7 +154,7 @@ export const AboutScreen = () => {
       </section>
 
       <section className="mt-8 border-t pt-6">
-        <h2 className="font-title text-xl">
+        <h2 className="app-section-title">
           {tr("Въпроси и сигнали", "Questions and reports")}
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-foreground/90">

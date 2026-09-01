@@ -24,14 +24,14 @@
     --muted-foreground: 30 8% 38%; /* warm muted gray */
 
     --accent: 16 75% 55%; /* coral peach #DF6B43 */
-    --accent-foreground: 39 40% 96%;
+    --accent-foreground: 30 10% 12%;
 
     --destructive: 0 70% 48%;
     --destructive-foreground: 39 40% 96%;
 
     --border: 36 18% 78%;
     --input: 36 18% 78%;
-    --ring: 16 75% 55%;
+    --ring: 16 75% 49%; /* focus-only coral, 3:1 on background and card */
     --radius: 0.5rem;
 
     --positive: 152 55% 26%; /* darkened for AA contrast on --card/--muted */
@@ -72,8 +72,8 @@
     --accent: 158 60% 68%;
     --accent-foreground: 224 47% 8%;
 
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 210 25% 96%;
+    --destructive: 0 75% 62%;
+    --destructive-foreground: 224 47% 8%;
 
     --border: 222 20% 28%;
     --input: 222 25% 22%;
@@ -96,6 +96,27 @@
 
   * {
     border-color: hsl(var(--border));
+  }
+}
+
+@layer components {
+  /* Cross-product typography roles. Individual products can choose the role,
+     but not silently invent a parallel type scale. */
+  .app-page-title {
+    @apply font-display text-3xl font-bold leading-tight sm:text-4xl;
+  }
+
+  .app-story-title {
+    @apply font-display text-3xl leading-tight sm:text-4xl;
+  }
+
+  .app-section-title {
+    @apply font-display text-xl font-semibold leading-tight sm:text-2xl;
+  }
+
+  .app-eyebrow {
+    @apply text-xs font-semibold uppercase text-popover-foreground;
+    letter-spacing: 0.14em;
   }
 }
 

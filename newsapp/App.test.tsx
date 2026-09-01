@@ -34,20 +34,43 @@ describe("news shell accessibility", () => {
       "/corrections",
     );
     expect(screen.getAllByRole("link", { name: "Методология" })).toHaveLength(
-      2,
+      1,
     );
     const footer = within(screen.getByRole("contentinfo"));
     expect(
       footer.getByRole("link", { name: "electionsbg.com" }),
-    ).toHaveTextContent("electionsbg");
+    ).toHaveTextContent("electionsbg.com");
     expect(
       footer.getByRole("link", { name: "за редакцията" }),
-    ).toHaveTextContent("за нас");
+    ).toHaveTextContent("за редакцията");
 
     await user.click(
       screen.getByRole("button", { name: "Включи светла тема" }),
     );
     expect(setTheme).toHaveBeenCalledWith(themeLight);
+  });
+
+  it("keeps low-frequency destinations in an accessible compact menu", async () => {
+    const user = userEvent.setup();
+    render(
+      <ThemeContext.Provider value={{ theme: themeLight, setTheme: vi.fn() }}>
+        <MemoryRouter initialEntries={["/"]}>
+          <App />
+        </MemoryRouter>
+      </ThemeContext.Provider>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Отвори менюто" }));
+    const menu = screen.getByRole("menu");
+    expect(
+      within(menu).getByRole("menuitem", { name: "Истории" }),
+    ).toHaveAttribute("href", "/");
+    expect(
+      within(menu).getByRole("menuitem", { name: "Методология" }),
+    ).toHaveAttribute("href", "/methodology");
+    expect(
+      screen.getByRole("link", { name: "Търсене в новините" }),
+    ).toHaveAttribute("href", "/#news-search");
   });
 
   it("renders the corrections workflow at its public route", () => {

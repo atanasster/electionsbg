@@ -31,83 +31,95 @@ const ratio = (a: Hsl, b: Hsl) => {
 };
 
 describe("news light/dark accessibility tokens", () => {
-  const css = fs.readFileSync("newsapp/news.css", "utf8");
-  const light = {
-    bg: [42, 38, 96],
-    fg: [28, 16, 12],
-    muted: [28, 9, 36],
-    kicker: [13, 63, 34],
-    border: [31, 13, 52],
-    primary: [28, 16, 12],
-    secondary: [39, 25, 91],
-    card: [42, 44, 98],
-    ring: [329, 86, 50],
-  } as const;
-  const dark = {
-    bg: [220, 25, 9],
-    fg: [39, 29, 92],
-    muted: [37, 12, 68],
-    kicker: [32, 72, 68],
-    border: [216, 12, 52],
-    primary: [39, 29, 92],
-    secondary: [218, 18, 17],
-    card: [220, 22, 12],
-    ring: [329, 86, 50],
-  } as const;
-  const cssName = (name: string) =>
-    name === "bg"
-      ? "background"
-      : name === "fg"
-        ? "foreground"
-        : name === "muted"
-          ? "muted-foreground"
-          : name === "kicker"
-            ? "editorial-kicker"
-            : name;
-  const cssValue = ([h, s, l]: readonly number[]) => `${h} ${s}% ${l}%`;
-  const block = (selector: string) => {
+  const mainCss = fs.readFileSync("src/App.css", "utf8");
+  const newsCss = fs.readFileSync("newsapp/news.css", "utf8");
+  const block = (css: string, selector: string) => {
     const start = css.indexOf(`${selector} {`);
     expect(start).toBeGreaterThanOrEqual(0);
     return css.slice(start, css.indexOf("}", start) + 1);
   };
+  const hslToken = (cssBlock: string, name: string): Hsl => {
+    const match = cssBlock.match(
+      new RegExp(`--${name}:\\s*(\\d+)\\s+(\\d+)%\\s+(\\d+)%`),
+    );
+    expect(match, name).not.toBeNull();
+    return match!.slice(1).map(Number) as Hsl;
+  };
 
-  it("keeps audited semantic tokens in the production stylesheet", () => {
-    for (const [selector, tokens] of [
-      [".news-shell", light],
-      [".dark .news-shell", dark],
-    ] as const)
-      for (const [name, value] of Object.entries(tokens))
-        expect(block(selector)).toContain(
-          `--${cssName(name)}: ${cssValue(value)}`,
-        );
+  it("inherits every brand token from the shared application theme", () => {
+    const newsBlock = block(newsCss, ".news-shell");
+    for (const name of [
+      "background",
+      "foreground",
+      "card",
+      "popover",
+      "primary",
+      "secondary",
+      "muted",
+      "accent",
+      "border",
+      "input",
+      "ring",
+      "radius",
+    ]) {
+      expect(newsBlock).not.toMatch(new RegExp(`--${name}:`));
+    }
+    expect(newsBlock).toContain("--news-kicker: var(--popover-foreground)");
+    expect(newsCss).not.toContain(".dark .news-shell");
   });
 
-  it.each([
-    [light, "light"],
-    [dark, "dark"],
-  ] as const)("meets AA contrast in %s mode", (tokens, _mode) => {
-    void _mode;
-    expect(ratio(tokens.fg as Hsl, tokens.bg as Hsl)).toBeGreaterThanOrEqual(
-      4.5,
-    );
-    expect(ratio(tokens.muted as Hsl, tokens.bg as Hsl)).toBeGreaterThanOrEqual(
-      4.5,
-    );
-    expect(
-      ratio(tokens.kicker as Hsl, tokens.bg as Hsl),
-    ).toBeGreaterThanOrEqual(4.5);
-    expect(
-      ratio(tokens.border as Hsl, tokens.bg as Hsl),
-    ).toBeGreaterThanOrEqual(3);
-    expect(ratio(tokens.ring as Hsl, tokens.bg as Hsl)).toBeGreaterThanOrEqual(
-      3,
-    );
-    expect(ratio(tokens.ring as Hsl, tokens.fg as Hsl)).toBeGreaterThanOrEqual(
-      3,
-    );
-    for (const surface of [tokens.primary, tokens.secondary, tokens.card])
-      expect(ratio(tokens.ring as Hsl, surface as Hsl)).toBeGreaterThanOrEqual(
-        3,
-      );
+  it.each([":root", ".dark"])(
+    "keeps shared reading and focus colors accessible in %s",
+    (selector) => {
+      const tokens = block(mainCss, selector);
+      const background = hslToken(tokens, "background");
+      expect(
+        ratio(hslToken(tokens, "foreground"), background),
+      ).toBeGreaterThanOrEqual(4.5);
+      expect(
+        ratio(hslToken(tokens, "muted-foreground"), background),
+      ).toBeGreaterThanOrEqual(4.5);
+      expect(
+        ratio(hslToken(tokens, "popover-foreground"), background),
+      ).toBeGreaterThanOrEqual(4.5);
+      expect(
+        ratio(hslToken(tokens, "ring"), background),
+      ).toBeGreaterThanOrEqual(3);
+      expect(
+        ratio(hslToken(tokens, "ring"), hslToken(tokens, "card")),
+      ).toBeGreaterThanOrEqual(3);
+      expect(
+        ratio(
+          hslToken(tokens, "accent-foreground"),
+          hslToken(tokens, "accent"),
+        ),
+      ).toBeGreaterThanOrEqual(4.5);
+      expect(
+        ratio(
+          hslToken(tokens, "destructive-foreground"),
+          hslToken(tokens, "destructive"),
+        ),
+      ).toBeGreaterThanOrEqual(4.5);
+    },
+  );
+
+  it("uses a separated two-pixel focus treatment on shared controls", () => {
+    for (const file of [
+      "src/components/ui/button.tsx",
+      "src/components/ui/input.tsx",
+      "src/components/ui/checkbox.tsx",
+    ]) {
+      const source = fs.readFileSync(file, "utf8");
+      expect(source).toContain("focus-visible:ring-2");
+      expect(source).toContain("focus-visible:ring-offset-2");
+      expect(source).toContain("focus-visible:ring-offset-background");
+    }
+  });
+
+  it("leaves the shared mobile menu state to the Radix trigger", () => {
+    const source = fs.readFileSync("src/layout/header/Header.tsx", "utf8");
+    expect(source).not.toContain('aria-expanded="false"');
+    expect(source).not.toContain('aria-controls="navbar-default"');
+    expect(source).not.toContain('data-collapse-toggle="navbar-default"');
   });
 });

@@ -1,7 +1,17 @@
 import { lazy, Suspense, useContext } from "react";
 import { Route, Routes, NavLink, Link, useLocation } from "react-router-dom";
+import { Menu, Search } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { siteChrome } from "@/layout/siteChrome";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { HomeScreen } from "./app/screens/HomeScreen";
@@ -38,7 +48,7 @@ const EvalRouteFallback = () => <LocalizedEvalRouteFallback />;
 
 const EnglishEvaluationNotice = () => (
   <section className="mx-auto max-w-2xl py-12">
-    <h1 className="font-title text-3xl">Public evaluation</h1>
+    <h1 className="app-page-title">Public evaluation</h1>
     <p className="mt-3 leading-relaxed text-muted-foreground">
       The experimental evaluation form is currently available only in Bulgarian.
       It is kept out of the English interface so the two languages are not mixed
@@ -68,7 +78,7 @@ const NotFoundScreen = () => {
   const { tr } = useNewsLocale();
   return (
     <section className="py-12">
-      <h1 className="font-title text-3xl">
+      <h1 className="app-page-title">
         {tr("Страницата не е намерена", "Page not found")}
       </h1>
       <p className="mt-2 text-muted-foreground">
@@ -132,7 +142,6 @@ const NewsAppShell = () => {
     {
       to: "/methodology",
       label: tr("Методология", "Methodology"),
-      mobileLabel: tr("Метод", "Method"),
     },
   ] as const;
   const mainSite =
@@ -143,27 +152,22 @@ const NewsAppShell = () => {
     {
       href: mainSite,
       label: "electionsbg.com",
-      mobileLabel: "electionsbg",
     },
     {
       href: "/about",
       label: tr("за редакцията", "about"),
-      mobileLabel: tr("за нас", "about"),
     },
     {
       href: "/corrections",
       label: tr("поправки", "corrections"),
-      mobileLabel: tr("поправки", "corrections"),
     },
     {
       href: "https://github.com/atanasster/electionsbg",
       label: tr("отворен код", "open source"),
-      mobileLabel: tr("код", "code"),
     },
     {
       href: "/methodology",
       label: tr("методология", "methodology"),
-      mobileLabel: tr("метод", "method"),
     },
   ] as const;
 
@@ -173,8 +177,13 @@ const NewsAppShell = () => {
       <a href="#news-main" className="news-skip-link">
         {tr("Към основното съдържание", "Skip to main content")}
       </a>
-      <header className="news-masthead sticky top-0 z-40 border-b bg-background">
-        <div className="container flex flex-wrap items-center justify-between gap-2 px-2 py-2.5 sm:px-4">
+      <header
+        className={cn(
+          siteChrome.headerSurface,
+          "news-masthead sticky top-0 z-40",
+        )}
+      >
+        <div className="container flex min-h-12 items-center justify-between gap-2 p-2 sm:px-3 sm:py-4">
           <div className="flex items-center gap-4">
             <Link
               to="/"
@@ -182,7 +191,7 @@ const NewsAppShell = () => {
               aria-label={tr("Наясно Новини", "Naiasno News")}
             >
               <Logo className="size-7" />
-              <span className="font-title">
+              <span className="hidden font-title sm:inline">
                 <span className="text-[hsl(var(--editorial-kicker))]">
                   {tr("Наясно", "Naiasno")}
                 </span>
@@ -192,7 +201,7 @@ const NewsAppShell = () => {
               </span>
             </Link>
             <nav
-              className="hidden items-center gap-1 md:flex"
+              className="hidden items-center gap-1 lg:flex"
               aria-label={tr("Основна навигация", "Primary navigation")}
             >
               {nav.map((item) => (
@@ -201,10 +210,8 @@ const NewsAppShell = () => {
                   to={item.to}
                   end={"end" in item ? item.end : false}
                   className={({ isActive }) =>
-                    `rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                      isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    `rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                      isActive ? siteChrome.activeNav : siteChrome.idleNav
                     }`
                   }
                 >
@@ -218,9 +225,17 @@ const NewsAppShell = () => {
               variant="ghost"
               size="sm"
               asChild
-              className="hidden sm:inline-flex"
+              className="hidden xl:inline-flex"
             >
               <a href={mainSite}>electionsbg.com</a>
+            </Button>
+            <Button variant="ghost" size="icon" asChild className="lg:hidden">
+              <Link
+                to="/#news-search"
+                aria-label={tr("Търсене в новините", "Search the news")}
+              >
+                <Search aria-hidden />
+              </Link>
             </Button>
             <LanguageSwitcher />
             <Button
@@ -240,34 +255,37 @@ const NewsAppShell = () => {
             >
               {isDark ? "☀" : "☾"}
             </Button>
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="lg:hidden"
+                  aria-label={tr("Отвори менюто", "Open menu")}
+                >
+                  <Menu aria-hidden />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                {nav.map((item) => (
+                  <DropdownMenuItem key={item.to} asChild>
+                    <NavLink
+                      to={item.to}
+                      end={"end" in item ? item.end : false}
+                      className="w-full"
+                    >
+                      {item.label}
+                    </NavLink>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <a href={mainSite}>electionsbg.com</a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-        {/* Mobile nav — one bounded row of pills under the header row. */}
-        <nav
-          className="news-mobile-nav container grid grid-cols-5 items-stretch gap-0.5 px-2 pb-2 md:hidden"
-          aria-label={tr("Основна навигация", "Primary navigation")}
-        >
-          {nav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={"end" in item ? item.end : false}
-              aria-label={item.label}
-              className={({ isActive }) =>
-                `news-mobile-nav-link flex min-w-0 items-center justify-center rounded-full font-medium ${
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-secondary-foreground"
-                }`
-              }
-            >
-              <span className="sm:hidden">
-                {"mobileLabel" in item ? item.mobileLabel : item.label}
-              </span>
-              <span className="hidden sm:inline">{item.label}</span>
-            </NavLink>
-          ))}
-        </nav>
       </header>
 
       <main
@@ -313,31 +331,34 @@ const NewsAppShell = () => {
         </Routes>
       </main>
 
-      <footer className="news-footer border-t bg-background p-2 text-sm sm:p-4 lg:flex lg:items-center lg:justify-between lg:gap-4">
-        <div className="hidden shrink-0 font-medium lowercase text-secondary-foreground lg:block">
+      <footer
+        className={cn(
+          siteChrome.footerSurface,
+          "news-footer flex items-center justify-end gap-4 p-4 text-sm sm:justify-between",
+        )}
+      >
+        <div className="hidden shrink-0 font-medium lowercase text-secondary-foreground sm:block">
           © {new Date().getFullYear()} ·{" "}
           {tr("всички права запазени", "all rights reserved")}
         </div>
-        <ul className="news-footer-links grid w-full grid-cols-5 items-stretch lg:flex lg:w-auto lg:items-center lg:gap-3">
-          {footerLinks.map(({ href, label, mobileLabel }) => (
+        <ul className="news-footer-links flex flex-wrap items-center justify-end gap-x-1 gap-y-1 sm:gap-x-3">
+          {footerLinks.map(({ href, label }) => (
             <li key={href}>
               {href.startsWith("/") ? (
                 <Link
                   to={href}
                   aria-label={label}
-                  className="news-footer-link flex min-w-0 items-center justify-center whitespace-nowrap rounded-sm font-medium lowercase text-secondary-foreground hover:text-primary"
+                  className="news-footer-link flex items-center justify-center whitespace-nowrap rounded-sm px-2 font-medium lowercase text-secondary-foreground hover:text-primary"
                 >
-                  <span className="sm:hidden">{mobileLabel}</span>
-                  <span className="hidden sm:inline">{label}</span>
+                  {label}
                 </Link>
               ) : (
                 <a
                   href={href}
                   aria-label={label}
-                  className="news-footer-link flex min-w-0 items-center justify-center whitespace-nowrap rounded-sm font-medium lowercase text-secondary-foreground hover:text-primary"
+                  className="news-footer-link flex items-center justify-center whitespace-nowrap rounded-sm px-2 font-medium lowercase text-secondary-foreground hover:text-primary"
                 >
-                  <span className="sm:hidden">{mobileLabel}</span>
-                  <span className="hidden sm:inline">{label}</span>
+                  {label}
                 </a>
               )}
             </li>

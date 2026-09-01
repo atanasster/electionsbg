@@ -1,87 +1,19 @@
-/* Editorial skin for the standalone news product. The main elections app
-   keeps its existing palette; this scope begins at App's .news-shell. */
+/* News is a product variant inside the shared Naiasno design system. Brand
+   surfaces, controls, focus and radius tokens come from src/App.css; this
+   scope contains only genuinely editorial/data semantics. */
 .news-shell {
-  --background: 42 38% 96%;
-  --foreground: 28 16% 12%;
-  --card: 42 44% 98%;
-  --card-foreground: 28 16% 12%;
-  --popover: 42 44% 98%;
-  --popover-foreground: 28 16% 12%;
-  --editorial-kicker: 13 63% 34%;
-  --primary: 28 16% 12%;
-  --primary-foreground: 42 44% 98%;
-  --secondary: 39 25% 91%;
-  --secondary-foreground: 28 16% 18%;
-  --muted: 39 23% 92%;
-  --muted-foreground: 28 9% 36%;
-  --accent: 13 63% 44%;
-  --accent-foreground: 42 44% 98%;
-  --border: 31 13% 52%;
-  --input: 31 13% 52%;
-  --ring: 329 86% 50%;
-  --radius: 0.375rem;
-  background-image: linear-gradient(
-    to bottom,
-    hsl(var(--foreground) / 0.025) 1px,
-    transparent 1px
-  );
-  background-size: 100% 4rem;
-}
-
-.dark .news-shell {
-  --background: 220 25% 9%;
-  --foreground: 39 29% 92%;
-  --card: 220 22% 12%;
-  --card-foreground: 39 29% 92%;
-  --popover: 220 22% 12%;
-  --popover-foreground: 39 29% 92%;
-  --editorial-kicker: 32 72% 68%;
-  --primary: 39 29% 92%;
-  --primary-foreground: 220 25% 9%;
-  --secondary: 218 18% 17%;
-  --secondary-foreground: 39 24% 88%;
-  --muted: 218 18% 16%;
-  --muted-foreground: 37 12% 68%;
-  --accent: 32 72% 62%;
-  --accent-foreground: 220 25% 9%;
-  --border: 216 12% 52%;
-  --input: 216 12% 52%;
-  --ring: 329 86% 50%;
+  --news-kicker: var(--popover-foreground);
+  --news-reading-measure: 68ch;
+  /* Compatibility alias for existing editorial components. */
+  --editorial-kicker: var(--news-kicker);
 }
 
 .news-masthead {
   box-shadow: 0 1px 0 hsl(var(--foreground) / 0.06);
 }
 
-/* At phone widths every primary destination remains visible at once. The
-   type scales only inside this bounded shell control; page copy keeps the
-   normal text scale. The 44px block size preserves a useful touch target. */
-.news-mobile-nav,
-.news-footer-links {
-  min-width: 0;
-}
-
-.news-mobile-nav-link,
 .news-footer-link {
   min-height: 2.75rem;
-  padding-inline: 0.125rem;
-  font-size: clamp(0.625rem, 2.8vw, 0.75rem);
-  line-height: 1;
-}
-
-@media (min-width: 640px) {
-  .news-mobile-nav-link,
-  .news-footer-link {
-    padding-inline: 0.375rem;
-    font-size: 0.875rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .news-footer-link {
-    min-height: 2.25rem;
-    padding-inline: 0.5rem;
-  }
 }
 
 .news-skip-link {

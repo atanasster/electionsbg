@@ -49,6 +49,7 @@ import { AreaSniperButton } from "./AreaSniperButton";
 import { AreaPill } from "./AreaPill";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticles } from "@/data/articles/useArticles";
+import { siteChrome } from "@/layout/siteChrome";
 
 // Pathname prefixes that mark a page as "in" the Governance world for the
 // active-dropdown tint. The Local set marks the parallel municipal-elections
@@ -260,9 +261,7 @@ export const Header = () => {
       <div
         className={cn(
           "hidden lg:inline-flex shrink-0 items-stretch overflow-hidden rounded-md border text-sm font-medium transition-colors",
-          active
-            ? "border-primary/50 bg-primary/[0.07]"
-            : "border-border/70 hover:border-border",
+          active ? siteChrome.activeSurface : siteChrome.idleSurface,
         )}
       >
         <Link
@@ -270,24 +269,23 @@ export const Header = () => {
           underline={false}
           className={cn(
             "flex items-center whitespace-nowrap px-2.5 py-1 lowercase transition-colors focus:outline-none focus-visible:bg-foreground/[0.08]",
-            active
-              ? "text-primary hover:bg-primary/10"
-              : "text-secondary-foreground hover:bg-foreground/[0.05] hover:text-primary",
+            active ? siteChrome.activeText : siteChrome.idleText,
           )}
         >
           {t(topMenu.title)}
         </Link>
         <span
           aria-hidden
-          className={cn("w-px", active ? "bg-primary/30" : "bg-border/70")}
+          className={cn(
+            "w-px",
+            active ? siteChrome.activeDivider : siteChrome.idleDivider,
+          )}
         />
         <DropdownMenuTrigger
           aria-label={t(topMenu.title)}
           className={cn(
             "group flex items-center px-1.5 transition-colors focus:outline-none focus-visible:bg-foreground/[0.08]",
-            active
-              ? "text-primary hover:bg-primary/10 data-[state=open]:bg-primary/10"
-              : "text-secondary-foreground hover:bg-foreground/[0.05] hover:text-primary data-[state=open]:bg-foreground/[0.05]",
+            active ? siteChrome.activeTrigger : siteChrome.idleTrigger,
           )}
         >
           <ChevronDown
@@ -389,13 +387,16 @@ export const Header = () => {
   return (
     <nav
       ref={navRef}
-      className="flex shadow-sm fixed w-full z-10 top-0 gap-1 sm:gap-2 bg-muted border-b-2 justify-between items-center"
+      className={cn(
+        siteChrome.headerSurface,
+        "fixed top-0 z-10 flex w-full items-center justify-between gap-1 sm:gap-2",
+      )}
     >
       <div className="flex min-w-0 text-xl text-primary items-center gap-1.5 p-2 sm:gap-2 sm:px-3 sm:py-4">
         <Link to="/" className="flex shrink-0 flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Logo className="size-7" />
-          <div className="hidden sm:flex font-title ext-2xl transition-all duration-200 pl-2">
+          <div className="hidden pl-2 font-title text-2xl transition-all duration-200 sm:flex">
             <div className="lowercase text-popover-foreground">
               {t("elections")}
             </div>
@@ -458,11 +459,8 @@ export const Header = () => {
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button
-              data-collapse-toggle="navbar-default"
               type="button"
               className="inline-flex items-center justify-center rounded-lg lg:hidden text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
-              aria-controls="navbar-default"
-              aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
               <Menu />

@@ -79,7 +79,7 @@ export const SavedScreen = ({
   return (
     <section className="space-y-5">
       <header>
-        <h1 className="font-title text-3xl">{tr("Запазени", "Saved")}</h1>
+        <h1 className="app-page-title">{tr("Запазени", "Saved")}</h1>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
           {tr(
             "Този списък остава само в този браузър. Не се изпраща към сървър и не се синхронизира между устройства.",

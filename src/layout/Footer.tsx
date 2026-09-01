@@ -2,11 +2,18 @@ import { Anchor } from "@/ux/Anchor";
 import { Link } from "@/ux/Link";
 import { useTranslation } from "react-i18next";
 import { GROUP_URL } from "@/lib/community";
+import { cn } from "@/lib/utils";
+import { siteChrome } from "@/layout/siteChrome";
 
 export const Footer = () => {
   const { t } = useTranslation();
   return (
-    <footer className="footer flex p-4 bg-muted justify-end sm:justify-between">
+    <footer
+      className={cn(
+        siteChrome.footerSurface,
+        "footer flex justify-end p-4 sm:justify-between",
+      )}
+    >
       <div className="text-sm font-medium lowercase text-secondary-foreground hidden sm:flex whitespace-nowrap">
         {`© ${new Date().getFullYear()}. ${t("all_rights_reserved")}.`}
       </div>

@@ -48,7 +48,7 @@ const Section = ({
   children: React.ReactNode;
 }) => (
   <section className="mt-8">
-    <h2 className="font-title text-xl">{title}</h2>
+    <h2 className="app-section-title">{title}</h2>
     <div className="mt-3 space-y-3 text-sm leading-relaxed text-foreground/90">
       {children}
     </div>
@@ -130,9 +130,7 @@ export const MethodologyScreen = () => {
   if (stats.error) {
     return (
       <section className="py-8">
-        <h1 className="font-title text-3xl">
-          {tr("Методология", "Methodology")}
-        </h1>
+        <h1 className="app-page-title">{tr("Методология", "Methodology")}</h1>
         <Card className="mt-4 p-4 text-sm text-destructive">
           {tr(
             "Данните за методологията не се заредиха",
@@ -146,9 +144,7 @@ export const MethodologyScreen = () => {
   if (!stats.data) {
     return (
       <section className="py-8">
-        <h1 className="font-title text-3xl">
-          {tr("Методология", "Methodology")}
-        </h1>
+        <h1 className="app-page-title">{tr("Методология", "Methodology")}</h1>
         <Skeleton className="mt-4 h-40" />
       </section>
     );
@@ -190,7 +186,7 @@ export const MethodologyScreen = () => {
 
   return (
     <section className="py-6">
-      <h1 className="font-title text-3xl">Методология</h1>
+      <h1 className="app-page-title">Методология</h1>
       <p className="mt-2 max-w-3xl text-muted-foreground">
         Всяка статия се оценява поотделно. Не оценяваме медии — оценяваме
         материали, а позицията на едно издание е разпределението на неговите
@@ -200,7 +196,7 @@ export const MethodologyScreen = () => {
       {/* ⚠️ FIRST, and accent-bordered. A reader who meets the 8.4% after the
           figures has already read them as complete. */}
       <Card className="mt-6 border-primary p-4">
-        <h2 className="font-title text-lg">Какво този корпус не покрива</h2>
+        <h2 className="app-section-title">Какво този корпус не покрива</h2>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-foreground/90">
           <li>
             <strong>{analysedPct}% от събраното е анализирано</strong> (
@@ -422,14 +418,14 @@ const EnglishMethodology = ({
   outletsMissing: boolean;
 }) => (
   <section className="py-6">
-    <h1 className="font-title text-3xl">Methodology</h1>
+    <h1 className="app-page-title">Methodology</h1>
     <p className="mt-2 max-w-3xl text-muted-foreground">
       Every article is rated separately. We do not rate outlets: an outlet's
       position is the distribution of ratings across its own articles.
     </p>
 
     <Card className="mt-6 border-primary p-4">
-      <h2 className="font-title text-lg">What this corpus does not cover</h2>
+      <h2 className="app-section-title">What this corpus does not cover</h2>
       <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-foreground/90">
         <li>
           <strong>

@@ -31,19 +31,16 @@ describe("news home supporting-grid CSS contract", () => {
       expect(declarations, selector.trim()).not.toMatch(/\bmin-height\s*:/);
   });
 
-  it("keeps the mobile shell navigation and footer in bounded five-column rows", () => {
+  it("uses compact menu navigation and a wrapping shared-style footer", () => {
     const app = fs.readFileSync(path.resolve("newsapp/App.tsx"), "utf8");
     const css = fs.readFileSync(path.resolve("newsapp/news.css"), "utf8");
 
-    expect(app).toMatch(
-      /news-mobile-nav[^\n]*grid[^\n]*grid-cols-5[^\n]*md:hidden/,
-    );
-    expect(app).toMatch(
-      /news-footer-links[^\n]*grid[^\n]*grid-cols-5[^\n]*lg:flex/,
-    );
-    expect(app).not.toMatch(/news-mobile-nav[^\n]*overflow-x-auto/);
-    expect(css).toMatch(
-      /\.news-mobile-nav-link,[\s\S]*?\.news-footer-link\s*{[^}]*min-height:\s*2\.75rem[^}]*font-size:\s*clamp\(/,
-    );
+    expect(app).not.toContain("news-mobile-nav");
+    expect(app).toContain("DropdownMenuContent");
+    expect(app).toContain('aria-label={tr("Отвори менюто", "Open menu")}');
+    expect(app).toContain('to="/#news-search"');
+    expect(app).toMatch(/news-footer-links[^\n]*flex[^\n]*flex-wrap/);
+    expect(app).not.toMatch(/news-footer-links[^\n]*grid-cols-5/);
+    expect(css).toMatch(/\.news-footer-link\s*{[^}]*min-height:\s*2\.75rem/);
   });
 });

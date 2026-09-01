@@ -282,14 +282,12 @@ export const TopicsScreen = () => {
   return (
     <div className="space-y-5">
       <header className="border-b pb-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
+        <p className="app-eyebrow">
           {tr("Карта на отразяването", "Coverage map")}
         </p>
         <div className="mt-2 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
-            <h1 className="font-title text-4xl leading-none sm:text-5xl">
-              {tr("Теми", "Topics")}
-            </h1>
+            <h1 className="app-page-title">{tr("Теми", "Topics")}</h1>
             <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
               {tr(
                 "Къде българските медии се разминават — по политическата ос или в отношението към Русия — и колко голяма е извадката зад сигнала.",
@@ -297,7 +295,7 @@ export const TopicsScreen = () => {
               )}
             </p>
           </div>
-          <p className="max-w-sm border-l-2 border-[hsl(var(--editorial-kicker))] pl-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="max-w-sm border-l-2 border-accent pl-3 text-xs leading-relaxed text-muted-foreground">
             {tr(
               `Разсейване публикуваме при поне ${TOPIC_MIN_POSITIONED} статии с приложима оценка. Под прага показваме недостига, не подвеждаща стойност.`,
               `We publish dispersion only when at least ${TOPIC_MIN_POSITIONED} articles have an applicable rating. Below that threshold, we show the shortfall rather than a misleading value.`,
@@ -578,7 +576,7 @@ const Row = ({ category: c }: { category: TaxonomyCategory }) => {
         {c.route ? (
           <Link
             to={c.route}
-            className="font-semibold underline-offset-4 hover:text-[hsl(var(--editorial-kicker))] hover:underline"
+            className="font-semibold underline-offset-4 hover:text-accent hover:underline"
           >
             {c.label[language]}
           </Link>

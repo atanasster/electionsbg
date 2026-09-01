@@ -21,10 +21,10 @@ export const CorrectionsScreen = ({
   return (
     <article className="mx-auto max-w-4xl py-6">
       <header>
-        <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <p className="app-eyebrow">
           {tr("Редакционен процес", "Editorial process")}
         </p>
-        <h1 className="mt-1 font-title text-3xl">
+        <h1 className="app-page-title mt-1">
           {tr("Поправки и право на отговор", "Corrections and right of reply")}
         </h1>
         <p className="mt-3 max-w-3xl leading-relaxed text-foreground/90">
@@ -36,7 +36,7 @@ export const CorrectionsScreen = ({
       </header>
 
       <Card className="mt-6 p-5">
-        <h2 className="font-title text-xl">
+        <h2 className="app-section-title">
           {tr("Какво следва след сигнал", "What happens after a report")}
         </h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed">
@@ -72,7 +72,7 @@ export const CorrectionsScreen = ({
       </Card>
 
       <section className="mt-8" aria-labelledby="corrections-log">
-        <h2 id="corrections-log" className="font-title text-2xl">
+        <h2 id="corrections-log" className="app-section-title">
           {tr("Публичен регистър", "Public register")}
         </h2>
         {entries.length === 0 ? (

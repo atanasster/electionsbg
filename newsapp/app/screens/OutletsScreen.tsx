@@ -224,14 +224,10 @@ export const OutletsScreen = () => {
   return (
     <div className="space-y-5">
       <header className="news-directory-head border-b pb-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
-          {tr("Медиен каталог", "Media directory")}
-        </p>
+        <p className="app-eyebrow">{tr("Медиен каталог", "Media directory")}</p>
         <div className="mt-2 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
-            <h1 className="font-title text-4xl leading-none sm:text-5xl">
-              {tr("Източници", "Sources")}
-            </h1>
+            <h1 className="app-page-title">{tr("Източници", "Sources")}</h1>
             <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
               {tr(
                 "Българските медии в корпуса — размер на аудиторията, натрупани статии и как изглеждат оценките във вече анализираната извадка.",
@@ -239,7 +235,7 @@ export const OutletsScreen = () => {
               )}
             </p>
           </div>
-          <p className="max-w-sm border-l-2 border-[hsl(var(--editorial-kicker))] pl-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="max-w-sm border-l-2 border-accent pl-3 text-xs leading-relaxed text-muted-foreground">
             {tr(
               "Посещенията са оценки на Similarweb за последния наличен месец, а не измерване на качество, доверие или влияние.",
               "Visits are Similarweb estimates for the latest available month, not a measure of quality, trust, or influence.",
@@ -416,7 +412,7 @@ export const OutletsScreen = () => {
                       <TableCell>
                         <Link
                           to={`/outlet/${o.domain}`}
-                          className="font-semibold leading-tight underline-offset-4 hover:text-[hsl(var(--editorial-kicker))] hover:underline"
+                          className="font-semibold leading-tight underline-offset-4 hover:text-accent hover:underline"
                         >
                           {o.outlet}
                         </Link>

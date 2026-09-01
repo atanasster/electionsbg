@@ -335,7 +335,7 @@ export const OutletScreen = () => {
   if (!outlet) {
     return (
       <Card className="p-6">
-        <h1 className="font-title text-2xl">
+        <h1 className="app-page-title">
           {tr("Източникът не е намерен", "Source not found")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -363,7 +363,7 @@ export const OutletScreen = () => {
 
       <header className="space-y-2">
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="font-title text-3xl">{outlet.outlet}</h1>
+          <h1 className="app-page-title">{outlet.outlet}</h1>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {outlet.rank ? (
