@@ -29,9 +29,7 @@ const EvalArticleScreen = lazy(() =>
 
 const EvalRouteFallback = () => (
   <section className="py-12" aria-busy="true" aria-live="polite">
-    <p className="text-sm text-muted-foreground">
-      Зареждане на оценяването…
-    </p>
+    <p className="text-sm text-muted-foreground">Зареждане на оценяването…</p>
   </section>
 );
 
@@ -55,7 +53,23 @@ const NAV = [
   { to: "/outlets", label: "Източници" },
   { to: "/topics", label: "Теми" },
   { to: "/saved", label: "Запазени" },
-  { to: "/methodology", label: "Методология" },
+  { to: "/methodology", label: "Методология", mobileLabel: "Метод" },
+] as const;
+
+const FOOTER_LINKS = [
+  {
+    href: "https://electionsbg.com",
+    label: "electionsbg.com",
+    mobileLabel: "electionsbg",
+  },
+  { href: "/about", label: "за редакцията", mobileLabel: "за нас" },
+  { href: "/corrections", label: "поправки", mobileLabel: "поправки" },
+  {
+    href: "https://github.com/atanasster/electionsbg",
+    label: "отворен код",
+    mobileLabel: "код",
+  },
+  { href: "/methodology", label: "методология", mobileLabel: "метод" },
 ] as const;
 
 export const App = () => {
@@ -128,9 +142,9 @@ export const App = () => {
             </Button>
           </div>
         </div>
-        {/* Mobile nav — one row of scrollable pills under the header row. */}
+        {/* Mobile nav — one bounded row of pills under the header row. */}
         <nav
-          className="container flex items-center gap-1 overflow-x-auto px-2 pb-2 md:hidden"
+          className="news-mobile-nav container grid grid-cols-5 items-stretch gap-0.5 px-2 pb-2 md:hidden"
           aria-label="Основна навигация"
         >
           {NAV.map((item) => (
@@ -138,15 +152,19 @@ export const App = () => {
               key={item.to}
               to={item.to}
               end={"end" in item ? item.end : false}
+              aria-label={item.label}
               className={({ isActive }) =>
-                `shrink-0 rounded-full px-3 py-1 text-sm font-medium ${
+                `news-mobile-nav-link flex min-w-0 items-center justify-center rounded-full font-medium ${
                   isActive
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-secondary-foreground"
                 }`
               }
             >
-              {item.label}
+              <span className="sm:hidden">
+                {"mobileLabel" in item ? item.mobileLabel : item.label}
+              </span>
+              <span className="hidden sm:inline">{item.label}</span>
             </NavLink>
           ))}
         </nav>
@@ -187,32 +205,30 @@ export const App = () => {
         </Routes>
       </main>
 
-      <footer className="news-footer flex flex-wrap items-center justify-between gap-2 border-t bg-background p-4 text-sm">
-        <div className="hidden font-medium lowercase text-secondary-foreground sm:block">
+      <footer className="news-footer border-t bg-background p-2 text-sm sm:p-4 lg:flex lg:items-center lg:justify-between lg:gap-4">
+        <div className="hidden shrink-0 font-medium lowercase text-secondary-foreground lg:block">
           © {new Date().getFullYear()} · всички права запазени
         </div>
-        <ul className="flex flex-wrap items-center gap-1">
-          {[
-            ["https://electionsbg.com", "electionsbg.com"],
-            ["/about", "за редакцията"],
-            ["/corrections", "поправки"],
-            ["https://github.com/atanasster/electionsbg", "отворен код"],
-            ["/methodology", "методология"],
-          ].map(([href, label]) => (
+        <ul className="news-footer-links grid w-full grid-cols-5 items-stretch lg:flex lg:w-auto lg:items-center lg:gap-3">
+          {FOOTER_LINKS.map(({ href, label, mobileLabel }) => (
             <li key={href}>
               {href.startsWith("/") ? (
                 <Link
                   to={href}
-                  className="mx-2 font-medium lowercase text-secondary-foreground hover:text-primary"
+                  aria-label={label}
+                  className="news-footer-link flex min-w-0 items-center justify-center whitespace-nowrap rounded-sm font-medium lowercase text-secondary-foreground hover:text-primary"
                 >
-                  {label}
+                  <span className="sm:hidden">{mobileLabel}</span>
+                  <span className="hidden sm:inline">{label}</span>
                 </Link>
               ) : (
                 <a
                   href={href}
-                  className="mx-2 font-medium lowercase text-secondary-foreground hover:text-primary"
+                  aria-label={label}
+                  className="news-footer-link flex min-w-0 items-center justify-center whitespace-nowrap rounded-sm font-medium lowercase text-secondary-foreground hover:text-primary"
                 >
-                  {label}
+                  <span className="sm:hidden">{mobileLabel}</span>
+                  <span className="hidden sm:inline">{label}</span>
                 </a>
               )}
             </li>

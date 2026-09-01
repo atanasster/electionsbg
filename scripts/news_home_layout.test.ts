@@ -30,4 +30,20 @@ describe("news home supporting-grid CSS contract", () => {
     for (const [, selector, declarations] of cardBodyRules)
       expect(declarations, selector.trim()).not.toMatch(/\bmin-height\s*:/);
   });
+
+  it("keeps the mobile shell navigation and footer in bounded five-column rows", () => {
+    const app = fs.readFileSync(path.resolve("newsapp/App.tsx"), "utf8");
+    const css = fs.readFileSync(path.resolve("newsapp/news.css"), "utf8");
+
+    expect(app).toMatch(
+      /news-mobile-nav[^\n]*grid[^\n]*grid-cols-5[^\n]*md:hidden/,
+    );
+    expect(app).toMatch(
+      /news-footer-links[^\n]*grid[^\n]*grid-cols-5[^\n]*lg:flex/,
+    );
+    expect(app).not.toMatch(/news-mobile-nav[^\n]*overflow-x-auto/);
+    expect(css).toMatch(
+      /\.news-mobile-nav-link,[\s\S]*?\.news-footer-link\s*{[^}]*min-height:\s*2\.75rem[^}]*font-size:\s*clamp\(/,
+    );
+  });
 });

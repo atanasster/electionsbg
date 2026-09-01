@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it, vi } from "vitest";
@@ -33,6 +33,16 @@ describe("news shell accessibility", () => {
       "href",
       "/corrections",
     );
+    expect(screen.getAllByRole("link", { name: "Методология" })).toHaveLength(
+      2,
+    );
+    const footer = within(screen.getByRole("contentinfo"));
+    expect(
+      footer.getByRole("link", { name: "electionsbg.com" }),
+    ).toHaveTextContent("electionsbg");
+    expect(
+      footer.getByRole("link", { name: "за редакцията" }),
+    ).toHaveTextContent("за нас");
 
     await user.click(
       screen.getByRole("button", { name: "Включи светла тема" }),
