@@ -17,14 +17,7 @@ import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { formatDate } from "@/lib/formatDate";
 import type { HomeEventV1 } from "@/data/home/homeTypes";
-
-/** Whole days from now until `iso`, or null when it is past. Read time, never stored. */
-export const daysUntil = (iso: string, now = Date.now()): number | null => {
-  const t = Date.parse(iso);
-  if (!Number.isFinite(t)) return null;
-  const days = Math.ceil((t - now) / 86_400_000);
-  return days >= 0 ? days : null;
-};
+import { daysUntil } from "./daysUntil";
 
 export const HomeChangeCard: FC<{ event: HomeEventV1 }> = ({ event }) => {
   const { t, i18n } = useTranslation();

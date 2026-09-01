@@ -2,7 +2,10 @@
 // the ones with real edge cases. No Postgres, no fixtures on disk.
 
 import { describe, expect, it } from "vitest";
-import { deriveMode, lastValid, periodToIsoDay } from "./hub_stats";
+import { deriveMode, lastValid } from "./hub_stats";
+// ⚠️ Its own module now — `events/adapters.ts` needed it too, and a second copy is a
+// second place to get the `Date.UTC` rollover right.
+import { periodToIsoDay } from "./period";
 
 describe("periodToIsoDay", () => {
   it("resolves a quarter to the day it ENDS on", () => {

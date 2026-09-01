@@ -58,6 +58,16 @@ export const RENDERED = 6;
 export const MAX_PER_CATEGORY = 2;
 /** …and at least this many distinct categories in it, when the eligible rows allow. */
 export const MIN_CATEGORIES = 3;
+/**
+ * …and no more than this many of one category in the ARTIFACT.
+ *
+ * ⚠️ `MAX_PER_CATEGORY` PROTECTS THE SIX THE PAGE RENDERS AND NOTHING ELSE, so the reason
+ * written on it — „or one busy source becomes the whole feed" — was happening anyway one row
+ * down: measured on the first committed artifact, 24 of 40 rows were council resolutions from
+ * three protocols, and one whole category was down to a single row. The tail is what a later
+ * „see all" reads, so it needs its own (looser) ceiling.
+ */
+export const MAX_PER_CATEGORY_ARTIFACT = 12;
 
 const readJson = <T>(rel: string): T | null => {
   const p = path.join(ROOT, rel);
@@ -165,17 +175,32 @@ const run = async (): Promise<void> => {
   const all: HomeEventV1[] = [];
   const sourceCoverage: HomeFeedV1["sourceCoverage"] = {};
   const vintages: string[] = [];
+  /** …and the subset that may safely END the window — see the fold below. */
+  const observed: string[] = [];
 
   for (const a of ADAPTERS) {
     const r = a.run(ctx);
     // A family that could not be read is REPORTED, never silently dropped: „nothing
     // happened" and „we could not look" are different answers and only one is about the
     // world.
+    // ⚠️ `disclosedAsOf` WHERE THE FAMILY HAS ONE, and it is NOT `newest`. `newest` decides
+    // where the window ends and must be the freshest date the family saw; what a reader is told
+    // about the family's currency must be its STALEST arm, or a 23-day-old ДФЗ crawl is
+    // published as current because ИСУН ran this morning.
+    const asOf = r.disclosedAsOf !== undefined ? r.disclosedAsOf : r.newest;
     sourceCoverage[a.id] = {
       available: r.available,
-      ...(r.newest ? { asOf: r.newest } : {}),
+      ...(asOf ? { asOf } : {}),
+      // ⚠️ RECORDED so the `computedAt` fold below is auditable from the artifact alone. Only
+      // the crawl-based families have an observation clock, and only those may end the window.
+      ...(r.vintageBasis === "crawl" && r.newest
+        ? { observedAt: r.newest }
+        : {}),
     };
-    if (r.newest) vintages.push(r.newest);
+    if (r.newest) {
+      vintages.push(r.newest);
+      if (r.vintageBasis === "crawl") observed.push(r.newest);
+    }
     all.push(...r.events);
   }
 
@@ -187,7 +212,18 @@ const run = async (): Promise<void> => {
     return;
   }
 
-  const computedAt = [...vintages].sort().at(-1);
+  // ⚠️ THE WINDOW ENDS AT THE NEWEST **OBSERVATION**, NOT AT THE NEWEST DATE ANY ROW CARRIES.
+  // A crawl timestamp cannot be in the future — it is when we looked. An event date can be: a
+  // scheduled election, a forecast period, a call published before it opens. Taking the plain
+  // max let one open call dated 2026-12-01 drag the window three months forward, which took 65
+  // in-window events down to 1 and announced „данни към 01.12.2026" for an August corpus. That
+  // family was fixed at its source; this is the guard for the five that derive a vintage from
+  // event dates, and it is the only clock-free one that survives these corpora — see
+  // `vintageOf`'s header in adapters.ts for the two corpus-relative clamps that do not.
+  //
+  // Every family still reports its OWN vintage in `sourceCoverage`: an event-dated family
+  // claiming more than we observed is the source's claim, faithfully passed on.
+  const computedAt = [...observed].sort().at(-1) ?? [...vintages].sort().at(-1);
   if (!computedAt) {
     console.warn(
       "home_feed: no source vintage — refusing to write an artifact that cannot date itself",
@@ -201,12 +237,25 @@ const run = async (): Promise<void> => {
   // would be false for every same-day row. End-of-day is the honest reading: everything up
   // to the close of that day.
   const asOf = `${computedAt}T23:59:59.999Z`;
-  // The window, anchored on the sources. A row newer than `asOf` cannot exist by
-  // construction (that day is their maximum), so only the lower bound is applied.
+  // The window, anchored on the sources. ⚠️ BOTH BOUNDS, and the upper one is new: „a row
+  // newer than `asOf` cannot exist by construction" was true while `asOf` was the plain maximum
+  // over every family, and is not true now that it is the newest OBSERVATION. An event-dated
+  // family may carry a row past it, and such a row has not happened yet.
   const floor = new Date(
     Date.parse(asOf) - WINDOW_DAYS * 86_400_000,
   ).toISOString();
-  const inWindow = all.filter((e) => displayDate(e) >= floor);
+  // ⚠️ REVIEW-GATED ROWS NEVER REACH THE ARTIFACT. `intlDebtAdapter` builds Eurobond rows from
+  // a HAND-MAINTAINED file with no crawler and no watcher behind it, so a terms error there
+  // would be published as a claim about the Republic's own borrowing with nothing able to
+  // catch it. Phase 5's rule is „do not auto-publish until a structured authority exists"; the
+  // rows are built, counted and listable so the family can be promoted by changing one field,
+  // and they are dropped here. The count is REPORTED rather than swallowed — a review queue
+  // nobody can see is the same as no queue.
+  const staged = all.filter((e) => e.verification !== "automatic");
+  const automatic = all.filter((e) => e.verification === "automatic");
+  const inWindow = automatic.filter(
+    (e) => displayDate(e) >= floor && displayDate(e) <= asOf,
+  );
 
   // ⚠️ IDS MUST BE UNIQUE, and a collision is a bug rather than something to dedupe away:
   // two different facts sharing an id means one of them is unreachable and the browser's
@@ -220,10 +269,34 @@ const run = async (): Promise<void> => {
     byId.set(e.id, e);
   }
 
-  const events = diversify(orderEvents([...byId.values()], asOf)).slice(
-    0,
-    MAX_EVENTS,
-  );
+  const ranked = diversify(orderEvents([...byId.values()], asOf));
+  // The artifact-level cap, applied to the RANKED order so each category keeps its best rows.
+  const perCategory = new Map<HomeEventCategory, number>();
+  const events = ranked
+    .filter((e) => {
+      const n = perCategory.get(e.category) ?? 0;
+      if (n >= MAX_PER_CATEGORY_ARTIFACT) return false;
+      perCategory.set(e.category, n + 1);
+      return true;
+    })
+    .slice(0, MAX_EVENTS);
+
+  // ⚠️ THE REFUSAL BELONGS ON WHAT IS WRITTEN, NOT ON WHAT WAS BUILT. The `all.length` guard
+  // above covers „no adapter produced anything"; this covers the case that actually reaches
+  // production — every row falling outside the window. It is reachable by the mechanism this
+  // file documents: `openCallsAdapter` contributes a CRAWL date as its vintage, so a run in
+  // which only the crawler moved, and every call it found opened over a month ago, yields a
+  // `computedAt` with nothing inside the window. Every gate then passes vacuously (a cap holds
+  // at zero, a per-row loop runs zero times) and the browser shows the outage state for a
+  // corpus that is fine. The sibling generator refuses exactly this and says why.
+  if (events.length === 0) {
+    console.warn(
+      `home_feed: ${all.length} event(s) built but none inside the ${WINDOW_DAYS}-day window ` +
+        `ending ${computedAt} — refusing to overwrite a good artifact with an empty one. ` +
+        `The newest source vintage may be a crawl date; check whether an ingest is stalled.`,
+    );
+    return;
+  }
 
   const out: HomeFeedV1 = {
     schemaVersion: 1,
@@ -265,6 +338,13 @@ const run = async (): Promise<void> => {
     `home_feed: ${out.events.length} events (${inWindow.length} in window of ${all.length}) ` +
       `· ${cats.size} categories in the first ${RENDERED} · computedAt=${computedAt} · ${bytes} bytes`,
   );
+  if (staged.length > 0)
+    console.log(
+      `home_feed: ${staged.length} row(s) held for editorial review, not published` +
+        (process.argv.includes("--include-review")
+          ? `\n  ${staged.map((e) => `${e.id} (${displayDate(e).slice(0, 10)})`).join("\n  ")}`
+          : " — pass --include-review to list them"),
+    );
 };
 
 if (process.argv[1] && process.argv[1].includes("gen_home/feed")) {

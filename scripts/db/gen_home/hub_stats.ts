@@ -25,6 +25,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { periodToIsoDay } from "./period";
 import {
   HOME_FIGURE_IDS,
   homeFigureIdIsHonest,
@@ -258,30 +259,6 @@ const buildFigures = (
  * the artifact would change daily with no source change and could not be byte-stable.
  */
 const RECENT_DAYS = 14;
-
-/**
- * A source period → the ISO DAY it ends on, so vintages in different dialects are
- * comparable. A quarter and a month both resolve to their LAST day, because a figure
- * covering 2026-Q2 is current as of the end of June, not the start of April — dating it
- * earlier would understate the artifact's freshness.
- */
-export const periodToIsoDay = (period: string): string | null => {
-  const q = /^(\d{4})-Q([1-4])$/.exec(period);
-  if (q) {
-    const endMonth = Number(q[2]) * 3;
-    const day = new Date(Date.UTC(Number(q[1]), endMonth, 0));
-    return day.toISOString().slice(0, 10);
-  }
-  // ⚠️ `0[1-9]|1[0-2]`, not `\d{2}`. `Date.UTC` ROLLS OVER, so a malformed "2026-13" became
-  // "2027-01-31" and "2026-00" became "2025-12-31" — a plausible date fed straight into
-  // `computedAt` and the election window. Returning null puts it through the filter instead.
-  const m = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(period);
-  if (m) {
-    const day = new Date(Date.UTC(Number(m[1]), Number(m[2]), 0));
-    return day.toISOString().slice(0, 10);
-  }
-  return /^\d{4}-\d{2}-\d{2}$/.test(period) ? period : null;
-};
 
 const deriveMode = (
   latestElection: string | null,

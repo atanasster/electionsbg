@@ -12,6 +12,7 @@ import {
   findNowRelativeFields,
   type HomeFeedV1,
 } from "@/data/home/homeTypes";
+import { censusRoutes } from "../../prerender/routerCensus";
 import {
   MAX_EVENTS,
   MAX_PER_CATEGORY,
@@ -22,17 +23,27 @@ import {
   diversify,
   orderEvents,
 } from "../gen_home/feed";
+import { intlDebtAdapter } from "../gen_home/events/adapters";
 
 const REPO = path.resolve(__dirname, "../../..");
 const ARTIFACT = path.join(REPO, "data/home/feed.json");
-const feed = JSON.parse(readFileSync(ARTIFACT, "utf-8")) as HomeFeedV1;
+// ⚠️ READ CONDITIONALLY. Parsing at module scope throws during COLLECTION when the artifact is
+// absent, so the `existsSync` clause below never runs and vitest reports a suite error instead
+// of the message that names the fix.
+const present = existsSync(ARTIFACT);
+const feed = present
+  ? (JSON.parse(readFileSync(ARTIFACT, "utf-8")) as HomeFeedV1)
+  : ({ events: [], sourceCoverage: {} } as unknown as HomeFeedV1);
 
 /** §6.6's ceiling. One request must supply the whole section. */
 const SIZE_CEILING = 64 * 1024;
 
 describe("home feed — schema and budget", () => {
   it("exists, declares its version, and fits its ceiling", () => {
-    expect(existsSync(ARTIFACT)).toBe(true);
+    expect(
+      present,
+      `${ARTIFACT} is committed — run npm run db:gen-home-feed`,
+    ).toBe(true);
     expect(feed.schemaVersion).toBe(1);
     expect(statSync(ARTIFACT).size).toBeLessThan(SIZE_CEILING);
     expect(feed.events.length).toBeLessThanOrEqual(MAX_EVENTS);
@@ -80,6 +91,76 @@ describe("home feed — schema and budget", () => {
         expect(k, `${e.id}: ${k}`).not.toMatch(/^(text|sentence|headline)/);
       }
     }
+  });
+});
+
+describe("home feed — the copy and its arguments agree", () => {
+  const corpus = (lang: "bg" | "en"): Record<string, string> =>
+    JSON.parse(
+      readFileSync(
+        path.join(REPO, `src/locales/${lang}/translation.json`),
+        "utf-8",
+      ),
+    ) as Record<string, string>;
+
+  it("every emitted fact supplies every placeholder its copy interpolates", () => {
+    // ⚠️ i18next v24 DEFAULTS `interpolation.skipOnVariables` TO TRUE, so a missing argument
+    // does not render as empty — it renders the LITERAL `{{yieldPct}}` on the home page, at a
+    // 200, in both languages. Three arguments were spread conditionally against templates that
+    // interpolate them unconditionally, and 9 of 67 domestic emissions carry no settlement
+    // yield, so it was one auction away. `HomeChangeCard` calls `t(factKey, factArgs)` directly
+    // — there is no second line of defence.
+    for (const lang of ["bg", "en"] as const) {
+      const c = corpus(lang);
+      for (const e of feed.events) {
+        const template = c[e.factKey];
+        expect(
+          template,
+          `${e.id}: ${e.factKey} is untranslated in ${lang}`,
+        ).toBeTruthy();
+        for (const m of template.matchAll(/{{(\w+)}}/g))
+          expect(
+            e.factArgs,
+            `${e.id} · ${lang} · ${e.factKey} interpolates {{${m[1]}}}`,
+          ).toHaveProperty(m[1]);
+      }
+    }
+  });
+
+  it("ships no argument the copy never renders", () => {
+    // The converse, and it is not tidiness: `budgetEur` carried a careful NULL-vs-zero comment
+    // for a value no template read, which reads as a rule being enforced when nothing renders
+    // the field at all.
+    const bg = corpus("bg");
+    const en = corpus("en");
+    for (const e of feed.events) {
+      const used = new Set(
+        [...bg[e.factKey].matchAll(/{{(\w+)}}/g)].map((m) => m[1]),
+      );
+      for (const m of en[e.factKey].matchAll(/{{(\w+)}}/g)) used.add(m[1]);
+      for (const k of Object.keys(e.factArgs))
+        expect(
+          used.has(k),
+          `${e.id}: factArgs.${k} is rendered by no locale`,
+        ).toBe(true);
+    }
+  });
+
+  it("quotes no parser-failure placeholder as the substance of a fact", () => {
+    // ⚠️ WRITTEN OVER VALUES, not key names. The council scraper writes „(no title parsed)"
+    // when it cannot extract one, and it is TRUTHY — 21 of the first artifact's 40 rows
+    // published it as the subject of a municipal decision, in Bulgarian and in English, with a
+    // working link. The existing „carries no localized prose" clause tests key names and could
+    // not see it. Written this way it also catches the next placeholder a scraper invents.
+    const MARKERS =
+      /\(no [a-z ]*parsed\)|^(n\/?a|null|undefined|tbd|unknown)$|^-+$/i;
+    for (const e of feed.events)
+      for (const [k, v] of Object.entries(e.factArgs))
+        if (typeof v === "string")
+          expect(
+            MARKERS.test(v.trim()),
+            `${e.id}: factArgs.${k} = ${JSON.stringify(v)}`,
+          ).toBe(false);
   });
 });
 
@@ -139,19 +220,38 @@ describe("home feed — date semantics", () => {
 });
 
 describe("home feed — the window is anchored on the sources", () => {
-  it("computedAt equals the newest source vintage, and no event is newer", () => {
+  it("computedAt equals the newest OBSERVATION, and no event is newer", () => {
     // ⚠️ NOT `now`. A calendar-anchored window slides daily with no source change, which
-    // breaks byte-identical rebuilds AND lets a stalled pipeline look fresh — the window
-    // keeps advancing while the newest event stays put.
-    const asOf = Object.values(feed.sourceCoverage)
-      .map((s) => s?.asOf)
+    // breaks byte-identical rebuilds AND lets a stalled pipeline look fresh — the window keeps
+    // advancing while the newest event stays put.
+    //
+    // ⚠️ AND NOT `max(asOf)` EITHER, which is what this compared against until a review found
+    // the hole. `asOf` is each family's own claim, and an event-dated family can claim a date
+    // in the FUTURE — a scheduled election, a call published before it opens. `observedAt` is
+    // recorded only by families with an observation clock (a crawl timestamp, a corpus day, a
+    // publisher's release stamp), none of which can be ahead of the present.
+    const observed = Object.values(feed.sourceCoverage)
+      .map((s) => s?.observedAt)
       .filter(Boolean)
       .sort()
       .at(-1);
-    expect(asOf, "no source declared a vintage").toBeTruthy();
-    expect(feed.computedAt.slice(0, 10)).toBe(asOf);
+    expect(observed, "no source declared an observation date").toBeTruthy();
+    expect(feed.computedAt.slice(0, 10)).toBe(observed);
     for (const e of feed.events)
       expect(displayDate(e) <= feed.computedAt, e.id).toBe(true);
+  });
+
+  it("a family's disclosed vintage may lag the observation it was folded from", () => {
+    // Not a defect — the point. `openCallsAdapter` reads three independent snapshots and
+    // discloses the STALEST (ДФЗ and Interreg were 23 and 21 days behind ИСУН on 2026-09-01)
+    // while the window is anchored on the newest crawl. Both numbers are in the artifact so a
+    // reader can see the difference rather than infer it.
+    for (const [id, c] of Object.entries(feed.sourceCoverage))
+      if (c?.observedAt && c?.asOf)
+        expect(
+          c.asOf <= c.observedAt,
+          `${id} claims to be newer than we looked`,
+        ).toBe(true);
   });
 
   it("every event is inside the declared window", () => {
@@ -165,11 +265,26 @@ describe("home feed — the window is anchored on the sources", () => {
     expect(feed.windowDays).toBe(WINDOW_DAYS);
   });
 
-  it("computedAt does NOT track the build date", () => {
-    // The mutation check: if it did, this equals today on the machine that generated it and
-    // the clause above passes anyway (today is also the max vintage, trivially).
+  it("is never dated in the future", () => {
     const today = new Date().toISOString().slice(0, 10);
     expect(feed.computedAt.slice(0, 10) <= today).toBe(true);
+  });
+
+  it("moves with the sources, not the calendar", () => {
+    // ⚠️ THE CLAUSE THAT ACTUALLY DISCRIMINATES, and it replaced one that could not. The old
+    // one asserted `computedAt <= today`, which a run-clock `computedAt` satisfies on the day
+    // it was generated AND on every day after — so it could only ever fail on a future-dated
+    // artifact, which is a different property (kept, above, under its own name).
+    //
+    // This one re-derives the value from `sourceCoverage`, which the generator fills from each
+    // adapter's own `newest` — a different code path from the vintage fold. A `computedAt`
+    // taken from the clock cannot equal it except by coincidence on one day.
+    const maxObserved = Object.values(feed.sourceCoverage)
+      .map((s) => s?.observedAt)
+      .filter(Boolean)
+      .sort()
+      .at(-1);
+    expect(feed.computedAt).toBe(`${maxObserved}T23:59:59.999Z`);
   });
 });
 
@@ -185,6 +300,75 @@ describe("home feed — coverage is disclosed, not implied", () => {
     // „No resolutions near you" is almost always „we do not read your council" — 16 of 265.
     for (const e of feed.events)
       if (!e.coverage.complete) expect(e.coverage.noteKey, e.id).toBeTruthy();
+  });
+});
+
+describe("home feed — every row goes somewhere real", () => {
+  it("every route resolves against the router", () => {
+    // ⚠️ THE ONE DEFECT NO OTHER CLAUSE CAN SEE. `route.startsWith("/")` is satisfied by
+    // `/budget/documents` and `/governance/debt`, neither of which exists — both were in the
+    // first cut of the budget and debt adapters, and both would have shipped a feed row whose
+    // only job is to be clicked straight into the SPA's not-found page. The adapters name
+    // destinations by hand, so nothing but the router can confirm them.
+    const routes = censusRoutes(
+      readFileSync(path.join(REPO, "src/routes.tsx"), "utf-8"),
+    ).filter((r) => r.hasElement && !r.unresolved);
+    const matches = (route: string): boolean => {
+      const segs = route.replace(/^\/+/, "").split("/").filter(Boolean);
+      return routes.some((r) => {
+        const pat = r.path.split("/").filter(Boolean);
+        if (pat.length !== segs.length) return false;
+        return pat.every((p, i) => p.startsWith(":") || p === segs[i]);
+      });
+    };
+    for (const e of feed.events)
+      expect(matches(e.route), `${e.id} -> ${e.route}`).toBe(true);
+  });
+});
+
+describe("home feed — the review gate", () => {
+  it("no review-gated row reaches the artifact", () => {
+    // Phase 5's fifth item. `intlDebtAdapter` builds Eurobond rows from a hand-maintained
+    // file with no crawler and no watcher behind it; `feed.ts` drops them before writing.
+    for (const e of feed.events) expect(e.verification, e.id).toBe("automatic");
+  });
+
+  it("…and the gate is not vacuous — the generator really does stage rows", () => {
+    // ⚠️ The mutation check the clause above needs. „Every published row is automatic" is
+    // trivially true of a generator that never builds a staged one, so this asserts the
+    // staged family EXISTS and is non-empty. Without it, deleting `intlDebtAdapter` outright
+    // would leave both clauses green.
+    const staged = intlDebtAdapter({
+      root: REPO,
+      readJson: <T>(rel: string): T | null => {
+        const f = path.join(REPO, rel);
+        return existsSync(f)
+          ? (JSON.parse(readFileSync(f, "utf-8")) as T)
+          : null;
+      },
+    });
+    expect(staged.available).toBe(true);
+    expect(staged.events.length).toBeGreaterThan(0);
+    for (const e of staged.events)
+      expect(e.verification, e.id).toBe("editorial_review");
+    // And none of them is in the published set.
+    const published = new Set(feed.events.map((e) => e.id));
+    for (const e of staged.events)
+      expect(published.has(e.id), e.id).toBe(false);
+  });
+});
+
+describe("home feed — a budget row is a document notice", () => {
+  it("no budget/debt fact carries a money argument it did not derive", () => {
+    // §6.2: „document notice automatic; numeric 'budget changed' remains review-gated".
+    // A debt AUCTION is the exception and states its own principal — that figure comes from
+    // БНБ's own result, not from a diff of appropriations nobody reconciled.
+    for (const e of feed.events) {
+      if (e.category !== "budget_debt") continue;
+      if (e.kind === "debt_auction") continue;
+      for (const k of Object.keys(e.factArgs))
+        expect(k, `${e.id}: ${k}`).not.toMatch(/eur|bgn|amount|delta|pct/i);
+    }
   });
 });
 

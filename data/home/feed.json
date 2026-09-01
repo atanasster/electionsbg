@@ -5,6 +5,39 @@
   "events": [
     {
       "schemaVersion": 1,
+      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-08-31T00:00:00.000Z",
+      "firstSeenAt": "2026-08-31T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+        "pct": 51,
+        "promoEur": "0.89",
+        "regularEur": "1.82",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7285714285714285,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
       "id": "funds:call_opened:isun:ceaa9a74-aa2c-4632-b69b-0701453b3ce2",
       "kind": "call_opened",
       "category": "funds",
@@ -25,7 +58,7 @@
         "noteKey": "home_coverage_calls_partial"
       },
       "route": "/funds/calls",
-      "factKey": "home_fact_call_opened",
+      "factKey": "home_fact_call_opened_programme",
       "factArgs": {
         "title": "Допълващо финансиране за консолидиране на първоначалната мрежа от Европейски цифрови иновационни хъбове",
         "programme": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\""
@@ -56,8 +89,7 @@
       "route": "/votes/2026-08-27",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 16,
-        "ns": "52"
+        "items": 16
       },
       "backfill": false,
       "verification": "automatic",
@@ -66,35 +98,36 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r545",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-08-31T00:00:00.000Z",
+      "firstSeenAt": "2026-08-31T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
+        "level": "national"
       },
       "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
       },
       "coverage": {
         "complete": false,
-        "noteKey": "home_coverage_council_partial"
+        "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/council/resolution/RAZ26-2026-prot37-r545",
-      "factKey": "home_fact_council_resolution",
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "545"
+        "title": "ЛИМОНИ",
+        "pct": 50,
+        "promoEur": "1.28",
+        "regularEur": "2.57",
+        "chains": 5
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.44,
-      "actionability": 0.3
+      "materiality": 0.7142857142857143,
+      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -118,7 +151,7 @@
         "noteKey": "home_coverage_calls_partial"
       },
       "route": "/funds/calls",
-      "factKey": "home_fact_call_opened",
+      "factKey": "home_fact_call_opened_programme",
       "factArgs": {
         "title": "Аквакултури, предоставящи екологични услуги -„Непродуктивни инвестиции в стопанствата, свързани с прилагане на преки кон",
         "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
@@ -149,8 +182,7 @@
       "route": "/votes/2026-08-25",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 19,
-        "ns": "52"
+        "items": 19
       },
       "backfill": false,
       "verification": "automatic",
@@ -159,35 +191,67 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r546",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
+      "id": "prices:promotion:palmolive-sapun-cherna-orhideya-90-g",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-08-31T00:00:00.000Z",
+      "firstSeenAt": "2026-08-31T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
+        "level": "national"
       },
       "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
       },
       "coverage": {
         "complete": false,
-        "noteKey": "home_coverage_council_partial"
+        "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/council/resolution/RAZ26-2026-prot37-r546",
-      "factKey": "home_fact_council_resolution",
+      "route": "/product/palmolive-sapun-cherna-orhideya-90-g",
+      "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "546"
+        "title": "PALMOLIVE сапун Черна орхидея 90 г",
+        "pct": 47,
+        "promoEur": "0.65",
+        "regularEur": "1.22",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.44,
-      "actionability": 0.3
+      "materiality": 0.6714285714285714,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "debt:domestic_auction:BG-2026-08-24-218",
+      "kind": "debt_auction",
+      "category": "budget_debt",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "bnb_auctions",
+        "labelKey": "home_source_bnb"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators/fiscal",
+      "factKey": "home_fact_debt_auction_yield",
+      "factArgs": {
+        "millions": 95,
+        "currency": "EUR",
+        "years": 10,
+        "yieldPct": "4.39"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6607616015100248,
+      "actionability": 0.2
     },
     {
       "schemaVersion": 1,
@@ -211,7 +275,7 @@
         "noteKey": "home_coverage_calls_partial"
       },
       "route": "/funds/calls",
-      "factKey": "home_fact_call_opened",
+      "factKey": "home_fact_call_opened_programme",
       "factArgs": {
         "title": "Окончателно преустановяване на риболовни дейности",
         "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
@@ -242,13 +306,73 @@
       "route": "/votes/2026-08-26",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 16,
-        "ns": "52"
+        "items": 16
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "macro:cpi_release:prc_hicp_minr:2026-07",
+      "kind": "cpi_released",
+      "category": "prices",
+      "publishedAt": "2026-08-19T09:00:00.000Z",
+      "firstSeenAt": "2026-08-19T00:00:00.000Z",
+      "dateBasis": "published",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "eurostat_hicp",
+        "labelKey": "home_source_eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators",
+      "factKey": "home_fact_cpi_released",
+      "factArgs": {
+        "period": "2026-07",
+        "pct": "4.4"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-08-16",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-08-16T00:00:00.000Z",
+      "firstSeenAt": "2026-08-16T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_up",
+      "factArgs": {
+        "pct": "3.2",
+        "costEur": "16.60",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8075,
+      "actionability": 0.5
     },
     {
       "schemaVersion": 1,
@@ -271,525 +395,12 @@
       "route": "/votes/2026-08-28",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 1,
-        "ns": "52"
+        "items": 1
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.025,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r549",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r549",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "549"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.44,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r550",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r550",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "550"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.44,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r551",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r551",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "551"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.44,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r552",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r552",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "552"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.44,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r537",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r537",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "537"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.43000000000000005,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r538",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r538",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "538"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.43000000000000005,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r548",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r548",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "548"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.43000000000000005,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r554",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r554",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "554"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.43000000000000005,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r539",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r539",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "539"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.42000000000000004,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r541",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r541",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "541"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.42000000000000004,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r543",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r543",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "543"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.42000000000000004,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r547",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r547",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "547"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.42000000000000004,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r542",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r542",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "542"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.41000000000000003,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r553",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r553",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "553"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.41000000000000003,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r540",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r540",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "540"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r544",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r544",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "RAZ26",
-        "number": "544"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.39,
-      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -813,7 +424,7 @@
         "noteKey": "home_coverage_calls_partial"
       },
       "route": "/funds/calls",
-      "factKey": "home_fact_call_opened",
+      "factKey": "home_fact_call_opened_programme",
       "factArgs": {
         "title": "Въвеждане на зелени технологии в МСП",
         "programme": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027"
@@ -845,7 +456,7 @@
         "noteKey": "home_coverage_calls_partial"
       },
       "route": "/funds/calls",
-      "factKey": "home_fact_call_opened",
+      "factKey": "home_fact_call_opened_programme",
       "factArgs": {
         "title": "Регионален център за устойчиви производства и логистична интеграция",
         "programme": "Програма \"Развитие на регионите\" 2021-2027"
@@ -889,102 +500,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SOF-2026-prot67-r663",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-20T00:00:00.000Z",
-      "firstSeenAt": "2026-08-20T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SOF"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SOF-2026-prot67-r663",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "SOF",
-        "number": "663"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SOF-2026-prot67-r664",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-20T00:00:00.000Z",
-      "firstSeenAt": "2026-08-20T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SOF"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SOF-2026-prot67-r664",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "SOF",
-        "number": "664"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SOF-2026-prot67-r665",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-20T00:00:00.000Z",
-      "firstSeenAt": "2026-08-20T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SOF"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SOF-2026-prot67-r665",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "(no title parsed)",
-        "council": "SOF",
-        "number": "665"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
       "id": "funds:call_opened:isun:769d8c53-2790-4be5-87d0-9ad1ca13cc9e",
       "kind": "call_opened",
       "category": "funds",
@@ -1005,7 +520,7 @@
         "noteKey": "home_coverage_calls_partial"
       },
       "route": "/funds/calls",
-      "factKey": "home_fact_call_opened",
+      "factKey": "home_fact_call_opened_programme",
       "factArgs": {
         "title": "\"Зелени мерки в градска среда (6)\"",
         "programme": "Програма \"Околна среда\" 2021-2027"
@@ -1270,24 +785,142 @@
       "verification": "automatic",
       "materiality": 0.2,
       "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot12-r280",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-03T00:00:00.000Z",
+      "firstSeenAt": "2026-08-03T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot12-r280",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Осигуряване на средства за възлагане извършването на дейности по полагане на хоризонтална пътна маркировка и вертикална ",
+        "council": "PDV01",
+        "number": "280"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot12-r281",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-03T00:00:00.000Z",
+      "firstSeenAt": "2026-08-03T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot12-r281",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на изменение и допълнение на „Общинска образователна програма 2026 – 2028“ ПО ПРЕДЛОЖЕНИЕ НА: Костадин Димитров",
+        "council": "PDV01",
+        "number": "281"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot12-r282",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-03T00:00:00.000Z",
+      "firstSeenAt": "2026-08-03T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot12-r282",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Правилник за изменение на Правилника за устройството и дейността на ОП „Социално предприятие за хора с увреж",
+        "council": "PDV01",
+        "number": "282"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
     }
   ],
   "sourceCoverage": {
+    "budget": {
+      "available": true,
+      "asOf": "2026-07-28"
+    },
     "council": {
       "available": true,
       "asOf": "2026-08-25"
+    },
+    "debt": {
+      "available": true,
+      "asOf": "2026-08-24"
     },
     "elections": {
       "available": true,
       "asOf": "2026-04-19"
     },
+    "intl_debt": {
+      "available": true
+    },
+    "macro": {
+      "available": true,
+      "asOf": "2026-08-19",
+      "observedAt": "2026-08-19"
+    },
     "opencalls": {
       "available": true,
-      "asOf": "2026-09-01"
+      "asOf": "2026-08-09",
+      "observedAt": "2026-09-01"
     },
     "parliament": {
       "available": true,
       "asOf": "2026-08-28"
+    },
+    "prices": {
+      "available": true,
+      "asOf": "2026-08-31",
+      "observedAt": "2026-08-31"
     }
   }
 }

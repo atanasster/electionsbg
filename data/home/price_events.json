@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "computedAt": "2026-08-31",
+  "thresholds": {
+    "basketPids": [
+      1,
+      6,
+      9,
+      11,
+      35,
+      38,
+      40,
+      42,
+      52,
+      54,
+      55,
+      61
+    ],
+    "basketWindowDays": 7,
+    "basketMovePct": 1.5,
+    "minCohortCells": 600,
+    "minCohortShare": 0.6,
+    "measureWindowDays": 30,
+    "promoMinDiscountPct": 30,
+    "promoMaxDiscountPct": 70,
+    "promoMinStores": 3,
+    "promoMinChains": 2,
+    "promoOutlierFloor": 0.7,
+    "promoMinEur": 0.1,
+    "promoLevelTolerance": 0.02,
+    "promoStartWindowDays": 30,
+    "promoMaxEvents": 3
+  },
+  "basketMoves": [
+    {
+      "peakDay": "2026-08-16",
+      "startDay": "2026-08-14",
+      "endDay": "2026-08-21",
+      "pctChange": 3.23,
+      "costEur": 16.596,
+      "prevCostEur": 16.077,
+      "cohortCells": 1824,
+      "cohortShare": 0.8161
+    }
+  ],
+  "promotions": [
+    {
+      "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+      "atOrBelowSince": "2026-08-20",
+      "promoEur": 0.89,
+      "regularEur": 1.82,
+      "discountPct": 51,
+      "stores": 6,
+      "chains": 2
+    },
+    {
+      "slug": "limoni",
+      "title": "ЛИМОНИ",
+      "atOrBelowSince": "2026-08-21",
+      "promoEur": 1.28,
+      "regularEur": 2.57,
+      "discountPct": 50,
+      "stores": 315,
+      "chains": 5
+    },
+    {
+      "slug": "palmolive-sapun-cherna-orhideya-90-g",
+      "title": "PALMOLIVE сапун Черна орхидея 90 г",
+      "atOrBelowSince": "2026-08-27",
+      "promoEur": 0.65,
+      "regularEur": 1.22,
+      "discountPct": 47,
+      "stores": 40,
+      "chains": 2
+    }
+  ]
+}

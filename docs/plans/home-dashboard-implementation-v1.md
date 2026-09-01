@@ -467,6 +467,10 @@ The first implementation uses documented deterministic thresholds, stored beside
 
 The exact numeric threshold is finalized against a 90-day replay in Phase 5. The review artifact records event count/day, false positives, missing days, and category dominance before the threshold is accepted.
 
+**Accepted 2026-09-01** — replay: [`docs/audits/home-price-threshold-replay-2026-09-01.md`](../audits/home-price-threshold-replay-2026-09-01.md). Basket move **±1.5%** over a 7-day mean against the prior 7-day mean, measured over a **fixed cohort** (the settlement×product cells priced on every day of the 14-day span) so coverage movement cannot explain the result — the naive series put 2026-08-26 at −2.82% while its cells moved −4.60%. Consecutive same-sign crossings collapse to **one episode**, dated at its strongest day: 4 episodes over 92 days. Promotions take the /consumption deals board's own corroboration (≥3 store listings, ≥2 chains, chain-deduped baseline regular) with a stricter **30–70%** discount band, a level-anchored start date, and a cap of 3.
+
+⚠️ **The price corpus is Postgres-only, so the price arm reads a COMMITTED INTERMEDIATE.** `db:gen-home-price-events` measures and writes `data/home/price_events.json`; the feed's adapter reads that file. Without the split, `gen_home/feed.ts` would need a database — and the artifact would then differ between a machine with the price corpus and one without, which breaks the byte-identical rebuild §12.3 requires. Every threshold above is stored in the artifact so a future reader can tell a corpus change from a rule change.
+
 ### 6.4 Ranking and diversity
 
 The generator calculates a deterministic rank from:
@@ -1382,6 +1386,18 @@ Work:
 5. Add editorial-review flow for international debt; do not auto-publish until a structured authority exists.
 
 Exit: replay and editorial samples meet accepted correction/volume thresholds; price coverage changes cannot masquerade as price moves; debt/budget date basis is explicit.
+
+**Done 2026-09-01.** Nine adapters in total; five new here — `prices` (basket + promotion, via the committed `data/home/price_events.json`), `macro` (the HICP release, dated by Eurostat's own dataset timestamp out of `state/watch/eurostat.json` rather than by the month it covers), `budget` (promulgated laws as document notices, plus the newest КФП period), `debt` (БНБ domestic auctions) and `intl_debt` (Eurobonds, **`editorial_review`, dropped by `feed.ts` before writing** — `debt-emissions.json` is hand-maintained with no crawler and no watcher behind it). `--include-review` lists what is staged.
+
+Four rules are gated rather than asserted in prose, and three of them were written because review found the defect first:
+
+- **a budget fact may carry no money argument**, and **every event route must resolve against `src/routes.tsx`** — the clause that caught `/budget/documents` and `/governance/debt`, neither of which exists;
+- **a promotion's date and its price must describe one listing.** The price passes the deals board's outlier floor; `price_product_days.min_promo_eur` does not. Anchored on the raw minimum the walk-back followed an *excluded* listing's run and published „€1.28, since 31 August" for a level live since 21 August — the artifact's top-ranked row, on recency bought by a price we refused to quote. The field is now `atOrBelowSince`, anchored on the gated price, and it is not the row's date;
+- **every placeholder a fact's copy interpolates must be supplied.** i18next v24 defaults `interpolation.skipOnVariables` to true, so a conditionally-spread argument renders the literal `{{yieldPct}}` at a 200 — one БНБ auction away, since 9 of 67 emissions carry no settlement yield. Where a field is genuinely optional the fact takes a second key rather than a conditional argument.
+
+⚠️ **The window ends at the newest OBSERVATION, not the newest date any row carries.** A crawl timestamp cannot be in the future; an event date can — a scheduled election, a forecast period. Each adapter declares its `vintageBasis`, the feed folds `computedAt` from the crawl-based families only, and `sourceCoverage` records both numbers so the fold is auditable. Proved by appending a 2027-06-01 election to the registry: `computedAt` stayed at 2026-09-01, all 28 events survived, and the future row was not published. No corpus-relative clamp works instead — Bulgaria's last two elections are 539 days apart, so any ceiling loose enough for that admits a row a year out.
+
+⚠️ **`feed.ts` refuses to publish an EMPTY artifact**, not merely an empty input. The old guard was on what was built; the artifact is written from what survives the window, and `openCallsAdapter` contributes a crawl date, so a run in which only the crawler moved could write `{"events": []}` over a good file with every gate passing vacuously. And `MAX_PER_CATEGORY_ARTIFACT` caps the tail: without it 24 of 40 rows were council resolutions from three protocols — 21 of them carrying the scraper's literal „(no title parsed)", which is truthy and was being published as the substance of a municipal decision in both languages.
 
 Rollback: disable individual adapters by source registry; other categories continue.
 

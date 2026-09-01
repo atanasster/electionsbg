@@ -87,6 +87,15 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:gen-home-feed",
+    before: "db:gen-home-price-events",
+    why:
+      "the feed's price adapter reads data/home/price_events.json rather than Postgres — " +
+      "the split that lets the feed build on a fresh clone — so run first it folds the " +
+      "PREVIOUS vintage's basket move and promotions into the artifact with every count " +
+      "reconciling",
+  },
+  {
     after: "db:load:grant-links:pg",
     before: "db:load:tenders:pg",
     why:

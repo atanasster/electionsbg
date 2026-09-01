@@ -204,7 +204,24 @@ export type HomeFeedV1 = {
   windowDays: number;
   events: HomeEventV1[];
   sourceCoverage: Partial<
-    Record<string, { available: boolean; asOf?: string }>
+    Record<
+      string,
+      {
+        available: boolean;
+        /** How current this family IS — its STALEST arm when it reads several snapshots. */
+        asOf?: string;
+        /**
+         * When we last OBSERVED the source, for the families that have such a clock (a crawl
+         * timestamp, a corpus day, a publisher's release stamp).
+         *
+         * ⚠️ THIS IS WHAT `computedAt` IS FOLDED FROM, and it is recorded so that fold is
+         * auditable from the artifact alone. An observation cannot be in the future; an event
+         * date can, and taking the plain maximum over event dates let one row dated three
+         * months out drag the whole window with it.
+         */
+        observedAt?: string;
+      }
+    >
   >;
 };
 

@@ -93,7 +93,10 @@ describe("home hub_stats — schema", () => {
           .slice(0, 10);
       return p;
     };
-    const newest = stats.figures.map((f) => toDay(f.basis.period)).sort().at(-1);
+    const newest = stats.figures
+      .map((f) => toDay(f.basis.period))
+      .sort()
+      .at(-1);
     expect(newest, "no figure carries a period").toBeTruthy();
     expect(stats.computedAt).toBe(newest);
 

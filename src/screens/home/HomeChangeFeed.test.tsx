@@ -17,7 +17,8 @@ import {
   HOME_FEED_FIXTURE,
 } from "@/data/home/__fixtures__/home";
 import type { HomeEventV1, HomeFeedV1 } from "@/data/home/homeTypes";
-import { daysUntil, HomeChangeCard } from "./HomeChangeCard";
+import { HomeChangeCard } from "./HomeChangeCard";
+import { daysUntil } from "./daysUntil";
 import { HomeChangeFeed, RENDERED } from "./HomeChangeFeed";
 
 const stub = vi.hoisted(() => ({

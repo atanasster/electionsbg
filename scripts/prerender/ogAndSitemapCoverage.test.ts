@@ -1306,7 +1306,17 @@ describe("a hub's og capture anchors on its head", () => {
      *  here is `npx tsx scripts/og/capture-screens.ts <slug>` producing a byte-identical
      *  file (compare md5). „This looks like it only changes hrefs" is how a rendering change
      *  gets waved through. */
-    const NON_RENDERING_SOURCE: Record<string, { sha: string; why: string }> = {
+    const NON_RENDERING_SOURCE: Record<
+      string,
+      {
+        sha: string;
+        why: string;
+        /** md5 of each card this exemption was verified against, keyed by slug. Required
+         *  when the entry is a SCREEN, because a screen is a card's last remaining source —
+         *  see the `sources.length === 0` branch below. */
+        verifiedCardMd5?: Record<string, string>;
+      }
+    > = {
       [HEAD]: {
         sha: "cf9c4f957bc0fcd12af033034c81fc32f4cc9118",
         why:
@@ -1324,6 +1334,23 @@ describe("a hub's og capture anchors on its head", () => {
       // clause below, which compares what the card SHOWS rather than when a file moved.
       //
       // The remaining kind is the one this map was built for: CODE that draws nothing.
+      //
+      // ⚠️ A SCREEN CAN LAND HERE TOO, and this is the first one that has — the paragraph
+      // beside `sources` below used to say a screen is „never exemptible", which was a
+      // description of the map's contents rather than a rule the code enforces (the filter
+      // has always applied to `screen`). `/`'s card is anchored on `[data-hub-head]` and
+      // clipped to OG_CLIP_VIEWPORT, so it depicts the head and the tile grid; the change
+      // feed the home-dashboard plan's Phase 4 added sits BELOW that anchor and outside the
+      // clip. Verified the way this map requires — by re-shooting, not by reading the diff.
+      "src/screens/HomeDashboardScreen.tsx": {
+        sha: "0282d7e81ae09ce7f1bee85b00982907fd23bb06",
+        why:
+          "Phase 4 mounted <HomeChangeFeed /> below the tile grid, outside the " +
+          "[data-hub-head] anchor and below the OG clip. Verified: re-shooting `home` " +
+          "against the dev server produced a byte-identical file, unchanged before and " +
+          "after.",
+        verifiedCardMd5: { home: "76015c64567c7231d36190b0379e5abf" },
+      },
     };
     const shaOf = (rel: string) =>
       execFileSync("git", ["log", "-1", "--format=%H", "--", rel], {
@@ -1364,13 +1391,36 @@ describe("a hub's og capture anchors on its head", () => {
       const sources: [string, number][] = (
         [[screen, page], [HEAD, headAt], ...extraPairs] as [string, number][]
       ).filter(([rel]) => !exempt(rel));
-      // Every source exempted — nothing left to compare this card against, which must not
-      // read as „current". Cannot happen while `screen` is never exemptible, and asserted
-      // rather than assumed.
-      expect(
-        sources.length,
-        `${slug}: every source is exempted, so its card is checked against nothing`,
-      ).toBeGreaterThan(0);
+      // ⚠️ EVERY SOURCE EXEMPTED. This used to be a flat `expect(sources.length > 0)` with
+      // the note „cannot happen while `screen` is never exemptible" — which described the
+      // map's contents rather than a rule, since the filter above has always applied to
+      // `screen` too. The day a screen earned an entry (`/`'s, when the change feed was
+      // mounted below the OG clip) the guard fired on a card that had just been verified
+      // more strictly than any timestamp could.
+      //
+      // So the branch checks the thing the exemption actually rests on. What earns an entry
+      // is a byte-identical re-shoot, so the md5 is recorded and RE-HASHED here: the
+      // exemption cannot outlive the file it was taken against, and „every source exempted"
+      // stops meaning „checked against nothing" without ever meaning „assumed current".
+      if (sources.length === 0) {
+        const pinned = Object.values(NON_RENDERING_SOURCE)
+          .map((e) => e.verifiedCardMd5?.[slug])
+          .filter((m): m is string => !!m);
+        expect(
+          pinned.length,
+          `${slug}: every source is exempted and no exemption records a verified md5 for ` +
+            `its card, so it is checked against nothing`,
+        ).toBeGreaterThan(0);
+        const actual = createHash("md5")
+          .update(fs.readFileSync(path.join(REPO, `public/og/${slug}.png`)))
+          .digest("hex");
+        expect(
+          pinned,
+          `${slug}: the committed card no longer hashes to the md5 its exemption was ` +
+            `verified against — re-shoot it and record the new hash, or drop the exemption`,
+        ).toContain(actual);
+        continue;
+      }
       const [src, newest] = sources.reduce((a, b) => (b[1] > a[1] ? b : a));
       if (card < newest)
         stale.push(

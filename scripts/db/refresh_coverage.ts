@@ -222,10 +222,16 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the global home's four pulse figures and its tile metrics. It is a FOLD of destination artifacts — governance/hub_stats.json (itself the last of the sibling folds), procurement/derived/hub_stats.json and data/macro.json — so its slot is LAST of all the generators, after db:gen-governance-hub-stats. Placed earlier it folds the previous vintage of whichever sibling has not run yet, and `/` and the page one click away then disagree. ⚠️ It reads NO Postgres: `/` is the entry page, so every figure on it has to be servable from a static object with no database behind it",
     bucketPath: "home/hub_stats.json",
   },
+  "db:gen-home-price-events": {
+    artifact: "data/home/price_events.json",
+    reason:
+      "the price half of the home feed, and the ONE generator here whose artifact is an INTERMEDIATE rather than a page's data. The retail corpus lives only in Postgres, while gen_home/feed.ts is required to build on a fresh clone with no database — so this measures, commits the measurements, and the feed's price adapter reads the file. It must therefore run BEFORE db:gen-home-feed, and after the prices ingest has loaded the day it is measuring. ⚠️ It is published to the bucket for INSPECTABILITY (it is the audit trail for what the 90-day replay accepted), not because a reader fetches it — no browser code reads this path",
+    bucketPath: "home/price_events.json",
+  },
   "db:gen-home-feed": {
     artifact: "data/home/feed.json",
     reason:
-      "the global home's change feed. Its adapters read COMMITTED sources (the roll-call session index, the council shard tree, the open-calls snapshots and the election registry), so it needs no database — but it must follow every ingest that writes one of those, which is why it sits at the end of the chain beside its sibling. ⚠️ Its window ends at the maximum SOURCE vintage rather than at `now`, so two rebuilds of one corpus are byte-identical and a stalled pipeline cannot look fresh",
+      "the global home's change feed. Its adapters read COMMITTED sources (the roll-call session index, the council shard tree, the open-calls snapshots, the election registry, macro.json with the Eurostat watcher state, the budget document index, the domestic-debt file and — for the price arm, whose corpus is Postgres-only — the data/home/price_events.json that db:gen-home-price-events commits just before it), so it needs no database — but it must follow every ingest that writes one of those, which is why it sits at the end of the chain beside its sibling. ⚠️ Its window ends at the maximum SOURCE vintage rather than at `now`, so two rebuilds of one corpus are byte-identical and a stalled pipeline cannot look fresh",
     bucketPath: "home/feed.json",
   },
   "db:gen-declarations-hub-stats": {

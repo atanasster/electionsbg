@@ -18,6 +18,14 @@ import type { PoolClient } from "pg";
 import { withClient, withTx, allRows, exec, execEach } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import {
+  MAX_DISC,
+  MIN_DISC,
+  MIN_PROMO_CHAINS,
+  MIN_PROMO_EUR,
+  MIN_PROMO_STORES,
+  PROMO_OUTLIER_FLOOR,
+} from "./promoGate";
+import {
   createStageTable,
   addStagePrimaryKey,
   mergeFromStage,
@@ -71,12 +79,9 @@ import {
 // so a chain padding its reference across 35 stores counts once, not 35×. That
 // makes the headline % faithful to the cross-chain typical price, and the board
 // shows that baseline as the struck-through "regular".
-const MIN_PROMO_STORES = 3; // promo must be corroborated across ≥N store listings
-const MIN_PROMO_CHAINS = 2; // …and across ≥N distinct chains (a one-chain quirk is not a "deal")
-const PROMO_OUTLIER_FLOOR = 0.7; // drop promos below 70% of the product's median (chain-deduped) promo
-const MIN_PROMO_EUR = 0.1; // absolute floor — guards near-zero broken prices
-const MIN_DISC = 0.15; // at least 15% off the baseline to count as a deal
-const MAX_DISC = 0.7; // above 70% off is, empirically, a source error not a promo
+// ⚠️ The five constants below moved to `./promoGate` — they are ALSO the home feed's
+// promotion gate (`scripts/db/gen_home/price_events.ts`), which restated them verbatim until
+// a review found the two copies had already diverged in effect. One definition, two importers.
 
 // The stats + `promos` CTE block shared by the national and per-município deals
 // queries. `withObshtina` adds the município column the muni board partitions on.
