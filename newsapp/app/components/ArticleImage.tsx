@@ -84,7 +84,7 @@ export const ArticleImage = ({
    */
   layout?: "block" | "thumbnail";
 }) => {
-  const { tr } = useNewsLocale();
+  const { language, tr } = useNewsLocale();
   const name = outlet.outlet || outlet.domain;
   const [stage, setStage] = useState<ImageStage>(() =>
     initialStage(image, outlet.hotlink_ok, outlet.logo),
@@ -101,7 +101,9 @@ export const ArticleImage = ({
   const hasReviewedCredit = stage === "photo" && rights;
   const creditText = hasReviewedCredit
     ? creditVariant === "compact"
-      ? compactImageCredit(rights)
+      ? // The outlet is passed so a `source_photo` caption can name the
+        // publication it came from. Every other role ignores it.
+        compactImageCredit(rights, { language, outlet: name })
       : rights.credit_text
     : name;
   const creditHref = hasReviewedCredit
@@ -181,9 +183,14 @@ export const ArticleImage = ({
           target="_blank"
           rel="noopener noreferrer"
           className="min-w-0 max-w-full break-words rounded-sm underline-offset-2 [overflow-wrap:anywhere] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+          // ⚠️ The VISIBLE text, not `rights.credit_text`. WCAG 2.5.3 (Label
+          // in Name, Level A) requires the accessible name to contain the
+          // visible label — and `credit_text` carries no provenance at all, so
+          // a screen-reader user got none of it: the whole point of the role
+          // is a sentence that says what the image IS.
           aria-label={
             hasReviewedCredit
-              ? `${tr("Кредит за изображението", "Image credit")}: ${rights.credit_text} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
+              ? `${tr("Кредит за изображението", "Image credit")}: ${creditText} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
               : `${name} — ${fallbackDestination} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
           }
         >
