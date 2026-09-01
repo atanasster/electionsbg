@@ -116,6 +116,25 @@ const ROUTES: RouteCheck[] = [
     hasEnglishMirror: true,
   },
 
+  // The parliamentary country result, at the namespace index that used to be `/`.
+  //
+  // ⚠️ IT IS AN INDEX ROUTE, so `ogAndSitemapCoverage`'s "every routed page is DECLARED"
+  // clause cannot see it (routerCensus.ts:57 excludes index routes and says so). Its
+  // prerender entry and both sitemap lines are hand-declared, which makes THIS the only
+  // gate that renders the page and checks what it serves — without it, a deleted
+  // declaration would show up nowhere.
+  //
+  // It shares the root's title in this phase because it is the same page; the root cutover
+  // gives the root its own. Both entries stay so the pair is checked either way.
+  {
+    path: "/parliamentary",
+    titleIncludes: HOME_TITLE_BG_PREFIX,
+    h1Includes: "Парламентарни избори",
+    minBodyChars: 800,
+    expectedCanonical: "/parliamentary",
+    hasEnglishMirror: true,
+  },
+
   // Static landings — were title-only before; now ship indexable bodies.
   {
     path: "/about",

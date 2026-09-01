@@ -2598,8 +2598,18 @@ export const buildElectionLandingRoutes = (
             ],
             distribution,
           }),
+          // „Начало" is the GLOBAL home now, so a dated election result gains a real
+          // parent instead of hanging straight off the root: Начало → Парламентарни
+          // избори → this cycle. `/parliamentary` is the page that lists them.
+          //
+          // ⚠️ SCOPED to this family on purpose (plan §9.2 item 7). `/party/:nick`,
+          // `/municipality/:oblast`, `/settlement`, `/sections` and `/candidate` still
+          // declare Начало as their direct parent and assert that the global home is the
+          // immediate parent of a parliamentary result — the same shape this fixes here.
+          // They move with the root cutover, not with this route.
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
+            { name: "Парламентарни избори", url: `${SITE_URL}/parliamentary` },
             { name: `Избори ${dateLabel}`, url },
           ]),
         ],
@@ -2621,8 +2631,14 @@ export const buildElectionLandingRoutes = (
               ],
               distribution: distributionEn,
             }),
+            // The EN twin of the BG trail above — both lists gain the parent, or the two
+            // languages describe different hierarchies for the same page.
             buildBreadcrumbLd([
               { name: "Home", url: EN_HOME },
+              {
+                name: "Parliamentary elections",
+                url: `${SITE_URL}/en/parliamentary`,
+              },
               { name: `Elections ${dateLabelEn}`, url: enUrl },
             ]),
           ],

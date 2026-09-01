@@ -8,7 +8,7 @@
 //   region (oblast)     /municipality/:oblast        e.g. /municipality/BLG
 //   município (obshtina)/settlement/:obshtinaCode     e.g. /settlement/BLG03
 //   settlement (ekatte) /sections/:ekatte             e.g. /sections/04279
-//   country             /                             national dashboard
+//   country             /parliamentary                national dashboard
 //   Sofia city          /sofia                        (1 local SOF ↔ 3 МИР)
 
 export type LocalGeoLevel =
@@ -32,18 +32,20 @@ export const parliamentaryUrlForLocal = (args: {
 }): string => {
   switch (args.level) {
     case "country":
-      return "/";
+      return "/parliamentary";
     case "sofia":
       return "/sofia";
     case "region":
-      return args.oblast ? `/municipality/${args.oblast}` : "/";
+      return args.oblast ? `/municipality/${args.oblast}` : "/parliamentary";
     case "municipality":
       // Sofia city + район shards have no 1:1 parliamentary município page;
       // route them to the Sofia city overview (which aggregates МИР 23/24/25).
       if (isSofiaShard(args.obshtinaCode)) return "/sofia";
-      return args.obshtinaCode ? `/settlement/${args.obshtinaCode}` : "/";
+      return args.obshtinaCode
+        ? `/settlement/${args.obshtinaCode}`
+        : "/parliamentary";
     case "settlement":
-      return args.ekatte ? `/sections/${args.ekatte}` : "/";
+      return args.ekatte ? `/sections/${args.ekatte}` : "/parliamentary";
   }
 };
 

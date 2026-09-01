@@ -20,7 +20,7 @@
 // район mapping (see below).
 //
 // Route schemes (the "off by one" naming is historical, see crossElectionLink):
-//   country      gov /governance                 parl /                      cons /consumption
+//   country      gov /governance                 parl /parliamentary         cons /consumption
 //   region       gov /governance/region/:oblast  parl /municipality/:oblast  cons /consumption/region/:oblast
 //   município    gov /governance/:obshtina       parl /settlement/:obshtina  cons /consumption/:obshtina
 //   settlement   gov /governance/:ekatte         parl /sections/:ekatte      cons /consumption/:ekatte
@@ -149,7 +149,8 @@ export const consumptionUrl = (p: PlaceRef): string | null => {
 
 // Parliamentary-elections results URL.
 export const parliamentaryUrl = (p: PlaceRef): string | null => {
-  if (p.level === "country") return "/";
+  // `/parliamentary`, not `/` — the root is the global Bulgaria dashboard.
+  if (p.level === "country") return "/parliamentary";
   if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
     return "/sofia";
   if (p.level === "settlement" && p.ekatte) return `/sections/${p.ekatte}`;

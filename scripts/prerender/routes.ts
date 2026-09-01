@@ -1514,6 +1514,72 @@ export const prerenderRoutes: PrerenderRoute[] = [
       ],
     },
   },
+  // The parliamentary country result — the page `/` rendered until the global home
+  // dashboard took the root, now at the index of the namespace that already held
+  // /parliamentary/analysis and /parliamentary/reports.
+  //
+  // ⚠️ NOT `/elections`. That URL would render the same latest cycle as the
+  // already-prerendered, already-sitemapped `/elections/<latest date>` — two <loc>s, one
+  // page — and it belongs to the cross-kind elections hub instead. See
+  // docs/plans/home-dashboard-implementation-v1.md §3.2 and §11.2.
+  //
+  // ⚠️ THIS ENTRY AND THE ROOT ENTRY ABOVE MUST DEPLOY TOGETHER. Until the root cutover
+  // replaces the root body with the home dashboard's, both describe the same election —
+  // which is why the two phases ship as one release rather than one at a time.
+  //
+  // The body is the SAME builder the root used, deliberately: the point of this phase is
+  // that the page is preserved, not rewritten.
+  //
+  // ⚠️ The Dataset node is DUPLICATED here, not moved: the root entry above still declares
+  // one with a byte-identical `name`, so Google Dataset Search sees the same dataset at two
+  // URLs in both languages until the root cutover replaces that body. This is the single
+  // hardest reason the two phases must ship as ONE release — and if the cutover slips,
+  // delete the ROOT's Dataset rather than leaving the pair live.
+  staticPage({
+    path: "parliamentary",
+    ogImage: "/og/parliamentary.png",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    breadcrumbName: "Парламентарни избори",
+    bodyHtml: homeBodies.bg,
+    extraJsonLd: [
+      buildDatasetLd({
+        name: "Парламентарни избори в България — пълни резултати от 2005 г.",
+        description: HOME_DESCRIPTION,
+        url: `${SITE_URL}/parliamentary`,
+        spatialCoverage: "България",
+        keywords: [
+          "парламентарни избори",
+          "България",
+          "Bulgaria elections",
+          "избирателна активност",
+          "машинно гласуване",
+          "повторно преброяване",
+        ],
+      }),
+    ],
+    english: {
+      title: HOME_TITLE_EN,
+      description: HOME_DESCRIPTION_EN,
+      breadcrumbName: "Parliamentary elections",
+      bodyHtml: homeBodies.en,
+      extraJsonLd: [
+        buildDatasetLd({
+          name: "Bulgarian parliamentary elections — full results since 2005",
+          description: HOME_DESCRIPTION_EN,
+          url: `${SITE_URL}/en/parliamentary`,
+          spatialCoverage: "Bulgaria",
+          keywords: [
+            "Bulgarian elections",
+            "parliamentary elections",
+            "turnout",
+            "machine voting",
+            "recount",
+          ],
+        }),
+      ],
+    },
+  }),
   staticPage({
     path: "sverka",
     ogImage: "/og/sverka.png",

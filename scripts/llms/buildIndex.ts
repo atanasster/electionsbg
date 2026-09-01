@@ -54,7 +54,10 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
 
   // Election + party browsing
   {
-    url: "/elections",
+    // ⚠️ WAS `/elections`, WHICH IS NOT A ROUTE — only `elections/:date` is, so this entry
+    // pointed LLM crawlers at a URL that falls through to the SPA shell. `/parliamentary`
+    // is exactly the page the description names.
+    url: "/parliamentary",
     label: "Elections",
     description:
       "every parliamentary vote from 2005 with national + regional drill-down",

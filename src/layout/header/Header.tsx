@@ -150,7 +150,20 @@ export const Header = () => {
   const inGovernance = isInSection(location.pathname, GOVERNANCE_PREFIXES);
   const inLocal = isInSection(location.pathname, LOCAL_PREFIXES);
   const inConsumption = isInSection(location.pathname, CONSUMPTION_PREFIXES);
-  const inElections = !inGovernance && !inLocal && !inConsumption;
+  // ⚠️ `/` IS NEUTRAL, and it is excluded rather than the whole test being inverted.
+  // Elections is the NEGATIVE default here — it catches ~40 deep routes
+  // (/municipality, /settlement, /sections, /section, /candidate, /elections/:date,
+  // /sofia, /reports, /parliamentary, /votes, /polls, /articles …) without listing
+  // them, so rewriting it as a positive prefix list would silently de-highlight
+  // whichever one the list forgot. The root is the one route that is genuinely global
+  // rather than election-shaped, so it is the one exclusion.
+  //
+  // ⚠️ TRANSIENT UNTIL THE ROOT CUTOVER: `/` still RENDERS the election dashboard, so this
+  // line leaves the Elections menu untinted on an election page. Correct only because the
+  // route move and the cutover ship as one release — if the cutover is rolled back, roll
+  // this back with it.
+  const inElections =
+    location.pathname !== "/" && !inGovernance && !inLocal && !inConsumption;
 
   // The nav is `position: fixed`, so the page content is offset by its
   // height via the `--header-height` CSS variable (see Layout.tsx). On
@@ -394,7 +407,11 @@ export const Header = () => {
     >
       <div className="flex min-w-0 text-xl text-primary items-center gap-1.5 p-2 sm:gap-2 sm:px-3 sm:py-4">
         <Link to="/" className="flex shrink-0 flex-row items-center">
-          <span className="sr-only">Elections in Bulgaria data statistics</span>
+          {/* The logo goes to `/`, which is the whole platform rather than the election
+              section, so its accessible name says so — and through `t()`, since a
+              hard-coded English literal was the only untranslated string in a bilingual
+              header. */}
+          <span className="sr-only">{t("nav_logo_home_label")}</span>
           <Logo className="size-7" />
           <div className="hidden pl-2 font-title text-2xl transition-all duration-200 sm:flex">
             <div className="lowercase text-popover-foreground">

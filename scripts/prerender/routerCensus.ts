@@ -56,11 +56,21 @@ const attrsOf = (open: ts.JsxOpeningLikeElement) => {
  *
  *  ⚠️ INDEX ROUTES ARE DELIBERATELY EXCLUDED. `<Route index element={…} />`
  *  carries no `path`, so it has no segment of its own; its URL is its parent's.
- *  There are two in `routes.tsx` — the home page (`/`) and a `<Navigate>` inside
- *  `reports` — and both are already declared or redirecting, so resolving them
- *  would add no coverage while changing every consumer's baseline. Stated rather
- *  than silently dropped: a gate named "every routed page" structurally cannot
- *  see `/`, and a future index route under a group would be invisible too. */
+ *  Stated rather than silently dropped: a gate named "every routed page"
+ *  structurally cannot see `/`, and an index route under a group is invisible too.
+ *
+ *  ⚠️ THERE ARE THREE, AND THE PREMISE THAT MADE THE EXCLUSION FREE HAS EXPIRED.
+ *  It read "there are two — the home page and a `<Navigate>` inside `reports` —
+ *  and both are already declared or redirecting, so resolving them would add no
+ *  coverage." `/parliamentary` is now a third, and it is declared in
+ *  `scripts/prerender/routes.ts` and both sitemap lists only because a human
+ *  remembered — exactly the case the last sentence above predicted. It is a
+ *  HAND-CHECKED exception, not a gate-enforced one.
+ *
+ *  The fix is to resolve an index route to its PARENT path, which would let the
+ *  "every routed page is DECLARED" clause cover `/parliamentary` and every future
+ *  one for free. Until then, a new `<Route index>` under a group needs its
+ *  prerender and sitemap entries added by hand, and nothing will say so. */
 export const censusRoutes = (routerSrc: string): RoutedPage[] => {
   const ast = ts.createSourceFile(
     "routes.tsx",

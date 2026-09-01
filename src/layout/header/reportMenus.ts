@@ -61,14 +61,14 @@ export type MenuItem = {
 export const electionsMenu: MenuItem[] = [
   {
     title: "nav_elections",
-    link: "/",
+    link: "/parliamentary",
     // The two hubs ARE the elections navigation now — the analyses hub fronts
     // risk / Benford / wasted votes / loyalty / comparison + the simulator,
     // polls and financing dossiers; the reports hub fronts the anomaly-report
     // matrix. The old per-analysis / per-report leaf lists lived here before and
     // now live inside the hubs (depth in the hubs, not the dropdown).
     subMenu: [
-      { title: "menu_overview", link: "/", mobileOnly: true },
+      { title: "menu_overview", link: "/parliamentary", mobileOnly: true },
       { title: "analysis_hub_nav", link: "/parliamentary/analysis" },
       { title: "reports_hub_nav", link: "/parliamentary/reports" },
     ],

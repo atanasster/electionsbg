@@ -211,7 +211,7 @@ export const PlaceHeader: FC<Props> = ({
   const sofiaCityHref =
     linkFor({ level: "municipality", obshtina: SOFIA_CITY_GOVERNANCE_ID }) ??
     `/governance/${SOFIA_CITY_GOVERNANCE_ID}`;
-  const countryHref = linkFor({ level: "country" }) ?? "/";
+  const countryHref = linkFor({ level: "country" }) ?? "/parliamentary";
   const cityRayonParentHref = cityRayon
     ? linkFor({ level: "municipality", obshtina: cityRayon.obshtina })
     : null;

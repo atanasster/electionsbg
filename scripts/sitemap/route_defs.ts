@@ -20,6 +20,7 @@ const SECTOR_SLUGS = SECTOR_DASHBOARD_IDS.map((id) => `sector/${id}`);
 // produce a sitemap entry that resolves only via the SPA's runtime i18n.
 export const ENGLISH_STATIC_PAGES = [
   "", // home → /en/
+  "parliamentary",
   "sofia",
   "sofia/parties",
   "sofia/preferences",
@@ -212,6 +213,14 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "subsidies/browse",
     file: `src/screens/dev/SubsidiesBrowserDbScreen.tsx`,
   },
+  // The parliamentary country result. `file:` is the election corpus it renders — the
+  // same artifact the root entry above uses, because it is the same page.
+  //
+  // ⚠️ It is an INDEX route (`<Route index>` under `parliamentary`), and
+  // ogAndSitemapCoverage's "every routed page is DECLARED" clause CANNOT SEE index
+  // routes — routerCensus.ts:57 says so outright and predicts this exact case. So this
+  // entry and the prerender one are hand-checked rather than gate-enforced.
+  { path: "parliamentary", file: `data/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
   { path: "data", file: `src/screens/DataMapScreen.tsx` },
   { path: "data/links", file: `src/screens/DataLinksScreen.tsx` },

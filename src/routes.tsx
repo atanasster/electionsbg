@@ -3784,6 +3784,22 @@ export const AuthRoutes = () => {
             }
           />
           <Route path="parliamentary">
+            {/* The country result — the composition `/` rendered until the global home
+                dashboard took the root. This namespace already held `analysis` and
+                `reports` and had no index; the country result is the missing third member
+                and the natural parent of both.
+                ⚠️ Deliberately NOT `/elections`: that URL would render the same latest
+                cycle as the already-prerendered, already-sitemapped `/elections/<date>`,
+                and it belongs to the cross-kind elections hub instead. See
+                docs/plans/home-dashboard-implementation-v1.md §3.2. */}
+            <Route
+              index
+              element={
+                <LayoutScreen fallback={<DashboardSkeleton />}>
+                  <DashboardScreen />
+                </LayoutScreen>
+              }
+            />
             <Route
               path="analysis"
               element={

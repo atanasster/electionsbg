@@ -64,6 +64,19 @@ type Capture = {
   // (a table + KPI row) where the identity columns live on the left and the
   // trailing columns can clip off naturally. Ignored when centerOnAnchor.
   leftAlign?: boolean;
+  // Navigation wait, default `networkidle`.
+  //
+  // ⚠️ USE `domcontentloaded` ONLY FOR A PAGE THAT CANNOT REACH IDLE, and say which
+  // request holds it open. The dev server proxies no `/api/db`, so a page calling one
+  // leaves a request PENDING FOR EVER rather than 404ing — measured on /parliamentary,
+  // two `/api/db/mp-roster` calls still outstanding after 20 s, so `networkidle` times
+  // out at 60 s while the page itself is fully rendered.
+  //
+  // Dropping the idle wait is safe HERE and not in general because `waitFor` +
+  // `settleMs` below are the real guarantee: `waitFor` must name a selector that only
+  // exists once the data has arrived, so a card cannot be shot against an empty tile.
+  // Idle is a convenience on top of that, not the thing being relied on.
+  waitUntil?: "networkidle" | "domcontentloaded" | "load";
 };
 
 const captures: Capture[] = [
@@ -123,6 +136,35 @@ const captures: Capture[] = [
     anchor: '[data-og="compare-table"]',
     leftAlign: true,
     settleMs: 2500,
+  },
+  // The parliamentary country result, at the namespace index that used to be `/`.
+  //
+  // ⚠️ NOT a HubHead page — it renders `PlaceHeader`, so it is in neither `HUB_CAPTURES`
+  // nor `SUB_PAGE_CAPTURES` in ogAndSitemapCoverage.test.ts and the head-framing,
+  // head-viewport and head-freshness clauses do not apply to it. Filing it under either
+  // would make it fail three clauses that are claims about a card depicting a head.
+  //
+  // `viewport` is OG_CLIP_VIEWPORT for the reason that constant documents, NOT for a
+  // column-count change: the grid is `lg:` (≥1024), so it is two-column at 1200 and at
+  // 1280 alike. What moves is the CONTENT COLUMN — ~1264 at the shared 1280, so a centred
+  // 1200 clip shaves ~32px off each side and cuts the party table's right edge.
+  {
+    slug: "parliamentary",
+    routePath: "parliamentary",
+    // ⚠️ `svg path.path`, NOT a bare `svg`. `FeatureMap` stamps every region path
+    // `className="path"` and `useMapElements` only produces them under `mapGeo && votes`,
+    // so this resolves ONLY once the geography AND the vote corpus have both arrived. A
+    // bare `svg` matched the lucide <MapIcon> in RegionsMapTile's label and the <Trophy>
+    // in PartyResultsTile's — both rendered at MOUNT — which with `waitUntil` below
+    // dropped the shot's only real guard and left it gated by `settleMs` alone.
+    waitFor: '[data-og="parliamentary-result"] svg path.path',
+    anchor: '[data-og="parliamentary-result"]',
+    viewport: OG_CLIP_VIEWPORT,
+    // See the field's note: this page calls /api/db/mp-roster, which the dev server does
+    // not proxy, so the request hangs and `networkidle` can never fire. The selector above
+    // is what actually gates the shot.
+    waitUntil: "domcontentloaded",
+    settleMs: 5000,
   },
   // Reports-hub tile destinations — each is the report's results table. One card
   // per report type (the /og/reports-<slug>.png the report routes reference),
@@ -2013,7 +2055,10 @@ const captureOne = async (page: Page, c: Capture): Promise<void> => {
   // viewport cannot leak into the next capture in the loop.
   await page.setViewportSize(c.viewport ?? DEFAULT_VIEWPORT);
   const url = `${DEV_URL}/${c.routePath}`;
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
+  await page.goto(url, {
+    waitUntil: c.waitUntil ?? "networkidle",
+    timeout: 60_000,
+  });
   await page.addStyleTag({ content: HIDE_CHROME_CSS + (c.extraCss ?? "") });
   await page.waitForSelector(c.waitFor, { timeout: 30_000 });
 

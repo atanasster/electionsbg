@@ -128,7 +128,15 @@ export const DashboardCards: FC = () => {
           icon={Gauge}
           articleTopic="votes"
         >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          {/* `data-og` is the /parliamentary card's clip anchor — the map beside the party
+              result is this page's signature visual. ⚠️ The capture's WAIT CONDITION is a
+              map PATH rather than this element or a bare `svg` (see capture-screens.ts):
+              both tiles render a lucide icon — itself an <svg> — at mount, so a bare `svg`
+              would let the card be shot before any data landed. */}
+          <div
+            data-og="parliamentary-result"
+            className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]"
+          >
             <RegionsMapTile />
             <PartyResultsTile parties={data.parties} />
           </div>

@@ -40,7 +40,7 @@ export const ElectionsBreadcrumb: FC<{
   const hubCfg = HUBS[hub];
 
   const items: Crumb[] = [
-    { label: t("nav_elections"), to: "/" },
+    { label: t("nav_elections"), to: "/parliamentary" },
     { label: t(hubCfg.labelKey), ...(hasDescendant ? { to: hubCfg.to } : {}) },
   ];
   if (section)
