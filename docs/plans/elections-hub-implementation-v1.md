@@ -199,6 +199,40 @@ scope → facts → ranked result → map → standouts → detail
 
 The map remains prominent. CSS grid placement must not use `order` to create a visual order that differs from the DOM.
 
+### 4.0 The shell's document structure
+
+The grammar above is seven regions, and both properties a screen-reader user navigates by —
+landmarks and headings — are per-call-site decisions in this codebase rather than defaults.
+
+⚠️ **`DashboardSection.headingLevel` IS OPT-IN, so "logical H2 order" is a prop and not a
+property of the composition.** Its own header states the reason: the component has ~186 call
+sites at several nesting depths, so a blanket `<h2>` would be wrong somewhere — but _"a page
+whose sections ARE the top-level structure under its `<h1>` should pass 2, or its section titles
+are invisible to heading navigation and its outline skips a level."_ Phases 4–6 migrate ~15 such
+screens, and **every one must pass `headingLevel={2}`**.
+
+The failure is quiet in the worst available way: the `<section>` is named through
+`aria-labelledby` whether or not the level is passed, so it stays a **landmark**. The page
+remains navigable by region and silently stops being navigable by heading — correct-looking in
+review, and broken for exactly the reader who navigates by heading.
+
+**Every one of the seven regions is a named landmark.** `DashboardCards` already wraps its body
+in `<section aria-label={t("dashboard")}>` and `DashboardSection` self-names via
+`aria-labelledby`; the digest, strip, canvas, standouts and source panel are new and unnamed.
+Seven consecutive unlabelled `<section>`s are seven identical "region" rows in a landmark list,
+which is worse than none. Name each from the same i18n key its heading uses.
+
+**The header fold must preserve what `PlaceViewNav` already does right.** It labels the control
+with `aria-label={t("place_view_nav_label")}` and renders the active view as a non-clickable
+`<span>` carrying `aria-current="page"`. Folding the scope bar's cycle/status into that block
+(§4) must keep both; a rewrite that turns the active pill back into a `<Link>` to itself, or
+drops the group label, is a regression nothing else here would catch.
+
+**A first-screen anchor, since there is no skip link.** The repo has none, and these pages now
+open with the header, four view pills, the scope row, the digest and the strip before the
+result. Give the outcome canvas a stable `id` so `useHashScroll` and an in-page "to the results"
+affordance can reach it; a repo-wide skip link is out of scope for v1.
+
 ### 4.1 The place digest — one cell per view
 
 **A place has FOUR views, and this plan covers two of them.** `PlaceViewNav` switches a reader
@@ -926,6 +960,32 @@ Do not build a universal component with dozens of optional props. `ElectionResul
 
 `ElectionRankedResult` owns accessible list/table semantics. It supports party votes/seats, mayor candidates/margin/round, and council votes/seats as explicit variants.
 
+⚠️ **The map slot has an accessibility contract, and it is TWO props that must travel together.**
+`FeatureMap` derives keyboard access as `const keyboard = !!ariaLabel && !!onClick` — and
+`tabIndex`, `role="button"`, `aria-label`, `onKeyDown` and the `kbd-focus-ring` class are ALL
+gated on that one boolean. So a region wired for selection but missing its `ariaLabel`, or given
+selection through some other mechanism, is silently **mouse-only**: nothing renders half-done,
+nothing looks wrong, and §10's "map/list selection has keyboard support" quietly becomes an
+aspiration.
+
+Each adapter therefore declares one of exactly two postures, and the descriptor records which:
+
+- **interactive** — every selectable feature passes BOTH `ariaLabel` and `onClick`, so it is
+  focusable, named, operable by keyboard and visibly focused. Its selection is bound to the
+  ranked list in both directions.
+- **presentational** — `role="img"` with a single `aria-label` naming what the map shows, and no
+  per-feature interaction, the posture `EuChoroplethMap` already takes. This is a legitimate
+  answer for a map that illustrates rather than selects; it is not a licence to skip the ranked
+  list, which §4 requires regardless.
+
+A third state — features that respond to a mouse and not to a keyboard — is the defect, and it is
+what an adapter produces by default if nobody states the posture.
+
+**Reduced motion reaches the map through its own rule.** `src/index.css` carries the global
+`prefers-reduced-motion` block, but map libraries animate outside it — `VoteFlowSankey` ships an
+inline override for exactly this. A panel that animates zoom, pan or a mode transition needs the
+same, or the global preference is honoured everywhere except the largest moving thing on screen.
+
 ### Finder
 
 Configured, not built — see §6.2 for the `HubSearch` + `scopedSources()` composition, the
@@ -1131,6 +1191,8 @@ Tests/gates:
 - the digest and the outcome strip never render the same figure on one page;
 - every enum member the contract can emit resolves to a key present in BOTH corpora (`electionCopyCoverage.test.ts` — `parity.test.ts` cannot see this, §5.2);
 - no i18n key is built by template anywhere in the descriptor or the registry;
+- every map adapter declares an `interactive` or `presentational` posture, and an `interactive` one passes both `ariaLabel` and `onClick` for every selectable feature (§6);
+- the fixture shell passes an axe run at 390 px and 1440 px in both themes;
 - contrast check in light/dark mode.
 
 Exit criterion: product/design accepts the country and municipality grammar and the schema can represent every level without generic `unknown` payloads.
@@ -1196,7 +1258,8 @@ Work:
 3. Implement scope bar, finder, status row, strip, canvas, ranking, standouts, and source panel. The strip ADOPTS the nine existing four-card compositions rather than replacing them (§6.3); the scope bar's cycle/status composes into `PlaceHeader` rather than stacking a second control row under `PlaceViewNav` (§4).
    3b. Implement `PlaceDigest` + `placeDigestFacts.ts` (§4.1): pure per-view selectors, each reading the producer that draws its own view's numbers, each returning `undefined` — not zero — for an unreachable view.
 4. Reuse existing maps through adapters; do not import Leaflet/d3/recharts into the shell module.
-5. Add loading skeletons with fixed dimensions matching the final ranking/map layout.
+5. Add loading skeletons with fixed dimensions matching the final ranking/map layout, each on a container carrying `aria-busy` while it resolves. "No layout shift when the map arrives" is a VISUAL gate; without `aria-busy` the skeleton→content swap — and `ElectionSurfaceBoundary`'s legacy-fallback swap — is silent to a screen reader. The repo already uses `aria-busy` and `aria-live`; do not invent a third pattern.
+   5b. Pass `headingLevel={2}` on every `DashboardSection` on a migrated screen, and give every one of the seven regions a landmark name (§4.0).
 6. Add Bulgarian and English keys per §5.2: enumerate the key set from the descriptor matrix and the fact/standout enums first — **counts as plural families**, `labelKey`s written out rather than built — measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Ship `electionCopyCoverage.test.ts` in this commit; `parity.test.ts` and `plurals.test.ts` are corpus-symmetry and call-site gates and neither covers enum coverage. Keep long existing analysis copy in its current bundles.
    6b. Resolve every party, place and office LABEL from its id at render time (§5.3). No name reaches the artifact.
 
@@ -1363,6 +1426,40 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 
 ## 10. Cross-cutting test matrix
 
+### 10.0 The accessibility gate — the one section that had requirements and no owner
+
+⚠️ **There is no automated accessibility gate anywhere in this repository.** Audited 2026-09-01:
+no `axe-core`, `@axe-core/playwright`, `pa11y` or lighthouse dependency, and `tests/ui.spec.ts`
+contains **zero** `aria-` or `getByRole` assertions. So every accessibility line below is a human
+step, in a plan that now names a gate file for the emission test, the copy coverage, the bucket
+rule, the digest and the band rules.
+
+That asymmetry is the defect. Accessibility requirements degrade the same way the figure rules
+do — silently, under a green suite — and the manual instruction in §11 ("inspect light/dark mode
+and keyboard traversal") is the weakest enforcement in the document.
+
+The gate is two parts, because they catch disjoint things:
+
+```text
+tests/a11y.spec.ts     # an axe pass per representative route, in the desktop AND mobile projects
+```
+
+- **The axe pass** covers what a rule engine can see: contrast, names on interactive elements,
+  duplicate landmarks, invalid ARIA, form labelling. Run it over the §10 representative route
+  list, not over one page. Introducing it repo-wide is out of scope; introducing it for the
+  routes this plan touches is not.
+- **Four hand-written assertions cover what axe cannot**, because each is about meaning rather
+  than markup:
+  1. heading order across the COMPOSED shell — one `h1`, then the migrated sections as `h2`,
+     with no skipped level (see §4's `headingLevel` note, which is why this can fail);
+  2. selecting a map feature updates the ranked list and vice versa, driven from the KEYBOARD;
+  3. focus is retained, not reset, across a mode or cycle change that does not navigate;
+  4. every party colour rendered on the page passes contrast in both themes, or its row carries
+     the text/pattern fallback.
+
+**Then check the gate can fail.** Break each clause and watch it fire — an axe pass configured
+against the wrong selector reports zero violations exactly like a clean page.
+
 ### Data correctness
 
 - national totals equal the sum of canonical region totals;
@@ -1387,6 +1484,11 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - every count renders through a plural family that resolves at count 1 and 3 in both languages (`plurals.test.ts`'s contract);
 - the scope bar's cycle label uses `formatDate` (UTC-pinned) and never the election folder id, verified under a `TZ` west of UTC;
 - EN pages render party and place names from the English corpus, and person names in Bulgarian by design (§5.3);
+- an axe pass over every representative route, in the desktop and mobile projects (§10.0);
+- every migrated screen passes `headingLevel={2}`, so the composed outline is h1 → h2 with no skipped level;
+- each of the seven regions is a named landmark, and no two share a name;
+- the folded header keeps `place_view_nav_label` and `aria-current="page"` on the active view;
+- a loading container carries `aria-busy`, so the skeleton→content and fallback swaps are not silent;
 - result/list available without map interaction;
 - map legend uses labels/symbols in addition to color;
 - map/list selection has keyboard support and announced state;
@@ -1394,7 +1496,7 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - fact deltas announce direction and unit, not only arrow/color;
 - focus is not moved on mode/cycle changes unless navigation occurs;
 - reduced-motion preference disables nonessential transitions;
-- light/dark contrast passes for party colors against their rendered background, with text/pattern fallback where a party color cannot pass.
+- light/dark contrast passes for party colors against their rendered background, with text/pattern fallback where a party color cannot pass — computed through `src/lib/readableText.ts`, the existing helper (with its own test) that `tileAccents.ts` already uses, rather than a third implementation of the same WCAG arithmetic over the 183 canonical parties' `color` values.
 
 ### Route/navigation
 
@@ -1480,6 +1582,7 @@ npm run sitemap                                     # rewrites public/sitemap*.x
 npm run build
 npm run test:seo
 npm run test:perf
+npx playwright test tests/a11y.spec.ts    # axe + the four meaning-level assertions (§10.0)
 npm run test:unit -- tests/ui.spec.ts               # hub head height + data-kpi-cell count
 ```
 
@@ -1529,32 +1632,35 @@ Do not silently fall back after a valid surface request returns malformed data. 
 
 ## 13. Risks and mitigations
 
-| Risk                                                 | Mitigation                                                                                                                                   |
-| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Shared UI erases mayor/council differences           | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                                  |
-| Projection drifts from canonical files               | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                             |
-| First surface becomes another KPI band               | Hard fact/standout caps and required map+ranking composition                                                                                 |
-| Large scope files create fanout or slow LCP          | Small route projection, no geometry/history, request and byte budgets                                                                        |
-| Abroad shows impossible turnout                      | Required turnout basis and `region/32` negative data/UI tests                                                                                |
-| Statistical flags imply wrongdoing                   | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                      |
-| Route cleanup breaks SEO                             | No v1 migration; route artifacts ship atomically; optional migration separately approved                                                     |
-| New shell loses existing depth                       | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                                |
-| Sofia/district edge cases regress                    | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                      |
-| Local older cycles lack ballot fields                | Availability-driven panels; missing is not zero; per-cycle data gates                                                                        |
-| Artifacts generated but never published              | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build       |
-| Browser gates green on the legacy fallback           | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                     |
-| A six-figure object expansion for no gain            | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                      |
-| `/elections` becomes a 14th bespoke header           | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                            |
-| An enum member ships with no copy in either language | `electionCopyCoverage.test.ts` over the enum declarations — `parity.test.ts` compares the corpora to each other and cannot see it            |
-| The English page shows Cyrillic party names          | Names are ids in the artifact and labels at render time (§5.3); the EN forms live in `canonical_parties.json`, not in the shards             |
-| A built i18n key defeats the bundle analysis         | `labelKey` written out beside every code; gated in Phase 0 alongside §6.1's registry rule                                                    |
-| Postgres creeps onto the render path                 | §5.1 is a fixed decision; a Playwright network assertion per migrated route; a PG-only fact is a link cell, never a fetched number           |
-| A place's four views stay siloed                     | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                     |
-| The digest disagrees with the tab it links to        | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                          |
-| A daily price baked into a per-cycle file            | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                         |
-| A second control strip above the first number        | The scope bar composes into `PlaceHeader`, which already carries `PlaceViewNav`; the combined header is budgeted and measured at 390 px      |
-| A shared composition rebuilt in parallel             | §6.3 names the nine existing four-card screens; the strip adopts them and the descriptor records every fact it drops                         |
-| Root/election ownership drifts after cutover         | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged |
+| Risk                                                   | Mitigation                                                                                                                                                                |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shared UI erases mayor/council differences             | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                                                               |
+| Projection drifts from canonical files                 | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                                                          |
+| First surface becomes another KPI band                 | Hard fact/standout caps and required map+ranking composition                                                                                                              |
+| Large scope files create fanout or slow LCP            | Small route projection, no geometry/history, request and byte budgets                                                                                                     |
+| Abroad shows impossible turnout                        | Required turnout basis and `region/32` negative data/UI tests                                                                                                             |
+| Statistical flags imply wrongdoing                     | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                                                   |
+| Route cleanup breaks SEO                               | No v1 migration; route artifacts ship atomically; optional migration separately approved                                                                                  |
+| New shell loses existing depth                         | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                                                             |
+| Sofia/district edge cases regress                      | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                                                   |
+| Local older cycles lack ballot fields                  | Availability-driven panels; missing is not zero; per-cycle data gates                                                                                                     |
+| Artifacts generated but never published                | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build                                    |
+| Browser gates green on the legacy fallback             | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                                                  |
+| A six-figure object expansion for no gain              | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                                                   |
+| `/elections` becomes a 14th bespoke header             | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                                                         |
+| Accessibility requirements with no gate                | §10.0's axe pass plus four hand-written assertions; the map posture is declared per adapter and gated in Phase 0                                                          |
+| A migrated page navigable by region but not by heading | `headingLevel={2}` on every migrated `DashboardSection`, asserted over the composed outline — the `<section>` stays a landmark either way, so nothing else would catch it |
+| A map that answers the mouse and not the keyboard      | `FeatureMap` gates tabIndex/role/aria-label/onKeyDown on `ariaLabel && onClick`; each adapter declares interactive or presentational                                      |
+| An enum member ships with no copy in either language   | `electionCopyCoverage.test.ts` over the enum declarations — `parity.test.ts` compares the corpora to each other and cannot see it                                         |
+| The English page shows Cyrillic party names            | Names are ids in the artifact and labels at render time (§5.3); the EN forms live in `canonical_parties.json`, not in the shards                                          |
+| A built i18n key defeats the bundle analysis           | `labelKey` written out beside every code; gated in Phase 0 alongside §6.1's registry rule                                                                                 |
+| Postgres creeps onto the render path                   | §5.1 is a fixed decision; a Playwright network assertion per migrated route; a PG-only fact is a link cell, never a fetched number                                        |
+| A place's four views stay siloed                       | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                                                  |
+| The digest disagrees with the tab it links to          | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                                                       |
+| A daily price baked into a per-cycle file              | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                                                      |
+| A second control strip above the first number          | The scope bar composes into `PlaceHeader`, which already carries `PlaceViewNav`; the combined header is budgeted and measured at 390 px                                   |
+| A shared composition rebuilt in parallel               | §6.3 names the nine existing four-card screens; the strip adopts them and the descriptor records every fact it drops                                                      |
+| Root/election ownership drifts after cutover           | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged                              |
 
 ## 14. Definition of done
 
@@ -1572,6 +1678,7 @@ v1 is complete only when all of the following are true:
 - section pages are result/evidence-first and never combine unlike ballots;
 - abroad never displays a turnout percentage without a valid denominator;
 - every standout is reproducible, neutral, and evidence-linked;
+- the accessibility gate exists, runs over every representative route, and has been shown to fail when each clause is broken;
 - every enum the contract can emit has copy in both languages, every count is a plural family, and no raw identifier or folder id reaches the DOM;
 - surface payload, entry bundle, CLS, LCP, accessibility, i18n, and artifact gates pass;
 - all old routes and deep analyses remain reachable;
