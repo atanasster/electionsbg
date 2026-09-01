@@ -71,6 +71,7 @@ const database = getFirestore(app);
 try {
   await database.doc(`news_eval_tasks/${TASK_ID}`).set({
     article_key: ARTICLE_KEY,
+    url: "https://example.bg/article-1",
     revision: 4,
     content_sha256: CONTENT_HASH,
     analysis_sha256: ANALYSIS_HASH,
