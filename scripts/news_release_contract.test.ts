@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { liveVersionId, promote, type FirebaseRunner } from "./news_promote";
 
 type PackageJson = { scripts?: Record<string, string> };
 
@@ -40,10 +41,96 @@ describe("news release contract", () => {
 
   it("requires and promotes an immutable reviewed version", () => {
     expect(scripts["deploy:news:promote"]).toBe(
-      'test -n "$NEWS_VERSION_ID" && firebase hosting:clone "electionsbg-news:@$NEWS_VERSION_ID" electionsbg-news:live -P news',
+      "tsx scripts/news_promote.ts",
     );
-    expect(scripts["deploy:news:promote"]).not.toMatch(
-      /build|deploy --only|news-candidate electionsbg-news:live/,
-    );
+    expect(scripts["deploy:news:promote"]).not.toMatch(/build|deploy --only/);
+  });
+
+  it("reads the immutable version currently released on live", () => {
+    expect(
+      liveVersionId({
+        result: {
+          channels: [
+            {
+              name: "projects/p/sites/electionsbg-news/channels/live",
+              release: {
+                version: {
+                  name: "projects/p/sites/electionsbg-news/versions/a5092766dd95a2af",
+                },
+              },
+            },
+          ],
+        },
+      }),
+    ).toBe("a5092766dd95a2af");
+  });
+
+  it("does not clone when the requested version is already live", () => {
+    const inherited: string[][] = [];
+    const runner: FirebaseRunner = {
+      capture: () =>
+        JSON.stringify({
+          result: {
+            channels: [
+              {
+                name: "projects/p/sites/electionsbg-news/channels/live",
+                release: {
+                  version: { name: "sites/electionsbg-news/versions/abc123" },
+                },
+              },
+            ],
+          },
+        }),
+      inherit: (args) => inherited.push(args),
+    };
+
+    promote("abc123", runner);
+
+    expect(inherited).toEqual([]);
+  });
+
+  it("clones the exact requested version to live", () => {
+    const captured: string[][] = [];
+    const inherited: string[][] = [];
+    const runner: FirebaseRunner = {
+      capture: (args) => {
+        captured.push(args);
+        return JSON.stringify({
+          result: {
+            channels: [
+              {
+                name: "projects/p/sites/electionsbg-news/channels/live",
+                release: {
+                  version: { name: "sites/electionsbg-news/versions/old123" },
+                },
+              },
+            ],
+          },
+        });
+      },
+      inherit: (args) => inherited.push(args),
+    };
+
+    promote("new456", runner);
+
+    expect(captured).toEqual([
+      [
+        "hosting:channel:list",
+        "--site",
+        "electionsbg-news",
+        "-P",
+        "news",
+        "--json",
+      ],
+    ]);
+    expect(inherited).toEqual([
+      [
+        "hosting:clone",
+        "electionsbg-news@new456",
+        "electionsbg-news:live",
+        "-P",
+        "news",
+      ],
+    ]);
   });
 });

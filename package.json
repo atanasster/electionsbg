@@ -336,7 +336,7 @@
     "deploy:news:evals:public-route": "npm run deploy:news:evals && npm run deploy:news",
     "deploy:news:evals:rules": "npx --yes firebase-tools@15.18.0 --config firebase.news-evals.json deploy --only firestore:rules -P news",
     "deploy:news:preview": "tsx scripts/news_release_manifest.ts verify && SKIP_PREDEPLOY=1 firebase hosting:channel:deploy news-candidate --only news -P news --expires 7d",
-    "deploy:news:promote": "test -n \"$NEWS_VERSION_ID\" && firebase hosting:clone \"electionsbg-news:@$NEWS_VERSION_ID\" electionsbg-news:live -P news",
+    "deploy:news:promote": "tsx scripts/news_promote.ts",
     "functions:test": "cd functions && npm test",
     "emulator": "firebase --config firebase.main-functions.json emulators:start --only functions,firestore -P default",
     "emulator:ai": "firebase --config firebase.ai-functions.json emulators:start --only functions -P ai",
