@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-07-31",
+  "computedAt": "2026-08-31",
   "homeMode": "standard",
   "figures": [
     {
@@ -17,9 +17,9 @@
     },
     {
       "id": "inflation_hicp",
-      "value": 4.4,
+      "value": 5.1,
       "basis": {
-        "period": "2026-07",
+        "period": "2026-08",
         "frequency": "monthly",
         "unit": "pct",
         "adjustment": "unadjusted",
@@ -29,9 +29,9 @@
     },
     {
       "id": "unemployment_sa",
-      "value": 3,
+      "value": 3.6,
       "basis": {
-        "period": "2026-06",
+        "period": "2026-07",
         "frequency": "monthly",
         "unit": "pct",
         "adjustment": "seasonally_adjusted",
@@ -114,13 +114,13 @@
     },
     "eurostat_prc_hicp_minr": {
       "available": true,
-      "asOf": "2026-07",
+      "asOf": "2026-08",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
       "datasetCode": "prc_hicp_minr"
     },
     "eurostat_une_rt_m": {
       "available": true,
-      "asOf": "2026-06",
+      "asOf": "2026-07",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
       "datasetCode": "une_rt_m"
     },

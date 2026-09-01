@@ -17,6 +17,7 @@
 import type { TFunction } from "i18next";
 import type { HubKpi } from "@/ux/infographic";
 import type { MacroIndicatorKey } from "@/data/macro/useMacro";
+import { formatPeriod as sharedFormatPeriod } from "@/screens/components/macro/formatPeriod";
 // ⚠️ The ONLY runtime import in this module, and deliberately so: the head's KPI destinations
 // are resolved from the registry that owns them rather than restated here. See
 // `homeFigureHref` for what restating them cost.
@@ -51,24 +52,22 @@ const pct = (value: number, lang: string, signed: boolean): string =>
  * into „юли 2026" would be simply false. The quarter keeps its Q and the month becomes a
  * month name, which is as far as the source supports.
  */
-export const formatPeriod = (period: string, lang: string): string => {
-  // Branching on the language rather than patching the Bulgarian string: the English
-  // convention puts the marker FIRST („Q2 2026"), so the string-replace form rendered
-  // „2 Q 2026" on two of the four English KPI cells.
-  const q = /^(\d{4})-Q([1-4])$/.exec(period);
-  if (q)
-    return lang.startsWith("bg") ? `${q[2]} тр. ${q[1]}` : `Q${q[2]} ${q[1]}`;
-  const m = /^(\d{4})-(\d{2})$/.exec(period);
-  if (m) {
-    const d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, 1));
-    return new Intl.DateTimeFormat(lang.startsWith("bg") ? "bg-BG" : "en-GB", {
-      year: "numeric",
-      month: "long",
-      timeZone: "UTC",
-    }).format(d);
-  }
-  return period;
-};
+export const formatPeriod = (period: string, lang: string): string =>
+  // ⚠️ DELEGATES. This carried its own quarter+month formatter until the indicators pages
+  // started stating their own period beside these figures — at which point one period had two
+  // spellings a click apart. `components/macro/formatPeriod` is the one the KPI tiles and the
+  // /indicators band already share, and its own header says it must stay the only one.
+  //
+  // The one thing this wrapper still owns is the ENGLISH QUARTER ORDER: the head says „Q2
+  // 2026" while the indicators tiles say „2026 Q2". Both are read as a quarter and neither is
+  // wrong; unifying them is a copy decision, not a formatting one, so the difference is
+  // applied here rather than pushed into the shared function.
+  sharedFormatPeriod(
+    period,
+    0,
+    undefined,
+    lang.startsWith("bg") ? "bg" : "en",
+  ).replace(/^(\d{4}) Q([1-4])$/, "Q$2 $1");
 
 /** The basis line: what the number is measured against, plus the period it covers. */
 export const formatBasis = (

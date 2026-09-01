@@ -79,6 +79,12 @@ export const IndicatorsEconomyScreen = () => {
     () => pickAtOrBefore(macro?.series?.gdpGrowth, null),
     [macro],
   );
+  // …and for the headline inflation panel, whose line is MONTHLY. Read from the series that
+  // panel plots, so the period it states is the period it draws.
+  const inflationAsOf = useMemo(
+    () => pickAtOrBefore(macro?.series?.inflationMonthly, null),
+    [macro],
+  );
 
   const peerOverlay = useMemo<PeerOverlay | undefined>(() => {
     if (!peers?.indicators) return undefined;
@@ -254,16 +260,13 @@ export const IndicatorsEconomyScreen = () => {
           peerCompareEnabled={compare}
         />
         {inflationMonthly && economyEnabled.inflation ? (
-          // ⚠️ THE ANCHOR SITS ON THE CALLOUT, NOT ON THE SECTION HEADING, and that is the
-          // whole point of the exercise. The home head's inflation cell states the MONTHLY
-          // print (4,4%, юли 2026); the chart above plots the QUARTERLY mean, whose newest
-          // point is 5,83% for 2026-Q2. Landing on the heading would put a number 1.4 points
-          // from the one that was clicked at the top of the viewport. This paragraph IS the
-          // 4,4%.
-          <p
-            id="inflation"
-            className="mt-2 text-xs text-muted-foreground max-w-3xl scroll-mt-20"
-          >
+          // The monthly print, called out under a quarterly line that cannot yet show it.
+          // ⚠️ The home head's `#inflation` anchor USED to point here, because this paragraph
+          // was the only place on the page that carried the figure it quotes. It now points at
+          // the headline monthly CHART further down, which plots that figure as the last point
+          // of a line — a better landing. This callout stays: it is the freshest reading in
+          // the context of the overview chart, which is still quarterly.
+          <p className="mt-2 text-xs text-muted-foreground max-w-3xl">
             {t("indicators_inflation_monthly_latest", {
               label: inflationMonthly.label,
               value: inflationMonthly.value,
@@ -524,10 +527,43 @@ export const IndicatorsEconomyScreen = () => {
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
               label:
-                "Eurostat prc_hicp_minr (HICP by ECOICOP, monthly→quarterly mean)",
+                "Eurostat prc_hicp_minr (HICP headline monthly + by ECOICOP, monthly→quarterly mean)",
             },
           ]}
         />
+
+        {/* ⚠️ THE HEADLINE RATE, AT THE CADENCE IT IS PUBLISHED AT, and the anchor the home
+            head's inflation cell links to. The quarterly `inflation` series is the MEAN of a
+            quarter's three months and cannot move until all three are in, so a reader who
+            clicked the head's monthly print used to arrive beside a line ending 1.4 points
+            away with nothing stating why. Monthly is the line and quarterly the reference —
+            exactly the shape the labour panel uses for `unemploymentMonthly`. */}
+        <h3
+          id="inflation"
+          className="text-sm font-medium text-muted-foreground mt-4 mb-1 scroll-mt-20"
+        >
+          {t("governments_chart_inflation_headline")}
+        </h3>
+        <SectionAsOf
+          period={inflationAsOf?.period}
+          year={inflationAsOf?.year}
+          quarter={undefined}
+          lang={lang === "bg" ? "bg" : "en"}
+        />
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          macroPending={macroPending}
+          indicatorKeys={["inflationMonthly"]}
+          referenceKeys={["inflation"]}
+          yAxisFormatter={(v) => `${v}`}
+          unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+          height={280}
+        />
+
+        <h3 className="text-sm font-medium text-muted-foreground mt-6 mb-1">
+          {t("governments_chart_inflation_by_component")}
+        </h3>
         <InflationBreakdownChart
           governments={governments}
           macro={macro}

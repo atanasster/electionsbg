@@ -288,6 +288,33 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
   },
   {
     source: "eurostat",
+    key: "inflationMonthly",
+    // Full MONTHLY HICP series (prc_hicp_minr, annual rate of change, all-items),
+    // the same query as the MONTHLY_LATEST_SPECS entry above — this is that
+    // observation with its history, so the two cannot disagree.
+    //
+    // ⚠️ IT EXISTS BECAUSE THE QUARTERLY LINE CANNOT SHOW THE PUBLISHED NUMBER.
+    // `inflation` is the MEAN of a quarter's three months and only lands once all
+    // three are in, so on 2026-09-01 it ended at 5.83% for Q2 while Eurostat had
+    // published 4.4% for July. The home head quotes the July print, and the page it
+    // links to plotted a line ending 1.4 points away with nothing stating the
+    // difference. Same fix, same shape, as `unemploymentMonthly` two entries up.
+    //
+    // NSA, because HICP annual rates are published unadjusted — matching the
+    // `seasonallyAdjusted: false` on the monthly-latest spec rather than the SA
+    // convention the labour series use.
+    dataset: "prc_hicp_minr",
+    query: { geo: "BG", unit: "RCH_A", coicop18: "TOTAL", freq: "M" },
+    cadence: "monthly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+    unitLabelEn: "% year on year (monthly, NSA)",
+    unitLabelBg: "% спрямо година по-рано (месечно, несезонно изгладено)",
+    titleEn: "Inflation, HICP (monthly)",
+    titleBg: "Инфлация, ХИПЦ (месечна)",
+  },
+  {
+    source: "eurostat",
     key: "employmentRate",
     // Employment rate, ages 20-64 — the EU headline labour-market target
     // metric (% of the 20-64 population in work). For Bulgaria this tells

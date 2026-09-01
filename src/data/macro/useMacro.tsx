@@ -9,6 +9,13 @@ export type MacroIndicatorKey =
   // Eurostat — unemployment at monthly cadence (une_rt_m, SA) — the freshest
   // headline reading, plotted as the main labour-panel line
   | "unemploymentMonthly"
+  // Eurostat — HICP at monthly cadence (prc_hicp_minr, NSA). ⚠️ The `inflation`
+  // series above is a quarterly MEAN of these months, so it cannot move until a
+  // quarter completes: on 2026-09-01 it ended at 5.83% for Q2 while the freshest
+  // published print was 4.4% for July. The home head shows the July figure, so
+  // without this series the page it links to contradicted it by 1.4 points with
+  // nothing saying why. Same role `unemploymentMonthly` plays for the labour panel.
+  | "inflationMonthly"
   // Eurostat — labour market (quarterly SA employment/activity rate; slack
   // annual, % of extended labour force)
   | "employmentRate"

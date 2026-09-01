@@ -131,3 +131,57 @@ describe("every home head figure links to its own number", () => {
     );
   });
 });
+
+describe("the head's figure and the series its destination plots are the same reading", () => {
+  const macro = JSON.parse(
+    readFileSync(path.join(REPO, "data/macro.json"), "utf-8"),
+  ) as {
+    series: Record<string, { period?: string; value: number }[]>;
+    latestMonthly: Record<string, { period: string; value: number }>;
+  };
+
+  it("inflation: the page plots a MONTHLY series whose last point is the head's figure", () => {
+    // ⚠️ THE WHOLE OF C3. The head quotes the monthly HICP print; the overview chart plots the
+    // QUARTERLY mean, which is the mean of a quarter's three months and cannot move until all
+    // three land. Measured before this existed: 4.4% (July) on the head against 5.83% (Q2) on
+    // the page — both true, 1.4 points apart, nothing saying why. `inflationMonthly` is that
+    // series, built from the identical query the monthly-latest spec uses, so the two cannot
+    // disagree by construction. This asserts they do not.
+    const monthly = macro.series.inflationMonthly;
+    expect(
+      monthly?.length,
+      "inflationMonthly is missing from macro.json",
+    ).toBeGreaterThan(100);
+    const last = monthly[monthly.length - 1];
+    const head = macro.latestMonthly.inflation;
+    expect(last.period).toBe(head.period);
+    expect(last.value).toBe(head.value);
+  });
+
+  it("…and the quarterly series is still there as the reference line", () => {
+    // Not replaced. The quarterly mean is what makes the series cabinet-comparable and it is
+    // still what the overview chart plots; monthly is the headline panel's line.
+    expect(macro.series.inflation?.length).toBeGreaterThan(50);
+  });
+
+  it("unemployment: the same pairing, which is where the shape came from", () => {
+    // The precedent — `unemploymentMonthly` already worked this way, and inflation not having
+    // an equivalent was the asymmetry rather than a judgement call.
+    const monthly = macro.series.unemploymentMonthly;
+    const last = monthly[monthly.length - 1];
+    expect(last.period).toBe(macro.latestMonthly.unemployment.period);
+    expect(last.value).toBe(macro.latestMonthly.unemployment.value);
+  });
+
+  it("every monthly series a head figure quotes is actually plotted somewhere", () => {
+    // ⚠️ A SERIES NOBODY DRAWS IS NOT A FIX. `inflationMonthly` exists to be the last point of
+    // a line the reader can see; if no screen names it in an `indicatorKeys`, the head is back
+    // to quoting a number the page cannot reach.
+    const econ = source("economy");
+    for (const key of ["inflationMonthly", "unemploymentMonthly"])
+      expect(
+        econ.includes(`"${key}"`),
+        `${key} is in macro.json but no chart plots it`,
+      ).toBe(true);
+  });
+});

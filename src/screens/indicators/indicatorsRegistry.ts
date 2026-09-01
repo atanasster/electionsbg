@@ -102,9 +102,12 @@ export const KPI_REGISTRY: Partial<Record<MacroIndicatorKey, KpiEntry>> = {
   },
   inflation: {
     key: "inflation",
-    // ⚠️ THE OVERVIEW SECTION, NOT THE ECOICOP BREAKDOWN FURTHER DOWN. The home head shows the
-    // MONTHLY HICP print (4,4% for юли 2026) and that figure appears in this section's monthly
-    // callout; the breakdown answers „which basket items" and never states it.
+    // ⚠️ THE HEADLINE MONTHLY CHART, which is the only place on the page whose line ends at the
+    // figure the home head quotes. The head shows the monthly HICP print; the overview chart
+    // plots the QUARTERLY mean, which is the mean of a quarter's three months and cannot move
+    // until all three land — measured 2026-09-01, 4.4% (July) against 5.83% (Q2), a 1.4-point
+    // gap with nothing on the page stating it. `inflationMonthly` closed that; this anchor
+    // points at the panel that draws it.
     anchor: "inflation",
     domain: "economy",
     direction: "lower",

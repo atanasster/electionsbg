@@ -94,6 +94,9 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   // monthly cadence (the labour panel's main line); the quarterly series then
   // renders as faint reference dots in the same hue.
   unemploymentMonthly: "#3b82f6",
+  // …and the same red as the quarterly `inflation`, for the same reason: one
+  // metric at two cadences, monthly as the line and quarterly as the reference.
+  inflationMonthly: "#ef4444",
   // labour market — participation panel (teal/violet, high mutual contrast);
   // labourSlack is a callout, never a chart line, but the palette map is total.
   employmentRate: "#0d9488",

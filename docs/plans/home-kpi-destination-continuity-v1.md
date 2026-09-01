@@ -1,6 +1,6 @@
 # Home KPI destinations — where a clicked figure should land
 
-**Status:** A + C1/C2 IMPLEMENTED 2026-09-01 · C3 still open · **Date:** 2026-09-01
+**Status:** A + C1/C2 + C3 IMPLEMENTED 2026-09-01 · **Date:** 2026-09-01
 **Trigger:** the four `/` head KPIs all land at the TOP of a long indicators page.
 **Relates to:** [`home-dashboard-implementation-v1.md`](home-dashboard-implementation-v1.md) §5.2
 
@@ -204,10 +204,44 @@ and `homeFigureHref` resolves the destination from the registry at render time, 
 anchor is a red test (`indicatorsAnchors.test.ts`) rather than a link that silently scrolls
 nowhere.
 
-**Still open: C3.** The head's inflation figure is the MONTHLY print and the chart it now lands
-beside is the QUARTERLY mean (4,4% vs 5,83%). C1 makes the difference visible — the section states
-its own period and the callout states the month — but aligning them, or plotting both with a note,
-is a data decision that has not been taken.
+## 3b. C3 — the frequency gap, closed by giving inflation the series it never had
+
+⚠️ **THE FIX WAS AN ASYMMETRY, NOT A JUDGEMENT CALL, and the repo had already written it down for
+the other indicator.** `macro.json` carried `unemploymentMonthly` as a full 258-point monthly
+SERIES — and the economy page plots it as the labour panel's main line with the quarterly as a
+faint reference, so the home head's monthly unemployment figure is the last point of a line the
+page actually draws. Its spec says why in as many words: a monthly series „surfaces the freshest
+reading as the last point rather than as a separate callout".
+
+Inflation had no such series. It had the quarterly mean plus a single `latestMonthly`
+OBSERVATION, which the page could only mention in a callout — so the head quoted a number the
+page's line could not reach, and the two sat 1.4 points apart.
+
+**So `inflationMonthly` now exists** (`prc_hicp_minr`, RCH_A, all-items, monthly — the identical
+query the `latestMonthly` spec already used, so the two cannot disagree), 260 points, and the
+inflation section plots it as the headline line with the quarterly `inflation` as the reference.
+The ECOICOP breakdown keeps its own sub-heading beneath it.
+
+Measured after the change, one click apart:
+
+```
+head:     +5,1% Инфлация (ХИПЦ) · спрямо година по-рано · несезонно изгладено · август 2026 г.
+landing:  „Обща инфлация (месечна)" · Последна точка: август 2026 г.
+```
+
+⚠️ **The macro refresh that carried the new series also moved two live figures**, and that is a
+normal `update-macro` outcome rather than a side effect of this change: unemployment 2026-06 3,0%
+→ 2026-07 3,6%, inflation 2026-07 4,4% → 2026-08 5,1%. Nothing quarterly moved. The earlier
+sections of this document quote the pre-refresh figures because that is what they were measured
+against; they are not restated.
+
+⚠️ **And it turned up a third period formatter.** `SectionAsOf` rendered „Последна точка: 2026-08"
+under a head that had just said „август 2026 г." — the same period, two spellings, one click
+apart — because `components/macro/formatPeriod` handled quarters and passed months through raw,
+while `homeFigures` carried its own month formatter. That file's own header says „IT MUST STAY THE
+ONLY ONE", so months went in there and `homeFigures.formatPeriod` now delegates. It keeps exactly
+one thing of its own: the head writes „Q2 2026" where the indicators tiles write „2026 Q2", which
+is a copy decision rather than a formatting one.
 
 ## 4. What NOT to do
 
