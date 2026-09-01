@@ -32,6 +32,7 @@ from news.eval_contract.canonical import (  # noqa: E402
 SCHEMA_VERSION = 1
 RUBRIC_VERSION = "news-article-evaluation-v1"
 MAX_TASKS = 200
+MAX_SELECTIONS = 20
 LEANING = {
     "strong_progressive", "progressive", "neutral", "conservative",
     "strong_conservative", "not_applicable",
@@ -132,6 +133,31 @@ def load_selection(path: Path) -> tuple[str, str, list[str]]:
     if len(set(keys)) != len(keys):
         raise SyncError(f"selection {dataset_id} contains duplicate article keys")
     return dataset_id, purpose, keys
+
+
+def environment_selections(root: Path) -> list[Path]:
+    """Resolve the optional deployment selection list inside the data root."""
+    raw = os.environ.get("NEWS_EVAL_SELECTIONS_JSON", "[]")
+    try:
+        values = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise SyncError("NEWS_EVAL_SELECTIONS_JSON must be a JSON array") from exc
+    if (not isinstance(values, list) or len(values) > MAX_SELECTIONS or
+            any(not isinstance(item, str) or not item for item in values)):
+        raise SyncError(
+            "NEWS_EVAL_SELECTIONS_JSON must contain at most "
+            f"{MAX_SELECTIONS} non-empty paths")
+    resolved_root = root.resolve()
+    selections = []
+    for value in values:
+        candidate = Path(value)
+        path = ((resolved_root / candidate).resolve()
+                if not candidate.is_absolute() else candidate.resolve())
+        if not path.is_relative_to(resolved_root) or not path.is_file():
+            raise SyncError(
+                f"eval selection is missing or outside the runtime: {value}")
+        selections.append(path)
+    return selections
 
 
 def load_public_articles(app_data: Path) -> tuple[str, dict[str, dict[str, Any]]]:
@@ -577,8 +603,10 @@ def main(argv: list[str] | None = None) -> int:
                     "tasks" / "current.json").resolve()
     queue_out = (args.queue_out or app_data / "evals" / "queue.json").resolve()
     try:
+        selections = ([path.resolve() for path in args.selection]
+                      if args.selection else environment_selections(root))
         manifest, queue, report = build(
-            root, app_data, [path.resolve() for path in args.selection],
+            root, app_data, selections,
             args.include_review_reasons, args.review_limit,
         )
         report["dry_run"] = not args.write

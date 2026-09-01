@@ -107,6 +107,33 @@ class TaskSyncTest(unittest.TestCase):
         self.assertNotIn("evidence", serialized)
         self.assertEqual(queue["tasks"][0]["model_labels"]["leaning"], "progressive")
 
+    def test_deployment_selection_env_is_safe_and_explicit_args_override_it(self):
+        with mock.patch.dict(os.environ, {
+            "NEWS_EVAL_SELECTIONS_JSON": '["selection.json"]',
+        }):
+            self.assertEqual(
+                sync.environment_selections(self.root),
+                [self.selection.resolve()],
+            )
+            self.assertEqual(sync.main([
+                "--root", str(self.root), "--app-data", str(self.app),
+            ]), 0)
+            with mock.patch.dict(os.environ, {
+                "NEWS_EVAL_SELECTIONS_JSON": '["../outside.json"]',
+            }):
+                with self.assertRaisesRegex(sync.SyncError, "outside the runtime"):
+                    sync.environment_selections(self.root)
+
+        # A caller supplying --selection owns the complete selection set; an
+        # unrelated deployment environment must not be appended implicitly.
+        with mock.patch.dict(os.environ, {
+            "NEWS_EVAL_SELECTIONS_JSON": '["../outside.json"]',
+        }):
+            self.assertEqual(sync.main([
+                "--root", str(self.root), "--app-data", str(self.app),
+                "--selection", str(self.selection),
+            ]), 0)
+
     def test_shared_unicode_fixture_matches_python_hash_and_revision_contract(self):
         fixture = sync.read_json(
             ROOT / "news" / "eval_contract" / "fixtures" / "task_sync_pair.json")
