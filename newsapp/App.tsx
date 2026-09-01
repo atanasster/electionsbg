@@ -1,4 +1,10 @@
-import { lazy, Suspense, useContext, useEffect } from "react";
+import {
+  lazy,
+  Suspense,
+  useContext,
+  useEffect,
+  type ComponentType,
+} from "react";
 import { Route, Routes, NavLink, Link, useLocation } from "react-router-dom";
 import { Menu, Search } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
@@ -14,17 +20,7 @@ import { cn } from "@/lib/utils";
 import { siteChrome } from "@/layout/siteChrome";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
-import { HomeScreen } from "./app/screens/HomeScreen";
-import { StoryScreen } from "./app/screens/StoryScreen";
-import { OutletsScreen } from "./app/screens/OutletsScreen";
-import { OutletScreen } from "./app/screens/OutletScreen";
-import { TopicsScreen } from "./app/screens/TopicsScreen";
-import { ArticleScreen } from "./app/screens/ArticleScreen";
-import { MethodologyScreen } from "./app/screens/MethodologyScreen";
-import { SavedScreen } from "./app/screens/SavedScreen";
-import { AboutScreen } from "./app/screens/AboutScreen";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
-import { CorrectionsScreen } from "./app/screens/CorrectionsScreen";
 import {
   NewsLocaleProvider,
   newsPathForLanguage,
@@ -32,6 +28,57 @@ import {
   useNewsLocale,
   type NewsLanguage,
 } from "./app/i18n";
+
+const lazyScreen = <T extends Record<string, unknown>, K extends keyof T>(
+  loader: () => Promise<T>,
+  exportName: K,
+) =>
+  lazy(() =>
+    loader().then((module) => ({
+      default: module[exportName] as ComponentType,
+    })),
+  );
+
+const HomeScreen = lazyScreen(
+  () => import("./app/screens/HomeScreen"),
+  "HomeScreen",
+);
+const StoryScreen = lazyScreen(
+  () => import("./app/screens/StoryScreen"),
+  "StoryScreen",
+);
+const OutletsScreen = lazyScreen(
+  () => import("./app/screens/OutletsScreen"),
+  "OutletsScreen",
+);
+const OutletScreen = lazyScreen(
+  () => import("./app/screens/OutletScreen"),
+  "OutletScreen",
+);
+const TopicsScreen = lazyScreen(
+  () => import("./app/screens/TopicsScreen"),
+  "TopicsScreen",
+);
+const ArticleScreen = lazyScreen(
+  () => import("./app/screens/ArticleScreen"),
+  "ArticleScreen",
+);
+const MethodologyScreen = lazyScreen(
+  () => import("./app/screens/MethodologyScreen"),
+  "MethodologyScreen",
+);
+const SavedScreen = lazyScreen(
+  () => import("./app/screens/SavedScreen"),
+  "SavedScreen",
+);
+const AboutScreen = lazyScreen(
+  () => import("./app/screens/AboutScreen"),
+  "AboutScreen",
+);
+const CorrectionsScreen = lazyScreen(
+  () => import("./app/screens/CorrectionsScreen"),
+  "CorrectionsScreen",
+);
 
 const EvalsScreen = lazy(() =>
   import("./app/screens/EvalsScreen").then(({ EvalsScreen }) => ({
@@ -44,7 +91,7 @@ const EvalArticleScreen = lazy(() =>
   })),
 );
 
-const EvalRouteFallback = () => <LocalizedEvalRouteFallback />;
+const RouteFallback = () => <LocalizedRouteFallback />;
 
 const EnglishEvaluationNotice = () => (
   <section className="mx-auto max-w-2xl py-12">
@@ -63,12 +110,12 @@ const EnglishEvaluationNotice = () => (
   </section>
 );
 
-const LocalizedEvalRouteFallback = () => {
+const LocalizedRouteFallback = () => {
   const { tr } = useNewsLocale();
   return (
     <section className="py-12" aria-busy="true" aria-live="polite">
       <p className="text-sm text-muted-foreground">
-        {tr("Зареждане на оценяването…", "Loading the evaluation…")}
+        {tr("Зареждане…", "Loading…")}
       </p>
     </section>
   );
@@ -304,43 +351,41 @@ const NewsAppShell = () => {
         id="news-main"
         className="news-main container flex-1 px-2 py-6 sm:px-4"
       >
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/story/:id" element={<StoryScreen />} />
-          <Route path="/outlets" element={<OutletsScreen />} />
-          <Route path="/outlet/:domain" element={<OutletScreen />} />
-          <Route path="/topics" element={<TopicsScreen />} />
-          <Route path="/article/:domain/:id" element={<ArticleScreen />} />
-          <Route path="/methodology" element={<MethodologyScreen />} />
-          <Route path="/saved" element={<SavedScreen />} />
-          <Route path="/about" element={<AboutScreen />} />
-          <Route path="/corrections" element={<CorrectionsScreen />} />
-          <Route
-            path="/evals"
-            element={
-              language === "en" ? (
-                <EnglishEvaluationNotice />
-              ) : (
-                <Suspense fallback={<EvalRouteFallback />}>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/story/:id" element={<StoryScreen />} />
+            <Route path="/outlets" element={<OutletsScreen />} />
+            <Route path="/outlet/:domain" element={<OutletScreen />} />
+            <Route path="/topics" element={<TopicsScreen />} />
+            <Route path="/article/:domain/:id" element={<ArticleScreen />} />
+            <Route path="/methodology" element={<MethodologyScreen />} />
+            <Route path="/saved" element={<SavedScreen />} />
+            <Route path="/about" element={<AboutScreen />} />
+            <Route path="/corrections" element={<CorrectionsScreen />} />
+            <Route
+              path="/evals"
+              element={
+                language === "en" ? (
+                  <EnglishEvaluationNotice />
+                ) : (
                   <EvalsScreen />
-                </Suspense>
-              )
-            }
-          />
-          <Route
-            path="/evals/article/:domain/:id"
-            element={
-              language === "en" ? (
-                <EnglishEvaluationNotice />
-              ) : (
-                <Suspense fallback={<EvalRouteFallback />}>
+                )
+              }
+            />
+            <Route
+              path="/evals/article/:domain/:id"
+              element={
+                language === "en" ? (
+                  <EnglishEvaluationNotice />
+                ) : (
                   <EvalArticleScreen />
-                </Suspense>
-              )
-            }
-          />
-          <Route path="*" element={<NotFoundScreen />} />
-        </Routes>
+                )
+              }
+            />
+            <Route path="*" element={<NotFoundScreen />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <footer

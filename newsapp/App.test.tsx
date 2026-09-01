@@ -73,7 +73,7 @@ describe("news shell accessibility", () => {
     ).toHaveAttribute("href", "/#news-search");
   });
 
-  it("renders the corrections workflow at its public route", () => {
+  it("renders the corrections workflow at its public route", async () => {
     render(
       <ThemeContext.Provider value={{ theme: themeLight, setTheme: vi.fn() }}>
         <MemoryRouter initialEntries={["/corrections"]}>
@@ -82,7 +82,9 @@ describe("news shell accessibility", () => {
       </ThemeContext.Provider>,
     );
     expect(
-      screen.getByRole("heading", { name: "Поправки и право на отговор" }),
+      await screen.findByRole("heading", {
+        name: "Поправки и право на отговор",
+      }),
     ).toBeVisible();
   });
 
