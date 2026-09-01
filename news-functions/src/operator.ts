@@ -1,8 +1,9 @@
 import { createHash, randomUUID } from "node:crypto";
 import { chmod, mkdir, open, readFile, rename, rm } from "node:fs/promises";
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 
 import articleEvaluationSchema from "./eval-contract/article_evaluation.schema.json" with { type: "json" };
+import articleFeedbackSchema from "./eval-contract/article_feedback_request.schema.json" with { type: "json" };
 import eventSchema from "./eval-contract/event.schema.json" with { type: "json" };
 import {
   canonicalJson,
@@ -125,6 +126,66 @@ export type AcceptedAdjudicationSnapshot = Readonly<{
   records: readonly AcceptedAdjudicationRecord[];
 }>;
 
+export type RawFeedbackRecord = Readonly<{
+  schema_version: 1;
+  contract: "article-feedback-v1";
+  submission_id: string;
+  mode: "article_feedback";
+  article_key: string;
+  task_revision: number;
+  content_sha256: string;
+  analysis_sha256: string | null;
+  target_registry_sha256: string;
+  public_data_revision: string;
+  submitted_at: string;
+  feedback: JsonObject;
+  status: "raw" | "quarantined" | "reviewed" | "promoted";
+}>;
+
+export type RawFeedbackExport = Readonly<{
+  manifest: Readonly<{
+    schema_version: 1;
+    export_kind: "news-feedback-community-submissions";
+    project_id: string;
+    firestore_read_time: string;
+    record_count: number;
+    records_sha256: string;
+  }>;
+  records: readonly RawFeedbackRecord[];
+}>;
+
+export type AcceptedFeedbackRecord = Readonly<{
+  schema_version: 1;
+  contract: "article-feedback-v1";
+  article_key: string;
+  url: string;
+  task_revision: number;
+  content_sha256: string;
+  analysis_sha256: string | null;
+  target_registry_sha256: string;
+  source_submission_ids: readonly string[];
+  source_target_registry_sha256s: Readonly<Record<string, string>>;
+  operator_actor: Readonly<{ kind: "maintainer"; id: string }>;
+  adjudicated_at: string;
+  revision: number;
+  feedback: JsonObject;
+  public_explanation: string | null;
+  status: "accepted";
+  last_operation_id: string;
+}>;
+
+export type AcceptedFeedbackSnapshot = Readonly<{
+  manifest: Readonly<{
+    schema_version: 1;
+    snapshot_kind: "news-feedback-accepted-adjudications";
+    project_id: string;
+    firestore_read_time: string;
+    record_count: number;
+    records_sha256: string;
+  }>;
+  records: readonly AcceptedFeedbackRecord[];
+}>;
+
 export type ReviewCommand =
   | Readonly<{
       schemaVersion: 1;
@@ -150,6 +211,38 @@ export type ReviewCommand =
       analysisSha256: string;
       expectedAdjudicationRevision: number;
       evaluation: JsonObject;
+      publicExplanation: string | null;
+      reason: string | null;
+    }>;
+
+export type FeedbackReviewCommand =
+  | Readonly<{
+      schemaVersion: 1;
+      operationId: string;
+      occurredAt: string;
+      actor: Readonly<{ kind: "maintainer"; id: string }>;
+      action: "submission_reviewed" | "submission_quarantined";
+      articleKey: string;
+      contentSha256: string;
+      targetRegistrySha256: string;
+      sourceSubmissionIds: readonly [string];
+      reason: string | null;
+    }>
+  | Readonly<{
+      schemaVersion: 1;
+      operationId: string;
+      occurredAt: string;
+      actor: Readonly<{ kind: "maintainer"; id: string }>;
+      action: "adjudication_accepted";
+      articleKey: string;
+      contentSha256: string;
+      analysisSha256: string | null;
+      targetRegistrySha256: string;
+      sourceSubmissionIds: readonly string[];
+      sourceTargetRegistrySha256s: Readonly<Record<string, string>>;
+      expectedTaskRevision: number;
+      expectedAdjudicationRevision: number;
+      feedback: JsonObject;
       publicExplanation: string | null;
       reason: string | null;
     }>;
@@ -201,6 +294,7 @@ const SHA256 = /^sha256:[a-f0-9]{64}$/;
 const IDENTIFIER = /^[A-Za-z0-9_-]{16,96}$/;
 const RUBRIC = "news-article-evaluation-v1" as const;
 const ARTICLE_SCHEMA = articleEvaluationSchema as JsonObject;
+const FEEDBACK_SCHEMA = articleFeedbackSchema as JsonObject;
 const EVENT_SCHEMA = eventSchema as JsonObject;
 const STATUS = new Set(["raw", "quarantined", "reviewed", "promoted"]);
 const LEANING = new Set([
@@ -269,6 +363,29 @@ const ADJUDICATION_EXPORT_FIELDS = [
   "schema_version",
   "rubric_version",
   ...ADJUDICATION_STORAGE_FIELDS.slice(1),
+] as const;
+const FEEDBACK_ADJUDICATION_STORAGE_FIELDS = [
+  "schema_version",
+  "article_key",
+  "url",
+  "task_revision",
+  "content_sha256",
+  "analysis_sha256",
+  "target_registry_sha256",
+  "source_submission_ids",
+  "source_target_registry_sha256s",
+  "operator_actor",
+  "adjudicated_at",
+  "revision",
+  "feedback",
+  "public_explanation",
+  "status",
+  "last_operation_id",
+] as const;
+const FEEDBACK_ADJUDICATION_EXPORT_FIELDS = [
+  "schema_version",
+  "contract",
+  ...FEEDBACK_ADJUDICATION_STORAGE_FIELDS.slice(1),
 ] as const;
 
 function object(value: unknown, label: string): JsonObject {
@@ -718,6 +835,67 @@ function feedbackTargetRegistry(value: unknown): {
     targetsHash,
     targets,
   };
+}
+
+function feedbackTargetRegistries(
+  value: unknown | readonly unknown[],
+): Map<string, ReturnType<typeof feedbackTargetRegistry>> {
+  const values = Array.isArray(value) ? value : [value];
+  if (values.length < 1 || values.length > 100)
+    throw new Error("feedback target registry set must contain 1 to 100 snapshots");
+  const registries = new Map<
+    string,
+    ReturnType<typeof feedbackTargetRegistry>
+  >();
+  for (const item of values) {
+    const registry = feedbackTargetRegistry(item);
+    const prior = registries.get(registry.targetsHash);
+    if (prior && canonicalJson(prior.targets) !== canonicalJson(registry.targets))
+      throw new Error("feedback target registry hash collision");
+    registries.set(registry.targetsHash, registry);
+  }
+  return registries;
+}
+
+export async function archiveFeedbackTargetRegistry(
+  targetRegistryValue: unknown,
+  registryDirectory: string,
+): Promise<Readonly<{ path: string; targetsSha256: string }>> {
+  const registry = feedbackTargetRegistry(targetRegistryValue);
+  const directory = stringValue(registryDirectory, "registry directory", 4096);
+  const name = `${registry.targetsHash.slice("sha256:".length)}.json`;
+  const destination = join(directory, name);
+  await writeAtomicPrivateFile(
+    destination,
+    `${canonicalJson(targetRegistryValue)}\n`,
+  );
+  return { path: destination, targetsSha256: registry.targetsHash };
+}
+
+function validateFeedbackTargetReferences(
+  feedbackValue: JsonObject,
+  registry: ReturnType<typeof feedbackTargetRegistry>,
+): void {
+  const keys = new Set(
+    registry.targets.map(
+      (target) => `${target.kind as string}\u0000${target.id as string}`,
+    ),
+  );
+  for (const rawParty of feedbackValue.party_tones as unknown[]) {
+    const party = object(rawParty, "feedback party tone");
+    if (
+      party.resolution_status === "selected" &&
+      !keys.has(`party\u0000${party.party_id as string}`)
+    )
+      throw new Error("selected feedback party is absent from target registry");
+  }
+  for (const rawProposal of feedbackValue.link_proposals as unknown[]) {
+    const proposal = object(rawProposal, "feedback link proposal");
+    if (proposal.resolution_status !== "selected") continue;
+    const reference = object(proposal.target_ref, "feedback target reference");
+    if (!keys.has(`${reference.kind as string}\u0000${reference.id as string}`))
+      throw new Error("selected feedback target is absent from target registry");
+  }
 }
 
 function feedbackTaskRevision(
@@ -1475,6 +1653,194 @@ export function validateRawSubmissionExport(value: RawSubmissionExport): void {
   }
 }
 
+function normalizedFeedbackPayload(
+  value: unknown,
+  metadata: {
+    articleKey: string;
+    taskRevision: number;
+    contentSha256: string;
+    analysisSha256: string | null;
+    targetRegistrySha256: string;
+  },
+): JsonObject {
+  const feedback = jsonObject(firestoreJson(value), "feedback");
+  const request = {
+    schema_version: 1,
+    article_key: metadata.articleKey,
+    base_task_revision: metadata.taskRevision,
+    content_sha256: metadata.contentSha256,
+    analysis_sha256: metadata.analysisSha256,
+    target_registry_sha256: metadata.targetRegistrySha256,
+    idempotency_key: "operator-validation-key",
+    turnstile_token: "operator-validation-token",
+    browser_nonce: null,
+    feedback,
+  };
+  const errors = validateSchema(FEEDBACK_SCHEMA, request);
+  if (errors.length > 0)
+    throw new Error(`feedback payload is invalid: ${errors.join("; ")}`);
+  return feedback;
+}
+
+function feedbackSubmissionRecord(
+  snapshot: OperatorDocumentSnapshot,
+): RawFeedbackRecord {
+  if (!snapshot.exists)
+    throw new Error(`feedback submission ${snapshot.id} is missing`);
+  const raw = object(snapshot.data(), `feedback submission ${snapshot.id}`);
+  if (raw.schema_version !== 1 || raw.mode !== "article_feedback")
+    throw new Error("feedback submission contract is unsupported");
+  const submissionId = stringValue(raw.submission_id, "submission_id", 128);
+  if (submissionId !== snapshot.id)
+    throw new Error("feedback submission ID does not match its document key");
+  const article = articleKey(raw.article_key);
+  const taskRevision = safeInteger(raw.task_revision, "task_revision", 1);
+  const contentHash = hash(raw.content_sha256, "content_sha256");
+  const analysisHash = raw.analysis_sha256 === null
+    ? null
+    : hash(raw.analysis_sha256, "analysis_sha256");
+  const targetHash = hash(
+    raw.target_registry_sha256,
+    "target_registry_sha256",
+  );
+  const status = stringValue(raw.status, "status", 32);
+  if (!STATUS.has(status))
+    throw new Error("feedback submission status is invalid");
+  return {
+    schema_version: 1,
+    contract: "article-feedback-v1",
+    submission_id: submissionId,
+    mode: "article_feedback",
+    article_key: article,
+    task_revision: taskRevision,
+    content_sha256: contentHash,
+    analysis_sha256: analysisHash,
+    target_registry_sha256: targetHash,
+    public_data_revision: isoTimestamp(
+      raw.public_data_revision,
+      "public_data_revision",
+    ),
+    submitted_at: isoTimestamp(raw.submitted_at, "submitted_at"),
+    feedback: normalizedFeedbackPayload(raw.feedback, {
+      articleKey: article,
+      taskRevision,
+      contentSha256: contentHash,
+      analysisSha256: analysisHash,
+      targetRegistrySha256: targetHash,
+    }),
+    status: status as RawFeedbackRecord["status"],
+  };
+}
+
+export function buildRawFeedbackExport(
+  projectId: string,
+  snapshot: OperatorQuerySnapshot,
+): RawFeedbackExport {
+  const records = snapshot.docs.map(feedbackSubmissionRecord).sort((left, right) =>
+    compareText(left.article_key, right.article_key) ||
+    compareText(left.submitted_at, right.submitted_at) ||
+    compareText(left.submission_id, right.submission_id),
+  );
+  if (records.length === 0)
+    throw new Error(
+      "Firestore returned no feedback; retaining the last known-good export",
+    );
+  return {
+    manifest: {
+      schema_version: 1,
+      export_kind: "news-feedback-community-submissions",
+      project_id: stringValue(projectId, "project ID", 128),
+      firestore_read_time: isoTimestamp(
+        snapshot.readTime,
+        "Firestore read time",
+      ),
+      record_count: records.length,
+      records_sha256: canonicalSha256(records),
+    },
+    records,
+  };
+}
+
+export function validateRawFeedbackExport(value: RawFeedbackExport): void {
+  const manifest = object(value.manifest, "raw feedback export manifest");
+  exactKeys(
+    manifest,
+    [
+      "schema_version",
+      "export_kind",
+      "project_id",
+      "firestore_read_time",
+      "record_count",
+      "records_sha256",
+    ],
+    "raw feedback export manifest",
+  );
+  if (
+    manifest.schema_version !== 1 ||
+    manifest.export_kind !== "news-feedback-community-submissions"
+  )
+    throw new Error("raw feedback export contract is unsupported");
+  stringValue(manifest.project_id, "project_id", 128);
+  isoTimestamp(manifest.firestore_read_time, "firestore_read_time");
+  if (safeInteger(manifest.record_count, "record_count") !== value.records.length)
+    throw new Error("raw feedback export record count does not match");
+  if (manifest.records_sha256 !== canonicalSha256(value.records))
+    throw new Error("raw feedback export records hash does not match");
+  let prior: RawFeedbackRecord | null = null;
+  const seen = new Set<string>();
+  for (const record of value.records) {
+    if (seen.has(record.submission_id))
+      throw new Error("raw feedback export has duplicate submission IDs");
+    seen.add(record.submission_id);
+    const normalized = feedbackSubmissionRecord({
+      id: record.submission_id,
+      exists: true,
+      data: () => record as unknown as JsonObject,
+    });
+    if (canonicalJson(normalized) !== canonicalJson(record))
+      throw new Error("raw feedback export record is not normalized");
+    if (
+      prior &&
+      (compareText(prior.article_key, record.article_key) ||
+        compareText(prior.submitted_at, record.submitted_at) ||
+        compareText(prior.submission_id, record.submission_id)) >= 0
+    )
+      throw new Error("raw feedback export records are not sorted");
+    prior = record;
+  }
+}
+
+export function serializeRawFeedbackExport(value: RawFeedbackExport): string {
+  validateRawFeedbackExport(value);
+  return [
+    canonicalJson({ kind: "manifest", ...value.manifest }),
+    ...value.records.map((record) =>
+      canonicalJson({ kind: "feedback", ...record }),
+    ),
+  ].join("\n") + "\n";
+}
+
+export function parseRawFeedbackExport(serialized: string): RawFeedbackExport {
+  const lines = serialized.split(/\r?\n/u).filter(Boolean);
+  if (lines.length === 0) throw new Error("raw feedback export is empty");
+  const first = object(JSON.parse(lines[0]!), "raw feedback manifest line");
+  if (first.kind !== "manifest")
+    throw new Error("first feedback export line is not a manifest");
+  const { kind: _manifestKind, ...manifest } = first;
+  void _manifestKind;
+  const records = lines.slice(1).map((line, index) => {
+    const row = object(JSON.parse(line), `raw feedback record ${index}`);
+    if (row.kind !== "feedback")
+      throw new Error(`raw feedback record ${index} has the wrong kind`);
+    const { kind: _recordKind, ...record } = row;
+    void _recordKind;
+    return record as RawFeedbackRecord;
+  });
+  const result = { manifest, records } as unknown as RawFeedbackExport;
+  validateRawFeedbackExport(result);
+  return result;
+}
+
 function acceptedAdjudicationRecord(
   value: unknown,
   label: string,
@@ -1747,6 +2113,277 @@ export async function buildLocalReviewBundle(
   };
 }
 
+export async function buildFeedbackReviewBundle(
+  exported: RawFeedbackExport,
+  targetRegistryValues: unknown | readonly unknown[],
+  readArticle: (
+    articleKey: string,
+  ) => Promise<Readonly<{ path: string; article: JsonObject }>>,
+): Promise<JsonObject> {
+  validateRawFeedbackExport(exported);
+  const registries = feedbackTargetRegistries(targetRegistryValues);
+  const groups = new Map<string, RawFeedbackRecord[]>();
+  for (const record of exported.records) {
+    const group = groups.get(record.article_key) ?? [];
+    group.push(record);
+    groups.set(record.article_key, group);
+  }
+  const articles: JsonObject[] = [];
+  for (const key of [...groups.keys()].sort(compareText)) {
+    const records = groups.get(key)!;
+    const local = await readArticle(key);
+    const article = object(local.article, `local article ${key}`);
+    const content = stringValue(
+      article.content,
+      `local article ${key}.content`,
+      2_000_000,
+    );
+    const submissions = records.map((record) => {
+      const registry = registries.get(record.target_registry_sha256);
+      const targets = new Map(
+        (registry?.targets ?? []).map((target) => [
+          `${target.kind as string}\u0000${target.id as string}`,
+          target,
+        ]),
+      );
+      const registryMatches = Boolean(registry);
+      const feedback = object(record.feedback, "feedback");
+      const references: JsonObject[] = [];
+      for (const partyValue of feedback.party_tones as unknown[]) {
+        const party = object(partyValue, "feedback party tone");
+        if (party.resolution_status === "selected")
+          references.push({ kind: "party", id: party.party_id });
+      }
+      for (const proposalValue of feedback.link_proposals as unknown[]) {
+        const proposal = object(proposalValue, "feedback link proposal");
+        if (proposal.resolution_status === "selected")
+          references.push(object(proposal.target_ref, "feedback target ref"));
+      }
+      const resolved = references.map((reference) => {
+        const target = registryMatches
+          ? targets.get(`${reference.kind as string}\u0000${reference.id as string}`)
+          : undefined;
+        return {
+          ref: reference,
+          target: target ?? null,
+          valid_for_registry: Boolean(target),
+        };
+      });
+      return {
+        ...record,
+        target_registry_matches_review_registry: registryMatches,
+        resolved_target_refs: resolved,
+        all_selected_targets_valid:
+          registryMatches && resolved.every((item) => item.valid_for_registry),
+      };
+    });
+    articles.push({
+      article_key: key,
+      local_article_path: stringValue(local.path, "local article path", 4096),
+      local_content_sha256: contentSha256(content),
+      local_content_matches_all_submissions: records.every(
+        (record) => record.content_sha256 === contentSha256(content),
+      ),
+      local_article: firestoreJson(article),
+      submissions,
+    });
+  }
+  return {
+    schema_version: 1,
+    bundle_kind: "news-feedback-local-review",
+    source_records_sha256: exported.manifest.records_sha256,
+    firestore_read_time: exported.manifest.firestore_read_time,
+    target_registry_sha256s: [...registries.keys()].sort(compareText),
+    article_count: articles.length,
+    submission_count: exported.records.length,
+    articles,
+  };
+}
+
+function acceptedFeedbackRecord(
+  value: unknown,
+  label: string,
+  documentId?: string,
+): AcceptedFeedbackRecord {
+  const raw = object(value, label);
+  exactKeys(
+    raw,
+    documentId
+      ? FEEDBACK_ADJUDICATION_STORAGE_FIELDS
+      : FEEDBACK_ADJUDICATION_EXPORT_FIELDS,
+    label,
+  );
+  const article = articleKey(raw.article_key);
+  if (documentId && documentId !== encodedArticleKey(article))
+    throw new Error(`${label} document identity does not match article`);
+  if (raw.schema_version !== 1 || raw.status !== "accepted")
+    throw new Error(`${label} contract is unsupported`);
+  const taskRevision = safeInteger(raw.task_revision, `${label}.task_revision`, 1);
+  const contentHash = hash(raw.content_sha256, `${label}.content_sha256`);
+  const analysisHash = raw.analysis_sha256 === null
+    ? null
+    : hash(raw.analysis_sha256, `${label}.analysis_sha256`);
+  const targetHash = hash(
+    raw.target_registry_sha256,
+    `${label}.target_registry_sha256`,
+  );
+  const actor = object(raw.operator_actor, `${label}.operator_actor`);
+  exactKeys(actor, ["kind", "id"], `${label}.operator_actor`);
+  if (actor.kind !== "maintainer")
+    throw new Error(`${label}.operator_actor must be a maintainer`);
+  if (
+    !Array.isArray(raw.source_submission_ids) ||
+    raw.source_submission_ids.length < 1 ||
+    raw.source_submission_ids.length > 100
+  )
+    throw new Error(`${label}.source_submission_ids is invalid`);
+  const sourceIds = raw.source_submission_ids.map((id) =>
+    stringValue(id, `${label}.source_submission_id`, 128),
+  ).sort(compareText);
+  if (new Set(sourceIds).size !== sourceIds.length)
+    throw new Error(`${label}.source_submission_ids are duplicated`);
+  const sourceRegistryRaw = object(
+    raw.source_target_registry_sha256s,
+    `${label}.source_target_registry_sha256s`,
+  );
+  if (
+    Object.keys(sourceRegistryRaw).length !== sourceIds.length ||
+    sourceIds.some((id) => !Object.hasOwn(sourceRegistryRaw, id))
+  )
+    throw new Error(`${label}.source registry provenance is incomplete`);
+  const sourceRegistryHashes = Object.fromEntries(
+    sourceIds.map((id) => [
+      id,
+      hash(
+        sourceRegistryRaw[id],
+        `${label}.source_target_registry_sha256s.${id}`,
+      ),
+    ]),
+  );
+  const operationId = stringValue(
+    raw.last_operation_id,
+    `${label}.last_operation_id`,
+    96,
+  );
+  if (!IDENTIFIER.test(operationId))
+    throw new Error(`${label}.last_operation_id is invalid`);
+  return {
+    schema_version: 1,
+    contract: "article-feedback-v1",
+    article_key: article,
+    url: strictHttpsUrl(raw.url, `${label}.url`),
+    task_revision: taskRevision,
+    content_sha256: contentHash,
+    analysis_sha256: analysisHash,
+    target_registry_sha256: targetHash,
+    source_submission_ids: sourceIds,
+    source_target_registry_sha256s: sourceRegistryHashes,
+    operator_actor: {
+      kind: "maintainer",
+      id: stringValue(actor.id, `${label}.operator_actor.id`, 128),
+    },
+    adjudicated_at: isoTimestamp(raw.adjudicated_at, `${label}.adjudicated_at`),
+    revision: safeInteger(raw.revision, `${label}.revision`, 1),
+    feedback: normalizedFeedbackPayload(raw.feedback, {
+      articleKey: article,
+      taskRevision,
+      contentSha256: contentHash,
+      analysisSha256: analysisHash,
+      targetRegistrySha256: targetHash,
+    }),
+    public_explanation: raw.public_explanation === null
+      ? null
+      : nullableString(raw.public_explanation, `${label}.public_explanation`),
+    status: "accepted",
+    last_operation_id: operationId,
+  };
+}
+
+export function buildAcceptedFeedbackSnapshot(
+  projectId: string,
+  snapshot: OperatorQuerySnapshot,
+): AcceptedFeedbackSnapshot {
+  const records = snapshot.docs.map((document) =>
+    acceptedFeedbackRecord(
+      document.data(),
+      `accepted feedback ${document.id}`,
+      document.id,
+    ),
+  ).sort((left, right) => compareText(left.article_key, right.article_key));
+  if (records.length === 0)
+    throw new Error(
+      "Firestore returned no accepted feedback; retaining the last known-good snapshot",
+    );
+  return {
+    manifest: {
+      schema_version: 1,
+      snapshot_kind: "news-feedback-accepted-adjudications",
+      project_id: stringValue(projectId, "project ID", 128),
+      firestore_read_time: isoTimestamp(snapshot.readTime, "Firestore read time"),
+      record_count: records.length,
+      records_sha256: canonicalSha256(records),
+    },
+    records,
+  };
+}
+
+export function validateAcceptedFeedbackSnapshot(
+  value: AcceptedFeedbackSnapshot,
+): void {
+  const root = object(value, "accepted feedback snapshot");
+  exactKeys(root, ["manifest", "records"], "accepted feedback snapshot");
+  const manifest = object(root.manifest, "accepted feedback manifest");
+  exactKeys(
+    manifest,
+    [
+      "schema_version",
+      "snapshot_kind",
+      "project_id",
+      "firestore_read_time",
+      "record_count",
+      "records_sha256",
+    ],
+    "accepted feedback manifest",
+  );
+  if (
+    manifest.schema_version !== 1 ||
+    manifest.snapshot_kind !== "news-feedback-accepted-adjudications"
+  )
+    throw new Error("accepted feedback snapshot contract is unsupported");
+  stringValue(manifest.project_id, "project_id", 128);
+  isoTimestamp(manifest.firestore_read_time, "firestore_read_time");
+  if (!Array.isArray(root.records) || root.records.length === 0)
+    throw new Error("accepted feedback snapshot is empty");
+  const records = root.records.map((record, index) =>
+    acceptedFeedbackRecord(record, `accepted feedback ${index}`)
+  );
+  if (safeInteger(manifest.record_count, "record_count", 1) !== records.length)
+    throw new Error("accepted feedback record count does not match");
+  if (manifest.records_sha256 !== canonicalSha256(records))
+    throw new Error("accepted feedback records hash does not match");
+  let prior = "";
+  for (const record of records) {
+    if (prior && compareText(prior, record.article_key) >= 0)
+      throw new Error("accepted feedback records are not strictly sorted");
+    prior = record.article_key;
+  }
+}
+
+export function serializeAcceptedFeedbackSnapshot(
+  value: AcceptedFeedbackSnapshot,
+): string {
+  validateAcceptedFeedbackSnapshot(value);
+  return `${canonicalJson(value)}\n`;
+}
+
+export function parseAcceptedFeedbackSnapshot(
+  serialized: string,
+): AcceptedFeedbackSnapshot {
+  const value = JSON.parse(serialized) as AcceptedFeedbackSnapshot;
+  validateAcceptedFeedbackSnapshot(value);
+  return value;
+}
+
 export function parseReviewCommand(value: unknown): ReviewCommand {
   const raw = object(value, "review command");
   const common = [
@@ -1851,6 +2488,149 @@ export function parseReviewCommand(value: unknown): ReviewCommand {
   };
 }
 
+export function parseFeedbackReviewCommand(
+  value: unknown,
+  targetRegistryValues: unknown | readonly unknown[],
+): FeedbackReviewCommand {
+  const raw = object(value, "feedback review command");
+  const action = stringValue(raw.action, "action", 64);
+  const accepted = action === "adjudication_accepted";
+  if (
+    !accepted &&
+    action !== "submission_reviewed" &&
+    action !== "submission_quarantined"
+  )
+    throw new Error("feedback review command action is unsupported");
+  const common = [
+    "schema_version",
+    "operation_id",
+    "occurred_at",
+    "actor",
+    "action",
+    "article_key",
+    "content_sha256",
+    "target_registry_sha256",
+    "source_submission_ids",
+    "reason",
+  ];
+  exactKeys(
+    raw,
+    accepted
+      ? [
+          ...common,
+          "analysis_sha256",
+          "expected_task_revision",
+          "expected_adjudication_revision",
+          "source_target_registry_sha256s",
+          "feedback",
+          "public_explanation",
+        ]
+      : common,
+    "feedback review command",
+  );
+  if (raw.schema_version !== 1)
+    throw new Error("feedback review command schema is unsupported");
+  const operationId = stringValue(raw.operation_id, "operation_id", 96);
+  if (!IDENTIFIER.test(operationId)) throw new Error("operation_id is invalid");
+  const actorRaw = object(raw.actor, "actor");
+  exactKeys(actorRaw, ["kind", "id"], "actor");
+  if (actorRaw.kind !== "maintainer")
+    throw new Error("only a maintainer actor may apply feedback reviews");
+  const actor = {
+    kind: "maintainer" as const,
+    id: stringValue(actorRaw.id, "actor.id", 128),
+  };
+  if (!Array.isArray(raw.source_submission_ids))
+    throw new Error("source_submission_ids must be an array");
+  const sourceIds = raw.source_submission_ids.map((id) =>
+    stringValue(id, "source submission ID", 128),
+  );
+  if (new Set(sourceIds).size !== sourceIds.length)
+    throw new Error("source_submission_ids contains duplicates");
+  const base = {
+    schemaVersion: 1 as const,
+    operationId,
+    occurredAt: isoTimestamp(raw.occurred_at, "occurred_at"),
+    actor,
+    articleKey: articleKey(raw.article_key),
+    contentSha256: hash(raw.content_sha256, "content_sha256"),
+    targetRegistrySha256: hash(
+      raw.target_registry_sha256,
+      "target_registry_sha256",
+    ),
+    reason: raw.reason === null ? null : nullableString(raw.reason, "reason"),
+  };
+  const registries = feedbackTargetRegistries(targetRegistryValues);
+  const registry = registries.get(base.targetRegistrySha256);
+  if (!registry)
+    throw new Error("feedback command does not match target registry");
+  if (!accepted) {
+    if (sourceIds.length !== 1)
+      throw new Error("feedback review requires exactly one source submission");
+    return {
+      ...base,
+      action,
+      sourceSubmissionIds: [sourceIds[0]!] as const,
+    };
+  }
+  if (sourceIds.length < 1)
+    throw new Error("accepted feedback requires source submissions");
+  if (sourceIds.length > 100)
+    throw new Error("accepted feedback exceeds the 100-source transaction cap");
+  const sourceRegistryRaw = object(
+    raw.source_target_registry_sha256s,
+    "source_target_registry_sha256s",
+  );
+  if (
+    Object.keys(sourceRegistryRaw).length !== sourceIds.length ||
+    sourceIds.some((id) => !Object.hasOwn(sourceRegistryRaw, id))
+  )
+    throw new Error("source target-registry provenance is incomplete");
+  const sourceTargetRegistrySha256s = Object.fromEntries(
+    sourceIds.map((id) => {
+      const sourceHash = hash(
+        sourceRegistryRaw[id],
+        `source_target_registry_sha256s.${id}`,
+      );
+      if (!registries.has(sourceHash))
+        throw new Error(`source registry for ${id} was not provided`);
+      return [id, sourceHash];
+    }),
+  );
+  const taskRevision = safeInteger(
+    raw.expected_task_revision,
+    "expected_task_revision",
+    1,
+  );
+  const analysisHash = raw.analysis_sha256 === null
+    ? null
+    : hash(raw.analysis_sha256, "analysis_sha256");
+  const feedback = normalizedFeedbackPayload(raw.feedback, {
+    articleKey: base.articleKey,
+    taskRevision,
+    contentSha256: base.contentSha256,
+    analysisSha256: analysisHash,
+    targetRegistrySha256: base.targetRegistrySha256,
+  });
+  validateFeedbackTargetReferences(feedback, registry);
+  return {
+    ...base,
+    action: "adjudication_accepted",
+    sourceSubmissionIds: [...sourceIds].sort(compareText),
+    sourceTargetRegistrySha256s,
+    analysisSha256: analysisHash,
+    expectedTaskRevision: taskRevision,
+    expectedAdjudicationRevision: safeInteger(
+      raw.expected_adjudication_revision,
+      "expected_adjudication_revision",
+    ),
+    feedback,
+    publicExplanation: raw.public_explanation === null
+      ? null
+      : nullableString(raw.public_explanation, "public_explanation"),
+  };
+}
+
 function encodedArticleKey(value: string): string {
   return Buffer.from(value, "utf8").toString("base64url");
 }
@@ -1867,7 +2647,7 @@ function validateEvent(value: JsonObject): void {
 
 function matchingEvent(
   snapshot: OperatorDocumentSnapshot,
-  command: ReviewCommand,
+  command: ReviewCommand | FeedbackReviewCommand,
   targetKind: "submission" | "adjudication",
   targetId: string,
 ): boolean {
@@ -1889,7 +2669,7 @@ function matchingEvent(
 }
 
 function eventFor(input: {
-  command: ReviewCommand;
+  command: ReviewCommand | FeedbackReviewCommand;
   action: string;
   targetKind: "submission" | "adjudication";
   targetId: string;
@@ -1940,11 +2720,42 @@ export class FirestoreOperatorStore {
     return buildAcceptedAdjudicationSnapshot(projectId, snapshot);
   }
 
+  async exportFeedbackSubmissions(
+    projectId: string,
+  ): Promise<RawFeedbackExport> {
+    const snapshot = await this.#database
+      .collection("news_feedback_submissions")
+      .get();
+    return buildRawFeedbackExport(projectId, snapshot);
+  }
+
+  async exportAcceptedFeedback(
+    projectId: string,
+  ): Promise<AcceptedFeedbackSnapshot> {
+    const snapshot = await this.#database
+      .collection("news_feedback_adjudications")
+      .get();
+    return buildAcceptedFeedbackSnapshot(projectId, snapshot);
+  }
+
   async apply(commandValue: unknown): Promise<ApplyReviewResult> {
     const command = parseReviewCommand(commandValue);
     if (command.action === "adjudication_accepted")
       return this.#acceptAdjudication(command);
     return this.#reviewSubmission(command);
+  }
+
+  async applyFeedback(
+    commandValue: unknown,
+    targetRegistryValues: unknown | readonly unknown[],
+  ): Promise<ApplyReviewResult> {
+    const command = parseFeedbackReviewCommand(
+      commandValue,
+      targetRegistryValues,
+    );
+    if (command.action === "adjudication_accepted")
+      return this.#acceptFeedbackAdjudication(command);
+    return this.#reviewFeedbackSubmission(command);
   }
 
   async syncTasks(
@@ -2244,9 +3055,14 @@ export class FirestoreOperatorStore {
       const desiredStatus =
         command.action === "submission_reviewed" ? "reviewed" : "quarantined";
       if (matchingEvent(eventSnapshot, command, "submission", submissionId)) {
+        const event = jsonObject(eventSnapshot.data(), "operator review event");
+        validateEvent(event);
         if (
           before.status !== desiredStatus ||
-          before.last_review_operation_id !== command.operationId
+          before.reviewed_at !== command.occurredAt ||
+          canonicalJson(before.reviewed_by) !== canonicalJson(command.actor) ||
+          before.last_review_operation_id !== command.operationId ||
+          event.after_sha256 !== stateHash(before)
         )
           throw new Error(
             "operator event exists but submission state does not match",
@@ -2474,6 +3290,263 @@ export class FirestoreOperatorStore {
       };
     });
   }
+
+  async #reviewFeedbackSubmission(
+    command: Extract<
+      FeedbackReviewCommand,
+      { action: "submission_reviewed" | "submission_quarantined" }
+    >,
+  ): Promise<ApplyReviewResult> {
+    const submissionId = command.sourceSubmissionIds[0];
+    const submissionRef = this.#database
+      .collection("news_feedback_submissions")
+      .doc(submissionId);
+    const eventRef = this.#database
+      .collection("news_feedback_events")
+      .doc(command.operationId);
+    return this.#database.runTransaction(async (transaction) => {
+      const [submissionSnapshot, eventSnapshot] = await Promise.all([
+        transaction.get(submissionRef),
+        transaction.get(eventRef),
+      ]);
+      if (!submissionSnapshot.exists)
+        throw new Error(`feedback submission ${submissionId} was not found`);
+      const before = jsonObject(
+        submissionSnapshot.data(),
+        "feedback submission",
+      );
+      if (
+        before.article_key !== command.articleKey ||
+        before.content_sha256 !== command.contentSha256 ||
+        before.target_registry_sha256 !== command.targetRegistrySha256
+      )
+        throw new Error("feedback submission no longer matches the review command");
+      const desiredStatus =
+        command.action === "submission_reviewed" ? "reviewed" : "quarantined";
+      if (matchingEvent(eventSnapshot, command, "submission", submissionId)) {
+        const event = jsonObject(
+          eventSnapshot.data(),
+          "feedback review event",
+        );
+        validateEvent(event);
+        if (
+          before.status !== desiredStatus ||
+          before.reviewed_at !== command.occurredAt ||
+          canonicalJson(before.reviewed_by) !== canonicalJson(command.actor) ||
+          before.last_review_operation_id !== command.operationId ||
+          event.after_sha256 !== stateHash(before)
+        )
+          throw new Error("feedback event exists but submission state differs");
+        return {
+          operationId: command.operationId,
+          idempotent: true,
+          articleKey: command.articleKey,
+          status: desiredStatus,
+        };
+      }
+      if (before.status === "promoted")
+        throw new Error("promoted feedback cannot be reclassified");
+      const patch: JsonObject = {
+        status: desiredStatus,
+        reviewed_at: command.occurredAt,
+        reviewed_by: command.actor,
+        last_review_operation_id: command.operationId,
+      };
+      const after = { ...before, ...patch };
+      transaction.set(submissionRef, patch, { merge: true });
+      transaction.set(eventRef, eventFor({
+        command,
+        action: command.action,
+        targetKind: "submission",
+        targetId: submissionId,
+        before,
+        after,
+      }));
+      return {
+        operationId: command.operationId,
+        idempotent: false,
+        articleKey: command.articleKey,
+        status: desiredStatus,
+      };
+    });
+  }
+
+  async #acceptFeedbackAdjudication(
+    command: Extract<FeedbackReviewCommand, { action: "adjudication_accepted" }>,
+  ): Promise<ApplyReviewResult> {
+    const encoded = encodedArticleKey(command.articleKey);
+    const taskRef = this.#database.collection("news_feedback_tasks").doc(encoded);
+    const syncStateRef = this.#database
+      .collection("news_feedback_sync")
+      .doc("task_manifest");
+    const adjudicationRef = this.#database
+      .collection("news_feedback_adjudications")
+      .doc(encoded);
+    const eventRef = this.#database
+      .collection("news_feedback_events")
+      .doc(command.operationId);
+    const supersededEventRef = this.#database
+      .collection("news_feedback_events")
+      .doc(`${command.operationId}-superseded`);
+    const sourceRefs = command.sourceSubmissionIds.map((id) =>
+      this.#database.collection("news_feedback_submissions").doc(id),
+    );
+    return this.#database.runTransaction(async (transaction) => {
+      const [taskSnapshot, syncStateSnapshot, currentSnapshot, eventSnapshot, supersededSnapshot] =
+        await Promise.all([
+          transaction.get(taskRef),
+          transaction.get(syncStateRef),
+          transaction.get(adjudicationRef),
+          transaction.get(eventRef),
+          transaction.get(supersededEventRef),
+        ]);
+      const sourceSnapshots: OperatorDocumentSnapshot[] = [];
+      for (const reference of sourceRefs)
+        sourceSnapshots.push(await transaction.get(reference));
+      const current = currentSnapshot.exists
+        ? jsonObject(currentSnapshot.data(), "current feedback adjudication")
+        : null;
+      if (matchingEvent(eventSnapshot, command, "adjudication", encoded)) {
+        try {
+          acceptedFeedbackRecord(current, "current feedback adjudication", encoded);
+          const event = jsonObject(eventSnapshot.data(), "feedback acceptance event");
+          if (event.after_sha256 !== stateHash(current))
+            throw new Error("feedback event after hash does not match");
+        } catch {
+          throw new Error("feedback event exists but adjudication state differs");
+        }
+        if (
+          !current ||
+          current.last_operation_id !== command.operationId ||
+          current.status !== "accepted" ||
+          current.revision !== command.expectedAdjudicationRevision + 1 ||
+          current.task_revision !== command.expectedTaskRevision ||
+          current.content_sha256 !== command.contentSha256 ||
+          current.analysis_sha256 !== command.analysisSha256 ||
+          current.target_registry_sha256 !== command.targetRegistrySha256 ||
+          current.adjudicated_at !== command.occurredAt ||
+          canonicalJson(current.operator_actor) !== canonicalJson(command.actor) ||
+          canonicalJson(current.feedback) !== canonicalJson(command.feedback) ||
+          canonicalJson(current.source_submission_ids) !==
+            canonicalJson(command.sourceSubmissionIds) ||
+          canonicalJson(current.source_target_registry_sha256s) !==
+            canonicalJson(command.sourceTargetRegistrySha256s) ||
+          (current.public_explanation ?? null) !== command.publicExplanation
+        )
+          throw new Error("feedback event exists but adjudication state differs");
+        return {
+          operationId: command.operationId,
+          idempotent: true,
+          articleKey: command.articleKey,
+          status: "accepted",
+          adjudicationRevision: safeInteger(current.revision, "revision", 1),
+        };
+      }
+      if (supersededSnapshot.exists)
+        throw new Error("feedback supersession exists without acceptance event");
+      if (!taskSnapshot.exists) throw new Error("feedback task was not found");
+      const task = normalizedFeedbackTask(
+        taskSnapshot.data(),
+        "feedback task",
+      );
+      if (
+        task.article_key !== command.articleKey ||
+        task.revision !== command.expectedTaskRevision ||
+        task.content_sha256 !== command.contentSha256 ||
+        task.analysis_sha256 !== command.analysisSha256 ||
+        task.target_registry_sha256 !== command.targetRegistrySha256 ||
+        task.accepts_public_feedback !== true
+      )
+        throw new Error("feedback adjudication task is stale");
+      if (!syncStateSnapshot.exists)
+        throw new Error("feedback task manifest is not active");
+      const syncState = jsonObject(
+        syncStateSnapshot.data(),
+        "active feedback task manifest",
+      );
+      if (
+        syncState.public_data_revision !== task.public_data_revision ||
+        typeof syncState.tasks_sha256 !== "string" ||
+        !SHA256.test(syncState.tasks_sha256)
+      )
+        throw new Error("feedback task is not part of the active manifest");
+      const currentRevision = current
+        ? safeInteger(current.revision, "feedback adjudication revision", 1)
+        : 0;
+      if (currentRevision !== command.expectedAdjudicationRevision)
+        throw new Error(
+          `feedback adjudication revision conflict: expected ${command.expectedAdjudicationRevision}, current ${currentRevision}`,
+        );
+      for (let index = 0; index < sourceSnapshots.length; index += 1) {
+        const snapshot = sourceSnapshots[index]!;
+        const source = feedbackSubmissionRecord(snapshot);
+        if (
+          source.submission_id !== command.sourceSubmissionIds[index] ||
+          source.article_key !== command.articleKey ||
+          source.content_sha256 !== command.contentSha256 ||
+          source.analysis_sha256 !== command.analysisSha256 ||
+          source.target_registry_sha256 !==
+            command.sourceTargetRegistrySha256s[source.submission_id]
+        )
+          throw new Error(`feedback source ${source.submission_id} is stale`);
+        if (source.status === "quarantined")
+          throw new Error(`feedback source ${source.submission_id} is quarantined`);
+      }
+      const nextRevision = currentRevision + 1;
+      const after: JsonObject = {
+        schema_version: 1,
+        article_key: command.articleKey,
+        url: task.url,
+        task_revision: command.expectedTaskRevision,
+        content_sha256: command.contentSha256,
+        analysis_sha256: command.analysisSha256,
+        target_registry_sha256: command.targetRegistrySha256,
+        source_submission_ids: command.sourceSubmissionIds,
+        source_target_registry_sha256s: command.sourceTargetRegistrySha256s,
+        operator_actor: command.actor,
+        adjudicated_at: command.occurredAt,
+        revision: nextRevision,
+        feedback: command.feedback,
+        public_explanation: command.publicExplanation,
+        status: "accepted",
+        last_operation_id: command.operationId,
+      };
+      transaction.set(eventRef, eventFor({
+        command,
+        action: "adjudication_accepted",
+        targetKind: "adjudication",
+        targetId: encoded,
+        before: current,
+        after,
+      }));
+      if (current)
+        transaction.set(supersededEventRef, eventFor({
+          command,
+          action: "adjudication_superseded",
+          targetKind: "adjudication",
+          targetId: encoded,
+          before: current,
+          after,
+          eventId: `${command.operationId}-superseded`,
+          reason: "Replaced atomically by a newer accepted feedback adjudication.",
+        }));
+      for (const reference of sourceRefs)
+        transaction.set(reference, {
+          status: "promoted",
+          promoted_at: command.occurredAt,
+          promoted_by: command.actor,
+          last_review_operation_id: command.operationId,
+        }, { merge: true });
+      transaction.set(adjudicationRef, after);
+      return {
+        operationId: command.operationId,
+        idempotent: false,
+        articleKey: command.articleKey,
+        status: "accepted",
+        adjudicationRevision: nextRevision,
+      };
+    });
+  }
 }
 
 export async function writeAtomicPrivateFile(
@@ -2503,4 +3576,10 @@ export async function readRawSubmissionExport(
   source: string,
 ): Promise<RawSubmissionExport> {
   return parseRawSubmissionExport(await readFile(source, "utf8"));
+}
+
+export async function readRawFeedbackExport(
+  source: string,
+): Promise<RawFeedbackExport> {
+  return parseRawFeedbackExport(await readFile(source, "utf8"));
 }

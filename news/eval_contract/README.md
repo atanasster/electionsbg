@@ -93,3 +93,36 @@ dedupe and raw-submission records intentionally are not TTL collections. Operato
 task through `GET /api/news-evals/feedback-task/:domain/:id` after activation. To roll back the
 website, publish a new forward revision and rebuild/synchronize its task manifests—the registry
 refuses timestamp rollback.
+
+Canonical selections are release-bound references, not browser-authored profile claims. The public
+request stores only `{kind,id}` plus the target-registry hash; canonical labels and routes are
+resolved from the independently hashed `feedback-targets.json` during offline review. An unresolved
+selection is explicit, and a replacement also records the current public href and an occurrence
+context quote. Companies, institutions, people, parties, settlements and sectors are supported.
+Every canonical entity link already emitted by a public article must occur in the registry or the
+app-data build fails.
+
+The private maintainer workflow is:
+
+1. `npm run news:feedback:archive-targets` preserves the current release-bound registry under its
+   content hash. Run it for every published registry before replacing `feedback-targets.json`.
+2. `npm run news:feedback:export` writes a mode-0600, hashed JSONL export of raw feedback.
+3. `npm run news:feedback:review-bundle` joins that export to full local article text and the current
+   plus archived target registries, marking stale content and unknown selected refs. Each submission
+   is resolved against its original registry rather than silently reinterpreted under the current one.
+4. Prepare a strict `submission_reviewed` / `submission_quarantined` or
+   `adjudication_accepted` command and run `npm run news:feedback:apply-review -- --file PATH`.
+   Applying a command always revalidates its registry file, active feedback-task manifest, task
+   revision, content/analysis hashes and source submissions in the same transaction. Acceptance
+   records the registry hash for every source submission while validating the final canonical refs
+   against the current registry.
+5. `npm run news:feedback:export-accepted` writes the last-known-good accepted-feedback snapshot.
+   Empty reads and malformed records cannot replace a prior snapshot.
+
+Review, acceptance, source promotion and audit-event append are atomic and retry-idempotent.
+Accepted feedback remains separate from the model analysis until the publication pipeline applies
+it; public HTTP routes expose no review or adjudication capability.
+
+The complete command shapes, carry-forward rules and recovery procedure are in
+[`feedback-operator-runbook.md`](feedback-operator-runbook.md). All generated files under the
+feedback-specific `news/data/evals/` directories are private, gitignored operator artifacts.

@@ -8,15 +8,24 @@ import test from "node:test";
 
 import { canonicalSha256 } from "../lib/eval-contract/canonical.js";
 import {
+  archiveFeedbackTargetRegistry,
   buildAcceptedAdjudicationSnapshot,
+  buildAcceptedFeedbackSnapshot,
+  buildFeedbackReviewBundle,
   buildLocalReviewBundle,
+  buildRawFeedbackExport,
   buildRawSubmissionExport,
   deriveTaskRevision,
   FirestoreOperatorStore,
   parseAcceptedAdjudicationSnapshot,
+  parseAcceptedFeedbackSnapshot,
+  parseFeedbackReviewCommand,
+  parseRawFeedbackExport,
   parseRawSubmissionExport,
   parseReviewCommand,
   serializeAcceptedAdjudicationSnapshot,
+  serializeAcceptedFeedbackSnapshot,
+  serializeRawFeedbackExport,
   serializeRawSubmissionExport,
   strictHttpsUrl,
   writeAtomicPrivateFile,
@@ -392,6 +401,107 @@ function feedbackTask(key = ARTICLE_KEY, overrides = {}) {
   };
 }
 
+const feedbackTargets = [{
+  kind: "company",
+  id: "206268628",
+  canonical: "О-РЕНТ",
+  href: "https://electionsbg.com/company/206268628",
+  aliases: ["О-РЕНТ", "О-Рент"],
+}];
+const FEEDBACK_TARGET_HASH = canonicalSha256(feedbackTargets);
+const feedbackTargetRegistryFixture = () => ({
+  version: 1,
+  generated_at: "2026-09-01T08:00:00.000Z",
+  targets_sha256: FEEDBACK_TARGET_HASH,
+  target_count: feedbackTargets.length,
+  targets: clone(feedbackTargets),
+});
+
+const feedbackPayload = {
+  leaning: {
+    label: "progressive",
+    evidence: "Авторският текст защитава по-широка социална защита.",
+  },
+  russia_stance: null,
+  party_tones: [],
+  link_proposals: [{
+    action: "add",
+    surface: "О-Рент",
+    target_kind: "company",
+    resolution_status: "selected",
+    target_ref: { kind: "company", id: "206268628" },
+    current_href: null,
+    context: "О-Рент е посочено като изпълнител в третия абзац.",
+    evidence: "Връзката към профила на дружеството липсва.",
+  }],
+  issue_kinds: ["missing_entity"],
+  public_note: null,
+};
+
+function feedbackSubmission(id = "feedback-submission-0001", overrides = {}) {
+  const currentTask = feedbackTask(ARTICLE_KEY, {
+    target_registry_sha256: FEEDBACK_TARGET_HASH,
+  });
+  return {
+    schema_version: 1,
+    submission_id: id,
+    mode: "article_feedback",
+    article_key: ARTICLE_KEY,
+    task_revision: currentTask.revision,
+    content_sha256: CONTENT_HASH,
+    analysis_sha256: null,
+    target_registry_sha256: FEEDBACK_TARGET_HASH,
+    public_data_revision: currentTask.public_data_revision,
+    submitted_at: new Date(NOW),
+    feedback: clone(feedbackPayload),
+    status: "raw",
+    ...overrides,
+  };
+}
+
+function feedbackReviewCommand(overrides = {}) {
+  return {
+    schema_version: 1,
+    operation_id: "feedback-review-operation-0001",
+    occurred_at: NOW,
+    actor: { kind: "maintainer", id: "editor@example.test" },
+    action: "submission_reviewed",
+    article_key: ARTICLE_KEY,
+    content_sha256: CONTENT_HASH,
+    target_registry_sha256: FEEDBACK_TARGET_HASH,
+    source_submission_ids: ["feedback-submission-0001"],
+    reason: "Checked against the local article and canonical registry.",
+    ...overrides,
+  };
+}
+
+function feedbackAcceptanceCommand(overrides = {}) {
+  const currentTask = feedbackTask(ARTICLE_KEY, {
+    target_registry_sha256: FEEDBACK_TARGET_HASH,
+  });
+  return {
+    schema_version: 1,
+    operation_id: "feedback-accept-operation-0001",
+    occurred_at: NOW,
+    actor: { kind: "maintainer", id: "editor@example.test" },
+    action: "adjudication_accepted",
+    article_key: ARTICLE_KEY,
+    content_sha256: CONTENT_HASH,
+    analysis_sha256: null,
+    target_registry_sha256: FEEDBACK_TARGET_HASH,
+    source_submission_ids: ["feedback-submission-0001"],
+    source_target_registry_sha256s: {
+      "feedback-submission-0001": FEEDBACK_TARGET_HASH,
+    },
+    expected_task_revision: currentTask.revision,
+    expected_adjudication_revision: 0,
+    feedback: clone(feedbackPayload),
+    public_explanation: "Проверено спрямо статията и каноничния регистър.",
+    reason: "Accepted after editorial review.",
+    ...overrides,
+  };
+}
+
 function feedbackManifest(tasks, overrides = {}) {
   const sourceArticles = tasks.map((task) => ({
     article_key: task.article_key,
@@ -655,6 +765,326 @@ test("review commands are strict and cannot name an anonymous actor or duplicate
   );
   assert.throws(
     () => parseReviewCommand(reviewCommand({ unexpected: true })),
+    /unexpected fields/,
+  );
+});
+
+test("public feedback export and local review resolve only release-bound targets", async () => {
+  const exported = buildRawFeedbackExport("electionsbg-news", {
+    docs: [snapshot(
+      "feedback-submission-0001",
+      feedbackSubmission(),
+    )],
+    readTime: new Date("2026-09-01T08:30:00.000Z"),
+  });
+  const serialized = serializeRawFeedbackExport(exported);
+  assert.deepEqual(parseRawFeedbackExport(serialized), exported);
+  const registry = feedbackTargetRegistryFixture();
+  const bundle = await buildFeedbackReviewBundle(
+    exported,
+    registry,
+    async () => ({
+      path: "/private/news/data/example.bg/article-1.json",
+      article: { content: "Full locally stored article text." },
+    }),
+  );
+  assert.equal(bundle.article_count, 1);
+  const reviewed = bundle.articles[0].submissions[0];
+  assert.equal(reviewed.target_registry_matches_review_registry, true);
+  assert.equal(reviewed.all_selected_targets_valid, true);
+  assert.equal(
+    reviewed.resolved_target_refs[0].target.canonical,
+    "О-РЕНТ",
+  );
+  const stale = await buildFeedbackReviewBundle(
+    {
+      ...exported,
+      manifest: {
+        ...exported.manifest,
+        records_sha256: canonicalSha256(exported.records.map((record) => ({
+          ...record,
+          target_registry_sha256: `sha256:${"f".repeat(64)}`,
+        }))),
+      },
+      records: exported.records.map((record) => ({
+        ...record,
+        target_registry_sha256: `sha256:${"f".repeat(64)}`,
+      })),
+    },
+    registry,
+    async () => ({ path: "/private/article.json", article: { content: "x" } }),
+  );
+  assert.equal(
+    stale.articles[0].submissions[0].all_selected_targets_valid,
+    false,
+  );
+});
+
+test("feedback review and acceptance are atomic, audited, and exportable", async () => {
+  assert.equal(
+    parseFeedbackReviewCommand(
+      feedbackReviewCommand(),
+      feedbackTargetRegistryFixture(),
+    ).action,
+    "submission_reviewed",
+  );
+  assert.throws(
+    () => parseFeedbackReviewCommand(
+      feedbackAcceptanceCommand({
+        feedback: {
+          ...clone(feedbackPayload),
+          link_proposals: [{
+            ...clone(feedbackPayload.link_proposals[0]),
+            target_ref: { kind: "company", id: "forged-company" },
+          }],
+        },
+      }),
+      feedbackTargetRegistryFixture(),
+    ),
+    /absent from target registry/,
+  );
+  const currentTask = feedbackTask(ARTICLE_KEY, {
+    target_registry_sha256: FEEDBACK_TARGET_HASH,
+  });
+  const database = new FakeFirestore([
+    [`news_feedback_tasks/${TASK_ID}`, currentTask],
+    ["news_feedback_sync/task_manifest", {
+      public_data_revision: currentTask.public_data_revision,
+      tasks_sha256: canonicalSha256([currentTask]),
+    }],
+    [
+      "news_feedback_submissions/feedback-submission-0001",
+      feedbackSubmission(),
+    ],
+  ]);
+  const store = new FirestoreOperatorStore(database);
+  const reviewed = await store.applyFeedback(
+    feedbackReviewCommand(),
+    feedbackTargetRegistryFixture(),
+  );
+  assert.equal(reviewed.status, "reviewed");
+  assert.equal(
+    database.documents.get(
+      "news_feedback_submissions/feedback-submission-0001",
+    ).status,
+    "reviewed",
+  );
+  const reviewRetry = await store.applyFeedback(
+    feedbackReviewCommand(),
+    feedbackTargetRegistryFixture(),
+  );
+  assert.equal(reviewRetry.idempotent, true);
+  const reviewedSubmission = database.documents.get(
+    "news_feedback_submissions/feedback-submission-0001",
+  );
+  const reviewEvent = database.documents.get(
+    "news_feedback_events/feedback-review-operation-0001",
+  );
+  reviewedSubmission.reviewed_at = "2026-09-01T00:00:00.000Z";
+  await assert.rejects(
+    () => store.applyFeedback(
+      feedbackReviewCommand(),
+      feedbackTargetRegistryFixture(),
+    ),
+    /submission state differs/,
+  );
+  reviewedSubmission.reviewed_at = NOW;
+  const originalAfterHash = reviewEvent.after_sha256;
+  reviewEvent.after_sha256 = CONTENT_HASH;
+  await assert.rejects(
+    () => store.applyFeedback(
+      feedbackReviewCommand(),
+      feedbackTargetRegistryFixture(),
+    ),
+    /submission state differs/,
+  );
+  reviewEvent.after_sha256 = originalAfterHash;
+  const accepted = await store.applyFeedback(
+    feedbackAcceptanceCommand(),
+    feedbackTargetRegistryFixture(),
+  );
+  assert.equal(accepted.status, "accepted");
+  assert.equal(accepted.adjudicationRevision, 1);
+  assert.equal(
+    database.documents.get(
+      "news_feedback_submissions/feedback-submission-0001",
+    ).status,
+    "promoted",
+  );
+  assert.equal(
+    database.documents.get(
+      "news_feedback_events/feedback-accept-operation-0001",
+    ).action,
+    "adjudication_accepted",
+  );
+  const retry = await store.applyFeedback(
+    feedbackAcceptanceCommand(),
+    feedbackTargetRegistryFixture(),
+  );
+  assert.equal(retry.idempotent, true);
+
+  const snapshotValue = buildAcceptedFeedbackSnapshot("electionsbg-news", {
+    docs: [snapshot(
+      TASK_ID,
+      database.documents.get(`news_feedback_adjudications/${TASK_ID}`),
+    )],
+    readTime: new Date("2026-09-01T09:00:00.000Z"),
+  });
+  const serialized = serializeAcceptedFeedbackSnapshot(snapshotValue);
+  assert.deepEqual(parseAcceptedFeedbackSnapshot(serialized), snapshotValue);
+  assert.throws(
+    () => buildAcceptedFeedbackSnapshot("electionsbg-news", {
+      docs: [],
+      readTime: new Date("2026-09-01T09:00:00.000Z"),
+    }),
+    /last known-good/,
+  );
+  assert.throws(
+    () => parseAcceptedFeedbackSnapshot(JSON.stringify({
+      manifest: {
+        schema_version: 1,
+        snapshot_kind: "news-feedback-accepted-adjudications",
+        project_id: "electionsbg-news",
+        firestore_read_time: "2026-09-01T09:00:00.000Z",
+        record_count: 0,
+        records_sha256: canonicalSha256([]),
+      },
+      records: [],
+    })),
+    /snapshot is empty/,
+  );
+  database.documents.get(
+    `news_feedback_adjudications/${TASK_ID}`,
+  ).public_explanation = "Drifted after the acceptance event.";
+  await assert.rejects(
+    () => store.applyFeedback(
+      feedbackAcceptanceCommand(),
+      feedbackTargetRegistryFixture(),
+    ),
+    /adjudication state differs/,
+  );
+
+  const inactiveDatabase = new FakeFirestore([
+    [`news_feedback_tasks/${TASK_ID}`, currentTask],
+    ["news_feedback_sync/task_manifest", {
+      public_data_revision: "2026-08-31T00:00:00.000Z",
+      tasks_sha256: canonicalSha256([currentTask]),
+    }],
+    [
+      "news_feedback_submissions/feedback-submission-0001",
+      feedbackSubmission(),
+    ],
+  ]);
+  const beforeInactive = clone([...inactiveDatabase.documents]);
+  await assert.rejects(
+    () => new FirestoreOperatorStore(inactiveDatabase).applyFeedback(
+      feedbackAcceptanceCommand(),
+      feedbackTargetRegistryFixture(),
+    ),
+    /active manifest/,
+  );
+  assert.deepEqual([...inactiveDatabase.documents], beforeInactive);
+});
+
+test("historical target registries remain reviewable through explicit carry-forward", async () => {
+  const oldTargets = [{
+    ...feedbackTargets[0],
+    aliases: ["О-РЕНТ"],
+  }];
+  const oldHash = canonicalSha256(oldTargets);
+  const oldRegistry = {
+    version: 1,
+    generated_at: "2026-08-31T08:00:00.000Z",
+    targets_sha256: oldHash,
+    target_count: 1,
+    targets: oldTargets,
+  };
+  const directory = await mkdtemp(join(tmpdir(), "feedback-registry-"));
+  const archived = await archiveFeedbackTargetRegistry(oldRegistry, directory);
+  assert.equal(archived.targetsSha256, oldHash);
+  assert.equal((await stat(archived.path)).mode & 0o777, 0o600);
+
+  const currentTask = feedbackTask(ARTICLE_KEY, {
+    target_registry_sha256: FEEDBACK_TARGET_HASH,
+  });
+  const source = feedbackSubmission("feedback-submission-0001", {
+    target_registry_sha256: oldHash,
+  });
+  const database = new FakeFirestore([
+    [`news_feedback_tasks/${TASK_ID}`, currentTask],
+    ["news_feedback_sync/task_manifest", {
+      public_data_revision: currentTask.public_data_revision,
+      tasks_sha256: canonicalSha256([currentTask]),
+    }],
+    ["news_feedback_submissions/feedback-submission-0001", source],
+  ]);
+  const command = feedbackAcceptanceCommand({
+    operation_id: "feedback-carry-operation-0001",
+    source_target_registry_sha256s: {
+      "feedback-submission-0001": oldHash,
+    },
+  });
+  const result = await new FirestoreOperatorStore(database).applyFeedback(
+    command,
+    [feedbackTargetRegistryFixture(), oldRegistry],
+  );
+  assert.equal(result.status, "accepted");
+  const accepted = database.documents.get(
+    `news_feedback_adjudications/${TASK_ID}`,
+  );
+  assert.equal(
+    accepted.source_target_registry_sha256s["feedback-submission-0001"],
+    oldHash,
+  );
+  assert.equal(accepted.target_registry_sha256, FEEDBACK_TARGET_HASH);
+  const acceptedRead = {
+    docs: [snapshot(TASK_ID, accepted)],
+    readTime: new Date("2026-09-01T09:30:00.000Z"),
+  };
+  const strictSnapshot = buildAcceptedFeedbackSnapshot(
+    "electionsbg-news",
+    acceptedRead,
+  );
+  assert.throws(
+    () => buildAcceptedFeedbackSnapshot("electionsbg-news", {
+      ...acceptedRead,
+      docs: [snapshot(TASK_ID, { ...accepted, unexpected_private: true })],
+    }),
+    /unexpected fields/,
+  );
+  assert.throws(
+    () => buildAcceptedFeedbackSnapshot("electionsbg-news", {
+      ...acceptedRead,
+      docs: [snapshot(TASK_ID, { ...accepted, last_operation_id: "short" })],
+    }),
+    /last_operation_id is invalid/,
+  );
+  const tooManyIds = Array.from({ length: 101 }, (_, index) => `source-${index}`);
+  assert.throws(
+    () => buildAcceptedFeedbackSnapshot("electionsbg-news", {
+      ...acceptedRead,
+      docs: [snapshot(TASK_ID, {
+        ...accepted,
+        source_submission_ids: tooManyIds,
+        source_target_registry_sha256s: Object.fromEntries(
+          tooManyIds.map((id) => [id, oldHash]),
+        ),
+      })],
+    }),
+    /source_submission_ids is invalid/,
+  );
+  assert.throws(
+    () => parseAcceptedFeedbackSnapshot(JSON.stringify({
+      ...strictSnapshot,
+      unexpected: true,
+    })),
+    /unexpected fields/,
+  );
+  assert.throws(
+    () => parseAcceptedFeedbackSnapshot(JSON.stringify({
+      ...strictSnapshot,
+      manifest: { ...strictSnapshot.manifest, unexpected: true },
+    })),
     /unexpected fields/,
   );
 });

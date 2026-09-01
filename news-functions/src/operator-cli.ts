@@ -3,16 +3,21 @@
 import { applicationDefault } from "firebase-admin/app";
 import { deleteApp, getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 
 import { canonicalJson } from "./eval-contract/canonical.js";
 import {
+  archiveFeedbackTargetRegistry,
   buildLocalReviewBundle,
+  buildFeedbackReviewBundle,
   FirestoreOperatorStore,
   readRawSubmissionExport,
+  readRawFeedbackExport,
+  serializeAcceptedFeedbackSnapshot,
   serializeAcceptedAdjudicationSnapshot,
   serializeRawSubmissionExport,
+  serializeRawFeedbackExport,
   verifyProjectFeedbackTaskRelease,
   verifyProjectTaskRelease,
   writeAtomicPrivateFile,
@@ -26,8 +31,13 @@ function usage(): string {
     "Usage:",
     "  operator-cli export --project electionsbg-news --out PATH",
     "  operator-cli export-accepted --project electionsbg-news --out PATH",
+    "  operator-cli export-feedback --project electionsbg-news --out PATH",
+    "  operator-cli export-accepted-feedback --project electionsbg-news --out PATH",
+    "  operator-cli archive-feedback-targets --target-registry PATH --registry-dir DIR",
     "  operator-cli review-bundle --input PATH --article-root news/data --out PATH",
+    "  operator-cli feedback-review-bundle --input PATH --article-root news/data --target-registry PATH --registry-dir DIR --out PATH",
     "  operator-cli apply --project electionsbg-news --file PATH",
+    "  operator-cli apply-feedback --project electionsbg-news --file PATH --target-registry PATH --registry-dir DIR",
     "  operator-cli sync-tasks --project electionsbg-news --file PATH --live-manifest-url URL",
     "  operator-cli sync-feedback-tasks --project electionsbg-news --file PATH --live-manifest-url URL",
   ].join("\n");
@@ -109,6 +119,29 @@ async function readLocalArticle(articleRoot: string, articleKey: string) {
   return { path, article };
 }
 
+async function readTargetRegistries(
+  currentPath: string,
+  registryDirectory: string,
+): Promise<unknown[]> {
+  const values = [JSON.parse(await readFile(resolve(currentPath), "utf8"))];
+  let names: string[] = [];
+  try {
+    names = await readdir(resolve(registryDirectory));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
+  for (const name of names.filter((item) => /^[a-f0-9]{64}\.json$/u.test(item)).sort()) {
+    const value = JSON.parse(
+      await readFile(resolve(registryDirectory, name), "utf8"),
+    ) as Record<string, unknown>;
+    const expectedHash = `sha256:${name.slice(0, -".json".length)}`;
+    if (value.targets_sha256 !== expectedHash)
+      throw new Error(`archived target registry filename does not match ${name}`);
+    values.push(value);
+  }
+  return values;
+}
+
 async function main(): Promise<void> {
   const { command, options } = parseArguments(process.argv.slice(2));
   if (command === "help") {
@@ -159,6 +192,62 @@ async function main(): Promise<void> {
     );
     return;
   }
+  if (command === "export-feedback") {
+    requireOptions(options, ["project", "out"]);
+    const project = options.project!;
+    const destination = resolve(options.out!);
+    const exported = await withStore(project, (store) =>
+      store.exportFeedbackSubmissions(project),
+    );
+    await writeAtomicPrivateFile(
+      destination,
+      serializeRawFeedbackExport(exported),
+    );
+    process.stdout.write(`${canonicalJson({
+      status: "written",
+      out: destination,
+      record_count: exported.manifest.record_count,
+      records_sha256: exported.manifest.records_sha256,
+      firestore_read_time: exported.manifest.firestore_read_time,
+    })}\n`);
+    return;
+  }
+  if (command === "export-accepted-feedback") {
+    requireOptions(options, ["project", "out"]);
+    const project = options.project!;
+    const destination = resolve(options.out!);
+    const exported = await withStore(project, (store) =>
+      store.exportAcceptedFeedback(project),
+    );
+    await writeAtomicPrivateFile(
+      destination,
+      serializeAcceptedFeedbackSnapshot(exported),
+    );
+    process.stdout.write(`${canonicalJson({
+      status: "written",
+      out: destination,
+      record_count: exported.manifest.record_count,
+      records_sha256: exported.manifest.records_sha256,
+      firestore_read_time: exported.manifest.firestore_read_time,
+    })}\n`);
+    return;
+  }
+  if (command === "archive-feedback-targets") {
+    requireOptions(options, ["target-registry", "registry-dir"]);
+    const targetRegistry = JSON.parse(
+      await readFile(resolve(options["target-registry"]!), "utf8"),
+    );
+    const archived = await archiveFeedbackTargetRegistry(
+      targetRegistry,
+      resolve(options["registry-dir"]!),
+    );
+    process.stdout.write(`${canonicalJson({
+      status: "written",
+      path: archived.path,
+      targets_sha256: archived.targetsSha256,
+    })}\n`);
+    return;
+  }
   if (command === "review-bundle") {
     requireOptions(options, ["input", "article-root", "out"]);
     const input = resolve(options.input!);
@@ -179,6 +268,37 @@ async function main(): Promise<void> {
     );
     return;
   }
+  if (command === "feedback-review-bundle") {
+    requireOptions(options, [
+      "input",
+      "article-root",
+      "target-registry",
+      "registry-dir",
+      "out",
+    ]);
+    const input = resolve(options.input!);
+    const destination = resolve(options.out!);
+    const articleRoot = resolve(options["article-root"]!);
+    const targetRegistries = await readTargetRegistries(
+      options["target-registry"]!,
+      options["registry-dir"]!,
+    );
+    const exported = await readRawFeedbackExport(input);
+    const bundle = await buildFeedbackReviewBundle(
+      exported,
+      targetRegistries,
+      (key) => readLocalArticle(articleRoot, key),
+    );
+    await writeAtomicPrivateFile(destination, `${canonicalJson(bundle)}\n`);
+    process.stdout.write(`${canonicalJson({
+      status: "written",
+      out: destination,
+      article_count: bundle.article_count,
+      submission_count: bundle.submission_count,
+      target_registry_sha256s: bundle.target_registry_sha256s,
+    })}\n`);
+    return;
+  }
   if (command === "apply") {
     requireOptions(options, ["project", "file"]);
     const project = options.project!;
@@ -186,6 +306,26 @@ async function main(): Promise<void> {
     const commandValue = JSON.parse(await readFile(file, "utf8"));
     const result = await withStore(project, (store) =>
       store.apply(commandValue),
+    );
+    process.stdout.write(`${canonicalJson(result)}\n`);
+    return;
+  }
+  if (command === "apply-feedback") {
+    requireOptions(options, [
+      "project",
+      "file",
+      "target-registry",
+      "registry-dir",
+    ]);
+    const project = options.project!;
+    const file = resolve(options.file!);
+    const commandValue = JSON.parse(await readFile(file, "utf8"));
+    const targetRegistries = await readTargetRegistries(
+      options["target-registry"]!,
+      options["registry-dir"]!,
+    );
+    const result = await withStore(project, (store) =>
+      store.applyFeedback(commandValue, targetRegistries),
     );
     process.stdout.write(`${canonicalJson(result)}\n`);
     return;
