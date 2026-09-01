@@ -216,6 +216,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /governance hub's four KPI figures, seven tile metrics and four coverage rows. It is a FOLD, not an aggregate: every figure is the destination hub's OWN number, taken from that hub's serving function (budget_hub_stats, agri_hub_stats, council_overview), its payload row (fund_payloads kind='index') or its committed blob (procurement/derived/hub_stats.json, procurement/derived/sector_stats.json, parliament/votes/derived/hub_stats.json, governance/declarations_hub_stats.json). So its slot is LAST of the five generators — after db:gen-culture-hub-stats, which is itself after the final loader — because placed anywhere earlier it folds the PREVIOUS vintage of whichever sibling has not run yet, and two hubs one click apart then disagree",
     bucketPath: "governance/hub_stats.json",
   },
+  "db:gen-home-hub-stats": {
+    artifact: "data/home/hub_stats.json",
+    reason:
+      "the global home's four pulse figures and its tile metrics. It is a FOLD of destination artifacts — governance/hub_stats.json (itself the last of the sibling folds), procurement/derived/hub_stats.json and data/macro.json — so its slot is LAST of all the generators, after db:gen-governance-hub-stats. Placed earlier it folds the previous vintage of whichever sibling has not run yet, and `/` and the page one click away then disagree. ⚠️ It reads NO Postgres: `/` is the entry page, so every figure on it has to be servable from a static object with no database behind it",
+    bucketPath: "home/hub_stats.json",
+  },
   "db:gen-declarations-hub-stats": {
     artifact: "data/governance/declarations_hub_stats.json",
     reason:

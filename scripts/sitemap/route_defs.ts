@@ -185,7 +185,15 @@ export const ENGLISH_STATIC_PAGES = [
 ];
 
 export const routeDefs = (year: string): RouteDefs => [
-  { path: "index", file: `data/${year}/region_votes.json` },
+  // ⚠️ `data/home/hub_stats.json`, not the election corpus: the root renders the global
+  // dashboard now. `RouteDef.file` is a SINGLE path — there is no "max of several files"
+  // contract — and hub_stats is the one the head reads.
+  //
+  // Its lastmod comes from the artifact's OWN `computedAt` (a source vintage), not from its
+  // mtime: `electionAwareMod` special-cases it for that reason. Without the special case the
+  // most-crawled URL on the site would re-stamp to today on every mint, which is the churn
+  // scripts/sitemap/index.ts's header measures and warns about.
+  { path: "index", file: `data/home/hub_stats.json` },
   { path: "sofia", file: `data/${year}/region_votes.json` },
   // Sofia's four sub-views. These go in BOTH lists, and until 2026-08-13 only
   // ENGLISH_STATIC_PAGES carried them — so the sitemap named /en/sofia/parties

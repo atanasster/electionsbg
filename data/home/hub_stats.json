@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "computedAt": "2026-07-31",
+  "homeMode": "standard",
+  "figures": [
+    {
+      "id": "gdp_growth",
+      "value": 2.7,
+      "basis": {
+        "period": "2026-Q2",
+        "frequency": "quarterly",
+        "unit": "pct",
+        "adjustment": "seasonally_adjusted",
+        "comparison": "yoy"
+      },
+      "to": "/indicators/economy",
+      "sourceId": "eurostat_namq_10_gdp"
+    },
+    {
+      "id": "inflation_hicp",
+      "value": 4.4,
+      "basis": {
+        "period": "2026-07",
+        "frequency": "monthly",
+        "unit": "pct",
+        "adjustment": "unadjusted",
+        "comparison": "yoy"
+      },
+      "to": "/indicators/economy",
+      "sourceId": "eurostat_prc_hicp_minr"
+    },
+    {
+      "id": "unemployment_sa",
+      "value": 3,
+      "basis": {
+        "period": "2026-06",
+        "frequency": "monthly",
+        "unit": "pct",
+        "adjustment": "seasonally_adjusted",
+        "comparison": "level"
+      },
+      "to": "/indicators/economy",
+      "sourceId": "eurostat_une_rt_m"
+    },
+    {
+      "id": "government_debt_gdp",
+      "value": 28.5,
+      "basis": {
+        "period": "2026-Q1",
+        "frequency": "quarterly",
+        "unit": "pct_gdp",
+        "comparison": "snapshot"
+      },
+      "to": "/indicators/fiscal",
+      "sourceId": "eurostat_gov_10q_ggdebt"
+    }
+  ],
+  "tiles": {
+    "budget": {
+      "tileId": "budget",
+      "value": 29577990982,
+      "unit": "eur",
+      "basisKey": "home_basis_budget_kfp",
+      "to": "/budget",
+      "sourceId": "governance_hub_stats"
+    },
+    "elections": {
+      "tileId": "elections",
+      "value": 2026,
+      "unit": "date",
+      "basisKey": "home_basis_elections_latest",
+      "period": "2026-04-19",
+      "to": "/parliamentary",
+      "sourceId": "elections_registry"
+    },
+    "funds": {
+      "tileId": "funds",
+      "value": 44203891603,
+      "unit": "eur",
+      "basisKey": "home_basis_funds_contracted",
+      "to": "/funds",
+      "sourceId": "governance_hub_stats"
+    },
+    "governance": {
+      "tileId": "governance",
+      "value": 63836,
+      "unit": "count",
+      "basisKey": "home_basis_governance_people",
+      "to": "/governance",
+      "sourceId": "governance_hub_stats"
+    },
+    "procurement": {
+      "tileId": "procurement",
+      "value": 93779353997,
+      "unit": "eur",
+      "basisKey": "home_basis_procurement_contracted_all",
+      "to": "/procurement?pscope=all",
+      "sourceId": "procurement_hub_stats",
+      "scope": "all"
+    }
+  },
+  "sources": {
+    "elections_registry": {
+      "available": true,
+      "asOf": "2026_04_19"
+    },
+    "eurostat_gov_10q_ggdebt": {
+      "available": true,
+      "asOf": "2026-Q1",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggdebt/default/table",
+      "datasetCode": "gov_10q_ggdebt"
+    },
+    "eurostat_namq_10_gdp": {
+      "available": true,
+      "asOf": "2026-Q2",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
+      "datasetCode": "namq_10_gdp"
+    },
+    "eurostat_prc_hicp_minr": {
+      "available": true,
+      "asOf": "2026-07",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+      "datasetCode": "prc_hicp_minr"
+    },
+    "eurostat_une_rt_m": {
+      "available": true,
+      "asOf": "2026-06",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
+      "datasetCode": "une_rt_m"
+    },
+    "governance_hub_stats": {
+      "available": true
+    },
+    "procurement_hub_stats": {
+      "available": true
+    }
+  }
+}

@@ -70,6 +70,7 @@ import {
   buildDataCatalogLd,
   buildDatasetLd,
   buildFaqLd,
+  buildItemListLd,
   buildOrganizationLd,
   buildWebPageLd,
   buildWebSiteLd,
@@ -560,6 +561,80 @@ const homeBodies = (() => {
     return { bg: "", en: "" };
   }
 })();
+
+// The GLOBAL home's own copy. The election strings below keep their names and now serve
+// `/parliamentary`, which is the page they describe.
+//
+// ⚠️ THE BODY IS THE TIGHTEST BYTE BUDGET ON THE SITE. `tests/perf.spec.ts` asserts
+// `html.length` < HOME_HTML_MAX_BYTES — UTF-16 CODE UNITS, not bytes, which on a Cyrillic
+// page is ~4.6 kB less room than the constant's name suggests. Measured before this change:
+// 17,624 units against 18,000. Every sentence here is paying for itself.
+const GLOBAL_HOME_TITLE = `Наясно — България в данни: цени, бюджет, поръчки, избори | electionsbg.com`;
+const GLOBAL_HOME_DESCRIPTION = `Инфлация, безработица, растеж и държавен дълг, цени по магазини, бюджет и обществени поръчки, еврофондове, избори и общини — обединени от отворени данни.`;
+const GLOBAL_HOME_TITLE_EN = `Naiasno — Bulgaria in Data: Prices, Budget, Procurement, Elections | electionsbg.com`;
+const GLOBAL_HOME_DESCRIPTION_EN = `Inflation, unemployment, growth and government debt, shop prices, the state budget and public procurement, EU funds, elections and municipalities — from open data.`;
+
+/** The eight primary destinations, for the body and the ItemList. One list, so the two
+ *  cannot disagree about what the home page fronts. */
+/** ⚠️ `path` IS THE IN-APP DESTINATION and `crawlPath` the URL a crawler should be given.
+ *  They differ for procurement only: forcing `?pscope=all` is what makes the tile's number
+ *  and the page it opens agree, but the prerendered body shows no numbers and a crawler
+ *  carries no scope state — so the body link and the ItemList would otherwise name a
+ *  non-canonical variant of a page whose canonical is `/procurement`. `path` is what
+ *  `homeHubBands.test.ts` compares against the tile registry. */
+const HOME_DESTINATIONS: {
+  bg: string;
+  en: string;
+  path: string;
+  crawlPath?: string;
+}[] = [
+  {
+    bg: "Цени и потребление",
+    en: "Prices and consumption",
+    path: "consumption",
+  },
+  { bg: "Моята община", en: "My municipality", path: "my-area" },
+  { bg: "Избори", en: "Elections", path: "parliamentary" },
+  {
+    bg: "Държавни сектори",
+    en: "Government sectors",
+    path: "governance/sectors",
+  },
+  { bg: "Държавен бюджет", en: "State budget", path: "budget" },
+  {
+    bg: "Обществени поръчки",
+    en: "Public procurement",
+    path: "procurement?pscope=all",
+    crawlPath: "procurement",
+  },
+  { bg: "Еврофондове", en: "EU funds", path: "funds" },
+  { bg: "Управление", en: "Governance", path: "governance" },
+];
+
+const crawlPathOf = (d: { path: string; crawlPath?: string }): string =>
+  d.crawlPath ?? d.path;
+
+const homeDestinationList = (lang: "bg" | "en"): string =>
+  `<ul>${HOME_DESTINATIONS.map(
+    (d) =>
+      `<li><a href="${SITE_URL}${lang === "en" ? "/en" : ""}/${crawlPathOf(d)}">${lang === "bg" ? d.bg : d.en}</a></li>`,
+  ).join("")}</ul>`;
+
+const GLOBAL_HOME_BODY_BG = `
+<h1>България в данни</h1>
+<p>Какво се случва в България, измерено с отворени данни: инфлация, безработица, растеж на БВП и държавен дълг по данни на Евростат, цени по магазини, държавният бюджет и изпълнението му, обществените поръчки, еврофондовете, изборите от 2005 г. насам и профил на всяка община.</p>
+<h2>Основни раздели</h2>
+${homeDestinationList("bg")}
+<h2>Как се четат числата</h2>
+<p>Всеки показател носи периода и базата си. Четирите числа в началото идват от четири различни набора на Евростат с различна честота и не са съпоставими помежду си: растежът и инфлацията са промяна спрямо година по-рано, безработицата е ниво, а дългът е дял от БВП. Сумите за поръчки, бюджет и еврофондове идват от различни, застъпващи се корпуси и не се събират в общо число.</p>`.trim();
+
+const GLOBAL_HOME_BODY_EN = `
+<h1>Bulgaria in data</h1>
+<p>What is happening in Bulgaria, measured from open data: inflation, unemployment, GDP growth and government debt from Eurostat, shop prices, the state budget and its execution, public procurement, EU funds, every election since 2005, and a profile of each municipality.</p>
+<h2>Main sections</h2>
+${homeDestinationList("en")}
+<h2>How to read the numbers</h2>
+<p>Every figure carries its period and its basis. The four headline numbers come from four different Eurostat datasets at different frequencies and are not comparable with each other: growth and inflation are change on a year earlier, unemployment is a level, and debt is a share of GDP. The procurement, budget and EU-funds totals come from separate, overlapping corpora and are never summed.</p>`.trim();
 
 const HOME_TITLE = `Парламентарни избори${YEAR_SUFFIX} — резултати и анализ от 2005 | electionsbg.com`;
 const HOME_DESCRIPTION = `Пълни резултати от парламентарните избори${YEAR_SUFFIX} и всеки вот от 2005 г. насам — по области, общини, населени места и секции. Отворени данни за гласовете, машинното гласуване и отклоненията.`;
@@ -1469,47 +1544,44 @@ export const prerenderRoutes: PrerenderRoute[] = [
   ...sectorStaticPages(),
   {
     path: "",
-    title: HOME_TITLE,
-    description: HOME_DESCRIPTION,
-    ogImage: "/og/dashboard-2026-04-19.png",
-    bodyHtml: homeBodies.bg,
+    title: GLOBAL_HOME_TITLE,
+    description: GLOBAL_HOME_DESCRIPTION,
+    ogImage: "/og/home.png",
+    bodyHtml: GLOBAL_HOME_BODY_BG,
+    // The ONE artifact the home route fetches on first render. Without it the browser
+    // discovers the fetch only after the entry bundle, the i18n chunk AND the route chunk
+    // have run — five serial round trips before the first data byte is requested (see
+    // `PrerenderRoute.preloadData`). The change feed will be the second when it lands; the
+    // hint set is already a small net loss at 1.6 Mbps, so re-measure before adding it.
+    preloadData: ["/home/hub_stats.json"],
     jsonLd: [
       buildWebSiteLd(),
       buildOrganizationLd(),
-      buildDatasetLd({
-        name: "Парламентарни избори в България — пълни резултати от 2005 г.",
-        description: HOME_DESCRIPTION,
-        url: `${SITE_URL}/`,
-        spatialCoverage: "България",
-        keywords: [
-          "парламентарни избори",
-          "България",
-          "Bulgaria elections",
-          "избирателна активност",
-          "машинно гласуване",
-          "повторно преброяване",
-        ],
+      // ⚠️ An ItemList, NOT the election Dataset this entry used to carry. That node said
+      // the home page IS the election corpus — true while `/` was the result page, false
+      // now that it fronts eight of them. The corpora keep their own Dataset nodes on the
+      // pages that render them, `/parliamentary` included.
+      buildItemListLd({
+        name: "Основни раздели",
+        items: HOME_DESTINATIONS.map((d) => ({
+          name: d.bg,
+          url: `${SITE_URL}/${crawlPathOf(d)}`,
+        })),
       }),
     ],
     english: {
-      title: HOME_TITLE_EN,
-      description: HOME_DESCRIPTION_EN,
-      bodyHtml: homeBodies.en,
+      title: GLOBAL_HOME_TITLE_EN,
+      description: GLOBAL_HOME_DESCRIPTION_EN,
+      bodyHtml: GLOBAL_HOME_BODY_EN,
       jsonLd: [
         buildWebSiteLd(),
         buildOrganizationLd(),
-        buildDatasetLd({
-          name: "Bulgarian parliamentary elections — full results since 2005",
-          description: HOME_DESCRIPTION_EN,
-          url: EN_HOME,
-          spatialCoverage: "Bulgaria",
-          keywords: [
-            "Bulgarian elections",
-            "parliamentary elections",
-            "turnout",
-            "machine voting",
-            "recount",
-          ],
+        buildItemListLd({
+          name: "Main sections",
+          items: HOME_DESTINATIONS.map((d) => ({
+            name: d.en,
+            url: `${SITE_URL}/en/${crawlPathOf(d)}`,
+          })),
         }),
       ],
     },
@@ -1523,18 +1595,17 @@ export const prerenderRoutes: PrerenderRoute[] = [
   // page — and it belongs to the cross-kind elections hub instead. See
   // docs/plans/home-dashboard-implementation-v1.md §3.2 and §11.2.
   //
-  // ⚠️ THIS ENTRY AND THE ROOT ENTRY ABOVE MUST DEPLOY TOGETHER. Until the root cutover
-  // replaces the root body with the home dashboard's, both describe the same election —
-  // which is why the two phases ship as one release rather than one at a time.
+  // The root cutover has since landed, so the two no longer describe the same election and
+  // the Dataset below is this page's alone — the root now declares an ItemList of the eight
+  // destinations instead. Recorded because the pairing was the reason the two phases were
+  // required to ship as one release.
   //
   // The body is the SAME builder the root used, deliberately: the point of this phase is
   // that the page is preserved, not rewritten.
   //
-  // ⚠️ The Dataset node is DUPLICATED here, not moved: the root entry above still declares
-  // one with a byte-identical `name`, so Google Dataset Search sees the same dataset at two
-  // URLs in both languages until the root cutover replaces that body. This is the single
-  // hardest reason the two phases must ship as ONE release — and if the cutover slips,
-  // delete the ROOT's Dataset rather than leaving the pair live.
+  // The Dataset node is this page's ALONE now. It was briefly duplicated with the root's
+  // while the cutover was pending; the root declares an ItemList instead, so the corpus is
+  // declared to Google Dataset Search exactly once, from the page that renders it.
   staticPage({
     path: "parliamentary",
     ogImage: "/og/parliamentary.png",
@@ -2629,7 +2700,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     ogImage: "/og/governance.png",
     bodyHtml: `
 <h1>Управление на държавата — обобщено табло</h1>
-<p>Управленското табло обединява инструментите за следене на изпълнителната и законодателната власт в България: какво гласува парламентът, какво декларират депутатите, как се харчат публичните пари и какъв е макроикономическият контекст. Срещуположното табло — <a href="${SITE_URL}/">Изборите</a> — следи самите парламентарни вотове.</p>
+<p>Управленското табло обединява инструментите за следене на изпълнителната и законодателната власт в България: какво гласува парламентът, какво декларират депутатите, как се харчат публичните пари и какъв е макроикономическият контекст. Срещуположното табло — <a href="${SITE_URL}/parliamentary">Изборите</a> — следи самите парламентарни вотове.</p>
 <h2>Какво ще намерите тук</h2>
 <ul>
 <li><a href="${SITE_URL}/parliament">Народно събрание</a> — поименни гласувания, кохезия на групите и UMAP проекция на гласовото пространство.</li>
@@ -2648,7 +2719,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       breadcrumbName: "Governance",
       bodyHtml: `
 <h1>Governance dashboard</h1>
-<p>The governance dashboard ties together the tools for tracking Bulgaria's executive and legislative branches: what parliament votes on, what MPs declare, how public money is spent, and the macroeconomic context. Its companion — the <a href="${EN_HOME}">elections dashboard</a> — covers the parliamentary votes themselves.</p>
+<p>The governance dashboard ties together the tools for tracking Bulgaria's executive and legislative branches: what parliament votes on, what MPs declare, how public money is spent, and the macroeconomic context. Its companion — the <a href="${SITE_URL}/en/parliamentary">elections dashboard</a> — covers the parliamentary votes themselves.</p>
 <h2>What you'll find</h2>
 <ul>
 <li><a href="${SITE_URL}/en/parliament">Parliament</a> — roll-call votes, group cohesion, and a UMAP voting-space projection.</li>
@@ -4393,7 +4464,7 @@ ${buildDataLinksBody("en")}`.trim(),
 <p>Картата се генерира автоматично от регистъра на наблюдаваните източници — нов източник се появява на нея още с добавянето си. Дневникът на обновяванията е на <a href="${SITE_URL}/data/updates">страницата със скорошни промени</a>, а обработените данни са свободни за преизползване под лиценз Creative Commons BY 4.0 — вижте <a href="${SITE_URL}/data/sources">източници и изтегляне</a>.</p>
 <h2>Какво се публикува</h2>
 <ul>
-<li><a href="${SITE_URL}/">Парламентарни избори</a> — резултати по партии, области, общини, населени места и секции.</li>
+<li><a href="${SITE_URL}/parliamentary">Парламентарни избори</a> — резултати по партии, области, общини, населени места и секции.</li>
 <li><a href="${SITE_URL}/local/2023_10_29_mi">Местни избори</a> — общински съветници и кметове.</li>
 <li><a href="${SITE_URL}/parliament">Народно събрание</a> — поименни гласувания и бизнес връзки на народните представители.</li>
 <li><a href="${SITE_URL}/financing">Финансиране на партии</a> и <a href="${SITE_URL}/governments">правителства</a>.</li>
@@ -4419,7 +4490,7 @@ ${buildDataDirectory("bg")}`.trim(),
 <p>The map is generated automatically from the watched-sources registry — a new source appears on it the moment it is added. The refresh log lives on the <a href="${SITE_URL}/en/data/updates">recent-updates page</a>, and the processed data is free to reuse under Creative Commons BY 4.0 — see <a href="${SITE_URL}/en/data/sources">sources and downloads</a>.</p>
 <h2>What is published</h2>
 <ul>
-<li><a href="${EN_HOME}">Parliamentary elections</a> — results by party, region, municipality, settlement and section.</li>
+<li><a href="${SITE_URL}/en/parliamentary">Parliamentary elections</a> — results by party, region, municipality, settlement and section.</li>
 <li><a href="${SITE_URL}/en/local/2023_10_29_mi">Local elections</a> — municipal councillors and mayors.</li>
 <li><a href="${SITE_URL}/en/parliament">Parliament</a> — roll-call votes and MP business connections.</li>
 <li><a href="${SITE_URL}/en/financing">Party financing</a> and <a href="${SITE_URL}/en/governments">governments</a>.</li>

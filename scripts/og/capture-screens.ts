@@ -137,6 +137,22 @@ const captures: Capture[] = [
     leftAlign: true,
     settleMs: 2500,
   },
+  // The global home. A HubHead page, so it is in `HUB_CAPTURES` in
+  // ogAndSitemapCoverage.test.ts and its card must frame `[data-hub-head]` — which also
+  // keeps the four-column tile grid below the crop, where a 1200px clip at the shared 1280
+  // viewport would otherwise slice the fourth column down the middle.
+  //
+  // `waitFor` is a KPI cell, not the head: the head renders at mount and the cells only
+  // once the artifact has arrived, so anchoring the wait on the head would shoot a card
+  // with an empty band — the same defect the /parliamentary entry below documents.
+  {
+    slug: "home",
+    routePath: "",
+    waitFor: "[data-hub-head] [data-kpi-cell]",
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
   // The parliamentary country result, at the namespace index that used to be `/`.
   //
   // ⚠️ NOT a HubHead page — it renders `PlaceHeader`, so it is in neither `HUB_CAPTURES`

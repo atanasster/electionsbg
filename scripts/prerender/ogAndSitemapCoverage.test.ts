@@ -930,6 +930,7 @@ describe("a hub's og capture anchors on its head", () => {
    *  `ContractsBrowserDbScreen`, which is a genuine HubHead on a SUB-PAGE and has no hub card.
    *  So the map is explicit and the clauses below make it impossible to leave stale. */
   const HUB_CAPTURES: Record<string, string> = {
+    home: "src/screens/HomeDashboardScreen.tsx",
     parliament: "src/screens/ParliamentHubScreen.tsx",
     procurement: "src/screens/ProcurementScreen.tsx",
     governance: "src/screens/GovernanceScreen.tsx",

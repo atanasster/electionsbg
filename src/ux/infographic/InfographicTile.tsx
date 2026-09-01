@@ -28,6 +28,22 @@ export interface InfographicTileProps {
   scene: FC;
   /** Optional CTA shown only on the card layout (sm+), e.g. "виж сектора". */
   cta?: string;
+  /**
+   * Preserved params this tile's destination has NO CONCEPT OF, and which must therefore
+   * not ride along.
+   *
+   * ⚠️ THE DEFAULT (preserve everything) IS RIGHT FOR MOST HUBS AND WRONG FOR SOME TILES.
+   * `usePreserveParams` carries `pscope` onto every link, which is correct where the
+   * destination reads it — but on a scope-free page it silently answers for a window the
+   * page does not have, and `usePreserveParams`' own header records this shipping once:
+   * `/funds/beneficiaries`, "which deliberately forces nothing", came out of /governance
+   * carrying `?pscope=all`. Measured on the global home, where six of eight destinations
+   * are scope-free, an inbound `?pscope=y:2019` reached all six.
+   *
+   * A tile that FORCES a param in its own `to` needs no entry: the tile's own query already
+   * wins the merge.
+   */
+  dropParams?: string[];
   /** Optional headline number (already formatted). Overlaid large on the banner
    *  in the card layout; shown top-right of the row on mobile. Turns the tile
    *  into a stat tile. */
@@ -71,12 +87,17 @@ const captionColor =
  *  already carries a query (`/persons?role=mp`). So the merge happens here: the tile's own
  *  params win over the preserved ones, and a tile with no query and no preserved params
  *  keeps a clean path with no trailing `?`. */
-const useTileHref = (to: string): string => {
+const useTileHref = (to: string, dropParams?: string[]): string => {
   const preserve = usePreserveParams();
   const [path, ownQuery] = to.split("?");
-  const merged = preserve(
-    ownQuery ? Object.fromEntries(new URLSearchParams(ownQuery)) : undefined,
-  );
+  const own = ownQuery
+    ? Object.fromEntries(new URLSearchParams(ownQuery))
+    : undefined;
+  const merged = preserve(own);
+  // Dropped AFTER the merge, and never a param the tile itself forced — `to`'s own query is
+  // the tile's deliberate choice and must survive.
+  for (const key of dropParams ?? [])
+    if (!own || !(key in own)) merged.delete(key);
   const search = merged.toString();
   return search ? `${path}?${search}` : path;
 };
@@ -89,12 +110,13 @@ export const InfographicTile: FC<InfographicTileProps> = ({
   accent,
   scene: Scene,
   cta,
+  dropParams,
   metric,
   metricCaption,
   metricSecondary,
 }) => (
   <Link
-    to={useTileHref(to)}
+    to={useTileHref(to, dropParams)}
     style={{ ["--sector" as string]: accent }}
     className="group relative flex flex-row overflow-hidden rounded-xl border border-border bg-card transition-all duration-150 hover:border-[color-mix(in_srgb,var(--sector)_55%,hsl(var(--border)))] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none sm:flex-col sm:rounded-2xl sm:hover:-translate-y-0.5 motion-reduce:sm:hover:translate-y-0"
   >

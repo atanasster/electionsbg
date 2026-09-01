@@ -121,6 +121,9 @@ import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { BUDGET_STATS_FIXTURE } from "@/screens/budget/budgetHubStats.fixture";
 
 const HUB_SCREENS = [
+  // The global home. Its band is four national indicators rather than money, so it carries
+  // no basis YEAR — but it is a HubHead screen and the scan below is a completeness one.
+  "src/screens/HomeDashboardScreen.tsx",
   "src/screens/ProcurementScreen.tsx",
   "src/screens/GovernanceScreen.tsx",
   "src/screens/FundsScreen.tsx",

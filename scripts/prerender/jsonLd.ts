@@ -38,6 +38,43 @@ export const buildWebSiteLd = () => ({
   publisher: ORG_REF,
 });
 
+/**
+ * An `ItemList` of the site's primary data destinations, for the home page.
+ *
+ * ⚠️ IT REPLACES A `Dataset` NODE, and the swap is the point. The root used to declare one
+ * election Dataset, which said the home page IS that corpus — true while `/` was the
+ * election result and false the moment it became a hub-of-hubs fronting eight of them. An
+ * `ItemList` says what the page actually is: a list of ways in. The corpora keep their own
+ * `Dataset` nodes on the pages that render them (`/parliamentary`, `/elections/:date`, …),
+ * which is where Google Dataset Search should find them anyway.
+ *
+ * Positions are 1-based and assigned here rather than by the caller, so a reordered list
+ * cannot silently keep the old numbering.
+ *
+ * ⚠️ `itemListOrder: ItemListUnordered` IS DECLARED, and it is not boilerplate. Explicit
+ * `position` values with no order are read by schema.org consumers as a RANKING, and these
+ * destinations are not ranked — the sequence is a reading order, not a league table. The
+ * repo already draws this line: `beneficiaryItemList` declares `ItemListOrderDescending`
+ * because its rows genuinely are ranked, and its test refuses to assert a position across
+ * tied amounts.
+ */
+export const buildItemListLd = (params: {
+  name: string;
+  items: { name: string; url: string }[];
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: params.name,
+  itemListOrder: "https://schema.org/ItemListUnordered",
+  numberOfItems: params.items.length,
+  itemListElement: params.items.map((it, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: it.name,
+    url: it.url,
+  })),
+});
+
 export const buildWebPageLd = (params: {
   title: string;
   description: string;

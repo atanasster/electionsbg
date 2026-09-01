@@ -106,11 +106,13 @@ type RouteCheck = {
 // prerendered HTML. If anything in this table regresses, search engines will
 // see duplicate content again — so the suite is intentionally exhaustive.
 const ROUTES: RouteCheck[] = [
-  // Home — the only route that should canonicalize to "/"
+  // Home — the only route that should canonicalize to "/". It is the GLOBAL dashboard now;
+  // the parliamentary country result it used to render is at /parliamentary below, and the
+  // two must not describe the same page.
   {
     path: "/",
-    titleIncludes: HOME_TITLE_BG_PREFIX,
-    h1Includes: "Парламентарни избори",
+    titleIncludes: "България в данни",
+    h1Includes: "България в данни",
     minBodyChars: 800,
     expectedCanonical: "/",
     hasEnglishMirror: true,
@@ -128,6 +130,7 @@ const ROUTES: RouteCheck[] = [
   // gives the root its own. Both entries stay so the pair is checked either way.
   {
     path: "/parliamentary",
+    // The election title constants kept their names and now serve this page.
     titleIncludes: HOME_TITLE_BG_PREFIX,
     h1Includes: "Парламентарни избори",
     minBodyChars: 800,

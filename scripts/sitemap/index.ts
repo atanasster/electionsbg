@@ -64,9 +64,35 @@ const latestElectionDate = election.replace(/_/g, "-");
 // For election-data files, prefer the election date over the source-file
 // mtime (which moves to today on every prod rebuild). Falls back to the
 // file mtime / today for non-election sources.
+/** The FOURTH option from the header — a date the PAYLOAD carries — for the artifacts that
+ *  carry one. `data/home/hub_stats.json` stamps `computedAt` with the maximum SOURCE vintage
+ *  it folded (never a run time), so it is immune to clone time, mtime and regeneration alike.
+ *
+ *  ⚠️ THE ROOT NEEDS THIS MORE THAN ANY OTHER URL. It is the site's most-crawled page, and
+ *  without it the entry falls through to `safeFileMod` = max(mtime, today) = **today on every
+ *  mint** — the churn this file's header measures at 64,626 re-stamped unchanged URLs and
+ *  warns Google will eventually make it disregard our lastmod altogether. */
+const payloadComputedAtMod = (file: string): string | null => {
+  try {
+    const raw = JSON.parse(fs.readFileSync(file, "utf-8")) as {
+      computedAt?: unknown;
+    };
+    const at = raw.computedAt;
+    // Only an ISO DAY. A full timestamp would still be a stable value, but the sitemap
+    // speaks days, and a run-stamped ISO instant is exactly what must not be trusted here.
+    return typeof at === "string" && /^\d{4}-\d{2}-\d{2}$/.test(at) ? at : null;
+  } catch {
+    return null;
+  }
+};
+
 const electionAwareMod = (file: string): string => {
   if (file.includes(`/${election}/`) || file.includes(`/data/${election}/`)) {
     return latestElectionDate;
+  }
+  if (file.endsWith("data/home/hub_stats.json")) {
+    const carried = payloadComputedAtMod(file);
+    if (carried) return carried;
   }
   return safeFileMod(file);
 };

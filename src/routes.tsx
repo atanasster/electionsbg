@@ -61,6 +61,16 @@ const withBundle = (bundle: LocaleBundle, load: LazyLoader) =>
 // import graph and onto the critical path of all 258 routes, not just home.
 // LayoutScreen already wraps every route element in Suspense/RouteFallback.
 // See docs/plans/bundle-critical-path-v1.md (C3, T2.1).
+// The global home. ⚠️ Lazy like every other route: `src/entryGraph.test.ts` fails if the
+// entry chunk reaches `homeRegistry.ts`, and a static import here would do exactly that —
+// the `sectorPacks` precedent put ~265 KB of reference data on every page through one such
+// edge. The eager `DashboardSkeleton` below is the index route's Suspense fallback and is
+// reused, so the home route needs no second eager import.
+const HomeDashboardScreen = lazy(() =>
+  import("@/screens/HomeDashboardScreen").then((m) => ({
+    default: m.HomeDashboardScreen,
+  })),
+);
 const DashboardScreen = lazy(() =>
   import("@/screens/DashboardScreen").then((m) => ({
     default: m.DashboardScreen,
@@ -1793,11 +1803,14 @@ export const AuthRoutes = () => {
           because it depends on useSearchParams. */}
       <AreaAnchorProvider>
         <Routes>
+          {/* THE GLOBAL HOME. This index used to render the parliamentary country result;
+              that page is preserved at `/parliamentary` (added in the previous phase) and
+              every election link, breadcrumb and menu already points there. */}
           <Route
             index
             element={
               <LayoutScreen fallback={<DashboardSkeleton />}>
-                <DashboardScreen />
+                <HomeDashboardScreen />
               </LayoutScreen>
             }
           />

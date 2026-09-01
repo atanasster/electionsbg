@@ -562,6 +562,17 @@ const HUB_HEAD_BUDGETS: {
    *  because most entries here predate the field; a head with no aside simply omits it. */
   asideRows?: number;
 }[] = [
+  // The GLOBAL HOME, and the narrowest head in the tree: identity + deck + a 4-cell band
+  // and nothing else — no scope control, no evidence aside, and no search slot YET.
+  //
+  // ⚠️ THE FINDER LANDS IN A LATER PHASE AND WILL BREAK THIS CEILING ON PURPOSE. When it
+  // does, re-measure and re-ratchet toward the /parliament band (443/520, the same shape:
+  // identity + deck + a full HubSearch + four cells) rather than assuming the growth is a
+  // regression. 330 is ~18% slack on today's 270, the band /procurement/contracts sits in.
+  //
+  // `cells: 4` is the half that matters: the band is the whole head here, so a head that
+  // lost its figures would be comfortably inside any ceiling.
+  { path: "/", maxPx: 330, measured: 270, cells: 4 },
   // Eyebrow + h1 + deck + a one-line search + a 4-cell band + the evidence aside.
   { path: "/governance", maxPx: 500, measured: 430, cells: 4 },
   // The same, plus a scope control.
@@ -888,6 +899,7 @@ const HUB_HEAD_BUDGETS: {
  *  reasoning unbroken; the clause asserts the two key sets are IDENTICAL, so neither can
  *  gain a member without the other. */
 const HUB_HEAD_SCREENS: Record<string, string> = {
+  "/": "src/screens/HomeDashboardScreen.tsx",
   "/governance": "src/screens/GovernanceScreen.tsx",
   "/procurement": "src/screens/ProcurementScreen.tsx",
   "/funds": "src/screens/FundsScreen.tsx",
