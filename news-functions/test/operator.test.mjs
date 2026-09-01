@@ -150,14 +150,20 @@ class FakeFirestore {
 
   async runTransaction(callback) {
     const writes = [];
+    let writeStarted = false;
     const transaction = {
       get: async (reference) => {
+        if (writeStarted)
+          throw new Error(
+            "Firestore transactions require all reads before all writes",
+          );
         if ("get" in reference) return reference.get();
         return this.documents.has(reference.path)
           ? snapshot(reference.id, this.documents.get(reference.path))
           : snapshot(reference.id, undefined, false);
       },
       set: (reference, data, options) => {
+        writeStarted = true;
         writes.push({
           reference,
           data: clone(data),
@@ -766,6 +772,25 @@ test("review commands are strict and cannot name an anonymous actor or duplicate
   assert.throws(
     () => parseReviewCommand(reviewCommand({ unexpected: true })),
     /unexpected fields/,
+  );
+  const maximumSources = Array.from(
+    { length: 200 },
+    (_, index) => `submission-${String(index).padStart(4, "0")}`,
+  );
+  assert.equal(
+    parseReviewCommand(
+      acceptanceCommand({ source_submission_ids: maximumSources }),
+    ).sourceSubmissionIds.length,
+    200,
+  );
+  assert.throws(
+    () =>
+      parseReviewCommand(
+        acceptanceCommand({
+          source_submission_ids: [...maximumSources, "submission-0200"],
+        }),
+      ),
+    /source submissions must be bounded/,
   );
 });
 
@@ -1745,6 +1770,28 @@ test("all-article feedback task sync activates desired tasks and retires stale t
   assert.equal(retry.written, 0);
   assert.equal(retry.unchanged, 1);
   assert.equal(retry.deactivated, 0);
+});
+
+test("feedback task sync refuses an oversized active registry before writes", async () => {
+  const entries = Array.from({ length: 20_001 }, (_, index) => {
+    const key = `stale.example/article-${String(index).padStart(5, "0")}`;
+    return [
+      `news_feedback_tasks/${Buffer.from(key, "utf8").toString("base64url")}`,
+      { accepts_public_feedback: true },
+    ];
+  });
+  const database = new FakeFirestore(entries);
+  const before = new Map(database.documents);
+  const manifest = feedbackManifest([feedbackTask()]);
+  await assert.rejects(
+    () =>
+      new FirestoreOperatorStore(database).syncFeedbackTasks(
+        manifest,
+        feedbackProof(manifest),
+      ),
+    /active feedback task registry exceeds its safety cap/,
+  );
+  assert.deepEqual(database.documents, before);
 });
 
 test("feedback task release verification pins production and checks live bundles", async () => {

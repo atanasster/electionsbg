@@ -17,6 +17,9 @@ import {
 
 type JsonObject = Record<string, unknown>;
 
+const MAX_EVAL_SOURCE_SUBMISSIONS = 200;
+const MAX_FEEDBACK_TASKS = 20_000;
+
 export type OperatorDocumentSnapshot = Readonly<{
   id: string;
   exists: boolean;
@@ -985,7 +988,7 @@ export function feedbackTaskSyncManifest(value: unknown): {
     raw.manifest_kind !== "news-feedback-task-sync"
   )
     throw new Error("feedback task sync manifest contract is unsupported");
-  if (!Array.isArray(raw.tasks) || raw.tasks.length > 20_000)
+  if (!Array.isArray(raw.tasks) || raw.tasks.length > MAX_FEEDBACK_TASKS)
     throw new Error("feedback task sync manifest tasks must be bounded");
   const generatedAt = isoTimestamp(raw.generated_at, "manifest generated_at");
   const publicRevision = isoTimestamp(
@@ -1870,7 +1873,7 @@ function acceptedAdjudicationRecord(
   if (
     !Array.isArray(raw.source_submission_ids) ||
     raw.source_submission_ids.length === 0 ||
-    raw.source_submission_ids.length > 200
+    raw.source_submission_ids.length > MAX_EVAL_SOURCE_SUBMISSIONS
   )
     throw new Error(`${label}.source_submission_ids must be bounded`);
   const sourceIds = raw.source_submission_ids.map((item) =>
@@ -2465,8 +2468,11 @@ export function parseReviewCommand(value: unknown): ReviewCommand {
       sourceSubmissionIds: [ids[0]!] as const,
     };
   }
-  if (ids.length === 0)
-    throw new Error("accepted adjudication requires source submissions");
+  if (
+    ids.length === 0 ||
+    ids.length > MAX_EVAL_SOURCE_SUBMISSIONS
+  )
+    throw new Error("accepted adjudication source submissions must be bounded");
   const evaluation = jsonObject(raw.evaluation, "evaluation");
   const schemaErrors = validateSchema(ARTICLE_SCHEMA, evaluation);
   if (schemaErrors.length > 0)
@@ -2951,6 +2957,8 @@ export class FirestoreOperatorStore {
     const current = await collection
       .where("accepts_public_feedback", "==", true)
       .get();
+    if (current.docs.length > MAX_FEEDBACK_TASKS)
+      throw new Error("active feedback task registry exceeds its safety cap");
     const currentById = new Map(current.docs.map((doc) => [doc.id, doc]));
     const operations: Array<{
       id: string;
@@ -2973,9 +2981,16 @@ export class FirestoreOperatorStore {
         async (transaction) => {
           let chunkWritten = 0;
           let chunkDeactivated = 0;
-          for (const operation of chunk) {
-            const reference = collection.doc(operation.id);
-            const snapshot = await transaction.get(reference);
+          const references = chunk.map((operation) =>
+            collection.doc(operation.id),
+          );
+          const snapshots = await Promise.all(
+            references.map((reference) => transaction.get(reference)),
+          );
+          for (let index = 0; index < chunk.length; index += 1) {
+            const operation = chunk[index]!;
+            const reference = references[index]!;
+            const snapshot = snapshots[index]!;
             if (operation.task) {
               if (
                 !snapshot.exists ||
