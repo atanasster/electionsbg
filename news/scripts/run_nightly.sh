@@ -541,7 +541,17 @@ fi
 if [ "$REPORT_INTEGRITY_FAILED" -ne 0 ]; then
   finish 2
 fi
-if grep -q '"exit": [^0]' "$STAGES"; then
+# Inspect the stage envelope, not arbitrary nested diagnostics. Optional
+# stages legitimately report a failed sub-operation such as
+# `raw_export.exit: 1` while returning a successful, publication-safe stage;
+# the old text grep mistook that nested value for the stage status and made a
+# 14/14 green report exit 1.
+if ! STAGES_PATH="$STAGES" python3 -c '
+import json, os
+with open(os.environ["STAGES_PATH"], encoding="utf-8") as fh:
+    stages = [json.loads(line) for line in fh if line.strip()]
+raise SystemExit(0 if all(stage.get("exit") == 0 for stage in stages) else 1)
+'; then
   finish 1
 fi
 finish 0

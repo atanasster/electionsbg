@@ -263,6 +263,14 @@ class NightlyRunnerContractTests(unittest.TestCase):
                 f"Path({str(marker)!r}).write_text('bad')\n"
                 "print('{}')\n",
                 encoding="utf-8")
+            # Optional eval mode may preserve a failed sub-operation in its
+            # successful result. Only the stage envelope controls the runner
+            # status; a nested `exit` must not be read as a failed stage.
+            (runner.parent / "eval_runtime.py").write_text(
+                "import json\n"
+                "print(json.dumps({'raw_export': {'exit': 1}, "
+                "'publication_blocked': False}))\n",
+                encoding="utf-8")
 
             proc = self.run_runner_at(
                 runner, "--skip-browser", "--limit", "0",
