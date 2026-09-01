@@ -121,10 +121,25 @@ The resolution, fixed by decision 15:
    choice in client-only state, so the cycle survives the navigation into
    `/elections/:date` or `/local/:cycle`.
 
+⚠️ **The scope bar's cycle label is the exact position that has shipped two defects, and both are
+i18n defects.** It renders a date, in two languages, from an internal identifier:
+
+- **A calendar day is formatted in UTC.** `2026-04-19` through an `Intl.DateTimeFormat` with no
+  `timeZone` renders as the 18th for every reader west of Greenwich, so a label and the URL it
+  links to disagree by a day. This shipped on 613 pages. Use `formatDate`
+  (`src/lib/formatDate.ts`), which pins `timeZone: "UTC"` for a date-only value;
+  `src/lib/dateFormatterPin.test.ts` is the repo-wide gate that every formatter makes the choice
+  on purpose.
+- **Never render the folder id.** `ScopeControl`'s default pill read „Този парламент ·
+  2026-04-19" — the election FOLDER ID with underscores swapped for hyphens — on all 31 surfaces
+  that mount it. A cycle identifier is a key, not a label; it goes through the date formatter and
+  the locale, in both languages.
+
 Gate: a route test that loads `/elections?elections=<older cycle>` and asserts the rendered
-outcome canvas, the scope-bar cycle label and `ElectionContext` all name the same cycle; and a
-second that loads `/elections?elections=not-a-cycle` and asserts the named fallback rather than
-a blank canvas.
+outcome canvas, the scope-bar cycle label and `ElectionContext` all name the same cycle; a second
+that loads `/elections?elections=not-a-cycle` and asserts the named fallback rather than a blank
+canvas; and a third that asserts the rendered cycle label contains no `_`/`YYYY-MM-DD` folder form
+and reads correctly under a `TZ` west of UTC in both languages.
 
 ### Existing data authorities
 
@@ -615,14 +630,89 @@ So Phase 2 carries an explicit budget step:
    analysis proves is exclusive to the `/elections` hub/result route family; re-run
    `scripts/i18n/split_bundles.ts --apply` and keep shared result keys in core.
 
-Two rules that are cheap now and expensive later. **Fact codes, status values, turnout bases and
-standout signals are enum keys, never prose in the generated file** — a translated sentence in an
-artifact makes the English page the Bulgarian one with English headings, and the locale-parity test
-must assert both corpora carry a key for every enum member the generator can emit. And **write
-Bulgarian, not a translation of the English**: a phrase that parses but that nobody says is the
-recurring failure here, and election copy is written next to its English sibling.
+**Fact codes, status values, turnout bases and standout signals are enum keys, never prose in the
+generated file** — a translated sentence in an artifact makes the English page the Bulgarian one
+with English headings. And **write Bulgarian, not a translation of the English**: a phrase that
+parses but that nobody says is the recurring failure here, and election copy is written next to
+its English sibling.
+
+Three more rules, each of which an existing gate either cannot enforce or actively contradicts.
+
+⚠️ **`parity.test.ts` STRUCTURALLY CANNOT CATCH THE FAILURE THIS SECTION IS ABOUT, so the enum
+gate is a NEW file.** That test asserts BG and EN carry the _same_ keys, the same interpolation
+variables, no empty strings, and one file per key. An enum member with **no key in EITHER corpus**
+satisfies every one of those clauses and renders as its own raw identifier at a 200 — the
+`votes_outcome_undefined` shape. So "the locale-parity test must assert both corpora carry a key
+for every enum member the generator can emit" is a gate that has to be **written**, over the enum
+declarations rather than over the two corpora:
+
+```text
+src/data/elections/electionCopyCoverage.test.ts
+```
+
+It enumerates every member of `ElectionResultStatus`, `TurnoutBasis`, `BallotKind`, the fact-code
+union, the standout `signal` union, the map-mode union and `ElectionDestination["reason"]`, and
+fails unless BOTH corpora carry the key each one resolves to. §11's command block lists
+`src/locales/parity.test.ts`; that is the corpus-symmetry gate and is not a substitute for this one.
+
+⚠️ **The descriptor writes `labelKey` OUT beside each code; it does NOT build the key.** "Renderers
+map fact codes to translations" reads naturally as ``t(`election_fact_${code}`)``, and that form
+collides with a rule this plan already states for the tile registry (§6.1). `key_usage.ts` handles
+a template whose static head is a family prefix, so the dead-key prune survives — but
+`scripts/i18n/bundle_reachability.test.ts` is the gate that a single built key defeated on
+`/governance`, where one template made all eight deferred `budget.json` `_desc` keys "reachable"
+from a route that names none of them. A built key also makes the coverage gate above impossible to
+write honestly, because the key set stops being statically enumerable. Write it out.
+
+⚠️ **Almost every figure on these surfaces is a COUNT, so the plural families are the bulk of the
+copy.** „12 народни представители", „51 места", „8 партии с места", „6 гласувания", „№11 от 93" —
+and Bulgarian's plural rules are not English's. The corpus already carries **111 plural families**
+and `src/locales/plurals.test.ts` asserts every plural call site renders a real string at count 1
+and 3 in both languages. Enumerate the digest's, the strip's and the ranked result's counts as
+plural families in Phase 0's key-set step, not as interpolated singulars discovered later.
 
 No new runtime package is expected. Use the existing React Query, cmdk/search catalogs, map implementations, Tailwind primitives, i18n, Vitest, and Playwright stack. A new dependency requires a measured reason and an entry-chunk comparison.
+
+### 5.3 Identity is a reference; a LABEL is resolved by the renderer
+
+§5.2's "no prose in the artifact" rule is usually read as being about sentences. **It is about
+NAMES too, and the corpus makes that concrete rather than theoretical.** Measured 2026-09-01:
+
+| the thing named | what the election corpus stores                                 | where the EN form actually lives                                       |
+| --------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| a party         | `name`, `nickName` — **no `name_en`** anywhere in the shards    | `canonical_parties.json`: `displayName` + `displayNameEn`, 183 parties |
+| a local party   | `localPartyName: "ПП ГЕРБ"` beside `primaryCanonicalId: "gerb"` | the same file, through that id                                         |
+| an oblast       | `oblastName: "PDV-00"` — a CODE, not a name                     | `data/municipalities.json` / `settlements.json` `name_en`              |
+| a município     | `obshtinaName: "Пловдив"`                                       | the same two files                                                     |
+| a person        | `candidateName: "Костадин Димитров Димитров"`                   | **nowhere** — see below                                                |
+
+So a surface that stores a party's _name_ renders Cyrillic party names on every English ranked
+result, at a 200, with the locale gates green — none of them looks at generated data.
+
+**The rule: the artifact carries the ID, the renderer resolves the label.** A ballot entry carries
+`nickName` / `primaryCanonicalId`, a place carries its code, and the label comes from the corpus
+that owns both languages. That is the same argument as "no URLs in the blob": a generator that
+emits a resolved label keeps emitting the old one after the naming rule moves, and both sides stay
+green.
+
+⚠️ **PERSON NAMES ARE THE EXCEPTION, AND IT IS A DECISION RATHER THAN AN OVERSIGHT.** MPs carry a
+real `name_en` — parliament.bg's English profile, falling back to a Streamlined-System
+transliteration — but mayors and local candidates carry **no English form at all**. The v1
+position: **render the Bulgarian name in both languages, and do not transliterate.** A reader on
+the English page is matching the name against a ballot, a protocol scan or a register, all of
+which print Cyrillic; a transliteration is a name that appears in no source document. §8's mayor
+and candidate panels inherit this, and the "no Cyrillic in EN" style checks must exempt person
+names explicitly rather than by accident.
+
+⚠️ **The EN place name has a BUILD-TIME producer with a silent degrade, and this plan inherits it.**
+`scripts/prerender/placeNameEn.ts` resolves every English place name from
+`data/municipalities.json` + `data/settlements.json` at build time. A missing or unparseable file
+degrades to transliteration — which is valid Latin, so it passes a "no Cyrillic" gate — and **455
+places (436 settlements + 19 municipalities whose curated `name_en` differs from the transliterated
+form) silently change spelling in indexed titles**, with a stderr warning as the only signal. Phase
+3 adds `/en/elections` and Phases 4–6 touch prerendered place pages, so every EN title this plan
+produces rides that seam. `placeNameEn.test.ts` already asserts the build-time dictionary and
+`place_dim` agree on shared codes; do not add a third producer.
 
 ## 6. Descriptor and component architecture
 
@@ -931,6 +1021,10 @@ The rule, and the gate:
 
 At section level, a missing ballot is “not held/not available”, not zero votes. Mayor and council totals are never added.
 
+Every party, place and office label on this table is resolved from an ID at render time, never
+stored as a name in the artifact (§5.3). Mayor and candidate names render in Bulgarian in both
+languages and are not transliterated — that is the v1 decision, not a gap.
+
 ## 9. Delivery phases
 
 Each phase ends with targeted tests, a focused code review of only that phase, repair of all valid findings, and a separate commit. Do not start the next phase with known defects.
@@ -1012,6 +1106,7 @@ Work:
 2. Add `electionSurfaceDescriptors.ts` for every kind/level combination.
    3a. Freeze the **place digest**: which fact each of the four views contributes, its basis, its producer, and the `reason` enum for an unreachable view (§4.1). Decide and record **where each half is served from** — the election facts on the surface, the governance and consumption facts on their existing hooks or one place-digest route — because their refresh cadences differ by orders of magnitude and one file with two cadences is the failure.
    3b. Diff each level's intended fact set against what the nine existing dashboard-card screens render today (§6.3), so every card the descriptor drops is a recorded decision.
+   3c. Freeze the **copy contract** (§5.2, §5.3): every enum member's `labelKey` written OUT beside the code rather than built by template; the counts enumerated as PLURAL families; and the list of things carried as an ID whose label the renderer resolves (party, place, office), with person names recorded as the deliberate Bulgarian-in-both-languages exception.
 3. Freeze status vocabulary, turnout bases, fact priority, standout categories **and every numeric standout threshold** in `docs/methodology/election-surfaces.md`, each threshold carrying value, basis, minimum sample and what it excludes (§7). Thresholds are a Phase 0 design decision precisely because deferring them means fitting them to the fixtures.
 4. Create static fixture payloads for:
    - parliamentary country;
@@ -1034,6 +1129,8 @@ Tests/gates:
 - no more than four facts and three standouts;
 - the digest renders one cell per REACHABLE view and omits the rest — never a zero, never a dead link;
 - the digest and the outcome strip never render the same figure on one page;
+- every enum member the contract can emit resolves to a key present in BOTH corpora (`electionCopyCoverage.test.ts` — `parity.test.ts` cannot see this, §5.2);
+- no i18n key is built by template anywhere in the descriptor or the registry;
 - contrast check in light/dark mode.
 
 Exit criterion: product/design accepts the country and municipality grammar and the schema can represent every level without generic `unknown` payloads.
@@ -1100,7 +1197,8 @@ Work:
    3b. Implement `PlaceDigest` + `placeDigestFacts.ts` (§4.1): pure per-view selectors, each reading the producer that draws its own view's numbers, each returning `undefined` — not zero — for an unreachable view.
 4. Reuse existing maps through adapters; do not import Leaflet/d3/recharts into the shell module.
 5. Add loading skeletons with fixed dimensions matching the final ranking/map layout.
-6. Add Bulgarian and English keys per §5.2: enumerate the key set from the descriptor matrix and the fact/standout enums first, measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Locale-parity tests must assert both corpora carry a key for **every enum member the generator can emit**, absence states included. Keep long existing analysis copy in its current bundles.
+6. Add Bulgarian and English keys per §5.2: enumerate the key set from the descriptor matrix and the fact/standout enums first — **counts as plural families**, `labelKey`s written out rather than built — measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Ship `electionCopyCoverage.test.ts` in this commit; `parity.test.ts` and `plurals.test.ts` are corpus-symmetry and call-site gates and neither covers enum coverage. Keep long existing analysis copy in its current bundles.
+   6b. Resolve every party, place and office LABEL from its id at render time (§5.3). No name reaches the artifact.
 
 Runtime gates:
 
@@ -1277,11 +1375,18 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - status and update time come from source/ingest metadata, not browser time;
 - no abroad turnout without an approved basis;
 - absent ballot and zero-vote ballot are distinct;
+- no artifact stores a party, place or office NAME — only ids the renderer resolves (§5.3);
+- every digest cell re-derives from its own view's producer and equals what that view renders — mayor name, council lead, MP count and price rank are compared against the destination, never against a stored copy;
 - `status.reconciliation` is present iff an `officials_diff` sidecar exists for that município and cycle, and `agrees` re-derives from the sidecar; its absence never renders as agreement.
 
 ### Component/accessibility
 
 - one H1 and logical H2 order;
+- the combined `PlaceHeader` (identity + `PlaceViewNav` + cycle/status) is inside its measured height budget at 390 px, and does not stack two control strips above the first figure;
+- every enum the contract emits resolves to a rendered string in BOTH languages — no raw identifier reaches the DOM at any level;
+- every count renders through a plural family that resolves at count 1 and 3 in both languages (`plurals.test.ts`'s contract);
+- the scope bar's cycle label uses `formatDate` (UTC-pinned) and never the election folder id, verified under a `TZ` west of UTC;
+- EN pages render party and place names from the English corpus, and person names in Bulgarian by design (§5.3);
 - result/list available without map interaction;
 - map legend uses labels/symbols in addition to color;
 - map/list selection has keyboard support and announced state;
@@ -1296,6 +1401,8 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - `/elections?elections=<older cycle>` renders that cycle in the canvas, the scope bar and `ElectionContext` alike; a malformed value falls back to the latest event **and says so** (§3.1a);
 - every migrated route asserts the `data-surface-shell` marker is present, so a silent fallback to the legacy body fails rather than passes (§9.0);
 - the merged Elections menu points to `/elections`, contains no stale `/` election leaf, and does not absorb `/governance/mayor-pay`;
+- every digest cell's destination resolves to a live route, and its availability agrees with what `PlaceViewNav` renders for the same place;
+- a place with no local cycle renders a three-cell digest with a named reason, not a zero and not a dead pill;
 - every kind/level descriptor resolves to a live canonical route;
 - finder destinations exist for representative normal, Sofia, city-district, abroad, and section-fallback cases;
 - all previous menu destinations still appear after menu merge;
@@ -1335,6 +1442,7 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - parliamentary abroad (`32`);
 - one multi-municipality region and one single-municipality redirect case;
 - ordinary municipality and Sofia/city-district special case;
+- a municipality with all four views reachable, and one whose local view does not resolve;
 - ordinary settlement and one with no local mayor ballot;
 - parliamentary section with scan/video and without optional evidence;
 - local country;
@@ -1354,7 +1462,8 @@ npm run data -- --local-rollups --election-surfaces
 # 2. unit / data / artifact gates
 npx vitest run scripts/elections src/data/elections src/screens/elections
 npx vitest run scripts/tests/election/surfaces.data.test.ts
-npx vitest run src/data/local/placeViews.test.ts src/locales/parity.test.ts
+npx vitest run src/data/local/placeViews.test.ts src/locales/parity.test.ts src/locales/plurals.test.ts
+npx vitest run src/data/elections/electionCopyCoverage.test.ts scripts/i18n/bundle_reachability.test.ts
 npx vitest run src/ux/infographic/hubHead.gates.test.ts src/screens/elections/electionsHubBands.test.ts
 npx vitest run scripts/prerender/ogAndSitemapCoverage.test.ts scripts/og/capture_routes.test.ts
 
@@ -1420,29 +1529,32 @@ Do not silently fall back after a valid surface request returns malformed data. 
 
 ## 13. Risks and mitigations
 
-| Risk                                          | Mitigation                                                                                                                                   |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Shared UI erases mayor/council differences    | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                                  |
-| Projection drifts from canonical files        | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                             |
-| First surface becomes another KPI band        | Hard fact/standout caps and required map+ranking composition                                                                                 |
-| Large scope files create fanout or slow LCP   | Small route projection, no geometry/history, request and byte budgets                                                                        |
-| Abroad shows impossible turnout               | Required turnout basis and `region/32` negative data/UI tests                                                                                |
-| Statistical flags imply wrongdoing            | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                      |
-| Route cleanup breaks SEO                      | No v1 migration; route artifacts ship atomically; optional migration separately approved                                                     |
-| New shell loses existing depth                | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                                |
-| Sofia/district edge cases regress             | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                      |
-| Local older cycles lack ballot fields         | Availability-driven panels; missing is not zero; per-cycle data gates                                                                        |
-| Artifacts generated but never published       | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build       |
-| Browser gates green on the legacy fallback    | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                     |
-| A six-figure object expansion for no gain     | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                      |
-| `/elections` becomes a 14th bespoke header    | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                            |
-| Postgres creeps onto the render path          | §5.1 is a fixed decision; a Playwright network assertion per migrated route; a PG-only fact is a link cell, never a fetched number           |
-| A place's four views stay siloed              | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                     |
-| The digest disagrees with the tab it links to | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                          |
-| A daily price baked into a per-cycle file     | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                         |
-| A second control strip above the first number | The scope bar composes into `PlaceHeader`, which already carries `PlaceViewNav`; the combined header is budgeted and measured at 390 px      |
-| A shared composition rebuilt in parallel      | §6.3 names the nine existing four-card screens; the strip adopts them and the descriptor records every fact it drops                         |
-| Root/election ownership drifts after cutover  | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged |
+| Risk                                                 | Mitigation                                                                                                                                   |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shared UI erases mayor/council differences           | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                                  |
+| Projection drifts from canonical files               | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                             |
+| First surface becomes another KPI band               | Hard fact/standout caps and required map+ranking composition                                                                                 |
+| Large scope files create fanout or slow LCP          | Small route projection, no geometry/history, request and byte budgets                                                                        |
+| Abroad shows impossible turnout                      | Required turnout basis and `region/32` negative data/UI tests                                                                                |
+| Statistical flags imply wrongdoing                   | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                      |
+| Route cleanup breaks SEO                             | No v1 migration; route artifacts ship atomically; optional migration separately approved                                                     |
+| New shell loses existing depth                       | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                                |
+| Sofia/district edge cases regress                    | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                      |
+| Local older cycles lack ballot fields                | Availability-driven panels; missing is not zero; per-cycle data gates                                                                        |
+| Artifacts generated but never published              | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build       |
+| Browser gates green on the legacy fallback           | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                     |
+| A six-figure object expansion for no gain            | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                      |
+| `/elections` becomes a 14th bespoke header           | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                            |
+| An enum member ships with no copy in either language | `electionCopyCoverage.test.ts` over the enum declarations — `parity.test.ts` compares the corpora to each other and cannot see it            |
+| The English page shows Cyrillic party names          | Names are ids in the artifact and labels at render time (§5.3); the EN forms live in `canonical_parties.json`, not in the shards             |
+| A built i18n key defeats the bundle analysis         | `labelKey` written out beside every code; gated in Phase 0 alongside §6.1's registry rule                                                    |
+| Postgres creeps onto the render path                 | §5.1 is a fixed decision; a Playwright network assertion per migrated route; a PG-only fact is a link cell, never a fetched number           |
+| A place's four views stay siloed                     | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                     |
+| The digest disagrees with the tab it links to        | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                          |
+| A daily price baked into a per-cycle file            | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                         |
+| A second control strip above the first number        | The scope bar composes into `PlaceHeader`, which already carries `PlaceViewNav`; the combined header is budgeted and measured at 390 px      |
+| A shared composition rebuilt in parallel             | §6.3 names the nine existing four-card screens; the strip adopts them and the descriptor records every fact it drops                         |
+| Root/election ownership drifts after cutover         | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged |
 
 ## 14. Definition of done
 
@@ -1460,6 +1572,7 @@ v1 is complete only when all of the following are true:
 - section pages are result/evidence-first and never combine unlike ballots;
 - abroad never displays a turnout percentage without a valid denominator;
 - every standout is reproducible, neutral, and evidence-linked;
+- every enum the contract can emit has copy in both languages, every count is a plural family, and no raw identifier or folder id reaches the DOM;
 - surface payload, entry bundle, CLS, LCP, accessibility, i18n, and artifact gates pass;
 - all old routes and deep analyses remain reachable;
 - the four validation tasks succeed on phone and desktop;
