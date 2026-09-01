@@ -65,7 +65,9 @@ def queue_entry(analysis_path: Path, data_dir: Path,
         reason = "missing_image" if not image else "missing_review"
     else:
         try:
-            reviewed = image_rights_block(rights, article=raw_path)
+            reviewed = image_rights_block(
+                rights, article=raw_path, domain=article_path.parent.name
+            )
         except ValueError:
             reason = "invalid_review"
         else:

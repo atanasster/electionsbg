@@ -19,8 +19,17 @@ except ImportError:  # direct script execution
     from commons_rights import canonical_licence_url, commons_thumbnail_url, is_https_host
 
 
-def desired_rights(selection: dict) -> dict:
+def desired_rights(selection: dict, current: dict | None = None) -> dict:
+    """The rights block this selection implies.
+
+    ⚠️ It REPLACES the stored block wholesale, so anything a reviewer recorded
+    that this function does not reproduce is erased on the next replay — and
+    replay is the documented path (it is how all 40 records got their
+    provenance). A focal point is exactly that kind of value: reviewed by hand,
+    derivable from nothing here. It is carried forward explicitly.
+    """
     licence = selection["licence_name"]
+    kept = current if isinstance(current, dict) else {}
     return {
         "status": "public_domain" if licence in {"CC0", "Public domain"} else "cc",
         "creator": selection["creator"].strip(),
@@ -31,6 +40,21 @@ def desired_rights(selection: dict) -> dict:
         "source_url": selection["source_url"],
         "checked_at": selection["reviewed_at"],
         "display_home": True,
+        # ⚠️ DETERMINISTIC, not a default. Every record this script writes is a
+        # Commons work chosen by a reviewer for its subject — it is by
+        # construction never a photograph the outlet published with the
+        # article. Emitting the role here is what lets the caption say
+        # „Илюстрация" instead of a neutral label, and what keeps the
+        # `source_photo` path unreachable from this producer.
+        "role": "illustration",
+        # CC and public-domain licences permit adaptation; the crop decision is
+        # therefore free for this whole family. A publisher-permission record
+        # would have to state it per grant.
+        "crop_allowed": True,
+        # No source article: the work is not from one.
+        "source_article_url": None,
+        "focal_x": kept.get("focal_x"),
+        "focal_y": kept.get("focal_y"),
     }
 
 
@@ -75,7 +99,6 @@ def apply(selections_path: Path, root: Path) -> list[Path]:
         source_title = unquote(urlparse(selection["source_url"]).path.rsplit("/", 1)[-1])
         if source_title.replace("_", " ") != selection["file_title"].replace("_", " "):
             raise ValueError(f"selection file/source mismatch: {path}")
-        wanted = desired_rights(selection)
         accepted_images = {selection["image_url"], display_image}
         # One repair release emitted WebP derivatives without MediaWiki's
         # required `.png` output suffix. Accept only that exact same-file URL
@@ -83,6 +106,7 @@ def apply(selections_path: Path, root: Path) -> list[Path]:
         if display_image.endswith(".webp.png"):
             accepted_images.add(display_image[:-4])
         current = article.get("image_rights")
+        wanted = desired_rights(selection, current)
         if isinstance(current, dict) and current.get("status") in {"blocked", "unknown"}:
             raise ValueError(f"refusing to overwrite {current['status']} decision: {path}")
         if current:

@@ -57,8 +57,11 @@ def measure(data_dir: Path, selections_path: Path, queue_path: Path,
             invalid.append(f"identity:{selection['article_id']}")
             continue
         try:
-            rights = image_rights_block(article.get("image_rights"),
-                                        article=selection["article_id"])
+            rights = image_rights_block(
+                article.get("image_rights"),
+                article=selection["article_id"],
+                domain=selection["article_id"].split("/", 1)[0],
+            )
             expected_image = commons_thumbnail_url(selection.get("image_url") or "")
             if rights:
                 validate_display_image(

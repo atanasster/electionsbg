@@ -267,8 +267,36 @@ IMAGE_RIGHTS_KNOWN_STATUSES = frozenset({
 IMAGE_RIGHTS_KEYS = (
     "status", "creator", "credit_text", "credit_url", "licence_name",
     "licence_url", "source_url", "checked_at", "display_home",
+    # Provenance. Rights-bearing, so they live inside the block rather than
+    # beside it: `role` decides what a caption may CLAIM, `crop_allowed`
+    # whether we may adapt the work, `source_article_url` is the evidence for a
+    # `source_photo` claim. A presentation-only field (a focal point) does not
+    # belong here — see `image_presentation`.
+    "role", "crop_allowed", "source_article_url",
+    # ⚠️ Presentation, not rights — plan §5.2 allows either home for these and
+    # this is the cheaper one. A focal point is only meaningful when the
+    # recorded authority permits adaptation, so it travels with `crop_allowed`
+    # rather than in a parallel object with its own validator, its own TS type
+    # and its own arm in `isHomeBundle`.
+    "focal_x", "focal_y",
 )
-IMAGE_RIGHTS_REQUIRED_KEYS = frozenset(IMAGE_RIGHTS_KEYS)
+# ⚠️ REQUIRED is NOT `frozenset(KEYS)` any more, and the difference is
+# deliberate. The original nine stay mandatory: dropping one silently turns a
+# reviewed photograph back into an unreviewed one. The provenance keys are
+# OPTIONAL ON INPUT and always present on OUTPUT — absent means "nobody has
+# stated a role", which the UI renders with its neutral label rather than
+# guessing. Requiring them would have failed the build on all 40 existing
+# records at once for a field that is legitimately unknown.
+#
+# ⚠️ WRITTEN OUT, never `KEYS[:9]`. Three of these nine (`creator`,
+# `licence_name`, `licence_url`) have no independent presence check, so a
+# positional slice that drifted by one would make them optional and nothing
+# would say so.
+IMAGE_RIGHTS_REQUIRED_KEYS = frozenset({
+    "status", "creator", "credit_text", "credit_url", "licence_name",
+    "licence_url", "source_url", "checked_at", "display_home",
+})
+IMAGE_ROLES = frozenset({"source_photo", "illustration", "official_image"})
 IMAGE_RIGHTS_KNOWN_EVIDENCE = frozenset({
     "credit_text", "credit_url", "licence_name", "licence_url",
     "source_url", "checked_at",
@@ -454,7 +482,23 @@ def tri_state(raw) -> bool | None:
     return None
 
 
-def image_rights_block(raw, *, article: str) -> dict | None:
+def rights_evidence_host(url: str) -> str:
+    """Host of a rights-evidence URL, or "" when it cannot be trusted.
+
+    ⚠️ NOT just `urlparse(url).hostname`. Python splits the authority on the
+    LAST `@` and ignores a backslash, so `https://evil.example\\@ex.bg/a`
+    reports `ex.bg` — while WHATWG (every browser, and `new URL`) treats `\\`
+    as `/` and resolves the same string to `evil.example`. A caption would then
+    name the outlet while its evidence link went somewhere else. Any URL whose
+    two parsers can disagree is refused rather than resolved: rights evidence
+    has no legitimate use for userinfo or a backslash.
+    """
+    if "\\" in url or "@" in urlparse(url).netloc:
+        return ""
+    return (urlparse(url).hostname or "").lower()
+
+
+def image_rights_block(raw, *, article: str, domain: str | None = None) -> dict | None:
     """Validate and copy an article's explicit image-rights decision.
 
     Missing means nobody has reviewed the image and stays absent. A present
@@ -471,6 +515,16 @@ def image_rights_block(raw, *, article: str) -> dict | None:
     if missing:
         raise ValueError(
             f"{article}: image_rights missing required keys: {', '.join(missing)}"
+        )
+    # ⚠️ The optional keys have no presence check, so without this a typo is
+    # SILENTLY DROPPED by the whitelist projection below — `crop_allowd: false`
+    # beside a focal point builds and publishes a focal point on a work the
+    # reviewer marked un-croppable. An unknown key is a review that did not
+    # take effect, which is worse than a review that failed.
+    unknown = sorted(raw.keys() - set(IMAGE_RIGHTS_KEYS))
+    if unknown:
+        raise ValueError(
+            f"{article}: unknown image_rights keys: {', '.join(unknown)}"
         )
     status = raw.get("status")
     if status not in IMAGE_RIGHTS_STATUSES:
@@ -510,6 +564,64 @@ def image_rights_block(raw, *, article: str) -> dict | None:
         raise ValueError(
             f"{article}: {status} is not permitted by the image-rights policy"
         )
+    role = raw.get("role")
+    if role is not None and role not in IMAGE_ROLES:
+        raise ValueError(f"{article}: invalid image_rights.role {role!r}")
+    if raw.get("crop_allowed") is not None and not isinstance(
+        raw["crop_allowed"], bool
+    ):
+        raise ValueError(f"{article}: image_rights.crop_allowed must be boolean")
+    source_article_url = raw.get("source_article_url")
+    if source_article_url is not None:
+        parsed = urlparse(source_article_url)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+            raise ValueError(
+                f"{article}: image_rights.source_article_url must be an "
+                "absolute http(s) URL"
+            )
+    # ⚠️ A `source_photo` caption names a PUBLISHER — „От публикацията на X" —
+    # so the claim has to be checkable rather than asserted. It must carry the
+    # article it came from, and that article must be on the outlet's OWN
+    # domain. Without this the role is a free-text field that can attribute a
+    # photograph to a named outlet that never published it, which is the one
+    # error in this pipeline that cannot be walked back.
+    for axis in ("focal_x", "focal_y"):
+        value = raw.get(axis)
+        if value is None:
+            continue
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise ValueError(f"{article}: image_rights.{axis} must be a number")
+        if not 0 <= value <= 1:
+            raise ValueError(
+                f"{article}: image_rights.{axis} must be a 0-1 fraction"
+            )
+        # A focal point says WHERE to crop, so it is only meaningful once
+        # adaptation is PERMITTED — not merely "not refused". Accepting it
+        # against an unreviewed `crop_allowed` would let a focal point stand as
+        # the only evidence that cropping was ever considered.
+        if raw.get("crop_allowed") is not True:
+            raise ValueError(
+                f"{article}: {axis} recorded on an image that may not be cropped"
+            )
+    if role == "source_photo":
+        if not source_article_url:
+            raise ValueError(
+                f"{article}: role source_photo requires source_article_url"
+            )
+        # ⚠️ The domain is PASSED IN, never scraped out of `article`. That
+        # label is a display string whose shape differs per caller — the
+        # rights-queue builder passes `news/data/<domain>/<file>`, so a scraped
+        # domain there was the literal "news": every legitimate evidence URL
+        # refused, and any `*.news` host accepted.
+        if domain is None:
+            raise ValueError(
+                f"{article}: role source_photo needs the article's domain"
+            )
+        host = rights_evidence_host(source_article_url)
+        if host != domain.lower() and not host.endswith("." + domain.lower()):
+            raise ValueError(
+                f"{article}: source_photo evidence {host!r} is not on {domain!r}"
+            )
     if raw["display_home"]:
         missing_evidence = sorted(
             key for key in IMAGE_RIGHTS_REQUIRED_EVIDENCE
@@ -1614,7 +1726,9 @@ def main() -> int:
                 "feedback_analysis_sha256": None,
             }
             rights = image_rights_block(
-                art.get("image_rights"), article=f"{domain}/{fp.name}"
+                art.get("image_rights"),
+                article=f"{domain}/{fp.name}",
+                domain=domain,
             )
             if rights is not None:
                 validate_display_image(

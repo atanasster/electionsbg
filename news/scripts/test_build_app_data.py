@@ -947,6 +947,14 @@ class MetadataAndBudget(unittest.TestCase):
                               "source_url": "https://example.org/photo",
                               "checked_at": "2026-08-28",
                               "display_home": True,
+                              # Provenance is always EMITTED, even unstated —
+                              # a stable shape means a consumer never has to
+                              # tell "not reviewed" from "field not built yet".
+                              "role": None,
+                              "crop_allowed": None,
+                              "source_article_url": None,
+                              "focal_x": None,
+                              "focal_y": None,
                           })):
             self.assertEqual(rec.get(key), want, key)
 
@@ -1103,6 +1111,162 @@ class MetadataAndBudget(unittest.TestCase):
                 rights[key] = value
                 self.write_article(
                     "ex.bg", "20260822-a1-abc.json", image_rights=rights
+                )
+                proc = self.run_build()
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn(message, proc.stderr)
+
+    def _cc_rights(self, **over):
+        rights = {
+            "status": "cc",
+            "creator": "Иван Иванов",
+            "credit_text": "Снимка: Иван Иванов / CC BY 4.0",
+            # ⚠️ NOT a commons.wikimedia.org URL. A Commons source triggers the
+            # separate <=960px-derivative check, which the default fixture
+            # image is not — and that failure would be read as a provenance
+            # failure by every test below.
+            "credit_url": "https://example.org/photo",
+            "licence_name": "CC BY 4.0",
+            "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+            "source_url": "https://example.org/photo",
+            "checked_at": "2026-08-28",
+            "display_home": True,
+        }
+        rights.update(over)
+        return rights
+
+    def test_provenance_keys_are_optional_but_always_emitted(self):
+        """A record written before the provenance fields existed must still
+        build — absent means 'nobody stated a role', which the UI renders with
+        its neutral label. Requiring them would have failed the build on all 40
+        existing records at once for a value that is legitimately unknown."""
+        self.write_article(
+            "ex.bg", "20260822-a1-abc.json", image_rights=self._cc_rights()
+        )
+        proc = self.run_build()
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        rights = self.load("articles/ex.bg.json")["articles"][0]["image_rights"]
+        for key in ("role", "crop_allowed", "source_article_url",
+                    "focal_x", "focal_y"):
+            self.assertIn(key, rights)
+            self.assertIsNone(rights[key])
+
+    def test_source_photo_must_carry_evidence_on_the_outlet_s_own_domain(self):
+        """⚠️ A source_photo caption NAMES A PUBLISHER („От публикацията на
+        X"), so the claim has to be checkable rather than asserted. Attributing
+        a photograph to an outlet that never published it is the one error in
+        this pipeline that cannot be walked back."""
+        cases = (
+            (None, "requires source_article_url"),
+            ("https://other.example/a/1", "is not on"),
+            ("https://ex.bg.evil.example/a/1", "is not on"),
+        )
+        for url, message in cases:
+            with self.subTest(url=url):
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json",
+                    image_rights=self._cc_rights(
+                        role="source_photo", source_article_url=url
+                    ),
+                )
+                proc = self.run_build()
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn(message, proc.stderr)
+
+        # The same role WITH evidence on the outlet's own domain builds, and a
+        # subdomain of it counts.
+        for url in ("https://ex.bg/a/1", "https://www.ex.bg/a/1"):
+            with self.subTest(accepted=url):
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json",
+                    image_rights=self._cc_rights(
+                        role="source_photo", source_article_url=url
+                    ),
+                )
+                proc = self.run_build()
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+
+    def test_every_role_is_exercised(self):
+        """`official_image` was in the enum and in no test — an enum member
+        nothing renders and nothing checks is indistinguishable from a typo."""
+        for role in ("illustration", "official_image"):
+            with self.subTest(role=role):
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json",
+                    image_rights=self._cc_rights(role=role),
+                )
+                proc = self.run_build()
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+                rights = self.load("articles/ex.bg.json")["articles"][0][
+                    "image_rights"
+                ]
+                self.assertEqual(rights["role"], role)
+                # Only source_photo demands evidence — the other two make no
+                # claim about a publisher.
+                self.assertIsNone(rights["source_article_url"])
+
+    def test_source_photo_evidence_refuses_a_url_two_parsers_disagree_on(self):
+        """⚠️ `urlparse().hostname` splits the authority on the LAST `@` and
+        ignores a backslash, so `https://evil.example\\@ex.bg/a` reports
+        `ex.bg` — while WHATWG (every browser) resolves it to `evil.example`.
+        The caption would name the outlet and its evidence link would go
+        somewhere else entirely."""
+        for url in (
+            "https://evil.example\\@ex.bg/a",
+            "https://evil.example@ex.bg/a",
+        ):
+            with self.subTest(url=url):
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json",
+                    image_rights=self._cc_rights(
+                        role="source_photo", source_article_url=url
+                    ),
+                )
+                proc = self.run_build()
+                self.assertNotEqual(proc.returncode, 0)
+                self.assertIn("is not on", proc.stderr)
+
+    def test_an_unknown_image_rights_key_fails_rather_than_being_dropped(self):
+        """The optional provenance keys have no presence check, so a typo would
+        otherwise be silently dropped by the whitelist projection — and
+        `crop_allowd: false` beside a focal point would publish a focal point
+        on a work the reviewer marked un-croppable."""
+        self.write_article(
+            "ex.bg", "20260822-a1-abc.json",
+            image_rights=self._cc_rights(crop_allowd=False, focal_x=0.5),
+        )
+        proc = self.run_build()
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("unknown image_rights keys: crop_allowd", proc.stderr)
+
+    def test_provenance_fields_reject_nonsense(self):
+        cases = (
+            ({"role": "photo"}, "invalid image_rights.role"),
+            ({"crop_allowed": "yes"}, "crop_allowed must be boolean"),
+            ({"source_article_url": "/relative"}, "absolute http(s) URL"),
+            ({"focal_x": "middle"}, "focal_x must be a number"),
+            # `True` is an int in Python — without the explicit bool guard it
+            # would pass the numeric check as 1 and then the 0-1 range check.
+            ({"focal_x": True, "crop_allowed": True}, "focal_x must be a number"),
+            ({"focal_y": 1.4, "crop_allowed": True}, "focal_y must be a 0-1 fraction"),
+            # A focal point says WHERE to crop; on a work we may not adapt
+            # there is nothing for it to steer.
+            (
+                {"focal_x": 0.5, "crop_allowed": False},
+                "recorded on an image that may not be cropped",
+            ),
+            # Not merely "not refused": an unreviewed crop decision must not be
+            # settled by the presence of a focal point.
+            (
+                {"focal_y": 0.5},
+                "recorded on an image that may not be cropped",
+            ),
+        )
+        for over, message in cases:
+            with self.subTest(over=over):
+                self.write_article(
+                    "ex.bg", "20260822-a1-abc.json",
+                    image_rights=self._cc_rights(**over),
                 )
                 proc = self.run_build()
                 self.assertNotEqual(proc.returncode, 0)

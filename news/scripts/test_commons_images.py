@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from news.scripts import source_commons_images as source
-from news.scripts.apply_commons_images import apply
+from news.scripts.apply_commons_images import apply, desired_rights
 from news.scripts.commons_rights import commons_thumbnail_url, is_commons_thumbnail_url
 from news.scripts.source_commons_images import (
     load_search_cache,
@@ -217,3 +217,49 @@ class CommonsImagesTest(unittest.TestCase):
         self.write([self.row(article_path="news/data/../../escape.json")])
         with self.assertRaisesRegex(ValueError, "escapes"):
             apply(self.selection, self.root)
+
+
+class DesiredRightsProvenanceTest(unittest.TestCase):
+    """The three deterministic provenance fields this writer emits.
+
+    ⚠️ They are deterministic, not defaults. Every record this script writes is
+    a Commons work a reviewer chose for its SUBJECT — never a photograph the
+    outlet published with the article — so the caption may say „Илюстрация" and
+    the `source_photo` path is unreachable from this producer.
+    """
+
+    selection = {
+        "licence_name": "CC BY 4.0",
+        "creator": " Иван Иванов ",
+        "credit_text": " Снимка: Иван Иванов / CC BY 4.0 ",
+        "source_url": "https://commons.wikimedia.org/wiki/File:X.jpg",
+        "reviewed_at": "2026-08-28",
+    }
+
+    def test_emits_illustration_and_a_free_crop(self):
+        rights = desired_rights(self.selection)
+        self.assertEqual(rights["role"], "illustration")
+        self.assertTrue(rights["crop_allowed"])
+        self.assertIsNone(rights["source_article_url"])
+
+    def test_public_domain_licences_are_still_illustrations(self):
+        for licence in ("CC0", "Public domain"):
+            with self.subTest(licence=licence):
+                rights = desired_rights({**self.selection, "licence_name": licence})
+                self.assertEqual(rights["status"], "public_domain")
+                self.assertEqual(rights["role"], "illustration")
+
+    def test_a_replay_carries_a_reviewed_focal_point_forward(self):
+        """⚠️ This writer REPLACES the block wholesale, and replay is the
+        documented path — it is how every record got its provenance. A focal
+        point is reviewed by hand and derivable from nothing here, so a
+        function that did not reproduce it would erase it silently."""
+        carried = desired_rights(
+            self.selection,
+            {"focal_x": 0.25, "focal_y": 0.75, "status": "cc"},
+        )
+        self.assertEqual(carried["focal_x"], 0.25)
+        self.assertEqual(carried["focal_y"], 0.75)
+        fresh = desired_rights(self.selection)
+        self.assertIsNone(fresh["focal_x"])
+        self.assertIsNone(fresh["focal_y"])
