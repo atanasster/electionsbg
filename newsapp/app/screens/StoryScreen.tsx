@@ -26,6 +26,9 @@ import { SummaryPair } from "../components/SummaryPair";
 import { RelatedStories } from "../components/RelatedStories";
 import { ReaderActions } from "../components/ReaderActions";
 import { ReportIssueLink } from "../components/ReportIssueLink";
+import { HeadlineComparison } from "../components/HeadlineComparison";
+import { AggregateCompleteness } from "../components/AggregateCompleteness";
+import { axisCompleteness } from "../aggregateCompleteness";
 import { emitNewsEvent } from "../analytics";
 import { resolveRelatedStories } from "./relatedStories";
 import { useNewsLocale } from "../i18n";
@@ -99,9 +102,8 @@ export const StoryScreen = () => {
     return map;
   }, [outlets.data]);
 
-  // Grouped lean counts + the n/a tally for the bar note, computed together.
-  const lean = useMemo(() => {
-    if (!story) return { segments: [] as MixSegment<LeanGroup>[], naCount: 0 };
+  const leanSegments = useMemo<MixSegment<LeanGroup>[]>(() => {
+    if (!story) return [];
     const counts: Record<LeanGroup, number> = {
       left: 0,
       center: 0,
@@ -109,15 +111,12 @@ export const StoryScreen = () => {
       "n/a": 0,
     };
     for (const m of story.members) counts[leanGroup(m.leaning)] += 1;
-    return {
-      segments: LEAN_GROUPS.map(({ g, label, meta }) => ({
-        key: g,
-        label: language === "bg" ? label : leaningMeta(meta, language).label,
-        count: counts[g],
-        color: LEANING_META[meta].color,
-      })).filter((s) => s.count > 0),
-      naCount: counts["n/a"],
-    };
+    return LEAN_GROUPS.map(({ g, label, meta }) => ({
+      key: g,
+      label: language === "bg" ? label : leaningMeta(meta, language).label,
+      count: counts[g],
+      color: LEANING_META[meta].color,
+    })).filter((s) => s.count > 0);
   }, [language, story]);
 
   const stanceSegments = useMemo<MixSegment<StanceGroup>[]>(() => {
@@ -137,29 +136,52 @@ export const StoryScreen = () => {
     })).filter((s) => s.count > 0);
   }, [language, story]);
 
-  const members = useMemo(() => {
-    if (!story) return [];
-    return (
-      story.members
-        .filter(
-          (m) =>
-            (!leanFilter || leanGroup(m.leaning) === leanFilter) &&
-            (!stanceFilter || stanceGroup(m.russia_stance) === stanceFilter),
-        )
-        // Oldest first — the spread of coverage over time reads top→bottom.
-        .slice()
-        .sort((a, b) => (a.published ?? "").localeCompare(b.published ?? ""))
-    );
-  }, [story, leanFilter, stanceFilter]);
+  const leanCompleteness = useMemo(
+    () => axisCompleteness(story?.members ?? [], (member) => member.leaning),
+    [story],
+  );
+  const stanceCompleteness = useMemo(
+    () =>
+      axisCompleteness(story?.members ?? [], (member) => member.russia_stance),
+    [story],
+  );
 
-  const firstWithOutlet = useMemo(() => {
-    if (!story || !story.members.length) return null;
-    // Prefer dated members — an undated one must not be credited as "first".
-    const dated = story.members.filter((m) => m.published);
-    const pool = dated.length ? dated : story.members;
-    const earliest = pool.reduce((min, m) =>
-      (m.published ?? "") < (min.published ?? "") ? m : min,
+  const chronologicalMembers = useMemo(
+    () =>
+      (story?.members ?? [])
+        .map((member, index) => ({ member, index }))
+        .sort((a, b) => {
+          const aTime = a.member.published
+            ? Date.parse(a.member.published)
+            : Number.NaN;
+          const bTime = b.member.published
+            ? Date.parse(b.member.published)
+            : Number.NaN;
+          const aKnown = Number.isFinite(aTime);
+          const bKnown = Number.isFinite(bTime);
+          if (aKnown && bKnown) return aTime - bTime || a.index - b.index;
+          if (aKnown) return -1;
+          if (bKnown) return 1;
+          return a.index - b.index;
+        })
+        .map(({ member }) => member),
+    [story],
+  );
+
+  const members = useMemo(() => {
+    return chronologicalMembers.filter(
+      (m) =>
+        (!leanFilter || leanGroup(m.leaning) === leanFilter) &&
+        (!stanceFilter || stanceGroup(m.russia_stance) === stanceFilter),
     );
+  }, [chronologicalMembers, leanFilter, stanceFilter]);
+
+  const observedLead = useMemo(() => {
+    const earliest = story?.members.find(
+      (member) =>
+        member.scoop_decidable && member.first_here && member.first_seen,
+    );
+    if (!earliest) return null;
     return {
       member: earliest,
       name: outletNames.get(earliest.domain) ?? earliest.domain,
@@ -238,25 +260,38 @@ export const StoryScreen = () => {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="space-y-6">
-          <header>
-            <h1 className="font-title text-3xl leading-tight">{pageTitle}</h1>
+          {/* 1. What happened — the common-facts synthesis and provenance. */}
+          <header aria-labelledby="story-title">
+            <p className="app-eyebrow mb-2">
+              {tr("Какво се случи", "What happened")}
+            </p>
+            <h1 id="story-title" className="app-story-title">
+              {pageTitle}
+            </h1>
             <ReaderActions path={`/story/${story.id}`} title={pageTitle} />
             <div className="mt-2">
               <ReportIssueLink path={`/story/${story.id}`} />
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-              {firstWithOutlet ? (
+              {observedLead ? (
                 <span>
-                  {tr("Първи съобщи", "First reported by")}{" "}
+                  {tr("Най-рано засечен източник", "Earliest observed source")}{" "}
                   <Link
-                    to={`/outlet/${firstWithOutlet.member.domain}`}
+                    to={`/outlet/${observedLead.member.domain}`}
                     className="font-medium text-foreground hover:text-primary"
                   >
-                    {firstWithOutlet.name}
+                    {observedLead.name}
                   </Link>{" "}
-                  · {relativeTime(firstWithOutlet.member.published, language)}
+                  · {relativeTime(observedLead.member.first_seen, language)}
                 </span>
-              ) : null}
+              ) : (
+                <span>
+                  {tr(
+                    "Няма измерим еднозначен първи източник",
+                    "No single earliest source could be measured",
+                  )}
+                </span>
+              )}
               <span>
                 {media(story.aggregates.outlet_count, language)} ·{" "}
                 {articles(story.aggregates.article_count, language)}
@@ -270,60 +305,111 @@ export const StoryScreen = () => {
               bg={story.summary_bg}
               en={story.summary_en}
               withheld={story.withheld}
-              className="mt-3"
+              className="mt-4 text-base leading-relaxed"
             />
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+              {tr(
+                "Обобщението е съставено автоматично от материалите в клъстера. Проверете оригиналните източници и хронологията.",
+                "The summary is generated automatically from the articles in this cluster. Check the original sources and chronology.",
+              )}{" "}
+              <a
+                href="#sources-chronology"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                {tr("Към източниците", "Go to sources")}
+              </a>
+            </p>
           </header>
 
-          {/* Interactive spectrums — clicking a group filters the member list. */}
-          <div className="space-y-3">
-            <MixBar
-              title={tr(
-                "Политическо рамкиране на материалите",
-                "Political framing of the articles",
-              )}
-              segments={lean.segments}
-              selected={leanFilter}
-              onSelect={(value) => {
-                emitNewsEvent({
-                  name: "story_filter",
-                  axis: "leaning",
-                  active: value !== null,
-                });
-                setLeanFilter(value);
-              }}
-              note={
-                lean.naCount > 0
-                  ? tr(
-                      `${lean.naCount} от материалите са извън политическата ос и не участват в лентата.`,
-                      `${lean.naCount} articles fall outside the political axis and are not included in the bar.`,
-                    )
-                  : undefined
-              }
-            />
-            <MixBar
-              title={tr("Позиция спрямо Русия", "Stance toward Russia")}
-              segments={stanceSegments}
-              selected={stanceFilter}
-              onSelect={(value) => {
-                emitNewsEvent({
-                  name: "story_filter",
-                  axis: "russia",
-                  active: value !== null,
-                });
-                setStanceFilter(value);
-              }}
-            />
-          </div>
-
-          {/* Coverage: same story, each outlet's own headline. */}
-          <section aria-labelledby="coverage-heading">
+          {/* 2. Aligned source headlines with bounded lexical differences. */}
+          <section aria-labelledby="coverage-differences-heading">
             <h2
-              id="coverage-heading"
-              className="mb-1 text-sm font-semibold uppercase tracking-wide"
+              id="coverage-differences-heading"
+              className="app-section-title mb-2"
             >
-              {tr("Отразяване", "Coverage")} ({members.length} {tr("от", "of")}{" "}
-              {story.members.length})
+              {tr("Как се различава отразяването", "How coverage differs")}
             </h2>
+            <HeadlineComparison
+              members={chronologicalMembers}
+              outletNames={outletNames}
+            />
+          </section>
+
+          {/* 3. Interactive analysis with completeness beside every axis. */}
+          <section className="space-y-3" aria-labelledby="analysis-heading">
+            <div>
+              <h2 id="analysis-heading" className="app-section-title">
+                {tr("Какво показва анализът", "What the analysis says")}
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {tr(
+                  "Изберете сегмент, за да филтрирате хронологията. Празна лента означава, че няма достатъчно публикувани стойности.",
+                  "Select a segment to filter the chronology. An empty bar means there are not enough published values.",
+                )}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <MixBar
+                title={tr(
+                  "Политическо рамкиране на материалите",
+                  "Political framing of the articles",
+                )}
+                segments={leanSegments}
+                selected={leanFilter}
+                onSelect={(value) => {
+                  emitNewsEvent({
+                    name: "story_filter",
+                    axis: "leaning",
+                    active: value !== null,
+                  });
+                  setLeanFilter(value);
+                }}
+              />
+              <AggregateCompleteness
+                completeness={leanCompleteness}
+                generatedAt={stories.data?.generated_at}
+              />
+            </div>
+            <div className="space-y-2">
+              <MixBar
+                title={tr("Позиция спрямо Русия", "Stance toward Russia")}
+                segments={stanceSegments}
+                selected={stanceFilter}
+                onSelect={(value) => {
+                  emitNewsEvent({
+                    name: "story_filter",
+                    axis: "russia",
+                    active: value !== null,
+                  });
+                  setStanceFilter(value);
+                }}
+              />
+              <AggregateCompleteness
+                completeness={stanceCompleteness}
+                generatedAt={stories.data?.generated_at}
+              />
+            </div>
+          </section>
+
+          {/* 4. Original links in publication chronology. */}
+          <section
+            id="sources-chronology"
+            className="scroll-mt-20"
+            aria-labelledby="sources-chronology-heading"
+          >
+            <h2
+              id="sources-chronology-heading"
+              className="app-section-title mb-1"
+            >
+              {tr("Източници и хронология", "Sources and chronology")} ({" "}
+              {members.length} {tr("от", "of")} {story.members.length})
+            </h2>
+            <p className="mb-2 text-xs text-muted-foreground">
+              {tr(
+                "Подредени по време на публикуване; филтрите по-горе променят този списък.",
+                "Ordered by publication time; the filters above change this list.",
+              )}
+            </p>
             <Card className="overflow-hidden px-4">
               {members.map((m) => (
                 <StoryMemberRow
@@ -363,7 +449,9 @@ export const StoryScreen = () => {
               </span>
             </div>
             <div className="flex justify-between">
-              <span>{tr("Първо съобщаване", "First reported")}</span>
+              <span>
+                {tr("Най-ранна дата в клъстера", "Earliest cluster date")}
+              </span>
               <span className="tabular-nums">
                 {formatDate(story.first_published, language)}
               </span>
