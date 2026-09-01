@@ -379,10 +379,22 @@ type KfnFundRow = {
   netAssetsBgn: number | null;
   netAssetsEur: number | null;
 };
-type KfnFundsFile = {
+/** One quarter of the КФН register. */
+type KfnPeriod = {
   period: string;
   periodLabel: string;
   funds: KfnFundRow[];
+};
+/** The served file is EVERY quarter ever ingested, not a snapshot — the writer
+ *  used to overwrite it, and T5a (924fa5f66a) made the ingest retain quarters
+ *  so a per-fund trend became possible. This mirror was left on the old
+ *  single-period shape, so `f.funds` was `undefined` and the tool answered
+ *  "no private-pension-fund data" against a fully populated file. */
+type KfnFundsFile = {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+  latestPeriod: string;
+  periods: KfnPeriod[];
 };
 
 // The private (funded) pillars alongside the state NOI pension: total net assets
@@ -393,8 +405,15 @@ export const kfnFunds = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const f = await fetchData<KfnFundsFile>("/budget/kfn/funds.json");
-  if (!f.funds?.length) {
+  const file = await fetchData<KfnFundsFile>("/budget/kfn/funds.json");
+  // The newest quarter, picked exactly as useKfnLatest() does in
+  // src/data/budget/useBudget.tsx — declared `latestPeriod` first, last
+  // element as the fallback. Taking periods[0] or "as written" would answer
+  // from a different quarter than the /pensions view for the same question.
+  const f =
+    file.periods?.find((p) => p.period === file.latestPeriod) ??
+    file.periods?.[file.periods.length - 1];
+  if (!f?.funds?.length) {
     return {
       tool: "kfnFunds",
       domain: "fiscal",
