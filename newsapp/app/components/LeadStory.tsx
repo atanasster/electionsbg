@@ -38,18 +38,7 @@ export const LeadStory = ({
   return (
     <article>
       <Card className="news-story-card grid overflow-hidden md:grid-cols-5">
-        <ArticleImage
-          image={canDisplayHomeImage(imageArticle) ? imageArticle.image : null}
-          imageAlt={imageArticle.image_alt}
-          rights={imageArticle.image_rights}
-          articleUrl={imageArticle.url}
-          outlet={source}
-          aspect="aspect-[16/10]"
-          className="rounded-none md:col-span-3"
-          priority
-          creditVariant="compact"
-        />
-        <div className="news-card-body flex min-w-0 flex-col justify-start p-5 md:col-span-2 md:p-7">
+        <div className="news-card-body flex min-w-0 flex-col justify-start p-5 md:order-2 md:col-span-2 md:p-7">
           <div className="news-card-meta flex min-w-0 items-center justify-between gap-3 text-xs text-muted-foreground">
             {primary ? (
               <Badge
@@ -94,6 +83,17 @@ export const LeadStory = ({
             className="news-story-sources mt-5"
           />
         </div>
+        <ArticleImage
+          image={canDisplayHomeImage(imageArticle) ? imageArticle.image : null}
+          imageAlt={imageArticle.image_alt}
+          rights={imageArticle.image_rights}
+          articleUrl={imageArticle.url}
+          outlet={source}
+          aspect="aspect-[16/10]"
+          className="rounded-none md:order-1 md:col-span-3"
+          priority
+          creditVariant="compact"
+        />
       </Card>
     </article>
   );

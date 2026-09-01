@@ -2,6 +2,7 @@
 // search), blindspot rail, story cards, and the latest-articles wire beneath.
 
 import { useEffect, useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -78,13 +79,8 @@ export const HomeScreen = () => {
     [facetedStories],
   );
   const availableCategories = useMemo(
-    () =>
-      (categories ?? []).filter(
-        (item) =>
-          item.id !== "not-site-relevant" &&
-          (categoryCounts.has(item.id) || item.id === category),
-      ),
-    [categories, categoryCounts, category],
+    () => (categories ?? []).filter((item) => item.id !== "not-site-relevant"),
+    [categories],
   );
 
   const filteredStories = useMemo(
@@ -114,54 +110,70 @@ export const HomeScreen = () => {
   );
 
   return (
-    <div className="space-y-8">
-      <section className="news-home-intro border-b pb-6">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
+    <div className="space-y-5 sm:space-y-8">
+      <section className="news-home-intro border-b pb-4 sm:pb-6">
+        <p className="app-eyebrow mb-2 hidden sm:block">
           {tr("Независим медиен преглед", "Independent media overview")}
         </p>
-        <h1 className="max-w-3xl font-title text-4xl leading-[1.05] sm:text-5xl">
+        <h1 className="app-story-title max-w-3xl">
           {tr("Всяка страна на всяка история", "Every side of every story")}
         </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:mt-3 sm:text-base">
           {tr(
-            "Сравнете как българските медии отразяват едни и същи събития — спектър на политическото рамкиране, позиция спрямо Русия и сигнали за съдържание, вероятно генерирано с ИИ.",
-            "Compare how Bulgarian media cover the same events — political framing, stance toward Russia, and signals of likely AI-generated content.",
+            "Сравнете как българските медии разказват едни и същи събития и къде се различават.",
+            "Compare how Bulgarian media tell the same stories and where their coverage differs.",
           )}
         </p>
-        {/* Stats strip — one glance at corpus + analysis coverage. */}
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          {stats.error && !stats.data ? (
-            <span className="text-sm text-destructive">
-              {tr(
-                "Статистиката не се зареди.",
-                "Statistics could not be loaded.",
-              )}
+        {/* Corpus detail remains available without delaying the first story. */}
+        <details className="group mt-3 rounded-md border border-border/70 bg-muted/40 px-3">
+          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-sm text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background [&::-webkit-details-marker]:hidden">
+            <span>
+              {tr("Покритие", "Coverage")}:{" "}
+              {stats.error && !stats.data
+                ? tr("не е налично", "unavailable")
+                : stats.data
+                  ? `${stories(stats.data.stories, language)} · ${stats.data.analyzed_pct}% ${tr("анализирани", "analyzed")}`
+                  : tr("зарежда се", "loading")}
             </span>
-          ) : stats.data ? (
-            <>
-              <Badge variant="secondary">
-                {stories(stats.data.stories, language)}
-              </Badge>
-              <Badge variant="secondary">
-                {analyzedArticles(stats.data.analyzed_articles, language)} (
-                {stats.data.analyzed_pct}%)
-              </Badge>
-              <Badge variant="secondary">
-                {articles(stats.data.total_articles, language)}{" "}
-                {tr("общо", "total")}
-              </Badge>
-              <Badge variant="secondary">
-                {media(stats.data.domains, language)}
-              </Badge>
-              <span className="text-xs text-muted-foreground">
-                {tr("обновено", "updated")}{" "}
-                {relativeTime(stats.data.generated_at, language)}
+            <ChevronDown
+              aria-hidden
+              className="size-4 shrink-0 transition-transform group-open:rotate-180"
+            />
+          </summary>
+          <div className="flex flex-wrap items-center gap-2 border-t py-3">
+            {stats.error && !stats.data ? (
+              <span className="text-sm text-destructive">
+                {tr(
+                  "Статистиката не се зареди.",
+                  "Statistics could not be loaded.",
+                )}
               </span>
-            </>
-          ) : (
-            <Skeleton className="h-6 w-72" />
-          )}
-        </div>
+            ) : stats.data ? (
+              <>
+                <Badge variant="secondary">
+                  {stories(stats.data.stories, language)}
+                </Badge>
+                <Badge variant="secondary">
+                  {analyzedArticles(stats.data.analyzed_articles, language)} (
+                  {stats.data.analyzed_pct}%)
+                </Badge>
+                <Badge variant="secondary">
+                  {articles(stats.data.total_articles, language)}{" "}
+                  {tr("общо", "total")}
+                </Badge>
+                <Badge variant="secondary">
+                  {media(stats.data.domains, language)}
+                </Badge>
+                <span className="text-xs text-muted-foreground">
+                  {tr("обновено", "updated")}{" "}
+                  {relativeTime(stats.data.generated_at, language)}
+                </span>
+              </>
+            ) : (
+              <Skeleton className="h-6 w-60 max-w-full" />
+            )}
+          </div>
+        </details>
       </section>
 
       <HomeFilterControls

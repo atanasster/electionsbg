@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
 
-const VIEWPORTS = [320, 390, 768, 1024, 1440] as const;
+const VIEWPORTS = [320, 375, 390, 768, 1024, 1440] as const;
 
 const readBundle = <T>(file: string): T =>
   JSON.parse(fs.readFileSync(path.resolve("news/app-data", file), "utf8")) as T;
@@ -92,6 +92,8 @@ const shellMetrics = (page: Page) =>
         scrollWidth: element.scrollWidth,
         left: rect.left,
         right: rect.right,
+        top: rect.top,
+        height: rect.height,
       };
     };
 
@@ -105,14 +107,13 @@ const shellMetrics = (page: Page) =>
         scrollWidth: document.body.scrollWidth,
       },
       main: bounds("#news-main"),
-      mobileNav: bounds(".news-mobile-nav"),
-      mobileNavLinks: visibleRects(".news-mobile-nav-link"),
+      masthead: bounds(".news-masthead"),
       footerLinks: bounds(".news-footer-links"),
       footerLinkRects: visibleRects(".news-footer-link"),
     };
   });
 
-const expectOneBoundedRow = (
+const expectBoundedTargets = (
   bounds: {
     clientWidth: number;
     scrollWidth: number;
@@ -123,7 +124,6 @@ const expectOneBoundedRow = (
   minimumHeight: number,
 ) => {
   expect(bounds.scrollWidth).toBeLessThanOrEqual(bounds.clientWidth + 1);
-  expect(new Set(rects.map(({ top }) => Math.round(top))).size).toBe(1);
   for (const rect of rects) {
     expect(rect.left).toBeGreaterThanOrEqual(bounds.left - 1);
     expect(rect.right).toBeLessThanOrEqual(bounds.right + 1);
@@ -133,7 +133,8 @@ const expectOneBoundedRow = (
 
 for (const width of VIEWPORTS) {
   test(`all news routes fit the ${width}px viewport`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
+    const viewportHeight = width === 375 ? 812 : 900;
+    await page.setViewportSize({ width, height: viewportHeight });
 
     for (const route of ROUTES) {
       await test.step(route.name, async () => {
@@ -155,15 +156,50 @@ for (const width of VIEWPORTS) {
         );
 
         expect(metrics.footerLinks).not.toBeNull();
-        expectOneBoundedRow(
+        expectBoundedTargets(
           metrics.footerLinks!,
           metrics.footerLinkRects,
           width < 640 ? 44 : 32,
         );
 
-        if (width < 768) {
-          expect(metrics.mobileNav).not.toBeNull();
-          expectOneBoundedRow(metrics.mobileNav!, metrics.mobileNavLinks, 44);
+        if (width < 640) {
+          expect(metrics.masthead).not.toBeNull();
+          expect(metrics.masthead!.height).toBeLessThanOrEqual(56);
+        }
+
+        if (route.path === "/" && width < 1024) {
+          await expect(
+            page.getByRole("link", { name: "Търсене в новините" }),
+          ).toHaveAttribute("href", "/#news-search");
+          await expect(
+            page.getByRole("button", { name: "Отвори менюто" }),
+          ).toBeVisible();
+        }
+
+        if (route.path === "/" && width === 375) {
+          const firstHeadline = page.locator(".news-story-heading").first();
+          await expect(firstHeadline).toBeVisible();
+          const firstHeadlineBox = await firstHeadline.boundingBox();
+          expect(firstHeadlineBox).not.toBeNull();
+          expect(firstHeadlineBox!.y).toBeLessThan(viewportHeight);
+        }
+
+        if (route.path === "/" && width < 1024) {
+          const mastheadBox = await page
+            .locator(".news-masthead")
+            .boundingBox();
+          const searchLink = page.getByRole("link", {
+            name: "Търсене в новините",
+          });
+          const searchbox = page.getByRole("searchbox", { name: "Търсене" });
+          await searchLink.click();
+          await expect(searchbox).toBeFocused();
+          const searchboxBox = await searchbox.boundingBox();
+          expect(mastheadBox).not.toBeNull();
+          expect(searchboxBox).not.toBeNull();
+          expect(searchboxBox!.y).toBeGreaterThanOrEqual(
+            mastheadBox!.y + mastheadBox!.height,
+          );
         }
       });
     }

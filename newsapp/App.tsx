@@ -1,4 +1,4 @@
-import { lazy, Suspense, useContext } from "react";
+import { lazy, Suspense, useContext, useEffect } from "react";
 import { Route, Routes, NavLink, Link, useLocation } from "react-router-dom";
 import { Menu, Search } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
@@ -134,6 +134,18 @@ const NewsAppShell = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const isDark = theme === themeDark;
   const { language, tr } = useNewsLocale();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash !== "#news-search") return;
+    const frame = window.requestAnimationFrame(() => {
+      const search = document.getElementById("news-search");
+      if (!(search instanceof HTMLInputElement)) return;
+      search.focus({ preventScroll: true });
+      search.scrollIntoView({ block: "center" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.hash, location.pathname]);
   const nav = [
     { to: "/", label: tr("Истории", "Stories"), end: true },
     { to: "/outlets", label: tr("Източници", "Sources") },

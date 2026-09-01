@@ -1,9 +1,25 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { HomeBundle, HomeStory } from "../data";
+import type { HomeBundle, HomeStory, Stats } from "../data";
 
 const NOW = Date.parse("2026-08-31T07:00:00Z");
+
+const stats: Stats = {
+  generated_at: "2026-08-31T07:00:00Z",
+  taxonomy_version: 1,
+  accepted_snapshot_records_sha256: null,
+  accepted_feedback_records_sha256: null,
+  total_articles: 4366,
+  analyzed_articles: 365,
+  analyzed_pct: 8.4,
+  stories: 86,
+  domains: 55,
+  outlets_catalogued: 59,
+  first_published: "2007-06-13T21:07:26Z",
+  last_published: "2026-08-31T07:00:00Z",
+  articles_by_domain: {},
+};
 
 const story = (id: string, published: string): HomeStory => ({
   id,
@@ -73,13 +89,20 @@ const home = (stories: HomeStory[]): HomeBundle => ({
   articles: [],
 });
 
-const renderHome = async (bundle: HomeBundle | null) => {
+const renderHome = async (
+  bundle: HomeBundle | null,
+  statsData: Stats | null = null,
+) => {
   vi.resetModules();
   vi.spyOn(Date, "now").mockReturnValue(NOW);
   vi.doMock("../data", async (importOriginal) => ({
     ...(await importOriginal<typeof import("../data")>()),
     useHome: () => ({ data: bundle, error: null, loading: bundle === null }),
-    useStats: () => ({ data: null, error: null, loading: true }),
+    useStats: () => ({
+      data: statsData,
+      error: null,
+      loading: statsData === null,
+    }),
     useTaxonomy: () => ({
       data: { version: 1, categories: [] },
       error: null,
@@ -107,7 +130,7 @@ afterEach(() => {
 describe("home adaptive freshness window", () => {
   it("does not announce an expansion before the bundle loads", async () => {
     await renderHome(null);
-    expect(screen.queryByRole("status")).toBeNull();
+    expect(screen.queryByText(/показваме последните/)).toBeNull();
   });
 
   it("defaults to 24 hours when six recent stories exist", async () => {
@@ -140,5 +163,25 @@ describe("home adaptive freshness window", () => {
       "aria-pressed",
       "false",
     );
+  });
+
+  it("keeps corpus detail in a compact coverage disclosure", async () => {
+    await renderHome(home([story("weekly", "2026-08-31T06:00:00Z")]), stats);
+    const summary = screen.getByText(/Покритие: 86 истории · 8.4% анализирани/);
+    const disclosure = summary.closest("details");
+    expect(disclosure).not.toHaveAttribute("open");
+    fireEvent.click(summary.closest("summary")!);
+    expect(disclosure).toHaveAttribute("open");
+    expect(screen.getByText(/365 анализирани статии/)).toBeVisible();
+  });
+
+  it("uses a one-sentence mobile-first proposition", async () => {
+    await renderHome(home([story("weekly", "2026-08-31T06:00:00Z")]));
+    expect(
+      screen.getByText(
+        "Сравнете как българските медии разказват едни и същи събития и къде се различават.",
+      ),
+    ).toBeVisible();
+    expect(screen.queryByText(/сигнали за съдържание/)).toBeNull();
   });
 });

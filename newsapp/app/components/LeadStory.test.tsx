@@ -48,7 +48,7 @@ const outlets = [
 ] as Outlet[];
 
 describe("LeadStory accessibility", () => {
-  it("keeps credit, licence and story link in keyboard order and uses h3", async () => {
+  it("keeps the headline first on mobile and all links in keyboard order", async () => {
     const user = userEvent.setup();
     const item = {
       story,
@@ -95,13 +95,16 @@ describe("LeadStory accessibility", () => {
     expect(screen.queryByText(/прочети анализа/i)).toBeNull();
     expect(screen.queryByText(/анализирана статия/i)).toBeNull();
     expect(document.querySelector("a a")).toBeNull();
+    expect(storyLink.compareDocumentPosition(credit)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
     expect(screen.getAllByText("Втори източник")).toHaveLength(2);
     expect(screen.getByText("Пример")).toBeVisible();
+    await user.tab();
+    expect(storyLink).toHaveFocus();
     await user.tab();
     expect(credit).toHaveFocus();
     await user.tab();
     expect(licence).toHaveFocus();
-    await user.tab();
-    expect(storyLink).toHaveFocus();
   });
 });
