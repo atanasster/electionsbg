@@ -3,11 +3,18 @@
 **Status:** ready to execute  
 **Product brief:** [elections-hub-research-v1.md](./elections-hub-research-v1.md)  
 **Scope:** parliamentary and local election results at country, abroad, region, municipality, settlement, and polling-section levels  
-**Version:** v1 — additive route and shared surface system; no public-URL migration
+**Version:** v1 — shared election surface system with the country entry preserved at `/elections`
+
+> **Integration update — 2026-09-01.** The global-home work in
+> [home-dashboard-implementation-v1.md](./home-dashboard-implementation-v1.md) supersedes this
+> plan only where it assigns `/`. Root becomes the global Bulgaria dashboard; `/elections`
+> becomes the current parliamentary/cross-kind election entry. Historical `/elections/:date`,
+> local-election routes, and every deep result URL remain unchanged. Implement the `/elections`
+> parity bridge before cutting root over, as required by the home plan Phase 1.
 
 ## 1. Outcome
 
-Ship `/elections` as the single entry into a shared, results-first election experience while preserving the depth and public URLs that already exist.
+Ship `/elections` as the single entry into a shared, results-first election experience while preserving the depth and all existing deep/historical public URLs. The former root country result is preserved at `/elections`; `/` is owned by the global home dashboard.
 
 The reader should be able to answer the primary question for the current place in the first screen:
 
@@ -23,7 +30,7 @@ The implementation must simplify hierarchy, not remove maps, mayors, council com
 These decisions are implementation constraints, not open design questions.
 
 1. Add a canonical `/elections` entry.
-2. Preserve `/`, `/elections/:date`, `/local/:cycle`, and every current place/result leaf. Do not introduce redirects or a new `/elections/:kind/:cycle/...` family in v1.
+2. Preserve the current parliamentary country experience at `/elections`, and preserve `/elections/:date`, `/local/:cycle`, and every current place/result leaf. `/` becomes the global home and is not redirected. Do not introduce a new `/elections/:kind/:cycle/...` family in v1.
 3. Merge the two top-navigation election menus into one Elections menu, but preserve every existing destination.
 4. Use one shared page grammar and shared primitives. Keep parliamentary and local outcome contracts as discriminated types; do not normalize mayor and council votes into a single ranking.
 5. Create a small, generated `surface` projection **only for the scopes that pass the emission test in §5.0**. It is a display projection of canonical result files, not a new result authority, and it is not emitted for a level whose canonical shard is already inside the budget.
@@ -46,7 +53,7 @@ These decisions are implementation constraints, not open design questions.
 
 Parliamentary:
 
-- country: `/` and historical `/elections/:date`;
+- country: current `/elections` and historical `/elections/:date`;
 - region and abroad: `/municipality/:id`, where `32` is abroad;
 - municipality: `/settlement/:id`;
 - settlement: `/sections/:id`;
@@ -378,11 +385,13 @@ is the core chunk every page downloads before it can paint (**713 KB** raw in Bu
 deferred bundle in `LOCALE_BUNDLES` — today `["budget", "methodology"]` — ships only with the routes
 tagged `withBundle(...)`. `tests/perf.spec.ts` pins per-language brotli budgets on the core chunk.
 
-**This work's copy goes to CORE, and that is a decision with a bill attached rather than a default.**
-`scripts/i18n/bundles.ts` proves a key may be deferred only when no route outside the bundle can
-statically reach the module that names it. Election copy is named by `/` — the parliamentary country
-page is the site's homepage — so the reachability analysis will refuse to defer essentially all of it.
-An `elections` bundle would hold the residue and not the matrix.
+**Shared result-page copy stays in CORE unless reachability proves otherwise; hub-exclusive copy is
+eligible for an `elections` bundle.** `scripts/i18n/bundles.ts` proves a key may be deferred only when
+no route outside the bundle can statically reach the module that names it. After the global-home
+migration, `/` no longer names election copy, but parliamentary/local result primitives are still
+shared across several route families. Tag the exclusive `/elections` hub modules, run the reachability
+analysis, and defer only the keys it proves exclusive. Do not move the shared outcome/status matrix
+by assumption.
 
 The matrix is the part to size before writing it, because it multiplies:
 
@@ -398,9 +407,9 @@ So Phase 2 carries an explicit budget step:
 1. enumerate the key set from the descriptor matrix and the fact/standout enums **before** writing
    copy, and record its size;
 2. measure the core chunk's brotli delta in both languages;
-3. re-ratchet `tests/perf.spec.ts` in the same commit, or — if the delta is large enough to need a
-   lever — split an `elections` bundle for the copy the analysis proves is exclusive to the
-   `/elections` and `/local/**` routes, and re-run `scripts/i18n/split_bundles.ts --apply`.
+3. re-ratchet `tests/perf.spec.ts` in the same commit, and split an `elections` bundle for copy the
+   analysis proves is exclusive to the `/elections` hub/result route family; re-run
+   `scripts/i18n/split_bundles.ts --apply` and keep shared result keys in core.
 
 Two rules that are cheap now and expensive later. **Fact codes, status values, turnout bases and
 standout signals are enum keys, never prose in the generated file** — a translated sentence in an
@@ -419,13 +428,13 @@ No new runtime package is expected. Use the existing React Query, cmdk/search ca
 primitives each side composes, and it has to be stated because the two halves of this plan look
 alike and obey different written gates.
 
-|                           | `/elections`                                   | result pages (`/`, `/municipality/:id`, `/settlement/:id`, `/sections/:id`, `/section/:id`, `/local/**`) |
-| ------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| head                      | `HubHead`                                      | `PlaceHeader` + `ElectionScopeBar`                                                                       |
-| owns `<h1>` and `<SEO>`   | `HubHead`                                      | the existing screen                                                                                      |
-| first substantive section | `ElectionOutcomeCanvas` for the resolved cycle | `ElectionOutcomeCanvas`                                                                                  |
-| tiles                     | a registry + bands + scenes                    | none — deeper `DashboardSection` bodies                                                                  |
-| finder                    | yes, in the head                               | see §6.2                                                                                                 |
+|                           | `/elections`                                   | result pages (`/elections/:date`, `/municipality/:id`, `/settlement/:id`, `/sections/:id`, `/section/:id`, `/local/**`) |
+| ------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| head                      | `HubHead`                                      | `PlaceHeader` + `ElectionScopeBar`                                                                                        |
+| owns `<h1>` and `<SEO>`   | `HubHead`                                      | the existing screen                                                                                                       |
+| first substantive section | `ElectionOutcomeCanvas` for the resolved cycle | `ElectionOutcomeCanvas`                                                                                                   |
+| tiles                     | a registry + bands + scenes                    | none — deeper `DashboardSection` bodies                                                                                   |
+| finder                    | yes, in the head                               | see §6.2                                                                                                                  |
 
 **`/elections` composes `HubHead`.** It is the repo's one hub head (`src/ux/infographic/HubHead.tsx`,
 rendered by 20 screens) and it exists because thirteen hubs had each composed their own and no
@@ -861,7 +870,7 @@ Route/UI work:
 3. `/elections` resolves its cycle per §3.1a — `?elections` first, latest event as the fallback, the resolved cycle named in the scope control. It offers Parliamentary/Local selection with explicit dates/status, and selection navigates to the existing canonical full result (`/elections/:date` or `/local/:cycle`) writing `?elections`, not a hidden client-only result state.
 4. The lead area uses one outcome canvas for the resolved cycle, not two simultaneous maps. A compact adjacent link exposes the other election kind.
 5. Add the finder (a `HubSearch` configuration per §6.2, in the head's search slot) and the tile bands from the `electionsRegistry` per §6.1, below the outcome canvas. Ship `electionsHubBands.test.ts` in this commit.
-6. Merge `electionsMenu` and `localMenu` in `src/layout/header/reportMenus.ts`; update `Header.tsx` to render one Elections top-level item. Preserve all current leaves, grouped as Results, Places, Analysis and review, and Partial/local administration. **Two things the merge must decide explicitly rather than by omission:** `electionsMenu`'s top-level link is currently `/` under `nav_elections`, so promoting `/elections` silently removes the homepage from the top nav — give `/` its own named leaf; and `localMenu` currently carries `/governance/mayor-pay`, a governance leaf that should not migrate into an Elections menu by accident.
+6. Merge `electionsMenu` and `localMenu` in `src/layout/header/reportMenus.ts`; update `Header.tsx` to render one Elections top-level item at `/elections`. Preserve all election destinations, grouped as Results, Places, Analysis and review, and Partial/local administration. **Two things the merge must decide explicitly rather than by omission:** remove the old `/` election leaf because root is the global home reached through the logo/home navigation, and do not absorb `localMenu`'s `/governance/mayor-pay` governance leaf into Elections by accident.
 7. Keep the current Parliamentary and Local pills in `PlaceViewNav` in v1; the shared `ElectionScopeBar` provides the family relationship. Re-evaluate pill consolidation only with the optional URL migration.
 
 Artifact work in the same commit:
@@ -871,7 +880,7 @@ Artifact work in the same commit:
 3. Add dedicated SEO title, description, canonical, H1, and indexable body — via `HubHead`, which owns the `h1` and the `<SEO>`. The deck and the SEO description are different sentences written for different readers; do not write one and reuse it as the other.
 4. Add a dedicated `public/og/elections.png` capture in `scripts/og/capture-screens.ts`, anchored on a `data-og` attribute (a class name gets renamed silently by a refactor) on the head, with a `waitFor` naming something that exists only after the data loads — a head shot before its numbers arrive is a screenshot of a skeleton. Then **open the PNG and look at it**; a capture reports success on any 1200x630 clip it managed to take.
 5. Add `/elections` to `scripts/og/capture_routes.test.ts`, `scripts/prerender/ogAndSitemapCoverage.test.ts`, and `tests/seo.spec.ts` with a `minBodyChars` — the suite checks body length only for routes listed there.
-6. Add a direct header link and at least one contextual link from `/` and `/local/:cycle` so reachability does not depend on the sitemap.
+6. Add a direct header link, retain the global home's `/elections` tile/contextual link, and add at least one contextual link from `/local/:cycle` so reachability does not depend on the sitemap.
 
 Ordering within the phase: the og capture and `npm run sitemap` run **before** `npm run build`, because `vite build` copies `public/` into `dist/` — run them after and they ship one deploy late. Both are the steps that get skipped, because neither is wired into anything.
 
@@ -879,11 +888,11 @@ Exit criterion: `/elections` is unique, indexable, reachable, bilingual, has a `
 
 ### Phase 4 — country and region migration
 
-**Goal:** make the most-used levels consistently results-first.
+**Goal:** make the most-used levels consistently results-first. The parliamentary country composition that formerly lived at root is now owned by `/elections`; root itself is not an election migration target.
 
 Parliamentary files:
 
-- `src/screens/DashboardScreen.tsx`;
+- `src/screens/DashboardScreen.tsx` (the preserved `/elections` country composition; rename to `ElectionsCountryScreen` when doing so improves ownership clarity);
 - `src/screens/ElectionScreen.tsx`;
 - `src/screens/dashboard/DashboardCards.tsx`;
 - `src/screens/MunicipalitiesScreen.tsx`;
@@ -1025,7 +1034,7 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 
 - `/elections?elections=<older cycle>` renders that cycle in the canvas, the scope bar and `ElectionContext` alike; a malformed value falls back to the latest event **and says so** (§3.1a);
 - every migrated route asserts the `data-surface-shell` marker is present, so a silent fallback to the legacy body fails rather than passes (§9.0);
-- the merged Elections menu keeps a named leaf for `/`, and does not absorb `/governance/mayor-pay`;
+- the merged Elections menu points to `/elections`, contains no stale `/` election leaf, and does not absorb `/governance/mayor-pay`;
 - every kind/level descriptor resolves to a live canonical route;
 - finder destinations exist for representative normal, Sofia, city-district, abroad, and section-fallback cases;
 - all previous menu destinations still appear after menu merge;
@@ -1166,13 +1175,13 @@ Do not silently fall back after a valid surface request returns malformed data. 
 | Browser gates green on the legacy fallback  | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)               |
 | A six-figure object expansion for no gain   | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                |
 | `/elections` becomes a 14th bespoke header  | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                      |
-| Duplicate `/` and `/elections` content      | `/elections` is a concise cross-kind entry with unique copy/links; `/` remains the full parliamentary result canonical                 |
+| Root/election ownership drifts after cutover | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged |
 
 ## 14. Definition of done
 
 v1 is complete only when all of the following are true:
 
-- `/elections` is the visible top-navigation entry for parliamentary and local elections, `/` still has a named leaf, and the hub composes `HubHead` with an entry in `HUB_SCREENS` and `HUB_HEAD_BUDGETS`;
+- `/elections` is the visible top-navigation entry for parliamentary and local elections, `/` is the global home rather than an election leaf, and the election hub composes `HubHead` with an entry in `HUB_SCREENS` and `HUB_HEAD_BUDGETS`;
 - every generated artifact is published and served from the bucket, verified by fetch and by `db:check-generated` — not inferred from a green build;
 - every migrated level is demonstrated to render the shared shell rather than the legacy fallback;
 - `/elections` honours `?elections` and names the cycle whose numbers are on screen;
@@ -1196,6 +1205,6 @@ v1 is complete only when all of the following are true:
 - aggregating unlike local ballots;
 - a national cartogram without a separate validated prototype;
 - deleting existing report/analysis leaves;
-- migrating the public route tree;
+- migrating the public route tree beyond moving the current parliamentary-country entry from `/` to `/elections` as required by the global-home plan;
 - adding a new analytics vendor;
 - rewriting every existing map before the shared shell ships.
