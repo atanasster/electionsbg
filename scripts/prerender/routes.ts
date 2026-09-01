@@ -108,9 +108,81 @@ import {
 } from "./fundsTables";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
+import { escapeHtml } from "./html";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
+
+/**
+ * The dataset directory and join-key strip, as STATIC HTML for /data's
+ * prerendered body.
+ *
+ * This exists because the repo has no SSR: the prerender writes a hand-authored
+ * `bodyHtml` string into a hidden #ssg-content div and never renders the React
+ * tree. So the DataMapDirectory component's ~35 <Link>s reach a crawler only
+ * after a client-side fetch of a 233 KB manifest — which is to say, not at all.
+ * Measured before this: dist/data/index.html carried 37 hrefs and ZERO
+ * containing `node=ds:`.
+ *
+ * Reads the COMMITTED manifest, so it needs no database and no build ordering.
+ */
+// Lives HERE rather than in bodyBuilders.ts: that module imports SITE_URL from
+// this one, so this one evaluates first — and a top-level `${buildDataDirectory()}`
+// in a route body would call an export that is still undefined.
+export const buildDataDirectory = (lang: "bg" | "en"): string => {
+  type Lang = { bg: string; en: string };
+  type Node = { id: string; kind: string; label: Lang; detail: Lang };
+  type Link = {
+    a: string;
+    b: string;
+    kind: string;
+    key?: string;
+    overlap?: number;
+  };
+  let manifest: { nodes: Node[]; links?: Link[] };
+  try {
+    manifest = JSON.parse(
+      fs.readFileSync(path.join(PROJECT_ROOT, "data/data_map.json"), "utf8"),
+    );
+  } catch {
+    return ""; // no manifest on this checkout — omit rather than emit a stub
+  }
+  const base = lang === "bg" ? SITE_URL : `${SITE_URL}/en`;
+  const datasets = manifest.nodes.filter((n) => n.kind === "dataset");
+  const links = manifest.links ?? [];
+
+  const linkCount = new Map<string, number>();
+  for (const l of links) {
+    linkCount.set(l.a, (linkCount.get(l.a) ?? 0) + 1);
+    linkCount.set(l.b, (linkCount.get(l.b) ?? 0) + 1);
+  }
+
+  const heading =
+    lang === "bg"
+      ? "Масивите и общите им ключове"
+      : "The datasets and the keys they share";
+  const intro =
+    lang === "bg"
+      ? "Масивите не са отделни: свързват се през един и същ ЕИК, едно и също лице или едно и също населено място. До всеки масив е броят на връзките му с останалите."
+      : "The datasets are not separate: they join on the same company number, the same person or the same settlement. Beside each is the number of links it has to the others.";
+
+  const items = datasets
+    .map((d) => {
+      const n = linkCount.get(d.id) ?? 0;
+      const suffix =
+        n > 0
+          ? lang === "bg"
+            ? ` — ${n} ${n === 1 ? "връзка" : "връзки"} с други масиви`
+            : ` — ${n} ${n === 1 ? "link" : "links"} to other datasets`
+          : "";
+      return `<li><a href="${base}/data?node=${encodeURIComponent(d.id)}">${escapeHtml(d.label[lang])}</a> — ${escapeHtml(d.detail[lang])}${suffix}</li>`;
+    })
+    .join("\n");
+
+  return `<h2>${heading}</h2>\n<p>${intro}</p>\n<ul>\n${items}\n</ul>`;
+};
+
 // Per-election JSON now lives under /data (post-GCS migration); /public only
 // holds static site assets like /og, /articles, /fonts.
 const DATA_FOLDER = path.join(PROJECT_ROOT, "data");
@@ -4158,7 +4230,8 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/financing">Финансиране на партии</a> и <a href="${SITE_URL}/governments">правителства</a>.</li>
 <li><a href="${SITE_URL}/indicators">Макроикономически</a> и <a href="${SITE_URL}/indicators/economy">регионални индикатори</a>, <a href="${SITE_URL}/demographics">демография</a>.</li>
 <li><a href="${SITE_URL}/funds">Европейски фондове</a> и <a href="${SITE_URL}/procurement">обществени поръчки</a>.</li>
-</ul>`.trim(),
+</ul>
+${buildDataDirectory("bg")}`.trim(),
     english: {
       title: "Data map — sources, datasets and features | electionsbg.com",
       description:
@@ -4183,7 +4256,8 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/financing">Party financing</a> and <a href="${SITE_URL}/en/governments">governments</a>.</li>
 <li><a href="${SITE_URL}/en/indicators">Macroeconomic</a> and <a href="${SITE_URL}/en/indicators/economy">regional indicators</a>, <a href="${SITE_URL}/en/demographics">demographics</a>.</li>
 <li><a href="${SITE_URL}/en/funds">EU funds</a> and <a href="${SITE_URL}/en/procurement">public procurement</a>.</li>
-</ul>`.trim(),
+</ul>
+${buildDataDirectory("en")}`.trim(),
     },
   }),
   staticPage({

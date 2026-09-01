@@ -13,6 +13,7 @@ import { DataMapCanvas } from "@/screens/components/datamap/DataMapCanvas";
 import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
 import { DataMapTourBar } from "@/screens/components/datamap/DataMapTourBar";
 import { DataNav } from "@/screens/components/DataNav";
+import { DataMapDirectory } from "@/screens/components/datamap/DataMapDirectory";
 
 const LENSES: DataMapLens[] = ["none", "cadence", "origin", "fresh", "links"];
 
@@ -325,6 +326,13 @@ export const DataMapScreen = () => {
           </p>
         </>
       )}
+      {/* Below the canvas, in server-rendered HTML: the page used to ship a
+          canvas and almost no crawlable text, so nothing on it was findable —
+          and the corpus's own argument (these datasets share keys, at this
+          measured scale) was stated nowhere on the site. */}
+      {manifest ? (
+        <DataMapDirectory manifest={manifest} lang={lang} className="mt-8" />
+      ) : null}
     </>
   );
 };
