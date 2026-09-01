@@ -1,0 +1,26 @@
+{
+  "policy": "editorial-treatment-v2-human-gate",
+  "snapshot_date": "2026-09-01",
+  "decided_on": "2026-09-01",
+  "method": "one_human_two_blinded_passes",
+  "method_note": "Solo project. This is the plan's named fallback (b): one adjudicator labelling twice, blinded, with the passes at least seven days apart and the row order reshuffled. It measures RUBRIC STABILITY, not inter-rater agreement, and every report derived from it must say so under that name. The scorer enforces the seven-day gap and rejects a model pass outright.",
+  "gate": 0.8,
+  "min_n": 20,
+  "min_minority_n": 5,
+  "supplements": [
+    {
+      "assignments": "news/evals/editorial_treatment_v2/russia-supplement-2026-09-01.json",
+      "pass_a": "news/evals/editorial_treatment_v2/russia-supplement-pass-a.template.json",
+      "pass_b": "news/evals/editorial_treatment_v2/russia-supplement-pass-b.template.json"
+    }
+  ],
+  "exemptions": [
+    {
+      "axis": "leaning",
+      "measure": "applicability",
+      "reason": "Not exercised by design. Every row in the main sample is keyed on an (article, party_surface) pair, so every article carries a party the outlet named and is political by construction — leaning `not_applicable` means no political dimension at all (a weather forecast, a football result), which this sample cannot contain. On v1's reading of these same 50 articles the category appears twice, so Cohen kappa on it is dominated by one or two cells: a dry run returned 0.6479 off THREE disagreements with a bootstrap interval of the full [0.0, 1.0]. Blocking the cutover on that number would block it on noise. Widening is not available either: an article with no party pair cannot be an assignment row at all without changing the sample's unit.",
+      "corroboration": "Honoured ONLY while the category stays unexercised (minority_n below min_minority_n). If the adjudicator marks enough leaning `not_applicable` for the measure to become scorable, the exemption is REFUSED and the measure scores normally — a B4 regression must not be switchable off by policy.",
+      "what_is_not_exempt": "leaning.direction is scored in full, and russia_stance.applicability is scored in full. This exemption covers exactly one measure on one axis."
+    }
+  ]
+}

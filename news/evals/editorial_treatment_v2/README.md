@@ -15,6 +15,12 @@ gate has passed.
   pairs, the fail-closed v2 result and any pending context candidate.
 - `human-agreement-sample-2026-09-01.json` contains 50 immutable, blinded
   assignments. It exposes neither v1 labels nor analysis paths.
+- `russia-supplement-2026-09-01.json` contains 25 more blinded assignments that
+  ask `russia_stance` ONLY. It is ENRICHED for ordinal spread and is not a
+  prevalence sample.
+- `human-agreement-policy-2026-09-01.json` records the adjudication method, the
+  precision floors, the supplement and the one declared exemption, each with
+  its reason. Pass it to the scorer with `--policy`.
 
 Do not add human decisions inside these immutable arrays. Review outputs use a
 separate file keyed by `assignment_id` or `pair_sha256` and state the matching
@@ -105,16 +111,56 @@ Two floors keep a thin measure from rendering as a green tick, and both report
 - `--min-minority-n` (default 5) on the rarer applicability class, because
   Cohen κ on a 48/2 marginal is dominated by one or two cells.
 
-⚠️ **A dry run over this sample's real shape says two measures will be withheld
-before a human touches it.** The sample was stratified by hidden v1 party label
-only, so on the v1 reading of these same 50 articles the Russia axis has 12
-positioned rows (38 `not_applicable`) and the leaning axis has 2
-`not_applicable` rows. That gives `russia_stance.direction` n≈12 against a floor
-of 20, and `leaning.applicability` a minority class of ~2 against a floor of 5 —
-regardless of how well the adjudicators agree. Decide before labelling whether
-to widen the sample on those two strata or to record an explicit lowered floor
-with its reason in the baseline report. Every figure lands in
-`counts`/`ci95`/`minority_n` so neither choice is silent.
+⚠️ **A dry run over this sample's real shape found two measures that would be
+withheld on n before a human touched them.** Stratifying by hidden v1 party
+label alone leaves the Russia axis with 12 positioned rows (38
+`not_applicable`) and the leaning axis with 2 `not_applicable` rows — so
+`russia_stance.direction` landed at n≈12 against a floor of 20, and
+`leaning.applicability` at a minority class of 2 against a floor of 5,
+regardless of how well the adjudicators agree. Both are resolved, differently,
+and both resolutions are recorded in the policy file:
+
+- **Russia** — widened. `russia-supplement-2026-09-01.json` adds 25 rows, five
+  per ordinal position including both strong endpoints. It pools into
+  `russia_stance.direction` and nothing else; a re-run of the dry run with it
+  gives n=36 (12 prevalence + 24 supplement).
+- **Leaning applicability** — exempt, and argued rather than waived. Every row
+  in the main sample is an (article, party_surface) pair, so every article is
+  political by construction and the category the measure needs cannot occur;
+  widening is not available either, since a party-less article cannot be an
+  assignment row without changing the sample's unit. ⚠️ The exemption is
+  honoured ONLY while the data corroborates it. If the adjudicator marks enough
+  leaning `not_applicable` for the measure to become scorable, the scorer
+  REFUSES the exemption and scores it normally — a B4 regression must not be
+  switchable off by a policy file.
+
+## Adjudication method (decided 2026-09-01)
+
+**One human, two blinded passes**, the plan's named fallback (b). Pass B is
+completed at least seven days after pass A, in a reshuffled order, and the
+scorer enforces the gap. ⚠️ This measures **rubric stability**, not inter-rater
+agreement, and every report derived from it must say so under that name.
+
+The full run, in order:
+
+```bash
+# today
+python3 news/scripts/adjudicate_editorial_treatment.py --pass A --adjudicator "<name>"
+python3 news/scripts/adjudicate_editorial_treatment.py --pass A --supplement --adjudicator "<name>"
+
+# at least seven days later
+python3 news/scripts/adjudicate_editorial_treatment.py --pass B --adjudicator "<name>"
+python3 news/scripts/adjudicate_editorial_treatment.py --pass B --supplement --adjudicator "<name>"
+
+python3 news/scripts/score_editorial_treatment_agreement.py \
+  --policy news/evals/editorial_treatment_v2/human-agreement-policy-2026-09-01.json \
+  --pass-a news/var/adjudication/pass-a.json \
+  --pass-b news/var/adjudication/pass-b.json
+```
+
+Point the policy's `supplements[0].pass_a`/`pass_b` at the completed supplement
+files before the final scoring run. 75 rows per pass; the supplement rows ask
+one axis, not three.
 
 ## Party-identity audit
 

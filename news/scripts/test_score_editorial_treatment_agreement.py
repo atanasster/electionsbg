@@ -225,5 +225,110 @@ class AgreementScoringTests(unittest.TestCase):
 
 
 
+    # --- supplement pooling and declared exemptions -------------------------
+
+    def _supplement(self, labels_a, labels_b=None):
+        doc = json.loads((scoring.ROOT / "news" / "evals" /
+                          "editorial_treatment_v2" /
+                          "russia-supplement-2026-09-01.json").read_text("utf-8"))
+        base = scoring.ROOT / "news" / "evals" / "editorial_treatment_v2"
+        passes = []
+        for pass_id, labels in (("a", labels_a), ("b", labels_b or labels_a)):
+            doc_pass = json.loads(
+                (base / f"russia-supplement-pass-{pass_id}.template.json")
+                .read_text("utf-8"))
+            order = sorted(row["assignment_id"] for row in doc["assignments"])
+            by_id = {key: labels[index % len(labels)]
+                     for index, key in enumerate(order)}
+            for row in doc_pass["rows"]:
+                row["decision"] = {"russia_stance": by_id[row["assignment_id"]]}
+            doc_pass["adjudicator"] = "Human " + pass_id.upper()
+            doc_pass["completed_at"] = "2026-09-01T09:00:00+00:00"
+            doc_pass["rows_sha256"] = scoring.canonical_sha(doc_pass["rows"])
+            passes.append(doc_pass)
+        return (doc, passes[0], passes[1])
+
+    def test_supplement_pools_into_russia_direction_only(self):
+        left, right = self.completed()
+        spread = scoring.AXES["russia_stance"]["scale"]
+        plain = scoring.score(self.assignments, left, right, min_n=0)
+        pooled = scoring.score(self.assignments, left, right, min_n=0,
+                               supplements=[self._supplement(spread)])
+        russia = pooled["axes"]["russia_stance"]["measures"]
+        self.assertGreater(russia["direction"]["n"],
+                           plain["axes"]["russia_stance"]["measures"]["direction"]["n"])
+        self.assertEqual(russia["direction"]["n_supplement"], 25)
+        # applicability and party tone must be untouched by an enriched set
+        self.assertEqual(
+            russia["applicability"]["n"],
+            plain["axes"]["russia_stance"]["measures"]["applicability"]["n"])
+        self.assertEqual(
+            pooled["axes"]["party_tone"]["measures"]["direction"]["n"],
+            plain["axes"]["party_tone"]["measures"]["direction"]["n"])
+
+    def test_a_supplement_row_either_pass_calls_not_applicable_is_dropped(self):
+        left, right = self.completed()
+        spread = scoring.AXES["russia_stance"]["scale"]
+        drop = ["not_applicable"] + spread[1:]
+        pooled = scoring.score(self.assignments, left, right, min_n=0,
+                               supplements=[self._supplement(spread, drop)])
+        added = pooled["axes"]["russia_stance"]["measures"]["direction"]
+        self.assertEqual(added["n_supplement"], 20)
+
+    def test_a_supplement_cannot_relax_the_main_fifty_row_floor(self):
+        """The supplement's smaller floor is chosen by the recursion, never
+        read from a data file, so it can only ever apply to the supplement."""
+
+        left, right = self.completed()
+        short = copy.deepcopy(self.assignments)
+        short["assignments"] = short["assignments"][:25]
+        short["assignments_sha256"] = scoring.canonical_sha(short["assignments"])
+        result = scoring.score(short, left, right, min_n=0)
+        self.assertEqual(result["status"], "invalid")
+        self.assertTrue(any("50 required" in error for error in result["errors"]))
+
+    def test_a_declared_exemption_on_an_exercised_measure_is_refused(self):
+        """Mutation guard on the policy mechanism. An exemption must be able to
+        excuse a category the sample cannot contain, and must NOT be able to
+        switch off a measure that is genuinely failing."""
+
+        left = ["not_applicable"] * 25 + ["neutral"] * 25
+        right = ["neutral"] * 12 + ["not_applicable"] * 13 + ["neutral"] * 25
+        axis = scoring.score_axis(
+            "russia_stance", left, right, 5, min_n=0,
+            exemptions={"applicability": "we would rather not measure this"})
+        measure = axis["measures"]["applicability"]
+        self.assertEqual(measure["status"], "failed")
+        self.assertNotIn("exemption_reason", measure)
+        self.assertIn("REFUSED", measure["exemption_refused"])
+        self.assertFalse(axis["passed"])
+
+    def test_a_declared_exemption_on_an_unexercised_measure_is_honoured(self):
+        left = ["not_applicable"] * 2 + ["neutral"] * 48
+        right = list(left)
+        right[0] = "neutral"
+        axis = scoring.score_axis(
+            "leaning", left, right, 5, min_n=0,
+            exemptions={"applicability": "party-keyed sample cannot contain it"})
+        measure = axis["measures"]["applicability"]
+        self.assertEqual(measure["status"], "exempt_not_exercised_by_design")
+        self.assertTrue(measure["passed"])
+
+    def test_the_shipped_policy_file_declares_only_the_argued_exemption(self):
+        policy = json.loads((scoring.ROOT / "news" / "evals" /
+                             "editorial_treatment_v2" /
+                             "human-agreement-policy-2026-09-01.json")
+                            .read_text("utf-8"))
+        self.assertEqual(policy["method"], "one_human_two_blinded_passes")
+        self.assertEqual(policy["gate"], scoring.GATE)
+        exemptions = policy["exemptions"]
+        self.assertEqual(len(exemptions), 1)
+        self.assertEqual((exemptions[0]["axis"], exemptions[0]["measure"]),
+                         ("leaning", "applicability"))
+        for field in ("reason", "corroboration", "what_is_not_exempt"):
+            self.assertTrue(exemptions[0][field].strip(), field)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

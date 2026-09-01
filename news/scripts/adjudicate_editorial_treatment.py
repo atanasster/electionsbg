@@ -57,6 +57,14 @@ TEMPLATES = {
     "A": EVAL_DIR / "human-agreement-pass-a.template.json",
     "B": EVAL_DIR / "human-agreement-pass-b.template.json",
 }
+# The Russia supplement is a second, narrower set: `party_surface` is null and
+# only `russia_stance` is asked, so a supplement row physically cannot feed the
+# party axis. See build_russia_supplement.py for why the party requirement had
+# to go (11 candidates with it, 168 without).
+SUPPLEMENT_TEMPLATES = {
+    "A": EVAL_DIR / "russia-supplement-pass-a.template.json",
+    "B": EVAL_DIR / "russia-supplement-pass-b.template.json",
+}
 
 
 def atomic_write_json(path: Path, doc: dict) -> None:
@@ -84,18 +92,35 @@ def load_article(row: dict) -> dict:
     }
 
 
-def open_work(pass_id: str, work: Path, adjudicator: str | None) -> dict:
+def open_work(pass_id: str, work: Path, adjudicator: str | None,
+              supplement: bool = False) -> dict:
+    templates = SUPPLEMENT_TEMPLATES if supplement else TEMPLATES
     if work.exists():
         doc = json.loads(work.read_text(encoding="utf-8"))
         if doc.get("pass_id") != pass_id:
             raise SystemExit(f"{work} is pass {doc.get('pass_id')}, not {pass_id}")
+        want = json.loads(templates[pass_id].read_text(encoding="utf-8"))
+        if doc.get("assignments_sha256") != want.get("assignments_sha256"):
+            raise SystemExit(
+                f"{work} belongs to a different assignment set than "
+                f"{templates[pass_id].name} — refusing to mix the main sample "
+                "and the supplement in one working copy")
     else:
-        doc = json.loads(TEMPLATES[pass_id].read_text(encoding="utf-8"))
+        if not templates[pass_id].exists():
+            raise SystemExit(f"missing {templates[pass_id]}"
+                             + ("; run build_russia_supplement.py --write"
+                                if supplement else ""))
+        doc = json.loads(templates[pass_id].read_text(encoding="utf-8"))
         for row in doc["rows"]:
             row["decision"] = None
     if adjudicator:
         doc["adjudicator"] = adjudicator
     return doc
+
+
+def pass_axes(doc: dict) -> list[str]:
+    declared = doc.get("scored_axes")
+    return [axis for axis in AXES if not declared or axis in declared]
 
 
 class Handler(http.server.BaseHTTPRequestHandler):
@@ -150,6 +175,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 })
             self._send(200, {
                 "pass_id": doc["pass_id"],
+                "sample": doc.get("sample", "main"),
+                "scored_axes": pass_axes(doc),
                 "adjudicator": doc.get("adjudicator"),
                 "completed_at": doc.get("completed_at"),
                 "axes": {axis: ORDERS[axis] for axis in AXES},
@@ -181,8 +208,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if route == "/api/decision":
             index = int(payload["index"])
             row = self.state["doc"]["rows"][index]
+            wanted = pass_axes(self.state["doc"])
             decision = {}
-            for axis in AXES:
+            for axis in wanted:
                 value = payload.get(axis)
                 if value is not None and value not in ORDERS[axis]:
                     self._send(400, {"error": f"invalid {axis}: {value}"})
@@ -287,7 +315,7 @@ border:1px solid var(--line);border-radius:8px;padding:10px 16px;display:none;z-
     <div class="body" id="body"></div>
   </section>
   <aside>
-    <div class="party">Party under judgment: <b id="party"></b></div>
+    <div class="party" id="partybox">Party under judgment: <b id="party"></b></div>
     <div id="axes"></div>
     <div class="axis">
       <h3>Note (sidecar, not scored)</h3>
@@ -345,7 +373,8 @@ const HINT={leaning:'Topic decides applicability; treatment decides direction.',
 function toast(m,ms=1800){const t=document.getElementById('toast');t.textContent=m;
   t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',ms)}
 async function load(){S=await(await fetch('/api/state')).json();
-  document.getElementById('who').textContent=`Pass ${S.pass_id} · ${S.adjudicator||'(no name)'}`;
+  document.getElementById('who').textContent=
+    `Pass ${S.pass_id} · ${S.sample==='main'?'main':'Russia supplement'} · ${S.adjudicator||'(no name)'}`;
   const first=S.rows.findIndex(r=>!r.decision); i=first<0?0:first; render()}
 function decided(){return S.rows.filter(r=>r.decision).length}
 function render(){const r=S.rows[i];
@@ -356,11 +385,12 @@ function render(){const r=S.rows[i];
   document.getElementById('meta').innerHTML=`${r.chars} chars`+
     (r.hash_ok?'':' <span class="warn">— article hash does not match the frozen sample</span>');
   document.getElementById('body').textContent=r.content||'(no body)';
-  document.getElementById('party').textContent=r.party_surface;
+  document.getElementById('party').textContent=r.party_surface||'';
+  document.getElementById('partybox').style.display=r.party_surface?'':'none';
   document.getElementById('note').value=r.note||'';
   document.getElementById('srcout').textContent='';
   const host=document.getElementById('axes');host.innerHTML='';
-  for(const axis of Object.keys(S.axes)){
+  for(const axis of S.scored_axes){
     const box=document.createElement('div');box.className='axis';
     box.innerHTML=`<h3>${axis.replace('_',' ')}</h3><p class="hint">${HINT[axis]}</p>`;
     S.axes[axis].forEach((label,n)=>{
@@ -381,7 +411,7 @@ async function pick(axis,label){const r=S.rows[i];const before=r.decision;
   if(r.decision&&!was)setTimeout(()=>go(1),140)}
 function go(d){const n=i+d;if(n>=0&&n<S.rows.length){i=n;render()}}
 function jumpUndecided(){const n=S.rows.findIndex(r=>!r.decision);
-  if(n<0)toast('All 50 decided — Finalize & seal');else{i=n;render()}}
+  if(n<0)toast(`All ${S.rows.length} decided — Finalize & seal`);else{i=n;render()}}
 async function reveal(){const d=await(await fetch('/api/source/'+i)).json();
   S.rows[i].source_revealed=true;
   document.getElementById('srcout').innerHTML=
@@ -398,7 +428,7 @@ async function finalize(){const res=await fetch('/api/finalize',{method:'POST',
 document.addEventListener('keydown',e=>{
   if(e.target.tagName==='TEXTAREA'||e.metaKey||e.ctrlKey)return;
   if(e.key==='ArrowRight'){go(1);return} if(e.key==='ArrowLeft'){go(-1);return}
-  for(const axis of Object.keys(KEYS)){const n=KEYS[axis].indexOf(e.key.toLowerCase());
+  for(const axis of S.scored_axes){const n=KEYS[axis].indexOf(e.key.toLowerCase());
     if(n<0)continue;
     const label=n===5?S.off_scale[axis]:S.scale[axis][n];
     if(label){pick(axis,label);e.preventDefault()}return}});
@@ -410,6 +440,9 @@ load();
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--pass", dest="pass_id", choices=["A", "B"], required=True)
+    parser.add_argument("--supplement", action="store_true",
+                        help="work the Russia-direction supplement instead of "
+                             "the main 50 (russia_stance only, no party)")
     parser.add_argument("--adjudicator", default=None)
     parser.add_argument("--work", default=None,
                         help="working copy (default news/var/adjudication/pass-<id>.json)")
@@ -417,18 +450,22 @@ def main() -> int:
     parser.add_argument("--no-open", action="store_true")
     args = parser.parse_args()
 
-    work = Path(args.work) if args.work else WORK_DIR / f"pass-{args.pass_id.lower()}.json"
+    stem = ("russia-supplement" if args.supplement else "pass")
+    work = (Path(args.work) if args.work
+            else WORK_DIR / f"{stem}-{args.pass_id.lower()}.json")
     work = work.resolve()
     if EVAL_DIR.resolve() in work.parents:
         raise SystemExit(
             f"refusing to write inside {EVAL_DIR} — the checked-in templates are "
             "the frozen input to the gate and must stay pending")
 
-    doc = open_work(args.pass_id, work, args.adjudicator)
+    doc = open_work(args.pass_id, work, args.adjudicator, args.supplement)
     atomic_write_json(work, doc)
     notes_path = work.with_suffix(".notes.json")
     notes = (json.loads(notes_path.read_text(encoding="utf-8"))
-             if notes_path.exists() else {"pass_id": args.pass_id, "rows": {}})
+             if notes_path.exists()
+             else {"pass_id": args.pass_id,
+                   "sample": doc.get("sample", "main"), "rows": {}})
 
     articles = [load_article(row) for row in doc["rows"]]
     bad = [i + 1 for i, a in enumerate(articles) if a["missing"] or not a["hash_ok"]]
@@ -444,7 +481,9 @@ def main() -> int:
     url = f"http://127.0.0.1:{args.port}/"
     with socketserver.TCPServer(("127.0.0.1", args.port), Handler) as server:
         who = doc.get("adjudicator") or "(no name — pass --adjudicator)"
-        print(f"pass {args.pass_id} · {who}\n"
+        print(f"pass {args.pass_id} · {doc.get('sample', 'main')} · "
+              f"{len(doc['rows'])} rows · axes {', '.join(pass_axes(doc))}\n"
+              f"adjudicator:  {who}\n"
               f"working copy: {work}\n"
               f"notes:        {notes_path}\n"
               f"open:         {url}\n\n"

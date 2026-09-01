@@ -94,6 +94,11 @@ ORDERS = {
 
 GATE = 0.80
 MIN_ROWS = 50
+# A supplement exists to add direction rows, not to be a prevalence sample, so
+# it carries its own smaller floor. ⚠️ The floor is chosen by the CALLER — the
+# recursion below — and never read from the data file, so no supplement or
+# policy can relax the main sample's 50.
+MIN_SUPPLEMENT_ROWS = 10
 MIN_DIRECTION_N = 20
 MIN_MINORITY_N = 5
 BOOTSTRAP_SAMPLES = 2000
@@ -228,9 +233,25 @@ def _measure(left: list[str], right: list[str], order: list[str],
 
 def score_axis(axis: str, left: list[str], right: list[str], seed: int,
                min_n: int = MIN_DIRECTION_N,
-               min_minority: int = MIN_MINORITY_N) -> dict:
-    """Score one axis, keeping the off-scale category off the ordinal scale."""
+               min_minority: int = MIN_MINORITY_N,
+               extra: dict[str, tuple[list[str], list[str]]] | None = None,
+               exemptions: dict[str, str] | None = None) -> dict:
+    """Score one axis, keeping the off-scale category off the ordinal scale.
 
+    ``extra`` pools a supplement's rows into a named measure — today only
+    `direction`, because a supplement enriched for one axis carries no
+    prevalence claim and must never reach `applicability`, whose whole content
+    is how often the axis applies.
+
+    ``exemptions`` maps a measure name to a declared reason. An exemption is
+    honoured ONLY when the data corroborates it: the category has to be
+    genuinely unexercised (minority below the floor). Declared against a
+    well-exercised measure it is REFUSED and the measure scores normally —
+    otherwise a policy file could switch off the one measure that is failing.
+    """
+
+    extra = extra or {}
+    exemptions = exemptions or {}
     spec = AXES[axis]
     scale, off = spec["scale"], spec["off_scale"]
     measures = {}
@@ -252,10 +273,43 @@ def score_axis(axis: str, left: list[str], right: list[str], seed: int,
                 if left[i] != off and right[i] != off]
     else:
         keep = list(range(len(left)))
+    base_left = [left[i] for i in keep]
+    base_right = [right[i] for i in keep]
+    pooled_left, pooled_right = list(base_left), list(base_right)
+    added_left, added_right = extra.get("direction", ([], []))
+    off_pair = [i for i in range(len(added_left))
+                if added_left[i] != off and added_right[i] != off]
+    pooled_left += [added_left[i] for i in off_pair]
+    pooled_right += [added_right[i] for i in off_pair]
     measures["direction"] = _measure(
-        [left[i] for i in keep], [right[i] for i in keep],
-        scale, seed + 1, GATE, min_n,
+        pooled_left, pooled_right, scale, seed + 1, GATE, min_n,
     )
+    measures["direction"]["n_prevalence"] = len(base_left)
+    measures["direction"]["n_supplement"] = len(off_pair)
+    if off_pair:
+        measures["direction"]["basis"] = (
+            "prevalence sample pooled with an ENRICHED supplement; the kappa "
+            "is a rubric-stability figure and carries no prevalence claim")
+
+    for name, reason in exemptions.items():
+        measure = measures.get(name)
+        if measure is None:
+            continue
+        if measure["status"] in ("passed", "not_exercised"):
+            continue
+        corroborated = (measure["status"].startswith("unscorable")
+                        or (measure["min_minority_n"]
+                            and measure["minority_n"] < measure["min_minority_n"]))
+        if corroborated:
+            measure["status"] = "exempt_not_exercised_by_design"
+            measure["exemption_reason"] = reason
+            measure["passed"] = True
+        else:
+            measure["exemption_refused"] = (
+                f"{reason} — REFUSED: the category is exercised "
+                f"(minority_n={measure['minority_n']}), so this measure scores "
+                "normally")
+
     passed = all(item["passed"] for item in measures.values())
     if passed:
         status = "passed"
@@ -276,10 +330,11 @@ def _parse_timestamp(value: str) -> datetime:
     return parsed
 
 
-def _assignment_index(assignments: dict, errors: list[str]) -> dict[str, dict]:
+def _assignment_index(assignments: dict, errors: list[str],
+                      min_rows: int = MIN_ROWS) -> dict[str, dict]:
     rows = assignments.get("assignments") or []
-    if len(rows) < MIN_ROWS:
-        errors.append(f"sample has {len(rows)} rows; {MIN_ROWS} required")
+    if len(rows) < min_rows:
+        errors.append(f"sample has {len(rows)} rows; {min_rows} required")
     if canonical_sha(rows) != assignments.get("assignments_sha256"):
         errors.append("immutable assignment hash mismatch")
     index = {row.get("assignment_id"): row for row in rows}
@@ -304,6 +359,7 @@ def _validate_pass(assignments: dict[str, dict], assignment_hash: str,
         errors.append(f"pass {expected_id} is unsealed or its row hash changed")
     if set(ids) != set(assignments) or len(ids) != len(assignments):
         errors.append(f"pass {expected_id} assignment membership mismatch")
+    axes_here = _pass_axes(doc)
     for index, row in enumerate(rows):
         source = assignments.get(row.get("assignment_id"))
         if source:
@@ -322,8 +378,8 @@ def _validate_pass(assignments: dict[str, dict], assignment_hash: str,
         if decision is None:
             pending = True
             continue
-        for axis, order in ORDERS.items():
-            if decision.get(axis) not in order:
+        for axis in axes_here:
+            if decision.get(axis) not in ORDERS[axis]:
                 errors.append(
                     f"pass {expected_id} row {index + 1}: invalid {axis}"
                 )
@@ -339,11 +395,21 @@ def _validate_pass(assignments: dict[str, dict], assignment_hash: str,
     return rows, errors, pending
 
 
+def _pass_axes(doc: dict) -> list[str]:
+    """Which axes this pass carries. A supplement declares a subset."""
+
+    declared = doc.get("scored_axes")
+    return [axis for axis in AXES if not declared or axis in declared]
+
+
 def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
           min_n: int = MIN_DIRECTION_N,
-          min_minority: int = MIN_MINORITY_N) -> dict:
+          min_minority: int = MIN_MINORITY_N,
+          supplements: list[tuple[dict, dict, dict]] | None = None,
+          exemptions: dict[str, dict[str, str]] | None = None,
+          min_rows: int = MIN_ROWS) -> dict:
     errors: list[str] = []
-    assignments = _assignment_index(assignments_doc, errors)
+    assignments = _assignment_index(assignments_doc, errors, min_rows)
     assignment_hash = assignments_doc.get("assignments_sha256")
     rows_a, errors_a, pending_a = _validate_pass(
         assignments, assignment_hash, pass_a, "A"
@@ -378,12 +444,44 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
     # reproducible and cannot be reshaped by re-running the scorer.
     seed = int((assignment_hash or "0")[:8], 16)
 
+    pooled: dict[str, tuple[list[str], list[str]]] = {}
+    supplement_report = []
+    for sup_doc, sup_a, sup_b in (supplements or []):
+        sup_result = score(sup_doc, sup_a, sup_b, min_n=0, min_minority=0,
+                           min_rows=MIN_SUPPLEMENT_ROWS)
+        if sup_result["status"] not in ("passed", "failed_rubric_agreement",
+                                        "low_precision", "withheld_insufficient_n",
+                                        "insufficient_label_diversity"):
+            return {"status": "invalid", "passed": False, "axes": {},
+                    "errors": [f"supplement {sup_doc.get('sample')}: "
+                               f"{sup_result['status']}"] + sup_result["errors"]}
+        sup_keys = sorted(row["assignment_id"] for row in sup_doc["assignments"])
+        sup_da = {row["assignment_id"]: row["decision"] for row in sup_a["rows"]}
+        sup_db = {row["assignment_id"]: row["decision"] for row in sup_b["rows"]}
+        for axis, measures in (sup_doc.get("pools_into") or {}).items():
+            if "direction" not in measures:
+                continue
+            pooled[axis] = ([sup_da[key][axis] for key in sup_keys],
+                            [sup_db[key][axis] for key in sup_keys])
+        supplement_report.append({
+            "sample": sup_doc.get("sample"),
+            "rows": len(sup_keys),
+            "pools_into": sup_doc.get("pools_into"),
+            "basis": (sup_doc.get("selection") or {}).get("basis"),
+        })
+
+    # A supplement declares a subset; scoring an axis it never asked for would
+    # KeyError on its own decisions.
+    carried = _pass_axes(pass_a)
     axes = {
         axis: score_axis(axis,
                          [decisions_a[key][axis] for key in keys],
                          [decisions_b[key][axis] for key in keys],
-                         seed, min_n, min_minority)
-        for axis in AXES
+                         seed, min_n, min_minority,
+                         extra=({"direction": pooled[axis]}
+                                if axis in pooled else None),
+                         exemptions=(exemptions or {}).get(axis))
+        for axis in carried
     }
     passed = all(item["passed"] for item in axes.values())
     if passed:
@@ -401,6 +499,7 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
         "method": method,
         "adjudicators": sorted({name_a, name_b}),
         "rows": len(keys),
+        "supplements": supplement_report,
         "errors": [],
         "axes": axes,
     }
@@ -426,6 +525,9 @@ def main() -> int:
     parser.add_argument("--min-minority-n", type=int, default=MIN_MINORITY_N,
                         help="instances of the rarer applicability class below "
                              "which that measure is low_precision, not failed")
+    parser.add_argument("--policy", default=None,
+                        help="policy file naming the method, the floors, any "
+                             "supplements and any declared exemption")
     parser.add_argument("--seal-pass", default=None,
                         help="recompute rows_sha256 after a human completes one pass")
     args = parser.parse_args()
@@ -436,7 +538,37 @@ def main() -> int:
     assignments = json.loads(Path(args.assignments).read_text(encoding="utf-8"))
     pass_a = json.loads(Path(args.pass_a).read_text(encoding="utf-8"))
     pass_b = json.loads(Path(args.pass_b).read_text(encoding="utf-8"))
-    result = score(assignments, pass_a, pass_b, args.min_n, args.min_minority_n)
+
+    min_n, min_minority = args.min_n, args.min_minority_n
+    supplements, exemptions, policy = [], {}, None
+    if args.policy:
+        policy = json.loads(Path(args.policy).read_text(encoding="utf-8"))
+        min_n = policy.get("min_n", min_n)
+        min_minority = policy.get("min_minority_n", min_minority)
+        for entry in policy.get("supplements") or []:
+            supplements.append(tuple(
+                json.loads((ROOT / entry[key]).read_text(encoding="utf-8"))
+                for key in ("assignments", "pass_a", "pass_b")))
+        for entry in policy.get("exemptions") or []:
+            exemptions.setdefault(entry["axis"], {})[entry["measure"]] = (
+                entry["reason"])
+
+    result = score(assignments, pass_a, pass_b, min_n, min_minority,
+                   supplements or None, exemptions or None)
+    if policy:
+        result["policy"] = {
+            "path": args.policy,
+            "method": policy.get("method"),
+            "method_note": policy.get("method_note"),
+            "min_n": min_n,
+            "min_minority_n": min_minority,
+        }
+        if result.get("method") and result["method"] != policy.get("method"):
+            result["passed"] = False
+            result["status"] = "invalid"
+            result.setdefault("errors", []).append(
+                f"policy declares method {policy.get('method')} but the sealed "
+                f"passes are {result['method']}")
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result["passed"] else 1
 
