@@ -65,6 +65,36 @@ export const councilKeyForObshtina = (
 };
 
 /**
+ * The INVERSE: a council pipeline key → the frontend obshtina code.
+ *
+ * ⚠️ EIGHT OF THE SIXTEEN COUNCIL KEYS ARE NOT FRONTEND CODES, and three of them are OTHER
+ * municipalities' codes — `PDV01` is **Асеновград**, `BGS01` is **Айтос**, `VAR01` is **Аврен**.
+ * So a council key used directly as a place identifier does not merely fail to resolve: it names
+ * a different município, plausibly, and the reader cannot tell. That is why
+ * `council_resolution_detail()` returns `councilFrontendCode` beside `councilCode`, and why this
+ * exists for the consumers that have only the key.
+ *
+ * ⚠️ SOFIA RESOLVES TO `SOF00`, not to one of the 24 districts. The Столичен общински съвет
+ * legislates for the whole city, so the forward map is many-to-one and the inverse has to pick;
+ * `SOF00` is the code the city-wide My-Area dashboard keys on.
+ *
+ * Returns null when the key is unknown — callers must REFUSE rather than fall back to the key,
+ * which is the mis-naming above.
+ */
+const INVERSE_MAP: Record<string, string> = (() => {
+  const out: Record<string, string> = { SOF: "SOF00" };
+  for (const [frontend, council] of Object.entries(STATIC_MAP)) {
+    if (council === "SOF") continue;
+    out[council] = frontend;
+  }
+  return out;
+})();
+
+export const obshtinaForCouncilKey = (
+  councilKey: string | null | undefined,
+): string | null => (councilKey ? (INVERSE_MAP[councilKey] ?? null) : null);
+
+/**
  * For roster joins: the обтщина shard at
  * `/officials/municipal/by_obshtina/<key>.json` that holds the council
  * roster for this município. Mostly the identity, but Sofia districts

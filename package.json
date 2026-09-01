@@ -241,6 +241,8 @@
     "db:gen-home-price-events": "tsx scripts/db/gen_home/price_events.ts",
     "db:gen-home-feed": "tsx scripts/db/gen_home/feed.ts",
     "home:health": "tsx scripts/db/gen_home/health.ts",
+    "home:id-stability": "tsx scripts/db/gen_home/id_stability.ts",
+    "home:subjects": "tsx scripts/db/gen_home/subjects.ts",
     "home:publish": "npm run bucket:sync:paths -- home && npm run bucket:gz",
     "gen:shlyo-sql": "tsx scripts/db/gen_sql/shlyo_query_fold.ts",
     "gen:culture-sql": "tsx scripts/db/gen_sql/culture_match.ts",
