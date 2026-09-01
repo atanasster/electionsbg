@@ -122,10 +122,16 @@ export const isExcluded = (rel: string): string | null => {
   // connections-rankings files turned out to be live, so absence here was
   // established the same way their presence was.
   //
-  // NOT in this list, deliberately: `connections.json` (a published dataset on
-  // /data — scripts/prerender/routes.ts's CATALOG_SPECS offers it for download
-  // in both languages), and `connections-rankings{,-top}.json` (fetched by the
-  // AI's mpConnectionsTop and per-party rollup tools).
+  // NOT in this list, deliberately: `connections.json`. It is a published
+  // dataset on /data — CATALOG_SPECS offers it for download in both languages —
+  // and bucket_gzip.ts keeps it for the same reason. It is now labelled
+  // "archived" there rather than dropped, because deleting a download we
+  // advertised 404s a link we published.
+  //
+  // `connections-rankings{,-top}.json` JOINED this list once their last readers
+  // moved: mpConnectionsTop and the per-party rollup read
+  // /api/db/graph-mp-rankings now. Nothing writes either file any more, so the
+  // exclusion freezes an object nobody produces and nobody fetches.
   if (
     rel.startsWith("parliament/mp-connections") ||
     rel.startsWith("parliament/official-connections") ||
@@ -133,7 +139,9 @@ export const isExcluded = (rel: string): string | null => {
     rel === "parliament/connections-top-pairs.json" ||
     rel === "parliament/connections-stats.json" ||
     rel === "parliament/connections-party-matrix.json" ||
-    rel === "parliament/company-connections-stats.json"
+    rel === "parliament/company-connections-stats.json" ||
+    rel === "parliament/connections-rankings.json" ||
+    rel === "parliament/connections-rankings-top.json"
   )
     return "retired connections artifact — no reader in src/, ai/, scripts/ or functions/";
   // The per-MP roster shards, retired by persons-pg-retirement-v1 T2.1 in favour
@@ -511,6 +519,13 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "parliament/connections-stats.json", isDir: false },
   { path: "parliament/connections-party-matrix.json", isDir: false },
   { path: "parliament/company-connections-stats.json", isDir: false },
+  // The twins for the two rankings files. isExcluded refuses them as a DIRECT
+  // argument, which is what makes a spot-check look healthy — but the push
+  // anyone actually runs is `bucket:sync:paths -- parliament`, which walks the
+  // subtree, and without these it re-uploads both. Same shape that put ~16.8k
+  // company-connection shards on the bucket.
+  { path: "parliament/connections-rankings.json", isDir: false },
+  { path: "parliament/connections-rankings-top.json", isDir: false },
   // Under the still-served budget/ parent (kfp.json, ministries/, noi/ …), so a
   // scoped `bucket:sync:paths -- budget` must not re-upload this PG load source.
   // Without it the isExcluded branch above is dead for the only push anyone

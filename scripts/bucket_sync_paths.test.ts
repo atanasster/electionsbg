@@ -434,19 +434,32 @@ describe("retired connections artifacts", () => {
     expect(hit("connections-stats.json")).toBe(true);
     expect(hit("connections-party-matrix.json")).toBe(true);
     expect(hit("company-connections-stats.json")).toBe(true);
+    // The two rankings files, added once their readers moved. The lockstep is
+    // FOUR places, not three — isExcluded, both -x regexes AND this twin — and
+    // this is the one that was missed: isExcluded refused them as a direct
+    // argument, so a spot-check looked healthy while the scoped push would have
+    // re-uploaded both.
+    expect(hit("connections-rankings.json")).toBe(true);
+    expect(hit("connections-rankings-top.json")).toBe(true);
+    // …and the published download must still go up.
+    expect(hit("connections.json")).toBe(false);
   });
 
-  it("SPARES the three that still have readers", () => {
-    // ⚠️ THE CLAUSE THAT MATTERS. Each of these was on the retirement list until
-    // someone looked in `ai/`:
-    //   · connections.json — a PUBLISHED dataset, offered for download on /data
-    //     in both languages (scripts/prerender/routes.ts).
-    //   · connections-rankings.json / -top.json — fetched by the AI chat's
-    //     per-party rollup and mpConnectionsTop tools (ai/tools/people.ts).
-    // Excluding any of them breaks a live surface, silently.
+  it("SPARES connections.json, and retires the two rankings files", () => {
+    // ⚠️ THE CLAUSE THAT MATTERS. connections.json was on the retirement list
+    // until someone looked in `ai/`. It is a PUBLISHED dataset, offered for
+    // download on /data in both languages (CATALOG_SPECS) — now labelled
+    // "archived" there rather than dropped, because deleting a download we
+    // advertised 404s a link we published. Excluding it breaks that silently.
     expect(isExcluded("parliament/connections.json")).toBeNull();
-    expect(isExcluded("parliament/connections-rankings.json")).toBeNull();
-    expect(isExcluded("parliament/connections-rankings-top.json")).toBeNull();
+    // connections-rankings{,-top}.json were spared here for the same reason
+    // until their last readers moved: mpConnectionsTop and the per-party
+    // rollup now read /api/db/graph-mp-rankings, and nothing writes either
+    // file. They are excluded from THIS point on.
+    expect(isExcluded("parliament/connections-rankings.json")).not.toBeNull();
+    expect(
+      isExcluded("parliament/connections-rankings-top.json"),
+    ).not.toBeNull();
     // …and neither is EXCLUDED BY the -x regexes. ⚠️ Asserted by RUNNING them,
     // not by substring: `not.toContain("|connections)")` was the first cut and
     // is positional — it only sees `connections` as a group's final arm, so
@@ -460,15 +473,23 @@ describe("retired connections artifacts", () => {
     };
     for (const cmd of [pkg["bucket:sync"], pkg["bucket:sync:dry"]]) {
       const re = xArg(cmd);
+      for (const rel of ["parliament/connections.json"]) {
+        expect(
+          re.test(rel),
+          `${rel} has a live reader and must NOT be excluded from sync`,
+        ).toBe(false);
+      }
+      // The two rankings files moved to the excluded side in the same commit
+      // that migrated their readers — the three-place lockstep, checked by
+      // RUNNING the regex rather than by substring.
       for (const rel of [
-        "parliament/connections.json",
         "parliament/connections-rankings.json",
         "parliament/connections-rankings-top.json",
       ]) {
         expect(
           re.test(rel),
-          `${rel} has a live reader and must NOT be excluded from sync`,
-        ).toBe(false);
+          `${rel} has no reader and must be excluded from sync`,
+        ).toBe(true);
       }
       // …and the retired ones ARE matched, by the same executed regex — so an
       // arm moved into the wrong group fails here rather than passing on a
