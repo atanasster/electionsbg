@@ -316,7 +316,7 @@ describe("the experimental evaluation entry point", () => {
     ).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /Допълнете анализа или връзките/ }),
-    ).toBeVisible();
+    ).toHaveAttribute("href", "/evals/article/ex.bg/a1?mode=feedback");
     expect(
       screen.getByRole("link", { name: /Добавете липсващ анализ или връзка/ }),
     ).toBeVisible();
@@ -331,6 +331,9 @@ describe("the experimental evaluation entry point", () => {
     expect(
       screen.getByRole("link", { name: /Сигнализирай проблем/ }),
     ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /Допълнете анализа или връзките/ }),
+    ).toHaveAttribute("href", "/evals/article/ex.bg/a1?mode=feedback");
   });
 
   it.each([
@@ -352,7 +355,7 @@ describe("the experimental evaluation entry point", () => {
     ).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /Допълнете анализа или връзките/ }),
-    ).toBeVisible();
+    ).toHaveAttribute("href", "/evals/article/ex.bg/a1?mode=feedback");
   });
 });
 

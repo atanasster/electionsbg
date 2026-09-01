@@ -67,3 +67,29 @@ from datasets; HMAC rotation retains previous lookup keys until those records ar
 retired.
 `community_aggregate_release.public_distribution_enabled` is false while browser nonce is the only
 diversity hint; sample floors are reserved for a future independently protected release gate.
+
+## All-article public feedback lifecycle
+
+Every article in the published `news/app-data/articles/*.json` bundles receives an anonymous
+feedback task, including articles that have no model analysis and articles outside the curated
+benchmark. The public form can submit a partial observation: one or more scalar labels, independent
+party-tone evidence, or a missing-analysis/link/topic/sector issue. Firestore remains closed to
+browser access; the Function accepts the bounded request only after Turnstile and anonymous abuse
+checks, and stores it in `news_feedback_submissions` with `status: raw`. Raw feedback never changes
+published analysis and is not benchmark data until a maintainer adjudicates it offline.
+
+The release order is strict: build app-data, build the curated eval-task manifest and the all-article
+feedback-task manifest, publish app-data and advance its live manifest, verify every live article
+bundle against the publication inventory, then synchronize both task registries. The feedback
+manifest binds the exact sorted article keys and effective published-analysis hashes. Tasks written
+in chunks remain inert until the final `news_feedback_sync/task_manifest` state activates that
+public-data revision; rollback and same-revision drift fail closed.
+
+The scheduled `eval_runtime.py task-build` and post-upload `task-sync` operations perform both
+builds and both activations. Manual equivalents are `npm run news:feedback:tasks:write` and
+`npm run news:feedback:tasks:sync`. Provision Firestore TTL on `expires_at` for
+`news_feedback_abuse` and `news_feedback_rate` through `npm run provision:news:evals:ttl`; durable
+dedupe and raw-submission records intentionally are not TTL collections. Operators should verify a
+task through `GET /api/news-evals/feedback-task/:domain/:id` after activation. To roll back the
+website, publish a new forward revision and rebuild/synchronize its task manifests—the registry
+refuses timestamp rollback.

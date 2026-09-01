@@ -12,6 +12,7 @@ const files = [
   "validate.ts",
   "contract.json",
   "article_evaluation.schema.json",
+  "article_feedback_request.schema.json",
   "event.schema.json",
   "submission_request.schema.json",
 ];

@@ -11,6 +11,7 @@ import { PUBLIC_ABUSE_POLICY } from "./contract.js";
 import { allowedOrigins, type HttpConfig } from "./http.js";
 import type { SecurityEvent, SecurityMetrics } from "./security.js";
 import { FirestoreEvaluationStore, type FirestoreLike } from "./storage.js";
+import { FirestoreFeedbackStore } from "./feedback.js";
 import type { TurnstileVerifier } from "./turnstile.js";
 
 export const NEWS_EVALS_HTTPS_OPTIONS = Object.freeze({
@@ -22,6 +23,9 @@ export const NEWS_EVALS_HTTPS_OPTIONS = Object.freeze({
 
 const firebaseApp = getApps()[0] ?? initializeApp();
 const evaluationStore = new FirestoreEvaluationStore(
+  getFirestore(firebaseApp) as unknown as FirestoreLike,
+);
+const feedbackStore = new FirestoreFeedbackStore(
   getFirestore(firebaseApp) as unknown as FirestoreLike,
 );
 const attemptLimiter = new FixedWindowAttemptLimiter(
@@ -50,6 +54,7 @@ export function runtimeHttpConfig(input: {
     attemptLimiter,
     metrics: securityMetrics,
     store: evaluationStore,
+    feedbackStore,
     ...(input.clock ? { clock: input.clock } : {}),
     security: input.security,
   };

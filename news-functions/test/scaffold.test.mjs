@@ -182,7 +182,12 @@ test("Firestore provisioning choices are explicit and news-project scoped", () =
   assert.match(provision, /-P news/);
 
   const ttl = scripts["provision:news:evals:ttl"];
-  for (const collection of ["news_eval_abuse", "news_eval_rate"]) {
+  for (const collection of [
+    "news_eval_abuse",
+    "news_eval_rate",
+    "news_feedback_abuse",
+    "news_feedback_rate",
+  ]) {
     assert.match(ttl, new RegExp(`--collection-group=${collection}`));
   }
   assert.match(ttl, /expires_at/);

@@ -9,6 +9,7 @@ const renderCard = (evaluationPath: string | null, hasAnalysis = true) =>
       <ArticleContributionCard
         articlePath="/article/example.bg/article-1"
         evaluationPath={evaluationPath}
+        feedbackPath="/evals/article/example.bg/article-1?mode=feedback"
         hasAnalysis={hasAnalysis}
       />
     </MemoryRouter>,
@@ -27,9 +28,7 @@ describe("ArticleContributionCard", () => {
     expect(contributionLink).toHaveClass("w-full", "whitespace-normal");
     expect(contributionLink).toHaveAttribute(
       "href",
-      expect.stringContaining(
-        "https%3A%2F%2Fnews.electionsbg.com%2Farticle%2Fexample.bg%2Farticle-1",
-      ),
+      "/evals/article/example.bg/article-1?mode=feedback",
     );
   });
 

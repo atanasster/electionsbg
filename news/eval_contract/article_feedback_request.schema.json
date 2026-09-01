@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electionsbg.com/schemas/news/article-feedback-request-v1.json",
+  "title": "Public article feedback request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "article_key",
+    "base_task_revision",
+    "content_sha256",
+    "analysis_sha256",
+    "idempotency_key",
+    "turnstile_token",
+    "browser_nonce",
+    "feedback"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "article_key": {
+      "type": "string",
+      "pattern": "^[^/]{1,253}/[^/]{1,255}$"
+    },
+    "base_task_revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "analysis_sha256": {
+      "anyOf": [
+        { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        { "type": "null" }
+      ]
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{16,128}$"
+    },
+    "turnstile_token": { "type": "string", "minLength": 1, "maxLength": 2048 },
+    "browser_nonce": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Za-z0-9_-]{16,128}$"
+    },
+    "feedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "leaning",
+        "russia_stance",
+        "party_tones",
+        "issue_kinds",
+        "public_note"
+      ],
+      "properties": {
+        "leaning": {
+          "anyOf": [{ "$ref": "#/$defs/leaningProposal" }, { "type": "null" }]
+        },
+        "russia_stance": {
+          "anyOf": [{ "$ref": "#/$defs/russiaProposal" }, { "type": "null" }]
+        },
+        "party_tones": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "$ref": "#/$defs/partyToneProposal" }
+        },
+        "issue_kinds": {
+          "type": "array",
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "missing_analysis",
+              "missing_entity",
+              "wrong_entity_link",
+              "missing_topic",
+              "missing_sector",
+              "other"
+            ]
+          }
+        },
+        "public_note": { "type": ["string", "null"], "maxLength": 600 }
+      },
+      "anyOf": [
+        { "properties": { "leaning": { "type": "object" } } },
+        { "properties": { "russia_stance": { "type": "object" } } },
+        { "properties": { "party_tones": { "minItems": 1 } } },
+        { "properties": { "issue_kinds": { "minItems": 1 } } },
+        {
+          "properties": { "public_note": { "type": "string", "minLength": 1 } }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "proposalBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "evidence"],
+      "properties": {
+        "label": {},
+        "evidence": { "type": "string", "minLength": 1, "maxLength": 600 }
+      }
+    },
+    "leaningProposal": {
+      "allOf": [
+        { "$ref": "#/$defs/proposalBase" },
+        {
+          "properties": {
+            "label": {
+              "enum": [
+                "strong_progressive",
+                "progressive",
+                "neutral",
+                "conservative",
+                "strong_conservative",
+                "not_applicable"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "russiaProposal": {
+      "allOf": [
+        { "$ref": "#/$defs/proposalBase" },
+        {
+          "properties": {
+            "label": {
+              "enum": [
+                "strong_pro_russia",
+                "pro_russia",
+                "neutral",
+                "anti_russia",
+                "strong_anti_russia",
+                "not_applicable"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "partyToneProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["party", "party_id", "tone", "evidence"],
+      "properties": {
+        "party": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "party_id": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "tone": {
+          "enum": ["favorable", "unfavorable", "neutral", "mixed"]
+        },
+        "evidence": { "type": "string", "minLength": 1, "maxLength": 600 }
+      }
+    }
+  }
+}

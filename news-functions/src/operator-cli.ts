@@ -13,6 +13,7 @@ import {
   readRawSubmissionExport,
   serializeAcceptedAdjudicationSnapshot,
   serializeRawSubmissionExport,
+  verifyProjectFeedbackTaskRelease,
   verifyProjectTaskRelease,
   writeAtomicPrivateFile,
   type OperatorFirestore,
@@ -28,6 +29,7 @@ function usage(): string {
     "  operator-cli review-bundle --input PATH --article-root news/data --out PATH",
     "  operator-cli apply --project electionsbg-news --file PATH",
     "  operator-cli sync-tasks --project electionsbg-news --file PATH --live-manifest-url URL",
+    "  operator-cli sync-feedback-tasks --project electionsbg-news --file PATH --live-manifest-url URL",
   ].join("\n");
 }
 
@@ -202,6 +204,24 @@ async function main(): Promise<void> {
     );
     const result = await withStore(project, (store) =>
       store.syncTasks(manifest, proof),
+    );
+    process.stdout.write(`${canonicalJson(result)}\n`);
+    return;
+  }
+  if (command === "sync-feedback-tasks") {
+    requireOptions(options, ["project", "file", "live-manifest-url"]);
+    const project = options.project!;
+    const file = resolve(options.file!);
+    const manifest = JSON.parse(await readFile(file, "utf8"));
+    const proof = await verifyProjectFeedbackTaskRelease(
+      project,
+      manifest,
+      options["live-manifest-url"]!,
+      (url, init) => fetch(url, init),
+      process.env.FIRESTORE_EMULATOR_HOST,
+    );
+    const result = await withStore(project, (store) =>
+      store.syncFeedbackTasks(manifest, proof),
     );
     process.stdout.write(`${canonicalJson(result)}\n`);
     return;

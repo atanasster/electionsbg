@@ -167,12 +167,13 @@ def load_public_articles(app_data: Path) -> tuple[str, dict[str, dict[str, Any]]
     rows: dict[str, dict[str, Any]] = {}
     revisions: set[str] = set()
     for path in sorted(articles_dir.glob("*.json")):
+        if path.name in {"evals.json", "gold.json"}:
+            continue
         bundle = read_json(path)
         domain = bundle.get("domain")
         records = bundle.get("articles")
         generated_at = bundle.get("generated_at")
         if not isinstance(domain, str) or not isinstance(records, list):
-            # `articles/gold.json` is a historical utility bundle, not a domain.
             continue
         revisions.add(timestamp(generated_at, f"{path}.generated_at"))
         for record in records:

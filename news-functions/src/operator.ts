@@ -179,6 +179,12 @@ export type TaskReleaseProof = Readonly<{
   liveManifestUrl: string;
 }>;
 
+export type FeedbackTaskReleaseProof = Readonly<{
+  publicDataRevision: string;
+  runId: string;
+  liveManifestUrl: string;
+}>;
+
 type LiveFetch = (
   url: string,
   init: Readonly<{ cache: "no-store" }>,
@@ -296,7 +302,8 @@ function stringValue(value: unknown, label: string, maximum = 512): string {
 
 export function strictHttpsUrl(value: unknown, label = "URL"): string {
   const result = stringValue(value, label, 2048);
-  if (/\s/u.test(result)) throw new Error(`${label} must not contain whitespace`);
+  if (/\s/u.test(result))
+    throw new Error(`${label} must not contain whitespace`);
   if (!result.startsWith("https://"))
     throw new Error(`${label} must be an absolute HTTPS URL`);
   let parsed: URL;
@@ -611,6 +618,157 @@ function taskSyncManifest(value: unknown): {
   };
 }
 
+const FEEDBACK_TASK_FIELDS = [
+  "schema_version",
+  "contract",
+  "article_key",
+  "domain",
+  "article_id",
+  "url",
+  "title",
+  "content_sha256",
+  "analysis_sha256",
+  "public_data_revision",
+  "accepts_public_feedback",
+  "revision",
+  "updated_at",
+] as const;
+
+function feedbackTaskRevision(
+  contentHash: string,
+  analysisHash: string | null,
+): number {
+  const digest = canonicalSha256({
+    contract: "article-feedback-v1",
+    content_sha256: contentHash,
+    analysis_sha256: analysisHash,
+  }).slice("sha256:".length);
+  return Number.parseInt(digest.slice(0, 12), 16) + 1;
+}
+
+function normalizedFeedbackTask(value: unknown, label: string): JsonObject {
+  const raw = object(value, label);
+  exactKeys(raw, FEEDBACK_TASK_FIELDS, label);
+  if (
+    raw.schema_version !== 1 ||
+    raw.contract !== "article-feedback-v1" ||
+    raw.accepts_public_feedback !== true
+  )
+    throw new Error(`${label} has an unsupported contract`);
+  const key = articleKey(raw.article_key);
+  const [domain, articleId] = key.split("/");
+  if (raw.domain !== domain || raw.article_id !== articleId)
+    throw new Error(`${label} identity fields disagree`);
+  const contentHash = hash(raw.content_sha256, `${label}.content_sha256`);
+  const analysisHash =
+    raw.analysis_sha256 === null
+      ? null
+      : hash(raw.analysis_sha256, `${label}.analysis_sha256`);
+  const revision = safeInteger(raw.revision, `${label}.revision`, 1);
+  if (revision !== feedbackTaskRevision(contentHash, analysisHash))
+    throw new Error(`${label}.revision does not match its task inputs`);
+  return {
+    schema_version: 1,
+    contract: "article-feedback-v1",
+    article_key: key,
+    domain,
+    article_id: articleId,
+    url: strictHttpsUrl(raw.url, `${label}.url`),
+    title: stringValue(raw.title, `${label}.title`, 500),
+    content_sha256: contentHash,
+    analysis_sha256: analysisHash,
+    public_data_revision: isoTimestamp(
+      raw.public_data_revision,
+      `${label}.public_data_revision`,
+    ),
+    accepts_public_feedback: true,
+    revision,
+    updated_at: isoTimestamp(raw.updated_at, `${label}.updated_at`),
+  };
+}
+
+export function feedbackTaskSyncManifest(value: unknown): {
+  manifest: JsonObject;
+  tasks: JsonObject[];
+} {
+  const raw = object(value, "feedback task sync manifest");
+  exactKeys(
+    raw,
+    [
+      "schema_version",
+      "manifest_kind",
+      "generated_at",
+      "public_data_revision",
+      "task_count",
+      "source_articles_sha256",
+      "tasks_sha256",
+      "tasks",
+    ],
+    "feedback task sync manifest",
+  );
+  if (
+    raw.schema_version !== 1 ||
+    raw.manifest_kind !== "news-feedback-task-sync"
+  )
+    throw new Error("feedback task sync manifest contract is unsupported");
+  if (!Array.isArray(raw.tasks) || raw.tasks.length > 20_000)
+    throw new Error("feedback task sync manifest tasks must be bounded");
+  const generatedAt = isoTimestamp(raw.generated_at, "manifest generated_at");
+  const publicRevision = isoTimestamp(
+    raw.public_data_revision,
+    "manifest public_data_revision",
+  );
+  if (generatedAt !== publicRevision)
+    throw new Error("feedback task sync generation must equal public revision");
+  const tasks = raw.tasks.map((task, index) =>
+    normalizedFeedbackTask(task, `feedback task ${index}`),
+  );
+  const seen = new Set<string>();
+  for (let index = 0; index < tasks.length; index += 1) {
+    const task = tasks[index]!;
+    const key = task.article_key as string;
+    if (seen.has(key)) throw new Error("feedback manifest has duplicate tasks");
+    seen.add(key);
+    if (
+      task.public_data_revision !== publicRevision ||
+      task.updated_at !== generatedAt ||
+      (index > 0 &&
+        compareText(tasks[index - 1]!.article_key as string, key) >= 0)
+    )
+      throw new Error("feedback tasks are stale or not strictly sorted");
+  }
+  if (safeInteger(raw.task_count, "task_count") !== tasks.length)
+    throw new Error("feedback task_count does not match");
+  const tasksHash = hash(raw.tasks_sha256, "tasks_sha256");
+  if (canonicalSha256(tasks) !== tasksHash)
+    throw new Error("feedback tasks hash does not match");
+  const sourceArticlesHash = hash(
+    raw.source_articles_sha256,
+    "source_articles_sha256",
+  );
+  if (
+    canonicalSha256(
+      tasks.map((task) => ({
+        article_key: task.article_key,
+        analysis_sha256: task.analysis_sha256,
+      })),
+    ) !== sourceArticlesHash
+  )
+    throw new Error("feedback source articles hash does not match tasks");
+  return {
+    manifest: {
+      schema_version: 1,
+      manifest_kind: "news-feedback-task-sync",
+      generated_at: generatedAt,
+      public_data_revision: publicRevision,
+      task_count: tasks.length,
+      source_articles_sha256: sourceArticlesHash,
+      tasks_sha256: tasksHash,
+    },
+    tasks,
+  };
+}
+
 function taskReleaseProof(value: unknown): TaskReleaseProof {
   const raw = object(value, "task release proof");
   exactKeys(
@@ -695,13 +853,19 @@ export async function verifyLiveTaskRelease(
     throw new Error("live publication manifest is not valid JSON");
   }
   const live = object(liveValue, "live publication manifest");
-  if ((live.version !== 1 && live.version !== 2) || live.home_health_ready !== true)
-    throw new Error("live publication manifest is not a ready supported release");
+  if (
+    (live.version !== 1 && live.version !== 2) ||
+    live.home_health_ready !== true
+  )
+    throw new Error(
+      "live publication manifest is not a ready supported release",
+    );
   if (live.version === 2) {
     const acceptedHash = live.accepted_snapshot_records_sha256;
     if (
       acceptedHash !== null &&
-      (typeof acceptedHash !== "string" || !/^[a-f0-9]{64}$/u.test(acceptedHash))
+      (typeof acceptedHash !== "string" ||
+        !/^[a-f0-9]{64}$/u.test(acceptedHash))
     )
       throw new Error("live publication accepted snapshot hash is invalid");
   }
@@ -803,6 +967,194 @@ export async function verifyProjectTaskRelease(
     );
   }
   return verifyLiveTaskRelease(manifestValue, liveUrl, fetcher);
+}
+
+export async function verifyLiveFeedbackTaskRelease(
+  manifestValue: unknown,
+  liveManifestUrlValue: string,
+  fetcher: LiveFetch,
+): Promise<FeedbackTaskReleaseProof> {
+  const parsed = feedbackTaskSyncManifest(manifestValue);
+  const liveUrl = new URL(
+    stringValue(liveManifestUrlValue, "live manifest URL", 2048),
+  );
+  if (
+    liveUrl.protocol !== "https:" ||
+    liveUrl.username ||
+    liveUrl.password ||
+    liveUrl.search ||
+    liveUrl.hash ||
+    !liveUrl.pathname.endsWith("/manifest.json")
+  )
+    throw new Error(
+      "live manifest URL must be a plain HTTPS manifest.json URL",
+    );
+  const liveBytes = await fetchedBytes(
+    fetcher,
+    liveUrl.toString(),
+    "live publication manifest",
+    2_000_000,
+  );
+  let liveValue: unknown;
+  try {
+    liveValue = JSON.parse(liveBytes.toString("utf8"));
+  } catch {
+    throw new Error("live publication manifest is not valid JSON");
+  }
+  const live = object(liveValue, "live publication manifest");
+  if (
+    (live.version !== 1 && live.version !== 2) ||
+    live.home_health_ready !== true
+  )
+    throw new Error(
+      "live publication manifest is not a ready supported release",
+    );
+  const runId = stringValue(live.run_id, "live publication run_id", 128);
+  if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u.test(runId))
+    throw new Error("live publication run_id is invalid");
+  const liveRevision = isoTimestamp(
+    live.generated_at,
+    "live publication generated_at",
+  );
+  if (liveRevision !== parsed.manifest.public_data_revision)
+    throw new Error(
+      "live publication revision does not match feedback task manifest",
+    );
+  const dataBase = stringValue(
+    live.data_base,
+    "live publication data_base",
+    256,
+  );
+  if (dataBase !== `versions/${runId}`)
+    throw new Error("live publication data_base is invalid");
+  const bundle = object(live.bundle, "live publication bundle");
+  if (!Array.isArray(bundle.inventory) || bundle.inventory.length > 20_000)
+    throw new Error("live publication inventory is invalid");
+  const articleEntries = bundle.inventory.filter((entry) => {
+    if (entry === null || typeof entry !== "object" || Array.isArray(entry))
+      return false;
+    const path = (entry as JsonObject).path;
+    return (
+      typeof path === "string" &&
+      /^articles\/[^/]+\.json$/u.test(path) &&
+      path !== "articles/evals.json" &&
+      path !== "articles/gold.json"
+    );
+  });
+  if (articleEntries.length === 0)
+    throw new Error("live publication has no article bundles");
+  const publishedKeys = new Set<string>();
+  const publishedArticles: Array<{
+    article_key: string;
+    analysis_sha256: string | null;
+  }> = [];
+  const baseUrl = new URL("./", liveUrl);
+  for (const rawEntry of articleEntries) {
+    const entry = object(rawEntry, "live article inventory entry");
+    const path = stringValue(entry.path, "live article bundle path", 512);
+    const expectedHash = stringValue(
+      entry.sha256,
+      "live article bundle SHA-256",
+      64,
+    );
+    if (!/^[a-f0-9]{64}$/u.test(expectedHash))
+      throw new Error("live article bundle SHA-256 is invalid");
+    const articleUrl = new URL(`${dataBase}/${path}`, baseUrl);
+    if (articleUrl.origin !== liveUrl.origin)
+      throw new Error("live article bundle URL changes origin");
+    const bytes = await fetchedBytes(
+      fetcher,
+      articleUrl.toString(),
+      `live ${path}`,
+      5_000_000,
+    );
+    if (createHash("sha256").update(bytes).digest("hex") !== expectedHash)
+      throw new Error(`live ${path} bytes do not match publication inventory`);
+    let bundleValue: unknown;
+    try {
+      bundleValue = JSON.parse(bytes.toString("utf8"));
+    } catch {
+      throw new Error(`live ${path} is not valid JSON`);
+    }
+    const articleBundle = object(bundleValue, `live ${path}`);
+    const domain = stringValue(
+      articleBundle.domain,
+      `live ${path} domain`,
+      253,
+    );
+    if (path !== `articles/${domain}.json`)
+      throw new Error(`live ${path} domain does not match its path`);
+    if (
+      isoTimestamp(articleBundle.generated_at, `live ${path} generated_at`) !==
+      liveRevision
+    )
+      throw new Error(`live ${path} revision does not match publication`);
+    if (!Array.isArray(articleBundle.articles))
+      throw new Error(`live ${path} articles must be an array`);
+    for (const rawArticle of articleBundle.articles) {
+      const article = object(rawArticle, `live ${path} article`);
+      const articleId = stringValue(article.id, `live ${path} article ID`, 255);
+      const key = articleKey(`${domain}/${articleId}`);
+      if (publishedKeys.has(key))
+        throw new Error(`live publication has duplicate article ${key}`);
+      publishedKeys.add(key);
+      publishedArticles.push({
+        article_key: key,
+        analysis_sha256:
+          article.analysis !== null &&
+          typeof article.analysis === "object" &&
+          !Array.isArray(article.analysis)
+            ? canonicalSha256(article.analysis)
+            : null,
+      });
+    }
+  }
+  publishedArticles.sort((left, right) =>
+    compareText(left.article_key, right.article_key),
+  );
+  if (
+    canonicalSha256(publishedArticles) !==
+    parsed.manifest.source_articles_sha256
+  )
+    throw new Error(
+      "feedback task source hash does not match live public analysis",
+    );
+  const desiredKeys = new Set(
+    parsed.tasks.map((task) => task.article_key as string),
+  );
+  if (
+    desiredKeys.size !== publishedKeys.size ||
+    [...desiredKeys].some((key) => !publishedKeys.has(key))
+  )
+    throw new Error(
+      "feedback task manifest does not exactly cover live public articles",
+    );
+  return {
+    publicDataRevision: liveRevision,
+    runId,
+    liveManifestUrl: liveUrl.toString(),
+  };
+}
+
+export async function verifyProjectFeedbackTaskRelease(
+  projectId: string,
+  manifestValue: unknown,
+  liveManifestUrlValue: string,
+  fetcher: LiveFetch,
+  firestoreEmulatorHost?: string,
+): Promise<FeedbackTaskReleaseProof> {
+  const liveUrl = new URL(liveManifestUrlValue).toString();
+  if (projectId === "electionsbg-news") {
+    if (liveUrl !== PRODUCTION_TASK_MANIFEST_URL)
+      throw new Error(
+        "production feedback task sync requires the exact production app-data manifest",
+      );
+  } else if (!firestoreEmulatorHost || !/^demo-[a-z0-9-]+$/u.test(projectId)) {
+    throw new Error(
+      "feedback task release verification requires electionsbg-news or an explicit demo emulator project",
+    );
+  }
+  return verifyLiveFeedbackTaskRelease(manifestValue, liveUrl, fetcher);
 }
 
 function submissionRecord(
@@ -987,9 +1339,7 @@ function acceptedAdjudicationRecord(
   const raw = jsonObject(value, label);
   exactKeys(
     raw,
-    documentId
-      ? ADJUDICATION_STORAGE_FIELDS
-      : ADJUDICATION_EXPORT_FIELDS,
+    documentId ? ADJUDICATION_STORAGE_FIELDS : ADJUDICATION_EXPORT_FIELDS,
     label,
   );
   if (
@@ -1047,11 +1397,7 @@ function acceptedAdjudicationRecord(
     rubric_version: RUBRIC,
     article_key: key,
     url: strictHttpsUrl(raw.url, `${label}.url`),
-    task_revision: safeInteger(
-      raw.task_revision,
-      `${label}.task_revision`,
-      1,
-    ),
+    task_revision: safeInteger(raw.task_revision, `${label}.task_revision`, 1),
     content_sha256: hash(raw.content_sha256, `${label}.content_sha256`),
     analysis_sha256: hash(raw.analysis_sha256, `${label}.analysis_sha256`),
     source_submission_ids: [...sourceIds].sort(compareText),
@@ -1059,20 +1405,14 @@ function acceptedAdjudicationRecord(
       kind: "maintainer",
       id: stringValue(actor.id, `${label}.operator_actor.id`, 128),
     },
-    adjudicated_at: isoTimestamp(
-      raw.adjudicated_at,
-      `${label}.adjudicated_at`,
-    ),
+    adjudicated_at: isoTimestamp(raw.adjudicated_at, `${label}.adjudicated_at`),
     revision: safeInteger(raw.revision, `${label}.revision`, 1),
     evaluation,
     model_labels: trustedModelLabels,
     public_explanation:
       raw.public_explanation === null
         ? null
-        : nullableString(
-            raw.public_explanation,
-            `${label}.public_explanation`,
-          ),
+        : nullableString(raw.public_explanation, `${label}.public_explanation`),
     gold_eligible: semantics.goldEligible,
     status: "accepted",
     last_operation_id: operationId,
@@ -1155,8 +1495,10 @@ export function validateAcceptedAdjudicationSnapshot(
   for (let index = 0; index < records.length; index += 1) {
     if (
       index > 0 &&
-      compareText(records[index - 1]!.article_key, records[index]!.article_key) >=
-        0
+      compareText(
+        records[index - 1]!.article_key,
+        records[index]!.article_key,
+      ) >= 0
     )
       throw new Error(
         "accepted adjudication records are duplicated or not sorted",
@@ -1601,6 +1943,132 @@ export class FirestoreOperatorStore {
     });
   }
 
+  /**
+   * Synchronize the larger all-article feedback registry in retry-safe chunks.
+   * Individual task writes are inert unless `accepts_public_feedback` is true;
+   * the final state document is written only after every chunk succeeds.
+   */
+  async syncFeedbackTasks(
+    manifestValue: unknown,
+    releaseProofValue: FeedbackTaskReleaseProof,
+  ): Promise<JsonObject> {
+    const parsed = feedbackTaskSyncManifest(manifestValue);
+    if (
+      releaseProofValue.publicDataRevision !==
+      parsed.manifest.public_data_revision
+    )
+      throw new Error(
+        "feedback release proof revision does not match manifest",
+      );
+    const desired = new Map(
+      parsed.tasks.map((task) => [task.article_key as string, task]),
+    );
+    const collection = this.#database.collection("news_feedback_tasks");
+    const stateRef = this.#database
+      .collection("news_feedback_sync")
+      .doc("task_manifest");
+    const assertTransition = (snapshot: OperatorDocumentSnapshot): void => {
+      if (!snapshot.exists) return;
+      const before = jsonObject(snapshot.data(), "feedback sync state");
+      const beforeRevision = isoTimestamp(
+        before.public_data_revision,
+        "feedback state revision",
+      );
+      const incomingRevision = parsed.manifest.public_data_revision as string;
+      if (beforeRevision > incomingRevision)
+        throw new Error("feedback task sync refuses revision rollback");
+      if (
+        beforeRevision === incomingRevision &&
+        before.tasks_sha256 !== parsed.manifest.tasks_sha256
+      )
+        throw new Error("feedback task sync refuses same-revision drift");
+    };
+    await this.#database.runTransaction(async (transaction) => {
+      assertTransition(await transaction.get(stateRef));
+    });
+    const current = await collection
+      .where("accepts_public_feedback", "==", true)
+      .get();
+    const currentById = new Map(current.docs.map((doc) => [doc.id, doc]));
+    const operations: Array<{
+      id: string;
+      task: JsonObject | null;
+    }> = parsed.tasks.map((task) => ({
+      id: encodedArticleKey(task.article_key as string),
+      task,
+    }));
+    const desiredIds = new Set(operations.map(({ id }) => id));
+    for (const document of current.docs)
+      if (!desiredIds.has(document.id))
+        operations.push({ id: document.id, task: null });
+
+    let written = 0;
+    let deactivated = 0;
+    const chunkSize = 300;
+    for (let offset = 0; offset < operations.length; offset += chunkSize) {
+      const chunk = operations.slice(offset, offset + chunkSize);
+      const outcome = await this.#database.runTransaction(
+        async (transaction) => {
+          let chunkWritten = 0;
+          let chunkDeactivated = 0;
+          for (const operation of chunk) {
+            const reference = collection.doc(operation.id);
+            const snapshot = await transaction.get(reference);
+            if (operation.task) {
+              if (
+                !snapshot.exists ||
+                canonicalJson(snapshot.data()) !== canonicalJson(operation.task)
+              ) {
+                transaction.set(reference, operation.task);
+                chunkWritten += 1;
+              }
+            } else if (
+              snapshot.exists &&
+              jsonObject(snapshot.data(), "feedback task")
+                .accepts_public_feedback === true
+            ) {
+              transaction.set(
+                reference,
+                {
+                  accepts_public_feedback: false,
+                  updated_at: parsed.manifest.generated_at,
+                  deactivated_by_manifest_sha256: parsed.manifest.tasks_sha256,
+                },
+                { merge: true },
+              );
+              chunkDeactivated += 1;
+            }
+          }
+          return { written: chunkWritten, deactivated: chunkDeactivated };
+        },
+      );
+      written += outcome.written;
+      deactivated += outcome.deactivated;
+    }
+    await this.#database.runTransaction(async (transaction) => {
+      const state = await transaction.get(stateRef);
+      assertTransition(state);
+      transaction.set(stateRef, {
+        ...parsed.manifest,
+        live_release: {
+          public_data_revision: releaseProofValue.publicDataRevision,
+          run_id: releaseProofValue.runId,
+          manifest_url: releaseProofValue.liveManifestUrl,
+        },
+      });
+    });
+    return {
+      status: "synced",
+      task_count: desired.size,
+      written,
+      unchanged: desired.size - written,
+      deactivated,
+      previous_active_count: currentById.size,
+      tasks_sha256: parsed.manifest.tasks_sha256,
+      public_data_revision: parsed.manifest.public_data_revision,
+    };
+  }
+
   async #reviewSubmission(
     command: Extract<
       ReviewCommand,
@@ -1707,11 +2175,7 @@ export class FirestoreOperatorStore {
         : null;
       if (matchingEvent(eventSnapshot, command, "adjudication", encoded)) {
         try {
-          acceptedAdjudicationRecord(
-            current,
-            "current adjudication",
-            encoded,
-          );
+          acceptedAdjudicationRecord(current, "current adjudication", encoded);
           const event = jsonObject(
             eventSnapshot.data(),
             "existing operator event",

@@ -7,6 +7,7 @@ import { correctionIssueUrl } from "../corrections";
 interface ArticleContributionCardProps {
   articlePath: string;
   evaluationPath: string | null;
+  feedbackPath: string;
   hasAnalysis: boolean;
 }
 
@@ -20,6 +21,7 @@ interface ArticleContributionCardProps {
 export const ArticleContributionCard = ({
   articlePath,
   evaluationPath,
+  feedbackPath,
   hasAnalysis,
 }: ArticleContributionCardProps) => (
   <Card className="mt-6 border-primary/30 bg-primary/5 p-4">
@@ -50,15 +52,16 @@ export const ArticleContributionCard = ({
             variant={evaluationPath ? "outline" : "default"}
             className="h-auto min-h-11 w-full max-w-full whitespace-normal py-2 text-center sm:min-h-9 sm:w-auto"
           >
-            <a
-              href={correctionIssueUrl(articlePath)}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Добавете липсващ анализ или връзка
-              <span className="sr-only"> (отваря се в нов раздел)</span>
-            </a>
+            <Link to={feedbackPath}>Добавете липсващ анализ или връзка</Link>
           </Button>
+          <a
+            href={correctionIssueUrl(articlePath)}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="self-center text-sm text-muted-foreground underline-offset-4 hover:underline"
+          >
+            Сигнал за друг проблем ↗
+          </a>
         </div>
       </div>
     </div>

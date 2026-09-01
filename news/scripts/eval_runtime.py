@@ -301,17 +301,40 @@ def task_build_operation(root: Path = ROOT, *, dry_run: bool = False) -> tuple[d
         if not path.is_relative_to(resolved_root) or not path.is_file():
             raise EvalRuntimeError(f"eval selection is missing or outside the runtime: {item}")
         selection_args.extend(("--selection", str(path)))
-    script = root / "news" / "scripts" / "sync_eval_tasks.py"
-    process = subprocess.run([
-        sys.executable, str(script), "--root", str(root),
+    eval_script = root / "news" / "scripts" / "sync_eval_tasks.py"
+    eval_process = subprocess.run([
+        sys.executable, str(eval_script), "--root", str(root),
         "--include-review-reasons", "--review-limit", review_limit, "--write",
         *selection_args,
     ], cwd=root, text=True, capture_output=True)
-    payload = _last_json(process.stdout)
-    result = {**base, "exit": process.returncode, "result": payload}
-    if process.returncode != 0:
-        result["error"] = (process.stderr or process.stdout).strip()[:600]
-    else:
+    eval_build: dict[str, Any] = {
+        "exit": eval_process.returncode,
+        "result": _last_json(eval_process.stdout),
+    }
+    if eval_process.returncode != 0:
+        eval_build["error"] = (
+            eval_process.stderr or eval_process.stdout).strip()[:600]
+
+    feedback_script = root / "news" / "scripts" / "build_feedback_tasks.py"
+    feedback_process = subprocess.run([
+        sys.executable, str(feedback_script), "--root", str(root), "--write",
+    ], cwd=root, text=True, capture_output=True)
+    feedback_build: dict[str, Any] = {
+        "exit": feedback_process.returncode,
+        "result": _last_json(feedback_process.stdout),
+    }
+    if feedback_process.returncode != 0:
+        feedback_build["error"] = (
+            feedback_process.stderr or feedback_process.stdout).strip()[:600]
+
+    failed = eval_process.returncode != 0 or feedback_process.returncode != 0
+    result = {
+        **base,
+        "exit": 1 if failed else 0,
+        "eval_tasks": eval_build,
+        "feedback_tasks": feedback_build,
+    }
+    if not failed:
         app_data = root / "news" / "app-data"
         try:
             home = json.loads((app_data / "home.json").read_text(encoding="utf-8"))
@@ -331,7 +354,7 @@ def task_build_operation(root: Path = ROOT, *, dry_run: bool = False) -> tuple[d
             "files": inventory["files"],
             "bytes": inventory["bytes"],
         }
-    return result, 1 if process.returncode != 0 else 0
+    return result, 1 if failed else 0
 
 
 def _load_upload_result(path: Path) -> tuple[dict[str, Any] | None, str | None]:
@@ -372,14 +395,32 @@ def task_sync_operation(upload_result: Path, root: Path = ROOT, *,
         result = {**base, "skipped": config.unavailable_reason}
         return result, 1 if config.mode == "required" else 0
     task_path = root / "news" / "data" / "evals" / "tasks" / "current.json"
+    feedback_path = (root / "news" / "data" / "evals" /
+                     "feedback-tasks" / "current.json")
+    missing = []
     if not task_path.is_file():
-        return {**base, "error": "task_manifest_missing"}, 1
-    outcome = run_operator(config, [
+        missing.append("eval_task_manifest")
+    if not feedback_path.is_file():
+        missing.append("feedback_task_manifest")
+    if missing:
+        return {**base, "error": "task_manifest_missing", "missing": missing}, 1
+    eval_outcome = run_operator(config, [
         "sync-tasks", "--project", PROJECT_ID, "--file", str(task_path),
         "--live-manifest-url", config.live_manifest_url,
     ])
-    result = {**base, "upload_run": upload.get("mode"), "sync": outcome}
-    return result, 1 if outcome["exit"] != 0 else 0
+    feedback_outcome = run_operator(config, [
+        "sync-feedback-tasks", "--project", PROJECT_ID,
+        "--file", str(feedback_path),
+        "--live-manifest-url", config.live_manifest_url,
+    ])
+    failed = eval_outcome["exit"] != 0 or feedback_outcome["exit"] != 0
+    result = {
+        **base,
+        "upload_run": upload.get("mode"),
+        "sync": eval_outcome,
+        "feedback_sync": feedback_outcome,
+    }
+    return result, 1 if failed else 0
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:

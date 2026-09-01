@@ -22,6 +22,7 @@ import type {
 } from "./storage.js";
 import type { TurnstileVerifier } from "./turnstile.js";
 import type { TurnstileVerification } from "./turnstile.js";
+import type { FeedbackStore, FeedbackSubmitOutcome } from "./feedback.js";
 
 type HeaderValue = string | string[] | undefined;
 
@@ -51,11 +52,19 @@ export type HttpConfig = {
   attemptLimiter?: AttemptLimiter;
   metrics?: SecurityMetrics;
   store?: EvaluationStore;
+  feedbackStore?: FeedbackStore;
   clock?: Clock;
 };
 
 type Route =
   | { kind: "submit"; methods: readonly ["POST"] }
+  | { kind: "feedbackSubmit"; methods: readonly ["POST"] }
+  | {
+      kind: "feedbackTask";
+      methods: readonly ["GET"];
+      domain: string;
+      articleId: string;
+    }
   | {
       kind: "aggregate";
       methods: readonly ["GET"];
@@ -66,9 +75,11 @@ type Route =
 const PRODUCTION_ORIGIN = "https://news.electionsbg.com";
 const LOCAL_ORIGINS = ["http://127.0.0.1:5190", "http://localhost:5190"];
 import submissionSchema from "./eval-contract/submission_request.schema.json" with { type: "json" };
+import feedbackSchema from "./eval-contract/article_feedback_request.schema.json" with { type: "json" };
 
 const MAX_REQUEST_BYTES = PUBLIC_REQUEST_BYTES;
 const SUBMISSION_SCHEMA = submissionSchema as Record<string, unknown>;
+const FEEDBACK_SCHEMA = feedbackSchema as Record<string, unknown>;
 
 const DOMAIN_LABEL = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 const ASCII_TLD = /^[a-z]{2,63}$/;
@@ -115,6 +126,22 @@ function validDomain(value: string): boolean {
 function matchRoute(path: string | null): Route | null {
   if (path === "/api/news-evals/submit")
     return { kind: "submit", methods: ["POST"] };
+  if (path === "/api/news-evals/feedback")
+    return { kind: "feedbackSubmit", methods: ["POST"] };
+  const feedbackTask =
+    /^\/api\/news-evals\/feedback-task\/([^/]+)\/([^/]+)$/.exec(path ?? "");
+  if (feedbackTask) {
+    const domain = decodeSegment(feedbackTask[1] ?? "");
+    const articleId = decodeSegment(feedbackTask[2] ?? "");
+    if (
+      domain &&
+      articleId &&
+      validDomain(domain) &&
+      ARTICLE_ID.test(articleId)
+    )
+      return { kind: "feedbackTask", methods: ["GET"], domain, articleId };
+    return null;
+  }
   const match = /^\/api\/news-evals\/aggregate\/([^/]+)\/([^/]+)$/.exec(
     path ?? "",
   );
@@ -133,6 +160,257 @@ function matchRoute(path: string | null): Route | null {
   )
     return null;
   return { kind: "aggregate", methods: ["GET"], domain, articleId };
+}
+
+async function processFeedbackTask(
+  route: Extract<Route, { kind: "feedbackTask" }>,
+  response: ResponseLike,
+  config: HttpConfig,
+): Promise<void> {
+  if (!config.feedbackStore) {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  try {
+    const outcome = await config.feedbackStore.task(
+      `${route.domain}/${route.articleId}`,
+    );
+    if (outcome.kind === "task_not_found") {
+      error(
+        response,
+        404,
+        "task_not_found",
+        "This article feedback task was not found.",
+      );
+      return;
+    }
+    if (outcome.kind === "task_unavailable") {
+      error(
+        response,
+        409,
+        "task_unavailable",
+        "This article is not accepting feedback.",
+      );
+      return;
+    }
+    json(response, 200, { task: outcome.task });
+  } catch {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+  }
+}
+
+async function processFeedbackSubmission(
+  requestBody: Record<string, unknown>,
+  response: ResponseLike,
+  config: HttpConfig,
+): Promise<void> {
+  const metrics = config.metrics ?? noOpSecurityMetrics;
+  let now: Date;
+  try {
+    now = (config.clock ?? systemClock).now();
+    if (!Number.isFinite(now.getTime())) throw new Error("invalid clock");
+  } catch {
+    recordMetric(metrics, "clock_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  if (!config.attemptLimiter || !config.security) {
+    recordMetric(metrics, "configuration_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  let attemptAllowed: boolean;
+  try {
+    attemptAllowed = config.attemptLimiter.allow(now);
+  } catch {
+    recordMetric(metrics, "configuration_unavailable");
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  if (!attemptAllowed) {
+    recordMetric(metrics, "attempt_limited");
+    response.set("Retry-After", "60");
+    error(response, 429, "rate_limited", "Too many feedback attempts.");
+    return;
+  }
+  let security: ReturnType<NonNullable<HttpConfig["security"]>>;
+  try {
+    security = config.security();
+  } catch {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  let verification;
+  const startedAt = Date.now();
+  try {
+    verification = await security.turnstileVerifier.verify({
+      token: String(requestBody.turnstile_token),
+      remoteIp: null,
+      now,
+    });
+  } catch {
+    recordMetric(
+      metrics,
+      "challenge_unavailable_network",
+      Date.now() - startedAt,
+    );
+    error(
+      response,
+      503,
+      "challenge_unavailable",
+      "The browser challenge is unavailable.",
+    );
+    return;
+  }
+  if (verification.kind !== "valid") {
+    recordMetric(metrics, challengeEvent(verification), Date.now() - startedAt);
+    error(
+      response,
+      verification.kind === "invalid" ? 422 : 503,
+      verification.kind === "invalid"
+        ? "challenge_failed"
+        : "challenge_unavailable",
+      "The browser challenge was not accepted.",
+    );
+    return;
+  }
+  let abuse: AbuseContext;
+  try {
+    abuse = deriveAbuseContext(
+      {
+        articleKey: String(requestBody.article_key),
+        taskRevision: Number(requestBody.base_task_revision),
+        idempotencyKey: String(requestBody.idempotency_key),
+        browserNonce:
+          typeof requestBody.browser_nonce === "string"
+            ? requestBody.browser_nonce
+            : null,
+        semanticRequest: requestBody,
+        now,
+      },
+      security.hmacKeyring,
+    );
+  } catch {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  if (!config.feedbackStore) {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  let outcome: FeedbackSubmitOutcome;
+  try {
+    outcome = await config.feedbackStore.submit({
+      request: requestBody,
+      abuse,
+      now,
+    });
+  } catch {
+    error(
+      response,
+      503,
+      "service_unavailable",
+      "Article feedback is unavailable.",
+    );
+    return;
+  }
+  switch (outcome.kind) {
+    case "accepted":
+      json(response, outcome.created ? 201 : 200, {
+        submission: outcome.receipt,
+        idempotent: !outcome.created,
+      });
+      return;
+    case "task_not_found":
+      error(
+        response,
+        404,
+        "task_not_found",
+        "This article feedback task was not found.",
+      );
+      return;
+    case "task_unavailable":
+      error(
+        response,
+        409,
+        "task_unavailable",
+        "This article is not accepting feedback.",
+      );
+      return;
+    case "task_conflict":
+      json(response, 409, {
+        error: {
+          code: "stale_task",
+          message: "The article changed. Reload before submitting feedback.",
+          current_revision: outcome.currentRevision,
+        },
+      });
+      return;
+    case "idempotency_conflict":
+      error(
+        response,
+        409,
+        "idempotency_conflict",
+        "This retry key was already used.",
+      );
+      return;
+    case "duplicate_article_revision":
+      error(
+        response,
+        409,
+        "duplicate_submission",
+        "This browser already submitted feedback.",
+      );
+      return;
+    case "rate_limited":
+      response.set("Retry-After", String(outcome.retryAfterSeconds));
+      error(
+        response,
+        429,
+        "rate_limited",
+        "The anonymous feedback limit was reached.",
+      );
+  }
 }
 
 function error(
@@ -637,6 +915,18 @@ export function handleNewsEvalsRequest(
     }
     return processAggregate(route, response, config);
   }
+  if (route.kind === "feedbackTask") {
+    if (bodyBytes > 0) {
+      error(
+        response,
+        400,
+        "unexpected_body",
+        "Feedback task requests must not include a body.",
+      );
+      return;
+    }
+    return processFeedbackTask(route, response, config);
+  }
 
   const [mediaType = ""] = (header(request, "content-type") ?? "").split(
     ";",
@@ -667,7 +957,10 @@ export function handleNewsEvalsRequest(
   }
   let schemaErrors: string[];
   try {
-    schemaErrors = validateSchema(SUBMISSION_SCHEMA, request.body);
+    schemaErrors = validateSchema(
+      route.kind === "feedbackSubmit" ? FEEDBACK_SCHEMA : SUBMISSION_SCHEMA,
+      request.body,
+    );
   } catch {
     error(
       response,
@@ -712,5 +1005,7 @@ export function handleNewsEvalsRequest(
     );
     return;
   }
-  return processSubmission(submission, response, config);
+  return route.kind === "feedbackSubmit"
+    ? processFeedbackSubmission(submission, response, config)
+    : processSubmission(submission, response, config);
 }

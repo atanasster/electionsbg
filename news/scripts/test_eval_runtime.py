@@ -168,8 +168,12 @@ class EvalRuntimeTest(unittest.TestCase):
     def test_task_sync_runs_only_after_successful_public_manifest_commit(self):
         upload_path = self.root / "upload.json"
         task_path = self.root / "news" / "data" / "evals" / "tasks" / "current.json"
+        feedback_path = (self.root / "news" / "data" / "evals" /
+                         "feedback-tasks" / "current.json")
         task_path.parent.mkdir(parents=True)
         task_path.write_text("{}", encoding="utf-8")
+        feedback_path.parent.mkdir(parents=True)
+        feedback_path.write_text("{}", encoding="utf-8")
         upload_path.write_text(json.dumps({
             "mode": "news_gcs_upload",
             "public_ready": True,
@@ -186,7 +190,11 @@ class EvalRuntimeTest(unittest.TestCase):
             result, code = task_sync_operation(upload_path, self.root)
         self.assertEqual(code, 0)
         self.assertEqual(result["sync"]["result"]["synced"], 3)
-        self.assertIn("sync-tasks", operator.call_args.args[1])
+        self.assertEqual(operator.call_count, 2)
+        self.assertIn("sync-tasks", operator.call_args_list[0].args[1])
+        self.assertIn("sync-feedback-tasks",
+                      operator.call_args_list[1].args[1])
+        self.assertEqual(result["feedback_sync"]["exit"], 0)
 
         upload_path.write_text(json.dumps({
             "mode": "news_gcs_upload",
@@ -202,6 +210,61 @@ class EvalRuntimeTest(unittest.TestCase):
         self.assertEqual(skipped_code, 0)
         self.assertEqual(skipped["skipped"], "public_manifest_not_advanced")
         operator.assert_not_called()
+
+    def test_task_build_creates_eval_and_all_article_feedback_manifests(self):
+        app_data = self.root / "news" / "app-data"
+        app_data.mkdir(parents=True)
+        (app_data / "home.json").write_text(json.dumps({
+            "generated_at": STAMP,
+        }), encoding="utf-8")
+        completed = [
+            mock.Mock(returncode=0, stdout='{"task_count":50}\n', stderr=""),
+            mock.Mock(returncode=0, stdout='{"task_count":5960}\n', stderr=""),
+        ]
+        with mock.patch(
+            "news.scripts.eval_runtime.runtime_config", return_value=config()
+        ), mock.patch(
+            "news.scripts.eval_runtime.subprocess.run", side_effect=completed,
+        ) as invoked:
+            result, code = task_build_operation(self.root)
+        self.assertEqual(code, 0)
+        self.assertEqual(result["eval_tasks"]["result"]["task_count"], 50)
+        self.assertEqual(result["feedback_tasks"]["result"]["task_count"], 5960)
+        self.assertEqual(invoked.call_count, 2)
+        self.assertTrue(str(invoked.call_args_list[0].args[0][1]).endswith(
+            "sync_eval_tasks.py"))
+        self.assertTrue(str(invoked.call_args_list[1].args[0][1]).endswith(
+            "build_feedback_tasks.py"))
+
+    def test_task_sync_reports_feedback_activation_failure(self):
+        upload_path = self.root / "upload.json"
+        upload_path.write_text(json.dumps({
+            "mode": "news_gcs_upload",
+            "public_ready": True,
+            "public_enabled": True,
+            "failed_scopes": [],
+            "scopes": [{"name": "public_app_data_manifest", "exit": 0}],
+        }), encoding="utf-8")
+        for relative in [
+            "news/data/evals/tasks/current.json",
+            "news/data/evals/feedback-tasks/current.json",
+        ]:
+            path = self.root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("{}", encoding="utf-8")
+        with mock.patch(
+            "news.scripts.eval_runtime.runtime_config", return_value=config()
+        ), mock.patch(
+            "news.scripts.eval_runtime.run_operator",
+            side_effect=[
+                {"exit": 0, "result": {"synced": 50}},
+                {"exit": 1, "error": "feedback sync failed", "result": None},
+            ],
+        ):
+            result, code = task_sync_operation(upload_path, self.root)
+        self.assertEqual(code, 1)
+        self.assertEqual(result["sync"]["exit"], 0)
+        self.assertEqual(result["feedback_sync"]["exit"], 1)
 
 
 if __name__ == "__main__":

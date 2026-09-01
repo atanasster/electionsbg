@@ -15,6 +15,23 @@ const validSubmission = JSON.parse(
     "utf8",
   ),
 ).value;
+const validFeedback = {
+  schema_version: 1,
+  article_key: "example.bg/article-1",
+  base_task_revision: 9,
+  content_sha256: `sha256:${"a".repeat(64)}`,
+  analysis_sha256: null,
+  idempotency_key: "feedback-idempotency-0001",
+  turnstile_token: "feedback-provider-token",
+  browser_nonce: "feedback-browser-0001",
+  feedback: {
+    leaning: null,
+    russia_stance: null,
+    party_tones: [],
+    issue_kinds: ["missing_analysis", "missing_entity"],
+    public_note: "Липсва връзка към институцията.",
+  },
+};
 const publicRequestBytes = JSON.parse(
   readFileSync(resolve(ROOT, "news/eval_contract/contract.json"), "utf8"),
 ).limits.public_request_bytes;
@@ -123,7 +140,7 @@ function assertSafeError(result, status, code) {
   assert.doesNotMatch(result.body, /fixture-token|Материалът|fixture-browser/);
 }
 
-test("only the two exact public route shapes are recognized", () => {
+test("only the exact public route shapes are recognized", async () => {
   assertSafeError(
     invoke({ method: "GET", path: "/api/news-evals" }),
     404,
@@ -139,6 +156,17 @@ test("only the two exact public route shapes are recognized", () => {
       method: "GET",
       path: "/api/news-evals/aggregate/example.bg/article-1",
     }),
+    503,
+    "service_unavailable",
+  );
+  assertSafeError(
+    await invokeAsync(
+      {
+        method: "GET",
+        path: "/api/news-evals/feedback-task/example.bg/article-1",
+      },
+      config,
+    ),
     503,
     "service_unavailable",
   );
@@ -193,6 +221,167 @@ test("recognized routes reject every method outside their allowlist", () => {
   });
   assertSafeError(aggregate, 405, "method_not_allowed");
   assert.equal(aggregate.headers.get("allow"), "GET");
+
+  const feedback = invoke({
+    method: "GET",
+    path: "/api/news-evals/feedback",
+  });
+  assertSafeError(feedback, 405, "method_not_allowed");
+  assert.equal(feedback.headers.get("allow"), "POST");
+});
+
+test("public feedback tasks and partial raw submissions need no user identity", async () => {
+  const feedbackStore = {
+    async task(articleKey) {
+      assert.equal(articleKey, "example.bg/article-1");
+      return {
+        kind: "available",
+        task: {
+          article_key: articleKey,
+          revision: 9,
+          content_sha256: validFeedback.content_sha256,
+          analysis_sha256: null,
+          public_data_revision: "2026-09-01T08:00:00.000Z",
+        },
+      };
+    },
+    async submit(input) {
+      assert.equal(input.request.feedback.issue_kinds[0], "missing_analysis");
+      assert.equal("user" in input.request, false);
+      return {
+        kind: "accepted",
+        created: true,
+        receipt: {
+          submission_id: "feedback-submission-1",
+          status: "raw",
+          article_key: validFeedback.article_key,
+          task_revision: validFeedback.base_task_revision,
+          submitted_at: "2026-09-01T08:05:00.000Z",
+        },
+      };
+    },
+  };
+  const taskResult = await invokeAsync(
+    {
+      method: "GET",
+      path: "/api/news-evals/feedback-task/example.bg/article-1",
+      headers: { origin: "https://news.electionsbg.com" },
+    },
+    { ...config, feedbackStore },
+  );
+  assert.equal(taskResult.status, 200);
+  assert.equal(taskResult.json.task.analysis_sha256, null);
+
+  const submitResult = await invokeAsync(
+    {
+      method: "POST",
+      path: "/api/news-evals/feedback",
+      headers: {
+        origin: "https://news.electionsbg.com",
+        "content-type": "application/json",
+      },
+      body: structuredClone(validFeedback),
+    },
+    securedConfig({ kind: "valid" }, { feedbackStore }),
+  );
+  assert.equal(submitResult.status, 201);
+  assert.equal(submitResult.json.submission.status, "raw");
+});
+
+test("feedback submission rejects invalid fields and maps every store outcome", async () => {
+  let verificationCalls = 0;
+  const invalid = structuredClone(validFeedback);
+  invalid.feedback.party_tones = [
+    {
+      party: "Примерна партия",
+      party_id: null,
+      tone: "unsupported",
+      evidence: "",
+    },
+  ];
+  const invalidResult = await invokeAsync(
+    {
+      method: "POST",
+      path: "/api/news-evals/feedback",
+      headers: { "content-type": "application/json" },
+      body: invalid,
+    },
+    securedConfig(
+      { kind: "valid" },
+      {
+        security: () => ({
+          hmacKeyring: testKeyring,
+          turnstileVerifier: {
+            verify: async () => {
+              verificationCalls += 1;
+              return { kind: "valid" };
+            },
+          },
+        }),
+      },
+    ),
+  );
+  assertSafeError(invalidResult, 422, "invalid_request");
+  assert.equal(verificationCalls, 0);
+
+  const outcomes = [
+    [{ kind: "task_not_found" }, 404, "task_not_found"],
+    [{ kind: "task_unavailable" }, 409, "task_unavailable"],
+    [{ kind: "task_conflict", currentRevision: 10 }, 409, "stale_task"],
+    [{ kind: "idempotency_conflict" }, 409, "idempotency_conflict"],
+    [{ kind: "duplicate_article_revision" }, 409, "duplicate_submission"],
+    [
+      { kind: "rate_limited", scope: "global", retryAfterSeconds: 90 },
+      429,
+      "rate_limited",
+    ],
+  ];
+  for (const [outcome, status, code] of outcomes) {
+    const result = await invokeAsync(
+      {
+        method: "POST",
+        path: "/api/news-evals/feedback",
+        headers: { "content-type": "application/json" },
+        body: structuredClone(validFeedback),
+      },
+      securedConfig(
+        { kind: "valid" },
+        { feedbackStore: { submit: async () => outcome } },
+      ),
+    );
+    assertSafeError(result, status, code);
+  }
+
+  const challenge = await invokeAsync(
+    {
+      method: "POST",
+      path: "/api/news-evals/feedback",
+      headers: { "content-type": "application/json" },
+      body: structuredClone(validFeedback),
+    },
+    securedConfig({ kind: "invalid", reasons: ["invalid-input-response"] }),
+  );
+  assertSafeError(challenge, 422, "challenge_failed");
+
+  const unavailable = await invokeAsync(
+    {
+      method: "POST",
+      path: "/api/news-evals/feedback",
+      headers: { "content-type": "application/json" },
+      body: structuredClone(validFeedback),
+    },
+    securedConfig(
+      { kind: "valid" },
+      {
+        feedbackStore: {
+          submit: async () => {
+            throw new Error("storage unavailable");
+          },
+        },
+      },
+    ),
+  );
+  assertSafeError(unavailable, 503, "service_unavailable");
 });
 
 test("CORS echoes only the exact production origin", () => {

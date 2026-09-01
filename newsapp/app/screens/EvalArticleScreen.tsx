@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ExternalLink, Plus, RotateCcw, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -54,6 +54,7 @@ import {
   RUSSIA_META,
   TONE_META,
 } from "../labels";
+import { ArticleFeedbackScreen } from "./ArticleFeedbackScreen";
 
 const SCALAR_REASONS: EvalReasonCode[] = [
   "model_missed_context",
@@ -338,7 +339,7 @@ const Comparison = ({ receipt }: { receipt: SubmissionReceipt }) => {
   );
 };
 
-export const EvalArticleScreen = () => {
+const EvaluationWorkspace = () => {
   const { domain = "", id = "" } = useParams();
   const queue = useEvalQueue();
   const articles = useOutletArticles(domain || null);
@@ -1112,5 +1113,15 @@ export const EvalArticleScreen = () => {
         )}
       </div>
     </article>
+  );
+};
+
+export const EvalArticleScreen = () => {
+  const { domain = "", id = "" } = useParams();
+  const [searchParams] = useSearchParams();
+  return searchParams.get("mode") === "feedback" ? (
+    <ArticleFeedbackScreen domain={domain} articleId={id} />
+  ) : (
+    <EvaluationWorkspace />
   );
 };

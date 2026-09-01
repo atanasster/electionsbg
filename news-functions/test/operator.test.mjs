@@ -20,6 +20,8 @@ import {
   serializeRawSubmissionExport,
   strictHttpsUrl,
   writeAtomicPrivateFile,
+  verifyLiveFeedbackTaskRelease,
+  verifyProjectFeedbackTaskRelease,
   verifyLiveTaskRelease,
   verifyProjectTaskRelease,
 } from "../lib/operator.js";
@@ -357,6 +359,63 @@ function releaseProof(manifest, overrides = {}) {
   };
 }
 
+function feedbackTask(key = ARTICLE_KEY, overrides = {}) {
+  const [domain, articleId] = key.split("/");
+  const contentHash = overrides.content_sha256 ?? CONTENT_HASH;
+  const analysisHash = Object.hasOwn(overrides, "analysis_sha256")
+    ? overrides.analysis_sha256
+    : null;
+  const digest = canonicalSha256({
+    contract: "article-feedback-v1",
+    content_sha256: contentHash,
+    analysis_sha256: analysisHash,
+  }).slice("sha256:".length);
+  return {
+    schema_version: 1,
+    contract: "article-feedback-v1",
+    article_key: key,
+    domain,
+    article_id: articleId,
+    url: `https://${domain}/${articleId}`,
+    title: "Публична статия",
+    content_sha256: contentHash,
+    analysis_sha256: analysisHash,
+    public_data_revision: "2026-08-31T11:00:00.000Z",
+    accepts_public_feedback: true,
+    revision: Number.parseInt(digest.slice(0, 12), 16) + 1,
+    updated_at: "2026-08-31T11:00:00.000Z",
+    ...overrides,
+  };
+}
+
+function feedbackManifest(tasks, overrides = {}) {
+  const sourceArticles = tasks.map((task) => ({
+    article_key: task.article_key,
+    analysis_sha256: task.analysis_sha256,
+  }));
+  return {
+    schema_version: 1,
+    manifest_kind: "news-feedback-task-sync",
+    generated_at: "2026-08-31T11:00:00.000Z",
+    public_data_revision: "2026-08-31T11:00:00.000Z",
+    task_count: tasks.length,
+    source_articles_sha256: canonicalSha256(sourceArticles),
+    tasks_sha256: canonicalSha256(tasks),
+    tasks,
+    ...overrides,
+  };
+}
+
+function feedbackProof(manifest, overrides = {}) {
+  return {
+    publicDataRevision: manifest.public_data_revision,
+    runId: "2026-08-31T110000Z-1234",
+    liveManifestUrl:
+      "https://storage.googleapis.com/data-electionsbg-com/news/app-data/manifest.json",
+    ...overrides,
+  };
+}
+
 test("raw export is sorted, hashed, allowlisted, and round-trips as JSONL", () => {
   const exported = buildRawSubmissionExport("electionsbg-news", {
     readTime: new Date("2026-08-31T12:30:00.000Z"),
@@ -397,7 +456,10 @@ test("the shared HTTPS URL vectors match the operator boundary", () => {
   for (const value of urlVectors.valid)
     assert.equal(strictHttpsUrl(value), value);
   for (const value of urlVectors.invalid)
-    assert.throws(() => strictHttpsUrl(value), /URL|HTTPS|credentials|whitespace/);
+    assert.throws(
+      () => strictHttpsUrl(value),
+      /URL|HTTPS|credentials|whitespace/,
+    );
 });
 
 test("raw export fails closed on missing read time or private model-label fields", () => {
@@ -449,7 +511,10 @@ test("accepted snapshot is deterministic, allowlisted, hashed, and round-trips",
   );
   assert.equal(exported.manifest.record_count, 2);
   assert.match(exported.manifest.records_sha256, /^sha256:[a-f0-9]{64}$/);
-  assert.equal(exported.records[0].rubric_version, "news-article-evaluation-v1");
+  assert.equal(
+    exported.records[0].rubric_version,
+    "news-article-evaluation-v1",
+  );
   const serialized = serializeAcceptedAdjudicationSnapshot(exported);
   assert.deepEqual(parseAcceptedAdjudicationSnapshot(serialized), exported);
 
@@ -725,7 +790,10 @@ test("idempotent acceptance retries reject drift in every frozen field", async (
     },
     (current) => delete current.model_labels,
     (current) => {
-      current.model_labels = { ...current.model_labels, leaning: "progressive" };
+      current.model_labels = {
+        ...current.model_labels,
+        leaning: "progressive",
+      };
     },
   ]) {
     const database = new FakeFirestore([
@@ -1178,4 +1246,169 @@ test("task sync ignores lifetime inactive history while bounding active plus des
   assert.equal(result.activated, 1);
   assert.equal(result.deactivated, 0);
   assert.equal(database.documents.size, 452);
+});
+
+test("all-article feedback task sync activates desired tasks and retires stale tasks", async () => {
+  const staleKey = "old.example/article-9";
+  const staleId = Buffer.from(staleKey, "utf8").toString("base64url");
+  const manifest = feedbackManifest([feedbackTask()]);
+  const database = new FakeFirestore([
+    [
+      `news_feedback_tasks/${staleId}`,
+      feedbackTask(staleKey, {
+        public_data_revision: "2026-08-30T11:00:00.000Z",
+        updated_at: "2026-08-30T11:00:00.000Z",
+      }),
+    ],
+  ]);
+  const store = new FirestoreOperatorStore(database);
+  const result = await store.syncFeedbackTasks(
+    manifest,
+    feedbackProof(manifest),
+  );
+  assert.equal(result.task_count, 1);
+  assert.equal(result.written, 1);
+  assert.equal(result.deactivated, 1);
+  assert.equal(
+    database.documents.get(`news_feedback_tasks/${staleId}`)
+      .accepts_public_feedback,
+    false,
+  );
+  assert.equal(
+    database.documents.get("news_feedback_sync/task_manifest").live_release
+      .run_id,
+    "2026-08-31T110000Z-1234",
+  );
+  const retry = await store.syncFeedbackTasks(
+    manifest,
+    feedbackProof(manifest),
+  );
+  assert.equal(retry.written, 0);
+  assert.equal(retry.unchanged, 1);
+  assert.equal(retry.deactivated, 0);
+});
+
+test("feedback task release verification pins production and checks live bundles", async () => {
+  const manifest = feedbackManifest([feedbackTask()]);
+  const manifestUrl = feedbackProof(manifest).liveManifestUrl;
+  const articleBundle = JSON.stringify({
+    domain: "example.bg",
+    generated_at: manifest.public_data_revision,
+    articles: [{ id: "article-1" }],
+  });
+  const live = {
+    version: 2,
+    home_health_ready: true,
+    run_id: "2026-08-31T110000Z-1234",
+    generated_at: manifest.public_data_revision,
+    data_base: "versions/2026-08-31T110000Z-1234",
+    accepted_snapshot_records_sha256: null,
+    bundle: {
+      inventory: [
+        {
+          path: "articles/example.bg.json",
+          sha256: createHash("sha256").update(articleBundle).digest("hex"),
+        },
+      ],
+    },
+  };
+  const response = (body) => ({
+    ok: true,
+    status: 200,
+    arrayBuffer: async () => Uint8Array.from(Buffer.from(body)).buffer,
+  });
+  const fetcher = async (url) =>
+    response(url === manifestUrl ? JSON.stringify(live) : articleBundle);
+  assert.deepEqual(
+    await verifyLiveFeedbackTaskRelease(manifest, manifestUrl, fetcher),
+    feedbackProof(manifest),
+  );
+  const changedAnalysisBundle = JSON.stringify({
+    domain: "example.bg",
+    generated_at: manifest.public_data_revision,
+    articles: [
+      { id: "article-1", analysis: { leaning: { label: "progressive" } } },
+    ],
+  });
+  const changedAnalysisLive = {
+    ...live,
+    bundle: {
+      inventory: [
+        {
+          path: "articles/example.bg.json",
+          sha256: createHash("sha256")
+            .update(changedAnalysisBundle)
+            .digest("hex"),
+        },
+      ],
+    },
+  };
+  await assert.rejects(
+    () =>
+      verifyLiveFeedbackTaskRelease(manifest, manifestUrl, async (url) =>
+        response(
+          url === manifestUrl
+            ? JSON.stringify(changedAnalysisLive)
+            : changedAnalysisBundle,
+        ),
+      ),
+    /source hash does not match live public analysis/,
+  );
+  await assert.rejects(
+    () =>
+      verifyLiveFeedbackTaskRelease(manifest, manifestUrl, async (url) =>
+        response(
+          url === manifestUrl ? JSON.stringify(live) : `${articleBundle} `,
+        ),
+      ),
+    /bytes do not match publication inventory/,
+  );
+  await assert.rejects(
+    () =>
+      verifyLiveFeedbackTaskRelease(manifest, manifestUrl, async () =>
+        response(JSON.stringify({ ...live, bundle: { inventory: [] } })),
+      ),
+    /no article bundles/,
+  );
+  let fetches = 0;
+  await assert.rejects(
+    () =>
+      verifyProjectFeedbackTaskRelease(
+        "electionsbg-news",
+        manifest,
+        "https://attacker.invalid/manifest.json",
+        async () => {
+          fetches += 1;
+          return response(JSON.stringify(live));
+        },
+      ),
+    /exact production app-data manifest/,
+  );
+  assert.equal(fetches, 0);
+});
+
+test("feedback task sync rejects rollback and same-revision drift before task writes", async () => {
+  const incoming = feedbackManifest([feedbackTask()]);
+  for (const state of [
+    {
+      public_data_revision: "2026-09-01T11:00:00.000Z",
+      tasks_sha256: incoming.tasks_sha256,
+    },
+    {
+      public_data_revision: incoming.public_data_revision,
+      tasks_sha256: CONTENT_HASH,
+    },
+  ]) {
+    const database = new FakeFirestore([
+      ["news_feedback_sync/task_manifest", state],
+    ]);
+    const before = clone([...database.documents]);
+    await assert.rejects(() =>
+      new FirestoreOperatorStore(database).syncFeedbackTasks(
+        incoming,
+        feedbackProof(incoming),
+      ),
+    );
+    assert.deepEqual([...database.documents], before);
+  }
 });

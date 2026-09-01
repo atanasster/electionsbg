@@ -70,22 +70,22 @@ export interface EvaluationStore {
   }): Promise<AggregateOutcome>;
 }
 
-type DocumentSnapshotLike = {
+export type DocumentSnapshotLike = {
   exists: boolean;
   data(): JsonObject | undefined;
 };
 
-type DocumentReferenceLike = {
+export type DocumentReferenceLike = {
   readonly id: string;
   readonly path: string;
   get(): Promise<DocumentSnapshotLike>;
 };
 
-type CollectionReferenceLike = {
+export type CollectionReferenceLike = {
   doc(id: string): DocumentReferenceLike;
 };
 
-type TransactionLike = {
+export type TransactionLike = {
   get(reference: DocumentReferenceLike): Promise<DocumentSnapshotLike>;
   set(
     reference: DocumentReferenceLike,

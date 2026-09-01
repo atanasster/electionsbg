@@ -57,7 +57,6 @@ import { ReportIssueLink } from "../components/ReportIssueLink";
 import { ArticleContributionCard } from "../components/ArticleContributionCard";
 import { emitNewsEvent } from "../analytics";
 import { evalTaskPath, useEvalQueue } from "../evals";
-import { correctionIssueUrl } from "../corrections";
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -317,15 +316,12 @@ export const ArticleScreen = () => {
             </span>
           </Link>
         ) : (
-          <a
-            href={correctionIssueUrl(`/article/${domain}/${id}`)}
-            target="_blank"
-            rel="noreferrer noopener"
+          <Link
+            to={`/evals/article/${encodeURIComponent(domain)}/${encodeURIComponent(id)}?mode=feedback`}
             className="text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
-            Допълнете анализа или връзките <span aria-hidden>↗</span>
-            <span className="sr-only"> (отваря се в нов раздел)</span>
-          </a>
+            Допълнете анализа или връзките
+          </Link>
         )}
       </div>
 
@@ -563,6 +559,7 @@ export const ArticleScreen = () => {
       <ArticleContributionCard
         articlePath={`/article/${domain}/${id}`}
         evaluationPath={evalTask ? evalTaskPath(evalTask) : null}
+        feedbackPath={`/evals/article/${encodeURIComponent(domain)}/${encodeURIComponent(id)}?mode=feedback`}
         hasAnalysis={Boolean(analysis)}
       />
 
