@@ -1,0 +1,139 @@
+{
+  "party_identity_version": 2,
+  "scope": "Exact Bulgarian party identity for article items; foreign parties are country-scoped and excluded from Bulgarian aggregates.",
+  "ambiguous_bg_surfaces": [
+    {
+      "surface": "ПП",
+      "reason": "The abbreviation may name Продължаваме промяната, a legal party prefix, or the ПП-ДБ coalition; surface-only resolution is refused."
+    },
+    {
+      "surface": "ДБ",
+      "reason": "The abbreviation may name the historic ДБ electoral coalition, a component identity, or current ПП-ДБ usage; publication context and date are required."
+    },
+    {
+      "surface": "ПП-ДБ",
+      "reason": "The surface may refer to the electoral coalition or its component parties as a political group; an exact identity requires reviewed context."
+    },
+    {
+      "surface": "ППДБ",
+      "reason": "Unpunctuated shorthand for ПП-ДБ is not an official canonical surface and requires reviewed context."
+    },
+    {
+      "surface": "Демократична България",
+      "reason": "The name can refer to the 2021–2022 coalition, component parties, or the later ПП-ДБ grouping; date alone does not settle the intended entity."
+    },
+    {
+      "surface": "Да, България",
+      "reason": "The component party has no exact standalone identity in the election-party registry used by public party pages."
+    }
+  ],
+  "reviewed_context_rules": [
+    {
+      "id": "ppdb-full-coalition-name",
+      "reviewed": false,
+      "surfaces": ["ПП-ДБ", "ППДБ"],
+      "party_id": "p_6",
+      "party_aggregate_id": "p_6",
+      "valid_from": "2023-04-02",
+      "valid_to": null,
+      "requires_text_any": [
+        "Коалиция Продължаваме промяната – Демократична България",
+        "Коалиция Продължаваме промяната - Демократична България"
+      ],
+      "forbids_text_any": [],
+      "reason": "The document spells out the registered coalition name in its valid election period. Pending independent human review."
+    },
+    {
+      "id": "db-historic-full-coalition-name",
+      "reviewed": false,
+      "surfaces": ["ДБ", "Демократична България"],
+      "party_id": "p_72",
+      "party_aggregate_id": "p_72",
+      "valid_from": "2021-04-04",
+      "valid_to": "2022-10-02",
+      "requires_text_any": ["Демократична България – Обединение", "Демократична България - Обединение"],
+      "forbids_text_any": [],
+      "reason": "The document spells out the historic registered coalition within its election period. Pending independent human review."
+    },
+    {
+      "id": "pp-full-party-name",
+      "reviewed": false,
+      "surfaces": ["ПП"],
+      "party_id": "p_67",
+      "party_aggregate_id": "p_67",
+      "valid_from": "2021-11-14",
+      "valid_to": null,
+      "requires_text_any": ["Продължаваме промяната"],
+      "forbids_text_any": ["Продължаваме промяната – Демократична България", "Продължаваме промяната - Демократична България"],
+      "reason": "The document names Продължаваме промяната without the ПП-ДБ coalition name. Pending independent human review."
+    }
+  ],
+  "foreign_parties": [
+    {
+      "country_code": "DE",
+      "surfaces": ["AfD", "Алтернатива за Германия", "ХДС", "ХСС", "ХДС/ХСС", "ГСДП", "Социалдемократическа партия на Германия", "Съюз 90/Зелените", "Зелените"],
+      "requires_text_any": ["Германия", "германски", "германската", "Бундестаг", "Берлин", "Фридрих Мерц"],
+      "reason": "Reviewed German party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "FR",
+      "surfaces": ["Непокорна Франция", "Непокорена Франция", "Френска социалистическа партия", "Плас Пюблик", "Национален сбор"],
+      "reason": "Reviewed French party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "US",
+      "surfaces": ["Републиканска партия", "Демократическа партия", "Демократическата партия"],
+      "reason": "Reviewed United States party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "MK",
+      "surfaces": ["ВМРО-ДПМНЕ", "СДСМ", "Демократическа партия на сърбите в Северна Македония", "Либерално-демократическа партия"],
+      "reason": "Reviewed North Macedonian party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "RU",
+      "surfaces": ["Единна Русия"],
+      "reason": "Reviewed Russian party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "UA",
+      "surfaces": ["Голос"],
+      "reason": "Reviewed Ukrainian party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "HU",
+      "surfaces": ["Тиса"],
+      "reason": "Reviewed Hungarian party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "BO",
+      "surfaces": ["MAS", "Движение за социализъм (MAS)"],
+      "reason": "Reviewed Bolivian party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "VE",
+      "surfaces": ["Венте"],
+      "reason": "Reviewed Venezuelan party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "GB",
+      "surfaces": ["Лейбъристката партия", "Британската реформистка партия"],
+      "reason": "Reviewed United Kingdom party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "AT",
+      "surfaces": ["FPÖ"],
+      "reason": "Reviewed Austrian party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "CZ",
+      "surfaces": ["ANO", "Свобода и пряка демокрация"],
+      "reason": "Reviewed Czech party surface; retained at article level and excluded from Bulgarian party aggregates."
+    },
+    {
+      "country_code": "TR",
+      "surfaces": ["Нова партия", "Партия на националистическото действие", "Народнорепубликанска партия"],
+      "reason": "Reviewed Turkish party surface; retained at article level and excluded from Bulgarian party aggregates."
+    }
+  ]
+}

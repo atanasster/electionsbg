@@ -1,0 +1,473 @@
+{
+  "fixture_set": "editorial-treatment-boundaries-v2",
+  "analysis_rubric_version": 2,
+  "party_tones_version": 3,
+  "analysis_evidence_gate_version": 2,
+  "description": "Synthetic Bulgarian boundary cases. Excerpts are original test text, not copied article bodies.",
+  "cases": [
+    {
+      "id": "party-001",
+      "axis": "party_tone",
+      "article_type": "press_release",
+      "excerpt_bg": "ГЕРБ представи програмата си като единствения работещ план за града. Текстът приключва без реакция или проверка.",
+      "subject": "ГЕРБ",
+      "expected": {"label": "favorable", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["ГЕРБ представи програмата си като единствения работещ план за града."], "reason": "A central chosen message controls the item without material challenge."}
+    },
+    {
+      "id": "party-002",
+      "axis": "party_tone",
+      "article_type": "procedural_report",
+      "excerpt_bg": "ГЕРБ внесе законопроекта в 10:15 ч. Председателят го разпредели на две комисии.",
+      "subject": "ГЕРБ",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "The item records procedure without granting either side control of the frame."}
+    },
+    {
+      "id": "party-003",
+      "axis": "party_tone",
+      "article_type": "multi_source_report",
+      "excerpt_bg": "БСП обяви, че мярката ще помогне на семействата. Икономист посочи, че сметките са непълни и цената е занижена.",
+      "subject": "БСП",
+      "expected": {"label": "unfavorable", "treatment_basis": "critical_context", "mixed_evidence": false, "evidence_quotes": ["Икономист посочи, че сметките са непълни и цената е занижена."], "reason": "The selected countervoice materially weakens the party's central premise."}
+    },
+    {
+      "id": "party-004",
+      "axis": "party_tone",
+      "article_type": "multi_source_report",
+      "excerpt_bg": "БСП защити предложението с данни за доходите. Работодателите оспориха цената, а синдикатите подкрепиха целта и предложиха промяна.",
+      "subject": "БСП",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": true, "evidence_quotes": ["Работодателите оспориха цената", "синдикатите подкрепиха целта"], "reason": "Substantial criticism and support receive comparable editorial weight."}
+    },
+    {
+      "id": "party-005",
+      "axis": "party_tone",
+      "article_type": "investigation",
+      "excerpt_bg": "Документите показват, че ДПС е скрило свързани договори, а обясненията му си противоречат. Партията отрича нарушения.",
+      "subject": "ДПС",
+      "expected": {"label": "strong_unfavorable", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["Документите показват, че ДПС е скрило свързани договори, а обясненията му си противоречат."], "reason": "The investigation adopts and sustains a documented hostile thesis; the reply does not neutralize it."}
+    },
+    {
+      "id": "party-006",
+      "axis": "party_tone",
+      "article_type": "profile",
+      "excerpt_bg": "Възраждане е представено като смелата сила, която единствена защитава гражданите от натиск. Успехите му са описани като безспорни.",
+      "subject": "Възраждане",
+      "expected": {"label": "strong_favorable", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["Възраждане е представено като смелата сила, която единствена защитава гражданите от натиск."], "reason": "The narration adopts a dominant celebratory thesis rather than merely relaying a claim."}
+    },
+    {
+      "id": "party-007",
+      "axis": "party_tone",
+      "article_type": "interview",
+      "excerpt_bg": "Лидерът на ИТН каза: „Ние спряхме лошия закон“. Интервюто премина към следващ въпрос без проверка на твърдението.",
+      "subject": "ИТН",
+      "expected": {"label": "favorable", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["Ние спряхме лошия закон"], "reason": "A central self-serving interview answer is carried without material challenge, but the article does not endorse it strongly."}
+    },
+    {
+      "id": "party-008",
+      "axis": "party_tone",
+      "article_type": "wire_copy",
+      "excerpt_bg": "ПП-ДБ съобщи имената на кандидатите. ЦИК регистрира листата същия ден.",
+      "subject": "ПП-ДБ",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "A central mention can remain neutral when the item is only verifiable procedure."}
+    },
+    {
+      "id": "party-009",
+      "axis": "party_tone",
+      "article_type": "opinion",
+      "excerpt_bg": "Авторът нарича ГЕРБ машина за зависимости и твърди, че всяко обещание прикрива нова услуга към близки фирми.",
+      "subject": "ГЕРБ",
+      "expected": {"label": "strong_unfavorable", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["ГЕРБ машина за зависимости"], "reason": "The author's own denunciatory thesis dominates the piece."}
+    },
+    {
+      "id": "party-010",
+      "axis": "party_tone",
+      "article_type": "opinion",
+      "excerpt_bg": "Авторът защитава ДБ като последователен пазител на съдебната реформа и отхвърля всички критики като цинични атаки.",
+      "subject": "ДБ",
+      "expected": {"label": "strong_favorable", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["Авторът защитава ДБ като последователен пазител на съдебната реформа"], "reason": "The article itself endorses and defends the party."}
+    },
+    {
+      "id": "party-011",
+      "axis": "party_tone",
+      "article_type": "multi_source_report",
+      "excerpt_bg": "СДС представи позицията си. Две организации я критикуваха, но партията получи пълен отговор и данните на двете страни са проверени.",
+      "subject": "СДС",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": true, "evidence_quotes": ["Две организации я критикуваха", "партията получи пълен отговор"], "reason": "The countervoices are real, but the edit provides proportionate response and verification."}
+    },
+    {
+      "id": "party-012",
+      "axis": "party_tone",
+      "article_type": "brief",
+      "excerpt_bg": "Кметът откри изложбата. В края е отбелязано, че е избран от ГЕРБ.",
+      "subject": "ГЕРБ",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "An incidental historical affiliation is not clean amplification."}
+    },
+    {
+      "id": "party-013",
+      "axis": "party_tone",
+      "article_type": "announcement",
+      "excerpt_bg": "ДПС заяви, че бюджетът защитава регионите, и изложи пет свои аргумента. Не е включена друга оценка.",
+      "subject": "ДПС",
+      "expected": {"label": "favorable", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["ДПС заяви, че бюджетът защитава регионите, и изложи пет свои аргумента."], "reason": "The party's chosen premise controls the item without challenge."}
+    },
+    {
+      "id": "party-014",
+      "axis": "party_tone",
+      "article_type": "fact_check",
+      "excerpt_bg": "Възраждане твърди, че данъкът се удвоява. Публикуваната ставка показва увеличение от 4%, а не 100%.",
+      "subject": "Възраждане",
+      "expected": {"label": "unfavorable", "treatment_basis": "critical_context", "mixed_evidence": false, "evidence_quotes": ["Публикуваната ставка показва увеличение от 4%, а не 100%."], "reason": "Verified context directly contradicts the central claim."}
+    },
+    {
+      "id": "party-015",
+      "axis": "party_tone",
+      "article_type": "investigation",
+      "excerpt_bg": "Проверката намира нарушения при двама местни кадри на БСП, но не доказва знание на ръководството. Текстът отличава двете нива.",
+      "subject": "БСП",
+      "expected": {"label": "unfavorable", "treatment_basis": "critical_context", "mixed_evidence": false, "evidence_quotes": ["Проверката намира нарушения при двама местни кадри на БСП"], "reason": "The adverse evidence is material but the edit avoids a dominant party-wide accusation."}
+    },
+    {
+      "id": "party-016",
+      "axis": "party_tone",
+      "article_type": "profile",
+      "excerpt_bg": "Профилът описва успехите на ИТН, но проверява неизпълнените обещания и дава място на отговора му.",
+      "subject": "ИТН",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": true, "evidence_quotes": ["описва успехите на ИТН", "проверява неизпълнените обещания"], "reason": "Substantial favorable and unfavorable material is balanced."}
+    },
+    {
+      "id": "party-017",
+      "axis": "party_tone",
+      "article_type": "headline_report",
+      "excerpt_bg": "„БСП предлага спасение за малките общини“ гласи заглавието. Статията препечатва мотивите на партията без въпроси.",
+      "subject": "БСП",
+      "expected": {"label": "favorable", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["БСП предлага спасение за малките общини"], "reason": "The headline and structure give the party's premise editorial control."}
+    },
+    {
+      "id": "party-018",
+      "axis": "party_tone",
+      "article_type": "headline_report",
+      "excerpt_bg": "Заглавието пита дали ПП-ДБ отново подвежда избирателите. Текстът добавя критик, без да поиска отговор от коалицията.",
+      "subject": "ПП-ДБ",
+      "expected": {"label": "unfavorable", "treatment_basis": "critical_context", "mixed_evidence": false, "evidence_quotes": ["дали ПП-ДБ отново подвежда избирателите"], "reason": "Loaded framing and an unanswered countervoice materially weaken the subject."}
+    },
+    {
+      "id": "party-019",
+      "axis": "party_tone",
+      "article_type": "quote_roundup",
+      "excerpt_bg": "ГЕРБ похвали собствения си резултат, а БСП го нарече провал. Редакцията подрежда изявленията еднакво и не прави извод.",
+      "subject": "ГЕРБ",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": true, "evidence_quotes": ["ГЕРБ похвали собствения си резултат", "БСП го нарече провал"], "reason": "Attributed attack and self-praise do not become strong editorial treatment when evenly presented."}
+    },
+    {
+      "id": "party-020",
+      "axis": "party_tone",
+      "article_type": "correction",
+      "excerpt_bg": "Първоначално редакцията приписа грешна сума на ДПС. Поправката посочва точната стойност и обяснява техническата грешка.",
+      "subject": "ДПС",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "A factual correction without evaluative framing is neutral."}
+    },
+    {
+      "id": "party-021",
+      "axis": "party_tone",
+      "article_type": "analysis",
+      "excerpt_bg": "Анализът признава, че ГЕРБ стабилизира управлението, но заключава, че цената е непрозрачна зависимост, която задушава институциите.",
+      "subject": "ГЕРБ",
+      "expected": {"label": "strong_unfavorable", "treatment_basis": "authorial_thesis", "mixed_evidence": true, "evidence_quotes": ["ГЕРБ стабилизира управлението", "цената е непрозрачна зависимост, която задушава институциите"], "reason": "The net thesis is strongly hostile while genuine favorable evidence remains explicit."}
+    },
+
+    {
+      "id": "russia-001",
+      "axis": "russia_stance",
+      "article_type": "wire_copy",
+      "excerpt_bg": "Руското външно министерство заяви, че санкциите са незаконни. Съобщението е предадено без друга оценка.",
+      "expected": {"label": "pro_russia", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["санкциите са незаконни"], "reason": "A Russian-state premise is central and unchallenged, even though it is attributed."}
+    },
+    {
+      "id": "russia-002",
+      "axis": "russia_stance",
+      "article_type": "procedural_report",
+      "excerpt_bg": "Делегациите на Русия и Украйна пристигнаха в 9 ч. Разговорите приключиха без общо изявление.",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "Russia is material, but the item reports only procedure."}
+    },
+    {
+      "id": "russia-003",
+      "axis": "russia_stance",
+      "article_type": "domestic_report",
+      "excerpt_bg": "Общинският съвет прие нов график за сметосъбиране. Русия не е част от темата.",
+      "expected": {"label": "not_applicable", "treatment_basis": "not_applicable", "mixed_evidence": false, "evidence_quotes": [], "reason": "The Russian state and its policy are absent from the material issue."}
+    },
+    {
+      "id": "russia-004",
+      "axis": "russia_stance",
+      "article_type": "fact_check",
+      "excerpt_bg": "Москва твърди, че конвоят не е навлизал в Украйна. Сателитните снимки показват руските машини отвъд границата.",
+      "expected": {"label": "anti_russia", "treatment_basis": "critical_context", "mixed_evidence": false, "evidence_quotes": ["Сателитните снимки показват руските машини отвъд границата."], "reason": "Verified context materially contradicts the Russian-state premise."}
+    },
+    {
+      "id": "russia-005",
+      "axis": "russia_stance",
+      "article_type": "opinion",
+      "excerpt_bg": "Авторът прославя Кремъл като единствен защитник на мира и определя всяка критика към Москва като западна измама.",
+      "expected": {"label": "strong_pro_russia", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["Кремъл като единствен защитник на мира"], "reason": "The article adopts a sustained glorifying thesis about Russian state policy."}
+    },
+    {
+      "id": "russia-006",
+      "axis": "russia_stance",
+      "article_type": "opinion",
+      "excerpt_bg": "Авторът нарича руската война имперски проект и настоява Европа трайно да изолира режима в Кремъл.",
+      "expected": {"label": "strong_anti_russia", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["Европа трайно да изолира режима в Кремъл"], "reason": "The article adopts sustained denunciation and containment advocacy."}
+    },
+    {
+      "id": "russia-007",
+      "axis": "russia_stance",
+      "article_type": "multi_source_report",
+      "excerpt_bg": "Русия нарече удара отбранителен. Украйна го определи като агресия, а наблюдатели описаха доказателствата и на двете страни.",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": true, "evidence_quotes": ["Русия нарече удара отбранителен", "Украйна го определи като агресия"], "reason": "Opposing premises receive comparable weight and independent context."}
+    },
+    {
+      "id": "russia-008",
+      "axis": "russia_stance",
+      "article_type": "culture",
+      "excerpt_bg": "Изложбата представя руски авангард от началото на XX век. Текстът обсъжда художници и техника, не държавна политика.",
+      "expected": {"label": "not_applicable", "treatment_basis": "not_applicable", "mixed_evidence": false, "evidence_quotes": [], "reason": "Russian culture is not a proxy for the Russian state or its policy."}
+    },
+    {
+      "id": "russia-009",
+      "axis": "russia_stance",
+      "article_type": "human_interest",
+      "excerpt_bg": "Руска студентка спечели олимпиадата и разказа за подготовката си. Държавни позиции не се обсъждат.",
+      "expected": {"label": "not_applicable", "treatment_basis": "not_applicable", "mixed_evidence": false, "evidence_quotes": [], "reason": "Nationality of a private person does not make the Russia-state axis applicable."}
+    },
+    {
+      "id": "russia-010",
+      "axis": "russia_stance",
+      "article_type": "energy_report",
+      "excerpt_bg": "Газпром представи доставките като надеждни и евтини. Статията повтаря данните на компанията без сравнение или отговор.",
+      "expected": {"label": "pro_russia", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["доставките като надеждни и евтини"], "reason": "A Russian state-agent premise controls the item without challenge."}
+    },
+    {
+      "id": "russia-011",
+      "axis": "russia_stance",
+      "article_type": "energy_report",
+      "excerpt_bg": "Газпром обеща ниски цени, но договорът съдържа наказателна клауза и по-висока индексация от европейската алтернатива.",
+      "expected": {"label": "anti_russia", "treatment_basis": "critical_context", "mixed_evidence": false, "evidence_quotes": ["договорът съдържа наказателна клауза и по-висока индексация"], "reason": "Selected contractual context materially weakens the state-company premise."}
+    },
+    {
+      "id": "russia-012",
+      "axis": "russia_stance",
+      "article_type": "diplomacy",
+      "excerpt_bg": "Русия предложи примирие, което Украйна прие при условие за наблюдатели. Посредникът описа спорните точки без оценка.",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": false, "evidence_quotes": [], "reason": "The material issue is Russian policy, but diplomacy is reported evenly."}
+    },
+    {
+      "id": "russia-013",
+      "axis": "russia_stance",
+      "article_type": "interview",
+      "excerpt_bg": "Руският посланик каза, че НАТО е заплаха и че Москва само се защитава. Интервюиращият не оспори предпоставката.",
+      "expected": {"label": "pro_russia", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["НАТО е заплаха и че Москва само се защитава"], "reason": "An interview can provide a clean microphone without explicit praise."}
+    },
+    {
+      "id": "russia-014",
+      "axis": "russia_stance",
+      "article_type": "interview",
+      "excerpt_bg": "Руският посланик каза, че НАТО е заплаха. Интервюиращият посочи нарушени договори и поиска отговор за нападението.",
+      "expected": {"label": "anti_russia", "treatment_basis": "critical_context", "mixed_evidence": true, "evidence_quotes": ["НАТО е заплаха", "посочи нарушени договори и поиска отговор за нападението"], "reason": "The edit materially challenges the Russian premise while still presenting it."}
+    },
+    {
+      "id": "russia-015",
+      "axis": "russia_stance",
+      "article_type": "history",
+      "excerpt_bg": "Докладът описва решенията на СССР и съюзниците през 1945 г. без да пренася оценката към днешната руска държава.",
+      "expected": {"label": "not_applicable", "treatment_basis": "not_applicable", "mixed_evidence": false, "evidence_quotes": [], "reason": "Historical Soviet material alone does not assess present Russian state policy."}
+    },
+    {
+      "id": "russia-016",
+      "axis": "russia_stance",
+      "article_type": "investigation",
+      "excerpt_bg": "Разследването проследява плащания от руска държавна компания към тайна мрежа за влияние и доказва прикрити договори.",
+      "expected": {"label": "strong_anti_russia", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["доказва прикрити договори"], "reason": "A documented investigation sustains a strongly adverse thesis about a Russian state agent."}
+    },
+    {
+      "id": "russia-017",
+      "axis": "russia_stance",
+      "article_type": "analysis",
+      "excerpt_bg": "Анализът признава руските опасения за сигурността, но заключава, че Москва ги използва като претекст за агресия.",
+      "expected": {"label": "strong_anti_russia", "treatment_basis": "authorial_thesis", "mixed_evidence": true, "evidence_quotes": ["признава руските опасения за сигурността", "Москва ги използва като претекст за агресия"], "reason": "The net thesis strongly condemns state policy while acknowledging a genuine counterpoint."}
+    },
+    {
+      "id": "russia-018",
+      "axis": "russia_stance",
+      "article_type": "analysis",
+      "excerpt_bg": "Анализът критикува репресиите в Русия, но защитава санкционната политика на Москва като необходим отговор на западен натиск.",
+      "expected": {"label": "pro_russia", "treatment_basis": "authorial_thesis", "mixed_evidence": true, "evidence_quotes": ["критикува репресиите в Русия", "защитава санкционната политика на Москва като необходим отговор"], "reason": "The net position favors the Russian-state premise, with material evidence in both directions."}
+    },
+    {
+      "id": "russia-019",
+      "axis": "russia_stance",
+      "article_type": "brief",
+      "excerpt_bg": "В прогнозата за времето се споменава студен фронт от Русия. Политика и държавни действия не присъстват.",
+      "expected": {"label": "not_applicable", "treatment_basis": "not_applicable", "mixed_evidence": false, "evidence_quotes": [], "reason": "A geographic mention does not activate the Russian-state axis."}
+    },
+    {
+      "id": "russia-020",
+      "axis": "russia_stance",
+      "article_type": "sanctions_report",
+      "excerpt_bg": "ЕС прие нови санкции срещу Русия. Текстът изброява мерките, гласовете и датата на влизане в сила.",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "Sanctions make the axis applicable, but procedural reporting has no directional frame."}
+    },
+    {
+      "id": "russia-021",
+      "axis": "russia_stance",
+      "article_type": "editorial",
+      "excerpt_bg": "Редакцията настоява България незабавно да възстанови стратегическото партньорство с Москва и нарича Кремъл естествен съюзник.",
+      "expected": {"label": "strong_pro_russia", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["Кремъл естествен съюзник"], "reason": "The editorial explicitly endorses a dominant pro-Russian-state thesis."}
+    },
+
+    {
+      "id": "leaning-001",
+      "axis": "leaning",
+      "article_type": "rights_report",
+      "excerpt_bg": "Организацията заяви, че законът защитава равните права на еднополовите семейства. Текстът предава позицията без възражение.",
+      "expected": {"label": "progressive", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["законът защитава равните права на еднополовите семейства"], "reason": "A central liberal-rights proposition is amplified without challenge."}
+    },
+    {
+      "id": "leaning-002",
+      "axis": "leaning",
+      "article_type": "family_policy",
+      "excerpt_bg": "Сдружението поиска училището да пази традиционното семейство от джендър идеология. Друг източник не е включен.",
+      "expected": {"label": "conservative", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["училището да пази традиционното семейство от джендър идеология"], "reason": "A central conservative social proposition controls the item without challenge."}
+    },
+    {
+      "id": "leaning-003",
+      "axis": "leaning",
+      "article_type": "parliament_report",
+      "excerpt_bg": "Парламентът прие бюджета със 121 гласа. Заседанието приключи в 18:40 ч.",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "The topic is political, so the axis applies, but no ideological proposition is advanced."}
+    },
+    {
+      "id": "leaning-004",
+      "axis": "leaning",
+      "article_type": "sports",
+      "excerpt_bg": "Отборът спечели финала с 2:1 след продължения.",
+      "expected": {"label": "not_applicable", "treatment_basis": "not_applicable", "mixed_evidence": false, "evidence_quotes": [], "reason": "The subject has no political dimension."}
+    },
+    {
+      "id": "leaning-005",
+      "axis": "leaning",
+      "article_type": "opinion",
+      "excerpt_bg": "Авторът настоява, че плурализмът и независимият съд са безусловната основа на свободното общество и осъжда всяко отстъпление.",
+      "expected": {"label": "strong_progressive", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["плурализмът и независимият съд са безусловната основа на свободното общество"], "reason": "The article adopts and sustains a dominant liberal-democratic thesis."}
+    },
+    {
+      "id": "leaning-006",
+      "axis": "leaning",
+      "article_type": "opinion",
+      "excerpt_bg": "Авторът обявява църквата и традиционната йерархия за единствена защита срещу упадъка и отхвърля плурализма като слабост.",
+      "expected": {"label": "strong_conservative", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["църквата и традиционната йерархия за единствена защита срещу упадъка"], "reason": "The article adopts and sustains a dominant traditional-order thesis."}
+    },
+    {
+      "id": "leaning-007",
+      "axis": "leaning",
+      "article_type": "multi_source_report",
+      "excerpt_bg": "Правозащитници защитиха квотите като равен достъп. Консервативно сдружение ги нарече принуда, а текстът провери данните и на двете страни.",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": true, "evidence_quotes": ["защитиха квотите като равен достъп", "ги нарече принуда"], "reason": "Opposing ideological propositions receive comparable editorial weight."}
+    },
+    {
+      "id": "leaning-008",
+      "axis": "leaning",
+      "article_type": "tax_report",
+      "excerpt_bg": "Министерството предлага по-нисък корпоративен данък. Текстът сравнява приходите, без да свързва мярката с права, плурализъм или традиционен ред.",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "Economic liberalism alone does not determine this social-political axis."}
+    },
+    {
+      "id": "leaning-009",
+      "axis": "leaning",
+      "article_type": "welfare_report",
+      "excerpt_bg": "Правителството увеличава помощта за отопление. Посочени са сумите и сроковете, без идеологическа рамка.",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "Welfare spending by itself does not set the liberal/conservative direction."}
+    },
+    {
+      "id": "leaning-010",
+      "axis": "leaning",
+      "article_type": "anti_corruption_report",
+      "excerpt_bg": "Прокуратурата повдигна обвинение за обществена поръчка. Статията описва доказателствата и защитата без теза за системна реформа.",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": false, "evidence_quotes": [], "reason": "A generic corruption case is political but not inherently progressive on the narrowed axis."}
+    },
+    {
+      "id": "leaning-011",
+      "axis": "leaning",
+      "article_type": "rule_of_law",
+      "excerpt_bg": "Редакцията защитава независим контрол над главния прокурор като необходима институционална гаранция и отхвърля безконтролната власт.",
+      "expected": {"label": "strong_progressive", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["независим контрол над главния прокурор като необходима институционална гаранция"], "reason": "The article adopts a dominant institutional-checks thesis."}
+    },
+    {
+      "id": "leaning-012",
+      "axis": "leaning",
+      "article_type": "sovereignty_report",
+      "excerpt_bg": "Партията заяви, че националният суверенитет стои над външния диктат. Тезата води текста и не е оспорена.",
+      "expected": {"label": "conservative", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["националният суверенитет стои над външния диктат"], "reason": "A sovereignty-first proposition receives a clean microphone."}
+    },
+    {
+      "id": "leaning-013",
+      "axis": "leaning",
+      "article_type": "rights_fact_check",
+      "excerpt_bg": "Активисти поискаха защита от дискриминация. Текстът добави твърдение, че така се отменя свободата на словото, без проверка или отговор.",
+      "expected": {"label": "conservative", "treatment_basis": "critical_context", "mixed_evidence": true, "evidence_quotes": ["поискаха защита от дискриминация", "така се отменя свободата на словото"], "reason": "The selected unanswered counterframe materially weakens the rights proposition."}
+    },
+    {
+      "id": "leaning-014",
+      "axis": "leaning",
+      "article_type": "church_report",
+      "excerpt_bg": "Синодът поиска задължително вероучение. Учители представиха данни за алтернативен граждански курс и двете предложения са сравнени.",
+      "expected": {"label": "neutral", "treatment_basis": "balanced_sources", "mixed_evidence": true, "evidence_quotes": ["Синодът поиска задължително вероучение", "Учители представиха данни за алтернативен граждански курс"], "reason": "Traditional-authority and pluralist alternatives receive balanced treatment."}
+    },
+    {
+      "id": "leaning-015",
+      "axis": "leaning",
+      "article_type": "party_profile",
+      "excerpt_bg": "Статията хвали консервативна партия за добрата й кампания, но обсъжданият проект разширява съдебния контрол и правата на малцинствата.",
+      "expected": {"label": "progressive", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["проект разширява съдебния контрол и правата на малцинствата"], "reason": "Party treatment and ideological proposition are independent; the amplified policy is progressive."}
+    },
+    {
+      "id": "leaning-016",
+      "axis": "leaning",
+      "article_type": "party_profile",
+      "excerpt_bg": "Статията критикува либерална партия за организацията й, но представя без възражение искането й за повече църковна власт в училищата.",
+      "expected": {"label": "conservative", "treatment_basis": "clean_amplification", "mixed_evidence": false, "evidence_quotes": ["искането й за повече църковна власт в училищата"], "reason": "Negative party treatment does not change the conservative direction of the amplified proposition."}
+    },
+    {
+      "id": "leaning-017",
+      "axis": "leaning",
+      "article_type": "weather",
+      "excerpt_bg": "Утре ще е слънчево с температури до 28 градуса.",
+      "expected": {"label": "not_applicable", "treatment_basis": "not_applicable", "mixed_evidence": false, "evidence_quotes": [], "reason": "A weather forecast has no political dimension."}
+    },
+    {
+      "id": "leaning-018",
+      "axis": "leaning",
+      "article_type": "election_results",
+      "excerpt_bg": "ЦИК обяви 31% за първата листа и 24% за втората. Мандатите са разпределени по законовата формула.",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "Election results are political; absence of ideological direction means neutral, not not_applicable."}
+    },
+    {
+      "id": "leaning-019",
+      "axis": "leaning",
+      "article_type": "editorial",
+      "excerpt_bg": "Редакцията настоява държавата да забрани публичните прояви на малцинствени общности, защото само единният традиционен ред пази нацията.",
+      "expected": {"label": "strong_conservative", "treatment_basis": "authorial_thesis", "mixed_evidence": false, "evidence_quotes": ["само единният традиционен ред пази нацията"], "reason": "The editorial adopts an exclusionary traditional-order thesis."}
+    },
+    {
+      "id": "leaning-020",
+      "axis": "leaning",
+      "article_type": "analysis",
+      "excerpt_bg": "Анализът защитава европейските гаранции за права, но признава, че местните общности трябва да запазят културните си традиции.",
+      "expected": {"label": "progressive", "treatment_basis": "authorial_thesis", "mixed_evidence": true, "evidence_quotes": ["защитава европейските гаранции за права", "местните общности трябва да запазят културните си традиции"], "reason": "The net thesis is progressive while material conservative evidence is retained."}
+    },
+    {
+      "id": "leaning-021",
+      "axis": "leaning",
+      "article_type": "education_report",
+      "excerpt_bg": "Министерството публикува графика за матурите. Посочени са датите, залите и редът за обжалване.",
+      "expected": {"label": "neutral", "treatment_basis": "procedural_facts", "mixed_evidence": false, "evidence_quotes": [], "reason": "Government procedure is political/public policy, but no axis proposition is advanced."}
+    }
+  ]
+}
