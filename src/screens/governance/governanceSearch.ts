@@ -21,58 +21,15 @@
 // is still the right answer to somebody typing its name, so nothing here is gated on
 // having a figure.
 
-import { Users, FileText } from "lucide-react";
-import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import type { HubSearchSource } from "@/ux/search/hubSearchSources";
-import { decodeEntities } from "@/lib/decodeEntities";
 import {
   fetchProcurementAwarders,
   fetchProcurementCompanies,
 } from "@/screens/components/search/procurementSearchSource";
-import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
-
-interface PersonHit {
-  key: string;
-  name: string;
-  position_type: string | null;
-  place_label: string | null;
-  href: string;
-  has_declaration: boolean;
-}
-interface PersonSearchResponse {
-  power?: PersonHit[];
-  altQuery?: string | null;
-}
-
-let lastPersonAlt: { typed: string; alt: string } | null = null;
-
-const fetchPeople = async (
-  query: string,
-  signal: AbortSignal,
-  bg: boolean,
-): Promise<SearchItem[]> => {
-  const r = await fetch(
-    `/api/db/person-search?q=${encodeURIComponent(query)}`,
-    { signal },
-  );
-  if (!r.ok) throw new Error(`person-search: ${r.status}`);
-  const body = (await r.json()) as PersonSearchResponse;
-  lastPersonAlt = body.altQuery ? { typed: query, alt: body.altQuery } : null;
-  return (body.power ?? []).map((p) => ({
-    id: p.key,
-    to: p.href,
-    primary: decodeEntities(p.name),
-    // Role and place — what tells two people of the same name apart, and this register is
-    // full of them. `position_type` is a CODE; `positionLabel` is the one map, shared with
-    // the procurement and declarations boxes so the three cannot disagree.
-    secondary:
-      [positionLabel(p.position_type, bg), p.place_label]
-        .filter(Boolean)
-        .map((x) => decodeEntities(String(x)))
-        .join(" · ") || undefined,
-    icon: p.has_declaration ? FileText : Users,
-  }));
-};
+import {
+  fetchPublicPeople,
+  personAltQuery,
+} from "@/screens/components/search/personSearchSource";
 
 export const governanceSearchSources = (bg: boolean): HubSearchSource[] => [
   {
@@ -80,15 +37,13 @@ export const governanceSearchSources = (bg: boolean): HubSearchSource[] => [
     label: { bg: "Хора", en: "People" },
     limit: 5,
     kind: "server",
-    fetch: (q, s) => fetchPeople(q, s, bg),
+    fetch: (q, s) => fetchPublicPeople(q, s, bg),
     // VERIFIED destination: /persons reads ?q (useUrlPersonFilters). `altQuery` because the
     // browse table runs its own search WITHOUT the shliokavitsa rewrite, so a link built
     // from what was typed advertises rows the destination cannot find.
     seeAll: (q) => ({
       label: bg ? "Виж всички хора" : "See all people",
-      to: `/persons?q=${encodeURIComponent(
-        lastPersonAlt && lastPersonAlt.typed === q ? lastPersonAlt.alt : q,
-      )}`,
+      to: `/persons?q=${encodeURIComponent(personAltQuery(q))}`,
     }),
   },
   {

@@ -121,22 +121,10 @@ export type PersonProfile = {
   aliases: string[];
 };
 
-/** Does the registry itself say several people share this person's name?
- *
- *  Reads BOTH signals and returns true if EITHER says so, because they are written by
- *  different steps of the same resolve: `fold_people_n` is copied onto every person, while
- *  `identity_confidence = 'shared_name'` is set only on the Tier-V mint. A resolver that
- *  populated one and dropped the other — the `copyRows` / `date_basis` failure class this
- *  repo has shipped before — would otherwise leave the profile card and the browser chip
- *  making different claims about one named person, which tr-attribution-basis-v1 §0.2 calls
- *  the worst bug this family can carry.
- *
- *  Fail-safe by construction: disagreement produces the caveat, never its absence. */
-export const isSharedNameIdentity = (p: {
-  foldPeopleN?: number | null;
-  identityConfidence?: string;
-}): boolean =>
-  p.identityConfidence === "shared_name" || (p.foldPeopleN ?? 0) > 1;
+/** Re-exported from `./sharedNameIdentity`, which owns it. Moved out of this file so the
+ *  search adapters can share the predicate without pulling a React-Query hook module into
+ *  the home page's entry graph; every existing importer of this name still works. */
+export { isSharedNameIdentity } from "./sharedNameIdentity";
 
 /** The registry people-count a per-block caveat may state — the ONE rule, for every block.
  *

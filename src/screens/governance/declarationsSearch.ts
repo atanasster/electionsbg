@@ -21,85 +21,27 @@
 // EVERY GROUP IS SERVER-BACKED. 62,050 public figures is not a client index — the
 // declarations blob on this page is ~1 KB and this would be three orders of magnitude more.
 
-import { FileText, Users } from "lucide-react";
-import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import {
   scopedSources,
   type HubSearchSource,
   type ServerSource,
 } from "@/ux/search/hubSearchSources";
-import { decodeEntities } from "@/lib/decodeEntities";
-import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
+import {
+  fetchPublicPeople,
+  personAltQuery,
+} from "@/screens/components/search/personSearchSource";
 
-/** The subset of /api/db/person-search a row needs here. */
-interface PersonHit {
-  key: string;
-  name: string;
-  /** A CODE (executive / magistrate / …), not a label. See `positionLabel`. */
-  position_type: string | null;
-  place_label: string | null;
-  href: string;
-  has_declaration: boolean;
-}
-
-/** The three tiers the route returns. Only `power` is used: V and N are private company
- *  owners reached through the Commerce Registry, who are not in the declarations register
- *  and have no business on this page. */
-interface PersonSearchResponse {
-  power?: PersonHit[];
-  /** The shliokavitsa-rewritten needle the rows came from, or null. */
-  altQuery?: string | null;
-}
-
-/** The needle the LAST response actually answered, when it differs from what was typed.
- *
- *  A see-all built from the typed query is a dead end whenever the rewrite fired: „Jelqzkov"
- *  previews Желязков here and /persons?q=Jelqzkov returns nothing, because the browse table
- *  runs its own search and does not carry the rewrite. The route returns `altQuery` for
- *  exactly this and ProcurementSearchTile already honours it.
- *
- *  MODULE-LEVEL because `seeAll` is called during render with only the query string, while
- *  the value arrives with the fetch. One box per page, one query at a time, and a stale
- *  value can only ever produce the link the previous query would have — never a wrong page
- *  for a query that had no rewrite, since it is cleared on every response. */
-let lastAltQuery: { typed: string; alt: string } | null = null;
-
-const fetchPeople = async (
-  query: string,
-  signal: AbortSignal,
-  decl: "1" | "0",
-  bg: boolean,
-): Promise<SearchItem[]> => {
-  const r = await fetch(
-    // No &limit: the route caps each tier at 6 internally and `limit` only sizes the
-    // back-compat `people` array, which this consumer never reads.
-    `/api/db/person-search?q=${encodeURIComponent(query)}&decl=${decl}`,
-    { signal },
-  );
-  // Throw rather than return []: HubSearch tells a failed fetch apart from an empty one and
-  // omits a failed group from its "searched in: …" sentence. Swallowing the error here would
-  // report our own outage as an absence of people.
-  if (!r.ok) throw new Error(`person-search: ${r.status}`);
-  const body = (await r.json()) as PersonSearchResponse;
-  lastAltQuery = body.altQuery ? { typed: query, alt: body.altQuery } : null;
-  return (body.power ?? []).map((p) => ({
-    id: p.key,
-    to: p.href,
-    primary: decodeEntities(p.name),
-    // Role and place, which is what distinguishes two people of the same name — and the
-    // register is full of them.
-    //
-    // position_type is a CODE. Rendering it raw shipped „state_enterprise" and
-    // „security_service" to a Bulgarian reader in the first draft; `positionLabel` is the
-    // one map, shared with the procurement box so the two cannot disagree.
-    secondary:
-      [positionLabel(p.position_type, bg), p.place_label]
-        .filter(Boolean)
-        .map((x) => decodeEntities(String(x)))
-        .join(" · ") || undefined,
-    icon: p.has_declaration ? FileText : Users,
-  }));
-};
+// The person rows, the request that fetches them and the „see all" needle all come from the
+// shared adapter (`@/screens/components/search/personSearchSource`) rather than a private
+// copy here. Two things that matters for:
+//
+//   - the in-flight promise is keyed by (query, decl), so this module's TWO calls per
+//     keystroke stay two calls — scope RANKS and never filters, so the „has filed" and „has
+//     not filed" groups must be two requests — while a `lastAltQuery` single slot shared
+//     between them is gone;
+//   - the destination, the identity caveat and the office label are decided in ONE place, so
+//     this box cannot say something different about a person from what /procurement, the
+//     governance finder or /person say.
 
 // THERE IS DELIBERATELY NO "OFFICIALS" GROUP, and the reason is worth keeping.
 //
@@ -125,8 +67,10 @@ const fetchPeople = async (
  *  Commerce-Registry owners this module excludes on principle — so the link would land on a
  *  broader set than the group that offered it. */
 const personsSeeAll = (query: string, bg: boolean) => {
-  const needle =
-    lastAltQuery && lastAltQuery.typed === query ? lastAltQuery.alt : query;
+  // The needle the DECLARED group's rows actually came from. Read by (query, decl) rather
+  // than from a single slot both groups wrote: this module issues two requests per keystroke
+  // and the second to resolve would otherwise decide the first's link.
+  const needle = personAltQuery(query);
   return {
     label: bg ? "Виж всички с декларация" : "See all who filed",
     to: `/persons?q=${encodeURIComponent(needle)}&decl=1`,
@@ -148,12 +92,12 @@ export const declarationsSearchSources = (bg: boolean): HubSearchSource[] => [
     // below sets its own anyway (a filing marker or a plain person).
     inSource: {
       kind: "server",
-      fetch: (q, s) => fetchPeople(q, s, "1", bg),
+      fetch: (q, s) => fetchPublicPeople(q, s, bg, undefined, "1"),
       seeAll: (q) => personsSeeAll(q, bg),
     },
     outSource: {
       kind: "server",
-      fetch: (q, s) => fetchPeople(q, s, "0", bg),
+      fetch: (q, s) => fetchPublicPeople(q, s, bg, undefined, "0"),
     },
   }),
 ];

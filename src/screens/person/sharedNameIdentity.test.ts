@@ -10,7 +10,10 @@
 //   npm run test:unit
 
 import { describe, it, expect } from "vitest";
-import { isSharedNameIdentity, blockFoldPeopleN } from "./usePersonProfile";
+import { isSharedNameIdentity } from "./sharedNameIdentity";
+// `blockFoldPeopleN` stays in usePersonProfile.ts — it is the per-BLOCK count rule, a
+// different question from this predicate, and only this one is needed outside the profile.
+import { blockFoldPeopleN } from "./usePersonProfile";
 
 describe("isSharedNameIdentity", () => {
   it("is true when either signal says shared, and false only when neither does", () => {

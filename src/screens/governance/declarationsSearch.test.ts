@@ -4,9 +4,19 @@
 // filers and non-filers, so the hub can show one above the other. A single call the client
 // splits would empty the narrower group.
 
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
+import { FileText, Users } from "lucide-react";
+import { __resetPersonSearchCache } from "@/screens/components/search/personSearchSource";
 import { declarationsSearchSources } from "./declarationsSearch";
 import type { ServerSource } from "@/ux/search/hubSearchSources";
+
+// The person adapter holds ONE in-flight promise keyed by (query, decl), so a resolved
+// entry from an earlier case would answer a later one — and a case that mocks a FAILURE
+// would never reach its mock. Reset per test, as homeSearch.test.ts does for the
+// procurement cache.
+beforeEach(() => {
+  __resetPersonSearchCache();
+});
 
 const okBody = {
   power: [
@@ -192,5 +202,92 @@ describe("language", () => {
       (declarationsSearchSources(false)[0] as ServerSource).seeAll?.("x")
         ?.label,
     ).toBe("See all who filed");
+  });
+});
+
+// ── What the shared adapter changed, and what it must NOT change ───────────────────────
+//
+// The migration to `personSearchSource` moved the row builder out of this file. Two fields it
+// renders were silently altered by the first cut and are pinned here so a future consolidation
+// cannot alter them again without saying so.
+
+describe("the row's basis and its icon", () => {
+  it("shows NO money figure beside a person on a declared-wealth hub", async () => {
+    // `public_money_eur` on a public row is money that reached companies LINKED TO the person
+    // — 1,232 rows carry one, up to €992M. Rendering it under a heading about DECLARED wealth
+    // states a figure on a basis the heading does not carry, and this hub never did.
+    mockFetch({
+      power: [
+        {
+          key: "slug:a",
+          name: "Иван Иванов",
+          position_type: "executive",
+          place_label: "София",
+          href: "/person/a",
+          has_declaration: true,
+          public_money_eur: 992_000_000,
+        },
+      ],
+    });
+    const [filed] = sources();
+    const rows = await filed.fetch("иван", new AbortController().signal);
+    expect(rows[0].amountEur).toBeUndefined();
+  });
+
+  it("splits the icon on a FILING, not on the tier", async () => {
+    for (const has of [true, false]) {
+      __resetPersonSearchCache();
+      mockFetch({
+        power: [
+          {
+            key: "slug:a",
+            name: "Иван Иванов",
+            position_type: "executive",
+            place_label: "София",
+            href: "/person/a",
+            has_declaration: has,
+          },
+        ],
+      });
+      const [filed] = sources();
+      const rows = await filed.fetch("иван", new AbortController().signal);
+      expect(rows[0].icon).toBe(has ? FileText : Users);
+    }
+  });
+});
+
+// ⚠️ THE HUB FIRES BOTH SOURCES IN ONE PASS, AND THAT IS WHAT THE SEQUENTIAL TESTS ABOVE
+// CANNOT SEE. `HubSearch` maps every server source's `fetch` in a single tick on one
+// AbortController, so `decl=1` and `decl=0` are in flight together — which is precisely the
+// shape under which the first cut of the shared adapter stopped recording the shliokavitsa
+// rewrite for `decl=1`, shipping „Виж всички с декларация" → /persons?q=<what was typed>,
+// a page that returns zero rows after the dropdown advertised six.
+describe("both sources in flight at once — the hub's real call shape", () => {
+  it("keeps the rewritten needle on the declared group's see-all", async () => {
+    __resetPersonSearchCache();
+    mockFetch({ power: [], altQuery: "желязков" });
+    const srcs = sources();
+    const ctl = new AbortController();
+    // One pass, one controller, in source order — exactly HubSearch's effect.
+    await Promise.all(
+      srcs.map((s) => (s as ServerSource).fetch("jelqzkov", ctl.signal)),
+    );
+    const href = (srcs[0] as ServerSource).seeAll?.("jelqzkov")?.to ?? "";
+    expect(href).toContain(encodeURIComponent("желязков"));
+    expect(href).not.toContain("jelqzkov");
+  });
+
+  it("issues one request PER decl — the two groups are not one request", async () => {
+    __resetPersonSearchCache();
+    const f = mockFetch({ power: [] });
+    const ctl = new AbortController();
+    await Promise.all(
+      sources().map((s) => (s as ServerSource).fetch("иван", ctl.signal)),
+    );
+    // Scope RANKS and never filters: one request would answer "has filed" with "has not".
+    expect(f.mock.calls.length).toBe(2);
+    const urls = f.mock.calls.map((c) => String(c[0]));
+    expect(urls.some((u) => u.includes("decl=1"))).toBe(true);
+    expect(urls.some((u) => u.includes("decl=0"))).toBe(true);
   });
 });
