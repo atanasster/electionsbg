@@ -1,6 +1,19 @@
 import type { OutletOwner } from "./data";
 import type { NewsLanguage } from "./i18n";
 
+/**
+ * Corpus-wide funding-transparency coverage, not a claim about any outlet.
+ *
+ * A per-outlet `checked_no_disclosure` state would require a documented lookup
+ * and source. Until that work exists, every profile must say `not_collected`
+ * and point to the dated methodology boundary below.
+ */
+export const FUNDING_TRANSPARENCY_COVERAGE = {
+  status: "not_collected",
+  documentedAt: "2026-09-01",
+  methodologyPath: "/methodology#outlet-transparency",
+} as const;
+
 export const safeHttpUrl = (
   value: string | null | undefined,
 ): string | null => {

@@ -37,6 +37,7 @@ import { ArticleRecordRow } from "../components/ArticleRow";
 import { LoadMore } from "../components/LoadMore";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import {
+  FUNDING_TRANSPARENCY_COVERAGE,
   outletHomepage,
   publishableOwner,
   retirementReason,
@@ -136,8 +137,14 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
               id="source-identity-heading"
               className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
             >
-              {tr("За източника", "About the source")}
+              {tr("Прозрачност на източника", "Source transparency")}
             </h2>
+            <p className="mt-1 max-w-xl text-sm text-muted-foreground">
+              {tr(
+                "Проверими факти и изрично отбелязани липси — не оценка за доверие или фактологичност.",
+                "Verifiable facts and explicitly marked gaps, not a trust or factuality score.",
+              )}
+            </p>
             {homepage ? (
               <a
                 href={homepage}
@@ -168,7 +175,10 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
 
         {owner && ownerSource ? (
           <div className="mt-4 border-t pt-3 text-sm">
-            <p className="font-medium">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              {tr("Собственост", "Ownership")}
+            </h3>
+            <p className="mt-1 font-medium">
               {tr("Вписан собственик", "Registered owner")}: {owner.name}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
@@ -190,18 +200,54 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
             </p>
           </div>
         ) : (
-          <p className="mt-4 border-t pt-3 text-sm text-muted-foreground">
-            {outlet.owner
-              ? tr(
-                  "Данните за собствеността са непълни и не се публикуват.",
-                  "Ownership data are incomplete and are not published.",
-                )
-              : tr(
-                  "Собствеността още не е проверена. Това не означава, че собственикът е неизвестен.",
-                  "Ownership has not yet been verified. This does not mean the owner is unknown.",
-                )}
-          </p>
+          <div className="mt-4 border-t pt-3 text-sm">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              {tr("Собственост", "Ownership")}
+            </h3>
+            <p className="mt-1 text-muted-foreground">
+              {outlet.owner
+                ? tr(
+                    "Данните за собствеността са непълни и не се публикуват.",
+                    "Ownership data are incomplete and are not published.",
+                  )
+                : tr(
+                    "Собствеността още не е проверена. Това не означава, че собственикът е неизвестен.",
+                    "Ownership has not yet been verified. This does not mean the owner is unknown.",
+                  )}
+            </p>
+          </div>
         )}
+
+        <div className="mt-4 border-t pt-3 text-sm">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              {tr("Финансиране", "Funding")}
+            </h3>
+            <Badge variant="outline" className="font-normal">
+              {tr("Не се събира", "Not collected")}
+            </Badge>
+          </div>
+          <p className="mt-1 text-muted-foreground">
+            {tr(
+              "Моделът на финансиране на изданието още не се събира или проверява в този набор.",
+              "The outlet's funding model is not yet collected or verified in this dataset.",
+            )}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {tr(
+              "Това е липса на проверени данни, не заключение за редакционната независимост.",
+              "This is a gap in verified data, not a finding about editorial independence.",
+            )}{" "}
+            <Link
+              to={FUNDING_TRANSPARENCY_COVERAGE.methodologyPath}
+              className="font-medium text-primary underline underline-offset-2"
+            >
+              {tr("Обхват и метод", "Coverage and method")}
+            </Link>{" "}
+            · {tr("описано", "documented")}{" "}
+            {formatDate(FUNDING_TRANSPARENCY_COVERAGE.documentedAt, language)}
+          </p>
+        </div>
 
         {outlet.retired ? (
           <p className="mt-3 text-xs text-muted-foreground">

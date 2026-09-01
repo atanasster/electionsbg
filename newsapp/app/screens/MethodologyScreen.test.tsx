@@ -360,3 +360,22 @@ describe("loading and failure", () => {
     expect(screen.queryByText("Кое НЕ правим")).not.toBeInTheDocument();
   });
 });
+
+describe("outlet transparency coverage", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("dates the not-collected funding boundary and distinguishes it from a lookup", async () => {
+    await renderPage(stats(), []);
+    const section = (
+      await screen.findByText("Прозрачност на източниците")
+    ).closest("section");
+    expect(section).toHaveAttribute("id", "outlet-transparency");
+    expect(
+      within(section!).getByText(/Финансирането на изданията не се събира/),
+    ).toBeVisible();
+    expect(within(section!).getByText(/1 септември 2026/)).toBeVisible();
+    expect(
+      within(section!).getByText(/а не „проверено — няма декларация“/),
+    ).toBeVisible();
+  });
+});

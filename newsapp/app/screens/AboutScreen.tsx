@@ -40,8 +40,8 @@ export const AboutScreen = () => {
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-foreground/90">
             {tr(
-              "Оценките се създават автоматично по публикувана рубрика, но редакционната отговорност за това как са представени, поправени или оттеглени остава при екипа на electionsbg.com. Моделът и датата на анализа се показват при всяка оценена статия.",
-              "Ratings are generated automatically using a published rubric, but the electionsbg.com team remains editorially responsible for how they are presented, corrected, or withdrawn. The model and analysis date appear with every rated article.",
+              "Първоначалните оценки се създават автоматично по публикувана рубрика. Приета редакционна проверка може да потвърди, замени, оттегли или изпрати за нова проверка само означените полета. Източникът на всяко показано поле, моделът и датата на анализа се публикуват при статията, а редакционната отговорност остава при екипа на electionsbg.com.",
+              "Initial assessments are generated automatically using a published rubric. An accepted editorial review may confirm, replace, withdraw, or send only marked fields for revalidation. Each displayed field names its source, and the model and analysis date appear with the article; editorial responsibility remains with the electionsbg.com team.",
             )}
           </p>
         </Card>
@@ -58,8 +58,8 @@ export const AboutScreen = () => {
             </li>
             <li>
               {tr(
-                "Показваме обосновката и увереността, когато са налични.",
-                "We show the rationale and confidence when available.",
+                "Показваме обосновката до оценката; необработената увереност на модела е техническа подробност с изрично ограничение, не вероятност за истинност.",
+                "We show rationale beside the assessment; raw model confidence is a caveated technical detail, not a probability of truth.",
               )}
             </li>
             <li>

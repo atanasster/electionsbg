@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { outletHomepage, safeHttpUrl } from "./sourceTransparency";
+import {
+  FUNDING_TRANSPARENCY_COVERAGE,
+  outletHomepage,
+  safeHttpUrl,
+} from "./sourceTransparency";
 
 describe("source URL boundaries", () => {
   it("allows only absolute credential-free HTTP(S) provenance links", () => {
@@ -26,5 +30,15 @@ describe("source URL boundaries", () => {
       "x.bg:443",
     ])
       expect(outletHomepage(value)).toBeNull();
+  });
+});
+
+describe("funding transparency coverage", () => {
+  it("publishes an explicit, dated not-collected boundary", () => {
+    expect(FUNDING_TRANSPARENCY_COVERAGE).toEqual({
+      status: "not_collected",
+      documentedAt: "2026-09-01",
+      methodologyPath: "/methodology#outlet-transparency",
+    });
   });
 });

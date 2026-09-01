@@ -207,6 +207,25 @@ describe("source transparency", () => {
       screen.getByRole("link", { name: /Източник на справката/ }),
     ).toHaveAttribute("href", "https://registry.example/owner");
     expect(screen.getByText(/проверено 20 август 2026/)).toBeVisible();
+    expect(
+      screen.getByText(/не оценка за доверие или фактологичност/),
+    ).toBeVisible();
+  });
+
+  it("states the funding-data gap without turning it into an independence claim", async () => {
+    await renderProfile(outlet());
+    expect(
+      await screen.findByRole("heading", { name: "Финансиране" }),
+    ).toBeVisible();
+    expect(screen.getByText(/още не се събира или проверява/)).toBeVisible();
+    expect(screen.getByText("Не се събира")).toBeVisible();
+    expect(
+      screen.getByText(/не заключение за редакционната независимост/),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Обхват и метод" }),
+    ).toHaveAttribute("href", "/methodology#outlet-transparency");
+    expect(screen.getByText(/описано 1 септември 2026/)).toBeVisible();
   });
 
   it("distinguishes not-yet-checked ownership from unknown ownership", async () => {

@@ -29,7 +29,10 @@ import {
 } from "../labels";
 import { useOutlets, useStats, type Outlet, type Stats } from "../data";
 import { useNewsLocale } from "../i18n";
-import { retirementReason } from "../sourceTransparency";
+import {
+  FUNDING_TRANSPARENCY_COVERAGE,
+  retirementReason,
+} from "../sourceTransparency";
 
 const Figure = ({ value, label }: { value: string; label: string }) => (
   <div>
@@ -41,13 +44,15 @@ const Figure = ({ value, label }: { value: string; label: string }) => (
 );
 
 const Section = ({
+  id,
   title,
   children,
 }: {
+  id?: string;
   title: string;
   children: React.ReactNode;
 }) => (
-  <section className="mt-8">
+  <section id={id} className="mt-8 scroll-mt-20">
     <h2 className="app-section-title">{title}</h2>
     <div className="mt-3 space-y-3 text-sm leading-relaxed text-foreground/90">
       {children}
@@ -298,8 +303,26 @@ export const MethodologyScreen = () => {
           се вижда на неговата страница.
         </p>
         <p>
-          <strong>Всяка оценка носи цитат</strong> от самия материал и степен на
-          увереност. Те се показват на страницата на статията, до етикета.
+          <strong>Всяка оценка носи обосновка</strong> от самия материал.
+          Необработената увереност на модела се показва само като техническа
+          подробност с изрично предупреждение: тя не е калибрирана вероятност
+          оценката да е вярна.
+        </p>
+      </Section>
+
+      <Section id="outlet-transparency" title="Прозрачност на източниците">
+        <p>
+          Когато има проверен запис за вписан собственик, показваме името,
+          регистъра и датата на справката. Това не е твърдение за действителен
+          контрол, краен собственик или редакционна независимост.
+        </p>
+        <p>
+          <strong>Финансирането на изданията не се събира.</strong> Към{" "}
+          {formatDate(FUNDING_TRANSPARENCY_COVERAGE.documentedAt)} наборът няма
+          проверка на финансиращ модел, реклама или спонсорство по издание.
+          Затова профилите показват общото състояние „Не се събира“, а не
+          „проверено — няма декларация“. Това е граница на покритието, не оценка
+          за доверие.
         </p>
       </Section>
 
@@ -519,9 +542,27 @@ const EnglishMethodology = ({
         text does not show clear progressive or conservative framing.
       </p>
       <p>
-        Each rating carries supporting evidence and model confidence. On the
-        English page, untranslated Bulgarian evidence is withheld so the two
-        languages are not mixed in one interface.
+        Each rating carries supporting evidence. Raw model confidence appears
+        only as a caveated technical detail; it is not a calibrated probability
+        that the finding is true. On the English page, untranslated Bulgarian
+        evidence is withheld so the two languages are not mixed in one
+        interface.
+      </p>
+    </Section>
+
+    <Section id="outlet-transparency" title="Source transparency">
+      <p>
+        When a verified registered-owner record exists, we show the name,
+        registry, and lookup date. This is not a claim about actual control,
+        ultimate beneficial ownership, or editorial independence.
+      </p>
+      <p>
+        <strong>Outlet funding is not collected.</strong> As of{" "}
+        {formatDate(FUNDING_TRANSPARENCY_COVERAGE.documentedAt, "en")}, this
+        dataset does not verify funding models, advertising, or sponsorship by
+        outlet. Profiles therefore show the corpus-wide state “Not collected,”
+        not “checked — no disclosure.” This is a coverage boundary, not a trust
+        rating.
       </p>
     </Section>
 

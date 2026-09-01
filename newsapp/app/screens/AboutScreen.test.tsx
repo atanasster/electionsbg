@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
+import { NewsLocaleProvider } from "../i18n";
 import { AboutScreen } from "./AboutScreen";
 
 describe("AboutScreen", () => {
@@ -34,6 +35,28 @@ describe("AboutScreen", () => {
       "href",
       "/methodology",
     );
+    expect(
+      screen.getByText(/Първоначалните оценки се създават автоматично/),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/Приета редакционна проверка може да потвърди/),
+    ).toBeVisible();
+  });
+
+  it("keeps the editorial override policy aligned in English", () => {
+    render(
+      <MemoryRouter>
+        <NewsLocaleProvider language="en">
+          <AboutScreen />
+        </NewsLocaleProvider>
+      </MemoryRouter>,
+    );
+    expect(
+      screen.getByText(/Initial assessments are generated automatically/),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/accepted editorial review may confirm, replace/),
+    ).toBeVisible();
   });
 
   it("publishes all transparency destinations with meaningful names", () => {

@@ -67,7 +67,10 @@ import { useNewsLocale } from "../i18n";
 const feedbackIssueLabel = (kind: string, english: boolean): string => {
   const labels: Record<string, [string, string]> = {
     missing_analysis: ["Липсва анализ", "Missing analysis"],
-    missing_entity: ["Липсва свързана организация или лице", "Missing linked entity"],
+    missing_entity: [
+      "Липсва свързана организация или лице",
+      "Missing linked entity",
+    ],
     wrong_entity_link: ["Грешна връзка", "Wrong link"],
     missing_topic: ["Липсва тема", "Missing topic"],
     missing_sector: ["Липсва сектор", "Missing sector"],
@@ -78,8 +81,9 @@ const feedbackIssueLabel = (kind: string, english: boolean): string => {
 };
 
 /**
- * One axis: its label, its verdict, its confidence, and the evidence text the
- * rubric returned (which may be a quote OR a concrete paraphrase).
+ * One axis: its source, label, verdict, evidence, and supporting model metadata.
+ * The rubric evidence remains visible; raw confidence is progressive disclosure
+ * because it has not been calibrated as a probability of truth.
  *
  * ⚠️ Renders even when `evidence` is empty — with the absence stated. A
  * verdict whose justification silently vanishes is exactly the unsupported
@@ -102,6 +106,7 @@ const AxisCard = ({
 }) => {
   const { isEnglish, tr } = useNewsLocale();
   const confidencePct =
+    source === "model" &&
     typeof confidence === "number" &&
     Number.isFinite(confidence) &&
     confidence >= 0 &&
@@ -110,21 +115,15 @@ const AxisCard = ({
       : null;
   return (
     <Card className="p-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="flex flex-wrap items-start justify-between gap-2">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           {title}
         </h3>
-        {confidencePct !== null ? (
-          <span
-            className="text-xs text-muted-foreground"
-            aria-label={tr(
-              `Увереност на модела: ${confidencePct} процента`,
-              `Model confidence: ${confidencePct} percent`,
-            )}
-          >
-            {tr("увереност", "confidence")} {confidencePct}%
-          </span>
-        ) : null}
+        <Badge variant="outline" className="shrink-0 font-normal">
+          {source === "editorial"
+            ? tr("Редакционна проверка", "Editorial review")
+            : tr("Моделна оценка", "Model assessment")}
+        </Badge>
       </div>
       <div className="mt-2 flex items-center gap-2">
         <span
@@ -158,7 +157,72 @@ const AxisCard = ({
                 )}
         </p>
       )}
+      {confidencePct !== null ? (
+        <details className="mt-3 border-t pt-2 text-xs text-muted-foreground">
+          <summary className="min-h-6 cursor-pointer font-medium text-foreground underline-offset-4 hover:underline">
+            {tr("Технически данни за модела", "Technical model details")}
+          </summary>
+          <p className="mt-2 leading-relaxed">
+            <span
+              aria-label={tr(
+                `Увереност на модела: ${confidencePct} процента`,
+                `Model confidence: ${confidencePct} percent`,
+              )}
+            >
+              {tr("Необработена увереност", "Raw confidence")} {confidencePct}%
+            </span>
+            {tr(
+              ". Това е вътрешна оценка на модела, а не калибрирана вероятност твърдението да е вярно.",
+              ". This is an internal model score, not a calibrated probability that the finding is true.",
+            )}
+          </p>
+        </details>
+      ) : null}
     </Card>
+  );
+};
+
+type AnalysisPublicationStatus =
+  | "model_only"
+  | "editorially_reviewed"
+  | "under_revalidation"
+  | "incomplete_provenance";
+
+const AnalysisStatus = ({ status }: { status: AnalysisPublicationStatus }) => {
+  const { tr } = useNewsLocale();
+  const labels: Record<AnalysisPublicationStatus, [string, string]> = {
+    model_only: ["Само модел", "Model-only"],
+    editorially_reviewed: ["Редакционно проверено", "Editorially reviewed"],
+    under_revalidation: ["Повторна проверка", "Under revalidation"],
+    incomplete_provenance: ["Непълна следа", "Incomplete provenance"],
+  };
+  const descriptions: Record<AnalysisPublicationStatus, [string, string]> = {
+    model_only: [
+      "Няма приложено редакционно решение към показаната оценка.",
+      "No editorial decision has been applied to the displayed assessment.",
+    ],
+    editorially_reviewed: [
+      "Приета редакционна проверка важи само за означените полета; останалите са моделни оценки.",
+      "An accepted editorial review applies only to marked fields; the rest remain model assessments.",
+    ],
+    under_revalidation: [
+      "Предишна редакционна проверка вече не е текуща; засегнатите решения са изключени до нова проверка.",
+      "A previous editorial review is no longer current; affected decisions are excluded until reviewed again.",
+    ],
+    incomplete_provenance: [
+      "Записът не посочва достатъчно данни, за да определим източника и датата на оценката.",
+      "The record does not identify enough information to establish the assessment source and date.",
+    ],
+  };
+  return (
+    <div className="mt-2 flex max-w-2xl flex-wrap items-center gap-x-2 gap-y-1">
+      <Badge variant="outline" className="font-normal">
+        {tr(...labels[status])}
+      </Badge>
+      <span className="text-sm text-muted-foreground">
+        {tr(...descriptions[status])}
+      </span>
+    </div>
   );
 };
 
@@ -294,6 +358,31 @@ export const ArticleScreen = () => {
     (acceptedReview && humanReview.fields.russia_stance !== "unable_to_judge")
       ? "editorial"
       : "model";
+  const analysisFeedbackFields = new Set([
+    "leaning",
+    "russia_stance",
+    "party_tones",
+  ]);
+  const hasCurrentEditorialAnalysis = Boolean(
+    acceptedReview ||
+    (acceptedFeedback &&
+      editorialFeedback.fields.some((field) =>
+        analysisFeedbackFields.has(field),
+      )),
+  );
+  const hasStaleEditorialAnalysis = Boolean(
+    staleReview ||
+    editorialFeedback?.needs_revalidation_fields.some((field) =>
+      analysisFeedbackFields.has(field),
+    ),
+  );
+  const analysisStatus: AnalysisPublicationStatus = hasStaleEditorialAnalysis
+    ? "under_revalidation"
+    : hasCurrentEditorialAnalysis
+      ? "editorially_reviewed"
+      : hasAnalysisProvenance
+        ? "model_only"
+        : "incomplete_provenance";
 
   return (
     <article className="py-6">
@@ -528,7 +617,7 @@ export const ArticleScreen = () => {
 
       {analysis ? (
         <section className="mt-8" aria-labelledby="article-analysis-heading">
-          <div className="flex flex-wrap items-end justify-between gap-2 border-b pb-3">
+          <div className="flex flex-wrap items-start justify-between gap-3 border-b pb-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[hsl(var(--editorial-kicker))]">
                 {hasAnalysisProvenance
@@ -542,8 +631,9 @@ export const ArticleScreen = () => {
                 id="article-analysis-heading"
                 className="mt-1 font-title text-2xl"
               >
-                {tr("Нашият анализ", "Our analysis")}
+                {tr("Анализ с помощта на ИИ", "AI-assisted analysis")}
               </h2>
+              <AnalysisStatus status={analysisStatus} />
             </div>
             <p className="text-xs text-muted-foreground">
               {tr("Анализирано", "Analyzed")}{" "}

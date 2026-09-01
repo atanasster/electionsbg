@@ -212,12 +212,16 @@ describe("the evidence", () => {
     expect(screen.getByText(/няма позоваване на Русия/)).toBeVisible();
   });
 
-  it("renders the confidence beside the verdict", async () => {
+  it("leads with model provenance and keeps raw confidence behind a caveat", async () => {
     await renderAt([
       article({ analysis: analysed() } as Partial<ArticleRecord>),
     ]);
-    expect(await screen.findByText("увереност 70%")).toBeVisible();
-    expect(screen.getByText("увереност 90%")).toBeVisible();
+    expect(await screen.findAllByText("Моделна оценка")).toHaveLength(2);
+    const details = screen.getAllByText("Технически данни за модела");
+    expect(details).toHaveLength(2);
+    fireEvent.click(details[0]);
+    expect(screen.getByText(/Необработена увереност 70%/)).toBeVisible();
+    expect(screen.getAllByText(/не калибрирана вероятност/)[0]).toBeVisible();
     expect(
       screen.getByLabelText("Увереност на модела: 70 процента"),
     ).toBeVisible();
@@ -377,7 +381,11 @@ describe("attribution", () => {
     expect(line).toHaveTextContent("GLM-5.3");
     expect(line).toHaveTextContent("2026");
     expect(
-      screen.getByRole("heading", { name: "Нашият анализ" }),
+      screen.getByRole("heading", { name: "Анализ с помощта на ИИ" }),
+    ).toBeVisible();
+    expect(screen.getByText("Само модел")).toBeVisible();
+    expect(
+      screen.getByText(/Няма приложено редакционно решение/),
     ).toBeVisible();
   });
 
@@ -419,6 +427,8 @@ describe("attribution", () => {
     await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
     expect(await screen.findByText("Непълна следа на анализа")).toBeVisible();
     expect(screen.getByText(/моделът не е записан/)).toBeVisible();
+    expect(screen.getByText("Непълна следа")).toBeVisible();
+    expect(screen.queryByText("Само модел")).not.toBeInTheDocument();
   });
 
   it("omits malformed confidence while retaining zero and one", async () => {
@@ -426,8 +436,8 @@ describe("attribution", () => {
     a.leaning!.confidence = 0;
     a.russia_stance!.confidence = 1;
     await renderAt([article({ analysis: a } as Partial<ArticleRecord>)]);
-    expect(screen.getByText("увереност 0%")).toBeVisible();
-    expect(screen.getByText("увереност 100%")).toBeVisible();
+    expect(screen.getByText(/Необработена увереност 0%/)).toBeInTheDocument();
+    expect(screen.getByText(/Необработена увереност 100%/)).toBeInTheDocument();
 
     const bad = analysed();
     bad.leaning!.confidence = 1.4;
@@ -437,7 +447,9 @@ describe("attribution", () => {
         id: "a2",
       },
     );
-    expect(screen.queryByText("увереност 140%")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Необработена увереност 140%/),
+    ).not.toBeInTheDocument();
   });
 });
 
@@ -473,13 +485,16 @@ describe("human review provenance", () => {
     expect(
       await screen.findByText("Проверено от редакционния екип"),
     ).toBeVisible();
+    expect(screen.getByText("Редакционно проверено")).toBeVisible();
     expect(
       screen.getByText(/Проверено спрямо целия оригинален материал/),
     ).toBeVisible();
     expect(
       screen.getAllByText(/Обосновка от редакционната проверка/),
     ).toHaveLength(2);
-    expect(screen.queryByText(/увереност \d+%/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Необработена увереност \d+%/),
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByLabelText(/Увереност на модела/),
     ).not.toBeInTheDocument();
@@ -511,8 +526,9 @@ describe("human review provenance", () => {
     expect(
       await screen.findByText("Оценката е в повторна проверка"),
     ).toBeVisible();
+    expect(screen.getByText("Повторна проверка")).toBeVisible();
     expect(screen.getByText(/Предишното решение е изключено/)).toBeVisible();
-    expect(screen.getByText("увереност 70%")).toBeVisible();
+    expect(screen.getByText(/Необработена увереност 70%/)).toBeInTheDocument();
     expect(screen.getAllByText(/Обосновка, посочена от модела/)).toHaveLength(
       2,
     );
@@ -557,8 +573,10 @@ describe("human review provenance", () => {
     expect(screen.getAllByText(/Обосновка, посочена от модела/)).toHaveLength(
       1,
     );
-    expect(screen.getByText("увереност 90%")).toBeVisible();
-    expect(screen.queryByText("увереност 70%")).not.toBeInTheDocument();
+    expect(screen.getByText(/Необработена увереност 90%/)).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Необработена увереност 70%/),
+    ).not.toBeInTheDocument();
   });
 
   it("does not crash or claim editorial provenance for a malformed block", async () => {
@@ -569,9 +587,9 @@ describe("human review provenance", () => {
 
     await renderAt([article({ analysis: a })]);
 
-    expect(await screen.findByText("Нашият анализ")).toBeVisible();
+    expect(await screen.findByText("Анализ с помощта на ИИ")).toBeVisible();
     expect(screen.queryByText("Проверено от редакционния екип")).toBeNull();
-    expect(screen.getByText("увереност 70%")).toBeVisible();
+    expect(screen.getByText(/Необработена увереност 70%/)).toBeInTheDocument();
   });
 
   it("keeps rendering the last valid article when a refresh is rejected", async () => {
@@ -579,7 +597,7 @@ describe("human review provenance", () => {
       bundleError: new Error("invalid refreshed provenance"),
     });
 
-    expect(await screen.findByText("Нашият анализ")).toBeVisible();
+    expect(await screen.findByText("Анализ с помощта на ИИ")).toBeVisible();
     expect(screen.queryByText(/Материалът не се зареди/)).toBeNull();
   });
 });
@@ -603,57 +621,121 @@ describe("accepted all-article feedback", () => {
       issue_kinds: ["missing_entity", "missing_sector"],
       public_explanation: "Проверено спрямо оригиналния материал.",
     };
-    a.reviewed_links = [{
-      surface: "Енергетика",
-      kind: "sector",
-      id: "energy",
-      canonical: "Енергетика",
-      href: "https://electionsbg.com/sector/energy",
-    }];
+    a.reviewed_links = [
+      {
+        surface: "Енергетика",
+        kind: "sector",
+        id: "energy",
+        canonical: "Енергетика",
+        href: "https://electionsbg.com/sector/energy",
+      },
+    ];
 
-    await renderAt([article({
-      analysis: a,
-      editorial_feedback: editorialFeedback,
-    })]);
+    await renderAt([
+      article({
+        analysis: a,
+        editorial_feedback: editorialFeedback,
+      }),
+    ]);
 
-    expect(await screen.findByText(/Приета редакционна проверка/)).toBeVisible();
+    expect(
+      await screen.findByText(
+        "Приета редакционна проверка по обществен сигнал",
+      ),
+    ).toBeVisible();
     expect(screen.getByText("Липсва сектор")).toBeVisible();
-    expect(screen.getByRole("link", {
-      name: "Енергетика → Енергетика",
-    })).toHaveAttribute("href", "https://electionsbg.com/sector/energy");
+    expect(
+      screen.getByRole("link", {
+        name: "Енергетика → Енергетика",
+      }),
+    ).toHaveAttribute("href", "https://electionsbg.com/sector/energy");
     expect(screen.queryByText(/feedback-submission/)).not.toBeInTheDocument();
-    expect(screen.queryByText("увереност 70%")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Необработена увереност 70%/),
+    ).not.toBeInTheDocument();
   });
 
   it("shows an accepted missing-analysis finding without fake axis labels", async () => {
-    await renderAt([article({ editorial_feedback: {
-      status: "accepted",
-      adjudicated_at: "2026-09-01T10:00:00.000Z",
-      revision: 1,
-      fields: ["issue_kinds"],
-      needs_revalidation_fields: [],
-      issue_kinds: ["missing_analysis"],
-      public_explanation: null,
-    } })]);
+    await renderAt([
+      article({
+        editorial_feedback: {
+          status: "accepted",
+          adjudicated_at: "2026-09-01T10:00:00.000Z",
+          revision: 1,
+          fields: ["issue_kinds"],
+          needs_revalidation_fields: [],
+          issue_kinds: ["missing_analysis"],
+          public_explanation: null,
+        },
+      }),
+    ]);
 
     expect(await screen.findByText("Липсва анализ")).toBeVisible();
     expect(screen.getByText(/още не е анализирана/)).toBeVisible();
     expect(screen.queryByText("Неутрално")).not.toBeInTheDocument();
   });
 
+  it("does not relabel model analysis for issue-only editorial feedback", async () => {
+    await renderAt([
+      article({
+        analysis: analysed(),
+        editorial_feedback: {
+          status: "accepted",
+          adjudicated_at: "2026-09-01T10:00:00.000Z",
+          revision: 1,
+          fields: ["issue_kinds"],
+          needs_revalidation_fields: [],
+          issue_kinds: ["missing_sector"],
+          public_explanation: null,
+        },
+      }),
+    ]);
+
+    expect(await screen.findByText("Само модел")).toBeVisible();
+    expect(screen.queryByText("Редакционно проверено")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Моделна оценка")).toHaveLength(2);
+  });
+
+  it("prioritizes revalidation when one analysis field is stale", async () => {
+    await renderAt([
+      article({
+        analysis: analysed(),
+        editorial_feedback: {
+          status: "accepted",
+          adjudicated_at: "2026-09-01T10:00:00.000Z",
+          revision: 2,
+          fields: ["leaning"],
+          needs_revalidation_fields: ["russia_stance"],
+          issue_kinds: [],
+          public_explanation: null,
+        },
+      }),
+    ]);
+
+    expect(await screen.findByText("Повторна проверка")).toBeVisible();
+    expect(screen.getAllByText("Редакционна проверка")).toHaveLength(1);
+    expect(screen.getAllByText("Моделна оценка")).toHaveLength(1);
+  });
+
   it("does not render stale issue claims or explanations as current", async () => {
-    await renderAt([article({ editorial_feedback: {
-      status: "needs_revalidation",
-      adjudicated_at: "2026-09-01T10:00:00.000Z",
-      revision: 2,
-      fields: [],
-      needs_revalidation_fields: ["issue_kinds"],
-      issue_kinds: [],
-      public_explanation: null,
-    } })]);
+    await renderAt([
+      article({
+        editorial_feedback: {
+          status: "needs_revalidation",
+          adjudicated_at: "2026-09-01T10:00:00.000Z",
+          revision: 2,
+          fields: [],
+          needs_revalidation_fields: ["issue_kinds"],
+          issue_kinds: [],
+          public_explanation: null,
+        },
+      }),
+    ]);
 
     expect(await screen.findByText(/повторна проверка/)).toBeVisible();
-    expect(screen.getByText(/не се показва като текущо заключение/)).toBeVisible();
+    expect(
+      screen.getByText(/не се показва като текущо заключение/),
+    ).toBeVisible();
     expect(screen.queryByText("Липсва анализ")).not.toBeInTheDocument();
   });
 });
@@ -666,7 +748,9 @@ describe("the unanalysed state", () => {
     // yet judged" — never as "judged neutral", which an empty badge row says.
     await renderAt([article()]);
     expect(await screen.findByText(/още не е анализирана/)).toBeVisible();
-    expect(screen.queryByText("увереност 70%")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Необработена увереност 70%/),
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByText(/Политическо рамкиране на материала/),
     ).not.toBeInTheDocument();
