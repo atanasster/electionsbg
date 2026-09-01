@@ -1,8 +1,15 @@
 # Home search expansion — implementation plan v1
 
-Status: **research complete; implementation not started**
+Status: **research complete; audited 2026-09-01; implementation not started**
 Scope: the finder on `/` only, plus the shared search adapters and backend correctness work
 required for its results to be true and reproducible.
+
+> **Audit note (2026-09-01).** Every figure in this document was re-measured read-only
+> against the local Postgres corpus, and every code claim re-checked against the file it
+> names. Four things the first draft asserted were wrong and are corrected in place — the
+> identity split's SIZE (§2.6), how the §2.3 timings must be measured (§2.3), the `shared_name`
+> caveat (§3.3), and the person destination rule (§2.4). The corrections are marked ⚠️ where
+> a reader of the first draft would otherwise carry the old claim forward.
 
 ## 1. Outcome
 
@@ -17,7 +24,7 @@ Expand the home finder from five visible groups to ten:
 5. companies with public contracts;
 6. signed public-procurement contracts;
 7. public-procurement procedures/tenders;
-8. EU-funds projects from ISUN + EEA/Norway;
+8. EU-funds projects from ISUN (+ a small EEA/Norway tail — see §2.5);
 9. Interreg operations;
 10. basket products.
 
@@ -36,7 +43,7 @@ Home HubSearch
 │                               ├──────────────── Companies
 │                               ├──────────────── Contracts
 │                               ├──────────────── Procedures / tenders
-│                               ├──────────────── ISUN + EEA/Norway projects
+│                               ├──────────────── ISUN projects
 │                               └──────────────── Interreg operations
 └── /api/db/price-search ───────────────────────── Products
 ```
@@ -65,9 +72,11 @@ The same module exposes only `awarders` and `companies` from the shared procurem
 - `funds`;
 - `interreg`.
 
-`/api/db/procurement-search` runs those six searches today even when the home page renders only
-two of them. Surfacing the other four adds client mapping and rows in the dropdown, not more SQL
-or another network call.
+**Verified 2026-09-01:** `/api/db/procurement-search` runs all six searches on every call —
+`groupQueries(needle)` builds the six unconditionally and `Promise.allSettled` awaits them —
+even when the home page renders only two. It also already pays for `contractsTotal` /
+`tendersTotal` and the shliokavitsa `altQuery`. Surfacing the other four groups adds client
+mapping and rows in the dropdown, **not more SQL and not another network call**.
 
 ### 2.2 The people corpus already has the requested coverage
 
@@ -92,7 +101,7 @@ The source/ranking model is already correct for the requested semantics:
 - each tier has its own top-K ordered by `rank_static`, so a common private namesake does not
   outrank a public figure.
 
-### 2.3 Why `vassil terziev` fails
+### 2.3 Why `vassil terziev` fails — and how the fix must be MEASURED
 
 The person exists in `person_search` as `Васил Александров Терзиев`, with:
 
@@ -106,32 +115,57 @@ The route's fuzzy predicate compares the **whole query** against the **whole thr
 name_fold %> translit_bg_latin($query)
 ```
 
-Natural first+family search omits the patronymic. The whole-string similarity for
-`vassil terziev` does not clear the route predicate, even though both name words match.
+`%>` is `word_similarity(query, name_fold) > threshold`, i.e. the query must match one
+CONTINUOUS extent of words inside the name. Natural first+family search omits the patronymic,
+so `vassil terziev` is scored against the extent `vasil aleksandrov terziev` and the
+intervening patronymic sinks it below the threshold.
 
-A read-only token-wise probe on the current index does find him:
+A token-wise probe on the current index does find him, with no new index:
 
 ```sql
 name_fold %> translit_bg_latin('vassil')
 AND name_fold %> translit_bg_latin('terziev')
 ```
 
-Measured local warm plans:
+⚠️ **THE TIMINGS DEPEND ON HOW THE QUERY REACHES POSTGRES, AND THE SPREAD IS 500×.** The
+first draft of this plan published a table of low-millisecond figures without saying how they
+were produced; re-measured three ways, same query, same corpus, warm — tier N, `ivan` +
+`ivanov`, the most expensive shape in the corpus:
 
-| Probe | Tier | Execution |
-| --- | --- | ---: |
-| `vassil` + `terziev` | P | 3.47 ms |
-| `ivan` + `ivanov` | P | 0.44 ms |
-| `ivan` + `ivanov` | V | 5.11 ms |
-| `ivan` + `ivanov` | N | 2.04 ms |
+| how the query reaches Postgres | plan node | time | buffers |
+| --- | --- | ---: | ---: |
+| psql **literal** constants | `Index Scan using idx_person_search_rank` | 0.46 ms | 7 |
+| `PREPARE`/`EXECUTE`, custom plan | `Bitmap Heap Scan` + Sort (27,010 rows) | **190 ms** | 11,980 |
+| `PREPARE`/`EXECUTE`, generic plan | `Bitmap Heap Scan` + Sort | **465–539 ms** | 11,980 |
+| **node-postgres unnamed statement — what `dbRows` actually does** | `Index Scan using idx_person_search_rank` | **0.11 ms** | **7** |
 
-No new index is needed. Postgres either early-stops on `idx_person_search_rank` or combines the
-existing trigram probes on `idx_person_search_fold`, depending on selectivity.
+The last row is production. It is fast **only because Postgres plans an UNNAMED
+extended-protocol statement at Bind time with the real parameter values**, which is what lets
+it estimate `translit_bg_latin($2)`'s selectivity and choose the `rank_static` early-stop over
+the trigram bitmap. That dependency is invisible in the SQL and is one connection-layer change
+away from the 190–539 ms plan: a NAMED prepared statement, a client-side statement cache, or a
+pooler in transaction mode would each drop it.
 
-The local corpus currently has **two** Vassil Terziev person rows: one carrying the
-`official_muni` mayor role and one the 2023 `local` mayor role. That is a person-identity split,
-not a search-result presentation problem. A client-side “same name, same role” dedupe could merge
-real namesakes and must not be used.
+⚠️ **CLAUDE.md's „measure with `PREPARE`, never a psql literal" rule points the WRONG WAY
+here**, and would make a correct implementation look like a blocker. Both rules are special
+cases of one: **measure through the driver the route uses** —
+`client.query('EXPLAIN (ANALYZE, BUFFERS) …', params)` over `pg`.
+
+Measured that way, the new predicate is also FASTER than today's on the adversarial case —
+two individually-common words that never co-occur, which is the worst case for a `rank_static`
+early-stop because the scan must walk the whole tier before it can stop:
+
+| probe (node-postgres path, tier N) | two-token (proposed) | one-token (today) |
+| --- | ---: | ---: |
+| `ivan` + `ivanov` | 0.11 ms / 7 buf | 0.16 ms / 7 buf |
+| zero-match `ivanov` + `georgiev` | **23 ms / 613 buf** | **62 ms / 6,936 buf** |
+| `dimitrov` + `petrov` | 20 ms / 1,645 buf | — |
+| `vassil` + `terziev`, tier P | 2.0 ms / 260 buf | (returns nothing) |
+
+No new index is needed: `idx_person_search_fold` is `gin (name_fold gin_trgm_ops)`, which
+serves `%>`, and two ANDed probes on the SAME column are a BitmapAnd — strictly more selective
+than one. All figures are LOCAL; re-measure on Cloud SQL before shipping (`db-perf-optimized-N-2`,
+and this is the table family with a 4h41m incident behind it).
 
 ### 2.4 The public-money corpora and routes are already present
 
@@ -141,7 +175,7 @@ Local corpus sizes on 2026-09-01:
 | --- | ---: |
 | signed procurement contracts | 410,369 |
 | tender procedures | 238,304 |
-| ISUN + EEA/Norway projects | 82,283 |
+| ISUN + EEA/Norway fund projects | 82,283 |
 | Interreg operations | 1,958 |
 | Interreg partner rows | 12,015 |
 
@@ -149,14 +183,39 @@ The live detail destinations already exist:
 
 | Result | Destination |
 | --- | --- |
-| person P | route-provided `/person/:slug` |
-| person V/N | route-provided/name-encoded `/person/:name` |
+| person, `key` starts `slug:` | route-provided `href` = `/person/:slug` |
+| person, `key` starts `fold:` | `/person/:name`, `encodeURIComponent`d |
 | institution | `/awarder/:eik` |
 | company | `/company/:eik` |
 | contract | `/procurement/contract/:key` |
 | tender | `/tenders/:unp` |
 | fund project | `/funds/contract/:contractNumber` |
 | Interreg operation | `/funds/interreg/:keepId` |
+
+⚠️ **THE PERSON ROW BRANCHES ON THE KEY NAMESPACE, NEVER ON THE TIER — and the existing
+helper gets this wrong.** `personTo()` in
+[`personSearchGroups.ts`](../../src/screens/components/procurement/personSearchGroups.ts) is
+`h.tier === "P" ? h.href : '/person/' + encodeURIComponent(h.name)`. But tier and key
+namespace are different questions:
+
+| tier | key namespace | rows |
+| --- | --- | ---: |
+| P | `slug:` | 63,836 |
+| V | **`slug:`** | **69,367** |
+| V | `fold:` | 15,190 |
+| N | `fold:` | 445,804 |
+
+**82% of V rows carry a real slug and a real `/person/<slug>` href that the client throws
+away.** `load_person_search_pg.ts`'s V-real arm exists for exactly the opposite reason — its
+own comment: „they belong in the money (V) tier by their REAL slug … Without this they would
+fall through to the tr_officers arm and route by `/person/<name>` with a `name_fold` badge
+despite being verified." The shared adapter must branch on `key.startsWith("slug:")`, and the
+existing helper must be fixed in the same pass (§4 Phase 3) or `/procurement` keeps the defect
+while the home gets the fix.
+
+Contract keys are URL-safe — **0 of 410,369 contain a character outside `[A-Za-z0-9_-]`** — so
+Phase 3's blanket `encodeURIComponent` on path segments is defensive rather than load-bearing,
+which is the right way round.
 
 [`src/screens/components/procurement/fundSearchGroup.ts`](../../src/screens/components/procurement/fundSearchGroup.ts)
 is stale: it links an ISUN hit to the beneficiary company and drops a project without a
@@ -181,6 +240,55 @@ Warm local measurements after priming were 19.8 ms for a common contract query, 
 tenders, 20.4 ms for fund projects and 2.4 ms for Interreg. Cold-cache timings were materially
 higher; these are local diagnostics, not a Cloud SQL p95 claim. Importantly, the home expansion
 does not add any of these searches—the procurement route already performs them.
+
+⚠️ **„ISUN + EEA/Norway" attributes 82,283 rows to a label whose second half is 0.32%.**
+Measured by `program_code`: `BGCULTURE` 55, `BGLD` 64, `BGENERGY` 64, `BGENVIRONMENT` 34,
+`BGHOMEAFFAIRS` 22, `BGJUSTICE` 17, `DF` 7 — **263 rows**. (`BNSF` 116 and `DEP` 65 are
+neither an ИСУН OP nor EEA/Norway.) Keep the group label „Еврофондове (ИСУН)" exactly as it is
+today, and attribute the 82,283 to the corpus rather than to the pair.
+
+### 2.6 ⚠️ The Vassil duplicate is a CLASS of 4,766 rows, not an instance
+
+The first draft called this „a person-identity split, not a search-result presentation
+problem" — correct — and then proposed a single override, which is not. Measured 2026-09-01:
+
+```
+person_id 58448  official_muni  vasil-aleksandrov-terziev-049f64  mayor  SFO_CITY
+person_id 58449  local          2023_10_29_mi:SOF:mayor           mayor  SFO_CITY
+```
+
+| measure | count |
+| --- | ---: |
+| name folds split across `official_muni` and `local` | **1,211** |
+| …carrying an IDENTICAL (fold, role, place_code) signature | **1,127** |
+| name folds those two sources DO union correctly | 4,033 |
+| `person_search` P rows inside a same-(fold, place_label, primary_role) duplicate cluster | **4,766 of 63,836 (7.5%)** |
+
+Samples are unambiguous — same fold, same role, same `place_code`, two person_ids:
+
+```
+adrian miroslavov marinov      local/councillor/VID37#106 | official_muni/councillor/VID37#110
+albena cherkezova kostadinova  local/councillor/PDV42#531 | official_muni/councillor/PDV42#487
+albina alekseeva aneva tomova  local/councillor/BLG03#617 | official_muni/councillor/BLG03#616
+```
+
+Three things follow:
+
+- **Something already unions these two sources and misses ~23% of the time** (4,033 vs 1,211).
+  That is a tier bug with a strong, cheap signature — the (fold, role, place_code) triple —
+  not 1,211 independent adjudications. `person_link_override` is explicitly the escape hatch
+  for what the deterministic tiers get WRONG; it is not a substitute for a tier.
+- **It is not a home-search defect.** `/persons?q=vasil terziev` already returns both rows
+  (`person_browse_table` carries both slugs), because `persons.name` carries
+  `searchFoldTokens: true`. The home finder makes it more visible, nothing more.
+- **A client-side „same name, same role" dedupe still must not be used.** Two real people can
+  share those display fields. The identity layer is the only authority licensed to merge them.
+
+⚠️ **Verify on Cloud SQL before writing any override.** The second slug is
+`vasil-aleksandrov-terziev-049f64-2`, a `-N` collision suffix; 5,071 P rows carry one locally,
+and CLAUDE.md records that the great majority of local-only `-N` slugs „only ever existed on
+the local machine". The SPLIT is probably deterministic and present on prod under different
+slugs — but a ref override is only correct if that ref exists on the target.
 
 ## 3. Design decisions
 
@@ -207,7 +315,7 @@ Do not put a “see all” link on the Commerce-Registry group. `/persons` brows
 445,804-row N tier, so such a link would promise a result set the destination cannot reproduce.
 The direct person result remains linkable.
 
-### 3.3 Show the specific office, not only the broad facet
+### 3.3 Show the specific office, and ADD the identity caveat that is missing
 
 For public people, render:
 
@@ -219,41 +327,93 @@ and fall back to the broad `position_type` only if `primary_role` has no label. 
 must read as `Кмет · Столична община`, not merely `Политик · Столична община`.
 
 Reuse `usePersonLabels().roleLabel` / the `pp_role_*` and `tr_role_*` vocabulary. Do not create a
-third mayor/councillor/magistrate label map inside home search.
+third mayor/councillor/magistrate label map inside home search. **Verified 2026-09-01: all 56
+distinct `person_search.primary_role` codes have a `pp_role_*` key in
+`src/locales/{bg,en}/translation.json` — the CORE corpus, not a deferred bundle** — so this
+cannot leak a raw code on a page whose bundle has not loaded. `usePersonLabels` is memoized on
+`t`, so passing `roleLabel` into `homeSearchSources` does not churn the `useMemo`.
 
-For V/N people, keep the identity caveat from `personSearchGroups.ts`: a name-derived identity
-must say that it is a name match, and `shared_name` must retain its stronger several-people
-warning. Show `public_money_eur` only for V.
+⚠️ **The first draft said `shared_name` „must retain its stronger several-people warning".
+There is no such warning to retain.** `firmsText()` in `personSearchGroups.ts` branches on
+`identity_confidence === "name_fold"` and nothing else:
 
-### 3.4 Keep a hard 20-row dropdown budget
+| tier | identity_confidence | rows | caveat shown today |
+| --- | --- | ---: | --- |
+| V | `verified` | 64,991 | none |
+| V | `name_fold` | 15,190 | „съвпадение по име" |
+| V | `shared_name` | **4,376** | **none** |
+| N | `name_fold` | 445,804 | „съвпадение по име" |
+
+`shared_name` is „the same money-linked private owner on a fold the registry positively says is
+≥2 people" (081). `/person` and `/persons` both render a stronger warning for it
+(`isSharedNameIdentity`, `pp_identity_shared_name`); the search dropdown does not. **ADD it**,
+reusing that predicate and that copy rather than minting a fourth vocabulary — the same
+argument this section already makes for `roleLabel`. Show `public_money_eur` only for V.
+
+### 3.4 Keep a hard 20-row dropdown budget — and order by INTENT
 
 The proposed order and caps are:
 
 | Order | Group id | Cap | “See all” |
 | ---: | --- | ---: | --- |
 | 1 | `places` | 3 | none |
-| 2 | `public-people` | 3 | none in v1; `/persons` does not reproduce this endpoint's typo-tolerant matching |
-| 3 | `company-people` | 2 | none |
+| 2 | `public-people` | 3 | none in v1; `/persons` does not reproduce this endpoint's typo tolerance |
+| 3 | `products` | 2 | `/consumption/products?q=…` |
 | 4 | `awarders` | 2 | none; no awarder browser reads `?q` |
 | 5 | `companies` | 2 | `/procurement/contractors?q=…&pscope=all` |
 | 6 | `contracts` | 2 | `/procurement/contracts?q=…&pscope=all` |
 | 7 | `tenders` | 2 | `/procurement/tenders?q=…&pscope=all` |
-| 8 | `funds` | 1 | none; no fund-project browser reads `?q` |
-| 9 | `interreg` | 1 | none |
-| 10 | `products` | 2 | `/consumption/products?q=…` |
+| 8 | `company-people` | 2 | none |
+| 9 | `funds` | 1 | none; no fund-project browser reads `?q` |
+| 10 | `interreg` | 1 | none |
 | | **Total** | **20** | |
+
+⚠️ **Products is THIRD, not tenth, and the ordering axis is reader intent rather than corpus
+taxonomy.** Today products is 5th of 5 — roughly row 15. A naive taxonomy order puts it 10th of
+10, behind 9 sticky headers and 18 rows, inside a `max-h-96` (384 px) scroll box holding
+~1,100 px of content, i.e. effectively invisible. „кисело мляко" is a first-class home query
+and the consumption hub is the newest thing the home is trying to surface.
+
+The mitigation that does the real work is that **empty groups collapse** — `toGroup` returns
+`[]` at zero rows — so the 10-deep worst case only occurs on a broad word („ремонт", „София").
+Say that in the copy review rather than relying on the cap alone.
 
 `HubSearch` already scroll-bounds the dropdown at `max-h-96`; the cap limits keyboard traversal
 and keeps a broad query from turning the global finder into a browser.
 
-Contract/tender “see all” links must use the response's `altQuery` and `pscope=all`, as the
-existing procurement tile does. The current public-people see-all link is removed in this pass:
-`/api/db/person-search` is typo-tolerant while `/persons?q=` is token-substring search, so the
-user's `vassil terziev` example can succeed in the preview and fail at the alleged full result.
-Never add a see-all destination merely because a route exists; the destination must reproduce
-the query semantics and represent the same corpus.
+**Four rules on “see all”, and three of them are new:**
 
-### 3.5 Keep ISUN/EEA/Norway and Interreg separate
+- **`altQuery`, on EVERY see-all, not only contracts and tenders.** The response's `altQuery` is
+  the needle the rows actually came from. `/procurement/contractors` and `/consumption/products`
+  run their own `DbDataTable` search too. ⚠️ Their `searchFold` arm carries a
+  `shlyo_query_fold` rewrite that is NOT the route's `shlyoAlt` — there are three different
+  shliokavitsa triggers in this repo — so „the destination has a rewrite" is not „the
+  destination has THIS rewrite".
+- **`pscope=all` on the three procurement links**, as the existing procurement tile does: the
+  browse tables default to the selected parliament's window.
+- ⚠️ **Suppress every see-all below `SEARCH_MIN_CHARS` (3).** `HubSearch` opens at
+  `MIN_QUERY = 2`, and every see-all destination is a `DbDataTable` at
+  `searchMinChars = SEARCH_MIN_CHARS = 3`, which renders „въведете поне 3 знака" instead of
+  results while the server REFUSES the term with a 400. So a two-character query shows a
+  preview with rows and four links to a page that cannot run it. Count with `termLength`, not
+  `.length` — the engine counts characters, not UTF-16 code units.
+- **The public-people see-all is REMOVED in this pass, and the reason is narrower than it
+  looks.** `/persons` already ANDs name tokens (`persons.name` carries
+  `searchFoldTokens: true`, shipped by
+  [`person-search-token-match-v1.md`](./person-search-token-match-v1.md)), so `vasil terziev`
+  DOES reproduce there. What does not reproduce is the TYPO — `vassil`, a doubled letter no
+  shliokavitsa rewrite touches — because `/persons` is substring matching and `person-search`
+  is trigram. Never add a see-all destination merely because a route exists; the destination
+  must reproduce the query SEMANTICS and represent the same corpus.
+
+⚠️ **A see-all row is not reachable by arrow key, and that is pre-existing.**
+`EntitySearchTile` renders it inside `role="group"` but not as `role="option"` and not in its
+`flat` array, so arrow keys skip it and a non-`option` interactive child violates the
+`listbox`/`group` content model. §5.3's „arrow keys traverse all visible options" will
+therefore PASS while four links stay unreachable. Name the exclusion in the acceptance list or
+fix it; do not let the criterion imply coverage it does not have.
+
+### 3.5 Keep ISUN and Interreg separate
 
 They have different keys and different money meanings:
 
@@ -272,16 +432,20 @@ Do not combine them under one result heading or amount formatter.
    both `searchFoldTokens` and the route:
    - split on Unicode whitespace;
    - normalize NFC and deduplicate case-insensitively;
-   - keep words at `SEARCH_MIN_CHARS` or longer;
+   - keep words at `SEARCH_MIN_CHARS` or longer (`termLength`, not `.length`);
    - stop at `MAX_SEARCH_WORDS`;
    - return the existing single-query path when fewer than two words qualify.
+   ⚠️ That helper is shared with `persons.name`'s `searchFoldTokens` arm, so a regression here
+   breaks `/persons`, not the home. `functions/db_table.test.js` must stay green.
 2. In the `person-search` handler in
    [`functions/db_routes.js`](../../functions/db_routes.js), retain the whole-fold `exactQ` and
    replace only the multi-word fuzzy predicate with one `%>` predicate per qualifying word,
    ANDed against the same `name_fold`.
 3. Keep `ORDER BY rank_static DESC LIMIT …` byte-visible in the route. Do not add a dynamic
    similarity sort over the full match set; the existing comments record a 231 ms regression
-   for common names when early-stop ranking was lost.
+   for common names when early-stop ranking was lost. ⚠️ **Record in the route's comment that
+   the plan shape depends on BIND-TIME planning of an unnamed statement** (§2.3) — a named
+   prepared statement or a transaction-mode pooler moves this to 190–539 ms.
 4. Apply the same helper to an alternate shliokavitsa needle because `tierRows` must have one
    matching contract regardless of which needle produced it.
 5. Preserve the `decl=1|0` predicates and missing-migration degradation.
@@ -293,12 +457,31 @@ Tests:
 - extend `scripts/db/tests/person_search.data.test.ts` so `vassil terziev`, `vasil terziev` and
   `васил терзиев` return the mayor row;
 - retain the route-source gate for `ORDER BY rank_static`;
-- use `EXPLAIN` to fail on a sequential scan for the representative multi-word probes, but do
-  not make wall-clock milliseconds a CI assertion.
+- ⚠️ the `EXPLAIN` gate must run through `pg` with **bound parameters**
+  (`client.query('EXPLAIN (ANALYZE, BUFFERS) …', params)`), never `PREPARE`/`EXECUTE` and never
+  literals. Fail on a sequential scan and on a buffer ceiling for the representative multi-word
+  probes, including the zero-match conjunction from §2.3. Do not make wall-clock milliseconds a
+  CI assertion.
 
-### Phase 2 — repair the known Vassil identity split through the identity layer
+### Phase 2 — repair the identity split as a CLASS, then as an instance
 
-1. Verify the exact two source mentions currently split across:
+**2a — measure and decide (blocking).**
+
+1. Re-run §2.6's three measurements against **Cloud SQL** as well as local. The class size, not
+   the instance, decides the instrument.
+2. Diagnose why 4,033 folds union across `official_muni`/`local` and 1,211 do not. The
+   1,127-row identical-(fold, role, place_code) subset is the strongest evidence in the corpus
+   and is the natural key for a deterministic tier.
+3. Decide, in writing: a resolver rule (closing ~1,127 at once) or N audited overrides. If the
+   answer is „rule", it belongs in `scripts/person/` with its own gate and is a larger piece of
+   work than this plan — say so and let the home expansion ship behind it or beside it, but do
+   not let §9 claim an identity property the corpus does not have.
+4. Whatever is chosen, add a data gate on the **class count** as a ratchet — „P rows inside a
+   same-(fold, place, role) duplicate cluster must not exceed N" — not on one person.
+
+**2b — the instance, only if 2a says the class is genuinely heterogeneous.**
+
+1. Verify the exact two source mentions on the TARGET database:
    - `official_muni:vasil-aleksandrov-terziev-049f64`;
    - `local:2023_10_29_mi:SOF:mayor`.
 2. Record an audited ref-level merge through the existing person-override workflow
@@ -325,7 +508,12 @@ there) with:
   `decl`), evicted after rejection/abort;
 - `fetchPublicPeople` and `fetchCompanyPeople` adapters that await that same promise;
 - a deterministic V/N quota helper;
-- shared person-to-route, role subtitle, identity caveat and `altQuery` handling.
+- ⚠️ **a person-to-route helper that branches on `key.startsWith("slug:")`, not on `tier`** —
+  §2.4. Fix `personTo()` in `personSearchGroups.ts` in the same pass, and pin a `slug:`-keyed V
+  row to its `href` in a unit test;
+- ⚠️ **the `shared_name` caveat** (§3.3), reusing `isSharedNameIdentity` and
+  `pp_identity_shared_name`;
+- the role subtitle and `altQuery` handling.
 
 The signal sharing is safe because `HubSearch` supplies one `AbortController` to every source for
 one debounced query. A rejected promise must still throw to every awaiting source so an outage is
@@ -342,10 +530,17 @@ from two response groups to the complete route shape:
 
 - typed entity, contract, tender, fund and Interreg rows;
 - shared fetchers/item builders for all six groups;
-- query-keyed `altQuery`, `contractsTotal` and `tendersTotal` metadata for valid see-all links;
+- ⚠️ **query-keyed `altQuery` / `contractsTotal` / `tendersTotal` metadata.** `seeAll` is a
+  SYNCHRONOUS render-time callback (`toGroup` calls `src.seeAll?.(query)`), so it cannot await
+  the shared promise — the values must come from a map keyed by the exact needle, written when
+  the fetch resolves. The single-slot mutable `lastPersonAlt` in `homeSearch.ts` today is
+  exactly the shape that does not survive six sources sharing one promise; replace it.
 - URI encoding for every path parameter;
 - `decodeEntities` on every externally sourced display string;
-- `isLinkableCompanyKey` for contractor destinations.
+- `isLinkableCompanyKey` for contractor destinations **only**. ⚠️ Awarder ids go through
+  `isValidEik` (9–13 digits); two live awarders — ЕСО `1752013040`, АДФИ `175076479999` — sit
+  outside 9/13 and resolve, so routing an awarder through the contractor predicate de-links a
+  working page.
 
 Refactor `FundsFinder` and `ProcurementSearchTile` to reuse these row mappers or pure item builders
 so the home, procurement and funds surfaces cannot disagree about destinations or money fields.
@@ -354,17 +549,56 @@ Keep the procurement tile's project-file footer as a tile-only concern.
 Update `fundSearchGroup.ts` so every valid `contractNumber` links directly to
 `/funds/contract/:number`; a missing beneficiary EIK must no longer hide a real project.
 
-### Phase 4 — make fund titles bilingual like the sibling groups
+### Phase 4 — make fund titles bilingual, the way Interreg already does it
+
+⚠️ **Do NOT replace the predicate. ADD a folded arm beside the raw one.** The first draft said
+„keep the result grain and ranking tiebreaks unchanged" while replacing `q <% f.title` with a
+folded comparison — which changes the SIMILARITY VALUES for every existing Cyrillic query
+(`ж` → `zh` changes the trigram set) against a function that pins
+`pg_trgm.word_similarity_threshold = 0.5`. Both the ranking and the membership of today's
+results would move, silently.
+
+The repo already contains the right shape one migration over.
+`search_interreg_operations` (138) UNIONs a raw arm and a folded arm and carries an explicit
+`arm` rank column so an exact hit outranks a folded one at equal similarity — with a comment
+recording the exact regression that motivated it („Благоевград": three Latin-named partners tied
+at 1.000 and displaced `Община Благоевград` from a 6-row preview). Copy that.
 
 1. In
    [`scripts/db/schema/pg/086_search_fund_projects.sql`](../../scripts/db/schema/pg/086_search_fund_projects.sql),
-   add an idempotent GIN trigram expression index on `translit_bg_latin(title)`.
-2. Search and rank on `translit_bg_latin(q)` versus `translit_bg_latin(title)` so Cyrillic and
-   Latin queries use the same representation and index.
-3. Keep the result grain and ranking tiebreaks unchanged: one row per `contract_number`, similarity
-   first, amount second, key last.
+   add an idempotent GIN trigram **expression** index on `translit_bg_latin(title)` — the same
+   shape as `idx_interreg_partners_name_fold_trgm` (137).
+2. Rewrite the body as `hits` = raw arm (`q <% f.title`, `arm = 0`) `UNION ALL` folded arm
+   (`translit_bg_latin(q) <% translit_bg_latin(f.title)`, `arm = 1`), then
+   `DISTINCT ON (contract_number)` keeping the strongest arm.
+3. Order `sim DESC, arm, total_eur DESC NULLS LAST, contract_number`. Cyrillic behaviour is then
+   byte-for-byte what it is today and Latin is strictly additive — which is also what makes the
+   §5.2 gate („Cyrillic and Latin both return rows") meaningful rather than tautological.
+   Keep `idx_fund_projects_title`; it stays the raw arm's index.
 4. Add a data test proving a representative Latin query returns project rows also reachable by
-   its Cyrillic spelling and that `EXPLAIN` uses the folded index.
+   its Cyrillic spelling, that the Cyrillic hit SET is unchanged, and that `EXPLAIN` uses the
+   folded index.
+
+Four operational facts, three of which the first draft hedged on or omitted:
+
+- **Why an expression index and not a STORED `title_fold`** like `contracts.title_fold` /
+  `tenders.subject_fold`: a STORED generated column REWRITES the heap into a new relfilenode
+  whose visibility map is EMPTY (the `price_products.title_fold` incident — `ANALYZE` alone is
+  the disguise; the fix is `VACUUM (ANALYZE, PARALLEL 0)`). A reviewer will otherwise ask why
+  this breaks the sibling pattern.
+- ⚠️ **Record the REINDEX obligation.** `176_translit_homoglyph_refold` recomputes STORED
+  generated folds and the loader-written `tender_search_text.fold`. It touches NO expression
+  index, and Postgres does not reindex on an IMMUTABLE function-body change. Three such indexes
+  exist today (`idx_official_roster_fold`, `idx_mp_roster_fold`,
+  `idx_interreg_partners_name_fold_trgm`); this adds a fourth. Add the list plus
+  `REINDEX INDEX …` to `000_search_fns.sql`'s header or to a 176-family file.
+- **`--payloads-only` DOES apply the schema files** — settled 2026-09-01, no longer a caveat.
+  `loadFundsPg` runs all four `exec(readFileSync(...))` calls before the
+  `payloadsOnly ? [] : …` branch. Drop the „verify that behavior on the implementation branch"
+  hedge.
+- **`exec()` sends a migration as ONE transaction, so the index cannot be `CONCURRENTLY`.** It
+  is a ShareLock over 82,283 rows — seconds — but say so, because this file is applied on the
+  Cloud SQL publish path.
 
 This phase does **not** broaden fund matching to beneficiary name, programme name or contract
 number. The home copy must promise project-title search only. Those fields can be a measured
@@ -375,11 +609,15 @@ follow-up with their own precision and index review.
 1. Update [`src/screens/home/homeSearch.ts`](../../src/screens/home/homeSearch.ts):
    - replace `people` with `public-people` and `company-people`;
    - add contracts, tenders, funds and Interreg sources;
-   - apply the group order and caps in §3.4;
+   - apply the group order and caps in §3.4 (products third);
+   - suppress every see-all below `SEARCH_MIN_CHARS`;
    - keep places as the only local index and every other group server-backed;
-   - keep the sum-of-caps gate at 20.
+   - keep the sum-of-caps gate at 20;
+   - **fix the file header**, which still says „five groups, four requests" while its own body
+     says three.
 2. In [`src/screens/HomeDashboardScreen.tsx`](../../src/screens/HomeDashboardScreen.tsx), pass the
-   shared person role labeler and update the bilingual copy. Recommended Bulgarian copy:
+   shared person role labeler (`usePersonLabels().roleLabel`, memoized on `t`) and update the
+   bilingual copy. Recommended Bulgarian copy:
    - placeholder: `място, човек, фирма, договор, поръчка или проект…`;
    - hint: `Места; публични лица и лица от Търговския регистър; възложители и изпълнители; договори и процедури по ЗОП; заглавия на проекти по еврофондове и заглавия/партньори по Interreg; продукти.`
 3. Keep `onArm`, the lazy place catalog and the existing debounce/cancellation behavior unchanged.
@@ -387,6 +625,11 @@ follow-up with their own precision and index review.
    - `Договори по ЗОП` / `Procurement contracts`;
    - `Процедури по ЗОП` / `Procurement procedures`.
    “Procurements” is the umbrella in copy, not a redundant third corpus.
+5. ⚠️ **Shorten the „searched in" sentence.** `HubSearch` builds
+   „Няма съвпадения в: …" from every source that has an index or did not fail. At ten groups the
+   Bulgarian sentence runs ~120 characters and recites the whole taxonomy, which is the opposite
+   of the reassurance it was written to give. Cap the list or name bands rather than groups, and
+   gate whichever is chosen.
 
 ## 5. Verification gates
 
@@ -394,7 +637,7 @@ follow-up with their own precision and index review.
 
 Update `src/screens/home/homeSearch.test.ts` to pin:
 
-- ten group ids in the specified order;
+- ten group ids in the specified order (products third);
 - bilingual non-identical labels;
 - sum of caps `<= 20`;
 - two people sources issue one person request;
@@ -403,9 +646,14 @@ Update `src/screens/home/homeSearch.test.ts` to pin:
 - aborted/failed shared promises are evicted and retried;
 - failed sources throw and disappear from “searched in”, rather than report an absence;
 - public rows prefer localized `primary_role` and show place;
-- Commerce-Registry rows preserve identity caveats and V/N quota;
+- Commerce-Registry rows preserve the `name_fold` caveat, **carry the new `shared_name`
+  caveat**, and honour the V/N quota;
+- **a `slug:`-keyed V row links to its `href`, a `fold:`-keyed row to the encoded name**;
 - contract, tender, fund and Interreg rows resolve to their direct detail routes;
 - only destinations that consume `?q` receive see-all links;
+- **no see-all is emitted below `SEARCH_MIN_CHARS`**;
+- **every see-all carries `altQuery` when the response supplied one** — companies and products
+  included;
 - contract/tender/company see-all links use all-time procurement scope;
 - product response remains a bare-array contract.
 
@@ -417,11 +665,15 @@ route and to keep projects whose beneficiary EIK is null.
 
 ### 5.2 Data and route tests
 
-- `vassil terziev` returns one `Васил Александров Терзиев` public hit with `primary_role=mayor`;
+- `vassil terziev` returns one `Васил Александров Терзиев` public hit with `primary_role=mayor`
+  (conditional on Phase 2's outcome — see §2.6);
 - a representative magistrate and councillor are returned in P;
 - representative V and N rows remain reachable and retain their identity confidence;
-- Cyrillic/Latin fund-title probes both return rows;
+- **Cyrillic fund-title hit SET is unchanged after Phase 4, and the Latin probe returns rows**;
 - contract/tender/fund/Interreg search functions return unique keys and use their expected indexes;
+- **the person-search `EXPLAIN` gate runs through `pg` with bound parameters** (§2.3) and asserts
+  no sequential scan plus a buffer ceiling, including the zero-match conjunction;
+- **the duplicate-identity ratchet** from Phase 2a;
 - the route still degrades an absent optional migration group without blanking all other groups.
 
 ### 5.3 Browser acceptance
@@ -434,39 +686,73 @@ At `/`:
 3. Fixture searches surface a magistrate, a councillor, a V private person and an N private person.
 4. `ремонт` surfaces contract/tender/fund rows; `remont` also surfaces fund rows.
 5. Clicking one representative result from every group lands on the correct detail/browser route.
-6. Arrow keys traverse all visible options, Enter opens the selected route, Escape closes, sticky
-   group labels remain readable, and group names are announced through `role=group`.
-7. At 390 px the dropdown remains within its scroll container and does not widen the page.
-8. Force one endpoint to 500 and verify the no-results sentence does not claim that its groups
+6. Arrow keys traverse all `role="option"` rows, Enter opens the selected route, Escape closes,
+   sticky group labels remain readable, and group names are announced through `role=group`.
+   ⚠️ **See-all links are deliberately NOT options and are reachable by Tab only** (§3.4) — this
+   criterion does not cover them.
+7. At 390 px the dropdown remains within its scroll container and does not widen the page; a
+   broad query („София") is checked for scroll depth against the §3.4 ordering.
+8. A two-character query shows no see-all links.
+9. Force one endpoint to 500 and verify the no-results sentence does not claim that its groups
    were searched.
 
 ### 5.4 Regression commands
 
-Run at minimum:
+⚠️ **`npm run test:data -- <file>` DOES NOT SCOPE TO A FILE.** `test:data` is
+`vitest run scripts/db/tests`, so the extra argument adds a SECOND filter rather than narrowing
+the first and the whole suite runs — the one this repo records as flaky under load and as
+capable of a silent worker OOM. Use `npx vitest run <path>`.
 
 ```bash
-cd functions && npm test
+npm run lint
+npm run functions:test
 npx vitest run src/screens/home/homeSearch.test.ts
-npx vitest run src/screens/components/procurement
-npm run test:data -- scripts/db/tests/person_search.data.test.ts
-npm run test:data -- scripts/db/tests/search.data.test.ts
+npx vitest run src/screens/components/procurement src/screens/components/search
+npx vitest run src/entryGraph.test.ts
+npx vitest run scripts/db/tests/person_search.data.test.ts
+npx vitest run scripts/db/tests/search.data.test.ts
 npm run build
 ```
+
+`src/entryGraph.test.ts` is in the list because Phase 3 adds imports to a module the `/` route
+pulls; that gate exists because one constant taken from a registry put ~265 KB of source into the
+entry chunk. If the home bundle moves at all, re-check `tests/perf.spec.ts`'s byte budgets or state
+that it did not.
 
 Use the repository's normal broader gates if any shared `HubSearch`, person-label or table-search
 module changes beyond the boundaries above.
 
 ## 6. Rollout order
 
-1. Land and verify the folded fund-search index/function locally.
-2. Apply migration 086 to Cloud SQL through the funds loader's schema path before the UI depends on
-   it. `--payloads-only` still applies the schemas and avoids a needless full 128k-shard reload;
-   verify that behavior on the implementation branch before running it.
-3. Apply the audited Vassil identity merge and rebuild the dependent person serving layers through
-   the project skill/workflow.
-4. Deploy the DB function route change.
-5. Deploy the frontend/adapters.
-6. Run the browser acceptance set against the deployed environment and record one real network
+1. Land and verify the folded fund-search arm/index locally (Phase 4).
+2. Apply migration 086 to Cloud SQL through the funds loader's schema path —
+   `npm run db:load:funds:pg:cloud -- --payloads-only` applies the schemas and skips the ~128k
+   shard reload (verified 2026-09-01). Off-peak: the index build is a ShareLock over 82,283 rows
+   inside `exec()`'s single transaction, so it cannot be `CONCURRENTLY`.
+3. Complete Phase 2a and apply whatever it decides, rebuilding the dependent person serving layers
+   through the project skill/workflow.
+4. Deploy, in this order:
+
+```bash
+npm run deploy                    # 1. hosting live with the new bundle
+npm run deploy:db                 # 2. route change; fresh instances fetch the CURRENT shell
+SKIP_PREDEPLOY=1 npm run deploy   # 3. purge the edge entries step 2 could not
+```
+
+⚠️ **Hosting LEADS, and the third step is not optional.** The first draft shipped `deploy:db`
+before `deploy`. Nothing here adds a NEW `/api/db` route — Phase 1 edits an existing handler and
+Phase 4 edits a Postgres function — so the function-first exception does not apply. Function-first
+would leave a warm `db` instance serving the PRE-deploy SPA shell for up to `SPA_SHELL_TTL_MS`,
+and `/person/**`'s `s-maxage=3600` pins that stale HTML at the edge, advertising a deleted
+`/assets/index-<hash>.js` — a white screen `main.tsx`'s stale-chunk recovery cannot reach.
+Verify with the two-`curl` hash check:
+
+```bash
+curl -s https://electionsbg.com/person/mp-3643 | grep -oE '/assets/index-[^"]+\.js'
+curl -s https://electionsbg.com/ | grep -oE '/assets/index-[^"]+\.js'
+```
+
+5. Run the browser acceptance set against the deployed environment and record one real network
    trace. Only propose an aggregate endpoint if that trace shows the three-request design missing
    its latency budget.
 
@@ -474,7 +760,7 @@ Rollback is separable:
 
 - the frontend can remove the new groups without reverting schema or data;
 - the person route can return to whole-query fuzzy matching independently;
-- the folded fund index/function is additive and can remain even if the home UI rolls back;
+- the folded fund arm/index is additive and can remain even if the home UI rolls back;
 - identity overrides must use the person workflow's reviewed inverse/split path, never an ad-hoc
   SQL delete.
 
@@ -485,16 +771,24 @@ Rollback is separable:
 | More groups cause duplicate network calls | Both people groups share one keyed promise; all six procurement groups share another |
 | An abort poisons a query cache | Evict the exact in-flight entry on rejection/abort; preserve the rejection |
 | Public results starve private people | Independent public and Commerce-Registry source caps; balanced V/N preview |
-| A duplicate display row hides a real namesake | Never presentation-dedupe people; resolve the known split in the identity layer |
-| Specific roles render as raw codes | Reuse `usePersonLabels().roleLabel`; broad facet only as fallback |
+| A duplicate display row hides a real namesake | Never presentation-dedupe people; resolve the split in the identity layer |
+| **The identity split is treated as one person when it is 4,766 rows** | Phase 2a measures the class and ratchets it before 2b touches an instance |
+| **The person-search plan silently degrades 500×** | It rests on Bind-time planning of an UNNAMED statement; the route comments it and the gate measures through `pg` with bound parameters |
+| Specific roles render as raw codes | Reuse `usePersonLabels().roleLabel`; all 56 codes verified present in the CORE locale corpus |
+| **A verified private owner loses their canonical page** | Route on the `slug:`/`fold:` key namespace, never on tier |
+| **A `shared_name` row renders with no caveat** | Add the caveat, reusing `isSharedNameIdentity` / `pp_identity_shared_name` |
 | A fund hit lands on a beneficiary rather than the project | Canonical direct `/funds/contract/:number` adapter |
 | Latin fund query silently misses Cyrillic titles | Folded expression index and folded query predicate |
-| A “see all” page cannot reproduce the preview | Offer links only where the destination reads the query and covers the same corpus |
+| **Folding the fund search reorders today's Cyrillic results** | Two arms with an `arm` rank (138's shape); the gate asserts the Cyrillic hit set is unchanged |
+| **The folded expression index goes stale on a `translit_bg_latin` change** | 176 touches no expression index — record the `REINDEX` obligation beside the other three |
+| A “see all” page cannot reproduce the preview | Offer links only where the destination reads the query and covers the same corpus; carry `altQuery`; suppress below `SEARCH_MIN_CHARS` |
 | An endpoint outage reads as “no data exists” | Source fetchers throw; `HubSearch` excludes failed groups from its searched list |
-| Common-name performance regresses | Keep per-tier `rank_static` early-stop; no global dynamic similarity sort; inspect plans |
+| Common-name performance regresses | Keep per-tier `rank_static` early-stop; no global dynamic similarity sort; inspect plans through the driver |
 | ISUN and Interreg amounts are conflated | Separate groups and keep `bgBudgetEur` for Interreg |
+| **Products get buried below eight money corpora** | Order by intent (products third), and rely on empty-group collapse rather than on the cap alone |
+| **Deploying the function before hosting white-screens function-served pages** | Three-step deploy, hosting first, with the two-`curl` hash check |
 
-## 8. Explicit non-goals
+## 8. Explicitly out of scope for this pass
 
 - replacing the header search;
 - adding Elasticsearch/Meilisearch or a new global-search API;
@@ -506,13 +800,40 @@ Rollback is separable:
 - merging ISUN/EEA/Norway and Interreg into one corpus;
 - changing product or place ranking;
 - creating one cross-corpus relevance score;
-- adding open calls, news, or full-text page content to the home finder.
+- adding open calls, news, or full-text page content to the home finder;
+- **making the see-all row a `role="option"`** — named in §3.4 so it is a decision, not an
+  oversight.
 
 ## 9. Definition of done
 
 The work is complete when the home finder can find the user's example by Latin first+family name,
-labels him specifically as Sofia's mayor, does not duplicate his identity, exposes public and
-private people without one starving the other, renders direct contract/tender/fund/Interreg
-results, preserves the current three-request cost and lazy load, passes the unit/data/build gates,
-and has a deployed browser trace confirming the grouped expansion does not require a new search
-backend.
+labels him specifically as Sofia's mayor, exposes public and private people without one starving
+the other, routes every person to their canonical page, carries the identity caveats their
+confidence licenses, renders direct contract/tender/fund/Interreg results, preserves the current
+three-request cost and lazy load, passes the unit/data/build gates, and has a deployed browser
+trace confirming the grouped expansion does not require a new search backend.
+
+⚠️ **Identity duplication is NOT in this definition, and that is deliberate.** §2.6 measures
+4,766 duplicated P rows; Phase 2a decides how many of them this repo closes and by what
+instrument. Claiming „does not duplicate his identity" as a done-criterion would be true for one
+person on the surface that makes duplication maximally visible, and false for the other 4,764.
+The honest criterion is the ratchet: **the duplicate-cluster count is measured, published here,
+and does not grow.**
+
+## 10. Confirmed correct — verified 2026-09-01, keep explicit
+
+Recorded so a later refactor cannot quietly undo them:
+
+- **`/api/db/procurement-search` really does run all six searches today**, plus both bounded
+  totals and the shliokavitsa rewrite. Surfacing four more groups adds client mapping only.
+- **`isLinkableCompanyKey` is contractor-only.** Awarder ids are validated by `isValidEik`, and
+  ЕСО `1752013040` / АДФИ `175076479999` sit outside 9/13 and resolve.
+- **All 56 distinct `person_search.primary_role` codes have a `pp_role_*` key in the CORE
+  `translation.json`** — not in `budget.json` or `methodology.json` — so §3.3's specific-office
+  label cannot leak a raw code on an unloaded bundle.
+- **Contract keys are URL-safe**: 0 of 410,369 contain a character outside `[A-Za-z0-9_-]`.
+- **`translit_bg_latin` is `IMMUTABLE`**, so Phase 4's expression index is legal (subject to the
+  REINDEX obligation).
+- **`idx_person_search_fold` is `gin (name_fold gin_trgm_ops)`**, which serves `%>`; two ANDed
+  probes on the same column are a BitmapAnd and need no new index.
+- **`--payloads-only` applies the schema files** before its shard-reading branch.
