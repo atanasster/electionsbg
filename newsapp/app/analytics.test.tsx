@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import { StrictMode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { emitNewsEvent, newsRouteFamily } from "./analytics";
+import { emitNewsEvent, newsRouteFamily, sanitizeNewsEvent } from "./analytics";
 import { AnalyticsRouteTracker } from "./components/AnalyticsRouteTracker";
 
 describe("privacy-preserving news analytics", () => {
@@ -61,6 +61,83 @@ describe("privacy-preserving news analytics", () => {
     } as unknown as Parameters<typeof emitNewsEvent>[0]);
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(sink).not.toHaveBeenCalled();
+  });
+
+  it("rounds vitals, derives ratings, and strips raw route details", () => {
+    expect(
+      sanitizeNewsEvent({
+        name: "web_vital",
+        route: "article",
+        metric: "LCP",
+        value: 2_601.4,
+        rating: "good",
+        pathname: "/article/private/id",
+        element: "private headline",
+      }),
+    ).toEqual({
+      name: "web_vital",
+      route: "article",
+      metric: "LCP",
+      value: 2601,
+      rating: "needs_improvement",
+    });
+    expect(
+      sanitizeNewsEvent({
+        name: "web_vital",
+        route: "story",
+        metric: "CLS",
+        value: 0.2578,
+        rating: "good",
+      }),
+    ).toMatchObject({ value: 0.258, rating: "poor" });
+    expect(
+      sanitizeNewsEvent({
+        name: "web_vital",
+        route: "article",
+        metric: "TTFB",
+        value: 12,
+        rating: "good",
+      }),
+    ).toBeNull();
+  });
+
+  it("keeps task and preference events low-cardinality", () => {
+    expect(
+      sanitizeNewsEvent({
+        name: "reader_outcome",
+        task: "search",
+        outcome: "empty",
+        query: "private-interest",
+      }),
+    ).toEqual({
+      name: "reader_outcome",
+      task: "search",
+      outcome: "empty",
+    });
+    expect(
+      sanitizeNewsEvent({
+        name: "reader_task",
+        task: "briefing",
+        signal: "completed",
+        topic: "private-interest",
+      }),
+    ).toEqual({
+      name: "reader_task",
+      task: "briefing",
+      signal: "completed",
+    });
+    expect(
+      sanitizeNewsEvent({
+        name: "briefing_preference",
+        preference: "topic",
+        active: true,
+        topic: "private-interest",
+      }),
+    ).toEqual({
+      name: "briefing_preference",
+      preference: "topic",
+      active: true,
+    });
   });
 
   it("fails closed for nullish events and hostile property getters", async () => {
@@ -146,5 +223,25 @@ describe("privacy-preserving news analytics", () => {
     );
     await waitFor(() => expect(sink).toHaveBeenCalledTimes(1));
     expect(sink).toHaveBeenCalledWith({ name: "page_view", route: "topics" });
+  });
+
+  it("uses the methodology page view instead of claiming passive task success", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    render(
+      <MemoryRouter initialEntries={["/methodology?from=private"]}>
+        <AnalyticsRouteTracker />
+      </MemoryRouter>,
+    );
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "page_view",
+        route: "methodology",
+      }),
+    );
+    expect(sink).not.toHaveBeenCalledWith(
+      expect.objectContaining({ name: "reader_task" }),
+    );
+    expect(JSON.stringify(sink.mock.calls)).not.toContain("from=private");
   });
 });

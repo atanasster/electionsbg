@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { StoryMember } from "../data";
 import { distinctiveHeadlineTerms } from "../headlineDifferences";
 import { HeadlineComparison } from "./HeadlineComparison";
@@ -20,6 +20,7 @@ const member = (domain: string, title: string): StoryMember => ({
 });
 
 describe("HeadlineComparison", () => {
+  afterEach(() => Reflect.deleteProperty(window, "naiasnoNewsAnalytics"));
   it("highlights only bounded headline-specific terms", () => {
     const terms = distinctiveHeadlineTerms([
       "Парламентът прие новия бюджет днес",
@@ -56,5 +57,58 @@ describe("HeadlineComparison", () => {
       "href",
       "/article/one.bg/one.bg",
     );
+  });
+
+  it("records the comparison task without headline or outlet ids", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    render(
+      <MemoryRouter>
+        <HeadlineComparison
+          members={[
+            member("one.bg", "Частно заглавие едно"),
+            member("two.bg", "Частно заглавие две"),
+          ]}
+          outletNames={new Map()}
+        />
+      </MemoryRouter>,
+    );
+    fireEvent.click(screen.getByRole("link", { name: /едно/ }));
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_outcome",
+        task: "comparison",
+        outcome: "available",
+      }),
+    );
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_task",
+        task: "compare_coverage",
+        signal: "completed",
+      }),
+    );
+    expect(JSON.stringify(sink.mock.calls)).not.toMatch(/one\.bg|Частно/);
+  });
+
+  it("records when a comparison is unavailable without exposing the source", async () => {
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    render(
+      <MemoryRouter>
+        <HeadlineComparison
+          members={[member("private.bg", "Самотно заглавие")]}
+          outletNames={new Map()}
+        />
+      </MemoryRouter>,
+    );
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_outcome",
+        task: "comparison",
+        outcome: "unavailable",
+      }),
+    );
+    expect(JSON.stringify(sink.mock.calls)).not.toContain("private.bg");
   });
 });

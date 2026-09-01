@@ -182,13 +182,26 @@ describe("StoryScreen analytics", () => {
     fireEvent.click(proRussia);
     fireEvent.click(proRussia);
 
-    await waitFor(() => expect(sink).toHaveBeenCalledTimes(4));
-    expect(sink.mock.calls.map(([event]) => event)).toEqual([
+    await waitFor(() =>
+      expect(
+        sink.mock.calls.filter(([event]) => event.name === "story_filter"),
+      ).toHaveLength(4),
+    );
+    expect(
+      sink.mock.calls
+        .map(([event]) => event)
+        .filter((event) => event.name === "story_filter"),
+    ).toEqual([
       { name: "story_filter", axis: "leaning", active: true },
       { name: "story_filter", axis: "leaning", active: false },
       { name: "story_filter", axis: "russia", active: true },
       { name: "story_filter", axis: "russia", active: false },
     ]);
+    expect(sink).toHaveBeenCalledWith({
+      name: "reader_outcome",
+      task: "comparison",
+      outcome: "available",
+    });
     expect(JSON.stringify(sink.mock.calls)).not.toMatch(
       /private|member|Прогресивно|Русия/,
     );

@@ -19,6 +19,7 @@ import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
 import { StorySourcePreview } from "./StorySourcePreview";
 import { useNewsLocale } from "../i18n";
+import { emitNewsEvent } from "../analytics";
 
 export const StoryCard = ({
   story,
@@ -26,12 +27,14 @@ export const StoryCard = ({
   imageArticle,
   outlets,
   kind,
+  density = "detailed",
 }: {
   story: HomeStory;
   taxonomy: TaxonomyCategory[] | null;
   imageArticle?: ArticleRecord | null;
   outlets: readonly Outlet[];
   kind?: HomeStoryKind;
+  density?: "compact" | "detailed";
 }) => {
   const { language, tr } = useNewsLocale();
   const title =
@@ -55,14 +58,15 @@ export const StoryCard = ({
         ? "leaning"
         : "russia"
       : null;
+  const compact = density === "compact";
   return (
-    <article className={imageArticle ? "h-full" : "self-start"}>
+    <article className={imageArticle && !compact ? "h-full" : "self-start"}>
       <Card
         className={`news-story-card flex min-w-0 flex-col overflow-hidden ${
-          imageArticle ? "h-full" : "news-story-card--text"
+          imageArticle && !compact ? "h-full" : "news-story-card--text"
         }`}
       >
-        {imageArticle ? (
+        {imageArticle && !compact ? (
           <ArticleImage
             image={
               canDisplayHomeImage(imageArticle) ? imageArticle.image : null
@@ -108,12 +112,19 @@ export const StoryCard = ({
           </div>
           <Link
             to={`/story/${story.id}`}
+            onClick={() =>
+              emitNewsEvent({
+                name: "reader_task",
+                task: "find_story",
+                signal: "completed",
+              })
+            }
             className="news-story-link group mt-3 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
             <h3 className="news-story-heading line-clamp-3 font-title text-xl leading-[1.22] transition-colors group-hover:text-[hsl(var(--editorial-kicker))]">
               {title}
             </h3>
-            {summary ? (
+            {summary && !compact ? (
               <p className="news-story-summary mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                 {summary}
               </p>
@@ -125,7 +136,7 @@ export const StoryCard = ({
             outlets={outlets}
             className="news-story-sources mt-4"
           />
-          {signal ? (
+          {signal && !compact ? (
             <div className="mt-3 space-y-1.5">
               <p className="text-xs font-medium text-muted-foreground">
                 {signal === "leaning"

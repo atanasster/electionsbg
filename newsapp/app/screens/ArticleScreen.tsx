@@ -520,9 +520,14 @@ export const ArticleScreen = () => {
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() =>
-                emitNewsEvent({ name: "source_open", surface: "article" })
-              }
+              onClick={() => {
+                emitNewsEvent({ name: "source_open", surface: "article" });
+                emitNewsEvent({
+                  name: "reader_task",
+                  task: "open_original",
+                  signal: "completed",
+                });
+              }}
               className="flex items-center gap-3 rounded-md border border-primary p-3 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <ExternalLink className="size-4 shrink-0 text-primary" />

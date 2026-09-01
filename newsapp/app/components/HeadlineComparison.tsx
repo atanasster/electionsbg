@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import type { StoryMember } from "../data";
 import { useNewsLocale } from "../i18n";
 import {
@@ -7,6 +7,14 @@ import {
   headlineWordParts,
   normalizeHeadlineWord,
 } from "../headlineDifferences";
+import { emitNewsEvent } from "../analytics";
+
+const recordComparisonOpen = () =>
+  emitNewsEvent({
+    name: "reader_task",
+    task: "compare_coverage",
+    signal: "completed",
+  });
 
 const HighlightedHeadline = ({
   headline,
@@ -40,6 +48,17 @@ export const HeadlineComparison = ({
   outletNames: Map<string, string>;
 }) => {
   const { tr } = useNewsLocale();
+  const recordedMembers = useRef<StoryMember[] | null>(null);
+  const hasComparison = members.length >= 2;
+  useEffect(() => {
+    if (recordedMembers.current === members) return;
+    recordedMembers.current = members;
+    emitNewsEvent({
+      name: "reader_outcome",
+      task: "comparison",
+      outcome: hasComparison ? "available" : "unavailable",
+    });
+  }, [hasComparison, members]);
   const distinctive = distinctiveHeadlineTerms(
     members.map((member) => member.title),
   );
@@ -72,6 +91,7 @@ export const HeadlineComparison = ({
               {member.article_id ? (
                 <Link
                   to={`/article/${member.domain}/${member.article_id}`}
+                  onClick={recordComparisonOpen}
                   className="font-medium leading-snug underline-offset-4 hover:text-primary hover:underline"
                 >
                   {content}
@@ -81,6 +101,7 @@ export const HeadlineComparison = ({
                   href={member.url}
                   target="_blank"
                   rel="noreferrer noopener"
+                  onClick={recordComparisonOpen}
                   className="font-medium leading-snug underline-offset-4 hover:text-primary hover:underline"
                 >
                   {content}

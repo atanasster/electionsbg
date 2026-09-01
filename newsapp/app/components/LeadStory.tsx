@@ -8,6 +8,7 @@ import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
 import { StorySourcePreview } from "./StorySourcePreview";
 import { useNewsLocale } from "../i18n";
+import { emitNewsEvent } from "../analytics";
 
 export const LeadStory = ({
   item,
@@ -64,6 +65,13 @@ export const LeadStory = ({
           </div>
           <Link
             to={`/story/${story.id}`}
+            onClick={() =>
+              emitNewsEvent({
+                name: "reader_task",
+                task: "find_story",
+                signal: "completed",
+              })
+            }
             className="news-story-link group mt-4 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
             <h3 className="news-story-heading font-title text-2xl leading-tight transition-colors group-hover:text-[hsl(var(--editorial-kicker))] md:text-3xl">

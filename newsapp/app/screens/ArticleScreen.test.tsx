@@ -285,6 +285,11 @@ describe("the outbound link", () => {
         surface: "article",
       }),
     );
+    expect(sink).toHaveBeenCalledWith({
+      name: "reader_task",
+      task: "open_original",
+      signal: "completed",
+    });
   });
 
   it("says the full text stays at the source", async () => {

@@ -13,8 +13,37 @@ export type NewsRouteFamily =
   | "other";
 
 type ContentType = "story" | "article";
+export type NewsVitalName = "LCP" | "INP" | "CLS";
+export type NewsVitalRating = "good" | "needs_improvement" | "poor";
+type ReaderTask =
+  | "briefing"
+  | "find_story"
+  | "compare_coverage"
+  | "open_original";
 export type NewsAnalyticsEvent =
   | { name: "page_view"; route: NewsRouteFamily }
+  | {
+      name: "web_vital";
+      route: NewsRouteFamily;
+      metric: NewsVitalName;
+      value: number;
+      rating: NewsVitalRating;
+    }
+  | {
+      name: "reader_task";
+      task: ReaderTask;
+      signal: "completed";
+    }
+  | {
+      name: "reader_outcome";
+      task: "search" | "comparison";
+      outcome: "results" | "empty" | "available" | "unavailable";
+    }
+  | {
+      name: "briefing_preference";
+      preference: "cadence" | "density" | "topic";
+      active: boolean;
+    }
   | {
       name: "home_filter";
       filter: "category" | "period" | "reset";
@@ -80,6 +109,29 @@ const ROUTES = new Set<NewsRouteFamily>([
   "other",
 ]);
 const CONTENT = new Set<ContentType>(["story", "article"]);
+const VITALS = new Set<NewsVitalName>(["LCP", "INP", "CLS"]);
+const TASKS = new Set<ReaderTask>([
+  "briefing",
+  "find_story",
+  "compare_coverage",
+  "open_original",
+]);
+
+export const newsVitalRating = (
+  metric: NewsVitalName,
+  value: number,
+): NewsVitalRating => {
+  const [good, poor] =
+    metric === "LCP"
+      ? [2_500, 4_000]
+      : metric === "INP"
+        ? [200, 500]
+        : [0.1, 0.25];
+  return value <= good ? "good" : value <= poor ? "needs_improvement" : "poor";
+};
+
+const roundedVitalValue = (metric: NewsVitalName, value: number): number =>
+  metric === "CLS" ? Math.round(value * 1_000) / 1_000 : Math.round(value);
 
 /** Reconstruct from allow-lists; unknown values and extra PII fields die here. */
 const sanitizeNewsEventUnsafe = (raw: object): NewsAnalyticsEvent | null => {
@@ -88,6 +140,51 @@ const sanitizeNewsEventUnsafe = (raw: object): NewsAnalyticsEvent | null => {
     case "page_view":
       return ROUTES.has(event.route)
         ? { name: "page_view", route: event.route }
+        : null;
+    case "web_vital": {
+      if (
+        !ROUTES.has(event.route) ||
+        !VITALS.has(event.metric) ||
+        typeof event.value !== "number" ||
+        !Number.isFinite(event.value) ||
+        event.value < 0 ||
+        (event.metric === "CLS" ? event.value > 10 : event.value > 120_000)
+      )
+        return null;
+      const value = roundedVitalValue(event.metric, event.value);
+      return {
+        name: "web_vital",
+        route: event.route,
+        metric: event.metric,
+        value,
+        rating: newsVitalRating(event.metric, value),
+      };
+    }
+    case "reader_task":
+      return TASKS.has(event.task) && event.signal === "completed"
+        ? { name: "reader_task", task: event.task, signal: "completed" }
+        : null;
+    case "reader_outcome":
+      if (
+        (event.task === "search" &&
+          ["results", "empty"].includes(event.outcome)) ||
+        (event.task === "comparison" &&
+          ["available", "unavailable"].includes(event.outcome))
+      )
+        return {
+          name: "reader_outcome",
+          task: event.task,
+          outcome: event.outcome,
+        };
+      return null;
+    case "briefing_preference":
+      return ["cadence", "density", "topic"].includes(event.preference) &&
+        typeof event.active === "boolean"
+        ? {
+            name: "briefing_preference",
+            preference: event.preference,
+            active: event.active,
+          }
         : null;
     case "home_filter":
       return ["category", "period", "reset"].includes(event.filter) &&

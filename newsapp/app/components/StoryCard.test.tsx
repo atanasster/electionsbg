@@ -1,7 +1,7 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ArticleRecord, HomeStory, Outlet } from "../data";
 import { StoryCard } from "./StoryCard";
 
@@ -51,6 +51,7 @@ const imageArticle = {
 } as ArticleRecord;
 
 describe("StoryCard interaction scent", () => {
+  afterEach(() => Reflect.deleteProperty(window, "naiasnoNewsAnalytics"));
   it("links the headline and summary without a redundant CTA", async () => {
     const user = userEvent.setup();
     const { container } = render(
@@ -131,5 +132,35 @@ describe("StoryCard interaction scent", () => {
         name: "История с ясен път Кратко резюме",
       }),
     ).toHaveAttribute("href", "/story/story-1");
+  });
+
+  it("offers a genuinely compact local format and a low-cardinality task signal", async () => {
+    const user = userEvent.setup();
+    const sink = vi.fn();
+    window.naiasnoNewsAnalytics = sink;
+    const { container } = render(
+      <MemoryRouter>
+        <StoryCard
+          story={story}
+          taxonomy={null}
+          kind="comparison"
+          density="compact"
+          imageArticle={imageArticle}
+          outlets={outlets}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(container.querySelector("img")).toBeNull();
+    expect(screen.queryByText("Кратко резюме")).not.toBeInTheDocument();
+    await user.click(screen.getByRole("link", { name: "История с ясен път" }));
+    await waitFor(() =>
+      expect(sink).toHaveBeenCalledWith({
+        name: "reader_task",
+        task: "find_story",
+        signal: "completed",
+      }),
+    );
+    expect(JSON.stringify(sink.mock.calls)).not.toContain("story-1");
   });
 });

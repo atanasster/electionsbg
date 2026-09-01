@@ -25,6 +25,17 @@ import {
 } from "../homeFilters";
 import { useUrlHomeFilters } from "../useUrlHomeFilters";
 import { useNewsLocale } from "../i18n";
+import {
+  buildBriefingSections,
+  readBriefingPreferences,
+  sanitizeBriefingPreferences,
+  storiesSinceBriefing,
+  writeBriefingPreferences,
+  type BriefingCadence,
+  type BriefingPreferences,
+} from "../briefing";
+import { BriefingControls } from "../components/BriefingControls";
+import { emitNewsEvent } from "../analytics";
 
 // The explicit one-column track is minmax(0, 1fr). Without it, CSS Grid's
 // implicit `auto` track expands to a long image-credit's min-content width and
@@ -40,6 +51,8 @@ export const HomeScreen = () => {
 
   const [now, setNow] = useState(() => Date.now());
   const [announcedCount, setAnnouncedCount] = useState<number | null>(null);
+  const [briefingPreferences, setBriefingPreferences] =
+    useState<BriefingPreferences>(readBriefingPreferences);
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 60_000);
@@ -51,6 +64,8 @@ export const HomeScreen = () => {
     () => defaultHomeDays(home.data?.stories ?? [], now),
     [home.data?.stories, now],
   );
+  const briefingDefaultDays =
+    briefingPreferences.cadence === "weekly" ? 7 : adaptiveDefaultDays;
   const {
     category,
     days,
@@ -62,7 +77,7 @@ export const HomeScreen = () => {
     daysExplicit,
   } = useUrlHomeFilters(
     categories?.map((item) => item.id) ?? null,
-    adaptiveDefaultDays,
+    briefingDefaultDays,
   );
   const facetedStories = useMemo(
     () =>
@@ -93,20 +108,115 @@ export const HomeScreen = () => {
       }),
     [home.data?.stories, category, days, query, now],
   );
-  useEffect(() => {
-    if (!home.data) return;
-    const timer = window.setTimeout(
-      () => setAnnouncedCount(filteredStories.length),
-      300,
-    );
-    return () => window.clearTimeout(timer);
-  }, [filteredStories.length, home.data]);
   // Cards need the full registry for named source previews and the image
   // fallback rung. Missing registry rows still degrade to their domain.
   const outletRegistry = outlets.data?.outlets ?? [];
   const hierarchy = useMemo(
     () => buildHomeHierarchy(filteredStories, home.data?.articles ?? []),
     [filteredStories, home.data?.articles],
+  );
+  const personalizationPaused = category !== "all" || Boolean(query.trim());
+  const activeFollowedTopics = useMemo(
+    () => (personalizationPaused ? [] : briefingPreferences.followedTopics),
+    [personalizationPaused, briefingPreferences.followedTopics],
+  );
+  const briefing = useMemo(
+    () =>
+      buildBriefingSections(
+        hierarchy,
+        activeFollowedTopics,
+        briefingPreferences.completedStoryIds,
+      ),
+    [hierarchy, activeFollowedTopics, briefingPreferences.completedStoryIds],
+  );
+  useEffect(() => {
+    if (!home.data) return;
+    const timer = window.setTimeout(() => {
+      setAnnouncedCount(briefing.visibleCount);
+      if (query.trim())
+        emitNewsEvent({
+          name: "reader_outcome",
+          task: "search",
+          outcome: briefing.visibleCount ? "results" : "empty",
+        });
+    }, 300);
+    return () => window.clearTimeout(timer);
+  }, [briefing.visibleCount, home.data, query]);
+
+  useEffect(() => {
+    if (!categories) return;
+    const known = new Set(
+      categories
+        .filter((item) => item.id !== "not-site-relevant")
+        .map((item) => item.id),
+    );
+    const followedTopics = briefingPreferences.followedTopics.filter((id) =>
+      known.has(id),
+    );
+    if (followedTopics.length === briefingPreferences.followedTopics.length)
+      return;
+    const next = { ...briefingPreferences, followedTopics };
+    setBriefingPreferences(next);
+    writeBriefingPreferences(next);
+  }, [briefingPreferences, categories]);
+  const briefingTopics = useMemo(() => {
+    const ranked = [...availableCategories].sort(
+      (a, b) =>
+        Number(briefingPreferences.followedTopics.includes(b.id)) -
+          Number(briefingPreferences.followedTopics.includes(a.id)) ||
+        (categoryCounts.get(b.id) ?? 0) - (categoryCounts.get(a.id) ?? 0) ||
+        a.label[language].localeCompare(b.label[language], language),
+    );
+    const limit = Math.max(6, briefingPreferences.followedTopics.length);
+    return ranked.slice(0, limit).map((item) => ({
+      id: item.id,
+      label: item.label[language],
+      count: categoryCounts.get(item.id) ?? 0,
+    }));
+  }, [
+    availableCategories,
+    briefingPreferences.followedTopics,
+    categoryCounts,
+    language,
+  ]);
+  const newStoryCount = useMemo(
+    () =>
+      storiesSinceBriefing(
+        briefing.currentStoryIds.map((id) => ({ id })),
+        briefingPreferences.completedStoryIds,
+      ),
+    [briefing.currentStoryIds, briefingPreferences.completedStoryIds],
+  );
+  const updateBriefingPreferences = (next: BriefingPreferences) => {
+    const safe = sanitizeBriefingPreferences(next);
+    setBriefingPreferences(safe);
+    writeBriefingPreferences(safe);
+  };
+  const finishBriefing = () =>
+    updateBriefingPreferences({
+      ...briefingPreferences,
+      lastCompletedAt: new Date(Date.now()).toISOString(),
+      completedStoryIds: briefing.currentStoryIds,
+    });
+  const changeDays = (nextDays: number) => {
+    setDays(nextDays);
+    if (nextDays !== 1 && nextDays !== 7) return;
+    const cadence: BriefingCadence = nextDays === 1 ? "daily" : "weekly";
+    if (briefingPreferences.cadence !== cadence)
+      updateBriefingPreferences({ ...briefingPreferences, cadence });
+  };
+  const activeCadence: BriefingCadence | "custom" =
+    days === 1 ? "daily" : days === 7 ? "weekly" : "custom";
+  const storyCard = (item: (typeof briefing.update)[number]) => (
+    <StoryCard
+      key={item.story.id}
+      story={item.story}
+      taxonomy={categories}
+      imageArticle={item.imageArticle}
+      outlets={outletRegistry}
+      kind={item.kind}
+      density={briefingPreferences.density}
+    />
   );
 
   return (
@@ -181,10 +291,10 @@ export const HomeScreen = () => {
         categoryCounts={categoryCounts}
         category={category}
         days={days}
-        defaultDays={adaptiveDefaultDays}
+        defaultDays={briefingDefaultDays}
         query={query}
         onCategoryChange={setCategory}
-        onDaysChange={setDays}
+        onDaysChange={changeDays}
         onQueryChange={setQuery}
         onReset={clearFilters}
       />
@@ -217,14 +327,14 @@ export const HomeScreen = () => {
         </Card>
       ) : null}
 
-      {/* One deterministic lead, followed by a finite supporting briefing. */}
+      {/* One deterministic, finite briefing. Preferences never remove the
+          explicit outside-interests section or create an infinite feed. */}
       <section aria-labelledby="stories-heading">
         <h2
           id="stories-heading"
           className="mb-2 text-sm font-semibold uppercase tracking-wide"
         >
-          {tr("Последни истории", "Latest stories")} (
-          {hierarchy.supporting.length + (hierarchy.lead ? 1 : 0)})
+          {tr("Кратък преглед", "Briefing")} ({briefing.visibleCount})
         </h2>
         {home.loading && !home.data ? (
           <div className={STORY_GRID}>
@@ -241,35 +351,114 @@ export const HomeScreen = () => {
             )}
           </Card>
         ) : (
-          <div className="space-y-5">
-            {hierarchy.lead ? (
-              <LeadStory
-                item={hierarchy.lead}
-                taxonomy={categories}
-                outlets={outletRegistry}
-              />
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                {tr(
-                  "Няма сравнение с достатъчно източници; показваме анализирани статии.",
-                  "No comparison has enough sources; showing analyzed articles.",
-                )}
-              </p>
-            )}
-            {hierarchy.supporting.length ? (
-              <div className={STORY_GRID}>
-                {hierarchy.supporting.map((item) => (
-                  <StoryCard
-                    key={item.story.id}
-                    story={item.story}
-                    taxonomy={categories}
-                    imageArticle={item.imageArticle}
-                    outlets={outletRegistry}
-                    kind={item.kind}
-                  />
-                ))}
-              </div>
+          <div className="space-y-7">
+            {briefing.update.length ? (
+              <section aria-labelledby="briefing-update-heading">
+                <h3
+                  id="briefing-update-heading"
+                  className="app-section-title mb-3"
+                >
+                  {tr("Обнови ме", "Update me")}
+                </h3>
+                <div className="space-y-5">
+                  {hierarchy.lead &&
+                  briefing.update[0]?.story.id === hierarchy.lead.story.id &&
+                  briefingPreferences.density === "detailed" ? (
+                    <LeadStory
+                      item={hierarchy.lead}
+                      taxonomy={categories}
+                      outlets={outletRegistry}
+                    />
+                  ) : briefing.update[0] ? (
+                    storyCard(briefing.update[0])
+                  ) : null}
+                  {briefing.update.length > 1 ? (
+                    <div className={STORY_GRID}>
+                      {briefing.update.slice(1).map(storyCard)}
+                    </div>
+                  ) : null}
+                </div>
+              </section>
             ) : null}
+
+            <BriefingControls
+              preferences={briefingPreferences}
+              activeCadence={activeCadence}
+              topics={briefingTopics}
+              newStoryCount={newStoryCount}
+              personalizationPaused={personalizationPaused}
+              onChange={updateBriefingPreferences}
+              onCadenceChange={(cadence) =>
+                changeDays(cadence === "daily" ? 1 : 7)
+              }
+              onComplete={finishBriefing}
+            />
+
+            {briefing.moreAnalyzed.length ? (
+              <section aria-labelledby="briefing-explain-heading">
+                <h3
+                  id="briefing-explain-heading"
+                  className="app-section-title mb-3"
+                >
+                  {tr("Още анализирани истории", "More analyzed stories")}
+                </h3>
+                <div className={STORY_GRID}>
+                  {briefing.moreAnalyzed.map(storyCard)}
+                </div>
+              </section>
+            ) : null}
+
+            {briefing.perspectives.length ? (
+              <section aria-labelledby="briefing-perspectives-heading">
+                <h3
+                  id="briefing-perspectives-heading"
+                  className="app-section-title mb-3"
+                >
+                  {tr("Различни гледни точки", "Different perspectives")}
+                </h3>
+                <div className={STORY_GRID}>
+                  {briefing.perspectives.map(storyCard)}
+                </div>
+              </section>
+            ) : null}
+
+            <section aria-labelledby="briefing-outside-heading">
+              <h3
+                id="briefing-outside-heading"
+                className="app-section-title mb-3"
+              >
+                {tr(
+                  "Водещи истории извън интересите ви",
+                  "Top stories outside your interests",
+                )}
+              </h3>
+              {personalizationPaused ? (
+                <Card className="p-4 text-sm text-muted-foreground">
+                  {tr(
+                    "Групирането по интереси е спряно за активното търсене или тематичен филтър; всички подбрани съвпадения са показани по-горе.",
+                    "Interest grouping is paused for the active search or topic filter; every selected match is shown above.",
+                  )}
+                </Card>
+              ) : briefingPreferences.followedTopics.length === 0 ? (
+                <Card className="p-4 text-sm text-muted-foreground">
+                  {tr(
+                    "Изберете следвани теми, за да виждате тук отделна извадка. Дотогава нищо не е скрито от прегледа.",
+                    "Follow topics to create a separate sample here. Until then, nothing is hidden from the briefing.",
+                  )}
+                </Card>
+              ) : briefing.outsideInterests.length ? (
+                <div className={STORY_GRID}>
+                  {briefing.outsideInterests.map(storyCard)}
+                </div>
+              ) : (
+                <Card className="p-4 text-sm text-muted-foreground">
+                  {tr(
+                    "В текущия краен списък няма други теми; променете периода за по-широка извадка.",
+                    "This finite list has no other topics; widen the period for a broader sample.",
+                  )}
+                </Card>
+              )}
+            </section>
           </div>
         )}
         {filteredStories.length > HOME_SUPPORTING_LIMIT + 1 ? (
