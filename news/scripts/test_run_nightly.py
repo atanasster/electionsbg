@@ -248,6 +248,36 @@ class NightlyRunnerContractTests(unittest.TestCase):
             self.assertEqual(browser["exit"], 0)
             self.assertEqual(browser["result"], json.loads(verdict))
 
+    def test_zero_limit_skips_analysis_without_invoking_the_model_loop(self):
+        with tempfile.TemporaryDirectory(prefix="nightly zero limit # ") as temp:
+            root = Path(temp)
+            runner = self.copy_runner(root)
+            self.stub_runtime_scripts(runner)
+            verdict = json.dumps(
+                {"mode": "intake-report", "domains": 1, "alerts": []})
+            self.write_acquisition_script(
+                runner.parent / "save_all_direct.sh", verdict)
+            marker = root / "analyze-local-was-called"
+            (runner.parent / "analyze_local.py").write_text(
+                "from pathlib import Path\n"
+                f"Path({str(marker)!r}).write_text('bad')\n"
+                "print('{}')\n",
+                encoding="utf-8")
+
+            proc = self.run_runner_at(
+                runner, "--skip-browser", "--limit", "0",
+                "--run-id", "zero-limit")
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertFalse(marker.exists())
+            report = json.loads(
+                (root / "news/data/_nightly/zero-limit.json").read_text(
+                    encoding="utf-8"))
+            analysis = next(stage for stage in report["stages"]
+                            if stage["stage"] == "analyze")
+            self.assertEqual(analysis["exit"], 0)
+            self.assertEqual(
+                analysis["result"], {"skipped": "configured_zero_limit"})
+
 
 if __name__ == "__main__":
     unittest.main()

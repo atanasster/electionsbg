@@ -358,6 +358,14 @@ fi
 if [ "$DRY" = 1 ]; then
   stage analyze python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
+elif [ "$LIMIT" -eq 0 ]; then
+  # `--limit` is deliberately a non-negative integer. Zero is the explicit
+  # operator signal that a reviewed/manual batch already supplied freshness;
+  # it must not call the model and then fail as analyze_local rejects an empty
+  # work limit. home_health still independently decides whether publication
+  # is allowed, so this cannot certify stale data.
+  stage analyze python3 -c \
+    'import json; print(json.dumps({"skipped": "configured_zero_limit"}))'
 elif [ "$MODEL_PROBE_CODE" -ne 0 ]; then
   stage analyze python3 -c \
     'import json; print(json.dumps({"skipped": "model_unavailable"}))'
