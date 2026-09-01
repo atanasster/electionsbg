@@ -5,12 +5,32 @@
 **Scope:** parliamentary and local election results at country, abroad, region, municipality, settlement, and polling-section levels  
 **Version:** v1 — shared election surface system with the country entry preserved at `/elections`
 
-> **Integration update — 2026-09-01.** The global-home work in
+> **Integration update — 2026-09-01, revised after audit.** The global-home work in
 > [home-dashboard-implementation-v1.md](./home-dashboard-implementation-v1.md) supersedes this
-> plan only where it assigns `/`. Root becomes the global Bulgaria dashboard; `/elections`
-> becomes the current parliamentary/cross-kind election entry. Historical `/elections/:date`,
-> local-election routes, and every deep result URL remain unchanged. Implement the `/elections`
-> parity bridge before cutting root over, as required by the home plan Phase 1.
+> plan on **two** points, not one.
+>
+> **1. `/` becomes the global Bulgaria dashboard.** Unchanged from the first version of this
+> banner.
+>
+> **2. ⚠️ `/elections` NO LONGER INHERITS THE COUNTRY RESULT — and this plan's fixed decisions
+> 1, 2, 15 and 16 are superseded accordingly.** The former root composition
+> (`DashboardScreen` = `PlaceHeader` + `DashboardCards`) is preserved at **`/parliamentary`**,
+> the index of the existing route group that already holds `/parliamentary/analysis` and
+> `/parliamentary/reports`. Two reasons, both recorded in
+> [home-dashboard-plan-audit-2026-09-01.md](../audits/home-dashboard-plan-audit-2026-09-01.md):
+> a `/elections` rendering the latest cycle would duplicate the already-prerendered,
+> already-sitemapped `/elections/<latest date>`; and this plan then replaces that screen, so
+> the home plan's Phase 1 body, JSON-LD, sitemap entry and OG image would have been throwaway.
+>
+> **What this means here.** `/elections` is a NEW route created by THIS plan, as a cross-kind
+> hub (parliamentary + local + chmi). It has no preservation duty, no legacy body to inherit,
+> and no parity bridge to build. Its `HubHead`, registry, scenes, scope bar and search are the
+> whole page rather than a wrapper around a screen that already existed. Decision 15's
+> `?elections` contract still holds and now also applies to `/parliamentary`.
+>
+> Historical `/elections/:date`, local-election routes, and every deep result URL remain
+> unchanged. The home plan's Phase 1 is a prerequisite of this plan's route work, since it is
+> what moves the country result off `/` and gives `/elections/:date` its breadcrumb parent.
 
 ## 1. Outcome
 
