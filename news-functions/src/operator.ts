@@ -1094,6 +1094,34 @@ async function fetchedBytes(
   return body;
 }
 
+function validateLivePublicationManifest(live: JsonObject): void {
+  if (
+    (live.version !== 1 && live.version !== 2 && live.version !== 3) ||
+    live.home_health_ready !== true
+  )
+    throw new Error(
+      "live publication manifest is not a ready supported release",
+    );
+  if (live.version === 2 || live.version === 3) {
+    const acceptedHash = live.accepted_snapshot_records_sha256;
+    if (
+      acceptedHash !== null &&
+      (typeof acceptedHash !== "string" ||
+        !/^[a-f0-9]{64}$/u.test(acceptedHash))
+    )
+      throw new Error("live publication accepted snapshot hash is invalid");
+  }
+  if (live.version === 3) {
+    const acceptedFeedbackHash = live.accepted_feedback_records_sha256;
+    if (
+      acceptedFeedbackHash !== null &&
+      (typeof acceptedFeedbackHash !== "string" ||
+        !/^[a-f0-9]{64}$/u.test(acceptedFeedbackHash))
+    )
+      throw new Error("live publication accepted feedback hash is invalid");
+  }
+}
+
 export async function verifyLiveTaskRelease(
   manifestValue: unknown,
   liveManifestUrlValue: string,
@@ -1127,22 +1155,7 @@ export async function verifyLiveTaskRelease(
     throw new Error("live publication manifest is not valid JSON");
   }
   const live = object(liveValue, "live publication manifest");
-  if (
-    (live.version !== 1 && live.version !== 2) ||
-    live.home_health_ready !== true
-  )
-    throw new Error(
-      "live publication manifest is not a ready supported release",
-    );
-  if (live.version === 2) {
-    const acceptedHash = live.accepted_snapshot_records_sha256;
-    if (
-      acceptedHash !== null &&
-      (typeof acceptedHash !== "string" ||
-        !/^[a-f0-9]{64}$/u.test(acceptedHash))
-    )
-      throw new Error("live publication accepted snapshot hash is invalid");
-  }
+  validateLivePublicationManifest(live);
   const runId = stringValue(live.run_id, "live publication run_id", 128);
   if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u.test(runId))
     throw new Error("live publication run_id is invalid");
@@ -1276,13 +1289,7 @@ export async function verifyLiveFeedbackTaskRelease(
     throw new Error("live publication manifest is not valid JSON");
   }
   const live = object(liveValue, "live publication manifest");
-  if (
-    (live.version !== 1 && live.version !== 2) ||
-    live.home_health_ready !== true
-  )
-    throw new Error(
-      "live publication manifest is not a ready supported release",
-    );
+  validateLivePublicationManifest(live);
   const runId = stringValue(live.run_id, "live publication run_id", 128);
   if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u.test(runId))
     throw new Error("live publication run_id is invalid");

@@ -1418,6 +1418,17 @@ test("live release proof binds the active pointer, immutable queue bytes, and ma
     ),
     releaseProof(manifest),
   );
+  const liveV3 = {
+    ...liveV2,
+    version: 3,
+    accepted_feedback_records_sha256: null,
+  };
+  assert.deepEqual(
+    await verifyLiveTaskRelease(manifest, manifestUrl, async (url) =>
+      response(url === manifestUrl ? JSON.stringify(liveV3) : queueBody),
+    ),
+    releaseProof(manifest),
+  );
   await assert.rejects(
     () =>
       verifyLiveTaskRelease(manifest, manifestUrl, async (url) =>
@@ -1431,6 +1442,20 @@ test("live release proof binds the active pointer, immutable queue bytes, and ma
         ),
       ),
     /accepted snapshot hash is invalid/,
+  );
+  await assert.rejects(
+    () =>
+      verifyLiveTaskRelease(manifest, manifestUrl, async (url) =>
+        response(
+          url === manifestUrl
+            ? JSON.stringify({
+                ...liveV3,
+                accepted_feedback_records_sha256: "not-a-hash",
+              })
+            : queueBody,
+        ),
+      ),
+    /accepted feedback hash is invalid/,
   );
   await assert.rejects(
     () =>
@@ -1772,6 +1797,29 @@ test("feedback task release verification pins production and checks live bundles
   assert.deepEqual(
     await verifyLiveFeedbackTaskRelease(manifest, manifestUrl, fetcher),
     feedbackProof(manifest),
+  );
+  const liveV3 = {
+    ...live,
+    version: 3,
+    accepted_feedback_records_sha256: "b".repeat(64),
+  };
+  assert.deepEqual(
+    await verifyLiveFeedbackTaskRelease(
+      manifest,
+      manifestUrl,
+      async (url) => response(bodyFor(url, liveV3)),
+    ),
+    feedbackProof(manifest),
+  );
+  await assert.rejects(
+    () =>
+      verifyLiveFeedbackTaskRelease(manifest, manifestUrl, async (url) =>
+        response(bodyFor(url, {
+          ...liveV3,
+          accepted_feedback_records_sha256: "not-a-hash",
+        })),
+      ),
+    /accepted feedback hash is invalid/,
   );
   const tamperedTargetBundle = JSON.stringify({
     version: 1,
