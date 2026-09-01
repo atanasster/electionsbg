@@ -117,11 +117,30 @@ The private maintainer workflow is:
    records the registry hash for every source submission while validating the final canonical refs
    against the current registry.
 5. `npm run news:feedback:export-accepted` writes the last-known-good accepted-feedback snapshot.
+6. `build_app_data.py` consumes only that strict accepted snapshot. Content-current scalar, party
+   and canonical-link decisions are applied in memory, all affected story/outlet/topic aggregates
+   are recomputed, and `stats.json` binds the accepted record-set hash. A changed article keeps its
+   model output and publishes only `needs_revalidation`; an accepted `missing_analysis` issue can be
+   shown on an unanalysed article without manufacturing an analysis block. Selected evidence,
+   surfaces and contexts are re-grounded in the article, duplicate selections fail closed, and only
+   the freshly built current registry determines release eligibility; archives are provenance only.
+   When the reviewed analysis changes, link/issue claims are withheld and their public badges and
+   explanation are suppressed pending re-adjudication.
+   Each article also carries the hash of its pre-community-feedback effective analysis; feedback
+   tasks, subsequent publication builds and improvement generation all compare against that same
+   baseline, never against a prior feedback overlay or yesterday's app-data.
+7. `npm run news:feedback:build-improvement` produces the private, mode-0600 model-improvement
+   dataset. It contains full text plus accepted field-level targets, excludes stale/missing articles,
+   unresolved canonical proposals, raw submissions, source IDs, operator identity, public notes and
+   quarantined/review-only observations. It uses the same grounding/current-registry validator as
+   publication, excludes analysis-stale link/issue targets, and binds both the accepted source
+   registry and the current eligible registry without exposing submission IDs.
    Empty reads and malformed records cannot replace a prior snapshot.
 
 Review, acceptance, source promotion and audit-event append are atomic and retry-idempotent.
-Accepted feedback remains separate from the model analysis until the publication pipeline applies
-it; public HTTP routes expose no review or adjudication capability.
+Accepted feedback remains separate from immutable model files: publication overlays are in-memory
+only and the improvement dataset is explicitly `adjudicated` rather than community gold. Public HTTP
+routes expose no review or adjudication capability.
 
 The complete command shapes, carry-forward rules and recovery procedure are in
 [`feedback-operator-runbook.md`](feedback-operator-runbook.md). All generated files under the

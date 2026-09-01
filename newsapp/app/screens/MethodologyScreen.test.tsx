@@ -17,6 +17,7 @@ const stats = (over: Partial<Stats> = {}): Stats => ({
   generated_at: "2026-08-26T00:00:00+00:00",
   taxonomy_version: 1,
   accepted_snapshot_records_sha256: null,
+  accepted_feedback_records_sha256: null,
   total_articles: 4366,
   analyzed_articles: 365,
   analyzed_pct: 8.4,

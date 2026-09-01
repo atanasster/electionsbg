@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -29,6 +30,7 @@ from news.scripts.sync_eval_tasks import (  # noqa: E402
 )
 
 MANIFEST_KIND = "news-feedback-task-sync"
+SHA256 = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
 def task_revision(content_hash: str, analysis_hash: str | None,
@@ -59,8 +61,13 @@ def make_task(root: Path, public_revision: str, target_registry_hash: str,
                         "record": public,
                     }))
     public_analysis = public.get("analysis")
-    analysis_hash = (canonical_sha256(public_analysis)
-                     if isinstance(public_analysis, dict) else None)
+    analysis_hash = public.get("feedback_analysis_sha256")
+    if ((isinstance(public_analysis, dict) and
+         (not isinstance(analysis_hash, str) or
+          not SHA256.fullmatch(analysis_hash))) or
+            (not isinstance(public_analysis, dict) and analysis_hash is not None)):
+        raise SyncError(
+            f"public feedback analysis baseline is malformed for {key}")
     title = public.get("title")
     if not isinstance(title, str) or not title or len(title) > 500:
         title = "Публична статия"

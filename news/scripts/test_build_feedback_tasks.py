@@ -34,6 +34,7 @@ class FeedbackTaskBuildTests(unittest.TestCase):
                 "url": "https://example.bg/one",
                 "title": "One",
                 "analysis": None,
+                "feedback_analysis_sha256": None,
             }],
         }))
         (root / "news" / "data" / "example.bg" / "one.json").write_text(
@@ -56,6 +57,8 @@ class FeedbackTaskBuildTests(unittest.TestCase):
         bundle["articles"][0]["analysis"] = {
             "leaning": {"label": "neutral"},
         }
+        bundle["articles"][0]["feedback_analysis_sha256"] = canonical_sha256(
+            bundle["articles"][0]["analysis"])
         bundle_path.write_text(json.dumps(bundle))
         after, _ = build(root, app)
         self.assertNotEqual(before["tasks"][0]["revision"],
@@ -76,6 +79,8 @@ class FeedbackTaskBuildTests(unittest.TestCase):
             "leaning": {"label": "progressive"},
             "human_review": {"status": "accepted", "revision": 2},
         }
+        bundle["articles"][0]["feedback_analysis_sha256"] = canonical_sha256(
+            bundle["articles"][0]["analysis"])
         bundle_path.write_text(json.dumps(bundle))
         after, _ = build(root, app)
         self.assertEqual(
@@ -86,6 +91,28 @@ class FeedbackTaskBuildTests(unittest.TestCase):
                             after["tasks"][0]["analysis_sha256"])
         self.assertNotEqual(before["tasks"][0]["revision"],
                             after["tasks"][0]["revision"])
+
+    def test_prior_feedback_overlay_does_not_change_the_analysis_baseline(self):
+        root, app = self.fixture()
+        bundle_path = app / "articles" / "example.bg.json"
+        bundle = json.loads(bundle_path.read_text())
+        baseline = {"leaning": {"label": "neutral"}}
+        baseline_hash = canonical_sha256(baseline)
+        bundle["articles"][0].update({
+            "analysis": baseline,
+            "feedback_analysis_sha256": baseline_hash,
+        })
+        bundle_path.write_text(json.dumps(bundle))
+        before, _ = build(root, app)
+        bundle["articles"][0]["analysis"] = {
+            "leaning": {"label": "conservative", "confidence": None},
+        }
+        bundle["articles"][0]["editorial_feedback"] = {"status": "accepted"}
+        bundle_path.write_text(json.dumps(bundle))
+        after, _ = build(root, app)
+        self.assertEqual(after["tasks"][0]["analysis_sha256"], baseline_hash)
+        self.assertEqual(after["tasks"][0]["revision"],
+                         before["tasks"][0]["revision"])
 
     def test_missing_archive_body_still_gets_a_revision_bound_task(self):
         root, app = self.fixture()

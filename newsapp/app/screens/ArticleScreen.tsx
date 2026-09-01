@@ -49,6 +49,7 @@ import {
   type Outlet,
   type EntityLink,
   isPublicHumanReview,
+  isPublicEditorialFeedback,
 } from "../data";
 import { ArticleImage } from "../components/ArticleImage";
 import { EntityChips } from "../components/EntityChips";
@@ -62,6 +63,19 @@ import { ArticleContributionCard } from "../components/ArticleContributionCard";
 import { emitNewsEvent } from "../analytics";
 import { evalTaskPath, useEvalQueue } from "../evals";
 import { useNewsLocale } from "../i18n";
+
+const feedbackIssueLabel = (kind: string, english: boolean): string => {
+  const labels: Record<string, [string, string]> = {
+    missing_analysis: ["Липсва анализ", "Missing analysis"],
+    missing_entity: ["Липсва свързана организация или лице", "Missing linked entity"],
+    wrong_entity_link: ["Грешна връзка", "Wrong link"],
+    missing_topic: ["Липсва тема", "Missing topic"],
+    missing_sector: ["Липсва сектор", "Missing sector"],
+    other: ["Друг проверен проблем", "Other reviewed issue"],
+  };
+  const pair = labels[kind] ?? [kind, kind];
+  return english ? pair[1] : pair[0];
+};
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -265,12 +279,19 @@ export const ArticleScreen = () => {
       : undefined;
   const acceptedReview = humanReview?.status === "accepted";
   const staleReview = humanReview?.status === "needs_revalidation";
+  const feedbackCandidate = article.editorial_feedback;
+  const editorialFeedback = isPublicEditorialFeedback(feedbackCandidate)
+    ? feedbackCandidate
+    : undefined;
+  const acceptedFeedback = editorialFeedback?.status === "accepted";
   const leaningSource =
-    acceptedReview && humanReview.fields.leaning !== "unable_to_judge"
+    (acceptedFeedback && editorialFeedback.fields.includes("leaning")) ||
+    (acceptedReview && humanReview.fields.leaning !== "unable_to_judge")
       ? "editorial"
       : "model";
   const russiaSource =
-    acceptedReview && humanReview.fields.russia_stance !== "unable_to_judge"
+    (acceptedFeedback && editorialFeedback.fields.includes("russia_stance")) ||
+    (acceptedReview && humanReview.fields.russia_stance !== "unable_to_judge")
       ? "editorial"
       : "model";
 
@@ -431,6 +452,79 @@ export const ArticleScreen = () => {
           ) : null}
         </div>
       </div>
+
+      {editorialFeedback ? (
+        <Card
+          className={
+            editorialFeedback.status === "accepted"
+              ? "mt-6 border-primary/40 bg-primary/5 p-4"
+              : "mt-6 border-[hsl(var(--editorial-kicker)/0.5)] bg-[hsl(var(--editorial-kicker)/0.08)] p-4"
+          }
+          role="status"
+        >
+          <p className="font-semibold">
+            {editorialFeedback.status === "accepted"
+              ? tr(
+                  "Приета редакционна проверка по обществен сигнал",
+                  "Editorial review accepted from public feedback",
+                )
+              : tr(
+                  "Общественият сигнал е в повторна проверка",
+                  "The public feedback is under review again",
+                )}
+          </p>
+          <p className="mt-1 text-sm text-foreground/90">
+            {editorialFeedback.status === "accepted"
+              ? tr(
+                  "Публикуваме само решението, проверено и прието от редактор — не суровите потребителски бележки.",
+                  "Only the editor-verified decision is published, never raw visitor notes.",
+                )
+              : tr(
+                  "Материалът или анализът е променен след проверката, затова тези промени не се прилагат.",
+                  "The article or analysis changed after review, so those changes are not applied.",
+                )}{" "}
+            {editorialFeedback.public_explanation && !isEnglish
+              ? editorialFeedback.public_explanation
+              : ""}
+          </p>
+          {editorialFeedback.needs_revalidation_fields.length ? (
+            <p className="mt-2 text-sm text-foreground/90">
+              {tr(
+                "Част от проверката чака повторно потвърждение и не се показва като текущо заключение.",
+                "Part of the review needs confirmation again and is not shown as a current finding.",
+              )}
+            </p>
+          ) : null}
+          {editorialFeedback.issue_kinds.length ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {editorialFeedback.issue_kinds.map((kind) => (
+                <Badge key={kind} variant="outline" className="font-normal">
+                  {feedbackIssueLabel(kind, isEnglish)}
+                </Badge>
+              ))}
+            </div>
+          ) : null}
+          {editorialFeedback.fields.includes("entity_links") &&
+          analysis?.reviewed_links?.length ? (
+            <div className="mt-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {tr("Проверени връзки", "Reviewed links")}
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {analysis.reviewed_links.map((link) => (
+                  <a
+                    key={`${link.kind}:${link.id}:${link.surface}`}
+                    href={link.href}
+                    className="rounded-full border px-3 py-1 text-sm font-medium text-primary hover:underline"
+                  >
+                    {link.surface} → {link.canonical}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </Card>
+      ) : null}
 
       {analysis ? (
         <section className="mt-8" aria-labelledby="article-analysis-heading">

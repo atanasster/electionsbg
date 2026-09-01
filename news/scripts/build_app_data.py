@@ -72,8 +72,14 @@ try:
     )
     from .home_health import evaluate_home_payload
     from .effective_analysis import (
+        canonical_sha256,
         effective_analysis,
         load_accepted_adjudications,
+    )
+    from .effective_feedback import (
+        apply_accepted_feedback,
+        load_accepted_feedback,
+        target_index as feedback_target_index,
     )
     from .analyze_articles import recompute_story as recompute_analysis_story
     from .build_feedback_targets import build as build_feedback_targets
@@ -93,8 +99,14 @@ except ImportError:  # direct script execution
     )
     from home_health import evaluate_home_payload
     from effective_analysis import (
+        canonical_sha256,
         effective_analysis,
         load_accepted_adjudications,
+    )
+    from effective_feedback import (
+        apply_accepted_feedback,
+        load_accepted_feedback,
+        target_index as feedback_target_index,
     )
     from analyze_articles import recompute_story as recompute_analysis_story
     from build_feedback_targets import build as build_feedback_targets
@@ -1017,6 +1029,14 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         party_tones = []
 
     human_review = compact_human_review(rec)
+    generated_links = links_for(
+        ents, "\n".join(str(article.get(k) or "")
+                          for k in ("title", "description", "content")))
+    accepted_links = rec.get("_feedback_link_overrides") or {}
+    if not isinstance(accepted_links, dict):
+        raise ValueError("accepted feedback link overrides are malformed")
+    links = {**generated_links, **accepted_links}
+    reviewed_links = rec.get("_feedback_reviewed_links")
     return {
         "summary_bg": prose.get("summary_bg", rec.get("summary_bg")),
         "summary_en": prose.get("summary_en", rec.get("summary_en")),
@@ -1031,10 +1051,9 @@ def compact_analysis(rec: dict, article: dict) -> dict:
         # aggregate (see the MENTION_KINDS note in analyze_articles.py). A
         # name that did not resolve is simply absent, so a renderer cannot
         # turn a null into a dead link.
-        **({"entity_links": links} if (links := links_for(
-            ents, "\n".join(str(article.get(k) or "")
-                             for k in ("title", "description", "content"))))
-           else {}),
+        **({"entity_links": links} if links else {}),
+        **({"reviewed_links": copy.deepcopy(reviewed_links)}
+           if reviewed_links else {}),
         # ⚠️ The resolved, linkable SIBLING of `entities` — not a replacement.
         # `entities` stays a dict of plain strings because story clustering
         # iterates it (see the MENTION_KINDS block in analyze_articles.py).
@@ -1383,6 +1402,11 @@ def main() -> int:
         help="private accepted-adjudication snapshot (defaults to "
              "<data-dir>/evals/accepted/current.json when present)",
     )
+    ap.add_argument(
+        "--accepted-feedback-snapshot", type=Path,
+        help="private accepted all-article feedback snapshot (defaults to "
+             "<data-dir>/evals/feedback-accepted/current.json when present)",
+    )
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument(
         "--stamp", action="store_true",
@@ -1510,6 +1534,27 @@ def main() -> int:
     accepted_snapshot_records_sha256 = (
         accepted.records_sha256 if accepted is not None else None)
     pending_accepted = set(accepted.by_article) if accepted else set()
+    feedback_path = args.accepted_feedback_snapshot or (
+        data_dir / "evals" / "feedback-accepted" / "current.json")
+    if feedback_path.exists():
+        accepted_feedback = load_accepted_feedback(
+            feedback_path, expected_project_id=ACCEPTED_SNAPSHOT_PROJECT_ID)
+    elif args.accepted_feedback_snapshot is not None:
+        raise ValueError(
+            f"accepted feedback snapshot does not exist: {feedback_path}")
+    else:
+        accepted_feedback = None
+    accepted_feedback_records_sha256 = (
+        accepted_feedback.records_sha256 if accepted_feedback else None)
+    pending_feedback = (set(accepted_feedback.by_article)
+                        if accepted_feedback else set())
+    feedback_targets = {}
+    if accepted_feedback is not None:
+        # Historical registries prove what a contributor saw, but never keep
+        # a removed identity eligible for a new release. Application is bound
+        # exclusively to the freshly generated canonical target universe.
+        feedback_targets = feedback_target_index([
+            build_feedback_targets(REPO, generated_at)])
     story_effective_by_url: dict[str, dict] = {}
     story_index = load_story_index(data_dir)
     domain_names = sorted(
@@ -1564,6 +1609,9 @@ def main() -> int:
                 # the corpus lacks entirely.
                 "first_seen": art.get("fetched_at"),
                 "story_id": None,
+                # Stable, pre-community-feedback analysis baseline shared by
+                # task generation, publication applicability and training.
+                "feedback_analysis_sha256": None,
             }
             rights = image_rights_block(
                 art.get("image_rights"), article=f"{domain}/{fp.name}"
@@ -1584,6 +1632,20 @@ def main() -> int:
                 analysis = effective_analysis(analysis, art, accepted_record)
                 if accepted_record is not None:
                     pending_accepted.discard(article_key)
+                base_public_analysis = compact_analysis(analysis, art)
+                current_feedback_analysis_hash = canonical_sha256(
+                    base_public_analysis)
+                rec["feedback_analysis_sha256"] = (
+                    current_feedback_analysis_hash)
+                feedback_record = (accepted_feedback.by_article.get(article_key)
+                                   if accepted_feedback else None)
+                if feedback_record is not None:
+                    analysis, feedback_provenance = apply_accepted_feedback(
+                        analysis, art, article_key, feedback_record,
+                        feedback_targets,
+                        current_analysis_sha256=current_feedback_analysis_hash)
+                    rec["editorial_feedback"] = feedback_provenance
+                    pending_feedback.discard(article_key)
                 publishable = True
                 try:
                     validate_publishable_analysis(
@@ -1593,7 +1655,9 @@ def main() -> int:
                     publishable = False
                 else:
                     home_analysis_ids.add((domain, fp.stem))
-                public_analysis = compact_analysis(analysis, art)
+                public_analysis = (compact_analysis(analysis, art)
+                                   if feedback_record is not None else
+                                   base_public_analysis)
                 # The public projection may evidence-filter legacy model party
                 # tones, but its scalar values must be the exact effective
                 # values. Story reconciliation below consumes this same public
@@ -1660,6 +1724,15 @@ def main() -> int:
                     if stance in RUSSIA_LABELS:
                         cat["russia_stance"][stance] = (
                             cat["russia_stance"].get(stance, 0) + 1)
+            elif accepted_feedback is not None:
+                article_key = f"{domain}/{fp.stem}"
+                feedback_record = accepted_feedback.by_article.get(article_key)
+                if feedback_record is not None:
+                    _none, feedback_provenance = apply_accepted_feedback(
+                        None, art, article_key, feedback_record,
+                        feedback_targets)
+                    rec["editorial_feedback"] = feedback_provenance
+                    pending_feedback.discard(article_key)
             # ⚠️ COUNTED WITH THEIR DENOMINATORS, never as a bare rate.
             # `updated` is present on 2.7% of the corpus today — only
             # re-extracted domains carry it, and only ~47% of those pages
@@ -1685,6 +1758,11 @@ def main() -> int:
         raise ValueError(
             "accepted snapshot names articles absent from the coherent corpus/analysis: "
             + ", ".join(sorted(pending_accepted))
+        )
+    if pending_feedback:
+        raise ValueError(
+            "accepted feedback names articles absent from the coherent corpus: "
+            + ", ".join(sorted(pending_feedback))
         )
 
     # The index is the authoritative resolved membership join. Restrict it to
@@ -2200,6 +2278,8 @@ def main() -> int:
             # Null means the build used model analysis only; it never means an
             # unreadable/invalid snapshot, because that fails before output.
             "accepted_snapshot_records_sha256": accepted_snapshot_records_sha256,
+            "accepted_feedback_records_sha256":
+                accepted_feedback_records_sha256,
             "total_articles": total_articles,
             "analyzed_articles": analyzed_total,
             "analyzed_pct": round(100 * analyzed_total / total_articles, 1) if total_articles else 0,
@@ -2248,6 +2328,7 @@ def main() -> int:
         "latest_over_budget": feed_gzip > FEED_GZIP_BUDGET_BYTES,
         "home_health": home_payload["home_health"],
         "accepted_snapshot_records_sha256": accepted_snapshot_records_sha256,
+        "accepted_feedback_records_sha256": accepted_feedback_records_sha256,
         # ⚠️ REPORTED, never silent. These are person names an article does
         # not contain, dropped from what we publish — a quiet withholding is
         # indistinguishable from a model that stopped naming anyone.

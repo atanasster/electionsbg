@@ -38,6 +38,7 @@ from build_app_data import (  # noqa: E402
     compact_analysis, home_gzip_size, load_image_rights_policy, select_home_payload,
     reconcile_effective_story, validate_display_image)
 from effective_analysis import effective_analysis  # noqa: E402
+from build_feedback_targets import build as build_feedback_targets  # noqa: E402
 
 SCRIPT = os.path.abspath(os.path.join(os.path.dirname(__file__), "build_app_data.py"))
 
@@ -262,6 +263,53 @@ class BuildAppDataFixture(unittest.TestCase):
         path = Path(self.data_dir) / "evals" / "accepted" / "current.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(snapshot, ensure_ascii=False), encoding="utf-8")
+        return record
+
+    def write_accepted_feedback_snapshot(
+            self, article, *, domain, fname, analysis=None,
+            leaning="conservative", issue_kinds=None, links=None):
+        article_key = f"{domain}/{Path(fname).stem}"
+        registry = build_feedback_targets(Path(self.root),
+                                          "2026-09-01T00:00:00Z")
+        record = {
+            "schema_version": 1, "contract": "article-feedback-v1",
+            "article_key": article_key,
+            "url": f"https://news.electionsbg.com/article/{article_key}",
+            "task_revision": 1,
+            "content_sha256": content_sha256(article["content"]),
+            "analysis_sha256": (
+                canonical_sha256(compact_analysis(analysis, article))
+                if analysis is not None else None),
+            "target_registry_sha256": registry["targets_sha256"],
+            "source_submission_ids": ["feedback-submission-0001"],
+            "source_target_registry_sha256s": {
+                "feedback-submission-0001": registry["targets_sha256"]},
+            "operator_actor": {"kind": "maintainer", "id": "editor"},
+            "adjudicated_at": "2026-09-01T10:00:00.000Z", "revision": 1,
+            "feedback": {
+                "leaning": ({"label": leaning, "evidence": "Иван Иванов"}
+                            if leaning is not None else None),
+                "russia_stance": None, "party_tones": [],
+                "link_proposals": links or [],
+                "issue_kinds": issue_kinds or [], "public_note": None,
+            },
+            "public_explanation": "Редакционно проверено.",
+            "status": "accepted",
+            "last_operation_id": "feedback-operation-0001",
+        }
+        records = [record]
+        snapshot = {"manifest": {
+            "schema_version": 1,
+            "snapshot_kind": "news-feedback-accepted-adjudications",
+            "project_id": "electionsbg-news",
+            "firestore_read_time": "2026-09-01T10:05:00.000Z",
+            "record_count": 1, "records_sha256": canonical_sha256(records),
+        }, "records": records}
+        path = (Path(self.data_dir) / "evals" / "feedback-accepted" /
+                "current.json")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(snapshot, ensure_ascii=False),
+                        encoding="utf-8")
         return record
 
     def write_story_membership(self, domain, fname, article, analysis,
@@ -541,6 +589,122 @@ class BuildAppDataTest(BuildAppDataFixture):
             ["aggregates"]["by_leaning"],
             {"conservative": 1},
         )
+
+    def test_accepted_all_article_feedback_updates_analysis_and_links(self):
+        domain, fname = "example.bg", "feedback.json"
+        url = "https://example.bg/feedback"
+        article = corpus_article(
+            domain, fname, url, "Иван Иванов",
+            "2026-08-22T00:00:00+00:00", content="Иван Иванов каза нещо.")
+        path = f"news/data/{domain}/{fname}"
+        analysis = self.analysis_record(url, domain, path)
+        self.write_corpus(domain, fname, article)
+        self.write_analysis(domain, fname, analysis)
+        self.write_story_membership(domain, fname, article, analysis,
+                                    story_id="story-feedback")
+        self.write_accepted_feedback_snapshot(
+            article, domain=domain, fname=fname, analysis=analysis,
+            links=[{
+                "action": "add", "surface": "Иван Иванов",
+                "target_kind": "person", "resolution_status": "selected",
+                "target_ref": {"kind": "person", "id": "person-1"},
+                "current_href": None, "context": "Иван Иванов",
+                "evidence": "Иван Иванов",
+            }], issue_kinds=["missing_entity"])
+
+        self.run_build()
+        public = self.load(f"articles/{domain}.json")["articles"][0]
+        self.assertEqual(public["analysis"]["leaning"]["label"],
+                         "conservative")
+        self.assertIsNone(public["analysis"]["leaning"]["confidence"])
+        self.assertEqual(
+            public["analysis"]["entity_links"]["Иван Иванов"]["id"],
+            "person-1")
+        self.assertEqual(public["analysis"]["reviewed_links"][0]["kind"],
+                         "person")
+        self.assertEqual(public["editorial_feedback"]["status"], "accepted")
+        self.assertEqual(
+            public["feedback_analysis_sha256"],
+            canonical_sha256(compact_analysis(analysis, article)))
+        self.assertNotEqual(
+            public["feedback_analysis_sha256"],
+            canonical_sha256(public["analysis"]))
+        stats = self.load("stats.json")
+        self.assertRegex(stats["accepted_feedback_records_sha256"],
+                         r"^sha256:[0-9a-f]{64}$")
+        story = self.load("stories.json")["stories"][0]
+        self.assertEqual(story["aggregates"]["by_leaning"],
+                         {"conservative": 1})
+
+    def test_accepted_missing_analysis_issue_surfaces_without_fake_analysis(self):
+        domain, fname = "example.bg", "not-analyzed.json"
+        url = "https://example.bg/not-analyzed"
+        article = corpus_article(
+            domain, fname, url, "Без анализ",
+            "2026-08-22T00:00:00+00:00")
+        self.write_corpus(domain, fname, article)
+        self.write_accepted_feedback_snapshot(
+            article, domain=domain, fname=fname, analysis=None, leaning=None,
+            issue_kinds=["missing_analysis"])
+
+        self.run_build()
+        public = self.load(f"articles/{domain}.json")["articles"][0]
+        self.assertNotIn("analysis", public)
+        self.assertEqual(public["editorial_feedback"]["issue_kinds"],
+                         ["missing_analysis"])
+        self.assertEqual(public["editorial_feedback"]["status"], "accepted")
+
+    def test_new_analysis_withholds_stale_missing_analysis_claim(self):
+        domain, fname = "example.bg", "analysis-added.json"
+        url = "https://example.bg/analysis-added"
+        article = corpus_article(
+            domain, fname, url, "Без анализ",
+            "2026-08-22T00:00:00+00:00")
+        self.write_corpus(domain, fname, article)
+        self.write_accepted_feedback_snapshot(
+            article, domain=domain, fname=fname, analysis=None, leaning=None,
+            issue_kinds=["missing_analysis"])
+        analysis = self.analysis_record(
+            url, domain, f"news/data/{domain}/{fname}")
+        self.write_analysis(domain, fname, analysis)
+
+        self.run_build()
+        public = self.load(f"articles/{domain}.json")["articles"][0]
+        provenance = public["editorial_feedback"]
+        self.assertEqual(provenance["status"], "needs_revalidation")
+        self.assertEqual(provenance["fields"], [])
+        self.assertEqual(provenance["needs_revalidation_fields"],
+                         ["issue_kinds"])
+        self.assertEqual(provenance["issue_kinds"], [])
+        self.assertIsNone(provenance["public_explanation"])
+
+    def test_archived_only_feedback_target_is_not_release_eligible(self):
+        domain, fname = "example.bg", "removed-target.json"
+        url = "https://example.bg/removed-target"
+        article = corpus_article(
+            domain, fname, url, "Иван Иванов",
+            "2026-08-22T00:00:00+00:00", content="Иван Иванов каза нещо.")
+        analysis = self.analysis_record(
+            url, domain, f"news/data/{domain}/{fname}")
+        self.write_corpus(domain, fname, article)
+        self.write_analysis(domain, fname, analysis)
+        self.write_accepted_feedback_snapshot(
+            article, domain=domain, fname=fname, analysis=analysis,
+            links=[{
+                "action": "add", "surface": "Иван Иванов",
+                "target_kind": "person", "resolution_status": "selected",
+                "target_ref": {"kind": "person", "id": "person-1"},
+                "current_href": None, "context": "Иван Иванов",
+                "evidence": "Иван Иванов",
+            }])
+        Path(self.data_dir, "gazetteer.json").write_text(json.dumps({
+            "version": 1, "generated_at": "2026-09-01T00:00:00Z",
+            "entries": [],
+        }), encoding="utf-8")
+
+        proc = self.run_build_process()
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("absent from current registry", proc.stderr)
 
     def test_wrong_project_unmatched_article_and_missing_story_fail_before_write(self):
         domain = "example.bg"

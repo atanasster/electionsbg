@@ -59,6 +59,40 @@ export interface HumanReviewProvenance {
   public_explanation: string | null;
 }
 
+export type AcceptedFeedbackField =
+  | "leaning"
+  | "russia_stance"
+  | "party_tones"
+  | "entity_links"
+  | "issue_kinds";
+
+export type AcceptedIssueKind =
+  | "missing_analysis"
+  | "missing_entity"
+  | "wrong_entity_link"
+  | "missing_topic"
+  | "missing_sector"
+  | "other";
+
+export interface EditorialFeedbackProvenance {
+  status: "accepted" | "needs_revalidation";
+  adjudicated_at: string;
+  revision: number;
+  fields: AcceptedFeedbackField[];
+  /** Reviewed fields whose underlying article or analysis revision changed. */
+  needs_revalidation_fields: AcceptedFeedbackField[];
+  issue_kinds: AcceptedIssueKind[];
+  public_explanation: string | null;
+}
+
+export interface ReviewedLink {
+  surface: string;
+  kind: "person" | "party" | "institution" | "company" | "settlement" | "sector";
+  id: string;
+  canonical: string;
+  href: string;
+}
+
 export interface AnalysisBlock {
   summary_bg: string | null;
   summary_en: string | null;
@@ -90,6 +124,8 @@ export interface AnalysisBlock {
   entities: Entities | null;
   /** name → link, for the entity strings that earned one. */
   entity_links?: Record<string, EntityLink>;
+  /** Canonical links accepted through offline editorial review, including sectors. */
+  reviewed_links?: ReviewedLink[];
   /**
    * Resolved, linkable entities — the SIBLING of `entities`, never a
    * replacement.
@@ -173,7 +209,11 @@ export interface ArticleRecord {
   /** og:image:alt, and only when og:image is the image we stored. Feed-omitted like section_path. */
   image_alt?: string | null;
   story_id: string | null;
+  /** Pre-community-feedback analysis baseline used by the feedback task contract. */
+  feedback_analysis_sha256?: string | null;
   analysis?: AnalysisBlock;
+  /** Present even when the accepted finding is that analysis is missing. */
+  editorial_feedback?: EditorialFeedbackProvenance;
 }
 
 export interface StoryMember {
@@ -558,6 +598,7 @@ export interface Stats {
   generated_at: string;
   taxonomy_version: number;
   accepted_snapshot_records_sha256: string | null;
+  accepted_feedback_records_sha256: string | null;
   total_articles: number;
   analyzed_articles: number;
   analyzed_pct: number;
@@ -585,13 +626,14 @@ const ISO_INSTANT =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 
 export interface NewsPublicationManifest {
-  /** v1 is accepted during migration; every newly generated release is v2. */
-  version: 1 | 2;
+  /** v1/v2 are accepted during migration; new releases are v3. */
+  version: 1 | 2 | 3;
   run_id: string;
   generated_at: string;
   data_base: string;
   home_health_ready: true;
   accepted_snapshot_records_sha256?: string | null;
+  accepted_feedback_records_sha256?: string | null;
   bundle: {
     sha256: string;
     files: number;
@@ -627,15 +669,19 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
   const inventoryPaths = validInventory
     ? (inventory as Array<{ path: string }>).map((item) => item.path)
     : [];
+  const validHash = (value: unknown): boolean =>
+    value === null || (typeof value === "string" && /^[a-f0-9]{64}$/.test(value));
   const validAcceptedSnapshotHash =
     row.version === 1
       ? row.accepted_snapshot_records_sha256 === undefined
-      : row.version === 2 &&
-        (row.accepted_snapshot_records_sha256 === null ||
-          (typeof row.accepted_snapshot_records_sha256 === "string" &&
-            /^[a-f0-9]{64}$/.test(row.accepted_snapshot_records_sha256)));
+      : (row.version === 2 || row.version === 3) &&
+        validHash(row.accepted_snapshot_records_sha256);
+  const validAcceptedFeedbackHash =
+    row.version === 3
+      ? validHash(row.accepted_feedback_records_sha256)
+      : row.accepted_feedback_records_sha256 === undefined;
   if (
-    (row.version !== 1 && row.version !== 2) ||
+    (row.version !== 1 && row.version !== 2 && row.version !== 3) ||
     typeof runId !== "string" ||
     !PUBLICATION_ID.test(runId) ||
     row.data_base !== `versions/${runId}` ||
@@ -644,6 +690,7 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
     !Number.isFinite(Date.parse(row.generated_at)) ||
     row.home_health_ready !== true ||
     !validAcceptedSnapshotHash ||
+    !validAcceptedFeedbackHash ||
     !bundle ||
     typeof bundle.sha256 !== "string" ||
     !/^[a-f0-9]{64}$/.test(bundle.sha256) ||
@@ -1131,6 +1178,58 @@ export const isPublicHumanReview = (
   return true;
 };
 
+const FEEDBACK_FIELDS: AcceptedFeedbackField[] = [
+  "leaning", "russia_stance", "party_tones", "entity_links", "issue_kinds",
+];
+const ISSUE_KINDS: AcceptedIssueKind[] = [
+  "missing_analysis", "missing_entity", "wrong_entity_link", "missing_topic",
+  "missing_sector", "other",
+];
+
+export const isPublicEditorialFeedback = (
+  value: unknown,
+): value is EditorialFeedbackProvenance => {
+  if (!isPlainRecord(value) || !exactRecordKeys(value, [
+    "status", "adjudicated_at", "revision", "fields",
+    "needs_revalidation_fields", "issue_kinds", "public_explanation",
+  ])) return false;
+  const revalidationFields = value.needs_revalidation_fields;
+  return (
+    (value.status === "accepted" || value.status === "needs_revalidation") &&
+    typeof value.adjudicated_at === "string" &&
+    Number.isFinite(Date.parse(value.adjudicated_at)) &&
+    Number.isInteger(value.revision) && (value.revision as number) >= 1 &&
+    Array.isArray(value.fields) &&
+    value.fields.every((field) => FEEDBACK_FIELDS.includes(field as AcceptedFeedbackField)) &&
+    new Set(value.fields).size === value.fields.length &&
+    Array.isArray(revalidationFields) &&
+    revalidationFields.every((field) =>
+      FEEDBACK_FIELDS.includes(field as AcceptedFeedbackField)) &&
+    new Set(revalidationFields).size === revalidationFields.length &&
+    value.fields.every((field) => !revalidationFields.includes(field)) &&
+    Array.isArray(value.issue_kinds) &&
+    value.issue_kinds.every((kind) => ISSUE_KINDS.includes(kind as AcceptedIssueKind)) &&
+    new Set(value.issue_kinds).size === value.issue_kinds.length &&
+    (value.public_explanation === null || typeof value.public_explanation === "string")
+  );
+};
+
+const isPublicReviewedLinks = (value: unknown): value is ReviewedLink[] =>
+  Array.isArray(value) && value.length <= 20 && value.every((raw) => {
+    if (!isPlainRecord(raw) || !exactRecordKeys(raw, [
+      "surface", "kind", "id", "canonical", "href",
+    ])) return false;
+    return (
+      typeof raw.surface === "string" && raw.surface.length > 0 &&
+      ["person", "party", "institution", "company", "settlement", "sector"]
+        .includes(String(raw.kind)) &&
+      typeof raw.id === "string" && raw.id.length > 0 &&
+      typeof raw.canonical === "string" && raw.canonical.length > 0 &&
+      typeof raw.href === "string" &&
+      /^https:\/\/electionsbg\.com\/\S+$/.test(raw.href)
+    );
+  });
+
 export interface OutletArticlesBundle {
   domain: string;
   outlet: string;
@@ -1156,6 +1255,18 @@ export const parseOutletArticlesBundle = (
       typeof rawArticle.domain !== "string"
     )
       throw new Error("Невалиден договор на статия");
+    if (
+      "editorial_feedback" in rawArticle &&
+      !isPublicEditorialFeedback(rawArticle.editorial_feedback)
+    )
+      throw new Error("Невалиден договор на приетата обратна връзка");
+    if (
+      "feedback_analysis_sha256" in rawArticle &&
+      rawArticle.feedback_analysis_sha256 !== null &&
+      (typeof rawArticle.feedback_analysis_sha256 !== "string" ||
+        !/^sha256:[a-f0-9]{64}$/.test(rawArticle.feedback_analysis_sha256))
+    )
+      throw new Error("Невалиден договор на основата за обратна връзка");
     if (rawArticle.analysis === undefined) continue;
     if (!isPlainRecord(rawArticle.analysis))
       throw new Error("Невалиден договор на анализа");
@@ -1170,6 +1281,11 @@ export const parseOutletArticlesBundle = (
       )
     )
       throw new Error("Невалиден договор на редакционната проверка");
+    if (
+      "reviewed_links" in rawArticle.analysis &&
+      !isPublicReviewedLinks(rawArticle.analysis.reviewed_links)
+    )
+      throw new Error("Невалиден договор на проверените връзки");
   }
   return value as unknown as OutletArticlesBundle;
 };

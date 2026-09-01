@@ -14,7 +14,12 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ArticleRecord, Outlet, Story } from "../data";
+import type {
+  ArticleRecord,
+  EditorialFeedbackProvenance,
+  Outlet,
+  Story,
+} from "../data";
 import type { EvalTask } from "../evals";
 
 const analysed = (): NonNullable<ArticleRecord["analysis"]> => ({
@@ -576,6 +581,80 @@ describe("human review provenance", () => {
 
     expect(await screen.findByText("Нашият анализ")).toBeVisible();
     expect(screen.queryByText(/Материалът не се зареди/)).toBeNull();
+  });
+});
+
+describe("accepted all-article feedback", () => {
+  beforeEach(() => vi.resetModules());
+
+  it("shows only editorial provenance and reviewed canonical links", async () => {
+    const a = analysed();
+    a.leaning = {
+      label: "conservative",
+      confidence: null,
+      evidence: "Редакционно проверено основание.",
+    };
+    const editorialFeedback: EditorialFeedbackProvenance = {
+      status: "accepted",
+      adjudicated_at: "2026-09-01T10:00:00.000Z",
+      revision: 1,
+      fields: ["leaning", "entity_links", "issue_kinds"],
+      needs_revalidation_fields: [],
+      issue_kinds: ["missing_entity", "missing_sector"],
+      public_explanation: "Проверено спрямо оригиналния материал.",
+    };
+    a.reviewed_links = [{
+      surface: "Енергетика",
+      kind: "sector",
+      id: "energy",
+      canonical: "Енергетика",
+      href: "https://electionsbg.com/sector/energy",
+    }];
+
+    await renderAt([article({
+      analysis: a,
+      editorial_feedback: editorialFeedback,
+    })]);
+
+    expect(await screen.findByText(/Приета редакционна проверка/)).toBeVisible();
+    expect(screen.getByText("Липсва сектор")).toBeVisible();
+    expect(screen.getByRole("link", {
+      name: "Енергетика → Енергетика",
+    })).toHaveAttribute("href", "https://electionsbg.com/sector/energy");
+    expect(screen.queryByText(/feedback-submission/)).not.toBeInTheDocument();
+    expect(screen.queryByText("увереност 70%")).not.toBeInTheDocument();
+  });
+
+  it("shows an accepted missing-analysis finding without fake axis labels", async () => {
+    await renderAt([article({ editorial_feedback: {
+      status: "accepted",
+      adjudicated_at: "2026-09-01T10:00:00.000Z",
+      revision: 1,
+      fields: ["issue_kinds"],
+      needs_revalidation_fields: [],
+      issue_kinds: ["missing_analysis"],
+      public_explanation: null,
+    } })]);
+
+    expect(await screen.findByText("Липсва анализ")).toBeVisible();
+    expect(screen.getByText(/още не е анализирана/)).toBeVisible();
+    expect(screen.queryByText("Неутрално")).not.toBeInTheDocument();
+  });
+
+  it("does not render stale issue claims or explanations as current", async () => {
+    await renderAt([article({ editorial_feedback: {
+      status: "needs_revalidation",
+      adjudicated_at: "2026-09-01T10:00:00.000Z",
+      revision: 2,
+      fields: [],
+      needs_revalidation_fields: ["issue_kinds"],
+      issue_kinds: [],
+      public_explanation: null,
+    } })]);
+
+    expect(await screen.findByText(/повторна проверка/)).toBeVisible();
+    expect(screen.getByText(/не се показва като текущо заключение/)).toBeVisible();
+    expect(screen.queryByText("Липсва анализ")).not.toBeInTheDocument();
   });
 });
 

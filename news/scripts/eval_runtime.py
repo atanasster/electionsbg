@@ -29,6 +29,10 @@ from news.scripts.effective_analysis import (  # noqa: E402
     EffectiveAnalysisError,
     load_accepted_adjudications,
 )
+from news.scripts.effective_feedback import (  # noqa: E402
+    EffectiveFeedbackError,
+    load_accepted_feedback,
+)
 from news.scripts.propose_eval_corrections import (  # noqa: E402
     CorrectionProposalError,
     atomic_write as write_correction_report,
@@ -183,6 +187,40 @@ def snapshot_status(path: Path, *, root: Path = ROOT,
     }
 
 
+def feedback_snapshot_status(path: Path, *, root: Path = ROOT) -> dict[str, Any]:
+    if not path.is_file():
+        return {"status": "missing", "record_count": 0}
+    try:
+        accepted = load_accepted_feedback(
+            path, expected_project_id=PROJECT_ID)
+    except EffectiveFeedbackError as exc:
+        return {"status": "invalid", "record_count": 0,
+                "error": str(exc)[:600]}
+    fresh = stale = missing = 0
+    for article_key, record in accepted.by_article.items():
+        domain, article_id = article_key.split("/", 1)
+        article_path = root / "news" / "data" / domain / f"{article_id}.json"
+        try:
+            article = json.loads(article_path.read_text(encoding="utf-8"))
+            content = article.get("content") if isinstance(article, dict) else None
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            content = None
+        if not isinstance(content, str):
+            missing += 1
+        elif content_sha256(content) == record["content_sha256"]:
+            fresh += 1
+        else:
+            stale += 1
+    return {
+        "status": "valid",
+        "records_sha256": accepted.records_sha256,
+        "record_count": len(accepted.by_article),
+        "fresh_content_count": fresh,
+        "stale_content_count": stale,
+        "missing_content_count": missing,
+    }
+
+
 def _operator_export(config: RuntimeConfig, command: str, output: Path) -> dict[str, Any]:
     return run_operator(config, [
         command, "--project", PROJECT_ID, "--out", str(output),
@@ -201,24 +239,55 @@ def export_operation(root: Path = ROOT, *, dry_run: bool = False,
     eval_root = root / "news" / "data" / "evals"
     raw_path = eval_root / "public-submissions" / "current.jsonl"
     accepted_path = eval_root / "accepted" / "current.json"
+    feedback_accepted_path = eval_root / "feedback-accepted" / "current.json"
     task_path = eval_root / "tasks" / "current.json"
     correction_path = eval_root / "corrections" / "proposed" / "current.json"
     alerts: list[str] = []
     if config.available:
         raw_export = _operator_export(config, "export", raw_path)
         accepted_export = _operator_export(config, "export-accepted", accepted_path)
+        feedback_accepted_export = _operator_export(
+            config, "export-accepted-feedback", feedback_accepted_path)
         if raw_export["exit"] != 0:
             alerts.append("raw_export_failed")
         if accepted_export["exit"] != 0:
             alerts.append("accepted_export_failed_last_good_retained")
+        if feedback_accepted_export["exit"] != 0:
+            alerts.append("feedback_accepted_export_failed_last_good_retained")
     else:
         skipped = config.unavailable_reason or "unavailable"
         raw_export = {"exit": None, "skipped": skipped}
         accepted_export = {"exit": None, "skipped": skipped}
+        feedback_accepted_export = {"exit": None, "skipped": skipped}
         if config.mode != "disabled":
             alerts.append(skipped)
 
     accepted = snapshot_status(accepted_path, root=root, now=now)
+    accepted_feedback = feedback_snapshot_status(
+        feedback_accepted_path, root=root)
+    improvement: dict[str, Any]
+    if accepted_feedback["status"] == "valid":
+        improvement_path = (eval_root / "feedback-improvement" /
+                            "current.json")
+        improvement_process = subprocess.run([
+            sys.executable,
+            str(root / "news/scripts/build_feedback_improvement_dataset.py"),
+            "--snapshot", str(feedback_accepted_path),
+            "--data-dir", str(root / "news/data"),
+            "--out", str(improvement_path),
+        ], cwd=root, text=True, capture_output=True)
+        improvement = {
+            "exit": improvement_process.returncode,
+            "result": _last_json(improvement_process.stdout),
+        }
+        if improvement_process.returncode != 0:
+            improvement["error"] = (
+                improvement_process.stderr or improvement_process.stdout
+            ).strip()[:600]
+            alerts.append("feedback_improvement_build_failed_last_good_retained")
+    else:
+        improvement = {"exit": None, "skipped":
+                       "accepted_feedback_snapshot_unavailable"}
     blocked_reasons: list[str] = []
     if config.mode == "required" and not config.available:
         blocked_reasons.append(config.unavailable_reason or "eval_operator_unavailable")
@@ -233,6 +302,8 @@ def export_operation(root: Path = ROOT, *, dry_run: bool = False,
             blocked_reasons.append("accepted_snapshot_expired")
     elif config.mode == "required":
         blocked_reasons.append("accepted_snapshot_missing")
+    if accepted_feedback["status"] == "invalid":
+        blocked_reasons.append("accepted_feedback_snapshot_invalid")
 
     correction: dict[str, Any]
     if accepted["status"] != "valid":
@@ -259,7 +330,10 @@ def export_operation(root: Path = ROOT, *, dry_run: bool = False,
         "operator_available": config.available,
         "raw_export": raw_export,
         "accepted_export": accepted_export,
+        "feedback_accepted_export": feedback_accepted_export,
         "accepted_snapshot": accepted,
+        "accepted_feedback_snapshot": accepted_feedback,
+        "feedback_improvement_dataset": improvement,
         "correction_proposals": correction,
         "snapshot_sla_hours": config.max_snapshot_age_hours,
         "alerts": sorted(set(alerts + blocked_reasons)),

@@ -120,6 +120,9 @@ class EvalRuntimeTest(unittest.TestCase):
         ), mock.patch(
             "news.scripts.eval_runtime._operator_export",
             return_value={"exit": 1, "error": "offline", "result": None},
+        ) as exporter, mock.patch(
+            "news.scripts.eval_runtime.feedback_snapshot_status",
+            return_value={"status": "missing", "record_count": 0},
         ), mock.patch(
             "news.scripts.eval_runtime.snapshot_status", return_value=accepted,
         ):
@@ -127,6 +130,9 @@ class EvalRuntimeTest(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertFalse(result["publication_blocked"])
         self.assertIn("accepted_export_failed_last_good_retained", result["alerts"])
+        self.assertEqual(exporter.call_count, 3)
+        self.assertEqual(exporter.call_args_list[2].args[1],
+                         "export-accepted-feedback")
 
     def test_snapshot_report_counts_current_stale_and_missing_content(self):
         records = {
@@ -164,6 +170,38 @@ class EvalRuntimeTest(unittest.TestCase):
         self.assertEqual(result["stale_content_count"], 1)
         self.assertEqual(result["missing_content_count"], 1)
         self.assertEqual(result["age_hours"], 1.0)
+
+    def test_valid_accepted_feedback_builds_only_the_private_improvement_dataset(self):
+        accepted = {"status": "valid", "record_count": 1, "age_hours": 1,
+                    "future_clock_skew": False}
+        feedback = {"status": "valid", "record_count": 1,
+                    "records_sha256": "sha256:" + "a" * 64}
+        completed = mock.Mock(
+            returncode=0,
+            stdout='{"record_count":1,"raw_community_records_included":0}\n',
+            stderr="")
+        with mock.patch(
+            "news.scripts.eval_runtime.runtime_config", return_value=config()
+        ), mock.patch(
+            "news.scripts.eval_runtime._operator_export",
+            return_value={"exit": 0, "result": {}},
+        ), mock.patch(
+            "news.scripts.eval_runtime.snapshot_status", return_value=accepted,
+        ), mock.patch(
+            "news.scripts.eval_runtime.feedback_snapshot_status",
+            return_value=feedback,
+        ), mock.patch(
+            "news.scripts.eval_runtime.subprocess.run", return_value=completed,
+        ) as invoked:
+            result, code = export_operation(self.root)
+        self.assertEqual(code, 0)
+        self.assertEqual(
+            result["feedback_improvement_dataset"]["result"]
+            ["raw_community_records_included"], 0)
+        command = invoked.call_args.args[0]
+        self.assertTrue(command[1].endswith(
+            "build_feedback_improvement_dataset.py"))
+        self.assertNotIn("feedback-submissions", " ".join(command))
 
     def test_task_sync_runs_only_after_successful_public_manifest_commit(self):
         upload_path = self.root / "upload.json"

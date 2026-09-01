@@ -188,15 +188,26 @@ def publication_manifest(
     if not isinstance(stats, dict) or stats.get("generated_at") != generated_at:
         raise ValueError(
             "cannot build publication manifest: stats generation does not match home")
-    if "accepted_snapshot_records_sha256" not in stats:
-        raise ValueError(
-            "cannot build publication manifest: accepted snapshot provenance is missing")
-    accepted_hash = stats["accepted_snapshot_records_sha256"]
-    if accepted_hash is not None and (
-            not isinstance(accepted_hash, str)
-            or re.fullmatch(r"[a-f0-9]{64}", accepted_hash) is None):
-        raise ValueError(
-            "cannot build publication manifest: invalid accepted snapshot hash")
+    def provenance_hash(key: str, label: str) -> str | None:
+        if key not in stats:
+            raise ValueError(
+                f"cannot build publication manifest: {label} provenance is missing")
+        value = stats[key]
+        if value is None:
+            return None
+        if isinstance(value, str) and value.startswith("sha256:"):
+            value = value.removeprefix("sha256:")
+        if not isinstance(value, str) or re.fullmatch(r"[a-f0-9]{64}", value) is None:
+            raise ValueError(
+                f"cannot build publication manifest: invalid {label} hash")
+        return value
+
+    accepted_hash = provenance_hash(
+        "accepted_snapshot_records_sha256", "accepted snapshot")
+    has_feedback_provenance = "accepted_feedback_records_sha256" in stats
+    feedback_hash = (provenance_hash(
+        "accepted_feedback_records_sha256", "accepted feedback")
+        if has_feedback_provenance else None)
     if not isinstance(health, dict) or health.get("ready") is not True:
         raise ValueError("cannot build publication manifest: home health is not ready")
     bundle = tree_inventory(app_data)
@@ -210,8 +221,8 @@ def publication_manifest(
         raise ValueError("app-data snapshot does not match the pipeline bundle result")
     if expected_health is not None and expected_health != health:
         raise ValueError("app-data home health does not match the pipeline gate")
-    return {
-        "version": 2,
+    manifest = {
+        "version": 3 if has_feedback_provenance else 2,
         "run_id": publication_id,
         "generated_at": generated_at,
         "data_base": f"versions/{publication_id}",
@@ -219,6 +230,9 @@ def publication_manifest(
         "accepted_snapshot_records_sha256": accepted_hash,
         "bundle": bundle,
     }
+    if has_feedback_provenance:
+        manifest["accepted_feedback_records_sha256"] = feedback_hash
+    return manifest
 
 
 def commands(
@@ -476,12 +490,13 @@ def main() -> int:
                                if isinstance(health_result, dict) else None)
             if args.dry_run and not (ROOT / "news/app-data/home.json").is_file():
                 publication = {
-                    "version": 2,
+                    "version": 3,
                     "run_id": publication_id,
                     "generated_at": report.get("generated_at") or "dry-run",
                     "data_base": f"versions/{publication_id}",
                     "home_health_ready": True,
                     "accepted_snapshot_records_sha256": None,
+                    "accepted_feedback_records_sha256": None,
                     "bundle": {"sha256": "0" * 64, "files": 0,
                                "bytes": 0, "inventory": []},
                 }

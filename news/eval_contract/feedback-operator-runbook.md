@@ -114,3 +114,38 @@ npm run news:feedback:export-accepted
 The snapshot validator rejects unknown fields, malformed provenance, more than 100 sources and
 invalid operation IDs. An empty or malformed Firestore read cannot overwrite the last-known-good
 file. Correct the source data and rerun; do not delete the prior snapshot as a recovery shortcut.
+
+## 6. Apply and build model-improvement inputs
+
+The ordinary app-data build automatically reads
+`news/data/evals/feedback-accepted/current.json`. It never reads the raw submission export. Accepted
+leaning, Russia and selected party/link decisions are overlaid in memory; original analysis JSON is
+not rewritten. Before either publication or training, every selected evidence quote and link
+surface/context is re-grounded in the frozen article text, duplicate normalized surfaces/party IDs
+are rejected, and selected links must still exist in the freshly built current canonical target
+registry. Archived registries prove historical provenance but never restore a removed target's
+release eligibility. Accepted
+issue kinds—including `missing_analysis`, `missing_topic` and `missing_sector`—are published only as
+editorial provenance until an actual replacement value exists. Content drift withholds every
+accepted change and marks the review for revalidation. Analysis drift withholds link/issue claims;
+their badges and explanation are suppressed until re-adjudication, while content-grounded scalar
+and party decisions can remain effective.
+
+The analysis revision is one explicit pre-community-feedback baseline. The app-data build publishes
+its hash beside each article, feedback tasks copy that hash instead of hashing a prior feedback
+overlay, and the improvement builder recomputes it from the current raw analysis plus any formal
+maintainer adjudication. Therefore job ordering and a previous public bundle cannot make stale
+link/issue feedback current again.
+
+Build the private improvement artifact with:
+
+```sh
+npm run news:feedback:build-improvement
+```
+
+The artifact is mode `0600` under `news/data/evals/feedback-improvement/`. It contains no raw
+community records, source submission IDs, operator identity or visitor public note. Only
+maintainer-accepted, content-current records become field-level targets; unresolved link/party
+proposals and analysis-stale link/issue claims remain excluded rather than becoming weak canonical
+truth. The manifest binds the current target-registry hash and each record retains only its accepted
+source-registry hash—never source submission IDs.
