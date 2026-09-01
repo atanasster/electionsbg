@@ -707,7 +707,7 @@ So Phase 2 carries an explicit budget step:
 1. enumerate the key set from the descriptor matrix and the fact/standout enums **before** writing
    copy, and record its size;
 2. measure the core chunk's brotli delta in both languages;
-3. re-ratchet `tests/perf.spec.ts` in the same commit, and split an `elections` bundle for copy the
+3. re-ratchet the LOCALE budget in `tests/perf.spec.ts` in the same commit — that budget grows with translated copy and is meant to move; the entry-chunk and critical-path ceilings beside it are NOT (§10.1) — and split an `elections` bundle for copy the
    analysis proves is exclusive to the `/elections` hub/result route family; re-run
    `scripts/i18n/split_bundles.ts --apply` and keep shared result keys in core.
 
@@ -1301,11 +1301,11 @@ Exit criterion: the emitting cycles generate valid artifacts, the latest cycles 
 
 Work:
 
-1. Implement `surfacePath.ts` and `useElectionSurface.ts` using `dataUrl` and React Query.
+1. Implement `surfacePath.ts` and `useElectionSurface.ts` using `dataUrl` and React Query, on the repo's fetch posture — `staleTime: Infinity`, no refetch on focus, as every other hook here does. The default config would refetch on every window focus, on the highest-traffic pages on the site, and no gate would catch it.
 2. Implement `ElectionSurfaceBoundary`; it renders the new surface only for `schemaVersion === 1`, otherwise the existing composition.
 3. Implement scope bar, finder, status row, strip, canvas, ranking, standouts, and source panel. The strip ADOPTS the nine existing four-card compositions rather than replacing them (§6.3); the scope bar's cycle/status composes into `PlaceHeader` rather than stacking a second control row under `PlaceViewNav` (§4).
    3b. Implement `PlaceDigest` + `placeDigestFacts.ts` (§4.1): pure per-view selectors, each reading the producer that draws its own view's numbers, each returning `undefined` — not zero — for an unreachable view.
-4. Reuse existing maps through adapters; do not import Leaflet/d3/recharts into the shell module.
+4. Reuse existing maps through adapters; do not import Leaflet/d3/recharts into the shell module. Measure the shell's own brotli size in this phase and record it against the 363,000 B br critical-path total (§10.1) — this is the JS the migration adds to ~15 screens.
 5. Add loading skeletons with fixed dimensions matching the final ranking/map layout, each on a container carrying `aria-busy` while it resolves. "No layout shift when the map arrives" is a VISUAL gate; without `aria-busy` the skeleton→content swap — and `ElectionSurfaceBoundary`'s legacy-fallback swap — is silent to a screen reader. The repo already uses `aria-busy` and `aria-live`; do not invent a third pattern.
    5b. Pass `headingLevel={2}` on every `DashboardSection` on a migrated screen, and give every one of the seven regions a landmark name (§4.0).
 6. Add Bulgarian and English keys per §5.2: enumerate the key set from the descriptor matrix and the fact/standout enums first — **counts as plural families**, `labelKey`s written out rather than built — measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Ship `electionCopyCoverage.test.ts` in this commit; `parity.test.ts` and `plurals.test.ts` are corpus-symmetry and call-site gates and neither covers enum coverage. Keep long existing analysis copy in its current bundles.
@@ -1438,6 +1438,7 @@ Work:
 4. Local section renders separate compact panels for council, municipality mayor, and district mayor only when each vote array/denominator exists.
 5. Do not infer zeros for absent arrays or unavailable older-cycle ballots.
    5b. Render no `PlaceDigest` on a polling section: three of the four views do not resolve there, so a one-cell digest is chrome (§4.1).
+   5d. Add the section route to the "chart-free, map-free route downloads none of the heavy chunks" gate, and both section variants to `SLOW_CLS_ROUTES` (§10.1). After this phase the section page is the repo's canonical no-heavy-chunk route; leaving it out of that gate makes §6's no-decorative-map rule unenforced.
    5c. ⚠️ **Decide whether 12,721 section pages should still be SUBMITTED for indexing, and record the answer.** Measured 2026-09-01: `dist/section/` holds **12,721** prerendered pages and `public/sitemap_sections.xml` carries **12,721 `<loc>`s** — roughly 25,400 URLs with the EN mirrors, each body one protocol table. That is exactly the shape `CLAUDE.md` describes for `/council/resolution/**`: "each body is one title and a vote table, the shape that earns a thin-content penalty rather than traffic". Those 4,813 resolutions were given a real head and **deliberately no sitemap `<loc>` and no prerender** — discoverable by a crawler already on the parent page, never submitted en masse.
 
 This phase rewrites the section composition, so it is the moment to ask. Either answer is defensible — a polling-section result is a primary public record, and the family predates the council precedent — but the decision has to be made rather than inherited. If they stay submitted, say why the council reasoning does not apply; if they stop, the `<loc>`s go and the inbound link from the settlement's section list becomes the only route, which makes that link load-bearing exactly as `CouncilScreen`'s resolution title is. 6. Kind switching from a section falls back to the settlement and announces why section codes do not map reliably between election kinds/cycles. 7. Add source-link reconciliation tests for CEC protocol, scan, video, and download URLs.
@@ -1582,6 +1583,54 @@ against the wrong selector reports zero violations exactly like a clean page.
 - the prerendered file count is recorded and inside the Firebase ceiling;
 - no route falls through to home shell metadata.
 
+### 10.1 Which performance gate each claim joins
+
+The payload budgets in §5.0 are enforced by tests this plan writes. The claims below are
+enforced by tests that ALREADY EXIST, as hard-coded route tables and budget constants — so the
+work is to join the right list, and picking the wrong one is how a performance claim becomes
+decoration.
+
+⚠️ **`tests/perf.spec.ts` has TWO CLS tables, and for a surface-fed page only one of them is a
+real gate.** `CLS_ROUTES` navigates with `waitUntil: "networkidle"` and no throttling;
+`SLOW_CLS_ROUTES` first delays every `*.json` and `*.md` by **800 ms**. On a fast local
+connection the surface JSON lands before first paint, the skeleton→content swap never happens,
+and the plain gate passes on nothing. **Every route this plan migrates belongs in
+`SLOW_CLS_ROUTES`**, because a delayed payload is the whole of a surface-fed page's CLS risk.
+
+One stale caveat, corrected so it is not re-litigated: the repo note that adding a data-driven
+route to `CLS_ROUTES` is vacuous because the bucket's CORS admits only `https://electionsbg.com`
+is **half out of date** — `scripts/bucket_cors.json` now carries `http://127.0.0.1:5002` (the
+Playwright `baseURL`) and `http://localhost:5173`, so the payloads do arrive. What still stands
+is the absence of throttling, which is exactly what `SLOW_CLS_ROUTES` supplies.
+
+⚠️ **The chunk budgets are NOT the locale budget, and "re-ratchet" applies to one of them.**
+`tests/perf.spec.ts` pins the entry chunk at **56,000 B br** and the whole critical path at
+**363,000 B br** — both ratcheted DOWN on 2026-08-18 from 71,000 / 377,000, with the file's own
+comment on the change: _"Raising this number would have been the wrong move twice over: the
+budget was doing its job, and a byte ceiling cannot say WHICH edge grew it."_ §5.2's instruction
+to re-ratchet in the same commit is about the **locale corpus**, which grows with translated
+copy. It is not licence to raise the chunk ceilings; a shell that does not fit under them is a
+shell to split, not a budget to move.
+
+⚠️ **`src/entryGraph.test.ts` is the structural half of that byte ceiling, and this plan supplies
+its three most likely offenders.** It walks the static import graph from `main.tsx` and fails by
+NAMING the chain, so a leak does not have to be found through a build. `ElectionResultsShell`,
+`electionSurfaceDescriptors.ts` and `electionsRegistry.ts` are exactly the modules that leak a
+closure into the entry — the precedent cost 18 KB because `routes.tsx` took one constant from a
+sector registry. §6.1 already states the rule for the registry; it is a PERFORMANCE gate too.
+
+**After Phase 6 the section page is the repo's canonical chart-free, map-free route**, and there
+is a gate named for that shape: "a chart-free, map-free route downloads none of the heavy
+chunks", beside the `vendor-geo` / `vendor-charts` topology guards. Phase 2 item 4 already
+forbids importing Leaflet/d3/recharts into the shell and §6 gives a single section no map; add
+the section route to that gate, or the rule is an intention with no enforcement.
+
+**The shell itself needs a budget line, because nothing else in this plan gives it one.**
+`ElectionResultsShell` and its parts are imported by ~15 screens across Phases 4–6 — `/`, every
+region, municipality, settlement and section — so it is the one thing this work adds to the
+critical path of the most-trafficked family on the site. Measure its brotli size in Phase 2,
+record it, and treat the 363,000 total as the ceiling it has to fit inside.
+
 ### Performance
 
 - raw surface budgets enforced in unit/data tests, and §5.0's emit column re-measured against generated output;
@@ -1591,7 +1640,11 @@ against the wrong selector reports zero violations exactly like a clean page.
 - `/elections` route chunk remains lazy from the app entry;
 - heavy map/chart vendor chunks do not join the entry static graph;
 - result text becomes available before or independently of map geometry;
-- CLS below 0.1 for `/elections`, parliamentary/local country, one municipality, and both section variants;
+- CLS below 0.1 for `/elections`, parliamentary/local country, one municipality, and both section variants — in **`SLOW_CLS_ROUTES`**, not `CLS_ROUTES`, per §10.1;
+- the shared shell's brotli size is measured and recorded, and the critical-path total stays inside 363,000 B br without the ceiling being raised (§10.1);
+- `src/entryGraph.test.ts` reports no new static edge from `main.tsx` into the shell, the descriptor matrix or the elections registry;
+- the section route is in the chart-free/map-free heavy-chunk gate, and no election route pulls `vendor-geo` or `vendor-charts` it does not draw;
+- `useElectionSurface` uses the repo's fetch posture — `staleTime: Infinity`, no refetch on focus;
 - localhost LCP smoke below the existing 4 s ceiling;
 - no first-screen child-bundle fanout;
 - exactly one language bundle is fetched;
@@ -1707,6 +1760,9 @@ Do not silently fall back after a valid surface request returns malformed data. 
 | Browser gates green on the legacy fallback             | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                                                  |
 | A six-figure object expansion for no gain              | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                                                   |
 | `/elections` becomes a 14th bespoke header             | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                                                         |
+| A CLS gate that passes on nothing                      | Migrated routes go in `SLOW_CLS_ROUTES` (800 ms JSON delay), not the unthrottled `CLS_ROUTES` — the skeleton swap is the whole risk (§10.1)                               |
+| The chunk ceiling raised instead of the shell split    | §10.1 separates the locale re-ratchet from the 56,000 / 363,000 chunk budgets, which were ratcheted DOWN and carry their own argument against raising                     |
+| The shell leaks a closure into the entry chunk         | `src/entryGraph.test.ts` names the import chain; the shell, descriptor matrix and registry are its three likely offenders                                                 |
 | Three URLs competing for one query                     | §3.1 settles which is canonical before Phase 3; `/parliamentary` stops using the homepage's title; the non-canonical ones carry no `<loc>`                                |
 | LLM crawlers sent to a shell URL                       | The index entry moves back to the canonical election URL in the same phase that makes it real — it was removed once for exactly this                                      |
 | 25,400 thin section URLs submitted                     | Phase 6 records the indexing posture against the `/council/resolution/**` precedent rather than inheriting it                                                             |
@@ -1740,6 +1796,7 @@ v1 is complete only when all of the following are true:
 - section pages are result/evidence-first and never combine unlike ballots;
 - abroad never displays a turnout percentage without a valid denominator;
 - every standout is reproducible, neutral, and evidence-linked;
+- the shell's brotli cost is measured, the entry and critical-path ceilings are unchanged, and every migrated route is in the THROTTLED CLS table;
 - exactly one of `/`, `/parliamentary` and `/elections` is canonical for the parliamentary country result, the other two say something else, and the LLM index names the right one;
 - the accessibility gate exists, runs over every representative route, and has been shown to fail when each clause is broken;
 - every enum the contract can emit has copy in both languages, every count is a plural family, and no raw identifier or folder id reaches the DOM;
