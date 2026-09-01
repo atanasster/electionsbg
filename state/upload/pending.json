@@ -1,0 +1,47 @@
+{
+  "session": "20260901T034513Z-1e1f",
+  "createdAt": "2026-09-01T06:02:42.895Z",
+  "commit": "97325643b4",
+  "skills": [
+    "tr-daily-refresh",
+    "update-procurement",
+    "update-open-calls",
+    "update-macro",
+    "update-council-minutes",
+    "update-prices"
+  ],
+  "paths": [
+    "macro.json",
+    "macro_peers.json",
+    "administration",
+    "culture",
+    "governance",
+    "procurement/derived/hub_stats.json",
+    "data-changes.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:procurement-scopes:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run db:load:open-calls:pg:cloud",
+    "npm run db:load:council:pg:cloud",
+    "npm run prices:ingest:cloud",
+    "npm run myarea:alerts:cloud"
+  ],
+  "notes": "TR corpus + procurement/TED corpus + council GAB05 named votes + open calls + prices day 2026-08-31; 4 hub-stat artifacts stale on bucket"
+}
