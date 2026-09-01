@@ -74,6 +74,9 @@ const MEASURED: Record<string, Measured> = {
   "person.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "person_alias.alias_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "person_search.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  // GENERATED ALWAYS AS (translit_bg_latin(title)) — Postgres recomputes it on
+  // write, so unlike its neighbours it cannot drift from the function on its own.
+  "price_products.title_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "tenders.buyer_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "tenders.subject_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "tr_companies.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
@@ -341,6 +344,7 @@ const EXPECT_STALE: Record<string, boolean> = {
   "person.name_fold": false,
   "person_alias.alias_fold": false,
   "person_search.name_fold": false,
+  "price_products.title_fold": false,
   "tenders.buyer_fold": false,
   "tenders.subject_fold": false,
   "tr_companies.name_fold": false,

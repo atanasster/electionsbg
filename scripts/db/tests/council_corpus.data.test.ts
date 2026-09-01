@@ -624,9 +624,20 @@ test.skipIf(skip)(
     // and becomes invisible. That is a worse freeze than the partial one, not a
     // lesser one, so the vote-bearing SET is pinned here.
     //
-    // GAB05 is deliberately absent: its 244 resolutions carry zero per-councillor
-    // blocks, despite the wired-municipalities table once claiming otherwise.
-    const EXPECTED_VOTE_BEARING = ["BGS01", "PER32", "SOF", "SZR12", "VTR01"];
+    // GAB05 JOINED on 2026-09-01: its 2025+ protokols carry a tabular
+    // per-councillor block that had never been extracted (0 of 244 as late as
+    // 2026-08-16). It gets no NAMED_VOTE_WATERMARK entry on purpose — that
+    // registry records a DEBT, and GAB05 has none (newest resolution and newest
+    // named-vote resolution are both 2026-03-26, a 0-day gap), so it is
+    // supervised by NORMAL_LAG_DAYS, which is the tighter test of the two.
+    const EXPECTED_VOTE_BEARING = [
+      "BGS01",
+      "GAB05",
+      "PER32",
+      "SOF",
+      "SZR12",
+      "VTR01",
+    ];
 
     const rows = await allRows<{ code: string }>(
       `SELECT obshtina_code AS code FROM council_muni WHERE has_named_votes ORDER BY 1`,
