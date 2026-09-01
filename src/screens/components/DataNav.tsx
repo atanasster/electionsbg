@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Database, History, Map as MapIcon } from "lucide-react";
+import { Database, History, Map as MapIcon, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type DataPage = "map" | "sources" | "updates";
+type DataPage = "map" | "links" | "sources" | "updates";
 
 const PAGES: {
   id: DataPage;
@@ -13,6 +13,12 @@ const PAGES: {
   icon: FC<{ className?: string }>;
 }[] = [
   { id: "map", to: "/data", labelKey: "data_map_title", icon: MapIcon },
+  {
+    id: "links",
+    to: "/data/links",
+    labelKey: "data_links_nav",
+    icon: Share2,
+  },
   {
     id: "sources",
     to: "/data/sources",
@@ -27,7 +33,7 @@ const PAGES: {
   },
 ];
 
-/** Pill navigation between the three data-hub pages (map / sources / updates). */
+/** Pill navigation between the data-hub pages (map / links / sources / updates). */
 export const DataNav: FC<{ active: DataPage }> = ({ active }) => {
   const { t } = useTranslation();
   return (

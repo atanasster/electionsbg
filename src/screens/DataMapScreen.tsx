@@ -13,7 +13,6 @@ import { DataMapCanvas } from "@/screens/components/datamap/DataMapCanvas";
 import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
 import { DataMapTourBar } from "@/screens/components/datamap/DataMapTourBar";
 import { DataNav } from "@/screens/components/DataNav";
-import { DataMapDirectory } from "@/screens/components/datamap/DataMapDirectory";
 
 const LENSES: DataMapLens[] = ["none", "cadence", "origin", "fresh", "links"];
 
@@ -269,6 +268,17 @@ export const DataMapScreen = () => {
                 ))}
               </span>
             ) : null}
+            {/* One line, beside the lens that draws them. The full list lives on
+                its own page: the content is the eighteen notes, and a strip
+                under a 3,000px canvas compressed them into five numbers. */}
+            {lens === "links" ? (
+              <Link
+                to="/data/links"
+                className="ml-2 text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+              >
+                {t("data_links_pointer")}
+              </Link>
+            ) : null}
           </div>
           <div className="flex flex-col gap-4 lg:flex-row">
             <div
@@ -326,13 +336,6 @@ export const DataMapScreen = () => {
           </p>
         </>
       )}
-      {/* Below the canvas, in server-rendered HTML: the page used to ship a
-          canvas and almost no crawlable text, so nothing on it was findable —
-          and the corpus's own argument (these datasets share keys, at this
-          measured scale) was stated nowhere on the site. */}
-      {manifest ? (
-        <DataMapDirectory manifest={manifest} lang={lang} className="mt-8" />
-      ) : null}
     </>
   );
 };

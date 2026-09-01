@@ -234,6 +234,11 @@ const DataMapScreen = lazy(() =>
     default: m.DataMapScreen,
   })),
 );
+const DataLinksScreen = lazy(() =>
+  import("./screens/DataLinksScreen").then((m) => ({
+    default: m.DataLinksScreen,
+  })),
+);
 const DataSourcesScreen = lazy(() =>
   import("./screens/DataSourcesScreen").then((m) => ({
     default: m.DataSourcesScreen,
@@ -1930,6 +1935,14 @@ export const AuthRoutes = () => {
             }
           />
           <Route path="data/map" element={<DataMapRedirect />} />
+          <Route
+            path="data/links"
+            element={
+              <LayoutScreen>
+                <DataLinksScreen />
+              </LayoutScreen>
+            }
+          />
           <Route
             path="data/sources"
             element={

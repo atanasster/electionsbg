@@ -130,43 +130,48 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
 // Lives HERE rather than in bodyBuilders.ts: that module imports SITE_URL from
 // this one, so this one evaluates first — and a top-level `${buildDataDirectory()}`
 // in a route body would call an export that is still undefined.
-export const buildDataDirectory = (lang: "bg" | "en"): string => {
-  type Lang = { bg: string; en: string };
-  type Node = { id: string; kind: string; label: Lang; detail: Lang };
-  type Link = {
-    a: string;
-    b: string;
-    kind: string;
-    key?: string;
-    overlap?: number;
-  };
-  let manifest: { nodes: Node[]; links?: Link[] };
+type MapLang = { bg: string; en: string };
+type MapNode = { id: string; kind: string; label: MapLang; detail: MapLang };
+type MapLink = {
+  a: string;
+  b: string;
+  kind: string;
+  key?: string;
+  overlap?: number;
+  of?: MapLang;
+  label: MapLang;
+};
+
+/** The committed manifest — no database, no build ordering. */
+const readDataMap = (): { nodes: MapNode[]; links?: MapLink[] } | null => {
   try {
-    manifest = JSON.parse(
+    return JSON.parse(
       fs.readFileSync(path.join(PROJECT_ROOT, "data/data_map.json"), "utf8"),
     );
   } catch {
-    return ""; // no manifest on this checkout — omit rather than emit a stub
+    return null;
   }
-  const base = lang === "bg" ? SITE_URL : `${SITE_URL}/en`;
-  const datasets = manifest.nodes.filter((n) => n.kind === "dataset");
-  const links = manifest.links ?? [];
+};
 
+export const buildDataDirectory = (lang: "bg" | "en"): string => {
+  const m = readDataMap();
+  if (!m) return "";
+  const base = lang === "bg" ? SITE_URL : `${SITE_URL}/en`;
+  const datasets = m.nodes.filter((n) => n.kind === "dataset");
+  const links = m.links ?? [];
   const linkCount = new Map<string, number>();
   for (const l of links) {
     linkCount.set(l.a, (linkCount.get(l.a) ?? 0) + 1);
     linkCount.set(l.b, (linkCount.get(l.b) ?? 0) + 1);
   }
-
   const heading =
     lang === "bg"
       ? "Масивите и общите им ключове"
       : "The datasets and the keys they share";
   const intro =
     lang === "bg"
-      ? "Масивите не са отделни: свързват се през един и същ ЕИК, едно и също лице или едно и също населено място. До всеки масив е броят на връзките му с останалите."
-      : "The datasets are not separate: they join on the same company number, the same person or the same settlement. Beside each is the number of links it has to the others.";
-
+      ? `Масивите не са отделни: свързват се през един и същ ЕИК, едно и също лице или едно и също населено място. Пълният списък на връзките, с измерените съвпадения, е на <a href="${base}/data/links">страницата за връзките</a>.`
+      : `The datasets are not separate: they join on the same company number, the same person or the same settlement. The full list of links, with the measured overlaps, is on the <a href="${base}/data/links">connections page</a>.`;
   const items = datasets
     .map((d) => {
       const n = linkCount.get(d.id) ?? 0;
@@ -179,8 +184,73 @@ export const buildDataDirectory = (lang: "bg" | "en"): string => {
       return `<li><a href="${base}/data?node=${encodeURIComponent(d.id)}">${escapeHtml(d.label[lang])}</a> — ${escapeHtml(d.detail[lang])}${suffix}</li>`;
     })
     .join("\n");
-
   return `<h2>${heading}</h2>\n<p>${intro}</p>\n<ul>\n${items}\n</ul>`;
+};
+
+/**
+ * The /data/links body: every lateral link as prose, grouped by join key.
+ *
+ * This is where the page's SEO actually lives. /data is a canvas; this is 18
+ * sentences plus 36 dataset names, and each sentence says what a join ANSWERS
+ * rather than that one exists.
+ */
+export const buildDataLinksBody = (lang: "bg" | "en"): string => {
+  const m = readDataMap();
+  if (!m) return "";
+  const base = lang === "bg" ? SITE_URL : `${SITE_URL}/en`;
+  const name = new Map(m.nodes.map((n) => [n.id, n.label[lang]]));
+  const links = m.links ?? [];
+  const KEYS: [string, string, string][] = [
+    ["eik", "ЕИК (фирма)", "EIK (company)"],
+    ["person_id", "Лице", "Person"],
+    ["ekatte", "ЕКАТТЕ (място)", "EKATTE (place)"],
+    ["procedure", "Процедура", "Procedure"],
+    ["programme", "Програма", "Programme"],
+  ];
+  const nf = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB");
+  const row = (l: (typeof links)[number]) => {
+    const a = escapeHtml(name.get(l.a) ?? l.a);
+    const b = escapeHtml(name.get(l.b) ?? l.b);
+    const n =
+      typeof l.overlap === "number"
+        ? lang === "bg"
+          ? ` <strong>${nf.format(l.overlap)} съвпадения</strong>`
+          : ` <strong>${nf.format(l.overlap)} shared keys</strong>`
+        : "";
+    const of = l.of ? ` ${escapeHtml(l.of[lang])}` : "";
+    return `<li><strong>${a} ↔ ${b}</strong> — ${escapeHtml(l.label[lang])}.${n}${of}</li>`;
+  };
+  const out: string[] = [];
+  for (const [key, bg, en] of KEYS) {
+    const mine = links
+      .filter((l) => l.kind === "join" && l.key === key)
+      .sort((x, y) => (y.overlap ?? 0) - (x.overlap ?? 0));
+    if (!mine.length) continue;
+    out.push(`<h2>${lang === "bg" ? bg : en}</h2>`);
+    out.push(`<ul>\n${mine.map(row).join("\n")}\n</ul>`);
+  }
+  const bounds = links.filter((l) => l.kind === "boundary");
+  if (bounds.length) {
+    out.push(
+      `<h2>${lang === "bg" ? "Масиви, които не се събират" : "Datasets that must not be merged"}</h2>`,
+    );
+    out.push(
+      `<p>${
+        lang === "bg"
+          ? "Някои масиви са свързани по смисъл, но нямат общ ключ и сумите им измерват различни неща. Събирането им дава число, което никой източник не твърди."
+          : "Some datasets are related in substance but share no key, and their totals measure different things. Adding them produces a figure no source claims."
+      }</p>`,
+    );
+    out.push(`<ul>\n${bounds.map(row).join("\n")}\n</ul>`);
+  }
+  out.push(
+    `<p>${
+      lang === "bg"
+        ? `Всяка връзка е измерена срещу самите данни — числото е броят ключове, налични от двете страни. Картата е на <a href="${base}/data">страницата с данните</a>.`
+        : `Every link is measured against the data itself — the figure is the number of keys present on both sides. The map is on the <a href="${base}/data">data page</a>.`
+    }</p>`,
+  );
+  return out.join("\n");
 };
 
 // Per-election JSON now lives under /data (post-GCS migration); /public only
@@ -4209,6 +4279,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><strong>Links to the full reports</strong> on the OSCE/ODIHR website.</li>
 </ul>
 <p>Summaries are generated by Claude AI from the public reports. For the official assessments always refer to the original documents at <a href="https://www.osce.org/odihr/elections/bulgaria" rel="nofollow noopener">www.osce.org/odihr/elections/bulgaria</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "data/links",
+    title:
+      "Как се свързват данните — общи ключове между масивите | electionsbg.com",
+    description:
+      "Кои масиви данни се свързват помежду си и през какъв ключ — ЕИК, лице, ЕКАТТЕ, процедура, програма — с измерения брой съвпадения за всяка двойка.",
+    breadcrumbName: "Връзки между данните",
+    // Same card as its three DataNav siblings — ogAndSitemapCoverage.test.ts
+    // requires one and keeps no exempt set.
+    ogImage: "/og/data-map.png",
+    bodyHtml: `
+<h1>Как се свързват данните</h1>
+<p>Масивите на платформата не са отделни. Свързват се през няколко ключа — един и същ ЕИК, едно и също лице, едно и също населено място — и точно това позволява да се проследи кой изпълнител на обществени поръчки е получил и европейски средства, или кой деклариращ длъжностно лице се води и в Търговския регистър. Числото до всяка двойка е измерено срещу самите данни: броят ключове, налични от двете страни.</p>
+${buildDataLinksBody("bg")}`.trim(),
+    english: {
+      title:
+        "How the data connects — shared keys between the datasets | electionsbg.com",
+      description:
+        "Which datasets join to which, and on what key — company number, person, settlement, procedure, programme — with the measured number of shared keys for every pair.",
+      breadcrumbName: "How the data connects",
+      bodyHtml: `
+<h1>How the data connects</h1>
+<p>The platform's datasets are not separate. They join on a handful of keys — the same company number, the same person, the same settlement — and that is what makes it possible to trace which public-procurement contractor also received EU money, or which declaring official also holds a role in the Commerce Registry. The figure beside each pair is measured against the data itself: the number of keys present on both sides.</p>
+${buildDataLinksBody("en")}`.trim(),
     },
   }),
   staticPage({
