@@ -260,6 +260,44 @@ print(json.dumps({"stage": os.environ["NAME"], "exit": int(os.environ["CODE"]),
   echo "  [$name] exit=$code $(( $(date +%s) - started ))s" >&2
 }
 
+# The sweep scripts intentionally keep stdout quiet and write their full
+# intake verdict to an artifact. Bridge that contract into stage() while
+# rejecting an absent, truncated, or unrelated JSON object as a successful
+# acquisition. Keep the producer's own non-zero status authoritative.
+acquisition_stage() {
+  local artifact=$1 verdict producer_code
+  shift
+  "$@"
+  producer_code=$?
+  if [ "$producer_code" -ne 0 ]; then
+    if [ -s "$artifact" ]; then tail -1 "$artifact"; fi
+    return "$producer_code"
+  fi
+  if [ ! -s "$artifact" ]; then
+    return 2
+  fi
+  verdict=$(tail -1 "$artifact")
+  printf '%s' "$verdict" | python3 -c '
+import json, sys
+value = json.load(sys.stdin)
+valid = (
+    isinstance(value, dict)
+    and value.get("mode") == "intake-report"
+    and isinstance(value.get("domains"), int)
+    and not isinstance(value.get("domains"), bool)
+    and value["domains"] >= 0
+    and isinstance(value.get("alerts"), list)
+)
+raise SystemExit(0 if valid else 1)
+' 2>/dev/null
+  if [ "$?" -ne 0 ]; then
+    printf '%s\n' "$verdict"
+    return 2
+  fi
+  printf '%s\n' "$verdict"
+}
+export -f acquisition_stage
+
 echo "== nightly $STAMP ==" >&2
 
 # ── 1. Acquire the corpus ──────────────────────────────────────────────────
@@ -271,14 +309,16 @@ if [ "$DRY" = 1 ]; then
   stage acquire_browser python3 -c \
     'import json; print(json.dumps({"skipped": "dry_run"}))'
 else
-  stage acquire_direct bash news/scripts/save_all_direct.sh "$ARTICLES_PER_SOURCE" \
-    "$DIRECT_SUMMARY"
+  stage acquire_direct bash -c 'acquisition_stage "$@"' \
+    _ "$DIRECT_SUMMARY" bash news/scripts/save_all_direct.sh \
+    "$ARTICLES_PER_SOURCE" "$DIRECT_SUMMARY"
   if [ "$SKIP_BROWSER" = 1 ]; then
     stage acquire_browser python3 -c \
       'import json; print(json.dumps({"skipped": "configured"}))'
   else
-    stage acquire_browser bash news/scripts/save_all_browser.sh "$ARTICLES_PER_SOURCE" \
-      "$BROWSER_SUMMARY" \
+    stage acquire_browser bash -c 'acquisition_stage "$@"' \
+      _ "$BROWSER_SUMMARY" bash news/scripts/save_all_browser.sh \
+      "$ARTICLES_PER_SOURCE" "$BROWSER_SUMMARY" \
       "--timeout=$BROWSER_TIMEOUT"
   fi
 fi

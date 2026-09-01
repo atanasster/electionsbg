@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Contract tests for the unattended nightly news pipeline runner."""
 
+import json
 import os
 import subprocess
 import sys
@@ -35,6 +36,24 @@ class NightlyRunnerContractTests(unittest.TestCase):
                                   encoding="utf-8")
         target_timeout.chmod(0o755)
         return runner
+
+    def stub_runtime_scripts(self, runner: Path) -> None:
+        for name in ("llm_client.py", "build_prompts.py", "build_gazetteer.py",
+                     "analyze_local.py", "build_image_rights_queue.py",
+                     "source_commons_images.py", "review_routing.py",
+                     "build_mention_index.py", "eval_runtime.py",
+                     "build_app_data.py", "home_health.py"):
+            (runner.parent / name).write_text(
+                "import json; print(json.dumps({}))\n", encoding="utf-8")
+
+    def write_acquisition_script(self, path: Path, verdict: str | None,
+                                 exit_code: int = 0) -> None:
+        lines = ["#!/bin/bash", "artifact=$2"]
+        if verdict is not None:
+            lines.append(f"printf '%s\\n' {json.dumps(verdict)} > \"$artifact\"")
+        lines.append(f"exit {exit_code}")
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        path.chmod(0o755)
 
     def test_rejects_missing_or_invalid_option_values_before_running(self):
         for args, expected in (
@@ -156,21 +175,13 @@ class NightlyRunnerContractTests(unittest.TestCase):
             runner = self.copy_runner(root)
             source = runner.read_text(encoding="utf-8")
             source = source.replace(
-                'stage acquire_direct bash news/scripts/save_all_direct.sh "$ARTICLES_PER_SOURCE" \\\n    "$DIRECT_SUMMARY"',
-                "stage acquire_direct python3 -c 'import json; print(json.dumps({}))'")
-            source = source.replace(
-                'stage acquire_browser bash news/scripts/save_all_browser.sh "$ARTICLES_PER_SOURCE" \\\n      "$BROWSER_SUMMARY" \\\n      "--timeout=$BROWSER_TIMEOUT"',
-                "stage acquire_browser python3 -c 'import json; print(json.dumps({}))'")
-            source = source.replace(
                 'stage probe_model python3 news/scripts/llm_client.py',
                 "stage probe_model python3 -c 'import json,sys; print(json.dumps({})); sys.exit(1)'")
-            for name in ("build_prompts.py", "build_gazetteer.py",
-                         "build_image_rights_queue.py", "source_commons_images.py",
-                         "review_routing.py", "build_mention_index.py",
-                         "eval_runtime.py", "build_app_data.py",
-                         "home_health.py"):
-                (runner.parent / name).write_text("print('{}')\n", encoding="utf-8")
             runner.write_text(source, encoding="utf-8")
+            self.stub_runtime_scripts(runner)
+            self.write_acquisition_script(
+                runner.parent / "save_all_direct.sh",
+                json.dumps({"mode": "intake-report", "domains": 1, "alerts": []}))
             proc = self.run_runner_at(runner, "--skip-browser")
             self.assertEqual(proc.returncode, 1, proc.stderr)
             report = next((root / "news" / "data" / "_nightly").glob("*.json"))
@@ -182,6 +193,60 @@ class NightlyRunnerContractTests(unittest.TestCase):
                                 if s["stage"] not in {"probe_model"}))
             analysis = next(s for s in data["stages"] if s["stage"] == "analyze")
             self.assertEqual(analysis["result"], {"skipped": "model_unavailable"})
+
+    def test_acquisition_artifact_contract_and_exit_preservation(self):
+        cases = (
+            ("valid", json.dumps({"mode": "intake-report", "domains": 2,
+                                  "alerts": []}), 0, 0),
+            ("producer-failed", json.dumps({"mode": "intake-report", "domains": 2,
+                                            "alerts": []}), 7, 7),
+            ("absent", None, 0, 2),
+            ("empty", "", 0, 2),
+            ("invalid-json", "not json", 0, 2),
+            ("wrong-schema", json.dumps({}), 0, 2),
+        )
+        for label, verdict, producer_exit, expected_exit in cases:
+            with self.subTest(label=label), tempfile.TemporaryDirectory(
+                    prefix="nightly acquisition # ") as temp:
+                root = Path(temp)
+                runner = self.copy_runner(root)
+                self.stub_runtime_scripts(runner)
+                self.write_acquisition_script(
+                    runner.parent / "save_all_direct.sh", verdict, producer_exit)
+                run_id = f"direct-{label}"
+                proc = self.run_runner_at(
+                    runner, "--skip-browser", "--run-id", run_id)
+                self.assertEqual(proc.returncode, 0 if expected_exit == 0 else 1,
+                                 proc.stderr)
+                report = json.loads(
+                    (root / f"news/data/_nightly/{run_id}.json").read_text(
+                        encoding="utf-8"))
+                acquired = next(stage for stage in report["stages"]
+                                if stage["stage"] == "acquire_direct")
+                self.assertEqual(acquired["exit"], expected_exit)
+                if expected_exit == 0:
+                    self.assertEqual(acquired["result"]["mode"], "intake-report")
+
+    def test_browser_acquisition_uses_the_same_artifact_contract(self):
+        with tempfile.TemporaryDirectory(prefix="nightly browser # ") as temp:
+            root = Path(temp)
+            runner = self.copy_runner(root)
+            self.stub_runtime_scripts(runner)
+            verdict = json.dumps(
+                {"mode": "intake-report", "domains": 1, "alerts": []})
+            self.write_acquisition_script(
+                runner.parent / "save_all_direct.sh", verdict)
+            self.write_acquisition_script(
+                runner.parent / "save_all_browser.sh", verdict)
+            proc = self.run_runner_at(runner, "--run-id", "browser-valid")
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            report = json.loads(
+                (root / "news/data/_nightly/browser-valid.json").read_text(
+                    encoding="utf-8"))
+            browser = next(stage for stage in report["stages"]
+                           if stage["stage"] == "acquire_browser")
+            self.assertEqual(browser["exit"], 0)
+            self.assertEqual(browser["result"], json.loads(verdict))
 
 
 if __name__ == "__main__":
