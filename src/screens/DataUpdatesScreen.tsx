@@ -70,6 +70,20 @@ const RecentChanges = () => {
   }
   return (
     <div className="space-y-8">
+      {/* ⚠️ THE AXIS, STATED. This page and the home page's „what changed" feed both answer
+          a question of that name, and they answer DIFFERENT ones: this is when a SOURCE was
+          last refreshed, the feed is when something HAPPENED. Two „what changed" surfaces
+          that do not distinguish themselves read as a contradiction, so each says which it
+          is and links the other. See the plan's §6.7. */}
+      <p className="text-sm text-muted-foreground">
+        {t("data_changes_axis_note")}{" "}
+        <Link
+          className="underline underline-offset-2 hover:text-foreground"
+          to="/"
+        >
+          {t("data_changes_axis_link")}
+        </Link>
+      </p>
       {groups.map((g) => (
         <section key={g.date}>
           <h3 className="scroll-mt-24 font-display text-xl md:text-2xl font-bold tracking-tight text-foreground">

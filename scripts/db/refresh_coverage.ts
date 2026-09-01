@@ -222,6 +222,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the global home's four pulse figures and its tile metrics. It is a FOLD of destination artifacts — governance/hub_stats.json (itself the last of the sibling folds), procurement/derived/hub_stats.json and data/macro.json — so its slot is LAST of all the generators, after db:gen-governance-hub-stats. Placed earlier it folds the previous vintage of whichever sibling has not run yet, and `/` and the page one click away then disagree. ⚠️ It reads NO Postgres: `/` is the entry page, so every figure on it has to be servable from a static object with no database behind it",
     bucketPath: "home/hub_stats.json",
   },
+  "db:gen-home-feed": {
+    artifact: "data/home/feed.json",
+    reason:
+      "the global home's change feed. Its adapters read COMMITTED sources (the roll-call session index, the council shard tree, the open-calls snapshots and the election registry), so it needs no database — but it must follow every ingest that writes one of those, which is why it sits at the end of the chain beside its sibling. ⚠️ Its window ends at the maximum SOURCE vintage rather than at `now`, so two rebuilds of one corpus are byte-identical and a stalled pipeline cannot look fresh",
+    bucketPath: "home/feed.json",
+  },
   "db:gen-declarations-hub-stats": {
     artifact: "data/governance/declarations_hub_stats.json",
     reason:

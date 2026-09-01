@@ -28,6 +28,7 @@ import { useHomeHubStats } from "@/data/home/useHomeHubStats";
 import { formatDate } from "@/lib/formatDate";
 import { homeKpis, homeTileMetric } from "./home/homeFigures";
 import { homeSearchSources } from "./home/homeSearch";
+import { HomeChangeFeed } from "./home/HomeChangeFeed";
 import { HOME_BANDS } from "./home/homeRegistry";
 import { HOME_SCENES } from "./home/homeScenes";
 
@@ -155,6 +156,11 @@ export const HomeDashboardScreen: FC = () => {
       <div data-og="home-hub">
         <TileHubGrid sections={sections} className="mt-8" />
       </div>
+
+      {/* Below the grid, deliberately. The eight destinations are the page's durable job;
+          the feed is what is new, and a feed above them would make the home page a news
+          site whose front page changes meaning with the day. */}
+      <HomeChangeFeed />
     </>
   );
 };

@@ -1548,12 +1548,15 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description: GLOBAL_HOME_DESCRIPTION,
     ogImage: "/og/home.png",
     bodyHtml: GLOBAL_HOME_BODY_BG,
-    // The ONE artifact the home route fetches on first render. Without it the browser
-    // discovers the fetch only after the entry bundle, the i18n chunk AND the route chunk
+    // The two artifacts the home route fetches on first render. Without these the browser
+    // discovers each fetch only after the entry bundle, the i18n chunk AND the route chunk
     // have run — five serial round trips before the first data byte is requested (see
-    // `PrerenderRoute.preloadData`). The change feed will be the second when it lands; the
-    // hint set is already a small net loss at 1.6 Mbps, so re-measure before adding it.
-    preloadData: ["/home/hub_stats.json"],
+    // `PrerenderRoute.preloadData`).
+    //
+    // ⚠️ TWO IS THE BUDGET. The hint set is already a small net loss at 1.6 Mbps, and the
+    // stats blob is the one the ABOVE-THE-FOLD band needs — so if a third path is ever
+    // proposed, re-measure before adding it rather than after.
+    preloadData: ["/home/hub_stats.json", "/home/feed.json"],
     jsonLd: [
       buildWebSiteLd(),
       buildOrganizationLd(),

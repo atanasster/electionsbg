@@ -47,6 +47,13 @@ vi.mock("@/data/settlements/useSettlements", () => ({
 vi.mock("@/data/municipalities/useMunicipalities", () => ({
   useMunicipalities: () => ({ municipalities: undefined }),
 }));
+// The change feed has its own test file. Stubbed to nothing here so these cases stay about
+// the head and the grid, and so a feed outage cannot make one of them fail for the wrong
+// reason — which is itself the property the "feed failure does not blank the grid" case
+// below asserts.
+vi.mock("@/data/home/useHomeFeed", () => ({
+  useHomeFeed: () => ({ feed: undefined, settled: true }),
+}));
 
 const renderHome = (stats: unknown, settled = true) => {
   stub.stats = stats;
