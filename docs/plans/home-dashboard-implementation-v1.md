@@ -1442,6 +1442,50 @@ Work:
 
 Exit: an evidence-backed go/no-go decision. Email/push is not part of this plan’s definition of done.
 
+**Done 2026-09-01 — the decision is NO-GO, with two named preconditions.** Evidence:
+[`docs/audits/home-personalization-evaluation-2026-09-01.md`](../audits/home-personalization-evaluation-2026-09-01.md).
+Reproduce with `npm run home:id-stability` and `npm run home:subjects` — both measurement-only,
+nothing imports them and neither writes an artifact.
+
+- **The 30-day test §7.4 names was run as a REPLAY over real git history**, not a simulation: the
+  adapters are pure functions of committed files, so `git archive` at a past commit reconstructs
+  what the generator would have produced that day. `--days 35`, 27 checkpoints, 2026-08-02 →
+  2026-09-01, 26 transitions.
+- ⚠️ **TWO BASES, AND ONLY THE IN-WINDOW ONE CARRIES A VERDICT.** The adapters emit everything they
+  can see; the feed publishes a 30-day slice. Appeared **1,524 (144 in-window)**, mutated **10 (3
+  in-window)**, aged out 374. The first cut of the audit quoted the adapter column and overstated
+  the finding ~3×, and illustrated it with a row that was eleven months unpublishable on the day it
+  changed.
+- ✅ **Churn is ZERO on both bases** — not one id changed while its fact stayed the same, across
+  six families and a month of real movement including two bulk ingests. That is the property §7.4
+  was waiting on and the one that would have been hardest to retrofit. ⚠️ But the `prices` arm —
+  the ONE family whose ids were ever derived, and the one Phase 5 changed — is present at **1 of 27
+  checkpoints**, so it took part in zero transitions and is **unproven**. The tool now flags any
+  family under two checkpoints; one more month of history settles it with no new work.
+- ⚠️ **Mutation is 3 in-window** — same id, different fact. The strongest case is the Eurostat CPI
+  revision (`macro:cpi_release:prc_hicp_minr:2026-07`): in-window, national, by design, and the
+  number changed. Plus two Разград resolutions corrected under their existing ids by
+  `ffb54d592e`. **A `{ subjectKey, lastSeenEventId }` cursor cannot survive any of them**: the
+  corrected fact is filtered out as already read, silently.
+- ⚠️ **Three of §7.4's six subject kinds have NO event supply and a fourth is unmeasurable.**
+  `company` 0, `institution` 0 (measured); `sector` has no extraction rule at all, so its zero is
+  vacuous and says nothing. `place` is **2 municipalities of 265**; `programme` keys on a free-text
+  name the register can re-spell. 21 of 28 events (75%) attach to something; the seven that do not
+  are national by nature and attaching them anyway would make every subscription meaningless.
+- ⚠️ **The council shard key is NOT a municipality code, and the first cut published the wrong
+  place.** `PDV01` is Асеновград, `BGS01` is Айтос, `VAR01` is Аврен — and 11 of the 12 place
+  attributions were `PDV01`, i.e. Plovdiv's decisions delivered to Asenovgrad, plausibly and
+  undetectably. `subjectsOf` resolves through the new `obshtinaForCouncilKey` and REFUSES an
+  unresolvable key rather than naming a place.
+
+**Preconditions, so the next reader knows what would change the answer:** (1) the cursor gains a
+CONTENT HASH beside the id; (2) one high-cardinality kind acquires supply — realistically
+`company` or `institution`, via §6.2's specified-but-unimplemented procurement adapter.
+
+⚠️ **Item 4's plan is deliberately NOT written.** The instruction is „if justified"; it is not,
+and writing one anyway would leave a future reader a plan whose premises this evidence
+contradicts.
+
 ## 16. Required command gates
 
 Exact test file arguments may be narrowed per phase, but final v1 validation includes:
