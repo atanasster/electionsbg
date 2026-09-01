@@ -32,8 +32,9 @@ import { gzipSync } from "node:zlib";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { isExcluded } from "./bucket_sync_paths";
+import { BUCKET_GS } from "./db/lib/bucket";
 
-const BUCKET = "gs://data-electionsbg-com";
+const BUCKET = BUCKET_GS;
 const CACHE_CONTROL = "public,max-age=300,must-revalidate";
 const CONCURRENCY = 12;
 const DATA = "data";
@@ -53,6 +54,13 @@ const GLOBAL_FILES = [
   "indicators.json",
   "macro.json",
   "regional.json",
+  // ⚠️ THE HOME PAGE'S TWO BLOBS. `/` is the entry page and reads exactly these; without them
+  // here `home:publish`'s `bucket:gz` half was a no-op and both were served `identity`, 30 KB
+  // of feed.json uncompressed on the critical path. `home/price_events.json` stays OUT: it is
+  // an intermediate the feed generator reads, published for inspectability, and no browser
+  // fetches it. `runbook.test.ts` asserts this list covers `PUBLIC_ARTIFACTS`.
+  "home/hub_stats.json",
+  "home/feed.json",
   // parliament/index.json retired from the bucket (persons-pg-retirement-v1 T2.4): useMps + the
   // partyMps AI tool read mp_profile + mp_roster_meta via /api/db/mp-roster, so the roster is no
   // longer served or gzip-uploaded. It stays on disk as the loader source + for the build scripts.
@@ -138,7 +146,7 @@ const SECTION_SHARD_GZIP_MIN = 120_000;
 // to be gzip-uploaded here. Procurement now serves from Cloud SQL (/api/db/*),
 // so those trees are excluded from the bucket entirely — nothing to gzip.
 
-const collect = (): string[] => {
+export const collect = (): string[] => {
   const out: string[] = [];
   for (const rel of GLOBAL_FILES) {
     if (existsSync(join(DATA, rel))) out.push(rel);
@@ -263,7 +271,14 @@ const run = async (): Promise<void> => {
   process.exit(failed ? 1 : 0);
 };
 
-run().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// ⚠️ GUARDED. This module ran `run()` UNCONDITIONALLY at import, so merely importing anything
+// from it — `collect`, for a test that wants to assert which objects are gzipped — performed a
+// full 156-object upload to the PRODUCTION bucket as a side effect. That is exactly what
+// happened: `runbook.test.ts`'s coverage clause imported `collect`, and every run of it
+// published. A script that does something when you load it cannot export anything.
+if (process.argv[1] && process.argv[1].includes("bucket_gzip")) {
+  run().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

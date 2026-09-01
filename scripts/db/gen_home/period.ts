@@ -29,3 +29,20 @@ export const periodToIsoDay = (period: string): string | null => {
   }
   return /^\d{4}-\d{2}-\d{2}$/.test(period) ? period : null;
 };
+
+/**
+ * Whole CALENDAR days between an artifact's `computedAt` and a source's `asOf`.
+ *
+ * ⚠️ BOTH SIDES TRUNCATED TO THE DAY, and that is the whole point. `computedAt` is deliberately
+ * end-of-day (`T23:59:59.999Z`) while `asOf` is a bare day, so subtracting the instants gives
+ * 0.99999999 days for a family whose vintage IS the newest day — which `Math.round` takes to 1.
+ * Every reported lag was inflated by exactly one, every ceiling fired a calendar day early, and
+ * the calibration figures written beside the ceilings were day-differences the code did not
+ * produce.
+ */
+export const lagDays = (computedAt: string, asOf: string): number =>
+  Math.round(
+    (Date.parse(`${computedAt.slice(0, 10)}T00:00:00.000Z`) -
+      Date.parse(`${asOf.slice(0, 10)}T00:00:00.000Z`)) /
+      86_400_000,
+  );

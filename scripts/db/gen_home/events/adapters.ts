@@ -930,3 +930,51 @@ export const ADAPTERS = [
   { id: "debt", run: domesticDebtAdapter },
   { id: "intl_debt", run: intlDebtAdapter },
 ] as const;
+
+/**
+ * How far a family's own vintage may fall behind the newest observation before the artifact
+ * says so — the „stale source" half of the operational contract (plan §12.2 / Phase 6.3).
+ *
+ * ⚠️ IT IS A DECLARED EXPECTATION, NOT A DERIVED ONE, because nothing in the corpus states how
+ * often a source is SUPPOSED to move. A number here is a claim someone made and can be argued
+ * with; a threshold inferred from the data would just describe whatever the pipeline last did,
+ * which is the failure it exists to detect.
+ *
+ * ⚠️ AND `null` IS „CANNOT GO STALE", NOT „DO NOT CHECK". Bulgaria's last two elections are 539
+ * days apart — a ceiling loose enough for that detects nothing, so the honest answer is that
+ * the family has no cadence at all. `intl_debt` is null because it publishes nothing.
+ *
+ * Measured against the 2026-09-01 corpus (lag in days behind `computedAt`): prices 1,
+ * parliament 4, council 7, debt 8, macro 13, opencalls 23, budget 35, elections 135. Each
+ * ceiling sits above its measured lag with room for one missed cycle; they are a first cut and
+ * are meant to be tuned as the pipeline's real cadence is observed.
+ *
+ * ⚠️ KEYED TO THE ADAPTER-ID UNION, so a typo or a missing family is a COMPILE error. Typed
+ * `Record<string, …>` it was neither: `pricess: 5` compiled, and the only thing that noticed a
+ * missing entry was a test — while `home:health` silently skipped that family and reported it
+ * as fine, because nobody asked. This is also why it sits below `ADAPTERS` rather than above.
+ */
+export const STALE_AFTER_DAYS: Record<
+  (typeof ADAPTERS)[number]["id"],
+  number | null
+> = {
+  // Daily crawl. Two missed days is already a story.
+  prices: 5,
+  // Sittings are weekly in session and stop for recess; a two-month silence is normal in
+  // August, three is not.
+  parliament: 90,
+  // Sixteen councils, each on its own protocol schedule.
+  council: 45,
+  // ⚠️ THE STALEST ARM SPEAKS. ИСУН is crawled daily but ДФЗ's indicative schedule and the two
+  // Interreg programmes are not, and `asOf` deliberately reports the slowest of the three.
+  opencalls: 45,
+  // Eurostat publishes monthly HICP about two and a half weeks after the month closes.
+  macro: 60,
+  // Promulgations and КФП periods are episodic; a whole quarter with neither is worth a look.
+  budget: 120,
+  // БНБ auctions run roughly monthly.
+  debt: 75,
+  // ⚠️ No cadence exists. See the header.
+  elections: null,
+  intl_debt: null,
+};

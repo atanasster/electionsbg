@@ -38,12 +38,15 @@ import {
   REFRESH_GENERATORS,
   UPLOAD_PUBLISHED_ARTIFACTS,
 } from "./refresh_coverage";
+import { BUCKET_URL } from "./lib/bucket";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../..",
 );
-const BUCKET = "https://storage.googleapis.com/data-electionsbg-com";
+/** ⚠️ ONE DEFINITION, in an import-free module — see `lib/bucket.ts` for the copy that was
+ *  wrong and what it cost. */
+const BUCKET = BUCKET_URL;
 
 const md5 = (b: Buffer | string) => createHash("md5").update(b).digest("hex");
 

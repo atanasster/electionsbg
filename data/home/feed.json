@@ -886,15 +886,21 @@
   "sourceCoverage": {
     "budget": {
       "available": true,
-      "asOf": "2026-07-28"
+      "asOf": "2026-07-28",
+      "staleAfterDays": 120,
+      "stale": false
     },
     "council": {
       "available": true,
-      "asOf": "2026-08-25"
+      "asOf": "2026-08-25",
+      "staleAfterDays": 45,
+      "stale": false
     },
     "debt": {
       "available": true,
-      "asOf": "2026-08-24"
+      "asOf": "2026-08-24",
+      "staleAfterDays": 75,
+      "stale": false
     },
     "elections": {
       "available": true,
@@ -906,21 +912,29 @@
     "macro": {
       "available": true,
       "asOf": "2026-08-19",
-      "observedAt": "2026-08-19"
+      "observedAt": "2026-08-19",
+      "staleAfterDays": 60,
+      "stale": false
     },
     "opencalls": {
       "available": true,
       "asOf": "2026-08-09",
-      "observedAt": "2026-09-01"
+      "observedAt": "2026-09-01",
+      "staleAfterDays": 45,
+      "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-08-28"
+      "asOf": "2026-08-28",
+      "staleAfterDays": 90,
+      "stale": false
     },
     "prices": {
       "available": true,
       "asOf": "2026-08-31",
-      "observedAt": "2026-08-31"
+      "observedAt": "2026-08-31",
+      "staleAfterDays": 5,
+      "stale": false
     }
   }
 }

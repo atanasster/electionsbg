@@ -43,8 +43,9 @@ import { spawnSync } from "node:child_process";
 import { existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { BUCKET_GS } from "./db/lib/bucket";
 
-const BUCKET = "gs://data-electionsbg-com";
+const BUCKET = BUCKET_GS;
 const DATA_DIR = "data";
 const CACHE_CONTROL = "public,max-age=300,must-revalidate";
 // Transport-encoding extension list — must match `bucket:sync`'s `-j`.

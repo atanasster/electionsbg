@@ -558,6 +558,74 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `Регистър на физическите лица в несъстоятелност (РНФЛ)` (`rnfl_insolvency`) | _no skill — nothing to ingest, and no `update-*` skill exists for this source; do not go looking for one. Surface under **"Manual action required"**, NOT `## Skipped`: an operator reads `docs/plans/rnfl-insolvency-v1.md` §T2 and DECIDES, then stamps with `npx tsx scripts/stamp-ingest.ts rnfl_insolvency --summary "…"` — nothing else clears it, and since the expected answer is "not yet, still gated" for months, an unstamped flip re-surfaces on every run for ever. Trigger = `/statistic-rnfl` serving a REAL statistics page; **a 200 alone is not enough** — the watcher compares the body against `/home-rnfl`, because a 302 back to the landing page also answers 200, so check `meta.statsBytes` / `meta.statsHash` before acting. The OTHER T2 trigger the plan names — a bulk export appearing on data.egov.bg — is **watched by nothing** (`egov_commerce` is pinned to the single TR daily-filings dataset UUID and would not see a new РНФЛ dataset under the same org), so that half needs a human to look. The `дело №1` probe is ADVISORY: it can only fire if file numbers are sequential from 1, which is unverified, so its silence must NEVER be read as "still empty". No table, loader or `recent_updates` row exists for this source. The plan refuses enumeration by file number (§2) and any probe carrying a personal identifier (§4)._ |
 | `council_minutes`                               | `update-council-minutes` (re-runs `npm run council:scrape -- --per-councillor` — walks every município wired in `data/council/sources.json` that isn't `phase1Defer`, downloads new protokol/decision PDFs/DOCX/HTML since the per-município watermark, extracts aggregate `{for, against, abstain}` tallies + `adopted/rejected/returned/unknown` result + Решение № titles via `lib/tally.ts`, and merges into the slim `data/council/index.json` + per-município votes shards under `data/council/votes/<obshtina>.json` (feeding the "Как гласуваха в съвета" My-Area tile) + per-resolution shards under `data/council/{obshtina}/{YYYY}/`. `--per-councillor` is NOT optional on this path: without it no scrape emits `tally.perCouncillor` at all, which is what froze the named-vote half of the corpus from 2026-05-29 to 2026-08-16 with nothing reporting it. `--ocr` stays opt-in (~$1.85/session for Sofia's mojibake full-session protokols — see `lib/pdf_chunk_ocr.ts`). **Then publish to Postgres: `npm run db:load:council:pg` locally and `npm run db:load:council:pg:cloud` for prod — nothing runs the cloud half automatically, and skipping it leaves prod on the previous vintage at a 200.**)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
+### The home dashboard — ONE generation step, at the END of the run
+
+⚠️ **`/` IS NOT MAPPED TO A SOURCE, AND IT MUST NOT BE.** Nine families feed the home
+dashboard — prices, macro, parliament, elections, council, open calls, budget, domestic debt
+and the destination hub-stats blobs — so a per-source mapping would run the generators up to
+nine times in one orchestrator run, each time folding whichever siblings had not yet finished.
+The rule is therefore **once per run, after every selected skill has completed**, not once
+after each source.
+
+It is **Final post-step 7b** in the Procedure below, run unconditionally. `db:refresh` carries
+the three generators at the end of its own chain, so a full refresh has already built them — but
+it runs neither the health check nor the publish, so 7b is still required.
+
+```bash
+npm run db:gen-home-hub-stats     # the four pulse figures + tile metrics — folds the sibling hubs
+npm run db:gen-home-price-events  # the basket + promotions, the ONE step that reads Postgres
+npm run db:gen-home-feed          # the „what changed" rows
+npm run home:health               # exits non-zero on missing/corrupt/unbuilt/unavailable/stale
+```
+
+⚠️ **PUBLISHING IS NOT THIS SKILL'S JOB.** This orchestrator publishes nothing — it records the
+touched subtrees in `state/upload/pending.json` and hands off to `/upload-watch-changes`. Add
+`home` there like any other subtree, and note that it needs `npm run bucket:gz` after the sync.
+`npm run home:publish` is that pair as one command and exists for an operator working by hand.
+
+⚠️ **THE ORDER IS NOT COSMETIC, AND `home:publish` IS TWO COMMANDS FOR A REASON.**
+
+- `db:gen-home-hub-stats` is a FOLD of `governance/hub_stats.json`,
+  `procurement/derived/hub_stats.json` and `data/macro.json`, so it must follow the sibling
+  generators; run earlier it publishes the previous vintage of whichever had not yet run, and
+  `/` then disagrees with the page one click away.
+- `db:gen-home-price-events` must precede `db:gen-home-feed`: the feed's price adapter reads
+  the committed `data/home/price_events.json` rather than Postgres (which is what lets the feed
+  build on a fresh clone), so run the other way round it folds the PREVIOUS vintage's basket
+  move and promotions with every count reconciling. `refresh_coverage.test.ts`'s `ORDER_PAIRS`
+  holds this for the `db:refresh` chain; nothing holds it here but this paragraph.
+- **`bucket:gz` after the sync, always.** `gsutil rsync -j json` sets a TRANSPORT encoding only;
+  the stored objects come back `identity`, so a sync alone REVERTS the gzip a previous
+  `bucket:gz` established. `/` is the entry page and these two blobs are on its critical path.
+
+**A generator failure leaves the previous public artifact in place and the run reports red.**
+All THREE generators build in memory, validate, write a temporary sibling and rename, and all
+three REFUSE rather than write an empty artifact — `hub_stats.ts` when no source answered or no
+vintage could be normalised, `price_events.ts` when the price corpus is absent or empty, and
+`feed.ts` when no adapter produced anything, no source declared a vintage, or nothing survives
+the window. Do not "fix" a red `home:health` by publishing anyway: a half-written file on the
+entry page is worse than a stale one.
+
+**`npm run home:health` makes the check `db:check-generated` structurally cannot.** That one
+compares LOCAL BYTES against the BUCKET, so when a generator is never re-run at all disk and
+bucket are both stale, they AGREE, and it prints OK. `home:health` has two arms that do not
+collapse into each other:
+
+- **absolute** — the newest OBSERVATION any family reported, against the wall clock. ⚠️ Measured
+  on `observedAt` and NOT on `computedAt`: both artifacts date themselves by their newest source
+  vintage, so `hub_stats` being weeks back is its ordinary state (quarterly macro, sibling hub
+  blobs) and flagging that would be a false positive on every run. A crawl clock that has not
+  moved in a week means nobody has looked.
+- **relative** — each family against its declared cadence (`STALE_AFTER_DAYS` in
+  `scripts/db/gen_home/events/adapters.ts`), computed live from the code's current declaration
+  rather than from the flag frozen in the artifact.
+
+`--public` fetches the two objects a browser reads, compares their content AND checks
+`x-goog-stored-content-encoding` — the header is the only thing that can see a missing
+`bucket:gz`. A family with no cadence (`elections` — the last two are 539 days apart) is
+reported and never flagged.
+
+
 ## Performance trace — EVERY step is timed
 
 This orchestrator is the longest-running thing in the repo: a single run can invoke a
@@ -833,6 +901,37 @@ first, then re-run the orchestrator.
 
    This rebuilds `data/data_map.json` — the `/data` map manifest — baking the latest per-source freshness from `state/watch` and reflecting the watched-sources registry. Like the alerts feed it's a derived rebuild (a function of what's now in `data/` + the registry), not an upstream ingest, so don't stamp it as a skill. The write is **churn-free**: if nothing but the `generatedAt` stamp would change, the file is left untouched, so a quiet day produces no diff. The manifest lives under `data/`, so it ships to the live SPA via the same `bucket:sync` below — no Firebase site deploy is needed to refresh the map.
 
+7b. **Final post-step: rebuild the HOME dashboard's artifacts.** After the data map and
+   **before** the artifact check below (which verifies these reached the bucket), unconditionally
+   run the three generators and the health check:
+
+   ```bash
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "db:gen-home-hub-stats" --phase derive -- npm run db:gen-home-hub-stats
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "db:gen-home-price-events" --phase derive -- npm run db:gen-home-price-events
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "db:gen-home-feed" --phase derive -- npm run db:gen-home-feed
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "home:health" --phase verify -- npm run home:health
+   ```
+
+   Then **record `home` in `state/upload/pending.json`** alongside the other touched subtrees, so
+   `/upload-watch-changes` publishes it. ⚠️ Note in the manifest that the home subtree needs
+   `npm run bucket:gz` after its sync — `/` is the entry page and a `bucket:sync:paths` reverts
+   the stored gzip on both blobs. `npm run home:publish` is that pair as one command, for an
+   operator working by hand.
+
+   Unconditional, and ONCE per run: nine source families feed the home feed, so a per-source
+   mapping would run these up to nine times, each fold catching whichever siblings had not yet
+   finished. The full reasoning, the ordering constraints and what to do when `home:health` goes
+   red are in „The home dashboard — ONE generation step, at the END of the run" above and in
+   [`docs/home-dashboard-operations.md`](../../../docs/home-dashboard-operations.md).
+
+   ⚠️ **`home:health` red means DO NOT publish** — a half-written file on the entry page is
+   worse than a stale one. It exits non-zero on a missing, corrupt, unbuilt, unavailable, stale,
+   unpublished or drifted artifact and names which.
+
 8. **Final post-step: verify the `db:refresh`-generated artifacts actually reached the bucket.** After the data map, unconditionally run:
 
    ```bash
@@ -840,7 +939,7 @@ first, then re-run the orchestrator.
      --step "db:check-generated" --phase verify --ok-exit 1 -- npm run db:check-generated
    ```
 
-   **SIX** COMMITTED artifacts are bucket-served static GCS blobs that a hub reads. FIVE are regenerated from Postgres by `db:refresh` — `procurement/derived/hub_stats.json`, `procurement/derived/sector_stats.json`, `culture/derived/hub_stats.json`, `governance/hub_stats.json`, `governance/declarations_hub_stats.json` — and their registry is `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`. The sixth, `parliament/votes/derived/hub_stats.json`, is written by `rebuildDerived` from in-memory objects and published by that script's own `--upload` list, so `REFRESH_GENERATORS` structurally cannot hold it; its registry is `UPLOAD_PUBLISHED_ARTIFACTS` in the same file. This command reads BOTH, compares each local file's BYTES against the live bucket object, and prints the exact `bucket:sync:paths` line for any that differ. **It never uploads** — emit that line in Next-steps like every other production command (see "What this skill does NOT do"). Exit 1 means something is unpublished.
+   **NINE** COMMITTED artifacts are bucket-served static GCS blobs that a hub reads. EIGHT are regenerated from Postgres by `db:refresh` — `procurement/derived/hub_stats.json`, `procurement/derived/sector_stats.json`, `culture/derived/hub_stats.json`, `governance/hub_stats.json`, `governance/declarations_hub_stats.json` and the three the HOME dashboard reads (`home/hub_stats.json`, `home/feed.json`, and `home/price_events.json` — an intermediate the feed generator reads, published for inspectability rather than for a browser) — and their registry is `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`. ⚠️ Do not read this count from prose: it said SIX for a while after the home three landed. `REFRESH_GENERATORS` is the authority and this command reads it. The ninth, `parliament/votes/derived/hub_stats.json`, is written by `rebuildDerived` from in-memory objects and published by that script's own `--upload` list, so `REFRESH_GENERATORS` structurally cannot hold it; its registry is `UPLOAD_PUBLISHED_ARTIFACTS` in the same file. This command reads BOTH, compares each local file's BYTES against the live bucket object, and prints the exact `bucket:sync:paths` line for any that differ. **It never uploads** — emit that line in Next-steps like every other production command (see "What this skill does NOT do"). Exit 1 means something is unpublished.
 
    ⚠️ **THE PUBLISH TRIGGER IS NOT THE OWNING SKILL'S TRIGGER — that decoupling is the whole reason this step exists**, and reasoning about which skill "owns" a path is what failed. `db:gen-culture-hub-stats` reads contracts, tenders, fund_projects, agri_subsidies, person_role and interreg_partners, so it moves when **`db:refresh`** runs (i.e. under `update-procurement`) — while `update-culture`, the skill that owns `data/culture/` and names its sync, is woken only by `nfc_film_register` / `ncf_grant_results` / `nfc_commissions` / `mc_dki_register`. The skill holding the PATH is never woken by the thing that changes the CONTENT, so no per-skill instruction can close this. Run the check unconditionally rather than trying to work out whether it applies.
 

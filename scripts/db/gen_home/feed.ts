@@ -36,7 +36,12 @@ import {
   type HomeEventV1,
   type HomeFeedV1,
 } from "../../../src/data/home/homeTypes";
-import { ADAPTERS, type AdapterContext } from "./events/adapters";
+import {
+  ADAPTERS,
+  STALE_AFTER_DAYS,
+  type AdapterContext,
+} from "./events/adapters";
+import { lagDays } from "./period";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -298,6 +303,27 @@ const run = async (): Promise<void> => {
     return;
   }
 
+  // ⚠️ STAMPED HERE, NOT IN THE ADAPTERS, because staleness is measured against `computedAt`
+  // and no adapter knows it. „Behind" is a relation between a family's own vintage and the
+  // newest thing anybody observed, so it can only be decided once every family has run.
+  for (const [id, c] of Object.entries(sourceCoverage)) {
+    const ceiling = STALE_AFTER_DAYS[id as keyof typeof STALE_AFTER_DAYS];
+    if (!c || ceiling == null) continue;
+    c.staleAfterDays = ceiling;
+    // ⚠️ A CADENCE WITH NO VINTAGE IS STALE, not exempt. „Reported through `available`" only
+    // holds when `available` is false, and an adapter can legitimately return
+    // `{ available: true, newest: null }` — `intlDebtAdapter` does. Skipping such a family
+    // left it permanently unchecked while its ceiling was printed beside it.
+    if (!c.asOf) {
+      c.stale = true;
+      continue;
+    }
+    // ⚠️ CALENDAR DAYS on both sides — `lagDays`. `asOf` here is end-of-day, so subtracting the
+    // instants inflated every lag by one and fired every ceiling a day early.
+    c.stale = lagDays(asOf, c.asOf) > ceiling;
+  }
+  const behind = Object.entries(sourceCoverage).filter(([, c]) => c?.stale);
+
   const out: HomeFeedV1 = {
     schemaVersion: 1,
     computedAt: asOf,
@@ -338,6 +364,17 @@ const run = async (): Promise<void> => {
     `home_feed: ${out.events.length} events (${inWindow.length} in window of ${all.length}) ` +
       `· ${cats.size} categories in the first ${RENDERED} · computedAt=${computedAt} · ${bytes} bytes`,
   );
+  // ⚠️ REPORTED, NEVER FATAL. A stale source is a fact about the WORLD or about an ingest, and
+  // refusing to publish would replace „one family is behind" with „the whole page is gone" —
+  // the strictly worse outcome. The watcher surfaces this line; the artifact carries the same
+  // per-family flags so a consumer can say so too.
+  if (behind.length > 0)
+    console.warn(
+      `home_feed: source(s) behind their declared cadence — ` +
+        behind
+          .map(([id, c]) => `${id} (${c!.asOf}, ceiling ${c!.staleAfterDays}d)`)
+          .join(", "),
+    );
   if (staged.length > 0)
     console.log(
       `home_feed: ${staged.length} row(s) held for editorial review, not published` +

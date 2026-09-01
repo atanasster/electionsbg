@@ -220,6 +220,17 @@ export type HomeFeedV1 = {
          * months out drag the whole window with it.
          */
         observedAt?: string;
+        /**
+         * How far `asOf` may fall behind the artifact's `computedAt` before this family counts
+         * as stale — the source's declared cadence, carried so a consumer can say „behind"
+         * without hard-coding an expectation of its own.
+         *
+         * ⚠️ ABSENT MEANS „HAS NO CADENCE", NOT „IS FINE". Elections are 539 days apart; a
+         * ceiling loose enough for them would detect nothing.
+         */
+        staleAfterDays?: number;
+        /** True when `asOf` is behind `computedAt` by more than `staleAfterDays`. */
+        stale?: boolean;
       }
     >
   >;
