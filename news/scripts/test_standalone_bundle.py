@@ -140,6 +140,7 @@ class StandaloneBundle(unittest.TestCase):
         self.assertNotEqual(traversal.returncode, 0)
         self.assertIn("invalid_file_entry", traversal.stdout)
 
+    @mock.patch.dict(os.environ, {"NEWS_EVAL_SELECTIONS_JSON": "[]"})
     def test_hourly_dry_run_and_cron_are_self_contained(self):
         cron = subprocess.run(
             ["bash", str(self.out / "install_cron.sh"), "--print"],
@@ -160,6 +161,7 @@ class StandaloneBundle(unittest.TestCase):
 
 
 class DirectNewsFolder(unittest.TestCase):
+    @mock.patch.dict(os.environ, {"NEWS_EVAL_SELECTIONS_JSON": "[]"})
     def test_copied_news_folder_runs_without_repository_siblings(self):
         with tempfile.TemporaryDirectory(prefix="direct_news_") as td:
             news = Path(td) / "news"
@@ -234,6 +236,7 @@ class DirectNewsFolder(unittest.TestCase):
 
 
 class UploadPolicy(unittest.TestCase):
+    @mock.patch.dict(os.environ, {"NEWS_EVAL_SELECTIONS_JSON": "[]"})
     def test_task_build_inventory_binds_changed_and_empty_eval_queues(self):
         with tempfile.TemporaryDirectory(prefix="news_eval_inventory_") as td:
             root = Path(td)
