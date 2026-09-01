@@ -259,10 +259,28 @@ person_id 58449  local          2023_10_29_mi:SOF:mayor           mayor  SFO_CIT
 
 | measure | count |
 | --- | ---: |
-| name folds split across `official_muni` and `local` | **1,211** |
-| …carrying an IDENTICAL (fold, role, place_code) signature | **1,127** |
-| name folds those two sources DO union correctly | 4,033 |
+| name folds holding an `official_muni` AND a `local` role — the population | 5,244 |
+| …of those, name folds those two sources DO union correctly | 4,033 |
+| …of those, name folds SPLIT across the two sources | **1,211** |
+| (fold, role, place_code) TRIPLES naming two person rows | **1,127** — on **1,101** distinct folds |
 | `person_search` P rows inside a same-(fold, place_label, primary_role) duplicate cluster | **4,766 of 63,836 (7.5%)** |
+
+⚠️ **1,127 and 1,101 are two different things and the first draft used one number for both.**
+1,127 counts TRIPLES — a person split across two offices contributes two — while 1,101 is the
+number of split FOLDS at least one of those triples falls on. The coverage figure is
+**1,101 of 1,211 (90.9%)**; 1,127 is what the ratchet's second ceiling counts.
+
+⚠️ **The 1,211 is the CONSERVATIVE reading, by 2 rows.** The predicate is „>1 person on the
+fold AND both sources present somewhere on it", which also admits a fold holding two genuinely
+different humans who each merged their own pair correctly. Measured: the strict „no person
+holds both sources" count is **1,209**, so 2 of the 1,211 (0.17%) are not splits. The looser
+predicate is the right direction for a ratchet and the ceiling is left at 1,211; the sentence
+„one human published as two pages" is exactly true of 1,209 of them.
+
+**To re-derive any figure here**, run the queries in
+`scripts/db/tests/person_identity_duplicates.data.test.ts` — each `scalar()` call is the whole
+derivation, and every number above is one of them. Cloud SQL takes the same queries through
+the proxy (`npm run db:proxy:cloud`, then `127.0.0.1:5434`).
 
 Samples are unambiguous — same fold, same role, same `place_code`, two person_ids:
 
@@ -278,17 +296,75 @@ Three things follow:
   That is a tier bug with a strong, cheap signature — the (fold, role, place_code) triple —
   not 1,211 independent adjudications. `person_link_override` is explicitly the escape hatch
   for what the deterministic tiers get WRONG; it is not a substitute for a tier.
+  **Diagnosed 2026-09-02 — see §2.7 for which tier and why.**
 - **It is not a home-search defect.** `/persons?q=vasil terziev` already returns both rows
   (`person_browse_table` carries both slugs), because `persons.name` carries
   `searchFoldTokens: true`. The home finder makes it more visible, nothing more.
 - **A client-side „same name, same role" dedupe still must not be used.** Two real people can
   share those display fields. The identity layer is the only authority licensed to merge them.
 
-⚠️ **Verify on Cloud SQL before writing any override.** The second slug is
-`vasil-aleksandrov-terziev-049f64-2`, a `-N` collision suffix; 5,071 P rows carry one locally,
-and CLAUDE.md records that the great majority of local-only `-N` slugs „only ever existed on
-the local machine". The SPLIT is probably deterministic and present on prod under different
-slugs — but a ref override is only correct if that ref exists on the target.
+⚠️ **Verified on Cloud SQL 2026-09-02, and the warning was the right one.** Every figure in
+the table above is **byte-identical on both databases** (1,211 / 1,127 / 4,033 / 4,766 of
+63,836), so the split is deterministic and not a local artifact — but the SLUGS are not.
+Local publishes him as `vasil-aleksandrov-terziev-049f64` + `…-049f64-2`; **Cloud SQL
+publishes `vasil-aleksandrov-terziev-049f64` + `vasil-terziev-44st9w`**. A ref override
+naming the local slug would therefore have been correct locally and wrong on prod. (The refs
+themselves — `official_muni:vasil-aleksandrov-terziev-049f64` and
+`local:2023_10_29_mi:SOF:mayor` — DO match on both, so a ref-keyed override is portable where
+a slug-keyed one is not. That is not luck: `person_link_override` keys on refs precisely
+because `person_id` and slugs are per-database.)
+
+### 2.7 WHICH tier misses, and why it is a resolver fix rather than 1,211 adjudications
+
+Diagnosed 2026-09-02. `resolve_persons.ts` unions two mentions of one name only when a tier
+licenses it, and for the `official_muni` ↔ `local` pair the available licences are:
+
+| licence | applies here? |
+| --- | --- |
+| Tier 0 — gold key | **never.** Neither source carries one (`hardId` is the parliament mp id) |
+| Tier 1 `shareUic` / `birthDate` | **never.** Neither source carries a company EIK or a birth date |
+| Tier 1 `weakBoth` — party AND place both present and equal | rarely: a local officeholder often has no party at all (an инициативен комитет carries `primaryCanonicalId: null`) |
+| Tier 1 `samePartyOffice` — a NATIONAL party office | a handful: it needs the Сметна палата `party_leader` category, which almost no municipal officeholder holds. This is the most likely explanation for the 6 merged folds that are NOT Tier-2a eligible |
+| Tier 1 `sameLocalSeat` | **never.** `official_muni` carries no `localSeat` corroborant — `resolve_persons.ts` sets it only when `r.source === "local"` — so `seatTerm()` returns null and the rule cannot fire across the two sources at all |
+| Tier 2a — same unique full name (`namesake_risk <= 1`) | yes, and in practice this is the only one |
+| Tier 2b — register-anchored | **never.** Its condition 3 refuses a `local`-only component by design, because a council roll implies no filing |
+
+Measured over the whole corpus, and it is decisive:
+
+| folds spanning both sources | count | of which `namesake_risk <= 1` |
+| --- | ---: | ---: |
+| **MERGE** | 4,033 | **4,027 (99.9%)** |
+| **SPLIT** | 1,211 | **21 (1.7%)** |
+
+Party is not the discriminator (a partyless local mention appears in 23.5% of merged folds
+and 33.4% of split ones). `namesake_risk` is.
+
+⚠️⚠️ **AND `namesake_risk` DOES NOT COUNT PEOPLE.** It is
+`officer_name_counts.company_count` — how many COMPANIES an officer of that name appears on —
+and `cluster.ts`'s own Tier 2a comment already says so: „it refuses a man for sitting on two
+boards". So the rule that decides whether a mayor is one person or two is a count of
+Commerce-Registry rows, and **a mayor who sits on two boards is split from their own
+officials record**. That is precisely why Васил Александров Терзиев — a businessman — is
+published twice as mayor of Столична община, and why the split population is 1,211 rather
+than a handful.
+
+**The shape of the fix, for whoever takes it.** 1,101 of the 1,211 split folds (90.9%) carry
+an IDENTICAL (fold, role, place_code) triple across the two sources — one name, one office,
+one place. That is the same exclusivity argument `sameLocalSeat` already rests on („a село
+has ONE кмет"), applied across the two SOURCES instead of across two CYCLES. It is a resolver
+tier, it belongs in `scripts/person/` with its own gate, and it is a larger piece of work than
+this plan.
+
+**Decision (Phase 2a, 2026-09-02): scope it OUT, ratchet it, and let the home expansion ship
+beside it.** The evidence says the class is homogeneous — one missing licence, one signature,
+90.9% coverage — so 1,211 hand-audited overrides would be the wrong instrument for it, and
+Phase 2b's precondition („only if 2a says the class is genuinely heterogeneous") is not met.
+Phase 2b is therefore NOT performed. What ships instead is
+`scripts/db/tests/person_identity_duplicates.data.test.ts`: a ceiling on all three numbers
+that may fall and never rise, non-vacuity assertions so an unresolved corpus cannot read as a
+fix, the merged-vs-split diagnosis pinned as its own assertion so a future tier change fails
+loudly rather than silently invalidating this section, and a source gate on `cluster.ts` so
+`namesake_risk` changing meaning is caught rather than assumed.
 
 ## 3. Design decisions
 
@@ -465,32 +541,44 @@ Tests:
 
 ### Phase 2 — repair the identity split as a CLASS, then as an instance
 
-**2a — measure and decide (blocking).**
+**2a — measure and decide (blocking). ✅ DONE 2026-09-02.**
 
-1. Re-run §2.6's three measurements against **Cloud SQL** as well as local. The class size, not
-   the instance, decides the instrument.
-2. Diagnose why 4,033 folds union across `official_muni`/`local` and 1,211 do not. The
-   1,127-row identical-(fold, role, place_code) subset is the strongest evidence in the corpus
-   and is the natural key for a deterministic tier.
-3. Decide, in writing: a resolver rule (closing ~1,127 at once) or N audited overrides. If the
-   answer is „rule", it belongs in `scripts/person/` with its own gate and is a larger piece of
-   work than this plan — say so and let the home expansion ship behind it or beside it, but do
-   not let §9 claim an identity property the corpus does not have.
-4. Whatever is chosen, add a data gate on the **class count** as a ratchet — „P rows inside a
-   same-(fold, place, role) duplicate cluster must not exceed N" — not on one person.
+1. ✅ Re-ran §2.6's measurements against **Cloud SQL** as well as local: byte-identical on both,
+   so the split is deterministic. The slugs are NOT — see §2.6.
+2. ✅ Diagnosed: only Tier 2a can license this pair in practice, and it gates on
+   `namesake_risk`, a COMPANY count. §2.7 has the tier table and the 99.9%-vs-1.7% measurement.
+3. ✅ Decided, in writing (§2.7): **a resolver tier, scoped OUT of this plan.** The class is
+   homogeneous — 1,101 of 1,211 share one signature — so overrides are the wrong instrument,
+   and §9 says plainly that identity duplication is not a done-criterion of this work.
+4. ✅ Ratchet shipped: `scripts/db/tests/person_identity_duplicates.data.test.ts` — ceilings on
+   split folds (1,211), exact-signature triples (1,127) and duplicate `person_search` P rows
+   (4,766), **each PAIRED WITH A FLOOR on its own denominator** (5,244 cross-source folds,
+   31,966 scoped role rows, 63,836 tier-P rows, at a 0.95 band). The pairing is the design:
+   measured on the gate's own first cut, a coarser fold takes the split count to 481 and losing
+   half the local roles takes it to 658 — both under the ceiling, both green, and the header
+   then tells the operator to re-cut and lock the regression in. Over-merging in the resolver,
+   the defamation-critical direction, has the same signature. Plus the diagnosis pinned as its
+   own two-sided test, a code-not-prose source pin (`stripComments`, because
+   `namesakeRisk <= 1` appears four times in `cluster.ts` and only once as the rule — deleting
+   that line left a naive pin green), and a self-check that the pin still rejects the mutation
+   it exists for.
 
-**2b — the instance, only if 2a says the class is genuinely heterogeneous.**
+**2b — the instance. NOT PERFORMED, and that is the decision rather than an omission.**
 
-1. Verify the exact two source mentions on the TARGET database:
-   - `official_muni:vasil-aleksandrov-terziev-049f64`;
-   - `local:2023_10_29_mi:SOF:mayor`.
-2. Record an audited ref-level merge through the existing person-override workflow
-   (`data/person/link_overrides.json` / `person:override`), with evidence and reviewer metadata.
-3. Re-run the person resolver and all dependent serving layers through the repository's
-   `update-persons` workflow, including slug retirement/redirects, declarations, person browse,
-   and `person_search`.
-4. Add a data gate that the two refs resolve to one active person and that the home query produces
-   one Vassil mayor hit.
+Its precondition was „only if 2a says the class is genuinely heterogeneous". 2a says the
+opposite. Running it anyway would spend a full `db:resolve:persons` + the whole dependent
+person chain (~18 min on Cloud SQL, with `/persons`, `/officials/assets`, `/mp-assets` and
+`/declarations/crypto` at 500 for ~5 minutes of it) to fix 2 rows of 4,766, and would leave an
+override row that a later resolver tier then has to be reconciled against.
+
+Should a future operator decide to do it anyway, the two refs are portable across both
+databases (the slugs are not):
+
+- `official_muni:vasil-aleksandrov-terziev-049f64`
+- `local:2023_10_29_mi:SOF:mayor`
+
+via `npm run person:override -- merge --ref <a> --ref-b <b> --note … --by …`, then the person
+chain, then re-cut the ceilings in the ratchet gate.
 
 Do **not** add a client or SQL `DISTINCT ON (name, role, place)` workaround. Two real people can
 share those display fields; the person identity layer is the only authority licensed to merge
