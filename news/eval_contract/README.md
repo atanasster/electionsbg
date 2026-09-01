@@ -126,3 +126,46 @@ it; public HTTP routes expose no review or adjudication capability.
 The complete command shapes, carry-forward rules and recovery procedure are in
 [`feedback-operator-runbook.md`](feedback-operator-runbook.md). All generated files under the
 feedback-specific `news/data/evals/` directories are private, gitignored operator artifacts.
+
+## Entity and canonical-link benchmark v2
+
+Entity extraction is part of the benchmark, not an incidental field beside the political labels.
+The v2 reference contract in `entity_link_reference_v2.schema.json` requires a complete list of
+meaningful, unique `(kind, normalized surface)` pairs for each selected article. Repeated occurrences
+of the same surface are one benchmark unit because the deployed entity-chip linker also makes one
+article-wide decision for that surface; if occurrences refer to different identities, the correct
+target is null. Each surface has an explicit canonical target or deliberate null refusal and an exact
+quote that contains the surface. People, parties, institutions, companies, settlements and sectors
+are covered. Candidate output is scored from its extracted `entities` plus the deterministic deployed
+linker; the older `mentions` form remains a compatibility input, including `place` → `settlement`.
+
+`npm run news:evals:entity-links:build` uses model/resolver signals only to draw a balanced 100-article
+sample. It emits two separate artifacts: a blinded adjudicator manifest containing only article
+identity and immutable grounding hashes, and a mode-0600 sampling audit under the gitignored private
+eval directory. Predicted surfaces, IDs, candidate lists, resolved targets and per-article strata
+never enter the adjudicator manifest. Every required sampling cell must fill; there is no silent
+top-up. Benchmark v2 intentionally accepts exactly 100 articles because its seven published cell
+counts are fixed; a differently sized revision must publish a new allocation contract.
+
+The immutable original-primary and independent annotation directories each carry a strict
+`_manifest.json` with distinct package and adjudicator IDs, the same blinded-run and frozen-registry
+hashes, and a canonical record hash. Both adjudicators label every selected article without seeing
+model suggestions. References use the exact root schema—extra model output fails validation—and
+article grounding freezes URL, title, description and content. At least five labels and three
+canonical links per entity kind, plus 100 independently comparable surfaces, are required. A
+reconciliation artifact embeds every original disagreement and resolved value, binds both immutable
+original and final primary hashes, and the validator independently proves the final primary is
+exactly the original with those declared decisions applied. Run:
+
+`npm run news:evals:entity-links:validate -- --supplement PATH --original-primary DIR --primary FINAL_DIR --independent DIR
+--reconciliation PATH --target-registry PATH`
+
+`npm run news:evals:entity-links:benchmark -- --supplement PATH --original-primary DIR --primary FINAL_DIR --independent DIR
+--reconciliation PATH --target-registry PATH --candidate MODEL=DIR` reports extraction precision/recall, link decisions on matched surfaces,
+canonical-target precision/recall, wrong-target and unsafe-link counts, and the same metrics by kind.
+There is deliberately no F1 for links and no overall model score: a wrong identity assertion is not
+exchangeable with a missing convenience link. Candidate release gates fail closed on missing v2
+evidence, missing zero-label articles, unreadable/duplicate candidate records and under-supported
+kinds. Thresholds use exact count ratios rather than rounded display values. The command exits
+nonzero if any candidate is ineligible and requires zero wrong canonical targets and zero links on
+adjudicated-unlinked surfaces.

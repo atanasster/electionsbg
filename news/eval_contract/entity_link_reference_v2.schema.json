@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electionsbg.com/schemas/news/entity_link_reference_v2.schema.json",
+  "title": "Blinded news entity/link reference record v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark",
+    "blind_id",
+    "url",
+    "article_path",
+    "grounding_sha256",
+    "target_registry_sha256",
+    "entity_links_version",
+    "entity_links_complete",
+    "entity_links"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "benchmark": { "const": "news-entity-links-v2" },
+    "blind_id": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "url": { "type": "string", "format": "uri" },
+    "article_path": { "type": "string", "pattern": "^news/data/" },
+    "grounding_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "target_registry_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "entity_links_version": { "const": 2 },
+    "entity_links_complete": { "const": true },
+    "entity_links": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entityLink" }
+    }
+  },
+  "$defs": {
+    "entityLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "surface", "target_id", "evidence"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "person",
+            "party",
+            "institution",
+            "company",
+            "settlement",
+            "sector"
+          ]
+        },
+        "surface": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "target_id": {
+          "anyOf": [
+            { "type": "string", "minLength": 1, "maxLength": 240 },
+            { "type": "null" }
+          ]
+        },
+        "evidence": { "type": "string", "minLength": 1, "maxLength": 600 }
+      }
+    }
+  }
+}

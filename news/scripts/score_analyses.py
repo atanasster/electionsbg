@@ -42,6 +42,7 @@ from pathlib import Path
 import re
 import unicodedata
 import hashlib
+from fractions import Fraction
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -129,6 +130,18 @@ PARTY_RELEASE_GATES = {
     "valid_schema_before_retry": 0.99,
     "valid_schema_after_review": 1.0,
 }
+ENTITY_LINK_RELEASE_GATES = {
+    "extraction_precision": 0.95,
+    "extraction_recall": 0.90,
+    "linked_target_precision": 0.99,
+    "linked_target_recall": 0.90,
+    "wrong_canonical_targets": 0,
+    "unsafe_links_on_unlinked_mentions": 0,
+}
+ENTITY_LINK_KINDS = ("person", "party", "institution", "company",
+                     "settlement", "sector")
+MIN_ENTITY_LINK_KIND_MENTIONS = 5
+MIN_ENTITY_LINK_KIND_LINKS = 3
 
 
 def counts_table(pairs) -> dict:
@@ -299,6 +312,318 @@ def score_mentions(ref: dict, hyp: dict) -> dict:
         "why_no_f1": ("a wrong link is worse than a missing one, so the two "
                       "errors must not be averaged"),
     }
+
+
+def normalize_entity_surface(value) -> str:
+    """Stable occurrence key shared by independent labels and model output."""
+    value = unicodedata.normalize("NFKC", str(value or "")).casefold()
+    return re.sub(r"\s+", " ", value, flags=re.UNICODE).strip()
+
+
+def canonical_entity_kind(value) -> str | None:
+    """Map the analyzer's historical `place` kind to the public settlement kind."""
+    kind = "settlement" if value == "place" else value
+    return kind if kind in ENTITY_LINK_KINDS else None
+
+
+def normalize_entity_target(kind: str, value):
+    """Normalize legacy analyzer IDs to the public canonical-target IDs."""
+    if value is None:
+        return None
+    target = str(value).strip()
+    if kind == "settlement" and target.startswith("settlement:"):
+        target = target.split(":", 1)[1]
+    return target
+
+
+def entity_link_items(row: dict, *, reference: bool,
+                      resolved_links: dict | None = None) -> tuple[dict, int, int]:
+    """Return (kind, normalized surface) → target id without hiding bad rows.
+
+    Reference v2 uses an explicit `entity_links` block. Hypotheses use the
+    analyzer's `mentions` output. A null target is an adjudicated refusal to
+    link, not a missing label, because reference rows must declare complete.
+    """
+    if not reference and isinstance(row.get("entities"), dict):
+        bucket_kinds = {"people": "person", "parties": "party",
+                        "institutions": "institution", "companies": "company",
+                        "places": "settlement"}
+        links = resolved_links if resolved_links is not None else \
+            (row.get("entity_links") or {})
+        raw = []
+        for bucket, kind in bucket_kinds.items():
+            values = row["entities"].get(bucket) or []
+            if not isinstance(values, list):
+                return {}, 0, 1
+            for surface in values:
+                link = links.get(surface) if isinstance(links, dict) else None
+                raw.append({"kind": kind, "surface": surface,
+                            "id": link.get("id") if isinstance(link, dict)
+                            else None})
+    else:
+        raw = row.get("entity_links") if reference else row.get("mentions")
+    if not isinstance(raw, list):
+        return {}, 0, 0 if raw is None else 1
+    out = {}
+    duplicates = malformed = 0
+    for item in raw:
+        if not isinstance(item, dict):
+            malformed += 1
+            continue
+        kind = canonical_entity_kind(item.get("kind"))
+        surface = normalize_entity_surface(item.get("surface"))
+        target = item.get("target_id") if reference else item.get("id")
+        if not kind or not surface or (target is not None and
+                                       (not isinstance(target, str) or
+                                        not target.strip())):
+            malformed += 1
+            continue
+        key = (kind, surface)
+        if key in out:
+            duplicates += 1
+            continue
+        out[key] = normalize_entity_target(kind, target)
+    return out, duplicates, malformed
+
+
+def _entity_link_counts(reference_items: dict, hypothesis_items: dict) -> dict:
+    rk, hk = set(reference_items), set(hypothesis_items)
+    extraction_tp = len(rk & hk)
+    extraction_fp = len(hk - rk)
+    extraction_fn = len(rk - hk)
+    linked_tp = linked_fp = linked_fn = 0
+    wrong_targets = unsafe_links = 0
+    decision_pairs = []
+    for key in rk & hk:
+        expected = reference_items[key]
+        predicted = hypothesis_items[key]
+        decision_pairs.append(("linked" if expected else "unlinked",
+                               "linked" if predicted else "unlinked"))
+    for key, expected in reference_items.items():
+        if expected is None:
+            continue
+        predicted = hypothesis_items.get(key)
+        if predicted == expected:
+            linked_tp += 1
+        else:
+            linked_fn += 1
+            if predicted is not None:
+                linked_fp += 1
+                wrong_targets += 1
+    for key, predicted in hypothesis_items.items():
+        if predicted is None or (key in reference_items and
+                                 reference_items[key] is not None):
+            continue
+        linked_fp += 1
+        if key in reference_items:
+            unsafe_links += 1
+    extraction_precision = (extraction_tp / (extraction_tp + extraction_fp)
+                            if extraction_tp + extraction_fp else None)
+    extraction_recall = (extraction_tp / (extraction_tp + extraction_fn)
+                         if extraction_tp + extraction_fn else None)
+    linked_precision = (linked_tp / (linked_tp + linked_fp)
+                        if linked_tp + linked_fp else None)
+    linked_recall = (linked_tp / (linked_tp + linked_fn)
+                     if linked_tp + linked_fn else None)
+    return {
+        "reference_mentions": len(reference_items),
+        "hypothesis_mentions": len(hypothesis_items),
+        "extraction": {
+            "true_positives": extraction_tp,
+            "false_positives": extraction_fp,
+            "false_negatives": extraction_fn,
+            "precision": round(extraction_precision, 3)
+            if extraction_precision is not None else None,
+            "recall": round(extraction_recall, 3)
+            if extraction_recall is not None else None,
+        },
+        "link_decision_on_matched_mentions": {
+            "n": len(decision_pairs),
+            "confusion": confusion(decision_pairs),
+            "linked_as_unlinked": sum(1 for r, h in decision_pairs
+                                        if r == "linked" and h == "unlinked"),
+            "unlinked_as_linked": sum(1 for r, h in decision_pairs
+                                        if r == "unlinked" and h == "linked"),
+        },
+        "linked_targets": {
+            "reference_linked_targets": sum(
+                1 for target in reference_items.values() if target is not None),
+            "true_positives": linked_tp,
+            "false_positives": linked_fp,
+            "false_negatives": linked_fn,
+            "precision": round(linked_precision, 3)
+            if linked_precision is not None else None,
+            "recall": round(linked_recall, 3)
+            if linked_recall is not None else None,
+            "wrong_canonical_targets": wrong_targets,
+            "unsafe_links_on_unlinked_mentions": unsafe_links,
+            "why_no_f1": ("wrong canonical targets and missing links have "
+                          "different consequences and remain separate"),
+        },
+    }
+
+
+def score_entity_links(ref: dict, hyp: dict,
+                       articles: dict | None = None) -> dict:
+    """Score complete, independently adjudicable entity extraction + links."""
+    linker = None
+    if articles is not None:
+        try:
+            import resolve_mentions as rm
+            gazetteer = rm.Gazetteer.load(
+                ROOT / "news" / "data" / "gazetteer.json")
+            linker = (rm, gazetteer)
+        except (OSError, ValueError, KeyError, TypeError,
+                json.JSONDecodeError):
+            linker = None
+    reference_all = {}
+    hypothesis_all = {}
+    duplicate_ref = duplicate_hyp = malformed_ref = malformed_hyp = 0
+    eligible_articles = 0
+    missing_hypothesis_articles = 0
+    for url, row in ref.items():
+        if row.get("entity_links_version") != 2 or \
+                row.get("entity_links_complete") is not True:
+            continue
+        eligible_articles += 1
+        if url not in hyp:
+            missing_hypothesis_articles += 1
+        r_items, r_dup, r_bad = entity_link_items(row, reference=True)
+        hypothesis = hyp.get(url, {})
+        resolved_links = None
+        if isinstance(hypothesis.get("entities"), dict) and articles is not None:
+            resolved_links = {}
+            if linker is not None:
+                module, gazetteer = linker
+                article = articles.get(url) or {}
+                context = "\n".join(str(article.get(key) or "") for key in
+                                    ("title", "description", "content"))
+                resolved_links = module.entity_links(
+                    hypothesis["entities"], gazetteer, context_text=context)
+        h_items, h_dup, h_bad = entity_link_items(
+            hypothesis, reference=False, resolved_links=resolved_links)
+        duplicate_ref += r_dup
+        duplicate_hyp += h_dup
+        malformed_ref += r_bad
+        malformed_hyp += h_bad
+        reference_all.update({(url, *key): target
+                              for key, target in r_items.items()})
+        hypothesis_all.update({(url, *key): target
+                               for key, target in h_items.items()})
+    overall = _entity_link_counts(reference_all, hypothesis_all)
+    by_kind = {}
+    for kind in ENTITY_LINK_KINDS:
+        r_kind = {key: value for key, value in reference_all.items()
+                  if key[1] == kind}
+        h_kind = {key: value for key, value in hypothesis_all.items()
+                  if key[1] == kind}
+        if r_kind or h_kind:
+            by_kind[kind] = _entity_link_counts(r_kind, h_kind)
+    return {
+        "reference_version": 2,
+        "eligible_articles": eligible_articles,
+        "missing_hypothesis_articles": missing_hypothesis_articles,
+        "reference_mentions": len(reference_all),
+        "hypothesis_mentions": len(hypothesis_all),
+        **overall,
+        "by_kind": by_kind,
+        "malformed_duplicates": {"reference": duplicate_ref,
+                                 "hypothesis": duplicate_hyp},
+        "malformed_items": {"reference": malformed_ref,
+                            "hypothesis": malformed_hyp},
+        "no_combined_entity_link_score": True,
+    }
+
+
+def entity_link_release_gate_results(metrics: dict) -> dict:
+    """Fail closed unless every v2 extraction/link safety gate is evidenced."""
+    def ratio_detail(name: str, section: dict, numerator_key: str,
+                     denominator_keys: tuple[str, str], threshold: float) -> dict:
+        numerator = section.get(numerator_key)
+        left, right = (section.get(key) for key in denominator_keys)
+        if not all(isinstance(value, int) and value >= 0
+                   for value in (numerator, left, right)) or left + right == 0:
+            return {"value": section.get("precision" if "precision" in name
+                                          else "recall"),
+                    "minimum": threshold, "passed": False}
+        required = Fraction(str(threshold))
+        passed = numerator * required.denominator >= \
+            required.numerator * (left + right)
+        return {"value": numerator / (left + right),
+                "display_value": section.get(
+                    "precision" if "precision" in name else "recall"),
+                "minimum": threshold, "passed": passed,
+                "numerator": numerator, "denominator": left + right}
+
+    def metric_checks(row: dict) -> dict:
+        extraction = row.get("extraction") or {}
+        links = row.get("linked_targets") or {}
+        checks = {
+            "extraction_precision": ratio_detail(
+                "extraction_precision", extraction, "true_positives",
+                ("true_positives", "false_positives"),
+                ENTITY_LINK_RELEASE_GATES["extraction_precision"]),
+            "extraction_recall": ratio_detail(
+                "extraction_recall", extraction, "true_positives",
+                ("true_positives", "false_negatives"),
+                ENTITY_LINK_RELEASE_GATES["extraction_recall"]),
+            "linked_target_precision": ratio_detail(
+                "linked_target_precision", links, "true_positives",
+                ("true_positives", "false_positives"),
+                ENTITY_LINK_RELEASE_GATES["linked_target_precision"]),
+            "linked_target_recall": ratio_detail(
+                "linked_target_recall", links, "true_positives",
+                ("true_positives", "false_negatives"),
+                ENTITY_LINK_RELEASE_GATES["linked_target_recall"]),
+        }
+        for name in ("wrong_canonical_targets",
+                     "unsafe_links_on_unlinked_mentions"):
+            value = links.get(name)
+            maximum = ENTITY_LINK_RELEASE_GATES[name]
+            checks[name] = {
+                "value": value, "maximum": maximum,
+                "passed": isinstance(value, int) and value <= maximum}
+        return checks
+
+    detail = metric_checks(metrics)
+    missing = metrics.get("missing_hypothesis_articles")
+    detail["complete_article_output"] = {
+        "value": missing, "maximum": 0,
+        "passed": isinstance(missing, int) and missing == 0}
+    integrity = (metrics.get("reference_mentions", 0) > 0 and
+                 not any((metrics.get("malformed_duplicates") or {}).values()) and
+                 not any((metrics.get("malformed_items") or {}).values()))
+    detail["reference_contract_integrity"] = {
+        "value": integrity, "required": True, "passed": integrity}
+    per_kind = {}
+    for kind in ENTITY_LINK_KINDS:
+        kind_metrics = (metrics.get("by_kind") or {}).get(kind) or {}
+        support = kind_metrics.get("reference_mentions", 0)
+        linked_support = (kind_metrics.get("linked_targets") or {}).get(
+            "reference_linked_targets", 0)
+        kind_checks = metric_checks(kind_metrics) if support else {}
+        if kind_checks:
+            kind_checks["mention_support"] = {
+                "value": support, "minimum": MIN_ENTITY_LINK_KIND_MENTIONS,
+                "passed": support >= MIN_ENTITY_LINK_KIND_MENTIONS}
+            kind_checks["linked_target_support"] = {
+                "value": linked_support, "minimum": MIN_ENTITY_LINK_KIND_LINKS,
+                "passed": linked_support >= MIN_ENTITY_LINK_KIND_LINKS}
+        per_kind[kind] = {
+            "reference_mentions": support,
+            "reference_linked_targets": linked_support,
+            "checks": kind_checks,
+            "passed": bool(kind_checks) and
+                all(check["passed"] for check in kind_checks.values()),
+        }
+    detail["per_kind"] = {
+        "value": {kind: row["passed"] for kind, row in per_kind.items()},
+        "required": "all six kinds",
+        "passed": all(row["passed"] for row in per_kind.values()),
+        "detail": per_kind,
+    }
+    return {"passed": all(item["passed"] for item in detail.values()),
+            "checks": detail}
 
 
 def normalize_party(value) -> str:
@@ -529,6 +854,8 @@ def main() -> int:
     ap.add_argument("--valid-schema-after-review", type=float, default=None)
     ap.add_argument("--require-party-gates", action="store_true",
                     help="exit 3 unless every party-tone release gate passes")
+    ap.add_argument("--require-entity-link-gates", action="store_true",
+                    help="exit 4 unless every v2 entity/link gate passes")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
@@ -562,6 +889,7 @@ def main() -> int:
             "quality": score_quality(ref, hyp),
             "topics": score_topics(ref, hyp),
             "mentions": score_mentions(ref, hyp),
+            "entity_links_v2": score_entity_links(ref, hyp, articles),
             "party_tones": score_party_tones(ref, hyp, articles),
             "leaning": score_axis(ref, hyp, "leaning"),
             "russia_stance": score_axis(ref, hyp, "russia_stance"),
@@ -580,10 +908,17 @@ def main() -> int:
                   "after_review": args.valid_schema_after_review}
     result["party_tone_release_gates"] = party_release_gate_results(
         result["fields"]["party_tones"], completion)
+    result["entity_link_release_gates"] = entity_link_release_gate_results(
+        result["fields"]["entity_links_v2"])
     print(json.dumps(result, ensure_ascii=False,
                      indent=None if args.json else 1))
-    return 3 if (args.require_party_gates and
-                 not result["party_tone_release_gates"]["passed"]) else 0
+    if (args.require_party_gates and
+            not result["party_tone_release_gates"]["passed"]):
+        return 3
+    if (args.require_entity_link_gates and
+            not result["entity_link_release_gates"]["passed"]):
+        return 4
+    return 0
 
 
 if __name__ == "__main__":
