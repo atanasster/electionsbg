@@ -21,6 +21,7 @@ import { siteChrome } from "@/layout/siteChrome";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
+import { SHELL_MAIN } from "./app/shell";
 import {
   NewsLocaleProvider,
   newsPathForLanguage,
@@ -347,10 +348,7 @@ const NewsAppShell = () => {
         </div>
       </header>
 
-      <main
-        id="news-main"
-        className="news-main container flex-1 px-2 py-6 sm:px-4"
-      >
+      <main id="news-main" className={SHELL_MAIN}>
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
