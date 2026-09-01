@@ -6114,6 +6114,50 @@ const DB_ROUTES = {
     ]).catch(missingMigration(null));
     return { body: rows[0]?.r ?? null };
   },
+  // MP connection rankings for the AI ranking tools, replacing the retired
+  // parliament/connections-rankings*.json shards.
+  //
+  // ⚠️ THE NUMBERS ARE LOWER THAN THE SHARDS', AND THAT IS THE POINT. The old
+  // files matched a company officer to a power roster BY NAME and kept the
+  // match; the graph is built from the GATED person layer, which REFUSES a name
+  // the Commerce Registry records for more than one person — the shards
+  // published 410 (MP, company) attributions of 2,014 that /persons and the
+  // /person profile had already stopped making. Measured: the shards' highest
+  // degree was 318 against the graph's 12.
+  //
+  // And the shard file was NOT SORTED. The old tool sliced its first 12 rows
+  // and titled them "MPs by business connections", so its headline (Михайлов,
+  // 79) was simply the first record in the file — not the most connected MP,
+  // which was Георги Иванов Георгиев at 318. This route ORDERs, so the ranking
+  // is a ranking for the first time.
+  //
+  // `degree` is an EDGE count, not a company count: an owner who is also a
+  // manager of the same firm contributes two edges (128's own note). Fine for
+  // ranking, wrong for "how many companies".
+  "graph-mp-rankings": async (dbRows, q) => {
+    const limit = clampInt(q.limit, 12, 1, 1000);
+    // `current` restricts to the SITTING parliament. person_role holds one row
+    // per (mp_id, ns), so an unrestricted query aggregates every National
+    // Assembly at once — 754 people against the current 97 — and a
+    // "which party's MPs are most connected" rollup over four parliaments is
+    // not the question anyone asked.
+    const current = q.current === "1" || q.current === true;
+    const rows = await dbRows(
+      `SELECT g.name, g.party, g.party_color AS "partyColor", g.degree, g.slug
+         FROM graph_person_node g
+        WHERE EXISTS (
+                SELECT 1 FROM person_role r
+                 WHERE r.person_id = g.person_id AND r.source = 'mp'
+                   AND ($2 = false OR split_part(r.ref, ':', 2) = (
+                         SELECT max(split_part(ref, ':', 2))
+                           FROM person_role WHERE source = 'mp'))
+              )
+        ORDER BY g.degree DESC, g.name
+        LIMIT $1`,
+      [limit, current],
+    ).catch(missingMigrationRows);
+    return { body: { mps: rows } };
+  },
   // The down-sampled public-figure bridge graph for the /connections OVERVIEW — top-N bridge
   // companies by public money + their public figures + edges + the facet×facet matrix (129).
   // One precomputed blob; degrades to empty (not 500) if the graph loader has not run.

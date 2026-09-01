@@ -77,20 +77,40 @@ export const mpAssetsTop = async (
 // ---- MP business connections ------------------------------------------------
 
 type MpConn = {
-  label: string;
-  partyGroupShort?: string;
-  totalDegree: number;
-  highConfDegree?: number;
+  name: string;
+  party: string | null;
+  degree: number;
 };
+
+/**
+ * ⚠️ THESE NUMBERS ARE LOWER THAN THE RETIRED SHARDS', AND THAT IS THE POINT.
+ *
+ * parliament/connections-rankings*.json matched a company officer to a power
+ * roster BY NAME and kept the match. The PG graph is built from the GATED
+ * person layer, which REFUSES a name the Commerce Registry records for more
+ * than one person — the shards published 410 (MP, company) attributions of
+ * 2,014 that /persons and the /person profile had already stopped making.
+ * Measured: the shards' highest degree was 318 against the graph's 12.
+ *
+ * The shard file was also NOT SORTED — this tool sliced its first 12 rows and
+ * titled them "MPs by business connections", so the headline it published
+ * (Михайлов, 79) was the first record in the file rather than the most
+ * connected MP (Георги Иванов Георгиев, 318). The route ORDERs, so the ranking
+ * is a ranking for the first time, and it agrees with what /connections shows.
+ *
+ * `highConfDegree` is gone rather than ported: it graded a name match on
+ * whether the name had three parts, and the gated layer has no confidence
+ * grade — there is nothing for it to mean.
+ */
 
 export const mpConnectionsTop = async (
   _args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const d = await fetchData<{ topMps: MpConn[] }>(
-    "/parliament/connections-rankings-top.json",
-  );
-  const top = d.topMps.slice(0, 12);
+  const d = await fetchDb<{ mps: MpConn[] }>("graph-mp-rankings", {
+    limit: 12,
+  });
+  const top = d.mps ?? [];
   const columns: Column[] = [
     { key: "mp", label: ctx.lang === "bg" ? "Депутат" : "MP" },
     { key: "group", label: ctx.lang === "bg" ? "Група" : "Group" },
@@ -102,9 +122,9 @@ export const mpConnectionsTop = async (
     },
   ];
   const rows: Row[] = top.map((m) => ({
-    mp: m.label,
-    group: m.partyGroupShort ?? "—",
-    links: m.totalDegree,
+    mp: m.name,
+    group: m.party ?? "—",
+    links: m.degree,
   }));
   return {
     tool: "mpConnectionsTop",
@@ -118,10 +138,10 @@ export const mpConnectionsTop = async (
     rows,
     viz: "none",
     facts: {
-      most_connected: top[0]?.label ?? "—",
-      links: top[0]?.totalDegree ?? 0,
+      most_connected: top[0]?.name ?? "—",
+      links: top[0]?.degree ?? 0,
     },
-    provenance: ["parliament/connections-rankings-top.json"],
+    provenance: ["/api/db/graph-mp-rankings"],
   };
 };
 
@@ -234,12 +254,22 @@ export const mpConnectionsByParty = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const d = await fetchData<{ topMps: GroupMp[] }>(
-    "/parliament/connections-rankings.json",
-  );
-  const rows0 = aggregateByParty(d.topMps, (m) => m.totalDegree ?? 0).sort(
-    (a, b) => b.sum - a.sum,
-  );
+  // `current: 1` — person_role holds one row per (mp_id, ns), so the whole
+  // roster is 754 people across four National Assemblies against the sitting
+  // 97. Aggregating "which party's MPs are most connected" over four
+  // parliaments answers a question nobody asked, and the retired file was the
+  // current roster.
+  const d = await fetchDb<{ mps: MpConn[] }>("graph-mp-rankings", {
+    limit: 1000,
+    current: 1,
+  });
+  const rows0 = aggregateByParty(
+    (d.mps ?? []).map((m) => ({
+      partyGroupShort: m.party ?? undefined,
+      totalDegree: m.degree,
+    })),
+    (m) => m.totalDegree ?? 0,
+  ).sort((a, b) => b.sum - a.sum);
   const top = rows0[0];
   const rows: Row[] = rows0.map((r) => ({
     party: r.party,
@@ -253,8 +283,8 @@ export const mpConnectionsByParty = async (
     kind: "table",
     title: bg ? "Бизнес връзки по партия" : "Business connections by party",
     subtitle: bg
-      ? "Общ брой фирмени връзки на депутатите от групата"
-      : "Total company links across the group's MPs",
+      ? "Общ брой фирмени връзки; броят депутати е само тези със связи"
+      : "Total company links; the MP count is those with at least one link",
     columns: [
       { key: "party", label: bg ? "Партия" : "Party" },
       {
@@ -269,14 +299,24 @@ export const mpConnectionsByParty = async (
         numeric: true,
         format: "int",
       },
-      { key: "avg", label: bg ? "Средно" : "Avg/MP", numeric: true },
+      {
+        key: "avg",
+        // ⚠️ Per CONNECTED MP, not per member of the group. graph_person_node
+        // holds only people who have at least one edge — 97 of the 254 sitting
+        // MPs — so dividing by `mps` here divides by the connected subset. A
+        // plain "Avg/MP" INVERTS the ranking: a group with one heavily linked
+        // member reports a higher average than a large group with a few light
+        // ones. The label says which denominator it is.
+        label: bg ? "Средно на свързан" : "Avg per connected MP",
+        numeric: true,
+      },
     ],
     rows,
     viz: "none",
     facts: {
       most_connected_party: top ? `${top.party} (${Math.round(top.sum)})` : "—",
     },
-    provenance: ["parliament/connections-rankings.json"],
+    provenance: ["/api/db/graph-mp-rankings"],
   };
 };
 

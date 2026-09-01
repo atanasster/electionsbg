@@ -1896,7 +1896,13 @@ const CASES: Case[] = [
   {
     q: "Кои депутати имат най-много фирмени връзки?",
     tool: "mpConnectionsTop",
-    facts: { most_connected: "Михайлов" },
+    // Was "Михайлов", from parliament/connections-rankings-top.json. That file
+    // was UNSORTED and the tool sliced its first 12 rows, so the old answer was
+    // the file's first record rather than the most connected MP. The tool now
+    // reads /api/db/graph-mp-rankings, which ORDERs — and which is built from
+    // the gated person layer, so the name-matched links the shards carried (410
+    // of 2,014 attributions the site had already stopped making) are gone.
+    facts: { most_connected: "Манев" },
   },
   {
     // "which PARTY" (not which MP) -> per-party rollup

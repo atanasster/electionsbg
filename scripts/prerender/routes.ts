@@ -1159,18 +1159,25 @@ export const CATALOG_SPECS: CatalogSpec[] = [
   {
     page: "parliament",
     dist: "/parliament/connections.json",
+    // ⚠️ A FROZEN SNAPSHOT, and the description says so. The live graph moved to
+    // Postgres (/api/db/graph-global, migration 129) and is built from the GATED
+    // person layer, which refuses a name the Commerce Registry records for more
+    // than one person — this file predates that and still carries the
+    // name-matched links the site itself stopped publishing. It stays listed
+    // rather than being silently dropped, because it is a download we
+    // advertised; what changes is that it no longer claims to be current.
     bg: {
-      name: "Народни представители и бизнес връзки",
+      name: "Народни представители и бизнес връзки (архив)",
       description:
-        "Профили на народните представители и граф на бизнес връзките им от имуществените декларации и Търговския регистър.",
-      distName: "Граф на връзките (JSON)",
+        "Архивен граф на бизнес връзките на народните представители от имуществените декларации и Търговския регистър, замразен през юли 2026 г. Актуалните връзки се изграждат от слоя за самоличност и се виждат на /connections — този файл още съдържа съвпадения по име, които сайтът вече не публикува.",
+      distName: "Граф на връзките (JSON, архив)",
       keywords: ["народни представители", "декларации", "бизнес интереси"],
     },
     en: {
-      name: "MPs and business connections",
+      name: "MPs and business connections (archived)",
       description:
-        "MP profiles and a graph of their business connections from asset declarations and the Commerce Registry.",
-      distName: "Connections graph (JSON)",
+        "An archived graph of MPs' business connections from asset declarations and the Commerce Registry, frozen in July 2026. The current graph is built from the person-identity layer and is shown on /connections — this file still carries name matches the site no longer publishes.",
+      distName: "Connections graph (JSON, archived)",
       keywords: ["members of parliament", "declarations", "business interests"],
     },
   },
