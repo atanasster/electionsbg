@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { lazy, Suspense, useContext } from "react";
 import { Route, Routes, NavLink, Link } from "react-router-dom";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
@@ -15,8 +15,25 @@ import { SavedScreen } from "./app/screens/SavedScreen";
 import { AboutScreen } from "./app/screens/AboutScreen";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
 import { CorrectionsScreen } from "./app/screens/CorrectionsScreen";
-import { EvalsScreen } from "./app/screens/EvalsScreen";
-import { EvalArticleScreen } from "./app/screens/EvalArticleScreen";
+
+const EvalsScreen = lazy(() =>
+  import("./app/screens/EvalsScreen").then(({ EvalsScreen }) => ({
+    default: EvalsScreen,
+  })),
+);
+const EvalArticleScreen = lazy(() =>
+  import("./app/screens/EvalArticleScreen").then(({ EvalArticleScreen }) => ({
+    default: EvalArticleScreen,
+  })),
+);
+
+const EvalRouteFallback = () => (
+  <section className="py-12" aria-busy="true" aria-live="polite">
+    <p className="text-sm text-muted-foreground">
+      Зареждане на оценяването…
+    </p>
+  </section>
+);
 
 const NotFoundScreen = () => (
   <section className="py-12">
@@ -150,10 +167,21 @@ export const App = () => {
           <Route path="/saved" element={<SavedScreen />} />
           <Route path="/about" element={<AboutScreen />} />
           <Route path="/corrections" element={<CorrectionsScreen />} />
-          <Route path="/evals" element={<EvalsScreen />} />
+          <Route
+            path="/evals"
+            element={
+              <Suspense fallback={<EvalRouteFallback />}>
+                <EvalsScreen />
+              </Suspense>
+            }
+          />
           <Route
             path="/evals/article/:domain/:id"
-            element={<EvalArticleScreen />}
+            element={
+              <Suspense fallback={<EvalRouteFallback />}>
+                <EvalArticleScreen />
+              </Suspense>
+            }
           />
           <Route path="*" element={<NotFoundScreen />} />
         </Routes>
