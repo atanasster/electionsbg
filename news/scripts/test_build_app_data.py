@@ -135,6 +135,38 @@ def ensure_fixture_story_membership(data_dir: str) -> None:
     index_path.write_text(json.dumps(index, ensure_ascii=False), encoding="utf-8")
 
 
+def ensure_feedback_target_fixture(root: str, data_dir: str) -> None:
+    """Install the minimum canonical-target sources required by app builds."""
+    with open(os.path.join(data_dir, "gazetteer.json"), "w",
+              encoding="utf-8") as fh:
+        json.dump({
+            "version": 1,
+            "generated_at": "2026-09-01T00:00:00Z",
+            "entries": [{
+                "kind": "person", "id": "person-1",
+                "canonical": "Иван Иванов",
+                "forms": [{"surface": "Иван Иванов", "id": "person-1",
+                           "resolvable": True}],
+            }],
+        }, fh, ensure_ascii=False)
+    sector_dir = os.path.join(root, "src", "screens", "governance")
+    locale_dir = os.path.join(root, "src", "locales", "bg")
+    os.makedirs(sector_dir, exist_ok=True)
+    os.makedirs(locale_dir, exist_ok=True)
+    sector_rows = []
+    sector_labels = {}
+    for index in range(15):
+        sector_rows.append(
+            f'{{ id: "sector-{index}", titleKey: "sector_{index}", '
+            f'descKey: "desc", agency: "A", to: "/sector/sector-{index}" }}')
+        sector_labels[f"sector_{index}"] = f"Сектор {index}"
+    Path(sector_dir, "sectorRegistry.ts").write_text(
+        "export const SECTORS = [" + ",".join(sector_rows) + "];",
+        encoding="utf-8")
+    Path(locale_dir, "translation.json").write_text(
+        json.dumps(sector_labels, ensure_ascii=False), encoding="utf-8")
+
+
 class BuildAppDataFixture(unittest.TestCase):
     """The harness only — throwaway root, corpus writers, `run_build`.
 
@@ -154,6 +186,7 @@ class BuildAppDataFixture(unittest.TestCase):
         with open(os.path.join(self.root, "news", "topics.json"), "w", encoding="utf-8") as fh:
             json.dump(TAXONOMY, fh, ensure_ascii=False)
         os.makedirs(self.data_dir, exist_ok=True)
+        ensure_feedback_target_fixture(self.root, self.data_dir)
         self.domains = []
 
     def write_corpus(self, domain, fname, article):
@@ -676,6 +709,7 @@ class MetadataAndBudget(unittest.TestCase):
         with open(os.path.join(self.root, "news", "topics.json"), "w",
                   encoding="utf-8") as fh:
             json.dump(TAXONOMY, fh, ensure_ascii=False)
+        ensure_feedback_target_fixture(self.root, self.data_dir)
 
     def write_article(self, domain, fname, **over):
         rec = corpus_article(domain, fname, f"https://{domain}/a/1", "Заглавие",

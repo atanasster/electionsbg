@@ -18,27 +18,32 @@ from news.eval_contract.canonical import (  # noqa: E402
     canonical_sha256,
     content_sha256,
 )
+from news.scripts.build_feedback_targets import validate_registry  # noqa: E402
 from news.scripts.sync_eval_tasks import (  # noqa: E402
     SyncError,
     atomic_write,
     load_public_articles,
     read_json,
     text,
+    timestamp,
 )
 
 MANIFEST_KIND = "news-feedback-task-sync"
 
 
-def task_revision(content_hash: str, analysis_hash: str | None) -> int:
+def task_revision(content_hash: str, analysis_hash: str | None,
+                  target_registry_hash: str) -> int:
     digest = canonical_sha256({
         "contract": "article-feedback-v1",
         "content_sha256": content_hash,
         "analysis_sha256": analysis_hash,
+        "target_registry_sha256": target_registry_hash,
     }).removeprefix("sha256:")
     return int(digest[:12], 16) + 1
 
 
-def make_task(root: Path, public_revision: str, key: str,
+def make_task(root: Path, public_revision: str, target_registry_hash: str,
+              key: str,
               public: dict[str, Any]) -> dict[str, Any]:
     domain, article_id = key.split("/", 1)
     article_path = root / "news" / "data" / domain / f"{article_id}.json"
@@ -69,18 +74,28 @@ def make_task(root: Path, public_revision: str, key: str,
         "title": title,
         "content_sha256": content_hash,
         "analysis_sha256": analysis_hash,
+        "target_registry_sha256": target_registry_hash,
         "public_data_revision": public_revision,
         "accepts_public_feedback": True,
-        "revision": task_revision(content_hash, analysis_hash),
+        "revision": task_revision(content_hash, analysis_hash,
+                                  target_registry_hash),
         "updated_at": public_revision,
     }
 
 
 def build(root: Path, app_data: Path) -> tuple[dict[str, Any], dict[str, Any]]:
     revision, public_articles = load_public_articles(app_data)
+    target_registry = validate_registry(
+        read_json(app_data / "feedback-targets.json"))
+    target_registry_hash = text(
+        target_registry.get("targets_sha256"), "feedback target registry hash")
+    if timestamp(target_registry.get("generated_at"),
+                 "feedback target registry revision") != revision:
+        raise SyncError("feedback target registry revision does not match app-data")
     tasks = []
     for key in sorted(public_articles):
-        tasks.append(make_task(root, revision, key, public_articles[key]))
+        tasks.append(make_task(root, revision, target_registry_hash,
+                               key, public_articles[key]))
     if not tasks:
         raise SyncError("no public articles are eligible for feedback")
     tasks.sort(key=lambda item: item["article_key"].encode("utf-8"))

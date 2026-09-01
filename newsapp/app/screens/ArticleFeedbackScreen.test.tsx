@@ -3,18 +3,21 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { loadMock, submitMock, browserNonceMock, idempotencyMock } = vi.hoisted(
-  () => ({
+const { loadMock, targetMock, currentLinksMock, submitMock, browserNonceMock, idempotencyMock } =
+  vi.hoisted(() => ({
     loadMock: vi.fn(),
+    targetMock: vi.fn(),
+    currentLinksMock: vi.fn(),
     submitMock: vi.fn(),
     browserNonceMock: vi.fn(),
     idempotencyMock: vi.fn(),
-  }),
-);
+  }));
 
 vi.mock("../articleFeedback", async (importOriginal) => ({
   ...(await importOriginal<typeof import("../articleFeedback")>()),
   loadArticleFeedbackTask: loadMock,
+  loadFeedbackTargets: targetMock,
+  loadCurrentFeedbackLinks: currentLinksMock,
   submitArticleFeedback: submitMock,
 }));
 
@@ -48,6 +51,8 @@ vi.mock("../components/TurnstileWidget", () => ({
 describe("ArticleFeedbackScreen", () => {
   beforeEach(() => {
     loadMock.mockReset();
+    targetMock.mockReset();
+    currentLinksMock.mockReset();
     submitMock.mockReset();
     browserNonceMock.mockReset();
     idempotencyMock.mockReset();
@@ -56,8 +61,32 @@ describe("ArticleFeedbackScreen", () => {
       revision: 9,
       content_sha256: `sha256:${"a".repeat(64)}`,
       analysis_sha256: null,
+      target_registry_sha256: `sha256:${"d".repeat(64)}`,
       public_data_revision: "2026-09-01T08:00:00.000Z",
     });
+    targetMock.mockResolvedValue({
+      version: 1,
+      generated_at: "2026-09-01T08:00:00.000Z",
+      targets_sha256: `sha256:${"d".repeat(64)}`,
+      target_count: 2,
+      targets: [
+        {
+          kind: "institution",
+          id: "123456789",
+          canonical: "Примерно министерство",
+          href: "https://electionsbg.com/awarder/123456789",
+          aliases: ["Примерно министерство", "Министерството"],
+        },
+        {
+          kind: "party",
+          id: "party-1",
+          canonical: "Примерна партия",
+          href: "https://electionsbg.com/party/Примерна%20партия",
+          aliases: ["Примерна партия"],
+        },
+      ],
+    });
+    currentLinksMock.mockResolvedValue([]);
     submitMock.mockResolvedValue("feedback-submission-1");
     browserNonceMock.mockReturnValue("feedback-browser-0001");
     idempotencyMock
@@ -86,10 +115,36 @@ describe("ArticleFeedbackScreen", () => {
     );
     await user.click(screen.getByRole("button", { name: "Добави партия" }));
     await user.type(screen.getByLabelText("Партия"), "Примерна партия");
+    await user.click(
+      screen.getByRole("button", { name: /Примерна партия · party-1/ }),
+    );
     await user.selectOptions(screen.getByLabelText("Тон"), "unfavorable");
     await user.type(
       screen.getByLabelText("Основание за партията"),
       "Партията е критикувана пряко в третия абзац.",
+    );
+    await user.click(
+      screen.getByRole("button", { name: "Добави предложение за връзка" }),
+    );
+    await user.selectOptions(screen.getByLabelText("Вид"), "institution");
+    await user.type(
+      screen.getByLabelText("Име както е изписано в статията"),
+      "Министерството",
+    );
+    await user.type(
+      screen.getByLabelText("Търсене на каноничен профил"),
+      "Примерно",
+    );
+    await user.click(
+      screen.getByRole("button", { name: /Примерно министерство/ }),
+    );
+    await user.type(
+      screen.getByLabelText("Контекст от статията"),
+      "Министерството обяви решението вчера.",
+    );
+    await user.type(
+      screen.getByLabelText("Основание за връзката"),
+      "Институцията е посочена в първия абзац.",
     );
     await user.type(
       screen.getByLabelText("Общо проверимо основание"),
@@ -107,13 +162,26 @@ describe("ArticleFeedbackScreen", () => {
       expect.objectContaining({
         article_key: "example.bg/article-1",
         analysis_sha256: null,
+        target_registry_sha256: `sha256:${"d".repeat(64)}`,
         feedback: expect.objectContaining({
           issue_kinds: ["missing_analysis", "missing_entity"],
           party_tones: [
             expect.objectContaining({
               party: "Примерна партия",
+              party_id: "party-1",
+              resolution_status: "selected",
               tone: "unfavorable",
               evidence: "Партията е критикувана пряко в третия абзац.",
+            }),
+          ],
+          link_proposals: [
+            expect.objectContaining({
+              surface: "Министерството",
+              target_kind: "institution",
+              resolution_status: "selected",
+              target_ref: expect.objectContaining({
+                id: "123456789",
+              }),
             }),
           ],
         }),
@@ -178,6 +246,7 @@ describe("ArticleFeedbackScreen", () => {
         revision: 9,
         content_sha256: `sha256:${"a".repeat(64)}`,
         analysis_sha256: null,
+        target_registry_sha256: `sha256:${"d".repeat(64)}`,
         public_data_revision: "2026-09-01T08:00:00.000Z",
       })
       .mockResolvedValueOnce({
@@ -185,7 +254,24 @@ describe("ArticleFeedbackScreen", () => {
         revision: 10,
         content_sha256: `sha256:${"b".repeat(64)}`,
         analysis_sha256: `sha256:${"c".repeat(64)}`,
+        target_registry_sha256: `sha256:${"d".repeat(64)}`,
         public_data_revision: "2026-09-01T09:00:00.000Z",
+      });
+    targetMock
+      .mockReset()
+      .mockResolvedValueOnce({
+        version: 1,
+        generated_at: "2026-09-01T08:00:00.000Z",
+        targets_sha256: `sha256:${"d".repeat(64)}`,
+        target_count: 0,
+        targets: [],
+      })
+      .mockResolvedValueOnce({
+        version: 1,
+        generated_at: "2026-09-01T09:00:00.000Z",
+        targets_sha256: `sha256:${"d".repeat(64)}`,
+        target_count: 0,
+        targets: [],
       });
     const view = render(
       <MemoryRouter>

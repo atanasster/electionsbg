@@ -979,6 +979,28 @@ export function handleNewsEvalsRequest(
     );
     return;
   }
+  if (route.kind === "feedbackSubmit") {
+    const feedback = (request.body as Record<string, unknown>).feedback as
+      | Record<string, unknown>
+      | undefined;
+    const proposals = feedback?.link_proposals;
+    if (
+      !Array.isArray(proposals) ||
+      proposals.some((proposal) => {
+        const row = proposal as Record<string, unknown>;
+        const target = row.target_ref as Record<string, unknown> | null;
+        return target !== null && target.kind !== row.target_kind;
+      })
+    ) {
+      error(
+        response,
+        422,
+        "invalid_request",
+        "The request body does not match the evaluation schema.",
+      );
+      return;
+    }
+  }
   try {
     canonicalJson(request.body);
   } catch {

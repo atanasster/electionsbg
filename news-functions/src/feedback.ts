@@ -14,6 +14,7 @@ export type PublicFeedbackTask = Readonly<{
   revision: number;
   content_sha256: string;
   analysis_sha256: string | null;
+  target_registry_sha256: string;
   public_data_revision: string;
 }>;
 
@@ -102,6 +103,7 @@ const parseTask = (value: unknown): PublicFeedbackTask | null => {
     typeof task.content_sha256 !== "string" ||
     (task.analysis_sha256 !== null &&
       typeof task.analysis_sha256 !== "string") ||
+    typeof task.target_registry_sha256 !== "string" ||
     typeof task.public_data_revision !== "string"
   )
     return null;
@@ -110,6 +112,7 @@ const parseTask = (value: unknown): PublicFeedbackTask | null => {
     revision: Number(task.revision),
     content_sha256: task.content_sha256,
     analysis_sha256: task.analysis_sha256 as string | null,
+    target_registry_sha256: task.target_registry_sha256,
     public_data_revision: task.public_data_revision,
   };
 };
@@ -287,7 +290,8 @@ export class FirestoreFeedbackStore implements FeedbackStore {
       if (
         task.revision !== requestedRevision ||
         task.content_sha256 !== input.request.content_sha256 ||
-        task.analysis_sha256 !== input.request.analysis_sha256
+        task.analysis_sha256 !== input.request.analysis_sha256 ||
+        task.target_registry_sha256 !== input.request.target_registry_sha256
       )
         return { kind: "task_conflict", currentRevision: task.revision };
 
@@ -300,6 +304,7 @@ export class FirestoreFeedbackStore implements FeedbackStore {
         task_revision: task.revision,
         content_sha256: task.content_sha256,
         analysis_sha256: task.analysis_sha256,
+        target_registry_sha256: task.target_registry_sha256,
         public_data_revision: task.public_data_revision,
         submitted_at: input.now,
         feedback: structuredClone(input.request.feedback),

@@ -365,10 +365,13 @@ function feedbackTask(key = ARTICLE_KEY, overrides = {}) {
   const analysisHash = Object.hasOwn(overrides, "analysis_sha256")
     ? overrides.analysis_sha256
     : null;
+  const targetRegistryHash =
+    overrides.target_registry_sha256 ?? canonicalSha256([]);
   const digest = canonicalSha256({
     contract: "article-feedback-v1",
     content_sha256: contentHash,
     analysis_sha256: analysisHash,
+    target_registry_sha256: targetRegistryHash,
   }).slice("sha256:".length);
   return {
     schema_version: 1,
@@ -380,6 +383,7 @@ function feedbackTask(key = ARTICLE_KEY, overrides = {}) {
     title: "Публична статия",
     content_sha256: contentHash,
     analysis_sha256: analysisHash,
+    target_registry_sha256: targetRegistryHash,
     public_data_revision: "2026-08-31T11:00:00.000Z",
     accepts_public_feedback: true,
     revision: Number.parseInt(digest.slice(0, 12), 16) + 1,
@@ -1296,6 +1300,13 @@ test("feedback task release verification pins production and checks live bundles
     generated_at: manifest.public_data_revision,
     articles: [{ id: "article-1" }],
   });
+  const targetBundle = JSON.stringify({
+    version: 1,
+    generated_at: manifest.public_data_revision,
+    targets_sha256: feedbackTask().target_registry_sha256,
+    target_count: 0,
+    targets: [],
+  });
   const live = {
     version: 2,
     home_health_ready: true,
@@ -1305,6 +1316,10 @@ test("feedback task release verification pins production and checks live bundles
     accepted_snapshot_records_sha256: null,
     bundle: {
       inventory: [
+        {
+          path: "feedback-targets.json",
+          sha256: createHash("sha256").update(targetBundle).digest("hex"),
+        },
         {
           path: "articles/example.bg.json",
           sha256: createHash("sha256").update(articleBundle).digest("hex"),
@@ -1317,11 +1332,56 @@ test("feedback task release verification pins production and checks live bundles
     status: 200,
     arrayBuffer: async () => Uint8Array.from(Buffer.from(body)).buffer,
   });
-  const fetcher = async (url) =>
-    response(url === manifestUrl ? JSON.stringify(live) : articleBundle);
+  const bodyFor = (url, liveValue = live, articleValue = articleBundle) =>
+    url === manifestUrl
+      ? JSON.stringify(liveValue)
+      : url.endsWith("/feedback-targets.json")
+        ? targetBundle
+        : articleValue;
+  const fetcher = async (url) => response(bodyFor(url));
   assert.deepEqual(
     await verifyLiveFeedbackTaskRelease(manifest, manifestUrl, fetcher),
     feedbackProof(manifest),
+  );
+  const tamperedTargetBundle = JSON.stringify({
+    version: 1,
+    generated_at: manifest.public_data_revision,
+    targets_sha256: feedbackTask().target_registry_sha256,
+    target_count: 1,
+    targets: [{
+      kind: "institution",
+      id: "123",
+      canonical: "Forged canonical label",
+      href: "https://electionsbg.com/awarder/123",
+      aliases: ["Forged canonical label"],
+    }],
+  });
+  await assert.rejects(
+    verifyLiveFeedbackTaskRelease(
+      manifest,
+      manifestUrl,
+      async (url) => response(
+        url === manifestUrl
+          ? JSON.stringify({
+              ...live,
+              bundle: {
+                inventory: [
+                  {
+                    path: "feedback-targets.json",
+                    sha256: createHash("sha256")
+                      .update(tamperedTargetBundle)
+                      .digest("hex"),
+                  },
+                  live.bundle.inventory[1],
+                ],
+              },
+            })
+          : url.endsWith("/feedback-targets.json")
+            ? tamperedTargetBundle
+            : articleBundle,
+      ),
+    ),
+    /registry hash does not match targets/,
   );
   const changedAnalysisBundle = JSON.stringify({
     domain: "example.bg",
@@ -1334,6 +1394,7 @@ test("feedback task release verification pins production and checks live bundles
     ...live,
     bundle: {
       inventory: [
+        live.bundle.inventory[0],
         {
           path: "articles/example.bg.json",
           sha256: createHash("sha256")
@@ -1346,20 +1407,14 @@ test("feedback task release verification pins production and checks live bundles
   await assert.rejects(
     () =>
       verifyLiveFeedbackTaskRelease(manifest, manifestUrl, async (url) =>
-        response(
-          url === manifestUrl
-            ? JSON.stringify(changedAnalysisLive)
-            : changedAnalysisBundle,
-        ),
+        response(bodyFor(url, changedAnalysisLive, changedAnalysisBundle)),
       ),
     /source hash does not match live public analysis/,
   );
   await assert.rejects(
     () =>
       verifyLiveFeedbackTaskRelease(manifest, manifestUrl, async (url) =>
-        response(
-          url === manifestUrl ? JSON.stringify(live) : `${articleBundle} `,
-        ),
+        response(bodyFor(url, live, `${articleBundle} `)),
       ),
     /bytes do not match publication inventory/,
   );
@@ -1368,7 +1423,7 @@ test("feedback task release verification pins production and checks live bundles
       verifyLiveFeedbackTaskRelease(manifest, manifestUrl, async () =>
         response(JSON.stringify({ ...live, bundle: { inventory: [] } })),
       ),
-    /no article bundles/,
+    /feedback target registry is missing/,
   );
   let fetches = 0;
   await assert.rejects(

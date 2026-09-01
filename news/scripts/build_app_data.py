@@ -76,6 +76,7 @@ try:
         load_accepted_adjudications,
     )
     from .analyze_articles import recompute_story as recompute_analysis_story
+    from .build_feedback_targets import build as build_feedback_targets
 except ImportError:  # direct script execution
     from commons_rights import (
         canonical_licence_url,
@@ -96,6 +97,7 @@ except ImportError:  # direct script execution
         load_accepted_adjudications,
     )
     from analyze_articles import recompute_story as recompute_analysis_story
+    from build_feedback_targets import build as build_feedback_targets
 
 REPO = Path(os.environ.get("DATA_BG_ROOT") or Path(__file__).resolve().parents[2])
 LEANING_LABELS = {
@@ -2070,6 +2072,21 @@ def main() -> int:
         ],
     }
     write_json(out_dir / "taxonomy.json", taxonomy_out)
+    write_json(
+        out_dir / "feedback-targets.json",
+        build_feedback_targets(
+            REPO,
+            generated_at,
+            public_records=[
+                *(
+                    record
+                    for domain_records in articles_by_domain.values()
+                    for record in domain_records
+                ),
+                *stories,
+            ],
+        ),
+    )
 
     # ---- outlets.json -----------------------------------------------------------------
     outlets = []

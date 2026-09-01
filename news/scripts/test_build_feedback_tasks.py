@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from news.scripts.build_feedback_tasks import build
+from news.eval_contract.canonical import canonical_sha256
 
 
 class FeedbackTaskBuildTests(unittest.TestCase):
@@ -13,6 +14,18 @@ class FeedbackTaskBuildTests(unittest.TestCase):
         (app / "articles").mkdir(parents=True)
         (root / "news" / "data" / "example.bg").mkdir(parents=True)
         revision = "2026-09-01T07:00:00.000Z"
+        targets = [{
+            "kind": "sector", "id": "health", "canonical": "Здравеопазване",
+            "href": "https://electionsbg.com/sector/health",
+            "aliases": ["Здравеопазване"],
+        }]
+        (app / "feedback-targets.json").write_text(json.dumps({
+            "version": 1,
+            "generated_at": revision,
+            "targets_sha256": canonical_sha256(targets),
+            "target_count": 1,
+            "targets": targets,
+        }))
         (app / "articles" / "example.bg.json").write_text(json.dumps({
             "domain": "example.bg",
             "generated_at": revision,
@@ -97,6 +110,15 @@ class FeedbackTaskBuildTests(unittest.TestCase):
             "https://news.electionsbg.com/article/example.bg/one",
         )
         self.assertEqual(task["title"], "Публична статия")
+
+    def test_self_declared_target_hash_is_rejected(self):
+        root, app = self.fixture()
+        path = app / "feedback-targets.json"
+        registry = json.loads(path.read_text())
+        registry["targets"][0]["canonical"] = "Подменен сектор"
+        path.write_text(json.dumps(registry))
+        with self.assertRaisesRegex(ValueError, "hash does not match"):
+            build(root, app)
 
 
 if __name__ == "__main__":

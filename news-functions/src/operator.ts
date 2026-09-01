@@ -628,20 +628,108 @@ const FEEDBACK_TASK_FIELDS = [
   "title",
   "content_sha256",
   "analysis_sha256",
+  "target_registry_sha256",
   "public_data_revision",
   "accepts_public_feedback",
   "revision",
   "updated_at",
 ] as const;
 
+const FEEDBACK_TARGET_KINDS = new Set([
+  "person",
+  "party",
+  "settlement",
+  "institution",
+  "company",
+  "sector",
+]);
+
+function feedbackTargetRegistry(value: unknown): {
+  generatedAt: string;
+  targetsHash: string;
+  targets: JsonObject[];
+} {
+  const raw = object(value, "feedback target registry");
+  exactKeys(
+    raw,
+    ["version", "generated_at", "targets_sha256", "target_count", "targets"],
+    "feedback target registry",
+  );
+  if (raw.version !== 1 || !Array.isArray(raw.targets) || raw.targets.length > 20_000)
+    throw new Error("feedback target registry contract is unsupported");
+  const targets = raw.targets.map((value, index) => {
+    const target = object(value, `feedback target ${index}`);
+    exactKeys(
+      target,
+      ["kind", "id", "canonical", "href", "aliases"],
+      `feedback target ${index}`,
+    );
+    const kind = stringValue(target.kind, `feedback target ${index}.kind`, 20);
+    if (!FEEDBACK_TARGET_KINDS.has(kind))
+      throw new Error(`feedback target ${index}.kind is unsupported`);
+    if (!Array.isArray(target.aliases) || target.aliases.length < 1 || target.aliases.length > 20)
+      throw new Error(`feedback target ${index}.aliases is invalid`);
+    const aliases = target.aliases.map((alias, aliasIndex) =>
+      stringValue(alias, `feedback target ${index}.aliases[${aliasIndex}]`, 300),
+    );
+    if (new Set(aliases).size !== aliases.length)
+      throw new Error(`feedback target ${index}.aliases are duplicated`);
+    return {
+      kind,
+      id: stringValue(target.id, `feedback target ${index}.id`, 160),
+      canonical: stringValue(
+        target.canonical,
+        `feedback target ${index}.canonical`,
+        300,
+      ),
+      href: strictHttpsUrl(target.href, `feedback target ${index}.href`),
+      aliases,
+    };
+  });
+  if (safeInteger(raw.target_count, "feedback target_count") !== targets.length)
+    throw new Error("feedback target registry count does not match");
+  const seen = new Set<string>();
+  for (let index = 0; index < targets.length; index += 1) {
+    const target = targets[index]!;
+    if (!(target.href as string).startsWith("https://electionsbg.com/"))
+      throw new Error("feedback target href is outside the canonical site");
+    const key = `${target.kind as string}\u0000${target.id as string}`;
+    if (seen.has(key))
+      throw new Error("feedback target registry has duplicate identities");
+    seen.add(key);
+    if (index > 0) {
+      const prior = targets[index - 1]!;
+      const order =
+        compareText(prior.kind as string, target.kind as string) ||
+        compareText(
+          (prior.canonical as string).toLocaleLowerCase("bg"),
+          (target.canonical as string).toLocaleLowerCase("bg"),
+        ) ||
+        compareText(prior.id as string, target.id as string);
+      if (order >= 0)
+        throw new Error("feedback target registry is not strictly sorted");
+    }
+  }
+  const targetsHash = hash(raw.targets_sha256, "feedback targets_sha256");
+  if (canonicalSha256(targets) !== targetsHash)
+    throw new Error("feedback target registry hash does not match targets");
+  return {
+    generatedAt: isoTimestamp(raw.generated_at, "feedback target generated_at"),
+    targetsHash,
+    targets,
+  };
+}
+
 function feedbackTaskRevision(
   contentHash: string,
   analysisHash: string | null,
+  targetRegistryHash: string,
 ): number {
   const digest = canonicalSha256({
     contract: "article-feedback-v1",
     content_sha256: contentHash,
     analysis_sha256: analysisHash,
+    target_registry_sha256: targetRegistryHash,
   }).slice("sha256:".length);
   return Number.parseInt(digest.slice(0, 12), 16) + 1;
 }
@@ -664,8 +752,15 @@ function normalizedFeedbackTask(value: unknown, label: string): JsonObject {
     raw.analysis_sha256 === null
       ? null
       : hash(raw.analysis_sha256, `${label}.analysis_sha256`);
+  const targetRegistryHash = hash(
+    raw.target_registry_sha256,
+    `${label}.target_registry_sha256`,
+  );
   const revision = safeInteger(raw.revision, `${label}.revision`, 1);
-  if (revision !== feedbackTaskRevision(contentHash, analysisHash))
+  if (
+    revision !==
+    feedbackTaskRevision(contentHash, analysisHash, targetRegistryHash)
+  )
     throw new Error(`${label}.revision does not match its task inputs`);
   return {
     schema_version: 1,
@@ -677,6 +772,7 @@ function normalizedFeedbackTask(value: unknown, label: string): JsonObject {
     title: stringValue(raw.title, `${label}.title`, 500),
     content_sha256: contentHash,
     analysis_sha256: analysisHash,
+    target_registry_sha256: targetRegistryHash,
     public_data_revision: isoTimestamp(
       raw.public_data_revision,
       `${label}.public_data_revision`,
@@ -1030,6 +1126,55 @@ export async function verifyLiveFeedbackTaskRelease(
   const bundle = object(live.bundle, "live publication bundle");
   if (!Array.isArray(bundle.inventory) || bundle.inventory.length > 20_000)
     throw new Error("live publication inventory is invalid");
+  const targetEntries = bundle.inventory.filter(
+    (entry) =>
+      entry !== null &&
+      typeof entry === "object" &&
+      !Array.isArray(entry) &&
+      (entry as JsonObject).path === "feedback-targets.json",
+  );
+  if (targetEntries.length !== 1)
+    throw new Error("live publication feedback target registry is missing");
+  const targetEntry = object(
+    targetEntries[0],
+    "live feedback target inventory entry",
+  );
+  const targetExpectedHash = stringValue(
+    targetEntry.sha256,
+    "live feedback target bundle SHA-256",
+    64,
+  );
+  if (!/^[a-f0-9]{64}$/u.test(targetExpectedHash))
+    throw new Error("live feedback target bundle SHA-256 is invalid");
+  const baseUrl = new URL("./", liveUrl);
+  const targetBytes = await fetchedBytes(
+    fetcher,
+    new URL(`${dataBase}/feedback-targets.json`, baseUrl).toString(),
+    "live feedback target registry",
+    20_000_000,
+  );
+  if (
+    createHash("sha256").update(targetBytes).digest("hex") !==
+    targetExpectedHash
+  )
+    throw new Error(
+      "live feedback target registry bytes do not match inventory",
+    );
+  let targetValue: unknown;
+  try {
+    targetValue = JSON.parse(targetBytes.toString("utf8"));
+  } catch {
+    throw new Error("live feedback target registry is not valid JSON");
+  }
+  const targetRegistry = feedbackTargetRegistry(targetValue);
+  const targetRegistryHash = targetRegistry.targetsHash;
+  if (
+    targetRegistry.generatedAt !== liveRevision ||
+    parsed.tasks.some(
+      (task) => task.target_registry_sha256 !== targetRegistryHash,
+    )
+  )
+    throw new Error("feedback tasks do not match the live target registry");
   const articleEntries = bundle.inventory.filter((entry) => {
     if (entry === null || typeof entry !== "object" || Array.isArray(entry))
       return false;
@@ -1048,7 +1193,6 @@ export async function verifyLiveFeedbackTaskRelease(
     article_key: string;
     analysis_sha256: string | null;
   }> = [];
-  const baseUrl = new URL("./", liveUrl);
   for (const rawEntry of articleEntries) {
     const entry = object(rawEntry, "live article inventory entry");
     const path = stringValue(entry.path, "live article bundle path", 512);

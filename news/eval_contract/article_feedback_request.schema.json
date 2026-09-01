@@ -10,6 +10,7 @@
     "base_task_revision",
     "content_sha256",
     "analysis_sha256",
+    "target_registry_sha256",
     "idempotency_key",
     "turnstile_token",
     "browser_nonce",
@@ -36,6 +37,10 @@
         { "type": "null" }
       ]
     },
+    "target_registry_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
     "idempotency_key": {
       "type": "string",
       "pattern": "^[A-Za-z0-9_-]{16,128}$"
@@ -52,6 +57,7 @@
         "leaning",
         "russia_stance",
         "party_tones",
+        "link_proposals",
         "issue_kinds",
         "public_note"
       ],
@@ -66,6 +72,11 @@
           "type": "array",
           "maxItems": 20,
           "items": { "$ref": "#/$defs/partyToneProposal" }
+        },
+        "link_proposals": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "$ref": "#/$defs/linkProposal" }
         },
         "issue_kinds": {
           "type": "array",
@@ -88,6 +99,7 @@
         { "properties": { "leaning": { "type": "object" } } },
         { "properties": { "russia_stance": { "type": "object" } } },
         { "properties": { "party_tones": { "minItems": 1 } } },
+        { "properties": { "link_proposals": { "minItems": 1 } } },
         { "properties": { "issue_kinds": { "minItems": 1 } } },
         {
           "properties": { "public_note": { "type": "string", "minLength": 1 } }
@@ -146,7 +158,7 @@
     "partyToneProposal": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["party", "party_id", "tone", "evidence"],
+      "required": ["party", "party_id", "resolution_status", "tone", "evidence"],
       "properties": {
         "party": { "type": "string", "minLength": 1, "maxLength": 160 },
         "party_id": {
@@ -154,11 +166,64 @@
           "minLength": 1,
           "maxLength": 160
         },
+        "resolution_status": { "enum": ["selected", "unresolved"] },
         "tone": {
           "enum": ["favorable", "unfavorable", "neutral", "mixed"]
         },
         "evidence": { "type": "string", "minLength": 1, "maxLength": 600 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "resolution_status": { "const": "selected" } } },
+          "then": { "properties": { "party_id": { "type": "string" } } },
+          "else": { "properties": { "party_id": { "type": "null" } } }
+        }
+      ]
+    },
+    "targetReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {
+          "enum": ["person", "party", "settlement", "institution", "company", "sector"]
+        },
+        "id": { "type": "string", "minLength": 1, "maxLength": 160 }
       }
+    },
+    "linkProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "surface", "target_kind", "resolution_status", "target_ref", "current_href", "context", "evidence"],
+      "properties": {
+        "action": { "enum": ["add", "replace"] },
+        "surface": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "target_kind": {
+          "enum": ["person", "party", "settlement", "institution", "company", "sector"]
+        },
+        "resolution_status": { "enum": ["selected", "unresolved"] },
+        "target_ref": {
+          "anyOf": [{ "$ref": "#/$defs/targetReference" }, { "type": "null" }]
+        },
+        "current_href": {
+          "type": ["string", "null"],
+          "pattern": "^https://electionsbg\\.com/[^\\s]{1,500}$"
+        },
+        "context": { "type": "string", "minLength": 1, "maxLength": 600 },
+        "evidence": { "type": "string", "minLength": 1, "maxLength": 600 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "resolution_status": { "const": "selected" } } },
+          "then": { "properties": { "target_ref": { "$ref": "#/$defs/targetReference" } } },
+          "else": { "properties": { "target_ref": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "action": { "const": "replace" } } },
+          "then": { "properties": { "current_href": { "type": "string" } } },
+          "else": { "properties": { "current_href": { "type": "null" } } }
+        }
+      ]
     }
   }
 }
