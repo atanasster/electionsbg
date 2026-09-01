@@ -63,7 +63,7 @@ These decisions are implementation constraints, not open design questions.
 12. A statistical signal is a review lead, never evidence of fraud. Every signal must expose scope, metric, baseline, sample size, status, and an evidence destination.
 13. Generated surface data lands invisibly before each UI migration. Every migrated page retains a legacy fallback until its generated artifact passes data and route tests.
 14. Every new canonical page ships with prerender, both sitemap declarations/artifacts, canonical metadata, internal reachability, and a dedicated OG image in the same phase.
-15. `/elections` **reads `?elections` and captions the cycle it is showing**; it never silently overrides it. `elections` is in the `usePreserveParams` allowlist (`src/ux/usePreserveParams.tsx`), so every in-app link carries it and a link cannot clear it. The hub falls back to the latest event **only when the param is absent or names an unknown cycle**, and the scope bar always names the cycle whose numbers are on screen. See §3.1a.
+15. `/elections` **reads `?elections` and captions the cycle it is showing**; it never silently overrides it. `elections` is in the `usePreserveParams` allowlist (`src/ux/usePreserveParams.tsx`), so every in-app link carries it and a link cannot clear it. The hub falls back to the latest event **only when the param is absent or names an unknown cycle**, and the scope bar always names the cycle whose numbers are on screen. See §3.2.
 16. `/elections` is a hub in the repo's sense and composes `HubHead`. `ElectionScopeBar` and `ElectionOutcomeStrip` belong to the **result pages**, which are not hubs. See §6.0.
 17. **A place has four views and a result page shows one fact from each.** `PlaceDigest` (§4.1) renders one figure per reachable view — Управление, Парламент, Местни, Потребление — taken from that view's own producer, linking to that view, and omitted rather than zeroed when the view does not resolve for this place. A reader must not have to find the pill to learn who the mayor is.
 18. **Every figure on `/elections` and on every election result page is read from the BUCKET. No `/api/db` call is on the render path.** See §5.1. A fact that only Postgres can answer is either baked into a bucket artifact by a generator at build time, or it is not quoted — it becomes a labelled link and nothing more.
@@ -76,7 +76,7 @@ These decisions are implementation constraints, not open design questions.
 
 Parliamentary:
 
-- country: current `/elections` and historical `/elections/:date`;
+- country: **`/parliamentary`** and historical `/elections/:date` — see §3.1, this line said `/elections` and was wrong against the code;
 - region and abroad: `/municipality/:id`, where `32` is abroad;
 - municipality: `/settlement/:id`;
 - settlement: `/sections/:id`;
@@ -93,7 +93,47 @@ Local:
 
 The parliamentary route names are historically one geographic level off. User-facing copy and the new surface types must use the real level; route segments remain untouched in v1.
 
-### 3.1a The `?elections` contract
+### 3.1 Three election entry points, and which one is canonical
+
+⚠️ **`/elections` IS NOT A ROUTE TODAY, AND THE COUNTRY RESULT IS AT `/parliamentary`.** Checked
+against `src/routes.tsx` on 2026-09-01: `/parliamentary` renders `DashboardScreen`, with the
+comment _"the composition `/` rendered until the global home dashboard took the root"_. It is
+prerendered (`scripts/prerender/routes.ts`), present in **both** `route_defs.ts` lists,
+breadcrumbed „Избори" / "Elections", and carries `ogImage: "/og/parliamentary.png"`. A bare
+`elections` path appears nowhere in `routes.tsx`.
+
+So after Phase 3 there are **three** URLs in one family, and two of them already share metadata:
+
+| URL              | today                                | title/description                     |
+| ---------------- | ------------------------------------ | ------------------------------------- |
+| `/`              | the global home dashboard            | `GLOBAL_HOME_TITLE` / `_DESCRIPTION`  |
+| `/parliamentary` | the parliamentary country result     | **`HOME_TITLE` / `HOME_DESCRIPTION`** |
+| `/elections`     | this plan's hub — does not exist yet | to be written                         |
+
+`/parliamentary` inheriting the HOMEPAGE's title and description is a pre-existing condition, not
+something this plan causes — but it is what turns "add one more entry" into a three-way
+duplicate. §13's risk row said `/` vs `/elections`; the live pair is `/parliamentary` vs
+`/elections`.
+
+**Phase 0 must settle which URL is canonical for the query "Bulgarian parliamentary election
+results", and what the other two say instead.** Three shapes, and the plan does not pick one for
+you because the answer depends on how far the global-home cutover goes:
+
+- **`/elections` is the hub and `/parliamentary` stays the country result.** Then they need
+  genuinely different titles, descriptions and `bodyHtml` — a hub that fronts both election
+  systems versus one parliament's national result — and `/parliamentary` must stop using
+  `HOME_TITLE`.
+- **`/elections` REPLACES `/parliamentary`.** Then it needs a 301 and an entry in every place
+  `/parliamentary` currently appears: both sitemap lists, the prerender, the og table, the
+  breadcrumb, `tests/seo.spec.ts`, and `scripts/llms/buildIndex.ts`.
+- **`/elections` is a thin cross-kind entry that canonicalises to `/parliamentary`.** Then it
+  gets no sitemap `<loc>` at all, by the rule that a URL which canonicalises elsewhere is never
+  submitted — the `/data-changes` and `/en/funds/procedure/*` precedent.
+
+Whichever is chosen, decision 14's "every new canonical page ships with…" applies to the one
+that ends up canonical, and the other two are checked for what they must NOT claim.
+
+### 3.2 The `?elections` contract
 
 `elections` is one of the global params `usePreserveParams` carries across every `@/ux/Link`
 navigation (`src/ux/usePreserveParams.tsx` — the list is an allowlist, so anything absent is
@@ -522,6 +562,13 @@ Two rules follow:
   the latest two regular local cycles. Backfilling earlier cycles is a separate, measured
   decision with its own object-count line; the shell falls back to the legacy composition for
   any cycle with no artifact, which is the same path a missing artifact already takes.
+- **`dist/` has its own ceiling, and it is the one this plan sits nearest.** §5.0's object count
+  is about the BUCKET; the prerender has a separate limit — Firebase's is on file COUNT, and a
+  453k-file `dist/` has failed to deploy. Measured 2026-09-01: **255,579 files, 150,935 of them
+  `index.html`** (12,721 `/section`, 5,375 `/settlement`, 4,230 `/sections`, 25,377 `/person`,
+  60,918 under `/en`). v1 adds two prerendered pages, so it is comfortably inside — but record
+  the number in the Phase 3 commit, because Phase 8's URL migration would move it and the
+  §5.0 discipline has no `dist/` twin.
 - **Section artifacts are sharded, never flat.** 12,721 files in one directory is a listing and
   filesystem cost with no upside; shard by oblast prefix the way
   `sections/by-oblast/` already does.
@@ -785,7 +832,7 @@ to end. Concretely, three written gates apply the moment this screen renders one
 SKILL.md §3.0.1 exempts an election results front from the "no hero visual above the fold" rule
 so the outcome canvas can be the first substantive section. It does not exempt the page from
 having a hub head. So on `/elections` the order is: `HubHead` (eyebrow + freshness, `h1`, deck,
-the cycle control from §3.1a, the KPI band) → `ElectionOutcomeCanvas` → tile bands.
+the cycle control from §3.2, the KPI band) → `ElectionOutcomeCanvas` → tile bands.
 
 **The KPI band and the outcome strip are not the same component and must not restate each
 other.** The band is a corpus-level claim with a declared basis per figure; the strip is this
@@ -1167,6 +1214,7 @@ Work:
    3a. Freeze the **place digest**: which fact each of the four views contributes, its basis, its producer, and the `reason` enum for an unreachable view (§4.1). Decide and record **where each half is served from** — the election facts on the surface, the governance and consumption facts on their existing hooks or one place-digest route — because their refresh cadences differ by orders of magnitude and one file with two cadences is the failure.
    3b. Diff each level's intended fact set against what the nine existing dashboard-card screens render today (§6.3), so every card the descriptor drops is a recorded decision.
    3c. Freeze the **copy contract** (§5.2, §5.3): every enum member's `labelKey` written OUT beside the code rather than built by template; the counts enumerated as PLURAL families; and the list of things carried as an ID whose label the renderer resolves (party, place, office), with person names recorded as the deliberate Bulgarian-in-both-languages exception.
+   3d. **Settle §3.1**: which of `/`, `/parliamentary` and `/elections` is canonical for the parliamentary country result, what the other two claim instead, and which of them carry a sitemap `<loc>`. Everything in Phase 3's artifact list depends on this answer.
 3. Freeze status vocabulary, turnout bases, fact priority, standout categories **and every numeric standout threshold** in `docs/methodology/election-surfaces.md`, each threshold carrying value, basis, minimum sample and what it excludes (§7). Thresholds are a Phase 0 design decision precisely because deferring them means fitting them to the fixtures.
 4. Create static fixture payloads for:
    - parliamentary country;
@@ -1284,7 +1332,7 @@ Route/UI work:
 
 1. Add a static `elections` route in `src/routes.tsx`, lazy-loading `ElectionsHubScreen`. (React Router v7 ranks a static segment above `elections/:date` on its own, so declaration order is belt-and-braces rather than a constraint — do not treat it as load-bearing.)
 2. `ElectionsHubScreen` renders `HubHead` per §6.0 — eyebrow + freshness, `h1`, deck, the cycle control, and a 3–5 figure KPI band with a declared basis per figure. It must **not** also render `<Title>`. Add the screen to `HUB_SCREENS` in `src/ux/infographic/hubHead.gates.test.ts` and to `HUB_HEAD_BUDGETS` in `tests/ui.spec.ts` in this commit, with the measured height and `data-kpi-cell` count.
-3. `/elections` resolves its cycle per §3.1a — `?elections` first, latest event as the fallback, the resolved cycle named in the scope control. It offers Parliamentary/Local selection with explicit dates/status, and selection navigates to the existing canonical full result (`/elections/:date` or `/local/:cycle`) writing `?elections`, not a hidden client-only result state.
+3. `/elections` resolves its cycle per §3.2 — `?elections` first, latest event as the fallback, the resolved cycle named in the scope control. It offers Parliamentary/Local selection with explicit dates/status, and selection navigates to the existing canonical full result (`/elections/:date` or `/local/:cycle`) writing `?elections`, not a hidden client-only result state.
 4. The lead area uses one outcome canvas for the resolved cycle, not two simultaneous maps. A compact adjacent link exposes the other election kind.
 5. Add the finder (a `HubSearch` configuration per §6.2, in the head's search slot) and the tile bands from the `electionsRegistry` per §6.1, below the outcome canvas. Ship `electionsHubBands.test.ts` in this commit.
 6. Merge `electionsMenu` and `localMenu` in `src/layout/header/reportMenus.ts`; update `Header.tsx` to render one Elections top-level item at `/elections`. Preserve all election destinations, grouped as Results, Places, Analysis and review, and Partial/local administration. **Two things the merge must decide explicitly rather than by omission:** remove the old `/` election leaf because root is the global home reached through the logo/home navigation, and do not absorb `localMenu`'s `/governance/mayor-pay` governance leaf into Elections by accident.
@@ -1294,10 +1342,14 @@ Artifact work in the same commit:
 
 1. Add `/elections` to `scripts/prerender/routes.ts` via `staticPage({...})` with an `english:` block — no leading or trailing slash on `path`, and the EN root convention is `/en`, never `/en/`. Write a real `bodyHtml`: it is the only part of the page a crawler that runs no JS ever sees.
 2. Add the path to **both** lists in `scripts/sitemap/route_defs.ts` — `routeDefs(year)` for the Bulgarian `<loc>` and `ENGLISH_STATIC_PAGES` for `/en/elections`. They are not derived from one another, and the EN list alone gets the mirror indexed and not the original (the live `/sofia/*` and `/consumption/*` class). Point `file:` at the artifact the page renders, e.g. `data/${year}/national_summary.json`, not at `ElectionsHubScreen.tsx`, or `lastmod` is the date somebody last touched the JSX — and note that a `file:` which does not exist **skips the entry silently**. Then run `npm run sitemap` and COMMIT `public/sitemap*.xml`; the command is manual and its output is committed, so the entries alone change nothing.
-3. Add dedicated SEO title, description, canonical, H1, and indexable body — via `HubHead`, which owns the `h1` and the `<SEO>`. The deck and the SEO description are different sentences written for different readers; do not write one and reuse it as the other.
+3. Add dedicated SEO title, description, canonical, H1, and indexable body — via `HubHead`, which owns the `h1` and the `<SEO>`. The deck and the SEO description are different sentences written for different readers; do not write one and reuse it as the other. Whatever §3.1 decides, the title and description must be materially different from `/parliamentary`'s, which currently uses the HOMEPAGE's pair.
+   3b. **Declare the hreflang pair and `og:url`.** `/elections` + `/en/elections` is a new bilingual pair, and `scripts/prerender/seoBlock.ts` derives the alternate from `altUrl` — deliberately SUPPRESSING alternates on a page that canonicalises elsewhere, because "alternates belong on the canonical target, not on the variant pointing at it". So §3.1's decision determines whether this page declares alternates at all. Both must obey the no-trailing-slash rule and the `/en`-never-`/en/` asymmetry: `tests/seo.spec.ts` fails a declared canonical, `og:url` or `hreflang` that REDIRECTS, which is exactly what a trailing slash produces.
 4. Add a dedicated `public/og/elections.png` capture in `scripts/og/capture-screens.ts`, anchored on a `data-og` attribute (a class name gets renamed silently by a refactor) on the head, with a `waitFor` naming something that exists only after the data loads — a head shot before its numbers arrive is a screenshot of a skeleton. Then **open the PNG and look at it**; a capture reports success on any 1200x630 clip it managed to take.
 5. Add `/elections` to `scripts/og/capture_routes.test.ts`, `scripts/prerender/ogAndSitemapCoverage.test.ts`, and `tests/seo.spec.ts` with a `minBodyChars` — the suite checks body length only for routes listed there.
 6. Add a direct header link, retain the global home's `/elections` tile/contextual link, and add at least one contextual link from `/local/:cycle` so reachability does not depend on the sitemap.
+7. **Restore `/elections` to the LLM index.** `scripts/llms/buildIndex.ts` carries this comment on its Elections entry: _"⚠️ WAS `/elections`, WHICH IS NOT A ROUTE — only `elections/:date` is, so this entry pointed LLM crawlers at a URL that falls through to the SPA shell."_ It was repointed at `/parliamentary` for exactly that reason. This phase makes the URL real, so the entry goes back — at whichever URL §3.1 makes canonical, with a description that distinguishes it from the other two. `buildFull.ts` refuses to rewrite `llms-full.txt` when a section would disappear, so the failure mode here is a quiet wrong URL rather than a loud missing one.
+
+**`preloadData` is the mechanism for the surface artifact on a prerendered page, and it carries two caveats.** Eight routes already declare it and `scripts/prerender/index.ts` emits each as `<link rel="preload" as="fetch" crossorigin fetchpriority="low">`; the §5.0 surface JSON on a prerendered place page is exactly that case. But the href is built by **re-resolving `VITE_DATA_BASE_URL`**, so it depends on the gitignored `.env.production` and must agree with the bundle's own copy — a mismatch is not a build failure but four wasted SPA-shell downloads and four dead hints per page, at a 200. And the whole hint set is a measured **net loss at 1.6 Mbps**, so adding a path to a route means re-measuring rather than assuming. `fetchpriority="low"` is load-bearing, not cosmetic: `as="fetch"` defaults to HIGH, which puts the data in bandwidth competition with the render-blocking JS the page needs in order to paint.
 
 Ordering within the phase: the og capture and `npm run sitemap` run **before** `npm run build`, because `vite build` copies `public/` into `dist/` — run them after and they ship one deploy late. Both are the steps that get skipped, because neither is wired into anything.
 
@@ -1386,8 +1438,9 @@ Work:
 4. Local section renders separate compact panels for council, municipality mayor, and district mayor only when each vote array/denominator exists.
 5. Do not infer zeros for absent arrays or unavailable older-cycle ballots.
    5b. Render no `PlaceDigest` on a polling section: three of the four views do not resolve there, so a one-cell digest is chrome (§4.1).
-6. Kind switching from a section falls back to the settlement and announces why section codes do not map reliably between election kinds/cycles.
-7. Add source-link reconciliation tests for CEC protocol, scan, video, and download URLs.
+   5c. ⚠️ **Decide whether 12,721 section pages should still be SUBMITTED for indexing, and record the answer.** Measured 2026-09-01: `dist/section/` holds **12,721** prerendered pages and `public/sitemap_sections.xml` carries **12,721 `<loc>`s** — roughly 25,400 URLs with the EN mirrors, each body one protocol table. That is exactly the shape `CLAUDE.md` describes for `/council/resolution/**`: "each body is one title and a vote table, the shape that earns a thin-content penalty rather than traffic". Those 4,813 resolutions were given a real head and **deliberately no sitemap `<loc>` and no prerender** — discoverable by a crawler already on the parent page, never submitted en masse.
+
+This phase rewrites the section composition, so it is the moment to ask. Either answer is defensible — a polling-section result is a primary public record, and the family predates the council precedent — but the decision has to be made rather than inherited. If they stay submitted, say why the council reasoning does not apply; if they stop, the `<loc>`s go and the inbound link from the settlement's section list becomes the only route, which makes that link load-bearing exactly as `CouncilScreen`'s resolution title is. 6. Kind switching from a section falls back to the settlement and announces why section codes do not map reliably between election kinds/cycles. 7. Add source-link reconciliation tests for CEC protocol, scan, video, and download URLs.
 
 Publication and vacuity (§9.0): parliamentary section artifacts are the one new route-sized family (§5.0), so this phase carries the largest object-count delta — dry-run the scoped sync, record the count, publish, then run the browser gates with the `data-surface-shell` assertion. Local sections publish as a `surface` key on the existing per-station file and need no new objects.
 
@@ -1500,7 +1553,7 @@ against the wrong selector reports zero violations exactly like a clean page.
 
 ### Route/navigation
 
-- `/elections?elections=<older cycle>` renders that cycle in the canvas, the scope bar and `ElectionContext` alike; a malformed value falls back to the latest event **and says so** (§3.1a);
+- `/elections?elections=<older cycle>` renders that cycle in the canvas, the scope bar and `ElectionContext` alike; a malformed value falls back to the latest event **and says so** (§3.1);
 - every migrated route asserts the `data-surface-shell` marker is present, so a silent fallback to the legacy body fails rather than passes (§9.0);
 - the merged Elections menu points to `/elections`, contains no stale `/` election leaf, and does not absorb `/governance/mayor-pay`;
 - every digest cell's destination resolves to a live route, and its availability agrees with what `PlaceViewNav` renders for the same place;
@@ -1521,6 +1574,12 @@ against the wrong selector reports zero violations exactly like a clean page.
 - committed sitemap contains both language variants where supported, from **both** `route_defs.ts` lists — a page in `ENGLISH_STATIC_PAGES` and not in `routeDefs(year)` has its mirror indexed and not its original;
 - every `routeDefs` `file:` exists on disk — a missing one skips the entry with no warning;
 - every `ogImage` path resolves to a file under `public/og/`, and the captured PNG has been opened and looked at;
+- `/elections`, `/parliamentary` and `/` carry three materially different titles, descriptions and bodies, or the non-canonical ones carry no `<loc>` (§3.1);
+- `/elections` declares an hreflang pair and an `og:url`, and no declared canonical, `og:url` or `hreflang` redirects — the no-trailing-slash rule, with `/en` never `/en/`;
+- the LLM index names the canonical election entry and no URL that falls through to the SPA shell;
+- every `preloadData` href's origin matches the base inlined into the built entry chunk;
+- the section family's indexing posture is a recorded decision, not an inheritance (§Phase 6);
+- the prerendered file count is recorded and inside the Firebase ceiling;
 - no route falls through to home shell metadata.
 
 ### Performance
@@ -1648,6 +1707,9 @@ Do not silently fall back after a valid surface request returns malformed data. 
 | Browser gates green on the legacy fallback             | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                                                  |
 | A six-figure object expansion for no gain              | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                                                   |
 | `/elections` becomes a 14th bespoke header             | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                                                         |
+| Three URLs competing for one query                     | §3.1 settles which is canonical before Phase 3; `/parliamentary` stops using the homepage's title; the non-canonical ones carry no `<loc>`                                |
+| LLM crawlers sent to a shell URL                       | The index entry moves back to the canonical election URL in the same phase that makes it real — it was removed once for exactly this                                      |
+| 25,400 thin section URLs submitted                     | Phase 6 records the indexing posture against the `/council/resolution/**` precedent rather than inheriting it                                                             |
 | Accessibility requirements with no gate                | §10.0's axe pass plus four hand-written assertions; the map posture is declared per adapter and gated in Phase 0                                                          |
 | A migrated page navigable by region but not by heading | `headingLevel={2}` on every migrated `DashboardSection`, asserted over the composed outline — the `<section>` stays a landmark either way, so nothing else would catch it |
 | A map that answers the mouse and not the keyboard      | `FeatureMap` gates tabIndex/role/aria-label/onKeyDown on `ariaLabel && onClick`; each adapter declares interactive or presentational                                      |
@@ -1678,6 +1740,7 @@ v1 is complete only when all of the following are true:
 - section pages are result/evidence-first and never combine unlike ballots;
 - abroad never displays a turnout percentage without a valid denominator;
 - every standout is reproducible, neutral, and evidence-linked;
+- exactly one of `/`, `/parliamentary` and `/elections` is canonical for the parliamentary country result, the other two say something else, and the LLM index names the right one;
 - the accessibility gate exists, runs over every representative route, and has been shown to fail when each clause is broken;
 - every enum the contract can emit has copy in both languages, every count is a plural family, and no raw identifier or folder id reaches the DOM;
 - surface payload, entry bundle, CLS, LCP, accessibility, i18n, and artifact gates pass;
