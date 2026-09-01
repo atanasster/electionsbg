@@ -84,10 +84,16 @@ describe("StoryCard interaction scent", () => {
     expect(screen.getAllByText("Втори източник")).toHaveLength(2);
     expect(screen.getByText("Пример")).toBeVisible();
     const links = screen.getAllByRole("link");
+    // The story link comes FIRST. The credit and licence links live in the
+    // figure's caption, which renders BELOW the headline now that the media is
+    // a side thumbnail — so the figure is written after the headline and tab
+    // order matches what a sighted reader scans. While the media was a block
+    // above the text, the caption was above the headline and this order was
+    // the reverse.
     expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "/story/story-1",
       "https://commons.wikimedia.org/photo",
       "https://creativecommons.org/licenses/by/4.0/",
-      "/story/story-1",
     ]);
     expect(document.querySelector("a a")).toBeNull();
     const caption = document.querySelector("figcaption");
@@ -104,21 +110,79 @@ describe("StoryCard interaction scent", () => {
     // documenting the live defect; those become enforced bounds when Phase 1
     // removes the annotations.
     //
-    // What is asserted instead is that the media block and the body are
-    // SIBLINGS inside the card. That holds for today's stacked anatomy and for
-    // a side thumbnail, and nothing else in this test covers it — unlike
-    // `figure`, which `figcaption` above already implies.
+    // What is asserted instead is that the media is a GRID ITEM of the card
+    // body, placed by area rather than by document order. That is the whole
+    // §4.4 anatomy in one check: the figure sits inside the same grid as the
+    // headline, the credit and the footer, and its `display: contents` wrapper
+    // is what lets the image and its caption land in different areas.
+    const body = container.querySelector(".news-card-body");
     const figure = container.querySelector("figure");
+    expect(body).toHaveClass("news-card-grid");
     expect(figure).not.toBeNull();
-    expect(figure!.parentElement).toBe(
-      container.querySelector(".news-card-body")!.parentElement,
-    );
+    expect(figure!.parentElement).toBe(body);
+    expect(figure!.querySelector(".news-card-media")).not.toBeNull();
     await user.tab();
-    expect(links[0]).toHaveFocus();
+    expect(storyLink).toHaveFocus();
     await user.tab();
     expect(links[1]).toHaveFocus();
     await user.tab();
-    expect(storyLink).toHaveFocus();
+    expect(links[2]).toHaveFocus();
+  });
+
+  it("only claims a difference when the labels actually differ", () => {
+    // ⚠️ THE CUE IS A CLAIM ABOUT NAMED OUTLETS. Deriving it from label
+    // PRESENCE rather than divergence made it false for every comparison story
+    // in the live corpus — measured 2026-09-01, both are uniform
+    // (`{neutral: 2}` and `{neutral: 3}`). The spectrum bar it replaced was
+    // honest by construction because it DREW the distribution; a sentence has
+    // to earn that itself.
+    const render_ = (aggregates: Partial<HomeStory["aggregates"]>) =>
+      render(
+        <MemoryRouter>
+          <StoryCard
+            story={{
+              ...story,
+              aggregates: { ...story.aggregates, ...aggregates },
+            }}
+            taxonomy={null}
+            kind="comparison"
+            imageArticle={null}
+            outlets={outlets}
+          />
+        </MemoryRouter>,
+      );
+
+    const uniform = render_({ by_leaning: { neutral: 2 } });
+    expect(uniform.container.textContent).toContain("сходно рамкиране");
+    expect(uniform.container.textContent).not.toContain("различия");
+    uniform.unmount();
+
+    const divergent = render_({ by_leaning: { neutral: 1, progressive: 1 } });
+    expect(divergent.container.textContent).toContain("различия в рамкирането");
+    divergent.unmount();
+
+    // `not_applicable` is not a position, so it can never make a second one.
+    const notApplicable = render_({
+      by_leaning: { neutral: 2, not_applicable: 3 },
+    });
+    expect(notApplicable.container.textContent).toContain("сходно рамкиране");
+    notApplicable.unmount();
+
+    // A single-source story is not a comparison and states nothing at all.
+    const single = render_({ by_leaning: { neutral: 1, progressive: 1 } });
+    single.unmount();
+    const { container } = render(
+      <MemoryRouter>
+        <StoryCard
+          story={story}
+          taxonomy={null}
+          kind="analyzed_article"
+          imageArticle={null}
+          outlets={outlets}
+        />
+      </MemoryRouter>,
+    );
+    expect(container.textContent).not.toContain("рамкиране");
   });
 
   it("renders a safe text-first fallback when no cleared image exists", () => {
@@ -151,7 +215,13 @@ describe("StoryCard interaction scent", () => {
     // marker for "this card has no media". If §4.4 removes the class as well,
     // this query moves to `.news-story-card` and the assertions below stand.
     expect(textCard!.querySelector("figure")).toBeNull();
-    expect(textCard!.querySelector(".news-card-body")).not.toBeNull();
+    const body = textCard!.querySelector(".news-card-body");
+    expect(body).not.toBeNull();
+    // ⚠️ "No figure" is not "no media slot" — a card can reserve an empty
+    // column and still render nothing in it, which is the placeholder
+    // treatment AC#5 forbids. The media column is opt-in, so its ABSENCE is
+    // what has to be asserted.
+    expect(body).not.toHaveClass("news-card-grid--media");
     expect(screen.getAllByText("society")).toHaveLength(1);
     expect(
       screen.getByRole("link", {

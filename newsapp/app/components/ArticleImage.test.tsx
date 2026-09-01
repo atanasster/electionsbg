@@ -144,6 +144,54 @@ describe("the credit", () => {
   });
 });
 
+describe("the thumbnail layout", () => {
+  // ⚠️ `layout="thumbnail"` dissolves the figure so the image box and the
+  // caption become items of the CARD's grid — a square beside the headline and
+  // a full-width credit beneath both. What must survive that is everything the
+  // credit invariant depends on: the figure and its caption still paired in
+  // the DOM, and the credit still visible on every rung.
+  it("keeps the figure and its caption paired while placing them separately", () => {
+    const { container } = renderImage({
+      layout: "thumbnail",
+      creditVariant: "compact",
+    });
+    const figure = container.querySelector("figure");
+    expect(figure).not.toBeNull();
+    expect(figure).toHaveClass("news-card-figure");
+    // The caption stays a CHILD of the figure. The association a screen reader
+    // computes comes from that ancestry, not from the boxes CSS draws.
+    const caption = figure!.querySelector("figcaption");
+    expect(caption).not.toBeNull();
+    expect(caption).toHaveClass("news-image-credit");
+    expect(caption).toBeVisible();
+    // The image box carries the grid area rather than an aspect utility.
+    expect(figure!.querySelector(".news-card-media")).not.toBeNull();
+  });
+
+  it("still credits every fallback rung", () => {
+    const { container } = renderImage({
+      layout: "thumbnail",
+      creditVariant: "compact",
+      image: null,
+      outlet: outlet({ logo: null }),
+    });
+    expect(container.querySelector("img")).toBeNull();
+    expect(screen.getByText("Примерен вестник")).toBeVisible();
+    expect(container.querySelector("figcaption")).toHaveClass(
+      "news-image-credit",
+    );
+  });
+
+  it("does not carry the block layout's surround", () => {
+    // The block figure paints its own rounded muted box; a `display: contents`
+    // figure cannot, so those utilities would be silently inert on it.
+    const { container } = renderImage({ layout: "thumbnail" });
+    const figure = container.querySelector("figure")!;
+    expect(figure.className).not.toContain("rounded-md");
+    expect(figure.className).not.toContain("bg-muted");
+  });
+});
+
 describe("the fallback ladder", () => {
   it("starts on the photo when nothing says otherwise", () => {
     renderImage();

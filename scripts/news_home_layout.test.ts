@@ -102,9 +102,15 @@ const supportingGridRules = (css: string): GridRule[] => {
  * `minmax(0, 1fr)`.
  */
 const LENGTH = String.raw`\d+(?:\.\d+)?(?:px|rem|em|ch)`;
+/**
+ * A minimum is definite when it is 0, a length, or `min(<len>, 100%)` — the
+ * idiom that keeps an auto-fit track from flooring itself above the viewport
+ * and overflowing every phone.
+ */
+const MINIMUM = `(?:0|${LENGTH}|min\\(\\s*${LENGTH}\\s*,\\s*100%\\s*\\))`;
 const SAFE_TRACK = new RegExp(
-  `^(?:minmax\\(\\s*(?:0|${LENGTH})\\s*,\\s*1fr\\s*\\)` +
-    `|repeat\\(\\s*auto-fi[tl]\\s*,\\s*minmax\\(\\s*${LENGTH}\\s*,\\s*1fr\\s*\\)\\s*\\))$`,
+  `^(?:minmax\\(\\s*${MINIMUM}\\s*,\\s*1fr\\s*\\)` +
+    `|repeat\\(\\s*auto-fi[tl]\\s*,\\s*minmax\\(\\s*${MINIMUM}\\s*,\\s*1fr\\s*\\)\\s*\\))$`,
 );
 
 describe("news home supporting-grid CSS contract", () => {
@@ -136,20 +142,30 @@ describe("news home supporting-grid CSS contract", () => {
 
   it("starts at one column, widens somewhere, and never narrows", () => {
     const rules = supportingGridRules(css);
-    expect(rules[0].minWidth, "the base rule must be unwrapped").toBe(0);
-    expect(rules[0].tracks).toHaveLength(1);
+    const base = rules[0];
+    expect(base.minWidth, "the base rule must be unwrapped").toBe(0);
 
-    // An auto-fit rule is multi-column by construction, so it satisfies the
-    // widening requirement without declaring a count.
+    // An auto-fit rule is multi-column by construction and collapses to one
+    // track on its own when the container cannot hold two — so it satisfies
+    // "starts at one column" and "widens somewhere" together, PROVIDED its
+    // minimum is capped at 100%. Without that cap it floors the track above
+    // the viewport and overflows every phone, which is the one way an
+    // auto-fit grid can fail the mobile contract.
     const usesAutoFit = rules.some((rule) => rule.tracks === null);
+    if (base.tracks === null)
+      expect(
+        base.raw,
+        "an auto-fit base must cap its minimum at 100% so it can collapse",
+      ).toContain("100%");
+    else expect(base.tracks).toHaveLength(1);
+
     const counts = rules
       .filter((rule) => rule.tracks !== null)
       .map((rule) => rule.tracks!.length);
 
     // Without this, deleting every media query — one column at 320px AND at
-    // 1440px — passes the other two assertions. The retired literals caught
-    // that; nothing else does. §4.3 takes the widest breakpoint from three
-    // tracks to two; it never takes it to one.
+    // 1440px — passes the other assertions. The retired literals caught that;
+    // nothing else does.
     expect(
       usesAutoFit || Math.max(...counts) >= 2,
       "the supporting grid must widen beyond one column at some breakpoint",
@@ -157,17 +173,42 @@ describe("news home supporting-grid CSS contract", () => {
 
     expect(counts).toEqual([...counts].sort((a, b) => a - b));
     // A ceiling, not a pin: a fourth column has never been intended.
-    expect(Math.max(...counts)).toBeLessThanOrEqual(3);
+    if (counts.length) expect(Math.max(...counts)).toBeLessThanOrEqual(3);
+
+    // ⚠️ An auto-fit rule declares NO count, so without this its column count
+    // is unbounded in both directions and the assertions above are satisfied
+    // by anything. Demonstrated: `min(200rem, 100%)` gives one column at every
+    // width (the collapse the widening check exists to catch) and
+    // `min(1px, 100%)` gives as many columns as fit.
+    //
+    // The bound comes from the shell, not from taste. The content box is
+    // ~82rem at the 84rem ceiling, so a minimum above 82/3 = 27.3rem can never
+    // reach three columns, and one at or below 82/2 = 41rem always reaches
+    // two. Anything inside that band is a valid two-column editorial grid.
+    for (const rule of rules.filter((entry) => entry.tracks === null)) {
+      const minimum = rule.raw.match(/minmax\(\s*min\(\s*([\d.]+)rem/);
+      expect(
+        minimum,
+        `auto-fit minimum must be a rem length: ${rule.raw}`,
+      ).not.toBeNull();
+      const rem = Number(minimum![1]);
+      expect(rem, `${rule.raw} can reach three columns`).toBeGreaterThan(27.3);
+      expect(
+        rem,
+        `${rule.raw} can never reach two columns`,
+      ).toBeLessThanOrEqual(41);
+    }
   });
 
   it("keeps card interaction polish responsive and content-driven", () => {
     // The kicker accent is what makes a card without a cleared image read as a
     // deliberate text-first entry rather than an unfinished one (v3). The
-    // SELECTOR is not pinned: §4.4 may extend it from text-only cards to every
-    // standard card once an image becomes a side thumbnail, at which point the
-    // two anatomies are close enough that a rule on only one is arbitrary.
+    // SELECTOR is not pinned to one modifier: §4.4 widened it from text-only
+    // cards to every standard card once the side thumbnail made the two
+    // anatomies read as one kind, at which point a rule on only one of them
+    // was an arbitrary distinction rather than a signal.
     const kicker = css.match(
-      /\.news-shell\s+\.news-story-card(?:--text)?::before\s*\{([^}]*)\}/,
+      /\.news-shell\s+\.news-story-card(?:--[a-z]+)?::before\s*\{([^}]*)\}/,
     );
     expect(
       kicker,

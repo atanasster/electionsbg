@@ -65,7 +65,13 @@
     transform 160ms ease;
 }
 
-.news-shell .news-story-card--text::before {
+/* The editorial kicker marks a STANDARD card — image-led or text-first alike.
+   It was scoped to text-only cards while a media block made the two anatomies
+   obviously different; now that an image is a side thumbnail they read as one
+   kind of card, and a rule on only one of them is an arbitrary distinction
+   rather than a signal. The lead is deliberately excluded: it is a feature
+   module, not a standard card. */
+.news-shell .news-story-card--standard::before {
   position: absolute;
   inset: 0 0 auto;
   z-index: 1;
@@ -79,7 +85,7 @@
   );
 }
 
-.news-shell .news-story-card--text .news-card-body {
+.news-shell .news-story-card--standard .news-card-body {
   padding-top: 1.125rem;
 }
 
@@ -198,20 +204,108 @@
     hsl(var(--foreground) / 0.025)
   );
 }
-/* Explicit tracks keep long image credits from sizing an implicit `auto`
-   column wider than the mobile viewport. */
+/* ONE auto-fit rule replaces the 1/2/3-column breakpoint ladder.
+   
+   Two properties come from auto-fit that no fixed ladder can give:
+   a section holding fewer cards than its track count COLLAPSES the empty
+   tracks instead of reserving them (the two-card update band no longer sits
+   in three columns), and the column count follows the container rather than
+   the viewport, so a narrower shell cannot desynchronise from it.
+
+   28rem is chosen, not rounded: the content box is ~992px at a 1024px
+   viewport and ~736px at 768px, so 2*448+12 = 908 fits two columns at the
+   first and not at the second — which is §4.3's "one column below 64rem, two
+   above" without a media query. At the 84rem ceiling 3*448+24 = 1368 > 1312,
+   so it can never reach three.
+
+   `min(28rem, 100%)` is load-bearing, not defensive: a bare `minmax(28rem, 1fr)`
+   floors the track at 448px, which OVERFLOWS every viewport below that and is
+   the classic auto-fit trap. The explicit tracks are still what keep a long
+   image credit from sizing an implicit `auto` column past the mobile
+   viewport. */
 .news-supporting-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(28rem, 100%), 1fr));
+}
+
+/* The standard card's internal grid.
+
+   The media is a fixed SQUARE thumbnail in its own column rather than a
+   full-width 16:10 block above the text, so an image-led card is about as
+   tall as a text card and stops making its whole row tall. The credit and the
+   footer span both columns: a legal attribution may not be clamped, and in a
+   7rem column a long creator name wraps to five lines and the media drives
+   the height again — the defect this anatomy exists to remove.
+
+   The figure is `display: contents` so its box disappears while the image and
+   its caption become grid items of THIS grid. The figure/figcaption pairing
+   survives in the DOM, which is what the caption's association depends on;
+   verified 2026-09-02 by reading the Chrome accessibility tree over CDP
+   (`Accessibility.getFullAXTree`): the figure node is present and not
+   ignored, and the figcaption still supplies its accessible name. The
+   historical bug where `display: contents` dropped an element from the a11y
+   tree was fixed in every current engine, but it is worth re-checking rather
+   than assuming if this ever moves to an older target.
+
+   ⚠️ THE MEDIA COLUMN IS OPT-IN (`--media`), NEVER AN OVERRIDE ON THE BASE.
+   It was the other way round for one commit and the inversion is why: a
+   narrow-viewport rule re-declared `.news-card-grid` AFTER the single-column
+   text variant at equal specificity, so every TEXT card below 360px got two
+   columns while its `grid-template-areas` still named one — headline, credit
+   and footer all landed in the 4.5rem track, 72px wide, with 184px empty
+   beside them. 14 of 16 live stories are text-first, and `overflow-hidden`
+   plus `min-w-0` clipped it rather than overflowing, so no reflow gate could
+   see it. With the media column opt-in, no rule that targets it can reach a
+   text card at all. */
+.news-card-grid {
+  display: grid;
+  grid-template-areas:
+    "meta"
+    "headline"
+    "credit"
+    "footer";
   grid-template-columns: minmax(0, 1fr);
+  /* The footer row absorbs the slack and the footer sits at its bottom, so a
+     card stretched to its row's height has its sources line ALIGNED with its
+     neighbours' rather than a void beneath it. Cards in one row differ by
+     ~120px of pure text variance — a 3-line headline against a 1-line one —
+     which no media change can remove; the choice is where that space goes, and
+     between the summary and a bottom-aligned footer is the one place it reads
+     as rhythm instead of as a hole. */
+  grid-template-rows: auto auto auto 1fr;
+  row-gap: 0.75rem;
+  column-gap: 0.875rem;
 }
 
-@media (min-width: 640px) {
-  .news-supporting-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.news-card-grid--media {
+  grid-template-areas:
+    "meta meta"
+    "media headline"
+    "credit credit"
+    "footer footer";
+  /* Fluid rather than a single breakpoint: a fixed 7rem square left a 390px
+     phone — the commonest width there is — with LESS headline room than a
+     360px one got from a hard-coded override. */
+  grid-template-columns: clamp(4.5rem, 18vw, 7rem) minmax(0, 1fr);
 }
 
-@media (min-width: 1024px) {
-  .news-supporting-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.news-card-figure {
+  display: contents;
+}
+
+.news-card-meta {
+  grid-area: meta;
+}
+.news-card-media {
+  grid-area: media;
+  aspect-ratio: 1 / 1;
+}
+.news-card-headline {
+  grid-area: headline;
+}
+.news-image-credit {
+  grid-area: credit;
+}
+.news-card-footer {
+  grid-area: footer;
+  align-self: end;
 }

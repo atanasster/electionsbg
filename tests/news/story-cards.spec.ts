@@ -37,32 +37,22 @@ test("story cards preserve responsive, focus and motion contracts", async ({
     expect(sourceVisibility.desktop === "none").toBe(width < 640);
   }
 
-  // The comparison is defined at desktop width — pinned rather than inherited
-  // from whatever the loop above left set, since the margin varies with width.
-  await page.setViewportSize({ width: 1440, height: 900 });
-  const heightOf = (testId: string) =>
-    page
-      .getByTestId(testId)
-      .locator(".news-story-card")
-      .evaluate((card) => card.getBoundingClientRect().height);
-  const imageCardHeight = await heightOf("image-led-single-source");
-  const textCardHeight = await heightOf("text-only-same-story");
-  // ⚠️ A DIRECTION guard between the SAME story rendered with and without
-  // media, not the strict inequality this used to assert.
+  // ⚠️ NO HEIGHT ASSERTION HERE, deliberately. This file owns per-card
+  // contracts — overflow, focus, motion, dark surfaces. Height is a
+  // COMPOSITION property and belongs to `tests/news/home-grid.spec.ts`, which
+  // groups cards into rows before comparing them and enforces both bounds that
+  // matter: an image-led card at most 1.25x a text card, and no card's content
+  // ending more than 32px above its own bottom.
   //
-  // `textCardHeight < imageCardHeight` against `text-first-multi-source`
-  // compared two cards differing in three ways, and the decisive one was
-  // `kind`: that fixture is a comparison card and carries a spectrum block the
-  // analyzed one lacks. Measured, on bodies alone it INVERTS at all five
-  // declared viewports — so the old guard measured `kind`, not media, and
-  // would have gone red on the §4.4 commit for the wrong reason.
-  //
-  // What survives is that media never makes a card SHORTER. The bound in the
-  // other direction — an image-led card at most 1.25x a text card — lives in
-  // `tests/news/home-grid.spec.ts`, currently a `test.fail()` documenting the
-  // live defect; it becomes an enforced bound when Phase 1 removes that
-  // annotation.
-  expect(imageCardHeight).toBeGreaterThanOrEqual(textCardHeight);
+  // Two successive attempts to keep a height guard here were unsound, and the
+  // reason generalises. `textCardHeight < imageCardHeight` compared cards that
+  // differed in `kind` as well as media, so it measured the spectrum block, not
+  // the image. Comparing the SAME story with and without media fixed that and
+  // was still wrong: the two fixtures land in different auto-fit grid rows, and
+  // a grid stretches cards to their own row's height — so the numbers describe
+  // which row a card happens to occupy. Measured 2026-09-02: 246.3px for both
+  // cards in row 0 and 264.7px in row 1, including the image-led card being
+  // 18.4px SHORTER than the same story without media.
 
   // Browser zoom to 200% halves a 1440px window to a 720 CSS-pixel reflow
   // viewport. This exercises the same layout contract without depending on a
@@ -117,6 +107,7 @@ test("reference cards remain captureable", async ({ page }) => {
     "image-led-multi-source",
     "image-led-single-source",
     "text-first-multi-source",
+    "text-only-same-story",
     "long-content-fallback-source",
   ] as const;
 

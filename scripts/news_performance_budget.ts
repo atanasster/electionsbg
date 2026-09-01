@@ -2,6 +2,18 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
+/**
+ * Gzip byte ceilings — NOT layout shift. Nothing in the news suite measures
+ * CLS; `newsVitals.ts` reports it from real sessions and `perf:cls` covers the
+ * main site, not `dist-news`.
+ *
+ * Measured 2026-09-02 after the editorial-grid rewrite: html 1,220 · css
+ * 26,722 (89.1%) · js 118,612 (84.7%) · home.json 30,727 (90.9%). The two
+ * tight ones are css and home.json, and both are on the path of planned work —
+ * a briefing-controls disclosure spends the first, added image provenance the
+ * second. Re-measure after each; landing over budget is a decision to raise a
+ * constant WITH its measurement, never a silent edit.
+ */
 export const BUDGETS = {
   htmlGzip: 2_000,
   cssGzip: 30_000,

@@ -41,6 +41,7 @@ export const ArticleImage = ({
   aspect = "aspect-[16/10]",
   priority = false,
   creditVariant = "full",
+  layout = "block",
 }: {
   image: string | null | undefined;
   imageAlt?: string | null;
@@ -52,12 +53,36 @@ export const ArticleImage = ({
   articleUrl: string | null;
   /** Reviewed attribution/rights record. Delivery still uses outlet.hotlink_ok. */
   rights?: ImageRights | null;
+  /** `block` only — a `thumbnail` figure is `display: contents`, so every box
+   *  property here is a no-op. */
   className?: string;
+  /** `block` only — a `thumbnail` box is square by CSS (`.news-card-media`). */
   aspect?: string;
   /** Only the single above-the-fold lead may opt out of lazy loading. */
   priority?: boolean;
   /** Dense cards show a structured short credit; detail pages keep the full record. */
   creditVariant?: "compact" | "full";
+  /**
+   * `block` stacks a full-width media box above its caption — the lead module
+   * and every article page.
+   *
+   * `thumbnail` dissolves the figure with `display: contents` so the image box
+   * and the caption become items of the CARD's grid: a square thumbnail beside
+   * the headline, and the credit full-width beneath both. The figure and its
+   * caption stay in the DOM, so the association a screen reader computes from
+   * ancestry is unchanged — only the boxes are gone. A credit may never be
+   * clamped into a 7rem column, which is the reason it does not simply sit
+   * under the thumbnail.
+   *
+   * ⚠️ A thumbnail still CROPS (`object-cover`), as the 16:10 block did before
+   * it. Plan §5.3 wants `contain` on a neutral surround wherever the recorded
+   * authority does not permit adaptation — but that decision needs
+   * `crop_allowed`, which Phase 3a introduces and which does not exist yet.
+   * Deferred deliberately rather than guessed: cropping every image is the
+   * status quo, while containing every image would letterbox the ones we are
+   * entitled to crop.
+   */
+  layout?: "block" | "thumbnail";
 }) => {
   const { tr } = useNewsLocale();
   const name = outlet.outlet || outlet.domain;
@@ -90,9 +115,22 @@ export const ArticleImage = ({
     ? tr("към материала", "to the article")
     : tr("към сайта на медията", "to the outlet website");
 
+  const thumbnail = layout === "thumbnail";
   return (
-    <figure className={`overflow-hidden rounded-md bg-muted ${className}`}>
-      <div className={`relative ${aspect}`}>
+    <figure
+      className={
+        thumbnail
+          ? `news-card-figure ${className}`
+          : `overflow-hidden rounded-md bg-muted ${className}`
+      }
+    >
+      <div
+        className={
+          thumbnail
+            ? "news-card-media relative overflow-hidden rounded-md bg-muted"
+            : `relative ${aspect}`
+        }
+      >
         {src ? (
           <img
             src={src}
@@ -130,7 +168,9 @@ export const ArticleImage = ({
       {/* Rendered on EVERY rung, including the monogram: the card still shows
           an outlet's work and still names them. */}
       <figcaption
-        className={`flex flex-wrap items-center gap-x-1 border-t bg-card px-2 leading-snug ${
+        className={`flex flex-wrap items-center gap-x-1 leading-snug ${
+          thumbnail ? "news-image-credit" : "border-t bg-card px-2"
+        } ${
           creditVariant === "compact"
             ? "news-image-credit--compact py-1 text-[11px] font-normal text-muted-foreground"
             : "py-1.5 text-xs text-card-foreground"
