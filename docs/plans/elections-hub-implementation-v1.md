@@ -65,7 +65,9 @@ These decisions are implementation constraints, not open design questions.
 14. Every new canonical page ships with prerender, both sitemap declarations/artifacts, canonical metadata, internal reachability, and a dedicated OG image in the same phase.
 15. `/elections` **reads `?elections` and captions the cycle it is showing**; it never silently overrides it. `elections` is in the `usePreserveParams` allowlist (`src/ux/usePreserveParams.tsx`), so every in-app link carries it and a link cannot clear it. The hub falls back to the latest event **only when the param is absent or names an unknown cycle**, and the scope bar always names the cycle whose numbers are on screen. See §3.1a.
 16. `/elections` is a hub in the repo's sense and composes `HubHead`. `ElectionScopeBar` and `ElectionOutcomeStrip` belong to the **result pages**, which are not hubs. See §6.0.
-17. **Publication is part of the phase that generates the artifact, not a later step.** A phase that writes a `data/**` file and does not sync it to the bucket is incomplete, and its browser gates are vacuous — CI fetches from the live bucket. See §9.0.
+17. **A place has four views and a result page shows one fact from each.** `PlaceDigest` (§4.1) renders one figure per reachable view — Управление, Парламент, Местни, Потребление — taken from that view's own producer, linking to that view, and omitted rather than zeroed when the view does not resolve for this place. A reader must not have to find the pill to learn who the mayor is.
+18. **A shared composition that already exists is adopted, not rebuilt.** The four-card outcome strip exists nine times and `PlaceViewNav` is already inside `PlaceHeader`; both get a contract, not a parallel implementation (§6.3, §4).
+19. **Publication is part of the phase that generates the artifact, not a later step.** A phase that writes a `data/**` file and does not sync it to the bucket is incomplete, and its browser gates are vacuous — CI fetches from the live bucket. See §9.0.
 
 ## 3. Existing contracts to preserve
 
@@ -147,13 +149,23 @@ The new projection must be reproducible from these files and must not become an 
 
 Every election result page uses this order:
 
-1. `PlaceHeader` — place identity and cross-module navigation;
-2. `ElectionScopeBar` — kind, cycle, round/contest when relevant, finder, result status, source;
-3. `ElectionOutcomeStrip` — zero to four non-duplicative facts;
+1. `PlaceHeader` — place identity, the `PlaceViewNav` four-view switcher, and the cycle/status the scope bar contributes;
+2. `PlaceDigest` — one fact per reachable view, at most four (§4.1);
+3. `ElectionOutcomeStrip` — zero to four non-duplicative facts about THIS election;
 4. `ElectionOutcomeCanvas` — ranked result plus map;
 5. `ElectionStandouts` — zero to three grounded findings;
 6. existing detailed sections in a stable order;
 7. `ElectionSourcePanel` — method, downloads, protocols, update state.
+
+⚠️ **`ElectionScopeBar` is not a seventh row of chrome.** `PlaceHeader` **already renders
+`PlaceViewNav`** (`src/screens/components/place/PlaceHeaderView.tsx`) — the
+Управление / Парламент / Местни / Потребление pills on every place page — so "insert the scope
+bar immediately after `PlaceHeader`" stacks a second horizontal control strip directly under an
+existing one, and puts two bars between the place name and the first number. The scope bar's
+content (cycle, round/contest, result status, source) belongs **inside the header block**, next
+to the identity it qualifies; only where a page genuinely needs a contest switcher does it earn
+its own row. Budget the combined header the way the hub head is budgeted, and measure it at
+390 px first.
 
 Desktop canvas:
 
@@ -170,6 +182,68 @@ scope → facts → ranked result → map → standouts → detail
 ```
 
 The map remains prominent. CSS grid placement must not use `order` to create a visual order that differs from the DOM.
+
+### 4.1 The place digest — one fact per view
+
+**A place has FOUR views, and this plan covers two of them.** `PlaceViewNav` switches a reader
+between Управление (`/governance/:id`), Парламент (`/settlement/:id` and its siblings), Местни
+(`/local/:cycle/:obshtinaCode`) and Потребление (`/consumption/:id`) — the same place, four
+angles, one `PlaceHeader`. `ElectionSurfaceV1.kind` is `"parliamentary" | "local"`, so the
+contract as drafted cannot carry a governance or a consumption fact at all.
+
+The cost is concrete and measurable on any municipality. On `/settlement/PDV22` a reader is
+shown the largest gain, the largest fall, turnout and the paper/machine split — and cannot learn
+who the mayor is, or that the council is held by the same party, without knowing the Местни pill
+exists. **The plan's own validation task 2 — "Who is mayor, which group leads the council, and
+are they the same?" — is answerable only by a reader who already found the right tab.**
+
+What each view leads with today:
+
+| view        | route                         | its own headline facts                                                              |
+| ----------- | ----------------------------- | ----------------------------------------------------------------------------------- |
+| Управление  | `/governance/:id`             | your MPs and their attendance, „Как гласуваха", council, budget, procurement, taxes |
+| Парламент   | `/settlement/:id`             | largest gain / largest fall / turnout / paper-vs-machine, then map + top parties    |
+| Местни      | `/local/:cycle/:obshtinaCode` | mayor, mayor votes, council seats and party count, whether mayor and council match  |
+| Потребление | `/consumption/:id`            | price level vs the country with its rank, basket value, change since the euro       |
+
+**The digest is one fact per reachable view, four at most, rendered on all four views.** It fits
+the existing `lg:grid-cols-4` strip and needs no new layout:
+
+| view        | the fact                                              | why this one                                          |
+| ----------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| Управление  | how many MPs represent this place, and the lead party | „кой ме представлява" — that view's own headline      |
+| Парламент   | who won here and by how much                          | validation task 1                                     |
+| Местни      | mayor, council lead, and whether they match           | validation task 2, the most-asked question in the set |
+| Потребление | price level against the country, with rank            | the only figure on that view a reader can act on      |
+
+Each cell links to its own view, states its basis and names its cycle or reference date.
+
+Six rules, each of which the surrounding conventions already imply:
+
+- **It is a DIGEST, not a second analysis.** Every figure is taken from the producer that draws
+  the destination's own numbers — the same rule that keeps a hub of hubs from disagreeing with
+  the page one click away. A mayor name re-derived here from a different resolver than the
+  Местни tab uses is the defect this rule exists to prevent, and it is invisible on the page.
+- **An unreachable view is OMITTED, never zeroed.** `PlaceViewNav` already models this: the
+  local pill self-hides when the place has no data in the active cycle, the whole control hides
+  below two reachable views, and governance/consumption resolve at every tier except a polling
+  section. A place with no local cycle shows three cells. This is the plan's own "absent ballot
+  is not a zero-vote ballot" rule, one layer up.
+- **The selection rule is NOT the standout rule.** §7 selects what is _unusual_; the digest
+  states what is _true and load-bearing_. Different question, different cap, and no
+  suppression-on-weak-signal — a mayor is not omitted for being unsurprising.
+- **It is disjoint from the outcome strip.** On an election view the strip already answers that
+  election; the digest's own cell for that view is therefore dropped rather than repeated, so
+  the two never render the same number. §7.1 binds here.
+- ⚠️ **It cannot live in `data/<cycle>/surface/`.** Its four facts come from four corpora on
+  four cadences — election shards per cycle, the local cycle bundle, `/api/db` for council and
+  MPs, and price payloads that move **daily**. Baking „индекс 92 · №11 от 93" into a
+  per-election artifact pins a daily number inside a file that changes once every few years. The
+  election halves ride the surface per §5.0; the governance and consumption halves stay on their
+  existing hooks, or on one small place-digest route. Decide which in Phase 0 and write it down;
+  the failure of not deciding is one file with two cadences in it.
+- **A polling section has no digest.** Three of the four views do not resolve there, so a
+  one-cell digest is chrome. Section pages keep the result/evidence composition of §8.
 
 ## 5. Shared data contract
 
@@ -231,6 +305,48 @@ type ElectionSurfaceV1 = {
   destinations: ElectionDestinations;
 };
 ```
+
+### `ElectionDestinations` — where a reader goes next
+
+The draft referenced this type in the payload and **never defined it**: it was the one name in
+the contract with no shape anywhere in either document. It is also the field the place digest
+(§4.1) needs, so it is defined here rather than left to the implementation to invent.
+
+```ts
+type ElectionDestination = {
+  to: string; // an app route, resolved by placeViewUrl/localUrl — never a built string
+  available: boolean; // false renders an explained absence, never a dead or hidden link
+  reason?: string; // enum key, why it is unavailable — "no_local_cycle", "not_at_section", …
+};
+
+type ElectionDestinations = {
+  // Depth within THIS result — the "see the complete result" leaves §8 requires.
+  completeResult: ElectionDestination;
+  childPlaces?: ElectionDestination; // regions / municipalities / settlements / sections
+  parentPlace?: ElectionDestination;
+  officialProtocol?: ElectionDestination; // section level only
+  // The other three views of the SAME place. Present at every level except a section.
+  views?: {
+    governance?: ElectionDestination;
+    parliamentary?: ElectionDestination;
+    local?: ElectionDestination;
+    consumption?: ElectionDestination;
+  };
+};
+```
+
+Three rules on it:
+
+- **Routes come from `placeViewUrl` / `localUrl`, never from a string built in the generator.**
+  A generator that concatenates its own paths keeps emitting the old shape after the routing
+  rule moves, and both sides stay green. This is the same reason the artifact carries no prose.
+- **`available: false` is a rendered state, not an omission.** A local view that does not exist
+  for this place and cycle is worth saying — „тук не са провеждани местни избори през 2023" is
+  an answer; a silently missing pill is not. The `reason` is an enum key so both locales carry
+  it, per §5.1.
+- **`views` is a pointer, never a payload.** It carries a route and its availability; the facts
+  behind those views come from their own producers (§4.1). Putting a mayor's name in here would
+  make this artifact a second authority on the local result.
 
 `ElectionSurfaceBallot` must include:
 
@@ -449,12 +565,13 @@ primitives each side composes, and it has to be stated because the two halves of
 alike and obey different written gates.
 
 |                           | `/elections`                                   | result pages (`/elections/:date`, `/municipality/:id`, `/settlement/:id`, `/sections/:id`, `/section/:id`, `/local/**`) |
-| ------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| head                      | `HubHead`                                      | `PlaceHeader` + `ElectionScopeBar`                                                                                        |
-| owns `<h1>` and `<SEO>`   | `HubHead`                                      | the existing screen                                                                                                       |
-| first substantive section | `ElectionOutcomeCanvas` for the resolved cycle | `ElectionOutcomeCanvas`                                                                                                   |
-| tiles                     | a registry + bands + scenes                    | none — deeper `DashboardSection` bodies                                                                                   |
-| finder                    | yes, in the head                               | see §6.2                                                                                                                  |
+| ------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| head                      | `HubHead`                                      | `PlaceHeader`, which already carries `PlaceViewNav`; the scope bar's cycle/status sits INSIDE it (§4)                   |
+| place digest              | not applicable — a hub is not a place          | `PlaceDigest`, one fact per reachable view (§4.1)                                                                       |
+| owns `<h1>` and `<SEO>`   | `HubHead`                                      | the existing screen                                                                                                     |
+| first substantive section | `ElectionOutcomeCanvas` for the resolved cycle | `ElectionOutcomeCanvas`                                                                                                 |
+| tiles                     | a registry + bands + scenes                    | none — deeper `DashboardSection` bodies                                                                                 |
+| finder                    | yes, in the head                               | see §6.2                                                                                                                |
 
 **`/elections` composes `HubHead`.** It is the repo's one hub head (`src/ux/infographic/HubHead.tsx`,
 rendered by 20 screens) and it exists because thirteen hubs had each composed their own and no
@@ -551,6 +668,47 @@ page which does not open the finder issues no place-catalog request.
 Route resolution still goes through `placeViewUrl`/`localUrl`, including Sofia and city-district
 special cases.
 
+### 6.3 The outcome strip already exists — nine times
+
+`ElectionOutcomeStrip` is in the New files list below, and the thing it describes is already
+built: `PartyChangeCard` (gainer) + `PartyChangeCard` (loser) + `TurnoutCard` +
+`PaperMachineCard` in a `lg:grid-cols-4`, composed identically by nine screens —
+`DashboardCards`, `MunicipalityDashboardCards`, `RegionDashboardCards`,
+`SettlementDashboardCards`, `SectionDashboardCards`, `SofiaDashboardCards`,
+`PartyDashboardCards`, `CandidateDashboardCards` and `ProblemSectionDashboardCards`.
+
+So this is the finder situation again: the work is to give an existing composition a contract
+and a home, not to build a parallel one. Read the four cards before writing the component, and
+keep them as the strip's variants.
+
+**Two things follow, and the second is a behaviour change rather than a refactor.**
+
+- **The strip is the same four facts at every level today.** The country page and the
+  municipality page show largest gain, largest fall, turnout and paper-vs-machine alike. That is
+  why the four cards can be shared by nine screens at all.
+- ⚠️ **The descriptor matrix changes that.** §6's matrix declares "fact priority and maximum
+  count" per `kind x level`, which means some levels will stop showing one of the four and start
+  showing something else — abroad, per decision 10, loses the turnout card outright. **State
+  each level's intended fact set in Phase 0 and diff it against what the nine screens render
+  today**, so every removal is a decision recorded in the descriptor rather than a card someone
+  notices missing after the migration. A fact that disappears from a level with no descriptor
+  entry explaining it is a regression, not a simplification.
+
+### The home dashboard is the composition precedent
+
+`DashboardScreen` -> `DashboardCards` is the shape every place view already copies, and the plan
+should extend it rather than describe a new one: a four-card strip, then `DashboardSection`s
+carrying `id` / `title` / `icon` / `articleTopic`, with the votes section leading on a
+`data-og`-anchored `RegionsMapTile` + `PartyResultsTile` pair. `ElectionOutcomeCanvas` is that
+pair with a contract; `DashboardSection` stays exactly as it is for everything below.
+
+⚠️ **The warning that comes with the precedent:** on `/` those four cards are national and on
+`/settlement/PDV22` they are place-scoped, from the SAME components. So the scope is carried
+entirely by what the screen passes in, and nothing in the component says which it received.
+Every digest and strip figure must therefore come from the producer that draws the destination's
+own numbers — the rule §4.1 states for the digest, and the reason the §10 matrix asks for it to
+be re-derived rather than compared against a stored copy.
+
 ### New files
 
 ```text
@@ -567,7 +725,9 @@ src/screens/elections/electionsSearch.ts          # HubSearch sources — see §
 src/screens/elections/electionsRegistry.ts        # see §6.1
 src/screens/elections/electionsScenes.tsx         # see §6.1
 src/screens/elections/ElectionStatusRow.tsx
-src/screens/elections/ElectionOutcomeStrip.tsx
+src/screens/elections/PlaceDigest.tsx               # one fact per reachable view — see §4.1
+src/screens/elections/placeDigestFacts.ts           # the per-view selectors, pure
+src/screens/elections/ElectionOutcomeStrip.tsx      # ⚠️ nine existing copies — see §6.3
 src/screens/elections/ElectionOutcomeCanvas.tsx
 src/screens/elections/ElectionRankedResult.tsx
 src/screens/elections/ElectionMapPanel.tsx
@@ -782,6 +942,8 @@ Work:
 
 1. Add `surfaceTypes.ts` with the discriminated contracts above.
 2. Add `electionSurfaceDescriptors.ts` for every kind/level combination.
+   3a. Freeze the **place digest**: which fact each of the four views contributes, its basis, its producer, and the `reason` enum for an unreachable view (§4.1). Decide and record **where each half is served from** — the election facts on the surface, the governance and consumption facts on their existing hooks or one place-digest route — because their refresh cadences differ by orders of magnitude and one file with two cadences is the failure.
+   3b. Diff each level's intended fact set against what the nine existing dashboard-card screens render today (§6.3), so every card the descriptor drops is a recorded decision.
 3. Freeze status vocabulary, turnout bases, fact priority, standout categories **and every numeric standout threshold** in `docs/methodology/election-surfaces.md`, each threshold carrying value, basis, minimum sample and what it excludes (§7). Thresholds are a Phase 0 design decision precisely because deferring them means fitting them to the fixtures.
 4. Create static fixture payloads for:
    - parliamentary country;
@@ -789,7 +951,8 @@ Work:
    - local country;
    - local municipality with runoff and split control;
    - local settlement without its own mayoral ballot;
-   - section with multiple local ballots.
+   - section with multiple local ballots;
+   - a municipality with all four views reachable, and one with no local cycle (the three-cell digest).
 5. Build an isolated `ElectionResultsShell` component story/test page using fixtures at 390 px and 1440 px.
 6. Validate the four research tasks with internal walkthroughs before generator work.
 
@@ -801,6 +964,8 @@ Tests/gates:
 - keyboard focus order and visible focus;
 - map alternative/list always present;
 - no more than four facts and three standouts;
+- the digest renders one cell per REACHABLE view and omits the rest — never a zero, never a dead link;
+- the digest and the outcome strip never render the same figure on one page;
 - contrast check in light/dark mode.
 
 Exit criterion: product/design accepts the country and municipality grammar and the schema can represent every level without generic `unknown` payloads.
@@ -841,6 +1006,8 @@ Data gates:
 - settlement surfaces never attribute a parent council as a settlement office;
 - `region/32` has no turnout percentage and declares `turnoutBasis: "unavailable"`;
 - every standout evidence route/file exists;
+- every `ElectionDestinations` route resolves to a live route, and every `available: false` carries a `reason` key present in both locales;
+- `destinations.views` availability agrees with what `PlaceViewNav` would render for the same place — the two must not disagree about whether a view exists;
 - every map mode is allowed by the data available at that scope;
 - artifact budgets pass for the largest country, municipality, settlement, and section cases;
 - **§5.0's emit column is re-measured against generated output**: every `no` level is confirmed still inside its budget, every `yes` level shows the reduction that justified it, and a level whose artifact is no smaller than the file it replaces is dropped from the generator;
@@ -861,7 +1028,8 @@ Work:
 
 1. Implement `surfacePath.ts` and `useElectionSurface.ts` using `dataUrl` and React Query.
 2. Implement `ElectionSurfaceBoundary`; it renders the new surface only for `schemaVersion === 1`, otherwise the existing composition.
-3. Implement scope bar, finder, status row, strip, canvas, ranking, standouts, and source panel.
+3. Implement scope bar, finder, status row, strip, canvas, ranking, standouts, and source panel. The strip ADOPTS the nine existing four-card compositions rather than replacing them (§6.3); the scope bar's cycle/status composes into `PlaceHeader` rather than stacking a second control row under `PlaceViewNav` (§4).
+   3b. Implement `PlaceDigest` + `placeDigestFacts.ts` (§4.1): pure per-view selectors, each reading the producer that draws its own view's numbers, each returning `undefined` — not zero — for an unreachable view.
 4. Reuse existing maps through adapters; do not import Leaflet/d3/recharts into the shell module.
 5. Add loading skeletons with fixed dimensions matching the final ranking/map layout.
 6. Add Bulgarian and English keys per §5.1: enumerate the key set from the descriptor matrix and the fact/standout enums first, measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Locale-parity tests must assert both corpora carry a key for **every enum member the generator can emit**, absence states included. Keep long existing analysis copy in its current bundles.
@@ -927,13 +1095,16 @@ Local files:
 
 Work:
 
-1. Insert `ElectionScopeBar` immediately after `PlaceHeader`.
+1. Compose the scope bar's cycle/round/status INTO the `PlaceHeader` block (§4) — it must not become a second control strip beneath the `PlaceViewNav` pills. Measure the combined header at 390 px before and after.
+   1b. Render `PlaceDigest` directly beneath the header, above the outcome strip, on every migrated level (§4.1).
 2. Replace the legacy KPI row and first votes section with `ElectionResultsShell` backed by the surface artifact.
 3. Preserve all current deeper sections after standouts; remove only numbers duplicated by the new strip/canvas.
 4. Parliamentary country/region lead with winner+margin map and ranked party result.
 5. Local country/region expose Mayor and Council as explicit modes with independent legends, totals, and ranked equivalents.
 6. Abroad uses the parliamentary region adapter, total votes cast, country/city ranking, and no turnout fact/card.
 7. Upgrade `electionsResultsFirst.gates.test.ts` from legacy source scanning to rendered shell/descriptor assertions; retain a route-level anti-vacuity test.
+
+Digest gate: on a municipality with all four views reachable, the digest renders four cells; with no local cycle it renders three and names why; and the strip does not repeat the cell for the view the page is already on.
 
 Publication and vacuity (§9.0): the country/region/abroad artifacts for the cycles under test are in the bucket before this phase's browser gates run, and each migrated route asserts `data-surface-shell` is present, so a run that silently fell back to the legacy body fails.
 
@@ -955,7 +1126,8 @@ Work:
 1. Parliamentary municipality: lead with ranked party result and child geography; preferences remain directly below when available.
 2. Local municipality: show the decisive mayor result or runoff pair first, including margin and current/by-election status.
 3. Render council composition separately with seats, majority threshold, lead group, vote share, and full-results link.
-4. Emit and render a split-control standout when mayor and leading council group differ.
+4. Emit and render a split-control standout when mayor and leading council group differ. **The digest's Местни cell states the same thing in one line** — mayor, council lead, and whether they match — so the two must be produced once and read twice, never computed separately.
+   4b. ⚠️ **Gate that the digest's mayor and council figures re-derive from the producer the Местни tab itself renders**, not from a stored copy and not from a second resolver. This is the phase where the failure is worst: a digest naming one mayor while the tab one click away names another is wrong about a named individual, renders at a 200, and no row count moves.
 5. Keep district mayors, settlement mayors, council members, trends, officials reconciliation, and section analysis below the shared surface.
 6. Preserve Sofia city/rayon and Plovdiv/Varna district behavior through existing catalogs and adapters.
 
@@ -984,6 +1156,7 @@ Work:
 3. Parliamentary section removes decorative geography and leads with result, address, risk/review context, and official scan/video/protocol links.
 4. Local section renders separate compact panels for council, municipality mayor, and district mayor only when each vote array/denominator exists.
 5. Do not infer zeros for absent arrays or unavailable older-cycle ballots.
+   5b. Render no `PlaceDigest` on a polling section: three of the four views do not resolve there, so a one-cell digest is chrome (§4.1).
 6. Kind switching from a section falls back to the settlement and announces why section codes do not map reliably between election kinds/cycles.
 7. Add source-link reconciliation tests for CEC protocol, scan, video, and download URLs.
 
@@ -1179,23 +1352,28 @@ Do not silently fall back after a valid surface request returns malformed data. 
 
 ## 13. Risks and mitigations
 
-| Risk                                        | Mitigation                                                                                                                             |
-| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Shared UI erases mayor/council differences  | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                            |
-| Projection drifts from canonical files      | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                       |
-| First surface becomes another KPI band      | Hard fact/standout caps and required map+ranking composition                                                                           |
-| Large scope files create fanout or slow LCP | Small route projection, no geometry/history, request and byte budgets                                                                  |
-| Abroad shows impossible turnout             | Required turnout basis and `region/32` negative data/UI tests                                                                          |
-| Statistical flags imply wrongdoing          | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                |
-| Route cleanup breaks SEO                    | No v1 migration; route artifacts ship atomically; optional migration separately approved                                               |
-| New shell loses existing depth              | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                          |
-| Sofia/district edge cases regress           | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                |
-| Local older cycles lack ballot fields       | Availability-driven panels; missing is not zero; per-cycle data gates                                                                  |
-| Artifacts generated but never published     | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build |
-| Browser gates green on the legacy fallback  | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)               |
-| A six-figure object expansion for no gain   | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                |
-| `/elections` becomes a 14th bespoke header  | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                      |
-| Root/election ownership drifts after cutover | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged |
+| Risk                                          | Mitigation                                                                                                                                   |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shared UI erases mayor/council differences    | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                                  |
+| Projection drifts from canonical files        | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                             |
+| First surface becomes another KPI band        | Hard fact/standout caps and required map+ranking composition                                                                                 |
+| Large scope files create fanout or slow LCP   | Small route projection, no geometry/history, request and byte budgets                                                                        |
+| Abroad shows impossible turnout               | Required turnout basis and `region/32` negative data/UI tests                                                                                |
+| Statistical flags imply wrongdoing            | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                      |
+| Route cleanup breaks SEO                      | No v1 migration; route artifacts ship atomically; optional migration separately approved                                                     |
+| New shell loses existing depth                | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                                |
+| Sofia/district edge cases regress             | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                      |
+| Local older cycles lack ballot fields         | Availability-driven panels; missing is not zero; per-cycle data gates                                                                        |
+| Artifacts generated but never published       | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build       |
+| Browser gates green on the legacy fallback    | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                     |
+| A six-figure object expansion for no gain     | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                      |
+| `/elections` becomes a 14th bespoke header    | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                            |
+| A place's four views stay siloed              | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                     |
+| The digest disagrees with the tab it links to | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                          |
+| A daily price baked into a per-cycle file     | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                         |
+| A second control strip above the first number | The scope bar composes into `PlaceHeader`, which already carries `PlaceViewNav`; the combined header is budgeted and measured at 390 px      |
+| A shared composition rebuilt in parallel      | §6.3 names the nine existing four-card screens; the strip adopts them and the descriptor records every fact it drops                         |
+| Root/election ownership drifts after cutover  | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged |
 
 ## 14. Definition of done
 
@@ -1207,6 +1385,7 @@ v1 is complete only when all of the following are true:
 - `/elections` honours `?elections` and names the cycle whose numbers are on screen;
 - every requested level uses the shared scope/status grammar where data exists;
 - country and region show map plus ranked result first;
+- every result page states one fact from each reachable view, so a reader learns who the mayor is without finding the pill — and every one of those figures matches the view it links to;
 - municipality makes mayor, runoff, council, majority, and split control immediately legible;
 - settlement shows only offices actually elected there and labels parent context;
 - section pages are result/evidence-first and never combine unlike ballots;
