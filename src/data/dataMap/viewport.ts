@@ -37,6 +37,24 @@ export type DataMapViewport = { x: number; y: number; zoom: number };
 /** Breathing room added around the graph when sizing the canvas box. */
 export const DATA_MAP_MARGIN = 16;
 
+/**
+ * Framing limits. The PANE's zoom ceiling is deliberately ABOVE the framing's,
+ * so a reader can zoom in past a fit with the controls. The floors are equal —
+ * a fit is already the whole graph, so there is nothing below it to reach —
+ * and the framing clamps to the pane's own minimum rather than a lower one.
+ *
+ * `FIT_MAX_ZOOM` has a second consumer: the screen caps the canvas box at
+ * `extent.w * FIT_MAX_ZOOM`, because past that width the fit stops magnifying
+ * and the box would only add empty space. One definition, so the cap and the
+ * ceiling cannot drift apart.
+ */
+export const DATA_MAP_PANE_MIN_ZOOM = 0.12;
+export const DATA_MAP_PANE_MAX_ZOOM = 2;
+export const DATA_MAP_FIT_PADDING = 0.03;
+export const DATA_MAP_FIT_MAX_ZOOM = 1.15;
+export const DATA_MAP_FOCUS_PADDING = 0.15;
+export const DATA_MAP_FOCUS_MAX_ZOOM = 1;
+
 const clamp = (v: number, lo: number, hi: number): number =>
   Math.min(Math.max(v, lo), hi);
 

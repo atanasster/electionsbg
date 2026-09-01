@@ -8,7 +8,7 @@ import {
   useDataMap,
   type DataMapLens,
 } from "@/data/dataMap/useDataMap";
-import { dataMapExtent } from "@/data/dataMap/viewport";
+import { dataMapExtent, DATA_MAP_FIT_MAX_ZOOM } from "@/data/dataMap/viewport";
 import { useDataChanges } from "@/data/dataChanges/useDataChanges";
 import { DataMapCanvas } from "@/screens/components/datamap/DataMapCanvas";
 import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
@@ -177,11 +177,11 @@ export const DataMapScreen = () => {
     [manifest],
   );
 
-  // On narrow screens the detail panel renders below the canvas — nudge it
-  // into view when a node is picked so the tap visibly "answers". During a
-  // story the bottom bar carries the narration instead.
+  // The detail panel renders under the canvas at every width, so a pick is
+  // always off-screen — nudge it into view so the click visibly "answers".
+  // During a story the bottom bar carries the narration instead.
   useEffect(() => {
-    if (!selectedId || story || window.innerWidth >= 1024) return;
+    if (!selectedId || story) return;
     const id = window.setTimeout(() => {
       document
         .getElementById("datamap-panel")
@@ -281,12 +281,35 @@ export const DataMapScreen = () => {
               </Link>
             ) : null}
           </div>
-          <div className="flex flex-col gap-4 lg:flex-row">
+          {/* The rail never takes width from the map, at any breakpoint. It
+              used to dock from `lg` (1024) up, which left the canvas 617px — a
+              0.575 zoom — and INVERTED the sizing: a 768px tablet got a 737px
+              map and a 1024px one got 617.
+
+              Docking cannot be afforded in this shell, which is why it is gone
+              rather than moved to a wider breakpoint. Layout.tsx wraps every
+              screen in `container p-2`, and `theme.container.screens` clamps
+              `.container` to max-width 1400px from 1400px up (p-2's 8px a side
+              beats the container's 2rem, because utilities follow components in
+              index.css). So content is frozen at 1384px however wide the screen
+              is, and a docked canvas would be 1384 − 360 − 16 = 1008px at EVERY
+              width — below the 1046px this graph needs for 1:1, and a 16% step
+              DOWN from the 1203px a stacked canvas gets. Measured: 1024 → 993,
+              ≥1280 → 1203 (the cap below), flat from there.
+
+              The panel therefore stacks under the map and T4 gives the
+              selection an overlay, which needs no width at all. */}
+          <div className="flex flex-col gap-4">
             <div
-              className="relative min-h-[420px] w-full flex-1 overflow-hidden rounded-xl border border-border bg-card/30"
+              className="relative min-h-[420px] w-full overflow-hidden rounded-xl border border-border bg-card/30"
               style={{
                 aspectRatio: `${extent.w} / ${extent.h}`,
-                maxHeight: Math.round(extent.h * 1.2),
+                // Past the fit ceiling the framing stops magnifying, so a
+                // bigger box would only add empty space around the graph. Both
+                // bounds read the ceiling the canvas actually frames with —
+                // two literals here would drift from it silently.
+                maxWidth: Math.round(extent.w * DATA_MAP_FIT_MAX_ZOOM),
+                maxHeight: Math.round(extent.h * DATA_MAP_FIT_MAX_ZOOM),
               }}
             >
               <DataMapCanvas
@@ -306,7 +329,7 @@ export const DataMapScreen = () => {
                 onSelect={onSelect}
               />
             </div>
-            <div id="datamap-panel" className="lg:w-[360px] lg:shrink-0">
+            <div id="datamap-panel">
               <DataMapPanel
                 manifest={manifest}
                 lang={lang}
@@ -314,7 +337,6 @@ export const DataMapScreen = () => {
                 freshness={freshness}
                 onSelect={onSelect}
                 onStartTour={onStartTour}
-                className="lg:sticky lg:top-20 lg:max-h-[74vh] lg:overflow-y-auto"
               />
             </div>
           </div>

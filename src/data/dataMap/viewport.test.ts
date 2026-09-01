@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  DATA_MAP_FIT_MAX_ZOOM,
+  DATA_MAP_FIT_PADDING,
+  DATA_MAP_FOCUS_MAX_ZOOM,
+  DATA_MAP_FOCUS_PADDING,
   DATA_MAP_MARGIN,
+  DATA_MAP_PANE_MAX_ZOOM,
+  DATA_MAP_PANE_MIN_ZOOM,
   dataMapBounds,
   dataMapExtent,
   dataMapGraphBounds,
@@ -249,5 +255,30 @@ describe("viewportForBounds tracks React Flow's getViewportForBounds", () => {
     expect(mine.zoom).toBeCloseTo(upstream.zoom, 3);
     expect(Math.abs(mine.x - upstream.x)).toBeLessThanOrEqual(1);
     expect(Math.abs(mine.y - upstream.y)).toBeLessThanOrEqual(1);
+  });
+});
+
+describe("the framing constants keep the orderings their comment states", () => {
+  // Each of these is load-bearing and none of them fails visibly when broken —
+  // a ceiling below the pane's would just quietly stop the reader zooming in;
+  // a focus ceiling above the fit's would zoom PAST 1:1 on a selection.
+  it("leaves headroom above the fit for the reader's own zoom", () => {
+    expect(DATA_MAP_PANE_MAX_ZOOM).toBeGreaterThan(DATA_MAP_FIT_MAX_ZOOM);
+  });
+
+  it("never magnifies a selection beyond a plain fit", () => {
+    expect(DATA_MAP_FOCUS_MAX_ZOOM).toBeLessThanOrEqual(DATA_MAP_FIT_MAX_ZOOM);
+  });
+
+  it("pads a selection more generously than the whole graph", () => {
+    // The closure needs its surroundings to read as context; the whole graph
+    // only needs to clear the box edge.
+    expect(DATA_MAP_FOCUS_PADDING).toBeGreaterThan(DATA_MAP_FIT_PADDING);
+  });
+
+  it("keeps every limit positive and the floor below every ceiling", () => {
+    expect(DATA_MAP_PANE_MIN_ZOOM).toBeGreaterThan(0);
+    expect(DATA_MAP_FIT_PADDING).toBeGreaterThanOrEqual(0);
+    expect(DATA_MAP_PANE_MIN_ZOOM).toBeLessThan(DATA_MAP_FOCUS_MAX_ZOOM);
   });
 });

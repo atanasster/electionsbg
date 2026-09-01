@@ -26,12 +26,22 @@ columns. With 46 sources in the tallest of them the graph comes out
 
 Two things follow:
 
-- **The docked split needs ≈1478 px of viewport** — 1046 graph + 360 rail +
-  16 gap + 56 page padding. It currently switches on at `lg` (1024), so the
-  whole 1024–1478 band is the rail squeezing the map below 1:1.
 - **The `lg` breakpoint inverts the sizing.** A 768 px tablet gets a **737 px**
   map; a 1024 px tablet gets **617 px**. Moving to a bigger screen makes the map
   smaller.
+- **A docked rail cannot be afforded at ANY breakpoint** — corrected 2026-09-01,
+  see §3 T2. `Layout.tsx` wraps every screen in `container p-2`, and
+  `theme.container.screens` clamps `.container` to `max-width: 1400px` from
+  1400 px up (`p-2`'s 8 px a side beats the container's `2rem`, because
+  utilities follow components in `index.css`). So
+
+  ```
+  content = min(viewport, 1400) − 16      # frozen at 1384 px however wide the screen
+  ```
+
+  and a docked canvas is `1384 − 360 − 16 = 1008 px` at every width — 38 px
+  short of the 1046 px this graph needs for 1:1, and unreachable, since
+  `content ≥ 1422` would require a viewport of 1438 against a 1400 clamp.
 
 The rail's contents are also mostly not detail. Its empty state carries a hint
 paragraph, the 46/36/26 counters, a freshness note and the four stories — all
@@ -83,12 +93,32 @@ it ended at 1031 px.
 A layout change cannot be verified while the map never fits, which is why this
 lands first.
 
-### T2 — A: price the rail correctly
+### T2 — A: price the rail correctly — done 2026-09-01
 
-Move the docked split from `lg` (1024) to `2xl` (1536) — the measured threshold
-is ≈1478 — and cap the canvas at the width the graph can actually use. Below
-`2xl` the map is full-width and the panel stacks under it, which also removes
-the 768 → 1024 inversion.
+**The rail is gone from the flow at every width, not moved to a wider one.**
+The first cut docked it at `2xl` on a stated threshold of ≈1478 px; the review
+of that cut showed the threshold does not exist (§1), and that docking at 1536
+would have introduced a *new* 16 % step DOWN — 1203 px stacked at 1280–1535,
+1008 px docked above it — which is the same inversion this tier set out to
+remove, relocated rather than fixed.
+
+So the map takes the full content width at every size and the panel stacks
+under it, and the box is capped at `extent.w × DATA_MAP_FIT_MAX_ZOOM`, because
+past the fit ceiling a wider box only adds empty space. Both bounds read the
+ceiling the canvas actually frames with — the framing constants moved into
+`viewport.ts` so the cap and the ceiling are one definition.
+
+Measured on fresh loads, canvas width and fit zoom:
+
+| viewport | before | after |
+| -------- | ------ | ----- |
+| 1024 | 617 px · 0.575 | **993 px · 0.925** |
+| 1280 | 873 px · never fit | **1203 px · 1.121** |
+| 1600 | 1008 px · 0.939 | **1203 px · 1.121** |
+
+The curve is monotonic now: it rises to the cap and stays there. What the dock
+was FOR — a selection answering beside the map rather than below it — is T4's
+overlay, which needs no width at all.
 
 ### T3 — B: demote the rail to selection-only
 
@@ -101,17 +131,21 @@ Mobile constraint: the head already costs **527 px** before the map starts at
 375 px, so the strip is one inline line and the stories are a single
 horizontally-scrollable row — the head must not grow.
 
-### T4 — C: overlay the detail below `2xl`
+### T4 — C: overlay the detail
 
-With T3 done the rail is empty when nothing is selected, so a *docked* rail that
-appears and disappears would shift the layout by 376 px on every click. Instead:
+T2 removed the dock and T3 leaves the panel with nothing to say when nothing is
+selected, so the detail becomes an overlay rather than a column:
 
-- **≥ 2xl** — the column stays reserved (the screen has the width to spare), so
-  no shift.
-- **lg … 2xl** — the detail is a sticky card overlaying the canvas's top-right,
-  rendered only on selection. The map keeps the full width; the idle cost is
-  zero.
+- **≥ lg** — a sticky card over the canvas's top-right, rendered only on
+  selection. The map keeps its full width and the idle cost is zero, which is
+  what the shell's 1384 px content clamp makes necessary rather than merely
+  tidy.
 - **< lg** — unchanged: an inline card below the canvas, scrolled into view.
+
+The first draft of this tier reserved a column at `2xl` "because the screen has
+the width to spare". It does not: the container clamp freezes content at
+1384 px however wide the screen, so there is no width above which a reserved
+column is free.
 
 ## 4. Not in this plan
 

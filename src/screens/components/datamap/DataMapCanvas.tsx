@@ -30,6 +30,12 @@ import {
   dataMapBounds,
   dataMapGraphBounds,
   viewportForBounds,
+  DATA_MAP_FIT_MAX_ZOOM,
+  DATA_MAP_FIT_PADDING,
+  DATA_MAP_FOCUS_MAX_ZOOM,
+  DATA_MAP_FOCUS_PADDING,
+  DATA_MAP_PANE_MAX_ZOOM,
+  DATA_MAP_PANE_MIN_ZOOM,
   type DataMapBox,
 } from "@/data/dataMap/viewport";
 import {
@@ -65,15 +71,6 @@ const FRESH_WINDOW_MS = 7 * 24 * 3600 * 1000;
 // resized. On narrow panes the base zoom is too small to read, so there a
 // selection zooms the camera to the closure instead.
 const MOBILE_PANE_PX = 700;
-
-// Framing constants. The pane's own limits are wider than the framing's so a
-// reader can still zoom past a fit in either direction with the controls.
-const PANE_MIN_ZOOM = 0.12;
-const PANE_MAX_ZOOM = 2;
-const FIT_PADDING = 0.03;
-const FIT_MAX_ZOOM = 1.15;
-const FOCUS_PADDING = 0.15;
-const FOCUS_MAX_ZOOM = 1;
 
 /**
  * Frames the graph in the pane.
@@ -127,9 +124,9 @@ const CameraDirector: FC<{
     const bounds = focus ?? graphBounds;
     if (!bounds) return;
     const viewport = viewportForBounds(bounds, width, height, {
-      padding: focus ? FOCUS_PADDING : FIT_PADDING,
-      minZoom: PANE_MIN_ZOOM,
-      maxZoom: focus ? FOCUS_MAX_ZOOM : FIT_MAX_ZOOM,
+      padding: focus ? DATA_MAP_FOCUS_PADDING : DATA_MAP_FIT_PADDING,
+      minZoom: DATA_MAP_PANE_MIN_ZOOM,
+      maxZoom: focus ? DATA_MAP_FOCUS_MAX_ZOOM : DATA_MAP_FIT_MAX_ZOOM,
     });
     if (!viewport) {
       // CameraDirector is now the ONLY thing that can frame this graph, so its
@@ -389,8 +386,8 @@ const InnerCanvas: FC<Props> = ({
         nodes={nodes}
         edges={allEdges}
         nodeTypes={nodeTypes}
-        minZoom={PANE_MIN_ZOOM}
-        maxZoom={PANE_MAX_ZOOM}
+        minZoom={DATA_MAP_PANE_MIN_ZOOM}
+        maxZoom={DATA_MAP_PANE_MAX_ZOOM}
         nodesDraggable={false}
         nodesConnectable={false}
         elementsSelectable={false}
