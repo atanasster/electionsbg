@@ -334,6 +334,45 @@ CORPUS SIZES instead — 409,848 договора · 237,941 процедури 
 82,159 проекта — under „Какво има вътре", which answers a different question with the same
 authority.
 
+#### An ELECTION RESULTS HUB is a results surface, not a tile hub
+
+The rule above protects ordinary module landings from paying for a decorative hero chart. It
+does **not** move an election result's map below a grid of KPIs or destination tiles. Elections
+answer a different first task — „who won here, and where?" — and the repository already has the
+right raw shape: the parliamentary country page pairs 'RegionsMapTile' with
+'PartyResultsTile', while the local page leads with separate mayor/council maps plus the
+regions result table. The 2026-09-01 elections-hub research found the same result-first order
+across official German, Norwegian, Australian and European result systems and BBC/Guardian
+lookup views; the evidence and level matrix are recorded in
+'docs/plans/elections-hub-research-v1.md'.
+
+So an election results front uses a compact scope/place/status head, a 3–4 figure outcome
+strip, then an **outcome canvas** as its first substantive section:
+
+- **The map and ranked result are one answer.** A map may lead only when a textual/table result
+  sits in the same first section; neither is a teaser for the other. On mobile the ranked
+  result precedes the map in DOM order, because the list is the accessible result as well as
+  the faster scan.
+- **The map stays analytical, not decorative.** Winner, margin, selected share, change,
+  turnout (only with a valid denominator) and review-signal modes each answer one named
+  question. A map never replaces the rows behind it.
+- **Local elections keep their two outcomes.** Mayor/executive control and council
+  vote/seat control must remain separately named even when they share a canvas; split control
+  is a finding, not a reason to manufacture one blended winner.
+- **Depth moves below the outcome, not out of the page.** Candidates, seats, mayors, council
+  composition, flows, history and evidence-backed review signals remain available as named
+  previews and destinations. The exception rejects KPI-only simplification; it does not
+  license an unranked wall of panels.
+- **Abroad is parliamentary-only and has a denominator contract.** Show votes cast and place
+  distribution; do not publish a conventional turnout rate unless the eligible-voter
+  denominator is valid and named.
+
+'src/screens/dashboard/electionsResultsFirst.gates.test.ts' pins the existing country
+surfaces: the parliamentary votes section must retain both map and result list, and the local
+lead must retain mayor map, council map, and the regions table before the separate mayor and
+council detail sections. Extend that gate to the composed shared outcome component when the
+new '/elections' shell exists; do not leave the permanent gate as a scan of two legacy files.
+
 #### A HUB OF HUBS: quote the corpus, or quote what you inherit
 
 When a hub's tiles point at other SCOPED hubs and the hub itself has no selector, its figure
