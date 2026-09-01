@@ -8,6 +8,9 @@
 import { readFileSync, existsSync, statSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+// ⚠️ Safe in a node test: `homeFigures.ts`'s only RUNTIME import is the indicators
+// registry, which itself imports one type. Everything else there is `import type`.
+import { homeFigureHref } from "@/screens/home/homeFigures";
 import {
   HOME_DATE_BASES,
   HOME_FIGURE_IDS,
@@ -188,12 +191,25 @@ describe("home hub_stats — the four figures", () => {
     expect(expected.inflation_hicp).not.toBe(expected.unemployment_sa);
   });
 
-  it("every figure names a declared source and a real destination", () => {
+  it("every figure names a declared source and resolves to a real destination", () => {
     for (const f of stats.figures) {
       expect(Object.keys(stats.sources), f.id).toContain(f.sourceId);
       expect(stats.sources[f.sourceId]?.available, f.id).toBe(true);
-      expect(f.to, f.id).toMatch(/^\/indicators\//);
+      // ⚠️ RESOLVED, NOT STORED. The artifact used to carry a `to` the generator hardcoded —
+      // a fourth copy of `DOMAIN_PATHS` that silently dropped the per-indicator anchor. The
+      // destination is now a function of the registry, so this asserts the resolution rather
+      // than a string somebody wrote down.
+      expect(homeFigureHref(f.id), f.id).toMatch(
+        /^\/indicators\/[a-z]+#[a-z-]+$/,
+      );
     }
+  });
+
+  it("stores no destination at all", () => {
+    // A published href goes stale the day a section is renamed, and nothing fails: the link
+    // resolves and the hash matches nothing. The figure carries its id; the link is code.
+    for (const f of stats.figures)
+      expect(Object.keys(f), f.id).not.toContain("to");
   });
 
   it("a missing figure is ABSENT, never zero", () => {

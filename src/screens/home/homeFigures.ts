@@ -16,9 +16,18 @@
 
 import type { TFunction } from "i18next";
 import type { HubKpi } from "@/ux/infographic";
+import type { MacroIndicatorKey } from "@/data/macro/useMacro";
+// ⚠️ The ONLY runtime import in this module, and deliberately so: the head's KPI destinations
+// are resolved from the registry that owns them rather than restated here. See
+// `homeFigureHref` for what restating them cost.
+import {
+  DOMAIN_PATHS,
+  KPI_REGISTRY,
+} from "@/screens/indicators/indicatorsRegistry";
 import type {
   HomeBasis,
   HomeFigure,
+  HomeFigureId,
   HomeHubStatsV1,
   HomeTileMetric,
 } from "@/data/home/homeTypes";
@@ -77,6 +86,43 @@ export const formatBasis = (
   return [comparison, adjustment, period].filter(Boolean).join(" · ");
 };
 
+/**
+ * Which /indicators series each head figure is a reading of.
+ *
+ * ⚠️ NOT THE GENERATOR'S `meta.key`, which answers a different question. That one says where a
+ * figure's METADATA comes from — for inflation it is the monthly OBSERVATION rather than the
+ * `indicators` entry, deliberately, because that entry describes a quarterly average. This map
+ * says which series the reader is being sent to READ, and the registry owns where it lives.
+ */
+export const HOME_FIGURE_INDICATOR: Record<HomeFigureId, MacroIndicatorKey> = {
+  gdp_growth: "gdpGrowth",
+  inflation_hicp: "inflation",
+  unemployment_sa: "unemployment",
+  government_debt_gdp: "govDebt",
+};
+
+/**
+ * Where a head figure links, resolved from the indicators registry AT RENDER TIME.
+ *
+ * ⚠️ THROUGH `DOMAIN_PATHS` AND THE REGISTRY'S OWN `anchor`, never re-derived — the rule
+ * `IndicatorsLandingScreen` already states and the one the generator broke. It wrote a
+ * hardcoded `to: "/indicators/economy"` into every artifact: a fourth copy of a map that lives
+ * in one place, carrying no anchor, so all four cells landed at the top of a 500-line page and
+ * the reader had to hunt for the number they had just clicked.
+ *
+ * ⚠️ AND RESOLVED HERE RATHER THAN STORED. A published href is a copy that goes stale the day a
+ * section is renamed, silently: the link still resolves, the hash just matches nothing.
+ * Computed from code, a renamed anchor is a red test — `indicatorsAnchors.test.ts`.
+ *
+ * Falls back to the bare domain path when an indicator declares no anchor. Landing at the top
+ * of the right page beats landing on somebody else's heading.
+ */
+export const homeFigureHref = (id: HomeFigureId): string => {
+  const entry = KPI_REGISTRY[HOME_FIGURE_INDICATOR[id]];
+  if (!entry) return "/indicators";
+  return `${DOMAIN_PATHS[entry.domain]}${entry.anchor ? `#${entry.anchor}` : ""}`;
+};
+
 /** The head's KPI cells, in the artifact's order.
  *
  *  ⚠️ Returns only the figures that are PRESENT. A missing source is absent from
@@ -100,7 +146,7 @@ export const homeKpis = (
           ),
     label: t(`home_figure_${f.id}`),
     basis: formatBasis(f.basis, t, lang),
-    to: f.to,
+    to: homeFigureHref(f.id),
   }));
 };
 

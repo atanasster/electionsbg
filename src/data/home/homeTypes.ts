@@ -78,11 +78,23 @@ export type HomeFigure = {
   id: HomeFigureId;
   value: number;
   basis: HomeBasis;
-  /** In-app destination that owns the full series. */
-  to: string;
   /** Key into `HomeHubStatsV1.sources`. */
   sourceId: string;
 };
+
+/**
+ * ⚠️ A FIGURE CARRIES NO DESTINATION, AND THAT IS DELIBERATE. It used to hold a `to`, written
+ * by the generator from a hardcoded `/indicators/economy` — a FOURTH restatement of a map
+ * `indicatorsRegistry.ts` already owns, and one that silently dropped the per-indicator anchor
+ * the other three consumers carry. `IndicatorsLandingScreen`'s own comment names the failure:
+ * „a template of `/indicators/${entry.domain}` restates the map and silently drops the
+ * per-indicator anchor some entries carry".
+ *
+ * A stored href is also a COPY that goes stale: rename a section anchor and every published
+ * artifact keeps linking to a hash that matches nothing, with nothing failing. Resolved at
+ * render time (`homeFigures.ts` → `homeFigureHref`) the link is a function of code, so a
+ * renamed anchor is a red test rather than a dead scroll.
+ */
 
 /**
  * A basis key is an i18n KEY, never a sentence.

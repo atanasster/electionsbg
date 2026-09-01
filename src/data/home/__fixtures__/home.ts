@@ -45,7 +45,6 @@ export const HOME_FIGURES_FIXTURE: HomeFigure[] = [
       adjustment: "seasonally_adjusted",
       comparison: "yoy",
     },
-    to: "/indicators/economy",
     sourceId: "eurostat_namq_10_gdp",
   },
   {
@@ -58,7 +57,6 @@ export const HOME_FIGURES_FIXTURE: HomeFigure[] = [
       adjustment: "unadjusted",
       comparison: "yoy",
     },
-    to: "/indicators/economy",
     sourceId: "eurostat_prc_hicp_minr",
   },
   {
@@ -71,7 +69,6 @@ export const HOME_FIGURES_FIXTURE: HomeFigure[] = [
       adjustment: "seasonally_adjusted",
       comparison: "level",
     },
-    to: "/indicators/economy",
     sourceId: "eurostat_une_rt_m",
   },
   {
@@ -83,7 +80,6 @@ export const HOME_FIGURES_FIXTURE: HomeFigure[] = [
       unit: "pct_gdp",
       comparison: "snapshot",
     },
-    to: "/indicators/fiscal",
     sourceId: "eurostat_gov_10q_ggdebt",
   },
 ];

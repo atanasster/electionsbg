@@ -24,7 +24,13 @@ import { InflationBreakdownChart } from "@/screens/components/governments/Inflat
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { PeerSnapshotStripAnnual } from "@/screens/components/macro/PeerSnapshotStripAnnual";
-import { ChartSources, IndicatorsPageHeader } from "./indicatorsShared";
+import {
+  ChartSources,
+  IndicatorsPageHeader,
+  SectionAsOf,
+} from "./indicatorsShared";
+import { useHashScroll } from "@/ux/useHashScroll";
+import { pickAtOrBefore } from "@/data/macro/kpiSelectors";
 import {
   computeLabourSlackCallout,
   computeSlackEuAverage,
@@ -60,6 +66,19 @@ export const IndicatorsEconomyScreen = () => {
   const { data: peers } = useMacroPeers();
   const [compare, toggleCompare] = useCompareToggle();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
+
+  // ⚠️ Deep links from the home head land here by hash, and a client-side route change does
+  // NOT scroll — `useLocation()` updates `hash` and leaves the page at the top. `macro` is in
+  // the deps because the target's bounding box is 0/0 until the charts have data.
+  useHashScroll([macro]);
+
+  // The period of the newest point on the overview chart, for `SectionAsOf`. ⚠️ Read from the
+  // series this section PLOTS rather than from anything the link carried: on a stale home
+  // artifact a URL-supplied figure would contradict the chart one line below it.
+  const economyAsOf = useMemo(
+    () => pickAtOrBefore(macro?.series?.gdpGrowth, null),
+    [macro],
+  );
 
   const peerOverlay = useMemo<PeerOverlay | undefined>(() => {
     if (!peers?.indicators) return undefined;
@@ -173,10 +192,20 @@ export const IndicatorsEconomyScreen = () => {
         />
       ) : null}
 
-      <section className="mb-10">
+      {/* ⚠️ `id` + `scroll-mt-20`: the home head's „Растеж на БВП" cell links here by hash, and
+          `scroll-mt-20` is what keeps the heading clear of the sticky nav. The anchor name is
+          the registry's (`indicatorsRegistry.ts` → `gdpGrowth.anchor`), which
+          `home_kpi_destinations.test.ts` checks against this file. */}
+      <section id="gdp-growth" className="mb-10 scroll-mt-20">
         <h2 className="text-lg font-semibold mb-3">
           {t("governments_chart_economy")}
         </h2>
+        <SectionAsOf
+          period={economyAsOf?.period}
+          year={economyAsOf?.year}
+          quarter={economyAsOf?.quarter}
+          lang={lang === "bg" ? "bg" : "en"}
+        />
         <ChartSources
           prefix={t("governments_chart_sources_prefix")}
           sources={[
@@ -225,7 +254,16 @@ export const IndicatorsEconomyScreen = () => {
           peerCompareEnabled={compare}
         />
         {inflationMonthly && economyEnabled.inflation ? (
-          <p className="mt-2 text-xs text-muted-foreground max-w-3xl">
+          // ⚠️ THE ANCHOR SITS ON THE CALLOUT, NOT ON THE SECTION HEADING, and that is the
+          // whole point of the exercise. The home head's inflation cell states the MONTHLY
+          // print (4,4%, юли 2026); the chart above plots the QUARTERLY mean, whose newest
+          // point is 5,83% for 2026-Q2. Landing on the heading would put a number 1.4 points
+          // from the one that was clicked at the top of the viewport. This paragraph IS the
+          // 4,4%.
+          <p
+            id="inflation"
+            className="mt-2 text-xs text-muted-foreground max-w-3xl scroll-mt-20"
+          >
             {t("indicators_inflation_monthly_latest", {
               label: inflationMonthly.label,
               value: inflationMonthly.value,
@@ -294,7 +332,10 @@ export const IndicatorsEconomyScreen = () => {
           peerCompareEnabled={compare}
         />
 
-        <h3 className="text-sm font-medium text-muted-foreground mt-6 mb-1">
+        <h3
+          id="unemployment"
+          className="text-sm font-medium text-muted-foreground mt-6 mb-1 scroll-mt-20"
+        >
           {t("governments_chart_labour_unemployment")}
         </h3>
         {compare && (

@@ -25,7 +25,12 @@ import { xDomainFor } from "@/screens/components/governments/governmentTimelineU
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { FdiMonthlyTile } from "@/screens/components/macro/FdiMonthlyTile";
 import { MunicipalCommitmentsTile } from "@/screens/components/macro/MunicipalCommitmentsTile";
-import { ChartSources, IndicatorsPageHeader } from "./indicatorsShared";
+import {
+  ChartSources,
+  IndicatorsPageHeader,
+  SectionAsOf,
+} from "./indicatorsShared";
+import { pickAtOrBefore } from "@/data/macro/kpiSelectors";
 
 const FISCAL_INDICATOR_KEYS: MacroIndicatorKey[] = [
   "govDebt",
@@ -43,6 +48,13 @@ export const IndicatorsFiscalScreen = () => {
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
 
   useHashScroll([macro, governments]);
+
+  // The period of the newest debt-to-GDP point, for `SectionAsOf` — read from the series this
+  // section plots, never from anything the incoming link carried.
+  const debtAsOf = useMemo(
+    () => pickAtOrBefore(macro?.series?.govDebt, null),
+    [macro],
+  );
 
   const peerOverlay = useMemo<PeerOverlay | undefined>(() => {
     if (!peers?.indicators) return undefined;
@@ -141,13 +153,23 @@ export const IndicatorsFiscalScreen = () => {
         </Link>
       </section>
 
-      <section className="mb-10">
+      {/* ⚠️ THIS section, not `…_fiscal_nominal_stock` below it. The home head's „Държавен
+          дълг" cell is debt as a SHARE OF GDP, which is the series plotted here; the nominal
+          section plots the same debt in EUR billions, so anchoring there would land a „28,5%"
+          click on a chart whose axis reads „€45B". */}
+      <section id="government-debt" className="mb-10 scroll-mt-20">
         <h2 className="text-lg font-semibold mb-3">
           {t("governments_chart_fiscal")}
         </h2>
         <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
           {t("governments_chart_fiscal_explainer")}
         </p>
+        <SectionAsOf
+          period={debtAsOf?.period}
+          year={debtAsOf?.year}
+          quarter={debtAsOf?.quarter}
+          lang={lang === "bg" ? "bg" : "en"}
+        />
         <ChartSources
           prefix={t("governments_chart_sources_prefix")}
           sources={[

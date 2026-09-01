@@ -110,7 +110,6 @@ const FIGURE_SPECS = [
       adjustment: "seasonally_adjusted" as const,
       comparison: "yoy" as const,
     },
-    to: "/indicators/economy",
   },
   {
     id: "inflation_hicp" as const,
@@ -123,7 +122,6 @@ const FIGURE_SPECS = [
       adjustment: "unadjusted" as const,
       comparison: "yoy" as const,
     },
-    to: "/indicators/economy",
   },
   {
     id: "unemployment_sa" as const,
@@ -136,7 +134,6 @@ const FIGURE_SPECS = [
       adjustment: "seasonally_adjusted" as const,
       comparison: "level" as const,
     },
-    to: "/indicators/economy",
   },
   {
     id: "government_debt_gdp" as const,
@@ -147,7 +144,6 @@ const FIGURE_SPECS = [
       unit: "pct_gdp" as const,
       comparison: "snapshot" as const,
     },
-    to: "/indicators/fiscal",
   },
 ];
 
@@ -232,7 +228,6 @@ const buildFigures = (
         ...spec.basis,
         ...(declared ? { adjustment: declared } : {}),
       },
-      to: spec.to,
       sourceId,
     });
   }

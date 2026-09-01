@@ -47,7 +47,18 @@ export type KpiEntry = {
   /** Whether macro_peers.json carries a precomputed EU27 distribution for this
    *  key — drives the RankBadge presence. */
   peerEligible: boolean;
-  /** Optional hash on the destination domain page. */
+  /**
+   * The section on the destination domain page that owns this indicator's series.
+   *
+   * ⚠️ THIS IS WHAT MAKES A KPI LINK LAND ON ITS OWN NUMBER. Without it a reader who clicks
+   * „+4,4% инфлация, юли 2026" arrives at the TOP of a 500-line page and has to hunt; the four
+   * figures on the home head all did exactly that. `home_kpi_destinations.test.ts` asserts
+   * every anchor named here exists as an `id` in its domain screen's source, so a renamed
+   * section is a red test rather than a link that silently scrolls nowhere.
+   *
+   * Optional because an indicator whose page has no dedicated section is better off landing at
+   * the top than at somebody else's heading.
+   */
   anchor?: string;
 };
 
@@ -80,6 +91,8 @@ export const LANDING_KPI_ORDER: MacroIndicatorKey[] = [
 export const KPI_REGISTRY: Partial<Record<MacroIndicatorKey, KpiEntry>> = {
   gdpGrowth: {
     key: "gdpGrowth",
+    // The quarterly real-GDP line lives in the economy overview chart.
+    anchor: "gdp-growth",
     domain: "economy",
     direction: "higher",
     format: pctOneDecimal,
@@ -89,6 +102,10 @@ export const KPI_REGISTRY: Partial<Record<MacroIndicatorKey, KpiEntry>> = {
   },
   inflation: {
     key: "inflation",
+    // ⚠️ THE OVERVIEW SECTION, NOT THE ECOICOP BREAKDOWN FURTHER DOWN. The home head shows the
+    // MONTHLY HICP print (4,4% for юли 2026) and that figure appears in this section's monthly
+    // callout; the breakdown answers „which basket items" and never states it.
+    anchor: "inflation",
     domain: "economy",
     direction: "lower",
     format: pctOneDecimal,
@@ -100,6 +117,9 @@ export const KPI_REGISTRY: Partial<Record<MacroIndicatorKey, KpiEntry>> = {
   },
   unemployment: {
     key: "unemployment",
+    // The labour section's own sub-panel, which plots `unemploymentMonthly` — the series the
+    // head's monthly figure comes from.
+    anchor: "unemployment",
     domain: "economy",
     direction: "lower",
     format: pctOneDecimal,
@@ -118,6 +138,10 @@ export const KPI_REGISTRY: Partial<Record<MacroIndicatorKey, KpiEntry>> = {
   },
   govDebt: {
     key: "govDebt",
+    // ⚠️ `governments_chart_fiscal`, NOT `…_fiscal_nominal_stock`. The head's figure is debt as a
+    // SHARE OF GDP; the nominal section plots the same debt in EUR billions, so anchoring there
+    // would land a „28,5%" click on a chart whose axis reads „€45B".
+    anchor: "government-debt",
     domain: "fiscal",
     direction: "lower",
     format: pctOneDecimal,

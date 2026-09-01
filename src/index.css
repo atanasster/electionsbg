@@ -79,3 +79,35 @@ a {
     background: #fff !important;
   }
 }
+
+/* ── Deep-link arrival ────────────────────────────────────────────────────────────────────
+   The section a hash pointed at is marked for a moment, so a reader who clicked a specific
+   figure can see WHERE they landed instead of inferring it from where the scrolling stopped.
+
+   ⚠️ DRIVEN BY `data-hash-target`, NOT BY `:target`. Browsers do not reliably re-evaluate
+   `:target` after `history.pushState`, which is how every in-app deep link on this site
+   arrives — the rule would work on a hard reload and silently do nothing on the navigation it
+   exists for. `src/ux/useHashScroll.ts` sets and clears the attribute.                      */
+[data-hash-target] {
+  animation: hash-target-arrive 2.6s ease-out 1;
+  border-radius: 0.5rem;
+}
+@keyframes hash-target-arrive {
+  0%,
+  30% {
+    box-shadow: 0 0 0 8px hsl(var(--accent));
+    background-color: hsl(var(--accent));
+  }
+  100% {
+    box-shadow: 0 0 0 8px transparent;
+    background-color: transparent;
+  }
+}
+/* A fade is motion. With it suppressed the arrival still has to be VISIBLE — a static ring for
+   as long as the attribute is set, rather than no indication at all. */
+@media (prefers-reduced-motion: reduce) {
+  [data-hash-target] {
+    animation: none;
+    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.45);
+  }
+}
