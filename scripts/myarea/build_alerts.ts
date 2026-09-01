@@ -43,6 +43,7 @@
 //
 // Run: `npx tsx scripts/myarea/build_alerts.ts`
 
+import type { AlertKind } from "@/data/alerts/alertKinds";
 import fs from "node:fs";
 import { readFileSync } from "node:fs";
 import { exec, withClient, end } from "../db/lib/pg";
@@ -147,15 +148,12 @@ type ChmiHistoryShard = {
 
 type AlertEvent = {
   date: string; // YYYY-MM-DD
-  kind:
-    | "procurement"
-    | "tender"
-    | "eu_funds"
-    | "local_election"
-    | "capital_program"
-    | "plenary_keyword"
-    | "council_resolution"
-    | "open_call";
+  /** ⚠️ THE ONE LIST — `src/data/alerts/alertKinds.ts`, imported rather than restated. It
+   *  used to be a hand-written union here AND a second hand-written one in the UI, and the
+   *  two drifted: `open_call` was emitted from this file for weeks while the UI's union
+   *  lacked it, so every such row rendered as a generic grey line at a 200. The import is
+   *  `import type`, so nothing about it reaches this script at runtime. */
+  kind: AlertKind;
   headline_bg: string;
   headline_en: string;
   amountEur?: number;

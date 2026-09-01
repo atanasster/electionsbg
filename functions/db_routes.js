@@ -5908,8 +5908,11 @@ const DB_ROUTES = {
       body: {
         obshtina: r.obshtina,
         events: r.events ?? [],
-        // OUR write time, not an event date. The tile does not render it today; it is here
-        // so an operator can tell "quiet município" from "loader has not run" without a
+        // OUR write time, not an event date. RENDERED by MyAreaAlertsTile as the feed's
+        // vintage (`my_area_alerts_refreshed`) since the alert-kind repair, so it is now a
+        // reader-facing field rather than only an operator convenience — which is why the
+        // hook validates it as a string instead of trusting the cast. Still lets an operator
+        // tell "quiet município" from "loader has not run" without a
         // psql session.
         refreshedAt: r.refreshed_at,
       },

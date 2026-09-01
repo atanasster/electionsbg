@@ -24,14 +24,16 @@ import {
   Crown,
   FileSearch,
   Hammer,
+  Megaphone,
   Mic,
   Vote,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { formatDate } from "@/lib/formatDate";
+import { ALERT_KIND_META, type AlertIconToken } from "@/data/alerts/alertKinds";
 import {
   useMyAreaAlerts,
   type MyAreaAlertEvent,
-  type MyAreaAlertKind,
 } from "@/data/myarea/useMyAreaAlerts";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { FollowButton } from "@/screens/components/procurement/FollowButton";
@@ -48,26 +50,25 @@ type Props = {
 const PREVIEW_CAP = 10;
 const EXPANDED_CAP = 20;
 
-const ICONS: Record<MyAreaAlertKind, typeof Activity> = {
-  procurement: FileSearch,
-  tender: ClipboardList,
-  eu_funds: Coins,
-  local_election: Crown,
-  capital_program: Hammer,
-  plenary_keyword: Mic,
-  council_resolution: Vote,
-};
-
-const COLOR: Record<MyAreaAlertKind, string> = {
-  procurement: "#5E8AC7",
-  tender: "#6366F1",
-  eu_funds: "#E0A22C",
-  local_election: "#56A86F",
-  capital_program: "#A6792F",
-  plenary_keyword: "#C97AAA",
-  // Amber tint matches the band's old council-vote treatment so the
-  // visual continuity carries over now that council rows live here.
-  council_resolution: "#D97706",
+/**
+ * The ONLY thing this file still owns about a kind: token → component.
+ *
+ * ⚠️ EXHAUSTIVE BY TYPE, which is the whole repair. The icon and colour maps used to be
+ * hand-written per kind and indexed as `ICONS[e.kind] ?? Activity` / `COLOR[e.kind] ?? "#888"`,
+ * so a kind the builder emitted and the maps lacked rendered as a generic grey row with
+ * nothing red — which is exactly what `open_call` did. `Record<AlertIconToken, …>` makes a
+ * missing token a compile error, and the colour now comes from the registry, so neither map
+ * can go stale independently of the builder again.
+ */
+const ICON_BY_TOKEN: Record<AlertIconToken, typeof Activity> = {
+  fileSearch: FileSearch,
+  clipboardList: ClipboardList,
+  coins: Coins,
+  megaphone: Megaphone,
+  crown: Crown,
+  hammer: Hammer,
+  mic: Mic,
+  vote: Vote,
 };
 
 // Short sub-type chip label for an event. Procurement rows carry a notice
@@ -98,33 +99,6 @@ const subTypeLabel = (
   return null;
 };
 
-const formatDateBg = (iso: string): string => {
-  const d = new Date(iso + "T00:00:00Z");
-  if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat("bg-BG", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    // timeZone: "UTC" is load-bearing. The date above is a plain calendar DAY parsed as
-    // UTC midnight; formatting it in the viewer's zone renders it a day early for
-    // everyone west of UTC — so the label and the URL it belongs to disagree.
-    timeZone: "UTC",
-  }).format(d);
-};
-const formatDateEn = (iso: string): string => {
-  const d = new Date(iso + "T00:00:00Z");
-  if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat("en-GB", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    // timeZone: "UTC" is load-bearing. The date above is a plain calendar DAY parsed as
-    // UTC midnight; formatting it in the viewer's zone renders it a day early for
-    // everyone west of UTC — so the label and the URL it belongs to disagree.
-    timeZone: "UTC",
-  }).format(d);
-};
-
 export const MyAreaAlertsTile: FC<Props> = ({
   obshtina,
   ekatte,
@@ -149,26 +123,48 @@ export const MyAreaAlertsTile: FC<Props> = ({
   const canExpand = data.events.length > PREVIEW_CAP;
 
   const renderEvent = (e: MyAreaAlertEvent, i: number) => {
-    const Icon = ICONS[e.kind] ?? Activity;
-    const color = COLOR[e.kind] ?? "#888";
+    // No `?? fallback` on either line, deliberately. The hook drops a row whose kind is not
+    // in the registry, and the registry is exhaustive over the builder — so an unknown kind
+    // cannot reach here, and a fallback would only hide the next drift the way the last one
+    // was hidden.
+    const meta = ALERT_KIND_META[e.kind];
+    const Icon = ICON_BY_TOKEN[meta.icon];
+    const color = meta.color;
+    const kindLabel = t(meta.labelKey);
     const headline = lang === "bg" ? e.headline_bg : e.headline_en;
     // EU funds contracts have no real per-contract date — the build
     // script emits a programPeriod label ("2014-2020", "2021-2027",
     // "2021-RRP") in place of a fake "1 Jan YYYY". When present, we
     // render the period instead of the date.
-    const temporalLabel = e.programPeriod
-      ? e.programPeriod
-      : lang === "bg"
-        ? formatDateBg(e.date)
-        : formatDateEn(e.date);
+    // `formatDate` rather than a local pair: it pins the formatter to UTC only for the
+    // date-only SHAPE (`2026-08-20`), which is what these rows carry and where "the day" is
+    // the whole fact — and it leaves a real instant in the reader's own zone, which is what
+    // the vintage line below needs. It also takes `i18n.language` directly, so the
+    // `lang === "bg"` branch goes with it. Output is byte-identical to the local copies.
+    const temporalLabel = e.programPeriod ?? formatDate(e.date, i18n.language);
     const subLabel = subTypeLabel(e, lang);
     const inner = (
       <>
+        {/* The icon and its hue were the ONLY thing distinguishing one kind from another, so
+            a screen reader got nothing and a colour-blind reader got a shape. `role="img"` +
+            the registry's own label key is the cheapest fix that also makes `labelKey` live
+            copy rather than an unused field. */}
+        {/* ⚠️ THE GLYPH IS `text-foreground/80`, NOT THE KIND'S HUE — the same treatment, and
+            the same reason, as the sub-type chip below. Drawing the icon AT `color` on a 13%
+            tint of `color` is a colour against a near-copy of itself: measured against the
+            real `--card` tokens all eight kinds came out at 1.55–2.88:1 in light mode, under
+            WCAG 1.4.11's 3:1 floor for non-text contrast, and no single palette fixes both
+            themes (the tint darkens with the hue). This measures 6.39:1 light / 8.45:1 dark.
+            The kind is still carried three ways: the tint's hue, the icon's shape, and the
+            accessible name. */}
         <div
-          className="mt-0.5 shrink-0 rounded-full p-1"
-          style={{ backgroundColor: `${color}22`, color }}
+          className="mt-0.5 shrink-0 rounded-full p-1 text-foreground/80"
+          style={{ backgroundColor: `${color}22` }}
+          role="img"
+          aria-label={kindLabel}
+          title={kindLabel}
         >
-          <Icon className="size-3" />
+          <Icon className="size-3" aria-hidden="true" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-xs leading-snug line-clamp-2">{headline}</div>
@@ -229,6 +225,26 @@ export const MyAreaAlertsTile: FC<Props> = ({
           {data.events.length}
         </span>
       </div>
+      {/* The vintage, stated rather than inferred. This tile is the one surface whose entire
+          value is recency, and under the old `staleTime: Infinity` an open tab served the
+          same rows indefinitely with nothing on screen saying how old they were. `generatedAt`
+          is the route's own `refreshedAt` — OUR clock (when the loader last wrote the feed),
+          never an event date, which is why it is phrased „обновено" and sits apart from the
+          per-row dates below. */}
+      {data.generatedAt ? (
+        <div className="-mt-2 mb-2">
+          <span className="text-[10px] text-muted-foreground tabular-nums">
+            {t("my_area_alerts_refreshed", {
+              // No `.slice(0, 10)`: this is a timestamptz INSTANT, not a calendar day, so
+              // truncating it to the UTC day rendered „обновено 1 сеп." for a feed written at
+              // 00:30 on 2 September in Sofia. `formatDate` applies its UTC pin only to the
+              // date-only shape, so an instant lands in the reader's own zone — which for an
+              // instant is the right answer.
+              date: formatDate(data.generatedAt, i18n.language),
+            })}
+          </span>
+        </div>
+      ) : null}
       <ul className="flex flex-col">{visible.map(renderEvent)}</ul>
       {canExpand ? (
         <button
