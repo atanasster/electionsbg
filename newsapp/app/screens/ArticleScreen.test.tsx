@@ -301,6 +301,9 @@ describe("the experimental evaluation entry point", () => {
         name: "Помогнете да подобрим анализа — експериментално",
       }),
     ).toHaveAttribute("href", "/evals/article/ex.bg/a1");
+    expect(
+      screen.getByRole("link", { name: "Оценете тази статия" }),
+    ).toHaveAttribute("href", "/evals/article/ex.bg/a1");
   });
 
   it("does not invite evaluation when the article is outside the queue", async () => {

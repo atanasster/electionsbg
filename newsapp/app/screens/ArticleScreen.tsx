@@ -24,6 +24,7 @@
 import { Link, useParams } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -464,6 +465,9 @@ export const ArticleScreen = () => {
                 Това е експериментално събиране на оценки. Отделен отговор не
                 променя публикувания анализ без редакционно приемане.
               </p>
+              <Button asChild className="mt-4 w-full sm:w-auto">
+                <Link to={evalTaskPath(evalTask)}>Оценете тази статия</Link>
+              </Button>
             </Card>
           ) : null}
 
