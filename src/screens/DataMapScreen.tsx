@@ -8,6 +8,7 @@ import {
   useDataMap,
   type DataMapLens,
 } from "@/data/dataMap/useDataMap";
+import { dataMapExtent } from "@/data/dataMap/viewport";
 import { useDataChanges } from "@/data/dataChanges/useDataChanges";
 import { DataMapCanvas } from "@/screens/components/datamap/DataMapCanvas";
 import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
@@ -168,13 +169,13 @@ export const DataMapScreen = () => {
   // Size the canvas to the graph's own aspect ratio (width-driven) so the
   // initial fit lands near 1:1 zoom and stays readable — a fixed landscape
   // box would shrink the portrait graph to ~0.45×. Ultra-wide screens are
-  // capped at ~1.15× so nodes don't balloon.
-  const extent = useMemo(() => {
-    if (!manifest || !manifest.tiers.length) return { w: 1, h: 1 };
-    const w = Math.max(...manifest.tiers.map((t) => t.x + t.w)) + 16;
-    const h = Math.max(...manifest.tiers.map((t) => t.y + t.h)) + 16;
-    return { w, h };
-  }, [manifest]);
+  // capped at ~1.15× so nodes don't balloon. The extent comes from the same
+  // module the canvas frames with, so the box and the framing read one set of
+  // bounds — see dataMapExtent for the one way they can still disagree.
+  const extent = useMemo(
+    () => (manifest ? dataMapExtent(manifest) : { w: 1, h: 1 }),
+    [manifest],
+  );
 
   // On narrow screens the detail panel renders below the canvas — nudge it
   // into view when a node is picked so the tap visibly "answers". During a
@@ -301,6 +302,7 @@ export const DataMapScreen = () => {
                   feature: t("data_map_kind_feature"),
                 }}
                 lens={lens}
+                fitLabel={t("data_map_fit")}
                 onSelect={onSelect}
               />
             </div>

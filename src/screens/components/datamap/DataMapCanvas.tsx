@@ -1,8 +1,9 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ConnectionMode,
   Background,
   BackgroundVariant,
+  ControlButton,
   Controls,
   MarkerType,
   ReactFlow,
@@ -13,6 +14,7 @@ import {
   type Node,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import { Maximize } from "lucide-react";
 import "./datamap.css";
 import { formatCount } from "@/lib/currency";
 import {
@@ -24,6 +26,12 @@ import {
   type DataMapLens,
   type DataMapManifest,
 } from "@/data/dataMap/useDataMap";
+import {
+  dataMapBounds,
+  dataMapGraphBounds,
+  viewportForBounds,
+  type DataMapBox,
+} from "@/data/dataMap/viewport";
 import {
   DataMapNodeCard,
   DataMapTierFrame,
@@ -42,6 +50,8 @@ type Props = {
   freshLabel: string;
   kindLabels: Record<DataMapKind, string>;
   lens: DataMapLens;
+  /** Accessible name for the fit-view control — see the Controls block below. */
+  fitLabel: string;
   onSelect: (id: string | null) => void;
 };
 
@@ -56,27 +66,85 @@ const FRESH_WINDOW_MS = 7 * 24 * 3600 * 1000;
 // selection zooms the camera to the closure instead.
 const MOBILE_PANE_PX = 700;
 
-const CameraDirector: FC<{ focusIds: string[] }> = ({ focusIds }) => {
-  const { fitView } = useReactFlow();
-  const dims = useStore((s) => `${s.width}x${s.height}`);
-  const narrow = useStore((s) => s.width > 0 && s.width < MOBILE_PANE_PX);
+// Framing constants. The pane's own limits are wider than the framing's so a
+// reader can still zoom past a fit in either direction with the controls.
+const PANE_MIN_ZOOM = 0.12;
+const PANE_MAX_ZOOM = 2;
+const FIT_PADDING = 0.03;
+const FIT_MAX_ZOOM = 1.15;
+const FOCUS_PADDING = 0.15;
+const FOCUS_MAX_ZOOM = 1;
+
+/**
+ * Frames the graph in the pane.
+ *
+ * It computes the transform itself and calls `setViewport` rather than asking
+ * React Flow to `fitView`, because fitView does not work on this canvas: on
+ * first paint the flow logs error #004 and leaves the viewport at the identity
+ * transform, so the portrait graph rendered at 1:1 anchored top-left — most of
+ * it off-canvas on a phone. At that point the zoom buttons work and a fitView
+ * does nothing, so the pane dimensions are sound and the node BOUNDS are what
+ * fitView cannot resolve; the manifest carries every box, so they never needed
+ * measuring. (fitView recovers once the nodes have painted, which is why the
+ * fit CONTROL needed its own treatment rather than the same one — see the
+ * Controls block below.) See src/data/dataMap/viewport.ts for the measurements.
+ */
+const CameraDirector: FC<{
+  manifest: DataMapManifest;
+  focusIds: string[];
+  /** Bumped by the fit control, which this component owns outright. */
+  frameNonce: number;
+}> = ({ manifest, focusIds, frameNonce }) => {
+  const { setViewport } = useReactFlow();
+  const width = useStore((s) => s.width);
+  const height = useStore((s) => s.height);
+  const narrow = width > 0 && width < MOBILE_PANE_PX;
   const focusKey = narrow ? focusIds.join(",") : "";
+  // The first framing must not animate — the graph would swoop in from the
+  // identity transform on every page load.
+  const framed = useRef(false);
+
+  const graphBounds = useMemo(() => dataMapGraphBounds(manifest), [manifest]);
+  const boxById = useMemo(
+    () => new Map<string, DataMapBox>(manifest.nodes.map((n) => [n.id, n])),
+    [manifest.nodes],
+  );
+
+  // `focusKey` is the DEPENDENCY — a stable string beats an array rebuilt on
+  // every render — while the ids are read from the array itself, so an id
+  // containing the delimiter cannot silently drop a node from the frame.
+  const focusList = useMemo(
+    () => (narrow ? focusIds : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed by focusKey
+    [focusKey],
+  );
+
   useEffect(() => {
-    const id = window.setTimeout(() => {
-      if (narrow && focusIds.length) {
-        fitView({
-          nodes: focusIds.map((id) => ({ id })),
-          duration: 500,
-          padding: 0.15,
-          maxZoom: 1,
-        });
-      } else {
-        fitView({ duration: 300, padding: 0.03, maxZoom: 1.15 });
-      }
-    }, 30);
-    return () => window.clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fitView, dims, narrow, focusKey]);
+    const focusBoxes = focusList
+      .map((id) => boxById.get(id))
+      .filter((b): b is DataMapBox => !!b);
+    const focus = focusBoxes.length ? dataMapBounds(focusBoxes) : null;
+    const bounds = focus ?? graphBounds;
+    if (!bounds) return;
+    const viewport = viewportForBounds(bounds, width, height, {
+      padding: focus ? FOCUS_PADDING : FIT_PADDING,
+      minZoom: PANE_MIN_ZOOM,
+      maxZoom: focus ? FOCUS_MAX_ZOOM : FIT_MAX_ZOOM,
+    });
+    if (!viewport) {
+      // CameraDirector is now the ONLY thing that can frame this graph, so its
+      // early returns are the whole failure surface: an unmeasured pane leaves
+      // the identity transform, i.e. bit-for-bit the bug this replaced.
+      if (import.meta.env.DEV && !framed.current)
+        console.warn(
+          `[data map] pane unmeasured (${width}x${height}) — graph unframed`,
+        );
+      return;
+    }
+    const duration = framed.current ? (focus ? 500 : 300) : 0;
+    framed.current = true;
+    void setViewport(viewport, { duration });
+  }, [setViewport, width, height, focusList, graphBounds, boxById, frameNonce]);
   return null;
 };
 
@@ -89,9 +157,13 @@ const InnerCanvas: FC<Props> = ({
   freshLabel,
   kindLabels,
   lens,
+  fitLabel,
   onSelect,
 }) => {
   const [hoverId, setHoverId] = useState<string | null>(null);
+  // The fit control is ours (see the Controls block below).
+  const [frameNonce, setFrameNonce] = useState(0);
+  const reframe = useCallback(() => setFrameNonce((n) => n + 1), []);
   // Stable per-mount timestamp: freshness is a day-grain signal, and a live
   // Date.now() in render would invalidate the node memo on every hover.
   const [now] = useState(() => Date.now());
@@ -317,10 +389,8 @@ const InnerCanvas: FC<Props> = ({
         nodes={nodes}
         edges={allEdges}
         nodeTypes={nodeTypes}
-        fitView
-        fitViewOptions={{ padding: 0.03, maxZoom: 1.15 }}
-        minZoom={0.12}
-        maxZoom={2}
+        minZoom={PANE_MIN_ZOOM}
+        maxZoom={PANE_MAX_ZOOM}
         nodesDraggable={false}
         nodesConnectable={false}
         elementsSelectable={false}
@@ -346,8 +416,33 @@ const InnerCanvas: FC<Props> = ({
           size={1.5}
           color="hsl(var(--border))"
         />
-        <Controls showInteractive={false} position="bottom-right" />
-        <CameraDirector focusIds={closure ? [...closure] : []} />
+        {/* React Flow's own fit button cannot frame this graph (see
+            CameraDirector), and `onFitView` does NOT replace it: Controls runs
+            `fitView(fitViewOptions)` first and calls the handler after. Since
+            fitView starts working once the nodes have painted, wiring it there
+            framed TWICE per click — an instant snap to upstream's padding 0.1 /
+            maxZoom 2, then our 300ms animation to 0.03 / 1.15 (measured at a
+            1008px pane: a 6.8% zoom pop and a 109px jump). So hide it and own
+            it. The label is explicit because a bare ControlButton would ship an
+            unlabelled icon, where React Flow's own supplies one. */}
+        <Controls
+          showInteractive={false}
+          showFitView={false}
+          position="bottom-right"
+        >
+          <ControlButton
+            onClick={reframe}
+            title={fitLabel}
+            aria-label={fitLabel}
+          >
+            <Maximize aria-hidden />
+          </ControlButton>
+        </Controls>
+        <CameraDirector
+          manifest={manifest}
+          focusIds={closure ? [...closure] : []}
+          frameNonce={frameNonce}
+        />
       </ReactFlow>
     </div>
   );
