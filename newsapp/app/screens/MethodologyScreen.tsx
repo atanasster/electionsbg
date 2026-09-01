@@ -20,12 +20,16 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   LEANING_META,
+  LEANING_META_EN,
   LEANING_ORDER,
   RUSSIA_META,
+  RUSSIA_META_EN,
   RUSSIA_ORDER,
   formatDate,
 } from "../labels";
-import { useOutlets, useStats, type Outlet } from "../data";
+import { useOutlets, useStats, type Outlet, type Stats } from "../data";
+import { useNewsLocale } from "../i18n";
+import { retirementReason } from "../sourceTransparency";
 
 const Figure = ({ value, label }: { value: string; label: string }) => (
   <div>
@@ -119,15 +123,22 @@ const plural = (n: number, one: string, many: string): string =>
   `${n} ${n === 1 ? one : many}`;
 
 export const MethodologyScreen = () => {
+  const { isEnglish, tr } = useNewsLocale();
   const stats = useStats();
   const outlets = useOutlets();
 
   if (stats.error) {
     return (
       <section className="py-8">
-        <h1 className="font-title text-3xl">Методология</h1>
+        <h1 className="font-title text-3xl">
+          {tr("Методология", "Methodology")}
+        </h1>
         <Card className="mt-4 p-4 text-sm text-destructive">
-          Данните за методологията не се заредиха: {stats.error.message}
+          {tr(
+            "Данните за методологията не се заредиха",
+            "Methodology data could not be loaded",
+          )}
+          : {stats.error.message}
         </Card>
       </section>
     );
@@ -135,7 +146,9 @@ export const MethodologyScreen = () => {
   if (!stats.data) {
     return (
       <section className="py-8">
-        <h1 className="font-title text-3xl">Методология</h1>
+        <h1 className="font-title text-3xl">
+          {tr("Методология", "Methodology")}
+        </h1>
         <Skeleton className="mt-4 h-40" />
       </section>
     );
@@ -161,6 +174,19 @@ export const MethodologyScreen = () => {
   const analysedPct = fullyAnalysed
     ? 100
     : Math.min(99, Math.floor(s.analyzed_pct));
+
+  if (isEnglish) {
+    return (
+      <EnglishMethodology
+        stats={s}
+        retired={retired}
+        analysedPct={analysedPct}
+        botRefused={botRefused}
+        captcha={captcha}
+        outletsMissing={outletsMissing}
+      />
+    );
+  }
 
   return (
     <section className="py-6">
@@ -379,3 +405,213 @@ export const MethodologyScreen = () => {
     </section>
   );
 };
+
+const EnglishMethodology = ({
+  stats: s,
+  retired,
+  analysedPct,
+  botRefused,
+  captcha,
+  outletsMissing,
+}: {
+  stats: Stats;
+  retired: Outlet[];
+  analysedPct: number;
+  botRefused: number;
+  captcha: number;
+  outletsMissing: boolean;
+}) => (
+  <section className="py-6">
+    <h1 className="font-title text-3xl">Methodology</h1>
+    <p className="mt-2 max-w-3xl text-muted-foreground">
+      Every article is rated separately. We do not rate outlets: an outlet's
+      position is the distribution of ratings across its own articles.
+    </p>
+
+    <Card className="mt-6 border-primary p-4">
+      <h2 className="font-title text-lg">What this corpus does not cover</h2>
+      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-foreground/90">
+        <li>
+          <strong>
+            {analysedPct}% of collected articles have been analyzed
+          </strong>{" "}
+          ({s.analyzed_articles.toLocaleString("en-GB")} out of{" "}
+          {s.total_articles.toLocaleString("en-GB")}). Every aggregate rating
+          describes the analyzed subset, not the entire flow.
+        </li>
+        {botRefused > 0 ? (
+          <li>
+            <strong>
+              {botRefused}{" "}
+              {botRefused === 1 ? "outlet refuses" : "outlets refuse"} bot
+              crawling.
+            </strong>{" "}
+            We respect that refusal and do not collect new articles from them.
+          </li>
+        ) : null}
+        {captcha > 0 ? (
+          <li>
+            <strong>
+              {captcha} {captcha === 1 ? "outlet requires" : "outlets require"}{" "}
+              solving a CAPTCHA.
+            </strong>{" "}
+            We do not solve CAPTCHAs, so those outlets are absent.
+          </li>
+        ) : null}
+        {outletsMissing ? (
+          <li>
+            <strong>The source directory could not be loaded.</strong> This page
+            cannot show which outlets were removed from crawling and why.
+          </li>
+        ) : null}
+        <li>
+          <strong>Television and radio are not included.</strong> Only published
+          text is collected.
+        </li>
+        <li>
+          <strong>Some articles have no publication date.</strong> When an
+          outlet does not state one, collection time determines their order.
+        </li>
+      </ul>
+    </Card>
+
+    <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <Figure
+        value={s.total_articles.toLocaleString("en-GB")}
+        label="collected articles"
+      />
+      <Figure
+        value={s.analyzed_articles.toLocaleString("en-GB")}
+        label="analyzed"
+      />
+      <Figure value={String(s.domains)} label="sources" />
+      <Figure value={String(s.stories)} label="stories" />
+    </div>
+
+    <Section title="The two axes">
+      <p>
+        We rate the <strong>framing of the individual article</strong>, not the
+        outlet's editorial line: source selection, attributed motives, and who
+        receives the last word.
+      </p>
+      <div className="space-y-4 pt-1">
+        <div>
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide">
+            Political framing
+          </h3>
+          <ScaleLegend order={LEANING_ORDER} meta={LEANING_META_EN} />
+        </div>
+        <div>
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide">
+            Stance toward Russia
+          </h3>
+          <ScaleLegend order={RUSSIA_ORDER} meta={RUSSIA_META_EN} />
+          <p className="mt-2 text-sm">
+            This is a separate axis because it does not coincide with left and
+            right in the Bulgarian context. It applies only when an article
+            refers to Russia.
+          </p>
+        </div>
+      </div>
+      <p>
+        <strong>
+          “Outside the political axis” and “Russia not mentioned” are the most
+          common results.
+        </strong>{" "}
+        That does not mean an article is impartial; it means the rubric is not
+        applicable. “No clear framing” is different: the axis applies, but the
+        text does not show clear progressive or conservative framing.
+      </p>
+      <p>
+        Each rating carries supporting evidence and model confidence. On the
+        English page, untranslated Bulgarian evidence is withheld so the two
+        languages are not mixed in one interface.
+      </p>
+    </Section>
+
+    <Section title="What we do not do">
+      <ul className="list-disc space-y-1.5 pl-5">
+        <li>
+          <strong>We do not rate the truth of claims.</strong> We have no “fake
+          news” label and no fact-checking operation.
+        </li>
+        <li>
+          <strong>We do not give an outlet one overall score.</strong> We show
+          separate measures and their evidence base.
+        </li>
+        <li>
+          <strong>
+            We do not link a name when it matches more than one person.
+          </strong>{" "}
+          A wrong link is worse than a missing link.
+        </li>
+        <li>
+          <strong>
+            We do not bypass CAPTCHAs or impersonate a human browser.
+          </strong>{" "}
+          Sites that refuse bots are not collected.
+        </li>
+        <li>
+          <strong>
+            Image delivery and permission to display it are different.
+          </strong>{" "}
+          Rights basis, author, credit, and verification are recorded separately
+          for each image.
+        </li>
+      </ul>
+    </Section>
+
+    <Section title="How collection works">
+      <p>
+        We collect publicly accessible outlet pages while respecting{" "}
+        <code className="rounded bg-muted px-1 py-0.5 text-xs">robots.txt</code>{" "}
+        and its stated crawl rate. The crawler identifies itself and links to
+        the project; it does not impersonate a human browser.
+      </p>
+      <p>
+        <strong>Full article text is not republished.</strong> The app shows a
+        headline, short description, and analysis, then links to the original.
+      </p>
+      {retired.length > 0 ? (
+        <div>
+          <p className="mb-2">
+            <strong>
+              {retired.length}{" "}
+              {retired.length === 1 ? "outlet has" : "outlets have"} been
+              removed
+            </strong>{" "}
+            from crawling. Previously collected articles remain, but those
+            outlets are not presented as active sources:
+          </p>
+          <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+            {retired.map((outlet) => (
+              <li key={outlet.domain}>
+                <span className="text-foreground">{outlet.outlet}</span> —{" "}
+                {retirementReason(outlet.retired_reason, "en")}
+                {outlet.article_count > 0
+                  ? ` (${outlet.article_count} saved ${outlet.article_count === 1 ? "article" : "articles"})`
+                  : ""}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </Section>
+
+    <Section title="Model accuracy">
+      <p>
+        Measured accuracy against a manually reviewed set will appear here by
+        field, together with how often the reviewing model contradicts itself.
+      </p>
+      <p className="text-muted-foreground">
+        <strong>This evaluation has not been completed yet.</strong> Until the
+        table exists, the page states that it is unavailable.
+      </p>
+    </Section>
+
+    <p className="mt-8 text-xs text-muted-foreground">
+      Taxonomy v{s.taxonomy_version} · last updated{" "}
+      {formatDate(s.generated_at, "en")}
+    </p>
+  </section>
+);

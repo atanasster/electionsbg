@@ -32,6 +32,11 @@ export type PrerenderRoute = {
   path: string;
   title: string;
   description: string;
+  /** English metadata used to mint the equivalent /en route. */
+  titleEn?: string;
+  descriptionEn?: string;
+  /** Defaults to Bulgarian. English routes live under /en. */
+  language?: "bg" | "en";
   /** og:type — "website" for hubs, "article" for a single story/article. */
   ogType?: string;
   /** Absolute image URL. Falls back to the site icon. */
@@ -91,6 +96,7 @@ export const applyHead = (
   // knows a string came from a summary rather than from a person.
   const description = esc(route.description.replace(/\s+/g, " ").trim());
   const missing: string[] = [];
+  const language = route.language ?? "bg";
 
   const swap = (pattern: RegExp, replacement: string, label: string) => {
     if (!pattern.test(html)) {
@@ -107,6 +113,7 @@ export const applyHead = (
   };
 
   swap(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`, "title");
+  html = html.replace(/<html\s+lang="[^"]*"/, `<html lang="${language}"`);
   swap(
     /<meta\s+name="description"[^<>]*?\/?>/,
     `<meta name="description" content="${description}" />`,
@@ -132,6 +139,11 @@ export const applyHead = (
     /<meta property="og:title" content="[^"]*"\s*\/?>/,
     `<meta property="og:title" content="${title}" />`,
     "og:title",
+  );
+  swap(
+    /<meta property="og:site_name" content="[^"]*"\s*\/?>/,
+    `<meta property="og:site_name" content="${language === "en" ? "Naiasno News" : "Наясно Новини"}" />`,
+    "og:site_name",
   );
   swap(
     /<meta\s+property="og:description"[^<>]*?\/?>/,
@@ -164,6 +176,41 @@ export const applyHead = (
       "og:image",
     );
   }
+  const counterpartPath =
+    language === "en"
+      ? route.path.replace(/^en(?:\/|$)/, "")
+      : route.path
+        ? `en/${route.path}`
+        : "en";
+  const bgPath = language === "en" ? counterpartPath : route.path;
+  const enPath = language === "en" ? route.path : counterpartPath;
+  const alternates =
+    `<link rel="alternate" hreflang="bg" href="${esc(urlFor(bgPath))}" />\n` +
+    `<link rel="alternate" hreflang="en" href="${esc(urlFor(enPath))}" />\n` +
+    `<link rel="alternate" hreflang="x-default" href="${esc(urlFor(bgPath))}" />\n`;
+  html = html.replace(/<\/head>/, `${alternates}</head>`);
+  if (language === "en") {
+    const structuredData = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Naiasno News",
+      url: urlFor("en"),
+      inLanguage: "en",
+      applicationCategory: "NewsApplication",
+      description:
+        "Independent comparison of Bulgarian media coverage, political framing, stance toward Russia, topics, and sources.",
+      isPartOf: "https://electionsbg.com/en",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "BGN" },
+    });
+    html = html.replace(
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
+      `<script type="application/ld+json">${structuredData}</script>`,
+    );
+    html = html.replace(
+      /<noscript>[\s\S]*?<\/noscript>/,
+      `<noscript><div style="font-family: system-ui; max-width: 40rem; margin: 4rem auto; padding: 0 1rem"><h1>Naiasno News</h1><p>This application compares how Bulgarian media cover the same stories. JavaScript is required. Visit <a href="https://electionsbg.com/en">electionsbg.com</a> for the main site.</p></div></noscript>`,
+    );
+  }
   return { html, missing };
 };
 
@@ -174,11 +221,20 @@ export const renderSitemap = (routes: PrerenderRoute[]): string => {
       const lastmod = r.lastmod
         ? `<lastmod>${r.lastmod.slice(0, 10)}</lastmod>`
         : "";
-      return `  <url><loc>${esc(urlFor(r.path))}</loc>${lastmod}</url>`;
+      const language = r.language ?? "bg";
+      const counterpartPath =
+        language === "en"
+          ? r.path.replace(/^en(?:\/|$)/, "")
+          : r.path
+            ? `en/${r.path}`
+            : "en";
+      const bgPath = language === "en" ? counterpartPath : r.path;
+      const enPath = language === "en" ? r.path : counterpartPath;
+      return `  <url><loc>${esc(urlFor(r.path))}</loc>${lastmod}<xhtml:link rel="alternate" hreflang="bg" href="${esc(urlFor(bgPath))}"/><xhtml:link rel="alternate" hreflang="en" href="${esc(urlFor(enPath))}"/><xhtml:link rel="alternate" hreflang="x-default" href="${esc(urlFor(bgPath))}"/></url>`;
     });
   return (
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' +
     entries.join("\n") +
     "\n</urlset>\n"
   );

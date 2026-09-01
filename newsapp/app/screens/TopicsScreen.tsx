@@ -43,8 +43,15 @@ import {
   type AxisSpread,
   type TaxonomyCategory,
 } from "../data";
-import { LEANING_META, RUSSIA_META, bgArticles } from "../labels";
+import {
+  LEANING_META,
+  LEANING_META_EN,
+  RUSSIA_META,
+  RUSSIA_META_EN,
+  articles as articleCount,
+} from "../labels";
 import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
+import { useNewsLocale } from "../i18n";
 
 const PAGE_SIZE = 15;
 
@@ -62,11 +69,6 @@ type AxisFilter = "all" | "leaning" | "russia_stance";
  */
 const OFF_TOPIC = "not-site-relevant";
 
-const AXIS_LABEL = {
-  leaning: "политическа ос",
-  russia_stance: "отношение към Русия",
-} as const;
-
 /**
  * „3 статии" / „1 статия" / „21 статия" — Bulgarian number agreement.
  *
@@ -75,8 +77,6 @@ const AXIS_LABEL = {
  * статия). An `n === 1` test is right for exactly one number and wrong for
  * 21, 31, 41 … which are reachable here — the floor is 20.
  */
-const articles = bgArticles;
-
 /**
  * What stands where a spread would be.
  *
@@ -90,20 +90,29 @@ const Shortfall = ({
 }: {
   axis: AxisSpread;
   primaryCount: number;
-}) => (
-  <span className="text-xs text-muted-foreground">
-    {/* ⚠️ THREE states, not two — the third is real and common. „Управление
+}) => {
+  const { language, tr } = useNewsLocale();
+  return (
+    <span className="text-xs text-muted-foreground">
+      {/* ⚠️ THREE states, not two — the third is real and common. „Управление
         и кабинет" is tagged on 7 articles and is the MAIN subject of none, so
         „нито една статия няма приложима оценка" is the wrong fact about it: no
         article was ever asked. Only a topic somebody actually wrote about can
         be short of positions. */}
-    {primaryCount === 0
-      ? "само като второстепенна тема"
-      : axis.n === 0
-        ? "нито една статия няма приложима оценка"
-        : `${articles(axis.n)} от нужните ${TOPIC_MIN_POSITIONED}`}
-  </span>
-);
+      {primaryCount === 0
+        ? tr("само като второстепенна тема", "secondary topic only")
+        : axis.n === 0
+          ? tr(
+              "нито една статия няма приложима оценка",
+              "no article has an applicable rating",
+            )
+          : tr(
+              `${articleCount(axis.n, language)} от нужните ${TOPIC_MIN_POSITIONED}`,
+              `${articleCount(axis.n, language)} out of ${TOPIC_MIN_POSITIONED} needed`,
+            )}
+    </span>
+  );
+};
 
 /**
  * The spread itself, once a topic has the sample for it.
@@ -115,17 +124,22 @@ const Shortfall = ({
  * articles, 15 positioned). So a bare spread does not merely omit its sample,
  * it hands the reader the wrong one.
  */
-const Spread = ({ axis }: { axis: AxisSpread }) => (
-  <span className="flex items-baseline gap-1.5">
-    <span className="tabular-nums font-medium">
-      {/* `enough` implies `spread != null` — n >= 20 > 2. If that ever stops
+const Spread = ({ axis }: { axis: AxisSpread }) => {
+  const { language, tr } = useNewsLocale();
+  return (
+    <span className="flex items-baseline gap-1.5">
+      <span className="tabular-nums font-medium">
+        {/* `enough` implies `spread != null` — n >= 20 > 2. If that ever stops
           holding, an em dash beside "от N статии" is a visible contradiction
           rather than a blank that reads as zero. */}
-      {axis.spread == null ? "—" : axis.spread.toFixed(2)}
+        {axis.spread == null ? "—" : axis.spread.toFixed(2)}
+      </span>
+      <span className="text-xs text-muted-foreground">
+        {tr("от", "from")} {articleCount(axis.n, language)}
+      </span>
     </span>
-    <span className="text-xs text-muted-foreground">от {articles(axis.n)}</span>
-  </span>
-);
+  );
+};
 
 const pageNumbers = (page: number, total: number): number[] => {
   const start = Math.max(1, Math.min(page - 1, total - 2));
@@ -154,6 +168,7 @@ const compareDisagreement = (
 };
 
 export const TopicsScreen = () => {
+  const { isEnglish, language, tr } = useNewsLocale();
   const taxonomy = useTaxonomy();
   const [query, setQuery] = useState("");
   const [axisFilter, setAxisFilter] = useState<AxisFilter>("all");
@@ -178,7 +193,8 @@ export const TopicsScreen = () => {
 
   const rows = useMemo(() => {
     const filtered = allRows.filter((c) => {
-      if (q && !c.label.bg.toLocaleLowerCase("bg").includes(q)) return false;
+      if (q && !c.label[language].toLocaleLowerCase(language).includes(q))
+        return false;
       return axisFilter === "all" || dominantAxis(c) === axisFilter;
     });
     return [...filtered].sort((a, b) => {
@@ -192,14 +208,17 @@ export const TopicsScreen = () => {
       }
       const direction = sort.direction === "asc" ? 1 : -1;
       if (sort.key === "label") {
-        return direction * a.label.bg.localeCompare(b.label.bg, "bg");
+        return (
+          direction *
+          a.label[language].localeCompare(b.label[language], language)
+        );
       }
       return (
         direction * (a[sort.key] - b[sort.key]) ||
-        a.label.bg.localeCompare(b.label.bg, "bg")
+        a.label[language].localeCompare(b.label[language], language)
       );
     });
-  }, [allRows, axisFilter, q, sort]);
+  }, [allRows, axisFilter, language, q, sort]);
 
   const inScope = allRows.filter((c) => c.id !== OFF_TOPIC);
   const measurable = inScope.filter((c) => c.spread[dominantAxis(c)].enough);
@@ -242,7 +261,7 @@ export const TopicsScreen = () => {
         className={`group inline-flex w-full items-center gap-1.5 py-1 text-[11px] font-semibold uppercase tracking-[0.04em] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
           align === "right" ? "justify-end" : "justify-start"
         }`}
-        aria-label={`Подреди по ${label}`}
+        aria-label={`${tr("Подреди по", "Sort by")} ${label}`}
       >
         {label}
         <Icon
@@ -264,22 +283,25 @@ export const TopicsScreen = () => {
     <div className="space-y-5">
       <header className="border-b pb-5">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
-          Карта на отразяването
+          {tr("Карта на отразяването", "Coverage map")}
         </p>
         <div className="mt-2 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <h1 className="font-title text-4xl leading-none sm:text-5xl">
-              Теми
+              {tr("Теми", "Topics")}
             </h1>
             <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Къде българските медии се разминават — по политическата ос или в
-              отношението към Русия — и колко голяма е извадката зад сигнала.
+              {tr(
+                "Къде българските медии се разминават — по политическата ос или в отношението към Русия — и колко голяма е извадката зад сигнала.",
+                "Where Bulgarian media diverge — on political framing or stance toward Russia — and how large the sample behind each signal is.",
+              )}
             </p>
           </div>
           <p className="max-w-sm border-l-2 border-[hsl(var(--editorial-kicker))] pl-3 text-xs leading-relaxed text-muted-foreground">
-            Разсейване публикуваме при поне {TOPIC_MIN_POSITIONED} статии с
-            приложима оценка. Под прага показваме недостига, не подвеждаща
-            стойност.
+            {tr(
+              `Разсейване публикуваме при поне ${TOPIC_MIN_POSITIONED} статии с приложима оценка. Под прага показваме недостига, не подвеждаща стойност.`,
+              `We publish dispersion only when at least ${TOPIC_MIN_POSITIONED} articles have an applicable rating. Below that threshold, we show the shortfall rather than a misleading value.`,
+            )}
           </p>
         </div>
       </header>
@@ -287,22 +309,24 @@ export const TopicsScreen = () => {
       {taxonomy.data ? (
         <section
           className="grid grid-cols-3 divide-x overflow-hidden rounded-md border bg-card"
-          aria-label="Обобщение на темите"
+          aria-label={tr("Обобщение на темите", "Topic summary")}
         >
           <div className="p-3 sm:p-4">
             <div className="font-title text-2xl tabular-nums sm:text-3xl">
               {inScope.length}
             </div>
             <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
-              теми в обхвата
+              {tr("теми в обхвата", "topics in scope")}
             </div>
           </div>
           <div className="p-3 sm:p-4">
             <div className="font-title text-2xl tabular-nums sm:text-3xl">
-              {primaryArticles.toLocaleString("bg-BG")}
+              {primaryArticles.toLocaleString(
+                language === "bg" ? "bg-BG" : "en-GB",
+              )}
             </div>
             <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
-              статии в темите
+              {tr("статии в темите", "articles in topics")}
             </div>
           </div>
           <div className="p-3 sm:p-4">
@@ -310,7 +334,7 @@ export const TopicsScreen = () => {
               {measurable.length}/{inScope.length}
             </div>
             <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
-              с достатъчна извадка
+              {tr("с достатъчна извадка", "with sufficient sample")}
             </div>
           </div>
         </section>
@@ -321,12 +345,15 @@ export const TopicsScreen = () => {
       {taxonomy.data && allRows.length > 0 && measurable.length === 0 ? (
         <Card className="border-dashed bg-muted/15 p-4 text-sm text-muted-foreground">
           <strong className="font-medium text-foreground">
-            Нито една тема още не стига прага.
+            {tr(
+              "Нито една тема още не стига прага.",
+              "No topic has reached the threshold yet.",
+            )}
           </strong>{" "}
-          Разсейване се публикува от {TOPIC_MIN_POSITIONED} статии с позиция
-          нагоре. Мнозинството от анализираните материали не заемат позиция по
-          нито една от двете оси, така че прагът се пълни бавно. Дотогава редът
-          по-долу е по обем, а всяка тема казва колко ѝ липсва.
+          {tr(
+            `Разсейване се публикува от ${TOPIC_MIN_POSITIONED} статии с позиция нагоре. Мнозинството от анализираните материали не заемат позиция по нито една от двете оси, така че прагът се пълни бавно. Дотогава редът по-долу е по обем, а всяка тема казва колко ѝ липсва.`,
+            `Dispersion is published from ${TOPIC_MIN_POSITIONED} positioned articles upward. Most analyzed articles take no position on either axis, so the threshold fills slowly. Until then, the list is ordered by volume and each topic shows its shortfall.`,
+          )}
         </Card>
       ) : null}
 
@@ -337,9 +364,9 @@ export const TopicsScreen = () => {
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Търсене на тема…"
+              placeholder={tr("Търсене на тема…", "Search topics…")}
               className="bg-background pl-9"
-              aria-label="Търсене на тема"
+              aria-label={tr("Търсене на тема", "Search topics")}
             />
           </div>
           <div className="flex items-center justify-between gap-3 sm:justify-end">
@@ -347,7 +374,7 @@ export const TopicsScreen = () => {
               htmlFor="topic-axis"
               className="text-xs font-medium text-muted-foreground"
             >
-              Водеща ос
+              {tr("Водеща ос", "Leading axis")}
             </label>
             <select
               id="topic-axis"
@@ -355,16 +382,20 @@ export const TopicsScreen = () => {
               onChange={(e) => setAxisFilter(e.target.value as AxisFilter)}
               className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <option value="all">Всички</option>
-              <option value="leaning">Политическа</option>
-              <option value="russia_stance">Спрямо Русия</option>
+              <option value="all">{tr("Всички", "All")}</option>
+              <option value="leaning">{tr("Политическа", "Political")}</option>
+              <option value="russia_stance">
+                {tr("Спрямо Русия", "Toward Russia")}
+              </option>
             </select>
           </div>
         </div>
 
         {taxonomy.error && !taxonomy.data ? (
           <div className="p-4 text-sm text-destructive">
-            Темите не се заредиха: {taxonomy.error.message}
+            {isEnglish
+              ? "Topics could not be loaded."
+              : `Темите не се заредиха: ${taxonomy.error.message}`}
           </div>
         ) : taxonomy.loading && !taxonomy.data ? (
           <Skeleton className="m-4 h-96 rounded-xl" />
@@ -379,34 +410,45 @@ export const TopicsScreen = () => {
                       aria-sort={ariaSort("label")}
                       className="min-w-48"
                     >
-                      {sortButton("label", "Тема")}
+                      {sortButton("label", tr("Тема", "Topic"))}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("primary_count")}
                       className="hidden text-right sm:table-cell"
                     >
-                      {sortButton("primary_count", "Статии", "right")}
+                      {sortButton(
+                        "primary_count",
+                        tr("Статии", "Articles"),
+                        "right",
+                      )}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("outlet_count")}
                       className="hidden text-right lg:table-cell"
                     >
-                      {sortButton("outlet_count", "Издания", "right")}
+                      {sortButton(
+                        "outlet_count",
+                        tr("Издания", "Outlets"),
+                        "right",
+                      )}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("disagreement")}
                       className="min-w-44"
                     >
-                      {sortButton("disagreement", "Разсейване")}
+                      {sortButton(
+                        "disagreement",
+                        tr("Разсейване", "Dispersion"),
+                      )}
                     </TableHead>
                     <TableHead
                       scope="col"
                       className="hidden min-w-48 md:table-cell"
                     >
-                      Разпределение
+                      {tr("Разпределение", "Distribution")}
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -421,8 +463,11 @@ export const TopicsScreen = () => {
                         className="py-12 text-center text-muted-foreground"
                       >
                         {allRows.length === 0
-                          ? "Няма анализирани статии по нито една тема."
-                          : "Няма съвпадения."}
+                          ? tr(
+                              "Няма анализирани статии по нито една тема.",
+                              "There are no analyzed articles for any topic.",
+                            )
+                          : tr("Няма съвпадения.", "No matches.")}
                       </TableCell>
                     </TableRow>
                   ) : null}
@@ -433,12 +478,13 @@ export const TopicsScreen = () => {
             {rows.length > 0 ? (
               <div className="flex flex-col gap-3 border-t bg-muted/15 px-3 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-xs text-muted-foreground">
-                  Показани {(page - 1) * PAGE_SIZE + 1}–
-                  {Math.min(page * PAGE_SIZE, rows.length)} от {rows.length}
+                  {tr("Показани", "Showing")} {(page - 1) * PAGE_SIZE + 1}–
+                  {Math.min(page * PAGE_SIZE, rows.length)} {tr("от", "of")}{" "}
+                  {rows.length}
                 </p>
                 <nav
                   className="flex items-center gap-1"
-                  aria-label="Страници на темите"
+                  aria-label={tr("Страници на темите", "Topic pages")}
                 >
                   <Button
                     variant="outline"
@@ -446,7 +492,7 @@ export const TopicsScreen = () => {
                     className="size-8"
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    aria-label="Предишна страница"
+                    aria-label={tr("Предишна страница", "Previous page")}
                   >
                     <ChevronLeft className="size-4" />
                   </Button>
@@ -457,7 +503,7 @@ export const TopicsScreen = () => {
                       size="icon"
                       className="size-8 tabular-nums"
                       onClick={() => setPage(n)}
-                      aria-label={`Страница ${n}`}
+                      aria-label={`${tr("Страница", "Page")} ${n}`}
                       aria-current={n === page ? "page" : undefined}
                     >
                       {n}
@@ -469,7 +515,7 @@ export const TopicsScreen = () => {
                     className="size-8"
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}
-                    aria-label="Следваща страница"
+                    aria-label={tr("Следваща страница", "Next page")}
                   >
                     <ChevronRight className="size-4" />
                   </Button>
@@ -482,17 +528,23 @@ export const TopicsScreen = () => {
 
       <div className="grid gap-2 border-t pt-4 text-xs leading-relaxed text-muted-foreground md:grid-cols-2 md:gap-6">
         <p>
-          Броят до разсейването е статиите с{" "}
+          {tr(
+            "Броят до разсейването е статиите с",
+            "The count beside dispersion is the number of articles with an",
+          )}{" "}
           <strong className="font-medium text-foreground">
-            приложима оценка
+            {tr("приложима оценка", "applicable rating")}
           </strong>{" "}
-          по съответната ос — не всички по темата. Неутралната оценка участва в
-          разпределението в средата на скалата.
+          {tr(
+            "по съответната ос — не всички по темата. Неутралната оценка участва в разпределението в средата на скалата.",
+            "on that axis, not every article on the topic. Neutral ratings are included at the midpoint of the distribution.",
+          )}
         </p>
         <p>
-          Оста се избира за всяка тема поотделно — тази с повече заели позиция
-          статии. Така външната политика може да се чете спрямо Русия, а
-          бюджетът — по политическата ос.
+          {tr(
+            "Оста се избира за всяка тема поотделно — тази с повече заели позиция статии. Така външната политика може да се чете спрямо Русия, а бюджетът — по политическата ос.",
+            "The axis is selected separately for each topic: whichever has more positioned articles. Foreign policy can therefore be read through the Russia axis, while the budget can be read through political framing.",
+          )}
         </p>
       </div>
     </div>
@@ -500,10 +552,22 @@ export const TopicsScreen = () => {
 };
 
 const Row = ({ category: c }: { category: TaxonomyCategory }) => {
+  const { isEnglish, language, tr } = useNewsLocale();
   const axis = dominantAxis(c);
   const measure = c.spread[axis];
   const offTopic = c.id === OFF_TOPIC;
-  const meta = axis === "leaning" ? LEANING_META : RUSSIA_META;
+  const meta =
+    axis === "leaning"
+      ? isEnglish
+        ? LEANING_META_EN
+        : LEANING_META
+      : isEnglish
+        ? RUSSIA_META_EN
+        : RUSSIA_META;
+  const axisLabel =
+    axis === "leaning"
+      ? tr("политическа ос", "political axis")
+      : tr("отношение към Русия", "stance toward Russia");
 
   return (
     <TableRow className={offTopic ? "opacity-70" : "group"}>
@@ -516,28 +580,35 @@ const Row = ({ category: c }: { category: TaxonomyCategory }) => {
             to={c.route}
             className="font-semibold underline-offset-4 hover:text-[hsl(var(--editorial-kicker))] hover:underline"
           >
-            {c.label.bg}
+            {c.label[language]}
           </Link>
         ) : (
-          <span className="font-semibold">{c.label.bg}</span>
+          <span className="font-semibold">{c.label[language]}</span>
         )}
         {offTopic ? (
           <span className="ml-2 rounded border border-dashed px-1.5 py-0.5 text-[11px] text-muted-foreground">
-            извън обхвата
+            {tr("извън обхвата", "out of scope")}
           </span>
         ) : null}
         <div className="mt-1 text-xs tabular-nums text-muted-foreground sm:hidden">
           {c.primary_count !== c.article_count
-            ? `${c.primary_count}/${c.article_count} статии`
-            : articles(c.primary_count)}{" "}
-          · {c.outlet_count} {c.outlet_count === 1 ? "издание" : "издания"}
+            ? `${c.primary_count}/${c.article_count} ${tr("статии", "articles")}`
+            : articleCount(c.primary_count, language)}{" "}
+          · {c.outlet_count}{" "}
+          {tr(
+            c.outlet_count === 1 ? "издание" : "издания",
+            c.outlet_count === 1 ? "outlet" : "outlets",
+          )}
         </div>
       </TableCell>
       {/* Both numbers, because they answer different questions and the gap is
           exactly what explains an empty row. */}
       <TableCell className="hidden text-right tabular-nums sm:table-cell">
         <span
-          title={`${c.primary_count} с основна тема, ${c.article_count} споменавания общо`}
+          title={tr(
+            `${c.primary_count} с основна тема, ${c.article_count} споменавания общо`,
+            `${c.primary_count} with this primary topic, ${c.article_count} mentions total`,
+          )}
         >
           {c.primary_count}
           {c.primary_count !== c.article_count ? (
@@ -552,9 +623,7 @@ const Row = ({ category: c }: { category: TaxonomyCategory }) => {
         {measure.enough ? (
           <span className="flex items-baseline gap-2">
             <Spread axis={measure} />
-            <span className="text-xs text-muted-foreground">
-              {AXIS_LABEL[axis]}
-            </span>
+            <span className="text-xs text-muted-foreground">{axisLabel}</span>
           </span>
         ) : (
           <Shortfall axis={measure} primaryCount={c.primary_count} />

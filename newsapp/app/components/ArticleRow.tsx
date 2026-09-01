@@ -14,6 +14,7 @@ import type {
   StoryMember,
 } from "../data";
 import { AiBadge, LeanBadge, QualityBadge, StanceBadge } from "./Badges";
+import { useNewsLocale } from "../i18n";
 
 export const ArticleRow = ({
   title,
@@ -42,6 +43,8 @@ export const ArticleRow = ({
   outletName?: string;
   sourceLayout?: boolean;
 }) => {
+  const { language, tr } = useNewsLocale();
+  const untitled = tr("без заглавие", "untitled");
   return (
     <div
       className={cn(
@@ -73,7 +76,7 @@ export const ArticleRow = ({
           className="shrink-0 text-xs text-muted-foreground"
           dateTime={published ?? undefined}
         >
-          {relativeTime(published)}
+          {relativeTime(published, language)}
         </time>
       </div>
       <div
@@ -90,7 +93,7 @@ export const ArticleRow = ({
               sourceLayout ? "font-medium" : "text-sm",
             )}
           >
-            {title ?? "(без заглавие)"}
+            {title ?? `(${untitled})`}
           </Link>
         ) : url ? (
           <a
@@ -101,12 +104,12 @@ export const ArticleRow = ({
               "leading-snug underline-offset-4 hover:text-primary hover:underline",
               sourceLayout ? "font-medium" : "text-sm",
             )}
-            aria-label={`${title ?? "Без заглавие"} — прочети оригинала в ${outletName ?? domain} (отваря се в нов раздел)`}
+            aria-label={`${title ?? tr("Без заглавие", "Untitled")} — ${tr("прочети оригинала в", "read the original at")} ${outletName ?? domain} ${tr("(отваря се в нов раздел)", "(opens in a new tab)")}`}
           >
-            {title ?? "(без заглавие)"}
+            {title ?? `(${untitled})`}
           </a>
         ) : (
-          <span className="text-sm">{title ?? "(без заглавие)"}</span>
+          <span className="text-sm">{title ?? `(${untitled})`}</span>
         )}
         <div className="flex flex-wrap items-center gap-1.5">
           <LeanBadge leaning={leaning} />
@@ -118,7 +121,7 @@ export const ArticleRow = ({
               to={`/story/${storyId}`}
               className="text-xs text-primary underline-offset-4 hover:underline"
             >
-              история →
+              {tr("история", "story")} →
             </Link>
           ) : null}
           {!sourceLayout && url && articleId ? (
@@ -147,18 +150,21 @@ const OriginalLink = ({
   url: string;
   title: string | null;
   outlet: string;
-}) => (
-  <a
-    href={url}
-    target="_blank"
-    rel="noreferrer noopener"
-    title={`Прочети в ${outlet}`}
-    aria-label={`Прочети оригинала „${title ?? "без заглавие"}" в ${outlet} (отваря се в нов раздел)`}
-    className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-  >
-    <ExternalLink className="size-4" aria-hidden />
-  </a>
-);
+}) => {
+  const { tr } = useNewsLocale();
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer noopener"
+      title={`${tr("Прочети в", "Read at")} ${outlet}`}
+      aria-label={`${tr("Прочети оригинала", "Read the original")} „${title ?? tr("без заглавие", "untitled")}" ${tr("в", "at")} ${outlet} ${tr("(отваря се в нов раздел)", "(opens in a new tab)")}`}
+      className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      <ExternalLink className="size-4" aria-hidden />
+    </a>
+  );
+};
 
 // Adapter for compact article records (latest feed, outlet pages).
 export const ArticleRecordRow = ({

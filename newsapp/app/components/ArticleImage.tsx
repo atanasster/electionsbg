@@ -29,6 +29,7 @@ import { useEffect, useState } from "react";
 import type { ImageRights, Outlet } from "../data";
 import { initialStage, monogramOf, type ImageStage } from "./imageFallback";
 import { compactImageCredit } from "./imageCredit";
+import { useNewsLocale } from "../i18n";
 
 export const ArticleImage = ({
   image,
@@ -58,6 +59,7 @@ export const ArticleImage = ({
   /** Dense cards show a structured short credit; detail pages keep the full record. */
   creditVariant?: "compact" | "full";
 }) => {
+  const { tr } = useNewsLocale();
   const name = outlet.outlet || outlet.domain;
   const [stage, setStage] = useState<ImageStage>(() =>
     initialStage(image, outlet.hotlink_ok, outlet.logo),
@@ -85,8 +87,8 @@ export const ArticleImage = ({
   // the same heading and credit. Logo/monogram rungs are decorative too.
   const alt = stage === "photo" ? imageAlt?.trim() || "" : "";
   const fallbackDestination = articleUrl
-    ? "към материала"
-    : "към сайта на медията";
+    ? tr("към материала", "to the article")
+    : tr("към сайта на медията", "to the outlet website");
 
   return (
     <figure className={`overflow-hidden rounded-md bg-muted ${className}`}>
@@ -141,8 +143,8 @@ export const ArticleImage = ({
           className="min-w-0 max-w-full break-words rounded-sm underline-offset-2 [overflow-wrap:anywhere] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           aria-label={
             hasReviewedCredit
-              ? `Кредит за изображението: ${rights.credit_text} (отваря се в нов прозорец)`
-              : `${name} — ${fallbackDestination} (отваря се в нов прозорец)`
+              ? `${tr("Кредит за изображението", "Image credit")}: ${rights.credit_text} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
+              : `${name} — ${fallbackDestination} ${tr("(отваря се в нов прозорец)", "(opens in a new window)")}`
           }
         >
           {creditText}
@@ -155,7 +157,7 @@ export const ArticleImage = ({
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-sm underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card"
-              aria-label={`Условия на лиценза: ${rights.licence_name} (отварят се в нов прозорец)`}
+              aria-label={`${tr("Условия на лиценза", "Licence terms")}: ${rights.licence_name} ${tr("(отварят се в нов прозорец)", "(open in a new window)")}`}
             >
               {rights.licence_name}
             </a>

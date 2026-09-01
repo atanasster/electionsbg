@@ -6,10 +6,13 @@
 import { Badge } from "@/components/ui/badge";
 import {
   AI_META,
+  aiMeta,
   LEANING_META,
-  QUALITY_META,
+  LEANING_META_EN,
+  qualityMeta,
   RUSSIA_META,
-  TONE_META,
+  RUSSIA_META_EN,
+  toneMeta,
 } from "../labels";
 import type {
   AiVerdict,
@@ -18,6 +21,7 @@ import type {
   RussiaStance,
   Tone,
 } from "../data";
+import { useNewsLocale } from "../i18n";
 
 const MetaBadge = ({
   value,
@@ -60,14 +64,20 @@ export const LeanBadge = ({
 }: {
   leaning: Leaning | null | undefined;
   short?: boolean;
-}) => (
-  <MetaBadge
-    value={leaning}
-    meta={LEANING_META}
-    titlePrefix="Политическо рамкиране на материала"
-    short={short}
-  />
-);
+}) => {
+  const { isEnglish, tr } = useNewsLocale();
+  return (
+    <MetaBadge
+      value={leaning}
+      meta={isEnglish ? LEANING_META_EN : LEANING_META}
+      titlePrefix={tr(
+        "Политическо рамкиране на материала",
+        "Political framing of the article",
+      )}
+      short={short}
+    />
+  );
+};
 
 export const StanceBadge = ({
   stance,
@@ -75,26 +85,33 @@ export const StanceBadge = ({
 }: {
   stance: RussiaStance | null | undefined;
   short?: boolean;
-}) => (
-  <MetaBadge
-    value={stance}
-    meta={RUSSIA_META}
-    titlePrefix="Позиция на материала спрямо Русия"
-    short={short}
-  />
-);
+}) => {
+  const { isEnglish, tr } = useNewsLocale();
+  return (
+    <MetaBadge
+      value={stance}
+      meta={isEnglish ? RUSSIA_META_EN : RUSSIA_META}
+      titlePrefix={tr(
+        "Позиция на материала спрямо Русия",
+        "Article position on Russia",
+      )}
+      short={short}
+    />
+  );
+};
 
 export const AiBadge = ({
   verdict,
 }: {
   verdict: AiVerdict | null | undefined;
 }) => {
+  const { language, tr } = useNewsLocale();
   if (!verdict || !(verdict in AI_META)) return null;
-  const meta = AI_META[verdict];
+  const meta = aiMeta(verdict, language);
   return (
     <Badge
       variant="outline"
-      title={`Произход: ${meta.label}`}
+      title={`${tr("Произход", "Origin")}: ${meta.label}`}
       className={meta.className}
     >
       {meta.short}
@@ -107,12 +124,13 @@ export const QualityBadge = ({
 }: {
   verdict: QualityVerdict | null | undefined;
 }) => {
-  if (!verdict || !(verdict in QUALITY_META)) return null;
-  const meta = QUALITY_META[verdict];
+  const { language, tr } = useNewsLocale();
+  if (!verdict) return null;
+  const meta = qualityMeta(verdict, language);
   return (
     <Badge
       variant="outline"
-      title={`Качество: ${meta.label}`}
+      title={`${tr("Качество", "Quality")}: ${meta.label}`}
       className="text-muted-foreground"
     >
       {meta.short}
@@ -121,8 +139,9 @@ export const QualityBadge = ({
 };
 
 export const ToneBadge = ({ tone }: { tone: Tone | null | undefined }) => {
-  if (!tone || !(tone in TONE_META)) return null;
-  const meta = TONE_META[tone];
+  const { language } = useNewsLocale();
+  if (!tone) return null;
+  const meta = toneMeta(tone, language);
   return (
     <span className={`text-xs font-medium ${meta.className}`}>
       {meta.label}

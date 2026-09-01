@@ -22,6 +22,7 @@
 import { Fragment } from "react";
 import { Badge } from "@/components/ui/badge";
 import type { EntityLink } from "../data";
+import { useNewsLocale } from "../i18n";
 
 const ENTITY_CHIP_LIMIT = 8;
 
@@ -31,6 +32,29 @@ const KIND_LABEL: Record<EntityLink["kind"], string> = {
   institution: "институция",
   company: "фирма",
   place: "населено място",
+};
+const KIND_LABEL_EN: Record<EntityLink["kind"], string> = {
+  person: "profile",
+  party: "party",
+  institution: "institution",
+  company: "company",
+  place: "place",
+};
+
+const localizedMainHref = (href: string, isEnglish: boolean): string => {
+  if (!isEnglish) return href;
+  try {
+    const url = new URL(href);
+    if (
+      url.hostname !== "electionsbg.com" ||
+      /^\/en(?:\/|$)/.test(url.pathname)
+    )
+      return href;
+    url.pathname = `/en${url.pathname === "/" ? "" : url.pathname}`;
+    return url.toString();
+  } catch {
+    return href;
+  }
 };
 
 export const EntityChips = ({
@@ -45,6 +69,7 @@ export const EntityChips = ({
   /** No heading and no cap — the article page groups them by its own label. */
   inline?: boolean;
 }) => {
+  const { isEnglish, tr } = useNewsLocale();
   if (!names.length) return null;
   const shown = inline ? names : names.slice(0, ENTITY_CHIP_LIMIT);
   const Wrapper = inline ? Fragment : "div";
@@ -69,12 +94,12 @@ export const EntityChips = ({
           return (
             <a
               key={name}
-              href={link.href}
+              href={localizedMainHref(link.href, isEnglish)}
               rel="noreferrer"
               title={
                 differs
-                  ? `${link.canonical} — ${KIND_LABEL[link.kind]} в electionsbg.com`
-                  : `${KIND_LABEL[link.kind]} в electionsbg.com`
+                  ? `${link.canonical} — ${(isEnglish ? KIND_LABEL_EN : KIND_LABEL)[link.kind]} ${tr("в", "on")} electionsbg.com`
+                  : `${(isEnglish ? KIND_LABEL_EN : KIND_LABEL)[link.kind]} ${tr("в", "on")} electionsbg.com`
               }
               className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >

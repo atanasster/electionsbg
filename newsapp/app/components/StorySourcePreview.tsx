@@ -1,14 +1,25 @@
 import type { Outlet } from "../data";
 import { selectStorySources } from "./storySourceSelection";
+import type { NewsLanguage } from "../i18n";
+import { useNewsLocale } from "../i18n";
 
-const publicationLabel = (count: number): string =>
-  `${count} ${count === 1 ? "публикация" : "публикации"}`;
+const publicationLabel = (count: number, language: NewsLanguage): string =>
+  `${count} ${
+    language === "en"
+      ? count === 1
+        ? "publication"
+        : "publications"
+      : count === 1
+        ? "публикация"
+        : "публикации"
+  }`;
 
 const visibleSourceText = (
   visible: Array<{ domain: string; label: string }>,
   remaining: number,
   articleCount: number,
   duplicateCount: boolean,
+  language: NewsLanguage,
 ) => (
   <>
     {visible.map((source, index) => (
@@ -17,9 +28,13 @@ const visibleSourceText = (
         {source.label}
       </span>
     ))}
-    {remaining ? <span aria-hidden> · +{remaining} още</span> : null}
+    {remaining ? (
+      <span aria-hidden>
+        {language === "en" ? ` · +${remaining} more` : ` · +${remaining} още`}
+      </span>
+    ) : null}
     {duplicateCount ? (
-      <span aria-hidden> · {publicationLabel(articleCount)}</span>
+      <span aria-hidden> · {publicationLabel(articleCount, language)}</span>
     ) : null}
   </>
 );
@@ -37,6 +52,7 @@ export const StorySourcePreview = ({
   limit?: number;
   className?: string;
 }) => {
+  const { language, tr } = useNewsLocale();
   const preview = selectStorySources(byDomain, outlets, limit);
   if (!preview.total) return null;
 
@@ -52,6 +68,7 @@ export const StorySourcePreview = ({
           mobilePreview.remaining,
           articleCount,
           duplicateCount,
+          language,
         )}
       </span>
       <span className="hidden sm:inline" aria-hidden>
@@ -60,16 +77,24 @@ export const StorySourcePreview = ({
           preview.remaining,
           articleCount,
           duplicateCount,
+          language,
         )}
       </span>
       <span className="sr-only">
-        <span>Източници:</span>{" "}
+        <span>{tr("Източници:", "Sources:")}</span>{" "}
         {preview.visible.map((source) => source.label).join(", ")}
         {preview.remaining ? (
-          <span>, и още {preview.remaining} медии</span>
+          <span>
+            {tr(
+              `, и още ${preview.remaining} медии`,
+              `, and ${preview.remaining} more outlets`,
+            )}
+          </span>
         ) : null}
         {duplicateCount ? (
-          <span>; общо {publicationLabel(articleCount)}</span>
+          <span>
+            {tr("; общо", "; total")} {publicationLabel(articleCount, language)}
+          </span>
         ) : null}
       </span>
     </p>

@@ -62,4 +62,33 @@ describe("news shell accessibility", () => {
       screen.getByRole("heading", { name: "Поправки и право на отговор" }),
     ).toBeVisible();
   });
+
+  it("renders a complete English shell with route-preserving language links", () => {
+    render(
+      <ThemeContext.Provider value={{ theme: themeLight, setTheme: vi.fn() }}>
+        <MemoryRouter initialEntries={["/missing?from=test"]}>
+          <App language="en" />
+        </MemoryRouter>
+      </ThemeContext.Provider>,
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "Page not found" }),
+    ).toBeVisible();
+    expect(
+      screen.queryByText("Страницата не е намерена"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Skip to main content" }),
+    ).toBeVisible();
+    const switcher = screen.getByRole("group", { name: "Language" });
+    expect(within(switcher).getByRole("link", { name: "BG" })).toHaveAttribute(
+      "href",
+      "/missing?from=test",
+    );
+    expect(within(switcher).getByRole("link", { name: "EN" })).toHaveAttribute(
+      "href",
+      "/en/missing?from=test",
+    );
+  });
 });

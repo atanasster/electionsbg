@@ -1,4 +1,4 @@
-// Every surface that renders a summary goes through SummaryPair.
+// Every full-summary surface goes through SummaryPair.
 //
 // ⚠️ A STATIC SOURCE GATE, the same shape as `imageCredit.test.ts` and the
 // mention-link sweep — because the failure it prevents lives in a file that
@@ -6,15 +6,9 @@
 // records; two places read a summary today, and a third written by hand
 // would render `summary_bg` and quietly drop the English.
 //
-// That drop is invisible to anyone reading in Bulgarian, which is everyone
-// who tests this app. The gate is the only thing that would notice.
-//
-// ⚠️ It does NOT settle the app's language. newsapp is Bulgarian-only —
-// `<html lang="bg">`, `Intl` pinned to bg-BG, no /en tree and no hreflang —
-// and whether that changes is an open decision (docs/plans/news-site-v1.md,
-// Tier 5), deliberately not sequenced because nothing else depends on it.
-// This gate is right under either answer: it keeps the English reachable
-// through one path, which is the prerequisite for both.
+// The app now has distinct Bulgarian and English URL trees. The gate protects
+// the selected-language-only contract: both translations remain wired, while
+// no page renders them together.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -153,23 +147,13 @@ describe("the English summary has one path", () => {
     ).toBeGreaterThan(1);
   });
 
-  it("keeps the English behind a disclosure, not a second paragraph", () => {
-    // ⚠️ The English is SECONDARY and must look it — the corpus, the
-    // rubric's evidence strings and every label around it are Bulgarian.
-    // Rendered as a plain paragraph it reads as a translation of record
-    // rather than a courtesy.
-    // ⚠️ COMMENTS STRIPPED here too: this component's own header comment
-    // contains the word „details", so `toContain("<details")` against the
-    // raw source is satisfied by prose — verified by mutating the JSX away
-    // in memory and watching the assertion still pass.
+  it("selects one locale instead of rendering a translation disclosure", () => {
     const src = stripComments(
       fs.readFileSync(path.join(APP, "components", "SummaryPair.tsx"), "utf-8"),
     );
-    expect(src).toContain("<details");
-    expect(src).toContain("<summary");
-    // …and the English actually reaches the DOM rather than being accepted
-    // and dropped — a prop that is destructured and never rendered is the
-    // exact shape this whole component exists to prevent.
-    expect(src).toMatch(/\{\s*en\s*\}/);
+    expect(src).toContain('language === "en" ? en : bg');
+    expect(src).toMatch(/\{\s*selected\s*\}/);
+    expect(src).not.toContain("<details");
+    expect(src).not.toContain("<summary");
   });
 });

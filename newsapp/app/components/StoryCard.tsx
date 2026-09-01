@@ -18,6 +18,7 @@ import { LeanSpectrum, StanceSpectrum } from "./SpectrumBar";
 import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
 import { StorySourcePreview } from "./StorySourcePreview";
+import { useNewsLocale } from "../i18n";
 
 export const StoryCard = ({
   story,
@@ -32,7 +33,11 @@ export const StoryCard = ({
   outlets: readonly Outlet[];
   kind?: HomeStoryKind;
 }) => {
-  const title = story.title_bg ?? story.title_en ?? "(без заглавие)";
+  const { language, tr } = useNewsLocale();
+  const title =
+    (language === "en" ? story.title_en : story.title_bg) ??
+    tr("(без заглавие)", "(untitled)");
+  const summary = language === "en" ? story.summary_en : story.summary_bg;
   const primary = story.topics.find((t) => t.primary) ?? story.topics[0];
   const leaningCount = Object.entries(story.aggregates.by_leaning).reduce(
     (sum, [label, count]) =>
@@ -84,8 +89,12 @@ export const StoryCard = ({
                 variant="secondary"
                 className="min-w-0 max-w-[75%] truncate font-normal"
               >
-                {topicLabel(taxonomy, primary.category, primary.subcategory) ??
-                  primary.category}
+                {topicLabel(
+                  taxonomy,
+                  primary.category,
+                  primary.subcategory,
+                  language,
+                ) ?? primary.category}
               </Badge>
             ) : (
               <span />
@@ -94,7 +103,7 @@ export const StoryCard = ({
               className="shrink-0 whitespace-nowrap"
               dateTime={story.last_published ?? undefined}
             >
-              {relativeTime(story.last_published)}
+              {relativeTime(story.last_published, language)}
             </time>
           </div>
           <Link
@@ -104,9 +113,9 @@ export const StoryCard = ({
             <h3 className="news-story-heading line-clamp-3 font-title text-xl leading-[1.22] transition-colors group-hover:text-[hsl(var(--editorial-kicker))]">
               {title}
             </h3>
-            {story.summary_bg ? (
+            {summary ? (
               <p className="news-story-summary mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                {story.summary_bg}
+                {summary}
               </p>
             ) : null}
           </Link>
@@ -120,8 +129,8 @@ export const StoryCard = ({
             <div className="mt-3 space-y-1.5">
               <p className="text-xs font-medium text-muted-foreground">
                 {signal === "leaning"
-                  ? "Политическо рамкиране"
-                  : "Позиция спрямо Русия"}
+                  ? tr("Политическо рамкиране", "Political framing")
+                  : tr("Позиция спрямо Русия", "Position on Russia")}
               </p>
               {signal === "leaning" ? (
                 <LeanSpectrum counts={story.aggregates.by_leaning} />

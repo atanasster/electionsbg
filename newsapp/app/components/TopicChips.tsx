@@ -21,6 +21,7 @@ import { Fragment } from "react";
 import { Badge } from "@/components/ui/badge";
 import { topicParts } from "../labels";
 import type { TaxonomyCategory } from "../data";
+import { useNewsLocale } from "../i18n";
 
 export const TopicChips = ({
   categories,
@@ -32,6 +33,7 @@ export const TopicChips = ({
   /** No wrapper — the caller already has a badge row of its own. */
   inline?: boolean;
 }) => {
+  const { language, tr } = useNewsLocale();
   if (!topics.length) return null;
   const Wrapper = inline ? Fragment : "div";
   return (
@@ -44,7 +46,12 @@ export const TopicChips = ({
           { className: "flex flex-wrap items-start gap-1.5" })}
     >
       {topics.map((t) => {
-        const parts = topicParts(categories, t.category, t.subcategory);
+        const parts = topicParts(
+          categories,
+          t.category,
+          t.subcategory,
+          language,
+        );
         const key = `${t.category}/${t.subcategory}`;
         if (!parts.length) {
           return (
@@ -78,7 +85,7 @@ export const TopicChips = ({
               rel="noreferrer"
               // ⚠️ The full label, because the chip may be truncated — a
               // reader who cannot see the whole topic can still read it.
-              title={`${p.label} — в electionsbg.com`}
+              title={`${p.label} — ${tr("в", "on")} electionsbg.com`}
               className="block max-w-full rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {inner}

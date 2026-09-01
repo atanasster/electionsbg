@@ -8,7 +8,16 @@ import { Link, useParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MixBar, type MixSegment } from "@/ux/MixBar";
-import { formatDate, LEANING_META, relativeTime, RUSSIA_META } from "../labels";
+import {
+  articles,
+  formatDate,
+  LEANING_META,
+  leaningMeta,
+  media,
+  relativeTime,
+  RUSSIA_META,
+  russiaMeta,
+} from "../labels";
 import { useOutlets, useStories, useTaxonomy } from "../data";
 import { StoryMemberRow } from "../components/ArticleRow";
 import { EntityChips } from "../components/EntityChips";
@@ -19,6 +28,7 @@ import { ReaderActions } from "../components/ReaderActions";
 import { ReportIssueLink } from "../components/ReportIssueLink";
 import { emitNewsEvent } from "../analytics";
 import { resolveRelatedStories } from "./relatedStories";
+import { useNewsLocale } from "../i18n";
 
 type LeanGroup = "left" | "center" | "right" | "n/a";
 type StanceGroup = "pro" | "neutral" | "anti" | "n/a";
@@ -62,6 +72,7 @@ const STANCE_GROUPS: {
 ];
 
 export const StoryScreen = () => {
+  const { isEnglish, language, tr } = useNewsLocale();
   const { id } = useParams<{ id: string }>();
   const stories = useStories();
   const taxonomy = useTaxonomy();
@@ -101,13 +112,13 @@ export const StoryScreen = () => {
     return {
       segments: LEAN_GROUPS.map(({ g, label, meta }) => ({
         key: g,
-        label,
+        label: language === "bg" ? label : leaningMeta(meta, language).label,
         count: counts[g],
         color: LEANING_META[meta].color,
       })).filter((s) => s.count > 0),
       naCount: counts["n/a"],
     };
-  }, [story]);
+  }, [language, story]);
 
   const stanceSegments = useMemo<MixSegment<StanceGroup>[]>(() => {
     if (!story) return [];
@@ -120,11 +131,11 @@ export const StoryScreen = () => {
     for (const m of story.members) counts[stanceGroup(m.russia_stance)] += 1;
     return STANCE_GROUPS.map(({ g, meta }) => ({
       key: g,
-      label: RUSSIA_META[meta].label,
+      label: russiaMeta(meta, language).label,
       count: counts[g],
       color: RUSSIA_META[meta].color,
     })).filter((s) => s.count > 0);
-  }, [story]);
+  }, [language, story]);
 
   const members = useMemo(() => {
     if (!story) return [];
@@ -175,9 +186,11 @@ export const StoryScreen = () => {
   if (stories.error && !stories.data) {
     return (
       <Card className="p-6">
-        <h1 className="font-title text-2xl">Данните не се заредиха</h1>
+        <h1 className="font-title text-2xl">
+          {tr("Данните не се заредиха", "Data could not be loaded")}
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          {stories.error.message}
+          {isEnglish ? "Please try again later." : stories.error.message}
         </p>
       </Card>
     );
@@ -186,14 +199,19 @@ export const StoryScreen = () => {
   if (!story) {
     return (
       <Card className="p-6">
-        <h1 className="font-title text-2xl">Историята не е намерена</h1>
+        <h1 className="font-title text-2xl">
+          {tr("Историята не е намерена", "Story not found")}
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Възможно е клъстерът да е обединен с друг или адресът да е грешен.{" "}
+          {tr(
+            "Възможно е клъстерът да е обединен с друг или адресът да е грешен.",
+            "The story may have been merged into another cluster, or the address may be incorrect.",
+          )}{" "}
           <Link
             to="/"
             className="text-primary underline-offset-4 hover:underline"
           >
-            Към историите
+            {tr("Към историите", "Browse stories")}
           </Link>
         </p>
       </Card>
@@ -201,55 +219,52 @@ export const StoryScreen = () => {
   }
 
   const primaryTopic = story.topics.find((t) => t.primary) ?? story.topics[0];
+  const selectedTitle = language === "bg" ? story.title_bg : story.title_en;
+  const pageTitle =
+    selectedTitle ?? tr("История без заглавие", "Untitled story");
 
   return (
     <div className="space-y-6">
-      <nav className="text-sm text-muted-foreground" aria-label="Път">
+      <nav
+        className="text-sm text-muted-foreground"
+        aria-label={tr("Път", "Breadcrumb")}
+      >
         <Link to="/" className="hover:text-primary">
-          Истории
+          {tr("Истории", "Stories")}
         </Link>
         <span className="px-1.5">/</span>
-        <span className="text-foreground">
-          {story.title_bg ?? story.title_en}
-        </span>
+        <span className="text-foreground">{pageTitle}</span>
       </nav>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="space-y-6">
           <header>
-            <h1 className="font-title text-3xl leading-tight">
-              {story.title_bg ?? story.title_en ?? "(без заглавие)"}
-            </h1>
-            <ReaderActions
-              path={`/story/${story.id}`}
-              title={story.title_bg ?? story.title_en ?? "Наясно новини"}
-            />
+            <h1 className="font-title text-3xl leading-tight">{pageTitle}</h1>
+            <ReaderActions path={`/story/${story.id}`} title={pageTitle} />
             <div className="mt-2">
               <ReportIssueLink path={`/story/${story.id}`} />
             </div>
-            {story.title_en && story.title_bg ? (
-              <p className="mt-1 text-sm italic text-muted-foreground">
-                {story.title_en}
-              </p>
-            ) : null}
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
               {firstWithOutlet ? (
                 <span>
-                  Първи съобщи{" "}
+                  {tr("Първи съобщи", "First reported by")}{" "}
                   <Link
                     to={`/outlet/${firstWithOutlet.member.domain}`}
                     className="font-medium text-foreground hover:text-primary"
                   >
                     {firstWithOutlet.name}
                   </Link>{" "}
-                  · {relativeTime(firstWithOutlet.member.published)}
+                  · {relativeTime(firstWithOutlet.member.published, language)}
                 </span>
               ) : null}
               <span>
-                {story.aggregates.outlet_count} медии ·{" "}
-                {story.aggregates.article_count} статии
+                {media(story.aggregates.outlet_count, language)} ·{" "}
+                {articles(story.aggregates.article_count, language)}
               </span>
-              <span>обновено {relativeTime(story.last_published)}</span>
+              <span>
+                {tr("обновено", "updated")}{" "}
+                {relativeTime(story.last_published, language)}
+              </span>
             </div>
             <SummaryPair
               bg={story.summary_bg}
@@ -262,7 +277,10 @@ export const StoryScreen = () => {
           {/* Interactive spectrums — clicking a group filters the member list. */}
           <div className="space-y-3">
             <MixBar
-              title="Политическо рамкиране на материалите"
+              title={tr(
+                "Политическо рамкиране на материалите",
+                "Political framing of the articles",
+              )}
               segments={lean.segments}
               selected={leanFilter}
               onSelect={(value) => {
@@ -275,12 +293,15 @@ export const StoryScreen = () => {
               }}
               note={
                 lean.naCount > 0
-                  ? `${lean.naCount} от материалите са извън политическата ос и не участват в лентата.`
+                  ? tr(
+                      `${lean.naCount} от материалите са извън политическата ос и не участват в лентата.`,
+                      `${lean.naCount} articles fall outside the political axis and are not included in the bar.`,
+                    )
                   : undefined
               }
             />
             <MixBar
-              title="Позиция спрямо Русия"
+              title={tr("Позиция спрямо Русия", "Stance toward Russia")}
               segments={stanceSegments}
               selected={stanceFilter}
               onSelect={(value) => {
@@ -300,7 +321,8 @@ export const StoryScreen = () => {
               id="coverage-heading"
               className="mb-1 text-sm font-semibold uppercase tracking-wide"
             >
-              Отразяване ({members.length} от {story.members.length})
+              {tr("Отразяване", "Coverage")} ({members.length} {tr("от", "of")}{" "}
+              {story.members.length})
             </h2>
             <Card className="overflow-hidden px-4">
               {members.map((m) => (
@@ -312,7 +334,10 @@ export const StoryScreen = () => {
               ))}
               {members.length === 0 ? (
                 <p className="py-4 text-sm text-muted-foreground">
-                  Няма източници в избрания сегмент.
+                  {tr(
+                    "Няма източници в избрания сегмент.",
+                    "No sources match the selected segment.",
+                  )}
                 </p>
               ) : null}
             </Card>
@@ -323,24 +348,24 @@ export const StoryScreen = () => {
         <aside className="space-y-4">
           <Card className="space-y-2 p-4 text-sm">
             <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              Обхват
+              {tr("Обхват", "Coverage")}
             </h2>
             <div className="flex justify-between">
-              <span>Източници</span>
+              <span>{tr("Източници", "Sources")}</span>
               <span className="font-semibold tabular-nums">
                 {story.aggregates.outlet_count}
               </span>
             </div>
             <div className="flex justify-between">
-              <span>Статии</span>
+              <span>{tr("Статии", "Articles")}</span>
               <span className="font-semibold tabular-nums">
                 {story.aggregates.article_count}
               </span>
             </div>
             <div className="flex justify-between">
-              <span>Първо съобщаване</span>
+              <span>{tr("Първо съобщаване", "First reported")}</span>
               <span className="tabular-nums">
-                {formatDate(story.first_published)}
+                {formatDate(story.first_published, language)}
               </span>
             </div>
           </Card>
@@ -348,7 +373,7 @@ export const StoryScreen = () => {
           {primaryTopic ? (
             <Card className="p-4">
               <h2 className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Теми
+                {tr("Теми", "Topics")}
               </h2>
               <TopicChips categories={categories} topics={story.topics} />
             </Card>
@@ -356,27 +381,27 @@ export const StoryScreen = () => {
 
           <Card className="space-y-3 p-4">
             <EntityChips
-              title="Хора"
+              title={tr("Хора", "People")}
               names={story.entities.people}
               links={story.entity_links}
             />
             <EntityChips
-              title="Партии"
+              title={tr("Партии", "Parties")}
               names={story.entities.parties}
               links={story.entity_links}
             />
             <EntityChips
-              title="Институции"
+              title={tr("Институции", "Institutions")}
               names={story.entities.institutions}
               links={story.entity_links}
             />
             <EntityChips
-              title="Компании"
+              title={tr("Компании", "Companies")}
               names={story.entities.companies}
               links={story.entity_links}
             />
             <EntityChips
-              title="Места"
+              title={tr("Места", "Places")}
               names={story.entities.places}
               links={story.entity_links}
             />
@@ -385,7 +410,7 @@ export const StoryScreen = () => {
           {Object.keys(story.aggregates.by_domain).length > 0 ? (
             <Card className="p-4">
               <h2 className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Източници
+                {tr("Източници", "Sources")}
               </h2>
               <ul className="space-y-1 text-sm">
                 {Object.entries(story.aggregates.by_domain)

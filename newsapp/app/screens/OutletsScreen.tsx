@@ -26,14 +26,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  bgAnalyzedArticles,
-  bgCollectedArticles,
+  analyzedArticles,
+  collectedArticles,
   formatVisits,
   outletScopeLabel,
   outletTypeLabel,
 } from "../labels";
 import { hasSpectrum, positionedCount, useOutlets, type Outlet } from "../data";
 import { LeanSpectrum, StanceSpectrum } from "../components/SpectrumBar";
+import { useNewsLocale, type NewsLanguage } from "../i18n";
 
 const PAGE_SIZE = 15;
 
@@ -49,12 +50,13 @@ type SortDirection = "asc" | "desc";
 
 /** Analysed-of-collected, coloured by whether it supports a distribution. */
 const Coverage = ({ outlet: o }: { outlet: Outlet }) => {
+  const { language, tr } = useNewsLocale();
   if (!o.article_count) return <span className="text-muted-foreground">—</span>;
   const enough = hasSpectrum(o.leaning);
   return (
     <span
       className={enough ? "text-foreground" : "text-muted-foreground"}
-      aria-label={`${bgAnalyzedArticles(o.analyzed_count)} от ${bgCollectedArticles(o.article_count)}`}
+      aria-label={`${analyzedArticles(o.analyzed_count, language)} ${tr("от", "out of")} ${collectedArticles(o.article_count, language)}`}
     >
       {o.analyzed_count}
       <span className="text-muted-foreground">/{o.article_count}</span>
@@ -64,16 +66,26 @@ const Coverage = ({ outlet: o }: { outlet: Outlet }) => {
 
 /** What stands where a bar would be. A sentence, never an empty strip. */
 const TooFewSpectrum = ({ outlet: o }: { outlet: Outlet }) => {
+  const { language, tr } = useNewsLocale();
   const positioned = positionedCount(o.leaning);
   return (
     <span className="text-xs text-muted-foreground">
       {o.analyzed_count === 0
-        ? "няма анализирани статии"
+        ? tr("няма анализирани статии", "no analyzed articles")
         : positioned === 0
-          ? `${bgAnalyzedArticles(o.analyzed_count)}, нито една няма приложима оценка`
+          ? tr(
+              `${analyzedArticles(o.analyzed_count, language)}, нито една няма приложима оценка`,
+              `${analyzedArticles(o.analyzed_count, language)}; none has an applicable rating`,
+            )
           : positioned === 1
-            ? `от ${bgAnalyzedArticles(o.analyzed_count)} само 1 участва в разпределението`
-            : `от ${bgAnalyzedArticles(o.analyzed_count)} само ${positioned} участват в разпределението`}
+            ? tr(
+                `от ${analyzedArticles(o.analyzed_count, language)} само 1 участва в разпределението`,
+                `only 1 of ${analyzedArticles(o.analyzed_count, language)} is included in the distribution`,
+              )
+            : tr(
+                `от ${analyzedArticles(o.analyzed_count, language)} само ${positioned} участват в разпределението`,
+                `only ${positioned} of ${analyzedArticles(o.analyzed_count, language)} are included in the distribution`,
+              )}
     </span>
   );
 };
@@ -100,13 +112,18 @@ const pageNumbers = (page: number, total: number): number[] => {
   return Array.from({ length: Math.min(3, total) }, (_, i) => start + i);
 };
 
-const sortValue = (outlet: Outlet, key: SortKey): string | number | null => {
-  if (key === "type") return outletTypeLabel(outlet.type) ?? null;
-  if (key === "scope") return outletScopeLabel(outlet.scope) ?? null;
+const sortValue = (
+  outlet: Outlet,
+  key: SortKey,
+  language: NewsLanguage,
+): string | number | null => {
+  if (key === "type") return outletTypeLabel(outlet.type, language) ?? null;
+  if (key === "scope") return outletScopeLabel(outlet.scope, language) ?? null;
   return outlet[key];
 };
 
 export const OutletsScreen = () => {
+  const { isEnglish, language, tr } = useNewsLocale();
   const outlets = useOutlets();
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<"active" | "all" | "retired">("all");
@@ -134,13 +151,13 @@ export const OutletsScreen = () => {
       if (status === "all" && a.retired !== b.retired)
         return a.retired ? 1 : -1;
       const result = compareNullable(
-        sortValue(a, sort.key),
-        sortValue(b, sort.key),
+        sortValue(a, sort.key, language),
+        sortValue(b, sort.key, language),
         sort.direction,
       );
       return result || compareNullable(a.rank, b.rank, "asc");
     });
-  }, [all, q, sort, status]);
+  }, [all, language, q, sort, status]);
 
   const active = all.filter((o) => !o.retired);
   const measured = active.filter((o) => o.visits != null).length;
@@ -186,7 +203,7 @@ export const OutletsScreen = () => {
         className={`group inline-flex w-full items-center gap-1.5 py-1 text-[11px] font-semibold uppercase tracking-[0.04em] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
           align === "right" ? "justify-end" : "justify-start"
         }`}
-        aria-label={`Подреди по ${label}`}
+        aria-label={`${tr("Подреди по", "Sort by")} ${label}`}
       >
         {label}
         <Icon
@@ -208,21 +225,25 @@ export const OutletsScreen = () => {
     <div className="space-y-5">
       <header className="news-directory-head border-b pb-5">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
-          Медиен каталог
+          {tr("Медиен каталог", "Media directory")}
         </p>
         <div className="mt-2 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <h1 className="font-title text-4xl leading-none sm:text-5xl">
-              Източници
+              {tr("Източници", "Sources")}
             </h1>
             <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Българските медии в корпуса — размер на аудиторията, натрупани
-              статии и как изглеждат оценките във вече анализираната извадка.
+              {tr(
+                "Българските медии в корпуса — размер на аудиторията, натрупани статии и как изглеждат оценките във вече анализираната извадка.",
+                "Bulgarian media in the corpus — audience size, collected articles, and the shape of ratings in the analyzed sample.",
+              )}
             </p>
           </div>
           <p className="max-w-sm border-l-2 border-[hsl(var(--editorial-kicker))] pl-3 text-xs leading-relaxed text-muted-foreground">
-            Посещенията са оценки на Similarweb за последния наличен месец, а не
-            измерване на качество, доверие или влияние.
+            {tr(
+              "Посещенията са оценки на Similarweb за последния наличен месец, а не измерване на качество, доверие или влияние.",
+              "Visits are Similarweb estimates for the latest available month, not a measure of quality, trust, or influence.",
+            )}
           </p>
         </div>
       </header>
@@ -230,22 +251,22 @@ export const OutletsScreen = () => {
       {outlets.data ? (
         <section
           className="grid grid-cols-3 divide-x overflow-hidden rounded-md border bg-card"
-          aria-label="Обобщение на каталога"
+          aria-label={tr("Обобщение на каталога", "Directory summary")}
         >
           <div className="p-3 sm:p-4">
             <div className="font-title text-2xl tabular-nums sm:text-3xl">
               {active.length}
             </div>
             <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
-              активни медии
+              {tr("активни медии", "active outlets")}
             </div>
           </div>
           <div className="p-3 sm:p-4">
             <div className="font-title text-2xl tabular-nums sm:text-3xl">
-              {collected.toLocaleString("bg-BG")}
+              {collected.toLocaleString(language === "bg" ? "bg-BG" : "en-GB")}
             </div>
             <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
-              статии в корпуса
+              {tr("статии в корпуса", "articles in corpus")}
             </div>
           </div>
           <div className="p-3 sm:p-4">
@@ -253,7 +274,7 @@ export const OutletsScreen = () => {
               {measured}/{active.length}
             </div>
             <div className="mt-0.5 text-[11px] uppercase tracking-wide text-muted-foreground sm:text-xs">
-              с данни за трафик
+              {tr("с данни за трафик", "with traffic data")}
             </div>
           </div>
         </section>
@@ -266,9 +287,9 @@ export const OutletsScreen = () => {
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Медия или домейн…"
+              placeholder={tr("Медия или домейн…", "Outlet or domain…")}
               className="bg-background pl-9"
-              aria-label="Търсене на медия"
+              aria-label={tr("Търсене на медия", "Search outlets")}
             />
           </div>
           <div className="flex items-center justify-between gap-3 sm:justify-end">
@@ -276,7 +297,7 @@ export const OutletsScreen = () => {
               htmlFor="outlet-status"
               className="text-xs font-medium text-muted-foreground"
             >
-              Статус
+              {tr("Статус", "Status")}
             </label>
             <select
               id="outlet-status"
@@ -284,16 +305,18 @@ export const OutletsScreen = () => {
               onChange={(e) => setStatus(e.target.value as typeof status)}
               className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <option value="all">Всички</option>
-              <option value="active">Активни</option>
-              <option value="retired">Оттеглени</option>
+              <option value="all">{tr("Всички", "All")}</option>
+              <option value="active">{tr("Активни", "Active")}</option>
+              <option value="retired">{tr("Оттеглени", "Retired")}</option>
             </select>
           </div>
         </div>
 
         {outlets.error && !outlets.data ? (
           <div className="p-4 text-sm text-destructive">
-            Източниците не се заредиха: {outlets.error.message}
+            {isEnglish
+              ? "Sources could not be loaded."
+              : `Източниците не се заредиха: ${outlets.error.message}`}
           </div>
         ) : outlets.loading && !outlets.data ? (
           <Skeleton className="m-4 h-96 rounded-xl" />
@@ -315,54 +338,69 @@ export const OutletsScreen = () => {
                       aria-sort={ariaSort("outlet")}
                       className="min-w-56"
                     >
-                      {sortButton("outlet", "Източник")}
+                      {sortButton("outlet", tr("Източник", "Source"))}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("type")}
                       className="hidden lg:table-cell"
                     >
-                      {sortButton("type", "Тип")}
+                      {sortButton("type", tr("Тип", "Type"))}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("scope")}
                       className="hidden xl:table-cell"
                     >
-                      {sortButton("scope", "Обхват")}
+                      {sortButton("scope", tr("Обхват", "Scope"))}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("visits")}
                       className="min-w-36 text-right"
                     >
-                      {sortButton("visits", "Посещения/мес", "right")}
+                      {sortButton(
+                        "visits",
+                        tr("Посещения/мес", "Visits/month"),
+                        "right",
+                      )}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("article_count")}
                       className="hidden text-right md:table-cell"
                     >
-                      {sortButton("article_count", "Статии", "right")}
+                      {sortButton(
+                        "article_count",
+                        tr("Статии", "Articles"),
+                        "right",
+                      )}
                     </TableHead>
                     <TableHead
                       scope="col"
                       aria-sort={ariaSort("analyzed_count")}
                       className="hidden text-right lg:table-cell"
                     >
-                      {sortButton("analyzed_count", "Анализ", "right")}
+                      {sortButton(
+                        "analyzed_count",
+                        tr("Анализ", "Analysis"),
+                        "right",
+                      )}
                     </TableHead>
                     <TableHead
                       scope="col"
                       className="hidden min-w-52 md:table-cell"
                     >
-                      Рамкиране на статиите
+                      {tr("Рамкиране на статиите", "Article framing")}
                     </TableHead>
                     <TableHead
                       scope="col"
                       className="hidden min-w-48 xl:table-cell"
                     >
-                      Позиция на статиите спрямо Русия
+                      {tr(
+                        "Позиция на статиите спрямо Русия",
+                        "Article stance toward Russia",
+                      )}
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -392,7 +430,7 @@ export const OutletsScreen = () => {
                               className="font-normal text-muted-foreground"
                               title={o.retired_reason ?? undefined}
                             >
-                              оттеглен
+                              {tr("оттеглен", "retired")}
                             </Badge>
                           ) : null}
                           {o.ai_generated.likely_ai ? (
@@ -400,24 +438,24 @@ export const OutletsScreen = () => {
                               variant="outline"
                               className="border-destructive/40 text-destructive"
                             >
-                              {o.ai_generated.likely_ai} ИИ?
+                              {o.ai_generated.likely_ai} {tr("ИИ?", "AI?")}
                             </Badge>
                           ) : null}
                         </div>
                       </TableCell>
                       <TableCell className="hidden text-muted-foreground lg:table-cell">
-                        {outletTypeLabel(o.type) ?? "—"}
+                        {outletTypeLabel(o.type, language) ?? "—"}
                       </TableCell>
                       <TableCell className="hidden text-muted-foreground xl:table-cell">
-                        {outletScopeLabel(o.scope) ?? "—"}
+                        {outletScopeLabel(o.scope, language) ?? "—"}
                       </TableCell>
                       <TableCell className="text-right font-semibold tabular-nums">
                         {o.visits == null ? (
                           <span className="text-xs font-normal text-muted-foreground">
-                            няма данни
+                            {tr("няма данни", "no data")}
                           </span>
                         ) : (
-                          formatVisits(o.visits)
+                          formatVisits(o.visits, language)
                         )}
                       </TableCell>
                       <TableCell className="hidden text-right tabular-nums md:table-cell">
@@ -450,7 +488,7 @@ export const OutletsScreen = () => {
                         colSpan={9}
                         className="py-12 text-center text-muted-foreground"
                       >
-                        Няма съвпадения.
+                        {tr("Няма съвпадения.", "No matches.")}
                       </TableCell>
                     </TableRow>
                   ) : null}
@@ -461,12 +499,13 @@ export const OutletsScreen = () => {
             {rows.length > 0 ? (
               <div className="flex flex-col gap-3 border-t bg-muted/15 px-3 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-xs text-muted-foreground">
-                  Показани {(page - 1) * PAGE_SIZE + 1}–
-                  {Math.min(page * PAGE_SIZE, rows.length)} от {rows.length}
+                  {tr("Показани", "Showing")} {(page - 1) * PAGE_SIZE + 1}–
+                  {Math.min(page * PAGE_SIZE, rows.length)} {tr("от", "of")}{" "}
+                  {rows.length}
                 </p>
                 <nav
                   className="flex items-center gap-1"
-                  aria-label="Страници на източниците"
+                  aria-label={tr("Страници на източниците", "Source pages")}
                 >
                   <Button
                     variant="outline"
@@ -474,7 +513,7 @@ export const OutletsScreen = () => {
                     className="size-8"
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    aria-label="Предишна страница"
+                    aria-label={tr("Предишна страница", "Previous page")}
                   >
                     <ChevronLeft className="size-4" />
                   </Button>
@@ -485,7 +524,7 @@ export const OutletsScreen = () => {
                       size="icon"
                       className="size-8 tabular-nums"
                       onClick={() => setPage(n)}
-                      aria-label={`Страница ${n}`}
+                      aria-label={`${tr("Страница", "Page")} ${n}`}
                       aria-current={n === page ? "page" : undefined}
                     >
                       {n}
@@ -497,7 +536,7 @@ export const OutletsScreen = () => {
                     className="size-8"
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}
-                    aria-label="Следваща страница"
+                    aria-label={tr("Следваща страница", "Next page")}
                   >
                     <ChevronRight className="size-4" />
                   </Button>

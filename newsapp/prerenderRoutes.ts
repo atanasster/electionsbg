@@ -45,30 +45,45 @@ export const HUB_ROUTES: PrerenderRoute[] = [
     title: "Наясно Новини — всяка страна на всяка история",
     description:
       "Сравнете как българските медии отразяват една и съща история: политическо рамкиране, позиция спрямо Русия, сигнали за ИИ-генерирано съдържание, източници и теми.",
+    titleEn: "Naiasno News — every side of every story",
+    descriptionEn:
+      "Compare how Bulgarian media cover the same story: political framing, stance toward Russia, signals of AI-generated content, sources, and topics.",
   },
   {
     path: "outlets",
     title: "Източници — българските медии в корпуса | Наясно Новини",
     description:
       "Всички издания в корпуса: вид, обхват, посещаемост, брой събрани и анализирани материали и разпределението на техните собствени статии по двете оси.",
+    titleEn: "Sources — Bulgarian media in the corpus | Naiasno News",
+    descriptionEn:
+      "All outlets in the corpus: type, scope, traffic, collected and analyzed article counts, and the distribution of their own articles across both axes.",
   },
   {
     path: "topics",
     title: "Теми — по какво се разминават медиите | Наясно Новини",
     description:
       "Темите в корпуса по таксономия, и къде отразяването се разминава най-силно между изданията.",
+    titleEn: "Topics — where media coverage diverges | Naiasno News",
+    descriptionEn:
+      "Topics in the corpus taxonomy and where coverage diverges most strongly between outlets.",
   },
   {
     path: "methodology",
     title: "Методология — как се правят оценките | Наясно Новини",
     description:
       "Какво измерваме, как, и какво този корпус не покрива. Всяка статия се оценява поотделно, с цитат от самия материал.",
+    titleEn: "Methodology — how ratings are produced | Naiasno News",
+    descriptionEn:
+      "What we measure, how we measure it, and what this corpus does not cover. Every article is rated separately with supporting evidence.",
   },
   {
     path: "saved",
     title: "Запазени истории и статии | Наясно Новини",
     description:
       "Личният ви списък със запазени истории и статии. Данните остават само в браузъра и не се синхронизират.",
+    titleEn: "Saved stories and articles | Naiasno News",
+    descriptionEn:
+      "Your personal list of saved stories and articles. The data stay in this browser and are not synchronized.",
     sitemap: false,
     noindex: true,
   },
@@ -77,18 +92,27 @@ export const HUB_ROUTES: PrerenderRoute[] = [
     title: "За редакцията | Наясно Новини",
     description:
       "Мисията, редакционните принципи и отговорността зад Наясно Новини — проект за сравнение на българското медийно отразяване.",
+    titleEn: "About the newsroom | Naiasno News",
+    descriptionEn:
+      "The mission, editorial principles, and responsibility behind Naiasno News, a project comparing Bulgarian media coverage.",
   },
   {
     path: "corrections",
     title: "Поправки и право на отговор | Наясно Новини",
     description:
       "Как се подават и разглеждат сигнали, как отбелязваме поправки и оттегляния и публичният регистър на редакционните промени.",
+    titleEn: "Corrections and right of reply | Naiasno News",
+    descriptionEn:
+      "How reports are submitted and reviewed, how corrections and withdrawals are marked, and the public register of editorial changes.",
   },
   {
     path: "evals",
     title: "Публично оценяване на анализи | Наясно Новини",
     description:
       "Експериментално публично оценяване на политическото рамкиране, позицията спрямо Русия и отношението към партии в избрани статии — без регистрация.",
+    titleEn: "Public evaluation | Naiasno News",
+    descriptionEn:
+      "The experimental evaluation form is currently available in Bulgarian only.",
     sitemap: false,
     noindex: true,
   },
@@ -104,6 +128,9 @@ export const EVAL_ARTICLE_FALLBACK_ROUTE: PrerenderRoute = {
   title: "Оценяване на статия | Наясно Новини",
   description:
     "Публично експериментално оценяване на анализ на статия. Формулярът е достъпен само за материали в текущата публична опашка.",
+  titleEn: "Article evaluation | Naiasno News",
+  descriptionEn:
+    "The experimental article-evaluation form is currently available in Bulgarian only.",
   sitemap: false,
   noindex: true,
 };
@@ -236,6 +263,12 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
           ? `${name} е извадено от обхождането. ${total} събрани материала остават в корпуса, ${analysed} от тях анализирани.`
           : `${total} събрани материала от ${name}, ${analysed} анализирани. Разпределение по политическата ос и по отношението към Русия, и последни статии.`,
       ),
+      titleEn: `${name} — outlet profile | Naiasno News`,
+      descriptionEn: clamp(
+        retired
+          ? `${name} has been removed from crawling. ${total} collected articles remain in the corpus; ${analysed} have been analyzed.`
+          : `${total} articles collected from ${name}; ${analysed} analyzed. Political-framing and Russia-stance distributions, plus the latest articles.`,
+      ),
       // ⚠️ A retired outlet keeps its page — its articles are still in the
       // corpus and still linked from stories — but it is NOT submitted. We
       // are not asking a crawler to index a source we no longer collect, and
@@ -260,6 +293,11 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       description: clamp(
         summary ||
           `Как ${outletCount} издания отразяват тази история: заглавия, политическо рамкиране и позиция спрямо Русия.`,
+      ),
+      titleEn: `${clamp(String(st.title_en ?? "News story").trim() || "News story", 70)} — coverage comparison | Naiasno News`,
+      descriptionEn: clamp(
+        String(st.summary_en ?? "").trim() ||
+          `How ${outletCount} outlets cover this story: headlines, political framing, and stance toward Russia.`,
       ),
       ogType: "article",
       lastmod: (st.last_published as string) ?? null,
@@ -297,12 +335,18 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
     if (!title) continue;
     const name = outletNames.get(domain) ?? domain;
     const excerpt = String(a.excerpt ?? "").trim();
+    const analysis = a.analysis as Bundle;
     routes.push({
       path: `article/${domain}/${id}`,
       title: `${clamp(title, 70)} — ${name} | Наясно Новини`,
       description: clamp(
         excerpt ||
           `Анализ на материал от ${name}: позиция по двете оси, с цитат от самия текст.`,
+      ),
+      titleEn: `Article analysis — ${name} | Naiasno News`,
+      descriptionEn: clamp(
+        String(analysis.summary_en ?? "").trim() ||
+          `Analysis of an article from ${name}: ratings on both axes and supporting evidence.`,
       ),
       ogType: "article",
       image: (a.image as string) ?? null,
@@ -326,10 +370,24 @@ export const buildRoutes = (dataDir: string): PrerenderRoute[] => {
       title: `Оценяване: ${clamp(title, 64)} | Наясно Новини`,
       description:
         "Публично експериментално оценяване на анализ на статия. Не е необходим профил; изпратената оценка не променя автоматично публикувания анализ.",
+      titleEn: "Article evaluation | Naiasno News",
+      descriptionEn:
+        "The experimental article-evaluation form is currently available in Bulgarian only.",
       sitemap: false,
       noindex: true,
     });
   }
 
-  return routes;
+  const english = routes.map(
+    (route): PrerenderRoute => ({
+      ...route,
+      path: route.path ? `en/${route.path}` : "en",
+      title: route.titleEn ?? "Naiasno News",
+      description:
+        route.descriptionEn ??
+        "Independent comparison of Bulgarian media coverage.",
+      language: "en",
+    }),
+  );
+  return [...routes, ...english];
 };

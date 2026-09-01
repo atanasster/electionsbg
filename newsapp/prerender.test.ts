@@ -95,6 +95,7 @@ const TEMPLATE = `<!doctype html>
     />
     <link rel="canonical" href="https://news.electionsbg.com/" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Наясно Новини" />
     <meta property="og:url" content="https://news.electionsbg.com/" />
     <meta property="og:title" content="Наясно Новини" />
     <meta
@@ -117,6 +118,11 @@ const route = (over: Partial<PrerenderRoute> = {}): PrerenderRoute => ({
   description: "Описание на историята.",
   ...over,
 });
+
+const bilingualBasePaths = [
+  ...BASE_ROUTES.map((item) => item.path),
+  ...BASE_ROUTES.map((item) => (item.path ? `en/${item.path}` : "en")),
+];
 
 describe("urlFor", () => {
   it("never emits a trailing slash except at the root", () => {
@@ -145,6 +151,29 @@ describe("applyHead", () => {
       '<link rel="canonical" href="https://news.electionsbg.com/story/abc" />',
     );
     expect(html).not.toContain("<title>Наясно Новини — всяка страна");
+  });
+
+  it("sets English language metadata and reciprocal alternates", () => {
+    const { html, missing } = applyHead(
+      TEMPLATE,
+      route({
+        path: "en/story/abc",
+        language: "en",
+        title: "English story",
+        description: "English description.",
+      }),
+    );
+    expect(missing).toEqual([]);
+    expect(html).toContain('<html lang="en">');
+    expect(html).toContain(
+      '<meta property="og:site_name" content="Naiasno News" />',
+    );
+    expect(html).toContain(
+      'hreflang="bg" href="https://news.electionsbg.com/story/abc"',
+    );
+    expect(html).toContain(
+      'hreflang="en" href="https://news.electionsbg.com/en/story/abc"',
+    );
   });
 
   it("rewrites every social tag, not just the title", () => {
@@ -374,7 +403,7 @@ describe("buildRoutes", () => {
     // ⚠️ A build on a checkout with no app-data must still produce a site
     // with a homepage. Failing to an EMPTY sitemap would be the silent shape.
     const routes = buildRoutes("/nonexistent");
-    expect(routes.map((r) => r.path)).toEqual(BASE_ROUTES.map((r) => r.path));
+    expect(routes.map((r) => r.path)).toEqual(bilingualBasePaths);
     expect(routes.some((r) => r.path === "")).toBe(true);
   });
 
@@ -578,9 +607,7 @@ describe("a corrupt bundle", () => {
 
   it("still builds the hubs when the bundles are simply ABSENT", () => {
     const dir = mkdtempSync(join(tmpdir(), "news-empty-"));
-    expect(buildRoutes(dir).map((r) => r.path)).toEqual(
-      BASE_ROUTES.map((r) => r.path),
-    );
+    expect(buildRoutes(dir).map((r) => r.path)).toEqual(bilingualBasePaths);
   });
 });
 

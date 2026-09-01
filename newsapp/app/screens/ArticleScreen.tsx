@@ -28,11 +28,15 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   AI_META,
+  AI_META_EN,
   LEANING_META,
+  LEANING_META_EN,
   QUALITY_META,
+  QUALITY_META_EN,
   RUSSIA_META,
+  RUSSIA_META_EN,
   formatDateTime,
-  bgMedia,
+  media,
   relativeTime,
 } from "../labels";
 import {
@@ -57,6 +61,7 @@ import { ReportIssueLink } from "../components/ReportIssueLink";
 import { ArticleContributionCard } from "../components/ArticleContributionCard";
 import { emitNewsEvent } from "../analytics";
 import { evalTaskPath, useEvalQueue } from "../evals";
+import { useNewsLocale } from "../i18n";
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -81,6 +86,7 @@ const AxisCard = ({
   evidence: string | null | undefined;
   source?: "model" | "editorial";
 }) => {
+  const { isEnglish, tr } = useNewsLocale();
   const confidencePct =
     typeof confidence === "number" &&
     Number.isFinite(confidence) &&
@@ -97,9 +103,12 @@ const AxisCard = ({
         {confidencePct !== null ? (
           <span
             className="text-xs text-muted-foreground"
-            aria-label={`Увереност на модела: ${confidencePct} процента`}
+            aria-label={tr(
+              `Увереност на модела: ${confidencePct} процента`,
+              `Model confidence: ${confidencePct} percent`,
+            )}
           >
-            увереност {confidencePct}%
+            {tr("увереност", "confidence")} {confidencePct}%
           </span>
         ) : null}
       </div>
@@ -111,7 +120,7 @@ const AxisCard = ({
         />
         <p className="font-title text-lg">{verdict}</p>
       </div>
-      {evidence ? (
+      {evidence && !isEnglish ? (
         <div className="mt-3 border-l-2 border-primary pl-3 text-sm text-foreground/90">
           <p>{evidence}</p>
           <p className="mt-1 text-xs text-muted-foreground">
@@ -122,9 +131,17 @@ const AxisCard = ({
         </div>
       ) : (
         <p className="mt-3 text-sm text-muted-foreground">
-          {source === "editorial"
-            ? "Редакционната проверка не е публикувала обосновка за тази оценка."
-            : "Моделът не е посочил обосновка за тази оценка."}
+          {isEnglish && evidence
+            ? "The supporting evidence is currently available only in Bulgarian and is not mixed into the English page."
+            : source === "editorial"
+              ? tr(
+                  "Редакционната проверка не е публикувала обосновка за тази оценка.",
+                  "The editorial review did not publish a rationale for this rating.",
+                )
+              : tr(
+                  "Моделът не е посочил обосновка за тази оценка.",
+                  "The model did not provide a rationale for this rating.",
+                )}
         </p>
       )}
     </Card>
@@ -143,11 +160,12 @@ const AxisCard = ({
 const scaleOf = (
   meta: Record<string, { label: string; color: string }>,
   key: string | null | undefined,
+  fallback = "Оценката не е налична",
 ): { verdict: string; color: string } => {
   const hit = key ? meta[key] : null;
   return hit
     ? { verdict: hit.label, color: hit.color }
-    : { verdict: "Оценката не е налична", color: "#71717a" };
+    : { verdict: fallback, color: "#71717a" };
 };
 
 /** A label from a META record, or null when the app has never seen the key. */
@@ -156,23 +174,32 @@ const labelOf = (
   key: string | null | undefined,
 ): string | null => (key ? (meta[key]?.label ?? null) : null);
 
-const NotFound = ({ domain }: { domain: string }) => (
-  <section className="py-8">
-    <h1 className="font-title text-3xl">Статията не е намерена</h1>
-    <p className="mt-2 text-muted-foreground">
-      Няма такъв материал в корпуса.{" "}
-      <Link
-        to={`/outlet/${domain}`}
-        className="text-primary underline-offset-4 hover:underline"
-      >
-        Към страницата на изданието
-      </Link>
-      .
-    </p>
-  </section>
-);
+const NotFound = ({ domain }: { domain: string }) => {
+  const { tr } = useNewsLocale();
+  return (
+    <section className="py-8">
+      <h1 className="font-title text-3xl">
+        {tr("Статията не е намерена", "Article not found")}
+      </h1>
+      <p className="mt-2 text-muted-foreground">
+        {tr(
+          "Няма такъв материал в корпуса.",
+          "This article is not in the corpus.",
+        )}{" "}
+        <Link
+          to={`/outlet/${domain}`}
+          className="text-primary underline-offset-4 hover:underline"
+        >
+          {tr("Към страницата на изданието", "Go to the outlet page")}
+        </Link>
+        .
+      </p>
+    </section>
+  );
+};
 
 export const ArticleScreen = () => {
+  const { isEnglish, language, tr } = useNewsLocale();
   const { domain = "", id = "" } = useParams();
   const bundle = useOutletArticles(domain || null);
   const outlets = useOutlets();
@@ -183,9 +210,11 @@ export const ArticleScreen = () => {
   if (bundle.error && !bundle.data) {
     return (
       <section className="py-8">
-        <h1 className="font-title text-3xl">Статия</h1>
+        <h1 className="font-title text-3xl">{tr("Статия", "Article")}</h1>
         <Card className="mt-4 p-4 text-sm text-destructive">
-          Материалът не се зареди: {bundle.error.message}
+          {isEnglish
+            ? "The article could not be loaded."
+            : `Материалът не се зареди: ${bundle.error.message}`}
         </Card>
       </section>
     );
@@ -250,9 +279,9 @@ export const ArticleScreen = () => {
       <div className="mb-4">
         <Breadcrumbs
           items={[
-            { label: "Източници", to: "/outlets" },
+            { label: tr("Източници", "Sources"), to: "/outlets" },
             { label: outletName, to: `/outlet/${domain}` },
-            { label: "Материал" },
+            { label: tr("Материал", "Article") },
           ]}
         />
       </div>
@@ -268,7 +297,7 @@ export const ArticleScreen = () => {
             variant="outline"
             className="font-normal text-muted-foreground"
           >
-            оттеглен източник
+            {tr("оттеглен източник", "retired source")}
           </Badge>
         ) : null}
         <span className="text-muted-foreground">·</span>
@@ -276,7 +305,9 @@ export const ArticleScreen = () => {
           className="text-muted-foreground"
           dateTime={article.published ?? undefined}
         >
-          {article.published ? formatDateTime(article.published) : "без дата"}
+          {article.published
+            ? formatDateTime(article.published, language)
+            : tr("без дата", "undated")}
         </time>
         {article.author ? (
           <>
@@ -290,29 +321,33 @@ export const ArticleScreen = () => {
             variant="outline"
             className="font-normal text-muted-foreground"
           >
-            редактирана {relativeTime(article.updated)}
+            {tr("редактирана", "edited")}{" "}
+            {relativeTime(article.updated, language)}
           </Badge>
         ) : null}
       </div>
 
       <h1 className="mt-3 max-w-4xl font-title text-3xl leading-tight">
-        {article.title ?? "(без заглавие)"}
+        {article.title ?? tr("(без заглавие)", "(untitled)")}
       </h1>
       <ReaderActions
         path={`/article/${domain}/${article.id}`}
-        title={article.title ?? "Наясно новини"}
+        title={article.title ?? tr("Наясно новини", "Naiasno News")}
       />
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
         <ReportIssueLink path={`/article/${domain}/${id}`} />
         {evalTask ? (
           <Link
             to={evalTaskPath(evalTask)}
-            aria-label="Помогнете да подобрим анализа — експериментално"
+            aria-label={tr(
+              "Помогнете да подобрим анализа — експериментално",
+              "Help improve the analysis — experimental",
+            )}
             className="text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
-            Помогнете да подобрим анализа
+            {tr("Помогнете да подобрим анализа", "Help improve the analysis")}
             <span className="ml-1 text-xs font-normal text-muted-foreground">
-              — експериментално
+              {tr("— експериментално", "— experimental")}
             </span>
           </Link>
         ) : (
@@ -320,7 +355,10 @@ export const ArticleScreen = () => {
             to={`/evals/article/${encodeURIComponent(domain)}/${encodeURIComponent(id)}?mode=feedback`}
             className="text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
-            Допълнете анализа или връзките
+            {tr(
+              "Допълнете анализа или връзките",
+              "Suggest analysis or link improvements",
+            )}
           </Link>
         )}
       </div>
@@ -346,7 +384,7 @@ export const ArticleScreen = () => {
           {analysis ? (
             <Card className="p-4">
               <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Резюме
+                {tr("Резюме", "Summary")}
               </div>
               <SummaryPair
                 bg={analysis.summary_bg}
@@ -355,7 +393,10 @@ export const ArticleScreen = () => {
                 className="mt-2"
               />
               <p className="mt-2 text-xs text-muted-foreground">
-                Генерирано резюме, не цитат от материала.
+                {tr(
+                  "Генерирано резюме, не цитат от материала.",
+                  "Generated summary, not a quotation from the article.",
+                )}
               </p>
             </Card>
           ) : article.excerpt ? (
@@ -376,9 +417,14 @@ export const ArticleScreen = () => {
             >
               <ExternalLink className="size-4 shrink-0 text-primary" />
               <span className="text-sm">
-                <span className="font-semibold">Прочети в {outletName}</span>
+                <span className="font-semibold">
+                  {tr("Прочети в", "Read at")} {outletName}
+                </span>
                 <span className="block text-muted-foreground">
-                  Пълният текст остава при източника. Тук е само прочитът.
+                  {tr(
+                    "Пълният текст остава при източника. Тук е само прочитът.",
+                    "The full text remains with the publisher. This page contains only our analysis.",
+                  )}
                 </span>
               </span>
             </a>
@@ -392,30 +438,33 @@ export const ArticleScreen = () => {
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[hsl(var(--editorial-kicker))]">
                 {hasAnalysisProvenance
-                  ? "Проверима оценка"
-                  : "Непълна следа на анализа"}
+                  ? tr("Проверима оценка", "Verifiable rating")
+                  : tr(
+                      "Непълна следа на анализа",
+                      "Incomplete analysis record",
+                    )}
               </p>
               <h2
                 id="article-analysis-heading"
                 className="mt-1 font-title text-2xl"
               >
-                Нашият анализ
+                {tr("Нашият анализ", "Our analysis")}
               </h2>
             </div>
             <p className="text-xs text-muted-foreground">
-              Анализирано{" "}
+              {tr("Анализирано", "Analyzed")}{" "}
               {analysis.analyzed_at
-                ? formatDateTime(analysis.analyzed_at)
-                : "без дата"}
+                ? formatDateTime(analysis.analyzed_at, language)
+                : tr("без дата", "undated")}
               {analysis.model
-                ? ` · модел ${analysis.model}`
-                : " · моделът не е записан"}{" "}
+                ? ` · ${tr("модел", "model")} ${analysis.model}`
+                : tr(" · моделът не е записан", " · model not recorded")}{" "}
               ·{" "}
               <Link
                 to="/methodology"
                 className="font-medium text-primary underline underline-offset-4"
               >
-                методология
+                {tr("методология", "methodology")}
               </Link>
             </p>
           </div>
@@ -425,28 +474,36 @@ export const ArticleScreen = () => {
               className="mt-4 border-primary/40 bg-primary/5 p-4"
               role="status"
             >
-              <p className="font-semibold">Проверено от редакционния екип</p>
+              <p className="font-semibold">
+                {tr(
+                  "Проверено от редакционния екип",
+                  "Reviewed by the editorial team",
+                )}
+              </p>
               <p className="mt-1 text-sm text-foreground/90">
-                Приетата проверка е от{" "}
-                {formatDateTime(humanReview.adjudicated_at)}.
-                {humanReview.public_explanation
+                {tr("Приетата проверка е от", "The accepted review is dated")}{" "}
+                {formatDateTime(humanReview.adjudicated_at, language)}.
+                {humanReview.public_explanation && !isEnglish
                   ? ` ${humanReview.public_explanation}`
                   : ""}
               </p>
               <p className="mt-2 text-xs text-muted-foreground">
-                Човешки проверените полета нямат увереност на модела. Вижте{" "}
+                {tr(
+                  "Човешки проверените полета нямат увереност на модела. Вижте",
+                  "Human-reviewed fields do not carry model confidence. See the",
+                )}{" "}
                 <Link
                   className="rounded-sm font-medium text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   to="/methodology"
                 >
-                  методологията
+                  {tr("методологията", "methodology")}
                 </Link>{" "}
-                и{" "}
+                {tr("и", "and the")}{" "}
                 <Link
                   className="rounded-sm font-medium text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   to="/corrections"
                 >
-                  регистъра на поправките
+                  {tr("регистъра на поправките", "corrections register")}
                 </Link>
                 .
               </p>
@@ -456,29 +513,52 @@ export const ArticleScreen = () => {
               className="mt-4 border-[hsl(var(--editorial-kicker)/0.5)] bg-[hsl(var(--editorial-kicker)/0.08)] p-4"
               role="status"
             >
-              <p className="font-semibold">Оценката е в повторна проверка</p>
+              <p className="font-semibold">
+                {tr(
+                  "Оценката е в повторна проверка",
+                  "The rating is under review again",
+                )}
+              </p>
               <p className="mt-1 text-sm text-foreground/90">
-                Оригиналният материал е променен след редакционната проверка от{" "}
-                {formatDateTime(humanReview.adjudicated_at)}. Предишното решение
-                е изключено; показани са текущите моделни оценки.
+                {tr(
+                  "Оригиналният материал е променен след редакционната проверка от",
+                  "The original article changed after the editorial review dated",
+                )}{" "}
+                {formatDateTime(humanReview.adjudicated_at, language)}.{" "}
+                {tr(
+                  "Предишното решение е изключено; показани са текущите моделни оценки.",
+                  "The previous decision has been excluded; current model ratings are shown.",
+                )}
               </p>
             </Card>
           ) : evalTask ? (
             <Card className="mt-4 border-border bg-muted/40 p-4" role="status">
               <p className="font-semibold">
-                Анализът е включен в обществена проверка
+                {tr(
+                  "Анализът е включен в обществена проверка",
+                  "The analysis is included in public review",
+                )}
               </p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Това е експериментално събиране на оценки. Отделен отговор не
-                променя публикувания анализ без редакционно приемане.
+                {tr(
+                  "Това е експериментално събиране на оценки. Отделен отговор не променя публикувания анализ без редакционно приемане.",
+                  "This is an experimental collection of ratings. An individual response does not change the published analysis without editorial acceptance.",
+                )}
               </p>
             </Card>
           ) : null}
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <AxisCard
-              title="Политическо рамкиране на материала"
-              {...scaleOf(LEANING_META, analysis.leaning?.label)}
+              title={tr(
+                "Политическо рамкиране на материала",
+                "Political framing of the article",
+              )}
+              {...scaleOf(
+                isEnglish ? LEANING_META_EN : LEANING_META,
+                analysis.leaning?.label,
+                tr("Оценката не е налична", "Rating unavailable"),
+              )}
               confidence={
                 leaningSource === "editorial"
                   ? null
@@ -488,8 +568,12 @@ export const ArticleScreen = () => {
               source={leaningSource}
             />
             <AxisCard
-              title="Отношение към Русия"
-              {...scaleOf(RUSSIA_META, analysis.russia_stance?.label)}
+              title={tr("Отношение към Русия", "Stance toward Russia")}
+              {...scaleOf(
+                isEnglish ? RUSSIA_META_EN : RUSSIA_META,
+                analysis.russia_stance?.label,
+                tr("Оценката не е налична", "Rating unavailable"),
+              )}
               confidence={
                 russiaSource === "editorial"
                   ? null
@@ -506,15 +590,27 @@ export const ArticleScreen = () => {
                 bare META[label].label throws, which in a component with no
                 error boundary white-screens the whole app. Badges.tsx already
                 guards every one of these. */}
-            {labelOf(AI_META, analysis.ai_generated?.verdict) ? (
+            {labelOf(
+              isEnglish ? AI_META_EN : AI_META,
+              analysis.ai_generated?.verdict,
+            ) ? (
               <Badge variant="outline" className="font-normal">
-                {labelOf(AI_META, analysis.ai_generated?.verdict)}
+                {labelOf(
+                  isEnglish ? AI_META_EN : AI_META,
+                  analysis.ai_generated?.verdict,
+                )}
               </Badge>
             ) : null}
             {analysis.quality?.verdict !== "ok" &&
-            labelOf(QUALITY_META, analysis.quality?.verdict) ? (
+            labelOf(
+              isEnglish ? QUALITY_META_EN : QUALITY_META,
+              analysis.quality?.verdict,
+            ) ? (
               <Badge variant="outline" className="font-normal">
-                {labelOf(QUALITY_META, analysis.quality?.verdict)}
+                {labelOf(
+                  isEnglish ? QUALITY_META_EN : QUALITY_META,
+                  analysis.quality?.verdict,
+                )}
               </Badge>
             ) : null}
             <TopicChips
@@ -524,7 +620,7 @@ export const ArticleScreen = () => {
             />
           </div>
 
-          {(analysis.ai_generated?.signals ?? []).length > 0 ? (
+          {(analysis.ai_generated?.signals ?? []).length > 0 && !isEnglish ? (
             <Card className="mt-3 p-4">
               <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Сигнали за възможна употреба на ИИ
@@ -547,11 +643,17 @@ export const ArticleScreen = () => {
         // read as "not yet judged" — never as "judged neutral", which is what
         // an empty badge row would say.
         <Card className="mt-6 p-4">
-          <div className="font-semibold">Тази статия още не е анализирана</div>
+          <div className="font-semibold">
+            {tr(
+              "Тази статия още не е анализирана",
+              "This article has not yet been analyzed",
+            )}
+          </div>
           <p className="mt-1 text-sm text-muted-foreground">
-            Събрана е в корпуса, но още няма оценка по нито една ос. Липсата на
-            етикети тук не означава „неутрална" — означава, че моделът още не я
-            е чел.
+            {tr(
+              'Събрана е в корпуса, но още няма оценка по нито една ос. Липсата на етикети тук не означава „неутрална" — означава, че моделът още не я е чел.',
+              "It is in the corpus but has not been rated on any axis. Missing labels do not mean neutral; they mean the model has not yet read it.",
+            )}
           </p>
         </Card>
       )}
@@ -566,12 +668,15 @@ export const ArticleScreen = () => {
       {story ? (
         <section className="mt-8">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="font-title text-xl">Как я отразиха останалите</h2>
+            <h2 className="font-title text-xl">
+              {tr("Как я отразиха останалите", "How other outlets covered it")}
+            </h2>
             <Link
               to={`/story/${story.id}`}
               className="text-sm text-primary underline-offset-4 hover:underline"
             >
-              Цялата история · {bgMedia(story.aggregates.outlet_count)}
+              {tr("Цялата история", "Full story")} ·{" "}
+              {media(story.aggregates.outlet_count, language)}
             </Link>
           </div>
           {siblings.length > 0 ? (
@@ -590,7 +695,10 @@ export const ArticleScreen = () => {
             </Card>
           ) : (
             <p className="mt-2 text-sm text-muted-foreground">
-              Засега само това издание е отразило тази история.
+              {tr(
+                "Засега само това издание е отразило тази история.",
+                "So far, only this outlet has covered the story.",
+              )}
             </p>
           )}
         </section>
@@ -627,12 +735,13 @@ const MentionsBlock = ({
   entities: AnalysisBlock["entities"];
   links?: Record<string, EntityLink>;
 }) => {
+  const { tr } = useNewsLocale();
   const groups: [string, string[]][] = [
-    ["Хора", entities?.people ?? []],
-    ["Партии", entities?.parties ?? []],
-    ["Институции", entities?.institutions ?? []],
-    ["Компании", entities?.companies ?? []],
-    ["Места", entities?.places ?? []],
+    [tr("Хора", "People"), entities?.people ?? []],
+    [tr("Партии", "Parties"), entities?.parties ?? []],
+    [tr("Институции", "Institutions"), entities?.institutions ?? []],
+    [tr("Компании", "Companies"), entities?.companies ?? []],
+    [tr("Места", "Places"), entities?.places ?? []],
   ];
   const present = groups.filter(([, names]) => names.length > 0);
   if (present.length === 0) return null;
@@ -641,7 +750,7 @@ const MentionsBlock = ({
   return (
     <Card className="mt-3 p-4">
       <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        Споменати
+        {tr("Споменати", "Mentioned")}
       </div>
       <div className="mt-2 space-y-2">
         {present.map(([label, names]) => (
@@ -653,14 +762,16 @@ const MentionsBlock = ({
       </div>
       {unlinked > 0 ? (
         <p className="mt-3 text-xs text-muted-foreground">
-          {unlinked === all.length
-            ? "Нито едно от имената не води към профил."
-            : unlinked === 1
-              ? "Едно от имената не води към профил."
-              : `${unlinked} от имената не водят към профил.`}{" "}
-          Българските имена са три части, а медиите пишат две — свързваме само
-          когато името съвпада с точно един публичен профил, защото грешната
-          връзка е по-лоша от липсващата.
+          {tr(
+            `${
+              unlinked === all.length
+                ? "Нито едно от имената не води към профил."
+                : unlinked === 1
+                  ? "Едно от имената не води към профил."
+                  : `${unlinked} от имената не водят към профил.`
+            } Българските имена са три части, а медиите пишат две — свързваме само когато името съвпада с точно един публичен профил, защото грешната връзка е по-лоша от липсващата.`,
+            `${unlinked === 1 ? "One name does not link to a profile." : `${unlinked} names do not link to a profile.`} Bulgarian names have three parts while media often use two. We link only when a name matches exactly one public profile, because a wrong link is worse than a missing one.`,
+          )}
         </p>
       ) : null}
     </Card>

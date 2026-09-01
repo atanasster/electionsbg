@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { readSavedNewsFromBrowser, writeSavedNewsToBrowser } from "./savedNews";
 import { newsUrlFor } from "../site";
 import { emitNewsEvent } from "../analytics";
+import { newsPathForLanguage, useNewsLocale } from "../i18n";
 
 export const ReaderActions = ({
   path,
@@ -12,6 +13,7 @@ export const ReaderActions = ({
   path: string;
   title: string;
 }) => {
+  const { language, tr } = useNewsLocale();
   const [saved, setSaved] = useState(() => {
     return readSavedNewsFromBrowser().includes(path);
   });
@@ -29,7 +31,12 @@ export const ReaderActions = ({
       ? [path, ...paths]
       : paths.filter((item) => item !== path);
     if (!writeSavedNewsToBrowser(next)) {
-      setMessage("Браузърът не позволи локално запазване.");
+      setMessage(
+        tr(
+          "Браузърът не позволи локално запазване.",
+          "The browser did not allow local saving.",
+        ),
+      );
       return;
     }
     setSaved(nextSaved);
@@ -39,12 +46,14 @@ export const ReaderActions = ({
       saved: nextSaved,
     });
     setMessage(
-      nextSaved ? "Запазено в този браузър." : "Премахнато от запазените.",
+      nextSaved
+        ? tr("Запазено в този браузър.", "Saved in this browser.")
+        : tr("Премахнато от запазените.", "Removed from saved items."),
     );
   };
 
   const share = async () => {
-    const url = newsUrlFor(path);
+    const url = newsUrlFor(newsPathForLanguage(path, language));
     const attemptedMethod =
       typeof navigator.share === "function" ? "native" : "clipboard";
     try {
@@ -56,7 +65,7 @@ export const ReaderActions = ({
           method: "native",
           outcome: "opened",
         });
-        setMessage("Споделянето е отворено.");
+        setMessage(tr("Споделянето е отворено.", "Sharing opened."));
       } else if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(url);
         emitNewsEvent({
@@ -65,7 +74,7 @@ export const ReaderActions = ({
           method: "clipboard",
           outcome: "copied",
         });
-        setMessage("Връзката е копирана.");
+        setMessage(tr("Връзката е копирана.", "Link copied."));
       } else {
         emitNewsEvent({
           name: "reader_share",
@@ -73,7 +82,12 @@ export const ReaderActions = ({
           method: "unavailable",
           outcome: "failed",
         });
-        setMessage("Копирайте адреса от адресната лента.");
+        setMessage(
+          tr(
+            "Копирайте адреса от адресната лента.",
+            "Copy the address from the address bar.",
+          ),
+        );
       }
     } catch (error) {
       if (
@@ -93,7 +107,7 @@ export const ReaderActions = ({
           method: attemptedMethod,
           outcome: "failed",
         });
-        setMessage("Споделянето не успя.");
+        setMessage(tr("Споделянето не успя.", "Sharing failed."));
       }
     }
   };
@@ -112,7 +126,7 @@ export const ReaderActions = ({
         ) : (
           <Bookmark aria-hidden className="size-4" />
         )}
-        {saved ? "Запазено" : "Запази"}
+        {saved ? tr("Запазено", "Saved") : tr("Запази", "Save")}
       </Button>
       <Button
         type="button"
@@ -121,7 +135,7 @@ export const ReaderActions = ({
         onClick={() => void share()}
       >
         <Share2 aria-hidden className="size-4" />
-        Сподели
+        {tr("Сподели", "Share")}
       </Button>
       <span
         role="status"

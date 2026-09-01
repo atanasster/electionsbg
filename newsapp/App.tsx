@@ -1,5 +1,5 @@
 import { lazy, Suspense, useContext } from "react";
-import { Route, Routes, NavLink, Link } from "react-router-dom";
+import { Route, Routes, NavLink, Link, useLocation } from "react-router-dom";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
 import { ThemeContext } from "@/theme/ThemeContext";
@@ -15,6 +15,13 @@ import { SavedScreen } from "./app/screens/SavedScreen";
 import { AboutScreen } from "./app/screens/AboutScreen";
 import { AnalyticsRouteTracker } from "./app/components/AnalyticsRouteTracker";
 import { CorrectionsScreen } from "./app/screens/CorrectionsScreen";
+import {
+  NewsLocaleProvider,
+  newsPathForLanguage,
+  writeNewsLanguagePreference,
+  useNewsLocale,
+  type NewsLanguage,
+} from "./app/i18n";
 
 const EvalsScreen = lazy(() =>
   import("./app/screens/EvalsScreen").then(({ EvalsScreen }) => ({
@@ -27,60 +34,144 @@ const EvalArticleScreen = lazy(() =>
   })),
 );
 
-const EvalRouteFallback = () => (
-  <section className="py-12" aria-busy="true" aria-live="polite">
-    <p className="text-sm text-muted-foreground">Зареждане на оценяването…</p>
-  </section>
-);
+const EvalRouteFallback = () => <LocalizedEvalRouteFallback />;
 
-const NotFoundScreen = () => (
-  <section className="py-12">
-    <h1 className="font-title text-3xl">Страницата не е намерена</h1>
-    <p className="mt-2 text-muted-foreground">
-      Адресът не съществува.{" "}
-      <Link
-        to="/"
-        className="font-medium text-primary underline underline-offset-4"
-      >
-        Към историите
-      </Link>
+const EnglishEvaluationNotice = () => (
+  <section className="mx-auto max-w-2xl py-12">
+    <h1 className="font-title text-3xl">Public evaluation</h1>
+    <p className="mt-3 leading-relaxed text-muted-foreground">
+      The experimental evaluation form is currently available only in Bulgarian.
+      It is kept out of the English interface so the two languages are not mixed
+      on one page.
     </p>
+    <Link
+      to="/methodology"
+      className="mt-4 inline-block font-medium text-primary underline underline-offset-4"
+    >
+      Read the methodology
+    </Link>
   </section>
 );
 
-const NAV = [
-  { to: "/", label: "Истории", end: true },
-  { to: "/outlets", label: "Източници" },
-  { to: "/topics", label: "Теми" },
-  { to: "/saved", label: "Запазени" },
-  { to: "/methodology", label: "Методология", mobileLabel: "Метод" },
-] as const;
+const LocalizedEvalRouteFallback = () => {
+  const { tr } = useNewsLocale();
+  return (
+    <section className="py-12" aria-busy="true" aria-live="polite">
+      <p className="text-sm text-muted-foreground">
+        {tr("Зареждане на оценяването…", "Loading the evaluation…")}
+      </p>
+    </section>
+  );
+};
 
-const FOOTER_LINKS = [
-  {
-    href: "https://electionsbg.com",
-    label: "electionsbg.com",
-    mobileLabel: "electionsbg",
-  },
-  { href: "/about", label: "за редакцията", mobileLabel: "за нас" },
-  { href: "/corrections", label: "поправки", mobileLabel: "поправки" },
-  {
-    href: "https://github.com/atanasster/electionsbg",
-    label: "отворен код",
-    mobileLabel: "код",
-  },
-  { href: "/methodology", label: "методология", mobileLabel: "метод" },
-] as const;
+const NotFoundScreen = () => {
+  const { tr } = useNewsLocale();
+  return (
+    <section className="py-12">
+      <h1 className="font-title text-3xl">
+        {tr("Страницата не е намерена", "Page not found")}
+      </h1>
+      <p className="mt-2 text-muted-foreground">
+        {tr("Адресът не съществува.", "This address does not exist.")}{" "}
+        <Link
+          to="/"
+          className="font-medium text-primary underline underline-offset-4"
+        >
+          {tr("Към историите", "Go to stories")}
+        </Link>
+      </p>
+    </section>
+  );
+};
 
-export const App = () => {
+const LanguageSwitcher = () => {
+  const { language, tr } = useNewsLocale();
+  const location = useLocation();
+  const href = (target: NewsLanguage) =>
+    `${newsPathForLanguage(location.pathname, target)}${location.search}${location.hash}`;
+  const remember = (target: NewsLanguage) => {
+    writeNewsLanguagePreference(target);
+  };
+
+  return (
+    <div
+      className="flex h-9 items-center rounded-md border border-input bg-background p-0.5 text-xs font-semibold"
+      role="group"
+      aria-label={tr("Език", "Language")}
+    >
+      {(["bg", "en"] as const).map((target) => (
+        <a
+          key={target}
+          href={href(target)}
+          hrefLang={target}
+          lang={target}
+          aria-current={language === target ? "true" : undefined}
+          onClick={() => remember(target)}
+          className={`flex h-7 min-w-8 items-center justify-center rounded px-1.5 transition-colors ${
+            language === target
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+          }`}
+        >
+          {target.toUpperCase()}
+        </a>
+      ))}
+    </div>
+  );
+};
+
+const NewsAppShell = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const isDark = theme === themeDark;
+  const { language, tr } = useNewsLocale();
+  const nav = [
+    { to: "/", label: tr("Истории", "Stories"), end: true },
+    { to: "/outlets", label: tr("Източници", "Sources") },
+    { to: "/topics", label: tr("Теми", "Topics") },
+    { to: "/saved", label: tr("Запазени", "Saved") },
+    {
+      to: "/methodology",
+      label: tr("Методология", "Methodology"),
+      mobileLabel: tr("Метод", "Method"),
+    },
+  ] as const;
+  const mainSite =
+    language === "en"
+      ? "https://electionsbg.com/en"
+      : "https://electionsbg.com";
+  const footerLinks = [
+    {
+      href: mainSite,
+      label: "electionsbg.com",
+      mobileLabel: "electionsbg",
+    },
+    {
+      href: "/about",
+      label: tr("за редакцията", "about"),
+      mobileLabel: tr("за нас", "about"),
+    },
+    {
+      href: "/corrections",
+      label: tr("поправки", "corrections"),
+      mobileLabel: tr("поправки", "corrections"),
+    },
+    {
+      href: "https://github.com/atanasster/electionsbg",
+      label: tr("отворен код", "open source"),
+      mobileLabel: tr("код", "code"),
+    },
+    {
+      href: "/methodology",
+      label: tr("методология", "methodology"),
+      mobileLabel: tr("метод", "method"),
+    },
+  ] as const;
 
   return (
     <div className="news-shell flex min-h-dvh flex-col bg-background text-foreground">
       <AnalyticsRouteTracker />
       <a href="#news-main" className="news-skip-link">
-        Към основното съдържание
+        {tr("Към основното съдържание", "Skip to main content")}
       </a>
       <header className="news-masthead sticky top-0 z-40 border-b bg-background">
         <div className="container flex flex-wrap items-center justify-between gap-2 px-2 py-2.5 sm:px-4">
@@ -88,23 +179,23 @@ export const App = () => {
             <Link
               to="/"
               className="flex shrink-0 items-center gap-2 text-xl text-primary"
-              aria-label="Наясно Новини"
+              aria-label={tr("Наясно Новини", "Naiasno News")}
             >
               <Logo className="size-7" />
               <span className="font-title">
                 <span className="text-[hsl(var(--editorial-kicker))]">
-                  Наясно
+                  {tr("Наясно", "Naiasno")}
                 </span>
                 <span className="pl-1 font-semibold uppercase text-primary">
-                  Новини
+                  {tr("Новини", "News")}
                 </span>
               </span>
             </Link>
             <nav
               className="hidden items-center gap-1 md:flex"
-              aria-label="Основна навигация"
+              aria-label={tr("Основна навигация", "Primary navigation")}
             >
-              {NAV.map((item) => (
+              {nav.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
@@ -129,14 +220,23 @@ export const App = () => {
               asChild
               className="hidden sm:inline-flex"
             >
-              <a href="https://electionsbg.com">electionsbg.com</a>
+              <a href={mainSite}>electionsbg.com</a>
             </Button>
+            <LanguageSwitcher />
             <Button
               variant="outline"
               size="icon"
               onClick={() => setTheme(isDark ? themeLight : themeDark)}
-              aria-label={isDark ? "Включи светла тема" : "Включи тъмна тема"}
-              title={isDark ? "Включи светла тема" : "Включи тъмна тема"}
+              aria-label={
+                isDark
+                  ? tr("Включи светла тема", "Use light theme")
+                  : tr("Включи тъмна тема", "Use dark theme")
+              }
+              title={
+                isDark
+                  ? tr("Включи светла тема", "Use light theme")
+                  : tr("Включи тъмна тема", "Use dark theme")
+              }
             >
               {isDark ? "☀" : "☾"}
             </Button>
@@ -145,9 +245,9 @@ export const App = () => {
         {/* Mobile nav — one bounded row of pills under the header row. */}
         <nav
           className="news-mobile-nav container grid grid-cols-5 items-stretch gap-0.5 px-2 pb-2 md:hidden"
-          aria-label="Основна навигация"
+          aria-label={tr("Основна навигация", "Primary navigation")}
         >
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -188,17 +288,25 @@ export const App = () => {
           <Route
             path="/evals"
             element={
-              <Suspense fallback={<EvalRouteFallback />}>
-                <EvalsScreen />
-              </Suspense>
+              language === "en" ? (
+                <EnglishEvaluationNotice />
+              ) : (
+                <Suspense fallback={<EvalRouteFallback />}>
+                  <EvalsScreen />
+                </Suspense>
+              )
             }
           />
           <Route
             path="/evals/article/:domain/:id"
             element={
-              <Suspense fallback={<EvalRouteFallback />}>
-                <EvalArticleScreen />
-              </Suspense>
+              language === "en" ? (
+                <EnglishEvaluationNotice />
+              ) : (
+                <Suspense fallback={<EvalRouteFallback />}>
+                  <EvalArticleScreen />
+                </Suspense>
+              )
             }
           />
           <Route path="*" element={<NotFoundScreen />} />
@@ -207,10 +315,11 @@ export const App = () => {
 
       <footer className="news-footer border-t bg-background p-2 text-sm sm:p-4 lg:flex lg:items-center lg:justify-between lg:gap-4">
         <div className="hidden shrink-0 font-medium lowercase text-secondary-foreground lg:block">
-          © {new Date().getFullYear()} · всички права запазени
+          © {new Date().getFullYear()} ·{" "}
+          {tr("всички права запазени", "all rights reserved")}
         </div>
         <ul className="news-footer-links grid w-full grid-cols-5 items-stretch lg:flex lg:w-auto lg:items-center lg:gap-3">
-          {FOOTER_LINKS.map(({ href, label, mobileLabel }) => (
+          {footerLinks.map(({ href, label, mobileLabel }) => (
             <li key={href}>
               {href.startsWith("/") ? (
                 <Link
@@ -238,3 +347,9 @@ export const App = () => {
     </div>
   );
 };
+
+export const App = ({ language = "bg" }: { language?: NewsLanguage }) => (
+  <NewsLocaleProvider language={language}>
+    <NewsAppShell />
+  </NewsLocaleProvider>
+);

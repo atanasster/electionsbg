@@ -8,22 +8,31 @@ import {
   readSavedNewsFromBrowser,
   writeSavedNewsToBrowser,
 } from "../components/savedNews";
+import { useNewsLocale, type NewsLanguage } from "../i18n";
 
 const labelFor = (
   path: string,
   storyTitles: Map<string, string>,
   articleTitles: Map<string, string>,
+  language: NewsLanguage,
 ): string => {
   const story = path.match(/^\/story\/([^/]+)$/);
   if (story)
-    return storyTitles.get(story[1]) ?? "История, която вече не е налична";
+    return (
+      storyTitles.get(story[1]) ??
+      (language === "bg"
+        ? "История, която вече не е налична"
+        : "Story no longer available")
+    );
   const article = path.match(/^\/article\/([^/]+)\/([^/]+)$/);
   if (article)
     return (
       articleTitles.get(path) ??
-      `Материал ${article[2].slice(-8)} от ${article[1]}`
+      (language === "bg"
+        ? `Материал ${article[2].slice(-8)} от ${article[1]}`
+        : `Article ${article[2].slice(-8)} from ${article[1]}`)
     );
-  return "Запазена страница";
+  return language === "bg" ? "Запазена страница" : "Saved page";
 };
 
 export const SavedScreen = ({
@@ -31,6 +40,7 @@ export const SavedScreen = ({
 }: {
   persistSaved?: (paths: string[]) => boolean;
 }) => {
+  const { language, tr } = useNewsLocale();
   const stories = useStories();
   const latest = useLatest();
   const [paths, setPaths] = useState(readSavedNewsFromBrowser);
@@ -38,13 +48,18 @@ export const SavedScreen = ({
   const storyTitles = new Map(
     (stories.data?.stories ?? []).map((story) => [
       story.id,
-      story.title_bg ?? story.title_en ?? "История без заглавие",
+      (language === "bg" ? story.title_bg : story.title_en) ??
+        tr("История без заглавие", "Untitled story"),
     ]),
   );
   const articleTitles = new Map(
     (latest.data?.articles ?? []).map((article) => [
       `/article/${article.domain}/${article.id}`,
-      article.title ?? `Материал ${article.id.slice(-8)} от ${article.domain}`,
+      article.title ??
+        tr(
+          `Материал ${article.id.slice(-8)} от ${article.domain}`,
+          `Article ${article.id.slice(-8)} from ${article.domain}`,
+        ),
     ]),
   );
   const persist = (next: string[]) => {
@@ -52,28 +67,43 @@ export const SavedScreen = ({
       setPaths(next);
       setMessage("");
     } else {
-      setMessage("Браузърът не позволи промяната на запазените.");
+      setMessage(
+        tr(
+          "Браузърът не позволи промяната на запазените.",
+          "The browser did not allow saved items to be changed.",
+        ),
+      );
     }
   };
 
   return (
     <section className="space-y-5">
       <header>
-        <h1 className="font-title text-3xl">Запазени</h1>
+        <h1 className="font-title text-3xl">{tr("Запазени", "Saved")}</h1>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Този списък остава само в този браузър. Не се изпраща към сървър и не
-          се синхронизира между устройства.
+          {tr(
+            "Този списък остава само в този браузър. Не се изпраща към сървър и не се синхронизира между устройства.",
+            "This list stays in this browser. It is not sent to a server or synchronized across devices.",
+          )}
         </p>
       </header>
       {paths.length === 0 ? (
         <Card className="p-5 text-sm text-muted-foreground">
-          Още няма запазени истории или статии.
+          {tr(
+            "Още няма запазени истории или статии.",
+            "No stories or articles have been saved yet.",
+          )}
         </Card>
       ) : (
         <>
           <ul className="divide-y rounded-xl border bg-card px-4">
             {paths.map((path) => {
-              const label = labelFor(path, storyTitles, articleTitles);
+              const label = labelFor(
+                path,
+                storyTitles,
+                articleTitles,
+                language,
+              );
               return (
                 <li
                   key={path}
@@ -89,7 +119,7 @@ export const SavedScreen = ({
                     type="button"
                     variant="ghost"
                     size="icon"
-                    aria-label={`Премахни ${label}`}
+                    aria-label={`${tr("Премахни", "Remove")} ${label}`}
                     onClick={() =>
                       persist(paths.filter((item) => item !== path))
                     }
@@ -101,7 +131,7 @@ export const SavedScreen = ({
             })}
           </ul>
           <Button type="button" variant="outline" onClick={() => persist([])}>
-            Изчисти всички
+            {tr("Изчисти всички", "Clear all")}
           </Button>
         </>
       )}

@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import type { Story } from "../data";
-import { formatDate } from "../labels";
+import { formatDate, media } from "../labels";
+import { useNewsLocale } from "../i18n";
 
 export const RelatedStories = ({ stories }: { stories: Story[] }) => {
+  const { language, tr } = useNewsLocale();
   if (stories.length === 0) return null;
   return (
     <Card className="p-4">
       <h2 className="mb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        Свързани истории
+        {tr("Свързани истории", "Related stories")}
       </h2>
       <ul className="divide-y">
         {stories.map((story) => (
@@ -17,14 +19,13 @@ export const RelatedStories = ({ stories }: { stories: Story[] }) => {
               to={`/story/${story.id}`}
               className="block font-medium leading-snug hover:text-primary"
             >
-              {story.title_bg ?? story.title_en ?? "История без заглавие"}
+              {(language === "en" ? story.title_en : story.title_bg) ??
+                tr("История без заглавие", "Untitled story")}
             </Link>
             <p className="mt-1 text-xs text-muted-foreground">
-              {story.aggregates.outlet_count === 1
-                ? "1 медия"
-                : `${story.aggregates.outlet_count} медии`}
+              {media(story.aggregates.outlet_count, language)}
               {story.first_published
-                ? ` · ${formatDate(story.first_published)}`
+                ? ` · ${formatDate(story.first_published, language)}`
                 : ""}
             </p>
           </li>

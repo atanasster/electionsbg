@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import type { TaxonomyCategory } from "../data";
 import { HOME_TIMEFRAMES } from "../homeFilters";
 import { emitNewsEvent } from "../analytics";
+import { useNewsLocale } from "../i18n";
 
 export const HomeFilterControls = ({
   categories,
@@ -28,14 +29,18 @@ export const HomeFilterControls = ({
   onQueryChange: (value: string) => void;
   onReset: () => void;
 }) => {
+  const { language, tr } = useNewsLocale();
   const filtersActive =
     category !== "all" || days !== defaultDays || Boolean(query.trim());
   return (
-    <section className="space-y-3" aria-label="Филтри на историите">
+    <section
+      className="space-y-3"
+      aria-label={tr("Филтри на историите", "Story filters")}
+    >
       <div
         className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="group"
-        aria-label="Тема"
+        aria-label={tr("Тема", "Topic")}
       >
         <Button
           type="button"
@@ -52,7 +57,7 @@ export const HomeFilterControls = ({
             onCategoryChange("all");
           }}
         >
-          Всички
+          {tr("Всички", "All")}
         </Button>
         {categories.map((item) => (
           <Button
@@ -71,7 +76,7 @@ export const HomeFilterControls = ({
               onCategoryChange(item.id);
             }}
           >
-            {item.label.bg} · {categoryCounts.get(item.id) ?? 0}
+            {item.label[language]} · {categoryCounts.get(item.id) ?? 0}
           </Button>
         ))}
       </div>
@@ -79,7 +84,7 @@ export const HomeFilterControls = ({
         <div
           className="flex max-w-full overflow-x-auto rounded-lg border p-0.5"
           role="group"
-          aria-label="Период"
+          aria-label={tr("Период", "Period")}
         >
           {HOME_TIMEFRAMES.map((timeframe) => (
             <Button
@@ -98,7 +103,9 @@ export const HomeFilterControls = ({
                 onDaysChange(timeframe.days);
               }}
             >
-              {timeframe.label}
+              {timeframe.days === 1
+                ? tr("24 часа", "24 hours")
+                : tr(timeframe.label, `${timeframe.days} days`)}
             </Button>
           ))}
         </div>
@@ -107,9 +114,12 @@ export const HomeFilterControls = ({
           <Input
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
-            placeholder="Търсене в заглавия и резюмета…"
+            placeholder={tr(
+              "Търсене в заглавия и резюмета…",
+              "Search titles and summaries…",
+            )}
             className="pl-8"
-            aria-label="Търсене"
+            aria-label={tr("Търсене", "Search")}
           />
         </div>
         {filtersActive ? (
@@ -126,7 +136,7 @@ export const HomeFilterControls = ({
               onReset();
             }}
           >
-            Изчисти
+            {tr("Изчисти", "Clear")}
           </Button>
         ) : null}
       </div>

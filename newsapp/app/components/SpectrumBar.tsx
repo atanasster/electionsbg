@@ -6,11 +6,14 @@
 
 import {
   LEANING_META,
+  LEANING_META_EN,
   LEANING_ORDER,
   RUSSIA_META,
+  RUSSIA_META_EN,
   RUSSIA_ORDER,
 } from "../labels";
 import type { Leaning, RussiaStance } from "../data";
+import { useNewsLocale } from "../i18n";
 
 type LeanCounts = Partial<Record<Leaning, number>>;
 type StanceCounts = Partial<Record<RussiaStance, number>>;
@@ -91,36 +94,48 @@ const Segments = ({
 
 export const LeanSpectrum = ({
   counts,
-  emptyLabel = "няма анализирани източници",
+  emptyLabel,
 }: {
   counts: LeanCounts;
   emptyLabel?: string;
-}) => (
-  <Segments
-    empty={emptyLabel}
-    segments={LEANING_ORDER.map((k) => ({
-      key: k,
-      label: LEANING_META[k].label,
-      count: counts[k] ?? 0,
-      color: LEANING_META[k].color,
-    }))}
-  />
-);
+}) => {
+  const { isEnglish, tr } = useNewsLocale();
+  const labels = isEnglish ? LEANING_META_EN : LEANING_META;
+  return (
+    <Segments
+      empty={
+        emptyLabel ?? tr("няма анализирани източници", "no analysed sources")
+      }
+      segments={LEANING_ORDER.map((k) => ({
+        key: k,
+        label: labels[k].label,
+        count: counts[k] ?? 0,
+        color: labels[k].color,
+      }))}
+    />
+  );
+};
 
 export const StanceSpectrum = ({
   counts,
-  emptyLabel = "няма анализирани източници",
+  emptyLabel,
 }: {
   counts: StanceCounts;
   emptyLabel?: string;
-}) => (
-  <Segments
-    empty={emptyLabel}
-    segments={RUSSIA_ORDER.map((k) => ({
-      key: k,
-      label: RUSSIA_META[k].label,
-      count: counts[k] ?? 0,
-      color: RUSSIA_META[k].color,
-    }))}
-  />
-);
+}) => {
+  const { isEnglish, tr } = useNewsLocale();
+  const labels = isEnglish ? RUSSIA_META_EN : RUSSIA_META;
+  return (
+    <Segments
+      empty={
+        emptyLabel ?? tr("няма анализирани източници", "no analysed sources")
+      }
+      segments={RUSSIA_ORDER.map((k) => ({
+        key: k,
+        label: labels[k].label,
+        count: counts[k] ?? 0,
+        color: labels[k].color,
+      }))}
+    />
+  );
+};

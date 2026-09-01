@@ -1,4 +1,5 @@
 import type { OutletOwner } from "./data";
+import type { NewsLanguage } from "./i18n";
 
 export const safeHttpUrl = (
   value: string | null | undefined,
@@ -48,7 +49,26 @@ const RETIREMENT_REASON_BG: Record<string, string> = {
   duplicate_outlet: "дублира друг източник в каталога",
 };
 
+const RETIREMENT_REASON_EN: Record<string, string> = {
+  portal_not_newsroom: "the portal is not an independent newsroom",
+  blocked_captcha: "access is blocked by a CAPTCHA",
+  no_article_text: "the pages do not provide readable article text",
+  broken_sitemaps: "automatic discovery sources do not work reliably",
+  bot_refused: "the outlet refuses automated access",
+  duplicate_outlet: "it duplicates another source in the directory",
+};
+
 export const retirementReasonBg = (reason: string | null): string =>
   reason
     ? (RETIREMENT_REASON_BG[reason] ?? "причината не е описана")
     : "причината не е записана";
+
+export const retirementReason = (
+  reason: string | null,
+  language: NewsLanguage = "bg",
+): string => {
+  if (language === "bg") return retirementReasonBg(reason);
+  return reason
+    ? (RETIREMENT_REASON_EN[reason] ?? "the reason is not described")
+    : "the reason was not recorded";
+};

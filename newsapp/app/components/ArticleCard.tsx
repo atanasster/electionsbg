@@ -18,6 +18,7 @@ import type { ArticleRecord, Outlet } from "../data";
 import { AiBadge, LeanBadge, StanceBadge } from "./Badges";
 import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
+import { useNewsLocale } from "../i18n";
 
 export const ArticleCard = ({
   article,
@@ -27,6 +28,7 @@ export const ArticleCard = ({
   /** Undefined for a domain with no registry row — the monogram covers it. */
   outlet?: Outlet;
 }) => {
+  const { language, tr } = useNewsLocale();
   const name = outlet?.outlet ?? article.domain;
   const analysis = article.analysis;
   const href = `/article/${article.domain}/${article.id}`;
@@ -61,7 +63,7 @@ export const ArticleCard = ({
             className="text-muted-foreground"
             dateTime={article.published ?? undefined}
           >
-            {relativeTime(article.published)}
+            {relativeTime(article.published, language)}
           </time>
         </div>
         <div className="flex flex-wrap gap-1">
@@ -79,7 +81,7 @@ export const ArticleCard = ({
               variant="outline"
               className="font-normal text-muted-foreground"
             >
-              още не е анализирана
+              {tr("още не е анализирана", "not analysed yet")}
             </Badge>
           )}
         </div>
@@ -87,7 +89,7 @@ export const ArticleCard = ({
           to={href}
           className="font-title text-base leading-snug hover:text-primary"
         >
-          {article.title ?? "(без заглавие)"}
+          {article.title ?? tr("(без заглавие)", "(untitled)")}
         </Link>
         {article.excerpt ? (
           <p className="line-clamp-3 text-sm text-muted-foreground">

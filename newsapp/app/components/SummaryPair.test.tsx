@@ -1,131 +1,91 @@
-// SummaryPair — the Bulgarian summary and the English one behind a disclosure.
-//
-// The rubric produces BOTH for every analysed record. There are two places a
-// summary is read (the story page and the article page), and the failure this
-// component exists to prevent is one of them quietly ceasing to render the
-// English — which is invisible to anyone reading in Bulgarian, i.e. everyone
-// who tests it.
-
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { NewsLocaleProvider, type NewsLanguage } from "../i18n";
 import { SummaryPair } from "./SummaryPair";
 
+const renderSummary = (
+  language: NewsLanguage,
+  props: React.ComponentProps<typeof SummaryPair>,
+) =>
+  render(
+    <NewsLocaleProvider language={language}>
+      <SummaryPair {...props} />
+    </NewsLocaleProvider>,
+  );
+
 describe("SummaryPair", () => {
-  it("renders the Bulgarian summary as the primary text", () => {
-    render(
-      <SummaryPair bg="Кабинетът отложи решението." en="Cabinet delayed." />,
-    );
+  it("renders only the Bulgarian summary on the Bulgarian page", () => {
+    renderSummary("bg", {
+      bg: "Кабинетът отложи решението.",
+      en: "The cabinet delayed the decision.",
+    });
     expect(screen.getByText("Кабинетът отложи решението.")).toBeVisible();
+    expect(
+      screen.queryByText("The cabinet delayed the decision."),
+    ).not.toBeInTheDocument();
   });
 
-  it("keeps the English reachable and labelled", () => {
-    render(<SummaryPair bg="Български текст." en="English text." />);
-    // present and labelled...
-    expect(screen.getByText("Резюме на английски")).toBeVisible();
-    // ...and inside a disclosure, so it reads as secondary rather than as a
-    // second lede
-    const details = screen.getByText("Резюме на английски").closest("details");
-    expect(details).not.toBeNull();
-    expect(details).toContainElement(screen.getByText("English text."));
+  it("renders only the English summary on the English page", () => {
+    renderSummary("en", {
+      bg: "Кабинетът отложи решението.",
+      en: "The cabinet delayed the decision.",
+    });
+    expect(
+      screen.getByText("The cabinet delayed the decision."),
+    ).toHaveAttribute("lang", "en");
+    expect(
+      screen.queryByText("Кабинетът отложи решението."),
+    ).not.toBeInTheDocument();
   });
 
-  it("marks the English paragraph's language for a screen reader", () => {
-    // The document is lang="bg"; one paragraph in another language is exactly
-    // what this attribute is for.
-    render(<SummaryPair bg="Български." en="English." />);
-    expect(screen.getByText("English.")).toHaveAttribute("lang", "en");
+  it("does not fall back to the other language when selected copy is missing", () => {
+    renderSummary("en", { bg: "Само български.", en: null });
+    expect(screen.getByText("English summary unavailable.")).toBeVisible();
+    expect(screen.queryByText("Само български.")).not.toBeInTheDocument();
   });
 
-  it("renders nothing at all when there is no summary", () => {
-    const { container } = render(<SummaryPair bg={null} en={null} />);
+  it("renders nothing when neither language has a summary", () => {
+    const { container } = renderSummary("bg", { bg: null, en: null });
     expect(container).toBeEmptyDOMElement();
-    const { container: c2 } = render(<SummaryPair bg={undefined} en="" />);
-    expect(c2).toBeEmptyDOMElement();
   });
 
-  it("renders the Bulgarian alone when there is no English", () => {
-    render(<SummaryPair bg="Само български." en={null} />);
-    expect(screen.getByText("Само български.")).toBeVisible();
-    expect(screen.queryByText("Резюме на английски")).not.toBeInTheDocument();
-  });
-
-  it("still shows the English when the Bulgarian is missing, and says so", () => {
-    // An EN-only record is an upstream defect, not a reason to render a blank
-    // where a summary belongs.
-    render(<SummaryPair bg={null} en="English only." />);
-    expect(screen.getByText("Резюме на английски")).toBeVisible();
-    // ⚠️ The TEXT, not just the label. Asserting only the disclosure's
-    // heading let the English paragraph be made conditional on `bg` with the
-    // whole suite green — which is the one regression this component exists
-    // to prevent.
-    expect(screen.getByText("English only.")).toBeInTheDocument();
-    expect(screen.getByText("Липсва резюме на български.")).toBeVisible();
-  });
-
-  it("passes its spacing through to the wrapper", () => {
-    // The margin moved from the paragraph to a caller-supplied wrapper when
-    // this was extracted, so the contract is now a prop and defaults to NO
-    // margin. Dropping the prop entirely left every other test passing.
-    const { container } = render(
-      <SummaryPair bg="Текст." en="Text." className="mt-3" />,
-    );
+  it("passes spacing through to the wrapper", () => {
+    const { container } = renderSummary("bg", {
+      bg: "Текст.",
+      en: "Text.",
+      className: "mt-3",
+    });
     expect(container.firstElementChild).toHaveClass("mt-3");
   });
 });
 
 describe("a withheld summary", () => {
-  // ⚠️ „Липсва" AND „ЗАДЪРЖАНО" ARE DIFFERENT FACTS. The first says the
-  // pipeline produced nothing; the second says we produced one and refused
-  // to publish it. Rendering the first for the second makes a deliberate
-  // refusal read as breakage — which is exactly what it looked like on the
-  // KPKONPI story before this.
-  it("states WHY it is missing instead of the generic note", () => {
-    render(
-      <SummaryPair
-        bg={null}
-        en="Anton Slavchev got a payout."
-        withheld={{ summary_bg: "altered_name" }}
-      />,
-    );
+  it("states why the selected Bulgarian summary is withheld", () => {
+    renderSummary("bg", {
+      bg: null,
+      en: "Anton Slavchev got a payout.",
+      withheld: { summary_bg: "altered_name" },
+    });
     expect(screen.getByText(/не се показва/)).toBeInTheDocument();
-    expect(screen.queryByText("Липсва резюме на български.")).toBeNull();
+    expect(screen.queryByText("Anton Slavchev got a payout.")).toBeNull();
   });
 
-  it("keeps the generic note when nothing was withheld", () => {
-    render(<SummaryPair bg={null} en="Anton Slavchev got a payout." />);
-    expect(screen.getByText("Липсва резюме на български.")).toBeInTheDocument();
+  it("states why the selected English summary is withheld", () => {
+    renderSummary("en", {
+      bg: "Българско резюме.",
+      en: null,
+      withheld: { summary_en: "altered_name" },
+    });
+    expect(screen.getByText(/English summary is not shown/)).toBeVisible();
+    expect(screen.queryByText("Българско резюме.")).toBeNull();
   });
 
-  it("still renders the note when BOTH summaries are gone", () => {
-    // Otherwise a record whose only summary was withheld renders nothing at
-    // all, and the refusal is invisible again.
-    render(
-      <SummaryPair
-        bg={null}
-        en={null}
-        withheld={{ summary_bg: "altered_name" }}
-      />,
-    );
-    expect(screen.getByText(/не се показва/)).toBeInTheDocument();
-  });
-
-  it("falls back to the generic note on an UNKNOWN reason code", () => {
-    // A code the app has no wording for must not render an empty paragraph.
-    render(
-      <SummaryPair bg={null} en="x" withheld={{ summary_bg: "future_code" }} />,
-    );
-    expect(screen.getByText("Липсва резюме на български.")).toBeInTheDocument();
-  });
-
-  it("says nothing when the Bulgarian summary is present", () => {
-    render(
-      <SummaryPair
-        bg="Резюме."
-        en="Summary."
-        withheld={{ summary_en: "altered_name" }}
-      />,
-    );
-    expect(screen.queryByText(/не се показва/)).toBeNull();
-    expect(screen.queryByText("Липсва резюме на български.")).toBeNull();
+  it("uses the generic note for an unknown reason", () => {
+    renderSummary("bg", {
+      bg: null,
+      en: "English.",
+      withheld: { summary_bg: "future_code" },
+    });
+    expect(screen.getByText("Липсва резюме на български.")).toBeVisible();
   });
 });

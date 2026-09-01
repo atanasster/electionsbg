@@ -7,16 +7,18 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  bgAnalyzedArticles,
-  bgArticles,
+  analyzedArticles,
+  articles as articleCount,
   outletScopeLabel,
   outletTierLabel,
   outletTypeLabel,
   formatDate,
   formatVisits,
   LEANING_META,
+  LEANING_META_EN,
   relativeTime,
   RUSSIA_META,
+  RUSSIA_META_EN,
 } from "../labels";
 import {
   hasSpectrum,
@@ -37,9 +39,10 @@ import { Breadcrumbs } from "../components/Breadcrumbs";
 import {
   outletHomepage,
   publishableOwner,
-  retirementReasonBg,
+  retirementReason,
   safeHttpUrl,
 } from "../sourceTransparency";
+import { useNewsLocale } from "../i18n";
 
 const PAGE_SIZE = 20;
 
@@ -70,6 +73,7 @@ const Measure = ({
   unavailable?: string;
   note?: string;
 }) => {
+  const { tr } = useNewsLocale();
   const enough = !unavailable && (total ?? 0) >= minBase;
   const rate = enough ? (count! / total!) * 100 : null;
   return (
@@ -89,17 +93,23 @@ const Measure = ({
             <span className="text-sm tabular-nums">{Math.round(rate!)}%</span>
           </div>
           <p className="mt-1 text-xs text-muted-foreground">
-            {count} от {total}
+            {count} {tr("от", "out of")} {total}
             {corpusRate != null
-              ? ` · ${Math.round(corpusRate * 100)}% за всички събрани материали`
+              ? tr(
+                  ` · ${Math.round(corpusRate * 100)}% за всички събрани материали`,
+                  ` · ${Math.round(corpusRate * 100)}% across all collected articles`,
+                )
               : ""}
           </p>
         </>
       ) : (
         <p className="mt-1 text-xs text-muted-foreground">
           {total
-            ? `известно само за ${total} ${total === 1 ? "материал" : "материала"} — твърде малко`
-            : "няма данни"}
+            ? tr(
+                `известно само за ${total} ${total === 1 ? "материал" : "материала"} — твърде малко`,
+                `known for only ${total} ${total === 1 ? "article" : "articles"} — too few`,
+              )
+            : tr("няма данни", "no data")}
         </p>
       )}
       {note ? (
@@ -113,6 +123,7 @@ const Measure = ({
 const CONDUCT_MIN_BASE = 20;
 
 const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
+  const { language, tr } = useNewsLocale();
   const owner = publishableOwner(outlet.owner);
   const ownerSource = owner ? safeHttpUrl(owner.source) : null;
   const homepage = outletHomepage(outlet.domain);
@@ -125,7 +136,7 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
               id="source-identity-heading"
               className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
             >
-              За източника
+              {tr("За източника", "About the source")}
             </h2>
             {homepage ? (
               <a
@@ -134,11 +145,14 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
                 rel="noreferrer noopener"
                 className="mt-1 inline-block font-medium underline underline-offset-4"
               >
-                Отвори {outlet.domain} ↗
+                {tr("Отвори", "Open")} {outlet.domain} ↗
               </a>
             ) : (
               <span className="mt-1 block text-sm text-muted-foreground">
-                Адресът на сайта е невалиден
+                {tr(
+                  "Адресът на сайта е невалиден",
+                  "The website address is invalid",
+                )}
               </span>
             )}
           </div>
@@ -147,17 +161,21 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
               variant="outline"
               className="font-normal text-muted-foreground"
             >
-              оттеглен източник
+              {tr("оттеглен източник", "retired source")}
             </Badge>
           ) : null}
         </div>
 
         {owner && ownerSource ? (
           <div className="mt-4 border-t pt-3 text-sm">
-            <p className="font-medium">Вписан собственик: {owner.name}</p>
+            <p className="font-medium">
+              {tr("Вписан собственик", "Registered owner")}: {owner.name}
+            </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Това е собственикът, посочен в регистъра — не твърдение за
-              действителен контрол или редакционна независимост.
+              {tr(
+                "Това е собственикът, посочен в регистъра — не твърдение за действителен контрол или редакционна независимост.",
+                "This is the owner listed in the register, not a claim about actual control or editorial independence.",
+              )}
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
               <a
@@ -166,25 +184,32 @@ const SourceIdentity = ({ outlet }: { outlet: Outlet }) => {
                 rel="noreferrer noopener"
                 className="underline underline-offset-2"
               >
-                Източник на справката ↗
+                {tr("Източник на справката", "Registry source")} ↗
               </a>
-              {` · проверено ${formatDate(owner.checked)}`}
+              {` · ${tr("проверено", "checked")} ${formatDate(owner.checked, language)}`}
             </p>
           </div>
         ) : (
           <p className="mt-4 border-t pt-3 text-sm text-muted-foreground">
             {outlet.owner
-              ? "Данните за собствеността са непълни и не се публикуват."
-              : "Собствеността още не е проверена. Това не означава, че собственикът е неизвестен."}
+              ? tr(
+                  "Данните за собствеността са непълни и не се публикуват.",
+                  "Ownership data are incomplete and are not published.",
+                )
+              : tr(
+                  "Собствеността още не е проверена. Това не означава, че собственикът е неизвестен.",
+                  "Ownership has not yet been verified. This does not mean the owner is unknown.",
+                )}
           </p>
         )}
 
         {outlet.retired ? (
           <p className="mt-3 text-xs text-muted-foreground">
-            Причина за оттегляне: {retirementReasonBg(outlet.retired_reason)}
+            {tr("Причина за оттегляне", "Reason for retirement")}:{" "}
+            {retirementReason(outlet.retired_reason, language)}
             {outlet.retired_on
-              ? ` · от ${formatDate(outlet.retired_on)}`
-              : " · датата не е записана"}
+              ? ` · ${tr("от", "since")} ${formatDate(outlet.retired_on, language)}`
+              : tr(" · датата не е записана", " · date not recorded")}
           </p>
         ) : null}
       </Card>
@@ -199,6 +224,7 @@ const ConductSection = ({
   outlet: Outlet;
   corpus: { authorRate: number | null };
 }) => {
+  const { tr } = useNewsLocale();
   // ⚠️ Optional-chained. A bundle built before `conduct` existed is on disk
   // right now (dist-news carries whatever the last build produced), and
   // newsapp has NO error boundary — so a bare `outlet.conduct.articles`
@@ -213,30 +239,39 @@ const ConductSection = ({
   return (
     <Card className="p-4">
       <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        Поведение на редакцията
+        {tr("Поведение на редакцията", "Newsroom practices")}
       </h2>
       <p className="mt-1 text-xs text-muted-foreground">
-        Измерено от самите материали, не присъдено. Никога едно число.
+        {tr(
+          "Измерено от самите материали, не присъдено. Никога едно число.",
+          "Measured from the articles themselves, not assigned. Never reduced to one score.",
+        )}
       </p>
       <div className="mt-3 grid gap-4 sm:grid-cols-3">
         <Measure
-          label="Подписани материали"
+          label={tr("Подписани материали", "Bylined articles")}
           count={c.with_author}
           total={c.articles}
           corpusRate={corpus.authorRate}
           minBase={CONDUCT_MIN_BASE}
         />
         <Measure
-          label="Редактирани след публикуване"
+          label={tr("Редактирани след публикуване", "Edited after publication")}
           count={c.edited_after_publication}
           total={c.updated_known}
           minBase={CONDUCT_MIN_BASE}
-          note="Броят се само материали, чиято страница обявява дата на редакция."
+          note={tr(
+            "Броят се само материали, чиято страница обявява дата на редакция.",
+            "Only articles whose page states an edit date are counted.",
+          )}
         />
         <Measure
-          label="Препубликувано съдържание"
+          label={tr("Препубликувано съдържание", "Republished content")}
           minBase={CONDUCT_MIN_BASE}
-          unavailable="Не се измерва. Няма надежден признак в тези сайтове — маркерът „Източник:“ на практика придружава снимки, не препечатки."
+          unavailable={tr(
+            "Не се измерва. Няма надежден признак в тези сайтове — маркерът „Източник:“ на практика придружава снимки, не препечатки.",
+            "Not measured. These sites provide no reliable signal: in practice, a ‘Source’ marker accompanies images rather than republished articles.",
+          )}
         />
       </div>
     </Card>
@@ -244,6 +279,7 @@ const ConductSection = ({
 };
 
 export const OutletScreen = () => {
+  const { isEnglish, language, tr } = useNewsLocale();
   const { domain } = useParams<{ domain: string }>();
   const outlets = useOutlets();
   const articles = useOutletArticles(domain ?? null);
@@ -289,7 +325,9 @@ export const OutletScreen = () => {
   if (outlets.error && !outlets.data) {
     return (
       <Card className="p-6 text-sm text-destructive">
-        Източниците не се заредиха: {outlets.error.message}
+        {isEnglish
+          ? "Sources could not be loaded."
+          : `Източниците не се заредиха: ${outlets.error.message}`}
       </Card>
     );
   }
@@ -297,13 +335,15 @@ export const OutletScreen = () => {
   if (!outlet) {
     return (
       <Card className="p-6">
-        <h1 className="font-title text-2xl">Източникът не е намерен</h1>
+        <h1 className="font-title text-2xl">
+          {tr("Източникът не е намерен", "Source not found")}
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           <Link
             to="/outlets"
             className="text-primary underline-offset-4 hover:underline"
           >
-            Към каталога с източници
+            {tr("Към каталога с източници", "Browse sources")}
           </Link>
         </p>
       </Card>
@@ -316,7 +356,7 @@ export const OutletScreen = () => {
     <div className="space-y-6">
       <Breadcrumbs
         items={[
-          { label: "Източници", to: "/outlets" },
+          { label: tr("Източници", "Sources"), to: "/outlets" },
           { label: outlet.outlet },
         ]}
       />
@@ -327,30 +367,43 @@ export const OutletScreen = () => {
         </div>
         <div className="flex flex-wrap gap-1.5">
           {outlet.rank ? (
-            <Badge variant="secondary">#{outlet.rank} в каталога</Badge>
+            <Badge variant="secondary">
+              #{outlet.rank} {tr("в каталога", "in directory")}
+            </Badge>
           ) : null}
           {outlet.tier ? (
-            <Badge variant="secondary">{outletTierLabel(outlet.tier)}</Badge>
+            <Badge variant="secondary">
+              {outletTierLabel(outlet.tier, language)}
+            </Badge>
           ) : null}
           {outlet.type ? (
-            <Badge variant="secondary">{outletTypeLabel(outlet.type)}</Badge>
+            <Badge variant="secondary">
+              {outletTypeLabel(outlet.type, language)}
+            </Badge>
           ) : null}
           {outlet.scope ? (
-            <Badge variant="secondary">{outletScopeLabel(outlet.scope)}</Badge>
+            <Badge variant="secondary">
+              {outletScopeLabel(outlet.scope, language)}
+            </Badge>
           ) : null}
           {outlet.visits != null ? (
             <Badge variant="secondary">
-              {formatVisits(outlet.visits)} посещ./мес
+              {formatVisits(outlet.visits, language)}{" "}
+              {tr("посещ./мес", "visits/month")}
             </Badge>
           ) : null}
           <Badge variant="secondary">
             {/* One definition shared with every count surface. */}
-            {bgArticles(outlet.article_count)} в корпуса
+            {articleCount(outlet.article_count, language)}{" "}
+            {tr("в корпуса", "in corpus")}
           </Badge>
           <Badge variant="secondary">
             {outlet.analyzed_count === 1
-              ? "1 анализирана"
-              : `${outlet.analyzed_count} анализирани`}
+              ? tr("1 анализирана", "1 analyzed")
+              : tr(
+                  `${outlet.analyzed_count} анализирани`,
+                  `${outlet.analyzed_count} analyzed`,
+                )}
           </Badge>
         </div>
       </header>
@@ -365,39 +418,57 @@ export const OutletScreen = () => {
       {hasSpectrum(outlet.leaning) ? (
         <section
           className="grid gap-3 md:grid-cols-2"
-          aria-label="Разпределения"
+          aria-label={tr("Разпределения", "Distributions")}
         >
           <Card className="p-4">
             <h2 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              Политическо рамкиране по статии
+              {tr(
+                "Политическо рамкиране по статии",
+                "Political framing by article",
+              )}
             </h2>
             <LeanSpectrum
               counts={outlet.leaning}
-              emptyLabel="няма анализирани статии"
+              emptyLabel={tr("няма анализирани статии", "no analyzed articles")}
             />
-            <SpectrumLegend counts={outlet.leaning} labels={LEANING_META} />
+            <SpectrumLegend
+              counts={outlet.leaning}
+              labels={isEnglish ? LEANING_META_EN : LEANING_META}
+            />
           </Card>
           <Card className="p-4">
             <h2 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              Позиция спрямо Русия по статии
+              {tr(
+                "Позиция спрямо Русия по статии",
+                "Stance toward Russia by article",
+              )}
             </h2>
             <StanceSpectrum
               counts={outlet.russia_stance}
-              emptyLabel="няма анализирани статии"
+              emptyLabel={tr("няма анализирани статии", "no analyzed articles")}
             />
             <SpectrumLegend
               counts={outlet.russia_stance}
-              labels={RUSSIA_META}
+              labels={isEnglish ? RUSSIA_META_EN : RUSSIA_META}
             />
           </Card>
         </section>
       ) : (
         <Card className="p-4 text-sm text-muted-foreground">
           {outlet.analyzed_count === 0
-            ? "Още няма анализирани статии от този източник — разпределенията се появяват, когато анализът го достигне."
+            ? tr(
+                "Още няма анализирани статии от този източник — разпределенията се появяват, когато анализът го достигне.",
+                "There are no analyzed articles from this source yet. Distributions will appear when analysis reaches it.",
+              )
             : positionedCount(outlet.leaning) === 0
-              ? `Анализът обхваща ${bgArticles(outlet.analyzed_count)} и нито една няма приложима оценка по тази скала.`
-              : `От ${bgAnalyzedArticles(outlet.analyzed_count)} само ${positionedCount(outlet.leaning)} ${positionedCount(outlet.leaning) === 1 ? "участва" : "участват"} в разпределението. Това е твърде малко за надеждна лента.`}
+              ? tr(
+                  `Анализът обхваща ${articleCount(outlet.analyzed_count, language)} и нито една няма приложима оценка по тази скала.`,
+                  `The analysis covers ${articleCount(outlet.analyzed_count, language)}, and none has an applicable rating on this scale.`,
+                )
+              : tr(
+                  `От ${analyzedArticles(outlet.analyzed_count, language)} само ${positionedCount(outlet.leaning)} ${positionedCount(outlet.leaning) === 1 ? "участва" : "участват"} в разпределението. Това е твърде малко за надеждна лента.`,
+                  `Only ${positionedCount(outlet.leaning)} of ${analyzedArticles(outlet.analyzed_count, language)} are included in the distribution. This is too few for a reliable bar.`,
+                )}
         </Card>
       )}
 
@@ -407,7 +478,8 @@ export const OutletScreen = () => {
             id="outlet-stories"
             className="mb-2 text-sm font-semibold uppercase tracking-wide"
           >
-            Истории с участие ({participating.length})
+            {tr("Истории с участие", "Participating stories")} (
+            {participating.length})
           </h2>
           <Card className="divide-y p-0">
             {participating.slice(0, 10).map((s) => (
@@ -417,10 +489,11 @@ export const OutletScreen = () => {
                 className="flex items-baseline justify-between gap-3 px-4 py-2.5 hover:bg-secondary/50"
               >
                 <span className="text-sm">
-                  {s.title_bg ?? s.title_en ?? s.id}
+                  {(language === "bg" ? s.title_bg : s.title_en) ??
+                    tr("История без заглавие", "Untitled story")}
                 </span>
                 <span className="shrink-0 text-xs text-muted-foreground">
-                  {relativeTime(s.last_published)}
+                  {relativeTime(s.last_published, language)}
                 </span>
               </Link>
             ))}
@@ -433,11 +506,13 @@ export const OutletScreen = () => {
           id="outlet-articles"
           className="mb-2 text-sm font-semibold uppercase tracking-wide"
         >
-          Последни статии ({list.length})
+          {tr("Последни статии", "Latest articles")} ({list.length})
         </h2>
         {articles.error && !articles.data ? (
           <Card className="p-4 text-sm text-destructive">
-            Статиите не се заредиха: {articles.error.message}
+            {isEnglish
+              ? "Articles could not be loaded."
+              : `Статиите не се заредиха: ${articles.error.message}`}
           </Card>
         ) : articles.loading && !articles.data ? (
           <div className="space-y-2">
@@ -458,7 +533,10 @@ export const OutletScreen = () => {
             ) : null}
             {list.length === 0 ? (
               <p className="py-4 text-sm text-muted-foreground">
-                Няма статии от този източник.
+                {tr(
+                  "Няма статии от този източник.",
+                  "There are no articles from this source.",
+                )}
               </p>
             ) : null}
           </Card>

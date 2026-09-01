@@ -7,6 +7,7 @@ import { relativeTime, topicLabel } from "../labels";
 import { ArticleImage } from "./ArticleImage";
 import { canDisplayHomeImage } from "./imageRights";
 import { StorySourcePreview } from "./StorySourcePreview";
+import { useNewsLocale } from "../i18n";
 
 export const LeadStory = ({
   item,
@@ -17,8 +18,12 @@ export const LeadStory = ({
   outlets: readonly Outlet[];
   taxonomy: TaxonomyCategory[] | null;
 }) => {
+  const { language, tr } = useNewsLocale();
   const { story, imageArticle } = item;
-  const title = story.title_bg ?? story.title_en ?? "(без заглавие)";
+  const title =
+    (language === "en" ? story.title_en : story.title_bg) ??
+    tr("(без заглавие)", "(untitled)");
+  const summary = language === "en" ? story.summary_en : story.summary_bg;
   const primary =
     story.topics.find((topic) => topic.primary) ?? story.topics[0];
   const source = outlets.find(
@@ -51,8 +56,12 @@ export const LeadStory = ({
                 variant="secondary"
                 className="min-w-0 max-w-[75%] truncate font-normal"
               >
-                {topicLabel(taxonomy, primary.category, primary.subcategory) ??
-                  primary.category}
+                {topicLabel(
+                  taxonomy,
+                  primary.category,
+                  primary.subcategory,
+                  language,
+                ) ?? primary.category}
               </Badge>
             ) : (
               <span />
@@ -61,7 +70,7 @@ export const LeadStory = ({
               className="shrink-0 whitespace-nowrap"
               dateTime={story.last_published ?? undefined}
             >
-              {relativeTime(story.last_published)}
+              {relativeTime(story.last_published, language)}
             </time>
           </div>
           <Link
@@ -71,9 +80,9 @@ export const LeadStory = ({
             <h3 className="news-story-heading font-title text-2xl leading-tight transition-colors group-hover:text-[hsl(var(--editorial-kicker))] md:text-3xl">
               {title}
             </h3>
-            {story.summary_bg ? (
+            {summary ? (
               <p className="news-story-summary mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                {story.summary_bg}
+                {summary}
               </p>
             ) : null}
           </Link>

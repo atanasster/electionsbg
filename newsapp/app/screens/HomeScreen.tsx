@@ -6,11 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  bgAnalyzedArticles,
-  bgArticles,
-  bgMedia,
-  bgStories,
+  analyzedArticles,
+  articles,
+  media,
   relativeTime,
+  stories,
 } from "../labels";
 import { useHome, useOutlets, useStats, useTaxonomy } from "../data";
 import { StoryCard } from "../components/StoryCard";
@@ -23,6 +23,7 @@ import {
   homeCategoryCounts,
 } from "../homeFilters";
 import { useUrlHomeFilters } from "../useUrlHomeFilters";
+import { useNewsLocale } from "../i18n";
 
 // The explicit one-column track is minmax(0, 1fr). Without it, CSS Grid's
 // implicit `auto` track expands to a long image-credit's min-content width and
@@ -30,6 +31,7 @@ import { useUrlHomeFilters } from "../useUrlHomeFilters";
 export const STORY_GRID = "news-supporting-grid grid gap-3";
 
 export const HomeScreen = () => {
+  const { isEnglish, language, tr } = useNewsLocale();
   const stats = useStats();
   const home = useHome();
   const taxonomy = useTaxonomy();
@@ -115,35 +117,45 @@ export const HomeScreen = () => {
     <div className="space-y-8">
       <section className="news-home-intro border-b pb-6">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-[hsl(var(--editorial-kicker))]">
-          Независим медиен преглед
+          {tr("Независим медиен преглед", "Independent media overview")}
         </p>
         <h1 className="max-w-3xl font-title text-4xl leading-[1.05] sm:text-5xl">
-          Всяка страна на всяка история
+          {tr("Всяка страна на всяка история", "Every side of every story")}
         </h1>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
-          Сравнете как българските медии отразяват едни и същи събития — спектър
-          на политическото рамкиране, позиция спрямо Русия и сигнали за
-          съдържание, вероятно генерирано с ИИ.
+          {tr(
+            "Сравнете как българските медии отразяват едни и същи събития — спектър на политическото рамкиране, позиция спрямо Русия и сигнали за съдържание, вероятно генерирано с ИИ.",
+            "Compare how Bulgarian media cover the same events — political framing, stance toward Russia, and signals of likely AI-generated content.",
+          )}
         </p>
         {/* Stats strip — one glance at corpus + analysis coverage. */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
           {stats.error && !stats.data ? (
             <span className="text-sm text-destructive">
-              Статистиката не се зареди.
+              {tr(
+                "Статистиката не се зареди.",
+                "Statistics could not be loaded.",
+              )}
             </span>
           ) : stats.data ? (
             <>
-              <Badge variant="secondary">{bgStories(stats.data.stories)}</Badge>
               <Badge variant="secondary">
-                {bgAnalyzedArticles(stats.data.analyzed_articles)} (
+                {stories(stats.data.stories, language)}
+              </Badge>
+              <Badge variant="secondary">
+                {analyzedArticles(stats.data.analyzed_articles, language)} (
                 {stats.data.analyzed_pct}%)
               </Badge>
               <Badge variant="secondary">
-                {bgArticles(stats.data.total_articles)} общо
+                {articles(stats.data.total_articles, language)}{" "}
+                {tr("общо", "total")}
               </Badge>
-              <Badge variant="secondary">{bgMedia(stats.data.domains)}</Badge>
+              <Badge variant="secondary">
+                {media(stats.data.domains, language)}
+              </Badge>
               <span className="text-xs text-muted-foreground">
-                обновено {relativeTime(stats.data.generated_at)}
+                {tr("обновено", "updated")}{" "}
+                {relativeTime(stats.data.generated_at, language)}
               </span>
             </>
           ) : (
@@ -166,25 +178,30 @@ export const HomeScreen = () => {
       />
       {home.data && !daysExplicit && adaptiveDefaultDays > 1 ? (
         <p className="-mt-5 text-xs text-muted-foreground" role="status">
-          Няма достатъчно истории за 24 часа — показваме последните 7 дни.
+          {tr(
+            "Няма достатъчно истории за 24 часа — показваме последните 7 дни.",
+            "There are not enough stories from the last 24 hours — showing the last 7 days.",
+          )}
         </p>
       ) : null}
       <p className="sr-only" aria-live="polite" aria-atomic="true">
-        {announcedCount === null
-          ? ""
-          : `${announcedCount} ${announcedCount === 1 ? "история" : "истории"}`}
+        {announcedCount === null ? "" : stories(announcedCount, language)}
       </p>
 
       {home.error && !home.data ? (
         <Card className="p-4 text-sm text-destructive">
-          Началната страница не се зареди: {home.error.message}
+          {isEnglish
+            ? "The home page could not be loaded."
+            : `Началната страница не се зареди: ${home.error.message}`}
         </Card>
       ) : null}
       {(taxonomy.error && !taxonomy.data) ||
       (outlets.error && !outlets.data) ? (
         <Card className="p-4 text-sm text-destructive">
-          Част от данните (теми/източници) не се заредиха — филтрите може да са
-          непълни.
+          {tr(
+            "Част от данните (теми/източници) не се заредиха — филтрите може да са непълни.",
+            "Some topic or source data could not be loaded, so the filters may be incomplete.",
+          )}
         </Card>
       ) : null}
 
@@ -194,7 +211,7 @@ export const HomeScreen = () => {
           id="stories-heading"
           className="mb-2 text-sm font-semibold uppercase tracking-wide"
         >
-          Последни истории (
+          {tr("Последни истории", "Latest stories")} (
           {hierarchy.supporting.length + (hierarchy.lead ? 1 : 0)})
         </h2>
         {home.loading && !home.data ? (
@@ -206,7 +223,10 @@ export const HomeScreen = () => {
         ) : home.error && !home.data ? null : !hierarchy.lead &&
           !hierarchy.supporting.length ? (
           <Card className="p-6 text-sm text-muted-foreground">
-            Няма истории за избраните филтри.
+            {tr(
+              "Няма истории за избраните филтри.",
+              "No stories match these filters.",
+            )}
           </Card>
         ) : (
           <div className="space-y-5">
@@ -218,8 +238,10 @@ export const HomeScreen = () => {
               />
             ) : (
               <p className="text-sm text-muted-foreground">
-                Няма сравнение с достатъчно източници; показваме анализирани
-                статии.
+                {tr(
+                  "Няма сравнение с достатъчно източници; показваме анализирани статии.",
+                  "No comparison has enough sources; showing analyzed articles.",
+                )}
               </p>
             )}
             {hierarchy.supporting.length ? (
@@ -240,8 +262,14 @@ export const HomeScreen = () => {
         )}
         {filteredStories.length > HOME_SUPPORTING_LIMIT + 1 ? (
           <p className="mt-2 text-xs text-muted-foreground">
-            Показват се водещата и {HOME_SUPPORTING_LIMIT} подбрани истории от{" "}
-            {filteredStories.length} — стеснете филтрите, за да видите други.
+            {tr("Показват се водещата и", "Showing the lead and")}{" "}
+            {HOME_SUPPORTING_LIMIT}{" "}
+            {tr("подбрани истории от", "selected stories out of")}{" "}
+            {filteredStories.length} —{" "}
+            {tr(
+              "стеснете филтрите, за да видите други.",
+              "narrow the filters to see others.",
+            )}
           </p>
         ) : null}
       </section>
