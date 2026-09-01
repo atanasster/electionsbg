@@ -22,6 +22,7 @@ import {
   scoreMpPayFreeze,
   scorePensionIndexation,
   scoreSpendingChange,
+  sscSelfPaidRetained,
 } from "../../src/lib/bgTaxPolicy";
 import type { PolicyBaselineFile } from "../../src/data/budget/types";
 import type { Envelope, ToolContext } from "./types";
@@ -1443,9 +1444,16 @@ const run = async () => {
     // PIT-deductible) — consistent with the administration-cut lever.
     ["заплатите в публичния сектор +5%", -98e6],
     ["капиталовите разходи -10%", 185e6],
-    // Full КСО чл. 6, ал. 5 scope: administration + judiciary + defense &
-    // security (132,862 across the two НОИ SOD-2024 categories).
-    ["държавните служители да си плащат осигуровките", 254e6],
+    // ONLY the groups no law has enacted yet. Both НОИ SOD-2024 categories
+    // total 132,862, but т. 2/3/10 (64,178) self-pays from 2026-08-01, so the
+    // lever can still act on т. 4 alone (68,684 x EUR1,246.97). Pricing both
+    // books ~EUR126M the budget has ALREADY banked — which is what this
+    // literal did until it was corrected: it stayed at the full-population
+    // 254e6 through T8 (2e4bd1688e), the commit that introduced `enactedFrom`
+    // and took enacted groups out of the levers. The retained split is
+    // asserted below so the next enactment fails loudly here rather than
+    // silently halving the answer again.
+    ["държавните служители да си плащат осигуровките", 127.5e6],
     ["здравната вноска +1 пункт", 302e6],
     // June-2026 debate levers (static central; the screen's headline is dynamic)
     ["съкращаване на майчинството до 1 година", 154e6],
@@ -1556,6 +1564,23 @@ const run = async () => {
     assert(
       Math.abs(s.central - expected) < 5e6,
       `"${q}" -> ${(s.central / 1e6).toFixed(1)}M ≈ simulator ${(expected / 1e6).toFixed(0)}M`,
+    );
+  }
+
+  // The ssp literal above prices the RETAINED groups only, so it is a claim
+  // about the baseline's enacted/retained split — not just about the scoring.
+  // A law enacting т. 4 as well would halve that lever with every other gate
+  // green, exactly as the 2026-08-01 enactment of т. 2/3/10 did. Pin the split
+  // itself, so that event names itself instead of surfacing as a 2x parity gap.
+  {
+    const retained = sscSelfPaidRetained(exp!.sscSelfPaid);
+    const enacted = (exp!.sscSelfPaid?.groups ?? []).filter(
+      (g) => g.enactedFrom != null,
+    );
+    assert(
+      (retained?.length ?? 0) === 1 && enacted.length === 1,
+      `ssp: 1 retained + 1 enacted КСО group (got ${retained?.length ?? 0} + ${enacted.length}) — ` +
+        "if a law changed this, re-derive the ssp literal above from the RETAINED groups only",
     );
   }
   // Dynamic-mode gates (the screen's DEFAULT headline): direction + the

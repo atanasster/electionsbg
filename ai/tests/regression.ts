@@ -1727,8 +1727,10 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "държавните служители плащат осигуровките си",
-      // Full КСО чл. 6, ал. 5 scope: administration + judiciary + defense &
-      // security (132,862 people across the two НОИ SOD-2024 categories).
+      // The RETAINED scope only: т. 2/3/10 (64,178) self-pays from
+      // 2026-08-01, so the lever acts on т. 4 alone (68,684 of the 132,862
+      // across the two НОИ SOD-2024 categories). Sign-only here; the priced
+      // literal and the enacted/retained split are gated in harness.ts.
       delta_per_year: /^\+/,
       delta_static: /^\+/,
     },
