@@ -1992,3 +1992,41 @@ test("price_products does NOT opt into searchFoldTokens", () => {
   // One arm, not two ANDed ones.
   assert.equal((whereSql.match(/title_fold ILIKE/g) || []).length, 1);
 });
+
+// ── qualifyingSearchWords — the shared word-qualifying rule ────────────────────────────
+//
+// Exported for db_routes.js's person-search route, which ANDs one pg_trgm `%>` arm per
+// qualifying word while this file's searchFoldTokens arm ANDs one ILIKE substring arm per
+// word. The PREDICATES differ deliberately; WHICH WORDS QUALIFY must not.
+//
+// Tested DIRECTLY rather than only through buildWhere, because the indirection is what let
+// the per-word character floor ship with no gate: swapping termLength for .length inside
+// the helper produced zero failures across the whole suite.
+test("qualifyingSearchWords: split, per-word floor, NFC dedup, cap", () => {
+  const { qualifyingSearchWords, MAX_SEARCH_WORDS } = require("./db_table.js");
+  const cases = [
+    // One word — both callers read this as "fall through to the single-arm path".
+    ["терзиев", ["терзиев"]],
+    ["vassil terziev", ["vassil", "terziev"]],
+    // A sub-floor word is dropped, leaving one — still the single-arm path.
+    ["явор ст", ["явор"]],
+    // Both sub-floor: a query that clears the QUERY-level floor only by spanning fragments
+    // neither of which may probe a trigram index.
+    ["яв ст", []],
+    // translit_bg_latin lowercases on the SQL side, so two cases of one word are one arm.
+    ["Стефанов стефанов Явор", ["Стефанов", "Явор"]],
+    // Characters, not UTF-16 code units: show_trgm('👍👍') is the EMPTY set.
+    ["👍👍 терзиев", ["терзиев"]],
+    ["  двойни   интервали  ", ["двойни", "интервали"]],
+    ["", []],
+  ];
+  for (const [q, want] of cases)
+    assert.deepEqual(qualifyingSearchWords(q), want, JSON.stringify(q));
+  assert.equal(
+    qualifyingSearchWords(
+      Array.from({ length: 20 }, (_, i) => `word${i}`).join(" "),
+    ).length,
+    MAX_SEARCH_WORDS,
+    "the cap bounds the worst case of a pasted sentence",
+  );
+});

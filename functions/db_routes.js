@@ -11,6 +11,8 @@ const {
   runDbFacets,
   DbRequestError,
   SHLYO_TRIGGER_RAW,
+  qualifyingSearchWords,
+  MAX_SEARCH_TERM,
 } = require("./db_table.js");
 const { interregQueryFor } = require("./interreg_topics.js");
 
@@ -278,6 +280,12 @@ const shlyoAlt = (dbRows, term) =>
       )
         .then((r) => r[0]?.alt || null)
         .catch(() => null);
+
+/** The first `$n` the person-search fuzzy probe hands to a NAME WORD. `$1` is the tier and
+ *  `$2` the limit, so the words start at `$3` — named because the literal was about to be
+ *  copied into three files, and an off-by-one there is the canonical renumbering bug: it
+ *  binds a parameter nothing references and leaves a placeholder unbound. */
+const FUZZY_WORD_PARAM_1 = 3;
 
 /** Append rows from the alternate needle that the plain probe did not already return.
  *  ADDITIVE BY CONSTRUCTION: the plain rows keep their order and their positions, and the
@@ -865,7 +873,10 @@ const DB_ROUTES = {
   // (082) still backs the `person-lookup` route below — legal in PostgreSQL (separate catalogs:
   // `FROM person_search` = table, `person_search($1,$2)` = function), kept distinct on purpose.
   "person-search": async (dbRows, q) => {
-    const term = s(q, "q");
+    // Capped with the SAME constant `buildWhere` uses. This route does not go through it,
+    // so it never inherited the slice — and the word splitter below walks the term three
+    // times per request (six when the shliokavitsa rewrite fires).
+    const term = s(q, "q").slice(0, MAX_SEARCH_TERM);
     if (!term) return { status: 400, body: { error: "missing q" } };
     // Back-compat: the pre-S2 combined-search box reads {people:[{name,companies}]}. Retained
     // until S2 rewires it to the grouped shape.
@@ -895,13 +906,77 @@ const DB_ROUTES = {
           ORDER BY rank_static DESC LIMIT 3`,
         [tier, q],
       ).catch(missingMigrationRows);
-    const fuzzyQ = (tier, k, q) =>
-      dbRows(
+    // ── MULTI-WORD NAMES ────────────────────────────────────────────────────────────
+    // `%>` is word_similarity(query, name_fold) > threshold, i.e. the query has to match
+    // ONE CONTINUOUS EXTENT of words inside the name. A Bulgarian full name is First +
+    // Patronymic + Family and the natural search skips the patronymic, so
+    // „vassil terziev" was scored against the extent „vasil aleksandrov terziev" and the
+    // intervening patronymic sank it below the threshold — the Sofia mayor was unfindable
+    // by first + family name. One `%>` arm PER WORD, ANDed, fixes that.
+    //
+    // Word order is irrelevant by construction. Which words qualify is
+    // `qualifyingSearchWords` (db_table.js) — shared with the /persons browse table's
+    // `searchFoldTokens` arm, which solves the same problem with a substring predicate;
+    // only the predicate differs. Fewer than 2 qualifying words yields byte-identical SQL
+    // to before this existed.
+    //
+    // ⚠️ NO NEW INDEX, AND TWO ARMS ARE CHEAPER THAN ONE. `idx_person_search_fold` is
+    // `gin (name_fold gin_trgm_ops)`, which serves `%>`; two ANDed probes on the SAME
+    // column combine as index scans rather than defeating each other, and the conjunction
+    // is strictly more selective than the one-arm form. Measured through node-postgres
+    // (see the plan-shape warning below), warm:
+    //   N `ivan` + `ivanov`                 0.11 ms /     7 buffers  (one-arm: 0.16 /     7)
+    //   N `ivanov` + `georgiev` (no match)  23 ms   /   613 buffers  (one-arm:   62 / 6,936)
+    //   P `vassil` + `terziev`               2.0 ms /   263 buffers
+    // The second row is the worst case for the rank_static early-stop — two individually
+    // common words that never co-occur, so the scan walks the tier before it can stop —
+    // and it is still 2.7x cheaper than today's single whole-query arm.
+    //
+    // ⚠️ TWO HEALTHY PLAN SHAPES EXIST HERE AND THE WARNING BELOW IS ABOUT NEITHER. Which
+    // one you get is selectivity-dependent: a common word in a large tier gets
+    // `Index Scan using idx_person_search_rank` + Filter (the early-stop), while a rare
+    // pair in a small tier gets BitmapAnd + Sort — which is what `vassil terziev` plans as
+    // today, at a perfectly healthy 263 buffers. So „it planned as a BitmapAnd" is NOT the
+    // regression signal; the BUFFER COUNT is. What the warning below describes is BitmapAnd
+    // over the WHOLE tier, which is 11,980 buffers.
+    //
+    // ⚠️⚠️ THE PLAN SHAPE DEPENDS ON BIND-TIME PLANNING OF AN UNNAMED STATEMENT, AND THE
+    // SPREAD IS 500x. Postgres plans an unnamed extended-protocol statement at Bind with
+    // the REAL parameter values, which is what lets it estimate translit_bg_latin($2)'s
+    // selectivity and choose the idx_person_search_rank early-stop over a trigram bitmap.
+    // node-postgres sends unnamed statements, so production gets that. The same SQL via a
+    // NAMED prepared statement, a client-side statement cache, or a pooler in transaction
+    // mode falls onto BitmapAnd + full sort: 190 ms / 11,980 buffers on a custom plan and
+    // 465-539 ms on a generic one, for `ivan ivanov` in tier N. Do not introduce statement
+    // naming or caching on this pool without re-measuring.
+    //
+    // ⚠️ MEASURE THROUGH THE DRIVER, NOT `PREPARE`. CLAUDE.md's "measure with PREPARE,
+    // never a psql literal" rule points the WRONG WAY here and would make a correct
+    // implementation look like a blocker: psql literals constant-fold to 0.46 ms and
+    // PREPARE/EXECUTE reports the 190-539 ms plans above, and NEITHER is what the route
+    // does. Both rules are special cases of one — measure through the driver the route
+    // uses: client.query('EXPLAIN (ANALYZE, BUFFERS) …', params) over `pg`.
+    //
+    // Plan: docs/plans/home-search-expansion-v1.md §2.3 + Phase 1.
+    const fuzzyQ = (tier, k, q) => {
+      const words = qualifyingSearchWords(q);
+      // ONE binding, read by BOTH the placeholder list and the parameter list. Deriving the
+      // same decision twice is not a style point here: if the two ever disagree the SQL's
+      // placeholder set and the bound parameters disagree, which is a hard
+      // „bind message supplies N parameters, but prepared statement requires M" on EVERY
+      // /api/db/person-search request rather than a degraded result. Fewer than 2 qualifying
+      // words is the pre-existing single-arm path on the whole query.
+      const bound = words.length >= 2 ? words : [q];
+      const arms = bound
+        .map((_, i) => `name_fold %> translit_bg_latin($${i + FUZZY_WORD_PARAM_1})`)
+        .join(" AND ");
+      return dbRows(
         `SELECT ${COLS} FROM person_search
-          WHERE tier = $1 AND name_fold %> translit_bg_latin($2)${declFilter}
-          ORDER BY rank_static DESC LIMIT $3`,
-        [tier, q, k],
+          WHERE tier = $1 AND ${arms}${declFilter}
+          ORDER BY rank_static DESC LIMIT $2`,
+        [tier, k, ...bound],
       ).catch(missingMigrationRows);
+    };
     // Per-tier: exact-fold hits (cheap eq lookup) float ahead of the fuzzy rank-ordered top-K.
     // The exact fetch is PER TIER — a single cross-tier exact query is dominated by high-rank P
     // rows on common names, so the V/N float would never fire.

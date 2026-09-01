@@ -2432,6 +2432,51 @@ const MAX_SEARCH_TERM = 200;
 // only bounds the worst case of a pasted sentence.
 const MAX_SEARCH_WORDS = 5;
 
+/**
+ * The words a multi-word name query is allowed to AND together — ONE definition, shared
+ * by this file's `searchFoldTokens` arm and by db_routes.js's `person-search` route.
+ *
+ * WHY IT IS SHARED. Both answer the same question ("first + family, patronymic skipped")
+ * over the SAME folded full name, and they were about to answer it with two hand-copied
+ * word splitters. They still differ in the PREDICATE they build from these words — this
+ * file ANDs `ILIKE '%…%'` substring arms over `person_browse_table.name_fold`, the route
+ * ANDs pg_trgm `%>` word-similarity arms over `person_search.name_fold` — and that
+ * difference is deliberate (substring is exact-but-brittle, trigram is typo-tolerant; see
+ * docs/plans/home-search-expansion-v1.md §3.4). What must NOT diverge is which words
+ * qualify, because that is what decides whether a query is treated as multi-word at all.
+ *
+ * ⚠️ THE FLOOR IS PER WORD, NOT PER QUERY, and that is the whole point. A query that
+ * clears SEARCH_MIN_CHARS only by spanning several sub-floor fragments ("яв ст") must not
+ * probe a trigram index on either fragment — the same hazard the query-level floor exists
+ * for, one level down.
+ *
+ * ⚠️ COUNTED IN CHARACTERS via `termLength`, never `.length`. `show_trgm('👍👍')` is the
+ * EMPTY set — four UTF-16 code units, two characters, no trigram at all — so a `.length`
+ * check lets exactly the worst case through.
+ *
+ * Returns FEWER THAN 2 words for the ordinary single-surname query, which both callers
+ * read as "fall through to the single-arm path, byte-identical to before this existed".
+ *
+ * @param {string} raw the trimmed search term
+ * @returns {string[]} qualifying words in input order, deduped, capped
+ */
+const qualifyingSearchWords = (raw) => {
+  const words = [];
+  const seen = new Set();
+  for (const w of String(raw).split(/\s+/)) {
+    if (termLength(w) < SEARCH_MIN_CHARS) continue;
+    // Dedup on a lowercased/NFC key — translit_bg_latin lowercases on the SQL side
+    // regardless, so two spellings differing only in case ("Стефанов стефанов") would
+    // otherwise survive as two arms and AND a word against itself for nothing.
+    const key = w.normalize("NFC").toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    words.push(w);
+    if (words.length === MAX_SEARCH_WORDS) break;
+  }
+  return words;
+};
+
 const clampInt = (v, def, lo, hi) => {
   const n = Number(v);
   return Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), lo), hi) : def;
@@ -2874,22 +2919,11 @@ const buildWhere = (r, req, opts = {}) => {
           // of searching by one surname, or a second word too short to use) falls
           // through to the single-arm path below UNCHANGED — byte-identical SQL to
           // before this flag existed.
-          // Dedup on a lowercased/NFC key — translit_bg_latin lowercases on the SQL
-          // side regardless (see the shliokavitsa comment below), so two spellings of
-          // the same word differing only in case ("Стефанов стефанов") would otherwise
-          // survive as two distinct arms and AND a word against itself for nothing.
-          const words = [];
-          if (d.searchFoldTokens) {
-            const seenWords = new Set();
-            for (const w of g.split(/\s+/)) {
-              if (termLength(w) < SEARCH_MIN_CHARS) continue;
-              const key = w.normalize("NFC").toLowerCase();
-              if (seenWords.has(key)) continue;
-              seenWords.add(key);
-              words.push(w);
-              if (words.length === MAX_SEARCH_WORDS) break;
-            }
-          }
+          //
+          // The split/floor/dedup/cap rule itself lives in `qualifyingSearchWords`,
+          // shared with db_routes.js's person-search route so the two cannot disagree
+          // about which queries are multi-word. Only the PREDICATE differs here.
+          const words = d.searchFoldTokens ? qualifyingSearchWords(g) : [];
 
           if (words.length >= 2) {
             // Word order is irrelevant by construction — a bonus, not a design goal.
@@ -3246,6 +3280,15 @@ module.exports = {
   // Same reason as SEARCH_MIN_CHARS above — the searchFoldTokens cap test references
   // this rather than restating the literal, so a retune cannot silently desync the test.
   MAX_SEARCH_WORDS,
+  // db_routes.js's person-search route ANDs one pg_trgm arm per qualifying word and must
+  // agree with this file's searchFoldTokens arm about WHICH words qualify. Same direction
+  // as SHLYO_TRIGGER_RAW below: that module require()s this one, never the reverse.
+  qualifyingSearchWords,
+  // The person-search route caps its own term with this rather than restating 200. That
+  // route does not go through `buildWhere`, so it never inherited the slice below — and
+  // the word splitter it now runs would otherwise walk an unbounded string three times per
+  // request (six when the shliokavitsa rewrite fires).
+  MAX_SEARCH_TERM,
   // db_routes.js reads this for the SAME gate on its own shliokavitsa probe. It lives
   // here because that module require()s this one, never the reverse.
   SHLYO_TRIGGER_RAW,
