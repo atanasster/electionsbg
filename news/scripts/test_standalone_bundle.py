@@ -439,6 +439,13 @@ class UploadPolicy(unittest.TestCase):
             self.assertFalse(uploader.same_or_nested_scope(
                 "gs://public/news/a", "gs://public/news/ab"))
 
+            public_only = uploader.public_app_data_scopes(scopes)
+            self.assertEqual([scope["name"] for scope in public_only], [
+                "public_app_data_version", "public_app_data_manifest",
+            ])
+            self.assertTrue(all(
+                scope["deletes_remote"] is False for scope in public_only))
+
             with mock.patch.object(
                     uploader, "run_scope",
                     return_value={"name": "archive", "exit": 1}):

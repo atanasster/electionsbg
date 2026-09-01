@@ -289,6 +289,23 @@ def commands(
     return scopes
 
 
+def public_app_data_scopes(scopes: list[dict]) -> list[dict]:
+    """Keep the immutable public bundle and its final pointer only.
+
+    This deliberately excludes the private archive and the destructive
+    mentions rsync, so an operator can publish the site dataset without
+    widening that action to either adjacent data surface.
+    """
+    names = ("public_app_data_version", "public_app_data_manifest")
+    selected = [scope for scope in scopes if scope.get("name") in names]
+    if [scope.get("name") for scope in selected] != list(names):
+        raise ValueError(
+            "public app-data-only upload requires a ready, enabled publication")
+    if any(scope.get("deletes_remote") is not False for scope in selected):
+        raise ValueError("public app-data-only upload may not delete remote objects")
+    return selected
+
+
 def run_scope(scope: dict, dry_run: bool) -> dict:
     source = scope["source"]
     result = {key: scope[key] for key in
@@ -430,10 +447,13 @@ def main() -> int:
     ap.add_argument("--report", type=Path)
     ap.add_argument("--expected-run-id")
     ap.add_argument("--archive-only", action="store_true")
+    ap.add_argument("--public-app-data-only", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
     if args.report and args.archive_only:
         ap.error("choose --report or --archive-only")
+    if args.public_app_data_only and (args.archive_only or not args.report):
+        ap.error("--public-app-data-only requires --report and excludes --archive-only")
     if args.expected_run_id and not args.report:
         ap.error("--expected-run-id requires --report")
     public_ready, reason = load_report(
@@ -480,6 +500,8 @@ def main() -> int:
                     expected_health if not args.dry_run else None)
         scopes = commands(
             public_ready, public_enabled, publication, app_data_source)
+        if args.public_app_data_only:
+            scopes = public_app_data_scopes(scopes)
     except ValueError as exc:
         print(json.dumps({"mode": "news_gcs_upload", "error": str(exc)}))
         return 2
@@ -496,7 +518,8 @@ def main() -> int:
         print(json.dumps({"mode": "news_gcs_upload",
                           "error": "GCS destinations must be distinct"}))
         return 2
-    archive_bucket = GS_URI.fullmatch(destinations[0]).group(1)
+    archive_bucket = (None if args.public_app_data_only else
+                      GS_URI.fullmatch(destinations[0]).group(1))
     try:
         configured_public = [
             uri(name, delete_scope=True) for name in
@@ -508,7 +531,7 @@ def main() -> int:
         return 2
     public_buckets = {GS_URI.fullmatch(value).group(1)
                       for value in configured_public}
-    if archive_bucket in public_buckets:
+    if archive_bucket is not None and archive_bucket in public_buckets:
         print(json.dumps({
             "mode": "news_gcs_upload",
             "error": "archive must use a different private bucket",
@@ -520,7 +543,7 @@ def main() -> int:
             "error": "public rsync delete scopes must be disjoint",
         }))
         return 2
-    if (not args.dry_run
+    if (not args.public_app_data_only and not args.dry_run
             and os.environ.get("NEWS_REQUIRE_ARCHIVE_VERSIONING", "1") != "0"):
         enabled, detail = check_archive_versioning(destinations[0])
         if not enabled:
