@@ -66,8 +66,9 @@ These decisions are implementation constraints, not open design questions.
 15. `/elections` **reads `?elections` and captions the cycle it is showing**; it never silently overrides it. `elections` is in the `usePreserveParams` allowlist (`src/ux/usePreserveParams.tsx`), so every in-app link carries it and a link cannot clear it. The hub falls back to the latest event **only when the param is absent or names an unknown cycle**, and the scope bar always names the cycle whose numbers are on screen. See §3.1a.
 16. `/elections` is a hub in the repo's sense and composes `HubHead`. `ElectionScopeBar` and `ElectionOutcomeStrip` belong to the **result pages**, which are not hubs. See §6.0.
 17. **A place has four views and a result page shows one fact from each.** `PlaceDigest` (§4.1) renders one figure per reachable view — Управление, Парламент, Местни, Потребление — taken from that view's own producer, linking to that view, and omitted rather than zeroed when the view does not resolve for this place. A reader must not have to find the pill to learn who the mayor is.
-18. **A shared composition that already exists is adopted, not rebuilt.** The four-card outcome strip exists nine times and `PlaceViewNav` is already inside `PlaceHeader`; both get a contract, not a parallel implementation (§6.3, §4).
-19. **Publication is part of the phase that generates the artifact, not a later step.** A phase that writes a `data/**` file and does not sync it to the bucket is incomplete, and its browser gates are vacuous — CI fetches from the live bucket. See §9.0.
+18. **Every figure on `/elections` and on every election result page is read from the BUCKET. No `/api/db` call is on the render path.** See §5.1. A fact that only Postgres can answer is either baked into a bucket artifact by a generator at build time, or it is not quoted — it becomes a labelled link and nothing more.
+19. **A shared composition that already exists is adopted, not rebuilt.** The four-card outcome strip exists nine times and `PlaceViewNav` is already inside `PlaceHeader`; both get a contract, not a parallel implementation (§6.3, §4).
+20. **Publication is part of the phase that generates the artifact, not a later step.** A phase that writes a `data/**` file and does not sync it to the bucket is incomplete, and its browser gates are vacuous — CI fetches from the live bucket. See §9.0.
 
 ## 3. Existing contracts to preserve
 
@@ -183,7 +184,7 @@ scope → facts → ranked result → map → standouts → detail
 
 The map remains prominent. CSS grid placement must not use `order` to create a visual order that differs from the DOM.
 
-### 4.1 The place digest — one fact per view
+### 4.1 The place digest — one cell per view
 
 **A place has FOUR views, and this plan covers two of them.** `PlaceViewNav` switches a reader
 between Управление (`/governance/:id`), Парламент (`/settlement/:id` and its siblings), Местни
@@ -206,15 +207,15 @@ What each view leads with today:
 | Местни      | `/local/:cycle/:obshtinaCode` | mayor, mayor votes, council seats and party count, whether mayor and council match  |
 | Потребление | `/consumption/:id`            | price level vs the country with its rank, basket value, change since the euro       |
 
-**The digest is one fact per reachable view, four at most, rendered on all four views.** It fits
+**The digest is one cell per reachable view, four at most, rendered on all four views.** It fits
 the existing `lg:grid-cols-4` strip and needs no new layout:
 
-| view        | the fact                                              | why this one                                          |
-| ----------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| Управление  | how many MPs represent this place, and the lead party | „кой ме представлява" — that view's own headline      |
-| Парламент   | who won here and by how much                          | validation task 1                                     |
-| Местни      | mayor, council lead, and whether they match           | validation task 2, the most-asked question in the set |
-| Потребление | price level against the country, with rank            | the only figure on that view a reader can act on      |
+| view        | the cell                                           | why this one                                          |
+| ----------- | -------------------------------------------------- | ----------------------------------------------------- |
+| Управление  | LINK ONLY — „вашите депутати и съветът", no figure | its facts are Postgres-only; see §5.1                 |
+| Парламент   | who won here and by how much                       | validation task 1                                     |
+| Местни      | mayor, council lead, and whether they match        | validation task 2, the most-asked question in the set |
+| Потребление | LINK ONLY — „цените тук", no figure                | the only figure on that view a reader can act on      |
 
 Each cell links to its own view, states its basis and names its cycle or reference date.
 
@@ -235,13 +236,16 @@ Six rules, each of which the surrounding conventions already imply:
 - **It is disjoint from the outcome strip.** On an election view the strip already answers that
   election; the digest's own cell for that view is therefore dropped rather than repeated, so
   the two never render the same number. §7.1 binds here.
-- ⚠️ **It cannot live in `data/<cycle>/surface/`.** Its four facts come from four corpora on
-  four cadences — election shards per cycle, the local cycle bundle, `/api/db` for council and
-  MPs, and price payloads that move **daily**. Baking „индекс 92 · №11 от 93" into a
-  per-election artifact pins a daily number inside a file that changes once every few years. The
-  election halves ride the surface per §5.0; the governance and consumption halves stay on their
-  existing hooks, or on one small place-digest route. Decide which in Phase 0 and write it down;
-  the failure of not deciding is one file with two cadences in it.
+- ⚠️ **ONLY TWO CELLS CARRY A NUMBER, AND THAT IS THE RULE, NOT A LIMITATION OF v1.** Парламент
+  and Местни are bucket-native; Управление and Потребление are answerable only by Cloud SQL, and
+  §5.1 forbids an `/api/db` call on the render path of these pages. Those two are therefore
+  labelled links — the hub convention's „a missing sibling is a SKIPPED FIGURE, never a zero",
+  applied by design. The pair that does carry figures is exactly the pair validation task 2 needs.
+- ⚠️ **A digest cell may never introduce a second cadence into a per-cycle artifact.** Even if a
+  figure were baked from Postgres by a generator (§5.1's escape hatch), the price index moves
+  **daily** and `data/<cycle>/surface/` moves once every few years. „индекс 92 · №11 от 93"
+  cannot live in that file at any point in the future, and the reason is the file's refresh
+  period rather than today's plumbing.
 - **A polling section has no digest.** Three of the four views do not resolve there, so a
   one-cell digest is chrome. Section pages keep the result/evidence composition of §8.
 
@@ -343,7 +347,7 @@ Three rules on it:
 - **`available: false` is a rendered state, not an omission.** A local view that does not exist
   for this place and cycle is worth saying — „тук не са провеждани местни избори през 2023" is
   an answer; a silently missing pill is not. The `reason` is an enum key so both locales carry
-  it, per §5.1.
+  it, per §5.2.
 - **`views` is a pointer, never a payload.** It carries a route and its availability; the facts
   behind those views come from their own producers (§4.1). Putting a mayor's name in here would
   make this artifact a second authority on the local result.
@@ -514,7 +518,71 @@ Record generated file-count and total-byte deltas alongside the per-file budget,
 
 These are initial ceilings, and §5.0's emit column is re-measured against them at the end of Phase 1. Tighten a ceiling before merging if the maximum is less than 70% of it; **drop the level from the generator** if the artifact is no smaller than the canonical file it replaces.
 
-### 5.1 Where the election copy lives, and what it costs
+### 5.1 Bucket-only: no Postgres on the render path
+
+**The election data layer is bucket-fed today and must stay that way.** Audited 2026-09-01:
+`useRegionSummary`, `useMunicipalitySummary`, `useSettlementSummary`, `useSectionSummary` and
+`useLocalElectionIndex` issue **zero** `/api/db` calls, and the whole of `src/data/dashboard`,
+`regions`, `municipalities`, `settlements`, `sections` and `local` contains exactly one
+`/api/db` reference — `usePersonElections`, which belongs to the person page and not to a
+result page. The surface artifacts of §5.0 are fetched through `dataUrl`, so they inherit the
+same property by construction.
+
+Four reasons this is a rule and not a preference:
+
+- **There is no degrade path.** §12's rollback is "a missing artifact renders the legacy body".
+  A Cloud SQL 500, a `57014` pool timeout or an unrefreshed matview has no such fallback; the
+  figure is simply wrong or absent, on the most-trafficked page family on the site.
+- **CI would depend on production.** The Playwright suite forwards `/api/db` to the DEPLOYED
+  function, so every election-page assertion would ride on prod Cloud SQL being up — and the
+  §9.0 vacuity problem would acquire a second, unrelated cause.
+- **These pages are prerendered.** A PG-backed figure cannot appear in a prerendered body or in
+  an og capture without giving the build a database dependency — the `/court/**` trap, which
+  fails at exit 0 with quietly worse pages.
+- **The direction of travel is the opposite.** Every precompute in this repo exists to take
+  aggregates OFF the live path. Adding two round trips to `/`, every region, every municipality,
+  every settlement and every section inverts that.
+
+⚠️ **THE PLACE DIGEST IS WHERE THIS RULE GETS BROKEN, AND THE FIRST DRAFT OF §4.1 BROKE IT.**
+It sourced two of its four cells from Cloud SQL, and **neither has a bucket fallback to retreat
+to**:
+
+| digest cell | source today                                                         | bucket? |
+| ----------- | -------------------------------------------------------------------- | ------- |
+| Парламент   | election shards / the §5.0 surface, via `dataUrl`                    | yes     |
+| Местни      | the local cycle bundle, via `dataUrl`                                | yes     |
+| Управление  | `useMps` → `/api/db/mp-roster`; council → `/api/db/council-overview` | **no**  |
+| Потребление | `usePrices` → `/api/db/price-payload`                                | **no**  |
+
+Both are closed doors rather than missing wiring. `useMps` was deliberately migrated OFF the
+~950 KB static `parliament/index.json` to `/api/db/mp-roster` (migrations 104/111,
+persons-pg-retirement-v1 T2.4), so the static file is retired. And `data/prices/` is not merely
+unsynced but **REFUSED** by `bucket_sync_paths.isExcluded` — "served from Cloud SQL
+(price_payloads, migration 048) — never upload it" — so there is no bucket copy to read and
+creating one would be a second serving surface free to go stale.
+
+**So the digest classifies its cells, and only two of them carry a number:**
+
+- **Figure cells — Парламент and Местни.** Both bucket-native. This is the pair validation task 2
+  depends on (mayor, council lead, whether they match), so the digest's headline value survives
+  the rule intact.
+- **Link cells — Управление and Потребление.** A labelled destination and no figure. This is the
+  hub convention's "a missing sibling is a SKIPPED FIGURE, never a zero", applied by design
+  rather than on failure: „Управление — вашите депутати и съветът" is an honest cell; a number
+  fetched from Postgres to fill it is not.
+
+**If a figure is later wanted for those two, it is BAKED, never fetched.** The repo pattern is
+`db:gen-*`: a generator with database access writes a committed artifact that the bucket serves,
+and the page makes no query. Two conditions on using it here — the fact's cadence must match the
+artifact's (a per-parliament MP count qualifies; a **daily** price index does not, and pinning
+one into a per-cycle file is the failure §4.1 already names), and the generator must skip-and-warn
+without Postgres so a fresh clone still builds.
+
+Gate: a Playwright network assertion that `/elections` and one route per migrated level issue
+**no request whose path starts with `/api/db`**. Assert it on the route, not on the hook, so a
+new tile added later cannot reintroduce one silently.
+
+### 5.2 Where the election copy lives, and what it costs
 
 The corpus is ONE flat i18next namespace partitioned across files: `src/locales/<lang>/translation.json`
 is the core chunk every page downloads before it can paint (**713 KB** raw in Bulgarian), and each
@@ -1032,7 +1100,7 @@ Work:
    3b. Implement `PlaceDigest` + `placeDigestFacts.ts` (§4.1): pure per-view selectors, each reading the producer that draws its own view's numbers, each returning `undefined` — not zero — for an unreachable view.
 4. Reuse existing maps through adapters; do not import Leaflet/d3/recharts into the shell module.
 5. Add loading skeletons with fixed dimensions matching the final ranking/map layout.
-6. Add Bulgarian and English keys per §5.1: enumerate the key set from the descriptor matrix and the fact/standout enums first, measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Locale-parity tests must assert both corpora carry a key for **every enum member the generator can emit**, absence states included. Keep long existing analysis copy in its current bundles.
+6. Add Bulgarian and English keys per §5.2: enumerate the key set from the descriptor matrix and the fact/standout enums first, measure the core chunk's brotli delta in both languages, and re-ratchet `tests/perf.spec.ts` in the same commit (or split an `elections` bundle if the delta needs a lever). Locale-parity tests must assert both corpora carry a key for **every enum member the generator can emit**, absence states included. Keep long existing analysis copy in its current bundles.
 
 Runtime gates:
 
@@ -1259,7 +1327,7 @@ Evaluate `/elections/:kind/:cycle/<scope>` only after all existing surfaces have
 - localhost LCP smoke below the existing 4 s ceiling;
 - no first-screen child-bundle fanout;
 - exactly one language bundle is fetched;
-- the core locale chunk's brotli size is inside the re-ratcheted `tests/perf.spec.ts` budget in both languages, with the delta recorded (§5.1).
+- the core locale chunk's brotli size is inside the re-ratcheted `tests/perf.spec.ts` budget in both languages, with the delta recorded (§5.2).
 
 ### Required representative fixtures/routes
 
@@ -1368,6 +1436,7 @@ Do not silently fall back after a valid surface request returns malformed data. 
 | Browser gates green on the legacy fallback    | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                     |
 | A six-figure object expansion for no gain     | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                      |
 | `/elections` becomes a 14th bespoke header    | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                            |
+| Postgres creeps onto the render path          | §5.1 is a fixed decision; a Playwright network assertion per migrated route; a PG-only fact is a link cell, never a fetched number           |
 | A place's four views stay siloed              | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                     |
 | The digest disagrees with the tab it links to | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                          |
 | A daily price baked into a per-cycle file     | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                         |
