@@ -115,13 +115,19 @@ describe("councilResolutions", () => {
     install(() =>
       detail({ resolutions: [resolution({ title: "(no title parsed)" })] }),
     );
-    const bg = (await councilResolutions({ place: "Бургас" }, ctxBg)) as {
+    const bg = (await councilResolutions(
+      { place: "Бургас" },
+      ctxBg,
+    )) as unknown as {
       rows: { title: string }[];
     };
     expect(bg.rows[0].title).not.toContain("no title parsed");
     expect(bg.rows[0].title).toContain("16891");
     clearDataCache();
-    const en = (await councilResolutions({ place: "Бургас" }, ctxEn)) as {
+    const en = (await councilResolutions(
+      { place: "Бургас" },
+      ctxEn,
+    )) as unknown as {
       rows: { title: string }[];
     };
     // Bilingual — Русе is 211 of 211 placeholders, so an English reader would
@@ -163,7 +169,10 @@ describe("councilResolutions", () => {
         ],
       }),
     );
-    const r = (await councilResolutions({ place: "Бургас" }, ctxBg)) as {
+    const r = (await councilResolutions(
+      { place: "Бургас" },
+      ctxBg,
+    )) as unknown as {
       rows: { vote: string }[];
     };
     // 11 of 16 councils publish no named vote and three publish no tally at
