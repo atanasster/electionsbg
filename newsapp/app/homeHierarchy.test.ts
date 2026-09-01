@@ -150,9 +150,13 @@ describe("home hierarchy", () => {
   });
 
   it("orders supporting stories by actual recency, including offset timestamps", () => {
+    // ⚠️ The two same-day stories carry the SAME outlet count on purpose. The
+    // lead ranks on breadth within a freshness bucket, so an unequal count
+    // here would decide the lead before recency was consulted and this test
+    // would stop being about parsing `+03:00` at all.
     const lead = story("lead", 4, "2026-08-26T09:00:00Z");
     const earlier = story("earlier", 3, "2026-08-28T10:00:00+03:00");
-    const later = story("later", 2, "2026-08-28T08:00:00Z");
+    const later = story("later", 3, "2026-08-28T08:00:00Z");
     const result = buildHomeHierarchy(
       [earlier, lead, later],
       [
@@ -166,6 +170,56 @@ describe("home hierarchy", () => {
       "earlier",
       "lead",
     ]);
+  });
+
+  it("leads on breadth among stories of comparable freshness", () => {
+    // ⚠️ Freshness alone collapses to "the newest item with an image":
+    // publication timestamps are near-unique, so a strict recency sort settles
+    // every comparison before breadth is consulted. Within a 24h bucket the
+    // wider story leads even when it is two hours older.
+    const narrow = story("narrow", 1, "2026-08-28T12:00:00Z");
+    const wide = story("wide", 5, "2026-08-28T10:00:00Z");
+    const result = buildHomeHierarchy(
+      [narrow, wide],
+      [
+        article("a", narrow.id, narrow.last_published!),
+        article("b", wide.id, wide.last_published!),
+      ],
+    );
+    expect(result.lead?.story.id).toBe("wide");
+    // Support keeps its own recency order — only the LEAD ranks on breadth.
+    expect(result.supporting.map((item) => item.story.id)).toEqual(["narrow"]);
+  });
+
+  it("treats two stories minutes apart as equally fresh across midnight UTC", () => {
+    // ⚠️ THE case the bucket has to get right. Under an absolute `t / 24h`
+    // grid these two — two minutes apart — land in different buckets and
+    // breadth is never consulted, so the narrower story leads. Measured on the
+    // committed corpus, 7 of 16 stories sit within 90 minutes of that
+    // boundary. Anchored on the freshest candidate, they are comparable.
+    const narrow = story("narrow", 1, "2026-08-29T00:01:00Z");
+    const wide = story("wide", 5, "2026-08-28T23:59:00Z");
+    const result = buildHomeHierarchy(
+      [narrow, wide],
+      [
+        article("a", narrow.id, narrow.last_published!),
+        article("b", wide.id, wide.last_published!),
+      ],
+    );
+    expect(result.lead?.story.id).toBe("wide");
+  });
+
+  it("does not let breadth outrank a fresher day", () => {
+    const stale = story("stale", 9, "2026-08-20T12:00:00Z");
+    const fresh = story("fresh", 1, "2026-08-28T12:00:00Z");
+    const result = buildHomeHierarchy(
+      [stale, fresh],
+      [
+        article("a", stale.id, stale.last_published!),
+        article("b", fresh.id, fresh.last_published!),
+      ],
+    );
+    expect(result.lead?.story.id).toBe("fresh");
   });
 
   it("honors a zero supporting limit", () => {

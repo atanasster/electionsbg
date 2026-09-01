@@ -98,9 +98,9 @@ export const StoryCard = ({
         }`}
       >
         <div
-          className={`news-card-body news-card-grid min-w-0 flex-1 p-4 ${
-            showMedia ? "news-card-grid--media" : ""
-          }`}
+          className={`news-card-body news-card-grid min-w-0 flex-1 ${
+            compact ? "news-card-grid--compact" : "p-4"
+          } ${showMedia ? "news-card-grid--media" : ""}`}
         >
           <div className="news-card-meta flex min-w-0 items-center justify-between gap-3 text-xs text-muted-foreground">
             {primary ? (

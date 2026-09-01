@@ -37,9 +37,22 @@ import {
 import { BriefingControls } from "../components/BriefingControls";
 import { emitNewsEvent } from "../analytics";
 
-// The explicit one-column track is minmax(0, 1fr). Without it, CSS Grid's
-// implicit `auto` track expands to a long image-credit's min-content width and
-// makes the entire mobile page horizontally scroll.
+/**
+ * ONE grid for every section, deliberately — not the "named variants for update
+ * and standard sections" an earlier draft of the plan called for.
+ *
+ * §4.2 asks the update band to fit one or two cards to the full width and §4.3
+ * asks the standard grid for at most two columns. Under
+ * `repeat(auto-fit, minmax(min(28rem, 100%), 1fr))` those are the SAME rule:
+ * auto-fit collapses the tracks a short section has no card for, and the 28rem
+ * minimum caps the count at two inside the 84rem shell. A `variant` prop that
+ * resolved to identical tracks would be configuration that cannot be wrong,
+ * which is worse than none — so the convergence is recorded here instead.
+ *
+ * The explicit minimum is still what stops CSS Grid's implicit `auto` track
+ * expanding to a long image credit's min-content width and scrolling the whole
+ * mobile page sideways.
+ */
 export const STORY_GRID = "news-supporting-grid grid gap-3";
 
 export const HomeScreen = () => {
@@ -337,8 +350,11 @@ export const HomeScreen = () => {
           {tr("Кратък преглед", "Briefing")} ({briefing.visibleCount})
         </h2>
         {home.loading && !home.data ? (
+          // Two blocks, because the grid holds at most two tracks — a third
+          // wrapped to a row of its own and promised a shape the loaded page
+          // never takes.
           <div className={STORY_GRID}>
-            {[0, 1, 2].map((i) => (
+            {[0, 1].map((i) => (
               <Skeleton key={i} className="h-44 rounded-xl" />
             ))}
           </div>
@@ -361,13 +377,19 @@ export const HomeScreen = () => {
                   {tr("Обнови ме", "Update me")}
                 </h3>
                 <div className="space-y-5">
+                  {/* ⚠️ The lead module renders only when the lead is also
+                      the FIRST update item — a story the reader has already
+                      completed drops out of `update`, and the module goes with
+                      it rather than repeating a story the briefing considers
+                      done. So "compact keeps the lead" means "compact no
+                      longer suppresses it", not that it is always present. */}
                   {hierarchy.lead &&
-                  briefing.update[0]?.story.id === hierarchy.lead.story.id &&
-                  briefingPreferences.density === "detailed" ? (
+                  briefing.update[0]?.story.id === hierarchy.lead.story.id ? (
                     <LeadStory
                       item={hierarchy.lead}
                       taxonomy={categories}
                       outlets={outletRegistry}
+                      density={briefingPreferences.density}
                     />
                   ) : briefing.update[0] ? (
                     storyCard(briefing.update[0])

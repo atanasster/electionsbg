@@ -107,4 +107,47 @@ describe("LeadStory accessibility", () => {
     await user.tab();
     expect(licence).toHaveFocus();
   });
+
+  it("shrinks the lead for compact rather than dropping it", () => {
+    const item = {
+      story,
+      imageArticle,
+      kind: "comparison",
+    } as HomeLeadStoryItem;
+    // ⚠️ Compact used to render NO lead at all, which removed the one
+    // composition the page is built around and left compact as the standard
+    // grid with less in each card. It keeps the module now, and has to earn it
+    // by being smaller — the media ratio ALONE does not do that, because the
+    // two columns are a grid row and the figure stretches to whichever side is
+    // taller. Measured 2026-09-02 at 768px, a shallower ratio with an unchanged
+    // body saved exactly 0px.
+    const { container, unmount } = render(
+      <MemoryRouter>
+        <LeadStory
+          item={item}
+          taxonomy={null}
+          outlets={outlets}
+          density="compact"
+        />
+      </MemoryRouter>,
+    );
+    expect(container.querySelector(".news-story-card")).not.toBeNull();
+    expect(container.querySelector(".aspect-\\[21\\/9\\]")).not.toBeNull();
+    expect(container.querySelector(".news-story-summary")).toHaveClass(
+      "line-clamp-2",
+    );
+    unmount();
+
+    const detailed = render(
+      <MemoryRouter>
+        <LeadStory item={item} taxonomy={null} outlets={outlets} />
+      </MemoryRouter>,
+    );
+    expect(
+      detailed.container.querySelector(".aspect-\\[16\\/10\\]"),
+    ).not.toBeNull();
+    expect(detailed.container.querySelector(".news-story-summary")).toHaveClass(
+      "line-clamp-3",
+    );
+  });
 });

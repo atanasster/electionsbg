@@ -250,9 +250,10 @@ const SCENARIOS: Record<ScenarioName, Scenario> = {
     density: "detailed",
     sections: liveShape(every(13), every(2)),
   },
-  // Section fill: 1, 2 and 3 cards. The first two must stop reserving tracks
-  // they have no card for; the third already fills its row at 3 columns and is
-  // here so the check cannot pass by only ever seeing short sections.
+  // Section fill: 1, 2 and 3 cards. Under auto-fit at two tracks the 1-card
+  // section collapses its empty one and the 2-card section fills both; the
+  // 3-card section wraps to a second row and is here so the check cannot pass
+  // by only ever seeing sections shorter than the track count.
   "short-sections": {
     lead: false,
     density: "detailed",
@@ -282,12 +283,12 @@ const SCENARIOS: Record<ScenarioName, Scenario> = {
       },
     ],
   },
-  // ⚠️ `lead: false` mirrors the app: `HomeScreen` renders `LeadStory` only
-  // when density is "detailed", so a compact fixture WITH a lead would measure
-  // a page the app never serves. Note `StoryCard` also gates the image block on
-  // `!compact`, so this scenario renders zero images whatever `imageAt` says.
+  // Compact keeps the lead, at a shallower media ratio — mirroring the app.
+  // ⚠️ `StoryCard` gates the image BLOCK on `!compact`, so this scenario
+  // renders zero card thumbnails whatever `imageAt` says; the lead's own image
+  // is the only one on the page.
   compact: {
-    lead: false,
+    lead: true,
     density: "compact",
     sections: liveShape([1, 6, 8, 10]),
   },
@@ -323,7 +324,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 >
                   Водеща история
                 </h3>
-                <LeadStory item={leadItem} outlets={outlets} taxonomy={null} />
+                <LeadStory
+                  item={leadItem}
+                  outlets={outlets}
+                  taxonomy={null}
+                  density={scenario.density}
+                />
               </section>
             ) : null}
             {scenario.sections.map((section) => (

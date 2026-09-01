@@ -8,6 +8,7 @@ import type { ArticleRecord, HomeStory, Outlet } from "../app/data";
 import type { HomeLeadStoryItem } from "../app/homeHierarchy";
 import { LeadStory } from "../app/components/LeadStory";
 import { StoryCard } from "../app/components/StoryCard";
+import { STORY_GRID } from "../app/screens/HomeScreen";
 
 if (new URLSearchParams(window.location.search).has("dark")) {
   document.documentElement.classList.add("dark");
@@ -119,7 +120,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               taxonomy={null}
             />
           </div>
-          <div className="news-supporting-grid grid gap-3">
+          <div className={STORY_GRID}>
             <div data-testid="image-led-single-source">
               <StoryCard
                 story={singleStory}

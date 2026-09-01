@@ -276,6 +276,26 @@
   column-gap: 0.875rem;
 }
 
+/* Compact is a real density option, not the standard layout with less in it.
+   `StoryCard` drops the thumbnail, the summary AND the comparison cue; this
+   tightens the card's own rhythm and padding. The lead is kept but shrunk
+   (`LeadStory`), because dropping it removed the one composition the page is
+   built around. Measured 2026-09-02: page height -27% to -34% across widths,
+   card heights 212-290px down to 137-161px. */
+.news-card-grid--compact {
+  row-gap: 0.375rem;
+}
+
+/* ⚠️ The padding lives HERE, not as a `py-3` utility on the element. The
+   kicker offset below is `.news-shell .news-story-card--standard
+   .news-card-body` — three classes against a utility's one, and Tailwind 3
+   emits no cascade layer to invert that — so a `py-3` on the same element had
+   its top half silently overridden back to 18px and only the bottom edge
+   tightened. */
+.news-shell .news-story-card--standard .news-card-grid--compact {
+  padding: 0.75rem 1rem;
+}
+
 .news-card-grid--media {
   grid-template-areas:
     "meta meta"

@@ -24,11 +24,14 @@ export type ScenarioName = (typeof SCENARIO_NAMES)[number];
 
 /**
  * Story cards each scenario renders, LEAD INCLUDED — the shape assertion that
- * proves the fixture rendered the page the spec asked for. Measured 2026-09-01.
+ * proves the fixture rendered the page the spec asked for. Measured 2026-09-01,
+ * `compact` revised 2026-09-02 when §4.7 gave it back its lead.
  *
- * `compact` and `no-images` are 15 rather than 16 because neither renders a
- * lead: the app gates `LeadStory` on `density === "detailed"`, so a compact
- * fixture with a lead would be measuring a page the app never serves.
+ * `no-images` is 15 rather than 16 because it renders no lead — there is no
+ * cleared image for one. `compact` DOES render a lead: it is the composition
+ * the page is built around, and compact shows it at a shallower media ratio
+ * rather than dropping it, which used to leave compact as the standard grid
+ * with less in each card.
  */
 export const EXPECTED_CARDS: Record<ScenarioName, number> = {
   today: 16,
@@ -36,7 +39,7 @@ export const EXPECTED_CARDS: Record<ScenarioName, number> = {
   "all-images": 16,
   "short-sections": 6,
   "mixed-kinds": 6,
-  compact: 15,
+  compact: 16,
 };
 
 /**

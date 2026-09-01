@@ -424,6 +424,49 @@ test.describe("home composition", () => {
     }
   });
 
+  test("compact is denser than detailed, at every width", async ({ page }) => {
+    // ⚠️ §4.7's whole claim, and it had no gate. Compact keeps the lead —
+    // dropping it removed the one composition the page is built around — so it
+    // has to earn that by being SHORTER, not merely by having less in each
+    // card. The lead is the part that resisted: its two columns are a grid
+    // row, so a shallower media ratio is absorbed by whichever side is taller
+    // and, measured 2026-09-02 at 768-900px, saved exactly 0px on its own.
+    //
+    // `cardMetrics` cannot see this: it walks `[data-fixture-section]` grids
+    // and the lead sits outside them. Measured here on the page and the module.
+    // ⚠️ The width goes through `open()`. Setting the viewport in the loop and
+    // calling `open(page, scenario)` measures 1440 every time, because `open`
+    // defaults to it — which made this gate green against a mutation that
+    // reverted the whole compact lead.
+    const heights = async (scenario: ScenarioName, width: number) => {
+      await open(page, scenario, width);
+      return page.evaluate(() => ({
+        page: document.documentElement.scrollHeight,
+        lead:
+          document
+            .querySelector("main > section:first-child .news-story-card")
+            ?.getBoundingClientRect().height ?? 0,
+      }));
+    };
+    // ⚠️ A MATERIAL saving, not `<=`. The first cut allowed equality, and the
+    // 0px-at-768px defect passed it — a mutation reverting the compact body to
+    // the detailed one was green. 768 and 900 are in the list because they are
+    // the widths where the media ratio alone bought nothing.
+    // Measured 2026-09-02, the lead saves 42.8px at 768, 74.8 at 900, 111.0 at
+    // 1024 and 154.4 at 1440; 5% is a floor well under all four.
+    for (const width of [768, 900, 1024, 1440] as const) {
+      const detailed = await heights("today", width);
+      const compact = await heights("compact", width);
+      expect(compact.page, `${width}px: compact page height`).toBeLessThan(
+        detailed.page,
+      );
+      expect(
+        compact.lead / detailed.lead,
+        `${width}px: the compact lead must be materially shorter`,
+      ).toBeLessThan(0.95);
+    }
+  });
+
   test("the composition remains captureable", async ({ page }) => {
     for (const scenario of SCENARIOS) {
       await open(page, scenario);
