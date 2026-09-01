@@ -15,13 +15,19 @@
 //
 // Plan: docs/plans/home-dashboard-implementation-v1.md §4 and §9.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
+import { HubSearch } from "@/ux/search/HubSearch";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { useRegions } from "@/data/regions/useRegions";
+import { buildPlaceItems } from "@/data/search/placeSearchItems";
 import { HOME_FIGURE_IDS } from "@/data/home/homeTypes";
 import { useHomeHubStats } from "@/data/home/useHomeHubStats";
 import { formatDate } from "@/lib/formatDate";
 import { homeKpis, homeTileMetric } from "./home/homeFigures";
+import { homeSearchSources } from "./home/homeSearch";
 import { HOME_BANDS } from "./home/homeRegistry";
 import { HOME_SCENES } from "./home/homeScenes";
 
@@ -30,6 +36,33 @@ export const HomeDashboardScreen: FC = () => {
   const lang = i18n.language;
   const bg = lang.startsWith("bg");
   const { stats, settled } = useHomeHubStats();
+
+  // ⚠️ ARMED ON INTENT, and the flag is what defers the catalog. `useSettlementsInfo` +
+  // `useMunicipalities` are ~980 KB together; passing `armed` as their `enabled` keeps the
+  // entry page's first paint free of them, and `HubSearch` flips it on focus or the first
+  // keystroke. Without this the finder would be a tax on every visitor who never searches —
+  // which on `/` is most of them.
+  const [armed, setArmed] = useState(false);
+  const { settlements, findSettlement } = useSettlementsInfo(armed);
+  const { municipalities } = useMunicipalities(armed);
+  const { regions } = useRegions();
+  const placeItems = useMemo(
+    () =>
+      settlements && municipalities
+        ? buildPlaceItems(settlements, municipalities, regions)
+        : null,
+    [settlements, municipalities, regions],
+  );
+  // The diaspora lookup the place index needs. `oblast === "32"` is МИР 32, the abroad
+  // district, whose 88 rows are countries rather than settlements.
+  const oblastOf = useMemo(
+    () => (key: string) => findSettlement?.(key)?.oblast,
+    [findSettlement],
+  );
+  const searchSources = useMemo(
+    () => homeSearchSources(bg, placeItems, oblastOf, armed),
+    [bg, placeItems, oblastOf, armed],
+  );
 
   const kpis = useMemo(() => homeKpis(stats, t, lang), [stats, t, lang]);
 
@@ -83,6 +116,22 @@ export const HomeDashboardScreen: FC = () => {
         title={bg ? "България в данни" : "Bulgaria in data"}
         seoDescription={t("home_hub_seo_description")}
         deck={t("home_hub_deck")}
+        search={
+          <HubSearch
+            sources={searchSources}
+            idPrefix="home-search"
+            onArm={() => setArmed(true)}
+            title={{ bg: "Търсене", en: "Search" }}
+            placeholder={{
+              bg: "място, човек, институция, фирма или продукт…",
+              en: "a place, a person, an institution, a company or a product…",
+            }}
+            hint={{
+              bg: "Населени места и общини, хора от публичния регистър, възложители, фирми с договори и продукти от кошницата.",
+              en: "Settlements and municipalities, people in the public register, state buyers, companies with contracts, and products in the basket.",
+            }}
+          />
+        }
         kpis={kpis}
         // Reserve the band's REAL height while the artifact is in flight. Without it the
         // slot is 0 cells and then jumps to four — a layout shift on the site's most-visited

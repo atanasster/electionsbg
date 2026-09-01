@@ -12,28 +12,25 @@
 // group. `sharedProcurementSearch` below is the one-line fix: both sources await the SAME
 // in-flight promise.
 //
+// ⚠️ THE SHARED REQUEST NOW LIVES IN `@/screens/components/search/procurementSearchSource`,
+// because the global home offers the same two groups and a second private copy would put the
+// duplicate back — one per hub instead of one per group.
+//
 // SCOPE RANKS, IT NEVER FILTERS — the hub-level rule. There is no scope on this page to
 // filter by, but the same instinct applies to the money: an institution with no contracts
 // is still the right answer to somebody typing its name, so nothing here is gated on
 // having a figure.
 
-import { Briefcase, Landmark, Users, FileText } from "lucide-react";
+import { Users, FileText } from "lucide-react";
 import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import type { HubSearchSource } from "@/ux/search/hubSearchSources";
 import { decodeEntities } from "@/lib/decodeEntities";
-import { isLinkableCompanyKey } from "@/lib/companyKey";
+import {
+  fetchProcurementAwarders,
+  fetchProcurementCompanies,
+} from "@/screens/components/search/procurementSearchSource";
 import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
 
-interface NamedEntity {
-  eik: string;
-  name: string;
-  contractsEur?: number;
-}
-interface ProcurementSearchResponse {
-  companies?: NamedEntity[];
-  awarders?: NamedEntity[];
-  altQuery?: string | null;
-}
 interface PersonHit {
   key: string;
   name: string;
@@ -46,32 +43,6 @@ interface PersonSearchResponse {
   power?: PersonHit[];
   altQuery?: string | null;
 }
-
-/** ONE in-flight `procurement-search` per needle, shared by the two groups that read it.
- *
- *  Keyed by the query rather than cached across queries: the box debounces and aborts, so
- *  the only overlap worth collapsing is the two sources asking for the SAME needle in the
- *  same tick. A stale entry is replaced as soon as the needle changes, so this can never
- *  answer one query with another's rows. */
-let inFlight: { q: string; p: Promise<ProcurementSearchResponse> } | null =
-  null;
-
-const sharedProcurementSearch = (
-  query: string,
-  signal: AbortSignal,
-): Promise<ProcurementSearchResponse> => {
-  if (inFlight?.q === query) return inFlight.p;
-  const p = fetch(`/api/db/procurement-search?q=${encodeURIComponent(query)}`, {
-    signal,
-  }).then((r) => {
-    // Throw rather than degrade: HubSearch tells a failed group from an empty one and drops
-    // it from its „searched in: …" line. Swallowing would report our outage as an absence.
-    if (!r.ok) throw new Error(`procurement-search: ${r.status}`);
-    return r.json() as Promise<ProcurementSearchResponse>;
-  });
-  inFlight = { q: query, p };
-  return p;
-};
 
 let lastPersonAlt: { typed: string; alt: string } | null = null;
 
@@ -103,40 +74,6 @@ const fetchPeople = async (
   }));
 };
 
-const fetchAwarders = async (
-  query: string,
-  signal: AbortSignal,
-): Promise<SearchItem[]> =>
-  (await sharedProcurementSearch(query, signal)).awarders?.map((a) => ({
-    id: `awarder-${a.eik}`,
-    to: `/awarder/${a.eik}`,
-    primary: decodeEntities(a.name),
-    secondary: a.eik,
-    amountEur: a.contractsEur,
-    icon: Landmark,
-  })) ?? [];
-
-const fetchCompanies = async (
-  query: string,
-  signal: AbortSignal,
-): Promise<SearchItem[]> =>
-  (await sharedProcurementSearch(query, signal)).companies
-    // ⚠ A link promises somewhere to go. `contractor_eik` carries synthetic keys — `ph-`
-    // (a filler registration number) and `np-` (a natural person keyed by name) — which
-    // render a page but name nothing anybody can check against a register.
-    // `isLinkableCompanyKey` is the one predicate for that, and it deliberately KEEPS
-    // `obed-` consortium carriers, whose page is the only route from a joint bid to the
-    // firms behind it.
-    ?.filter((c) => isLinkableCompanyKey(c.eik))
-    .map((c) => ({
-      id: `company-${c.eik}`,
-      to: `/company/${c.eik}`,
-      primary: decodeEntities(c.name),
-      secondary: c.eik,
-      amountEur: c.contractsEur,
-      icon: Briefcase,
-    })) ?? [];
-
 export const governanceSearchSources = (bg: boolean): HubSearchSource[] => [
   {
     id: "people",
@@ -159,7 +96,7 @@ export const governanceSearchSources = (bg: boolean): HubSearchSource[] => [
     label: { bg: "Институции", en: "Institutions" },
     limit: 4,
     kind: "server",
-    fetch: fetchAwarders,
+    fetch: fetchProcurementAwarders,
     // No see-all: there is no awarders browse page that reads ?q, and a link advertising a
     // filtered destination that delivers an unfiltered one is worse than none (§4).
   },
@@ -168,7 +105,7 @@ export const governanceSearchSources = (bg: boolean): HubSearchSource[] => [
     label: { bg: "Фирми", en: "Companies" },
     limit: 4,
     kind: "server",
-    fetch: fetchCompanies,
+    fetch: fetchProcurementCompanies,
     seeAll: (q) => ({
       label: bg ? "Виж всички фирми" : "See all companies",
       // ?pscope=all: the browse table defaults to the selected parliament's window, so a

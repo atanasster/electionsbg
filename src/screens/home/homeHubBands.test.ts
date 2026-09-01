@@ -144,6 +144,27 @@ describe("home scenes", () => {
   });
 });
 
+describe("the finder is actually mounted", () => {
+  it("the home screen renders a HubSearch in the head's search slot", () => {
+    // ⚠️ NOTHING ELSE IN THE REPO FAILS IF THE FINDER IS DELETED. The `HUB_HEAD_BUDGETS`
+    // ceiling in tests/ui.spec.ts cannot see it — removing the slot makes the head SHORTER
+    // (455 → ~270), comfortably inside its 520 budget — which is the exact blind spot the
+    // `cells:` field in that file was invented to close one column over. The screen test
+    // mocks both place hooks, so it cannot see it either.
+    const src = readFileSync(
+      path.join(REPO, "src/screens/HomeDashboardScreen.tsx"),
+      "utf-8",
+    );
+    expect(src).toContain("<HubSearch");
+    expect(src).toContain("homeSearchSources");
+    // And it must stay ARMED-GATED: the place catalog is ~980 KB, and passing `true` to
+    // those hooks would fetch it for every visitor who never searches.
+    expect(src).toContain("useSettlementsInfo(armed)");
+    expect(src).toContain("useMunicipalities(armed)");
+    expect(src).toContain("onArm=");
+  });
+});
+
 describe("the prerendered destination list", () => {
   it("matches the tile registry exactly, in order", () => {
     // ⚠️ A THIRD LIST OF THE SAME EIGHT. `HOME_DESTINATIONS` in the prerender feeds both the

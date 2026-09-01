@@ -4,6 +4,7 @@
 // the fetch is still in flight tells every reader the pulse is broken for the first few
 // hundred ms of the site's most-visited page.
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it, vi } from "vitest";
@@ -37,14 +38,28 @@ vi.mock("react-i18next", () => ({
   }),
 }));
 vi.mock("@/ux/SEO", () => ({ SEO: () => null }));
+// The finder's place catalog is fetched through React Query and is deliberately NOT armed
+// here: these cases are about the head and the grid. Stubbed rather than provided, so a
+// screen test cannot start depending on network shape.
+vi.mock("@/data/settlements/useSettlements", () => ({
+  useSettlementsInfo: () => ({ settlements: undefined }),
+}));
+vi.mock("@/data/municipalities/useMunicipalities", () => ({
+  useMunicipalities: () => ({ municipalities: undefined }),
+}));
 
 const renderHome = (stats: unknown, settled = true) => {
   stub.stats = stats;
   stub.settled = settled;
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false, gcTime: 0 } },
+  });
   return render(
-    <MemoryRouter>
-      <HomeDashboardScreen />
-    </MemoryRouter>,
+    <QueryClientProvider client={client}>
+      <MemoryRouter>
+        <HomeDashboardScreen />
+      </MemoryRouter>
+    </QueryClientProvider>,
   );
 };
 
