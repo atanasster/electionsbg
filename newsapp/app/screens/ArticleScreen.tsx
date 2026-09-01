@@ -24,7 +24,6 @@
 import { Link, useParams } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -55,8 +54,10 @@ import { StoryMemberRow } from "../components/ArticleRow";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ReaderActions } from "../components/ReaderActions";
 import { ReportIssueLink } from "../components/ReportIssueLink";
+import { ArticleContributionCard } from "../components/ArticleContributionCard";
 import { emitNewsEvent } from "../analytics";
 import { evalTaskPath, useEvalQueue } from "../evals";
+import { correctionIssueUrl } from "../corrections";
 
 /**
  * One axis: its label, its verdict, its confidence, and the evidence text the
@@ -315,7 +316,17 @@ export const ArticleScreen = () => {
               — експериментално
             </span>
           </Link>
-        ) : null}
+        ) : (
+          <a
+            href={correctionIssueUrl(`/article/${domain}/${id}`)}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Допълнете анализа или връзките <span aria-hidden>↗</span>
+            <span className="sr-only"> (отваря се в нов раздел)</span>
+          </a>
+        )}
       </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
@@ -465,9 +476,6 @@ export const ArticleScreen = () => {
                 Това е експериментално събиране на оценки. Отделен отговор не
                 променя публикувания анализ без редакционно приемане.
               </p>
-              <Button asChild className="mt-4 w-full sm:w-auto">
-                <Link to={evalTaskPath(evalTask)}>Оценете тази статия</Link>
-              </Button>
             </Card>
           ) : null}
 
@@ -551,6 +559,12 @@ export const ArticleScreen = () => {
           </p>
         </Card>
       )}
+
+      <ArticleContributionCard
+        articlePath={`/article/${domain}/${id}`}
+        evaluationPath={evalTask ? evalTaskPath(evalTask) : null}
+        hasAnalysis={Boolean(analysis)}
+      />
 
       {story ? (
         <section className="mt-8">

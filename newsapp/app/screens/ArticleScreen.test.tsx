@@ -314,6 +314,12 @@ describe("the experimental evaluation entry point", () => {
     expect(
       screen.queryByRole("link", { name: /Помогнете да подобрим анализа/ }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Допълнете анализа или връзките/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /Добавете липсващ анализ или връзка/ }),
+    ).toBeVisible();
   });
 
   it("fails closed when the public queue is unavailable or invalid", async () => {
@@ -344,6 +350,9 @@ describe("the experimental evaluation entry point", () => {
     expect(
       screen.queryByRole("link", { name: /Помогнете да подобрим анализа/ }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Допълнете анализа или връзките/ }),
+    ).toBeVisible();
   });
 });
 
