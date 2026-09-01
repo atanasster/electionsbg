@@ -22,6 +22,7 @@ import {
   dataMapLinkNeighbours,
   DATA_MAP_KEY_COLOR,
   dataMapLensColor,
+  DATA_MAP_FRESH_DAYS,
   type DataMapKind,
   type DataMapLens,
   type DataMapManifest,
@@ -61,9 +62,9 @@ type Props = {
   onSelect: (id: string | null) => void;
 };
 
-// A node counts as "recently updated" when its freshest source changed
-// within the last 7 days.
-const FRESH_WINDOW_MS = 7 * 24 * 3600 * 1000;
+// A node counts as "recently updated" when its freshest source changed inside
+// the window the head's hint quotes to the reader.
+const FRESH_WINDOW_MS = DATA_MAP_FRESH_DAYS * 24 * 3600 * 1000;
 
 // The canvas is sized to the graph's aspect ratio, so on desktop the whole
 // map is readable at ~1:1 and the camera stays still during selection

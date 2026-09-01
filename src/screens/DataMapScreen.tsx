@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
+import { Play } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
 import {
+  DATA_MAP_FRESH_DAYS,
   DATA_MAP_KEY_COLOR,
   useDataMap,
   type DataMapLens,
@@ -12,6 +14,7 @@ import { dataMapExtent, DATA_MAP_FIT_MAX_ZOOM } from "@/data/dataMap/viewport";
 import { useDataChanges } from "@/data/dataChanges/useDataChanges";
 import { DataMapCanvas } from "@/screens/components/datamap/DataMapCanvas";
 import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
+import { KIND_DOT } from "@/screens/components/datamap/kindDot";
 import { DataMapTourBar } from "@/screens/components/datamap/DataMapTourBar";
 import { DataNav } from "@/screens/components/DataNav";
 
@@ -166,6 +169,21 @@ export const DataMapScreen = () => {
     return () => window.clearTimeout(timer);
   }, [activeTour, storyStep]);
 
+  // The three tier counts. They describe the PAGE, so they belong in its head
+  // rather than in the detail panel's empty state, where they were 360px of
+  // sidebar repeating itself beside a 4000px canvas — and, on a narrow screen,
+  // sat BELOW the whole map where nobody reached them.
+  const counts = useMemo(() => {
+    if (!manifest) return null;
+    const by = (kind: string) =>
+      manifest.nodes.filter((n) => n.kind === kind).length;
+    return {
+      source: by("source"),
+      dataset: by("dataset"),
+      feature: by("feature"),
+    };
+  }, [manifest]);
+
   // Size the canvas to the graph's own aspect ratio (width-driven) so the
   // initial fit lands near 1:1 zoom and stays readable — a fixed landscape
   // box would shrink the portrait graph to ~0.45×. Ultra-wide screens are
@@ -225,6 +243,47 @@ export const DataMapScreen = () => {
               );
             })}
           </nav>
+        ) : null}
+        {manifest && counts ? (
+          <>
+            {/* One line, not a tile grid: the head already costs ~527px before
+                the map starts at 375px, and these are context rather than the
+                page's subject. */}
+            <div className="space-y-1">
+              <p className="text-xs leading-5 text-muted-foreground">
+                {(
+                  [
+                    ["source", counts.source, t("data_map_tier_sources")],
+                    ["dataset", counts.dataset, t("data_map_tier_datasets")],
+                    ["feature", counts.feature, t("data_map_tier_features")],
+                  ] as const
+                ).map(([kind, count, label], i) => (
+                  <span key={kind}>
+                    {i ? <span aria-hidden> · </span> : null}
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle",
+                        KIND_DOT[kind],
+                      )}
+                    />
+                    <span className="font-semibold text-foreground">
+                      {count}
+                    </span>{" "}
+                    {label}
+                  </span>
+                ))}
+              </p>
+              {/* The hint already ends on the pulsing-dot rule, so the panel's
+                  separate freshness legend is not repeated here — its key went
+                  with the empty state. Grouped with the counts so the two cost
+                  one flex gap rather than two: the head is the scarce space on
+                  a phone, not the page. */}
+              <p className="max-w-2xl text-xs leading-5 text-muted-foreground">
+                {t("data_map_hint", { days: DATA_MAP_FRESH_DAYS })}
+              </p>
+            </div>
+          </>
         ) : null}
       </div>
 
@@ -299,6 +358,47 @@ export const DataMapScreen = () => {
 
               The panel therefore stacks under the map and T4 gives the
               selection an overlay, which needs no width at all. */}
+          {manifest.tours.length ? (
+            // A story is a MODE, the same family as the view and lens pills, so
+            // it sits with them rather than in the detail panel — where, on a
+            // narrow screen, it sat below a 1264px map and nobody reached it.
+            // One row that scrolls sideways rather than wrapping, so it costs
+            // one line at any width.
+            //
+            // The -mx-2/px-2 bleed is Layout.tsx's `p-2`: the scroller runs to
+            // the page edge so a chip is never clipped mid-row. The two numbers
+            // must agree, and dataMapLayout.test.ts holds them together.
+            <nav
+              aria-label={t("data_map_stories")}
+              className="-mx-2 mb-3 flex w-[calc(100%+1rem)] items-center gap-2 overflow-x-auto px-2 py-1"
+            >
+              <span className="shrink-0 text-xs text-muted-foreground">
+                {t("data_map_stories_hint")}
+              </span>
+              {manifest.tours.map((tour) => {
+                const running = story?.id === tour.id;
+                return (
+                  <button
+                    key={tour.id}
+                    type="button"
+                    // Not aria-pressed: starting a story is an action, and the
+                    // chip for the running one marks where the reader is.
+                    aria-current={running ? "true" : undefined}
+                    onClick={() => onStartTour(tour.id)}
+                    className={cn(
+                      "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium transition-colors",
+                      running
+                        ? "border-accent bg-accent text-accent-foreground"
+                        : "border-border bg-secondary/40 text-secondary-foreground hover:border-accent hover:bg-accent hover:text-accent-foreground",
+                    )}
+                  >
+                    <Play aria-hidden className="h-3 w-3 shrink-0" />
+                    {tour.title[lang]}
+                  </button>
+                );
+              })}
+            </nav>
+          ) : null}
           <div className="flex flex-col gap-4">
             <div
               className="relative min-h-[420px] w-full overflow-hidden rounded-xl border border-border bg-card/30"
@@ -329,14 +429,15 @@ export const DataMapScreen = () => {
                 onSelect={onSelect}
               />
             </div>
-            <div id="datamap-panel">
+            {/* empty:hidden — with no selection the panel renders nothing, and
+                an empty flex child would still spend the row's 16px gap. */}
+            <div id="datamap-panel" className="empty:hidden">
               <DataMapPanel
                 manifest={manifest}
                 lang={lang}
                 selectedId={selectedId}
                 freshness={freshness}
                 onSelect={onSelect}
-                onStartTour={onStartTour}
               />
             </div>
           </div>

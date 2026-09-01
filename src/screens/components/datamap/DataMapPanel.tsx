@@ -1,17 +1,14 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Play, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { Card, CardContent } from "@/ux/Card";
 import { Anchor } from "@/ux/Anchor";
 import { cn } from "@/lib/utils";
 import { formatCount } from "@/lib/currency";
-import type {
-  DataMapKind,
-  DataMapManifest,
-  DataMapNode,
-} from "@/data/dataMap/useDataMap";
+import type { DataMapManifest, DataMapNode } from "@/data/dataMap/useDataMap";
 import { dataMapLinkNeighbours } from "@/data/dataMap/useDataMap";
+import { KIND_DOT } from "./kindDot";
 import { formatDateLong } from "@/lib/formatDate";
 
 type Props = {
@@ -20,14 +17,8 @@ type Props = {
   selectedId: string | null;
   freshness: Map<string, string>;
   onSelect: (id: string | null) => void;
-  onStartTour: (id: string) => void;
+  /** Scaffolding for T4, which overlays this card on the canvas at >= lg. */
   className?: string;
-};
-
-const KIND_DOT: Record<DataMapKind, string> = {
-  source: "bg-[hsl(var(--muted-foreground))]",
-  dataset: "bg-[hsl(var(--chart-2))]",
-  feature: "bg-[hsl(var(--accent))]",
 };
 
 const formatDate = (iso: string, lang: "bg" | "en"): string =>
@@ -69,7 +60,6 @@ export const DataMapPanel: FC<Props> = ({
   selectedId,
   freshness,
   onSelect,
-  onStartTour,
   className,
 }) => {
   const { t } = useTranslation();
@@ -106,75 +96,11 @@ export const DataMapPanel: FC<Props> = ({
     return { upstream: up, downstream: down };
   }, [manifest.edges, byId, node]);
 
-  if (!node) {
-    const counts = {
-      sources: manifest.nodes.filter((n) => n.kind === "source").length,
-      datasets: manifest.nodes.filter((n) => n.kind === "dataset").length,
-      features: manifest.nodes.filter((n) => n.kind === "feature").length,
-    };
-    return (
-      <Card className={className}>
-        <CardContent className="p-5 space-y-3">
-          <h3 className="font-display text-lg font-bold text-foreground">
-            {t("data_map_hint_title")}
-          </h3>
-          <p className="text-sm leading-6 text-muted-foreground">
-            {t("data_map_hint")}
-          </p>
-          <div className="grid grid-cols-3 gap-2 pt-1">
-            {(
-              [
-                ["source", counts.sources, t("data_map_tier_sources")],
-                ["dataset", counts.datasets, t("data_map_tier_datasets")],
-                ["feature", counts.features, t("data_map_tier_features")],
-              ] as const
-            ).map(([kind, count, label]) => (
-              <div
-                key={kind}
-                className="rounded-lg bg-secondary/40 px-2 py-2 text-center"
-              >
-                <div className="text-xl font-bold text-foreground">{count}</div>
-                <div className="mt-0.5 flex items-center justify-center gap-1 text-[11px] text-muted-foreground">
-                  <span
-                    aria-hidden
-                    className={cn("h-1.5 w-1.5 rounded-full", KIND_DOT[kind])}
-                  />
-                  {label}
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs leading-5 text-muted-foreground">
-            {t("data_map_legend_fresh")}
-          </p>
-          {manifest.tours.length ? (
-            <div className="border-t border-border pt-3">
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("data_map_stories")}
-              </h4>
-              <p className="mb-2 text-xs leading-5 text-muted-foreground">
-                {t("data_map_stories_hint")}
-              </p>
-              <ul className="space-y-1.5">
-                {manifest.tours.map((tour) => (
-                  <li key={tour.id}>
-                    <button
-                      type="button"
-                      onClick={() => onStartTour(tour.id)}
-                      className="inline-flex w-full items-center gap-2 rounded-md border border-border bg-secondary/40 px-3 py-2 text-left text-sm font-medium text-secondary-foreground transition-colors hover:border-accent hover:bg-accent hover:text-accent-foreground"
-                    >
-                      <Play aria-hidden className="h-3.5 w-3.5 shrink-0" />
-                      <span className="truncate">{tour.title[lang]}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </CardContent>
-      </Card>
-    );
-  }
+  // No selection, nothing to say. The hint, the tier counts, the freshness
+  // legend and the stories all described the PAGE rather than a node, so they
+  // moved into the head — and a panel that renders nothing costs no width, no
+  // height and no scroll, which is the whole point of T3.
+  if (!node) return null;
 
   const freshAt = freshness.get(node.id) ?? node.freshness;
 

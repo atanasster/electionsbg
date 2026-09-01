@@ -120,16 +120,31 @@ The curve is monotonic now: it rises to the cap and stays there. What the dock
 was FOR — a selection answering beside the map rather than below it — is T4's
 overlay, which needs no width at all.
 
-### T3 — B: demote the rail to selection-only
+### T3 — B: demote the rail to selection-only — done 2026-09-02
 
-Move the page-level content out of the panel and into the head: the 46/36/26
-counts as a compact strip, the four stories as a chip row beside the lens pills
+The page-level content moved out of the panel and into the head: the 46/36/26
+counts as one inline line, the four stories as a chip row beside the lens pills
 (they are a *mode*, the same family as the view and lens pills), the hint as one
-line. The panel then renders only when a node is selected.
+sentence. The panel renders only when a node is selected, and its wrapper is
+`empty:hidden` so a null panel does not spend the row's 16 px gap either.
 
-Mobile constraint: the head already costs **527 px** before the map starts at
-375 px, so the strip is one inline line and the stories are a single
-horizontally-scrollable row — the head must not grow.
+Measured at 375 px: the panel is **0 px** when idle and 431 px on a selection;
+page height **2576 → 2114**.
+
+⚠️ **The head grew, against the constraint this tier set itself.** It costs
+**527 → 677 px** before the map starts at 375 px. The constraint said it must
+not grow at all, and that was not achievable while also moving four blocks into
+it; what the first cut got wrong was *how much*, at 745 px, and the trims that
+brought it down are the ones the plan had already prescribed and the code had
+not followed — the hint on one line rather than a `max-w-2xl` paragraph, the
+stories beside the lens pills rather than as a fifth head item.
+
+The trade is recorded rather than excused: +150 px of head buys −462 px of page,
+and the content it holds was previously below a 1264 px map, which on a phone is
+not "lower down" but unreachable. Nothing above it moves, so there is no layout
+shift. If the head has to shrink further, the honest target is the four pill
+rows that were already there (DataNav wraps to 3 rows at 375 px and the view
+pills to 3), not the content this tier rescued.
 
 ### T4 — C: overlay the detail
 

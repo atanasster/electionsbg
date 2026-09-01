@@ -7,6 +7,9 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { dataMapExtent, DATA_MAP_FIT_MAX_ZOOM } from "@/data/dataMap/viewport";
+import { DATA_MAP_FRESH_DAYS } from "@/data/dataMap/useDataMap";
+import bg from "@/locales/bg/translation.json";
+import en from "@/locales/en/translation.json";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const read = (p: string) => readFileSync(path.join(ROOT, p), "utf8");
@@ -130,5 +133,76 @@ describe("the shell's width budget is what rules out docking", () => {
     expect(
       drifted.replace(blockAfter(drifted, "container:") ?? "", ""),
     ).toMatch(/screens:\s*\{/);
+  });
+});
+
+describe("the head carries what the panel's empty state used to", () => {
+  // Those four blocks — hint, tier counts, freshness legend, stories —
+  // described the PAGE, not a selection, and on a narrow screen they sat below
+  // a 1264px map where nobody reached them. Measured 2026-09-02 at 375px: the
+  // panel is 0px when idle and 431px on a selection; page height 2576 -> 2146.
+  it("renders nothing at all with no selection", () => {
+    const panel = read("src/screens/components/datamap/DataMapPanel.tsx");
+    expect(panel).toMatch(/if \(!node\) return null;/);
+    // A null child still spends the flex row's gap without this.
+    expect(screen()).toMatch(/id="datamap-panel" className="empty:hidden"/);
+  });
+
+  it("counts the tiers in the head instead", () => {
+    const src = screen();
+    expect(src).toMatch(/data_map_tier_sources/);
+    expect(src).toMatch(/data_map_tier_datasets/);
+    expect(src).toMatch(/data_map_tier_features/);
+    expect(read("src/screens/components/datamap/DataMapPanel.tsx")).not.toMatch(
+      /data_map_tier_/,
+    );
+  });
+
+  it("keeps the stories with the lens pills, not in the panel", () => {
+    const src = screen();
+    expect(src).toMatch(/aria-label=\{t\("data_map_stories"\)\}/);
+    expect(read("src/screens/components/datamap/DataMapPanel.tsx")).not.toMatch(
+      /onStartTour|data_map_stories/,
+    );
+  });
+
+  it("bleeds the story scroller by exactly the shell's own padding", () => {
+    // `-mx-2 … px-2` runs the row to the page edge so a chip is never clipped
+    // mid-row. It is Layout.tsx's `p-2` mirrored — a drift either overflows the
+    // page or leaves a visible notch.
+    expect(screen()).toMatch(/-mx-2[^"]*px-2/);
+    expect(read("src/layout/Layout.tsx")).toMatch(/\bp-2\b/);
+  });
+});
+
+describe("one definition per shared rule", () => {
+  it("has a single KIND_DOT", () => {
+    // Three readers: the node card (the graph itself), the panel's chips, and
+    // the head strip. The node card carried a byte-identical private copy until
+    // 2026-09-02, which is the disagreement kindDot.ts exists to prevent.
+    for (const f of [
+      "src/screens/components/datamap/DataMapNodeCard.tsx",
+      "src/screens/components/datamap/DataMapPanel.tsx",
+      "src/screens/DataMapScreen.tsx",
+    ]) {
+      expect(read(f)).toMatch(/KIND_DOT/);
+      expect(read(f)).not.toMatch(/const KIND_DOT/);
+    }
+    expect(read("src/screens/components/datamap/kindDot.ts")).toMatch(
+      /export const KIND_DOT/,
+    );
+  });
+
+  it("quotes the reader the same freshness window the canvas applies", () => {
+    // The hint used to say "the last few days" against a 7-day constant. It
+    // interpolates now, so the copy cannot outlive a change to the number.
+    expect(read("src/screens/components/datamap/DataMapCanvas.tsx")).toMatch(
+      /DATA_MAP_FRESH_DAYS \* 24 \* 3600 \* 1000/,
+    );
+    expect(screen()).toMatch(/days: DATA_MAP_FRESH_DAYS/);
+    for (const corpus of [bg, en] as Record<string, string>[]) {
+      expect(corpus.data_map_hint).toContain("{{days}}");
+    }
+    expect(DATA_MAP_FRESH_DAYS).toBeGreaterThan(0);
   });
 });

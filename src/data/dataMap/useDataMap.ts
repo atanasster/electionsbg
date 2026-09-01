@@ -111,6 +111,14 @@ export type DataMapManifest = {
 
 export type DataMapLens = "none" | "cadence" | "origin" | "fresh" | "links";
 
+/**
+ * How recent a source's last change must be to render as "fresh" — the pulsing
+ * dot on the map. One definition: the canvas derives its window from it and the
+ * head's hint interpolates it, so the number a reader is told and the number
+ * that decides the dot cannot drift apart.
+ */
+export const DATA_MAP_FRESH_DAYS = 7;
+
 /** Colour per join key, so the lens legend and the edges cannot disagree. */
 export const DATA_MAP_KEY_COLOR: Record<DataMapJoinKey, string> = {
   eik: "hsl(var(--chart-1))",

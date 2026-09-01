@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
 import { cn } from "@/lib/utils";
+import { KIND_DOT } from "./kindDot";
 import type { DataMapKind, DataMapNode } from "@/data/dataMap/useDataMap";
 
 export type NodeStatus =
@@ -29,12 +30,6 @@ export type TierNodeData = {
 
 export type CardNodeType = Node<CardNodeData, "card">;
 export type TierNodeType = Node<TierNodeData, "tier">;
-
-const KIND_DOT: Record<DataMapKind, string> = {
-  source: "bg-[hsl(var(--muted-foreground))]",
-  dataset: "bg-[hsl(var(--chart-2))]",
-  feature: "bg-[hsl(var(--accent))]",
-};
 
 const KIND_TINT: Record<DataMapKind, string> = {
   source: "bg-card",
