@@ -59,6 +59,9 @@ type Props = {
   lens: DataMapLens;
   /** Accessible name for the fit-view control — see the Controls block below. */
   fitLabel: string;
+  /** Which bottom corner the controls take. The detail overlay floats over
+   *  this canvas too, and both defaulted to bottom-right. */
+  controlsSide: "left" | "right";
   onSelect: (id: string | null) => void;
 };
 
@@ -156,6 +159,7 @@ const InnerCanvas: FC<Props> = ({
   kindLabels,
   lens,
   fitLabel,
+  controlsSide,
   onSelect,
 }) => {
   const [hoverId, setHoverId] = useState<string | null>(null);
@@ -426,7 +430,7 @@ const InnerCanvas: FC<Props> = ({
         <Controls
           showInteractive={false}
           showFitView={false}
-          position="bottom-right"
+          position={controlsSide === "left" ? "bottom-left" : "bottom-right"}
         >
           <ControlButton
             onClick={reframe}

@@ -17,6 +17,7 @@ import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
 import { KIND_DOT } from "@/screens/components/datamap/kindDot";
 import { DataMapTourBar } from "@/screens/components/datamap/DataMapTourBar";
 import { DataNav } from "@/screens/components/DataNav";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 const LENSES: DataMapLens[] = ["none", "cadence", "origin", "fresh", "links"];
 
@@ -69,6 +70,8 @@ export const DataMapScreen = () => {
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: manifest, isLoading } = useDataMap();
   const { data: changes } = useDataChanges();
+  // `lg` here is Tailwind's `lg` — the hook's own (min-width: 1024px).
+  const overlays = useMediaQueryMatch("lg");
   const [searchParams, setSearchParams] = useSearchParams();
 
   const setParam = useCallback(
@@ -169,6 +172,25 @@ export const DataMapScreen = () => {
     return () => window.clearTimeout(timer);
   }, [activeTour, storyStep]);
 
+  // Which edge the overlay hangs off. Features are the right-hand column and
+  // sources the left, so a card on the opposite edge cannot cover the node that
+  // was just clicked; datasets are the middle column and neither edge reaches
+  // them, so they leave the card where it is.
+  //
+  // That last clause is hysteresis, and it is the point: recomputing the side
+  // from every selection flipped it on 216 of 364 neighbour-chip traversals
+  // (59%) and mid-tour in 3 of the 4 guided stories — a ~1,000px sideways jump,
+  // with no transition, on the majority of clicks.
+  const [overlaySide, setOverlaySide] = useState<"left" | "right">("right");
+  const selectedKind = useMemo(
+    () => manifest?.nodes.find((n) => n.id === selectedId)?.kind ?? null,
+    [manifest, selectedId],
+  );
+  useEffect(() => {
+    if (selectedKind === "feature") setOverlaySide("left");
+    else if (selectedKind === "source") setOverlaySide("right");
+  }, [selectedKind]);
+
   // The three tier counts. They describe the PAGE, so they belong in its head
   // rather than in the detail panel's empty state, where they were 360px of
   // sidebar repeating itself beside a 4000px canvas — and, on a narrow screen,
@@ -195,18 +217,33 @@ export const DataMapScreen = () => {
     [manifest],
   );
 
-  // The detail panel renders under the canvas at every width, so a pick is
-  // always off-screen — nudge it into view so the click visibly "answers".
-  // During a story the bottom bar carries the narration instead.
+  // The overlay materialises over the canvas with no viewport movement (the
+  // nudge below is suppressed there), so Escape is the keyboard exit to match
+  // the card's own close button.
   useEffect(() => {
-    if (!selectedId || story) return;
+    if (!selectedId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onSelect(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedId, onSelect]);
+
+  // Below `lg` the panel renders under the map, so a pick lands off-screen —
+  // nudge it into view so the click visibly "answers". At `lg` and up the card
+  // overlays the canvas and is already in view, so nudging would just scroll
+  // the page out from under the reader. `matchMedia` rather than a width
+  // comparison: `window.innerWidth` counts the scrollbar and so disagrees with
+  // the CSS breakpoint by ~15px. During a story the bottom bar narrates instead.
+  useEffect(() => {
+    if (!selectedId || story || overlays) return;
     const id = window.setTimeout(() => {
       document
         .getElementById("datamap-panel")
         ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 550);
     return () => window.clearTimeout(id);
-  }, [selectedId, story]);
+  }, [selectedId, story, overlays]);
 
   return (
     <>
@@ -245,45 +282,41 @@ export const DataMapScreen = () => {
           </nav>
         ) : null}
         {manifest && counts ? (
-          <>
-            {/* One line, not a tile grid: the head already costs ~527px before
+          /* One line, not a tile grid: the head already costs ~527px before
                 the map starts at 375px, and these are context rather than the
-                page's subject. */}
-            <div className="space-y-1">
-              <p className="text-xs leading-5 text-muted-foreground">
-                {(
-                  [
-                    ["source", counts.source, t("data_map_tier_sources")],
-                    ["dataset", counts.dataset, t("data_map_tier_datasets")],
-                    ["feature", counts.feature, t("data_map_tier_features")],
-                  ] as const
-                ).map(([kind, count, label], i) => (
-                  <span key={kind}>
-                    {i ? <span aria-hidden> · </span> : null}
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle",
-                        KIND_DOT[kind],
-                      )}
-                    />
-                    <span className="font-semibold text-foreground">
-                      {count}
-                    </span>{" "}
-                    {label}
-                  </span>
-                ))}
-              </p>
-              {/* The hint already ends on the pulsing-dot rule, so the panel's
+             page's subject. */
+          <div className="space-y-1">
+            <p className="text-xs leading-5 text-muted-foreground">
+              {(
+                [
+                  ["source", counts.source, t("data_map_tier_sources")],
+                  ["dataset", counts.dataset, t("data_map_tier_datasets")],
+                  ["feature", counts.feature, t("data_map_tier_features")],
+                ] as const
+              ).map(([kind, count, label], i) => (
+                <span key={kind}>
+                  {i ? <span aria-hidden> · </span> : null}
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle",
+                      KIND_DOT[kind],
+                    )}
+                  />
+                  <span className="font-semibold text-foreground">{count}</span>{" "}
+                  {label}
+                </span>
+              ))}
+            </p>
+            {/* The hint already ends on the pulsing-dot rule, so the panel's
                   separate freshness legend is not repeated here — its key went
                   with the empty state. Grouped with the counts so the two cost
                   one flex gap rather than two: the head is the scarce space on
                   a phone, not the page. */}
-              <p className="max-w-2xl text-xs leading-5 text-muted-foreground">
-                {t("data_map_hint", { days: DATA_MAP_FRESH_DAYS })}
-              </p>
-            </div>
-          </>
+            <p className="max-w-2xl text-xs leading-5 text-muted-foreground">
+              {t("data_map_hint", { days: DATA_MAP_FRESH_DAYS })}
+            </p>
+          </div>
         ) : null}
       </div>
 
@@ -399,7 +432,18 @@ export const DataMapScreen = () => {
               })}
             </nav>
           ) : null}
-          <div className="flex flex-col gap-4">
+          <div
+            className="relative isolate flex flex-col gap-4"
+            style={{
+              // The overlay anchors to this wrapper, so it has to end where the
+              // canvas does — otherwise a right-hand card hangs 181px off the
+              // map at >=1400 while a left-hand one sits flush. `isolate` keeps
+              // the card's z-10 out of the root stacking context, where the
+              // fixed header also lives at z-10 and would lose to it on DOM
+              // order alone.
+              maxWidth: Math.round(extent.w * DATA_MAP_FIT_MAX_ZOOM),
+            }}
+          >
             <div
               className="relative min-h-[420px] w-full overflow-hidden rounded-xl border border-border bg-card/30"
               style={{
@@ -426,18 +470,46 @@ export const DataMapScreen = () => {
                 }}
                 lens={lens}
                 fitLabel={t("data_map_fit")}
+                // One value decides both: the card and the zoom/fit controls
+                // are the only two things that float over this canvas, and
+                // bottom-right is where BOTH defaulted. A sticky card unpins at
+                // the column's bottom, so the overlap sat exactly where a
+                // reader reaches for "fit" — on 82 of 108 nodes.
+                controlsSide={overlaySide === "left" ? "right" : "left"}
                 onSelect={onSelect}
               />
             </div>
-            {/* empty:hidden — with no selection the panel renders nothing, and
+            {/* Below `lg` the card sits under the map. From `lg` up it OVERLAYS
+                the canvas instead of docking beside it, because the shell has
+                no width to give it: `.container` is clamped to 1400px, so a
+                docked column would take 360 of a fixed 1384 at every size (see
+                T2). An overlay costs nothing when idle and nothing when open.
+
+                The column spans the canvas so the card can `sticky` down its
+                whole 4,000px height, and it hangs off the edge OPPOSITE the
+                selected node's tier so it never covers what was just clicked.
+                pointer-events are off on the column and back on for the card,
+                so the empty space above and below it still pans the map.
+
+                empty:hidden — with no selection the panel renders nothing, and
                 an empty flex child would still spend the row's 16px gap. */}
-            <div id="datamap-panel" className="empty:hidden">
+            <div
+              id="datamap-panel"
+              role="region"
+              aria-live="polite"
+              aria-label={t("data_map_detail")}
+              className={cn(
+                "empty:hidden lg:pointer-events-none lg:absolute lg:inset-y-0 lg:z-10 lg:w-[320px] xl:w-[360px]",
+                overlaySide === "left" ? "lg:left-0" : "lg:right-0",
+              )}
+            >
               <DataMapPanel
                 manifest={manifest}
                 lang={lang}
                 selectedId={selectedId}
                 freshness={freshness}
                 onSelect={onSelect}
+                className="lg:pointer-events-auto lg:sticky lg:top-20 lg:max-h-[74vh] lg:overflow-y-auto lg:shadow-xl"
               />
             </div>
           </div>

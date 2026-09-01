@@ -17,7 +17,8 @@ type Props = {
   selectedId: string | null;
   freshness: Map<string, string>;
   onSelect: (id: string | null) => void;
-  /** Scaffolding for T4, which overlays this card on the canvas at >= lg. */
+  /** T4's overlay classes: sticky positioning, the scroll ceiling and the
+   *  shadow that lifts the card off the dotted canvas at >= lg. */
   className?: string;
 };
 

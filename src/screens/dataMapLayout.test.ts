@@ -6,6 +6,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { stripComments } from "../../scripts/lib/strip_comments";
 import { dataMapExtent, DATA_MAP_FIT_MAX_ZOOM } from "@/data/dataMap/viewport";
 import { DATA_MAP_FRESH_DAYS } from "@/data/dataMap/useDataMap";
 import bg from "@/locales/bg/translation.json";
@@ -13,7 +14,27 @@ import en from "@/locales/en/translation.json";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const read = (p: string) => readFileSync(path.join(ROOT, p), "utf8");
+/**
+ * Source with its comments removed — the shared primitive, plus JSX `{/* … *\/}`
+ * blocks, which `stripComments` deliberately does not touch (it anchors on
+ * comments that OWN their line, and a JSX comment is an expression inside
+ * markup). All five in this screen survive it, and several DISCUSS the very
+ * patterns these gates forbid: prose that mentions a pattern is not an
+ * occurrence of it.
+ *
+ * The JSX strip is deliberately narrow — `{/*` to the matching `*\/}` — because
+ * an unanchored block strip is the failure `scripts/lib/strip_comments.ts`
+ * documents in both directions.
+ */
+const code = (p: string): string =>
+  stripComments(read(p)).replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
 const screen = () => read("src/screens/DataMapScreen.tsx");
+const screenCode = () => code("src/screens/DataMapScreen.tsx");
+
+/** The overlay's positioning ancestor. `relative` gives the absolute column a
+ *  box to span; `isolate` keeps the card's z-10 out of the root stacking
+ *  context, where the fixed header also sits at z-10. */
+const WRAPPER = /className="relative isolate flex flex-col gap-4"/;
 
 /**
  * The block a `key: { … }` opens, matched by counting braces rather than with a
@@ -40,29 +61,22 @@ describe("the detail rail never takes width from the map", () => {
   // 1024px one got 617. Docking is not affordable in this shell at any
   // breakpoint (see the container-clamp test below), so it is gone rather than
   // moved wider.
-  it("stacks the panel at every breakpoint", () => {
-    const src = screen();
-    expect(src).toMatch(/className="flex flex-col gap-4"/);
-    for (const utility of [
-      "flex-row",
-      "w-\\[360px\\]",
-      "shrink-0",
-      "sticky",
-      "top-20",
-      "max-h-\\[74vh\\]",
-      "overflow-y-auto",
-    ]) {
+  it("never turns the row into a column pair", () => {
+    // A docked rail would be a flex item beside the map. The panel is either
+    // below it (< lg) or absolutely positioned OVER it (>= lg) — never a
+    // sibling column at any breakpoint. T4 gives it `lg:w-[320px]`, and that
+    // width is spent on an absolute box, so it takes nothing from the canvas.
+    const src = screenCode();
+    expect(src).toMatch(WRAPPER);
+    for (const utility of ["flex-row", "shrink-0", "basis-", "flex-1"]) {
       expect(src).not.toMatch(new RegExp(`(lg|xl|2xl):${utility}`));
     }
-  });
-
-  it("nudges the panel into view at every width, since it is always below", () => {
-    const src = screen();
-    expect(src).toMatch(/if \(!selectedId \|\| story\) return;/);
-    // A width comparison here was the old dock's companion and is now a bug:
-    // `window.innerWidth` includes the scrollbar, so it disagrees with any
-    // media query by ~15px — and there is no breakpoint left to compare to.
-    expect(src).not.toMatch(/window\.innerWidth >=/);
+    // A breakpointed width on the panel is only safe out of the flow. Asserted
+    // unconditionally in both directions: `if (width) expect(absolute)` passes
+    // vacuously the day the width is dropped, which is exactly when the rule
+    // stops being checked.
+    expect(src).toMatch(/lg:w-\[320px\] xl:w-\[360px\]/);
+    expect(src).toMatch(/lg:absolute/);
   });
 });
 
@@ -72,7 +86,7 @@ describe("the canvas cap and the framing ceiling are one number", () => {
   // space around the graph (cap too high) or a graph drawn below its ceiling
   // (cap too low) — neither of which fails anything.
   it("derives both bounds from DATA_MAP_FIT_MAX_ZOOM", () => {
-    const src = screen();
+    const src = screenCode();
     expect(src).toMatch(
       /maxWidth: Math\.round\(extent\.w \* DATA_MAP_FIT_MAX_ZOOM\)/,
     );
@@ -140,16 +154,21 @@ describe("the head carries what the panel's empty state used to", () => {
   // Those four blocks — hint, tier counts, freshness legend, stories —
   // described the PAGE, not a selection, and on a narrow screen they sat below
   // a 1264px map where nobody reached them. Measured 2026-09-02 at 375px: the
-  // panel is 0px when idle and 431px on a selection; page height 2576 -> 2146.
+  // panel is 0px when idle and 431px on a selection; page height 2576 -> 2114.
   it("renders nothing at all with no selection", () => {
     const panel = read("src/screens/components/datamap/DataMapPanel.tsx");
     expect(panel).toMatch(/if \(!node\) return null;/);
     // A null child still spends the flex row's gap without this.
-    expect(screen()).toMatch(/id="datamap-panel" className="empty:hidden"/);
+    expect(screenCode()).toMatch(/"empty:hidden/);
+    // The id is the contract between the scroll-nudge's getElementById and the
+    // JSX. Renaming either half silently stops the nudge — a click that never
+    // visibly answers, below `lg` where the card is off-screen.
+    expect(screenCode()).toMatch(/id="datamap-panel"/);
+    expect(screenCode()).toMatch(/getElementById\("datamap-panel"\)/);
   });
 
   it("counts the tiers in the head instead", () => {
-    const src = screen();
+    const src = screenCode();
     expect(src).toMatch(/data_map_tier_sources/);
     expect(src).toMatch(/data_map_tier_datasets/);
     expect(src).toMatch(/data_map_tier_features/);
@@ -159,7 +178,7 @@ describe("the head carries what the panel's empty state used to", () => {
   });
 
   it("keeps the stories with the lens pills, not in the panel", () => {
-    const src = screen();
+    const src = screenCode();
     expect(src).toMatch(/aria-label=\{t\("data_map_stories"\)\}/);
     expect(read("src/screens/components/datamap/DataMapPanel.tsx")).not.toMatch(
       /onStartTour|data_map_stories/,
@@ -170,7 +189,7 @@ describe("the head carries what the panel's empty state used to", () => {
     // `-mx-2 … px-2` runs the row to the page edge so a chip is never clipped
     // mid-row. It is Layout.tsx's `p-2` mirrored — a drift either overflows the
     // page or leaves a visible notch.
-    expect(screen()).toMatch(/-mx-2[^"]*px-2/);
+    expect(screenCode()).toMatch(/-mx-2[^"]*px-2/);
     expect(read("src/layout/Layout.tsx")).toMatch(/\bp-2\b/);
   });
 });
@@ -199,10 +218,133 @@ describe("one definition per shared rule", () => {
     expect(read("src/screens/components/datamap/DataMapCanvas.tsx")).toMatch(
       /DATA_MAP_FRESH_DAYS \* 24 \* 3600 \* 1000/,
     );
-    expect(screen()).toMatch(/days: DATA_MAP_FRESH_DAYS/);
+    expect(screenCode()).toMatch(/days: DATA_MAP_FRESH_DAYS/);
     for (const corpus of [bg, en] as Record<string, string>[]) {
       expect(corpus.data_map_hint).toContain("{{days}}");
     }
     expect(DATA_MAP_FRESH_DAYS).toBeGreaterThan(0);
+  });
+});
+
+describe("the detail overlays the map from lg up", () => {
+  // Measured 2026-09-02. 1440: the column is absolute, the card sticky, 360px
+  // wide, hanging off the canvas's right edge into the gutter the width cap
+  // leaves. 1024: 320px, flush to the canvas edge. 768: static, 737px, stacked
+  // below the map. Nothing is spent when no node is selected.
+  it("takes the panel out of the flow at lg and leaves it in below", () => {
+    const src = screenCode();
+    expect(src).toMatch(/lg:absolute lg:inset-y-0/);
+    // inset-y-0 needs a positioned ancestor spanning the canvas, or the card
+    // has no column to be sticky within.
+    expect(src).toMatch(WRAPPER);
+    expect(src).toMatch(/lg:sticky lg:top-20/);
+  });
+
+  it("hangs the card off an edge that does not reach the selected node", () => {
+    // Features are the right-hand column and sources the left, so each takes
+    // the opposite edge. Datasets are the MIDDLE column — no edge reaches them,
+    // so the rule is not "opposite" for them and the card simply stays put
+    // (see the hysteresis test below).
+    const src = screenCode();
+    expect(src).toMatch(/overlaySide === "left" \? "lg:left-0" : "lg:right-0"/);
+  });
+
+  it("lets the empty column pass clicks through to the map", () => {
+    // The column spans the canvas's whole height; without this, its empty area
+    // would swallow every pan and node click outside the card itself.
+    const src = screenCode();
+    expect(src).toMatch(/lg:pointer-events-none/);
+    expect(src).toMatch(/lg:pointer-events-auto/);
+  });
+
+  it("suppresses the scroll-nudge exactly where the card overlays", () => {
+    // Below lg the card lands off-screen and the nudge is what makes a click
+    // visibly answer; at lg and up it is already in view, so nudging would
+    // scroll the page out from under the reader. matchMedia, not innerWidth —
+    // the latter counts the scrollbar and disagrees with the CSS breakpoint by
+    // ~15px.
+    const src = screenCode();
+    expect(src).toMatch(/useMediaQueryMatch\("lg"\)/);
+    expect(src).toMatch(/if \(!selectedId \|\| story \|\| overlays\) return;/);
+    expect(src).not.toMatch(/window\.innerWidth/);
+    // The comment above that line NAMES window.innerWidth, so this assertion
+    // only means anything against the stripped source.
+    expect(screen()).toMatch(/window\.innerWidth/);
+  });
+});
+
+describe("the two things that float over the canvas stay off each other", () => {
+  // The card and React Flow's zoom/fit controls are the only two, and BOTH
+  // defaulted to bottom-right. A sticky card unpins at the bottom of its column
+  // and pins its own bottom edge to the canvas's, which is 15px from where the
+  // controls sit — so the overlap was persistent at the bottom of a 4,237px
+  // map, on the 82 of 108 nodes that put the card on the right, over the
+  // bespoke fit button T1 built.
+  it("derives both sides from one value", () => {
+    const src = screenCode();
+    expect(src).toMatch(
+      /controlsSide=\{overlaySide === "left" \? "right" : "left"\}/,
+    );
+    const canvas = code("src/screens/components/datamap/DataMapCanvas.tsx");
+    expect(canvas).toMatch(
+      /position=\{controlsSide === "left" \? "bottom-left" : "bottom-right"\}/,
+    );
+    // No hard-coded corner survives beside it.
+    expect(canvas).not.toMatch(/position="bottom-(left|right)"/);
+  });
+
+  it("moves the card only when staying put would cover the new node", () => {
+    // Recomputing the side from every selection flipped it on 216 of 364
+    // neighbour traversals and mid-tour in 3 of 4 stories — a ~1,000px jump
+    // with no transition. Datasets are the middle column, which neither edge
+    // reaches, so they must leave the card alone.
+    const src = screenCode();
+    expect(src).toMatch(
+      /if \(selectedKind === "feature"\) setOverlaySide\("left"\)/,
+    );
+    expect(src).toMatch(
+      /else if \(selectedKind === "source"\) setOverlaySide\("right"\)/,
+    );
+    expect(src).not.toMatch(/=== "feature"\s*\?\s*"left"\s*:\s*"right"/);
+  });
+
+  it("anchors the overlay to the map rather than to the content box", () => {
+    // The wrapper takes the full 1384px content width while the canvas is
+    // capped at ~1203, so without this a right-hand card hangs 181px off the
+    // map at >=1400 while a left-hand one is flush.
+    const src = screenCode();
+    expect(src).toMatch(
+      /maxWidth: Math\.round\(extent\.w \* DATA_MAP_FIT_MAX_ZOOM\)/,
+    );
+  });
+
+  it("keeps the card scrollable rather than letting it outgrow the viewport", () => {
+    // The richest nodes carry upstream + downstream + links + sources; without
+    // a ceiling the card runs past the bottom of the screen with no way down.
+    expect(screenCode()).toMatch(/lg:max-h-\[74vh\] lg:overflow-y-auto/);
+  });
+
+  it("announces the overlay and gives it a keyboard exit", () => {
+    // At lg+ the scroll-nudge is suppressed, so a selection produces no
+    // viewport movement at all — the card just materialises.
+    const src = screenCode();
+    expect(src).toMatch(/role="region"/);
+    expect(src).toMatch(/aria-live="polite"/);
+    expect(src).toMatch(/e\.key === "Escape"/);
+  });
+});
+
+describe("the JS breakpoint and the CSS one are the same number", () => {
+  // The whole tier rests on `useMediaQueryMatch("lg")` firing exactly where
+  // `lg:` does. The hook keeps its own table, and it already disagrees with
+  // Tailwind on `2xl` (1440 vs 1536) — so this pairing is worth pinning rather
+  // than assuming.
+  it("maps lg to (min-width: 1024px), as Tailwind does", () => {
+    const hook = code("src/ux/useMediaQueryMatch.tsx");
+    expect(hook).toMatch(/case "lg":\s*\n?\s*return "\(min-width: 1024px\)";/);
+  });
+
+  it("uses that hook rather than a width comparison", () => {
+    expect(screenCode()).toMatch(/useMediaQueryMatch\("lg"\)/);
   });
 });

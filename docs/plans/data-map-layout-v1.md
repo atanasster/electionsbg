@@ -146,21 +146,62 @@ shift. If the head has to shrink further, the honest target is the four pill
 rows that were already there (DataNav wraps to 3 rows at 375 px and the view
 pills to 3), not the content this tier rescued.
 
-### T4 — C: overlay the detail
+### T4 — C: overlay the detail — done 2026-09-02
 
-T2 removed the dock and T3 leaves the panel with nothing to say when nothing is
-selected, so the detail becomes an overlay rather than a column:
+T2 removed the dock and T3 left the panel with nothing to say when nothing is
+selected, so the detail is an overlay rather than a column:
 
-- **≥ lg** — a sticky card over the canvas's top-right, rendered only on
-  selection. The map keeps its full width and the idle cost is zero, which is
-  what the shell's 1384 px content clamp makes necessary rather than merely
-  tidy.
+- **≥ lg** — a sticky card over the canvas, rendered only on selection. The
+  column is absolute and spans the canvas's whole height (4,237 px at the cap,
+  from a 3,684 px graph) so the card can stick down it; `pointer-events` are off on the column and back on for the
+  card, so the empty space above and below it still pans the map.
 - **< lg** — unchanged: an inline card below the canvas, scrolled into view.
+
+**It hangs off an edge that does not reach the selected node.** Features are
+the right-hand column so their card goes left; sources are the left-hand column
+so theirs goes right. Datasets are the *middle* column, which neither edge
+reaches at any `lg`+ width — so a dataset selection leaves the card where it is.
+
+That last clause is hysteresis and it is load-bearing: recomputing the side from
+every selection flipped it on **216 of 364 neighbour-chip traversals (59 %)** and
+mid-tour in **3 of the 4 guided stories** — a ~1,000 px sideways jump, with no
+transition, on the majority of clicks.
+
+**The zoom / fit controls take whichever bottom corner the card is not using.**
+They are the only two things that float over this canvas and both defaulted to
+bottom-right; a sticky card unpins at the bottom of its column and pins its own
+bottom edge 15 px from where the controls sit, so the overlap was permanent at
+the bottom of a 4,237 px map — over the bespoke fit button T1 built — on the 82
+of 108 nodes that put the card on the right. One value decides both sides.
+
+The wrapper is capped to the canvas's own width, so both edges anchor to the
+**map** rather than to the 1384 px content box; without it a right-hand card
+hung 181 px off the map at ≥1400 while a left-hand one sat flush. It also
+carries `isolate`, because the card's `z-10` would otherwise share the root
+stacking context with the fixed header's.
+
+At `lg`+ a selection produces no viewport movement at all, so the column is a
+`role="region"` with `aria-live="polite"` and Escape closes it.
+
+The scroll-nudge is suppressed exactly where the card overlays, through
+`useMediaQueryMatch("lg")` rather than a width comparison — `window.innerWidth`
+counts the scrollbar and disagrees with the CSS breakpoint by ~15 px.
+
+Measured 2026-09-02:
+
+| viewport | column | card | where |
+| -------- | ------ | ---- | ----- |
+| 1440 | absolute | 360 px, sticky | flush to the canvas's right edge |
+| 1024 | absolute | 320 px, sticky | flush to the canvas edge |
+| 768 | static | 737 px | stacked below the map |
+
+Nothing is spent when no node is selected, at any width.
 
 The first draft of this tier reserved a column at `2xl` "because the screen has
 the width to spare". It does not: the container clamp freezes content at
 1384 px however wide the screen, so there is no width above which a reserved
-column is free.
+column is free — which is what makes the overlay necessary rather than merely
+tidy.
 
 ## 4. Not in this plan
 
