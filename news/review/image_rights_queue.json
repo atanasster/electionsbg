@@ -1,16 +1,100 @@
 {
   "version": 1,
-  "source_updated_at": "2026-08-31T01:11:37+00:00",
+  "source_updated_at": "2026-09-01T04:49:00+00:00",
   "policy": "news/config/image_rights_policy.json",
   "publication_default": "deny",
   "counts": {
-    "total": 1786,
+    "total": 1793,
     "missing_image": 338,
-    "missing_review": 1448,
+    "missing_review": 1455,
     "unknown_rights": 0,
     "invalid_review": 0
   },
   "items": [
+    {
+      "id": "vesti.bg/20260901-dve-zhertvi-i-desetki-spaseni-sled-opustoshitelnoto-navodnen-cc42f6f2",
+      "domain": "vesti.bg",
+      "title": "Две жертви и десетки спасени след опустошителното наводнение в Гранд Каньон",
+      "published": "2026-09-01T04:10:00+00:00",
+      "analyzed_at": "2026-09-01T04:26:01+00:00",
+      "article_url": "https://www.vesti.bg/sviat/dve-zhertvi-i-desetki-spaseni-sled-opustoshitelnoto-navodnenie-v-grand-kanion-6269021",
+      "article_path": "news/data/vesti.bg/20260901-dve-zhertvi-i-desetki-spaseni-sled-opustoshitelnoto-navodnen-cc42f6f2.json",
+      "image_url": "https://m4.netinfo.bg/media/images/51376/51376599/1920-1080-grand-canyon-flooding.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "vesti.bg/20260901-ot-1-septemvri-biudzhetnite-organizacii-svivat-razhodite-za--0d7fce6f",
+      "domain": "vesti.bg",
+      "title": "От 1 септември: Бюджетните организации свиват разходите за персонал с 10%",
+      "published": "2026-09-01T03:57:00+00:00",
+      "analyzed_at": "2026-09-01T04:48:00+00:00",
+      "article_url": "https://www.vesti.bg/bulgaria/ot-1-septemvri-biudzhetnite-organizacii-svivat-razhodite-za-personal-s-10-6269020",
+      "article_path": "news/data/vesti.bg/20260901-ot-1-septemvri-biudzhetnite-organizacii-svivat-razhodite-za--0d7fce6f.json",
+      "image_url": "https://m3.netinfo.bg/media/images/51358/51358238/1920-1080-ms.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260901-1078006-gurov-i-kandev-se-vkluchvat-v-nadprevarata-za-prezid-fe9bcf46",
+      "domain": "fakti.bg",
+      "title": "Гюров и Кандев се включват в надпреварата за президент",
+      "published": "2026-09-01T03:54:58+00:00",
+      "analyzed_at": "2026-09-01T04:48:00+00:00",
+      "article_url": "https://fakti.bg/bulgaria/1078006-gurov-i-kandev-se-vkluchvat-v-nadprevarata-za-prezident",
+      "article_path": "news/data/fakti.bg/20260901-1078006-gurov-i-kandev-se-vkluchvat-v-nadprevarata-za-prezid-fe9bcf46.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/e04/gurov-i-kandev-se-vkluchvat-v-nadprevarata-za-prezident-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260901-1078004-ukraina-premestva-strategicheskite-si-gorivni-rezerv-0efd4936",
+      "domain": "fakti.bg",
+      "title": "Украйна премества стратегическите си горивни резерви под земята",
+      "published": "2026-09-01T03:51:54+00:00",
+      "analyzed_at": "2026-09-01T04:48:00+00:00",
+      "article_url": "https://fakti.bg/world/1078004-ukraina-premestva-strategicheskite-si-gorivni-rezervi-pod-zemata",
+      "article_path": "news/data/fakti.bg/20260901-1078004-ukraina-premestva-strategicheskite-si-gorivni-rezerv-0efd4936.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/850/ukraina-premestva-strategicheskite-si-gorivni-rezervi-pod-zemata-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "vesti.bg/20260901-andrej-giurov-i-georgi-kandev-vlizat-v-bitkata-za-dondukov-2-f1b52fa8",
+      "domain": "vesti.bg",
+      "title": "Андрей Гюров и Георги Кандев влизат в битката за \"Дондуков\" 2",
+      "published": "2026-09-01T03:50:00+00:00",
+      "analyzed_at": "2026-09-01T04:48:00+00:00",
+      "article_url": "https://www.vesti.bg/bulgaria/andrej-giurov-i-georgi-kandev-vlizat-v-bitkata-za-dondukov-2-6269019",
+      "article_path": "news/data/vesti.bg/20260901-andrej-giurov-i-georgi-kandev-vlizat-v-bitkata-za-dondukov-2-f1b52fa8.json",
+      "image_url": "https://m4.netinfo.bg/media/images/51258/51258809/1920-1080-andrej-giurov.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260901-D0BFD180D0B0D0B2D0B8D182D0B5D0BBD181D182D0B2D0BED182D0BE-D18-59bd9e4f",
+      "domain": "nova.bg",
+      "title": "Правителството съкращава разходите за персонал с 10%",
+      "published": "2026-09-01T03:20:20+00:00",
+      "analyzed_at": "2026-09-01T04:49:00+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/01/549683/%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D1%82%D0%B5%D0%BB%D1%81%D1%82%D0%B2%D0%BE%D1%82%D0%BE-%D1%81%D1%8A%D0%BA%D1%80%D0%B0%D1%89%D0%B0%D0%B2%D0%B0-%D1%80%D0%B0%D0%B7%D1%85%D0%BE%D0%B4%D0%B8%D1%82%D0%B5-%D0%B7%D0%B0-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB-%D1%81-10/",
+      "article_path": "news/data/nova.bg/20260901-D0BFD180D0B0D0B2D0B8D182D0B5D0BBD181D182D0B2D0BED182D0BE-D18-59bd9e4f.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1787818374.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260901-D0BFD180D0B8D180D0BED0B4D0BDD0B8D18FD182-D0B3D0B0D0B7-D183-D-5d9f183c",
+      "domain": "nova.bg",
+      "title": "Природният газ у нас поскъпва с 5,5%",
+      "published": "2026-09-01T03:19:55+00:00",
+      "analyzed_at": "2026-09-01T04:48:00+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/01/549681/%D0%BF%D1%80%D0%B8%D1%80%D0%BE%D0%B4%D0%BD%D0%B8%D1%8F%D1%82-%D0%B3%D0%B0%D0%B7-%D1%83-%D0%BD%D0%B0%D1%81-%D0%BF%D0%BE%D1%81%D0%BA%D1%8A%D0%BF%D0%B2%D0%B0-%D1%81-55/",
+      "article_path": "news/data/nova.bg/20260901-D0BFD180D0B8D180D0BED0B4D0BDD0B8D18FD182-D0B3D0B0D0B7-D183-D-5d9f183c.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1785409684.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
     {
       "id": "bnrnews.bg/20260831-tsarkoven-kalendar-31-avgust-2026-g-7a9a636f",
       "domain": "bnrnews.bg",

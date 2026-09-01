@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "as_of": "2026-08-31",
+  "as_of": "2026-09-01",
   "window_days": 30,
   "thresholds": {
     "current_items": 24,
@@ -10,7 +10,7 @@
   "measured": {
     "reviewed_selections": 40,
     "current_items": 40,
-    "comparison_stories": 8,
+    "comparison_stories": 9,
     "invalid_selected_records": [],
     "unresolved_selections": []
   },
@@ -64,12 +64,13 @@
     "20260822-e38601bd",
     "20260822-ed7347ac",
     "20260822-f699f0d1",
+    "20260830-cd3a406c",
     "nodate-85eb9eca"
   ],
   "input_sha256": {
     "selections": "3f5ff617deb59a9d3c3d3b78e667f514778d060e1d6af745b1bee047634e93ab",
-    "queue": "26d0fa1e9ebb38da2e20dfce35363933a345736b23f876e2746e447a8348201b",
-    "analysis_index": "0a90e9ce5f761a98b62b0b1583e2b86d792912e9afd0d0603bbfbf412a3b644e"
+    "queue": "444e9740e6c42659aa1b9d151164446bf97e9d6974b27000bf8a48db1c371dd5",
+    "analysis_index": "f4ff2c410997d8685093c1595a572459582fcd1f8f6fd7bfcc54ddd7e0454155"
   },
   "checks": {
     "current_items": true,
