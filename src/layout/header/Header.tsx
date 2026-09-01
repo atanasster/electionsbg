@@ -50,48 +50,7 @@ import { AreaPill } from "./AreaPill";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticles } from "@/data/articles/useArticles";
 import { siteChrome } from "@/layout/siteChrome";
-
-// Pathname prefixes that mark a page as "in" the Governance world for the
-// active-dropdown tint. The Local set marks the parallel municipal-elections
-// tree. Everything else is treated as elections — including /reports/* and
-// /risk-score, which are election-cycle anomaly analyses folded into the
-// Elections dropdown.
-const GOVERNANCE_PREFIXES = [
-  "/governance",
-  "/parliament",
-  "/votes",
-  "/budget",
-  "/procurement",
-  "/connections",
-  "/mp",
-  "/mp-",
-  "/company",
-  "/awarder",
-  "/judiciary",
-  "/council",
-  "/pensions",
-  // Sector dashboards — their breadcrumb reads "Управление › … › Сектори", so the
-  // top-nav must tint управление too (they used to fall through to elections).
-  "/water",
-  "/culture",
-  "/defense",
-  "/education",
-  "/subsidies",
-  "/funds",
-  "/governments",
-  "/indicators",
-  "/demographics",
-  "/observations",
-];
-
-const LOCAL_PREFIXES = ["/local", "/sverka"];
-
-// The Consumption (cost-of-living) world: the new /consumption place tiers plus
-// the standalone /prices explorer, which is the same КЗП basket data reframed.
-const CONSUMPTION_PREFIXES = ["/consumption", "/prices"];
-
-const isInSection = (pathname: string, prefixes: string[]): boolean =>
-  prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+import { headerSection } from "./headerSection";
 
 // Sub-menus are Radix flyouts on desktop, but a flyout anchors beside its
 // trigger and gets clipped by the viewport edge on phones — the hamburger
@@ -147,23 +106,11 @@ export const Header = () => {
   const { data: articles } = useArticles();
   const navRef = useRef<HTMLElement>(null);
   const location = useLocation();
-  const inGovernance = isInSection(location.pathname, GOVERNANCE_PREFIXES);
-  const inLocal = isInSection(location.pathname, LOCAL_PREFIXES);
-  const inConsumption = isInSection(location.pathname, CONSUMPTION_PREFIXES);
-  // ⚠️ `/` IS NEUTRAL, and it is excluded rather than the whole test being inverted.
-  // Elections is the NEGATIVE default here — it catches ~40 deep routes
-  // (/municipality, /settlement, /sections, /section, /candidate, /elections/:date,
-  // /sofia, /reports, /parliamentary, /votes, /polls, /articles …) without listing
-  // them, so rewriting it as a positive prefix list would silently de-highlight
-  // whichever one the list forgot. The root is the one route that is genuinely global
-  // rather than election-shaped, so it is the one exclusion.
-  //
-  // ⚠️ TRANSIENT UNTIL THE ROOT CUTOVER: `/` still RENDERS the election dashboard, so this
-  // line leaves the Elections menu untinted on an election page. Correct only because the
-  // route move and the cutover ship as one release — if the cutover is rolled back, roll
-  // this back with it.
-  const inElections =
-    location.pathname !== "/" && !inGovernance && !inLocal && !inConsumption;
+  // The rule lives in ./headerSection so the gate can execute it rather than
+  // restate it — see that module's header for why the copy had to go.
+  const { inElections, inGovernance, inLocal, inConsumption } = headerSection(
+    location.pathname,
+  );
 
   // The nav is `position: fixed`, so the page content is offset by its
   // height via the `--header-height` CSS variable (see Layout.tsx). On
