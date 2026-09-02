@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated_at": "2026-09-01T04:46:18.457730+00:00",
+  "generated_at": "2026-09-02T10:03:14.641617+00:00",
   "counts": {
-    "total": 64,
-    "active": 64,
-    "pending": 64
+    "total": 90,
+    "active": 5,
+    "pending": 5
   },
   "items": [
     {
@@ -39,7 +39,9 @@
             "Възраждане"
           ],
           "institutions": [
-            "Национален съвет на БСП"
+            "Национален съвет на БСП",
+            "ЦИК",
+            "Изпълнително бюро на БСП"
           ],
           "companies": [],
           "places": [
@@ -48,10 +50,10 @@
         }
       },
       "matched": {
-        "id": "20260829-ba41a2cc",
-        "title_bg": "БСП потвърди подкрепата си за Илияна Йотова за президент",
-        "title_en": "The Bulgarian Socialist Party unanimously confirmed its support for Iliana Yotova's presidential bid. Party leader Krum Zarkov announced a national campaign headquarters and said the party will join talks on the vice-presidential candidate.",
-        "last_published": "2026-08-29T11:59:00+00:00",
+        "id": "20260829-82cb3139",
+        "title_bg": "БСП подкрепи Илияна Йотова за президент",
+        "title_en": "The BSP National Council confirmed the socialists' support for Iliana Yotova's presidential candidacy, after Krum Zarkov was the first to back her. Progressive Bulgaria had earlier also endorsed her. Continue the Change has not yet decided, Democratic Bulgaria has signaled support, and Vazrazhdane intends to field its own candidates.",
+        "last_published": "2026-08-29T17:15:00+00:00",
         "topics": [
           {
             "category": "elections-parliamentary",
@@ -62,13 +64,19 @@
         "entities": {
           "people": [
             "Илияна Йотова",
-            "Крум Зарков"
+            "Крум Зарков",
+            "Андрей Гюров"
           ],
           "parties": [
-            "БСП"
+            "БСП",
+            "Прогресивна България",
+            "Продължаваме промяната",
+            "Демократична България",
+            "Възраждане"
           ],
           "institutions": [
             "Национален съвет на БСП",
+            "ЦИК",
             "Изпълнително бюро на БСП"
           ],
           "companies": [],
@@ -113,8 +121,6 @@
           "бсп",
           "илияна",
           "йотова",
-          "подкрепата",
-          "потвърди",
           "президент"
         ],
         "shared_entities": [
@@ -127,8 +133,571 @@
         "shared_places": [
           "българия"
         ],
+        "title_jaccard": 0.571,
+        "published_gap_hours": 4.97,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-58bf0a128ffa15af",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-08-31T05:05:34.700388+00:00",
+      "last_seen": "2026-08-31T05:27:03.578218+00:00",
+      "keeper": {
+        "id": "20260830-261559b2",
+        "title_bg": "Коментар на седмицата №2: Руси и украинци четат на фронта за печата на Ирина Комнина от Перперикон",
+        "title_en": "A weekly commentary on the international coverage of the discovery of the personal seal of Byzantine Empress Irene Komnene Doukaina Laskarina at Perperikon. The author reviews publications in the US, Greece, Romania, Turkey, Russia and Ukraine, recalls the empress's role in negotiations with Tsar Ivan Asen II after the 1230 Battle of Klokotnitsa, and highlights sigillographer Dimitar Stoyomenov, who identified the seal's owner.",
+        "last_published": "2026-08-30T17:15:00+00:00",
+        "topics": [
+          {
+            "category": "society",
+            "subcategory": "human-interest",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Ирина Комнина Дукина Ласкарина",
+            "Димитър Стоименов",
+            "Иван Йорданов"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "Перперикон",
+            "Клокотница"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260830-261559b2",
+        "title_bg": "Коментар на седмицата №2: Руси и украинци четат на фронта за печата на Ирина Комнина от Перперикон",
+        "title_en": "A weekly commentary on the international coverage of the discovery of the personal seal of Byzantine Empress Irene Komnene Doukaina Laskarina at Perperikon. The author reviews publications in the US, Greece, Romania, Turkey, Russia and Ukraine, recalls the empress's role in negotiations with Tsar Ivan Asen II after the 1230 Battle of Klokotnitsa, and highlights sigillographer Dimitar Stoyomenov, who identified the seal's owner.",
+        "last_published": "2026-08-30T17:15:00+00:00",
+        "topics": [
+          {
+            "category": "society",
+            "subcategory": "human-interest",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Ирина Комнина Дукина Ласкарина",
+            "Димитър Стоименов",
+            "Иван Йорданов"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "Перперикон",
+            "Клокотница"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260829-488c74b7",
+        "title_bg": "Руси и украинци четат на фронта за печата на Ирина Комнина от Перперикон",
+        "title_en": "The author surveys international coverage of the discovery at Perperikon of the personal seal of Byzantine empress Irene Komnene Doukaina Laskarina — publications in the USA, Greece, Romania, Turkey, and, surprisingly, Russian and Ukrainian media despite the war. He outlines Irene's role in relations between the Nicaean Empire and the Second Bulgarian Empire after the 1230 Battle of Klokotnitsa, including recognition of the Bulgarian Patriarchate and the dynastic marriage with Elena, daughter of Tsar Ivan Asen II, and credits sigillographer Dimitar Stoyomenov.",
+        "last_published": "2026-08-29T17:00:00+00:00",
+        "topics": [
+          {
+            "category": "society",
+            "subcategory": "human-interest",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Ирина Комнина Дукина Ласкарина",
+            "Димитър Стоименов",
+            "Иван Йорданов",
+            "Иван Асен II",
+            "Теодор I Ласкарис",
+            "Теодор II Ласкарис",
+            "Йоан III Ватаци",
+            "Елена",
+            "Ниха Захид",
+            "Янис Кацарос",
+            "Леман Алтунташ",
+            "Кристиана Дида",
+            "Александър Попеску",
+            "Бен Леонард",
+            "Татяна Шчеглова",
+            "Антон Ходоренко",
+            "Татяна Лаврухина",
+            "Татяна Лопухина"
+          ],
+          "parties": [],
+          "institutions": [
+            "Перперикон"
+          ],
+          "companies": [],
+          "places": [
+            "Перперикон",
+            "Клокотница",
+            "Гърция",
+            "Румъния",
+            "Турция",
+            "Египет",
+            "Санкт-Петербург",
+            "Атина",
+            "Ню Йорк"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "ирина",
+          "комнина",
+          "перперикон",
+          "печата",
+          "руси",
+          "украинци",
+          "фронта",
+          "четат"
+        ],
+        "shared_entities": [
+          "димитър стоименов",
+          "иван йорданов",
+          "ирина комнина дукина ласкарина"
+        ],
+        "shared_places": [
+          "клокотница",
+          "перперикон"
+        ],
+        "title_jaccard": 0.8,
+        "published_gap_hours": 24.25,
+        "topic": [
+          "society",
+          "human-interest"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-7c21af92883e62f8",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-08-31T05:05:34.700388+00:00",
+      "last_seen": "2026-08-31T05:27:03.578218+00:00",
+      "keeper": {
+        "id": "20260830-cd3a406c",
+        "title_bg": "Андрей Гюров обявява на 31 август дали ще се кандидатира за президент",
+        "title_en": "Andrey Gyurov said on bTV that clarity about his possible presidential run would come on August 31. Meanwhile, GERB leader Boyko Borisov told party members at the party's national assembly that GERB would compete where they expect to finish first. Less than two months remain until the presidential election.",
+        "last_published": "2026-09-01T03:54:58+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Бойко Борисов",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Божидар Божанов",
+            "Ивайло Мирчев",
+            "Гергана Петрова",
+            "Иван Христанов",
+            "Радостин Василев",
+            "Румен Радев",
+            "Делян Добрев",
+            "Томислав Дончев",
+            "Росен Желязков",
+            "Радостин Танев",
+            "Димитър Вучев",
+            "Стоян Петков",
+            "Живко Тодоров",
+            "Владимир Темелков",
+            "Николов"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Продължаваме Промяната",
+            "Демократична България",
+            "Продължаваме промяната",
+            "ПП",
+            "ДБ",
+            "Прогресивна България"
+          ],
+          "institutions": [
+            "МВР",
+            "Народното събрание",
+            "БНР"
+          ],
+          "companies": [],
+          "places": [
+            "Гоце Делчев",
+            "България",
+            "София",
+            "Стара Загора",
+            "Враца"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260830-aa1d0c53",
+        "title_bg": "Андрей Гюров утре ще обяви дали ще се кандидатира за президент",
+        "title_en": "Days before the presidential election, caretaker ex-PM Andrei Gyurov said he will announce tomorrow whether he will run. Boyko Borisov said GERB will compete only where it can finish first and praised Iliana Yotova as a strong candidate. Delian Dobrev urged the party to field its own candidate and harshly attacked a possible Gyurov run, calling him a 'TikTok mannequin'. GERB also announced changes to its executive commission.",
+        "last_published": "2026-08-30T17:12:15+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Делян Добрев",
+            "Томислав Дончев",
+            "Росен Желязков",
+            "Радостин Танев",
+            "Стоян Петков",
+            "Живко Тодоров",
+            "Димитър Вучев",
+            "Владимир Темелков"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "София",
+            "Стара Загора",
+            "Враца"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260830-83f9af9a",
+        "title_bg": "Андрей Гюров обявява утре дали ще се кандидатира за президент",
+        "title_en": "Andrey Gyurov is expected to announce on Monday whether he will run in the upcoming presidential election. His team says democratic-community political forces are discussing a possible nomination, and Gyurov confirmed clarity is expected early in the week on whether and in what form he will participate.",
+        "last_published": "2026-08-30T18:47:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "андрей",
+          "гюров",
+          "дали",
+          "кандидатира",
+          "президент",
+          "утре"
+        ],
+        "shared_entities": [
+          "андрей гюров"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.857,
+        "published_gap_hours": 1.58,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-ce0e210af45f1105",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-cb91dd77",
+        "title_bg": "Исландия няма да подновява преговорите за членство в ЕС",
+        "title_en": "In a consultative referendum on 29 August, 52.8% of Icelanders voted against resuming EU accession talks frozen since 2013. The government of Kristrun Frostadottir had pledged to respect the result. The article notes Iceland's deep integration via the EEA and Schengen, its refusal to cede control over fishing waters, and frames the vote against the backdrop of Russia's war against Ukraine and the EU's geopolitical appeal.",
+        "last_published": "2026-09-02T08:06:06+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "eu",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Криструн Фростадотир"
+          ],
+          "parties": [],
+          "institutions": [
+            "Европейски съюз",
+            "Европейски парламент",
+            "Съвет на ЕС"
+          ],
+          "companies": [],
+          "places": [
+            "Исландия",
+            "Украйна",
+            "Молдова",
+            "Русия",
+            "Арктика"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-cb91dd77",
+        "title_bg": "Исландия няма да подновява преговорите за членство в ЕС",
+        "title_en": "In a consultative referendum on 29 August, 52.8% of Icelanders voted against resuming EU accession talks frozen since 2013. The government of Kristrun Frostadottir had pledged to respect the result. The article notes Iceland's deep integration via the EEA and Schengen, its refusal to cede control over fishing waters, and frames the vote against the backdrop of Russia's war against Ukraine and the EU's geopolitical appeal.",
+        "last_published": "2026-09-02T08:06:06+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "eu",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Криструн Фростадотир"
+          ],
+          "parties": [],
+          "institutions": [
+            "Европейски съюз",
+            "Европейски парламент",
+            "Съвет на ЕС"
+          ],
+          "companies": [],
+          "places": [
+            "Исландия",
+            "Украйна",
+            "Молдова",
+            "Русия",
+            "Арктика"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-e39b3ad6",
+        "title_bg": "Исландия няма да подновява преговорите за членство в ЕС",
+        "title_en": "In a consultative referendum on August 29, 52.8% of Icelanders voted against resuming EU accession talks frozen since 2013. The government of Kristrun Frostadottir, which had made membership a priority, said it would respect the result. The article reviews arguments on both sides and the broader context of EU enlargement amid the war in Ukraine.",
+        "last_published": "2026-09-02T08:06:06+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "eu",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Криструн Фростадотир"
+          ],
+          "parties": [],
+          "institutions": [
+            "Европейски съюз",
+            "Европейски парламент",
+            "Съвет на ЕС"
+          ],
+          "companies": [],
+          "places": [
+            "Исландия",
+            "Украйна",
+            "Молдова",
+            "Русия"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "исландия",
+          "няма",
+          "подновява",
+          "преговорите",
+          "членство"
+        ],
+        "shared_entities": [
+          "европейски парламент",
+          "криструн фростадотир",
+          "съвет на ес"
+        ],
+        "shared_places": [
+          "исландия",
+          "молдова",
+          "русия",
+          "украйна"
+        ],
         "title_jaccard": 1.0,
-        "published_gap_hours": 0.3,
+        "published_gap_hours": 0.0,
+        "topic": [
+          "foreign-policy",
+          "eu"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-f296b04344e4b62a",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-08-31T05:05:34.700388+00:00",
+      "last_seen": "2026-08-31T05:27:03.578218+00:00",
+      "keeper": {
+        "id": "20260830-cd3a406c",
+        "title_bg": "Андрей Гюров обявява на 31 август дали ще се кандидатира за президент",
+        "title_en": "Andrey Gyurov said on bTV that clarity about his possible presidential run would come on August 31. Meanwhile, GERB leader Boyko Borisov told party members at the party's national assembly that GERB would compete where they expect to finish first. Less than two months remain until the presidential election.",
+        "last_published": "2026-09-01T03:54:58+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Бойко Борисов",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Божидар Божанов",
+            "Ивайло Мирчев",
+            "Гергана Петрова",
+            "Иван Христанов",
+            "Радостин Василев",
+            "Румен Радев",
+            "Делян Добрев",
+            "Томислав Дончев",
+            "Росен Желязков",
+            "Радостин Танев",
+            "Димитър Вучев",
+            "Стоян Петков",
+            "Живко Тодоров",
+            "Владимир Темелков",
+            "Николов"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Продължаваме Промяната",
+            "Демократична България",
+            "Продължаваме промяната",
+            "ПП",
+            "ДБ",
+            "Прогресивна България"
+          ],
+          "institutions": [
+            "МВР",
+            "Народното събрание",
+            "БНР"
+          ],
+          "companies": [],
+          "places": [
+            "Гоце Делчев",
+            "България",
+            "София",
+            "Стара Загора",
+            "Враца"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260830-83f9af9a",
+        "title_bg": "Андрей Гюров обявява утре дали ще се кандидатира за президент",
+        "title_en": "Andrey Gyurov is expected to announce on Monday whether he will run in the upcoming presidential election. His team says democratic-community political forces are discussing a possible nomination, and Gyurov confirmed clarity is expected early in the week on whether and in what form he will participate.",
+        "last_published": "2026-08-30T18:47:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260830-aa1d0c53",
+        "title_bg": "Андрей Гюров утре ще обяви дали ще се кандидатира за президент",
+        "title_en": "Days before the presidential election, caretaker ex-PM Andrei Gyurov said he will announce tomorrow whether he will run. Boyko Borisov said GERB will compete only where it can finish first and praised Iliana Yotova as a strong candidate. Delian Dobrev urged the party to field its own candidate and harshly attacked a possible Gyurov run, calling him a 'TikTok mannequin'. GERB also announced changes to its executive commission.",
+        "last_published": "2026-08-30T17:12:15+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Делян Добрев",
+            "Томислав Дончев",
+            "Росен Желязков",
+            "Радостин Танев",
+            "Стоян Петков",
+            "Живко Тодоров",
+            "Димитър Вучев",
+            "Владимир Темелков"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "София",
+            "Стара Загора",
+            "Враца"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "андрей",
+          "гюров",
+          "дали",
+          "кандидатира",
+          "президент",
+          "утре"
+        ],
+        "shared_entities": [
+          "андрей гюров"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.857,
+        "published_gap_hours": 1.58,
         "topic": [
           "elections-parliamentary",
           "campaign"
@@ -137,8 +706,8 @@
     },
     {
       "id": "story-merge-0a16c4cf76f7b866",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -251,8 +820,8 @@
     },
     {
       "id": "story-merge-0a6e29c642f4577f",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -386,8 +955,8 @@
     },
     {
       "id": "story-merge-10e3d92afb5d4f84",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -501,8 +1070,8 @@
     },
     {
       "id": "story-merge-1468cedf1ef4cb97",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -616,8 +1185,8 @@
     },
     {
       "id": "story-merge-1762cf218dde35b4",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -756,8 +1325,8 @@
     },
     {
       "id": "story-merge-18bc11425eed41dd",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -878,8 +1447,8 @@
     },
     {
       "id": "story-merge-197c404e1c8cda9a",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -996,9 +1565,166 @@
       }
     },
     {
+      "id": "story-merge-1e8287821d79e65c",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-1b705591",
+        "title_bg": "Рокада на върха: Смениха Съвета на директорите на „Холдинг Б...",
+        "title_en": "Transport Minister Georgi Peev appointed a new supervisory board of BDZ Holding — Ivan Lichev, Kristian Vaklinov and eng. Kencho Hristov — to ensure continuity until a competitive selection under the Public Enterprises Act. Borislav Arnautov, Georgi Velkov and Lyudmil Ivanov were dismissed. The new board will elect an executive director.",
+        "last_published": "2026-09-02T08:35:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "officials-people",
+            "subcategory": "appointments"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Холдинг БДЖ ЕАД",
+            "Министерство на транспорта и съобщенията",
+            "БДЖ – Товарни превози",
+            "БДЖ – Пътнически превози"
+          ],
+          "companies": [
+            "Холдинг БДЖ ЕАД",
+            "БДЖ – Товарни превози",
+            "БДЖ – Пътнически превози"
+          ],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260902-fd8ac599",
+        "title_bg": "Смениха състава на Съвета на директорите на \"Холдинг БДЖ\"",
+        "title_en": "Transport Minister Georgi Peev appointed a new board of directors of Holding BDZ, naming Ivan Lichev as independent member, railway expert Kristian Vaklinov and engineer Kuncho Hristov, while dismissing the previous members Borislav Arnautov, Georgi Velkov and Lyudmil Ivanov, pending a competitive selection procedure under the Public Enterprises Act.",
+        "last_published": "2026-09-02T07:51:00+00:00",
+        "topics": [
+          {
+            "category": "officials-people",
+            "subcategory": "appointments",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на транспорта и съобщенията",
+            "Холдинг БДЖ ЕАД",
+            "БДЖ - Пътнически превози ЕООД",
+            "БДЖ - Товарни превози ЕООД",
+            "Български пощи ЕАД",
+            "Община Казанлък"
+          ],
+          "companies": [
+            "Холдинг БДЖ ЕАД",
+            "БДЖ - Пътнически превози ЕООД",
+            "БДЖ - Товарни превози ЕООД",
+            "Български пощи ЕАД",
+            "Dietsmann Energoremont Holding AD",
+            "Енергоремонт холдинг АД"
+          ],
+          "places": [
+            "София",
+            "Пазарджик",
+            "Добринище",
+            "Якоруда",
+            "Казанлък",
+            "Осака"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-d93227ed",
+        "title_bg": "Назначиха нов състав на Съвета на директорите на „Холдинг БДЖ“",
+        "title_en": "Transport Minister Georgi Peev appointed a new board of directors of Holding BDZH, naming Ivan Lichev, Kristian Vaklinov and eng. Kencho Hristov, while releasing Borislav Arnaudov, Georgi Velkov and Lyudmil Ivanov. The change is temporary until a competitive selection procedure under the Public Enterprises Act, and the new board is expected to choose an executive director.",
+        "last_published": "2026-09-02T07:31:18+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "officials-people",
+            "subcategory": "appointments"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на транспорта и съобщенията",
+            "Холдинг БДЖ ЕАД",
+            "БДЖ - Товарни превози",
+            "БДЖ - Пътнически превози"
+          ],
+          "companies": [
+            "Холдинг БДЖ ЕАД",
+            "БДЖ - Товарни превози",
+            "БДЖ - Пътнически превози"
+          ],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "бдж",
+          "директорите",
+          "съвета",
+          "холдинг"
+        ],
+        "shared_entities": [
+          "борислав арнаудов",
+          "георги велков",
+          "георги пеев",
+          "иван личев",
+          "кристиан ваклинов",
+          "кънчо христов",
+          "людмил иванов",
+          "министерство на транспорта и съобщенията",
+          "холдинг бдж еад"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.444,
+        "published_gap_hours": 0.33,
+        "topic": [
+          "officials-people",
+          "appointments"
+        ]
+      }
+    },
+    {
       "id": "story-merge-248859b477369dd5",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -1132,8 +1858,8 @@
     },
     {
       "id": "story-merge-28e545717669a35e",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -1254,8 +1980,8 @@
     },
     {
       "id": "story-merge-2ab4cbba092cff30",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -1435,8 +2161,8 @@
     },
     {
       "id": "story-merge-2c82eb524fd08c91",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -1577,8 +2303,8 @@
     },
     {
       "id": "story-merge-2f31969cb0030a8a",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -1691,8 +2417,8 @@
     },
     {
       "id": "story-merge-2f78ff659a72fff0",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -1849,9 +2575,207 @@
       }
     },
     {
+      "id": "story-merge-3029aef0b1da2b44",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-2e6d9b7b",
+        "title_bg": "Важно за всички пациенти: НЗОК предлага 10% увеличение на кл...",
+        "title_en": "The Bulgarian National Health Insurance Fund (NHIF) proposes a 10% increase in the value of clinical pathways from September 1 and a 4.4% increase for primary and specialized outpatient care backdated to January 1, announced NHIF head Asen Medzhidiev. A key idea is that 20% of each clinical pathway's value be earmarked for medical staff, including resident physicians. The National Framework Agreement parameters are expected to be signed on Friday, and from October the eHealth app will add a financial module showing patients what the state has paid for their care.",
+        "last_published": "2026-09-02T08:20:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "healthcare",
+            "subcategory": "nzok"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Асен Меджидиев"
+          ],
+          "parties": [],
+          "institutions": [
+            "НЗОК"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260902-2e6d9b7b",
+        "title_bg": "Важно за всички пациенти: НЗОК предлага 10% увеличение на кл...",
+        "title_en": "The Bulgarian National Health Insurance Fund (NHIF) proposes a 10% increase in the value of clinical pathways from September 1 and a 4.4% increase for primary and specialized outpatient care backdated to January 1, announced NHIF head Asen Medzhidiev. A key idea is that 20% of each clinical pathway's value be earmarked for medical staff, including resident physicians. The National Framework Agreement parameters are expected to be signed on Friday, and from October the eHealth app will add a financial module showing patients what the state has paid for their care.",
+        "last_published": "2026-09-02T08:20:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "healthcare",
+            "subcategory": "nzok"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Асен Меджидиев"
+          ],
+          "parties": [],
+          "institutions": [
+            "НЗОК"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-df3daef7",
+        "title_bg": "НЗОК предлага увеличение клиничните пътеки с 10%",
+        "title_en": "The National Health Insurance Fund (NHIF) proposes a 10% increase in clinical pathways from September 1, announced NHIF head Asen Medzhidiev. Primary and specialized outpatient care payments will rise by 4.4% from January 1. After the National Framework Contract is voted, negotiations will begin on pricing medical staff labor, aiming for 20% of each pathway's value to go to personnel. From October, the eHealth app will add a financial module, and its public control feature has received 32 reports in a month, leading to five contract termination orders.",
+        "last_published": "2026-09-02T07:40:41+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "healthcare",
+            "subcategory": "nzok"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Асен Меджидиев",
+            "Ивайло Стойчев",
+            "Велик Григоров"
+          ],
+          "parties": [],
+          "institutions": [
+            "НЗОК",
+            "Национална здравноосигурителна каса"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "нзок",
+          "предлага",
+          "увеличение"
+        ],
+        "shared_entities": [
+          "асен меджидиев",
+          "нзок"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.375,
+        "published_gap_hours": 0.66,
+        "topic": [
+          "healthcare",
+          "nzok"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-379e5d8e8a89a38e",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T08:58:49.950685+00:00",
+      "last_seen": "2026-09-02T08:58:49.950685+00:00",
+      "keeper": {
+        "id": "20260902-554a0beb",
+        "title_bg": "ЦИК започва регистрацията на партиите и коалициите за президентските избори",
+        "title_en": "Starting September 2, the Central Election Commission accepts registration documents from parties and coalitions for the presidential election on October 25. Party and coalition applications are due by September 9, citizens' initiative committees may apply between September 7 and 14, and candidate pairs must be submitted by September 22. A lottery on September 23 will set the ballot order.",
+        "last_published": "2026-09-02T04:04:38+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [],
+          "institutions": [
+            "Централна избирателна комисия",
+            "ЦИК"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260902-554a0beb",
+        "title_bg": "ЦИК започва регистрацията на партиите и коалициите за президентските избори",
+        "title_en": "Starting September 2, the Central Election Commission accepts registration documents from parties and coalitions for the presidential election on October 25. Party and coalition applications are due by September 9, citizens' initiative committees may apply between September 7 and 14, and candidate pairs must be submitted by September 22. A lottery on September 23 will set the ballot order.",
+        "last_published": "2026-09-02T04:04:38+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [],
+          "institutions": [
+            "Централна избирателна комисия",
+            "ЦИК"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-b8db8042",
+        "title_bg": "ЦИК започва регистрацията на партиите и коалициите за президентските избори",
+        "title_en": "The Central Election Commission begins accepting registration documents from parties and coalitions for the presidential election on October 25. Party and coalition registration runs until September 9, citizens' initiative committees may file from September 7 to 14, and candidate pairs must be submitted by September 22, with ballot order drawn by lot the next day.",
+        "last_published": "2026-09-02T03:35:31+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [],
+          "institutions": [
+            "Централна избирателна комисия"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "започва",
+          "избори",
+          "коалициите",
+          "партиите",
+          "президентските",
+          "регистрацията",
+          "цик"
+        ],
+        "shared_entities": [
+          "централна избирателна комисия"
+        ],
+        "shared_places": [],
+        "title_jaccard": 1.0,
+        "published_gap_hours": 0.49,
+        "topic": [
+          "elections-parliamentary",
+          "cik-administration"
+        ]
+      }
+    },
+    {
       "id": "story-merge-3af9f29d09035291",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -1970,149 +2894,146 @@
       }
     },
     {
-      "id": "story-merge-58bf0a128ffa15af",
-      "status": "pending",
-      "active": true,
-      "first_seen": "2026-08-31T05:05:34.700388+00:00",
-      "last_seen": "2026-08-31T05:27:03.578218+00:00",
+      "id": "story-merge-3f5da076f44ef599",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
       "keeper": {
-        "id": "20260830-261559b2",
-        "title_bg": "Коментар на седмицата №2: Руси и украинци четат на фронта за печата на Ирина Комнина от Перперикон",
-        "title_en": "A weekly commentary on the international coverage of the discovery of the personal seal of Byzantine Empress Irene Komnene Doukaina Laskarina at Perperikon. The author reviews publications in the US, Greece, Romania, Turkey, Russia and Ukraine, recalls the empress's role in negotiations with Tsar Ivan Asen II after the 1230 Battle of Klokotnitsa, and highlights sigillographer Dimitar Stoyomenov, who identified the seal's owner.",
-        "last_published": "2026-08-30T17:15:00+00:00",
+        "id": "20260902-5f49ada3",
+        "title_bg": "Андрей Гюров: Не търгувам подкрепа, очаквам гласове и от ГЕРБ, и от ПБ",
+        "title_en": "Presidential candidate Andrey Gyurov, nominated by an citizens' initiative committee, said in a Nova TV interview that he does not trade support for posts and hopes for votes from GERB, Progressive Bulgaria and BSP voters. He defended the constitutional changes behind the so-called 'house book' for caretaker PM nominations, criticized concentration of power, and alluded to the Russian Putin-Medvedev rotation model regarding Radev and Yotova. He praised Ivan Kostov's reforms, who has publicly endorsed him, and explained his choice of Georgi Kandev as running mate.",
+        "last_published": "2026-09-02T09:00:00+00:00",
         "topics": [
           {
-            "category": "society",
-            "subcategory": "human-interest",
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
             "primary": true
           }
         ],
         "entities": {
           "people": [
-            "Ирина Комнина Дукина Ласкарина",
-            "Димитър Стоименов",
-            "Иван Йорданов"
+            "Андрей Гюров",
+            "Бойко Борисов",
+            "Владислав Горанов",
+            "Илия Лазаров",
+            "Илияна Йотова",
+            "Румен Радев",
+            "Иван Костов",
+            "Георги Кандев",
+            "Владимир Путин",
+            "Дмитрий Медведев"
           ],
-          "parties": [],
-          "institutions": [],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България",
+            "Да, България",
+            "ДСБ",
+            "БСП",
+            "СДС"
+          ],
+          "institutions": [
+            "президентската институция",
+            "Нова телевизия"
+          ],
           "companies": [],
           "places": [
-            "Перперикон",
-            "Клокотница"
+            "България"
           ]
         }
       },
       "matched": {
-        "id": "20260830-261559b2",
-        "title_bg": "Коментар на седмицата №2: Руси и украинци четат на фронта за печата на Ирина Комнина от Перперикон",
-        "title_en": "A weekly commentary on the international coverage of the discovery of the personal seal of Byzantine Empress Irene Komnene Doukaina Laskarina at Perperikon. The author reviews publications in the US, Greece, Romania, Turkey, Russia and Ukraine, recalls the empress's role in negotiations with Tsar Ivan Asen II after the 1230 Battle of Klokotnitsa, and highlights sigillographer Dimitar Stoyomenov, who identified the seal's owner.",
-        "last_published": "2026-08-30T17:15:00+00:00",
+        "id": "20260902-4985d66d",
+        "title_bg": "Андрей Гюров очаква подкрепа и от избиратели на ГЕРБ и „Прогресивна България“",
+        "title_en": "Former caretaker prime minister and presidential candidate Andrey Gyurov said in a Nova TV interview that the presidential race will be decided by citizens, not party headquarters, and expects support from voters of GERB and 'Progressive Bulgaria'. He criticized concentration of power, said Iliana Yotova hardly distances herself from Rumen Radev's politics, proposed improving the 'domova kniga' mechanism for caretaker governments, linked high prices to the budget deficit, and introduced his vice-presidential running mate Georgi Kandev.",
+        "last_published": "2026-09-02T05:50:43+00:00",
         "topics": [
           {
-            "category": "society",
-            "subcategory": "human-interest",
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
             "primary": true
           }
         ],
         "entities": {
           "people": [
-            "Ирина Комнина Дукина Ласкарина",
-            "Димитър Стоименов",
-            "Иван Йорданов"
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Румен Радев"
           ],
-          "parties": [],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
           "institutions": [],
           "companies": [],
           "places": [
-            "Перперикон",
-            "Клокотница"
+            "България",
+            "Европа"
           ]
         }
       },
       "candidate": {
-        "id": "20260829-488c74b7",
-        "title_bg": "Руси и украинци четат на фронта за печата на Ирина Комнина от Перперикон",
-        "title_en": "The author surveys international coverage of the discovery at Perperikon of the personal seal of Byzantine empress Irene Komnene Doukaina Laskarina — publications in the USA, Greece, Romania, Turkey, and, surprisingly, Russian and Ukrainian media despite the war. He outlines Irene's role in relations between the Nicaean Empire and the Second Bulgarian Empire after the 1230 Battle of Klokotnitsa, including recognition of the Bulgarian Patriarchate and the dynastic marriage with Elena, daughter of Tsar Ivan Asen II, and credits sigillographer Dimitar Stoyomenov.",
-        "last_published": "2026-08-29T17:00:00+00:00",
+        "id": "20260902-1a0ac012",
+        "title_bg": "Андрей Гюров очаква ГЕРБ да го подкрепи за президент",
+        "title_en": "Presidential candidate Andrey Gyurov, running with Georgi Kandev, said he will not negotiate with party headquarters but expects support from voters of GERB, including from Boyko Borisov, and from voters of Progressive Bulgaria, whose leader backs Iliana Yotova. He named Ivan Kostov's government as the most successful.",
+        "last_published": "2026-09-02T06:05:02+00:00",
         "topics": [
           {
-            "category": "society",
-            "subcategory": "human-interest",
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
             "primary": true
           }
         ],
         "entities": {
           "people": [
-            "Ирина Комнина Дукина Ласкарина",
-            "Димитър Стоименов",
-            "Иван Йорданов",
-            "Иван Асен II",
-            "Теодор I Ласкарис",
-            "Теодор II Ласкарис",
-            "Йоан III Ватаци",
-            "Елена",
-            "Ниха Захид",
-            "Янис Кацарос",
-            "Леман Алтунташ",
-            "Кристиана Дида",
-            "Александър Попеску",
-            "Бен Леонард",
-            "Татяна Шчеглова",
-            "Антон Ходоренко",
-            "Татяна Лаврухина",
-            "Татяна Лопухина"
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Иван Костов"
           ],
-          "parties": [],
-          "institutions": [
-            "Перперикон"
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
           ],
+          "institutions": [],
           "companies": [],
           "places": [
-            "Перперикон",
-            "Клокотница",
-            "Гърция",
-            "Румъния",
-            "Турция",
-            "Египет",
-            "Санкт-Петербург",
-            "Атина",
-            "Ню Йорк"
+            "България"
           ]
         }
       },
       "evidence": {
         "confidence": "high",
         "shared_title_tokens": [
-          "ирина",
-          "комнина",
-          "перперикон",
-          "печата",
-          "руси",
-          "украинци",
-          "фронта",
-          "четат"
+          "андрей",
+          "герб",
+          "гюров",
+          "очаква"
         ],
         "shared_entities": [
-          "димитър стоименов",
-          "иван йорданов",
-          "ирина комнина дукина ласкарина"
+          "андрей гюров",
+          "георги кандев",
+          "герб",
+          "илияна йотова",
+          "прогресивна българия"
         ],
         "shared_places": [
-          "клокотница",
-          "перперикон"
+          "българия"
         ],
-        "title_jaccard": 0.8,
-        "published_gap_hours": 24.25,
+        "title_jaccard": 0.4,
+        "published_gap_hours": 0.24,
         "topic": [
-          "society",
-          "human-interest"
+          "elections-parliamentary",
+          "campaign"
         ]
       }
     },
     {
       "id": "story-merge-5937540ee94fefae",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -2230,9 +3151,112 @@
       }
     },
     {
+      "id": "story-merge-5b737593dd45cd52",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T08:58:49.950685+00:00",
+      "last_seen": "2026-09-02T08:58:49.950685+00:00",
+      "keeper": {
+        "id": "20260902-c0c262c4",
+        "title_bg": "Екзотична идея: Агенти на ДАНС да работят и като психотерапевти",
+        "title_en": "Proposed legislative amendments would allow agents of the State Agency for National Security (DANS) to also work as psychotherapists. National security expert Prof. Nikolay Radulov criticized the idea as another 'exotic' proposal from recent years and quipped that if the agency has so many psychologists with spare time, most should be laid off.",
+        "last_published": "2026-09-02T05:44:00+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "intelligence",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260902-c0c262c4",
+        "title_bg": "Екзотична идея: Агенти на ДАНС да работят и като психотерапевти",
+        "title_en": "Proposed legislative amendments would allow agents of the State Agency for National Security (DANS) to also work as psychotherapists. National security expert Prof. Nikolay Radulov criticized the idea as another 'exotic' proposal from recent years and quipped that if the agency has so many psychologists with spare time, most should be laid off.",
+        "last_published": "2026-09-02T05:44:00+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "intelligence",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-cf8e54db",
+        "title_bg": "Предложения за промени: Ще могат ли агенти на ДАНС да работят и като психотерапевти",
+        "title_en": "Proposed legislative amendments published for public consultation would allow DANS (State Agency for National Security) agents to also work as psychotherapists. National security expert Prof. Nikolay Radulov commented on Nova TV that such 'exotic ideas' have been a tradition at the agency for 10-15 years, and assessed the proposal as an attempt to expand DANS's information reach without using covert operational tools, noting that Western European services use external psychologists when needed.",
+        "last_published": "2026-09-02T05:16:38+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "primary": true,
+            "subcategory": "intelligence"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "агенти",
+          "данс",
+          "като",
+          "психотерапевти",
+          "работят"
+        ],
+        "shared_entities": [
+          "данс",
+          "николай радулов"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.5,
+        "published_gap_hours": 0.46,
+        "topic": [
+          "security-defense",
+          "intelligence"
+        ]
+      }
+    },
+    {
       "id": "story-merge-5f3e6cfeea05d718",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -2381,8 +3405,8 @@
     },
     {
       "id": "story-merge-5f5e3e6e91c63c2c",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -2493,9 +3517,166 @@
       }
     },
     {
+      "id": "story-merge-612bc110025bcf8a",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-1b705591",
+        "title_bg": "Рокада на върха: Смениха Съвета на директорите на „Холдинг Б...",
+        "title_en": "Transport Minister Georgi Peev appointed a new supervisory board of BDZ Holding — Ivan Lichev, Kristian Vaklinov and eng. Kencho Hristov — to ensure continuity until a competitive selection under the Public Enterprises Act. Borislav Arnautov, Georgi Velkov and Lyudmil Ivanov were dismissed. The new board will elect an executive director.",
+        "last_published": "2026-09-02T08:35:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "officials-people",
+            "subcategory": "appointments"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Холдинг БДЖ ЕАД",
+            "Министерство на транспорта и съобщенията",
+            "БДЖ – Товарни превози",
+            "БДЖ – Пътнически превози"
+          ],
+          "companies": [
+            "Холдинг БДЖ ЕАД",
+            "БДЖ – Товарни превози",
+            "БДЖ – Пътнически превози"
+          ],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260902-1b705591",
+        "title_bg": "Рокада на върха: Смениха Съвета на директорите на „Холдинг Б...",
+        "title_en": "Transport Minister Georgi Peev appointed a new supervisory board of BDZ Holding — Ivan Lichev, Kristian Vaklinov and eng. Kencho Hristov — to ensure continuity until a competitive selection under the Public Enterprises Act. Borislav Arnautov, Georgi Velkov and Lyudmil Ivanov were dismissed. The new board will elect an executive director.",
+        "last_published": "2026-09-02T08:35:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "officials-people",
+            "subcategory": "appointments"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Холдинг БДЖ ЕАД",
+            "Министерство на транспорта и съобщенията",
+            "БДЖ – Товарни превози",
+            "БДЖ – Пътнически превози"
+          ],
+          "companies": [
+            "Холдинг БДЖ ЕАД",
+            "БДЖ – Товарни превози",
+            "БДЖ – Пътнически превози"
+          ],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-fd8ac599",
+        "title_bg": "Смениха състава на Съвета на директорите на \"Холдинг БДЖ\"",
+        "title_en": "Transport Minister Georgi Peev appointed a new board of directors of Holding BDZ, naming Ivan Lichev as independent member, railway expert Kristian Vaklinov and engineer Kuncho Hristov, while dismissing the previous members Borislav Arnautov, Georgi Velkov and Lyudmil Ivanov, pending a competitive selection procedure under the Public Enterprises Act.",
+        "last_published": "2026-09-02T07:51:00+00:00",
+        "topics": [
+          {
+            "category": "officials-people",
+            "subcategory": "appointments",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на транспорта и съобщенията",
+            "Холдинг БДЖ ЕАД",
+            "БДЖ - Пътнически превози ЕООД",
+            "БДЖ - Товарни превози ЕООД",
+            "Български пощи ЕАД",
+            "Община Казанлък"
+          ],
+          "companies": [
+            "Холдинг БДЖ ЕАД",
+            "БДЖ - Пътнически превози ЕООД",
+            "БДЖ - Товарни превози ЕООД",
+            "Български пощи ЕАД",
+            "Dietsmann Energoremont Holding AD",
+            "Енергоремонт холдинг АД"
+          ],
+          "places": [
+            "София",
+            "Пазарджик",
+            "Добринище",
+            "Якоруда",
+            "Казанлък",
+            "Осака"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "директорите",
+          "смениха",
+          "съвета",
+          "холдинг"
+        ],
+        "shared_entities": [
+          "борислав арнаудов",
+          "георги велков",
+          "георги пеев",
+          "иван личев",
+          "кристиан ваклинов",
+          "кънчо христов",
+          "людмил иванов",
+          "министерство на транспорта и съобщенията",
+          "холдинг бдж еад"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.5,
+        "published_gap_hours": 0.73,
+        "topic": [
+          "officials-people",
+          "appointments"
+        ]
+      }
+    },
+    {
       "id": "story-merge-61fb9477638c4879",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -2597,8 +3778,8 @@
     },
     {
       "id": "story-merge-67f4e636a2c59979",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -2729,8 +3910,8 @@
     },
     {
       "id": "story-merge-684d167d352e6946",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -2871,8 +4052,8 @@
     },
     {
       "id": "story-merge-685fcd6cee65ec1f",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -3001,8 +4182,8 @@
     },
     {
       "id": "story-merge-69a31cd98cffc48f",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -3155,8 +4336,8 @@
     },
     {
       "id": "story-merge-6aa23c7f983a64e5",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -3293,8 +4474,8 @@
     },
     {
       "id": "story-merge-6f1f80e5110bc565",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -3414,16 +4595,243 @@
       }
     },
     {
-      "id": "story-merge-7c21af92883e62f8",
-      "status": "pending",
-      "active": true,
-      "first_seen": "2026-08-31T05:05:34.700388+00:00",
-      "last_seen": "2026-08-31T05:27:03.578218+00:00",
+      "id": "story-merge-7344b2af734bbc25",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T06:44:11.178949+00:00",
+      "last_seen": "2026-09-02T06:44:11.178949+00:00",
       "keeper": {
-        "id": "20260830-cd3a406c",
-        "title_bg": "Андрей Гюров обявява на 31 август дали ще се кандидатира за президент",
-        "title_en": "Andrey Gyurov said on bTV that clarity about his possible presidential run would come on August 31. Meanwhile, GERB leader Boyko Borisov told party members at the party's national assembly that GERB would compete where they expect to finish first. Less than two months remain until the presidential election.",
-        "last_published": "2026-09-01T03:54:58+00:00",
+        "id": "20260902-54c61bb8",
+        "title_bg": "Благомир Коцев е подписал нови три заповеди за премахване на незаконни сгради в Баба Алино",
+        "title_en": "Varna mayor Blagomir Kotsev announced on Facebook that he has signed three new demolition orders for illegal buildings in the Baba Alino area near Varna, bringing the total to 19, with four more expected soon. After VeV and Energo PRO complete inspections of illegal utility connections, physical access to the buildings will be restricted with stickers on doors and tape around unfinished foundations. Kotsev noted that deceived owners can seek justice from the investor who misled them.",
+        "last_published": "2026-09-02T05:33:48+00:00",
+        "topics": [
+          {
+            "category": "local-news",
+            "primary": true,
+            "subcategory": "municipal-problems"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Благомир Коцев"
+          ],
+          "parties": [],
+          "institutions": [
+            "Община Варна"
+          ],
+          "companies": [
+            "Енерго ПРО"
+          ],
+          "places": [
+            "Варна",
+            "Баба Алино",
+            "Алино"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-54c61bb8",
+        "title_bg": "Благомир Коцев е подписал нови три заповеди за премахване на незаконни сгради в Баба Алино",
+        "title_en": "Varna mayor Blagomir Kotsev announced on Facebook that he has signed three new demolition orders for illegal buildings in the Baba Alino area near Varna, bringing the total to 19, with four more expected soon. After VeV and Energo PRO complete inspections of illegal utility connections, physical access to the buildings will be restricted with stickers on doors and tape around unfinished foundations. Kotsev noted that deceived owners can seek justice from the investor who misled them.",
+        "last_published": "2026-09-02T05:33:48+00:00",
+        "topics": [
+          {
+            "category": "local-news",
+            "primary": true,
+            "subcategory": "municipal-problems"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Благомир Коцев"
+          ],
+          "parties": [],
+          "institutions": [
+            "Община Варна"
+          ],
+          "companies": [
+            "Енерго ПРО"
+          ],
+          "places": [
+            "Варна",
+            "Баба Алино",
+            "Алино"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-cd00e0d1",
+        "title_bg": "Кметът на Варна е подписал още три заповеди за бутане на незаконни сгради в \"Баба Алино\"",
+        "title_en": "Varna mayor Blagomir Kotsev announced he has signed three more demolition orders for illegal buildings in the Baba Alino area near Varna, bringing the total to 19, with four more expected. Access to the sites will be restricted after utility inspections.",
+        "last_published": "2026-09-02T04:17:00+00:00",
+        "topics": [
+          {
+            "category": "local-news",
+            "primary": true,
+            "subcategory": "municipal-problems"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Благомир Коцев"
+          ],
+          "parties": [],
+          "institutions": [
+            "Община Варна"
+          ],
+          "companies": [
+            "Енерго ПРО"
+          ],
+          "places": [
+            "Варна",
+            "Баба Алино"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "алино",
+          "баба",
+          "заповеди",
+          "незаконни",
+          "подписал",
+          "сгради",
+          "три"
+        ],
+        "shared_entities": [
+          "благомир коцев",
+          "енерго про",
+          "община варна"
+        ],
+        "shared_places": [
+          "баба алино",
+          "варна"
+        ],
+        "title_jaccard": 0.5,
+        "published_gap_hours": 1.28,
+        "topic": [
+          "local-news",
+          "municipal-problems"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-73e70d9229c7f4a2",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T06:44:11.178949+00:00",
+      "last_seen": "2026-09-02T06:44:11.178949+00:00",
+      "keeper": {
+        "id": "20260902-3f1e38cb",
+        "title_bg": "ЦИК с важни новини за изборите: Видеонаблюдение във всяка се...",
+        "title_en": "CIK spokesperson Stoyanka Balova-Tsvetkova announced that video surveillance will be installed in every polling station. Repairs of about 12,800 voting machines must be completed by October 15, followed by certification; machine voting is planned in over 9,400 sections. The commission is preparing an information campaign with about 200 demonstration machines. District election commissions have been formed in 17 regions, while in the remaining 14 they will be appointed by default if parties fail to agree by Friday.",
+        "last_published": "2026-09-02T04:45:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Стоянка Балова-Цветкова"
+          ],
+          "parties": [],
+          "institutions": [
+            "Централна избирателна комисия (ЦИК)",
+            "Районни избирателни комисии (РИК)"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260902-3f1e38cb",
+        "title_bg": "ЦИК с важни новини за изборите: Видеонаблюдение във всяка се...",
+        "title_en": "CIK spokesperson Stoyanka Balova-Tsvetkova announced that video surveillance will be installed in every polling station. Repairs of about 12,800 voting machines must be completed by October 15, followed by certification; machine voting is planned in over 9,400 sections. The commission is preparing an information campaign with about 200 demonstration machines. District election commissions have been formed in 17 regions, while in the remaining 14 they will be appointed by default if parties fail to agree by Friday.",
+        "last_published": "2026-09-02T04:45:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "cik-administration",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Стоянка Балова-Цветкова"
+          ],
+          "parties": [],
+          "institutions": [
+            "Централна избирателна комисия (ЦИК)",
+            "Районни избирателни комисии (РИК)"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-9bf79fff",
+        "title_bg": "Ще има видеонаблюдение във всяка една секция за изборите",
+        "title_en": "CIK spokesperson Stoyanka Balova-Tsvetkova said video surveillance will be installed in every polling section at the upcoming elections. Repairs of about 12,800 voting machines must be completed by October 15, followed by certification; over 9,400 sections will use machine voting. The CIK plans an information campaign with about 200 demonstration machines. District election commissions have been formed in 17 regions but not in 14; if no agreement is reached by Friday, members will be appointed officially. Consultations with parliamentary parties on section commissions run until September 19.",
+        "last_published": "2026-09-02T03:05:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "primary": true,
+            "subcategory": "cik-administration"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Стоянка Балова-Цветкова"
+          ],
+          "parties": [],
+          "institutions": [
+            "Централна избирателна комисия (ЦИК)",
+            "Районни избирателни комисии (РИК)",
+            "Секционни избирателни комисии"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "видеонаблюдение",
+          "всяка",
+          "във",
+          "изборите"
+        ],
+        "shared_entities": [
+          "районни избирателни комисии (рик)",
+          "стоянка балова-цветкова",
+          "централна избирателна комисия (цик)"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.444,
+        "published_gap_hours": 1.67,
+        "topic": [
+          "elections-parliamentary",
+          "cik-administration"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-74776d6df7f6284a",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-b78ba6ac",
+        "title_bg": "Кандев: Добре дошли в щаба",
+        "title_en": "Vice-presidential candidate Georgi Kandev announced in a video address that he is joining presidential candidate Andrey Gyurov for the upcoming October elections, praising him as offering a project for a modern and rich Bulgaria and promising support in the security field.",
+        "last_published": "2026-09-02T08:22:16+00:00",
         "topics": [
           {
             "category": "elections-parliamentary",
@@ -3433,35 +4841,22 @@
         ],
         "entities": {
           "people": [
-            "Андрей Гюров",
-            "Бойко Борисов",
             "Георги Кандев",
-            "Илияна Йотова",
-            "Божидар Божанов"
+            "Андрей Гюров"
           ],
-          "parties": [
-            "ГЕРБ",
-            "Продължаваме Промяната",
-            "Демократична България",
-            "Продължаваме промяната"
-          ],
-          "institutions": [
-            "МВР",
-            "Народното събрание",
-            "БНР"
-          ],
+          "parties": [],
+          "institutions": [],
           "companies": [],
           "places": [
-            "Гоце Делчев",
             "България"
           ]
         }
       },
       "matched": {
-        "id": "20260830-aa1d0c53",
-        "title_bg": "Андрей Гюров утре ще обяви дали ще се кандидатира за президент",
-        "title_en": "Days before the presidential election, caretaker ex-PM Andrei Gyurov said he will announce tomorrow whether he will run. Boyko Borisov said GERB will compete only where it can finish first and praised Iliana Yotova as a strong candidate. Delian Dobrev urged the party to field its own candidate and harshly attacked a possible Gyurov run, calling him a 'TikTok mannequin'. GERB also announced changes to its executive commission.",
-        "last_published": "2026-08-30T17:12:15+00:00",
+        "id": "20260902-b78ba6ac",
+        "title_bg": "Кандев: Добре дошли в щаба",
+        "title_en": "Vice-presidential candidate Georgi Kandev announced in a video address that he is joining presidential candidate Andrey Gyurov for the upcoming October elections, praising him as offering a project for a modern and rich Bulgaria and promising support in the security field.",
+        "last_published": "2026-09-02T08:22:16+00:00",
         "topics": [
           {
             "category": "elections-parliamentary",
@@ -3471,45 +4866,32 @@
         ],
         "entities": {
           "people": [
-            "Андрей Гюров",
-            "Бойко Борисов",
-            "Илияна Йотова",
-            "Делян Добрев",
-            "Томислав Дончев",
-            "Росен Желязков",
-            "Радостин Танев",
-            "Стоян Петков",
-            "Живко Тодоров",
-            "Димитър Вучев",
-            "Владимир Темелков"
+            "Георги Кандев",
+            "Андрей Гюров"
           ],
-          "parties": [
-            "ГЕРБ",
-            "Прогресивна България"
-          ],
+          "parties": [],
           "institutions": [],
           "companies": [],
           "places": [
-            "София",
-            "Стара Загора",
-            "Враца"
+            "България"
           ]
         }
       },
       "candidate": {
-        "id": "20260830-83f9af9a",
-        "title_bg": "Андрей Гюров обявява утре дали ще се кандидатира за президент",
-        "title_en": "Andrey Gyurov is expected to announce on Monday whether he will run in the upcoming presidential election. His team says democratic-community political forces are discussing a possible nomination, and Gyurov confirmed clarity is expected early in the week on whether and in what form he will participate.",
-        "last_published": "2026-08-30T18:47:00+00:00",
+        "id": "20260902-7b99cd51",
+        "title_bg": "\"Добре дошли в щаба\": Кандев с първо ВИДЕО като кандидат за ...",
+        "title_en": "Georgi Kandev announced in a video address that he is running for vice president alongside Andrei Gyurov, whose presidential candidacy was officially declared the previous day. Kandev said he would contribute his security expertise and stressed he has been depoliticized his whole life and dislikes backroom deals.",
+        "last_published": "2026-09-02T07:45:00+00:00",
         "topics": [
           {
+            "primary": true,
             "category": "elections-parliamentary",
-            "subcategory": "campaign",
-            "primary": true
+            "subcategory": "campaign"
           }
         ],
         "entities": {
           "people": [
+            "Георги Кандев",
             "Андрей Гюров"
           ],
           "parties": [],
@@ -3521,19 +4903,18 @@
       "evidence": {
         "confidence": "high",
         "shared_title_tokens": [
-          "андрей",
-          "гюров",
-          "дали",
-          "кандидатира",
-          "президент",
-          "утре"
+          "добре",
+          "дошли",
+          "кандев",
+          "щаба"
         ],
         "shared_entities": [
-          "андрей гюров"
+          "андрей гюров",
+          "георги кандев"
         ],
         "shared_places": [],
-        "title_jaccard": 0.857,
-        "published_gap_hours": 1.58,
+        "title_jaccard": 0.5,
+        "published_gap_hours": 0.62,
         "topic": [
           "elections-parliamentary",
           "campaign"
@@ -3541,9 +4922,247 @@
       }
     },
     {
+      "id": "story-merge-756790d1e868eaf5",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-9a55d53e",
+        "title_bg": "Агенти на ДАНС стават психотерапевти",
+        "title_en": "Draft legislative amendments published for public consultation would allow Bulgarian State Agency for National Security (DANS) agents to also work as psychotherapists. The proposal drew sharp criticism from national security expert Prof. Nikolay Radulov, who called it another 'exotic idea' at the agency, questioned the practical need for it, noted that Western European services typically use external specialists, and even suggested staff cuts if DANS psychologists have that much free time.",
+        "last_published": "2026-09-02T08:51:07+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "security-defense",
+            "subcategory": "intelligence"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Западна Европа"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-c0c262c4",
+        "title_bg": "Екзотична идея: Агенти на ДАНС да работят и като психотерапевти",
+        "title_en": "Proposed legislative amendments would allow agents of the State Agency for National Security (DANS) to also work as psychotherapists. National security expert Prof. Nikolay Radulov criticized the idea as another 'exotic' proposal from recent years and quipped that if the agency has so many psychologists with spare time, most should be laid off.",
+        "last_published": "2026-09-02T05:44:00+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "intelligence",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-cf8e54db",
+        "title_bg": "Предложения за промени: Ще могат ли агенти на ДАНС да работят и като психотерапевти",
+        "title_en": "Proposed legislative amendments published for public consultation would allow DANS (State Agency for National Security) agents to also work as psychotherapists. National security expert Prof. Nikolay Radulov commented on Nova TV that such 'exotic ideas' have been a tradition at the agency for 10-15 years, and assessed the proposal as an attempt to expand DANS's information reach without using covert operational tools, noting that Western European services use external psychologists when needed.",
+        "last_published": "2026-09-02T05:16:38+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "primary": true,
+            "subcategory": "intelligence"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "агенти",
+          "данс",
+          "като",
+          "психотерапевти",
+          "работят"
+        ],
+        "shared_entities": [
+          "данс",
+          "николай радулов"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.5,
+        "published_gap_hours": 0.46,
+        "topic": [
+          "security-defense",
+          "intelligence"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-7c5776b020c34c7c",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-aeee4cd3",
+        "title_bg": "Радев: Компенсирахме години на безхаберие и липса на смелост за реформи за парите по ПВУ",
+        "title_en": "Prime Minister Rumen Radev announced that the government has secured the fifth and sixth payments under the Recovery and Resilience Plan, is cutting product fees for electrical equipment roughly fourfold, and prioritizes completing the Hemus motorway, building the Ruse–Veliko Tarnovo highway and the Vidin–Montana express road. He thanked Deputy PM Atanas Pekanov and the parliamentary majority for passing the reform-related laws.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "eu-funds",
+            "subcategory": "rrf"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Румен Радев",
+            "Атанас Пеканов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерски съвет",
+            "Европейска комисия"
+          ],
+          "companies": [],
+          "places": [
+            "Русе",
+            "Велико Търново",
+            "Видин",
+            "Монтана",
+            "Ботевград"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-aeee4cd3",
+        "title_bg": "Радев: Компенсирахме години на безхаберие и липса на смелост за реформи за парите по ПВУ",
+        "title_en": "Prime Minister Rumen Radev announced that the government has secured the fifth and sixth payments under the Recovery and Resilience Plan, is cutting product fees for electrical equipment roughly fourfold, and prioritizes completing the Hemus motorway, building the Ruse–Veliko Tarnovo highway and the Vidin–Montana express road. He thanked Deputy PM Atanas Pekanov and the parliamentary majority for passing the reform-related laws.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "eu-funds",
+            "subcategory": "rrf"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Румен Радев",
+            "Атанас Пеканов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерски съвет",
+            "Европейска комисия"
+          ],
+          "companies": [],
+          "places": [
+            "Русе",
+            "Велико Търново",
+            "Видин",
+            "Монтана",
+            "Ботевград"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-b62622de",
+        "title_bg": "Радев: За три месеца и половина това правителство трябваше да компенсира години на безхаберие и липса на смелост за реформи",
+        "title_en": "Prime Minister Rumen Radev said the government had to compensate for years of negligence and lack of reform courage in three and a half months to secure the fifth and sixth payments under the EU Recovery and Sustainability Plan. He also announced a drastic reduction of product fees for electronic and electrical equipment and highlighted transport connectivity priorities including the Hemus motorway, the Ruse-Veliko Tarnovo motorway and the Vidin-Montana express road.",
+        "last_published": "2026-09-02T07:56:39+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "eu-funds",
+            "subcategory": "rrf"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Румен Радев",
+            "Пеканов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерски съвет",
+            "Европейска комисия"
+          ],
+          "companies": [],
+          "places": [
+            "Ботевград",
+            "Велико Търново",
+            "Видин",
+            "Монтана",
+            "Русе"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "безхаберие",
+          "години",
+          "липса",
+          "радев",
+          "реформи",
+          "смелост"
+        ],
+        "shared_entities": [
+          "европейска комисия",
+          "министерски съвет",
+          "румен радев"
+        ],
+        "shared_places": [
+          "ботевград",
+          "велико търново",
+          "видин",
+          "монтана",
+          "русе"
+        ],
+        "title_jaccard": 0.4,
+        "published_gap_hours": 1.06,
+        "topic": [
+          "eu-funds",
+          "rrf"
+        ]
+      }
+    },
+    {
       "id": "story-merge-7ea48dab36e79387",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -3667,8 +5286,8 @@
     },
     {
       "id": "story-merge-8196ba15e47c0f59",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -3782,8 +5401,8 @@
     },
     {
       "id": "story-merge-83ed2140bfb78cbf",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -3916,9 +5535,272 @@
       }
     },
     {
+      "id": "story-merge-854039ceb9731a47",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T05:53:51.084431+00:00",
+      "last_seen": "2026-09-02T05:53:51.084431+00:00",
+      "keeper": {
+        "id": "20260902-034bfe15",
+        "title_bg": "Депутатите обсъждат предложения на опозицията",
+        "title_en": "Bulgaria's parliament will consider opposition proposals: waste management law changes by Democratic Bulgaria, a higher VAT registration threshold from Continue the Change, a Vazrazhdane request to seek an EU exemption for Russian oil imports, a GERB proposal for BEH to negotiate a stake in Black Sea oil and gas exploration, and Progressive Bulgaria's push to extend the deadline for companies to convert capital to euros until end-2028.",
+        "last_published": "2026-09-02T04:57:24+00:00",
+        "topics": [
+          {
+            "category": "parliament",
+            "primary": true,
+            "subcategory": "legislation"
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [
+            "Демократична България",
+            "Продължаваме промяната",
+            "Възраждане",
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "Министерство на околната среда и водите",
+            "Национална агенция за приходите",
+            "агенция \"Митници\"",
+            "Министерски съвет",
+            "Европейска комисия",
+            "Министерство на енергетиката"
+          ],
+          "companies": [
+            "Български енергиен холдинг"
+          ],
+          "places": [
+            "Черно море",
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-034bfe15",
+        "title_bg": "Депутатите обсъждат предложения на опозицията",
+        "title_en": "Bulgaria's parliament will consider opposition proposals: waste management law changes by Democratic Bulgaria, a higher VAT registration threshold from Continue the Change, a Vazrazhdane request to seek an EU exemption for Russian oil imports, a GERB proposal for BEH to negotiate a stake in Black Sea oil and gas exploration, and Progressive Bulgaria's push to extend the deadline for companies to convert capital to euros until end-2028.",
+        "last_published": "2026-09-02T04:57:24+00:00",
+        "topics": [
+          {
+            "category": "parliament",
+            "primary": true,
+            "subcategory": "legislation"
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [
+            "Демократична България",
+            "Продължаваме промяната",
+            "Възраждане",
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "Министерство на околната среда и водите",
+            "Национална агенция за приходите",
+            "агенция \"Митници\"",
+            "Министерски съвет",
+            "Европейска комисия",
+            "Министерство на енергетиката"
+          ],
+          "companies": [
+            "Български енергиен холдинг"
+          ],
+          "places": [
+            "Черно море",
+            "България"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-593326ac",
+        "title_bg": "В НС ще обсъждат предложения на опозицията",
+        "title_en": "The Bulgarian parliament will consider opposition proposals: waste management law changes by Democratic Bulgaria, a higher VAT registration threshold by Continue the Change, a Vazrazhdane request to seek an EU exemption to import Russian oil, a GERB proposal for BEH to acquire a stake in Black Sea oil and gas exploration, and a longer euro-conversion deadline proposed by Progressive Bulgaria.",
+        "last_published": "2026-09-02T04:14:59+00:00",
+        "topics": [
+          {
+            "category": "parliament",
+            "primary": true,
+            "subcategory": "legislation"
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [
+            "Демократична България",
+            "Продължаваме промяната",
+            "Възраждане",
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "Министерство на околната среда и водите",
+            "Национална агенция за приходите",
+            "Агенция \"Митници\"",
+            "Министерски съвет",
+            "Европейска комисия",
+            "Министерство на енергетиката"
+          ],
+          "companies": [
+            "Български енергиен холдинг"
+          ],
+          "places": [
+            "България",
+            "Черно море",
+            "Русия"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "обсъждат",
+          "опозицията",
+          "предложения"
+        ],
+        "shared_entities": [
+          "агенция \"митници\"",
+          "български енергиен холдинг",
+          "възраждане",
+          "герб",
+          "демократична българия",
+          "европейска комисия",
+          "министерски съвет",
+          "министерство на енергетиката",
+          "министерство на околната среда и водите",
+          "национална агенция за приходите",
+          "прогресивна българия",
+          "продължаваме промяната"
+        ],
+        "shared_places": [
+          "българия",
+          "черно море"
+        ],
+        "title_jaccard": 0.75,
+        "published_gap_hours": 0.71,
+        "topic": [
+          "parliament",
+          "legislation"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-8a011288b7935983",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T06:44:11.178949+00:00",
+      "last_seen": "2026-09-02T06:44:11.178949+00:00",
+      "keeper": {
+        "id": "20260902-48366155",
+        "title_bg": "Летище „Васил Левски“ с нова система за обработка и сортиране на багаж",
+        "title_en": "Sofia Airport (Vasil Levski) presented a new checked baggage handling and sorting system as part of a broader modernization programme, including the upgrade of Terminal 2 and plans for Terminal 3 to operate as a unified system, aiming to turn the airport into a five-star regional hub.",
+        "last_published": "2026-09-02T04:43:00+00:00",
+        "topics": [
+          {
+            "category": "infrastructure-transport",
+            "subcategory": "public-transport",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [],
+          "institutions": [
+            "Летище София (летище „Васил Левски“)"
+          ],
+          "companies": [
+            "СОФ Кънект"
+          ],
+          "places": [
+            "София"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-48366155",
+        "title_bg": "Летище „Васил Левски“ с нова система за обработка и сортиране на багаж",
+        "title_en": "Sofia Airport (Vasil Levski) presented a new checked baggage handling and sorting system as part of a broader modernization programme, including the upgrade of Terminal 2 and plans for Terminal 3 to operate as a unified system, aiming to turn the airport into a five-star regional hub.",
+        "last_published": "2026-09-02T04:43:00+00:00",
+        "topics": [
+          {
+            "category": "infrastructure-transport",
+            "subcategory": "public-transport",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [],
+          "institutions": [
+            "Летище София (летище „Васил Левски“)"
+          ],
+          "companies": [
+            "СОФ Кънект"
+          ],
+          "places": [
+            "София"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-047ecb09",
+        "title_bg": "Летище „Васил Левски“ с нова система за обработка на багаж",
+        "title_en": "A new baggage handling system starts operating at Terminal 2 of Sofia Airport (Vasil Levski), raising capacity from 400 to 3,200 bags per hour. The 15 million euro investment is part of modernization plans targeting up to 20 million passengers annually after Terminal 3 is built.",
+        "last_published": "2026-09-02T03:45:15+00:00",
+        "topics": [
+          {
+            "category": "infrastructure-transport",
+            "subcategory": "public-transport",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "София",
+            "летище „Васил Левски“",
+            "Терминал 2",
+            "Терминал 3"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "багаж",
+          "васил",
+          "левски",
+          "летище",
+          "нова",
+          "обработка",
+          "система"
+        ],
+        "shared_entities": [],
+        "shared_places": [
+          "софия"
+        ],
+        "title_jaccard": 0.875,
+        "published_gap_hours": 0.96,
+        "topic": [
+          "infrastructure-transport",
+          "public-transport"
+        ]
+      }
+    },
+    {
       "id": "story-merge-8ad082320e13e0b7",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4036,8 +5918,8 @@
     },
     {
       "id": "story-merge-96d72402efb28cc2",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4184,8 +6066,8 @@
     },
     {
       "id": "story-merge-9ac05a88fed903cd",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4312,9 +6194,115 @@
       }
     },
     {
+      "id": "story-merge-9c7bf86027597305",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-9a55d53e",
+        "title_bg": "Агенти на ДАНС стават психотерапевти",
+        "title_en": "Draft legislative amendments published for public consultation would allow Bulgarian State Agency for National Security (DANS) agents to also work as psychotherapists. The proposal drew sharp criticism from national security expert Prof. Nikolay Radulov, who called it another 'exotic idea' at the agency, questioned the practical need for it, noted that Western European services typically use external specialists, and even suggested staff cuts if DANS psychologists have that much free time.",
+        "last_published": "2026-09-02T08:51:07+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "security-defense",
+            "subcategory": "intelligence"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Западна Европа"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-cf8e54db",
+        "title_bg": "Предложения за промени: Ще могат ли агенти на ДАНС да работят и като психотерапевти",
+        "title_en": "Proposed legislative amendments published for public consultation would allow DANS (State Agency for National Security) agents to also work as psychotherapists. National security expert Prof. Nikolay Radulov commented on Nova TV that such 'exotic ideas' have been a tradition at the agency for 10-15 years, and assessed the proposal as an attempt to expand DANS's information reach without using covert operational tools, noting that Western European services use external psychologists when needed.",
+        "last_published": "2026-09-02T05:16:38+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "primary": true,
+            "subcategory": "intelligence"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-c0c262c4",
+        "title_bg": "Екзотична идея: Агенти на ДАНС да работят и като психотерапевти",
+        "title_en": "Proposed legislative amendments would allow agents of the State Agency for National Security (DANS) to also work as psychotherapists. National security expert Prof. Nikolay Radulov criticized the idea as another 'exotic' proposal from recent years and quipped that if the agency has so many psychologists with spare time, most should be laid off.",
+        "last_published": "2026-09-02T05:44:00+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "intelligence",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Радулов"
+          ],
+          "parties": [],
+          "institutions": [
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "агенти",
+          "данс",
+          "като",
+          "психотерапевти",
+          "работят"
+        ],
+        "shared_entities": [
+          "данс",
+          "николай радулов"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.5,
+        "published_gap_hours": 0.46,
+        "topic": [
+          "security-defense",
+          "intelligence"
+        ]
+      }
+    },
+    {
       "id": "story-merge-9d1f0ec289e0270b",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4460,9 +6448,131 @@
       }
     },
     {
+      "id": "story-merge-a2a5fa270b6e4e48",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-51c257a6",
+        "title_bg": "Огромен интерес към детската болница в Бургас - над 2100 деца вече са прегледани",
+        "title_en": "The new children's hospital Sveta Anastasia in Burgas reports strong interest in preventive check-ups, with over 2,100 children examined since early August. It awaits an NHIF contract for inpatient care, is expanding its specialist team, and a first-of-its-kind Ronald McDonald House for families will be built nearby.",
+        "last_published": "2026-09-02T05:38:00+00:00",
+        "topics": [
+          {
+            "category": "healthcare",
+            "subcategory": "hospitals",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Дмитрий Хворостина",
+            "д-р Благомир Здравков"
+          ],
+          "parties": [],
+          "institutions": [
+            "НЗОК"
+          ],
+          "companies": [],
+          "places": [
+            "Бургас",
+            "Украйна",
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-51c257a6",
+        "title_bg": "Огромен интерес към детската болница в Бургас - над 2100 деца вече са прегледани",
+        "title_en": "The new children's hospital Sveta Anastasia in Burgas reports strong interest in preventive check-ups, with over 2,100 children examined since early August. It awaits an NHIF contract for inpatient care, is expanding its specialist team, and a first-of-its-kind Ronald McDonald House for families will be built nearby.",
+        "last_published": "2026-09-02T05:38:00+00:00",
+        "topics": [
+          {
+            "category": "healthcare",
+            "subcategory": "hospitals",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Дмитрий Хворостина",
+            "д-р Благомир Здравков"
+          ],
+          "parties": [],
+          "institutions": [
+            "НЗОК"
+          ],
+          "companies": [],
+          "places": [
+            "Бургас",
+            "Украйна",
+            "България"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-0f257e8e",
+        "title_bg": "Над 2100 деца вече са прегледани в детската болница в Бургас",
+        "title_en": "The new children's hospital Sv. Anastasia in Burgas has examined over 2,100 children since preventive checkups began. A pending NHIF contract will open inpatient care, and Bulgaria's first Ronald McDonald house with 18 free family rooms is being built at the hospital.",
+        "last_published": "2026-09-02T05:03:13+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "healthcare",
+            "subcategory": "hospitals"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Благомир Здравков",
+            "Джамиле Камбер",
+            "Богомил Грозев"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на здравеопазването",
+            "НЗОК"
+          ],
+          "companies": [
+            "УМБАЛ „Света Анастасия“",
+            "НЗОК",
+            "Министерство на здравеопазването"
+          ],
+          "places": [
+            "Бургас"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "2100",
+          "болница",
+          "бургас",
+          "вече",
+          "детската",
+          "деца",
+          "прегледани"
+        ],
+        "shared_entities": [
+          "нзок"
+        ],
+        "shared_places": [
+          "бургас"
+        ],
+        "title_jaccard": 0.778,
+        "published_gap_hours": 0.58,
+        "topic": [
+          "healthcare",
+          "hospitals"
+        ]
+      }
+    },
+    {
       "id": "story-merge-a369182dca1447b4",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4600,8 +6710,8 @@
     },
     {
       "id": "story-merge-a7afe4d8f9acede7",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4725,8 +6835,8 @@
     },
     {
       "id": "story-merge-a903312e11760470",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4846,9 +6956,109 @@
       }
     },
     {
+      "id": "story-merge-aa899a42dd6b187e",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-b78ba6ac",
+        "title_bg": "Кандев: Добре дошли в щаба",
+        "title_en": "Vice-presidential candidate Georgi Kandev announced in a video address that he is joining presidential candidate Andrey Gyurov for the upcoming October elections, praising him as offering a project for a modern and rich Bulgaria and promising support in the security field.",
+        "last_published": "2026-09-02T08:22:16+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Кандев",
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-7b99cd51",
+        "title_bg": "\"Добре дошли в щаба\": Кандев с първо ВИДЕО като кандидат за ...",
+        "title_en": "Georgi Kandev announced in a video address that he is running for vice president alongside Andrei Gyurov, whose presidential candidacy was officially declared the previous day. Kandev said he would contribute his security expertise and stressed he has been depoliticized his whole life and dislikes backroom deals.",
+        "last_published": "2026-09-02T07:45:00+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "elections-parliamentary",
+            "subcategory": "campaign"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Кандев",
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-e5bab6c5",
+        "title_bg": "Почна се! Кандев с първо видео от щаба, каза какво му стига",
+        "title_en": "Former MVR chief secretary Georgi Kandev released a video from the campaign headquarters of the committee nominating him and Andrey Gyurov for the 'Dondukonv' 2 ticket, explaining his vice-presidential bid and saying of Gyurov: 'Mr. Gyurov has a heart, and that is enough for me.'",
+        "last_published": "2026-09-02T07:22:59+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Кандев",
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [
+            "МВР"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "видео",
+          "кандев",
+          "първо",
+          "щаба"
+        ],
+        "shared_entities": [
+          "андрей гюров",
+          "георги кандев"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.364,
+        "published_gap_hours": 0.37,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
       "id": "story-merge-b0c674c97b9536f1",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -4969,8 +7179,8 @@
     },
     {
       "id": "story-merge-b2ff36aea076b5eb",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5084,8 +7294,8 @@
     },
     {
       "id": "story-merge-b674e07bf5b64296",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5219,8 +7429,8 @@
     },
     {
       "id": "story-merge-bf40f7f5bd9a22c1",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5355,8 +7565,8 @@
     },
     {
       "id": "story-merge-bfd804112ead91fc",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5481,8 +7691,8 @@
     },
     {
       "id": "story-merge-c0a82bf4185cc18e",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5601,8 +7811,8 @@
     },
     {
       "id": "story-merge-c83387e391c2a4b6",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5731,8 +7941,8 @@
     },
     {
       "id": "story-merge-ce514d183e8d868b",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5842,8 +8052,8 @@
     },
     {
       "id": "story-merge-ce9e0ab031484523",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -5952,8 +8162,8 @@
     },
     {
       "id": "story-merge-d02bdce5a01b0209",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6067,8 +8277,8 @@
     },
     {
       "id": "story-merge-d3303ecab5a09772",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6222,8 +8432,8 @@
     },
     {
       "id": "story-merge-d6100d5436bca6b8",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6351,9 +8561,280 @@
       }
     },
     {
+      "id": "story-merge-d95aabfcdead839e",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T08:58:49.950685+00:00",
+      "last_seen": "2026-09-02T08:58:49.950685+00:00",
+      "keeper": {
+        "id": "20260902-c5e55e55",
+        "title_bg": "ГЕРБ настоява за ясна позиция на България за руските хибридни атаки",
+        "title_en": "GERB MP and former foreign minister Georg Georgiev urged the Bulgarian government to clearly condemn Russian hybrid attacks and show solidarity with Germany after the investigation into an alleged sabotage plot at Leipzig airport. He criticized Bulgaria's silence and questioned the country's stance on military aid to Ukraine. His party colleague Hristo Gadjev called the incident an attempted terrorist act and asked the president to convene the Consultative Council for National Security.",
+        "last_published": "2026-09-02T08:19:53+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георг Георгиев",
+            "Христо Гаджев"
+          ],
+          "parties": [
+            "ГЕРБ"
+          ],
+          "institutions": [
+            "Министерство на външните работи",
+            "Консултативен съвет за национална сигурност"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Германия",
+            "Русия",
+            "Украйна",
+            "Лайпциг",
+            "Европа"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-c5e55e55",
+        "title_bg": "ГЕРБ настоява за ясна позиция на България за руските хибридни атаки",
+        "title_en": "GERB MP and former foreign minister Georg Georgiev urged the Bulgarian government to clearly condemn Russian hybrid attacks and show solidarity with Germany after the investigation into an alleged sabotage plot at Leipzig airport. He criticized Bulgaria's silence and questioned the country's stance on military aid to Ukraine. His party colleague Hristo Gadjev called the incident an attempted terrorist act and asked the president to convene the Consultative Council for National Security.",
+        "last_published": "2026-09-02T08:19:53+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георг Георгиев",
+            "Христо Гаджев"
+          ],
+          "parties": [
+            "ГЕРБ"
+          ],
+          "institutions": [
+            "Министерство на външните работи",
+            "Консултативен съвет за национална сигурност"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Германия",
+            "Русия",
+            "Украйна",
+            "Лайпциг",
+            "Европа"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-2a4115bc",
+        "title_bg": "ГЕРБ настоява за ясна позиция на България за руските хибридни атаки",
+        "title_en": "GERB MP and former foreign minister Georg Georgiev urged Bulgaria to clearly condemn Russia over the suspected drone sabotage at Leipzig airport and to show solidarity with Germany, criticizing the government's silence and raising questions about defense policy and aid to Ukraine. His party colleague Hristo Gadjev called the incident an attempted terrorist act and demanded that the president convene the Consultative Council for National Security.",
+        "last_published": "2026-09-02T07:34:26+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георг Георгиев",
+            "Христо Гаджев"
+          ],
+          "parties": [
+            "ГЕРБ"
+          ],
+          "institutions": [
+            "Министерство на външните работи",
+            "Консултативен съвет за национална сигурност"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Германия",
+            "Лайпциг",
+            "Русия",
+            "Украйна",
+            "Европа"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "атаки",
+          "българия",
+          "герб",
+          "настоява",
+          "позиция",
+          "руските",
+          "хибридни",
+          "ясна"
+        ],
+        "shared_entities": [
+          "георг георгиев",
+          "герб",
+          "консултативен съвет за национална сигурност",
+          "министерство на външните работи",
+          "христо гаджев"
+        ],
+        "shared_places": [
+          "българия",
+          "германия",
+          "европа",
+          "лайпциг",
+          "русия",
+          "украйна"
+        ],
+        "title_jaccard": 1.0,
+        "published_gap_hours": 0.76,
+        "topic": [
+          "foreign-policy",
+          "bilateral"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-dc638982676ad66c",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T06:44:11.178949+00:00",
+      "last_seen": "2026-09-02T06:44:11.178949+00:00",
+      "keeper": {
+        "id": "20260902-1a0ac012",
+        "title_bg": "Андрей Гюров очаква ГЕРБ да го подкрепи за президент",
+        "title_en": "Presidential candidate Andrey Gyurov, running with Georgi Kandev, said he will not negotiate with party headquarters but expects support from voters of GERB, including from Boyko Borisov, and from voters of Progressive Bulgaria, whose leader backs Iliana Yotova. He named Ivan Kostov's government as the most successful.",
+        "last_published": "2026-09-02T06:05:02+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Иван Костов"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-1a0ac012",
+        "title_bg": "Андрей Гюров очаква ГЕРБ да го подкрепи за президент",
+        "title_en": "Presidential candidate Andrey Gyurov, running with Georgi Kandev, said he will not negotiate with party headquarters but expects support from voters of GERB, including from Boyko Borisov, and from voters of Progressive Bulgaria, whose leader backs Iliana Yotova. He named Ivan Kostov's government as the most successful.",
+        "last_published": "2026-09-02T06:05:02+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Иван Костов"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-4985d66d",
+        "title_bg": "Андрей Гюров очаква подкрепа и от избиратели на ГЕРБ и „Прогресивна България“",
+        "title_en": "Former caretaker prime minister and presidential candidate Andrey Gyurov said in a Nova TV interview that the presidential race will be decided by citizens, not party headquarters, and expects support from voters of GERB and 'Progressive Bulgaria'. He criticized concentration of power, said Iliana Yotova hardly distances herself from Rumen Radev's politics, proposed improving the 'domova kniga' mechanism for caretaker governments, linked high prices to the budget deficit, and introduced his vice-presidential running mate Georgi Kandev.",
+        "last_published": "2026-09-02T05:50:43+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Румен Радев"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "андрей",
+          "герб",
+          "гюров",
+          "очаква"
+        ],
+        "shared_entities": [
+          "андрей гюров",
+          "георги кандев",
+          "герб",
+          "илияна йотова",
+          "прогресивна българия"
+        ],
+        "shared_places": [
+          "българия"
+        ],
+        "title_jaccard": 0.4,
+        "published_gap_hours": 0.24,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
       "id": "story-merge-dc93d8bf52cf7701",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6472,9 +8953,144 @@
       }
     },
     {
+      "id": "story-merge-dd6442f8e47503e2",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T06:44:11.178949+00:00",
+      "last_seen": "2026-09-02T06:44:11.178949+00:00",
+      "keeper": {
+        "id": "20260902-b98e2e24",
+        "title_bg": "Путин: Русия е готова да преговаря с Украйна",
+        "title_en": "Russian President Vladimir Putin said after the SCO summit in Kyrgyzstan that Moscow is ready for 'concrete' negotiations on the Ukraine conflict. He claimed Russian forces will prevail, said 270 sq. km in Donetsk region were seized in August, and called Zelensky's warning about blocking Russian airspace 'state terrorism'. Reuters notes the claims cannot be independently verified.",
+        "last_published": "2026-09-02T04:13:02+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "ukraine",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Владимир Путин",
+            "Володимир Зеленски"
+          ],
+          "parties": [],
+          "institutions": [
+            "Шанхайска организация за сътрудничество"
+          ],
+          "companies": [],
+          "places": [
+            "Русия",
+            "Украйна",
+            "Киргизстан",
+            "Донецка област",
+            "Славянск",
+            "Краматорск",
+            "Москва",
+            "Киев"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-b98e2e24",
+        "title_bg": "Путин: Русия е готова да преговаря с Украйна",
+        "title_en": "Russian President Vladimir Putin said after the SCO summit in Kyrgyzstan that Moscow is ready for 'concrete' negotiations on the Ukraine conflict. He claimed Russian forces will prevail, said 270 sq. km in Donetsk region were seized in August, and called Zelensky's warning about blocking Russian airspace 'state terrorism'. Reuters notes the claims cannot be independently verified.",
+        "last_published": "2026-09-02T04:13:02+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "ukraine",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Владимир Путин",
+            "Володимир Зеленски"
+          ],
+          "parties": [],
+          "institutions": [
+            "Шанхайска организация за сътрудничество"
+          ],
+          "companies": [],
+          "places": [
+            "Русия",
+            "Украйна",
+            "Киргизстан",
+            "Донецка област",
+            "Славянск",
+            "Краматорск",
+            "Москва",
+            "Киев"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-a4302b5a",
+        "title_bg": "Путин: Русия е готова за „конкретни“ преговори по въпроса за Украйна",
+        "title_en": "After the SCO summit in Kyrgyzstan, Russian President Vladimir Putin said Russia is ready for 'concrete' talks on Ukraine if the negotiation process gets a new impetus. He claimed Russian forces will prevail, said troops seized 270 sq km in Donetsk region in August, and called Zelensky's warning about drones blocking Russian airspace 'state terrorism'. Reuters notes the claims cannot be independently verified.",
+        "last_published": "2026-09-02T04:11:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "ukraine",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Владимир Путин",
+            "Володимир Зеленски"
+          ],
+          "parties": [],
+          "institutions": [
+            "Шанхайска организация за сътрудничество"
+          ],
+          "companies": [],
+          "places": [
+            "Русия",
+            "Украйна",
+            "Киргизстан",
+            "Донецка област",
+            "Славянск",
+            "Краматорск"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "готова",
+          "путин",
+          "русия",
+          "украйна"
+        ],
+        "shared_entities": [
+          "владимир путин",
+          "володимир зеленски",
+          "шанхайска организация за сътрудничество"
+        ],
+        "shared_places": [
+          "донецка област",
+          "киргизстан",
+          "краматорск",
+          "русия",
+          "славянск",
+          "украйна"
+        ],
+        "title_jaccard": 0.5,
+        "published_gap_hours": 0.03,
+        "topic": [
+          "foreign-policy",
+          "ukraine"
+        ]
+      }
+    },
+    {
       "id": "story-merge-de741448664eac26",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6605,8 +9221,8 @@
     },
     {
       "id": "story-merge-e30cf21100585622",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6738,9 +9354,259 @@
       }
     },
     {
+      "id": "story-merge-e35667d47d5c037c",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T06:44:11.178949+00:00",
+      "last_seen": "2026-09-02T06:44:11.178949+00:00",
+      "keeper": {
+        "id": "20260902-bb047e3c",
+        "title_bg": "Канада застава зад местния бизнес срещу митата на Тръмп",
+        "title_en": "Canadian PM Mark Carney announced additional support of 7.5 billion Canadian dollars for workers and businesses hit by US tariffs, which he called \"unjustified\" and \"unprovoked\". The US imposed 50% tariffs on 20 billion dollars of Canadian goods, and Canada responded with counter-tariffs on American products.",
+        "last_published": "2026-09-02T06:59:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "primary": true,
+            "subcategory": "bilateral"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Марк Карни",
+            "Доналд Тръмп"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "Канада",
+            "САЩ"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-bb047e3c",
+        "title_bg": "Канада застава зад местния бизнес срещу митата на Тръмп",
+        "title_en": "Canadian PM Mark Carney announced additional support of 7.5 billion Canadian dollars for workers and businesses hit by US tariffs, which he called \"unjustified\" and \"unprovoked\". The US imposed 50% tariffs on 20 billion dollars of Canadian goods, and Canada responded with counter-tariffs on American products.",
+        "last_published": "2026-09-02T06:59:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "primary": true,
+            "subcategory": "bilateral"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Марк Карни",
+            "Доналд Тръмп"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "Канада",
+            "САЩ"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-f387daf2",
+        "title_bg": "Премиерът на Канада ще подкрепи местния бизнес срещу митата на Доналд Тръмп",
+        "title_en": "Canadian Prime Minister Mark Carney announced additional support of 7.5 billion Canadian dollars for workers and industries affected by US tariffs, which he called \"unjustified\" and \"unprovoked\". The announcement followed a meeting with union leaders. In August the US imposed 50% tariffs on 20 billion dollars' worth of Canadian goods, and Canada responded with counter-tariffs on American products including steel, dairy, appliances and farm equipment.",
+        "last_published": "2026-09-02T04:18:31+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "primary": true,
+            "subcategory": "bilateral"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Марк Карни",
+            "Доналд Тръмп"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "Канада",
+            "САЩ"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "бизнес",
+          "канада",
+          "местния",
+          "митата",
+          "срещу",
+          "тръмп"
+        ],
+        "shared_entities": [
+          "доналд тръмп",
+          "марк карни"
+        ],
+        "shared_places": [
+          "канада",
+          "сащ"
+        ],
+        "title_jaccard": 0.545,
+        "published_gap_hours": 2.67,
+        "topic": [
+          "foreign-policy",
+          "bilateral"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-e4cddf5538a4af0d",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T08:58:49.950685+00:00",
+      "last_seen": "2026-09-02T08:58:49.950685+00:00",
+      "keeper": {
+        "id": "20260902-3d38a970",
+        "title_bg": "Делян Добрев: Гюров ще отиде на балотаж само ако ГЕРБ не издигне кандидат за президент",
+        "title_en": "Former GERB MP Delyan Dobrev said that the Gyurov–Kandev presidential ticket will reach a runoff only if GERB does not field its own candidate. GERB has yet to nominate anyone, and Boyko Borissov's call for a joint right-wing candidate with PP and DB found no support. Seven candidacies have been declared so far, including Iliana Yotova, Andrey Gyurov, Ivan Hristanov, Radostin Vassilev, Aleksandar Tomov, Georgi Dimov and Nikolay Nenchev.",
+        "last_published": "2026-09-02T06:51:04+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "elections-parliamentary",
+            "subcategory": "campaign"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Делян Добрев",
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Иван Христанов",
+            "Радостин Василев",
+            "Александър Томов",
+            "Георги Димов",
+            "Николай Ненчев"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "ПП",
+            "ДБ"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": []
+        }
+      },
+      "matched": {
+        "id": "20260902-3d38a970",
+        "title_bg": "Делян Добрев: Гюров ще отиде на балотаж само ако ГЕРБ не издигне кандидат за президент",
+        "title_en": "Former GERB MP Delyan Dobrev said that the Gyurov–Kandev presidential ticket will reach a runoff only if GERB does not field its own candidate. GERB has yet to nominate anyone, and Boyko Borissov's call for a joint right-wing candidate with PP and DB found no support. Seven candidacies have been declared so far, including Iliana Yotova, Andrey Gyurov, Ivan Hristanov, Radostin Vassilev, Aleksandar Tomov, Georgi Dimov and Nikolay Nenchev.",
+        "last_published": "2026-09-02T06:51:04+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "elections-parliamentary",
+            "subcategory": "campaign"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Делян Добрев",
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Иван Христанов",
+            "Радостин Василев",
+            "Александър Томов",
+            "Георги Димов",
+            "Николай Ненчев"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "ПП",
+            "ДБ"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": []
+        }
+      },
+      "candidate": {
+        "id": "20260902-8406123f",
+        "title_bg": "Делян Добрев: Единственият начин триото Гюров, Кандев и аз да отиде на балотаж е ГЕРБ да не издигне кандидат",
+        "title_en": "Former GERB MP Delyan Dobrev said on Facebook that the only way the Gyurov-Kandev ticket can reach a presidential runoff is if GERB does not field its own candidate. Andrey Gyurov and Georgi Kandev officially announced their candidacy via an initiative committee, backed by the PP and Democratic Bulgaria parliamentary groups. Iliana Yotova has the support of Progressive Bulgaria and the BSP, Vazrazhdane will nominate its own candidate, while GERB and DPS have not yet declared a position. Dobrev insisted GERB needs its own candidate, calling Gyurov \"an influencer, not our type\".",
+        "last_published": "2026-09-02T04:40:21+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "primary": true,
+            "subcategory": "campaign"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Делян Добрев",
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Ани Ефремова"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Продължаваме Промяната",
+            "Демократична България",
+            "Прогресивна България",
+            "БСП",
+            "Възраждане",
+            "ДПС"
+          ],
+          "institutions": [
+            "Инициативен комитет"
+          ],
+          "companies": [],
+          "places": []
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "балотаж",
+          "герб",
+          "гюров",
+          "делян",
+          "добрев",
+          "издигне",
+          "кандидат",
+          "отиде"
+        ],
+        "shared_entities": [
+          "андрей гюров",
+          "георги кандев",
+          "герб",
+          "делян добрев",
+          "илияна йотова"
+        ],
+        "shared_places": [],
+        "title_jaccard": 0.533,
+        "published_gap_hours": 2.18,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
       "id": "story-merge-e6e9cdd57e89f091",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6862,9 +9728,174 @@
       }
     },
     {
+      "id": "story-merge-e790e83b3356df0f",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T08:58:49.950685+00:00",
+      "last_seen": "2026-09-02T08:58:49.950685+00:00",
+      "keeper": {
+        "id": "20260902-ddb3744c",
+        "title_bg": "Атанас Атанасов: Идват сигнали, че ГЕРБ няма да издигнат кандидат-президент",
+        "title_en": "Former DSB leader and deputy parliament speaker Atanas Atanasov said signals suggest GERB may not nominate a presidential candidate and announced he will vote for Andrey Gyurov. He framed the vote as a choice between East and West, criticized a possible Iliana Yotova candidacy as a shield for Radev's government, opposed DANS legislative changes allowing destruction of secret files, and cited a survey portraying Bulgarian security services as unreliable due to leak risks toward Russia.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Атанас Атанасов",
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Румен Радев",
+            "Борисов",
+            "Владислав Горанов",
+            "Илия Лазаров"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "ДСБ",
+            "Продължаваме промяната",
+            "Да, България",
+            "СДС"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "МВР",
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа",
+            "Русия"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-ddb3744c",
+        "title_bg": "Атанас Атанасов: Идват сигнали, че ГЕРБ няма да издигнат кандидат-президент",
+        "title_en": "Former DSB leader and deputy parliament speaker Atanas Atanasov said signals suggest GERB may not nominate a presidential candidate and announced he will vote for Andrey Gyurov. He framed the vote as a choice between East and West, criticized a possible Iliana Yotova candidacy as a shield for Radev's government, opposed DANS legislative changes allowing destruction of secret files, and cited a survey portraying Bulgarian security services as unreliable due to leak risks toward Russia.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Атанас Атанасов",
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Румен Радев",
+            "Борисов",
+            "Владислав Горанов",
+            "Илия Лазаров"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "ДСБ",
+            "Продължаваме промяната",
+            "Да, България",
+            "СДС"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "МВР",
+            "ДАНС"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа",
+            "Русия"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-c4c394c9",
+        "title_bg": "Атанас Атанасов: Идват сигнали, че ГЕРБ няма да издигнат свой кандидат за президент",
+        "title_en": "Democratic Bulgaria MP Atanas Atanasov said on bTV he would vote for independent presidential candidate Gurov and called for uniting the pro-European community. He suggested signals indicate GERB may not field a candidate, warned against a 'presidential umbrella' over Radev's government if Yotova is elected, criticized proposed 'eternal secrets' in the security services as a legacy of the State Security era, pointed to a failure in the 'jammer' operation, and cited a survey describing Bulgarian services as unreliable due to the risk of information leaks to Russia.",
+        "last_published": "2026-09-02T05:40:07+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Атанас Атанасов",
+            "Гюров",
+            "Борисов",
+            "Радев",
+            "Йотова",
+            "Георги Кандев"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Демократична България"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "МВР",
+            "прокуратура",
+            "Държавна сигурност"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа",
+            "Русия",
+            "Драгалевци"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "атанас",
+          "атанасов",
+          "герб",
+          "идват",
+          "издигнат",
+          "кандидат",
+          "няма",
+          "президент",
+          "сигнали"
+        ],
+        "shared_entities": [
+          "атанас атанасов",
+          "борисов",
+          "георги кандев",
+          "герб",
+          "мвр"
+        ],
+        "shared_places": [
+          "българия",
+          "европа",
+          "русия"
+        ],
+        "title_jaccard": 0.9,
+        "published_gap_hours": 3.33,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
       "id": "story-merge-eabd37143a2f0329",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -6985,8 +10016,8 @@
     },
     {
       "id": "story-merge-eea7edf3f5ee5522",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -7117,8 +10148,8 @@
     },
     {
       "id": "story-merge-f010b0f461ec7fc9",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -7256,8 +10287,8 @@
     },
     {
       "id": "story-merge-f0c13a35c39a5acd",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -7386,8 +10417,8 @@
     },
     {
       "id": "story-merge-f1340cf644682b7f",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -7536,8 +10567,8 @@
     },
     {
       "id": "story-merge-f17fb675060716fd",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -7675,136 +10706,9 @@
       }
     },
     {
-      "id": "story-merge-f296b04344e4b62a",
-      "status": "pending",
-      "active": true,
-      "first_seen": "2026-08-31T05:05:34.700388+00:00",
-      "last_seen": "2026-08-31T05:27:03.578218+00:00",
-      "keeper": {
-        "id": "20260830-cd3a406c",
-        "title_bg": "Андрей Гюров обявява на 31 август дали ще се кандидатира за президент",
-        "title_en": "Andrey Gyurov said on bTV that clarity about his possible presidential run would come on August 31. Meanwhile, GERB leader Boyko Borisov told party members at the party's national assembly that GERB would compete where they expect to finish first. Less than two months remain until the presidential election.",
-        "last_published": "2026-09-01T03:54:58+00:00",
-        "topics": [
-          {
-            "category": "elections-parliamentary",
-            "subcategory": "campaign",
-            "primary": true
-          }
-        ],
-        "entities": {
-          "people": [
-            "Андрей Гюров",
-            "Бойко Борисов",
-            "Георги Кандев",
-            "Илияна Йотова",
-            "Божидар Божанов"
-          ],
-          "parties": [
-            "ГЕРБ",
-            "Продължаваме Промяната",
-            "Демократична България",
-            "Продължаваме промяната"
-          ],
-          "institutions": [
-            "МВР",
-            "Народното събрание",
-            "БНР"
-          ],
-          "companies": [],
-          "places": [
-            "Гоце Делчев",
-            "България"
-          ]
-        }
-      },
-      "matched": {
-        "id": "20260830-83f9af9a",
-        "title_bg": "Андрей Гюров обявява утре дали ще се кандидатира за президент",
-        "title_en": "Andrey Gyurov is expected to announce on Monday whether he will run in the upcoming presidential election. His team says democratic-community political forces are discussing a possible nomination, and Gyurov confirmed clarity is expected early in the week on whether and in what form he will participate.",
-        "last_published": "2026-08-30T18:47:00+00:00",
-        "topics": [
-          {
-            "category": "elections-parliamentary",
-            "subcategory": "campaign",
-            "primary": true
-          }
-        ],
-        "entities": {
-          "people": [
-            "Андрей Гюров"
-          ],
-          "parties": [],
-          "institutions": [],
-          "companies": [],
-          "places": []
-        }
-      },
-      "candidate": {
-        "id": "20260830-aa1d0c53",
-        "title_bg": "Андрей Гюров утре ще обяви дали ще се кандидатира за президент",
-        "title_en": "Days before the presidential election, caretaker ex-PM Andrei Gyurov said he will announce tomorrow whether he will run. Boyko Borisov said GERB will compete only where it can finish first and praised Iliana Yotova as a strong candidate. Delian Dobrev urged the party to field its own candidate and harshly attacked a possible Gyurov run, calling him a 'TikTok mannequin'. GERB also announced changes to its executive commission.",
-        "last_published": "2026-08-30T17:12:15+00:00",
-        "topics": [
-          {
-            "category": "elections-parliamentary",
-            "subcategory": "campaign",
-            "primary": true
-          }
-        ],
-        "entities": {
-          "people": [
-            "Андрей Гюров",
-            "Бойко Борисов",
-            "Илияна Йотова",
-            "Делян Добрев",
-            "Томислав Дончев",
-            "Росен Желязков",
-            "Радостин Танев",
-            "Стоян Петков",
-            "Живко Тодоров",
-            "Димитър Вучев",
-            "Владимир Темелков"
-          ],
-          "parties": [
-            "ГЕРБ",
-            "Прогресивна България"
-          ],
-          "institutions": [],
-          "companies": [],
-          "places": [
-            "София",
-            "Стара Загора",
-            "Враца"
-          ]
-        }
-      },
-      "evidence": {
-        "confidence": "high",
-        "shared_title_tokens": [
-          "андрей",
-          "гюров",
-          "дали",
-          "кандидатира",
-          "президент",
-          "утре"
-        ],
-        "shared_entities": [
-          "андрей гюров"
-        ],
-        "shared_places": [],
-        "title_jaccard": 0.857,
-        "published_gap_hours": 1.58,
-        "topic": [
-          "elections-parliamentary",
-          "campaign"
-        ]
-      }
-    },
-    {
       "id": "story-merge-f525b878b0310780",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -7921,9 +10825,250 @@
       }
     },
     {
+      "id": "story-merge-f5280cb36f2dd51d",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-5f49ada3",
+        "title_bg": "Андрей Гюров: Не търгувам подкрепа, очаквам гласове и от ГЕРБ, и от ПБ",
+        "title_en": "Presidential candidate Andrey Gyurov, nominated by an citizens' initiative committee, said in a Nova TV interview that he does not trade support for posts and hopes for votes from GERB, Progressive Bulgaria and BSP voters. He defended the constitutional changes behind the so-called 'house book' for caretaker PM nominations, criticized concentration of power, and alluded to the Russian Putin-Medvedev rotation model regarding Radev and Yotova. He praised Ivan Kostov's reforms, who has publicly endorsed him, and explained his choice of Georgi Kandev as running mate.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Бойко Борисов",
+            "Владислав Горанов",
+            "Илия Лазаров",
+            "Илияна Йотова",
+            "Румен Радев",
+            "Иван Костов",
+            "Георги Кандев",
+            "Владимир Путин",
+            "Дмитрий Медведев"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България",
+            "Да, България",
+            "ДСБ",
+            "БСП",
+            "СДС"
+          ],
+          "institutions": [
+            "президентската институция",
+            "Нова телевизия"
+          ],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-1a0ac012",
+        "title_bg": "Андрей Гюров очаква ГЕРБ да го подкрепи за президент",
+        "title_en": "Presidential candidate Andrey Gyurov, running with Georgi Kandev, said he will not negotiate with party headquarters but expects support from voters of GERB, including from Boyko Borisov, and from voters of Progressive Bulgaria, whose leader backs Iliana Yotova. He named Ivan Kostov's government as the most successful.",
+        "last_published": "2026-09-02T06:05:02+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Бойко Борисов",
+            "Илияна Йотова",
+            "Иван Костов"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-4985d66d",
+        "title_bg": "Андрей Гюров очаква подкрепа и от избиратели на ГЕРБ и „Прогресивна България“",
+        "title_en": "Former caretaker prime minister and presidential candidate Andrey Gyurov said in a Nova TV interview that the presidential race will be decided by citizens, not party headquarters, and expects support from voters of GERB and 'Progressive Bulgaria'. He criticized concentration of power, said Iliana Yotova hardly distances herself from Rumen Radev's politics, proposed improving the 'domova kniga' mechanism for caretaker governments, linked high prices to the budget deficit, and introduced his vice-presidential running mate Georgi Kandev.",
+        "last_published": "2026-09-02T05:50:43+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Андрей Гюров",
+            "Георги Кандев",
+            "Илияна Йотова",
+            "Румен Радев"
+          ],
+          "parties": [
+            "ГЕРБ",
+            "Прогресивна България"
+          ],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България",
+            "Европа"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "андрей",
+          "герб",
+          "гюров",
+          "очаква"
+        ],
+        "shared_entities": [
+          "андрей гюров",
+          "георги кандев",
+          "герб",
+          "илияна йотова",
+          "прогресивна българия"
+        ],
+        "shared_places": [
+          "българия"
+        ],
+        "title_jaccard": 0.4,
+        "published_gap_hours": 0.24,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-f55dea46fcc61873",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T09:18:12.811773+00:00",
+      "last_seen": "2026-09-02T09:18:12.811773+00:00",
+      "keeper": {
+        "id": "20260902-b78ba6ac",
+        "title_bg": "Кандев: Добре дошли в щаба",
+        "title_en": "Vice-presidential candidate Georgi Kandev announced in a video address that he is joining presidential candidate Andrey Gyurov for the upcoming October elections, praising him as offering a project for a modern and rich Bulgaria and promising support in the security field.",
+        "last_published": "2026-09-02T08:22:16+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Кандев",
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-b78ba6ac",
+        "title_bg": "Кандев: Добре дошли в щаба",
+        "title_en": "Vice-presidential candidate Georgi Kandev announced in a video address that he is joining presidential candidate Andrey Gyurov for the upcoming October elections, praising him as offering a project for a modern and rich Bulgaria and promising support in the security field.",
+        "last_published": "2026-09-02T08:22:16+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Кандев",
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-49e457e0",
+        "title_bg": "Георги Кандев: Добре дошли в щаба!",
+        "title_en": "Vice-presidential candidate Georgi Kandev addressed voters with a video message saying 'Welcome to the headquarters', a day after he and presidential candidate Andrey Gyurov officially announced their joint candidacy in the upcoming presidential elections in Bulgaria.",
+        "last_published": "2026-09-02T07:20:27+00:00",
+        "topics": [
+          {
+            "category": "elections-parliamentary",
+            "subcategory": "campaign",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Кандев",
+            "Андрей Гюров"
+          ],
+          "parties": [],
+          "institutions": [],
+          "companies": [],
+          "places": [
+            "България"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "добре",
+          "дошли",
+          "кандев",
+          "щаба"
+        ],
+        "shared_entities": [
+          "андрей гюров",
+          "георги кандев"
+        ],
+        "shared_places": [
+          "българия"
+        ],
+        "title_jaccard": 0.8,
+        "published_gap_hours": 1.03,
+        "topic": [
+          "elections-parliamentary",
+          "campaign"
+        ]
+      }
+    },
+    {
       "id": "story-merge-f644318d489c1bea",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -8033,8 +11178,8 @@
     },
     {
       "id": "story-merge-fb8b7c1815225fba",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
@@ -8147,9 +11292,133 @@
       }
     },
     {
+      "id": "story-merge-fd469c7c14013a26",
+      "status": "accepted",
+      "active": false,
+      "first_seen": "2026-09-02T05:53:51.084431+00:00",
+      "last_seen": "2026-09-02T05:53:51.084431+00:00",
+      "keeper": {
+        "id": "20260902-7bec75fb",
+        "title_bg": "Подложиха Одеса на масирана въздушна атака",
+        "title_en": "Odesa was hit by a massive air attack with strong explosions; three people were injured including a child, infrastructure was damaged and power was cut in parts of the city. The article notes the Bulgarian community in the region — over 150,000 people in Odesa oblast.",
+        "last_published": "2026-09-02T04:00:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "primary": true,
+            "subcategory": "ukraine"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Сергей Лисак"
+          ],
+          "parties": [],
+          "institutions": [
+            "Одеска градска военна администрация"
+          ],
+          "companies": [],
+          "places": [
+            "Одеса",
+            "Болград",
+            "Измаил",
+            "Белгород-Днестровски",
+            "Украйна"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-7bec75fb",
+        "title_bg": "Подложиха Одеса на масирана въздушна атака",
+        "title_en": "Odesa was hit by a massive air attack with strong explosions; three people were injured including a child, infrastructure was damaged and power was cut in parts of the city. The article notes the Bulgarian community in the region — over 150,000 people in Odesa oblast.",
+        "last_published": "2026-09-02T04:00:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "primary": true,
+            "subcategory": "ukraine"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Сергей Лисак"
+          ],
+          "parties": [],
+          "institutions": [
+            "Одеска градска военна администрация"
+          ],
+          "companies": [],
+          "places": [
+            "Одеса",
+            "Болград",
+            "Измаил",
+            "Белгород-Днестровски",
+            "Украйна"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-b21fa357",
+        "title_bg": "Одеса е подложена на масирана въздушна атака",
+        "title_en": "Odesa came under a massive air attack with strong explosions reported; three people were injured, including a child. Infrastructure was damaged, homes destroyed, and power was cut in parts of the city. The air alert lasted over an hour. The article notes that over 150,000 Bulgarians live in Odesa oblast.",
+        "last_published": "2026-09-02T03:28:06+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "ukraine",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Сергей Лисак"
+          ],
+          "parties": [],
+          "institutions": [
+            "Одеска градска военна администрация",
+            "БТА"
+          ],
+          "companies": [],
+          "places": [
+            "Одеса",
+            "Болград",
+            "Измаил",
+            "Белгород-Днестровски",
+            "Украйна"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "атака",
+          "въздушна",
+          "масирана",
+          "одеса"
+        ],
+        "shared_entities": [
+          "одеска градска военна администрация",
+          "сергей лисак"
+        ],
+        "shared_places": [
+          "белгород-днестровски",
+          "болград",
+          "измаил",
+          "одеса",
+          "украйна"
+        ],
+        "title_jaccard": 0.667,
+        "published_gap_hours": 0.53,
+        "topic": [
+          "foreign-policy",
+          "ukraine"
+        ]
+      }
+    },
+    {
       "id": "story-merge-fe6eb27a4e914239",
-      "status": "pending",
-      "active": true,
+      "status": "accepted",
+      "active": false,
       "first_seen": "2026-08-31T05:05:34.700388+00:00",
       "last_seen": "2026-08-31T05:27:03.578218+00:00",
       "keeper": {
