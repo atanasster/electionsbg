@@ -361,7 +361,14 @@ const computeCouncilDiff = (
   };
 };
 
-const computeOverall = (
+/** ⚠ THE ONE DEFINITION of whether the two authorities agree about a município, and it is
+ *  exported because a SECOND consumer now needs it: `scripts/elections/source_links.ts`
+ *  re-derives the election surface's `reconciliation.agrees` from a sidecar's PARTS rather
+ *  than copying its stored `overallStatus` (§5's gate). Re-deriving with a restated rule is
+ *  worse than copying the scalar — a first attempt required a 100% council match instead of
+ *  this 80% threshold and would have published "the officials roster contradicts CIK here"
+ *  for 195 of 288 municipalities whose mayor matches exactly. */
+export const computeOverall = (
   mayorStatus: MayorDiffStatus,
   council: MunicipalityOfficialsDiff["council"],
 ): MunicipalityOfficialsDiff["overallStatus"] => {

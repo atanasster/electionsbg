@@ -170,7 +170,7 @@ describe("election surface — absence is not zero", () => {
         sourceLabel: "cik",
         reconciliation: {
           against: "officials_roster",
-          agrees: true,
+          outcome: "match",
           to: "/sverka",
         },
       },
@@ -181,15 +181,36 @@ describe("election surface — absence is not zero", () => {
         sourceLabel: "cik",
         reconciliation: {
           against: "officials_roster",
-          agrees: false,
+          outcome: "mismatch",
+          to: "/sverka",
+        },
+      },
+    });
+    // ⚠ THE FOURTH STATE, and the reason `agrees: boolean` was replaced by an outcome. The
+    // officials roster carrying NO mayor record is not a contradiction of the CEC — it is
+    // silence — and six municipalities in the 2023 cycle are in exactly that state. A boolean
+    // has nowhere to put it, so every one of them published as a disagreement.
+    const noRecord = surface({
+      status: {
+        result: "final",
+        sourceLabel: "cik",
+        reconciliation: {
+          against: "officials_roster",
+          outcome: "missing",
           to: "/sverka",
         },
       },
     });
 
     expect(notReconciled.status.reconciliation).toBeUndefined();
-    expect(agrees.status.reconciliation?.agrees).toBe(true);
-    expect(disagrees.status.reconciliation?.agrees).toBe(false);
+    expect(agrees.status.reconciliation?.outcome).toBe("match");
+    expect(disagrees.status.reconciliation?.outcome).toBe("mismatch");
+    expect(noRecord.status.reconciliation?.outcome).toBe("missing");
+    // FOUR distinguishable states, not two — "not reconciled", "agree", "disagree", "no record".
+    const outcomes = [agrees, disagrees, noRecord].map(
+      (s) => s.status.reconciliation?.outcome,
+    );
+    expect(new Set(outcomes).size).toBe(3);
     // A disagreement must still name where a reader can see it (§5).
     expect(disagrees.status.reconciliation?.to).toBeTruthy();
   });

@@ -344,7 +344,19 @@ export type ElectionSurfaceV1 = {
      *  shape exists to prevent. */
     reconciliation?: {
       against: ElectionSourceLabel;
-      agrees: boolean;
+      /** ⚠ THE COMPARISON'S OWN FOUR-STATE OUTCOME, NOT A BOOLEAN — and the plan's §5 sketch
+       *  said `agrees: boolean`, which this deliberately departs from with a measured reason.
+       *
+       *  `missing` means one side HAS NO RECORD: on the 2023 cycle six municipalities (Разград,
+       *  Бяла, Искър, Мъглиж, Раднево, Макреш) carry `missing_official` with a null roster
+       *  mayor. Folding four states into "agrees" publishes every one of them as "the officials
+       *  roster contradicts the CEC here", which is a claim about a named council that the
+       *  corpus does not make — the roster is SILENT, not contradicting. A boolean has nowhere
+       *  to put that, so the fold is removed rather than documented against.
+       *
+       *  Values are `OfficialsDiffOverall`'s, re-derived through `computeOverall` from the
+       *  sidecar's own parts (§5's "re-derives rather than a stored copy"). */
+      outcome: "match" | "partial_mismatch" | "mismatch" | "missing";
       to: string;
     };
   };
