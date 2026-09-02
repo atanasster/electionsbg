@@ -255,9 +255,12 @@ export const DataMapScreen = () => {
   // Size the canvas to the graph's own aspect ratio (width-driven) so the
   // initial fit lands near 1:1 zoom and stays readable — a fixed landscape
   // box would shrink the portrait graph to ~0.45×. Ultra-wide screens are
-  // capped at ~1.15× so nodes don't balloon. The extent comes from the same
-  // module the canvas frames with, so the box and the framing read one set of
-  // bounds — see dataMapExtent for the one way they can still disagree.
+  // capped at ~1.3× — the zoom that fills the shell's own 1384px content
+  // column (see DATA_MAP_FIT_MAX_ZOOM) — so nodes get modestly bigger on a
+  // wide screen rather than ballooning past what the rest of the page ever
+  // reaches. The extent comes from the same module the canvas frames with, so
+  // the box and the framing read one set of bounds — see dataMapExtent for
+  // the one way they can still disagree.
   const extent = useMemo(
     () => (graph ? dataMapExtent(graph) : { w: 1, h: 1 }),
     [graph],
@@ -331,8 +334,8 @@ export const DataMapScreen = () => {
         <>
           {/* ONE sticky toolbar in place of four stacked rows (view pills,
               counts, lens, stories — ~250px). It sticks because the map is
-              4,237px tall: scroll into it and every control used to be gone, so
-              changing the view meant scrolling all the way back to the top.
+              ~4,789px tall: scroll into it and every control used to be gone,
+              so changing the view meant scrolling all the way back to the top.
               `--header-height` rather than a literal, so it tracks the header
               it sits under; z-9 keeps it below that header and above the map.
 

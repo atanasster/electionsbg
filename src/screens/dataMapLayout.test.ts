@@ -131,14 +131,48 @@ describe("the canvas cap and the framing ceiling are one number", () => {
     });
     expect(extent.w * DATA_MAP_FIT_MAX_ZOOM).toBeGreaterThan(extent.w);
   });
+
+  it("stays inside the shell's own content column, with deliberate slack", () => {
+    // The shell clamps every page to the container's 2xl width (see "shell's
+    // width budget" below) minus Layout.tsx's p-2 (8px each side), however
+    // wide the screen — so the cap must sit UNDER that column, or a manifest
+    // that grows slightly wider on a future data refresh could push the box
+    // past the shell and force a horizontal scrollbar. Read from
+    // tailwind.config.js rather than hardcoded, so a shell width change is
+    // what this test would catch, not what it would need editing to survive.
+    const config = read("tailwind.config.js");
+    const container = blockAfter(config, "container:");
+    const twoXl = /"2xl":\s*"(\d+)px"/.exec(container ?? "")?.[1];
+    expect(twoXl).toBeTruthy();
+    const shellColumn = Number(twoXl) - 16;
+    const extent = dataMapExtent({
+      tiers: [
+        {
+          kind: "source",
+          label: { bg: "", en: "" },
+          x: 0,
+          y: 0,
+          w: 1030,
+          h: 3668,
+        },
+      ],
+      nodes: [],
+    });
+    const cap = extent.w * DATA_MAP_FIT_MAX_ZOOM;
+    expect(cap).toBeLessThan(shellColumn);
+    // Genuinely closes most of the old ~181px gap, not a token nudge.
+    expect(shellColumn - cap).toBeLessThan(50);
+  });
 });
 
 describe("the shell's width budget is what rules out docking", () => {
   // Measured 2026-09-01: content = min(viewport, 1400) − 16, frozen at 1384px
   // however wide the screen. A docked rail would leave 1384 − 360 − 16 = 1008px
-  // — below the ~1046px this graph needs for 1:1, and a 16% step DOWN from the
-  // 1203px a stacked canvas gets. If either input below changes, docking may
-  // become affordable again and this decision is worth revisiting.
+  // — below the ~1046px this graph needs for 1:1, and a 26% step DOWN from the
+  // 1360px a stacked canvas gets (2026-09-02: DATA_MAP_FIT_MAX_ZOOM raised
+  // from 1.15 to 1.3 so the stacked canvas itself reaches close to this same
+  // 1384px column — see viewport.ts). If either input below changes, docking
+  // may become affordable again and this decision is worth revisiting.
   it("wraps every screen in a padded container", () => {
     expect(read("src/layout/Layout.tsx")).toMatch(/container[^"]*\bp-2\b/);
   });
@@ -315,23 +349,26 @@ describe("the detail overlays the map from lg up", () => {
 });
 
 describe("the two things that float over the canvas stay off each other", () => {
-  // The card and React Flow's zoom/fit controls are the only two, and BOTH
-  // defaulted to bottom-right. A sticky card unpins at the bottom of its column
-  // and pins its own bottom edge to the canvas's, which is 15px from where the
-  // controls sit — so the overlap was persistent at the bottom of a 4,237px
-  // map, on the 82 of 108 nodes that put the card on the right, over the
-  // bespoke fit button T1 built.
+  // The card and the zoom/fit controls are the only two, and BOTH defaulted
+  // to bottom-right. A sticky card unpins at the bottom of its column and
+  // pins its own bottom edge to the canvas's, which is 15px from where the
+  // controls sit — so the overlap was persistent at the bottom of the (then
+  // 4,237px, now ~4,789px) map, on the 82 of 108 nodes that put the card on
+  // the right, over the bespoke fit button T1 built. (2026-09-02: the
+  // controls moved to DataMapFloatingControls — a `position: fixed` portal,
+  // no longer React Flow's own docked `<Controls>` — but `controlsSide`
+  // still decides the corner, so the invariant is unchanged.)
   it("derives both sides from one value", () => {
     const src = screenCode();
     expect(src).toMatch(
       /controlsSide=\{overlaySide === "left" \? "right" : "left"\}/,
     );
     const canvas = code("src/screens/components/datamap/DataMapCanvas.tsx");
-    expect(canvas).toMatch(
-      /position=\{controlsSide === "left" \? "bottom-left" : "bottom-right"\}/,
-    );
-    // No hard-coded corner survives beside it.
-    expect(canvas).not.toMatch(/position="bottom-(left|right)"/);
+    expect(canvas).toMatch(/controlsSide === "left" \? "left-4" : "right-4"/);
+    // No hard-coded corner survives beside it — each side class appears
+    // exactly once, inside the ternary above.
+    expect(canvas.match(/\bleft-4\b/g)).toHaveLength(1);
+    expect(canvas.match(/\bright-4\b/g)).toHaveLength(1);
   });
 
   it("moves the card only when staying put would cover the new node", () => {
@@ -351,8 +388,10 @@ describe("the two things that float over the canvas stay off each other", () => 
 
   it("anchors the overlay to the map rather than to the content box", () => {
     // The wrapper takes the full 1384px content width while the canvas is
-    // capped at ~1203, so without this a right-hand card hangs 181px off the
-    // map at >=1400 while a left-hand one is flush.
+    // capped at ~1360 (2026-09-02: raised from ~1203), so without this a
+    // right-hand card hangs 24px off the map at >=1400 while a left-hand one
+    // is flush — a smaller gap than before the cap was raised, but the same
+    // defect either way.
     const src = screenCode();
     expect(src).toMatch(
       /maxWidth: Math\.round\(extent\.w \* DATA_MAP_FIT_MAX_ZOOM\)/,
@@ -493,8 +532,10 @@ describe("the head is a title line and one sticky toolbar", () => {
   });
 
   it("sticks the toolbar under the site header", () => {
-    // The map is 4,237px tall: without this, scrolling into it left the reader
-    // with no way to change view or lens but to scroll all the way back.
+    // The map is ~4,789px tall (2026-09-02: was 4,237px before
+    // DATA_MAP_FIT_MAX_ZOOM went from 1.15 to 1.3): without this, scrolling
+    // into it left the reader with no way to change view or lens but to
+    // scroll all the way back.
     const src = screenCode();
     expect(src).toMatch(/sm:sticky sm:top-\[var\(--header-height,70px\)\]/);
     // A literal 70px here would drift from the header it sits under.

@@ -47,11 +47,25 @@ export const DATA_MAP_MARGIN = 16;
  * `extent.w * FIT_MAX_ZOOM`, because past that width the fit stops magnifying
  * and the box would only add empty space. One definition, so the cap and the
  * ceiling cannot drift apart.
+ *
+ * 1.3 rather than 1.15 (its value until 2026-09-02): the site's own shell
+ * clamps every page's content column at 1384px (`.container`'s 2xl:1400px in
+ * tailwind.config.js, minus Layout.tsx's `p-2`, per
+ * dataMapLayout.test.ts's own "shell's width budget" block) — a fixed ceiling
+ * regardless of monitor width, not the raw viewport. At the old 1.15 the
+ * canvas box topped out at `round(1046 * 1.15) = 1203px`, ~181px short of
+ * that column on any screen ≥1400px wide, which read as the map failing to
+ * fill the row while every other element on the page reached the shell's own
+ * edge. 1.3 tops out at `round(1046 * 1.3) = 1360px` — close to the 1384px
+ * ceiling with ~24px of deliberate slack, so a manifest that grows slightly
+ * wider on a future data refresh cannot push the box past the shell and force
+ * a horizontal scrollbar. Below 1400px nothing changes: `w-full` already
+ * shrinks the box under this cap on any narrower screen, and it still does.
  */
 export const DATA_MAP_PANE_MIN_ZOOM = 0.12;
 export const DATA_MAP_PANE_MAX_ZOOM = 2;
 export const DATA_MAP_FIT_PADDING = 0.03;
-export const DATA_MAP_FIT_MAX_ZOOM = 1.15;
+export const DATA_MAP_FIT_MAX_ZOOM = 1.3;
 export const DATA_MAP_FOCUS_PADDING = 0.15;
 export const DATA_MAP_FOCUS_MAX_ZOOM = 1;
 
