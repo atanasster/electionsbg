@@ -23,6 +23,22 @@ const { interregQueryFor } = require("./interreg_topics.js");
 // cannot finish, the second is not a refresh artifact and degrading hides it for ever.
 const FIT_DEGRADE = ["42883", "42P01", "55000", "55P03"];
 
+// The degrade set for a route arm that (a) shares a `Promise.all` — so rejecting there 500s the
+// WHOLE payload, not just its own block — and (b) reads a relation some loader bulk-reloads.
+//
+// ⚠️ 55P03 IS NOT A MATVIEW CODE, AND THAT MISREADING HAS SHIPPED TWICE. It is `lock_timeout`,
+// and a plain TABLE takes the same AccessExclusiveLock: a `TRUNCATE a, b` reload holds it through
+// every COPY in its transaction, so a bulk-reloaded table pair raises 55P03 exactly as a matview
+// rebuild does. Measured on `isun_clean_delivery_for_eik` under an ACCESS EXCLUSIVE lock with the
+// pool's `lock_timeout: 2000`: `55P03 canceling statement due to lock timeout`.
+//
+// 55000 is a matview created WITH NO DATA; 42501 a database whose readonly GRANTs never landed
+// (or a DROP+CREATE that revoked one under a skipped role guard). 57014 stays OUT — it is the
+// pool's own statement_timeout, so the request's budget is already spent and degrading only makes
+// the failure slower. Unlike FIT_DEGRADE above, 42501 is IN: these arms log the degrade once per
+// process, so a permanent missing GRANT is reported rather than hidden.
+const RELOAD_DEGRADE = ["42P01", "42883", "55000", "55P03", "42501"];
+
 // Below this a trigram query matches noise and scans widely. Mirrors FIT_MIN_QUERY in
 // src/data/funds/useFundsFit.ts — the client stops asking and the server stops answering, so
 // neither depends on the other getting it right.
@@ -1146,7 +1162,33 @@ const DB_ROUTES = {
         );
       }),
       dbRows(
-        "SELECT count(*)::int AS contracts, coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur FROM contracts WHERE contractor_eik = $1",
+        // DELIBERATELY UNSCOPED — "has this entity ever been a supplier, in any period?",
+        // the sell-side twin of the awarderAllTime probe below. Everything else on this
+        // route is windowed by from/to, and only 3.8% of the corpus's contract money sits
+        // inside the default parliament window, so without an all-time figure the page
+        // cannot tell a reader where the money they came looking for actually is.
+        //
+        // ⚠️ THREE FIELDS, THREE NAMED BASES, AND `contracts` IS NOT `contract_rows`.
+        // `contracts` counts EVERY tag — it gates whether the page renders a procurement
+        // body at all, so an amendment-only entity must still count. It is NOT the basis
+        // of any money figure here (1864 vs 1860 on 130878827), and pairing it with the
+        // contract-tag sum in one sentence — "N договора на стойност €X" — would state two
+        // bases as one.
+        //
+        // ⚠️⚠️ `contract_rows` MUST MATCH `company_procurement.contract_count` EXACTLY —
+        // `tag = 'contract' AND consortium_role IS DISTINCT FROM 'member'` (011, line 40).
+        // Dropping the consortium clause is NOT a rounding difference: migration 087 moves
+        // a joint award's whole value onto the synthetic carrier and ZEROES the members, so
+        // member rows are €0 rows the money sum is blind to and a plain count is not.
+        // Measured on 103895548 — 50 by the card, 176 without the clause — i.e. an all-time
+        // note reading "176 договора" directly beside a "Договори 50" tile. 3,230 suppliers
+        // are in that state. The €0 members stay IN `contracts_eur` precisely because they
+        // are zero; only the count has to exclude them.
+        `SELECT count(*)::int AS contracts,
+                count(*) FILTER (WHERE tag = 'contract'
+                  AND consortium_role IS DISTINCT FROM 'member')::int AS contract_rows,
+                coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur
+           FROM contracts WHERE contractor_eik = $1`,
         [eik],
       ),
       // Bounded: a few pathological holdings have thousands of officer rows —
@@ -1189,7 +1231,13 @@ const DB_ROUTES = {
       // never fires if you LAND on an empty window). Cheap: bitmap index scan
       // on idx_contracts_awarder (~cost 338).
       dbRows(
-        `SELECT count(*)::int AS contracts,
+        // ⚠️ THE SAME CONSORTIUM CLAUSE AS `awarder_procurement.contract_count` (023, line
+        // 34). 087 zeroes a joint award's members onto its carrier, so counting them here
+        // while the „Договори" tile beside this figure does not would print two counts of
+        // one thing — 488 awarders are affected, worst case +1,163 rows. The €0 members
+        // stay in the SUM because they are zero.
+        `SELECT count(*) FILTER (
+                  WHERE consortium_role IS DISTINCT FROM 'member')::int AS contracts,
                 COALESCE(SUM(amount_eur), 0)::float8 AS total_eur
          FROM contracts WHERE awarder_eik = $1 AND tag = 'contract'`,
         [eik],
@@ -1308,10 +1356,41 @@ const DB_ROUTES = {
       // all. The tile therefore renders ONLY on a present row — never a zero —
       // and the row carries `absence_meaning` so the page states the bound
       // rather than re-deriving it.
-      dbRows("SELECT * FROM isun_clean_delivery_for_eik($1)", [eik]).catch(
-        (e) =>
-          e?.code === "42P01" || e?.code === "42883" ? [] : Promise.reject(e),
-      ),
+      //
+      // The row also carries `beneficiary_listed` and the named `contracts`, and
+      // both are load-bearing for the consumer. 175 drives from BOTH registers,
+      // so a row can arrive with `on_time_contracts = NULL` — a company listed
+      // among the correction-free CONTRACTS but not among the beneficiaries (956
+      // EIKs, 17.5% of the register). A consumer must render that as „no such
+      // claim", never coalesce it to 0. And `contracts` is what lets the page
+      // show the two or three named projects instead of leaving a reader to
+      // subtract two counts that measure different things.
+      //
+      // ⚠️ THE DEGRADE SET IS `RELOAD_DEGRADE`, NOT THE 42P01/42883 PAIR THIS ARM
+      // CARRIED UNTIL 2026-09-02. „Plain tables cannot raise the matview codes" was
+      // the stated reason, and it is wrong about 55P03: that is `lock_timeout`, and
+      // `db:load:clean-delivery:pg` opens its transaction with
+      // `TRUNCATE isun_clean_contract, isun_clean_beneficiary`, holding an
+      // AccessExclusiveLock through both COPYs. Reproduced — the function is
+      // cancelled with 55P03 under that lock. This arm shares the route's single
+      // Promise.all, so rethrowing there 500s the WHOLE company payload — every
+      // company AND every awarder, since CompanyDbScreen serves both — for the
+      // length of a routine publish. 42501 belongs for a second reason specific to
+      // this file: 175's function is DROP+CREATE under a role-guarded GRANT, so
+      // re-applying it on a database with no `app_readonly` REVOKES its EXECUTE and
+      // grants nothing back.
+      dbRows("SELECT * FROM isun_clean_delivery_for_eik($1)", [eik]).catch((e) => {
+        if (!RELOAD_DEGRADE.includes(e?.code)) return Promise.reject(e);
+        // Without this the degrade is SILENT, and „175 never reached this database"
+        // looks exactly like „this company is in neither register" — no tile, on
+        // every company, with nothing in the logs.
+        logMissOnce(
+          `icd:not-built:${e.code}`,
+          `clean-delivery: read failed (${e.code}) — serving none. ` +
+            `Apply 175 (npm run db:load:clean-delivery:pg).`,
+        );
+        return [];
+      }),
       // Public office-holders who declared a stake in, or a role at, this company
       // (177, over 096's gated matview). Degrades to null so a database that has
       // not applied 177 — or has not resolved declarations at all — serves the rest
@@ -1322,18 +1401,19 @@ const DB_ROUTES = {
       // „nobody declared a stake in this company": 1,751 of the retired
       // companies-index's own UICs are in exactly that state.
       dbRows("SELECT company_declared_stakes($1) AS r", [eik]).catch((e) => {
-        // ⚠️ THE MATVIEW DEGRADE SET, NOT cleanDelivery's plain-table pair. 177 is a thin
-        // function over 096's MATERIALIZED VIEW, and 096 opens with
-        // `DROP MATERIALIZED VIEW declaration_stake_company CASCADE` inside ONE transaction.
-        // A concurrent reader therefore hits 55P03 (lock_timeout), and because this arm
-        // shares the route's single Promise.all, rejecting there 500s the ENTIRE
+        // `RELOAD_DEGRADE`. 177 is a thin function over 096's MATERIALIZED VIEW, and 096
+        // opens with `DROP MATERIALIZED VIEW declaration_stake_company CASCADE` inside ONE
+        // transaction. A concurrent reader therefore hits 55P03 (lock_timeout), and because
+        // this arm shares the route's single Promise.all, rejecting there 500s the ENTIRE
         // /api/db/company payload — for every company, for as long as the rebuild runs. The
         // plan measures that rebuild at 4 h 41 m on Cloud SQL.
         //
-        // 55000 covers a WITH NO DATA state and 42501 a database that never received the
-        // readonly grants. 57014 stays OUT: it is the pool's own statement_timeout, so the
-        // request has already spent its budget and degrading only makes the failure slower.
-        if (!["42P01", "42883", "55000", "55P03", "42501"].includes(e?.code)) {
+        // ⚠️ This comment used to call that „THE MATVIEW DEGRADE SET, NOT cleanDelivery's
+        // plain-table pair", and the distinction was FALSE: 55P03 is a lock code, so the
+        // plain-table arm above needs it too (a TRUNCATE-reload holds the same
+        // AccessExclusiveLock). Both arms now share `RELOAD_DEGRADE`; do not re-derive a
+        // narrower set here from the shape of the object being read.
+        if (!RELOAD_DEGRADE.includes(e?.code)) {
           return Promise.reject(e);
         }
         // Without this line the degrade is SILENT, and „177 never reached this database"

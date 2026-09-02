@@ -130,6 +130,7 @@ import { trRoleLabel } from "@/lib/trRole";
 import { legalFormLabel } from "@/lib/legalForm";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { ScopeControl } from "../components/ScopeControl";
+import { AllTimeScopeNote } from "../components/procurement/AllTimeScopeNote";
 import { scopeYear, useScope, useScopedHref } from "@/data/scope/useScope";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -192,7 +193,13 @@ const FUNDING_SOURCE_LABEL: Record<string, { bg: string; en: string }> = {
   ned: { bg: "NED", en: "NED" },
 };
 interface Summary {
+  /** EVERY tag — this is what gates whether the procurement body renders at all, so an
+   *  amendment-only entity must still count. NOT the basis of any money figure here. */
   contracts: number;
+  /** `tag = 'contract'`, the basis `contracts_eur` uses. Optional: it arrived with the
+   *  all-time note, so a deployed `db` function older than this bundle omits it and the
+   *  note renders money only rather than „0 договора". */
+  contract_rows?: number;
   contracts_eur: number;
 }
 interface Officer {
@@ -1310,6 +1317,17 @@ export const CompanyDbScreen: FC = () => {
                       {formatEurCompact(awarderRollup.totalEur, i18n.language)}
                     </span>
                   </div>
+                  {/* Same note as the sell side. The all-time probe was already fetched
+                      for the EMPTY-window case below; a window that is merely small is
+                      the commoner one and had nothing. */}
+                  <AllTimeScopeNote
+                    side="buyer"
+                    scope={scope}
+                    scopedEur={awarderRollup.totalEur}
+                    allTimeEur={Number(awarderAllTime?.total_eur ?? 0)}
+                    onShowAll={() => setScope("all")}
+                    lang={i18n.language}
+                  />
                 </StatCard>
                 <StatCard label="Договори">
                   <div className="flex items-baseline gap-2">
@@ -1427,38 +1445,34 @@ export const CompanyDbScreen: FC = () => {
               </div>
               {/* Don't dead-end on "нищо намерено": say what was searched, and —
                   when the entity DOES award outside this window — where the data
-                  actually is, with a one-click way to get there. */}
-              <p className="text-sm text-muted-foreground">
-                Няма възложени договори за избрания период.
-              </p>
-              {(awarderAllTime?.contracts ?? 0) > 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  За всички периоди:{" "}
-                  <span className="font-medium text-foreground tabular-nums">
-                    {(awarderAllTime?.contracts ?? 0).toLocaleString("bg-BG")}
-                  </span>{" "}
-                  договора на стойност{" "}
-                  <span className="font-medium text-foreground tabular-nums">
-                    {formatEurCompact(
-                      awarderAllTime?.total_eur ?? 0,
-                      i18n.language,
-                    )}
-                  </span>
-                  {/* No full stop here: the BG compact format already ends in an
-                      abbreviation dot ("€13,6 млн."), so adding one reads "млн..". */}{" "}
-                  <button
-                    type="button"
-                    onClick={() => setScope("all")}
-                    className="font-medium text-primary underline underline-offset-2 hover:no-underline"
-                  >
-                    Виж всички периоди
-                  </button>
-                </p>
+                  actually is, with a one-click way to get there. Now the SAME component
+                  the sell side uses, so the two sides cannot drift in what they say or
+                  in which basis they say it on. */}
+              {/* ⚠️ Branch on the MONEY, matching the component's own guard. Branching on
+                  the COUNT while the component bails on the sum renders this section's
+                  „Като възложител" heading with no text under it — 0 awarders are in that
+                  state today, which makes it latent rather than live, and the same shape as
+                  the supplier block below. */}
+              {Number(awarderAllTime?.total_eur ?? 0) > 0 ? (
+                <AllTimeScopeNote
+                  emptyWindow
+                  side="buyer"
+                  scope={scope}
+                  allTimeEur={Number(awarderAllTime?.total_eur ?? 0)}
+                  allTimeCount={awarderAllTime?.contracts}
+                  onShowAll={() => setScope("all")}
+                  lang={i18n.language}
+                />
               ) : (
-                <p className="text-sm text-muted-foreground">
-                  Проверихме договорите, поръчките и връзките — няма намерени
-                  записи за тази институция.
-                </p>
+                <>
+                  <p className="text-sm text-muted-foreground">
+                    Няма възложени договори за избрания период.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Проверихме договорите, поръчките и връзките — няма намерени
+                    записи за тази институция.
+                  </p>
+                </>
               )}
             </section>
           )}
@@ -1559,12 +1573,25 @@ export const CompanyDbScreen: FC = () => {
               </ul>
             </div>
           )}
-          {/* Contractor with no contracts inside the chosen window — mirror the
-              awarder empty state so the scope stays legible on a narrowed view. */}
+          {/* Contractor with no contracts inside the chosen window. ⚠️ It must SAY WHERE
+              THE MONEY IS, not merely that this window is empty: only 3.8% of the
+              corpus's contract money sits inside the default parliament window, so this
+              is the state most readers arriving from a search or a leaderboard land in,
+              and a bare „нищо намерено" strands them with the figure they came for
+              nowhere on the page. Mirrors the awarder block ABOVE, which has said this
+              since it was written. */}
           {contracts > 0 && (!rollup || rollup.contractCount === 0) && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Building2 className="h-4 w-4" /> Няма договори за избрания
-              период.
+            <div className="flex items-start gap-2">
+              <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+              <AllTimeScopeNote
+                emptyWindow
+                side="supplier"
+                scope={scope}
+                allTimeEur={Number(summary?.contracts_eur ?? 0)}
+                allTimeCount={summary?.contract_rows}
+                onShowAll={() => setScope("all")}
+                lang={i18n.language}
+              />
             </div>
           )}
           {rollup && rollup.contractCount > 0 && (
@@ -1589,6 +1616,18 @@ export const CompanyDbScreen: FC = () => {
                       {formatEurCompact(rollup.totalEur, i18n.language) || "—"}
                     </span>
                   </div>
+                  {/* Directly under the HEADLINE, matching the awarder card — it
+                      qualifies that figure, and a note placed after „средно" reads as
+                      qualifying the average instead. Self-hides on `?pscope=all` and
+                      when the window already holds everything. */}
+                  <AllTimeScopeNote
+                    side="supplier"
+                    scope={scope}
+                    scopedEur={rollup.totalEur}
+                    allTimeEur={Number(summary?.contracts_eur ?? 0)}
+                    onShowAll={() => setScope("all")}
+                    lang={i18n.language}
+                  />
                   <div className="text-xs text-muted-foreground tabular-nums">
                     средно{" "}
                     {formatEur(
