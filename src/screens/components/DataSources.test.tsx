@@ -18,6 +18,7 @@ import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { enCorpus } from "@/locales/allKeys";
+import type { DataMapNode } from "@/data/dataMap/useDataMap";
 import { DataSources } from "./DataSources";
 
 vi.mock("react-i18next", () => ({
@@ -112,13 +113,17 @@ const MANIFEST = {
   ],
 };
 
-const mount = () => {
+/** `manifest: null` leaves the data_map.json fetch permanently pending, for
+ *  the loading-state test — never resolving is the only reliable way to
+ *  observe the isLoading branch rather than racing a real resolution. */
+const mount = (manifest: unknown = MANIFEST) => {
   vi.stubGlobal(
     "fetch",
     vi.fn(async (url: string) => {
       const u = String(url);
       if (u.includes("data_map.json")) {
-        return { ok: true, status: 200, json: async () => MANIFEST };
+        if (manifest === null) return new Promise(() => {});
+        return { ok: true, status: 200, json: async () => manifest };
       }
       if (u.includes("data-changes.json")) {
         return {
@@ -145,12 +150,41 @@ const mount = () => {
   return render(<DataSources />, { wrapper: Wrapper });
 };
 
+/** A minimal one-node manifest, for tests that want a fixture unentangled
+ *  from MANIFEST's section/filter-count assertions above. */
+const soloManifest = (node: DataMapNode) => ({
+  version: 3,
+  generatedAt: "2026-09-02T00:00:00.000Z",
+  views: [
+    {
+      id: "fiscal",
+      label: { bg: "Публични пари", en: "Public money" },
+      tag: "fiscal",
+    },
+  ],
+  tiers: [],
+  tours: [],
+  links: [],
+  edges: [],
+  nodes: [node],
+});
+
+/** `mount()` + waiting for the fixture's first tile to appear, repeated at
+ *  the top of nearly every test below — collapsed to one call. */
+const mountAndSettle = async (
+  settleText = "Test A",
+  manifest: unknown = MANIFEST,
+) => {
+  const result = mount(manifest);
+  await waitFor(() => expect(screen.getByText(settleText)).toBeInTheDocument());
+  return result;
+};
+
 afterEach(() => vi.unstubAllGlobals());
 
 describe("DataSources", () => {
   it("renders one tile per source node, grouped by section — never a dataset node", async () => {
-    mount();
-    await waitFor(() => expect(screen.getByText("Test A")).toBeInTheDocument());
+    await mountAndSettle();
 
     expect(screen.getByText("Elections")).toBeInTheDocument();
     expect(screen.getByText("Public money")).toBeInTheDocument();
@@ -161,8 +195,7 @@ describe("DataSources", () => {
   });
 
   it("narrows the list when typing in the search box", async () => {
-    mount();
-    await waitFor(() => expect(screen.getByText("Test A")).toBeInTheDocument());
+    await mountAndSettle();
 
     await userEvent.type(screen.getByLabelText("Search sources"), "Test A");
 
@@ -172,8 +205,7 @@ describe("DataSources", () => {
   });
 
   it("filters by origin pill", async () => {
-    mount();
-    await waitFor(() => expect(screen.getByText("Test A")).toBeInTheDocument());
+    await mountAndSettle();
 
     await userEvent.click(screen.getByRole("button", { name: "EU" }));
 
@@ -183,8 +215,7 @@ describe("DataSources", () => {
   });
 
   it("filters to issue-bearing nodes with the issues-only pill, and renders the issue text", async () => {
-    mount();
-    await waitFor(() => expect(screen.getByText("Test A")).toBeInTheDocument());
+    await mountAndSettle();
 
     await userEvent.click(
       screen.getByRole("button", { name: "Known caveats only" }),
@@ -198,11 +229,98 @@ describe("DataSources", () => {
   });
 
   it("labels an origin-less node as unknown rather than asserting a specific country", async () => {
-    mount();
-    await waitFor(() => expect(screen.getByText("Test C")).toBeInTheDocument());
+    await mountAndSettle("Test C");
 
     // Test C has no `origin` field — must read "Unknown origin", never one of
     // the four real origin labels (the FINDING-002 regression).
     expect(screen.getByText("Unknown origin")).toBeInTheDocument();
+  });
+
+  it("labels a node with no freshness signal as manually maintained", async () => {
+    await mountAndSettle("Test C");
+
+    // Test C carries neither a baked `freshness` nor any `skills` a
+    // data-changes.json entry could match — dataMapFreshnessTier must read
+    // that as "static", not silently fall through to some other bucket.
+    // Test B is ALSO static (issue-bearing but no freshness/skills either),
+    // plus the legend strip's own dot — three occurrences total.
+    expect(screen.getAllByText("manually maintained")).toHaveLength(3);
+  });
+
+  it("shows a loading skeleton before the manifest resolves", () => {
+    mount(null);
+
+    // Six placeholder blocks, no tile content and no section heading yet —
+    // the isLoading branch, not a flash of the empty state.
+    expect(document.querySelectorAll(".animate-pulse")).toHaveLength(6);
+    expect(screen.queryByText("Elections")).not.toBeInTheDocument();
+  });
+
+  it("shows the empty-state message and announces zero results when nothing matches", async () => {
+    await mountAndSettle();
+
+    await userEvent.type(
+      screen.getByLabelText("Search sources"),
+      "no such source",
+    );
+
+    expect(
+      screen.getByText(
+        "Nothing matches — try a different word, or widen the filters above.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("shown now: 0");
+  });
+
+  it("combines the search term and the origin filter (AND, not OR)", async () => {
+    await mountAndSettle();
+
+    // "Test" matches all three; the EU pill alone narrows to Test B. Typing
+    // a term that matches ONLY Test A while EU stays selected must therefore
+    // hide Test A too, not fall back to widening on the text match alone.
+    await userEvent.click(screen.getByRole("button", { name: "EU" }));
+    await userEvent.type(screen.getByLabelText("Search sources"), "Test A");
+
+    expect(screen.queryByText("Test A")).not.toBeInTheDocument();
+    expect(screen.queryByText("Test B")).not.toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("shown now: 0");
+  });
+
+  it("hides a section entirely once none of its tiles match the filter", async () => {
+    await mountAndSettle();
+
+    // Elections' only member is Test A (origin "state") — filtering to EU
+    // must drop the WHOLE section, not just leave an empty heading behind.
+    await userEvent.click(screen.getByRole("button", { name: "EU" }));
+
+    expect(screen.queryByText("Elections")).not.toBeInTheDocument();
+    expect(screen.getByText("Public money")).toBeInTheDocument();
+  });
+
+  it("falls back to the raw string when a node's url is not a well-formed absolute URL", async () => {
+    mount(
+      soloManifest({
+        id: "src:bad-url",
+        kind: "source",
+        label: { bg: "Лош адрес", en: "Bad URL" },
+        detail: { bg: "", en: "" },
+        desc: { bg: "", en: "" },
+        tags: ["fiscal"],
+        origin: "state",
+        // Deliberately not a well-formed absolute URL — `new URL()` throws on
+        // this. Must not blank the page (FINDING-003).
+        url: "not-a-valid-url",
+        skills: [],
+        x: 0,
+        y: 0,
+        w: 0,
+        h: 0,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(screen.getByText("Bad URL")).toBeInTheDocument(),
+    );
+    expect(screen.getByText("not-a-valid-url")).toBeInTheDocument();
   });
 });
