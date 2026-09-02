@@ -1646,5 +1646,70 @@ class RedoQueuesAlreadyAnalysedWork(FixtureTestCase):
             if key in want:
                 self.assertEqual(got[key], want[key], key)
 
+class AutoMergeThroughTheSavePath(FixtureTestCase):
+    """A second outlet's report of the SAME event joins the first story.
+
+    auto_merge_host is unit-tested in test_auto_merge.py; only this proves the
+    WIRING — that a record which ARRIVES declaring `new_story` is stored as
+    `same_story` and lands in the existing story's membership, through the
+    real CLI.
+    """
+
+    HEAD = "Зеленски смени командващия сухопътните войски на Украйна"
+    ENTITIES = {"people": ["Зеленски"], "parties": [], "institutions": [],
+                "companies": [], "places": ["Украйна"]}
+
+    def _analysis(self, key):
+        domain, _, rec = self.articles[key]
+        return analysis(self.analysis_path(key), rec["url"], domain,
+                        titles=(self.HEAD, "Zelensky replaced the commander"),
+                        extra={"entities": dict(self.ENTITIES),
+                               "published": "2026-08-22T11:00:00+00:00"})
+
+    def test_the_second_outlet_joins_rather_than_opening_a_singleton(self):
+        out = self.save(self._analysis("a2"))
+        self.assertEqual(len(out["stories_created"]), 1)
+        host = out["stories_created"][0]
+
+        second = self._analysis("a3")
+        self.assertEqual(second["story"]["action"], "new_story")
+        out2 = self.save(second)
+        self.assertEqual(out2["stories_created"], [])
+        self.assertEqual([m["story_id"] for m in out2["auto_merged"]], [host])
+
+        story = self.story(host)
+        self.assertEqual(len(story["members"]), 2)
+        self.assertEqual(story["aggregates"]["outlet_count"], 2)
+        self.assertEqual(sorted(story["aggregates"]["by_domain"]),
+                         ["other.bg", "test.bg"])
+
+    def test_the_join_is_recorded_in_the_index_and_carries_its_basis(self):
+        """An auto-join must be auditable and distinguishable from a human's."""
+        self.save(self._analysis("a2"))
+        self.save(self._analysis("a3"))
+        index = self.index()
+        first = index["articles"][self.articles["a2"][2]["url"]]["story_id"]
+        second = index["articles"][self.articles["a3"][2]["url"]]["story_id"]
+        self.assertEqual(first, second)
+        stored_path = index["articles"][self.articles["a3"][2]["url"]]["path"]
+        with open(os.path.join(self.root, stored_path), encoding="utf-8") as fh:
+            stored = json.load(fh)
+        self.assertEqual(stored["story"]["action"], "same_story")
+        self.assertEqual(stored["story"]["merge_basis"]["by"], "same_event_evidence")
+        self.assertIn("title_jaccard", stored["story"]["merge_basis"])
+
+    def test_the_kill_switch_restores_singletons(self):
+        """One lever for an operator facing a bad merge wave, not a deploy."""
+        self.save(self._analysis("a2"))
+        proc = subprocess.run(
+            [sys.executable, SCRIPT, "--save-batch", "-"],
+            capture_output=True, text=True, timeout=60,
+            env={**os.environ, "DATA_BG_ROOT": self.root, "NEWS_AUTO_MERGE": "0"},
+            input=json.dumps([self._analysis("a3")], ensure_ascii=False))
+        out = json.loads(proc.stdout)
+        self.assertEqual(out["auto_merged"], [])
+        self.assertEqual(len(out["stories_created"]), 1)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

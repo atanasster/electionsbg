@@ -86,6 +86,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from review_routing import record_review  # noqa: E402
+from home_event_dedupe import same_event_evidence  # noqa: E402
 
 REPO_ROOT = os.environ.get("DATA_BG_ROOT") or os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -659,6 +660,81 @@ def member_from(existing: dict, analysis: dict) -> dict:
 
 
 # --------------------------------------------------------------- story ids ---
+
+def auto_merge_host(a: dict, index: dict) -> tuple[str, dict] | None:
+    """The existing story this NEW analysis joins, with its evidence.
+
+    ⚠️ THIS IS NOT THE DESTRUCTIVE MERGE THE PIPELINE REFUSED TO AUTOMATE, and
+    the distinction is the whole basis for doing it here. `analyze_local.py`
+    declines to MERGE because joining two STORIES deletes one of them: its id,
+    its title and its membership are gone, and no automatic step can put them
+    back. Attaching a BRAND-NEW article is a different operation — the article
+    belongs to no story yet, so nothing is deleted and nothing is lost. It is
+    undone by detaching one member.
+
+    Without it every batch is singletons and the site never compares outlets:
+    measured 2026-09-02 over six days of corpus, 0/0/1/0/1/0 multi-outlet
+    stories, while 67% of articles had a strong cross-outlet candidate sitting
+    in the prefilter, computed every run and read by nothing.
+
+    ⚠️ IT USES THE SAME RULE AS THE REVIEW QUEUE, deliberately — one definition
+    of "same event", not a second one that could disagree with the proposals a
+    human is auditing. That rule earned the trust: of the 90 proposals it
+    produced, 85 were accepted and applied with 0 refused.
+
+    ⚠️ IT COMPARES AGAINST THE STORY'S CANONICAL TITLE, which `recompute_story`
+    never rewrites. So a story stays anchored to its first article and cannot
+    drift topic-by-topic as members accumulate — the failure mode a chain of
+    pairwise merges would otherwise have.
+
+    Returns None on the first sign of doubt; the caller then opens a singleton,
+    which is always the safe answer.
+    """
+    if os.environ.get("NEWS_AUTO_MERGE", "1") == "0":
+        return None
+    # ⚠️ AN ANALYSIS RECORD IS NOT AN ARTICLE RECORD. It carries no `title`,
+    # `description`, `keywords` or `content` — the headline lives in
+    # `story.canonical_title_bg` and the text in `summary_bg`. Reading the
+    # article field names here returns None for every one of them, which does
+    # not fail: `candidate_stories` simply matches on empty strings and the
+    # rule scores 0. Measured over 300 recent analyses, the first cut of this
+    # function joined 0 of them and looked exactly like "no duplicates today".
+    block = a.get("story") or {}
+    title = (block.get("canonical_title_bg") or a.get("summary_bg") or "").strip()
+    if not title:
+        return None
+    summary = a.get("summary_bg") or ""
+    candidates = candidate_stories(index, {
+        "title": title, "description": summary, "keywords": "",
+        "content": summary, "published": a.get("published"),
+    })
+    if not candidates:
+        return None
+    incoming = {
+        "title_bg": title,
+        "title_en": block.get("canonical_title_en") or a.get("summary_en") or "",
+        "entities": a.get("entities") or {},
+        "topics": a.get("topics") or [],
+        "last_published": a.get("published"),
+    }
+    best: tuple[str, dict] | None = None
+    for candidate in candidates:
+        story = load_story(candidate["story_id"])
+        if not story:
+            continue
+        evidence = same_event_evidence(incoming, {
+            "title_bg": story.get("canonical_title_bg"),
+            "title_en": story.get("canonical_title_en"),
+            "entities": story.get("entities"),
+            "topics": story.get("topics"),
+            "last_published": story.get("last_published"),
+        })
+        if evidence is None:
+            continue
+        if best is None or evidence["title_jaccard"] > best[1]["title_jaccard"]:
+            best = (candidate["story_id"], evidence)
+    return best
+
 
 def make_story_id(published: str | None, title_bg: str, url: str) -> str:
     date = (published or "")[:10].replace("-", "") or "nodate"
@@ -1553,6 +1629,36 @@ def save_one(a: dict, tax, cats: dict, index: dict, stats: dict) -> list:
 
     prev_story_id = scan_stories_for_url(a["url"], index)
 
+    # ⚠️ THE UPGRADE MUST HAPPEN BEFORE `affected` IS COMPUTED, and the cost of
+    # getting this wrong is silent data loss. `affected` decides which sibling
+    # analyses are loaded, and `recompute_story` DROPS any member whose
+    # analysis is absent. Run the upgrade after this line and the host story's
+    # existing members are simply not loaded, so joining a story DELETES every
+    # article already in it — the save reports success, the member count goes
+    # to 1, and the story keeps its title. Caught by the end-to-end test, which
+    # is the only place it is visible: auto_merge_host alone is perfectly happy.
+    if a["story"]["action"] == "new_story":
+        # Only in this direction: a declared `same_story` is somebody's
+        # explicit decision and is never second-guessed here.
+        host = auto_merge_host(a, index)
+        if host is not None:
+            host_id, evidence = host
+            a["story"] = {
+                "action": "same_story",
+                "story_id": host_id,
+                # Provenance, so an auto-join is distinguishable from a model's
+                # or a human's. Without it nobody can audit what this rule did.
+                "merge_basis": {"by": "same_event_evidence", **evidence},
+                "related_story_ids": [
+                    r for r in a["story"].get("related_story_ids", [])
+                    if isinstance(r, str)
+                ],
+            }
+            stats.setdefault("auto_merged", []).append(
+                {"url": a.get("url"), "story_id": host_id,
+                 "title_jaccard": evidence["title_jaccard"],
+                 "shared_entities": evidence["shared_entities"][:4]})
+
     # load sibling analyses of affected stories for recomputation
     affected = {prev_story_id} if prev_story_id else set()
     if a["story"]["action"] == "same_story":
@@ -1662,7 +1768,8 @@ def cmd_save(args) -> int:
     if not isinstance(records, list) or not all(isinstance(r, dict) for r in records):
         return emit(3, error="expected object (or array of objects)", got=type(payload).__name__)
 
-    stats = {"saved": [], "failed": [], "stories_created": [], "stories_updated": [], "stories_deleted": []}
+    stats = {"saved": [], "failed": [], "stories_created": [], "stories_updated": [],
+             "stories_deleted": [], "auto_merged": []}
     for a in records:
         try:
             errs = save_one(a, tax, cats, index, stats)
