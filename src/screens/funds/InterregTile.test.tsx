@@ -206,3 +206,86 @@ describe("the see-all expansion", () => {
     expect(screen.queryByRole("button")).toBeNull();
   });
 });
+
+const programme = (
+  over: Partial<InterregOverview["programmes"][number]> = {},
+): InterregOverview["programmes"][number] => ({
+  code: "INTERREG-ROBG-1420",
+  nameBg: "ИНТЕРРЕГ V-A Румъния - България 2014-2020",
+  nameEn: "INTERREG V-A Romania-Bulgaria",
+  period: "2014-2020",
+  budgetEur: 130_933_260,
+  partnerCount: 226,
+  operationCount: 169,
+  ...over,
+});
+
+// 9 programmes so the default view (6 shown) has 3 more to reveal.
+const manyProgrammes = Array.from({ length: 9 }, (_, i) =>
+  programme({
+    code: `INTERREG-TEST-${i}`,
+    nameBg: `Тестова програма ${i}`,
+    nameEn: `Test programme ${i}`,
+    budgetEur: 9_000_000 - i * 100_000,
+  }),
+);
+
+describe("the programmes see-all expansion", () => {
+  beforeEach(() => {
+    hook.overview = overview({ programmeCount: 9, programmes: manyProgrammes });
+  });
+
+  it("shows only the top PROGRAMMES_SHOWN by default, each linking to its own page", () => {
+    mount();
+    expect(screen.getByText("Тестова програма 0")).toBeTruthy();
+    expect(screen.queryByText("Тестова програма 8")).toBeNull();
+    const link = screen.getByText("Тестова програма 0").closest("a");
+    expect(link?.getAttribute("href")).toBe(
+      "/funds/interreg/programme/INTERREG-TEST-0",
+    );
+  });
+
+  it("reveals every programme on click, using the server's total rather than the fetched array length", () => {
+    mount();
+    const toggle = screen.getByText(/Виж всички 9 програми/u);
+    fireEvent.click(toggle);
+    expect(screen.getByText("Тестова програма 8")).toBeTruthy();
+  });
+
+  it("swaps the heading so it never claims 'largest 6 of 9' once every row is shown", () => {
+    mount();
+    expect(screen.getByText(/По програми/u)).toBeTruthy();
+
+    fireEvent.click(screen.getByText(/Виж всички 9 програми/u));
+
+    expect(screen.queryByText(/По програми/u)).toBeNull();
+    expect(screen.getByText(/Всички програми \(9\)/u)).toBeTruthy();
+  });
+
+  it("hides the toggle when there are no more programmes to reveal", () => {
+    // Query for the PROGRAMMES toggle specifically — the default `ranking()`
+    // fixture (shared by the municipalities describe block above) still
+    // renders its own "see all municipalities" toggle here.
+    hook.overview = overview({
+      programmeCount: 3,
+      programmes: manyProgrammes.slice(0, 3),
+    });
+    mount();
+    expect(screen.queryByText(/Виж всички.*програми/u)).toBeNull();
+  });
+
+  it("never promises more programmes than the fetched array can actually show", () => {
+    // programmeCount (30) exceeds the array the tile actually holds (9) —
+    // the shape a corpus growing past the requested fetch limit produces.
+    // The displayed total must clamp to what visibleProgrammes can render,
+    // not repeat the server's unbounded count.
+    hook.overview = overview({
+      programmeCount: 30,
+      programmes: manyProgrammes,
+    });
+    mount();
+    fireEvent.click(screen.getByText(/Виж всички \d+ програми/u));
+    expect(screen.getByText(/Всички програми \(9\)/u)).toBeTruthy();
+    expect(screen.queryByText(/Всички програми \(30\)/u)).toBeNull();
+  });
+});

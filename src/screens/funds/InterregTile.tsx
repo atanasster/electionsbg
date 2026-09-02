@@ -62,12 +62,16 @@ export const InterregTile: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const bg = lang === "bg";
-  const { data: overview } = useInterregOverview();
+  // 25, not 12 (the route's own default): comfortably above the ~19-23
+  // registered programmes, so the "see all" expansion below has the whole
+  // list already in memory — no second request on click.
+  const { data: overview } = useInterregOverview(25);
   // 300, not 10: the server orders by RANK while the tile ranks by rankDelta,
   // so a smaller limit returns the wrong ten climbers. ~40 KB for 256 rows.
   const { data: ranking } = useFundsMuniRank(300);
   const { findMunicipality } = useMunicipalities();
   const [showAllMunis, setShowAllMunis] = useState(false);
+  const [showAllProgrammes, setShowAllProgrammes] = useState(false);
 
   // The biggest climbers, which is what the tile exists to show. Sorted on
   // rankDelta rather than on money: a large municipality can take more euros and
@@ -104,6 +108,17 @@ export const InterregTile: FC = () => {
 
   const visibleMunis = showAllMunis ? allWithInterreg : movers;
 
+  // The programmes list, sliced the same toggle-dependent way as the
+  // municipalities lists above — memoized for the same reason `movers`/
+  // `allWithInterreg` are, and for consistency with them.
+  const visibleProgrammes = useMemo(
+    () =>
+      showAllProgrammes
+        ? (overview?.programmes ?? [])
+        : (overview?.programmes ?? []).slice(0, PROGRAMMES_SHOWN),
+    [overview, showAllProgrammes],
+  );
+
   // Everything the ranking cannot see, on the INTERREG arm. `ranked` is the
   // covered bucket, so it is not an exclusion — the other two are. The ИСУН
   // exclusion is a separate and far larger number (€6.56bn, mostly Sofia) and
@@ -120,6 +135,18 @@ export const InterregTile: FC = () => {
   // The hooks above must run unconditionally on every render (rules-of-hooks),
   // so the early return sits here rather than before them.
   if (!overview || overview.partnerCount === 0) return null;
+
+  // `programmeCount` is the server's own unbounded distinct-programme count,
+  // which is what the "see all N" wording SHOULD promise (see the memo
+  // above's sibling reasoning). But nothing enforces `programmeCount <=
+  // overview.programmes.length` — the array is a server-side LIMIT prefix,
+  // capped at 25 in the request below — so clamping here is what stops a
+  // future corpus outgrowing that cap from making this button lie about how
+  // many rows expanding it will actually show.
+  const displayedProgrammeCount = Math.min(
+    overview.programmeCount,
+    overview.programmes.length,
+  );
 
   const p2127 = overview.periods["2021-2027"];
   const p1420 = overview.periods["2014-2020"];
@@ -268,15 +295,22 @@ export const InterregTile: FC = () => {
         ) : null}
 
         {overview.programmes.length > 0 ? (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-2">
             <h3 className="text-xs font-semibold">
-              {t("interreg_by_programme", {
-                shown: Math.min(PROGRAMMES_SHOWN, overview.programmes.length),
-                total: overview.programmeCount,
-              })}
+              {showAllProgrammes
+                ? t("interreg_by_programme_all", {
+                    total: numFmt.format(displayedProgrammeCount),
+                  })
+                : t("interreg_by_programme", {
+                    shown: Math.min(
+                      PROGRAMMES_SHOWN,
+                      overview.programmes.length,
+                    ),
+                    total: numFmt.format(displayedProgrammeCount),
+                  })}
             </h3>
             <ul className="divide-y text-xs">
-              {overview.programmes.slice(0, PROGRAMMES_SHOWN).map((p) => (
+              {visibleProgrammes.map((p) => (
                 <li
                   key={p.code}
                   className="flex flex-wrap items-baseline gap-x-3 py-1.5"
@@ -299,6 +333,20 @@ export const InterregTile: FC = () => {
                 </li>
               ))}
             </ul>
+            {overview.programmes.length > PROGRAMMES_SHOWN ? (
+              <button
+                type="button"
+                aria-expanded={showAllProgrammes}
+                onClick={() => setShowAllProgrammes((v) => !v)}
+                className="self-start text-[11px] font-medium text-primary hover:underline"
+              >
+                {showAllProgrammes
+                  ? t("interreg_programmes_collapse")
+                  : t("interreg_programmes_expand", {
+                      total: numFmt.format(displayedProgrammeCount),
+                    })}
+              </button>
+            ) : null}
           </div>
         ) : null}
 

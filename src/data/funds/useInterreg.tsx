@@ -24,10 +24,18 @@ const getJson = async <T,>(url: string): Promise<T> => {
   return (await r.json()) as T;
 };
 
-export const useInterregOverview = () =>
+/** `limit` bounds the `programmes` array the route returns (clamped server-side
+ *  to 1–40, default 12) — the tile's compact view asks for the default, and its
+ *  "see all" expansion asks for a higher one (well above the ~19–23 registered
+ *  programmes) so the whole list is already in memory before the reader clicks
+ *  expand, with no second request. */
+export const useInterregOverview = (limit?: number) =>
   useQuery({
-    queryKey: ["interreg", "overview"] as const,
-    queryFn: () => getJson<InterregOverview>("/api/db/interreg-overview"),
+    queryKey: ["interreg", "overview", limit ?? "default"] as const,
+    queryFn: () =>
+      getJson<InterregOverview>(
+        `/api/db/interreg-overview${limit ? `?limit=${limit}` : ""}`,
+      ),
     staleTime: Infinity,
   });
 
