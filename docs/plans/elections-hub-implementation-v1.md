@@ -1121,6 +1121,7 @@ Priority slots:
 Rules:
 
 - emit at most one standout per category;
+- never emit a signal that is true of most places — measured, "no council majority" describes 62% of councils and is barred for that reason, while split control (13.1%) is kept;
 - prefer a material local fact over a weaker national comparison;
 - require a minimum sample size appropriate to the metric;
 - include the actual comparison group and cycle in the baseline;
@@ -1146,12 +1147,61 @@ Each threshold is recorded with four fields, because a bare number is not review
 | minimum sample   | below which the signal is suppressed rather than emitted at low confidence                                  |
 | what it excludes | the cases this value deliberately drops, so a later widening is a decision and not a bug fix                |
 
-The set to freeze in Phase 0, at minimum: the margin below which a contest is "close"; the
-turnout change that counts as a departure and the minimum registered-voter base beneath it; the
-council-fragmentation index and its floor; the minimum section count for any section-derived
-signal; and, for every review signal, the existing published threshold it inherits — a review
-lead must not invent a second definition of a flag the reports already publish under a
-different one.
+#### The settled set
+
+Measured against the corpus on 2026-09-02. Two of the four are **not absolute numbers**, and that
+is the finding rather than a hedge.
+
+**Review signals are INHERITED, never chosen.** They already exist and are already published:
+`concentratedPct 80`, `invalidBallotsPct 10`, `additionalVotersPct 10` with
+`additionalVotersMinActual 50` (all four from `data/<cycle>/dashboard/suspicious_settlements.json`'s
+own `thresholds` object), and Benford's `minVotes1BL/2BL = 10` from `scripts/reports/benford.ts`.
+**Read them from the producer at generation time; do not restate them in `standouts.ts`** — a
+second copy is a second definition of a flag the reports already publish. Benford still takes no
+headline slot.
+
+⚠️ **1. "Close contest" is a PERCENTILE of the cycle's own distribution, not a pp value.** The
+municipality winner-margin distribution moves by an order of magnitude between cycles: the 5th
+percentile is **0.47 pp in 2021_07_11 and 4.88 pp in 2026_04_19**, and a fixed 5 pp selects
+**5.3% of municipalities in 2026 and 24.3% in 2022_10_02**. One word would mean two different
+things depending on the year.
+
+| field            | value                                                                                                                                                                            |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| value            | winner-to-runner-up margin in the bottom **5%** of that cycle's distribution at that level                                                                                       |
+| basis            | per-cycle p5 across eight cycles: 0.47 · 0.66 · 0.66 · 0.95 · 1.02 · 1.12 · 2.50 · 4.88 pp — so the worst case it ever calls "close" is 4.88 pp, which needs no absolute ceiling |
+| minimum sample   | 200 valid votes — excludes exactly **1 of 305** places in 2026, an abroad micro-station                                                                                          |
+| what it excludes | it always selects ~5%, so it can never report "nothing was close this cycle"                                                                                                     |
+
+⚠️ **2. "Turnout departure" is measured against the NATIONAL change, and abroad is excluded.** A
+raw local change is not a finding when the country moved with it — between 2026 and 2024_10 the
+national turnout change was **12.05 pp**, so an 11 pp local swing was the country, not the place.
+The metric is the place's Δ minus the national Δ over the same pair, thresholded at a percentile
+of that residual (still a percentile: residual p95 ran 4.89 → 12.81 pp across four pairs).
+
+**The population is DOMESTIC ONLY, and that is decision 10 applied rather than a new rule.**
+Abroad has no valid registered-voter denominator, and it is also the entire contaminated tail:
+the two abroad rows are **NA at 523.4 pp and EU at 149.5 pp**, while every one of the 298
+domestic rows is **≤ 22.0 pp**. Floor: 500 registered voters.
+
+⚠️ **3. "Fragmented council" is ≥ 9 parties holding seats — and its obvious sibling is NOT a
+standout.** Across 289 councils in 2023: p50 = 4 parties, p90 = 8, p95 = 9, max = 16, so ≥ 9 is
+the top ~5%.
+
+**"No single party holds a majority" must never be emitted**: **110 of 289 councils (38%) have a
+majority, so 179 (62%) do not**. The absence of a majority is the ordinary case, and a signal
+that fires on the majority of places is a description, not a finding. **Split control survives
+this test and stays**: mayor's party ≠ council lead in **32 of 245 (13.1%)**.
+
+**4. A section-derived signal needs ≥ 5 sections at the place.** 315 of 353 places (89.2%) clear
+it and they carry **99.5% of all sections**, so the floor costs almost nothing in coverage while
+removing the places where "this section differs from the rest" compares against fewer than four
+others.
+
+**The pattern to carry to any threshold added later:** measure the statistic across every cycle
+before fixing a number, and check the signal is not true of most places. Both traps fired here —
+an absolute margin would have meant two different things per cycle, and a council-majority signal
+would have described 62% of the corpus.
 
 Two consequences: the thresholds are exposed in the source panel because a reader cannot judge
 "stands out" without them, and a threshold change requires a fixture update **and** an edit to
@@ -1277,7 +1327,7 @@ Work:
    3b. Diff each level's intended fact set against what the nine existing dashboard-card screens render today (§6.3), so every card the descriptor drops is a recorded decision.
    3c. Freeze the **copy contract** (§5.2, §5.3): every enum member's `labelKey` written OUT beside the code rather than built by template; the counts enumerated as PLURAL families; and the list of things carried as an ID whose label the renderer resolves (party, place, office), with person names recorded as the deliberate Bulgarian-in-both-languages exception.
    3d. Write `/elections`' title, description and `bodyHtml` **about the cross-kind entry** — both election systems, the finder, partial elections, the analyses — per §3.1, which is settled: `/parliamentary` is canonical for the parliamentary country result, `/elections/:date` for each cycle, and `/elections` for itself. The copy is the deliverable here; the routing question is closed.
-3. Freeze status vocabulary, turnout bases, fact priority, standout categories **and every numeric standout threshold** in `docs/methodology/election-surfaces.md`, each threshold carrying value, basis, minimum sample and what it excludes (§7). Thresholds are a Phase 0 design decision precisely because deferring them means fitting them to the fixtures.
+3. Freeze status vocabulary, turnout bases, fact priority and standout categories in `docs/methodology/election-surfaces.md`. **The numeric thresholds are already settled in §7** — transcribe them there with their four fields and their measurements; do not re-derive them, and do not add one without repeating the two checks §7 ends with.
 4. Create static fixture payloads for:
    - parliamentary country;
    - parliamentary abroad;
@@ -1346,6 +1396,9 @@ Data gates:
 - settlement surfaces never attribute a parent council as a settlement office;
 - `region/32` has no turnout percentage and declares `turnoutBasis: "unavailable"`;
 - every standout evidence route/file exists;
+- the close-contest and turnout selectors are percentile-based and re-derive their cutoff from the CYCLE being built, so the same code on two cycles yields two cutoffs (§7);
+- the turnout selector emits nothing for `oblast 32`, and the review thresholds are read from the producer rather than restated;
+- no emitted signal is true of more than a third of the places in its population;
 - every `ElectionDestinations` route resolves to a live route, and every `available: false` carries a `reason` key present in both locales;
 - `destinations.views` availability agrees with what `PlaceViewNav` would render for the same place — the two must not disagree about whether a view exists;
 - every map mode is allowed by the data available at that scope;
