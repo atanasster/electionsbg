@@ -203,13 +203,21 @@ the width to spare". It does not: the container clamp freezes content at
 column is free — which is what makes the overlay necessary rather than merely
 tidy.
 
-## 4. Not in this plan
+## 4. Not in this plan — and one prediction that was refuted
 
-**Fix the shape, not the layout.** The deepest lever is
+**Fix the shape, not the layout.** The deepest lever *looked* like
 `elk.partitioning.activate` in `scripts/data_map/build_manifest.ts`, which is
-what turns 46 sources into one 3668 px column. ELK's own answer to a long
-layered graph is `elk.layered.wrapping.strategy: MULTI_EDGE` with
-`elk.aspectRatio`, folding it into stacked bands — roughly 1400 × 1900 instead
-of 1046 × 3684. That would make a viewport-height explorer pane viable, kill the
-4 m scroll, and make the mobile view a legible whole rather than a 0.34 zoom.
-It is a generator change with its own gates and belongs in its own plan.
+what turns 46 sources into one 3,668 px column, with ELK's
+`elk.layered.wrapping.strategy: MULTI_EDGE` as the fix.
+
+⚠️ **That was a prediction and it is wrong — measured 2026-09-02. Do not
+re-derive it.** Wrapping cuts a layered graph along the LAYER axis and this
+graph has three layers, so nine configurations returned an identical layout;
+and any landscape reflow is drawn SMALLER, because the shell caps the canvas at
+1,203 px while a landscape fold needs 1,866 px or more (0.63× against today's
+1.15×). It would not have helped mobile either.
+
+What the same measurements showed does work — a baked ELK layout per `?view=`,
+so the filter reflows instead of dimming — shipped as
+**`docs/plans/data-map-view-layouts-v1.md`**. That plan carries the full
+refutation, the per-view figures and the cost of the edge filter.
