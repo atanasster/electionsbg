@@ -5097,6 +5097,37 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? null };
   },
+  // One Interreg PROGRAMME — its stats, top operations and top municipalities —
+  // /funds/interreg/programme/:code (194).
+  //
+  // 200 + null for an unknown code, matching interreg-operation above: a route
+  // this thin has no separate 404 branch, so "programme not found" and "fetch
+  // failed" must stay distinguishable at the payload level, not the status code.
+  "interreg-programme": async (dbRows, q) => {
+    const code = s(q, "code");
+    // The curated set (scripts/funds/interreg/programmes.ts) is uppercase
+    // ASCII + hyphens only — same charset check as the other Interreg routes
+    // apply to their own identifiers. 40 is headroom above the longest
+    // registered code today (23 chars, INTERREG-BALKANMED-1420), not a figure
+    // derived from the current registry.
+    if (!/^[A-Z0-9-]{3,40}$/.test(code))
+      return { status: 400, body: { error: "missing or malformed code" } };
+    // Forwarded the same way the sibling Interreg routes forward `?limit=`,
+    // so a future "show more operations/municipalities" affordance on the
+    // page needs no route change.
+    const rows = await dbRows("SELECT interreg_programme($1, $2, $3) AS r", [
+      code,
+      clampInt(q.opLimit, 30, 1, 200),
+      clampInt(q.muniLimit, 15, 1, 100),
+    ]).catch(
+      missingMigrationLogged(
+        "interreg-programme",
+        null,
+        "db:load:interreg:pg:cloud (and apply 194)",
+      ),
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // The per-capita municipal EU-money ranking, WITH the Interreg arm (139).
   //
   // The ranking the site published before this was ИСУН-only, and ИСУН holds no

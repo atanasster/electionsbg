@@ -15,6 +15,7 @@ import {
   PROCEDURES_INDEX_FILE,
 } from "../funds/procedures_index";
 import { programmeNameEn } from "@/data/funds/programmeNamesEn";
+import { INTERREG_PROGRAMMES } from "../funds/interreg/programmes";
 import { isCrawlableSchool } from "@/data/schools/schoolBel";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
@@ -681,6 +682,28 @@ const enumerateFundsProcedures = (rootUrl: string, routes: string[]) => {
   }
 };
 
+// /funds/interreg/programme/{code} — one URL per REGISTERED Interreg programme
+// (INTERREG_PROGRAMMES, ~19-23), curated and static rather than read off a
+// generated file: unlike the ~1,954 Interreg OPERATIONS (which are function-
+// served with no sitemap entry, per functions/spa_page.js's own header — that
+// family chose live-served-only rather than prerendering, and the same
+// function now also serves this route's head at request time), the programme
+// set is small and stable enough that discoverability is worth the extra
+// <loc>s. Every code is listed, including the 2-4 that hold zero Bulgarian
+// operations today — a registered-but-empty programme is a real page with an
+// honest zero, not a missing one (see interreg_programme(), migration 194).
+//
+// Both languages, always: unlike interreg operation titles (keep.eu-sourced,
+// English-only for ~93% of them), a programme's name_bg/name_en are both
+// curated NOT NULL columns (137's schema) — every programme has real content
+// in both languages, so there is no canonicalised-duplicate case to skip.
+const enumerateInterregProgrammes = (rootUrl: string, routes: string[]) => {
+  for (const p of INTERREG_PROGRAMMES) {
+    pushUrl(`${rootUrl}/${routes[0]}${p.code}`, today);
+    pushUrl(`/en${rootUrl}/${routes[0]}${p.code}`, today);
+  }
+};
+
 const enumerateProcurementSettlements = (rootUrl: string, routes: string[]) => {
   // One URL per settlement that has at least one local-tier contract. Read from
   // Postgres (procurementSeoSettlements, fetched once at startup) — the same
@@ -888,6 +911,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateFundsProgrammes(rootUrl, routes);
     if (route.file === "funds-procedures-list")
       return enumerateFundsProcedures(rootUrl, routes);
+    if (route.file === "interreg-programmes-list")
+      return enumerateInterregProgrammes(rootUrl, routes);
     if (route.file === "procurement-settlements-list")
       return enumerateProcurementSettlements(rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).

@@ -315,3 +315,77 @@ test("the operation route degrades a missing migration, not a timeout", async ()
     operation(throwingDb("57014"), { keepId: "17853" }),
   );
 });
+
+// ── /api/db/interreg-programme — the per-programme detail page's route ──────
+
+const programme = DB_ROUTES["interreg-programme"];
+
+test("a valid curated code is bound with the default limits", async () => {
+  const db = stubDb(null);
+  const res = await programme(db, { code: "INTERREG-ROBG-1420" });
+  assert.equal(res.status, undefined);
+  assert.deepEqual(db.calls[0].params, ["INTERREG-ROBG-1420", 30, 15]);
+});
+
+test("a code at exactly the length ceiling is accepted", async () => {
+  const db = stubDb(null);
+  const res = await programme(db, { code: "A".repeat(40) });
+  assert.equal(res.status, undefined);
+  assert.equal(db.calls[0].params[0], "A".repeat(40));
+});
+
+test("a malformed or absent code is a 400, not an empty 200", async () => {
+  for (const q of [
+    {},
+    { code: "" },
+    { code: "interreg-robg-1420" }, // lower case
+    { code: "INTERREG ROBG" }, // a space
+    { code: "A".repeat(41) }, // one over the length ceiling
+  ]) {
+    const res = await programme(stubDb(null), q);
+    assert.equal(res.status, 400, `${JSON.stringify(q)} should 400`);
+  }
+});
+
+test("the operation/municipality limits are clamped independently", async () => {
+  const cases = [
+    [{ code: "INTERREG-ROBG-1420" }, 30, 15],
+    [{ code: "INTERREG-ROBG-1420", opLimit: "5" }, 5, 15],
+    [{ code: "INTERREG-ROBG-1420", muniLimit: "3" }, 30, 3],
+    [{ code: "INTERREG-ROBG-1420", opLimit: "0" }, 1, 15],
+    [{ code: "INTERREG-ROBG-1420", opLimit: "9999" }, 200, 15],
+    [{ code: "INTERREG-ROBG-1420", muniLimit: "9999" }, 30, 100],
+    [{ code: "INTERREG-ROBG-1420", opLimit: "nope" }, 30, 15],
+  ];
+  for (const [q, wantOp, wantMuni] of cases) {
+    const db = stubDb(null);
+    await programme(db, q);
+    assert.deepEqual(
+      db.calls[0].params.slice(1),
+      [wantOp, wantMuni],
+      JSON.stringify(q),
+    );
+  }
+});
+
+// 200 + null, never 404 — same funds convention as interreg-operation above, and
+// what lets the screen tell a mistyped/retired code from a failed request.
+test("an unknown programme is 200 with a null body", async () => {
+  const res = await programme(stubDb(null), { code: "INTERREG-NOPE-0000" });
+  assert.equal(res.status, undefined);
+  assert.equal(res.body, null);
+});
+
+test("the programme route degrades a missing migration, not a timeout", async () => {
+  assert.equal(
+    (await programme(throwingDb("42883"), { code: "INTERREG-ROBG-1420" })).body,
+    null,
+  );
+  assert.equal(
+    (await programme(throwingDb("42P01"), { code: "INTERREG-ROBG-1420" })).body,
+    null,
+  );
+  await assert.rejects(() =>
+    programme(throwingDb("57014"), { code: "INTERREG-ROBG-1420" }),
+  );
+});

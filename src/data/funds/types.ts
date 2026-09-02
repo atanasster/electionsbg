@@ -463,6 +463,63 @@ export interface FundsMuniRank {
   }[];
 }
 
+/** One row in an Interreg "operations reaching this place/programme" list —
+ *  the shape `interreg_by_place()` (138) and `interreg_programme()` (194) both
+ *  return, so one row component can render either without a translation layer
+ *  in between. */
+export interface InterregListedOperation {
+  keepId: number;
+  operationId: string | null;
+  programmeCode: string;
+  programmeBg: string | null;
+  programmeEn: string | null;
+  period: string;
+  titleEn: string;
+  titleBg: string | null;
+  titleLang: string | null;
+  status: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  operationTotalEur: number | null;
+  partnerCount: number | null;
+  countries: string[] | null;
+  localBudgetEur: number | null;
+  localBudgetBasis: string;
+}
+
+/** One municipality's Interreg footprint within a single programme
+ *  (migration 194, part of /api/db/interreg-programme). */
+export interface InterregProgrammeMuni {
+  obshtina: string;
+  budgetEur: number;
+  partnerCount: number;
+  operationCount: number;
+}
+
+/** One Interreg programme's Bulgarian-side detail — /funds/interreg/programme/:code
+ *  (migration 194, /api/db/interreg-programme).
+ *
+ *  BULGARIAN PARTNER ROWS ONLY, same scope as `InterregOverview`'s per-programme
+ *  summary row — this is the programme's Bulgarian budget share, not the whole
+ *  cross-border programme total (which lives on keep.eu, not here). */
+export interface InterregProgrammeDetail {
+  code: string;
+  nameBg: string | null;
+  nameEn: string | null;
+  period: string;
+  cci: string | null;
+  eligibleNuts: string[] | null;
+  coverageNote: string | null;
+  budgetEur: number;
+  partnerCount: number;
+  operationCount: number;
+  placedCount: number;
+  linkedCount: number;
+  unpublishedPartnerCount: number;
+  operations: InterregListedOperation[];
+  munis: InterregProgrammeMuni[];
+}
+
 /** One Interreg operation with its full partnership
  *  (migration 138, /api/db/interreg-operation).
  *

@@ -15,6 +15,7 @@ import type {
   InterregOverview,
   FundsMuniRank,
   InterregOperationDetail,
+  InterregProgrammeDetail,
 } from "./types";
 
 const getJson = async <T,>(url: string): Promise<T> => {
@@ -23,10 +24,18 @@ const getJson = async <T,>(url: string): Promise<T> => {
   return (await r.json()) as T;
 };
 
-export const useInterregOverview = () =>
+/** `limit` bounds the `programmes` array the route returns (clamped server-side
+ *  to 1–40, default 12) — the tile's compact view asks for the default, and its
+ *  "see all" expansion asks for a higher one (well above the ~19–23 registered
+ *  programmes) so the whole list is already in memory before the reader clicks
+ *  expand, with no second request. */
+export const useInterregOverview = (limit?: number) =>
   useQuery({
-    queryKey: ["interreg", "overview"] as const,
-    queryFn: () => getJson<InterregOverview>("/api/db/interreg-overview"),
+    queryKey: ["interreg", "overview", limit ?? "default"] as const,
+    queryFn: () =>
+      getJson<InterregOverview>(
+        `/api/db/interreg-overview${limit ? `?limit=${limit}` : ""}`,
+      ),
     staleTime: Infinity,
   });
 
@@ -57,5 +66,23 @@ export const useInterregOperation = (keepId: string | undefined) =>
       return (await r.json()) as InterregOperationDetail | null;
     },
     enabled: !!keepId,
+    staleTime: Infinity,
+  });
+
+/** One programme's Bulgarian-side detail, for /funds/interreg/programme/:code.
+ *  `null` is an unknown code — same 200+null convention as
+ *  `useInterregOperation` above, so the page renders its not-found branch
+ *  rather than surfacing a fetch error. */
+export const useInterregProgramme = (code: string | undefined) =>
+  useQuery({
+    queryKey: ["interreg", "programme", code ?? ""] as const,
+    queryFn: async (): Promise<InterregProgrammeDetail | null> => {
+      const r = await fetch(
+        `/api/db/interreg-programme?code=${encodeURIComponent(code!)}`,
+      );
+      if (!r.ok) throw new Error(`interreg-programme failed: ${r.status}`);
+      return (await r.json()) as InterregProgrammeDetail | null;
+    },
+    enabled: !!code,
     staleTime: Infinity,
   });

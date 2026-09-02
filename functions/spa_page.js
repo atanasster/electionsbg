@@ -115,6 +115,25 @@ const matchSpaPage = (path) => {
     return { kind: "company", key: company[1], lang: en ? "en" : "bg" };
   }
 
+  // One Interreg PROGRAMME — a small, curated, static set (scripts/funds/
+  // interreg/programmes.ts), so this is checked BEFORE the operation id arm
+  // below even though the two never actually collide (a curated code is never
+  // a bare digit string the operation regex would also match). Same failure
+  // mode as the operation family: without a head of its own this fell through
+  // to the operation regex (no match, since it is anchored on digits-only),
+  // then to the homepage's title/canonical/noindex — and InterregTile.tsx now
+  // links here from the /funds hub.
+  const interregProgramme = /^\/funds\/interreg\/programme\/([A-Z0-9-]{3,40})$/.exec(
+    rest,
+  );
+  if (interregProgramme) {
+    return {
+      kind: "programme",
+      key: interregProgramme[1],
+      lang: en ? "en" : "bg",
+    };
+  }
+
   // Interreg operations. ~1,954 of them, so prerendering is affordable in
   // principle — but they land here for the same reason the contract family did:
   // without a head of their own every one served the HOMEPAGE's title,
@@ -154,8 +173,9 @@ const matchSpaPage = (path) => {
 };
 
 /** The URL a match names, in one place. Three kinds with three path shapes was
- *  already a two-branch ternary at the call site; a fourth would have made the
- *  canonical and the og:url easy to get quietly out of step with each other. */
+ *  already a two-branch ternary at the call site; a fourth (and fifth) would
+ *  have made the canonical and the og:url easy to get quietly out of step
+ *  with each other. */
 const selfUrlFor = (match) => {
   const path =
     match.kind === "contract"
@@ -164,7 +184,9 @@ const selfUrlFor = (match) => {
         ? `/company/${match.key}`
         : match.kind === "council"
           ? `/council/resolution/${match.key}`
-          : `/funds/interreg/${match.key}`;
+          : match.kind === "programme"
+            ? `/funds/interreg/programme/${match.key}`
+            : `/funds/interreg/${match.key}`;
   return match.lang === "en" ? `${SITE_URL}/en${path}` : `${SITE_URL}${path}`;
 };
 
@@ -541,6 +563,76 @@ const interregPage = (row, lang, selfUrl) => {
   };
 };
 
+/** The <head> block and the crawlable body for one Interreg PROGRAMME —
+ *  interreg_programme() (194)'s row shape, i.e. `InterregProgrammeDetail`.
+ *
+ *  BULGARIAN PARTNER ROWS ONLY, same scope as `interregPage`'s per-operation
+ *  `bgBudgetEur` above: this is the programme's Bulgarian budget share, never
+ *  the whole cross-border programme total (which lives on keep.eu, not here). */
+const interregProgrammePage = (row, lang, selfUrl) => {
+  const bg = lang === "bg";
+  const programme = (bg ? row.nameBg : row.nameEn) || row.code;
+  const title = truncateAtWord(programme, 70);
+  const head = bg
+    ? `${title} — Interreg | Трансгранични проекти`
+    : `${title} — Interreg | Cross-border projects`;
+  const description = bg
+    ? `${eur(row.budgetEur, lang)} за българските партньори в ${row.operationCount} проекта. Данни от keep.eu (INTERACT) — Interreg не се управлява през ИСУН.`
+    : `${eur(row.budgetEur, lang)} to Bulgarian partners across ${row.operationCount} operations. Data from keep.eu (INTERACT) — Interreg is not run through ИСУН.`;
+  const base = bg ? SITE_URL : `${SITE_URL}/en`;
+  const rows = [
+    [bg ? "Период" : "Period", escapeHtml(row.period)],
+    [
+      bg ? "Български партньори" : "Bulgarian partners",
+      eurOrBlank(row.budgetEur, lang),
+    ],
+    [bg ? "Проекти" : "Operations", String(row.operationCount ?? 0)],
+    [bg ? "Партньори" : "Partner rows", String(row.partnerCount ?? 0)],
+  ]
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${v}</td></tr>`)
+    .join("");
+  // Top operations, linked to their own page — the same grain a reader clicks
+  // through to from the React page.
+  const opList = (row.operations || [])
+    .map((o) => {
+      const opTitle = escapeHtml(o.titleBg || o.titleEn || "");
+      const money =
+        o.localBudgetEur != null
+          ? ` — ${eur(o.localBudgetEur, lang)}`
+          : bg
+            ? " — без публикуван бюджет"
+            : " — no published budget";
+      return `<li><a href="${base}/funds/interreg/${o.keepId}">${opTitle}</a>${money}</li>`;
+    })
+    .join("");
+  // Municipalities this programme reaches, linked to their governance
+  // dashboard — codes rather than resolved names, since that dictionary is
+  // not available in this function; the React page resolves them for a
+  // human reader on arrival.
+  const muniList = (row.munis || [])
+    .map(
+      (m) =>
+        `<li><a href="${base}/governance/${escapeHtml(m.obshtina)}">${escapeHtml(m.obshtina)}</a> — ${eur(m.budgetEur, lang)}</li>`,
+    )
+    .join("");
+  return {
+    title: head,
+    description,
+    selfUrl,
+    // A programme has no separate keep.eu translation to defer to — the same
+    // call the operation page above makes: stay navigable on the English UI,
+    // point the canonical at the Bulgarian URL rather than compete with it.
+    canonicalUrl: bg ? selfUrl : selfUrl.replace(`${SITE_URL}/en`, SITE_URL),
+    lang,
+    bodyHtml: `<h1>${escapeHtml(programme)}</h1>
+<table><tbody>${rows}</tbody></table>
+${opList ? `<h2>${bg ? "Проекти" : "Operations"}</h2><ul>${opList}</ul>` : ""}
+${muniList ? `<h2>${bg ? "Общини" : "Municipalities"}</h2><ul>${muniList}</ul>` : ""}
+<p><a href="${base}/funds/interreg">Interreg</a> · <a href="https://keep.eu/">keep.eu</a></p>`,
+  };
+};
+
 /** The <head> block and the crawlable body for one company. */
 const companyPage = (co, money, lang, selfUrl) => {
   const bg = lang === "bg";
@@ -757,7 +849,9 @@ const handleSpaPageRequest = async (req, res, deps) => {
           ? await deps.loadCompany(match.key, match.lang, selfUrl)
           : match.kind === "council"
             ? await deps.loadCouncilResolution(match.key, match.lang, selfUrl)
-            : await deps.loadInterreg(match.key, match.lang, selfUrl);
+            : match.kind === "programme"
+              ? await deps.loadInterregProgramme(match.key, match.lang, selfUrl)
+              : await deps.loadInterreg(match.key, match.lang, selfUrl);
   } catch (e) {
     console.error("spa page lookup error", match.kind, match.key, e);
     // A database blip must not take the page down: serve the SPA, which fetches
@@ -771,6 +865,7 @@ const handleSpaPageRequest = async (req, res, deps) => {
 
 module.exports = {
   interregPage,
+  interregProgrammePage,
   councilResolutionPage,
   selfUrlFor,
   matchSpaPage,
