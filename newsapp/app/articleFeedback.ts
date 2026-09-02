@@ -152,76 +152,81 @@ export const loadArticleFeedbackTask = async (
   return task as unknown as ArticleFeedbackTask;
 };
 
-const exactKeys = (value: Record<string, unknown>, expected: string[]): boolean =>
-  Object.keys(value).sort().join("\u0000") === [...expected].sort().join("\u0000");
+const exactKeys = (
+  value: Record<string, unknown>,
+  expected: string[],
+): boolean =>
+  Object.keys(value).sort().join("\u0000") ===
+  [...expected].sort().join("\u0000");
 
 export const parseFeedbackTargetRegistry = async (
   input: unknown,
 ): Promise<FeedbackTargetRegistry> => {
-    const value = object(input);
-    const kinds = new Set<FeedbackTargetKind>([
-      "person",
-      "party",
-      "settlement",
-      "institution",
-      "company",
-      "sector",
-    ]);
-    const seen = new Set<string>();
-    if (
-      !value ||
-      !exactKeys(value, [
-        "version",
-        "generated_at",
-        "targets_sha256",
-        "target_count",
-        "targets",
-      ]) ||
-      value.version !== 1 ||
-      typeof value.generated_at !== "string" ||
-      typeof value.targets_sha256 !== "string" ||
-      !/^sha256:[a-f0-9]{64}$/.test(value.targets_sha256) ||
-      !Number.isSafeInteger(value.target_count) ||
-      !Array.isArray(value.targets) ||
-      value.targets.length !== value.target_count ||
-      value.targets.length > 20_000 ||
-      value.targets.some((rawTarget) => {
-        const target = object(rawTarget);
-        if (
-          !target ||
-          !exactKeys(target, ["kind", "id", "canonical", "href", "aliases"]) ||
-          !kinds.has(target.kind as FeedbackTargetKind) ||
-          typeof target.id !== "string" ||
-          !target.id ||
-          target.id.length > 160 ||
-          typeof target.canonical !== "string" ||
-          !target.canonical ||
-          target.canonical.length > 300 ||
-          typeof target.href !== "string" ||
-          !/^https:\/\/electionsbg\.com\/\S{1,500}$/.test(target.href) ||
-          !Array.isArray(target.aliases) ||
-          target.aliases.length < 1 ||
-          target.aliases.length > 20 ||
-          target.aliases.some(
-            (alias) =>
-              typeof alias !== "string" || !alias || alias.length > 300,
-          ) ||
-          new Set(target.aliases).size !== target.aliases.length
-        )
-          return true;
-        const key = `${target.kind as string}\u0000${target.id as string}`;
-        if (seen.has(key)) return true;
-        seen.add(key);
-        return false;
-      }) ||
-      (await canonicalEvalSha256(value.targets)) !== value.targets_sha256
-    )
-      throw new ArticleFeedbackError("invalid_target_registry", 200);
-    return value as unknown as FeedbackTargetRegistry;
-  };
+  const value = object(input);
+  const kinds = new Set<FeedbackTargetKind>([
+    "person",
+    "party",
+    "settlement",
+    "institution",
+    "company",
+    "sector",
+  ]);
+  const seen = new Set<string>();
+  if (
+    !value ||
+    !exactKeys(value, [
+      "version",
+      "generated_at",
+      "targets_sha256",
+      "target_count",
+      "targets",
+    ]) ||
+    value.version !== 1 ||
+    typeof value.generated_at !== "string" ||
+    typeof value.targets_sha256 !== "string" ||
+    !/^sha256:[a-f0-9]{64}$/.test(value.targets_sha256) ||
+    !Number.isSafeInteger(value.target_count) ||
+    !Array.isArray(value.targets) ||
+    value.targets.length !== value.target_count ||
+    value.targets.length > 20_000 ||
+    value.targets.some((rawTarget) => {
+      const target = object(rawTarget);
+      if (
+        !target ||
+        !exactKeys(target, ["kind", "id", "canonical", "href", "aliases"]) ||
+        !kinds.has(target.kind as FeedbackTargetKind) ||
+        typeof target.id !== "string" ||
+        !target.id ||
+        target.id.length > 160 ||
+        typeof target.canonical !== "string" ||
+        !target.canonical ||
+        target.canonical.length > 300 ||
+        typeof target.href !== "string" ||
+        !/^https:\/\/electionsbg\.com\/\S{1,500}$/.test(target.href) ||
+        !Array.isArray(target.aliases) ||
+        target.aliases.length < 1 ||
+        target.aliases.length > 20 ||
+        target.aliases.some(
+          (alias) => typeof alias !== "string" || !alias || alias.length > 300,
+        ) ||
+        new Set(target.aliases).size !== target.aliases.length
+      )
+        return true;
+      const key = `${target.kind as string}\u0000${target.id as string}`;
+      if (seen.has(key)) return true;
+      seen.add(key);
+      return false;
+    }) ||
+    (await canonicalEvalSha256(value.targets)) !== value.targets_sha256
+  )
+    throw new ArticleFeedbackError("invalid_target_registry", 200);
+  return value as unknown as FeedbackTargetRegistry;
+};
 
 export const loadFeedbackTargets = async (): Promise<FeedbackTargetRegistry> =>
-  parseFeedbackTargetRegistry(await fetchData<unknown>("feedback-targets.json"));
+  parseFeedbackTargetRegistry(
+    await fetchData<unknown>("feedback-targets.json"),
+  );
 
 export interface CurrentFeedbackLink {
   surface: string;
@@ -288,17 +293,18 @@ export const searchFeedbackTargets = (
     .map((target) => {
       const canonical = foldSearch(target.canonical);
       const aliases = target.aliases.map(foldSearch);
-      const score = canonical === needle
-        ? 0
-        : aliases.includes(needle)
-          ? 1
-          : canonical.startsWith(needle)
-            ? 2
-            : aliases.some((alias) => alias.startsWith(needle))
-              ? 3
-              : aliases.some((alias) => alias.includes(needle))
-                ? 4
-                : 5;
+      const score =
+        canonical === needle
+          ? 0
+          : aliases.includes(needle)
+            ? 1
+            : canonical.startsWith(needle)
+              ? 2
+              : aliases.some((alias) => alias.startsWith(needle))
+                ? 3
+                : aliases.some((alias) => alias.includes(needle))
+                  ? 4
+                  : 5;
       return { target, score };
     })
     .filter(({ score }) => score < 5)

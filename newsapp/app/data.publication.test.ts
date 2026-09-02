@@ -331,7 +331,9 @@ describe("article provenance parsing", () => {
 
   it("rejects malformed accepted feedback and unsafe reviewed links", () => {
     const value = bundle(null) as unknown as {
-      articles: Array<Record<string, unknown> & { analysis: Record<string, unknown> }>;
+      articles: Array<
+        Record<string, unknown> & { analysis: Record<string, unknown> }
+      >;
     };
     value.articles[0].editorial_feedback = {
       status: "accepted",
@@ -342,20 +344,33 @@ describe("article provenance parsing", () => {
       issue_kinds: ["missing_entity"],
       public_explanation: null,
     };
-    value.articles[0].analysis.reviewed_links = [{
-      surface: "Иван", kind: "person", id: "p1", canonical: "Иван Иванов",
-      href: "https://electionsbg.com/person/p1",
-    }];
+    value.articles[0].analysis.reviewed_links = [
+      {
+        surface: "Иван",
+        kind: "person",
+        id: "p1",
+        canonical: "Иван Иванов",
+        href: "https://electionsbg.com/person/p1",
+      },
+    ];
     expect(parseOutletArticlesBundle(value)).toBeTruthy();
 
-    value.articles[0].analysis.reviewed_links = [{
-      surface: "Иван", kind: "person", id: "p1", canonical: "Иван Иванов",
-      href: "https://evil.example/person/p1",
-    }];
-    expect(() => parseOutletArticlesBundle(value)).toThrow(/проверените връзки/);
+    value.articles[0].analysis.reviewed_links = [
+      {
+        surface: "Иван",
+        kind: "person",
+        id: "p1",
+        canonical: "Иван Иванов",
+        href: "https://evil.example/person/p1",
+      },
+    ];
+    expect(() => parseOutletArticlesBundle(value)).toThrow(
+      /проверените връзки/,
+    );
     value.articles[0].analysis.reviewed_links = [];
-    (value.articles[0].editorial_feedback as Record<string, unknown>)
-      .source_submission_ids = ["private"];
+    (
+      value.articles[0].editorial_feedback as Record<string, unknown>
+    ).source_submission_ids = ["private"];
     expect(() => parseOutletArticlesBundle(value)).toThrow(/обратна връзка/);
   });
 });

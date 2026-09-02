@@ -134,9 +134,7 @@ export const ArticleFeedbackScreen = ({
       loadCurrentFeedbackLinks(domain, articleId),
     ]).then(
       ([value, registry, articleLinks]) => {
-        if (
-          value.target_registry_sha256 !== registry.targets_sha256
-        )
+        if (value.target_registry_sha256 !== registry.targets_sha256)
           throw new Error("feedback target registry is stale");
         if (active) {
           setTask(value);
@@ -235,7 +233,9 @@ export const ArticleFeedbackScreen = ({
               party_tones: parties.map((party) => ({
                 party: party.party.trim(),
                 party_id: party.target?.id ?? null,
-                resolution_status: party.target ? "selected" as const : "unresolved" as const,
+                resolution_status: party.target
+                  ? ("selected" as const)
+                  : ("unresolved" as const),
                 tone: party.tone as Tone,
                 evidence: party.evidence.trim(),
               })),
@@ -243,11 +243,14 @@ export const ArticleFeedbackScreen = ({
                 action: link.action,
                 surface: link.surface.trim(),
                 target_kind: link.kind,
-                resolution_status: link.target ? "selected" as const : "unresolved" as const,
+                resolution_status: link.target
+                  ? ("selected" as const)
+                  : ("unresolved" as const),
                 target_ref: link.target
                   ? { kind: link.target.kind, id: link.target.id }
                   : null,
-                current_href: link.action === "replace" ? link.currentHref : null,
+                current_href:
+                  link.action === "replace" ? link.currentHref : null,
                 context: link.context.trim(),
                 evidence: link.evidence.trim(),
               })),
@@ -573,7 +576,8 @@ export const ArticleFeedbackScreen = ({
                                     ? {
                                         ...item,
                                         currentHref: selected?.href ?? null,
-                                        surface: selected?.surface ?? item.surface,
+                                        surface:
+                                          selected?.surface ?? item.surface,
                                       }
                                     : item,
                                 ),
@@ -581,7 +585,9 @@ export const ArticleFeedbackScreen = ({
                             }}
                             className="h-10 rounded-md border bg-background px-3"
                           >
-                            <option value="">Изберете връзка от статията</option>
+                            <option value="">
+                              Изберете връзка от статията
+                            </option>
                             {currentLinks.map((current) => (
                               <option
                                 key={`${current.surface}:${current.href}`}
@@ -655,9 +661,8 @@ export const ArticleFeedbackScreen = ({
                                 )
                               }
                             >
-                              {candidate.canonical} · {candidate.id} ·{
-                                new URL(candidate.href).pathname
-                              }
+                              {candidate.canonical} · {candidate.id} ·
+                              {new URL(candidate.href).pathname}
                             </Button>
                           ))}
                         </div>

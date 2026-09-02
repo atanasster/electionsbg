@@ -95,13 +95,15 @@ describe("article feedback API client", () => {
     expect(searchFeedbackTargets(registry, "ние", "party")[0]).toEqual(exact);
   });
   it("rejects a target row changed without recomputing the registry hash", async () => {
-    const targets = [{
-      kind: "company" as const,
-      id: "123456789",
-      canonical: "Проверено дружество",
-      href: "https://electionsbg.com/company/123456789",
-      aliases: ["Проверено дружество"],
-    }];
+    const targets = [
+      {
+        kind: "company" as const,
+        id: "123456789",
+        canonical: "Проверено дружество",
+        href: "https://electionsbg.com/company/123456789",
+        aliases: ["Проверено дружество"],
+      },
+    ];
     const registry = {
       version: 1,
       generated_at: task.public_data_revision,
@@ -109,7 +111,9 @@ describe("article feedback API client", () => {
       target_count: 1,
       targets,
     };
-    await expect(parseFeedbackTargetRegistry(registry)).resolves.toEqual(registry);
+    await expect(parseFeedbackTargetRegistry(registry)).resolves.toEqual(
+      registry,
+    );
     await expect(
       parseFeedbackTargetRegistry({
         ...registry,

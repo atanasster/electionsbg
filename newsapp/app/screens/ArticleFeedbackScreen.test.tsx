@@ -3,15 +3,21 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { loadMock, targetMock, currentLinksMock, submitMock, browserNonceMock, idempotencyMock } =
-  vi.hoisted(() => ({
-    loadMock: vi.fn(),
-    targetMock: vi.fn(),
-    currentLinksMock: vi.fn(),
-    submitMock: vi.fn(),
-    browserNonceMock: vi.fn(),
-    idempotencyMock: vi.fn(),
-  }));
+const {
+  loadMock,
+  targetMock,
+  currentLinksMock,
+  submitMock,
+  browserNonceMock,
+  idempotencyMock,
+} = vi.hoisted(() => ({
+  loadMock: vi.fn(),
+  targetMock: vi.fn(),
+  currentLinksMock: vi.fn(),
+  submitMock: vi.fn(),
+  browserNonceMock: vi.fn(),
+  idempotencyMock: vi.fn(),
+}));
 
 vi.mock("../articleFeedback", async (importOriginal) => ({
   ...(await importOriginal<typeof import("../articleFeedback")>()),
