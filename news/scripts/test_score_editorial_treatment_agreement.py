@@ -21,12 +21,53 @@ def judgment(*, leaning: str = "neutral",
     }
 
 
+def rebased_on_current_corpus(sample: dict, *passes: dict) -> tuple:
+    """Re-stamp `article_sha256` from the corpus as it stands, and re-seal.
+
+    ⚠️ THESE TESTS ARE ABOUT SCORING, NOT CORPUS INTEGRITY. The scorer refuses
+    a pass whose article file moved since the sample was frozen — and that
+    refusal keeps its own dedicated tests. But `file_sha` hashes the WHOLE
+    FILE, and applying a reviewed Commons illustration REWRITES the article
+    record (`apply_commons_images.py` sets `image`, `image_alt` and
+    `image_rights`). So an illustration moves the hash while the TEXT under
+    adjudication is untouched, and §3.2 rule 7 of the policy is "judge the
+    text".
+
+    Measured 2026-09-02: 40 of the 1,833 baseline articles had a moved file
+    hash, and in ALL 40 the ANALYSIS hash was unchanged. The analysis is
+    derived from the text, so the text moved in none of them. Left alone,
+    every one of those illustrations fails these tests with `article hash
+    moved` — a message about corpus housekeeping, in tests that assert kappa.
+
+    Re-stamping forces a re-seal, since the seals exist precisely to prove
+    nothing was edited. That would quietly stop verifying the SHIPPED seals,
+    so `test_the_shipped_artifacts_are_internally_sealed` checks those
+    directly, on unmodified files. The real corpus drift keeps being reported
+    where it belongs: `editorial_treatment_baseline.py --check`.
+    """
+    def stamp(doc):
+        for key in ("assignments", "rows"):
+            for row in doc.get(key) or []:
+                path = scoring.ROOT / row["article_path"]
+                if path.exists():
+                    row["article_sha256"] = scoring.file_sha(path)
+
+    stamp(sample)
+    sample["assignments_sha256"] = scoring.canonical_sha(sample["assignments"])
+    for doc in passes:
+        stamp(doc)
+        doc["assignments_sha256"] = sample["assignments_sha256"]
+        doc["rows_sha256"] = scoring.canonical_sha(doc["rows"])
+    return (sample, *passes)
+
+
 class AgreementScoringTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.assignments = json.loads(scoring.DEFAULT_SAMPLE.read_text(encoding="utf-8"))
-        cls.pending_a = json.loads(scoring.DEFAULT_PASS_A.read_text(encoding="utf-8"))
-        cls.pending_b = json.loads(scoring.DEFAULT_PASS_B.read_text(encoding="utf-8"))
+        cls.assignments, cls.pending_a, cls.pending_b = rebased_on_current_corpus(
+            json.loads(scoring.DEFAULT_SAMPLE.read_text(encoding="utf-8")),
+            json.loads(scoring.DEFAULT_PASS_A.read_text(encoding="utf-8")),
+            json.loads(scoring.DEFAULT_PASS_B.read_text(encoding="utf-8")))
 
     def completed(self, first="Human A", second="Human B", *, constant=False):
         left, right = copy.deepcopy(self.pending_a), copy.deepcopy(self.pending_b)
@@ -48,6 +89,51 @@ class AgreementScoringTests(unittest.TestCase):
                 row["decision"] = copy.deepcopy(by_id[row["assignment_id"]])
             doc["rows_sha256"] = scoring.canonical_sha(doc["rows"])
         return left, right
+
+    def test_the_scorer_refuses_a_pass_whose_article_file_moved(self):
+        """Direct coverage for the article-hash guard.
+
+        `rebased_on_current_corpus` accepts the corpus as it stands, which is
+        what stops an applied illustration failing tests about kappa — but it
+        also means no other test in this file would notice if the guard were
+        deleted outright. Verified by mutation: removing the check from the
+        scorer makes this the only test that fails.
+        """
+        sample = copy.deepcopy(self.assignments)
+        left, right = self.completed()
+        target = sample["assignments"][0]
+        moved = "0" * 64
+        target["article_sha256"] = moved
+        sample["assignments_sha256"] = scoring.canonical_sha(sample["assignments"])
+        for doc in (left, right):
+            for row in doc["rows"]:
+                if row["assignment_id"] == target["assignment_id"]:
+                    row["article_sha256"] = moved
+            doc["assignments_sha256"] = sample["assignments_sha256"]
+            doc["rows_sha256"] = scoring.canonical_sha(doc["rows"])
+        result = scoring.score(sample, left, right)
+        self.assertTrue(
+            any("article hash moved" in error for error in result["errors"]),
+            result["errors"])
+
+    def test_the_shipped_artifacts_are_internally_sealed(self):
+        """The seals on the checked-in files, verified UNMODIFIED.
+
+        The other tests rebase onto the current corpus and therefore re-seal;
+        this is what keeps the shipped hashes covered.
+        """
+        sample = json.loads(scoring.DEFAULT_SAMPLE.read_text(encoding="utf-8"))
+        self.assertEqual(scoring.canonical_sha(sample["assignments"]),
+                         sample["assignments_sha256"])
+        for path in (scoring.DEFAULT_PASS_A, scoring.DEFAULT_PASS_B):
+            doc = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(doc["assignments_sha256"],
+                             sample["assignments_sha256"], path.name)
+            self.assertEqual(scoring.canonical_sha(doc["rows"]),
+                             doc["rows_sha256"], path.name)
+            self.assertEqual(
+                scoring.canonical_sha([r["assignment_id"] for r in doc["rows"]]),
+                doc["order_sha256"], path.name)
 
     def test_checked_in_sample_is_blocked_not_silently_passed(self):
         result = scoring.score(self.assignments, self.pending_a, self.pending_b)
@@ -231,12 +317,16 @@ class AgreementScoringTests(unittest.TestCase):
         doc = json.loads((scoring.ROOT / "news" / "evals" /
                           "editorial_treatment_v2" /
                           "russia-supplement-2026-09-01.json").read_text("utf-8"))
+        # The supplement is a second frozen sample and drifts the same way.
+        doc = rebased_on_current_corpus(doc)[0]
         base = scoring.ROOT / "news" / "evals" / "editorial_treatment_v2"
         passes = []
         for pass_id, labels in (("a", labels_a), ("b", labels_b or labels_a)):
             doc_pass = json.loads(
                 (base / f"russia-supplement-pass-{pass_id}.template.json")
                 .read_text("utf-8"))
+            _, doc_pass = rebased_on_current_corpus(
+                copy.deepcopy(doc), doc_pass)
             order = sorted(row["assignment_id"] for row in doc["assignments"])
             by_id = {key: labels[index % len(labels)]
                      for index, key in enumerate(order)}

@@ -67,13 +67,52 @@ def executable_source(path: Path) -> str:
     return "\n".join(kept)
 
 
+def rebased_on_current_corpus(sample: dict, *passes: dict) -> tuple:
+    """Re-stamp `article_sha256` from the corpus as it stands, and re-seal.
+
+    ⚠️ THESE TESTS ARE ABOUT SCORING, NOT CORPUS INTEGRITY. The scorer refuses
+    a pass whose article file moved since the sample was frozen — and that
+    refusal keeps its own dedicated tests. But `file_sha` hashes the WHOLE
+    FILE, and applying a reviewed Commons illustration REWRITES the article
+    record (`apply_commons_images.py` sets `image`, `image_alt` and
+    `image_rights`). So an illustration moves the hash while the TEXT under
+    adjudication is untouched, and §3.2 rule 7 of the policy is "judge the
+    text".
+
+    Measured 2026-09-02: 40 of the 1,833 baseline articles had a moved file
+    hash, and in ALL 40 the ANALYSIS hash was unchanged. The analysis is
+    derived from the text, so the text moved in none of them. Left alone,
+    every one of those illustrations fails these tests with `article hash
+    moved` — a message about corpus housekeeping, in tests that assert kappa.
+
+    Re-stamping forces a re-seal, since the seals exist precisely to prove
+    nothing was edited. That would quietly stop verifying the SHIPPED seals,
+    so `test_the_shipped_artifacts_are_internally_sealed` checks those
+    directly, on unmodified files. The real corpus drift keeps being reported
+    where it belongs: `editorial_treatment_baseline.py --check`.
+    """
+    def stamp(doc):
+        for key in ("assignments", "rows"):
+            for row in doc.get(key) or []:
+                path = scoring.ROOT / row["article_path"]
+                if path.exists():
+                    row["article_sha256"] = scoring.file_sha(path)
+
+    stamp(sample)
+    sample["assignments_sha256"] = scoring.canonical_sha(sample["assignments"])
+    for doc in passes:
+        stamp(doc)
+        doc["assignments_sha256"] = sample["assignments_sha256"]
+        doc["rows_sha256"] = scoring.canonical_sha(doc["rows"])
+    return (sample, *passes)
+
+
 class WorkspaceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.template = json.loads(
-            tool.TEMPLATES["A"].read_text(encoding="utf-8"))
-        cls.assignments = json.loads(
-            scoring.DEFAULT_SAMPLE.read_text(encoding="utf-8"))
+        cls.assignments, cls.template = rebased_on_current_corpus(
+            json.loads(scoring.DEFAULT_SAMPLE.read_text(encoding="utf-8")),
+            json.loads(tool.TEMPLATES["A"].read_text(encoding="utf-8")))
 
     def test_refuses_to_write_inside_the_frozen_eval_directory(self):
         target = tool.EVAL_DIR / "human-agreement-pass-a.template.json"
@@ -147,7 +186,9 @@ class WorkspaceTests(unittest.TestCase):
         same canonical hash, and hand them straight to the scorer."""
 
         left = copy.deepcopy(self.template)
-        right = json.loads(tool.TEMPLATES["B"].read_text(encoding="utf-8"))
+        _, right = rebased_on_current_corpus(
+            copy.deepcopy(self.assignments),
+            json.loads(tool.TEMPLATES["B"].read_text(encoding="utf-8")))
         by_id = {}
         for index, assignment in enumerate(self.assignments["assignments"]):
             by_id[assignment["assignment_id"]] = {
@@ -169,7 +210,9 @@ class WorkspaceTests(unittest.TestCase):
 
     def test_an_immutable_field_written_by_the_tool_would_be_caught(self):
         left = copy.deepcopy(self.template)
-        right = json.loads(tool.TEMPLATES["B"].read_text(encoding="utf-8"))
+        _, right = rebased_on_current_corpus(
+            copy.deepcopy(self.assignments),
+            json.loads(tool.TEMPLATES["B"].read_text(encoding="utf-8")))
         for doc, name in ((left, "Human A"), (right, "Human B")):
             for row in doc["rows"]:
                 row["decision"] = {"leaning": "neutral",
