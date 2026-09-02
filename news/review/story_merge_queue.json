@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated_at": "2026-09-02T10:03:14.641617+00:00",
+  "generated_at": "2026-09-02T10:19:03.892123+00:00",
   "counts": {
-    "total": 90,
-    "active": 5,
-    "pending": 5
+    "total": 91,
+    "active": 6,
+    "pending": 6
   },
   "items": [
     {
@@ -425,6 +425,170 @@
         "topic": [
           "elections-parliamentary",
           "campaign"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-b9b77522296d4703",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-02T10:19:03.892123+00:00",
+      "last_seen": "2026-09-02T10:19:03.892123+00:00",
+      "keeper": {
+        "id": "20260902-3993b68e",
+        "title_bg": "Доналд Тръмп заплаши Иран: Предстои най-голямата атака от всички! Иран отговори на огъня",
+        "title_en": "The US resumed military strikes against Iran, hitting IRGC targets near the Strait of Hormuz. Donald Trump threatened Tehran with the 'biggest attack of all' if it retaliates, while the administration announced additional economic sanctions. Iran promised revenge and fired ballistic missiles at a US base in Jordan, most of which were intercepted. Iranian state media reported civilian casualties, including five deaths at a wedding ceremony hit — claims not independently confirmed.",
+        "last_published": "2026-09-02T09:23:53+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Доналд Тръмп",
+            "Скот Бесент",
+            "Алиреза Мархамати",
+            "Ахмад Нафиси",
+            "Хосейн Мохеби"
+          ],
+          "parties": [],
+          "institutions": [
+            "Централно командване на САЩ (CENTCOM)",
+            "Ирански революционен гвардейски корпус (КСИР)",
+            "IRNA",
+            "Генерален щаб на иранските въоръжени сили",
+            "Йордански военни",
+            "Администрация на Тръмп"
+          ],
+          "companies": [],
+          "places": [
+            "Иран",
+            "САЩ",
+            "Йордания",
+            "Ормузки проток",
+            "Бандар Абас",
+            "Акаба"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-3993b68e",
+        "title_bg": "Доналд Тръмп заплаши Иран: Предстои най-голямата атака от всички! Иран отговори на огъня",
+        "title_en": "The US resumed military strikes against Iran, hitting IRGC targets near the Strait of Hormuz. Donald Trump threatened Tehran with the 'biggest attack of all' if it retaliates, while the administration announced additional economic sanctions. Iran promised revenge and fired ballistic missiles at a US base in Jordan, most of which were intercepted. Iranian state media reported civilian casualties, including five deaths at a wedding ceremony hit — claims not independently confirmed.",
+        "last_published": "2026-09-02T09:23:53+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "bilateral",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Доналд Тръмп",
+            "Скот Бесент",
+            "Алиреза Мархамати",
+            "Ахмад Нафиси",
+            "Хосейн Мохеби"
+          ],
+          "parties": [],
+          "institutions": [
+            "Централно командване на САЩ (CENTCOM)",
+            "Ирански революционен гвардейски корпус (КСИР)",
+            "IRNA",
+            "Генерален щаб на иранските въоръжени сили",
+            "Йордански военни",
+            "Администрация на Тръмп"
+          ],
+          "companies": [],
+          "places": [
+            "Иран",
+            "САЩ",
+            "Йордания",
+            "Ормузки проток",
+            "Бандар Абас",
+            "Акаба"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-218f0b66",
+        "title_bg": "Тръмп заплаши с „най-голямата атака от всички“ и започна нови удари по „глупавите“ иранци",
+        "title_en": "The US resumed military strikes against Iran, hitting IRGC targets near the Strait of Hormuz. Donald Trump threatened Tehran with 'the biggest attack of all' if it retaliates and called Iranian leaders 'crazy and stupid.' His administration also announced new economic sanctions. Iran promised revenge and fired ballistic missiles toward Jordan, most of which were intercepted. Iranian state media reported civilian casualties, including five deaths in a strike on a wedding ceremony — claims that remain independently unverified.",
+        "last_published": "2026-09-02T09:01:56+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "foreign-policy",
+            "subcategory": "bilateral"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Доналд Тръмп",
+            "Скот Бесент",
+            "Алиреза Мархамати",
+            "Ахмад Нафиси",
+            "Хосейн Мохеби",
+            "Трей Йингст"
+          ],
+          "parties": [],
+          "institutions": [
+            "Централното командване на САЩ",
+            "Ирански революционен гвардейски корпус (КСИР)",
+            "IRNA",
+            "Генерален щаб на иранските въоръжени сили"
+          ],
+          "companies": [],
+          "places": [
+            "Иран",
+            "САЩ",
+            "Израел",
+            "Йордания",
+            "Бандар Абас",
+            "Сирик",
+            "Джаск",
+            "Кешм",
+            "Акаба",
+            "Ормузкият проток"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "атака",
+          "всички",
+          "голямата",
+          "заплаши",
+          "най",
+          "тръмп"
+        ],
+        "shared_entities": [
+          "irna",
+          "алиреза мархамати",
+          "ахмад нафиси",
+          "генерален щаб на иранските въоръжени сили",
+          "доналд тръмп",
+          "ирански революционен гвардейски корпус (ксир)",
+          "скот бесент",
+          "хосейн мохеби"
+        ],
+        "shared_places": [
+          "акаба",
+          "бандар абас",
+          "иран",
+          "йордания",
+          "сащ"
+        ],
+        "title_jaccard": 0.375,
+        "published_gap_hours": 0.37,
+        "topic": [
+          "foreign-policy",
+          "bilateral"
         ]
       }
     },
