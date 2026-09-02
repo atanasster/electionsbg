@@ -487,6 +487,9 @@ def main() -> int:
     ap.add_argument("--archive-only", action="store_true")
     ap.add_argument("--public-app-data-only", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--pipeline-exit", type=int, default=0,
+                    help="the pipeline's exit code; non-zero refuses the "
+                         "PUBLIC publish while still archiving")
     args = ap.parse_args()
     if args.report and args.archive_only:
         ap.error("choose --report or --archive-only")
@@ -499,6 +502,20 @@ def main() -> int:
         args.expected_run_id,
         allow_dry_run=args.dry_run,
     )
+    # ⚠️ A FAILED PIPELINE MUST NOT MOVE READERS ONTO ITS RELEASE. The report
+    # can be complete and every gate green while a stage aborted — measured
+    # 2026-09-02, `analyze` exited 2 on its canary (the model server ignored
+    # the schema) and the run still advanced the manifest, because the
+    # uploader was never told the pipeline had failed. That publish happened
+    # to be harmless, republishing an unchanged corpus; a stage that fails
+    # PART-WAY through writing is the case this exists for.
+    #
+    # It refuses the PUBLIC half only. The archive is a private durable
+    # backup, and a failed run is exactly when its raw data is most worth
+    # keeping — blocking that would destroy evidence rather than protect
+    # anyone.
+    if args.pipeline_exit:
+        public_ready, reason = False, f"pipeline_failed:{args.pipeline_exit}"
     snapshot_temp = None
     try:
         public_enabled = public_upload_enabled()

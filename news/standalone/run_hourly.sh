@@ -164,6 +164,9 @@ if [ -n "$PIPELINE_REPORT" ]; then
 else
   UPLOAD_ARGS+=(--archive-only)
 fi
+# The uploader decides whether the public half may go out; it can only do that
+# if it is told the pipeline failed. Archiving still happens either way.
+UPLOAD_ARGS+=(--pipeline-exit "$PIPELINE_CODE")
 if [ "$DRY" -eq 1 ]; then UPLOAD_ARGS+=(--dry-run); fi
 python3 "$UPLOADER" "${UPLOAD_ARGS[@]}" > "$UPLOAD_STDOUT"
 UPLOAD_CODE=$?

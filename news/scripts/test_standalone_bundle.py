@@ -401,6 +401,47 @@ class UploadPolicy(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "non-empty prefix"):
                 uploader.commands(True, True, PUBLICATION)
 
+    def test_a_failed_pipeline_refuses_the_PUBLIC_publish_only(self):
+        """A stage that aborted must not move readers onto its release.
+
+        Measured 2026-09-02: `analyze` exited 2 on its canary (the model
+        server ignored the schema) and the run still advanced the manifest,
+        because the uploader was never told the pipeline had failed. The
+        ARCHIVE is deliberately still written — it is a private durable
+        backup, and a failed run is when its raw data is most worth keeping.
+        """
+        base = {
+            "NEWS_ARCHIVE_GCS_URI": "gs://private/news/archive",
+            "NEWS_PUBLIC_GCS_URI": "gs://public/news/app-data",
+            "NEWS_MENTIONS_GCS_URI": "gs://public/news/mentions",
+            "NEWS_ENABLE_PUBLIC_UPLOAD": "1",
+        }
+        with mock.patch.dict(os.environ, base, clear=False):
+            healthy = uploader.commands(
+                True, uploader.public_upload_enabled(), PUBLICATION)
+            refused = uploader.commands(
+                False, uploader.public_upload_enabled(), PUBLICATION)
+        self.assertEqual([s["name"] for s in refused], ["archive"])
+        self.assertIn("public_app_data_manifest", [s["name"] for s in healthy])
+
+    def test_the_uploader_accepts_and_honours_a_pipeline_exit_code(self):
+        """The flag must exist and be wired to public_ready, not merely parsed."""
+        source = Path(uploader.__file__).read_text(encoding="utf-8")
+        self.assertIn("--pipeline-exit", source)
+        self.assertIn("pipeline_failed", source)
+        # It must gate public_ready; parsing it and ignoring it would pass a
+        # presence-only check while publishing exactly as before.
+        self.assertRegex(
+            source,
+            r"if args\.pipeline_exit:\s*\n\s*public_ready, reason = False")
+
+    def test_run_hourly_tells_the_uploader_the_pipeline_exit_code(self):
+        """The gate is useless if the caller never passes the fact."""
+        script = (Path(uploader.__file__).parent / "run_hourly.sh").read_text(
+            encoding="utf-8")
+        self.assertIn("--pipeline-exit", script)
+        self.assertIn('UPLOAD_ARGS+=(--pipeline-exit "$PIPELINE_CODE")', script)
+
     def test_mentions_scope_uses_gcloud_storage_not_gsutil(self):
         """The mentions rsync must not run on gsutil.
 
