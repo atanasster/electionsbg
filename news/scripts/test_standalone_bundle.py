@@ -401,6 +401,60 @@ class UploadPolicy(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "non-empty prefix"):
                 uploader.commands(True, True, PUBLICATION)
 
+    def test_mentions_scope_uses_gcloud_storage_not_gsutil(self):
+        """The mentions rsync must not run on gsutil.
+
+        It is the one scope pairing rsync (which checksums each candidate
+        against the object already in the bucket) with gzip, and gsutil takes a
+        pure-Python CRC path for that comparison when crcmod's C extension is
+        missing -- Python 2 code that dies on `sys.maxint`. Measured 2026-09-02
+        against the live bucket, that left 58 mention files unpublished while
+        reporting "1 files/objects could not be copied", so the count in the
+        failure cannot be trusted either.
+
+        The other two transfer scopes stay on gsutil deliberately, and this
+        pins that too: `public_app_data_version` depends on
+        `x-goog-if-generation-match:0` to refuse overwriting an immutable
+        release, which is not the same guarantee under another tool.
+        """
+        base = {
+            "NEWS_ARCHIVE_GCS_URI": "gs://private/news/archive",
+            "NEWS_PUBLIC_GCS_URI": "gs://public/news/app-data",
+            "NEWS_MENTIONS_GCS_URI": "gs://public/news/mentions",
+            "NEWS_ENABLE_PUBLIC_UPLOAD": "1",
+        }
+        with mock.patch.dict(os.environ, base, clear=False):
+            scopes = {scope["name"]: scope for scope in
+                      uploader.commands(True, uploader.public_upload_enabled(),
+                                        PUBLICATION)}
+        mentions = scopes["public_mentions"]
+        self.assertEqual(mentions["argv"][:3], ["gcloud", "storage", "rsync"])
+        self.assertNotIn("gsutil", mentions["argv"])
+        # Same semantics the gsutil form had: recurse, delete unmatched
+        # destination objects, gzip json in flight.
+        self.assertIn("--recursive", mentions["argv"])
+        self.assertIn("--delete-unmatched-destination-objects", mentions["argv"])
+        self.assertIn("--gzip-in-flight=json", mentions["argv"])
+        self.assertTrue(mentions["deletes_remote"])
+        # The deleting flag and the declared intent must agree, in both
+        # directions -- a scope that deletes without declaring it escapes the
+        # disjointness guard that keeps it off the app-data prefix.
+        for scope in scopes.values():
+            deletes = ("--delete-unmatched-destination-objects" in scope["argv"]
+                       or "-d" in scope["argv"])
+            self.assertEqual(deletes, scope["deletes_remote"], scope["name"])
+        # One definition of the cache value, shared with the gsutil header.
+        self.assertIn(f"--cache-control={uploader.MUTABLE_PUBLIC_CACHE_VALUE}",
+                      mentions["argv"])
+        self.assertTrue(
+            uploader.MUTABLE_PUBLIC_CACHE.endswith(
+                uploader.MUTABLE_PUBLIC_CACHE_VALUE))
+        # The immutable-release scope keeps its generation precondition.
+        self.assertEqual(scopes["public_app_data_version"]["argv"][0], "gsutil")
+        self.assertIn("x-goog-if-generation-match:0",
+                      scopes["public_app_data_version"]["argv"])
+        self.assertEqual(scopes["archive"]["argv"][0], "gsutil")
+
     def test_public_upload_is_opt_in_and_delete_scopes_are_disjoint(self):
         base = {
             "NEWS_ARCHIVE_GCS_URI": "gs://private/news/archive",

@@ -32,7 +32,8 @@ ARCHIVE_EXCLUDE = (
     r"(^|/)\.DS_Store$|(^|/)_summaries.*\.jsonl$"
 )
 IMMUTABLE_PUBLIC_CACHE = "Cache-Control:public,max-age=31536000,immutable"
-MUTABLE_PUBLIC_CACHE = "Cache-Control:public,max-age=300,stale-while-revalidate=3600"
+MUTABLE_PUBLIC_CACHE_VALUE = "public,max-age=300,stale-while-revalidate=3600"
+MUTABLE_PUBLIC_CACHE = f"Cache-Control:{MUTABLE_PUBLIC_CACHE_VALUE}"
 MANIFEST_CACHE = "Cache-Control:no-cache,max-age=0,must-revalidate"
 PRIVATE_CACHE = "Cache-Control:private,no-store"
 PUBLICATION_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
@@ -48,7 +49,9 @@ def uri(name: str, *, delete_scope: bool) -> str:
     if not match:
         raise ValueError(f"{name} must be a gs://bucket/prefix URI")
     if delete_scope and not match.group(2):
-        raise ValueError(f"{name} needs a non-empty prefix because rsync uses -d")
+        raise ValueError(
+            f"{name} needs a non-empty prefix because its rsync deletes "
+            "unmatched destination objects")
     prefix = match.group(2)
     if prefix and any(part in ("", ".", "..") for part in prefix.split("/")):
         raise ValueError(f"{name} contains an unsafe or empty path segment")
@@ -280,9 +283,30 @@ def commands(
                 "name": "public_mentions",
                 "source": mentions_source,
                 "destination": mentions,
-                "argv": ["gsutil", "-m", "-h", MUTABLE_PUBLIC_CACHE, "rsync",
-                         "-r", "-d", "-j", "json",
-                         str(mentions_source), mentions],
+                # ⚠️ `gcloud storage`, NOT `gsutil`. This is the one scope
+                # that combines rsync (which must checksum every candidate
+                # against the object already there) with -j/gzip, and gsutil
+                # takes a pure-Python CRC path for that comparison whenever
+                # crcmod's C extension is absent. That path is Python 2 code:
+                # it dies on `module 'sys' has no attribute 'maxint'`.
+                #
+                # The other two transfer scopes are unaffected and stay on
+                # gsutil — `archive` rsyncs without -j, and
+                # `public_app_data_version` uses cp, which compares nothing.
+                #
+                # ⚠️ It failed as a LIE, not as an error. gsutil -m abandons
+                # queued work on the first failure and reports only the ops it
+                # had already started: measured 2026-09-02, it announced
+                # "1 files/objects could not be copied" and left 58 mention
+                # files unpublished, exiting non-zero with a count 58x too
+                # small. Believing that number is what makes this look like a
+                # single flaky file instead of a broken scope.
+                "argv": ["gcloud", "storage", "rsync",
+                         str(mentions_source), mentions,
+                         "--recursive",
+                         "--delete-unmatched-destination-objects",
+                         "--gzip-in-flight=json",
+                         f"--cache-control={MUTABLE_PUBLIC_CACHE_VALUE}"],
                 "deletes_remote": True,
             },
             {
@@ -525,8 +549,14 @@ def main() -> int:
         print(json.dumps({"mode": "news_gcs_upload",
                           "error": "GCS destination contains REPLACE_ME"}))
         return 2
-    if not args.dry_run and shutil.which("gsutil") is None:
-        print(json.dumps({"mode": "news_gcs_upload", "error": "gsutil_missing"}))
+    # Derived from the scopes rather than hard-coded, so a scope that switches
+    # tools cannot leave the preflight checking for the wrong binary.
+    missing = sorted({scope["argv"][0] for scope in scopes
+                      if shutil.which(scope["argv"][0]) is None})
+    if not args.dry_run and missing:
+        print(json.dumps({"mode": "news_gcs_upload",
+                          "error": "missing_upload_binaries",
+                          "binaries": missing}))
         return 2
     destinations = [scope["destination"] for scope in scopes]
     if len(destinations) != len(set(destinations)):
