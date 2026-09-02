@@ -320,16 +320,55 @@ What each view leads with today:
 | Потребление | `/consumption/:id`            | price level vs the country with its rank, basket value, change since the euro       |
 
 **The digest is one cell per reachable view, four at most, rendered on all four views.** It fits
-the existing `lg:grid-cols-4` strip and needs no new layout:
+the existing `lg:grid-cols-4` strip and needs no new layout. **The classification is settled, and
+it is forced by where each fact lives rather than chosen:**
 
-| view        | the cell                                           | why this one                                          |
-| ----------- | -------------------------------------------------- | ----------------------------------------------------- |
-| Управление  | LINK ONLY — „вашите депутати и съветът", no figure | its facts are Postgres-only; see §5.1                 |
-| Парламент   | who won here and by how much                       | validation task 1                                     |
-| Местни      | mayor, council lead, and whether they match        | validation task 2, the most-asked question in the set |
-| Потребление | LINK ONLY — „цените тук", no figure                | the only figure on that view a reader can act on      |
+| view        | cell       | what it states                                               | producer                                   |
+| ----------- | ---------- | ------------------------------------------------------------ | ------------------------------------------ |
+| Управление  | LINK       | „депутатите и съветът" — no number                           | none exists in the bucket (measured below) |
+| Парламент   | **FIGURE** | winning party + its share, and the margin over the runner-up | the surface / canonical shard              |
+| Местни      | **FIGURE** | mayor + party, council lead + seats, and whether they match  | `municipalities/<code>.json`, one file     |
+| Потребление | LINK       | „цените тук" — no number                                     | Cloud SQL only, and daily                  |
 
-Each cell links to its own view, states its basis and names its cycle or reference date.
+Cell order is `PlaceViewNav`'s `ORDER` constant, so the digest and the pills above it cannot
+disagree about the sequence.
+
+**Why Управление carries no number, measured rather than assumed.** The obvious cell is „N
+народни представители, X води" — and there is no bucket producer for it.
+`data/<cycle>/parties/by_region/*.json` carries votes per oblast and **no seats**, and
+`MandatesTile` takes its seat count from `useMps` → `/api/db/mp-roster` (migrations 104/111).
+So the fact exists only in Postgres, which §5.1 forbids on the render path.
+
+⚠️ **Two upgrades will be proposed later; both are refused here with their reasons.** Deriving
+the count from the ELECTION corpus instead would source the cell from a **different producer
+than the view it links to**, which is the one thing the consistency rule below forbids — the
+election corpus knows mandates allocated at the election, the Управление view renders the
+current roster, and the two diverge on a vacancy. And baking the roster figure into the surface
+(§5.1's escape hatch) fails on cadence: the roster changes mid-term with every replacement while
+`data/<cycle>/surface/` changes once every few years.
+
+**Потребление is refused on both counts at once.** `data/prices/` is not merely unsynced but
+REFUSED by `bucket_sync_paths.isExcluded`, and the price index moves **daily**. There is no
+version of this cell that carries a number and obeys §5.1.
+
+**What a LINK cell renders**, so it is not an empty box: the view's name, a one-line descriptor
+of what is behind it — from i18n, never from data — and the affordance. It makes no claim, so it
+cannot be stale.
+
+**The two FIGURE cells, field by field**, because "who won here" is not a specification:
+
+- **Парламент** — the first row of the same ranked list the view draws (party id, `pct`), plus
+  the margin against the second row. Never a separate aggregation.
+- **Местни** — from one municipality bundle: `mayor.elected.candidateName` +
+  `primaryCanonicalId`; the `council[]` row with the highest `mandatesWon`, its
+  `primaryCanonicalId` and that count; the seat total as `sum(mandatesWon)` with the majority
+  threshold derived from it; and the match/split boolean as mayor's `primaryCanonicalId` vs the
+  lead row's. Party LABELS resolve from the id at render time (§5.3).
+
+**Floor: below two cells, render no digest.** §7.1 drops the cell for the view the reader is
+already on, and an unreachable view drops its own — so a parliamentary page in a place with no
+local cycle is down to two, and a section page to zero. One or two cells in a four-column grid
+is chrome that repeats the pills directly above it; `PlaceViewNav` already covers that job.
 
 Six rules, each of which the surrounding conventions already imply:
 
@@ -1234,7 +1273,7 @@ Work:
 
 1. Add `surfaceTypes.ts` with the discriminated contracts above.
 2. Add `electionSurfaceDescriptors.ts` for every kind/level combination.
-   3a. Freeze the **place digest**: which fact each of the four views contributes, its basis, its producer, and the `reason` enum for an unreachable view (§4.1). Decide and record **where each half is served from** — the election facts on the surface, the governance and consumption facts on their existing hooks or one place-digest route — because their refresh cadences differ by orders of magnitude and one file with two cadences is the failure.
+   3a. Implement the **place digest** to §4.1, whose classification is settled: Парламент and Местни carry figures from the surface and the municipality bundle, Управление and Потребление are LINK cells because neither fact has a bucket producer. What Phase 0 still owns is the copy — each LINK cell's one-line descriptor, and the `reason` enum for an unreachable view — plus the fixture pair below. Do not re-open the classification; §4.1 records why each of the two obvious upgrades is refused.
    3b. Diff each level's intended fact set against what the nine existing dashboard-card screens render today (§6.3), so every card the descriptor drops is a recorded decision.
    3c. Freeze the **copy contract** (§5.2, §5.3): every enum member's `labelKey` written OUT beside the code rather than built by template; the counts enumerated as PLURAL families; and the list of things carried as an ID whose label the renderer resolves (party, place, office), with person names recorded as the deliberate Bulgarian-in-both-languages exception.
    3d. Write `/elections`' title, description and `bodyHtml` **about the cross-kind entry** — both election systems, the finder, partial elections, the analyses — per §3.1, which is settled: `/parliamentary` is canonical for the parliamentary country result, `/elections/:date` for each cycle, and `/elections` for itself. The copy is the deliverable here; the routing question is closed.
@@ -1259,6 +1298,9 @@ Tests/gates:
 - map alternative/list always present;
 - no more than four facts and three standouts;
 - the digest renders one cell per REACHABLE view and omits the rest — never a zero, never a dead link;
+- the two LINK cells render no number in any fixture, and the two FIGURE cells render one in every fixture that has the data;
+- the digest is absent entirely below two cells, and on a polling section;
+- cell order matches `PlaceViewNav`'s `ORDER`;
 - the digest and the outcome strip never render the same figure on one page;
 - every enum member the contract can emit resolves to a key present in BOTH corpora (`electionCopyCoverage.test.ts` — `parity.test.ts` cannot see this, §5.2);
 - no i18n key is built by template anywhere in the descriptor or the registry;
@@ -1408,7 +1450,7 @@ Work:
 6. Abroad uses the parliamentary region adapter, total votes cast, country/city ranking, and no turnout fact/card.
 7. Upgrade `electionsResultsFirst.gates.test.ts` from legacy source scanning to rendered shell/descriptor assertions; retain a route-level anti-vacuity test.
 
-Digest gate: on a municipality with all four views reachable, the digest renders four cells; with no local cycle it renders three and names why; and the strip does not repeat the cell for the view the page is already on.
+Digest gate: on a municipality with all four views reachable the digest renders three cells (the current view's is dropped, §7.1) — one figure and two links; with no local cycle it falls to two and the Местни cell is absent with its reason named; and no cell duplicates a figure the outcome strip already shows.
 
 Publication and vacuity (§9.0): the country/region/abroad artifacts for the cycles under test are in the bucket before this phase's browser gates run, and each migrated route asserts `data-surface-shell` is present, so a run that silently fell back to the legacy body fails.
 
@@ -1550,7 +1592,7 @@ against the wrong selector reports zero violations exactly like a clean page.
 - no abroad turnout without an approved basis;
 - absent ballot and zero-vote ballot are distinct;
 - no artifact stores a party, place or office NAME — only ids the renderer resolves (§5.3);
-- every digest cell re-derives from its own view's producer and equals what that view renders — mayor name, council lead, MP count and price rank are compared against the destination, never against a stored copy;
+- both FIGURE cells re-derive from their own view's producer and equal what that view renders — the mayor, the council lead and its seat count compared against the municipality bundle the Местни view draws, never against a stored copy; the two LINK cells are asserted to carry NO numeric content;
 - `status.reconciliation` is present iff an `officials_diff` sidecar exists for that município and cycle, and `agrees` re-derives from the sidecar; its absence never renders as agreement.
 
 ### Component/accessibility
