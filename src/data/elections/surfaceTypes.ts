@@ -217,7 +217,17 @@ export type ElectionFactCode =
   | "votes_cast"
   | "runoff_pending"
   | "split_control"
-  | "wasted_vote";
+  | "wasted_vote"
+  // ⚠ The three below are NOT in §5's minimum list. They are here because the six existing
+  // parliamentary level screens all render them today (`PartyChangeCard` ×2 +
+  // `PaperMachineCard`), and §6.3 requires every card the descriptor drops to be a RECORDED
+  // decision rather than one somebody notices missing after the migration. Representing
+  // them is what makes the diff in `electionSurfaceDescriptors.ts` possible at all.
+  | "top_gainer"
+  | "top_loser"
+  /** Bulgaria-specific: the paper-vs-machine split, an integrity signal with no analogue in
+   *  the generic list. */
+  | "paper_machine";
 
 /** The denominator or window a fact's value is over. Exported and named rather than inline
  *  so `electionCopyCoverage.test.ts` can ENUMERATE it — §5.2's gate can only iterate a union
