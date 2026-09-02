@@ -9,17 +9,10 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { stripJsxComments } from "@/ux/infographic/stripJsxComments";
+import { sourceSection as section } from "@/ux/infographic/sourceSection";
 
 const read = (path: string): string =>
   stripJsxComments(readFileSync(path, "utf8"));
-
-const section = (source: string, start: string, end: string): string => {
-  const startAt = source.indexOf(start);
-  const endAt = source.indexOf(end, startAt + start.length);
-  expect(startAt, "missing section start " + start).toBeGreaterThanOrEqual(0);
-  expect(endAt, "missing section end " + end).toBeGreaterThan(startAt);
-  return source.slice(startAt, endAt);
-};
 
 describe("election country dashboards remain results-first", () => {
   it("keeps the parliamentary map and ranked party result in the first votes section", () => {
