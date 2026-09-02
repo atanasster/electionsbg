@@ -1,10 +1,10 @@
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import {
   ConnectionMode,
   Background,
   BackgroundVariant,
-  ControlButton,
-  Controls,
   MarkerType,
   ReactFlow,
   ReactFlowProvider,
@@ -14,8 +14,9 @@ import {
   type Node,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { Maximize } from "lucide-react";
+import { Minus, Plus, Scan } from "lucide-react";
 import "./datamap.css";
+import { cn } from "@/lib/utils";
 import { formatCount } from "@/lib/currency";
 import { formatDate } from "@/lib/formatDate";
 import {
@@ -63,12 +64,12 @@ type Props = {
   freshLabel: string;
   kindLabels: Record<DataMapKind, string>;
   lens: DataMapLens;
-  /** Accessible name for the fit-view control — see the Controls block below. */
+  /** Accessible name for the fit-view control — see DataMapFloatingControls below. */
   fitLabel: string;
   /** `n` → the title on a card's "+n connections outside this view" badge. */
   hiddenLabel: (n: number) => string;
-  /** Which bottom corner the controls take. The detail overlay floats over
-   *  this canvas too, and both defaulted to bottom-right. */
+  /** Which bottom corner the floating zoom/fit controls take. The detail
+   *  overlay floats over this canvas too, and both defaulted to bottom-right. */
   controlsSide: "left" | "right";
   onSelect: (id: string | null) => void;
 };
@@ -95,8 +96,8 @@ const MOBILE_PANE_PX = 700;
  * does nothing, so the pane dimensions are sound and the node BOUNDS are what
  * fitView cannot resolve; the manifest carries every box, so they never needed
  * measuring. (fitView recovers once the nodes have painted, which is why the
- * fit CONTROL needed its own treatment rather than the same one — see the
- * Controls block below.) See src/data/dataMap/viewport.ts for the measurements.
+ * fit CONTROL needed its own treatment rather than the same one — see
+ * DataMapFloatingControls below.) See src/data/dataMap/viewport.ts for the measurements.
  */
 const CameraDirector: FC<{
   graph: DataMapViewGraph;
@@ -157,7 +158,12 @@ const CameraDirector: FC<{
   return null;
 };
 
-const InnerCanvas: FC<Props> = ({
+/** InnerCanvas no longer owns the fit/zoom controls (see DataMapFloatingControls
+ *  below) — `frameNonce` arrives as a prop, bumped by a sibling under the same
+ *  ReactFlowProvider so both can reach `useReactFlow()`. */
+type InnerCanvasProps = Props & { frameNonce: number };
+
+const InnerCanvas: FC<InnerCanvasProps> = ({
   graph,
   lang,
   selectedId,
@@ -166,15 +172,11 @@ const InnerCanvas: FC<Props> = ({
   freshLabel,
   kindLabels,
   lens,
-  fitLabel,
   hiddenLabel,
-  controlsSide,
+  frameNonce,
   onSelect,
 }) => {
   const [hoverId, setHoverId] = useState<string | null>(null);
-  // The fit control is ours (see the Controls block below).
-  const [frameNonce, setFrameNonce] = useState(0);
-  const reframe = useCallback(() => setFrameNonce((n) => n + 1), []);
   // Stable per-mount timestamp: freshness is a day-grain signal, and a live
   // Date.now() in render would invalidate the node memo on every hover.
   const [now] = useState(() => Date.now());
@@ -444,28 +446,6 @@ const InnerCanvas: FC<Props> = ({
           size={1.5}
           color="hsl(var(--border))"
         />
-        {/* React Flow's own fit button cannot frame this graph (see
-            CameraDirector), and `onFitView` does NOT replace it: Controls runs
-            `fitView(fitViewOptions)` first and calls the handler after. Since
-            fitView starts working once the nodes have painted, wiring it there
-            framed TWICE per click — an instant snap to upstream's padding 0.1 /
-            maxZoom 2, then our 300ms animation to 0.03 / 1.15 (measured at a
-            1008px pane: a 6.8% zoom pop and a 109px jump). So hide it and own
-            it. The label is explicit because a bare ControlButton would ship an
-            unlabelled icon, where React Flow's own supplies one. */}
-        <Controls
-          showInteractive={false}
-          showFitView={false}
-          position={controlsSide === "left" ? "bottom-left" : "bottom-right"}
-        >
-          <ControlButton
-            onClick={reframe}
-            title={fitLabel}
-            aria-label={fitLabel}
-          >
-            <Maximize aria-hidden />
-          </ControlButton>
-        </Controls>
         <CameraDirector
           graph={graph}
           focusIds={closure ? [...closure] : []}
@@ -476,8 +456,104 @@ const InnerCanvas: FC<Props> = ({
   );
 };
 
-export const DataMapCanvas: FC<Props> = (props) => (
-  <ReactFlowProvider>
-    <InnerCanvas {...props} />
-  </ReactFlowProvider>
-);
+/**
+ * Zoom in / zoom out / fit, portaled to `document.body` and pinned with
+ * `position: fixed` — deliberately NOT React Flow's own `<Controls>` docked
+ * inside the canvas. The canvas box is sized to the graph's own layout
+ * (~4,200px tall on the full manifest), which the page scrolls through, so
+ * controls docked at its bottom sit thousands of pixels below the fold and
+ * are unreachable without scrolling past the whole diagram first. A portal
+ * escapes that ancestor's `overflow: hidden` (which would otherwise clip a
+ * `position: fixed` descendant too) the same way DataMapPanel's sticky detail
+ * card escapes it by being a sibling instead of a descendant.
+ *
+ * The fit button calls `onReframe` rather than React Flow's `fitView`:
+ * `fitView` does not work on this canvas (see CameraDirector above) and
+ * `onFitView` does not replace it either — Controls used to run
+ * `fitView(fitViewOptions)` first and call the handler after, framing TWICE
+ * per click (an instant snap to padding 0.1 / maxZoom 2, then our own 300ms
+ * animation to 0.03 / 1.15 — measured at a 1008px pane, a 6.8% zoom pop and a
+ * 109px jump).
+ */
+const DataMapFloatingControls: FC<{
+  fitLabel: string;
+  controlsSide: "left" | "right";
+  onReframe: () => void;
+}> = ({ fitLabel, controlsSide, onReframe }) => {
+  const { t } = useTranslation();
+  const { zoomIn, zoomOut } = useReactFlow();
+  // Portals need `document`, so render nothing until mounted in the browser —
+  // a no-op on this client-only canvas, but it keeps the component honest.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  // The portal target MUST be a descendant of the app's own root container
+  // (index.html's #root, where main.tsx calls createRoot), not
+  // `document.body` — React 17+ delegates events at the root container
+  // rather than at `document`, so a click on a node portaled straight to
+  // `document.body` (a DOM ANCESTOR of #root, never a descendant) bubbles
+  // through body/html/document and never crosses the root container's
+  // listener. Measured: the button's own `.click()` left the React Flow
+  // viewport transform bit-for-bit unchanged — onReframe/zoomIn/zoomOut never
+  // fired. #root is still an ancestor of the tall, overflow-hidden canvas
+  // box, so portaling here (a sibling of the whole routed app, not nested
+  // inside that box) keeps the fixed-position escape this component exists
+  // for.
+  const portalTarget = mounted ? document.getElementById("root") : null;
+  if (!portalTarget) return null;
+
+  return createPortal(
+    <div
+      className={cn(
+        "datamap-floating-controls fixed bottom-4 z-40 flex flex-col overflow-hidden rounded-lg border border-border bg-card shadow-lg",
+        controlsSide === "left" ? "left-4" : "right-4",
+      )}
+    >
+      <button
+        type="button"
+        onClick={() => zoomIn({ duration: 200 })}
+        title={t("data_map_zoom_in")}
+        aria-label={t("data_map_zoom_in")}
+        className="datamap-floating-controls-button"
+      >
+        <Plus aria-hidden className="h-4 w-4" />
+      </button>
+      <button
+        type="button"
+        onClick={() => zoomOut({ duration: 200 })}
+        title={t("data_map_zoom_out")}
+        aria-label={t("data_map_zoom_out")}
+        className="datamap-floating-controls-button"
+      >
+        <Minus aria-hidden className="h-4 w-4" />
+      </button>
+      <button
+        type="button"
+        onClick={onReframe}
+        title={fitLabel}
+        aria-label={fitLabel}
+        className="datamap-floating-controls-button"
+      >
+        <Scan aria-hidden className="h-4 w-4" />
+      </button>
+    </div>,
+    portalTarget,
+  );
+};
+
+export const DataMapCanvas: FC<Props> = (props) => {
+  // Lifted out of InnerCanvas so DataMapFloatingControls — a sibling, not a
+  // descendant, of the canvas — can bump the same nonce; both sit under the
+  // one ReactFlowProvider below.
+  const [frameNonce, setFrameNonce] = useState(0);
+  const reframe = useCallback(() => setFrameNonce((n) => n + 1), []);
+  return (
+    <ReactFlowProvider>
+      <InnerCanvas {...props} frameNonce={frameNonce} />
+      <DataMapFloatingControls
+        fitLabel={props.fitLabel}
+        controlsSide={props.controlsSide}
+        onReframe={reframe}
+      />
+    </ReactFlowProvider>
+  );
+};

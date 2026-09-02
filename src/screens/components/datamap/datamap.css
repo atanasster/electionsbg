@@ -14,26 +14,27 @@
   font-family: var(--font-sans);
 }
 
-.datamap-flow .react-flow__controls {
-  border: 1px solid hsl(var(--border));
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: none;
-}
-
-.datamap-flow .react-flow__controls-button {
+/* The zoom/fit controls are a portal to document.body (see
+   DataMapFloatingControls), not React Flow's own docked <Controls> — so they
+   are styled here, unscoped from .datamap-flow, rather than by overriding
+   .react-flow__controls-button. */
+.datamap-floating-controls-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   background: hsl(var(--card));
-  border-bottom: 1px solid hsl(var(--border));
   color: hsl(var(--foreground));
-  width: 28px;
-  height: 28px;
+  border: none;
+  border-bottom: 1px solid hsl(var(--border));
 }
 
-.datamap-flow .react-flow__controls-button svg {
-  fill: hsl(var(--foreground));
+.datamap-floating-controls-button:last-child {
+  border-bottom: none;
 }
 
-.datamap-flow .react-flow__controls-button:hover {
+.datamap-floating-controls-button:hover {
   background: hsl(var(--secondary));
 }
 

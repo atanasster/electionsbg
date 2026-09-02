@@ -14,7 +14,7 @@ const read = (p: string) => readFileSync(path.join(ROOT, p), "utf8");
 const canvas = () => read("src/screens/components/datamap/DataMapCanvas.tsx");
 
 describe("the fit control is ours, not React Flow's", () => {
-  it("hides React Flow's own fit button", () => {
+  it("does not import React Flow's own Controls component", () => {
     // @xyflow/react Controls:
     //   const onFitViewHandler = () => { fitView(fitViewOptions); onFitView?.(); }
     // The handler is ADDITIVE. Upstream's fitView cannot frame this graph at
@@ -23,19 +23,27 @@ describe("the fit control is ours, not React Flow's", () => {
     // default button on and passing `onFitView` framed twice per click: an
     // instant snap to upstream's padding 0.1 / maxZoom 2, then a 300ms
     // animation to ours. Measured at a 1008px pane: 6.8% zoom pop, 109px jump.
-    expect(canvas()).toMatch(/showFitView=\{false\}/);
+    // Docking React Flow's own Controls also sinks the buttons to the bottom
+    // of the ~4,200px tall canvas box, which is what DataMapFloatingControls
+    // (portaled to document.body, position: fixed) replaced it to fix — so
+    // this now asserts the import is absent outright, not merely disarmed.
+    const src = canvas();
+    const importBlock =
+      src.match(/import\s*\{[\s\S]*?\}\s*from\s*"@xyflow\/react"/)?.[0] ?? "";
+    expect(importBlock).not.toMatch(/\bControls\b/);
+    expect(importBlock).not.toMatch(/\bControlButton\b/);
   });
 
   it("does not hand React Flow a fit handler that would run after its own", () => {
     expect(canvas()).not.toMatch(/onFitView=/);
   });
 
-  it("labels the replacement button", () => {
-    // React Flow's own button takes its name from ariaLabelConfig; a bare
-    // ControlButton would ship an unlabelled icon in its place.
+  it("labels the replacement fit button", () => {
+    // The floating fit button takes its accessible name from `fitLabel`
+    // explicitly — a bare icon button would ship unlabelled.
     const src = canvas();
-    expect(src).toMatch(/<ControlButton[\s\S]*?aria-label=\{fitLabel\}/);
-    expect(src).toMatch(/<ControlButton[\s\S]*?title=\{fitLabel\}/);
+    expect(src).toMatch(/onClick=\{onReframe\}[\s\S]*?aria-label=\{fitLabel\}/);
+    expect(src).toMatch(/onClick=\{onReframe\}[\s\S]*?title=\{fitLabel\}/);
   });
 
   it("drops the fitView props that would compete with the director", () => {
