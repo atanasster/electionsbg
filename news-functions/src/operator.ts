@@ -775,7 +775,11 @@ function feedbackTargetRegistry(value: unknown): {
     ["version", "generated_at", "targets_sha256", "target_count", "targets"],
     "feedback target registry",
   );
-  if (raw.version !== 1 || !Array.isArray(raw.targets) || raw.targets.length > 20_000)
+  if (
+    raw.version !== 1 ||
+    !Array.isArray(raw.targets) ||
+    raw.targets.length > 20_000
+  )
     throw new Error("feedback target registry contract is unsupported");
   const targets = raw.targets.map((value, index) => {
     const target = object(value, `feedback target ${index}`);
@@ -787,10 +791,18 @@ function feedbackTargetRegistry(value: unknown): {
     const kind = stringValue(target.kind, `feedback target ${index}.kind`, 20);
     if (!FEEDBACK_TARGET_KINDS.has(kind))
       throw new Error(`feedback target ${index}.kind is unsupported`);
-    if (!Array.isArray(target.aliases) || target.aliases.length < 1 || target.aliases.length > 20)
+    if (
+      !Array.isArray(target.aliases) ||
+      target.aliases.length < 1 ||
+      target.aliases.length > 20
+    )
       throw new Error(`feedback target ${index}.aliases is invalid`);
     const aliases = target.aliases.map((alias, aliasIndex) =>
-      stringValue(alias, `feedback target ${index}.aliases[${aliasIndex}]`, 300),
+      stringValue(
+        alias,
+        `feedback target ${index}.aliases[${aliasIndex}]`,
+        300,
+      ),
     );
     if (new Set(aliases).size !== aliases.length)
       throw new Error(`feedback target ${index}.aliases are duplicated`);
@@ -845,7 +857,9 @@ function feedbackTargetRegistries(
 ): Map<string, ReturnType<typeof feedbackTargetRegistry>> {
   const values = Array.isArray(value) ? value : [value];
   if (values.length < 1 || values.length > 100)
-    throw new Error("feedback target registry set must contain 1 to 100 snapshots");
+    throw new Error(
+      "feedback target registry set must contain 1 to 100 snapshots",
+    );
   const registries = new Map<
     string,
     ReturnType<typeof feedbackTargetRegistry>
@@ -853,7 +867,10 @@ function feedbackTargetRegistries(
   for (const item of values) {
     const registry = feedbackTargetRegistry(item);
     const prior = registries.get(registry.targetsHash);
-    if (prior && canonicalJson(prior.targets) !== canonicalJson(registry.targets))
+    if (
+      prior &&
+      canonicalJson(prior.targets) !== canonicalJson(registry.targets)
+    )
       throw new Error("feedback target registry hash collision");
     registries.set(registry.targetsHash, registry);
   }
@@ -897,7 +914,9 @@ function validateFeedbackTargetReferences(
     if (proposal.resolution_status !== "selected") continue;
     const reference = object(proposal.target_ref, "feedback target reference");
     if (!keys.has(`${reference.kind as string}\u0000${reference.id as string}`))
-      throw new Error("selected feedback target is absent from target registry");
+      throw new Error(
+        "selected feedback target is absent from target registry",
+      );
   }
 }
 
@@ -1706,13 +1725,11 @@ function feedbackSubmissionRecord(
   const article = articleKey(raw.article_key);
   const taskRevision = safeInteger(raw.task_revision, "task_revision", 1);
   const contentHash = hash(raw.content_sha256, "content_sha256");
-  const analysisHash = raw.analysis_sha256 === null
-    ? null
-    : hash(raw.analysis_sha256, "analysis_sha256");
-  const targetHash = hash(
-    raw.target_registry_sha256,
-    "target_registry_sha256",
-  );
+  const analysisHash =
+    raw.analysis_sha256 === null
+      ? null
+      : hash(raw.analysis_sha256, "analysis_sha256");
+  const targetHash = hash(raw.target_registry_sha256, "target_registry_sha256");
   const status = stringValue(raw.status, "status", 32);
   if (!STATUS.has(status))
     throw new Error("feedback submission status is invalid");
@@ -1746,11 +1763,14 @@ export function buildRawFeedbackExport(
   projectId: string,
   snapshot: OperatorQuerySnapshot,
 ): RawFeedbackExport {
-  const records = snapshot.docs.map(feedbackSubmissionRecord).sort((left, right) =>
-    compareText(left.article_key, right.article_key) ||
-    compareText(left.submitted_at, right.submitted_at) ||
-    compareText(left.submission_id, right.submission_id),
-  );
+  const records = snapshot.docs
+    .map(feedbackSubmissionRecord)
+    .sort(
+      (left, right) =>
+        compareText(left.article_key, right.article_key) ||
+        compareText(left.submitted_at, right.submitted_at) ||
+        compareText(left.submission_id, right.submission_id),
+    );
   if (records.length === 0)
     throw new Error(
       "Firestore returned no feedback; retaining the last known-good export",
@@ -1792,7 +1812,9 @@ export function validateRawFeedbackExport(value: RawFeedbackExport): void {
     throw new Error("raw feedback export contract is unsupported");
   stringValue(manifest.project_id, "project_id", 128);
   isoTimestamp(manifest.firestore_read_time, "firestore_read_time");
-  if (safeInteger(manifest.record_count, "record_count") !== value.records.length)
+  if (
+    safeInteger(manifest.record_count, "record_count") !== value.records.length
+  )
     throw new Error("raw feedback export record count does not match");
   if (manifest.records_sha256 !== canonicalSha256(value.records))
     throw new Error("raw feedback export records hash does not match");
@@ -1822,12 +1844,14 @@ export function validateRawFeedbackExport(value: RawFeedbackExport): void {
 
 export function serializeRawFeedbackExport(value: RawFeedbackExport): string {
   validateRawFeedbackExport(value);
-  return [
-    canonicalJson({ kind: "manifest", ...value.manifest }),
-    ...value.records.map((record) =>
-      canonicalJson({ kind: "feedback", ...record }),
-    ),
-  ].join("\n") + "\n";
+  return (
+    [
+      canonicalJson({ kind: "manifest", ...value.manifest }),
+      ...value.records.map((record) =>
+        canonicalJson({ kind: "feedback", ...record }),
+      ),
+    ].join("\n") + "\n"
+  );
 }
 
 export function parseRawFeedbackExport(serialized: string): RawFeedbackExport {
@@ -2171,7 +2195,9 @@ export async function buildFeedbackReviewBundle(
       }
       const resolved = references.map((reference) => {
         const target = registryMatches
-          ? targets.get(`${reference.kind as string}\u0000${reference.id as string}`)
+          ? targets.get(
+              `${reference.kind as string}\u0000${reference.id as string}`,
+            )
           : undefined;
         return {
           ref: reference,
@@ -2228,11 +2254,16 @@ function acceptedFeedbackRecord(
     throw new Error(`${label} document identity does not match article`);
   if (raw.schema_version !== 1 || raw.status !== "accepted")
     throw new Error(`${label} contract is unsupported`);
-  const taskRevision = safeInteger(raw.task_revision, `${label}.task_revision`, 1);
+  const taskRevision = safeInteger(
+    raw.task_revision,
+    `${label}.task_revision`,
+    1,
+  );
   const contentHash = hash(raw.content_sha256, `${label}.content_sha256`);
-  const analysisHash = raw.analysis_sha256 === null
-    ? null
-    : hash(raw.analysis_sha256, `${label}.analysis_sha256`);
+  const analysisHash =
+    raw.analysis_sha256 === null
+      ? null
+      : hash(raw.analysis_sha256, `${label}.analysis_sha256`);
   const targetHash = hash(
     raw.target_registry_sha256,
     `${label}.target_registry_sha256`,
@@ -2247,9 +2278,9 @@ function acceptedFeedbackRecord(
     raw.source_submission_ids.length > 100
   )
     throw new Error(`${label}.source_submission_ids is invalid`);
-  const sourceIds = raw.source_submission_ids.map((id) =>
-    stringValue(id, `${label}.source_submission_id`, 128),
-  ).sort(compareText);
+  const sourceIds = raw.source_submission_ids
+    .map((id) => stringValue(id, `${label}.source_submission_id`, 128))
+    .sort(compareText);
   if (new Set(sourceIds).size !== sourceIds.length)
     throw new Error(`${label}.source_submission_ids are duplicated`);
   const sourceRegistryRaw = object(
@@ -2301,9 +2332,10 @@ function acceptedFeedbackRecord(
       analysisSha256: analysisHash,
       targetRegistrySha256: targetHash,
     }),
-    public_explanation: raw.public_explanation === null
-      ? null
-      : nullableString(raw.public_explanation, `${label}.public_explanation`),
+    public_explanation:
+      raw.public_explanation === null
+        ? null
+        : nullableString(raw.public_explanation, `${label}.public_explanation`),
     status: "accepted",
     last_operation_id: operationId,
   };
@@ -2313,13 +2345,15 @@ export function buildAcceptedFeedbackSnapshot(
   projectId: string,
   snapshot: OperatorQuerySnapshot,
 ): AcceptedFeedbackSnapshot {
-  const records = snapshot.docs.map((document) =>
-    acceptedFeedbackRecord(
-      document.data(),
-      `accepted feedback ${document.id}`,
-      document.id,
-    ),
-  ).sort((left, right) => compareText(left.article_key, right.article_key));
+  const records = snapshot.docs
+    .map((document) =>
+      acceptedFeedbackRecord(
+        document.data(),
+        `accepted feedback ${document.id}`,
+        document.id,
+      ),
+    )
+    .sort((left, right) => compareText(left.article_key, right.article_key));
   if (records.length === 0)
     throw new Error(
       "Firestore returned no accepted feedback; retaining the last known-good snapshot",
@@ -2329,7 +2363,10 @@ export function buildAcceptedFeedbackSnapshot(
       schema_version: 1,
       snapshot_kind: "news-feedback-accepted-adjudications",
       project_id: stringValue(projectId, "project ID", 128),
-      firestore_read_time: isoTimestamp(snapshot.readTime, "Firestore read time"),
+      firestore_read_time: isoTimestamp(
+        snapshot.readTime,
+        "Firestore read time",
+      ),
       record_count: records.length,
       records_sha256: canonicalSha256(records),
     },
@@ -2365,7 +2402,7 @@ export function validateAcceptedFeedbackSnapshot(
   if (!Array.isArray(root.records) || root.records.length === 0)
     throw new Error("accepted feedback snapshot is empty");
   const records = root.records.map((record, index) =>
-    acceptedFeedbackRecord(record, `accepted feedback ${index}`)
+    acceptedFeedbackRecord(record, `accepted feedback ${index}`),
   );
   if (safeInteger(manifest.record_count, "record_count", 1) !== records.length)
     throw new Error("accepted feedback record count does not match");
@@ -2468,10 +2505,7 @@ export function parseReviewCommand(value: unknown): ReviewCommand {
       sourceSubmissionIds: [ids[0]!] as const,
     };
   }
-  if (
-    ids.length === 0 ||
-    ids.length > MAX_EVAL_SOURCE_SUBMISSIONS
-  )
+  if (ids.length === 0 || ids.length > MAX_EVAL_SOURCE_SUBMISSIONS)
     throw new Error("accepted adjudication source submissions must be bounded");
   const evaluation = jsonObject(raw.evaluation, "evaluation");
   const schemaErrors = validateSchema(ARTICLE_SCHEMA, evaluation);
@@ -2615,9 +2649,10 @@ export function parseFeedbackReviewCommand(
     "expected_task_revision",
     1,
   );
-  const analysisHash = raw.analysis_sha256 === null
-    ? null
-    : hash(raw.analysis_sha256, "analysis_sha256");
+  const analysisHash =
+    raw.analysis_sha256 === null
+      ? null
+      : hash(raw.analysis_sha256, "analysis_sha256");
   const feedback = normalizedFeedbackPayload(raw.feedback, {
     articleKey: base.articleKey,
     taskRevision,
@@ -2638,9 +2673,10 @@ export function parseFeedbackReviewCommand(
       "expected_adjudication_revision",
     ),
     feedback,
-    publicExplanation: raw.public_explanation === null
-      ? null
-      : nullableString(raw.public_explanation, "public_explanation"),
+    publicExplanation:
+      raw.public_explanation === null
+        ? null
+        : nullableString(raw.public_explanation, "public_explanation"),
   };
 }
 
@@ -3342,14 +3378,13 @@ export class FirestoreOperatorStore {
         before.content_sha256 !== command.contentSha256 ||
         before.target_registry_sha256 !== command.targetRegistrySha256
       )
-        throw new Error("feedback submission no longer matches the review command");
+        throw new Error(
+          "feedback submission no longer matches the review command",
+        );
       const desiredStatus =
         command.action === "submission_reviewed" ? "reviewed" : "quarantined";
       if (matchingEvent(eventSnapshot, command, "submission", submissionId)) {
-        const event = jsonObject(
-          eventSnapshot.data(),
-          "feedback review event",
-        );
+        const event = jsonObject(eventSnapshot.data(), "feedback review event");
         validateEvent(event);
         if (
           before.status !== desiredStatus ||
@@ -3376,14 +3411,17 @@ export class FirestoreOperatorStore {
       };
       const after = { ...before, ...patch };
       transaction.set(submissionRef, patch, { merge: true });
-      transaction.set(eventRef, eventFor({
-        command,
-        action: command.action,
-        targetKind: "submission",
-        targetId: submissionId,
-        before,
-        after,
-      }));
+      transaction.set(
+        eventRef,
+        eventFor({
+          command,
+          action: command.action,
+          targetKind: "submission",
+          targetId: submissionId,
+          before,
+          after,
+        }),
+      );
       return {
         operationId: command.operationId,
         idempotent: false,
@@ -3394,10 +3432,15 @@ export class FirestoreOperatorStore {
   }
 
   async #acceptFeedbackAdjudication(
-    command: Extract<FeedbackReviewCommand, { action: "adjudication_accepted" }>,
+    command: Extract<
+      FeedbackReviewCommand,
+      { action: "adjudication_accepted" }
+    >,
   ): Promise<ApplyReviewResult> {
     const encoded = encodedArticleKey(command.articleKey);
-    const taskRef = this.#database.collection("news_feedback_tasks").doc(encoded);
+    const taskRef = this.#database
+      .collection("news_feedback_tasks")
+      .doc(encoded);
     const syncStateRef = this.#database
       .collection("news_feedback_sync")
       .doc("task_manifest");
@@ -3414,14 +3457,19 @@ export class FirestoreOperatorStore {
       this.#database.collection("news_feedback_submissions").doc(id),
     );
     return this.#database.runTransaction(async (transaction) => {
-      const [taskSnapshot, syncStateSnapshot, currentSnapshot, eventSnapshot, supersededSnapshot] =
-        await Promise.all([
-          transaction.get(taskRef),
-          transaction.get(syncStateRef),
-          transaction.get(adjudicationRef),
-          transaction.get(eventRef),
-          transaction.get(supersededEventRef),
-        ]);
+      const [
+        taskSnapshot,
+        syncStateSnapshot,
+        currentSnapshot,
+        eventSnapshot,
+        supersededSnapshot,
+      ] = await Promise.all([
+        transaction.get(taskRef),
+        transaction.get(syncStateRef),
+        transaction.get(adjudicationRef),
+        transaction.get(eventRef),
+        transaction.get(supersededEventRef),
+      ]);
       const sourceSnapshots: OperatorDocumentSnapshot[] = [];
       for (const reference of sourceRefs)
         sourceSnapshots.push(await transaction.get(reference));
@@ -3430,12 +3478,21 @@ export class FirestoreOperatorStore {
         : null;
       if (matchingEvent(eventSnapshot, command, "adjudication", encoded)) {
         try {
-          acceptedFeedbackRecord(current, "current feedback adjudication", encoded);
-          const event = jsonObject(eventSnapshot.data(), "feedback acceptance event");
+          acceptedFeedbackRecord(
+            current,
+            "current feedback adjudication",
+            encoded,
+          );
+          const event = jsonObject(
+            eventSnapshot.data(),
+            "feedback acceptance event",
+          );
           if (event.after_sha256 !== stateHash(current))
             throw new Error("feedback event after hash does not match");
         } catch {
-          throw new Error("feedback event exists but adjudication state differs");
+          throw new Error(
+            "feedback event exists but adjudication state differs",
+          );
         }
         if (
           !current ||
@@ -3447,7 +3504,8 @@ export class FirestoreOperatorStore {
           current.analysis_sha256 !== command.analysisSha256 ||
           current.target_registry_sha256 !== command.targetRegistrySha256 ||
           current.adjudicated_at !== command.occurredAt ||
-          canonicalJson(current.operator_actor) !== canonicalJson(command.actor) ||
+          canonicalJson(current.operator_actor) !==
+            canonicalJson(command.actor) ||
           canonicalJson(current.feedback) !== canonicalJson(command.feedback) ||
           canonicalJson(current.source_submission_ids) !==
             canonicalJson(command.sourceSubmissionIds) ||
@@ -3455,7 +3513,9 @@ export class FirestoreOperatorStore {
             canonicalJson(command.sourceTargetRegistrySha256s) ||
           (current.public_explanation ?? null) !== command.publicExplanation
         )
-          throw new Error("feedback event exists but adjudication state differs");
+          throw new Error(
+            "feedback event exists but adjudication state differs",
+          );
         return {
           operationId: command.operationId,
           idempotent: true,
@@ -3465,12 +3525,11 @@ export class FirestoreOperatorStore {
         };
       }
       if (supersededSnapshot.exists)
-        throw new Error("feedback supersession exists without acceptance event");
+        throw new Error(
+          "feedback supersession exists without acceptance event",
+        );
       if (!taskSnapshot.exists) throw new Error("feedback task was not found");
-      const task = normalizedFeedbackTask(
-        taskSnapshot.data(),
-        "feedback task",
-      );
+      const task = normalizedFeedbackTask(taskSnapshot.data(), "feedback task");
       if (
         task.article_key !== command.articleKey ||
         task.revision !== command.expectedTaskRevision ||
@@ -3512,7 +3571,9 @@ export class FirestoreOperatorStore {
         )
           throw new Error(`feedback source ${source.submission_id} is stale`);
         if (source.status === "quarantined")
-          throw new Error(`feedback source ${source.submission_id} is quarantined`);
+          throw new Error(
+            `feedback source ${source.submission_id} is quarantined`,
+          );
       }
       const nextRevision = currentRevision + 1;
       const after: JsonObject = {
@@ -3533,32 +3594,43 @@ export class FirestoreOperatorStore {
         status: "accepted",
         last_operation_id: command.operationId,
       };
-      transaction.set(eventRef, eventFor({
-        command,
-        action: "adjudication_accepted",
-        targetKind: "adjudication",
-        targetId: encoded,
-        before: current,
-        after,
-      }));
-      if (current)
-        transaction.set(supersededEventRef, eventFor({
+      transaction.set(
+        eventRef,
+        eventFor({
           command,
-          action: "adjudication_superseded",
+          action: "adjudication_accepted",
           targetKind: "adjudication",
           targetId: encoded,
           before: current,
           after,
-          eventId: `${command.operationId}-superseded`,
-          reason: "Replaced atomically by a newer accepted feedback adjudication.",
-        }));
+        }),
+      );
+      if (current)
+        transaction.set(
+          supersededEventRef,
+          eventFor({
+            command,
+            action: "adjudication_superseded",
+            targetKind: "adjudication",
+            targetId: encoded,
+            before: current,
+            after,
+            eventId: `${command.operationId}-superseded`,
+            reason:
+              "Replaced atomically by a newer accepted feedback adjudication.",
+          }),
+        );
       for (const reference of sourceRefs)
-        transaction.set(reference, {
-          status: "promoted",
-          promoted_at: command.occurredAt,
-          promoted_by: command.actor,
-          last_review_operation_id: command.operationId,
-        }, { merge: true });
+        transaction.set(
+          reference,
+          {
+            status: "promoted",
+            promoted_at: command.occurredAt,
+            promoted_by: command.actor,
+            last_review_operation_id: command.operationId,
+          },
+          { merge: true },
+        );
       transaction.set(adjudicationRef, after);
       return {
         operationId: command.operationId,

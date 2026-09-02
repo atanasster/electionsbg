@@ -19,8 +19,7 @@ export type FirebaseRunner = {
 };
 
 const firebaseRunner: FirebaseRunner = {
-  capture: (args) =>
-    execFileSync("firebase", args, { encoding: "utf8" }),
+  capture: (args) => execFileSync("firebase", args, { encoding: "utf8" }),
   inherit: (args) => {
     execFileSync("firebase", args, { stdio: "inherit" });
   },
@@ -40,23 +39,26 @@ export function promote(
   if (!/^[a-z0-9]+$/i.test(expectedVersion))
     throw new Error("NEWS_VERSION_ID must be a Firebase Hosting version id");
 
-  const raw = runner.capture(
-    ["hosting:channel:list", "--site", SITE, "-P", PROJECT, "--json"],
-  );
+  const raw = runner.capture([
+    "hosting:channel:list",
+    "--site",
+    SITE,
+    "-P",
+    PROJECT,
+    "--json",
+  ]);
   if (liveVersionId(JSON.parse(raw) as ChannelList) === expectedVersion) {
     console.log(`Firebase Hosting version ${expectedVersion} is already live.`);
     return;
   }
 
-  runner.inherit(
-    [
-      "hosting:clone",
-      `${SITE}@${expectedVersion}`,
-      `${SITE}:live`,
-      "-P",
-      PROJECT,
-    ],
-  );
+  runner.inherit([
+    "hosting:clone",
+    `${SITE}@${expectedVersion}`,
+    `${SITE}:live`,
+    "-P",
+    PROJECT,
+  ]);
 }
 
 if (

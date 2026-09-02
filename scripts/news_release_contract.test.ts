@@ -40,9 +40,7 @@ describe("news release contract", () => {
   });
 
   it("requires and promotes an immutable reviewed version", () => {
-    expect(scripts["deploy:news:promote"]).toBe(
-      "tsx scripts/news_promote.ts",
-    );
+    expect(scripts["deploy:news:promote"]).toBe("tsx scripts/news_promote.ts");
     expect(scripts["deploy:news:promote"]).not.toMatch(/build|deploy --only/);
   });
 

@@ -130,13 +130,17 @@ async function readTargetRegistries(
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
   }
-  for (const name of names.filter((item) => /^[a-f0-9]{64}\.json$/u.test(item)).sort()) {
+  for (const name of names
+    .filter((item) => /^[a-f0-9]{64}\.json$/u.test(item))
+    .sort()) {
     const value = JSON.parse(
       await readFile(resolve(registryDirectory, name), "utf8"),
     ) as Record<string, unknown>;
     const expectedHash = `sha256:${name.slice(0, -".json".length)}`;
     if (value.targets_sha256 !== expectedHash)
-      throw new Error(`archived target registry filename does not match ${name}`);
+      throw new Error(
+        `archived target registry filename does not match ${name}`,
+      );
     values.push(value);
   }
   return values;
@@ -203,13 +207,15 @@ async function main(): Promise<void> {
       destination,
       serializeRawFeedbackExport(exported),
     );
-    process.stdout.write(`${canonicalJson({
-      status: "written",
-      out: destination,
-      record_count: exported.manifest.record_count,
-      records_sha256: exported.manifest.records_sha256,
-      firestore_read_time: exported.manifest.firestore_read_time,
-    })}\n`);
+    process.stdout.write(
+      `${canonicalJson({
+        status: "written",
+        out: destination,
+        record_count: exported.manifest.record_count,
+        records_sha256: exported.manifest.records_sha256,
+        firestore_read_time: exported.manifest.firestore_read_time,
+      })}\n`,
+    );
     return;
   }
   if (command === "export-accepted-feedback") {
@@ -223,13 +229,15 @@ async function main(): Promise<void> {
       destination,
       serializeAcceptedFeedbackSnapshot(exported),
     );
-    process.stdout.write(`${canonicalJson({
-      status: "written",
-      out: destination,
-      record_count: exported.manifest.record_count,
-      records_sha256: exported.manifest.records_sha256,
-      firestore_read_time: exported.manifest.firestore_read_time,
-    })}\n`);
+    process.stdout.write(
+      `${canonicalJson({
+        status: "written",
+        out: destination,
+        record_count: exported.manifest.record_count,
+        records_sha256: exported.manifest.records_sha256,
+        firestore_read_time: exported.manifest.firestore_read_time,
+      })}\n`,
+    );
     return;
   }
   if (command === "archive-feedback-targets") {
@@ -241,11 +249,13 @@ async function main(): Promise<void> {
       targetRegistry,
       resolve(options["registry-dir"]!),
     );
-    process.stdout.write(`${canonicalJson({
-      status: "written",
-      path: archived.path,
-      targets_sha256: archived.targetsSha256,
-    })}\n`);
+    process.stdout.write(
+      `${canonicalJson({
+        status: "written",
+        path: archived.path,
+        targets_sha256: archived.targetsSha256,
+      })}\n`,
+    );
     return;
   }
   if (command === "review-bundle") {
@@ -290,13 +300,15 @@ async function main(): Promise<void> {
       (key) => readLocalArticle(articleRoot, key),
     );
     await writeAtomicPrivateFile(destination, `${canonicalJson(bundle)}\n`);
-    process.stdout.write(`${canonicalJson({
-      status: "written",
-      out: destination,
-      article_count: bundle.article_count,
-      submission_count: bundle.submission_count,
-      target_registry_sha256s: bundle.target_registry_sha256s,
-    })}\n`);
+    process.stdout.write(
+      `${canonicalJson({
+        status: "written",
+        out: destination,
+        article_count: bundle.article_count,
+        submission_count: bundle.submission_count,
+        target_registry_sha256s: bundle.target_registry_sha256s,
+      })}\n`,
+    );
     return;
   }
   if (command === "apply") {
