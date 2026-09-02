@@ -473,21 +473,23 @@ Four things about it are easy to get backwards:
 
 - ⚠️ **THE JOIN KEY IS `contract_number`, NOT `reg_no`.** ИСУН's registration number carries
   a `-C##` contract-VERSION suffix (`…-0001-C01`) that `fund_projects.contract_number` does
-  not. Measured: the raw value matches **0 of 9,940**; the stripped base matches **9,940 of
-  9,940**. The data test carries a mutation check on exactly this, because a gate asserting
-  „the join works" passes on an implementation that quietly stopped stripping.
-- ⚠️ **THE TWO REPORTS DISAGREE AND MUST BE LEFT TO.** 9,940 clean contracts against
-  **41,530** on-time contracts declared by clean beneficiaries. That looks exactly like a
-  ~10,000-row export cap (BULSTAT's 999 ceiling, ЦПРС's cartesian product) and **is not** —
-  each listing prints its own pager and they agree with the exports to within a part-page:
-  contracts „Страница (1/398)" → 398×25 = 9,950, beneficiaries „(1/1359)" → 33,975. So the
+  not. Measured 2026-09-02: the raw value matches **0 of 10,016**; the stripped base matches
+  **10,016 of 10,016**. The data test carries a mutation check on exactly this, because a
+  gate asserting „the join works" passes on an implementation that quietly stopped stripping.
+- ⚠️ **THE TWO REPORTS DISAGREE AND MUST BE LEFT TO.** 10,016 clean contracts against
+  **40,289** on-time contracts declared by clean beneficiaries (2026-09-02; 9,940 against
+  41,530 on 2026-08-20 — the gap is not a fixed ratio and both sides move). That looks
+  exactly like a ~10,000-row export cap (BULSTAT's 999 ceiling, ЦПРС's cartesian product)
+  and **is not** — each listing prints its own pager and they agree with the exports to
+  within a part-page: contracts „Страница (1/401)" → 401×25 = 10,025 against 10,016,
+  beneficiaries „(1/1364)" → 34,100 against 32,559 + 1,534 excluded = 34,093. So the
   4× gap is real: the reports count different populations (projects with no imposed
   correction vs on-time contracts of beneficiaries with none). **Do not partition the export
   per programme to „fix" it** — there is no cap, and `GetProgrammes` is WAF-blocked anyway.
 - ⚠️ **„В СРОК" is a STRICTER test than „clean".** The beneficiary column is „Брой договори,
   успешно приключени **в срок**" — on time. A contract can be on-time-but-corrected or
   late-but-clean, which is why the two numbers cannot be reconciled.
-- **ORGANISATIONS ONLY, and the omission is counted.** 1,533 beneficiary rows are natural
+- **ORGANISATIONS ONLY, and the omission is counted.** 1,534 beneficiary rows are natural
   persons published with a first name and no id („Христо", org type „Друга"), and 2 carry a
   10-digit **ЕГН**. Neither is stored — a first name identifies nobody and joins to nothing,
   and an ЕГН is a personal identifier this project does not hold. `cleanEik()` drops them at
@@ -495,13 +497,13 @@ Four things about it are easy to get backwards:
   `coverage.natural_persons_excluded` makes the exclusion visible.
 - ⚠️ **`isun_clean_delivery_for_eik()` DRIVES FROM BOTH REGISTERS, and `on_time_contracts`
   is NULL — never 0 — for a company in the contract register only.** It drove from
-  `isun_clean_beneficiary` alone until 2026-09-02, so it returned NO ROW for the **956 EIKs
-  / 1,740 clean-contract rows (17.5% of the register)** that have no beneficiary entry: the
+  `isun_clean_beneficiary` alone until 2026-09-02, so it returned NO ROW for the **962 EIKs
+  / 1,755 clean-contract rows (17.5% of the register)** that have no beneficiary entry: the
   `/company/:eik` tile never mounted and ИСУН's own named, uncorrected projects were
   discarded at the query. `beneficiary_listed` carries the distinction explicitly, because
   „not listed as a correction-free beneficiary" and „listed with zero on-time contracts" are
   different claims and only the second is a number — and the corpus cannot separate them
-  (**0 of 32,420** beneficiary rows carry a literal 0), so a consumer that coalesces the NULL
+  (**0 of 32,559** beneficiary rows carry a literal 0), so a consumer that coalesces the NULL
   publishes the first as the second, on the one dataset here where a fabricated zero is an
   accusation. The function also returns the named `contracts`, so a surface shows the
   evidence instead of leaving a reader to subtract two counts that measure different things.
@@ -511,11 +513,36 @@ Four things about it are easy to get backwards:
   `/api/db/company` raising 42501 on that arm until `db:pg:bootstrap` runs and 175 is
   re-applied. Gate: `scripts/db/tests/isun_clean_delivery.data.test.ts`.
 
-**The input is operator-downloaded on purpose.** `data/_cache/isun_clean_delivery/*.xlsx`
-is gitignored: the F5 WAF in front of 2020.eufunds.bg refuses automated exports
-intermittently (`isun_download.ts` documents the same wall for the funds ingest) and blocks
-its `GetProgrammes` XHR outright — even from within the page's own origin. A human clicking
-„Експорт → Excel" always works. Save the two files as `contracts__ALL.xlsx` and
+**The input fetches itself since 2026-09-02** — `npm run funds:clean-delivery -- --fetch`.
+It was operator-downloaded until then, and the reason that changed is worth knowing, because
+the same wall sits in front of the beneficiaries/projects exports (`isun_download.ts`) and
+the old note there said a fancier client does not help.
+
+The F5 in front of 2020.eufunds.bg has **two independent triggers**, isolated 2026-09-02 by
+varying one at a time, repeatedly and hours apart:
+
+```
+node, no Referer    → 245-byte „Request Rejected"
+node, with Referer  → 245-byte „Request Rejected"
+curl, with Referer  → 245-byte „Request Rejected"
+curl, no Referer    → the real XLSX, first time
+```
+
+So it refuses the node CLIENT whatever headers it sends — no shape gets through, including
+curl's own UA, which makes it a TLS-handshake fingerprint rather than anything a header can
+change — **and** it refuses ANY client that sends a `Referer` on these endpoints, including
+the browser-shaped one `isun_download.ts` sets deliberately. Both ingests therefore fetch
+through curl with no Referer. ⚠️ The RATE-BASED refusal that `isun_download.ts` documents
+from 2026-08-05 is real and unretired; it is simply not the only mode, and „retry later" is
+the wrong advice for the other one — `isun_clean_delivery` had errored on all 13 daily
+watcher runs since it was wired, never once succeeding, while curl answered fine throughout.
+
+`GetProgrammes` is a SEPARATE wall and stays blocked even from the page's own origin, which
+is why the programme list is still derived from the rows.
+
+`data/_cache/isun_clean_delivery/*.xlsx` is gitignored and `--fetch` only refreshes it before
+the parse, so a re-run without the flag reproduces the same corpus from the same drops. A
+hand-download still works: save the two files as `contracts__ALL.xlsx` and
 `beneficiaries__ALL.xlsx`; the ingest folds several drops by key, so a future split works
 unchanged.
 
