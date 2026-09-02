@@ -1,19 +1,7 @@
 {
   "obshtina": "GAB29",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
-    {
-      "contractNumber": "BG16RFPR001-1.008-0722",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"М-ПРЕС\" ООД",
-      "type": "new",
-      "totalEur": 460162.69,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"М-ПРЕС\" ООД",
-      "detectedAt": "2026-08-31"
-    },
     {
       "contractNumber": "BG-RRP-7.008-0006",
       "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северен централен район",
@@ -23,12 +11,28 @@
       ],
       "prevTotalEur": 28777113.55,
       "totalEur": 28777113.55,
-      "paidEur": 11592450.4,
+      "paidEur": 25749375.37,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0024",
+      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане в Дом за стари хора с. Добромирка, ул. \"Митьо Тодоров\" №16, общ. Севлиево",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2691411.32,
+      "totalEur": 2691411.32,
+      "paidEur": 2032268.46,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Севлиево",
+      "detectedAt": "2026-09-02"
     },
     {
       "contractNumber": "BG-RRP-11.010-0025",
@@ -39,100 +43,84 @@
       ],
       "prevTotalEur": 2528718.65,
       "totalEur": 2528718.65,
-      "paidEur": 1396618.88,
+      "paidEur": 1701942.88,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0382",
-      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда на адрес: гр. Севлиево, ж.к. \"Димитър Благоев 2\"",
+      "contractNumber": "BG16RFPR001-1.004-2021",
+      "title": "Подобряване на производствения капацитет във \"Виктор Мебел\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 1350974.59,
-      "totalEur": 1347309.8,
-      "paidEur": 1347309.81,
+      "prevTotalEur": 102258.38,
+      "totalEur": 101417.29,
+      "paidEur": 76062.95,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-08-31"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Виктор мебел",
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0849",
-      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда на адрес: гр. Севлиево, ж.к. ,, Димитър Благоев“№1",
+      "contractNumber": "BG16RFPR001-2.004-0055",
+      "title": "Подобряване на енергийната ефективност и използване на енергия от възобновяеми източници в в ПММС ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 75716.22,
+      "totalEur": 75716.22,
+      "paidEur": 49215.54,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Пммс\" ЕООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2162",
+      "title": "Подобряване на производствения капацитет на ГИДЕКС ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 1199432.24,
-      "totalEur": 1193140.67,
-      "paidEur": 1193140.68,
+      "prevTotalEur": 64381.87,
+      "totalEur": 64292.97,
+      "paidEur": 48219.73,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-08-31"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Гидекс ООД",
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0763",
-      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда на адрес: гр. Севлиево, ул. ,,Христо Ботев“ №38",
+      "contractNumber": "BG16RFPR002-1.005-0125",
+      "title": "Услуги за иновации в Прометал2000 ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 550689.97,
-      "totalEur": 547529.99,
-      "paidEur": 547530,
+      "prevTotalEur": 7521.1,
+      "totalEur": 7521.1,
+      "paidEur": 7521.1,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0292",
-      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда на адрес: гр. Севлиево,ж.к.\"Митко Палаузов\" блок 7, вх.А и вх. Б",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 444316.17,
-      "totalEur": 444316.17,
-      "paidEur": 441816.26,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.003-0087",
-      "title": "Равен шанс за всички деца от община Севлиево",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 198804.44,
-      "totalEur": 194333.34,
-      "paidEur": 194333.37,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-08-31"
+      "programCode": "2021BG16RFPR002",
+      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
+      "beneficiaryName": "Прометал 2000",
+      "detectedAt": "2026-09-02"
     }
   ]
 }

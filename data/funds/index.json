@@ -1,59 +1,59 @@
 {
-  "generatedAt": "2026-08-31T01:15:17.822Z",
-  "lastIngest": "2026-08-31T01:15:17.822Z",
+  "generatedAt": "2026-09-02T09:29:09.180Z",
+  "lastIngest": "2026-09-02T09:29:09.180Z",
   "source": {
     "label": "ИСУН 2020 — публичен модул, Бенефициенти (2020.eufunds.bg)",
     "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary"
   },
   "totals": {
-    "beneficiaries": 53134,
-    "contractCount": 82283,
-    "contractedEur": 44203891602.9,
-    "paidEur": 18437935781.14,
-    "withEik": 46243
+    "beneficiaries": 53138,
+    "contractCount": 82301,
+    "contractedEur": 44185649228.65,
+    "paidEur": 18784317803.41,
+    "withEik": 46247
   },
   "byOrgType": [
     {
       "key": "Държавна администрация",
       "beneficiaries": 555,
-      "contractCount": 10627,
-      "contractedEur": 27939005070.87,
-      "paidEur": 11666923251.8
+      "contractCount": 10631,
+      "contractedEur": 27928735198.32,
+      "paidEur": 11747717345.17
     },
     {
       "key": "Компания",
-      "beneficiaries": 38846,
-      "contractCount": 55727,
-      "contractedEur": 13807750978.06,
-      "paidEur": 5212827531.28
+      "beneficiaries": 38850,
+      "contractCount": 55740,
+      "contractedEur": 13799752325.17,
+      "paidEur": 5477942967.76
     },
     {
       "key": "Друга",
       "beneficiaries": 9168,
       "contractCount": 9687,
       "contractedEur": 948355694.84,
-      "paidEur": 668109903.61
+      "paidEur": 668118553.27
     },
     {
       "key": "Учебно заведение",
       "beneficiaries": 2319,
-      "contractCount": 2951,
-      "contractedEur": 877877249.15,
-      "paidEur": 575219298.88
+      "contractCount": 2952,
+      "contractedEur": 877928813.14,
+      "paidEur": 575403349.72
     },
     {
       "key": "Нестопанска организация",
       "beneficiaries": 2115,
       "contractCount": 3068,
-      "contractedEur": 472023652.8,
-      "paidEur": 256956603.69
+      "contractedEur": 471998240,
+      "paidEur": 257242585.88
     },
     {
       "key": "Научноизследователска организация",
       "beneficiaries": 38,
       "contractCount": 116,
       "contractedEur": 76900242.35,
-      "paidEur": 19189172.3
+      "paidEur": 19182982.03
     },
     {
       "key": "Медицинско заведение",
@@ -81,16 +81,16 @@
     {
       "key": "Публично правна",
       "beneficiaries": 7528,
-      "contractCount": 21031,
-      "contractedEur": 35829369731.46,
-      "paidEur": 15560809822.57
+      "contractCount": 21036,
+      "contractedEur": 35806529834.69,
+      "paidEur": 15653345124.64
     },
     {
       "key": "Частно правна",
-      "beneficiaries": 45606,
-      "contractCount": 61252,
-      "contractedEur": 8374521871.46,
-      "paidEur": 2877125958.57
+      "beneficiaries": 45610,
+      "contractCount": 61265,
+      "contractedEur": 8379119393.98,
+      "paidEur": 3130972678.77
     }
   ],
   "topByContracted": [
@@ -119,7 +119,7 @@
       "name": "Агенция \"Пътна инфраструктура\"",
       "orgType": "Държавна администрация",
       "contractCount": 71,
-      "contractedEur": 2400365154.6,
+      "contractedEur": 2399126057.76,
       "paidEur": 1082660820.39,
       "mpTied": false,
       "mpIds": []
@@ -140,7 +140,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 37,
       "contractedEur": 1721896066.87,
-      "paidEur": 1027532043.43,
+      "paidEur": 1031295325.05,
       "mpTied": false,
       "mpIds": []
     },
@@ -149,7 +149,7 @@
       "name": "Главна дирекция \"Европейски фондове за конкурентоспособност\" в Министерство на иновациите и растежа",
       "orgType": "Държавна администрация",
       "contractCount": 22,
-      "contractedEur": 1693185828.28,
+      "contractedEur": 1691709111.64,
       "paidEur": 51194419.31,
       "mpTied": false,
       "mpIds": []
@@ -192,7 +192,7 @@
       "name": "Министерство на транспорта и съобщенията, Дирекция \"Координация на програми и проекти\", УО на оперативна програма \"Транспорт и транспортна инфраструктура\" 2014-2020",
       "orgType": "Държавна администрация",
       "contractCount": 33,
-      "contractedEur": 885972804.13,
+      "contractedEur": 885722820.69,
       "paidEur": 424841025.11,
       "mpTied": false,
       "mpIds": []
@@ -203,7 +203,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 38,
       "contractedEur": 770016049.92,
-      "paidEur": 509987362.55,
+      "paidEur": 551774537.56,
       "mpTied": false,
       "mpIds": []
     },
@@ -212,18 +212,18 @@
       "name": "Главна дирекция \"Европейски фондове, международни програми и проекти\", Министерство на труда и социалната политика",
       "orgType": "Държавна администрация",
       "contractCount": 37,
-      "contractedEur": 722413729.39,
-      "paidEur": 119272742.36,
+      "contractedEur": 675815861.24,
+      "paidEur": 120628445.33,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "000696327",
-      "name": "Столична Община",
+      "name": "Столична община",
       "orgType": "Държавна администрация",
       "contractCount": 78,
       "contractedEur": 502181248.59,
-      "paidEur": 332368656.32,
+      "paidEur": 332624138.38,
       "mpTied": false,
       "mpIds": []
     },
@@ -273,7 +273,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 90,
       "contractedEur": 358967146.13,
-      "paidEur": 173960735.42,
+      "paidEur": 182924039.44,
       "mpTied": false,
       "mpIds": []
     },
@@ -292,8 +292,8 @@
       "name": "Община Бургас",
       "orgType": "Държавна администрация",
       "contractCount": 153,
-      "contractedEur": 303137813.15,
-      "paidEur": 197188145.64,
+      "contractedEur": 303009078.25,
+      "paidEur": 197193376.47,
       "mpTied": false,
       "mpIds": []
     },
@@ -324,7 +324,7 @@
       "name": "Община Стара загора",
       "orgType": "Държавна администрация",
       "contractCount": 116,
-      "contractedEur": 195996378.06,
+      "contractedEur": 195990026.5,
       "paidEur": 93998292.33,
       "mpTied": false,
       "mpIds": []
@@ -351,7 +351,7 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-08-31T01:15:15.158Z",
+    "generatedAt": "2026-09-02T09:29:08.827Z",
     "mpCount": 148,
     "beneficiaryCount": 166,
     "pairCount": 173,

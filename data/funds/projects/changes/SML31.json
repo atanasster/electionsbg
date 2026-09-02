@@ -1,89 +1,39 @@
 {
   "obshtina": "SML31",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.032-0001",
-      "title": "\"Повишаване ефективността на държавния здравен контрол\"",
-      "type": "new",
-      "totalEur": 2045167.52,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Министерство на здравеопазването",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0237",
-      "title": "Топъл обяд в община Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 361098.31,
-      "totalEur": 466913.11,
-      "paidEur": 315844.86,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0025",
-      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Дневен център за пълнолетни лица с увреждания в гр. Смолян",
+      "contractNumber": "BG-RRP-4.034-0130",
+      "title": "Съхраняване на електроенергия от \"СМОЛЯН ВЕ\" АД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 88102.38,
-      "totalEur": 88102.38,
-      "paidEur": 87648.53,
+      "prevTotalEur": 60373624.64,
+      "totalEur": 60373624.64,
+      "paidEur": 18785618.75,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-31"
+      "beneficiaryName": "Смолян ВЕ АД",
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1199",
-      "title": "Повишаване на производствения капацитет в ГОРАН-ПИК ЕООД",
+      "contractNumber": "BG-RRP-4.020-0098",
+      "title": "Повишаване на енергийната ефективност на Художествената галерия в град Смолян",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 69441.74,
-      "totalEur": 68435.58,
-      "paidEur": 51326.75,
+      "prevTotalEur": 818349.87,
+      "totalEur": 813407.36,
+      "paidEur": 760795.42,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ГОРАН-ПИК ЕООД",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0096",
-      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Пековата къща, ул. Проф. Асен Василев №7, гр. Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 82327.17,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     }
   ]
 }

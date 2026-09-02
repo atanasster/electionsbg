@@ -1,42 +1,22 @@
 {
   "obshtina": "PDV43",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1750",
-      "title": "Устойчиво енергийно обновяване на жилищен сграден фонд - етап I на сграда с адрес общ. Сопот, гр. Сопот, ул. Ганчо Попниколов №22",
+      "contractNumber": "BG05SFPR002-2.012-0183",
+      "title": "Иновативни здравно-социални услуги в община Сопот",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 215248.84,
-      "totalEur": 214752.56,
-      "paidEur": 214752.56,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 120837.38,
+      "totalEur": 120837.38,
+      "paidEur": 84526.93,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Община Сопот",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1649",
-      "title": "Устойчиво енергийно обновяване на жилищен сграден фонд етап I на сграда с адрес общ. Сопот, гр. Сопот, ул. Любен Каравелов №1",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 149805.08,
-      "totalEur": 149440.17,
-      "paidEur": 149440.17,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сопот",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     }
   ]
 }

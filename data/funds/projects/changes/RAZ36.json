@@ -1,6 +1,6 @@
 {
   "obshtina": "RAZ36",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-7.008-0006",
@@ -11,12 +11,28 @@
       ],
       "prevTotalEur": 28777113.55,
       "totalEur": 28777113.55,
-      "paidEur": 11592450.4,
+      "paidEur": 25749375.37,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.013-0017",
+      "title": "Насърчаване на социалната икономика в община Цар Калоян",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 89269.21,
+      "totalEur": 89269.21,
+      "paidEur": 17853,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община ЦАР калоян",
+      "detectedAt": "2026-09-02"
     }
   ]
 }

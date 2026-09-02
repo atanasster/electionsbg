@@ -1,42 +1,22 @@
 {
   "obshtina": "PVN24",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.032-0001",
-      "title": "\"Повишаване ефективността на държавния здравен контрол\"",
-      "type": "new",
-      "totalEur": 2045167.52,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-4.034-0061",
+      "title": "Изграждане и въвеждане в експлоатация на ССЕЕ в гр. Плевен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 73716919.62,
+      "totalEur": 73716919.62,
+      "paidEur": 29773934.7,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Министерство на здравеопазването",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.008-0338",
-      "title": "Повишаване нивото на дигитализация на фирма „М.В.Ломоносов” ООД чрез въвеждане на технологии от областта на Индустрия 4.0",
-      "type": "new",
-      "totalEur": 382446.33,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"М.В.ЛОМОНОСОВ\" ООД",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.008-0704",
-      "title": "Технологии от областта на Индустрия 4.0 в \"ДСД\" ЕООД",
-      "type": "new",
-      "totalEur": 171971.66,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"ДСД\" ЕООД",
-      "detectedAt": "2026-08-31"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Проджект плевен ООД",
+      "detectedAt": "2026-09-02"
     },
     {
       "contractNumber": "BG-RRP-7.008-0007",
@@ -47,86 +27,80 @@
       ],
       "prevTotalEur": 39956422.08,
       "totalEur": 39956422.08,
-      "paidEur": 14482084.03,
+      "paidEur": 35499195.54,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0818",
-      "title": "Подобряване на производствения процес на ВАЛЕО ИНВЕСТ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 49493.05,
-      "totalEur": 49257.86,
-      "paidEur": 36943.4,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Валео инвест ЕООД",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0858",
-      "title": "Енергийна ефективност в Рули ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 79479.66,
-      "totalEur": 41831.4,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Рули ООД",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2384",
-      "title": "Адаптирана работна среда в АСПИД ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 39996.16,
-      "totalEur": 39752.9,
-      "paidEur": 39752.9,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Аспид ООД",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0670",
-      "title": "Подобряване на енергийната ефективност в Счетоводна къща Евгения Николова ЕООД",
+      "contractNumber": "BG16RFPR001-1.009-0001",
+      "title": "Предоставяне на комплексни услуги на предприятията от Северните райони на България с цел подкрепа на тяхното устойчиво развитие и растеж чрез подпомагане дейността на Изпълнителна агенция за насърчаване на малките и средните предприятия (ИАНМСП)",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 24761.49,
-      "totalEur": 24761.49,
-      "paidEur": 11845.21,
+      "prevTotalEur": 5000000,
+      "totalEur": 5000000,
+      "paidEur": 3071997.96,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Счетоводна КЪЩА-ЕВГЕНИЯ Николова\" ЕООД",
-      "detectedAt": "2026-08-31"
+      "beneficiaryName": "Изпълнителна агенция на насърчаване на малките и средните предприятия (ИАНМСП)",
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1009",
-      "title": "Подкрепа за семейните предприятия, осъществяващи основна дейност в сферата на изграждане на водопроводни, канализационни, отоплителни и климатични инсталации.",
+      "contractNumber": "BG65ISPR001-3.007-0004",
+      "title": "Повишаване капацитета на полицията при извършване огледи на местопроизшествия",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 691690.95,
+      "totalEur": 691690.95,
+      "paidEur": 131222.99,
+      "status": "Сключен",
+      "programCode": "2021BG65ISPR001",
+      "programName": "Програма на Република България по фонд „Вътрешна сигурност“",
+      "beneficiaryName": "Главна дирекция \"Национална полиция\"",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0024",
+      "title": "Нови и специфични умения в Инкофудс ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 562421.04,
+      "totalEur": 562421.04,
+      "paidEur": 84985.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Инкофудс ООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0122",
+      "title": "Устойчиви зелени решения за повишаване на енергийната ефективност и енергийна независимост в сектора на социалните услуги в община Плевен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 438641.6,
+      "totalEur": 438641.6,
+      "paidEur": 393374.46,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Плевен",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2729",
+      "title": "Подобряване на производствения капацитет на ВЕФФ ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -134,68 +108,49 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 29461.32,
-      "totalEur": 20596.51,
-      "paidEur": 15447.39,
+      "prevTotalEur": 40903.35,
+      "totalEur": 40398.56,
+      "paidEur": 30298.95,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ексергия ЕООД",
-      "detectedAt": "2026-08-31"
+      "beneficiaryName": "Вефф ЕООД",
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2586",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда ул. \"Панайот Волов\" 39, гр. Плевен",
+      "contractNumber": "BG05SFPR002-1.004-1744",
+      "title": "Подобряване на здравословната и безопасна работнота среда във фирма ВАНЕСА ВК ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 32007.63,
+      "totalEur": 32007.63,
+      "paidEur": 15297.96,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Ванеса ВК ЕООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2654",
+      "title": "Оборудване на повишаване на производствения капацитет и конкурентоспособността на \"Бордо\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 1116109.46,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Плевен",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2172",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда блок \"Явор\", гр. Плевен, ж.к. \"Воден\" № 3",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 799782.62,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Плевен",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2223",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда \"Черни връх\", гр. Плевен, ул. \"Сан Стефано\" № 33, вх. А и Б",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 328766.58,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Плевен",
-      "detectedAt": "2026-08-31"
+      "prevTotalEur": 12274.9,
+      "totalEur": 7764.84,
+      "paidEur": 5823.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Бордо ЕООД",
+      "detectedAt": "2026-09-02"
     }
   ]
 }

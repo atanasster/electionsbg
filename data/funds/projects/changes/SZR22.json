@@ -1,24 +1,38 @@
 {
   "obshtina": "SZR22",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0196",
-      "title": "Повишаване на енергийната ефективност в сектора на социалните услуги в община Мъглиж",
+      "contractNumber": "BG05SFPR001-2.003-0003",
+      "title": "Нови хоризонти за талантливите деца в община Мъглиж",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 108456,
-      "totalEur": 99712.88,
-      "paidEur": 99712.88,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 376053.03,
+      "totalEur": 376053.03,
+      "paidEur": 75210.61,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Община Мъглиж",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0150",
+      "title": "Иновативни здравно-социални услуги в община Мъглиж",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 199319.65,
+      "totalEur": 199319.65,
+      "paidEur": 156742.78,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Мъглиж",
+      "detectedAt": "2026-09-02"
     }
   ]
 }

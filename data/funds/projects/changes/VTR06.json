@@ -1,18 +1,18 @@
 {
   "obshtina": "VTR06",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0579",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в ГРЕЙКО ИНЖЕНЕРИНГ ЕООД",
+      "contractNumber": "BG16RFPR001-1.008-0541",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0",
       "type": "new",
-      "totalEur": 445463.05,
+      "totalEur": 460162.69,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Грейко инженеринг ЕООД",
-      "detectedAt": "2026-08-31"
+      "beneficiaryName": "Колорит прес ООД",
+      "detectedAt": "2026-09-02"
     },
     {
       "contractNumber": "BG-RRP-7.008-0006",
@@ -23,48 +23,149 @@
       ],
       "prevTotalEur": 28777113.55,
       "totalEur": 28777113.55,
-      "paidEur": 11592450.4,
+      "paidEur": 25749375.37,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1643",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Горна Оряховица, ул.\"Марин Дринов\" №40",
+      "contractNumber": "BG-RRP-4.034-0027",
+      "title": "Изграждане на система за съхранение на енергия в батерии (ССЕБ)",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 4232780.97,
+      "totalEur": 4232780.97,
+      "paidEur": 1507000.75,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ЕНЕРГО-ПРО България ЕАД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2119",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр.Горна Оряховица, ул.\"П.Р.Славейков\" №21, 23, 25, 27",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 766642.21,
-      "totalEur": 763143.56,
-      "paidEur": 763006.02,
+      "prevTotalEur": 1698699.95,
+      "totalEur": 1694612.84,
+      "paidEur": 1694475.3,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1659",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр.Горна Оряховица, ул.\"Осъм\" №1",
+      "contractNumber": "BG-RRP-4.023-2803",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Горна Оряховица, ул.\"Борима\" №8-10",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 625556.68,
-      "totalEur": 623313.82,
-      "paidEur": 623176.27,
+      "prevTotalEur": 1136866.1,
+      "totalEur": 1134268.42,
+      "paidEur": 1134130.88,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Горна оряховица",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1648",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Горна Оряховица, ул.\"Струма\" №2",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 922941.5,
+      "totalEur": 918706.76,
+      "paidEur": 918569.23,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Горна оряховица",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0024",
+      "title": "Нови и специфични умения в Инкофудс ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 562421.04,
+      "totalEur": 562421.04,
+      "paidEur": 84985.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Инкофудс ООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0134",
+      "title": "Доставка и монтаж на Локална система за съхранение с мощност 0.4 MW и общ капацитет на съхраняема енергия 0.928 MWh на съществуващa ФЕЦ с номинална променливотокова мощност 0.91 MW",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 284050.76,
+      "totalEur": 284050.76,
+      "paidEur": 141245.96,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Металстрой - Стоянов и Георгиев ООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2360",
+      "title": "Подобряване на производствения капацитет в АН-ТАЙС ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 71580.86,
+      "totalEur": 71580,
+      "paidEur": 53685,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АН - Тайс ООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0131",
+      "title": "Зелена трансформация на социалните услуги чрез електрическа мобилност",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 49850.96,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Горна оряховица",
+      "detectedAt": "2026-09-02"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "obshtina": "VID06",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-7.008-0007",
@@ -11,12 +11,44 @@
       ],
       "prevTotalEur": 39956422.08,
       "totalEur": 39956422.08,
-      "paidEur": 14482084.03,
+      "paidEur": 35499195.54,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0616",
+      "title": "Създаване на дигитален клуб при Народно читалище \"Просвета 1928\" село Гъмзово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 10569.03,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета 1928\"",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0155",
+      "title": "изграждане на дигитален клуб в НЧ Светлина 1928 с.Ракитница",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 8614.93,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина 1928 - с,Ракитница общ. Брегово обл.Видин",
+      "detectedAt": "2026-09-02"
     }
   ]
 }

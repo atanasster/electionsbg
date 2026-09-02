@@ -1,68 +1,54 @@
 {
   "obshtina": "KNL48",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0173",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в РЕНИФАРМА ОПЕРЕЙШЪН ООД",
-      "type": "new",
-      "totalEur": 393694.75,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ренифарма оперейшън ООД",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG-RRP-1.009-0006",
-      "title": "Изграждане на младежки център в община Дупница",
+      "contractNumber": "BG-RRP-4.033-0067",
+      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия от БЕЛОЗЕМ СОЛАР ПАРК 3 ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 919453.36,
-      "totalEur": 919453.36,
-      "paidEur": 783907.04,
+      "prevTotalEur": 24311701.94,
+      "totalEur": 24311701.94,
+      "paidEur": 12084241.64,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Белозем солар парк 3 ЕООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-4.033-0066",
+      "title": "Изграждане на Локална система за съхранение към ФЕЦ „Бобов дол“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 19377808.91,
+      "totalEur": 19377808.91,
+      "paidEur": 9680972.41,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Тибиел солар ЕООД",
+      "detectedAt": "2026-09-02"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0233",
+      "title": "„Изграждане на фотоволтаични централи и закупуване на електромобил за нуждите на социалните услуги, предоставяни от Община Дупница“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 231904.02,
+      "totalEur": 231904.02,
+      "paidEur": 229701.51,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Дупница",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0747",
-      "title": "Адаптирана работна среда в Георги Граховски ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 46950.95,
-      "totalEur": 46950.95,
-      "paidEur": 40285.04,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Георги Граховски ЕООД",
-      "detectedAt": "2026-08-31"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1511",
-      "title": "Подобряване на производствения капацитет в \"Евро- Ди Транс\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Евро - ДИ транс ЕООД",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     }
   ]
 }

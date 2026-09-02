@@ -1,6 +1,6 @@
 {
   "obshtina": "BLG13",
-  "generatedAt": "2026-08-31T01:22:08.226Z",
+  "generatedAt": "2026-09-02T09:31:17.326Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-7.008-0003",
@@ -11,44 +11,45 @@
       ],
       "prevTotalEur": 42468011.79,
       "totalEur": 42468011.79,
-      "paidEur": 19091385.13,
+      "paidEur": 35408602.7,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "\"Цетин България\" ЕАД",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG05SFPR002-2.012-0123",
-      "title": "Иновативни здравно-социални услуги в община Гърмен",
+      "contractNumber": "BG-RRP-4.028-0026",
+      "title": "Внедряване на мерки за енергийна ефективност в системите за изкуствено улично осветление на територията на община Гърмен",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 225565.92,
-      "totalEur": 225565.92,
-      "paidEur": 153027.29,
+      "prevTotalEur": 1021625.82,
+      "totalEur": 1021625.82,
+      "paidEur": 995590.82,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Гърмен",
-      "detectedAt": "2026-08-31"
+      "detectedAt": "2026-09-02"
     },
     {
-      "contractNumber": "BG05SFPR002-1.012-0215",
-      "title": "Надграждане капацитета на ДЖЕМИ-СТИЛ ЕООД с привличане, селектиране и назначаване на 15 безработни и/или неактивни лица, от които 4 с ТЕЛК",
+      "contractNumber": "BG16RFPR001-2.004-0402",
+      "title": "Подобряване на енергийната ефективност и използване на енергия от възобновяеми източници в Шербетов – М ООД",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 191070.52,
-      "totalEur": 191070.52,
-      "paidEur": 148774.69,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ДЖЕМИ-СТИЛ ЕООД",
-      "detectedAt": "2026-08-31"
+      "prevTotalEur": 148267.87,
+      "totalEur": 148267.87,
+      "paidEur": 50411.08,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Шербетов – М ООД",
+      "detectedAt": "2026-09-02"
     }
   ]
 }

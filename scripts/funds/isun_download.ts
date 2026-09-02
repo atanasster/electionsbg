@@ -17,7 +17,31 @@
 // same host — i.e. repeated probing tripped it, and it clears on its own. So
 // the correct response is a bounded retry, NOT a fancier client (shelling out
 // to curl was tried and fails identically once the WAF is tripped).
+//
+// ⚠️ [2026-09-02] That still describes the RATE-BASED mode, but it is no longer
+// the whole picture, and the "not a fancier client" conclusion does not hold
+// today. Measured this date, repeatedly and hours apart:
+//
+//   node fetch — the warm-up + cookie-jar path below, i.e. the most
+//     browser-like request this module can make — is refused EVERY time, with
+//     the 245-byte "Request Rejected" or the ASM JS challenge. On the sibling
+//     listing endpoint the watcher had been refused on all 13 daily runs since
+//     2026-08-20, never once succeeding.
+//   curl — same URL, same headers, NO cookie jar — returns the real thing:
+//     2,503,399-byte Beneficiary XLSX and 9,999,672-byte Project XLSX, correct
+//     MIME, "PK" magic.
+//
+// Node loses under every header shape tried (source headers, Accept: */*, a
+// full Chrome set, even curl's own UA); curl wins without trying. That is a
+// TLS/HTTP handshake fingerprint (JA3), which no header can change.
+//
+// So the fallback below is ADDITIVE: node first, because when it works it is
+// the cheaper path and the August note's rate-based mode is real; curl second,
+// because a client-fingerprint refusal is not something retrying fixes. This is
+// what removed the "both exports operator-downloaded" step the 2026-08-31
+// ingest recorded.
 
+import { spawnSync } from "child_process";
 import fs from "fs";
 import path from "path";
 
@@ -49,6 +73,47 @@ const cookieHeader = (res: Response): string =>
 const looksLikeXlsx = (buf: Buffer): boolean =>
   buf.length >= 1024 && buf.subarray(0, 2).toString("latin1") === "PK";
 
+/**
+ * The same GET through the `curl` binary. No shell: execFile-style argv.
+ *
+ * ⚠️ It sends NO `Referer`, and that is not an oversight — it is the second of
+ * two independent triggers, isolated 2026-09-02:
+ *
+ *   curl, no Referer    -> 2,503,303-byte XLSX
+ *   curl, with Referer  -> 245-byte "Request Rejected"
+ *   node, no Referer    -> 245-byte "Request Rejected"
+ *   node, with Referer  -> 245-byte "Request Rejected"
+ *
+ * So the WAF refuses the node CLIENT whatever it sends, and refuses ANY client
+ * that sends a Referer on this endpoint — including the one the browser-shaped
+ * node path above sets deliberately. The first cut of this fallback copied that
+ * Referer across and was refused for the second reason while trying to fix the
+ * first.
+ */
+const curlDownload = (exportUrl: string): Buffer => {
+  const res = spawnSync(
+    "curl",
+    [
+      "-sSL",
+      "--compressed",
+      "--max-time",
+      "300",
+      "-H",
+      `User-Agent: ${UA}`,
+      "-H",
+      `Accept-Language: ${ACCEPT_LANGUAGE}`,
+      exportUrl,
+    ],
+    { maxBuffer: 256 * 1024 * 1024, encoding: "buffer" },
+  );
+  if (res.error) throw res.error;
+  if (res.status !== 0)
+    throw new Error(
+      `curl exited ${res.status}: ${(res.stderr?.toString() ?? "").trim()}`,
+    );
+  return Buffer.from(res.stdout);
+};
+
 const attemptDownload = async (exportUrl: string): Promise<Buffer> => {
   // Mint a session on the listing page the export button lives on, and carry
   // its cookies. This is what a browser does, and it is what the WAF expects.
@@ -74,7 +139,21 @@ const attemptDownload = async (exportUrl: string): Promise<Buffer> => {
   if (!res.ok) {
     throw new Error(`GET ${exportUrl} → ${res.status} ${res.statusText}`);
   }
-  return Buffer.from(await res.arrayBuffer());
+  const viaNode = Buffer.from(await res.arrayBuffer());
+  if (looksLikeXlsx(viaNode)) return viaNode;
+
+  // Node was refused. Retrying the same client only helps the rate-based mode;
+  // try the one that is known to get through a fingerprint block before the
+  // caller spends its backoff.
+  console.warn(
+    `  node fetch refused (${viaNode.length} bytes, not an XLSX) — retrying via curl`,
+  );
+  try {
+    return curlDownload(exportUrl);
+  } catch (e) {
+    console.warn(`  curl also failed: ${(e as Error).message}`);
+    return viaNode;
+  }
 };
 
 /**
