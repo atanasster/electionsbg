@@ -14,6 +14,14 @@ export type Lang = { bg: string; en: string };
 
 export type Origin = "state" | "eu" | "intl" | "community";
 
+/**
+ * A known operational caveat about a source — a CF-wall, a weak name-only
+ * join, a historical/frozen register, and the like. Not a data-quality TODO
+ * list: only caveats a reader of the served figures should actually know
+ * about.
+ */
+export type SourceIssue = { label: Lang; note: Lang };
+
 export interface SourceGroupDef {
   id: string;
   label: Lang;
@@ -29,6 +37,12 @@ export interface SourceGroupDef {
    *  from data-changes.json at runtime. */
   skills?: string[];
   tags: string[];
+  /**
+   * Intended to surface as a warning chip on /data/sources and/or
+   * /data/map — not yet rendered by either as of this field's introduction.
+   * See SourceIssue for what belongs here.
+   */
+  issue?: SourceIssue;
 }
 
 /**
@@ -434,6 +448,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "update-air-quality",
     ],
     tags: ["fiscal", "parliament", "indicators", "local"],
+    issue: {
+      label: { bg: "Прекъсвания в достъпа", en: "Access outages" },
+      note: {
+        bg: "Отделни набори връщат 403 без ясна причина; блокиран остатъчен IP обичайно се отключва сам след около 16 дни.",
+        en: "Individual datasets return 403 with no clear cause; a blocked residential IP usually self-clears after roughly 16 days.",
+      },
+    },
   },
   {
     id: "eop",
@@ -497,6 +518,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     // owned by one skill, which the orchestrator invokes on either watcher flip.
     skills: ["update-kzk-appeals"],
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Два отделни регистъра", en: "Two separate registers" },
+      note: {
+        bg: "Регистърът на жалбите и регистърът на решенията се обхождат поотделно на ръка — веднъж се разсинхронизираха за 5 седмици незабелязано.",
+        en: "The complaints register and the decisions register are crawled separately by hand — they once drifted out of sync for 5 weeks unnoticed.",
+      },
+    },
   },
   {
     id: "isun",
@@ -514,6 +542,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["isun_eu_funds", "isun_eu_funds_projects"],
     skills: ["update-funds"],
     tags: ["fiscal", "local"],
+    issue: {
+      label: { bg: "CF защита", en: "Cloudflare-walled" },
+      note: {
+        bg: "Порталът блокира заявки с Referer от всеки клиент и всички Node клиенти независимо от хедърите — обхожда се само с curl без Referer.",
+        en: "The portal blocks any client sending a Referer header, and blocks every Node client regardless of headers — only reachable via curl with no Referer.",
+      },
+    },
   },
   {
     id: "opencalls",
@@ -536,6 +571,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["isun_procedures", "sp2023_indicative", "interreg_calls"],
     skills: ["update-open-calls"],
     tags: ["fiscal", "local"],
+    issue: {
+      label: { bg: "Непълно покритие", en: "Partial coverage" },
+      note: {
+        bg: "Interreg Румъния–България не публикува индекс на приемите; три от шестте програми периодично отхвърлят връзката от независими клиенти.",
+        en: "Interreg Romania-Bulgaria publishes no calls index; three of the six programmes periodically reset the connection from independent clients.",
+      },
+    },
   },
   {
     id: "keep_eu",
@@ -652,6 +694,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "update-municipal-contacts",
     ],
     tags: ["fiscal", "local"],
+    issue: {
+      label: { bg: "Нестандартен формат", en: "Non-standard document shape" },
+      note: {
+        bg: "НЗОК тарифите по НРД се четат от текста на договора (чл. 368–370), не от отделно приложение — лесно се посочва грешен PDF.",
+        en: "НЗОК's НРД tariffs live inside the contract body (art. 368-370), not a separate annex — easy to point a parser at the wrong PDF.",
+      },
+    },
   },
   {
     id: "municipalities",
@@ -669,6 +718,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["capital_programs", "council_minutes", "municipal_naredba"],
     skills: ["update-budget", "update-council-minutes", "update-local-taxes"],
     tags: ["local", "fiscal"],
+    issue: {
+      label: { bg: "Ограничения при обхождане", en: "Crawl throttling" },
+      note: {
+        bg: "Повтарящи се обхождания на протоколи биват блокирани от част от общинските сайтове; няколко капиталови бюджета изискват OCR стъпка преди парсване.",
+        en: "Repeated council-minutes crawls get blocked by some municipal hosts; a few capital-budget documents need an OCR pass before parsing.",
+      },
+    },
   },
   {
     id: "nsi",
@@ -706,6 +762,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "update-census",
     ],
     tags: ["indicators"],
+    issue: {
+      label: { bg: "CF защита (частично)", en: "Cloudflare-walled (partial)" },
+      note: {
+        bg: "Регионалният браузър на НСИ е зад Cloudflare — същите показатели се изтеглят вместо това през Eurostat NUTS3 API.",
+        en: "NSI's regional data browser sits behind Cloudflare — the same figures are pulled instead through the Eurostat NUTS3 API.",
+      },
+    },
   },
   {
     id: "az",
@@ -917,6 +980,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["vss_court_statistics", "ivss_declarations"],
     skills: ["update-judiciary"],
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Незащитена връзка", en: "Unencrypted transport" },
+      note: {
+        bg: "Регистърът на ИВСС се обхожда по нешифрован HTTP от доверена мрежа; всяка промяна в имената се преглежда на ръка преди публикуване.",
+        en: "The Inspectorate's register is crawled over unencrypted HTTP from a trusted network; every change to named individuals is reviewed by hand before publishing.",
+      },
+    },
   },
   {
     id: "defense",
@@ -1039,6 +1109,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["adfi_inspections"],
     skills: ["update-procurement"],
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Свързване по име", en: "Name-only matching" },
+      note: {
+        bg: "Обектът на инспекция е свободен текст без ЕИК — свързването се отказва при двусмислие; за периода преди 09.02.2024 г. „няма инспекция“ означава само „няма оттогава“.",
+        en: "The inspection subject is free text with no company ID — the match refuses on ambiguity; before 2024-02-09 “no inspection” only ever means “none since then”.",
+      },
+    },
   },
   {
     id: "ted",
@@ -1059,6 +1136,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["ted_bg"],
     skills: ["update-procurement"],
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Растящ индекс", en: "Index still filling in" },
+      note: {
+        bg: "2015 г. показва 0 обявления, 2016 г. — 4 687 срещу ~17 000 през 2019 г.; това е дълбочината на индекса на TED, не спад в активността.",
+        en: "2015 shows 0 notices, 2016 shows 4,687 against ~17,000 in 2019 — that is TED's own index deepening, not a drop in activity.",
+      },
+    },
   },
   {
     id: "cprs",
@@ -1082,6 +1166,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     // a VIEW of the map, not the subject area — there is no "procurement" view, and the
     // one that shows the money flows is "fiscal".
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Непълни дати", en: "Incomplete dates" },
+      note: {
+        bg: "Липсваща дата на протокол на КСБ означава „регистърът не казва кога“, никога „нелицензиран“.",
+        en: "A missing КСБ protocol date means “the register does not say when”, never “not licensed”.",
+      },
+    },
   },
   {
     id: "aop_experts",
@@ -1104,6 +1195,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     // "fiscal" — see the ЦПРС group above: `tags` name a VIEW of the map, and
     // there is no "procurement" one.
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Исторически регистър", en: "Historical register" },
+      note: {
+        bg: "Нито един от 88-те записа не е валиден днес; регистърът публикува само собствено и фамилно име, затова 33 от 88 съвпадения се отказват, вместо да се степенуват.",
+        en: "Not one of the 88 entries is valid today; the register publishes only a given and family name, so 33 of 88 matches are refused rather than graded.",
+      },
+    },
   },
   {
     id: "isun_clean_delivery",
@@ -1126,6 +1224,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     // "fiscal", matching the funds dataset it qualifies — `tags` are views, and
     // there is no "funds" view either.
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Регистър на постижение", en: "An achievement register" },
+      note: {
+        bg: "Отсъствието от списъка НЕ означава наложена финансова корекция — проектът може просто да е закъснял, прекратен или още в проверка.",
+        en: "Absence from the list does NOT mean a financial correction was imposed — a project may simply have finished late, been terminated, or still be under review.",
+      },
+    },
   },
   {
     id: "culture",
@@ -1148,6 +1253,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     ],
     skills: ["update-culture"],
     tags: ["fiscal"],
+    issue: {
+      label: { bg: "Слабо свързване по име", en: "Weak name-based matching" },
+      note: {
+        bg: "Регистърът на МК за държавните културни институти няма ЕИК колона — свързва се по доказателство, не по автоматичен списък; разпознават се около 70 от 74.",
+        en: "The Ministry of Culture's state-institute register carries no company-ID column — matched by evidence, not an automatic list; roughly 70 of 74 resolve.",
+      },
+    },
   },
   {
     id: "ipi",
@@ -1165,6 +1277,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["ipi_local_taxes"],
     skills: ["update-local-taxes"],
     tags: ["local"],
+    issue: {
+      label: { bg: "Неофициален източник", en: "Not an official publisher" },
+      note: {
+        bg: "Индекс на Института за пазарна икономика — общностно поддържан, не първичен държавен регистър; цитиран като независима оценка.",
+        en: "An index from the Institute for Market Economics — community-maintained, not a primary government register; cited as an independent estimate.",
+      },
+    },
   },
   {
     id: "wiki",
@@ -1182,6 +1301,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["wiki_polls", "wiki_governments"],
     skills: ["update-polls"],
     tags: ["elections", "indicators"],
+    issue: {
+      label: { bg: "Неофициален източник", en: "Not an official publisher" },
+      note: {
+        bg: "Общностно поддържан регистър — всяко число се сверява срещу сайта на анкетиращата агенция или официален източник преди публикуване.",
+        en: "A community-maintained register — every figure is cross-checked against the polling agency's own site or an official source before publishing.",
+      },
+    },
   },
   {
     id: "geo",
@@ -1212,6 +1338,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     ],
     skills: [],
     tags: ["elections", "local", "indicators"],
+    issue: {
+      label: { bg: "Без публикуван цикъл", en: "No published release cadence" },
+      note: {
+        bg: "Общностни GitHub хранилища без официален график на издания — следят се за промени, не за конкретна дата на обновяване.",
+        en: "Community GitHub repositories with no formal release schedule — watched for changes, not for a specific update date.",
+      },
+    },
   },
 ];
 
@@ -3070,8 +3203,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:funds",
         text: {
-          bg: "Същият ключ показва кой получава и европейски средства: 40 265 фирми се появяват и в двата масива.",
-          en: "The same key shows who also receives EU money: 40,265 companies appear in both corpora.",
+          bg: "Същият ключ показва кой получава и европейски средства: 40 269 фирми се появяват и в двата масива.",
+          en: "The same key shows who also receives EU money: 40,269 companies appear in both corpora.",
         },
       },
       {

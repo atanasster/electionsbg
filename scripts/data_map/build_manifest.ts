@@ -43,6 +43,7 @@ import {
   VIEWS,
   type Lang,
   type Origin,
+  type SourceIssue,
 } from "./model";
 
 const ROOT = path.resolve(
@@ -86,6 +87,8 @@ export interface ManifestNode {
   tables?: string[];
   skills?: string[];
   sources?: ManifestSourceRef[];
+  /** A known operational caveat about a source node — see SourceGroupDef.issue. */
+  issue?: SourceIssue;
   x: number;
   y: number;
   w: number;
@@ -762,6 +765,7 @@ const buildNodes = (): ManifestNode[] => {
       freshness,
       skills: g.skills,
       sources: [...members, ...extras],
+      issue: g.issue,
       x: 0,
       y: 0,
       w: NODE_W,

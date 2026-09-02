@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-02T09:47:07.798Z",
+  "generatedAt": "2026-09-02T15:46:24.687Z",
   "nodes": [
     {
       "id": "src:water",
@@ -484,6 +484,16 @@
           "freshness": "2026-05-29T00:27:36.982Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Прекъсвания в достъпа",
+          "en": "Access outages"
+        },
+        "note": {
+          "bg": "Отделни набори връщат 403 без ясна причина; блокиран остатъчен IP обичайно се отключва сам след около 16 дни.",
+          "en": "Individual datasets return 403 with no clear cause; a blocked residential IP usually self-clears after roughly 16 days."
+        }
+      },
       "x": 28,
       "y": 1706,
       "w": 240,
@@ -608,6 +618,16 @@
           "freshness": "2026-08-27T18:39:26.451Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Два отделни регистъра",
+          "en": "Two separate registers"
+        },
+        "note": {
+          "bg": "Регистърът на жалбите и регистърът на решенията се обхождат поотделно на ръка — веднъж се разсинхронизираха за 5 седмици незабелязано.",
+          "en": "The complaints register and the decisions register are crawled separately by hand — they once drifted out of sync for 5 weeks unnoticed."
+        }
+      },
       "x": 28,
       "y": 1394,
       "w": 240,
@@ -655,6 +675,16 @@
           "freshness": "2026-08-30T21:39:24.467Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "CF защита",
+          "en": "Cloudflare-walled"
+        },
+        "note": {
+          "bg": "Порталът блокира заявки с Referer от всеки клиент и всички Node клиенти независимо от хедърите — обхожда се само с curl без Referer.",
+          "en": "The portal blocks any client sending a Referer header, and blocks every Node client regardless of headers — only reachable via curl with no Referer."
+        }
+      },
       "x": 28,
       "y": 770,
       "w": 240,
@@ -709,6 +739,16 @@
           "freshness": "2026-08-10T06:09:31.438Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Непълно покритие",
+          "en": "Partial coverage"
+        },
+        "note": {
+          "bg": "Interreg Румъния–България не публикува индекс на приемите; три от шестте програми периодично отхвърлят връзката от независими клиенти.",
+          "en": "Interreg Romania-Bulgaria publishes no calls index; three of the six programmes periodically reset the connection from independent clients."
+        }
+      },
       "x": 28,
       "y": 146,
       "w": 240,
@@ -1027,6 +1067,16 @@
           "url": "https://portal.registryagency.bg/"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Нестандартен формат",
+          "en": "Non-standard document shape"
+        },
+        "note": {
+          "bg": "НЗОК тарифите по НРД се четат от текста на договора (чл. 368–370), не от отделно приложение — лесно се посочва грешен PDF.",
+          "en": "НЗОК's НРД tariffs live inside the contract body (art. 368-370), not a separate annex — easy to point a parser at the wrong PDF."
+        }
+      },
       "x": 28,
       "y": 2096,
       "w": 240,
@@ -1083,6 +1133,16 @@
           "freshness": "2026-07-25T21:03:55.770Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Ограничения при обхождане",
+          "en": "Crawl throttling"
+        },
+        "note": {
+          "bg": "Повтарящи се обхождания на протоколи биват блокирани от част от общинските сайтове; няколко капиталови бюджета изискват OCR стъпка преди парсване.",
+          "en": "Repeated council-minutes crawls get blocked by some municipal hosts; a few capital-budget documents need an OCR pass before parsing."
+        }
+      },
       "x": 28,
       "y": 2564,
       "w": 240,
@@ -1156,6 +1216,16 @@
           "url": "https://www.nsi.bg/nrnm/ekatte/regions"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "CF защита (частично)",
+          "en": "Cloudflare-walled (partial)"
+        },
+        "note": {
+          "bg": "Регионалният браузър на НСИ е зад Cloudflare — същите показатели се изтеглят вместо това през Eurostat NUTS3 API.",
+          "en": "NSI's regional data browser sits behind Cloudflare — the same figures are pulled instead through the Eurostat NUTS3 API."
+        }
+      },
       "x": 28,
       "y": 3110,
       "w": 240,
@@ -1724,6 +1794,16 @@
           "freshness": "2026-08-11T06:09:08.095Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Незащитена връзка",
+          "en": "Unencrypted transport"
+        },
+        "note": {
+          "bg": "Регистърът на ИВСС се обхожда по нешифрован HTTP от доверена мрежа; всяка промяна в имената се преглежда на ръка преди публикуване.",
+          "en": "The Inspectorate's register is crawled over unencrypted HTTP from a trusted network; every change to named individuals is reviewed by hand before publishing."
+        }
+      },
       "x": 28,
       "y": 1160,
       "w": 240,
@@ -2039,6 +2119,16 @@
           "freshness": "2026-08-26T22:43:35.855Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Свързване по име",
+          "en": "Name-only matching"
+        },
+        "note": {
+          "bg": "Обектът на инспекция е свободен текст без ЕИК — свързването се отказва при двусмислие; за периода преди 09.02.2024 г. „няма инспекция“ означава само „няма оттогава“.",
+          "en": "The inspection subject is free text with no company ID — the match refuses on ambiguity; before 2024-02-09 “no inspection” only ever means “none since then”."
+        }
+      },
       "x": 28,
       "y": 926,
       "w": 240,
@@ -2078,6 +2168,16 @@
           "freshness": "2026-09-01T21:39:03.493Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Растящ индекс",
+          "en": "Index still filling in"
+        },
+        "note": {
+          "bg": "2015 г. показва 0 обявления, 2016 г. — 4 687 срещу ~17 000 през 2019 г.; това е дълбочината на индекса на TED, не спад в активността.",
+          "en": "2015 shows 0 notices, 2016 shows 4,687 against ~17,000 in 2019 — that is TED's own index deepening, not a drop in activity."
+        }
+      },
       "x": 28,
       "y": 1472,
       "w": 240,
@@ -2117,6 +2217,16 @@
           "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Непълни дати",
+          "en": "Incomplete dates"
+        },
+        "note": {
+          "bg": "Липсваща дата на протокол на КСБ означава „регистърът не казва кога“, никога „нелицензиран“.",
+          "en": "A missing КСБ protocol date means “the register does not say when”, never “not licensed”."
+        }
+      },
       "x": 28,
       "y": 848,
       "w": 240,
@@ -2156,6 +2266,16 @@
           "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Исторически регистър",
+          "en": "Historical register"
+        },
+        "note": {
+          "bg": "Нито един от 88-те записа не е валиден днес; регистърът публикува само собствено и фамилно име, затова 33 от 88 съвпадения се отказват, вместо да се степенуват.",
+          "en": "Not one of the 88 entries is valid today; the register publishes only a given and family name, so 33 of 88 matches are refused rather than graded."
+        }
+      },
       "x": 28,
       "y": 1238,
       "w": 240,
@@ -2195,6 +2315,16 @@
           "freshness": "2026-09-02T09:17:50.584Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Регистър на постижение",
+          "en": "An achievement register"
+        },
+        "note": {
+          "bg": "Отсъствието от списъка НЕ означава наложена финансова корекция — проектът може просто да е закъснял, прекратен или още в проверка.",
+          "en": "Absence from the list does NOT mean a financial correction was imposed — a project may simply have finished late, been terminated, or still be under review."
+        }
+      },
       "x": 28,
       "y": 692,
       "w": 240,
@@ -2255,6 +2385,16 @@
           "freshness": "2026-08-20T07:23:14.975Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Слабо свързване по име",
+          "en": "Weak name-based matching"
+        },
+        "note": {
+          "bg": "Регистърът на МК за държавните културни институти няма ЕИК колона — свързва се по доказателство, не по автоматичен списък; разпознават се около 70 от 74.",
+          "en": "The Ministry of Culture's state-institute register carries no company-ID column — matched by evidence, not an automatic list; roughly 70 of 74 resolve."
+        }
+      },
       "x": 28,
       "y": 1628,
       "w": 240,
@@ -2294,6 +2434,16 @@
           "freshness": "2026-05-28T23:28:02.097Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Неофициален източник",
+          "en": "Not an official publisher"
+        },
+        "note": {
+          "bg": "Индекс на Института за пазарна икономика — общностно поддържан, не първичен държавен регистър; цитиран като независима оценка.",
+          "en": "An index from the Institute for Market Economics — community-maintained, not a primary government register; cited as an independent estimate."
+        }
+      },
       "x": 28,
       "y": 3032,
       "w": 240,
@@ -2341,6 +2491,16 @@
           "freshness": "2026-06-30T06:08:57.757Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Неофициален източник",
+          "en": "Not an official publisher"
+        },
+        "note": {
+          "bg": "Общностно поддържан регистър — всяко число се сверява срещу сайта на анкетиращата агенция или официален източник преди публикуване.",
+          "en": "A community-maintained register — every figure is cross-checked against the polling agency's own site or an official source before publishing."
+        }
+      },
       "x": 28,
       "y": 2954,
       "w": 240,
@@ -2381,6 +2541,16 @@
           "url": "https://sofiaplan.bg/api/"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Без публикуван цикъл",
+          "en": "No published release cadence"
+        },
+        "note": {
+          "bg": "Общностни GitHub хранилища без официален график на издания — следят се за промени, не за конкретна дата на обновяване.",
+          "en": "Community GitHub repositories with no formal release schedule — watched for changes, not for a specific update date."
+        }
+      },
       "x": 28,
       "y": 3578,
       "w": 240,
@@ -6872,8 +7042,8 @@
         {
           "node": "ds:funds",
           "text": {
-            "bg": "Същият ключ показва кой получава и европейски средства: 40 265 фирми се появяват и в двата масива.",
-            "en": "The same key shows who also receives EU money: 40,265 companies appear in both corpora."
+            "bg": "Същият ключ показва кой получава и европейски средства: 40 269 фирми се появяват и в двата масива.",
+            "en": "The same key shows who also receives EU money: 40,269 companies appear in both corpora."
           }
         },
         {
