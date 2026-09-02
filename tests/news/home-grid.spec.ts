@@ -467,6 +467,88 @@ test.describe("home composition", () => {
     }
   });
 
+  test("only the lead image is eager", async ({ page }) => {
+    // §5 (Phase 5): "only the lead image is eager; supporting images are
+    // lazy". The lead is the one image above the fold on every device; a card
+    // thumbnail competing with it for bandwidth is a net LCP loss, which is
+    // the same measurement the prerender's `fetchpriority="low"` hints rest on.
+    for (const scenario of ["today", "all-images"] as const) {
+      await open(page, scenario);
+      const images = await page.evaluate(() =>
+        [...document.querySelectorAll("img")].map((image) => ({
+          loading: image.getAttribute("loading"),
+          priority: image.getAttribute("fetchpriority"),
+          // The lead's own section, not merely "outside a grid" — that would
+          // count a masthead or footer image as the lead, and works today only
+          // because this fixture renders nothing else.
+          inLead: Boolean(image.closest("main > section:first-child")),
+        })),
+      );
+      expect(images.length, `${scenario} renders images`).toBeGreaterThan(0);
+      const eager = images.filter((image) => image.loading !== "lazy");
+      expect(eager.length, `${scenario}: exactly one eager image`).toBe(1);
+      expect(eager[0].inLead, `${scenario}: and it is the lead`).toBe(true);
+      expect(eager[0].priority).toBe("high");
+      for (const image of images.filter((candidate) => !candidate.inLead))
+        expect(image.priority, `${scenario}: a card thumbnail`).toBe("auto");
+    }
+  });
+
+  test("a failed image leaves an intentional card, not a broken icon", async ({
+    page,
+  }) => {
+    // §5 (Phase 5). Measured 2026-08-26, three of thirteen outlets refuse our
+    // referer outright, so this is the ordinary case rather than the edge one.
+    // `ArticleImage` walks photo → outlet logo → monogram, and the CREDIT
+    // renders on every rung — a card that lost its image must not also lose
+    // the attribution that names whose work it was showing.
+    const MEDIA = "[data-fixture-section] .news-card-media";
+    await open(page, "today");
+    const before = await cardMetrics(page);
+    expect(
+      await page.locator(`${MEDIA} img`).count(),
+      "the fixture must render a card thumbnail to break",
+    ).toBeGreaterThan(0);
+
+    await page.evaluate((selector) => {
+      document
+        .querySelector<HTMLImageElement>(`${selector} img`)!
+        .dispatchEvent(new Event("error"));
+    }, MEDIA);
+
+    // ⚠️ ASSERT THE LADDER ACTUALLY RAN. Without this every assertion below is
+    // satisfied by the UNBROKEN page — verified by deleting the dispatch, at
+    // which point the whole test still passed. The credit is the sharpest
+    // case: `ArticleImage` renders its figcaption outside the `src` ternary,
+    // so "the credit survives the fallback" is already true before anything
+    // fails.
+    const rung = await page.evaluate((selector) => {
+      const box = document.querySelector(selector)!;
+      return {
+        hasImage: Boolean(box.querySelector("img")),
+        text: box.textContent?.trim() ?? "",
+      };
+    }, MEDIA);
+    // photo → outlet logo → monogram. This fixture's outlet carries no logo,
+    // so it lands on the monogram: no <img> at all, and the outlet's initials.
+    expect(rung.hasImage, "the failed photo is gone").toBe(false);
+    expect(rung.text, "and the monogram names the outlet").not.toBe("");
+
+    await expect(page.locator(".news-card-media").first()).toBeVisible();
+    const after = await cardMetrics(page);
+    expect(after.length, "no card disappears").toBe(before.length);
+    for (const [index, card] of after.entries())
+      expect(
+        Math.abs(card.height - before[index].height),
+        `${card.section}[${card.index}] must not resize when an image fails`,
+      ).toBeLessThanOrEqual(1);
+    // The credit survives the fallback — it is what names the outlet, and the
+    // rung assertions above are what make this mean something.
+    expect(await page.locator(".news-image-credit").first().isVisible()).toBe(
+      true,
+    );
+  });
+
   test("the composition remains captureable", async ({ page }) => {
     for (const scenario of SCENARIOS) {
       await open(page, scenario);

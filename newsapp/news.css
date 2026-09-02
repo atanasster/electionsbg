@@ -102,9 +102,20 @@
   max-width: 68ch;
 }
 
+/* ⚠️ NO ALPHA. `--muted-foreground` is 4.55:1 over `--card` in the light
+   theme, so ANY transparency drops this text below WCAG AA — measured, the
+   0.86 it used to carry rendered the image credit and the source preview at
+   3.51:1 on a card and 3.91:1 on the page background. A token that passes at
+   full opacity says nothing about the colour a reader actually sees, which is
+   why the contrast gate now composites the alpha before measuring.
+   ⚠️ The quieter voice now comes from TYPE SIZE alone, and that is weaker than
+   it was: the 11px credit still reads as secondary, but the 12px source
+   preview beside the comparison cue is now the same colour as it, and heavier.
+   Deliberate — both have to clear 4.5:1, and this pair passes light `--card`
+   by 1.0%, so there is no room to mute either of them. */
 .news-story-sources,
 .news-image-credit--compact {
-  color: hsl(var(--muted-foreground) / 0.86);
+  color: hsl(var(--muted-foreground));
   letter-spacing: 0.005em;
 }
 
