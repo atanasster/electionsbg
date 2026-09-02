@@ -343,10 +343,13 @@ export const HomeScreen = () => {
       {/* One deterministic, finite briefing. Preferences never remove the
           explicit outside-interests section or create an infinite feed. */}
       <section aria-labelledby="stories-heading">
-        <h2
-          id="stories-heading"
-          className="mb-2 text-sm font-semibold uppercase tracking-wide"
-        >
+        {/* ⚠️ sr-only, NOT deleted. The section points at this id with
+            `aria-labelledby`, so removing the element would leave the whole
+            briefing landmark with no accessible name — the heading is what a
+            screen reader announces on entering it. Hidden visually because the
+            page already reads as a briefing and the count is repeated by the
+            "Показваме:" line above. */}
+        <h2 id="stories-heading" className="sr-only">
           {tr("Кратък преглед", "Briefing")} ({briefing.visibleCount})
         </h2>
         {home.loading && !home.data ? (
@@ -370,10 +373,9 @@ export const HomeScreen = () => {
           <div className="space-y-7">
             {briefing.update.length ? (
               <section aria-labelledby="briefing-update-heading">
-                <h3
-                  id="briefing-update-heading"
-                  className="app-section-title mb-3"
-                >
+                {/* sr-only for the same reason as `stories-heading`: the
+                    section is labelled by it. */}
+                <h3 id="briefing-update-heading" className="sr-only">
                   {tr("Обнови ме", "Update me")}
                 </h3>
                 <div className="space-y-5">

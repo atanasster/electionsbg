@@ -252,7 +252,10 @@ describe("home adaptive freshness window", () => {
       [politics, economy],
     );
 
-    expect(screen.getByRole("heading", { name: "Обнови ме" })).toBeVisible();
+    // sr-only: still the section's accessible name, deliberately not shown.
+    expect(screen.getByRole("heading", { name: "Обнови ме" })).toHaveClass(
+      "sr-only",
+    );
     expect(
       screen.getByRole("heading", {
         name: "Водещи истории извън интересите ви",
