@@ -31,6 +31,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import {
+  ABSENCE_MEANING_BG_FALLBACK,
   CompanyCleanDeliveryTile,
   type CleanDeliveryInfo,
   type CleanContractRow,
@@ -43,9 +44,14 @@ vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (k: string) => k, i18n: { language: "bg" } }),
 }));
 
-const CAVEAT =
-  "Отсъствието от тези списъци НЕ означава наложена финансова корекция — " +
-  "проектът може да е приключил със закъснение, да е прекратен или още да е в проверка.";
+// ⚠️ THE SERVER'S SENTENCE MUST BE DISTINGUISHABLE FROM THE MODULE'S FALLBACK, or
+// nothing here can tell a tile that RENDERS `absence_meaning` from one that ignores
+// it: `a ?? b` where `a === b` is an identity. A fixture equal to
+// ABSENCE_MEANING_BG_FALLBACK — which is what this file briefly used, in the name
+// of removing a copy — makes both renders reducible to a bare constant with every
+// test still green, on the one property this whole surface rests on.
+const SERVER_MARK = "[от ИСУН]";
+const CAVEAT = `${SERVER_MARK} ${ABSENCE_MEANING_BG_FALLBACK}`;
 
 const contract = (over: Partial<CleanContractRow> = {}): CleanContractRow => ({
   contract_number: "BG-RRP-3.008-0282",
@@ -95,13 +101,29 @@ describe("CompanyCleanDeliveryTile", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the caveat verbatim from the server", () => {
+  it("renders the caveat verbatim from the server, not the local mirror", () => {
     // Rendered, not restated: the page and the database must not drift on what
-    // absence means. A tile that dropped it would leave the number unbounded.
+    // absence means. The marker is a string no module can supply, so this fails on
+    // a tile that stopped reading `absence_meaning`.
     draw();
     expect(
       screen.getByText(new RegExp("НЕ означава наложена финансова корекция")),
     ).toBeInTheDocument();
+    expect(screen.getByText(new RegExp("\\[от ИСУН\\]"))).toBeInTheDocument();
+  });
+
+  it("bounds the figures even when the coverage row is missing", () => {
+    // The state this tile's unconditional caveat exists for. `absence_meaning` is
+    // NOT NULL server-side, so a null means no coverage row at all — and a number
+    // with no sentence beneath it is the reading the whole surface prevents.
+    // Re-adding the old `{info.absence_meaning && …}` gate fails here.
+    draw({ absence_meaning: null });
+    expect(
+      screen.getByText(/НЕ означава наложена финансова корекция/),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/IMS на OLAF/)).toBeInTheDocument();
+    // …and it is the FALLBACK, not a stale server value left on screen.
+    expect(screen.queryByText(/\[от ИСУН\]/)).not.toBeInTheDocument();
   });
 
   // ── property 1: never a zero ───────────────────────────────────────────────

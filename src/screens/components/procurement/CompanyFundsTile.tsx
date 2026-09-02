@@ -12,7 +12,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Tooltip } from "@/ux/Tooltip";
 import { formatEur } from "@/lib/currency";
 import { GRADE_TONE } from "@/lib/riskGrade";
-import { ABSENCE_MEANING_EN } from "./CompanyCleanDeliveryTile";
+import {
+  ABSENCE_MEANING_BG_FALLBACK,
+  ABSENCE_MEANING_EN,
+} from "./CompanyCleanDeliveryTile";
 
 export interface CompanyFunds {
   name: string | null;
@@ -60,11 +63,13 @@ export const CompanyFundsTile: FC<{
    *  confidential — and a project can be absent from this register because it
    *  finished late, was terminated, or is still in verification. */
   cleanContracts?: ReadonlySet<string> | null;
-  /** `isun_clean_delivery_coverage.absence_meaning`, verbatim (BG). PASSED rather
-   *  than restated: `CompanyCleanDeliveryTile` renders the same sentence from the
-   *  same column, so a literal here would be a fourth hand-kept copy of a rule the
-   *  database owns — and the first draft of it silently dropped the OLAF/IMS
-   *  clause, which is the half that explains why no complement exists anywhere. */
+  /** `isun_clean_delivery_coverage.absence_meaning`, verbatim (BG). Preferred over
+   *  `ABSENCE_MEANING_BG_FALLBACK` so this tile and `CompanyCleanDeliveryTile` —
+   *  which render the same sentence from the same column, on the same page —
+   *  cannot drift from the register or from each other. NULL only on a database
+   *  with no coverage row; the fallback then carries the bound, including the
+   *  OLAF/IMS clause an earlier local literal here had dropped. `absenceCaveat`
+   *  holds the rule. */
   absenceMeaning?: string | null;
 }> = ({ eik, funds, projects, cleanContracts, absenceMeaning }) => {
   const { t, i18n } = useTranslation();
@@ -269,8 +274,7 @@ export const CompanyFundsTile: FC<{
                 one exported EN mirror — never a local literal, which is how the
                 first draft of this footnote lost the OLAF/IMS clause. */}
             {bg
-              ? (absenceMeaning ??
-                "Отсъствието от този списък НЕ означава наложена финансова корекция — проектът може да е приключил със закъснение, да е прекратен или още да е в проверка.")
+              ? (absenceMeaning ?? ABSENCE_MEANING_BG_FALLBACK)
               : ABSENCE_MEANING_EN}
           </p>
         )}

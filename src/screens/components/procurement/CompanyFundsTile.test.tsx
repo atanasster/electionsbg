@@ -30,15 +30,18 @@ import {
   type CompanyFunds,
   type FundProjectRow,
 } from "./CompanyFundsTile";
+import { ABSENCE_MEANING_BG_FALLBACK } from "./CompanyCleanDeliveryTile";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (k: string) => k, i18n: { language: "bg" } }),
 }));
 
-const CAVEAT_BG =
-  "Отсъствието от този списък НЕ означава наложена финансова корекция — " +
-  "проектът може да е приключил със закъснение, да е прекратен или още да е в проверка. " +
-  "Индивидуалните нередности се докладват в системата IMS на OLAF и не са публични.";
+// ⚠️ MARKED so it is distinguishable from the module's fallback. The two are
+// near-identical by design, and `a ?? b` with `a === b` is an identity — a fixture
+// equal to ABSENCE_MEANING_BG_FALLBACK cannot tell a tile that renders the SERVER
+// sentence from one that ignores the prop entirely.
+const SERVER_MARK = "[от ИСУН]";
+const CAVEAT_BG = `${SERVER_MARK} ${ABSENCE_MEANING_BG_FALLBACK}`;
 
 const funds: CompanyFunds = {
   name: "БУЛГЕД ООД",
@@ -113,9 +116,12 @@ describe("CompanyFundsTile — clean-delivery marks", () => {
   it("renders the caveat verbatim from the register, OLAF clause included", () => {
     // Passed, not restated: the same sentence renders on CompanyCleanDeliveryTile
     // from the same column, and the first draft of a local literal here silently
-    // dropped the clause explaining why no complement exists anywhere.
+    // dropped the clause explaining why no complement exists anywhere. The marker
+    // is what makes this an assertion about the PROP rather than about the
+    // fallback, which now carries the clause too.
     draw(new Set(["BG-RRP-3.008-0282"]));
     expect(screen.getByText(new RegExp("IMS на OLAF"))).toBeInTheDocument();
+    expect(screen.getByText(/\[от ИСУН\]/)).toBeInTheDocument();
   });
 
   it("renders the caveat even when NO mark landed in this preview", () => {
@@ -191,5 +197,7 @@ describe("CompanyFundsTile — clean-delivery marks", () => {
     expect(
       screen.getByText(/НЕ означава наложена финансова корекция/),
     ).toBeInTheDocument();
+    // …the module's mirror, not a stale server value.
+    expect(screen.queryByText(/\[от ИСУН\]/)).not.toBeInTheDocument();
   });
 });

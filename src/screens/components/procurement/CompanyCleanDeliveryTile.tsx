@@ -77,25 +77,45 @@ export interface CleanDeliveryInfo {
    *  server's text — `isun_clean_delivery_coverage` carries only Bulgarian. A
    *  revision to `absence_meaning` reaches BG readers automatically and EN
    *  readers never. Keep the mirror in step by hand, or add an
-   *  `absence_meaning_en` column to 175 and drop the literal. Both branches are
-   *  gated on THIS field on purpose: a missing coverage row must leave the
-   *  number unbounded in both languages, rather than in one. */
+   *  `absence_meaning_en` column to 175 and drop the literal. A NULL here — only
+   *  reachable on a database with no coverage row, since the column is NOT NULL —
+   *  falls back to ABSENCE_MEANING_BG_FALLBACK rather than rendering nothing: the
+   *  figures above must never stand unbounded. */
   absence_meaning: string | null;
 }
 
-/** The mirror named in `absence_meaning`'s comment. Semantically paired with the
- *  register's own sentence; it is not derived from it and cannot track a change.
+/** The mirrors named in `absence_meaning`'s comment — the EN translation the
+ *  coverage row does not carry, and the BG sentence to fall back on when it
+ *  carries nothing at all.
  *
- *  ⚠️ EXPORTED SO THERE IS ONE COPY, NOT FOUR. `CompanyFundsTile` renders the same
- *  caveat beside its clean-delivery marks; a second literal there would drift from
- *  this one and from the server's, on the same page about the same register. The
- *  BG side needs no export — that tile takes `isun_clean_delivery_coverage`'s own
- *  sentence, passed down from the company payload. */
+ *  ⚠️ THIS MODULE IS THE ONLY PLACE EITHER MAY BE WRITTEN, and
+ *  `absenceCaveat.test.ts` enforces that. „Absence is not a correction" is the one
+ *  sentence standing between this register and an accusation against a named
+ *  company; the SERVER owns it (`isun_clean_delivery_coverage.absence_meaning`,
+ *  NOT NULL so it always exists), and every hand-written restatement is a copy
+ *  that cannot track a revision. There were four before 2026-09-02, and one of
+ *  them had silently dropped the OLAF/IMS clause — the half explaining why no
+ *  complement exists ANYWHERE, rather than merely why we do not publish one.
+ *
+ *  The fallback is a last resort, never the first: both consumers prefer the
+ *  server's sentence and reach these only when it is absent. */
 export const ABSENCE_MEANING_EN =
   "Being absent from this register does not mean a financial correction was " +
   "imposed — a project may have finished late, been terminated, or still be " +
   "under verification. Individual irregularities are reported to OLAF's IMS " +
   "and are not public.";
+
+/** ⚠️ BYTE-IDENTICAL TO THE SENTENCE THE INGEST WRITES INTO THE CORPUS
+ *  (`scripts/funds/clean_delivery/ingest.ts`, `absenceMeaning`), and
+ *  `absenceCaveat.test.ts` asserts that. The first draft of this fallback said
+ *  „този списък" where the register says „тези списъци" — a paraphrase the page
+ *  attributes to the register by position, and precisely the drift the gate
+ *  beside it was written to end, shipping in the same commit. */
+export const ABSENCE_MEANING_BG_FALLBACK =
+  "Отсъствието от тези списъци НЕ означава наложена финансова корекция — " +
+  "проектът може да е приключил със закъснение, да е прекратен или още да е в " +
+  "проверка. Индивидуалните нередности се докладват в системата IMS на OLAF и " +
+  "не са публични.";
 
 export const CompanyCleanDeliveryTile: FC<{ info: CleanDeliveryInfo }> = ({
   info,
@@ -266,12 +286,15 @@ export const CompanyCleanDeliveryTile: FC<{ info: CleanDeliveryInfo }> = ({
           )}
 
           {/* The bound, in words — verbatim from the register's own coverage row in
-              BG, and a hand-kept mirror in EN (see ABSENCE_MEANING_EN). */}
-          {info.absence_meaning && (
-            <p className="mt-2 text-xs leading-snug text-muted-foreground">
-              {bg ? info.absence_meaning : ABSENCE_MEANING_EN}
-            </p>
-          )}
+              BG, and a hand-kept mirror in EN. Unconditional: a figure above with
+              no sentence beneath it is the state this whole surface exists to
+              prevent, so a missing coverage row falls back rather than falling
+              silent. */}
+          <p className="mt-2 text-xs leading-snug text-muted-foreground">
+            {bg
+              ? (info.absence_meaning ?? ABSENCE_MEANING_BG_FALLBACK)
+              : ABSENCE_MEANING_EN}
+          </p>
         </div>
       </div>
     </Card>
