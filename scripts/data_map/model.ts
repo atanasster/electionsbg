@@ -2143,13 +2143,16 @@ export const DATASETS: DatasetDef[] = [
   {
     id: "fy2026_frame",
     label: { bg: "Фискална рамка 2026", en: "FY2026 fiscal frame" },
+    // Month-agnostic on purpose: the artifact advances a month at a time and a
+    // named month here goes stale silently (it said „до май" while the
+    // artifact was already at June).
     detail: {
-      bg: "изпълнение до май, годишна оценка",
-      en: "execution to May, annualised",
+      bg: "месечно изпълнение, годишна оценка",
+      en: "monthly execution, annualised",
     },
     desc: {
-      bg: "Смесената фискална рамка за 2026 г. — годината няма единен закон: ЗБДОО и ЗБНЗОК са обнародвани, а ЗДБРБ не е, така че държавната страна върви по удължителен закон. Всеки ред носи вида си: закон, удължителен закон, изпълнение (месечният отчет КФП, преизчислен на годишна база по сезонния профил на 2022–2025) или пренесена стойност от по-стара година. Балансът се ИЗВЕЖДА от приходите и разходите — сезонността му не оцелява при изваждането, затова не се екстраполира сам. План за 2026 г. няма и няма да има до приемането на ЗДБРБ.",
-      en: "The mixed fiscal frame for 2026 — the year has no single law: the ЗБДОО and ЗБНЗОК are promulgated, the ЗДБРБ is not, so the state side runs on a bridging law. Every line carries its kind: law, interim law, execution (monthly КФП annualised on the 2022–2025 seasonal profile) or a value carried from an older year. The balance is DERIVED from revenue and expenditure — its own seasonality does not survive the subtraction, so it is never extrapolated directly. There is no 2026 plan line and will not be one until the ЗДБРБ passes.",
+      bg: "Смесената фискална рамка за 2026 г. — годината няма единен закон: ЗБДОО и ЗБНЗОК са обнародвани, а ЗДБРБ не е, така че държавната страна върви по удължителен закон. Всеки ред носи вида си: закон, удължителен закон, изпълнение (месечният отчет КФП, преизчислен на годишна база по сезонния профил на 2022–2025) или пренесена стойност от по-стара година. Балансът се ИЗВЕЖДА от трите страни (приходи − разходи − вноска в общия бюджет на ЕС, по тъждеството IV = I − II − III на самия отчет) — сезонността му не оцелява при изваждането, затова не се екстраполира сам и носи собствен диапазон. План за 2026 г. няма и няма да има до приемането на ЗДБРБ.",
+      en: "The mixed fiscal frame for 2026 — the year has no single law: the ЗБДОО and ЗБНЗОК are promulgated, the ЗДБРБ is not, so the state side runs on a bridging law. Every line carries its kind: law, interim law, execution (monthly КФП annualised on the 2022–2025 seasonal profile) or a value carried from an older year. The balance is DERIVED from the three sides (revenue − expenditure − the EU budget contribution, the feed's own IV = I − II − III identity) — its own seasonality does not survive the subtraction, so it is never extrapolated directly and it carries a band of its own. There is no 2026 plan line and will not be one until the ЗДБРБ passes.",
     },
     path: "data/budget/derived/fy2026_frame.json",
     serving: "bucket",
@@ -3060,8 +3063,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:connections",
         text: {
-          bg: "Този ЕИК е ключът към Търговския регистър — 18 713 изпълнителя се намират там като фирми със собственици и управители.",
-          en: "That company number is the key into the Commerce Registry — 18,713 contractors are found there as companies with owners and directors.",
+          bg: "Този ЕИК е ключът към Търговския регистър — 18 717 изпълнителя се намират там като фирми със собственици и управители.",
+          en: "That company number is the key into the Commerce Registry — 18,717 contractors are found there as companies with owners and directors.",
         },
       },
       {

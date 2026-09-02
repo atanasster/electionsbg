@@ -477,7 +477,7 @@ describe("the lateral-links tour", () => {
   it("quotes numbers that still match the measured overlaps", () => {
     // Each pair is (link, the figure the tour states).
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18713],
+      ["connections", "procurement", "eik", 18717],
       ["connections", "funds", "eik", 40265],
       ["connections", "officials", "person_id", 5612],
     ];

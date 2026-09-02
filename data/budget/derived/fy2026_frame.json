@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T14:44:33.927Z",
+  "generatedAt": "2026-09-02T06:25:25.298Z",
   "fiscalYear": 2026,
   "throughMonth": 6,
   "revenue": {
@@ -8,9 +8,9 @@
     "ytdEur": 12796331646,
     "shareMean": 0.46772024216865715,
     "shareStdDev": 0.004958531481738725,
-    "annualisedEur": 27358943428.80657,
-    "lowEur": 27052279449.811054,
-    "highEur": 27753883171.22906,
+    "annualisedEur": 27358943429,
+    "lowEur": 27052279450,
+    "highEur": 27753883171,
     "referenceYears": [
       2022,
       2023,
@@ -24,9 +24,9 @@
     "ytdEur": 14150474073,
     "shareMean": 0.44294494687867986,
     "shareStdDev": 0.029658405500026117,
-    "annualisedEur": 31946349479.12779,
-    "lowEur": 29577990981.718555,
-    "highEur": 34252739363.30214,
+    "annualisedEur": 31946349479,
+    "lowEur": 29577990982,
+    "highEur": 34252739363,
     "referenceYears": [
       2022,
       2023,
@@ -34,7 +34,25 @@
       2025
     ]
   },
-  "balanceEur": -4587406050.32122,
+  "euContribution": {
+    "series": "euContribution",
+    "throughMonth": 6,
+    "ytdEur": 560263445,
+    "shareMean": 0.47085948448034876,
+    "shareStdDev": 0.022950654952878364,
+    "annualisedEur": 1189873972,
+    "lowEur": 1119699714,
+    "highEur": 1250147947,
+    "referenceYears": [
+      2022,
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "balanceEur": -5777280022,
+  "balanceLowEur": -8450607861,
+  "balanceHighEur": -2943807525,
   "hasPlan": false,
   "statutory": {
     "basis": "law",
@@ -70,10 +88,10 @@
       "note": "ЗСПИР-2026 (idMat 240166) + its ЗИД (242170) — no ЗДБРБ"
     },
     {
-      "component": "state revenue / expenditure",
+      "component": "state revenue / expenditure / вноска в бюджета на ЕС",
       "basis": "execution",
       "vintage": "2026 YTD",
-      "note": "КФП monthly execution, seasonally annualised — see the band"
+      "note": "КФП monthly execution, seasonally annualised — all three sides of IV = I − II − III, each with its own band"
     },
     {
       "component": "earnings distribution (SES wave)",
@@ -106,5 +124,5 @@
       "note": "a single-cap year, deliberately — 2025 and 2026 both stepped"
     }
   ],
-  "caveat": "FY2026 has no single legal frame: ЗБДОО и ЗБНЗОК са обнародвани, ЗДБРБ — не. Приходите и разходите са годишна оценка от месечното изпълнение, а не план — план за 2026 г. няма и няма да има до приемането на ЗДБРБ. Балансът е ИЗВЕДЕН от двете страни, не е екстраполиран сам."
+  "caveat": "FY2026 has no single legal frame: ЗБДОО и ЗБНЗОК са обнародвани, ЗДБРБ — не. Приходите и разходите са годишна оценка от месечното изпълнение, а не план — план за 2026 г. няма и няма да има до приемането на ЗДБРБ. Балансът е ИЗВЕДЕН от трите страни (приходи − разходи − вноска в бюджета на ЕС), не е екстраполиран сам, и носи собствен диапазон — точката е безсмислена без него."
 }
