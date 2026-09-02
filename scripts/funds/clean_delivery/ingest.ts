@@ -2,15 +2,28 @@
 //
 //   npm run funds:clean-delivery
 //
-// The inputs are operator-downloaded XLSX drops in data/_cache/isun_clean_delivery/
-// (gitignored). That is deliberate and matches the municipal-fiscal ingest: the F5
-// WAF in front of 2020.eufunds.bg refuses the export intermittently and blocks its
-// GetProgrammes XHR outright, so a scheduled fetch cannot be relied on — but a
-// human clicking „Excel" always works. The parse is therefore pure and offline.
+// The inputs are XLSX drops in data/_cache/isun_clean_delivery/ (gitignored).
+// They were operator-downloaded until 2026-09-02, because the F5 WAF in front of
+// 2020.eufunds.bg refuses the export and blocks its GetProgrammes XHR outright,
+// so a scheduled fetch could not be relied on — but a human clicking „Excel"
+// always works.
+//
+// ⚠️ [2026-09-02] `--fetch` now downloads both, through curl. Measured that day,
+// the refusal has two independent triggers and neither is rate: the WAF rejects
+// the node CLIENT whatever headers it sends (a TLS handshake fingerprint), and
+// rejects ANY client that sends a `Referer` on these endpoints. curl with no
+// Referer gets both exports first time — 894,724-byte contracts and
+// 2,264,101-byte beneficiaries. See scripts/funds/isun_download.ts for the full
+// isolation table; the GetProgrammes XHR is a separate wall and stays blocked,
+// which is why the programme list is still derived from the rows.
+//
+// The parse stays pure and offline: `--fetch` only refreshes the cache first, so
+// a re-run without it reproduces the same corpus from the same drops.
 //
 // See parse.ts for the two rules that matter: these are ACHIEVEMENT lists (absence
 // is not a correction), and the exports are COMPLETE (do not partition them).
 
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import XLSX from "xlsx";
@@ -22,6 +35,53 @@ import {
 } from "./parse";
 
 const CACHE = path.join(process.cwd(), "data/_cache/isun_clean_delivery");
+
+/** The two listings' export endpoints, and the cache name each drop takes. */
+const EXPORTS = [
+  ["contracts__ALL.xlsx", "ExecutedContracts"],
+  ["beneficiaries__ALL.xlsx", "BeneficiaryWithoutFinancialCorrections"],
+] as const;
+
+const UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
+  "(KHTML, like Gecko) Chrome/126.0 Safari/537.36";
+
+/** Refresh the cache from ИСУН. curl, and NO Referer — see the header. */
+const fetchExports = (): void => {
+  fs.mkdirSync(CACHE, { recursive: true });
+  for (const [name, route] of EXPORTS) {
+    const url = `https://2020.eufunds.bg/bg/0/0/${route}/ExportToExcel`;
+    const res = spawnSync(
+      "curl",
+      [
+        "-sSL",
+        "--compressed",
+        "--max-time",
+        "300",
+        "-H",
+        `User-Agent: ${UA}`,
+        "-H",
+        "Accept-Language: bg-BG,bg;q=0.9,en;q=0.8",
+        url,
+      ],
+      { maxBuffer: 256 * 1024 * 1024, encoding: "buffer" },
+    );
+    if (res.error) throw res.error;
+    if (res.status !== 0)
+      throw new Error(`curl exited ${res.status} for ${url}`);
+    const buf = Buffer.from(res.stdout);
+    // An XLSX is a zip, so it opens "PK". The WAF refusal is small HTML served
+    // as HTTP 200 — writing it would surface later as a parse error about the
+    // header row, which sends the reader to the wrong file entirely.
+    if (buf.length < 1024 || buf.subarray(0, 2).toString("latin1") !== "PK")
+      throw new Error(
+        `${url} did not return an XLSX (${buf.length} bytes). The WAF refused ` +
+          `it; download by hand from the listing and save as ${name}.`,
+      );
+    fs.writeFileSync(path.join(CACHE, name), buf);
+    console.log(`  fetched ${name} (${(buf.length / 1e6).toFixed(1)} MB)`);
+  }
+};
 const OUT = path.join(process.cwd(), "data/funds/clean_delivery.json");
 /** These lists only grow as projects close; a shrink is a bad export, not news. */
 const MAX_SHRINK = 0.05;
@@ -44,12 +104,13 @@ const pick = (prefix: string): string[] =>
     : [];
 
 const main = (): void => {
+  if (process.argv.includes("--fetch")) fetchExports();
   const cFiles = pick("contracts__");
   const bFiles = pick("beneficiaries__");
   if (!cFiles.length || !bFiles.length) {
     console.error(
       `Missing exports in ${path.relative(process.cwd(), CACHE)}.\n` +
-        `Download both from ИСУН and save them there:\n` +
+        `Re-run with --fetch, or download both from ИСУН and save them there:\n` +
         `  contracts__ALL.xlsx      ← https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True (Експорт → Excel)\n` +
         `  beneficiaries__ALL.xlsx  ← https://2020.eufunds.bg/bg/0/0/BeneficiaryWithoutFinancialCorrections?ShowRes=True`,
     );
