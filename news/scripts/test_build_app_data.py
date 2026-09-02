@@ -2779,12 +2779,103 @@ class HomeOutletDiversity(unittest.TestCase):
         self.assertEqual([s["id"] for s in picked], ["d0", "a0", "n0"])
 
     def test_selection_actually_routes_through_the_cap(self):
-        """Mutation guard: the constant must reach the real selection path."""
+        """Mutation guard: the cap must reach the real selection path.
+
+        It reaches it INDIRECTLY — select_home_payload calls
+        select_home_stories, which applies the cap — so the guard follows the
+        whole chain. Asserting only the outer call would pass on a
+        select_home_stories that had quietly stopped capping.
+        """
         import build_app_data as bad
         self.assertLessEqual(bad.HOME_MAX_STORIES_PER_OUTLET, bad.HOME_STORY_LIMIT)
+        outer = inspect.getsource(bad.select_home_payload)
+        self.assertIn("select_home_stories", outer)
+        self.assertIn("HOME_MAX_STORIES_PER_OUTLET", outer)
+        self.assertIn("diversify_home_outlets",
+                      inspect.getsource(bad.select_home_stories))
+
+
+
+class HomeComparisonSlots(unittest.TestCase):
+    """Multi-outlet stories must survive a recency-ranked page.
+
+    The analyser emits singletons, so every fresh batch is single-outlet and
+    outranks the comparisons. Measured 2026-09-02 right after 85 merges
+    landed: 68 multi-outlet stories existed, 18 inside the 24h window, and
+    home showed ZERO.
+    """
+
+    @staticmethod
+    def _story(sid, *domains):
+        return {"id": sid, "aggregates": {"by_domain": {d: 1 for d in domains}}}
+
+    def test_a_comparison_outranked_by_fresh_singletons_still_appears(self):
+        import build_app_data as bad
+        events = [self._story(f"s{i}", f"o{i}.bg") for i in range(10)]
+        events.append(self._story("cmp", "a.bg", "b.bg"))
+        picked = bad.select_home_stories(events, 4, 4, 1)
+        self.assertIn("cmp", [s["id"] for s in picked])
+        # Without the reservation it is rank 11 of 11 and never makes a top-4.
+        self.assertNotIn("cmp",
+                         [s["id"] for s in bad.diversify_home_outlets(events, 4, 4)])
+
+    def test_the_reservation_changes_WHICH_not_the_ORDER(self):
+        """Pinning comparisons to the top would reorder the page around a
+        property the reader cannot see."""
+        import build_app_data as bad
+        events = [self._story("s0", "o0.bg"), self._story("s1", "o1.bg"),
+                  self._story("s2", "o2.bg"), self._story("cmp", "a.bg", "b.bg")]
+        picked = bad.select_home_stories(events, 4, 4, 1)
+        self.assertEqual([s["id"] for s in picked], ["s0", "s1", "s2", "cmp"])
+
+    def test_a_day_with_no_comparison_selects_what_the_cap_alone_would(self):
+        """Same stories -- and, unlike the cap alone, in rank order.
+
+        `diversify_home_outlets` appends its deferred backfill at the END, so
+        a capped day could emit a page that was not newest-first. Reserving
+        re-sorts, which closes that. The live page has never shown it (there
+        have always been enough outlets to avoid the backfill), so this pins a
+        latent wart rather than reporting a visible one.
+        """
+        import build_app_data as bad
+        events = [self._story(f"s{i}", "dir.bg") for i in range(6)]
+        events += [self._story("a", "actualno.com"), self._story("n", "nova.bg")]
+        reserved = [s["id"] for s in bad.select_home_stories(events, 5, 2, 4)]
+        capped = [s["id"] for s in bad.diversify_home_outlets(events, 5, 2)]
+        self.assertEqual(set(reserved), set(capped))
+        rank = [s["id"] for s in events]
+        self.assertEqual(reserved, sorted(reserved, key=rank.index))
+        self.assertNotEqual(capped, sorted(capped, key=rank.index))
+
+    def test_it_reserves_what_exists_and_never_pads(self):
+        import build_app_data as bad
+        events = [self._story("cmp", "a.bg", "b.bg")]
+        events += [self._story(f"s{i}", f"o{i}.bg") for i in range(5)]
+        picked = bad.select_home_stories(events, 4, 4, 4)
+        self.assertEqual(len(picked), 4)
+        self.assertEqual(sum(1 for s in picked if bad.sole_outlet(s) is None), 1)
+
+    def test_the_outlet_cap_still_binds_alongside_the_reservation(self):
+        import build_app_data as bad
+        events = [self._story("cmp", "a.bg", "b.bg")]
+        events += [self._story(f"d{i}", "dir.bg") for i in range(6)]
+        events += [self._story("x", "nova.bg"), self._story("y", "fakti.bg")]
+        picked = bad.select_home_stories(events, 5, 2, 1)
+        sole = [bad.sole_outlet(s) for s in picked]
+        self.assertEqual(sole.count("dir.bg"), 2)
+
+    def test_sole_outlet_has_one_definition_used_by_both_rules(self):
+        import build_app_data as bad
+        self.assertIsNone(bad.sole_outlet(self._story("m", "a.bg", "b.bg")))
+        self.assertEqual(bad.sole_outlet(self._story("s", "a.bg")), "a.bg")
+        self.assertIsNone(bad.sole_outlet({"id": "e", "aggregates": {}}))
+
+    def test_selection_actually_routes_through_the_reservation(self):
+        import build_app_data as bad
         src = inspect.getsource(bad.select_home_payload)
-        self.assertIn("diversify_home_outlets", src)
-        self.assertIn("HOME_MAX_STORIES_PER_OUTLET", src)
+        self.assertIn("select_home_stories", src)
+        self.assertIn("HOME_MIN_COMPARISON_STORIES", src)
+        self.assertLessEqual(bad.HOME_MIN_COMPARISON_STORIES, bad.HOME_STORY_LIMIT)
 
 
 class EffectiveStoryReconciliation(unittest.TestCase):

@@ -837,6 +837,10 @@ HOME_STORY_LIMIT = 16
 # The cap is on SINGLE-OUTLET stories only. A story that already spans outlets
 # is the thing this product exists to show and is never held back.
 HOME_MAX_STORIES_PER_OUTLET = 4
+# Slots held for stories carrying more than one outlet. Four of sixteen: enough
+# that the page always demonstrates what it is for, small enough that a quiet
+# comparison day is not padded with stale ones.
+HOME_MIN_COMPARISON_STORIES = 4
 HOME_WINDOW_DAYS = 30
 # 33 KiB keeps both Bulgarian and English search fallback fields. Measured
 # 2026-08-28 at 32,803 bytes with gzip-6; the previous unprojected bundle was
@@ -893,6 +897,19 @@ def home_article(record: dict) -> dict:
     return slim
 
 
+def sole_outlet(story: dict) -> str | None:
+    """The one outlet a story is from, or None when it spans several.
+
+    ONE definition, because two rules key on it and they must agree: the
+    per-outlet cap exempts multi-outlet stories, and the comparison
+    reservation selects exactly them. If these ever disagreed, a story could
+    be both "exempt from the cap" and "not a comparison", which is not a state
+    the page can render coherently.
+    """
+    domains = sorted((story.get("aggregates") or {}).get("by_domain") or {})
+    return domains[0] if len(domains) == 1 else None
+
+
 def diversify_home_outlets(
     events: list[dict], limit: int, cap: int,
 ) -> list[dict]:
@@ -912,8 +929,7 @@ def diversify_home_outlets(
     deferred: list[dict] = []
     used: dict[str, int] = {}
     for story in events:
-        domains = sorted((story.get("aggregates") or {}).get("by_domain") or {})
-        sole = domains[0] if len(domains) == 1 else None
+        sole = sole_outlet(story)
         if sole is not None and used.get(sole, 0) >= cap:
             deferred.append(story)
             continue
@@ -923,6 +939,39 @@ def diversify_home_outlets(
         if len(chosen) == limit:
             return chosen
     return (chosen + deferred)[:limit]
+
+
+def select_home_stories(
+    events: list[dict], limit: int, cap: int, min_comparisons: int,
+) -> list[dict]:
+    """Pick the home stories, guaranteeing room for multi-outlet ones.
+
+    ⚠️ WITHOUT THIS THE COMPARISON STORIES NEVER APPEAR. Ranking is by recency
+    alone and the analyser emits singletons, so every fresh batch is
+    single-outlet and outranks them. Measured 2026-09-02, immediately after 85
+    merges landed: 68 multi-outlet stories in the corpus, 18 of them inside the
+    24h window, and the home page showed ZERO. The merges were real and simply
+    invisible — on a page whose whole premise is comparing outlets.
+
+    So a few slots are reserved for the freshest comparison stories before the
+    rest is filled in rank order under the per-outlet cap.
+
+    ⚠️ THE RESERVATION CHANGES WHICH STORIES APPEAR, NEVER THEIR ORDER. The
+    result is re-sorted back into the caller's ranking, so the page still reads
+    newest-first. Pinning comparisons to the top would silently reorder the
+    page around a property the reader cannot see, and would put a 20-hour-old
+    story above breaking news.
+
+    It reserves what EXISTS and never pads: a day with no multi-outlet story
+    behaves exactly as before.
+    """
+    reserved = [story for story in events if sole_outlet(story) is None]
+    reserved = reserved[:max(0, min(min_comparisons, limit))]
+    reserved_ids = {story["id"] for story in reserved}
+    remainder = [story for story in events if story["id"] not in reserved_ids]
+    filled = diversify_home_outlets(remainder, limit - len(reserved), cap)
+    rank = {story["id"]: index for index, story in enumerate(events)}
+    return sorted(reserved + filled, key=lambda story: rank[story["id"]])
 
 
 def select_home_payload(
@@ -958,8 +1007,9 @@ def select_home_payload(
         story["id"],
     ))
     unique_events, merge_proposals = dedupe_home_events(candidates, rejected_pairs)
-    selected = diversify_home_outlets(
-        unique_events, HOME_STORY_LIMIT, HOME_MAX_STORIES_PER_OUTLET)
+    selected = select_home_stories(
+        unique_events, HOME_STORY_LIMIT, HOME_MAX_STORIES_PER_OUTLET,
+        HOME_MIN_COMPARISON_STORIES)
 
     # Reserve one representative per selected story before filling the global
     # article cap. A rights-cleared image wins within the story; otherwise its
