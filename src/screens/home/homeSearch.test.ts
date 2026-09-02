@@ -511,13 +511,13 @@ describe("home finder — the see-all needle", () => {
       interreg: [],
       altQuery: null,
       contractsTotal: 42,
-      tendersTotal: 2,
+      tendersTotal: 1,
     });
     await sharedProcurementSearch("ремонт", new AbortController().signal);
     const label = (id: string) =>
       armedSources().find((s) => s.id === id)!.seeAll!("ремонт")!.label;
     expect(label("contracts")).toContain("(42)");
-    // Two matches under a cap of two: nothing more to see, so no count.
+    // One match under a cap of one: nothing more to see, so no count.
     expect(label("tenders")).not.toContain("(");
   });
 

@@ -184,16 +184,26 @@ export const homePlaceIndex = (
  * Sums to 20, which is the keyboard budget: `HubSearch` scroll-bounds the dropdown anyway, so
  * this bounds how far an arrow key has to travel and stops a broad query turning the global
  * finder into a browser.
+ *
+ * ⚠️ `companyPeople` IS 4, NOT 2, AND THE OTHER TWO CHANGED TO PAY FOR IT — measured
+ * 2026-09-02 on „yavor stefanov": `person_search` answers 1 P-tier + several V/N rows, but at
+ * the old cap of 2 `balancedPrivate` (§ below) can show at most ONE money-linked row before an
+ * others-tier row claims the second slot, so real matches that `/persons?q=…` finds are
+ * invisible from home with no way to discover them — `company-people` is the one group in this
+ * list with NO see-all (`/persons` cannot reproduce the 445,804-row N tier in general), so its
+ * preview IS the reader's only chance. `contracts` and `tenders` each lose one row to fund it:
+ * both keep a working „see all" (§ below), so a reader who needs more than the preview still
+ * has a real path to it, which `company-people` does not.
  */
 const CAP = {
   places: 3,
   publicPeople: 3,
-  companyPeople: 2,
+  companyPeople: 4,
   products: 2,
   awarders: 2,
   companies: 2,
-  contracts: 2,
-  tenders: 2,
+  contracts: 1,
+  tenders: 1,
   funds: 1,
   interreg: 1,
 } as const;
