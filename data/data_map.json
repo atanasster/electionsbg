@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "generatedAt": "2026-08-31T23:44:43.813Z",
+  "version": 3,
+  "generatedAt": "2026-09-02T05:05:54.218Z",
   "nodes": [
     {
       "id": "src:water",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-31T21:38:48.506Z",
+      "freshness": "2026-09-01T21:39:03.493Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-31T21:38:48.506Z"
+          "freshness": "2026-09-01T21:39:03.493Z"
         }
       ],
       "x": 28,
@@ -1050,7 +1050,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-31T21:38:48.506Z",
+      "freshness": "2026-09-01T21:39:03.493Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1069,7 +1069,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-08-31T21:38:48.506Z"
+          "freshness": "2026-09-01T21:39:03.493Z"
         },
         {
           "id": "municipal_naredba",
@@ -2061,7 +2061,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-08-31T21:38:48.506Z",
+      "freshness": "2026-09-01T21:39:03.493Z",
       "skills": [
         "update-procurement"
       ],
@@ -2071,7 +2071,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-08-31T21:38:48.506Z"
+          "freshness": "2026-09-01T21:39:03.493Z"
         }
       ],
       "x": 28,
@@ -5196,6 +5196,1651 @@
       "h": 3114
     }
   ],
+  "layouts": {
+    "all": {
+      "nodes": [
+        {
+          "id": "src:water",
+          "x": 28,
+          "y": 2174
+        },
+        {
+          "id": "src:cik",
+          "x": 28,
+          "y": 3422
+        },
+        {
+          "id": "src:parliament",
+          "x": 28,
+          "y": 458
+        },
+        {
+          "id": "src:dv",
+          "x": 28,
+          "y": 1004
+        },
+        {
+          "id": "src:sp",
+          "x": 28,
+          "y": 614
+        },
+        {
+          "id": "src:ofac",
+          "x": 28,
+          "y": 224
+        },
+        {
+          "id": "src:comdos",
+          "x": 28,
+          "y": 302
+        },
+        {
+          "id": "src:regulators",
+          "x": 28,
+          "y": 380
+        },
+        {
+          "id": "src:egov",
+          "x": 28,
+          "y": 1706
+        },
+        {
+          "id": "src:eop",
+          "x": 28,
+          "y": 1316
+        },
+        {
+          "id": "src:aop",
+          "x": 28,
+          "y": 1082
+        },
+        {
+          "id": "src:kzk",
+          "x": 28,
+          "y": 1394
+        },
+        {
+          "id": "src:isun",
+          "x": 28,
+          "y": 770
+        },
+        {
+          "id": "src:opencalls",
+          "x": 28,
+          "y": 146
+        },
+        {
+          "id": "src:keep_eu",
+          "x": 28,
+          "y": 1550
+        },
+        {
+          "id": "src:dfz",
+          "x": 28,
+          "y": 68
+        },
+        {
+          "id": "src:ec_fts",
+          "x": 28,
+          "y": 536
+        },
+        {
+          "id": "src:ministries",
+          "x": 28,
+          "y": 2096
+        },
+        {
+          "id": "src:municipalities",
+          "x": 28,
+          "y": 2564
+        },
+        {
+          "id": "src:nsi",
+          "x": 28,
+          "y": 3110
+        },
+        {
+          "id": "src:az",
+          "x": 28,
+          "y": 2642
+        },
+        {
+          "id": "src:grao",
+          "x": 28,
+          "y": 3500
+        },
+        {
+          "id": "src:eurostat",
+          "x": 28,
+          "y": 2408
+        },
+        {
+          "id": "src:eu_policy_anchors",
+          "x": 28,
+          "y": 2018
+        },
+        {
+          "id": "src:bg_fiscal_anchors",
+          "x": 28,
+          "y": 1940
+        },
+        {
+          "id": "src:intl",
+          "x": 28,
+          "y": 2330
+        },
+        {
+          "id": "src:bnb",
+          "x": 28,
+          "y": 2798
+        },
+        {
+          "id": "src:kzp",
+          "x": 28,
+          "y": 3266
+        },
+        {
+          "id": "src:oil_bulletin",
+          "x": 28,
+          "y": 3344
+        },
+        {
+          "id": "src:tibg",
+          "x": 28,
+          "y": 3188
+        },
+        {
+          "id": "src:vss",
+          "x": 28,
+          "y": 1160
+        },
+        {
+          "id": "src:defense",
+          "x": 28,
+          "y": 2876
+        },
+        {
+          "id": "src:energy",
+          "x": 28,
+          "y": 1784
+        },
+        {
+          "id": "src:security",
+          "x": 28,
+          "y": 2486
+        },
+        {
+          "id": "src:transport",
+          "x": 28,
+          "y": 2720
+        },
+        {
+          "id": "src:administration",
+          "x": 28,
+          "y": 2252
+        },
+        {
+          "id": "src:social",
+          "x": 28,
+          "y": 1862
+        },
+        {
+          "id": "src:adfi",
+          "x": 28,
+          "y": 926
+        },
+        {
+          "id": "src:ted",
+          "x": 28,
+          "y": 1472
+        },
+        {
+          "id": "src:cprs",
+          "x": 28,
+          "y": 848
+        },
+        {
+          "id": "src:aop_experts",
+          "x": 28,
+          "y": 1238
+        },
+        {
+          "id": "src:isun_clean_delivery",
+          "x": 28,
+          "y": 692
+        },
+        {
+          "id": "src:culture",
+          "x": 28,
+          "y": 1628
+        },
+        {
+          "id": "src:ipi",
+          "x": 28,
+          "y": 3032
+        },
+        {
+          "id": "src:wiki",
+          "x": 28,
+          "y": 2954
+        },
+        {
+          "id": "src:geo",
+          "x": 28,
+          "y": 3578
+        },
+        {
+          "id": "ds:water",
+          "x": 378,
+          "y": 1950
+        },
+        {
+          "id": "ds:elections",
+          "x": 378,
+          "y": 3198
+        },
+        {
+          "id": "ds:local",
+          "x": 378,
+          "y": 3120
+        },
+        {
+          "id": "ds:parliament",
+          "x": 378,
+          "y": 502
+        },
+        {
+          "id": "ds:connections",
+          "x": 378,
+          "y": 580
+        },
+        {
+          "id": "ds:officials",
+          "x": 378,
+          "y": 736
+        },
+        {
+          "id": "ds:financing",
+          "x": 378,
+          "y": 658
+        },
+        {
+          "id": "ds:procurement",
+          "x": 378,
+          "y": 1384
+        },
+        {
+          "id": "ds:ngo",
+          "x": 378,
+          "y": 1144
+        },
+        {
+          "id": "ds:funds",
+          "x": 378,
+          "y": 814
+        },
+        {
+          "id": "ds:interreg",
+          "x": 378,
+          "y": 1462
+        },
+        {
+          "id": "ds:opencalls",
+          "x": 378,
+          "y": 424
+        },
+        {
+          "id": "ds:agri",
+          "x": 378,
+          "y": 346
+        },
+        {
+          "id": "ds:health",
+          "x": 378,
+          "y": 2106
+        },
+        {
+          "id": "ds:judiciary",
+          "x": 378,
+          "y": 1306
+        },
+        {
+          "id": "ds:defense",
+          "x": 378,
+          "y": 2808
+        },
+        {
+          "id": "ds:energy",
+          "x": 378,
+          "y": 1716
+        },
+        {
+          "id": "ds:security",
+          "x": 378,
+          "y": 2496
+        },
+        {
+          "id": "ds:transport",
+          "x": 378,
+          "y": 2652
+        },
+        {
+          "id": "ds:administration",
+          "x": 378,
+          "y": 2262
+        },
+        {
+          "id": "ds:social",
+          "x": 378,
+          "y": 1794
+        },
+        {
+          "id": "ds:culture",
+          "x": 378,
+          "y": 1560
+        },
+        {
+          "id": "ds:pensions",
+          "x": 378,
+          "y": 2028
+        },
+        {
+          "id": "ds:doo_fund_plan",
+          "x": 378,
+          "y": 1222
+        },
+        {
+          "id": "ds:zbdoo_annexes",
+          "x": 378,
+          "y": 1066
+        },
+        {
+          "id": "ds:fy2026_frame",
+          "x": 378,
+          "y": 1638
+        },
+        {
+          "id": "ds:municipal_fiscal",
+          "x": 378,
+          "y": 2184
+        },
+        {
+          "id": "ds:budget",
+          "x": 378,
+          "y": 1872
+        },
+        {
+          "id": "ds:macro",
+          "x": 378,
+          "y": 2418
+        },
+        {
+          "id": "ds:macro_fdi",
+          "x": 378,
+          "y": 2730
+        },
+        {
+          "id": "ds:indicators",
+          "x": 378,
+          "y": 2340
+        },
+        {
+          "id": "ds:demographics",
+          "x": 378,
+          "y": 3042
+        },
+        {
+          "id": "ds:localgov",
+          "x": 378,
+          "y": 2574
+        },
+        {
+          "id": "ds:prices",
+          "x": 378,
+          "y": 2964
+        },
+        {
+          "id": "ds:polls",
+          "x": 378,
+          "y": 2886
+        },
+        {
+          "id": "ds:geo",
+          "x": 378,
+          "y": 3276
+        },
+        {
+          "id": "f:water",
+          "x": 762,
+          "y": 1940
+        },
+        {
+          "id": "f:elections",
+          "x": 762,
+          "y": 3131
+        },
+        {
+          "id": "f:risk",
+          "x": 762,
+          "y": 3209
+        },
+        {
+          "id": "f:polls",
+          "x": 762,
+          "y": 3053
+        },
+        {
+          "id": "f:local",
+          "x": 762,
+          "y": 3287
+        },
+        {
+          "id": "f:parliament",
+          "x": 762,
+          "y": 487
+        },
+        {
+          "id": "f:mps",
+          "x": 762,
+          "y": 721
+        },
+        {
+          "id": "f:financing",
+          "x": 762,
+          "y": 643
+        },
+        {
+          "id": "f:procurement",
+          "x": 762,
+          "y": 1294
+        },
+        {
+          "id": "f:ngo",
+          "x": 762,
+          "y": 1138
+        },
+        {
+          "id": "f:funds",
+          "x": 762,
+          "y": 804
+        },
+        {
+          "id": "f:agri",
+          "x": 762,
+          "y": 331
+        },
+        {
+          "id": "f:budget",
+          "x": 762,
+          "y": 2106
+        },
+        {
+          "id": "f:governance",
+          "x": 762,
+          "y": 2352
+        },
+        {
+          "id": "f:judiciary",
+          "x": 762,
+          "y": 1450
+        },
+        {
+          "id": "f:defense",
+          "x": 762,
+          "y": 2430
+        },
+        {
+          "id": "f:energy",
+          "x": 762,
+          "y": 1528
+        },
+        {
+          "id": "f:administration",
+          "x": 762,
+          "y": 2028
+        },
+        {
+          "id": "f:regional",
+          "x": 762,
+          "y": 1778
+        },
+        {
+          "id": "f:social",
+          "x": 762,
+          "y": 1856
+        },
+        {
+          "id": "f:culture",
+          "x": 762,
+          "y": 1216
+        },
+        {
+          "id": "f:pensions",
+          "x": 762,
+          "y": 1372
+        },
+        {
+          "id": "f:indicators",
+          "x": 762,
+          "y": 2508
+        },
+        {
+          "id": "f:prices",
+          "x": 762,
+          "y": 2586
+        },
+        {
+          "id": "f:products",
+          "x": 762,
+          "y": 2975
+        },
+        {
+          "id": "f:ai",
+          "x": 762,
+          "y": 2274
+        }
+      ],
+      "tiers": [
+        {
+          "kind": "source",
+          "label": {
+            "bg": "Източници",
+            "en": "Sources"
+          },
+          "x": 0,
+          "y": 0,
+          "w": 296,
+          "h": 3668
+        },
+        {
+          "kind": "dataset",
+          "label": {
+            "bg": "Данни",
+            "en": "Datasets"
+          },
+          "x": 350,
+          "y": 278,
+          "w": 296,
+          "h": 3088
+        },
+        {
+          "kind": "feature",
+          "label": {
+            "bg": "Функции",
+            "en": "Features"
+          },
+          "x": 734,
+          "y": 263,
+          "w": 296,
+          "h": 3114
+        }
+      ]
+    },
+    "elections": {
+      "nodes": [
+        {
+          "id": "src:cik",
+          "x": 28,
+          "y": 304
+        },
+        {
+          "id": "src:sp",
+          "x": 28,
+          "y": 606
+        },
+        {
+          "id": "src:ofac",
+          "x": 28,
+          "y": 68
+        },
+        {
+          "id": "src:comdos",
+          "x": 288,
+          "y": 68
+        },
+        {
+          "id": "src:regulators",
+          "x": 548,
+          "y": 68
+        },
+        {
+          "id": "src:wiki",
+          "x": 28,
+          "y": 216
+        },
+        {
+          "id": "src:geo",
+          "x": 28,
+          "y": 450
+        },
+        {
+          "id": "ds:elections",
+          "x": 378,
+          "y": 294
+        },
+        {
+          "id": "ds:local",
+          "x": 378,
+          "y": 528
+        },
+        {
+          "id": "ds:financing",
+          "x": 378,
+          "y": 606
+        },
+        {
+          "id": "ds:demographics",
+          "x": 378,
+          "y": 372
+        },
+        {
+          "id": "ds:polls",
+          "x": 378,
+          "y": 216
+        },
+        {
+          "id": "ds:geo",
+          "x": 378,
+          "y": 450
+        },
+        {
+          "id": "f:elections",
+          "x": 728,
+          "y": 306
+        },
+        {
+          "id": "f:risk",
+          "x": 728,
+          "y": 228
+        },
+        {
+          "id": "f:polls",
+          "x": 728,
+          "y": 150
+        },
+        {
+          "id": "f:local",
+          "x": 728,
+          "y": 540
+        },
+        {
+          "id": "f:financing",
+          "x": 728,
+          "y": 618
+        },
+        {
+          "id": "f:governance",
+          "x": 728,
+          "y": 384
+        },
+        {
+          "id": "f:ai",
+          "x": 728,
+          "y": 462
+        }
+      ],
+      "tiers": [
+        {
+          "kind": "source",
+          "label": {
+            "bg": "Източници",
+            "en": "Sources"
+          },
+          "x": 0,
+          "y": 0,
+          "w": 816,
+          "h": 696
+        },
+        {
+          "kind": "dataset",
+          "label": {
+            "bg": "Данни",
+            "en": "Datasets"
+          },
+          "x": 350,
+          "y": 148,
+          "w": 296,
+          "h": 548
+        },
+        {
+          "kind": "feature",
+          "label": {
+            "bg": "Функции",
+            "en": "Features"
+          },
+          "x": 700,
+          "y": 82,
+          "w": 296,
+          "h": 626
+        }
+      ]
+    },
+    "parliament": {
+      "nodes": [
+        {
+          "id": "src:parliament",
+          "x": 28,
+          "y": 473
+        },
+        {
+          "id": "src:sp",
+          "x": 28,
+          "y": 83
+        },
+        {
+          "id": "src:ofac",
+          "x": 28,
+          "y": 239
+        },
+        {
+          "id": "src:comdos",
+          "x": 28,
+          "y": 317
+        },
+        {
+          "id": "src:regulators",
+          "x": 28,
+          "y": 395
+        },
+        {
+          "id": "src:egov",
+          "x": 28,
+          "y": 161
+        },
+        {
+          "id": "ds:parliament",
+          "x": 378,
+          "y": 321
+        },
+        {
+          "id": "ds:connections",
+          "x": 378,
+          "y": 243
+        },
+        {
+          "id": "ds:officials",
+          "x": 378,
+          "y": 68
+        },
+        {
+          "id": "ds:ngo",
+          "x": 378,
+          "y": 146
+        },
+        {
+          "id": "f:parliament",
+          "x": 728,
+          "y": 365
+        },
+        {
+          "id": "f:mps",
+          "x": 728,
+          "y": 209
+        },
+        {
+          "id": "f:ngo",
+          "x": 728,
+          "y": 131
+        },
+        {
+          "id": "f:ai",
+          "x": 728,
+          "y": 287
+        }
+      ],
+      "tiers": [
+        {
+          "kind": "source",
+          "label": {
+            "bg": "Източници",
+            "en": "Sources"
+          },
+          "x": 0,
+          "y": 15,
+          "w": 296,
+          "h": 548
+        },
+        {
+          "kind": "dataset",
+          "label": {
+            "bg": "Данни",
+            "en": "Datasets"
+          },
+          "x": 350,
+          "y": 0,
+          "w": 296,
+          "h": 411
+        },
+        {
+          "kind": "feature",
+          "label": {
+            "bg": "Функции",
+            "en": "Features"
+          },
+          "x": 700,
+          "y": 63,
+          "w": 296,
+          "h": 392
+        }
+      ]
+    },
+    "fiscal": {
+      "nodes": [
+        {
+          "id": "src:water",
+          "x": 28,
+          "y": 2018
+        },
+        {
+          "id": "src:dv",
+          "x": 28,
+          "y": 458
+        },
+        {
+          "id": "src:egov",
+          "x": 28,
+          "y": 1082
+        },
+        {
+          "id": "src:eop",
+          "x": 28,
+          "y": 1394
+        },
+        {
+          "id": "src:aop",
+          "x": 28,
+          "y": 1628
+        },
+        {
+          "id": "src:kzk",
+          "x": 28,
+          "y": 1550
+        },
+        {
+          "id": "src:isun",
+          "x": 28,
+          "y": 224
+        },
+        {
+          "id": "src:opencalls",
+          "x": 28,
+          "y": 68
+        },
+        {
+          "id": "src:keep_eu",
+          "x": 28,
+          "y": 146
+        },
+        {
+          "id": "src:dfz",
+          "x": 28,
+          "y": 380
+        },
+        {
+          "id": "src:ec_fts",
+          "x": 28,
+          "y": 614
+        },
+        {
+          "id": "src:ministries",
+          "x": 28,
+          "y": 770
+        },
+        {
+          "id": "src:municipalities",
+          "x": 28,
+          "y": 1004
+        },
+        {
+          "id": "src:eurostat",
+          "x": 28,
+          "y": 1160
+        },
+        {
+          "id": "src:eu_policy_anchors",
+          "x": 28,
+          "y": 848
+        },
+        {
+          "id": "src:bg_fiscal_anchors",
+          "x": 28,
+          "y": 926
+        },
+        {
+          "id": "src:bnb",
+          "x": 28,
+          "y": 1238
+        },
+        {
+          "id": "src:vss",
+          "x": 28,
+          "y": 692
+        },
+        {
+          "id": "src:defense",
+          "x": 28,
+          "y": 2096
+        },
+        {
+          "id": "src:administration",
+          "x": 28,
+          "y": 1862
+        },
+        {
+          "id": "src:social",
+          "x": 28,
+          "y": 1940
+        },
+        {
+          "id": "src:adfi",
+          "x": 28,
+          "y": 1706
+        },
+        {
+          "id": "src:ted",
+          "x": 28,
+          "y": 1784
+        },
+        {
+          "id": "src:cprs",
+          "x": 28,
+          "y": 1472
+        },
+        {
+          "id": "src:aop_experts",
+          "x": 28,
+          "y": 1316
+        },
+        {
+          "id": "src:isun_clean_delivery",
+          "x": 28,
+          "y": 302
+        },
+        {
+          "id": "src:culture",
+          "x": 28,
+          "y": 536
+        },
+        {
+          "id": "ds:water",
+          "x": 378,
+          "y": 1404
+        },
+        {
+          "id": "ds:procurement",
+          "x": 378,
+          "y": 1326
+        },
+        {
+          "id": "ds:ngo",
+          "x": 378,
+          "y": 780
+        },
+        {
+          "id": "ds:funds",
+          "x": 378,
+          "y": 234
+        },
+        {
+          "id": "ds:interreg",
+          "x": 378,
+          "y": 156
+        },
+        {
+          "id": "ds:opencalls",
+          "x": 378,
+          "y": 68
+        },
+        {
+          "id": "ds:agri",
+          "x": 378,
+          "y": 312
+        },
+        {
+          "id": "ds:health",
+          "x": 378,
+          "y": 936
+        },
+        {
+          "id": "ds:judiciary",
+          "x": 378,
+          "y": 624
+        },
+        {
+          "id": "ds:defense",
+          "x": 378,
+          "y": 1638
+        },
+        {
+          "id": "ds:administration",
+          "x": 378,
+          "y": 1482
+        },
+        {
+          "id": "ds:social",
+          "x": 378,
+          "y": 1560
+        },
+        {
+          "id": "ds:culture",
+          "x": 378,
+          "y": 546
+        },
+        {
+          "id": "ds:pensions",
+          "x": 378,
+          "y": 702
+        },
+        {
+          "id": "ds:doo_fund_plan",
+          "x": 378,
+          "y": 468
+        },
+        {
+          "id": "ds:zbdoo_annexes",
+          "x": 378,
+          "y": 390
+        },
+        {
+          "id": "ds:fy2026_frame",
+          "x": 378,
+          "y": 1092
+        },
+        {
+          "id": "ds:municipal_fiscal",
+          "x": 378,
+          "y": 858
+        },
+        {
+          "id": "ds:budget",
+          "x": 378,
+          "y": 1014
+        },
+        {
+          "id": "ds:macro",
+          "x": 378,
+          "y": 1170
+        },
+        {
+          "id": "ds:macro_fdi",
+          "x": 378,
+          "y": 1248
+        },
+        {
+          "id": "f:water",
+          "x": 728,
+          "y": 1539
+        },
+        {
+          "id": "f:procurement",
+          "x": 728,
+          "y": 915
+        },
+        {
+          "id": "f:ngo",
+          "x": 728,
+          "y": 759
+        },
+        {
+          "id": "f:funds",
+          "x": 728,
+          "y": 137
+        },
+        {
+          "id": "f:agri",
+          "x": 728,
+          "y": 322
+        },
+        {
+          "id": "f:budget",
+          "x": 728,
+          "y": 993
+        },
+        {
+          "id": "f:governance",
+          "x": 728,
+          "y": 546
+        },
+        {
+          "id": "f:judiciary",
+          "x": 728,
+          "y": 837
+        },
+        {
+          "id": "f:defense",
+          "x": 728,
+          "y": 1383
+        },
+        {
+          "id": "f:energy",
+          "x": 728,
+          "y": 1461
+        },
+        {
+          "id": "f:administration",
+          "x": 728,
+          "y": 1227
+        },
+        {
+          "id": "f:regional",
+          "x": 728,
+          "y": 1071
+        },
+        {
+          "id": "f:social",
+          "x": 728,
+          "y": 1305
+        },
+        {
+          "id": "f:culture",
+          "x": 728,
+          "y": 234
+        },
+        {
+          "id": "f:pensions",
+          "x": 728,
+          "y": 468
+        },
+        {
+          "id": "f:ai",
+          "x": 728,
+          "y": 1149
+        }
+      ],
+      "tiers": [
+        {
+          "kind": "source",
+          "label": {
+            "bg": "Източници",
+            "en": "Sources"
+          },
+          "x": 0,
+          "y": 0,
+          "w": 296,
+          "h": 2186
+        },
+        {
+          "kind": "dataset",
+          "label": {
+            "bg": "Данни",
+            "en": "Datasets"
+          },
+          "x": 350,
+          "y": 0,
+          "w": 296,
+          "h": 1728
+        },
+        {
+          "kind": "feature",
+          "label": {
+            "bg": "Функции",
+            "en": "Features"
+          },
+          "x": 700,
+          "y": 69,
+          "w": 296,
+          "h": 1560
+        }
+      ]
+    },
+    "local": {
+      "nodes": [
+        {
+          "id": "src:cik",
+          "x": 28,
+          "y": 784
+        },
+        {
+          "id": "src:sp",
+          "x": 28,
+          "y": 160
+        },
+        {
+          "id": "src:ofac",
+          "x": 28,
+          "y": 68
+        },
+        {
+          "id": "src:comdos",
+          "x": 288,
+          "y": 68
+        },
+        {
+          "id": "src:regulators",
+          "x": 548,
+          "y": 68
+        },
+        {
+          "id": "src:egov",
+          "x": 28,
+          "y": 472
+        },
+        {
+          "id": "src:isun",
+          "x": 28,
+          "y": 238
+        },
+        {
+          "id": "src:opencalls",
+          "x": 808,
+          "y": 68
+        },
+        {
+          "id": "src:keep_eu",
+          "x": 28,
+          "y": 316
+        },
+        {
+          "id": "src:ministries",
+          "x": 28,
+          "y": 394
+        },
+        {
+          "id": "src:municipalities",
+          "x": 28,
+          "y": 550
+        },
+        {
+          "id": "src:tibg",
+          "x": 28,
+          "y": 628
+        },
+        {
+          "id": "src:ipi",
+          "x": 28,
+          "y": 706
+        },
+        {
+          "id": "src:geo",
+          "x": 28,
+          "y": 862
+        },
+        {
+          "id": "ds:local",
+          "x": 378,
+          "y": 560
+        },
+        {
+          "id": "ds:officials",
+          "x": 378,
+          "y": 150
+        },
+        {
+          "id": "ds:funds",
+          "x": 378,
+          "y": 228
+        },
+        {
+          "id": "ds:interreg",
+          "x": 378,
+          "y": 316
+        },
+        {
+          "id": "ds:opencalls",
+          "x": 1158,
+          "y": 68
+        },
+        {
+          "id": "ds:municipal_fiscal",
+          "x": 378,
+          "y": 394
+        },
+        {
+          "id": "ds:localgov",
+          "x": 378,
+          "y": 482
+        },
+        {
+          "id": "ds:geo",
+          "x": 378,
+          "y": 638
+        },
+        {
+          "id": "f:local",
+          "x": 728,
+          "y": 638
+        },
+        {
+          "id": "f:governance",
+          "x": 728,
+          "y": 394
+        },
+        {
+          "id": "f:ai",
+          "x": 728,
+          "y": 560
+        }
+      ],
+      "tiers": [
+        {
+          "kind": "source",
+          "label": {
+            "bg": "Източници",
+            "en": "Sources"
+          },
+          "x": 0,
+          "y": 0,
+          "w": 1076,
+          "h": 952
+        },
+        {
+          "kind": "dataset",
+          "label": {
+            "bg": "Данни",
+            "en": "Datasets"
+          },
+          "x": 350,
+          "y": 0,
+          "w": 1076,
+          "h": 728
+        },
+        {
+          "kind": "feature",
+          "label": {
+            "bg": "Функции",
+            "en": "Features"
+          },
+          "x": 700,
+          "y": 326,
+          "w": 296,
+          "h": 402
+        }
+      ]
+    },
+    "indicators": {
+      "nodes": [
+        {
+          "id": "src:egov",
+          "x": 28,
+          "y": 380
+        },
+        {
+          "id": "src:nsi",
+          "x": 28,
+          "y": 302
+        },
+        {
+          "id": "src:az",
+          "x": 28,
+          "y": 458
+        },
+        {
+          "id": "src:grao",
+          "x": 28,
+          "y": 224
+        },
+        {
+          "id": "src:eurostat",
+          "x": 28,
+          "y": 614
+        },
+        {
+          "id": "src:intl",
+          "x": 28,
+          "y": 770
+        },
+        {
+          "id": "src:bnb",
+          "x": 28,
+          "y": 536
+        },
+        {
+          "id": "src:defense",
+          "x": 28,
+          "y": 1004
+        },
+        {
+          "id": "src:energy",
+          "x": 28,
+          "y": 68
+        },
+        {
+          "id": "src:security",
+          "x": 28,
+          "y": 926
+        },
+        {
+          "id": "src:transport",
+          "x": 28,
+          "y": 692
+        },
+        {
+          "id": "src:administration",
+          "x": 28,
+          "y": 1082
+        },
+        {
+          "id": "src:social",
+          "x": 28,
+          "y": 1160
+        },
+        {
+          "id": "src:wiki",
+          "x": 28,
+          "y": 848
+        },
+        {
+          "id": "src:geo",
+          "x": 28,
+          "y": 146
+        },
+        {
+          "id": "ds:defense",
+          "x": 378,
+          "y": 838
+        },
+        {
+          "id": "ds:energy",
+          "x": 378,
+          "y": 214
+        },
+        {
+          "id": "ds:security",
+          "x": 378,
+          "y": 760
+        },
+        {
+          "id": "ds:transport",
+          "x": 378,
+          "y": 604
+        },
+        {
+          "id": "ds:administration",
+          "x": 378,
+          "y": 916
+        },
+        {
+          "id": "ds:social",
+          "x": 378,
+          "y": 994
+        },
+        {
+          "id": "ds:macro",
+          "x": 378,
+          "y": 682
+        },
+        {
+          "id": "ds:macro_fdi",
+          "x": 378,
+          "y": 526
+        },
+        {
+          "id": "ds:indicators",
+          "x": 378,
+          "y": 448
+        },
+        {
+          "id": "ds:demographics",
+          "x": 378,
+          "y": 370
+        },
+        {
+          "id": "ds:geo",
+          "x": 378,
+          "y": 292
+        },
+        {
+          "id": "f:governance",
+          "x": 728,
+          "y": 360
+        },
+        {
+          "id": "f:defense",
+          "x": 728,
+          "y": 696
+        },
+        {
+          "id": "f:energy",
+          "x": 728,
+          "y": 204
+        },
+        {
+          "id": "f:administration",
+          "x": 728,
+          "y": 774
+        },
+        {
+          "id": "f:regional",
+          "x": 728,
+          "y": 526
+        },
+        {
+          "id": "f:social",
+          "x": 728,
+          "y": 852
+        },
+        {
+          "id": "f:indicators",
+          "x": 728,
+          "y": 448
+        },
+        {
+          "id": "f:ai",
+          "x": 728,
+          "y": 604
+        }
+      ],
+      "tiers": [
+        {
+          "kind": "source",
+          "label": {
+            "bg": "Източници",
+            "en": "Sources"
+          },
+          "x": 0,
+          "y": 0,
+          "w": 296,
+          "h": 1250
+        },
+        {
+          "kind": "dataset",
+          "label": {
+            "bg": "Данни",
+            "en": "Datasets"
+          },
+          "x": 350,
+          "y": 146,
+          "w": 296,
+          "h": 938
+        },
+        {
+          "kind": "feature",
+          "label": {
+            "bg": "Функции",
+            "en": "Features"
+          },
+          "x": 700,
+          "y": 136,
+          "w": 296,
+          "h": 806
+        }
+      ]
+    },
+    "prices": {
+      "nodes": [
+        {
+          "id": "src:eurostat",
+          "x": 28,
+          "y": 68
+        },
+        {
+          "id": "src:kzp",
+          "x": 28,
+          "y": 306
+        },
+        {
+          "id": "src:oil_bulletin",
+          "x": 28,
+          "y": 228
+        },
+        {
+          "id": "src:energy",
+          "x": 28,
+          "y": 150
+        },
+        {
+          "id": "ds:energy",
+          "x": 378,
+          "y": 150
+        },
+        {
+          "id": "ds:prices",
+          "x": 378,
+          "y": 238
+        },
+        {
+          "id": "f:prices",
+          "x": 728,
+          "y": 316
+        },
+        {
+          "id": "f:products",
+          "x": 728,
+          "y": 238
+        },
+        {
+          "id": "f:ai",
+          "x": 728,
+          "y": 160
+        }
+      ],
+      "tiers": [
+        {
+          "kind": "source",
+          "label": {
+            "bg": "Източници",
+            "en": "Sources"
+          },
+          "x": 0,
+          "y": 0,
+          "w": 296,
+          "h": 396
+        },
+        {
+          "kind": "dataset",
+          "label": {
+            "bg": "Данни",
+            "en": "Datasets"
+          },
+          "x": 350,
+          "y": 82,
+          "w": 296,
+          "h": 246
+        },
+        {
+          "kind": "feature",
+          "label": {
+            "bg": "Функции",
+            "en": "Features"
+          },
+          "x": 700,
+          "y": 92,
+          "w": 296,
+          "h": 314
+        }
+      ]
+    }
+  },
   "tours": [
     {
       "id": "linked",

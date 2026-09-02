@@ -167,6 +167,14 @@ describe("the head carries what the panel's empty state used to", () => {
     expect(screenCode()).toMatch(/getElementById\("datamap-panel"\)/);
   });
 
+  it("counts what the map DRAWS, not the whole corpus", () => {
+    // Since the `?view=` filter reflows rather than dims, a corpus-wide
+    // 46/36/26 beside a 9-node prices view would caption a different graph.
+    const src = screenCode();
+    expect(src).toMatch(/graph\.nodes\.filter\(\(n\) => n\.kind === kind\)/);
+    expect(src).not.toMatch(/manifest\.nodes\.filter\(\(n\) => n\.kind/);
+  });
+
   it("counts the tiers in the head instead", () => {
     const src = screenCode();
     expect(src).toMatch(/data_map_tier_sources/);
@@ -346,5 +354,69 @@ describe("the JS breakpoint and the CSS one are the same number", () => {
 
   it("uses that hook rather than a width comparison", () => {
     expect(screenCode()).toMatch(/useMediaQueryMatch\("lg"\)/);
+  });
+});
+
+describe("the view filter reflows rather than dims", () => {
+  // It DIMMED until v3: whichever view was picked the graph stayed 108 nodes at
+  // full size, so a reader who asked for „Цени" scrolled 3,684px past 99 greyed
+  // cards. Measured 2026-09-02 after: prices draws 9 cards, 0 dimmed, and the
+  // page is 1,264px instead of 5,015px, at the same 1.13x zoom.
+  it("draws the resolved view graph, never the whole manifest", () => {
+    const src = screenCode();
+    expect(src).toMatch(/dataMapView\(manifest, viewId\)/);
+    expect(src).toMatch(/graph=\{graph!\}/);
+    const canvas = code("src/screens/components/datamap/DataMapCanvas.tsx");
+    // Every read inside the canvas goes through the resolved graph. A stray
+    // `manifest.` there would draw the full node set at view positions.
+    expect(canvas).not.toMatch(/manifest\./);
+  });
+
+  it("frames the view's own extent", () => {
+    // dataMapExtent over the manifest would size the box for all 108 nodes and
+    // leave a 9-node view floating in a 3,684px column.
+    expect(screenCode()).toMatch(/dataMapExtent\(graph\)/);
+  });
+
+  it("only dims on the fallback path", () => {
+    // With a baked layout the non-members are absent, so computing viewIds
+    // would grey out the whole view.
+    const canvas = code("src/screens/components/datamap/DataMapCanvas.tsx");
+    expect(canvas).toMatch(
+      /if \(!viewTag \|\| !graph\.dimNonMembers\) return null;/,
+    );
+  });
+
+  it("keeps the panel on the FULL manifest", () => {
+    // The map is a window; a node's „Built from" / „Used by" chips are claims
+    // about the DATA. Narrowing them to the view would tell a reader that
+    // ds:demographics has no sources, which is false — and the panel is also
+    // the only route back to a neighbour the view cut, via the widen effect
+    // below.
+    const src = screenCode();
+    expect(src).toMatch(/<DataMapPanel[\s\S]{0,200}manifest=\{manifest\}/);
+    const panel = code("src/screens/components/datamap/DataMapPanel.tsx");
+    expect(panel).toMatch(/manifest\.edges/);
+    expect(panel).not.toMatch(/dataMapView|graph\./);
+  });
+
+  it("says on the card when the view cut a connection", () => {
+    // A card that loses every arrow in one direction reads as an answer on a
+    // page whose subject is provenance. Measured on ?view=prices: src:eurostat
+    // draws with a „+3" badge instead of feeding nothing.
+    expect(screenCode()).toMatch(
+      /hiddenLabel=\{\(n\) => t\("data_map_hidden_edges"/,
+    );
+    const canvas = code("src/screens/components/datamap/DataMapCanvas.tsx");
+    expect(canvas).toMatch(/hidden: graph\.hidden\.get\(n\.id\)/);
+  });
+
+  it("widens the view when the selection is not in it", () => {
+    // A neighbour chip, a deep link or a tour step can name a node the view
+    // does not contain; without this the panel describes a node the map does
+    // not draw. Verified live: /data?view=prices&node=src:cik drops the view.
+    expect(screenCode()).toMatch(
+      /if \(!graph\.nodes\.some\(\(n\) => n\.id === selectedId\)\) setParam\("view", null\);/,
+    );
   });
 });

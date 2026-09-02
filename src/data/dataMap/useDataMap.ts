@@ -98,6 +98,12 @@ export type DataMapLink = {
   query?: string;
 };
 
+/** One baked ELK layout — see dataMapView below and the v1 plan. */
+export type DataMapLayout = {
+  nodes: { id: string; x: number; y: number }[];
+  tiers: DataMapTier[];
+};
+
 export type DataMapManifest = {
   version: number;
   generatedAt: string;
@@ -107,6 +113,103 @@ export type DataMapManifest = {
   tiers: DataMapTier[];
   tours: DataMapTour[];
   links: DataMapLink[];
+  /** v3. Absent on a cached v2 manifest — dataMapView falls back. */
+  layouts?: Record<string, DataMapLayout>;
+};
+
+/** What the map draws for one view. */
+export type DataMapViewGraph = {
+  nodes: DataMapNode[];
+  tiers: DataMapTier[];
+  edges: DataMapEdge[];
+  links: DataMapLink[];
+  /**
+   * Per drawn node, how many of its lineage edges the view does NOT show.
+   *
+   * A view's membership is a curated `tags` array and does not follow lineage,
+   * so filtering edges to the members can leave a card with every arrow in one
+   * direction gone — `ds:demographics` draws with no source in `elections`,
+   * `src:eurostat` feeds nothing in `prices`. On a page whose whole subject is
+   * provenance, a card with no arrows reads as an answer rather than as an
+   * omission, so the card says how many are hidden instead.
+   *
+   * Closing each view over one lineage hop was the obvious alternative and is
+   * measurably worse: it takes `elections` from 20 nodes to 48 and `prices`
+   * from 9 to 34, which gives back most of the collapse the layouts exist for.
+   */
+  hidden: Map<string, number>;
+  /**
+   * True only on the fallback path. With a baked layout the view's non-members
+   * are ABSENT, so there is nothing to dim; without one the whole graph is
+   * drawn and the others are dimmed, which is how this filter behaved before
+   * v3 and is what a cached v2 manifest still gets.
+   */
+  dimNonMembers: boolean;
+};
+
+/**
+ * Resolve the graph for one view — the ONE place that decides what the map
+ * draws, so the canvas, the panel and the framing cannot disagree about which
+ * nodes exist.
+ *
+ * The `?view=` filter used to dim: the graph stayed 108 nodes at full size
+ * whichever view was picked, so a reader who asked for „Избори" still scrolled
+ * 3,584px past 88 greyed-out cards. With the baked layouts it reflows —
+ * measured, elections goes 986x3584 to 952x624 at the same 1.15x zoom.
+ */
+export const dataMapView = (
+  manifest: DataMapManifest,
+  viewId: string,
+): DataMapViewGraph => {
+  // The manifest's own view list is the vocabulary, and the lookup is
+  // own-property-only. `?view=` comes straight off the query string, and
+  // `manifest` comes from JSON.parse — so `layouts["constructor"]`,
+  // `["__proto__"]`, `["toString"]` and friends are all TRUTHY, the `!layout`
+  // fallback is skipped, and `layout.nodes.map` throws. That throw happens in a
+  // useMemo during render with no ErrorBoundary anywhere in src/, i.e.
+  // `/data?view=constructor` is a blank page rather than a degraded one.
+  // `?lens=` two lines away in the screen was already validated this way.
+  const known = manifest.views.some((v) => v.id === viewId);
+  const layout =
+    known &&
+    Object.prototype.hasOwnProperty.call(manifest.layouts ?? {}, viewId)
+      ? manifest.layouts![viewId]
+      : undefined;
+  // An id the manifest does not know is not a narrower view — it is no view at
+  // all, so it must not dim the map down to nothing either.
+  if (!layout || !layout.nodes.length)
+    return {
+      nodes: manifest.nodes,
+      tiers: manifest.tiers,
+      edges: manifest.edges,
+      links: manifest.links,
+      hidden: new Map(),
+      dimNonMembers: known && viewId !== "all",
+    };
+  const at = new Map(layout.nodes.map((n) => [n.id, n]));
+  const nodes = manifest.nodes
+    .filter((n) => at.has(n.id))
+    .map((n) => ({ ...n, x: at.get(n.id)!.x, y: at.get(n.id)!.y }));
+  const ids = new Set(nodes.map((n) => n.id));
+  // Both are filtered to the members: an edge with one end outside the view has
+  // nowhere to land, and React Flow drops such an edge silently rather than
+  // erroring — the failure class lateralHandles.test.ts exists for.
+  const hidden = new Map<string, number>();
+  for (const e of manifest.edges) {
+    const from = ids.has(e.from);
+    const to = ids.has(e.to);
+    if (from === to) continue;
+    const inside = from ? e.from : e.to;
+    hidden.set(inside, (hidden.get(inside) ?? 0) + 1);
+  }
+  return {
+    nodes,
+    tiers: layout.tiers,
+    edges: manifest.edges.filter((e) => ids.has(e.from) && ids.has(e.to)),
+    links: manifest.links.filter((l) => ids.has(l.a) && ids.has(l.b)),
+    hidden,
+    dimNonMembers: false,
+  };
 };
 
 export type DataMapLens = "none" | "cadence" | "origin" | "fresh" | "links";
@@ -190,8 +293,12 @@ const fetchDataMap = async (): Promise<DataMapManifest> => {
   // published manifest carries tours AND says v1 — meaning `version` records
   // when someone remembered to bump it, not what the file contains. Do not
   // branch on it; coerce every array field instead, so no consumer reads
-  // `.length`/`.map` of undefined — the page renders with whatever the cached copy carries and
-  // self-heals once the cache refreshes.
+  // `.length`/`.map` of undefined — the page renders with whatever the cached
+  // copy carries and self-heals once the cache refreshes.
+  //
+  // `layouts` (v3) is the one field NOT coerced: it is a Record rather than an
+  // array, and its single reader — dataMapView — already guards it with `?.`
+  // and an own-property check before touching it.
   return {
     ...m,
     nodes: m.nodes ?? [],

@@ -5,6 +5,7 @@ import { Play } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
 import {
+  dataMapView,
   DATA_MAP_FRESH_DAYS,
   DATA_MAP_KEY_COLOR,
   useDataMap,
@@ -92,6 +93,13 @@ export const DataMapScreen = () => {
   const viewId = searchParams.get("view") ?? "all";
   const viewTag = useMemo(
     () => manifest?.views.find((v) => v.id === viewId)?.tag ?? null,
+    [manifest, viewId],
+  );
+  // What the map actually draws: with a baked layout this is the view's members
+  // at that view's positions; without one it is the whole graph and the canvas
+  // dims the rest, which is how this filter behaved before v3.
+  const graph = useMemo(
+    () => (manifest ? dataMapView(manifest, viewId) : null),
     [manifest, viewId],
   );
 
@@ -191,20 +199,21 @@ export const DataMapScreen = () => {
     else if (selectedKind === "source") setOverlaySide("right");
   }, [selectedKind]);
 
-  // The three tier counts. They describe the PAGE, so they belong in its head
-  // rather than in the detail panel's empty state, where they were 360px of
-  // sidebar repeating itself beside a 4000px canvas — and, on a narrow screen,
-  // sat BELOW the whole map where nobody reached them.
+  // The three tier counts, taken from what the map ACTUALLY DRAWS rather than
+  // from the corpus. They describe the page, so they belong in its head rather
+  // than in the detail panel's empty state — but since the `?view=` filter
+  // reflows instead of dimming, a corpus-wide 46/36/26 beside a 9-node prices
+  // view would be a caption for a different graph.
   const counts = useMemo(() => {
-    if (!manifest) return null;
+    if (!graph) return null;
     const by = (kind: string) =>
-      manifest.nodes.filter((n) => n.kind === kind).length;
+      graph.nodes.filter((n) => n.kind === kind).length;
     return {
       source: by("source"),
       dataset: by("dataset"),
       feature: by("feature"),
     };
-  }, [manifest]);
+  }, [graph]);
 
   // Size the canvas to the graph's own aspect ratio (width-driven) so the
   // initial fit lands near 1:1 zoom and stays readable — a fixed landscape
@@ -213,9 +222,17 @@ export const DataMapScreen = () => {
   // module the canvas frames with, so the box and the framing read one set of
   // bounds — see dataMapExtent for the one way they can still disagree.
   const extent = useMemo(
-    () => (manifest ? dataMapExtent(manifest) : { w: 1, h: 1 }),
-    [manifest],
+    () => (graph ? dataMapExtent(graph) : { w: 1, h: 1 }),
+    [graph],
   );
+
+  // A neighbour chip, a deep link or a tour step can name a node the active
+  // view does not contain. Without this the panel would describe a node the map
+  // does not draw — so the view widens to `all` rather than the two disagreeing.
+  useEffect(() => {
+    if (!graph || !selectedId || viewId === "all") return;
+    if (!graph.nodes.some((n) => n.id === selectedId)) setParam("view", null);
+  }, [graph, selectedId, viewId, setParam]);
 
   // The overlay materialises over the canvas with no viewport movement (the
   // nudge below is suppressed there), so Escape is the keyboard exit to match
@@ -457,7 +474,7 @@ export const DataMapScreen = () => {
               }}
             >
               <DataMapCanvas
-                manifest={manifest}
+                graph={graph!}
                 lang={lang}
                 selectedId={selectedId}
                 viewTag={viewTag}
@@ -470,6 +487,7 @@ export const DataMapScreen = () => {
                 }}
                 lens={lens}
                 fitLabel={t("data_map_fit")}
+                hiddenLabel={(n) => t("data_map_hidden_edges", { count: n })}
                 // One value decides both: the card and the zoom/fit controls
                 // are the only two things that float over this canvas, and
                 // bottom-right is where BOTH defaulted. A sticky card unpins at

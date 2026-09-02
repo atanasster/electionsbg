@@ -25,7 +25,7 @@ import {
   DATA_MAP_FRESH_DAYS,
   type DataMapKind,
   type DataMapLens,
-  type DataMapManifest,
+  type DataMapViewGraph,
 } from "@/data/dataMap/useDataMap";
 import {
   dataMapBounds,
@@ -48,7 +48,12 @@ import {
 const nodeTypes = { card: DataMapNodeCard, tier: DataMapTierFrame };
 
 type Props = {
-  manifest: DataMapManifest;
+  /**
+   * What to draw — the ACTIVE VIEW's graph, not the whole manifest. Resolved
+   * once by dataMapView() so the canvas, the framing and the panel cannot
+   * disagree about which nodes exist.
+   */
+  graph: DataMapViewGraph;
   lang: "bg" | "en";
   selectedId: string | null;
   viewTag: string | null;
@@ -59,6 +64,8 @@ type Props = {
   lens: DataMapLens;
   /** Accessible name for the fit-view control — see the Controls block below. */
   fitLabel: string;
+  /** `n` → the title on a card's "+n connections outside this view" badge. */
+  hiddenLabel: (n: number) => string;
   /** Which bottom corner the controls take. The detail overlay floats over
    *  this canvas too, and both defaulted to bottom-right. */
   controlsSide: "left" | "right";
@@ -91,11 +98,11 @@ const MOBILE_PANE_PX = 700;
  * Controls block below.) See src/data/dataMap/viewport.ts for the measurements.
  */
 const CameraDirector: FC<{
-  manifest: DataMapManifest;
+  graph: DataMapViewGraph;
   focusIds: string[];
   /** Bumped by the fit control, which this component owns outright. */
   frameNonce: number;
-}> = ({ manifest, focusIds, frameNonce }) => {
+}> = ({ graph, focusIds, frameNonce }) => {
   const { setViewport } = useReactFlow();
   const width = useStore((s) => s.width);
   const height = useStore((s) => s.height);
@@ -105,10 +112,10 @@ const CameraDirector: FC<{
   // identity transform on every page load.
   const framed = useRef(false);
 
-  const graphBounds = useMemo(() => dataMapGraphBounds(manifest), [manifest]);
+  const graphBounds = useMemo(() => dataMapGraphBounds(graph), [graph]);
   const boxById = useMemo(
-    () => new Map<string, DataMapBox>(manifest.nodes.map((n) => [n.id, n])),
-    [manifest.nodes],
+    () => new Map<string, DataMapBox>(graph.nodes.map((n) => [n.id, n])),
+    [graph.nodes],
   );
 
   // `focusKey` is the DEPENDENCY — a stable string beats an array rebuilt on
@@ -150,7 +157,7 @@ const CameraDirector: FC<{
 };
 
 const InnerCanvas: FC<Props> = ({
-  manifest,
+  graph,
   lang,
   selectedId,
   viewTag,
@@ -159,6 +166,7 @@ const InnerCanvas: FC<Props> = ({
   kindLabels,
   lens,
   fitLabel,
+  hiddenLabel,
   controlsSide,
   onSelect,
 }) => {
@@ -171,13 +179,13 @@ const InnerCanvas: FC<Props> = ({
   const [now] = useState(() => Date.now());
 
   const closure = useMemo(
-    () => (selectedId ? dataMapClosure(manifest.edges, selectedId) : null),
-    [manifest.edges, selectedId],
+    () => (selectedId ? dataMapClosure(graph.edges, selectedId) : null),
+    [graph.edges, selectedId],
   );
   const hoverClosure = useMemo(
     () =>
-      !selectedId && hoverId ? dataMapClosure(manifest.edges, hoverId) : null,
-    [manifest.edges, selectedId, hoverId],
+      !selectedId && hoverId ? dataMapClosure(graph.edges, hoverId) : null,
+    [graph.edges, selectedId, hoverId],
   );
 
   // ONE hop, deliberately not a closure: lateral links are a different
@@ -187,23 +195,26 @@ const InnerCanvas: FC<Props> = ({
     () =>
       selectedId
         ? new Set(
-            dataMapLinkNeighbours(manifest.links, selectedId).map((l) =>
+            dataMapLinkNeighbours(graph.links, selectedId).map((l) =>
               l.a === selectedId ? l.b : l.a,
             ),
           )
         : null,
-    [manifest.links, selectedId],
+    [graph.links, selectedId],
   );
 
+  // Dimming is the FALLBACK path only: with a baked per-view layout the other
+  // nodes are not in `graph.nodes` at all, so there is nothing left to dim and
+  // computing this would grey out the whole view.
   const viewIds = useMemo(() => {
-    if (!viewTag) return null;
+    if (!viewTag || !graph.dimNonMembers) return null;
     return new Set(
-      manifest.nodes.filter((n) => n.tags.includes(viewTag)).map((n) => n.id),
+      graph.nodes.filter((n) => n.tags.includes(viewTag)).map((n) => n.id),
     );
-  }, [manifest.nodes, viewTag]);
+  }, [graph.nodes, viewTag, graph.dimNonMembers]);
 
   const nodes: Node[] = useMemo(() => {
-    const tierNodes: Node[] = manifest.tiers.map((t) => ({
+    const tierNodes: Node[] = graph.tiers.map((t) => ({
       id: `tier:${t.kind}`,
       type: "tier",
       position: { x: t.x, y: t.y },
@@ -216,7 +227,7 @@ const InnerCanvas: FC<Props> = ({
       style: { pointerEvents: "none" as const, zIndex: -1 },
     }));
 
-    const cardNodes: Node[] = manifest.nodes.map((n) => {
+    const cardNodes: Node[] = graph.nodes.map((n) => {
       let status: NodeStatus = "base";
       if (selectedId) {
         status =
@@ -251,6 +262,8 @@ const InnerCanvas: FC<Props> = ({
             : undefined,
           kindLabel: kindLabels[n.kind],
           lensColor,
+          hidden: graph.hidden.get(n.id),
+          hiddenTitle: hiddenLabel(graph.hidden.get(n.id) ?? 0),
           onActivate: (id: string) => onSelect(id === selectedId ? null : id),
         },
         draggable: false,
@@ -263,7 +276,10 @@ const InnerCanvas: FC<Props> = ({
 
     return [...tierNodes, ...cardNodes];
   }, [
-    manifest,
+    graph.nodes,
+    graph.tiers,
+    graph.hidden,
+    hiddenLabel,
     lang,
     selectedId,
     closure,
@@ -285,8 +301,8 @@ const InnerCanvas: FC<Props> = ({
   const lateralEdges: Edge[] = useMemo(() => {
     const show = lens === "links" || !!selectedId;
     if (!show) return [];
-    const posY = new Map(manifest.nodes.map((n) => [n.id, n.y]));
-    return manifest.links
+    const posY = new Map(graph.nodes.map((n) => [n.id, n.y]));
+    return graph.links
       .filter((l) => !selectedId || l.a === selectedId || l.b === selectedId)
       .map((l) => {
         // Pick top vs bottom by sign of Δy so the edge leaves toward its
@@ -322,11 +338,11 @@ const InnerCanvas: FC<Props> = ({
           selectable: false,
         } satisfies Edge;
       });
-  }, [manifest.links, manifest.nodes, lens, selectedId, lang]);
+  }, [graph.links, graph.nodes, lens, selectedId, lang]);
 
   const edges: Edge[] = useMemo(
     () =>
-      manifest.edges.map((e) => {
+      graph.edges.map((e) => {
         let status: NodeStatus = "base";
         if (closure) {
           status = closure.has(e.from) && closure.has(e.to) ? "hot" : "dim";
@@ -365,7 +381,7 @@ const InnerCanvas: FC<Props> = ({
             : undefined,
         };
       }),
-    [manifest.edges, closure, hoverClosure, viewIds],
+    [graph.edges, closure, hoverClosure, viewIds],
   );
 
   // The absolute fill wrapper gives React Flow a definite height — the
@@ -441,7 +457,7 @@ const InnerCanvas: FC<Props> = ({
           </ControlButton>
         </Controls>
         <CameraDirector
-          manifest={manifest}
+          graph={graph}
           focusIds={closure ? [...closure] : []}
           frameNonce={frameNonce}
         />

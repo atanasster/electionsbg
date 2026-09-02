@@ -101,6 +101,13 @@ export interface ManifestTier {
   h: number;
 }
 
+export interface ManifestLayout {
+  /** Members of the view, at their positions IN that view's layout. */
+  nodes: { id: string; x: number; y: number }[];
+  /** Frames for the kinds the view actually contains — see §4 of the plan. */
+  tiers: ManifestTier[];
+}
+
 export interface ManifestLink {
   id: string;
   /** Both `ds:*`, sorted — the pair is undirected. */
@@ -129,6 +136,16 @@ export interface DataMapManifest {
   edges: { id: string; from: string; to: string }[];
   views: { id: string; label: Lang; tag: string | null }[];
   tiers: ManifestTier[];
+  /**
+   * One baked layout per view id, `all` included — see
+   * docs/plans/data-map-view-layouts-v1.md. The `?view=` filter used to DIM
+   * the other 88 nodes and leave the graph at full size; with these it reflows,
+   * which takes `elections` from 986x3584 to 952x624 at the same 1.15x zoom.
+   *
+   * Baked rather than computed client-side because ELK is ~1.4 MB and never
+   * ships to the browser. The cost is one {id, x, y} per (view, member) pair.
+   */
+  layouts: Record<string, ManifestLayout>;
   /** Lateral dataset↔dataset links. NEVER an ELK input — see §1.1. */
   links: ManifestLink[];
   tours: { id: string; title: Lang; steps: { node: string; text: Lang }[] }[];
@@ -849,22 +866,54 @@ const layout = async (
   }
 };
 
+// A tier with no members is OMITTED, not emitted empty: `Math.min()` over an
+// empty array is Infinity, so a per-view layout for a view that contains no
+// features would otherwise carry a frame at (Infinity, Infinity).
 const buildTiers = (nodes: ManifestNode[]): ManifestTier[] =>
-  TIERS.map((t) => {
+  TIERS.flatMap((t) => {
     const members = nodes.filter((n) => n.kind === t.kind);
+    if (!members.length) return [];
     const x0 = Math.min(...members.map((n) => n.x));
     const y0 = Math.min(...members.map((n) => n.y));
     const x1 = Math.max(...members.map((n) => n.x + n.w));
     const y1 = Math.max(...members.map((n) => n.y + n.h));
-    return {
-      kind: t.kind,
-      label: t.label,
-      x: x0 - TIER_PAD,
-      y: y0 - TIER_PAD - TIER_HEAD,
-      w: x1 - x0 + TIER_PAD * 2,
-      h: y1 - y0 + TIER_PAD * 2 + TIER_HEAD,
-    };
+    return [
+      {
+        kind: t.kind,
+        label: t.label,
+        x: x0 - TIER_PAD,
+        y: y0 - TIER_PAD - TIER_HEAD,
+        w: x1 - x0 + TIER_PAD * 2,
+        h: y1 - y0 + TIER_PAD * 2 + TIER_HEAD,
+      },
+    ];
   });
+
+/**
+ * The layout for one view: ELK over that view's members and the edges BETWEEN
+ * them, on copies, so the `all` positions already on `nodes` are untouched.
+ *
+ * Running the real layout per view rather than reusing the `all` positions is
+ * the whole point — a subset of a 3584px-tall column is still 3584px tall, and
+ * what collapses the page is re-solving the column for 20 nodes instead of 108.
+ */
+const buildViewLayout = async (
+  nodes: ManifestNode[],
+  edges: [string, string][],
+  tag: string | null,
+): Promise<ManifestLayout> => {
+  const members = tag ? nodes.filter((n) => n.tags.includes(tag)) : nodes;
+  const ids = new Set(members.map((n) => n.id));
+  const copies = members.map((n) => ({ ...n }));
+  await layout(
+    copies,
+    edges.filter(([from, to]) => ids.has(from) && ids.has(to)),
+  );
+  return {
+    nodes: copies.map((n) => ({ id: n.id, x: n.x, y: n.y })),
+    tiers: buildTiers(copies),
+  };
+};
 
 const main = async (): Promise<void> => {
   const ai = deriveAiEdges();
@@ -881,15 +930,25 @@ const main = async (): Promise<void> => {
   await layout(nodes, edges);
   const tiers = buildTiers(nodes);
 
+  // One ELK run per view (~200ms each), offline. `all` is included so the
+  // client resolver has no special case for it.
+  const layouts: Record<string, ManifestLayout> = {};
+  for (const v of VIEWS)
+    layouts[v.id] = await buildViewLayout(nodes, edges, v.tag);
+
   const manifest: DataMapManifest = {
-    // v2: adds the lateral `links` array (step 4). Older cached copies have
-    // no such field, which useDataMap coerces to [].
-    version: 2,
+    // v3: adds `layouts`, one baked ELK layout per view. Older cached copies
+    // have no such field; dataMapView() falls back to the full graph plus the
+    // pre-existing dimming, so a stale manifest still renders.
+    // v2 added the lateral `links` array (step 4), which useDataMap coerces
+    // to [] when absent.
+    version: 3,
     generatedAt: new Date().toISOString(),
     nodes,
     edges: edges.map(([from, to], i) => ({ id: `e${i}`, from, to })),
     views: VIEWS,
     tiers,
+    layouts,
     tours: TOURS,
     // NOT in `edges`: these never reach ELK (§1.1 — 15 of them shatter the
     // dataset tier into five columns and double the graph width).

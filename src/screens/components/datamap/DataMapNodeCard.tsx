@@ -21,6 +21,14 @@ export type CardNodeData = {
   kindLabel: string;
   /** Active lens colour (CSS expression) — overrides the kind dot/tint. */
   lensColor?: string;
+  /**
+   * Lineage edges this VIEW does not show, and the words for them. A view's
+   * membership is curated per node and does not follow lineage, so a card can
+   * lose every arrow in one direction — and on a page about provenance, a card
+   * with no arrows reads as an answer rather than as an omission.
+   */
+  hidden?: number;
+  hiddenTitle?: string;
   onActivate: (id: string) => void;
 };
 
@@ -48,6 +56,8 @@ export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
     freshTitle,
     kindLabel,
     lensColor,
+    hidden,
+    hiddenTitle,
     onActivate,
   } = data;
   return (
@@ -102,6 +112,14 @@ export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
       <p className="mt-0.5 truncate pl-3.5 text-[11px] leading-tight text-muted-foreground">
         {node.detail[lang]}
       </p>
+      {hidden && status !== "dim" ? (
+        <span
+          title={hiddenTitle}
+          className="absolute bottom-1 right-1.5 rounded-full bg-secondary px-1.5 text-[10px] font-medium leading-4 text-muted-foreground"
+        >
+          +{hidden}
+        </span>
+      ) : null}
       {fresh && status !== "dim" ? (
         <span
           title={freshTitle}
