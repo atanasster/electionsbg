@@ -586,3 +586,43 @@ describe("sticky positioning is possible at all", () => {
     expect(layout).not.toMatch(/<main[^>]*overflow-[xy]-(auto|scroll)/);
   });
 });
+
+describe("the source cards carry a last-updated footer", () => {
+  // Freshness is a property of the REGISTER we poll, so only sources have one:
+  // 42 of 46 baked, 43 of 46 once the live data-changes overlay is applied, and
+  // the other three get no line rather than an invented date.
+  const canvas = () => code("src/screens/components/datamap/DataMapCanvas.tsx");
+  const card = () => code("src/screens/components/datamap/DataMapNodeCard.tsx");
+
+  it("shows it on sources only", () => {
+    expect(canvas()).toMatch(/n\.kind === "source" && freshAt/);
+  });
+
+  it("formats the RESOLVED date, the one the pulse uses", () => {
+    // `freshAt` is `freshness.get(n.id) ?? n.freshness` — the live overlay wins
+    // over the baked stamp. Formatting `n.freshness` instead would let a card
+    // print one date while pulsing about another.
+    expect(canvas()).toMatch(/updated:[\s\S]{0,80}formatDate\(freshAt, lang\)/);
+    expect(canvas()).not.toMatch(/formatDate\(n\.freshness/);
+  });
+
+  it("keeps the greyed line readable", () => {
+    // 10px is normal text and needs 4.5:1. `--muted-foreground` on the card is
+    // 4.55:1 in light mode, so ANY further fade fails — /80 measured 3.16:1.
+    expect(card()).toMatch(
+      /text-\[10px\] leading-tight text-muted-foreground"/,
+    );
+    expect(card()).not.toMatch(/text-muted-foreground\/\d+">/);
+  });
+
+  it("names the date for a screen reader", () => {
+    // A bare number under a card says nothing without the visual context.
+    expect(card()).toMatch(/sr-only">\{updatedLabel\}/);
+  });
+
+  it("leaves the +n badge its corner", () => {
+    // The badge is absolute bottom-right; without the reserved padding the date
+    // would run under it.
+    expect(card()).toMatch(/pl-3\.5 pr-8 text-\[10px\]/);
+  });
+});

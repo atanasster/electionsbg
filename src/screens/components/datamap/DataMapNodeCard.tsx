@@ -29,6 +29,17 @@ export type CardNodeData = {
    */
   hidden?: number;
   hiddenTitle?: string;
+  /**
+   * When this source last changed, already formatted. Sources only — 42 of the
+   * 46 carry a date and no dataset or feature carries one, because freshness is
+   * a property of the REGISTER we poll rather than of what we derive from it.
+   *
+   * It is the same value the pulsing dot is computed from, live overlay
+   * included, so the card cannot show one date and pulse about another.
+   */
+  updated?: string;
+  /** "Last change" — read out before the date, at no visual cost. */
+  updatedLabel?: string;
   onActivate: (id: string) => void;
 };
 
@@ -58,6 +69,8 @@ export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
     lensColor,
     hidden,
     hiddenTitle,
+    updated,
+    updatedLabel,
     onActivate,
   } = data;
   return (
@@ -112,6 +125,21 @@ export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
       <p className="mt-0.5 truncate pl-3.5 text-[11px] leading-tight text-muted-foreground">
         {node.detail[lang]}
       </p>
+      {updated ? (
+        // A bare date reads fine under a card in the „Източници" tier and keeps
+        // the line to ~10px; the label is there for screen readers, which would
+        // otherwise get a naked number. `pr-8` leaves the +n badge its corner.
+        // `text-muted-foreground`, NOT a faded variant of it: at 10px this is
+        // normal text and needs 4.5:1. The token itself is 4.55:1 on the card
+        // in light mode, so an extra /80 drops it to 3.16:1 — greyed and
+        // unreadable rather than greyed and quiet.
+        <p className="mt-0.5 truncate pl-3.5 pr-8 text-[10px] leading-tight text-muted-foreground">
+          {updatedLabel ? (
+            <span className="sr-only">{updatedLabel}: </span>
+          ) : null}
+          {updated}
+        </p>
+      ) : null}
       {hidden && status !== "dim" ? (
         <span
           title={hiddenTitle}

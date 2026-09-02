@@ -17,6 +17,7 @@ import "@xyflow/react/dist/style.css";
 import { Maximize } from "lucide-react";
 import "./datamap.css";
 import { formatCount } from "@/lib/currency";
+import { formatDate } from "@/lib/formatDate";
 import {
   dataMapClosure,
   dataMapLinkNeighbours,
@@ -264,6 +265,15 @@ const InnerCanvas: FC<Props> = ({
           lensColor,
           hidden: graph.hidden.get(n.id),
           hiddenTitle: hiddenLabel(graph.hidden.get(n.id) ?? 0),
+          // Sources only: they are the things we poll, so they are the only
+          // ones a "last change" is a fact about. `freshAt` is the resolved
+          // value — the live data-changes overlay wins over the baked stamp —
+          // so the date and the pulse can never disagree.
+          updated:
+            n.kind === "source" && freshAt
+              ? formatDate(freshAt, lang)
+              : undefined,
+          updatedLabel: freshLabel,
           onActivate: (id: string) => onSelect(id === selectedId ? null : id),
         },
         draggable: false,
