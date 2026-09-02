@@ -17,6 +17,12 @@
 // thrown, so the watcher's own source-down path reports a probe failure instead
 // of a collapse to nothing, which on THIS dataset would read as „every project
 // lost its clean-delivery status".
+//
+// ⚠️ It fetches through curl (`viaCurl`), because the F5 rejects the CLIENT.
+// Measured 2026-09-02: this source had errored on EVERY daily report since it
+// was wired on 2026-08-20 — 13 days, never once a successful fingerprint —
+// while the site answered curl fine the whole time. No header combination gets
+// Node through; curl with the same headers gets the clean page.
 
 import { createHash } from "crypto";
 import type { Fingerprint, WatchSource } from "../types";
@@ -71,6 +77,9 @@ export const isunCleanDelivery: WatchSource = {
           "Accept-Language": "bg-BG,bg;q=0.9,en;q=0.8",
         },
         retries: 3,
+        // Node cannot reach this host at all — the F5 fingerprints the client,
+        // not the request. See the `viaCurl` note in fingerprint.ts.
+        viaCurl: true,
       });
       if (html === null || isRefusal(html))
         throw new Error(

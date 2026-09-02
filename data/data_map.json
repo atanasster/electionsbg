@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-02T09:10:31.797Z",
+  "generatedAt": "2026-09-02T09:18:16.668Z",
   "nodes": [
     {
       "id": "src:water",
@@ -2182,6 +2182,7 @@
       "url": "https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True",
       "origin": "state",
       "cadence": "weekly",
+      "freshness": "2026-09-02T09:17:50.584Z",
       "skills": [
         "update-funds"
       ],
@@ -2190,7 +2191,8 @@
           "id": "isun_clean_delivery",
           "label": "ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg)",
           "url": "https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-09-02T09:17:50.584Z"
         }
       ],
       "x": 28,

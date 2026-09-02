@@ -1,4 +1,5 @@
 import { createHash } from "crypto";
+import { spawnSync } from "child_process";
 import { Agent, fetch as undiciFetch } from "undici";
 
 export const sha256 = (input: string | Uint8Array): string =>
@@ -32,6 +33,18 @@ export interface FetchOpts {
   // Disable TLS cert chain verification for this request only. Use only when
   // the upstream is known to serve an incomplete chain. Read-only data!
   insecureTls?: boolean;
+  // Fetch through the `curl` binary instead of Node.
+  //
+  // Sibling of `insecureTls`, for the same class of problem one layer up: some
+  // upstreams reject the CLIENT rather than the request. 2020.eufunds.bg sits
+  // behind an F5 ASM that fingerprints the TLS/HTTP handshake — measured
+  // 2026-09-02, node returns a 245-byte „Request Rejected" or an ASM JS
+  // challenge under EVERY header combination tried (the source's own headers,
+  // Accept: */*, a full Chrome set, even curl's own UA), while curl with those
+  // same headers gets the clean 85KB page. Headers cannot fix a JA3 match.
+  //
+  // GET only, read-only data, no shell (execFile with an argv array).
+  viaCurl?: boolean;
   // AbortSignal for cancellation / timeout. Defaults to a 30-second timeout
   // so a hung upstream can't block the watcher indefinitely.
   signal?: AbortSignal;
@@ -52,6 +65,22 @@ export interface FetchOpts {
   encoding?: string;
 }
 
+/** `curl -sSL` with the caller's headers. Throws on a non-zero exit so the
+ *  caller's retry/`describe` path sees a failure rather than an empty body. */
+const curlText = (url: string, headers: Record<string, string>): string => {
+  const args = ["-sSL", "--compressed", "--max-time", "45"];
+  for (const [k, v] of Object.entries(headers)) args.push("-H", `${k}: ${v}`);
+  args.push(url);
+  const res = spawnSync("curl", args, {
+    encoding: "utf8",
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  if (res.error) throw res.error;
+  if (res.status !== 0)
+    throw new Error(`curl exited ${res.status}: ${(res.stderr || "").trim()}`);
+  return res.stdout;
+};
+
 export const fetchText = async (
   url: string,
   opts: FetchOpts = {},
@@ -63,6 +92,7 @@ export const fetchText = async (
       const headers = { ...DEFAULT_HEADERS, ...(opts.headers ?? {}) };
       const method = opts.method ?? (opts.body === undefined ? "GET" : "POST");
       const init = { headers, signal, method, body: opts.body };
+      if (opts.viaCurl) return curlText(url, headers);
       const res = opts.insecureTls
         ? await undiciFetch(url, { ...init, dispatcher: insecureAgent })
         : await fetch(url, init);
