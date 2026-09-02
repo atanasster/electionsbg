@@ -447,6 +447,15 @@ class BuildAppDataTest(BuildAppDataFixture):
         self.assertEqual(len(home["articles"]), 1)
         self.assertEqual(home["articles"][0]["story_id"], "20260822-s1")
         self.assertIsNone(home["articles"][0]["image"])
+        # ⚠️ The home bundle ships a BOOLEAN, not the analysis. The object was
+        # 54% of home.json — 18,689 of 34,452 gzipped bytes on the first-paint
+        # path — and `homeHierarchy` read it once, as a truthiness test.
+        self.assertTrue(home["articles"][0]["has_analysis"])
+        for dropped in ("analysis", "excerpt", "feedback_analysis_sha256"):
+            self.assertNotIn(dropped, home["articles"][0])
+        # The trim drops a DUPLICATE from the first-paint bundle, not the data:
+        # the article page loads articles/<domain>.json, which is unaffected.
+        self.assertIsInstance(article.get("analysis"), dict)
 
     def test_category_without_subcategory_counted(self):
         url = "https://example.bg/a2"
@@ -1271,6 +1280,35 @@ class MetadataAndBudget(unittest.TestCase):
                 proc = self.run_build()
                 self.assertNotEqual(proc.returncode, 0)
                 self.assertIn(message, proc.stderr)
+
+    def test_home_article_drops_only_what_the_home_page_cannot_render(self):
+        """`home_article` is the projection; this pins WHICH fields it drops.
+
+        ⚠️ `useHome()` has one consumer, which passes `articles` to one
+        function, which reads story_id, image, image_rights, published, domain
+        and id — plus image_alt and url for the credit. Nothing on the page
+        renders an article's own analysis, title or excerpt; the cards render
+        STORIES."""
+        import build_app_data as bad
+        record = {
+            "id": "a1", "domain": "ex.bg", "url": "https://ex.bg/a",
+            "published": "2026-08-22T00:00:00+00:00", "story_id": "s1",
+            "image": None, "image_alt": None, "image_rights": None,
+            "analysis": {"summary_bg": "x"}, "excerpt": "y" * 400,
+            "feedback_analysis_sha256": "f" * 64,
+        }
+        slim = bad.home_article(record)
+        self.assertTrue(slim["has_analysis"])
+        for dropped in ("analysis", "excerpt", "feedback_analysis_sha256"):
+            self.assertNotIn(dropped, slim)
+        for kept in ("id", "domain", "url", "published", "story_id",
+                     "image", "image_alt", "image_rights"):
+            self.assertIn(kept, slim)
+        # It projects, it does not mutate — the caller's record is reused for
+        # the per-domain bundle, which keeps the full analysis.
+        self.assertIsInstance(record["analysis"], dict)
+        # An unanalyzed record says so rather than omitting the marker.
+        self.assertFalse(bad.home_article({"id": "a2"})["has_analysis"])
 
     def test_the_shared_feed_omits_the_article_only_fields(self):
         """section_path and image_alt are read on the article page, which

@@ -248,6 +248,17 @@ export interface ArticleRecord {
   story_id: string | null;
   /** Pre-community-feedback analysis baseline used by the feedback task contract. */
   feedback_analysis_sha256?: string | null;
+  /**
+   * Whether this article carries an analysis — the boolean the HOME bundle
+   * ships in place of the object.
+   *
+   * ⚠️ `analysis` was 54% of home.json (18,689 of 34,452 gzipped bytes) and
+   * `homeHierarchy` read it once, as a truthiness test. The full object is
+   * unchanged in `articles/<domain>.json`, which the article page already
+   * loads; only the first-paint bundle drops it. Absent on a bundle built
+   * before the trim, which is why every reader falls back to `analysis`.
+   */
+  has_analysis?: boolean;
   analysis?: AnalysisBlock;
   /** Present even when the accepted finding is that analysis is missing. */
   editorial_feedback?: EditorialFeedbackProvenance;
@@ -1155,7 +1166,7 @@ export const isHomeBundle = (value: unknown): value is HomeBundle => {
     Array.isArray(bundle.stories) &&
     bundle.articles.every(
       (article) =>
-        Boolean(article.analysis) &&
+        Boolean(article.has_analysis ?? article.analysis) &&
         (article.image_rights?.display_home === true
           ? Boolean(article.image) &&
             isPermittedHomeImageStatus(article.image_rights.status)

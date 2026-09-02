@@ -54,7 +54,7 @@ const bundle = (
   stories: [],
   articles: [
     {
-      analysis: { summary_bg: "Резюме" },
+      has_analysis: true,
       domain: "ex.bg",
       image: display_home ? "https://upload.wikimedia.org/photo.jpg" : null,
       image_rights: { status, display_home, ...rights },
@@ -63,6 +63,34 @@ const bundle = (
 });
 
 describe("home bundle runtime contract", () => {
+  it("accepts the boolean the trimmed home bundle ships, and an older object", () => {
+    // ⚠️ `analysis` was 54% of home.json and one line read it as a boolean.
+    // The bundle now ships `has_analysis`; the client must still accept a
+    // bundle built before the trim, because it can be newer than its data.
+    expect(isHomeBundle(bundle()), "trimmed bundle").toBe(true);
+    const older = bundle();
+    older.articles = [
+      {
+        analysis: { summary_bg: "Резюме" },
+        domain: "ex.bg",
+        image: null,
+        image_rights: { status: "cc", display_home: false },
+      },
+    ] as unknown as typeof older.articles;
+    expect(isHomeBundle(older), "pre-trim bundle").toBe(true);
+    // Neither marker is still refused — an unanalyzed article never reaches
+    // the home bundle, and that is the invariant this check exists for.
+    const unanalyzed = bundle();
+    unanalyzed.articles = [
+      {
+        domain: "ex.bg",
+        image: null,
+        image_rights: { status: "cc", display_home: false },
+      },
+    ] as unknown as typeof unanalyzed.articles;
+    expect(isHomeBundle(unanalyzed), "no analysis marker at all").toBe(false);
+  });
+
   it("rejects a provenance role that claims more than its evidence", () => {
     // ⚠️ Defence in depth for the ONE role that names somebody else. The build
     // refuses a `source_photo` without an article URL on the outlet's own

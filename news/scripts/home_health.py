@@ -86,9 +86,14 @@ def evaluate_home_payload(
         if item[1] is not None and 0 <= item[1] <= default_days * 24
     ]
     visible_ids = [item[0]["id"] for item in visible]
+    # `has_analysis` is the boolean the home bundle now carries; `analysis` is
+    # the object an older bundle carried. Reading both keeps this evaluable
+    # against a bundle built either side of the trim — the health record is
+    # written INTO the bundle, so a mismatch here would be self-inflicted.
     article_story_ids = {
         article.get("story_id") for article in articles
-        if isinstance(article, dict) and article.get("analysis")
+        if isinstance(article, dict)
+        and (article.get("has_analysis") or article.get("analysis"))
     }
     image_story_ids = {
         article.get("story_id") for article in articles

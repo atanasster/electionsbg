@@ -851,6 +851,37 @@ def home_gzip_size(payload: bytes) -> int:
     return len(gzip.compress(payload, compresslevel=6))
 
 
+# Fields an article carries into home.json that the home page never reads.
+#
+# ⚠️ `analysis` ALONE WAS 54% OF THE BUNDLE — 18,689 of 34,452 gzipped bytes,
+# downloaded by every visitor on first paint, to answer a yes/no question.
+# `homeHierarchy.ts` reads it once, as a boolean:
+#
+#     if (!article.story_id || !article.analysis) continue;
+#
+# and nothing on the page renders an article's own title, excerpt or analysis —
+# the cards render STORIES. `useHome()` has one consumer, which passes
+# `articles` to one function, which reads story_id, image, image_rights,
+# published, domain and id, plus image_alt and url for the credit.
+#
+# `has_analysis` replaces the object, so the same question is answered by a
+# boolean. Measured: 34,452 -> 13,169 gzip, from 102% of the launch budget to
+# 39%, with nothing a reader sees changed.
+#
+# ⚠️ The full article — analysis included — is unaffected in
+# `articles/<domain>.json`, which the article page already loads. This drops a
+# duplicate from the one bundle that is on the first-paint path, not the data.
+HOME_ARTICLE_DROPPED_FIELDS = ("analysis", "excerpt", "feedback_analysis_sha256")
+
+
+def home_article(record: dict) -> dict:
+    """One article as the home bundle carries it: no payload it cannot render."""
+    slim = {k: v for k, v in record.items()
+            if k not in HOME_ARTICLE_DROPPED_FIELDS}
+    slim["has_analysis"] = bool(record.get("analysis"))
+    return slim
+
+
 def select_home_payload(
     eligible: list[dict], stories: list[dict],
     rejected_pairs: set[frozenset[str]] | None = None,
@@ -2172,7 +2203,7 @@ def main() -> int:
         "window_days": HOME_WINDOW_DAYS,
         "event_dedupe": "conservative_title_entity_v1",
         "merge_proposals": home_merge_proposals,
-        "articles": home_articles,
+        "articles": [home_article(record) for record in home_articles],
         "stories": home_stories,
     }
     home_payload["home_health"] = evaluate_home_payload(

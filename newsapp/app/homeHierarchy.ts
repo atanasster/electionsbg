@@ -116,7 +116,15 @@ export const buildHomeHierarchy = (
 ): HomeHierarchy => {
   const articlesByStory = new Map<string, ArticleRecord[]>();
   for (const article of articles) {
-    if (!article.story_id || !article.analysis) continue;
+    // ⚠️ `has_analysis`, not `analysis`. The home bundle carries a boolean
+    // because the object was 54% of its bytes and this is the only line that
+    // ever read it. The `analysis` fallback keeps a bundle built before the
+    // trim working — the client can be newer than the data it is served.
+    if (
+      !article.story_id ||
+      !(article.has_analysis ?? Boolean(article.analysis))
+    )
+      continue;
     const bucket = articlesByStory.get(article.story_id) ?? [];
     bucket.push(article);
     articlesByStory.set(article.story_id, bucket);
