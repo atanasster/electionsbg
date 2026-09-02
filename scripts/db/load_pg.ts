@@ -371,11 +371,54 @@ export const loadPg = async (): Promise<{
 
     // Contract-name search index — distinct contractor as they appear in the
     // corpus (covers contractors absent from TR). Rebuilt each load.
+    //
+    // ⚠️ `own_eur` / `primary_name` ARE PER (EIK, NAME) AND PER EIK RESPECTIVELY, and the
+    // whole point is that they are computed here rather than left to the query. The name on
+    // a row is one buyer's spelling; the money `search_contractors` reports is the EIK's
+    // whole history — so a name filed against the wrong ЕИК advertises a stranger's total.
+    // Measured: „Клет българия" ООД appears once (€6,036) under EIK 103795327, which is
+    // БИТ И ТЕХНИКА and holds €2,214,873. See 006's header for the corpus-wide numbers.
+    //
+    // The dominant name is picked by MONEY, tie-broken by `name` so two loads of the same
+    // corpus cannot disagree about what a company is called.
+    //
+    // ⚠️ 1,226 EIKs (4.1%) HAVE NO MONEY TO BE DOMINANT WITH, so for those `primary_name`
+    // is the collation-first name and NOT a dominance claim: `rebuild_consortium()` zeroes
+    // joint-award member rows, and an amendment-only EIK sums to 0 by construction.
+    // Consequence for every consumer: on those 1,271 rows `own_eur` and `contracts_eur`
+    // are BOTH 0, so COMPARE (`own_eur < k * contracts_eur`, false at 0/0 — correct, they
+    // escape suppression) and never DIVIDE. Zero is a third answer here — „no money to
+    // apportion" — and is not the same claim as „a 0% share of real money", which is the
+    // 467 rows the columns actually exist for.
+    //
+    // ⚠️ `own_eur` is a LOAD-time sum grouped by (eik, name); `contracts_eur` is a
+    // QUERY-time sum over the whole EIK inside `search_contractors`. Two `double precision`
+    // summations in different orders, so they do not agree bit-for-bit — measured drift
+    // 6.2e-06. Fine for `<`, fatal for `=` or for rendering „100%".
+    //
+    // ⚠️ The `name` tiebreak resolves through `LC_COLLATE`, which is a per-DATABASE
+    // property — and these tables are rebuilt independently by `db:load:pg` and
+    // `db:load:pg:cloud`. ~80 EIKs of 29,689 (35 with a real tie at the top, ~45 from the
+    // zero-money class) could therefore pick a different name on a differently-collated
+    // instance. Not pinned with `COLLATE "C"` because that changes which name wins today,
+    // i.e. it is a data change rather than a no-op.
+    //
+    // ⚠️ TWIN OF THE AWARDER BLOCK BELOW — change both, or one search side silently keeps
+    // the old rule.
     await c.query("TRUNCATE contractor_search");
     await c.query(
-      `INSERT INTO contractor_search (eik, name)
-       SELECT DISTINCT contractor_eik, contractor_name
-       FROM contracts WHERE contractor_eik <> ''`,
+      `WITH own AS (
+         SELECT contractor_eik AS eik, contractor_name AS name,
+                coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS own_eur
+         FROM contracts WHERE contractor_eik <> '' GROUP BY 1, 2
+       ),
+       dom AS (
+         SELECT DISTINCT ON (eik) eik, name AS primary_name
+         FROM own ORDER BY eik, own_eur DESC, name
+       )
+       INSERT INTO contractor_search (eik, name, own_eur, primary_name)
+       SELECT o.eik, o.name, o.own_eur, d.primary_name
+       FROM own o JOIN dom d USING (eik)`,
     );
 
     // Buyer-name search index (combined procurement search) — same treatment
@@ -384,18 +427,38 @@ export const loadPg = async (): Promise<{
     // the same eik carry the same totals. Rebuilt each load.
     await c.query("TRUNCATE awarder_search");
     await c.query(
+      // `own_eur` / `primary_name`: the buy-side twin of the contractor block above, same
+      // rule and same tiebreak. ⚠️ TWIN — change both. The per-EIK totals really are
+      // repeated on every alias — all five spellings of EIK 000689061 carry 2791 /
+      // €62,620,984 — which is exactly what makes a minority alias advertise the whole
+      // buyer's money.
+      //
+      // ⚠️ ASYMMETRIC WITH THE SELL SIDE, DELIBERATELY. `own` filters `awarder_name <> ''`
+      // and `agg` does not, so `Σ own_eur ≤ contracts_eur` for a buyer with blank-named
+      // rows — that money belongs to no search row and can never be owned by one, while
+      // `contracts_eur` must stay the buyer's WHOLE volume, since that is the figure the
+      // dropdown prints. The contractor block above applies no name filter at all, so its
+      // partition is exhaustive and `Σ own_eur ≡ contracts_eur` holds by construction.
+      // Measured 2026-09-02: 0 rows with a blank or NULL `awarder_name` out of 410,486, so
+      // the gap is 0 today — but a consumer must not read a shortfall as evidence of
+      // aliasing.
       `WITH agg AS (
          SELECT awarder_eik AS eik, count(*) AS contracts,
                 coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur
          FROM contracts WHERE awarder_eik <> '' GROUP BY awarder_eik
        ),
-       names AS (
-         SELECT DISTINCT awarder_eik AS eik, awarder_name AS name
-         FROM contracts WHERE awarder_eik <> '' AND awarder_name <> ''
+       own AS (
+         SELECT awarder_eik AS eik, awarder_name AS name,
+                coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS own_eur
+         FROM contracts WHERE awarder_eik <> '' AND awarder_name <> '' GROUP BY 1, 2
+       ),
+       dom AS (
+         SELECT DISTINCT ON (eik) eik, name AS primary_name
+         FROM own ORDER BY eik, own_eur DESC, name
        )
-       INSERT INTO awarder_search (eik, name, contracts, contracts_eur)
-       SELECT n.eik, n.name, a.contracts, a.contracts_eur
-       FROM names n JOIN agg a USING (eik)`,
+       INSERT INTO awarder_search (eik, name, contracts, contracts_eur, own_eur, primary_name)
+       SELECT o.eik, o.name, a.contracts, a.contracts_eur, o.own_eur, d.primary_name
+       FROM own o JOIN agg a USING (eik) JOIN dom d USING (eik)`,
     );
 
     // Feature 2: open a batch, then record first-seen for any key not already
@@ -671,8 +734,8 @@ export const loadPg = async (): Promise<{
   // Fill the visibility map procurement_normalcy_cache is rebuilt without —
   // TRUNCATE + INSERT inside one transaction on the local path (064b via `exec`),
   // TRUNCATE + COPY on the cloud one (shipTable), both of which leave
-  // relallvisible = 0 for good. See vacuumAfterReload. Last, so nothing else here
-  // is still holding the xmin horizon back.
+  // relallvisible = 0 for good. See vacuumAfterReload. In the tail, after every `withTx`
+  // has committed, so nothing else here is still holding the xmin horizon back.
   //
   // LATENT, not a live cost: the cache's only reader is a PK point lookup
   // returning `payload` (functions/db_routes.js, "procurement-normalcy"), and
@@ -686,7 +749,23 @@ export const loadPg = async (): Promise<{
   // rather than truncated (RowExclusiveLock, see the merge above), so its map
   // survives a reload: 102,366 of 120,624 pages marked, against 0 for every table
   // on the TRUNCATE path.
-  await vacuumAfterReload("procurement_normalcy_cache");
+  //
+  // The two search indexes are TRUNCATE + INSERT inside the transaction above, so they land
+  // with `relallvisible = 0` on EVERY contracts load. `reload_visibility_map`'s RELOADED
+  // list has named them since it was written, but attributed to „176 refold + its follow-up
+  // VACUUM" — a one-off migration, i.e. nothing restored the map after an ORDINARY load.
+  // Fixed here rather than left to that migration because this load is what empties it, and
+  // because the two columns added 2026-09-02 widen both tables.
+  //
+  // ⚠️ ONE CALL, NOT THREE. `vacuumAfterReload(...tables)` validates the WHOLE list before
+  // issuing any VACUUM — its own header's reason: so a caller cannot read the throw as
+  // „nothing happened" — and separate calls give that up between them while opening a
+  // connection each.
+  await vacuumAfterReload(
+    "procurement_normalcy_cache",
+    "contractor_search",
+    "awarder_search",
+  );
 
   return {
     rows: rows.length,

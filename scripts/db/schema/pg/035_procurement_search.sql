@@ -34,6 +34,18 @@ CREATE TABLE IF NOT EXISTS awarder_search (
 -- Existing DBs predate the precomputed columns.
 ALTER TABLE awarder_search ADD COLUMN IF NOT EXISTS contracts bigint NOT NULL DEFAULT 0;
 ALTER TABLE awarder_search ADD COLUMN IF NOT EXISTS contracts_eur double precision NOT NULL DEFAULT 0;
+-- The buy-side twin of contractor_search's own_eur / primary_name — see 006's header for
+-- the measurement and for why NULL means "not computed yet" rather than zero. The failure
+-- shape is identical here: `contracts_eur` is a PER-EIK total repeated on every name
+-- variant (verified — all five spellings of EIK 000689061 carry 2791 / €62,620,984), so a
+-- row matched through a minority alias advertises the whole buyer's money under it.
+ALTER TABLE awarder_search ADD COLUMN IF NOT EXISTS own_eur double precision;
+ALTER TABLE awarder_search ADD COLUMN IF NOT EXISTS primary_name text;
+--
+-- WHAT FILLS THEM: `npm run db:load:pg` (and its `:cloud` twin) — the ONLY writer. Applying
+-- this migration alone creates the columns EMPTY, which is the state NULL is for. There is
+-- no backfill and none is possible from SQL alone at a useful cost, since the values are a
+-- per-(eik, name) partition of the corpus that the loader already computes in one pass.
 CREATE INDEX IF NOT EXISTS idx_awarder_search_fold
   ON awarder_search USING gin (name_fold gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_awarder_search_eik ON awarder_search (eik);
@@ -68,12 +80,35 @@ $$;
 -- Same shape/behavior as search_contractors but over the buyer side; the
 -- procurement volume comes from the precomputed columns, not per-row
 -- subqueries over contracts.
+-- ⚠️ DROP, NOT `CREATE OR REPLACE`. The 2026-09-02 change ADDED two OUT parameters, and
+-- Postgres refuses to alter an existing function's OUT-parameter row type in place (42P13)
+-- — the same wall `144_funds_wire.sql` documents. Verified before adding this line: neither
+-- search function has a single stored-query dependent (`pg_rewrite` and `pg_proc` both
+-- empty), so the DROP takes nothing with it and needs no CASCADE. Every caller is ad-hoc —
+-- `db_routes.js` and the data tests — and records no `pg_depend` edge.
+--
+-- ⚠️ NO CASCADE, EVER, on this line. A view or a LANGUAGE-sql body added later WOULD record
+-- an edge, and CASCADE would then delete it silently while the migration exited 0 — the
+-- 003 defect. Without CASCADE such a future dependent raises 2BP01 and the load aborts
+-- loudly, which is the failure worth having.
+--
+-- ⚠️ UNLIKE 175's DROP+CREATE, THIS ONE CANNOT STRIP THE `app_readonly` EXECUTE GRANT —
+-- the hazard CLAUDE.md documents at length for that file, and the question a reader of this
+-- repo arrives with. `roles_readonly.sql` installs `ALTER DEFAULT PRIVILEGES FOR ROLE
+-- postgres IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO app_readonly`, so the re-created
+-- function is re-granted automatically, and the PUBLIC `=X` default (never revoked there)
+-- covers it independently — including if this file is ever applied by an owner other than
+-- `postgres`. Verified 2026-09-02 by a DROP+CREATE inside a rolled-back transaction:
+-- `proacl` came back identical.
+DROP FUNCTION IF EXISTS search_awarders(text, int);
 CREATE OR REPLACE FUNCTION search_awarders(q text, lim int DEFAULT 20)
 RETURNS TABLE (
   eik           text,
   name          text,
   contracts     bigint,
   contracts_eur double precision,
+  own_eur       double precision,
+  primary_name  text,
   sim           real
 )
 LANGUAGE sql STABLE PARALLEL SAFE
@@ -84,6 +119,7 @@ SET pg_trgm.similarity_threshold = 0.3
 AS $$
   WITH qq AS (SELECT translit_bg_latin(q) AS qf)
   SELECT s.eik, s.name, s.contracts, s.contracts_eur,
+         s.own_eur, s.primary_name,
          word_similarity((SELECT qf FROM qq), s.name_fold)
   FROM awarder_search s, qq
   WHERE qq.qf <% s.name_fold

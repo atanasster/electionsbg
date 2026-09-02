@@ -9,6 +9,19 @@
 -- (contractor_search), 000 (translit_bg_latin). Applied by load_tr_pg.ts.
 -- See docs/plans/postgres-migration-v1.md.
 
+-- ⚠️ The `cont` arm has the SAME name-from-a-row / money-from-the-EIK shape 006's header
+-- describes, so it carries the same two columns for the same reason. Its exposure is
+-- narrower — the arm excludes EIKs present in `tr_companies`, so the flagship Клет
+-- България case cannot reach it — but not zero: 225 alias rows over 196 non-TR EIKs are a
+-- minority alias of an EIK that holds money (measured 2026-09-02). Non-TR contractors are
+-- exactly the population with no register name to check a wrong attribution against.
+--
+-- ⚠️ DROP, NOT `CREATE OR REPLACE` — two OUT parameters were added 2026-09-02 and Postgres
+-- refuses to alter an existing function's OUT row type (42P13). Verified before adding it:
+-- `search_all` has no stored-query dependent in either `pg_rewrite` or `pg_proc`; its only
+-- caller is ad-hoc (`db_routes.js`, `SELECT * FROM search_all($1, $2)`), which maps columns
+-- by NAME and so tolerates two more. NO CASCADE, ever — see 006's note.
+DROP FUNCTION IF EXISTS search_all(text, int);
 CREATE OR REPLACE FUNCTION search_all(q text, lim int DEFAULT 30)
 RETURNS TABLE (
   kind          text,
@@ -17,6 +30,11 @@ RETURNS TABLE (
   detail        text,
   contracts     bigint,
   contracts_eur double precision,
+  -- NULL on the `company`/`officer` arms: those name a REGISTER entity, so „which of this
+  -- EIK's corpus spellings is this" has no meaning there. NULL is „not applicable" here and
+  -- „not computed yet" on the contractor arm — a consumer must show the figure for both.
+  own_eur       double precision,
+  primary_name  text,
   sim           real
 )
 LANGUAGE sql STABLE PARALLEL SAFE
@@ -29,6 +47,7 @@ AS $$
   comp AS (
     SELECT 'company'::text AS kind, c.uic AS eik, c.name,
            NULLIF(concat_ws(' · ', c.legal_form, c.status), '') AS detail,
+           NULL::double precision AS own_eur, NULL::text AS primary_name,
            word_similarity((SELECT qf FROM qq), c.name_fold) AS sim
     FROM tr_companies c, qq
     WHERE qq.qf <% c.name_fold
@@ -38,6 +57,7 @@ AS $$
   off AS (
     SELECT 'officer'::text AS kind, o.uic AS eik, o.name,
            NULLIF(concat_ws(' · ', o.roles, co.name), '') AS detail,
+           NULL::double precision AS own_eur, NULL::text AS primary_name,
            word_similarity((SELECT qf FROM qq), o.name_fold) AS sim
     FROM tr_officers o
     CROSS JOIN qq
@@ -50,6 +70,7 @@ AS $$
     -- Contractors NOT in TR (foreign firms, placeholders) — TR-backed ones
     -- already surface via `comp`, so exclude them to avoid duplicates.
     SELECT 'contractor'::text AS kind, s.eik, s.name, NULL::text AS detail,
+           s.own_eur, s.primary_name,
            word_similarity((SELECT qf FROM qq), s.name_fold) AS sim
     FROM contractor_search s, qq
     WHERE qq.qf <% s.name_fold
@@ -70,6 +91,7 @@ AS $$
          (SELECT count(*) FROM contracts k WHERE k.contractor_eik = m.eik) AS contracts,
          (SELECT coalesce(sum(k.amount_eur), 0) FROM contracts k
             WHERE k.contractor_eik = m.eik AND k.tag = 'contract') AS contracts_eur,
+         m.own_eur, m.primary_name,
          m.sim
   FROM matches m
   ORDER BY m.sim DESC, contracts_eur DESC NULLS LAST, length(m.name);

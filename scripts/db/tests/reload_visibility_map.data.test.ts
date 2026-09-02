@@ -191,11 +191,17 @@ const RELOADED: ReadonlyArray<{
   { table: "party_pair_break", loader: "db:load:rollcall-derived:pg" },
   { table: "mp_similarity", loader: "db:load:rollcall-derived:pg" },
   { table: "mp_vote_norm", loader: "db:load:rollcall-derived:pg" },
-  // The seven tables 176 rewrites wholesale — see the note above. Named by the step that
-  // must vacuum them rather than by a loader, because no loader does.
+  // FIVE of the seven tables 176 rewrites wholesale — see the note above. Named by the step
+  // that must vacuum them rather than by a loader, because no loader does.
+  //
+  // ⚠️ The other two — `contractor_search` / `awarder_search`, below — are ALSO 176 tables,
+  // but they are TRUNCATE + INSERT on every ordinary contracts load as well, so `db:load:pg`
+  // is both the more frequent cause and the fix. Re-pointed 2026-09-02, when that loader
+  // gained the calls; before then a maintainer hitting a red assertion here was sent looking
+  // for a one-off migration that was not the cause.
   { table: "contracts", loader: "176 refold + its follow-up VACUUM" },
-  { table: "contractor_search", loader: "176 refold + its follow-up VACUUM" },
-  { table: "awarder_search", loader: "176 refold + its follow-up VACUUM" },
+  { table: "contractor_search", loader: "db:load:pg" },
+  { table: "awarder_search", loader: "db:load:pg" },
   { table: "person_search", loader: "176 refold + its follow-up VACUUM" },
   { table: "tr_companies", loader: "176 refold + its follow-up VACUUM" },
   { table: "tr_officers", loader: "176 refold + its follow-up VACUUM" },
