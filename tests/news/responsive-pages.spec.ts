@@ -110,6 +110,10 @@ const shellMetrics = (page: Page) =>
       masthead: bounds(".news-masthead"),
       footerLinks: bounds(".news-footer-links"),
       footerLinkRects: visibleRects(".news-footer-link"),
+      briefingBar: bounds(".news-briefing-bar"),
+      briefingTargets: visibleRects(
+        ".news-briefing-bar button, .news-briefing-bar summary",
+      ),
     };
   });
 
@@ -165,6 +169,85 @@ for (const width of VIEWPORTS) {
         if (width < 640) {
           expect(metrics.masthead).not.toBeNull();
           expect(metrics.masthead!.height).toBeLessThanOrEqual(56);
+        }
+
+        // §4.6: the briefing settings live behind a native <details>. The
+        // real key press is exercised HERE because jsdom implements
+        // `<summary>`'s click activation but not its keyboard default action —
+        // a unit test asserting Enter would fail against a control that works
+        // in every browser, so the unit side asserts focusability instead.
+        if (route.path === "/") {
+          const summary = page.locator("summary", {
+            hasText: /Настройки на прегледа|Briefing settings/,
+          });
+          // ⚠️ WAIT, never `if (await count())`. `settlePage` returns before
+          // React Query resolves home.json, so a presence check runs against a
+          // page that has not rendered the briefing bar yet and the whole block
+          // skips — silently, reported as a pass. Measured: 0 matches at that
+          // moment, 1 a second later.
+          //
+          // ⚠️ But conditioned on the page having STORIES, not asserted flat.
+          // The briefing renders only for a non-empty briefing, and its window
+          // tops out at 7 days over a gitignored corpus — so a flat assertion
+          // turns "this checkout's data is a week old" into six opaque
+          // timeouts. Keyed on the story cards, an aged corpus skips loudly
+          // (no cards) while a REGRESSION with cards present still fails.
+          // ⚠️ WAIT for a card, do not COUNT one. `settlePage` returns before
+          // React Query resolves home.json, so a bare `count()` is 0 on a page
+          // that is about to render sixteen cards — and the whole block below
+          // skips, reported as a pass. That happened twice while writing this.
+          const hasStories = await page
+            .locator(".news-story-card")
+            .first()
+            .waitFor({ state: "visible", timeout: 10_000 })
+            .then(() => true)
+            .catch(() => false);
+          if (hasStories) {
+            await expect(
+              summary,
+              "a home page with stories must render the briefing bar",
+            ).toBeVisible({ timeout: 10_000 });
+            const details = summary.locator("xpath=..");
+            expect(
+              await details.evaluate(
+                (node) => (node as HTMLDetailsElement).open,
+              ),
+              `${width}px: the settings start closed`,
+            ).toBe(false);
+            const box = await summary.boundingBox();
+            expect(
+              box?.height ?? 0,
+              `${width}px: the disclosure needs a 44px touch target`,
+            ).toBeGreaterThanOrEqual(44);
+            await summary.focus();
+            await page.keyboard.press("Enter");
+            expect(
+              await details.evaluate(
+                (node) => (node as HTMLDetailsElement).open,
+              ),
+              `${width}px: Enter must open the settings`,
+            ).toBe(true);
+            await page.keyboard.press("Enter");
+
+            // §4.6 asks for 44px targets on mobile, and it means every control
+            // in the bar — not only the one with `min-h-11` written on it by
+            // hand. The design system's `size="sm"` button is a fixed 32px.
+            const bar = await shellMetrics(page);
+            expect(bar.briefingBar).not.toBeNull();
+            expect(bar.briefingTargets.length).toBeGreaterThan(1);
+            expectBoundedTargets(
+              bar.briefingBar!,
+              bar.briefingTargets,
+              width < 640 ? 44 : 32,
+            );
+            // The toolbar exists to stop being a panel. Measured 2026-09-02:
+            // 192px at 320px where the summary wraps to three lines, ~110px at
+            // 1440px; the old panel was 681px.
+            expect(
+              bar.briefingBar!.height,
+              `${width}px: the briefing toolbar must stay a toolbar`,
+            ).toBeLessThanOrEqual(width < 640 ? 260 : 200);
+          }
         }
 
         if (route.path === "/" && width < 1024) {

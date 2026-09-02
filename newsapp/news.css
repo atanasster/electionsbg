@@ -329,3 +329,18 @@
   grid-area: footer;
   align-self: end;
 }
+
+/* The briefing toolbar's controls meet the 44px touch minimum on a phone.
+
+   ⚠️ The design system's `size="sm"` button is a fixed `h-8` (32px), so every
+   control in this bar — the completion action included — was under the minimum
+   the plan states, while the only one that met it was the disclosure summary
+   that had `min-h-11` written on it by hand. A gate asserting the requirement
+   for one of twelve targets reads as enforcing it. Above 640px the pointer is
+   a mouse and 32px is the shared control height. */
+@media (max-width: 639px) {
+  .news-briefing-bar button,
+  .news-briefing-bar summary {
+    min-height: 2.75rem;
+  }
+}
