@@ -83,9 +83,9 @@ export const bnbAuctions: WatchSource = {
       .map(idToDate)
       .filter((d): d is string => d !== null)
       .slice(-5);
-    return `${added.length} new auction(s) since ${prev.lastChanged.slice(
-      0,
-      10,
-    )} (latest: ${dates.join(", ")})`;
+    const since = prev.lastChanged
+      ? ` since ${prev.lastChanged.slice(0, 10)}`
+      : "";
+    return `${added.length} new auction(s)${since} (latest: ${dates.join(", ")})`;
   },
 };

@@ -35,7 +35,23 @@ export interface WatchState {
   detail: string;
   meta?: Record<string, unknown>;
   lastChecked: string; // ISO UTC
-  lastChanged: string; // ISO UTC; equals lastChecked on first run
+  /**
+   * ISO UTC; equals `lastChecked` on first run.
+   *
+   * OPTIONAL because a state file can genuinely lack it, and `readState()`
+   * casts a parsed file straight to this type without validating — so
+   * declaring it required made TypeScript assert a guarantee nothing enforces.
+   * Three files (dfz_subsidies, indicators_mon_dzi, indicators_mon_nvo) lost it
+   * to an out-of-band write on 2026-07-27 and kept losing it, because the
+   * writer carries `prev.lastChanged` forward on an unchanged run: once absent,
+   * it can only come back when the source actually changes.
+   *
+   * A `describe()` that reads it must GUARD rather than assume. It runs inside
+   * the runner's try, and the catch deliberately skips the state write — so an
+   * unguarded `.slice()` would make that source error on every run and never
+   * heal, which is the opposite of what the error branch is for.
+   */
+  lastChanged?: string;
 }
 
 /** Something a HUMAN must fetch or paste before any ingest can run.

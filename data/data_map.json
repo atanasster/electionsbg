@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-02T08:03:11.943Z",
+  "generatedAt": "2026-09-02T09:10:31.797Z",
   "nodes": [
     {
       "id": "src:water",
@@ -459,13 +459,15 @@
           "id": "indicators_mon_dzi",
           "label": "МОН: ДЗИ резултати (data.egov.bg)",
           "url": "https://data.egov.bg/data/view/066b4b04-d81d-444e-a61c-8ca0516079e4",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-06-28T16:34:00.777Z"
         },
         {
           "id": "indicators_mon_nvo",
           "label": "МОН: НВО 7. клас резултати (data.egov.bg)",
           "url": "https://data.egov.bg/data/view/b56288b6-25aa-4049-9aa6-de2cd4cdabf8",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-07-11T06:08:58.769Z"
         },
         {
           "id": "mon_ri_register",
@@ -773,6 +775,7 @@
       "url": "https://www.dfz.bg/",
       "origin": "state",
       "cadence": "weekly",
+      "freshness": "2026-07-08T06:09:00.761Z",
       "skills": [
         "update-agri"
       ],
@@ -781,7 +784,8 @@
           "id": "dfz_subsidies",
           "label": "ДФ Земеделие — изплатени субсидии",
           "url": "https://data.egov.bg/data?org%5B0%5D=56",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-07-08T06:09:00.761Z"
         }
       ],
       "x": 28,

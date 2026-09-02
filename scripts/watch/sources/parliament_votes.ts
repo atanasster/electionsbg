@@ -128,7 +128,7 @@ export const parliamentVotes: WatchSource = {
     if (newSessions.length === 0) return curr.detail;
     const rollcall = newSessions.filter((s) => s.hasRollcall);
     const head = rollcall.length
-      ? `${rollcall.length} new roll-call session(s) since ${prev.lastChanged.slice(0, 10)}`
+      ? `${rollcall.length} new roll-call session(s)${prev.lastChanged ? ` since ${prev.lastChanged.slice(0, 10)}` : ""}`
       : `${newSessions.length} new session(s), none with roll-call CSV yet`;
     const dates = newSessions
       .slice(-3)

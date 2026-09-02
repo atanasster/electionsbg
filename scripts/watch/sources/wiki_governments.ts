@@ -70,10 +70,14 @@ export const wikiGovernments: WatchSource = {
     const prevRows = typeof prev.meta?.rows === "number" ? prev.meta.rows : NaN;
     const currRows = typeof curr.meta?.rows === "number" ? curr.meta.rows : NaN;
     const rowDelta = currRows - prevRows;
-    const since = prev.lastChanged.slice(0, 10);
+    // No date rather than a made-up one: `lastChanged` can be absent, and this
+    // runs inside the runner's try where a throw would skip the state write.
+    const since = prev.lastChanged
+      ? ` since ${prev.lastChanged.slice(0, 10)}`
+      : "";
     if (Number.isFinite(rowDelta) && rowDelta !== 0) {
-      return `${rowDelta > 0 ? "+" : ""}${rowDelta} cabinet row(s) since ${since} (${prevRows} → ${currRows}) — likely new cabinet formed`;
+      return `${rowDelta > 0 ? "+" : ""}${rowDelta} cabinet row(s)${since} (${prevRows} → ${currRows}) — likely new cabinet formed`;
     }
-    return `tail of page edited since ${since} — likely end-date or coalition update on the latest cabinet`;
+    return `tail of page edited${since} — likely end-date or coalition update on the latest cabinet`;
   },
 };

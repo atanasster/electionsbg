@@ -53,6 +53,9 @@ export const wikiPolls: WatchSource = {
     const currRows = Number(curr.value) || 0;
     const delta = currRows - prevRows;
     if (delta === 0) return curr.detail;
-    return `${delta > 0 ? "+" : ""}${delta} rows since ${prev.lastChanged.slice(0, 10)} (${prevRows} → ${currRows})`;
+    const since = prev.lastChanged
+      ? ` since ${prev.lastChanged.slice(0, 10)}`
+      : "";
+    return `${delta > 0 ? "+" : ""}${delta} rows${since} (${prevRows} → ${currRows})`;
   },
 };
