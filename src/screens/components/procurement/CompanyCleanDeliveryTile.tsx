@@ -84,8 +84,14 @@ export interface CleanDeliveryInfo {
 }
 
 /** The mirror named in `absence_meaning`'s comment. Semantically paired with the
- *  register's own sentence; it is not derived from it and cannot track a change. */
-const ABSENCE_MEANING_EN =
+ *  register's own sentence; it is not derived from it and cannot track a change.
+ *
+ *  ⚠️ EXPORTED SO THERE IS ONE COPY, NOT FOUR. `CompanyFundsTile` renders the same
+ *  caveat beside its clean-delivery marks; a second literal there would drift from
+ *  this one and from the server's, on the same page about the same register. The
+ *  BG side needs no export — that tile takes `isun_clean_delivery_coverage`'s own
+ *  sentence, passed down from the company payload. */
+export const ABSENCE_MEANING_EN =
   "Being absent from this register does not mean a financial correction was " +
   "imposed — a project may have finished late, been terminated, or still be " +
   "under verification. Individual irregularities are reported to OLAF's IMS " +
@@ -96,7 +102,11 @@ export const CompanyCleanDeliveryTile: FC<{ info: CleanDeliveryInfo }> = ({
 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const bg = lang === "bg";
+  // `startsWith`, not `=== "bg"`: `formatDate` below already folds `bg-BG` to
+  // Bulgarian, so strict equality would render English copy beside Bulgarian
+  // dates — and `CompanyFundsTile` renders this same caveat on the same page
+  // under `startsWith`. Two spellings is two languages on one card.
+  const bg = lang.startsWith("bg");
   const T = (b: string, e: string) => (bg ? b : e);
 
   // NOT coalesced: null means „this company is not in the beneficiary register",

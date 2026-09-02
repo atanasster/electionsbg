@@ -82,6 +82,7 @@ import {
   CompanyCleanDeliveryTile,
   type CleanDeliveryInfo,
 } from "../components/procurement/CompanyCleanDeliveryTile";
+import { cleanContractNumbersOf } from "./cleanContractNumbers";
 import {
   EntityRiskGradeCard,
   type EntityRiskGrade,
@@ -459,6 +460,12 @@ export const CompanyDbScreen: FC = () => {
   const [cleanDelivery, setCleanDelivery] = useState<CleanDeliveryInfo | null>(
     null,
   );
+  // See cleanContractNumbers.ts for why this is `undefined` and never an empty Set.
+  const cleanContractNumbers = useMemo(
+    () => cleanContractNumbersOf(cleanDelivery),
+    [cleanDelivery],
+  );
+
   const [awarderGrade, setAwarderGrade] = useState<EntityRiskGrade | null>(
     null,
   );
@@ -1791,7 +1798,13 @@ export const CompanyDbScreen: FC = () => {
           )}
 
           {funds && Number(funds.contracted_eur ?? 0) > 0 && (
-            <CompanyFundsTile eik={eik} funds={funds} projects={fundProjects} />
+            <CompanyFundsTile
+              eik={eik}
+              funds={funds}
+              projects={fundProjects}
+              cleanContracts={cleanContractNumbers}
+              absenceMeaning={cleanDelivery?.absence_meaning ?? null}
+            />
           )}
 
           {/* Sits under the ИСУН money because it qualifies THAT money: how much

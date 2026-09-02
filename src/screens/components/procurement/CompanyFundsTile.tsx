@@ -11,6 +11,8 @@ import { Euro } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Tooltip } from "@/ux/Tooltip";
 import { formatEur } from "@/lib/currency";
+import { GRADE_TONE } from "@/lib/riskGrade";
+import { ABSENCE_MEANING_EN } from "./CompanyCleanDeliveryTile";
 
 export interface CompanyFunds {
   name: string | null;
@@ -45,10 +47,43 @@ export const CompanyFundsTile: FC<{
   eik: string;
   funds: CompanyFunds;
   projects: FundProjectRow[];
-}> = ({ eik, funds, projects }) => {
+  /** `contract_number`s ИСУН publishes in its „Проекти без наложени финансови
+   *  корекции" list (migration 175, via the clean-delivery arm of /api/db/company).
+   *  The join is exact — 9,940 of 9,940 clean contracts resolve to a
+   *  `fund_projects` row — so a marked row is the register's own statement about
+   *  THAT contract, not an inference.
+   *
+   *  ⚠️ AN UNMARKED ROW MEANS NOTHING, and the tile must keep saying so. This is
+   *  the same trap `CompanyCleanDeliveryTile` exists to close: a reader seeing 2
+   *  of 4 projects marked concludes the other 2 were corrected. ИСУН publishes no
+   *  „was corrected" list — individual irregularities go to OLAF's IMS, which is
+   *  confidential — and a project can be absent from this register because it
+   *  finished late, was terminated, or is still in verification. */
+  cleanContracts?: ReadonlySet<string> | null;
+  /** `isun_clean_delivery_coverage.absence_meaning`, verbatim (BG). PASSED rather
+   *  than restated: `CompanyCleanDeliveryTile` renders the same sentence from the
+   *  same column, so a literal here would be a fourth hand-kept copy of a rule the
+   *  database owns — and the first draft of it silently dropped the OLAF/IMS
+   *  clause, which is the half that explains why no complement exists anywhere. */
+  absenceMeaning?: string | null;
+}> = ({ eik, funds, projects, cleanContracts, absenceMeaning }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
+  const bg = lang.startsWith("bg");
   const count = Number(funds.contract_count ?? 0);
+  // Deliberately a BOOLEAN, not a count. A rendered „N of M marked" is the
+  // subtractable pair this dataset must never publish: M − N reads as „were
+  // corrected", which inverts the register.
+  const marked = projects.some((p) => cleanContracts?.has(p.contract_number));
+  // ⚠️ NOT the same question as `marked`, and the difference is the whole reason
+  // the caveat is split below. `projects` is the SIX LARGEST by contracted value
+  // (db_routes: ORDER BY total_eur DESC LIMIT 6) and „largest" has nothing to do
+  // with „clean" — so a company whose clean contracts are all small shows six
+  // unmarked rows here while CompanyCleanDeliveryTile names those contracts
+  // elsewhere on the page. Gating the absence clause on `marked` alone leaves
+  // exactly that reader with no caveat between the two lists.
+  const consulted = (cleanContracts?.size ?? 0) > 0;
+  const noteId = `funds-clean-note-${eik}`;
 
   return (
     <Card>
@@ -120,6 +155,16 @@ export const CompanyFundsTile: FC<{
                           {p.status && (
                             <div className="text-xs">{p.status}</div>
                           )}
+                          {cleanContracts?.has(p.contract_number) && (
+                            // Presence only. „Не е в списъка" on an unmarked row
+                            // would state an absence as a finding, which is the
+                            // one thing this register cannot support.
+                            <div className="text-xs text-emerald-700 dark:text-emerald-300">
+                              {bg
+                                ? "В списъка на ИСУН „Проекти без наложени финансови корекции“"
+                                : "In ИСУН's „projects with no financial corrections imposed“ list"}
+                            </div>
+                          )}
                           <div className="mt-1 grid grid-cols-[auto_1fr] gap-x-4 gap-y-0.5 text-xs tabular-nums">
                             <span className="text-muted-foreground">
                               {t("company_funds_contracted") || "Договорени"}
@@ -164,8 +209,26 @@ export const CompanyFundsTile: FC<{
                     >
                       <div className="flex items-start gap-3 px-3 py-2">
                         <div className="min-w-0 flex-1">
-                          <div className="text-sm font-medium text-foreground line-clamp-2">
-                            {p.title || p.contract_number}
+                          {/* The badge sits OUTSIDE the clamped box. Inline at the
+                              end of `line-clamp-2` it is pushed to line three by
+                              any two-line title — routine for ИСУН titles, and
+                              positively correlated with these rows, since the
+                              preview is ordered by contracted value — and clipped
+                              away, leaving a footnote about a mark nobody can see
+                              and a clean project rendered identically to an
+                              unmarked one. */}
+                          <div className="flex items-start gap-1.5">
+                            <div className="min-w-0 text-sm font-medium text-foreground line-clamp-2">
+                              {p.title || p.contract_number}
+                            </div>
+                            {cleanContracts?.has(p.contract_number) && (
+                              <span
+                                aria-describedby={noteId}
+                                className={`mt-0.5 shrink-0 whitespace-nowrap rounded px-1.5 py-0.5 text-[10px] font-medium ${GRADE_TONE.A.chip}`}
+                              >
+                                {bg ? "без корекция" : "no correction"}
+                              </span>
+                            )}
                           </div>
                           <div className="mt-0.5 text-xs text-muted-foreground line-clamp-1">
                             {p.program_name}
@@ -187,6 +250,29 @@ export const CompanyFundsTile: FC<{
               );
             })}
           </ul>
+        )}
+
+        {/* ⚠️ NOT DECORATION. Without it the marks turn the list into a verdict on
+            the unmarked rows — the exact reading `CompanyCleanDeliveryTile` was
+            rewritten to prevent. Two clauses, gated separately: the first explains
+            a BADGE and needs one on screen; the second bounds the ABSENCE of
+            badges and must render whenever the register was consulted at all,
+            including the case where none of its contracts reached this top-6
+            preview. */}
+        {(marked || consulted) && (
+          <p id={noteId} className="text-xs leading-snug text-muted-foreground">
+            {marked &&
+              (bg
+                ? "„Без корекция“ идва от списъка на ИСУН с приключили проекти без наложена финансова корекция. "
+                : "„No correction“ comes from ИСУН's list of completed projects with no financial correction imposed. ")}
+            {/* Verbatim from the register in BG (see `absenceMeaning`), and the
+                one exported EN mirror — never a local literal, which is how the
+                first draft of this footnote lost the OLAF/IMS clause. */}
+            {bg
+              ? (absenceMeaning ??
+                "Отсъствието от този списък НЕ означава наложена финансова корекция — проектът може да е приключил със закъснение, да е прекратен или още да е в проверка.")
+              : ABSENCE_MEANING_EN}
+          </p>
         )}
       </CardContent>
     </Card>
