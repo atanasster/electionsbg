@@ -652,20 +652,60 @@ The repo already contains the right shape one migration over.
 recording the exact regression that motivated it („Благоевград": three Latin-named partners tied
 at 1.000 and displaced `Община Благоевград` from a 6-row preview). Copy that.
 
-1. In
+1. ✅ In
    [`scripts/db/schema/pg/086_search_fund_projects.sql`](../../scripts/db/schema/pg/086_search_fund_projects.sql),
-   add an idempotent GIN trigram **expression** index on `translit_bg_latin(title)` — the same
+   an idempotent GIN trigram **expression** index on `translit_bg_latin(title)` — the same
    shape as `idx_interreg_partners_name_fold_trgm` (137).
-2. Rewrite the body as `hits` = raw arm (`q <% f.title`, `arm = 0`) `UNION ALL` folded arm
+2. ✅ The body is `hits` = raw arm (`q <% f.title`, `arm = 0`) `UNION ALL` folded arm
    (`translit_bg_latin(q) <% translit_bg_latin(f.title)`, `arm = 1`), then
    `DISTINCT ON (contract_number)` keeping the strongest arm.
-3. Order `sim DESC, arm, total_eur DESC NULLS LAST, contract_number`. Cyrillic behaviour is then
-   byte-for-byte what it is today and Latin is strictly additive — which is also what makes the
-   §5.2 gate („Cyrillic and Latin both return rows") meaningful rather than tautological.
-   Keep `idx_fund_projects_title`; it stays the raw arm's index.
-4. Add a data test proving a representative Latin query returns project rows also reachable by
-   its Cyrillic spelling, that the Cyrillic hit SET is unchanged, and that `EXPLAIN` uses the
-   folded index.
+3. ✅ Ordered `sim DESC, arm, total_eur DESC NULLS LAST, contract_number`.
+   `idx_fund_projects_title` stays — it is the raw arm's index.
+4. ✅⚠️ **NEW, AND IT IS THE DIFFERENCE BETWEEN A FIX AND A REGRESSION: the folded arm is
+   GATED on the query carrying no Cyrillic.** Measured on the full corpus after building it
+   ungated: for „ремонт" the raw arm returns 701 candidates **at the 0.5 threshold the
+   function pins** (689 at pg_trgm's 0.6 default — always quote the threshold with a candidate
+   count here), the folded arm returns 701, and the folded arm contributes **zero** rows the
+   raw arm did not — 82,236 of 82,283 titles are Cyrillic, so folding both sides of a Cyrillic
+   query re-derives the same matches. It is not free: the gin index is lossy for `<%`, so every
+   candidate is rechecked by evaluating `translit_bg_latin(title)` again, and „енергийна
+   ефективност" went **124 ms → 384 ms**.
+
+   ⚠️ **And the gate is a CORRECTNESS property, not only a cost one** — on „оса" an ungated
+   fold changes **5 of the 6 rows** returned. The „a Cyrillic result set is unchanged" claim is
+   true only because the folded arm does not run for a Cyrillic query.
+
+   The 47 Latin-only titles are English project names („OddStorm Parsers", „Maritsa PV+BESS"),
+   and **zero** of them are reachable from any of nine common Bulgarian query words through the
+   fold — so the gate loses nothing real. Latin works: `remont` 0 → 6 rows, `obuchenie` 0 → 6,
+   `energiina efektivnost` 0 → 6.
+
+   ⚠️ **RESULT is byte-identical; COST is not, and an earlier draft of this line claimed
+   both.** Measured through the function in max shared buffers (the portable signal — wall
+   clock hides it locally at 120 ms → 145 ms, because everything is in `shared_buffers`):
+   „енергийна ефективност" 1,268 → 2,424, „обучение" 509 → 2,142, „училище" 493 → 1,444,
+   „ремонт" 431 → 1,300. That is ~2-3×, in absolute terms well inside the ~2,000-per-view
+   budget, and an order of magnitude below the **22,624** it cost before the `LIMIT` was pushed
+   in front of the join-back — with it below the join, `best` handed all 5,053 candidates to a
+   PK lookup and 5,047 were then discarded.
+5. ✅ Gate: `scripts/db/tests/fund_search_fold.data.test.ts` (6 tests). It does NOT compare
+   against a snapshot (which would rot with the corpus) — it asserts the INVARIANT that a
+   Cyrillic query returns exactly what the raw arm alone returns, in the raw arm's order, over
+   eight probes; that a Latin probe returns rows **and** that the raw arm alone returns none
+   for it, so the assertion cannot pass on a coincidence; a buffer ceiling; that the folded arm
+   rides its expression index and is `never executed` for a Cyrillic query; and that the
+   REINDEX obligation is written down.
+
+   ⚠️ **Three things about it were wrong in the first cut and are worth carrying forward.**
+   Its „raw arm alone" baseline ran at pg_trgm's 0.6 DEFAULT while the function pins 0.5, so it
+   was comparing against a different predicate and passed by accident (at `lim = 60` the two
+   disagree outright). Its plan assertions ran against an INLINED COPY of the function body, so
+   replacing the gate with `WHERE true` in the migration left all five tests green — the one
+   test whose whole subject is the gate was asserting against its own restatement of it; it now
+   reads the body out of `pg_get_functiondef`. And its structural assertions were file greps,
+   which pass on a database where a different body was applied by hand. Mutation-verified:
+   removing the gate, dropping the arm rank from either ORDER BY, and moving the threshold to
+   0.6 each fail it now.
 
 Four operational facts, three of which the first draft hedged on or omitted:
 
@@ -674,14 +714,15 @@ Four operational facts, three of which the first draft hedged on or omitted:
   whose visibility map is EMPTY (the `price_products.title_fold` incident — `ANALYZE` alone is
   the disguise; the fix is `VACUUM (ANALYZE, PARALLEL 0)`). A reviewer will otherwise ask why
   this breaks the sibling pattern.
-- ⚠️ **Record the REINDEX obligation.** `176_translit_homoglyph_refold` recomputes STORED
-  generated folds and the loader-written `tender_search_text.fold`. It touches NO expression
-  index, and Postgres does not reindex on an IMMUTABLE function-body change. Three such indexes
-  exist today (`idx_official_roster_fold`, `idx_mp_roster_fold`,
-  `idx_interreg_partners_name_fold_trgm`); this adds a fourth. Add the list plus
-  `REINDEX INDEX …` to `000_search_fns.sql`'s header or to a 176-family file.
+- ⚠️ **The REINDEX obligation is recorded in 086's own header**, and the gate asserts both that
+  it is there and that 176 still does not handle it (so the obligation moves the day it does).
+  `176_translit_homoglyph_refold` recomputes STORED generated folds and the loader-written
+  `tender_search_text.fold`; it touches NO expression index, and Postgres does not reindex on
+  an IMMUTABLE function-body change. Three such indexes existed (`idx_official_roster_fold`,
+  `idx_mp_roster_fold`, `idx_interreg_partners_name_fold_trgm`); this is the fourth.
 - **`--payloads-only` DOES apply the schema files** — settled 2026-09-01, no longer a caveat.
-  `loadFundsPg` runs all four `exec(readFileSync(...))` calls before the
+  `loadFundsPg` runs all six `exec(readFileSync(...))` calls — 015, 016, 043, 086, 005
+    and 189 — before the
   `payloadsOnly ? [] : …` branch. Drop the „verify that behavior on the implementation branch"
   hedge.
 - **`exec()` sends a migration as ONE transaction, so the index cannot be `CONCURRENTLY`.** It
