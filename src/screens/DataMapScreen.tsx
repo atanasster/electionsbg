@@ -351,6 +351,7 @@ export const DataMapScreen = () => {
               {manifest.views.map((v) => (
                 <Pill
                   key={v.id}
+                  tone="accent"
                   selected={v.id === viewId}
                   onClick={() => setParam("view", v.id === "all" ? null : v.id)}
                 >
@@ -397,6 +398,7 @@ export const DataMapScreen = () => {
               {LENSES.map((l) => (
                 <Pill
                   key={l}
+                  tone="accent"
                   size="sm"
                   selected={l === lens}
                   onClick={() => setParam("lens", l === "none" ? null : l)}
@@ -454,7 +456,7 @@ export const DataMapScreen = () => {
                         // so: Radix contributes aria-haspopup/expanded, neither
                         // of which means "a story is running".
                         aria-current={story ? "true" : undefined}
-                        className={cn(pillClass(!!story, "sm"), "gap-1")}
+                        className={cn(pillClass(!!story, "accent", "sm"), "gap-1")}
                       >
                         <Play aria-hidden className="h-3 w-3" />
                         {story

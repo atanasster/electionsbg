@@ -41,7 +41,7 @@ export const DataNav: FC<{ active: DataPage; className?: string }> = ({
   return (
     <PillGroup nav label={t("data_title")} className={className}>
       {PAGES.map(({ id, to, labelKey, icon: Icon }) => (
-        <PillLink key={id} to={to} selected={id === active}>
+        <PillLink key={id} tone="accent" to={to} selected={id === active}>
           <Icon aria-hidden className="h-3.5 w-3.5" />
           {t(labelKey)}
         </PillLink>

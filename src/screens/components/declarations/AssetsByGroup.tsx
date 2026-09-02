@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMpAssetsByParty } from "@/data/parliament/useAssetsRankings";
+import { Pill } from "@/components/ui/Pill";
 import {
   orderByMetric,
   metricValue,
@@ -62,18 +63,14 @@ export const AssetsByGroup: FC<Props> = ({ ns, mpIds }) => {
     v == null ? "—" : compact ? formatEurCompact(v, lang) : formatEur(v, lang);
 
   const modeButton = (m: AssetsMetric, label: string) => (
-    <button
-      type="button"
+    <Pill
+      tone="neutral"
+      size="sm"
+      selected={metric === m}
       onClick={() => setMetric(m)}
-      className={`text-xs px-3 py-1 rounded-full border ${
-        metric === m
-          ? "bg-primary text-primary-foreground border-primary"
-          : "bg-card hover:bg-muted/40"
-      }`}
-      aria-pressed={metric === m}
     >
       {label}
-    </button>
+    </Pill>
   );
 
   return (

@@ -10,7 +10,11 @@ import { pillClass } from "./pillClass";
 
 describe("Pill", () => {
   it("announces its selected state", () => {
-    render(<Pill selected>Всичко</Pill>);
+    render(
+      <Pill tone="accent" selected>
+        Всичко
+      </Pill>,
+    );
     expect(screen.getByRole("button", { pressed: true })).toHaveTextContent(
       "Всичко",
     );
@@ -19,18 +23,18 @@ describe("Pill", () => {
   it("announces the unselected state too, rather than omitting it", () => {
     // `aria-pressed={false}` is not the same as no attribute: without it a
     // screen reader announces a plain button and the row has no state at all.
-    render(<Pill>Избори</Pill>);
+    render(<Pill tone="accent">Избори</Pill>);
     expect(screen.getByRole("button", { pressed: false })).toBeInTheDocument();
   });
 
   it("is a button, so it never submits a form it happens to sit in", () => {
-    render(<Pill>x</Pill>);
+    render(<Pill tone="accent">x</Pill>);
     expect(screen.getByRole("button")).toHaveAttribute("type", "button");
   });
 
   it("forwards click and the rest of the button props", () => {
     render(
-      <Pill disabled title="hint">
+      <Pill tone="accent" disabled title="hint">
         x
       </Pill>,
     );
@@ -41,7 +45,11 @@ describe("Pill", () => {
 
   it("calls onClick", async () => {
     let hits = 0;
-    render(<Pill onClick={() => hits++}>x</Pill>);
+    render(
+      <Pill tone="accent" onClick={() => hits++}>
+        x
+      </Pill>,
+    );
     await userEvent.click(screen.getByRole("button"));
     expect(hits).toBe(1);
   });
@@ -53,7 +61,7 @@ describe("PillLink", () => {
     // valid state and screen readers ignore it.
     render(
       <MemoryRouter>
-        <PillLink to="/data" selected>
+        <PillLink tone="accent" to="/data" selected>
           Карта
         </PillLink>
       </MemoryRouter>,
@@ -66,7 +74,9 @@ describe("PillLink", () => {
   it("omits aria-current when not selected", () => {
     render(
       <MemoryRouter>
-        <PillLink to="/data/links">Връзки</PillLink>
+        <PillLink tone="accent" to="/data/links">
+          Връзки
+        </PillLink>
       </MemoryRouter>,
     );
     expect(screen.getByRole("link")).not.toHaveAttribute("aria-current");
@@ -77,7 +87,7 @@ describe("PillLink", () => {
     // copy of the pill, which is what the component exists to stop.
     render(
       <MemoryRouter>
-        <PillLink to="/x" title="hint" target="_blank">
+        <PillLink tone="accent" to="/x" title="hint" target="_blank">
           x
         </PillLink>
       </MemoryRouter>,
@@ -92,7 +102,7 @@ describe("PillGroup", () => {
     // puts a filter in the screen reader's list of destinations to jump to.
     render(
       <PillGroup label="Изгледи">
-        <Pill>a</Pill>
+        <Pill tone="accent">a</Pill>
       </PillGroup>,
     );
     expect(screen.getByRole("group", { name: "Изгледи" })).toBeInTheDocument();
@@ -103,7 +113,9 @@ describe("PillGroup", () => {
     render(
       <MemoryRouter>
         <PillGroup nav label="Данни">
-          <PillLink to="/data">a</PillLink>
+          <PillLink tone="accent" to="/data">
+            a
+          </PillLink>
         </PillGroup>
       </MemoryRouter>,
     );
@@ -118,7 +130,7 @@ describe("PillGroup", () => {
     // only because both happened to be 0.5rem.
     const { container } = render(
       <PillGroup label="x" scroll>
-        <Pill>a</Pill>
+        <Pill tone="accent">a</Pill>
       </PillGroup>,
     );
     expect(container.firstElementChild?.className).not.toMatch(/-mx-2/);
@@ -130,22 +142,45 @@ describe("pillClass", () => {
   it("gives selected and unselected different fills", () => {
     // The whole point of the token split: the selected chip is the one strong
     // signal on the row.
-    expect(pillClass(true)).toMatch(/(^|\s)bg-accent-strong(\s|$)/);
+    expect(pillClass(true, "accent")).toMatch(/(^|\s)bg-accent-strong(\s|$)/);
     // Unselected carries the fill only behind `hover:`, so anchor on the
     // unprefixed utility rather than the substring.
-    expect(pillClass(false)).not.toMatch(/(^|\s)bg-accent-strong(\s|$)/);
+    expect(pillClass(false, "accent")).not.toMatch(
+      /(^|\s)bg-accent-strong(\s|$)/,
+    );
   });
 
   it("never lets hover adopt the full selected treatment", () => {
     // Hovering pill B while A is selected otherwise renders two pills in the
     // selected state at once, with nothing telling them apart.
-    expect(pillClass(false)).not.toMatch(/hover:bg-accent-strong\s/);
-    expect(pillClass(false)).toMatch(/hover:bg-accent-strong\/10/);
+    expect(pillClass(false, "accent")).not.toMatch(/hover:bg-accent-strong\s/);
+    expect(pillClass(false, "accent")).toMatch(/hover:bg-accent-strong\/10/);
+  });
+
+  it("gives the two tones different selected fills", () => {
+    // The site's two chip languages: coral where the row IS the page's primary
+    // control, near-black `--primary` for the registry filter rows that already
+    // used it — 15.27:1 light, the higher-contrast of the two. Conflating them
+    // would either shout on a dense page or quietly LOWER contrast on one.
+    expect(pillClass(true, "accent")).toMatch(/bg-accent-strong/);
+    expect(pillClass(true, "neutral")).toMatch(/(^|\s)bg-primary(\s|$)/);
+    expect(pillClass(true, "neutral")).not.toMatch(/accent/);
+  });
+
+  it("keeps both tones' hover off the selected treatment", () => {
+    for (const tone of ["accent", "neutral"] as const) {
+      expect(pillClass(false, tone)).toMatch(/hover:bg-\S+\/10/);
+      expect(pillClass(false, tone)).not.toMatch(
+        /(^|\s)bg-(accent-strong|primary)(\s|$)/,
+      );
+    }
   });
 
   it("pairs the focus ring offset with a themed colour", () => {
     // Tailwind's default offset is #fff, which draws a white band between chip
     // and ring on the dark theme.
-    expect(pillClass(false)).toMatch(/focus-visible:ring-offset-background/);
+    expect(pillClass(false, "accent")).toMatch(
+      /focus-visible:ring-offset-background/,
+    );
   });
 });

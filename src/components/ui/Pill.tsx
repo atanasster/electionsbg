@@ -5,7 +5,7 @@ import {
 } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { pillClass, type PillSize } from "./pillClass";
+import { pillClass, type PillSize, type PillTone } from "./pillClass";
 
 /**
  * The site's pill — a rounded chip that is either a filter toggle, a section
@@ -16,10 +16,13 @@ import { pillClass, type PillSize } from "./pillClass";
  * near-black label are close in luminance and the hue difference is doing work
  * the contrast is not.
  *
- * Selected uses `--accent-strong` — the INTERACTIVE coral, white on 41%
- * lightness, 5.45:1 — while the decorative `--accent` (node dots, borders, the
- * freshness pulse) keeps the brand hue at full chroma. Dark mode needs no
+ The `accent` tone uses `--accent-strong` — the INTERACTIVE coral, white on
+ * 41% lightness, 5.45:1 — while the decorative `--accent` (node dots, borders,
+ * the freshness pulse) keeps the brand hue at full chroma. Dark mode needs no
  * correction (mint on near-black is 11.81:1) so the two tokens are equal there.
+ *
+ * `tone` has no default: the site has two chip languages and choosing one by
+ * copy-paste is how the bad pair spread. See PillTone.
  *
  * Not to be confused with `PillToggle` in this directory: that is a SEGMENTED
  * CONTROL (one group, one value, a tinted selected state) for the sector tiles.
@@ -28,6 +31,8 @@ import { pillClass, type PillSize } from "./pillClass";
 
 type PillProps = {
   selected?: boolean;
+  /** Which chip language — see PillTone. Required on purpose. */
+  tone: PillTone;
   size?: PillSize;
   children: ReactNode;
   className?: string;
@@ -39,12 +44,15 @@ type PillProps = {
  * state at all, which is the half of this that a colour fix cannot reach.
  */
 export const Pill = forwardRef<HTMLButtonElement, PillProps>(
-  ({ selected = false, size = "md", children, className, ...rest }, ref) => (
+  (
+    { selected = false, tone, size = "md", children, className, ...rest },
+    ref,
+  ) => (
     <button
       ref={ref}
       type="button"
       aria-pressed={selected}
-      className={cn(pillClass(selected, size), className)}
+      className={cn(pillClass(selected, tone, size), className)}
       {...rest}
     >
       {children}
@@ -55,6 +63,7 @@ Pill.displayName = "Pill";
 
 type PillLinkProps = {
   selected?: boolean;
+  tone: PillTone;
   size?: PillSize;
   children: ReactNode;
   className?: string;
@@ -64,6 +73,7 @@ type PillLinkProps = {
  *  `aria-pressed`: it moves you somewhere, it does not toggle a state. */
 export const PillLink = ({
   selected = false,
+  tone,
   size = "md",
   children,
   className,
@@ -71,7 +81,7 @@ export const PillLink = ({
 }: PillLinkProps) => (
   <Link
     aria-current={selected ? "page" : undefined}
-    className={cn(pillClass(selected, size), className)}
+    className={cn(pillClass(selected, tone, size), className)}
     {...rest}
   >
     {children}

@@ -4,7 +4,7 @@
 // viewport.ts). A drift shows up as a map that is quietly smaller than it
 // could be — no error, no failing render.
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { stripComments } from "../../scripts/lib/strip_comments";
 import { cn } from "@/lib/utils";
@@ -31,6 +31,16 @@ const code = (p: string): string =>
   stripComments(read(p)).replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
 const screen = () => read("src/screens/DataMapScreen.tsx");
 const screenCode = () => code("src/screens/DataMapScreen.tsx");
+
+/** Every .tsx under src/, for the repo-wide bans below. */
+const globSrc = (dir = "src"): string[] =>
+  readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory()
+      ? globSrc(`${dir}/${e.name}`)
+      : e.name.endsWith(".tsx")
+        ? [`${dir}/${e.name}`]
+        : [],
+  );
 
 /** H1's own base classes, read from the component so this cannot go stale. */
 const H1_BASE = /cn\(\s*"([^"]+)"/.exec(read("src/ux/H1.tsx"))![1];
@@ -513,11 +523,26 @@ describe("the selected pill is one component", () => {
     for (const f of [
       "src/screens/DataMapScreen.tsx",
       "src/screens/components/DataNav.tsx",
+      "src/screens/AbroadRegistryScreen.tsx",
+      "src/screens/components/declarations/AssetsByGroup.tsx",
+      "src/screens/person/PersonElectoralSection.tsx",
     ]) {
       expect(read(f)).toMatch(/from "@\/components\/ui\/Pill"/);
-      // The hand-rolled pair, in any spelling.
+      // The hand-rolled pairs, in any spelling.
       expect(code(f)).not.toMatch(/bg-accent text-accent-foreground/);
+      expect(code(f)).not.toMatch(/bg-primary text-primary-foreground/);
     }
+  });
+
+  it("leaves no 4.77:1 pair anywhere in src/", () => {
+    // The pair this work replaced. It is cheap to reintroduce by copy-paste,
+    // which is exactly how it reached three screens — so the ban is repo-wide
+    // rather than per-file. `--accent` stays the DECORATIVE token; what is
+    // forbidden is a LABEL sitting on it.
+    const hits = globSrc()
+      .filter((f) => /bg-accent\s+text-accent-foreground/.test(code(f)))
+      .map((f) => f.replace(/^src\//, ""));
+    expect(hits).toEqual([]);
   });
 
   it("defines the interactive coral in both themes", () => {

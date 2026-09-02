@@ -39,6 +39,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { Pill } from "@/components/ui/Pill";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { formatEur } from "@/lib/currency";
 import { DbDataTable } from "@/ux/data_table/DbDataTable";
@@ -210,50 +211,38 @@ export const AbroadRegistryScreen: FC = () => {
   const scopeToggle = (
     <div className="flex flex-wrap items-center gap-2">
       {(["latest", "all"] as const).map((s) => (
-        <button
+        // Pill carries the aria-pressed that colour alone cannot convey, and
+        // this control changes every figure on the page.
+        <Pill
           key={s}
-          type="button"
-          // Colour alone does not convey state to assistive tech, and this control changes
-          // every figure on the page.
-          aria-pressed={scope === s}
+          tone="neutral"
+          size="sm"
+          selected={scope === s}
           onClick={() => setScope(s)}
-          className={`rounded-full border px-3 py-1 text-xs ${
-            scope === s
-              ? "border-primary bg-primary text-primary-foreground"
-              : "bg-card hover:bg-muted/40"
-          }`}
         >
           {t(s === "latest" ? "crypto_scope_latest" : "crypto_scope_all")}
-        </button>
+        </Pill>
       ))}
       <span className="mx-1 h-4 w-px bg-border" aria-hidden />
       {(["all", ...TIERS] as const).map((x) => (
-        <button
+        <Pill
           key={x}
-          type="button"
-          aria-pressed={tier === x}
+          tone="neutral"
+          size="sm"
+          selected={tier === x}
           onClick={() => setTier(x)}
-          className={`rounded-full border px-3 py-1 text-xs ${
-            tier === x
-              ? "border-primary bg-primary text-primary-foreground"
-              : "bg-card hover:bg-muted/40"
-          }`}
         >
           {t(x === "all" ? "abroad_tier_all" : `abroad_tier_${x}`)}
-        </button>
+        </Pill>
       ))}
-      <button
-        type="button"
-        aria-pressed={namedOnly}
+      <Pill
+        tone="neutral"
+        size="sm"
+        selected={namedOnly}
         onClick={() => setNamedOnly((v) => !v)}
-        className={`rounded-full border px-3 py-1 text-xs ${
-          namedOnly
-            ? "border-primary bg-primary text-primary-foreground"
-            : "bg-card hover:bg-muted/40"
-        }`}
       >
         {t("abroad_filter_named_only")}
-      </button>
+      </Pill>
     </div>
   );
 

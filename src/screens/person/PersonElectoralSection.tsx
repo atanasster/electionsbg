@@ -27,6 +27,7 @@ import { CandidateRegionsTile } from "@/screens/dashboard/CandidateRegionsTile";
 import { CandidateTrajectoryTile } from "@/screens/dashboard/CandidateTrajectoryTile";
 import { CandidateTopSettlementsTile } from "@/screens/dashboard/CandidateTopSettlementsTile";
 import { CandidateTopSectionsTile } from "@/screens/dashboard/CandidateTopSectionsTile";
+import { Pill } from "@/components/ui/Pill";
 
 type Candidacy = { election: string; slug: string };
 
@@ -167,19 +168,15 @@ export const PersonElectoralSection: FC<Props> = ({
         {dataCycles.map((el) => {
           const active = el === selectedCycle;
           return (
-            <button
+            <Pill
               key={el}
-              type="button"
+              tone="neutral"
+              size="sm"
+              selected={active}
               onClick={() => setPelect(el === globalSelected ? undefined : el)}
-              aria-pressed={active}
-              className={
-                active
-                  ? "rounded-full border border-primary bg-primary px-2.5 py-0.5 text-xs font-medium text-primary-foreground"
-                  : "rounded-full border border-border px-2.5 py-0.5 text-xs text-primary hover:bg-muted"
-              }
             >
               {fmtElection(el)}
-            </button>
+            </Pill>
           );
         })}
       </div>
