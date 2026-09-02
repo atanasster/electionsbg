@@ -80,15 +80,56 @@ class HomeHealth(unittest.TestCase):
             "aggregates": {"outlet_count": 1},
             "last_published": "2026-08-24T11:59:59+00:00",
         }
+        # ⚠️ BEYOND the anchor tolerance, not one second past `generated_at`.
+        # A story slightly ahead is now read as age 0 on purpose — see
+        # FUTURE_ANCHOR_TOLERANCE_HOURS — so a 1-second value tests the old
+        # boundary rather than the one that exists.
         future = {
             "id": "future", "title_bg": "Бъдеща", "aggregates": {"outlet_count": 1},
-            "last_published": "2026-08-31T12:00:01+00:00",
+            "last_published": "2026-09-01T00:00:01+00:00",
         }
         health = evaluate_home_payload(bundle([over_day, over_week, future]))
         self.assertEqual(health["counts"]["selected_within_24h"], 0)
         self.assertEqual(health["counts"]["default_visible"], 1)
         self.assertEqual(health["default_payload"][0]["id"], "over-day")
         self.assertFalse(health["checks"]["no_future_story_timestamps"])
+
+    def test_a_date_only_noon_anchor_counts_as_published_today(self):
+        """⚠️ THE CASE THAT EMPTIED THE HOME PAYLOAD. A source stating a DAY
+        and no wall clock is anchored at noon Sofia by the ingest, so before
+        09:00 UTC it is legitimately hours 'ahead'. Measured 2026-09-02, a
+        05:53 UTC run put all 16 stories in the future and the payload came out
+        empty — the gate refusing to publish a home page with nothing on it.
+        The stamp was not wrong; reading a day-claim as an instant was."""
+        anchored = {
+            "id": "anchored", "title_bg": "Дневна котва",
+            "aggregates": {"outlet_count": 1},
+            # generated_at is 12:00 UTC; noon Sofia that day is 09:00 UTC, so
+            # this is the shape seen at an early-morning run, shifted forward.
+            "last_published": "2026-08-31T21:00:00+00:00",
+        }
+        health = evaluate_home_payload(bundle([anchored]))
+        self.assertTrue(health["checks"]["no_future_story_timestamps"])
+        self.assertEqual(health["counts"]["default_visible"], 1)
+        self.assertEqual(health["counts"]["selected_within_24h"], 1)
+        self.assertEqual(health["default_payload"][0]["age_hours"], 0)
+
+    def test_the_tolerance_has_an_edge_and_refuses_past_it(self):
+        """It is a derived bound, not slack: 12 hours covers the winter noon
+        anchor (10:00 UTC) with margin. A feed dated beyond it is broken —
+        the offender this check was written for was nearly two months out."""
+        def at(stamp):
+            item = {"id": "s", "title_bg": "x",
+                    "aggregates": {"outlet_count": 1}, "last_published": stamp}
+            return evaluate_home_payload(bundle([item]))
+
+        inside = at("2026-08-31T23:59:59+00:00")   # 11h59m59s ahead
+        self.assertTrue(inside["checks"]["no_future_story_timestamps"])
+        self.assertEqual(inside["counts"]["default_visible"], 1)
+
+        outside = at("2026-09-01T00:00:01+00:00")  # 12h00m01s ahead
+        self.assertFalse(outside["checks"]["no_future_story_timestamps"])
+        self.assertEqual(outside["counts"]["default_visible"], 0)
 
     def test_comparison_matches_the_ui_two_article_predicate(self):
         item = story(1, 1, outlets=2)

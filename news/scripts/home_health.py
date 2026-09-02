@@ -13,6 +13,28 @@ import statistics
 MIN_DEFAULT_STORIES = 6
 MAX_DEFAULT_DAYS = 7
 
+# ⚠️ HOW FAR AHEAD OF `generated_at` A STORY MAY BE STAMPED AND STILL COUNT AS
+# PUBLISHED. Not slack for broken feeds — the size is derived from one rule in
+# the ingest.
+#
+# A source that states a DAY and no wall clock is anchored at noon Sofia on
+# purpose (`_DAY_ONLY_RE` in save_articles.py): midnight Sofia converts to
+# 21:00 UTC the day BEFORE, which would file the article under the wrong day.
+# Noon is the only anchor whose UTC day equals the stated day in both EET and
+# EEST. Noon Sofia is 09:00 UTC in summer and 10:00 in winter, so a bundle
+# generated just after midnight UTC sees that article up to 10 hours "ahead".
+#
+# Measured 2026-09-02: a 05:53 UTC run put ALL 16 stories in the future, three
+# of them dir.bg date-only values, and the home payload came out EMPTY — the
+# gate refused to publish a home page with no stories on it. The stamp was not
+# wrong; the reading of it was. A date-only anchor is a claim about the DAY,
+# and inside that day the only honest age is "now".
+#
+# 12 hours covers the winter anchor with margin and still refuses a genuinely
+# broken feed: the offender this gate was written for was capital.bg, dated
+# nearly two months out.
+FUTURE_ANCHOR_TOLERANCE_HOURS = 12
+
 
 def _instant(value: str | None) -> datetime | None:
     try:
@@ -25,10 +47,20 @@ def _instant(value: str | None) -> datetime | None:
 
 
 def _age_hours(now: datetime, value: str | None) -> float | None:
+    """Hours since publication, or None when the value is unusable.
+
+    A story stamped slightly AHEAD of `now` reads as age 0 rather than as a
+    negative number — see `FUTURE_ANCHOR_TOLERANCE_HOURS`. Beyond that horizon
+    the negative age is returned unchanged, so the caller can exclude the story
+    AND fail `no_future_story_timestamps` on it.
+    """
     parsed = _instant(value)
     if parsed is None:
         return None
-    return (now - parsed).total_seconds() / 3600
+    age = (now - parsed).total_seconds() / 3600
+    if -FUTURE_ANCHOR_TOLERANCE_HOURS <= age < 0:
+        return 0.0
+    return age
 
 
 def evaluate_home_payload(
