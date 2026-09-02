@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { Database, History, Map as MapIcon, Share2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { PillGroup, PillLink } from "@/components/ui/Pill";
 
 type DataPage = "map" | "links" | "sources" | "updates";
 
@@ -34,32 +33,19 @@ const PAGES: {
 ];
 
 /** Pill navigation between the data-hub pages (map / links / sources / updates). */
-export const DataNav: FC<{ active: DataPage }> = ({ active }) => {
+export const DataNav: FC<{ active: DataPage; className?: string }> = ({
+  active,
+  className,
+}) => {
   const { t } = useTranslation();
   return (
-    <nav
-      aria-label={t("data_title")}
-      className="flex flex-wrap justify-center gap-2"
-    >
-      {PAGES.map(({ id, to, labelKey, icon: Icon }) => {
-        const isActive = id === active;
-        return (
-          <Link
-            key={id}
-            to={to}
-            aria-current={isActive ? "page" : undefined}
-            className={cn(
-              "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
-              isActive
-                ? "border-accent bg-accent text-accent-foreground"
-                : "border-border bg-secondary/40 text-secondary-foreground hover:border-accent hover:bg-accent hover:text-accent-foreground",
-            )}
-          >
-            <Icon aria-hidden className="h-3.5 w-3.5" />
-            {t(labelKey)}
-          </Link>
-        );
-      })}
-    </nav>
+    <PillGroup nav label={t("data_title")} className={className}>
+      {PAGES.map(({ id, to, labelKey, icon: Icon }) => (
+        <PillLink key={id} to={to} selected={id === active}>
+          <Icon aria-hidden className="h-3.5 w-3.5" />
+          {t(labelKey)}
+        </PillLink>
+      ))}
+    </PillGroup>
   );
 };

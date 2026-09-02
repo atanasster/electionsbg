@@ -438,7 +438,9 @@ export const SqlBrowserScreen = () => {
     <button
       onClick={() => setTab(id)}
       className={`rounded px-2 py-1 text-xs ${
-        tab === id ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+        tab === id
+          ? "bg-accent-strong text-accent-strong-foreground"
+          : "hover:bg-muted"
       }`}
     >
       {label}

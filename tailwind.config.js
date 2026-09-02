@@ -69,6 +69,11 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        // The interactive coral — see the token comment in App.css.
+        "accent-strong": {
+          DEFAULT: "hsl(var(--accent-strong))",
+          foreground: "hsl(var(--accent-strong-foreground))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

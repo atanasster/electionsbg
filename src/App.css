@@ -26,6 +26,21 @@
     --accent: 16 75% 55%; /* coral peach #DF6B43 */
     --accent-foreground: 30 10% 12%;
 
+    /* The INTERACTIVE coral — a selected pill, a primary button. `--accent` is
+       the DECORATIVE one (dots, borders, the freshness pulse) and stays where
+       it is, because the two want different things: decoration wants the brand
+       hue at full chroma, a label on a solid fill wants contrast.
+       Measured: `--accent` at 55% under `--accent-foreground` is 4.77:1 at
+       14px/500 — past AA (4.5) by 0.27 and nowhere near AAA. White on 41% is
+       5.45:1.
+
+       ⚠ That 5.45 is WHITE-ON-THE-FILL. This is not an AA-safe TEXT colour:
+       `--accent-strong` on `--card` is 4.05:1, below AA for anything under
+       18.66px. For coral as body text use `--popover-foreground`, which the
+       light palette already darkens to 33% for exactly that. */
+    --accent-strong: 16 75% 41%;
+    --accent-strong-foreground: 0 0% 100%;
+
     --destructive: 0 70% 48%;
     --destructive-foreground: 39 40% 96%;
 
@@ -71,6 +86,11 @@
 
     --accent: 158 60% 68%;
     --accent-foreground: 224 47% 8%;
+
+    /* Dark needs no correction — mint on near-black is already 11.81:1 — so
+       the strong pair is the same colour, and only light mode diverges. */
+    --accent-strong: 158 60% 68%;
+    --accent-strong-foreground: 224 47% 8%;
 
     --destructive: 0 75% 62%;
     --destructive-foreground: 224 47% 8%;
