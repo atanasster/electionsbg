@@ -265,8 +265,12 @@ test.skipIf(skip)(
       ? await scalar("SELECT count(*) n FROM person_search WHERE tier = 'P'")
       : 0;
     if (!built) {
+      // ⚠️ `import.meta.url` BARE, not `${import.meta.url}#search`. `gateName` resolves the
+      // argument through `fileURLToPath`, which drops the fragment — so the suffix bought no
+      // disambiguation, printed the same label as the module-scope call above it, and
+      // hand-typed part of a value the API requires to be derived. The reason names the arm.
       reportSkip(
-        `${import.meta.url}#search`,
+        import.meta.url,
         "person_search not built — run npm run db:load:person-search:pg",
       );
       return;

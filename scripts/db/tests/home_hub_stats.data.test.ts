@@ -20,9 +20,22 @@ import {
   isHomeBasisKey,
   type HomeHubStatsV1,
 } from "@/data/home/homeTypes";
+import { assertCommitted } from "../../lib/assert_committed";
 
 const REPO = path.resolve(__dirname, "../../..");
 const ARTIFACT = path.join(REPO, "data/home/hub_stats.json");
+
+// All four are COMMITTED, so absence is a broken working copy rather than a state to stand
+// down for — and two of them are read INSIDE a clause that would otherwise throw an
+// unattributed error mid-test. Registered before the module-scope reads below so the named
+// assertion survives a parse that throws during collection.
+assertCommitted(
+  "data/home/hub_stats.json",
+  "data/macro.json",
+  "data/procurement/derived/hub_stats.json",
+  "data/governance/hub_stats.json",
+);
+
 const read = <T>(rel: string): T =>
   JSON.parse(readFileSync(path.join(REPO, rel), "utf-8")) as T;
 

@@ -65,8 +65,14 @@ describe("every :cloud loader is reachable from a skill", () => {
     // A gate whose remedy text points at a numbered section can drift from that
     // section indefinitely — this file said "Step 8" nine times while the emit
     // table was Procedure step 9. Anchor the number to the orchestrator itself.
+    // ⚠️ THE NUMBER IS THE ANCHOR, NOT THE WHOLE SENTENCE. Pinning the full heading
+    // made this red for a re-TITLING that moved nothing: step 9 stopped RUNNING the
+    // publish and started RECORDING it (the /upload-watch-changes split), so the
+    // heading changed while the step number, the emit table and every failure message
+    // below stayed correct. Match the number plus enough of the title to identify the
+    // step, and let its trailing prose move.
     expect(orchestratorText()).toContain(
-      "9. **Sync Cloud SQL for the PG-backed datasets that changed.**",
+      "9. **Resolve the Cloud SQL publish set",
     );
   });
 
@@ -189,7 +195,7 @@ describe("every :cloud loader is reachable from a skill", () => {
       "an exemption was added or removed — if you EXEMPTED a loader, say why in " +
         "CLOUD_SKILL_EXEMPTIONS and raise this number deliberately; if you WIRED " +
         "one, lower it",
-    ).toBe(8);
+    ).toBe(7);
   });
 
   it("reports the unreviewed backlog so it stays visible", () => {
@@ -275,7 +281,7 @@ describe("every :cloud loader is reachable from a skill", () => {
       "an orchestrator-exemption was added or removed — if you EXEMPTED a loader, " +
         "say why in ORCHESTRATOR_EXEMPTIONS and raise this number deliberately; if " +
         "you WIRED one into process-watch-report's Step 9, lower it",
-    ).toBe(5);
+    ).toBe(6);
   });
 
   it("the two exemption maps are DISJOINT — a script is exempt for exactly one reason", () => {

@@ -42,10 +42,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
   string,
   { kind: CloudExemptionKind; reason: string }
 > = {
-  "db:proxy:cloud": {
-    kind: "operator-tool",
-    reason: "opens the Cloud SQL proxy; loads nothing",
-  },
   "db:restore:cloud": {
     kind: "operator-tool",
     reason: "disaster recovery, run by hand against a dump",
@@ -111,6 +107,19 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
   string,
   { kind: CloudExemptionKind; reason: string }
 > = {
+  // Moved out of CLOUD_SKILL_EXEMPTIONS 2026-09-03: `upload-watch-changes` now names it
+  // (start the proxy before any `--cloud` command, and restart it when a load dies with
+  // `Connection terminated unexpectedly`), so "no skill names it" stopped being true and
+  // the stale-exemption clause was right to fire. It still belongs in NO orchestrator emit
+  // table — it opens the Cloud SQL proxy and loads nothing, so no corpus can go stale on
+  // prod for want of it.
+  "db:proxy:cloud": {
+    kind: "operator-tool",
+    reason:
+      "opens the Cloud SQL proxy; loads nothing, so it publishes no corpus and cannot " +
+      "leave prod on a previous vintage. Named in upload-watch-changes as the operator " +
+      "step before the `--cloud` commands and as the recovery for a dead proxy.",
+  },
   "db:load:tender-dossier:pg:cloud": {
     kind: "manual-trigger",
     reason:

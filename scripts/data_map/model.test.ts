@@ -20,8 +20,17 @@ import {
 } from "./model";
 import type { DatasetDef } from "./model";
 import { validateDatasetServing, validateLinks } from "./build_manifest";
+import { assertCommitted } from "../lib/assert_committed";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
+
+// BEFORE the module-scope parse below, deliberately. `data/data_map.json` is committed and
+// CI does a full checkout, so its absence is a broken working copy — but a bare
+// `readFileSync` at module scope throws during COLLECTION, which vitest reports as a suite
+// error naming no fix. Registering the assertion first turns that into one named failing
+// test that says `git checkout -- data/data_map.json`.
+assertCommitted("data/data_map.json");
+
 const manifest = JSON.parse(
   readFileSync(path.join(ROOT, "data/data_map.json"), "utf8"),
 ) as {

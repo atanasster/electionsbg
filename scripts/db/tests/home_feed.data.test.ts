@@ -24,6 +24,13 @@ import {
   orderEvents,
 } from "../gen_home/feed";
 import { intlDebtAdapter } from "../gen_home/events/adapters";
+import { assertCommitted } from "../../lib/assert_committed";
+
+// The artifact is COMMITTED, so its absence is a broken working copy rather than a state to
+// stand down for. Stated here, outside the suite: the `present` flag below feeds an EMPTY
+// fallback so that collection survives, and every clause after the first would then pass
+// vacuously over zero events — one named assertion is what stops that reading green.
+assertCommitted("data/home/feed.json");
 
 const REPO = path.resolve(__dirname, "../../..");
 const ARTIFACT = path.join(REPO, "data/home/feed.json");

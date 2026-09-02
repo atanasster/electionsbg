@@ -33,6 +33,12 @@ import {
   MIN_PROMO_STORES,
 } from "../../prices/promoGate";
 import type { PriceEventsV1 } from "../gen_home/events/priceSource";
+import { assertCommitted } from "../../lib/assert_committed";
+
+// COMMITTED, so absence is a broken working copy rather than a state to stand down for.
+// Stated outside the suite, because the conditional read below substitutes an EMPTY payload
+// to survive collection and every clause after the first would then pass over zero events.
+assertCommitted("data/home/price_events.json");
 
 const REPO = path.resolve(__dirname, "../../..");
 const ARTIFACT = path.join(REPO, "data/home/price_events.json");

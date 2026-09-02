@@ -26,6 +26,17 @@ import { readSeoCourts } from "../db/lib/seo_courts";
 import { readSeoPensionFunds } from "../prerender/kfnFunds";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 import { reportSkip } from "../lib/report_skip";
+import { assertCommitted } from "../lib/assert_committed";
+
+// The freshness clause below compares these three by COMMIT TIME and reports — rather than
+// asserts on — a source with no history, because "which one moved last" is its subject and
+// "is it here at all" is not. All three are committed, so absence is a broken working copy;
+// stating it here is what keeps that out of the clause without leaving it unsaid.
+assertCommitted(
+  "data/person/prerender_slugs.json",
+  "data/prices/product_slugs.json",
+  "public/sitemap_static_2.xml",
+);
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
