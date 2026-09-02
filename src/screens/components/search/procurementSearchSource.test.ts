@@ -25,6 +25,7 @@ import {
   fundItems,
   awarderAllTimeHref,
   awarderItems,
+  entitySubtitle,
   companyAllTimeHref,
   companyItems,
   fundProjectHref,
@@ -246,8 +247,8 @@ describe("id namespaces across ALL six groups", () => {
     );
     const signal = new AbortController().signal;
     const ids = [
-      ...(await fetchProcurementCompanies("x", signal)),
-      ...(await fetchProcurementAwarders("x", signal)),
+      ...(await fetchProcurementCompanies("x", signal, true)),
+      ...(await fetchProcurementAwarders("x", signal, true)),
     ].map((i) => i.id);
     expect(new Set(ids).size).toBe(2);
     expect(ids).toEqual(["company-104055066", "awarder-104055066"]);
@@ -293,6 +294,7 @@ describe("synthetic contractor keys", () => {
     const items = await fetchProcurementCompanies(
       "x",
       new AbortController().signal,
+      true,
     );
     expect(items.map((i) => i.to)).toEqual([
       "/company/104055066?pscope=all",
@@ -305,7 +307,9 @@ describe("synthetic contractor keys", () => {
     // filter only through this builder. The tile hand-rolled the mapping and was therefore
     // the one surface still linking synthetic keys; pinning the pure half is what stops a
     // future private `.map` from looking equivalent.
-    expect(companyItems(body({ companies: MIXED })).map((i) => i.to)).toEqual([
+    expect(
+      companyItems(body({ companies: MIXED }), true).map((i) => i.to),
+    ).toEqual([
       "/company/104055066?pscope=all",
       "/company/obed-abc?pscope=all",
     ]);
@@ -318,7 +322,7 @@ describe("synthetic contractor keys", () => {
       { eik: "1752013040", name: "ЕСО" },
       { eik: "175076479999", name: "АДФИ" },
     ];
-    expect(awarderItems(body({ awarders: rows }))).toHaveLength(2);
+    expect(awarderItems(body({ awarders: rows }), true)).toHaveLength(2);
   });
 });
 
@@ -347,8 +351,8 @@ describe("the shared request and its metadata", () => {
       ),
     );
     const groups = await Promise.all([
-      fetchProcurementCompanies("ремонт", signal),
-      fetchProcurementAwarders("ремонт", signal),
+      fetchProcurementCompanies("ремонт", signal, true),
+      fetchProcurementAwarders("ремонт", signal, true),
       fetchProcurementContracts("ремонт", signal),
       fetchProcurementTenders("ремонт", signal),
       fetchFundProjects("ремонт", signal),
@@ -517,8 +521,8 @@ describe("entity destinations carry the window the row's figure was measured ove
       ),
     );
     const signal = new AbortController().signal;
-    const [company] = await fetchProcurementCompanies("клет", signal);
-    const [awarder] = await fetchProcurementAwarders("клет", signal);
+    const [company] = await fetchProcurementCompanies("клет", signal, true);
+    const [awarder] = await fetchProcurementAwarders("клет", signal, true);
     expect(company.to).toBe("/company/130878827?pscope=all");
     expect(awarder.to).toBe("/awarder/000689061?pscope=all");
   });
@@ -545,8 +549,8 @@ describe("entity destinations carry the window the row's figure was measured ove
     );
     const signal = new AbortController().signal;
     const rows = [
-      ...(await fetchProcurementCompanies("клет", signal)),
-      ...(await fetchProcurementAwarders("клет", signal)),
+      ...(await fetchProcurementCompanies("клет", signal, true)),
+      ...(await fetchProcurementAwarders("клет", signal, true)),
     ];
     expect(rows).toHaveLength(2);
     for (const r of rows) {
@@ -636,5 +640,254 @@ describe("no search surface emits a scope-free entity destination", () => {
     expect(
       /["'`]\/(?:company|awarder)\/\$\{[^}]+\}(?![?/]|\$\{)/.test(good),
     ).toBe(false);
+  });
+});
+
+// ── The row's money must be about the row's name ───────────────────────────────────────
+//
+// `search_contractors` takes the NAME from a per-(eik, name) row and the MONEY from a
+// per-EIK aggregate, so a buyer filing one company's name against another company's ЕИК
+// mints a row advertising a stranger's whole history. The reference case, measured
+// 2026-09-02: EIK 103795327 is „БИТ И ТЕХНИКА" ООД, and exactly one of its 1,101 contract
+// rows (€6,036) carries the name „Клет българия" ООД — 0.27% of the €2,214,873 shown.
+
+const CLET_MISKEY = {
+  eik: "103795327",
+  name: "„Клет българия“ ООД",
+  contractsEur: 2_214_873,
+  ownEur: 6_036,
+  primaryName: "БИТ и Техника ООД",
+};
+const CLET_REAL = {
+  eik: "130878827",
+  name: "Клет българия ООД",
+  contractsEur: 22_424_885,
+  ownEur: 19_003_763,
+  primaryName: "Клет българия ООД",
+};
+
+describe("the row keeps its money — the two suppression rules that were refuted", () => {
+  // ⚠️ THESE ARE REGRESSION PINS FOR A DECISION, not for behaviour that exists. Both
+  // candidate rules were measured against the corpus and rejected (see the module's
+  // rejected-rules note); the assertions below fail the moment either is re-introduced,
+  // with the measurement that killed it in the message.
+
+  it("a mis-keyed alias keeps its figure — a share floor cannot separate the classes", () => {
+    // 0.27% here, but 101 of 151 mis-keyed pairs sit ABOVE 1% and the p90 is 32.6%, so any
+    // floor low enough to spare a real rename catches a third of the class at most.
+    const [row] = companyItems(body({ companies: [CLET_MISKEY] }), true);
+    expect(row.amountEur).toBe(2_214_873);
+  });
+
+  it("a LEGITIMATE former name keeps its figure — it sits INSIDE the mis-key band", () => {
+    // „ЧЕЗ ТРЕЙД БЪЛГАРИЯ ЕАД" is a real prior name of Електрохолд Трейд on the SAME EIK,
+    // at 4.998% of it. A 5% floor suppresses this; that is the measurement that refuted it.
+    const [row] = companyItems(
+      body({
+        companies: [
+          {
+            eik: "113570147",
+            name: "ЧЕЗ ТРЕЙД БЪЛГАРИЯ ЕАД",
+            contractsEur: 565_285_140,
+            ownEur: 28_253_382,
+            primaryName: "Електрохолд Трейд ЕАД",
+          },
+        ],
+      }),
+      true,
+    );
+    expect(row.amountEur).toBe(565_285_140);
+  });
+
+  it("the REAL Петрол keeps its figure — the categorical rule flags it, wrongly", () => {
+    // 831496285 is Петрол АД in tr_companies. One of its aliases is also the dominant name
+    // of the typo EIK 834496285, so „this name is another EIK's dominant name" fires on the
+    // real company. A rule with no direction cannot be used to withhold money.
+    const [row] = companyItems(
+      body({
+        companies: [
+          {
+            eik: "831496285",
+            name: "Петрол  АД",
+            contractsEur: 513_001_200,
+            ownEur: 253_629,
+            primaryName: "Петрол АД - Ловеч /старо наименование/",
+          },
+        ],
+      }),
+      true,
+    );
+    expect(row.amountEur).toBe(513_001_200);
+  });
+});
+
+describe("entitySubtitle", () => {
+  it("names the EIK's real identity when the matched name is somebody else's", () => {
+    const sub = entitySubtitle(CLET_MISKEY, true);
+    expect(sub).toContain("103795327");
+    expect(sub).toContain("БИТ и Техника");
+  });
+
+  it("does not repeat a name that is only spelled differently", () => {
+    // „Клет България ООД" vs „„Клет българия“ ООД" is one company, two typographies —
+    // printing both would read as two different firms.
+    expect(
+      entitySubtitle(
+        {
+          ...CLET_REAL,
+          name: '"Клет България" ООД',
+          primaryName: "Клет българия ООД",
+        },
+        true,
+      ),
+    ).toBe("130878827");
+  });
+
+  it("falls back to the bare EIK when nothing was computed", () => {
+    expect(entitySubtitle({ eik: "130878827", name: "x" }, true)).toBe(
+      "130878827",
+    );
+  });
+
+  it("renders in English too", () => {
+    expect(entitySubtitle(CLET_MISKEY, false)).toContain("in the contracts:");
+  });
+});
+
+describe("the builders apply both rules", () => {
+  it("a mis-keyed company row says whose EIK it is, and keeps its figure", () => {
+    // The reported symptom was two „Клет България" rows, one of them БИТ И ТЕХНИКА's EIK
+    // wearing Клет's name. The row now tells the reader that, which is the whole fix.
+    const [row] = companyItems(body({ companies: [CLET_MISKEY] }), true);
+    expect(row.primary).toContain("Клет");
+    expect(String(row.secondary)).toContain("БИТ и Техника");
+    expect(row.amountEur).toBe(2_214_873);
+  });
+
+  it("the real company shows a bare EIK — nothing to correct", () => {
+    const [row] = companyItems(body({ companies: [CLET_REAL] }), true);
+    expect(row.amountEur).toBe(22_424_885);
+    expect(row.secondary).toBe("130878827");
+  });
+
+  it("awarder rows go through the same labelling", () => {
+    const [row] = awarderItems(
+      body({
+        awarders: [
+          {
+            eik: "000689061",
+            name: "МБАЛ Княгиня Клементина",
+            contractsEur: 62_620_984,
+            ownEur: 1_000,
+            primaryName: "ПЕТА МНОГОПРОФИЛНА БОЛНИЦА",
+          },
+        ],
+      }),
+      true,
+    );
+    expect(row.amountEur).toBe(62_620_984);
+    expect(String(row.secondary)).toContain("ПЕТА МНОГОПРОФИЛНА");
+  });
+});
+
+// ── TEST-001/004/005: the fold decides whether a "correction" is printed at all ─────────
+//
+// Every case below is one where the row would otherwise print the SAME visible name twice
+// and read as a rendering bug, or print something that names nobody.
+
+describe("entitySubtitle's fold", () => {
+  it("sees through HTML entities — the corpus leaks them and the fold kept their letters", () => {
+    // ⚠️ The live case: 3 of 3 entity-carrying contractor_search rows misfired, because
+    // `&amp;` survives `[^\p{L}\p{N}]` stripping as the letters „amp". Both halves render
+    // decoded, so the comparison has to run on the decoded forms too.
+    expect(
+      entitySubtitle(
+        {
+          eik: "831131023",
+          name: "С &amp; Т БЪЛГАРИЯ ЕООД",
+          primaryName: "С & Т БЪЛГАРИЯ  ЕООД",
+        },
+        true,
+      ),
+    ).toBe("831131023");
+  });
+
+  it("ignores case, spacing and quote style", () => {
+    expect(
+      entitySubtitle(
+        {
+          eik: "1",
+          name: '"Клет България"ЕООД',
+          primaryName: "клет   българия ЕООД",
+        },
+        true,
+      ),
+    ).toBe("1");
+  });
+
+  it("refuses a primaryName that names nobody", () => {
+    // „---", „.", „ " fold to nothing. Rendering one asserts the corpus calls this EIK
+    // that. 0 such rows today; `primary_name` is free corpus text picked by argmax.
+    for (const junk of ["   ", "---", ".", "\t"])
+      expect(
+        entitySubtitle({ eik: "1", name: "АБВ ООД", primaryName: junk }, true),
+      ).toBe("1");
+  });
+
+  it("collapses NFD and NFC spellings of the same name", () => {
+    // Without `normalize("NFC")` the strip DELETES the combining breve of „й", so the two
+    // encodings fold apart and the row prints „Найден" under „Найден".
+    const nfc = "Найден ООД".normalize("NFC");
+    const nfd = "Найден ООД".normalize("NFD");
+    expect(nfc).not.toBe(nfd);
+    expect(
+      entitySubtitle({ eik: "1", name: nfc, primaryName: nfd }, true),
+    ).toBe("1");
+  });
+
+  it("still separates two genuinely different Bulgarian names", () => {
+    // The other direction of the same defect: „Найден" and „Наиден" are different names and
+    // must not collapse. This is what makes the NFC fix a fix rather than a wider fold.
+    expect(
+      entitySubtitle(
+        { eik: "1", name: "Наиден ООД", primaryName: "Найден ООД" },
+        true,
+      ),
+    ).toContain("Найден");
+  });
+
+  it("does not fold TOKENS — a different company name stays visible", () => {
+    expect(
+      entitySubtitle(
+        {
+          eik: "1",
+          name: "Клет България ООД",
+          primaryName: "БИТ и Техника ООД",
+        },
+        true,
+      ),
+    ).toContain("БИТ и Техника");
+  });
+});
+
+describe("what the subtitle CLAIMS", () => {
+  it("names the contracts, not a register", () => {
+    // ⚠️ 27% of the rows that render this subtitle name an EIK absent from `tr_companies`
+    // — 64.6% on the awarder side, where ministries and hospitals have no Commerce-Register
+    // entry by construction. „в регистъра" beside an EIK reads as that register.
+    const sub = entitySubtitle(CLET_MISKEY, true);
+    expect(sub).toContain("в договорите");
+    expect(sub).not.toContain("регистъра");
+    expect(entitySubtitle(CLET_MISKEY, false)).toContain("in the contracts");
+  });
+});
+
+// ── TEST-002: `bg` is required, so no caller can silently render Bulgarian in an EN UI ──
+describe("the language argument", () => {
+  it("changes the sentence, and both builders honour it", () => {
+    const en = companyItems(body({ companies: [CLET_MISKEY] }), false);
+    const bgRows = companyItems(body({ companies: [CLET_MISKEY] }), true);
+    expect(String(en[0].secondary)).toContain("in the contracts");
+    expect(String(bgRows[0].secondary)).toContain("в договорите");
   });
 });

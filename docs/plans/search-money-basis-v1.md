@@ -232,6 +232,34 @@ name of a **different** EIK", not „this name is unlike the dominant one".
 
 ### Tier 4 — proposed fix (needs a decision on 4.3)
 
+> **[2026-09-02, IMPLEMENTED] T4.1 AS WRITTEN IS REFUTED. The row keeps its money; the
+> row is LABELLED instead.** Both candidate suppression rules were measured against the
+> corpus and neither is safe:
+>
+> - **A share floor** („withhold when this name earned under k% of the EIK's money") does
+>   not separate the classes. Over the 151 mis-keyed pairs, **101 sit ABOVE 1%**, the 90th
+>   percentile is **32.6%** and the worst is **46.4%** — while a legitimate former name sits
+>   inside that band: „ЧЕЗ ТРЕЙД БЪЛГАРИЯ ЕАД", a real prior name of Електрохолд Трейд on
+>   the SAME EIK, is **4.998%** of it. The Клет case at 0.27% is the bottom of its own
+>   class, not typical of it, so the 5% floor this section proposed would have suppressed a
+>   real rename and still missed two-thirds of the target.
+> - **The categorical test** („this name is the dominant name of a DIFFERENT EIK") spares
+>   every rename — 0 rows on ЧЕЗ Трейд and Медекс — and catches the class, but it has **no
+>   direction**. Of 275 flagged pairs it flags the **real Петрол** (831496285, in
+>   `tr_companies`), because one of its aliases is also the dominant name of the typo EIK
+>   834496285. Suppressing there withholds a real company's real money.
+>
+> Withholding a figure from a named company on a rule that misfires is worse than the defect
+> it fixes. **Shipped: the money stays and the row says whose ЕИК it is** — the subtitle
+> reads „103795327 · в регистъра: БИТ и Техника ООД", which is honest for a rename, an ЕИК
+> typo and a cross-company mis-key alike, and cannot misfire because it classifies nothing.
+> `ownEur` is still carried (the route already selects it) because any future fix needs it.
+>
+> **Still open:** a corpus-side flag carrying a DIRECTION — which of two EIKs sharing a name
+> is the better claimant, decided against `tr_companies` and the row counts. That is a
+> loader change, not a client threshold. The measurements above are the evidence any attempt
+> must beat.
+
 **T4.1 — the row's money must match the row's name.** Return the per-`(eik, name)`
 figure beside the per-EIK one and render the pair honestly, or suppress the money on a
 minority alias. Minimum viable: `search_contractors` also returns `own_name_eur`, and

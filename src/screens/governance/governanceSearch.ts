@@ -21,10 +21,14 @@
 // is still the right answer to somebody typing its name, so nothing here is gated on
 // having a figure.
 
-import type { HubSearchSource } from "@/ux/search/hubSearchSources";
+import {
+  seeAllAbove,
+  type HubSearchSource,
+} from "@/ux/search/hubSearchSources";
 import {
   fetchProcurementAwarders,
   fetchProcurementCompanies,
+  procurementAltQuery,
 } from "@/screens/components/search/procurementSearchSource";
 import {
   fetchPublicPeople,
@@ -41,17 +45,17 @@ export const governanceSearchSources = (bg: boolean): HubSearchSource[] => [
     // VERIFIED destination: /persons reads ?q (useUrlPersonFilters). `altQuery` because the
     // browse table runs its own search WITHOUT the shliokavitsa rewrite, so a link built
     // from what was typed advertises rows the destination cannot find.
-    seeAll: (q) => ({
-      label: bg ? "Виж всички хора" : "See all people",
-      to: `/persons?q=${encodeURIComponent(personAltQuery(q))}`,
-    }),
+    seeAll: seeAllAbove(
+      bg ? "Виж всички хора" : "See all people",
+      (q) => `/persons?q=${encodeURIComponent(personAltQuery(q))}`,
+    ),
   },
   {
     id: "awarders",
     label: { bg: "Институции", en: "Institutions" },
     limit: 4,
     kind: "server",
-    fetch: fetchProcurementAwarders,
+    fetch: (q, s) => fetchProcurementAwarders(q, s, bg),
     // No see-all: there is no awarders browse page that reads ?q, and a link advertising a
     // filtered destination that delivers an unfiltered one is worse than none (§4).
   },
@@ -60,12 +64,19 @@ export const governanceSearchSources = (bg: boolean): HubSearchSource[] => [
     label: { bg: "Фирми", en: "Companies" },
     limit: 4,
     kind: "server",
-    fetch: fetchProcurementCompanies,
-    seeAll: (q) => ({
-      label: bg ? "Виж всички фирми" : "See all companies",
+    fetch: (q, s) => fetchProcurementCompanies(q, s, bg),
+    seeAll: seeAllAbove(
+      bg ? "Виж всички фирми" : "See all companies",
       // ?pscope=all: the browse table defaults to the selected parliament's window, so a
       // company whose contracts predate it would land on zero rows.
-      to: `/procurement/contractors?q=${encodeURIComponent(q)}&pscope=all`,
-    }),
+      // ⚠️ `procurementAltQuery`, not the typed `q` — the same rule the people group four
+      // entries up states and this one did not follow: the browse table runs its own search
+      // WITHOUT this route's shliokavitsa rewrite, so a link built from what was typed
+      // advertises rows the destination cannot find („6umen" previews six, delivers one).
+      (q) =>
+        `/procurement/contractors?q=${encodeURIComponent(
+          procurementAltQuery(q),
+        )}&pscope=all`,
+    ),
   },
 ];

@@ -9,6 +9,7 @@
 // преглед" tile), which stays the country node of the Governance place-view.
 
 import { FC, useMemo } from "react";
+import { isBg } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { TileHubGrid, TileHubSection, HubHead, HubKpi } from "@/ux/infographic";
 import {
@@ -50,7 +51,7 @@ if (import.meta.env.DEV) {
 export const GovernanceScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const title = t("nav_governance") || "Governance";
-  const bg = i18n.language === "bg";
+  const bg = isBg(i18n.language);
   const numFmt = useMemo(
     () => new Intl.NumberFormat(bg ? "bg-BG" : "en-GB"),
     [bg],

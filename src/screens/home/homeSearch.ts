@@ -56,7 +56,7 @@ import {
   type RoleLabeler,
 } from "@/screens/components/search/personSearchSource";
 import type { SearchIndexType } from "@/data/search/useSearchItems";
-import { SEARCH_MIN_CHARS, termLength } from "@/ux/data_table/searchTerm";
+import { seeAllAbove } from "@/ux/search/hubSearchSources";
 
 /** A price-search hit. ⚠️ The route returns a BARE ARRAY (`{ body: rows }` in
  *  `functions/db_routes.js`), not an envelope — `ConsumptionSearchTile` reads it the same
@@ -198,44 +198,10 @@ const CAP = {
   interreg: 1,
 } as const;
 
-/**
- * The see-all floor.
- *
- * ⚠️ `HubSearch` OPENS AT TWO CHARACTERS AND EVERY DESTINATION FLOORS AT THREE. Each see-all
- * below lands on a `DbDataTable`, whose `searchMinChars` is `SEARCH_MIN_CHARS` and whose server
- * REFUSES a shorter term with a 400 — so a two-character query („АД", „ЕЙ") would show a
- * preview with rows and links to a page that renders „въведете поне 3 знака" instead of them.
- * That is the „a see-all page cannot reproduce the preview" failure, in the one case the rest
- * of the rules do not cover.
- *
- * ⚠️ DERIVED FROM THE SHARED RULE, NEVER HAND-ROLLED. `searchTerm.ts` owns both halves and its
- * test reads `SEARCH_MIN_CHARS` back out of `functions/db_table.js` — so an engine change to 4
- * fails THERE and propagates here. A private `const SEE_ALL_MIN_CHARS = 3` would not move with
- * it: the floor would silently go stale while this file's own „three characters is enough"
- * assertion kept passing, now asserting the bug. `termLength` rather than `.length` for the
- * usual reason — `[..."👍👍"].length` is 2 while `.length` is 4, and `show_trgm('👍👍')` is the
- * EMPTY set.
- *
- * TRIMMED, like every sibling consumer. `HubSearch` happens to pass an already-trimmed query
- * today, but that is a property of a different file: called with „аб " this must measure the
- * two characters the destination will actually run, not the three that reached the callback.
- */
-const longEnoughToSeeAll = (q: string): boolean =>
-  termLength(q.trim()) >= SEARCH_MIN_CHARS;
-
-/**
- * A see-all that suppresses itself below the destination's own floor.
- *
- * The label may depend on the query — the procurement groups append the bounded remainder the
- * route already paid for — so that EVERY see-all goes through this one gate rather than half of
- * them re-implementing the guard inline, which is what a fifth group would copy from.
- */
-const seeAllAbove =
-  (label: string | ((q: string) => string), to: (q: string) => string) =>
-  (q: string): { label: string; to: string } | undefined =>
-    longEnoughToSeeAll(q)
-      ? { label: typeof label === "function" ? label(q) : label, to: to(q) }
-      : undefined;
+// ⚠️ `longEnoughToSeeAll` / `seeAllAbove` MOVED to `@/ux/search/hubSearchSources` — this
+// file's own comment predicted that „a fifth group would copy from" it, and
+// `governanceSearch` and `cultureSearch` then shipped four unguarded see-alls onto the
+// same DbDataTable destinations. The rule and its reasoning now live once, there.
 
 export const homeSearchSources = (
   bg: boolean,
@@ -301,7 +267,7 @@ export const homeSearchSources = (
     label: { bg: "Институции", en: "Institutions" },
     limit: CAP.awarders,
     kind: "server",
-    fetch: fetchProcurementAwarders,
+    fetch: (q, s) => fetchProcurementAwarders(q, s, bg),
     // No see-all: there is no awarders browse page that reads ?q, and a link advertising a
     // filtered destination that delivers an unfiltered one is worse than none.
   },
@@ -310,7 +276,7 @@ export const homeSearchSources = (
     label: { bg: "Фирми", en: "Companies" },
     limit: CAP.companies,
     kind: "server",
-    fetch: fetchProcurementCompanies,
+    fetch: (q, s) => fetchProcurementCompanies(q, s, bg),
     seeAll: seeAllAbove(
       bg ? "Виж всички фирми" : "See all companies",
       // ⚠️ `altQuery`: the browse table runs its own search and does NOT carry this route's

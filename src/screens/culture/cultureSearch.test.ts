@@ -93,6 +93,30 @@ describe("the mixed procurement group", () => {
     ).toHaveLength(3);
   });
 
+  it("keeps the EIK and the corpus-name correction behind the kind label", async () => {
+    // ⚠️ This group composes its own `secondary` (it mixes buyers and contracts, so the row
+    // kind has to lead). Overwriting it outright made /culture the ONE surface where a
+    // mis-keyed buyer row still advertised a stranger's total with nothing naming the
+    // stranger — and dropped the EIK every other surface shows.
+    stub({
+      awarders: [
+        {
+          ...awarder("103795327", "„Клет българия“ ООД"),
+          primaryName: "БИТ и Техника ООД",
+        },
+      ],
+      contracts: [],
+    });
+    const [row] = await procurementSource().fetch(
+      "клет",
+      new AbortController().signal,
+    );
+    const sub = String((row as unknown as { secondary: string }).secondary);
+    expect(sub).toContain("възложител");
+    expect(sub).toContain("103795327");
+    expect(sub).toContain("БИТ и Техника");
+  });
+
   it("gives its awarder rows the all-time window", async () => {
     stub({ awarders: [awarder("000695160", "МК")], contracts: [] });
     const [row] = await procurementSource().fetch(

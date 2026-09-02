@@ -30,10 +30,11 @@
 
 import { Landmark, FileText, Users } from "lucide-react";
 import type { SearchItem } from "@/ux/search/EntitySearchTile";
-import type {
-  HubSearchSource,
-  IndexSource,
-  ServerSource,
+import {
+  seeAllAbove,
+  type HubSearchSource,
+  type IndexSource,
+  type ServerSource,
 } from "@/ux/search/hubSearchSources";
 import { buildEntityIndex, type EntityIndex } from "@/lib/entitySearchIndex";
 import {
@@ -153,16 +154,24 @@ export const cultureSearchSources = (bg: boolean): HubSearchSource[] => [
       // silently and for all of them, because no procurement hash can ever be an ИСУН
       // number. The shared builder also encodes the key and names the contractor.
       return [
-        ...awarderItems(j)
+        ...awarderItems(j, bg)
           .slice(0, PROCUREMENT_QUOTA)
-          .map((a) => ({ ...a, secondary: bg ? "възложител" : "buyer" })),
+          .map((a) => ({
+            ...a,
+            // ⚠️ COMPOSE, DO NOT REPLACE. The kind label leads because this group mixes
+            // buyers and contracts — but overwriting `secondary` outright threw away both
+            // the EIK and the „в договорите: …" correction, making /culture the one surface
+            // where a mis-keyed buyer row still advertised a stranger's total with nothing
+            // naming the stranger.
+            secondary: `${bg ? "възложител" : "buyer"} · ${a.secondary}`,
+          })),
         ...contractItems(j).slice(0, PROCUREMENT_QUOTA),
       ];
     },
-    seeAll: (q: string) => ({
-      label: bg ? "Всички поръчки в културата" : "All culture contracts",
-      to: `/procurement/contracts?sector=culture&q=${encodeURIComponent(q)}`,
-    }),
+    seeAll: seeAllAbove(
+      bg ? "Всички поръчки в културата" : "All culture contracts",
+      (q) => `/procurement/contracts?sector=culture&q=${encodeURIComponent(q)}`,
+    ),
   } as ServerSource,
   {
     kind: "server",
@@ -185,9 +194,9 @@ export const cultureSearchSources = (bg: boolean): HubSearchSource[] => [
         icon: Users,
       }));
     },
-    seeAll: (q: string) => ({
-      label: bg ? "Всички хора" : "All people",
-      to: `/persons?q=${encodeURIComponent(q)}`,
-    }),
+    seeAll: seeAllAbove(
+      bg ? "Всички хора" : "All people",
+      (q) => `/persons?q=${encodeURIComponent(q)}`,
+    ),
   } as ServerSource,
 ];

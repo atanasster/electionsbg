@@ -12,6 +12,7 @@
 // /api/db/procurement-search, fetched in parallel.
 
 import { FC, useEffect, useMemo, useState } from "react";
+import { isBg } from "@/i18n";
 import { To, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FolderPlus } from "lucide-react";
@@ -73,7 +74,7 @@ const EMPTY: DbResults = {
 
 export const ProcurementSearchTile: FC = () => {
   const { t, i18n } = useTranslation();
-  const bg = i18n.language === "bg";
+  const bg = isBg(i18n.language);
   const [params] = useSearchParams();
   const [q, setQ] = useState("");
   const [db, setDb] = useState<DbResults>(EMPTY);
@@ -165,8 +166,8 @@ export const ProcurementSearchTile: FC = () => {
     // empty-string key (whose href matches no route). ⚠️ And the group guard must test the
     // BUILT list, not the raw row count: a needle matching only synthetic keys would
     // otherwise render an empty „Изпълнители" header.
-    const companies = companyItems(db);
-    const awarders = awarderItems(db);
+    const companies = companyItems(db, bg);
+    const awarders = awarderItems(db, bg);
     if (companies.length > 0)
       g.push({
         key: "companies",

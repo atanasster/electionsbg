@@ -16,6 +16,7 @@
 // Plan: docs/plans/home-dashboard-implementation-v1.md §4 and §9.
 
 import { FC, useMemo, useState } from "react";
+import { isBg } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { HubSearch } from "@/ux/search/HubSearch";
@@ -36,7 +37,7 @@ import { HOME_SCENES } from "./home/homeScenes";
 export const HomeDashboardScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const bg = lang.startsWith("bg");
+  const bg = isBg(lang);
   const { stats, settled } = useHomeHubStats();
 
   // ⚠️ ARMED ON INTENT, and the flag is what defers the catalog. `useSettlementsInfo` +

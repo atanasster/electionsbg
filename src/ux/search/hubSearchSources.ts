@@ -26,6 +26,8 @@
 // ===========================================================================
 
 import type { FC } from "react";
+import type { To } from "react-router-dom";
+import { SEARCH_MIN_CHARS, termLength } from "@/ux/data_table/searchTerm";
 import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import type { EntityIndex, EntityRow } from "@/lib/entitySearchIndex";
 
@@ -113,3 +115,44 @@ export const scopedSources = <S extends HubSearchSource>(spec: {
       ]
     : []),
 ];
+
+/**
+ * A see-all that suppresses itself below the DESTINATION's own floor.
+ *
+ * ⚠️ TWO DIFFERENT FLOORS ARE IN PLAY AND THEY DISAGREE. `MIN_QUERY` (2) opens the dropdown;
+ * `SEARCH_MIN_CHARS` (3) is what every `DbDataTable` destination enforces, and its server
+ * REFUSES a shorter term with a 400. So a two-character query („АД", „ЕЙ", „НК") shows a
+ * preview full of real rows beside a link to a page that renders „въведете поне 3 знака"
+ * instead of them — the „a see-all cannot reproduce the preview" failure, in the one case
+ * the other rules do not cover.
+ *
+ * ⚠️ SHARED, NOT COPIED. This lived privately in `homeSearch` and its own comment predicted
+ * the rest: „a fifth group would copy from" it. `governanceSearch` and `cultureSearch` then
+ * shipped four unguarded see-alls onto exactly those destinations. One definition here is
+ * what makes „every hub's see-all obeys the destination's floor" a fact rather than a habit.
+ *
+ * ⚠️ DERIVED FROM THE SHARED RULE, NEVER HAND-ROLLED. `searchTerm.ts` owns both halves and
+ * its test reads `SEARCH_MIN_CHARS` back out of `functions/db_table.js`, so an engine change
+ * to 4 fails THERE and propagates here. `termLength` rather than `.length` for the usual
+ * reason — `[..."👍👍"].length` is 2 while `.length` is 4, and `show_trgm('👍👍')` is empty.
+ *
+ * TRIMMED, like every sibling consumer: called with „аб " this must measure the two
+ * characters the destination will actually run, not the three that reached the callback.
+ */
+export const longEnoughToSeeAll = (q: string): boolean =>
+  termLength(q.trim()) >= SEARCH_MIN_CHARS;
+
+/**
+ * The label may depend on the query — the procurement groups append the bounded remainder
+ * the route already paid for — so that EVERY see-all goes through this one gate rather than
+ * half of them re-implementing the guard inline.
+ */
+export const seeAllAbove =
+  <T extends To>(
+    label: string | ((q: string) => string),
+    to: (q: string) => T,
+  ) =>
+  (q: string): { label: string; to: T } | undefined =>
+    longEnoughToSeeAll(q)
+      ? { label: typeof label === "function" ? label(q) : label, to: to(q) }
+      : undefined;

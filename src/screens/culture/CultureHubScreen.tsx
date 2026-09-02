@@ -30,6 +30,7 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 
 import { FC, useMemo } from "react";
+import { isBg } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import {
@@ -144,7 +145,7 @@ const tileMetric = (
 export const CultureHubScreen: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const bg = lang === "bg";
+  const bg = isBg(lang);
   const { data: stats, isPending } = useCultureHubStats();
   // COPY is a Record<string, …>, so TypeScript cannot see a missing key: a typo
   // in the registry would make `COPY[k]` undefined and `.bg` throw, taking the

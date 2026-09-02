@@ -49,9 +49,115 @@ import { SCOPE_ALL, SCOPE_PARAM } from "@/data/scope/constants";
 
 export interface NamedProcurementEntity {
   eik: string;
+  /** The alias that MATCHED — one buyer's spelling on one contract, not a register name. */
   name: string;
+  /** The EIK's whole procurement history. ⚠ Not necessarily about `name`; see `ownEur`. */
   contractsEur?: number;
+  /** The money filed under THIS (eik, name) — the evidence that `contractsEur` may not be
+   *  about `name`. Nothing renders it today; see the rejected-rules note below for why it is
+   *  carried anyway (any future fix needs it, and it is free — the route already selects it).
+   *  ⚠️ NULL/undefined means „not computed on this database" (a `db:load:pg` predating the
+   *  column) — NEVER zero. A zero is a real answer: „this spelling earned nothing". */
+  ownEur?: number | null;
+  /** The EIK's dominant name in the corpus, by that same measure. NULL when not computed. */
+  primaryName?: string | null;
 }
+
+/**
+ * ⚠️ THERE IS DELIBERATELY NO MONEY-SUPPRESSION RULE HERE, AND TWO CANDIDATES WERE MEASURED
+ * AND REJECTED. Read this before adding one.
+ *
+ * The defect is real: `search_contractors` takes the NAME from a per-(eik, name) row and the
+ * MONEY from a per-EIK aggregate, so „Клет българия" ООД — filed once, for €6,036, against
+ * БИТ И ТЕХНИКА's ЕИК 103795327 — advertised that company's whole €2,214,873. The obvious
+ * fixes both fail against the corpus:
+ *
+ *   1. A SHARE FLOOR („withhold the figure when this name earned under k% of the EIK's
+ *      money"). Refuted: the mis-keyed class is not concentrated at low shares. Measured
+ *      2026-09-02 over 151 mis-keyed pairs — 101 sit ABOVE 1%, the 90th percentile is 32.6%
+ *      and the worst is 46.4%, while a LEGITIMATE former name sits right among them
+ *      („ЧЕЗ ТРЕЙД БЪЛГАРИЯ ЕАД", a real prior name of Електрохолд Трейд on the same EIK, is
+ *      4.998% of its EIK). No threshold separates the two classes; the Клет case at 0.27% is
+ *      the bottom of its own class, not typical of it.
+ *   2. A CATEGORICAL TEST („this name is the dominant name of a DIFFERENT EIK"). Spares every
+ *      rename (0 of ЧЕЗ Трейд's and Медекс's rows) and catches the class — but it is
+ *      DIRECTIONLESS. Measured: of 275 flagged pairs, it flags the REAL Петрол (831496285,
+ *      in tr_companies) because one of its aliases is also the dominant name of the typo EIK
+ *      834496285. Suppressing there withholds a real company's real money.
+ *
+ * Withholding a figure from a named company on a rule that misfires is a worse failure than
+ * the one being fixed, so the money stays and the ROW SAYS WHAT IT IS instead — see
+ * `entitySubtitle`. That is honest in all three cases (rename, ЕИК typo, cross-company
+ * mis-key) and cannot misfire, because it classifies nothing.
+ *
+ * What WOULD close it is a corpus-side flag that carries a DIRECTION — which of two EIKs
+ * sharing a name is the better claimant, decided against `tr_companies` and the row counts.
+ * That is a loader change, not a client threshold. Open work; the measurement above is the
+ * evidence any attempt has to beat.
+ */
+
+/**
+ * The name to show, and the alias to show beside it.
+ *
+ * ⚠️ THE MATCHED NAME STAYS THE HEADLINE. Replacing it with `primaryName` hides the query
+ * from its own result: searching „Клементина" would return a row reading „ПЕТА
+ * МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ…", which is the same hospital and looks like a
+ * mismatch. The dominant name is added as the SUBTITLE instead, where it answers „why am I
+ * seeing this row" — and, in the mis-keyed case, tells the reader the EIK is somebody else.
+ */
+export const entitySubtitle = (
+  e: NamedProcurementEntity,
+  bg: boolean,
+): string => {
+  const p = e.primaryName;
+  if (!p) return e.eik;
+  // ⚠️ COMPARE WHAT THE ROW WILL SHOW, NOT WHAT THE WIRE SENT. Both halves render through
+  // `decodeEntities`, and the fold keeps the LETTERS inside an entity — `&amp;` → „amp" —
+  // so an entity-encoded spelling and its plain twin fold apart and the subtitle fires on a
+  // name identical to the one above it. Measured 2026-09-02: 3 of 3 entity-carrying rows
+  // misfired, e.g. „С &amp; Т БЪЛГАРИЯ ЕООД" rendering under „831131023 · в договорите:
+  // С & Т БЪЛГАРИЯ  ЕООД" — the same name twice, differing by a double space.
+  // `decodeEntities` is idempotent on entity-free input, so this is free for the rest.
+  const shown = decodeEntities(p);
+  // A value with no letters or digits names nobody — „---", „ ", „." — and printing it
+  // asserts the corpus calls this EIK that. Same shape as `isSpouseHolder`'s letter guard.
+  // 0 such rows today; `primary_name` is free corpus text chosen by argmax.
+  if (!nameKey(shown) || sameName(shown, decodeEntities(e.name))) return e.eik;
+  // ⚠️ „в договорите", NOT „в регистъра". This value is the dominant name in the CONTRACT
+  // CORPUS, and 27% of the rows that render this subtitle name an EIK absent from
+  // `tr_companies` altogether — 64.6% on the awarder side, where ministries and hospitals
+  // have no Commerce-Register entry by construction (and `contractor_search` exists
+  // precisely because ~32% of contractor EIKs do not either). „в регистъра" beside an EIK
+  // reads as the Commerce Register, and attributing an unregistered spelling to a register
+  // is the one direction this repo's „name match ≠ identity" rule forbids.
+  return `${e.eik} · ${bg ? "в договорите: " : "in the contracts: "}${shown}`;
+};
+
+/** The comparison key: NFC, lower-cased, letters and digits only.
+ *
+ *  ⚠️ `normalize("NFC")` FIRST, and it is not cosmetic. `\p{L}\p{N}` excludes combining
+ *  marks (category `Mn`), so the strip DELETES them — in NFD, „й" is „и" + U+0306 and the
+ *  breve is dropped. Without normalizing, the fold is wrong in BOTH directions: it fails to
+ *  collapse two encodings of „Найден", and it DOES collapse „Найден" with „Наиден", which
+ *  are different Bulgarian names. 0 non-NFC rows today, but four independent procurement
+ *  feeds write these names and none of them normalizes.
+ *
+ *  Deliberately NOT a token fold: a shared word is exactly the distinction that matters
+ *  elsewhere in this repo, and here a genuinely different company name must stay visible.
+ *
+ *  ⚠️ KNOWN GAP: Cyrillic/Latin homoglyphs (А/A, Е/E, О/O, Р/P, С/C …) are distinct code
+ *  points that render identically, so „ПЕТРОЛ АД" vs „ПЕТРОЛ AД" still prints the same
+ *  visible name twice. Unquantified — a homoglyph probe needs a per-character sweep the
+ *  fold cannot express in SQL. The repo owns a fold for this (`translit_bg_latin`
+ *  server-side, `shlyoRules` client-side); wiring one in belongs here, in `nameKey`, so
+ *  `sameName` stays one definition. */
+const nameKey = (s: string): string =>
+  s
+    .normalize("NFC")
+    .toLocaleLowerCase("bg")
+    .replace(/[^\p{L}\p{N}]+/gu, "");
+
+const sameName = (a: string, b: string): boolean => nameKey(a) === nameKey(b);
 
 /** A signed contract. `key` is `hash(releaseId::contractId::contractorEik::tag)` — 0 of
  *  410,369 contain a character outside `[A-Za-z0-9_-]`, so the encoding below is defensive
@@ -302,12 +408,19 @@ export const awarderAllTimeHref = (eik: string): string =>
  * pair already carries: a consumer running its OWN request (`ProcurementSearchTile`,
  * `cultureSearch`) must be able to reuse the mapping without reusing the request.
  */
-export const awarderItems = (body: ProcurementSearchResponse): SearchItem[] =>
+export const awarderItems = (
+  body: ProcurementSearchResponse,
+  // ⚠️ REQUIRED, not defaulted. It decides a user-visible SENTENCE, and a Bulgarian
+  // default renders plausible Bulgarian prose inside an English UI at a 200 — unlike a
+  // missing i18n key, which renders the key and is loud. Every call site already passes
+  // it, so requiring it turns a future omission into a compile error at no cost.
+  bg: boolean,
+): SearchItem[] =>
   (body.awarders ?? []).map((a) => ({
     id: `awarder-${a.eik}`,
     to: awarderAllTimeHref(a.eik),
     primary: decodeEntities(a.name),
-    secondary: a.eik,
+    secondary: entitySubtitle(a, bg),
     amountEur: a.contractsEur,
     icon: Landmark,
   }));
@@ -329,14 +442,18 @@ export const awarderItems = (body: ProcurementSearchResponse): SearchItem[] =>
  * `companyKey.test.ts`'s repo-wide net cannot see it: that net matches the JSX token
  * ``to={`/company/${…`` and an object literal calling a helper is invisible to it. Use this.
  */
-export const companyItems = (body: ProcurementSearchResponse): SearchItem[] =>
+export const companyItems = (
+  body: ProcurementSearchResponse,
+  /** Required — see `awarderItems`. */
+  bg: boolean,
+): SearchItem[] =>
   (body.companies ?? [])
     .filter((c) => isLinkableCompanyKey(c.eik))
     .map((c) => ({
       id: `company-${c.eik}`,
       to: companyAllTimeHref(c.eik),
       primary: decodeEntities(c.name),
-      secondary: c.eik,
+      secondary: entitySubtitle(c, bg),
       amountEur: c.contractsEur,
       icon: Briefcase,
     }));
@@ -344,14 +461,16 @@ export const companyItems = (body: ProcurementSearchResponse): SearchItem[] =>
 export const fetchProcurementAwarders = async (
   query: string,
   signal: AbortSignal,
+  bg: boolean,
 ): Promise<SearchItem[]> =>
-  awarderItems(await sharedProcurementSearch(query, signal));
+  awarderItems(await sharedProcurementSearch(query, signal), bg);
 
 export const fetchProcurementCompanies = async (
   query: string,
   signal: AbortSignal,
+  bg: boolean,
 ): Promise<SearchItem[]> =>
-  companyItems(await sharedProcurementSearch(query, signal));
+  companyItems(await sharedProcurementSearch(query, signal), bg);
 
 // ── Destinations ───────────────────────────────────────────────────────────────────────
 //

@@ -825,6 +825,32 @@ const SIGNED_URL_CACHE = new Map();
 const SIGNED_URL_TTL_MS = 600_000;
 const SIGNED_URL_CACHE_MAX = 5000;
 
+/**
+ * One ranked row per EIK from a `search_contractors`/`search_awarders` call.
+ *
+ * ⚠️ `own_eur` / `primary_name` RIDE ALONG DELIBERATELY, and the client decides. The row's
+ * NAME is one buyer's spelling on one contract while `contracts_eur` is the EIK's whole
+ * history, so when those disagree the row asserts something nobody measured — „Клет
+ * българия" ООД, filed once for €6,036 against БИТ И ТЕХНИКА's ЕИК 103795327, advertised
+ * that company's entire €2,214,873. `primary_name` is what lets a surface say whose ЕИК it
+ * actually is; `own_eur` is the evidence behind that. Both are NULL on a database whose
+ * `db:load:pg` predates the columns — „not computed", never zero.
+ *
+ * `lim` is spliced, not bound, because the two call sites pass a placeholder (`$2`) and a
+ * literal (`20`) respectively — it is never reader input.
+ */
+const entitySearchSql = (fn, lim) => `
+      WITH s AS (SELECT * FROM ${fn}($1, 60))
+      SELECT eik, name, contracts, contracts_eur AS "contractsEur",
+             own_eur AS "ownEur", primary_name AS "primaryName"
+      FROM (
+        SELECT DISTINCT ON (eik) eik, name, contracts, contracts_eur,
+               own_eur, primary_name, sim
+        FROM s ORDER BY eik, sim DESC, length(name)
+      ) d
+      ORDER BY sim DESC, length(name), eik
+      LIMIT ${lim}`;
+
 const DB_ROUTES = {
   async person(dbRows, q) {
     const name = s(q, "name");
@@ -3700,17 +3726,17 @@ const DB_ROUTES = {
   "company-search": async (dbRows, q) => {
     const term = s(q, "q");
     if (!term) return { status: 400, body: { error: "missing q" } };
-    const companies = await dbRows(
-      `WITH s AS (SELECT * FROM search_contractors($1, 60))
-       SELECT eik, name, contracts, contracts_eur AS "contractsEur"
-       FROM (
-         SELECT DISTINCT ON (eik) eik, name, contracts, contracts_eur, sim
-         FROM s ORDER BY eik, sim DESC, length(name)
-       ) d
-       ORDER BY sim DESC, length(name), eik
-       LIMIT 20`,
-      [term],
-    );
+    // ⚠️ TOMBSTONE — THIS ROUTE HAS NO CONSUMER. Verified 2026-09-02: a repo-wide search
+    // for „company-search" finds this definition and four DOCUMENTS, and nothing in `src/`,
+    // `ai/`, `functions/` or any test. `docs/plans/procurement-dashboard-redesign-v1.md`
+    // records why — its `CompanySearchTile` was superseded by the combined
+    // `procurement-search`, and the route outlived the tile. Kept rather than deleted only
+    // because an undocumented external caller cannot be ruled out from inside the repo; it
+    // shares the SQL builder above so there is no second SELECT list to keep correct, and
+    // deleting it should be one commit whenever somebody can confirm the outside is quiet.
+    const companies = await dbRows(entitySearchSql("search_contractors", "20"), [
+      term,
+    ]);
     return { body: { companies } };
   },
   // Combined procurement search — one query, grouped results: contractors,
@@ -3731,15 +3757,22 @@ const DB_ROUTES = {
     const term = s(q, "q");
     if (!term) return { status: 400, body: { error: "missing q" } };
     const lim = clampInt(q.limit, 6, 1, 20);
-    const dedupByEik = (fn) => `
-      WITH s AS (SELECT * FROM ${fn}($1, 60))
-      SELECT eik, name, contracts, contracts_eur AS "contractsEur"
-      FROM (
-        SELECT DISTINCT ON (eik) eik, name, contracts, contracts_eur, sim
-        FROM s ORDER BY eik, sim DESC, length(name)
-      ) d
-      ORDER BY sim DESC, length(name), eik
-      LIMIT $2`;
+    // ⚠️ THE ROW'S NAME AND THE ROW'S MONEY COME FROM DIFFERENT GRAINS, and this is where
+    // that is reconciled. `contracts_eur` is the EIK's WHOLE history; `name` is one buyer's
+    // spelling on one contract. When those disagree the row asserts something nobody
+    // measured — „Клет българия" ООД (EIK 103795327, which is БИТ И ТЕХНИКА) advertised
+    // €2,214,873 of which €6,036 was ever filed under that name, 0.27%.
+    //
+    // `ownEur` (the money under THIS name) and `primaryName` (the EIK's dominant name)
+    // ride along so the CLIENT can decide; the route asserts nothing. Both are NULL on a
+    // database whose `db:load:pg` predates the columns — „not computed", never zero.
+    //
+    // ⚠️ THE DEDUP KEEPS THE MATCHED NAME, NOT THE DOMINANT ONE. `DISTINCT ON (eik)` picks
+    // the best-scoring alias, which is the one containing what the reader typed — replacing
+    // it with `primary_name` would hide the query from its own result („Клементина"
+    // vanishing behind „ПЕТА МНОГОПРОФИЛНА БОЛНИЦА…"). The dominant name is offered
+    // BESIDE it so a surface can show both.
+    const dedupByEik = (fn) => entitySearchSql(fn, "$2");
     // Every group as a function of the needle, so the shliokavitsa rewrite can re-run the
     // SAME six without a second copy of the SQL drifting from the first.
     const groupQueries = (needle) => [

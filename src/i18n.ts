@@ -4,6 +4,22 @@ import { LOCALE_BUNDLES, type LocaleBundle } from "@/locales/bundles";
 
 export type AppLanguage = "bg" | "en";
 
+/** The ONE test for „is the UI in Bulgarian".
+ *
+ *  Three surfaces compared `=== "bg"` and one `startsWith("bg")`. Harmless while
+ *  `AppLanguage` is exactly `"bg" | "en"` and `detectLanguage` never emits a region tag —
+ *  but the search hubs now let this predicate decide a user-visible SENTENCE, so the day a
+ *  region tag appears (`bg-BG`) the strict three would silently switch to English mid-page.
+ *  `startsWith` is the tolerant half, so it is the one that becomes the rule.
+ *
+ *  ⚠️ ACCEPTS `undefined`, and must. `i18n.language` is typed `string` but is undefined
+ *  under a mocked `useTranslation` — the four call sites this replaced used `=== "bg"`,
+ *  which is false there rather than a throw, and nine CultureHubScreen tests went red the
+ *  moment a bare `.startsWith` shipped. Undefined resolves to NOT Bulgarian, exactly as
+ *  before: the fallback language is English. */
+export const isBg = (lang: string | undefined): boolean =>
+  !!lang?.startsWith("bg");
+
 // URL-based language detection: paths under /en/* force English; otherwise
 // fall back to the user's localStorage preference (or BG default).
 export const LANGUAGE_STORAGE_KEY = "language";
