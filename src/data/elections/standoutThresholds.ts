@@ -112,7 +112,7 @@ export const SIGNALS_WITHOUT_OWN_THRESHOLD = {
   lead_change: "categorical — a change of winner needs no cutoff",
   threshold_crossed: "categorical — the statutory 4% line is the cutoff",
   split_control:
-    "categorical — mayor's party ≠ council lead. Kept because it is rare (32 of 245, 13.1%), unlike the majority signal barred below",
+    "categorical — mayor's party ≠ council lead. Kept because it is rare: 32 of the 245 municipalities whose mayor carries a canonical party id (13.1%). Counting every elected mayor instead gives 58 of 289 (20.1%); the first is the honest denominator for a claim about PARTY control. Unlike the majority signal barred below",
   runoff_pending:
     "categorical — a scheduled second round is a fact, not a metric",
   concentrated_support: "inherited from the producer (§5.5)",

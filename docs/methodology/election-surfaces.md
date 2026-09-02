@@ -161,6 +161,13 @@ signal firing on most places is a description.
 **Split control survives the same test and stays**: the mayor's party differs from the council
 lead in **32 of 245 municipalities (13.1%)**.
 
+⚠️ **That denominator is 245, not 289, and the difference is a definition rather than a gap.**
+The 245 are the municipalities whose elected mayor carries a canonical party id, i.e. where a
+party-to-party comparison is possible at all. Counting every elected mayor — treating an
+independent or unmapped one as a split — gives **58 of 289 (20.1%)**. Both are true; the first
+is the honest denominator for a claim about _party_ control, and it is the one this threshold
+uses.
+
 ### 5.4 Section-derived signals — a floor of five
 
 | field                | value                                                                                          |
