@@ -17,6 +17,7 @@ Run:  python3 news/scripts/test_build_app_data.py
 """
 
 import gzip
+import inspect
 import copy
 import json
 import os
@@ -2708,6 +2709,82 @@ class WithholdsAlteredNames(unittest.TestCase):
             {"people": ["Антон Славчев"]},
             [{"content": "Нищо общо. " * 20}, self.article])
         self.assertEqual(good, [])
+
+
+
+class HomeOutletDiversity(unittest.TestCase):
+    """One outlet must not be able to take the whole home page.
+
+    Home ranks by `last_published` alone, so an outlet with coarser timestamps
+    sorts ahead of everyone publishing in the same hour. Measured 2026-09-02:
+    every dir.bg article carries minute `00`, and dir.bg held 15 of 16 slots
+    while owning only 15 of the day's 202 stories.
+    """
+
+    @staticmethod
+    def _story(sid, *domains):
+        return {"id": sid, "aggregates": {"by_domain": {d: 1 for d in domains}}}
+
+    def test_a_dominant_outlet_is_capped_and_others_surface(self):
+        import build_app_data as bad
+        # Enough alternatives exist to honour the cap without a short page.
+        events = [self._story(f"d{i}", "dir.bg") for i in range(10)]
+        events += [self._story("a1", "actualno.com"), self._story("a2", "actualno.com"),
+                   self._story("n1", "nova.bg"), self._story("n2", "nova.bg")]
+        picked = bad.diversify_home_outlets(events, 6, 2)
+        domains = [next(iter(s["aggregates"]["by_domain"])) for s in picked]
+        self.assertEqual(len(picked), 6)
+        self.assertEqual(domains.count("dir.bg"), 2)
+        self.assertEqual(domains.count("actualno.com"), 2)
+        self.assertEqual(domains.count("nova.bg"), 2)
+
+    def test_the_backfill_prefers_a_full_page_over_the_cap(self):
+        """With no alternatives left, deferred stories return in rank order.
+
+        This is the trade the cap makes deliberately: a page of 6 from one
+        outlet beats a page of 4, and the story count must not depend on how
+        the day's outlet mix happened to fall.
+        """
+        import build_app_data as bad
+        events = [self._story(f"d{i}", "dir.bg") for i in range(10)]
+        events += [self._story("a1", "actualno.com"), self._story("n1", "nova.bg")]
+        picked = bad.diversify_home_outlets(events, 6, 2)
+        domains = [next(iter(s["aggregates"]["by_domain"])) for s in picked]
+        self.assertEqual(len(picked), 6)
+        self.assertEqual(domains.count("dir.bg"), 4)
+        self.assertIn("actualno.com", domains)
+        self.assertIn("nova.bg", domains)
+
+    def test_a_multi_outlet_story_is_never_capped(self):
+        """The comparison story is the product; the cap must not hold it back."""
+        import build_app_data as bad
+        events = [self._story(f"m{i}", "dir.bg", "nova.bg") for i in range(5)]
+        picked = bad.diversify_home_outlets(events, 5, 1)
+        self.assertEqual(len(picked), 5)
+
+    def test_the_cap_DEFERS_and_never_publishes_a_shorter_page(self):
+        """A day genuinely dominated by one outlet still fills every slot."""
+        import build_app_data as bad
+        events = [self._story(f"d{i}", "dir.bg") for i in range(8)]
+        picked = bad.diversify_home_outlets(events, 6, 2)
+        self.assertEqual(len(picked), 6)
+        self.assertEqual([s["id"] for s in picked],
+                         ["d0", "d1", "d2", "d3", "d4", "d5"])
+
+    def test_rank_order_is_preserved_within_what_the_cap_allows(self):
+        import build_app_data as bad
+        events = [self._story("d0", "dir.bg"), self._story("a0", "actualno.com"),
+                  self._story("d1", "dir.bg"), self._story("n0", "nova.bg")]
+        picked = bad.diversify_home_outlets(events, 3, 1)
+        self.assertEqual([s["id"] for s in picked], ["d0", "a0", "n0"])
+
+    def test_selection_actually_routes_through_the_cap(self):
+        """Mutation guard: the constant must reach the real selection path."""
+        import build_app_data as bad
+        self.assertLessEqual(bad.HOME_MAX_STORIES_PER_OUTLET, bad.HOME_STORY_LIMIT)
+        src = inspect.getsource(bad.select_home_payload)
+        self.assertIn("diversify_home_outlets", src)
+        self.assertIn("HOME_MAX_STORIES_PER_OUTLET", src)
 
 
 class EffectiveStoryReconciliation(unittest.TestCase):

@@ -826,6 +826,17 @@ HOME_OMIT = frozenset({"section_path", "first_seen", "keywords", "content_chars"
                        "canonical", "language", "updated"})
 HOME_ITEM_LIMIT = 32
 HOME_STORY_LIMIT = 16
+# ⚠️ NO OUTLET MAY TAKE THE WHOLE PAGE. Home ranks stories by `last_published`
+# alone, so any outlet whose timestamps are systematically LATER wins every
+# slot — and one is. Measured 2026-09-02: all 98 dir.bg articles carry minute
+# `00` (hour granularity, 28 of them stamped exactly 09:00:00), which rounds
+# them ahead of every outlet publishing in the same hour. dir.bg took 15 of 16
+# slots while holding only 15 of 202 of the day's stories, and the page — whose
+# entire premise is comparing outlets — showed one masthead.
+#
+# The cap is on SINGLE-OUTLET stories only. A story that already spans outlets
+# is the thing this product exists to show and is never held back.
+HOME_MAX_STORIES_PER_OUTLET = 4
 HOME_WINDOW_DAYS = 30
 # 33 KiB keeps both Bulgarian and English search fallback fields. Measured
 # 2026-08-28 at 32,803 bytes with gzip-6; the previous unprojected bundle was
@@ -882,6 +893,38 @@ def home_article(record: dict) -> dict:
     return slim
 
 
+def diversify_home_outlets(
+    events: list[dict], limit: int, cap: int,
+) -> list[dict]:
+    """Take `limit` stories in rank order, capping any ONE outlet's share.
+
+    Ranking is by recency alone, so an outlet with coarser timestamps sorts
+    ahead of everyone publishing in the same hour and can hold every slot. The
+    cap applies only to single-outlet stories: a story that already spans
+    outlets is the comparison this page exists for.
+
+    ⚠️ It DEFERS, never drops. A thin day (or a day genuinely dominated by one
+    outlet) still fills every slot, in the original rank order — publishing
+    fewer stories to satisfy the cap would be a worse page, and would make the
+    story count depend on the outlet mix.
+    """
+    chosen: list[dict] = []
+    deferred: list[dict] = []
+    used: dict[str, int] = {}
+    for story in events:
+        domains = sorted((story.get("aggregates") or {}).get("by_domain") or {})
+        sole = domains[0] if len(domains) == 1 else None
+        if sole is not None and used.get(sole, 0) >= cap:
+            deferred.append(story)
+            continue
+        chosen.append(story)
+        if sole is not None:
+            used[sole] = used.get(sole, 0) + 1
+        if len(chosen) == limit:
+            return chosen
+    return (chosen + deferred)[:limit]
+
+
 def select_home_payload(
     eligible: list[dict], stories: list[dict],
     rejected_pairs: set[frozenset[str]] | None = None,
@@ -915,7 +958,8 @@ def select_home_payload(
         story["id"],
     ))
     unique_events, merge_proposals = dedupe_home_events(candidates, rejected_pairs)
-    selected = unique_events[:HOME_STORY_LIMIT]
+    selected = diversify_home_outlets(
+        unique_events, HOME_STORY_LIMIT, HOME_MAX_STORIES_PER_OUTLET)
 
     # Reserve one representative per selected story before filling the global
     # article cap. A rights-cleared image wins within the story; otherwise its
