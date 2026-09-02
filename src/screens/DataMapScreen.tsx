@@ -1,7 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
-import { Play } from "lucide-react";
+import { ChevronDown, Play } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
 import {
@@ -18,6 +25,15 @@ import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
 import { KIND_DOT } from "@/screens/components/datamap/kindDot";
 import { DataMapTourBar } from "@/screens/components/datamap/DataMapTourBar";
 import { DataNav } from "@/screens/components/DataNav";
+import { SHELL_BLEED } from "@/layout/shellPadding";
+import { Pill, PillGroup } from "@/components/ui/Pill";
+import { pillClass } from "@/components/ui/pillClass";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 const LENSES: DataMapLens[] = ["none", "cadence", "origin", "fresh", "links"];
@@ -189,6 +205,28 @@ export const DataMapScreen = () => {
   // from every selection flipped it on 216 of 364 neighbour-chip traversals
   // (59%) and mid-tour in 3 of the 4 guided stories — a ~1,000px sideways jump,
   // with no transition, on the majority of clicks.
+  // The toolbar's second row wraps once a lens legend renders (the `links`
+  // lens alone is six entries), so its height is not a constant — and the
+  // detail card offsets from it. A literal was right in the default state and
+  // wrong the moment a lens was picked, with the toolbar painting over the
+  // card's own title and close button. Measured, exactly as Header.tsx does
+  // for --header-height and for the same reason.
+  const toolbarRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const el = toolbarRef.current;
+    if (!el) return;
+    const root = document.documentElement;
+    const update = () =>
+      root.style.setProperty("--datamap-toolbar", `${el.offsetHeight}px`);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty("--datamap-toolbar");
+    };
+  });
+
   const [overlaySide, setOverlaySide] = useState<"left" | "right">("right");
   const selectedKind = useMemo(
     () => manifest?.nodes.find((n) => n.id === selectedId)?.kind ?? null,
@@ -205,9 +243,8 @@ export const DataMapScreen = () => {
   // reflows instead of dimming, a corpus-wide 46/36/26 beside a 9-node prices
   // view would be a caption for a different graph.
   const counts = useMemo(() => {
-    if (!graph) return null;
-    const by = (kind: string) =>
-      graph.nodes.filter((n) => n.kind === kind).length;
+    const nodes = graph?.nodes ?? [];
+    const by = (kind: string) => nodes.filter((n) => n.kind === kind).length;
     return {
       source: by("source"),
       dataset: by("dataset"),
@@ -264,77 +301,26 @@ export const DataMapScreen = () => {
 
   return (
     <>
-      <Title description={t("data_map_description")}>
-        {t("data_map_title")}
-      </Title>
-      <div className="mb-5 flex flex-col items-start gap-4">
-        <p className="max-w-2xl text-sm text-muted-foreground md:text-base">
-          {t("data_map_description")}
-        </p>
+      {/* Title and section nav on ONE line. The H1 and the active DataNav pill
+          were the same words 34px apart, and H1's own `py-3 md:py-5` plus
+          `md:text-4xl` made that duplicate cost 80px. The deck paragraph that
+          sat under them is gone entirely — it still earns its keep as the SEO
+          description, which is where a 72px restatement of the page title
+          belongs. */}
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <Title
+          description={t("data_map_description")}
+          // Every variant H1's base sets must be named here or it survives the
+          // merge: `sm:text-3xl` made the title 30px at 640-767 — LARGER than
+          // the 24px above it — and `md:py-5` kept all 40px of the padding this
+          // was meant to remove. `leading-tight` is restated because twMerge
+          // drops it when a text-size utility (which carries its own
+          // line-height) replaces the base size.
+          className="py-1 md:py-1 text-xl sm:text-xl md:text-2xl leading-tight"
+        >
+          {t("data_map_title")}
+        </Title>
         <DataNav active="map" />
-        {manifest ? (
-          <nav
-            aria-label={t("data_map_views")}
-            className="flex flex-wrap gap-2"
-          >
-            {manifest.views.map((v) => {
-              const active = v.id === viewId;
-              return (
-                <button
-                  key={v.id}
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => setParam("view", v.id === "all" ? null : v.id)}
-                  className={cn(
-                    "inline-flex items-center rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
-                    active
-                      ? "border-accent bg-accent text-accent-foreground"
-                      : "border-border bg-secondary/40 text-secondary-foreground hover:border-accent hover:bg-accent hover:text-accent-foreground",
-                  )}
-                >
-                  {v.label[lang]}
-                </button>
-              );
-            })}
-          </nav>
-        ) : null}
-        {manifest && counts ? (
-          /* One line, not a tile grid: the head already costs ~527px before
-                the map starts at 375px, and these are context rather than the
-             page's subject. */
-          <div className="space-y-1">
-            <p className="text-xs leading-5 text-muted-foreground">
-              {(
-                [
-                  ["source", counts.source, t("data_map_tier_sources")],
-                  ["dataset", counts.dataset, t("data_map_tier_datasets")],
-                  ["feature", counts.feature, t("data_map_tier_features")],
-                ] as const
-              ).map(([kind, count, label], i) => (
-                <span key={kind}>
-                  {i ? <span aria-hidden> · </span> : null}
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle",
-                      KIND_DOT[kind],
-                    )}
-                  />
-                  <span className="font-semibold text-foreground">{count}</span>{" "}
-                  {label}
-                </span>
-              ))}
-            </p>
-            {/* The hint already ends on the pulsing-dot rule, so the panel's
-                  separate freshness legend is not repeated here — its key went
-                  with the empty state. Grouped with the counts so the two cost
-                  one flex gap rather than two: the head is the scarce space on
-                  a phone, not the page. */}
-            <p className="max-w-2xl text-xs leading-5 text-muted-foreground">
-              {t("data_map_hint", { days: DATA_MAP_FRESH_DAYS })}
-            </p>
-          </div>
-        ) : null}
       </div>
 
       {isLoading || !manifest ? (
@@ -343,112 +329,156 @@ export const DataMapScreen = () => {
         </div>
       ) : (
         <>
-          <div className="mb-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs lg:justify-start">
-            <span className="text-muted-foreground">{t("data_map_lens")}:</span>
-            {LENSES.map((l) => (
-              <button
-                key={l}
-                type="button"
-                aria-pressed={l === lens}
-                onClick={() => setParam("lens", l === "none" ? null : l)}
-                className={cn(
-                  "rounded-full border px-2.5 py-0.5 font-medium transition-colors",
-                  l === lens
-                    ? "border-accent bg-accent text-accent-foreground"
-                    : "border-border bg-secondary/40 text-secondary-foreground hover:border-accent",
-                )}
-              >
-                {t(`data_map_lens_${l}`)}
-              </button>
-            ))}
-            {lens !== "none" ? (
-              <span className="ml-2 inline-flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground">
-                {LENS_LEGEND[lens].map((e) => (
-                  <span
-                    key={e.labelKey}
-                    className="inline-flex items-center gap-1"
-                  >
+          {/* ONE sticky toolbar in place of four stacked rows (view pills,
+              counts, lens, stories — ~250px). It sticks because the map is
+              4,237px tall: scroll into it and every control used to be gone, so
+              changing the view meant scrolling all the way back to the top.
+              `--header-height` rather than a literal, so it tracks the header
+              it sits under; z-9 keeps it below that header and above the map.
+
+              Sticky from `sm` UP only: the utility line wraps on a phone, where
+              the bar is 159px — 28% of an 812px viewport to hold permanently,
+              against a page this work already took from 2,576px to 1,821px. */}
+          <div
+            ref={toolbarRef}
+            className={cn(
+              SHELL_BLEED,
+              "z-[9] mb-3 border-b border-border/60 bg-card py-2",
+              "sm:sticky sm:top-[var(--header-height,70px)]",
+            )}
+          >
+            <PillGroup label={t("data_map_views")} scroll className="gap-1.5">
+              {manifest.views.map((v) => (
+                <Pill
+                  key={v.id}
+                  selected={v.id === viewId}
+                  onClick={() => setParam("view", v.id === "all" ? null : v.id)}
+                >
+                  {v.label[lang]}
+                </Pill>
+              ))}
+            </PillGroup>
+
+            {/* Counts, lens and stories were three rows saying "how do I look
+                at this map". One line, and the counts read the DRAWN graph. */}
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+              <p className="text-muted-foreground">
+                {(
+                  [
+                    ["source", counts.source, t("data_map_tier_sources")],
+                    ["dataset", counts.dataset, t("data_map_tier_datasets")],
+                    ["feature", counts.feature, t("data_map_tier_features")],
+                  ] as const
+                ).map(([kind, count, label], i) => (
+                  <span key={kind}>
+                    {i ? <span aria-hidden> · </span> : null}
                     <span
                       aria-hidden
-                      className="h-2 w-2 rounded-full"
-                      style={{ background: e.color }}
+                      className={cn(
+                        "mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle",
+                        KIND_DOT[kind],
+                      )}
                     />
-                    {t(e.labelKey)}
+                    <span className="font-semibold text-foreground">
+                      {count}
+                    </span>{" "}
+                    {label}
                   </span>
                 ))}
+              </p>
+
+              <span aria-hidden className="text-border">
+                |
               </span>
-            ) : null}
-            {/* One line, beside the lens that draws them. The full list lives on
-                its own page: the content is the eighteen notes, and a strip
-                under a 3,000px canvas compressed them into five numbers. */}
-            {lens === "links" ? (
-              <Link
-                to="/data/links"
-                className="ml-2 text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
-              >
-                {t("data_links_pointer")}
-              </Link>
-            ) : null}
+
+              <span className="text-muted-foreground">
+                {t("data_map_lens")}:
+              </span>
+              {LENSES.map((l) => (
+                <Pill
+                  key={l}
+                  size="sm"
+                  selected={l === lens}
+                  onClick={() => setParam("lens", l === "none" ? null : l)}
+                >
+                  {t(`data_map_lens_${l}`)}
+                </Pill>
+              ))}
+
+              {lens !== "none" ? (
+                <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground">
+                  {LENS_LEGEND[lens].map((e) => (
+                    <span
+                      key={e.labelKey}
+                      className="inline-flex items-center gap-1"
+                    >
+                      <span
+                        aria-hidden
+                        className="h-2 w-2 rounded-full"
+                        style={{ background: e.color }}
+                      />
+                      {t(e.labelKey)}
+                    </span>
+                  ))}
+                </span>
+              ) : null}
+
+              {/* One line, beside the lens that draws them. The full list lives
+                  on its own page: the content is the eighteen notes, and a strip
+                  under a 3,000px canvas compressed them into five numbers. */}
+              {lens === "links" ? (
+                <Link
+                  to="/data/links"
+                  // NOT text-accent-strong: that token is measured for white
+                  // ON the fill (5.45:1); as text on --card it is 4.05:1, below
+                  // AA for 12px. --popover-foreground is the palette's existing
+                  // "coral dark enough to read as body text" stop.
+                  className="text-popover-foreground underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+                >
+                  {t("data_links_pointer")}
+                </Link>
+              ) : null}
+
+              {manifest.tours.length ? (
+                <>
+                  <span aria-hidden className="ml-auto text-border">
+                    |
+                  </span>
+                  {/* A menu, not a Select: starting a story is an ACTION, and
+                      four of them as chips cost a whole row of their own. */}
+                  <DropdownMenu modal={false}>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        type="button"
+                        // It renders in the selected colour, so it has to say
+                        // so: Radix contributes aria-haspopup/expanded, neither
+                        // of which means "a story is running".
+                        aria-current={story ? "true" : undefined}
+                        className={cn(pillClass(!!story, "sm"), "gap-1")}
+                      >
+                        <Play aria-hidden className="h-3 w-3" />
+                        {story
+                          ? (activeTour?.title[lang] ?? t("data_map_stories"))
+                          : t("data_map_stories")}
+                        <ChevronDown aria-hidden className="h-3 w-3" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="max-w-[18rem]">
+                      {manifest.tours.map((tour) => (
+                        <DropdownMenuItem
+                          key={tour.id}
+                          onSelect={() => onStartTour(tour.id)}
+                        >
+                          {tour.title[lang]}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              ) : null}
+            </div>
           </div>
-          {/* The rail never takes width from the map, at any breakpoint. It
-              used to dock from `lg` (1024) up, which left the canvas 617px — a
-              0.575 zoom — and INVERTED the sizing: a 768px tablet got a 737px
-              map and a 1024px one got 617.
 
-              Docking cannot be afforded in this shell, which is why it is gone
-              rather than moved to a wider breakpoint. Layout.tsx wraps every
-              screen in `container p-2`, and `theme.container.screens` clamps
-              `.container` to max-width 1400px from 1400px up (p-2's 8px a side
-              beats the container's 2rem, because utilities follow components in
-              index.css). So content is frozen at 1384px however wide the screen
-              is, and a docked canvas would be 1384 − 360 − 16 = 1008px at EVERY
-              width — below the 1046px this graph needs for 1:1, and a 16% step
-              DOWN from the 1203px a stacked canvas gets. Measured: 1024 → 993,
-              ≥1280 → 1203 (the cap below), flat from there.
-
-              The panel therefore stacks under the map and T4 gives the
-              selection an overlay, which needs no width at all. */}
-          {manifest.tours.length ? (
-            // A story is a MODE, the same family as the view and lens pills, so
-            // it sits with them rather than in the detail panel — where, on a
-            // narrow screen, it sat below a 1264px map and nobody reached it.
-            // One row that scrolls sideways rather than wrapping, so it costs
-            // one line at any width.
-            //
-            // The -mx-2/px-2 bleed is Layout.tsx's `p-2`: the scroller runs to
-            // the page edge so a chip is never clipped mid-row. The two numbers
-            // must agree, and dataMapLayout.test.ts holds them together.
-            <nav
-              aria-label={t("data_map_stories")}
-              className="-mx-2 mb-3 flex w-[calc(100%+1rem)] items-center gap-2 overflow-x-auto px-2 py-1"
-            >
-              <span className="shrink-0 text-xs text-muted-foreground">
-                {t("data_map_stories_hint")}
-              </span>
-              {manifest.tours.map((tour) => {
-                const running = story?.id === tour.id;
-                return (
-                  <button
-                    key={tour.id}
-                    type="button"
-                    // Not aria-pressed: starting a story is an action, and the
-                    // chip for the running one marks where the reader is.
-                    aria-current={running ? "true" : undefined}
-                    onClick={() => onStartTour(tour.id)}
-                    className={cn(
-                      "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium transition-colors",
-                      running
-                        ? "border-accent bg-accent text-accent-foreground"
-                        : "border-border bg-secondary/40 text-secondary-foreground hover:border-accent hover:bg-accent hover:text-accent-foreground",
-                    )}
-                  >
-                    <Play aria-hidden className="h-3 w-3 shrink-0" />
-                    {tour.title[lang]}
-                  </button>
-                );
-              })}
-            </nav>
-          ) : null}
           <div
             className="relative isolate flex flex-col gap-4"
             style={{
@@ -473,6 +503,16 @@ export const DataMapScreen = () => {
                 maxHeight: Math.round(extent.h * DATA_MAP_FIT_MAX_ZOOM),
               }}
             >
+              {/* The hint is guidance ABOUT the map, so it is drawn on it —
+                  faint, over the empty band above the first row of cards — and
+                  it goes away the moment a node is picked. As page chrome it
+                  cost 24px of head forever and sat where the reader was not
+                  looking. pointer-events-none so it never eats a pan. */}
+              {!selectedId && !story ? (
+                <p className="pointer-events-none absolute inset-x-4 top-3 z-[1] text-center text-xs leading-5 text-muted-foreground">
+                  {t("data_map_hint", { days: DATA_MAP_FRESH_DAYS })}
+                </p>
+              ) : null}
               <DataMapCanvas
                 graph={graph!}
                 lang={lang}
@@ -527,7 +567,10 @@ export const DataMapScreen = () => {
                 selectedId={selectedId}
                 freshness={freshness}
                 onSelect={onSelect}
-                className="lg:pointer-events-auto lg:sticky lg:top-20 lg:max-h-[74vh] lg:overflow-y-auto lg:shadow-xl"
+                // Below the sticky toolbar, not under it — both measured, so a
+                // wrapped lens legend cannot leave the toolbar painting over
+                // this card's title and close button.
+                className="lg:pointer-events-auto lg:sticky lg:top-[calc(var(--header-height,70px)+var(--datamap-toolbar,88px))] lg:max-h-[74vh] lg:overflow-y-auto lg:shadow-xl"
               />
             </div>
           </div>

@@ -699,7 +699,7 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
       className="scroll-mt-20 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,340px)_1fr]"
     >
       {/* ============================ INPUTS ============================ */}
-      <Card className="lg:sticky lg:top-20 lg:self-start">
+      <Card className="lg:sticky lg:top-[calc(var(--header-height,70px)+1rem)] lg:self-start lg:max-h-[calc(100vh-var(--header-height,70px)-2rem)] lg:overflow-y-auto">
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
             <Receipt className="h-4 w-4" />

@@ -2833,7 +2833,7 @@ export const BudgetPolicySimulator: FC = () => {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,360px)_1fr]">
         {/* ============================ INPUTS ============================ */}
-        <Card className="lg:sticky lg:top-20 lg:self-start">
+        <Card className="lg:sticky lg:top-[calc(var(--header-height,70px)+1rem)] lg:self-start lg:max-h-[calc(100vh-var(--header-height,70px)-2rem)] lg:overflow-y-auto">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
               <SlidersHorizontal className="h-4 w-4" />

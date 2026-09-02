@@ -7,6 +7,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { stripComments } from "../../scripts/lib/strip_comments";
+import { cn } from "@/lib/utils";
 import { dataMapExtent, DATA_MAP_FIT_MAX_ZOOM } from "@/data/dataMap/viewport";
 import { DATA_MAP_FRESH_DAYS } from "@/data/dataMap/useDataMap";
 import bg from "@/locales/bg/translation.json";
@@ -30,6 +31,9 @@ const code = (p: string): string =>
   stripComments(read(p)).replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
 const screen = () => read("src/screens/DataMapScreen.tsx");
 const screenCode = () => code("src/screens/DataMapScreen.tsx");
+
+/** H1's own base classes, read from the component so this cannot go stale. */
+const H1_BASE = /cn\(\s*"([^"]+)"/.exec(read("src/ux/H1.tsx"))![1];
 
 /** The overlay's positioning ancestor. `relative` gives the absolute column a
  *  box to span; `isolate` keeps the card's z-10 out of the root stacking
@@ -171,7 +175,8 @@ describe("the head carries what the panel's empty state used to", () => {
     // Since the `?view=` filter reflows rather than dims, a corpus-wide
     // 46/36/26 beside a 9-node prices view would caption a different graph.
     const src = screenCode();
-    expect(src).toMatch(/graph\.nodes\.filter\(\(n\) => n\.kind === kind\)/);
+    expect(src).toMatch(/const nodes = graph\?\.nodes \?\? \[\];/);
+    expect(src).toMatch(/nodes\.filter\(\(n\) => n\.kind === kind\)/);
     expect(src).not.toMatch(/manifest\.nodes\.filter\(\(n\) => n\.kind/);
   });
 
@@ -185,20 +190,30 @@ describe("the head carries what the panel's empty state used to", () => {
     );
   });
 
-  it("keeps the stories with the lens pills, not in the panel", () => {
+  it("keeps the stories in the toolbar, not in the panel", () => {
+    // A menu rather than a row of chips: starting a story is an ACTION, and
+    // four chips cost a whole row of head to sit in.
     const src = screenCode();
-    expect(src).toMatch(/aria-label=\{t\("data_map_stories"\)\}/);
+    expect(src).toMatch(/DropdownMenuTrigger/);
+    expect(src).toMatch(/onSelect=\{\(\) => onStartTour\(tour\.id\)\}/);
+    // modal={false} — a modal menu locks body scroll, and this page IS a scroll.
+    expect(src).toMatch(/<DropdownMenu modal=\{false\}>/);
     expect(read("src/screens/components/datamap/DataMapPanel.tsx")).not.toMatch(
       /onStartTour|data_map_stories/,
     );
   });
 
-  it("bleeds the story scroller by exactly the shell's own padding", () => {
-    // `-mx-2 … px-2` runs the row to the page edge so a chip is never clipped
-    // mid-row. It is Layout.tsx's `p-2` mirrored — a drift either overflows the
-    // page or leaves a visible notch.
-    expect(screenCode()).toMatch(/-mx-2[^"]*px-2/);
+  it("bleeds the toolbar once, from the one place the value lives", () => {
+    // The bleed cancels Layout's `p-2` so a chip is never clipped mid-scroll.
+    // It used to be written out twice — here and inside PillGroup — and applied
+    // NESTED, which looked right only because both were 0.5rem.
+    const shell = read("src/layout/shellPadding.ts");
+    expect(shell).toMatch(/SHELL_PAD = "p-2"/);
     expect(read("src/layout/Layout.tsx")).toMatch(/\bp-2\b/);
+    expect(screenCode()).toMatch(/SHELL_BLEED/);
+    // Nothing hand-writes it any more.
+    expect(screenCode()).not.toMatch(/-mx-2/);
+    expect(read("src/components/ui/Pill.tsx")).not.toMatch(/-mx-2/);
   });
 });
 
@@ -245,7 +260,15 @@ describe("the detail overlays the map from lg up", () => {
     // inset-y-0 needs a positioned ancestor spanning the canvas, or the card
     // has no column to be sticky within.
     expect(src).toMatch(WRAPPER);
-    expect(src).toMatch(/lg:sticky lg:top-20/);
+    // Sticky BELOW the toolbar, and both terms MEASURED: the toolbar's second
+    // row wraps once a lens legend renders, so a literal offset was right in
+    // the default state and wrong the moment a lens was picked — with the
+    // toolbar painting over the card's own title and close button.
+    expect(src).toMatch(
+      /lg:sticky lg:top-\[calc\(var\(--header-height,70px\)\+var\(--datamap-toolbar,88px\)\)\]/,
+    );
+    expect(src).toMatch(/--datamap-toolbar/);
+    expect(src).toMatch(/new ResizeObserver\(update\)/);
   });
 
   it("hangs the card off an edge that does not reach the selected node", () => {
@@ -418,5 +441,123 @@ describe("the view filter reflows rather than dims", () => {
     expect(screenCode()).toMatch(
       /if \(!graph\.nodes\.some\(\(n\) => n\.id === selectedId\)\) setParam\("view", null\);/,
     );
+  });
+});
+
+describe("the head is a title line and one sticky toolbar", () => {
+  // Measured 2026-09-02 at 1280px, the map used to start 654px down — 510px of
+  // it this page's own: an 80px H1 whose words the active DataNav pill repeated
+  // 34px below it, a 72px deck, then FOUR stacked control rows (view pills,
+  // counts, lens, stories).
+  it("puts the title and the section nav on one line", () => {
+    const src = screenCode();
+    expect(src).toMatch(/<DataNav active="map" \/>/);
+    expect(src).not.toMatch(
+      /<Title description=\{t\("data_map_description"\)\}>/,
+    );
+  });
+
+  it("actually overrides H1's size and padding, not just passes a string", () => {
+    // twMerge only drops a base utility when the override names the SAME
+    // variant. The first cut passed `py-1 text-xl md:text-2xl`, and both
+    // `sm:text-3xl` and `md:py-5` survived — so the title was 30px at 640-767
+    // (LARGER than the 24px above it) and kept all 40px of the padding this was
+    // meant to remove, at exactly the width it was measured at. Asserting the
+    // input string cannot see that; asserting the RESOLVED class can.
+    const src = screenCode();
+    const passed = /<Title[\s\S]{0,200}className="([^"]+)"/.exec(src)?.[1];
+    expect(passed).toBeTruthy();
+    const resolved = cn(H1_BASE, passed!);
+    for (const survivor of [/\bsm:text-3xl\b/, /\bmd:py-5\b/, /\bpy-3\b/]) {
+      expect(resolved).not.toMatch(survivor);
+    }
+    expect(resolved).toMatch(/\bleading-tight\b/);
+  });
+
+  it("no longer renders the deck paragraph", () => {
+    // It survives as the SEO description, which is where a restatement of the
+    // page title earns its keep.
+    const src = screenCode();
+    expect(src).toMatch(/description=\{t\("data_map_description"\)\}/);
+    expect(src).not.toMatch(/<p[^>]*>\s*\{t\("data_map_description"\)\}/);
+  });
+
+  it("sticks the toolbar under the site header", () => {
+    // The map is 4,237px tall: without this, scrolling into it left the reader
+    // with no way to change view or lens but to scroll all the way back.
+    const src = screenCode();
+    expect(src).toMatch(/sm:sticky sm:top-\[var\(--header-height,70px\)\]/);
+    // A literal 70px here would drift from the header it sits under.
+    expect(src).not.toMatch(/sticky top-\[70px\]/);
+    // Not on a phone: the utility line wraps there and the bar is 159px, 28%
+    // of an 812px viewport to hold permanently.
+    expect(src).not.toMatch(/[^:]sticky top-\[var/);
+  });
+
+  it("draws the hint on the canvas, not in the head", () => {
+    // Guidance about the map, placed where the action is, and gone on first
+    // selection. pointer-events-none so it never eats a pan.
+    const src = screenCode();
+    expect(src).toMatch(
+      /\{!selectedId && !story \? \([\s\S]{0,240}data_map_hint/,
+    );
+    expect(src).toMatch(/pointer-events-none absolute inset-x-4 top-3/);
+  });
+});
+
+describe("the selected pill is one component", () => {
+  // Its hand-rolled selected state rendered 4.77:1 at 14px/500 in light mode —
+  // past AA (4.5) by 0.27 and nowhere near AAA. `--accent-strong` is white on
+  // 41% coral, 5.45:1, while decorative `--accent` keeps the brand hue.
+  it("routes every pill through Pill/PillLink", () => {
+    for (const f of [
+      "src/screens/DataMapScreen.tsx",
+      "src/screens/components/DataNav.tsx",
+    ]) {
+      expect(read(f)).toMatch(/from "@\/components\/ui\/Pill"/);
+      // The hand-rolled pair, in any spelling.
+      expect(code(f)).not.toMatch(/bg-accent text-accent-foreground/);
+    }
+  });
+
+  it("defines the interactive coral in both themes", () => {
+    const css = read("src/App.css");
+    expect(css).toMatch(/--accent-strong: 16 75% 41%;/);
+    expect(css).toMatch(/--accent-strong-foreground: 0 0% 100%;/);
+    // Dark needs no correction — mint on near-black is already 11.81:1 — but
+    // the pair must EXIST there or the pill falls back to an undefined var.
+    const dark = css.slice(css.indexOf(".dark {"));
+    expect(dark).toMatch(/--accent-strong:/);
+    expect(dark).toMatch(/--accent-strong-foreground:/);
+  });
+
+  it("exposes it to Tailwind", () => {
+    expect(read("tailwind.config.js")).toMatch(
+      /"accent-strong":\s*\{[\s\S]{0,120}hsl\(var\(--accent-strong\)\)/,
+    );
+  });
+
+  it("keeps the decorative accent where it was", () => {
+    // Node dots, borders and the freshness pulse want the brand hue at full
+    // chroma; only the label-on-a-solid-fill case needed correcting.
+    expect(read("src/App.css")).toMatch(/--accent: 16 75% 55%;/);
+  });
+});
+
+describe("sticky positioning is possible at all", () => {
+  it("does not make <main> a scroll container", () => {
+    // Tailwind's overflow-y utility makes overflow-x compute to `auto` too, so
+    // `overflow-y-auto` here turned <main> into the scroll container for every
+    // descendant — and since its height is content-driven it never scrolls
+    // itself, leaving `position: sticky` inside it with nothing to stick to.
+    // Measured 2026-09-02: the /data toolbar AND the detail card both computed
+    // `position: sticky` and scrolled away with the page; five other components
+    // use `sticky top-*` and were affected the same way. `flow-root` keeps the
+    // block formatting context without the scroll container.
+    const layout = read("src/layout/Layout.tsx");
+    expect(layout).toMatch(
+      /<main className="min-h-\[100vh\] bg-card flow-root">/,
+    );
+    expect(layout).not.toMatch(/<main[^>]*overflow-[xy]-(auto|scroll)/);
   });
 });

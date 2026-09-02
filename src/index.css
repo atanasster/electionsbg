@@ -75,7 +75,9 @@ a {
     padding-top: 0 !important;
   }
   main {
-    overflow: visible !important;
+    /* `overflow: visible` was here to undo <main>'s overflow-y-auto. That class
+       is gone (Layout.tsx swapped it for flow-root, which already computes
+       visible), so only the background is still doing anything. */
     background: #fff !important;
   }
 }
