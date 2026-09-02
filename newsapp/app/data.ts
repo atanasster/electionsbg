@@ -87,7 +87,13 @@ export interface EditorialFeedbackProvenance {
 
 export interface ReviewedLink {
   surface: string;
-  kind: "person" | "party" | "institution" | "company" | "settlement" | "sector";
+  kind:
+    | "person"
+    | "party"
+    | "institution"
+    | "company"
+    | "settlement"
+    | "sector";
   id: string;
   canonical: string;
   href: string;
@@ -164,6 +170,18 @@ export type ImageRightsStatus =
  * and blocked decisions may remain as review metadata, but `display_home`
  * must be false for both.
  */
+/**
+ * What the image IS, as opposed to what we may do with it.
+ *
+ * ⚠️ NOT derivable from `status`. A CC-licensed photograph published in the
+ * article is `cc` + `source_photo`; a CC illustration a reviewer chose for the
+ * subject is `cc` + `illustration`. The status cannot tell them apart, which
+ * is why this is new evidence rather than a relabelling — and why a
+ * `source_photo` record must carry `source_article_url` on the outlet's own
+ * domain, enforced at build time.
+ */
+export type ImageRole = "source_photo" | "illustration" | "official_image";
+
 export interface ImageRights {
   status: ImageRightsStatus;
   creator: string | null;
@@ -174,6 +192,25 @@ export interface ImageRights {
   source_url: string;
   checked_at: string;
   display_home: boolean;
+  /**
+   * ⚠️ NULL MEANS "nobody has stated a role", never "illustration". A caption
+   * renders the neutral „Изображение:" label then — it must never fabricate a
+   * publisher claim, and it must not silently downgrade a real one either.
+   * Absent on a bundle built before the field existed.
+   */
+  role?: ImageRole | null;
+  /** Whether the recorded authority permits adaptation. NULL = not reviewed. */
+  crop_allowed?: boolean | null;
+  /** Evidence for a `source_photo` role: the outlet's own article. */
+  source_article_url?: string | null;
+  /**
+   * Reviewed focal point as 0-1 fractions, for cropping. Presentation rather
+   * than rights, but carried here because it is only meaningful when
+   * `crop_allowed` is true — a focal point on a work we may not adapt has
+   * nothing to steer.
+   */
+  focal_x?: number | null;
+  focal_y?: number | null;
 }
 
 export interface ArticleRecord {
@@ -670,7 +707,8 @@ const parsePublicationManifest = (value: unknown): NewsPublicationManifest => {
     ? (inventory as Array<{ path: string }>).map((item) => item.path)
     : [];
   const validHash = (value: unknown): boolean =>
-    value === null || (typeof value === "string" && /^[a-f0-9]{64}$/.test(value));
+    value === null ||
+    (typeof value === "string" && /^[a-f0-9]{64}$/.test(value));
   const validAcceptedSnapshotHash =
     row.version === 1
       ? row.accepted_snapshot_records_sha256 === undefined
@@ -1049,6 +1087,59 @@ export interface HomeBundle {
   stories: HomeStory[];
 }
 
+const IMAGE_ROLES: readonly string[] = [
+  "source_photo",
+  "illustration",
+  "official_image",
+];
+
+/**
+ * Defence in depth for the provenance a caption is allowed to render.
+ *
+ * The build enforces all of this already, so it can only fire on a hand-edited
+ * or truncated bundle — which is exactly when it matters, because the caption
+ * it feeds names a publisher. Unknown roles are rejected rather than ignored:
+ * rendering an unrecognised one as the neutral label would make a typo
+ * indistinguishable from a decision.
+ *
+ * ⚠️ It must not ACCEPT what the build REFUSES. A guard that is merely weaker
+ * is not defence in depth — it is a second, more permissive contract that
+ * decides what the page renders. The domain check in particular is available
+ * here (`ArticleRecord.domain` is on the same record) and was missing from the
+ * first cut, so an off-domain `source_article_url` passed the client while the
+ * build rejected it.
+ */
+const isStatedImageRole = (article: ArticleRecord): boolean => {
+  const rights = article.image_rights;
+  if (!rights) return true;
+  const { role, crop_allowed, focal_x, focal_y } = rights;
+  const fraction = (value: number | null | undefined) =>
+    value === undefined || value === null || (value >= 0 && value <= 1);
+  if (!fraction(focal_x) || !fraction(focal_y)) return false;
+  // A focal point steers a crop, so it needs adaptation to be PERMITTED.
+  if ((focal_x != null || focal_y != null) && crop_allowed !== true)
+    return false;
+  if (
+    crop_allowed !== undefined &&
+    crop_allowed !== null &&
+    typeof crop_allowed !== "boolean"
+  )
+    return false;
+  if (role === undefined || role === null) return true;
+  if (!IMAGE_ROLES.includes(role)) return false;
+  if (role !== "source_photo") return true;
+  const evidence = rights.source_article_url;
+  if (!evidence) return false;
+  let host: string;
+  try {
+    host = new URL(evidence).hostname.toLowerCase();
+  } catch {
+    return false;
+  }
+  const domain = article.domain.toLowerCase();
+  return host === domain || host.endsWith(`.${domain}`);
+};
+
 export const isHomeBundle = (value: unknown): value is HomeBundle => {
   if (!value || typeof value !== "object") return false;
   const bundle = value as Partial<HomeBundle>;
@@ -1068,7 +1159,8 @@ export const isHomeBundle = (value: unknown): value is HomeBundle => {
         (article.image_rights?.display_home === true
           ? Boolean(article.image) &&
             isPermittedHomeImageStatus(article.image_rights.status)
-          : article.image == null),
+          : article.image == null) &&
+        isStatedImageRole(article),
     )
   );
 };
@@ -1179,52 +1271,89 @@ export const isPublicHumanReview = (
 };
 
 const FEEDBACK_FIELDS: AcceptedFeedbackField[] = [
-  "leaning", "russia_stance", "party_tones", "entity_links", "issue_kinds",
+  "leaning",
+  "russia_stance",
+  "party_tones",
+  "entity_links",
+  "issue_kinds",
 ];
 const ISSUE_KINDS: AcceptedIssueKind[] = [
-  "missing_analysis", "missing_entity", "wrong_entity_link", "missing_topic",
-  "missing_sector", "other",
+  "missing_analysis",
+  "missing_entity",
+  "wrong_entity_link",
+  "missing_topic",
+  "missing_sector",
+  "other",
 ];
 
 export const isPublicEditorialFeedback = (
   value: unknown,
 ): value is EditorialFeedbackProvenance => {
-  if (!isPlainRecord(value) || !exactRecordKeys(value, [
-    "status", "adjudicated_at", "revision", "fields",
-    "needs_revalidation_fields", "issue_kinds", "public_explanation",
-  ])) return false;
+  if (
+    !isPlainRecord(value) ||
+    !exactRecordKeys(value, [
+      "status",
+      "adjudicated_at",
+      "revision",
+      "fields",
+      "needs_revalidation_fields",
+      "issue_kinds",
+      "public_explanation",
+    ])
+  )
+    return false;
   const revalidationFields = value.needs_revalidation_fields;
   return (
     (value.status === "accepted" || value.status === "needs_revalidation") &&
     typeof value.adjudicated_at === "string" &&
     Number.isFinite(Date.parse(value.adjudicated_at)) &&
-    Number.isInteger(value.revision) && (value.revision as number) >= 1 &&
+    Number.isInteger(value.revision) &&
+    (value.revision as number) >= 1 &&
     Array.isArray(value.fields) &&
-    value.fields.every((field) => FEEDBACK_FIELDS.includes(field as AcceptedFeedbackField)) &&
+    value.fields.every((field) =>
+      FEEDBACK_FIELDS.includes(field as AcceptedFeedbackField),
+    ) &&
     new Set(value.fields).size === value.fields.length &&
     Array.isArray(revalidationFields) &&
     revalidationFields.every((field) =>
-      FEEDBACK_FIELDS.includes(field as AcceptedFeedbackField)) &&
+      FEEDBACK_FIELDS.includes(field as AcceptedFeedbackField),
+    ) &&
     new Set(revalidationFields).size === revalidationFields.length &&
     value.fields.every((field) => !revalidationFields.includes(field)) &&
     Array.isArray(value.issue_kinds) &&
-    value.issue_kinds.every((kind) => ISSUE_KINDS.includes(kind as AcceptedIssueKind)) &&
+    value.issue_kinds.every((kind) =>
+      ISSUE_KINDS.includes(kind as AcceptedIssueKind),
+    ) &&
     new Set(value.issue_kinds).size === value.issue_kinds.length &&
-    (value.public_explanation === null || typeof value.public_explanation === "string")
+    (value.public_explanation === null ||
+      typeof value.public_explanation === "string")
   );
 };
 
 const isPublicReviewedLinks = (value: unknown): value is ReviewedLink[] =>
-  Array.isArray(value) && value.length <= 20 && value.every((raw) => {
-    if (!isPlainRecord(raw) || !exactRecordKeys(raw, [
-      "surface", "kind", "id", "canonical", "href",
-    ])) return false;
+  Array.isArray(value) &&
+  value.length <= 20 &&
+  value.every((raw) => {
+    if (
+      !isPlainRecord(raw) ||
+      !exactRecordKeys(raw, ["surface", "kind", "id", "canonical", "href"])
+    )
+      return false;
     return (
-      typeof raw.surface === "string" && raw.surface.length > 0 &&
-      ["person", "party", "institution", "company", "settlement", "sector"]
-        .includes(String(raw.kind)) &&
-      typeof raw.id === "string" && raw.id.length > 0 &&
-      typeof raw.canonical === "string" && raw.canonical.length > 0 &&
+      typeof raw.surface === "string" &&
+      raw.surface.length > 0 &&
+      [
+        "person",
+        "party",
+        "institution",
+        "company",
+        "settlement",
+        "sector",
+      ].includes(String(raw.kind)) &&
+      typeof raw.id === "string" &&
+      raw.id.length > 0 &&
+      typeof raw.canonical === "string" &&
+      raw.canonical.length > 0 &&
       typeof raw.href === "string" &&
       /^https:\/\/electionsbg\.com\/\S+$/.test(raw.href)
     );

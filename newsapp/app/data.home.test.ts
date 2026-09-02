@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { isHomeBundle } from "./data";
 
-const bundle = (status = "cc", display_home = true) => ({
+const bundle = (
+  status = "cc",
+  display_home = true,
+  rights: Record<string, unknown> = {},
+) => ({
   version: 3,
   generated_at: "2026-08-28T00:00:00Z",
   eligibility: "published_recent_analyzed_with_cleared_images_only",
@@ -51,13 +55,90 @@ const bundle = (status = "cc", display_home = true) => ({
   articles: [
     {
       analysis: { summary_bg: "Резюме" },
+      domain: "ex.bg",
       image: display_home ? "https://upload.wikimedia.org/photo.jpg" : null,
-      image_rights: { status, display_home },
+      image_rights: { status, display_home, ...rights },
     },
   ],
 });
 
 describe("home bundle runtime contract", () => {
+  it("rejects a provenance role that claims more than its evidence", () => {
+    // ⚠️ Defence in depth for the ONE role that names somebody else. The build
+    // refuses a `source_photo` without an article URL on the outlet's own
+    // domain, so this can only fire on a hand-edited or truncated bundle —
+    // which is exactly when it matters, because the caption it feeds says
+    // „От публикацията на X".
+    expect(
+      isHomeBundle(bundle("cc", true, { role: "illustration" })),
+      "a stated illustration is fine",
+    ).toBe(true);
+    expect(
+      isHomeBundle(bundle("cc", true, { role: null })),
+      "unstated is fine — it renders the neutral label",
+    ).toBe(true);
+    expect(
+      isHomeBundle(bundle("cc", true, { role: "source_photo" })),
+      "source_photo with no evidence must be refused",
+    ).toBe(false);
+    expect(
+      isHomeBundle(
+        bundle("cc", true, {
+          role: "source_photo",
+          source_article_url: "https://ex.bg/a/1",
+        }),
+      ),
+    ).toBe(true);
+    // An unrecognised role is refused rather than ignored: rendering it as the
+    // neutral label would make a typo indistinguishable from a decision.
+    expect(isHomeBundle(bundle("cc", true, { role: "photo" }))).toBe(false);
+    expect(isHomeBundle(bundle("cc", true, { role: "official_image" }))).toBe(
+      true,
+    );
+  });
+
+  it("does not accept provenance the build refuses", () => {
+    // ⚠️ A guard that is merely WEAKER than the build is not defence in depth
+    // — it is a second, more permissive contract deciding what the page
+    // renders. Each case below fails `build_app_data.py`; each must fail here.
+    const cases: [string, Record<string, unknown>][] = [
+      [
+        "evidence on somebody else's domain",
+        { role: "source_photo", source_article_url: "https://other.example/a" },
+      ],
+      [
+        "a URL two parsers disagree about",
+        {
+          role: "source_photo",
+          source_article_url: "https://evil.example\\@ex.bg/a",
+        },
+      ],
+      ["a focal point out of range", { crop_allowed: true, focal_x: 1.4 }],
+      // A focal point steers a crop, so an unreviewed crop decision must not
+      // be settled by its presence.
+      ["a focal point with no crop permission", { focal_y: 0.5 }],
+      [
+        "a focal point against a refused crop",
+        { crop_allowed: false, focal_x: 0.5 },
+      ],
+    ];
+    for (const [why, rights] of cases)
+      expect(isHomeBundle(bundle("cc", true, rights)), why).toBe(false);
+
+    // The same shapes, correctly stated, pass.
+    expect(
+      isHomeBundle(
+        bundle("cc", true, {
+          role: "source_photo",
+          source_article_url: "https://www.ex.bg/a/1",
+          crop_allowed: true,
+          focal_x: 0.4,
+          focal_y: 0.6,
+        }),
+      ),
+    ).toBe(true);
+  });
+
   it("accepts analyzed text-first rows and fails closed for display images", () => {
     expect(isHomeBundle(bundle())).toBe(true);
     expect(isHomeBundle(bundle("unknown", true))).toBe(false);
@@ -70,6 +151,7 @@ describe("home bundle runtime contract", () => {
         articles: [
           {
             analysis: { summary_bg: "Резюме" },
+            domain: "ex.bg",
             image: "https://publisher.example/photo.jpg",
           },
         ],
