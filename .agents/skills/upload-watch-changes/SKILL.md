@@ -180,7 +180,7 @@ npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
 ⚠️⚠️ **RUN THEM IN THE ORDER THE MANIFEST LISTS, AND STOP ON THE FIRST FAILURE.** The order is
 not cosmetic — a loader that reads another's output must follow it, and running them out of order
 publishes a corpus derived from the previous vintage with every row count reconciling. Named
-cases, all documented in AGENTS.md: roll-call facts before derived; `db:load:tr-company-place`
+cases, all documented in CLAUDE.md: roll-call facts before derived; `db:load:tr-company-place`
 after `db:resolve:persons`; the whole person-layer block (`place-dim`, `judicial-bodies`,
 `tr-name-fold-people`, declarations phase 1 → resolve → `--resolve` → the downstream loaders).
 Half a chain is worse than none of it, because the half that ran looks like success.
@@ -329,7 +329,7 @@ Rules for it, each pinning a way a publish gets over-reported:
   If the manifest is empty there is nothing to do — running an ingest is that skill's job.
 - **Does not deploy the app.** `npm run deploy` (Firebase hosting) and `npm run deploy:db` (the
   `db` Cloud Function) ship CODE. A pure-data publish needs neither. When a route or bundle change
-  is also pending, say so and stop — the hosting/function deploy ORDER matters (AGENTS.md's
+  is also pending, say so and stop — the hosting/function deploy ORDER matters (CLAUDE.md's
   three-step purge) and is not something to fold into a data sync.
 - **Does not apply migrations.** `db:check-cloud` may report schema drift; surface it, do not
   paste its command. Several of those files DROP and rebuild a matview, blocking readers.

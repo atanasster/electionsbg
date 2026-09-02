@@ -699,7 +699,7 @@ npm run db:refresh                  # local PG (Step 2b)
 npm run db:load:pg:cloud && npm run db:load:tenders:pg:cloud && npm run db:load:awarder-seats:pg:cloud   # prod
 npm run proc:verify-seats:cloud     # the override map really is published — nothing else checks prod
 # …and the derived loaders that go stale with the corpus — the full list is Step 3:
-npm run db:load:annexes:pg:cloud          # MANDATORY (AGENTS.md) — orphaned annex rows
+npm run db:load:annexes:pg:cloud          # MANDATORY (CLAUDE.md) — orphaned annex rows
 npm run db:load:employer-links:pg:cloud   # also needs declarations PHASE 1
 npm run db:load:grant-links:pg:cloud      # needs contracts + tenders + fund_projects (no declarations)
 git add data/procurement/ tests/fixtures/procurement/

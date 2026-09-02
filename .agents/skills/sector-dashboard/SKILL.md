@@ -229,7 +229,7 @@ run — the SQL copy stripped neither the `, гр. Варна` tail nor the dash
 `Топлофикация - София`, so the gate flagged **nine correct matches as false
 accusations** against named public bodies. A gate that cannot reproduce the
 decision it is checking is not checking that decision; it is checking a second
-implementation nobody uses. This is `councilNameKey()` in AGENTS.md, one dataset
+implementation nobody uses. This is `councilNameKey()` in CLAUDE.md, one dataset
 over, and it will keep recurring because the SQL copy always looks like the
 cheaper option.
 

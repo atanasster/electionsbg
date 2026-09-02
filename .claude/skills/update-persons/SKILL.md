@@ -1,6 +1,6 @@
 ---
 name: update-persons
-description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the `candidate_person`/`person_election_stats` electoral tables + the serving fns in 082/084/085) that powers the `/person/{slug}` profile page, the merged `/candidate/:id` electoral block, and the `personProfile`/`personConnections`/`person_elections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), the curated OFAC/EU sanctions register (data/person/sanctions.json), the curated ДС/COMDOS affiliation register (data/person/ds.json, Комисия по досиетата), and the curated регулатори / независими органи register (data/person/regulators.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts` (+ `scripts/db/load_person_elections_pg.ts` for the per-election stats). Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `ofac_sanctions`, `comdos_ds`, or `regulator_rosters`), when the user asks to refresh person profiles / свързани лица / sanctions / ДС досиета / регулатори, to add a newly-verified sanctions designee, ДС affiliation, or regulator seat, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
+description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the `candidate_person`/`person_election_stats` electoral tables + the serving fns in 082/084/085) that powers the `/person/{slug}` profile page, the merged `/candidate/:id` electoral block, and the `personProfile`/`personConnections`/`person_elections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), the curated identity-adjudication registry (data/person/link_overrides.json), OFAC/EU sanctions register (data/person/sanctions.json), ДС/COMDOS affiliation register (data/person/ds.json, Комисия по досиетата), and регулатори / независими органи register (data/person/regulators.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts` (+ `scripts/db/load_person_elections_pg.ts` for the per-election stats). Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `person_link_overrides`, `ofac_sanctions`, `comdos_ds`, or `regulator_rosters`), when the user asks to refresh person profiles / свързани лица / sanctions / ДС досиета / регулатори, to add a verified identity decision, sanctions designee, ДС affiliation, or regulator seat, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
 allowed-tools:
   - Read
   - Bash
@@ -30,6 +30,7 @@ go stale:
 | `cik_local` / `CIK local-elections bundles` | `update-local-elections` | local mayors + councillors (elected office holders) |
 | `erik_campaign_financing` | `update-financing` | ЕРИК donors |
 | `parliament_mps` | `parliament-scrape` | the MP gold key (Tier 0) |
+| `person_link_overrides` | **this skill (curated)** | audited merge/split decisions that apply after automatic identity tiers |
 | `ofac_sanctions` | **this skill (curated)** | the OFAC/EU sanctions facet |
 | `comdos_ds` | **this skill (curated)** | the ДС/COMDOS affiliation facet |
 | `regulator_rosters` | **this skill (curated)** | the `regulator` "кой решава" facet (independent-body seats) |
@@ -37,11 +38,29 @@ go stale:
 It is safe (and cheap, ~10s) to re-run after ANY of these; a rebuild yields identical
 person_ids/slugs when nothing changed (verified idempotent).
 
+## The identity-adjudication registry (data/person/link_overrides.json)
+
+This committed registry is the reproducibility layer for manual identity decisions. A database
+row in `person_link_override` remains available as an emergency hotfix, but intended durable
+decisions belong in this file so fresh local, CI and Cloud SQL resolves agree. Every entry requires
+an audit note, operator, decision date and evidence array; the resolver validates and deduplicates
+it against DB hotfixes before touching the person tables. Ref merges must name exact source refs and
+must not be broadened into a same-name heuristic. After editing it, run the full person chain below.
+
 ## How to run
 
 ```bash
 npm run db:resolve:persons        # applies 081+085+082-084 schema + resolves + rebuilds person_*
+npm run db:load:declarations:pg   # phase 1 rewrites declaration.subject_ref after roster re-slugging
+npm run db:load:declarations:pg -- --resolve  # phase 2 restores declaration.person_id
+npm run db:load:official-candidate-links:pg  # restores the official/candidate projection
 npm run db:load:person-elections:pg  # loads candidate_person + person_election_stats (the merged /candidate block)
+npm run db:load:council:pg        # restores council_vote.person_id (resolve clears it via ON DELETE SET NULL)
+npm run db:load:persons-browse:pg
+npm run db:gen-declarations-hub-stats # refreshes committed counts copied from person_browse_table
+npm run db:load:person-search:pg  # refreshes the combined-search person tier
+npm run db:load:graph:pg          # refreshes graph nodes, edges and person payloads last
+npm run data:local-person-refresh # re-stamps local-election bundles with the surviving slug
 npm run test:person               # the §7a gold-set + hermetic matcher tests
 npm run test:data                 # PG invariants incl. person_resolve.data.test.ts (zero-false-public-merge, tr-bridge licensing, connections public-safety)
 ```
@@ -229,9 +248,15 @@ npm run db:load:declarations:pg:cloud               # phase 1 — rewrites subje
 npm run db:load:declarations:pg:cloud -- --resolve
 npm run db:load:official-candidate-links:pg:cloud  # re-decorates + REFRESHes that matview
 npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
+# MANDATORY after every resolve: deleting/rebuilding person fires council_vote.person_id's
+# ON DELETE SET NULL. Without this reload every named council vote loses attribution at 200.
+npm run db:load:council:pg:cloud
 # LAST — it folds everything above (plus place_dim + contracts) into the /persons browser
 # matview (120). Run it after any of them changes; see the two-trigger note below.
 npm run db:load:persons-browse:pg:cloud
+# The committed declarations hub snapshot copies its people count from person_browse_table.
+# Read the SERVING projection, commit the result, then bucket-sync it.
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:gen-declarations-hub-stats
 # The combined-search ranked index (126). Standalone — nothing on the cloud side runs it.
 # Its route degrades a MISSING table to empty tiers, so a first deploy never 500s, but a
 # STALE table serves the previous vintage at a 200.
@@ -312,6 +337,6 @@ shared CLI every other skill uses:
 npx tsx scripts/stamp-ingest.ts update-persons --summary "<one line>"
 ```
 
-Then commit the changed curated register(s) — `data/person/sanctions.json` /
-`data/person/ds.json` / `data/person/regulators.json` (if edited). The person_* tables are
+Then commit the changed curated register(s) — `data/person/link_overrides.json` /
+`data/person/sanctions.json` / `data/person/ds.json` / `data/person/regulators.json` (if edited). The person_* tables are
 Postgres-only (no serving JSON, no `recordIngestBatch`), so there is nothing else to commit.

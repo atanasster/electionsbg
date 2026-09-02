@@ -632,7 +632,7 @@ one page, they forget a module.
 english: {…} })`. Four things to get right:
 
 - **`path` carries no leading and no trailing slash.** Hosting is `trailingSlash: false`, and
-  the EN root is `/en`, never `/en/` — see the URL rule in `AGENTS.md`.
+  the EN root is `/en`, never `/en/` — see the URL rule in `CLAUDE.md`.
 - **Write a real `bodyHtml`.** It is what a crawler reads, and it is the only part of the
   page a crawler that runs no JS ever sees. A `staticPage` with a title and no body is a stub
   with good metadata. Add the route to `tests/seo.spec.ts` with a `minBodyChars` — the suite

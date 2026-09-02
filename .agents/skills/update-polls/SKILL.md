@@ -19,7 +19,7 @@ Walks through the full refresh cycle for `public/polls/*.json`. The pipeline has
 | `public/polls/polls.json` | Per-poll metadata (agency, fieldwork dates, source) | `scrape_polls.ts` |
 | `public/polls/polls_details.json` | Per-poll, per-party support % | `scrape_polls.ts` |
 | `public/polls/accuracy.json` | Computed errors, MAE, party bias, bloc lean | `analyze_accuracy.ts` |
-| `public/polls/analysis.json` | AI-written narrative (headlines + story per election + agency takes) | hand-written by Codex (preferred) OR `generate_analysis.ts` (Gemini fallback) |
+| `public/polls/analysis.json` | AI-written narrative (headlines + story per election + agency takes) | hand-written by Claude (preferred) OR `generate_analysis.ts` (Gemini fallback) |
 
 The scripts live in `scripts/polls/`. The frontend reads the JSONs at `/polls` and via the `PollsTile` / `AccuracyTrendsTile` on the dashboard.
 
@@ -186,7 +186,7 @@ When in doubt, leave it as `"other"` rather than mis-classify — the user prefe
 
 ## Step 4 — Write the narrative (THIS IS THE VALUABLE STEP)
 
-**Strongly preferred: Codex writes the narrative directly** rather than calling the Gemini script. Codex Opus produces materially better analysis with hedged language and specific story-telling. Gemini-2.5-flash output looked like an LLM doing a numbers recitation and the user explicitly downgraded it.
+**Strongly preferred: Claude writes the narrative directly** rather than calling the Gemini script. Claude Opus produces materially better analysis with hedged language and specific story-telling. Gemini-2.5-flash output looked like an LLM doing a numbers recitation and the user explicitly downgraded it.
 
 ### 4a. Read the inputs
 
@@ -220,7 +220,7 @@ Read the existing `public/polls/analysis.json` for tone and structure — match 
 ```jsonc
 {
   "generatedAt": "<ISO timestamp>",
-  "model": "Codex Opus 4.7 (1M context)",      // or whatever Codex model is writing
+  "model": "Claude Opus 4.7 (1M context)",      // or whatever Claude model is writing
   "inputAccuracyGeneratedAt": "<value from accuracy.json>",
   "agencyTakes": [
     {
@@ -270,11 +270,11 @@ Read the existing `public/polls/analysis.json` for tone and structure — match 
 
 - Per election: 4-5 headlines × ~30 words EN; story ~60 words EN; same in BG → ~420 words total per election
 - Per agency take: ~80 words EN total (summary + lean + warning); same in BG → ~160 words total per agency
-- For 11 elections + 9 agencies, the file is ~6,000 words. Manageable in one Codex Opus turn.
+- For 11 elections + 9 agencies, the file is ~6,000 words. Manageable in one Claude Opus turn.
 
 ### 4d. Write `analysis.json`
 
-Use the `Write` tool to overwrite `public/polls/analysis.json`. **Always set `model` to your actual Codex model name** (e.g., "Codex Opus 4.7 (1M context)") — the frontend displays this as "Editorial · Codex Opus 4.7 (1M context)" in the headlines tile footer.
+Use the `Write` tool to overwrite `public/polls/analysis.json`. **Always set `model` to your actual Claude model name** (e.g., "Claude Opus 4.7 (1M context)") — the frontend displays this as "Editorial · Claude Opus 4.7 (1M context)" in the headlines tile footer.
 
 Keep the existing entries when only a new election needs writing — read the file first, append the new election's entry to `byElection[]`, regenerate `agencyTakes` if any agency's stats meaningfully shifted (an extra election may have rebalanced the leaderboard).
 
@@ -287,7 +287,7 @@ npm run polls:gen-analysis             # all elections (~12 calls, ~2 min)
 npm run polls:gen-analysis -- --only YYYY-MM-DD  # one election (1 call)
 ```
 
-Default model is `gemini-2.5-pro`. Output quality is noticeably worse than Codex Opus — Gemini tends to recite numbers without weaving narrative. Use only when speed is more important than quality.
+Default model is `gemini-2.5-pro`. Output quality is noticeably worse than Claude Opus — Gemini tends to recite numbers without weaving narrative. Use only when speed is more important than quality.
 
 ## Step 5 — Verify
 
@@ -333,7 +333,7 @@ Fail-loud surfaces (the script throws and writes nothing):
 | HTTP non-2xx on the Wikipedia cycle URL | `fetch ${cycle.url}: ${status}` |
 | No polling table detected on the page | "no polling table found at … — the BG Wikipedia page likely restructured" |
 | Accuracy analyzer fed missing inputs (`polls.json` / `polls_details.json`) | Throws naming the missing file |
-| Codex API call from `generate_analysis.ts` returns non-2xx | Throws with status + body excerpt |
+| Claude API call from `generate_analysis.ts` returns non-2xx | Throws with status + body excerpt |
 
 Intentional non-fatal skips (warned but ingest continues):
 

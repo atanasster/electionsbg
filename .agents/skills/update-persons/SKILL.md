@@ -181,7 +181,7 @@ npm run bucket:sync                  # the bundles + trends are gitignored → b
 ```
 
 **For a PROD publish, stamp from the SERVING database, not local Postgres.** Local and Cloud SQL
-person slugs diverge (AGENTS.md: ~640 local-only slugs), and `bucket:sync` serves prod — so a
+person slugs diverge (CLAUDE.md: ~640 local-only slugs), and `bucket:sync` serves prod — so a
 bundle stamped from local would bake slugs prod cannot serve. Use the cloud variant (same 5434
 proxy the `:cloud` resolves use), exactly as `person:slugs:cloud` mints the prerender manifest
 from Cloud SQL:
@@ -232,7 +232,7 @@ npm run db:load:tr-name-fold-people:pg:cloud
 #   select count(*) from judicial_body_alias;  -- must be non-zero (~530)
 #   select count(*) from tr_name_fold_people;  -- must be non-zero (the resolve throws on 0)
 npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + rebuilds person_* on Cloud SQL
-# ~5 min on Cloud SQL, measured 2026-08-05 (~124k persons) — NOT the "multi-hour" AGENTS.md
+# ~5 min on Cloud SQL, measured 2026-08-05 (~124k persons) — NOT the "multi-hour" CLAUDE.md
 # claims. Worth knowing: the multi-hour belief is why this resolve gets left out of chains
 # it belongs in.
 # MANDATORY after the resolve: 115 drops person_role.place, which forces the municipal

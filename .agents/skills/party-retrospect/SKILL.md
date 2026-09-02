@@ -17,7 +17,7 @@ Generates the per-party "Campaign retrospect" markdown shown on `/party/{nickNam
 scripts/parties/bundle_party_data.ts   → builds a structured input bundle from public/*.json
                                          (deterministic — vote counts, deltas, polling errors, etc.)
             ↓
-Codex reads the bundle               → writes BG + EN markdown bodies (THIS skill, preferred path)
+Claude reads the bundle               → writes BG + EN markdown bodies (THIS skill, preferred path)
    OR
 scripts/parties/generate_retrospect.ts → calls Gemini with the bundle (fallback)
             ↓
@@ -29,7 +29,7 @@ public/{election}/parties/assessment/{partyNum}.json  → consumed by PartyAsses
 ```json
 {
   "generatedAt": "<ISO timestamp from new Date().toISOString()>",
-  "model": "Codex Opus 4.7 (1M context)",
+  "model": "Claude Opus 4.7 (1M context)",
   "partyNum": 18,
   "nickName": "ГЕРБ-СДС",
   "bg": "## Резултат на изборите\n\n...markdown...",
@@ -116,7 +116,7 @@ cat /tmp/party-18-bundle.json | head -200
 
 ## Step 3 — Write the markdown (THE VALUABLE STEP)
 
-**Strongly preferred: Codex writes the bodies directly** rather than calling the Gemini script. Per the polls workflow, hand-written narratives by Codex Opus produce materially better strategic analysis than Gemini-2.5-flash.
+**Strongly preferred: Claude writes the bodies directly** rather than calling the Gemini script. Per the polls workflow, hand-written narratives by Claude Opus produce materially better strategic analysis than Gemini-2.5-flash.
 
 ### 3a. Output structure (every section, both languages)
 
@@ -184,7 +184,7 @@ Use the `Write` tool to write `public/{election}/parties/assessment/{partyNum}.j
 ```json
 {
   "generatedAt": "<ISO 8601 timestamp — use new Date().toISOString() at write time, not a hardcoded value>",
-  "model": "Codex Opus 4.7 (1M context)",
+  "model": "Claude Opus 4.7 (1M context)",
   "partyNum": 18,
   "nickName": "ГЕРБ-СДС",
   "bg": "## Резултат на изборите\n\n...",
@@ -192,7 +192,7 @@ Use the `Write` tool to write `public/{election}/parties/assessment/{partyNum}.j
 }
 ```
 
-**Always set `model` to your actual Codex model name** — the frontend displays it as "Editorial · {model}" in the tile footer. If a different Codex wrote a prior version, overwrite the model field.
+**Always set `model` to your actual Claude model name** — the frontend displays it as "Editorial · {model}" in the tile footer. If a different Claude wrote a prior version, overwrite the model field.
 
 **Always set `generatedAt` to the current time** — never copy a timestamp from the example or a prior file. A quick way to get the timestamp:
 
@@ -202,7 +202,7 @@ node -e "console.log(new Date().toISOString())"
 
 ### 3d. Repeat for each party
 
-For a new election with ~5-7 leading parties, this is ~5-7 hand-written analyses. Do them sequentially in one Codex turn — context compounds: by the third party you'll have a clear sense of the election's overall narrative, which sharpens the per-party takes.
+For a new election with ~5-7 leading parties, this is ~5-7 hand-written analyses. Do them sequentially in one Claude turn — context compounds: by the third party you'll have a clear sense of the election's overall narrative, which sharpens the per-party takes.
 
 ## Step 4 — Gemini fallback (only if explicitly asked)
 
@@ -213,7 +213,7 @@ npm run party:gen-retrospect -- --election 2024_10_27 --party 18
 npm run party:gen-retrospect -- --election 2024_10_27 --all-passed   # every party at ≥2%
 ```
 
-Output quality is noticeably worse — Gemini tends to recite numbers without weaving narrative. Codex's hand-written version is preferred when the user cares about the analysis quality. The Gemini script reads the same bundle, so it benefits from the new fields, but currently the prompt template inside `generate_retrospect.ts` may not exploit the new sections — verify the prompt mentions the new blocks before relying on the fallback for risk-neighborhood / preferences narrative.
+Output quality is noticeably worse — Gemini tends to recite numbers without weaving narrative. Claude's hand-written version is preferred when the user cares about the analysis quality. The Gemini script reads the same bundle, so it benefits from the new fields, but currently the prompt template inside `generate_retrospect.ts` may not exploit the new sections — verify the prompt mentions the new blocks before relying on the fallback for risk-neighborhood / preferences narrative.
 
 ## Step 5 — Verify
 

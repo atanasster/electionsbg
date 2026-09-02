@@ -520,7 +520,7 @@ node news/scripts/harvest_browser.mjs <domain> [--n=100] [--timeout=600] [--rout
 bash news/scripts/save_all_browser.sh 100 news/data/_summaries_browser_<YYYYMMDD>.jsonl
 ```
 
-⚠️ **This tier used to be a Codex session driving a Browser tool by hand, so
+⚠️ **This tier used to be a Claude session driving a Browser tool by hand, so
 a cron job skipped all 17 domains** — four of them in the top twenty (dir.bg
 #2, blitz.bg #3, offnews.bg #16, dnevnik.bg #18), plus bta.bg, the national
 agency, and capital.bg. `harvest_browser.mjs` does the same work with

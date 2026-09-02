@@ -157,7 +157,7 @@ npm run db:load:council:pg:cloud    # ⚠️ PROD — nothing runs this automati
 `council_vote.person_id` is nulled table-wide on every re-resolve
 (ON DELETE SET NULL) and this loader is what re-attaches it; and
 `db:load:ngo-board-links` is the only writer of `official_roster`, the roster
-bridge every attribution resolves through. See AGENTS.md §council.
+bridge every attribution resolves through. See CLAUDE.md §council.
 
 **The cloud line is the one that gets forgotten**, and its failure is the usual
 shape: local is green, prod keeps the previous vintage at a 200, and every row
