@@ -8,7 +8,6 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { DataSources } from "@/screens/components/DataSources";
 import { DataNav } from "@/screens/components/DataNav";
 
-const BUCKET_URL = "https://storage.googleapis.com/data-electionsbg-com";
 const REPO_URL = "https://github.com/atanasster/electionsbg";
 
 export const DataSourcesScreen = () => {
@@ -89,18 +88,6 @@ const Downloads = () => {
               </Anchor>
               {" — "}
               {t("data_downloads_repo_note")}
-            </span>
-          </li>
-          <li className="flex items-start">
-            <span
-              aria-hidden
-              className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
-            />
-            <span>
-              {t("data_downloads_json_note")}{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5 text-[13px]">
-                {BUCKET_URL}/&lt;YYYY_MM_DD&gt;/cik_parties.json
-              </code>
             </span>
           </li>
         </ul>

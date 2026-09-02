@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-02T15:46:24.687Z",
+  "generatedAt": "2026-09-02T18:44:32.044Z",
   "nodes": [
     {
       "id": "src:water",
@@ -80,6 +80,16 @@
           "freshness": "2026-06-30T06:08:57.757Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Проверка за сигурност",
+          "en": "Bot challenge"
+        },
+        "note": {
+          "bg": "results.cik.bg сервира Cloudflare проверка на всеки автоматичен клиент, затова обхождането минава през видим браузър. Пакетите със секционни CSV файлове не се свалят така — за местните избори 2023 г. адресът им дори връща 404 — и остават ръчна стъпка.",
+          "en": "results.cik.bg serves a Cloudflare challenge to every automated client, so the crawl runs through a visible browser. The section-level CSV bundles do not come down that way — for the 2023 local elections their URL returns a 404 outright — and stay a manual step."
+        }
+      },
       "x": 28,
       "y": 3422,
       "w": 240,
@@ -127,6 +137,16 @@
           "freshness": "2026-06-28T16:34:00.777Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Само поименните гласувания",
+          "en": "Roll-call votes only"
+        },
+        "note": {
+          "bg": "Народното събрание публикува кой как е гласувал единствено за поименните гласувания; останалите вотове оставят само общия резултат. Затова присъствието и лоялността се броят върху поименните гласувания, а не върху всичко, което залата е гласувала.",
+          "en": "The National Assembly publishes who voted how only for roll-call votes; every other vote leaves nothing but the aggregate result. So attendance and loyalty are counted over the roll calls, not over everything the chamber voted on."
+        }
+      },
       "x": 28,
       "y": 458,
       "w": 240,
@@ -258,6 +278,16 @@
           "freshness": "2026-08-15T06:07:57.069Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Непроверени стойности",
+          "en": "Unvalidated values"
+        },
+        "note": {
+          "bg": "Регистърът публикува това, което деклараторът сам е попълнил, без да го проверява — изгубена запетая прави стойността 100 до 1000 пъти по-висока. Такива случаи се търсят със скрипт и се поправят през ръчно водена таблица с изключения.",
+          "en": "The register publishes whatever the declarant typed, unvalidated — one lost separator makes a figure 100 to 1,000 times too high. Such cases are hunted with a script and corrected through a hand-kept override table."
+        }
+      },
       "x": 28,
       "y": 614,
       "w": 240,
@@ -340,6 +370,16 @@
           "freshness": "2026-08-19T06:08:55.326Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Ръчно поддържан регистър",
+          "en": "Hand-curated register"
+        },
+        "note": {
+          "bg": "Комисията няма масов експорт или API — само търсачка по отделно лице. Затова списъкът се води на ръка и всяко свързване с конкретен човек се проверява поотделно: да се назове грешен съименник е тежко обвинение.",
+          "en": "The Commission publishes no bulk export and no API — only a per-person search form. So the list is kept by hand and every attachment to a named individual is verified one at a time: naming the wrong same-named person is a grave accusation."
+        }
+      },
       "x": 28,
       "y": 302,
       "w": 240,
@@ -381,6 +421,16 @@
           "freshness": "2026-08-19T06:08:55.326Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Няма общ източник",
+          "en": "No single feed"
+        },
+        "note": {
+          "bg": "Всеки орган публикува състава си на собствения си сайт — общ регистър няма, затова списъкът се води на ръка. Автоматично се следи само съставът на Конституционния съд; смените в останалите органи излизат наяве при периодичен преглед.",
+          "en": "Each body publishes its own composition on its own site — there is no common register, so the list is kept by hand. Only the Constitutional Court's composition is watched automatically; changes at the other bodies surface on a periodic review."
+        }
+      },
       "x": 28,
       "y": 380,
       "w": 240,
@@ -486,12 +536,12 @@
       ],
       "issue": {
         "label": {
-          "bg": "Прекъсвания в достъпа",
-          "en": "Access outages"
+          "bg": "Блокиран извън България",
+          "en": "Blocked outside Bulgaria"
         },
         "note": {
-          "bg": "Отделни набори връщат 403 без ясна причина; блокиран остатъчен IP обичайно се отключва сам след около 16 дни.",
-          "en": "Individual datasets return 403 with no clear cause; a blocked residential IP usually self-clears after roughly 16 days."
+          "bg": "Порталът отказва достъп от IP адреси извън България, а напоследък блокира и VPN доставчиците — включително български. Спира се целият портал наведнъж (десетина набора, от Търговския регистър до матурите) и не може да се открие нов период; блокадата е траела и по няколко седмици.",
+          "en": "The portal refuses IP addresses outside Bulgaria, and has progressively blocked VPN providers too — Bulgarian ones included. It goes down as a whole (a dozen datasets, from the Commerce Registry to the matura results) and no new period can be discovered while it is; outages have run for weeks."
         }
       },
       "x": 28,
@@ -572,6 +622,16 @@
           "freshness": "2026-05-15T16:39:00.124Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Много кратък списък",
+          "en": "A very short list"
+        },
+        "note": {
+          "bg": "В регистъра стоят обикновено между един и пет субекта с влязла в сила забрана. Затова „не е в черния списък“ важи почти за всички изпълнители и само по себе си не казва нищо за тях.",
+          "en": "The register typically holds between one and five operators under a final ban at any time. So “not debarred” is true of almost every contractor and says nothing about them on its own."
+        }
+      },
       "x": 28,
       "y": 1082,
       "w": 240,
@@ -677,12 +737,12 @@
       ],
       "issue": {
         "label": {
-          "bg": "CF защита",
-          "en": "Cloudflare-walled"
+          "bg": "Блокира автоматични клиенти",
+          "en": "Blocks automated clients"
         },
         "note": {
-          "bg": "Порталът блокира заявки с Referer от всеки клиент и всички Node клиенти независимо от хедърите — обхожда се само с curl без Referer.",
-          "en": "The portal blocks any client sending a Referer header, and blocks every Node client regardless of headers — only reachable via curl with no Referer."
+          "bg": "Защитната стена пред портала отказва всеки Node клиент, каквито и хедъри да прати, и отделно отказва всяка заявка с Referer — минава само curl без Referer. Има и отделно ограничение по честота, което спира сваляния за часове.",
+          "en": "The firewall in front of the portal refuses every Node client whatever headers it sends, and separately refuses any request carrying a Referer — only curl with no Referer gets through. A separate rate limit also stalls downloads for hours at a time."
         }
       },
       "x": 28,
@@ -789,6 +849,16 @@
           "freshness": "2026-08-21T06:05:13.616Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Частично засичане на промени",
+          "en": "Partial change detection"
+        },
+        "note": {
+          "bg": "Само 11 от 22-те програми публикуват дата на последно внасяне на данните, а keep.eu пренаписва цели програми наведнъж — затова „без промяна“ значи „никоя от единайсетте не е мръднала“, не „нищо не се е променило“. Заглавията са предимно на английски.",
+          "en": "Only 11 of the 22 programmes publish a data-import date, and keep.eu rewrites whole programmes at once — so “unchanged” means “none of the eleven moved”, not “nothing moved”. The titles are mostly English-only."
+        }
+      },
       "x": 28,
       "y": 1550,
       "w": 240,
@@ -828,6 +898,16 @@
           "freshness": "2026-07-08T06:09:00.761Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Липсва ЕИК за новите години",
+          "en": "No company ID after 2023"
+        },
+        "note": {
+          "bg": "Отвореният портал стига до финансова 2023 г.; 2024 и 2025 г. идват от интерактивния регистър СЕУ, който няма колона с ЕИК. Бенефициентите там се възстановяват по име спрямо по-старите години, така че част от тях остават несвързани с фирма.",
+          "en": "The open-data portal stops at financial year 2023; 2024 and 2025 come from the СЕУ interactive register, which carries no company-ID column. Beneficiaries there are recovered by name against the earlier years, so some stay unattached to a company."
+        }
+      },
       "x": 28,
       "y": 68,
       "w": 240,
@@ -1069,12 +1149,12 @@
       ],
       "issue": {
         "label": {
-          "bg": "Нестандартен формат",
-          "en": "Non-standard document shape"
+          "bg": "Ръчно сваляне",
+          "en": "Downloaded by hand"
         },
         "note": {
-          "bg": "НЗОК тарифите по НРД се четат от текста на договора (чл. 368–370), не от отделно приложение — лесно се посочва грешен PDF.",
-          "en": "НЗОК's НРД tariffs live inside the contract body (art. 368-370), not a separate annex — easy to point a parser at the wrong PDF."
+          "bg": "minfin.bg сервира интерактивна Cloudflare проверка на всеки автоматичен клиент, затова фискалният резерв, просрочията, касовото салдо и общинските финансови показатели се свалят на ръка или през архива на Wayback — а от края на 2024 г. и архивните копия са същата проверка. Тези редове могат да изостават с месеци.",
+          "en": "minfin.bg serves an interactive Cloudflare challenge to every automated client, so the fiscal reserve, arrears, cash balance and municipal financial indicators are downloaded by hand or read through the Wayback Machine — and from late 2024 even the archived captures are that same challenge. Those series can lag by months."
         }
       },
       "x": 28,
@@ -1305,6 +1385,16 @@
           "freshness": "2026-06-16T07:08:32.388Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Адресни регистрации, не жители",
+          "en": "Addresses, not residents"
+        },
+        "note": {
+          "bg": "Таблицата брои хора с адресна регистрация, а не реално живеещи. Разликата между постоянен и настоящ адрес е сама по себе си показателна — селата с многократно повече постоянни от настоящи регистрации. Файлът няма кодове по ЕКАТТЕ и населените места се свързват по име.",
+          "en": "The table counts people with an address registration, not people living there. The gap between permanent and current address is itself the signal — villages with many times more permanent than current registrations. The file carries no EKATTE codes, so settlements are matched by name."
+        }
+      },
       "x": 28,
       "y": 3500,
       "w": 240,
@@ -1673,6 +1763,16 @@
           "freshness": "2026-08-31T21:38:48.506Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Кратък прозорец на публикуване",
+          "en": "Short publication window"
+        },
+        "note": {
+          "bg": "Порталът предлага само последните около 14 дни. Пропуснат ден не може да се навакса от източника — историята оцелява само защото я архивираме сами при всяко сваляне.",
+          "en": "The portal offers only the last ~14 days. A missed day cannot be recovered from the source — the history survives only because we archive each download ourselves."
+        }
+      },
       "x": 28,
       "y": 3266,
       "w": 240,
@@ -1748,6 +1848,16 @@
           "freshness": "2026-08-26T22:43:35.855Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Ръчно пренасяни стойности",
+          "en": "Hand-transcribed figures"
+        },
+        "note": {
+          "bg": "Индекс на неправителствена организация, а не официален регистър. Таблото е приложение, от което 27-те оценки се пренасят на ръка след всяко ново издание.",
+          "en": "An index published by a non-governmental organisation, not an official register. The dashboard is an app from which the 27 scores are transcribed by hand after each new edition."
+        }
+      },
       "x": 28,
       "y": 3188,
       "w": 240,
@@ -1858,6 +1968,16 @@
           "freshness": "2026-07-12T06:08:33.338Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Отчет през огледало",
+          "en": "Report read through a mirror"
+        },
+        "note": {
+          "bg": "Годишният отчет на Министерството на икономиката за износа на продукти, свързани с отбраната, се следи през националните доклади на SIPRI — сайтът на министерството блокира автоматични клиенти.",
+          "en": "The Ministry of Economy's annual report on the export of defence-related products is tracked through SIPRI's national reports — the ministry's own site blocks automated clients."
+        }
+      },
       "x": 28,
       "y": 2876,
       "w": 240,
@@ -2033,6 +2153,16 @@
           "freshness": "2026-07-17T06:09:07.869Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Регистър без API",
+          "en": "A register with no API"
+        },
+        "note": {
+          "bg": "ИИСДА няма отворен интерфейс — каталогът на административните услуги се вади от страницата за листване на регистъра. Броят е на регистрирани услуги, не на реално заявени или дигитализирани.",
+          "en": "ИИСДА exposes no open interface — the catalogue of administrative services is read off the register's own paging screen. The count is of services on the register, not of services actually requested or digitised."
+        }
+      },
       "x": 28,
       "y": 2252,
       "w": 240,
@@ -2080,6 +2210,16 @@
           "freshness": "2026-07-17T06:09:07.869Z"
         }
       ],
+      "issue": {
+        "label": {
+          "bg": "Само национално и годишно",
+          "en": "National and annual only"
+        },
+        "note": {
+          "bg": "АСП публикува помощите единствено в годишния отчет за дейността (PDF). Няма набор по области или по месеци, затова разбивка под национално ниво не е възможна от този източник.",
+          "en": "АСП publishes benefit figures only inside its annual activity report (a PDF). There is no dataset by oblast or by month, so no sub-national breakdown is possible from this source."
+        }
+      },
       "x": 28,
       "y": 1862,
       "w": 240,
@@ -2321,8 +2461,8 @@
           "en": "An achievement register"
         },
         "note": {
-          "bg": "Отсъствието от списъка НЕ означава наложена финансова корекция — проектът може просто да е закъснял, прекратен или още в проверка.",
-          "en": "Absence from the list does NOT mean a financial correction was imposed — a project may simply have finished late, been terminated, or still be under review."
+          "bg": "Регистърът изброява само проекти, приключили без наложена финансова корекция, и обратен списък няма никъде — данните за нередности отиват в конфиденциалната система на OLAF. Проект може да липсва тук, защото е закъснял, бил е прекратен или още се проверява.",
+          "en": "The register lists only projects that ended with no financial correction imposed, and no reverse list is published anywhere — irregularity records go to OLAF's confidential IMS. A project can be missing here because it finished late, was terminated, or is still under review."
         }
       },
       "x": 28,
