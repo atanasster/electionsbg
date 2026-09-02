@@ -96,6 +96,26 @@ describe("data-map model", () => {
   });
 });
 
+describe("SOURCE_GROUPS[].url", () => {
+  it("is a well-formed absolute URL", () => {
+    // /data/sources renders `new URL(node.url)` for every tile with no
+    // ErrorBoundary anywhere in src/ — a bare domain, a relative path, or a
+    // typo'd scheme would throw during render and blank all 46 tiles at
+    // once. Catch it here, at the layer this repo's own DDL/model validation
+    // already lives (build_manifest.ts's `fail(...)` checks), rather than at
+    // every render site.
+    const malformed = SOURCE_GROUPS.filter((g) => {
+      try {
+        new URL(g.url);
+        return false;
+      } catch {
+        return true;
+      }
+    }).map((g) => g.id);
+    expect(malformed).toEqual([]);
+  });
+});
+
 describe("SOURCE_GROUPS[].issue", () => {
   it("has non-empty bilingual label and note wherever present", () => {
     const empty = SOURCE_GROUPS.flatMap((g) => {

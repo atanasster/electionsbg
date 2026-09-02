@@ -12,6 +12,10 @@ export type DataMapKind = "source" | "dataset" | "feature";
 
 export type DataMapLang = { bg: string; en: string };
 
+/** Mirrors Origin in scripts/data_map/model.ts (build-time only — this is
+ *  the one client-safe copy; see entryGraph.test.ts's registry rule). */
+export type DataMapOrigin = "state" | "eu" | "intl" | "community";
+
 export type DataMapSourceRef = {
   id: string;
   label: string;
@@ -29,7 +33,7 @@ export type DataMapNode = {
   tags: string[];
   url?: string;
   route?: string;
-  origin?: "state" | "eu" | "intl" | "community";
+  origin?: DataMapOrigin;
   cadence?: "hourly" | "daily" | "weekly" | "monthly";
   freshness?: string;
   path?: string;
