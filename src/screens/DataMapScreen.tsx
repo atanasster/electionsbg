@@ -456,7 +456,10 @@ export const DataMapScreen = () => {
                         // so: Radix contributes aria-haspopup/expanded, neither
                         // of which means "a story is running".
                         aria-current={story ? "true" : undefined}
-                        className={cn(pillClass(!!story, "accent", "sm"), "gap-1")}
+                        className={cn(
+                          pillClass(!!story, "accent", "sm"),
+                          "gap-1",
+                        )}
                       >
                         <Play aria-hidden className="h-3 w-3" />
                         {story
