@@ -172,7 +172,19 @@ const main = async (): Promise<void> => {
               false,
               'name_fold',
               '/person/' || o.name,
-              (CASE WHEN o.money > 0 THEN 500 ELSE 100 END) + ln(1 + greatest(0, coalesce(o.money, 0)))
+              -- N's branch was 100 + ln(1 + money), and money is 0 for the WHOLE tier by
+              -- construction (that is what makes it N rather than V) -- so every one of the
+              -- 445k+ N rows landed on the SAME rank_static (100), with no query-independent
+              -- signal at all. The route's per-tier ORDER BY rank_static DESC LIMIT k then
+              -- breaks that tie on whatever order the index/bitmap scan happens to produce,
+              -- which is unrelated to the query -- a name with more than k N-tier candidates
+              -- (common on Bulgarian surnames) can silently omit the most substantial one.
+              -- o.firms is already computed above and free; using it here is the same shape
+              -- as V's money term, just over the one signal N rows actually have.
+              CASE WHEN o.money > 0
+                     THEN 500 + ln(1 + greatest(0, coalesce(o.money, 0)))
+                     ELSE 100 + ln(1 + greatest(0, coalesce(o.firms, 0)))
+                   END
          FROM owner o
         WHERE NOT EXISTS (
                 SELECT 1 FROM person p
