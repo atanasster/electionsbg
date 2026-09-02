@@ -82,19 +82,86 @@ CREATE TABLE IF NOT EXISTS isun_clean_delivery_coverage (
 
 -- The one supported per-company read. Returns the clean-delivery record beside the
 -- caveat, so a page cannot render the number without the sentence that bounds it.
-CREATE OR REPLACE FUNCTION isun_clean_delivery_for_eik(p_eik text)
+--
+-- ⚠️ IT DRIVES FROM BOTH REGISTERS, NOT FROM THE BENEFICIARY TABLE. The two reports
+-- are separate exports and their populations are not nested: measured 2026-09-02,
+-- 956 EIKs appear in isun_clean_contract with NO isun_clean_beneficiary row —
+-- 1,740 clean-contract rows, 17.5% of the register. Driving from the beneficiary
+-- side returned NO ROW for all of them, so the page never mounted the tile and
+-- ИСУН's own named, uncorrected projects were discarded at the query.
+--
+-- ⚠️ `on_time_contracts` IS NULL, NEVER 0, FOR A CONTRACT-ONLY COMPANY. „Not listed
+-- as a correction-free beneficiary" and „listed with zero on-time contracts" are
+-- different claims, and only the second is a number. `beneficiary_listed` carries
+-- the distinction explicitly so a consumer cannot recover it from a coalesce.
+--
+-- ⚠️ THE TWO COUNTS MEASURE DIFFERENT THINGS AND MUST NOT BE SUBTRACTED.
+-- `on_time_contracts` is the beneficiary report's „успешно приключени В СРОК";
+-- `clean_contracts` is this EIK's row count in the „без наложени финансови
+-- корекции" list. A contract can be on-time-but-corrected or late-but-clean, so
+-- on_time − clean is NOT „contracts that were corrected" — for a company in the
+-- beneficiary table it is 0 by construction, since presence there IS the claim
+-- that no correction was imposed on it. `contracts` returns the named rows so a
+-- surface can show the evidence instead of leaving a reader to do that arithmetic.
+--
+-- The DROP is required, not defensive: `CREATE OR REPLACE` cannot alter a
+-- function's OUT-parameter row type, and this signature gained
+-- `beneficiary_listed` + `contracts`. It is a PLAIN drop (never CASCADE) and the
+-- function has no stored-query dependents today — the two readers are ad-hoc
+-- queries in `functions/db_routes.js` and the data gate — so if one is ever added,
+-- POSTGRES refuses this with 2BP01 rather than deleting it silently.
+--
+-- ⚠️ That protection is the database's, NOT a gate's. `migration_drop_dependents`
+-- parses `DROP (MATERIALIZED VIEW|TABLE|VIEW)` only, so a `DROP FUNCTION` is
+-- invisible to it — the loud abort at apply time is the whole defence here, and
+-- adding CASCADE would remove it (003's lesson: CASCADE turns a refusal into a
+-- silent deletion and an exit 0).
+DROP FUNCTION IF EXISTS isun_clean_delivery_for_eik(text);
+
+CREATE FUNCTION isun_clean_delivery_for_eik(p_eik text)
 RETURNS TABLE (
   eik text, name text, on_time_contracts integer,
-  clean_contracts bigint, programmes jsonb, absence_meaning text
+  clean_contracts bigint, programmes jsonb, absence_meaning text,
+  beneficiary_listed boolean, contracts jsonb
 )
+--
+-- ⚠️ QUALIFY EVERY REFERENCE IN THIS BODY. Four OUT names — `eik`, `name`,
+-- `programmes`, `contracts` — collide with columns of the tables it reads, and
+-- PostgreSQL resolves such a collision toward the COLUMN with no error and no
+-- ambiguity warning. `isun_clean_delivery_coverage` is the dangerous one: its
+-- `contracts` and `programmes` are REGISTER-WIDE (9,940 / every programme), so a
+-- future edit that drops a qualifier substitutes a corpus figure for a
+-- per-company one and renders it against a named company with nothing failing.
+-- Measured with a throwaway function: an unqualified `contracts` returns 9940.
 LANGUAGE sql STABLE PARALLEL SAFE AS $$
-  SELECT b.eik, b.name, b.on_time_contracts,
-         (SELECT count(*) FROM isun_clean_contract c WHERE c.beneficiary_eik = p_eik),
-         (SELECT coalesce(jsonb_agg(DISTINCT c.programme), '[]'::jsonb)
-            FROM isun_clean_contract c WHERE c.beneficiary_eik = p_eik),
-         (SELECT absence_meaning FROM isun_clean_delivery_coverage WHERE id = 1)
-    FROM isun_clean_beneficiary b
-   WHERE b.eik = p_eik;
+  WITH b AS (
+    SELECT * FROM isun_clean_beneficiary WHERE eik = p_eik
+  ), c AS (
+    SELECT * FROM isun_clean_contract WHERE beneficiary_eik = p_eik
+  )
+  SELECT
+    p_eik,
+    coalesce(
+      (SELECT b.name FROM b),
+      (SELECT c.beneficiary_name FROM c
+        WHERE c.beneficiary_name IS NOT NULL ORDER BY c.beneficiary_name LIMIT 1)),
+    (SELECT b.on_time_contracts FROM b),          -- NULL when not listed as a beneficiary
+    (SELECT count(*) FROM c),
+    -- ORDER stated, not inherited from DISTINCT's implementation sort — the
+    -- aggregate below spells its order out and payloads here are pinned.
+    (SELECT coalesce(jsonb_agg(DISTINCT c.programme ORDER BY c.programme), '[]'::jsonb)
+       FROM c WHERE c.programme IS NOT NULL),
+    (SELECT cov.absence_meaning FROM isun_clean_delivery_coverage cov WHERE cov.id = 1),
+    EXISTS (SELECT 1 FROM b),
+    -- Bounded by the corpus: the busiest EIK holds 12 clean contracts.
+    (SELECT coalesce(jsonb_agg(r ORDER BY r.closed_on DESC NULLS LAST,
+                                        r.contract_number), '[]'::jsonb)
+       FROM (SELECT c.contract_number, c.title, c.programme, c.procedure,
+                    c.signed_on, c.original_end_on, c.closed_on, c.duration_months
+               FROM c) r)
+  -- No row when the EIK is in NEITHER register: absence is not a finding, and the
+  -- serving surface mounts on a present row only.
+  WHERE EXISTS (SELECT 1 FROM b) OR EXISTS (SELECT 1 FROM c);
 $$;
 
 DO $$
@@ -104,6 +171,14 @@ BEGIN
                     isun_clean_delivery_coverage TO app_readonly;
     GRANT EXECUTE ON FUNCTION isun_clean_delivery_for_eik(text) TO app_readonly;
   ELSE
-    RAISE WARNING 'app_readonly absent — 175 granted nothing. Run db:pg:bootstrap.';
+    -- ⚠️ NOT MERELY „granted nothing". The three tables are CREATE TABLE IF NOT
+    -- EXISTS, so their ACLs survive a re-apply — but the function above is
+    -- DROP + CREATE, so this skip leaves it with LESS privilege than it had, and
+    -- the migration still reports success. The pool connects as app_readonly, so
+    -- the next /api/db/company raises 42501 (the route degrades and logs it).
+    RAISE WARNING 'app_readonly absent — 175 granted nothing, and the DROP+CREATE above '
+                  'has REVOKED any EXECUTE isun_clean_delivery_for_eik already had. '
+                  '/api/db/company serves no clean-delivery until db:pg:bootstrap runs '
+                  'and 175 is re-applied.';
   END IF;
 END $$;

@@ -493,6 +493,23 @@ Four things about it are easy to get backwards:
   and an ЕГН is a personal identifier this project does not hold. `cleanEik()` drops them at
   PARSE time rather than filtering downstream, so no consumer can reach one, and
   `coverage.natural_persons_excluded` makes the exclusion visible.
+- ⚠️ **`isun_clean_delivery_for_eik()` DRIVES FROM BOTH REGISTERS, and `on_time_contracts`
+  is NULL — never 0 — for a company in the contract register only.** It drove from
+  `isun_clean_beneficiary` alone until 2026-09-02, so it returned NO ROW for the **956 EIKs
+  / 1,740 clean-contract rows (17.5% of the register)** that have no beneficiary entry: the
+  `/company/:eik` tile never mounted and ИСУН's own named, uncorrected projects were
+  discarded at the query. `beneficiary_listed` carries the distinction explicitly, because
+  „not listed as a correction-free beneficiary" and „listed with zero on-time contracts" are
+  different claims and only the second is a number — and the corpus cannot separate them
+  (**0 of 32,420** beneficiary rows carry a literal 0), so a consumer that coalesces the NULL
+  publishes the first as the second, on the one dataset here where a fabricated zero is an
+  accusation. The function also returns the named `contracts`, so a surface shows the
+  evidence instead of leaving a reader to subtract two counts that measure different things.
+  ⚠️ It is `DROP FUNCTION` + `CREATE` under a **role-guarded** GRANT — the tables are
+  `IF NOT EXISTS` and keep their ACLs, the function does not — so re-applying 175 to a
+  database with no `app_readonly` REVOKES its EXECUTE, reports success, and leaves
+  `/api/db/company` raising 42501 on that arm until `db:pg:bootstrap` runs and 175 is
+  re-applied. Gate: `scripts/db/tests/isun_clean_delivery.data.test.ts`.
 
 **The input is operator-downloaded on purpose.** `data/_cache/isun_clean_delivery/*.xlsx`
 is gitignored: the F5 WAF in front of 2020.eufunds.bg refuses automated exports
@@ -502,8 +519,8 @@ its `GetProgrammes` XHR outright — even from within the page's own origin. A h
 `beneficiaries__ALL.xlsx`; the ingest folds several drops by key, so a future split works
 unchanged.
 
-The gate is `scripts/db/tests/isun_clean_delivery.data.test.ts` (8 tests) plus 14 pure
-parser tests that need no Postgres. One of the eight asserts the two reports still
+The gate is `scripts/db/tests/isun_clean_delivery.data.test.ts` (12 tests) plus 14 pure
+parser tests that need no Postgres. One of the twelve asserts the two reports still
 DISAGREE, so that a future change „reconciling" them fails loudly rather than quietly
 publishing a fabricated equality.
 

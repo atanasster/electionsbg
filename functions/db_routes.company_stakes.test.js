@@ -7,9 +7,15 @@
 // one transaction, which the plan measures at 4 h 41 m on Cloud SQL. A concurrent reader gets
 // 55P03 for the duration.
 //
-// The first cut of this arm degraded on 42P01/42883 only — copied from `cleanDelivery`, which
-// reads plain TABLES and so cannot raise the matview codes. That is the defect these tests
-// pin, and it is invisible in review because both spellings look like "the degrade pattern".
+// The first cut of this arm degraded on 42P01/42883 only — copied from `cleanDelivery`. That is
+// the defect these tests pin, and it is invisible in review because both spellings look like
+// "the degrade pattern".
+//
+// ⚠️ The reason originally written here — „cleanDelivery reads plain TABLES and so cannot raise
+// the matview codes" — was WRONG, and it made a correct fix look like a special case. 55P03 is
+// `lock_timeout`, not a matview code: a plain table under a TRUNCATE-reload takes the same
+// AccessExclusiveLock, so `cleanDelivery` needed the wider set too (reproduced 2026-09-02, and
+// pinned in db_routes.clean_delivery.test.js). Both arms now share `RELOAD_DEGRADE`.
 //
 //   npm run functions:test
 

@@ -21,15 +21,41 @@ import { useTranslation } from "react-i18next";
 import { BadgeCheck } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
+export interface CleanContractRow {
+  contract_number: string;
+  title: string | null;
+  programme: string | null;
+  procedure: string | null;
+  signed_on: string | null;
+  original_end_on: string | null;
+  closed_on: string | null;
+  duration_months: number | null;
+}
+
 export interface CleanDeliveryInfo {
   eik: string;
   name: string;
   /** „Брой договори, успешно приключени В СРОК" — on time, a stricter test than
-   *  merely uncorrected, which is why it can exceed `clean_contracts`. */
-  on_time_contracts: number;
+   *  merely uncorrected, which is why it can exceed `clean_contracts`.
+   *
+   *  ⚠️ NULL — never 0 — when this EIK is in the CONTRACT register but not the
+   *  beneficiary one (956 EIKs, 17.5% of the register). „Not listed as a
+   *  correction-free beneficiary" and „listed with zero on-time contracts" are
+   *  different claims and only the second is a number, so this must never be
+   *  coalesced: on a register whose whole premise is that a zero is an
+   *  accusation, `?? 0` publishes the first as the second. */
+  on_time_contracts: number | null;
   /** Rows in the „Проекти без наложени финансови корекции" list for this EIK. */
   clean_contracts: number | string;
   programmes: string[] | null;
+  /** Whether ИСУН lists the COMPANY itself among beneficiaries with no financial
+   *  correction — the strongest claim the register makes about it, and the one
+   *  `on_time_contracts` is only a count within. */
+  beneficiary_listed?: boolean;
+  /** The named clean contracts (175). Present so a surface can show the evidence
+   *  rather than leave a reader to subtract two counts that measure different
+   *  things. Bounded: the busiest EIK in the corpus holds 12. */
+  contracts?: CleanContractRow[] | null;
   /** Server-supplied. Rendered verbatim rather than restated here, so the page
    *  and the database cannot drift on what absence means. */
   absence_meaning: string | null;
@@ -42,11 +68,13 @@ export const CompanyCleanDeliveryTile: FC<{ info: CleanDeliveryInfo }> = ({
   const bg = i18n.language === "bg";
   const T = (b: string, e: string) => (bg ? b : e);
 
-  const onTime = Number(info.on_time_contracts) || 0;
+  // NOT coalesced: null means „this company is not in the beneficiary register",
+  // which is a different statement from „it is, with zero on-time contracts".
+  const onTime =
+    info.on_time_contracts == null ? null : Number(info.on_time_contracts);
   const clean = Number(info.clean_contracts) || 0;
-  // Nothing to say. Should be unreachable (the row exists only for listed
-  // beneficiaries), but a zero here must never render as a finding.
-  if (onTime <= 0 && clean <= 0) return null;
+  // Nothing to say. A zero here must never render as a finding.
+  if (!(onTime && onTime > 0) && clean <= 0) return null;
 
   const programmes = (info.programmes ?? []).filter(Boolean);
 
@@ -63,7 +91,7 @@ export const CompanyCleanDeliveryTile: FC<{ info: CleanDeliveryInfo }> = ({
           </div>
 
           <div className="mt-1 text-sm">
-            {onTime > 0 && (
+            {onTime !== null && onTime > 0 && (
               <div>
                 <span className="text-lg font-semibold tabular-nums">
                   {onTime}
