@@ -1,8 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
+  computeFreshnessMap,
   dataMapClosure,
+  dataMapFreshnessTier,
+  dataMapLensColor,
   dataMapLinkNeighbours,
   dataMapView,
+  DATA_MAP_AGING_DAYS,
+  DATA_MAP_FRESH_DAYS,
   DATA_MAP_KEY_COLOR,
   type DataMapEdge,
   type DataMapLink,
@@ -330,5 +335,190 @@ describe("dataMapView", () => {
       const v2 = { ...base, version: 2, layouts: undefined };
       expect(dataMapView(v2, "elections").hidden.size).toBe(0);
     });
+  });
+});
+
+describe("dataMapFreshnessTier", () => {
+  const DAY = 24 * 3600 * 1000;
+  const now = Date.parse("2026-09-02T00:00:00Z");
+
+  it("has no signal at all as static, not stale", () => {
+    // A manually maintained anchor (no watcher, no update-* skill) must read
+    // distinctly from a source that has genuinely gone quiet — conflating the
+    // two would make "nobody expects this to move" look like a real lapse.
+    expect(dataMapFreshnessTier(undefined, now)).toBe("static");
+  });
+
+  it("buckets within DATA_MAP_FRESH_DAYS as fresh", () => {
+    const at = new Date(now - 2 * DAY).toISOString();
+    expect(dataMapFreshnessTier(at, now)).toBe("fresh");
+  });
+
+  it("buckets between the fresh and aging boundaries as aging", () => {
+    const at = new Date(now - 15 * DAY).toISOString();
+    expect(dataMapFreshnessTier(at, now)).toBe("aging");
+  });
+
+  it("buckets past DATA_MAP_AGING_DAYS as stale", () => {
+    const at = new Date(now - 45 * DAY).toISOString();
+    expect(dataMapFreshnessTier(at, now)).toBe("stale");
+  });
+
+  it("is fresh at age 0", () => {
+    expect(dataMapFreshnessTier(new Date(now).toISOString(), now)).toBe(
+      "fresh",
+    );
+  });
+
+  it("is fresh one millisecond inside the fresh boundary", () => {
+    const at = new Date(now - (DATA_MAP_FRESH_DAYS * DAY - 1)).toISOString();
+    expect(dataMapFreshnessTier(at, now)).toBe("fresh");
+  });
+
+  it("is aging exactly at the fresh boundary", () => {
+    const at = new Date(now - DATA_MAP_FRESH_DAYS * DAY).toISOString();
+    expect(dataMapFreshnessTier(at, now)).toBe("aging");
+  });
+
+  it("is aging one millisecond inside the aging boundary", () => {
+    const at = new Date(now - (DATA_MAP_AGING_DAYS * DAY - 1)).toISOString();
+    expect(dataMapFreshnessTier(at, now)).toBe("aging");
+  });
+
+  it("is stale exactly at the aging boundary", () => {
+    const at = new Date(now - DATA_MAP_AGING_DAYS * DAY).toISOString();
+    expect(dataMapFreshnessTier(at, now)).toBe("stale");
+  });
+
+  it("classifies a malformed timestamp as stale rather than throwing", () => {
+    expect(dataMapFreshnessTier("not-a-date", now)).toBe("stale");
+  });
+});
+
+describe("computeFreshnessMap", () => {
+  const node = (
+    id: string,
+    skills: string[],
+    freshness?: string,
+  ): DataMapNode => ({
+    id,
+    kind: "source",
+    label: { bg: "", en: "" },
+    detail: { bg: "", en: "" },
+    desc: { bg: "", en: "" },
+    tags: [],
+    skills,
+    freshness,
+    x: 0,
+    y: 0,
+    w: 0,
+    h: 0,
+  });
+
+  it("is empty with no change entries", () => {
+    const nodes = [node("src:a", ["update-a"], "2026-08-01")];
+    expect(computeFreshnessMap(nodes, undefined).size).toBe(0);
+  });
+
+  it("keeps the baked freshness when no skill entry is newer", () => {
+    const nodes = [node("src:a", ["update-a"], "2026-08-20")];
+    const map = computeFreshnessMap(nodes, [
+      { skill: "update-a", date: "2026-08-10" },
+    ]);
+    expect(map.get("src:a")).toBe("2026-08-20");
+  });
+
+  it("overlays a live skill run newer than the baked manifest freshness", () => {
+    const nodes = [node("src:a", ["update-a"], "2026-08-01")];
+    const map = computeFreshnessMap(nodes, [
+      { skill: "update-a", date: "2026-08-30" },
+    ]);
+    expect(map.get("src:a")).toBe("2026-08-30");
+  });
+
+  it("takes the latest entry per skill across several change log rows", () => {
+    const nodes = [node("src:a", ["update-a"])];
+    const map = computeFreshnessMap(nodes, [
+      { skill: "update-a", date: "2026-08-05" },
+      { skill: "update-a", date: "2026-08-25" },
+      { skill: "update-a", date: "2026-08-15" },
+    ]);
+    expect(map.get("src:a")).toBe("2026-08-25");
+  });
+
+  it("takes the max across several skills on the same node", () => {
+    const nodes = [node("src:a", ["update-a", "update-b"])];
+    const map = computeFreshnessMap(nodes, [
+      { skill: "update-a", date: "2026-08-05" },
+      { skill: "update-b", date: "2026-08-20" },
+    ]);
+    expect(map.get("src:a")).toBe("2026-08-20");
+  });
+
+  it("omits a node with neither a baked freshness nor a matching skill entry", () => {
+    const nodes = [node("src:a", [])];
+    const map = computeFreshnessMap(nodes, [
+      { skill: "update-unrelated", date: "2026-08-30" },
+    ]);
+    expect(map.has("src:a")).toBe(false);
+  });
+
+  it("does not overwrite a same-day baked timestamp with a bare date", () => {
+    const nodes = [node("src:a", ["update-a"], "2026-08-20T10:00:00.000Z")];
+    const map = computeFreshnessMap(nodes, [
+      { skill: "update-a", date: "2026-08-20" },
+    ]);
+    expect(map.get("src:a")).toBe("2026-08-20T10:00:00.000Z");
+  });
+
+  it("overwrites a baked timestamp when the skill entry is a later calendar day", () => {
+    const nodes = [node("src:a", ["update-a"], "2026-08-20T10:00:00.000Z")];
+    const map = computeFreshnessMap(nodes, [
+      { skill: "update-a", date: "2026-08-21" },
+    ]);
+    expect(map.get("src:a")).toBe("2026-08-21");
+  });
+});
+
+describe("dataMapLensColor", () => {
+  const now = Date.parse("2026-09-02T00:00:00Z");
+  const sourceNode = (over: Partial<DataMapNode> = {}): DataMapNode =>
+    ({
+      id: "src:a",
+      kind: "source",
+      label: { bg: "", en: "" },
+      detail: { bg: "", en: "" },
+      desc: { bg: "", en: "" },
+      tags: [],
+      x: 0,
+      y: 0,
+      w: 0,
+      h: 0,
+      ...over,
+    }) as DataMapNode;
+
+  it("returns undefined for a non-source node regardless of lens", () => {
+    const n = sourceNode({ kind: "dataset" });
+    expect(dataMapLensColor("fresh", n, undefined, now)).toBeUndefined();
+  });
+
+  it("maps the static/undefined case to muted-foreground under the fresh lens", () => {
+    expect(dataMapLensColor("fresh", sourceNode(), undefined, now)).toBe(
+      "hsl(var(--muted-foreground))",
+    );
+  });
+
+  it("maps fresh/aging/stale to their expected chart colors", () => {
+    const DAY = 24 * 3600 * 1000;
+    const at = (days: number) => new Date(now - days * DAY).toISOString();
+    expect(dataMapLensColor("fresh", sourceNode(), at(2), now)).toBe(
+      "hsl(var(--chart-1))",
+    );
+    expect(dataMapLensColor("fresh", sourceNode(), at(15), now)).toBe(
+      "hsl(var(--chart-3))",
+    );
+    expect(dataMapLensColor("fresh", sourceNode(), at(45), now)).toBe(
+      "hsl(var(--chart-5))",
+    );
   });
 });

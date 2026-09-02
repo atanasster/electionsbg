@@ -35,6 +35,8 @@ export type DataMapNode = {
   path?: string;
   skills?: string[];
   sources?: DataMapSourceRef[];
+  /** A known operational caveat about a source node — see model.ts's SourceIssue. */
+  issue?: { label: DataMapLang; note: DataMapLang };
   x: number;
   y: number;
   w: number;
@@ -222,6 +224,30 @@ export type DataMapLens = "none" | "cadence" | "origin" | "fresh" | "links";
  */
 export const DATA_MAP_FRESH_DAYS = 7;
 
+/** The second boundary the "fresh" lens and freshness badges bucket on. */
+export const DATA_MAP_AGING_DAYS = 30;
+
+/**
+ * "static" means no freshness signal exists at all (no watcher, no
+ * update-* skill) — a manually maintained anchor — never "very old".
+ * Conflating the two would render a source nobody ever expects to see move
+ * the same way as one that has genuinely gone stale.
+ */
+export type DataMapFreshnessTier = "fresh" | "aging" | "stale" | "static";
+
+/** One definition of the fresh/aging/stale/static bucket, shared by every
+ *  lens, legend and badge that classifies a node's freshness timestamp. */
+export const dataMapFreshnessTier = (
+  freshAt: string | undefined,
+  now: number,
+): DataMapFreshnessTier => {
+  if (!freshAt) return "static";
+  const age = now - new Date(freshAt).getTime();
+  if (age < DATA_MAP_FRESH_DAYS * 24 * 3600 * 1000) return "fresh";
+  if (age < DATA_MAP_AGING_DAYS * 24 * 3600 * 1000) return "aging";
+  return "stale";
+};
+
 /** Colour per join key, so the lens legend and the edges cannot disagree. */
 export const DATA_MAP_KEY_COLOR: Record<DataMapJoinKey, string> = {
   eik: "hsl(var(--chart-1))",
@@ -273,11 +299,21 @@ export const dataMapLensColor = (
     }
   }
   if (lens === "fresh") {
-    if (!freshAt) return "hsl(var(--muted-foreground))";
-    const age = now - new Date(freshAt).getTime();
-    if (age < 7 * 24 * 3600 * 1000) return "hsl(var(--chart-1))";
-    if (age < 30 * 24 * 3600 * 1000) return "hsl(var(--chart-3))";
-    return "hsl(var(--chart-5))";
+    const tier = dataMapFreshnessTier(freshAt, now);
+    switch (tier) {
+      case "fresh":
+        return "hsl(var(--chart-1))";
+      case "aging":
+        return "hsl(var(--chart-3))";
+      case "stale":
+        return "hsl(var(--chart-5))";
+      case "static":
+        return "hsl(var(--muted-foreground))";
+      default: {
+        const _exhaustive: never = tier;
+        return _exhaustive;
+      }
+    }
   }
   return undefined;
 };
@@ -314,6 +350,35 @@ const fetchDataMap = async (): Promise<DataMapManifest> => {
 
 export const useDataMap = () =>
   useQuery({ queryKey: ["data-map"], queryFn: fetchDataMap });
+
+/**
+ * Live freshness overlay: data-changes.json (refreshed with every ingest,
+ * served from the data bucket) can be newer than the build-time stamp baked
+ * into the manifest — take the max per node via its update skills. Shared by
+ * every screen that needs a node's freshest known timestamp, so the map and
+ * the sources registry read the exact same date for the same node.
+ */
+export const computeFreshnessMap = (
+  nodes: DataMapNode[],
+  changeEntries: { skill: string; date: string }[] | undefined,
+): Map<string, string> => {
+  const map = new Map<string, string>();
+  if (!changeEntries || !nodes.length) return map;
+  const latestBySkill = new Map<string, string>();
+  for (const e of changeEntries) {
+    const prev = latestBySkill.get(e.skill);
+    if (!prev || e.date > prev) latestBySkill.set(e.skill, e.date);
+  }
+  for (const n of nodes) {
+    let best = n.freshness ?? "";
+    for (const skill of n.skills ?? []) {
+      const d = latestBySkill.get(skill);
+      if (d && d > best.slice(0, 10)) best = d;
+    }
+    if (best) map.set(n.id, best);
+  }
+  return map;
+};
 
 /** Upstream ∪ downstream transitive closure of a node (including itself). */
 export const dataMapClosure = (

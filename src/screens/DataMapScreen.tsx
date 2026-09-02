@@ -12,6 +12,7 @@ import { ChevronDown, Play } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
 import {
+  computeFreshnessMap,
   dataMapView,
   DATA_MAP_FRESH_DAYS,
   DATA_MAP_KEY_COLOR,
@@ -144,27 +145,12 @@ export const DataMapScreen = () => {
       : null;
   }, [rawNode, manifest, activeTour, storyStep]);
 
-  // Live freshness overlay: data-changes.json (refreshed with every ingest,
-  // served from the data bucket) can be newer than the build-time stamp in
-  // the bundled manifest — take the max per node via its update skills.
-  const freshness = useMemo(() => {
-    const map = new Map<string, string>();
-    if (!manifest || !changes?.entries) return map;
-    const latestBySkill = new Map<string, string>();
-    for (const e of changes.entries) {
-      const prev = latestBySkill.get(e.skill);
-      if (!prev || e.date > prev) latestBySkill.set(e.skill, e.date);
-    }
-    for (const n of manifest.nodes) {
-      let best = n.freshness ?? "";
-      for (const skill of n.skills ?? []) {
-        const d = latestBySkill.get(skill);
-        if (d && d > best.slice(0, 10)) best = d;
-      }
-      if (best) map.set(n.id, best);
-    }
-    return map;
-  }, [manifest, changes]);
+  // Live freshness overlay — see computeFreshnessMap's own doc for why this
+  // reads live data-changes.json rather than trusting the bundled manifest.
+  const freshness = useMemo(
+    () => computeFreshnessMap(manifest?.nodes ?? [], changes?.entries),
+    [manifest, changes],
+  );
 
   // A manual node click takes over from a running story.
   const onSelect = useCallback(
