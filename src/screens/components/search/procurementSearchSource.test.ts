@@ -8,6 +8,11 @@
 //   npm run test:unit -- src/screens/components/search/procurementSearchSource.test.ts
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import path from "node:path";
+import { stripComments } from "@/../scripts/lib/strip_comments";
+import { SCOPE_ALL, SCOPE_PARAM } from "@/data/scope/constants";
+import { resolveScope, type Scope } from "@/data/scope/useScope";
 import {
   __resetProcurementSearchCache,
   contractItems,
@@ -18,6 +23,10 @@ import {
   fetchProcurementContracts,
   fetchProcurementTenders,
   fundItems,
+  awarderAllTimeHref,
+  awarderItems,
+  companyAllTimeHref,
+  companyItems,
   fundProjectHref,
   interregHref,
   interregItems,
@@ -256,35 +265,62 @@ describe("id namespaces across ALL six groups", () => {
 });
 
 describe("synthetic contractor keys", () => {
-  it("de-links a filler or natural-person key and keeps a consortium carrier", () => {
-    // A link promises somewhere to go. `ph-` (a made-up registration number) and `np-` (a
-    // natural person keyed by name) name nothing checkable against a register; `obed-` is a
-    // consortium carrier whose page is the only route from a joint bid to the member firms.
+  beforeEach(() => {
+    __resetProcurementSearchCache();
+    vi.restoreAllMocks();
+  });
+  afterEach(() => {
+    __resetProcurementSearchCache();
+    vi.restoreAllMocks();
+  });
+
+  // A link promises somewhere to go. `ph-` (a made-up registration number) and `np-` (a
+  // natural person keyed by name) name nothing checkable against a register; the EMPTY
+  // string produces `/company/?pscope=all`, which matches no route at all; `obed-` is a
+  // consortium carrier whose page is the only route from a joint bid to the member firms.
+  const MIXED = [
+    { eik: "104055066", name: "Реална фирма" },
+    { eik: "obed-abc", name: "Обединение" },
+    { eik: "ph-1", name: "Филър" },
+    { eik: "np-2", name: "Физическо лице" },
+    { eik: "", name: "Празен ключ" },
+  ];
+
+  it("de-links a filler, a natural person and the empty key; keeps a carrier", async () => {
+    vi.spyOn(globalThis, "fetch").mockImplementation(() =>
+      ok(body({ companies: MIXED })),
+    );
+    const items = await fetchProcurementCompanies(
+      "x",
+      new AbortController().signal,
+    );
+    expect(items.map((i) => i.to)).toEqual([
+      "/company/104055066?pscope=all",
+      "/company/obed-abc?pscope=all",
+    ]);
+  });
+
+  it("the PURE builder applies the same rule — it is the one every caller shares", () => {
+    // `ProcurementSearchTile` and `cultureSearch` run their own request, so they reach the
+    // filter only through this builder. The tile hand-rolled the mapping and was therefore
+    // the one surface still linking synthetic keys; pinning the pure half is what stops a
+    // future private `.map` from looking equivalent.
+    expect(companyItems(body({ companies: MIXED })).map((i) => i.to)).toEqual([
+      "/company/104055066?pscope=all",
+      "/company/obed-abc?pscope=all",
+    ]);
+  });
+
+  it("does not filter AWARDER keys — two live buyers sit outside 9/13 digits", () => {
+    // ЕСО (1752013040) and АДФИ (175076479999) both resolve, so routing an awarder through
+    // the contractor predicate would de-link working pages.
     const rows = [
-      { eik: "104055066", name: "Реална фирма" },
-      { eik: "obed-abc", name: "Обединение" },
-      { eik: "ph-1", name: "Филър" },
-      { eik: "np-2", name: "Физическо лице" },
+      { eik: "1752013040", name: "ЕСО" },
+      { eik: "175076479999", name: "АДФИ" },
     ];
-    return sharedTest(rows);
+    expect(awarderItems(body({ awarders: rows }))).toHaveLength(2);
   });
 });
-
-const sharedTest = async (companies: { eik: string; name: string }[]) => {
-  __resetProcurementSearchCache();
-  vi.spyOn(globalThis, "fetch").mockImplementation(() =>
-    ok(body({ companies })),
-  );
-  const items = await fetchProcurementCompanies(
-    "x",
-    new AbortController().signal,
-  );
-  expect(items.map((i) => i.to)).toEqual([
-    "/company/104055066",
-    "/company/obed-abc",
-  ]);
-  vi.restoreAllMocks();
-};
 
 describe("the shared request and its metadata", () => {
   beforeEach(() => {
@@ -425,5 +461,180 @@ describe("the shared request and its metadata", () => {
     expect(interregItems(r)).toEqual([]);
     expect(contractItems(r)).toEqual([]);
     expect(tenderItems(r)).toEqual([]);
+  });
+});
+
+describe("entity destinations carry the window the row's figure was measured over", () => {
+  beforeEach(() => {
+    __resetProcurementSearchCache();
+    vi.restoreAllMocks();
+  });
+  afterEach(() => {
+    __resetProcurementSearchCache();
+    vi.restoreAllMocks();
+  });
+
+  it("builds /company and /awarder on the all-time scope", () => {
+    expect(companyAllTimeHref("130878827")).toBe(
+      "/company/130878827?pscope=all",
+    );
+    expect(awarderAllTimeHref("000689061")).toBe(
+      "/awarder/000689061?pscope=all",
+    );
+  });
+
+  it("emits a scope the shared parser actually resolves to the full corpus", () => {
+    // ⚠️ NOT a second copy of the literal. Both the param name and the value are owned by
+    // `@/data/scope/constants`; asserting the string on both sides would stay green after a
+    // rename on the scope side, with this module emitting a param nothing reads.
+    const p = new URLSearchParams(
+      companyAllTimeHref("130878827").split("?")[1],
+    );
+    expect(p.get(SCOPE_PARAM)).toBe(SCOPE_ALL);
+    expect(resolveScope(p.get(SCOPE_PARAM) as Scope)).toBe("all");
+  });
+
+  it("encodes a synthetic key rather than splicing it into the path", () => {
+    // `obed-` carriers are keyed by a hash today, but the column also holds `ph-`/`np-`
+    // keys derived from NAMES, so the encode is not decorative.
+    expect(companyAllTimeHref("obed-a/b")).toBe(
+      "/company/obed-a%2Fb?pscope=all",
+    );
+  });
+
+  it("the COMPANY ROW carries pscope=all, not only the see-all below it", async () => {
+    // ⚠️ THE ROW, NOT THE GROUP FOOTER. `homeSearch`'s „Виж всички фирми" has carried
+    // `pscope=all` since it was written, so a test that only checks the see-all passes on
+    // the very code this exists to prevent: a row advertising an all-time euro figure and
+    // linking to a page that defaults to the selected parliament's window. Measured
+    // 2026-09-02 on 130878827 — €22,424,885 previewed, €3,969,914 served.
+    vi.spyOn(globalThis, "fetch").mockImplementation(() =>
+      ok(
+        body({
+          companies: [{ eik: "130878827", name: "Клет България ООД" }],
+          awarders: [{ eik: "000689061", name: "Пета МБАЛ" }],
+        }),
+      ),
+    );
+    const signal = new AbortController().signal;
+    const [company] = await fetchProcurementCompanies("клет", signal);
+    const [awarder] = await fetchProcurementAwarders("клет", signal);
+    expect(company.to).toBe("/company/130878827?pscope=all");
+    expect(awarder.to).toBe("/awarder/000689061?pscope=all");
+  });
+
+  it("both shared adapters emit a scope beside their euro figure", async () => {
+    // The two adapters, pinned together. This does NOT close the class — a third adapter
+    // added to this module contributes no rows here and would pass unchanged — which is
+    // what the source sweep at the foot of this file is for.
+    vi.spyOn(globalThis, "fetch").mockImplementation(() =>
+      ok(
+        body({
+          companies: [
+            {
+              eik: "130878827",
+              name: "Клет България ООД",
+              contractsEur: 22_424_885,
+            },
+          ],
+          awarders: [
+            { eik: "000689061", name: "Пета МБАЛ", contractsEur: 62_620_984 },
+          ],
+        }),
+      ),
+    );
+    const signal = new AbortController().signal;
+    const rows = [
+      ...(await fetchProcurementCompanies("клет", signal)),
+      ...(await fetchProcurementAwarders("клет", signal)),
+    ];
+    expect(rows).toHaveLength(2);
+    for (const r of rows) {
+      expect(r.amountEur).toBeGreaterThan(0);
+      expect(String(r.to)).toContain("pscope=all");
+    }
+  });
+});
+
+// ── TEST-003 / FINDING-005: the rule, not two examples of it ───────────────────────────
+//
+// The per-adapter assertions above prove the two builders in THIS module. They cannot see a
+// third entity destination built somewhere else in the search layer — and two such
+// destinations existed when this gate was written (`ProcurementSearchTile`'s hand-rolled
+// company/awarder rows and `cultureSearch`'s register index), both landing on the `ns`
+// default while sitting beside an all-time figure. A bare `/company/${…}` or `/awarder/${…}`
+// navigates with an EMPTY query string, so "no scope" is not neutral: it is the parliament
+// window, which holds 3.8% of the corpus's contract money.
+//
+// Comments are stripped first because prose that MENTIONS the pattern is not an occurrence
+// of it — this file and both fixed modules discuss `/company/${eik}` in their headers.
+describe("no search surface emits a scope-free entity destination", () => {
+  const SRC = path.resolve(import.meta.dirname, "../../..");
+  const walk = (dir: string): string[] =>
+    readdirSync(dir).flatMap((f) => {
+      const p = path.join(dir, f);
+      return statSync(p).isDirectory() ? walk(p) : [p];
+    });
+
+  /** Files that build a search DROPDOWN's rows. Not every file naming these paths. */
+  const SEARCH_LAYER = /(search|Search)[^/]*\.tsx?$/;
+
+  /**
+   * A declared exception carries its reason, so a stale one fails too.
+   *
+   * ⚠️ WHAT EARNS ONE: a row that carries NO figure — a pure roster entry, where nothing is
+   * contradicted by the destination's window. Those still reset the reader's scope, and the
+   * honest fix for them is to CARRY it rather than force all-time (they sit on pages with
+   * their own ScopeControl, so forcing `all` would override a choice the page just made).
+   * That is not expressible today: `EntityIndex.href` is a `string` while `useScopedHref()`
+   * returns a `To`. Open work, tracked here rather than silently passing.
+   *
+   * ⚠️ WHAT DOES NOT: a row ranked by, or displaying, an all-time figure. That is the defect
+   * this gate exists for — `NzokSearchBox`'s hospital rows were exactly that (ordered by
+   * `cumulativeEur`, landing on the parliament window) and were fixed, not listed.
+   */
+  const ALLOWED: Record<string, string> = {
+    "screens/components/procurement/nzok/NzokSearchBox.tsx":
+      "the МЗ second-level roster rows carry no figure — navigational, see above",
+    "screens/water/WaterSearchBox.tsx":
+      "the ВиК operator roster carries no figure — navigational, see above",
+  };
+
+  it("builds every /company and /awarder href with a scope", () => {
+    const offenders = walk(SRC)
+      .filter(
+        (f) =>
+          SEARCH_LAYER.test(f) &&
+          !f.endsWith(".test.ts") &&
+          !f.endsWith(".test.tsx"),
+      )
+      .filter((f) => {
+        const src = stripComments(readFileSync(f, "utf8"));
+        // A template href whose interpolation is followed by anything other than `?` or a
+        // further path segment — i.e. the bare `/company/${eik}` form.
+        return /["'`]\/(?:company|awarder)\/\$\{[^}]+\}(?![?/]|\$\{)/.test(src);
+      })
+      .map((f) => path.relative(SRC, f))
+      .filter((f) => !(f in ALLOWED));
+    expect(
+      offenders,
+      "these build a bare /company or /awarder href — use companyAllTimeHref / " +
+        "awarderAllTimeHref (all-time, for a search row) or CompanyLink / useAwarderHref " +
+        "(the reader's current scope, for a scoped tile)",
+    ).toEqual([]);
+  });
+
+  it("the sweep still discriminates", () => {
+    // Without this, a regex that stopped matching anything would pass the assertion above
+    // for ever. Feed it the exact shape it exists to reject.
+    const bad = "const to = `/company/${row.eik}`;";
+    expect(
+      /["'`]\/(?:company|awarder)\/\$\{[^}]+\}(?![?/]|\$\{)/.test(bad),
+    ).toBe(true);
+    const good =
+      "const to = `/company/${encodeURIComponent(eik)}${allTimeScope}`;";
+    expect(
+      /["'`]\/(?:company|awarder)\/\$\{[^}]+\}(?![?/]|\$\{)/.test(good),
+    ).toBe(false);
   });
 });

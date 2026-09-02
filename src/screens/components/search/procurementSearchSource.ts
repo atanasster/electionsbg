@@ -19,11 +19,15 @@
 // of the six is discarding four groups it has already been billed for. Surfacing them is
 // client mapping, NOT more SQL and NOT another request.
 //
-// WHAT READS IT TODAY: `homeSearch` (awarders + companies), `ProcurementSearchTile` (the
-// contract/tender item builders and `moreCountLabel`) and `FundsFinder` (the two destination
-// helpers). The four `fetch*` group adapters and the two metadata readers have no caller yet
-// — they are the home finder's remaining four groups and its „виж всички" labels, landing in
-// Phase 5 of the plan, and are tested here.
+// WHAT READS IT TODAY — five surfaces, and the split between them matters:
+//   through the SHARED request (`sharedProcurementSearch`, one in-flight promise per needle):
+//     `homeSearch` (all six group adapters + `procurementAltQuery` + `procurementMoreCount`),
+//     `governanceSearch` (awarders + companies), `FundsFinder` (the destination helpers).
+//   with their OWN request:
+//     `ProcurementSearchTile` (`/procurement`'s box — it also passes its own `limit`),
+//     `cultureSearch` (`/culture`'s box — same, one `&limit` per group).
+// That split is load-bearing for `metaByQuery`: the two private-request callers never fill
+// it, so they must use the PURE `moreCountLabel`, never `procurementMoreCount`.
 //
 // ⚠️ THE PROMISE BINDS TO THE FIRST CALLER'S `AbortSignal`, which is only safe because
 // `HubSearch` gives every source the same one — it fires all server sources in a single pass
@@ -41,6 +45,7 @@ import {
 import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { isLinkableCompanyKey } from "@/lib/companyKey";
+import { SCOPE_ALL, SCOPE_PARAM } from "@/data/scope/constants";
 
 export interface NamedProcurementEntity {
   eik: string;
@@ -235,39 +240,118 @@ export const procurementMoreCount = (
     shown,
   );
 
-export const fetchProcurementAwarders = async (
-  query: string,
-  signal: AbortSignal,
-): Promise<SearchItem[]> =>
-  (await sharedProcurementSearch(query, signal)).awarders?.map((a) => ({
+/**
+ * Where an ENTITY row goes, and why it carries a scope.
+ *
+ * ⚠️ `pscope=all` IS THE POINT OF THESE HELPERS, not decoration. The euro figure on an
+ * entity row is `search_contractors` / `search_awarders`' ALL-TIME total — those functions
+ * take no date bound, because the search box is global and has no scope of its own — while
+ * `/company/:eik` and `/awarder/:eik` default to the selected parliament's window. Measured
+ * 2026-09-02: „Клет България" (130878827) previews €22,424,885 and the page it links to
+ * showed €3,969,914, with the advertised figure appearing nowhere on it; МБАЛ „Княгиня
+ * Клементина" (000689061) previews €62,620,984 against €685,098, a 91× gap. Corpus-wide only
+ * 3.8% of contract money and 12.3% of contractors fall inside that default window, so for
+ * 87.7% of companies the row promised a number and the destination said „Няма договори за
+ * избрания период.".
+ *
+ * The see-all links BELOW these rows have carried `pscope=all` for exactly this reason since
+ * they were written („'See all' must mean all-time" — ProcurementSearchTile) — the rows above
+ * them did not, which is the whole defect. Both halves of a group now agree.
+ *
+ * ⚠️ THE FIX IS NOT TO SCOPE THE FIGURE INSTEAD. The box has no `?pscope`, so a scoped search
+ * value would make the same company show a different number depending on which page the
+ * reader happened to search from.
+ *
+ * ⚠️ AN EXPLICIT SEARCH STRING IS ALSO WHAT MAKES THIS DETERMINISTIC. These rows render
+ * through react-router's `Link`, not `@/ux/Link`, so they never inherit `usePreserveParams`'
+ * allowlist — a bare path navigates with an EMPTY query string and lands on the `ns` default
+ * whatever the reader had selected. `pscope` IS in that allowlist, so from here on it rides
+ * along on ordinary in-app links, exactly as the see-alls' already does.
+ *
+ * ⚠️ ACCEPTED COST 1 — THIS REPLACES A SCOPE THE READER CHOSE ELSEWHERE. Because `pscope` is
+ * in that allowlist, a reader who picked `?pscope=y:2024` on /procurement, searched, and
+ * clicked a row carries `all` onward for the rest of the session; nothing writes `y:2024`
+ * back. Taken deliberately — a row whose figure the destination contradicts is the worse
+ * failure — and the see-alls beside these rows have behaved this way since they were written.
+ *
+ * ⚠️ ACCEPTED COST 2 — THE SCOPE AND NOTHING ELSE. `SearchItem.to` is a bare string, so these
+ * emit one fixed param rather than merging `usePreserveParams`' allowlist the way `seeAllTo`
+ * does. `elections` therefore does NOT survive a row click, while it does survive a click on
+ * the see-all in the same group. Only the global election anchor resets; the window — the one
+ * thing the row's figure is about — is exactly what these set.
+ *
+ * ⚠️ NOT `useAwarderHref()` / `AwarderLink` / `CompanyLink`, which carry the reader's CURRENT
+ * scope through `useScopedHref()`. That is right for a tile whose figures are already scoped
+ * and wrong for a search row whose figure has no date bound. The two families sit one `use`
+ * prefix apart in sibling directories, so these names say all-time out loud.
+ */
+const allTimeScope = `?${SCOPE_PARAM}=${SCOPE_ALL}`;
+
+/** A contractor's page, on the ALL-TIME window the row's figure was measured over.
+ *  ⚠ Not `CompanyLink`, which carries the reader's current scope. */
+export const companyAllTimeHref = (eik: string): string =>
+  `/company/${encodeURIComponent(eik)}${allTimeScope}`;
+
+/** A buyer's page, same window — `/awarder/:eik` is routed to the same screen.
+ *  ⚠ Not `useAwarderHref()`, which carries the reader's current scope. */
+export const awarderAllTimeHref = (eik: string): string =>
+  `/awarder/${encodeURIComponent(eik)}${allTimeScope}`;
+
+/**
+ * Buyer rows. PURE, and exported beside `contractItems`/`tenderItems` for the reason that
+ * pair already carries: a consumer running its OWN request (`ProcurementSearchTile`,
+ * `cultureSearch`) must be able to reuse the mapping without reusing the request.
+ */
+export const awarderItems = (body: ProcurementSearchResponse): SearchItem[] =>
+  (body.awarders ?? []).map((a) => ({
     id: `awarder-${a.eik}`,
-    to: `/awarder/${a.eik}`,
+    to: awarderAllTimeHref(a.eik),
     primary: decodeEntities(a.name),
     secondary: a.eik,
     amountEur: a.contractsEur,
     icon: Landmark,
-  })) ?? [];
+  }));
+
+/**
+ * Contractor rows.
+ *
+ * ⚠ A link promises somewhere to go. `contractor_eik` carries synthetic keys — `ph-` (a
+ * filler registration number), `np-` (a natural PERSON keyed by name) and the documented
+ * EMPTY STRING — which render a page but name nothing anybody can check against a register;
+ * the empty key produces `/company/?pscope=all`, a path matching no route at all.
+ * `isLinkableCompanyKey` is the one predicate for that, and it deliberately KEEPS `obed-`
+ * consortium carriers, whose page is the only route from a joint bid to the firms behind it.
+ *
+ * ⚠️ THE FILTER IS WHY THIS IS A SHARED BUILDER RATHER THAN A MAPPING EACH CALLER REPEATS.
+ * `ProcurementSearchTile` hand-rolled its own copy of these two and was therefore the one
+ * surface still linking synthetic keys — the duplication was not cosmetic, it is what let the
+ * two drift. A caller that maps `body.companies` itself re-opens that hole, and
+ * `companyKey.test.ts`'s repo-wide net cannot see it: that net matches the JSX token
+ * ``to={`/company/${…`` and an object literal calling a helper is invisible to it. Use this.
+ */
+export const companyItems = (body: ProcurementSearchResponse): SearchItem[] =>
+  (body.companies ?? [])
+    .filter((c) => isLinkableCompanyKey(c.eik))
+    .map((c) => ({
+      id: `company-${c.eik}`,
+      to: companyAllTimeHref(c.eik),
+      primary: decodeEntities(c.name),
+      secondary: c.eik,
+      amountEur: c.contractsEur,
+      icon: Briefcase,
+    }));
+
+export const fetchProcurementAwarders = async (
+  query: string,
+  signal: AbortSignal,
+): Promise<SearchItem[]> =>
+  awarderItems(await sharedProcurementSearch(query, signal));
 
 export const fetchProcurementCompanies = async (
   query: string,
   signal: AbortSignal,
 ): Promise<SearchItem[]> =>
-  (await sharedProcurementSearch(query, signal)).companies
-    // ⚠ A link promises somewhere to go. `contractor_eik` carries synthetic keys — `ph-`
-    // (a filler registration number) and `np-` (a natural person keyed by name) — which
-    // render a page but name nothing anybody can check against a register.
-    // `isLinkableCompanyKey` is the one predicate for that, and it deliberately KEEPS
-    // `obed-` consortium carriers, whose page is the only route from a joint bid to the
-    // firms behind it.
-    ?.filter((c) => isLinkableCompanyKey(c.eik))
-    .map((c) => ({
-      id: `company-${c.eik}`,
-      to: `/company/${c.eik}`,
-      primary: decodeEntities(c.name),
-      secondary: c.eik,
-      amountEur: c.contractsEur,
-      icon: Briefcase,
-    })) ?? [];
+  companyItems(await sharedProcurementSearch(query, signal));
 
 // ── Destinations ───────────────────────────────────────────────────────────────────────
 //

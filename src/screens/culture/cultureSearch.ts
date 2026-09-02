@@ -37,6 +37,12 @@ import type {
 } from "@/ux/search/hubSearchSources";
 import { buildEntityIndex, type EntityIndex } from "@/lib/entitySearchIndex";
 import {
+  awarderAllTimeHref,
+  contractItems,
+  awarderItems,
+  type ProcurementSearchResponse,
+} from "@/screens/components/search/procurementSearchSource";
+import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
   ART_SCHOOLS,
@@ -44,22 +50,15 @@ import {
   NFC_EIK,
 } from "@/lib/kulturaReferenceData";
 
-interface AwarderHit {
-  eik: string;
-  name: string;
-  contracts: number;
-  contractsEur: number;
-}
-interface ContractHit {
-  key: string;
-  title: string;
-  awarderName: string | null;
-  amountEur: number | null;
-}
-interface ProcurementResponse {
-  awarders?: AwarderHit[];
-  contracts?: ContractHit[];
-}
+// ⚠️ THE SHARED ROW TYPES, NOT LOCAL RE-DECLARATIONS. A narrow local `ContractHit` naming
+// only the four fields this file reads is exactly where the dead link below hid: it made it
+// easy to forget WHICH CORPUS `key` belongs to (a procurement contract hash, not an ИСУН
+// contract number). The fetch itself stays local — this call site passes its own `&limit`,
+// which `sharedProcurementSearch` does not offer.
+type ProcurementResponse = Pick<
+  ProcurementSearchResponse,
+  "awarders" | "contracts"
+>;
 interface PersonHit {
   slug: string;
   name: string;
@@ -74,6 +73,9 @@ interface PersonResponse {
  *  renders „no company with this EIK". A group whose row cannot land does not ship
  *  that row — the rule applies per ROW, not only per group, and this is the one
  *  row it catches. */
+/** Rows shown per kind in the mixed procurement group — see the quota note on that source. */
+const PROCUREMENT_QUOTA = 3;
+
 export const cultureRosterIndex = (): EntityIndex => {
   const seen = new Set(CULTURE_BODIES.map((b) => b.eik));
   return buildEntityIndex(
@@ -96,7 +98,13 @@ export const cultureRosterIndex = (): EntityIndex => {
       id: row.eik,
       label: row.name,
       sub: row.eik,
-      href: `/awarder/${row.eik}`,
+      // ⚠️ THE SAME DESTINATION AS THE SERVER ROWS BELOW. One dropdown can show the same
+      // institution twice — once from this register index, once from „Поръчки и възложители"
+      // — and a bare `/awarder/:eik` navigates with an EMPTY query string, i.e. onto the
+      // selected parliament's window, while the server row lands on all-time. Only 3.8% of
+      // contract money sits inside that default window, so the index row is the one that
+      // would usually say „Няма договори за избрания период." for the very body it names.
+      href: awarderAllTimeHref(row.eik),
     }),
     // Both the name and the EIK are search keys: a reader who has a number in
     // front of them (from a contract, a filing) types the number.
@@ -123,31 +131,32 @@ export const cultureSearchSources = (bg: boolean): HubSearchSource[] => [
       en: "Contracts and buyers — across the whole register",
     },
     icon: FileText,
-    limit: 5,
+    // ⚠️ A PER-KIND QUOTA, NOT ONE FLAT LIMIT, AND THE TWO NUMBERS MUST AGREE.
+    // `HubSearch` caps a group with `items.slice(0, limit)` over the CONCATENATION, so a
+    // group returning `[...awarders, ...contracts]` under a flat cap shows contracts only
+    // when the awarder arm comes back short: at the previous `limit: 5` / `&limit=4`, four
+    // matching buyers left room for exactly ONE contract and five left none — under a label
+    // that promises both. `hubSearchSources`' own header warns about this shape.
+    limit: PROCUREMENT_QUOTA * 2,
     fetch: async (q: string, signal: AbortSignal): Promise<SearchItem[]> => {
       const res = await globalThis.fetch(
-        `/api/db/procurement-search?q=${encodeURIComponent(q)}&limit=4`,
+        `/api/db/procurement-search?q=${encodeURIComponent(q)}&limit=${PROCUREMENT_QUOTA}`,
         { signal },
       );
       if (!res.ok) throw new Error(String(res.status));
       const j = (await res.json()) as ProcurementResponse;
+      // ⚠️ `contractItems`, NOT a local `/funds/contract/:key`. These rows come from
+      // `search_contract_titles()`, so `key` is the PROCUREMENT contract hash
+      // (`hash(releaseId::contractId::contractorEik::tag)`) — `/funds/contract/:number` is
+      // the ИСУН project page, keyed by a contract NUMBER from a different corpus with no
+      // shared key. Every contract row in this box used to render „не е намерен" at a 200,
+      // silently and for all of them, because no procurement hash can ever be an ИСУН
+      // number. The shared builder also encodes the key and names the contractor.
       return [
-        ...(j.awarders ?? []).map((a) => ({
-          id: `a:${a.eik}`,
-          to: `/awarder/${a.eik}`,
-          primary: a.name,
-          secondary: bg ? "възложител" : "buyer",
-          amountEur: a.contractsEur,
-          icon: Landmark,
-        })),
-        ...(j.contracts ?? []).map((c) => ({
-          id: `c:${c.key}`,
-          to: `/funds/contract/${c.key}`,
-          primary: c.title,
-          secondary: c.awarderName ?? undefined,
-          amountEur: c.amountEur,
-          icon: FileText,
-        })),
+        ...awarderItems(j)
+          .slice(0, PROCUREMENT_QUOTA)
+          .map((a) => ({ ...a, secondary: bg ? "възложител" : "buyer" })),
+        ...contractItems(j).slice(0, PROCUREMENT_QUOTA),
       ];
     },
     seeAll: (q: string) => ({

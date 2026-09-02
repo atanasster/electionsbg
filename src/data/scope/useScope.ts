@@ -32,13 +32,13 @@ import { To, useSearchParams } from "react-router-dom";
 // Re-exported from the UI-free constants module (shared with the Node loader).
 // Imported rather than re-exported straight through because defaultScopeYears
 // below needs the local binding (`export … from` creates none).
-import { SCOPE_FIRST_YEAR } from "./constants";
+import { SCOPE_FIRST_YEAR, SCOPE_PARAM } from "./constants";
 
-export { SCOPE_FIRST_YEAR };
+export { SCOPE_FIRST_YEAR, SCOPE_PARAM };
 
 export type Scope = "ns" | "all" | `y:${number}`;
 
-const PARAM = "pscope";
+const PARAM = SCOPE_PARAM;
 
 const parseScope = (raw: string | null): Scope => {
   if (raw === "all") return "all";

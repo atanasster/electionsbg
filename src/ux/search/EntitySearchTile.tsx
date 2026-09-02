@@ -43,6 +43,12 @@ interface Props {
   lang: string;
   loadingLabel: string;
   noResultsLabel: string;
+  /** Shown ABOVE the groups whenever set — for „part of this search failed", which
+   *  `noResultsLabel` cannot express: a box that always renders at least one synthetic
+   *  row (a „create a dossier" action, a client-index hit) is never empty, so an outage
+   *  swapped into the empty state is a message no reader can reach. An outage is a claim
+   *  about US; an absence is a claim about the data, and the two must not share a slot. */
+  notice?: string;
   /** controlled query value (already lives in the adapter). */
   value: string;
   onChange: (value: string) => void;
@@ -61,6 +67,7 @@ export const EntitySearchTile: FC<Props> = ({
   lang,
   loadingLabel,
   noResultsLabel,
+  notice,
   value,
   onChange,
   onFocus,
@@ -160,6 +167,14 @@ export const EntitySearchTile: FC<Props> = ({
             role="listbox"
             className="mt-2 max-h-96 overflow-auto rounded-md border"
           >
+            {notice ? (
+              <div
+                role="status"
+                className="border-b bg-destructive/10 px-3 py-2 text-xs text-muted-foreground"
+              >
+                {notice}
+              </div>
+            ) : null}
             {loading && empty ? (
               <div className="px-3 py-3 text-sm text-muted-foreground">
                 {loadingLabel}

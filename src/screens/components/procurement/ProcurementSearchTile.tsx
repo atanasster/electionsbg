@@ -14,7 +14,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { To, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Briefcase, Landmark, FolderPlus } from "lucide-react";
+import { FolderPlus } from "lucide-react";
 import {
   EntitySearchTile,
   type SearchGroup,
@@ -31,24 +31,20 @@ import {
   type PersonSearchResult,
 } from "./personSearchGroups";
 import {
+  awarderItems,
+  companyItems,
   contractItems,
   moreCountLabel,
   tenderItems,
+  type NamedProcurementEntity,
   type ProcurementContractRow,
   type ProcurementTenderRow,
 } from "@/screens/components/search/procurementSearchSource";
 import { projectHref } from "@/data/procurement/projectStore";
-import { decodeEntities } from "@/lib/decodeEntities";
 
-interface EntityRow {
-  eik: string;
-  name: string;
-  contracts: number;
-  contractsEur: number;
-}
 interface DbResults {
-  companies: EntityRow[];
-  awarders: EntityRow[];
+  companies: NamedProcurementEntity[];
+  awarders: NamedProcurementEntity[];
   contracts: ProcurementContractRow[];
   tenders: ProcurementTenderRow[];
   funds: FundRow[];
@@ -83,6 +79,12 @@ export const ProcurementSearchTile: FC = () => {
   const [db, setDb] = useState<DbResults>(EMPTY);
   const [people, setPeople] = useState<PersonSearchResult>(EMPTY_PEOPLE);
   const [loading, setLoading] = useState(false);
+  // ⚠️ AN OUTAGE IS NOT AN ABSENCE. Both fetches used to swallow every failure into the
+  // empty payload, so a 500 rendered as „Няма резултати" — indistinguishable from „no such
+  // company", which is a claim about the data rather than about us. `sharedProcurementSearch`
+  // makes the opposite choice for the same reason („Throw rather than degrade"); this box has
+  // no „searched in: …" affordance to name WHICH half died, so it says at least that one did.
+  const [failed, setFailed] = useState(false);
 
   const term = q.trim();
   const hasQuery = term.length >= 2;
@@ -94,6 +96,7 @@ export const ProcurementSearchTile: FC = () => {
     if (!hasQuery) {
       setDb(EMPTY);
       setPeople(EMPTY_PEOPLE);
+      setFailed(false);
       setLoading(false);
       return;
     }
@@ -101,18 +104,23 @@ export const ProcurementSearchTile: FC = () => {
     const ctl = new AbortController();
     const id = setTimeout(() => {
       const enc = encodeURIComponent(term);
+      // ⚠️ `r.ok` BEFORE `r.json()`. Without it a non-ok body was spread straight into state
+      // — harmless only because the error shape happens to share no keys with the payload.
+      // `null` is the sentinel for „this half failed"; an abort is not a failure and is
+      // discarded by the `aborted` guard below.
+      const arm = <T,>(url: string): Promise<T | null> =>
+        fetch(url, { signal: ctl.signal })
+          .then((r) => (r.ok ? (r.json() as Promise<T>) : null))
+          .catch(() => null);
       Promise.all([
-        fetch(`/api/db/procurement-search?q=${enc}`, { signal: ctl.signal })
-          .then((r) => r.json() as Promise<Partial<DbResults>>)
-          .catch(() => EMPTY),
-        fetch(`/api/db/person-search?q=${enc}`, { signal: ctl.signal })
-          .then((r) => r.json() as Promise<Partial<PersonSearchResult>>)
-          .catch(() => EMPTY_PEOPLE),
+        arm<Partial<DbResults>>(`/api/db/procurement-search?q=${enc}`),
+        arm<Partial<PersonSearchResult>>(`/api/db/person-search?q=${enc}`),
       ]).then(([search, ppl]) => {
         // A superseded (aborted) request must not clobber newer results.
         if (ctl.signal.aborted) return;
-        setDb({ ...EMPTY, ...search });
-        setPeople({ ...EMPTY_PEOPLE, ...ppl });
+        setDb({ ...EMPTY, ...(search ?? {}) });
+        setPeople({ ...EMPTY_PEOPLE, ...(ppl ?? {}) });
+        setFailed(search === null || ppl === null);
         setLoading(false);
       });
     }, 200);
@@ -151,31 +159,25 @@ export const ProcurementSearchTile: FC = () => {
     const g: SearchGroup[] = buildPersonGroups(people, bg, seeAllPersons);
 
     // ── Procurement entities (unchanged) ────────────────────────────────────
-    if (db.companies.length > 0)
+    // ⚠️ THE SHARED BUILDERS, NOT A LOCAL `.map`. `companyItems` is where
+    // `isLinkableCompanyKey` lives — this tile hand-rolled the mapping and was therefore
+    // the one surface still linking `ph-`/`np-` synthetic contractor keys and the
+    // empty-string key (whose href matches no route). ⚠️ And the group guard must test the
+    // BUILT list, not the raw row count: a needle matching only synthetic keys would
+    // otherwise render an empty „Изпълнители" header.
+    const companies = companyItems(db);
+    const awarders = awarderItems(db);
+    if (companies.length > 0)
       g.push({
         key: "companies",
         label: t("procurement_search_group_companies") || "Contractors",
-        items: db.companies.map((c) => ({
-          id: `company-${c.eik}`,
-          to: `/company/${c.eik}`,
-          primary: decodeEntities(c.name),
-          secondary: c.eik,
-          amountEur: c.contractsEur,
-          icon: Briefcase,
-        })),
+        items: companies,
       });
-    if (db.awarders.length > 0)
+    if (awarders.length > 0)
       g.push({
         key: "awarders",
         label: t("procurement_search_group_awarders") || "Awarders",
-        items: db.awarders.map((a) => ({
-          id: `awarder-${a.eik}`,
-          to: `/awarder/${a.eik}`,
-          primary: decodeEntities(a.name),
-          secondary: a.eik,
-          amountEur: a.contractsEur,
-          icon: Landmark,
-        })),
+        items: awarders,
       });
     if (db.contracts.length > 0)
       g.push({
@@ -252,6 +254,15 @@ export const ProcurementSearchTile: FC = () => {
       }
       loadingLabel={t("loading") || "Loading…"}
       noResultsLabel={t("no_results") || "No results"}
+      // ⚠️ A NOTICE, NOT A SWAPPED `noResultsLabel`. This box always offers a „Създай
+      // досие за …" row, so its result list is never empty and the empty state is
+      // unreachable — an outage folded into it would be a message nobody can see.
+      notice={
+        failed
+          ? t("search_unavailable") ||
+            "Search is unavailable right now — this is not an empty result."
+          : undefined
+      }
       lang={i18n.language}
       value={q}
       onChange={setQ}

@@ -36,6 +36,7 @@ import {
 import { entityGroup } from "@/screens/components/search/entityGroups";
 import { buildEntityIndex } from "@/lib/entitySearchIndex";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { companyAllTimeHref } from "@/screens/components/search/procurementSearchSource";
 import {
   useNzokDrugQuarterly,
   useNzokDrugPackIndex,
@@ -102,7 +103,12 @@ export const NzokSearchBox: FC = () => {
         id: h.eik,
         label: h.name,
         sub: h.place,
-        href: `/company/${h.eik}`,
+        // ⚠️ ALL-TIME, because that is what this row IS. These are ranked by
+        // `cumulativeEur` — the facility's whole НЗОК reimbursement history, not a
+        // windowed figure — and a bare `/company/:eik` navigates with an empty query
+        // string, i.e. onto the selected parliament's window. The row would then order
+        // by one period and land on another.
+        href: companyAllTimeHref(h.eik),
       }),
       (h) => [h.name, h.place, h.eik],
       (h) => h.eur,
