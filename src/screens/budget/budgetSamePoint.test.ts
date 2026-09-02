@@ -17,8 +17,16 @@
 //     nearly quadrupled. Both sides go through `Math.abs` instead, which gives
 //     +257%: what the pre-migration tile prints today, on the same corpus,
 //     while both pages are live.
-//   * A „% OF PLAN" ON A YEAR WITH NO PLAN. FY2026 runs on an interim law and
-//     has `plannedEur` NULL on every series; a 0 there renders as ∞% or 0%.
+//   * A „% OF PLAN" ON A YEAR WITH NO PLAN. FY2026 has `plannedEur` NULL on
+//     every series in the КФП feed; a 0 there renders as ∞% or 0%.
+//
+//     ⚠️ NULL is a property of the FEED, not of the year. The ЗДБРБ-2026 was
+//     promulgated on 31.07.2026 (ДВ бр. 69) — the year has run on a real law
+//     since — but the monthly отчет we hold was ingested before that and still
+//     carries no „Закон" column for 2026. This panel is deliberately FEED-ONLY
+//     and keeps rendering nothing; `data/budget/derived/fy2026_frame.json` is
+//     the surface that carries the law-derived plan (scripts/budget/lawPlan.ts,
+//     which is standalone if this path ever wants it too).
 
 import { describe, it, expect } from "vitest";
 import { buildSamePoint, type SamePointInput } from "./budgetSamePoint";

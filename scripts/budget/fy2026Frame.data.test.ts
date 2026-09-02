@@ -119,4 +119,96 @@ describe("the КФП identity holds against the real feed", () => {
     expect(frame.revenue.referenceYears).toEqual(REFERENCE_YEARS);
     expect(frame.euContribution.referenceYears).toEqual(REFERENCE_YEARS);
   });
+
+  // ⚠️ The bridging-law MIRROR, against the real corpus. Before a year's ЗДБРБ
+  // passes, the feed's „Закон" column is a byte-identical copy of the executed
+  // YTD — 20 such rows across 2022-01, 2023-02, 2023-05 and 2025-02. Taken as
+  // an annual plan it yields exactly 100% on every side: plausible, cited as
+  // the уточнен план, and false. These four must fall through to the law.
+  it("never takes a bridging-law month's „Закон\" column as an annual plan", () => {
+    const mirrors: [number, number][] = [
+      [2022, 1],
+      [2023, 2],
+      [2023, 5],
+      [2025, 2],
+    ];
+    let checked = 0;
+    for (const [year, month] of mirrors) {
+      const truncated = OBSERVATIONS.filter(
+        (o) => o.fiscalYear !== year || Number(o.period.slice(5, 7)) <= month,
+      );
+      // Confirm the fixture really is a mirror, so the assertion cannot go
+      // vacuous if the feed is re-published without the copied column.
+      const planned = OBSERVATIONS.find(
+        (o) =>
+          o.fiscalYear === year &&
+          o.series === "revenue" &&
+          Number(o.period.slice(5, 7)) === month,
+      );
+      if (planned?.planned?.amountEur !== planned?.executed?.amountEur)
+        continue;
+      checked++;
+      const frame = buildFy2026Frame(truncated, {
+        year,
+        referenceYears: REFERENCE_YEARS.filter((y) => y !== year),
+      });
+      expect(frame.plan?.source, `${year}-${month}`).not.toBe("feed");
+    }
+    expect(checked).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe("the committed artifact", () => {
+  const artifact = JSON.parse(
+    fs.readFileSync(
+      path.join(ROOT, "data/budget/derived/fy2026_frame.json"),
+      "utf8",
+    ),
+  );
+
+  // The caveat's pro-rata anchor is the one sentence written to STOP a
+  // pro-rata misreading, so an anchor a month too wide is the error it must
+  // not make. It is derived from throughMonth; this pins that it stayed
+  // derived.
+  it("quotes a pro-rata anchor that matches its own throughMonth", () => {
+    expect(artifact.caveat).toContain(`${artifact.throughMonth}/12`);
+    expect(artifact.caveat).toContain(`към месец ${artifact.throughMonth}`);
+  });
+
+  // `plan.source` is a run-time choice, so the prose describing it must be
+  // derived from it rather than asserting one branch.
+  it("describes the plan source it actually shipped", () => {
+    const fromLaw = artifact.plan?.source === "law";
+    const vintage = artifact.vintages.find((v: { component: string }) =>
+      v.component.startsWith("план по КФП"),
+    );
+    expect(vintage).toBeDefined();
+    expect(vintage.basis).toBe(fromLaw ? "law" : "execution");
+    expect(artifact.caveat).toContain(
+      fromLaw
+        ? "идва от чл. 1 на закона"
+        : "колоната „Закон“ на месечния отчет",
+    );
+  });
+
+  it("carries the plan for the year it is stamped with", () => {
+    expect(artifact.plan?.fiscalYear).toBe(artifact.fiscalYear);
+    expect(artifact.plan?.throughMonth).toBe(artifact.throughMonth);
+  });
+
+  // Whole euros everywhere, including the plan block — the same quantity is
+  // emitted by two paths and both must honour the convention.
+  it("publishes whole euros on both money paths", () => {
+    const ints = [
+      artifact.balanceEur,
+      artifact.balanceLowEur,
+      artifact.balanceHighEur,
+      artifact.revenue.ytdEur,
+      artifact.plan?.revenue.ytdEur,
+      artifact.plan?.revenue.plannedEur,
+      artifact.plan?.balance.plannedEur,
+    ];
+    for (const v of ints) expect(Number.isInteger(v), String(v)).toBe(true);
+    expect(artifact.plan.revenue.ytdEur).toBe(artifact.revenue.ytdEur);
+  });
 });

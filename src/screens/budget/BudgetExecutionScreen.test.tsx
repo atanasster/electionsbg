@@ -62,9 +62,13 @@ const FY2024 = {
   yearsAvailable: [2024, 2026],
 };
 
-/** FY2026 verbatim: `planned` NULL on all five (the year runs on an interim
- *  law), `projected` populated, outturn to 2026-06-30. This is the DEFAULT year
- *  a reader lands on. */
+/** FY2026 verbatim: `planned` NULL on all five, `projected` populated, outturn
+ *  to 2026-06-30. This is the DEFAULT year a reader lands on.
+ *
+ *  ⚠️ The NULLs are the FEED's, not the year's: the ЗДБРБ-2026 was promulgated
+ *  31.07.2026 (ДВ бр. 69), but the monthly отчет we hold predates it and still
+ *  carries no „Закон" column. This screen is deliberately feed-only — the
+ *  law-derived plan lives in `data/budget/derived/fy2026_frame.json`. */
 const FY2026 = {
   fiscalYear: 2026,
   asOf: "2026-06-30",

@@ -1,16 +1,24 @@
 // Build the FY2026 fiscal frame — the mixed-provenance baseline the simulator
 // re-bases onto (plan T8).
 //
-// FY2026 has no single legal frame. The ЗБДОО and ЗБНЗОК were promulgated on
-// 28 July 2026; the ЗДБРБ was not, so the state side runs on a bridging law.
+// FY2026 has no single legal frame, and it acquired one late. The ЗБДОО and
+// ЗБНЗОК were promulgated on 28 July 2026 (ДВ бр. 68); the ЗДБРБ followed on
+// 31 July (ДВ бр. 69, УКАЗ № 271, adopted by the 52nd НС on 24 July) — so the
+// state side ran on a bridging law for seven months of the year it governs.
 // "The 2026 budget" is therefore not one thing, and a baseline that pretends
 // otherwise is the failure mode this module exists to prevent. Every line
 // carries the KIND of number it is:
 //
-//   law        ЗБДОО / ЗБНЗОК — exact, promulgated
-//   interim    ЗСПИР-2026 + its ЗИД — the legal frame the state side ran on
+//   law        ЗБДОО / ЗБНЗОК / ЗДБРБ — exact, promulgated
+//   interim    ЗСПИР-2026 + its ЗИД — what the state side ran on until July
 //   execution  2026 КФП year-to-date, seasonally annualised (this file)
 //   carried    2025 or older actuals, grown — see the vintage table
+//
+// ⚠️ The annualised revenue/expenditure figures stay an ESTIMATE FROM
+// EXECUTION even now that a plan exists. The plan is carried beside them
+// (`plan`), never substituted for them: the two answer different questions —
+// "what has the state actually collected and spent, extrapolated" versus "what
+// did Parliament authorise".
 //
 // FOUR RULES, all measured rather than assumed:
 //
@@ -44,9 +52,25 @@
 //     against the feed's own December actuals misses by up to €3.12bn (2025).
 //     So `balanceEur` never ships without `balanceLowEur` / `balanceHighEur`.
 //
-//  3. There is no 2026 `planned` line in the FEED. Confirmed: every 2026
-//     observation has planned: null, where 2025 carries a full plan. Plan-vs-
-//     actual must degrade, not blank.
+//  3. The plan has TWO possible sources and they are not interchangeable. The
+//     КФП feed carries a „Закон" column beside „Изпълнение", but every 2026
+//     observation ingested before the ЗДБРБ-2026 was promulgated (ДВ бр. 69 от
+//     31.07.2026 — months into the year) has planned: null, where 2025 carries
+//     a full plan. So the frame falls back to the promulgated law itself, via
+//     `kfpPlanFromLaw` (`lawPlan.ts`), and stamps `plan.source` with which one
+//     it used: `feed` is the УТОЧНЕН план (it moves with an in-year
+//     актуализация), `law` is the law AS FIRST PROMULGATED. Where both exist
+//     the feed wins. With neither, plan-vs-actual degrades to null — it must
+//     never blank into a comparison against zero.
+//
+//     ⚠️ "The feed wins" holds only for a REAL plan column. Before a year's
+//     ЗДБРБ passes, that column carries one of two non-plans: all zeros, or —
+//     worse — a byte-identical copy of the executed year-to-date (2022-01,
+//     2023-02, 2023-05, 2025-02 in this corpus). The mirror divides out to
+//     exactly 100% on every side, so it publishes "the whole annual plan was
+//     executed in February", cited as the уточнен план, in preference to the
+//     correct law plan. A zero is obviously wrong; a 100.0% reads as a
+//     finding. `feedPlan` rejects both shapes.
 //
 //  4. A reference year must be COMPLETE. The КФП feed starts mid-2021 — 2021
 //     carries 6 observations per series, not 12 — so its "December" is a
@@ -54,6 +78,19 @@
 //     rejects such a year rather than relying on every caller to know: a
 //     partial year is not skipped by the missing-month check, it silently
 //     yields a share above 1 and drags the mean.
+
+import {
+  BALANCE_FORMULA,
+  FRAME_SIDES,
+  kfpBalance,
+  KFP_IDENTITY_TOLERANCE_EUR,
+} from "./kfpIdentity";
+import {
+  comparePlan,
+  KFP_FEED_PLAN_NOTE,
+  type KfpPlan,
+  type PlanComparison,
+} from "./lawPlan";
 
 /** The КФП feed's closed series vocabulary. Typed so a misspelling
  *  (`"eu_contribution"`) fails at compile time rather than at the run-time
@@ -65,24 +102,16 @@ export type KfpSeries =
   | "balance"
   | "financing";
 
-/** The three КФП flow sections the frame annualises, in the order of the feed's
- *  own identity `IV. Бюджетно салдо = I - II - III`. This is the ONE definition:
- *  the guard, the frame assembly, the thrown messages and the generator's
- *  summary all read it, so a fourth side cannot be added to the frame and then
- *  missed in a caption. Everything else in the feed is DERIVED from these
- *  (`balance` = I - II - III, `financing` = -balance) and must be recomputed,
- *  never extrapolated. */
-export const FRAME_SIDES = [
-  "revenue",
-  "expenditure",
-  "euContribution",
-] as const;
-
-export type FrameSide = (typeof FRAME_SIDES)[number];
-
-/** "revenue - expenditure - euContribution", derived from `FRAME_SIDES` so the
- *  prose cannot drift from the arithmetic. */
-export const BALANCE_FORMULA = FRAME_SIDES.join(" - ");
+// Re-exported so every existing call site keeps working; the definitions live
+// in `kfpIdentity.ts` because `lawPlan.ts` needs them too and cannot import
+// this module (this one imports IT).
+export {
+  BALANCE_FORMULA,
+  FRAME_SIDES,
+  KFP_IDENTITY_TOLERANCE_EUR,
+  kfpBalance,
+  type FrameSide,
+} from "./kfpIdentity";
 
 export interface KfpObservationLike {
   fiscalYear: number;
@@ -134,6 +163,94 @@ const pick = (
       monthOf(o.period) === month,
   );
   return row?.executed?.amountEur ?? null;
+};
+
+/** The feed's „Закон" figure for one series, as it stood at `month`: the row at
+ *  that month if it carries one, otherwise the LATEST earlier month that does.
+ *
+ *  ⚠️ NOT the first such month. The plan column MOVES within a year — an in-year
+ *  актуализация restates it, and a year whose ЗДБРБ passes late carries a plan
+ *  of zero until it does. Measured on this feed, 2025's earliest planned
+ *  expenditure is 0 against €30.82bn at year end, so reading the first row
+ *  publishes "the state planned to spend nothing". */
+const pickPlanned = (
+  obs: KfpObservationLike[],
+  year: number,
+  series: string,
+  month: number,
+): number | null => {
+  const rows = obs
+    .filter(
+      (o) =>
+        o.fiscalYear === year &&
+        o.series === series &&
+        o.planned?.amountEur != null &&
+        monthOf(o.period) <= month,
+    )
+    .sort((a, b) => monthOf(a.period) - monthOf(b.period));
+  return rows.at(-1)?.planned?.amountEur ?? null;
+};
+
+/** The plan the КФП feed itself publishes, or null when it carries none for
+ *  all three sides. Partial is treated as absent: a comparison missing one
+ *  side is a hole that reads as a real figure. */
+const feedPlan = (
+  obs: KfpObservationLike[],
+  year: number,
+  month: number,
+): KfpPlan | null => {
+  const [revenueEur, expenditureEur, euContributionEur] = FRAME_SIDES.map((s) =>
+    pickPlanned(obs, year, s, month),
+  );
+  if (revenueEur == null || expenditureEur == null || euContributionEur == null)
+    return null;
+  const planned = [revenueEur, expenditureEur, euContributionEur];
+
+  // An all-zero plan is ONE shape a year carries before its ЗДБРБ passes. Not
+  // a plan — treated as absent so the law fallback takes over rather than the
+  // frame publishing 0% executed against every side.
+  if (planned.every((v) => v === 0)) return null;
+
+  // ⚠️ The MIRROR is the other pre-law shape, and it is the dangerous one: in
+  // every bridging-law month this corpus holds — 2022-01, 2023-02, 2023-05,
+  // 2025-02 — the „Закон" column is a byte-identical copy of the executed YTD
+  // figure. Dividing YTD by it yields exactly 100% on every side, so the frame
+  // would publish "the whole annual plan was executed in February", stamped
+  // `source: "feed"` and cited as the уточнен план, IN PREFERENCE to the
+  // correct law plan. A zero is obviously wrong; a 100.0% is plausible and
+  // reads as a finding. Exact equality is the right test — the corpus shows
+  // byte equality, not approximation.
+  if (
+    FRAME_SIDES.every((side, i) => pick(obs, year, side, month) === planned[i])
+  )
+    return null;
+
+  // A second, wider net for a future variant that mirrors an ALMOST-equal
+  // figure: before December an annual plan can never sit below the year-to-date
+  // execution on every side at once. That is not an overrun, it is the wrong
+  // denominator.
+  if (
+    month < 12 &&
+    FRAME_SIDES.every((side, i) => {
+      const ytd = pick(obs, year, side, month);
+      return ytd != null && Math.abs(planned[i]) < Math.abs(ytd);
+    })
+  )
+    return null;
+
+  return {
+    fiscalYear: year,
+    source: "feed",
+    revenueEur,
+    expenditureEur,
+    euContributionEur,
+    // Prefer the feed's own planned balance; derive it from the identity when
+    // the column is blank, which is the same rule the law path uses.
+    balanceEur:
+      pickPlanned(obs, year, "balance", month) ??
+      kfpBalance(revenueEur, expenditureEur, euContributionEur),
+    note: KFP_FEED_PLAN_NOTE,
+  };
 };
 
 /**
@@ -263,10 +380,15 @@ export interface Fy2026Frame {
    *  with the HIGH expenditure and the HIGH contribution. */
   balanceLowEur: number;
   balanceHighEur: number;
-  /** True when the КФП feed carries a `planned` line for the year. False for
-   *  2026 until the ЗДБРБ reaches the feed, which is why plan-vs-actual has to
-   *  degrade rather than render an empty comparison. */
+  /** True when a plan is available from EITHER source — the feed's „Закон"
+   *  column or the promulgated ЗДБРБ. Read `plan.source` to tell which; the two
+   *  are not interchangeable (rule 3). False means plan-vs-actual must degrade
+   *  rather than render an empty comparison. */
   hasPlan: boolean;
+  /** Year-to-date execution against that plan, or null when there is none.
+   *  ⚠️ NOT pro-rata — see `comparePlan`'s header before reading a share below
+   *  `throughMonth`/12 as under-execution. */
+  plan: PlanComparison | null;
 }
 
 /**
@@ -293,7 +415,14 @@ export interface Fy2026Frame {
  */
 export const buildFy2026Frame = (
   obs: KfpObservationLike[],
-  opts: { year: number; referenceYears: number[] },
+  opts: {
+    year: number;
+    referenceYears: number[];
+    /** The promulgated ЗДБРБ as a plan line, used ONLY when the feed carries
+     *  no „Закон" column for the year. Omit and the frame degrades to
+     *  `hasPlan: false` exactly as before. */
+    lawPlan?: KfpPlan | null;
+  },
 ): Fy2026Frame => {
   const monthsPerSide = FRAME_SIDES.map((side) =>
     obs
@@ -336,11 +465,9 @@ export const buildFy2026Frame = (
   const publishedBalance = pick(obs, opts.year, "balance", throughMonth);
   if (publishedBalance != null) {
     const residual =
-      revenue.ytdEur -
-      expenditure.ytdEur -
-      euContribution.ytdEur -
+      kfpBalance(revenue.ytdEur, expenditure.ytdEur, euContribution.ytdEur) -
       publishedBalance;
-    if (Math.abs(residual) > 1000)
+    if (Math.abs(residual) > KFP_IDENTITY_TOLERANCE_EUR)
       throw new Error(
         `buildFy2026Frame: КФП identity IV = I - II - III does not hold at ` +
           `${opts.year}-${String(throughMonth).padStart(2, "0")} — residual ` +
@@ -350,9 +477,21 @@ export const buildFy2026Frame = (
       );
   }
 
-  const hasPlan = obs.some(
-    (o) => o.fiscalYear === opts.year && o.planned?.amountEur != null,
-  );
+  // A plan from the wrong year is internally consistent and cites the wrong ДВ
+  // issue, so nothing else in the payload would contradict it. Refuse rather
+  // than trust the caller's indexing.
+  if (opts.lawPlan && opts.lawPlan.fiscalYear !== opts.year)
+    throw new Error(
+      `buildFy2026Frame: lawPlan is for ${opts.lawPlan.fiscalYear} but the ` +
+        `frame is ${opts.year}. Publishing it would cite the wrong ДВ issue ` +
+        `against figures that reconcile perfectly.`,
+    );
+
+  // The feed's own „Закон" column wins when present: it carries the УТОЧНЕН
+  // план, so it moves with an in-year актуализация while the parsed law HTML
+  // is the original. Measured on 2021 and 2022 the two differ by €0.7-1.0bn on
+  // revenue for exactly that reason.
+  const plan = feedPlan(obs, opts.year, throughMonth) ?? opts.lawPlan ?? null;
 
   return {
     fiscalYear: opts.year,
@@ -360,14 +499,29 @@ export const buildFy2026Frame = (
     revenue,
     expenditure,
     euContribution,
-    balanceEur:
-      revenue.annualisedEur -
-      expenditure.annualisedEur -
+    balanceEur: kfpBalance(
+      revenue.annualisedEur,
+      expenditure.annualisedEur,
       euContribution.annualisedEur,
-    balanceLowEur:
-      revenue.lowEur - expenditure.highEur - euContribution.highEur,
-    balanceHighEur:
-      revenue.highEur - expenditure.lowEur - euContribution.lowEur,
-    hasPlan,
+    ),
+    balanceLowEur: kfpBalance(
+      revenue.lowEur,
+      expenditure.highEur,
+      euContribution.highEur,
+    ),
+    balanceHighEur: kfpBalance(
+      revenue.highEur,
+      expenditure.lowEur,
+      euContribution.lowEur,
+    ),
+    hasPlan: plan != null,
+    plan: plan
+      ? comparePlan(plan, {
+          throughMonth,
+          revenueEur: revenue.ytdEur,
+          expenditureEur: expenditure.ytdEur,
+          euContributionEur: euContribution.ytdEur,
+        })
+      : null,
   };
 };

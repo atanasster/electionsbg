@@ -17,8 +17,16 @@ import { FinanceMinister } from "@/data/governments/useFinanceMinisters";
 import { BudgetLaw } from "@/data/governments/useBudgetLaws";
 import { useIzdrazhkaByInstitution } from "@/data/budget/useIzdrazhkaByInstitution";
 
-// The 2026 budget is a draft (adopted === null); credit the minister in office
-// when it was tabled rather than leaving the column unattributed.
+// The 2026 column is the TABLED DRAFT — izdrazhka_by_institution.json says so
+// itself („2026 = проектозакон") and its source line names „Проект на ЗДБРБ 2026
+// (Министерски съвет, внесен юни 2026)". Credit the minister in office when it
+// was tabled rather than leaving the column unattributed.
+//
+// ⚠️ The ЗДБРБ-2026 has since been promulgated (ДВ бр. 69, 31.07.2026), so
+// `budget_laws.json` now carries an `adopted` date for 2026. That does NOT make
+// these figures the enacted ones — the artifact has not been regenerated from
+// the enacted law — so the draft marker below reads the ARTIFACT'S own
+// provenance (`draftYear`) and never the law's adoption date.
 const DRAFT_DATE = "2026-06-24";
 const TOP_N = 15;
 const CAP = 80; // |YoY %| at which the cell reaches full colour saturation
@@ -81,7 +89,10 @@ export const IzdrazhkaHeatmapTile: FC<{
     const revisers = (law?.revisions ?? [])
       .map((r) => fmAtDate(financeMinisters, r))
       .filter((m): m is FinanceMinister => !!m);
-    return { creator, revisers, draft: !law?.adopted && year === draftYear };
+    // `draft` describes THIS TILE's numbers, not whether a law exists.
+    // `draftYear` comes from the artifact itself (useIzdrazhkaByInstitution),
+    // which is the only source that knows which column is a draft.
+    return { creator, revisers, draft: year === draftYear };
   };
   const creditByYear: Record<number, Credit> = Object.fromEntries(
     years.map((y) => [y, credit(y)]),

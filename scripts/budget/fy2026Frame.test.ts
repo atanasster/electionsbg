@@ -11,8 +11,11 @@
 //      КФП section, not part of "II. Разходи и трансфери");
 //   2. a point estimate with a ±€1bn band, presented bare, reads as precision —
 //      most of all for the balance, which amplifies each side's spread;
-//   3. FY2026 has no `planned` line at all, so plan-vs-actual must degrade
-//      rather than render an empty comparison;
+//   3. the plan has two sources — the feed's „Закон" column and the ЗДБРБ
+//      itself, which for 2026 was promulgated 31.07.2026, after the feed we
+//      hold was ingested. They are not interchangeable (the feed carries the
+//      уточнен план), and with neither the comparison must degrade to null
+//      rather than compare against zero;
 //   4. an INCOMPLETE reference year (2021 starts mid-year) has a "December"
 //      that is a half-year total, so its share is near 1 and drags the mean —
 //      and nothing about a missing month catches it.
@@ -339,25 +342,164 @@ describe("rule 2 — the band is published, not just the point", () => {
   });
 });
 
-describe("rule 3 — FY2026 has no plan line", () => {
-  it("reports hasPlan false when no observation carries one", () => {
-    expect(
-      buildFy2026Frame(STANDARD(), { year: 2026, referenceYears: REF }).hasPlan,
-    ).toBe(false);
+describe("rule 3 — the plan has two sources and they are not interchangeable", () => {
+  /** A plan line on every side, stamped onto the observations that ALREADY
+   *  exist rather than appended as duplicates — `pick`/`pickPlanned` both use
+   *  the first match, so a duplicate row makes the assertion depend on array
+   *  order instead of on the rule under test. */
+  const withFeedPlan = (plans: {
+    revenue: number;
+    expenditure: number;
+    euContribution: number;
+  }): KfpObservationLike[] =>
+    STANDARD().map((o) =>
+      o.fiscalYear === 2026 && o.period === "2026-05" && o.series in plans
+        ? {
+            ...o,
+            planned: {
+              amountEur: plans[o.series as keyof typeof plans],
+            },
+          }
+        : o,
+    );
+
+  const LAW_PLAN = {
+    fiscalYear: 2026,
+    source: "law" as const,
+    revenueEur: 2400,
+    expenditureEur: 3120,
+    euContributionEur: 168,
+    balanceEur: -888,
+    note: "ЗДБРБ-2026, ДВ бр. 69 от 31.07.2026",
+  };
+
+  it("reports hasPlan false when neither source supplies one", () => {
+    const frame = buildFy2026Frame(STANDARD(), {
+      year: 2026,
+      referenceYears: REF,
+    });
+    expect(frame.hasPlan).toBe(false);
+    // null, not an empty comparison — a plan of zero would render as total
+    // over-execution against a real year-to-date figure.
+    expect(frame.plan).toBeNull();
   });
 
-  it("reports hasPlan true once the ЗДБРБ lands and the feed carries one", () => {
-    const obs = STANDARD();
-    obs.push({
-      fiscalYear: 2026,
-      period: "2026-05",
-      series: "revenue",
-      executed: { amountEur: 500 },
-      planned: { amountEur: 1200 },
+  it("falls back to the promulgated ЗДБРБ when the feed carries none", () => {
+    const frame = buildFy2026Frame(STANDARD(), {
+      year: 2026,
+      referenceYears: REF,
+      lawPlan: LAW_PLAN,
     });
-    expect(
-      buildFy2026Frame(obs, { year: 2026, referenceYears: REF }).hasPlan,
-    ).toBe(true);
+    expect(frame.hasPlan).toBe(true);
+    expect(frame.plan!.source).toBe("law");
+    expect(frame.plan!.note).toContain("ДВ бр. 69");
+    // 5 months at 100/mo against a 2400 plan.
+    expect(frame.plan!.revenue.ytdEur).toBe(500);
+    expect(frame.plan!.revenue.pct).toBeCloseTo(500 / 2400, 12);
+  });
+
+  // The feed's column is the УТОЧНЕН план — it moves with an in-year
+  // актуализация while the parsed law is the original — so it must win. On the
+  // real corpus the two differ by €0.7-1.0bn on revenue in 2021 and 2022.
+  it("prefers the feed's own „Закон\" column over the law", () => {
+    const frame = buildFy2026Frame(
+      withFeedPlan({ revenue: 1200, expenditure: 1500, euContribution: 90 }),
+      { year: 2026, referenceYears: REF, lawPlan: LAW_PLAN },
+    );
+    expect(frame.plan!.source).toBe("feed");
+    expect(frame.plan!.revenue.plannedEur).toBe(1200);
+    expect(frame.plan!.revenue.plannedEur).not.toBe(LAW_PLAN.revenueEur);
+  });
+
+  // A plan missing one side is a hole that reads as a real figure, so it is
+  // treated as absent and the law fallback takes over.
+  it("ignores a partial feed plan rather than comparing against a hole", () => {
+    const obs = STANDARD().map((o) =>
+      o.fiscalYear === 2026 && o.period === "2026-05" && o.series === "revenue"
+        ? { ...o, planned: { amountEur: 1200 } }
+        : o,
+    );
+    const frame = buildFy2026Frame(obs, {
+      year: 2026,
+      referenceYears: REF,
+      lawPlan: LAW_PLAN,
+    });
+    expect(frame.plan!.source).toBe("law");
+  });
+
+  // ⚠️ The dangerous pre-law shape. In every bridging-law month the real corpus
+  // holds, the „Закон" column is a byte-identical copy of the executed YTD, so
+  // taking it as an annual plan yields exactly 100% on every side — plausible,
+  // cited, and false. The all-zero guard catches the OTHER pre-law shape.
+  it("rejects a feed plan that mirrors the executed year-to-date", () => {
+    // STANDARD()'s month-5 execution is 500 / 650 / 35.
+    const frame = buildFy2026Frame(
+      withFeedPlan({ revenue: 500, expenditure: 650, euContribution: 35 }),
+      { year: 2026, referenceYears: REF, lawPlan: LAW_PLAN },
+    );
+    expect(frame.plan!.source).toBe("law");
+    expect(frame.plan!.revenue.pct).not.toBeCloseTo(1, 6);
+  });
+
+  it("rejects an all-zero feed plan", () => {
+    const frame = buildFy2026Frame(
+      withFeedPlan({ revenue: 0, expenditure: 0, euContribution: 0 }),
+      { year: 2026, referenceYears: REF, lawPlan: LAW_PLAN },
+    );
+    expect(frame.plan!.source).toBe("law");
+  });
+
+  // The wider net: before December an annual plan cannot sit below the
+  // year-to-date on every side at once. That is the wrong denominator, not an
+  // overrun — and it catches a future variant that mirrors an ALMOST-equal
+  // figure rather than an exactly equal one.
+  it("rejects a feed plan that is below the year-to-date on every side", () => {
+    const frame = buildFy2026Frame(
+      withFeedPlan({ revenue: 499, expenditure: 649, euContribution: 34 }),
+      { year: 2026, referenceYears: REF, lawPlan: LAW_PLAN },
+    );
+    expect(frame.plan!.source).toBe("law");
+  });
+
+  // A plan from another year reconciles perfectly and cites the wrong ДВ issue,
+  // so nothing in the payload could contradict it.
+  it("refuses a law plan minted for a different fiscal year", () => {
+    expect(() =>
+      buildFy2026Frame(STANDARD(), {
+        year: 2026,
+        referenceYears: REF,
+        lawPlan: { ...LAW_PLAN, fiscalYear: 2025 },
+      }),
+    ).toThrow(/lawPlan is for 2025 but the frame is 2026/);
+  });
+
+  // `pickPlanned` reads the plan as it stood AT throughMonth. A column filled
+  // only in a later month is not yet knowable at this reporting date.
+  it("ignores a plan row from a month after throughMonth", () => {
+    const obs = [
+      ...LINEAR,
+      ...partial2026({ revenue: 100, expenditure: 130, euContribution: 7 }, 7),
+    ].map((o) =>
+      o.fiscalYear === 2026 && o.period === "2026-07"
+        ? { ...o, planned: { amountEur: 9_000 } }
+        : o,
+    );
+    // Truncate the frame to month 6 by dropping month 7 from ONE side.
+    const truncated = obs.filter(
+      (o) =>
+        !(
+          o.fiscalYear === 2026 &&
+          o.period === "2026-07" &&
+          o.series === "euContribution"
+        ),
+    );
+    const frame = buildFy2026Frame(truncated, {
+      year: 2026,
+      referenceYears: REF,
+      lawPlan: LAW_PLAN,
+    });
+    expect(frame.throughMonth).toBe(6);
+    expect(frame.plan!.source).toBe("law");
   });
 
   // The reference years DO carry full plans in the real feed, so dropping the

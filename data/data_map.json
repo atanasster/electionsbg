@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-02T06:34:30.965Z",
+  "generatedAt": "2026-09-02T08:03:11.943Z",
   "nodes": [
     {
       "id": "src:water",
@@ -3225,8 +3225,8 @@
         "en": "monthly execution, annualised"
       },
       "desc": {
-        "bg": "Смесената фискална рамка за 2026 г. — годината няма единен закон: ЗБДОО и ЗБНЗОК са обнародвани, а ЗДБРБ не е, така че държавната страна върви по удължителен закон. Всеки ред носи вида си: закон, удължителен закон, изпълнение (месечният отчет КФП, преизчислен на годишна база по сезонния профил на 2022–2025) или пренесена стойност от по-стара година. Балансът се ИЗВЕЖДА от трите страни (приходи − разходи − вноска в общия бюджет на ЕС, по тъждеството IV = I − II − III на самия отчет) — сезонността му не оцелява при изваждането, затова не се екстраполира сам и носи собствен диапазон. План за 2026 г. няма и няма да има до приемането на ЗДБРБ.",
-        "en": "The mixed fiscal frame for 2026 — the year has no single law: the ЗБДОО and ЗБНЗОК are promulgated, the ЗДБРБ is not, so the state side runs on a bridging law. Every line carries its kind: law, interim law, execution (monthly КФП annualised on the 2022–2025 seasonal profile) or a value carried from an older year. The balance is DERIVED from the three sides (revenue − expenditure − the EU budget contribution, the feed's own IV = I − II − III identity) — its own seasonality does not survive the subtraction, so it is never extrapolated directly and it carries a band of its own. There is no 2026 plan line and will not be one until the ЗДБРБ passes."
+        "bg": "Смесената фискална рамка за 2026 г. — пакетът е пълен, но закъснял: ЗБДОО и ЗБНЗОК са обнародвани на 28.07.2026 (ДВ бр. 68), ЗДБРБ — на 31.07.2026 (ДВ бр. 69), тоест държавната страна е вървяла по удължителен закон седем месеца от годината, която законът урежда. Всеки ред носи вида си: закон, удължителен закон, изпълнение (месечният отчет КФП, преизчислен на годишна база по сезонния профил на 2022–2025) или пренесена стойност от по-стара година. Балансът се ИЗВЕЖДА от трите страни (приходи − разходи − вноска в общия бюджет на ЕС, по тъждеството IV = I − II − III на самия отчет) — сезонността му не оцелява при изваждането, затова не се екстраполира сам и носи собствен диапазон. Планът стои до оценките, не на тяхно място: идва или от колоната „Закон“ на месечния отчет, или от чл. 1 на самия ЗДБРБ, а полето plan.source записва кой източник е използван. Изпълнението спрямо плана НЕ е пропорционално на месеците — то е силно изтеглено към края на годината.",
+        "en": "The mixed fiscal frame for 2026 — the package is complete but late: the ЗБДОО and ЗБНЗОК were promulgated on 28.07.2026 (ДВ бр. 68) and the ЗДБРБ on 31.07.2026 (ДВ бр. 69), so the state side ran on a bridging law for seven months of the year that law governs. Every line carries its kind: law, interim law, execution (monthly КФП annualised on the 2022–2025 seasonal profile) or a value carried from an older year. The balance is DERIVED from the three sides (revenue − expenditure − the EU budget contribution, the feed's own IV = I − II − III identity) — its own seasonality does not survive the subtraction, so it is never extrapolated directly and it carries a band of its own. The plan sits beside the estimates rather than replacing them: it comes either from the monthly report’s own „Закон“ column or from чл. 1 of the ЗДБРБ itself, and the plan.source field records which. Execution against the plan is NOT pro-rata — it is heavily back-loaded to the end of the year."
       },
       "tags": [
         "fiscal"
