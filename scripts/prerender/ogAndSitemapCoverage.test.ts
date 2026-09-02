@@ -1644,6 +1644,13 @@ describe("a hub's og capture anchors on its head", () => {
       payloads: string[];
       project: () => string;
       figures: string;
+      /** The card's shoot date, **in UTC**, because the clause below compares it with
+       *  `Date.parse(shot)` — which reads a bare `YYYY-MM-DD` as UTC midnight — against the
+       *  PNG's git commit epoch. A card committed in the small hours of a UTC+N morning
+       *  therefore belongs to the PREVIOUS UTC day: 2026-09-03 00:28 +03:00 is
+       *  2026-09-02T21:28Z, so recording the LOCAL date fails a card that was genuinely
+       *  just re-shot. Take it from the failure message, which already renders the commit
+       *  through `toISOString()`. */
       shot: string;
       /** md5 of the PNG as recorded. See the clause below for why BOTH this and `shot`
        *  are asserted — they catch opposite halves of the same dishonesty. */
@@ -1661,7 +1668,10 @@ describe("a hub's og capture anchors on its head", () => {
       // values on the card are unchanged, which is why the commit-time clause could not
       // surface this: `sector_stats.json` had been rewritten nightly throughout without
       // touching a pixel.
-      shot: "2026-09-03",
+      //
+      // Shot 2026-09-03 00:28 local (+03:00); the date recorded is the UTC one the clause
+      // compares in — see the field's own note.
+      shot: "2026-09-02",
       figures:
         "sectors_kpi_procurement=€29,7 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
