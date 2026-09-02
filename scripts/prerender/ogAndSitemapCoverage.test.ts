@@ -1653,16 +1653,17 @@ describe("a hub's og capture anchors on its head", () => {
     "governance-sectors": {
       payloads: ["data/procurement/derived/sector_stats.json"],
       project: sectorsFigures,
-      md5: "710f562634292854e9ea1b609e62dfcb",
-      // NOT re-shot, and that is the result rather than an omission: this projection is
-      // BYTE-IDENTICAL at the card's own commit (6b1e0d3381) and at HEAD, across five
-      // intervening payload refreshes. The old clause reddened this card on every one of
-      // them. Measured headroom 2026-08-31: the procurement total is €8.6m (0.029%) below
-      // the boundary into „€29,7 млрд.", i.e. ~4-7 more daily self-heals — so this entry is
-      // expected to fire soon, for real, and that firing is the clause working.
-      shot: "2026-08-26",
+      md5: "f26e9c36e6cd54262430cef77c380f86",
+      // ⚠️ RE-SHOT 2026-09-03, AND IT FIRED EXACTLY AS THE 08-31 NOTE PREDICTED. That note
+      // measured the procurement total at €8.6m (0.029%) below the boundary into
+      // „€29,7 млрд." and said the entry was „expected to fire soon, for real" — it did, on
+      // the one figure it named, after the daily self-heals crossed it. The other seven
+      // values on the card are unchanged, which is why the commit-time clause could not
+      // surface this: `sector_stats.json` had been rewritten nightly throughout without
+      // touching a pixel.
+      shot: "2026-09-03",
       figures:
-        "sectors_kpi_procurement=€29,6 млрд. [sectors_kpi_procurement_basis:4] " +
+        "sectors_kpi_procurement=€29,7 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
         "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
         "administration=133 275 [sectors_kpi_headcount_basis:2025] " +
