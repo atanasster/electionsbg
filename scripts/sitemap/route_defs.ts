@@ -733,6 +733,10 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "procurement/project/:id", file: `curated-projects-list` },
   { path: "funds/programme/:id", file: `funds-programmes-list` },
   { path: "funds/procedure/:id", file: `funds-procedures-list` },
+  // Interreg PROGRAMMES only (~19-23) — never the ~1,954 operations, which
+  // stay function-served with no <loc> of their own, same as this file's
+  // "funds/interreg" entry above covers only the index page.
+  { path: "funds/interreg/programme/:id", file: `interreg-programmes-list` },
   { path: "product/:id", file: `prices-products-list` },
 
   {
