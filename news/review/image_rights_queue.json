@@ -1,16 +1,280 @@
 {
   "version": 1,
-  "source_updated_at": "2026-09-02T14:32:45+00:00",
+  "source_updated_at": "2026-09-02T15:26:58+00:00",
   "policy": "news/config/image_rights_policy.json",
   "publication_default": "deny",
   "counts": {
-    "total": 2477,
+    "total": 2546,
     "missing_image": 338,
-    "missing_review": 2139,
+    "missing_review": 2208,
     "unknown_rights": 0,
     "invalid_review": 0
   },
   "items": [
+    {
+      "id": "actualno.com/20260902-kiseloto-mljako-ostava-neizmenna-chast-ot-trapezata-na-bylga-f30aa335",
+      "domain": "actualno.com",
+      "title": "Киселото мляко остава неизменна част от трапезата на българина",
+      "published": "2026-09-02T14:56:00+00:00",
+      "analyzed_at": "2026-09-02T15:05:22+00:00",
+      "article_url": "https://www.actualno.com/society/kiseloto-mljako-ostava-neizmenna-chast-ot-trapezata-na-bylgarina-news_2635306.html",
+      "article_path": "news/data/actualno.com/20260902-kiseloto-mljako-ostava-neizmenna-chast-ot-trapezata-na-bylga-f30aa335.json",
+      "image_url": "https://cdn.actualno.eu/actualno_2013/upload/news/2026/09/02/1667cae9986e9b8befd53339a1af5316_2635306_1920x1080.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "standartnews.com/20260902-dva-dni-vkus-muzika-i-zabavleniya-ochakvat-ruse-na-praznika--494433d4",
+      "domain": "standartnews.com",
+      "title": "Два дни вкус, музика и забавления очакват Русе на Празника на торта „Гараш“",
+      "published": "2026-09-02T14:48:56+00:00",
+      "analyzed_at": "2026-09-02T15:08:25+00:00",
+      "article_url": "https://www.standartnews.com/regionalni/dva-dni-vkus-muzika-i-zabavleniya-ochakvat-ruse-na-praznika-na-torta-garash-645606.html",
+      "article_path": "news/data/standartnews.com/20260902-dva-dni-vkus-muzika-i-zabavleniya-ochakvat-ruse-na-praznika--494433d4.json",
+      "image_url": "https://cdn.standartnews.com/media/487904/conversions/torta-og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "flagman.bg/20260902-389133-6c443eb6",
+      "domain": "flagman.bg",
+      "title": "Почина почетният ректор на БСУ проф. Васил Янков",
+      "published": "2026-09-02T14:46:32+00:00",
+      "analyzed_at": "2026-09-02T15:07:21+00:00",
+      "article_url": "https://www.flagman.bg/article/389133",
+      "article_path": "news/data/flagman.bg/20260902-389133-6c443eb6.json",
+      "image_url": "https://www.flagman.bg/news/2026/09/02/178836052263535.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "marica.bg/20260902-daniela-grozeva-isteriqta-za-barza-pokupka-veche-e-minalo-70cace16",
+      "domain": "marica.bg",
+      "title": "Даниела Грозева: Истерията за бърза покупка вече е минало",
+      "published": "2026-09-02T14:45:00+00:00",
+      "analyzed_at": "2026-09-02T15:07:30+00:00",
+      "article_url": "https://www.marica.bg/imoti/daniela-grozeva-isteriqta-za-barza-pokupka-veche-e-minalo",
+      "article_path": "news/data/marica.bg/20260902-daniela-grozeva-isteriqta-za-barza-pokupka-veche-e-minalo-70cace16.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/1892/1200_522007.jpeg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "actualno.com/20260902-naznachen-e-nov-systav-na-syveta-na-direktorite-na-holding-b-2c554f18",
+      "domain": "actualno.com",
+      "title": "Назначен е нов състав на Съвета на директорите на \"Холдинг БДЖ\"",
+      "published": "2026-09-02T14:45:00+00:00",
+      "analyzed_at": "2026-09-02T15:05:39+00:00",
+      "article_url": "https://www.actualno.com/company/naznachen-e-nov-systav-na-syveta-na-direktorite-na-holding-bdj-news_2635298.html",
+      "article_path": "news/data/actualno.com/20260902-naznachen-e-nov-systav-na-syveta-na-direktorite-na-holding-b-2c554f18.json",
+      "image_url": "https://cdn.actualno.eu/actualno_2013/upload/news/2026/09/02/d9e2f8dd4061b972fc90e640925e084d_2635298_1920x1080.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-tsik-opredeli-vaznagrajdeniiata-chlenovete-rik-sik-izborite-3b11f603",
+      "domain": "frognews.bg",
+      "title": "ЦИК определи възнагражденията на членовете на РИК и СИК за изборите",
+      "published": "2026-09-02T14:44:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:08+00:00",
+      "article_url": "https://frognews.bg/novini/tsik-opredeli-vaznagrajdeniiata-chlenovete-rik-sik-izborite.html",
+      "article_path": "news/data/frognews.bg/20260902-tsik-opredeli-vaznagrajdeniiata-chlenovete-rik-sik-izborite-3b11f603.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/03298462a_1788360429_6a9836ed00fd9.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078360-mourinyo-s-brutalen-hod-sreshtu-zakasneniata-v-real--54b783ed",
+      "domain": "fakti.bg",
+      "title": "Жозе Моуриньо въвежда революционни мерки за дисциплина в Реал Мадрид",
+      "published": "2026-09-02T14:42:45+00:00",
+      "analyzed_at": "2026-09-02T15:03:35+00:00",
+      "article_url": "https://fakti.bg/sport/1078360-mourinyo-s-brutalen-hod-sreshtu-zakasneniata-v-real-madrid",
+      "article_path": "news/data/fakti.bg/20260902-1078360-mourinyo-s-brutalen-hod-sreshtu-zakasneniata-v-real--54b783ed.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/d75/mourinyo-s-brutalen-hod-sreshtu-zakasneniata-v-real-madrid-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260902-D0BFD180D0B5D0BCD0B8D0B5D180D18AD182-D0B8-D0B4D0B0D0BDD181-D-a8aa7951",
+      "domain": "nova.bg",
+      "title": "Премиерът и ДАНС се срещнаха с помощник генералния секретар на НАТО по разузнаването и сигурността",
+      "published": "2026-09-02T14:41:50+00:00",
+      "analyzed_at": "2026-09-02T15:02:37+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/02/549950/%D0%BF%D1%80%D0%B5%D0%BC%D0%B8%D0%B5%D1%80%D1%8A%D1%82-%D0%B8-%D0%B4%D0%B0%D0%BD%D1%81-%D1%81%D0%B5-%D1%81%D1%80%D0%B5%D1%89%D0%BD%D0%B0%D1%85%D0%B0-%D1%81-%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D0%BD%D0%B8%D0%BA-%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D0%BD%D0%B8%D1%8F-%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D0%B0%D1%80-%D0%BD%D0%B0-%D0%BD%D0%B0%D1%82%D0%BE-%D0%BF%D0%BE-%D1%80%D0%B0%D0%B7%D1%83%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D0%BD%D0%B5%D1%82%D0%BE-%D0%B8-%D1%81%D0%B8%D0%B3%D1%83%D1%80%D0%BD%D0%BE%D1%81%D1%82%D1%82%D0%B0/",
+      "article_path": "news/data/nova.bg/20260902-D0BFD180D0B5D0BCD0B8D0B5D180D18AD182-D0B8-D0B4D0B0D0BDD181-D-a8aa7951.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1788360035.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078388-cik-uveri-misia-na-osse-che-raboti-za-ukrepvane-na-d-62496dfc",
+      "domain": "fakti.bg",
+      "title": "ЦИК увери мисия на ОССЕ, че работи за укрепване на доверието в изборния процес",
+      "published": "2026-09-02T14:38:50+00:00",
+      "analyzed_at": "2026-09-02T15:03:45+00:00",
+      "article_url": "https://fakti.bg/bulgaria/1078388-cik-uveri-misia-na-osse-che-raboti-za-ukrepvane-na-doverieto-v-izbornia-proces",
+      "article_path": "news/data/fakti.bg/20260902-1078388-cik-uveri-misia-na-osse-che-raboti-za-ukrepvane-na-d-62496dfc.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/1f6/cik-uveri-misia-na-osse-che-raboti-za-ukrepvane-na-doverieto-v-izbornia-proces-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "marica.bg/20260902-muzikalnata-magiq-na-p-i-f-prevzema-plovdiv-c02eeb5b",
+      "domain": "marica.bg",
+      "title": "Музикалната магия на P.I.F. превзема Пловдив",
+      "published": "2026-09-02T14:35:00+00:00",
+      "analyzed_at": "2026-09-02T15:07:37+00:00",
+      "article_url": "https://www.marica.bg/kultura/muzikalnata-magiq-na-p-i-f-prevzema-plovdiv",
+      "article_path": "news/data/marica.bg/20260902-muzikalnata-magiq-na-p-i-f-prevzema-plovdiv-c02eeb5b.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/1893/1200_724306336_10215798916162013_1056071630569698020_n.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "flagman.bg/20260902-389122-423d5d7c",
+      "domain": "flagman.bg",
+      "title": "Нови правила в туризма: QR оценки, повече полети и промени за Airbnb",
+      "published": "2026-09-02T14:33:42+00:00",
+      "analyzed_at": "2026-09-02T15:07:36+00:00",
+      "article_url": "https://www.flagman.bg/article/389122",
+      "article_path": "news/data/flagman.bg/20260902-389122-423d5d7c.json",
+      "image_url": "https://www.flagman.bg/news/2026/09/02/178835676129605.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260902-D0B2D18AD0B7D181D182D0B0D0BDD0BED0B2D0B8D185D0B0-D0B4D0B2D0B-b4302629",
+      "domain": "nova.bg",
+      "title": "Възстановиха движението на влаковете между Струмяни и Сандански",
+      "published": "2026-09-02T14:31:43+00:00",
+      "analyzed_at": "2026-09-02T15:02:47+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/02/549948/%D0%B2%D1%8A%D0%B7%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%85%D0%B0-%D0%B4%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%D1%82%D0%BE-%D0%BD%D0%B0-%D0%B2%D0%BB%D0%B0%D0%BA%D0%BE%D0%B2%D0%B5%D1%82%D0%B5-%D0%BC%D0%B5%D0%B6%D0%B4%D1%83-%D1%81%D1%82%D1%80%D1%83%D0%BC%D1%8F%D0%BD%D0%B8-%D0%B8-%D1%81%D0%B0%D0%BD%D0%B4%D0%B0%D0%BD%D1%81%D0%BA%D0%B8/",
+      "article_path": "news/data/nova.bg/20260902-D0B2D18AD0B7D181D182D0B0D0BDD0BED0B2D0B8D185D0B0-D0B4D0B2D0B-b4302629.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1788359714.jpeg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078338-volkswagen-se-otkazva-ot-agresivno-izglejdashtite-av-41d104bd",
+      "domain": "fakti.bg",
+      "title": "Volkswagen се отказва от агресивно изглеждащите автомобили",
+      "published": "2026-09-02T14:30:09+00:00",
+      "analyzed_at": "2026-09-02T15:03:48+00:00",
+      "article_url": "https://fakti.bg/avto/1078338-volkswagen-se-otkazva-ot-agresivno-izglejdashtite-avtomobili",
+      "article_path": "news/data/fakti.bg/20260902-1078338-volkswagen-se-otkazva-ot-agresivno-izglejdashtite-av-41d104bd.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/61a/volkswagen-se-otkazva-ot-agresivno-izglejdashtite-avtomobili-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "marica.bg/20260902-kasmet-na-patq-avtomobil-se-preobarna-po-tavan-kray-smolqn-s-65d20a16",
+      "domain": "marica.bg",
+      "title": "Късмет на пътя: Автомобил се преобърна по таван край Смолян,...",
+      "published": "2026-09-02T14:30:00+00:00",
+      "analyzed_at": "2026-09-02T15:07:47+00:00",
+      "article_url": "https://www.marica.bg/region/smolqn/kasmet-na-patq-avtomobil-se-preobarna-po-tavan-kray-smolqn-shofyorat-i-patnichkata-sa-nevredimi",
+      "article_path": "news/data/marica.bg/20260902-kasmet-na-patq-avtomobil-se-preobarna-po-tavan-kray-smolqn-s-65d20a16.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/1893/1200_katastrofa-smolyan-smilyan.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078320-dve-astronavtki-sabraha-probi-ot-vanshnata-strana-na-e3c1b7ed",
+      "domain": "fakti.bg",
+      "title": "Две астронавтки събраха проби от външната страна на МКС по време на космическа разходка",
+      "published": "2026-09-02T14:29:11+00:00",
+      "analyzed_at": "2026-09-02T15:03:52+00:00",
+      "article_url": "https://fakti.bg/life/1078320-dve-astronavtki-sabraha-probi-ot-vanshnata-strana-na-mks-po-vreme-na-kosmicheska-razhodka",
+      "article_path": "news/data/fakti.bg/20260902-1078320-dve-astronavtki-sabraha-probi-ot-vanshnata-strana-na-e3c1b7ed.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/cc0/dve-astronavtki-sabraha-probi-ot-vanshnata-strana-na-mks-po-vreme-na-kosmicheska-razhodka-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260902-D186D0B8D0BA-D0BED0BFD180D0B5D0B4D0B5D0BBD0B8-D0B2D18AD0B7D0-8062297b",
+      "domain": "nova.bg",
+      "title": "ЦИК определи възнагражденията на членовете на РИК и СИК за президентските избори",
+      "published": "2026-09-02T14:29:00+00:00",
+      "analyzed_at": "2026-09-02T15:02:49+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/02/549947/%D1%86%D0%B8%D0%BA-%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8-%D0%B2%D1%8A%D0%B7%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%D1%82%D0%B0-%D0%BD%D0%B0-%D1%87%D0%BB%D0%B5%D0%BD%D0%BE%D0%B2%D0%B5%D1%82%D0%B5-%D0%BD%D0%B0-%D1%80%D0%B8%D0%BA-%D0%B8-%D1%81%D0%B8%D0%BA-%D0%B7%D0%B0-%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D1%81%D0%BA%D0%B8%D1%82%D0%B5-%D0%B8%D0%B7%D0%B1%D0%BE%D1%80%D0%B8/",
+      "article_path": "news/data/nova.bg/20260902-D186D0B8D0BA-D0BED0BFD180D0B5D0B4D0B5D0BBD0B8-D0B2D18AD0B7D0-8062297b.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1788107668.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "marica.bg/20260902-katastrofa-mejdu-motor-i-kola-blokira-bulevard-v-plovdiv-sni-20338c14",
+      "domain": "marica.bg",
+      "title": "Катастрофа между мотор и кола блокира булевард в Пловдив #СНИМКИ#",
+      "published": "2026-09-02T14:25:00+00:00",
+      "analyzed_at": "2026-09-02T15:07:44+00:00",
+      "article_url": "https://www.marica.bg/plovdiv/krimi/katastrofa-mejdu-motor-i-kola-blokira-bulevard-v-plovdiv-snimki",
+      "article_path": "news/data/marica.bg/20260902-katastrofa-mejdu-motor-i-kola-blokira-bulevard-v-plovdiv-sni-20338c14.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/1893/1200_viber_image_2026-09-02_17-24-34-271.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "actualno.com/20260902-levski-moje-da-napravi-goljama-usluga-na-cska-v-evropa-news--7214290d",
+      "domain": "actualno.com",
+      "title": "Левски може да направи голяма услуга на ЦСКА в Европа",
+      "published": "2026-09-02T14:25:00+00:00",
+      "analyzed_at": "2026-09-02T15:06:27+00:00",
+      "article_url": "https://www.actualno.com/bgfootball/levski-moje-da-napravi-goljama-usluga-na-cska-v-evropa-news_2635290.html",
+      "article_path": "news/data/actualno.com/20260902-levski-moje-da-napravi-goljama-usluga-na-cska-v-evropa-news--7214290d.json",
+      "image_url": "https://cdn.actualno.eu/actualno_2013/upload/news/2026/09/02/a7640d55e108b523fe93431fda2b6f45_2635290_1920x1080.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "clubz.bg/20260902-178999-2d37e667",
+      "domain": "clubz.bg",
+      "title": "Столичната община запорира сметки и автомобили на \"Капитолия\", обектът е запечатан",
+      "published": "2026-09-02T14:21:17+00:00",
+      "analyzed_at": "2026-09-02T15:12:07+00:00",
+      "article_url": "https://clubz.bg/178999",
+      "article_path": "news/data/clubz.bg/20260902-178999-2d37e667.json",
+      "image_url": "https://clubz.bg/media/144/6p1a0133.og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078358-legendaren-turski-refer-stava-shef-v-ruskia-futbolen-23a5069f",
+      "domain": "fakti.bg",
+      "title": "Турският топ рефер Джунеит Чакър поема кормилото на руското съдийство",
+      "published": "2026-09-02T14:20:39+00:00",
+      "analyzed_at": "2026-09-02T15:03:55+00:00",
+      "article_url": "https://fakti.bg/sport/1078358-legendaren-turski-refer-stava-shef-v-ruskia-futbolen-cauz",
+      "article_path": "news/data/fakti.bg/20260902-1078358-legendaren-turski-refer-stava-shef-v-ruskia-futbolen-23a5069f.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/737/legendaren-turski-refer-stava-shef-v-ruskia-futbolen-cauz-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "marica.bg/20260902-vajno-za-vsichki-raboteshti-eto-koga-shte-stane-qsno-kolko-s-fcf63ab9",
+      "domain": "marica.bg",
+      "title": "Важно за всички работещи: Ето кога ще стане ясно колко ще е ...",
+      "published": "2026-09-02T14:20:00+00:00",
+      "analyzed_at": "2026-09-02T15:07:52+00:00",
+      "article_url": "https://www.marica.bg/biznes-zona/vajno-za-vsichki-raboteshti-eto-koga-shte-stane-qsno-kolko-shte-e-minimalnata-zaplata-prez-2027-g",
+      "article_path": "news/data/marica.bg/20260902-vajno-za-vsichki-raboteshti-eto-koga-shte-stane-qsno-kolko-s-fcf63ab9.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/1781/1200_zaplata.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260902-D182D0B0D0B9D0BBD18AD180-D180D0BED0B1D0B8D0BDD181D18AD0BD-D1-88eabddb",
+      "domain": "nova.bg",
+      "title": "Тайлър Робинсън се призна за невинен за убийството на Чарли Кърк",
+      "published": "2026-09-02T14:17:38+00:00",
+      "analyzed_at": "2026-09-02T15:02:56+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/02/549937/%D1%82%D0%B0%D0%B9%D0%BB%D1%8A%D1%80-%D1%80%D0%BE%D0%B1%D0%B8%D0%BD%D1%81%D1%8A%D0%BD-%D1%81%D0%B5-%D0%BF%D1%80%D0%B8%D0%B7%D0%BD%D0%B0-%D0%B7%D0%B0-%D0%BD%D0%B5%D0%B2%D0%B8%D0%BD%D0%B5%D0%BD-%D0%B7%D0%B0-%D1%83%D0%B1%D0%B8%D0%B9%D1%81%D1%82%D0%B2%D0%BE%D1%82%D0%BE-%D0%BD%D0%B0-%D1%87%D0%B0%D1%80%D0%BB%D0%B8-%D0%BA%D1%8A%D1%80%D0%BA/",
+      "article_path": "news/data/nova.bg/20260902-D182D0B0D0B9D0BBD18AD180-D180D0BED0B1D0B8D0BDD181D18AD0BD-D1-88eabddb.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1765485928.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
     {
       "id": "marica.bg/20260902-bag-v-realnostta-nastapva-sled-broeni-chasove-v-gradskata-hu-e08131c5",
       "domain": "marica.bg",
@@ -20,6 +284,90 @@
       "article_url": "https://www.marica.bg/plovdiv/gradat/bag-v-realnostta-nastapva-sled-broeni-chasove-v-gradskata-hudojestvena-galeriq-v-plovdiv",
       "article_path": "news/data/marica.bg/20260902-bag-v-realnostta-nastapva-sled-broeni-chasove-v-gradskata-hu-e08131c5.json",
       "image_url": "https://cdn.marica.bg/images/marica.bg/1893/1200_N090203.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260902-D0B0D0B2D182D0BED0B1D183D181-D0BDD0B0-D0B3D180D0B0D0B4D181D0-f1514917",
+      "domain": "nova.bg",
+      "title": "Автобус на градския транспорт в Пловдив пропадна в дупка на ВиК",
+      "published": "2026-09-02T14:09:49+00:00",
+      "analyzed_at": "2026-09-02T15:03:15+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/02/549943/%D0%B0%D0%B2%D1%82%D0%BE%D0%B1%D1%83%D1%81-%D0%BD%D0%B0-%D0%B3%D1%80%D0%B0%D0%B4%D1%81%D0%BA%D0%B8%D1%8F-%D1%82%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82-%D0%B2-%D0%BF%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2-%D0%BF%D1%80%D0%BE%D0%BF%D0%B0%D0%B4%D0%BD%D0%B0-%D0%B2-%D0%B4%D1%83%D0%BF%D0%BA%D0%B0-%D0%BD%D0%B0-%D0%B2%D0%B8%D0%BA/",
+      "article_path": "news/data/nova.bg/20260902-D0B0D0B2D182D0BED0B1D183D181-D0BDD0B0-D0B3D180D0B0D0B4D181D0-f1514917.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1788358138.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "actualno.com/20260902-joze-mourinio-vnasja-strog-red-v-real-madrid-s-njakolko-bezm-e0bf0382",
+      "domain": "actualno.com",
+      "title": "Жозе Моуриньо внася строг ред в Реал Мадрид с няколко безмилостни правила",
+      "published": "2026-09-02T14:09:00+00:00",
+      "analyzed_at": "2026-09-02T15:26:58+00:00",
+      "article_url": "https://www.actualno.com/football/joze-mourinio-vnasja-strog-red-v-real-madrid-s-njakolko-bezmilostni-pravila-news_2635279.html",
+      "article_path": "news/data/actualno.com/20260902-joze-mourinio-vnasja-strog-red-v-real-madrid-s-njakolko-bezm-e0bf0382.json",
+      "image_url": "https://cdn.actualno.eu/actualno_2013/upload/news/2026/09/02/2e37d62cf98b66333343527cfcd99967_2635279_1920x1080.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078373-fon-der-laien-zaavi-che-rusia-e-napadnala-germania-s-45d1be37",
+      "domain": "fakti.bg",
+      "title": "Фон дер Лайен заяви, че Русия е нападнала Германия с използване на военни материали",
+      "published": "2026-09-02T14:08:43+00:00",
+      "analyzed_at": "2026-09-02T15:04:08+00:00",
+      "article_url": "https://fakti.bg/world/1078373-fon-der-laien-zaavi-che-rusia-e-napadnala-germania-s-izpolzvane-na-voenni-materiali",
+      "article_path": "news/data/fakti.bg/20260902-1078373-fon-der-laien-zaavi-che-rusia-e-napadnala-germania-s-45d1be37.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/6d0/fon-der-laien-zaavi-che-rusia-e-napadnala-germania-s-izpolzvane-na-voenni-materiali-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260902-D0BFD180D0B0D0B2D0BDD0B0D182D0B0-D0BAD0BED0BCD0B8D181D0B8D18-16fdac15",
+      "domain": "nova.bg",
+      "title": "Правната комисия прие по-голяма защита на журналисти от „дела шамари“",
+      "published": "2026-09-02T14:07:11+00:00",
+      "analyzed_at": "2026-09-02T15:03:05+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/02/549942/%D0%BF%D1%80%D0%B0%D0%B2%D0%BD%D0%B0%D1%82%D0%B0-%D0%BA%D0%BE%D0%BC%D0%B8%D1%81%D0%B8%D1%8F-%D0%BF%D1%80%D0%B8%D0%B5-%D0%BF%D0%BE-%D0%B3%D0%BE%D0%BB%D1%8F%D0%BC%D0%B0-%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0-%D0%BD%D0%B0-%D0%B6%D1%83%D1%80%D0%BD%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8-%D0%BE%D1%82-%D0%B4%D0%B5%D0%BB%D0%B0-%D1%88%D0%B0%D0%BC%D0%B0%D1%80%D0%B8/",
+      "article_path": "news/data/nova.bg/20260902-D0BFD180D0B0D0B2D0BDD0B0D182D0B0-D0BAD0BED0BCD0B8D181D0B8D18-16fdac15.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1788357876.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "marica.bg/20260902-zaradi-ptichi-grip-unishtojiha-14-000-patici-v-rakovski-268ad442",
+      "domain": "marica.bg",
+      "title": "Заради птичи грип: Унищожиха 14 000 патици в Раковски",
+      "published": "2026-09-02T14:05:00+00:00",
+      "analyzed_at": "2026-09-02T15:08:07+00:00",
+      "article_url": "https://www.marica.bg/agro/zaradi-ptichi-grip-unishtojiha-14-000-patici-v-rakovski",
+      "article_path": "news/data/marica.bg/20260902-zaradi-ptichi-grip-unishtojiha-14-000-patici-v-rakovski-268ad442.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/786/640_ptichigrip-rusia-hora.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078378-vana-grigorova-imame-samo-2-dni-za-obsajdane-na-budj-c77de489",
+      "domain": "fakti.bg",
+      "title": "Ваня Григорова: Имаме само 2 дни за обсъждане на Бюджет '26 на София",
+      "published": "2026-09-02T14:04:24+00:00",
+      "analyzed_at": "2026-09-02T15:04:04+00:00",
+      "article_url": "https://fakti.bg/bulgaria/1078378-vana-grigorova-imame-samo-2-dni-za-obsajdane-na-budjet-26-na-sofia",
+      "article_path": "news/data/fakti.bg/20260902-1078378-vana-grigorova-imame-samo-2-dni-za-obsajdane-na-budj-c77de489.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/542/vana-grigorova-imame-samo-2-dni-za-obsajdane-na-budjet-26-na-sofia-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "marica.bg/20260902-mickoski-s-ostar-priziv-kam-balgariq-ekstradirayte-nezabavno-579b78d3",
+      "domain": "marica.bg",
+      "title": "Мицкоски с остър призив към България: Екстрадирайте незабавн...",
+      "published": "2026-09-02T14:00:00+00:00",
+      "analyzed_at": "2026-09-02T15:08:04+00:00",
+      "article_url": "https://www.marica.bg/svqt/mickoski-s-ostar-priziv-kam-balgariq-ekstradirayte-nezabavno-bashtata-na-iva-mihaylova-video",
+      "article_path": "news/data/marica.bg/20260902-mickoski-s-ostar-priziv-kam-balgariq-ekstradirayte-nezabavno-579b78d3.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/1478/1200_hristijan-mickoski.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -72,6 +420,18 @@
       "current_status": null
     },
     {
+      "id": "actualno.com/20260902-novo-20-mickoski-iska-bylgarija-da-ekstradira-bashtata-na-iv-269bad4a",
+      "domain": "actualno.com",
+      "title": "Ново 20: Мицкоски иска България да екстрадира бащата на Ива Михайлова, за да го вкарат в затвора",
+      "published": "2026-09-02T13:58:00+00:00",
+      "analyzed_at": "2026-09-02T15:06:55+00:00",
+      "article_url": "https://www.actualno.com/balkani/novo-20-mickoski-iska-bylgarija-da-ekstradira-bashtata-na-iva-mihajlova-za-da-go-vkarat-v-zatvora-news_2635273.html",
+      "article_path": "news/data/actualno.com/20260902-novo-20-mickoski-iska-bylgarija-da-ekstradira-bashtata-na-iv-269bad4a.json",
+      "image_url": "https://cdn.actualno.eu/actualno_2013/upload/news/2026/09/02/80b37137224f6ce7d321e3327ff73a30_2635273_1920x1080.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "standartnews.com/20260902-drama-vav-franciya-opitaha-da-otvlekat-mbape-645604-8dbe654c",
       "domain": "standartnews.com",
       "title": "Драма във Франция. Опитаха да отвлекат МБапе",
@@ -80,6 +440,18 @@
       "article_url": "https://www.standartnews.com/sport/drama-vav-franciya-opitaha-da-otvlekat-mbape-645604.html",
       "article_path": "news/data/standartnews.com/20260902-drama-vav-franciya-opitaha-da-otvlekat-mbape-645604-8dbe654c.json",
       "image_url": "https://cdn.standartnews.com/media/482146/conversions/mbape-franciia-paragvai-og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "fakti.bg/20260902-1078357-kertu-niskanen-slaga-tochka-na-blaskavata-si-kariera-78885075",
+      "domain": "fakti.bg",
+      "title": "Керту Нисканен слага точка на бляскавата си кариера",
+      "published": "2026-09-02T13:57:25+00:00",
+      "analyzed_at": "2026-09-02T15:04:18+00:00",
+      "article_url": "https://fakti.bg/sport/1078357-kertu-niskanen-slaga-tochka-na-blaskavata-si-kariera",
+      "article_path": "news/data/fakti.bg/20260902-1078357-kertu-niskanen-slaga-tochka-na-blaskavata-si-kariera-78885075.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/7eb/kertu-niskanen-slaga-tochka-na-blaskavata-si-kariera-1.jpg",
       "reason": "missing_review",
       "current_status": null
     },
@@ -120,6 +492,18 @@
       "current_status": null
     },
     {
+      "id": "fakti.bg/20260902-1078383-udaljiha-sroka-za-prevalutirane-na-kapitala-na-firmi-a09f2661",
+      "domain": "fakti.bg",
+      "title": "Удължиха срока за превалутиране на капитала на фирми в евро",
+      "published": "2026-09-02T13:53:10+00:00",
+      "analyzed_at": "2026-09-02T15:04:19+00:00",
+      "article_url": "https://fakti.bg/biznes/1078383-udaljiha-sroka-za-prevalutirane-na-kapitala-na-firmi-v-evro",
+      "article_path": "news/data/fakti.bg/20260902-1078383-udaljiha-sroka-za-prevalutirane-na-kapitala-na-firmi-a09f2661.json",
+      "image_url": "https://cdn4.focus.bg/fakti/photos/fb/334/udaljiha-sroka-za-prevalutirane-na-kapitala-na-firmi-v-evro-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "marica.bg/20260902-plovdivski-ansambal-obra-ovaciite-i-nagradite-na-festival-v--1b05ac95",
       "domain": "marica.bg",
       "title": "Пловдивски ансамбъл обра овациите и наградите на фестивал в ...",
@@ -140,6 +524,18 @@
       "article_url": "https://www.marica.bg/imoti/avatar-li-shte-e-moderniqt-broker",
       "article_path": "news/data/marica.bg/20260902-avatar-li-shte-e-moderniqt-broker-2835f851.json",
       "image_url": "https://cdn.marica.bg/images/marica.bg/1892/1200_522008.jpeg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "actualno.com/20260902-okeanyt-kipi-temperaturata-na-povyrhnostta-mu-dostigna-naj-v-87851a52",
+      "domain": "actualno.com",
+      "title": "Океанът \"кипи\": Температурата на повърхността му достигна най-високото ниво в историята",
+      "published": "2026-09-02T13:49:00+00:00",
+      "analyzed_at": "2026-09-02T15:07:05+00:00",
+      "article_url": "https://www.actualno.com/climate/okeanyt-kipi-temperaturata-na-povyrhnostta-mu-dostigna-naj-visokoto-nivo-v-istorijata-news_2635266.html",
+      "article_path": "news/data/actualno.com/20260902-okeanyt-kipi-temperaturata-na-povyrhnostta-mu-dostigna-naj-v-87851a52.json",
+      "image_url": "https://cdn.actualno.eu/actualno_2013/upload/news/2026/09/02/ad9d13d9b664257bde1e533ebe12575e_2635266_1920x1080.jpg",
       "reason": "missing_review",
       "current_status": null
     },
@@ -240,6 +636,18 @@
       "current_status": null
     },
     {
+      "id": "clubz.bg/20260902-178995-728e4553",
+      "domain": "clubz.bg",
+      "title": "Германия е идентифицирала двама от атентаторите, опитали да взривят украински самолет с дронове",
+      "published": "2026-09-02T13:38:27+00:00",
+      "analyzed_at": "2026-09-02T15:12:31+00:00",
+      "article_url": "https://clubz.bg/178995",
+      "article_path": "news/data/clubz.bg/20260902-178995-728e4553.json",
+      "image_url": "https://clubz.bg/media/144/b5b096d361d24130aef20e1d5094494e~6.og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "nova.bg/20260902-D0BDD0B0D0B4-115-D0BCD0BBD0BD-D0B5D0B2D180D0BE-D181D0B0-D0BF-22bda53e",
       "domain": "nova.bg",
       "title": "Над 115 млн. евро са предвидени за подкрепа на млади земеделски стопани през 2026 г.",
@@ -248,6 +656,18 @@
       "article_url": "https://nova.bg/news/view/2026/09/02/549935/%D0%BD%D0%B0%D0%B4-115-%D0%BC%D0%BB%D0%BD-%D0%B5%D0%B2%D1%80%D0%BE-%D1%81%D0%B0-%D0%BF%D1%80%D0%B5%D0%B4%D0%B2%D0%B8%D0%B4%D0%B5%D0%BD%D0%B8-%D0%B7%D0%B0-%D0%BF%D0%BE%D0%B4%D0%BA%D1%80%D0%B5%D0%BF%D0%B0-%D0%BD%D0%B0-%D0%BC%D0%BB%D0%B0%D0%B4%D0%B8-%D0%B7%D0%B5%D0%BC%D0%B5%D0%B4%D0%B5%D0%BB%D1%81%D0%BA%D0%B8-%D1%81%D1%82%D0%BE%D0%BF%D0%B0%D0%BD%D0%B8-%D0%BF%D1%80%D0%B5%D0%B7-2026-%D0%B3/",
       "article_path": "news/data/nova.bg/20260902-D0BDD0B0D0B4-115-D0BCD0BBD0BD-D0B5D0B2D180D0BE-D181D0B0-D0BF-22bda53e.json",
       "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1765370327.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "nova.bg/20260902-D0B5D180D0B4D0BED0B3D0B0D0BD-D0BFD183D182D0B8D0BD-D0BDD0B5-D-b5ab94d4",
+      "domain": "nova.bg",
+      "title": "Ердоган: Путин не е доволен от войната и иска тя да приключи час по-скоро",
+      "published": "2026-09-02T13:37:42+00:00",
+      "analyzed_at": "2026-09-02T15:03:12+00:00",
+      "article_url": "https://nova.bg/news/view/2026/09/02/549936/%D0%B5%D1%80%D0%B4%D0%BE%D0%B3%D0%B0%D0%BD-%D0%BF%D1%83%D1%82%D0%B8%D0%BD-%D0%BD%D0%B5-%D0%B5-%D0%B4%D0%BE%D0%B2%D0%BE%D0%BB%D0%B5%D0%BD-%D0%BE%D1%82-%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0%D1%82%D0%B0-%D0%B8-%D0%B8%D1%81%D0%BA%D0%B0-%D1%82%D1%8F-%D0%B4%D0%B0-%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B8-%D1%87%D0%B0%D1%81-%D0%BF%D0%BE-%D1%81%D0%BA%D0%BE%D1%80%D0%BE/",
+      "article_path": "news/data/nova.bg/20260902-D0B5D180D0B4D0BED0B3D0B0D0BD-D0BFD183D182D0B8D0BD-D0BDD0B5-D-b5ab94d4.json",
+      "image_url": "https://nstatic.nova.bg/public/pics/nova/article/980x551_1788356928.jpg",
       "reason": "missing_review",
       "current_status": null
     },
@@ -384,6 +804,18 @@
       "current_status": null
     },
     {
+      "id": "marica.bg/20260902-viktorio-ot-fermata-10-vlyuben-do-ushi-v-simona-snimki-7d2b82fc",
+      "domain": "marica.bg",
+      "title": "Викторио от „Фермата“ 10 влюбен до уши в Симона СНИМКИ",
+      "published": "2026-09-02T13:30:00+00:00",
+      "analyzed_at": "2026-09-02T15:08:06+00:00",
+      "article_url": "https://www.marica.bg/lajfstajl/viktorio-ot-fermata-10-vlyuben-do-ushi-v-simona-snimki",
+      "article_path": "news/data/marica.bg/20260902-viktorio-ot-fermata-10-vlyuben-do-ushi-v-simona-snimki-7d2b82fc.json",
+      "image_url": "https://cdn.marica.bg/images/marica.bg/1893/1200_ferma_0.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "frognews.bg/20260902-kogato-zemiata-spre-rajda-balgariia-ima-problem-koito-oshte--f671fd96",
       "domain": "frognews.bg",
       "title": "Когато земята спре да ражда: България има проблем, който още не вижда",
@@ -404,6 +836,30 @@
       "article_url": "https://www.standartnews.com/balgariya-obshtestvo/noviyat-vlak-mechta-u-nas-blokira-645600.html",
       "article_path": "news/data/standartnews.com/20260902-noviyat-vlak-mechta-u-nas-blokira-645600-3023e025.json",
       "image_url": "https://cdn.standartnews.com/media/487900/conversions/vlak-frenski-og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "clubz.bg/20260902-178993-6cee9c9a",
+      "domain": "clubz.bg",
+      "title": "Вълна от саботажи в Европа. Мишена е и България",
+      "published": "2026-09-02T13:26:05+00:00",
+      "analyzed_at": "2026-09-02T15:13:09+00:00",
+      "article_url": "https://clubz.bg/178993",
+      "article_path": "news/data/clubz.bg/20260902-178993-6cee9c9a.json",
+      "image_url": "https://clubz.bg/media/144/048-gebrev.og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-veche-sme-mirno-vreme-vijda-darjavno-sponsoriran-terorizam-v-37812436",
+      "domain": "frognews.bg",
+      "title": "„Вече не сме в мирно време“: ЕС вижда държавно спонсориран тероризъм, вика руски посланици",
+      "published": "2026-09-02T13:25:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:23+00:00",
+      "article_url": "https://frognews.bg/novini/veche-sme-mirno-vreme-vijda-darjavno-sponsoriran-terorizam-vika-ruski-poslanitsi.html",
+      "article_path": "news/data/frognews.bg/20260902-veche-sme-mirno-vreme-vijda-darjavno-sponsoriran-terorizam-v-37812436.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/0a5cd847e_1788355458_6a9823824f870.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -440,6 +896,18 @@
       "article_url": "https://fakti.bg/sport/1078354-akademik-sofia-se-zavrashta-na-futbolnata-karta-poznato-ime-shte-vodi-tima",
       "article_path": "news/data/fakti.bg/20260902-1078354-akademik-sofia-se-zavrashta-na-futbolnata-karta-pozn-40d2cb4b.json",
       "image_url": "https://cdn4.focus.bg/fakti/photos/fb/83c/akademik-sofia-se-zavrashta-na-futbolnata-karta-poznato-ime-shte-vodi-tima-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "clubz.bg/20260902-178992-2b0a2985",
+      "domain": "clubz.bg",
+      "title": "Очаквано, съдът остави в ареста мъжа, задържан за убийството на приятелката си в \"Бъкстон\"",
+      "published": "2026-09-02T13:20:14+00:00",
+      "analyzed_at": "2026-09-02T15:13:22+00:00",
+      "article_url": "https://clubz.bg/178992",
+      "article_path": "news/data/clubz.bg/20260902-178992-2b0a2985.json",
+      "image_url": "https://clubz.bg/media/144/aroslav-gulatkin.og.jpeg",
       "reason": "missing_review",
       "current_status": null
     },
@@ -1116,6 +1584,18 @@
       "current_status": null
     },
     {
+      "id": "petel.bg/20260902-Stoyan-Kolev-pred-Karbovski-V-Bogota-sam-667326-24415c46",
+      "domain": "petel.bg",
+      "title": "Стоян Колев пред Карбовски: В Богота съм",
+      "published": "2026-09-02T12:31:07+00:00",
+      "analyzed_at": "2026-09-02T15:04:29+00:00",
+      "article_url": "https://petel.bg/Stoyan-Kolev-pred-Karbovski--V-Bogota-sam-__667326",
+      "article_path": "news/data/petel.bg/20260902-Stoyan-Kolev-pred-Karbovski-V-Bogota-sam-667326-24415c46.json",
+      "image_url": "https://static.petel.bg/resources/2026/09/02/medium_Facebook-09-01-2026_05_09_PM.png",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "standartnews.com/20260902-ministar-efremova-usvoyava-vsichki-sredstva-po-pvu-645595-a0fb0b18",
       "domain": "standartnews.com",
       "title": "Министър Ефремова усвоява всички средства по ПВУ",
@@ -1452,6 +1932,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-dvama-ruski-pasporti-zapodozreni-hibridnata-ataka-sreshtu-le-029d3bef",
+      "domain": "frognews.bg",
+      "title": "Двама с руски паспорти са заподозрени за хибридната атака срещу летището в Лайпциг",
+      "published": "2026-09-02T11:57:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:26+00:00",
+      "article_url": "https://frognews.bg/novini/dvama-ruski-pasporti-zapodozreni-hibridnata-ataka-sreshtu-letishteto-laiptsig.html",
+      "article_path": "news/data/frognews.bg/20260902-dvama-ruski-pasporti-zapodozreni-hibridnata-ataka-sreshtu-le-029d3bef.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/117f308ce_1788360980_6a98391487fbf.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "standartnews.com/20260902-vasko-keca-progovori-za-bashta-si-kogoto-sreshtnal-na-30-v-c-b6854441",
       "domain": "standartnews.com",
       "title": "Васко Кеца проговори за баща си, когото срещнал на 30 в цирка",
@@ -1620,6 +2112,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-natisk-otdiasno-meloni-koi-ruskiiat-troianski-kon-italiia-fcbaac42",
+      "domain": "frognews.bg",
+      "title": "Натиск отдясно за Мелони: Кой е руският „троянски кон“ в Италия",
+      "published": "2026-09-02T11:40:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:42+00:00",
+      "article_url": "https://frognews.bg/novini/natisk-otdiasno-meloni-koi-ruskiiat-troianski-kon-italiia.html",
+      "article_path": "news/data/frognews.bg/20260902-natisk-otdiasno-meloni-koi-ruskiiat-troianski-kon-italiia-fcbaac42.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/fad1679d3_1788349177_6a980af9b18b2.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "news.bg/20260902-sluzhitel-na-gur-zagina-pri-prestrelka-s-agenti-na-sbu-v-kie-b04ee74e",
       "domain": "news.bg",
       "title": "Служител на ГУР загина при престрелка с агенти на СБУ в Киев",
@@ -1644,6 +2148,18 @@
       "current_status": null
     },
     {
+      "id": "clubz.bg/20260902-178990-50ed4f53",
+      "domain": "clubz.bg",
+      "title": "Фон дер Лайен: Руските атаки в Лайпциг можеха да доведат до смърт",
+      "published": "2026-09-02T11:36:16+00:00",
+      "analyzed_at": "2026-09-02T15:13:34+00:00",
+      "article_url": "https://clubz.bg/178990",
+      "article_path": "news/data/clubz.bg/20260902-178990-50ed4f53.json",
+      "image_url": "https://clubz.bg/media/144/ursula-rute-0209_cr.og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "marica.bg/20260902-boksyori-ot-nay-silnite-nashi-shkoli-merqt-sili-v-xaskovo-fb9bf771",
       "domain": "marica.bg",
       "title": "Боксьори от най-силните наши школи мерят сили в Xасково",
@@ -1664,6 +2180,18 @@
       "article_url": "https://fakti.bg/bulgaria/1078348-vesislava-tancheva-ako-pb-baha-igrali-sas-sobstvena-kandidatura-tazi-na-iotova-izobshto-namashe-da-bade-silna",
       "article_path": "news/data/fakti.bg/20260902-1078348-vesislava-tancheva-ako-pb-baha-igrali-sas-sobstvena--64f48dbc.json",
       "image_url": "https://cdn4.focus.bg/fakti/photos/fb/a66/vesislava-tancheva-ako-pb-baha-igrali-sas-sobstvena-kandidatura-tazi-na-iotova-izobshto-namashe-da-bade-silna-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "clubz.bg/20260902-178989-ecd509b0",
+      "domain": "clubz.bg",
+      "title": "Голям пожар на Каваци: известно заведение изгоря напълно",
+      "published": "2026-09-02T11:34:09+00:00",
+      "analyzed_at": "2026-09-02T15:13:38+00:00",
+      "article_url": "https://clubz.bg/178989",
+      "article_path": "news/data/clubz.bg/20260902-178989-ecd509b0.json",
+      "image_url": "https://clubz.bg/media/144/20260901_172015.og.jpg",
       "reason": "missing_review",
       "current_status": null
     },
@@ -2004,6 +2532,18 @@
       "current_status": null
     },
     {
+      "id": "petel.bg/20260902-Sas-salzi-na-ochi-Ariana-Grande-se-sboguva-s-publikata-sled--4520146a",
+      "domain": "petel.bg",
+      "title": "Със сълзи на очи, Ариана Гранде се сбогува с публиката след края на последния си концерт",
+      "published": "2026-09-02T10:58:47+00:00",
+      "analyzed_at": "2026-09-02T15:04:35+00:00",
+      "article_url": "https://petel.bg/Sas-salzi-na-ochi--Ariana-Grande-se-sboguva-s-publikata-sled-kraya-na-posledniya-si-kontsert__667311",
+      "article_path": "news/data/petel.bg/20260902-Sas-salzi-na-ochi-Ariana-Grande-se-sboguva-s-publikata-sled--4520146a.json",
+      "image_url": "https://static.petel.bg/resources/2026/09/02/medium_44.png",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "actualno.com/20260902-otvlichane-strelba-ruski-partizanski-lider-spekulacii-za-ope-b682f1cd",
       "domain": "actualno.com",
       "title": "РћС‚РІР»РёС‡Р°РЅРµ, СЃС‚СЂРµР»Р±Р°, СЂСѓСЃРєРё РїР°СЂС‚РёР·Р°РЅСЃРєРё Р»РёРґРµСЂ: РЎРїРµРєСѓР»Р°С†РёРё Р·Р° РѕРїРµСЂР°С†РёСЏ РЅР° СЃРїРµС†СЃР»СѓР¶Р±Рё РІ РљРёРµРІ (Р’Р�Р”Р•Рћ)",
@@ -2036,6 +2576,18 @@
       "article_url": "https://www.marica.bg/balgariq/obshtestvo/ognen-ad-na-kavacite-restorant-gori-kray-sozopol-snimki-video",
       "article_path": "news/data/marica.bg/20260902-ognen-ad-na-kavacite-restorant-gori-kray-sozopol-snimki-vide-bfc8668b.json",
       "image_url": "https://cdn.marica.bg/images/marica.bg/1893/1200_ognenad.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "actualno.com/20260902-ni-chuli-ni-videli-denkov-za-vlastta-zagovori-i-za-nova-faza-c26bafbe",
+      "domain": "actualno.com",
+      "title": "\"Ни чули, ни видели\": Денков за властта - заговори и за нова фаза на отношенията с Русия след Лайпциг (ВИДЕО)",
+      "published": "2026-09-02T10:55:00+00:00",
+      "analyzed_at": "2026-09-02T15:07:17+00:00",
+      "article_url": "https://www.actualno.com/politics/ni-chuli-ni-videli-denkov-za-vlastta-zagovori-i-za-nova-faza-na-otnoshenijata-s-rusija-sled-lajpcig-video-news_2635182.html",
+      "article_path": "news/data/actualno.com/20260902-ni-chuli-ni-videli-denkov-za-vlastta-zagovori-i-za-nova-faza-c26bafbe.json",
+      "image_url": "https://cdn.actualno.eu/actualno_2013/upload/news/2026/09/02/f15c272a093c62176dcfd1f8c62c0ec3_2635182_1920x1080.jpg",
       "reason": "missing_review",
       "current_status": null
     },
@@ -2208,6 +2760,18 @@
       "current_status": null
     },
     {
+      "id": "petel.bg/20260902-Vitanov-Udarihme-porochnata-mafiya-s-bokluka-i-zanulyavame-e-e42b66f6",
+      "domain": "petel.bg",
+      "title": "Витанов: Ударихме порочната мафия с боклука и зануляваме екотаксите за колите",
+      "published": "2026-09-02T10:30:35+00:00",
+      "analyzed_at": "2026-09-02T15:06:22+00:00",
+      "article_url": "https://petel.bg/Vitanov--Udarihme-porochnata-mafiya-s-bokluka-i-zanulyavame-ekotaksite-za-kolite__667306",
+      "article_path": "news/data/petel.bg/20260902-Vitanov-Udarihme-porochnata-mafiya-s-bokluka-i-zanulyavame-e-e42b66f6.json",
+      "image_url": "https://static.petel.bg/resources/2026/09/02/medium_sa.png",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "standartnews.com/20260902-dronat-v-laypcig-vzrivi-parlamenta-eto-kakvo-kaza-vitanov-64-f0c9e7a8",
       "domain": "standartnews.com",
       "title": "Дронът в Лайпциг взриви парламента: Ето какво каза Витанов",
@@ -2216,6 +2780,18 @@
       "article_url": "https://www.standartnews.com/balgariya-politika/dronat-v-laypcig-vzrivi-parlamenta-eto-kakvo-kaza-vitanov-645580.html",
       "article_path": "news/data/standartnews.com/20260902-dronat-v-laypcig-vzrivi-parlamenta-eto-kakvo-kaza-vitanov-64-f0c9e7a8.json",
       "image_url": "https://cdn.standartnews.com/media/487881/conversions/vitanov-og.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-21-dushi-zaginaha-29-raneni-pri-avtobusna-katastrofa-egipet-c07d89a6",
+      "domain": "frognews.bg",
+      "title": "21 души загинаха, а 29 са ранени при автобусна катастрофа в Египет",
+      "published": "2026-09-02T10:26:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:32+00:00",
+      "article_url": "https://frognews.bg/novini/21-dushi-zaginaha-29-raneni-pri-avtobusna-katastrofa-egipet.html",
+      "article_path": "news/data/frognews.bg/20260902-21-dushi-zaginaha-29-raneni-pri-avtobusna-katastrofa-egipet-c07d89a6.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/9c1275ef7_1788344981_6a97fa953c595.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -2240,6 +2816,18 @@
       "article_url": "https://petel.bg/Parlamentat-odobri-udalzhavane-na-sroka-za-prevalutirane-na-kapitala-na-druzhestvata__667305",
       "article_path": "news/data/petel.bg/20260902-Parlamentat-odobri-udalzhavane-na-sroka-za-prevalutirane-na--79f3a4f5.json",
       "image_url": "https://static.petel.bg/resources/2026/09/02/medium_das.png",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "petel.bg/20260902-Uvelichiha-s-10-klinichnite-pateki-667304-65159b2e",
+      "domain": "petel.bg",
+      "title": "Увеличиха с 10% клиничните пътеки",
+      "published": "2026-09-02T10:14:29+00:00",
+      "analyzed_at": "2026-09-02T15:26:47+00:00",
+      "article_url": "https://petel.bg/Uvelichiha-s-10--klinichnite-pateki-__667304",
+      "article_path": "news/data/petel.bg/20260902-Uvelichiha-s-10-klinichnite-pateki-667304-65159b2e.json",
+      "image_url": "https://static.petel.bg/resources/2026/09/02/medium_ma.png",
       "reason": "missing_review",
       "current_status": null
     },
@@ -2976,6 +3564,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-turtsiia-izprashta-diplomaticheska-nota-gartsiia-initsiativi-868f8e90",
+      "domain": "frognews.bg",
+      "title": "Турция изпраща дипломатическа нота на Гърция за инициативите в Егейско море",
+      "published": "2026-09-02T09:05:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:39+00:00",
+      "article_url": "https://frognews.bg/obshtestvo/aktualno/turtsiia-izprashta-diplomaticheska-nota-gartsiia-initsiativite-egeisko-more.html",
+      "article_path": "news/data/frognews.bg/20260902-turtsiia-izprashta-diplomaticheska-nota-gartsiia-initsiativi-868f8e90.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/3ef60c040_1788339796_6a97e654b13c6.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "frognews.bg/20260902-turtsiia-izprashta-diplomaticheska-nota-gartsiia-initsiativi-52aa8a90",
       "domain": "frognews.bg",
       "title": "Турция изпраща дипломатическа нота на Гърция за инициативите в Егейско море",
@@ -3164,6 +3764,18 @@
       "article_url": "https://dnes.dir.bg/intsidenti/transportirat-v-sofiya-shampiona-pavlin-dimitrov-sled-tezhkiya-sblasak-sas-skuteri-v-dunav",
       "article_path": "news/data/dir.bg/20260902-transportirat-v-sofiya-shampiona-pavlin-dimitrov-sled-tezhki-ca1ec6b2.json",
       "image_url": "https://static.dir.bg/uploads/images/2026/09/02/3022056/800x480.jpg?_=1788330043",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "dir.bg/20260902-teheran-skoro-shte-vidite-novata-ni-strategiya-za-razgromyav-882cad4e",
+      "domain": "dir.bg",
+      "title": "Техеран: Скоро ще видите новата ни стратегия за разгромяване на врага",
+      "published": "2026-09-02T09:00:00+00:00",
+      "analyzed_at": "2026-09-02T15:02:19+00:00",
+      "article_url": "https://dnes.dir.bg/svyat/teheran-skoro-shte-vidite-novata-ni-strategiya-za-razgromyavane-na-vraga",
+      "article_path": "news/data/dir.bg/20260902-teheran-skoro-shte-vidite-novata-ni-strategiya-za-razgromyav-882cad4e.json",
+      "image_url": "https://static.dir.bg/uploads/images/2026/08/23/3019260/800x480.jpg?_=1787469085",
       "reason": "missing_review",
       "current_status": null
     },
@@ -3360,6 +3972,18 @@
       "current_status": null
     },
     {
+      "id": "dir.bg/20260902-koshnitsa-s-grizha-s-novi-predlozheniya-v-lidl-32-osnovni-pr-9a7fd48d",
+      "domain": "dir.bg",
+      "title": "\"Кошница с грижа\" с нови предложения в Lidl: 32 основни продукта на специални цени",
+      "published": "2026-09-02T09:00:00+00:00",
+      "analyzed_at": "2026-09-02T15:02:37+00:00",
+      "article_url": "https://dnes.dir.bg/pr-zone/koshnitsa-s-grizha-s-novi-predlozheniya-v-lidl-32-osnovni-produkta-na-spetsialni-tseni",
+      "article_path": "news/data/dir.bg/20260902-koshnitsa-s-grizha-s-novi-predlozheniya-v-lidl-32-osnovni-pr-9a7fd48d.json",
+      "image_url": "https://static.dir.bg/uploads/images/2026/09/02/3022307/800x480.jpg?_=1788357542",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "dir.bg/20260902-katastrofa-mezhdu-tramvay-i-kamion-na-chistota-zatvori-stoli-344f2f69",
       "domain": "dir.bg",
       "title": "Катастрофа между трамвай и камион на \"Чистота\" затвори столичен булевард в час пик (снимки)",
@@ -3440,6 +4064,18 @@
       "article_url": "https://dnes.dir.bg/svyat/evropa-zad-germaniya-za-atakata-s-dron-v-layptsig-putin-obyavi-dokazatelstvata-za-podhvarleni",
       "article_path": "news/data/dir.bg/20260902-evropa-zad-germaniya-za-atakata-s-dron-v-layptsig-putin-obya-39673aeb.json",
       "image_url": "https://static.dir.bg/uploads/images/2026/09/02/3022078/800x480.jpg?_=1788334703",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "dir.bg/20260902-erdogan-putin-iska-voynata-da-priklyuchi-chas-po-skoro-ne-e--96eb986e",
+      "domain": "dir.bg",
+      "title": "Ердоган: Путин иска войната да приключи час по-скоро, не е доволен от нейния резултат",
+      "published": "2026-09-02T09:00:00+00:00",
+      "analyzed_at": "2026-09-02T15:02:41+00:00",
+      "article_url": "https://dnes.dir.bg/svyat/erdogan-putin-iska-voynata-da-priklyuchi-chas-po-skoro-ne-e-dovolen-ot-neyniya-rezultat",
+      "article_path": "news/data/dir.bg/20260902-erdogan-putin-iska-voynata-da-priklyuchi-chas-po-skoro-ne-e--96eb986e.json",
+      "image_url": "https://static.dir.bg/uploads/images/2026/09/02/3022308/800x480.jpg?_=1788357815",
       "reason": "missing_review",
       "current_status": null
     },
@@ -3888,6 +4524,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-putin-vdiga-zalozite-5c200115",
+      "domain": "frognews.bg",
+      "title": "Путин вдига залозите",
+      "published": "2026-09-02T08:45:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:47+00:00",
+      "article_url": "https://frognews.bg/novini/putin-vdiga-zalozite.html",
+      "article_path": "news/data/frognews.bg/20260902-putin-vdiga-zalozite-5c200115.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/51ec170d7_1788338451_6a97e11314154.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "marica.bg/20260902-sled-padane-ot-trotinetka-6-godishno-dete-ot-birkova-se-okaz-54bcae03",
       "domain": "marica.bg",
       "title": "След падане от тротинетка: 6-годишно дете от Биркова се оказ...",
@@ -4208,6 +4856,18 @@
       "article_url": "https://www.marica.bg/zdrave/vajno-za-vsichki-pacienti-nzok-predlaga-10-uvelichenie-na-klinichnite-pateki-ot-1-septemvri-video",
       "article_path": "news/data/marica.bg/20260902-vajno-za-vsichki-pacienti-nzok-predlaga-10-uvelichenie-na-kl-b431eba1.json",
       "image_url": "https://cdn.marica.bg/images/marica.bg/1478/1200_nzok-nacionalna-zdravnoosiguritelna-kasa(2).webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-imotnite-izmami-kapanat-palnomoshtnoto-kak-zagubim-jilishtet-ec3e641b",
+      "domain": "frognews.bg",
+      "title": "Имотните измами и капанът на пълномощното: Как да не загубим жилището си",
+      "published": "2026-09-02T08:20:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:48+00:00",
+      "article_url": "https://frognews.bg/novini/imotnite-izmami-kapanat-palnomoshtnoto-kak-zagubim-jilishteto.html",
+      "article_path": "news/data/frognews.bg/20260902-imotnite-izmami-kapanat-palnomoshtnoto-kak-zagubim-jilishtet-ec3e641b.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/8ff7f293d_imoti-1.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -4608,6 +5268,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-uss-abraham-lincoln-akostira-kurorta-pataia-tailand-nevijdan-08b3de1e",
+      "domain": "frognews.bg",
+      "title": "\"USS ABRAHAM LINCOLN\" акостира в курорта Патая в Тайланд. Невиждано от Виетнам насам",
+      "published": "2026-09-02T08:00:00+00:00",
+      "analyzed_at": "2026-09-02T15:09:55+00:00",
+      "article_url": "https://frognews.bg/svqt/uss-abraham-lincoln-akostira-kurorta-pataia-tailand-nevijdano-vietnam-nasam.html",
+      "article_path": "news/data/frognews.bg/20260902-uss-abraham-lincoln-akostira-kurorta-pataia-tailand-nevijdan-08b3de1e.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/8ef6f9b0f_1788336305_6a97d8b1e457c.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "nova.bg/20260902-ai-D0B8-D180D0BED0B1D0BED182D0B8D182D0B5-D0BCD0BED0B3D0B0D18-cd445dbf",
       "domain": "nova.bg",
       "title": "AI и роботите могат да увеличат световната икономика с до 30 трилиона долара (ВИДЕО)",
@@ -4712,6 +5384,18 @@
       "article_url": "https://fakti.bg/world/1078236-general-drapati-opitva-da-spre-ruskoto-nastaplenie-v-donecka-oblast",
       "article_path": "news/data/fakti.bg/20260902-1078236-general-drapati-opitva-da-spre-ruskoto-nastaplenie-v-0d6f862f.json",
       "image_url": "https://cdn4.focus.bg/fakti/photos/fb/137/general-drapati-opitva-da-spre-ruskoto-nastaplenie-v-donecka-oblast-1.jpg",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-nov-zakon-shte-darzhi-izkaso-barzite-krediti-329a2e3e",
+      "domain": "frognews.bg",
+      "title": "Нов закон ще държи изкъсо бързите кредити",
+      "published": "2026-09-02T07:48:00+00:00",
+      "analyzed_at": "2026-09-02T15:10:00+00:00",
+      "article_url": "https://frognews.bg/novini/nov-zakon-shte-darzhi-izkaso-barzite-krediti.html",
+      "article_path": "news/data/frognews.bg/20260902-nov-zakon-shte-darzhi-izkaso-barzite-krediti-329a2e3e.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/deff39337_1788335313_6a97d4d1048b5.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -5136,6 +5820,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-kabinetat-obsajda-memorandumi-novi-investitsii-kitai-vazmojn-79cd492c",
+      "domain": "frognews.bg",
+      "title": "Кабинетът обсъжда меморандуми за нови инвестиции от Китай. Възможност или риск?",
+      "published": "2026-09-02T07:20:00+00:00",
+      "analyzed_at": "2026-09-02T15:10:07+00:00",
+      "article_url": "https://frognews.bg/novini/kabinetat-obsajda-memorandumi-novi-investitsii-kitai-vazmojnost-ili-risk.html",
+      "article_path": "news/data/frognews.bg/20260902-kabinetat-obsajda-memorandumi-novi-investitsii-kitai-vazmojn-79cd492c.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/482758440_1788333166_6a97cc6ee4d5a.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "actualno.com/20260902-nova-anti-peevski-mjarka-radev-anonsira-chetiri-pyti-po-evti-e7002c9e",
       "domain": "actualno.com",
       "title": "Нова анти-Пеевски мярка: Радев анонсира четири пъти по-евтини такси за електроуреди и техника (ВИДЕО)",
@@ -5340,6 +6036,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-oon-himalaite-vse-zastrasheni-opustoshitelni-lednikovi-navod-5992e39e",
+      "domain": "frognews.bg",
+      "title": "ООН: Хималаите са все по-застрашени от опустошителни ледникови наводнения",
+      "published": "2026-09-02T07:00:00+00:00",
+      "analyzed_at": "2026-09-02T15:10:15+00:00",
+      "article_url": "https://frognews.bg/novini/oon-himalaite-vse-zastrasheni-opustoshitelni-lednikovi-navodneniia.html",
+      "article_path": "news/data/frognews.bg/20260902-oon-himalaite-vse-zastrasheni-opustoshitelni-lednikovi-navod-5992e39e.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/6de56db76_1788331816_6a97c728c0b60.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "petel.bg/20260902-PSS-Dobri-sa-usloviyata-za-turizam-v-planinite-667269-485fc53f",
       "domain": "petel.bg",
       "title": "ПСС: Добри са условията за туризъм в планините",
@@ -5496,6 +6204,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-nso-aresta-strumiani-darjeshe-razlichno-ostanalite-grajdani--6ff3a279",
+      "domain": "frognews.bg",
+      "title": "НСО за ареста в Струмяни: Държеше се различно от останалите граждани и журналисти",
+      "published": "2026-09-02T06:45:00+00:00",
+      "analyzed_at": "2026-09-02T15:10:17+00:00",
+      "article_url": "https://frognews.bg/novini/nso-aresta-strumiani-darjeshe-razlichno-ostanalite-grajdani-jurnalisti.html",
+      "article_path": "news/data/frognews.bg/20260902-nso-aresta-strumiani-darjeshe-razlichno-ostanalite-grajdani--6ff3a279.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/368c57f78_1788331005_6a97c3fda24a4.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "petel.bg/20260902-Tramvay-i-kamion-na-CHistota-se-udariha-na-bulevard-v-Sofiya-7b110fdb",
       "domain": "petel.bg",
       "title": "Трамвай и камион на 'Чистота' се удариха на булевард в София",
@@ -5592,6 +6312,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-andrei-giurov-prezidentat-triabva-korektiv-vlastta-neino-pro-141fd3d3",
+      "domain": "frognews.bg",
+      "title": "Андрей Гюров: Президентът трябва да е коректив на властта, а не нейно продължение",
+      "published": "2026-09-02T06:30:00+00:00",
+      "analyzed_at": "2026-09-02T15:10:24+00:00",
+      "article_url": "https://frognews.bg/novini/andrei-giurov-prezidentat-triabva-korektiv-vlastta-neino-prodaljenie.html",
+      "article_path": "news/data/frognews.bg/20260902-andrei-giurov-prezidentat-triabva-korektiv-vlastta-neino-pro-141fd3d3.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/e0f8f224e_1788330102_6a97c0761ab2b.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "petel.bg/20260902-Hotelier-ot-Slanchev-bryag-kam-balgarite-koito-hodyat-na-mor-d1439603",
       "domain": "petel.bg",
       "title": "Хотелиер от Слънчев бряг към българите, които ходят на море при съседите:  Оня камънак и ония таралежи какво ще се сравняват с нас. В оная солена вода излизаш като хамсийка",
@@ -5660,6 +6392,18 @@
       "article_url": "https://www.marica.bg/svqt/zelenski-predupredi-aviokompaniite-ruskoto-nebe-na-praktika-veche-e-zatvoreno",
       "article_path": "news/data/marica.bg/20260902-zelenski-predupredi-aviokompaniite-ruskoto-nebe-na-praktika--74d52835.json",
       "image_url": "https://cdn.marica.bg/images/marica.bg/1691/1200_volodymyr-zelensky.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-balgariia-20-godini-6-pati-rast-zaplatite-skok-pokupatelnata-8cd8a47e",
+      "domain": "frognews.bg",
+      "title": "България за 20 години: 6 пъти ръст на заплатите, скок на покупателната способност",
+      "published": "2026-09-02T06:15:00+00:00",
+      "analyzed_at": "2026-09-02T15:10:28+00:00",
+      "article_url": "https://frognews.bg/biznes-turisam/balgariia-20-godini-6-pati-rast-zaplatite-skok-pokupatelnata-sposobnost.html",
+      "article_path": "news/data/frognews.bg/20260902-balgariia-20-godini-6-pati-rast-zaplatite-skok-pokupatelnata-8cd8a47e.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/1d27b3bd2_1788328886_6a97bbb61cc36.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -5912,6 +6656,18 @@
       "article_url": "https://www.marica.bg/svqt/trevoga-kray-istanbul-2-koraba-se-sblaskaha-10-dushi-sa-v-neizvestnost-karta",
       "article_path": "news/data/marica.bg/20260902-trevoga-kray-istanbul-2-koraba-se-sblaskaha-10-dushi-sa-v-ne-8d96cfbe.json",
       "image_url": "https://cdn.marica.bg/images/marica.bg/1893/1200_Tuekiye-korabi-sblasak-marinetrafik.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-poveche-operatsii-dronove-kiev-predupredi-aviokompaniite-izb-c03ced35",
+      "domain": "frognews.bg",
+      "title": "Повече операции с дронове: Киев предупреди авиокомпаниите да избягват руското небе",
+      "published": "2026-09-02T05:50:00+00:00",
+      "analyzed_at": "2026-09-02T15:11:12+00:00",
+      "article_url": "https://frognews.bg/novini/poveche-operatsii-dronove-kiev-predupredi-aviokompaniite-izbiagvat-ruskoto-nebe.html",
+      "article_path": "news/data/frognews.bg/20260902-poveche-operatsii-dronove-kiev-predupredi-aviokompaniite-izb-c03ced35.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/d3e84f232_1788327768_6a97b75891359.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -6408,6 +7164,18 @@
       "current_status": null
     },
     {
+      "id": "frognews.bg/20260902-22-mesetsa-kasno-hiliadi-sarbi-izliazoha-protest-pamet-jertv-6d224201",
+      "domain": "frognews.bg",
+      "title": "22 месеца по-късно: Хиляди сърби излязоха на протест в памет на жертвите от Нови сад",
+      "published": "2026-09-02T05:00:00+00:00",
+      "analyzed_at": "2026-09-02T15:13:55+00:00",
+      "article_url": "https://frognews.bg/novini/22-mesetsa-kasno-hiliadi-sarbi-izliazoha-protest-pamet-jertvite-novi-sad.html",
+      "article_path": "news/data/frognews.bg/20260902-22-mesetsa-kasno-hiliadi-sarbi-izliazoha-protest-pamet-jertv-6d224201.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/94e79ada5_1788324669_6a97ab3d6138c.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "actualno.com/20260902-tri-malki-navika-za-pazaruvane-s-koito-se-grijim-za-prirodat-f935bf0a",
       "domain": "actualno.com",
       "title": "Три малки навика за пазаруване, с които се грижим за природата",
@@ -6596,6 +7364,18 @@
       "article_url": "https://petel.bg/Sled-smartta-na-8-leshoyada--Protest-za-po-strogi-nakazaniya-za-prestapleniya-sreshhu-divata-priroda__667251",
       "article_path": "news/data/petel.bg/20260902-Sled-smartta-na-8-leshoyada-Protest-za-po-strogi-nakazaniya--6911d59f.json",
       "image_url": "https://static.petel.bg/resources/2026/09/02/medium_oki.png",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-harvatiia-otpuska-domakinstvata-desetki-milioni-sistemi-chis-eb228680",
+      "domain": "frognews.bg",
+      "title": "Хърватия отпуска на домакинствата десетки милиони за системи за чиста енергия",
+      "published": "2026-09-02T04:40:00+00:00",
+      "analyzed_at": "2026-09-02T15:13:10+00:00",
+      "article_url": "https://frognews.bg/novini/harvatiia-otpuska-domakinstvata-desetki-milioni-sistemi-chista-energiia.html",
+      "article_path": "news/data/frognews.bg/20260902-harvatiia-otpuska-domakinstvata-desetki-milioni-sistemi-chis-eb228680.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/4e7c70d57_1788323719_6a97a7878196e.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -6884,6 +7664,18 @@
       "article_url": "https://www.marica.bg/balgariq/obshtestvo/golqma-promqna-na-letishte-vasil-levski-ot-dnes-bagajat-shte-minava-8-pati-po-barzo",
       "article_path": "news/data/marica.bg/20260902-golqma-promqna-na-letishte-vasil-levski-ot-dnes-bagajat-shte-7bc372ab.json",
       "image_url": "https://cdn.marica.bg/images/marica.bg/1684/1200_22474acd-b341-4e5d-bdb8-38087d0bdec2_0.webp",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "frognews.bg/20260902-zapochva-registratsiiata-prezidentskite-izbori-videonabliude-6890c88d",
+      "domain": "frognews.bg",
+      "title": "Започва регистрацията за президентските избори, видеонаблюдение във всяка секция",
+      "published": "2026-09-02T04:15:00+00:00",
+      "analyzed_at": "2026-09-02T15:11:28+00:00",
+      "article_url": "https://frognews.bg/novini/zapochva-registratsiiata-prezidentskite-izbori-videonabliudenie-vav-vsiaka-sektsiia.html",
+      "article_path": "news/data/frognews.bg/20260902-zapochva-registratsiiata-prezidentskite-izbori-videonabliude-6890c88d.json",
+      "image_url": "https://frognews.bg/images2/thumbs16x9/600/c6a07069a_1788322474_6a97a2aa75562.webp",
       "reason": "missing_review",
       "current_status": null
     },
@@ -28680,6 +29472,18 @@
       "current_status": null
     },
     {
+      "id": "glasove.com/nodate-zelenski-smeni-komandvashtiya-na-suhopatnite-voyski-d70b5b6d",
+      "domain": "glasove.com",
+      "title": "Зеленски смени командващия на сухопътните войски",
+      "published": null,
+      "analyzed_at": "2026-09-02T15:08:52+00:00",
+      "article_url": "https://glasove.com/novini/zelenski-smeni-komandvashtiya-na-suhopatnite-voyski",
+      "article_path": "news/data/glasove.com/nodate-zelenski-smeni-komandvashtiya-na-suhopatnite-voyski-d70b5b6d.json",
+      "image_url": "https://glasove.com/media/2026/09/02/188079/social.jpg?_=1788356154",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "glasove.com/nodate-yettel-e-investirala-nad-600-hil-evro-za-poslednite-10-godin-4bdcb2c6",
       "domain": "glasove.com",
       "title": "Yettel е инвестирала над 600 хил. евро за последните 10 години в развитието на дигиталните умения на българите",
@@ -28896,6 +29700,18 @@
       "current_status": null
     },
     {
+      "id": "glasove.com/nodate-sblasatsi-mezhdu-taynite-sluzhbi-v-kiev-strelyaha-edni-po-dr-6578adde",
+      "domain": "glasove.com",
+      "title": "Сблъсъци между тайните служби в Киев: стреляха едни по други, има убит и  ранени",
+      "published": null,
+      "analyzed_at": "2026-09-02T15:08:42+00:00",
+      "article_url": "https://glasove.com/novini/sblasatsi-mezhdu-taynite-sluzhbi-v-kiev-strelyaha-edni-po-drugi-ima-ubit-i-raneni",
+      "article_path": "news/data/glasove.com/nodate-sblasatsi-mezhdu-taynite-sluzhbi-v-kiev-strelyaha-edni-po-dr-6578adde.json",
+      "image_url": "https://glasove.com/media/2026/09/02/188083/social.jpg?_=1788360018",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
       "id": "glasove.com/nodate-sasht-poemat-kontrola-varhu-edna-peta-ot-ogromnite-petrolni--3349832e",
       "domain": "glasove.com",
       "title": "САЩ поемат контрола върху една пета от огромните петролни резерви на Венецуела",
@@ -29108,6 +29924,18 @@
       "article_url": "https://glasove.com/novini/politiko-merts-vadi-ruskata-zaplaha-sreshtu-azg-shte-obvini-moskva-za-ataka-v-layptsig-koyato-ne-se-sastoya",
       "article_path": "news/data/glasove.com/nodate-politiko-merts-vadi-ruskata-zaplaha-sreshtu-azg-shte-obvini--b6f28721.json",
       "image_url": "https://glasove.com/media/2026/08/29/187935/social.jpg?_=1788023330",
+      "reason": "missing_review",
+      "current_status": null
+    },
+    {
+      "id": "glasove.com/nodate-petar-vodenski-za-kremal-tramp-veche-e-kutso-pate-sasht-sa-p-b524372d",
+      "domain": "glasove.com",
+      "title": "Петър Воденски: За Кремъл Тръмп вече е „куцо пате“, САЩ са пред капитулация във войната с Иран",
+      "published": null,
+      "analyzed_at": "2026-09-02T15:08:52+00:00",
+      "article_url": "https://glasove.com/na-fokus/petar-vodenski-za-kremal-tramp-veche-e-kutso-pate-sasht-sa-pred-kapitulatsiya-vav-voynata-s-iran",
+      "article_path": "news/data/glasove.com/nodate-petar-vodenski-za-kremal-tramp-veche-e-kutso-pate-sasht-sa-p-b524372d.json",
+      "image_url": "https://glasove.com/media/2026/09/01/188018/social.jpeg?_=1788324912",
       "reason": "missing_review",
       "current_status": null
     },

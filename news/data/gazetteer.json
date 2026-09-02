@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated_at": "2026-09-02T14:21:13+00:00",
+ "generated_at": "2026-09-02T15:01:53+00:00",
  "coverage": {
   "people": 4655,
   "people_with_no_resolvable_form": 479,
@@ -45,10 +45,10 @@
    "БНТ · Нова телевизия · „24 часа“"
   ],
   "forms_total": 23469,
-  "forms_resolvable": 11723,
-  "common_words": 32081,
+  "forms_resolvable": 11722,
+  "common_words": 32229,
   "places_named_like_a_given_name": 54,
-  "common_words_from_articles": 7572,
+  "common_words_from_articles": 7647,
   "companies": 0,
   "companies_excluded_because": "1.02M registry names cannot be matched by name without inventing matches; a company resolves only on an explicit EIK in the text"
  },
@@ -12324,7 +12324,7 @@
  {"canonical": "Постник", "forms": [{"form_kind": "name", "id": "settlement:57892", "resolvable": true, "surface": "Постник", "why": "unique place"}], "id": "settlement:57892", "kind": "place", "place_kind": "settlement"},
  {"canonical": "Поток", "forms": [{"anchor_for": "settlement:59327", "form_kind": "name", "id": null, "refusal": "common_word", "resolvable": false, "surface": "Поток", "why": "„Поток“ is an ordinary Bulgarian word in this corpus — anchor only; a one-word common noun cannot be told from the place that shares its name"}], "id": null, "kind": "place", "place_kind": "settlement"},
  {"canonical": "Потока", "forms": [{"anchor_for": "settlement:57916", "form_kind": "name", "id": null, "refusal": "common_word", "resolvable": false, "surface": "Потока", "why": "„Потока“ is an ordinary Bulgarian word in this corpus — anchor only; a one-word common noun cannot be told from the place that shares its name"}], "id": null, "kind": "place", "place_kind": "settlement"},
- {"canonical": "Потоп", "forms": [{"form_kind": "name", "id": "settlement:57921", "resolvable": true, "surface": "Потоп", "why": "unique place"}], "id": "settlement:57921", "kind": "place", "place_kind": "settlement"},
+ {"canonical": "Потоп", "forms": [{"anchor_for": "settlement:57921", "form_kind": "name", "id": null, "refusal": "common_word", "resolvable": false, "surface": "Потоп", "why": "„Потоп“ is an ordinary Bulgarian word in this corpus — anchor only; a one-word common noun cannot be told from the place that shares its name"}], "id": null, "kind": "place", "place_kind": "settlement"},
  {"canonical": "Поточарка", "forms": [{"form_kind": "name", "id": "settlement:57933", "resolvable": true, "surface": "Поточарка", "why": "unique place"}], "id": "settlement:57933", "kind": "place", "place_kind": "settlement"},
  {"canonical": "Поточе", "forms": [{"form_kind": "name", "id": "settlement:57947", "resolvable": true, "surface": "Поточе", "why": "unique place"}], "id": "settlement:57947", "kind": "place", "place_kind": "settlement"},
  {"canonical": "Поточница", "forms": [{"form_kind": "name", "id": "settlement:57950", "resolvable": true, "surface": "Поточница", "why": "unique place"}], "id": "settlement:57950", "kind": "place", "place_kind": "settlement"},
