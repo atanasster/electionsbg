@@ -713,3 +713,107 @@ test("an encoded path separator is not matched as a contract", () => {
   assert.equal(matchSpaPage("/funds/contract/BG16%2Fx"), null);
   assert.ok(matchSpaPage("/funds/contract/BG16%20RFOP%201"));
 });
+
+// ── Interreg PROGRAMMES (/funds/interreg/programme/:code) ────────────────────
+//
+// Without a head of their own, these fell through to the operation regex
+// above (no match — the code is never digits-only), then to the HOMEPAGE's
+// title/canonical + noindex — the exact fallthrough this file's Sofia
+// council-resolution incident and the contract family both document. Real,
+// not hypothetical: InterregTile.tsx links here from the /funds hub.
+
+const { interregProgrammePage } = require("./spa_page.js");
+
+const PROGRAMME = {
+  code: "INTERREG-ROBG-1420",
+  nameBg: "ИНТЕРРЕГ V-A Румъния - България 2014-2020",
+  nameEn: "INTERREG V-A Romania-Bulgaria",
+  period: "2014-2020",
+  cci: null,
+  budgetEur: 130933260.53,
+  partnerCount: 226,
+  operationCount: 169,
+  placedCount: 223,
+  linkedCount: 0,
+  unpublishedPartnerCount: 0,
+  operations: [
+    {
+      keepId: 17869,
+      titleEn: "Development of the River Danube",
+      titleBg: null,
+      localBudgetEur: 4605429.69,
+    },
+    { keepId: 19703, titleEn: "Road Safety", titleBg: null, localBudgetEur: null },
+  ],
+  munis: [{ obshtina: "S22", budgetEur: 22890277.81 }],
+};
+
+test("matchSpaPage owns /funds/interreg/programme/:code in both languages, ahead of the operation-id arm", () => {
+  assert.deepEqual(matchSpaPage("/funds/interreg/programme/INTERREG-ROBG-1420"), {
+    kind: "programme",
+    key: "INTERREG-ROBG-1420",
+    lang: "bg",
+  });
+  assert.deepEqual(
+    matchSpaPage("/en/funds/interreg/programme/INTERREG-ROBG-1420"),
+    { kind: "programme", key: "INTERREG-ROBG-1420", lang: "en" },
+  );
+  // The plain operation-id regex must never absorb this shape — it is
+  // anchored on digits only, so "programme/..." cannot match it, but a
+  // regression here is exactly the class of bug this file exists to catch.
+  assert.notEqual(
+    matchSpaPage("/funds/interreg/programme/INTERREG-ROBG-1420").kind,
+    "interreg",
+  );
+  for (const p of [
+    "/funds/interreg/programme/",
+    "/funds/interreg/programme/lowercase",
+    "/funds/interreg/programme/AB", // below the 3-char floor
+  ])
+    assert.equal(matchSpaPage(p), null, p);
+});
+
+test("isSpaPagePath covers the programme sub-path too", () => {
+  assert.equal(
+    isSpaPagePath("/funds/interreg/programme/INTERREG-ROBG-1420"),
+    true,
+  );
+  assert.equal(
+    isSpaPagePath("/en/funds/interreg/programme/INTERREG-ROBG-1420"),
+    true,
+  );
+});
+
+test("the programme page names the Bulgarian budget, never the operation total", () => {
+  const page = interregProgrammePage(
+    PROGRAMME,
+    "bg",
+    "https://x/funds/interreg/programme/INTERREG-ROBG-1420",
+  );
+  assert.match(page.title, /ИНТЕРРЕГ V-A Румъния/);
+  assert.match(page.description, /130 933 261|130933261|130 933 260/);
+  assert.match(page.bodyHtml, /Development of the River Danube/);
+  assert.match(page.bodyHtml, /href="[^"]*\/funds\/interreg\/17869"/);
+  // A partner-level unpublished budget is "no published budget", never €0.
+  assert.match(page.bodyHtml, /без публикуван бюджет/);
+});
+
+test("the programme page links each municipality to its governance dashboard", () => {
+  const page = interregProgrammePage(
+    PROGRAMME,
+    "bg",
+    "https://x/funds/interreg/programme/INTERREG-ROBG-1420",
+  );
+  assert.match(page.bodyHtml, /href="[^"]*\/governance\/S22"/);
+});
+
+test("selfUrlFor names the programme path", () => {
+  assert.equal(
+    selfUrlFor({ kind: "programme", key: "INTERREG-ROBG-1420", lang: "bg" }),
+    `${SITE_URL}/funds/interreg/programme/INTERREG-ROBG-1420`,
+  );
+  assert.equal(
+    selfUrlFor({ kind: "programme", key: "INTERREG-ROBG-1420", lang: "en" }),
+    `${SITE_URL}/en/funds/interreg/programme/INTERREG-ROBG-1420`,
+  );
+});

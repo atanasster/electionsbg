@@ -33,6 +33,7 @@ const {
   contractPage,
   companyPage,
   interregPage,
+  interregProgrammePage,
   councilResolutionPage,
   FALLBACK_SHELL,
 } = require("./spa_page.js");
@@ -665,6 +666,16 @@ const makeDb = () => {
               [Number(keepId)],
             );
             return rows[0]?.r ? interregPage(rows[0].r, lang, selfUrl) : null;
+          },
+          loadInterregProgramme: async (code, lang, selfUrl) => {
+            const p = await getDbPool(DB_PASSWORD.value());
+            const { rows } = await p.query(
+              "SELECT interreg_programme($1) AS r",
+              [code],
+            );
+            return rows[0]?.r
+              ? interregProgrammePage(rows[0].r, lang, selfUrl)
+              : null;
           },
           loadCouncilResolution: async (id, lang, selfUrl) => {
             const p = await getDbPool(DB_PASSWORD.value());

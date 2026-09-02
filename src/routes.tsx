@@ -784,6 +784,11 @@ const FundsInterregScreen = lazy(() =>
     default: m.FundsInterregScreen,
   })),
 );
+const FundsInterregProgrammeScreen = lazy(() =>
+  import("./screens/funds/FundsInterregProgrammeScreen").then((m) => ({
+    default: m.FundsInterregProgrammeScreen,
+  })),
+);
 const FundsScreen = lazy(() =>
   import("./screens/FundsScreen").then((m) => ({
     default: m.FundsScreen,
@@ -3186,6 +3191,18 @@ export const AuthRoutes = () => {
           {/* Interreg operations sit under /funds/ but are a DIFFERENT corpus:
               keep.eu / Jems, not ИСУН. The URL says funds because that is what a
               reader is looking for; every page on it says which source. */}
+          {/* Declared BEFORE funds/interreg/:keepId — same prefix-first
+              convention as council/resolution/:id before council/:code — even
+              though the two never collide (a code is never a bare digit
+              string a keepId regex would also match). */}
+          <Route
+            path="funds/interreg/programme/:code"
+            element={
+              <LayoutScreen>
+                <FundsInterregProgrammeScreen />
+              </LayoutScreen>
+            }
+          />
           <Route
             path="funds/interreg/:keepId"
             element={

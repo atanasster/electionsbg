@@ -15,6 +15,7 @@ import type {
   InterregOverview,
   FundsMuniRank,
   InterregOperationDetail,
+  InterregProgrammeDetail,
 } from "./types";
 
 const getJson = async <T,>(url: string): Promise<T> => {
@@ -57,5 +58,23 @@ export const useInterregOperation = (keepId: string | undefined) =>
       return (await r.json()) as InterregOperationDetail | null;
     },
     enabled: !!keepId,
+    staleTime: Infinity,
+  });
+
+/** One programme's Bulgarian-side detail, for /funds/interreg/programme/:code.
+ *  `null` is an unknown code — same 200+null convention as
+ *  `useInterregOperation` above, so the page renders its not-found branch
+ *  rather than surfacing a fetch error. */
+export const useInterregProgramme = (code: string | undefined) =>
+  useQuery({
+    queryKey: ["interreg", "programme", code ?? ""] as const,
+    queryFn: async (): Promise<InterregProgrammeDetail | null> => {
+      const r = await fetch(
+        `/api/db/interreg-programme?code=${encodeURIComponent(code!)}`,
+      );
+      if (!r.ok) throw new Error(`interreg-programme failed: ${r.status}`);
+      return (await r.json()) as InterregProgrammeDetail | null;
+    },
+    enabled: !!code,
     staleTime: Infinity,
   });

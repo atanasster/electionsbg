@@ -22,28 +22,12 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Globe } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Link } from "react-router-dom";
 import { formatEur } from "@/lib/currency";
+import type { InterregListedOperation } from "@/data/funds/types";
+import { InterregOperationRow } from "@/screens/funds/InterregOperationRow";
+import { GOVERNANCE_INTERREG_ANCHOR } from "@/screens/funds/InterregTile";
 
 const OPS_SHOWN = 6;
-
-interface InterregPlaceOperation {
-  keepId: number;
-  operationId: string | null;
-  programmeBg: string | null;
-  programmeEn: string | null;
-  period: string;
-  titleEn: string;
-  titleBg: string | null;
-  status: string | null;
-  startDate: string | null;
-  endDate: string | null;
-  operationTotalEur: number | null;
-  partnerCount: number | null;
-  countries: string[] | null;
-  localBudgetEur: number | null;
-  localBudgetBasis: string;
-}
 
 interface InterregPlace {
   partnerCount: number;
@@ -51,7 +35,7 @@ interface InterregPlace {
   budgetEur: number;
   unpublishedPartnerCount: number;
   linkedCount: number;
-  operations: InterregPlaceOperation[];
+  operations: InterregListedOperation[];
 }
 
 const useInterregPlace = (obshtina: string | undefined) =>
@@ -77,7 +61,7 @@ export const MyAreaInterregTile: FC<{ obshtina: string }> = ({ obshtina }) => {
   if (!data || data.operationCount === 0) return null;
 
   return (
-    <Card id="myarea-interreg">
+    <Card id={GOVERNANCE_INTERREG_ANCHOR}>
       <div className="p-4 flex flex-col gap-3">
         <div className="flex items-center gap-2">
           <Globe className="size-4 text-primary" />
@@ -109,51 +93,12 @@ export const MyAreaInterregTile: FC<{ obshtina: string }> = ({ obshtina }) => {
 
         <ul className="divide-y text-xs">
           {data.operations.map((o) => (
-            <li key={o.keepId} className="flex flex-col gap-0.5 py-2">
-              <div className="flex flex-wrap items-baseline gap-x-2">
-                <Link
-                  to={`/funds/interreg/${o.keepId}`}
-                  className="min-w-0 flex-1 font-medium underline"
-                >
-                  {/* keep.eu publishes titles in English only — 107 of 107
-                      sampled projects have no `bg` translation. Rendering the
-                      English one with a marker is honest; inventing a Bulgarian
-                      title would not be. */}
-                  {o.titleBg ?? o.titleEn}
-                  {bg && !o.titleBg ? (
-                    <span className="ml-1 text-[10px] font-normal text-muted-foreground">
-                      {t("myarea_interreg_in_english")}
-                    </span>
-                  ) : null}
-                </Link>
-                <span className="shrink-0 tabular-nums font-semibold">
-                  {o.localBudgetEur != null
-                    ? formatEur(o.localBudgetEur, lang)
-                    : t("myarea_interreg_no_budget")}
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-x-2 text-[10px] text-muted-foreground">
-                <span>{(bg ? o.programmeBg : o.programmeEn) ?? "—"}</span>
-                <span>·</span>
-                <span>{o.period}</span>
-                {o.operationTotalEur != null ? (
-                  <>
-                    <span>·</span>
-                    <span>
-                      {t("myarea_interreg_whole_project", {
-                        eur: formatEur(o.operationTotalEur, lang),
-                      })}
-                    </span>
-                  </>
-                ) : null}
-                {o.countries && o.countries.length > 0 ? (
-                  <>
-                    <span>·</span>
-                    <span>{o.countries.join(", ")}</span>
-                  </>
-                ) : null}
-              </div>
-            </li>
+            <InterregOperationRow
+              key={o.keepId}
+              operation={o}
+              bg={bg}
+              lang={lang}
+            />
           ))}
         </ul>
 

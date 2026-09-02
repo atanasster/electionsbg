@@ -32,10 +32,13 @@ const MOVERS_SHOWN = 10;
 const PROGRAMMES_SHOWN = 6;
 
 // The per-place Interreg tile lives on the governance/My-Area dashboard, at this
-// fixed id — see MyAreaInterregTile.tsx. Linking here with a `#` hash relies on
-// the app-wide hash-scroll in routes.tsx's `ScrollToTop`, so no scroll code is
-// needed on this end.
-const GOVERNANCE_INTERREG_ANCHOR = "myarea-interreg";
+// fixed id — see MyAreaInterregTile.tsx (which sets it) and
+// FundsInterregProgrammeScreen.tsx (which also links to it). Exported so all
+// three sites share one literal rather than three independent copies that can
+// drift silently if the anchor is ever renamed. Linking here with a `#` hash
+// relies on the app-wide hash-scroll in routes.tsx's `ScrollToTop`, so no
+// scroll code is needed on this end.
+export const GOVERNANCE_INTERREG_ANCHOR = "myarea-interreg";
 
 const Stat: FC<{ label: string; value: string; hint?: string }> = ({
   label,
@@ -278,9 +281,12 @@ export const InterregTile: FC = () => {
                   key={p.code}
                   className="flex flex-wrap items-baseline gap-x-3 py-1.5"
                 >
-                  <span className="min-w-0 flex-1 truncate">
+                  <Link
+                    to={`/funds/interreg/programme/${p.code}`}
+                    className="min-w-0 flex-1 truncate underline"
+                  >
                     {(bg ? p.nameBg : p.nameEn) ?? p.code}
-                  </span>
+                  </Link>
                   <span className="shrink-0 text-[10px] text-muted-foreground">
                     {p.period}
                   </span>

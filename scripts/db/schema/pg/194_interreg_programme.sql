@@ -44,7 +44,14 @@ CREATE OR REPLACE FUNCTION interreg_programme(
   p_muni_limit int DEFAULT 15
 ) RETURNS jsonb LANGUAGE sql STABLE AS $$
 WITH bg AS (
-  SELECT p.keep_id, p.budget_eur, p.budget_basis, p.eik, p.ekatte, p.obshtina
+  SELECT p.keep_id, p.budget_eur, p.budget_basis, p.eik, p.ekatte,
+         -- SFO_CITY → S22: the ONE place this corpus and the rest of the site
+         -- disagree on a code (139's header). Without this, Sofia's `munis`
+         -- row below is keyed to a code /governance/:id and municipalities.json
+         -- do not recognise — €22.9m of ROBG-1420 alone, its single largest
+         -- municipality.
+         CASE WHEN p.obshtina = 'SFO_CITY' THEN 'S22' ELSE p.obshtina END
+           AS obshtina
     FROM interreg_partners p
     JOIN interreg_operations o USING (keep_id)
    WHERE o.programme_code = p_code

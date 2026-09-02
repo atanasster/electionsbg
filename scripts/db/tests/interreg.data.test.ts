@@ -1117,6 +1117,31 @@ test.skipIf(skip)(
   },
 );
 
+test.skipIf(skip)(
+  "Sofia's municipality row is keyed S22, not the raw SFO_CITY",
+  async () => {
+    // The same reconciliation 139's funds_muni_combined_v applies for exactly
+    // this reason: interreg_partners.obshtina says SFO_CITY, but
+    // /governance/:id, municipalities.json and every other place-keyed
+    // surface on the site use S22. A raw SFO_CITY row is a code nothing else
+    // recognises — its link 404s or falls through, and its name renders as
+    // the bare code instead of "Столична".
+    const code = "INTERREG-ROBG-1420"; // ROBG-1420's largest muni is Sofia
+    const got = await one<{
+      r: { munis: { obshtina: string; budgetEur: number }[] };
+    }>(`SELECT interreg_programme($1, 1, 50) AS r`, [code]);
+    const codes = got.r.munis.map((m) => m.obshtina);
+    assert.ok(
+      codes.includes("S22"),
+      `${code}: expected an S22 row among ${JSON.stringify(codes)}`,
+    );
+    assert.ok(
+      !codes.includes("SFO_CITY"),
+      "a raw SFO_CITY code leaked into the municipality list",
+    );
+  },
+);
+
 test.skipIf(skip)("the programme filter rides its index", async () => {
   const plan = await allRows<{ "QUERY PLAN": string }>(
     `EXPLAIN SELECT count(*) FROM interreg_operations o
