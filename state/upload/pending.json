@@ -1,42 +1,15 @@
 {
-  "session": "20260902T045906Z-6ac2",
+  "session": "20260902T100005Z-b095",
   "createdAt": "2026-09-02T09:57:28.939Z",
+  "commit": "597c42965a",
   "skills": [
     "update-procurement",
     "update-council-minutes",
     "update-funds"
   ],
-  "paths": [
-    "procurement/derived/hub_stats.json",
-    "procurement/derived/sector_stats.json",
-    "culture/derived/hub_stats.json",
-    "governance/hub_stats.json",
-    "governance/declarations_hub_stats.json",
-    "home/hub_stats.json",
-    "home/price_events.json",
-    "home/feed.json",
-    "data_map.json",
-    "data-changes.json"
-  ],
+  "paths": [],
   "cloudCommands": [
-    "npm run db:load:pg:cloud",
-    "npm run db:load:annexes:pg:cloud",
-    "npm run db:load:tenders:pg:cloud",
-    "npm run db:load:ted:pg:cloud",
-    "npm run db:load:awarder-seats:pg:cloud",
-    "npm run db:load:funds:pg:cloud -- --full",
-    "npm run db:load:clean-delivery:pg:cloud",
-    "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 086_search_fund_projects.sql 175_isun_clean_delivery.sql",
-    "npm run db:load:funds-fit:pg:cloud",
-    "npm run db:load:employer-links:pg:cloud",
-    "npm run db:load:persons-browse:pg:cloud",
-    "npm run db:load:person-search:pg:cloud",
-    "npm run db:load:graph:pg:cloud",
-    "npm run db:load:tr-company-place:pg:cloud",
-    "npm run db:load:grant-links:pg:cloud",
-    "npm run db:load:agri-hub-stats:pg:cloud",
-    "npm run db:load:council:pg:cloud",
-    "npm run myarea:alerts:cloud"
+    "npm run db:load:clean-delivery:pg:cloud"
   ],
-  "notes": "EOP gap-fill +129 rows, tenders 238,367, TED 218,594, council +16 (SZR01), ИСУН 82,301 contracts ingested out-of-session at 09:34 — all funds-derived tables rebuilt on the new vintage. home/price_events.json has NEVER been published (404). NOTE: home/* needs bucket:gz after sync."
+  "notes": "PARTIAL PUBLISH 2026-09-02 (session 20260902T100005Z-b095): bucket 10/10 done and verified; 16 of 17 cloud loaders done. HELD: db:load:clean-delivery:pg:cloud + the 175_isun_clean_delivery.sql apply, because the corrected isun_clean_delivery_for_eik mounts the /company tile on ~956 more EIKs and the CompanyCleanDeliveryTile fix (fc3342616d) is not deployed. Order: npm run deploy FIRST, then apply 175 (DROP+CREATE under a role-guarded GRANT - app_readonly must exist or /api/db/company 42501s), then this loader."
 }
