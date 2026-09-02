@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated_at": "2026-09-02T10:19:03.892123+00:00",
+  "generated_at": "2026-09-02T14:34:19.388659+00:00",
   "counts": {
-    "total": 91,
-    "active": 6,
-    "pending": 6
+    "total": 96,
+    "active": 11,
+    "pending": 11
   },
   "items": [
     {
@@ -138,6 +138,308 @@
         "topic": [
           "elections-parliamentary",
           "campaign"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-133b97a1c41f2022",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-02T13:23:47.575368+00:00",
+      "last_seen": "2026-09-02T13:23:47.575368+00:00",
+      "keeper": {
+        "id": "20260902-1ddb4caa",
+        "title_bg": "Зеленски смени командващия сухопътните войски на Украйна",
+        "title_en": "Ukrainian President Volodymyr Zelensky replaced the commander of Ukraine's ground forces, appointing Colonel Svyatoslav Zaits, who previously served in airborne units. The decree was published as new commander-in-chief Mykhailo Drapatyi carries out changes in the armed forces.",
+        "last_published": "2026-09-02T11:51:25+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "ukraine",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Володимир Зеленски",
+            "Святослав Заиц",
+            "Михайло Драпати"
+          ],
+          "parties": [],
+          "institutions": [
+            "Сухопътни войски на Украйна",
+            "БТА"
+          ],
+          "companies": [],
+          "places": [
+            "Украйна"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-1ddb4caa",
+        "title_bg": "Зеленски смени командващия сухопътните войски на Украйна",
+        "title_en": "Ukrainian President Volodymyr Zelensky replaced the commander of Ukraine's ground forces, appointing Colonel Svyatoslav Zaits, who previously served in airborne units. The decree was published as new commander-in-chief Mykhailo Drapatyi carries out changes in the armed forces.",
+        "last_published": "2026-09-02T11:51:25+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "ukraine",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Володимир Зеленски",
+            "Святослав Заиц",
+            "Михайло Драпати"
+          ],
+          "parties": [],
+          "institutions": [
+            "Сухопътни войски на Украйна",
+            "БТА"
+          ],
+          "companies": [],
+          "places": [
+            "Украйна"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-806d20b2",
+        "title_bg": "Зеленски смени и командващия сухопътните войски на Украйна",
+        "title_en": "Ukrainian President Volodymyr Zelensky replaced the commander of Ukraine's ground forces, appointing Colonel Svyatoslav Zaits. The change is part of reshuffles by new commander-in-chief Mykhailo Drapatyi, who also named Major General Ihor Skibiuk as chief of the General Staff.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "foreign-policy",
+            "subcategory": "ukraine",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Володимир Зеленски",
+            "Святослав Заиц",
+            "Михайло Драпати",
+            "Олександър Сирски",
+            "Михайло Федоров",
+            "Игор Скибюк",
+            "Андрий Хнатов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Въоръжени сили на Украйна"
+          ],
+          "companies": [],
+          "places": [
+            "Украйна"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "войски",
+          "зеленски",
+          "командващия",
+          "смени",
+          "сухопътните",
+          "украйна"
+        ],
+        "shared_entities": [
+          "володимир зеленски",
+          "михайло драпати",
+          "святослав заиц"
+        ],
+        "shared_places": [
+          "украйна"
+        ],
+        "title_jaccard": 1.0,
+        "published_gap_hours": 2.86,
+        "topic": [
+          "foreign-policy",
+          "ukraine"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-40f030cec503a528",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-02T13:23:47.575368+00:00",
+      "last_seen": "2026-09-02T13:23:47.575368+00:00",
+      "keeper": {
+        "id": "20260902-610cf568",
+        "title_bg": "Транспортният министър смени ръководството на \"Холдинг БДЖ\"",
+        "title_en": "Transport Minister Georgi Peev appointed a new Board of Directors of Holding BDZ EAD, naming Ivan Lichev, Kristian Vaklinov and eng. Kuncho Hristov in place of the outgoing members. The change is temporary until a competition under the Public Enterprises Act; the board's first task is to elect an executive director.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "officials-people",
+            "subcategory": "appointments",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на транспорта и съобщенията",
+            "Търговски регистър"
+          ],
+          "companies": [
+            "Холдинг БДЖ\" ЕАД",
+            "БДЖ - Товарни превози",
+            "БДЖ - Пътнически превози",
+            "Холдинг БДЖ ЕАД",
+            "БДЖ – Товарни превози ЕООД",
+            "БДЖ - Пътнически превози ЕООД",
+            "Български пощи ЕАД",
+            "Българска енергетика АД",
+            "Dietsmann Energoremont Holding AD",
+            "Енергоремонт холдинг АД"
+          ],
+          "places": [
+            "Добринище",
+            "Якоруда",
+            "Пазарджик",
+            "Казанлък"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-610cf568",
+        "title_bg": "Транспортният министър смени ръководството на \"Холдинг БДЖ\"",
+        "title_en": "Transport Minister Georgi Peev appointed a new Board of Directors of Holding BDZ EAD, naming Ivan Lichev, Kristian Vaklinov and eng. Kuncho Hristov in place of the outgoing members. The change is temporary until a competition under the Public Enterprises Act; the board's first task is to elect an executive director.",
+        "last_published": "2026-09-02T09:00:00+00:00",
+        "topics": [
+          {
+            "category": "officials-people",
+            "subcategory": "appointments",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на транспорта и съобщенията",
+            "Търговски регистър"
+          ],
+          "companies": [
+            "Холдинг БДЖ\" ЕАД",
+            "БДЖ - Товарни превози",
+            "БДЖ - Пътнически превози",
+            "Холдинг БДЖ ЕАД",
+            "БДЖ – Товарни превози ЕООД",
+            "БДЖ - Пътнически превози ЕООД",
+            "Български пощи ЕАД",
+            "Българска енергетика АД",
+            "Dietsmann Energoremont Holding AD",
+            "Енергоремонт холдинг АД"
+          ],
+          "places": [
+            "Добринище",
+            "Якоруда",
+            "Пазарджик",
+            "Казанлък"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-c0c6b1d3",
+        "title_bg": "Министър Пеев смени ръководството на \"Холдинг БДЖ\"",
+        "title_en": "Transport Minister Georgi Peev has dismissed the previous board of BDJ Holding EAD and appointed a new one, including Ivan Lichev, Kristian Vaklinov and Kunchо Hristov, pending a competitive selection procedure under the Public Enterprises Act.",
+        "last_published": "2026-09-02T07:51:44+00:00",
+        "topics": [
+          {
+            "category": "officials-people",
+            "subcategory": "appointments",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Георги Пеев",
+            "Борислав Арнаудов",
+            "Георги Велков",
+            "Людмил Иванов",
+            "Иван Личев",
+            "Кристиан Ваклинов",
+            "Кънчо Христов"
+          ],
+          "parties": [],
+          "institutions": [
+            "Министерство на транспорта и съобщенията",
+            "Холдинг БДЖ ЕАД",
+            "Президентство",
+            "БНР"
+          ],
+          "companies": [
+            "Холдинг БДЖ\" ЕАД",
+            "БДЖ – Товарни превози",
+            "БДЖ - Пътнически превози",
+            "Български пощи",
+            "Българска енергетика"
+          ],
+          "places": [
+            "Добринище",
+            "Якоруда",
+            "Пазарджик",
+            "Казанлък"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "бдж",
+          "министър",
+          "ръководството",
+          "смени",
+          "холдинг"
+        ],
+        "shared_entities": [
+          "бдж - пътнически превози",
+          "борислав арнаудов",
+          "георги велков",
+          "георги пеев",
+          "иван личев",
+          "кристиан ваклинов",
+          "кънчо христов",
+          "людмил иванов",
+          "министерство на транспорта и съобщенията",
+          "холдинг бдж еад",
+          "холдинг бдж\" еад"
+        ],
+        "shared_places": [
+          "добринище",
+          "казанлък",
+          "пазарджик",
+          "якоруда"
+        ],
+        "title_jaccard": 0.714,
+        "published_gap_hours": 1.14,
+        "topic": [
+          "officials-people",
+          "appointments"
         ]
       }
     },
@@ -425,6 +727,157 @@
         "topic": [
           "elections-parliamentary",
           "campaign"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-a2639d015730b74a",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-02T13:23:47.575368+00:00",
+      "last_seen": "2026-09-02T13:23:47.575368+00:00",
+      "keeper": {
+        "id": "20260902-ef3005e9",
+        "title_bg": "ПП иска мерки за защита на стратегическите обекти от енергийната инфраструктура",
+        "title_en": "MPs from Continue the Change, Nikolay Denkov and Radoslav Ribarski, called for an urgent security risk assessment and concrete measures to protect critical infrastructure, especially energy facilities. They criticized the government's passive response after Germany officially blamed Russia for a drone attack attempt at Leipzig airport and demanded high-level institutional discussion.",
+        "last_published": "2026-09-02T11:17:56+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "defense",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Денков",
+            "Радослав Рибарски",
+            "Владимир Путин"
+          ],
+          "parties": [
+            "Продължаваме Промяната"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "Консултативният съвет при президента",
+            "Министерство на отбраната"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Германия",
+            "Лайпциг",
+            "Русия",
+            "Украйна",
+            "Черноморието",
+            "Балтийските държави"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-ef3005e9",
+        "title_bg": "ПП иска мерки за защита на стратегическите обекти от енергийната инфраструктура",
+        "title_en": "MPs from Continue the Change, Nikolay Denkov and Radoslav Ribarski, called for an urgent security risk assessment and concrete measures to protect critical infrastructure, especially energy facilities. They criticized the government's passive response after Germany officially blamed Russia for a drone attack attempt at Leipzig airport and demanded high-level institutional discussion.",
+        "last_published": "2026-09-02T11:17:56+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "defense",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Денков",
+            "Радослав Рибарски",
+            "Владимир Путин"
+          ],
+          "parties": [
+            "Продължаваме Промяната"
+          ],
+          "institutions": [
+            "Народно събрание",
+            "Консултативният съвет при президента",
+            "Министерство на отбраната"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Германия",
+            "Лайпциг",
+            "Русия",
+            "Украйна",
+            "Черноморието",
+            "Балтийските държави"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-33f7b057",
+        "title_bg": "ПП иска мерки за защита на стратегическите обекти от енергийната инфраструктура",
+        "title_en": "MPs from Continue the Change, Nikolay Denkov and Radoslav Ribarski, called for an urgent risk assessment and measures to protect Bulgaria's critical infrastructure after Germany named Russia as responsible for a drone attack attempt at Leipzig airport. They criticized the government for inaction and urged top-level institutional discussion, with a focus on energy facilities.",
+        "last_published": "2026-09-02T10:30:37+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "defense",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Николай Денков",
+            "Радослав Рибарски",
+            "Владимир Путин"
+          ],
+          "parties": [
+            "Продължаваме Промяната"
+          ],
+          "institutions": [
+            "Консултативният съвет при президента",
+            "Министерство на отбраната"
+          ],
+          "companies": [],
+          "places": [
+            "България",
+            "Германия",
+            "Лайпциг",
+            "Русия",
+            "Украйна"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "енергийната",
+          "защита",
+          "инфраструктура",
+          "иска",
+          "мерки",
+          "обекти",
+          "стратегическите"
+        ],
+        "shared_entities": [
+          "владимир путин",
+          "консултативният съвет при президента",
+          "министерство на отбраната",
+          "николай денков",
+          "продължаваме промяната",
+          "радослав рибарски"
+        ],
+        "shared_places": [
+          "българия",
+          "германия",
+          "лайпциг",
+          "русия",
+          "украйна"
+        ],
+        "title_jaccard": 1.0,
+        "published_gap_hours": 0.79,
+        "topic": [
+          "security-defense",
+          "defense"
         ]
       }
     },
@@ -865,6 +1318,305 @@
         "topic": [
           "elections-parliamentary",
           "campaign"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-f551cf2510981504",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-02T13:23:47.575368+00:00",
+      "last_seen": "2026-09-02T13:23:47.575368+00:00",
+      "keeper": {
+        "id": "20260902-89c22089",
+        "title_bg": "Съдът образува ново дело за тока и водата в „Баба Алино“",
+        "title_en": "The Varna Administrative Court has opened a new case at the request of Forest Club Varna Ltd seeking restoration of electricity and water supply in the Baba Alino area, after a previous claim was rejected. Varna mayor Blagomir Kotsev has issued new demolition orders for illegal construction, 19 so far.",
+        "last_published": "2026-09-02T12:39:19+00:00",
+        "topics": [
+          {
+            "category": "judiciary",
+            "subcategory": "high-profile-cases",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Благомир Коцев"
+          ],
+          "parties": [],
+          "institutions": [
+            "Административен съд Варна",
+            "Община Варна"
+          ],
+          "companies": [
+            "Форест клуб Варна ООД",
+            "Електроразпределение Север АД",
+            "ВиК Варна"
+          ],
+          "places": [
+            "Варна",
+            "Баба Алино"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-89c22089",
+        "title_bg": "Съдът образува ново дело за тока и водата в „Баба Алино“",
+        "title_en": "The Varna Administrative Court has opened a new case at the request of Forest Club Varna Ltd seeking restoration of electricity and water supply in the Baba Alino area, after a previous claim was rejected. Varna mayor Blagomir Kotsev has issued new demolition orders for illegal construction, 19 so far.",
+        "last_published": "2026-09-02T12:39:19+00:00",
+        "topics": [
+          {
+            "category": "judiciary",
+            "subcategory": "high-profile-cases",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Благомир Коцев"
+          ],
+          "parties": [],
+          "institutions": [
+            "Административен съд Варна",
+            "Община Варна"
+          ],
+          "companies": [
+            "Форест клуб Варна ООД",
+            "Електроразпределение Север АД",
+            "ВиК Варна"
+          ],
+          "places": [
+            "Варна",
+            "Баба Алино"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-af42c0db",
+        "title_bg": "Съдът образува ново дело за тока и водата в „Баба Алино“",
+        "title_en": "The Varna Administrative Court has opened a new case at the request of Forest Club Varna Ltd seeking immediate restoration of electricity and water supply in the Baba Alino area, after a previous claim was rejected. Meanwhile Varna Mayor Blagomir Kotsev has issued new demolition orders for illegal construction, with 19 orders so far and further access restrictions planned.",
+        "last_published": "2026-09-02T11:21:27+00:00",
+        "topics": [
+          {
+            "category": "judiciary",
+            "subcategory": "high-profile-cases",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Благомир Коцев",
+            "Мила Едрева"
+          ],
+          "parties": [],
+          "institutions": [
+            "Административен съд във Варна",
+            "Община Варна"
+          ],
+          "companies": [
+            "Форест клуб Варна ООД",
+            "Електроразпределение Север АД",
+            "ВиК Варна"
+          ],
+          "places": [
+            "Варна",
+            "Баба Алино"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "алино",
+          "баба",
+          "водата",
+          "дело",
+          "ново",
+          "образува",
+          "съдът",
+          "тока"
+        ],
+        "shared_entities": [
+          "благомир коцев",
+          "вик варна",
+          "електроразпределение север ад",
+          "община варна",
+          "форест клуб варна оод"
+        ],
+        "shared_places": [
+          "баба алино",
+          "варна"
+        ],
+        "title_jaccard": 1.0,
+        "published_gap_hours": 1.3,
+        "topic": [
+          "judiciary",
+          "high-profile-cases"
+        ]
+      }
+    },
+    {
+      "id": "story-merge-f9e94fe9d5f48a91",
+      "status": "pending",
+      "active": true,
+      "first_seen": "2026-09-02T13:23:47.575368+00:00",
+      "last_seen": "2026-09-02T13:23:47.575368+00:00",
+      "keeper": {
+        "id": "20260902-2893633f",
+        "title_bg": "ФБР удари мощна руска хакерска мрежа с помощта на България",
+        "title_en": "Bulgaria, together with the US, Hungary and Romania, took part in an international operation that dismantled the Russia-linked Sality botnet, used since 2003 for cryptocurrency theft and cyberattacks. The FBI and the US Department of Justice seized servers and domains, while European partners acted against domains hosted in Europe; at its peak the network controlled over 1 million infected machines.",
+        "last_published": "2026-09-02T08:45:54+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "security-defense",
+            "subcategory": "cyber"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Бил Есейли",
+            "Патрик Гранди"
+          ],
+          "parties": [],
+          "institutions": [
+            "ФБР",
+            "Министерство на правосъдието на САЩ",
+            "Европол",
+            "Евроюст",
+            "Главна дирекция за борба с организираната престъпност на България",
+            "Националното бюро за разследване на киберпрестъпления на Унгария",
+            "Румънската полиция"
+          ],
+          "companies": [
+            "CrowdStrike",
+            "Shadowserver"
+          ],
+          "places": [
+            "България",
+            "САЩ",
+            "Унгария",
+            "Румъния",
+            "Европа"
+          ]
+        }
+      },
+      "matched": {
+        "id": "20260902-2893633f",
+        "title_bg": "ФБР удари мощна руска хакерска мрежа с помощта на България",
+        "title_en": "Bulgaria, together with the US, Hungary and Romania, took part in an international operation that dismantled the Russia-linked Sality botnet, used since 2003 for cryptocurrency theft and cyberattacks. The FBI and the US Department of Justice seized servers and domains, while European partners acted against domains hosted in Europe; at its peak the network controlled over 1 million infected machines.",
+        "last_published": "2026-09-02T08:45:54+00:00",
+        "topics": [
+          {
+            "primary": true,
+            "category": "security-defense",
+            "subcategory": "cyber"
+          }
+        ],
+        "entities": {
+          "people": [
+            "Бил Есейли",
+            "Патрик Гранди"
+          ],
+          "parties": [],
+          "institutions": [
+            "ФБР",
+            "Министерство на правосъдието на САЩ",
+            "Европол",
+            "Евроюст",
+            "Главна дирекция за борба с организираната престъпност на България",
+            "Националното бюро за разследване на киберпрестъпления на Унгария",
+            "Румънската полиция"
+          ],
+          "companies": [
+            "CrowdStrike",
+            "Shadowserver"
+          ],
+          "places": [
+            "България",
+            "САЩ",
+            "Унгария",
+            "Румъния",
+            "Европа"
+          ]
+        }
+      },
+      "candidate": {
+        "id": "20260902-34f2d1a0",
+        "title_bg": "ФБР удари мощна руска хакерска мрежа с помощта на България",
+        "title_en": "Bulgaria, together with the US, Hungary and Romania, took part in an international operation dismantling the Russia-linked Sality botnet, used for cryptocurrency theft and cyberattacks. The FBI and the US Department of Justice seized servers and domains, while Bulgaria's GDBOP and partner agencies acted against domains hosted in Europe. At its peak the botnet controlled over 1 million infected machines simultaneously.",
+        "last_published": "2026-09-02T08:45:54+00:00",
+        "topics": [
+          {
+            "category": "security-defense",
+            "subcategory": "cyber",
+            "primary": true
+          }
+        ],
+        "entities": {
+          "people": [
+            "Бил Есейли",
+            "Патрик Гранди"
+          ],
+          "parties": [],
+          "institutions": [
+            "ФБР",
+            "Министерство на правосъдието на САЩ",
+            "Главна дирекция за борба с организираната престъпност на България",
+            "Националното бюро за разследване на киберпрестъпления на Унгария",
+            "Румънската полиция"
+          ],
+          "companies": [
+            "CrowdStrike",
+            "Shadowserver",
+            "Европол",
+            "Евроюст"
+          ],
+          "places": [
+            "България",
+            "Унгария",
+            "Румъния",
+            "Съединените щати",
+            "Европа"
+          ]
+        }
+      },
+      "evidence": {
+        "confidence": "high",
+        "shared_title_tokens": [
+          "българия",
+          "мощна",
+          "мрежа",
+          "помощта",
+          "руска",
+          "удари",
+          "фбр",
+          "хакерска"
+        ],
+        "shared_entities": [
+          "crowdstrike",
+          "shadowserver",
+          "бил есейли",
+          "главна дирекция за борба с организираната престъпност на българия",
+          "европол",
+          "евроюст",
+          "министерство на правосъдието на сащ",
+          "националното бюро за разследване на киберпрестъпления на унгария",
+          "патрик гранди",
+          "румънската полиция",
+          "фбр"
+        ],
+        "shared_places": [
+          "българия",
+          "европа",
+          "румъния",
+          "унгария"
+        ],
+        "title_jaccard": 1.0,
+        "published_gap_hours": 0.0,
+        "topic": [
+          "security-defense",
+          "cyber"
         ]
       }
     },
