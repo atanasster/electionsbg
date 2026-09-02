@@ -16,7 +16,8 @@
 // never from fund_payloads — an `interreg-*` kind written there would be
 // silently deleted by the next db:load:funds:pg.
 
-import { FC } from "react";
+import { FC, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/ux/Card";
 import { formatEur, formatEurCompact } from "@/lib/currency";
@@ -29,6 +30,12 @@ import {
 const numFmt = new Intl.NumberFormat("bg-BG");
 const MOVERS_SHOWN = 10;
 const PROGRAMMES_SHOWN = 6;
+
+// The per-place Interreg tile lives on the governance/My-Area dashboard, at this
+// fixed id — see MyAreaInterregTile.tsx. Linking here with a `#` hash relies on
+// the app-wide hash-scroll in routes.tsx's `ScrollToTop`, so no scroll code is
+// needed on this end.
+const GOVERNANCE_INTERREG_ANCHOR = "myarea-interreg";
 
 const Stat: FC<{ label: string; value: string; hint?: string }> = ({
   label,
@@ -57,26 +64,59 @@ export const InterregTile: FC = () => {
   // so a smaller limit returns the wrong ten climbers. ~40 KB for 256 rows.
   const { data: ranking } = useFundsMuniRank(300);
   const { findMunicipality } = useMunicipalities();
-
-  if (!overview || overview.partnerCount === 0) return null;
+  const [showAllMunis, setShowAllMunis] = useState(false);
 
   // The biggest climbers, which is what the tile exists to show. Sorted on
   // rankDelta rather than on money: a large municipality can take more euros and
   // barely move, while a village of 3,000 moves 40 places on a single project —
   // and it is the second that the ИСУН-only ranking was getting wrong.
-  const movers = (ranking?.munis ?? [])
-    .filter((m) => m.rankDelta > 0)
-    .sort((a, b) => b.rankDelta - a.rankDelta || b.interregEur - a.interregEur)
-    .slice(0, MOVERS_SHOWN);
+  const movers = useMemo(
+    () =>
+      (ranking?.munis ?? [])
+        .filter((m) => m.rankDelta > 0)
+        .sort(
+          (a, b) => b.rankDelta - a.rankDelta || b.interregEur - a.interregEur,
+        )
+        .slice(0, MOVERS_SHOWN),
+    [ranking],
+  );
+
+  // Every municipality Interreg reaches at all, not only the ones whose rank
+  // moved — a place can hold Interreg money and still tie its previous rank
+  // (rank() never decreases on more money, but two municipalities can share a
+  // rank). Sorted by money, since "who moved" no longer applies once the list
+  // is complete. This is the "see all" expansion — no extra fetch: `ranking`
+  // already holds the full ~256-municipality cohort (see the 300 above).
+  const allWithInterreg = useMemo(
+    () =>
+      (ranking?.munis ?? [])
+        .filter((m) => m.interregEur > 0)
+        .sort(
+          (a, b) =>
+            b.interregEur - a.interregEur ||
+            a.obshtina.localeCompare(b.obshtina),
+        ),
+    [ranking],
+  );
+
+  const visibleMunis = showAllMunis ? allWithInterreg : movers;
 
   // Everything the ranking cannot see, on the INTERREG arm. `ranked` is the
   // covered bucket, so it is not an exclusion — the other two are. The ИСУН
   // exclusion is a separate and far larger number (€6.56bn, mostly Sofia) and
   // comes from the payload: printing only this one beside a sentence naming both
   // sources would say €95m is missing from a ranking missing €6.6bn.
-  const excludedEur = Object.entries(ranking?.excluded ?? {})
-    .filter(([reason]) => reason !== "ranked")
-    .reduce((a, [, v]) => a + v.eur, 0);
+  const excludedEur = useMemo(
+    () =>
+      Object.entries(ranking?.excluded ?? {})
+        .filter(([reason]) => reason !== "ranked")
+        .reduce((a, [, v]) => a + v.eur, 0),
+    [ranking],
+  );
+
+  // The hooks above must run unconditionally on every render (rules-of-hooks),
+  // so the early return sits here rather than before them.
+  if (!overview || overview.partnerCount === 0) return null;
 
   const p2127 = overview.periods["2021-2027"];
   const p1420 = overview.periods["2014-2020"];
@@ -135,38 +175,79 @@ export const InterregTile: FC = () => {
           </p>
         ) : null}
 
-        {movers.length > 0 && ranking ? (
+        {allWithInterreg.length > 0 && ranking ? (
           <div className="flex flex-col gap-2">
             <h3 className="text-xs font-semibold">
-              {t("interreg_movers_title", {
-                moved: numFmt.format(ranking.movedCount),
-                cohort: numFmt.format(ranking.cohortSize),
-              })}
+              {/* The heading names WHAT is rendered beneath it — "who climbs"
+                  is true of the default movers-only view, but once expanded
+                  most rows never moved rank at all (they show "=", not "+N"),
+                  so the caption must switch with the list rather than keep
+                  asserting a claim the expanded rows do not support. */}
+              {showAllMunis
+                ? t("interreg_munis_all_title", {
+                    total: numFmt.format(ranking.withInterregCount),
+                  })
+                : t("interreg_movers_title", {
+                    moved: numFmt.format(ranking.movedCount),
+                    cohort: numFmt.format(ranking.cohortSize),
+                  })}
             </h3>
             <ul className="divide-y text-xs">
-              {movers.map((m) => {
+              {visibleMunis.map((m) => {
                 const muni = findMunicipality(m.obshtina);
                 return (
                   <li
                     key={m.obshtina}
                     className="flex flex-wrap items-baseline gap-x-3 py-1.5"
                   >
-                    <span className="min-w-0 flex-1 truncate font-medium">
+                    {/* Every place with Interreg money already has a per-place
+                        breakdown on the governance dashboard (MyAreaInterregTile,
+                        id="myarea-interreg") — the app-wide hash-scroll in
+                        routes.tsx's ScrollToTop lands the reader on it. */}
+                    <Link
+                      to={`/governance/${m.obshtina}#${GOVERNANCE_INTERREG_ANCHOR}`}
+                      className="min-w-0 flex-1 truncate font-medium underline"
+                    >
                       {(bg ? muni?.name : muni?.name_en) ?? m.obshtina}
-                    </span>
+                    </Link>
                     <span className="tabular-nums text-muted-foreground">
                       {formatEurCompact(m.interregEur, lang)}
                     </span>
                     <span className="tabular-nums text-muted-foreground">
                       {m.rankBefore} → {m.rank}
                     </span>
-                    <span className="w-10 text-right tabular-nums font-semibold text-emerald-600 dark:text-emerald-400">
-                      +{m.rankDelta}
+                    <span
+                      className={
+                        m.rankDelta > 0
+                          ? "w-10 text-right tabular-nums font-semibold text-emerald-600 dark:text-emerald-400"
+                          : "w-10 text-right tabular-nums text-muted-foreground"
+                      }
+                    >
+                      {m.rankDelta > 0 ? `+${m.rankDelta}` : "="}
                     </span>
                   </li>
                 );
               })}
             </ul>
+            {allWithInterreg.length > MOVERS_SHOWN ? (
+              <button
+                type="button"
+                aria-expanded={showAllMunis}
+                onClick={() => setShowAllMunis((v) => !v)}
+                className="self-start text-[11px] font-medium text-primary hover:underline"
+              >
+                {showAllMunis
+                  ? t("interreg_munis_collapse")
+                  : t("interreg_munis_expand", {
+                      // The server's own count for "how many municipalities hold
+                      // Interreg money" — not `allWithInterreg.length`, which is
+                      // derived from a 300-row-capped response. The two agree
+                      // today (the cohort is ~256), but only one of them stays
+                      // correct if the cohort ever grows past the cap.
+                      total: numFmt.format(ranking.withInterregCount),
+                    })}
+              </button>
+            ) : null}
             {/* WHAT THE RANKING DOES NOT COVER. Столична община's €88.7m is the
                 bulk of it: Sofia has no per-capita figure on EITHER arm, because
                 ГРАО carries no Sofia city EKATTE. Without this line the table
