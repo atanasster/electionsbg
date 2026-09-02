@@ -315,7 +315,7 @@
     },
     {
       "schemaVersion": 1,
-      "id": "macro:cpi_release:prc_hicp_minr:2026-07",
+      "id": "macro:cpi_release:prc_hicp_minr:2026-08",
       "kind": "cpi_released",
       "category": "prices",
       "publishedAt": "2026-08-19T09:00:00.000Z",
@@ -335,8 +335,8 @@
       "route": "/indicators",
       "factKey": "home_fact_cpi_released",
       "factArgs": {
-        "period": "2026-07",
-        "pct": "4.4"
+        "period": "2026-08",
+        "pct": "5.1"
       },
       "backfill": false,
       "verification": "automatic",
@@ -373,6 +373,390 @@
       "verification": "automatic",
       "materiality": 0.8075,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2027",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2027",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Т.9 на Решение № 1968 от 30.07.2026г. на Общински съвет Стара Загора, върнато за ново обсъждане със Заповед № АК 01-31-1",
+        "council": "SZR01",
+        "number": "2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2028",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2028",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлен имот с идентификатор 68850.63.967 /номер по предходен план - 000967/ - частна общинска собственост,",
+        "council": "SZR01",
+        "number": "2028"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2030",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2030",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлени имоти с идентификатори 05431.16.82 /номер по предходен план: 000632/, 05431.19.33 /номер по предхо",
+        "council": "SZR01",
+        "number": "2030"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2031",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2031",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлени имоти с идентификатори 31276.85.45 /номер по предходен план: 085045/, 31276.87.2 /номер по предход",
+        "council": "SZR01",
+        "number": "2031"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2032",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2032",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлени имоти с идентификатори 52252.10.5 /номер по предходен план: 000096/, 52252.10.9 /номер по предходе",
+        "council": "SZR01",
+        "number": "2032"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2033",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2033",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлени имоти с идентификатори 58743.12.2 /номер по предходен план: 012002/, 58743.57.75 /номер по предход",
+        "council": "SZR01",
+        "number": "2033"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2034",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2034",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлен имот с идентификатор 70202.32.6 /номер по предходен план - 032006/ - частна общинска собственост, н",
+        "council": "SZR01",
+        "number": "2034"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2035",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2035",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлен имот с идентификатор 24482.50.27 /номер по предходен план: 000819/ - частна общинска собственост, н",
+        "council": "SZR01",
+        "number": "2035"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2036",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2036",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлен имот с идентификатор 35515.46.17 /номер по предходен план: 000144/ - частна общинска собственост, н",
+        "council": "SZR01",
+        "number": "2036"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2037",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2037",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлени имоти с идентификатори 38039.50.2 /номер по предходен план: 050002/ и 38039.50.12 /номер по предхо",
+        "council": "SZR01",
+        "number": "2037"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2039",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2039",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлени имоти с идентификатори 46417.49.40 /номер по предходен план: 049040/, 46417.49.46 /номер по предхо",
+        "council": "SZR01",
+        "number": "2039"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot45-r2040",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-08-24T00:00:00.000Z",
+      "firstSeenAt": "2026-08-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot45-r2040",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на поземлени имоти с идентификатори 48502.1.79 /номер по предходен план: 001079/, 48502.1.81 /номер по предходе",
+        "council": "SZR01",
+        "number": "2040"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -468,38 +852,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:RAZ26-2026-prot37-r536",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-25T00:00:00.000Z",
-      "firstSeenAt": "2026-08-25T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "RAZ26"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/RAZ26-2026-prot37-r536",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Приемане на Програма за овладяване популацията на безстопанствените кучета на територията на община Разград за периода 2",
-        "council": "RAZ26",
-        "number": "536"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
       "id": "funds:call_opened:isun:769d8c53-2790-4be5-87d0-9ad1ca13cc9e",
       "kind": "call_opened",
       "category": "funds",
@@ -529,358 +881,6 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r272",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r272",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Разкриване на три нови групи в новопостроената сграда (с идентификатор 56784.518.4, съгласно АПОС № 2356/ 01. 06. 2026 г",
-        "council": "PDV01",
-        "number": "272"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r273",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r273",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Определяне на участник, спечелил публично оповестен конкурс за отдаване под наем за срок от 5 /пет/ години на недвижим и",
-        "council": "PDV01",
-        "number": "273"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r274",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r274",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Определяне на участник, спечелил публично оповестен конкурс за отдаване под наем за срок от 4 (четири) години на недвижи",
-        "council": "PDV01",
-        "number": "274"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r275",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r275",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Предоставяне на временен безлихвен заем в размер на 261 549, 14 евро (двеста шестдесет и една хиляди, петстотин четириде",
-        "council": "PDV01",
-        "number": "275"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r276",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r276",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Подписка на местна гражданска инициатива по чл. 47 от Закона за пряко участие на гражданите в държавната власт и местнот",
-        "council": "PDV01",
-        "number": "276"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r277",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r277",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "1. Приемане на годишния финансов отчет и годишния доклад за дейността за 2025 г. на „ЕКОБУС ПЛОВДИВ“ ЕООД, ЕИК: ********",
-        "council": "PDV01",
-        "number": "277"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r278",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r278",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "1. Прекратяване на договор за възлагане на управлението на „ЕКОБУС ПЛОВДИВ“ ЕООД, с ЕИК ************, сключен с Н.С. на ",
-        "council": "PDV01",
-        "number": "278"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r279",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r279",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Приемане на Наредба за изменение и допълнение на Наредбата за реда и условията за пътуване с обществения градски транспо",
-        "council": "PDV01",
-        "number": "279"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r280",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r280",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Осигуряване на средства за възлагане извършването на дейности по полагане на хоризонтална пътна маркировка и вертикална ",
-        "council": "PDV01",
-        "number": "280"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r281",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r281",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Приемане на изменение и допълнение на „Общинска образователна програма 2026 – 2028“ ПО ПРЕДЛОЖЕНИЕ НА: Костадин Димитров",
-        "council": "PDV01",
-        "number": "281"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot12-r282",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-03T00:00:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot12-r282",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Приемане на Правилник за изменение на Правилника за устройството и дейността на ОП „Социално предприятие за хора с увреж",
-        "council": "PDV01",
-        "number": "282"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
     }
   ],
   "sourceCoverage": {

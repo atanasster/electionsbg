@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T00:32:40.038Z",
+  "generatedAt": "2026-09-02T05:04:53.559Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -5394,7 +5394,7 @@
     {
       "id": "awarder:176031095",
       "type": "awarder",
-      "label": "РЕГИОНАЛНА ЗДРАВНА ИНСПЕКЦИЯ - ГАБРОВО"
+      "label": "Регионална здравна инспекция - габрово"
     },
     {
       "id": "awarder:176031978",
@@ -8227,6 +8227,16 @@
       "label": "Илиан Лоренов Милев"
     },
     {
+      "id": "official:hristina-georgieva-mikutseva-petrova-f76d09",
+      "type": "official",
+      "label": "Христина Георгиева Микуцева-Петрова"
+    },
+    {
+      "id": "official:tsvetan-svetozarov-sikov-93716d",
+      "type": "official",
+      "label": "Цветан Светозаров Съйков"
+    },
+    {
       "id": "official:ivan-vladimirov-todorov-8e8358",
       "type": "official",
       "label": "Иван Владимиров Тодоров"
@@ -8300,16 +8310,6 @@
       "id": "official:doncho-simeonov-zhivkov-2f1ccc",
       "type": "official",
       "label": "Дончо Симеонов Живков"
-    },
-    {
-      "id": "official:hristina-georgieva-mikutseva-petrova-f76d09",
-      "type": "official",
-      "label": "Христина Георгиева Микуцева-Петрова"
-    },
-    {
-      "id": "official:tsvetan-svetozarov-sikov-93716d",
-      "type": "official",
-      "label": "Цветан Светозаров Съйков"
     },
     {
       "id": "official:stoyan-raikov-ivanov-1f60c5",
@@ -12061,7 +12061,7 @@
     {
       "source": "awarder:000042533",
       "target": "contractor:102006848",
-      "valueEur": 48894.88
+      "valueEur": 104397.63
     },
     {
       "source": "awarder:000042622",
@@ -13896,7 +13896,7 @@
     {
       "source": "awarder:000662721",
       "target": "contractor:205175742",
-      "valueEur": 179669.35
+      "valueEur": 195705.19
     },
     {
       "source": "awarder:000662721",
@@ -22246,7 +22246,7 @@
     {
       "source": "contractor:102006848",
       "target": "official:ivanka-petrova-nikolova-59d810",
-      "valueEur": 5916653.9
+      "valueEur": 5972156.65
     },
     {
       "source": "contractor:824106518",
@@ -22291,7 +22291,7 @@
     {
       "source": "contractor:205175742",
       "target": "official:iordanka-vladimirova-bicheva-4acee4",
-      "valueEur": 5046750.17
+      "valueEur": 5062786.01
     },
     {
       "source": "contractor:111028849",
@@ -22409,6 +22409,16 @@
       "valueEur": 3129124.38
     },
     {
+      "source": "contractor:128000893",
+      "target": "official:hristina-georgieva-mikutseva-petrova-f76d09",
+      "valueEur": 2973181.7
+    },
+    {
+      "source": "contractor:128000893",
+      "target": "official:tsvetan-svetozarov-sikov-93716d",
+      "valueEur": 2973181.7
+    },
+    {
       "source": "contractor:206785563",
       "target": "official:ivan-vladimirov-todorov-8e8358",
       "valueEur": 2855566.41
@@ -22482,16 +22492,6 @@
       "source": "contractor:831555095",
       "target": "official:doncho-simeonov-zhivkov-2f1ccc",
       "valueEur": 2647506.35
-    },
-    {
-      "source": "contractor:128000893",
-      "target": "official:hristina-georgieva-mikutseva-petrova-f76d09",
-      "valueEur": 2590931.7
-    },
-    {
-      "source": "contractor:128000893",
-      "target": "official:tsvetan-svetozarov-sikov-93716d",
-      "valueEur": 2590931.7
     },
     {
       "source": "contractor:826043778",

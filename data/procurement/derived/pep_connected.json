@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T00:32:35.388Z",
+  "generatedAt": "2026-09-02T05:04:47.703Z",
   "total": 872,
   "officialCount": 800,
   "entries": [
@@ -26698,9 +26698,9 @@
       "role": "school",
       "contractorEik": "102006848",
       "contractorName": "Бургасинвест ООД",
-      "totalEur": 5916653.9,
+      "totalEur": 5972156.65,
       "totalOther": {},
-      "contractCount": 62,
+      "contractCount": 64,
       "awardCount": 0,
       "relations": [
         {
@@ -26747,8 +26747,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 6,
-          "totalEur": 577169.35,
+          "contractCount": 8,
+          "totalEur": 632672.1,
           "totalOther": {}
         }
       ],
@@ -26782,10 +26782,10 @@
           "totalOther": {}
         },
         {
-          "eik": "000044096",
-          "name": "Център за специална образователна подкрепа ГР.БУРГАС",
+          "eik": "000042533",
+          "name": "Средно училище \"Димчо Дебелянов\"",
           "contractCount": 3,
-          "totalEur": 95016.14,
+          "totalEur": 104397.63,
           "totalOther": {}
         }
       ]
@@ -27863,9 +27863,9 @@
       "role": "councillor",
       "contractorEik": "205175742",
       "contractorName": "Синмед българия ООД",
-      "totalEur": 5046750.17,
+      "totalEur": 5062786.01,
       "totalOther": {},
-      "contractCount": 120,
+      "contractCount": 121,
       "awardCount": 0,
       "relations": [
         {
@@ -27912,8 +27912,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 16,
-          "totalEur": 527556.5,
+          "contractCount": 17,
+          "totalEur": 543592.34,
           "totalOther": {}
         }
       ],
@@ -30262,6 +30262,264 @@
       ]
     },
     {
+      "slug": "hristina-georgieva-mikutseva-petrova-f76d09",
+      "name": "Христина Георгиева Микуцева-Петрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "128000893",
+      "contractorName": "Водоснабдяване и канализация ЕООД",
+      "totalEur": 2973181.7,
+      "totalOther": {},
+      "contractCount": 38,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 15338.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 10790.9,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 23008.13,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 0.01,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 4,
+          "totalEur": 37988.99,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 5,
+          "totalEur": 167754.11,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 4,
+          "totalEur": 1073705.26,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 138048.8,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 49057.43,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 7,
+          "totalEur": 636572.28,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 4,
+          "totalEur": 423094.03,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 3,
+          "totalEur": 397823,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000970496",
+          "name": "Община Ямбол",
+          "contractCount": 4,
+          "totalEur": 1108284.47,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010666",
+          "name": "МВР - Дирекция миграция",
+          "contractCount": 2,
+          "totalEur": 1077976.91,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010125",
+          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
+          "contractCount": 4,
+          "totalEur": 442158.12,
+          "totalOther": {}
+        },
+        {
+          "eik": "000970165",
+          "name": "Община Елхово",
+          "contractCount": 6,
+          "totalEur": 246187.03,
+          "totalOther": {}
+        },
+        {
+          "eik": "000590654",
+          "name": "ОБЩИНА СЛИВЕН",
+          "contractCount": 1,
+          "totalEur": 40903.35,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "tsvetan-svetozarov-sikov-93716d",
+      "name": "Цветан Светозаров Съйков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "128000893",
+      "contractorName": "Водоснабдяване и канализация ЕООД",
+      "totalEur": 2973181.7,
+      "totalOther": {},
+      "contractCount": 38,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 15338.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 10790.9,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 23008.13,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 0.01,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 4,
+          "totalEur": 37988.99,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 5,
+          "totalEur": 167754.11,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 4,
+          "totalEur": 1073705.26,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 138048.8,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 49057.43,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 7,
+          "totalEur": 636572.28,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 4,
+          "totalEur": 423094.03,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 3,
+          "totalEur": 397823,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000970496",
+          "name": "Община Ямбол",
+          "contractCount": 4,
+          "totalEur": 1108284.47,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010666",
+          "name": "МВР - Дирекция миграция",
+          "contractCount": 2,
+          "totalEur": 1077976.91,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010125",
+          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
+          "contractCount": 4,
+          "totalEur": 442158.12,
+          "totalOther": {}
+        },
+        {
+          "eik": "000970165",
+          "name": "Община Елхово",
+          "contractCount": 6,
+          "totalEur": 246187.03,
+          "totalOther": {}
+        },
+        {
+          "eik": "000590654",
+          "name": "ОБЩИНА СЛИВЕН",
+          "contractCount": 1,
+          "totalEur": 40903.35,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "ivan-vladimirov-todorov-8e8358",
       "name": "Иван Владимиров Тодоров",
       "tier": "executive",
@@ -31751,264 +32009,6 @@
           "name": "Община Пловдив",
           "contractCount": 1,
           "totalEur": 77063.44,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "hristina-georgieva-mikutseva-petrova-f76d09",
-      "name": "Христина Георгиева Микуцева-Петрова",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "128000893",
-      "contractorName": "Водоснабдяване и канализация ЕООД",
-      "totalEur": 2590931.7,
-      "totalOther": {},
-      "contractCount": 37,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2012",
-          "contractCount": 1,
-          "totalEur": 15338.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 3,
-          "totalEur": 10790.9,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 1,
-          "totalEur": 23008.13,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 1,
-          "totalEur": 0.01,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 4,
-          "totalEur": 37988.99,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 5,
-          "totalEur": 167754.11,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 4,
-          "totalEur": 1073705.26,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 2,
-          "totalEur": 138048.8,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 3,
-          "totalEur": 49057.43,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 7,
-          "totalEur": 636572.28,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 4,
-          "totalEur": 423094.03,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 2,
-          "totalEur": 15573,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "129010666",
-          "name": "МВР - Дирекция миграция",
-          "contractCount": 2,
-          "totalEur": 1077976.91,
-          "totalOther": {}
-        },
-        {
-          "eik": "000970496",
-          "name": "Община Ямбол",
-          "contractCount": 3,
-          "totalEur": 726034.47,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010125",
-          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
-          "contractCount": 4,
-          "totalEur": 442158.12,
-          "totalOther": {}
-        },
-        {
-          "eik": "000970165",
-          "name": "Община Елхово",
-          "contractCount": 6,
-          "totalEur": 246187.03,
-          "totalOther": {}
-        },
-        {
-          "eik": "000590654",
-          "name": "ОБЩИНА СЛИВЕН",
-          "contractCount": 1,
-          "totalEur": 40903.35,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "tsvetan-svetozarov-sikov-93716d",
-      "name": "Цветан Светозаров Съйков",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "contractorEik": "128000893",
-      "contractorName": "Водоснабдяване и канализация ЕООД",
-      "totalEur": 2590931.7,
-      "totalOther": {},
-      "contractCount": 37,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2012",
-          "contractCount": 1,
-          "totalEur": 15338.76,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 3,
-          "totalEur": 10790.9,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 1,
-          "totalEur": 23008.13,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 1,
-          "totalEur": 0.01,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 4,
-          "totalEur": 37988.99,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 5,
-          "totalEur": 167754.11,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 4,
-          "totalEur": 1073705.26,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 2,
-          "totalEur": 138048.8,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 3,
-          "totalEur": 49057.43,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 7,
-          "totalEur": 636572.28,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 4,
-          "totalEur": 423094.03,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 2,
-          "totalEur": 15573,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "129010666",
-          "name": "МВР - Дирекция миграция",
-          "contractCount": 2,
-          "totalEur": 1077976.91,
-          "totalOther": {}
-        },
-        {
-          "eik": "000970496",
-          "name": "Община Ямбол",
-          "contractCount": 3,
-          "totalEur": 726034.47,
-          "totalOther": {}
-        },
-        {
-          "eik": "129010125",
-          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
-          "contractCount": 4,
-          "totalEur": 442158.12,
-          "totalOther": {}
-        },
-        {
-          "eik": "000970165",
-          "name": "Община Елхово",
-          "contractCount": 6,
-          "totalEur": 246187.03,
-          "totalOther": {}
-        },
-        {
-          "eik": "000590654",
-          "name": "ОБЩИНА СЛИВЕН",
-          "contractCount": 1,
-          "totalEur": 40903.35,
           "totalOther": {}
         }
       ]
