@@ -222,6 +222,12 @@ def save(batch: list, stats: dict) -> bool:
     failed = out.get("failed") or []
     stats["saved"] += len(saved)
     stats["rejected"].extend(failed)
+    # What the save DECIDED, not just what it stored. Without this the run
+    # report cannot say whether the analyzer joined anything, and "no
+    # comparison stories today" is indistinguishable from "the rule is off".
+    # setdefault, not [..]: `save` is called with ad-hoc stats dicts (the
+    # tests build their own), and a new key must not become a precondition.
+    stats.setdefault("auto_merged", []).extend(out.get("auto_merged") or [])
     if out.get("mentions_unverified"):
         stats["mentions_unverified"] = out["mentions_unverified"]
     # A non-zero exit with no `failed` list means the save never ran — a
@@ -237,13 +243,16 @@ def save(batch: list, stats: dict) -> bool:
 
 def new_save_stats() -> dict:
     """A private save result, merged only after retry policy is decided."""
-    return {"saved": 0, "rejected": [], "save_failed": []}
+    return {"saved": 0, "rejected": [], "save_failed": [], "auto_merged": []}
 
 
 def merge_save_stats(target: dict, source: dict) -> None:
     target["saved"] += source["saved"]
     target["rejected"].extend(source["rejected"])
     target["save_failed"].extend(source["save_failed"])
+    # Follows the same retry policy as the rest: an attempt whose stats are
+    # discarded must not leave its joins in the report.
+    target.setdefault("auto_merged", []).extend(source.get("auto_merged") or [])
     if source.get("mentions_unverified"):
         target["mentions_unverified"] = source["mentions_unverified"]
 
@@ -725,7 +734,8 @@ def main() -> int:
              "schema_retry_attempted": 0,
              "schema_retry_succeeded": 0,
              "triage_model": args.triage_model,
-             "triage_accepted": 0, "paid_fallback": 0}
+             "triage_accepted": 0, "paid_fallback": 0,
+             "auto_merged": []}
     started = time.monotonic()
     remaining = []
     canary_done = not FIRST_RECORD_IS_A_CANARY
