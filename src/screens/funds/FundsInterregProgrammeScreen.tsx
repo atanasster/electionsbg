@@ -27,7 +27,7 @@ import { formatEur, formatInt } from "@/lib/currency";
 import { useInterregProgramme } from "@/data/funds/useInterreg";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { InterregOperationRow } from "./InterregOperationRow";
-import { GOVERNANCE_INTERREG_ANCHOR } from "./InterregTile";
+import { GOVERNANCE_INTERREG_ANCHOR, interregMuniName } from "./InterregTile";
 
 export const FundsInterregProgrammeScreen: FC = () => {
   const { code } = useParams<{ code: string }>();
@@ -211,7 +211,6 @@ export const FundsInterregProgrammeScreen: FC = () => {
             <CardContent className="p-4 pt-0">
               <ul className="divide-y text-xs">
                 {data.munis.map((m) => {
-                  const muni = findMunicipality(m.obshtina);
                   return (
                     <li
                       key={m.obshtina}
@@ -221,7 +220,7 @@ export const FundsInterregProgrammeScreen: FC = () => {
                         to={`/governance/${m.obshtina}#${GOVERNANCE_INTERREG_ANCHOR}`}
                         className="min-w-0 flex-1 truncate font-medium underline"
                       >
-                        {(bg ? muni?.name : muni?.name_en) ?? m.obshtina}
+                        {interregMuniName(m.obshtina, findMunicipality, bg)}
                       </Link>
                       <span className="tabular-nums font-semibold">
                         {formatEur(m.budgetEur, lang)}

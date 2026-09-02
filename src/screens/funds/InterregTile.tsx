@@ -40,6 +40,29 @@ const PROGRAMMES_SHOWN = 6;
 // scroll code is needed on this end.
 export const GOVERNANCE_INTERREG_ANCHOR = "myarea-interreg";
 
+// Sofia never appears in `municipalities.json` under the obshtina code this
+// corpus keys it with: `interreg_programme()`/`interreg_by_place()` (194/138)
+// normalise the capital to the synthetic `S22` anchor — the same pseudo-code
+// `fund_projects` uses (139's header) — and `findMunicipality("S22")` finds
+// no row. Left unhandled, every surface reading `m.obshtina` renders the bare
+// code "S22" instead of a name (and the ИСУН side of this same family can
+// also emit the district codes S23xx/S24xx/S25xx — summaryTiles.tsx's
+// `TopMunis` already folds those the same way). One definition so the two
+// Interreg municipality lists (this tile's movers list and
+// FundsInterregProgrammeScreen's per-programme list) cannot drift.
+export const interregMuniName = (
+  code: string,
+  findMunicipality: (
+    code?: string | null,
+  ) => { name: string; name_en: string } | undefined,
+  bg: boolean,
+): string => {
+  if (/^S2[2-5]\d{0,2}$/.test(code))
+    return bg ? "София (столица)" : "Sofia (city)";
+  const muni = findMunicipality(code);
+  return (bg ? muni?.name : muni?.name_en) ?? code;
+};
+
 const Stat: FC<{ label: string; value: string; hint?: string }> = ({
   label,
   value,
@@ -224,7 +247,6 @@ export const InterregTile: FC = () => {
             </h3>
             <ul className="divide-y text-xs">
               {visibleMunis.map((m) => {
-                const muni = findMunicipality(m.obshtina);
                 return (
                   <li
                     key={m.obshtina}
@@ -238,7 +260,7 @@ export const InterregTile: FC = () => {
                       to={`/governance/${m.obshtina}#${GOVERNANCE_INTERREG_ANCHOR}`}
                       className="min-w-0 flex-1 truncate font-medium underline"
                     >
-                      {(bg ? muni?.name : muni?.name_en) ?? m.obshtina}
+                      {interregMuniName(m.obshtina, findMunicipality, bg)}
                     </Link>
                     <span className="tabular-nums text-muted-foreground">
                       {formatEurCompact(m.interregEur, lang)}
