@@ -717,6 +717,26 @@ MAX_FUTURE_SKEW = timedelta(days=1)
 # deliberately left alone: the site stated a time, and we do not overrule it.
 _DAY_ONLY_RE = re.compile(r"^\s*(\d{4}-\d{2}-\d{2}|\d{8})\s*$")
 
+# ⚠️ A TIMEZONE ABBREVIATION JAMMED BETWEEN THE DATE AND THE TIME.
+# actualno.com emits `article:published_time` as
+# `2026-09-02EEST07:23+03:00` — no `T`, the zone name where the separator
+# belongs. `parse_dt` returns None for it, so `normalize_date` fell through to
+# its "keep the site's own string" arm and the value was never usable.
+#
+# That mattered because the SAME page also declares
+# `"datePublished": "2026-09-02T07:23:00Z"` — the identical wall clock stamped
+# UTC, which is three hours wrong. JSON-LD is tried first and parses, so the
+# broken-but-correct value was never consulted and the wrong-but-well-formed
+# one won. Measured, that stamped 48 of 178 actualno articles ahead of the
+# moment we fetched them, and on 2026-09-02 it emptied the entire home payload.
+#
+# Only EEST/EET are stripped: they are Sofia's own zones, so whether an
+# explicit offset follows (honoured) or not (the Sofia arm below, which is
+# DST-aware), the result is the instant the site meant. Stripping `UTC`/`GMT`
+# would change the meaning of the value rather than recover it.
+_TZ_ABBR_INFIX_RE = re.compile(
+    r"^(\s*\d{4}-\d{2}-\d{2})\s*(?:EEST|EET)\s*(\d{2}:\d{2})", re.IGNORECASE)
+
 # RFC 5322: a -0000 offset means "UTC, sender withholding their local time".
 # parsedate_to_datetime returns it NAIVE, so without this it would be read as
 # Sofia local and shifted by three hours.
@@ -780,6 +800,9 @@ def normalize_date(raw, now=None):
         # Already UTC-aware and unambiguous — skip the naive/Sofia arm, but
         # still go through the future-skew refusal at the foot of the function.
         return _refuse_future(dt, now)
+    # Recover the zone-abbreviation infix before parsing, so the value reaches
+    # the normal arms instead of the unparseable fallback.
+    raw = _TZ_ABBR_INFIX_RE.sub(r"\1T\2", raw, count=1)
     dt = fla.parse_dt(raw)
     naive = dt is not None and dt.tzinfo is None
     if dt is None:
@@ -903,6 +926,41 @@ def strip_site_suffix(title, site_name, domain):
 # clustering rather than the extractor.
 
 
+def _first_plausible(candidates, now=None):
+    """The first candidate that is not published after we read the page.
+
+    ⚠️ A PAGE CANNOT BE FETCHED BEFORE IT IS PUBLISHED, and when two sources on
+    one page disagree, that is the only evidence available for which of them is
+    wrong. actualno.com states the same wall clock twice —
+    `2026-09-02EEST07:23+03:00` in `article:published_time` and
+    `2026-09-02T07:23:00Z` in JSON-LD — and the second is three hours late.
+    Source order alone always picked it, because it is the well-formed one.
+
+    ⚠️ IF EVERY CANDIDATE IS IN THE FUTURE THE FIRST IS KEPT, and that is the
+    load-bearing half. A date-only value is anchored at noon Sofia on purpose
+    (see `_DAY_ONLY_RE`), so before 09:00 UTC dir.bg's only candidate is
+    legitimately hours ahead — refusing it would drop those articles entirely
+    rather than fix anything. This chooses BETWEEN disagreeing sources; it is
+    not a second future-skew gate. `MAX_FUTURE_SKEW` remains the only refusal.
+    """
+    stated = [value for value in candidates if value]
+    if not stated:
+        return None
+    now = now or datetime.now(timezone.utc)
+    for value in stated:
+        try:
+            parsed = datetime.fromisoformat(value)
+        except (TypeError, ValueError):
+            # An unparseable value is the site's own string, kept as-is by
+            # normalize_date. It makes no claim this can check, so it stands.
+            return value
+        if parsed.tzinfo is None:
+            return value
+        if parsed <= now:
+            return value
+    return stated[0]
+
+
 def extract_record(html_text, domain, url, list_published=None):
     ld = jsonld_article(html_text) or {}
     metas = parse_metas(html_text)
@@ -922,13 +980,12 @@ def extract_record(html_text, domain, url, list_published=None):
     # resolving first, that refusal also discarded a perfectly good
     # article:published_time and dropped the article out of every "latest"
     # view. The bad value on the page is bad; the next one may not be.
-    published = next(
-        (d for d in (normalize_date(src) for src in (
+    published = _first_plausible(
+        [normalize_date(src) for src in (
             _jsonld_str(ld.get("datePublished")),
             metas.get("article:published_time"),
             metas.get("datepublished"),
-            list_published) if src) if d),
-        None)
+            list_published) if src])
     author = (_jsonld_str(ld.get("author"))
               or metas.get("article:author") or metas.get("author"))
     topic = (_jsonld_str(ld.get("articleSection"))

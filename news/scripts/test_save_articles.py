@@ -2566,6 +2566,27 @@ class PublishDates(unittest.TestCase):
         self.assertEqual(self.norm("2026-08-24T22:30:00"),
                          "2026-08-24T19:30:00+00:00")
 
+    def test_a_zone_abbreviation_between_date_and_time_is_recovered(self):
+        """actualno.com emits `2026-09-02EEST07:23+03:00` — no `T`, the zone
+        name where the separator belongs. parse_dt returns None for it, so it
+        fell through to the "keep the site's own string" arm and was never
+        usable as a date."""
+        self.assertEqual(self.norm("2026-08-24EEST07:23+03:00"),
+                         "2026-08-24T04:23:00+00:00")
+        # With no trailing offset the Sofia arm resolves it — and it is
+        # DST-aware, which a fixed +03:00 would not be.
+        self.assertEqual(self.norm("2026-08-24EEST07:23"),
+                         "2026-08-24T04:23:00+00:00")
+        self.assertEqual(self.norm("2026-01-24EET07:23"),
+                         "2026-01-24T05:23:00+00:00")
+
+    def test_only_sofia_zone_names_are_stripped(self):
+        """⚠️ Stripping `UTC`/`GMT` would CHANGE the value rather than recover
+        it — the remainder would be read as Sofia local and shifted three
+        hours. Only EEST/EET are safe, because they are the zone the Sofia arm
+        would apply anyway."""
+        self.assertEqual(self.norm("2026-08-24UTC07:23"), "2026-08-24UTC07:23")
+
     def test_summer_uses_eest_not_a_fixed_offset(self):
         """+03:00 in August, +02:00 in January. A fixed offset is wrong for
         half the year, which is why this goes through ZoneInfo."""
@@ -4230,6 +4251,51 @@ class MetadataFields(unittest.TestCase):
                 '</body></html>')
         rec, _ = self.sa.extract_record(html, "ex.bg", "https://ex.bg/a")
         self.assertIsNone(rec["updated"])
+
+
+class PublishedSourceSelection(unittest.TestCase):
+    """Which of two disagreeing sources on one page is believed."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(SCRIPT_DIR))
+        import save_articles  # noqa: E402
+        cls.sa = save_articles
+        from datetime import datetime, timezone
+        cls.now = datetime(2026, 9, 2, 5, 29, tzinfo=timezone.utc)
+
+    def pick(self, candidates):
+        return self.sa._first_plausible(candidates, now=self.now)
+
+    def test_a_page_cannot_be_fetched_before_it_is_published(self):
+        """actualno.com states the same wall clock twice and the JSON-LD half
+        is three hours late. Source order alone always picked it, because it is
+        the well-formed one — measured, that stamped 48 of 178 actualno
+        articles ahead of the moment we fetched them."""
+        self.assertEqual(
+            self.pick(["2026-09-02T07:23:00+00:00", "2026-09-02T04:23:00+00:00"]),
+            "2026-09-02T04:23:00+00:00")
+
+    def test_a_sole_future_candidate_is_kept(self):
+        """⚠️ THE LOAD-BEARING HALF. A date-only value is anchored at noon
+        Sofia on purpose, so before 09:00 UTC dir.bg's only candidate is hours
+        ahead. Refusing it would drop those articles entirely rather than fix
+        anything: this chooses BETWEEN sources, it is not a second skew gate."""
+        self.assertEqual(self.pick(["2026-09-02T09:00:00+00:00"]),
+                         "2026-09-02T09:00:00+00:00")
+        self.assertEqual(
+            self.pick(["2026-09-02T09:00:00+00:00", "2026-09-02T10:00:00+00:00"]),
+            "2026-09-02T09:00:00+00:00")
+
+    def test_source_order_still_wins_when_nothing_is_impossible(self):
+        self.assertEqual(
+            self.pick(["2026-09-02T04:00:00+00:00", "2026-09-02T03:00:00+00:00"]),
+            "2026-09-02T04:00:00+00:00")
+
+    def test_an_unparseable_site_string_makes_no_claim_to_check(self):
+        self.assertEqual(self.pick(["вчера 07:23"]), "вчера 07:23")
+        self.assertIsNone(self.pick([]))
+        self.assertIsNone(self.pick([None, ""]))
 
 
 if __name__ == "__main__":
