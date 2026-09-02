@@ -11,5 +11,5 @@
   "cloudCommands": [
     "npm run db:load:clean-delivery:pg:cloud"
   ],
-  "notes": "PARTIAL PUBLISH 2026-09-02 (session 20260902T100005Z-b095): bucket 10/10 done and verified; 16 of 17 cloud loaders done. HELD: db:load:clean-delivery:pg:cloud + the 175_isun_clean_delivery.sql apply, because the corrected isun_clean_delivery_for_eik mounts the /company tile on ~956 more EIKs and the CompanyCleanDeliveryTile fix (fc3342616d) is not deployed. Order: npm run deploy FIRST, then apply 175 (DROP+CREATE under a role-guarded GRANT - app_readonly must exist or /api/db/company 42501s), then this loader."
+  "notes": "OUTSTANDING as of 2026-09-02: clean-delivery only. Waits on npm run deploy shipping the CompanyCleanDeliveryTile series (fc3342616d..363d6d04a9, complete in-repo but not deployed). Order: deploy -> apply 175_isun_clean_delivery.sql (DROP+CREATE under a role-guarded GRANT; app_readonly must exist or /api/db/company 42501s) -> db:load:clean-delivery:pg:cloud. RESOLVED this session: person-search republished 2026-09-02 with the post-704e681ffa loader; tier N now 69 distinct ranks (was a flat 100 across 445k rows)."
 }
