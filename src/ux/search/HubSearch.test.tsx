@@ -486,3 +486,56 @@ describe("dropdown option ids are unique across sources", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 });
+
+// ── The „searched in" sentence is CAPPED ───────────────────────────────────────────────
+//
+// It exists to tell a reader whether their subject was covered at all. At five groups that is
+// a list; at ten it was 178 characters reciting the whole catalogue, which is the opposite of
+// reassurance. The home finder is the box that made this matter.
+
+describe("the no-results sentence", () => {
+  const src = (id: string, label: string) => ({
+    id,
+    label: { bg: label, en: label },
+    kind: "index" as const,
+    // A built (empty) index counts as SEARCHED; a null one does not.
+    index: { rows: [], folds: [] } as never,
+  });
+
+  const renderWith = async (n: number) => {
+    const sources = Array.from({ length: n }, (_, i) =>
+      src(`g${i}`, `Група${i}`),
+    );
+    render(
+      <MemoryRouter>
+        <HubSearch
+          sources={sources}
+          idPrefix="t"
+          title={{ bg: "Т", en: "T" }}
+          placeholder={{ bg: "п", en: "p" }}
+          hint={{ bg: "х", en: "h" }}
+        />
+      </MemoryRouter>,
+    );
+    await userEvent.type(screen.getByRole("combobox"), "zzqxwvv");
+    return screen.getByText(/Няма съвпадения|No matches/).textContent ?? "";
+  };
+
+  it("names every group while the list is short", async () => {
+    const text = await renderWith(5);
+    expect(text).toContain("група4");
+    expect(text).not.toMatch(/и още|more/);
+  });
+
+  it("names the first four and counts the rest once the list grows", async () => {
+    // Sources are declared in reader-intent order, so „the first four" is that order's own
+    // answer rather than an arbitrary slice.
+    const text = await renderWith(10);
+    expect(text).toContain("група0");
+    expect(text).toContain("група3");
+    expect(text).not.toContain("група4");
+    expect(text).toContain("и още 6");
+    // …and the whole sentence stays readable rather than reciting a catalogue.
+    expect(text.length).toBeLessThan(90);
+  });
+});

@@ -1,4 +1,4 @@
-// The global home's finder — five groups, four requests, no second index.
+// The global home's finder — TEN groups, THREE requests, no second index.
 //
 // The home page is a hub OF HUBS, so a reader who already knows what they want („Сливен",
 // „Желязков", „АПИ", „кисело мляко") would otherwise have to guess which of eight tiles
@@ -8,15 +8,25 @@
 // ⚠️ IT BUILDS NO NEW INDEX AND ADDS NO NEW ENDPOINT. Every group reuses an authority that
 // already exists:
 //
-//   places        the SLIM place catalog (`buildPlaceItems`), the same rows the My-Area
-//                 autocomplete uses — NOT the fat `useSearchItems`, which additionally
-//                 pulls ~4.4 MB this box would immediately discard
-//   people        /api/db/person-search, the source /governance uses
-//   institutions  /api/db/procurement-search  ┐ ONE request, shared — see
-//   companies     /api/db/procurement-search  ┘ procurementSearchSource.ts
-//   products      /api/db/price-search, the endpoint the consumption hub uses
+//   places          the SLIM place catalog (`buildPlaceItems`), the same rows the My-Area
+//                   autocomplete uses — NOT the fat `useSearchItems`, which additionally
+//                   pulls ~4.4 MB this box would immediately discard
+//   public people   /api/db/person-search  ┐ ONE request, shared — see
+//   registry people /api/db/person-search  ┘ personSearchSource.ts
+//   institutions    /api/db/procurement-search  ┐
+//   companies       /api/db/procurement-search  │ ONE request, shared — see
+//   contracts       /api/db/procurement-search  │ procurementSearchSource.ts
+//   tenders         /api/db/procurement-search  │
+//   ИСУН projects   /api/db/procurement-search  │
+//   Interreg        /api/db/procurement-search  ┘
+//   products        /api/db/price-search, the endpoint the consumption hub uses
 //
-// So a keystroke costs three requests, not five, and the place group costs none at all.
+// So a keystroke costs THREE requests for TEN groups, and the place group costs none at all.
+//
+// ⚠️ THE FOUR PROCUREMENT GROUPS BELOW COMPANIES ADD NO COST. That route already runs all six
+// searches on every call, plus both bounded totals and the shliokavitsa rewrite, so rendering
+// two of them was discarding four it had already been billed for. Same for the person route's
+// `money`/`others` tiers. Adding them is client mapping — no new SQL, no second request.
 //
 // ⚠️ AND NOTHING LOADS BEFORE INTENT. The place catalog is ~980 KB and is fetched only once
 // `HubSearch` arms (focus or first keystroke), which is why the screen passes `armed` down
@@ -25,30 +35,28 @@
 //
 // Plan: docs/plans/home-dashboard-implementation-v1.md §8.
 
-import { MapPin, ShoppingBasket, Users, FileText } from "lucide-react";
+import { MapPin, ShoppingBasket } from "lucide-react";
 import type { SearchItem } from "@/ux/search/EntitySearchTile";
 import type { HubSearchSource } from "@/ux/search/hubSearchSources";
 import { buildEntityIndex } from "@/lib/entitySearchIndex";
 import { decodeEntities } from "@/lib/decodeEntities";
 import {
+  fetchFundProjects,
+  fetchInterregOperations,
   fetchProcurementAwarders,
   fetchProcurementCompanies,
+  fetchProcurementContracts,
+  fetchProcurementTenders,
+  procurementAltQuery,
+  procurementMoreCount,
 } from "@/screens/components/search/procurementSearchSource";
-import { positionLabel } from "@/screens/components/procurement/personSearchGroups";
+import {
+  fetchCompanyPeople,
+  fetchPublicPeople,
+  type RoleLabeler,
+} from "@/screens/components/search/personSearchSource";
 import type { SearchIndexType } from "@/data/search/useSearchItems";
-
-interface PersonHit {
-  key: string;
-  name: string;
-  position_type: string | null;
-  place_label: string | null;
-  href: string;
-  has_declaration: boolean;
-}
-interface PersonSearchResponse {
-  power?: PersonHit[];
-  altQuery?: string | null;
-}
+import { SEARCH_MIN_CHARS, termLength } from "@/ux/data_table/searchTerm";
 
 /** A price-search hit. ⚠️ The route returns a BARE ARRAY (`{ body: rows }` in
  *  `functions/db_routes.js`), not an envelope — `ConsumptionSearchTile` reads it the same
@@ -64,38 +72,6 @@ interface PriceHit {
   net_qty: string | number | null;
   net_unit: string | null;
 }
-
-let lastPersonAlt: { typed: string; alt: string } | null = null;
-
-const fetchPeople = async (
-  query: string,
-  signal: AbortSignal,
-  bg: boolean,
-): Promise<SearchItem[]> => {
-  const r = await fetch(
-    `/api/db/person-search?q=${encodeURIComponent(query)}`,
-    {
-      signal,
-    },
-  );
-  if (!r.ok) throw new Error(`person-search: ${r.status}`);
-  const body = (await r.json()) as PersonSearchResponse;
-  lastPersonAlt = body.altQuery ? { typed: query, alt: body.altQuery } : null;
-  return (body.power ?? []).map((p) => ({
-    id: p.key,
-    to: p.href,
-    primary: decodeEntities(p.name),
-    // Role and place — what tells two people of the same name apart, and this register is
-    // full of them. `positionLabel` is the one map, shared with the procurement,
-    // governance and declarations boxes so the four cannot disagree.
-    secondary:
-      [positionLabel(p.position_type, bg), p.place_label]
-        .filter(Boolean)
-        .map((x) => decodeEntities(String(x)))
-        .join(" · ") || undefined,
-    icon: p.has_declaration ? FileText : Users,
-  }));
-};
 
 const fetchProducts = async (
   query: string,
@@ -196,6 +172,71 @@ export const homePlaceIndex = (
       )
     : null;
 
+/**
+ * Per-group preview caps, named once.
+ *
+ * ⚠️ A CAP IS READ TWICE PER GROUP — as the source's `limit` AND as the „shown" count the
+ * bounded remainder is computed against — and they must stay equal. `limit: 3` beside
+ * `procurementMoreCount(q, "contracts", 2)` renders „ (3)" next to three already-visible rows.
+ * The V/N quota is the same shape: `fetchCompanyPeople(…, cap)` must ask for what the group
+ * will display.
+ *
+ * Sums to 20, which is the keyboard budget: `HubSearch` scroll-bounds the dropdown anyway, so
+ * this bounds how far an arrow key has to travel and stops a broad query turning the global
+ * finder into a browser.
+ */
+const CAP = {
+  places: 3,
+  publicPeople: 3,
+  companyPeople: 2,
+  products: 2,
+  awarders: 2,
+  companies: 2,
+  contracts: 2,
+  tenders: 2,
+  funds: 1,
+  interreg: 1,
+} as const;
+
+/**
+ * The see-all floor.
+ *
+ * ⚠️ `HubSearch` OPENS AT TWO CHARACTERS AND EVERY DESTINATION FLOORS AT THREE. Each see-all
+ * below lands on a `DbDataTable`, whose `searchMinChars` is `SEARCH_MIN_CHARS` and whose server
+ * REFUSES a shorter term with a 400 — so a two-character query („АД", „ЕЙ") would show a
+ * preview with rows and links to a page that renders „въведете поне 3 знака" instead of them.
+ * That is the „a see-all page cannot reproduce the preview" failure, in the one case the rest
+ * of the rules do not cover.
+ *
+ * ⚠️ DERIVED FROM THE SHARED RULE, NEVER HAND-ROLLED. `searchTerm.ts` owns both halves and its
+ * test reads `SEARCH_MIN_CHARS` back out of `functions/db_table.js` — so an engine change to 4
+ * fails THERE and propagates here. A private `const SEE_ALL_MIN_CHARS = 3` would not move with
+ * it: the floor would silently go stale while this file's own „three characters is enough"
+ * assertion kept passing, now asserting the bug. `termLength` rather than `.length` for the
+ * usual reason — `[..."👍👍"].length` is 2 while `.length` is 4, and `show_trgm('👍👍')` is the
+ * EMPTY set.
+ *
+ * TRIMMED, like every sibling consumer. `HubSearch` happens to pass an already-trimmed query
+ * today, but that is a property of a different file: called with „аб " this must measure the
+ * two characters the destination will actually run, not the three that reached the callback.
+ */
+const longEnoughToSeeAll = (q: string): boolean =>
+  termLength(q.trim()) >= SEARCH_MIN_CHARS;
+
+/**
+ * A see-all that suppresses itself below the destination's own floor.
+ *
+ * The label may depend on the query — the procurement groups append the bounded remainder the
+ * route already paid for — so that EVERY see-all goes through this one gate rather than half of
+ * them re-implementing the guard inline, which is what a fifth group would copy from.
+ */
+const seeAllAbove =
+  (label: string | ((q: string) => string), to: (q: string) => string) =>
+  (q: string): { label: string; to: string } | undefined =>
+    longEnoughToSeeAll(q)
+      ? { label: typeof label === "function" ? label(q) : label, to: to(q) }
+      : undefined;
+
 export const homeSearchSources = (
   bg: boolean,
   placeItems: SearchIndexType[] | null,
@@ -203,11 +244,15 @@ export const homeSearchSources = (
   /** False until `HubSearch` arms. Keeps the place group in its loading state rather than
    *  claiming the catalog is empty before anyone has asked for it. */
   armed: boolean,
+  /** `usePersonLabels().roleLabel`, so a public row reads „Кмет · Столична община" rather than
+   *  „Политик · Столична община" — true of Sofia's mayor and of 46,158 other people. Optional
+   *  because this module is not a component and cannot call the hook itself. */
+  roleLabel?: RoleLabeler,
 ): HubSearchSource[] => [
   {
     id: "places",
     label: { bg: "Места", en: "Places" },
-    limit: 5,
+    limit: CAP.places,
     kind: "index",
     icon: MapPin,
     index: homePlaceIndex(placeItems, oblastOf),
@@ -216,25 +261,45 @@ export const homeSearchSources = (
     loading: armed && !placeItems,
   },
   {
-    id: "people",
-    label: { bg: "Хора", en: "People" },
-    limit: 4,
+    id: "public-people",
+    label: { bg: "Публични лица", en: "People in public life" },
+    limit: CAP.publicPeople,
     kind: "server",
-    fetch: (q, s) => fetchPeople(q, s, bg),
-    // VERIFIED destination: /persons reads ?q (useUrlPersonFilters). `altQuery` because the
-    // browse table runs its own search WITHOUT the shliokavitsa rewrite, so a link built
-    // from what was typed advertises rows the destination cannot find.
-    seeAll: (q) => ({
-      label: bg ? "Виж всички хора" : "See all people",
-      to: `/persons?q=${encodeURIComponent(
-        lastPersonAlt && lastPersonAlt.typed === q ? lastPersonAlt.alt : q,
-      )}`,
-    }),
+    fetch: (q, s) => fetchPublicPeople(q, s, bg, roleLabel),
+    // ⚠️ NO SEE-ALL, AND ITS REMOVAL IS A DECISION RATHER THAN AN OVERSIGHT. `/persons` DOES
+    // reproduce a correctly-spelled multi-word name — `persons.name` carries
+    // `searchFoldTokens`, so „vasil terziev" finds him there too. What it cannot reproduce is
+    // a TYPO: this endpoint is trigram-fuzzy and that browse column is substring, so „vassil"
+    // (a doubled letter, which no shliokavitsa rewrite touches) previews six people and
+    // delivers none. A see-all must reproduce the query's SEMANTICS, not merely accept its
+    // parameter.
+  },
+  {
+    id: "products",
+    label: { bg: "Продукти", en: "Products" },
+    limit: CAP.products,
+    kind: "server",
+    fetch: fetchProducts,
+    // ⚠️ HIGH IN THE BOX, NOT LAST. A corpus-taxonomy order puts products behind eight money
+    // groups — measured on „Варна", that is 531 px into a 382 px-tall scroll box, i.e. below
+    // the fold. „кисело мляко" is a first-class home query. Empty groups collapse, so the
+    // ten-deep case only occurs on a broad word („ремонт", „София") — which is exactly when
+    // this ordering matters.
+    //
+    // ⚠️ NO SEE-ALL, AND IT USED TO HAVE ONE. The preview and `/consumption/products` run
+    // DIFFERENT shliokavitsa engines: this route matches through `shlyoCandidates` (which
+    // covers the phonetic i-glide spellings) and the browse table through
+    // `shlyo_query_fold` (which does not). Measured 2026-09-02 — „mliako", „biala",
+    // „rakiia" and „iogurt" each preview 20 real products and the destination returns ZERO,
+    // four of nine probe terms, so a class rather than an instance. Carrying an `altQuery`
+    // is not available as a fix: `/api/db/price-search` returns a bare array and supplies no
+    // rewrite. Restoring the link means giving that route the needle it matched on — the
+    // `procurement-search` shape — as a field BESIDE the array, never an envelope.
   },
   {
     id: "awarders",
     label: { bg: "Институции", en: "Institutions" },
-    limit: 3,
+    limit: CAP.awarders,
     kind: "server",
     fetch: fetchProcurementAwarders,
     // No see-all: there is no awarders browse page that reads ?q, and a link advertising a
@@ -243,25 +308,102 @@ export const homeSearchSources = (
   {
     id: "companies",
     label: { bg: "Фирми", en: "Companies" },
-    limit: 3,
+    limit: CAP.companies,
     kind: "server",
     fetch: fetchProcurementCompanies,
-    seeAll: (q) => ({
-      label: bg ? "Виж всички фирми" : "See all companies",
-      // ?pscope=all: the browse table defaults to the selected parliament's window, so a
-      // company whose contracts predate it would land on zero rows.
-      to: `/procurement/contractors?q=${encodeURIComponent(q)}&pscope=all`,
-    }),
+    seeAll: seeAllAbove(
+      bg ? "Виж всички фирми" : "See all companies",
+      // ⚠️ `altQuery`: the browse table runs its own search and does NOT carry this route's
+      // shliokavitsa rewrite, so a link built from what was typed advertises rows the
+      // destination cannot find — „6umen" previews six and delivers one.
+      // ⚠️ `pscope=all`: the table defaults to the selected parliament's window, so a company
+      // whose contracts predate it would land on zero rows.
+      (q) =>
+        `/procurement/contractors?q=${encodeURIComponent(procurementAltQuery(q))}&pscope=all`,
+    ),
   },
   {
-    id: "products",
-    label: { bg: "Продукти", en: "Products" },
-    limit: 3,
+    id: "contracts",
+    label: { bg: "Договори по ЗОП", en: "Procurement contracts" },
+    limit: CAP.contracts,
     kind: "server",
-    fetch: fetchProducts,
-    seeAll: (q) => ({
-      label: bg ? "Виж всички продукти" : "See all products",
-      to: `/consumption/products?q=${encodeURIComponent(q)}`,
-    }),
+    fetch: fetchProcurementContracts,
+    seeAll: seeAllAbove(
+      // The bounded total the route already paid for, so the cap reads as a preview rather
+      // than as the whole result.
+      (q) =>
+        (bg ? "Виж всички договори" : "See all contracts") +
+        procurementMoreCount(q, "contracts", CAP.contracts),
+      (q) =>
+        `/procurement/contracts?q=${encodeURIComponent(procurementAltQuery(q))}&pscope=all`,
+    ),
+  },
+  {
+    id: "tenders",
+    // „Процедури", not „Поръчки": „обществени поръчки" is the umbrella this whole corpus
+    // sits under, so reusing it for one half would read as a third corpus.
+    label: { bg: "Процедури по ЗОП", en: "Procurement procedures" },
+    limit: CAP.tenders,
+    kind: "server",
+    fetch: fetchProcurementTenders,
+    seeAll: seeAllAbove(
+      (q) =>
+        (bg ? "Виж всички процедури" : "See all procedures") +
+        procurementMoreCount(q, "tenders", CAP.tenders),
+      (q) =>
+        `/procurement/tenders?q=${encodeURIComponent(procurementAltQuery(q))}&pscope=all`,
+    ),
+  },
+  {
+    id: "company-people",
+    // ⚠️ BELOW THE MONEY GROUPS, and that is the ordering decision rather than an accident.
+    // This is the box's weakest tier — name-fold identities over `tr_officers`, carrying a
+    // „съвпадение по име" caveat on most rows — so it must not sit above corpora whose rows
+    // are keyed and checkable. Products leads it for the opposite reason: „кисело мляко" is
+    // a first-class home query and its rows are exact.
+    // ⚠️ NAMES THE CORPUS, NOT THE ENTITY KIND, and „Лица от…" is what it must not say. These
+    // rows are `tr_officers` name folds, and ~3.7% of them are COMPANY-shaped: measured on
+    // „София", both rows rendered were non-persons — „София Франс Ауто" and a 230-character
+    // school-representation string. `identityCaveat` qualifies WHICH person a row is; a
+    // heading reading „People in the company register" asserts THAT it is one, and a heading
+    // is the one line here that cannot carry a caveat. /procurement's own two groups over the
+    // same tiers („Свързани с обществени пари", „Други собственици") claim no personhood.
+    label: { bg: "Търговски регистър", en: "Company register" },
+    limit: CAP.companyPeople,
+    kind: "server",
+    // The cap is the group's own `limit`: asking for more wastes the V/N balance, asking for
+    // fewer leaves the group short of its own budget.
+    fetch: (q, s) => fetchCompanyPeople(q, s, bg, CAP.companyPeople),
+    // No see-all: `/persons` browses P and V, not the 445,804-row N tier, so the link would
+    // promise a result set the destination cannot reproduce.
+  },
+  {
+    id: "funds",
+    label: { bg: "Проекти по еврофондове", en: "EU-funds projects" },
+    limit: CAP.funds,
+    kind: "server",
+    fetch: fetchFundProjects,
+    // No see-all: the obvious target, /procurement/contracts, browses the ЗОП corpus, which
+    // holds none of these rows. No funds-project browser reads ?q yet.
+  },
+  {
+    id: "interreg",
+    // Named for the corpus, not folded into „еврофондове": `fund_projects` holds ZERO
+    // Interreg rows (Interreg runs on Jems, not ИСУН), the two share no key, and the money
+    // shown is the Bulgarian partners' share rather than a project's own value.
+    // ⚠️ THE NOUN LEADS, IN BOTH LANGUAGES, AND THAT IS TWO FIXES IN ONE RENAME.
+    // „(трансгранични)" is a bare plural adjective with no noun — Bulgarian does not carry
+    // one alone the way English carries „(cross-border)" — and it renders `uppercase` in the
+    // sticky header, which makes the gap louder. And `HubSearch` lowercases the FIRST
+    // CHARACTER of every label for its „Няма съвпадения в: …" line, on the stated assumption
+    // that labels are sentence-case; a label starting with a proper noun came out as
+    // „interreg (трансгранични)". Leading with the noun keeps the brand capitalised.
+    label: {
+      bg: "Трансгранични проекти (Interreg)",
+      en: "Cross-border projects (Interreg)",
+    },
+    limit: CAP.interreg,
+    kind: "server",
+    fetch: fetchInterregOperations,
   },
 ];

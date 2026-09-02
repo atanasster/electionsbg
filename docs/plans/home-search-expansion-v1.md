@@ -434,7 +434,7 @@ The proposed order and caps are:
 | ---: | --- | ---: | --- |
 | 1 | `places` | 3 | none |
 | 2 | `public-people` | 3 | none in v1; `/persons` does not reproduce this endpoint's typo tolerance |
-| 3 | `products` | 2 | `/consumption/products?q=…` |
+| 3 | `products` | 2 | ⚠️ **none — removed after measurement, see below** |
 | 4 | `awarders` | 2 | none; no awarder browser reads `?q` |
 | 5 | `companies` | 2 | `/procurement/contractors?q=…&pscope=all` |
 | 6 | `contracts` | 2 | `/procurement/contracts?q=…&pscope=all` |
@@ -459,12 +459,23 @@ and keeps a broad query from turning the global finder into a browser.
 
 **Four rules on “see all”, and three of them are new:**
 
-- **`altQuery`, on EVERY see-all, not only contracts and tenders.** The response's `altQuery` is
-  the needle the rows actually came from. `/procurement/contractors` and `/consumption/products`
-  run their own `DbDataTable` search too. ⚠️ Their `searchFold` arm carries a
-  `shlyo_query_fold` rewrite that is NOT the route's `shlyoAlt` — there are three different
-  shliokavitsa triggers in this repo — so „the destination has a rewrite" is not „the
-  destination has THIS rewrite".
+- **`altQuery`, on EVERY see-all that has one.** The response's `altQuery` is the needle the
+  rows actually came from. `/procurement/contractors` runs its own `DbDataTable` search too.
+  ⚠️ Its `searchFold` arm carries a `shlyo_query_fold` rewrite that is NOT the route's
+  `shlyoAlt` — there are three different shliokavitsa triggers in this repo — so „the
+  destination has a rewrite" is not „the destination has THIS rewrite".
+
+  ⚠️ **AND THAT ARGUMENT KILLED THE PRODUCTS SEE-ALL, which this section originally required
+  it for.** `/api/db/price-search` matches through `shlyoCandidates` (which covers the
+  phonetic i-glide spellings) while `/consumption/products` matches through
+  `shlyo_query_fold` (which does not) — the divergence CLAUDE.md already records by name.
+  Measured 2026-09-02: „mliako", „biala", „rakiia" and „iogurt" each preview **20 real
+  products** and the destination returns **0** — four of nine probe terms, so a class rather
+  than an instance. And there is no `altQuery` to carry: that route returns a bare array and
+  supplies no rewrite. The link is therefore REMOVED, as a seventh documented refusal.
+  Restoring it means giving `price-search` the needle it matched on — the `procurement-search`
+  shape — as a field BESIDE the array, never an envelope, since two consumers depend on the
+  bare-array contract.
 - **`pscope=all` on the three procurement links**, as the existing procurement tile does: the
   browse tables default to the selected parliament's window.
 - ⚠️ **Suppress every see-all below `SEARCH_MIN_CHARS` (3).** `HubSearch` opens at
@@ -754,11 +765,15 @@ follow-up with their own precision and index review.
    - `Договори по ЗОП` / `Procurement contracts`;
    - `Процедури по ЗОП` / `Procurement procedures`.
    “Procurements” is the umbrella in copy, not a redundant third corpus.
-5. ⚠️ **Shorten the „searched in" sentence.** `HubSearch` builds
-   „Няма съвпадения в: …" from every source that has an index or did not fail. At ten groups the
-   Bulgarian sentence runs ~120 characters and recites the whole taxonomy, which is the opposite
-   of the reassurance it was written to give. Cap the list or name bands rather than groups, and
-   gate whichever is chosen.
+5. ✅ **The „searched in" sentence is capped.** Measured at ten groups it ran **178
+   characters** — „Няма съвпадения в: места, публични лица, продукти, институции, фирми,
+   договори по ЗОП, процедури по ЗОП, търговски регистър, проекти по еврофондове,
+   трансгранични проекти (interreg)" — reciting the whole taxonomy, which is the opposite of
+   the reassurance it exists to give. `HubSearch` now names the first four and counts the rest
+   („…и още 6"), which is **69 characters**; sources are declared in reader-intent order, so
+   „the first four" is that order's own answer rather than an arbitrary slice. A box with five
+   or fewer groups is unchanged, so no existing hub's sentence moves. Gated in
+   `HubSearch.test.tsx`.
 
 ## 5. Verification gates
 

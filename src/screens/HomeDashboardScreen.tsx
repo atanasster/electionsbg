@@ -28,6 +28,7 @@ import { useHomeHubStats } from "@/data/home/useHomeHubStats";
 import { formatDate } from "@/lib/formatDate";
 import { homeKpis, homeTileMetric } from "./home/homeFigures";
 import { homeSearchSources } from "./home/homeSearch";
+import { usePersonLabels } from "@/lib/personLabels";
 import { HomeChangeFeed } from "./home/HomeChangeFeed";
 import { HOME_BANDS } from "./home/homeRegistry";
 import { HOME_SCENES } from "./home/homeScenes";
@@ -60,9 +61,13 @@ export const HomeDashboardScreen: FC = () => {
     () => (key: string) => findSettlement?.(key)?.oblast,
     [findSettlement],
   );
+  // `roleLabel` turns the public-people rows from „Политик · Столична община" — true of
+  // Sofia's mayor and of 46,158 other people — into „Кмет · Столична община", which is what
+  // tells two namesakes apart. `usePersonLabels` memoizes on `t`, so this does not churn.
+  const { roleLabel } = usePersonLabels();
   const searchSources = useMemo(
-    () => homeSearchSources(bg, placeItems, oblastOf, armed),
-    [bg, placeItems, oblastOf, armed],
+    () => homeSearchSources(bg, placeItems, oblastOf, armed, roleLabel),
+    [bg, placeItems, oblastOf, armed, roleLabel],
   );
 
   const kpis = useMemo(() => homeKpis(stats, t, lang), [stats, t, lang]);
@@ -123,13 +128,22 @@ export const HomeDashboardScreen: FC = () => {
             idPrefix="home-search"
             onArm={() => setArmed(true)}
             title={{ bg: "Търсене", en: "Search" }}
+            // ⚠️ „процедура", NOT „поръчка", and „продукт" is back. „Обществени поръчки" is
+            // the umbrella the whole ЗОП corpus sits under — homeSearch names its two halves
+            // „Договори по ЗОП" and „Процедури по ЗОП" for exactly that reason — so inviting a
+            // reader to type looking for a „поръчка" offers them no group by that name. And
+            // products was dropped from this line in the same pass that promoted the group up
+            // the box for visibility.
             placeholder={{
-              bg: "място, човек, институция, фирма или продукт…",
-              en: "a place, a person, an institution, a company or a product…",
+              bg: "място, човек, фирма, продукт, договор или процедура…",
+              en: "a place, a person, a company, a product, a contract or a procedure…",
             }}
+            // Says what the box covers, in the order the groups appear. Deliberately names
+            // the CORPORA rather than the ten group headings: a reader who has not opened
+            // the box needs to know whether their subject is in it at all.
             hint={{
-              bg: "Населени места и общини, хора от публичния регистър, възложители, фирми с договори и продукти от кошницата.",
-              en: "Settlements and municipalities, people in the public register, state buyers, companies with contracts, and products in the basket.",
+              bg: "Места; публични лица и лица от Търговския регистър; продукти; възложители и фирми; договори и процедури по ЗОП; проекти по еврофондове и Interreg.",
+              en: "Places; people in public life and in the company register; products; state buyers and companies; procurement contracts and procedures; EU-funds and Interreg projects.",
             }}
           />
         }

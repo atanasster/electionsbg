@@ -123,6 +123,14 @@ describe("identityCaveat", () => {
         true,
       ),
     ).toBe("7 фирми · съвпадение по име");
+    // ⚠️ Singular at one. „1 фирми" is wrong Bulgarian and it is the commonest case in the
+    // long tail — most private owners hold exactly one company.
+    expect(
+      firmsSubtitle(
+        hit({ firms_count: 1, identity_confidence: "name_fold" }),
+        true,
+      ),
+    ).toBe("1 фирма · съвпадение по име");
     expect(
       firmsSubtitle(
         hit({ firms_count: 1, identity_confidence: "verified" }),

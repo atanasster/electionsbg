@@ -280,7 +280,12 @@ export const identityCaveat = (h: PersonHit, bg: boolean): string | null => {
 /** „3 фирми · няколко лица" — the private-tier subtitle. */
 export const firmsSubtitle = (h: PersonHit, bg: boolean): string => {
   const n = Number(h.firms_count) || 0;
-  const firms = bg ? `${n} фирми` : `${n} ${n === 1 ? "company" : "companies"}`;
+  // Bulgarian singularises at one exactly as English does — „1 фирма", „2 фирми". The
+  // English side has always done this; the Bulgarian side said „1 фирми" for every
+  // single-company owner, which is most of the long tail.
+  const firms = bg
+    ? `${n} ${n === 1 ? "фирма" : "фирми"}`
+    : `${n} ${n === 1 ? "company" : "companies"}`;
   const caveat = identityCaveat(h, bg);
   return caveat ? `${firms} · ${caveat}` : firms;
 };

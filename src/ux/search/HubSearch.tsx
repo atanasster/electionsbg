@@ -231,10 +231,30 @@ export const HubSearch: FC<{
       const label = pick(s.label, bg);
       return label.charAt(0).toLowerCase() + label.slice(1);
     });
+  // ⚠️ CAPPED, BECAUSE A TAXONOMY DUMP IS NOT REASSURANCE. The sentence exists to tell a
+  // reader whether their subject was covered at all — at five groups that is a list, and at
+  // ten it is 178 characters reciting the whole catalogue, which is the opposite. Measured on
+  // the home finder: „Няма съвпадения в: места, публични лица, продукти, институции, фирми,
+  // договори по ЗОП, процедури по ЗОП, търговски регистър, проекти по еврофондове,
+  // трансгранични проекти (interreg)".
+  //
+  // The first four are named because they are the ones a reader is most likely to have meant
+  // — sources are declared in reader-intent order, so „first four" is that order's own answer
+  // rather than an arbitrary slice — and the rest are counted. A box with five or fewer
+  // groups is unchanged, so this cannot alter any existing hub's sentence.
+  const SEARCHED_NAMED = 4;
+  const searchedText =
+    searched.length <= SEARCHED_NAMED + 1
+      ? searched.join(", ")
+      : `${searched.slice(0, SEARCHED_NAMED).join(", ")}${
+          bg
+            ? ` и още ${searched.length - SEARCHED_NAMED}`
+            : ` and ${searched.length - SEARCHED_NAMED} more`
+        }`;
   const noResultsLabel = searched.length
     ? bg
-      ? `Няма съвпадения в: ${searched.join(", ")}`
-      : `No matches in: ${searched.join(", ")}`
+      ? `Няма съвпадения в: ${searchedText}`
+      : `No matches in: ${searchedText}`
     : bg
       ? "Няма съвпадения."
       : "No matches.";
