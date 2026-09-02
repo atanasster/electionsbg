@@ -1335,22 +1335,14 @@ describe("a hub's og capture anchors on its head", () => {
       //
       // The remaining kind is the one this map was built for: CODE that draws nothing.
       //
-      // ⚠️ A SCREEN CAN LAND HERE TOO, and this is the first one that has — the paragraph
-      // beside `sources` below used to say a screen is „never exemptible", which was a
-      // description of the map's contents rather than a rule the code enforces (the filter
-      // has always applied to `screen`). `/`'s card is anchored on `[data-hub-head]` and
-      // clipped to OG_CLIP_VIEWPORT, so it depicts the head and the tile grid; the change
-      // feed the home-dashboard plan's Phase 4 added sits BELOW that anchor and outside the
-      // clip. Verified the way this map requires — by re-shooting, not by reading the diff.
-      "src/screens/HomeDashboardScreen.tsx": {
-        sha: "0282d7e81ae09ce7f1bee85b00982907fd23bb06",
-        why:
-          "Phase 4 mounted <HomeChangeFeed /> below the tile grid, outside the " +
-          "[data-hub-head] anchor and below the OG clip. Verified: re-shooting `home` " +
-          "against the dev server produced a byte-identical file, unchanged before and " +
-          "after.",
-        verifiedCardMd5: { home: "76015c64567c7231d36190b0379e5abf" },
-      },
+      // ⚠️ A SCREEN CAN LAND HERE TOO, and one has — `src/screens/HomeDashboardScreen.tsx`,
+      // for a Phase 4 change feed mounted below the `[data-hub-head]` anchor and outside the
+      // OG clip. It EXPIRED on the next commit to that screen and has been dropped, which is
+      // the map working rather than an entry going missing. What the episode settled is kept
+      // because it is a rule and not an entry: the paragraph beside `sources` below used to
+      // say a screen is „never exemptible", and that was a description of the map's contents
+      // rather than anything the code enforces — the filter has always applied to `screen`,
+      // which is why the `sources.length === 0` branch exists at all.
     };
     const shaOf = (rel: string) =>
       execFileSync("git", ["log", "-1", "--format=%H", "--", rel], {
