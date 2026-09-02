@@ -93,45 +93,68 @@ Local:
 
 The parliamentary route names are historically one geographic level off. User-facing copy and the new surface types must use the real level; route segments remain untouched in v1.
 
-### 3.1 Three election entry points, and which one is canonical
+### 3.1 Four election URLs — settled
 
 ⚠️ **`/elections` IS NOT A ROUTE TODAY, AND THE COUNTRY RESULT IS AT `/parliamentary`.** Checked
-against `src/routes.tsx` on 2026-09-01: `/parliamentary` renders `DashboardScreen`, with the
-comment _"the composition `/` rendered until the global home dashboard took the root"_. It is
-prerendered (`scripts/prerender/routes.ts`), present in **both** `route_defs.ts` lists,
-breadcrumbed „Избори" / "Elections", and carries `ogImage: "/og/parliamentary.png"`. A bare
-`elections` path appears nowhere in `routes.tsx`.
+against `src/routes.tsx`: `/parliamentary` renders `DashboardScreen`, with the comment _"the
+composition `/` rendered until the global home dashboard took the root"_. It is prerendered,
+present in **both** `route_defs.ts` lists, breadcrumbed „Избори" / "Elections", and carries
+`ogImage: "/og/parliamentary.png"`. A bare `elections` path appears nowhere in `routes.tsx`.
 
-So after Phase 3 there are **three** URLs in one family, and two of them already share metadata:
+**The family is FOUR URLs, not three — the fourth is what decides the question.**
+`/elections/:date` is already prerendered (`scripts/prerender/dynamicRoutes.ts`) and already
+carries a sitemap `<loc>` through `{ path: "elections/:id" }`: measured, **13 pages in `dist/`
+and 13 `<loc>`s in `sitemap_static_2.xml`**, one per cycle including the latest. So a
+`/elections` that rendered the current country result would duplicate `/elections/2026_04_19`,
+which already exists and is already indexed.
 
-| URL              | today                                | title/description                     |
-| ---------------- | ------------------------------------ | ------------------------------------- |
-| `/`              | the global home dashboard            | `GLOBAL_HOME_TITLE` / `_DESCRIPTION`  |
-| `/parliamentary` | the parliamentary country result     | **`HOME_TITLE` / `HOME_DESCRIPTION`** |
-| `/elections`     | this plan's hub — does not exist yet | to be written                         |
+| URL                | what it is                             | canonical for                         |
+| ------------------ | -------------------------------------- | ------------------------------------- |
+| `/`                | the global home — Bulgaria in data     | itself                                |
+| `/parliamentary`   | the parliamentary country result       | **"Bulgarian parliamentary results"** |
+| `/elections/:date` | one cycle's country result, 13 of them | itself, per cycle                     |
+| `/elections`       | the cross-kind hub this plan builds    | **itself** — the entry, not a result  |
 
-`/parliamentary` inheriting the HOMEPAGE's title and description is a pre-existing condition, not
-something this plan causes — but it is what turns "add one more entry" into a three-way
-duplicate. §13's risk row said `/` vs `/elections`; the live pair is `/parliamentary` vs
-`/elections`.
+**Settled, and it agrees with the decision already recorded in
+[home-dashboard-implementation-v1.md](./home-dashboard-implementation-v1.md) §2.2** — which
+states that `/parliamentary` becomes the canonical route for the current parliamentary country
+result, that the home plan deliberately does NOT create `/elections`, and that the route "stays
+free for the cross-kind hub the elections plan actually designs". This plan adopts that verbatim
+rather than reopening it. The `/parliamentary` namespace already had two hub siblings
+(`/parliamentary/analysis`, `/parliamentary/reports`) and no index; the country result completes
+it.
 
-**Phase 0 must settle which URL is canonical for the query "Bulgarian parliamentary election
-results", and what the other two say instead.** Three shapes, and the plan does not pick one for
-you because the answer depends on how far the global-home cutover goes:
+**Correction to an earlier reading of this section.** It claimed `/parliamentary` and `/` "share
+metadata" because `/parliamentary` uses `HOME_TITLE`. That is no longer true and should not be
+carried forward: `/` moved to `GLOBAL_HOME_TITLE` ("Наясно — България в данни…") and `HOME_TITLE`
+now has exactly one consumer, `/parliamentary`, whose value — „Парламентарни избори … резултати и
+анализ от 2005" — is precisely right for it. **The constant's NAME is stale, not its content.**
+Rename it to `PARLIAMENTARY_TITLE` / `PARLIAMENTARY_DESCRIPTION` so the next reader does not
+re-derive the same wrong conclusion; there is no duplicate to fix.
 
-- **`/elections` is the hub and `/parliamentary` stays the country result.** Then they need
-  genuinely different titles, descriptions and `bodyHtml` — a hub that fronts both election
-  systems versus one parliament's national result — and `/parliamentary` must stop using
-  `HOME_TITLE`.
-- **`/elections` REPLACES `/parliamentary`.** Then it needs a 301 and an entry in every place
-  `/parliamentary` currently appears: both sitemap lists, the prerender, the og table, the
-  breadcrumb, `tests/seo.spec.ts`, and `scripts/llms/buildIndex.ts`.
-- **`/elections` is a thin cross-kind entry that canonicalises to `/parliamentary`.** Then it
-  gets no sitemap `<loc>` at all, by the rule that a URL which canonicalises elsewhere is never
-  submitted — the `/data-changes` and `/en/funds/procedure/*` precedent.
+**What follows for `/elections`, and these are requirements rather than notes:**
 
-Whichever is chosen, decision 14's "every new canonical page ships with…" applies to the one
-that ends up canonical, and the other two are checked for what they must NOT claim.
+- ⚠️ **Its lead outcome canvas is a PREVIEW that links out, never the complete country result.**
+  That is the line between this page and both `/parliamentary` and `/elections/<latest>`. The
+  moment the hub renders the full ranked national result with its detail sections, it is a third
+  copy of a page that exists twice already, and the better-established of the two owns the query.
+  Phase 3 already routes selection to the canonical full result; §8's "required deeper links"
+  is what the hub offers instead of depth.
+- **Its unique content is the thing neither sibling has: BOTH systems.** Parliamentary and local
+  side by side, the place finder over every level, partial/chmi elections, and the analyses and
+  reports entries. The title, description and `bodyHtml` are written about that, not about the
+  latest cycle — and `tests/seo.spec.ts`'s `minBodyChars` should hold a body that says it.
+- **It is canonical for itself**, so it takes a sitemap `<loc>` in both lists, declares an
+  hreflang pair with `/en/elections`, and gets its own og capture. The "no `<loc>` for a URL that
+  canonicalises elsewhere" rule does not apply here — nothing canonicalises away.
+- **`scripts/llms/buildIndex.ts` gets TWO entries, not a repointing.** `/parliamentary` keeps the
+  existing one, whose description ("every parliamentary vote from 2005 with national + regional
+  drill-down") already describes it exactly; `/elections` is added beside it as the cross-kind
+  entry. The comment on that entry warns it once pointed at a URL that fell through to the SPA
+  shell — this plan makes the URL real, which is the condition that warning was waiting on.
+- **Nothing is redirected and nothing is renamed.** `/parliamentary` keeps its `<loc>`, its og
+  image, its breadcrumb and its `tests/seo.spec.ts` entry. This plan adds a URL; it does not move
+  one.
 
 ### 3.2 The `?elections` contract
 
@@ -1214,7 +1237,7 @@ Work:
    3a. Freeze the **place digest**: which fact each of the four views contributes, its basis, its producer, and the `reason` enum for an unreachable view (§4.1). Decide and record **where each half is served from** — the election facts on the surface, the governance and consumption facts on their existing hooks or one place-digest route — because their refresh cadences differ by orders of magnitude and one file with two cadences is the failure.
    3b. Diff each level's intended fact set against what the nine existing dashboard-card screens render today (§6.3), so every card the descriptor drops is a recorded decision.
    3c. Freeze the **copy contract** (§5.2, §5.3): every enum member's `labelKey` written OUT beside the code rather than built by template; the counts enumerated as PLURAL families; and the list of things carried as an ID whose label the renderer resolves (party, place, office), with person names recorded as the deliberate Bulgarian-in-both-languages exception.
-   3d. **Settle §3.1**: which of `/`, `/parliamentary` and `/elections` is canonical for the parliamentary country result, what the other two claim instead, and which of them carry a sitemap `<loc>`. Everything in Phase 3's artifact list depends on this answer.
+   3d. Write `/elections`' title, description and `bodyHtml` **about the cross-kind entry** — both election systems, the finder, partial elections, the analyses — per §3.1, which is settled: `/parliamentary` is canonical for the parliamentary country result, `/elections/:date` for each cycle, and `/elections` for itself. The copy is the deliverable here; the routing question is closed.
 3. Freeze status vocabulary, turnout bases, fact priority, standout categories **and every numeric standout threshold** in `docs/methodology/election-surfaces.md`, each threshold carrying value, basis, minimum sample and what it excludes (§7). Thresholds are a Phase 0 design decision precisely because deferring them means fitting them to the fixtures.
 4. Create static fixture payloads for:
    - parliamentary country;
@@ -1342,12 +1365,12 @@ Artifact work in the same commit:
 
 1. Add `/elections` to `scripts/prerender/routes.ts` via `staticPage({...})` with an `english:` block — no leading or trailing slash on `path`, and the EN root convention is `/en`, never `/en/`. Write a real `bodyHtml`: it is the only part of the page a crawler that runs no JS ever sees.
 2. Add the path to **both** lists in `scripts/sitemap/route_defs.ts` — `routeDefs(year)` for the Bulgarian `<loc>` and `ENGLISH_STATIC_PAGES` for `/en/elections`. They are not derived from one another, and the EN list alone gets the mirror indexed and not the original (the live `/sofia/*` and `/consumption/*` class). Point `file:` at the artifact the page renders, e.g. `data/${year}/national_summary.json`, not at `ElectionsHubScreen.tsx`, or `lastmod` is the date somebody last touched the JSX — and note that a `file:` which does not exist **skips the entry silently**. Then run `npm run sitemap` and COMMIT `public/sitemap*.xml`; the command is manual and its output is committed, so the entries alone change nothing.
-3. Add dedicated SEO title, description, canonical, H1, and indexable body — via `HubHead`, which owns the `h1` and the `<SEO>`. The deck and the SEO description are different sentences written for different readers; do not write one and reuse it as the other. Whatever §3.1 decides, the title and description must be materially different from `/parliamentary`'s, which currently uses the HOMEPAGE's pair.
-   3b. **Declare the hreflang pair and `og:url`.** `/elections` + `/en/elections` is a new bilingual pair, and `scripts/prerender/seoBlock.ts` derives the alternate from `altUrl` — deliberately SUPPRESSING alternates on a page that canonicalises elsewhere, because "alternates belong on the canonical target, not on the variant pointing at it". So §3.1's decision determines whether this page declares alternates at all. Both must obey the no-trailing-slash rule and the `/en`-never-`/en/` asymmetry: `tests/seo.spec.ts` fails a declared canonical, `og:url` or `hreflang` that REDIRECTS, which is exactly what a trailing slash produces.
+3. Add dedicated SEO title, description, canonical, H1, and indexable body — via `HubHead`, which owns the `h1` and the `<SEO>`. The deck and the SEO description are different sentences written for different readers; do not write one and reuse it as the other. Per §3.1 the copy is about the cross-kind entry — both election systems, the finder, partial elections — not about the latest cycle, which `/parliamentary` and `/elections/<latest>` already own.
+   3b. **Declare the hreflang pair and `og:url`.** `/elections` + `/en/elections` is a new bilingual pair, and `scripts/prerender/seoBlock.ts` derives the alternate from `altUrl` — deliberately SUPPRESSING alternates on a page that canonicalises elsewhere, because "alternates belong on the canonical target, not on the variant pointing at it". Per §3.1 this page is canonical for itself, so it DOES declare alternates — the suppression rule applies only to a page pointing its canonical elsewhere, which this one does not. Both must obey the no-trailing-slash rule and the `/en`-never-`/en/` asymmetry: `tests/seo.spec.ts` fails a declared canonical, `og:url` or `hreflang` that REDIRECTS, which is exactly what a trailing slash produces.
 4. Add a dedicated `public/og/elections.png` capture in `scripts/og/capture-screens.ts`, anchored on a `data-og` attribute (a class name gets renamed silently by a refactor) on the head, with a `waitFor` naming something that exists only after the data loads — a head shot before its numbers arrive is a screenshot of a skeleton. Then **open the PNG and look at it**; a capture reports success on any 1200x630 clip it managed to take.
 5. Add `/elections` to `scripts/og/capture_routes.test.ts`, `scripts/prerender/ogAndSitemapCoverage.test.ts`, and `tests/seo.spec.ts` with a `minBodyChars` — the suite checks body length only for routes listed there.
 6. Add a direct header link, retain the global home's `/elections` tile/contextual link, and add at least one contextual link from `/local/:cycle` so reachability does not depend on the sitemap.
-7. **Restore `/elections` to the LLM index.** `scripts/llms/buildIndex.ts` carries this comment on its Elections entry: _"⚠️ WAS `/elections`, WHICH IS NOT A ROUTE — only `elections/:date` is, so this entry pointed LLM crawlers at a URL that falls through to the SPA shell."_ It was repointed at `/parliamentary` for exactly that reason. This phase makes the URL real, so the entry goes back — at whichever URL §3.1 makes canonical, with a description that distinguishes it from the other two. `buildFull.ts` refuses to rewrite `llms-full.txt` when a section would disappear, so the failure mode here is a quiet wrong URL rather than a loud missing one.
+7. **Restore `/elections` to the LLM index.** `scripts/llms/buildIndex.ts` carries this comment on its Elections entry: _"⚠️ WAS `/elections`, WHICH IS NOT A ROUTE — only `elections/:date` is, so this entry pointed LLM crawlers at a URL that falls through to the SPA shell."_ It was repointed at `/parliamentary` for exactly that reason. This phase makes the URL real, and per §3.1 the file ends with TWO entries rather than a repointing: `/parliamentary` keeps the existing one, whose description already describes it exactly, and `/elections` is added beside it as the cross-kind entry. `buildFull.ts` refuses to rewrite `llms-full.txt` when a section would disappear, so the failure mode here is a quiet wrong URL rather than a loud missing one.
 
 **`preloadData` is the mechanism for the surface artifact on a prerendered page, and it carries two caveats.** Eight routes already declare it and `scripts/prerender/index.ts` emits each as `<link rel="preload" as="fetch" crossorigin fetchpriority="low">`; the §5.0 surface JSON on a prerendered place page is exactly that case. But the href is built by **re-resolving `VITE_DATA_BASE_URL`**, so it depends on the gitignored `.env.production` and must agree with the bundle's own copy — a mismatch is not a build failure but four wasted SPA-shell downloads and four dead hints per page, at a 200. And the whole hint set is a measured **net loss at 1.6 Mbps**, so adding a path to a route means re-measuring rather than assuming. `fetchpriority="low"` is load-bearing, not cosmetic: `as="fetch"` defaults to HIGH, which puts the data in bandwidth competition with the render-blocking JS the page needs in order to paint.
 
@@ -1575,7 +1598,7 @@ against the wrong selector reports zero violations exactly like a clean page.
 - committed sitemap contains both language variants where supported, from **both** `route_defs.ts` lists — a page in `ENGLISH_STATIC_PAGES` and not in `routeDefs(year)` has its mirror indexed and not its original;
 - every `routeDefs` `file:` exists on disk — a missing one skips the entry with no warning;
 - every `ogImage` path resolves to a file under `public/og/`, and the captured PNG has been opened and looked at;
-- `/elections`, `/parliamentary` and `/` carry three materially different titles, descriptions and bodies, or the non-canonical ones carry no `<loc>` (§3.1);
+- `/elections`, `/parliamentary`, `/elections/<latest>` and `/` carry four materially different titles, descriptions and bodies, and the hub's body is about the cross-kind entry rather than the latest cycle (§3.1);
 - `/elections` declares an hreflang pair and an `og:url`, and no declared canonical, `og:url` or `hreflang` redirects — the no-trailing-slash rule, with `/en` never `/en/`;
 - the LLM index names the canonical election entry and no URL that falls through to the SPA shell;
 - every `preloadData` href's origin matches the base inlined into the built entry chunk;
@@ -1744,41 +1767,41 @@ Do not silently fall back after a valid surface request returns malformed data. 
 
 ## 13. Risks and mitigations
 
-| Risk                                                   | Mitigation                                                                                                                                                                |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Shared UI erases mayor/council differences             | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                                                               |
-| Projection drifts from canonical files                 | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                                                          |
-| First surface becomes another KPI band                 | Hard fact/standout caps and required map+ranking composition                                                                                                              |
-| Large scope files create fanout or slow LCP            | Small route projection, no geometry/history, request and byte budgets                                                                                                     |
-| Abroad shows impossible turnout                        | Required turnout basis and `region/32` negative data/UI tests                                                                                                             |
-| Statistical flags imply wrongdoing                     | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                                                   |
-| Route cleanup breaks SEO                               | No v1 migration; route artifacts ship atomically; optional migration separately approved                                                                                  |
-| New shell loses existing depth                         | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                                                             |
-| Sofia/district edge cases regress                      | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                                                   |
-| Local older cycles lack ballot fields                  | Availability-driven panels; missing is not zero; per-cycle data gates                                                                                                     |
-| Artifacts generated but never published                | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build                                    |
-| Browser gates green on the legacy fallback             | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                                                  |
-| A six-figure object expansion for no gain              | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                                                   |
-| `/elections` becomes a 14th bespoke header             | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                                                         |
-| A CLS gate that passes on nothing                      | Migrated routes go in `SLOW_CLS_ROUTES` (800 ms JSON delay), not the unthrottled `CLS_ROUTES` — the skeleton swap is the whole risk (§10.1)                               |
-| The chunk ceiling raised instead of the shell split    | §10.1 separates the locale re-ratchet from the 56,000 / 363,000 chunk budgets, which were ratcheted DOWN and carry their own argument against raising                     |
-| The shell leaks a closure into the entry chunk         | `src/entryGraph.test.ts` names the import chain; the shell, descriptor matrix and registry are its three likely offenders                                                 |
-| Three URLs competing for one query                     | §3.1 settles which is canonical before Phase 3; `/parliamentary` stops using the homepage's title; the non-canonical ones carry no `<loc>`                                |
-| LLM crawlers sent to a shell URL                       | The index entry moves back to the canonical election URL in the same phase that makes it real — it was removed once for exactly this                                      |
-| 25,400 thin section URLs submitted                     | Phase 6 records the indexing posture against the `/council/resolution/**` precedent rather than inheriting it                                                             |
-| Accessibility requirements with no gate                | §10.0's axe pass plus four hand-written assertions; the map posture is declared per adapter and gated in Phase 0                                                          |
-| A migrated page navigable by region but not by heading | `headingLevel={2}` on every migrated `DashboardSection`, asserted over the composed outline — the `<section>` stays a landmark either way, so nothing else would catch it |
-| A map that answers the mouse and not the keyboard      | `FeatureMap` gates tabIndex/role/aria-label/onKeyDown on `ariaLabel && onClick`; each adapter declares interactive or presentational                                      |
-| An enum member ships with no copy in either language   | `electionCopyCoverage.test.ts` over the enum declarations — `parity.test.ts` compares the corpora to each other and cannot see it                                         |
-| The English page shows Cyrillic party names            | Names are ids in the artifact and labels at render time (§5.3); the EN forms live in `canonical_parties.json`, not in the shards                                          |
-| A built i18n key defeats the bundle analysis           | `labelKey` written out beside every code; gated in Phase 0 alongside §6.1's registry rule                                                                                 |
-| Postgres creeps onto the render path                   | §5.1 is a fixed decision; a Playwright network assertion per migrated route; a PG-only fact is a link cell, never a fetched number                                        |
-| A place's four views stay siloed                       | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                                                  |
-| The digest disagrees with the tab it links to          | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                                                       |
-| A daily price baked into a per-cycle file              | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                                                      |
-| A second control strip above the first number          | The scope bar composes into `PlaceHeader`, which already carries `PlaceViewNav`; the combined header is budgeted and measured at 390 px                                   |
-| A shared composition rebuilt in parallel               | §6.3 names the nine existing four-card screens; the strip adopts them and the descriptor records every fact it drops                                                      |
-| Root/election ownership drifts after cutover           | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged                              |
+| Risk                                                   | Mitigation                                                                                                                                                                                                                  |
+| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shared UI erases mayor/council differences             | Discriminated ballot types, separate panels/totals, local fixtures and reconciliation gates                                                                                                                                 |
+| Projection drifts from canonical files                 | Generator-only artifacts, exact total reconciliation, deterministic rebuild test                                                                                                                                            |
+| First surface becomes another KPI band                 | Hard fact/standout caps and required map+ranking composition                                                                                                                                                                |
+| Large scope files create fanout or slow LCP            | Small route projection, no geometry/history, request and byte budgets                                                                                                                                                       |
+| Abroad shows impossible turnout                        | Required turnout basis and `region/32` negative data/UI tests                                                                                                                                                               |
+| Statistical flags imply wrongdoing                     | Neutral closed copy, evidence/baseline requirement, no Benford headline                                                                                                                                                     |
+| Route cleanup breaks SEO                               | No v1 migration; route artifacts ship atomically; optional migration separately approved                                                                                                                                    |
+| New shell loses existing depth                         | Existing detailed sections remain; every reduction requires a reachable complete-results leaf                                                                                                                               |
+| Sofia/district edge cases regress                      | Finder/routes use existing catalogs; mandatory special-case fixture set                                                                                                                                                     |
+| Local older cycles lack ballot fields                  | Availability-driven panels; missing is not zero; per-cycle data gates                                                                                                                                                       |
+| Artifacts generated but never published                | Publication is a numbered step inside each phase (§9.0); `db:check-generated`; a bucket fetch is the exit criterion, not a green build                                                                                      |
+| Browser gates green on the legacy fallback             | `data-surface-shell` presence assertion per migrated level; one fallback log per process, failed on by the suites (§9.0)                                                                                                    |
+| A six-figure object expansion for no gain              | §5.0's emission test, measured per level; bounded cycle coverage; the object-count delta recorded in the Phase 1 commit                                                                                                     |
+| `/elections` becomes a 14th bespoke header             | It composes `HubHead` (§6.0) and joins the two written gates that enumerate head screens and their height budgets                                                                                                           |
+| A CLS gate that passes on nothing                      | Migrated routes go in `SLOW_CLS_ROUTES` (800 ms JSON delay), not the unthrottled `CLS_ROUTES` — the skeleton swap is the whole risk (§10.1)                                                                                 |
+| The chunk ceiling raised instead of the shell split    | §10.1 separates the locale re-ratchet from the 56,000 / 363,000 chunk budgets, which were ratcheted DOWN and carry their own argument against raising                                                                       |
+| The shell leaks a closure into the entry chunk         | `src/entryGraph.test.ts` names the import chain; the shell, descriptor matrix and registry are its three likely offenders                                                                                                   |
+| The hub becomes a third copy of the country result     | §3.1 is settled — `/parliamentary` owns the parliamentary query and `/elections/<latest>` already exists and is indexed, so the hub's canvas is a preview that links out and its body is written about the cross-kind entry |
+| LLM crawlers sent to a shell URL                       | The index entry moves back to the canonical election URL in the same phase that makes it real — it was removed once for exactly this                                                                                        |
+| 25,400 thin section URLs submitted                     | Phase 6 records the indexing posture against the `/council/resolution/**` precedent rather than inheriting it                                                                                                               |
+| Accessibility requirements with no gate                | §10.0's axe pass plus four hand-written assertions; the map posture is declared per adapter and gated in Phase 0                                                                                                            |
+| A migrated page navigable by region but not by heading | `headingLevel={2}` on every migrated `DashboardSection`, asserted over the composed outline — the `<section>` stays a landmark either way, so nothing else would catch it                                                   |
+| A map that answers the mouse and not the keyboard      | `FeatureMap` gates tabIndex/role/aria-label/onKeyDown on `ariaLabel && onClick`; each adapter declares interactive or presentational                                                                                        |
+| An enum member ships with no copy in either language   | `electionCopyCoverage.test.ts` over the enum declarations — `parity.test.ts` compares the corpora to each other and cannot see it                                                                                           |
+| The English page shows Cyrillic party names            | Names are ids in the artifact and labels at render time (§5.3); the EN forms live in `canonical_parties.json`, not in the shards                                                                                            |
+| A built i18n key defeats the bundle analysis           | `labelKey` written out beside every code; gated in Phase 0 alongside §6.1's registry rule                                                                                                                                   |
+| Postgres creeps onto the render path                   | §5.1 is a fixed decision; a Playwright network assertion per migrated route; a PG-only fact is a link cell, never a fetched number                                                                                          |
+| A place's four views stay siloed                       | `PlaceDigest` renders one fact per reachable view on every view (§4.1); validation task 2 is gated on it                                                                                                                    |
+| The digest disagrees with the tab it links to          | Every cell re-derives from the destination's own producer; the Phase 5 gate compares them rather than a stored copy                                                                                                         |
+| A daily price baked into a per-cycle file              | The digest's halves are served from their own producers; §4.1 forces the cadence decision in Phase 0                                                                                                                        |
+| A second control strip above the first number          | The scope bar composes into `PlaceHeader`, which already carries `PlaceViewNav`; the combined header is budgeted and measured at 390 px                                                                                     |
+| A shared composition rebuilt in parallel               | §6.3 names the nine existing four-card screens; the strip adopts them and the descriptor records every fact it drops                                                                                                        |
+| Root/election ownership drifts after cutover           | `/` is tested as the global hub; `/elections` owns election metadata, links and current-country experience; deep canonicals remain unchanged                                                                                |
 
 ## 14. Definition of done
 
@@ -1797,7 +1820,7 @@ v1 is complete only when all of the following are true:
 - abroad never displays a turnout percentage without a valid denominator;
 - every standout is reproducible, neutral, and evidence-linked;
 - the shell's brotli cost is measured, the entry and critical-path ceilings are unchanged, and every migrated route is in the THROTTLED CLS table;
-- exactly one of `/`, `/parliamentary` and `/elections` is canonical for the parliamentary country result, the other two say something else, and the LLM index names the right one;
+- `/parliamentary` still owns the parliamentary country result, `/elections` reads as the cross-kind entry rather than a fourth copy of the latest cycle, and the LLM index carries both;
 - the accessibility gate exists, runs over every representative route, and has been shown to fail when each clause is broken;
 - every enum the contract can emit has copy in both languages, every count is a plural family, and no raw identifier or folder id reaches the DOM;
 - surface payload, entry bundle, CLS, LCP, accessibility, i18n, and artifact gates pass;
