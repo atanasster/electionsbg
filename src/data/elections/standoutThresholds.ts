@@ -120,6 +120,25 @@ export const SIGNALS_WITHOUT_OWN_THRESHOLD = {
   additional_voters: "inherited from the producer (§5.5)",
 } as const satisfies Partial<Record<ElectionStandoutSignal, string>>;
 
+/** ⚠ THE SHARE ABOVE WHICH A SIGNAL STOPS BEING A FINDING. Frozen here rather than living as a
+ *  literal in the selector, because §7 requires every numeric cutoff to be settled in Phase 0
+ *  and reviewable — and this one decides whether a signal may be published at all.
+ *
+ *  1/3 brackets the two measured cases with room on both sides: split control fires on 13.1%
+ *  of municipalities and is KEPT; "no single party holds a majority" fires on 62% of councils
+ *  and is BARRED. Anything between 33% and 62% is a judgement nobody has had to make yet.
+ *
+ *  ⚠ IT IS UNDEFINED ON A TINY POPULATION, hence the floor below. A nearest-rank percentile
+ *  always selects at least one place, so at n = 1 the share is 100% and at n = 2 it is 50% —
+ *  both above the ceiling, both meaningless. Enforcing it there would abort the generator on a
+ *  data property (an oblast with two municipalities) rather than on a defect. */
+export const UBIQUITY_CEILING = 1 / 3;
+
+/** Below this many places, "what share of places does this fire on" is not a question the
+ *  corpus can answer. 20 is under the smallest real population the selectors run over — 28
+ *  oblasts — so no genuine level is exempted by it. */
+export const UBIQUITY_MIN_POPULATION = 20;
+
 /** A place needs this many polling sections before "this section differs from the rest" has a
  *  "rest" to compare against. Not keyed by signal because it is a FLOOR on any section-derived
  *  signal rather than a signal of its own. */
