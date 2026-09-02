@@ -79,12 +79,17 @@ const SCHEMA_DIR = path.join(ROOT, "scripts/db/schema/pg");
 // reason; the monolithic first cut, applied from here on the premise that all
 // three corpora exist by this point, aborted db:refresh on any fresh clone
 // (raw_data/agri/ is gitignored, so agri_subsidies never exists there).
+// 194 is SERVING code too (one function, `interreg_programme()`, behind
+// /funds/interreg/programme/:code) — same reasoning as 138/139: it carries no
+// data, so no other loader ships it, and skipping it here would leave a
+// function-body fix invisible to every row count.
 const SCHEMA_FILES = [
   "005_ingest_tracking.sql",
   "137_interreg.sql",
   "138_interreg_serving.sql",
   "139_funds_muni_combined.sql",
   "191_culture_match_interreg.sql",
+  "194_interreg_programme.sql",
 ];
 
 /** Below this the corpus is treated as damaged and nothing is written. Same

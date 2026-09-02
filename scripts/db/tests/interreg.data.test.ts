@@ -1006,6 +1006,132 @@ test.skipIf(skip)(
   },
 );
 
+// ── 24. interreg_programme() — the per-programme detail page (194) ─────────
+test.skipIf(skip)(
+  "interreg_programme answers NULL for an unknown code, honest zero for a registered-empty one",
+  async () => {
+    // Same 200+null contract as interreg_operation (gate 22): a route with no
+    // separate 404 branch needs "no such programme" distinguishable from a
+    // fetch failure at the payload level.
+    const r = await one<{ missing: boolean; present: boolean }>(
+      `SELECT interreg_programme('INTERREG-DOES-NOT-EXIST') IS NULL missing,
+              interreg_programme((SELECT code FROM interreg_programmes LIMIT 1))
+                IS NOT NULL present`,
+    );
+    assert.equal(r.missing, true, "an unknown code should answer NULL");
+    assert.equal(r.present, true, "a known code should answer a payload");
+
+    // A programme keep.eu holds zero operations for is registered, not
+    // missing (gate 11) — its detail page must say "0 операции", not read as
+    // if the code were unrecognised, which a bare NULL would.
+    const empty = await one<{
+      r: {
+        code: string;
+        operationCount: number;
+        budgetEur: number;
+        operations: unknown[];
+      };
+    }>(`SELECT interreg_programme('INTERREG-ESPON-2127') AS r`);
+    assert.equal(empty.r.operationCount, 0);
+    assert.equal(empty.r.budgetEur, 0);
+    assert.deepEqual(empty.r.operations, []);
+  },
+);
+
+test.skipIf(skip)(
+  "the operation list is the true top-N for the programme, and sums to its headline",
+  async () => {
+    // The gate-16/18 idiom, scoped to a programme instead of a place: the
+    // returned set must be exactly the top-N by localBudgetEur, and — when
+    // nothing was truncated — the list must sum to the same figure the
+    // headline `budgetEur` reports.
+    const code = "INTERREG-ROBG-1420"; // the largest programme, 169 operations
+    const LIMIT = 500; // above its own operation count, so nothing is truncated
+    const got = await one<{
+      r: {
+        budgetEur: number;
+        operationCount: number;
+        operations: { keepId: number; localBudgetEur: number | null }[];
+      };
+    }>(`SELECT interreg_programme($1, $2, 1) AS r`, [code, LIMIT]);
+    const { budgetEur, operationCount, operations } = got.r;
+    assert.ok(operationCount > 100, `${code} should hold >100 operations`);
+    assert.equal(
+      operations.length,
+      operationCount,
+      `${code}: ${operationCount} counted, ${operations.length} listed`,
+    );
+
+    let prev = Number.POSITIVE_INFINITY;
+    for (const o of operations) {
+      const eur = o.localBudgetEur ?? 0;
+      assert.ok(eur <= prev, `not descending: ${eur} follows ${prev}`);
+      prev = eur;
+    }
+    const summed = operations.reduce((a, o) => a + (o.localBudgetEur ?? 0), 0);
+    assert.ok(
+      Math.abs(summed - budgetEur) < 0.01,
+      `${code}: list sums to €${summed}, headline says €${budgetEur}`,
+    );
+
+    // And the LIMIT keeps the right N, derived independently of the function —
+    // same cross-check gate 16 runs for interreg_by_place.
+    const want = await allRows<{ keep_id: number }>(
+      `SELECT p.keep_id FROM interreg_partners p
+       JOIN interreg_operations o USING (keep_id)
+      WHERE o.programme_code = $1 AND ${BG}
+      GROUP BY p.keep_id
+      ORDER BY SUM(p.budget_eur) DESC NULLS LAST, p.keep_id
+      LIMIT 5`,
+      [code],
+    );
+    assert.deepEqual(
+      operations.slice(0, 5).map((o) => o.keepId),
+      want.map((r) => r.keep_id),
+      "the top-5 by budget disagree with an independent recompute",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the municipality list sums the SAME rows the headline counts, never the operation total",
+  async () => {
+    // The invariant gate 4 checks generically over every interreg_* function
+    // body; this checks the OUTPUT for the one programme with the widest
+    // placed footprint, the same way gate 18 checks interreg_by_place.
+    const code = "INTERREG-ROBG-1420";
+    const got = await one<{
+      r: {
+        budgetEur: number;
+        munis: { obshtina: string; budgetEur: number }[];
+      };
+    }>(`SELECT interreg_programme($1, 1, 50) AS r`, [code]);
+    assert.ok(got.r.munis.length > 1, `${code} should reach several places`);
+    for (const m of got.r.munis) {
+      assert.ok(
+        m.budgetEur <= got.r.budgetEur + 0.01,
+        `${code}/${m.obshtina}: €${m.budgetEur} exceeds the programme's own €${got.r.budgetEur} — ` +
+          "looks like an operation total leaked in rather than a partner sum",
+      );
+    }
+  },
+);
+
+test.skipIf(skip)("the programme filter rides its index", async () => {
+  const plan = await allRows<{ "QUERY PLAN": string }>(
+    `EXPLAIN SELECT count(*) FROM interreg_operations o
+        WHERE o.programme_code = 'INTERREG-ROBG-1420'`,
+  );
+  const text = plan.map((r) => r["QUERY PLAN"]).join("\n");
+  // "Index Only Scan" does not contain "Index Scan" as a substring (the
+  // planner favours it here — the count needs no heap fetch), so it is
+  // matched explicitly rather than folded into the two forms gate 12 checks.
+  assert.ok(
+    /Index( Only)? Scan|Bitmap Index Scan/.test(text),
+    `programme filter does not use idx_interreg_operations_programme:\n${text}`,
+  );
+});
+
 // ── The stage-merge semantics the parity guard cannot see ──────────────────
 test.skipIf(skip)("the loader left no stage table behind", async () => {
   const rows = await allRows<{ relname: string }>(
