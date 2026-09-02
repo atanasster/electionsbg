@@ -19,11 +19,16 @@
 import type { DashboardSectionIdProp } from "@/screens/dashboard/DashboardSection";
 import type {
   BallotKind,
+  ElectionBaselineKind,
+  ElectionFactBasis,
   ElectionFactCode,
   ElectionKind,
   ElectionMapMode,
   ElectionMapPosture,
   ElectionPlaceLevel,
+  ElectionResultStatus,
+  ElectionSourceLabel,
+  ElectionStandoutSignal,
 } from "@/data/elections/surfaceTypes";
 
 /** A column the ranked result may draw.
@@ -69,8 +74,15 @@ export type ElectionMapSlot = {
 export type ElectionLevelDescriptor = {
   available: true;
   /** Active ballots, in render order. More than one means separate panels with separate
-   *  totals — mayor and council are never merged into one ranking (§2 decision 4). */
-  ballots: readonly { kind: BallotKind; labelKey: string }[];
+   *  totals — mayor and council are never merged into one ranking (§2 decision 4).
+   *
+   *  ⚠ A BALLOT CARRIES NO `labelKey`. Its label is a pure function of `kind`, so it is read
+   *  from `BALLOT_LABEL_KEYS` below and stated ONCE. It was a per-slot literal until
+   *  2026-09-02, repeated eighteen times, and three of those literals named keys that were in
+   *  NEITHER corpus — `descriptorCopyKeys()` enumerated them and `electionCopyCoverage` would
+   *  have been red on its first run. A `Record` over the closed union cannot drift that way:
+   *  a new `BallotKind` is a compile error, and a renamed key moves in one place. */
+  ballots: readonly { kind: BallotKind }[];
   /** Map slots in render order. EMPTY where a map would be decoration — a single polling
    *  section. More than one is how §2 decision 9's separate mayor/council modes are stated. */
   maps: readonly ElectionMapSlot[];
@@ -151,6 +163,81 @@ export const RANKED_COLUMN_LABEL_KEYS: Record<ElectionRankedColumn, string> = {
   elected: "election_col_elected",
 };
 
+export const STATUS_LABEL_KEYS: Record<ElectionResultStatus, string> = {
+  projection: "election_status_projection",
+  provisional: "election_status_provisional",
+  final: "election_status_final",
+  runoff_pending: "election_status_runoff_pending",
+  partial_election: "election_status_partial_election",
+};
+
+export const BALLOT_LABEL_KEYS: Record<BallotKind, string> = {
+  parliamentary_list: "election_ballot_parliamentary_list",
+  municipality_mayor: "election_ballot_municipality_mayor",
+  district_mayor: "election_ballot_district_mayor",
+  settlement_mayor: "election_ballot_settlement_mayor",
+  municipal_council: "election_ballot_municipal_council",
+};
+
+/** The RESULT SHELL's own chrome keys — the ones no descriptor names, so `descriptorCopyKeys()`
+ *  cannot cover them. Written out for `electionCopyCoverage.test.ts`, which asserts BOTH
+ *  corpora carry each: a key present in bg and missing in en renders as its own identifier
+ *  on the English page at a 200, and the render suite only ever loads bg. */
+export const SHELL_COPY_KEYS = [
+  "election_digest_title",
+  "election_facts_title",
+  "election_ranked_caption",
+  // The ranked table's ROW HEADER. Not an `ElectionRankedColumn` member — the party or
+  // candidate is never optional and never reordered — so no descriptor names it.
+  "election_col_entry",
+  "election_independent",
+  "election_map_placeholder",
+  "election_scope_title",
+  "election_empty_title",
+  "election_standouts_title",
+  "election_standout_evidence",
+  "election_source_title",
+  "election_elected_yes",
+] as const;
+
+/** WHAT a standout is measured against. §7 forbids emitting a standout whose baseline is
+ *  missing — which is why `ElectionStandout.baseline` is not optional — and a claim about a
+ *  named place whose measurement is withheld is the same defect one component up, so the
+ *  renderer states it beside the claim rather than dropping it. */
+export const BASELINE_LABEL_KEYS: Record<ElectionBaselineKind, string> = {
+  cycle_percentile: "election_basis_cycle_percentile",
+  national_delta: "election_basis_national_delta",
+  council_distribution: "election_basis_council_distribution",
+  section_cohort: "election_basis_section_cohort",
+};
+
+export const FACT_BASIS_LABEL_KEYS: Record<ElectionFactBasis, string> = {
+  registered_voters: "election_basis_registered_voters",
+  eligible_population: "election_basis_eligible_population",
+  unavailable: "election_basis_unavailable",
+  valid_votes: "election_basis_valid_votes",
+  votes_cast: "election_basis_votes_cast",
+  seats_total: "election_basis_seats_total",
+};
+
+export const STANDOUT_LABEL_KEYS: Record<ElectionStandoutSignal, string> = {
+  close_contest: "election_standout_close_contest",
+  lead_change: "election_standout_lead_change",
+  threshold_crossed: "election_standout_threshold_crossed",
+  split_control: "election_standout_split_control",
+  runoff_pending: "election_standout_runoff_pending",
+  turnout_departure: "election_standout_turnout_departure",
+  fragmented_council: "election_standout_fragmented_council",
+  concentrated_support: "election_standout_concentrated_support",
+  invalid_ballots: "election_standout_invalid_ballots",
+  additional_voters: "election_standout_additional_voters",
+};
+
+export const SOURCE_LABEL_KEYS: Record<ElectionSourceLabel, string> = {
+  cik: "election_source_cik",
+  officials_roster: "election_source_officials_roster",
+};
+
 // ─── the §6.3 diff, recorded ────────────────────────────────────────────────────────────
 //
 // Measured 2026-09-02 against the FIVE card screens — region and abroad share
@@ -211,9 +298,7 @@ const LOCAL_SECTIONS = [
 const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   country: {
     available: true,
-    ballots: [
-      { kind: "parliamentary_list", labelKey: "election_ballot_parl_list" },
-    ],
+    ballots: [{ kind: "parliamentary_list" }],
     maps: [
       {
         defaultMode: "winner",
@@ -251,9 +336,7 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   },
   abroad: {
     available: true,
-    ballots: [
-      { kind: "parliamentary_list", labelKey: "election_ballot_parl_list" },
-    ],
+    ballots: [{ kind: "parliamentary_list" }],
     maps: [
       {
         defaultMode: "winner",
@@ -281,9 +364,7 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   },
   region: {
     available: true,
-    ballots: [
-      { kind: "parliamentary_list", labelKey: "election_ballot_parl_list" },
-    ],
+    ballots: [{ kind: "parliamentary_list" }],
     maps: [
       {
         defaultMode: "winner",
@@ -310,9 +391,7 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   },
   municipality: {
     available: true,
-    ballots: [
-      { kind: "parliamentary_list", labelKey: "election_ballot_parl_list" },
-    ],
+    ballots: [{ kind: "parliamentary_list" }],
     maps: [
       {
         defaultMode: "winner",
@@ -339,9 +418,7 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   },
   settlement: {
     available: true,
-    ballots: [
-      { kind: "parliamentary_list", labelKey: "election_ballot_parl_list" },
-    ],
+    ballots: [{ kind: "parliamentary_list" }],
     maps: [
       {
         defaultMode: "winner",
@@ -362,9 +439,7 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   },
   section: {
     available: true,
-    ballots: [
-      { kind: "parliamentary_list", labelKey: "election_ballot_parl_list" },
-    ],
+    ballots: [{ kind: "parliamentary_list" }],
     // ⚠ NO MAP. A single polling station has no geography to answer a question about, and
     // §8 makes this level result-and-evidence-first. It is also what makes the section route
     // the repo's canonical chart-free/map-free page (§10.1).
@@ -392,10 +467,7 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
 const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   country: {
     available: true,
-    ballots: [
-      { kind: "municipality_mayor", labelKey: "election_ballot_muni_mayor" },
-      { kind: "municipal_council", labelKey: "election_ballot_council" },
-    ],
+    ballots: [{ kind: "municipality_mayor" }, { kind: "municipal_council" }],
     // ⚠ TWO SLOTS, one per ballot. §2 decision 9 and §8 both require mayor control and
     // council support as SEPARATE modes with independent legends and totals; a single
     // per-level slot could not say which of the two it coloured.
@@ -432,10 +504,7 @@ const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   abroad: { available: false, reasonKey: "election_unavailable_local_abroad" },
   region: {
     available: true,
-    ballots: [
-      { kind: "municipality_mayor", labelKey: "election_ballot_muni_mayor" },
-      { kind: "municipal_council", labelKey: "election_ballot_council" },
-    ],
+    ballots: [{ kind: "municipality_mayor" }, { kind: "municipal_council" }],
     // ⚠ TWO SLOTS, one per ballot. §2 decision 9 and §8 both require mayor control and
     // council support as SEPARATE modes with independent legends and totals; a single
     // per-level slot could not say which of the two it coloured.
@@ -469,12 +538,11 @@ const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   municipality: {
     available: true,
     ballots: [
-      { kind: "municipality_mayor", labelKey: "election_ballot_muni_mayor" },
-      { kind: "municipal_council", labelKey: "election_ballot_council" },
-      { kind: "district_mayor", labelKey: "election_ballot_district_mayor" },
+      { kind: "municipality_mayor" },
+      { kind: "municipal_council" },
+      { kind: "district_mayor" },
       {
         kind: "settlement_mayor",
-        labelKey: "election_ballot_settlement_mayor",
       },
     ],
     // One map, but it NAMES its ballot: with four ballots at this level, an unnamed slot
@@ -517,7 +585,6 @@ const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
     ballots: [
       {
         kind: "settlement_mayor",
-        labelKey: "election_ballot_settlement_mayor",
       },
     ],
     maps: [
@@ -545,9 +612,9 @@ const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   section: {
     available: true,
     ballots: [
-      { kind: "municipal_council", labelKey: "election_ballot_council" },
-      { kind: "municipality_mayor", labelKey: "election_ballot_muni_mayor" },
-      { kind: "district_mayor", labelKey: "election_ballot_district_mayor" },
+      { kind: "municipal_council" },
+      { kind: "municipality_mayor" },
+      { kind: "district_mayor" },
     ],
     maps: [],
     // Three, not four: a local polling section's protocol carries no more than this, and
@@ -588,6 +655,12 @@ export const descriptorCopyKeys = (): string[] => {
     ...Object.values(FACT_LABEL_KEYS),
     ...Object.values(MAP_MODE_LABEL_KEYS),
     ...Object.values(RANKED_COLUMN_LABEL_KEYS),
+    ...Object.values(STATUS_LABEL_KEYS),
+    ...Object.values(BALLOT_LABEL_KEYS),
+    ...Object.values(FACT_BASIS_LABEL_KEYS),
+    ...Object.values(STANDOUT_LABEL_KEYS),
+    ...Object.values(BASELINE_LABEL_KEYS),
+    ...Object.values(SOURCE_LABEL_KEYS),
   ];
   for (const byLevel of Object.values(ELECTION_SURFACE_DESCRIPTORS)) {
     for (const d of Object.values(byLevel)) {
@@ -596,7 +669,6 @@ export const descriptorCopyKeys = (): string[] => {
         continue;
       }
       keys.push(d.emptyStateKey);
-      for (const b of d.ballots) keys.push(b.labelKey);
       for (const m of d.maps) keys.push(m.questionKey);
     }
   }

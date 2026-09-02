@@ -178,6 +178,11 @@ export type ElectionMapMode =
 export type ElectionMapPosture = "interactive" | "presentational";
 
 export type ElectionMapMeta = {
+  /** Which ballot this map colours. REQUIRED wherever the surface carries more than one — the
+   *  same discriminator `ElectionSurfaceFact.ballot` has, and for the same reason: a map on a
+   *  multi-ballot page that cannot name its ballot leaves a reader unable to tell mayor
+   *  control from council support (§2 decision 9). */
+  ballot?: BallotKind;
   defaultMode: ElectionMapMode;
   allowedModes: ElectionMapMode[];
   posture: ElectionMapPosture;
