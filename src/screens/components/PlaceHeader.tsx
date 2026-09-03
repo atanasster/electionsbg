@@ -27,6 +27,8 @@ import {
   PlaceRef,
   PlaceView,
   placeViewUrl,
+  ABROAD_OBLAST,
+  isAbroadPlace,
   isSofiaRayonObshtina,
   SOFIA_CITY_GOVERNANCE_ID,
 } from "@/data/local/placeViews";
@@ -130,7 +132,14 @@ export const PlaceHeader: FC<Props> = ({
   // The abroad МИР (oblast "32", "Извън страната") isn't an oblast inside
   // Bulgaria: its "municipalities" are continents and its "settlements" are
   // countries.
-  const isAbroad = oblastCode === "32";
+  // ⚠ THE ID IS CONSULTED TOO, BECAUSE `oblastCode` ARRIVES WITH THE PAYLOAD. Resting on it
+  // alone answers „not abroad" for the first ~800 ms of every abroad page, during which the
+  // full view switcher renders and then VANISHES — measured on the built site, that flash was
+  // the whole of `/sections/IT`'s layout shift (CLS 0.1297 against a 0.1 budget, where the
+  // domestic equivalent is 0.0362). `isAbroadPlace` decides from the route param.
+  const isAbroad =
+    oblastCode === ABROAD_OBLAST ||
+    isAbroadPlace({ level, ekatte, obshtina, oblast: oblastCode });
   // A settlement/section whose parent obshtina is a Sofia район.
   const parentIsSofiaRayon =
     usesSettlement && isSofiaRayonObshtina(obshtinaForName);

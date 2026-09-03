@@ -88,8 +88,22 @@ export const isSofiaRayonObshtina = (code?: string | null): boolean =>
  *  Refusing here rather than at each call site is the point: `isAbroad` was a rendering flag
  *  held by one component, and a second consumer had no way to know. */
 export const ABROAD_OBLAST = "32";
-export const isAbroadPlace = (p: PlaceRef): boolean =>
-  p.oblast === ABROAD_OBLAST;
+
+/** ⚠ THE ID ALONE SETTLES IT, AND THAT IS WHAT MAKES THE ANSWER SYNCHRONOUS. Every domestic
+ *  EKATTE is five digits, and a Sofia район composite („68134-2401") also begins with one;
+ *  МИР 32's entries are ISO country codes (IT, DE, FR…). So a settlement or section id that
+ *  does not start with a digit is abroad, decidable from the ROUTE PARAM before any fetch.
+ *
+ *  That matters beyond tidiness. `oblast` arrives with the settlement payload, so a predicate
+ *  resting on it alone answers „not abroad" for the first ~800 ms of every abroad page — and
+ *  during that window `PlaceHeaderView` renders the full view switcher, which then VANISHES
+ *  when the data lands. Measured on the built site, that flash was the whole of `/sections/IT`'s
+ *  layout shift: CLS 0.1297 against a 0.1 budget, where the domestic equivalent is 0.0362. */
+export const isAbroadPlace = (p: PlaceRef): boolean => {
+  if (p.oblast === ABROAD_OBLAST) return true;
+  const id = p.level === "settlement" || p.level === "section" ? p.ekatte : "";
+  return !!id && !/^\d/.test(id);
+};
 
 export const SOFIA_CITY_GOVERNANCE_ID = "SOF00";
 export const isSofiaCityObshtina = (code?: string): boolean =>

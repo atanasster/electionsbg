@@ -181,9 +181,23 @@ describe("an abroad place has ONE view, and the others refuse", () => {
   it("recognises the district by its code", () => {
     expect(isAbroadPlace(italy)).toBe(true);
     expect(isAbroadPlace(pazardzhik)).toBe(false);
-    // ⚠ AN OBLAST-LESS REF IS NOT ABROAD. Callers that omit it get the domestic answer, which
-    // is why `SectionsScreen` passes the field — the predicate cannot infer it from an id.
-    expect(isAbroadPlace({ level: "settlement", ekatte: "IT" })).toBe(false);
+    // ⚠ AND THE ID ALONE SETTLES IT, WHICH IS THE POINT. `oblast` arrives with the payload,
+    // so a predicate resting on it answers „not abroad" for the first ~800 ms of every abroad
+    // page — long enough for the switcher to render and then vanish, which was the entire
+    // layout shift on `/sections/IT`. An ISO code is decidable from the route param.
+    expect(isAbroadPlace({ level: "settlement", ekatte: "IT" })).toBe(true);
+    expect(isAbroadPlace({ level: "section", ekatte: "DE" })).toBe(true);
+    // A Sofia район composite begins with a digit and is domestic.
+    expect(isAbroadPlace({ level: "settlement", ekatte: "68134-2401" })).toBe(
+      false,
+    );
+    expect(isAbroadPlace({ level: "settlement", ekatte: "55155" })).toBe(false);
+    // A município code is NOT an ekatte — the id rule must not reach it, or every obshtina
+    // („PAZ19") would read as a foreign country.
+    expect(isAbroadPlace({ level: "municipality", obshtina: "PAZ19" })).toBe(
+      false,
+    );
+    expect(isAbroadPlace({ level: "region", oblast: "PAZ" })).toBe(false);
   });
 
   it("refuses governance, consumption and local", () => {

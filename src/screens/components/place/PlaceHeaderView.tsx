@@ -212,6 +212,19 @@ export const PlaceHeaderView: FC<Props> = ({
           <StaticOsmThumbnail lat={loc.lat} lon={loc.lon} alt={thumbAlt} />
         </div>
       )
+    ) : level === "section" && !isAbroad ? (
+      // ⚠ THE BOX IS RESERVED ON A SECTION, WHERE THE CENTROID ARRIVES WITH THE JSON. It is
+      // 96px tall and taller than the text column beside it, so it sets the row's height —
+      // appearing late pushes the switcher and the entire result canvas down, which was the
+      // last shift keeping this route over budget (0.1029 against 0.1). Every polling station
+      // has a centroid, so the space is always eventually filled; abroad is excluded because
+      // that branch has no meaningful street-map point and the box would stay empty for ever.
+      <div className="hidden sm:block shrink-0" aria-hidden>
+        <div
+          className="rounded-md border bg-muted"
+          style={{ width: THUMB_W, height: THUMB_H }}
+        />
+      </div>
     ) : null;
 
   // Compact: the location display alone — title + breadcrumb + map. No Card accent, no
