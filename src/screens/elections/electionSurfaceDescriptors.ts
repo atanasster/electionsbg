@@ -185,6 +185,9 @@ export const BALLOT_LABEL_KEYS: Record<BallotKind, string> = {
  *  corpora carry each: a key present in bg and missing in en renders as its own identifier
  *  on the English page at a 200, and the render suite only ever loads bg. */
 export const SHELL_COPY_KEYS = [
+  // The boundary's own chrome: announced while a surface resolves, so the skeleton-to-content
+  // swap is not silent to a screen reader (Phase 2 item 5).
+  "election_surface_loading",
   "election_digest_title",
   "election_facts_title",
   "election_ranked_caption",
