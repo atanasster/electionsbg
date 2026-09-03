@@ -47,7 +47,15 @@ export const SectionsScreen = () => {
   const digest = useMemo(
     () =>
       buildPlaceDigest({
-        place: { level: "settlement", ekatte: ekatte ?? "" },
+        // ⚠ THE OBLAST IS WHAT MAKES „ABROAD" VISIBLE TO THE DIGEST. Without it the ref is
+        // just an id, and МИР 32's country codes template into `/governance/IT` — a page that
+        // does not exist. `isAbroadPlace` reads this field, so omitting it is not a missing
+        // nicety but the difference between refusing and inventing.
+        place: {
+          level: "settlement",
+          ekatte: ekatte ?? "",
+          oblast: findSettlement(ekatte ?? "")?.oblast,
+        },
         parliamentaryCycle: selected,
         localCycle,
         local: localDigestFromSurface(
@@ -55,7 +63,7 @@ export const SectionsScreen = () => {
         ),
         currentView: "parliamentary",
       }),
-    [ekatte, selected, localCycle, local],
+    [ekatte, selected, localCycle, local, findSettlement],
   );
   if (!ekatte) return null;
   const lang = i18n.language === "bg" ? "bg" : "en";

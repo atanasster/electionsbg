@@ -6,8 +6,10 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  ABROAD_OBLAST,
   consumptionUrl,
   governanceUrl,
+  isAbroadPlace,
   isSofiaCityObshtina,
   isSofiaRayonObshtina,
   localUrl,
@@ -152,5 +154,60 @@ describe("placeViewUrl", () => {
     expect(placeViewUrl("parliamentary", place)).toBe("/settlement/BLG11");
     expect(placeViewUrl("consumption", place)).toBe("/consumption/BLG11");
     expect(placeViewUrl("local", place, CYCLE)).toBe(`/local/${CYCLE}/BLG11`);
+  });
+});
+
+describe("an abroad place has ONE view, and the others refuse", () => {
+  // ⚠ МИР 32's "settlements" ARE COUNTRIES. They carry ISO codes where an EKATTE would be, so
+  // every builder here templated them happily: measured 2026-09-04 on `/sections/IT`, the place
+  // digest rendered links to `/governance/IT` and `/consumption/IT` — pages that do not exist
+  // and cannot — captioned „депутатите и общинският съвет", about Italy.
+  //
+  // ⚠ AND IT SURVIVED BECAUSE THE FIX WAS IN THE WRONG LAYER. `PlaceHeaderView` held `isAbroad`
+  // as a RENDERING flag and dropped the switcher, so the pills were correctly absent while a
+  // second consumer of the same builders kept them. A rule one component knows is not a rule.
+
+  const italy = {
+    level: "settlement" as const,
+    ekatte: "IT",
+    oblast: ABROAD_OBLAST,
+  };
+  const pazardzhik = {
+    level: "settlement" as const,
+    ekatte: "55155",
+    oblast: "PAZ",
+  };
+
+  it("recognises the district by its code", () => {
+    expect(isAbroadPlace(italy)).toBe(true);
+    expect(isAbroadPlace(pazardzhik)).toBe(false);
+    // ⚠ AN OBLAST-LESS REF IS NOT ABROAD. Callers that omit it get the domestic answer, which
+    // is why `SectionsScreen` passes the field — the predicate cannot infer it from an id.
+    expect(isAbroadPlace({ level: "settlement", ekatte: "IT" })).toBe(false);
+  });
+
+  it("refuses governance, consumption and local", () => {
+    expect(governanceUrl(italy)).toBeNull();
+    expect(consumptionUrl(italy)).toBeNull();
+    expect(localUrl(italy, CYCLE)).toBeNull();
+    expect(placeViewUrl("governance", italy)).toBeNull();
+    expect(placeViewUrl("consumption", italy)).toBeNull();
+  });
+
+  it("keeps the parliamentary view, which is the one that exists", () => {
+    // ⚠ THE DISCRIMINATING HALF. Refusing all four would leave an abroad reader with no route
+    // at all — and abroad results are the entire reason these pages exist.
+    expect(parliamentaryUrl(italy)).toBe("/sections/IT");
+    expect(placeViewUrl("parliamentary", italy)).toBe("/sections/IT");
+  });
+
+  it("leaves a domestic settlement untouched", () => {
+    // Without this the guard could be an unconditional `return null` and every assertion above
+    // would still pass.
+    expect(governanceUrl(pazardzhik)).toBe("/governance/55155");
+    expect(consumptionUrl(pazardzhik)).toBe("/consumption/55155");
+    expect(localUrl(pazardzhik, CYCLE)).toBe(
+      `/local/${CYCLE}/settlement/55155`,
+    );
   });
 });

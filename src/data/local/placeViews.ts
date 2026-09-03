@@ -74,6 +74,23 @@ export const isSofiaRayonObshtina = (code?: string | null): boolean =>
 // set is NOT restated here: `canonicalObshtina` in src/lib/obshtinaPlace.ts declares itself
 // its authority, and a second hand-maintained list is how `useAreaResolver` came to accept
 // two of the three.
+/** МИР 32 — the abroad-voters district.
+ *
+ *  ⚠ AN ABROAD PLACE HAS EXACTLY ONE VIEW, AND THE OTHER THREE MUST REFUSE RATHER THAN
+ *  TEMPLATE. Its "settlements" are COUNTRIES carrying ISO codes where an EKATTE would be
+ *  (IT, DE, FR…), so every builder below happily produced `/governance/IT` and
+ *  `/consumption/IT` — pages that do not exist and cannot. Measured 2026-09-04 on
+ *  `/sections/IT`: the place digest rendered both, captioned „депутатите и общинският съвет",
+ *  about Italy. `PlaceHeaderView` already dropped the SWITCHER for abroad, which is what hid
+ *  this — the pills were gone while the digest, a different consumer of the same builders,
+ *  kept them.
+ *
+ *  Refusing here rather than at each call site is the point: `isAbroad` was a rendering flag
+ *  held by one component, and a second consumer had no way to know. */
+export const ABROAD_OBLAST = "32";
+export const isAbroadPlace = (p: PlaceRef): boolean =>
+  p.oblast === ABROAD_OBLAST;
+
 export const SOFIA_CITY_GOVERNANCE_ID = "SOF00";
 export const isSofiaCityObshtina = (code?: string): boolean =>
   canonicalObshtina(code) === "SFO_CITY";
@@ -88,6 +105,7 @@ export const isSofiaCityObshtina = (code?: string): boolean =>
 //   município    → /governance/:obshtina    (Sofia city → /governance/SOF00)
 //   settlement   → /governance/:ekatte
 export const governanceUrl = (p: PlaceRef): string | null => {
+  if (isAbroadPlace(p)) return null;
   if (p.level === "country") return "/governance/overview";
   if (p.level === "region" && p.oblast) return `/governance/region/${p.oblast}`;
   if (p.level === "settlement" && p.ekatte) return `/governance/${p.ekatte}`;
@@ -136,6 +154,7 @@ export const oblastGovernanceUrl = (oblast: string): string | null => {
 //   município    → /consumption/:obshtina   (Sofia city → /consumption/SOF00)
 //   settlement   → /consumption/:ekatte
 export const consumptionUrl = (p: PlaceRef): string | null => {
+  if (isAbroadPlace(p)) return null;
   if (p.level === "country") return "/consumption";
   if (p.level === "region" && p.oblast)
     return `/consumption/region/${p.oblast}`;
@@ -191,6 +210,7 @@ export const placeViewUrl = (
 // responsible for confirming the place actually has local data in that cycle
 // (PlaceViewNav guards via the cycle index before rendering the pill).
 export const localUrl = (p: PlaceRef, cycle: string): string | null => {
+  if (isAbroadPlace(p)) return null;
   if (p.level === "country") return `/local/${cycle}`;
   // Пловдив/Варна район → its own район-scoped local page (the районен-кмет
   // race + район station map), mirroring a Sofia район's /local/<cycle>/S2xxx.
