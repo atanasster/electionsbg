@@ -46,13 +46,18 @@ import {
   MAX_BALLOT_PREVIEW,
   type BallotKind,
   type ElectionBallotTotals,
+  type ElectionMapMeta,
+  type ElectionPlaceLevel,
   type ElectionRankedEntry,
   type ElectionSurfaceBallot,
   type ElectionSurfaceFact,
   type ElectionSurfaceV1,
   ELECTION_SURFACE_VERSION,
 } from "../../src/data/elections/surfaceTypes";
-import { descriptorFor } from "../../src/screens/elections/electionSurfaceDescriptors";
+import {
+  ballotMapMeta,
+  descriptorFor,
+} from "../../src/screens/elections/electionSurfaceDescriptors";
 import { buildDestinations } from "./source_links";
 
 export const DATA_ROOT = path.join(process.cwd(), "data");
@@ -108,6 +113,17 @@ export type { PartyVote, Protocol };
  *  ⚠ THE PERCENTAGE IS OVER VALID VOTES, and the margin belongs to the LEADER ONLY. A margin on
  *  every row reads as "distance from the row above", which is a different quantity, and putting
  *  the leader's margin on a runner-up asserts they led. */
+/** `{ map }` for a ballot, or `{}` — spreadable, so a level that declares no map adds no key
+ *  rather than an explicit `map: undefined` that would serialise as absent anyway but read as a
+ *  decision the generator did not make. */
+const mapMeta = (
+  level: ElectionPlaceLevel,
+  ballotKind: BallotKind,
+): { map?: ElectionMapMeta } => {
+  const meta = ballotMapMeta("parliamentary", level, ballotKind);
+  return meta ? { map: meta } : {};
+};
+
 export const rankedFrom = (
   votes: readonly PartyVote[],
   index: PartyIndex,
@@ -357,6 +373,11 @@ export const buildRegionSurface = (
     resultStatus: "final",
     preview: ranked,
     totals,
+    // ⚠ FROM THE LEVEL'S OWN DECLARATION, never restated here. Every artifact ballot carried
+    // `map: null` until 2026-09-03 — 23,109 of them — so every artifact-backed page drew no map
+    // at all. `ballotMapMeta` reads the descriptor, which is where a level's maps are declared
+    // AND where the two levels with none declare `maps: []`.
+    ...mapMeta(level, "parliamentary_list"),
     completeResult: {
       to: `/municipality/${row.key}`,
       available: true,
@@ -521,6 +542,7 @@ export const buildSettlementSurface = (
             resultStatus: "final",
             preview: ranked,
             totals,
+            ...mapMeta("settlement", "parliamentary_list"),
             completeResult: { to: completeResultTo, available: true },
           },
         ]
@@ -618,6 +640,9 @@ export const buildSectionSurface = (
         resultStatus: "final",
         preview: ranked,
         totals,
+        // A polling section declares `maps: []`, so this spreads nothing — by construction
+        // rather than by a special case here.
+        ...mapMeta("section", "parliamentary_list"),
         completeResult: {
           to: completeResultTo ?? "",
           available: completeResultTo !== null,

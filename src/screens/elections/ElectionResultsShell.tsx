@@ -363,7 +363,8 @@ const OutcomeCanvas: FC<{
   /** The surface's own coordinates — the adapter is chosen by kind × level × mode (§6). */
   kind: ElectionKind;
   level: ElectionPlaceLevel;
-}> = ({ ballot, columns, questionKey, kind, level }) => {
+  placeId: string;
+}> = ({ ballot, columns, questionKey, kind, level, placeId }) => {
   const { t } = useTranslation();
   return (
     <div
@@ -406,6 +407,7 @@ const OutcomeCanvas: FC<{
               adapter reads its own. */}
           <ElectionMapPanel
             adapter={adapterKey(kind, level, ballot.map.defaultMode)}
+            placeId={placeId}
             question={questionKey ? t(questionKey) : undefined}
             posture="presentational"
             ariaLabel={
@@ -509,6 +511,7 @@ export const ElectionResultsShell: FC<Props> = ({
               ballot={b}
               kind={surface.kind}
               level={surface.place.level}
+              placeId={surface.place.id}
               columns={level?.rankedColumns ?? []}
               questionKey={
                 b.map

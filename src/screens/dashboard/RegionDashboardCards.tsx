@@ -13,19 +13,14 @@ import { useRegionSummary } from "@/data/dashboard/useRegionSummary";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { useRegionDeclarationsHasContent } from "@/data/parliament/useMpDeclarationsAvailability";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
-import { PartyChangeCard } from "./cards/PartyChangeCard";
-import { TurnoutCard } from "./cards/TurnoutCard";
-import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { VoteFlowTile } from "@/screens/components/voteFlow/VoteFlowTile";
-import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionMpsTile } from "./RegionMpsTile";
 import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
-import { RegionMunicipalitiesMapTile } from "./RegionMunicipalitiesMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopMunicipalitiesTile } from "./TopMunicipalitiesTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
@@ -60,6 +55,18 @@ type Props = {
   regionCode: string;
 };
 
+/** The region page's deeper sections — everything BELOW the shared result surface.
+ *
+ *  ⚠ THE FOUR KPI CARDS AND THE MAP/PARTY PAIR LEFT because the shell's strip and canvas state
+ *  exactly those (§4 item 3: "remove only numbers duplicated by the new strip/canvas").
+ *  Everything else is untouched, including the diaspora branches: the per-country table, the
+ *  self-hiding município/census/local-government sections and the voting-abroad FAQ.
+ *
+ *  ⚠ THE ABROAD TURNOUT SUPPRESSION MOVED WITH THE CARD, and it is not lost. `diaspora ? null :`
+ *  guarded the turnout card here because МИР 32 registers voters at the booth and the rate reads
+ *  >100%. The surface makes the same refusal one layer up and in two places that cannot drift
+ *  from each other: `ballotTotalsFrom` returns `turnoutBasis: "unavailable"` when the cast count
+ *  exceeds the roll, and the abroad DESCRIPTOR omits `turnout` from its `factPriority` outright. */
 export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "en" ? "en" : "bg";
@@ -97,35 +104,11 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
 
   return (
     <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <PartyChangeCard variant="gainer" change={data.topGainer} />
-        <PartyChangeCard variant="loser" change={data.topLoser} />
-        {/* Abroad sections register voters at the booth, so
-            numRegisteredVoters is unreliable (turnout reads >100%); hide the
-            card for МИР 32, as the prerendered SEO body already does. */}
-        {diaspora ? null : (
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-        )}
-        <PaperMachineCard
-          paperMachine={data.paperMachine}
-          priorElection={data.priorElection}
-        />
-      </div>
-
       <DashboardSection
         id="votes"
         title={t("dashboard_section_votes")}
         icon={Gauge}
       >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          {/* МИР 32 (abroad) loads the continents/world geo from
-              /maps/regions/32.json — same tile, different map. */}
-          <RegionMunicipalitiesMapTile regionCode={regionCode} />
-          <PartyResultsTile parties={data.parties} regionCode={regionCode} />
-        </div>
         {/* Diaspora-only: per-country results table beneath the continents
             map (each country links to its /sections/<code> page). */}
         {diaspora && national?.topDiaspora?.length ? (

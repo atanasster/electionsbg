@@ -86,6 +86,12 @@ export const adapterKey = (
 export type ElectionMapAdapterProps = ElectionMapSlot & {
   /** The question this map answers, already localised — §6 requires a map to name it. */
   question?: string;
+  /** The place whose map this is — an oblast code, an obshtina code, an EKATTE.
+   *
+   *  ⚠ IT COMES FROM THE SURFACE, never from the router. A map adapter that read `useParams`
+   *  would draw a different place from the one the ranked list beside it describes on any page
+   *  that renders two surfaces — which §4.1's whole premise says is the expected case. */
+  placeId: string;
 };
 
 /** ⚠ EVERY VALUE IS A LOADER, NEVER A COMPONENT. A static reference here would pull the
@@ -108,4 +114,12 @@ export const MAP_ADAPTERS: Partial<
   // route, which draws no map at all.
   "parliamentary/country/winner": () =>
     import("./adapters/ParliamentaryCountryMap"),
+  // ⚠ THE SAME MODULE FOR BOTH LEVELS (§Phase 4 item 6: "abroad uses the parliamentary region
+  // adapter"). `MunicipalitiesMap` already branches on the region — МИР 32 loads the continents
+  // geo, Sofia's three МИР load their районы — so a second entry pointing elsewhere would be a
+  // second copy of that branching.
+  "parliamentary/region/winner": () =>
+    import("./adapters/ParliamentaryRegionMap"),
+  "parliamentary/abroad/winner": () =>
+    import("./adapters/ParliamentaryRegionMap"),
 };

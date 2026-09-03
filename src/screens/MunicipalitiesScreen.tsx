@@ -9,6 +9,12 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { RegionDashboardCards } from "./dashboard/RegionDashboardCards";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { NotFound } from "@/screens/NotFound";
+import { useElectionContext } from "@/data/ElectionContext";
+import { isDiasporaRegion } from "@/data/diaspora/diasporaFaq";
+import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
+import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 
 export const MunicipalitiesScreen = () => {
   const { id: region } = useParams();
@@ -16,6 +22,7 @@ export const MunicipalitiesScreen = () => {
   const { findRegion } = useRegions();
   const { municipalities } = useMunicipalities();
   const { t, i18n } = useTranslation();
+  const { selected } = useElectionContext();
   const lang = i18n.language === "bg" ? "bg" : "en";
   if (!region) {
     return null;
@@ -105,7 +112,29 @@ export const MunicipalitiesScreen = () => {
         oblast={region}
         fallbackName={title}
         className="my-4"
+        scope={<ElectionScopeBar cycle={selected} status="final" />}
       />
+      {/* ⚠ `abroad` IS ITS OWN LEVEL, and the difference is not cosmetic. МИР 32's descriptor
+          omits `turnout` from `factPriority` outright — abroad registers voters at the booth, so
+          the rate reads >100% and is unpublishable rather than merely unknown — and its
+          artifact lives at a different path. Passing `region` for it would publish a turnout the
+          protocol cannot support, which is the one thing the level split exists to prevent. */}
+      <ElectionSurfaceBoundary
+        kind="parliamentary"
+        level={isDiasporaRegion(region) ? "abroad" : "region"}
+        cycle={selected}
+        id={region}
+        skeleton={<ElectionSurfaceSkeleton facts={4} />}
+        fallback={null}
+      >
+        {(s) => (
+          <ElectionResultsShell
+            surface={s}
+            scope="header"
+            currentView="parliamentary"
+          />
+        )}
+      </ElectionSurfaceBoundary>
       <RegionDashboardCards regionCode={region} />
     </>
   );

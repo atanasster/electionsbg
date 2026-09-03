@@ -92,6 +92,7 @@ describe("an unwired level degrades to its text equivalent", () => {
       <ElectionMapPanel
         adapter={adapterKey("parliamentary", "country", "vote_share")}
         {...presentational}
+        placeId="BG"
       />,
     );
     expect(screen.getByText(bg.election_map_placeholder)).toBeInTheDocument();
@@ -112,10 +113,12 @@ describe("a registered adapter is loaded lazily and only once", () => {
     (MAP_ADAPTERS as Record<string, unknown>)[key] = loader;
     try {
       const { rerender } = render(
-        <ElectionMapPanel adapter={key} {...presentational} />,
+        <ElectionMapPanel adapter={key} placeId="BG" {...presentational} />,
       );
       await waitFor(() => expect(screen.getByTestId("adapter")).toBeTruthy());
-      rerender(<ElectionMapPanel adapter={key} {...presentational} />);
+      rerender(
+        <ElectionMapPanel adapter={key} placeId="BG" {...presentational} />,
+      );
       await waitFor(() => expect(screen.getByTestId("adapter")).toBeTruthy());
       expect(loader).toHaveBeenCalledTimes(1);
     } finally {

@@ -24,6 +24,7 @@ import {
 } from "./ballotTotals";
 import { partyIdFor, type PartyIndex } from "./partyIndex";
 import { buildDestinations } from "./destinations";
+import { ballotMapMeta } from "@/screens/elections/electionSurfaceDescriptors";
 import {
   ELECTION_SURFACE_VERSION,
   MAX_BALLOT_PREVIEW,
@@ -131,6 +132,7 @@ export const parliamentaryCountrySurface = (args: {
     };
   });
   const totals = ballotTotalsFrom(protocol ?? {}, votes);
+  const map = ballotMapMeta("parliamentary", "country", "parliamentary_list");
   return {
     schemaVersion: ELECTION_SURFACE_VERSION,
     kind: "parliamentary",
@@ -147,18 +149,10 @@ export const parliamentaryCountrySurface = (args: {
         resultStatus: "final",
         preview,
         totals,
-        map: {
-          defaultMode: "winner",
-          allowedModes: [
-            "winner",
-            "margin",
-            "selected_share",
-            "change",
-            "turnout",
-          ],
-          posture: "interactive",
-          grain: "region",
-        },
+        // ⚠ FROM THE LEVEL'S OWN DECLARATION, exactly as the generator now does. It was four
+        // literals here — a second copy of the country descriptor's map slot, which would have
+        // drifted the first time a mode was added on one side.
+        ...(map ? { map } : {}),
         completeResult: { to: `/elections/${cycle}`, available: true },
       },
     ],

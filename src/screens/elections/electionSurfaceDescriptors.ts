@@ -30,6 +30,7 @@ import type {
   ElectionSourceLabel,
   ElectionStandoutSignal,
   ElectionUnavailableReason,
+  ElectionMapMeta,
 } from "@/data/elections/surfaceTypes";
 
 /** A column the ranked result may draw.
@@ -162,6 +163,37 @@ export const RANKED_COLUMN_LABEL_KEYS: Record<ElectionRankedColumn, string> = {
   margin: "election_col_margin",
   round: "election_col_round",
   elected: "election_col_elected",
+};
+
+/** The map meta a generated ballot carries, derived from the LEVEL'S OWN DECLARATION.
+ *
+ *  ⚠ THE GENERATOR EMITTED NONE, ON EVERY LEVEL. Measured 2026-09-03 over the published corpus:
+ *  all 23,109 artifact ballots carried `map: null`, so every artifact-backed surface drew no map
+ *  at all — the region and abroad pages included, which §Phase 4 item 4 requires to LEAD with
+ *  one. The field existed and the descriptors declared the maps; nothing joined them.
+ *
+ *  ⚠ DERIVED, NEVER RESTATED. The descriptor is where a level's maps are declared, including the
+ *  two levels that declare NONE — a polling section has no geography to answer a question about
+ *  — so `maps: []` yields `undefined` by construction rather than by a second rule the generator
+ *  would have to keep in step. A multi-ballot level picks the slot that names this ballot; a
+ *  single-ballot level's slot may omit `ballot` and still match, which is why the fallback is
+ *  the ballot's own kind rather than a required field. */
+export const ballotMapMeta = (
+  kind: ElectionKind,
+  level: ElectionPlaceLevel,
+  ballotKind: BallotKind,
+): ElectionMapMeta | undefined => {
+  const d = descriptorFor(kind, level);
+  if (!d.available) return undefined;
+  const slot = d.maps.find((m) => (m.ballot ?? ballotKind) === ballotKind);
+  if (!slot) return undefined;
+  return {
+    ...(slot.ballot ? { ballot: slot.ballot } : {}),
+    defaultMode: slot.defaultMode,
+    allowedModes: [...slot.allowedModes],
+    posture: slot.posture,
+    grain: slot.grain,
+  };
 };
 
 export const STATUS_LABEL_KEYS: Record<ElectionResultStatus, string> = {

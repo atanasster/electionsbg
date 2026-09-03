@@ -31,12 +31,17 @@ import {
   partyIdOrNull,
   type BallotKind,
   type ElectionBallotTotals,
+  type ElectionMapMeta,
+  type ElectionPlaceLevel,
   type ElectionRankedEntry,
   type ElectionSurfaceBallot,
   type ElectionSurfaceFact,
   type ElectionSurfaceV1,
 } from "../../src/data/elections/surfaceTypes";
-import { descriptorFor } from "../../src/screens/elections/electionSurfaceDescriptors";
+import {
+  ballotMapMeta,
+  descriptorFor,
+} from "../../src/screens/elections/electionSurfaceDescriptors";
 import { buildDestinations, readReconciliation } from "./source_links";
 
 export const DATA_ROOT = path.join(process.cwd(), "data");
@@ -222,6 +227,17 @@ const totalsFor = (
 /** ⚠ EVERY FACT NAMES ITS BALLOT. A strip carrying a mayoral margin beside a council seat count
  *  with nothing saying which is which is the merge §2 decision 4 forbids, done one component
  *  later. `ElectionSurfaceFact.ballot` exists for exactly this. */
+/** `{ map }` for a local ballot, from the level's own declaration. See the parliamentary twin —
+ *  every artifact ballot in the corpus carried `map: null` until 2026-09-03, so no
+ *  artifact-backed page drew a map at all. `maps: []` on a level yields `{}` by construction. */
+const mapMeta = (
+  level: ElectionPlaceLevel,
+  ballotKind: BallotKind,
+): { map?: ElectionMapMeta } => {
+  const meta = ballotMapMeta("local", level, ballotKind);
+  return meta ? { map: meta } : {};
+};
+
 export const localFactsFor = (
   level: Parameters<typeof descriptorFor>[1],
   mayorBallot: ElectionSurfaceBallot | null,
@@ -329,6 +345,7 @@ export const buildMunicipalitySurface = (
   const mayorBallot: ElectionSurfaceBallot | null = decisive
     ? {
         kind: "municipality_mayor" satisfies BallotKind,
+        ...mapMeta("municipality", "municipality_mayor"),
         round: decisive.round,
         resultStatus: "final",
         preview: mayorPreview(decisive.rows, m.mayor?.elected ?? null),
@@ -348,6 +365,7 @@ export const buildMunicipalitySurface = (
   const councilBallot: ElectionSurfaceBallot | null = councilRows.length
     ? {
         kind: "municipal_council" satisfies BallotKind,
+        ...mapMeta("municipality", "municipal_council"),
         resultStatus: "final",
         preview: councilPreview(councilRows),
         totals: totalsFor(m.protocol, m.protocol.numValidVotes ?? 0),
@@ -454,6 +472,7 @@ export const buildSettlementSurface = (
   const validVotes = decisive.reduce((a, r) => a + r.votes, 0);
   const ballot: ElectionSurfaceBallot = {
     kind: "settlement_mayor" satisfies BallotKind,
+    ...mapMeta("settlement", "settlement_mayor"),
     round,
     resultStatus: "final",
     preview: mayorPreview(decisive, args.elected ?? null),
@@ -583,6 +602,7 @@ export const buildLocalSectionSurface = (
   if (mayorRows.length && mayorValid > 0)
     ballots.push({
       kind: "municipality_mayor" satisfies BallotKind,
+      ...mapMeta("section", "municipality_mayor"),
       resultStatus: "final",
       preview: rank(mayorRows, mayorValid),
       totals: totalsFor(protocol, mayorValid),
@@ -595,6 +615,7 @@ export const buildLocalSectionSurface = (
   if (councilRows.length)
     ballots.push({
       kind: "municipal_council" satisfies BallotKind,
+      ...mapMeta("section", "municipal_council"),
       resultStatus: "final",
       preview: rank(councilRows, sec.numValidVotes ?? 0),
       totals: totalsFor(protocol, sec.numValidVotes ?? 0),
@@ -740,6 +761,7 @@ export const buildCountrySurface = (
   );
   const councilBallot: ElectionSurfaceBallot = {
     kind: "municipal_council" satisfies BallotKind,
+    ...mapMeta("country", "municipal_council"),
     resultStatus: "final",
     preview: council.map((r, i) => ({
       ...partyRef(r.canonicalId, r.displayName),
@@ -819,6 +841,7 @@ export const buildRegionSurface = (
   const t = r.turnout ?? {};
   const ballot: ElectionSurfaceBallot = {
     kind: "municipal_council" satisfies BallotKind,
+    ...mapMeta("region", "municipal_council"),
     resultStatus: "final",
     // ⚠⚠ A REGION AGGREGATE HAS SEATS AND NO PER-PARTY VOTES, AND `pct` IS THE VOTE SHARE.
     // Putting the seat share there overstates it badly — ГЕРБ in Варна read 40.18 against a
