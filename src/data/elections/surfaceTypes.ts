@@ -495,10 +495,7 @@ export const partyIdOrNull = (id: string | null | undefined): string | null =>
 /** The fields §5.3 allows to carry Bulgarian prose, and the ONLY ones. A no-prose gate reads
  *  this rather than listing them itself, so a third exception cannot be added by a generator
  *  without appearing here — which is the review this list exists to force. */
-export const PROSE_EXEMPT_FIELDS = [
-  "candidateName",
-  "localPartyName",
-] as const;
+export const PROSE_EXEMPT_FIELDS = ["candidateName", "localPartyName"] as const;
 
 /** Does the mayor's party differ from the council's largest?
  *
