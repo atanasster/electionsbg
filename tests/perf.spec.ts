@@ -398,12 +398,25 @@ test.describe("performance", () => {
 
   // Every assertion around it is "chunk X is absent from list Y", and a
   // newly-lazy chunk is absent by construction — so nothing above can see
-  // whether making the home dashboard lazy cost home a serial round-trip. It
-  // does not, because resolveDependencies is scoped to hostType "html" and so
-  // leaves dynamic-import dep lists intact: the dashboard's own mapDeps entry
-  // preloads the map/chart chunks in parallel. Assert that directly, since
-  // re-broadening that filter would silently reintroduce the waterfall.
-  test("home dashboard chunk preloads its map/chart deps in parallel", () => {
+  // whether making a map-drawing dashboard lazy cost its route a serial
+  // round-trip. It does not, because resolveDependencies is scoped to hostType
+  // "html" and so leaves dynamic-import dep lists intact: the dashboard's own
+  // mapDeps entry preloads the map/chart chunks in parallel. Assert that
+  // directly, since re-broadening that filter would silently reintroduce the
+  // waterfall.
+  //
+  // ⚠️ The route MOVED and the property did not. This guarded `/` until
+  // 807f3c583e cut the root over to HomeDashboardScreen, which deliberately
+  // draws no map; DashboardScreen — the country result — is now `/parliamentary`
+  // and is still the screen that mounts a Leaflet map eagerly, so this is where
+  // the waterfall would reappear.
+  //
+  // ⚠️ The `./` anchor is load-bearing. Without it the pattern also matches the
+  // tail of `HomeDashboardScreen-<hash>.js`, which is emitted FIRST (routes.tsx
+  // declares it first) — so the unanchored form silently measured the map-free
+  // home chunk instead, found no vendor-geo, and failed while the property it
+  // guards was intact. Any future `*DashboardScreen` route re-arms that trap.
+  test("country-result chunk preloads its map/chart deps in parallel", () => {
     const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
     const code = fs.readFileSync(
       `${DIST_DIR}/assets/${entryChunk(html)}`,
@@ -411,19 +424,19 @@ test.describe("performance", () => {
     );
     const table = [...code.matchAll(/"(assets\/[^"]+)"/g)].map((m) => m[1]);
     const call = code.match(
-      /DashboardScreen-[A-Za-z0-9_-]+\.js"\),__vite__mapDeps\(\[([0-9,]+)\]\)/,
+      /"\.\/DashboardScreen-[A-Za-z0-9_-]+\.js"\),__vite__mapDeps\(\[([0-9,]+)\]\)/,
     );
     expect(call, "dashboard dynamic import not found in entry").toBeTruthy();
     const deps = call![1].split(",").map((i) => table[Number(i)]);
     // vendor-charts left this list in T3.5, and that is the win rather than a
     // regression: d3-geo was the dashboard's only path into the recharts
-    // subgraph, so splitting vendor-geo out took ~115 KB brotli off the home
-    // route. vendor-geo is now the map-side dep whose absence would mean a
-    // real waterfall.
+    // subgraph, so splitting vendor-geo out took ~115 KB brotli off the route.
+    // vendor-geo is now the map-side dep whose absence would mean a real
+    // waterfall.
     for (const need of ["vendor-leaflet", "vendor-geo"]) {
       expect(
         deps.find((d) => d?.includes(need)),
-        `${need} dropped from the dashboard's mapDeps — home now waterfalls`,
+        `${need} dropped from the dashboard's mapDeps — /parliamentary now waterfalls`,
       ).toBeTruthy();
     }
   });
