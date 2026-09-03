@@ -11,11 +11,22 @@
 // the average place has to meet is not a budget — the reader of the largest page is a real
 // reader, and in this corpus the largest place is usually the most-read one.
 //
-// ⚠ AND IT GATES A DIFFERENT QUANTITY PER POLICY. `canonical` is judged on the shard, because
-// that is what the reader downloads; `embedded` is judged on the surface KEY, because the host
-// file also carries the complete station detail and measuring it against a projection budget
-// compares two different things. Getting that wrong flips a correct decision in both
-// directions — see `SURFACE_BUDGET_BYTES`.
+// ⚠ AND IT GATES A DIFFERENT QUANTITY PER POLICY — but NOT the split this comment used to
+// claim. It said `embedded` was judged on the surface KEY rather than on the host file, which
+// is precisely the escape hatch `SURFACE_BUDGET_BYTES`' own header refuses by name: "there is
+// no 'the budget applies to the key, not the host' escape … it is unfalsifiable — nothing
+// measures a key that has not been generated yet — and it made `local/section` look compliant
+// when it is 1.26x over." The code never implemented it either; `canonicalSizes` returns the
+// same file sizes for both policies. So two of the three descriptions of one rule agreed and
+// this one did not, and the one that did not sat in the header a reader consults FIRST when a
+// budget test goes red — where it would have explained away the 2026-09-03 local/section
+// breach as "that is the host file, the gate means the key". The real split is:
+//
+//   artifact   the generated file — a projection, so the budget is a real ceiling on it
+//   canonical  the existing shard, because that IS what the reader downloads
+//   embedded   the shard too, for the same reason — the reader downloads the same bytes
+//              either way, and an over-budget `embedded` level is over budget until a
+//              `budgetWaiver` says why the overage is the better trade
 //
 // Skips (never silently passes) when the corpus is absent: a fresh clone has no `data/<cycle>`
 // tree, and "there were no files to measure" must not read as "every level is inside budget".
