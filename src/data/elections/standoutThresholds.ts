@@ -70,6 +70,12 @@ export type StandoutThreshold = {
   /** §7's "what it excludes" — the cases this value deliberately drops, so a later widening is
    *  a decision and not a bug fix. */
   excludes: string;
+  /** ⚠ THE CEILING THE RECORDED BASIS IMPLIES, above which the POPULATION is out of
+   *  calibration. A percentile always selects its share — that is the point of one — so it
+   *  names ~5% of places whether or not any of them is close in absolute terms. That is right
+   *  where the distribution is tight and wrong where it is wide, and nothing else here can tell
+   *  the two apart. Transcribed from the basis, never chosen: see `close_contest`. */
+  maxCutoff?: number;
 };
 
 export const STANDOUT_THRESHOLDS = {
@@ -82,7 +88,21 @@ export const STANDOUT_THRESHOLDS = {
     measured:
       "per-cycle p5 over eight cycles: 0.47 · 0.66 · 0.66 · 0.95 · 1.02 · 1.12 · 2.50 · 4.88 pp",
     excludes:
-      "it always selects ~5%, so it can never report that nothing was close this cycle",
+      "it always selects ~5%, so it can never report that nothing was close this cycle — which " +
+      "is why `maxCutoff` exists: past it, the population is the wrong one rather than the " +
+      "cycle being unusually close",
+    // ⚠ THE METHODOLOGY'S OWN WORST CASE, TRANSCRIBED. §5.1: "the worst case it ever calls
+    // 'close' is 4.88 pp, which needs no absolute ceiling." That basis was measured on the
+    // 289–305-place MUNICIPALITY distribution, and applying the same percentile to a 31-member
+    // REGION population breaks it: replayed over all 13 parliamentary cycles the region cutoff
+    // runs 0.39 → 8.55 pp and exceeds 4.88 in three of them. On 2026 the regions' median margin
+    // is 31.83 pp — the country's МИРs were decided decisively — and the selector still named
+    // Столична 24 an "unusually close contest" at 8.55 pp, because `ceil(0.05 × 31) = 2` picks
+    // two regions every cycle whatever the data says.
+    //
+    // So this is not a new threshold: it is the recorded basis made enforceable. Above it the
+    // selector refuses the POPULATION rather than publishing a claim the basis does not cover.
+    maxCutoff: 4.88,
   },
   turnout_departure: {
     percentile: 0.95,

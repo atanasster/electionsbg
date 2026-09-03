@@ -454,6 +454,49 @@ export const readRegionRows = (cycle: string): RegionRow[] => {
   return JSON.parse(fs.readFileSync(p, "utf8")) as RegionRow[];
 };
 
+/** A place's turnout as a percentage, on the SAME denominator the surface uses
+ *  (`registered + additional`) — or null where there is none.
+ *
+ *  ⚠ THE DENOMINATOR MATTERS TO THE COMPARISON, not just to the published figure. On the
+ *  corrected denominator, abroad excluded, the national turnout delta for 2026 against 2024_10
+ *  is **11.1195 pp**;
+ *  on the bare registered list it is 11.87 pp, which is also what `national_summary.json`
+ *  publishes and the site prerenders. A selector mixing the two measures each place against a
+ *  national move computed a different way.
+ *
+ *  ⚠ THE METHODOLOGY RECORDS 12.05 pp FOR THIS PAIR AND NOTHING HERE REPRODUCES IT — nine
+ *  derivations were tried. Stated as an open discrepancy rather than explained away: the two
+ *  candidate denominators give 11.12 and 11.87, and where 12.05 came from is not recoverable
+ *  from this corpus. It is not load-bearing (the selector uses the value it computes, not the
+ *  recorded one) but it should not be quietly rounded into agreement. */
+export const turnoutPctOf = (protocol: Protocol): number | null => {
+  const denom =
+    (protocol.numRegisteredVoters ?? 0) + (protocol.numAdditionalVoters ?? 0);
+  const cast = protocol.totalActualVoters ?? 0;
+  if (denom <= 0 || cast > denom) return null;
+  return (cast / denom) * 100;
+};
+
+/** The national turnout across a cycle's region rows, on the same denominator. */
+export const nationalTurnoutPct = (
+  rows: readonly RegionRow[],
+): number | null => {
+  let cast = 0;
+  let denom = 0;
+  for (const r of rows) {
+    // ⚠ ABROAD IS OUT OF THE BASELINE. Its rate measures a different registration regime — ~90%
+    // by construction, because almost everyone joins the list at the section on the day — so
+    // folding it in contaminates the very number every domestic place is then compared against.
+    // The effect today is 0.0018 pp and changes no selection, which is exactly why it would
+    // never have been noticed.
+    if (r.key === ABROAD_KEY) continue;
+    const p = r.results.protocol;
+    cast += p.totalActualVoters ?? 0;
+    denom += (p.numRegisteredVoters ?? 0) + (p.numAdditionalVoters ?? 0);
+  }
+  return denom > 0 ? (cast / denom) * 100 : null;
+};
+
 /** The prior cycle's region rows, keyed by region code, for the `top_gainer` comparison. */
 export const readPriorRegionIndex = (
   priorCycle: string,

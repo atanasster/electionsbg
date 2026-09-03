@@ -221,6 +221,11 @@ export const selectCloseContests = (
     t,
   );
   if (cutoff === null) return [];
+  // ⚠ THE POPULATION CAN BE THE WRONG ONE, and a percentile cannot tell you so. It selects its
+  // share by construction, so a cutoff above the recorded basis means these places are not the
+  // distribution the threshold was calibrated on — not that this cycle was unusually close.
+  // Refusing is the honest answer; publishing names a decisively-won place as a close contest.
+  if (t.maxCutoff !== undefined && cutoff > t.maxCutoff) return [];
   const picked = eligible.filter((r) => r.marginPct <= cutoff);
   assertNotUbiquitous("close_contest", picked.length, eligible.length);
   return dropWithoutEvidence(
@@ -384,16 +389,38 @@ const MORE_NOTABLE_WHEN_SMALLER: ReadonlySet<ElectionStandoutSignal> = new Set([
   "close_contest",
 ]);
 
+/** ⚠ §7's OWN ORDER WITHIN EACH SLOT, and it settles a comparison that has no other answer.
+ *  Three signals share `participation`, and only one slot is kept — so the cap always has to
+ *  choose between a turnout residual in pp, a margin in pp and a party COUNT. Falling through to
+ *  `sampleSize` compared 26,416 votes against 51 seats, which is not a comparison; §7's slot
+ *  list gives the priority explicitly: "participation/competition — turnout change …, unusually
+ *  close contest, unusually fragmented council". */
+const SIGNAL_PRIORITY: readonly ElectionStandoutSignal[] = [
+  // slot 1 — outcome/change
+  "lead_change",
+  "threshold_crossed",
+  "split_control",
+  "runoff_pending",
+  // slot 2 — participation/competition
+  "turnout_departure",
+  "close_contest",
+  "fragmented_council",
+  // slot 3 — review
+  "concentrated_support",
+  "invalid_ballots",
+  "additional_voters",
+];
+
 const byNotability = (a: ElectionStandout, b: ElectionStandout): number => {
-  if (a.metric !== b.metric) {
-    // Within a category the signals can still differ (close_contest vs turnout_departure both
-    // sit in `participation`), so the direction is taken per candidate and a disagreement falls
-    // back to the deterministic keys below rather than to an arbitrary magnitude comparison.
-    const aSmaller = MORE_NOTABLE_WHEN_SMALLER.has(a.signal);
-    const bSmaller = MORE_NOTABLE_WHEN_SMALLER.has(b.signal);
-    if (aSmaller === bSmaller)
-      return aSmaller ? a.metric - b.metric : b.metric - a.metric;
-  }
+  // Different signals are never ranked by magnitude — their units differ.
+  if (a.signal !== b.signal)
+    return (
+      SIGNAL_PRIORITY.indexOf(a.signal) - SIGNAL_PRIORITY.indexOf(b.signal)
+    );
+  if (a.metric !== b.metric)
+    return MORE_NOTABLE_WHEN_SMALLER.has(a.signal)
+      ? a.metric - b.metric
+      : b.metric - a.metric;
   if (a.sampleSize !== b.sampleSize) return b.sampleSize - a.sampleSize;
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 };

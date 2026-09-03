@@ -137,13 +137,18 @@ describe("percentile — the distributional core", () => {
 });
 
 describe("close contest — the cutoff is the CYCLE's, not a constant", () => {
-  // The two extremes §7 measured: p5 was 0.47 pp in 2021_07_11 and 4.88 pp in 2026_04_19.
-  // Distributions shaped to reproduce that spread.
+  // ⚠ BOTH SHAPED TO SIT INSIDE THE RECORDED BASIS, whose worst-ever p5 is 4.88 pp. §7's own
+  // measured range is 0.47 → 4.88 — a tenfold spread — so the order-of-magnitude property this
+  // block exists to prove is demonstrable without leaving the range the threshold covers. An
+  // earlier `loose` ran to a p5 of ~7.9 pp, which `maxCutoff` now correctly REFUSES: past the
+  // basis the population is the wrong one rather than the cycle being unusually close.
+  // p5 lands on 0.47 and 4.78 — §7's own measured extremes, a tenfold spread, both inside the
+  // 4.88 basis. (A 300-row ramp puts p5 at the 15th value: base + 14 x step.)
   const tight = Array.from({ length: 300 }, (_, i) =>
-    margin(`t${i}`, 0.2 + i * 0.05),
+    margin(`t${i}`, 0.4 + i * 0.005),
   );
   const loose = Array.from({ length: 300 }, (_, i) =>
-    margin(`l${i}`, 3.0 + i * 0.35),
+    margin(`l${i}`, 3.8 + i * 0.07),
   );
 
   it("yields two different cutoffs for two different cycles", () => {

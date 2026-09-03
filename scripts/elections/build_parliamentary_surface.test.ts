@@ -181,6 +181,54 @@ describe("turnout — the denominator, and the definitional suppression", () => 
   });
 });
 
+describe("the national turnout baseline", () => {
+  it.runIf(hasCycle)(
+    "excludes abroad from the figure places are compared against",
+    () => {
+      // ⚠ THE ONE RATE THIS FILE'S HEADER SPENDS EIGHT LINES FORBIDDING. Abroad's ~90% measures a
+      // different registration regime, and folding it into the national baseline contaminates the
+      // number every DOMESTIC place is then measured against. The effect today is 0.0018 pp and
+      // changes no selection — which is exactly why nothing else would ever catch it.
+      const rows = B.readRegionRows(CYCLE);
+      const withAbroad = (() => {
+        let cast = 0;
+        let denom = 0;
+        for (const r of rows) {
+          const p = r.results.protocol;
+          cast += p.totalActualVoters ?? 0;
+          denom += (p.numRegisteredVoters ?? 0) + (p.numAdditionalVoters ?? 0);
+        }
+        return (cast / denom) * 100;
+      })();
+      const published = B.nationalTurnoutPct(rows)!;
+      expect(published).not.toBe(withAbroad);
+      // …and dropping the abroad row by hand reproduces it exactly.
+      expect(
+        B.nationalTurnoutPct(rows.filter((r) => r.key !== B.ABROAD_KEY)),
+      ).toBe(published);
+    },
+  );
+
+  it.runIf(hasCycle)(
+    "uses the same denominator as the published turnout",
+    () => {
+      // A baseline computed on the bare registered list measures each place against a national
+      // move derived a different way. Corrected: 11.1195 pp for 2026 against 2024_10.
+      const row = B.readRegionRows(CYCLE).find((r) => r.key === "BLG")!;
+      const surface = regions().find((s) => s.place.id === "BLG")!;
+      expect(B.turnoutPctOf(row.results.protocol)).toBeCloseTo(
+        surface.ballots[0].totals.turnoutPct!,
+        2,
+      );
+    },
+  );
+
+  it("reports no rate where there is no denominator", () => {
+    expect(B.turnoutPctOf({})).toBeNull();
+    expect(B.nationalTurnoutPct([])).toBeNull();
+  });
+});
+
 describe("party identity is a reference (§5.3)", () => {
   it.runIf(hasCycle)("resolves every previewed party to a canonical id", () => {
     let entries = 0;

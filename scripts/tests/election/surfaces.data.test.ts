@@ -36,6 +36,8 @@ import {
 } from "../../../src/data/elections/surfaceTypes";
 import { bgCorpus, enCorpus } from "../../../src/locales/allKeys";
 import { UNAVAILABLE_REASON_LABEL_KEYS } from "../../../src/screens/elections/electionSurfaceDescriptors";
+import { STANDOUT_THRESHOLDS } from "../../../src/data/elections/standoutThresholds";
+import { capStandouts } from "../../elections/standouts";
 
 const CYCLES = B.coveredCycles();
 
@@ -550,20 +552,320 @@ describe("determinism (§9)", () => {
   });
 });
 
-describe("standouts", () => {
+describe("standouts (§7)", () => {
+  const withStandouts = () => ALL.filter((e) => e.surface.standouts.length > 0);
+
+  it.runIf(hasCorpus)("emits some, at the levels §7 measured", () => {
+    // Non-vacuity for everything below: each rule is "no standout does X", which an empty set
+    // satisfies. This file carried an explicit `toBe(0)` while the selectors were unwired, for
+    // exactly that reason — now it asserts the opposite.
+    const found = withStandouts();
+    expect(
+      found.length,
+      "no standout was emitted — the selectors are unwired",
+    ).toBeGreaterThan(20);
+    const levels = new Set(found.map((e) => `${e.kind}/${e.level}`));
+    // ⚠ REGION AND MUNICIPALITY ONLY. §7's thresholds were calibrated at that scale; run over
+    // 12,721 polling stations the close-contest selector emits ~636 leads saying one station was
+    // closely fought, which is what a station is.
+    expect([...levels].sort()).toEqual([
+      "local/municipality",
+      "parliamentary/region",
+    ]);
+  });
+
   it.runIf(hasCorpus)(
-    "emits none yet, and says so rather than passing quietly",
+    "gives every standout an evidence route that resolves",
     () => {
-      // ⚠ THE SELECTORS EXIST (`scripts/elections/standouts.ts`, gated separately) AND ARE NOT
-      // WIRED INTO THE GENERATORS. The plan's gates — "every standout evidence route/file
-      // exists", "no emitted signal is true of more than a third of the places" — are therefore
-      // vacuously true here, and a green tick against them would be a false report of coverage.
-      // Stated as an assertion so wiring them turns this red and the real gates get written.
-      const withStandouts = ALL.filter((e) => e.surface.standouts.length > 0);
+      // §7: "suppress a review signal if the evidence leaf is absent"; §5: "do not emit a standout
+      // when its denominator, baseline, or evidence destination is missing." A claim about a named
+      // place with nowhere to check it is the shape the rule exists to prevent.
+      const patterns = routePatterns();
+      let checked = 0;
+      const bad: string[] = [];
+      for (const e of withStandouts())
+        for (const s of e.surface.standouts) {
+          checked++;
+          if (!s.evidenceTo)
+            bad.push(`${e.level}/${e.id}/${s.signal}: no route`);
+          else if (!patterns.some((r) => r.test(s.evidenceTo)))
+            bad.push(`${e.level}/${e.id}/${s.signal}: ${s.evidenceTo}`);
+        }
+      expect(checked).toBeGreaterThan(20);
       expect(
-        withStandouts.length,
-        "standouts are now emitted — write the evidence-route and ubiquity gates",
-      ).toBe(0);
+        bad.slice(0, 5),
+        `${bad.length} standout(s) with no usable evidence`,
+      ).toEqual([]);
+    },
+  );
+
+  it.runIf(hasCorpus)(
+    "names a baseline, its cycle and its comparison group",
+    () => {
+      // §7: "include the actual comparison group and cycle in the baseline". A lead whose
+      // measurement is withheld asserts more than it can support.
+      for (const e of withStandouts())
+        for (const s of e.surface.standouts) {
+          expect(s.baseline?.kind, `${e.id}/${s.signal}`).toBeTruthy();
+          expect(
+            s.baseline.labelParams.cycle,
+            `${e.id}/${s.signal} has no cycle in its baseline`,
+          ).toBe(e.cycle);
+          expect(s.sampleSize, `${e.id}/${s.signal}`).toBeGreaterThan(0);
+        }
+    },
+  );
+
+  it.runIf(hasCorpus)(
+    "fires on no more than a third of its population (§7)",
+    () => {
+      // "Never emit a signal that is true of most places." The barred sibling — no council
+      // majority, true of 62% — is what this exists to keep out.
+      const shares: string[] = [];
+      for (const { kind, cycle } of CYCLES)
+        for (const level of B.STANDOUT_LEVELS[kind] ?? []) {
+          const places = ALL.filter(
+            (e) =>
+              e.kind === kind &&
+              e.cycle === cycle &&
+              (e.level === level ||
+                (level === "region" && e.level === "abroad")),
+          );
+          if (places.length === 0) continue;
+          const bySignal = new Map<string, number>();
+          for (const e of places)
+            for (const s of e.surface.standouts)
+              bySignal.set(s.signal, (bySignal.get(s.signal) ?? 0) + 1);
+          for (const [signal, n] of bySignal) {
+            shares.push(
+              `${kind}/${level}@${cycle}:${signal} ${n}/${places.length}`,
+            );
+            expect(
+              n / places.length,
+              `${signal} fires on ${n} of ${places.length} places at ${kind}/${level}`,
+            ).toBeLessThanOrEqual(1 / 3);
+          }
+        }
+      expect(shares.length, "no signal fired anywhere").toBeGreaterThan(3);
+    },
+  );
+
+  it.runIf(hasCorpus)(
+    "publishes no close contest the recorded basis does not cover",
+    () => {
+      // ⚠⚠ THE ASSERTION THAT WAS MISSING, AND IT LET A FALSE CLAIM THROUGH. A percentile selects
+      // its share BY CONSTRUCTION, so it names ~5% of places whether or not any of them is close
+      // in absolute terms — right where the distribution is tight, wrong where it is wide, and
+      // nothing else in this block reads `s.metric` at all.
+      //
+      // Measured: the threshold's basis was calibrated on the 289–305-place MUNICIPALITY
+      // distribution, whose worst-ever p5 is 4.88 pp. Applied unchanged to a 31-member REGION
+      // population it ran 0.39 → 8.55 pp across 13 cycles and breached 4.88 in three of them — and
+      // on 2026, where the regions' median margin is 31.83 pp, it named Столична 24 an "unusually
+      // close contest" at 8.55 pp.
+      const max = STANDOUT_THRESHOLDS.close_contest.maxCutoff;
+      expect(
+        max,
+        "the recorded basis has no ceiling to enforce",
+      ).toBeGreaterThan(0);
+      let published = 0;
+      for (const e of withStandouts())
+        for (const s of e.surface.standouts) {
+          if (s.signal !== "close_contest") continue;
+          published++;
+          expect(
+            s.metric,
+            `${e.kind}/${e.level}/${e.id} is published as close at ${s.metric} pp, past the ` +
+              `${max} pp the basis covers`,
+          ).toBeLessThanOrEqual(max!);
+        }
+      expect(
+        published,
+        "no close contest was published — the rule is untested",
+      ).toBeGreaterThan(10);
+    },
+  );
+
+  it.runIf(hasCorpus)("derives a DIFFERENT cutoff for each cycle", () => {
+    // §7's whole finding: the distribution moves an order of magnitude between cycles, so a
+    // fixed pp value means two different things depending on the year. The two local cycles must
+    // therefore disagree about where "close" begins.
+    const cutoffs = new Map<string, number>();
+    for (const e of withStandouts())
+      for (const s of e.surface.standouts)
+        if (s.signal === "close_contest")
+          cutoffs.set(e.cycle, s.baseline.labelParams.cutoffPp as number);
+    expect(
+      cutoffs.size,
+      "only one cycle published a close contest",
+    ).toBeGreaterThan(1);
+    expect(
+      new Set(cutoffs.values()).size,
+      `every cycle derived the same cutoff ${[...cutoffs.values()]} — it is hard-coded`,
+    ).toBeGreaterThan(1);
+  });
+
+  it.runIf(hasCorpus)("selects about the percentile it declares", () => {
+    // ⚠ THE CUTOFF IS THE CYCLE'S OWN, so the SHARE is what stays constant across cycles while
+    // the pp value moves by an order of magnitude. A hard-coded threshold fails this on one of
+    // the two local cycles.
+    for (const { kind, cycle } of CYCLES)
+      for (const level of B.STANDOUT_LEVELS[kind] ?? []) {
+        const places = ALL.filter(
+          (e) => e.kind === kind && e.cycle === cycle && e.level === level,
+        );
+        const close = places.filter((e) =>
+          e.surface.standouts.some((s) => s.signal === "close_contest"),
+        ).length;
+        if (close === 0) continue;
+        const share = close / places.length;
+        expect(
+          share,
+          `${kind}/${level}@${cycle} close_contest ${share}`,
+        ).toBeLessThan(0.12);
+        expect(share).toBeGreaterThan(0.02);
+      }
+  });
+
+  it.runIf(hasCorpus)("emits no turnout departure for oblast 32", () => {
+    // §7, and §2 decision 10: abroad has no valid registered-voter denominator, and its two rows
+    // (523.4 pp and 149.5 pp) would rank above every real finding.
+    for (const e of ALL) {
+      if (e.level !== "abroad") continue;
+      expect(e.surface.standouts, "abroad carries a standout").toEqual([]);
+    }
+    for (const e of withStandouts())
+      for (const s of e.surface.standouts)
+        if (s.signal === "turnout_departure")
+          expect(s.scope.id, "a turnout departure names oblast 32").not.toBe(
+            "32",
+          );
+  });
+
+  it("caps a place that qualifies for more than three (§7)", () => {
+    // ⚠ THE CORPUS CANNOT TEST THIS: every place carries exactly one standout today, so the
+    // assertion below is trivially true and would stay true against a component with no cap.
+    // Constructed instead — five candidates across all three categories.
+    const base = {
+      metric: 1,
+      unit: "count" as const,
+      scope: { level: "municipality" as const, id: "X" },
+      baseline: { kind: "cycle_percentile" as const, labelParams: {} },
+      sampleSize: 100,
+      resultStatus: "final" as const,
+      evidenceTo: "/x",
+      labelParams: {},
+    };
+    const many = [
+      {
+        ...base,
+        id: "a",
+        category: "outcome" as const,
+        signal: "split_control" as const,
+      },
+      {
+        ...base,
+        id: "b",
+        category: "outcome" as const,
+        signal: "lead_change" as const,
+      },
+      {
+        ...base,
+        id: "c",
+        category: "participation" as const,
+        signal: "close_contest" as const,
+      },
+      {
+        ...base,
+        id: "d",
+        category: "participation" as const,
+        signal: "fragmented_council" as const,
+      },
+      {
+        ...base,
+        id: "e",
+        category: "review" as const,
+        signal: "invalid_ballots" as const,
+      },
+    ];
+    const kept = capStandouts(many);
+    expect(kept).toHaveLength(3);
+    expect(new Set(kept.map((s) => s.category)).size).toBe(3);
+  });
+
+  it.runIf(hasCorpus)("keeps the cap: three, one per category (§7)", () => {
+    for (const e of withStandouts()) {
+      expect(e.surface.standouts.length, e.id).toBeLessThanOrEqual(3);
+      const cats = e.surface.standouts.map((s) => s.category);
+      expect(new Set(cats).size, `${e.id} repeats a category`).toBe(
+        cats.length,
+      );
+      const ids = e.surface.standouts.map((s) => s.id);
+      expect(new Set(ids).size, `${e.id} repeats a standout`).toBe(ids.length);
+    }
+  });
+
+  it.runIf(hasCorpus)(
+    "never restates a fact already on the strip (§7.1)",
+    () => {
+      // The strip renders above the standouts, so a signal that is also a fact prints the same
+      // finding twice on one page. `split_control` and `runoff_pending` are both, at
+      // local/municipality — they stay facts.
+      //
+      // ⚠ THIS ASSERTION IS UNFALSIFIABLE BY TODAY'S CORPUS, and saying so is the point. The
+      // three wired selectors emit `close_contest`, `turnout_departure` and
+      // `fragmented_council`; none is a fact code, so the overlap is empty and the filter in
+      // `attachStandouts` never fires. It is a guard for the day `split_control` is wired as a
+      // signal — §7 lists it — and the test below proves the guard WORKS rather than that the
+      // corpus happens not to need it.
+      for (const e of withStandouts()) {
+        // Compared as plain strings: the two unions overlap on `split_control` and
+        // `runoff_pending` and are not assignable to one another.
+        const facts = new Set<string>(e.surface.facts.map((f) => f.code));
+        for (const s of e.surface.standouts)
+          expect(
+            facts.has(s.signal),
+            `${e.id} publishes ${s.signal} as both a fact and a standout`,
+          ).toBe(false);
+      }
+    },
+  );
+
+  it.runIf(hasCorpus)(
+    "suppresses a standout that IS a fact, when one arises",
+    () => {
+      // The non-vacuous half of §7.1: construct the collision the corpus cannot yet produce.
+      const local = CYCLES.find((c) => c.kind === "local");
+      if (!local) return;
+      const built = B.generate("local", local.cycle);
+      const victim = built.find(
+        (e) => e.level === "municipality" && e.surface.standouts.length > 0,
+      );
+      expect(victim, "no municipality carries a standout").toBeTruthy();
+      const signal = victim!.surface.standouts[0].signal;
+      // Relabel a fact to the signal the standout carries, then re-attach.
+      victim!.surface.facts = [
+        { code: signal as never, unit: "none" },
+        ...victim!.surface.facts,
+      ];
+      // ⚠ THE LIST IS NOT CLEARED FIRST, and that is the point. Clearing it tested
+      // `capStandouts`'s arithmetic; leaving it tests `attachStandouts`'s CONTRACT — that the
+      // pass assigns rather than appends, so it can REMOVE a standout the current run no longer
+      // selects. An append-only pass keeps whatever a previous run wrote, which is what a §7.1
+      // collision, a threshold change and a re-run after a corpus fix all look like.
+      B.attachStandouts(built, "local", local.cycle);
+      expect(
+        victim!.surface.standouts.map((s) => s.signal),
+        `${victim!.id} re-published ${signal} as a standout while it is a fact`,
+      ).not.toContain(signal);
+    },
+  );
+
+  it.runIf(hasCorpus)(
+    "carries no prose — codes, ids and numbers only (§5.2)",
+    () => {
+      for (const e of withStandouts())
+        expect(JSON.stringify(e.surface.standouts), e.id).not.toMatch(/[Ѐ-ӿ]/);
     },
   );
 });

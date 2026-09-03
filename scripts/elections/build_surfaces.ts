@@ -33,10 +33,20 @@ import {
   surfaceCapViolations,
   type ElectionKind,
   type ElectionPlaceLevel,
+  type ElectionStandout,
   type ElectionSurfaceV1,
 } from "../../src/data/elections/surfaceTypes";
 import * as P from "./build_parliamentary_surface";
 import * as L from "./build_local_surface";
+import {
+  capStandouts,
+  selectCloseContests,
+  selectFragmentedCouncils,
+  selectTurnoutDepartures,
+  type CouncilRow,
+  type MarginRow,
+  type TurnoutRow,
+} from "./standouts";
 
 export const DATA_ROOT = path.join(process.cwd(), "data");
 
@@ -259,8 +269,162 @@ export const localSections = (cycle: string): Emitted[] => {
   return out;
 };
 
-export const generate = (kind: ElectionKind, cycle: string): Emitted[] =>
-  kind === "parliamentary" ? parliamentary(cycle) : local(cycle);
+// ─── standouts (§7) ─────────────────────────────────────────────────────────────────────────
+//
+// ⚠ A SECOND PASS, AND IT HAS TO BE. Every §7 threshold is a percentile OF THE CYCLE'S OWN
+// DISTRIBUTION, so no per-place builder can compute one: a place cannot know whether its margin
+// is in the bottom 5% until every other place at its level has been measured. The builders stay
+// pure and per-place, and the corpus-wide reasoning lives here, where the corpus is.
+//
+// ⚠ AND THEY ATTACH AT REGION AND MUNICIPALITY ONLY. §7's thresholds were measured at that
+// scale (289 councils, 305 municipalities, per-cycle margin percentiles), and a standout is a
+// review LEAD about a place. Run over 12,721 polling stations the close-contest selector emits
+// ~636 leads saying one station was closely fought — which is what a station IS, noise wearing
+// the clothes of a finding — and the sample floors were never calibrated at that scale.
+
+/** Which levels carry standouts. The others deliberately carry none — see above. */
+export const STANDOUT_LEVELS: Partial<
+  Record<ElectionKind, readonly ElectionPlaceLevel[]>
+> = {
+  parliamentary: ["region"],
+  local: ["municipality"],
+};
+
+const evidenceFor = (e: Emitted): string =>
+  e.surface.destinations.completeResult.available
+    ? e.surface.destinations.completeResult.to
+    : "";
+
+/** ⚠ §7.1 — A FIGURE APPEARS ONCE PER SCREEN, and the strip renders above the standouts.
+ *  `split_control` and `runoff_pending` are §7 signals AND facts at local/municipality, so
+ *  emitting them here would print one finding twice on one page. They stay facts: the strip is
+ *  where a reader looks first, and a standout is for what the strip cannot say. */
+const factCodes = (e: Emitted): ReadonlySet<string> =>
+  new Set(e.surface.facts.map((f) => f.code));
+
+export const attachStandouts = (
+  emitted: Emitted[],
+  kind: ElectionKind,
+  cycle: string,
+): void => {
+  for (const level of STANDOUT_LEVELS[kind] ?? []) {
+    const places = emitted.filter((e) => e.level === level);
+    if (places.length === 0) continue;
+
+    // ── close contest: the winner-to-runner-up margin, over this level's own distribution ──
+    const margins: MarginRow[] = [];
+    for (const e of places) {
+      // The margin belongs to the ballot a reader came for — the mayor where there is one.
+      const ballot =
+        e.surface.ballots.find((b) => b.kind === "municipality_mayor") ??
+        e.surface.ballots[0];
+      const m = ballot?.preview[0]?.marginPct;
+      if (m === undefined || !ballot) continue;
+      margins.push({
+        id: e.id,
+        level,
+        marginPct: m,
+        validVotes: ballot.totals.validVotes,
+        resultStatus: ballot.resultStatus,
+        evidenceTo: evidenceFor(e),
+      });
+    }
+    const close = selectCloseContests(margins, cycle);
+
+    // ── turnout departure: the place's change minus the NATIONAL change ──
+    const turnouts: TurnoutRow[] = [];
+    let nationalDelta: number | null = null;
+    let comparedWith = "";
+    if (kind === "parliamentary" && level === "region") {
+      const prior = P.priorCycleOf(cycle);
+      const now = P.readRegionRows(cycle);
+      const then = prior ? P.readRegionRows(prior) : [];
+      const thenBy = new Map(then.map((r) => [r.key, r]));
+      const a = P.nationalTurnoutPct(now);
+      const b = P.nationalTurnoutPct(then);
+      if (prior && a !== null && b !== null) {
+        nationalDelta = a - b;
+        comparedWith = prior;
+        for (const row of now) {
+          const before = thenBy.get(row.key);
+          const place = places.find((x) => x.id === row.key);
+          if (!before || !place) continue;
+          const t1 = P.turnoutPctOf(row.results.protocol);
+          const t0 = P.turnoutPctOf(before.results.protocol);
+          if (t1 === null || t0 === null) continue;
+          turnouts.push({
+            id: row.key,
+            level,
+            // ⚠ THE OBLAST IS THE PLACE'S OWN CODE, which is what lets the selector drop abroad
+            // — whose rows are 523.4 pp and 149.5 pp against ≤22.0 pp for everything else.
+            oblast: row.key,
+            deltaPp: t1 - t0,
+            registeredVoters:
+              (row.results.protocol.numRegisteredVoters ?? 0) +
+              (row.results.protocol.numAdditionalVoters ?? 0),
+            turnoutBasisUnavailable:
+              place.surface.ballots[0]?.totals.turnoutBasis === "unavailable",
+            resultStatus: "final",
+            evidenceTo: evidenceFor(place),
+          });
+        }
+      }
+    }
+    const turnout =
+      nationalDelta === null
+        ? []
+        : selectTurnoutDepartures(turnouts, nationalDelta, cycle, comparedWith);
+
+    // ── fragmented council ──
+    const councils: CouncilRow[] = [];
+    if (kind === "local" && level === "municipality")
+      for (const e of places) {
+        const b = e.surface.ballots.find((x) => x.kind === "municipal_council");
+        if (!b?.seatsTotal) continue;
+        const m = L.readMunicipality(cycle, e.id);
+        const parties = (m?.council ?? []).filter(
+          (r) => (r.mandatesWon || 0) > 0,
+        ).length;
+        if (parties === 0) continue;
+        councils.push({
+          id: e.id,
+          level,
+          partiesWithSeats: parties,
+          seatsTotal: b.seatsTotal,
+          resultStatus: b.resultStatus,
+          evidenceTo: evidenceFor(e),
+        });
+      }
+    const fragmented = selectFragmentedCouncils(councils, cycle);
+
+    const byPlace = new Map<string, ElectionStandout[]>();
+    for (const s of [...close, ...turnout, ...fragmented]) {
+      const list = byPlace.get(s.scope.id) ?? [];
+      list.push(s);
+      byPlace.set(s.scope.id, list);
+    }
+    for (const e of places) {
+      // ⚠ ASSIGNED UNCONDITIONALLY, so the pass can REMOVE as well as add. `if (!kept.length)
+      // continue` made it append-only: a surface that already carried a standout kept it even
+      // when the current run selects none — which is what a §7.1 collision, a threshold change
+      // or a re-run after a corpus fix all look like. It also made the §7.1 test pass for the
+      // wrong reason, since it had to clear the list by hand first.
+      const found = byPlace.get(e.id) ?? [];
+      const already = factCodes(e);
+      const kept = capStandouts(found.filter((s) => !already.has(s.signal)));
+      if (kept.length === 0 && e.surface.standouts.length === 0) continue;
+      e.surface.standouts = kept;
+      // The bytes moved, so the ledger and every budget check must see the new size.
+      e.bytes = Buffer.byteLength(serialize(e.surface));
+    }
+  }
+};
+
+export const generate = (kind: ElectionKind, cycle: string): Emitted[] => {
+  const out = kind === "parliamentary" ? parliamentary(cycle) : local(cycle);
+  attachStandouts(out, kind, cycle);
+  return out;
+};
 
 // ─── verification and reporting ─────────────────────────────────────────────────────────────
 
