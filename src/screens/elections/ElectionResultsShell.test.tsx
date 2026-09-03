@@ -25,6 +25,7 @@
 // renders a placeholder, so there is no map to assert against here.
 
 import { render, within } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { beforeAll, describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
@@ -69,7 +70,41 @@ beforeAll(async () => {
   });
 });
 
-const draw = (ui: React.ReactElement) => render(ui);
+/** ⚠ THE SHELL RESOLVES LABELS, so it needs the corpora the resolvers read. They are SEEDED,
+ *  never fetched — an unstubbed fetch throws in this project's jsdom setup, which is also what
+ *  proves the shell issues no request of its own to draw a party name (§5.3, §6.2).
+ *
+ *  The fixture is deliberately PARTIAL: `p_20` and `gerb` resolve, and every other id in the
+ *  fixtures does not — so the "an id that resolves to nothing is shown, not blanked" gate has
+ *  something real to fire on. */
+const PARTIES = {
+  parties: [
+    {
+      id: "p_20",
+      displayName: "ПрБ",
+      displayNameEn: "PrB",
+      color: "rgb(1,2,3)",
+      history: [],
+    },
+    {
+      id: "gerb",
+      displayName: "ГЕРБ",
+      displayNameEn: "GERB",
+      color: "rgb(4,5,6)",
+      history: [],
+    },
+  ],
+  byNickName: {},
+  consolidationByNickName: {},
+};
+
+const draw = (ui: React.ReactElement) => {
+  const qc = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  qc.setQueryData(["canonical_parties"], PARTIES);
+  qc.setQueryData(["settlements"], []);
+  qc.setQueryData(["municipalities"], []);
+  return render(<QueryClientProvider client={qc}>{ui}</QueryClientProvider>);
+};
 
 /** The level descriptor for a fixture, already narrowed. Every fixture in the set is an
  *  available kind × level; the throw is what stops that assumption going silent. */
@@ -808,5 +843,100 @@ describe("shell — the vendor-chunk rule (§Phase 2 item 4)", () => {
       hits.map(([spec, files]) => `${spec} <- ${files.join(", ")}`),
       `${pkg} is in the shell's static import graph — §Phase 2 item 4`,
     ).toEqual([]);
+  });
+});
+
+describe("labels are resolved from ids at render time (§5.3)", () => {
+  it("names the party in the ranked result instead of printing its id", () => {
+    // ⚠ THE WHOLE POINT OF STORING AN ID. Until this wiring the row header WAS the id — the
+    // component's own comment said "the prototype shows the id" — so every ranked table on the
+    // site would have read „p_20  1 234 567  38.04%".
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const first = container.querySelector(
+      "[data-ranked-result] tbody th",
+    ) as HTMLElement;
+    expect(first.textContent).toBe("ПрБ");
+    expect(first.textContent).not.toMatch(/^p_/);
+    expect(first.getAttribute("data-entry-kind")).toBe("party");
+  });
+
+  it("SHOWS an id it cannot resolve rather than blanking the row", () => {
+    // ⚠ THE ROW STILL CARRIES A REAL VOTE COUNT, so an empty header attributes a percentage to
+    // nobody. `p_6` is deliberately absent from this file's party fixture.
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const headers = [
+      ...container.querySelectorAll("[data-ranked-result] tbody th"),
+    ];
+    const unresolved = headers.filter(
+      (h) => h.getAttribute("data-entry-kind") === "unresolved",
+    );
+    expect(unresolved.length).toBeGreaterThan(0);
+    for (const h of unresolved) expect(h.textContent).not.toBe("");
+  });
+
+  it("prints a local-only list's own Bulgarian name, in both languages", () => {
+    // §5.3's second deliberate exception: no English form of a purely local list exists
+    // anywhere in the corpus, so it renders unchanged and un-transliterated.
+    const surface: ElectionSurfaceV1 = {
+      ...parliamentaryCountry,
+      ballots: [
+        {
+          ...parliamentaryCountry.ballots[0],
+          preview: [
+            {
+              partyId: null,
+              localPartyName: "Движение заедно за промяна",
+              votes: 100,
+              pct: 50,
+            },
+          ],
+        },
+      ],
+    };
+    const { container } = draw(<ElectionResultsShell surface={surface} />);
+    const th = container.querySelector(
+      "[data-ranked-result] tbody th",
+    ) as HTMLElement;
+    expect(th.textContent).toBe("Движение заедно за промяна");
+    expect(th.getAttribute("data-entry-kind")).toBe("local_list");
+  });
+
+  it("names the winner in the parliamentary digest cell", () => {
+    // „46.28%" with no subject is a number a reader cannot use — §4.1's cell is „who won here".
+    const { container } = draw(
+      <ElectionResultsShell
+        surface={parliamentaryCountry}
+        digest={digestAllFourViews}
+      />,
+    );
+    const cell = container.querySelector(
+      '[data-digest-cell="parliamentary"]',
+    ) as HTMLElement;
+    expect(
+      within(cell).getByText("ПрБ", { selector: "[data-digest-winner]" }),
+    ).toBeTruthy();
+  });
+
+  it("claims NO party for the mayor, because the artifact cannot establish one", () => {
+    // ⚠ A GATE AGAINST A LINE THAT LOOKS OBVIOUS AND IS UNSUPPORTABLE. `mayorPartyId` is null
+    // for an independent AND for a local-only list, and the digest cell carries no name for the
+    // second — so „Независим" under a local list's mayor would be this component inventing the
+    // distinction the artifact cannot make, about a named person.
+    const { container } = draw(
+      <ElectionResultsShell
+        surface={parliamentaryCountry}
+        digest={digestAllFourViews}
+      />,
+    );
+    const cell = container.querySelector(
+      '[data-digest-cell="local"]',
+    ) as HTMLElement;
+    expect(cell.querySelector("[data-digest-mayor-party]")).toBeNull();
+    expect(cell.textContent).toContain("Костадин Димитров Димитров");
+    expect(cell.textContent).not.toContain(bg.election_independent);
   });
 });

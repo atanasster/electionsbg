@@ -26,6 +26,10 @@
 
 import { FC, useId } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  useSurfaceLabels,
+  type RankedRowLabel,
+} from "@/data/elections/useSurfaceLabels";
 import type {
   ElectionSurfaceV1,
   ElectionStandout,
@@ -104,12 +108,28 @@ const cappedStandouts = (
 const basisIsTautological = (f: ElectionSurfaceFact): boolean =>
   f.basis === (f.code as string);
 
+/** What a resolved row header prints. ⚠ AN UNRESOLVED ID PRINTS THE ID. A blank row header
+ *  beside a real vote count attributes a percentage to nobody; the id is ugly and honest, and
+ *  it is also the only thing that tells a reader — or a bug report — which id failed. */
+const entryLabel = (l: RankedRowLabel, t: (k: string) => string): string => {
+  switch (l.kind) {
+    case "party":
+    case "local_list":
+      return l.label;
+    case "independent":
+      return t("election_independent");
+    case "unresolved":
+      return l.id;
+  }
+};
+
 const PlaceDigestStrip: FC<{
   cells: PlaceDigestCell[];
   currentView?: PlaceDigestCell["view"];
   titleId: string;
 }> = ({ cells, currentView, titleId }) => {
   const { t } = useTranslation();
+  const { rankedLabel: label } = useSurfaceLabels();
   // §7.1: the cell for the view the reader is on would restate the page they are looking at.
   const shown = cells
     .filter((c) => c.view !== currentView)
@@ -132,31 +152,59 @@ const PlaceDigestStrip: FC<{
         {t("election_digest_title")}
       </h2>
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {shown.map((cell) => (
-          <a
-            key={cell.view}
-            href={cell.to}
-            data-digest-cell={cell.view}
-            data-digest-kind={cell.kind}
-            className="rounded-lg border bg-card p-3 focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <span className="block text-xs uppercase tracking-wide text-muted-foreground">
-              {t(PLACE_VIEW_META[cell.view].labelKey)}
-            </span>
-            {cell.kind === "link" ? (
-              // A LINK cell makes no claim, so it cannot go stale (§4.1).
-              <span className="block text-sm">{t(cell.descriptorKey)}</span>
-            ) : cell.view === "parliamentary" ? (
-              <span className="block text-lg font-semibold tabular-nums">
-                {cell.winnerPct.toFixed(2)}%
+        {shown.map((cell) => {
+          const winner =
+            cell.kind === "figure" && cell.view === "parliamentary"
+              ? label({ partyId: cell.winnerPartyId })
+              : undefined;
+          const winnerName =
+            winner && (winner.kind === "party" || winner.kind === "local_list")
+              ? winner.label
+              : "";
+          return (
+            <a
+              key={cell.view}
+              href={cell.to}
+              data-digest-cell={cell.view}
+              data-digest-kind={cell.kind}
+              className="rounded-lg border bg-card p-3 focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <span className="block text-xs uppercase tracking-wide text-muted-foreground">
+                {t(PLACE_VIEW_META[cell.view].labelKey)}
               </span>
-            ) : (
-              <span className="block text-sm font-semibold">
-                {cell.mayorName}
-              </span>
-            )}
-          </a>
-        ))}
+              {cell.kind === "link" ? (
+                // A LINK cell makes no claim, so it cannot go stale (§4.1).
+                <span className="block text-sm">{t(cell.descriptorKey)}</span>
+              ) : cell.view === "parliamentary" ? (
+                <>
+                  <span className="block text-lg font-semibold tabular-nums">
+                    {cell.winnerPct.toFixed(2)}%
+                  </span>
+                  {/* ⚠ THE PERCENTAGE ALONE ANSWERS THE WRONG QUESTION. §4.1's parliamentary cell
+                    is „who won here", and „39.84%" with no subject is a number a reader cannot
+                    use. Resolved from the id, like every other label (§5.3) — and drawn only
+                    when it RESOLVES: a bare id in a compact card names nobody, and the number
+                    is already labelled by the view above it. The ranked table is where an
+                    unresolved id is shown, because there it sits beside a real vote count. */}
+                  {winnerName ? (
+                    <span className="block text-sm" data-digest-winner>
+                      {winnerName}
+                    </span>
+                  ) : null}
+                </>
+              ) : (
+                // ⚠ THE MAYOR'S NAME AND NOTHING ELSE. A party line here looked obvious and is
+                // unsupportable: `mayorPartyId` is null for an independent AND for a local-only
+                // list, and the cell carries no name for the second — so „Независим" under a
+                // local list's mayor would be this component inventing the distinction the
+                // artifact cannot make, about a named person.
+                <span className="block text-sm font-semibold">
+                  {cell.mayorName}
+                </span>
+              )}
+            </a>
+          );
+        })}
       </div>
     </section>
   );
@@ -243,6 +291,7 @@ const RankedResult: FC<{
   columns: readonly ElectionRankedColumn[];
 }> = ({ ballot, columns }) => {
   const { t } = useTranslation();
+  const { rankedLabel: label } = useSurfaceLabels();
   // ⚠ THE LEVEL'S DECLARED COLUMNS, not a fixed three. `elected` is the substantive one: on a
   // runoff the table otherwise shows 53.94% against 43.95% and leaves the reader to infer who
   // took the mayoralty, which is the single fact the page exists to answer.
@@ -266,10 +315,17 @@ const RankedResult: FC<{
       <tbody>
         {ballot.preview.map((row, i) => (
           <tr key={`${row.partyId ?? "ind"}-${i}`}>
-            <th scope="row" className="text-left font-normal">
-              {/* A person's name renders as-is; a party resolves from its id at render time
-                  (§5.3). The prototype shows the id — Phase 2 wires the canonical corpus. */}
-              {row.candidateName ?? row.partyId ?? t("election_independent")}
+            <th
+              scope="row"
+              className="text-left font-normal"
+              data-entry-kind={row.candidateName ? "person" : label(row).kind}
+            >
+              {/* ⚠ A PERSON'S NAME RENDERS AS-IS and everything else resolves from its id at
+                  render time (§5.3). `rankedLabel` is the one resolver: it also distinguishes a
+                  local-only list — whose Bulgarian name travels on the row because no English
+                  form exists anywhere in the corpus — from an id nothing can resolve, which is
+                  SHOWN rather than blanked, because the row still carries a real vote count. */}
+              {row.candidateName ?? entryLabel(label(row), t)}
             </th>
             {cols.map((c) => (
               <td
