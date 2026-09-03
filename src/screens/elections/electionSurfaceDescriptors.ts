@@ -29,6 +29,7 @@ import type {
   ElectionResultStatus,
   ElectionSourceLabel,
   ElectionStandoutSignal,
+  ElectionUnavailableReason,
 } from "@/data/elections/surfaceTypes";
 
 /** A column the ranked result may draw.
@@ -199,6 +200,24 @@ export const SHELL_COPY_KEYS = [
   "election_source_title",
   "election_elected_yes",
 ] as const;
+
+/** Why a destination is unavailable, in the reader's words. §5: "`available: false` is a
+ *  rendered state, not an omission … the `reason` is an enum key so both locales carry it."
+ *
+ *  ⚠ WRITTEN OUT, NEVER BUILT AS `election_unavailable_${reason}` (§5.2). The reason travels
+ *  through the artifact as a bare enum member, so the prefix would live only in whichever
+ *  consumer happened to build it — and `descriptorCopyKeys()` could not enumerate the result,
+ *  which is what lets `electionCopyCoverage.test.ts` prove both corpora carry it and what stops
+ *  `i18n:prune` deleting copy no call site appears to name. */
+export const UNAVAILABLE_REASON_LABEL_KEYS: Record<
+  ElectionUnavailableReason,
+  string
+> = {
+  no_local_cycle: "election_unavailable_no_local_cycle",
+  not_at_section: "election_unavailable_not_at_section",
+  not_abroad: "election_unavailable_not_abroad",
+  no_data_for_place: "election_unavailable_no_data_for_place",
+};
 
 /** WHAT a standout is measured against. §7 forbids emitting a standout whose baseline is
  *  missing — which is why `ElectionStandout.baseline` is not optional — and a claim about a
@@ -660,6 +679,7 @@ export const descriptorCopyKeys = (): string[] => {
     ...Object.values(FACT_BASIS_LABEL_KEYS),
     ...Object.values(STANDOUT_LABEL_KEYS),
     ...Object.values(BASELINE_LABEL_KEYS),
+    ...Object.values(UNAVAILABLE_REASON_LABEL_KEYS),
     ...Object.values(SOURCE_LABEL_KEYS),
   ];
   for (const byLevel of Object.values(ELECTION_SURFACE_DESCRIPTORS)) {
