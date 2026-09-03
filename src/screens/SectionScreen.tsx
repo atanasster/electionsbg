@@ -93,9 +93,15 @@ export const SectionScreen = () => {
   // header, mirroring the cross-link "extra" slot the local pages use.
   const headerExtra = (
     <div className="space-y-2">
-      {section?.address ? (
-        <p className="text-sm text-muted-foreground">{section.address}</p>
-      ) : null}
+      {/* ⚠ THE LINE IS RESERVED, NOT CONDITIONAL. The address arrives with the section JSON,
+          so rendering it only once present grows this block from 26px to 54px and drops the
+          whole page below it — measured on the built site with slow JSON, the second-largest
+          shift on the route. `min-h-5` holds exactly one line of `text-sm`, which is what all
+          but the longest addresses occupy; an empty reserved line looks like the loading state
+          it is, where a jump looks like the page reflowing under the reader's eye. */}
+      <p className="min-h-5 text-sm text-muted-foreground">
+        {section?.address ?? ""}
+      </p>
       <div className="flex flex-wrap gap-2">
         {problemNeighborhood ? (
           <Link

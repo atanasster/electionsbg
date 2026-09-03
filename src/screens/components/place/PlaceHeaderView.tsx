@@ -270,8 +270,29 @@ export const PlaceHeaderView: FC<Props> = ({
             <h1 className="text-2xl md:text-3xl font-bold truncate">
               {titleText}
             </h1>
+            {/* ⚠ RESERVED ON A SECTION, WHERE THE BREADCRUMB ARRIVES WITH THE JSON. „гр.Банско,
+                обл. Благоевград" is composed from the section payload, so rendering it only
+                once present adds a 24px line and pushes the address, the switcher and the
+                whole result canvas down — measured on the built site with slow JSON, the
+                largest remaining shift on both section routes after the switcher row was
+                reserved. Held only at that tier: every other level composes its narrative from
+                route params and renders it on the first pass, so reserving there would be a
+                blank line that never fills. */}
+            {/* ⚠ THE HEIGHT IS RESERVED ON THE ELEMENT ITSELF, NOT VIA AN `: null` FALLBACK,
+                because `narrative` is a composed NODE and is therefore always truthy — it
+                simply renders nothing until the section JSON supplies „гр.Банско, обл.
+                Благоевград". A placeholder on the falsy branch is unreachable code here, which
+                is what the first attempt shipped: measured, it changed the route's CLS by
+                0.0000. Held only at the section tier, where the breadcrumb is data-dependent;
+                every other level composes it from route params and paints it immediately. */}
             {narrative ? (
-              <p className="text-sm text-muted-foreground mt-1">{narrative}</p>
+              <p
+                className={`mt-1 text-sm text-muted-foreground ${
+                  level === "section" ? "min-h-5" : ""
+                }`}
+              >
+                {narrative}
+              </p>
             ) : null}
             {grao ? (
               <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs">
@@ -309,7 +330,25 @@ export const PlaceHeaderView: FC<Props> = ({
             fill the Card's flex column. Abroad places (oblast 32) have only the
             parliamentary dimension, so the switcher is dropped altogether — no
             pills at all. */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        {/* ⚠ THE ROW IS RESERVED ON A POLLING SECTION, AND IT IS THE PAGE'S LARGEST LAYOUT
+            SHIFT WITHOUT IT. `PlaceViewNav` cannot decide whether the Местни pill resolves
+            until a FETCHED index answers, and on a section — where Governance and Consumption
+            do not resolve at all — that leaves one pill, which trips its own two-pill floor and
+            renders NOTHING. So the row is a line of scope text until the index lands and then
+            grows to pills plus the „numbers do not carry over" note, dropping everything below
+            it by ~50px. Measured on the built site with slow JSON: h 20 → 72.25.
+
+            Reserved rather than guessed: the pills are still drawn only when their destinations
+            are known, and what is held is the SPACE. `isAbroad` is excluded because that branch
+            renders no switcher at all, so reserving there would be permanent dead space rather
+            than a shift avoided — the one case where we know the row stays empty. */}
+        <div
+          className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${
+            level === "section" && !isAbroad
+              ? "min-h-[4.5rem] sm:min-h-[4.5rem]"
+              : ""
+          }`}
+        >
           {isAbroad ? null : navSlot !== undefined ? (
             <div className="flex">{navSlot}</div>
           ) : (
