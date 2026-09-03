@@ -453,52 +453,79 @@ test.describe("performance", () => {
     }
   });
 
-  // The inverse, and the reason it is a SEPARATE property rather than the same
-  // one restated: `/` is the most-visited route in the site and 807f3c583e made
-  // it a hub-of-hubs that "deliberately renders no map, no result chart and no
-  // duplicate of any destination's dashboard" (HomeDashboardScreen's header).
-  // Nothing enforced that. A map or a chart added to a home tile — the single
-  // most natural edit anyone will make to that screen — pulls Leaflet, d3-geo or
-  // recharts back onto the entry route's critical path, and every gate above
-  // stays green because each is of the form "chunk X is absent from list Y" and
-  // X would be arriving, not leaving. The brotli budgets do not see it either:
-  // these load in PARALLEL as mapDeps, so they cost bytes and a connection
-  // rather than a waterfall, and no single-file ceiling moves.
+  // The inverse of the gate above, and a SEPARATE property rather than the same
+  // one restated. These are the tile-grid hubs — pages whose whole job is to
+  // route a reader onward — and the vendors below are the ones a destination
+  // owns, not an entry. A map or a chart added to a hub tile is the single most
+  // natural edit anyone will make to one of these screens, and it pulls Leaflet,
+  // d3-geo or recharts onto the critical path of a route that had none.
   //
-  // The banned set is all three vendors the header disclaims, map side AND
-  // chart side. `vendor-charts` is the one that could be argued either way —
-  // it is not a map, and a home tile wanting a chart is a plausible future — so
-  // state the decision rather than leave it to be inferred from an omission:
-  // the home scenes are hand-authored SVG (`homeScenes.tsx`) precisely so the
-  // root pays for no charting runtime, and a tile that needs recharts should
-  // take its own lazy boundary rather than put ~115 KB brotli in front of every
-  // first-time visitor. Widening this list is how that decision gets reversed
-  // by accident.
+  // Nothing else here can see it. Every gate above is of the form "chunk X is
+  // absent from list Y", and X would be ARRIVING rather than leaving. The brotli
+  // budgets miss it too: these load in PARALLEL as mapDeps, so they cost bytes
+  // and a connection rather than a waterfall, and no single-file ceiling moves.
   //
-  // ⚠️ NOT VACUOUS BY CONSTRUCTION, and it would be trivially satisfied twice
-  // over if it were written as a bare absence: once if the chunk is renamed and
-  // the regex stops matching (hence asserting the list was FOUND), and once if
-  // the list is somehow parsed empty (hence the positive vendor-react anchor —
-  // every route chunk has it, so an empty or mis-indexed list cannot pass).
-  test("home chunk stays map- and chart-free — nothing heavy on `/`", () => {
-    const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
-    const code = fs.readFileSync(
-      `${DIST_DIR}/assets/${entryChunk(html)}`,
-      "utf8",
-    );
-    const deps = mapDepsOf(code, "HomeDashboardScreen");
-    expect(deps, "home dynamic import not found in entry").toBeTruthy();
-    expect(
-      deps!.find((d) => d?.includes("vendor-react")),
-      `home mapDeps parsed but holds no vendor-react — the list is wrong, not clean: ${deps!.join(", ")}`,
-    ).toBeTruthy();
-    for (const banned of ["vendor-leaflet", "vendor-geo", "vendor-charts"]) {
+  // `vendor-charts` is the arm that could be argued either way — it is not a map,
+  // and a hub tile wanting a chart is a plausible future — so state the decision
+  // rather than leave it inferred from an omission: both hubs' scenes are
+  // hand-authored SVG (`homeScenes.tsx`, `electionsScenes.tsx`, which between
+  // them import only SceneFrame/Bars/TrendLine/Donut) precisely so these routes
+  // pay for no charting runtime. A tile that needs recharts should take its own
+  // lazy boundary rather than put ~115 KB brotli in front of a first-time
+  // visitor. Widening this list is how that decision gets reversed by accident.
+  //
+  // ⚠️ `basis` records WHOSE rule each row is, because they are not the same
+  // strength and a later reader will otherwise assume they are. Home's screen
+  // header disclaims maps and charts in those words, so that row transcribes an
+  // existing decision. The elections hub's header declares only "IT IS THE
+  // ENTRY, NOT A RESULT" — a duplicate-content argument, not a payload one — so
+  // that row EXTENDS it: map-free is the payload reading of "not a result", true
+  // on arrival and pinned here deliberately. If that screen later wants a map,
+  // this is a decision to revisit rather than a bug to route around.
+  const MAP_FREE_HUBS: Array<{ chunk: string; route: string; basis: string }> =
+    [
+      {
+        chunk: "HomeDashboardScreen",
+        route: "/",
+        basis: "the screen header disclaims maps and charts (807f3c583e)",
+      },
+      {
+        chunk: "ElectionsHubScreen",
+        route: "/elections",
+        basis:
+          "the payload reading of the header's 'entry, not a result' (887e99a88a)",
+      },
+    ];
+
+  // ⚠️ NOT VACUOUS BY CONSTRUCTION, and a bare absence check would be trivially
+  // satisfied in two further states: the chunk being renamed so the regex stops
+  // matching (hence asserting the list was FOUND), and the list parsing empty or
+  // mis-indexed (hence the positive vendor-react anchor — every route chunk has
+  // it, so neither can pass).
+  for (const hub of MAP_FREE_HUBS) {
+    test(`${hub.route} stays map- and chart-free`, () => {
+      const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
+      const code = fs.readFileSync(
+        `${DIST_DIR}/assets/${entryChunk(html)}`,
+        "utf8",
+      );
+      const deps = mapDepsOf(code, hub.chunk);
       expect(
-        deps!.find((d) => d?.includes(banned)),
-        `${banned} entered the home chunk's mapDeps — the root route draws a map or a chart again, or a home tile imports one. If that is intended, put it behind its own lazy boundary rather than widening this gate.`,
-      ).toBeUndefined();
-    }
-  });
+        deps,
+        `${hub.chunk} is not dynamic-imported from the entry — renamed, or no longer a lazy route`,
+      ).toBeTruthy();
+      expect(
+        deps!.find((d) => d?.includes("vendor-react")),
+        `${hub.chunk} mapDeps parsed but holds no vendor-react — the list is wrong, not clean: ${deps!.join(", ")}`,
+      ).toBeTruthy();
+      for (const banned of ["vendor-leaflet", "vendor-geo", "vendor-charts"]) {
+        expect(
+          deps!.find((d) => d?.includes(banned)),
+          `${banned} entered ${hub.chunk}'s mapDeps — ${hub.route} draws a map or a chart again, or one of its tiles imports one. Basis for this rule: ${hub.basis}. If the map is intended, put it behind its own lazy boundary rather than widening this gate.`,
+        ).toBeUndefined();
+      }
+    });
+  }
 
   // The banned-list assertions above are all of the form "chunk X is absent",
   // so every one of them is satisfied by X simply ceasing to exist — a
