@@ -44,6 +44,11 @@ import {
 } from "./electionSurfaceDescriptors";
 import { PLACE_VIEW_META } from "@/screens/components/placeViewMeta";
 import {
+  CANVAS_GRID_CLASS,
+  CANVAS_MAP_SLOT_CLASS,
+  CANVAS_RANKED_SLOT_CLASS,
+} from "./electionSurfaceLayout";
+import {
   ALL_SURFACE_FIXTURES,
   digestAllFourViews,
   digestNoLocalCycle,
@@ -938,5 +943,26 @@ describe("labels are resolved from ids at render time (§5.3)", () => {
     expect(cell.querySelector("[data-digest-mayor-party]")).toBeNull();
     expect(cell.textContent).toContain("Костадин Димитров Димитров");
     expect(cell.textContent).not.toContain(bg.election_independent);
+  });
+});
+
+describe("the canvas layout has ONE definition (Phase 2 item 5)", () => {
+  it("renders the shared grid, so the skeleton cannot drift from it", () => {
+    // ⚠ "No layout shift when the map arrives" is only true if the skeleton and the content
+    // declare the same layout. A literal restated here would be correct on the day it is
+    // written and would drift the first time a column ratio moves — invisibly, because both
+    // files still read like a two-column grid.
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const canvas = container.querySelector("[data-outcome-canvas]")!;
+    for (const cls of CANVAS_GRID_CLASS.split(" "))
+      expect(canvas.className, cls).toContain(cls);
+    expect(
+      container.querySelector('[data-canvas-slot="ranked"]')!.className,
+    ).toContain(CANVAS_RANKED_SLOT_CLASS);
+    expect(
+      container.querySelector('[data-canvas-slot="map"]')!.className,
+    ).toContain(CANVAS_MAP_SLOT_CLASS);
   });
 });

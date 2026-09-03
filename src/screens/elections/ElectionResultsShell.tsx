@@ -27,6 +27,11 @@
 import { FC, useId } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  CANVAS_GRID_CLASS,
+  CANVAS_MAP_SLOT_CLASS,
+  CANVAS_RANKED_SLOT_CLASS,
+} from "./electionSurfaceLayout";
+import {
   useSurfaceLabels,
   type RankedRowLabel,
 } from "@/data/elections/useSurfaceLabels";
@@ -354,15 +359,15 @@ const OutcomeCanvas: FC<{
       // ⚠ GRID PLACEMENT, NOT `order`. The ranked result is FIRST in the DOM and stays first
       // on mobile; at `lg` the map is placed into column 1 and the list into column 2, so the
       // visual arrangement changes without the reading order changing.
-      className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]"
+      className={CANVAS_GRID_CLASS}
       data-outcome-canvas={ballot.kind}
     >
-      <div className="lg:col-start-2 lg:row-start-1" data-canvas-slot="ranked">
+      <div className={CANVAS_RANKED_SLOT_CLASS} data-canvas-slot="ranked">
         <RankedResult ballot={ballot} columns={columns} />
       </div>
       {ballot.map ? (
         <div
-          className="lg:col-start-1 lg:row-start-1"
+          className={CANVAS_MAP_SLOT_CLASS}
           data-canvas-slot="map"
           data-map-posture={ballot.map.posture}
           // WHICH ballot this map colours. §2 decision 9: on a multi-ballot page a map that
