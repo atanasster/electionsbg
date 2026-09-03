@@ -17,7 +17,11 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { bgCorpus as bg } from "@/locales/allKeys";
-import type { LocalKmetstvoResult, LocalMayorResult } from "@/data/local/types";
+import type {
+  LocalKmetstvoResult,
+  LocalMayorResult,
+  LocalMunicipalityBundle,
+} from "@/data/local/types";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 
 const dict = bg as Record<string, string>;
@@ -35,6 +39,11 @@ vi.mock("react-i18next", () => ({
 vi.mock("@/screens/components/candidates/MpAvatar", () => ({
   MpAvatar: () => null,
 }));
+// Reached only once a parent município bundle exists (the §item-2 block below), and it opens a
+// React Query of its own — irrelevant to what is gated here, same as MpAvatar above.
+vi.mock("@/screens/myarea/MyAreaMayorPayTile", () => ({
+  MayorPayCard: () => null,
+}));
 vi.mock("@/data/parties/useCanonicalParties", () => ({
   useCanonicalParties: () => ({
     colorFor: () => "#888888",
@@ -46,8 +55,11 @@ const settlement: {
   current: {
     name: string | null;
     kmetstvo: LocalKmetstvoResult | null;
+    /** The parent município bundle. `null` is the PARTIAL-cycle shape the contest-kind tests
+     *  below rely on — a chmi folder holds only the municipalities that voted. */
+    municipality?: LocalMunicipalityBundle | null;
   };
-} = { current: { name: null, kmetstvo: null } };
+} = { current: { name: null, kmetstvo: null, municipality: null } };
 const chmi: { current: ChmiHistoryEvent[] } = { current: [] };
 const byElectionKmetstva: { current: LocalKmetstvoResult[] } = { current: [] };
 
@@ -57,7 +69,7 @@ vi.mock("@/data/local/useLocalSettlement", () => ({
     kmetstvoObshtina: "SOF",
     // A partial cycle's folder holds only the municipalities that voted, so the
     // village's own район shard is legitimately absent — the real chmi shape.
-    municipality: null,
+    municipality: settlement.current.municipality ?? null,
     kmetstvo: settlement.current.kmetstvo,
     isLoading: false,
   }),
@@ -206,5 +218,121 @@ describe("LocalSettlementDashboardCards — contest kind", () => {
     expect(text).toContain("29.10.2023");
     expect(text).toContain("28.02.2021");
     expect(text.indexOf("29.10.2023")).toBeLessThan(text.indexOf("28.02.2021"));
+  });
+});
+
+// ─── §Phase 6 item 2: the settlement-mayor contest, and what stands in for it ────────────────
+
+const bundle = (
+  over: Partial<LocalMunicipalityBundle> = {},
+): LocalMunicipalityBundle => ({
+  cycle: "2023_10_29_mi",
+  oikCode: "2301",
+  obshtinaCode: "SOF",
+  obshtinaName: "Столична",
+  oblastName: "София (столица)",
+  protocol: {
+    numRegisteredVoters: 1000,
+    totalActualVoters: 500,
+    numValidVotes: 480,
+  },
+  // ⚠ NOT „Кмет На Общината", WHICH IS HOW THIS GATE WENT VACUOUS ONCE. „Общината" has
+  // „Община" as a prefix, so a fixture name containing it satisfies the label assertion below
+  // on its own — measured: with that name, deleting `local_settlement_parent_municipality`
+  // from the card left the suite green. The fixture must not contain the string being gated.
+  mayor: {
+    round1: [candidate("Мария Иванова")],
+    elected: candidate("Мария Иванова"),
+  },
+  council: [
+    {
+      localPartyNum: 1,
+      localPartyName: "ГЕРБ",
+      primaryCanonicalId: "gerb",
+      memberCanonicalIds: [],
+      isIndependent: false,
+      totalVotes: 200,
+      pctOfValid: 41.7,
+      mandatesWon: 17,
+      candidates: [],
+    },
+  ],
+  kmetstva: [],
+  districts: [],
+  ...over,
+});
+
+/** `StatCard`'s own shell — the card, not whatever rounded ancestor happens to enclose it.
+ *
+ *  ⚠ THIS SELECTOR IS THE TEST. A loose `[class*='rounded']` climbs to a page-level wrapper
+ *  that contains every card, so "the label is in the same card as the figure" degrades to "the
+ *  label is somewhere on the page" — and the probe that deletes the label passes. Measured:
+ *  with the loose selector, removing `local_settlement_parent_municipality` left the suite
+ *  green. */
+const CARD = ".rounded-xl.border.bg-card";
+
+const noKmetstvo = () => {
+  settlement.current = {
+    name: "Лозен",
+    kmetstvo: null,
+    municipality: bundle(),
+  };
+  chmi.current = [];
+  byElectionKmetstva.current = [];
+};
+
+describe("a settlement with no кметство of its own", () => {
+  // ⚠ THE RULE HAS TWO HALVES AND ONLY ONE IS OBVIOUS. Not rendering an absent contest is the
+  // easy half; the hard half is that what replaces it must not read as this settlement's own
+  // result. The parent município's mayor and council sit on the page either way, and unlabelled
+  // they say „this village elected a 17-seat council" about a place that elects no council.
+
+  it("explains the absence in words, and names who governs instead", () => {
+    noKmetstvo();
+    renderCards("2023_10_29_mi");
+    const note = screen.getByText(/няма собствено кметство/i);
+    // ⚠ THE MUNICIPALITY IS NAMED IN THE SENTENCE ITSELF, not merely somewhere on the page —
+    // the sentence raises the question "then who governs it?" and has to answer it. The parent
+    // card lower down also says „Столична", which is why this reads the note's own text.
+    expect(note.textContent).toContain("Столична");
+  });
+
+  it("labels the parent município's council AS the município's", () => {
+    noKmetstvo();
+    renderCards("2023_10_29_mi");
+    // ⚠ SAME CARD, NOT SAME PAGE. A layout that puts the seat count in one card and the word
+    // „Община" in another is exactly what makes 17 read as this village's council, so this
+    // walks up from the FIGURE to its own StatCard and requires the label inside it.
+    const card = screen.getByText("17").closest(CARD);
+    expect(card).not.toBeNull();
+    expect(card!.textContent).toContain(
+      dict.local_settlement_parent_municipality,
+    );
+    expect(card!.textContent).toContain("Столична");
+  });
+
+  it("renders NO settlement-mayor contest — not an empty one", () => {
+    noKmetstvo();
+    const c = renderCards("2023_10_29_mi");
+    // ⚠ A ZERO WOULD BE A CLAIM. „0 гласа", or an empty candidate table beside „Кмет на
+    // кметство", says the contest happened and nobody stood — about a village where it was
+    // never held. The heading may stand (it hosts the explanation); a RESULT must not.
+    expect(c.textContent).not.toMatch(/редовен вот|частичен избор/);
+    expect(screen.queryByText("61.2%")).toBeNull();
+  });
+
+  it("still renders the contest when the ballot DID exist", () => {
+    // ⚠ THE DISCRIMINATING HALF. Without it a component that had stopped rendering the кметство
+    // race entirely passes all three tests above — the explanation is what it falls back to.
+    settlement.current = {
+      name: "Лозен",
+      kmetstvo: race("Стар Кмет"),
+      municipality: bundle(),
+    };
+    chmi.current = [];
+    byElectionKmetstva.current = [];
+    const c = renderCards("2023_10_29_mi");
+    expect(c.textContent).toContain("Стар Кмет");
+    expect(screen.queryByText(/няма собствено кметство/i)).toBeNull();
   });
 });
