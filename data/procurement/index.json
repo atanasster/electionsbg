@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-02T05:05:06.951Z",
-  "lastIngest": "2026-09-02T05:05:06.951Z",
+  "generatedAt": "2026-09-02T21:25:54.534Z",
+  "lastIngest": "2026-09-02T21:25:54.534Z",
   "years": [
     "2011",
     "2012",
@@ -207,15 +207,16 @@
     "2026-05",
     "2026-06",
     "2026-07",
-    "2026-08"
+    "2026-08",
+    "2026-09"
   ],
   "totals": {
-    "contracts": 404311,
+    "contracts": 404438,
     "awards": 0,
     "amendments": 3488,
-    "contractorCount": 28029,
+    "contractorCount": 28031,
     "awarderCount": 4419,
-    "totalEur": 94015409402.85,
+    "totalEur": 94042443832.2,
     "totalOther": {
       "USD": 41857798.77,
       "CHF": 3904889.77,
@@ -283,18 +284,18 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-09-02T05:05:06.950Z",
+    "generatedAt": "2026-09-02T21:25:54.532Z",
     "mpCount": 102,
     "contractorCount": 106,
     "pairCount": 114,
-    "totalEur": 2629542352.25,
-    "totalOther": {}
+    "totalPerPairEur": 2629744299.82,
+    "totalOtherPerPair": {}
   },
   "officialsCrossReference": {
-    "generatedAt": "2026-09-02T05:04:47.857Z",
+    "generatedAt": "2026-09-02T21:25:12.613Z",
     "officialCount": 800,
     "contractorCount": 452,
     "pairCount": 872,
-    "totalEur": 6557149765.6
+    "totalPerCompanyEur": 6557542819.17
   }
 }

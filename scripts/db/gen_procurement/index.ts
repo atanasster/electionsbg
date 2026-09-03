@@ -82,32 +82,37 @@ const main = async (): Promise<void> => {
   }));
 
   // crossReference summary over mp_connected (sums euro across ALL pairs — a
-  // contractor tied to 2 MPs counts twice, matching ingest.ts).
+  // contractor tied to 2 MPs counts twice, matching ingest.ts). This is a
+  // PARITY verifier: the per-pair basis is not a choice made here and must not
+  // be "corrected" to per-company on this side alone, or every run reports DIFF
+  // against a correct ingest. The field names carry the basis so the two arms
+  // below cannot be read as the same figure.
   const mp = readJson<MpConnectedFile>("derived/mp_connected.json");
   let crossReference: ProcurementIndex["crossReference"];
   if (mp) {
     const mpSet = new Set<number>();
     const cSet = new Set<string>();
-    let totalEur = 0;
-    const totalOther: Record<string, number> = {};
+    let totalPerPairEur = 0;
+    const totalOtherPerPair: Record<string, number> = {};
     for (const e of mp.entries) {
       mpSet.add(e.mpId);
       cSet.add(e.contractorEik);
-      totalEur += e.totalEur;
+      totalPerPairEur += e.totalEur;
       for (const [c, a] of Object.entries(e.totalOther))
-        totalOther[c] = (totalOther[c] ?? 0) + a;
+        totalOtherPerPair[c] = (totalOtherPerPair[c] ?? 0) + a;
     }
     crossReference = {
       generatedAt: now,
       mpCount: mpSet.size,
       contractorCount: cSet.size,
       pairCount: mp.entries.length,
-      totalEur,
-      totalOther,
+      totalPerPairEur,
+      totalOtherPerPair,
     };
   }
 
-  // officialsCrossReference over pep_connected (de-duped by contractor EIK).
+  // officialsCrossReference over pep_connected (de-duped by contractor EIK) —
+  // the OTHER basis, which is why the field is named for it.
   const pep = readJson<PepConnectedFile>("derived/pep_connected.json");
   let officialsCrossReference: ProcurementIndex["officialsCrossReference"];
   if (pep && pep.entries.length > 0) {
@@ -117,14 +122,14 @@ const main = async (): Promise<void> => {
       slugs.add(e.slug);
       if (!byEik.has(e.contractorEik)) byEik.set(e.contractorEik, e.totalEur);
     }
-    let totalEur = 0;
-    for (const v of byEik.values()) totalEur += v;
+    let totalPerCompanyEur = 0;
+    for (const v of byEik.values()) totalPerCompanyEur += v;
     officialsCrossReference = {
       generatedAt: now,
       officialCount: slugs.size,
       contractorCount: byEik.size,
       pairCount: pep.entries.length,
-      totalEur,
+      totalPerCompanyEur,
     };
   }
 

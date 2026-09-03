@@ -722,6 +722,32 @@ agree everywhere: `hub_stats.json` publishes `contracts: 410144` and
 `/api/db/table?resource=contracts` returns `total: 410144`, so the hub tile and the table
 beneath it are counting the same corpus.
 
+⚠️ **`index.json`'s two cross-reference summaries are a FOURTH and FIFTH basis, and they
+differ from each other — the MP arm is PER-PAIR and the officials arm is PER-COMPANY.**
+`crossReference` sums euro across every (MP, contractor) pair, so a contractor tied to two
+MPs counts twice: measured 2026-09-02, **€2,629,744,300 over 114 pairs / 106 EIKs, against
+€2,267,057,426 de-duplicated — a €362.7M (16%) overstatement if read as "public money won
+by MP-linked companies"**. `officialsCrossReference` de-duplicates by contractor EIK:
+**€6,557,542,819 over 872 pairs / 452 EIKs, against €33,309,147,605 per-pair — a 5x
+difference.** Both are deliberate — the per-pair sum is the basis its own `pairCount`
+counts, and `scripts/db/gen_procurement/index.ts` is a PARITY verifier that must keep
+reproducing `ingest.ts` rather than "correcting" one side — so the fields NAME their bases:
+`totalPerPairEur` / `totalOtherPerPair` and `totalPerCompanyEur`. There is no bare
+`totalEur` on either, and reintroducing one puts the trap back.
+
+Two things about that naming are easy to get backwards. **Keep the `Eur` SUFFIX on any
+future rename**: `stabilizeNumber` (`scripts/procurement/validate.ts`) matches money keys
+with `key.endsWith("Eur")` and quantizes them to cents, which is what keeps this file
+byte-stable across rebuilds — the obvious `totalEurPerPair` drops out of that rounding and
+jitters the last ULP into the committed diff, on a file whose diff is how a corpus change is
+reviewed. And **SIX writers emit these fields and must stay in lockstep** — `ingest.ts`,
+`rebuild_from_cache.ts`, `rebuild_derived.ts`, `dedup_legacy_twins.ts`,
+`dedup_contract_keys.ts` and the parity generator — the last of which reports DIFF, not a
+type error, when it drifts. Nothing in `src/`, `ai/` or `functions/` reads either field
+today (`hub_stats.json`'s `connected` is a COUNT, and the AI `procurementTotals` tool reads
+Postgres), so the double-count is LATENT; the naming is what keeps the first consumer from
+making it live.
+
 The gate is `pg_roundtrip.data.test.ts`, whose assertion is
 `byKey.size - syntheticCount === onDisk` ("row count: Postgres (minus synthetic consortium
 carriers) vs month shards"). It passes. A future audit comparing the two numbers should

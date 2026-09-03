@@ -124,16 +124,20 @@ if (mpConnected) {
   );
 
   // Refresh the index.json crossReference summary in place (keep totals/periods).
-  let totalEur = 0;
-  const totalOther: Record<string, number> = {};
+  // PER-PAIR, deliberately: a contractor tied to two MPs counts twice, so the
+  // sum is the basis `pairCount` counts. The field names say so — see the
+  // ProcurementIndex["crossReference"] header for why a bare `totalEur` here
+  // reads as the officials sibling's per-company figure.
+  let totalPerPairEur = 0;
+  const totalOtherPerPair: Record<string, number> = {};
   const mpSet = new Set<number>();
   const contractorSet = new Set<string>();
   for (const e of mpConnected.entries) {
     mpSet.add(e.mpId);
     contractorSet.add(e.contractorEik);
-    totalEur += e.totalEur;
+    totalPerPairEur += e.totalEur;
     for (const [cur, amt] of Object.entries(e.totalOther))
-      totalOther[cur] = (totalOther[cur] ?? 0) + amt;
+      totalOtherPerPair[cur] = (totalOtherPerPair[cur] ?? 0) + amt;
   }
   // Officials cross-reference summary for the full-corpus (all-years) view.
   // De-dup by contractor EIK so a company tied to several officials counts its
@@ -160,8 +164,8 @@ if (mpConnected) {
         mpCount: mpSet.size,
         contractorCount: contractorSet.size,
         pairCount: mpConnected.entries.length,
-        totalEur,
-        totalOther,
+        totalPerPairEur,
+        totalOtherPerPair,
       };
     }
     idx.officialsCrossReference = {
@@ -169,12 +173,14 @@ if (mpConnected) {
       officialCount: offSlugs.size,
       contractorCount: offByEik.size,
       pairCount: pepConnected.entries.length,
-      totalEur: officialsTotalEur,
+      // De-duplicated by contractor EIK (see offByEik above) — NOT the per-pair
+      // basis the MP arm uses. The name carries the difference.
+      totalPerCompanyEur: officialsTotalEur,
     };
     writeStableJson(INDEX_FILE, idx);
     console.log(
-      `index.json crossReference: ${recomputedMp ? `${mpSet.size} MP(s), ${contractorSet.size} firm(s), €${(totalEur / 1e6).toFixed(0)}M` : "kept (reused)"}; ` +
-        `officials: ${offSlugs.size} official(s), ${offByEik.size} firm(s), €${(officialsTotalEur / 1e6).toFixed(0)}M`,
+      `index.json crossReference: ${recomputedMp ? `${mpSet.size} MP(s), ${contractorSet.size} firm(s), €${(totalPerPairEur / 1e6).toFixed(0)}M per-pair` : "kept (reused)"}; ` +
+        `officials: ${offSlugs.size} official(s), ${offByEik.size} firm(s), €${(officialsTotalEur / 1e6).toFixed(0)}M per-company`,
     );
   }
 } else {

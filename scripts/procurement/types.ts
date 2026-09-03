@@ -348,22 +348,43 @@ export interface ProcurementIndex {
   }>;
   // MP cross-reference summary. Populated when the MP↔company link set is
   // available; null/zero when the skill ran without it.
+  //
+  // ⚠️ Its money is PER-PAIR and its officials sibling below is PER-COMPANY —
+  // the two bases differ by 16% here and by 5x there, so every money field in
+  // both names its own basis. A bare `totalEur` on either would be read as the
+  // other's. Renaming it is what makes the two safe to read side by side; do
+  // not reintroduce one.
   crossReference?: {
     generatedAt: string;
     mpCount: number;
     contractorCount: number;
     pairCount: number;
-    totalEur: number;
-    totalOther: Record<string, number>;
+    // Summed across ALL (MP, contractor) pairs — a contractor tied to two MPs
+    // counts twice. Deliberate: it is the money basis `pairCount` counts, and
+    // the ingest and the SQL parity generator must agree on it. It is NOT
+    // "public money won by MP-linked companies" — that is the per-company sum,
+    // €362.7M (16%) lower on the 2026-09-02 corpus (114 pairs / 106 EIKs).
+    //
+    // ⚠️ Keep the `Eur` SUFFIX on any rename: `stabilizeNumber` in validate.ts
+    // matches money keys with `key.endsWith("Eur")` and quantizes them to
+    // cents, which is what keeps this file byte-stable across rebuilds. A key
+    // like `totalEurPerPair` silently drops out of that rounding and jitters
+    // the last ULP into the committed diff.
+    totalPerPairEur: number;
+    totalOtherPerPair: Record<string, number>;
   };
-  // Officials (non-MP political class) cross-reference summary. De-duplicated
-  // by contractor EIK. Populated from data/officials/derived/company_links.json.
+  // Officials (non-MP political class) cross-reference summary. Populated from
+  // the same link set at kind='official'.
   officialsCrossReference?: {
     generatedAt: string;
     officialCount: number;
     contractorCount: number;
     pairCount: number;
-    totalEur: number;
+    // De-duplicated by contractor EIK — a company tied to several officials
+    // counts its euro total ONCE, so this does NOT agree with `pairCount` the
+    // way the MP arm's per-pair sum does. Per-pair would be €33.3bn against
+    // €6.56bn here (872 pairs / 452 EIKs on the 2026-09-02 corpus).
+    totalPerCompanyEur: number;
   };
 }
 
