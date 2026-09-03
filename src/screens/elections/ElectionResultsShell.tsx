@@ -33,7 +33,7 @@ import {
 } from "./electionSurfaceLayout";
 import { ElectionMapPanel } from "./ElectionMapPanel";
 import { ElectionScopeBar } from "./ElectionScopeBar";
-import { adapterKey } from "./electionMapSlots";
+import { adapterKey, type ElectionMapAdapterProps } from "./electionMapSlots";
 import {
   useSurfaceLabels,
   type RankedRowLabel,
@@ -77,6 +77,10 @@ type Props = {
   /** Where the cycle/status is rendered. ⚠ `"header"` on a migrated result page: §4 composes
    *  the scope INTO `PlaceHeader` beside the view pills, and a shell that also drew it would
    *  print the same two words twice and stack a second control row under them. */
+  /** A screen that ALWAYS draws a map hands its adapter in already-loaded, so the map libraries
+   *  are fetched in parallel with the screen instead of two hops behind it. See
+   *  `ElectionMapPanel`'s `preloaded` for why only such a screen may do this. */
+  preloadedMap?: FC<ElectionMapAdapterProps>;
   scope?: "shell" | "header";
 };
 
@@ -360,11 +364,16 @@ const OutcomeCanvas: FC<{
   ballot: ElectionSurfaceBallot;
   columns: readonly ElectionRankedColumn[];
   questionKey?: string;
+  /** A screen that ALWAYS draws a map may hand its adapter in already-loaded, so the browser
+   *  fetches the map libraries in parallel with the screen rather than two hops behind it. See
+   *  `ElectionMapPanel`'s `preloaded`. Omitted everywhere else, which keeps Leaflet off the
+   *  routes that draw no map — the reason the registry is lazy at all. */
+  preloadedMap?: FC<ElectionMapAdapterProps>;
   /** The surface's own coordinates — the adapter is chosen by kind × level × mode (§6). */
   kind: ElectionKind;
   level: ElectionPlaceLevel;
   placeId: string;
-}> = ({ ballot, columns, questionKey, kind, level, placeId }) => {
+}> = ({ ballot, columns, questionKey, kind, level, placeId, preloadedMap }) => {
   const { t } = useTranslation();
   return (
     <div
@@ -407,6 +416,7 @@ const OutcomeCanvas: FC<{
               adapter reads its own. */}
           <ElectionMapPanel
             adapter={adapterKey(kind, level, ballot.map.defaultMode)}
+            preloaded={preloadedMap}
             placeId={placeId}
             question={questionKey ? t(questionKey) : undefined}
             posture="presentational"
@@ -425,6 +435,7 @@ export const ElectionResultsShell: FC<Props> = ({
   surface,
   digest,
   currentView,
+  preloadedMap,
   scope = "shell",
 }) => {
   const { t } = useTranslation();
@@ -508,6 +519,7 @@ export const ElectionResultsShell: FC<Props> = ({
               {t(BALLOT_LABEL_KEYS[b.kind])}
             </h2>
             <OutcomeCanvas
+              preloadedMap={preloadedMap}
               ballot={b}
               kind={surface.kind}
               level={surface.place.level}

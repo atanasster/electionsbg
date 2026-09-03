@@ -25,6 +25,13 @@ import { DashboardCards } from "./dashboard/DashboardCards";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
 import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+// ⚠ A STATIC IMPORT, DELIBERATELY, AND THE ONLY ONE IN THE REPO. `MAP_ADAPTERS` is lazy so the
+// polling-section route ships no Leaflet, and that stays — but the country result is the one
+// page whose map IS the page, and the lazy hop costs it three serial round-trips before the map
+// can paint (entry → screen chunk → adapter chunk → vendor-leaflet). Importing the adapter here
+// puts vendor-leaflet and vendor-geo back into this screen's own dependency list, which
+// `tests/perf.spec.ts` asserts is what the browser preloads in parallel.
+import ParliamentaryCountryMap from "@/screens/elections/adapters/ParliamentaryCountryMap";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
 import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 
@@ -93,6 +100,7 @@ export const DashboardScreen = () => {
       >
         {(s) => (
           <ElectionResultsShell
+            preloadedMap={ParliamentaryCountryMap}
             surface={s}
             scope="header"
             currentView="parliamentary"

@@ -23,17 +23,33 @@ import {
 
 export type ElectionMapPanelProps = ElectionMapAdapterProps & {
   adapter: ElectionMapAdapterKey;
+  /** A screen that ALWAYS draws this map may hand its adapter in already-loaded.
+   *
+   *  ⚠ THIS IS A PRELOAD, NOT A SECOND REGISTRY, AND THE DIFFERENCE IS THE POINT. The lazy
+   *  registry buys the polling-section route its freedom from Leaflet, and that stays. What it
+   *  costs is a serial hop on the routes that always draw a map: entry → screen chunk →
+   *  ADAPTER chunk → vendor-leaflet, three round-trips before the map can paint. `/parliamentary`
+   *  is the one route where that is unambiguously wrong — a country result whose map is the
+   *  page — so `DashboardScreen` imports its adapter statically, which puts vendor-leaflet and
+   *  vendor-geo back into its own dependency list and lets the browser fetch them in parallel.
+   *
+   *  ⚠ THE KEY IS STILL REQUIRED AND STILL THE AUTHORITY. `election_map_adapter_preload` in
+   *  `ElectionMapPanel.test.tsx` asserts the passed component is the one the registry resolves
+   *  for that key, so the two cannot name different maps. */
+  preloaded?: FC<ElectionMapAdapterProps>;
 };
 
 export const ElectionMapPanel: FC<ElectionMapPanelProps> = ({
   adapter,
+  preloaded,
   ...slot
 }) => {
   const { t } = useTranslation();
   const loader = MAP_ADAPTERS[adapter];
   // ⚠ MEMOISED ON THE KEY. `lazy()` returns a new component type on every call, so building it
   // inline remounts the map — and refetches its geography — on every render of the page.
-  const Adapter = useMemo(() => (loader ? lazy(loader) : null), [loader]);
+  const lazyAdapter = useMemo(() => (loader ? lazy(loader) : null), [loader]);
+  const Adapter = preloaded ?? lazyAdapter;
 
   if (!Adapter)
     return (

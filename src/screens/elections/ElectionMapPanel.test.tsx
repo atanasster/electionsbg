@@ -151,3 +151,51 @@ describe("the mouse-only map is unrepresentable", () => {
     expect(alsoBad).toBeTruthy();
   });
 });
+
+describe("the preloaded adapter cannot disagree with the registry", () => {
+  // ⚠ THE PROP IS A PRELOAD, NOT A SECOND REGISTRY. `DashboardScreen` imports its adapter
+  // statically so the browser fetches vendor-leaflet and vendor-geo in PARALLEL with the screen
+  // rather than two hops behind it — the waterfall `tests/perf.spec.ts` guards. Nothing in that
+  // mechanism checks the component matches the key it is passed alongside, and a mismatch would
+  // draw the WRONG MAP on a correct-looking page: the country result showing a município's
+  // geography, at a 200, with the key still saying `parliamentary/country/winner`.
+  //
+  // So the one screen that uses it is checked against the registry it bypasses.
+
+  it("DashboardScreen passes the module its own key resolves to", async () => {
+    const src = fs.readFileSync(
+      path.join(process.cwd(), "src/screens/DashboardScreen.tsx"),
+      "utf8",
+    );
+    const imported =
+      /import\s+(\w+)\s+from\s+"@\/screens\/elections\/adapters\/(\w+)"/.exec(
+        src,
+      );
+    expect(
+      imported,
+      "DashboardScreen no longer statically imports an adapter",
+    ).toBeTruthy();
+    const [, binding, moduleName] = imported!;
+    // It must actually be handed to the shell, not merely imported.
+    expect(src).toContain(`preloadedMap={${binding}}`);
+
+    // …and the registry must resolve the SAME module for the country key.
+    const loader = MAP_ADAPTERS["parliamentary/country/winner"];
+    expect(loader, "the country key lost its registry entry").toBeTruthy();
+    const mod = await loader!();
+    const registryName = (mod.default as { name?: string }).name;
+    expect(registryName).toBe(moduleName);
+  });
+
+  it("the registry entry is still what every other level uses", () => {
+    // The discriminating half: if the static import had REPLACED the registry entry rather
+    // than shadowing it for one screen, the other four levels would silently lose their maps.
+    for (const key of [
+      "parliamentary/region/winner",
+      "parliamentary/abroad/winner",
+      "parliamentary/municipality/winner",
+      "parliamentary/settlement/winner",
+    ] as const)
+      expect(MAP_ADAPTERS[key], key).toBeTruthy();
+  });
+});
