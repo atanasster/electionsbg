@@ -31,11 +31,15 @@ import {
   CANVAS_MAP_SLOT_CLASS,
   CANVAS_RANKED_SLOT_CLASS,
 } from "./electionSurfaceLayout";
+import { ElectionMapPanel } from "./ElectionMapPanel";
+import { adapterKey } from "./electionMapSlots";
 import {
   useSurfaceLabels,
   type RankedRowLabel,
 } from "@/data/elections/useSurfaceLabels";
 import type {
+  ElectionKind,
+  ElectionPlaceLevel,
   ElectionSurfaceV1,
   ElectionStandout,
   ElectionSurfaceBallot,
@@ -352,7 +356,10 @@ const OutcomeCanvas: FC<{
   ballot: ElectionSurfaceBallot;
   columns: readonly ElectionRankedColumn[];
   questionKey?: string;
-}> = ({ ballot, columns, questionKey }) => {
+  /** The surface's own coordinates — the adapter is chosen by kind × level × mode (§6). */
+  kind: ElectionKind;
+  level: ElectionPlaceLevel;
+}> = ({ ballot, columns, questionKey, kind, level }) => {
   const { t } = useTranslation();
   return (
     <div
@@ -375,17 +382,28 @@ const OutcomeCanvas: FC<{
           // support. The fallback is the containing ballot, which is the only honest default.
           data-map-ballot={ballot.map.ballot ?? ballot.kind}
         >
-          {/* Phase 0 renders the map's declared QUESTION and a placeholder rather than a real
-              map: the adapters are Phase 2, and importing a map library here would put the
-              heavy vendor chunks on the section route, which draws no map at all. */}
           {questionKey ? (
             <h3 className="text-sm font-medium" data-map-question>
               {t(questionKey)}
             </h3>
           ) : null}
-          <p className="text-sm text-muted-foreground">
-            {t("election_map_placeholder")}
-          </p>
+          {/* ⚠ THE SLOT IS `presentational` AND THAT IS A STATEMENT OF FACT, not a placeholder
+              value. An `interactive` posture requires an `onSelect` and a labelled feature per
+              region — the type refuses anything less, because a feature wired for selection
+              with no label is silently mouse-only — and the selection binding between map and
+              ranked list is Phase 4's. Declaring `interactive` here to match the artifact's own
+              `posture` would be the shell asserting a keyboard contract it cannot honour.
+              `features: []` for the same reason: the artifact carries no geography, the
+              adapter reads its own. */}
+          <ElectionMapPanel
+            adapter={adapterKey(kind, level, ballot.map.defaultMode)}
+            question={questionKey ? t(questionKey) : undefined}
+            posture="presentational"
+            ariaLabel={
+              questionKey ? t(questionKey) : t("election_map_placeholder")
+            }
+            features={[]}
+          />
         </div>
       ) : null}
     </div>
@@ -471,6 +489,8 @@ export const ElectionResultsShell: FC<Props> = ({
             </h2>
             <OutcomeCanvas
               ballot={b}
+              kind={surface.kind}
+              level={surface.place.level}
               columns={level?.rankedColumns ?? []}
               questionKey={
                 b.map
