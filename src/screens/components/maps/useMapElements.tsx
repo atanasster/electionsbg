@@ -27,6 +27,7 @@ export function useMapElements<DType extends GeoJSONProps>({
   findVotes,
   findShift,
   onClick,
+  featureLabel,
   showMarkers = true,
   ...tooltipEvents
 }: {
@@ -43,6 +44,18 @@ export function useMapElements<DType extends GeoJSONProps>({
   // map (МИР 32): pins are reserved for capital/city locations on regional
   // maps and look out of place at continent scale.
   showMarkers?: boolean;
+  /** What a screen reader announces for one region — and the switch that makes the map operable
+   *  by keyboard at all (`FeatureMap` derives access as `!!ariaLabel && !!onClick`).
+   *
+   *  ⚠ OPT-IN BY CARDINALITY, not by preference. A map of 28 oblasts or 265 municipalities has
+   *  a usable tab order; a section map with thousands of paths does not, and `FeatureMap`'s own
+   *  comment says so. Omitting it leaves the map exactly as it was — mouse-only — which is why
+   *  every caller that CAN supply one should. */
+  featureLabel?: (
+    props: DType,
+    info: LocationInfo | undefined,
+    votes: ElectionResults | undefined,
+  ) => string | undefined;
 } & TooltipEvents): MapElementsList & {
   bounds: [[number, number], [number, number]];
   scale: number;
@@ -76,6 +89,11 @@ export function useMapElements<DType extends GeoJSONProps>({
                       votes={v?.results.votes}
                       shift={shift}
                       onClick={onClick}
+                      ariaLabel={
+                        featureLabel && feature
+                          ? featureLabel(feature.properties, info, v)
+                          : undefined
+                      }
                       {...tooltipEvents}
                     />
                   ),

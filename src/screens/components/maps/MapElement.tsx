@@ -26,6 +26,7 @@ export function MapElement<DType extends GeoJSONProps>({
   shift,
   onClick,
   opacity,
+  ariaLabel,
 }: {
   feature: GeoJSONFeature<DType>;
   geoPath: GeoPath;
@@ -34,6 +35,18 @@ export function MapElement<DType extends GeoJSONProps>({
   shift?: RegionShift;
   onClick: (props: DType) => NavigateParams;
   opacity?: number;
+  /** What a screen reader announces for this region, and the switch that makes it OPERABLE.
+   *
+   *  ⚠ `FeatureMap` DERIVES KEYBOARD ACCESS AS `!!ariaLabel && !!onClick`, so every election
+   *  map was silently MOUSE-ONLY: this component always passed `onClick` and never a label, and
+   *  nothing renders half-done when that happens. The choropleths on the procurement side pass
+   *  one and are focusable; the election maps — country, region, município, settlement — were
+   *  not, which is §6's named defect sitting on the busiest pages on the site.
+   *
+   *  ⚠ AND IT IS OPT-IN, deliberately. `FeatureMap`'s own comment gives the reason: the section
+   *  maps carry thousands of paths, and a tab order that long is worse than none. A caller
+   *  supplies a label where the cardinality is small enough for the tab order to be usable. */
+  ariaLabel?: string;
 } & TooltipEvents) {
   const { properties: props } = feature;
   const navigate = useNavigateParams();
@@ -58,6 +71,7 @@ export function MapElement<DType extends GeoJSONProps>({
         fillColor={party?.color}
         opacity={opacity}
         feature={feature}
+        ariaLabel={ariaLabel}
         onMouseEnter={(e) => {
           onMouseEnter(
             { pageX: e.pageX, pageY: e.pageY },
