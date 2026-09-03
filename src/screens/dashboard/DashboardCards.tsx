@@ -8,17 +8,11 @@ import {
   Gauge,
   Map,
 } from "lucide-react";
-import {
-  SkeletonCard,
-  SkeletonSection,
-} from "@/screens/dashboard/DashboardSkeleton";
+import { SkeletonSection } from "@/screens/dashboard/DashboardSkeleton";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { DashboardSectionId } from "@/data/articles/useArticles";
-import { PartyChangeCard } from "./cards/PartyChangeCard";
-import { TurnoutCard } from "./cards/TurnoutCard";
-import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { MandatesTile } from "./MandatesTile";
@@ -37,8 +31,6 @@ const VoteFlowTile = lazy(() =>
     default: m.VoteFlowTile,
   })),
 );
-import { PartyResultsTile } from "./PartyResultsTile";
-import { RegionsMapTile } from "./RegionsMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopRegionsTile } from "./TopRegionsTile";
 import { DemographicCleavagesTile } from "./DemographicCleavagesTile";
@@ -69,6 +61,19 @@ const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "polling",
 ];
 
+/** The country page's deeper sections — everything BELOW the shared result surface.
+ *
+ *  ⚠ WHAT LEFT, AND WHAT DELIBERATELY DID NOT (§4 item 3: "remove only numbers duplicated by
+ *  the new strip/canvas"). The four KPI cards left because the outcome strip states the same
+ *  four facts — winner, margin, turnout, paper/machine — and the map beside the party result
+ *  left because that pair IS the outcome canvas. Everything else stays exactly where it was:
+ *  mandates, top candidates, wasted vote, persistence, the vote flow, the trends, and every
+ *  section below. A migration that also tidied would be impossible to review against the page
+ *  it replaced.
+ *
+ *  ⚠ `data-og="parliamentary-result"` MOVED WITH THE MAP, to the shell's canvas. It is the
+ *  /parliamentary card's clip anchor, and the capture waits on a map PATH rather than on the
+ *  element — both tiles render a lucide icon, itself an `<svg>`, at mount. */
 export const DashboardCards: FC = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useNationalSummary();
@@ -87,12 +92,10 @@ export const DashboardCards: FC = () => {
     if (!isLoading && !data) return null;
     return (
       <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-        </div>
+        {/* ⚠ NO KPI SKELETON ROW ANY MORE. The four cards it stood in for moved to the shared
+            outcome strip, which reserves its own space through `ElectionSurfaceSkeleton` — a
+            second row of four here would reserve height that nothing ever fills, which is the
+            same layout shift in the other direction. */}
         <SkeletonSection rows={2} />
         <SkeletonSection rows={2} />
         {hasFlash || hasRecount ? <SkeletonSection rows={2} /> : null}
@@ -109,37 +112,12 @@ export const DashboardCards: FC = () => {
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
       <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <PartyChangeCard variant="gainer" change={data.topGainer} />
-          <PartyChangeCard variant="loser" change={data.topLoser} />
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-          <PaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
-        </div>
-
         <DashboardSection
           id="votes"
           title={t("dashboard_section_votes")}
           icon={Gauge}
           articleTopic="votes"
         >
-          {/* `data-og` is the /parliamentary card's clip anchor — the map beside the party
-              result is this page's signature visual. ⚠️ The capture's WAIT CONDITION is a
-              map PATH rather than this element or a bare `svg` (see capture-screens.ts):
-              both tiles render a lucide icon — itself an <svg> — at mount, so a bare `svg`
-              would let the card be shot before any data landed. */}
-          <div
-            data-og="parliamentary-result"
-            className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]"
-          >
-            <RegionsMapTile />
-            <PartyResultsTile parties={data.parties} />
-          </div>
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
             <MandatesTile parties={data.parties} />
             <TopCandidatesStrip parties={data.parties} />

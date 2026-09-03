@@ -1,26 +1,12 @@
-import { FC, useLayoutEffect, useRef, useState } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Map as MapIcon } from "lucide-react";
-import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { RegionsMap } from "@/screens/components/regions/RegionsMap";
+import { MeasuredMapBox } from "@/screens/components/maps/MeasuredMapBox";
 import { StatCard } from "./StatCard";
 
 export const RegionsMapTile: FC = () => {
   const { t } = useTranslation();
-  const ref = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState<MapCoordinates | undefined>();
-
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const measure = () =>
-      setSize([el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop]);
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
   return (
     <StatCard
       label={
@@ -31,9 +17,8 @@ export const RegionsMapTile: FC = () => {
       }
       hint={t("dashboard_regional_map_hint")}
     >
-      <div ref={ref} className="w-full h-[360px] md:h-[420px]">
-        {size && <RegionsMap size={size} />}
-      </div>
+      {/* The measuring box is shared with the shell's map adapter — see MeasuredMapBox. */}
+      <MeasuredMapBox>{(size) => <RegionsMap size={size} />}</MeasuredMapBox>
     </StatCard>
   );
 };

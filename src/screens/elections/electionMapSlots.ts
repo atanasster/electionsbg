@@ -40,10 +40,35 @@ export type ElectionMapSlot =
     }
   | {
       posture: "interactive";
+      /** ⚠ WHO DRIVES SELECTION — an ORTHOGONAL fact from the posture, and the one this union
+       *  originally conflated with it. §6's two postures are a claim about the MAP's
+       *  accessibility: does every selectable feature carry a label and an activation, or does
+       *  the map illustrate rather than select. They say nothing about where the features come
+       *  from, and the first adapter this shell wraps is an existing tile that fetches its own
+       *  geography and navigates on click.
+       *
+       *  Forcing that tile into `"shell"` would mean handing it an empty feature list and a
+       *  no-op `onSelect` — a lie in the type — while `"presentational"` would be a false
+       *  a11y claim about a map that navigates. So the posture stays exactly the two §6 names
+       *  and this second axis says who supplies the rows. */
+      selection: "shell";
       features: readonly ElectionMapFeature[];
       /** Bound to the ranked list in BOTH directions (§6). */
       onSelect: (id: string) => void;
       selectedId?: string;
+    }
+  | {
+      posture: "interactive";
+      /** The adapter owns its own features, labels and navigation.
+       *
+       *  ⚠ THE POSTURE IS STILL A CLAIM AND STILL CHECKABLE — it is just checked where the
+       *  features are, in the adapter's own gate, rather than at this boundary. The country
+       *  adapter's map is keyboard-operable because `MapElement` now passes an `ariaLabel`
+       *  through `FeatureMap`'s `!!ariaLabel && !!onClick` derivation, and
+       *  `mapKeyboard.test.tsx` is what holds it. What must never happen is this variant
+       *  becoming the place an unlabelled map hides: it asserts MORE than `presentational`,
+       *  not less. */
+      selection: "adapter";
     };
 
 /** Which adapter draws a given surface's map. The key is the surface's own coordinates plus the
@@ -76,4 +101,11 @@ export const MAP_ADAPTERS: Partial<
     ElectionMapAdapterKey,
     () => Promise<{ default: FC<ElectionMapAdapterProps> }>
   >
-> = {};
+> = {
+  // The country's winner map — `RegionsMap`, wrapped. ⚠ `() => import(...)`, never a static
+  // reference: the whole point of this registry is that the map libraries stay out of the
+  // shell's own chunk, and a static import here would ship Leaflet and d3 to the polling-section
+  // route, which draws no map at all.
+  "parliamentary/country/winner": () =>
+    import("./adapters/ParliamentaryCountryMap"),
+};

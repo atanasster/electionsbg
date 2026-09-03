@@ -380,6 +380,11 @@ const OutcomeCanvas: FC<{
         <div
           className={CANVAS_MAP_SLOT_CLASS}
           data-canvas-slot="map"
+          // ⚠ THE /parliamentary CARD'S CLIP ANCHOR, moved here with the map it frames. It was
+          // on `DashboardCards`' map/party grid until that pair became this canvas; the capture
+          // waits on a map PATH rather than on this element, because both halves render a
+          // lucide icon — itself an `<svg>` — at mount.
+          data-og="parliamentary-result"
           data-map-posture={ballot.map.posture}
           // WHICH ballot this map colours. §2 decision 9: on a multi-ballot page a map that
           // cannot name its ballot leaves a reader unable to tell mayor control from council
