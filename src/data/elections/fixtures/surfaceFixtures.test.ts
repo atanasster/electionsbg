@@ -27,7 +27,9 @@ import {
   PLACE_DIGEST_LINK_VIEWS,
   PLACE_DIGEST_MIN_CELLS,
   PLACE_DIGEST_ORDER,
+  isSplitControl,
   isWellFormedElectionSurfaceV1,
+  partyIdOrNull,
   surfaceCapViolations,
 } from "../surfaceTypes";
 import { descriptorFor } from "@/screens/elections/electionSurfaceDescriptors";
@@ -244,11 +246,26 @@ describe("fixtures — the place digest", () => {
     const local = digestAllFourViews.find((c) => c.view === "local");
     expect(local?.kind).toBe("figure");
     if (local?.kind === "figure" && local.view === "local") {
-      expect(local.mayorMatchesCouncil).toBe(
-        local.mayorPartyId === local.councilLeadPartyId,
+      // ⚠ CHECKED AGAINST THE SHARED RULE, NOT A LOCAL `===`. Restating it here as an equality
+      // was a SECOND definition that happens to agree on this fixture — both parties known and
+      // different — and would keep agreeing right through the case the rule exists for, where
+      // one side is `"independent"` and neither "matches" nor "differs" is true.
+      const known = Boolean(
+        partyIdOrNull(local.mayorPartyId) &&
+        partyIdOrNull(local.councilLeadPartyId),
       );
+      expect(local.mayorMatchesCouncil).toBe(
+        known && !isSplitControl(local.mayorPartyId, local.councilLeadPartyId),
+      );
+      // ⚠ A FIXTURE IS A CANONICAL EXAMPLE, so its council seats are REAL numbers — the null
+      // that means "unreachable" belongs to live data and must never be the fixture's state,
+      // or every assertion below it would pass on a fixture that counts nothing.
+      expect(typeof local.councilLeadSeats).toBe("number");
+      expect(typeof local.councilSeatsTotal).toBe("number");
       // A lead that is not a majority — the ordinary case, and not a finding.
-      expect(local.councilLeadSeats).toBeLessThan(local.councilSeatsTotal / 2);
+      expect(local.councilLeadSeats!).toBeLessThan(
+        local.councilSeatsTotal! / 2,
+      );
     }
   });
 });

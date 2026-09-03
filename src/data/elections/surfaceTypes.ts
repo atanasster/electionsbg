@@ -411,8 +411,12 @@ export type PlaceDigestLocalCell = {
   mayorName: string;
   mayorPartyId: string | null;
   councilLeadPartyId: string | null;
-  councilLeadSeats: number;
-  councilSeatsTotal: number;
+  /** ⚠ NULL, NEVER 0, WHEN THE COUNCIL RESULT IS UNREACHABLE. A `number` here leaves a zero as
+   *  the only way to say "unknown", and „0 от 0 съветника" beside a named municipality is a
+   *  claim a reader believes — the mayor half of the cell stands on its own, so the council
+   *  line is simply not drawn. */
+  councilLeadSeats: number | null;
+  councilSeatsTotal: number | null;
   /** mayor's party === council lead's party. Produced ONCE and read twice — the
    *  split-control standout states the same thing (§Phase 5), so the two must not be
    *  computed separately. */
@@ -444,6 +448,40 @@ export type PlaceDigestCell = PlaceDigestFigureCell | PlaceDigestLinkCell;
  *  with no local cycle is down to two and a section page to zero. One or two cells in a
  *  four-column grid restate the pills directly above them. */
 export const PLACE_DIGEST_MIN_CELLS = 2;
+
+// ─── party identity, shared by both runtimes ────────────────────────────────────────────
+//
+// ⚠ THE GENERATOR AND THE DIGEST MUST NOT DECIDE THIS SEPARATELY. `PlaceDigestLocalCell`'s own
+// comment says `mayorMatchesCouncil` is "produced ONCE and read twice — the split-control
+// standout states the same thing, so the two must not be computed separately". The rule lived
+// in `scripts/elections/build_local_surface.ts`, which imports `node:fs` and so cannot be read
+// from the browser; it lives here instead, in the module both sides already import.
+
+/** ⚠ `"independent"` IS A SENTINEL, NOT A PARTY. The local corpus uses it as a canonical id 18
+ *  times, and treating it as one publishes "разделено управление" about a municipality whose
+ *  mayor simply stands for nobody — 3 of the 28 the signal fired on, i.e. 11% of it was false.
+ *  It is also self-contradicting inside one artifact: the mayor preview says `partyId: null`
+ *  for the same candidate, because `isIndependent` is honoured there. */
+export const NON_PARTY_IDS: ReadonlySet<string> = new Set(["independent"]);
+
+export const partyIdOrNull = (id: string | null | undefined): string | null =>
+  id && !NON_PARTY_IDS.has(id) ? id : null;
+
+/** Does the mayor's party differ from the council's largest?
+ *
+ *  ⚠ IT NEEDS BOTH PARTIES, and an independent mayor has none. Returning `true` because one
+ *  side is null would report "split control" wherever a party could not be resolved, which is a
+ *  claim about a named council derived from a missing value — and the digest's own
+ *  `mayorMatchesCouncil` is NOT this function's negation for the same reason: "not split" and
+ *  "matches" differ exactly on the rows where a party is unknown. */
+export const isSplitControl = (
+  mayorPartyId: string | null | undefined,
+  councilPartyId: string | null | undefined,
+): boolean => {
+  const a = partyIdOrNull(mayorPartyId);
+  const b = partyIdOrNull(councilPartyId);
+  return Boolean(a && b && a !== b);
+};
 
 /** Cell order — `PlaceViewNav`'s own ORDER, so the two controls cannot disagree. */
 export const PLACE_DIGEST_ORDER = [

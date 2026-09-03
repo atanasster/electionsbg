@@ -27,6 +27,8 @@ import path from "node:path";
 import {
   MAX_BALLOT_PREVIEW,
   ELECTION_SURFACE_VERSION,
+  isSplitControl,
+  partyIdOrNull,
   type BallotKind,
   type ElectionBallotTotals,
   type ElectionRankedEntry,
@@ -307,27 +309,15 @@ export const localFactsFor = (
 /** Does the mayor's party differ from the council's largest? §7 keeps this signal because it is
  *  rare — 32 of the 245 municipalities whose mayor carries a canonical party id (13.1%).
  *
- *  ⚠ IT NEEDS BOTH PARTIES, and an independent mayor has none. Returning `true` because one
- *  side is null would report "split control" wherever a party could not be resolved, which is a
- *  claim about a named council derived from a missing value. */
-/** ⚠ `"independent"` IS A SENTINEL, NOT A PARTY. The corpus uses it as a canonical id 18 times,
- *  and treating it as one publishes "разделено управление" about a municipality whose mayor
- *  simply stands for nobody — 3 of the 28 the signal fired on, i.e. 11% of it was false. It is
- *  also self-contradicting inside one artifact: the preview says `partyId: null` for the same
- *  candidate, because `isIndependent` is honoured there. */
-export const NON_PARTY_IDS: ReadonlySet<string> = new Set(["independent"]);
-
-const partyIdOrNull = (id: string | null | undefined): string | null =>
-  id && !NON_PARTY_IDS.has(id) ? id : null;
-
-export const isSplitControl = (
-  mayorPartyId: string | null | undefined,
-  councilPartyId: string | null | undefined,
-): boolean => {
-  const a = partyIdOrNull(mayorPartyId);
-  const b = partyIdOrNull(councilPartyId);
-  return Boolean(a && b && a !== b);
-};
+ *  ⚠ RE-EXPORTED, NOT RE-DECLARED. The rule and its `"independent"` sentinel moved to
+ *  `surfaceTypes.ts` — which the browser can import and this file cannot be imported FROM, since
+ *  it opens with `node:fs`. `PlaceDigestLocalCell.mayorMatchesCouncil` states exactly what this
+ *  signal states, and the two deciding it separately is the defect that field's comment exists
+ *  to prevent. The caveats that used to live here are with the definition. */
+export {
+  NON_PARTY_IDS,
+  isSplitControl,
+} from "../../src/data/elections/surfaceTypes";
 
 export const buildMunicipalitySurface = (
   m: LocalMunicipality,
