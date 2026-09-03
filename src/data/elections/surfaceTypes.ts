@@ -125,6 +125,21 @@ export type ElectionRankedEntry = {
    *  transliterated — the reader is matching it against a ballot, a protocol scan or a
    *  register, all of which print Cyrillic (§5.3). */
   candidateName?: string;
+  /** A local-only list's OWN name, present exactly when `partyId` is null because the list has
+   *  no canonical party to resolve.
+   *
+   *  ⚠ THE SECOND DELIBERATE §5.3 EXCEPTION, and it exists because the alternative was worse.
+   *  The local corpus buckets such a list under `local:<its lowercased Bulgarian name>` — an id
+   *  that IS a name — and passing that through left 51 of the corpus's 122 party ids carrying
+   *  prose past a Cyrillic gate that only ever ran on the municipality level, while resolving
+   *  to no label at all in either language (108 preview rows). One of them embeds a person's
+   *  name. Naming the field is what lets the gate exempt it deliberately, the way it exempts
+   *  `candidateName`, instead of prose travelling inside an identifier.
+   *
+   *  Bulgarian in BOTH languages, for the same reason a person's name is: no English form of a
+   *  purely local list exists anywhere in the corpus, and a transliteration is a name that
+   *  appears in no source document. */
+  localPartyName?: string;
   isIndependent?: boolean;
   votes: number;
   pct: number;
@@ -464,8 +479,26 @@ export const PLACE_DIGEST_MIN_CELLS = 2;
  *  for the same candidate, because `isIndependent` is honoured there. */
 export const NON_PARTY_IDS: ReadonlySet<string> = new Set(["independent"]);
 
+/** ⚠ `local:<name>` IS A BUCKET, NOT A CANONICAL PARTY — and the id is the party's own
+ *  lowercased Bulgarian name. `canonical_parties.json` holds 183 parties and none of these, so
+ *  every such id resolves to no label; the name it carries belongs in `localPartyName`, where a
+ *  gate can see it. Measured over the published corpus: 51 of 122 distinct ids, 108 rows. */
+export const LOCAL_PARTY_BUCKET_PREFIX = "local:";
+
+/** The canonical party id, or null when there is no canonical party to resolve. Both sentinels
+ *  answer null: an independent stands for nobody, and a `local:` bucket is a name. */
 export const partyIdOrNull = (id: string | null | undefined): string | null =>
-  id && !NON_PARTY_IDS.has(id) ? id : null;
+  id && !NON_PARTY_IDS.has(id) && !id.startsWith(LOCAL_PARTY_BUCKET_PREFIX)
+    ? id
+    : null;
+
+/** The fields §5.3 allows to carry Bulgarian prose, and the ONLY ones. A no-prose gate reads
+ *  this rather than listing them itself, so a third exception cannot be added by a generator
+ *  without appearing here — which is the review this list exists to force. */
+export const PROSE_EXEMPT_FIELDS = [
+  "candidateName",
+  "localPartyName",
+] as const;
 
 /** Does the mayor's party differ from the council's largest?
  *

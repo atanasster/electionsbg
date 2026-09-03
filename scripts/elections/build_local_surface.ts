@@ -663,19 +663,28 @@ export type LocalIndex = {
     oblast?: string;
     hadRound2?: boolean;
   }[];
+  // ⚠ `displayName` IS READ, and it is the only thing that can name a `local:` bucket. The
+  // narrowed shapes here omitted it, so the builders had nothing but the id — which is why the
+  // id's own Bulgarian name ended up in `partyId`. It is the source's own printed form; do not
+  // reconstruct it from the id, which is lowercased.
   councilVoteShare?: {
     canonicalId: string;
+    displayName: string;
     totalVotes: number;
     pctOfValid: number;
   }[];
-  mayorsByCanonical?: { canonicalId: string; count: number }[];
+  mayorsByCanonical?: {
+    canonicalId: string;
+    displayName: string;
+    count: number;
+  }[];
 };
 
 export type LocalRegion = {
   oblast: string;
   turnout?: LocalProtocol & { pct?: number };
   mayorsWon?: { canonicalId: string; count: number }[];
-  councilSeats?: { canonicalId: string; seats: number }[];
+  councilSeats?: { canonicalId: string; displayName: string; seats: number }[];
   municipalities?: unknown[];
 };
 
@@ -683,6 +692,35 @@ export type LocalRegion = {
  *  is how many mayoralties each party won; rendering it as a percentage of anything would invent
  *  a national mayoral election that does not exist. The unit is `count` and the fact code says
  *  so, which is what stops a consumer captioning it "%".  */
+/** Split a local corpus bucket id into the canonical party it names, or the local list's own
+ *  Bulgarian name when it names none.
+ *
+ *  ⚠ THE COUNTRY AND REGION SOURCES BUCKET BY NAME. `index.json` and `region.json` key a list
+ *  with no `primaryCanonicalId` under `local:<its lowercased name>`, and passing that straight
+ *  into `partyId` put a party's name — in one case a person's — inside an identifier, on the
+ *  two levels the no-prose gate never ran on. It also resolved to nothing: 51 of the corpus's
+ *  122 ids are not in `canonical_parties.json`, so 108 preview rows had no label in either
+ *  language. The name comes from the source's own `displayName`, not from the id, because the
+ *  id is lowercased and the displayName is what the corpus prints. */
+const partyRef = (
+  canonicalId: string,
+  displayName: string,
+): { partyId: string | null; localPartyName?: string } => {
+  const id = partyIdOrNull(canonicalId);
+  return id ? { partyId: id } : { partyId: null, localPartyName: displayName };
+};
+
+/** The same split for a fact's `labelParams`, which the renderer interpolates into copy. A
+ *  `local:` id reaching here is the identical defect one layer along — the copy would print the
+ *  bucket id, prefix and all. */
+const factParty = (
+  canonicalId: string,
+  displayName: string,
+): Record<string, string | number> => {
+  const id = partyIdOrNull(canonicalId);
+  return id ? { partyId: id } : { localPartyName: displayName };
+};
+
 export const buildCountrySurface = (
   index: LocalIndex,
   ctx: LocalContext,
@@ -704,7 +742,7 @@ export const buildCountrySurface = (
     kind: "municipal_council" satisfies BallotKind,
     resultStatus: "final",
     preview: council.map((r, i) => ({
-      partyId: r.canonicalId,
+      ...partyRef(r.canonicalId, r.displayName),
       votes: r.totalVotes,
       pct: Number(r.pctOfValid.toFixed(2)),
       ...(i === 0 && council.length > 1
@@ -726,7 +764,7 @@ export const buildCountrySurface = (
       value: mayors[0].count,
       unit: "count",
       ballot: "municipality_mayor",
-      labelParams: { partyId: mayors[0].canonicalId },
+      labelParams: factParty(mayors[0].canonicalId, mayors[0].displayName),
     });
   // ⚠ `seats` MUST BE A SEAT COUNT. It carried the leading party's council VOTE SHARE, which
   // renders under `election_fact_seats` ("Места"/"Seats") as "Места: 23.95%" — a seat count
@@ -742,7 +780,7 @@ export const buildCountrySurface = (
       unit: "seats",
       ballot: "municipal_council",
       basis: "seats_total",
-      labelParams: { partyId: council[0]!.canonicalId },
+      labelParams: factParty(council[0]!.canonicalId, council[0]!.displayName),
     });
   return {
     schemaVersion: ELECTION_SURFACE_VERSION,
@@ -792,7 +830,7 @@ export const buildRegionSurface = (
     // this level: the field is required by the type and this source publishes no per-party
     // total, which is what `seats` being the only populated column says.
     preview: seats.slice(0, MAX_BALLOT_PREVIEW).map((x) => ({
-      partyId: x.canonicalId,
+      ...partyRef(x.canonicalId, x.displayName),
       votes: 0,
       pct: 0,
       seats: x.seats,
@@ -812,7 +850,7 @@ export const buildRegionSurface = (
       unit: "seats",
       ballot: "municipal_council",
       basis: "seats_total",
-      labelParams: { partyId: seats[0].canonicalId },
+      labelParams: factParty(seats[0].canonicalId, seats[0].displayName),
     });
   if (ballot.totals.turnoutBasis === "registered_voters")
     facts.push({

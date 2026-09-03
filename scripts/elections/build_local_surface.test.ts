@@ -19,6 +19,7 @@ import {
   SURFACE_BUDGET_BYTES,
   emittedLevels,
 } from "../../src/data/elections/surfacePath";
+import { PROSE_EXEMPT_FIELDS } from "../../src/data/elections/surfaceTypes";
 
 const CYCLE = "2023_10_29_mi";
 const hasCycle = fs.existsSync(path.join(L.DATA_ROOT, CYCLE, "index.json"));
@@ -529,17 +530,88 @@ describe("shape, budget and determinism", () => {
     },
   );
 
+  // ⚠ EVERY LEVEL THE GENERATOR EMITS, NOT JUST THE MUNICIPALITY ONE. This gate read
+  // convincingly and ran on one of three: the country and region builders pass the local
+  // corpus's bucket id straight through, and that id IS the party's lowercased Bulgarian name
+  // (`local:движение заедно за промяна`) — 51 of the corpus's 122 distinct party ids, 108
+  // preview rows, one of them a person's name. A gate that skips the levels where the producer
+  // differs is the vacuous-coverage shape, and it survived because the level it did cover
+  // resolves `primaryCanonicalId`, which is null rather than name-bearing when absent.
+  const everyLevel = () => [
+    ...municipalities(),
+    ...L.regionCodes(CYCLE)
+      .map((o) => L.readRegion(CYCLE, o))
+      .filter((r): r is NonNullable<typeof r> => r !== null)
+      .map((r) => L.buildRegionSurface(r, ctx)),
+    L.buildCountrySurface(
+      L.readIndex(CYCLE)!,
+      ctx,
+      L.nationalSeatsByParty(CYCLE),
+    ),
+  ];
+
+  /** Strip the values of the fields §5.3 exempts — read from the shared list, so a third
+   *  exception cannot be introduced by a generator without appearing there. */
+  const withoutExemptProse = (s: unknown): string => {
+    let blob = JSON.stringify(s);
+    const collect = (v: unknown): string[] =>
+      Array.isArray(v)
+        ? v.flatMap(collect)
+        : v && typeof v === "object"
+          ? Object.entries(v as Record<string, unknown>).flatMap(([k, x]) =>
+              PROSE_EXEMPT_FIELDS.includes(
+                k as (typeof PROSE_EXEMPT_FIELDS)[number],
+              ) && typeof x === "string"
+                ? [x]
+                : collect(x),
+            )
+          : [];
+    for (const n of new Set(collect(s))) if (n) blob = blob.split(n).join("");
+    return blob;
+  };
+
   it.runIf(hasCycle)("carries no prose — codes and ids only (§5.2)", () => {
-    // ⚠ A CANDIDATE'S NAME IS THE ONE EXCEPTION, and it is deliberate: §5.3 says a person's name
-    // is Bulgarian in BOTH languages and never transliterated, because the reader is matching it
-    // against a ballot. Everything else must be a code.
-    for (const s of municipalities()) {
-      const names = new Set(
-        s.ballots.flatMap((b) => b.preview.map((e) => e.candidateName ?? "")),
-      );
-      let blob = JSON.stringify(s);
-      for (const n of names) if (n) blob = blob.split(n).join("");
-      expect(blob, s.place.id).not.toMatch(/[Ѐ-ӿ]/);
+    // ⚠ A CANDIDATE'S NAME IS ONE EXCEPTION and a local-only list's own name is the other; both
+    // are deliberate (§5.3), Bulgarian in BOTH languages, and both are named in
+    // `PROSE_EXEMPT_FIELDS` so the exemption is a decision rather than a silent pass.
+    for (const s of everyLevel())
+      expect(withoutExemptProse(s), s.place.id).not.toMatch(/[Ѐ-ӿ]/);
+  });
+
+  it.runIf(hasCycle)("never smuggles a name through an ID (§5.3)", () => {
+    // The specific shape the level gap hid: `partyId` and a fact's `labelParams.partyId` must
+    // name a party the renderer can resolve, and `local:<name>` is not one — it resolves to no
+    // label in EITHER language while looking like a perfectly good id.
+    for (const s of everyLevel()) {
+      for (const b of s.ballots)
+        for (const e of b.preview) {
+          expect(e.partyId ?? "", `${s.place.id} ${b.kind}`).not.toMatch(
+            /^local:/,
+          );
+          // …and when there is no canonical party, the name is in the field that says so.
+          if (e.partyId === null && e.localPartyName)
+            expect(e.localPartyName).not.toMatch(/^local:/);
+        }
+      for (const f of s.facts)
+        expect(
+          String(f.labelParams?.partyId ?? ""),
+          `${s.place.id} fact ${f.code}`,
+        ).not.toMatch(/^local:/);
     }
+  });
+
+  it.runIf(hasCycle)("names a local-only list rather than dropping it", () => {
+    // ⚠ NON-VACUITY. „no `local:` ids" is satisfiable by emitting nothing at all, so the rows
+    // must still be there — a region whose whole council is local lists would otherwise
+    // publish an unlabelled ranking. Measured on this cycle: 39 named rows reach a preview
+    // (108 across the three published cycles), so the floor sits well under it and moves only
+    // if the builders start dropping them.
+    const named = everyLevel().flatMap((s) =>
+      s.ballots.flatMap((b) =>
+        b.preview.filter((e) => e.partyId === null && e.localPartyName),
+      ),
+    );
+    expect(named.length).toBeGreaterThan(30);
+    for (const e of named) expect(e.localPartyName).toMatch(/[Ѐ-ӿ]/);
   });
 });
