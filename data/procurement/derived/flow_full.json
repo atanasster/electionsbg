@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T05:04:53.559Z",
+  "generatedAt": "2026-09-02T21:25:37.134Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -8507,6 +8507,11 @@
       "label": "Анелия Атанасова Димитрова"
     },
     {
+      "id": "official:iva-encheva-boteva-a0199d",
+      "type": "official",
+      "label": "Ива Енчева Ботева"
+    },
+    {
       "id": "official:anna-prvanova-mancheva-dimova-a9acc3",
       "type": "official",
       "label": "Анна Първанова Манчева-Димова"
@@ -8537,24 +8542,9 @@
       "label": "Карен Бриянов Джамбазов"
     },
     {
-      "id": "official:iva-encheva-boteva-a0199d",
-      "type": "official",
-      "label": "Ива Енчева Ботева"
-    },
-    {
       "id": "official:todor-radev-dimitrov-cd73fe",
       "type": "official",
       "label": "Тодор Радев Димитров"
-    },
-    {
-      "id": "contractor:203947743",
-      "type": "contractor",
-      "label": "ЕвроИнфра ООД"
-    },
-    {
-      "id": "official:valentin-georgiev-terziiski-2a05c3",
-      "type": "official",
-      "label": "Валентин Георгиев Терзийски"
     },
     {
       "id": "official:galina-simeonova-simeonova-a73d4f",
@@ -8585,6 +8575,16 @@
       "id": "official:vladislav-bogdanov-georgiev-46492d",
       "type": "official",
       "label": "Владислав Богданов Георгиев"
+    },
+    {
+      "id": "contractor:203947743",
+      "type": "contractor",
+      "label": "ЕвроИнфра ООД"
+    },
+    {
+      "id": "official:valentin-georgiev-terziiski-2a05c3",
+      "type": "official",
+      "label": "Валентин Георгиев Терзийски"
     },
     {
       "id": "official:elitsa-emilova-gieva-3ca1b7",
@@ -13926,7 +13926,7 @@
     {
       "source": "awarder:000662769",
       "target": "contractor:131045382",
-      "valueEur": 434136.77
+      "valueEur": 452280.77
     },
     {
       "source": "awarder:000662769",
@@ -19241,7 +19241,7 @@
     {
       "source": "awarder:180680495",
       "target": "contractor:831641791",
-      "valueEur": 81321665.24
+      "valueEur": 81523612.81
     },
     {
       "source": "awarder:180680495",
@@ -19271,7 +19271,12 @@
     {
       "source": "awarder:200105779",
       "target": "contractor:175040885",
-      "valueEur": 303843.5
+      "valueEur": 304372.5
+    },
+    {
+      "source": "awarder:200105779",
+      "target": "contractor:200666335",
+      "valueEur": 262874.65
     },
     {
       "source": "awarder:200110954",
@@ -20416,7 +20421,7 @@
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 358195853.34
+      "valueEur": 358397800.91
     },
     {
       "source": "contractor:121396123",
@@ -21076,32 +21081,32 @@
     {
       "source": "contractor:831641791",
       "target": "official:diyana-georgieva-tomova-704486",
-      "valueEur": 358195853.34
+      "valueEur": 358397800.91
     },
     {
       "source": "contractor:831641791",
       "target": "official:ivailo-borisov-filipov-65173d",
-      "valueEur": 358195853.34
+      "valueEur": 358397800.91
     },
     {
       "source": "contractor:831641791",
       "target": "official:nikolina-todorova-naidenova-640c03",
-      "valueEur": 358195853.34
+      "valueEur": 358397800.91
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-7e7aff",
-      "valueEur": 358195853.34
+      "valueEur": 358397800.91
     },
     {
       "source": "contractor:831641791",
       "target": "official:valeri-petrov-borisov-0ec362",
-      "valueEur": 358195853.34
+      "valueEur": 358397800.91
     },
     {
       "source": "contractor:831641791",
       "target": "official:yuliyana-petrova-kalcheva-9ed43d",
-      "valueEur": 358195853.34
+      "valueEur": 358397800.91
     },
     {
       "source": "contractor:130800278",
@@ -21811,7 +21816,7 @@
     {
       "source": "contractor:175040885",
       "target": "official:decho-petrov-dechev-154400",
-      "valueEur": 22458838.01
+      "valueEur": 22459367.01
     },
     {
       "source": "contractor:201892554",
@@ -22291,7 +22296,7 @@
     {
       "source": "contractor:205175742",
       "target": "official:iordanka-vladimirova-bicheva-4acee4",
-      "valueEur": 5062786.01
+      "valueEur": 5081011.01
     },
     {
       "source": "contractor:111028849",
@@ -22699,6 +22704,11 @@
       "valueEur": 1718400.79
     },
     {
+      "source": "contractor:200666335",
+      "target": "official:iva-encheva-boteva-a0199d",
+      "valueEur": 1660151.87
+    },
+    {
       "source": "contractor:121003449",
       "target": "official:anna-prvanova-mancheva-dimova-a9acc3",
       "valueEur": 1561015.58
@@ -22734,49 +22744,44 @@
       "valueEur": 1510404
     },
     {
-      "source": "contractor:200666335",
-      "target": "official:iva-encheva-boteva-a0199d",
-      "valueEur": 1505943.87
-    },
-    {
       "source": "contractor:206187780",
       "target": "official:todor-radev-dimitrov-cd73fe",
       "valueEur": 1431617.27
     },
     {
-      "source": "contractor:203947743",
-      "target": "official:valentin-georgiev-terziiski-2a05c3",
-      "valueEur": 1403480.04
-    },
-    {
       "source": "contractor:131045382",
       "target": "official:galina-simeonova-simeonova-a73d4f",
-      "valueEur": 1396379.16
+      "valueEur": 1414523.16
     },
     {
       "source": "contractor:131045382",
       "target": "official:irina-antonieva-koseva-144a06",
-      "valueEur": 1396379.16
+      "valueEur": 1414523.16
     },
     {
       "source": "contractor:131045382",
       "target": "official:magdalena-lyubcheva-georgieva-29a460",
-      "valueEur": 1396379.16
+      "valueEur": 1414523.16
     },
     {
       "source": "contractor:131045382",
       "target": "official:martin-ovanes-kafedzhiyan-917bfb",
-      "valueEur": 1396379.16
+      "valueEur": 1414523.16
     },
     {
       "source": "contractor:131045382",
       "target": "official:svetla-borisova-stoyanova-kircheva-a7b6b4",
-      "valueEur": 1396379.16
+      "valueEur": 1414523.16
     },
     {
       "source": "contractor:131045382",
       "target": "official:vladislav-bogdanov-georgiev-46492d",
-      "valueEur": 1396379.16
+      "valueEur": 1414523.16
+    },
+    {
+      "source": "contractor:203947743",
+      "target": "official:valentin-georgiev-terziiski-2a05c3",
+      "valueEur": 1403480.04
     },
     {
       "source": "contractor:130506225",

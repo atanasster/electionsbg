@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-01T23:59:59.999Z",
+  "computedAt": "2026-09-02T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-08-31T00:00:00.000Z",
-      "firstSeenAt": "2026-08-31T00:00:00.000Z",
+      "occurredAt": "2026-09-02T00:00:00.000Z",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -70,11 +70,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-08-27",
+      "id": "parliament:sitting:2026-09-02",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
+      "occurredAt": "2026-09-02T00:00:00.000Z",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -86,23 +86,23 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-08-27",
+      "route": "/votes/2026-09-02",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 16
+        "items": 19
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.4,
+      "materiality": 0.475,
       "actionability": 0.4
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:yabalki-gala",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-08-31T00:00:00.000Z",
-      "firstSeenAt": "2026-08-31T00:00:00.000Z",
+      "occurredAt": "2026-09-02T00:00:00.000Z",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,14 +115,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/yabalki-gala",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
+        "title": "ЯБЪЛКИ ГАЛА",
         "pct": 50,
-        "promoEur": "1.28",
-        "regularEur": "2.57",
-        "chains": 5
+        "promoEur": "0.99",
+        "regularEur": "1.99",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
@@ -163,6 +163,97 @@
     },
     {
       "schemaVersion": 1,
+      "id": "parliament:sitting:2026-08-27",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-08-27",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 16
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:krastavitsi",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-09-02T00:00:00.000Z",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/krastavitsi",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "КРАСТАВИЦИ",
+        "pct": 48,
+        "promoEur": "0.99",
+        "regularEur": "1.89",
+        "chains": 5
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6857142857142857,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "macro:cpi_release:prc_hicp_minr:2026-08",
+      "kind": "cpi_released",
+      "category": "prices",
+      "publishedAt": "2026-09-01T21:00:00.000Z",
+      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "dateBasis": "published",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "eurostat_hicp",
+        "labelKey": "home_source_eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators",
+      "factKey": "home_fact_cpi_released",
+      "factArgs": {
+        "period": "2026-08",
+        "pct": "5.1"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
       "id": "parliament:sitting:2026-08-25",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -188,39 +279,6 @@
       "verification": "automatic",
       "materiality": 0.475,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:palmolive-sapun-cherna-orhideya-90-g",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-08-31T00:00:00.000Z",
-      "firstSeenAt": "2026-08-31T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/palmolive-sapun-cherna-orhideya-90-g",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "PALMOLIVE сапун Черна орхидея 90 г",
-        "pct": 47,
-        "promoEur": "0.65",
-        "regularEur": "1.22",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6714285714285714,
-      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -312,36 +370,6 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "macro:cpi_release:prc_hicp_minr:2026-08",
-      "kind": "cpi_released",
-      "category": "prices",
-      "publishedAt": "2026-08-19T09:00:00.000Z",
-      "firstSeenAt": "2026-08-19T00:00:00.000Z",
-      "dateBasis": "published",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "eurostat_hicp",
-        "labelKey": "home_source_eurostat",
-        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators",
-      "factKey": "home_fact_cpi_released",
-      "factArgs": {
-        "period": "2026-08",
-        "pct": "5.1"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8,
-      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -849,38 +877,6 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:769d8c53-2790-4be5-87d0-9ad1ca13cc9e",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-08-03T14:30:00.000Z",
-      "deadlineAt": "2026-10-26T21:59:00.000Z",
-      "firstSeenAt": "2026-08-03T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/769d8c53-2790-4be5-87d0-9ad1ca13cc9e"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "\"Зелени мерки в градска среда (6)\"",
-        "programme": "Програма \"Околна среда\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
     }
   ],
   "sourceCoverage": {
@@ -911,8 +907,8 @@
     },
     "macro": {
       "available": true,
-      "asOf": "2026-08-19",
-      "observedAt": "2026-08-19",
+      "asOf": "2026-09-01",
+      "observedAt": "2026-09-01",
       "staleAfterDays": 60,
       "stale": false
     },
@@ -925,14 +921,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-08-28",
+      "asOf": "2026-09-02",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-08-31",
-      "observedAt": "2026-08-31",
+      "asOf": "2026-09-02",
+      "observedAt": "2026-09-02",
       "staleAfterDays": 5,
       "stale": false
     }

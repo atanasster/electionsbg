@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-02T05:03:07.344Z",
-  "count": 2180,
+  "generatedAt": "2026-09-02T21:20:21.516Z",
+  "count": 2181,
   "sources": {
-    "ocds": 343,
+    "ocds": 344,
     "name+oblast": 78,
     "ri": 1291,
     "name": 266,
@@ -13,38 +13,38 @@
   },
   "run": {
     "candidates": 2762,
-    "resolved": 2180,
-    "unresolved": 582
+    "resolved": 2181,
+    "unresolved": 581
   },
   "carriedOver": {},
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-09-02T05:03:07.344Z"
+      "lastFreshAt": "2026-09-02T21:20:21.516Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-09-02T05:03:07.344Z"
+      "lastFreshAt": "2026-09-02T21:20:21.516Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-09-02T05:03:07.344Z"
+      "lastFreshAt": "2026-09-02T21:20:21.516Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-09-02T05:03:07.344Z"
+      "lastFreshAt": "2026-09-02T21:20:21.516Z"
     },
     "mon": {
       "status": "ok",
-      "lastFreshAt": "2026-09-02T05:03:07.344Z"
+      "lastFreshAt": "2026-09-02T21:20:21.516Z"
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-09-02T05:03:07.344Z"
+      "lastFreshAt": "2026-09-02T21:20:21.516Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-09-02T05:03:07.344Z"
+      "lastFreshAt": "2026-09-02T21:20:21.516Z"
     }
   },
   "awarders": {
@@ -9025,6 +9025,11 @@
     },
     "000674209": {
       "ekatte": "44063",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000674255": {
+      "ekatte": "68134",
       "source": "ocds",
       "confidence": "name+province"
     },
