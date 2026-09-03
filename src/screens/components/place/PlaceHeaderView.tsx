@@ -57,6 +57,11 @@ type Props = {
   extra?: ReactNode;
   // Replaces the default PlaceViewNav switcher.
   navSlot?: ReactNode;
+  // The election cycle/status, rendered BESIDE the view pills rather than under them (§4).
+  // ⚠ A SECOND ROW IS THE THING THIS AVOIDS: stacking a control strip below the switcher reads
+  // as another thing to operate and pushes the first number on the page further down, on the
+  // levels this site's readers use most.
+  scope?: ReactNode;
   // "full" (default) = the dashboard hero: accent Card + eyebrow + view switcher — for pages
   // that ARE one of the switchable views (governance / parliamentary / local / consumption),
   // where the switcher actually navigates. "compact" = JUST the location display (title +
@@ -172,6 +177,7 @@ export const PlaceHeaderView: FC<Props> = ({
   grao,
   eyebrowTo,
   eyebrowSuffix,
+  scope,
   extra,
   navSlot,
   variant = "full",
@@ -303,18 +309,21 @@ export const PlaceHeaderView: FC<Props> = ({
             fill the Card's flex column. Abroad places (oblast 32) have only the
             parliamentary dimension, so the switcher is dropped altogether — no
             pills at all. */}
-        {isAbroad ? null : navSlot !== undefined ? (
-          <div className="flex">{navSlot}</div>
-        ) : (
-          <PlaceViewNav
-            active={active}
-            level={level}
-            ekatte={ekatte}
-            obshtina={obshtina}
-            oblast={oblast}
-            align="start"
-          />
-        )}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          {isAbroad ? null : navSlot !== undefined ? (
+            <div className="flex">{navSlot}</div>
+          ) : (
+            <PlaceViewNav
+              active={active}
+              level={level}
+              ekatte={ekatte}
+              obshtina={obshtina}
+              oblast={oblast}
+              align="start"
+            />
+          )}
+          {scope}
+        </div>
       </div>
     </Card>
   );

@@ -33,16 +33,37 @@ export type ElectionSurfaceBoundaryProps = UseElectionSurfaceArgs & {
   fallback: ReactNode;
   /** Shown while the surface resolves. Must match the final layout's dimensions (item 5). */
   skeleton?: ReactNode;
+  /** The surface a `canonical` level built from its OWN shard (§5.0).
+   *
+   *  ⚠ THIS IS WHAT MAKES `canonical` A RENDERABLE STATE. §5.0's rule is that a level already
+   *  inside its budget gets no second artifact and "the shell reads that shard through the same
+   *  `surfacePath.ts` indirection and a thin adapter" — so the level is not un-migratable, it
+   *  simply has no fetch. Without this the boundary could only fall back, which would leave the
+   *  two most-read parliamentary levels permanently on the legacy body.
+   *
+   *  Absent, or undefined while the shard is still loading, keeps the fallback — the same
+   *  answer a page with no adapter gets. */
+  canonicalSurface?: ElectionSurfaceV1;
 };
 
 export const ElectionSurfaceBoundary: FC<ElectionSurfaceBoundaryProps> = ({
   children,
   fallback,
   skeleton,
+  canonicalSurface,
   ...args
 }) => {
   const { t } = useTranslation();
   const state = useElectionSurface(args);
+
+  // ⚠ THE CANONICAL ARM COMES FIRST, before the loading branch, and deliberately: a canonical
+  // level issues no request at all, so `useElectionSurface` never reports `loading` for it and
+  // the adapter's own input has its own loading state on the screen. Ordering it after would
+  // read as defensive and be dead code.
+  if (state.status === "canonical" && canonicalSurface)
+    return (
+      <div data-surface-boundary="canonical">{children(canonicalSurface)}</div>
+    );
 
   if (state.status === "loading")
     return (

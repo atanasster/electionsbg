@@ -966,3 +966,32 @@ describe("the canvas layout has ONE definition (Phase 2 item 5)", () => {
     ).toContain(CANVAS_MAP_SLOT_CLASS);
   });
 });
+
+describe("the scope has ONE home per page (§4 item 1)", () => {
+  it("draws the cycle and status by default", () => {
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const scope = container.querySelector('[data-surface-region="scope"]')!;
+    expect(scope).toBeTruthy();
+    // The cycle is a formatted date, never the folder id — the defect that reached 31 surfaces.
+    expect(scope.textContent).not.toContain("2026_04_19");
+    expect(scope.querySelector("[data-scope-cycle]")).toBeTruthy();
+  });
+
+  it("draws NONE when the header carries it", () => {
+    // ⚠ §4 COMPOSES THE SCOPE INTO `PlaceHeader`, beside the view pills. A shell that also drew
+    // it would print the same two words twice on one screen and stack a second control row
+    // under the pills — the exact arrangement §4 rules out, and one that looks fine in
+    // isolation because each half is correct.
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} scope="header" />,
+    );
+    expect(container.querySelector('[data-surface-region="scope"]')).toBeNull();
+    // …and nothing else in the shell is lost with it.
+    expect(container.querySelector("[data-outcome-canvas]")).toBeTruthy();
+    expect(
+      container.querySelector('[data-surface-region="facts"]'),
+    ).toBeTruthy();
+  });
+});

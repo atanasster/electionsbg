@@ -68,6 +68,9 @@ type Props = {
   // Replaces the default PlaceViewNav switcher (e.g. SOF city keeps a single
   // → parliamentary pill instead of the three-way control).
   navSlot?: ReactNode;
+  // The election cycle/status, composed INTO this header beside the pills (§4) — never as a
+  // second control row beneath them.
+  scope?: ReactNode;
   className?: string;
 };
 
@@ -83,6 +86,7 @@ export const PlaceHeader: FC<Props> = ({
   sectionCode,
   extra,
   navSlot,
+  scope,
   cycle,
   className,
 }) => {
@@ -283,6 +287,7 @@ export const PlaceHeader: FC<Props> = ({
       grao={grao}
       eyebrowTo={eyebrowTo}
       eyebrowSuffix={eyebrowSuffix}
+      scope={scope}
       extra={extra}
       navSlot={navSlot}
       className={className}

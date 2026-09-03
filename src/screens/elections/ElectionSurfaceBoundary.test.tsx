@@ -228,3 +228,52 @@ describe("a level §5.0 does not emit issues no request at all", () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
+
+describe("a canonical level renders through the shell, not the fallback", () => {
+  it("uses the surface the caller built from its own shard (§5.0)", async () => {
+    // ⚠ WITHOUT THIS ARM `canonical` IS UNRENDERABLE. §5.0's rule is that a level already
+    // inside its budget gets no second artifact and the shell reads its shard through a thin
+    // adapter — so `canonical` means "no fetch", not "not migratable". Falling back here would
+    // leave parliamentary country and municipality, the two most-read levels, permanently on
+    // the legacy body with nothing saying why.
+    draw(
+      <ElectionSurfaceBoundary
+        kind="parliamentary"
+        level="country"
+        cycle="2026_04_19"
+        id="BG"
+        canonicalSurface={parliamentaryCountry}
+        fallback={<p data-testid="legacy">legacy</p>}
+      >
+        {(s) => <p data-testid="shell">{s.place.level}</p>}
+      </ElectionSurfaceBoundary>,
+    );
+    const el = await screen.findByTestId("shell");
+    expect(el.textContent).toBe("country");
+    expect(screen.queryByTestId("legacy")).toBeNull();
+    expect(
+      document
+        .querySelector("[data-surface-boundary]")
+        ?.getAttribute("data-surface-boundary"),
+    ).toBe("canonical");
+  });
+
+  it("keeps the fallback while the shard is still loading", async () => {
+    // ⚠ `undefined` IS THE LOADING STATE HERE, and it must not render an empty shell. A
+    // canonical level issues no request of its own, so `useElectionSurface` never reports
+    // `loading` for it — the adapter's INPUT has the loading state, on the screen.
+    draw(
+      <ElectionSurfaceBoundary
+        kind="parliamentary"
+        level="country"
+        cycle="2026_04_19"
+        id="BG"
+        fallback={<p data-testid="legacy">legacy</p>}
+      >
+        {() => <p data-testid="shell">shell</p>}
+      </ElectionSurfaceBoundary>,
+    );
+    expect(await screen.findByTestId("legacy")).toBeTruthy();
+    expect(screen.queryByTestId("shell")).toBeNull();
+  });
+});

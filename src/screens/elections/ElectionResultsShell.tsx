@@ -32,6 +32,7 @@ import {
   CANVAS_RANKED_SLOT_CLASS,
 } from "./electionSurfaceLayout";
 import { ElectionMapPanel } from "./ElectionMapPanel";
+import { ElectionScopeBar } from "./ElectionScopeBar";
 import { adapterKey } from "./electionMapSlots";
 import {
   useSurfaceLabels,
@@ -60,7 +61,6 @@ import {
   RANKED_COLUMN_LABEL_KEYS,
   SOURCE_LABEL_KEYS,
   STANDOUT_LABEL_KEYS,
-  STATUS_LABEL_KEYS,
   type ElectionLevelDescriptor,
   type ElectionRankedColumn,
 } from "./electionSurfaceDescriptors";
@@ -74,6 +74,10 @@ type Props = {
   digest?: PlaceDigestCell[];
   /** The view the reader is already on — its digest cell is dropped (§7.1). */
   currentView?: PlaceDigestCell["view"];
+  /** Where the cycle/status is rendered. ⚠ `"header"` on a migrated result page: §4 composes
+   *  the scope INTO `PlaceHeader` beside the view pills, and a shell that also drew it would
+   *  print the same two words twice and stack a second control row under them. */
+  scope?: "shell" | "header";
 };
 
 /** Format a fact's value for display. Numbers only — the LABEL comes from i18n and the party
@@ -414,6 +418,7 @@ export const ElectionResultsShell: FC<Props> = ({
   surface,
   digest,
   currentView,
+  scope = "shell",
 }) => {
   const { t } = useTranslation();
   const uid = useId();
@@ -448,15 +453,23 @@ export const ElectionResultsShell: FC<Props> = ({
       data-surface-shell={surface.place.level}
       data-surface-kind={surface.kind}
     >
-      {/* 1. scope — the cycle and the result status, named in words. */}
-      <section aria-labelledby={rid("scope")} data-surface-region="scope">
-        <h2 id={rid("scope")} className="sr-only">
-          {t("election_scope_title")}
-        </h2>
-        <p className="text-sm text-muted-foreground" data-scope-status>
-          {t(STATUS_LABEL_KEYS[surface.status.result])}
-        </p>
-      </section>
+      {/* 1. scope — the cycle and the result status, named in words.
+          ⚠ SUPPRESSED WHERE THE HEADER CARRIES IT (§4 item 1). On a migrated result page the
+          cycle/status composes INTO `PlaceHeader`, beside the view pills; rendering it here as
+          well would put the same two words twice on one screen and stack a second control row
+          under the pills, which is the exact arrangement §4 rules out. One definition — the
+          screen renders `ElectionScopeBar` into the header's slot and turns this off. */}
+      {scope === "shell" ? (
+        <section aria-labelledby={rid("scope")}>
+          <h2 id={rid("scope")} className="sr-only">
+            {t("election_scope_title")}
+          </h2>
+          <ElectionScopeBar
+            cycle={surface.cycle}
+            status={surface.status.result}
+          />
+        </section>
+      ) : null}
 
       {/* 2. the cross-view digest, above this election's own facts (§4.1). */}
       {digestCells ? (
