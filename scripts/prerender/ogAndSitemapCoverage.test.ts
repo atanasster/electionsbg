@@ -1675,15 +1675,22 @@ describe("a hub's og capture anchors on its head", () => {
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
       project: indicatorsFigures,
-      md5: "aaf81b9466e0a20767031c4198ee0e48",
-      // ⚠️ RE-SHOT 2026-08-31, AND THIS CLAUSE IS WHY — the first real thing it found. The
-      // 2026-08-26 card carried „Растеж на реалния БВП · 7 от 22" on its peer rail; more
-      // member states have since reported 2026-Q2, so Bulgaria's growth rank is 8 of 24.
-      // Everything else on the card was unchanged, which is exactly why the commit-time
-      // clause could not surface it: both payloads had ALSO moved on 08-27, 08-28, 08-29
-      // and 08-30 without touching a pixel, so the one commit that mattered arrived as the
-      // fifth identical false alarm and was cleared by a sha bump like the other four.
-      shot: "2026-08-31",
+      md5: "7a49f8898e5e2d3659006777115b10ac",
+      // ⚠️ RE-SHOT 2026-09-03 — the SAME row moving for the SAME reason, a third time.
+      // The rail read „7 от 22" on 08-26, „8 от 24" on 08-31 and is „9 от 25" now: a
+      // 25th member state has reported 2026-Q2, which moves Bulgaria's growth rank AND its
+      // denominator together. Everything else on the card is byte-for-byte what it was —
+      // diffed against the 08-31 capture, one row differs — so once again nothing but this
+      // clause could see it, the two payloads having been rewritten nightly throughout
+      // without touching a pixel.
+      //
+      // ⚠️ READ THAT CADENCE AS A PROPERTY OF THE ROW, NOT AS THREE COINCIDENCES. `asOf` is
+      // pinned by the election while `latestDistribution` follows Eurostat, so every late
+      // reporter on the CLAMPED quarter moves this one row — and gdpGrowth is the row it
+      // lands on, because its 2026-Q2 return is the one still coming in. Expect it again
+      // until the band clamps past 2026-Q2, at which point the capture entry's own
+      // „THIS CLAUSE HAS AN EXPIRY" note takes over and the rail drops out entirely.
+      shot: "2026-09-03",
       figures:
         "gdpGrowth=2.7% [Растеж на реалния БВП · % спрямо същия период предходна " +
         "година (реален, SCA) · 2026-Q2] " +
@@ -1692,7 +1699,7 @@ describe("a hub's og capture anchors on its head", () => {
         "unemployment=3.0% [Безработица · % от активното население (сезонно " +
         "изгладено) · 2026-Q1] " +
         "govDebt=28.5% [Брутен държавен дълг · % от БВП · 2026-Q1] " +
-        "| gdpGrowth=8/24 inflation=26/27 unemployment=1/27 govDebt=3/27",
+        "| gdpGrowth=9/25 inflation=26/27 unemployment=1/27 govDebt=3/27",
     },
   };
 
