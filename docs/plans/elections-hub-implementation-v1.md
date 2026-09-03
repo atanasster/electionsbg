@@ -1571,6 +1571,12 @@ Publication and vacuity (§9.0): parliamentary section artifacts are the one new
 
 Exit criterion: task 4 — open the official protocol for a station — succeeds from both parliamentary and local section pages, no page combines unlike ballots, and both section compositions render the shared shell rather than the fallback.
 
+**MET ON THREE OF FOUR CLAUSES, 2026-09-04. The exception is task 4 on the LOCAL section, and it is a data gap rather than a composition one.** Verified live: both section pages render the shared shell (`boundary="embedded"` local, artifact-backed parliamentary); no page combines unlike ballots (the local station renders кмет на общината and общински съвет as two separate canvases, never merged); and from the parliamentary station „Сканиран протокол" and „Видео от преброяването" both resolve.
+
+⚠️ **The local station has no protocol chip, and „the cycle predates the sources" is the WRONG reason** — which matters, because it is the reason someone would assume. Checked against the live portal: `results.cik.bg/mi2023` runs the same SPA and builds the same kind of scan URL, so the scans exist. What is missing is the data to ADDRESS one. A parliamentary link is a pure function of the station code; a local link is not, in three ways: the contest id is not one per election (a local cycle runs three contests, each with its own), the path segment is the OIK rather than the 2-digit electoral region the code carries, and the filename suffix is a lookup rather than the constant `.0` — read from `HAS_PDF`, a 222 KB availability table at `/mi2023/tur1/pdf/data.js` shaped `HAS_PDF[contest][ik_id] = [section numbers]`.
+
+So closing this clause is an INGEST task (crawl and commit that table, map our station code to `(ik_id, section-number-within-ik)`), not a composition one, and it sits outside Phase 6's file list. Guessing the URL instead would publish „Сканиран протокол" pointing at a 404 for every section the table does not list — a chip asserting the state showed us a protocol it did not, which is precisely what `src/data/sections/auditLinks.test.ts` exists to prevent. The finding is recorded in that module's header so the next reader meets the worked-out URL shape rather than re-deriving it.
+
 ### Phase 7 — progressive reduction and analysis integration
 
 **Goal:** reduce repetition after the shared surfaces prove useful, without deleting depth.
