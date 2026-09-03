@@ -59,98 +59,49 @@ export const DATA_ROOT = path.join(process.cwd(), "data");
 
 // ─── party identity (§5.3: the artifact carries a REFERENCE, never a label) ──────────────────
 
-/** `(election, partyNum) -> canonical party id`.
- *
- *  ⚠ KEYED ON THE PAIR, NEVER ON THE NICKNAME. `partyNum` is a per-election ballot position — 21
- *  is ПрБ in 2026 and somebody else in 2021 — and the nickname is not unique either
- *  (`byNickName` folds "ГЕРБ" and "ГЕРБ-СДС" onto one id, which is correct for display and wrong
- *  for identity). The `history` array is the only key that names one party in one election. */
-export type PartyIndex = ReadonlyMap<string, string>;
+// ⚠ RE-EXPORTED, NOT RE-DECLARED — same reason as the ballot rules below: the browser cannot
+// import this file. Only the FILE READ stays here.
+export { partyIdFor } from "../../src/data/elections/partyIndex";
+export type { PartyIndex } from "../../src/data/elections/partyIndex";
 
 export const loadPartyIndex = (
   file = path.join(DATA_ROOT, "canonical_parties.json"),
-): PartyIndex => {
-  const raw = JSON.parse(fs.readFileSync(file, "utf8")) as {
-    parties: {
-      id: string;
-      history: { election: string; partyNum: number }[];
-    }[];
-  };
-  const out = new Map<string, string>();
-  for (const p of raw.parties)
-    for (const h of p.history) out.set(`${h.election}:${h.partyNum}`, p.id);
-  return out;
-};
-
-export const partyIdFor = (
-  index: PartyIndex,
-  election: string,
-  partyNum: number,
-): string | null => index.get(`${election}:${partyNum}`) ?? null;
+): PartyIndex =>
+  buildPartyIndex(
+    (
+      JSON.parse(fs.readFileSync(file, "utf8")) as {
+        parties: {
+          id: string;
+          history: { election: string; partyNum: number }[];
+        }[];
+      }
+    ).parties,
+  );
 
 // ─── the two rules that are easy to get wrong ────────────────────────────────────────────────
-
-export type Protocol = {
-  numRegisteredVoters?: number | null;
-  /** Voters added to the list ON THE DAY. Part of the denominator — see the header. */
-  numAdditionalVoters?: number | null;
-  totalActualVoters?: number | null;
-  numValidVotes?: number | null;
-  numValidMachineVotes?: number | null;
-  numInvalidBallotsFound?: number | null;
-  numPaperBallotsFound?: number | null;
-  numMachineBallots?: number | null;
-};
-
-export type PartyVote = {
-  partyNum: number;
-  totalVotes: number;
-  machineVotes?: number;
-  paperVotes?: number;
-};
-
-/** Valid votes = the sum of the party votes. See the header: `numValidVotes` is paper-only. */
-export const validVotesOf = (votes: readonly PartyVote[]): number =>
-  votes.reduce((a, v) => a + (v.totalVotes || 0), 0);
-
-/** ⚠ TURNOUT IS DERIVED, AND `unavailable` IS A REAL ANSWER (§2 decision 10). Three ways there is
- *  no rate: no registered figure at all, a zero one, or one the vote count exceeds — which is
- *  abroad, at 329.6%, and is not a data error but a different registration regime.
- *
- *  Returning a rate we cannot stand behind is the failure; a missing rate is a rendered absence. */
-export const ballotTotalsFrom = (
-  protocol: Protocol,
-  votes: readonly PartyVote[],
-  /** ⚠ SET FOR ABROAD. A definitional suppression, not an arithmetic one — see the header. */
-  suppressTurnout = false,
-): ElectionBallotTotals => {
-  const validVotes = validVotesOf(votes);
-  const votesCast = protocol.totalActualVoters ?? validVotes;
-  const registered =
-    (protocol.numRegisteredVoters ?? 0) + (protocol.numAdditionalVoters ?? 0);
-  // ⚠ MORE VALID VOTES THAN VOTERS IS IMPOSSIBLE, and three sections report it (060800018
-  // publishes 109 cast against 194 valid). The mirror image — voters over the list — was already
-  // guarded; this direction was not, so those three published a turnout computed from a
-  // `votesCast` their own ballot count contradicts. A protocol that disagrees with itself
-  // supports no rate.
-  const selfConsistent = votesCast >= validVotes;
-  // A rate still over 100% after the additional voters are counted is a protocol we cannot
-  // stand behind, so it is reported as absent rather than published.
-  if (
-    suppressTurnout ||
-    !selfConsistent ||
-    registered <= 0 ||
-    votesCast > registered
-  )
-    return { votesCast, validVotes, turnoutBasis: "unavailable" };
-  return {
-    votesCast,
-    validVotes,
-    registeredVoters: registered,
-    turnoutPct: Number(((votesCast / registered) * 100).toFixed(2)),
-    turnoutBasis: "registered_voters",
-  };
-};
+//
+// ⚠ RE-EXPORTED, NOT RE-DECLARED. They moved to `src/data/elections/ballotTotals.ts` so the
+// BROWSER can read them: this file opens with `node:fs`, and a `canonical` level (§5.0) is
+// served by a client-side adapter over its own shard — which needs exactly these rules. The
+// first consumer that could not import them re-derived turnout and got a weaker guard with the
+// same name; one definition is what stops the next one.
+import {
+  buildPartyIndex,
+  partyIdFor,
+  type PartyIndex,
+} from "../../src/data/elections/partyIndex";
+import {
+  ABROAD_KEY,
+  ballotTotalsFrom,
+  turnoutPctOf,
+  validVotesOf,
+} from "../../src/data/elections/ballotTotals";
+import type {
+  PartyVote,
+  Protocol,
+} from "../../src/data/elections/ballotTotals";
+export { ABROAD_KEY, ballotTotalsFrom, turnoutPctOf, validVotesOf };
+export type { PartyVote, Protocol };
 
 /** The ranked preview: at most eight entries, a stable prefix of the complete ranking (§5).
  *
@@ -370,12 +321,6 @@ export type BuildContext = {
   priorByPlace?: ReadonlyMap<string, PartyVote[]>;
 };
 
-/** ⚠ THE ABROAD OBLAST IS A REGION ON DISK AND A LEVEL IN THE ARTIFACT. It is key "32" among the
- *  region rows, so it is read here — but its `place.level` is `abroad`, which is what makes the
- *  descriptor select the abroad composition (no turnout, no child places). Emitting it as a
- *  region would give it a turnout slot it can never fill. */
-export const ABROAD_KEY = "32";
-
 export const buildRegionSurface = (
   row: RegionRow,
   ctx: BuildContext,
@@ -452,29 +397,6 @@ export const readRegionRows = (cycle: string): RegionRow[] => {
   const p = path.join(DATA_ROOT, cycle, "region_votes.json");
   if (!fs.existsSync(p)) return [];
   return JSON.parse(fs.readFileSync(p, "utf8")) as RegionRow[];
-};
-
-/** A place's turnout as a percentage, on the SAME denominator the surface uses
- *  (`registered + additional`) — or null where there is none.
- *
- *  ⚠ THE DENOMINATOR MATTERS TO THE COMPARISON, not just to the published figure. On the
- *  corrected denominator, abroad excluded, the national turnout delta for 2026 against 2024_10
- *  is **11.1195 pp**;
- *  on the bare registered list it is 11.87 pp, which is also what `national_summary.json`
- *  publishes and the site prerenders. A selector mixing the two measures each place against a
- *  national move computed a different way.
- *
- *  ⚠ THE METHODOLOGY RECORDS 12.05 pp FOR THIS PAIR AND NOTHING HERE REPRODUCES IT — nine
- *  derivations were tried. Stated as an open discrepancy rather than explained away: the two
- *  candidate denominators give 11.12 and 11.87, and where 12.05 came from is not recoverable
- *  from this corpus. It is not load-bearing (the selector uses the value it computes, not the
- *  recorded one) but it should not be quietly rounded into agreement. */
-export const turnoutPctOf = (protocol: Protocol): number | null => {
-  const denom =
-    (protocol.numRegisteredVoters ?? 0) + (protocol.numAdditionalVoters ?? 0);
-  const cast = protocol.totalActualVoters ?? 0;
-  if (denom <= 0 || cast > denom) return null;
-  return (cast / denom) * 100;
 };
 
 /** The national turnout across a cycle's region rows, on the same denominator. */

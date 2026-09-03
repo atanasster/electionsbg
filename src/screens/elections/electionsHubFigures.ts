@@ -15,26 +15,19 @@
 //
 // ⚠ NO FETCH. Both catalogues are bundled JSON, so the band paints with the first frame and is
 // never a skeleton — which also means `kpisPending` is never needed here.
+//
+// ⚠ THE TURNOUT RULE IS IMPORTED, NOT RESTATED. It was declared here — this file could not
+// reach the generator's copy, which opens with `node:fs` — and the re-derivation came out
+// WEAKER with the same name: it guarded a zero denominator and not a `cast > denom` one, which
+// is abroad at 329.6%. It reads the national protocol, where that guard never fires, so the two
+// agreed on every value anyone looked at. `ballotTotals.ts` is now the one definition.
 
 import type { HubKpi } from "@/ux/infographic";
 import { formatDate } from "@/lib/formatDate";
 import allElections from "@/data/json/elections.json";
 import allLocalElections from "@/data/json/local_elections.json";
+import { turnoutPctOf, type Protocol } from "@/data/elections/ballotTotals";
 import type { ElectionsHubCycle } from "./electionsHubCycle";
-
-type Protocol = {
-  numRegisteredVoters: number;
-  numAdditionalVoters: number;
-  totalActualVoters: number;
-};
-
-/** The turnout denominator is `registered + additional`, never `registered` alone — a voter
- *  added on election day is in the numerator, so leaving them out of the denominator publishes
- *  a rate above the one the CEC states. */
-export const turnoutPctOf = (p: Protocol): number | null => {
-  const denom = p.numRegisteredVoters + p.numAdditionalVoters;
-  return denom > 0 ? (p.totalActualVoters / denom) * 100 : null;
-};
 
 const PARLIAMENTARY_IDS = new Set(allElections.map((e) => e.name));
 
