@@ -84,7 +84,7 @@ export const DashboardScreen = () => {
         level="country"
         cycle={selected}
         id="BG"
-        canonicalSurface={surface}
+        providedSurface={surface}
         skeleton={<ElectionSurfaceSkeleton facts={4} />}
         // ⚠ THE FALLBACK IS THE PAGE WITHOUT ITS FIRST SCREEN, not a second copy of it. The
         // deeper sections render either way; what the shell adds is the strip and the canvas,

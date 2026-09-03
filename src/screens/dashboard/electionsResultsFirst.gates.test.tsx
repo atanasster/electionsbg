@@ -106,7 +106,7 @@ describe("the parliamentary country result is still results-first", () => {
     // and canvas duplicate, and leaving them would print each of those figures twice.
     const screen = read("src/screens/DashboardScreen.tsx");
     expect(screen).toContain("<ElectionResultsShell");
-    expect(screen).toContain("canonicalSurface={surface}");
+    expect(screen).toContain("providedSurface={surface}");
     const cards = read("src/screens/dashboard/DashboardCards.tsx");
     for (const gone of [
       "<PartyChangeCard",

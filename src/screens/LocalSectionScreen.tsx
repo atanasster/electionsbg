@@ -7,14 +7,16 @@
 // numbering isn't stable across local↔parliamentary cycles, so the same code
 // wouldn't reliably resolve to the matching parliamentary station.
 
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocalSection } from "@/data/local/useLocalSection";
-import { RankedBar } from "@/screens/components/local/LocalRankedBar";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
-import { formatThousands } from "@/data/utils";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
+import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 
 export const LocalSectionScreen: FC = () => {
   const { cycle, obshtinaCode, sectionCode } = useParams<{
@@ -31,12 +33,7 @@ export const LocalSectionScreen: FC = () => {
     cycle,
   );
 
-  const partyById = useMemo(() => {
-    const m = new Map<number, { name: string; color: string }>();
-    for (const p of detail?.parties ?? [])
-      m.set(p.localPartyNum, { name: p.localPartyName, color: p.color });
-    return m;
-  }, [detail]);
+  if (!cycle || !obshtinaCode || !sectionCode) return null;
 
   const section = detail?.section;
   // The local section bundle stores EKATTE with leading zeros stripped
@@ -49,22 +46,6 @@ export const LocalSectionScreen: FC = () => {
       : section.ekatte.padStart(5, "0")
     : undefined;
 
-  const bars = useMemo(() => {
-    if (!section) return [];
-    return [...section.partyVotes]
-      .sort((a, b) => b.votes - a.votes)
-      .map((pv) => ({
-        ...pv,
-        meta: partyById.get(pv.localPartyNum),
-      }));
-  }, [section, partyById]);
-
-  if (!cycle || !obshtinaCode || !sectionCode) return null;
-
-  // Unified place header — eyebrow links back to the cycle overview, the
-  // breadcrumb drills up the settlement → município → oblast chain, and the
-  // Parliamentary pill drops to the parent settlement (section codes don't map
-  // across cycles). The mobile-station badge rides in the extra slot.
   const header = (
     <PlaceHeader
       active="local"
@@ -83,6 +64,13 @@ export const LocalSectionScreen: FC = () => {
         ) : undefined
       }
       className="mb-4"
+      // ⚠ THE STATUS ONLY, by design rather than by omission. The eyebrow already states this
+      // cycle's date through `friendlyCycleDate` — the local tree's own convention — so a second
+      // date here would be the duplication §4 rules out. `ElectionScopeBar` prints nothing for a
+      // cycle it cannot parse as a date, and a local folder id (`2023_10_29_mi`) is exactly
+      // that; the alternative — `formatDate` passing an unparseable string through VERBATIM —
+      // is the folder-id-as-label defect.
+      scope={<ElectionScopeBar cycle={cycle} status="final" />}
     />
   );
 
@@ -97,76 +85,42 @@ export const LocalSectionScreen: FC = () => {
     );
   }
 
-  const turnoutPct =
-    section && section.numRegisteredVoters > 0
-      ? (section.totalActualVoters / section.numRegisteredVoters) * 100
-      : null;
-  const leaderVotes = bars[0]?.votes ?? 0;
-
   return (
     <section className="my-4">
       {header}
 
-      {/* Stat header. */}
-      {section ? (
-        <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <div className="rounded-xl border bg-card p-4 shadow-sm">
-            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("local_election_stat_turnout")}
-            </div>
-            <div className="mt-1 text-base font-semibold tabular-nums">
-              {turnoutPct != null ? `${turnoutPct.toFixed(1)}%` : "—"}
-            </div>
-          </div>
-          <div className="rounded-xl border bg-card p-4 shadow-sm">
-            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("local_sections_th_voted")}
-            </div>
-            <div className="mt-1 text-base font-semibold tabular-nums">
-              {formatThousands(section.totalActualVoters)}
-              <span className="text-xs font-normal text-muted-foreground">
-                {" / "}
-                {formatThousands(section.numRegisteredVoters)}
-              </span>
-            </div>
-          </div>
-          <div className="rounded-xl border bg-card p-4 shadow-sm">
-            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("local_election_stat_valid_votes")}
-            </div>
-            <div className="mt-1 text-base font-semibold tabular-nums">
-              {formatThousands(section.numValidVotes)}
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {/* ⚠ THE SHELL REPLACES THE STAT HEADER AND THE COUNCIL BARS, which is everything this
+          page had. It is council-only by construction — the per-station mayor ballot is not in
+          the ingested bundle — so §Phase 6 item 4's "separate compact panels … only when each
+          vote array/denominator exists" resolves to ONE panel here, and item 5's "do not infer
+          zeros for absent arrays" is satisfied by the mayor ballot simply not being emitted.
 
-      {/* Council party-vote breakdown. */}
-      <h2 className="mb-3 text-lg font-semibold">
-        {t("local_section_council_votes")}
-      </h2>
-      {section ? (
-        <div className="rounded-xl border bg-card p-4 shadow-sm">
-          <ul>
-            {bars.map((b) => (
-              <RankedBar
-                key={b.localPartyNum}
-                label={b.meta?.name ?? `#${b.localPartyNum}`}
-                value={b.votes}
-                pct={
-                  section.numValidVotes > 0
-                    ? (b.votes / section.numValidVotes) * 100
-                    : 0
-                }
-                leaderValue={leaderVotes}
-                color={b.meta?.color ?? "#9ca3af"}
-              />
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p className="text-sm text-muted-foreground">{t("loading")}</p>
-      )}
+          ⚠ THE SURFACE IS EMBEDDED ON THE STATION FILE (§5.0), not fetched: its own file is
+          6.1 KB against an 8 KiB budget, and there are 24,443 of them — a second artifact would
+          be a second fetch of the same bytes at the object count §5.0 exists to refuse.
+
+          ⚠ NO DIGEST AND NO MAP, for the two reasons the parliamentary section has neither:
+          three of the four views do not resolve at a polling station, and one station has no
+          geography to answer a question about. */}
+      <ElectionSurfaceBoundary
+        kind="local"
+        level="section"
+        cycle={cycle}
+        id={sectionCode}
+        providedSurface={detail?.surface}
+        skeleton={<ElectionSurfaceSkeleton facts={3} withMap={false} />}
+        fallback={
+          <p className="text-sm text-muted-foreground">{t("loading")}</p>
+        }
+      >
+        {(surface) => (
+          <ElectionResultsShell
+            surface={surface}
+            scope="header"
+            currentView="local"
+          />
+        )}
+      </ElectionSurfaceBoundary>
     </section>
   );
 };

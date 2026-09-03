@@ -172,7 +172,7 @@ export const SettlementsScreen = () => {
         level="municipality"
         cycle={selected}
         id={muniCode}
-        canonicalSurface={surface}
+        providedSurface={surface}
         skeleton={<ElectionSurfaceSkeleton facts={4} />}
         fallback={null}
       >

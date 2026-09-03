@@ -224,16 +224,29 @@ export const SURFACE_POLICY: Record<
         "over budget and knowingly accepted — see budgetWaiver. The reader fetches ONE file and gets the surface plus the complete station detail",
       // ⚠ THE REASON THIS IS ACCEPTED IS THE OBJECT COUNT, NOT A RE-READING OF THE BUDGET.
       // §5.0: emitting a section artifact per cycle is ~12,300 objects, and v1 covers two local
-      // cycles. Paying 24,596 objects to save 3.4 KB on the worst station — 1.43x over at its
-      // worst measured cycle (2019; 2023 is 1.26x) — against
-      // the 77x that justified flipping parliamentary/settlement for 5,364 objects — is the
-      // trade §5.0's object-count argument exists to refuse. Consistent with that decision, not
-      // an exception to it.
+      // cycles. Paying 24,443 objects to save ~7.3 KB on the worst station against the 77x that
+      // justified flipping parliamentary/settlement for 5,364 objects is the trade §5.0's
+      // object-count argument exists to refuse. Consistent with that decision, not an exception.
+      //
+      // ⚠ RE-MEASURED 2026-09-03, AFTER THE SURFACES WERE ACTUALLY WRITTEN, and the number moved
+      // 1.43x → 1.91x. The gate caught it and demanded the decision be re-opened; re-opening it
+      // does not change the answer, and the split is why:
+      //
+      //   worst host file, 2019   15,655 B   1.91x
+      //   its embedded surface     1,969 B   0.24x   ← what this decision added
+      //   the file without it     13,686 B   1.67x   ← what it was already
+      //
+      // So the overage is the STATION FILE's, not the surface's: five sixths of it predates this
+      // work. Flipping to `artifact` would leave a 13.7 KB station file over the same budget AND
+      // add 24,443 objects, which is strictly worse on both axes. The earlier 1.43x was a
+      // DRY-RUN figure taken before the projection carried `localPartyName` (§5.3's second
+      // exception) or two ballots per station, so it measured a smaller surface on the same
+      // over-budget file.
       budgetWaiver: {
-        objectCost: 24_596,
-        worstCaseOverBy: 1.43,
-        bytesSaved: 11_696 - 8 * 1024,
-        note: "24,596 objects to save 3.4 KB at 1.43x over; parliamentary/settlement bought 77x for 5,364",
+        objectCost: 24_443,
+        worstCaseOverBy: 1.91,
+        bytesSaved: 15_655 - 8 * 1024,
+        note: "24,443 objects to save 7.3 KB at 1.91x over — of which only 0.24x is the surface, the host station file is already 1.67x; parliamentary/settlement bought 77x for 5,364",
       },
     },
   },

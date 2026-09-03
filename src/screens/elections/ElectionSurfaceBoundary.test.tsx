@@ -242,7 +242,7 @@ describe("a canonical level renders through the shell, not the fallback", () => 
         level="country"
         cycle="2026_04_19"
         id="BG"
-        canonicalSurface={parliamentaryCountry}
+        providedSurface={parliamentaryCountry}
         fallback={<p data-testid="legacy">legacy</p>}
       >
         {(s) => <p data-testid="shell">{s.place.level}</p>}

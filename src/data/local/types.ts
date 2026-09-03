@@ -1,3 +1,4 @@
+import type { ElectionSurfaceV1 } from "@/data/elections/surfaceTypes";
 // Front-end mirror of scripts/parsers_local/types.ts.
 //
 // Kept duplicated rather than imported so the SPA bundle doesn't pull in
@@ -184,6 +185,14 @@ export type LocalSectionDetail = {
     primaryCanonicalId: string | null;
     color: string;
   }[];
+  /** The shared result surface, EMBEDDED rather than fetched (§5.0).
+   *
+   *  ⚠ A LOCAL POLLING STATION IS THE ONE LEVEL §5.0 SERVES THIS WAY. Its own file is 6.1 KB
+   *  against an 8 KiB budget, so a second artifact would be a second fetch of the same bytes —
+   *  and there are 24,443 of them across the two cycles, which is exactly the object count §5.0
+   *  refuses to spend. Optional because a station file written before the generator gained this
+   *  key has none, and the boundary falls back for those rather than rendering an empty shell. */
+  surface?: ElectionSurfaceV1;
 };
 
 // === Officials-vs-CIK reconciliation =====================================

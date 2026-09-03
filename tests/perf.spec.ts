@@ -261,6 +261,42 @@ test.describe("performance", () => {
     }
   });
 
+  // ⚠ THE SAME SHAPE, ON THE ROUTE THE ELECTIONS PLAN MAKES CANONICAL FOR IT (§10.1: "after
+  // Phase 6 the section page is the repo's canonical chart-free, map-free route… add the
+  // section route to that gate, or the rule is an intention with no enforcement").
+  //
+  // The rule it enforces is not this file's alone: §6 gives a single polling station NO map —
+  // its descriptor declares `maps: []`, because one station has no geography to answer a
+  // question about — and `src/entryGraph.test.ts` plus the shell's own vendor-chunk gate forbid
+  // Leaflet/d3/recharts reaching `ElectionResultsShell`. Those two check the SOURCE; this
+  // checks what a browser actually downloads, which is the half that would survive a lazy
+  // import quietly being rendered.
+  //
+  // Measured 2026-09-03 on the migrated page: 36 asset requests, none of them heavy.
+  test("the section route downloads none of the heavy chunks either", async ({
+    page,
+  }) => {
+    const requested = await requestsFor(page, "/section/010100001");
+    // Positive anchor, for the reason the test above states: every assertion below is an
+    // absence, and a route that 404s or never boots satisfies all of them.
+    expect(
+      requested.find((u) => u.includes("SectionScreen-")),
+      `the route chunk was never requested — the page did not render, so the ` +
+        `absence assertions below would pass vacuously:\n${requested.join("\n")}`,
+    ).toBeTruthy();
+    for (const banned of [
+      ...HEAVY_VENDOR_CHUNKS,
+      ...HEAVY_APP_CHUNKS,
+      "vendor-geo",
+    ]) {
+      expect(
+        requested.find((u) => u.includes(banned)),
+        `downloaded ${banned} on the polling-section route, which draws neither a chart nor a ` +
+          `map:\n${requested.filter((u) => u.includes("/assets/")).join("\n")}`,
+      ).toBeUndefined();
+    }
+  });
+
   // Exactly one locale bundle may be fetched. Two means the runtime hint and
   // detectLanguage() disagree — the cohort bug T4's review caught, where a
   // visitor downloads one language's corpus and then serially fetches the
@@ -924,6 +960,16 @@ test.describe("performance", () => {
       path: "/en/articles/2026-05-04-mp-connections",
       label: "article — mp-connections",
     },
+    // ⚠ BOTH SECTION VARIANTS (§10.1). They are exactly the shape this block is for — a
+    // multi-card page whose figures arrive per card — and Phase 6 rebuilt their composition
+    // around the shared shell, which reserves its own space through `ElectionSurfaceSkeleton`.
+    // The parliamentary one draws no map at all, so a shift here would come from the strip or
+    // the ranked table arriving late rather than from geography.
+    { path: "/section/010100001", label: "polling section — parliamentary" },
+    {
+      path: "/local/2023_10_29_mi/PAZ19/section/131900001",
+      label: "polling section — local",
+    },
   ];
 
   for (const { path, label } of CLS_ROUTES) {
@@ -975,6 +1021,16 @@ test.describe("performance", () => {
     {
       path: "/en/articles/2026-05-04-mp-connections",
       label: "article — mp-connections",
+    },
+    // ⚠ BOTH SECTION VARIANTS (§10.1). They are exactly the shape this block is for — a
+    // multi-card page whose figures arrive per card — and Phase 6 rebuilt their composition
+    // around the shared shell, which reserves its own space through `ElectionSurfaceSkeleton`.
+    // The parliamentary one draws no map at all, so a shift here would come from the strip or
+    // the ranked table arriving late rather than from geography.
+    { path: "/section/010100001", label: "polling section — parliamentary" },
+    {
+      path: "/local/2023_10_29_mi/PAZ19/section/131900001",
+      label: "polling section — local",
     },
   ];
 
