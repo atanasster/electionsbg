@@ -457,20 +457,30 @@ test.describe("performance", () => {
   // one restated: `/` is the most-visited route in the site and 807f3c583e made
   // it a hub-of-hubs that "deliberately renders no map, no result chart and no
   // duplicate of any destination's dashboard" (HomeDashboardScreen's header).
-  // Nothing enforced that. A map component added to a home tile — the single
-  // most natural edit anyone will make to that screen — pulls Leaflet + d3-geo
-  // back onto the entry route's critical path, and every gate above stays green
-  // because each is of the form "chunk X is absent from list Y" and X would be
-  // arriving, not leaving. The brotli budgets do not see it either: these load
-  // in PARALLEL as mapDeps, so they cost bytes and a connection rather than a
-  // waterfall, and no single-file ceiling moves.
+  // Nothing enforced that. A map or a chart added to a home tile — the single
+  // most natural edit anyone will make to that screen — pulls Leaflet, d3-geo or
+  // recharts back onto the entry route's critical path, and every gate above
+  // stays green because each is of the form "chunk X is absent from list Y" and
+  // X would be arriving, not leaving. The brotli budgets do not see it either:
+  // these load in PARALLEL as mapDeps, so they cost bytes and a connection
+  // rather than a waterfall, and no single-file ceiling moves.
+  //
+  // The banned set is all three vendors the header disclaims, map side AND
+  // chart side. `vendor-charts` is the one that could be argued either way —
+  // it is not a map, and a home tile wanting a chart is a plausible future — so
+  // state the decision rather than leave it to be inferred from an omission:
+  // the home scenes are hand-authored SVG (`homeScenes.tsx`) precisely so the
+  // root pays for no charting runtime, and a tile that needs recharts should
+  // take its own lazy boundary rather than put ~115 KB brotli in front of every
+  // first-time visitor. Widening this list is how that decision gets reversed
+  // by accident.
   //
   // ⚠️ NOT VACUOUS BY CONSTRUCTION, and it would be trivially satisfied twice
   // over if it were written as a bare absence: once if the chunk is renamed and
   // the regex stops matching (hence asserting the list was FOUND), and once if
   // the list is somehow parsed empty (hence the positive vendor-react anchor —
   // every route chunk has it, so an empty or mis-indexed list cannot pass).
-  test("home chunk stays map-free — no eager map on `/`", () => {
+  test("home chunk stays map- and chart-free — nothing heavy on `/`", () => {
     const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
     const code = fs.readFileSync(
       `${DIST_DIR}/assets/${entryChunk(html)}`,
@@ -480,12 +490,12 @@ test.describe("performance", () => {
     expect(deps, "home dynamic import not found in entry").toBeTruthy();
     expect(
       deps!.find((d) => d?.includes("vendor-react")),
-      `home mapDeps parsed but holds no vendor-react — the list is wrong, not map-free: ${deps!.join(", ")}`,
+      `home mapDeps parsed but holds no vendor-react — the list is wrong, not clean: ${deps!.join(", ")}`,
     ).toBeTruthy();
-    for (const banned of ["vendor-leaflet", "vendor-geo"]) {
+    for (const banned of ["vendor-leaflet", "vendor-geo", "vendor-charts"]) {
       expect(
         deps!.find((d) => d?.includes(banned)),
-        `${banned} entered the home chunk's mapDeps — the root route draws a map again, or a home tile imports one. If that is intended, put the map behind its own lazy boundary rather than widening this gate.`,
+        `${banned} entered the home chunk's mapDeps — the root route draws a map or a chart again, or a home tile imports one. If that is intended, put it behind its own lazy boundary rather than widening this gate.`,
       ).toBeUndefined();
     }
   });
