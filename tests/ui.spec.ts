@@ -575,6 +575,16 @@ const HUB_HEAD_BUDGETS: {
   // in the note before trimming the basis captions — they are what keep four percentages
   // from four datasets from reading as one scale.
   { path: "/", maxPx: 520, measured: 455, cells: 4 },
+  // The cross-kind ELECTIONS entry. Identity + deck + a scope row + a full HubSearch + a
+  // 4-cell band, and no evidence aside — so it sits with /funds rather than with /governance:
+  // its search slot is a card, not an input line.
+  //
+  // ⚠ `cells: 4` IS THE HALF THAT MATTERS, and on this head more than most. Its last two cells
+  // are WITHHELD rather than zeroed when a protocol cannot be read, so a band that lost them
+  // would be a 2-cell head comfortably INSIDE any ceiling — the exact blind spot this field was
+  // invented for. If it trips at 4, check whether a cycle stopped resolving before trimming
+  // anything.
+  { path: "/elections", maxPx: 580, measured: 513, cells: 4 },
   // Eyebrow + h1 + deck + a one-line search + a 4-cell band + the evidence aside.
   { path: "/governance", maxPx: 500, measured: 430, cells: 4 },
   // The same, plus a scope control.

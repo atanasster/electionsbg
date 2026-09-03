@@ -931,6 +931,7 @@ describe("a hub's og capture anchors on its head", () => {
    *  So the map is explicit and the clauses below make it impossible to leave stale. */
   const HUB_CAPTURES: Record<string, string> = {
     home: "src/screens/HomeDashboardScreen.tsx",
+    elections: "src/screens/elections/ElectionsHubScreen.tsx",
     parliament: "src/screens/ParliamentHubScreen.tsx",
     procurement: "src/screens/ProcurementScreen.tsx",
     governance: "src/screens/GovernanceScreen.tsx",

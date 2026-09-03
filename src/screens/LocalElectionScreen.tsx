@@ -1581,6 +1581,7 @@ export const LocalRaceScreen: FC<{ race: "mayor" | "council" }> = ({
 // === Country overview ===================================================
 
 const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
+  const { t } = useTranslation();
   return (
     <section className="my-4 space-y-6">
       {/* Header stays eyebrow + title + switcher only, matching the
@@ -1595,6 +1596,16 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
         cycle={cycle}
         eyebrowSuffix={friendlyCycleDate(cycle)}
       />
+      {/* ⚠ REACHABILITY MUST NOT DEPEND ON THE SITEMAP (Phase 3 item 6). `/elections` is the
+          cross-kind entry and this is the local half of it — without a link from here, the only
+          in-app routes to it are the header menu and the global home's tile, and a crawler that
+          lands on a local result from search has none. One line, in the reader's own direction:
+          the other electoral system. */}
+      <p className="text-sm">
+        <Link to="/elections" className="underline">
+          {t("elections_hub_title")}
+        </Link>
+      </p>
       <LocalCountryDashboardCards cycle={cycle} />
     </section>
   );

@@ -69,11 +69,11 @@ export const HOME_BANDS: HomeBand[] = [
         id: "elections",
         titleKey: "home_tile_elections",
         descKey: "home_tile_elections_desc",
-        // ⚠️ `/parliamentary`, not `/elections` — the latter is not a route in this plan
-        // and belongs to the cross-kind elections hub. When that hub ships, this line and
-        // the tile's label key move together, and the destination gate below is what stops
-        // the repoint landing before the route exists.
-        to: "/parliamentary",
+        // ⚠️ REPOINTED TO `/elections` (Phase 3). It read `/parliamentary` while the
+        // cross-kind hub was unbuilt, with this comment predicting the move; the destination
+        // gate in `homeHubBands.test.ts` is what held the repoint until the route existed.
+        // The label key does NOT move with it — „Избори" was already the cross-kind word.
+        to: "/elections",
         accent: TILE_ACCENTS.indigo,
         dropParams: NO_SCOPE,
       },

@@ -137,6 +137,22 @@ const captures: Capture[] = [
     leftAlign: true,
     settleMs: 2500,
   },
+  // The cross-kind ELECTIONS entry. A HubHead page, so it is in `HUB_CAPTURES` in
+  // ogAndSitemapCoverage.test.ts and its card must frame `[data-hub-head]`.
+  //
+  // ⚠ `waitFor` IS A KPI CELL, NOT THE HEAD. The head renders at mount; a card shot against it
+  // is a screenshot of a skeleton, which the capture reports as a success like any other
+  // 1200×630 clip. This band reads two bundled JSON catalogues rather than a fetch, so the
+  // cells arrive in the first frame — but anchoring on them costs nothing and is what stops a
+  // future fetch-backed cell turning this into an empty card silently.
+  {
+    slug: "elections",
+    routePath: "elections",
+    waitFor: "[data-hub-head] [data-kpi-cell]",
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
   // The global home. A HubHead page, so it is in `HUB_CAPTURES` in
   // ogAndSitemapCoverage.test.ts and its card must frame `[data-hub-head]` — which also
   // keeps the four-column tile grid below the crop, where a 1200px clip at the shared 1280

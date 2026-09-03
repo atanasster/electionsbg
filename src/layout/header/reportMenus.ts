@@ -1,13 +1,12 @@
 // Header dropdowns match the three-dashboard architecture (Elections home,
 // Local-elections home, Governance home):
 //
-//   electionsMenu   — risk analysis, comparisons, polls, simulator, the
-//                     election-cycle financing dossier, plus the anomaly
-//                     reports (municipalities / settlements / sections)
-//                     since they're all scoped to individual elections.
-//   localMenu       — the parallel municipal-elections tree: mayor/council
-//                     leaderboards, the município lists, extraordinary
-//                     elections and the officials-vs-ЦИК reconciliation.
+//   electionsMenu   — BOTH electoral systems, merged: the parliamentary country
+//                     result and its analyses/reports hubs, the local
+//                     mayor/council leaderboards and município lists, and the
+//                     extraordinary elections plus the officials-vs-ЦИК
+//                     reconciliation. Four groups, reading the same heading keys
+//                     as the `/elections` hub's bands.
 //   governanceMenu  — budget & spending, parliament, MP declarations,
 //                     indicators & context; the long-running pillars that
 //                     span parliament terms.
@@ -58,49 +57,77 @@ export type MenuItem = {
   columns?: number;
 };
 
-export const electionsMenu: MenuItem[] = [
-  {
-    title: "nav_elections",
-    link: "/parliamentary",
-    // The two hubs ARE the elections navigation now — the analyses hub fronts
-    // risk / Benford / wasted votes / loyalty / comparison + the simulator,
-    // polls and financing dossiers; the reports hub fronts the anomaly-report
-    // matrix. The old per-analysis / per-report leaf lists lived here before and
-    // now live inside the hubs (depth in the hubs, not the dropdown).
-    subMenu: [
-      { title: "menu_overview", link: "/parliamentary", mobileOnly: true },
-      { title: "analysis_hub_nav", link: "/parliamentary/analysis" },
-      { title: "reports_hub_nav", link: "/parliamentary/reports" },
-    ],
-  },
-];
-
 // Top-nav links pin the latest regular cycle; once on a local page the date
 // selector lets the visitor switch to an earlier cycle.
 const c = LATEST_LOCAL_CYCLE;
 
-export const localMenu: MenuItem[] = [
+// ⚠ ONE ELECTIONS MENU, MERGED FROM TWO (Phase 3 item 6). „Избори" and „Местни избори" were
+// separate top-level items, which put the two halves of one subject in two dropdowns and made
+// the reader decide which system their question belonged to before they could ask it. The
+// groups here are the same four the `/elections` hub's bands use, and they read the SAME
+// heading keys, so the menu and the hub cannot disagree about what the sections are.
+//
+// Two things this merge DECIDES rather than leaves to omission:
+//
+//   • THE ROOT LEAF IS GONE and stays gone. `/` is the global home, reached through the logo;
+//     a menu entry labelled „Избори" that opens it is a link to the wrong page that navigates
+//     perfectly. `electionsMenu.test.ts` holds it.
+//   • `/governance/mayor-pay` STAYS, beside the mayor results. It is a GOVERNANCE leaf and it
+//     is here on purpose: a reader looking at who won a mayoralty is one click from what that
+//     office pays, and `reportMenus.test.ts` pins the adjacency. Absorbing it would be the
+//     accident; keeping it deliberately is not — it remains canonical under Governance, which
+//     is where its own `mp_page_title` entry lives.
+export const electionsMenu: MenuItem[] = [
   {
-    title: "nav_local",
-    link: `/local/${c}`,
+    title: "nav_elections",
+    link: "/elections",
     subMenu: [
-      { title: "menu_overview", link: `/local/${c}`, mobileOnly: true },
+      { title: "menu_overview", link: "/elections", mobileOnly: true },
       {
-        title: "local_menu_group_results",
+        title: "elections_band_results",
         group: true,
         subMenu: [
+          { title: "elections_tile_parliamentary", link: "/parliamentary" },
+          { title: "elections_tile_local", link: `/local/${c}` },
           {
             title: "local_leaderboard_mayors_by_party",
             link: `/local/${c}/mayors-by-party`,
           },
-          {
-            title: "mp_local_menu_title",
-            link: "/governance/mayor-pay",
-          },
+          { title: "mp_local_menu_title", link: "/governance/mayor-pay" },
           {
             title: "local_leaderboard_council_votes",
             link: `/local/${c}/council-votes`,
           },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "elections_band_places",
+        group: true,
+        subMenu: [
+          {
+            title: "local_national_municipalities",
+            link: `/local/${c}/municipalities`,
+          },
+          { title: "local_all_regions", link: `/local/${c}/regions` },
+          { title: "local_national_runoffs", link: `/local/${c}/runoffs` },
+          {
+            title: "local_national_split_control",
+            link: `/local/${c}/split-control`,
+          },
+          {
+            title: "local_national_independents",
+            link: `/local/${c}/independents`,
+          },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "elections_band_analysis",
+        group: true,
+        subMenu: [
+          { title: "analysis_hub_nav", link: "/parliamentary/analysis" },
+          { title: "reports_hub_nav", link: "/parliamentary/reports" },
           {
             title: "local_leaderboard_strongest_mandates",
             link: `/local/${c}/strongest-mandates`,
@@ -114,28 +141,13 @@ export const localMenu: MenuItem[] = [
       },
       { title: "-" },
       {
-        title: "local_menu_group_places",
+        title: "elections_band_partial",
         group: true,
         subMenu: [
-          {
-            title: "local_national_municipalities",
-            link: `/local/${c}/municipalities`,
-          },
-          { title: "local_national_runoffs", link: `/local/${c}/runoffs` },
-          {
-            title: "local_national_split_control",
-            link: `/local/${c}/split-control`,
-          },
-          {
-            title: "local_national_independents",
-            link: `/local/${c}/independents`,
-          },
-          { title: "local_all_regions", link: `/local/${c}/regions` },
+          { title: "chmi_feed_title", link: "/local/chmi" },
+          { title: "sverka_title", link: "/sverka" },
         ],
       },
-      { title: "-" },
-      { title: "chmi_feed_title", link: "/local/chmi" },
-      { title: "sverka_title", link: "/sverka" },
     ],
   },
 ];

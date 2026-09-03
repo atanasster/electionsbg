@@ -110,6 +110,7 @@ import {
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 import { escapeHtml } from "./html";
+import { LATEST_LOCAL_CYCLE } from "../../src/data/local/useLatestLocalCycle";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -594,7 +595,7 @@ const HOME_DESTINATIONS: {
     path: "consumption",
   },
   { bg: "Моята община", en: "My municipality", path: "my-area" },
-  { bg: "Избори", en: "Elections", path: "parliamentary" },
+  { bg: "Избори", en: "Elections", path: "elections" },
   {
     bg: "Държавни сектори",
     en: "Government sectors",
@@ -695,6 +696,131 @@ type StaticPageOpts = {
     canonicalUrl?: string;
     extraJsonLd?: object[];
   };
+};
+
+// The `/elections` crawlable body — the four sections and every destination behind them.
+//
+// ⚠ IT CANNOT IMPORT `electionsRegistry.ts`, which pulls the React infographic barrel in for
+// `TILE_ACCENTS`. Same Node/browser boundary `HOME_DESTINATIONS` sits on, and the same
+// consequence: the two lists are compared TEXTUALLY by a gate rather than derived from one
+// another. Order included — the sections are the page's table of contents.
+const ELECTIONS_HUB_SECTIONS: {
+  bg: string;
+  en: string;
+  links: { bg: string; en: string; path: string }[];
+}[] = [
+  {
+    bg: "Национални резултати",
+    en: "National results",
+    links: [
+      {
+        bg: "Парламентарни избори",
+        en: "Parliamentary elections",
+        path: "parliamentary",
+      },
+      {
+        bg: "Местни избори",
+        en: "Local elections",
+        path: `local/${LATEST_LOCAL_CYCLE}`,
+      },
+      {
+        bg: "Избрани кметове по партии",
+        en: "Elected mayors by party",
+        path: `local/${LATEST_LOCAL_CYCLE}/mayors-by-party`,
+      },
+      {
+        bg: "Гласове за общински съветници по партии",
+        en: "Council votes by party",
+        path: `local/${LATEST_LOCAL_CYCLE}/council-votes`,
+      },
+    ],
+  },
+  {
+    bg: "По места",
+    en: "By place",
+    links: [
+      {
+        bg: "Общини с данни",
+        en: "Municipalities with data",
+        path: `local/${LATEST_LOCAL_CYCLE}/municipalities`,
+      },
+      {
+        bg: "Всички области",
+        en: "All regions",
+        path: `local/${LATEST_LOCAL_CYCLE}/regions`,
+      },
+      {
+        bg: "Общини с балотаж",
+        en: "Municipalities with runoff",
+        path: `local/${LATEST_LOCAL_CYCLE}/runoffs`,
+      },
+      {
+        bg: "Общини с разделено управление",
+        en: "Split-control municipalities",
+        path: `local/${LATEST_LOCAL_CYCLE}/split-control`,
+      },
+    ],
+  },
+  {
+    bg: "Анализи и проверки",
+    en: "Analysis and review",
+    links: [
+      { bg: "Анализи", en: "Analyses", path: "parliamentary/analysis" },
+      { bg: "Доклади", en: "Reports", path: "parliamentary/reports" },
+      {
+        bg: "Най-силни мандати",
+        en: "Strongest mandates",
+        path: `local/${LATEST_LOCAL_CYCLE}/strongest-mandates`,
+      },
+      {
+        bg: "Най-оспорвани избори",
+        en: "Closest races",
+        path: `local/${LATEST_LOCAL_CYCLE}/closest-races`,
+      },
+    ],
+  },
+  {
+    bg: "Частични избори и администрация",
+    en: "Partial elections and administration",
+    links: [
+      {
+        bg: "Извънредни местни избори",
+        en: "Extraordinary local elections",
+        path: "local/chmi",
+      },
+      {
+        bg: "Сверка избрани · действащи",
+        en: "Elected vs sitting officials",
+        path: "sverka",
+      },
+      {
+        bg: "Независими кметове",
+        en: "Independent mayors",
+        path: `local/${LATEST_LOCAL_CYCLE}/independents`,
+      },
+      {
+        bg: "Промяна в съветите",
+        en: "Council swing",
+        path: `local/${LATEST_LOCAL_CYCLE}/swing`,
+      },
+    ],
+  },
+];
+
+const electionsHubBody = (lang: "bg" | "en"): string => {
+  const prefix = lang === "en" ? "/en" : "";
+  const sections = ELECTIONS_HUB_SECTIONS.map(
+    (s) =>
+      `<h2>${lang === "bg" ? s.bg : s.en}</h2><ul>${s.links
+        .map(
+          (l) =>
+            `<li><a href="${SITE_URL}${prefix}/${l.path}">${lang === "bg" ? l.bg : l.en}</a></li>`,
+        )
+        .join("")}</ul>`,
+  ).join("");
+  return lang === "bg"
+    ? `<h1>Избори в България</h1><p>Двете изборни системи на едно място: парламентарният вот от 2005 г. насам и местните избори за кметове и общински съвети в 265 общини, плюс частичните избори между редовните цикли. Резултатите слизат до отделната избирателна секция.</p>${sections}`
+    : `<h1>Elections in Bulgaria</h1><p>Both electoral systems in one place: the parliamentary vote since 2005 and local elections for mayors and municipal councils across 265 municipalities, plus the partial elections between regular cycles. Results go down to the individual polling section.</p>${sections}`;
 };
 
 const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
@@ -1609,6 +1735,34 @@ export const prerenderRoutes: PrerenderRoute[] = [
   // The Dataset node is this page's ALONE now. It was briefly duplicated with the root's
   // while the cutover was pending; the root declares an ItemList instead, so the corpus is
   // declared to Google Dataset Search exactly once, from the page that renders it.
+  // ⚠ THE CROSS-KIND ENTRY, AND IT IS CANONICAL FOR ITSELF (§3.1). `/parliamentary` stays
+  // canonical for "Bulgarian parliamentary results" and each `/elections/<date>` for its own
+  // cycle; what this page owns is what neither can be — both electoral systems, the finder and
+  // the partial elections between the regular cycles. So it declares hreflang alternates (the
+  // suppression in `seoBlock.ts` applies only to a page pointing its canonical ELSEWHERE, which
+  // this one does not) and its copy is about the entry rather than about the latest cycle.
+  //
+  // ⚠ THE BODY IS THE ONLY PART A CRAWLER THAT RUNS NO JS EVER SEES, so it is a real one: the
+  // four sections, named, with a link per destination. No figures — the head's band is
+  // cycle-dependent and this HTML is written once at build time, so a number here would be the
+  // one thing on the page that could go stale without anything failing.
+  staticPage({
+    path: "elections",
+    ogImage: "/og/elections.png",
+    title: "Избори в България — парламентарни и местни | electionsbg.com",
+    description:
+      "Входна точка към всички избори в България: парламентарни резултати по секции от 2005 г., местни избори за кметове и общински съвети, частични избори и анализи.",
+    breadcrumbName: "Избори",
+    bodyHtml: electionsHubBody("bg"),
+    english: {
+      title:
+        "Elections in Bulgaria — parliamentary and local | electionsbg.com",
+      description:
+        "The entry point to every election in Bulgaria: parliamentary results by polling section since 2005, local elections for mayors and municipal councils, partial elections and analyses.",
+      breadcrumbName: "Elections",
+      bodyHtml: electionsHubBody("en"),
+    },
+  }),
   staticPage({
     path: "parliamentary",
     ogImage: "/og/parliamentary.png",

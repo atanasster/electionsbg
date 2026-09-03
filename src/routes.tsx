@@ -117,6 +117,12 @@ const GovernanceMayorPayScreen = lazy(() =>
   })),
 );
 
+const ElectionsHubScreen = lazy(() =>
+  import("@/screens/elections/ElectionsHubScreen").then((m) => ({
+    default: m.ElectionsHubScreen,
+  })),
+);
+
 const AnalysisHubScreen = lazy(() =>
   import("@/screens/analysis/AnalysisHubScreen").then((m) => ({
     default: m.AnalysisHubScreen,
@@ -4073,6 +4079,20 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <PollsAgencyScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The cross-kind entry to both electoral systems. ⚠ A STATIC SEGMENT, and React
+              Router v7 ranks one above `elections/:date` on its own — so declaring it here
+              rather than beside that route is belt-and-braces, not a constraint. What this
+              page owns is what neither `/parliamentary` nor `/elections/<date>` can be: both
+              systems, the finder, and the partial elections between the regular cycles
+              (§3.1). */}
+          <Route
+            path="elections"
+            element={
+              <LayoutScreen>
+                <ElectionsHubScreen />
               </LayoutScreen>
             }
           />

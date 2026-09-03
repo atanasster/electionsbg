@@ -54,13 +54,20 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
 
   // Election + party browsing
   {
-    // ⚠️ WAS `/elections`, WHICH IS NOT A ROUTE — only `elections/:date` is, so this entry
-    // pointed LLM crawlers at a URL that falls through to the SPA shell. `/parliamentary`
-    // is exactly the page the description names.
+    // ⚠️ THE ENTRY WAS REPOINTED HERE WHEN `/elections` WAS NOT A ROUTE — only `elections/:date`
+    // was, so it sent LLM crawlers at a URL that fell through to the SPA shell. The hub makes
+    // that URL real, and the file ends with TWO entries rather than a second repointing: this
+    // description names `/parliamentary` exactly, and the cross-kind entry is its own subject.
     url: "/parliamentary",
-    label: "Elections",
+    label: "Parliamentary elections",
     description:
       "every parliamentary vote from 2005 with national + regional drill-down",
+  },
+  {
+    url: "/elections",
+    label: "Elections",
+    description:
+      "the cross-kind entry to both electoral systems: parliamentary results by polling section, local elections for mayors and municipal councils, the partial elections between regular cycles, and a place finder",
   },
   {
     url: "/parties",

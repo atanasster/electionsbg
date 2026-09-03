@@ -20,6 +20,10 @@ const SECTOR_SLUGS = SECTOR_DASHBOARD_IDS.map((id) => `sector/${id}`);
 // produce a sitemap entry that resolves only via the SPA's runtime i18n.
 export const ENGLISH_STATIC_PAGES = [
   "", // home → /en/
+  // The cross-kind elections entry. ⚠ BOTH LISTS, and this one is not derived from the other:
+  // the EN list alone gets the mirror indexed and not the original — the live `/sofia/*` and
+  // `/consumption/*` class.
+  "elections",
   "parliamentary",
   "sofia",
   "sofia/parties",
@@ -228,6 +232,11 @@ export const routeDefs = (year: string): RouteDefs => [
   // ogAndSitemapCoverage's "every routed page is DECLARED" clause CANNOT SEE index
   // routes — routerCensus.ts:57 says so outright and predicts this exact case. So this
   // entry and the prerender one are hand-checked rather than gate-enforced.
+  // The cross-kind elections hub. `file:` is the corpus its band counts — the election
+  // catalogue itself — so `lastmod` moves when a cycle is added rather than when somebody
+  // touches the JSX. ⚠ A `file:` THAT DOES NOT EXIST SKIPS THE ENTRY SILENTLY, which is why
+  // this points at a committed source file rather than at anything under `data/<cycle>/`.
+  { path: "elections", file: "src/data/json/elections.json" },
   { path: "parliamentary", file: `data/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
   { path: "data", file: `src/screens/DataMapScreen.tsx` },

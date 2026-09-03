@@ -151,6 +151,14 @@ const HUB_SCREENS = [
   "src/screens/persons/PersonsBrowserScreen.tsx",
   "src/screens/dev/CompaniesBrowseDbScreen.tsx",
   "src/screens/ParliamentHubScreen.tsx",
+  // The cross-kind ELECTIONS entry. Both files, for the /budget reason: the screen carries the
+  // head's own copy and `electionsHubFigures.ts` carries the band, and a basis window can be
+  // typed in either. ⚠ Its last two cells are the one case in this list where the basis
+  // switches wording rather than merely naming a window — only the parliamentary catalogue
+  // carries a protocol, so on a LOCAL selection they fall back to the latest parliamentary
+  // cycle and the basis has to say so.
+  "src/screens/elections/ElectionsHubScreen.tsx",
+  "src/screens/elections/electionsHubFigures.ts",
   // Its band lives in `budgetHubFigures.ts` — extracted for the /funds reason, so the
   // plan-vs-forecast rule could be asserted rather than commented. Both files are listed:
   // the screen still carries the head's own copy, and a basis window can be typed in either.

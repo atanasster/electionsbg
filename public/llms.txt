@@ -19,7 +19,8 @@ Site language: primary Bulgarian, with full English UI translation. Every page i
 - [Home](https://electionsbg.com/): overview, latest election headline, dashboard tiles.
 - [About](https://electionsbg.com/about): methodology, data sources, team.
 - [Articles](https://electionsbg.com/articles): long-form analytical pieces; each article also available as raw Markdown at `/articles/{slug}-bg.md` and `/articles/{slug}-en.md`.
-- [Elections](https://electionsbg.com/parliamentary): every parliamentary vote from 2005 with national + regional drill-down.
+- [Parliamentary elections](https://electionsbg.com/parliamentary): every parliamentary vote from 2005 with national + regional drill-down.
+- [Elections](https://electionsbg.com/elections): the cross-kind entry to both electoral systems: parliamentary results by polling section, local elections for mayors and municipal councils, the partial elections between regular cycles, and a place finder.
 - [Parties](https://electionsbg.com/parties): full party list for the latest vote, votes / share / seats.
 - [Regions (28 MIR)](https://electionsbg.com/regions): results across the 28 multi-member districts.
 - [Sofia](https://electionsbg.com/sofia): Sofia-only view across MIR 23/24/25.

@@ -73,8 +73,11 @@ export const GOVERNANCE_PREFIXES = [
   "/observations",
 ];
 
-/** The parallel municipal-elections tree. */
-export const LOCAL_PREFIXES = ["/local", "/sverka"];
+// ⚠ THERE IS NO LOCAL WORLD ANY MORE (Phase 3 item 6). `/local/**` and `/sverka` used to be a
+// fourth top-level section with its own dropdown; the two election menus are now one, so those
+// paths fall through to the Elections negative default below — which is what tints the merged
+// menu when a reader is on a local result. Removing the constant rather than leaving it unused
+// is deliberate: a prefix list nothing reads is a rule that looks enforced and is not.
 
 // The Consumption (cost-of-living) world: the /consumption place tiers, one
 // product's page, plus the standalone /prices explorer, which is the same КЗП
@@ -107,7 +110,6 @@ export const isInSection = (pathname: string, prefixes: string[]): boolean =>
 export type HeaderSection = {
   inElections: boolean;
   inGovernance: boolean;
-  inLocal: boolean;
   inConsumption: boolean;
 };
 
@@ -127,16 +129,13 @@ export type HeaderSection = {
  */
 export const headerSection = (pathname: string): HeaderSection => {
   const inGovernance = isInSection(pathname, GOVERNANCE_PREFIXES);
-  const inLocal = isInSection(pathname, LOCAL_PREFIXES);
   const inConsumption = isInSection(pathname, CONSUMPTION_PREFIXES);
   return {
     inGovernance,
-    inLocal,
     inConsumption,
     inElections:
       !isInSection(pathname, NEUTRAL_PREFIXES) &&
       !inGovernance &&
-      !inLocal &&
       !inConsumption,
   };
 };

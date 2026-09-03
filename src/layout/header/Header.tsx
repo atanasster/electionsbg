@@ -36,7 +36,6 @@ import { Link } from "@/ux/Link";
 import {
   MenuItem,
   electionsMenu,
-  localMenu,
   governanceMenu,
   consumptionMenu,
 } from "./reportMenus";
@@ -108,7 +107,7 @@ export const Header = () => {
   const location = useLocation();
   // The rule lives in ./headerSection so the gate can execute it rather than
   // restate it — see that module's header for why the copy had to go.
-  const { inElections, inGovernance, inLocal, inConsumption } = headerSection(
+  const { inElections, inGovernance, inConsumption } = headerSection(
     location.pathname,
   );
 
@@ -383,13 +382,6 @@ export const Header = () => {
             active={inElections}
           />
         ))}
-        {localMenu.map((topMenu, idx) => (
-          <RenderTopMenu
-            key={`local-${topMenu.title}-${idx}`}
-            topMenu={topMenu}
-            active={inLocal}
-          />
-        ))}
         {governanceMenu.map((topMenu, idx) => (
           <RenderTopMenu
             key={`gov-${topMenu.title}-${idx}`}
@@ -438,13 +430,6 @@ export const Header = () => {
             {electionsMenu.map((main, idx) => (
               <RenderMenuItem
                 key={`m-elec-${main.title}-${idx}`}
-                item={main}
-                isMobile
-              />
-            ))}
-            {localMenu.map((main, idx) => (
-              <RenderMenuItem
-                key={`m-local-${main.title}-${idx}`}
                 item={main}
                 isMobile
               />

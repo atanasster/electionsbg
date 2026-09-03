@@ -118,6 +118,22 @@ const ROUTES: RouteCheck[] = [
     hasEnglishMirror: true,
   },
 
+  // The cross-kind ELECTIONS entry. ⚠ IT IS CANONICAL FOR ITSELF (§3.1) — `/parliamentary`
+  // below stays canonical for the parliamentary country result and each `/elections/<date>`
+  // for its own cycle, so this page declares hreflang alternates rather than suppressing them.
+  // `minBodyChars` is well above the ~560-char shared site-index nav, because the point of the
+  // body is that it lists four named sections and sixteen destinations for a crawler that runs
+  // no JS. Measured 1,184 chars in `dist/elections/index.html`, so the floor sits below it
+  // with room — and well above the ~560-char shared nav, which is what makes it able to fail.
+  {
+    path: "/elections",
+    titleIncludes: "Избори в България",
+    h1Includes: "Избори в България",
+    minBodyChars: 1000,
+    expectedCanonical: "/elections",
+    hasEnglishMirror: true,
+  },
+
   // The parliamentary country result, at the namespace index that used to be `/`.
   //
   // ⚠️ IT IS AN INDEX ROUTE, so `ogAndSitemapCoverage`'s "every routed page is DECLARED"

@@ -19,31 +19,53 @@ import { electionsMenu } from "./reportMenus";
 import {
   CONSUMPTION_PREFIXES,
   GOVERNANCE_PREFIXES,
-  LOCAL_PREFIXES,
   inElections,
   isInSection,
 } from "./headerSection";
 
-describe("electionsMenu", () => {
-  it("points at /parliamentary, not at the root", () => {
-    // `/` is the global home. A menu entry labelled „Избори" that opens it is a link to the
-    // wrong page that navigates perfectly.
-    expect(electionsMenu[0].link).toBe("/parliamentary");
-  });
+const flatten = (items: typeof electionsMenu): typeof electionsMenu =>
+  items.flatMap((i) => [i, ...flatten(i.subMenu ?? [])]);
 
-  it("its mobile-only overview leaf points there too", () => {
+describe("electionsMenu", () => {
+  it("points at /elections — the cross-kind entry, not one system's result", () => {
+    // ⚠ IT USED TO POINT AT `/parliamentary`, correctly, because `/elections` was not a route.
+    // Phase 3 makes it one, and the top-level item is the ENTRY: `/parliamentary` is still
+    // canonical for the parliamentary country result and is the first leaf inside.
+    expect(electionsMenu[0].link).toBe("/elections");
     const overview = electionsMenu[0].subMenu?.find(
       (m) => m.title === "menu_overview",
     );
-    expect(overview?.link).toBe("/parliamentary");
+    expect(overview?.link).toBe("/elections");
   });
 
   it("no entry anywhere in the menu still links to the root", () => {
-    const links = [
-      electionsMenu[0].link,
-      ...(electionsMenu[0].subMenu ?? []).map((m) => m.link),
-    ];
-    expect(links.filter((l) => l === "/")).toEqual([]);
+    // `/` is the global home. A menu entry labelled „Избори" that opens it is a link to the
+    // wrong page that navigates perfectly.
+    expect(flatten(electionsMenu).filter((m) => m.link === "/")).toEqual([]);
+  });
+
+  it("carries BOTH systems, in the hub's own four sections", () => {
+    // ⚠ THE MERGE MUST NOT LOSE A DESTINATION. „Местни избори" was a separate top-level menu
+    // until Phase 3; every leaf it carried is reachable here, and the group headings are the
+    // `/elections` bands' own keys so the menu and the hub cannot disagree about the sections.
+    const links = new Set(flatten(electionsMenu).map((m) => m.link));
+    for (const l of [
+      "/parliamentary",
+      "/parliamentary/analysis",
+      "/parliamentary/reports",
+      "/local/chmi",
+      "/sverka",
+    ])
+      expect(links, l).toContain(l);
+    const groups = (electionsMenu[0].subMenu ?? [])
+      .filter((m) => m.group)
+      .map((m) => m.title);
+    expect(groups).toEqual([
+      "elections_band_results",
+      "elections_band_places",
+      "elections_band_analysis",
+      "elections_band_partial",
+    ]);
   });
 });
 
@@ -60,12 +82,12 @@ describe("the header's active-section rule", () => {
 
   it("treats the root and the header's own watchlist as neutral", () => {
     // Neutral is a THIRD answer, not an absence: Elections is the negative
-    // default, so a route merely left out of the three worlds is tinted
+    // default, so a route merely left out of the other worlds is tinted
     // Elections. /following is reachable from every page via the header, so it
     // belongs to whichever world the reader came from — asserting it here is
     // what stops it silently falling back into Избори.
     expect(inElections("/following")).toBe(false);
-    for (const p of [GOVERNANCE_PREFIXES, LOCAL_PREFIXES, CONSUMPTION_PREFIXES])
+    for (const p of [GOVERNANCE_PREFIXES, CONSUMPTION_PREFIXES])
       expect(isInSection("/following", p), p[0]).toBe(false);
   });
 
@@ -80,10 +102,17 @@ describe("the header's active-section rule", () => {
     // The negative default is what covers these without listing them; a positive prefix
     // list would silently de-highlight whichever it forgot.
     for (const p of [
+      "/elections",
       "/parliamentary",
       "/parliamentary/analysis",
       "/parliamentary/reports",
       "/elections/2026_04_19",
+      // ⚠ THE LOCAL TREE JOINS ELECTIONS with the menu merge (Phase 3 item 6). It was its own
+      // top-level world with its own dropdown; there is one Elections menu now, so a reader on
+      // a local result must see it tinted rather than nothing.
+      "/local/2023_10_29_mi",
+      "/local/chmi",
+      "/sverka",
       "/municipality/BLG",
       "/settlement/BLG03",
       "/sections/04279",
@@ -113,7 +142,6 @@ describe("the header's active-section rule", () => {
       "/court/rs-sofiya",
       "/budget",
       "/procurement",
-      "/local/2023_10_29_mi",
       "/consumption",
       "/product/kafe-1kg",
       "/prices",
