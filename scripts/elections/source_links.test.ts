@@ -337,3 +337,107 @@ describe("the second authority (§5)", () => {
     expect(p.endsWith(path.join("C", "officials_diff", "X.json"))).toBe(true);
   });
 });
+
+// ─── the two URL fields nobody fills and nobody reads (§Phase 6 item 7) ──────────────────────
+
+describe("`status.sourceUrl` / `status.downloadUrl` are RESERVED, and that is checked", () => {
+  // ⚠ THEY ARE DECLARED IN THE SCHEMA, SET BY NO PRODUCER, AND READ BY NO CONSUMER. Measured
+  // 2026-09-04 over 4,000 published artifacts and 2,000 embedded local sections: `sourceLabel`
+  // on 6,000 of 6,000, `sourceUrl` and `downloadUrl` on **zero**. That is the decorative-export
+  // shape this codebase keeps finding — `RENDERS_SURFACE` was declared "so a gate can enumerate
+  // the rule" and used by nothing while the boundary re-derived it — and the fix there was to
+  // make it load-bearing rather than to delete it.
+  //
+  // ⚠ THE DANGER IS NOT THE EMPTINESS, IT IS A PARTIAL FILL. An optional URL invites a UI to
+  // render „източник" only where it is present, which publishes „this level has no official
+  // source" for every level still empty — while `sourceLabel`, which IS on every surface, says
+  // otherwise. So the rule is all-or-nothing per (kind, level), and today it is nothing.
+  //
+  // This gate does not demand they stay empty forever. It demands that filling them be a
+  // DECISION: populate a whole (kind, level) at once and update this test, rather than letting
+  // one generator arm start emitting a URL that a renderer then treats as a verification badge.
+
+  const surfaceFiles = (limit: number): string[] => {
+    const out: string[] = [];
+    const walk = (dir: string) => {
+      if (out.length >= limit || !fs.existsSync(dir)) return;
+      for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (out.length >= limit) return;
+        const p = path.join(dir, e.name);
+        if (e.isDirectory()) walk(p);
+        else if (e.name.endsWith(".json")) out.push(p);
+      }
+    };
+    for (const cycle of fs.existsSync(DATA_ROOT)
+      ? fs.readdirSync(DATA_ROOT)
+      : [])
+      walk(path.join(DATA_ROOT, cycle, "surface"));
+    return out;
+  };
+
+  const files = surfaceFiles(1500);
+
+  it.runIf(files.length > 0)(
+    "no artifact carries either field — so no renderer can be reading one",
+    () => {
+      const filled = files.filter((f) => {
+        const st = (
+          JSON.parse(fs.readFileSync(f, "utf8")) as {
+            status?: { sourceUrl?: string; downloadUrl?: string };
+          }
+        ).status;
+        return st?.sourceUrl !== undefined || st?.downloadUrl !== undefined;
+      });
+      expect(
+        filled.slice(0, 3),
+        "a surface gained sourceUrl/downloadUrl — fill the whole (kind, level) and update this gate, " +
+          "or a UI will render the difference as 'this level has no official source'",
+      ).toEqual([]);
+    },
+  );
+
+  it.runIf(files.length > 0)(
+    "while `sourceLabel` IS on every one — the authority is never in doubt",
+    () => {
+      // ⚠ THE HALF THAT STOPS THE TEST ABOVE READING AS "surfaces carry no provenance". They
+      // carry the authority; what they do not carry is a URL to it. Without this arm an empty
+      // corpus, or one that lost `status` entirely, would satisfy the emptiness assertion.
+      const unlabelled = files.filter(
+        (f) =>
+          !(
+            JSON.parse(fs.readFileSync(f, "utf8")) as {
+              status?: { sourceLabel?: string };
+            }
+          ).status?.sourceLabel,
+      );
+      expect(unlabelled.slice(0, 3)).toEqual([]);
+    },
+  );
+
+  it("no consumer reads either field", () => {
+    // A source scan, because an unread field is invisible in the DOM: the page looks identical
+    // whether the renderer ignores it or the corpus never set it.
+    const roots = ["src/screens/elections", "src/data/elections"];
+    const offenders: string[] = [];
+    const walk = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+        const p = path.join(dir, e.name);
+        if (e.isDirectory()) walk(p);
+        else if (
+          /\.tsx?$/.test(e.name) &&
+          !p.includes("fixtures") &&
+          !p.endsWith("surfaceTypes.ts")
+        ) {
+          const src = stripComments(fs.readFileSync(p, "utf8"));
+          if (/\b(sourceUrl|downloadUrl)\b/.test(src)) offenders.push(p);
+        }
+      }
+    };
+    roots.forEach((r) => walk(path.join(process.cwd(), r)));
+    expect(
+      offenders,
+      "something now reads sourceUrl/downloadUrl — populate the field before rendering it",
+    ).toEqual([]);
+  });
+});
