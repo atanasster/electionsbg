@@ -20,6 +20,10 @@ import { SEO } from "@/ux/SEO";
 import { Link } from "@/ux/Link";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { SectionDashboardCards } from "./dashboard/SectionDashboardCards";
+import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
+import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 import { SectionRiskBadge } from "./components/riskScore/SectionRiskBadge";
 
 const AuditChip: FC<{
@@ -158,7 +162,31 @@ export const SectionScreen = () => {
         oblast={section?.oblast}
         extra={headerExtra}
         className="my-4"
+        scope={<ElectionScopeBar cycle={selected} status="final" />}
       />
+      {/* ⚠ NO MAP AND NO DIGEST HERE, and both are rules rather than omissions. The section
+          descriptor declares `maps: []` — one polling station has no geography to answer a
+          question about — so the canvas draws its ranked result alone; and `buildPlaceDigest`
+          refuses a section outright, because three of the four views do not resolve at this
+          level and a one-cell digest is chrome (§4.1, §Phase 6 items 3 and 5b).
+          `withMap={false}` on the skeleton for the same reason: reserving a 320px box that
+          nothing ever fills is the layout shift in the other direction. */}
+      <ElectionSurfaceBoundary
+        kind="parliamentary"
+        level="section"
+        cycle={selected}
+        id={sectionCode}
+        skeleton={<ElectionSurfaceSkeleton facts={4} withMap={false} />}
+        fallback={null}
+      >
+        {(s) => (
+          <ElectionResultsShell
+            surface={s}
+            scope="header"
+            currentView="parliamentary"
+          />
+        )}
+      </ElectionSurfaceBoundary>
       <SectionDashboardCards sectionCode={sectionCode} />
     </>
   );

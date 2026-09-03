@@ -8,14 +8,9 @@ import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { useProblemSections } from "@/data/reports/useProblemSections";
-import { PartyChangeCard } from "./cards/PartyChangeCard";
-import { TurnoutCard } from "./cards/TurnoutCard";
-import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
-import { PartyResultsTile } from "./PartyResultsTile";
-import { SectionsMapTile } from "./SectionsMapTile";
 import { TopSectionsTile } from "./TopSectionsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
@@ -54,6 +49,16 @@ type Props = {
   compact?: boolean;
 };
 
+/** The settlement page's deeper sections — everything BELOW the shared result surface.
+ *
+ *  ⚠ THE FOUR KPI CARDS AND THE STATIONS-MAP/PARTY PAIR LEFT, because the strip and canvas
+ *  state exactly those (§4 item 3). §Phase 6 item 1's "ranked result before the sections map on
+ *  mobile" is the canvas's own DOM order — ranked first, map placed left at `lg` by grid
+ *  placement rather than by `order` — so the rule is now held by one component instead of by
+ *  this file's column order.
+ *
+ *  ⚠ `compact` (My-Area) RENDERS THIS WITHOUT THE SHELL, which is why the section keeps its
+ *  `dashboard_section_votes_only` title: there is no outcome strip above it there. */
 export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
   const { t } = useTranslation();
   const { electionStats } = useElectionContext();
@@ -96,19 +101,6 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
       <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <PartyChangeCard variant="gainer" change={data.topGainer} />
-          <PartyChangeCard variant="loser" change={data.topLoser} />
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-          <PaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
-        </div>
-
         <DashboardSection
           id="votes"
           // On My-Area (compact) we render only the polling-sections map
@@ -123,10 +115,6 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
           )}
           icon={Gauge}
         >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-            <SectionsMapTile ekatte={ekatte} />
-            <PartyResultsTile parties={data.parties} basePath={basePath} />
-          </div>
           {electionStats?.hasPreferences ? (
             <TopCandidatesStrip
               parties={data.parties}

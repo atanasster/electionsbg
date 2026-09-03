@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -10,6 +11,17 @@ import { SEO } from "@/ux/SEO";
 import { placeResultsTitle } from "@/ux/seoTitle";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { SettlementDashboardCards } from "./dashboard/SettlementDashboardCards";
+import { useElectionContext } from "@/data/ElectionContext";
+import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { useElectionSurface } from "@/data/elections/useElectionSurface";
+import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
+import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
+import {
+  buildPlaceDigest,
+  localDigestFromSurface,
+} from "@/screens/elections/placeDigestFacts";
 
 export const SectionsScreen = () => {
   const { id: ekatte } = useParams();
@@ -18,6 +30,33 @@ export const SectionsScreen = () => {
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
   const { i18n } = useTranslation();
+  const { selected } = useElectionContext();
+  const localCycle = useLatestLocalCycle();
+  // ⚠ EVERY HOOK ABOVE THE EARLY RETURN — `if (!ekatte) return null` is below.
+  //
+  // ⚠ THE МЕСТНИ CELL READS THE LOCAL SETTLEMENT SURFACE, the same artifact the Местни tab
+  // renders (§Phase 5 item 4b, which binds every level that shows a digest). A settlement's
+  // local page carries its own кметство mayor where one was elected; a second resolver here is
+  // how a digest names one person and the tab another.
+  const local = useElectionSurface({
+    kind: "local",
+    level: "settlement",
+    cycle: localCycle,
+    id: ekatte,
+  });
+  const digest = useMemo(
+    () =>
+      buildPlaceDigest({
+        place: { level: "settlement", ekatte: ekatte ?? "" },
+        parliamentaryCycle: selected,
+        localCycle,
+        local: localDigestFromSurface(
+          local.status === "ready" ? local.surface : undefined,
+        ),
+        currentView: "parliamentary",
+      }),
+    [ekatte, selected, localCycle, local],
+  );
   if (!ekatte) return null;
   const lang = i18n.language === "bg" ? "bg" : "en";
   const info = findSettlement(ekatte);
@@ -70,7 +109,25 @@ export const SectionsScreen = () => {
         oblast={settlement?.oblast ?? info?.oblast}
         fallbackName={settlementName}
         className="my-4"
+        scope={<ElectionScopeBar cycle={selected} status="final" />}
       />
+      <ElectionSurfaceBoundary
+        kind="parliamentary"
+        level="settlement"
+        cycle={selected}
+        id={ekatte}
+        skeleton={<ElectionSurfaceSkeleton facts={4} />}
+        fallback={null}
+      >
+        {(s) => (
+          <ElectionResultsShell
+            surface={s}
+            scope="header"
+            currentView="parliamentary"
+            digest={digest}
+          />
+        )}
+      </ElectionSurfaceBoundary>
       <SettlementDashboardCards ekatte={ekatte} />
     </>
   );

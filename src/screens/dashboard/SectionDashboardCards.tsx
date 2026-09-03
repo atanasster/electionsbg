@@ -5,11 +5,7 @@ import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useSectionSummary } from "@/data/dashboard/useSectionSummary";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { useSectionStats } from "@/data/sections/useSectionStats";
-import { PartyChangeCard } from "./cards/PartyChangeCard";
-import { TurnoutCard } from "./cards/TurnoutCard";
-import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
-import { PartyResultsTile } from "./PartyResultsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SectionRiskTile } from "./SectionRiskTile";
@@ -34,6 +30,17 @@ type Props = {
   sectionCode: string;
 };
 
+/** One polling station's deeper sections — everything BELOW the shared result surface.
+ *
+ *  ⚠ THE FOUR KPI CARDS AND THE RANKED PARTY TILE LEFT (§4 item 3), and NO MAP left with them
+ *  because this page never had one: a single polling station has no geography to answer a
+ *  question about, its descriptor declares `maps: []`, and §Phase 6 item 3 makes that a rule
+ *  rather than an accident. The trends chart STAYS — a station's turnout and party history
+ *  across cycles is substantive, not decorative, and nothing in the plan asks for it to go.
+ *
+ *  ⚠ AND NO DIGEST ON THIS LEVEL (item 5b). Three of the four views do not resolve at a polling
+ *  station, so a one-cell digest is chrome — `buildPlaceDigest` refuses a section outright
+ *  rather than leaving the floor to do it arithmetically. */
 export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
   const { t } = useTranslation();
   const { data, isLoading } = useSectionSummary(sectionCode);
@@ -63,25 +70,11 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
       <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <PartyChangeCard variant="gainer" change={data.topGainer} />
-          <PartyChangeCard variant="loser" change={data.topLoser} />
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-          <PaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
-        </div>
-
         <DashboardSection
           id="votes"
           title={t("dashboard_section_votes")}
           icon={Gauge}
         >
-          <PartyResultsTile parties={data.parties} basePath={basePath} />
           <HistoricalTrendsTile stats={stats} />
         </DashboardSection>
 
