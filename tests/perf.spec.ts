@@ -118,6 +118,26 @@ const catchAllVendorChunk = (): string | undefined =>
         /^vendor-[A-Za-z0-9_-]+\.js$/.test(f) && !/^vendor-[a-z]+-/.test(f),
     );
 
+// The chunks Vite preloads in PARALLEL with a lazy route's own chunk, read out
+// of the entry's `__vite__mapDeps` table. `undefined` when the route does not
+// dynamic-import that chunk at all.
+//
+// ⚠️ The `"./` anchor is load-bearing, and it is the whole reason this lives in
+// one place. Unanchored, `DashboardScreen-<hash>.js` also matches the TAIL of
+// `HomeDashboardScreen-<hash>.js` — which routes.tsx declares first and Vite
+// therefore emits first, so `.match()` silently returns the WRONG route's dep
+// list. That cost a red gate on an intact property once already; every
+// `*DashboardScreen`-shaped pair of route names re-arms it.
+const mapDepsOf = (code: string, chunk: string): string[] | undefined => {
+  const table = [...code.matchAll(/"(assets\/[^"]+)"/g)].map((m) => m[1]);
+  const call = code.match(
+    new RegExp(
+      `"\\./${chunk}-[A-Za-z0-9_-]+\\.js"\\),__vite__mapDeps\\(\\[([0-9,]+)\\]\\)`,
+    ),
+  );
+  return call?.[1].split(",").map((i) => table[Number(i)]);
+};
+
 // Requests issued while loading a path. `networkidle` is a floor, not a
 // ceiling: it cannot resolve before the entry → route-chunk → locale-bundle
 // chain (there is no idle gap in it), but a chunk imported from a timer or a
@@ -411,23 +431,15 @@ test.describe("performance", () => {
   // and is still the screen that mounts a Leaflet map eagerly, so this is where
   // the waterfall would reappear.
   //
-  // ⚠️ The `./` anchor is load-bearing. Without it the pattern also matches the
-  // tail of `HomeDashboardScreen-<hash>.js`, which is emitted FIRST (routes.tsx
-  // declares it first) — so the unanchored form silently measured the map-free
-  // home chunk instead, found no vendor-geo, and failed while the property it
-  // guards was intact. Any future `*DashboardScreen` route re-arms that trap.
+  // See `mapDepsOf` for the anchor trap this pair of route names sets.
   test("country-result chunk preloads its map/chart deps in parallel", () => {
     const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
     const code = fs.readFileSync(
       `${DIST_DIR}/assets/${entryChunk(html)}`,
       "utf8",
     );
-    const table = [...code.matchAll(/"(assets\/[^"]+)"/g)].map((m) => m[1]);
-    const call = code.match(
-      /"\.\/DashboardScreen-[A-Za-z0-9_-]+\.js"\),__vite__mapDeps\(\[([0-9,]+)\]\)/,
-    );
-    expect(call, "dashboard dynamic import not found in entry").toBeTruthy();
-    const deps = call![1].split(",").map((i) => table[Number(i)]);
+    const deps = mapDepsOf(code, "DashboardScreen");
+    expect(deps, "dashboard dynamic import not found in entry").toBeTruthy();
     // vendor-charts left this list in T3.5, and that is the win rather than a
     // regression: d3-geo was the dashboard's only path into the recharts
     // subgraph, so splitting vendor-geo out took ~115 KB brotli off the route.
@@ -435,9 +447,46 @@ test.describe("performance", () => {
     // waterfall.
     for (const need of ["vendor-leaflet", "vendor-geo"]) {
       expect(
-        deps.find((d) => d?.includes(need)),
+        deps!.find((d) => d?.includes(need)),
         `${need} dropped from the dashboard's mapDeps — /parliamentary now waterfalls`,
       ).toBeTruthy();
+    }
+  });
+
+  // The inverse, and the reason it is a SEPARATE property rather than the same
+  // one restated: `/` is the most-visited route in the site and 807f3c583e made
+  // it a hub-of-hubs that "deliberately renders no map, no result chart and no
+  // duplicate of any destination's dashboard" (HomeDashboardScreen's header).
+  // Nothing enforced that. A map component added to a home tile — the single
+  // most natural edit anyone will make to that screen — pulls Leaflet + d3-geo
+  // back onto the entry route's critical path, and every gate above stays green
+  // because each is of the form "chunk X is absent from list Y" and X would be
+  // arriving, not leaving. The brotli budgets do not see it either: these load
+  // in PARALLEL as mapDeps, so they cost bytes and a connection rather than a
+  // waterfall, and no single-file ceiling moves.
+  //
+  // ⚠️ NOT VACUOUS BY CONSTRUCTION, and it would be trivially satisfied twice
+  // over if it were written as a bare absence: once if the chunk is renamed and
+  // the regex stops matching (hence asserting the list was FOUND), and once if
+  // the list is somehow parsed empty (hence the positive vendor-react anchor —
+  // every route chunk has it, so an empty or mis-indexed list cannot pass).
+  test("home chunk stays map-free — no eager map on `/`", () => {
+    const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
+    const code = fs.readFileSync(
+      `${DIST_DIR}/assets/${entryChunk(html)}`,
+      "utf8",
+    );
+    const deps = mapDepsOf(code, "HomeDashboardScreen");
+    expect(deps, "home dynamic import not found in entry").toBeTruthy();
+    expect(
+      deps!.find((d) => d?.includes("vendor-react")),
+      `home mapDeps parsed but holds no vendor-react — the list is wrong, not map-free: ${deps!.join(", ")}`,
+    ).toBeTruthy();
+    for (const banned of ["vendor-leaflet", "vendor-geo"]) {
+      expect(
+        deps!.find((d) => d?.includes(banned)),
+        `${banned} entered the home chunk's mapDeps — the root route draws a map again, or a home tile imports one. If that is intended, put the map behind its own lazy boundary rather than widening this gate.`,
+      ).toBeUndefined();
     }
   });
 
