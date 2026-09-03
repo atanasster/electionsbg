@@ -8,24 +8,13 @@ import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes
 import { useMunicipalityStats } from "@/data/municipalities/useMunicipalityStats";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { useProblemSections } from "@/data/reports/useProblemSections";
-import { PartyChangeCard } from "./cards/PartyChangeCard";
-import { TurnoutCard } from "./cards/TurnoutCard";
-import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
-import { PartyResultsTile } from "./PartyResultsTile";
-import { MunicipalitySettlementsMapTile } from "./MunicipalitySettlementsMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CityRayonBreakdownTile } from "./CityRayonBreakdownTile";
-import { CityRayonMapTile } from "./CityRayonMapTile";
-import { SectionsMapTile } from "./SectionsMapTile";
-import {
-  hasCityRayons,
-  useCityRayonHistory,
-  useCityRayonSections,
-} from "@/data/rayon/useCityRayons";
+import { hasCityRayons, useCityRayonHistory } from "@/data/rayon/useCityRayons";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
@@ -62,6 +51,17 @@ type Props = {
   compact?: boolean;
 };
 
+/** The município page's deeper sections — everything BELOW the shared result surface.
+ *
+ *  ⚠ THE FOUR KPI CARDS AND THE MAP/PARTY PAIR LEFT (§4 item 3: only numbers the strip and
+ *  canvas duplicate). The map's THREE-WAY BRANCH — Пловдив/Варна city's районы choropleth, a
+ *  Пловдив/Варна район's own polling sections, and everything else's settlements map — moved
+ *  WITH it, into `ParliamentaryMunicipalityMap`. Relocating keeps one copy; leaving a second
+ *  here would diverge from it exactly on the four places nobody tests by hand.
+ *
+ *  ⚠ `compact` (My-Area) RENDERS THIS COMPONENT WITHOUT THE SHELL, and that is why the section
+ *  keeps its `dashboard_section_votes_only` title: on that page there is no outcome strip above
+ *  it, so the heading still has to be honest about what is under it. */
 export const MunicipalityDashboardCards: FC<Props> = ({
   municipalityCode,
   compact,
@@ -105,12 +105,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({
   // matches on parent + section-code digits 5-6 — same as the tile.
   const { data: problemSectionsReport } = useProblemSections();
   const histStats = cityRayon ? rayonHistory : stats;
-  // A Пловдив/Варна район's own polling sections — so its map shows just this
-  // район (auto-fit to its sections), not the parent city's whole choropleth.
-  const { data: rayonSections } = useCityRayonSections(
-    cityRayon?.obshtina,
-    cityRayon?.code,
-  );
   const muniHasProblemSections = problemSectionsReport?.neighborhoods?.some(
     (n) =>
       n.sections.some((s) =>
@@ -145,19 +139,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
       <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <PartyChangeCard variant="gainer" change={data.topGainer} />
-          <PartyChangeCard variant="loser" change={data.topLoser} />
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-          <PaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
-        </div>
-
         <DashboardSection
           id="votes"
           // On My-Area (compact) the MPs strip lives at the top of
@@ -171,34 +152,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({
           )}
           icon={Gauge}
         >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-            {/* Plovdiv-city / Varna-city are общини с районно деление the core
-                pipeline serves as one aggregate — swap the single-blob
-                settlements map for a районы choropleth, exactly like the Sofia
-                МИР map. Self-applies only to those municípios. */}
-            {hasCityRayons(municipalityCode) ? (
-              <CityRayonMapTile municipalityCode={municipalityCode} />
-            ) : cityRayon ? (
-              // A Пловдив/Варна район has no settlement map of its own (the city
-              // is a single settlement) — show its own polling sections as
-              // located markers (auto-fit to the район), mirroring a Sofia
-              // район's "Карта на секциите", instead of the whole-city choropleth.
-              // Mount the tile only once its sections have loaded: SectionsMapTile
-              // measures its container in a mount-only layout effect, so handing
-              // it an initially-undefined async list would leave the map blank
-              // (the effect bails on the first null render and never re-fires).
-              rayonSections && rayonSections.length ? (
-                <SectionsMapTile sections={rayonSections} />
-              ) : (
-                <SkeletonCard className="h-[440px]" />
-              )
-            ) : (
-              <MunicipalitySettlementsMapTile
-                municipalityCode={municipalityCode}
-              />
-            )}
-            <PartyResultsTile parties={data.parties} basePath={basePath} />
-          </div>
           {electionStats?.hasPreferences ? (
             <TopCandidatesStrip
               parties={data.parties}

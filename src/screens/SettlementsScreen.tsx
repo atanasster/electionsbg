@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/regions/useRegions";
@@ -13,6 +14,20 @@ import { placeResultsTitle } from "@/ux/seoTitle";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { MunicipalityDashboardCards } from "./dashboard/MunicipalityDashboardCards";
 import { SectionsScreen } from "./SectionsScreen";
+import { useElectionContext } from "@/data/ElectionContext";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { buildPartyIndex } from "@/data/elections/partyIndex";
+import { parliamentaryMunicipalitySurface } from "@/data/elections/canonicalSurface";
+import { useElectionSurface } from "@/data/elections/useElectionSurface";
+import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
+import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
+import {
+  buildPlaceDigest,
+  localDigestFromSurface,
+} from "@/screens/elections/placeDigestFacts";
 
 export const SettlementsScreen = () => {
   const { id: muniCode } = useParams();
@@ -20,6 +35,63 @@ export const SettlementsScreen = () => {
   const { findMunicipality } = useMunicipalities();
   const { municipality } = useMunicipalityVotes(muniCode);
   const { i18n, t } = useTranslation();
+  const { selected } = useElectionContext();
+  const { data: canonicalParties } = useCanonicalParties();
+  const localCycle = useLatestLocalCycle();
+  // ⚠ EVERY HOOK ABOVE THE EARLY RETURNS. This screen bails on four conditions — no code, an
+  // EKATTE, Sofia city, an unresolvable município — and a hook after any of them would be a
+  // conditional call.
+  const partyIndex = useMemo(
+    () => (canonicalParties ? buildPartyIndex(canonicalParties.parties) : null),
+    [canonicalParties],
+  );
+  const surface = useMemo(
+    () =>
+      municipality?.results?.votes && muniCode
+        ? parliamentaryMunicipalitySurface({
+            obshtina: muniCode,
+            cycle: selected,
+            votes: municipality.results.votes,
+            protocol: municipality.results.protocol,
+            partyIndex,
+            localCycle,
+            inLocalCycle: true,
+          })
+        : undefined,
+    [municipality, muniCode, selected, partyIndex, localCycle],
+  );
+  // ⚠ THE DIGEST'S МЕСТНИ CELL READS THE LOCAL SURFACE — the same artifact the Местни tab
+  // renders (§Phase 5 item 4b). A second resolver here is how a digest ends up naming one mayor
+  // while the tab one click away names another: wrong about a named individual, at a 200, with
+  // no row count moving.
+  const local = useElectionSurface({
+    kind: "local",
+    level: "municipality",
+    cycle: localCycle,
+    id: muniCode,
+  });
+  const digest = useMemo(
+    () =>
+      buildPlaceDigest({
+        place: { level: "municipality", obshtina: muniCode ?? "" },
+        parliamentaryCycle: selected,
+        localCycle,
+        winner:
+          surface?.ballots[0]?.preview[0] &&
+          surface.ballots[0].preview[0].marginPct !== undefined
+            ? {
+                partyId: surface.ballots[0].preview[0].partyId,
+                pct: surface.ballots[0].preview[0].pct,
+                marginPct: surface.ballots[0].preview[0].marginPct,
+              }
+            : undefined,
+        local: localDigestFromSurface(
+          local.status === "ready" ? local.surface : undefined,
+        ),
+        currentView: "parliamentary",
+      }),
+    [muniCode, selected, localCycle, surface, local],
+  );
   if (!muniCode) {
     return null;
   }
@@ -93,7 +165,26 @@ export const SettlementsScreen = () => {
         oblast={municipality?.oblast ?? info?.oblast}
         fallbackName={muniName}
         className="my-4"
+        scope={<ElectionScopeBar cycle={selected} status="final" />}
       />
+      <ElectionSurfaceBoundary
+        kind="parliamentary"
+        level="municipality"
+        cycle={selected}
+        id={muniCode}
+        canonicalSurface={surface}
+        skeleton={<ElectionSurfaceSkeleton facts={4} />}
+        fallback={null}
+      >
+        {(s) => (
+          <ElectionResultsShell
+            surface={s}
+            scope="header"
+            currentView="parliamentary"
+            digest={digest}
+          />
+        )}
+      </ElectionSurfaceBoundary>
       <MunicipalityDashboardCards municipalityCode={muniCode} />
     </>
   );

@@ -13,7 +13,9 @@ import {
   useSettlementsByMunicipalityFor,
 } from "@/data/settlements/useSettlementsByMunicipality";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useTranslation } from "react-i18next";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { computeShifts } from "../maps/computeShifts";
 
 // Diaspora continents (МИР 32). On settlement maps for these "municipalities"
@@ -27,6 +29,8 @@ export const SettlementsMap: React.FC<{
   size: MapCoordinates;
 }> = ({ size, municipality }) => {
   const votes = useSettlementsByMunicipality(municipality.obshtina);
+  const { t, i18n } = useTranslation();
+  const isBg = i18n.language?.startsWith("bg") ?? true;
   const { tooltip, ...tooltipEvents } = useTooltip();
   const mapGeo = useSettlementsMap(municipality.obshtina);
   const { findSettlement } = useSettlementsInfo();
@@ -35,7 +39,8 @@ export const SettlementsMap: React.FC<{
     municipality.obshtina,
     priorElections?.name,
   );
-  const { parties: currentParties } = usePartyInfo();
+  const { parties: currentParties, topVotesParty } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
   const { parties: priorParties } = usePartyInfo(priorElections?.name);
 
   const shifts = useMemo(
@@ -79,6 +84,21 @@ export const SettlementsMap: React.FC<{
       onClick: (props) => ({
         pathname: `/sections/${props.ekatte}`,
       }),
+      // ⚠ THE THIRD MAP TO OPT IN, and the same measured defect: without a label
+      // `FeatureMap`'s `!!ariaLabel && !!onClick` is false, so this map navigates on click and
+      // cannot be reached from a keyboard. A município holds tens of settlements — the largest
+      // is Столична at ~40 — so the tab order is usable, which is the whole test. The party
+      // resolves through `canonical_parties.json`, the one corpus with both languages.
+      featureLabel: (props, info, results) => {
+        const name =
+          (isBg ? info?.name : info?.name_en || info?.name) ?? props.ekatte;
+        const lead = topVotesParty(results?.results.votes);
+        const party =
+          (lead?.nickName ? displayNameFor(lead.nickName) : undefined) ??
+          lead?.nickName ??
+          "";
+        return party ? t("map_region_aria_leader", { name, party }) : name;
+      },
       ...tooltipEvents,
     });
 

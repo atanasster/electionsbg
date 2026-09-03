@@ -122,4 +122,6 @@ export const MAP_ADAPTERS: Partial<
     import("./adapters/ParliamentaryRegionMap"),
   "parliamentary/abroad/winner": () =>
     import("./adapters/ParliamentaryRegionMap"),
+  "parliamentary/municipality/winner": () =>
+    import("./adapters/ParliamentaryMunicipalityMap"),
 };
