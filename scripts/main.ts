@@ -38,6 +38,7 @@ import { shutdownCikFetch } from "./parsers_local/cik_fetch";
 import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_canonicals";
 import { buildLocalRollups } from "./parsers_local/build_region_json";
 import { buildChmiHistory } from "./parsers_local/build_chmi_history";
+import { buildElectionSurfaces } from "./elections/build_surfaces";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -275,6 +276,30 @@ const app = command({
       long: "local-place-trends",
       defaultValue: () => false,
     }),
+    // The compact per-place result artifacts behind the elections hub
+    // (docs/plans/elections-hub-implementation-v1.md §5.0). Reads the canonical
+    // shards this run may just have rewritten, so it goes LAST — see the handler.
+    //
+    // ⚠ DRY-RUN BY DEFAULT even under `--all`: it reports the per-level file and
+    // byte deltas §5.0 requires and writes nothing. `--election-surfaces-write`
+    // emits, and `--election-surfaces-sections` additionally merges a `surface`
+    // key into the 12,302 COMMITTED local station files, which is a large diff
+    // and therefore never implicit.
+    electionSurfaces: flag({
+      type: optional(boolean),
+      long: "election-surfaces",
+      defaultValue: () => false,
+    }),
+    electionSurfacesWrite: flag({
+      type: optional(boolean),
+      long: "election-surfaces-write",
+      defaultValue: () => false,
+    }),
+    electionSurfacesSections: flag({
+      type: optional(boolean),
+      long: "election-surfaces-sections",
+      defaultValue: () => false,
+    }),
     // Estimated pre-vote flow: the most recent parliamentary vote before each
     // local cycle → that cycle's council ballot. Writes data/transitions_prevote/.
     // Flag-gated — local cycles land every ~4 years, so not part of `--all`.
@@ -310,6 +335,9 @@ const app = command({
     localByElectionTurnout,
     resolveLocalCanonicals,
     localRollups,
+    electionSurfaces,
+    electionSurfacesWrite,
+    electionSurfacesSections,
     localChmiHistory,
     localFlows,
     localCoords,
@@ -523,6 +551,31 @@ const app = command({
     // for want of a not-yet-generated file. `--analysisStats` runs it alone.
     if (reports || all || summary || analysisStats) {
       generateAllAnalysisStats(stringify, election);
+    }
+    // ⚠ AFTER EVERYTHING ELSE. The surfaces are a PROJECTION of the canonical shards this run
+    // may just have rewritten — region votes, section shards, local rollups — so generating
+    // them earlier would project the previous vintage while every row count reconciled. That
+    // is the same ordering rule `db:refresh` learned the hard way for its derived artifacts.
+    //
+    // ⚠ AND IT IS DRY-RUN UNDER `--all`. It reports the per-level file and byte deltas §5.0
+    // requires; writing 23,665 artifacts (and, with `--election-surfaces-sections`, rewriting
+    // 12,302 committed station files) is an explicit act.
+    if (
+      electionSurfaces ||
+      electionSurfacesWrite ||
+      electionSurfacesSections ||
+      all
+    ) {
+      buildElectionSurfaces({
+        write: electionSurfacesWrite || electionSurfacesSections,
+        sections: electionSurfacesSections,
+        // ⚠ ONLY AN EXPLICIT SURFACE RUN NARROWS TO A CYCLE. Under `--all` the two options name
+        // different cycle SPACES — `--date` a parliamentary folder, `--local-date` a local one —
+        // so honouring either would silently generate one of the three covered cycles and skip
+        // the rest, while the table still printed "ok". The precedent 200 lines above
+        // (`!coords && !all && date`) makes the same exemption for `--all`.
+        cycle: all ? undefined : localDate || date || undefined,
+      });
     }
   },
 });
