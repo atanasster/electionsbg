@@ -371,6 +371,115 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     THEN person_by_slug((SELECT slug FROM m LIMIT 1)) END;
 $$;
 
+-- The ONE office+place a search row prints under a person's name — „Кандидат · София 24
+-- МИР". It is read from `person_browse_table` (120) rather than re-derived, and it is
+-- plpgsql rather than SQL, and BOTH of those are load-bearing.
+--
+-- WHY IT EXISTS AT ALL. The header dropdown renders a `p` row as name + party badge and
+-- nothing else, so two same-named people in one party are TWO BYTE-IDENTICAL ROWS — the
+-- reader cannot tell a correct split (a real namesake, or one person the resolver refused
+-- to merge and filed as a review candidate) from a bug. The home finder already prints the
+-- office+place (roleSubtitle in src/screens/components/search/personSearchSource.ts); this
+-- is what lets the header use the SAME line. See docs/plans/person-search-duplicate-rows-v1.md.
+--
+-- Measured 2026-09-04 over the 63,844 active public figures carrying a tier-P browse row:
+-- 4,527 sit in a cluster of more than one on everything the header renders today, and
+-- 2,312 still do once this pair is added — a 49% cut. ⚠️ The badge in that measurement is
+-- `person_election_stats.party_nick`, the value the LATERAL below actually emits, NOT
+-- `person_browse_table.party_primary`. They are different columns with different NULL
+-- populations (34,899 rows carry no party_nick against 25,046 with no party_primary), and
+-- the plan's first draft measured the second — which UNDERSTATED the problem as 3,028 → 572.
+-- Any re-measurement must join the column the surface renders, not the nearest one to hand.
+--
+-- What the residue is made of, so nobody reads 2,312 as a failure of this change: 2,065 of
+-- them (89%) carry NO party badge at all, so their whole distinguishing content is this one
+-- line; and every one of the 2,312 now carries a role or a place, i.e. none is left with
+-- nothing to tell it apart. Closing it further is an IDENTITY question (the plan's Tier B),
+-- not a rendering one.
+--
+-- ⚠️ WHY IT DOES NOT RE-DERIVE THE PAIR. 120 already picks both — `tr.role` becomes
+-- `primary_role`, and its `place_label` expression carries the comment "COPIED VERBATIM
+-- from 082_person_api.sql … a different one here means the browser and the profile print
+-- different place names for the same seat". A third copy is how the header and the home
+-- finder come to name two different offices for one person. Read the producer instead.
+--
+-- ⚠️ WHY plpgsql, WHEN EVERY OTHER FUNCTION IN THIS FILE IS `LANGUAGE sql`. Two reasons,
+-- and each one alone is decisive:
+--
+--   1. A `LANGUAGE sql` body is VALIDATED AT CREATE, and this file is applied by
+--      `db:resolve:persons` — which runs BEFORE `db:load:declarations:pg -- --resolve`,
+--      the only thing that creates 120's matview. On a cold database the reference would
+--      raise 42P01 during the apply and, since exec() sends the file as ONE transaction,
+--      roll back the WHOLE person API. Not the search row: every /person page.
+--   2. 120 is `DROP MATERIALIZED VIEW person_browse_table` + `CREATE`. A body that records
+--      a pg_depend edge turns every declarations phase-2 into either a 2BP01 abort or —
+--      with CASCADE — a silent deletion of this function. That is the class
+--      `migration_drop_dependents.data.test.ts` polices, and a plpgsql STRING body records
+--      no edge at all. Do NOT "modernise" this to `BEGIN ATOMIC`, which does record one.
+--
+-- So the failure mode is deliberately a DEGRADE, not an error: on any of the three
+-- SQLSTATEs below it returns NULL and the row renders with no subtitle — exactly what it
+-- renders today — instead of 500-ing the whole lookup. That last part is not rhetorical:
+-- the route's own `missingMigrationEmpty` (functions/db_routes.js) degrades ONLY 42883 and
+-- 42P01, so anything this function lets escape reaches `badRequest()` and 500s
+-- /api/db/person-lookup — i.e. the header search, on every page and every keystroke.
+--
+--   undefined_table (42P01)       a database with no 120 at all — the cold-apply case above.
+--   undefined_column (42703)      a 120 older than one of the three columns read here. The
+--                                 same kind of absence, and it must fail the same way.
+--   insufficient_privilege (42501) the matview EXISTS and app_readonly cannot read it. 120
+--                                 carries no GRANT of its own — it relies entirely on ALTER
+--                                 DEFAULT PRIVILEGES — so a matview created on a cluster
+--                                 where app_readonly did not yet exist carries no ACL and
+--                                 nothing later repairs it. That is the exact shape CLAUDE.md
+--                                 documents for the grant-guard sweep and for 175: the load
+--                                 SUCCEEDS and the only symptom is /api/db raising 42501
+--                                 against a corpus that looks fully loaded.
+--
+-- ⚠️ STALENESS, not just absence, and it is not a bug. The rows around this call come from
+-- `person`, which `db:resolve:persons` rebuilds; the card comes from a matview that
+-- `db:load:declarations:pg -- --resolve` rebuilds one step LATER. Between the two — and on
+-- any database where phase 2 has not been re-run since a resolve — a newly resolved person is
+-- searchable with no subtitle, and a changed office shows the previous vintage. It degrades
+-- and asserts nothing false about identity; do not go looking for a defect.
+--
+-- Keyed on the SLUG, not person_id: person_browse_table carries no person_id, and `slug`
+-- has its own btree (idx_person_browse_slug). Called once per returned row — at most
+-- `p_limit` (≤100, and 6 from the header) — so it is a handful of index lookups. ⚠️ "Once"
+-- is true only because the call site fences the LATERAL with `OFFSET 0`; see it for why.
+--
+-- The relation is SCHEMA-QUALIFIED because this is the one function in the file whose body
+-- is resolved at EXECUTION time against the caller's search_path — every `LANGUAGE sql`
+-- sibling binds its OIDs at CREATE and cannot drift this way.
+DROP FUNCTION IF EXISTS person_browse_card(text);
+CREATE OR REPLACE FUNCTION person_browse_card(p_slug text)
+RETURNS jsonb LANGUAGE plpgsql STABLE AS $$
+DECLARE
+  r jsonb;
+BEGIN
+  SELECT jsonb_build_object(
+           'primaryRole', b.primary_role,
+           'placeLabel',  b.place_label,
+           -- Mirrors person_by_slug's placeLabel/placeLabelEn pair at the top of this file,
+           -- so the EN header does not print a Bulgarian place name beside an EN profile
+           -- that prints the English one. NULL for judicial seats — `name_en` is place_dim-
+           -- only in 120 BY DESIGN (judicial_body carries no English name); mirror that
+           -- asymmetry rather than inventing a fallback.
+           'placeLabelEn', b.place_label_en)
+    INTO r
+    FROM public.person_browse_table b
+   WHERE b.slug = p_slug
+   -- Defensive, not a choice among candidates: 120's key index (idx_person_browse_key over
+   -- 'slug:' || slug) makes `slug` unique among the public rows, and its name-fold arm
+   -- carries slug = NULL, which never equals p_slug. There is no unique index on `slug`
+   -- itself, so without this a broken invariant would return an arbitrary row per call.
+   LIMIT 1;
+  RETURN r;
+EXCEPTION
+  WHEN undefined_table OR undefined_column OR insufficient_privilege THEN RETURN NULL;
+END;
+$$;
+
 -- Name search for personSearch / the arbitrary-person lookup. Folds the query with the
 -- ONE normalizer and ranks by trigram similarity over name_fold (GIN gin_trgm_ops index,
 -- 081). Returns the namesake_risk so the caller can show the "name match — identity not
@@ -439,7 +548,15 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
              WHERE r.person_id = s.person_id AND r.source = 'mp'
                AND split_part(r.ref, ':', 1) ~ '^[0-9]+$'
              ORDER BY split_part(r.ref, ':', 1)::bigint DESC LIMIT 1),
-    'score', round(s.score::numeric, 3)
+    'score', round(s.score::numeric, 3),
+    -- The office + place that tell two namesakes apart — see person_browse_card. ALL THREE
+    -- keys are always present (null when the card is missing), because a consumer
+    -- distinguishing "this person has no place" from "this build predates the field" would
+    -- otherwise have to test for the key's ABSENCE, which is not a distinction any JSON
+    -- consumer here makes.
+    'primaryRole', card.c -> 'primaryRole',
+    'placeLabel', card.c -> 'placeLabel',
+    'placeLabelEn', card.c -> 'placeLabelEn'
   ) ORDER BY s.score DESC, s.n_roles DESC, s.display_name), '[]'::jsonb)
   FROM scored s
   LEFT JOIN LATERAL (
@@ -447,7 +564,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     FROM person_election_stats pes
     WHERE pes.person_id = s.person_id AND pes.party_nick IS NOT NULL
     ORDER BY pes.election_date DESC LIMIT 1
-  ) pty ON true;
+  ) pty ON true
+  -- ⚠️ `OFFSET 0` IS AN OPTIMIZATION FENCE, NOT NOISE — do not delete it. A LATERAL with an
+  -- empty FROM is a pull-up candidate, so without the fence the planner flattens it and
+  -- SUBSTITUTES the call at every reference site: three `->` reads become THREE
+  -- person_browse_card() calls per row (verified with EXPLAIN VERBOSE), each one an index
+  -- lookup and a plpgsql subtransaction, and none of it visible in review. The same fence
+  -- the DbDataTable search path uses.
+  LEFT JOIN LATERAL (SELECT person_browse_card(s.slug) AS c OFFSET 0) card ON true;
 $$;
 
 -- The person's public-contract take bucketed by CABINET tenure (the "money vs power"

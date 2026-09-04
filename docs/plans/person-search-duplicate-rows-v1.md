@@ -69,11 +69,29 @@ Over the 63,836 tier-P rows in `person_search`:
 | what a reader can distinguish by | rows sitting in a cluster of >1 |
 | --- | --- |
 | share a `name_fold` at all | **9,809** |
-| header renders name + party badge only → `(fold, party)` | **3,028** |
 | home finder renders `roleSubtitle` → `(fold, place_label, primary_role)` | **4,766** (the ceiling `person_identity_duplicates.data.test.ts` already holds) |
-| `(fold, party, place_label, primary_role)` — i.e. the header AFTER §3 | **572** |
 
-⚠️ **The header's 3,028 is the number this ticket is about, and it is a RENDERING number, not
+⚠️ **The header's two rows in that table were WRONG in this plan's first draft, and the
+correction is worth keeping rather than editing away — it is the same mistake this repo
+warns about everywhere.** They read „3,028" before and „572" after, measured by grouping
+`person_search` on its `party` column. That column is `party_primary` (from 120's `tp.party`);
+the header renders `person_election_stats.party_nick`, which 082's LATERAL emits. Different
+columns, different NULL populations — 34,899 rows carry no `party_nick` against 25,046 with no
+`party_primary` — so the proxy UNDERSTATED the defect by grouping people the header shows as
+identical. Re-measured 2026-09-04 against the column the surface actually renders, over the
+63,844 active public figures carrying a tier-P browse row:
+
+| what the header can distinguish by | rows in a cluster of >1 |
+| --- | --- |
+| today: name + party badge → `(fold, party_nick)` | **4,527** |
+| after §3: `(fold, party_nick, primary_role, place_label)` | **2,312** — a 49% cut |
+
+And the residue decomposes, which is what says the remainder is an identity problem rather
+than a rendering one: **2,065 of the 2,312 (89%) carry no party badge at all**, so this one
+line is their whole distinguishing content, and **0** are left with neither a role nor a
+place. Closing the rest is Tier B.
+
+⚠️ **The header's 4,527 is the number this ticket is about, and it is a RENDERING number, not
 an identity one.** Two same-named people in one party render as two byte-identical rows with
 no avatar, no office and no place — indistinguishable even when the split is correct. The home
 finder already prints „Кандидат · София 24 МИР" / „· София 23 МИР", which is why the same pair
@@ -86,7 +104,7 @@ carry more than one active public figure. This plan closes a slice, not the clas
 
 ## 3. Tier A — the header must never render two identical rows (recommended first)
 
-**The measured win: 3,028 → 572 indistinguishable rows (−81%), with no identity claim made.**
+**The measured win: 4,527 → 2,312 indistinguishable rows (−49%), with no identity claim made.**
 
 `src/layout/search/SearchItems.tsx` renders a `p` row as avatar + name + `PartyBadge` and
 stops. Give it the same second line the home finder has, from the same helper:
@@ -95,7 +113,12 @@ stops. Give it the same second line the home finder has, from the same helper:
   `src/screens/components/search/personSearchSource.ts` — reuse it, do not write a second one.
 - `person_search(text,int)` (082) must therefore return `primaryRole` + `placeLabel` beside
   `party`/`mpId`. Additive to the JSON; `/api/db/person-lookup` and the `personSearch` AI tool
-  are unaffected.
+  are unaffected. **Shipped with `placeLabelEn` as a third key** — 120 already carries
+  `place_label_en` and `person_by_slug` already emits the pair, so omitting it would have left
+  the `/en` header printing a Bulgarian place name beside an `/en` profile printing the English
+  one. It is NULL for judicial seats by design (`name_en` is `place_dim`-only in 120, because
+  `judicial_body` carries no English name); mirror that asymmetry rather than inventing a
+  fallback.
 
 ⚠️ **Do not re-derive the representative role/place inside 082.** `120_person_browse.sql`
 already picks it (`tr.role` → `primary_role`, and a `place_label` expression its own comment
@@ -120,8 +143,22 @@ row, ≤20 rows — the same shape as the existing `mpId` / party LATERALs.
 Ship: `apply_functions.ts 082_person_api.sql` → `npm run deploy:db` → `npm run deploy`.
 Nothing else; no reload, no matview refresh, no outage window.
 
-Gate: extend `functions/db_routes.person_search.test.js` for the two new keys, and add an arm
-to `person_identity_duplicates.data.test.ts` (below).
+⚠️ **This paragraph named `functions/db_routes.person_search.test.js` as the gate and that was
+the wrong file** — it covers the same-named *table* (126) behind the `person-search` route, not
+the 082 *function* behind `person-lookup`, so it cannot host these assertions. The gates as
+built (2026-09-04):
+
+- `scripts/db/tests/person_search_card.data.test.ts` — the parity arm (the pair is READ from
+  120, never re-derived), the `pg_depend`/plpgsql arm, a call-count arm that catches the
+  `OFFSET 0` fence going missing, and both null paths separately (relation absent → the
+  EXCEPTION arm; person absent from the matview → `SELECT … INTO` finding nothing). Note a
+  matview cannot be `DELETE`d from, so the second is driven through the function directly
+  rather than by hiding one row.
+- `functions/db_routes.person_lookup.test.js` — the JS contract: the card keys forwarded
+  verbatim, null keys kept rather than stripped, limit clamping, and that a **42501 is NOT**
+  degraded at the route (it is `person_browse_card`'s own job to swallow it, since
+  `missingMigrationEmpty` covers only 42883/42P01).
+- an arm in `person_identity_duplicates.data.test.ts` (§5 C1, below).
 
 ## 4. Tier B — a candidate-continuity corroborant in the resolver
 
@@ -192,15 +229,21 @@ no election carrying the pair twice.
 
 ## 5. Tier C — the residue, and keeping the number honest
 
-After A + B, **572 − 197 = ~375** tier-P rows still render identically in the header. Those are
-genuinely undecidable from the corpus.
+After A + B, **2,312 − 197 = ~2,115** rows still render identically in the header. Tier B
+therefore closes 8.5% of the post-A residue, not the bulk of it — the plan's first draft said
+„~375" because it inherited the understated §2 base. Most of what is left is undecidable from
+the corpus, and 89% of it is people with no party badge, where the office+place line is doing
+all the work there is to do.
 
 1. **Extend the existing ratchet.** `scripts/db/tests/person_identity_duplicates.data.test.ts`
    holds `duplicateSearchRows: 4766` for the HOME finder's `(fold, place_label, primary_role)`
-   cluster. Add `headerIdenticalRows` for `(fold, party)` — **3,028 today** — so Tier A's drop
-   is locked in and cannot silently regress. Follow the file's own house rule: every ceiling
-   gets a floor on its denominator (`searchPRows`, 63,836), because a ceiling alone reads a
-   lost source as progress.
+   cluster. Add `headerIdenticalRows` for what the header renders AFTER Tier A —
+   `(fold, party_nick, primary_role, place_label)`, **2,312 today** — so the drop from 4,527
+   is locked in and cannot silently regress. ⚠️ It must group on `person_election_stats
+.party_nick`, the badge 082 emits, NOT on `person_search.party`; grouping on the latter is
+   the proxy that understated §2. Follow the file's own house rule: every ceiling gets a floor
+   on its denominator (63,844 active public figures with a tier-P browse row), because a
+   ceiling alone reads a lost source as progress.
 2. **Adjudicate one at a time with the existing primitive.** The ref-scoped merge that
    `person-cross-party-candidate-merge-v1.md` asked for **is implemented** —
    `person_link_override kind='merge'` with `ref_a`/`ref_b`. No new machinery is needed.
@@ -231,7 +274,7 @@ scale, and the reason Tier A comes first is that it needs no adjudication at all
 
 | step | why first |
 | --- | --- |
-| **A** header subtitle | biggest measured win (−81%), no identity claim, no reload, ships in one deploy |
+| **A** header subtitle | biggest measured win (−49%, 4,527 → 2,312), no identity claim, no reload, ships in one deploy |
 | **C1** the ratchet arm | must land WITH A so the new number is locked before it moves |
 | **B** resolver tier | the real fix for 314 rows; carries a resolve + slug-retirement + cloud chain |
 | **C2** adjudications | ongoing, per case |
