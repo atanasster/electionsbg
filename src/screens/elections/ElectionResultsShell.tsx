@@ -33,6 +33,7 @@ import {
 } from "./electionSurfaceLayout";
 import { ElectionMapPanel } from "./ElectionMapPanel";
 import { ElectionScopeBar } from "./ElectionScopeBar";
+import { trackSurfaceLink } from "./electionSurfaceAnalytics";
 import { adapterKey, type ElectionMapAdapterProps } from "./electionMapSlots";
 import {
   useSurfaceLabels,
@@ -145,7 +146,12 @@ const PlaceDigestStrip: FC<{
   cells: PlaceDigestCell[];
   currentView?: PlaceDigestCell["view"];
   titleId: string;
-}> = ({ cells, currentView, titleId }) => {
+  /** The surface's own coordinates, for the click event only — the cells carry their own
+   *  destinations and need none of this to render. */
+  kind: ElectionKind;
+  level: ElectionPlaceLevel;
+  placeId: string;
+}> = ({ cells, currentView, titleId, kind, level, placeId }) => {
   const { t } = useTranslation();
   const { rankedLabel: label } = useSurfaceLabels();
   // §7.1: the cell for the view the reader is on would restate the page they are looking at.
@@ -183,6 +189,15 @@ const PlaceDigestStrip: FC<{
             <a
               key={cell.view}
               href={cell.to}
+              onClick={() =>
+                trackSurfaceLink({
+                  target: "digest",
+                  kind,
+                  level,
+                  placeId,
+                  view: cell.view,
+                })
+              }
               data-digest-cell={cell.view}
               data-digest-kind={cell.kind}
               className="rounded-lg border bg-card p-3 focus-visible:ring-2 focus-visible:ring-ring"
@@ -497,6 +512,9 @@ export const ElectionResultsShell: FC<Props> = ({
           cells={digestCells}
           currentView={currentView}
           titleId={rid("digest")}
+          kind={surface.kind}
+          level={surface.place.level}
+          placeId={surface.place.id}
         />
       ) : null}
 
@@ -592,7 +610,23 @@ export const ElectionResultsShell: FC<Props> = ({
                     s.baseline.labelParams,
                   )}
                 </span>{" "}
-                <a href={s.evidenceTo}>{t("election_standout_evidence")}</a>
+                <a
+                  href={s.evidenceTo}
+                  onClick={() =>
+                    trackSurfaceLink({
+                      target: "standout_evidence",
+                      kind: surface.kind,
+                      level: surface.place.level,
+                      placeId: surface.place.id,
+                      // ⚠ THE SIGNAL'S ENUM MEMBER, never `t(STANDOUT_LABEL_KEYS[...])`. The
+                      // rendered sentence names the place and its measurement; the enum names
+                      // the kind of claim, which is what a click count is about.
+                      signal: s.signal,
+                    })
+                  }
+                >
+                  {t("election_standout_evidence")}
+                </a>
               </li>
             ))}
           </ul>
@@ -624,7 +658,18 @@ export const ElectionResultsShell: FC<Props> = ({
             other reasons say something they cannot. */}
         {completeResult?.available && completeResult.to ? (
           <p className="text-xs">
-            <a href={completeResult.to} data-surface-complete-result>
+            <a
+              href={completeResult.to}
+              onClick={() =>
+                trackSurfaceLink({
+                  target: "complete_result",
+                  kind: surface.kind,
+                  level: surface.place.level,
+                  placeId: surface.place.id,
+                })
+              }
+              data-surface-complete-result
+            >
               {t("election_complete_result_link")}
             </a>
           </p>
