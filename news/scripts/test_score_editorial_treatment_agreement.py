@@ -619,5 +619,104 @@ class AgreementScoringTests(unittest.TestCase):
             self.assertEqual(verdict, "honoured", f"{aid}: {note}")
 
 
+    # ---- frozen content hashes --------------------------------------------
+
+    def _content_sidecar(self, sample, records):
+        return {"assignments_sha256": {"x": sample["assignments_sha256"]},
+                "records": records}
+
+    def _record(self, target, basis="frozen", sha=None):
+        path = scoring.ROOT / target["article_path"]
+        return {target["assignment_id"]: {
+            "article_path": target["article_path"],
+            "content_sha256": sha or scoring.content_sha(path),
+            "basis": basis}}
+
+    def test_a_metadata_only_drift_is_cleared_by_the_content_hash(self):
+        """The recurrence this exists to stop: a nightly write moves the file
+        hash, the judged text is untouched, and no hand-written exemption is
+        needed."""
+
+        sample, left, right, _, _ = self._drifted()
+        target = sample["assignments"][0]
+        content = self._content_sidecar(sample, self._record(target))
+        result = scoring.score(sample, left, right, article_content=content)
+        self.assertEqual([e for e in result["errors"]
+                          if "article hash moved" in e], [])
+        self.assertEqual([r["status"] for r in result["provenance"]],
+                         ["content_verified"])
+
+    def test_a_drift_that_changes_the_judged_text_is_still_refused(self):
+        """The other half. A content hash that clears everything would be worse
+        than no content hash at all."""
+
+        sample, left, right, _, _ = self._drifted()
+        target = sample["assignments"][0]
+        content = self._content_sidecar(sample, self._record(target, sha="e" * 64))
+        result = scoring.score(sample, left, right, article_content=content)
+        self.assertTrue(any("JUDGED TEXT changed" in e
+                            for e in result["errors"]), result["errors"])
+
+    def test_a_post_drift_content_hash_cannot_clear_a_drift(self):
+        """⚠️ THE LAUNDERING GUARD. A record taken after the file already moved
+        proves nothing about what the adjudicators read, so it must not clear
+        the drift — otherwise the three hand-argued rows silently become
+        `content_verified` and their exemptions look removable."""
+
+        sample, left, right, _, _ = self._drifted()
+        target = sample["assignments"][0]
+        content = self._content_sidecar(
+            sample, self._record(target, basis="post_drift"))
+        result = scoring.score(sample, left, right, article_content=content)
+        self.assertTrue(any("article hash moved" in e
+                            for e in result["errors"]), result["errors"])
+        self.assertNotIn("content_verified",
+                         [r["status"] for r in result["provenance"]])
+
+    def test_a_content_sidecar_bound_to_another_sample_is_ignored(self):
+        sample, left, right, _, _ = self._drifted()
+        target = sample["assignments"][0]
+        content = {"assignments_sha256": {"x": "9" * 64},
+                   "records": self._record(target)}
+        result = scoring.score(sample, left, right, article_content=content)
+        self.assertTrue(any("different assignment set" in e
+                            for e in result["errors"]), result["errors"])
+
+    def test_content_sha_ignores_metadata_and_tracks_the_text(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Path(tmp) / "a.json"
+            base = {"title": "T", "description": "D", "content": "C",
+                    "content_chars": 1, "image": None}
+            f.write_text(json.dumps(base), encoding="utf-8")
+            first = scoring.content_sha(f)
+            f.write_text(json.dumps({**base, "image": "x", "image_rights": {},
+                                     "content_chars": 999}), encoding="utf-8")
+            self.assertEqual(scoring.content_sha(f), first)
+            f.write_text(json.dumps({**base, "content": "C2"}), encoding="utf-8")
+            self.assertNotEqual(scoring.content_sha(f), first)
+
+    def test_the_shipped_content_sidecar_covers_every_row(self):
+        base = scoring.ROOT / "news" / "evals" / "editorial_treatment_v2"
+        side = json.loads((base / "article-content-hashes-2026-09-04.json")
+                          .read_text("utf-8"))
+        records = side["records"]
+        for name in ("human-agreement-sample-2026-09-01.json",
+                     "russia-supplement-2026-09-01.json"):
+            doc = json.loads((base / name).read_text("utf-8"))
+            self.assertEqual(side["assignments_sha256"][name],
+                             doc["assignments_sha256"], name)
+            for row in doc["assignments"]:
+                if (scoring.ROOT / row["article_path"]).exists():
+                    self.assertIn(row["assignment_id"], records)
+        # every row the drift exemptions cover must be post_drift, never frozen:
+        # a frozen basis there would be a hash minted after the mutation.
+        policy = json.loads((base / "human-agreement-policy-2026-09-01.json")
+                            .read_text("utf-8"))
+        for entry in policy.get("article_drift_exemptions") or []:
+            rec = records.get(entry["assignment_id"])
+            if rec:
+                self.assertEqual(rec["basis"], "post_drift",
+                                 entry["assignment_id"])
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -1,0 +1,471 @@
+{
+  "artifact": "editorial-treatment-v2-article-content-hashes",
+  "stamped_on": "2026-09-04",
+  "hashed_fields": [
+    "title",
+    "description",
+    "content"
+  ],
+  "hashed_fields_note": "Exactly what load_article() shows an adjudicator. `content_chars` is deliberately excluded: it is derived from `content`, so it adds no evidence and would break the hash if a fetcher recomputed it.",
+  "assignments_sha256": {
+    "human-agreement-sample-2026-09-01.json": "b63f29812d12f9e180513b77235720e2a507e6824ad30116374176bb8a5b0a59",
+    "russia-supplement-2026-09-01.json": "e13112c3bba2cae9b77b37bf07776c849cb1461fe0bf1a12e60e73cf4fb87ee6"
+  },
+  "counts": {
+    "frozen": 72,
+    "post_drift": 3,
+    "missing": 0
+  },
+  "records": {
+    "02244e70751c508b8b47": {
+      "article_path": "news/data/glasove.com/nodate-toma-bikov-kabinetat-radev-upravlyava-den-za-den-bez-reformi-725aa99e.json",
+      "content_sha256": "5241b90ab301b9beafd1732a3581b92a1e52ff954b6ef7834a4aacbb758481e3",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "02fd30478d6577925d0d": {
+      "article_path": "news/data/168chasa.bg/20260830-23476010-ed294cac.json",
+      "content_sha256": "ca612ee039af4b5c50ed8e06f16dbc58103e63eb002ffd6e52865bb5368f664c",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "051803f40bd64bbddcea": {
+      "article_path": "news/data/bgnes.bg/20260830-turciq-chestva-104-godini-ot-reshitelnata-pobeda-sreshtu-gra-469e2bda.json",
+      "content_sha256": "71c7ba439766fa4120f3e9f324b94c772432786b431a6776f4e1434f585394c6",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "05b0350472a538f4d322": {
+      "article_path": "news/data/flagman.bg/20260828-388802-2d707476.json",
+      "content_sha256": "11651f4194b1d92d81ce878cfc666dc5bd7f01d75c9378e454ec54dc2bdd5892",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "11f1f660d05fe3ea35be": {
+      "article_path": "news/data/pogled.info/20260830-izpitatelniyat-poligon-krim-i-strategiyata-na-zapada-za-voyn-49b715df.json",
+      "content_sha256": "199d457895f5bbf248494a0b785b483523a57d6d314f4935d5a7ee066e84b69f",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "121fd02747a83f274ec7": {
+      "article_path": "news/data/glasove.com/nodate-prof-ivo-hristov-pri-yavor-dachkov-rusiya-varvi-kam-pobeda-a-64fe1379.json",
+      "content_sha256": "5d0817ed6330fc5733702b783e69f167d25cc037950b105ae38289bdadd6f133",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "147ecfdcca6e0769f485": {
+      "article_path": "news/data/news.bg/20260830-merkel-prizova-germantsite-da-se-biyat-za-demokratsiyata-77f4b971.json",
+      "content_sha256": "ea21e0b278f03218075e2939268986f54a5e4e1b955d6fa9eb35b2dac5b30945",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "152e74feb15c8d522b9b": {
+      "article_path": "news/data/e-vestnik.bg/20260822-umori-li-se-evropa-ot-voynata-v-ukrayna-fb55b337.json",
+      "content_sha256": "8d56d272eed619cf5098150e4e76fc6798afe438fbd4f663ef33f315897d0844",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "156198240c92e7d0204b": {
+      "article_path": "news/data/epicenter.bg/20260829-0-9250e836.json",
+      "content_sha256": "f1815c2b62c97e81912ab1e2854cad4feb8eecbc00308b639a4493b4b160920e",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "24df37f8d4e95cd8aedd": {
+      "article_path": "news/data/epicenter.bg/20260828-0-312a5ba1.json",
+      "content_sha256": "a375c1c6fe16622ed435562d2dc49aaeab23cb60a265637d0aefb534a31497dd",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "27b3ed169f58e29d6b5a": {
+      "article_path": "news/data/haskovo.net/nodate-gerb-siebira-700-delegati-na-nacionalno-siebranie-v-ndk-6d9132e0.json",
+      "content_sha256": "293f1275da11c2c1e8bd1b59be2ab4f0ba2ecc54465de9f6fe355ec1091ef440",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "3345940d6620b4730559": {
+      "article_path": "news/data/capital.bg/20260828-4950006-komentar-i-proverka-taza-pochtenost-ama-drug-put-b9f0a58c.json",
+      "content_sha256": "9d8d7f335b385b026a2f8df28063416b9007d405cd56238bb70e839bf6ace14b",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "3709b4f5faa04db6ea4d": {
+      "article_path": "news/data/pik.bg/20260830-политически-сантименти-кметът-живко-тодоров-се-обясни-на-или-1ec6b042.json",
+      "content_sha256": "d4a7168bd4163fbb83227567ed426dfd39159c62507c3578343facb402f50dd7",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "3d483be7b89987b988c6": {
+      "article_path": "news/data/168chasa.bg/20260830-23476726-a000d0e9.json",
+      "content_sha256": "8373ec7bc0ab10fe8689f08e72baf3765f052475e01423b86115d05299078b55",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "3e6d278e49c8ba90bf48": {
+      "article_path": "news/data/clubz.bg/20260830-178854-24b9f46d.json",
+      "content_sha256": "9e3dba3ca2bae77d6cce0ebfbb297e25de6e2eb5ba8048ad9c9b4028dc43bca2",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "4229a70accf341db042f": {
+      "article_path": "news/data/faktor.bg/20260815-radev-nqma-da-se-bori-s-oligarhiqta-toy-prosto-raboti-za-rus-df760161.json",
+      "content_sha256": "379e57f0dc6c790049340bca6ac1545daa0297faea6e745de509db1f8f8cb30a",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "42a95a02be73d2be986c": {
+      "article_path": "news/data/capital.bg/20260830-4950851-zashto-progresivna-bulgariia-triabva-da-preosmisli-0ff1e393.json",
+      "content_sha256": "b914a4381603792389f0a3cfc966546a78f48d64825dfc9d76d00dd3ab382119",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "46a01d39af533101a82d": {
+      "article_path": "news/data/vesti.bg/20260830-borisov-ponesohme-shteti-vzehme-si-poukite-6268886-6b5a6610.json",
+      "content_sha256": "02a2a5456dfbdfe4e425235e17af0b2511b2cfda45319d6302c143f295eec626",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "4827573dd222f8bd6474": {
+      "article_path": "news/data/clubz.bg/20260830-178846-85f64860.json",
+      "content_sha256": "6ec0d118fcb7980319fbadeee185f8fbfc3979c29864818f3909dee20d41d4f4",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "4f98bc6fb0da156a1e76": {
+      "article_path": "news/data/glasove.com/nodate-rusiya-podgotvya-masirani-udari-po-energiyni-obekti-v-ukrayn-c1aff918.json",
+      "content_sha256": "27a4826b93a2307777da119f8f82772398e0dc3d56d6cb6c774527a60169e52e",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "593866e070602623fb7a": {
+      "article_path": "news/data/faktor.bg/20260830-hudson-institute-balgarskiqt-premier-radev-slojen-sayuznik-v-4308e498.json",
+      "content_sha256": "ba24db66f5a097e61a2867e9e47f6bf0e30a2463b3c85c77fe0269334f77c679",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "68ae1e7e8ca1792de1f7": {
+      "article_path": "news/data/clubz.bg/20260829-178835-41c99ee9.json",
+      "content_sha256": "e653997240a2ad15ca033959c785eb0837a9363090db58b4120b55963b8c4a5c",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "6b3420b1979debf5b821": {
+      "article_path": "news/data/flagman.bg/20260830-388920-960a2b67.json",
+      "content_sha256": "5ea4e67968b81d8ad2fd56e8767be8abdb5d4b461171bd54ebe7d0c549d05f72",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "6b97473f5a8ef6a812b1": {
+      "article_path": "news/data/flagman.bg/20260829-388857-1da43872.json",
+      "content_sha256": "9cf932233afb69b38f1a34f67a92dd22e39fd2a6e0cf16699de944b72bfafe3f",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "76421429fba640f19c44": {
+      "article_path": "news/data/news.bg/20260828-iskaneto-za-izvazhdane-na-iskander-mahmudov-ot-sanktsiite-na-12a705ea.json",
+      "content_sha256": "45ec4a3735a3696a828a804ba5b7c5074b34a5fe222c3d716ccc58a75ebe2122",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "7d1e408040cdf42f74f3": {
+      "article_path": "news/data/pogled.info/20260830-styagat-li-kapan-na-fridrih-merts-v-bivshata-gdr196634-c245b6fc.json",
+      "content_sha256": "2cb4c00ba6b6086e0a75bfcadbe71fb564cbb1342bcb20efa6a5ebcf169c16f4",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "7d545bff7a11f2b94752": {
+      "article_path": "news/data/chernomore.bg/20260830-313996-delyan-dobrev-gerb-tryabva-da-ima-svoya-kandidat-za-p-0c2e83c1.json",
+      "content_sha256": "e3b3f4abb6c8f24e68d8d405e69003a9fbf88cd63dfa75d4a1143cc8eca31e1f",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "7e909ce46f6894f577b3": {
+      "article_path": "news/data/flagman.bg/20260830-388890-11dd0ea1.json",
+      "content_sha256": "c570df0ef45be5f878ace9f100d157007c8aa3db78b385056a160096e9837694",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "7fdc286757c52c1d2e35": {
+      "article_path": "news/data/glasove.com/nodate-putin-kiev-otvori-kutiyata-na-pandora-ruskiyat-otgovor-shte--3240bbe1.json",
+      "content_sha256": "378b8af93e006981850816730754cece8b808188c0b7b4a781d012f4841f8b1f",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "83bfe4244d751ee7b16b": {
+      "article_path": "news/data/clubz.bg/20260822-178599-2f9ac786.json",
+      "content_sha256": "80c917ff3069126f7629c0340820376e5bf709349de879fc4d738949f259e7d6",
+      "basis": "post_drift",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "9178b83cf140ee209bfd": {
+      "article_path": "news/data/pogled.info/20260830-peskov-bryuksel-izmisli-ruskata-zaplaha-za-da-opravdae-novit-5b33807f.json",
+      "content_sha256": "d264cf37180e655f51f63ed594c7c0d42bb9d86759a38fb5439ca4b9eca8eda3",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "9484af1e34de5cf4fe50": {
+      "article_path": "news/data/capital.bg/20260829-4950523-njuzletur-neshto-moje-da-vi-se-sluchi-preduprejdava-a2663577.json",
+      "content_sha256": "2f35048cd264ae79889e71c66abf8b983b90fd5453adf507c3ea6aacecc901d5",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "9b82e583584219a82e55": {
+      "article_path": "news/data/trafficnews.bg/20260829-vas-okonchatelno-osadi-kostadin-kostadinov-diskriminatsiia-3-cc039a0a.json",
+      "content_sha256": "509bb2263b8f92ea3ef591465983ac77af9d4de8e864ab5895254a3a7e9f2aa5",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "9eb23de6cee7c2ac1b32": {
+      "article_path": "news/data/pogled.info/20260830-ne-kriyte-parite-si-es-se-gotvi-da-konfiskuva-spestyavaniyat-19138de4.json",
+      "content_sha256": "89413f6ac702929c9728983a2efec6e7762f11b05821e9731d1a5f5877be6a4e",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "9eb89792ba59ec7823b4": {
+      "article_path": "news/data/haskovo.net/nodate-15-dusi-zaginaxa-pri-pozar-v-amurskiia-gazoximiceski-komplek-4786ed49.json",
+      "content_sha256": "d4bd997b8f9fc0726ef11b9eef4d5f04bed52baf0e99f77ff1abaea4e9376c7f",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "a4e2ec64634431d50369": {
+      "article_path": "news/data/glasove.com/nodate-dzhefri-saks-evropa-varvi-kam-ikonomichesko-samoubiystvo-a-a-7f475c1b.json",
+      "content_sha256": "30bd136334099f0b296f569548b97fa1c01130a4b1a90d3b610b2947731e0ded",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "a5bc22fe724a52705d7b": {
+      "article_path": "news/data/pogled.info/20260830-noviyat-obseg-na-iskander-ostavya-pod-deset-minuti-reaktsiya-a7104ad7.json",
+      "content_sha256": "8d218d8e8a1e51eeee515d1a1f7bc5392e6f3dc5e166f359529d65f6996f1b08",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "a71b3b57905d615c71c2": {
+      "article_path": "news/data/lupa.bg/nodate-sledvashtiyat-ruski-prezident-shte-e-si-dzinpin-422987news-6d90a519.json",
+      "content_sha256": "948cce314a0b697dec47299e4a64fa34a84595049a29da59976c8918091d0a49",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "b02983de9405c57b9005": {
+      "article_path": "news/data/pogled.info/20260830-georgi-markov-novata-berlinska-stena-pada-zashto-iztochna-ge-a742f60f.json",
+      "content_sha256": "11dba58f516b6b6fbae5a17d46c9fe915e8d179c7ad0e405fafeb30903c38082",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "b41f6bac0706a2c0d5d5": {
+      "article_path": "news/data/profit.bg/20260828-2026082808375036645-5267d096.json",
+      "content_sha256": "8091f85e4b6def9c0db8dad3b07e8e28284e025adb7ca1d88c4fca6f9260b23d",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "b6149fcf5f80f4f47fd5": {
+      "article_path": "news/data/petel.bg/20260830-Borisov-GERB-poveche-nyama-da-pravi-kompromisi-vlizame-v-bit-bc895abf.json",
+      "content_sha256": "98b568e89e408c3464118c213ee490e3f6e20f4d8c4fefed900c226f72fbb2e8",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "be9d58373d8913ef6d28": {
+      "article_path": "news/data/epicenter.bg/20260830-0-ffa2ebd1.json",
+      "content_sha256": "de4cd9421637c1aa0dd200227b4381953862325049937ff8a96e7f3110711da5",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "c083a5d2034afa150035": {
+      "article_path": "news/data/actualno.com/20260830-skandal-v-skopie-upravnici-na-mickoski-vyzhvaljavat-mladich--313bc685.json",
+      "content_sha256": "4aab562b0eb77cbbffe51444301feade179413a2c71a7e581b644758dd008e99",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "c798f63e2dd508afee6b": {
+      "article_path": "news/data/168chasa.bg/20260830-23476058-0ced56db.json",
+      "content_sha256": "cbccaa68288b4bbb9ef4d7dfd6edc7cd31f587f4322a844273dcd03a8f3030e8",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "c8bd9025eccb939c5784": {
+      "article_path": "news/data/pogled.info/20260830-raketniyat-faktor-na-kndr-i-noviyat-geopoliticheski-balans-v-eecfa048.json",
+      "content_sha256": "e734dbccd821e7b196ecac7d8476088b28b6532a543857d9f429a8a67db499cf",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "c9cb67fc580ad0a02100": {
+      "article_path": "news/data/nova.bg/20260830-D180D183D181D0B8D18F-D0BED0B1D18FD0B2D0B8-D187D0B5-D0B3D0BED-dea30a0e.json",
+      "content_sha256": "07e5d1fbd15065f8b6fb60915e79a119b5af4c1317068fc98976448769f4306a",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "cf251aba7ba5965a08ef": {
+      "article_path": "news/data/segabg.com/20260830-shefut-na-cru-e-sondiral-moskva-za-sreshta-sasht-rusiya-i-uk-c2113c2a.json",
+      "content_sha256": "4d3e649483d9240788e8673133624827027f030440bdd710c75aa6f5f3df2872",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "d32e6d07d018b365eb6b": {
+      "article_path": "news/data/manager.bg/20260822-makron-francia-ste-izprati-na-ukraina-novi-raketi-za-protivo-00093f5b.json",
+      "content_sha256": "929d827c1b97103ae3c3f858daf487bb815d1d9c7fcb2da3c9917d2d2bd892c3",
+      "basis": "post_drift",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "d35210b165f51aa6b2a3": {
+      "article_path": "news/data/vesti.bg/20260830-rokadi-v-beliia-dom-karolin-livit-se-sboguva-s-posta-a-natal-c018313c.json",
+      "content_sha256": "5c5028484af8659b178c7d3c71117ebc1972499cd0cc499e152ae340dc44b4f9",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "d37367d6053a462f7ad2": {
+      "article_path": "news/data/segabg.com/20260829-20-000-dushi-sa-zaplasheni-vodna-kriza-lomsko-57e9da69.json",
+      "content_sha256": "3d6f6b4ebfa8a02b9da22fb005e31562be57e302f4a90a49f850d201915140b0",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "d408b73e9efde3bb3ace": {
+      "article_path": "news/data/bloombergtv.bg/20260828-163579-poslanik-harbst-udarite-po-kiev-sa-chist-teror-chast--7744a11f.json",
+      "content_sha256": "fdcc54f273819fd875f91aa72a0f33f3cd8e04fc2be10ae7eeead0b8bda4ae55",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "d5f0b81bfc8e114d9c3f": {
+      "article_path": "news/data/glasove.com/nodate-borisov-gerb-ne-uchastva-na-izbori-koito-ne-mozhe-da-spechel-e4550946.json",
+      "content_sha256": "ac8582f380a9d729ab1b5ceaa7360ec998e5d415cf1beea9850e8cfa398ea387",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "d74cf6752eabfef914ba": {
+      "article_path": "news/data/chernomore.bg/20260830-314000-boyko-borisov-gerb-poveche-nyama-da-pravi-kompromisi-481ef788.json",
+      "content_sha256": "5b6dce6f60f351da7e40c867154659370069732f57260d7b51eb5f2a762939f9",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "d8678575adc60cd123dd": {
+      "article_path": "news/data/epicenter.bg/20260828-0-1ee5eb24.json",
+      "content_sha256": "0f0f6b3afdf6531df706a1566f98bf7bba36c9db12e58e3f111b7d902376567c",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "da0f5382f74e6364e54d": {
+      "article_path": "news/data/pogled.info/20260830-ekvatorialna-gvineya-natsionalizira-aktivite-na-exxonmobil-i-999211d9.json",
+      "content_sha256": "6148e15672e0bf8a8b94a825d9508522103bd6430bc6c029cc2aa3fd50474d56",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "da1a92387fe00566bb31": {
+      "article_path": "news/data/clubz.bg/20260830-178858-a38f7df1.json",
+      "content_sha256": "98b1b949ebceaccff70a665f04d26a7b19cf2f0f957b26f34d08d8fdea30d4ae",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "da76a0807b8b6f56f0a8": {
+      "article_path": "news/data/bgnes.bg/20260830-migranti-v-germaniq-sa-gotovi-da-si-stegnat-bagaja-zaradi-is-93dd787c.json",
+      "content_sha256": "bdfaca27c7a58cfa0b07dcd98d39f424e15126fa90488a77e3f98ec4b2d7dddb",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "dbb456ac734d24c51bae": {
+      "article_path": "news/data/manager.bg/20260830-liderat-na-frenskite-socialisti-se-vkluchva-v-prezidentskata-c943fb8a.json",
+      "content_sha256": "ae20790499db46edfd68ac88eb8b2019111fee057974a99ff5fd11dce27f7406",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "dc13a6549fd146e1443b": {
+      "article_path": "news/data/pogled.info/20260830-iran-poluchi-pokana-za-regionalen-dialog-za-sigurnost-no-otr-a306050b.json",
+      "content_sha256": "c5fee643e5ee48c05278c9b2419ce18a88a765a5fcdcb1af36fa9b9b33bde8c5",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "dd4358dbd23b06bd3943": {
+      "article_path": "news/data/trafficnews.bg/20260829-borisov-ne-se-li-obedini-diasnoto-oshte-otsega-da-chestitim--39aeb5ce.json",
+      "content_sha256": "5f3cf45f49e02bd25043634aec8632b74f6e954b1ca760c47d76c0cbf5d8fb5e",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "e05b26d93d3ab0cd7bbe": {
+      "article_path": "news/data/manager.bg/20260829-iliana-iotova-prez-sledvastata-sedmica-ste-stane-asno-imeto--b6649b88.json",
+      "content_sha256": "04a020dc8bc88afb8ec161655571ac9af236eab110731c4281a138ee6eab5bb8",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "e4ece12f14efddee0842": {
+      "article_path": "news/data/petel.bg/20260830-Andrey-Gyurov-Na-31-avgust-shhe-stane-yasno-dali-shhe-se-kan-f88309af.json",
+      "content_sha256": "c31818571c1a3438b6e280399e998978e12521677988a15a134b7a64f6f4983b",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "e52610732379db09cc98": {
+      "article_path": "news/data/vesti.bg/20260830-delian-dobrev-nareche-andrej-giurov-tiktok-maneken-i-influen-6b563c7a.json",
+      "content_sha256": "a4b8a0a532b28612e2b56f7c8c2324fbb526a7e3641ebfb42707c39fe0388dd0",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "e5624820194937f15d4c": {
+      "article_path": "news/data/actualno.com/20260821-sled-atakata-v-krivoj-rog-kaja-kalas-obvini-rusija-v-umishle-424fd22b.json",
+      "content_sha256": "c525eeb16dd668b965a41db6bf3e75e9edce2a41a62edf686c059212ba8e5c20",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "e575950a5fcc928664e2": {
+      "article_path": "news/data/frognews.bg/20260826-kogato-tselta-opravdava-sredstvata-zelenski-vrachi-orden-svo-9aaa90ea.json",
+      "content_sha256": "2a71009a91512d0f40b0130e52279bd73e38708444385a7329d762a156bbcd2d",
+      "basis": "frozen",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "e6a806544ebb11e1b8b7": {
+      "article_path": "news/data/bgnes.bg/20260830-boyko-borisov-gerb-poveche-nqma-da-pravi-kompromisi-vlizame--a6eca2ad.json",
+      "content_sha256": "92d812a28a60644133d1ea1982288755d73e31974f173c66308d42ecafdf7a5e",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "eb51d2aecedbac0f68e4": {
+      "article_path": "news/data/fakti.bg/20260830-1077148-chehia-ne-iska-migranti-i-bejanci-no-silno-se-nujdae-a3140319.json",
+      "content_sha256": "61506211385bc2752c5018f55bfbe05f707244bc2f3f16c8d84cfb2ce7d6d9ae",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "ed173736c040d9010f97": {
+      "article_path": "news/data/epicenter.bg/20260830-0-7172662e.json",
+      "content_sha256": "4d7a3067fd8675a6fde01d49788a27926eddbad1b4b1674dc4e91b6950ecf2a0",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "ee6a5c1de906d4281d3f": {
+      "article_path": "news/data/standartnews.com/20260830-gyurov-prenavi-pruzhinata-kazva-reshenieto-si-utre-645307-4a833e87.json",
+      "content_sha256": "4e7796f8dc0152a984e38470955b982f21ca2e341f8e3f2c52b5b4c2e58e6d89",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "eee1cca9a289bd2ae753": {
+      "article_path": "news/data/frognews.bg/20260830-edin-vseki-pet-germantsi-napuska-stranata-ako-krainata-desni-1007c8ed.json",
+      "content_sha256": "56fc5a86ecc54c047f3f512f7937c3497cf3609696daca7be4ec369958626f66",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "ef5be8ea1f346cfabf7b": {
+      "article_path": "news/data/epicenter.bg/20260829-0-0eb84127.json",
+      "content_sha256": "910404628363ec33b67b724545890a972fca3cd911388e2931a0acc3e3bcdb17",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "ef9889b673d5c4a05ab9": {
+      "article_path": "news/data/actualno.com/20260822-ukrajna-udari-petrolnata-rafinerija-v-novokujbishevsk-termin-6a80c774.json",
+      "content_sha256": "61a75afac968e55ddf28019e2ff25ce53ef339f41ab8a5cc8edd56ceaaef79b4",
+      "basis": "post_drift",
+      "sample": "russia-supplement-2026-09-01.json"
+    },
+    "f6feedf7c2c268279cdb": {
+      "article_path": "news/data/e-vestnik.bg/20160901-simitli-simitli-yamks-da-se-posmeem-na-prostotiite-6fb5ec03.json",
+      "content_sha256": "90a8ad3b00223059d495b205569fd3154ed7ed37699f89d7730893764a9c027f",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "f91544095ba047ada50d": {
+      "article_path": "news/data/glasove.com/nodate-andrey-raychev-i-dimitar-ganev-pri-yavor-dachkov-nyama-otliv-41a4ecc2.json",
+      "content_sha256": "dbb7cc51b06b11a89024c02221660fcadfc8eb4205e33666e81b82609ae35dc2",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    },
+    "f9b1cacabe37342e3b8b": {
+      "article_path": "news/data/flagman.bg/20260828-388815-e5391890.json",
+      "content_sha256": "9e52af44ddafad41f42b5fadb72f25ed13c5daa9e508b3d1e1277fb57c1605cd",
+      "basis": "frozen",
+      "sample": "human-agreement-sample-2026-09-01.json"
+    }
+  }
+}

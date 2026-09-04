@@ -18,6 +18,13 @@ gate has passed.
 - `russia-supplement-2026-09-01.json` contains 25 more blinded assignments that
   ask `russia_stance` ONLY. It is ENRICHED for ordinal spread and is not a
   prevalence sample.
+- `article-content-hashes-2026-09-04.json` freezes a hash over `{title,
+  description, content}` per assignment — the fields an adjudicator is shown —
+  so a nightly metadata write cannot break provenance. Rebuild with
+  `python3 news/scripts/freeze_article_content_hashes.py --write`. ⚠️ It is a
+  SIDECAR, keyed by `assignment_id` and stating the `assignments_sha256` it
+  binds to, because adding a field to the assignment rows would change that
+  hash and invalidate every sealed pass.
 - `human-agreement-policy-2026-09-01.json` records the adjudication method, the
   precision floors, the supplement and the one declared exemption, each with
   its reason. Pass it to the scorer with `--policy`.
@@ -185,38 +192,38 @@ directory and the checked-in templates must stay pending.
 ⚠️ **The frozen corpus lives in a tree the nightly job writes to.** On
 2026-09-02 an image-rights pass rewrote 40 of the 1,833 baseline article files
 — three inside the gate's 75 assignment rows — so `file_sha(article)` stopped
-matching `article_sha256` and the scorer refused those rows. The writer touches
-only `image`, `image_alt` and `image_rights`
-(`apply_commons_images.py:121-124`), none of which an adjudicator is ever
-shown, so the judged TEXT is unchanged; but the frozen bytes are gone and
-nothing here witnesses that independently, so it is an argument, not a hash.
+matching `article_sha256` and the gate could not be scored at all.
 
-The three rows are covered by `article_drift_exemptions` in the policy, each
-naming its `frozen_sha256`, its `observed_sha256`, the writer that caused the
-drift and what is NOT waived. Two properties make that safe to have:
+**Fixed on 2026-09-04 by freezing a second hash.**
+`article-content-hashes-2026-09-04.json` records a hash over `{title,
+description, content}` per row, so the scorer resolves a moved file hash in
+three steps:
 
-- **each exemption is pinned to one observed state**, so it covers exactly the
-  recorded mutation and REFUSES the next — a file that drifts again fails the
-  gate again. "This row may drift" would disable the guard permanently, and
-  `test_an_article_drift_exemption_refuses_a_second_drift` is the mutation
-  guard on precisely that;
-- **the result reports them.** `provenance` lists every drifted row as
-  `honoured` / `refused` / `stale`, because a gate that cleared with rows
-  resting on an argument is a weaker result than one where all 75 hashes
-  matched, and a report has to be able to say so.
+1. bytes match `article_sha256` → nothing to do;
+2. bytes moved but the frozen CONTENT hash still matches → `content_verified`,
+   the judged text is unchanged and the run proceeds with no exemption;
+3. bytes moved and the content hash moved too → refused, naming the judged text
+   as the thing that changed.
 
-An incomplete entry exempts nothing, and an entry whose `frozen_sha256` does
-not match the assignment is refused as written against another sample.
+So the recurrence is now cleared by a CHECK rather than by an argument. ⚠️ Only
+a record whose `basis` is `frozen` may clear a drift. A `post_drift` record was
+taken from a file that had ALREADY moved, so it gives forward protection and no
+evidence about what the adjudicators read — honouring one would convert the
+three hand-argued rows into `content_verified` and make their exemptions look
+removable. `basis` is derived by comparing hashes at freeze time, never
+hand-set, and the freezer refuses to overwrite a row that would lose `frozen`.
 
-⚠️ Do **not** instead re-freeze `article_sha256`: `assignments_sha256` is a
-canonical hash over the whole array, so moving one row invalidates both sealed
-passes and discards every human judgment in them.
+The three original rows therefore keep their `article_drift_exemptions`, each
+pinned to one `(frozen_sha256, observed_sha256)` pair so it covers exactly the
+recorded mutation and refuses the next. Every drifted row is reported in the
+result's `provenance` as `content_verified` / `honoured` / `refused` / `stale`,
+because a gate cleared on an argument is a weaker result than one cleared on a
+hash, and a report has to be able to say which.
 
-⚠️ **The exemptions are a symptom, not a fix, and this will recur.** The next
-mutation may be a re-fetch that changes `content`, which no argument of this
-shape could excuse. Freezing a hash over `{title, description, content}` beside
-`article_sha256`, or copying the sampled articles into `news/evals/` at freeze
-time, is the real fix. Neither is done.
+⚠️ Do **not** instead re-freeze `article_sha256`, and do not add the content
+hash to the assignment rows: `assignments_sha256` is a canonical hash over the
+whole array, so either one invalidates both sealed passes and discards every
+human judgment in them. That is why the content hashes are a sidecar.
 
 ## Party-identity audit
 

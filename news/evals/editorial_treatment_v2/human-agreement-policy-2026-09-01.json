@@ -76,5 +76,6 @@
       "declared_on": "2026-09-04"
     }
   ],
-  "article_drift_note": "⚠️ The frozen eval corpus lives in news/data/, a tree the nightly job writes to — that is the STRUCTURAL defect these three exemptions are a symptom of, and it will recur. The next mutation may be a re-fetch that changes `content`, which no argument of this shape could excuse. Freezing a hash over {title, description, content} beside article_sha256, or copying the sampled articles into news/evals/ at freeze time, is the fix; neither is done."
+  "article_drift_note": "⚠️ The frozen eval corpus lives in news/data/, a tree the nightly job writes to, and these three exemptions are what that cost once. Since 2026-09-04 `article_content_hashes` freezes a second hash over {title, description, content} — the fields an adjudicator is actually shown — so a metadata-only rewrite is now CLEARED BY A CHECK rather than by a hand-written argument, and a rewrite that touches the judged text still fails. The three entries below stay necessary: their content hashes carry basis `post_drift`, taken after the file had already moved, so they give forward protection only and cannot speak for what pass A read. They are removable only by re-freezing the sample, which would invalidate both sealed passes.",
+  "article_content_hashes": "news/evals/editorial_treatment_v2/article-content-hashes-2026-09-04.json"
 }

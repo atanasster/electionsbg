@@ -114,6 +114,19 @@ def file_sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+# The fields load_article() shows an adjudicator, and nothing else. A hash over
+# these is immune to the nightly metadata writes that break `article_sha256`.
+JUDGED_FIELDS = ("title", "description", "content")
+
+
+def content_sha(path: Path) -> str:
+    """Hash of the judged text only, canonicalised through `canonical_sha` so
+    there is ONE canonicalisation in this repo rather than two that can drift."""
+
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    return canonical_sha({f: doc.get(f) or "" for f in JUDGED_FIELDS})
+
+
 def weighted_kappa(left: list[str], right: list[str],
                    order: list[str]) -> float | None:
     """Quadratic weighted kappa, or ``None`` when diversity is insufficient.
@@ -336,6 +349,32 @@ DRIFT_FIELDS = ("assignment_id", "article_path", "frozen_sha256",
                 "observed_sha256", "reason")
 
 
+def _content_verdict(record: dict | None, source: dict,
+                     path: Path) -> tuple[str, str] | None:
+    """Can the frozen CONTENT hash clear this drift on its own?
+
+    ⚠️ Only a `frozen`-basis record may. A `post_drift` record was taken from a
+    file that had ALREADY moved, so it gives forward protection and no evidence
+    about what the adjudicators read — honouring it here would silently convert
+    the three hand-argued rows into verified ones and make their exemptions look
+    removable. That is the whole reason `basis` exists.
+    """
+
+    if not record or record.get("basis") != "frozen":
+        return None
+    if record.get("article_path") != source["article_path"]:
+        return None
+    if not record.get("content_sha256"):
+        return None
+    if content_sha(path) != record["content_sha256"]:
+        return ("refused", "the JUDGED TEXT changed, not just metadata — the "
+                           "frozen content hash does not match either")
+    return ("content_verified",
+            "file bytes moved but the frozen hash over "
+            f"{'/'.join(JUDGED_FIELDS)} still matches, so the adjudicated text "
+            "is unchanged")
+
+
 def _drift_verdict(entry: dict | None, source: dict,
                    actual: str) -> tuple[str, str]:
     """Does a declared article-drift exemption cover THIS file in THIS state?
@@ -383,7 +422,8 @@ def _assignment_index(assignments: dict, errors: list[str],
 
 def _validate_pass(assignments: dict[str, dict], assignment_hash: str,
                    doc: dict, expected_id: str,
-                   drift: dict[str, dict] | None = None
+                   drift: dict[str, dict] | None = None,
+                   content: dict[str, dict] | None = None
                    ) -> tuple[list[dict], list[str], bool]:
     errors = []
     pending = False
@@ -418,9 +458,11 @@ def _validate_pass(assignments: dict[str, dict], assignment_hash: str,
             else:
                 actual = file_sha(article_path)
                 if actual != source["article_sha256"]:
-                    verdict, note = _drift_verdict(
+                    checked = _content_verdict(
+                        (content or {}).get(aid), source, article_path)
+                    verdict, note = checked if checked else _drift_verdict(
                         (drift or {}).get(aid), source, actual)
-                    if verdict != "honoured":
+                    if verdict not in ("honoured", "content_verified"):
                         errors.append(
                             f"pass {expected_id} row {index + 1} ({aid}) "
                             f"article hash moved — {note}"
@@ -454,7 +496,8 @@ def _pass_axes(doc: dict) -> list[str]:
 
 
 def _drift_report(assignments: dict[str, dict],
-                  drift: dict[str, dict] | None) -> list[dict]:
+                  drift: dict[str, dict] | None,
+                  content: dict[str, dict] | None = None) -> list[dict]:
     """Every row whose file no longer matches its frozen hash, plus every
     declared exemption that is no longer doing anything.
 
@@ -474,7 +517,9 @@ def _drift_report(assignments: dict[str, dict],
         if actual == source["article_sha256"]:
             continue
         seen.add(aid)
-        verdict, note = _drift_verdict((drift or {}).get(aid), source, actual)
+        checked = _content_verdict((content or {}).get(aid), source, path)
+        verdict, note = checked if checked else _drift_verdict(
+            (drift or {}).get(aid), source, actual)
         report.append({"assignment_id": aid,
                        "article_path": source["article_path"],
                        "frozen_sha256": source["article_sha256"],
@@ -498,17 +543,33 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
           supplements: list[tuple[dict, dict, dict]] | None = None,
           exemptions: dict[str, dict[str, str]] | None = None,
           min_rows: int = MIN_ROWS,
-          article_drift: dict[str, dict] | None = None) -> dict:
+          article_drift: dict[str, dict] | None = None,
+          article_content: dict[str, dict] | None = None) -> dict:
     errors: list[str] = []
     assignments = _assignment_index(assignments_doc, errors, min_rows)
     assignment_hash = assignments_doc.get("assignments_sha256")
+    content_records = (article_content or {}).get("records") or {}
+    if article_content:
+        # The sidecar names the assignment arrays it was built against. Without
+        # this check a re-frozen sample would silently keep clearing drifts
+        # using content hashes taken against the PREVIOUS array — the sidecar
+        # states the binding precisely so it can be enforced, not decorated.
+        bound = set((article_content.get("assignments_sha256") or {}).values())
+        if assignment_hash not in bound:
+            errors.append(
+                "article_content_hashes was built against a different "
+                "assignment set — re-run freeze_article_content_hashes.py")
+            content_records = {}
     rows_a, errors_a, pending_a = _validate_pass(
-        assignments, assignment_hash, pass_a, "A", article_drift
+        assignments, assignment_hash, pass_a, "A", article_drift,
+        content_records
     )
     rows_b, errors_b, pending_b = _validate_pass(
-        assignments, assignment_hash, pass_b, "B", article_drift
+        assignments, assignment_hash, pass_b, "B", article_drift,
+        content_records
     )
-    provenance = _drift_report(assignments, article_drift)
+    provenance = _drift_report(assignments, article_drift,
+                               content_records)
     errors.extend(errors_a + errors_b)
     if errors:
         return {"status": "invalid", "passed": False,
@@ -542,7 +603,8 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
     for sup_doc, sup_a, sup_b in (supplements or []):
         sup_result = score(sup_doc, sup_a, sup_b, min_n=0, min_minority=0,
                            min_rows=MIN_SUPPLEMENT_ROWS,
-                           article_drift=article_drift)
+                           article_drift=article_drift,
+                           article_content=article_content)
         if sup_result["status"] not in ("passed", "failed_rubric_agreement",
                                         "low_precision", "withheld_insufficient_n",
                                         "insufficient_label_diversity"):
@@ -687,6 +749,7 @@ def main() -> int:
     min_n, min_minority = args.min_n, args.min_minority_n
     supplements, exemptions, policy = [], {}, None
     article_drift: dict[str, dict] = {}
+    article_content: dict[str, dict] | None = None
     if args.policy:
         policy = json.loads(Path(args.policy).read_text(encoding="utf-8"))
         min_n = policy.get("min_n", min_n)
@@ -703,10 +766,22 @@ def main() -> int:
                 entry["reason"])
         for entry in policy.get("article_drift_exemptions") or []:
             article_drift[entry.get("assignment_id")] = entry
+        declared = policy.get("article_content_hashes")
+        if declared:
+            try:
+                article_content = json.loads(
+                    (ROOT / declared).read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                print(json.dumps({"status": "invalid", "passed": False,
+                                  "axes": {}, "policy": {"path": args.policy},
+                                  "errors": [f"article_content_hashes at "
+                                             f"{declared}: {exc}"]}, indent=2))
+                return 1
 
     result = score(assignments, pass_a, pass_b, min_n, min_minority,
                    supplements or None, exemptions or None,
-                   article_drift=article_drift or None)
+                   article_drift=article_drift or None,
+                   article_content=article_content)
     if policy:
         result["policy"] = {
             "path": args.policy,
