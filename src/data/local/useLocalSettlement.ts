@@ -26,10 +26,9 @@ import { useLocalMunicipality } from "./useLocalMunicipality";
 import { useLocalAsOf } from "./useLocalAsOf";
 import { isSofiaRayonObshtina } from "./placeViews";
 import type { LocalKmetstvoResult, LocalMunicipalityBundle } from "./types";
+import { kmetstvoNameKey } from "@/data/local/kmetstvoName";
 
 // Lowercase + whitespace-collapse for kметство ↔ settlement name comparison.
-const normalize = (s: string): string =>
-  s.normalize("NFC").replace(/\s+/g, " ").trim().toLowerCase();
 
 export type LocalSettlementResult = {
   ekatte?: string;
@@ -66,10 +65,10 @@ export const useLocalSettlement = (
 
   const kmetstvo = useMemo<LocalKmetstvoResult | null>(() => {
     if (!kmetstvoSource?.kmetstva || !settlement) return null;
-    const target = normalize(settlement.name);
+    const target = kmetstvoNameKey(settlement.name);
     return (
       kmetstvoSource.kmetstva.find(
-        (k) => normalize(k.kmetstvoName) === target,
+        (k) => kmetstvoNameKey(k.kmetstvoName) === target,
       ) ?? null
     );
   }, [kmetstvoSource, settlement]);

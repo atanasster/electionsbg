@@ -32,8 +32,21 @@ export type ElectionSurfaceSkeletonProps = {
   withMap?: boolean;
   /** How many facts this level shows, so the strip does not grow or shrink on arrival. */
   facts?: number;
-  /** How many ranked rows to reserve. Defaults to the producer's own preview cap. */
-  rows?: number;
+  /** How many ranked rows to reserve. Defaults to the producer's own preview cap.
+   *
+   *  ⚠ ONE NUMBER PER CANVAS WHERE THE CANVASES DIFFER, because a level's two ballots are not
+   *  the same shape and a single reservation has to be wrong for one of them. Measured over
+   *  the 578 published `local/municipality` surfaces, the mayor ballot's cheapest reservation
+   *  is 2 rows and the council ballot's is 8; the best single number for both is 5, which
+   *  leaves 4.44 row-heights of shift per page against 2.19 for `[2, 8]`. A scalar is spread
+   *  across every canvas, and a short array repeats its last entry, so `rows={2}` on a
+   *  one-ballot level and `rows={[2, 8]}` on a two-ballot one both read as intended.
+   *
+   *  ⚠ THE ARRAY IS POSITIONAL, so it is only correct while the producer's ballot order is.
+   *  `declaredColumns.data.test.ts` pins both — the per-position row counts AND the order the
+   *  kinds arrive in — because a reversed pair is the one mistake this form makes possible and
+   *  it looks exactly like a correct one in review. */
+  rows?: number | readonly number[];
   /** How many CANVASES this level draws — one per ballot.
    *
    *  ⚠ A LEVEL WITH TWO BALLOTS RESERVED ONE AND SHIFTED BY A WHOLE CANVAS. `local/municipality`
@@ -49,43 +62,49 @@ export const ElectionSurfaceSkeleton: FC<ElectionSurfaceSkeletonProps> = ({
   canvases = 1,
   facts = 4,
   rows = MAX_BALLOT_PREVIEW,
-}) => (
-  // ⚠ NO LANDMARK AND NO HEADING. The boundary's wrapper already carries the label and the live
-  // region; a second named region here would announce a section that does not exist yet, and
-  // then vanish.
-  <div data-surface-skeleton aria-hidden="true">
-    <div
-      className="my-4 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-      data-skeleton-region="facts"
-    >
-      {Array.from({ length: facts }, (_, i) => (
-        <div key={i} className="rounded-lg border bg-card p-3">
-          <Bar className="h-3 w-2/3" />
-          <Bar className="mt-2 h-7 w-1/2" />
+}) => {
+  const rowsAt = (c: number): number =>
+    typeof rows === "number"
+      ? rows
+      : (rows[Math.min(c, rows.length - 1)] ?? MAX_BALLOT_PREVIEW);
+  return (
+    // ⚠ NO LANDMARK AND NO HEADING. The boundary's wrapper already carries the label and the live
+    // region; a second named region here would announce a section that does not exist yet, and
+    // then vanish.
+    <div data-surface-skeleton aria-hidden="true">
+      <div
+        className="my-4 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+        data-skeleton-region="facts"
+      >
+        {Array.from({ length: facts }, (_, i) => (
+          <div key={i} className="rounded-lg border bg-card p-3">
+            <Bar className="h-3 w-2/3" />
+            <Bar className="mt-2 h-7 w-1/2" />
+          </div>
+        ))}
+      </div>
+      {Array.from({ length: canvases }, (_, c) => (
+        <div
+          key={c}
+          className={`my-4 ${CANVAS_GRID_CLASS}`}
+          data-skeleton-region="canvas"
+        >
+          {/* Same DOM order as the canvas: ranked first, placed into column 2 at `lg`. */}
+          <div className={CANVAS_RANKED_SLOT_CLASS} data-skeleton-slot="ranked">
+            {Array.from({ length: rowsAt(c) }, (_, i) => (
+              <Bar
+                key={i}
+                className={`mb-2 w-full ${SKELETON_ROW_HEIGHT_CLASS}`}
+              />
+            ))}
+          </div>
+          {withMap ? (
+            <div className={CANVAS_MAP_SLOT_CLASS} data-skeleton-slot="map">
+              <Bar className={`w-full ${SKELETON_MAP_HEIGHT_CLASS}`} />
+            </div>
+          ) : null}
         </div>
       ))}
     </div>
-    {Array.from({ length: canvases }, (_, c) => (
-      <div
-        key={c}
-        className={`my-4 ${CANVAS_GRID_CLASS}`}
-        data-skeleton-region="canvas"
-      >
-        {/* Same DOM order as the canvas: ranked first, placed into column 2 at `lg`. */}
-        <div className={CANVAS_RANKED_SLOT_CLASS} data-skeleton-slot="ranked">
-          {Array.from({ length: rows }, (_, i) => (
-            <Bar
-              key={i}
-              className={`mb-2 w-full ${SKELETON_ROW_HEIGHT_CLASS}`}
-            />
-          ))}
-        </div>
-        {withMap ? (
-          <div className={CANVAS_MAP_SLOT_CLASS} data-skeleton-slot="map">
-            <Bar className={`w-full ${SKELETON_MAP_HEIGHT_CLASS}`} />
-          </div>
-        ) : null}
-      </div>
-    ))}
-  </div>
-);
+  );
+};

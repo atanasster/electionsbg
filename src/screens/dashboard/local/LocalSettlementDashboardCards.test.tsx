@@ -16,6 +16,7 @@ import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { bgCorpus as bg } from "@/locales/allKeys";
 import type {
   LocalKmetstvoResult,
@@ -61,6 +62,15 @@ const settlement: {
   };
 } = { current: { name: null, kmetstvo: null, municipality: null } };
 const chmi: { current: ChmiHistoryEvent[] } = { current: [] };
+/** The two fetches supersession depends on, held pending independently.
+ *
+ *  ⚠ THIS IS THE WHOLE POINT OF THE FIXTURE. `latestKmetstvo === null` is produced BOTH by "no
+ *  by-election superseded this cycle" and by "the by-election has not arrived yet", and only
+ *  the second is a lie waiting to render. A mock that resolves everything synchronously cannot
+ *  tell them apart, so it would pass on the defect. */
+const pending: { current: { chmi: boolean; byElection: boolean } } = {
+  current: { chmi: false, byElection: false },
+};
 const byElectionKmetstva: { current: LocalKmetstvoResult[] } = { current: [] };
 
 vi.mock("@/data/local/useLocalSettlement", () => ({
@@ -79,10 +89,14 @@ vi.mock("@/data/local/useLocalMunicipality", () => ({
     municipality: byElectionKmetstva.current.length
       ? { kmetstva: byElectionKmetstva.current }
       : undefined,
+    // ⚠ THE LOAD-PATH FLAG THE SUPERSESSION GUARD READS. Left out of this mock the guard is
+    // permanently settled here, which is the one state the component must NOT be tested in.
+    isLoading: pending.current.byElection,
   }),
 }));
 vi.mock("@/data/local/useChmiHistory", () => ({
   useChmiHistory: () => chmi.current,
+  useChmiHistoryPending: () => pending.current.chmi,
 }));
 vi.mock("@/data/local/useLocalPlaceTrends", () => ({
   useLocalPlaceTrend: () => ({ data: undefined }),
@@ -130,11 +144,20 @@ const event = (date: string, cycle: string): ChmiHistoryEvent => ({
   votes: 250,
 });
 
+// ⚠ THE SURFACE BOUNDARY OPENS A REACT QUERY, so these cards now need a client where they did
+// not before. `retry: false` so a fetch that has nowhere to go fails once instead of holding
+// the test open; every assertion here is about what renders BEFORE any surface arrives.
 const renderCards = (cycle: string) =>
   render(
-    <MemoryRouter>
-      <LocalSettlementDashboardCards ekatte="44063" cycle={cycle} />
-    </MemoryRouter>,
+    <QueryClientProvider
+      client={
+        new QueryClient({ defaultOptions: { queries: { retry: false } } })
+      }
+    >
+      <MemoryRouter>
+        <LocalSettlementDashboardCards ekatte="44063" cycle={cycle} />
+      </MemoryRouter>
+    </QueryClientProvider>,
   ).container;
 
 describe("LocalSettlementDashboardCards — contest kind", () => {
@@ -334,5 +357,83 @@ describe("a settlement with no кметство of its own", () => {
     const c = renderCards("2023_10_29_mi");
     expect(c.textContent).toContain("Стар Кмет");
     expect(screen.queryByText(/няма собствено кметство/i)).toBeNull();
+  });
+});
+
+describe("LocalSettlementDashboardCards — the surface on the load path", () => {
+  // ⚠ THE SOURCE SCAN IN `supersededMayor.data.test.ts` CANNOT SEE THIS. It proves the SETTLED
+  // gate is wired — that `latestKmetstvo` reaches the boundary — and no static read of the file
+  // can distinguish a guard that holds from the first paint from one that holds only after the
+  // second fetch wave. On all 216 superseded settlement pages the difference is one round-trip
+  // of „Избран · да" against the person the by-election replaced.
+
+  const boundary = (c: HTMLElement) =>
+    c.querySelector("[data-surface-boundary]");
+
+  it("does not mount the surface while the by-election is still resolving", () => {
+    settlement.current = {
+      name: "Лозен",
+      kmetstvo: race("ВАСИЛ ЛЮБОМИРОВ СТАНЧЕВ"),
+    };
+    // The chmi feed has landed and names a LATER кметство by-election…
+    chmi.current = [event("2025-06-15", "2025_06_15_chmi")];
+    // …but its município bundle, which is what turns that event into `latestKmetstvo`, has not.
+    byElectionKmetstva.current = [];
+    pending.current = { chmi: false, byElection: true };
+
+    const container = renderCards("2023_10_29_mi");
+    expect(
+      boundary(container),
+      "the surface mounted before supersession was known",
+    ).toBeNull();
+  });
+
+  it("does not mount the surface while the chmi feed itself is still resolving", () => {
+    // The other half: nothing is known yet at all. An empty feed and a PENDING feed are the
+    // same value, so the guard has to read the query's state rather than its data.
+    settlement.current = {
+      name: "Лозен",
+      kmetstvo: race("ВАСИЛ ЛЮБОМИРОВ СТАНЧЕВ"),
+    };
+    chmi.current = [];
+    byElectionKmetstva.current = [];
+    pending.current = { chmi: true, byElection: false };
+
+    const container = renderCards("2023_10_29_mi");
+    expect(boundary(container)).toBeNull();
+  });
+
+  it("keeps it suppressed once the by-election has arrived", () => {
+    settlement.current = {
+      name: "Лозен",
+      kmetstvo: race("ВАСИЛ ЛЮБОМИРОВ СТАНЧЕВ"),
+    };
+    chmi.current = [event("2025-06-15", "2025_06_15_chmi")];
+    byElectionKmetstva.current = [race("Нов Кмет")];
+    pending.current = { chmi: false, byElection: false };
+
+    const container = renderCards("2023_10_29_mi");
+    expect(
+      boundary(container),
+      "a superseded page must never mount the surface",
+    ).toBeNull();
+  });
+
+  it("mounts it when everything has resolved and nothing superseded the cycle", () => {
+    // ⚠ WITHOUT THIS THE THREE ABOVE PASS ON A COMPONENT THAT NEVER MOUNTS THE BOUNDARY AT ALL,
+    // which is the shape a suppression bug takes when it over-fires.
+    settlement.current = {
+      name: "Лозен",
+      kmetstvo: race("ВАСИЛ ЛЮБОМИРОВ СТАНЧЕВ"),
+    };
+    chmi.current = [];
+    byElectionKmetstva.current = [];
+    pending.current = { chmi: false, byElection: false };
+
+    const container = renderCards("2023_10_29_mi");
+    expect(
+      boundary(container),
+      "the surface never mounts, so the suppression tests prove nothing",
+    ).not.toBeNull();
   });
 });

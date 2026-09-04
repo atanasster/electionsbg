@@ -21,6 +21,7 @@ import { Card } from "@/components/ui/card";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import type { LocalKmetstvoResult } from "@/data/local/types";
 import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
+import { kmetstvoNameKey } from "@/data/local/kmetstvoName";
 
 type Props = {
   /** EKATTE of the resolved settlement. */
@@ -33,8 +34,6 @@ type Props = {
 
 /** Normalize for kметство name comparison: lowercase + strip whitespace +
  *  fold spacing. Cyrillic case folding handled by toLowerCase(). */
-const normalize = (s: string): string =>
-  s.normalize("NFC").replace(/\s+/g, " ").trim().toLowerCase();
 
 const formatVotes = (n: number): string =>
   new Intl.NumberFormat("bg-BG").format(n);
@@ -49,9 +48,9 @@ export const MyAreaKmetstvoTile: FC<Props> = ({ settlementName, obshtina }) => {
   // is bounded — no need for a precomputed index.
   const match = useMemo<LocalKmetstvoResult | null>(() => {
     if (!municipality?.kmetstva) return null;
-    const target = normalize(settlementName);
+    const target = kmetstvoNameKey(settlementName);
     for (const k of municipality.kmetstva) {
-      if (normalize(k.kmetstvoName) === target) return k;
+      if (kmetstvoNameKey(k.kmetstvoName) === target) return k;
     }
     return null;
   }, [municipality, settlementName]);

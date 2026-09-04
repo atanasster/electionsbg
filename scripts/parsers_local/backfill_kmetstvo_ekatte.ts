@@ -20,6 +20,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { kmetstvoNameKey } from "../../src/data/local/kmetstvoName";
 
 type SettlementInfo = {
   ekatte: string;
@@ -47,9 +48,6 @@ const CYCLE_DIR = path.join(PROJECT_ROOT, "data/2023_10_29_mi/municipalities");
 const OUT_DIR = path.join(PROJECT_ROOT, "data/local_mayors");
 const OUT_FILE = path.join(OUT_DIR, "kmetstvo_to_ekatte.json");
 
-const normalize = (s: string): string =>
-  s.normalize("NFC").replace(/\s+/g, " ").trim().toLowerCase();
-
 const main = () => {
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -66,7 +64,7 @@ const main = () => {
       inner = new Map();
       byObshtinaName.set(s.obshtina, inner);
     }
-    inner.set(normalize(s.name), s.ekatte);
+    inner.set(kmetstvoNameKey(s.name), s.ekatte);
   }
 
   // Walk each município bundle, match kметство names to EKATTE.
@@ -93,7 +91,7 @@ const main = () => {
 
     for (const k of bundle.kmetstva ?? []) {
       totalKmetstva++;
-      const norm = normalize(k.kmetstvoName);
+      const norm = kmetstvoNameKey(k.kmetstvoName);
       const ekatte = innerIndex.get(norm);
       if (ekatte) {
         lookup[`${obshtina}:${norm}`] = ekatte;

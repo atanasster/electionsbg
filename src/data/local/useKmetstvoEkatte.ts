@@ -9,9 +9,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { dataUrl } from "@/data/dataUrl";
-
-const normalize = (s: string): string =>
-  s.normalize("NFC").replace(/\s+/g, " ").trim().toLowerCase();
+import { kmetstvoNameKey } from "@/data/local/kmetstvoName";
 
 const queryFn = async (): Promise<Record<string, string>> => {
   const res = await fetch(dataUrl("/local_mayors/kmetstvo_to_ekatte.json"));
@@ -29,7 +27,7 @@ export const useKmetstvoEkatte = () => {
   });
   const ekatteFor = useCallback(
     (obshtina: string, kmetstvoName: string): string | undefined =>
-      data?.[`${obshtina}:${normalize(kmetstvoName)}`],
+      data?.[`${obshtina}:${kmetstvoNameKey(kmetstvoName)}`],
     [data],
   );
   return { ekatteFor };

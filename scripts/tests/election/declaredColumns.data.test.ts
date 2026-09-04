@@ -24,11 +24,13 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import * as B from "../../elections/build_surfaces";
 import { descriptorFor } from "../../../src/screens/elections/electionSurfaceDescriptors";
-import type {
-  ElectionRankedEntry,
-  ElectionSurfaceBallot,
+import {
+  MAX_BALLOT_PREVIEW,
+  type ElectionRankedEntry,
+  type ElectionSurfaceBallot,
 } from "../../../src/data/elections/surfaceTypes";
 import { reportSkip } from "../../lib/report_skip";
+import { stripComments } from "../../lib/strip_comments";
 
 const ALL: B.Emitted[] = B.coveredCycles().flatMap(({ kind, cycle }) =>
   B.generate(kind, cycle),
@@ -173,21 +175,163 @@ describe.skipIf(skip)(
         byLevel.set(key, Math.max(byLevel.get(key) ?? 0, rendered(e)));
       }
 
-      const src = fs.readFileSync(
-        path.join(process.cwd(), "src/screens/LocalRegionDashboardScreen.tsx"),
-        "utf8",
-      );
+      // ⚠ READ THE ELEMENT, NOT THE FILE — every one of these numbers is explained by a
+      // comment that quotes it, so a file-wide `toContain` passes on a deleted prop.
       expect(byLevel.get("local/region")).toBe(1);
-      expect(src, "local/region reserves a fact it does not render").toContain(
-        "facts={1}",
-      );
+      expect(
+        skeletonFor("src/screens/LocalRegionDashboardScreen.tsx", "region"),
+        "local/region reserves a fact it does not render",
+      ).toContain("facts={1}");
 
-      const country = fs.readFileSync(
-        path.join(process.cwd(), "src/screens/LocalElectionScreen.tsx"),
-        "utf8",
-      );
       expect(byLevel.get("local/country")).toBe(2);
-      expect(country).toContain("facts={2}");
+      expect(
+        skeletonFor(LOCAL_SCREEN, "country"),
+        "local/country reserves a fact it does not render",
+      ).toContain("facts={2}");
+    });
+
+    // ─── and the other two skeleton levers, against the same corpus ──────────────────────────
+
+    /** The reservation that minimises the expected layout shift for one canvas: the `k` for
+     *  which the mean |published rows − k| is smallest.
+     *
+     *  ⚠ NOT THE MAXIMUM, and that is the whole point of measuring it. „Reserve the tallest so
+     *  nothing shifts downward" is right only where the tallest is also the common case — true
+     *  of a municipal council ballot (8 rows on 578 of 578) and false of a mayor race (median
+     *  2). Reserving 8 at `local/settlement` does not avoid a shift, it guarantees one on
+     *  99.8% of pages; it is simply upward instead of downward, which CLS counts identically. */
+    const bestRows = (ns: number[]): number => {
+      let best = 1;
+      let bestCost = Infinity;
+      for (let k = 1; k <= MAX_BALLOT_PREVIEW; k++) {
+        const cost = ns.reduce((a, n) => a + Math.abs(n - k), 0) / ns.length;
+        if (cost < bestCost) {
+          bestCost = cost;
+          best = k;
+        }
+      }
+      return best;
+    };
+
+    const at = (key: string): B.Emitted[] =>
+      ALL.filter((e) => `${e.surface.kind}/${e.surface.place.level}` === key);
+
+    /** The `<ElectionSurfaceSkeleton …/>` a given boundary passes, keyed by the LEVEL that
+     *  boundary declares — never by file, and never by "the first one".
+     *
+     *  ⚠ SCANNING THE WHOLE FILE IS VACUOUS HERE AND WAS, FOR ONE COMMIT. Every one of these
+     *  reservations carries a comment explaining the measurement behind it, and those comments
+     *  quote the prop — so `expect(src).toContain("rows={2}")` passed with the prop DELETED,
+     *  satisfied by the paragraph that justifies it. Same family as the superseded-mayor gate
+     *  that matched its own prose.
+     *
+     *  ⚠ AND "THE FIRST SKELETON IN THE FILE" IS NOT A KEY EITHER: `LocalElectionScreen.tsx`
+     *  holds the município boundary and the country one, so a file-keyed reader silently
+     *  asserts one level's numbers against the other's. Splitting on the boundary element is
+     *  what ties each reservation to the level it reserves for — and it drops the JSX banner
+     *  above each boundary into the PREVIOUS chunk. `stripComments` cannot remove that banner:
+     *  it strips comments that own their line, and a JSX comment opens with a brace. */
+    const skeletonFor = (file: string, level: string): string => {
+      const src = stripComments(
+        fs.readFileSync(path.join(process.cwd(), file), "utf8"),
+      );
+      const chunks = src
+        .split("<ElectionSurfaceBoundary")
+        .slice(1)
+        // ⚠ CUT AT THE CLOSE TAG. Without it a chunk runs to the NEXT boundary and swallows
+        // that one's JSX banner — which names its level in prose — so both chunks matched both
+        // levels and the reader had no key at all.
+        .map((c) => {
+          const stop = c.indexOf("</ElectionSurfaceBoundary>");
+          return stop === -1 ? c : c.slice(0, stop);
+        })
+        .filter((c) => new RegExp(`level=\\{?"${level}"`).test(c));
+      expect(chunks.length, `${file} boundaries at level="${level}"`).toBe(1);
+      const chunk = chunks[0];
+      const open = chunk.indexOf("<ElectionSurfaceSkeleton");
+      expect(open, `no skeleton on the ${level} boundary`).toBeGreaterThan(-1);
+      const close = chunk.indexOf("/>", open);
+      expect(close, `unterminated skeleton on ${level}`).toBeGreaterThan(-1);
+      return chunk.slice(open, close + 2).replace(/\s+/g, " ");
+    };
+
+    const SETTLEMENT_CALL =
+      "src/screens/dashboard/local/LocalSettlementDashboardCards.tsx";
+    const LOCAL_SCREEN = "src/screens/LocalElectionScreen.tsx";
+
+    /** The cheapest reservation for each canvas POSITION, since `rows` is positional. */
+    const bestRowsPerCanvas = (key: string): number[] => {
+      const cols: number[][] = [];
+      for (const e of at(key))
+        e.surface.ballots.forEach((b, i) => {
+          (cols[i] ??= []).push(b.preview.length);
+        });
+      return cols.map(bestRows);
+    };
+
+    it("reserves, per canvas, the row count that costs the corpus the least shift", () => {
+      // ⚠ THE RULE IS CONDITIONAL, because the component already defaults to the producer's
+      // preview cap. A level whose best value IS that cap needs no prop; a level whose best
+      // value differs must say so, or it silently inherits a number measured for somebody else.
+      const settlement = bestRowsPerCanvas("local/settlement");
+      expect(settlement).toEqual([2]);
+      expect(
+        skeletonFor(SETTLEMENT_CALL, "settlement"),
+        `local/settlement would default to ${MAX_BALLOT_PREVIEW} rows and the corpus wants ${settlement[0]}`,
+      ).toContain(`rows={${settlement[0]}}`);
+
+      const muni = bestRowsPerCanvas("local/municipality");
+      expect(muni).toEqual([2, 8]);
+      expect(
+        skeletonFor(LOCAL_SCREEN, "municipality"),
+        "local/municipality reserves one number for two differently-shaped ballots",
+      ).toContain(`rows={[${muni.join(", ")}]}`);
+    });
+
+    it("pins the BALLOT ORDER the positional reservation depends on", () => {
+      // ⚠ THIS IS THE ONE MISTAKE THE ARRAY FORM MAKES POSSIBLE. `rows={[8, 2]}` type-checks,
+      // renders two tables, and is wrong on all 578 pages — nothing above can see it, because
+      // the multiset of reservations is unchanged. So the order is asserted against the corpus
+      // by KIND rather than being read off the same array the source declares.
+      const orders = new Set(
+        at("local/municipality").map((e) =>
+          e.surface.ballots.map((b) => b.kind).join(">"),
+        ),
+      );
+      expect([...orders]).toEqual(["municipality_mayor>municipal_council"]);
+      expect(
+        bestRows(
+          at("local/municipality").map(
+            (e) => e.surface.ballots[0].preview.length,
+          ),
+        ),
+        "the mayor ballot is the short one and it comes first",
+      ).toBe(2);
+    });
+
+    it("reserves one canvas per ballot the level publishes", () => {
+      // `canvases` is the lever whose absence cost a whole ranked table of shift at
+      // `local/municipality`; both call sites now declare it, and both claims are corpus facts.
+      const ballotCount = (key: string) =>
+        new Set(at(key).map((e) => e.surface.ballots.length));
+      expect([...ballotCount("local/settlement")]).toEqual([1]);
+      expect([...ballotCount("local/municipality")]).toEqual([2]);
+      expect(skeletonFor(SETTLEMENT_CALL, "settlement")).toContain(
+        "canvases={1}",
+      );
+      expect(skeletonFor(LOCAL_SCREEN, "municipality")).toContain(
+        "canvases={2}",
+      );
+    });
+
+    it("discriminates — `bestRows` is not just returning the cap or the mode", () => {
+      // ⚠ WITHOUT THIS, "the corpus wants 2" passes on a `bestRows` that returns a constant.
+      expect(bestRows([1, 1, 1, 1])).toBe(1);
+      expect(bestRows([8, 8, 8, 8])).toBe(MAX_BALLOT_PREVIEW);
+      expect(bestRows([2, 2, 2, 8])).toBe(2);
+      // And it minimises SHIFT, not frequency: the mode of this sample is 1 while the cheapest
+      // reservation is 5, so an implementation returning the most common value fails here.
+      expect(bestRows([1, 1, 1, 5, 5, 8, 8])).toBe(5);
     });
 
     it("discriminates — `rendered` is not just returning the artifact's fact count", () => {

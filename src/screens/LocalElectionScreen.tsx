@@ -34,7 +34,10 @@ import {
   findCityRayonByName,
   type CityRayon,
 } from "@/data/local/cityRayonCatalog";
-import { useChmiHistory } from "@/data/local/useChmiHistory";
+import {
+  useChmiHistory,
+  useChmiHistoryPending,
+} from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useKmetstvoEkatte } from "@/data/local/useKmetstvoEkatte";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
@@ -77,6 +80,7 @@ import {
   TopCouncillorsTile,
 } from "./dashboard/local/LocalMunicipalityExtras";
 import { formatThousands } from "@/data/utils";
+import { kmetstvoNameKey } from "@/data/local/kmetstvoName";
 import {
   LocalCouncilParty,
   LocalKmetstvoResult,
@@ -459,8 +463,6 @@ const CouncilFullTable: FC<{ bundle: LocalMunicipalityBundle }> = ({
 // === Kmetstvo mayors table ===============================================
 
 // Sub-mayor roster name normalizer (mirrors the chmi feed join).
-const normLocalName = (s: string): string =>
-  s.normalize("NFC").replace(/\s+/g, " ").trim().toLowerCase();
 
 // Latest by-election holder for a kmetstvo / район seat, newer than the regular
 // cycle — a частичен / нов избор supersedes the regular-cycle winner. The chmi
@@ -472,7 +474,7 @@ const latestSeatHolder = (
   name: string,
   cycleIso: string,
 ): ChmiHistoryEvent | null => {
-  const target = normLocalName(name);
+  const target = kmetstvoNameKey(name);
   return (
     events
       .filter(
@@ -480,7 +482,7 @@ const latestSeatHolder = (
           e.kind === kind &&
           e.date > cycleIso &&
           e.kmetstvoName != null &&
-          normLocalName(e.kmetstvoName) === target,
+          kmetstvoNameKey(e.kmetstvoName) === target,
       )
       .sort((a, b) => b.date.localeCompare(a.date))[0] ?? null
   );
@@ -865,6 +867,7 @@ const MunicipalityResults: FC<{
   const { colorFor } = useCanonicalParties();
   const { municipality } = useLocalMunicipality(obshtinaCode, cycle);
   const chmiEvents = useChmiHistory(obshtinaCode);
+  const chmiPending = useChmiHistoryPending(obshtinaCode);
   const { settlements } = useSettlementsInfo();
   // Cross-cycle place trends. Only a Sofia район (its own município) has a `p/`
   // shard — the район's OWN council vote share + city-mayor-in-район winners,
@@ -898,10 +901,11 @@ const MunicipalityResults: FC<{
     );
   }, [chmiEvents, cycleIso]);
   const partialCycle = latestMayorEvent?.cycle ?? null;
-  const { municipality: partialBundle } = useLocalMunicipality(
-    partialCycle ? obshtinaCode : null,
-    partialCycle ?? undefined,
-  );
+  const { municipality: partialBundle, isLoading: partialLoading } =
+    useLocalMunicipality(
+      partialCycle ? obshtinaCode : null,
+      partialCycle ?? undefined,
+    );
   // By-election section shard → the per-section mayor map on the partial (built
   // by ingest_byelection_turnout from the числови-данни HTML). When there's no
   // partial it reads the regular cycle (same shard already loaded above — no
@@ -974,6 +978,17 @@ const MunicipalityResults: FC<{
     !!latestMayorEvent &&
     !!partialBundle &&
     partialBundle.mayor.round1.length > 0;
+
+  // ⚠⚠ NULL IS TWO STATES AT THE SHELL'S GATE — "nothing superseded this cycle" and "we do not
+  // know yet" — and only the first may render it. Resolution is TWO fetch waves deep (the chmi
+  // shard, then that by-election's own bundle) while the page's own guard clears after one, so
+  // the unknown state is the normal cold-load path: without this the 8 superseded municipality
+  // pages showed „Избран · да" on the wrong person for a round-trip before the block vanished.
+  // `useChmiHistory` returns `[]` while loading, indistinguishable from "no by-elections here",
+  // which is why the first wave needs its own signal. Lapses on SETTLE, not on success, so a 404
+  // cannot suppress the shell for ever.
+  const supersessionPending =
+    chmiPending || (!!latestMayorEvent && partialLoading);
   const partialDate = partialCycle ? friendlyCycleDate(partialCycle) : "";
   const currentMayor =
     showPartial && partialBundle?.mayor.elected
@@ -1231,7 +1246,7 @@ const MunicipalityResults: FC<{
           "lead the mayor section + Кмет card with it and relegate the regular results below the
           timeline" — the shell has no notion of a superseding vote, so it must not pre-empt
           that ordering. The SAME predicate, not a second one. */}
-      {showPartial ? null : (
+      {showPartial || supersessionPending ? null : (
         <ElectionSurfaceBoundary
           kind="local"
           level="municipality"
@@ -1242,8 +1257,22 @@ const MunicipalityResults: FC<{
           // includes `turnout`, unlike country's and region's — 511 of 578 published surfaces
           // render three and 67 render four. No map: the mayor ballot declares one and
           // `MAP_ADAPTERS` registers no `local/*` entry to draw it.
+          //
+          // ⚠ `rows` IS PER CANVAS BECAUSE THE TWO BALLOTS ARE NOT THE SAME SHAPE, and the
+          // „reserve the tallest" rule above does not survive being applied to both at once.
+          // All 578 pages publish the mayor ballot first and the council ballot second; the
+          // mayor's preview is 2 rows at the median and the council's fills the cap of 8. One
+          // number for both cost 5.91 row-heights of shift per page at 8 and 4.44 at its best
+          // single value of 5 — `[2, 8]` costs 2.19. The ORDER is the whole risk of the array
+          // form and is pinned in `declaredColumns.data.test.ts` against the corpus, kind by
+          // kind, because reversed it still type-checks and still renders two tables.
           skeleton={
-            <ElectionSurfaceSkeleton facts={4} canvases={2} withMap={false} />
+            <ElectionSurfaceSkeleton
+              facts={4}
+              canvases={2}
+              rows={[2, 8]}
+              withMap={false}
+            />
           }
           fallback={null}
         >

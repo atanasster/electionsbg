@@ -27,7 +27,10 @@ import { MayorPayCard } from "@/screens/myarea/MyAreaMayorPayTile";
 import { shouldShowMayorPayOnLocalPage } from "@/screens/myarea/mayorPayPlacement";
 import { LocalPlaceTrendsTile } from "./LocalPlaceTrendsTile";
 import { LocalMayorRunoffBar } from "./LocalMayorRunoffBar";
-import { useChmiHistory } from "@/data/local/useChmiHistory";
+import {
+  useChmiHistory,
+  useChmiHistoryPending,
+} from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { friendlyIsoDate, localCycleKind } from "@/data/local/cycleDate";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
@@ -39,10 +42,11 @@ import type {
 } from "@/data/local/types";
 import { StatCard } from "../StatCard";
 import { DashboardSection } from "../DashboardSection";
+import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
+import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 import { PartyChip } from "@/screens/components/local/LocalRankedBar";
-
-const normalize = (s: string): string =>
-  s.normalize("NFC").replace(/\s+/g, " ").trim().toLowerCase();
+import { kmetstvoNameKey } from "@/data/local/kmetstvoName";
 
 // Compact winner descriptor shared by the regular result and the chmi feed.
 type ContestWinner = {
@@ -370,16 +374,17 @@ export const LocalSettlementDashboardCards: FC<{
   // filed under 'SOF', never under the village's район — so this reads the кметство code, not
   // the parent one.
   const chmiEvents = useChmiHistory(kmetstvoObshtina);
+  const chmiPending = useChmiHistoryPending(kmetstvoObshtina);
   const { data: trendsFile } = useLocalPlaceTrend("s", ekatte);
 
   const kmetstvoEvents = useMemo(() => {
     if (!name) return [];
-    const target = normalize(name);
+    const target = kmetstvoNameKey(name);
     return chmiEvents.filter(
       (e) =>
         e.kind === "kmetstvo_mayor" &&
         e.kmetstvoName != null &&
-        normalize(e.kmetstvoName) === target,
+        kmetstvoNameKey(e.kmetstvoName) === target,
     );
   }, [chmiEvents, name]);
 
@@ -397,16 +402,33 @@ export const LocalSettlementDashboardCards: FC<{
   // Load the by-election's own município bundle for the FULL kmetstvo race
   // (round 1 + round 2 + turnout) — the chmi history feed carries only the
   // winner. The hook is disabled (returns undefined) when there's no by-election.
-  const { municipality: byElectionBundle } = useLocalMunicipality(
-    currentByElection?.obshtinaCode ?? null,
-    currentByElection?.cycle,
-  );
+  const { municipality: byElectionBundle, isLoading: byElectionLoading } =
+    useLocalMunicipality(
+      currentByElection?.obshtinaCode ?? null,
+      currentByElection?.cycle,
+    );
+
+  // ⚠⚠ NULL IS TWO STATES AT THE SHELL'S GATE BELOW — "nothing superseded this cycle" and "we do
+  // not know yet" — and only the first may render it. Resolution is TWO fetch waves deep (the
+  // chmi shard, then that by-election's own bundle) while the page's own guard clears after one,
+  // so the unknown state is the normal cold-load path, not a rare race: measured, 216 settlement
+  // pages would have shown „Избран · да" on the superseded mayor for a round-trip, directly above
+  // the card naming their successor, and then had the whole block vanish underneath the reader.
+  //
+  // ⚠ AND `useChmiHistory` RETURNS `[]` WHILE LOADING, which is why the first wave needs its own
+  // signal — an empty event list is indistinguishable from "this place has never had a
+  // by-election", so `currentByElection` is null during wave 1 for a superseded place too.
+  //
+  // It lapses when the queries SETTLE rather than when they succeed, so a 404 on the by-election
+  // bundle cannot suppress the shell for ever.
+  const supersessionPending =
+    chmiPending || (!!currentByElection && byElectionLoading);
   const latestKmetstvo = useMemo<LocalKmetstvoResult | null>(() => {
     if (!currentByElection || !byElectionBundle || !name) return null;
-    const target = normalize(currentByElection.kmetstvoName ?? name);
+    const target = kmetstvoNameKey(currentByElection.kmetstvoName ?? name);
     return (
       byElectionBundle.kmetstva.find(
-        (k) => normalize(k.kmetstvoName) === target,
+        (k) => kmetstvoNameKey(k.kmetstvoName) === target,
       ) ?? null
     );
   }, [byElectionBundle, currentByElection, name]);
@@ -432,6 +454,13 @@ export const LocalSettlementDashboardCards: FC<{
 
   // Earlier contests, newest-first: older by-elections then the regular vote.
   const previousContests = useMemo<PreviousContest[]>(() => {
+    // ⚠ THE LIST IS DELIBERATELY ONLY EVER SHOWN ON A SUPERSEDED PAGE, and the filter below
+    // reads as though it were a general history — it admits by-elections OLDER than the viewed
+    // cycle, which is why the sort has to follow the push (с. Трояново's 2021 by-election under
+    // the 2023 regular vote). It is not a history: it exists to relegate the result the
+    // headline displaced. So a кметство with pre-cycle by-elections and no superseding one
+    // shows none of them here, and the same 2021 event is listed on a superseded page and
+    // omitted on a non-superseded one. `/local/chmi` is the full feed.
     if (!latestKmetstvo || !currentByElection) return [];
     const prev: PreviousContest[] = kmetstvoEvents
       .filter((e) => e.date < currentByElection.date)
@@ -478,6 +507,15 @@ export const LocalSettlementDashboardCards: FC<{
   // voted, so a Sofia village's район shard is missing while the SOF bundle carrying its
   // by-election is present. Bailing on the parent alone declared "no local-election data" for
   // a settlement whose race we hold and whose /person badge links here by the winner's name.
+  // ⚠ THE SURFACE BOUNDARY IS BELOW THIS, so a settlement whose ARTIFACT exists but whose
+  // LEGACY bundle does not gets „няма данни" and never mounts it — the migration's premise is
+  // that the artifact is the canonical reader, and here it is reached only if the old path
+  // resolved first. Measured 2026-09-04: 0 of 4,910 published surfaces are in that state (every
+  // parent bundle and every кметство-source bundle exists, and none is missing from
+  // settlements.json), so this is latent rather than live — a runtime fragility only, on a 404
+  // or a slow shard. `LocalElectionScreen` has the same shape at município level; the region,
+  // section and country tiers mount their boundary unconditionally. Do not widen this bail
+  // without re-measuring.
   const hasAnything = !!municipality || !!featuredKmetstvo;
   if (isLoading && !hasAnything) {
     return <p className="text-sm text-muted-foreground">{t("loading")}</p>;
@@ -492,6 +530,76 @@ export const LocalSettlementDashboardCards: FC<{
 
   return (
     <div>
+      {/* ⚠ THE LAST OF THE FOUR LOCAL LEVELS WHOSE ARTIFACT NOTHING READ — 4,910 published
+          settlement surfaces, one `settlement_mayor` ballot each.
+
+          ⚠ IT RENDERS HERE, INSIDE THE CARDS, RATHER THAN BESIDE THE HEADER IN THE SCREEN, and
+          that placement is the whole point. The supersession predicate lives in THIS component:
+          `latestKmetstvo` is what a later кметство by-election produces, and the header's screen
+          has neither the hook nor the bundle. Putting the boundary in the screen would have
+          meant computing supersession a second time — the exact drift `supersededMayor`'s gate
+          forbids one level up. The visual position is unchanged: the cards are the first thing
+          the screen renders after the header. The SPACING differs by 0.5rem, which is the one
+          structural consequence of putting it here: `LocalSettlementDashboardScreen` separates
+          its own children with `space-y-6`, while inside the cards the shell carries its own
+          `my-4` into the mayors section. Deliberate, and not worth a wrapper — recorded so a
+          reader comparing against the region screen does not read it as a mistake.
+
+          ⚠ AND THE SUPPRESSION IS THE SAME RULE AS THE MUNICÍPIO'S, for the same reason. The
+          surface's mayor ballot carries `isElected` on the REGULAR-cycle winner; where a
+          by-election has since replaced them, `KmetstvoMayorCard` below already leads with the
+          current officeholder and relegates this cycle's result under its own dated eyebrow, so
+          a „Избран · да" column above it would name the wrong person first.
+
+          Measured 2026-09-04 across both published cycles: 216 settlement pages would name two
+          different people as кмет, one immediately above the other — 116 on 2019_10_27_mi and
+          100 on 2023_10_29_mi (Слънчево VAR02, Бистрица KNL48, Калейца LOV34, Глава PVN37,
+          Лесковец VRC31, Върбак SHU11, Гроздьово VAR13 …). That is 4.4% of the 4,910-page
+          corpus, against 8 pages at município level — the figure is here so the next reader can
+          tell a working guard from a vacuous one without re-deriving it. */}
+      {latestKmetstvo || supersessionPending ? null : (
+        <ElectionSurfaceBoundary
+          kind="local"
+          level="settlement"
+          cycle={cycle}
+          id={ekatte}
+          // Every lever measured against the corpus, not guessed: two facts is this level's
+          // maximum (`winner` and `margin`; 3,634 of 4,910 carry both, 1,276 carry one), one
+          // canvas for its single `settlement_mayor` ballot, no map — the ballot declares one
+          // and `MAP_ADAPTERS` registers no `local/*` adapter to draw it — and two rows.
+          //
+          // ⚠ `rows={2}` DEPARTS FROM THE "RESERVE THE TALLEST" RULE THE OTHER CALL SITES USE,
+          // deliberately. That rule is right where the maximum is also the common case: at
+          // `local/municipality` the council ballot fills all 8 preview rows on 578 of 578
+          // pages, so reserving 8 shifts almost nobody. A settlement mayor race is not that
+          // shape — measured over all 4,910 published ballots the median is 2, the p90 is 4,
+          // and 60.9% carry two rows or fewer. Left at the component's default of 8 the mean
+          // shift is 5.62 rows and 99.8% of pages move; at 2 it is 0.90 rows and 34.9% do not
+          // move at all. Reserving the tallest here does not avoid a shift, it guarantees one
+          // on nearly every page — upward rather than downward, which CLS counts the same.
+          //
+          // `canvases={1}` is not restating the default: it is the measured claim that this
+          // level publishes exactly one ballot, and `declaredColumns.data.test.ts` fails if a
+          // settlement surface ever carries two.
+          skeleton={
+            <ElectionSurfaceSkeleton
+              facts={2}
+              canvases={1}
+              rows={2}
+              withMap={false}
+            />
+          }
+          fallback={null}
+        >
+          {(s) => (
+            <ElectionResultsShell
+              surface={s}
+              scope="header"
+              currentView="local"
+            />
+          )}
+        </ElectionSurfaceBoundary>
+      )}
       <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
         {featuredKmetstvo ? (
           <KmetstvoMayorCard

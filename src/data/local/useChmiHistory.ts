@@ -115,14 +115,38 @@ const shardQueryFn = async ({
   return response.json();
 };
 
+/** The ONE query definition, so the events hook and the pending hook below cannot drift onto
+ *  different keys — two hooks reading one key is what lets React Query dedupe the fetch, and a
+ *  key typed twice is how that quietly becomes two fetches and two answers. */
+const shardQuery = (obshtinaCode?: string | null) => ({
+  queryKey: ["local_chmi_history_shard", obshtinaCode ?? ""] as [
+    string,
+    string,
+  ],
+  queryFn: shardQueryFn,
+  enabled: !!obshtinaCode,
+});
+
+/** Whether the shard is still in flight.
+ *
+ *  ⚠ THE EVENTS HOOK CANNOT ANSWER THIS AND ITS CALLERS NEEDED IT. `useChmiHistory` returns `[]`
+ *  while loading, which is indistinguishable from "this place has had no by-elections" — and
+ *  both callers use that array to decide whether a LATER vote has superseded the result they are
+ *  about to render. Reading "no events yet" as "nothing superseded" is how a page announces the
+ *  wrong mayor for a round-trip. */
+export const useChmiHistoryPending = (
+  obshtinaCode?: string | null,
+): boolean => {
+  const { isPending } = useQuery(shardQuery(obshtinaCode));
+  // A disabled query is `pending` for ever in React Query v5 — with no code there is nothing to
+  // wait for, so that must read as settled rather than as perpetually unknown.
+  return !!obshtinaCode && isPending;
+};
+
 export const useChmiHistory = (
   obshtinaCode?: string | null,
 ): ChmiHistoryEvent[] => {
-  const { data } = useQuery({
-    queryKey: ["local_chmi_history_shard", obshtinaCode ?? ""],
-    queryFn: shardQueryFn,
-    enabled: !!obshtinaCode,
-  });
+  const { data } = useQuery(shardQuery(obshtinaCode));
   const { selected, elections } = useElectionContext();
   const isLatestElection = !selected || selected === elections[0];
   const asOfDate =
