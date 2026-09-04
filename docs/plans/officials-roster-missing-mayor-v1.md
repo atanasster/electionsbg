@@ -1,7 +1,82 @@
 # The „missing mayor" municipalities — four false claims about named sitting mayors
 
-Analysis + plan, 2026-09-03. Every figure below is re-derivable with the command beside it,
-against the LOCAL docker Postgres (5433) and the committed `data/officials/municipal/` tree.
+Analysis + plan, 2026-09-03. Implemented 2026-09-04. Every figure below is re-derivable with
+the command beside it, against the LOCAL docker Postgres (5433) and the committed
+`data/officials/municipal/` tree.
+
+---
+
+## Status — implemented LOCALLY, not published
+
+| tier      | commit       | note                                                   |
+| --------- | ------------ | ------------------------------------------------------ |
+| T1 Бяла   | `a817cba4af` | oblast-aware join; VAR05 gained the shard it never had |
+| T2 role   | `017bf1893b` | four mayors promoted off their own filings             |
+| T3 Разлог | `b18358a7d9` | ⚠️ **mayor only** — see the deviation below            |
+| T4.3 + T5 | `8f6824a7de` | the gate, the i18n key, and the comment corrections    |
+
+T4.1 and T4.2 have no commit of their own: the review gate pulled both forward into T1's, which
+is where they belong — a gate written in the same change as the fix it pins.
+
+**Result: `missing_official` went 6/5/6/6/4 → 0 across all five cycles**, and all four
+municipalities serve their elected mayor on `/governance` and `/sverka`.
+
+### Deviations from this plan, both on measurement
+
+- **T3 carries a mayor only, not "any single-holder office".** §T3 said "(`mayor`,
+  `council_chair`)". Measured over the 300 bench registry names: 56 name no council chair and 53
+  have NEVER named one, against exactly one that names no mayor. An absent chair is therefore not
+  evidence a chair was dropped, and carrying it would invent scores of sitting officers.
+- **The double-holder gate is a ceiling for chairs, an allowlist for mayors.** 14 municipalities
+  carry two sitting council chairs — a transcription of the corpus, not a set of exceptions.
+
+### ⚠️ Open: NONE OF THIS IS ON PRODUCTION
+
+Everything above is local. Production still publishes every defect this plan describes — Бяла
+(Варна) merged into Бяла (Русе), and „X още не е подал декларация" about four sitting mayors.
+The publish is deliberately not part of the implementation because T2's route is expensive; see
+the three-route table in T1 step 5.
+
+⚠️ **TWO SURFACES, TWO TRANSPORTS, and the sidecars are the half that is easy to forget.**
+`/sverka` and the per-município reconciliation tile fetch `data/<cycle>/officials_diff*.json`
+from the BUCKET (`useOfficialsDiff.ts`), while the roster tile reads Cloud SQL. The two moved
+together locally because one command regenerates the sidecars and another loads the roster;
+they do not move together on the way out.
+
+```bash
+# 1. the sidecars — /sverka and the municipality reconciliation tile
+npm run bucket:sync:paths -- 2007_10_28_mi 2011_10_23_mi 2015_10_25_mi 2019_10_27_mi 2023_10_29_mi
+
+# 2. the roster — /governance, my-area, the municipality officials list
+npm run db:load:ngo-board-links:cloud                # official_roster, read off LOCAL disk
+npm run db:load:official-candidate-links:pg:cloud    # the matview the page reads
+npm run db:resolve:persons:cloud                     # ONLY T2's role flips — person_role.role
+```
+
+⚠️ **The ROSTER has no bucket step, and that is not an omission.**
+`data/officials/municipal/` is EXCLUDED from every sync path (`bucket_sync_paths.ts`): it has
+been Cloud-SQL-served since persons-pg-retirement-v1 T1.5, and `by_obshtina` stays on disk
+purely as a PG LOAD SOURCE. So `db:load:ngo-board-links:cloud` reads the corrected shards from
+the local working tree and writes straight to Cloud SQL; syncing them would re-upload a retired
+49 MB tree nothing reads. The `officials_diff` sidecars are a DIFFERENT tree
+(`data/<cycle>/`), are syncable, and do need step 1.
+
+⚠️ The first two are cheap and reversible; the third is not. `db:resolve:persons:cloud`
+reassigns every `person_id`, owes its nine-command repair chain, and 090's `DROP MATERIALIZED
+VIEW … CASCADE` leaves `/persons`, `/officials/assets`, `/mp-assets` and `/declarations/crypto`
+at 500 while it runs (CLAUDE.md measures the loader pair at ~5m30s; the outage was never
+re-measured). Confirm before running it, and run it off-peak.
+
+Note the first two publish T1 and T3 on their own — a shard that GAINED a mayor reaches the
+page without a resolve. Only T2's two role corrections need the third.
+
+### ⚠️ Open: PAZ20 carries two sitting mayors
+
+Панагюрище. Source-side — the register's 2026 listing names both an outgoing and an incoming
+`Кмет`, both with the current `descriptorYear` — so the corpus cannot choose and a tie-break
+would publish "the mayor is X" from a coin-flip. Allowlisted with its reason in
+`officials_diff_missing.data.test.ts`; `/sverka` reports `match` on the CIK winner, so nothing
+false reaches a reader.
 
 ---
 
