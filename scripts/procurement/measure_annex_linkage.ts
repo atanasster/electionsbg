@@ -36,11 +36,12 @@
 //   `--source=pg`      what the ANNEXES TABLE sees — procurement_annexes is built on this
 //
 // Until 2026-09-04 the pg side took the shard divisor for everything and the continuity guard
-// refused every consortium carrier by exactly its member count (−66.7% at 3, −83.3% at 6). That
-// is fixed; what §4 now prints is the RESIDUE — the records one source links and the other does
-// not — which is what Tier 2 of the plan targets. Some of it is structural rather than a defect:
-// Postgres additionally holds ~2,680 synthetic `obed-` carrier rows that have no shard row at all,
-// and whose EIK the annex feed can never publish.
+// refused every consortium carrier by exactly its member count (−66.7% at 3, −83.3% at 6). Tiers
+// 1–2 of the plan fixed that; what §4 now prints is the RESIDUE — the records one source links and
+// the other does not — which went from 1,073 to ~109. Much of what is left is structural rather
+// than a defect: Postgres additionally holds ~2,680 synthetic `obed-` carrier rows that have no
+// shard row at all, and whose EIK the annex feed can never publish, so the pg side legitimately
+// links more. `annex_fold_identity.data.test.ts` holds it at a 3% ceiling.
 
 import fs from "fs";
 import path from "path";
@@ -523,7 +524,13 @@ const measure = (
     // number breaks here, because the annex feed publishes an internal ЦАИС number where the
     // contract feed publishes the buyer's own registry number ("148846" against "Д-226"). Ours
     // is keyed УНП-first so it does not, and this section is what keeps that claim measured
-    // rather than asserted — if these two rows ever invert, the key order stopped paying.
+    // rather than asserted.
+    //
+    // ⚠️ Read the NO-MATCH row, not the ratio between the two. The ratio inverted across the
+    // 2026-09-04 basis fix (1,525 match / 923 not → 531 / 894) purely because the records the
+    // fix linked were disproportionately the matching-number ones, i.e. they left this
+    // population. The no-match count — the records a №-keyed resolver could never reach — barely
+    // moved, and that is the figure that answers whether the key order still pays.
     const s = m.numberAxis;
     if (!a.cn) s["empty contract number"]!++;
     if (!a.unp) s["empty УНП"]!++;
@@ -656,8 +663,9 @@ const reportDivergence = (a: Measured, b: Measured): void => {
   console.log(
     "\n  The two consumers link different annex RECORDS — the residue, not a contradiction:\n" +
       "  each declares its own per-row basis, and Postgres additionally holds ~2,680 synthetic\n" +
-      "  `obed-` carrier rows with no shard row at all. Shrinking this is Tier 2 of\n" +
-      "  docs/plans/annex-linkage-consortium-basis-v1.md; it does not go to zero.",
+      "  `obed-` carrier rows with no shard row at all, which is why the pg side legitimately\n" +
+      "  links MORE. Tiers 1-2 took this from 1,073 records to ~109; it does not go to zero.\n" +
+      "  The gate is annex_fold_identity.data.test.ts, at a 3% ceiling.",
   );
 };
 
