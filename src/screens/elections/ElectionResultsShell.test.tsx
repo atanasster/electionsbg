@@ -995,3 +995,83 @@ describe("the scope has ONE home per page (§4 item 1)", () => {
     ).toBeTruthy();
   });
 });
+
+describe("§8's complete-result leaf", () => {
+  // ⚠ IT WAS GENERATED, SCHEMA-GATED AND PUBLISHED SINCE PHASE 1 WITH NO CONSUMER. `destinations`
+  // rode on every artifact and nothing read it, which is why the defect below could not be seen:
+  // 8,704 artifacts across both kinds carried `completeResult` pointing at their OWN route with
+  // `available: true` — every region, abroad, município, country and settlement. A payload nobody
+  // renders cannot look wrong.
+
+  const withDest = (
+    surface: typeof parliamentaryCountry,
+    completeResult: { to: string; available: boolean; reason?: string },
+  ) =>
+    ({
+      ...surface,
+      destinations: { ...surface.destinations, completeResult },
+    }) as typeof parliamentaryCountry;
+
+  it("renders the link when the destination is a DIFFERENT page", () => {
+    const { container } = draw(
+      <ElectionResultsShell
+        surface={withDest(parliamentaryCountry, {
+          to: "/sections/02676",
+          available: true,
+        })}
+      />,
+    );
+    const leaf = container.querySelector("[data-surface-complete-result]")!;
+    expect(leaf.getAttribute("href")).toBe("/sections/02676");
+    expect(leaf.textContent).toBe(bg.election_complete_result_link);
+  });
+
+  it("renders NOTHING for `same_page` — the one reason a reader can already see", () => {
+    // ⚠ THE EXCEPTION TO §5's "`available: false` IS A RENDERED STATE". Every other reason tells
+    // the reader something they cannot work out from the page; „the complete result is on this
+    // page" tells them only what is in front of them.
+    const { container } = draw(
+      <ElectionResultsShell
+        surface={withDest(parliamentaryCountry, {
+          to: "",
+          available: false,
+          reason: "same_page",
+        })}
+      />,
+    );
+    expect(
+      container.querySelector("[data-surface-complete-result]"),
+    ).toBeNull();
+  });
+
+  it("STATES the other reasons rather than dropping them", () => {
+    // The discriminating half: without it, "render nothing when unavailable" passes the test
+    // above and silently swallows „no data for this place" too.
+    const { container } = draw(
+      <ElectionResultsShell
+        surface={withDest(parliamentaryCountry, {
+          to: "",
+          available: false,
+          reason: "no_data_for_place",
+        })}
+      />,
+    );
+    const none = container.querySelector(
+      '[data-surface-complete-result="none"]',
+    )!;
+    expect(none.textContent).toBe(bg.election_unavailable_no_data_for_place);
+  });
+
+  it("never renders an anchor with an empty href", () => {
+    // `available: true` with an empty `to` is not a shape the generator emits, but the render
+    // rule must not depend on that — an `<a href="">` reloads the current page.
+    const { container } = draw(
+      <ElectionResultsShell
+        surface={withDest(parliamentaryCountry, { to: "", available: true })}
+      />,
+    );
+    expect(
+      container.querySelector("a[data-surface-complete-result]"),
+    ).toBeNull();
+  });
+});

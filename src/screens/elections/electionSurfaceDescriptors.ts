@@ -233,6 +233,8 @@ export const SHELL_COPY_KEYS = [
   "election_standouts_title",
   "election_standout_evidence",
   "election_source_title",
+  // §8's "see the complete result" leaf, rendered in the source region.
+  "election_complete_result_link",
   "election_elected_yes",
 ] as const;
 
@@ -252,6 +254,7 @@ export const UNAVAILABLE_REASON_LABEL_KEYS: Record<
   not_at_section: "election_unavailable_not_at_section",
   not_abroad: "election_unavailable_not_abroad",
   no_data_for_place: "election_unavailable_no_data_for_place",
+  same_page: "election_unavailable_same_page",
 };
 
 /** WHAT a standout is measured against. §7 forbids emitting a standout whose baseline is

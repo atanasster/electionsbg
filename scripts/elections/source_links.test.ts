@@ -441,3 +441,88 @@ describe("`status.sourceUrl` / `status.downloadUrl` are RESERVED, and that is ch
     ).toEqual([]);
   });
 });
+
+// ─── a surface never links to its own page (§Phase 7) ────────────────────────────────────────
+
+describe("`completeResult` refuses a self-link, as `views` always did", () => {
+  // ⚠ MEASURED OVER THE PUBLISHED CORPUS BEFORE THE GUARD: 5,396 of 18,117 artifacts (29.8%)
+  // carried a `completeResult` pointing at the artifact's OWN route with `available: true` —
+  // every region (31), abroad (1) and settlement (5,364). A region's page IS `/municipality/:id`
+  // and a settlement's IS `/sections/:ekatte`, so "see the complete result" was a link back to
+  // the page the reader was already on.
+  //
+  // ⚠ IT SURVIVED BECAUSE NOTHING RENDERED THE FIELD. `destinations` has been generated,
+  // schema-gated and published since Phase 1 with no consumer; a payload nobody reads cannot
+  // look wrong. That is the argument for gating the payload rather than the pixels.
+
+  const build = (
+    level: "region" | "settlement" | "municipality" | "section",
+    id: string,
+    completeResultTo: string,
+  ) =>
+    buildDestinations({
+      kind: "parliamentary",
+      level,
+      id,
+      cycle: "2026_04_19",
+      completeResultTo,
+    });
+
+  it("refuses the region's and the settlement's own route", () => {
+    for (const [level, id, own] of [
+      ["region", "S24", "/municipality/S24"],
+      ["settlement", "51041", "/sections/51041"],
+      ["municipality", "PAZ19", "/settlement/PAZ19"],
+    ] as const) {
+      const d = build(level, id, own);
+      expect(d.completeResult.available, `${level} ${own}`).toBe(false);
+      expect(d.completeResult.reason, `${level} ${own}`).toBe("same_page");
+      // ⚠ AND THE ROUTE IS DROPPED, not kept beside `available: false`. A consumer that reads
+      // `to` without checking the flag would otherwise still render the dead link.
+      expect(d.completeResult.to, `${level} ${own}`).toBe("");
+    }
+  });
+
+  it("keeps a destination that is a DIFFERENT page", () => {
+    // The discriminating half: an unconditional refusal would pass every assertion above.
+    const d = build("region", "S24", "/municipality/BGS");
+    expect(d.completeResult.available).toBe(true);
+    expect(d.completeResult.to).toBe("/municipality/BGS");
+  });
+
+  it("leaves the SECTION level alone — its target is the parent settlement", () => {
+    // ⚠ THE ONE LEVEL THE GUARD MUST NOT FIRE ON, and the one where a naive implementation
+    // would. `placeViewUrl` maps a section ref to `/sections/:ekatte`, which is precisely the
+    // destination a section is supposed to offer — computing "self" through the router there
+    // would refuse all 12,721 of the only leaves that were ever right.
+    //
+    // ⚠ THE `id` HERE IS THE PARENT EKATTE, NOT THE SECTION CODE, AND THAT IS DELIBERATE.
+    // `toPlaceRef`'s own comment states the convention — "A section's cross-view links resolve
+    // through its PARENT SETTLEMENT … the caller passes the parent ekatte" — while
+    // `build_parliamentary_surface.ts` passes `row.section`. Under the generator's shape the
+    // exemption is unreachable and this test passes without it; under the DOCUMENTED shape it
+    // is the only thing standing between the corpus and 12,721 refused leaves. Probed: with
+    // the section code as `id`, deleting the exemption leaves the suite green.
+    const d = build("section", "10135", "/sections/10135");
+    expect(d.completeResult.available).toBe(true);
+    expect(d.completeResult.to).toBe("/sections/10135");
+
+    // …and the generator's ACTUAL shape resolves the same way, so neither convention breaks it.
+    const asGenerated = build("section", "030604303", "/sections/10135");
+    expect(asGenerated.completeResult.available).toBe(true);
+    expect(asGenerated.completeResult.to).toBe("/sections/10135");
+  });
+
+  it("distinguishes `same_page` from `no_data_for_place`", () => {
+    // Two different sentences: "the result exists and you are looking at it" versus "this place
+    // has no such result". A consumer that renders reasons would publish the wrong one.
+    const none = buildDestinations({
+      kind: "parliamentary",
+      level: "region",
+      id: "S24",
+      cycle: "2026_04_19",
+      completeResultTo: null,
+    });
+    expect(none.completeResult.reason).toBe("no_data_for_place");
+  });
+});

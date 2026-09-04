@@ -77,7 +77,10 @@ export type ElectionUnavailableReason =
   | "no_local_cycle"
   | "not_at_section"
   | "not_abroad"
-  | "no_data_for_place";
+  | "no_data_for_place"
+  /** The destination IS the page the reader is on. Distinct from `no_data_for_place`, which
+   *  says the place has no such result: here the result exists and is already on screen. */
+  | "same_page";
 
 export type ElectionDestination = {
   /** An app route, resolved through placeViewUrl/localUrl by the CALLER — never a string

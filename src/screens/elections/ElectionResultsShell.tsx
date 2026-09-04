@@ -60,6 +60,7 @@ import {
   FACT_LABEL_KEYS,
   RANKED_COLUMN_LABEL_KEYS,
   SOURCE_LABEL_KEYS,
+  UNAVAILABLE_REASON_LABEL_KEYS,
   STANDOUT_LABEL_KEYS,
   type ElectionLevelDescriptor,
   type ElectionRankedColumn,
@@ -442,6 +443,7 @@ export const ElectionResultsShell: FC<Props> = ({
   const uid = useId();
   const rid = (part: string) => `election-${part}-${uid}`;
   const descriptor = descriptorFor(surface.kind, surface.place.level);
+  const completeResult = surface.destinations?.completeResult;
   const level: ElectionLevelDescriptor | null = descriptor.available
     ? descriptor
     : null;
@@ -609,6 +611,35 @@ export const ElectionResultsShell: FC<Props> = ({
         <p className="text-xs text-muted-foreground">
           {t(SOURCE_LABEL_KEYS[surface.status.sourceLabel])}
         </p>
+        {/* §8's "see the complete result" leaf, required at every level and rendered by nothing
+            until now — `destinations` had been generated, schema-gated and published since
+            Phase 1 with no consumer at all.
+            ⚠ ONLY WHEN IT IS A DIFFERENT PAGE. Before the generator learned to refuse a
+            self-link, 8,704 artifacts across both kinds carried `completeResult` pointing at
+            their own route with `available: true` — every region, abroad, município, country
+            and settlement. Rendering the field as it stood would have put "see the complete
+            result" on those pages linking back to themselves.
+            ⚠ AND `same_page` RENDERS NOTHING, unlike every other unavailable reason. „The
+            complete result is on this page" tells a reader only what they can already see; the
+            other reasons say something they cannot. */}
+        {completeResult?.available && completeResult.to ? (
+          <p className="text-xs">
+            <a href={completeResult.to} data-surface-complete-result>
+              {t("election_complete_result_link")}
+            </a>
+          </p>
+        ) : completeResult && completeResult.reason !== "same_page" ? (
+          <p
+            className="text-xs text-muted-foreground"
+            data-surface-complete-result="none"
+          >
+            {t(
+              UNAVAILABLE_REASON_LABEL_KEYS[
+                completeResult.reason ?? "no_data_for_place"
+              ],
+            )}
+          </p>
+        ) : null}
       </section>
     </div>
   );

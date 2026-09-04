@@ -102,6 +102,35 @@ export type DestinationInput = {
  *  above the polling section, so a section would carry four entries of which three are
  *  `available: false` — four rows of "this does not exist here" under a heading promising
  *  where to go next. §4.1 drops the digest entirely on a section for the same reason. */
+/** The route of the page a surface is RENDERED on, so a destination equal to it can be refused.
+ *
+ *  ⚠ SECTION IS DELIBERATELY EXEMPT AND MUST STAY SO. A section's own page is `/section/:code`,
+ *  while `placeViewUrl` maps a section ref to its PARENT SETTLEMENT (`/sections/:ekatte`) —
+ *  which is exactly the destination the section level is supposed to offer. Computing "self"
+ *  through the router there would refuse the one level whose leaf is real, so it returns null
+ *  and the guard does not fire.
+ *
+ *  ⚠ AND THE ROUTES COME FROM THE ROUTER, never from a template here — the same rule
+ *  `ElectionDestination.to` states. A hand-built `/sections/${id}` would keep matching after
+ *  the routing rule moved and silently stop refusing anything. */
+const ownPageRoute = (
+  kind: ElectionKind,
+  level: ElectionPlaceLevel,
+  id: string,
+  localCycle?: string,
+): string | null => {
+  if (level === "section") return null;
+  // Abroad has no `toPlaceRef` of its own (it is not a Bulgarian place), but it IS served by
+  // the region route, which is the page a reader would be on.
+  const ref: PlaceRef | null =
+    level === "abroad"
+      ? { level: "region", oblast: id }
+      : toPlaceRef(level, id);
+  if (!ref) return null;
+  if (kind === "local") return localCycle ? localUrl(ref, localCycle) : null;
+  return placeViewUrl("parliamentary", ref);
+};
+
 export const buildDestinations = (
   input: DestinationInput,
 ): ElectionDestinations => {
@@ -117,9 +146,28 @@ export const buildDestinations = (
     officialProtocolTo,
   } = input;
 
-  const out: ElectionDestinations = {
-    completeResult: dest(completeResultTo, "no_data_for_place"),
-  };
+  // ⚠ A SURFACE NEVER LINKS TO ITS OWN PAGE, and `completeResult` never had that rule while
+  // `views` twenty lines down always did. Measured over the published 2026-04-19 corpus before
+  // this guard: 5,396 of 18,117 artifacts (29.8%) carried a `completeResult` pointing at the
+  // artifact's own route, `available: true` — every region (31), abroad (1) and settlement
+  // (5,364). The section level (12,721) was the only one whose target is a different page, the
+  // parent settlement, and it is the one that survives.
+  //
+  // It was invisible because NOTHING RENDERED THE FIELD. `destinations` has been generated,
+  // schema-gated and published since Phase 1 with no consumer, so a payload nobody read could
+  // not be wrong on screen — the defect surfaced the moment the leaf was about to be rendered,
+  // which is Phase 7's job.
+  //
+  // ⚠ THE REASON IS `same_page`, NOT `no_data_for_place`. A region's complete result EXISTS and
+  // is what the reader is looking at; saying the place has no such result would be false, and a
+  // consumer that renders reasons would publish it.
+  const selfTo = ownPageRoute(kind, level, id, localCycle);
+  const completeResult: ElectionDestination =
+    completeResultTo !== null && completeResultTo === selfTo
+      ? { to: "", available: false, reason: "same_page" }
+      : dest(completeResultTo, "no_data_for_place");
+
+  const out: ElectionDestinations = { completeResult };
   if (childPlacesTo !== undefined)
     out.childPlaces = dest(childPlacesTo, "no_data_for_place");
   if (parentPlaceTo !== undefined)
