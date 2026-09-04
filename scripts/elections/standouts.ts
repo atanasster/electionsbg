@@ -154,6 +154,10 @@ export type MarginRow = {
   validVotes: number;
   resultStatus: ElectionResultStatus;
   evidenceTo: string;
+  /** Paired with `evidenceTo` — see `ElectionStandout.evidenceOnPage`. Carried through the
+   *  selectors so „the evidence is this page“ survives into the emitted standout; dropping it
+   *  here reads as „no evidence“ and `dropWithoutEvidence` removes the finding. */
+  evidenceOnPage?: boolean;
 };
 
 export type TurnoutRow = {
@@ -167,6 +171,10 @@ export type TurnoutRow = {
   turnoutBasisUnavailable: boolean;
   resultStatus: ElectionResultStatus;
   evidenceTo: string;
+  /** Paired with `evidenceTo` — see `ElectionStandout.evidenceOnPage`. Carried through the
+   *  selectors so „the evidence is this page“ survives into the emitted standout; dropping it
+   *  here reads as „no evidence“ and `dropWithoutEvidence` removes the finding. */
+  evidenceOnPage?: boolean;
 };
 
 export type CouncilRow = {
@@ -176,6 +184,10 @@ export type CouncilRow = {
   seatsTotal: number;
   resultStatus: ElectionResultStatus;
   evidenceTo: string;
+  /** Paired with `evidenceTo` — see `ElectionStandout.evidenceOnPage`. Carried through the
+   *  selectors so „the evidence is this page“ survives into the emitted standout; dropping it
+   *  here reads as „no evidence“ and `dropWithoutEvidence` removes the finding. */
+  evidenceOnPage?: boolean;
 };
 
 /** §7: "suppress a review signal if the evidence leaf is absent for that cycle/scope", and §5's
@@ -183,9 +195,18 @@ export type CouncilRow = {
  *
  *  ⚠ APPLIED TO EVERY SIGNAL, NOT ONLY REVIEW ONES. An outcome standout with no evidence route
  *  is a claim about a named place with nowhere to check it, which is the shape §7 exists to
- *  prevent — the review flags are simply where it was noticed first. */
+ *  prevent — the review flags are simply where it was noticed first.
+ *
+ *  ⚠ „ON THIS PAGE" IS EVIDENCE, AND CONFLATING IT WITH „NONE" EMPTIES THE FEATURE. A standout
+ *  attaches to the surface of the place it is about, and at both attaching levels that place's
+ *  complete result IS that page — so the generator's only honest answer is „here", and a bare
+ *  `evidenceTo.length > 0` reads it as missing. Measured 2026-09-04, the moment
+ *  `completeResult` stopped self-linking: all 36 standouts in the corpus (2 parliamentary,
+ *  34 local) were dropped, silently, by this filter. The claim still carries its baseline —
+ *  which is the measurement §7 actually requires — so what is absent is a link, not evidence. */
 export const hasEvidence = (s: ElectionStandout): boolean =>
-  typeof s.evidenceTo === "string" && s.evidenceTo.length > 0;
+  (typeof s.evidenceTo === "string" && s.evidenceTo.length > 0) ||
+  s.evidenceOnPage === true;
 
 export const dropWithoutEvidence = (
   candidates: readonly ElectionStandout[],
@@ -250,6 +271,7 @@ export const selectCloseContests = (
         sampleSize: r.validVotes,
         resultStatus: r.resultStatus,
         evidenceTo: r.evidenceTo,
+        evidenceOnPage: r.evidenceOnPage,
         labelParams: { marginPp: Number(r.marginPct.toFixed(2)) },
       }),
     ),
@@ -309,6 +331,7 @@ export const selectTurnoutDepartures = (
         sampleSize: r.registeredVoters,
         resultStatus: r.resultStatus,
         evidenceTo: r.evidenceTo,
+        evidenceOnPage: r.evidenceOnPage,
         labelParams: {
           placeDeltaPp: Number(r.deltaPp.toFixed(2)),
           residualPp: Number(residual(r).toFixed(2)),
@@ -352,6 +375,7 @@ export const selectFragmentedCouncils = (
         sampleSize: r.seatsTotal,
         resultStatus: r.resultStatus,
         evidenceTo: r.evidenceTo,
+        evidenceOnPage: r.evidenceOnPage,
         labelParams: { parties: r.partiesWithSeats },
       }),
     ),

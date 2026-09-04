@@ -1075,3 +1075,37 @@ describe("§8's complete-result leaf", () => {
     ).toBeNull();
   });
 });
+
+describe("§Phase 7's methods disclosure", () => {
+  it("explains the selection rule where there is a finding to explain", () => {
+    // The one fixture that carries a standout — `parliamentaryCountry` has none, which is why
+    // the negative case below uses it directly rather than an emptied copy.
+    expect(localMunicipalityRunoffSplit.standouts.length).toBeGreaterThan(0);
+    const { container } = draw(
+      <ElectionResultsShell surface={localMunicipalityRunoffSplit} />,
+    );
+    const d = container.querySelector("details")!;
+    expect(d.textContent).toContain(bg.election_methods_summary);
+  });
+
+  it("states the LIMITATION, not the thresholds", () => {
+    // ⚠ THE NUMBERS WOULD DISCLOSE LESS. Two of the four thresholds are per-cycle percentiles,
+    // so „5%" and „200 гласа" read as precision while hiding the thing a reader cannot work out
+    // from the page: a percentile rule always selects a few places, so „изпъква" is a claim
+    // about this cycle's spread and never an absolute one. That is the methodology's own §5.1
+    // "what it excludes" row, and it is what the copy has to carry.
+    expect(bg.election_methods_selection).toMatch(/не може да каже/);
+    expect(bg.election_methods_selection).not.toMatch(/\d+\s*%/);
+  });
+
+  it("says nothing on a surface with no standouts", () => {
+    // The discriminating half — and the reason it is gated rather than always shown: an account
+    // of how findings are chosen, on a page with no findings, is chrome. The result STATUS the
+    // disclosure also mentions is already on the scope bar.
+    expect(parliamentaryCountry.standouts).toEqual([]);
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    expect(container.querySelector("details")).toBeNull();
+  });
+});

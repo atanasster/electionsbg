@@ -334,7 +334,24 @@ export type ElectionStandout = {
   resultStatus: ElectionResultStatus;
   /** A route that can NAME the rows behind the claim. §7 forbids emitting a standout whose
    *  evidence leaf is absent for that cycle and scope. */
+  /** Where a reader can check the claim. §7/§5: "do not emit a standout when its denominator,
+   *  baseline, or evidence destination is missing" — a claim about a named place with nowhere to
+   *  check it is the shape that rule exists to prevent.
+   *
+   *  ⚠ EMPTY IS PERMITTED ONLY WITH `evidenceOnPage`. Read `hasEvidence`, never `evidenceTo`
+   *  directly: a bare length check treats "the evidence is right here" as "there is none". */
   evidenceTo: string;
+  /** The evidence is the page this standout renders on.
+   *
+   *  ⚠ THE DISTINCTION IS NOT COSMETIC — WITHOUT IT §7's RULE IS UNSATISFIABLE WHERE STANDOUTS
+   *  ACTUALLY ATTACH. A standout is attached to the surface of the place it is ABOUT
+   *  (`byPlace.get(e.id)`), and at both attaching levels the place's complete result IS that
+   *  page: a region's is `/municipality/:oblast`, a município's is its own local page. So the
+   *  only destination the generator could offer was the page the reader was already standing on,
+   *  and for months the rule was "satisfied" by exactly that — a „виж" link that navigated
+   *  nowhere. Making the self-reference explicit is what lets the claim keep its baseline (which
+   *  IS the evidence, rendered beside it) while the useless anchor disappears. */
+  evidenceOnPage?: boolean;
   labelParams: Record<string, string | number>;
 };
 

@@ -610,23 +610,31 @@ export const ElectionResultsShell: FC<Props> = ({
                     s.baseline.labelParams,
                   )}
                 </span>{" "}
-                <a
-                  href={s.evidenceTo}
-                  onClick={() =>
-                    trackSurfaceLink({
-                      target: "standout_evidence",
-                      kind: surface.kind,
-                      level: surface.place.level,
-                      placeId: surface.place.id,
-                      // ⚠ THE SIGNAL'S ENUM MEMBER, never `t(STANDOUT_LABEL_KEYS[...])`. The
-                      // rendered sentence names the place and its measurement; the enum names
-                      // the kind of claim, which is what a click count is about.
-                      signal: s.signal,
-                    })
-                  }
-                >
-                  {t("election_standout_evidence")}
-                </a>
+                {/* ⚠ NO ANCHOR WHEN THE EVIDENCE IS THIS PAGE. A standout attaches to the
+                    surface of the place it is ABOUT, so at both attaching levels its evidence
+                    destination is the page the reader is standing on — and for months that was
+                    rendered as a „виж" link that navigated nowhere. The claim keeps its
+                    baseline, which is the measurement §7 actually requires; what goes is the
+                    dead link. */}
+                {s.evidenceOnPage || !s.evidenceTo ? null : (
+                  <a
+                    href={s.evidenceTo}
+                    onClick={() =>
+                      trackSurfaceLink({
+                        target: "standout_evidence",
+                        kind: surface.kind,
+                        level: surface.place.level,
+                        placeId: surface.place.id,
+                        // ⚠ THE SIGNAL'S ENUM MEMBER, never `t(STANDOUT_LABEL_KEYS[...])`. The
+                        // rendered sentence names the place and its measurement; the enum names
+                        // the kind of claim, which is what a click count is about.
+                        signal: s.signal,
+                      })
+                    }
+                  >
+                    {t("election_standout_evidence")}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -656,6 +664,26 @@ export const ElectionResultsShell: FC<Props> = ({
             ⚠ AND `same_page` RENDERS NOTHING, unlike every other unavailable reason. „The
             complete result is on this page" tells a reader only what they can already see; the
             other reasons say something they cannot. */}
+        {/* §Phase 7 item 6 — the methods disclosure.
+            ⚠ GATED ON THERE BEING A STANDOUT, because that is what it explains. A page with no
+            findings needs no account of how findings are chosen, and the result STATUS it also
+            mentions is already on the scope bar above.
+            ⚠ AND THE LIMITATION IS THE POINT, not the thresholds. The numbers live in
+            `standoutThresholds.ts` and change per cycle; what a reader cannot work out from the
+            page is that a PERCENTILE rule always selects some places, so „изпъква" is a
+            statement about this cycle's spread and never an absolute claim — the methodology's
+            own §5.1 "what it excludes" row. A disclosure that recited 5% and 200 votes without
+            saying that would look more precise and disclose less. */}
+        {surface.standouts.length > 0 ? (
+          <details className="text-xs text-muted-foreground">
+            <summary className="cursor-pointer">
+              {t("election_methods_summary")}
+            </summary>
+            <p className="mt-1">{t("election_methods_selection")}</p>
+            <p className="mt-1">{t("election_methods_sample")}</p>
+            <p className="mt-1">{t("election_methods_status")}</p>
+          </details>
+        ) : null}
         {completeResult?.available && completeResult.to ? (
           <p className="text-xs">
             <a

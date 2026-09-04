@@ -19,6 +19,7 @@ import {
   selectionCutoff,
   capStandouts,
   dropWithoutEvidence,
+  hasEvidence,
   percentile,
   rankStandouts,
   sectionCohortIsLargeEnough,
@@ -608,5 +609,65 @@ describe("the suppression rules", () => {
     // "stands out", "differs from", "flagged for review" — never "fraud" or "manipulation".
     for (const signal of Object.keys(SIGNAL_CATEGORY))
       expect(signal).not.toMatch(/fraud|manipul|rigged|stolen|cheat/i);
+  });
+});
+
+// ─── „the evidence is this page" is evidence (§Phase 7) ──────────────────────────────────────
+
+describe("hasEvidence distinguishes on-page evidence from none", () => {
+  // ⚠ THIS EXACT CONFLATION EMPTIED THE FEATURE, MEASURED. `hasEvidence` was
+  // `evidenceTo.length > 0`, and a standout attaches to the surface of the place it is ABOUT —
+  // so at both attaching levels its evidence destination IS that page. While `completeResult`
+  // self-linked, the string check passed and the „виж" link navigated nowhere; the moment the
+  // generator learned to refuse a self-link, all 36 standouts in the corpus (2 parliamentary,
+  // 34 local) were dropped by this filter, silently, in the same commit.
+
+  const base = {
+    id: "x",
+    signal: "close_contest" as const,
+    metric: 1,
+    unit: "pct_point" as const,
+    scope: { level: "region" as const, id: "BGS" },
+    baseline: { kind: "cycle_percentile" as const, labelParams: {} },
+    resultStatus: "final" as const,
+    sampleSize: 1000,
+    labelParams: {},
+  };
+
+  it("keeps a standout whose evidence is the page it renders on", () => {
+    expect(
+      hasEvidence({
+        ...base,
+        category: "outcome",
+        evidenceTo: "",
+        evidenceOnPage: true,
+      }),
+    ).toBe(true);
+  });
+
+  it("still drops one with neither a route nor the flag", () => {
+    // The discriminating half: §7's rule is not weakened, only made able to see the third state.
+    // A claim about a named place with nowhere to check it is still refused.
+    expect(hasEvidence({ ...base, category: "outcome", evidenceTo: "" })).toBe(
+      false,
+    );
+    expect(
+      hasEvidence({
+        ...base,
+        category: "outcome",
+        evidenceTo: "",
+        evidenceOnPage: false,
+      }),
+    ).toBe(false);
+  });
+
+  it("keeps one with a real route, flag or not", () => {
+    expect(
+      hasEvidence({
+        ...base,
+        category: "outcome",
+        evidenceTo: "/municipality/BGS",
+      }),
+    ).toBe(true);
   });
 });

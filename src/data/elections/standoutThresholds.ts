@@ -1,14 +1,27 @@
 // The standout thresholds, frozen (docs/plans/elections-hub-implementation-v1.md §7).
 //
-// ⚠ THE PUBLISHED METHODOLOGY IS `docs/methodology/election-surfaces.md` §5, AND IT IS THE
-// GATE. Every value here is transcribed from it, never re-derived, and every threshold carries
-// §7's four fields — value, basis, minimum sample, and what it excludes — because a bare number
-// is not reviewable. A change to either side requires a change to the other IN THE SAME COMMIT;
+// ⚠ `docs/methodology/election-surfaces.md` §5 IS THE REFERENCE AND THE GATE. Every value here
+// is transcribed from it, never re-derived, and every threshold carries §7's four fields —
+// value, basis, minimum sample, and what it excludes — because a bare number is not reviewable.
+// A change to either side requires a change to the other IN THE SAME COMMIT;
 // `standoutThresholds.test.ts` fails when they drift.
 //
-// This module is shared rather than living in the generator, for two reasons: the source panel
-// renders these values to the reader (a reader cannot judge "stands out" without them), and
-// `scripts/elections/standouts.ts` selects with them. One definition, two consumers.
+// ⚠ IT IS A REPO DOCUMENT, NOT A PAGE — this header called it "the PUBLISHED methodology" until
+// 2026-09-04 and no route has ever served it. Every methodology a reader can open on this site
+// is a bespoke React screen (`RiskScoreMethodologyScreen` and four siblings); nothing renders
+// `docs/methodology/*.md`. Saying "published" of a file only a developer can open is the kind of
+// claim that stops anyone asking whether readers can actually see the rule.
+//
+// This module is shared rather than living in the generator because
+// `scripts/elections/standouts.ts` selects with these values and the surface schema is gated
+// against them.
+//
+// ⚠ THE SOURCE PANEL DOES NOT RENDER THESE NUMBERS, and that too is a correction rather than a
+// gap. This header claimed it did ("a reader cannot judge 'stands out' without them"). What the
+// panel renders since §Phase 7 item 6 is the RULE — that "stands out" is measured against this
+// cycle's own spread, and that a percentile therefore always selects a few places and can never
+// report that nothing stood out. Two of the four thresholds are per-cycle percentiles, so
+// printing "5%" and "200 votes" would read as more precise while disclosing less.
 //
 // ⚠⚠ TWO OF THE FOUR ARE NOT NUMBERS, AND THAT IS THE FINDING RATHER THAN A HEDGE.
 // Measured 2026-09-02: the municipality margin distribution moves by an ORDER OF MAGNITUDE

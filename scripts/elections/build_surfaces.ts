@@ -290,10 +290,26 @@ export const STANDOUT_LEVELS: Partial<
   local: ["municipality"],
 };
 
-const evidenceFor = (e: Emitted): string =>
-  e.surface.destinations.completeResult.available
-    ? e.surface.destinations.completeResult.to
-    : "";
+/** ⚠ `same_page` IS EVIDENCE, NOT ITS ABSENCE, and reading it as absence empties the feature.
+ *  A standout attaches to the surface of the place it is ABOUT, and at both attaching levels
+ *  that place's complete result IS that page — a region's is `/municipality/:oblast`, a
+ *  município's is its own local page. So the only honest destination is „here".
+ *
+ *  For months `completeResult` supplied a route equal to the page itself and this returned it,
+ *  which satisfied §7's string check with a „виж" link that navigated nowhere. When the
+ *  generator learned to refuse that self-link, all 36 standouts in the corpus (2 parliamentary,
+ *  34 local) disappeared in the same commit — measured, not predicted. The fix is to say which
+ *  of the two it is rather than to hand back an empty string for both. */
+const evidenceFor = (
+  e: Emitted,
+): { evidenceTo: string; evidenceOnPage?: boolean } => {
+  const cr = e.surface.destinations.completeResult;
+  if (cr.available && cr.to) return { evidenceTo: cr.to };
+  if (cr.reason === "same_page")
+    return { evidenceTo: "", evidenceOnPage: true };
+  // Anything else is a genuinely missing destination, and §7 drops the standout.
+  return { evidenceTo: "" };
+};
 
 /** ⚠ §7.1 — A FIGURE APPEARS ONCE PER SCREEN, and the strip renders above the standouts.
  *  `split_control` and `runoff_pending` are §7 signals AND facts at local/municipality, so
@@ -326,7 +342,7 @@ export const attachStandouts = (
         marginPct: m,
         validVotes: ballot.totals.validVotes,
         resultStatus: ballot.resultStatus,
-        evidenceTo: evidenceFor(e),
+        ...evidenceFor(e),
       });
     }
     const close = selectCloseContests(margins, cycle);
@@ -365,7 +381,7 @@ export const attachStandouts = (
             turnoutBasisUnavailable:
               place.surface.ballots[0]?.totals.turnoutBasis === "unavailable",
             resultStatus: "final",
-            evidenceTo: evidenceFor(place),
+            ...evidenceFor(place),
           });
         }
       }
@@ -392,7 +408,7 @@ export const attachStandouts = (
           partiesWithSeats: parties,
           seatsTotal: b.seatsTotal,
           resultStatus: b.resultStatus,
-          evidenceTo: evidenceFor(e),
+          ...evidenceFor(e),
         });
       }
     const fragmented = selectFragmentedCouncils(councils, cycle);

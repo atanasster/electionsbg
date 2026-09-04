@@ -235,6 +235,11 @@ export const SHELL_COPY_KEYS = [
   "election_source_title",
   // §8's "see the complete result" leaf, rendered in the source region.
   "election_complete_result_link",
+  // §Phase 7 item 6's methods disclosure, rendered beside the source label.
+  "election_methods_summary",
+  "election_methods_selection",
+  "election_methods_sample",
+  "election_methods_status",
   "election_elected_yes",
 ] as const;
 
