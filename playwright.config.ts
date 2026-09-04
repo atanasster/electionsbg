@@ -79,6 +79,14 @@ export default defineConfig({
       testMatch: /person-sections\.spec\.ts$/,
       use: { ...devices["Desktop Chrome"] },
     },
+    // §9.0's anti-vacuity gate: the shared shell is actually on the page, per migrated level.
+    // Its own project because every other browser project would pass with the shell nowhere —
+    // which is the state this one exists to reject.
+    {
+      name: "surfaces",
+      testMatch: /election-surfaces\.spec\.ts$/,
+      use: { ...devices["Desktop Chrome"] },
+    },
     {
       // Pixel 7 uses Chromium under the hood, so we don't need to install
       // WebKit. Real iOS-rendering differences are out of scope for these
