@@ -85,6 +85,16 @@ unscorable, not κ=1. Every axis must independently reach weighted κ ≥ 0.80.
 
 The checked-in templates intentionally return `blocked_pending_humans`.
 
+`--policy` also loads the supplement passes the policy declares. Those are
+completed files under the gitignored `news/var/adjudication/`, so on a fresh
+clone they are absent and the run refuses with the missing key and path named
+— a wrong path and a pass nobody has adjudicated here look identical from
+inside the scorer, so the message states both. ⚠️ It refuses rather than
+scoring without them: dropping the Russia supplement takes
+`russia_stance.direction` from n=30 to n=7 and switches the axis to
+`low_precision`, which is a different verdict reached by discarding evidence.
+A supplement is loaded whole or the run stops.
+
 ### `not_applicable` is scored off the ordinal scale (2026-09-01)
 
 Each scalar axis reports TWO measures, not one:
