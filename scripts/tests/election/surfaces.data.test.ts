@@ -580,17 +580,38 @@ describe("standouts (§7)", () => {
       // §7: "suppress a review signal if the evidence leaf is absent"; §5: "do not emit a standout
       // when its denominator, baseline, or evidence destination is missing." A claim about a named
       // place with nowhere to check it is the shape the rule exists to prevent.
+      //
+      // ⚠ „ON THIS PAGE" IS A RESOLVING EVIDENCE ROUTE, and reading it as absence fails the whole
+      // corpus. A standout attaches to the surface of the place it is ABOUT, and at both
+      // attaching levels that place's complete result IS that page — so the honest answer is
+      // „here", carried as `evidenceOnPage` rather than as a self-link. This gate required a
+      // non-empty string, which is the same conflation `hasEvidence` had: while `completeResult`
+      // self-linked it passed on a „виж" link that navigated nowhere.
       const patterns = routePatterns();
       let checked = 0;
+      let onPage = 0;
       const bad: string[] = [];
       for (const e of withStandouts())
         for (const s of e.surface.standouts) {
           checked++;
-          if (!s.evidenceTo)
+          if (s.evidenceOnPage) {
+            onPage++;
+            // The flag and a route are alternatives, not companions: a standout carrying both
+            // says the evidence is here AND somewhere else, and a consumer must not have to
+            // choose.
+            if (s.evidenceTo)
+              bad.push(
+                `${e.level}/${e.id}/${s.signal}: on-page AND ${s.evidenceTo}`,
+              );
+          } else if (!s.evidenceTo)
             bad.push(`${e.level}/${e.id}/${s.signal}: no route`);
           else if (!patterns.some((r) => r.test(s.evidenceTo)))
             bad.push(`${e.level}/${e.id}/${s.signal}: ${s.evidenceTo}`);
         }
+      // ⚠ NON-VACUITY, in the direction this corpus actually exercises. Every standout today is
+      // on-page, so a gate that only checked routes would be asserting nothing about any of
+      // them — and would go on passing if the flag started appearing everywhere by accident.
+      expect(onPage).toBeGreaterThan(0);
       expect(checked).toBeGreaterThan(20);
       expect(
         bad.slice(0, 5),
