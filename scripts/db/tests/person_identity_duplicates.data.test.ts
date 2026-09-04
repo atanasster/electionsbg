@@ -82,20 +82,20 @@ pinLocalDatabase();
  */
 const CEILINGS = {
   /** Name folds holding an `official_muni` AND a `local` role on ≥2 person rows. */
-  splitFolds: 1211,
+  splitFolds: 1214,
   /**
    * (fold, role, place_code) TRIPLES naming two person rows across the two sources — one
    * name, one office, one place. The population a cross-source seat rule would close.
    *
-   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those 1,127 triples fall on
-   * **1,101** distinct folds (one person split across two offices contributes two triples).
-   * 1,101/1,211 = 90.9% is the coverage figure §2.7 quotes; 1,127 is what this ceiling
+   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those 1,130 triples fall on
+   * **1,104** distinct folds (one person split across two offices contributes two triples).
+   * 1,104/1,214 = 90.9% is the coverage figure §2.7 quotes; 1,130 is what this ceiling
    * counts. Naming both is deliberate — they were briefly one number in two places.
    */
-  exactSignatureTriples: 1127,
+  exactSignatureTriples: 1130,
   /** `person_search` P rows sitting in a same-(fold, place_label, primary_role) cluster of
    *  more than one — what a reader actually sees, in the finder and on /persons. */
-  duplicateSearchRows: 4766,
+  duplicateSearchRows: 4778,
 } as const;
 
 /**

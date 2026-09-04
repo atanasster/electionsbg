@@ -314,6 +314,17 @@ themselves — `official_muni:vasil-aleksandrov-terziev-049f64` and
 a slug-keyed one is not. That is not luck: `person_link_override` keys on refs precisely
 because `person_id` and slugs are per-database.)
 
+⚠️ **Ceilings re-cut 2026-09-04** — 1,211/1,127/4,766 → **1,214/1,130/4,778** (distinct-fold
+coverage 1,101→1,104 of the wider count, still 90.9%). Both population floors
+(`crossSourceFolds` 5,244, `scopedRoleRows` 31,966) held EXACTLY unchanged, so this was not
+new official_muni/local rows entering the corpus — the same-day TR daily refresh added 113
+companies, which shifted `officer_name_counts.company_count` (the `namesake_risk` input) for a
+handful of already-present folds and tipped them from Tier-2a-eligible to not. This is the
+mechanism §2.7 already names as the discriminator, drifting on ordinary TR corpus growth
+rather than on a resolver regression — confirmed by re-running the ratchet file alone against
+an idle database (reproducible, not the lock-contention flake `migration_drop_dependents`
+warns about) and by the floors holding. No new adjudication needed.
+
 ### 2.7 WHICH tier misses, and why it is a resolver fix rather than 1,211 adjudications
 
 Diagnosed 2026-09-02. `resolve_persons.ts` unions two mentions of one name only when a tier
