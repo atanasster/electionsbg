@@ -38,6 +38,23 @@ const COUNTED_SOURCES: ReadonlySet<string> = new Set<string>([
 ]);
 
 /**
+ * "This fold is not a mass collision" — `officer_name_counts.company_count <= 12`, the value
+ * `008_connections.sql` already uses for that sentence.
+ *
+ * FOUR rules cap on it and each keeps its own NAME, because each may legitimately diverge —
+ * `sameLocalSeat` already does, dropping the cap entirely on an exclusive seat. What the alias
+ * buys is that they are visibly ONE decision today, so a change to the shared meaning cannot
+ * move three of them and quietly miss the fourth. That is the "someone missed one" shape
+ * `declared_label()` and `magistrate_current` are documented as fixing elsewhere in this repo.
+ */
+const MASS_COLLISION_CAP = 12;
+
+/** The source `sameCandidacyParty` is argued for, named rather than inlined for the reason
+ *  `COUNTED_SOURCES` is: the gate is load-bearing — it is what stops a future mention type
+ *  inheriting a licence nobody argued for it — so it should not be a bare literal. */
+const CANDIDACY_SOURCE = "candidate";
+
+/**
  * Mass-name backstop for Tier 2b. NOT a return to the company-count gate 2b replaces — the
  * difference is the threshold's job. Tier 2a asks `namesakeRisk <= 1`, which refuses a man
  * for sitting on two boards; this asks `<= 12`, the same value `samePartyOffice` and
@@ -51,7 +68,7 @@ const COUNTED_SOURCES: ReadonlySet<string> = new Set<string>([
  * The mayor exemption in `sameLocalSeat` does not transfer — it rests on one village having
  * one mayor, and no seat is exclusive here.
  */
-const TIER2B_NAMESAKE_CAP = 12;
+const TIER2B_NAMESAKE_CAP = MASS_COLLISION_CAP;
 
 export type Corroborants = {
   party?: string | null;
@@ -75,6 +92,15 @@ export type Corroborants = {
   /** The election cycle the term belongs to (`2023_10_29_mi`). Two terms of one seat in
    *  DIFFERENT cycles are re-election; in the SAME cycle they are two different people. */
   localCycle?: string | null;
+  /**
+   * For `candidate` mentions: WHICH ELECTION this candidacy belongs to (`2022_10_02`).
+   *
+   * The same shape as `localCycle` and for the same reason — it is what lets
+   * `sameCandidacyParty` require two candidacies to be in DIFFERENT elections, which is the
+   * whole guard on a rule that otherwise rests on name + party alone. NULL means the mention
+   * is not a candidacy, and the rule then cannot fire.
+   */
+  candidacyElection?: string | null;
 };
 
 export type Mention = {
@@ -143,7 +169,7 @@ export type ClusterResult = {
 const shareCorroborant = (
   a: Mention,
   b: Mention,
-  contestedTerms: ReadonlySet<string>,
+  contested: Contested,
 ): boolean => {
   const ca = a.corroborants;
   const cb = b.corroborants;
@@ -158,24 +184,114 @@ const shareCorroborant = (
     strong ||
     weakBoth ||
     samePartyOffice(a, b) ||
-    sameLocalSeat(a, b, contestedTerms)
+    sameLocalSeat(a, b, contested.seatTerms) ||
+    sameCandidacyParty(a, b, contested)
   );
 };
 
-/** `<seat>\t<cycle>` — one TERM of one seat, the unit `contestedTerms` counts. */
+/**
+ * The two BLOCK-LEVEL exclusion sets. Both rules that rest on "the same X in two DIFFERENT
+ * cycles" need one, for the reason `sameLocalSeat` states at length: "different cycle" is an
+ * ANTI-condition, and union-find closes over edges regardless, so it cannot be enforced
+ * pairwise. Computed once over the whole block and passed down.
+ */
+type Contested = {
+  /** Seat-terms more than one mention claims — `sameLocalSeat`. */
+  seatTerms: ReadonlySet<string>;
+  /** (party, election) ballots more than one mention claims — `sameCandidacyParty`. */
+  ballots: ReadonlySet<string>;
+  /**
+   * TRUE when this block's fold is PROVABLY more than one person — see `provenMultiPerson`.
+   * Not a doubt like the two sets above; a fact, and it disables `sameCandidacyParty`
+   * outright for the block.
+   */
+  multiPerson: boolean;
+};
+
+/**
+ * Does the corpus PROVE this fold is at least two people?
+ *
+ * Изборен кодекс чл. 254 ал. 2 registers a candidate for the National Assembly by ONE
+ * party or coalition per election. So the same full name standing under TWO canonical
+ * parties in ONE election is not an ambiguity — it is two different people, stated by the
+ * register itself.
+ *
+ * That is a hard NEGATIVE, the shape `patronymicConflict` already has, and it is the one
+ * piece of disconfirming evidence this corpus supplies for free. It matters here for a
+ * reason beyond the obvious: `sameCandidacyParty` does not merge across a party change, so
+ * it never asserts such a pair directly — but it LENGTHENS CHAINS, and a single pre-existing
+ * strong edge (a shared company uic between two of the members) then fuses the whole
+ * component. Measured: the same uic edge unions 2 mentions without this rule and 4 with it,
+ * two of which are same-election candidacies of different parties. Refusing the rule on such
+ * a fold removes the amplification at its source.
+ *
+ * ⚠️ It cannot be a pairwise test. The disconfirmation is a fact about the FOLD, not about
+ * the pair being considered — the two mentions that prove it are usually not the two being
+ * merged — so it is computed over the block, exactly like the contested sets.
+ *
+ * Measured over the corpus: 120 folds are in this state, and 7 of the 266 groups this rule
+ * would otherwise merge sit on one.
+ */
+const provenMultiPerson = (mentions: Mention[]): boolean => {
+  const partiesByElection = new Map<string, Set<string>>();
+  for (const m of mentions) {
+    const e = m.corroborants.candidacyElection;
+    if (m.source !== CANDIDACY_SOURCE || !e || !m.corroborants.party) continue;
+    (
+      partiesByElection.get(e) ?? partiesByElection.set(e, new Set()).get(e)!
+    ).add(m.corroborants.party);
+  }
+  return [...partiesByElection.values()].some((s) => s.size > 1);
+};
+
+/**
+ * The four name-shape guards every name-based merge rule in this file carries: an identical,
+ * unambiguous THREE-part name (the patronymic present on both sides and equal, which is what
+ * pins the full name once the caller has blocked on given+family), and a namesake cap.
+ *
+ * Extracted so `TIER2B_NAMESAKE_CAP`'s claim — "every other name-based rule in this file
+ * carries such a cap" — is upheld by CONSTRUCTION rather than by inspection: a new rule that
+ * forgets one cannot silently omit it, it has to opt out by passing `NO_NAMESAKE_CAP` and say
+ * why. `sameLocalSeat` is the one existing opt-out, on a seat only one person can hold.
+ */
+const nameShapeOk = (a: Mention, b: Mention, cap: number): boolean =>
+  a.nameParts === 3 &&
+  b.nameParts === 3 &&
+  !a.ambiguous &&
+  !b.ambiguous &&
+  !!a.patronymicFold &&
+  a.patronymicFold === b.patronymicFold &&
+  a.namesakeRisk <= cap &&
+  b.namesakeRisk <= cap;
+
+/** The deliberate opt-out — see `sameLocalSeat`'s EXCLUSIVE_SEAT argument for the only case
+ *  that has earned it: where the SEAT identifies, the name only has to agree. */
+const NO_NAMESAKE_CAP = Number.POSITIVE_INFINITY;
+
+/** `<seat>\t<cycle>` — one TERM of one seat, the unit `contested.seatTerms` counts. */
 const seatTerm = (m: Mention): string | null =>
   m.corroborants.localSeat && m.corroborants.localCycle
     ? `${m.corroborants.localSeat}\t${m.corroborants.localCycle}`
     : null;
 
-/**
- * The seat-terms in a block that MORE THAN ONE mention claims — the mentions
- * `sameLocalSeat` must refuse to touch. Read its comment for why.
- */
-const contestedSeatTerms = (mentions: Mention[]): Set<string> => {
+/** `<party>\t<election>` — one party's ballot in one election, the unit
+ *  `contested.ballots` counts. Candidacies only; a non-candidate mention has no ballot. */
+const ballot = (m: Mention): string | null =>
+  m.source === CANDIDACY_SOURCE &&
+  m.corroborants.party &&
+  m.corroborants.candidacyElection
+    ? `${m.corroborants.party}\t${m.corroborants.candidacyElection}`
+    : null;
+
+/** The keys in a block that MORE THAN ONE mention claims — the mentions each rule must
+ *  refuse to touch. Read `sameLocalSeat` / `sameCandidacyParty` for why. */
+const contestedKeys = (
+  mentions: Mention[],
+  key: (m: Mention) => string | null,
+): Set<string> => {
   const seen = new Map<string, number>();
   for (const m of mentions) {
-    const k = seatTerm(m);
+    const k = key(m);
     if (k) seen.set(k, (seen.get(k) ?? 0) + 1);
   }
   return new Set([...seen].filter(([, n]) => n > 1).map(([k]) => k));
@@ -267,7 +383,7 @@ const contestedSeatTerms = (mentions: Mention[]): Set<string> => {
 //
 // `councillor` KEEPS the cap because its key is the ОБЩИНА — a council seats dozens, so the
 // exclusivity argument above does not hold and the name is doing more of the work.
-const LOCAL_SEAT_NAMESAKE_CAP = 12;
+const LOCAL_SEAT_NAMESAKE_CAP = MASS_COLLISION_CAP;
 
 /** Seats held by exactly ONE person per cycle — see `LOCAL_SEAT_NAMESAKE_CAP`. Keyed off the
  *  role prefix `localSeatKey` writes, so it cannot drift from the key itself. */
@@ -288,14 +404,124 @@ const sameLocalSeat = (
     a.corroborants.localCycle === b.corroborants.localCycle
   )
     return false;
-  if (a.nameParts !== 3 || b.nameParts !== 3) return false;
-  if (a.ambiguous || b.ambiguous) return false;
-  if (!a.patronymicFold || a.patronymicFold !== b.patronymicFold) return false;
-  if (EXCLUSIVE_SEAT.test(seat)) return true;
-  return (
-    a.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP &&
-    b.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP
+  return nameShapeOk(
+    a,
+    b,
+    EXCLUSIVE_SEAT.test(seat) ? NO_NAMESAKE_CAP : LOCAL_SEAT_NAMESAKE_CAP,
   );
+};
+
+// The CANDIDACY-CONTINUITY rule: the same full name, standing for the same party, in two
+// DIFFERENT elections.
+//
+// Why it was needed. `weakBoth` wants party AND place, and for a candidacy the place is the
+// МИР — so a candidate who moved district between elections became one person record per
+// election. That is the reported case: Боян Иванов Бойчев stood for БСП in София 24 МИР in
+// 2022 and 2024 and in София 23 МИР in 2023, and was published as TWO people, indistinguishable
+// in the header search. Measured over the whole corpus: 317 (fold, party) groups are split
+// across ≥2 active public persons this way, 266 of them clearing the shape and namesake gates
+// below — 580 person records that are 266 people. docs/plans/person-search-duplicate-rows-v1.md §4.
+//
+// Why the election is the guard, and not a detail. Within ONE election a party may run two
+// same-named people on two МИР lists, and nothing in the CIK shards distinguishes them — name,
+// ballot number, oblast and a preference count is the whole record. Across elections the claim
+// is the far weaker "the X who stood for P in 2022 is the X who stood for P in 2024", which is
+// what re-standing looks like. So DIFFERENT elections is required, exactly as `sameLocalSeat`
+// requires different cycles.
+//
+// ⚠️ THE SAME-ELECTION GUARD CANNOT BE PAIRWISE — this is the trap `sameLocalSeat`'s header
+// documents and it applies here unchanged. "Different election" is an ANTI-condition, and
+// union-find closes over edges regardless: three candidacies of one party, two of them in 2022,
+// still fuse, because 2024–2022a and 2024–2022b are each legal pairs and the two 2022 rows
+// arrive in one component through the 2024 row without ever being compared. And the damage is
+// not merely a bad merge — `reviewCandidates` is computed from the FINAL components, so a
+// single root also DELETES the `identical_fullname` flag that was supposed to carry the case to
+// a human. Hence the block-level `contested.ballots`: any (party, election) claimed by more
+// than one mention excludes every mention claiming it, including against a third, uncontested
+// election. We cannot say WHICH of two same-named 2022 candidates is the 2024 one, so merging
+// either is a coin flip; all three stay separate and Tier 3 flags them.
+//
+// ⚠️ AND `contested.ballots` CANNOT SEE THE CASE THE PARAGRAPH ABOVE OPENS WITH — do not read
+// it as covering "one party runs two same-named people in one election". `buildGroups`
+// (src/data/candidates/resolveCore.ts) buckets CIK rows by `${normalize(name)}|${partyNum}`
+// and emits ONE shard per bucket with an `oblasts` ARRAY, so two such people collapse upstream
+// into a single by-slug shard and therefore a single mention: `contestedKeys` counts 1, and
+// `resolve_persons` then reads `oblasts[0]` and discards the rest. The measured "0 contested
+// groups" is a property of that key, not evidence the collision is absent — 10,679 of 67,075
+// shards (15.9%) span two or more МИР and are indistinguishable from two people. The guard
+// stays because it is load-bearing against what it CAN see (a fold reaching one ballot through
+// two different shards), but the conflation it cannot see is upstream of this file.
+//
+// ACCEPTED RESIDUE, stated rather than implied, as `sameLocalSeat` does:
+//   • the upstream shard conflation above — one mention that is really two people, on a fold
+//     where nothing downstream can tell. 4 shards of 67,075 span ≥3 МИР, which no lawful
+//     candidacy can (ИК admits at most two), and even those are not separated here.
+//   • a father and son of identical full name, both standing for the same party in different
+//     elections, neither ever filing a declaration. The patronymic guard excludes father/son
+//     only when the patronymics differ, which by construction they do not here.
+// Both are judged acceptable against publishing 580 records for 266 people; revisit if a
+// wrong merge is ever reported.
+//
+// ⚠️ THE PARTY MUST BE THE CANONICAL ID, never the ballot number. `partyNum` is positional and
+// changes every election — in the reported case it is 28, then 1, then 28 — so a rule reading
+// it would refuse the real continuity and, worse, occasionally assert it between two unrelated
+// parties that happened to draw the same number twice.
+//
+// THREE GUARDS, and the namesake cap is the WEAKEST of them — read them in the order the body
+// applies them, not in the order of precedent:
+//
+//   1. `provenMultiPerson` — the fold stands under two parties in one election, so the
+//      register itself says these are several people. A hard negative, not a doubt.
+//   2. `registerPeople` / `mpPeople` — real per-person ids, applied as a VETO. This rule has
+//      no exclusivity to lean on (`sameLocalSeat` has "one община, one кмет";
+//      `samePartyOffice` has "a handful of officeholders per party"), so unlike them it
+//      cannot afford to skip the counts that measure people rather than companies.
+//   3. `namesakeRisk <= 12` — the same value `samePartyOffice` and councillor-`sameLocalSeat`
+//      use for "this fold is not a mass collision". It is kept, and it does remove 46 of the
+//      312 eligible groups (the uncontested 3-part population reaches 220, and "two ГЕРБ
+//      candidates named Георги Иванов Георгиев" is not one person in any expected sense) —
+//      but it counts COMPANIES, which this file's own Tier 2b comment calls the wrong
+//      instrument, so it is a backstop here and never the licence.
+//
+// Measured on the shipped population: 312 eligible groups, 266 clear the cap, 258 clear all
+// three — 580 person records that are 258 people.
+//
+// What this rule deliberately does NOT do: cross a party change. That is the strictly weaker
+// case analysed in docs/plans/person-cross-party-candidate-merge-v1.md, whose conclusion —
+// adjudicate it per-ref rather than automate it — stands. Party continuity is the one piece of
+// evidence here that is not simply the name again.
+const CANDIDACY_NAMESAKE_CAP = MASS_COLLISION_CAP;
+
+const sameCandidacyParty = (
+  a: Mention,
+  b: Mention,
+  contested: Contested,
+): boolean => {
+  const ka = ballot(a);
+  const kb = ballot(b);
+  if (!ka || !kb) return false;
+  // The fold is PROVABLY several people (ИК чл. 254 ал. 2) — nothing here can say which of
+  // them either candidacy belongs to. See `provenMultiPerson`.
+  if (contested.multiPerson) return false;
+  if (contested.ballots.has(ka) || contested.ballots.has(kb)) return false;
+  if (a.corroborants.party !== b.corroborants.party) return false;
+  if (a.corroborants.candidacyElection === b.corroborants.candidacyElection)
+    return false;
+  // ⚠️ THE REAL PER-PERSON COUNTS COME FIRST, and they are a VETO rather than a requirement.
+  // `namesakeRisk` counts COMPANIES — this file's own Tier 2b comment already calls it the
+  // wrong instrument — and on THIS rule it is the whole licence, because nothing else here
+  // identifies anybody: a party runs hundreds of candidates per election. `registerPeople`
+  // and `mpPeople` are real per-person ids and sit unused on every mention.
+  //
+  // A VETO (`> 1`), not Tier 2b's requirement (`=== 1`): 0 means the register has never seen
+  // this name, which is true of most candidates and is evidence of nothing, so demanding 1
+  // would refuse nearly every real merge. Measured on the shipped population: this removes
+  // the ONE fold of 248 that the register positively contradicts — „Йордан Александров
+  // Димитров", two distinct declarant GUIDs — and that one is a wrong PUBLIC merge, which
+  // this file's header calls an accusation.
+  if ((a.registerPeople ?? 0) > 1 || (b.registerPeople ?? 0) > 1) return false;
+  if ((a.mpPeople ?? 0) > 1 || (b.mpPeople ?? 0) > 1) return false;
+  return nameShapeOk(a, b, CANDIDACY_NAMESAKE_CAP);
 };
 
 // The party-office rule. A national party office is held by a handful of people per party,
@@ -318,19 +544,12 @@ const sameLocalSeat = (
 // same company_count <= 12 the connections layer (008_connections.sql) already uses to
 // mean "this fold is not a mass collision" — well above the 4-9 a real party officer
 // scores, well below a name shared by hundreds.
-const PARTY_OFFICE_NAMESAKE_CAP = 12;
+const PARTY_OFFICE_NAMESAKE_CAP = MASS_COLLISION_CAP;
 
 const samePartyOffice = (a: Mention, b: Mention): boolean =>
   (a.corroborants.partyOffice === true ||
     b.corroborants.partyOffice === true) &&
-  a.nameParts === 3 &&
-  b.nameParts === 3 &&
-  !a.ambiguous &&
-  !b.ambiguous &&
-  a.namesakeRisk <= PARTY_OFFICE_NAMESAKE_CAP &&
-  b.namesakeRisk <= PARTY_OFFICE_NAMESAKE_CAP &&
-  !!a.patronymicFold &&
-  a.patronymicFold === b.patronymicFold &&
+  nameShapeOk(a, b, PARTY_OFFICE_NAMESAKE_CAP) &&
   !!a.corroborants.party &&
   a.corroborants.party === b.corroborants.party;
 
@@ -384,9 +603,14 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
 
   // Tier 1 — a shared corroborant (pairwise; a block is small), UNLESS a present-on-both
   // patronymic conflicts (a hard negative that overrides any corroboration). The contested
-  // seat-terms are computed over the WHOLE block first because one of the corroborants
-  // (`sameLocalSeat`) rests on a condition transitive closure does not preserve.
-  const contested = contestedSeatTerms(mentions);
+  // seat-terms and ballots are computed over the WHOLE block first because TWO of the
+  // corroborants (`sameLocalSeat`, `sameCandidacyParty`) rest on a "different cycle"
+  // condition transitive closure does not preserve.
+  const contested: Contested = {
+    seatTerms: contestedKeys(mentions, seatTerm),
+    ballots: contestedKeys(mentions, ballot),
+    multiPerson: provenMultiPerson(mentions),
+  };
   for (let i = 0; i < n; i++)
     for (let j = i + 1; j < n; j++)
       if (

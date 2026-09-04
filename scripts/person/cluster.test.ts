@@ -979,4 +979,307 @@ describe("clusterBlock", () => {
       expect(r.merges).toHaveLength(0);
     });
   });
+  // The CANDIDACY-CONTINUITY rule (Tier 1) — the same full name standing for the same party
+  // in two DIFFERENT elections. Live shape: Боян Иванов Бойчев, БСП, София 24 МИР in 2022 and
+  // 2024 and София 23 МИР in 2023, published as two people.
+  describe("sameCandidacyParty — one party, two elections", () => {
+    // ⚠️ A DISTINCT `place` PER MENTION, and this is load-bearing rather than tidy. `place`
+    // is the МИР, and wherever two mentions share one, `weakBoth` (party AND place) fires and
+    // the assertion passes with THIS rule deleted. Keying it off the mention id keeps every
+    // fixture МИР distinct, so only `sameCandidacyParty` can produce a merge here — which is
+    // also the real shape twice over: the split exists BECAUSE the candidate moved district,
+    // and two same-named candidates of one party in ONE election are on two different lists.
+    // The first cut keyed place off the ELECTION, which made the same-election fixtures share
+    // one and turned three "does not merge" assertions green for the wrong reason.
+    const cand = (election: string, over: Partial<Mention> = {}): Mention => {
+      const id = over.id ?? `cand:${election}`;
+      return base({
+        id,
+        source: "candidate",
+        nameParts: 3,
+        patronymicFold: "ivanov",
+        namesakeRisk: 2,
+        corroborants: { party: "bsp", candidacyElection: election, place: id },
+        ...over,
+      });
+    };
+
+    it("merges two candidacies of one party in different elections", () => {
+      const r = clusterBlock([cand("2022_10_02"), cand("2024_10_27")]);
+      expect(r.merges).toEqual([
+        {
+          memberIds: ["cand:2022_10_02", "cand:2024_10_27"],
+          confidence: "high",
+        },
+      ]);
+      expect(r.reviewCandidates).toHaveLength(0);
+    });
+
+    it("does NOT merge two candidacies of one party in the SAME election", () => {
+      // A party may run two same-named people on two МИР lists, and the CIK shards carry
+      // nothing that separates them — name, ballot number, oblast, preference count is the
+      // whole record. This must reach a human.
+      const r = clusterBlock([
+        cand("2022_10_02", { id: "cand:a" }),
+        cand("2022_10_02", { id: "cand:b" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      expect(r.reviewCandidates).toEqual([
+        { memberIds: ["cand:a", "cand:b"], reason: "identical_fullname" },
+      ]);
+    });
+
+    it("a contested ballot is not laundered through a third election", () => {
+      // The transitivity trap, identical to `sameLocalSeat`'s: 2024–2022a and 2024–2022b are
+      // each legal pairs, so a PAIRWISE same-election veto lets union-find fuse all three
+      // without ever comparing the two 2022 rows — and because reviewCandidates reads the
+      // FINAL components, the single root would also erase the flag meant to carry the case
+      // to a human. Both halves are asserted.
+      const r = clusterBlock([
+        cand("2024_10_27", { id: "cand:later" }),
+        cand("2022_10_02", { id: "cand:a" }),
+        cand("2022_10_02", { id: "cand:b" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      expect(r.reviewCandidates).toEqual([
+        {
+          memberIds: ["cand:later", "cand:a", "cand:b"],
+          reason: "identical_fullname",
+        },
+      ]);
+    });
+
+    it("a contest on one party's ballot does not block another party's continuity", () => {
+      // The exclusion is per (party, election), not per block: two same-named БСП candidates
+      // on one 2022 list must not also cost a ГЕРБ namesake their own re-standing.
+      const gerb = (election: string, id: string): Mention =>
+        cand(election, {
+          id,
+          corroborants: {
+            party: "gerb",
+            candidacyElection: election,
+            place: id,
+          },
+        });
+      const r = clusterBlock([
+        cand("2022_10_02", { id: "bsp:a" }),
+        cand("2022_10_02", { id: "bsp:b" }),
+        gerb("2021_07_11", "gerb:old"),
+        gerb("2023_04_02", "gerb:new"),
+      ]);
+      expect(r.merges).toEqual([
+        { memberIds: ["gerb:old", "gerb:new"], confidence: "high" },
+      ]);
+    });
+
+    it("refuses a PARTY CHANGE — that stays a per-ref adjudication", () => {
+      // docs/plans/person-cross-party-candidate-merge-v1.md: adjacent elections, adjacent
+      // МИР and a plausible transition are all circumstantial. Party continuity is the one
+      // piece of evidence here that is not simply the name again, so losing it loses the rule.
+      const r = clusterBlock([
+        cand("2022_10_02"),
+        cand("2023_04_02", {
+          corroborants: {
+            party: "pp",
+            candidacyElection: "2023_04_02",
+            place: "S25",
+          },
+        }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      expect(r.reviewCandidates).toHaveLength(1);
+    });
+
+    it("refuses a mass name (namesakeRisk above the cap)", () => {
+      // The uncontested 3-part population reaches 220. "Two ГЕРБ candidates named Георги
+      // Иванов Георгиев" is not one person in any expected sense.
+      const r = clusterBlock([
+        cand("2022_10_02", { namesakeRisk: 13 }),
+        cand("2024_10_27", { namesakeRisk: 13 }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("refuses a 2-part name and an ambiguous one", () => {
+      const twoPart = clusterBlock([
+        cand("2022_10_02", { nameParts: 2, patronymicFold: null }),
+        cand("2024_10_27", { nameParts: 2, patronymicFold: null }),
+      ]);
+      expect(twoPart.merges).toHaveLength(0);
+      const ambiguous = clusterBlock([
+        cand("2022_10_02", { ambiguous: true }),
+        cand("2024_10_27", { ambiguous: true }),
+      ]);
+      expect(ambiguous.merges).toHaveLength(0);
+    });
+
+    it("refuses an independent candidacy — no party is no evidence", () => {
+      // An инициативен комитет carries `primaryCanonicalId: null`, so the rule has nothing
+      // but the name and must not fire. A null party must never equal another null party.
+      const indep = (election: string): Mention =>
+        cand(election, {
+          corroborants: {
+            party: null,
+            candidacyElection: election,
+            place: election,
+          },
+        });
+      const r = clusterBlock([indep("2022_10_02"), indep("2024_10_27")]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("is CANDIDATE-ONLY — another source carrying the same fields cannot fire it", () => {
+      // `ballot()` gates on source, so a future mention type that happens to set `party` and
+      // `candidacyElection` does not silently inherit a rule argued only for candidacies.
+      const r = clusterBlock([
+        cand("2022_10_02", { source: "local" }),
+        cand("2024_10_27", { source: "local" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("merges a THREE-election chain — the reported case, end to end", () => {
+      // Боян Иванов Бойчев: БСП in София 24 МИР (2022), 23 МИР (2023), 24 МИР (2024). The
+      // pairs 2022–2023, 2023–2024 and 2022–2024 are each legal, so union-find should yield
+      // ONE component and no review candidate. Two-mention fixtures cannot show this.
+      const r = clusterBlock([
+        cand("2022_10_02"),
+        cand("2023_04_02"),
+        cand("2024_10_27"),
+      ]);
+      expect(r.merges).toHaveLength(1);
+      expect(r.merges[0].memberIds.sort()).toEqual([
+        "cand:2022_10_02",
+        "cand:2023_04_02",
+        "cand:2024_10_27",
+      ]);
+      expect(r.reviewCandidates).toHaveLength(0);
+    });
+
+    it("cannot fire without candidacyElection — the documented null contract", () => {
+      // The field is what makes "different elections" checkable; absent it there is nothing
+      // but name and party, which is the state this rule exists NOT to merge on. A resolver
+      // that stopped deriving it must lose the merges, not keep them.
+      const r = clusterBlock([
+        cand("2022_10_02", { corroborants: { party: "bsp", place: "S24" } }),
+        cand("2024_10_27", { corroborants: { party: "bsp", place: "S23" } }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("compares the party VALUE, so a ballot number cannot stand in for it", () => {
+      // `partyNum` is positional and changes every election — in the reported case 28, then
+      // 1, then 28. This pins the failure a ballot-number rule would produce: the SAME party
+      // under two spellings must not merge, which is what a positional id looks like from
+      // here. (The converse — two unrelated parties sharing a number — is the same defect
+      // seen from the other side and cannot be expressed without a resolver-side fixture.)
+      const r = clusterBlock([
+        cand("2022_10_02", {
+          corroborants: {
+            party: "28",
+            candidacyElection: "2022_10_02",
+            place: "S24",
+          },
+        }),
+        cand("2024_10_27", {
+          corroborants: {
+            party: "bsp",
+            candidacyElection: "2024_10_27",
+            place: "S23",
+          },
+        }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("refuses when the REGISTER attests more than one person of the name", () => {
+      // `registerPeople` counts distinct Сметна палата declarant GUIDs — a real per-person
+      // id, unlike namesakeRisk's company count. Live instance on the shipped population:
+      // „Йордан Александров Димитров", 2 declarants, which the cap alone waves through.
+      const r = clusterBlock([
+        cand("2022_10_02", { registerPeople: 2 }),
+        cand("2024_10_27", { registerPeople: 2 }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      // A VETO, not a requirement: 0 means the register has never seen the name, which is
+      // true of most candidates and must still merge — demanding 1 would refuse nearly all.
+      expect(
+        clusterBlock([
+          cand("2022_10_02", { registerPeople: 0 }),
+          cand("2024_10_27", { registerPeople: 0 }),
+        ]).merges,
+      ).toHaveLength(1);
+    });
+
+    it("refuses when two MPs of the name sit in the roster", () => {
+      const r = clusterBlock([
+        cand("2022_10_02", { mpPeople: 2 }),
+        cand("2024_10_27", { mpPeople: 2 }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("refuses the whole block when one election carries two parties of the name", () => {
+      // ИК чл. 254 ал. 2 registers a candidate by ONE party per election, so this fold is
+      // PROVABLY two people. Nothing here says which of them the 2024 БСП candidacy is, so
+      // the 2022–2024 БСП pair must not merge either — the disconfirmation is about the
+      // FOLD, not about the pair being considered.
+      const r = clusterBlock([
+        cand("2022_10_02", { id: "bsp:22" }),
+        cand("2024_10_27", { id: "bsp:24" }),
+        cand("2022_10_02", {
+          id: "gerb:22",
+          corroborants: {
+            party: "gerb",
+            candidacyElection: "2022_10_02",
+            place: "gerb:22",
+          },
+        }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("does not lengthen a chain across a proven multi-person fold", () => {
+      // The AMPLIFICATION this rule would otherwise create. A pre-existing strong edge (a
+      // shared company uic) fuses whatever component it touches, so without the
+      // multi-person veto the four mentions below become ONE person — including two
+      // same-election candidacies of different parties, which are provably two humans.
+      // Measured against the implementation: 2 mentions fused before this rule, 4 after.
+      const withUic = (id: string, election: string, party: string) =>
+        cand(election, {
+          id,
+          corroborants: {
+            party,
+            candidacyElection: election,
+            place: id,
+            uics: ["123456789"],
+          },
+        });
+      const r = clusterBlock([
+        cand("2022_10_02", { id: "bsp:22" }),
+        withUic("bsp:24", "2024_10_27", "bsp"),
+        cand("2022_10_02", {
+          id: "gerb:22",
+          corroborants: {
+            party: "gerb",
+            candidacyElection: "2022_10_02",
+            place: "gerb:22",
+          },
+        }),
+        withUic("gerb:24", "2024_10_27", "gerb"),
+      ]);
+      // The uic edge still unions its own two mentions — that is pre-existing Tier-1
+      // behaviour this rule does not touch — but it must not reach the 2022 pair.
+      expect(r.merges).toHaveLength(1);
+      expect(r.merges[0].memberIds.sort()).toEqual(["bsp:24", "gerb:24"]);
+    });
+
+    it("refuses a differing patronymic even with party and elections aligned", () => {
+      const r = clusterBlock([
+        cand("2022_10_02", { patronymicFold: "petrov" }),
+        cand("2024_10_27", { patronymicFold: "stoyanov" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+  });
 });

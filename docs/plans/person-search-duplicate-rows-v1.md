@@ -162,8 +162,9 @@ built (2026-09-04):
 
 ## 4. Tier B — a candidate-continuity corroborant in the resolver
 
-**The measured win: 580 person rows collapse to 266 — 314 duplicate identities gone,
-0 contested cases in the corpus.**
+**The measured win: 580 person rows collapse to 258 — 322 duplicate identities gone.**
+⚠️ The plan first said 266, on the namesake cap alone; review found that cap is a company
+count and near-inert here, and two real guards were added. See "the three guards" below.
 
 Add a Tier-1 corroborant to `cluster.ts`, built as the structural twin of `sameLocalSeat`:
 
@@ -182,9 +183,29 @@ Each clause earns its place, and the last two are the guards:
   AND the `identical_fullname` review flag is computed from the final components, so a bad
   union also DELETES the flag that was meant to carry the case to a human.
 - **`namesakeRisk <= 12`**, the cap `samePartyOffice` / `sameLocalSeat` already use to mean
-  "this fold is not a mass collision". Necessary: the uncontested 3-part population reaches
-  `namesake_risk` **220**, and "two ГЕРБ candidates named Георги Иванов Георгиев" is not one
-  person in any expected sense.
+  "this fold is not a mass collision". It removes 46 of 312, and the uncontested 3-part
+  population reaches **220** — but see below: it is the weakest of the three guards, not the
+  licence the plan originally made it.
+
+⚠️ **THE THREE GUARDS, and why the cap alone was not enough.** This rule merges on name +
+party + different election, and every one of those is either the name again or an affiliation
+millions share — so unlike its two precedents it has NO exclusivity to lean on
+(`sameLocalSeat` has "one община, one кмет"; `samePartyOffice` has "a handful of officeholders
+per party"). The cap was therefore doing all the work, and it counts COMPANIES, which
+`cluster.ts`'s own Tier 2b comment already calls the wrong instrument. Measured on the shipped
+population, the cap alone would have merged:
+
+- **1 fold the Сметна палата register positively contradicts** — „Йордан Александров Димитров",
+  two distinct declarant GUIDs, i.e. two humans published as one. `registerPeople` / `mpPeople`
+  are real per-person ids, sat unused on every `Mention`, and are now a **veto** (`> 1`), not
+  Tier 2b's requirement (`=== 1`): 0 means the register has never seen the name, which is true
+  of most candidates and is evidence of nothing.
+- **7 groups on folds the corpus PROVES are several people.** Изборен кодекс чл. 254 ал. 2
+  registers a candidate by ONE party per election, so the same name under two parties in one
+  election is a hard negative — the shape `patronymicConflict` already has. It matters beyond
+  the direct case because this rule LENGTHENS CHAINS: a single pre-existing strong edge (a
+  shared company EIK) fused 2 mentions before the rule and 4 after, two of them same-election
+  candidacies of different parties. `provenMultiPerson` disables the rule for such a block.
 
 Measured over the corpus (all candidate mentions carrying a canonical party):
 
@@ -193,10 +214,20 @@ Measured over the corpus (all candidate mentions carrying a canonical party):
 | groups split across ≥2 active public persons | 317 |
 | of those, **uncontested** (no election carries the pair twice) | **317** (contested: **0**) |
 | …and a 3-part name | 312 |
-| …and `namesake_risk <= 12` → **would merge** | **266** (spanning 580 person rows) |
+| …and `namesake_risk <= 12` | 266 |
+| …and neither register- nor corpus-contradicted → **merges** | **258** (spanning 580 person rows) |
+
+⚠️ **"Contested: 0" is a property of the upstream shard key, NOT evidence the collision is
+absent.** `buildGroups` buckets CIK rows by `${normalize(name)}|${partyNum}` and emits ONE
+shard per bucket with an `oblasts` ARRAY, so one party running two same-named people in one
+election collapses into a single mention before the resolver ever sees it — `contestedKeys`
+counts 1. 10,679 of 67,075 shards (15.9%) span ≥2 МИР and are indistinguishable from two
+people; 4 span ≥3, which no lawful candidacy can. The guard stays because it is load-bearing
+against what it CAN see (a fold reaching one ballot through two different shards), but that
+conflation is upstream of `cluster.ts` and is recorded as accepted residue there.
 
 It fixes the reported case: `bsp`, three distinct elections, `namesake_risk = 2`, 3-part name,
-no election carrying the pair twice.
+no election carrying the pair twice, and no contradiction from either register.
 
 **Implementation notes**
 
