@@ -40,6 +40,7 @@ import { buildResolver } from "./municipality_join";
 // CLI wrapper) — the latter calls `run(...)` at module scope, so importing it would fire its
 // own argument parser against THIS command's argv.
 import { decorateCandidateLinks, assertCanDecorate } from "./candidate_links";
+import { countRoles } from "./role_reconcile";
 
 const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
 const SHARD_DIR = path.join(OUT_DIR, "by_obshtina");
@@ -164,15 +165,7 @@ export const emitShards = (
   let maxShardBytes = 0;
   for (const [code, bucket] of buckets.entries()) {
     const sorted = bucket.entries.sort(rosterSort);
-    const shardByRole: Record<MunicipalOfficialRole, number> = {
-      mayor: 0,
-      deputy_mayor: 0,
-      council_chair: 0,
-      councillor: 0,
-      chief_architect: 0,
-      other: 0,
-    };
-    for (const e of sorted) shardByRole[e.role]++;
+    const shardByRole = countRoles(sorted);
     const shard: MunicipalityRosterFile = {
       obshtina: code,
       registryName: bucket.registryName,

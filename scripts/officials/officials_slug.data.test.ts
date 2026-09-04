@@ -20,6 +20,7 @@ import { officialSlug, ROOT, slugify } from "./shared";
 import { aliasedDeclarantName } from "./declarant_aliases";
 import { personGuidFromSourceUrl } from "./slug_identity";
 import { assertCommitted } from "../lib/assert_committed";
+import { municipalSlugDisambiguator } from "./role_reconcile";
 
 type Tree = {
   label: string;
@@ -33,7 +34,14 @@ type Row = {
   name: string;
   institution?: string;
   municipality?: string;
+  /** The PUBLISHED role — no longer the slug's ingredient wherever `reconcileRole`
+   *  corrected a mislabelled office. Kept because the executive tree still reads it. */
   role?: string;
+  /** The register's verbatim listing label, and the slug's REAL second ingredient via
+   *  `municipalSlugDisambiguator`. Declared explicitly: every parameter of that function is
+   *  optional, so omitting the field here still compiles — and silently takes the fallback
+   *  branch, re-breaking the reproducibility assertion this type exists to support. */
+  roleRaw?: string;
 };
 
 const COLLISIONS_FILE = path.join(
@@ -52,7 +60,9 @@ const TREES: Tree[] = [
     label: "municipal",
     indexFile: path.join(ROOT, "data/officials/municipal/index.json"),
     declDir: path.join(ROOT, "data/officials/municipal/declarations"),
-    disambiguator: (r) => `${r.municipality}|${r.role}`,
+    // The LISTING role, via the one shared definition — the stored `role` is the published
+    // one and the two differ wherever reconcileRole corrected a mislabelled office.
+    disambiguator: municipalSlugDisambiguator,
   },
 ];
 

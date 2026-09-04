@@ -57,6 +57,12 @@ import { aliasedDeclarantName } from "./declarant_aliases";
 import { personGuid } from "./slug_identity";
 import { emitShards } from "./build_municipal_shards";
 import { decorateCandidateLinks, assertCanDecorate } from "./candidate_links";
+import {
+  reconcileRole,
+  mapRole,
+  municipalSlugDisambiguator,
+  countRoles,
+} from "./role_reconcile";
 import { MUNICIPAL_CATEGORY_SUBSTRING } from "../watch/sources/cacbg_local";
 
 const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
@@ -66,20 +72,6 @@ const DECL_DIR = path.join(OUT_DIR, "declarations");
 // executive or MP category contains that token. Shared with the watcher and
 // the coverage report so the three cannot drift apart.
 const CATEGORY_TOKEN = MUNICIPAL_CATEGORY_SUBSTRING;
-
-// Map the verbatim `Person/Position/Name` role label to a stable bucket.
-// Checked most-specific first: "Заместник кмет" must resolve to deputy_mayor
-// before the bare "кмет" rule, and "Главен архитект" / "Председател на ОбС"
-// before anything else.
-const mapRole = (raw: string): MunicipalOfficialRole => {
-  const r = raw.toLowerCase();
-  if (r.includes("архитект")) return "chief_architect";
-  if (r.includes("председател")) return "council_chair";
-  if (r.includes("съветник")) return "councillor";
-  if (r.includes("заместник")) return "deputy_mayor";
-  if (r.includes("кмет")) return "mayor";
-  return "other";
-};
 
 type MunicipalEntry = {
   declarantName: string;
@@ -189,6 +181,9 @@ const cmd = command({
 
     const declsBySlug = new Map<string, OfficialDeclaration[]>();
     const indexBySlug = new Map<string, MunicipalIndexEntry>();
+    // The `filedAt` of the filing each index row was taken from — the same-year tie-break
+    // below needs it, and `MunicipalIndexEntry` does not carry it.
+    const priorFiledAtBySlug = new Map<string, string>();
     const parseFailures: string[] = [];
     let processed = 0;
     let missing = 0;
@@ -223,9 +218,18 @@ const cmd = command({
       // Slug disambiguator = municipality + role, so two people with the same
       // legal name in one municipality (or one person across two roles) do
       // not collide. Same person's multiple declarations share a slug.
+      //
+      // ⚠️ THE LISTING ROLE, NEVER THE RECONCILED ONE. This disambiguator is an IDENTITY key
+      // — it separates two same-named people in one município — not a claim about the job.
+      // Feeding a corrected role in would move the person's /person URL and orphan their
+      // declaration file the first time the register relabelled someone. See
+      // ./role_reconcile.ts.
       const slug = officialSlug(
         declarantName,
-        `${entry.municipality}|${entry.role}`,
+        municipalSlugDisambiguator({
+          municipality: entry.municipality,
+          roleRaw: entry.roleRaw,
+        }),
       );
       try {
         const parsed = parseDeclarationXml({
@@ -260,16 +264,44 @@ const cmd = command({
         arr.push(decl);
         declsBySlug.set(slug, arr);
 
+        // ⚠️ WHICH FILING STATES THE TRUTH, when a person has several. A `Person` node
+        // routinely carries an annual, an exit and a correction, and this row's `role` is now
+        // derived from the filing, so "the newest" has to be a stated rule rather than
+        // whichever the listing happened to emit first. Newest YEAR wins; within a year the
+        // later `filedAt` wins, and an undated filing never displaces a dated one.
+        //
+        // `restamp_roles.ts` orders on the same tuple. They are two writers of one published
+        // field, and a strict `>` here (first-of-year wins) against `DESC` there (last-of-year
+        // wins) would have them disagree about a named person's office — measured, 259 muni
+        // subjects have several filings in their newest year and 27 of those state more than
+        // one distinct position within it.
         const priorIdx = indexBySlug.get(slug);
-        if (
+        const priorFiledAt = priorIdx
+          ? priorFiledAtBySlug.get(slug)
+          : undefined;
+        const newer =
           !priorIdx ||
-          decl.declarationYear > priorIdx.latestDeclarationYear
-        ) {
+          decl.declarationYear > priorIdx.latestDeclarationYear ||
+          (decl.declarationYear === priorIdx.latestDeclarationYear &&
+            (decl.filedAt ?? "") > (priorFiledAt ?? ""));
+        if (newer) {
+          priorFiledAtBySlug.set(slug, decl.filedAt ?? "");
           indexBySlug.set(slug, {
             slug,
             name: declarantName,
             normalizedName: canonicalDeclarantName(declarantName),
-            role: entry.role,
+            // The PUBLISHED role. Usually the listing's, but corrected to `mayor` when the
+            // declarant states a mayoralty of this very município and the listing filed them
+            // under another bucket — four sitting mayors were published as deputies or
+            // councillors, leaving their municipalities with no mayor at all. `roleRaw`
+            // keeps the listing string verbatim, so the disagreement stays inspectable
+            // rather than being overwritten.
+            role: reconcileRole({
+              listingRole: entry.role,
+              filedPosition: parsed.filedPosition ?? null,
+              filedInstitution: parsed.filedInstitution ?? null,
+              listingMunicipality: entry.municipality,
+            }),
             roleRaw: entry.roleRaw,
             municipality: entry.municipality,
             latestDeclarationYear: decl.declarationYear,
@@ -374,20 +406,6 @@ const cmd = command({
       ...indexBySlug.values(),
     ]);
     const years = mergeYears(priorIndex?.years ?? [], targetYear);
-    const countRoles = (
-      rows: MunicipalIndexEntry[],
-    ): Record<MunicipalOfficialRole, number> => {
-      const acc: Record<MunicipalOfficialRole, number> = {
-        mayor: 0,
-        deputy_mayor: 0,
-        council_chair: 0,
-        councillor: 0,
-        chief_architect: 0,
-        other: 0,
-      };
-      for (const e of rows) acc[e.role]++;
-      return acc;
-    };
     // The sitting bench: officials the NEWEST listing still names. Keyed on the
     // register folder rather than the parsed declaration year — see the note on
     // descriptorYear. A backfill run (`--year 2019`) therefore cannot redefine
@@ -491,5 +509,3 @@ const cmd = command({
 });
 
 run(cmd, process.argv.slice(2));
-
-export { fetchMunicipalListing, mapRole };

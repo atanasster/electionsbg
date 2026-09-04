@@ -6,8 +6,8 @@
     2026
   ],
   "byRole": {
-    "mayor": 0,
-    "deputy_mayor": 1,
+    "mayor": 1,
+    "deputy_mayor": 0,
     "council_chair": 1,
     "councillor": 10,
     "chief_architect": 1,
@@ -18,7 +18,7 @@
       "slug": "mitko-levchev-antov-531737",
       "name": "Митко Левчев Антов",
       "normalizedName": "МИТКО ЛЕВЧЕВ АНТОВ",
-      "role": "deputy_mayor",
+      "role": "mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Макреш",
       "latestDeclarationYear": 2026,

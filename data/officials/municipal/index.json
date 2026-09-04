@@ -6,23 +6,21 @@
   ],
   "total": 6647,
   "byRole": {
-    "mayor": 301,
-    "deputy_mayor": 779,
+    "councillor": 4951,
+    "deputy_mayor": 776,
     "council_chair": 266,
-    "councillor": 4952,
     "chief_architect": 349,
-    "other": 0
+    "mayor": 305
   },
   "current": {
     "year": 2026,
     "total": 6313,
     "byRole": {
-      "mayor": 298,
-      "deputy_mayor": 700,
-      "council_chair": 258,
       "councillor": 4750,
+      "deputy_mayor": 698,
+      "council_chair": 258,
       "chief_architect": 307,
-      "other": 0
+      "mayor": 300
     }
   },
   "entries": [
@@ -14280,7 +14278,7 @@
       "slug": "georgi-iovchev-petrov-d7adf9",
       "name": "Георги Йовчев Петров",
       "normalizedName": "ГЕОРГИ ЙОВЧЕВ ПЕТРОВ",
-      "role": "councillor",
+      "role": "mayor",
       "roleRaw": "Общински съветник",
       "municipality": "Раднево",
       "latestDeclarationYear": 2025,
@@ -21360,7 +21358,7 @@
       "slug": "dobrin-mladenov-dobrev-272c8a",
       "name": "Добрин Младенов Добрев",
       "normalizedName": "ДОБРИН МЛАДЕНОВ ДОБРЕВ",
-      "role": "deputy_mayor",
+      "role": "mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Разград",
       "latestDeclarationYear": 2025,
@@ -22020,7 +22018,7 @@
       "slug": "dusho-ivanov-gavazov-ac3222",
       "name": "Душо Иванов Гавазов",
       "normalizedName": "ДУШО ИВАНОВ ГАВАЗОВ",
-      "role": "deputy_mayor",
+      "role": "mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Мъглиж",
       "latestDeclarationYear": 2026,
@@ -41590,7 +41588,7 @@
       "slug": "mitko-levchev-antov-531737",
       "name": "Митко Левчев Антов",
       "normalizedName": "МИТКО ЛЕВЧЕВ АНТОВ",
-      "role": "deputy_mayor",
+      "role": "mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Макреш",
       "latestDeclarationYear": 2026,

@@ -59,6 +59,7 @@ import {
   slugify,
   writeJson,
 } from "./shared";
+import { municipalSlugDisambiguator, countRoles } from "./role_reconcile";
 
 // Normally data/officials; OFFICIALS_MIGRATE_DIR points it at an isolated copy
 // so the apply path can be exercised end-to-end without touching the real corpus
@@ -102,7 +103,9 @@ const TREES: Tree[] = [
     label: "municipal",
     declDir: path.join(OFFICIALS_DIR, "municipal", "declarations"),
     indexFile: path.join(OFFICIALS_DIR, "municipal", "index.json"),
-    disambiguator: (r) => `${r.municipality}|${r.role}`,
+    // The LISTING role, via the one shared definition — the stored `role` is the published
+    // one and the two differ wherever reconcileRole corrected a mislabelled office.
+    disambiguator: municipalSlugDisambiguator,
     foldsCollisionGuid: false,
   },
 ];
@@ -329,15 +332,15 @@ const applyTree = (plan: Plan): { renamed: number; folded: number } => {
     const sorted = (entries as MunicipalIndexEntry[]).sort((a, b) =>
       a.name.localeCompare(b.name, "bg"),
     );
-    const byRole = sorted.reduce(
-      (acc, e) => ((acc[e.role] = (acc[e.role] ?? 0) + 1), acc),
-      {} as Record<string, number>,
-    );
+    // Seeded via the shared tally rather than accumulated into `{}`: an accumulated record
+    // drops zero-count buckets and reorders the keys, and the `as` cast that made it compile
+    // promised a `number` where there was `undefined`.
+    const byRole = countRoles(sorted);
     const out: MunicipalIndexFile = {
       ...(raw as MunicipalIndexFile),
       generatedAt: new Date().toISOString(),
       total: sorted.length,
-      byRole: byRole as MunicipalIndexFile["byRole"],
+      byRole,
       entries: sorted,
     };
     writeJson(tree.indexFile, out);
