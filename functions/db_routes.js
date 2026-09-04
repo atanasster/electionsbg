@@ -7017,24 +7017,83 @@ const DB_ROUTES = {
   },
   // Resolve a candidate URL to its owning person's slug so /candidate/{id} can render the
   // shared person dashboard. `slug` = a candidate slug (c-{party}-… | mp-{id}); or `name`
-  // (+ optional `party`) for the legacy bare-name candidate URLs. Returns null for an
-  // unknown / private / >1-namesake match, and the caller falls through to the legacy render.
+  // (+ optional `election` and `party`) for the legacy bare-name candidate URLs.
+  //
+  // A bare name ALWAYS comes back with the `namesakes` set, and it means two different things
+  // depending on `personSlug` — which is what lets the page tell the reader the truth in both
+  // cases (person-candidate-display-unification-v1 Tier 1):
+  //   • `personSlug: null` + ≥2 namesakes → a CHOICE. Falling through to the legacy body here
+  //     publishes both people's preference history as one person's, at a 200, because those
+  //     shards are keyed by name and two namesakes share one folder. Measured 2026-09-03:
+  //     1,478 folds / 4,092 people, and the prerendered indexed candidate family is the
+  //     bare-name form.
+  //   • a `personSlug` WITH ≥2 namesakes → a DISCLOSURE. The election narrowed a genuinely
+  //     shared name down to the one person who stood that cycle (385 folds, up to 9 people on
+  //     one fold), so the page must say the URL is shared and offer the others rather than
+  //     asserting a single identity a reader never picked. No extra field is needed to detect
+  //     it: a >1 fold cannot resolve without the election, so `personSlug && namesakes > 1`
+  //     IS "the election chose".
+  //
+  // The two queries run in parallel — the namesake set is index-served (185 buffers on the
+  // worst fold in the corpus, 22 people), so the disclosure costs latency only if the SQL
+  // itself is slow, not a second round trip.
   "candidate-person": async (dbRows, q) => {
+    // ⚠️ `missingMigrationEmpty` answers with the `[{r:[]}]` sentinel, and `?? null` does
+    // NOT catch an empty ARRAY — it is truthy, so an unmigrated database used to publish
+    // `personSlug: []`, which the client reads as a resolved person and renders a dashboard
+    // for. Take the value only when it is the string this lookup returns.
+    const slugOrNull = (rows) =>
+      typeof rows[0]?.r === "string" ? rows[0].r : null;
     const slug = s(q, "slug");
     if (slug) {
       const rows = await dbRows("SELECT candidate_person_slug($1) AS r", [
         slug,
       ]).catch(missingMigrationEmpty);
-      return { body: { personSlug: rows[0]?.r ?? null } };
+      // A slug is party-unique by construction, so there is never a set to choose from.
+      return { body: { personSlug: slugOrNull(rows), namesakes: [] } };
     }
     const name = s(q, "name");
-    if (!name) return { body: { personSlug: null } };
-    const party = q.party != null ? clampInt(q.party, null, 1, 99) : null;
-    const rows = await dbRows("SELECT candidate_person_by_name($1, $2) AS r", [
-      name,
-      party,
-    ]).catch(missingMigrationEmpty);
-    return { body: { personSlug: rows[0]?.r ?? null } };
+    if (!name) return { body: { personSlug: null, namesakes: [] } };
+    // A ballot number, or no hint at all. `clampInt`'s floor turns `?party=`, `?party=0` and
+    // `?party=-5` into ballot №1 — a real party — and any non-null party also excludes the
+    // 16,054 rows where `party_num IS NULL` (every `mp-{id}` candidacy), so a bad value does
+    // not merely narrow, it answers about the wrong ballot and hides every MP.
+    const partyRaw = s(q, "party");
+    const party = /^[1-9]\d?$/.test(partyRaw) ? Number(partyRaw) : null;
+    // An election is a data-tree folder name, never free text.
+    const electionRaw = s(q, "election");
+    const election = /^\d{4}_\d{2}_\d{2}$/.test(electionRaw)
+      ? electionRaw
+      : null;
+    const [byName, nameSet] = await Promise.all([
+      // ⚠️ Falls back to the 2-arg signature rather than degrading to null: on a database
+      // whose 085 predates the 3-arg form, `missingMigrationEmpty` would stop resolving even
+      // the ~25.6k folds that name exactly one person — turning a hosting-before-migration
+      // deploy into a REGRESSION on every bare-name candidate page rather than a no-op.
+      dbRows("SELECT candidate_person_by_name($1, $2, $3) AS r", [
+        name,
+        party,
+        election,
+      ]).catch((e) => {
+        if (e?.code !== "42883") return Promise.reject(e);
+        logMissOnce(
+          "cp:no-election-arg",
+          "candidate_person_by_name(text,int,text) raised 42883 — either " +
+            "085_person_elections.sql is not applied here, or something its body calls is " +
+            "missing (translit_bg_latin → 000_search_fns.sql). Falling back to the " +
+            "name+party lookup, which cannot disambiguate a shared name",
+        );
+        return dbRows("SELECT candidate_person_by_name($1, $2) AS r", [
+          name,
+          party,
+        ]).catch(missingMigrationEmpty);
+      }),
+      dbRows("SELECT candidate_person_namesakes($1) AS r", [name]).catch(
+        missingMigrationEmpty,
+      ),
+    ]);
+    const namesakes = Array.isArray(nameSet[0]?.r) ? nameSet[0].r : [];
+    return { body: { personSlug: slugOrNull(byName), namesakes } };
   },
   // Resolve an /officials/<slug> to the /person slug that replaced it (T1.3), for the
   // CLIENT-side redirect. The bare /officials/<slug> hosting rewrite issues a real 301 at

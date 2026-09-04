@@ -212,8 +212,23 @@ of `CandidateDashboardCards`. Fold them:
    displayName, election, partyNum, partyNick, candidateSlug}]}` — and render a person-level
    namesake chooser (the `CandidateNamesakeChooser` idiom, keyed on person). A prerendered
    bare-name page whose fold really is two people should say so.
-4. Do NOT add a party hint by resolving the candidate index client-side first — that pulls a
+4. **Disclose a resolution the reader did not make.** 385 folds resolve because ≥2 public
+   people share the name (up to 9 on one fold) and exactly one of them stood in the requested
+   cycle. The dashboard is the right body — but the route returns the namesake set beside the
+   hit and the page says so and links to the others, or it asserts a single identity under a
+   shared URL on the strength of a default. `personSlug` + ≥2 namesakes IS "the election
+   chose": a >1 fold cannot resolve without it, so no extra field is needed to detect it.
+5. Do NOT add a party hint by resolving the candidate index client-side first — that pulls a
    per-election index for one lookup, the cost `project_mp_avatar_index` exists to avoid.
+   ⚠️ The ELECTION arm is what makes that affordable, and it must NARROW rather than filter:
+   the first cut applied it as `AND election_date = p_election` and, because `?elections=`
+   defaults to the newest cycle while a prerendered URL carries no query string at all, that
+   dropped resolution from 25,621 folds to 6,357 — 19,649 URLs pushed onto the very body this
+   tier exists to stop reaching. Narrow-then-widen (prefer the election-matching set, fall
+   back to the whole fold) measures 26,006, better than both. The legacy body's
+   `useCandidateElectionFallback` partly hid it by probing the other twelve cycles and
+   rewriting the global selector — 12 extra fetches per URL, i.e. exactly the cost this
+   bullet forbids.
 5. Gate: extend `person_elections.data.test.ts` with the three resolution rates above as
    floors, plus a mutation check (drop the election argument → the ambiguous count must rise),
    so an assertion satisfied by the old 2-arg behaviour cannot pass.
@@ -325,7 +340,16 @@ electoral data is derived from shards the election skills already stamp).
   `person-cross-party-candidate-merge-v1.md` covers, whose decision is an audited ref-scoped
   manual merge. Weakening the resolver to make two pages agree would merge real strangers.
 - **No amount attached to a private donor.** Tier 3 §5.
-- **No retirement of the legacy candidate body.** After Tier 1 it serves the chooser and the
-  genuinely person-less URLs; deleting it is a separate call.
+- **No retirement of the legacy candidate body.** After Tier 1 it serves only the genuinely
+  person-less URLs (an unknown name, a private or review-state person) — the chooser is its
+  own component. Deleting it is a separate call.
+- **The eight `/candidate/:id/*` sub-page BODIES stay name-keyed.** Tier 1 repairs their
+  HEADER for free (`CandidateProfileHeader` calls the same resolver), but `/regions`,
+  `/municipalities`, `/settlements`, `/sections`, `/donations`, `/assets`, `/procurement` and
+  `/funds` each read the name-folder shards directly, so for a genuinely shared name they
+  still publish the conflation — with no chooser and no notice. Closing that means either
+  rendering the chooser on those routes too or carrying `SharedNameNotice` into
+  `CandidateProfileHeader`; it is deliberately out of Tier 1, whose scope is
+  `/candidate/{name}` itself.
 - **No fix to the name-keyed shards** (`save_preferences.ts`, `donations.json`) — noted in
   Tier 2 §5 as its own ticket.

@@ -59,7 +59,12 @@ CREATE INDEX IF NOT EXISTS idx_person_election_stats_person
   ON person_election_stats (person_id);
 
 -- ── serving functions ──────────────────────────────────────────────────────────────────
--- All gate on the §6 privacy rule (active + public figure), consistent with person_by_slug.
+-- All gate on `status = 'active' AND is_public_figure`. ⚠️ That is NARROWER than
+-- person_by_slug's `is_public_figure OR identity_confidence IN ('verified','shared_name')`,
+-- deliberately: the narrower gate is what makes every namesake-chooser row a page that
+-- actually serves. The cost is that a verified-but-not-public person would be unreachable
+-- from a bare-name candidate URL and absent from the chooser — 0 such people among
+-- candidate_person as of 2026-09-04, so re-measure before relying on that.
 
 -- Every election row for one person (newest first) → the electoral block on /person/{slug}.
 -- The caller picks the globally-selected cycle and runs the existing reducer over `regions` +
@@ -102,22 +107,152 @@ RETURNS text LANGUAGE sql STABLE AS $$
    LIMIT 1;
 $$;
 
--- Resolve a bare candidate NAME (+ optional party) to a person slug, for the legacy
--- name-form candidate URLs. Party disambiguates same-name politicians; without a party a
--- name that folds to more than one person returns NULL (caller shows the namesake chooser).
-DROP FUNCTION IF EXISTS candidate_person_by_name(text, int);
-CREATE OR REPLACE FUNCTION candidate_person_by_name(p_name text, p_party int DEFAULT NULL)
+-- Resolve a bare candidate NAME to the ONE person it means, using the two disambiguators
+-- the page can supply. (person-candidate-display-unification-v1 Tier 1.)
+--
+-- WHY it needed more than a name: a fold held by two people used to return NULL, and
+-- /candidate/<bare name> then fell through to the legacy body — which reads the NAME-folder
+-- shards, one folder per name, so it publishes two namesakes' preference history as one
+-- person's at a 200. Measured 2026-09-03 over the whole table: 25,625 folds name exactly one
+-- person and 1,478 folds / 4,092 people do not. The prerendered indexed candidate family is
+-- the bare-name form, so this is the majority URL shape rather than an edge case.
+--
+-- ⚠️⚠️ THE ELECTION IS A TIE-BREAKER, NEVER A FILTER, and getting that backwards is a
+-- REGRESSION rather than a smaller improvement. `?elections=` defaults to the NEWEST cycle
+-- (ElectionContext returns `elections[0]`) and the prerendered URLs carry no query string at
+-- all — so an `AND election_date = p_election` arm asks about 2026_04_19 for a candidate who
+-- last stood in 2021 and returns nothing. Measured on the first cut of this function: the
+-- 2-arg form resolved 25,621 of 27,103 public folds, the filtering 3-arg form resolved
+-- 6,357 — 19,649 folds LOST to the very body this tier exists to stop reaching, and all of
+-- them invisible because a lost fold has no namesake set either. Narrow-then-widen resolves
+-- 26,006, i.e. strictly better than both, at 16 buffers.
+--
+-- ⚠️ It resolves 385 folds where the fold really IS several people and exactly one of them
+-- stood in the requested cycle. That is deliberate and it is a DISCLOSURE obligation on the
+-- caller, not a licence to stay quiet: /api/db/candidate-person returns the namesake set
+-- beside the hit so the page can say the URL is shared and which cycle picked this person.
+--
+-- ⚠️ The residual ambiguity is an IDENTITY split, not a lookup failure: 44 (fold, election,
+-- party) triples name two person rows, each an `mp-{id}` candidacy owned by one and the
+-- matching `c-{party}-…` candidacy owned by the other, i.e. one human published as two.
+-- `docs/plans/person-cross-party-candidate-merge-v1.md` owns that decision (an audited
+-- ref-scoped manual merge). Do NOT make this function pick between them — an arbitrary pick
+-- publishes one person's electoral record and another's declarations under one name.
+CREATE OR REPLACE FUNCTION candidate_person_by_name(p_name text, p_party int, p_election text)
 RETURNS text LANGUAGE sql STABLE AS $$
   WITH f AS (SELECT translit_bg_latin(p_name) AS fold),
-  m AS (
-    SELECT DISTINCT cp.person_slug
+  cand AS (
+    SELECT cp.person_slug, cp.election_date
       FROM candidate_person cp
-      JOIN person p ON p.slug = cp.person_slug, f
-     WHERE cp.candidate_name_fold = f.fold
+      JOIN person p ON p.slug = cp.person_slug
+     -- `f` as a scalar subquery, NOT a comma-join: a comma after the JOIN list resets the
+     -- join nest and `cp` stops being visible to anything joined after it.
+     WHERE cp.candidate_name_fold = (SELECT fold FROM f)
        AND (p_party IS NULL OR cp.party_num = p_party)
        AND p.status = 'active' AND p.is_public_figure
-     LIMIT 2
+  ),
+  narrowed AS (
+    SELECT DISTINCT person_slug FROM cand
+     WHERE p_election IS NOT NULL AND election_date = p_election
+     LIMIT 2   -- only "is it exactly one" is ever asked; two is already a refusal
+  ),
+  m AS (
+    SELECT person_slug FROM narrowed
+    UNION ALL
+    -- Reached only when nobody on this fold stood in the requested cycle, which is the
+    -- COMMON case for a prerendered URL: fall back to the whole fold rather than refusing.
+    SELECT DISTINCT person_slug FROM cand WHERE NOT EXISTS (SELECT 1 FROM narrowed)
   )
   SELECT CASE WHEN (SELECT count(*) FROM m) = 1
     THEN (SELECT person_slug FROM m LIMIT 1) END;
+$$;
+
+-- The pre-Tier-1 signature, KEPT and delegating so the rule lives in one body.
+--
+-- ⚠️ Two reasons not to drop it. The DEPLOYED Cloud Function still calls it until the next
+-- `deploy:db`, so dropping it 500s every bare-name candidate URL in the window between
+-- applying this file and shipping the route. And `p_election` on the 3-arg form must carry
+-- NO default, or `candidate_person_by_name($1, $2)` becomes ambiguous between the two
+-- signatures (42725).
+CREATE OR REPLACE FUNCTION candidate_person_by_name(p_name text, p_party int DEFAULT NULL)
+RETURNS text LANGUAGE sql STABLE AS $$
+  SELECT candidate_person_by_name(p_name, p_party, NULL);
+$$;
+
+-- Every PUBLIC person who ran under one exact name fold, with the candidacies that name
+-- them — the set a reader must choose from when the lookup above cannot decide, and the
+-- disclosure beside a hit that the election picked out of several.
+--
+-- It exists so an unresolvable bare-name URL can say „these are two different people"
+-- instead of rendering the legacy body, which reads the NAME-folder shards and therefore
+-- merges both people's history into one page at a 200.
+--
+-- `oblast` is the МИР of that candidacy's strongest region — the one field that reliably
+-- tells two same-named politicians apart when they share a party, which they routinely do.
+-- NULL when the candidacy has no results row (a roster-only entry).
+--
+-- Ordering is fully determined: 75 refused folds have two people tied on their newest
+-- candidacy, so `latestElection` alone would let the head of the chooser change between two
+-- requests for the same URL. Candidacies are capped at 4 per person because that is what the
+-- chooser renders — a 22-person fold would otherwise ship ~90 rows of JSON to draw 22.
+DROP FUNCTION IF EXISTS candidate_person_namesakes(text);
+CREATE OR REPLACE FUNCTION candidate_person_namesakes(p_name text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH f AS (SELECT translit_bg_latin(p_name) AS fold),
+  cand AS (
+    SELECT cp.person_slug,
+           p.display_name,
+           cp.election_date,
+           cp.party_num,
+           cp.candidate_slug,
+           e.party_nick,
+           e.party_color,
+           e.total_votes,
+           (SELECT x->>'oblast'
+              FROM jsonb_array_elements(COALESCE(e.regions, '[]'::jsonb)) x
+             ORDER BY (x->>'totalVotes')::int DESC NULLS LAST
+             LIMIT 1) AS oblast
+      FROM candidate_person cp
+      JOIN person p ON p.slug = cp.person_slug
+      LEFT JOIN person_election_stats e
+             ON e.person_id = cp.person_id AND e.election_date = cp.election_date
+     WHERE cp.candidate_name_fold = (SELECT fold FROM f)
+       AND p.status = 'active' AND p.is_public_figure
+  ),
+  per_person AS (
+    SELECT c.person_slug,
+           c.display_name,
+           max(c.election_date) AS latest_election,
+           (SELECT jsonb_agg(entry ORDER BY entry->>'election' DESC)
+              FROM (
+                SELECT jsonb_build_object(
+                         'election', c2.election_date,
+                         'partyNum', c2.party_num,
+                         'partyNick', c2.party_nick,
+                         'partyColor', c2.party_color,
+                         'candidateSlug', c2.candidate_slug,
+                         'totalVotes', c2.total_votes,
+                         'oblast', c2.oblast
+                       ) AS entry
+                  FROM cand c2
+                 WHERE c2.person_slug = c.person_slug
+                 ORDER BY c2.election_date DESC
+                 LIMIT 4
+              ) top
+           ) AS candidacies
+      FROM cand c
+     -- display_name is functionally dependent on person_slug (the join is on p.slug), so it
+     -- groups rather than aggregating — an aggregate here would read as if one person could
+     -- carry several names.
+     GROUP BY c.person_slug, c.display_name
+  )
+  SELECT COALESCE((
+    SELECT jsonb_agg(jsonb_build_object(
+             'personSlug', pp.person_slug,
+             'displayName', pp.display_name,
+             'latestElection', pp.latest_election,
+             'candidacies', pp.candidacies
+           ) ORDER BY pp.latest_election DESC, pp.person_slug)
+      FROM per_person pp
+  ), '[]'::jsonb);
 $$;

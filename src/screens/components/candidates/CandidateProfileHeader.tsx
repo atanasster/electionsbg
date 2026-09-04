@@ -11,6 +11,7 @@ import { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { SEO } from "@/ux/SEO";
+import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidatePerson } from "@/data/candidates/useCandidatePerson";
 import { usePersonProfile } from "@/screens/person/usePersonProfile";
 import { PersonProfileHeader } from "./PersonProfileHeader";
@@ -49,7 +50,11 @@ export const CandidateProfileHeader: FC<Props> = ({
   seoTitle,
   seoDescription,
 }) => {
-  const personSlug = useCandidatePerson(idParam);
+  const { selected } = useElectionContext();
+  // Same election-narrowed lookup the main /candidate/:id screen uses, so a sub-page header
+  // resolves the SAME person its parent page did — without it a shared name would resolve on
+  // the dashboard and not in the header above its own drill-down.
+  const { personSlug } = useCandidatePerson(idParam, selected);
   const profile = usePersonProfile(personSlug ?? "");
 
   const subtitleText = typeof subtitle === "string" ? subtitle : undefined;
