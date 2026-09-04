@@ -21,6 +21,7 @@ import { formatEur } from "@/lib/currency";
 import { DbDataTable } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import type { CryptoHoldingRow } from "@/data/persons/useCryptoRegistry";
+import { HolderChip } from "@/screens/person/HolderChip";
 
 type Scope = "latest" | "all";
 
@@ -137,15 +138,19 @@ export const CryptoRegistryScreen: FC = () => {
         accessorFn: (r) => r.isSpouse,
         header: t("crypto_col_holder"),
         enableSorting: false,
-        cell: ({ row }) => (
-          <span className="text-xs text-muted-foreground">
-            {/* „not the declarant", which is all `isSpouse` establishes — this payload
-                carries no holder name. See HolderChip. */}
-            {row.original.isSpouse
-              ? t("pp_decl_holder_other")
-              : t("crypto_holder_self")}
-          </span>
-        ),
+        cell: ({ row }) =>
+          row.original.isSpouse ? (
+            // Prints the register's own holder text where there is one, „друг титуляр"
+            // otherwise — see HolderChip's header for why that matters here specifically.
+            <HolderChip
+              asset={row.original}
+              className="rounded bg-muted px-1 text-[10px] text-muted-foreground"
+            />
+          ) : (
+            <span className="text-xs text-muted-foreground">
+              {t("crypto_holder_self")}
+            </span>
+          ),
       },
       {
         id: "source",

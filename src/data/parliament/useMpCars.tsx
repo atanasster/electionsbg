@@ -23,6 +23,9 @@ export interface MpCarRegistryRow {
   amount: string | null;
   currency: string | null;
   isSpouse: boolean;
+  /** The register's own holder text, when there is one. `HolderChip` prints this in
+   *  preference to the neutral "MP" fallback label — see its header. */
+  holderName: string | null;
   share: string | null;
   mergedFromCount: number;
   declarationYear: number;

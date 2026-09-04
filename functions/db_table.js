@@ -1534,6 +1534,10 @@ const REGISTRY = {
       amount: { type: "number" },
       currency: { type: "text", filter: "in" },
       is_spouse: { type: "bool", filter: "eq" },
+      // The register's own holder text (docs/plans/declaration-holder-self-fold-v1.md T0)
+      // — lets a false is_spouse flag render as a visible typo on the "Притежател" column
+      // instead of an unqualified "друг титуляр".
+      holder_name: { type: "text" },
       share: { type: "text" },
       merged_from_count: { type: "int" },
       declaration_year: { type: "int", sort: true, filter: "range" },
@@ -1554,6 +1558,7 @@ const REGISTRY = {
       "amount",
       "currency",
       "is_spouse",
+      "holder_name",
       "share",
       "merged_from_count",
       "declaration_year",
@@ -1607,6 +1612,10 @@ const REGISTRY = {
       quantity: { type: "number", sort: true },
       quantity_unit: { type: "text" },
       is_spouse: { type: "bool", filter: "eq" },
+      // The register's own holder text (docs/plans/declaration-holder-self-fold-v1.md T0)
+      // — not searchable/filterable, since it exists so a false is_spouse flag renders as
+      // a visible typo rather than an unqualified "друг титуляр", not as a facet.
+      holder_name: { type: "text" },
       value_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
       source_url: { type: "text" },
     },
@@ -1626,6 +1635,7 @@ const REGISTRY = {
       "quantity",
       "quantity_unit",
       "is_spouse",
+      "holder_name",
       "value_eur",
       "source_url",
     ],
@@ -1691,6 +1701,8 @@ const REGISTRY = {
       // engine cannot express.
       country_named: { type: "bool", filter: "eq" },
       is_spouse: { type: "bool", filter: "eq" },
+      // The register's own holder text — same rationale as crypto_holdings above.
+      holder_name: { type: "text" },
       value_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
       source_url: { type: "text" },
     },
@@ -1708,6 +1720,7 @@ const REGISTRY = {
       "description",
       "held_country",
       "is_spouse",
+      "holder_name",
       "value_eur",
       "source_url",
     ],

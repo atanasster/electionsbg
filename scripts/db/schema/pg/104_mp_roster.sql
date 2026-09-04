@@ -117,6 +117,11 @@ CREATE TABLE IF NOT EXISTS mp_car (
   amount            numeric,
   currency          text,
   is_spouse         boolean NOT NULL DEFAULT false,
+  -- The register's own holder text — docs/plans/declaration-holder-self-fold-v1.md T0.
+  -- `is_spouse` alone renders as the bare "друг титуляр" with nothing to qualify it; this
+  -- lets a false flag (a hand-typed respelling of the MP's own name) degrade to a visible
+  -- typo beside the row instead of an unqualified claim about who owns the car.
+  holder_name       text,
   share             text,
   -- How many source rows the builder folded into this one (a vehicle re-declared
   -- across filings). 1 for an unmerged row.
@@ -133,3 +138,4 @@ CREATE INDEX IF NOT EXISTS idx_mp_car_mp ON mp_car (mp_id);
 ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS seated_region_code text;
 ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS seated_region_name text;
 ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS elected_with text;
+ALTER TABLE mp_car ADD COLUMN IF NOT EXISTS holder_name text;

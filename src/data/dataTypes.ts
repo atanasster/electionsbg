@@ -1306,6 +1306,10 @@ export type MpCarRow = {
   amount: number | null;
   currency: string | null;
   isSpouse: boolean;
+  /** The register's own holder text, when there is one — see HolderChip
+   * (src/screens/person/HolderChip.tsx). Part of the bucket key below: two
+   * holders' otherwise-identical cars must not merge into one row. */
+  holderName: string | null;
   /** Combined ownership share text, e.g. "1/6 + 5/6" when the row was
    * merged from multiple declaration entries. null when no share was
    * recorded. */

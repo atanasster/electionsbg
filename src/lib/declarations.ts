@@ -494,9 +494,11 @@ export const declarationTotals = (
  * of a column headed „Притежател", i.e. a claim about a named MP's family that this rule
  * cannot support.
  *
- * Two of those still cannot name anybody: the `mp_cars` and `person_crypto_table`
- * payloads select no `holder_name`, so they get the neutral label. Adding the column
- * there is the remaining half, and it is a migration rather than a rendering change.
+ * `mp_cars`, `person_crypto_table` and `person_abroad_table` now all select `holder_name`
+ * too (docs/plans/declaration-holder-self-fold-v1.md T0), so every surface that renders
+ * this flag can print the register's own text instead of the neutral label — which
+ * matters most here, since a false flag on one of those three degrades from an
+ * unqualified „не е негово/нейно" into a visible typo beside a public figure's own name.
  */
 export const normHolderName = (s: string | null): string =>
   (s ?? "")

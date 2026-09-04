@@ -26,6 +26,9 @@ export interface CryptoHoldingRow {
   quantity: number | null;
   quantityUnit: string | null;
   isSpouse: boolean;
+  /** The register's own holder text, when there is one. `HolderChip` prints this in
+   *  preference to the neutral "друг титуляр" label — see its header. */
+  holderName: string | null;
   valueEur: number | null;
   sourceUrl: string;
 }

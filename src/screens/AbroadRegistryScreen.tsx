@@ -48,6 +48,7 @@ import {
   useAbroadOverview,
   type AbroadHoldingRow,
 } from "@/data/persons/useAbroadRegistry";
+import { HolderChip } from "@/screens/person/HolderChip";
 
 type Scope = "latest" | "all";
 
@@ -178,15 +179,18 @@ export const AbroadRegistryScreen: FC = () => {
         accessorFn: (r) => r.isSpouse,
         header: t("abroad_col_holder"),
         enableSorting: false,
-        cell: ({ row }) => (
-          <span className="text-xs text-muted-foreground">
-            {/* „not the declarant", which is all `isSpouse` establishes — this payload
-                carries no holder name. Same rule as the crypto register. */}
-            {row.original.isSpouse
-              ? t("pp_decl_holder_other")
-              : t("crypto_holder_self")}
-          </span>
-        ),
+        cell: ({ row }) =>
+          row.original.isSpouse ? (
+            // Same rule as the crypto register — see HolderChip's header.
+            <HolderChip
+              asset={row.original}
+              className="rounded bg-muted px-1 text-[10px] text-muted-foreground"
+            />
+          ) : (
+            <span className="text-xs text-muted-foreground">
+              {t("abroad_holder_self")}
+            </span>
+          ),
       },
       {
         id: "source",

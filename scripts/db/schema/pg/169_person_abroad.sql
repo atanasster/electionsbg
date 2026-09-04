@@ -82,6 +82,10 @@ WITH latest_filing AS (
     a.category,
     a.description,
     a.is_spouse,
+    -- The register's own holder text — see 159's copy of this comment,
+    -- docs/plans/declaration-holder-self-fold-v1.md T0. Same rationale, same register
+    -- shape (no other per-row identity to fall back on for the "друг титуляр" case).
+    a.holder_name,
     a.value_eur,
     a.held_country,
     -- „да" in the „В чужбина" column says abroad and names nowhere: a country is named on
@@ -121,6 +125,7 @@ SELECT
   s.held_country,
   s.country_named,
   s.is_spouse,
+  s.holder_name,
   -- double precision, NOT numeric. node-postgres serializes a PG `numeric` as a STRING,
   -- which renders every money cell BLANK while the value is present and correct in the
   -- payload — invisible to every row count and to any assertion made through SQL. Same

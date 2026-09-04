@@ -97,6 +97,7 @@ interface CarRow {
   amount: number | null;
   currency: string | null;
   isSpouse: boolean;
+  holderName: string | null;
   share: string | null;
   mergedFromCount: number | null;
   declarationYear: number | null;
@@ -344,6 +345,7 @@ const run = async (): Promise<void> => {
         "amount",
         "currency",
         "is_spouse",
+        "holder_name",
         "share",
         "merged_from_count",
         "declaration_year",
@@ -361,6 +363,7 @@ const run = async (): Promise<void> => {
             c.amount,
             c.currency,
             c.isSpouse ?? false,
+            c.holderName,
             c.share,
             c.mergedFromCount ?? 1,
             c.declarationYear,

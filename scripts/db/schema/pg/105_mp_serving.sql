@@ -138,6 +138,7 @@ WITH base AS (
          c.amount,
          c.currency,
          c.is_spouse,
+         c.holder_name,
          c.share,
          c.merged_from_count,
          c.declaration_year,

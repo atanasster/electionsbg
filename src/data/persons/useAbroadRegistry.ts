@@ -34,6 +34,9 @@ export interface AbroadHoldingRow {
    *  a small minority and must say so. */
   heldCountry: string | null;
   isSpouse: boolean;
+  /** The register's own holder text, when there is one. `HolderChip` prints this in
+   *  preference to the neutral "друг титуляр" label — see its header. */
+  holderName: string | null;
   /** null when the filing declared the holding but stated no value. NOT zero — that is a
    *  figure the filing does not state, and the register counts these separately. */
   valueEur: number | null;

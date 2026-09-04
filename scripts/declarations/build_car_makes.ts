@@ -26,6 +26,7 @@ import type {
 import {
   assetWeightedEur,
   isDeclaredHolding,
+  normHolderName,
 } from "../../src/lib/declarations";
 
 type MpIndexEntry = {
@@ -253,12 +254,25 @@ const BRAND_ALIASES: Record<string, string> = {
   ЗАСТАВА: "Zastava",
 };
 
-const normalizeDetail = (s: string): string =>
+// Shared by make-detection (normalizeDetail, case-insensitive matching against
+// BRAND_ALIASES) and the merge-dedup key (normalizeDetailForKey, a cache-key shape) — one
+// punctuation-stripping rule for "same detail text" so the two purposes cannot drift apart
+// on which separators count as noise.
+const stripPunctuation = (s: string): string =>
   s
-    .toUpperCase()
     .replace(/[„""»«'`.,;:!?\-—()/\\]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+
+const normalizeDetail = (s: string): string =>
+  stripPunctuation(s).toUpperCase();
+
+/** Same fold as normalizeDetail, but lower-cased and null-tolerant — used for the
+ *  merge-dedup key, where a bucket needs a stable string key rather than a value to match
+ *  against BRAND_ALIASES. Case doesn't matter for a key; kept lower-case only because that
+ *  was the historical shape and every existing key in the corpus was built against it. */
+const normalizeDetailForKey = (detail: string | null): string =>
+  detail ? stripPunctuation(detail).toLowerCase() : "";
 
 const ALIAS_KEYS = Object.keys(BRAND_ALIASES).sort(
   (a, b) => b.length - a.length,
@@ -326,18 +340,10 @@ export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
   const perMp: MpMakes[] = [];
   const carRows: CarRowAccum[] = [];
 
-  /** A normalized identity used for deduping rows that describe the same
-   * physical vehicle. Bulgarian inheritance cases routinely produce 2+
-   * declaration rows for one car (e.g. 1/6 share inherited + 5/6 share
-   * acquired through partition); we want one row per car on the screen. */
-  const normalizeDetailForKey = (detail: string | null): string => {
-    if (!detail) return "";
-    return detail
-      .toLowerCase()
-      .replace(/[„""»«'`.,;:!?\-—()/\\]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  };
+  // normalizeDetailForKey (module-scope, above) is what dedupes rows describing the same
+  // physical vehicle: Bulgarian inheritance cases routinely produce 2+ declaration rows
+  // for one car (e.g. 1/6 share inherited + 5/6 share acquired through partition), and we
+  // want one row per car on the screen.
 
   for (const file of fs.readdirSync(declDir)) {
     if (!file.endsWith(".json")) continue;
@@ -370,10 +376,25 @@ export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
       // else's fleet: 612 such rows sit on MP filings, €11.5m. See is_declared_holding.
       if (!isDeclaredHolding(a)) continue;
       if (!isCarDescription(a.description)) continue;
+      // The holder rides in the key (docs/plans/declaration-holder-self-fold-v1.md T0):
+      // two "other holder" rows are the same PHYSICAL car only when they name the same
+      // holder, so folding them together on `isSpouse` alone would let a filing that
+      // co-declares a car for two different third parties merge into one row and pick an
+      // arbitrary holder name to print. Folded through `normHolderName` (case, hyphen
+      // spacing, whitespace) rather than a fresh `.trim().toUpperCase()`, so a holder
+      // typed with the same separator accident `isSpouseHolder` already tolerates does
+      // not needlessly split one merged car into two rows.
+      //
+      // `d` rows never split on it in practice — measured over the full corpus, 0 of 430
+      // declarant buckets carry more than one distinct holder string, because the
+      // register's own text there is either blank or the declarant's own name, constant
+      // for one filing — so this only ever fragments the `s` bucket, which is exactly the
+      // population that needs it. (0 of 213 `s` buckets collide under either fold today,
+      // which is why this is a forward-looking correctness fix rather than a live one.)
       const key = [
         normalizeDetailForKey(a.detail),
         a.acquiredYear ?? "",
-        a.isSpouse ? "s" : "d",
+        a.isSpouse ? `s:${normHolderName(a.holderName)}` : "d",
       ].join("|");
       const make = detectMake(a.detail);
       // Weighted by the declarant's ideal part BEFORE bucketing, because the bucket key
@@ -411,6 +432,7 @@ export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
             amount: a.amount,
             currency: a.currency,
             isSpouse: a.isSpouse,
+            holderName: a.holderName ?? null,
             share: a.share ?? null,
             mergedFromCount: 1,
             declarationYear: latest.declarationYear,

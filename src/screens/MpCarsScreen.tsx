@@ -6,6 +6,7 @@ import { Title } from "@/ux/Title";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { eur } from "@/data/parliament/useAssetsRankings";
 import type { MpCarRegistryRow } from "@/data/parliament/useMpCars";
+import { HolderChip } from "@/screens/person/HolderChip";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
@@ -175,18 +176,21 @@ export const MpCarsScreen: FC = () => {
         accessorFn: (r) => r.isSpouse,
         header: t("mp_cars_col_holder") || "Holder",
         enableSorting: false,
-        cell: ({ row }) => (
-          <span className="text-xs text-muted-foreground">
-            {/* The column is headed „Притежател", so its VALUE is read as a statement
-                about who holds the car. `isSpouse` proves only „not the MP" — see
-                HolderChip — and this payload carries no holder name to print instead,
-                so the honest value is the neutral one. Adding `holder_name` to the
-                mp_cars matview would let this name the person, as /person does. */}
-            {row.original.isSpouse
-              ? t("pp_decl_holder_other")
-              : t("mp_cars_holder_self") || "MP"}
-          </span>
-        ),
+        cell: ({ row }) =>
+          // The column is headed „Притежател", so its VALUE is read as a statement about
+          // who holds the car. `isSpouse` proves only „not the MP" — see HolderChip —
+          // which is why it prints the register's own holder text where there is one
+          // rather than a bare relationship claim (docs/plans/declaration-holder-self-fold-v1.md T0).
+          row.original.isSpouse ? (
+            <HolderChip
+              asset={row.original}
+              className="rounded bg-muted px-1 text-[10px] text-muted-foreground"
+            />
+          ) : (
+            <span className="text-xs text-muted-foreground">
+              {t("mp_cars_holder_self") || "MP"}
+            </span>
+          ),
       },
       {
         id: "source",

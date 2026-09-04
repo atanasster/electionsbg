@@ -12,6 +12,8 @@ import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
+import type { AbroadHoldingRow } from "@/data/persons/useAbroadRegistry";
+import type { DataTableColumnDef } from "@/ux/data_table/utils";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -30,11 +32,15 @@ vi.mock("@/screens/components/DeclarationsBreadcrumb", () => ({
   DeclarationsBreadcrumb: () => null,
 }));
 // Captures what the page asks the registry engine for, without a network round trip.
-const seen: { scope?: unknown; extraFilters?: unknown } = {};
+// `columns` is captured too so a column's own `cell` renderer — e.g. the `is_spouse`
+// "Притежател" column — can be exercised directly, the same way DbDataTable itself would
+// call it per row, without needing the real registry engine underneath.
+const seen: { scope?: unknown; extraFilters?: unknown; columns?: unknown } = {};
 vi.mock("@/ux/data_table/DbDataTable", () => ({
   DbDataTable: (p: Record<string, unknown>) => {
     seen.scope = p.scope;
     seen.extraFilters = p.extraFilters;
+    seen.columns = p.columns;
     return (
       <div data-testid="table">{String((p.resource as string) ?? "")}</div>
     );
@@ -55,6 +61,7 @@ const stub = (body: unknown, ok = true) =>
 beforeEach(() => {
   seen.scope = undefined;
   seen.extraFilters = undefined;
+  seen.columns = undefined;
 });
 afterEach(() => vi.unstubAllGlobals());
 
@@ -140,5 +147,54 @@ describe("AbroadRegistryScreen — scope", () => {
       expect(screen.getByTestId("table")).toBeInTheDocument(),
     );
     expect(seen.extraFilters).toEqual([]);
+  });
+});
+
+// docs/plans/declaration-holder-self-fold-v1.md T0 — the "Притежател" column must print
+// the register's own holder text where there is one, not the bare neutral label that
+// makes a false is_spouse flag an unqualified claim about a named public figure.
+describe("AbroadRegistryScreen — holder column", () => {
+  const holderCell = (row: Partial<AbroadHoldingRow>) => {
+    const columns = seen.columns as DataTableColumnDef<
+      AbroadHoldingRow,
+      unknown
+    >[];
+    const col = columns.find((c) => c.id === "is_spouse");
+    if (typeof col?.cell !== "function")
+      throw new Error("is_spouse column has no cell renderer");
+    return col.cell({ row: { original: row } } as never) as ReactNode;
+  };
+
+  it("renders the register's own holder text when is_spouse is true and holderName is set", async () => {
+    stub(null);
+    render(<AbroadRegistryScreen />);
+    await waitFor(() =>
+      expect(screen.getByTestId("table")).toBeInTheDocument(),
+    );
+    render(
+      <>{holderCell({ isSpouse: true, holderName: "Иван Стоянов Иванов" })}</>,
+    );
+    expect(screen.getByText("Иван Стоянов Иванов")).toBeInTheDocument();
+    expect(screen.queryByText("pp_decl_holder_other")).not.toBeInTheDocument();
+  });
+
+  it("falls back to the neutral label when is_spouse is true but no holder name is given", async () => {
+    stub(null);
+    render(<AbroadRegistryScreen />);
+    await waitFor(() =>
+      expect(screen.getByTestId("table")).toBeInTheDocument(),
+    );
+    render(<>{holderCell({ isSpouse: true, holderName: null })}</>);
+    expect(screen.getByText("pp_decl_holder_other")).toBeInTheDocument();
+  });
+
+  it("labels the declarant's own row, not 'other holder', when is_spouse is false", async () => {
+    stub(null);
+    render(<AbroadRegistryScreen />);
+    await waitFor(() =>
+      expect(screen.getByTestId("table")).toBeInTheDocument(),
+    );
+    render(<>{holderCell({ isSpouse: false, holderName: null })}</>);
+    expect(screen.getByText("abroad_holder_self")).toBeInTheDocument();
   });
 });

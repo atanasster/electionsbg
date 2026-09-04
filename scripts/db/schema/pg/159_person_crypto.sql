@@ -58,6 +58,13 @@ WITH holding AS (
     a.description,
     a.detail,
     a.is_spouse,
+    -- The register's own holder text, per docs/plans/declaration-holder-self-fold-v1.md
+    -- T0: `is_spouse` alone renders as the bare "друг титуляр" on this register (there is
+    -- no per-row description to fall back on the way /person's HolderChip does), so a
+    -- false flag from a hand-typed respelling of the declarant's own name is a claim
+    -- nothing on the page can qualify. Carrying the name lets it degrade to a visible
+    -- typo instead — see the Христо Пламенов Панайотов/„Панаотов" case in that plan.
+    a.holder_name,
     a.value_eur,
     -- Resolved exactly as declaration_detail() resolves it, and for the same reason:
     -- WHICH column holds the count depends on the filing shape. Table 8 declares the coin
@@ -110,6 +117,7 @@ SELECT
   s.quantity::double precision AS quantity,
   s.quantity_unit,
   s.is_spouse,
+  s.holder_name,
   -- double precision, NOT numeric. node-postgres serializes a PG `numeric` as a STRING,
   -- which renders every money cell on the page BLANK while the value is present and
   -- correct in the payload — invisible to every row count and to any assertion made
