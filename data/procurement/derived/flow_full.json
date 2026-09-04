@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T21:25:37.134Z",
+  "generatedAt": "2026-09-03T22:11:17.881Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -3857,6 +3857,11 @@
       "label": "Многопрофилна транспортна болница - пловдив"
     },
     {
+      "id": "contractor:115312277",
+      "type": "contractor",
+      "label": "АС-999 ООД - Пловдив"
+    },
+    {
       "id": "awarder:115244456",
       "type": "awarder",
       "label": "Община Кричим"
@@ -5625,6 +5630,11 @@
       "id": "awarder:201004249",
       "type": "awarder",
       "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център - смолян ЕООД"
+    },
+    {
+      "id": "awarder:201537560",
+      "type": "awarder",
+      "label": "Многопрофилна болница за активно лечение - Еврохоспитал Пловдив  ООД, Пловдив"
     },
     {
       "id": "awarder:201616805",
@@ -8502,6 +8512,16 @@
       "label": "Анатоли Стоянов Чаушев"
     },
     {
+      "id": "contractor:203947743",
+      "type": "contractor",
+      "label": "ЕвроИнфра ООД"
+    },
+    {
+      "id": "official:valentin-georgiev-terziiski-2a05c3",
+      "type": "official",
+      "label": "Валентин Георгиев Терзийски"
+    },
+    {
       "id": "official:aneliya-atanasova-dimitrova-77bd86",
       "type": "official",
       "label": "Анелия Атанасова Димитрова"
@@ -8575,16 +8595,6 @@
       "id": "official:vladislav-bogdanov-georgiev-46492d",
       "type": "official",
       "label": "Владислав Богданов Георгиев"
-    },
-    {
-      "id": "contractor:203947743",
-      "type": "contractor",
-      "label": "ЕвроИнфра ООД"
-    },
-    {
-      "id": "official:valentin-georgiev-terziiski-2a05c3",
-      "type": "official",
-      "label": "Валентин Георгиев Терзийски"
     },
     {
       "id": "official:elitsa-emilova-gieva-3ca1b7",
@@ -9225,6 +9235,11 @@
       "id": "official:petya-lyubomirova-kabakchieva-2d127b",
       "type": "official",
       "label": "Петя Любомирова Кабакчиева"
+    },
+    {
+      "id": "official:svilen-shiderov-popov-3a043e",
+      "type": "official",
+      "label": "Свилен Шидеров Попов"
     },
     {
       "id": "official:aleksandr-hristov-nikolov-182482",
@@ -16415,6 +16430,11 @@
     },
     {
       "source": "awarder:115214445",
+      "target": "contractor:115312277",
+      "valueEur": 187369.33
+    },
+    {
+      "source": "awarder:115214445",
       "target": "contractor:115010670",
       "valueEur": 184065.08
     },
@@ -18321,7 +18341,7 @@
     {
       "source": "awarder:130175000",
       "target": "contractor:200852966",
-      "valueEur": 6614295.33
+      "valueEur": 6837218.56
     },
     {
       "source": "awarder:130209583",
@@ -19332,6 +19352,11 @@
       "source": "awarder:201004249",
       "target": "contractor:130428132",
       "valueEur": 6149.3
+    },
+    {
+      "source": "awarder:201537560",
+      "target": "contractor:115312277",
+      "valueEur": 145302.32
     },
     {
       "source": "awarder:201616805",
@@ -21076,7 +21101,7 @@
     {
       "source": "contractor:200852966",
       "target": "official:dimitr-ivanov-radev-364ab0",
-      "valueEur": 619518840.98
+      "valueEur": 619741764.21
     },
     {
       "source": "contractor:831641791",
@@ -22699,6 +22724,11 @@
       "valueEur": 1793421.04
     },
     {
+      "source": "contractor:203947743",
+      "target": "official:valentin-georgiev-terziiski-2a05c3",
+      "valueEur": 1739484.33
+    },
+    {
       "source": "contractor:831040933",
       "target": "official:aneliya-atanasova-dimitrova-77bd86",
       "valueEur": 1718400.79
@@ -22777,11 +22807,6 @@
       "source": "contractor:131045382",
       "target": "official:vladislav-bogdanov-georgiev-46492d",
       "valueEur": 1414523.16
-    },
-    {
-      "source": "contractor:203947743",
-      "target": "official:valentin-georgiev-terziiski-2a05c3",
-      "valueEur": 1403480.04
     },
     {
       "source": "contractor:130506225",
@@ -23427,6 +23452,11 @@
       "source": "contractor:831524005",
       "target": "official:petya-lyubomirova-kabakchieva-2d127b",
       "valueEur": 352586.88
+    },
+    {
+      "source": "contractor:115312277",
+      "target": "official:svilen-shiderov-popov-3a043e",
+      "valueEur": 332671.65
     },
     {
       "source": "contractor:106513772",
@@ -25616,7 +25646,7 @@
     {
       "source": "awarder:130175000",
       "target": "contractor:203947743",
-      "valueEur": 420000
+      "valueEur": 756004.29
     },
     {
       "source": "awarder:000093442",

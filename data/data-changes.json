@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-09-03T06:40:46.234Z",
+  "updatedAt": "2026-09-04T00:05:29.897Z",
   "entries": [
+    {
+      "timestamp": "2026-09-04T00:05:29.897Z",
+      "date": "2026-09-04",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-03 (+1 daily archive; 820,877 store rows, 169 settlements, 81 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-03"
+    },
+    {
+      "timestamp": "2026-09-03T23:59:07.755Z",
+      "date": "2026-09-03",
+      "skill": "update-macro",
+      "summary": "GDP through 2026 Q2; productivity/retail/tax-wedge updated",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-09-03T23:57:24.417Z",
+      "date": "2026-09-03",
+      "skill": "update-funds",
+      "summary": "Interreg full re-import: 22 programmes, 1958 operations, 1497 BG partner rows",
+      "source": "keep.eu Interreg"
+    },
+    {
+      "timestamp": "2026-09-03T23:15:55.510Z",
+      "date": "2026-09-03",
+      "skill": "update-procurement",
+      "summary": "EOP gap-fill (+135 rows), TED (218,742 notices), ADFI (2,018 inspections), annex current-value fold",
+      "source": "data.egov.bg АОП / ЦАИС ЕОП / TED / АДФИ"
+    },
+    {
+      "timestamp": "2026-09-03T22:49:31.040Z",
+      "date": "2026-09-03",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 65 127 лица, 125 086 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-03T21:53:12.483Z",
+      "date": "2026-09-03",
+      "skill": "update-rollcall",
+      "summary": "1 new session through 2026-09-03 (id 11165)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-03T06:40:46.234Z",
       "date": "2026-09-03",

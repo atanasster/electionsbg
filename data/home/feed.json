@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-02T23:59:59.999Z",
+  "computedAt": "2026-09-03T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-02T00:00:00.000Z",
-      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "occurredAt": "2026-09-03T00:00:00.000Z",
+      "firstSeenAt": "2026-09-03T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -70,11 +70,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-09-02",
+      "id": "parliament:sitting:2026-09-03",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-09-02T00:00:00.000Z",
-      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "occurredAt": "2026-09-03T00:00:00.000Z",
+      "firstSeenAt": "2026-09-03T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -86,23 +86,23 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-09-02",
+      "route": "/votes/2026-09-03",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 19
+        "items": 20
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.475,
+      "materiality": 0.5,
       "actionability": 0.4
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:yabalki-gala",
+      "id": "prices:promotion:kashkaval-bulgarche-tost",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-02T00:00:00.000Z",
-      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "occurredAt": "2026-09-03T00:00:00.000Z",
+      "firstSeenAt": "2026-09-03T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/yabalki-gala",
+      "route": "/product/kashkaval-bulgarche-tost",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЯБЪЛКИ ГАЛА",
-        "pct": 50,
-        "promoEur": "0.99",
-        "regularEur": "1.99",
+        "title": "КАШКАВАЛ БУЛГАРЧЕ ТОСТ",
+        "pct": 45,
+        "promoEur": "5.99",
+        "regularEur": "10.99",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7142857142857143,
+      "materiality": 0.6428571428571429,
       "actionability": 0.85
     },
     {
@@ -163,11 +163,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-08-27",
+      "id": "parliament:sitting:2026-09-02",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-08-27T00:00:00.000Z",
-      "firstSeenAt": "2026-08-27T00:00:00.000Z",
+      "occurredAt": "2026-09-02T00:00:00.000Z",
+      "firstSeenAt": "2026-09-02T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -179,23 +179,23 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-08-27",
+      "route": "/votes/2026-09-02",
       "factKey": "home_fact_plenary_sitting",
       "factArgs": {
-        "items": 16
+        "items": 19
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.4,
+      "materiality": 0.475,
       "actionability": 0.4
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krastavitsi",
+      "id": "prices:promotion:min-voda-1-5l-velingrad-6",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-02T00:00:00.000Z",
-      "firstSeenAt": "2026-09-02T00:00:00.000Z",
+      "occurredAt": "2026-09-03T00:00:00.000Z",
+      "firstSeenAt": "2026-09-03T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krastavitsi",
+      "route": "/product/min-voda-1-5l-velingrad-6",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАСТАВИЦИ",
-        "pct": 48,
-        "promoEur": "0.99",
-        "regularEur": "1.89",
-        "chains": 5
+        "title": "МИН.ВОДА 1.5Л ВЕЛИНГРАД/6",
+        "pct": 44,
+        "promoEur": "0.33",
+        "regularEur": "0.59",
+        "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.6285714285714286,
       "actionability": 0.85
     },
     {
@@ -251,6 +251,34 @@
       "verification": "automatic",
       "materiality": 0.8,
       "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-08-27",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-08-27T00:00:00.000Z",
+      "firstSeenAt": "2026-08-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-08-27",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 16
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -921,14 +949,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-09-02",
+      "asOf": "2026-09-03",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-02",
-      "observedAt": "2026-09-02",
+      "asOf": "2026-09-03",
+      "observedAt": "2026-09-03",
       "staleAfterDays": 5,
       "stale": false
     }

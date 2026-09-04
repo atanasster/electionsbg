@@ -3,29 +3,69 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 1075,
-    "withParty": 1023,
-    "loyaltyPct": 0.9516279069767442,
+    "votesCast": 1094,
+    "withParty": 1038,
+    "loyaltyPct": 0.9488117001828154,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-09-02",
-    "totalVoteItems": 1262
+    "windowTo": "2026-09-03",
+    "totalVoteItems": 1282
   },
   "attendance": {
-    "totalItems": 1243,
-    "presentCount": 1075,
-    "absentCount": 168,
-    "presentPct": 0.8648431214802896
+    "totalItems": 1263,
+    "presentCount": 1094,
+    "absentCount": 169,
+    "presentPct": 0.8661916072842438
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 956.5,
-    "loyaltyPctMedian": 0.9711020776874435,
-    "presentPctMedian": 0.7559429477020603
+    "votesCastMedian": 966,
+    "loyaltyPctMedian": 0.9716445978619899,
+    "presentPctMedian": 0.7519500780031201
   },
   "dissents": {
-    "totalCast": 1075,
-    "dissentCount": 52,
+    "totalCast": 1094,
+    "dissentCount": 56,
     "recent": [
+      {
+        "date": "2026-09-03",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-vissheto-obrazovanie-vtoro-glasuvane-paragr",
+        "title": "ЗИД на Закона за висшето образование - второ гласуване - параграф 7 - предложение от Ангел Янчев",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-09-03",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-vissheto-obrazovanie-vtoro-glasuvane-paragr",
+        "title": "ЗИД на Закона за висшето образование - второ гласуване - параграф 6 - предложение от Ангел Янчев",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-09-03",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-vissheto-obrazovanie-vtoro-glasuvane-paragr",
+        "title": "ЗИД на Закона за висшето образование - второ гласуване - параграф 3 - предложение от Ангел Янчев",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-09-03",
+        "item": 5,
+        "slug": "5-reshenie-za-izbor-na-upravitel-na-natsionalnata-zdravnoosigu",
+        "title": "Решение за избор на управител на Националната здравноосигурителна каса - Станимир Михайлов",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 123
+      },
       {
         "date": "2026-08-26",
         "item": 7,
@@ -483,46 +523,6 @@
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 111
-      },
-      {
-        "date": "2026-05-28",
-        "item": 76,
-        "slug": "76-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - предложение от Стою Стоев",
-        "topic": "other",
-        "mpVote": "yes",
-        "majorityVote": "no",
-        "groupSize": 120
-      },
-      {
-        "date": "2026-05-28",
-        "item": 26,
-        "slug": "26-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 36 - предложение от Стою Стоев и Б. Божанов за редакция на ал.2",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 115
-      },
-      {
-        "date": "2026-05-28",
-        "item": 22,
-        "slug": "22-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 29 - предложение от Стою Стоев",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 103
-      },
-      {
-        "date": "2026-05-28",
-        "item": 21,
-        "slug": "21-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 28а - предложение от Стою Стоев",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 106
       }
     ]
   },
@@ -530,205 +530,205 @@
     "topK": [
       {
         "mpId": 5262,
-        "score": 0.9025271233790193,
-        "overlap": 1063
+        "score": 0.9022370538501703,
+        "overlap": 1082
       },
       {
         "mpId": 5065,
-        "score": 0.8982436163647974,
-        "overlap": 1049
+        "score": 0.89833248856091,
+        "overlap": 1068
       },
       {
         "mpId": 5237,
-        "score": 0.8973192621632546,
-        "overlap": 1047
+        "score": 0.8936827696452452,
+        "overlap": 1055
       },
       {
         "mpId": 5084,
-        "score": 0.8933037906050423,
-        "overlap": 1071
+        "score": 0.8931974571300056,
+        "overlap": 1090
       },
       {
         "mpId": 5093,
-        "score": 0.8914197691254173,
-        "overlap": 1051
-      },
-      {
-        "mpId": 5242,
-        "score": 0.8912535466922644,
-        "overlap": 1056
+        "score": 0.8913414178148343,
+        "overlap": 1070
       },
       {
         "mpId": 5146,
-        "score": 0.8910878735776737,
-        "overlap": 1054
+        "score": 0.8904145267680218,
+        "overlap": 1072
       },
       {
         "mpId": 5178,
-        "score": 0.8900358217788806,
-        "overlap": 1059
+        "score": 0.8899796478523296,
+        "overlap": 1078
       },
       {
-        "mpId": 5271,
-        "score": 0.8893198403406696,
-        "overlap": 1057
+        "mpId": 5242,
+        "score": 0.8899796478523296,
+        "overlap": 1073
       },
       {
         "mpId": 5179,
-        "score": 0.8890491071387067,
-        "overlap": 1058
+        "score": 0.8890135189623076,
+        "overlap": 1077
       },
       {
         "mpId": 5199,
-        "score": 0.8887221961574421,
-        "overlap": 1048
-      },
-      {
-        "mpId": 5099,
-        "score": 0.8881687834402887,
-        "overlap": 1059
-      },
-      {
-        "mpId": 5071,
-        "score": 0.8878730611011516,
-        "overlap": 1041
-      },
-      {
-        "mpId": 5251,
-        "score": 0.8869581016718083,
-        "overlap": 1074
-      },
-      {
-        "mpId": 5116,
-        "score": 0.8869522932067757,
-        "overlap": 1045
-      },
-      {
-        "mpId": 5210,
-        "score": 0.8850297825388247,
-        "overlap": 1071
-      },
-      {
-        "mpId": 5209,
-        "score": 0.8845936998404901,
+        "score": 0.8886805338499271,
         "overlap": 1067
       },
       {
-        "mpId": 5225,
-        "score": 0.8835347366479493,
-        "overlap": 1038
+        "mpId": 5271,
+        "score": 0.8880791479878831,
+        "overlap": 1075
       },
       {
-        "mpId": 5227,
-        "score": 0.8834800810800214,
-        "overlap": 1048
+        "mpId": 5099,
+        "score": 0.8875559714773448,
+        "overlap": 1077
+      },
+      {
+        "mpId": 5251,
+        "score": 0.8873661293165477,
+        "overlap": 1093
+      },
+      {
+        "mpId": 5071,
+        "score": 0.8872503163898598,
+        "overlap": 1059
+      },
+      {
+        "mpId": 5116,
+        "score": 0.8869532327074703,
+        "overlap": 1064
+      },
+      {
+        "mpId": 5210,
+        "score": 0.8850650524881021,
+        "overlap": 1090
+      },
+      {
+        "mpId": 5209,
+        "score": 0.8846369677943831,
+        "overlap": 1086
       },
       {
         "mpId": 5078,
-        "score": 0.8831416532661985,
-        "overlap": 1059
+        "score": 0.8831999068518532,
+        "overlap": 1078
+      },
+      {
+        "mpId": 5265,
+        "score": 0.8829158971274884,
+        "overlap": 1074
+      },
+      {
+        "mpId": 5225,
+        "score": 0.8823732021431562,
+        "overlap": 1055
       }
     ],
     "bottomK": [
       {
         "mpId": 5185,
-        "score": -0.15800422269613262,
-        "overlap": 731
-      },
-      {
-        "mpId": 5194,
-        "score": -0.1435071814905484,
-        "overlap": 631
+        "score": -0.15148121462210232,
+        "overlap": 746
       },
       {
         "mpId": 5247,
-        "score": -0.14323805548429533,
-        "overlap": 735
+        "score": -0.13918220851540664,
+        "overlap": 752
+      },
+      {
+        "mpId": 5194,
+        "score": -0.13805524470099864,
+        "overlap": 646
       },
       {
         "mpId": 5101,
-        "score": -0.12951924954831448,
-        "overlap": 936
+        "score": -0.1282405564025558,
+        "overlap": 955
       },
       {
         "mpId": 5171,
-        "score": -0.1267273220559256,
-        "overlap": 934
+        "score": -0.12446616383036199,
+        "overlap": 952
       },
       {
         "mpId": 5159,
-        "score": -0.11520158929373706,
-        "overlap": 883
-      },
-      {
-        "mpId": 5234,
-        "score": -0.10819897061720848,
-        "overlap": 864
+        "score": -0.11530735364071501,
+        "overlap": 901
       },
       {
         "mpId": 5258,
-        "score": -0.10780322985471137,
-        "overlap": 476
+        "score": -0.11382597019757842,
+        "overlap": 482
+      },
+      {
+        "mpId": 5234,
+        "score": -0.1076339638267004,
+        "overlap": 877
       },
       {
         "mpId": 5060,
-        "score": -0.10319377328043335,
-        "overlap": 874
+        "score": -0.09918110774345293,
+        "overlap": 890
       },
       {
         "mpId": 5335,
-        "score": -0.09537362483734592,
-        "overlap": 191
+        "score": -0.09812825484389147,
+        "overlap": 196
       },
       {
         "mpId": 5273,
-        "score": -0.08839973286856585,
+        "score": -0.08767135132935935,
         "overlap": 912
       },
       {
         "mpId": 5074,
-        "score": -0.08096064005634084,
-        "overlap": 727
+        "score": -0.08052433892932845,
+        "overlap": 745
       },
       {
         "mpId": 5148,
-        "score": -0.07963768734123698,
-        "overlap": 784
+        "score": -0.07922038463488675,
+        "overlap": 803
       },
       {
         "mpId": 5334,
-        "score": -0.00772497709026254,
-        "overlap": 512
+        "score": -0.001517679602634379,
+        "overlap": 525
       },
       {
         "mpId": 5184,
-        "score": 0.00433388920364823,
-        "overlap": 561
+        "score": 0.004294153139594657,
+        "overlap": 562
       },
       {
         "mpId": 5244,
-        "score": 0.019637629625891277,
-        "overlap": 609
+        "score": 0.016814400216213082,
+        "overlap": 614
       },
       {
         "mpId": 5125,
-        "score": 0.023510878729171812,
+        "score": 0.02331715766824606,
         "overlap": 190
       },
       {
         "mpId": 5231,
-        "score": 0.03084143801970157,
-        "overlap": 584
+        "score": 0.0331635362044267,
+        "overlap": 593
       },
       {
         "mpId": 5124,
-        "score": 0.033644176719670245,
-        "overlap": 344
+        "score": 0.03319211107392454,
+        "overlap": 347
       },
       {
         "mpId": 5281,
-        "score": 0.05382309468043758,
-        "overlap": 382
+        "score": 0.0566700880219693,
+        "overlap": 384
       }
     ]
   }

@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-03T06:42:49.125Z",
+  "generatedAt": "2026-09-04T00:08:34.073Z",
   "nodes": [
     {
       "id": "src:water",
@@ -116,7 +116,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-02T21:04:10.709Z",
+      "freshness": "2026-09-03T21:39:36.788Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -127,7 +127,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-09-02T21:04:10.709Z"
+          "freshness": "2026-09-03T21:39:36.788Z"
         },
         {
           "id": "parliament_mps",
@@ -460,7 +460,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-02T21:04:10.709Z",
+      "freshness": "2026-09-03T21:39:36.788Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -482,7 +482,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-09-02T21:04:10.709Z"
+          "freshness": "2026-09-03T21:39:36.788Z"
         },
         {
           "id": "egov_budget_execution",
@@ -570,7 +570,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-02T21:04:10.709Z",
+      "freshness": "2026-09-03T21:39:36.788Z",
       "skills": [
         "update-procurement"
       ],
@@ -580,7 +580,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-09-02T21:04:10.709Z"
+          "freshness": "2026-09-03T21:39:36.788Z"
         }
       ],
       "x": 28,
@@ -1423,7 +1423,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-09-02T21:04:10.709Z",
+      "freshness": "2026-09-03T21:39:36.788Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1435,7 +1435,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-09-02T21:04:10.709Z"
+          "freshness": "2026-09-03T21:39:36.788Z"
         },
         {
           "id": "eurostat_policy",
@@ -1750,7 +1750,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-02T21:04:10.709Z",
+      "freshness": "2026-09-03T21:39:36.788Z",
       "skills": [
         "update-prices"
       ],
@@ -1760,7 +1760,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-09-02T21:04:10.709Z"
+          "freshness": "2026-09-03T21:39:36.788Z"
         }
       ],
       "issue": {
@@ -2295,7 +2295,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-09-02T21:04:10.709Z",
+      "freshness": "2026-09-03T21:39:36.788Z",
       "skills": [
         "update-procurement"
       ],
@@ -2305,7 +2305,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-09-02T21:04:10.709Z"
+          "freshness": "2026-09-03T21:39:36.788Z"
         }
       ],
       "issue": {
@@ -7339,7 +7339,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18718,
+      "overlap": 18723,
       "query": "contractors-in-the-registry"
     },
     {
@@ -7512,7 +7512,7 @@
         "bg": "къде са регистрирани фирмите",
         "en": "where companies are registered"
       },
-      "overlap": 4018,
+      "overlap": 4019,
       "of": {
         "bg": "от фирмите с разпознато седалище",
         "en": "of the companies with a resolved seat"
@@ -7528,7 +7528,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5612,
+      "overlap": 5609,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7541,7 +7541,7 @@
         "bg": "кой кандидат после заема публична длъжност",
         "en": "which candidates later hold public office"
       },
-      "overlap": 3220
+      "overlap": 3219
     },
     {
       "id": "connections|elections|person_id",
@@ -7553,7 +7553,7 @@
         "bg": "кой кандидат участва и във фирми",
         "en": "which candidates also hold company roles"
       },
-      "overlap": 7340
+      "overlap": 7337
     }
   ]
 }
