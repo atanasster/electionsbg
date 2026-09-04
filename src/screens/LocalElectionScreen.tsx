@@ -60,6 +60,10 @@ import { LocalPlaceTrendsTile } from "./dashboard/local/LocalPlaceTrendsTile";
 import { useLocalPlaceTrend } from "@/data/local/useLocalPlaceTrends";
 import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
+import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
+import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { CensusDemographicsTile } from "./dashboard/CensusDemographicsTile";
@@ -1595,7 +1599,43 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
         level="country"
         cycle={cycle}
         eyebrowSuffix={friendlyCycleDate(cycle)}
+        // ⚠ THE SCOPE BAR PRINTS NO DATE FOR A LOCAL CYCLE, and that is correct rather than a
+        // gap. `cycleIsoDate` accepts only `YYYY_MM_DD`, so a `2023_10_29_mi` slug yields "" and
+        // the bar renders its status alone — the eyebrow above already carries the friendly
+        // date, so a second copy would be the duplication §7.1 forbids.
+        scope={<ElectionScopeBar cycle={cycle} status="final" />}
       />
+      {/* ⚠ THE ARTIFACT EXISTED AND NOTHING READ IT. `local/country` has been generated,
+          byte-budgeted, standout-attached and PUBLISHED since Phase 1 — verified 200 on the
+          bucket — while this screen rendered only its legacy cards. It was one of four local
+          levels in that state, 5,548 artifacts and 13.4 MB between them.
+
+          ⚠ AND THE BLOCKER THAT DEFERRED IT DOES NOT APPLY TO WHAT WAS ACTUALLY GENERATED.
+          The concern was that a local "mayor" result at this level is a COUNT of mayoralties,
+          not votes, so a mayor ballot would print „106" under „Гласове". The generator never
+          did that: it emits ONE `municipal_council` ballot carrying real votes, and puts the
+          mayoralty count in a FACT with `unit: "count"` where a count belongs. */}
+      <ElectionSurfaceBoundary
+        kind="local"
+        level="country"
+        cycle={cycle}
+        id="BG"
+        // ⚠ NO MAP — `MAP_ADAPTERS` registers no `local/*` entry, so the canvas renders one line
+        // of "not available" where a map would go. Reserving a 320px box for it is a shift in
+        // the other direction: the skeleton must reserve what the page renders, not what the
+        // artifact hopes for. Two facts is right — `winner` and `seats` are both in this
+        // level's `factPriority`.
+        skeleton={<ElectionSurfaceSkeleton facts={2} withMap={false} />}
+        fallback={null}
+      >
+        {(s) => (
+          <ElectionResultsShell
+            surface={s}
+            scope="header"
+            currentView="local"
+          />
+        )}
+      </ElectionSurfaceBoundary>
       {/* ⚠ REACHABILITY MUST NOT DEPEND ON THE SITEMAP (Phase 3 item 6). `/elections` is the
           cross-kind entry and this is the local half of it — without a link from here, the only
           in-app routes to it are the header menu and the global home's tile, and a crawler that
@@ -1856,9 +1896,7 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
             to={`/local/${cycle}/${rayon.obshtina}/council`}
             className="text-primary hover:underline"
           >
-            {lang === "bg"
-              ? `Виж съвета на Община ${cityName} →`
-              : `See the ${cityName} municipality council →`}
+            {t("local_rayon_see_city_council", { city: cityName })}
           </Link>
         </p>
       </Section>

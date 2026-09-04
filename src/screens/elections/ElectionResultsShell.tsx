@@ -243,11 +243,51 @@ const PlaceDigestStrip: FC<{
   );
 };
 
+/** A fact's label, WITH its interpolation values.
+ *
+ *  ⚠ `labelParams` WAS DECLARED, POPULATED AND DROPPED. The schema documents it as
+ *  "interpolation values for the label" and the strip rendered `t(FACT_LABEL_KEYS[f.code])`
+ *  with no second argument — harmless while no artifact carried any, and wrong the moment the
+ *  local country and region levels were switched on: measured, all 62 `labelParams`-bearing
+ *  facts in the corpus belong to those two levels and every other level has none.
+ *
+ *  ⚠ THE DAMAGE IS A TRUE NUMBER WITH NO REFERENT, which is worse than a missing one. The
+ *  country card read „Първи · 106" — 106 MAYORALTIES — sitting directly above a council table
+ *  whose top row is ГЕРБ with 521,444 votes, so the adjacent table supplied a false referent for
+ *  a figure measured on a different ballot in a different unit.
+ *
+ *  ⚠ THE PARTY-BEARING KEY IS A SEPARATE ONE, not the same key with an optional placeholder.
+ *  i18next leaves an unmatched `{{party}}` in the output verbatim, so a single
+ *  „Първи · {{party}}" would render the braces on every level that carries no params — which is
+ *  every other level in the corpus. */
+const factLabel = (
+  f: ElectionSurfaceFact,
+  t: (k: string, o?: Record<string, string | number>) => string,
+  label: (e: {
+    partyId: string | null;
+    localPartyName?: string;
+    isIndependent?: boolean;
+  }) => RankedRowLabel,
+): string => {
+  const partyId = f.labelParams?.partyId;
+  if (typeof partyId !== "string" || !partyId)
+    return t(FACT_LABEL_KEYS[f.code]);
+  const resolved = label({ partyId, isIndependent: false });
+  // An id the canonical corpus cannot name resolves to `unresolved`, and printing a raw
+  // `p_16` beside a seat count is worse than printing no party at all.
+  if (resolved.kind !== "party") return t(FACT_LABEL_KEYS[f.code]);
+  const keyed = `${FACT_LABEL_KEYS[f.code]}_party`;
+  return t(keyed, { party: resolved.label });
+};
+
 const OutcomeStrip: FC<{
   facts: ElectionSurfaceFact[];
   titleId: string;
 }> = ({ facts, titleId }) => {
   const { t } = useTranslation();
+  // The SAME resolver the ranked rows use, so a party named in a fact and the same party named
+  // in the table beneath it cannot come out differently.
+  const { rankedLabel: label } = useSurfaceLabels();
   // ⚠ SLICE FIRST, THEN GUARD. On an unavailable kind × level `maxFacts` is 0, so guarding on
   // the INPUT renders a named landmark — "Основни резултати" — wrapping an empty grid.
   if (facts.length === 0) return null;
@@ -268,7 +308,7 @@ const OutcomeStrip: FC<{
             className="rounded-lg border bg-card p-3"
           >
             <span className="block text-xs uppercase tracking-wide text-muted-foreground">
-              {t(FACT_LABEL_KEYS[f.code])}
+              {factLabel(f, t, label)}
             </span>
             {/* A qualitative fact (`split_control`, `runoff_pending`) carries no value, and an
                 empty `text-2xl` box is a blank line the height of a number. */}

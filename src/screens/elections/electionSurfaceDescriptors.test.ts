@@ -204,13 +204,35 @@ describe("descriptor matrix — the §6.3 card diff stays a recorded decision", 
     // decision 6 keeps candidate lists out of the surface entirely. The union no longer has
     // it; this pins that the survivors are the ones with a producer.
     eachAvailable((d, label) => {
-      expect(d.rankedColumns.length, label).toBeGreaterThanOrEqual(2);
+      // ⚠ ONE, NOT TWO. The floor was 2 until `local/region` was narrowed to `["seats"]`, and a
+      // blanket minimum is the wrong instrument: what makes a column set honest is that a
+      // producer fills every column in it, not that there are several. A level whose producer
+      // fills exactly one declares exactly one — and the specific case is pinned below so the
+      // narrowing cannot silently widen back.
+      expect(d.rankedColumns.length, label).toBeGreaterThanOrEqual(1);
       for (const c of d.rankedColumns)
         expect(
           ["votes", "pct", "seats", "margin", ...NO_PREFERENCE_COLUMN],
           `${label} unknown column ${c}`,
         ).toContain(c);
     });
+  });
+
+  it("declares no VOTE column at local/region, whose producer has no vote total", () => {
+    // ⚠ THE ONE THE LOOSENED FLOOR WOULD OTHERWISE STOP CATCHING. `buildRegionSurface` writes
+    // `votes: 0, pct: 0` into every preview row because the schema requires the fields and the
+    // source publishes no per-party vote total. Measured over the published corpus: 456 of 456
+    // local/region council rows carry that placeholder. Declaring the vote columns rendered it
+    // as „0 гласа · 0,00 %" beside a real seat count — a fabricated zero against a named party,
+    // next to a `validVotes` of 141,998 on the same artifact.
+    const region = available("local", "region")!;
+    expect(region.rankedColumns).toEqual(["seats"]);
+    // …and the country level keeps its vote columns, so this is a statement about one producer
+    // rather than a blanket rule about the local kind.
+    expect(available("local", "country")!.rankedColumns).toEqual([
+      "votes",
+      "pct",
+    ]);
   });
 });
 

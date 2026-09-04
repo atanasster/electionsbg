@@ -235,6 +235,11 @@ export const SHELL_COPY_KEYS = [
   "election_source_title",
   // §8's "see the complete result" leaf, rendered in the source region.
   "election_complete_result_link",
+  // The party-bearing variants of two fact labels. Separate keys rather than an optional
+  // placeholder: i18next prints an unmatched `{{party}}` verbatim, so one key would show the
+  // braces on every level that carries no `labelParams` — which is every level but two.
+  "election_fact_winner_party",
+  "election_fact_seats_party",
   // §Phase 7 item 6's methods disclosure, rendered beside the source label.
   "election_methods_summary",
   "election_methods_selection",
@@ -444,7 +449,14 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
     ],
     factPriority: ["winner", "top_gainer", "turnout", "paper_machine"],
     maxFacts: 4,
-    rankedColumns: ["votes", "pct", "seats", "margin"],
+    // ⚠ NO `seats` — SHIPPED IN PHASE 4 AND EMPTY EVER SINCE. `buildRegionSurface` leaves every
+    // preview row's `seats` undefined: measured over the published corpus, 0 of 248
+    // parliamentary/region rows carry one, so `/municipality/:oblast` has been rendering a
+    // „Места" header above a blank column on every region page. Region-level MPs per party are
+    // real data the site has elsewhere (`MandatesTile` reads it from `/api/db/mp-roster`), but
+    // §5.1 keeps that off the render path, so the honest fix is to stop declaring the column
+    // rather than to fill it from a source this surface may not use.
+    rankedColumns: ["votes", "pct", "margin"],
     sections: PARL_SECTIONS,
     emptyStateKey: "election_empty_region",
     hasFinder: true,
@@ -553,7 +565,12 @@ const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
     ],
     factPriority: ["winner", "seats", "runoff_pending", "split_control"],
     maxFacts: 4,
-    rankedColumns: ["votes", "pct", "seats"],
+    // ⚠ NO `seats` — A COLUMN THE PRODUCER CANNOT FILL RENDERS AS A HEADER OVER NOTHING.
+    // `buildCountrySurface` carries the national seat total as a FACT (1,470) and leaves every
+    // preview row's `seats` undefined: measured over the published corpus, 0 of 16 local/country
+    // rows have one. `rankedCell` renders an undefined seat as "", so declaring it printed
+    // „Места" above an empty column on every row.
+    rankedColumns: ["votes", "pct"],
     sections: LOCAL_SECTIONS,
     emptyStateKey: "election_empty_local_country",
     hasFinder: true,
@@ -590,7 +607,19 @@ const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
     ],
     factPriority: ["winner", "seats", "runoff_pending", "split_control"],
     maxFacts: 4,
-    rankedColumns: ["votes", "pct", "seats"],
+    // ⚠⚠ SEATS ONLY, AND THIS IS THE COLUMN SET THAT MATTERS MOST IN THE FILE. A region rollup
+    // publishes per-party SEATS across its municipalities and no per-party vote total —
+    // `buildRegionSurface` says so and writes `votes: 0, pct: 0` into every row because the
+    // schema requires the fields. Declaring the vote columns rendered that placeholder as a
+    // FIGURE: measured, 456 of 456 published local/region council rows would have printed
+    // „0 гласа · 0,00 %" beside a real seat count, next to a `validVotes` of 141,998 on the same
+    // artifact. A fabricated zero against a named party is not a blank.
+    //
+    // ⚠ `rankedColumns` IS PER LEVEL, NOT PER BALLOT, so this also narrows a mayor ballot if one
+    // ever reaches this level. None does today (every published region artifact carries exactly
+    // one `municipal_council` ballot); a mayor ballot arriving here would carry real votes and
+    // need per-ballot columns rather than a widened set.
+    rankedColumns: ["seats"],
     sections: LOCAL_SECTIONS,
     emptyStateKey: "election_empty_local_region",
     hasFinder: true,
