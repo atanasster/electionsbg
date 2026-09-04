@@ -337,10 +337,41 @@ function buildPartyMap(): Map<string, string> {
     }[];
   };
   for (const party of cp.parties)
-    for (const h of party.history)
-      m.set(`${h.election}#${h.partyNum}`, party.id);
+    for (const h of party.history) {
+      const k = `${h.election}#${h.partyNum}`;
+      const prior = m.get(k);
+      // ⚠️ LOUD, not last-wins. This map is the whole non-name half of `sameCandidacyParty`'s
+      // licence (cluster.ts), so a key mapping to two canonical ids would silently decide by
+      // FILE ORDER which party two candidacies "share" — and the rule then merges two
+      // published /person pages on it. A ballot number belongs to one party per election
+      // (ИК чл. 254 ал. 2), so a collision is a data error in canonical_parties.json, not a
+      // case to pick a winner for; the resolver runs deliberately and a throw is actionable.
+      if (prior && prior !== party.id)
+        throw new Error(
+          `canonical_parties.json: ${k} maps to both ${prior} and ${party.id} — a ballot ` +
+            `number belongs to one party per election, and this map is what lets two ` +
+            `candidacies count as the same party.`,
+        );
+      m.set(k, party.id);
+    }
   return m;
 }
+
+/**
+ * The election a CANDIDACY belongs to, recovered from its ref.
+ *
+ * A candidate ref is `<election>:<slug>` by construction — minted at exactly ONE place, the
+ * by-slug shard loop below — which is the only reason the split is sound. NULL for every
+ * other source.
+ *
+ * ⚠️ ONE SPELLING, TWO CONSUMERS, and they must not drift: `corroborants.candidacyElection`
+ * feeds `sameCandidacyParty` (an AUTOMATIC public merge) and `ovMentions.electionDate` feeds
+ * `applyOverrides` (a HAND-ADJUDICATED one). If the two ever partitioned candidacies
+ * differently, an operator's ref-scoped decision would land on a different election than the
+ * resolver's own, quietly and on a surface that publishes people.
+ */
+const candidateElectionOf = (source: string, ref: string): string | null =>
+  source === "candidate" ? ref.split(":")[0] : null;
 
 // Fold a party NAME to a comparison key: uppercase, drop punctuation and quoting (the
 // register writes `ПП„Продължаваме промяната"` where the ballot writes `ПП ПРОДЪЛЖАВАМЕ
@@ -1668,6 +1699,17 @@ async function main(): Promise<void> {
           ? localSeatKey(r.role, r.ref, r.placeKind, r.placeCode)
           : null,
       localCycle: r.source === "local" ? r.ref.split(":")[0] : null,
+      // Same derivation, same reason: a candidate ref is `<election>:<slug>` by construction
+      // (`candidate:${election}:${c.slug}` at the shard loop), so the election is already on
+      // the row and no `add()` call can forget it or spell it differently.
+      //
+      // ⚠️ IT PAIRS WITH `party` ABOVE, WHICH MUST BE THE CANONICAL ID. `cParty` for a
+      // candidacy is `partyMap.get(...)` — the canonical party — and NOT `partyNum`, which is
+      // the ballot number and changes every election: in the reported case 28, then 1, then
+      // 28. `sameCandidacyParty` compares the two values directly, so a positional id here
+      // would refuse the real continuity and occasionally assert one between two unrelated
+      // parties that drew the same number twice.
+      candidacyElection: candidateElectionOf(r.source, r.ref),
     },
     raw: r,
   }));
@@ -1755,8 +1797,11 @@ async function main(): Promise<void> {
     ref: m.raw.ref,
     hardId: m.hardId ?? null,
     nameFold: m.nameFold,
-    electionDate:
-      m.source === "candidate" ? (m.raw.ref.split(":", 1)[0] ?? null) : null,
+    // Was a second, independently-spelled copy of this rule until 2026-09-04. Both feed a
+    // decision that fuses two published /person pages — this one by hand, the corroborant
+    // above automatically — so they must partition candidacies identically. See
+    // `candidateElectionOf`.
+    electionDate: candidateElectionOf(m.source, m.raw.ref),
     party: m.raw.cParty,
   }));
   const overriddenGroups = applyOverrides(mergedGroups, ovMentions, overrides);

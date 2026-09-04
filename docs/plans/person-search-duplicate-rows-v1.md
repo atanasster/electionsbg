@@ -231,13 +231,21 @@ no election carrying the pair twice, and no contradiction from either register.
 
 **Implementation notes**
 
-- `resolve_persons.ts` must add the election to the candidate mention's corroborants — the
-  value is already in hand at the `add(...)` call site (`election`, ~line 1136-1195). Note it
-  passes `cPlace: oblast` (`c.oblasts[0]`) while the stored role place is `primaryMir`; leave
-  that alone, this rule does not read place.
+- `resolve_persons.ts` DERIVES the election in the corroborants mapping —
+  `r.source === "candidate" ? r.ref.split(":")[0] : null` — beside `localCycle`, rather than
+  plumbing it through the `add(...)` call. That is the file's own stated preference for
+  exactly this shape ("everything needed is already on the row, so no source can forget to set
+  it and none can set it inconsistently"), and it works because a candidate ref is
+  `` `${election}:${c.slug}` `` by construction. Note the call passes `cPlace: oblast`
+  (`c.oblasts[0]`) while the stored role place is `primaryMir`; that is left alone — this rule
+  does not read place.
 - The party must be the CANONICAL id (`canon`), never `partyNum` — the ballot number changes
-  every election (28 → 1 → 28 in this very case).
-- ⚠️ **Slug retirement is part of the change, not follow-up.** ~314 `/person/<slug>` URLs stop
+  every election (28 → 1 → 28 in this very case). Both of these are pinned by
+  `resolve_persons_candidacy.test.ts`, a static gate over the resolver's source: dropping the
+  derivation makes the rule silently INERT (no error, no row-count change, the merges just
+  stop) and substituting the ballot number makes it silently WRONG in both directions, and
+  neither is reachable from a unit test of the rule itself.
+- ⚠️ **Slug retirement is part of the change, not follow-up.** ~322 `/person/<slug>` URLs stop
   existing; every one needs a `person_slug_retired` row so it 301s rather than 404s, and
   `collapseSlugRedirectChains()` must run after (the resolver already calls it). Some of those
   slugs are in the committed `data/person/prerender_slugs.json`, so `npm run person:slugs:cloud`
@@ -249,14 +257,26 @@ no election carrying the pair twice, and no contradiction from either register.
   ⚠️ 090's CASCADE puts `/persons`, `/officials/assets`, `/mp-assets` and
   `/declarations/crypto` at 500 for the declarations phase-2 window — off-peak only.
 
-**Gates**
+**Gates (as built)**
 
-- `scripts/person/cluster.test.ts` — the rule's own cases, INCLUDING a synthetic contested
-  block asserting that all three mentions stay split AND keep their `identical_fullname` flag
-  (the pairwise-guard trap above is only visible in that second half).
+- `scripts/person/cluster.test.ts` — 11 cases for the rule, each guard mutation-checked
+  individually. Including the contested block asserting all three mentions stay split AND keep
+  their `identical_fullname` flag (the pairwise-guard trap is only visible in that second
+  half), the three-election chain the reported case actually is, and the amplification case
+  where a shared company EIK must not reach across a proven multi-person fold.
+- `scripts/person/resolve_persons_candidacy.test.ts` — the wiring, static over the source and
+  needing no database, so it runs in CI where the corpus gates auto-skip.
 - `person_resolve.data.test.ts` — the over-merge direction; a wrong public merge is an
-  accusation, so this is the gate that must stay green.
-- A floor/ceiling pair in `person_identity_duplicates.data.test.ts` (§5).
+  accusation, so this is the gate that must stay green after the resolve.
+- The `headerIdenticalRows` ceiling in `person_identity_duplicates.data.test.ts` (§5 C1),
+  which is what will show the drop once the resolve runs.
+
+⚠️ **THE RESOLVE ITSELF IS AN OPERATOR STEP AND HAS NOT BEEN RUN.** The code above changes
+nothing until `db:resolve:persons` executes, and that is not a step to slip into a build: it
+DELETEs and re-COPYs `person`, reassigning ~26% of `person_id`s, and NULLs
+`declaration.person_id` (61,743 rows) and `council_vote.person_id` (43,168) until the nine-step
+repair chain in CLAUDE.md runs. Expect the ~322 slug retirements above with it. Run it
+deliberately, on an idle database, and follow it with that chain and then `npm run test:data`.
 
 ## 5. Tier C — the residue, and keeping the number honest
 
@@ -323,5 +343,5 @@ scale, and the reason Tier A comes first is that it needs no adjudication at all
 | --- | --- |
 | **A** header subtitle | biggest measured win (−49%, 4,527 → 2,312), no identity claim, no reload, ships in one deploy |
 | **C1** the ratchet arm | must land WITH A so the new number is locked before it moves |
-| **B** resolver tier | the real fix for 314 rows; carries a resolve + slug-retirement + cloud chain |
+| **B** resolver tier | the real fix for 322 rows; carries a resolve + slug-retirement + cloud chain |
 | **C2** adjudications | ongoing, per case |
