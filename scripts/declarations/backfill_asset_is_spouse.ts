@@ -140,12 +140,16 @@ const main = (): void => {
       `[is_spouse] ${noDeclarant} declaration(s) name no declarant — left alone`,
     );
   for (const s of samples) console.log(`   ${s}`);
-  // A row moving INTO „somebody else" cannot come from a separator fold, which only ever
-  // removes a difference. It would mean the shard's stored value disagreed with the rule
-  // before this change — worth naming rather than folding into the same count.
+  // A row moving INTO „somebody else" has exactly two causes, and they want different
+  // responses. The folds only ever REMOVE a difference, so one is a stale shard whose
+  // stored value already disagreed with the rule. The other is a REFUSAL being added or
+  // widened — the masculine/feminine carve-out, „и др.", the generational rotation — which
+  // legitimately re-marks rows the previous rule had folded. Named separately from the
+  // cleared count either way, because a re-mark republishes „held by somebody else"
+  // against a named person and should never pass unread.
   if (toTrue)
     console.warn(
-      `[is_spouse] ⚠ ${toTrue} row(s) moved false -> true; the separator fold cannot do that — check for a stale shard`,
+      `[is_spouse] ⚠ ${toTrue} row(s) moved false -> true — expected only when a REFUSAL was added or widened; otherwise the shard was stale`,
     );
   console.log(
     apply

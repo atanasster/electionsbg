@@ -197,12 +197,19 @@ class below.
 Holder tokens ⊂ declarant tokens, holder has ≥2 tokens, **and the first token matches**.
 **916 rows** after T1 (1,271 before it).
 
-The first-token pin is what separates „Албена Туджарова ⟂ Албена Иванова Туджарова" from a
-household member. A child or a spouse never shares the declarant's given name *and* carry
-only a subset of the remaining tokens: a child's patronymic is the declarant's given name,
-not their patronymic. Without the pin the rule also swallows two-token cells whose given
-name was dropped („Димитрова Иванова ⟂ Искра Димитрова Иванова") — same person, but the
-evidence is weaker and it is only 2 rows; leave them.
+The first-token pin is what separates „Албена Туджарова ⟂ Албена Иванова Туджарова" from
+MOST household members: a child's patronymic is the declarant's given name, not their
+patronymic, so no child's FULL three-token name is a subset of the parent's while opening
+with the same given name. Without the pin the rule also swallows two-token cells whose
+given name was dropped („Димитрова Иванова ⟂ Искра Димитрова Иванова") — same person, but
+the evidence is weaker and it is only 2 rows; leave them.
+
+⚠️ **That is a margin, not a proof, and the gap is this tier's dominant shape.** 866 of the
+1,308 folded rows have a **two-token** holder („given + family"). A son named after his
+father writes exactly that, and it is a strict subset opening with the same given name —
+indistinguishable from the declarant's own short form. What carries the fold is that
+Bulgarian juniors are uncommon (the convention names a son after the GRANDfather). Do not
+widen this tier, and do not drop the pin.
 
 ### T4 — an initial where the declarant writes the word
 
@@ -223,6 +230,18 @@ unchanged given name („Августина **Веселинов** Кайков�
 136 rows — and so is the given-name variant „Анели"/„Анелия" (34). Applying the carve-out at
 every position keeps 440 rows instead of 270 and buys nothing.
 
+⚠️ **„A spouse or child cannot present as one token off" is true of the Bulgarian
+given/patronymic/family triple and FALSE of the triple-given-name convention** this corpus
+uses heavily. There a name is [own, father's, grandfather's], so a child is a **rotation**
+of the parent — P = [p, f, g] → S = [s, p, f] — sharing two of three tokens, and the
+differing pair is matched by value rather than position. One-edit given-name variants are
+ordinary there (Мехмед/Мехмет, Ахмед/Ахмет). 0 corpus rows carry the signature, and the
+implementation refuses the rotation outright rather than resting on that.
+
+⚠️ **The tier floors at THREE tokens.** At two, „the rest of the name" is a single given
+name from a pool of a few hundred: „Ана Петрова" ⟂ „Яна Петрова" is one edit and two
+sisters. 0 corpus rows have that shape, so the floor costs nothing.
+
 ⚠️ **Do not generalise this to an edit-distance-2 fold or to a similarity score.** At two
 edits a spouse becomes reachable, and this is the tier where a wrong fold relabels a
 household member's property as a public figure's own.
@@ -231,9 +250,15 @@ household member's property as a public figure's own.
 
 Same multiset, different order. **68 rows, 23 pairs** — the complete list fits in the commit
 message, and the first token is the given name in every one of them
-(„Айдоан Али Муталиб" ⟂ „Айдоан Муталиб Али"). Last because it is the only tier where a
-Bulgarian-Turkish naming convention could in principle produce two people from one token
-set; verify all 23 by hand before shipping, and pin the given name as T3 does.
+(„Айдоан Али Муталиб" ⟂ „Айдоан Муталиб Али"). Last because it is the tier where a naming
+convention can produce two people from one token set; verify all 23 by hand before
+shipping, and pin the given name as T3 does.
+
+⚠️ **The pin alone does not exclude a father and son.** It keeps a family-name-first
+spelling out („Копринков Николай Иванов"), but under the triple-given-name convention P
+named after his grandfather is [p, f, p] and P's son named after P is [p, p, f] — same
+multiset, same leading token. A **repeated token** is that shape's signature; none of the
+23 corpus pairs has one, so the implementation refuses it as well as pinning.
 
 ### T7 — a gate that can see a wrong rule
 

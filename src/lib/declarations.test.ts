@@ -4,17 +4,22 @@
 import { describe, expect, it } from "vitest";
 import type { MpAsset } from "@/data/dataTypes";
 import {
+  ASSET_ROW_CEILING_EUR,
   byRecency,
   declarationPeriod,
   declarationTotals,
   hasDeclaredAssets,
   hasDeclaredIncome,
   hasDeclaredStakes,
+  hasValuedAssets,
+  incomeTotals,
   isDeclaredHolding,
   isSpouseHolder,
   latestAssetDeclaration,
   latestDeclarationWith,
+  normHolderName,
   priorAssetDeclaration,
+  withinAssetCeiling,
 } from "./declarations";
 
 const asset = (
@@ -533,21 +538,426 @@ describe("isSpouseHolder", () => {
     expect(isSpouseHolder(nfd, "ИОРДАНОВ")).toBe(true);
   });
 
-  it("folds SEPARATORS, never TOKENS", () => {
+  it("still marks a genuinely different member of the family", () => {
     // The whole point of the rule is to mark a spouse, and a spouse usually shares the
-    // surname — so a shared-token or reordering fold would delete real findings rather
-    // than typos. 195 corpus rows share >= 2 tokens with the declarant; all stay marked.
+    // surname. A spouse differs in the given name AND the patronymic AND the family
+    // name, so none of the token passes below can reach one.
     expect(
       isSpouseHolder("Теодора Иванова Копринкова", "Николай Иванов Копринков"),
     ).toBe(true);
-    // Same tokens, different order — 2 corpus rows. Deliberately NOT folded: nothing
-    // proves a reordering is a typo rather than a different member of the family.
+    // A family-name-FIRST reordering stays marked: T6 pins the given name, and nothing
+    // about this ordering proves it is the declarant rather than a relative.
     expect(
       isSpouseHolder("Копринков Николай Иванов", "Николай Иванов Копринков"),
     ).toBe(true);
-    // A dropped separator must not merge two names that differ by a letter.
+    // A dropped separator must not merge two names that differ by a letter — and the
+    // letter here is the masculine/feminine ending of the LAST token, the one
+    // single-edit shape T5 deliberately refuses.
     expect(
       isSpouseHolder("ПЕТКОАНГЕЛОВ КУЩИРЕВА", "ПЕТКО АНГЕЛОВ КУЩИРЕВ"),
     ).toBe(true);
+  });
+});
+
+// docs/plans/declaration-holder-self-fold-v1.md T1-T6 — the declarant's own name, spelled
+// a second way on their own filing. Every fixture below is verbatim from the corpus.
+//
+// Direction that must not fail: each pass can only move a row OUT of „somebody else". So
+// the risk they carry is the opposite of the one they fix — a household member's property
+// relabelled as the declarant's own — which is what the refusals at the bottom pin.
+describe("isSpouseHolder — folds the declarant's own name, respelled", () => {
+  it("T1 — folds one Latin look-alike letter typed into a Cyrillic name", () => {
+    // 61 corpus rows across 22 people. Latin A, E, O, T, K…
+    expect(
+      isSpouseHolder("Aлександър Стоянов Савов", "Александър Стоянов Савов"),
+    ).toBe(false);
+    expect(isSpouseHolder("EВГЕНИ ПЕНЧЕВ ПЕНЕВ", "ЕВГЕНИ ПЕНЧЕВ ПЕНЕВ")).toBe(
+      false,
+    );
+    expect(
+      isSpouseHolder("Момчил Виктoров Станков", "Момчил Викторов Станков"),
+    ).toBe(false);
+    expect(isSpouseHolder("ПETKO ДОБРЕВ ПЕТКОВ", "ПЕТКО ДОБРЕВ ПЕТКОВ")).toBe(
+      false,
+    );
+  });
+
+  it("T2 — folds a title, a legal basis or a role wrapped around the declarant's name", () => {
+    expect(
+      isSpouseHolder("адв. Борис Давидов Михайлов", "Борис Давидов Михайлов"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("Ангел Андреев Куртишев в СИО", "Ангел Андреев Куртишев"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Ангел Александров Антонов  /наследство/",
+        "Ангел Александров Антонов",
+      ),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("Ани Нораири Арутюнян съкредитор", "Ани Нораири Арутюнян"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Валентин Ваньов Ангелов\\ през 2021",
+        "Валентин Ваньов Ангелов",
+      ),
+    ).toBe(false);
+  });
+
+  it("T2 — strips the decoration from the DECLARANT side too", () => {
+    // 355 corpus rows: the title is on the declarant, not the holder. Stripping only
+    // one side leaves every one of them marked.
+    expect(isSpouseHolder("Али Вели Дурмушали", "д-р Али Вели Дурмушали")).toBe(
+      false,
+    );
+    expect(
+      isSpouseHolder("ДИМИТЪР ХРИСТОВ МАКАКОВ", "д-р ДИМИТЪР ХРИСТОВ МАКАКОВ"),
+    ).toBe(false);
+  });
+
+  it("T3 — folds a shorter form of the declarant's own name", () => {
+    expect(isSpouseHolder("Албена Туджарова", "Албена Иванова Туджарова")).toBe(
+      false,
+    );
+    expect(isSpouseHolder("АДИЛЕ КЯМИЛ", "АДИЛЕ САБРИЕВА КЯМИЛ")).toBe(false);
+    // A repeated family name still counts as contained.
+    expect(
+      isSpouseHolder("АЛЕКСАНДАР НОВЕСКИ", "АЛЕКСАНДАР НОВЕСКИ НОВЕСКИ"),
+    ).toBe(false);
+  });
+
+  it("T4 — folds an initial standing in for the written-out name", () => {
+    // The whole corpus population of this class is 3 name pairs / 75 rows.
+    expect(
+      isSpouseHolder("Деница С. Славкова", "Деница Спасова Славкова"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("дирк йохан г пергот", "Дирк Йохан Густаф Пергот"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Стоянка Ф. Тенова -Илчевска",
+        "Стоянка филчева Тенова - Илчевска",
+      ),
+    ).toBe(false);
+  });
+
+  it("T5 — folds one token differing by one letter when the rest match exactly", () => {
+    // Patronymic, family name and given name positions — 4,632 rows.
+    expect(
+      isSpouseHolder("Адалберт Огнянав Йолов", "Адалберт Огнянов Йолов"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("Аделина Огнянова Николоваз", "Аделина Огнянова Николова"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Александър Здравков Мохайлов",
+        "Александър Здравков Михайлов",
+      ),
+    ).toBe(false);
+    // A gender mismatch that is NOT on the last token is a dropped „а", not a person:
+    // the given name „Августина" is unchanged, so no second human is in play.
+    expect(
+      isSpouseHolder(
+        "Августина Веселинов Кайкова",
+        "Августина Веселинова Кайкова",
+      ),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Анели Веселинова Джагарова",
+        "АНЕЛИЯ ВЕСЕЛИНОВА ДЖАГАРОВА",
+      ),
+    ).toBe(false);
+  });
+
+  it("T5 — keeps refusing the masc/fem family name when a decoration token trails it", () => {
+    // T4/T5/T6 match on RAW tokens, so „в СИО" pushes the family name out of final
+    // position. Reading `tokens[length - 1]` instead of the last NAME token turned this
+    // carve-out silently off — 0 corpus rows today, but 1,442 rows carry such a note.
+    expect(
+      isSpouseHolder(
+        "Айдън Нихадов Шабанова в СИО",
+        "Айдън Нихадов Шабанов в СИО",
+      ),
+    ).toBe(true);
+    expect(
+      isSpouseHolder(
+        "Иван Петров Стоянска собственик",
+        "Иван Петров Стоянски собственик",
+      ),
+    ).toBe(true);
+  });
+
+  it("T5 — refuses every adjectival gender flip, not only -ски/-ска", () => {
+    // Pinning the literal „СКИ" folded „Марешки"/„Марешка" (2 corpus rows) while
+    // refusing „Стоянски"/„Стоянска" — the residue applied to one spelling of an ending
+    // and not its siblings.
+    expect(isSpouseHolder("Иван Петров Стоянска", "Иван Петров Стоянски")).toBe(
+      true,
+    );
+    expect(
+      isSpouseHolder("Веселин Найденов Марешка", "Веселин Найденов Марешки"),
+    ).toBe(true);
+    expect(isSpouseHolder("Иван Петров Гоцка", "Иван Петров Гоцки")).toBe(true);
+  });
+
+  it("T5 — folds a stray trailing я, which is not a gender pair in Bulgarian", () => {
+    // The feminine of Петров is Петрова, never Петровя. A „Я" arm in isGenderPair
+    // produced 9 rows of refusals over 5 name pairs and NOT ONE was correct — every one
+    // a stray „я" on the declarant's own name, two of them on an already-feminine one.
+    expect(isSpouseHolder("Борил Петров Петровя", "Борил Петров Петров")).toBe(
+      false,
+    );
+    expect(
+      isSpouseHolder(
+        "Симеонка Георгиева Аргировая",
+        "Симеонка Георгиева Аргирова",
+      ),
+    ).toBe(false);
+  });
+
+  it("T5 — refuses two tokens, where the rest of the name is one given name", () => {
+    // At two tokens the guarantee degrades to a single low-entropy token: „Ана Петрова"
+    // and „Яна Петрова" are one edit apart and two sisters. 0 corpus rows have the shape.
+    expect(isSpouseHolder("Ана Петрова", "Яна Петрова")).toBe(true);
+    expect(isSpouseHolder("Али Вели", "Али Дели")).toBe(true);
+  });
+
+  it("refuses a parent and child whose names are a generational ROTATION", () => {
+    // Under the triple-given-name convention a child is [own, father's, grandfather's],
+    // so P = [p, f, g] and S = [s, p, f] share two of three tokens — and
+    // `soleDifferingPair` matches by VALUE, not position, so T5 would otherwise fold a
+    // father onto his son whenever the two given names are one edit apart.
+    expect(isSpouseHolder("Мехмед Айдън Мехмед", "Айдън Мехмед Мехмет")).toBe(
+      true,
+    );
+    // T6's shape of the same hazard: P named after his grandfather, S named after P —
+    // same multiset, same leading token. A repeated token is the signature.
+    expect(isSpouseHolder("Али Али Мехмед", "Али Мехмед Али")).toBe(true);
+    expect(
+      isSpouseHolder("Мустафа Мустафа Реджеб", "Мустафа Реджеб Мустафа"),
+    ).toBe(true);
+  });
+
+  it("T5 — REFUSES a masculine/feminine pair on the family name", () => {
+    // 270 rows, kept marked deliberately: the only single-edit shape with a reading in
+    // which two people are involved.
+    expect(
+      isSpouseHolder("Айдън Нихадов Шабанова", "Айдън Нихадов Шабанов"),
+    ).toBe(true);
+    expect(isSpouseHolder("Иван Петров Стоянска", "Иван Петров Стоянски")).toBe(
+      true,
+    );
+  });
+
+  it("T6 — folds a re-ordering that keeps the given name first", () => {
+    expect(isSpouseHolder("Айдоан Али Муталиб", "Айдоан Муталиб Али")).toBe(
+      false,
+    );
+    expect(isSpouseHolder("Борис Желев Димов", "Борис Димов Желев")).toBe(
+      false,
+    );
+    expect(isSpouseHolder("ГЮЛТЕН МЮМЮН МУСТАФА", "ГЮЛТЕН МУСТАФА МЮМЮН")).toBe(
+      false,
+    );
+  });
+
+  // ── THE REFUSALS ─────────────────────────────────────────────────────────────────
+  // Each of these is a cell the corpus contains and none of the passes above may fold.
+  it("refuses a cell whose surplus names a second person", () => {
+    // Verbatim: the three that a „does the surplus look like a name?" heuristic folded,
+    // and which the decoration ALLOWLIST refuses. The declarant's surname is shared, so
+    // only the unknown given name distinguishes them.
+    expect(
+      isSpouseHolder(
+        "Айрие Ибрямова, Алис Ремзиева",
+        "Айрие Ремзиева Ибрямова",
+      ),
+    ).toBe(true);
+    expect(
+      isSpouseHolder(
+        "Виктор Стоянов, Цветомир Стоянов",
+        "Виктор Стоянов Стоянов",
+      ),
+    ).toBe(true);
+    expect(
+      isSpouseHolder(
+        "Борислав Божинов Чалъков, Драгомир Божинов Чалъков",
+        "Борислав Божинов Чалъков",
+      ),
+    ).toBe(true);
+  });
+
+  it("refuses a joint holding that names the declarant AND somebody else", () => {
+    // 5,385 rows. „The declarant is one of several holders" is a third answer this
+    // boolean does not have, so the row stays marked and the chip prints the whole cell.
+    expect(
+      isSpouseHolder(
+        "Албена Иванова Михайлова и Милко Златков Михайлов",
+        "Албена Иванова Михайлова",
+      ),
+    ).toBe(true);
+    expect(
+      isSpouseHolder(
+        "Билгин Мустафа Йълмаз и Хатче Мустафа Йълмаз",
+        "БИЛГИН МУСТАФА ЙЪЛМАЗ",
+      ),
+    ).toBe(true);
+  });
+
+  it("refuses a real spouse who shares the family name", () => {
+    expect(
+      isSpouseHolder("Мария Иванова Георгиева", "Иван Петров Георгиев"),
+    ).toBe(true);
+    expect(
+      isSpouseHolder("Теодора Стоянова Копринкова", "Николай Иванов Копринков"),
+    ).toBe(true);
+  });
+
+  it("refuses a cell that names unlisted co-holders", () => {
+    // „др." is „други" (AND OTHERS), not the title „д-р" — `tokenize` reduces both to
+    // the token ДР, so on a position-blind allowlist „X и др." stripped to exactly the
+    // declarant's own tokens and folded. That does not mislabel a holder, it ERASES one
+    // the register named.
+    expect(
+      isSpouseHolder("Калоян Емилов Методиев и др.", "Калоян Емилов Методиев"),
+    ).toBe(true);
+    expect(
+      isSpouseHolder("Иван Петров Иванов и др", "Иван Петров Иванов"),
+    ).toBe(true);
+    // …while the title it shares a token with must still strip.
+    expect(isSpouseHolder("д-р Иван Петров Иванов", "Иван Петров Иванов")).toBe(
+      false,
+    );
+  });
+
+  // Every assertion above returns `true` by default, so a rule with all its folds
+  // deleted satisfies the whole refusal block. Each pair here fails in BOTH directions:
+  // the refusal, and the near-twin it must be distinguished from.
+  it("the refusals discriminate — each has a near-twin that DOES fold", () => {
+    // masc/fem on the family name is refused; the same single edit one position earlier
+    // folds.
+    expect(
+      isSpouseHolder("Айдън Нихадов Шабанова", "Айдън Нихадов Шабанов"),
+    ).toBe(true);
+    expect(
+      isSpouseHolder("Айдън Нихадова Шабанов", "Айдън Нихадов Шабанов"),
+    ).toBe(false);
+    // An unknown surplus token is refused; a decoration surplus folds.
+    expect(
+      isSpouseHolder(
+        "Виктор Стоянов, Цветомир Стоянов",
+        "Виктор Стоянов Стоянов",
+      ),
+    ).toBe(true);
+    expect(
+      isSpouseHolder("Виктор Стоянов Стоянов в СИО", "Виктор Стоянов Стоянов"),
+    ).toBe(false);
+    // „и др." is refused; the leading title that shares its token folds.
+    expect(
+      isSpouseHolder("Иван Петров Иванов и др.", "Иван Петров Иванов"),
+    ).toBe(true);
+    expect(isSpouseHolder("д-р Иван Петров Иванов", "Иван Петров Иванов")).toBe(
+      false,
+    );
+  });
+});
+
+// Exports that had no direct coverage anywhere. `incomeTotals` is the notable one: its
+// header records a published-figure defect (an MP's income printed as declarant + spouse)
+// and the "no combined total" rule it encodes was untested.
+describe("incomeTotals", () => {
+  it("returns the two people's tax bases separately and offers no combined field", () => {
+    // Table 12 has one column for the declarant and one for their spouse — two PEOPLE,
+    // not two halves of one figure. A third key is what a caller would reach for.
+    const t = incomeTotals([
+      { amountEurDeclarant: 104_975, amountEurSpouse: 58_280 },
+    ]);
+    expect(t.declarantEur).toBe(104_975);
+    expect(t.spouseEur).toBe(58_280);
+    expect(Object.keys(t).sort()).toEqual(
+      ["declarantEur", "rows", "spouseEur"].sort(),
+    );
+  });
+
+  it("drops rows where neither person declared anything, and keeps the rest", () => {
+    const t = incomeTotals([
+      { amountEurDeclarant: 0, amountEurSpouse: 0 },
+      { amountEurDeclarant: null, amountEurSpouse: null },
+      { amountEurDeclarant: 0, amountEurSpouse: 4_200 },
+    ]);
+    expect(t.rows).toHaveLength(1);
+    expect(t.spouseEur).toBe(4_200);
+  });
+
+  it("keeps a NEGATIVE tax base, which a `> 0` filter would drop", () => {
+    const t = incomeTotals([
+      { amountEurDeclarant: -12_000, amountEurSpouse: null },
+    ]);
+    expect(t.rows).toHaveLength(1);
+    expect(t.declarantEur).toBe(-12_000);
+  });
+});
+
+describe("withinAssetCeiling", () => {
+  it("caps an implausible ASSET but never a debt", () => {
+    // The corpus row that forced this: a mortgage filed in the securities table at
+    // €3.58bn, which made one person #1 on /officials/assets by a factor of 326.
+    expect(
+      withinAssetCeiling({ category: "security", valueEur: 3_580_000_000 }),
+    ).toBe(false);
+    // Excluding a DEBT would overstate net worth — the one direction this must not fail
+    // in — so the ceiling is asset-only.
+    expect(
+      withinAssetCeiling({ category: "debt", valueEur: 3_580_000_000 }),
+    ).toBe(true);
+    expect(
+      withinAssetCeiling({
+        category: "real_estate",
+        valueEur: ASSET_ROW_CEILING_EUR,
+      }),
+    ).toBe(true);
+    expect(withinAssetCeiling({ category: "cash", valueEur: null })).toBe(true);
+  });
+});
+
+describe("hasValuedAssets", () => {
+  it("separates a filing that puts a NUMBER on something from one that only has rows", () => {
+    // An incompatibility filing carries a blank-line `bank` row and no value; treating
+    // that as an asset picture published €0 for people with six figures declared.
+    expect(hasValuedAssets(decl(2025, null, [asset("bank", null)]))).toBe(
+      false,
+    );
+    expect(hasValuedAssets(decl(2025, null, [asset("bank", 0)]))).toBe(false);
+    expect(hasValuedAssets(decl(2025, 2024, [asset("bank", 12)]))).toBe(true);
+    expect(hasValuedAssets(undefined)).toBe(false);
+  });
+});
+
+describe("normHolderName", () => {
+  // The entry point every fold below it depends on: it decides what "the same string"
+  // means before any token pass runs.
+  it("folds case, collapses whitespace and tidies the space around a hyphen", () => {
+    expect(normHolderName("  тияна   димитриева - николова ")).toBe(
+      "ТИЯНА ДИМИТРИЕВА-НИКОЛОВА",
+    );
+    expect(normHolderName("Тияна Димитриева-Николова")).toBe(
+      "ТИЯНА ДИМИТРИЕВА-НИКОЛОВА",
+    );
+  });
+
+  it("normalises to NFC, so a decomposed й keeps its breve", () => {
+    // lettersOnly strips \p{M}; a decomposed „й" would lose the breve and fold equal to
+    // „и", reattributing a third party's row to the declarant.
+    expect(normHolderName("ЙОРДАНОВ".normalize("NFD"))).toBe("ЙОРДАНОВ");
+  });
+
+  it("is null-safe and trims to empty", () => {
+    expect(normHolderName(null)).toBe("");
+    expect(normHolderName("   ")).toBe("");
   });
 });
