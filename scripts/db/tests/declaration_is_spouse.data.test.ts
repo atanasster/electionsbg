@@ -29,13 +29,22 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, dbReachable, end } from "../lib/pg";
 import { isSpouseHolder, normHolderName } from "../../../src/lib/declarations";
 
 const n = (v: unknown): number => Number(v ?? 0);
 
-const reachable = async (): Promise<boolean> => {
-  try {
+// ⚠️ Only a CONNECTION failure is a skip. A bare try/catch over the probes turns a permission
+// error (42501 — a live class on this project's app_readonly path), a dropped table, or a typo
+// in the probe itself into „Postgres is down" and takes all six tests green. These are
+// ratchets; a swallowed fault is how one dies without anyone noticing.
+//
+// Memoised: six tests × two round trips is twelve queries for one answer that cannot change
+// mid-run.
+let reachableOnce: Promise<boolean> | undefined;
+const reachable = (): Promise<boolean> =>
+  (reachableOnce ??= (async () => {
+    if (!(await dbReachable())) return false;
     const [t] = await allRows<{ ok: boolean }>(
       "SELECT to_regclass('public.declaration_asset') IS NOT NULL AS ok",
     );
@@ -44,10 +53,7 @@ const reachable = async (): Promise<boolean> => {
       "SELECT count(*) n FROM declaration_asset",
     );
     return n(c.n) > 0;
-  } catch {
-    return false;
-  }
-};
+  })());
 
 type Row = {
   holder_name: string | null;
@@ -57,11 +63,14 @@ type Row = {
   seq: number;
 };
 
+// Memoised: four of the six tests want the identical read-only set, and it is 335,676 joined
+// rows — 1.2-2.2 s per pull on the local box, and this file keeps accreting corpus-wide gates.
+let corpusOnce: Promise<Row[]> | undefined;
 const corpus = (): Promise<Row[]> =>
-  allRows<Row>(
+  (corpusOnce ??= allRows<Row>(
     `SELECT a.holder_name, d.declarant_name, a.is_spouse, d.source_url, a.seq
        FROM declaration_asset a JOIN declaration d USING (declaration_id)`,
-  );
+  ));
 
 test("every stored is_spouse re-derives from the row's own holder and declarant", async () => {
   if (!(await reachable())) return;
@@ -194,6 +203,323 @@ test("the stake side still matches the split the header publishes", async () => 
     0,
     `${letterless.length} stake row(s) whose holder cell has no letters are published as somebody else's`,
   );
+});
+
+// ── THE RESIDUE RATCHET AND THE PER-TIER NON-VACUITY FLOOR ────────────────────────────
+//
+// docs/plans/declaration-holder-self-fold-v1.md T7.2 and T7.3. The gate above compares the
+// stored column to the function, so it is satisfied by ANY rule both sides agree on —
+// including one that folds nothing. These two close that from both ends, and they classify
+// the corpus with predicates written HERE rather than by calling isSpouseHolder, so a change
+// to the rule cannot move the test with it.
+//
+// ⚠️ INDEPENDENT OF THE FOLD LOGIC, NOT OF THE NORMALISATION. `deHomo`, `DECOR`,
+// `LEADING_TITLES`, `undecorated`, `oneEditApart` and `soleDiff` are all local copies — a
+// classifier that imported the allowlist it is checking could not notice that allowlist
+// changing. `normHolderName` is deliberately SHARED: it is the case fold, the NFC pass and the
+// hyphen respacing, i.e. what „the same string" means before any pass runs, and re-deriving it
+// would test a different corpus rather than the rule. It fails safe — every local allowlist
+// here is keyed on the uppercase form it produces.
+//
+// Shapes are the classes of the plan's §1: a Latin homoglyph, a decoration-only difference, a
+// token subset, an initial, one token differing by one edit, and a re-ordering.
+//
+// ⚠️ A row matching NONE of the six is not inspected by either gate. Of the 102,234 currently
+// marked, these look at 267 — the plan's ~96,400 „genuinely another person" rows and its 5,385
+// MIXED rows are never read, and a mis-fold class §1 did not enumerate is invisible here. This
+// is a per-class regression detector, not a coverage measure of `is_spouse`: a green ratchet is
+// no evidence that the 96,400 are right.
+
+const LETTERS = /[^\p{L}]/gu;
+const lettersOnlyOf = (v: string | null): string =>
+  normHolderName(v).replace(LETTERS, "");
+const tokensOf = (v: string | null): string[] =>
+  normHolderName(v)
+    .split(/\s+/)
+    .map((t) => t.replace(LETTERS, ""))
+    .filter(Boolean);
+
+const HOMO: Record<string, string> = {
+  A: "А",
+  B: "В",
+  C: "С",
+  E: "Е",
+  H: "Н",
+  K: "К",
+  M: "М",
+  O: "О",
+  P: "Р",
+  T: "Т",
+  X: "Х",
+  Y: "У",
+};
+const deHomo = (s: string): string => [...s].map((c) => HOMO[c] ?? c).join("");
+
+// Deliberately a SEPARATE list from the rule's own: a test that imports the allowlist it is
+// checking cannot notice the allowlist changing underneath it.
+const DECOR = new Set([
+  "СИО",
+  "ЗП",
+  "ЕТ",
+  "ИД",
+  "ЧАСТ",
+  "ЧАСТИ",
+  "ИДЕАЛНА",
+  "ИДЕАЛНИ",
+  "НАСЛЕДСТВО",
+  "ДАРЕНИЕ",
+  "ПРЕЗ",
+  "ГОДИНА",
+  "СЪКРЕДИТОР",
+  "СЪДЛЪЖНИК",
+  "ПРОДАВАЧ",
+  "КУПУВАЧ",
+  "ДАРИТЕЛ",
+  "СОБСТВЕНИК",
+  "СОБСТВЕНОСТ",
+  "В",
+  "НА",
+  "ОТ",
+  "ПО",
+  "ЗА",
+  "И",
+]);
+// A title is decoration in LEADING position only. `tokenize` reduces „д-р" (the title) and
+// „др." („други" — AND OTHERS, i.e. holders the cell does not name) to the same token, so a
+// position-blind shape calls „X и др." a decoration-only difference and the ratchet then
+// reads the rule's deliberate refusal of it as a residue.
+const LEADING_TITLES = new Set(["АДВ", "ДР", "ПРОФ", "ДОЦ", "ИНЖ", "АРХ"]);
+const undecorated = (t: string[]): string[] => {
+  const body = t[0] !== undefined && LEADING_TITLES.has(t[0]) ? t.slice(1) : t;
+  return body.filter((x) => !DECOR.has(x));
+};
+
+const oneEditApart = (a: string, b: string): boolean => {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  const row = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = row[0];
+    row[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const tmp = row[j];
+      row[j] = Math.min(
+        row[j] + 1,
+        row[j - 1] + 1,
+        prev + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
+      prev = tmp;
+    }
+  }
+  return row[b.length] === 1;
+};
+
+const soleDiff = (H: string[], D: string[]): [string, string] | null => {
+  if (H.length !== D.length) return null;
+  const rest = [...D];
+  const left: string[] = [];
+  for (const t of H) {
+    const i = rest.indexOf(t);
+    if (i >= 0) rest.splice(i, 1);
+    else left.push(t);
+  }
+  return left.length === 1 && rest.length === 1 ? [left[0], rest[0]] : null;
+};
+
+/** Which of the plan's classes does this (holder, declarant) pair have the SHAPE of?
+ *  Independent of the rule: this says what the pair looks like, not what the rule did. */
+const shapeOf = (holder: string | null, declarant: string): string | null => {
+  const hl = lettersOnlyOf(holder);
+  const dl = lettersOnlyOf(declarant);
+  if (!hl || !dl || hl === dl) return null;
+  if (deHomo(hl) === deHomo(dl)) return "homoglyph";
+  const H = tokensOf(holder).map(deHomo);
+  const D = tokensOf(declarant).map(deHomo);
+  const Hs = undecorated(H);
+  const Ds = undecorated(D);
+  if (Hs.length && Ds.length && Hs.join("") === Ds.join(""))
+    return "decoration";
+  if (
+    Hs.length >= 2 &&
+    Hs.length < Ds.length &&
+    Hs[0] === Ds[0] &&
+    Hs.every(
+      (t) =>
+        Ds.filter((x) => x === t).length >= Hs.filter((x) => x === t).length,
+    )
+  )
+    return "subset";
+  if (H.length >= 2 && H.length === D.length) {
+    const pair = soleDiff(H, D);
+    if (pair) {
+      const [a, b] = pair;
+      if (
+        (a.length === 1 && b.startsWith(a)) ||
+        (b.length === 1 && a.startsWith(b))
+      )
+        return "initial";
+      if (oneEditApart(a, b)) return "one-edit";
+    }
+    if (H[0] === D[0] && [...H].sort().join("|") === [...D].sort().join("|"))
+      return "reorder";
+  }
+  return null;
+};
+
+const SHAPES = [
+  "homoglyph",
+  "decoration",
+  "subset",
+  "initial",
+  "one-edit",
+  "reorder",
+] as const;
+
+/** Rows still marked as somebody else's DESPITE having a fold's shape. Every one is a
+ *  deliberate refusal. Measured 2026-09-05 on the restamped corpus. */
+const RESIDUE_CEILING: Record<(typeof SHAPES)[number], number> = {
+  homoglyph: 0,
+  decoration: 0,
+  subset: 0,
+  initial: 0,
+  // T5's masc/fem carve-out on the family name — the whole 267, measured 2026-09-05. The
+  // generational-rotation and under-three-token refusals contribute 0 rows each: no corpus
+  // row carries either signature, so a change in THIS number is the carve-out moving and
+  // nothing else. Widening the carve-out to every token position — the alternative the plan
+  // measures at 440 rows against 270 — lands at ~435 and trips this.
+  "one-edit": 400,
+  // 0 measured. Both of the rule's reorder refusals (a repeated token, a generational
+  // rotation) are 0 rows corpus-wide, so any slack here is slack on the tier the plan ranks
+  // riskiest — 23 pairs verified by hand precisely because a naming convention can produce
+  // two people from one token set.
+  reorder: 0,
+};
+
+/** ⚠️ THE CEILING ALONE IS ONE-SIDED, AND THE MISSING SIDE IS THE ONE THAT MATTERS.
+ *
+ *  A ceiling catches a class GROWING — a spelling the rule has not learned. It cannot catch
+ *  a class SHRINKING TO NOTHING, which is what an over-eager fold looks like, and plan §4
+ *  names that the direction that must not fail: a household member's declared property
+ *  relabelled as a named public figure's own.
+ *
+ *  Measured: delete T5's masc/fem carve-out, restamp as §6 requires, and `one-edit` residue
+ *  goes 267 → 0 while its folds go 5,056 → 5,323. Under a ceiling and over a floor — all six
+ *  tests green, on the normal shipping path. So any class whose residue is REQUIRED rather
+ *  than merely tolerated carries a floor too.
+ *
+ *  Only `one-edit` has one today. The other five have a residue of 0 by design, and their
+ *  refusals are pinned by fixtures in src/lib/declarations.test.ts instead. */
+const RESIDUE_FLOOR: Partial<Record<(typeof SHAPES)[number], number>> = {
+  "one-edit": 200,
+};
+
+test("no fold class grows a residue of rows still marked as somebody else's", async () => {
+  if (!(await reachable())) return;
+  const rows = await corpus();
+  // ⚠️ `is_spouse` is NOT NULL DEFAULT false, so „never stamped" and „nothing is marked" are
+  // the SAME state to everything below — every class would report 0 residue and every ceiling
+  // would pass. „The corpus has no provenance yet" must never read as „the rule is enforced",
+  // which is why this says so in its own words rather than relying on a sibling test.
+  assert.ok(
+    rows.some((r) => r.is_spouse),
+    "no row is marked as somebody else's — the corpus has never been stamped, so this " +
+      "ratchet is measuring nothing. Run backfill_asset_is_spouse.ts --apply, then reload.",
+  );
+  // The two sides read DIFFERENT sources on purpose, because they detect different things.
+  //
+  //   ceiling — the STORED column: „has the register grown a spelling the rule cannot fold?"
+  //   floor   — the RULE: „does the rule still refuse what it is supposed to refuse?"
+  //
+  // A floor over the stored column would only fire AFTER a restamp, which is the normal
+  // shipping path — so a deleted carve-out would ship, restamp, and read as green until the
+  // next reload. Asking the rule makes it fire the moment the refusal disappears.
+  const residue = new Map<string, { n: number; sample: string[] }>();
+  const refused = new Map<string, number>();
+  for (const r of rows) {
+    const shape = shapeOf(r.holder_name, r.declarant_name);
+    if (!shape) continue;
+    if (isSpouseHolder(r.holder_name, r.declarant_name))
+      refused.set(shape, (refused.get(shape) ?? 0) + 1);
+    if (!r.is_spouse) continue;
+    const e = residue.get(shape) ?? { n: 0, sample: [] };
+    e.n += 1;
+    if (e.sample.length < 5)
+      e.sample.push(`${r.holder_name} ⟂ ${r.declarant_name}`);
+    residue.set(shape, e);
+  }
+  for (const shape of SHAPES) {
+    const got = residue.get(shape);
+    const n = got?.n ?? 0;
+    assert.ok(
+      n <= RESIDUE_CEILING[shape],
+      `${n} rows with the ${shape} shape are still marked as somebody else's, ` +
+        `above the recorded ceiling of ${RESIDUE_CEILING[shape]}. Either a pass stopped ` +
+        `firing, or the register grew a spelling the rule has not learned:\n  ` +
+        (got?.sample.join("\n  ") ?? ""),
+    );
+    const floor = RESIDUE_FLOOR[shape];
+    if (floor !== undefined)
+      assert.ok(
+        (refused.get(shape) ?? 0) >= floor,
+        `the rule refuses only ${refused.get(shape) ?? 0} rows with the ${shape} shape, under the floor of ` +
+          `${floor}. That residue is a DELIBERATE refusal, not slack — a fold has swallowed ` +
+          `it, which is the direction plan §4 says must not fail. The likely cause is T5's ` +
+          `masculine/feminine carve-out on the family name.`,
+      );
+  }
+});
+
+// The mutation check the plan's T7.3 asks for, expressed as a per-tier floor. „The rule folds
+// initials" is satisfied by a rule that folds nothing, so each pass has to be shown FIRING on
+// the live corpus: a pass that is deleted or narrowed to a no-op drops its count to 0 here.
+//
+// Measured counts, produced by THIS file's shapeOf over the restamped corpus (2026-09-05) and
+// deliberately NOT copied from the rule's own comments, whose per-tier figures count different
+// populations: homoglyph 61, decoration 1,441, subset 1,307, initial 75, one-edit 5,056,
+// reorder 68. The floors sit far under all but one of them.
+//
+// ⚠️ `homoglyph` is the one class this cannot fully isolate, and the mutation check is how
+// that surfaced: with `deHomoglyph` neutered to the identity, the class stays ABOVE its floor
+// because a single Latin letter inside one token is also a ONE-EDIT difference, so T5 folds
+// the same rows by another route. The homoglyph pass earns its place on what T5 cannot reach
+// — „ПETKO ДОБРЕВ ПЕТКОВ" carries three Latin letters in one token (edit distance 3) — and a
+// dead homoglyph pass is caught by the parity test above rather than here.
+const FOLD_FLOOR: Record<(typeof SHAPES)[number], number> = {
+  homoglyph: 10,
+  decoration: 200,
+  subset: 200,
+  // ⚠️ `initial` IS NOT A DISTRIBUTION, IT IS ONE PERSON. 75 rows over three declarants,
+  // split 70 / 4 / 1 — Дирк Йохан Густаф Пергот carries the 70. Phase 1 TRUNCATEs and
+  // reloads, and the register withdraws and re-files, so a floor keyed on that filing fails
+  // the day it leaves and tells the operator the RULE regressed. Set below what the other
+  // two declarants supply (5), and still non-vacuous: with the T4 arm deleted the class is
+  // 0, not 5 — an initial-shaped pair cannot reach T5 (the length prefilter refuses „С"
+  // against „СПАСОВА") nor T6.
+  initial: 3,
+  "one-edit": 500,
+  reorder: 10,
+};
+
+test("every fold class is actually firing on the corpus", async () => {
+  if (!(await reachable())) return;
+  const rows = await corpus();
+  const folded = new Map<string, number>();
+  for (const r of rows) {
+    // Asks the RULE, not the stored column. Reading `is_spouse` here would only prove the
+    // corpus still carries yesterday's folds — a pass deleted today would keep passing
+    // until someone restamped. This way a neutered pass drops its class to 0 immediately.
+    if (isSpouseHolder(r.holder_name, r.declarant_name)) continue;
+    const shape = shapeOf(r.holder_name, r.declarant_name);
+    if (!shape) continue;
+    folded.set(shape, (folded.get(shape) ?? 0) + 1);
+  }
+  for (const shape of SHAPES) {
+    const got = folded.get(shape) ?? 0;
+    assert.ok(
+      got >= FOLD_FLOOR[shape],
+      `only ${got} rows fold via the ${shape} class, under the floor of ${FOLD_FLOOR[shape]} — ` +
+        `that pass has stopped firing, or the corpus lost the spellings it exists for`,
+    );
+  }
 });
 
 afterAll(async () => {
