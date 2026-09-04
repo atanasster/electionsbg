@@ -37,7 +37,11 @@ export type PersonElectionRow = {
   donationCount: number;
   /** The filing's own rows (date · goal · monetary · nonMonetary), minus the donor name —
    *  it is this person by construction, and a name inside a per-person payload reads as
-   *  evidence of identity on exactly the shared-name pages where it is not. */
+   *  evidence of identity on exactly the shared-name pages where it is not.
+   *
+   *  `goal` is carried but rendered by NOTHING today: it keeps the row structurally identical
+   *  to the tile's own type, which is what makes the assignment cast-free. Its absence from
+   *  the UI is a choice, not a bug. */
   donations: PersonDonation[];
 };
 

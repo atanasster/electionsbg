@@ -74,6 +74,7 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
       title={t("pp_wealth_title")}
       icon={TrendingUp}
       subtitle={t("pp_wealth_hint")}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="pt-6">

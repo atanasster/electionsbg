@@ -48,6 +48,7 @@ export const PersonNgoSeats: FC<{
       id="person-ngos"
       title={t("pp_ngos")}
       icon={HeartHandshake}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="space-y-2 pt-6">

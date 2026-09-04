@@ -103,6 +103,7 @@ export const PersonCouncilVoting: FC<{
         id="person-council-voting"
         title={t("pp_council_voting_title")}
         icon={Landmark}
+        headingLevel={2}
       >
         <Card className="my-4">
           <CardHeader className="pb-2">

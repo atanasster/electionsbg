@@ -46,6 +46,7 @@ export const PersonProcurementSection: FC<{ slug: string }> = ({ slug }) => {
       title={t("pp_proc_all_contracts") || "Обществени поръчки"}
       icon={Receipt}
       subtitle={t("pp_proc_all_contracts_hint")}
+      headingLevel={2}
     >
       <div className="mb-3">
         <Link

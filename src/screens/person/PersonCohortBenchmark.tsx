@@ -40,6 +40,7 @@ export const PersonCohortBenchmark: FC<{ slug: string }> = ({ slug }) => {
       title={t("pp_cohort_title")}
       icon={Users}
       subtitle={t("pp_cohort_hint", { cohort: cohortLabel, year: b.year })}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="pt-6">

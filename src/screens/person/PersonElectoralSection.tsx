@@ -23,6 +23,7 @@ import {
   CandidateElectoralBodySkeleton,
   type ElectoralSectionMeta,
 } from "@/screens/dashboard/CandidateElectoralBody";
+import { PersonSelfFunding } from "./PersonSelfFunding";
 import { Pill } from "@/components/ui/Pill";
 
 type Candidacy = { election: string; slug: string };
@@ -148,12 +149,25 @@ export const PersonElectoralSection: FC<Props> = ({
     ) : null;
 
   return (
-    <CandidateElectoralBody
-      summary={summary}
-      linkSlug={candidateSlug}
-      selector={{ cycle: selectedCycle, control: selector ?? undefined }}
-      electoralSection={electoralSection}
-      geographySection={geographySection}
-    />
+    <>
+      <CandidateElectoralBody
+        summary={summary}
+        linkSlug={candidateSlug}
+        selector={{ cycle: selectedCycle, control: selector ?? undefined }}
+        electoralSection={electoralSection}
+        geographySection={geographySection}
+      />
+      {/* Campaign self-funding — the block the merged dashboard was missing entirely while
+          /candidate/:id had it, and the reason the two pages read as different pages. Fed
+          from the SAME payload as the electoral block (person_elections' per-cycle ЕРИК
+          figures), so it needs no second fetch and cannot be namesake-conflated the way the
+          name-keyed shard was. Self-hides when nothing is attributed. */}
+      <PersonSelfFunding
+        rows={rows}
+        selectedCycle={selectedCycle}
+        name={name}
+        linkSlug={candidateSlug}
+      />
+    </>
   );
 };

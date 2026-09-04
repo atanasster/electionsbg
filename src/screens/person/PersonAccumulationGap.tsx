@@ -50,6 +50,7 @@ export const PersonAccumulationGap: FC<{ slug: string }> = ({ slug }) => {
         from: gap.fromYear,
         to: gap.toYear,
       })}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="pt-6">

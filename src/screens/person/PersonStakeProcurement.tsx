@@ -47,6 +47,7 @@ export const PersonStakeProcurement: FC<{ slug: string }> = ({ slug }) => {
       title={t("pp_stake_proc_title")}
       icon={Briefcase}
       subtitle={t("pp_stake_proc_hint")}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="space-y-3 pt-6">

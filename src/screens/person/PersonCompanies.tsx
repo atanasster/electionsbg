@@ -257,6 +257,7 @@ export const PersonCompanies: FC<{
       id="person-business"
       title={t("pp_companies")}
       icon={Building2}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="space-y-2 pt-6">

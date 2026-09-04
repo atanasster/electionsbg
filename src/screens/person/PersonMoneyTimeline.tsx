@@ -120,6 +120,7 @@ export const PersonMoneyTimeline: FC<{ slug: string }> = ({ slug }) => {
       title={t("pp_money_by_cabinet")}
       icon={Landmark}
       subtitle={t("pp_money_by_cabinet_hint")}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="pt-6">

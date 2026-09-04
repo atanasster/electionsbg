@@ -89,6 +89,7 @@ now IS — a decision, never an accident):
 | the geography section | gated on the ARRAYS on both, which also fixes an orphaned „География" heading the candidate page rendered whenever both tiles self-hid |
 | `CandidatePreferencesCard`'s drill-down | honours `linkSlug` on both (it fell back to the URL-encoded name while every sibling tile used the slug) |
 | the card grid on a cycle with no paper/machine split | 3 columns rather than a ragged empty fourth |
+| campaign self-funding | settled by Tier 3: the same tile on BOTH surfaces, payload-fed on the person page and shard-fed on the legacy body. The per-cycle HISTORY is person-only — the legacy body has no resolved person, so it has no rows to plot |
 | the trajectory ARRAY (`history`) | settled by Tier 2: the prop is GONE and both surfaces plot `summary.history`. On the person page that is now the arc `person_elections()` derives from the person's own rows; on the legacy candidate body it is still the shard's array, which is namesake-polluted — one more reason Tier 1 shrank that body's reach to the genuinely person-less URLs |
 
 ⚠️ **„Дарения" already means two different things and both pages print the same word.** The
@@ -319,12 +320,15 @@ of `CandidateDashboardCards`. Fold them:
    - ⚠️ **The PARTY is part of the key and is not optional.** ЕРИК's table is „дарения от
      кандидати **и членове**", so a donor need not be a candidate at all. Measured 2026-09-04:
      756 of 886 filing rows (85.3%) join on (election, party, name).
-   - ⚠️ **The 130 unmatched rows are THREE groups, not two, and one of them is LOST rather
-     than refused.** 65 are names on a DIFFERENT party's list — correctly refused, since
-     matching them pays one party's donation to another party's same-named candidate. 56 are
-     absent from the ballot entirely — party members, correctly unattributed, and still
-     visible on the party's own financing page. And **10 rows / €7,284.85 across 7 candidates
-     ARE on their own party's list under a shortened spelling** — a missing patronymic
+   - ⚠️ **The 130 unmatched rows are 65 on another party's list and 65 absent from the ballot
+     under the filed spelling — and part of the second group is LOST rather than refused.**
+     The first 65 are correctly refused: matching them pays one party's donation to another
+     party's same-named candidate. Of the **66** rows absent from every ballot in their cycle,
+     one is nonetheless attributed through an inferred-party `mp-{id}` shard (which is why
+     756 attribute against 755 exact (party, name) matches), ~56 are genuine party members —
+     correctly unattributed, and still visible on the party's own financing page — and **10
+     rows / €7,284.85 across 7 candidates ARE on their own party's list under a shortened
+     spelling** — a missing patronymic
      („Даниел Георгиев" → „Даниел Георгиев Илчев") or hyphen spacing („Мая Манолова -
      Найденова" → „Мая Божидарова Манолова-Найденова", €5,155 of the total). Case and
      whitespace folding recover **0** of them. Closing that gap needs a name-token rule with
@@ -346,18 +350,42 @@ of `CandidateDashboardCards`. Fold them:
      | 2024_06_09 | 212 | €201,337 | €184,964 |
      | 2024_10_27 | 173 | €585,179 | €18,523 |
      | 2026_04_19 | 151 | €240,170 | €38,730 |
-2. `person_elections()` returns the four fields per cycle. `PersonElectoralSection` renders
-   `CandidateDonationsTile` for the selected cycle — fed from the payload, not from a
-   name-keyed fetch — under a `financing` section, gated on that CYCLE's `hasFinancials` from
-   `elections.json` (not the global `electionStats`, which is the header's cycle and not the
-   person's).
-3. **The history of donations** is then the person's own rows: a small per-cycle list
-   (date · monetary · non-monetary · total) with cycles that publish no financing labelled as
-   such. Three cycles maximum today. Not a sparkline.
-4. Name the two facts apart. Keep `pp_donations`/„Дарения" for money the person GAVE to a
-   party (`fromDonors`, presence only) and give the candidate self-funding block its own key
-   („Самофинансиране на кампанията"), each carrying its own one-line basis. Both blocks may
-   appear on one page; neither may borrow the other's heading.
+2. **DONE.** `person_elections()` returns the four fields per cycle, and
+   `PersonElectoralSection` renders `PersonSelfFunding` beneath the electoral block — the
+   selected cycle's figure through the SAME `CandidateDonationsTile` the candidate page uses,
+   fed from the payload rather than from the name-keyed shard.
+   - The tile gained a `rows` prop, and the FETCH moved into a child component that only
+     mounts when `rows` is absent. `enabled: false` still requires a QueryClientProvider up
+     the tree, which would have made „nothing is fetched" true of the network and false of
+     the component — the person dashboard would carry a dependency on a fetch layer it does
+     not use, and so would every test of it.
+   - Gated on the SELECTED CYCLE's `hasFinancials`, from `ElectionContext.stats` (the whole
+     elections table is already in the bundle, so it costs no request) — not the global
+     `electionStats`, which is the header's cycle and not the person's.
+3. **DONE.** The history is the person's own rows: a per-cycle list (cycle · contributions ·
+   cash · in-kind), newest first, cash and in-kind in separate columns. Three cycles maximum.
+   Not a sparkline.
+   - It renders only from TWO funded cycles up: one point is the figure already on the card
+     above it.
+   - ⚠️ **A zero is never rendered as „gave nothing", at either level** — a cycle with no
+     attributed rows is omitted from the history, and a person with nothing attributed
+     anywhere gets no section. That is §1's residue talking: 10 filing rows / €7,284.85 do
+     not attribute because ЕРИК spells the name shorter than the ballot does, so absence of a
+     figure is absence of an ATTRIBUTION. The distinction between „nothing was declared" and
+     „this vote publishes no campaign financing" is spelled out in words for the same reason.
+   - History is person-only, and that asymmetry is deliberate: the legacy candidate body has
+     no resolved person and therefore no rows.
+4. **DONE.** The two facts are named apart. The tile is „Самофинансиране" under a
+   „Самофинансиране на кампанията" section — money the person GAVE to their own party's
+   campaign — and the person dashboard's „Дарения" block keeps its name but now carries a
+   basis line saying it is presence in a party's donor list, not an amount. Both may appear
+   on one page; neither borrows the other's heading.
+   - Two rendering defects fell out of putting the tile on a page where in-kind is usually
+     zero: `formatThousands(0)` returns the EMPTY STRING, so the sub-line read „511 парични ·
+     непарични" — a label with no number, which reads as a missing value rather than as zero
+     — and the count read „1 дарения". Now „511 парични" (only the bases that carry money)
+     and „1 вноска" (a plural key, and „вноска" rather than „дарение", which is the other
+     direction).
 5. `fromDonors` amounts are reachable by the same `(election, partyNum, displayName)` key that
    `person_role(source='donor').ref` already stores, so the presence-only block can become a
    figure later. Deliberately NOT in this tier: `source='donor'` is `public_default=false`, so
@@ -374,8 +402,10 @@ of `CandidateDashboardCards`. Fold them:
    their sum equals the stored total; coverage has not COLLAPSED against the filings (756/886
    measured, floored at 70% because the residue's size legitimately moves); and self-funding
    reaches a second person ONLY where the identity layer has already split one human in two.
-   Plus the client-side contract tests in `personDataCycles.test.ts` and a
-   `CandidateDonationsTile` test over the PG payload shape (Tier 3b).
+   Plus the client-side contract tests in `personDataCycles.test.ts` and, from Tier 3b,
+   `CandidateDonationsTile.test.tsx` (the tile's heading, the per-basis sub-line, the plural,
+   the zero guard, no-request-on-payload, the drill-down cycle, and the surviving shard arm)
+   and `PersonSelfFunding.test.tsx`.
    - ⚠️ The reconciliation is the ONLY gate that compares against an external source, so its
      corpus-absent path goes through `reportSkip`, not `console.warn` — vitest's default
      reporter swallows `console.*` when stdout is piped, i.e. every CI run, and a silent

@@ -56,6 +56,7 @@ export const PersonDeclarationEvents: FC<{ slug: string }> = ({ slug }) => {
       title={t("pp_events_title")}
       icon={ArrowLeftRight}
       subtitle={t("pp_events_hint")}
+      headingLevel={2}
     >
       <Card>
         <CardContent className="pt-6">

@@ -449,6 +449,7 @@ const PersonDashboardBody: FC<{
       {p.regulators.length > 0 && (
         <DashboardSection
           id="person-regulators"
+          headingLevel={2}
           title={t("pp_regulators")}
           icon={Scale}
         >
@@ -572,6 +573,7 @@ const PersonDashboardBody: FC<{
           {offices.length > 0 && (
             <DashboardSection
               id="person-offices"
+              headingLevel={2}
               title={t("pp_offices")}
               icon={Landmark}
             >
@@ -742,6 +744,7 @@ const PersonDashboardBody: FC<{
               sides by name — hence `strictIdentity`. */}
           <DashboardSection
             id="person-connections"
+            headingLevel={2}
             title={t("pp_connections")}
             icon={Users}
           >
@@ -753,15 +756,25 @@ const PersonDashboardBody: FC<{
             />
           </DashboardSection>
 
-          {/* Donations */}
+          {/* Donations GIVEN TO A PARTY — the person appears in a party's `fromDonors` list.
+              ⚠️ A DIFFERENT fact from „Самофинансиране на кампанията" above, which is money
+              this person gave to their OWN party's campaign as a candidate. Both used to be
+              headed „Дарения", on the same page, with nothing distinguishing them. This one
+              carries no amount: `person_role(source='donor')` is public_default=false, so
+              attaching a figure to a named private individual is a decision rather than a
+              rendering change (plan §3.5). Hence the basis line — presence, not size. */}
           {donations.length > 0 && (
             <DashboardSection
               id="person-donations"
               title={t("pp_donations")}
               icon={Coins}
+              headingLevel={2}
             >
               <Card>
                 <CardContent className="space-y-1 pt-6">
+                  <p className="pb-1 text-xs text-muted-foreground">
+                    {t("pp_donations_basis")}
+                  </p>
                   {[...new Set(donations.map((r) => r.ref.split(":")[0]))]
                     .sort((a, b) => b.localeCompare(a))
                     .map((election) => (
