@@ -72,6 +72,38 @@ export const RISK_CACHE_LOCK_KEY = 112112112;
 /** Serialise against every other risk-cache rebuild. Must run INSIDE a transaction. */
 export const RISK_CACHE_LOCK_SQL = `SELECT pg_advisory_xact_lock(${RISK_CACHE_LOCK_KEY})`;
 
+/** One full `rebuild_contract_risk_cache()`, measured 2026-09-04 on the local docker Postgres
+ *  at 410,731 contracts: 44.7 s. It is the unit the budget below is built from, so re-measure
+ *  it when the corpus grows materially rather than nudging the timeout. */
+export const RISK_CACHE_REBUILD_MS = 45_000;
+
+/** How many places take {@link RISK_CACHE_LOCK_SQL}. Kept honest by
+ *  `rebuildRiskCache.test.ts`, which counts the call sites in `scripts/**` and fails when this
+ *  disagrees — the number is an input to a TIMEOUT, so a stale one does not read as wrong, it
+ *  reads as a flaky test on somebody else's file. */
+export const RISK_CACHE_LOCK_SITES = 3;
+
+/** The per-test budget every file holding {@link RISK_CACHE_LOCK_SQL} must set.
+ *
+ *  ⚠️ THE LOCK TRADED THREE RACES FOR ONE CLOCK PROBLEM, AND ONLY THE RACES WERE FIXED. The
+ *  header above already names the outcome — "or, when the loser is the slow real rebuild, a
+ *  120 s test timeout" — and that is precisely what the node project's global `testTimeout`
+ *  then delivered: `contract_risk_meta`'s stamped rebuild waits for `contracts_list_grant`'s,
+ *  so its budget has to cover somebody else's 45 s before its own begins. Reproduced
+ *  deterministically 2026-09-04 with just those two files: 120 s timeout, every test green when
+ *  either ran alone.
+ *
+ *  The arithmetic, rather than a number somebody picked: a site can wait behind every OTHER
+ *  site before doing its own work, so the serialised worst case is `SITES × REBUILD`. The ×2 is
+ *  measured contention, not padding — the same two files took 192 s of test time together
+ *  against 93 s apart, on a suite running ~16 workers against one Postgres.
+ *
+ *  ⚠️ RAISING THIS IS NOT FREE: a genuinely hung rebuild now takes this long to report. That is
+ *  why it is scoped to the files that take the lock, with `vi.setConfig`, instead of moved into
+ *  `vitest.config.ts` where it would slow every hang in `scripts/**`. */
+export const RISK_CACHE_TEST_TIMEOUT_MS =
+  RISK_CACHE_LOCK_SITES * RISK_CACHE_REBUILD_MS * 2;
+
 /** The bare, UNSTAMPED rebuild — the pre-T1.5 overload.
  *
  *  Reached only as a fallback on a database whose 112 predates the stamp. It

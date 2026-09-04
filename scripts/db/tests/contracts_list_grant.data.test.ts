@@ -24,11 +24,23 @@
 //
 //   npm run test:data
 
-import { test, afterAll } from "vitest";
+import { test, afterAll, vi } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end, withClient } from "../lib/pg";
-import { RISK_CACHE_LOCK_SQL } from "../lib/rebuildRiskCache";
+import {
+  RISK_CACHE_LOCK_SQL,
+  RISK_CACHE_TEST_TIMEOUT_MS,
+} from "../lib/rebuildRiskCache";
 import { reportSkip } from "../../lib/report_skip";
+
+// ⚠️ THIS FILE'S BUDGET IS NOT THE PROJECT'S. It takes the risk-cache advisory lock, so a test
+// here can spend another FILE's rebuild — 45 s — before its own starts, and the node project's
+// 120 s does not cover that. The number is derived beside the lock rather than typed here;
+// see RISK_CACHE_TEST_TIMEOUT_MS for the arithmetic and for why it is scoped rather than global.
+vi.setConfig({
+  testTimeout: RISK_CACHE_TEST_TIMEOUT_MS,
+  hookTimeout: RISK_CACHE_TEST_TIMEOUT_MS,
+});
 
 const haveDb = await dbReachable();
 

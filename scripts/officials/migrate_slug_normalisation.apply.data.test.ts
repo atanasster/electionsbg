@@ -10,9 +10,25 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { afterAll, describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it, vi } from "vitest";
 import { ROOT } from "./shared";
 import { personGuidFromSourceUrl } from "./slug_identity";
+
+// ⚠️ THIS FILE'S BUDGET IS NOT THE PROJECT'S, and the node project's 120 s never fitted it.
+// The first test copies the WHOLE officials corpus — 394 MB across 23,052 files, of which
+// `declarations/` alone is 252 MB / 16,109 — and then drives the migration through the CLI in
+// a cold `tsx` process, twice. Measured 2026-09-04 on the local machine: ~28-30 s with the
+// corpus in the page cache and 101 s cold, i.e. 84% of the old budget spent before any
+// contention, on a suite running ~16 workers. CI is always the cold case.
+//
+// The copy is not reducible without changing what this covers: `declarations/` IS the
+// migration's subject, and the CLI is deliberately spawned rather than called in-process
+// because the delete-then-write path is what the pure-function tests cannot reach.
+//
+// 300 s is ~3x the cold measurement. ⚠️ Scoped here rather than raised in `vitest.config.ts`,
+// because a bigger global budget makes every genuinely hung test in `scripts/**` take that
+// long to report.
+vi.setConfig({ testTimeout: 300_000, hookTimeout: 300_000 });
 
 const SRC = path.join(ROOT, "data", "officials");
 const present =
