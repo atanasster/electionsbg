@@ -19,7 +19,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { stripComments } from "./strip_comments";
 import { reportSkip } from "./report_skip";
-import { carriesReason, gatesOf, scanSource } from "./skip_gate_scan";
+import {
+  assertedCommittedLiterals,
+  carriesReason,
+  gatesOf,
+  scanSource,
+} from "./skip_gate_scan";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -27,14 +32,14 @@ const REPO = path.resolve(
 );
 
 /**
- * Deliberate omissions, keyed by path. A file listed here must STILL be in violation — a
- * stale entry fails, so an exemption cannot outlive its reason.
- */
-/**
  * Files whose PROBE conflates "Postgres down" with "relation absent/empty" — the
  * `conflated-probe` rule, ratcheted.
  *
- * ⚠️ 83 OF THESE EXIST AND THEY ARE PRE-EXISTING, measured 2026-08-25. Plan §8.2 scoped the
+ * (The stray block that used to sit here described `EXEMPT`, 100 lines below, and attached to
+ * this declaration instead — two JSDoc comments on one symbol, the second winning.)
+ *
+ * ⚠️ 83 OF THESE EXISTED WHEN THE CLASS WAS MEASURED, on 2026-08-25; the list has moved since
+ * and `CONFLATED_PROBE_CEILING` below is the number that has to stay true. Plan §8.2 scoped the
  * class at 19; that count was of files whose GATE was also a bare boolean. Fixing those
  * (Tier 3b) exposed the rest: a gate can carry a perfectly good reason and still be fed by a
  * probe that answers `false` both when the server is down and when the relation is empty, so
@@ -47,6 +52,17 @@ const REPO = path.resolve(
  * reason ships. NEW conflated probes fail immediately; this list may only shrink, and the
  * "no exemption outlives its reason" test below fails on any entry that has been fixed.
  */
+/** ⚠️ THE RATCHET'S OTHER HALF, AND IT WAS MISSING. The staleness test below fails on an entry
+ *  that has been FIXED, so removals are enforced — but nothing failed on an ADDITION, so the
+ *  header's promise that "NEW conflated probes fail immediately" was one line of diff away from
+ *  being false: an author who tripped the rule could silence it for ever by appending a path,
+ *  green, with no reviewer signal. That is the laundering `EXEMPT`'s own ⚠️ was rewritten to
+ *  prevent. Measured on the way in: the list held 85 against a header that said 83, so it had
+ *  already grown twice unnoticed.
+ *
+ *  Lower it when you fix one. It must never go up. */
+const CONFLATED_PROBE_CEILING = 84;
+
 const CONFLATED_PROBES = new Set<string>([
   "scripts/db/tests/accountability_gate.data.test.ts",
   "scripts/db/tests/accumulation_gap.data.test.ts",
@@ -87,7 +103,6 @@ const CONFLATED_PROBES = new Set<string>([
   "scripts/db/tests/no_personal_ids.data.test.ts",
   "scripts/db/tests/nzok_activity_entity.data.test.ts",
   "scripts/db/tests/official_candidate_link.data.test.ts",
-  "scripts/db/tests/official_roster_obshtina.data.test.ts",
   "scripts/db/tests/officials_rankings.data.test.ts",
   "scripts/db/tests/officials_redirect.data.test.ts",
   "scripts/db/tests/person_abroad.data.test.ts",
@@ -239,11 +254,10 @@ describe("every gate that computes a skip reason reports it", () => {
     const bad: string[] = [];
     for (const rel of files) {
       const src = sourceOf(rel);
-      for (const m of src.matchAll(/assertCommitted\(([\s\S]*?)\)/g))
-        for (const q of m[1].match(/"([^"]+)"/g) ?? []) {
-          const p = q.slice(1, -1);
-          if (!tracked.has(p) && !trackedDirs.has(p)) bad.push(`${rel} → ${p}`);
-        }
+      for (const q of assertedCommittedLiterals(src)) {
+        const p = q.slice(1, -1);
+        if (!tracked.has(p) && !trackedDirs.has(p)) bad.push(`${rel} → ${p}`);
+      }
     }
     expect(
       bad,
@@ -254,6 +268,18 @@ describe("every gate that computes a skip reason reports it", () => {
 
   // ⚠️ THE RATCHET ONLY WORKS IN ONE DIRECTION IF STALE ENTRIES FAIL. Without this a probe
   // that someone fixed stays listed for ever, and the list stops describing the corpus.
+  test("the conflated-probe list only ever shrinks", () => {
+    // Needs no git and no filesystem walk, deliberately — the staleness test above is
+    // `skipIf(gitless)`, so on a shallow or export-only checkout the ratchet would otherwise
+    // have no enforcement in EITHER direction.
+    expect(
+      CONFLATED_PROBES.size,
+      `${CONFLATED_PROBES.size} conflated probes against a ceiling of ` +
+        `${CONFLATED_PROBE_CEILING}. Fixing one lowers the ceiling; appending a path to ` +
+        "silence the rule is what this exists to stop.",
+    ).toBeLessThanOrEqual(CONFLATED_PROBE_CEILING);
+  });
+
   test.skipIf(gitless)("no conflated-probe entry outlives its probe", () => {
     const stale: string[] = [];
     for (const rel of CONFLATED_PROBES) {
@@ -314,11 +340,11 @@ describe("every gate that computes a skip reason reports it", () => {
     expect(trackedDirs.size, "no tracked directories derived").toBeGreaterThan(
       50,
     );
-    const assertedPaths = files.flatMap(
-      (rel) =>
-        (sourceOf(rel).match(/assertCommitted\(([\s\S]*?)\)/)?.[1] ?? "").match(
-          /"([^"]+)"/g,
-        ) ?? [],
+    // ⚠ THE SHARED READER, so this floor counts what the ANALYSER counts. Its own copy of the
+    // regex was non-global and saw only the first `assertCommitted(` per file, which makes a
+    // floor that reads as "every asserted path" quietly narrower than it claims.
+    const assertedPaths = files.flatMap((rel) =>
+      assertedCommittedLiterals(sourceOf(rel)),
     );
     expect(
       assertedPaths.length,

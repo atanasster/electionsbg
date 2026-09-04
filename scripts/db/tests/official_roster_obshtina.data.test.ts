@@ -39,27 +39,91 @@ const MUNICIPALITIES_PATH = path.join(
   "../../../data/municipalities.json",
 );
 
-const reachable = async (): Promise<boolean> => {
+/** ⚠ IT RETURNS A REASON, NOT A BOOLEAN. A probe answering `false` both when the server is down
+ *  and when the table is empty forces ONE authored sentence onto two different worlds — and the
+ *  half it gets wrong is always "Postgres unreachable", which `mp_arm_sql`'s header records as
+ *  the string a real SQL bug hid behind for two days: "the one warning an operator is trained
+ *  to ignore". The slash in the old message ("Postgres unreachable / official_roster empty")
+ *  was that conflation written out rather than fixed, and the two need different remedies:
+ *  `official_roster` is TRUNCATEd and reloaded only by `db:load:ngo-board-links`, which is not
+ *  the command anybody reaches for when a container is down.
+ *
+ *  This file was on `report_skip_coverage`'s CONFLATED_PROBES ratchet; fixing it here is what
+ *  removes the entry, and the ratchet's staleness arm fails if the two are not done together. */
+const reachable = async (): Promise<string | false> => {
   try {
     const [c] = await allRows<{ n: string }>(
       "SELECT count(*) n FROM official_roster WHERE tier = 'municipal'",
     );
-    return Number(c.n) > 0;
-  } catch {
+    if (Number(c.n) === 0)
+      return "official_roster holds no municipal row — run npm run db:load:ngo-board-links";
     return false;
+  } catch (e) {
+    const code = (e as { code?: string }).code;
+    if (code === "42P01")
+      return "the official_roster table does not exist — run npm run db:load:ngo-board-links against this database";
+    if (code === "42501")
+      return "no permission to read official_roster — check the role this DATABASE_URL connects as";
+    // ⚠ CARRY THE CODE. 28P01 (auth) and 3D000 (no such database) are servers that answered.
+    return `Postgres unreachable (${code ?? (e as Error).message})`;
   }
 };
 
-const haveDb = await reachable();
-const skip = haveDb ? false : "Postgres unreachable / official_roster empty";
+const skip = await reachable();
 reportSkip(import.meta.url, skip);
+/** The PERSON-LAYER gate, and it is separate for the reason the two siblings just learned.
+ *
+ *  ⚠⚠ A SECOND RELATION, WRITTEN BY A DIFFERENT LOADER. `person_role` is DELETEd and re-COPYd
+ *  by `db:resolve:persons`; `official_roster` is TRUNCATEd only by `db:load:ngo-board-links`,
+ *  25 steps earlier in `db:refresh` and independently runnable. "The roster is loaded" says
+ *  nothing about the person layer, and the failure is silent in the worst direction: with an
+ *  empty `official_muni` population the two counting tests below report `total=0 placed=0` and
+ *  `0 distinct place_code`, both of which PASS — against a real 6,647/6,647. A corpus that was
+ *  never asked, publishing "no defects".
+ *
+ *  Absent rather than empty is reachable too: `person_role` is created by
+ *  `081_person_identity.sql`, whose appliers are the resolver, `add_override.ts` and the agri
+ *  ingest — none of them this file's loader — so a cloud target filled in the documented
+ *  per-loader order can hold the roster and no person layer, and every one of these tests then
+ *  throws a bare 42P01 with no reason. */
+const personRoleReachable = async (): Promise<string | false> => {
+  try {
+    const [c] = await allRows<{ n: string }>(
+      "SELECT count(*) n FROM person_role WHERE source = 'official_muni'",
+    );
+    if (Number(c.n) === 0)
+      return "person_role holds no official_muni role — run npm run db:resolve:persons";
+    return false;
+  } catch (e) {
+    const code = (e as { code?: string }).code;
+    if (code === "42P01")
+      return "the person_role table does not exist — run npm run db:resolve:persons against this database";
+    if (code === "42501")
+      return "no permission to read person_role — check the role this DATABASE_URL connects as";
+    return `Postgres unreachable (${code ?? (e as Error).message})`;
+  }
+};
+
+// ⚠ NOT `skip || …` — see the shard gate below for what composing an unrelated reason costs.
+const skipPerson = await personRoleReachable();
+reportSkip(import.meta.url, skipPerson);
+
 const haveShards = existsSync(SHARD_DIR);
 
-const skipShards =
-  skip ||
-  (!haveShards
-    ? "data/officials/municipal/by_obshtina absent — it is committed, so this is a sparse checkout"
-    : false);
+// ⚠⚠ NOT `skip || …`, AND THAT LINE COST BOTH SHARD GATES EVERY CI RUN. The two tests below
+// this read `data/municipalities.json` and `readdirSync(SHARD_DIR)` and open no connection —
+// the file says so itself at „These two need no database" — but composing the database reason
+// in stood them down whenever Postgres was absent, which is every hermetic CI run
+// (`.github/workflows/test.yml` labels the unit step "no browser, emulator or database").
+// Measured against a dead port: both reported „skipped — Postgres unreachable (ECONNREFUSED)".
+//
+// What was lost is not incidental. They were written on 2026-09-04 for a defect in COMMITTED
+// DATA — VAR05 carrying no shard while RSE04 held two municipalities' rosters, two mayors and
+// two council chairs — detectable with no database, and their detector was running only on a
+// developer's machine that happened to have a container up.
+const skipShards = !haveShards
+  ? "data/officials/municipal/by_obshtina absent — it is committed, so this is a sparse checkout"
+  : false;
 reportSkip(import.meta.url, skipShards);
 afterAll(async () => {
   await end();
@@ -70,9 +134,16 @@ afterAll(async () => {
 // quietly vanish from a code-scoped query.
 // OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
 // working copy rather than a supported state. See scripts/lib/assert_committed.ts.
+// ⚠ `data/municipalities.json` IS THE THIRD ONE, and it was read without being asserted. It is
+// the input to „every município in data/municipalities.json has a roster shard" — the gate that
+// caught Бяла/Варна resolving onto Бяла (Русе)'s code, leaving VAR05 with no shard while RSE04
+// carried two mayors and two council chairs. Absent, `readFileSync` threw a bare ENOENT inside
+// a `skipIf`-gated test: loud, but unnamed, and not the "restore your working copy" diagnosis
+// this helper exists to give.
 assertCommitted(
   "data/officials/municipal/by_obshtina",
   "data/officials/municipal/index.json",
+  "data/municipalities.json",
 );
 
 test.skipIf(skip)(
@@ -93,7 +164,7 @@ test.skipIf(skip)(
 
 // The resolver leg. official_roster having the code is useless if person_role does not,
 // since that is what a served municipal roster would actually be keyed on.
-test.skipIf(skip)(
+test.skipIf(skipPerson)(
   "person_role carries a typed obshtina place for municipal roles",
   async () => {
     const [row] = await allRows<{ total: string; placed: string }>(
@@ -197,7 +268,7 @@ test.skipIf(skipShards)(
 
 // Codes must be the app's own, not invented. Anything not matching a shard filename would
 //404 the municipal page it keys.
-test.skipIf(skipShards)(
+test.skipIf(skipPerson || skipShards)(
   "every code in person_role matches a real obshtina shard",
   async () => {
     const known = new Set(
@@ -209,11 +280,15 @@ test.skipIf(skipShards)(
       `SELECT DISTINCT place_code FROM person_role
         WHERE source = 'official_muni' AND place_kind = 'obshtina'`,
     );
-    for (const { place_code } of rows)
-      assert.ok(
-        known.has(place_code),
-        `person_role.place_code '${place_code}' is not an obshtina shard`,
-      );
+    // ⚠ COLLECTED, NOT ASSERTED PER ROW. Every other assertion in this file reports a count
+    // and a truncated sample; failing inside the loop names ONE code, so a systematic break —
+    // every code shifted by a join change — reads as a single stray row.
+    const unknown = rows.map((r) => r.place_code).filter((c) => !known.has(c));
+    assert.deepEqual(
+      unknown.slice(0, 5),
+      [],
+      `${unknown.length} person_role.place_code value(s) are not obshtina shards`,
+    );
   },
 );
 
@@ -232,7 +307,7 @@ test.skipIf(skipShards)(
 // code, is the original defect), and every `extra` must be a departed official — present in
 // the municipal index, absent from the bench. An extra that is in NO index at all is a real
 // failure, and so is a count that drifts from the index's own retained figure.
-test.skipIf(skipShards)(
+test.skipIf(skipPerson || skipShards)(
   "every shard row is in Postgres under the same code, and the extras are exactly the departed",
   async () => {
     const rows = await allRows<{ place_code: string; ref: string }>(
@@ -281,19 +356,34 @@ test.skipIf(skipShards)(
     //
     // What DOES decide it is scripts/officials/municipality_join.test.ts, which tests the
     // join against the catalogue with no database involved. Green there ⇒ stale database.
-    const elsewhere = missing.filter((m) =>
-      [...pg.values()].some((set) => set.has(m.split("/")[1]!)),
-    );
+    // ⚠ ONE SET, NOT ONE PER MISSING ROW. `[...pg.values()]` inside the filter rebuilt the
+    // whole 265-município structure per candidate.
+    const anySlug = new Set<string>();
+    for (const set of pg.values()) for (const slug of set) anySlug.add(slug);
+    const elsewhere = missing.filter((m) => anySlug.has(m.split("/")[1]!));
     assert.deepEqual(
       missing.slice(0, 5),
       [],
       `${missing.length} shard row(s) are absent from person_role under their shard's obshtina ` +
-        `(${elsewhere.length} of them filed under a different one, e.g. ${missing[0]}). ` +
+        // ⚠ THE EXAMPLE COMES FROM `elsewhere`, NOT FROM `missing`. With none filed elsewhere —
+        // the person-layer-never-resolved case — the old form read „0 of them filed under a
+        // different one, e.g. RSE04/ivan-petrov", pointing the reader at a row that was not.
+        `(${elsewhere.length} of them filed under a different one${
+          elsewhere.length ? `, e.g. ${elsewhere[0]}` : ""
+        }). ` +
         "Two causes, and this gate cannot separate them: (a) the name→code join regressed, " +
         "or (b) the shards are correct and the database is stale. Run " +
         "`npx vitest run scripts/officials/municipality_join.test.ts` — if it passes it is " +
-        "(b), and the fix is a reload: db:load:ngo-board-links → db:load:council:pg → " +
-        "db:resolve:persons",
+        // ⚠ THE ORDER IS LOAD-BEARING AND THIS MESSAGE HAD IT INVERTED. `db:resolve:persons`
+        // DELETEs and re-COPYs `person`, which NULLs `council_vote.person_id` table-wide, so
+        // council must be re-attached AFTER the resolve — `refresh_coverage.test.ts`'s
+        // ORDER_PAIRS asserts exactly that. Running council first, as this line used to say,
+        // blanks every council-vote attribution and reports success. And the resolver is not
+        // the end of the chain: CLAUDE.md calls stopping there "the wrong instruction and it
+        // is the one people are given".
+        "(b), and the fix is a reload, in this order: db:load:ngo-board-links → " +
+        "db:resolve:persons → db:load:declarations:pg -- --resolve → db:load:council:pg " +
+        "(see CLAUDE.md, 'A LOCAL db:resolve:persons is never one command')",
     );
 
     // Every extra must be an official the register's newest listing no longer names.

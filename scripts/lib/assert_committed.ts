@@ -28,7 +28,7 @@
 // and it was not true. Review caught it.)
 
 import { test, expect } from "vitest";
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -48,10 +48,22 @@ const REPO = path.resolve(
 export const assertCommitted = (...paths: string[]): void => {
   for (const rel of paths)
     test(`the committed ${rel} is present`, () => {
+      const abs = path.join(REPO, rel);
       expect(
-        existsSync(path.join(REPO, rel)),
+        existsSync(abs),
         `${rel} is missing. It is committed, so this is a broken working copy — not a ` +
           `supported state. Restore it (git checkout -- ${rel}) rather than skipping.`,
       ).toBe(true);
+      // ⚠️ A TREE IS COMMITTED AS ITS FILES, so `existsSync` on a DIRECTORY answers a weaker
+      // question than the caller asked: an empty `data/officials/municipal/by_obshtina` passes
+      // it while every gate that reads the shards finds nothing and reports a clean run. That
+      // is the same half-restored working copy one level down, and it is the state a partial
+      // checkout or an interrupted generator leaves behind.
+      if (statSync(abs).isDirectory())
+        expect(
+          readdirSync(abs).length,
+          `${rel} exists but is EMPTY. It is a committed tree — restore it ` +
+            `(git checkout -- ${rel}) rather than skipping.`,
+        ).toBeGreaterThan(0);
     });
 };

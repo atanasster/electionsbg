@@ -223,6 +223,21 @@ const inlineSkips = (src: string): Violation[] => {
  * `isTracked` is injected rather than shelling out to git here, so the rule stays a pure
  * function the synthetic harness can drive.
  */
+/** Every quoted path a file passes to `assertCommitted(...)`, as the literal tokens (`"…"`)
+ *  the callers compare against.
+ *
+ *  ⚠ `matchAll`, NOT `match`. This regex was written three times — here and twice in
+ *  `report_skip_coverage.test.ts` — with two different globalities, so two of the three saw
+ *  only the FIRST call site in a file. Nothing has two today, but the roster gate just grew a
+ *  third path and is exactly the shape that gains one; when it does, the non-global copies
+ *  report the second call's paths as unasserted, i.e. a false violation against the file that
+ *  did the right thing, while the anti-vacuity floor that counts these silently counts fewer
+ *  than it claims. One definition, exported so the analyser and its gate cannot disagree. */
+export const assertedCommittedLiterals = (src: string): string[] =>
+  [...src.matchAll(/assertCommitted\(([\s\S]*?)\)/g)].flatMap(
+    (m) => m[1].match(/"([^"]+)"/g) ?? [],
+  );
+
 const committedInputs = (
   src: string,
   isTracked: (p: string) => boolean,
@@ -233,11 +248,7 @@ const committedInputs = (
   // `skipIf(` at all, so it was exempt while eight sibling files on the same archetype
   // were covered.
   if (!/existsSync\s*\(/.test(src)) return [];
-  const asserted = new Set(
-    (src.match(/assertCommitted\(([\s\S]*?)\)/)?.[1] ?? "").match(
-      /"([^"]+)"/g,
-    ) ?? [],
-  );
+  const asserted = new Set(assertedCommittedLiterals(src));
   const out: Violation[] = [];
   // ⚠️ RELATIVE LITERALS COUNT. Many files spell the path as `"../../../data/officials/…"`
   // inside a path.join, so a regex anchored at `data/` saw nothing and three files dressed a
