@@ -134,23 +134,32 @@ and both resolutions are recorded in the policy file:
   REFUSES the exemption and scores it normally — a B4 regression must not be
   switchable off by a policy file.
 
-## Adjudication method (decided 2026-09-01)
+## Adjudication method (decided 2026-09-04)
 
-**One human, two blinded passes**, the plan's named fallback (b). Pass B is
-completed at least seven days after pass A, in a reshuffled order, and the
-scorer enforces the gap. ⚠️ This measures **rubric stability**, not inter-rater
-agreement, and every report derived from it must say so under that name.
+**Two independent human adjudicators** — Atanas (pass A) and Stoyan (pass B) —
+each blinded to the other's pass. This is the plan's option (a), the strongest
+of the three, and it supersedes the solo fallback (b) recorded on 2026-09-01;
+no measurement was ever taken under the fallback. ⚠️ It measures **inter-rater
+agreement**, and every report derived from it must say so under that name —
+calling it `rubric stability` would under-claim a stronger result.
 
-The full run, in order:
+The seven-day gap does not apply, and its absence is not a weakening: the gap
+exists only to decorrelate ONE person's two passes from their own memory of the
+first, and two people share no such memory. The scorer derives the method from
+the sealed passes' adjudicator names and rejects a policy that disagrees, so
+the policy file cannot claim a method the passes do not support.
+
+The full run, in order — 75 rows per pass; the supplement rows ask one axis,
+not three:
 
 ```bash
-# today
-python3 news/scripts/adjudicate_editorial_treatment.py --pass A --adjudicator "<name>"
-python3 news/scripts/adjudicate_editorial_treatment.py --pass A --supplement --adjudicator "<name>"
+# adjudicator 1
+python3 news/scripts/adjudicate_editorial_treatment.py --pass A --adjudicator "<name 1>"
+python3 news/scripts/adjudicate_editorial_treatment.py --pass A --supplement --adjudicator "<name 1>"
 
-# at least seven days later
-python3 news/scripts/adjudicate_editorial_treatment.py --pass B --adjudicator "<name>"
-python3 news/scripts/adjudicate_editorial_treatment.py --pass B --supplement --adjudicator "<name>"
+# adjudicator 2 — no waiting period
+python3 news/scripts/adjudicate_editorial_treatment.py --pass B --adjudicator "<name 2>"
+python3 news/scripts/adjudicate_editorial_treatment.py --pass B --supplement --adjudicator "<name 2>"
 
 python3 news/scripts/score_editorial_treatment_agreement.py \
   --policy news/evals/editorial_treatment_v2/human-agreement-policy-2026-09-01.json \
@@ -158,9 +167,22 @@ python3 news/scripts/score_editorial_treatment_agreement.py \
   --pass-b news/var/adjudication/pass-b.json
 ```
 
-Point the policy's `supplements[0].pass_a`/`pass_b` at the completed supplement
-files before the final scoring run. 75 rows per pass; the supplement rows ask
-one axis, not three.
+The policy's `supplements[0].pass_a`/`pass_b` already point at the completed
+supplement working copies. Both scoring inputs live in the gitignored
+`news/var/adjudication/`, because the workspace refuses to write inside this
+directory and the checked-in templates must stay pending.
+
+⚠️ **The frozen corpus lives in a tree the nightly job writes to.** On
+2026-09-02 an image-rights enrichment pass rewrote 40 of the 1,833 baseline
+article files — three of them in the gate's 75 assignment rows — so
+`file_sha(article) != article_sha256` and the scorer refuses those rows'
+passes. The writer touches only `image`, `image_alt` and `image_rights`
+(`apply_commons_images.py:121-124`), none of which an adjudicator is ever
+shown, but the frozen bytes are not recoverable and no artifact here witnesses
+the judged text independently, so that is an argument rather than a hash. Do
+not "fix" it by re-freezing `article_sha256`: `assignments_sha256` is a
+canonical hash over the whole array, so moving one row invalidates both sealed
+passes and discards every human judgment in them.
 
 ## Party-identity audit
 
