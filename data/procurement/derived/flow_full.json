@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:11:17.881Z",
+  "generatedAt": "2026-09-04T22:33:22.782Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -9972,6 +9972,16 @@
       "label": "Янко Генадиев Стоименов"
     },
     {
+      "id": "contractor:207487954",
+      "type": "contractor",
+      "label": "Калудова консулт ЕООД"
+    },
+    {
+      "id": "official:tanya-mihailova-kaludova-c63f3b",
+      "type": "official",
+      "label": "Таня Михайлова Калудова"
+    },
+    {
       "id": "contractor:203486246",
       "type": "contractor",
       "label": "Галъп интернешънъл болкан АД"
@@ -11010,16 +11020,6 @@
       "id": "official:irena-blagoeva-milanova-c12fb6",
       "type": "official",
       "label": "Ирена Благоева Миланова"
-    },
-    {
-      "id": "contractor:207487954",
-      "type": "contractor",
-      "label": "Калудова консулт ЕООД"
-    },
-    {
-      "id": "official:tanya-mihailova-kaludova-c63f3b",
-      "type": "official",
-      "label": "Таня Михайлова Калудова"
     },
     {
       "id": "official:emil-sarkis-indzhiyan-ea9bb5",
@@ -13221,7 +13221,7 @@
     {
       "source": "awarder:000413974",
       "target": "contractor:114078736",
-      "valueEur": 22693926.18
+      "valueEur": 23193926.18
     },
     {
       "source": "awarder:000413974",
@@ -20301,7 +20301,7 @@
     {
       "source": "awarder:831913661",
       "target": "contractor:200852966",
-      "valueEur": 199335045.83
+      "valueEur": 212780062.55
     },
     {
       "source": "awarder:831913661",
@@ -21101,7 +21101,7 @@
     {
       "source": "contractor:200852966",
       "target": "official:dimitr-ivanov-radev-364ab0",
-      "valueEur": 619741764.21
+      "valueEur": 633186780.93
     },
     {
       "source": "contractor:831641791",
@@ -21811,7 +21811,7 @@
     {
       "source": "contractor:114078736",
       "target": "official:iordan-atanasov-bogoslovov-e10728",
-      "valueEur": 25342019.96
+      "valueEur": 25842019.96
     },
     {
       "source": "contractor:103002253",
@@ -22236,7 +22236,7 @@
     {
       "source": "contractor:833066300",
       "target": "official:radostin-ivanov-milanov-555cf9",
-      "valueEur": 6469236.67
+      "valueEur": 6469996.67
     },
     {
       "source": "contractor:102657921",
@@ -24129,6 +24129,11 @@
       "valueEur": 94588.21
     },
     {
+      "source": "contractor:207487954",
+      "target": "official:tanya-mihailova-kaludova-c63f3b",
+      "valueEur": 94180
+    },
+    {
       "source": "contractor:203486246",
       "target": "official:ivilina-verginova-aleksieva-robinsn-be50a6",
       "valueEur": 90600.92
@@ -24907,11 +24912,6 @@
       "source": "contractor:123535874",
       "target": "official:irena-blagoeva-milanova-c12fb6",
       "valueEur": 18321.29
-    },
-    {
-      "source": "contractor:207487954",
-      "target": "official:tanya-mihailova-kaludova-c63f3b",
-      "valueEur": 17750
     },
     {
       "source": "contractor:204744347",
@@ -26169,6 +26169,16 @@
       "valueEur": 10225.84
     },
     {
+      "source": "awarder:115552190",
+      "target": "contractor:207487954",
+      "valueEur": 76430
+    },
+    {
+      "source": "awarder:000970432",
+      "target": "contractor:207487954",
+      "valueEur": 17750
+    },
+    {
       "source": "awarder:000672343",
       "target": "contractor:203486246",
       "valueEur": 90600.92
@@ -26692,11 +26702,6 @@
       "source": "awarder:000351736",
       "target": "contractor:112619253",
       "valueEur": 1533.88
-    },
-    {
-      "source": "awarder:000970432",
-      "target": "contractor:207487954",
-      "valueEur": 17750
     },
     {
       "source": "awarder:000093442",

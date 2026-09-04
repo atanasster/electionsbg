@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T22:11:17.881Z",
+  "generatedAt": "2026-09-04T22:33:22.782Z",
   "nodes": [
     {
       "id": "contractor:121699202",
@@ -936,7 +936,7 @@
     {
       "source": "contractor:200852966",
       "target": "official:dimitr-ivanov-radev-364ab0",
-      "valueEur": 619741764.21
+      "valueEur": 633186780.93
     },
     {
       "source": "awarder:831913661",
@@ -987,6 +987,11 @@
       "source": "contractor:130800278",
       "target": "official:tanya-zdravkova-georgieva-2cb015",
       "valueEur": 236579101.38
+    },
+    {
+      "source": "awarder:831913661",
+      "target": "contractor:200852966",
+      "valueEur": 212780062.55
     },
     {
       "source": "contractor:121396123",
@@ -1082,11 +1087,6 @@
       "source": "contractor:121396123",
       "target": "official:zdravko-asenov-anakiev-2af2c1",
       "valueEur": 209981277.59
-    },
-    {
-      "source": "awarder:831913661",
-      "target": "contractor:200852966",
-      "valueEur": 199335045.83
     },
     {
       "source": "awarder:000695406",

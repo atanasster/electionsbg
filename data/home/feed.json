@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-03T23:59:59.999Z",
+  "computedAt": "2026-09-04T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "id": "prices:promotion:400g-kiselo-mlyako-balkan-3-6",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-03T00:00:00.000Z",
-      "firstSeenAt": "2026-09-03T00:00:00.000Z",
+      "occurredAt": "2026-09-04T00:00:00.000Z",
+      "firstSeenAt": "2026-09-04T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,18 +22,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "route": "/product/400g-kiselo-mlyako-balkan-3-6",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
-        "pct": 51,
-        "promoEur": "0.89",
-        "regularEur": "1.82",
+        "title": "400Г КИСЕЛО МЛЯКО БАЛКАН 3.6%",
+        "pct": 46,
+        "promoEur": "0.49",
+        "regularEur": "0.90",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7285714285714285,
+      "materiality": 0.6571428571428571,
       "actionability": 0.85
     },
     {
@@ -101,8 +101,8 @@
       "id": "prices:promotion:kashkaval-bulgarche-tost",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-03T00:00:00.000Z",
-      "firstSeenAt": "2026-09-03T00:00:00.000Z",
+      "occurredAt": "2026-09-04T00:00:00.000Z",
+      "firstSeenAt": "2026-09-04T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -194,8 +194,8 @@
       "id": "prices:promotion:min-voda-1-5l-velingrad-6",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-03T00:00:00.000Z",
-      "firstSeenAt": "2026-09-03T00:00:00.000Z",
+      "occurredAt": "2026-09-04T00:00:00.000Z",
+      "firstSeenAt": "2026-09-04T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -251,6 +251,257 @@
       "verification": "automatic",
       "materiality": 0.8,
       "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-09-04",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-09-04T00:00:00.000Z",
+      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_down",
+      "factArgs": {
+        "pct": "1.6",
+        "costEur": "15.61",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.39625,
+      "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot46-r2043",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-01T00:00:00.000Z",
+      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot46-r2043",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на отчета за касово изпълнение на бюджета и на сметките за средства от Европейския съюз на Община Стара Загора ",
+        "council": "SZR01",
+        "number": "2043"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot46-r2044",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-01T00:00:00.000Z",
+      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot46-r2044",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на бюджета за 2026 година на Община Стара Загора",
+        "council": "SZR01",
+        "number": "2044"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot46-r2045",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-01T00:00:00.000Z",
+      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot46-r2045",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Участие на град Стара Загора в инициативата „Европейска столица на културата 2032“ Упълномощаване на Кмета на Община Ста",
+        "council": "SZR01",
+        "number": "2045"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot46-r2046",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-01T00:00:00.000Z",
+      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot46-r2046",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Промяна на наименованието и преобразуване на лечебното заведение от Комплексен онкологичен център в Специализирана болни",
+        "council": "SZR01",
+        "number": "2046"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot46-r2047",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-01T00:00:00.000Z",
+      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot46-r2047",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Отпускане на еднократна безвъзмездна финансова помощ на г-жа Иванова за детето й",
+        "council": "SZR01",
+        "number": "2047"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:SZR01-2026-prot46-r2048",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-09-01T00:00:00.000Z",
+      "firstSeenAt": "2026-09-01T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "SZR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/SZR01-2026-prot46-r2048",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Отпускане на еднократна безвъзмездна финансова помощ на г-н Михов",
+        "council": "SZR01",
+        "number": "2048"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-09-04",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-09-04T00:00:00.000Z",
+      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-09-04",
+      "factKey": "home_fact_plenary_sitting",
+      "factArgs": {
+        "items": 1
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.025,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -624,198 +875,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2034",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot45-r2034",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Продажба на поземлен имот с идентификатор 70202.32.6 /номер по предходен план - 032006/ - частна общинска собственост, н",
-        "council": "SZR01",
-        "number": "2034"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2035",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot45-r2035",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Продажба на поземлен имот с идентификатор 24482.50.27 /номер по предходен план: 000819/ - частна общинска собственост, н",
-        "council": "SZR01",
-        "number": "2035"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2036",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot45-r2036",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Продажба на поземлен имот с идентификатор 35515.46.17 /номер по предходен план: 000144/ - частна общинска собственост, н",
-        "council": "SZR01",
-        "number": "2036"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2037",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot45-r2037",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Продажба на поземлени имоти с идентификатори 38039.50.2 /номер по предходен план: 050002/ и 38039.50.12 /номер по предхо",
-        "council": "SZR01",
-        "number": "2037"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2039",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot45-r2039",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Продажба на поземлени имоти с идентификатори 46417.49.40 /номер по предходен план: 049040/, 46417.49.46 /номер по предхо",
-        "council": "SZR01",
-        "number": "2039"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:SZR01-2026-prot45-r2040",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-08-24T00:00:00.000Z",
-      "firstSeenAt": "2026-08-24T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "SZR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/SZR01-2026-prot45-r2040",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Продажба на поземлени имоти с идентификатори 48502.1.79 /номер по предходен план: 001079/, 48502.1.81 /номер по предходе",
-        "council": "SZR01",
-        "number": "2040"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
       "id": "parliament:sitting:2026-08-28",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -916,7 +975,7 @@
     },
     "council": {
       "available": true,
-      "asOf": "2026-08-25",
+      "asOf": "2026-09-01",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -949,14 +1008,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-09-03",
+      "asOf": "2026-09-04",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-03",
-      "observedAt": "2026-09-03",
+      "asOf": "2026-09-04",
+      "observedAt": "2026-09-04",
       "staleAfterDays": 5,
       "stale": false
     }
