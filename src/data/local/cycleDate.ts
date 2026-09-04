@@ -1,6 +1,8 @@
 // Shared utilities for local-elections tiles. Kept tiny so the tile
 // files don't drift on the same formatting/colour decisions.
 
+import { dottedDate } from "@/data/utils";
+
 /** Default swatch colour for parties whose canonical id can't be
  *  resolved — used as the fallback throughout the local-government
  *  tiles so unresolved coalitions render with a single, recognisable
@@ -9,12 +11,12 @@ export const UNRESOLVED_PARTY_COLOR = "#9ca3af";
 
 /** "2023_10_29_mi" → "29.10.2023". Cycle slugs follow the YYYY_MM_DD
  *  convention used throughout the data tree. Returns the input
- *  untouched when the prefix can't be parsed. */
-export const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  if (!m) return cycle;
-  return `${m[3]}.${m[2]}.${m[1]}`;
-};
+ *  untouched when the prefix can't be parsed.
+ *
+ *  Delegates to `dottedDate` so the local tiles and the person/candidate
+ *  electoral surfaces cannot drift on this format again — the name stays
+ *  because the local tiles read as cycle code, not date code. */
+export const friendlyCycleDate = (cycle: string): string => dottedDate(cycle);
 
 /** "2026-06-14" → "14.06.2026". ISO date as published in the chmi history
  *  feed; returns the input untouched when it can't be parsed. */

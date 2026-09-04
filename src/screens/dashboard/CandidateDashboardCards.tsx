@@ -1,38 +1,49 @@
+// The electoral block on the LEGACY /candidate/:id body — the render that serves a candidate
+// URL which could not be resolved to a person (an ambiguous bare name, a private or unknown
+// person). Fed by the name-folder shards (useCandidateSummary).
+//
+// The block itself is `CandidateElectoralBody`, shared verbatim with the merged person
+// dashboard, so the two surfaces cannot drift again. What stays here is only what is this
+// page's own: the shard hook, the section IA (votes / geography / financing, which carry the
+// article topics), and the campaign-financing tile.
+
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Coins, Gauge, Map } from "lucide-react";
+import { Coins } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidateSummary } from "@/data/dashboard/useCandidateSummary";
-import { CandidatePreferencesCard } from "./cards/CandidatePreferencesCard";
-import { CandidatePaperMachineCard } from "./cards/CandidatePaperMachineCard";
-import { CandidateBallotCard } from "./cards/CandidateBallotCard";
-import { CandidateTopRegionCard } from "./cards/CandidateTopRegionCard";
-import { CandidateRegionsTile } from "./CandidateRegionsTile";
-import { CandidateTrajectoryTile } from "./CandidateTrajectoryTile";
-import { CandidateTopSettlementsTile } from "./CandidateTopSettlementsTile";
-import { CandidateTopSectionsTile } from "./CandidateTopSectionsTile";
+import {
+  CandidateElectoralBody,
+  CandidateElectoralBodySkeleton,
+  type ElectoralSectionMeta,
+} from "./CandidateElectoralBody";
 import { CandidateDonationsTile } from "./CandidateDonationsTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
-import { CandidateSummaryLine } from "@/screens/components/candidates/CandidateSummaryLine";
 
+// Each article lands in the FIRST topic it matches here. ⚠ `geography` is a section the body
+// OMITS when the candidate has no settlement/section rows, so a geography-ONLY article would
+// render nowhere on those pages. Zero articles carry that topic today; if one lands, tag it
+// `votes` as well, or move `geography` ahead of nothing and behind `financing`.
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
   "geography",
   "financing",
 ];
 
-const SkeletonCard: FC<{ className?: string }> = ({
-  className = "h-[140px]",
-}) => (
-  <div
-    className={`rounded-xl border bg-card p-4 shadow-sm animate-pulse ${className}`}
-  >
-    <div className="h-3 w-24 bg-muted rounded mb-3" />
-    <div className="h-7 w-32 bg-muted rounded" />
-  </div>
-);
+// Declared once so the skeleton and the resolved render cannot anchor to different section
+// ids — a `#votes` deep link that exists only in one of the two states fails silently.
+const ELECTORAL_SECTION: Omit<ElectoralSectionMeta<"votes">, "title"> = {
+  id: "votes",
+  articleTopic: "votes",
+  headingLevel: 2,
+};
+const GEOGRAPHY_SECTION: Omit<ElectoralSectionMeta<"geography">, "title"> = {
+  id: "geography",
+  articleTopic: "geography",
+  headingLevel: 2,
+};
 
 type Props = {
   name: string;
@@ -48,19 +59,22 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
   const { data, isLoading } = useCandidateSummary(name);
   const hasFinancials = !!electionStats?.hasFinancials;
   const navSlug = linkSlug ?? encodeURIComponent(name);
+  const electoralSection = {
+    ...ELECTORAL_SECTION,
+    title: t("dashboard_section_votes"),
+  };
+  const geographySection = {
+    ...GEOGRAPHY_SECTION,
+    title: t("dashboard_section_geography"),
+  };
 
   if (isLoading || data === undefined) {
     return (
       <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className="h-[420px]" />
-        </div>
+        {/* No `geographySection`: this surface does not hold back the sections beneath the
+            block, so reserving a geography footprint a shard-less candidate never fills
+            would collapse onto content that has already painted. */}
+        <CandidateElectoralBodySkeleton electoralSection={electoralSection} />
       </section>
     );
   }
@@ -72,36 +86,23 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
       <section aria-label={t("dashboard")} className="my-4">
-        <CandidateSummaryLine data={data} />
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <CandidatePreferencesCard data={data} />
-          <CandidatePaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
-          <CandidateBallotCard data={data} />
-          <CandidateTopRegionCard data={data} />
-        </div>
+        {/* No `selector`: this surface has no cycle of its own — its cards ARE the header's
+            `?elections=` cycle, `CandidateHeader` already prints the ballot badge and the
+            `№pref` chips, and there is nothing for a dimmed trajectory bar to contrast
+            against. So no cycle heading, no highlight, and the drill-downs follow the
+            global selector exactly as they always did.
 
-        <DashboardSection
-          id="votes"
-          title={t("dashboard_section_votes")}
-          icon={Gauge}
-          articleTopic="votes"
-        >
-          <CandidateRegionsTile data={data} linkSlug={navSlug} />
-          <CandidateTrajectoryTile data={data} />
-        </DashboardSection>
-
-        <DashboardSection
-          id="geography"
-          title={t("dashboard_section_geography")}
-          icon={Map}
-          articleTopic="geography"
-        >
-          <CandidateTopSettlementsTile data={data} linkSlug={navSlug} />
-          <CandidateTopSectionsTile data={data} linkSlug={navSlug} />
-        </DashboardSection>
+            Two things DID change here when this surface adopted the shared body, both
+            deliberate: the preferences card now honours `linkSlug` (it fell back to the
+            URL-encoded name while every sibling tile used the slug), and the card grid
+            drops to 3 columns on cycles with no paper/machine split rather than leaving a
+            ragged empty fourth column. */}
+        <CandidateElectoralBody
+          summary={data}
+          linkSlug={navSlug}
+          electoralSection={electoralSection}
+          geographySection={geographySection}
+        />
 
         {hasFinancials ? (
           <DashboardSection
@@ -109,6 +110,7 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
             title={t("dashboard_section_financing")}
             icon={Coins}
             articleTopic="financing"
+            headingLevel={2}
           >
             <CandidateDonationsTile name={name} linkSlug={navSlug} />
           </DashboardSection>

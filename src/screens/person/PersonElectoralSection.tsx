@@ -1,13 +1,13 @@
 // The electoral block on the merged person dashboard (person-candidate-merge-v1): the same
-// candidate stat cards + regions/trajectory tiles, but fed from person_election_stats (PG,
-// re-keyed by person_id) instead of the name-folder shards. A cycle selector (the person's
-// own candidacy chips) picks which election to detail; it defaults to the global ?elections=
-// selector and rides its own ?pelect= param so switching it doesn't ripple to the whole app.
-// Deep-links go to the existing /candidate/:slug/* drill-down sub-pages.
+// body the /candidate/:id page renders (`CandidateElectoralBody`), fed from
+// person_election_stats (PG, re-keyed by person_id) instead of the name-folder shards. A
+// cycle selector (the person's own candidacy chips) picks which election to detail; it
+// defaults to the global ?elections= selector and rides its own ?pelect= param so switching
+// it doesn't ripple to the whole app. Deep-links go to the existing /candidate/:slug/*
+// drill-down sub-pages, carrying the selected cycle so they open on it.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Gauge, Map } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useRegions } from "@/data/regions/useRegions";
@@ -16,67 +16,33 @@ import {
   usePersonElectoralPending,
 } from "@/data/dashboard/usePersonElections";
 import { computeCandidateSummary } from "@/data/dashboard/computeCandidateSummary";
+import { dottedDate } from "@/data/utils";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
-import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { PartyBadge } from "@/screens/components/PartyBadge";
-import { CandidatePreferencesCard } from "@/screens/dashboard/cards/CandidatePreferencesCard";
-import { CandidatePaperMachineCard } from "@/screens/dashboard/cards/CandidatePaperMachineCard";
-import { CandidateBallotCard } from "@/screens/dashboard/cards/CandidateBallotCard";
-import { CandidateTopRegionCard } from "@/screens/dashboard/cards/CandidateTopRegionCard";
-import { CandidateRegionsTile } from "@/screens/dashboard/CandidateRegionsTile";
-import { CandidateTrajectoryTile } from "@/screens/dashboard/CandidateTrajectoryTile";
-import { CandidateTopSettlementsTile } from "@/screens/dashboard/CandidateTopSettlementsTile";
-import { CandidateTopSectionsTile } from "@/screens/dashboard/CandidateTopSectionsTile";
+import {
+  CandidateElectoralBody,
+  CandidateElectoralBodySkeleton,
+  type ElectoralSectionMeta,
+} from "@/screens/dashboard/CandidateElectoralBody";
 import { Pill } from "@/components/ui/Pill";
 
 type Candidacy = { election: string; slug: string };
 
-// "2021_11_14" -> "14.11.2021"
-const fmtElection = (d: string): string => {
-  const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(d);
-  return m ? `${m[3]}.${m[2]}.${m[1]}` : d;
+// Declared once so the skeleton and the resolved render cannot anchor to different section
+// ids — a `#person-electoral` deep link that exists in only one of the two states fails
+// silently. `headingLevel: 2` because these sections are the structure under the page <h1>.
+const ELECTORAL_SECTION: Omit<
+  ElectoralSectionMeta<"person-electoral">,
+  "title"
+> = {
+  id: "person-electoral",
+  headingLevel: 2,
 };
-
-const Pulse: FC<{ className: string }> = ({ className }) => (
-  <div
-    className={`animate-pulse rounded-xl border bg-card shadow-sm ${className}`}
-  />
-);
-
-// Reserve the electoral + geography block's real footprint while the async /api/db
-// electoral fetch is in flight. The block leads the dashboard, so returning `null` until
-// the data arrives injected ~1450px ABOVE every section below it once it resolved — the
-// dominant CLS source on candidate pages (tests/perf.spec.ts). The skeleton mirrors the
-// real layout (heading + card grid + regions/trajectory tiles + two geography tiles) in the
-// same responsive grids, so the reserved height tracks the rendered height across viewports.
-const ElectoralSkeleton: FC = () => {
-  const { t } = useTranslation();
-  return (
-    <>
-      <DashboardSection
-        id="person-electoral"
-        title={t("pp_candidacies")}
-        icon={Gauge}
-      >
-        <div className="h-7 w-64 max-w-full animate-pulse rounded bg-muted" />
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <Pulse className="h-[150px]" />
-          <Pulse className="h-[150px]" />
-          <Pulse className="h-[150px]" />
-        </div>
-        <Pulse className="h-[240px]" />
-        <Pulse className="h-[200px]" />
-      </DashboardSection>
-      <DashboardSection
-        id="person-geography"
-        title={t("dashboard_section_geography")}
-        icon={Map}
-      >
-        <Pulse className="h-[340px]" />
-        <Pulse className="h-[340px]" />
-      </DashboardSection>
-    </>
-  );
+const GEOGRAPHY_SECTION: Omit<
+  ElectoralSectionMeta<"person-geography">,
+  "title"
+> = {
+  id: "person-geography",
+  headingLevel: 2,
 };
 
 type Props = { slug: string; name: string; candidacies: Candidacy[] };
@@ -88,6 +54,14 @@ export const PersonElectoralSection: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { selected: globalSelected, prevElections } = useElectionContext();
+  const electoralSection = {
+    ...ELECTORAL_SECTION,
+    title: t("pp_candidacies"),
+  };
+  const geographySection = {
+    ...GEOGRAPHY_SECTION,
+    title: t("dashboard_section_geography"),
+  };
   const { findRegion } = useRegions();
   // Only cycles the person ACTUALLY ran with results — a candidacy ROLE with no preference
   // data (e.g. a roster-only entry) shouldn't be a selectable year. Newest first.
@@ -158,7 +132,14 @@ export const PersonElectoralSection: FC<Props> = ({
   // once we KNOW there are no results — and by then the dashboard has kept the sections below
   // unmounted, so the reserved space collapses under nothing.
   if (dataCycles.length === 0 || !summary) {
-    if (pending) return <ElectoralSkeleton />;
+    if (pending)
+      return (
+        <CandidateElectoralBodySkeleton
+          electoralSection={electoralSection}
+          geographySection={geographySection}
+          withCycleHeading
+        />
+      );
     return null;
   }
 
@@ -175,7 +156,7 @@ export const PersonElectoralSection: FC<Props> = ({
               selected={active}
               onClick={() => setPelect(el === globalSelected ? undefined : el)}
             >
-              {fmtElection(el)}
+              {dottedDate(el)}
             </Pill>
           );
         })}
@@ -183,88 +164,13 @@ export const PersonElectoralSection: FC<Props> = ({
     ) : null;
 
   return (
-    <>
-      <DashboardSection
-        id="person-electoral"
-        title={t("pp_candidacies")}
-        icon={Gauge}
-        subtitle={selector}
-      >
-        {/* Which election these cards are for + which list(s) they ran on — a prominent
-            heading with the cycle's party badge + list positions (folds in the old cikRows). */}
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <h3 className="text-lg font-bold text-foreground">
-            {t("pp_election_heading", { date: fmtElection(selectedCycle) })}
-          </h3>
-          {summary.partyNickName && (
-            <PartyBadge
-              label={summary.partyNickName}
-              color={summary.partyColor}
-            />
-          )}
-          {summary.regions.length > 0 && (
-            <span className="text-sm text-muted-foreground">
-              {summary.regions
-                .slice(0, 3)
-                .map((r) => `#${r.pref} ${r.long_name ?? r.name ?? r.oblast}`)
-                .join(" · ")}
-            </span>
-          )}
-        </div>
-        {/* The paper/machine split card self-hides when the cycle has no split
-            (all-machine or paper-only), so the grid width tracks the card count
-            — 3 cards fill 3 columns instead of leaving a ragged empty column. */}
-        <div
-          className={
-            summary.paperMachine
-              ? "grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
-              : "grid grid-cols-1 gap-3 sm:grid-cols-3"
-          }
-        >
-          <CandidatePreferencesCard
-            data={summary}
-            linkSlug={candidateSlug}
-            election={selectedCycle}
-          />
-          <CandidatePaperMachineCard
-            paperMachine={summary.paperMachine}
-            priorElection={summary.priorElection}
-          />
-          <CandidateBallotCard data={summary} election={selectedCycle} />
-          <CandidateTopRegionCard data={summary} election={selectedCycle} />
-        </div>
-        <CandidateRegionsTile
-          data={summary}
-          linkSlug={candidateSlug}
-          election={selectedCycle}
-        />
-        <CandidateTrajectoryTile
-          data={
-            fullHistory.length ? { ...summary, history: fullHistory } : summary
-          }
-          highlightDate={selectedCycle}
-        />
-      </DashboardSection>
-
-      {summary &&
-      (summary.topSettlements.length > 0 || summary.topSections.length > 0) ? (
-        <DashboardSection
-          id="person-geography"
-          title={t("dashboard_section_geography")}
-          icon={Map}
-        >
-          <CandidateTopSettlementsTile
-            data={summary}
-            linkSlug={candidateSlug}
-            election={selectedCycle}
-          />
-          <CandidateTopSectionsTile
-            data={summary}
-            linkSlug={candidateSlug}
-            election={selectedCycle}
-          />
-        </DashboardSection>
-      ) : null}
-    </>
+    <CandidateElectoralBody
+      summary={summary}
+      history={fullHistory}
+      linkSlug={candidateSlug}
+      selector={{ cycle: selectedCycle, control: selector ?? undefined }}
+      electoralSection={electoralSection}
+      geographySection={geographySection}
+    />
   );
 };

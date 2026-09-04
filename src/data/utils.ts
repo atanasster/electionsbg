@@ -523,3 +523,20 @@ export const pctChange = (
   prior
     ? parseFloat(((100 * ((last || 0) - prior)) / prior).toFixed(decimals))
     : undefined;
+
+/** "2021_11_14" → "14.11.2021", and a local cycle slug ("2023_10_29_mi") → "29.10.2023".
+ *  Returns the input untouched when the leading YYYY_MM_DD can't be parsed; anything AFTER
+ *  the date is discarded, which is what makes the suffixed local slugs work.
+ *
+ *  ONE definition on purpose — three private copies rendered this form. Prefix-anchored,
+ *  which is what `friendlyCycleDate` already was: the local tree's slugs carry a `_mi` /
+ *  `_chmi` suffix an END anchor rejects. The two person-page copies WERE end-anchored and
+ *  it never showed, because both of their inputs are parliamentary only — person_election_stats
+ *  walks the `candidates/by-slug` shards and the donor refs walk `parties/financing`, which
+ *  exist under 10 and 3 election folders respectively, no local cycle among them. So the
+ *  consolidation fixed no live bug; prefix is nonetheless the correct rule for both
+ *  families, and now the only one. */
+export const dottedDate = (d: string): string => {
+  const m = /^(\d{4})_(\d{2})_(\d{2})/.exec(d);
+  return m ? `${m[3]}.${m[2]}.${m[1]}` : d;
+};

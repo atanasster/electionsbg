@@ -63,6 +63,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { magistrateRoleKey } from "@/lib/magistrateRole";
 import { formatEurCompact } from "@/lib/currency";
+import { dottedDate } from "@/data/utils";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
 import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
@@ -70,12 +71,6 @@ import { useNoindex } from "@/lib/useNoindex";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { MayorPayCard } from "@/screens/myarea/MyAreaMayorPayTile";
 import { mayorPayObshtinaForRoles } from "./mayorPay";
-
-// "2021_11_14" -> "14.11.2021"; anything else passes through.
-const fmtElection = (d: string): string => {
-  const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(d);
-  return m ? `${m[3]}.${m[2]}.${m[1]}` : d;
-};
 
 // The shared person dashboard — rendered by /person/:slug and (Phase 5) /candidate/:id.
 // Pure render over an already-fetched profile; fetching lives in usePersonProfile so both
@@ -771,7 +766,7 @@ const PersonDashboardBody: FC<{
                     .sort((a, b) => b.localeCompare(a))
                     .map((election) => (
                       <div key={election} className="text-sm">
-                        {t("pp_donated")} · {fmtElection(election)}
+                        {t("pp_donated")} · {dottedDate(election)}
                       </div>
                     ))}
                 </CardContent>

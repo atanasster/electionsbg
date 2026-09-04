@@ -77,6 +77,20 @@ resolution:
 The trajectory difference is styling only; both charts read the same array. That is the
 „chart looks different" in the report.
 
+**Settled by Tier 0** (this table is the record of what a difference between the two pages
+now IS — a decision, never an accident):
+
+| difference | settled as |
+| --- | --- |
+| `CandidateSummaryLine` | on BOTH surfaces |
+| the cycle heading + the bar highlight + `?elections=` on each drill-down | ONE `selector` prop, so they cannot arrive apart. Present on the person page (which has a cycle of its own); absent on `/candidate/:id`, whose cards ARE the header's cycle and whose `CandidateHeader` already prints the ballot badge and the `№pref` chips — a heading there was a third copy |
+| the date format inside the block | the dotted Bulgarian form throughout (heading, selector pills, and the summary line, which was `localDate`'s `27/10/2024` ~8px from `27.10.2024`) |
+| section ids / titles / article topics | each page's OWN IA, deliberately not unified — `votes`/`geography` carry the candidate page's article rail, `person-electoral`/`person-geography` are the person dashboard's anchors |
+| the geography section | gated on the ARRAYS on both, which also fixes an orphaned „География" heading the candidate page rendered whenever both tiles self-hid |
+| `CandidatePreferencesCard`'s drill-down | honours `linkSlug` on both (it fell back to the URL-encoded name while every sibling tile used the slug) |
+| the card grid on a cycle with no paper/machine split | 3 columns rather than a ragged empty fourth |
+| the trajectory ARRAY (`history`) | still divergent, and the only data divergence left — the person page plots the whole career, the candidate page the shard's array. Tier 2 removes the prop |
+
 ⚠️ **„Дарения" already means two different things and both pages print the same word.** The
 candidate tile's own hint says „Самофинансиране, декларирано от кандидата към кампанията на
 партията" — the money this candidate GAVE to their party's campaign, from each party filing's
