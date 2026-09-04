@@ -65,10 +65,23 @@ test.skipIf(skip)("a live slug never redirects", async () => {
 // Every redirect must land somewhere real. A retired slug pointing at another dead slug is
 // a 404 with extra steps, and it is exactly what a merge chain (A→B, later B→C) produces if
 // the mapping is not recomputed against the final person.
+//
+// EVERY WHOLE-TABLE SCAN IN THIS FILE EXCLUDES `zz-%`. collapse_slug_chains.data.test.ts
+// seeds and tears down its `zz-collapse-*` fixtures with COMMITTED inserts/deletes rather
+// than a rolled-back transaction — it has to, since collapseSlugRedirectChains() runs on
+// its own pool connections and would not see an uncommitted row — so mid-test those rows
+// are globally visible to any concurrent reader. Its "refuses a target that exists but is
+// NOT servable" case deliberately leaves `zz-collapse-a → zz-collapse-b` dangling to prove
+// the resolver does not silently repair it, and vitest runs data-test files concurrently,
+// so a scan here can observe that in-flight fixture and fail on it — the fixture doing its
+// job, not a corpus defect. Same precedent as the `zz-%` exclusion in
+// person_slug_redirect.data.test.ts's whole-table assertion; no corpus slug can begin
+// `zz-` (see SLUG_SHAPE below), so this can never hide a real violation.
 test.skipIf(skip)("every redirect target is a live person", async () => {
   const dead = await allRows<{ slug: string; target_slug: string }>(
     `SELECT r.slug, r.target_slug FROM person_slug_retired r
       WHERE NOT EXISTS (SELECT 1 FROM person p WHERE p.slug = r.target_slug)
+        AND r.slug NOT LIKE 'zz-%'
       LIMIT 5`,
   );
   assert.deepEqual(
@@ -93,6 +106,7 @@ test.skipIf(skip)("every redirect target is actually SERVABLE", async () => {
               SELECT 1 FROM person p
                WHERE p.slug = r.target_slug
                  AND p.status = 'active' AND p.is_public_figure)
+        AND r.slug NOT LIKE 'zz-%' -- see the note above "every redirect target is a live person"
       LIMIT 5`,
   );
   assert.deepEqual(
@@ -157,7 +171,10 @@ const NAME_BODY_ONLY = String.raw`^(${NAME_BODY})-${HASH}${COLLISION}$`;
 
 test.skipIf(skip)("only slug-shaped keys are stored", async () => {
   const bad = await allRows<{ slug: string }>(
-    `SELECT slug FROM person_slug_retired WHERE slug !~ $1 LIMIT 5`,
+    // `zz-%` excluded — see the note above "every redirect target is a live person".
+    // collapse_slug_chains.data.test.ts's own `zz-collapse-*` fixtures do not match
+    // SLUG_SHAPE either, so without this a concurrent run fails here too.
+    `SELECT slug FROM person_slug_retired WHERE slug !~ $1 AND slug NOT LIKE 'zz-%' LIMIT 5`,
     [SLUG_SHAPE],
   );
   assert.deepEqual(bad, [], "non-slug keys reached the redirect table");
@@ -390,6 +407,7 @@ test.skipIf(skip)(
                 string_to_array(regexp_replace(r.target_slug, $1, '\\1'), '-') AS t
            FROM person_slug_retired r
           WHERE r.target_slug NOT LIKE 'mp-%'
+            AND r.slug NOT LIKE 'zz-%' -- see the note above "every redirect target is a live person"
        )
        SELECT count(*) FILTER (
                 WHERE s = t

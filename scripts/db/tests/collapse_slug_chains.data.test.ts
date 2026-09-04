@@ -3,13 +3,26 @@
 // a 301 into a 404).
 //
 // Every case runs against synthetic `zz-collapse-*` rows and cleans up after
-// itself, so this never depends on — or disturbs — the real corpus. The two
-// invariants worth pinning are the ones the review caught the first
+// itself, so this never depends on — or CONTENT-wise disturbs — the real corpus.
+// The two invariants worth pinning are the ones the review caught the first
 // implementation getting wrong:
 //
 //   1. it must follow a chain to its END, and
 //   2. it must refuse a target we would not SERVE, rather than re-pointing at one
 //      and turning the data gate green while the redirect still 404s.
+//
+// ⚠️ THE FIXTURES ARE COMMITTED, NOT ROLLED BACK, AND THAT MAKES THEM GLOBALLY
+// VISIBLE FOR THE LENGTH OF THIS FILE'S RUN. collapseSlugRedirectChains() runs on
+// its own pool connections, so a fixture wrapped in an uncommitted transaction here
+// would be invisible to it — the writes have to land for real, cleaned up by
+// beforeEach/afterAll rather than a ROLLBACK. Since vitest runs data-test files
+// concurrently (separate processes), any OTHER gate that scans the whole
+// person_slug_retired table can observe these rows mid-test — including case 2's
+// deliberately dangling `zz-collapse-a → zz-collapse-b`, which is the fixture doing
+// its job, not a corpus defect. Every such whole-table scan must exclude `zz-%`
+// (see person_slug_retired.data.test.ts and person_slug_redirect.data.test.ts,
+// both of which hit this and now filter it) — no corpus slug can begin `zz-`, so
+// the exclusion can never hide a real violation.
 //
 // Auto-skips when Postgres is down — like the other *.data.test.ts gates.
 //
