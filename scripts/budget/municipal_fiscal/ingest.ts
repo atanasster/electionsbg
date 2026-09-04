@@ -54,7 +54,7 @@ import { findCriteriaSheet, parseCriteriaSheet } from "./criteria";
 import type { OfficialCriteria } from "./criteria";
 import { diffRoster } from "./codes";
 import { parsePokazateli, parseRecoverySheet } from "./parse";
-import type { MunicipalFiscalQuarter } from "./types";
+import type { Money, MunicipalFiscalQuarter } from "./types";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DROP_DIR = resolve(
@@ -134,6 +134,24 @@ export interface IngestSummary {
   warnings: string[];
 }
 
+// A release can now restate the SAME real quantity in a DIFFERENT native
+// currency than an earlier one covering the same quarter — the 2025/2026
+// releases switched from лв. to евро mid-corpus (see `currencyFromTitle`).
+// Comparing `.amount` (the native figure) then reads a currency relabelling
+// as either a disagreement (rule 1) or a non-freeze (rule 2), because the raw
+// number scales by the peg even when nothing about the underlying value
+// changed. `.amountEur` is the currency-agnostic figure both rules must
+// compare on. A small tolerance absorbs the two-decimal rounding a
+// republished EUR figure carries relative to one derived from a two-decimal
+// BGN figure — measured up to €0.003 on real rows, so €0.05 is generous
+// without being loose enough to blur a genuine change (every real
+// quarter-on-quarter move in these fields is orders of magnitude larger).
+const EUR_TOLERANCE = 0.05;
+const moneyEqual = (a: Money | null, b: Money | null): boolean => {
+  if (a == null || b == null) return a == null && b == null;
+  return Math.abs(a.amountEur - b.amountEur) <= EUR_TOLERANCE;
+};
+
 /** Detect fields whose values are byte-identical across two DIFFERENT quarters
  *  for every município — the partial-re-issue signature (rule 2). */
 export const detectStaleFields = (
@@ -148,7 +166,9 @@ export const detectStaleFields = (
     // it is a column МФ stopped publishing, and reporting it as stale would
     // bury the real signal. Identity only counts among populated values.
     if (!shared.some((r) => r[f] != null)) return false;
-    return shared.every((r) => r[f]?.amount === byMf.get(r.mfCode)![f]?.amount);
+    return shared.every((r) =>
+      moneyEqual(r[f] ?? null, byMf.get(r.mfCode)![f] ?? null),
+    );
   });
 };
 
@@ -391,7 +411,8 @@ export const detectDisagreements = (
   return LEVEL_FIELDS.filter((f) =>
     a.some(
       (r) =>
-        byMf.has(r.mfCode) && r[f]?.amount !== byMf.get(r.mfCode)![f]?.amount,
+        byMf.has(r.mfCode) &&
+        !moneyEqual(r[f] ?? null, byMf.get(r.mfCode)![f] ?? null),
     ),
   );
 };

@@ -20,6 +20,14 @@ const lv = (amount: number) => ({
   amountEur: amount / 1.95583,
 });
 
+/** A Money object stated NATIVELY in euro — as the 2025/2026-anchored
+ *  releases now do — rather than derived from a лв. figure. */
+const eur = (amountEur: number) => ({
+  amount: amountEur,
+  currency: "EUR" as const,
+  amountEur,
+});
+
 /** Minimal row — only the fields the two detectors read. */
 const mkRow = (
   mfCode: number,
@@ -41,6 +49,34 @@ const mkRow = (
     expenseObligations:
       levels.expenseObligations != null ? lv(levels.expenseObligations) : null,
     commitments: levels.commitments != null ? lv(levels.commitments) : null,
+  }) as unknown as MunicipalFiscalQuarter;
+
+/** Like `mkRow`, but takes ready-made Money objects — for tests that mix
+ *  currencies within one field across two "renderings" of a quarter. */
+const mkRowMoney = (
+  mfCode: number,
+  levels: Partial<
+    Record<
+      "revenue" | "commitments" | "debtStock" | "arrears",
+      { amount: number; currency: "BGN" | "EUR"; amountEur: number } | null
+    >
+  >,
+): MunicipalFiscalQuarter =>
+  ({
+    mfCode,
+    obshtina: `X${mfCode}`,
+    nameBg: "Тест",
+    fiscalYear: 2025,
+    quarter: 2,
+    indicators: { debtPerCapita: 42 },
+    revenue: levels.revenue ?? null,
+    expenditure: null,
+    budgetBalance: null,
+    cashOnHand: null,
+    debtStock: levels.debtStock ?? null,
+    arrears: levels.arrears ?? null,
+    expenseObligations: null,
+    commitments: levels.commitments ?? null,
   }) as unknown as MunicipalFiscalQuarter;
 
 describe("detectStaleFields — different quarters agreeing exactly", () => {
@@ -98,6 +134,22 @@ describe("detectStaleFields — different quarters agreeing exactly", () => {
       ),
     ).toEqual(["commitments"]);
   });
+
+  it("still catches a freeze across a currency changeover", () => {
+    // The real 2026-02 shape: the older quarter is published in EUR (the new
+    // release), the frozen later one still in лв. (an unaffected old release).
+    // Comparing raw `.amount` would never match across the currency boundary,
+    // silently un-suppressing a figure this rule exists to null.
+    const older = [
+      mkRowMoney(1, { commitments: eur(lv(500).amountEur) }), // == 500 лв., published in EUR
+      mkRowMoney(2, { commitments: eur(lv(600).amountEur) }), // == 600 лв.
+    ];
+    const newer = [
+      mkRowMoney(1, { commitments: lv(500) }),
+      mkRowMoney(2, { commitments: lv(600) }),
+    ];
+    expect(detectStaleFields(older, newer)).toEqual(["commitments"]);
+  });
 });
 
 describe("detectDisagreements — the same quarter rendered twice", () => {
@@ -122,6 +174,22 @@ describe("detectDisagreements — the same quarter rendered twice", () => {
     const a = [mkRow(1, { arrears: 100 }), mkRow(2, { arrears: 200 })];
     const b = [mkRow(1, { arrears: 100 })];
     expect(detectDisagreements(a, b)).toEqual([]);
+  });
+
+  it("does not read a currency relabelling of the same real figure as a disagreement", () => {
+    // МФ restated 2025's лв. quarters in евро in the 2026-anchored releases —
+    // the same real value, published a second time in a different currency.
+    // Comparing raw `.amount` would flag every one of those republications as
+    // a "correction", drowning genuine ones in noise.
+    const a = [mkRowMoney(1, { arrears: lv(1_000_000) })];
+    const b = [mkRowMoney(1, { arrears: eur(lv(1_000_000).amountEur) })];
+    expect(detectDisagreements(a, b)).toEqual([]);
+  });
+
+  it("still flags a real value change across a currency changeover", () => {
+    const a = [mkRowMoney(1, { arrears: lv(1_000_000) })];
+    const b = [mkRowMoney(1, { arrears: eur(1_000_000) })]; // a genuinely different amount, not a relabelling
+    expect(detectDisagreements(a, b)).toEqual(["arrears"]);
   });
 });
 

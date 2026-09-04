@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-13T09:02:23.924Z",
+  "generatedAt": "2026-09-04T17:06:20.491Z",
   "source": "minfin.bg/bg/810 — Финансови показатели за общините (ЗПФ чл. 130г ал. 2); manually downloaded (Cloudflare blocks automation), parsed by scripts/budget/municipal_fiscal/",
-  "newestQuarter": "2025-Q3",
+  "newestQuarter": "2026-Q2",
   "quarters": [
     {
       "period": "2016-Q1",
@@ -158,6 +158,18 @@
     {
       "period": "2025-Q3",
       "municipalityCount": 265
+    },
+    {
+      "period": "2025-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2026-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2026-Q2",
+      "municipalityCount": 265
     }
   ],
   "sourceFiles": [
@@ -187,17 +199,17 @@
     "quarterly reports Q42017-Q42018-za saita.xlsx",
     "quarterly reports Q42019-Q42020-website.xlsx",
     "quarterly reports Q42022-Q42023-website-16.04.2024.xlsx",
+    "quarterly reports Q42024-Q42025-website.xlsx",
     "quarterly-reports-Q12023-Q42023-Q12024-website.xlsx",
+    "quarterly-reports-Q12025-Q42025-Q12026-website.xlsx",
     "quarterly-reports-Q22022-Q42022-Q22023-website.xlsx",
+    "quarterly-reports-Q22025-Q42025-Q22026-website.xlsx",
     "quarterly-reports-Q32022-Q42022-Q32023-website.xlsx"
   ],
   "anomalies": [
     "2025-Q3 is byte-identical to 2025-Q2 for every община on debtStock, expenseObligations, commitments — a frozen column carried forward; those fields are nulled on 2025-Q3, the later quarter",
-    "2022-Q1 differs between releases on expenseObligations, commitments — keeping the later one („quarterly reports Q12022-Q42022-Q12023-website.xlsx\")",
-    "2022-Q2 differs between releases on expenseObligations, commitments — keeping the later one („quarterly-reports-Q22022-Q42022-Q22023-website.xlsx\")",
-    "2022-Q3 differs between releases on expenseObligations, commitments — keeping the later one („quarterly-reports-Q32022-Q42022-Q32023-website.xlsx\")",
     "2024-Q1 differs between releases on cashOnHand — keeping the later one („3. quarterly-reports-Q12024-Q42024-Q12025-website.xlsx\")",
-    "official чл. 130а criteria attached to 1325 row(s) across 2018, 2020, 2021, 2023, 2024"
+    "official чл. 130а criteria attached to 1590 row(s) across 2018, 2020, 2021, 2023, 2024, 2025"
   ],
   "warnings": [
     "01 quarterly reports Q12020-Q42020-Q12021-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
@@ -217,6 +229,8 @@
     "quarterly reports Q22018-Q42018-Q22019.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
     "quarterly reports Q32017-Q42017-Q32018-za saita.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
     "quarterly reports Q32018-Q42018-Q32019.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
-    "quarterly reports Q32021-Q42021-Q32022.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)"
+    "quarterly reports Q32021-Q42021-Q32022.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly-reports-Q12025-Q42025-Q12026-website.xlsx: workbook declares EUR but the year rule expects 2025 Q1=BGN, 2025 Q4=BGN — using the DECLARED unit; check the release around the euro changeover",
+    "quarterly-reports-Q22025-Q42025-Q22026-website.xlsx: workbook declares EUR but the year rule expects 2025 Q2=BGN, 2025 Q4=BGN — using the DECLARED unit; check the release around the euro changeover"
   ]
 }

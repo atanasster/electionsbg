@@ -337,6 +337,23 @@ describe("parsePokazateli", () => {
     expect(out.warnings.join(" ")).toMatch(/declares EUR but the year rule/);
   });
 
+  it("reads a bare евро title with no leading в, not as undeclared", () => {
+    // The Q1/Q2-2025-anchored 2026 releases dropped „в" from every money-group
+    // title — „Просрочени задължения по бюджет (евро)", not „(в евро)". Missing
+    // this silently fell back to the year rule, which reads 2025 as BGN and
+    // divides an already-EUR figure by the peg a second time: verified against
+    // the arrears national series, the corpus understated 2025-Q4 by exactly
+    // ×1.95583.
+    const out = parse([FULL_ROW()], undefined, "(евро)");
+    expect(out.rows.map((r) => r.commitments?.currency)).toEqual([
+      "EUR",
+      "EUR",
+      "EUR",
+    ]);
+    expect(out.rows[1].commitments?.amountEur).toBe(52 * 1000);
+    expect(out.warnings.join(" ")).not.toMatch(/no unit declared/);
+  });
+
   it("warns when no unit is declared and falls back to the year rule", () => {
     // Titles present but carrying NO unit suffix — „no unit declared" is a
     // property of the title text, not of the title row being absent. An empty

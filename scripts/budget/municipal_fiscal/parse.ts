@@ -243,7 +243,17 @@ export const ratioBasisFor = (quarter: 1 | 2 | 3 | 4): RatioBases =>
     ? { arrears: "actual", obligations: "avg4y", commitments: "avg4y" }
     : { arrears: "planned", obligations: "planned", commitments: "planned" };
 
-const UNIT_RE = /\(\s*в\s*(лв\.?|лева|евро|eur)\s*\)/iu;
+// „в" (in) is OPTIONAL: the Q1/Q2-2025-anchored 2026 releases dropped it —
+// every money-group title there reads bare „(евро)" rather than „(в евро)" —
+// and requiring it made every one of those titles invisible to this parser.
+// With no declared unit, the year rule filled in "BGN" for the 2025 columns
+// and divided an already-EUR figure by the peg a second time, understating
+// every 2025-Q1/Q4 level by the peg factor (verified against the arrears
+// national series: municipal sum was off by exactly ×1.95583). MинФ restates
+// ALL three columns of a group in one currency for comparability across the
+// changeover, so the bare label is as authoritative as the „в" form and must
+// be read the same way.
+const UNIT_RE = /\(\s*(?:в\s*)?(лв\.?|лева|евро|eur)\s*\)/iu;
 
 /** The unit МФ declares in the row-1 group title. One label governs that group's
  *  three period columns, so the unit is a property of the GROUP, not of the
