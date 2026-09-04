@@ -242,11 +242,18 @@ announce-card (feature/dataset). Pick the shape deliberately per the rule above.
   heads the row-label column), `rows` (`{ label, sub?, cells }` where each cell
   is `{ value, note?, heat? }` — `value` is pre-formatted text, `note` a muted
   second line, `heat` a 0..1 shading intensity so the pattern reads before the
-  numbers), plus `heatLabel` (caption explaining the shading), `kicker`,
-  `footnote`, `source`, `cta`, `theme`. Capped at **6 rows × 6 data columns** and
+  numbers), plus `heatLabel`, `kicker`, `footnote`, `source`, `cta`, `theme`.
+  Capped at **6 rows × 6 data columns** and
   it throws past that, or when a row's cell count doesn't match the header —
   a silently short row would read as a complete grid missing a period. When the
-  real series is longer than fits, show a sample and SAY SO in the footnote.
+  real series is longer than fits, show a sample and SAY SO — in the kicker if
+  it fits there, per the caption rules below.
+  ⚠️ **A `sub` line is NOT clipped to the row-label column.** `labelW` is the
+  widest `label` (capped at 340px); the data columns split what is left, evenly.
+  A `sub` wider than `labelW` overflows into the FIRST data column and strikes
+  through its values — measured, `"05.2017 – 05.2021 · редовен · 4,0 г."` ran
+  clean through a column of surnames. Keep `sub` about as wide as the widest
+  `label`, and move anything longer into a column of its own.
   **Every number in a cell must name what it measures** — "27,7%" over "ГЕРБ"
   reads as ГЕРБ's 27,7%, when in fact it was ДПС's. Write "ДПС 28%" / "ГЕРБ 35%"
   so neither line can be read onto the other party. That costs width, so budget
@@ -274,6 +281,50 @@ announce-card (feature/dataset). Pick the shape deliberately per the rule above.
   (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language lines, `\n`
   separated), `source` (e.g. "Източник: АОП"), optional `kicker`, `cta` (default
   "виж разбивката"), `theme` ("dark" default; "light" = cream).
+
+### Captions and footnotes — say only what the eye cannot
+
+Every caption slot competes with the DATA for vertical space, and the renderer
+spends that space before it spends anything else. So the test for a caption is
+not "is this true?" but **"would a reader get this wrong without it?"**
+
+- **Cut any caption that describes the ENCODING rather than the data.**
+  "По-тъмно = повече", "по-дългата лента = по-голяма сума", "стрелката сочи
+  посоката" — the reader already sees that. `heatLabel` in particular is almost
+  always this, and it is expensive: it costs **40px**, which on a 6-row table is
+  most of a row. Drop it and you fit the extra cabinet. Keep it only where the
+  shading means something non-obvious (a scale that is not the column it sits
+  on, or a reversed direction). A `legend` on a signed bar card is the opposite
+  case — "поскъпва / поевтинява" names what +/− MEAN, so it stays.
+- **If an attribute needs an abbreviation to fit, and the abbreviation needs a
+  legend, it does not belong on the card.** Tagging each row „редовен" /
+  „служебен" only fit as „ред." / „сл.", which then needed a kicker spelling
+  them out — and that kicker was itself truncated. Two caption slots spent on
+  one adjective. Cut the attribute, keep it in the body, and let the card carry
+  the comparison.
+- **Prefer a header or the kicker over a footnote.** A basis belongs where the
+  number is: `"Млн. € подписани"` as a column header, or
+  `kicker: "Регистрирани договори · стойност при подписване"`. Both cost no
+  vertical budget, and — unlike a footnote — they cannot be cropped away when
+  someone screenshots the middle of the card.
+- **Footnotes are for what a reader would otherwise get WRONG**: a basis that
+  changes the number's meaning, a population that is not what the title implies,
+  a sample standing in for a longer series. Not for provenance (`source` has
+  that), not for restating the title, not for hedging.
+- **A caveat cut from the card must land in the BODY.** Removing it from both is
+  how a true card becomes a false claim. The body has no space limit — say it
+  there in full.
+
+**The vertical budget, measured.** A table row needs **≥76px** and the renderer
+throws below it; `heatLabel` takes 40px; the footnote takes a line-height per
+WRAPPED LINE, so trimming words only helps when it removes a whole line.
+⚠️ **Shortening the TITLE is not a reliable lever** — it auto-sizes, so a shorter
+title can render larger and take the same height or more (measured: 72.9px/row →
+71.3px/row after a title cut). The levers that actually work, in order: drop
+`heatLabel`, drop a whole footnote line, drop a column, drop a row.
+
+**The kicker TRUNCATES, it does not wrap.** Roughly 46 characters fit at 1080px;
+past that it is cut mid-word with no error. Read the PNG and check the right edge.
 
 ## Step 6 — Save the draft
 
