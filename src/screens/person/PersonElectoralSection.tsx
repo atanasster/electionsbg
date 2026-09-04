@@ -24,18 +24,39 @@ import {
   type ElectoralSectionMeta,
 } from "@/screens/dashboard/CandidateElectoralBody";
 import { PersonSelfFunding } from "./PersonSelfFunding";
+import { SectionArticlesProvider } from "@/screens/dashboard/SectionArticlesContext";
+import { SECTION_TOPICS } from "@/screens/dashboard/sectionTopics";
 import { Pill } from "@/components/ui/Pill";
 
 type Candidacy = { election: string; slug: string };
 
-// Declared once so the skeleton and the resolved render cannot anchor to different section
-// ids — a `#person-electoral` deep link that exists in only one of the two states fails
-// silently. `headingLevel: 2` because these sections are the structure under the page <h1>.
+// The „Свързани анализи" rail, which /candidate/:id has always had and the merged person
+// dashboard did not — the last of the §1.2 differences. Each article lands in the FIRST topic
+// it matches, so an article tagged both `votes` and `geography` appears once rather than in
+// both sections; without the provider the strip falls back to filtering per section and lists
+// it twice. The ORDER is shared with the candidate body (sectionTopics.ts), deliberately: an
+// article's placement should not depend on which URL a reader arrived by.
+//
+// Measured 2026-09-04: no article is both election-scoped AND tagged one of these three, and
+// none carries `geography` or `financing` at all — so the cycle override and the dedupe are
+// correct-and-INERT today. They are wired now because the alternative is discovering both on
+// the day an article lands.
+//
+// ⚠️ All three topics are declared HERE, including the financing one this file passes down to
+// PersonSelfFunding. A topic declared in another component cannot say whether that component
+// is inside this provider, and outside one the rail misbehaves silently.
+//
+// ⚠️ TWO of the three destinations are CONDITIONAL, the same hazard the candidate body
+// records: `person-geography` is omitted when the person has no settlement/section rows, and
+// `person-self-funding` when nothing is attributed — which is 487 of 29,715 people (1.6%).
+// An article tagged ONLY `financing` therefore renders nowhere on 98.4% of person pages. Zero
+// articles carry that topic or `geography` today; if one lands, tag it `votes` as well.
 const ELECTORAL_SECTION: Omit<
   ElectoralSectionMeta<"person-electoral">,
   "title"
 > = {
   id: "person-electoral",
+  articleTopic: "votes",
   headingLevel: 2,
 };
 const GEOGRAPHY_SECTION: Omit<
@@ -43,6 +64,7 @@ const GEOGRAPHY_SECTION: Omit<
   "title"
 > = {
   id: "person-geography",
+  articleTopic: "geography",
   headingLevel: 2,
 };
 
@@ -149,7 +171,9 @@ export const PersonElectoralSection: FC<Props> = ({
     ) : null;
 
   return (
-    <>
+    // Scoped to the BLOCK's cycle, not the header's: the sections beneath this provider
+    // describe `selectedCycle`, so an election-scoped article must match that.
+    <SectionArticlesProvider order={SECTION_TOPICS} election={selectedCycle}>
       <CandidateElectoralBody
         summary={summary}
         linkSlug={candidateSlug}
@@ -167,7 +191,8 @@ export const PersonElectoralSection: FC<Props> = ({
         selectedCycle={selectedCycle}
         name={name}
         linkSlug={candidateSlug}
+        articleTopic="financing"
       />
-    </>
+    </SectionArticlesProvider>
   );
 };

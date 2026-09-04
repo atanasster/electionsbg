@@ -10,7 +10,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Coins } from "lucide-react";
-import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidateSummary } from "@/data/dashboard/useCandidateSummary";
 import {
@@ -21,16 +20,13 @@ import {
 import { CandidateDonationsTile } from "./CandidateDonationsTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
+import { SECTION_TOPICS } from "./sectionTopics";
 
-// Each article lands in the FIRST topic it matches here. ⚠ `geography` is a section the body
-// OMITS when the candidate has no settlement/section rows, so a geography-ONLY article would
-// render nowhere on those pages. Zero articles carry that topic today; if one lands, tag it
-// `votes` as well, or move `geography` ahead of nothing and behind `financing`.
-const SECTION_TOPICS: readonly DashboardSectionId[] = [
-  "votes",
-  "geography",
-  "financing",
-];
+// Each article lands in the FIRST topic it matches. ⚠ `geography` is a section the body OMITS
+// when the candidate has no settlement/section rows, and `financing` one it omits on a cycle
+// with no campaign financing, so a geography- or financing-ONLY article renders nowhere on
+// those pages. Zero articles carry either topic today; if one lands, tag it `votes` as well.
+// The ORDER is shared with the person dashboard — see sectionTopics.ts.
 
 // Declared once so the skeleton and the resolved render cannot anchor to different section
 // ids — a `#votes` deep link that exists only in one of the two states fails silently.

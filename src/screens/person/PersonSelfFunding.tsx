@@ -26,6 +26,7 @@ import type { PersonElectionRow } from "@/data/dashboard/usePersonElections";
 import { dottedDate } from "@/data/utils";
 import { money } from "@/screens/dashboard/moneyCell";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import type { DashboardSectionId } from "@/data/articles/useArticles";
 import { CandidateDonationsTile } from "@/screens/dashboard/CandidateDonationsTile";
 import { StatCard } from "@/screens/dashboard/StatCard";
 
@@ -37,6 +38,14 @@ type Props = {
   name: string;
   /** The candidate slug for the selected cycle, for the drill-down link. */
   linkSlug?: string;
+  /** The „Свързани анализи" topic, passed IN rather than declared here.
+   *
+   *  A rail only behaves when its section is a descendant of a `SectionArticlesProvider`, and
+   *  a topic declared across a component boundary cannot say whether it is — outside one the
+   *  strip silently falls back to filtering per section, against the HEADER's cycle, and can
+   *  double-list an article the provider already placed elsewhere. So the caller that owns the
+   *  provider owns the topic too, and all three declarations sit in one file. */
+  articleTopic?: DashboardSectionId;
 };
 
 /** One row per cycle the person declared self-funding in, newest first — cash and in-kind
@@ -83,8 +92,11 @@ const History: FC<{ rows: PersonElectionRow[] }> = ({ rows }) => {
           {t("elections")}
         </span>
         {/* Visually unlabelled — the „N вноски" column reads as a caption beside the date —
-            but a screen reader announces „1 вноска" with no context otherwise. */}
-        <span className="sr-only">{t("pp_self_funding_rows_other")}</span>
+            but a screen reader announces „1 вноска" with no context otherwise.
+            ⚠️ Its OWN key, not the plural suffix: `t("pp_self_funding_rows_other")` returns
+            „{{count}} вноски" verbatim when called without a count (verified on i18next
+            24.2.3), so a screen reader was announcing the raw placeholder. */}
+        <span className="sr-only">{t("pp_self_funding_rows_label")}</span>
         <span className="text-right text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("monetary")}
         </span>
@@ -115,6 +127,7 @@ export const PersonSelfFunding: FC<Props> = ({
   selectedCycle,
   name,
   linkSlug,
+  articleTopic,
 }) => {
   const { t } = useTranslation();
   const { stats } = useElectionContext();
@@ -147,6 +160,7 @@ export const PersonSelfFunding: FC<Props> = ({
       // naming the two facts apart is lost if their headings are visually identical ~300px
       // from each other.
       icon={Banknote}
+      articleTopic={articleTopic}
       headingLevel={2}
     >
       {selected && funded(selected) ? (

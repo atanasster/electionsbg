@@ -930,6 +930,16 @@ test.describe("performance", () => {
     { path: "/compare", label: "compare" },
     { path: "/polls", label: "polls" },
     { path: "/about", label: "about" },
+    // ⚠️ The PERSON profile was in neither list, and it is the same multi-card,
+    // per-card-query shape as /candidate/* — plus, since
+    // docs/plans/person-candidate-display-unification-v1.md Tier 4, a „Свързани анализи"
+    // rail that lands with a separate fetch INSIDE an already-mounted section, pushing
+    // everything below it down. This slug is prerendered and has three candidacy cycles, so
+    // it exercises the electoral block, the geography block and the rail.
+    {
+      path: "/person/abidin-mehmed-hadzhimehmed-fe44ee",
+      label: "person profile (politician)",
+    },
     {
       path: "/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1",
       label: "party detail",
@@ -1013,6 +1023,12 @@ test.describe("performance", () => {
     {
       path: "/candidate/%D0%9A%D0%B8%D1%80%D0%B8%D0%BB%20%D0%99%D0%BE%D1%81%D0%B8%D1%84%D0%BE%D0%B2%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B5%D0%B2",
       label: "candidate detail (MP)",
+    },
+    // The same page as its CLS_ROUTES entry, with every /static JSON delayed — which is
+    // where a block that arrives late does its damage.
+    {
+      path: "/person/abidin-mehmed-hadzhimehmed-fe44ee",
+      label: "person profile (politician)",
     },
     {
       path: "/reports/section/problem_sections",

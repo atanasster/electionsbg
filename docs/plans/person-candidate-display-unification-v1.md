@@ -425,17 +425,65 @@ of `CandidateDashboardCards`. Fold them:
 
 ### Tier 4 — the two remaining parity gaps
 
-1. Wrap the person dashboard's electoral/geography/financing sections in
-   `SectionArticlesProvider order={["votes","geography","financing"]}` and pass the matching
-   `articleTopic` — the „Свързани анализи" rail then renders on both pages. Note the provider
-   filters `article.election !== selected` against the GLOBAL cycle; on the person page the
-   block's cycle is `?pelect`, so pass the block's cycle or accept (and state) that the rail
-   follows the header.
-2. `CandidateSummaryLine` on the person path (already handled if Tier 0 lands first).
-3. Re-check the section id lists: the merged page uses `person-electoral` / `person-geography`
-   / `person-donations` while the legacy body uses `votes` / `geography` / `financing`. Pick
-   one set per surface deliberately — `DashboardSectionIdProp` is a closed union and
-   `electionSurfaceDescriptors.ts` type-checks declared orders against it.
+1. **DONE.** The person dashboard's electoral / geography / self-funding sections are wrapped
+   in `SectionArticlesProvider order={["votes","geography","financing"]}` — the same order as
+   the candidate body, so an article's placement does not depend on which URL a reader
+   arrived by — and each declares its `articleTopic`.
+   - The provider is not optional decoration: `SectionArticlesStrip` falls back to filtering
+     the article list per section when there is none, so a rail still renders and an article
+     tagged both `votes` and `geography` appears in BOTH. The provider assigns each article to
+     the FIRST topic in the order, once.
+   - `SectionArticlesProvider` gained an optional `election`, and the person page passes the
+     BLOCK's cycle. It filters `article.election !== selected` against the global
+     `?elections=` by default, which is right for a page whose whole body is that cycle — but
+     the person page's electoral block rides `?pelect`, so without the override an
+     election-scoped article is matched against the header's cycle while sitting under a
+     heading describing a different one. Not a type error and not a visible one.
+   - The order lives ONCE, in `sectionTopics.ts`, imported by both surfaces — it decides which
+     section a multi-topic article lands in, so a second copy would let a reader's URL decide
+     what they find.
+   - All three topics are declared in `PersonElectoralSection`, including the financing one it
+     passes DOWN to `PersonSelfFunding`. A topic declared in another component cannot say
+     whether that component is inside the provider, and outside one the strip silently reverts
+     to filtering per section — against the header's cycle, and double-listing.
+   - Gate: `sectionArticlesRail.test.tsx` (10 tests) — the first-topic assignment AND its
+     anti-property (without a provider the same article double-lists), the block-cycle
+     override in three directions (override, empty override, none), each section bound to its
+     OWN topic as a PAIR, the containment of the financing section inside the provider, the
+     shared order, and that no rendered copy carries an unresolved `{{…}}`.
+     ⚠️ Its first cut was itself the defect it now guards: it asserted that the provider
+     existed and that the three topic STRINGS appeared in the file — which the provider's own
+     order array satisfied — and passed on a person page where NO section declared a topic and
+     the rail rendered nowhere. It typechecked. It was found by opening the page. Four further
+     proxy assertions the review then found are closed and mutation-checked: mounting the
+     financing section before the provider, swapping two topics, reversing the shared order,
+     and declaring the topic in the child all fail it now.
+   - ⚠️ TWO of the three destinations are CONDITIONAL, the hazard the candidate body already
+     records: `person-geography` is omitted with no settlement/section rows, and
+     `person-self-funding` when nothing is attributed — 487 of 29,715 people (1.6%). An
+     article tagged ONLY `financing` renders nowhere on the other 98.4%.
+   - Measured 2026-09-04: no article is both election-scoped and tagged one of the three, and
+     none carries `geography` or `financing` at all. So the override and the dedupe are
+     correct and INERT today; they are wired now rather than discovered on the day an article
+     lands.
+   - ⚠️ Consequence worth knowing: the section now mounts a react-query child, so a test of
+     any section carrying an `articleTopic` needs either a QueryClient or a stub of
+     `useListedArticles`. `PersonSelfFunding.test.tsx` stubs it, which also keeps its
+     no-request assertion about the donations path.
+   - ⚠️ And a CLS consequence, which is why `/person/<slug>` joins BOTH lists in
+     `tests/perf.spec.ts`: the rail arrives with its own ~25 KB fetch and lands INSIDE an
+     already-mounted section, pushing everything below it down. The person profile had been in
+     neither budget despite being the same multi-card, per-card-query shape as `/candidate/*`
+     — flagged in Tier 0's review and closed here. The chosen slug is prerendered and has
+     three candidacy cycles, so it exercises the electoral block, the geography block and the
+     rail.
+2. **DONE in Tier 0** — `CandidateSummaryLine` renders on both surfaces.
+3. **DONE, as a decision rather than a change.** The two id sets stay different, and §1.2
+   records why: `votes`/`geography`/`financing` carry the candidate page's article rail and
+   are that page's anchors; `person-electoral`/`person-geography`/`person-self-funding` are
+   the person dashboard's. The parity gate asserts the CONTENT matches and deliberately does
+   not assert the ids do. What DID change page-wide is `headingLevel` — all ~17 person-profile
+   sections are real `<h2>`s now, gated by `personHeadingOutline.test.ts`.
 
 ---
 

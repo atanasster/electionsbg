@@ -21,6 +21,14 @@ import { initTestI18n } from "@/screens/dashboard/testI18n";
 import { PersonSelfFunding } from "./PersonSelfFunding";
 import type { PersonElectionRow } from "@/data/dashboard/usePersonElections";
 
+// The „Свързани анализи" rail mounts inside this section (Tier 4) and reads the articles
+// index through react-query. Stubbed empty so this file needs no QueryClient for a rail it
+// does not test — and so the no-request assertion below stays about the DONATIONS path,
+// which is its subject.
+vi.mock("@/data/articles/useArticles", () => ({
+  useListedArticles: () => ({ data: [] }),
+}));
+
 // Only `stats` (the elections table, already in the bundle) and `selected` are read.
 vi.mock("@/data/ElectionContext", () => ({
   useElectionContext: () => ({
@@ -98,6 +106,7 @@ describe("PersonSelfFunding", () => {
     // Asserted rather than implied by the absence of a QueryClientProvider in `show()` — the
     // day another test here needs one, the natural fix is to add it to the shared helper, at
     // which point the payload path could start fetching with everything still green.
+    // (The articles rail is stubbed above, so any call reaching this spy is the tile's.)
     const fetchSpy = vi.spyOn(globalThis, "fetch");
     show([funded("2024_10_27", 25564.59)]);
     expect(screen.getAllByText(/25[\s ]?565|25,565/).length).toBeGreaterThan(0);
