@@ -116,6 +116,11 @@ type OfficialEntry = {
   slug: string;
   name: string;
   role: string;
+  /** The register folder this official was last listed in. Normally the shard's own bench
+   *  year — except for a mayor carried forward because the newest listing names none, whose
+   *  row deliberately keeps the earlier year. That distinction is what `officialYear` below
+   *  publishes, so it must be read from the entry rather than from the shard. */
+  descriptorYear?: number;
   // Set on район-aggregating city shards (Plovdiv/Varna): a "Район <NAME>"
   // mayor entry carries the район label here; the city mayor has none.
   district?: string;
@@ -249,7 +254,15 @@ const computeMayorDiff = (
   const mayorEntries = shard?.entries.filter((e) => e.role === "mayor") ?? [];
   const officialMayor =
     mayorEntries.find((e) => !e.district) ?? mayorEntries[0] ?? null;
-  const officialYear = shard?.years?.[0] ?? null;
+  // ⚠️ THE MAYOR'S OWN YEAR, NOT THE SHARD'S. `shard.years` is the bench the shard was built
+  // for; a mayor the newest register listing does not name is carried onto that bench from an
+  // earlier year and keeps his own `descriptorYear` precisely so this stays distinguishable
+  // (see `currentBench` in scripts/officials/build_municipal_shards.ts). Reading the shard's
+  // year instead re-dates him to the bench and publishes "the register named him this year"
+  // about a year in which it did not — the "one level up" failure that docstring warns of.
+  // Разлог is that município today: last listed 2025, carried onto the 2026 bench.
+  const officialYear =
+    officialMayor?.descriptorYear ?? shard?.years?.[0] ?? null;
   if (!cik && !officialMayor) {
     return {
       cikName: null,

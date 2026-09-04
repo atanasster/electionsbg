@@ -38,10 +38,19 @@
 //   npm run data -- --resolve-local-canonicals                 # the officials_diff sidecars
 //   npm run db:load:ngo-board-links                            # official_roster
 //
-// The sidecar step is the one that reaches a READER. `reconcile_officials.ts` compares the
+// The sidecar step is the one that reaches /sverka. `reconcile_officials.ts` compares the
 // shards' mayor against the CIK winner, so until it re-runs, /sverka and the two
 // /local/<cycle>/<code> tiles keep publishing „Кметът X още не е подал декларация" about the
 // very people this corrected — which is the claim the whole exercise exists to withdraw.
+//
+// ⚠️ THE MUNICIPALITY PAGE IS A DIFFERENT ROUTE AND A ROLE CORRECTION CANNOT TAKE THE CHEAP
+// ONE. `useMunicipalOfficials.tsx` reads `municipal_officials_current`, refreshed only by
+// `npm run db:load:official-candidate-links:pg` — and that matview takes its `role` from
+// `person_role.role`, which only `db:resolve:persons` writes. A shard that gains a MAYOR (a
+// new obshtina, or one carried forward) publishes after the candidate-links refresh; a row
+// whose ROLE this script changed does not, until a resolve re-derives it from
+// `official_roster`. Measured 2026-09-04: after the refresh alone, Разлог and Бяла served a
+// mayor and Мъглиж and Макреш still served none.
 //
 // ⚠️ `/person` LAGS ALL OF THESE. `resolve_persons.ts` copies `person_role.role` from
 // `official_roster`, so a profile keeps showing the listing role until a resolve runs — and

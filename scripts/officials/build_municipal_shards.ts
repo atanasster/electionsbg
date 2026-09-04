@@ -21,6 +21,23 @@
 // So the blast radius of this command is every shard, not the ones whose
 // bucket changed — dry-run first if that matters.
 //
+// ⚠️ WRITING THE SHARDS IS NOT PUBLISHING THEM. The municipality page stopped fetching these
+// files: `src/data/officials/useMunicipalOfficials.tsx` reads `municipal_officials_current`,
+// a view over the `municipal_officials_table` MATVIEW, whose only refresher in the repo is
+// `npm run db:load:official-candidate-links:pg`. So a corrected shard changes nothing a reader
+// sees until that runs — measured 2026-09-04, Разлог's carried mayor was in the shard, in
+// `official_roster` and marked sitting, and the served view still returned three deputy mayors,
+// a council chair and no mayor.
+//
+// The full local chain after a re-emit:
+//   npm run data -- --resolve-local-canonicals        # the officials_diff sidecars (/sverka)
+//   npm run db:load:ngo-board-links                   # official_roster
+//   npm run db:load:official-candidate-links:pg       # ← the one a reader sees
+//
+// `person_role.role` lags all of these; only `db:resolve:persons` moves it, and that is a
+// nine-command repair chain of its own (CLAUDE.md, "A LOCAL db:resolve:persons is never one
+// command").
+//
 // CLI:
 //   tsx scripts/officials/build_municipal_shards.ts          # re-emit + re-decorate
 //   tsx scripts/officials/build_municipal_shards.ts --dry-run # report stats, no writes
@@ -87,17 +104,97 @@ const rosterSort = (a: MunicipalIndexEntry, b: MunicipalIndexEntry): number => {
  *
  *  A file written before the roster accumulated has no `descriptorYear` on any
  *  entry and no `current` block; it WAS a single-year snapshot, so every entry
- *  is the bench and this returns all of them rather than nothing. */
+ *  is the bench and this returns all of them rather than nothing.
+ *
+ *  ⚠️ ONE EXCEPTION: A MAYOR WITH NO SUCCESSOR IS NOT A VACANCY. Every município has exactly
+ *  one mayor and the office is never empty, so a município the current listing names no mayor
+ *  for is the register failing to re-list an incumbent, not a town without a mayor. The plain
+ *  year filter published that as a município with three deputy mayors, a council chair and no
+ *  mayor — a state that does not exist — and the officials/CIK reconcile then reported the
+ *  elected mayor as having filed no declaration. Разлог, whose newest filing is 2025-05-09,
+ *  is that município today.
+ *
+ *  ⚠️ MAYOR ONLY, AND THE OBVIOUS GENERALISATION IS WRONG. „Any single-holder office" reads
+ *  as mayor + council chair, and the measurement says otherwise. Counted over the 300 registry
+ *  institution names on the 2026 bench (the grain this function groups by, NOT obshtina codes —
+ *  see below), 56 name no council chair and 53 have NEVER named one, against exactly ONE that
+ *  names no mayor. An absent chair is therefore not evidence that a chair was dropped, and
+ *  carrying it would invent scores of sitting officers from a signal that means nothing.
+ *
+ *  ⚠️ A CARRIED ROW KEEPS ITS OWN `descriptorYear`, and that is the whole safety property. It
+ *  is the difference between "the mayor is X" and "the register last saw X in 2025", and a
+ *  consumer that renders the first from the second re-creates this defect one level up —
+ *  which is why nothing here rewrites the year to the bench's. `carriedMayors` is returned so
+ *  the caller can say how many rows are dated rather than current. */
 export const currentBench = (
   index: MunicipalIndexFile,
-): { year: number; entries: MunicipalIndexEntry[] } => {
+): {
+  year: number;
+  entries: MunicipalIndexEntry[];
+  /** Rows carried in from an earlier year because their município's current listing names no
+   *  mayor. Each keeps its original `descriptorYear`. */
+  carriedMayors: MunicipalIndexEntry[];
+} => {
   const year = index.current?.year ?? index.years[index.years.length - 1] ?? 0;
   const dated = index.entries.filter((e) => e.descriptorYear != null);
-  if (dated.length === 0) return { year, entries: index.entries };
-  return {
-    year,
-    entries: index.entries.filter((e) => e.descriptorYear === year),
-  };
+  if (dated.length === 0)
+    return { year, entries: index.entries, carriedMayors: [] };
+
+  const entries = index.entries.filter((e) => e.descriptorYear === year);
+
+  // ⚠️ GROUPED BY REGISTRY NAME, WHICH IS FINER THAN THE SHARD'S OBSHTINA CODE. The index has
+  // no obshtina code — that is resolved later, in emitShards — and the two grains are not the
+  // same: the resolver folds Пловдив's 7 and Варна's 6 район names into PDV22 and VAR06. So a
+  // район whose own listing names no mayor is carried even though the city's shard already has
+  // one, which is CORRECT — a район mayor is that район's own office, and the sidecar's
+  // district-less preference (reconcile_officials.ts) keeps the city mayor distinguishable.
+  // What this grain must never become is the code: folding to it would let the city's mayor
+  // suppress a район's carry, and vice versa.
+  const benchHasMayor = new Set(
+    entries.filter((e) => e.role === "mayor").map((e) => e.municipality),
+  );
+  const carriedMayors: MunicipalIndexEntry[] = [];
+  const bestByMuni = new Map<string, MunicipalIndexEntry>();
+  for (const e of index.entries) {
+    if (e.role !== "mayor") continue;
+    // ⚠️ AN UNDATED ROW IS NEVER CARRIED. `descriptorYear == null` means "written before the
+    // roster accumulated", not "listed in year 0" — coercing it with `?? 0` would make such a
+    // row eligible and let a pre-accumulation snapshot put a mayor on today's bench. The
+    // early return above already handles the all-undated index; this is the mixed case.
+    if (e.descriptorYear == null) continue;
+    if (e.descriptorYear === year) continue;
+    if (benchHasMayor.has(e.municipality)) continue;
+    const prior = bestByMuni.get(e.municipality);
+    // Most recent prior year wins. Within a year the later FILING does, and then the later
+    // slug — a total order, because the case this exists for is a município that listed a
+    // departing and an arriving mayor in the same year, where the two rows are equal on both
+    // earlier keys and Bulgarian name collation would otherwise decide.
+    if (
+      !prior ||
+      e.descriptorYear > prior.descriptorYear! ||
+      (e.descriptorYear === prior.descriptorYear &&
+        (e.latestDeclarationYear > prior.latestDeclarationYear ||
+          (e.latestDeclarationYear === prior.latestDeclarationYear &&
+            e.slug > prior.slug)))
+    )
+      bestByMuni.set(e.municipality, e);
+  }
+  for (const e of bestByMuni.values()) carriedMayors.push(e);
+
+  return { year, entries: [...entries, ...carriedMayors], carriedMayors };
+};
+
+/** Report the mayors this bench carried in from an earlier year, by name.
+ *
+ *  Named rather than counted: each is a município whose current listing does not name its
+ *  mayor, published from an older filing. One is the register missing an incumbent; a list
+ *  that grows past a handful means the register changed shape, and only the names show which.
+ *  Shared by both `currentBench` callers so they cannot report it differently. */
+export const logCarriedMayors = (carried: MunicipalIndexEntry[]): void => {
+  for (const c of carried)
+    console.log(
+      `  ↪ carried mayor: ${c.municipality} — ${c.name} (last listed ${c.descriptorYear})`,
+    );
 };
 
 export type ShardEmitResult = {
@@ -123,6 +220,18 @@ export type ShardEmitResult = {
  *  shards afterwards by candidate_links.ts and does not exist in index.json, so a caller
  *  must chain `decorateCandidateLinks()` — both callers do, and one bare re-emit measured
  *  2026-09-04 deleted 5,331 links across 276 shards.
+ *
+ *  ⚠️ THE BENCH FILTER IS THE CALLER'S, NOT THIS FUNCTION'S — it shards whatever it is given.
+ *  Three callers pass three different sets, and that is a decision rather than drift:
+ *
+ *    municipal.ts               `currentBench(indexFile).entries` — the sitting bench plus any
+ *                               carried mayor. The serving tree.
+ *    build_municipal_shards CLI the same, via `currentBench`. Must match the ingest exactly;
+ *                               they write the same files.
+ *    migrate_slug_normalisation every entry, all years, into an ISOLATED override tree. It is
+ *                               renaming slugs across the whole accumulated roster, so a bench
+ *                               filter there would silently drop the retained rows it exists
+ *                               to rename. Never point it at the production `shardDir`.
  *
  *  `dryRun` skips disk writes (but still counts and still detects stale files). `entries` is
  *  the pre-sorted roster from the ingest, or the entries field of an existing index.json. */
@@ -247,6 +356,7 @@ const cmd = command({
           `${index.entries.length - bench.entries.length} retained from earlier year(s), not sharded`,
       );
     }
+    logCarriedMayors(bench.carriedMayors);
     console.log(
       `${dryRun ? "[dry-run] " : ""}shards: ${result.shardsWritten}, ` +
         `unmatched: ${result.unmatched.length}, ` +

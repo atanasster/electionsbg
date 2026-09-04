@@ -40,6 +40,28 @@ const entry = (over: Partial<MunicipalIndexEntry> = {}): MunicipalIndexEntry =>
 
 const META = { generatedAt: "2026-09-04T00:00:00.000Z", years: [2026] };
 
+const index = (
+  entries: MunicipalIndexEntry[],
+  year: number,
+): MunicipalIndexFile =>
+  ({
+    generatedAt: META.generatedAt,
+    years: [2025, year],
+    total: entries.length,
+    byRole: {},
+    // The BENCH total, not every entry — `official_roster_obshtina.data.test.ts` derives
+    // `retained` from `total - current.total`, so a fixture that inflates it here teaches
+    // the wrong shape to anyone copying it.
+    current: {
+      year,
+      total: entries.filter(
+        (e) => (e as { descriptorYear?: number }).descriptorYear === year,
+      ).length,
+      byRole: {},
+    },
+    entries,
+  }) as unknown as MunicipalIndexFile;
+
 describe("emitShards", () => {
   it("writes one shard per resolved obshtina and reports nothing unmatched", () => {
     const dir = mkTmp();
@@ -52,6 +74,35 @@ describe("emitShards", () => {
     expect(res.stale).toEqual([]);
     expect(res.shardsWritten).toBe(2);
     expect(fs.readdirSync(dir).sort()).toEqual(["SZR22.json", "VID25.json"]);
+  });
+
+  // TEST-001: `currentBench` and `emitShards` are separate functions, so "carried onto the
+  // bench" and "written into a shard" are separate claims. The second is the one a reader sees.
+  it("writes a carried mayor into the município's shard, dated to his own year", () => {
+    const dir = mkTmp();
+    const bench = currentBench(
+      index(
+        [
+          entry({ slug: "old-mayor", role: "mayor", descriptorYear: 2025 }),
+          entry({ slug: "dep", role: "deputy_mayor", descriptorYear: 2026 }),
+        ],
+        2026,
+      ),
+    );
+    emitShards(bench.entries, META, { shardDir: dir });
+    const shard = JSON.parse(
+      fs.readFileSync(path.join(dir, "SZR22.json"), "utf8"),
+    ) as {
+      years: number[];
+      byRole: Record<string, number>;
+      entries: { slug: string; descriptorYear?: number }[];
+    };
+    expect(shard.byRole.mayor).toBe(1);
+    const carried = shard.entries.find((e) => e.slug === "old-mayor")!;
+    // The shard's bench year and the entry's own year disagree ON PURPOSE — that gap is what
+    // lets a consumer say "last listed 2025" instead of asserting he was listed this year.
+    expect(shard.years).toEqual([2026]);
+    expect(carried.descriptorYear).toBe(2025);
   });
 
   it("collects an unresolvable name instead of dropping or guessing it", () => {
@@ -95,19 +146,6 @@ describe("emitShards", () => {
 });
 
 describe("currentBench", () => {
-  const index = (
-    entries: MunicipalIndexEntry[],
-    year: number,
-  ): MunicipalIndexFile =>
-    ({
-      generatedAt: META.generatedAt,
-      years: [2025, year],
-      total: entries.length,
-      byRole: {},
-      current: { year, total: entries.length, byRole: {} },
-      entries,
-    }) as unknown as MunicipalIndexFile;
-
   it("keeps only the officials the newest register listing names", () => {
     const bench = currentBench(
       index(
@@ -130,5 +168,172 @@ describe("currentBench", () => {
       entry({ slug: "b-2", descriptorYear: undefined }),
     ];
     expect(currentBench(index(rows, 2026)).entries).toHaveLength(2);
+    expect(currentBench(index(rows, 2026)).carriedMayors).toEqual([]);
   });
+
+  // ⚠️ A MAYOR WITH NO SUCCESSOR IS NOT A VACANCY. The plain year filter published Разлог as a
+  // município with three deputy mayors, a council chair and no mayor — a state that does not
+  // exist — and the officials/CIK reconcile then reported its elected mayor as not having
+  // filed.
+  it("carries a mayor forward when the current listing names none", () => {
+    const bench = currentBench(
+      index(
+        [
+          entry({ slug: "old-mayor", role: "mayor", descriptorYear: 2025 }),
+          entry({ slug: "dep", role: "deputy_mayor", descriptorYear: 2026 }),
+        ],
+        2026,
+      ),
+    );
+    expect(bench.entries.map((e) => e.slug).sort()).toEqual([
+      "dep",
+      "old-mayor",
+    ]);
+    expect(bench.carriedMayors.map((e) => e.slug)).toEqual(["old-mayor"]);
+    // ⚠️ The carried row keeps its OWN year. That is the difference between "the mayor is X"
+    // and "the register last saw X in 2025"; rewriting it to the bench year would re-create
+    // the defect one level up, silently.
+    expect(bench.carriedMayors[0]!.descriptorYear).toBe(2025);
+  });
+
+  it("does not carry one when the current listing already names a mayor", () => {
+    const bench = currentBench(
+      index(
+        [
+          entry({ slug: "old-mayor", role: "mayor", descriptorYear: 2025 }),
+          entry({ slug: "new-mayor", role: "mayor", descriptorYear: 2026 }),
+        ],
+        2026,
+      ),
+    );
+    expect(bench.carriedMayors).toEqual([]);
+    expect(bench.entries.map((e) => e.slug)).toEqual(["new-mayor"]);
+  });
+
+  it("carries the MOST RECENT prior mayor, not any prior one", () => {
+    const bench = currentBench(
+      index(
+        [
+          entry({ slug: "y2019", role: "mayor", descriptorYear: 2019 }),
+          entry({ slug: "y2025", role: "mayor", descriptorYear: 2025 }),
+          entry({ slug: "dep", role: "deputy_mayor", descriptorYear: 2026 }),
+        ],
+        2026,
+      ),
+    );
+    expect(bench.carriedMayors.map((e) => e.slug)).toEqual(["y2025"]);
+  });
+
+  it("carries per município, never across them", () => {
+    const bench = currentBench(
+      index(
+        [
+          entry({
+            slug: "a-old",
+            role: "mayor",
+            municipality: "Разлог",
+            descriptorYear: 2025,
+          }),
+          entry({
+            slug: "b-new",
+            role: "mayor",
+            municipality: "Мъглиж",
+            descriptorYear: 2026,
+          }),
+        ],
+        2026,
+      ),
+    );
+    // Мъглиж has a current mayor and must not lend him to Разлог; Разлог carries its own.
+    expect(bench.carriedMayors.map((e) => e.municipality)).toEqual(["Разлог"]);
+  });
+
+  // TEST-002: `descriptorYear == null` means "written before the roster accumulated", not
+  // "listed in year 0". Coercing it would let a pre-accumulation row onto today's bench.
+  it("never carries an UNDATED mayor onto a dated bench", () => {
+    const bench = currentBench(
+      index(
+        [
+          entry({ slug: "undated", role: "mayor", descriptorYear: undefined }),
+          entry({ slug: "dep", role: "deputy_mayor", descriptorYear: 2026 }),
+        ],
+        2026,
+      ),
+    );
+    expect(bench.carriedMayors).toEqual([]);
+  });
+
+  // TEST-003: the case the rule exists for — a município that listed a departing and an
+  // arriving mayor in the same year — leaves the two rows equal on year, so the tie-break must
+  // be total rather than falling through to name collation.
+  it("breaks a same-year tie determinately, not by name", () => {
+    const rows = [
+      entry({
+        slug: "a-earlier",
+        role: "mayor",
+        descriptorYear: 2025,
+        latestDeclarationYear: 2024,
+      }),
+      entry({
+        slug: "z-later",
+        role: "mayor",
+        descriptorYear: 2025,
+        latestDeclarationYear: 2025,
+      }),
+      entry({ slug: "dep", role: "deputy_mayor", descriptorYear: 2026 }),
+    ];
+    const forward = currentBench(index(rows, 2026)).carriedMayors;
+    const reversed = currentBench(
+      index([...rows].reverse(), 2026),
+    ).carriedMayors;
+    expect(forward.map((e) => e.slug)).toEqual(["z-later"]);
+    // Same answer whichever order the index happens to hold them in.
+    expect(reversed.map((e) => e.slug)).toEqual(forward.map((e) => e.slug));
+  });
+
+  // TEST-004: the carry groups by REGISTRY NAME, which is finer than the shard's obshtina
+  // code — the resolver folds Пловдив's six район names into PDV22. A район whose own listing
+  // names no mayor must still carry one, even though the city's shard already has a mayor.
+  it("carries per registry name, not per folded obshtina code", () => {
+    const bench = currentBench(
+      index(
+        [
+          entry({
+            slug: "city",
+            role: "mayor",
+            municipality: "Пловдив",
+            descriptorYear: 2026,
+          }),
+          entry({
+            slug: "rayon-old",
+            role: "mayor",
+            municipality: 'Район "Централен" - Пловдив',
+            descriptorYear: 2025,
+          }),
+        ],
+        2026,
+      ),
+    );
+    expect(bench.carriedMayors.map((e) => e.slug)).toEqual(["rayon-old"]);
+  });
+
+  // ⚠️ MAYOR ONLY. 56 municipalities have no council chair on the current bench and 53 have
+  // NEVER had one, so an absent chair is not evidence that a chair was dropped — carrying it
+  // would invent scores of sitting officers from a signal that means nothing.
+  it.each(["council_chair", "deputy_mayor", "councillor"] as const)(
+    "never carries a %s forward",
+    (role) => {
+      const bench = currentBench(
+        index(
+          [
+            entry({ slug: "old", role, descriptorYear: 2025 }),
+            entry({ slug: "cur", role: "mayor", descriptorYear: 2026 }),
+          ],
+          2026,
+        ),
+      );
+      expect(bench.carriedMayors).toEqual([]);
+      expect(bench.entries.map((e) => e.slug)).toEqual(["cur"]);
+    },
+  );
 });

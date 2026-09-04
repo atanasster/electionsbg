@@ -47,12 +47,11 @@ const row = (over: Record<string, unknown> = {}) => ({
   ...over,
 });
 
+type Filed = Awaited<ReturnType<FiledSource>>[number];
 const source =
-  (
-    rows: Parameters<FiledSource>[0] extends never ? never : unknown[],
-  ): FiledSource =>
+  (rows: Filed[]): FiledSource =>
   async () =>
-    rows as never;
+    rows;
 
 const read = (f: string): MunicipalIndexFile =>
   JSON.parse(fs.readFileSync(f, "utf8"));

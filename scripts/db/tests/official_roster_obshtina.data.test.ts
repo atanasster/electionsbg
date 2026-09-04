@@ -300,7 +300,12 @@ test.skipIf(skipShards)(
     const index = JSON.parse(readFileSync(INDEX_PATH, "utf8")) as {
       total: number;
       current?: { total: number };
-      entries: { slug: string; descriptorYear?: number }[];
+      entries: {
+        slug: string;
+        descriptorYear?: number;
+        role?: string;
+        municipality?: string;
+      }[];
     };
     const benchYear = Math.max(
       0,
@@ -320,11 +325,63 @@ test.skipIf(skipShards)(
     // Pinned against the index's own figure so a roster that quietly stops accumulating —
     // or one that starts retaining people the index does not — fails here rather than
     // silently shrinking the person layer again.
-    const retained = index.total - (index.current?.total ?? index.total);
+    //
+    // ⚠️ RETAINED IS NOT THE SAME AS DEPARTED, and the difference is the carried mayors.
+    // `currentBench` keeps a município's mayor on the bench when the newest listing names none
+    // — the office is never vacant, so an absence there is the register failing to re-list an
+    // incumbent — and such a row is BOTH off the current year (retained) and in a shard
+    // (serving). Counting it as departed made this assertion fail on the very row that fixed
+    // Разлог. The bench year cannot be read off `current.year` here for the same reason the
+    // set is computed from the shards: a carried row's own descriptorYear is deliberately left
+    // behind the bench.
+    // ⚠️ `carried` MUST BE DERIVED FROM THE RULE, NOT FROM THE SHARDS. Counting the off-bench
+    // rows that happen to be IN a shard makes this an identity — `retained` and `extra` then
+    // move together for any row the shard build decides to include, and the assertion passes
+    // for every over-carry. Simulated by deleting `currentBench`'s `benchHasMayor` guard so
+    // all 5 prior-year mayors are carried: 4 shards gain a second mayor and the shard-derived
+    // form still reports 329 == 329, while this form reports 333 != 329. No sibling gate
+    // covers it either — "no shard merges two registry names" deliberately does not count
+    // mayors, and municipal_officials.data.test.ts is built from the same `currentBench`.
+    //
+    // So the licence is restated here from the index alone: a row may be carried only if it is
+    // a MAYOR whose município names none on the bench. That is a second statement of
+    // `currentBench`'s rule, which is normally the thing to avoid — but a gate that re-derives
+    // its expectation from the artifact under test is not a gate at all.
+    const benchMayorMunis = new Set(
+      index.entries
+        .filter(
+          (e) => e.role === "mayor" && (e.descriptorYear ?? 0) === benchYear,
+        )
+        .map((e) => e.municipality),
+    );
+    const carried = index.entries.filter(
+      (e) =>
+        e.role === "mayor" &&
+        (e.descriptorYear ?? 0) !== benchYear &&
+        !benchMayorMunis.has(e.municipality),
+    ).length;
+    const retained =
+      index.total - (index.current?.total ?? index.total) - carried;
+
+    // ⚠️ MUTATION ARM. The previous form of this subtraction counted the off-bench rows that
+    // were IN a shard, which made the assertion an identity — it passed for any over-carry.
+    // This proves the licence-derived form still discriminates: relax it to "every off-bench
+    // mayor is carried" (the shape a deleted `benchHasMayor` guard would produce) and the
+    // expectation must MOVE. If it does not, the constraint has stopped constraining.
+    const unconstrained = index.entries.filter(
+      (e) => e.role === "mayor" && (e.descriptorYear ?? 0) !== benchYear,
+    ).length;
+    assert.notEqual(
+      unconstrained,
+      carried,
+      "the carried-mayor licence no longer narrows anything — every off-bench mayor now " +
+        "qualifies, so this assertion cannot detect an over-carrying bench",
+    );
     assert.equal(
       extra.length,
       retained,
-      `${extra.length} departed official(s) in person_role but ${retained} retained in the index — the two disagree about who has left`,
+      `${extra.length} departed official(s) in person_role but ${retained} retained-and-not-serving in the index ` +
+        `(${carried} carried onto the bench) — the two disagree about who has left`,
     );
   },
 );

@@ -6,7 +6,7 @@
     2026
   ],
   "byRole": {
-    "mayor": 0,
+    "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 1,
     "councillor": 20,
@@ -14,6 +14,24 @@
     "other": 0
   },
   "entries": [
+    {
+      "slug": "krasimir-ivanov-gerchev-2d598a",
+      "name": "Красимир Иванов Герчев",
+      "normalizedName": "КРАСИМИР ИВАНОВ ГЕРЧЕВ",
+      "role": "mayor",
+      "roleRaw": "Кмет",
+      "municipality": "Разлог",
+      "latestDeclarationYear": 2025,
+      "descriptorYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 101,
+        "prefVotes": 100,
+        "isElected": true
+      }
+    },
     {
       "slug": "gergana-vladimirova-kostova-f01e76",
       "name": "Гергана Владимирова Костова",

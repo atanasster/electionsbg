@@ -55,7 +55,11 @@ import {
 import { mergeIndexEntries, mergeYears } from "./merge";
 import { aliasedDeclarantName } from "./declarant_aliases";
 import { personGuid } from "./slug_identity";
-import { emitShards } from "./build_municipal_shards";
+import {
+  emitShards,
+  currentBench,
+  logCarriedMayors,
+} from "./build_municipal_shards";
 import { decorateCandidateLinks, assertCanDecorate } from "./candidate_links";
 import {
   reconcileRole,
@@ -411,6 +415,12 @@ const cmd = command({
     // descriptorYear. A backfill run (`--year 2019`) therefore cannot redefine
     // the bench, because max(years) stays at the newest folder ingested.
     const currentYear = years[years.length - 1];
+    // ⚠️ THE YEAR'S LISTING, NOT THE SHARD BENCH — the two stopped being the same set when
+    // `currentBench` gained its carried-mayor arm. This one is a SUMMARY of what the newest
+    // register folder named, so it must stay a plain year filter: folding a mayor carried in
+    // from 2025 into `current.byRole` would make index.json assert that the 2026 listing named
+    // 289 mayors when it named 288. The shard emit below calls `currentBench` instead, so the
+    // two consumers get the set each actually means and there is still one bench definition.
     const currentEntries = indexEntries.filter(
       (e) => (e.descriptorYear ?? 0) === currentYear,
     );
@@ -455,7 +465,12 @@ const cmd = command({
     // stripped, which is the loss the chained call exists to prevent.
     assertCanDecorate();
 
-    const shardResult = emitShards(currentEntries, {
+    // `currentBench`, not `currentEntries`: the shards must carry a mayor the newest listing
+    // failed to re-list, which is the one place the two sets differ. Using the plain year
+    // filter here published a município with deputies and no mayor.
+    const shardBench = currentBench(indexFile);
+    logCarriedMayors(shardBench.carriedMayors);
+    const shardResult = emitShards(shardBench.entries, {
       generatedAt: indexFile.generatedAt,
       years: [currentYear],
     });

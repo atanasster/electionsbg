@@ -212,6 +212,26 @@ next collision to fail the same silent way.
    is copied from the shards and 14 people currently carry `RSE04`. Cloud side is the `:cloud`
    twins; nothing runs them automatically.
 
+⚠️ **A CORRECTED SHARD IS NOT A CORRECTED PAGE, and the step that closes the gap is in none of
+the chains above.** `useMunicipalOfficials.tsx` stopped fetching `by_obshtina/<code>.json`; the
+municipality page reads `municipal_officials_current`, a view over the `municipal_officials_table`
+MATVIEW, whose only refresher in the repo is **`npm run db:load:official-candidate-links:pg`**.
+Measured 2026-09-04: Разлог's mayor was in the shard, in `official_roster`, and marked sitting,
+while the served view still returned three deputy mayors, a council chair and no mayor.
+
+Worse, that matview takes its `role` from **`person_role.role`**, not from the shard — and only
+`db:resolve:persons` writes that. So the three repairs reach a reader by different routes:
+
+| what moved                              | what publishes it                                                                                      |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| T1, a shard that did not exist (VAR05)  | `db:load:ngo-board-links` → `db:load:official-candidate-links:pg`                                      |
+| T3, a carried mayor (BLG37)             | the same pair — the row is already in `person_role`                                                    |
+| **T2, a corrected ROLE (SZR22, VID25)** | **`db:resolve:persons` + its nine-command repair chain**, because the role itself has to be re-derived |
+
+So a T2-shaped fix cannot be published cheaply, and saying so is the point: skipping the resolve
+leaves `/person` and the municipality page publishing the register's wrong label beside a
+corrected `/sverka`.
+
 ⚠️ `db:resolve:persons` reassigns `person_id` ordinals — see CLAUDE.md's „A LOCAL
 `db:resolve:persons` is never one command" — so the repair chain (declarations phase 2,
 person-elections, council, persons-browse, person-search, graph, tr-company-place) is owed
