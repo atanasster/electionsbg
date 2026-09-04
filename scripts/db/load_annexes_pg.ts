@@ -4,6 +4,29 @@
 // current-value fold uses (scripts/procurement/lib/annexResolve.ts) — reused, not
 // re-derived, so the two never disagree about "this contract's annexes".
 //
+// ⚠️ It reads Postgres, so it must declare a contract BASIS per row.
+// `rebuild_consortium()` (087) has moved each consortium award's whole value onto
+// one carrier row and zeroed the members, so a per-supplier divisor on a CARRIER
+// makes the continuity anchor short by exactly the member count. Until 2026-09-04
+// this loader passed no basis at all and took the shard default: 15,435 consortium
+// rows carried 10 annex links between them, against 4.9% coverage on plain rows,
+// with every row count reconciling.
+//
+// ⚠️ The basis is per ROW, not per source, and claiming "full" for everything
+// Postgres holds trades one silent loss for another. 087 un-splits CONSORTIUM rows
+// only — 524 `framework` rows keep the equal split by its step (2), as does any
+// multi-supplier award its HAVING did not group. Measured 2026-09-04 against the
+// pre-change table, 83 currently-linked annex rows sit on that split (9 framework,
+// 74 ungrouped; anchor/signed an exact integer 2–8 equal to the sibling
+// contractor_eik count), against 11 on the consortium arm at ratio 0.989. Hence
+// `consortium_role = 'carrier'` below and nothing wider. See
+// docs/plans/annex-linkage-consortium-basis-v1.md.
+//
+// `consortium_role` is added by 087, which this loader does not apply — it applies
+// 114 only. That is safe because 087 ships with `db:load:pg`, so any database
+// holding a contracts corpus has the column; a database without one has no rows to
+// resolve anyway.
+//
 //   npm run db:load:annexes:pg          (needs `npm run db:pg:up`)
 //   npm run db:load:annexes:pg:cloud    (against the Cloud SQL proxy)
 //
@@ -22,6 +45,7 @@ import {
   buildAnnexIndex,
   resolveAnnexKey,
   type AnnexRecordRow,
+  type ContractBasis,
 } from "../procurement/lib/annexResolve";
 import type { Contract } from "../procurement/types";
 
@@ -58,6 +82,7 @@ type ContractRow = {
   contract_id: string | null;
   signing_amount_eur: number | null;
   amount_eur: number | null;
+  consortium_role: string | null; // 087: 'carrier' | 'member' | NULL
 };
 
 const main = async (): Promise<void> => {
@@ -82,7 +107,7 @@ const main = async (): Promise<void> => {
   const contracts = (
     await getPool().query<ContractRow>(
       `SELECT key, unp, awarder_eik, contractor_eik, contract_id,
-              signing_amount_eur, amount_eur
+              signing_amount_eur, amount_eur, consortium_role
          FROM contracts WHERE tag = 'contract'`,
     )
   ).rows;
@@ -109,7 +134,15 @@ const main = async (): Promise<void> => {
       awarderEik: cr.awarder_eik ?? undefined,
       contractId: cr.contract_id ?? undefined,
     } as Contract;
-    const hit = resolveAnnexKey(idx, c, signed);
+    // 087 un-splits ONLY the consortium carrier row. Frameworks keep the equal
+    // split by design (087 step 2), and so does any multi-supplier award its
+    // HAVING did not group — so the basis is a property of the ROW, not of the
+    // fact that this loader reads Postgres. Members sit at 0 and were already
+    // refused by the `signed == null` guard above and by `signed <= 0` inside
+    // resolveAnnexKey.
+    const basis: ContractBasis =
+      cr.consortium_role === "carrier" ? "full" : "split";
+    const hit = resolveAnnexKey(idx, c, signed, { basis });
     if (!hit) continue;
     matched++;
     const rows =

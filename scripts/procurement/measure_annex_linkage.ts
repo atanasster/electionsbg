@@ -9,6 +9,7 @@
 //   npx tsx scripts/procurement/measure_annex_linkage.ts --source=pg      # what load_annexes_pg sees
 //   npx tsx scripts/procurement/measure_annex_linkage.ts --source=shards  # what anexi_current_value sees
 //   npx tsx scripts/procurement/measure_annex_linkage.ts --json           # machine-readable
+//   npx tsx scripts/procurement/measure_annex_linkage.ts --read-only      # accepted no-op alias
 //
 // Against Cloud SQL (production), via the proxy — still read-only:
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
@@ -21,20 +22,25 @@
 // procurement_annexes and from the value fold, with every row count reconciling. This harness
 // iterates the annex CACHE instead, so that population is countable at all.
 //
-// ── THE TWO SOURCES DO NOT AGREE, AND ONLY ONE OF THEM IS RIGHT ──────────────────────────────
+// ── THE TWO SOURCES DECLARE DIFFERENT BASES, AND BOTH ARE RIGHT ──────────────────────────────
 //
 // `perSupplier()` divides the annex's FULL published value by the supplier count, because the
-// SHARD convention is a per-supplier split (normalize_eop divides by validSupplierCount). But
+// SHARD convention is a per-supplier split (normalize_eop divides by validSupplierCount).
 // `rebuild_consortium()` (087_procurement_consortium.sql) runs INSIDE Postgres after the load and
-// UNDOES that split: it moves a joint award's whole value onto one member row and zeroes the
-// rest. So on a consortium contract the same resolver reads a split anchor from the shards and an
-// un-split one from Postgres, and the continuity guard refuses the Postgres side by exactly the
-// member count (−66.7% at 3 members, −83.3% at 6).
+// UNDOES that split for the rows it promotes: it moves a consortium award's whole value onto one
+// carrier row and zeroes the rest. So each source declares its own basis, PER ROW —
+// `pgBasis()` below mirrors the loader's `consortium_role = 'carrier'` test, and a shard row is
+// always split.
 //
 //   `--source=shards`  what the VALUE FOLD sees — contracts.amount_eur is built on this
 //   `--source=pg`      what the ANNEXES TABLE sees — procurement_annexes is built on this
 //
-// Neither is a correction of the other; the divergence is the finding. §4 prints it.
+// Until 2026-09-04 the pg side took the shard divisor for everything and the continuity guard
+// refused every consortium carrier by exactly its member count (−66.7% at 3, −83.3% at 6). That
+// is fixed; what §4 now prints is the RESIDUE — the records one source links and the other does
+// not — which is what Tier 2 of the plan targets. Some of it is structural rather than a defect:
+// Postgres additionally holds ~2,680 synthetic `obed-` carrier rows that have no shard row at all,
+// and whose EIK the annex feed can never publish.
 
 import fs from "fs";
 import path from "path";
@@ -50,7 +56,10 @@ import {
   normEik,
   parseBgNumber,
   resolveAnnexKey,
+  annexDivisor,
+  type AnnexAcc,
   type AnnexIndex,
+  type ContractBasis,
 } from "./lib/annexResolve";
 import { toEur } from "@/lib/currency";
 import type { Contract } from "./types";
@@ -61,6 +70,13 @@ const ROOT = path.resolve(__dirname, "../..");
 const MONTH_DIR = path.join(ROOT, "data/procurement/contracts");
 
 type Source = "pg" | "shards";
+
+/** The basis a Postgres row carries, decided exactly as `load_annexes_pg.ts` decides it: 087
+ *  un-splits the consortium CARRIER only, so everything else — frameworks (its step 2 keeps the
+ *  equal split deliberately) and any multi-supplier award its HAVING did not group — is still
+ *  split. Mirrored rather than inferred so the harness measures what the loader does. */
+const pgBasis = (consortiumRole: string | null): ContractBasis =>
+  consortiumRole === "carrier" ? "full" : "split";
 
 const argv = process.argv.slice(2);
 const KNOWN = new Set([
@@ -94,6 +110,8 @@ interface Row {
   contractId?: string;
   signed: number | null;
   consortiumFullEur?: number;
+  /** What THIS row's value means — see ContractBasis. Shards are always split. */
+  basis: ContractBasis;
 }
 
 const isYearDir = (n: string): boolean => /^\d{4}$/.test(n);
@@ -123,6 +141,7 @@ const loadShards = (): Row[] => {
           contractId: r.contractId,
           signed: r.signingAmountEur ?? r.amountEur ?? null,
           consortiumFullEur: r.consortiumFullEur,
+          basis: "split",
         });
       }
     }
@@ -143,9 +162,10 @@ const loadPg = async (): Promise<Row[]> => {
     signing_amount_eur: number | null;
     amount_eur: number | null;
     consortium_full_eur: number | null;
+    consortium_role: string | null;
   }>(
     `SELECT key, unp, awarder_eik, contractor_eik, contract_id,
-            signing_amount_eur, amount_eur, consortium_full_eur
+            signing_amount_eur, amount_eur, consortium_full_eur, consortium_role
        FROM contracts WHERE tag = 'contract'`,
   );
   return rows.map((r) => ({
@@ -156,6 +176,7 @@ const loadPg = async (): Promise<Row[]> => {
     contractId: r.contract_id ?? undefined,
     signed: r.signing_amount_eur ?? r.amount_eur ?? null,
     consortiumFullEur: r.consortium_full_eur ?? undefined,
+    basis: pgBasis(r.consortium_role),
   }));
 };
 
@@ -246,7 +267,9 @@ const CAUSES = [
   "no contract under this УНП carries the annex's supplier",
   "contract row has no usable value (zeroed consortium member)",
   "contract row has no usable value (feed published none)",
+  "no accumulator under either key (annex indexed elsewhere)",
   "K2 ambiguity refusal (>1 contract № under УНП+supplier)",
+  "K1 ambiguity refusal (>1 УНП under buyer+contract №)",
   "guard 1: supplier absent from the latest annex",
   "guard 2: no usable anchor",
   "guard 2: continuity — pre-annex value ≠ signing (±12%)",
@@ -255,9 +278,33 @@ const CAUSES = [
 ] as const;
 type Cause = (typeof CAUSES)[number];
 
+/** Replays the three guards against ONE accumulator, and names the first that refused —
+ *  `undefined` means it would have resolved. The divisor comes from the resolver's own
+ *  `annexDivisor`, never a local copy: the divisor IS the rule, and the whole claim of this
+ *  file is that it re-derives the VERDICT and nothing else. */
+const guardRefusal = (
+  acc: AnnexAcc,
+  c: Row,
+  signed: number,
+): { cause: Cause; anchorRatio?: number } | undefined => {
+  const me = normEik(c.contractorEik);
+  if (me && acc.curSuppliers.length > 0 && !acc.curSuppliers.includes(me))
+    return { cause: CAUSES[9] };
+  const n = annexDivisor(acc, c.basis);
+  const anchor = acc.lastEurFull / n;
+  if (!Number.isFinite(anchor) || anchor <= 0) return { cause: CAUSES[10] };
+  if (Math.abs(anchor - signed) / signed > CONTINUITY_TOL)
+    return { cause: CAUSES[11], anchorRatio: signed / anchor };
+  const cur = acc.curEurFull / n;
+  if (cur / signed > MAX_MULTIPLE || cur / signed < 1 / MAX_MULTIPLE)
+    return { cause: CAUSES[12] };
+  return undefined;
+};
+
 /** Replays resolveAnnexKey's decision path for one unlinked annex against its candidate
- *  contracts, and names the first guard that refused. Reads the same accumulators the resolver
- *  reads — it re-derives the VERDICT, never the rule. */
+ *  contracts — K2 (УНП+supplier) then K1 (buyer+contract №), the resolver's own order — and
+ *  names the guard that refused. Reads the same accumulators and the same divisor the resolver
+ *  reads; it re-derives the VERDICT, never the rule. */
 const attribute = (
   a: AnnexRec,
   idx: AnnexIndex,
@@ -272,46 +319,36 @@ const attribute = (
   );
   if (cands.length === 0) return { cause: CAUSES[3] };
 
-  let cause: Cause = CAUSES[11];
-  let anchorRatio: number | undefined;
+  let out: { cause: Cause; anchorRatio?: number } = { cause: CAUSES[13] };
   for (const c of cands) {
     if (c.signed == null || c.signed <= 0) {
-      cause = c.consortiumFullEur != null ? CAUSES[4] : CAUSES[5];
+      out = { cause: c.consortiumFullEur != null ? CAUSES[4] : CAUSES[5] };
       continue;
     }
-    const acc = idx.byUnpSupplier.get(`${a.unp}|${normEik(c.contractorEik)}`);
-    if (!acc) {
-      cause = CAUSES[11];
-      continue;
+    let seen = false;
+    // K2 first, exactly as resolveAnnexKey does.
+    const k2 = idx.byUnpSupplier.get(`${a.unp}|${normEik(c.contractorEik)}`);
+    if (k2) {
+      seen = true;
+      out =
+        k2.contractNos.size > 1
+          ? { cause: CAUSES[7] }
+          : (guardRefusal(k2, c, c.signed) ?? { cause: CAUSES[13] });
     }
-    if (acc.contractNos.size > 1) {
-      cause = CAUSES[6];
-      continue;
+    // …then K1, which is what an unlinked record with no usable K2 actually fell through to.
+    const buyer = normEik(c.awarderEik);
+    const cn = normContractNo(c.contractId);
+    const k1 = buyer && cn ? idx.byContractNo.get(`${buyer}|${cn}`) : undefined;
+    if (k1) {
+      seen = true;
+      out =
+        k1.unps.size > 1
+          ? { cause: CAUSES[8] }
+          : (guardRefusal(k1, c, c.signed) ?? { cause: CAUSES[13] });
     }
-    const me = normEik(c.contractorEik);
-    if (me && acc.curSuppliers.length > 0 && !acc.curSuppliers.includes(me)) {
-      cause = CAUSES[7];
-      continue;
-    }
-    const n = Math.max(1, acc.lastSupplierCount);
-    const anchor = acc.lastEurFull / n;
-    if (!Number.isFinite(anchor) || anchor <= 0) {
-      cause = CAUSES[8];
-      continue;
-    }
-    if (Math.abs(anchor - c.signed) / c.signed > CONTINUITY_TOL) {
-      cause = CAUSES[9];
-      anchorRatio = c.signed / anchor;
-      continue;
-    }
-    const cur = acc.curEurFull / n;
-    if (cur / c.signed > MAX_MULTIPLE || cur / c.signed < 1 / MAX_MULTIPLE) {
-      cause = CAUSES[10];
-      continue;
-    }
-    cause = CAUSES[11];
+    if (!seen) out = { cause: CAUSES[6] };
   }
-  return { cause, anchorRatio };
+  return out;
 };
 
 // ── measurement ──────────────────────────────────────────────────────────────────────────────
@@ -319,6 +356,8 @@ const attribute = (
 interface Measured {
   source: Source;
   contracts: number;
+  basisSplit: number;
+  basisFull: number;
   total: number;
   linked: number;
   unlinked: number;
@@ -369,6 +408,7 @@ const measure = (
         contractId: c.contractId,
       } as Contract,
       c.signed,
+      { basis: c.basis },
     );
     if (hit) (hit.via === "unp" ? resolvedUnp : resolvedCn).add(hit.key);
   }
@@ -376,6 +416,8 @@ const measure = (
   const m: Measured = {
     source,
     contracts: rows.length,
+    basisSplit: rows.filter((r) => r.basis === "split").length,
+    basisFull: rows.filter((r) => r.basis === "full").length,
     total: recs.length,
     linked: 0,
     unlinked: 0,
@@ -471,7 +513,8 @@ const pad = (n: number): string => String(n).padStart(6);
 
 const report = (m: Measured): void => {
   console.log(
-    `\n══ --source=${m.source} ══ (${m.contracts.toLocaleString()} contract rows)`,
+    `\n══ --source=${m.source} ══ (${m.contracts.toLocaleString()} contract rows; ` +
+      `basis split×${m.basisSplit.toLocaleString()}, full×${m.basisFull.toLocaleString()})`,
   );
   console.log("\n§1 coverage");
   console.log(`  ${pad(m.total)}  annex value-records in the cache`);
@@ -543,7 +586,7 @@ const report = (m: Measured): void => {
 const reportDivergence = (a: Measured, b: Measured): void => {
   const onlyA = [...a.linkedIds].filter((id) => !b.linkedIds.has(id)).length;
   const onlyB = [...b.linkedIds].filter((id) => !a.linkedIds.has(id)).length;
-  console.log(`\n══ §4 the two consumers disagree ══`);
+  console.log(`\n══ §4 the residue between the two consumers ══`);
   console.log(
     `  ${pad(onlyA)}  linked on ${a.source} only  (in the value fold, absent from procurement_annexes)`,
   );
@@ -551,11 +594,13 @@ const reportDivergence = (a: Measured, b: Measured): void => {
     `  ${pad(onlyB)}  linked on ${b.source} only  (in procurement_annexes, absent from the value fold)`,
   );
   console.log(
-    `  ${pad(a.linkedIds.size)} / ${b.linkedIds.size}  linked on ${a.source} / ${b.source}` +
-      (onlyA || onlyB
-        ? "\n\n  ⚠ ONE annex cache, ONE resolver, TWO answers. lib/annexResolve.ts's header calls a\n" +
-          '    second notion of "this contract\'s annexes" worse than none; this is that, measured.'
-        : ""),
+    `  ${pad(a.linkedIds.size)} / ${b.linkedIds.size}  linked on ${a.source} / ${b.source}`,
+  );
+  console.log(
+    "\n  The two consumers link different annex RECORDS — the residue, not a contradiction:\n" +
+      "  each declares its own per-row basis, and Postgres additionally holds ~2,680 synthetic\n" +
+      "  `obed-` carrier rows with no shard row at all. Shrinking this is Tier 2 of\n" +
+      "  docs/plans/annex-linkage-consortium-basis-v1.md; it does not go to zero.",
   );
 };
 

@@ -286,6 +286,94 @@ describe("consortium — per-supplier split", () => {
   });
 });
 
+describe("contract basis — the divisor the caller declares", () => {
+  // The real 087 shape, minimally. УНП 01981-2020-0035, contract № 23-00-96, three
+  // members: the annex publishes the FULL pre-value (€362,222.52) and the full
+  // current value. On the SHARDS each of the three rows carries value/3; in
+  // Postgres `rebuild_consortium()` has moved the whole value onto one row and
+  // zeroed the other two. Same annex, same resolver, two correct answers.
+  const threeMembers = () =>
+    index({
+      byUnpSupplier: new Map([
+        [
+          "00123-2024-0001|222",
+          acc({
+            curEurFull: 300,
+            curSupplierCount: 3,
+            curSuppliers: ["222", "333", "444"],
+            lastEurFull: 300,
+            lastSupplierCount: 3,
+          }),
+        ],
+      ]),
+    });
+
+  it('defaults to "split" — an omitted basis is the shard convention', () => {
+    // Both calls must agree, and the value must be the SPLIT one. A default of
+    // "full" here would rewrite every consortium contract's amountEur by its
+    // member count, on the path that flips the whole corpus.
+    const implicit = resolveAnnexKey(threeMembers(), contract(), 100);
+    const explicit = resolveAnnexKey(threeMembers(), contract(), 100, {
+      basis: "split",
+    });
+    expect(implicit?.value).toBe(100); // 300 / 3
+    expect(explicit).toEqual(implicit);
+  });
+
+  it('"full" divides by 1, so the SAME fixture resolves to a different value', () => {
+    // Asserting only this would be satisfied by a resolver that moved both paths;
+    // it is the pair with the default test above that pins the change.
+    expect(
+      resolveAnnexKey(threeMembers(), contract(), 300, { basis: "full" })
+        ?.value,
+    ).toBe(300);
+  });
+
+  it("refuses the un-split row under the shard basis — the defect, pinned", () => {
+    // The post-087 row carries the full 300 as its signing value. Under "split"
+    // the anchor is 300/3 = 100, i.e. −66.7% against signing, so guard 2 refuses
+    // and the contract's annexes are silently lost. The gap IS the member count.
+    expect(resolveAnnexKey(threeMembers(), contract(), 300)).toBeUndefined();
+    expect(
+      resolveAnnexKey(threeMembers(), contract(), 300, { basis: "full" }),
+    ).toMatchObject({ via: "unp", value: 300 });
+  });
+
+  it("leaves a single-supplier contract identical under both bases", () => {
+    // Why the basis cannot be auto-detected: the rows where the two conventions
+    // agree are the overwhelming majority, so any heuristic would look correct
+    // everywhere except on the rows it decides.
+    const idx = index({
+      byUnpSupplier: new Map([["00123-2024-0001|222", acc()]]),
+    });
+    expect(resolveAnnexKey(idx, contract(), 100, { basis: "split" })).toEqual(
+      resolveAnnexKey(idx, contract(), 100, { basis: "full" }),
+    );
+  });
+
+  it("refuses a STILL-SPLIT row under the full basis — the framework case", () => {
+    // The fourth cell of the matrix, and the one that regresses live rows. 087
+    // step (2) leaves `joint_kind = 'framework'` on the equal split by design
+    // (independent parallel winners, not one joint award), and so does any
+    // multi-supplier award its HAVING did not group — so a Postgres framework row
+    // carries value/N while the annex publishes the full value. Under "full" the
+    // anchor is N× signing and guard 2 must refuse; under "split" it resolves.
+    // Measured 2026-09-04: claiming "full" for every Postgres row would have
+    // dropped 83 currently-linked annex rows (9 framework, 74 ungrouped).
+    expect(
+      resolveAnnexKey(threeMembers(), contract(), 100, { basis: "full" }),
+    ).toBeUndefined();
+    expect(resolveAnnexKey(threeMembers(), contract(), 100)?.value).toBe(100);
+  });
+
+  it("lookup forwards the basis rather than hard-coding the default", () => {
+    expect(lookup(threeMembers(), contract(), 300, { basis: "full" })).toBe(
+      300,
+    );
+    expect(lookup(threeMembers(), contract(), 300)).toBeUndefined();
+  });
+});
+
 describe("indexAnnexRows — raw records to accumulator, end to end", () => {
   // The real УНП 00536-2023-0049 shape, minimally: one supplier holds two
   // contracts under one procedure, each with its own zero-diff annex. Before

@@ -9,6 +9,25 @@
 // A second, divergent notion of "this contract's annexes" would be worse than
 // none (docs/plans/procurement-risk-v2.md §0b) — hence one module, two callers.
 //
+// ⚠️ TWO CONTRACT BASES, AND THE BASIS IS A PROPERTY OF THE **ROW**. The annex feed
+// publishes a joint award's value in FULL (all members). The SHARD rows the fold
+// reads carry a per-supplier SPLIT of it (normalize_eop divides by
+// validSupplierCount), so the resolver divides the annex value by the published
+// supplier count to compare like with like. `rebuild_consortium()` (087) then
+// UNDOES that split for SOME Postgres rows — it moves the whole value onto one
+// carrier row and zeroes the members — and on those the same division makes the
+// continuity anchor short by exactly the member count, so every consortium
+// contract is refused.
+//
+// ⚠️ "Reads Postgres" is therefore NOT the same as "reads un-split rows", and
+// treating it that way drops links rather than gaining them: 087 leaves
+// `joint_kind = 'framework'` on the equal split BY DESIGN (its step 2 — independent
+// parallel winners, not one joint award), and any multi-supplier award its HAVING
+// did not group keeps the split too. The caller DECLARES the basis per row
+// (`ResolveOpts`), and the default stays "split" because that is the path that
+// rewrites contracts.amountEur across the whole corpus. See
+// docs/plans/annex-linkage-consortium-basis-v1.md.
+//
 // Identity join — K2 first, but K2 refuses ambiguity (precision over recall; a
 // wrong current value is worse than none):
 //   K2  proper УНП + supplierEik               (lot-agnostic; REFUSES when its
@@ -278,6 +297,31 @@ export const buildAnnexIndex = (
   return { idx, records, days };
 };
 
+// Which basis THIS CONTRACT ROW carries, i.e. what its value MEANS:
+//   "split"  a joint award divided equally across its members, one row each at
+//            value/N — every month shard, and in Postgres every row 087 did not
+//            promote: `joint_kind = 'framework'` (its step 2 keeps the split
+//            deliberately) and every multi-supplier award its HAVING did not group.
+//   "full"   the whole joint value on ONE row, members zeroed — in Postgres a
+//            post-087 CARRIER row, i.e. `consortium_role = 'carrier'`.
+// ⚠️ It is a property of the ROW, never of the source: a Postgres consumer that
+// claims "full" for everything it reads refuses its own framework rows. It is also
+// not auto-detectable — a single-supplier contract is identical under both, so a
+// heuristic would be right on the rows that do not matter and guess on the rows
+// that do.
+export type ContractBasis = "split" | "full";
+
+export interface ResolveOpts {
+  /** Defaults to "split" — the shard convention. See ContractBasis. */
+  basis?: ContractBasis;
+}
+
+// FINDING-004/DUP-001: the divisor is the RULE, so it lives once. `perSupplier`
+// and the measurement harness's refusal replay both call it; a second copy is how
+// the harness would end up reporting a convention no consumer uses.
+export const annexDivisor = (hit: AnnexAcc, basis: ContractBasis): number =>
+  basis === "full" ? 1 : Math.max(1, hit.lastSupplierCount);
+
 // Continuity tolerance: the earliest annex's pre-annex value, per supplier, must
 // land within ±12% of the contract's signing value for the match to be trusted.
 // A wrong-contract collision or a euro-transition currency mislabel (BGN value
@@ -292,9 +336,12 @@ export const MAX_MULTIPLE = 15;
 // the match. Three guards, all must pass: (1) supplier appears on the latest
 // annex, (2) continuity anchor ≈ signing, (3) ratio within MAX_MULTIPLE×.
 //
-// ONE divisor for both anchor and current — the anchor's (lastSupplierCount),
-// because that is the only divisor the continuity guard validates against the
-// contract's actual signing value. Dividing the current value by the LATEST
+// ONE divisor for both anchor and current — on the "split" basis the anchor's
+// (lastSupplierCount), because that is the only divisor the continuity guard
+// validates against the contract's actual signing value; on "full", 1. Everything
+// from here to the end of this comment is about the "split" basis ONLY: under
+// "full" nothing is divided, so the list-length protection has nothing to protect
+// against. Dividing the current value by the LATEST
 // annex's list length instead silently rescales the result whenever the
 // published supplier list grows or shrinks between annexes: a list that grew
 // 1→2 halved a €195k contract to €97.6k, and a list that shrank 8→1 inflated a
@@ -310,11 +357,14 @@ const perSupplier = (
   hit: AnnexAcc,
   c: Contract,
   signed: number,
+  basis: ContractBasis,
 ): number | undefined => {
   const me = normEik(c.contractorEik);
   if (me && hit.curSuppliers.length > 0 && !hit.curSuppliers.includes(me))
     return undefined; // (1)
-  const n = Math.max(1, hit.lastSupplierCount);
+  // On the "full" basis the row already holds the whole joint value, so there is
+  // nothing to divide — dividing anyway is the 087 mismatch this option exists for.
+  const n = annexDivisor(hit, basis);
   const anchor = hit.lastEurFull / n;
   if (!Number.isFinite(anchor) || anchor <= 0) return undefined;
   if (Math.abs(anchor - signed) / signed > CONTINUITY_TOL) return undefined; // (2)
@@ -354,13 +404,15 @@ export const resolveAnnexKey = (
   idx: AnnexIndex,
   c: Contract,
   signed: number,
+  opts: ResolveOpts = {},
 ): { key: string; via: "unp" | "contract_no"; value: number } | undefined => {
+  const basis = opts.basis ?? "split";
   if (signed <= 0) return undefined;
   if (c.unp && UNP_RE.test(c.unp) && c.contractorEik) {
     const key = `${c.unp}|${normEik(c.contractorEik)}`;
     const hit = idx.byUnpSupplier.get(key);
     if (hit && hit.contractNos.size <= 1) {
-      const v = perSupplier(hit, c, signed);
+      const v = perSupplier(hit, c, signed, basis);
       if (v != null) return { key, via: "unp", value: v };
     }
   }
@@ -370,16 +422,19 @@ export const resolveAnnexKey = (
     const key = `${buyer}|${cn}`;
     const hit = idx.byContractNo.get(key);
     if (hit && hit.unps.size <= 1) {
-      const v = perSupplier(hit, c, signed);
+      const v = perSupplier(hit, c, signed, basis);
       if (v != null) return { key, via: "contract_no", value: v };
     }
   }
   return undefined;
 };
 
-// Value-only resolution (the fold's original `lookup`).
+// Value-only resolution (the fold's original `lookup`). The fold reads SHARDS, so
+// it takes the "split" default and must keep it: a "full" divisor there would
+// rewrite every consortium contract's published amountEur by its member count.
 export const lookup = (
   idx: AnnexIndex,
   c: Contract,
   signed: number,
-): number | undefined => resolveAnnexKey(idx, c, signed)?.value;
+  opts: ResolveOpts = {},
+): number | undefined => resolveAnnexKey(idx, c, signed, opts)?.value;
