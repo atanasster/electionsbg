@@ -183,16 +183,40 @@ supplement working copies. Both scoring inputs live in the gitignored
 directory and the checked-in templates must stay pending.
 
 ⚠️ **The frozen corpus lives in a tree the nightly job writes to.** On
-2026-09-02 an image-rights enrichment pass rewrote 40 of the 1,833 baseline
-article files — three of them in the gate's 75 assignment rows — so
-`file_sha(article) != article_sha256` and the scorer refuses those rows'
-passes. The writer touches only `image`, `image_alt` and `image_rights`
+2026-09-02 an image-rights pass rewrote 40 of the 1,833 baseline article files
+— three inside the gate's 75 assignment rows — so `file_sha(article)` stopped
+matching `article_sha256` and the scorer refused those rows. The writer touches
+only `image`, `image_alt` and `image_rights`
 (`apply_commons_images.py:121-124`), none of which an adjudicator is ever
-shown, but the frozen bytes are not recoverable and no artifact here witnesses
-the judged text independently, so that is an argument rather than a hash. Do
-not "fix" it by re-freezing `article_sha256`: `assignments_sha256` is a
+shown, so the judged TEXT is unchanged; but the frozen bytes are gone and
+nothing here witnesses that independently, so it is an argument, not a hash.
+
+The three rows are covered by `article_drift_exemptions` in the policy, each
+naming its `frozen_sha256`, its `observed_sha256`, the writer that caused the
+drift and what is NOT waived. Two properties make that safe to have:
+
+- **each exemption is pinned to one observed state**, so it covers exactly the
+  recorded mutation and REFUSES the next — a file that drifts again fails the
+  gate again. "This row may drift" would disable the guard permanently, and
+  `test_an_article_drift_exemption_refuses_a_second_drift` is the mutation
+  guard on precisely that;
+- **the result reports them.** `provenance` lists every drifted row as
+  `honoured` / `refused` / `stale`, because a gate that cleared with rows
+  resting on an argument is a weaker result than one where all 75 hashes
+  matched, and a report has to be able to say so.
+
+An incomplete entry exempts nothing, and an entry whose `frozen_sha256` does
+not match the assignment is refused as written against another sample.
+
+⚠️ Do **not** instead re-freeze `article_sha256`: `assignments_sha256` is a
 canonical hash over the whole array, so moving one row invalidates both sealed
 passes and discards every human judgment in them.
+
+⚠️ **The exemptions are a symptom, not a fix, and this will recur.** The next
+mutation may be a re-fetch that changes `content`, which no argument of this
+shape could excuse. Freezing a hash over `{title, description, content}` beside
+`article_sha256`, or copying the sampled articles into `news/evals/` at freeze
+time, is the real fix. Neither is done.
 
 ## Party-identity audit
 

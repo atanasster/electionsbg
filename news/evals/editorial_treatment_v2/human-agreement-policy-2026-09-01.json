@@ -31,5 +31,50 @@
       "superseded_on": "2026-09-04",
       "reason": "Recorded as the solo fallback (b) because no second adjudicator was available on 2026-09-01. Superseded before any pass B was sealed: a second human (Stoyan) took both pass B files, so the gate ran under option (a) and no measurement was ever made under the fallback."
     }
-  ]
+  ],
+  "article_drift_exemptions": [
+    {
+      "assignment_id": "83bfe4244d751ee7b16b",
+      "article_path": "news/data/clubz.bg/20260822-178599-2f9ac786.json",
+      "frozen_sha256": "2caf02a1c96bd24741cbe731ed2b39b470172300cb0b1c889e09266b4568217a",
+      "observed_sha256": "486c0065bdd9b00127a7dbf3835fd7df86e89e0f6daa4a76eecfc40e179516a0",
+      "observed_on": "2026-09-04",
+      "sample": "human-agreement-sample-2026-09-01",
+      "cause": "news/scripts/apply_commons_images.py attached a Wikimedia Commons illustration on 2026-09-02 01:57, in a batch that rewrote 40 of the 1,833 baseline article files. It assigns exactly three keys — image, image_alt, image_rights (apply_commons_images.py:121-124) — and re-serialises the document.",
+      "reason": "The adjudication workspace shows an adjudicator only title, description and content (load_article in adjudicate_editorial_treatment.py). None of the three keys the writer touches is among them, so the judged TEXT is unchanged even though the file's bytes are not.",
+      "corroboration": "⚠️ This is an ARGUMENT, not a hash. The frozen bytes are unrecoverable — news/data/ is gitignored, no backup exists, and the v1 analysis file (whose own frozen hash still matches) records no article content hash or length, so nothing here witnesses the judged text independently. What IS enforced: the exemption pins observed_sha256, so it covers this one recorded mutation and REFUSES the next. A second drift on the same file fails the gate again.",
+      "what_is_not_exempt": "Exactly one thing: the on-disk file comparison for this assignment_id. assignments_sha256, order_sha256, rows_sha256 and the passes' immutable article_path / article_sha256 / party_surface fields are all still checked in full, on both passes.",
+      "timing": "The mutation landed after pass A sealed (2026-09-01T16:59Z) and before pass B began (2026-09-04), so the two adjudicators read different BYTES of this file. That is the fact the exemption concedes; the claim is only that they read the same TEXT.",
+      "declared_on": "2026-09-04"
+    },
+    {
+      "assignment_id": "d32e6d07d018b365eb6b",
+      "article_path": "news/data/manager.bg/20260822-makron-francia-ste-izprati-na-ukraina-novi-raketi-za-protivo-00093f5b.json",
+      "frozen_sha256": "378ed412d1b8d8263b0fbc1985ea99f896747dbb8a9e27f361904eb981db035d",
+      "observed_sha256": "869ca91d175cd8d8b9308987886351c28c57b60d2f05b5c6cdbb0671ea3913f3",
+      "observed_on": "2026-09-04",
+      "sample": "russia-supplement-2026-09-01",
+      "cause": "news/scripts/apply_commons_images.py attached a Wikimedia Commons illustration on 2026-09-02 01:57, in a batch that rewrote 40 of the 1,833 baseline article files. It assigns exactly three keys — image, image_alt, image_rights (apply_commons_images.py:121-124) — and re-serialises the document.",
+      "reason": "The adjudication workspace shows an adjudicator only title, description and content (load_article in adjudicate_editorial_treatment.py). None of the three keys the writer touches is among them, so the judged TEXT is unchanged even though the file's bytes are not.",
+      "corroboration": "⚠️ This is an ARGUMENT, not a hash. The frozen bytes are unrecoverable — news/data/ is gitignored, no backup exists, and the v1 analysis file (whose own frozen hash still matches) records no article content hash or length, so nothing here witnesses the judged text independently. What IS enforced: the exemption pins observed_sha256, so it covers this one recorded mutation and REFUSES the next. A second drift on the same file fails the gate again.",
+      "what_is_not_exempt": "Exactly one thing: the on-disk file comparison for this assignment_id. assignments_sha256, order_sha256, rows_sha256 and the passes' immutable article_path / article_sha256 / party_surface fields are all still checked in full, on both passes.",
+      "timing": "The mutation landed after pass A sealed (2026-09-01T16:59Z) and before pass B began (2026-09-04), so the two adjudicators read different BYTES of this file. That is the fact the exemption concedes; the claim is only that they read the same TEXT.",
+      "declared_on": "2026-09-04"
+    },
+    {
+      "assignment_id": "ef9889b673d5c4a05ab9",
+      "article_path": "news/data/actualno.com/20260822-ukrajna-udari-petrolnata-rafinerija-v-novokujbishevsk-termin-6a80c774.json",
+      "frozen_sha256": "7a92b7b95bbf2034cb5482552b4284664a87fc3fc6a0af4905ca60bd598e119b",
+      "observed_sha256": "abef2d0d092fca0a7a35c32b5f01b2f812db22844a2ee76b61c73758a2b1d471",
+      "observed_on": "2026-09-04",
+      "sample": "russia-supplement-2026-09-01",
+      "cause": "news/scripts/apply_commons_images.py attached a Wikimedia Commons illustration on 2026-09-02 01:57, in a batch that rewrote 40 of the 1,833 baseline article files. It assigns exactly three keys — image, image_alt, image_rights (apply_commons_images.py:121-124) — and re-serialises the document.",
+      "reason": "The adjudication workspace shows an adjudicator only title, description and content (load_article in adjudicate_editorial_treatment.py). None of the three keys the writer touches is among them, so the judged TEXT is unchanged even though the file's bytes are not.",
+      "corroboration": "⚠️ This is an ARGUMENT, not a hash. The frozen bytes are unrecoverable — news/data/ is gitignored, no backup exists, and the v1 analysis file (whose own frozen hash still matches) records no article content hash or length, so nothing here witnesses the judged text independently. What IS enforced: the exemption pins observed_sha256, so it covers this one recorded mutation and REFUSES the next. A second drift on the same file fails the gate again.",
+      "what_is_not_exempt": "Exactly one thing: the on-disk file comparison for this assignment_id. assignments_sha256, order_sha256, rows_sha256 and the passes' immutable article_path / article_sha256 / party_surface fields are all still checked in full, on both passes.",
+      "timing": "The mutation landed after pass A sealed (2026-09-01T16:59Z) and before pass B began (2026-09-04), so the two adjudicators read different BYTES of this file. That is the fact the exemption concedes; the claim is only that they read the same TEXT.",
+      "declared_on": "2026-09-04"
+    }
+  ],
+  "article_drift_note": "⚠️ The frozen eval corpus lives in news/data/, a tree the nightly job writes to — that is the STRUCTURAL defect these three exemptions are a symptom of, and it will recur. The next mutation may be a re-fetch that changes `content`, which no argument of this shape could excuse. Freezing a hash over {title, description, content} beside article_sha256, or copying the sampled articles into news/evals/ at freeze time, is the fix; neither is done."
 }

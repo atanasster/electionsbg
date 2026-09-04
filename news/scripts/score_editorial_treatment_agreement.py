@@ -330,6 +330,44 @@ def _parse_timestamp(value: str) -> datetime:
     return parsed
 
 
+# Required on every article-drift exemption. A malformed entry must never
+# exempt anything, so the shape is checked before the hashes are compared.
+DRIFT_FIELDS = ("assignment_id", "article_path", "frozen_sha256",
+                "observed_sha256", "reason")
+
+
+def _drift_verdict(entry: dict | None, source: dict,
+                   actual: str) -> tuple[str, str]:
+    """Does a declared article-drift exemption cover THIS file in THIS state?
+
+    ⚠️ The exemption is pinned to one (frozen, observed) pair, never to a row.
+    "This row may drift" would disable the guard permanently; "this row is in
+    exactly this known state" survives one recorded mutation and refuses the
+    next, which is the only corroboration available here — the frozen bytes are
+    gone, so nothing can verify that the JUDGED fields are unchanged. The claim
+    rests on the writer touching only image keys, and that is an argument about
+    code, not a hash over this file. Keep the asymmetry: a drift the exemption
+    does not name must still fail loudly.
+    """
+
+    if entry is None:
+        return "refused", "no article_drift exemption declares this row"
+    missing = [f for f in DRIFT_FIELDS if not str(entry.get(f, "")).strip()]
+    if missing:
+        return "refused", f"exemption is incomplete: missing {', '.join(missing)}"
+    if entry["article_path"] != source["article_path"]:
+        return "refused", (f"exemption names {entry['article_path']}, "
+                           f"row names {source['article_path']}")
+    if entry["frozen_sha256"] != source["article_sha256"]:
+        return "refused", ("exemption records a different frozen hash than the "
+                           "assignment — it was written against another sample")
+    if entry["observed_sha256"] != actual:
+        return "refused", (f"the file has drifted AGAIN since the exemption was "
+                           f"written: exemption records {entry['observed_sha256'][:12]}, "
+                           f"file is now {actual[:12]}")
+    return "honoured", entry["reason"]
+
+
 def _assignment_index(assignments: dict, errors: list[str],
                       min_rows: int = MIN_ROWS) -> dict[str, dict]:
     rows = assignments.get("assignments") or []
@@ -344,7 +382,9 @@ def _assignment_index(assignments: dict, errors: list[str],
 
 
 def _validate_pass(assignments: dict[str, dict], assignment_hash: str,
-                   doc: dict, expected_id: str) -> tuple[list[dict], list[str], bool]:
+                   doc: dict, expected_id: str,
+                   drift: dict[str, dict] | None = None
+                   ) -> tuple[list[dict], list[str], bool]:
     errors = []
     pending = False
     rows = doc.get("rows") or []
@@ -369,11 +409,22 @@ def _validate_pass(assignments: dict[str, dict], assignment_hash: str,
                         f"pass {expected_id} row {index + 1} changed immutable {field}"
                     )
             article_path = ROOT / source["article_path"]
-            if (not article_path.exists()
-                    or file_sha(article_path) != source["article_sha256"]):
+            aid = row.get("assignment_id")
+            if not article_path.exists():
                 errors.append(
-                    f"pass {expected_id} row {index + 1} article hash moved"
+                    f"pass {expected_id} row {index + 1} ({aid}): article file "
+                    f"missing at {source['article_path']}"
                 )
+            else:
+                actual = file_sha(article_path)
+                if actual != source["article_sha256"]:
+                    verdict, note = _drift_verdict(
+                        (drift or {}).get(aid), source, actual)
+                    if verdict != "honoured":
+                        errors.append(
+                            f"pass {expected_id} row {index + 1} ({aid}) "
+                            f"article hash moved — {note}"
+                        )
         decision = row.get("decision")
         if decision is None:
             pending = True
@@ -402,28 +453,70 @@ def _pass_axes(doc: dict) -> list[str]:
     return [axis for axis in AXES if not declared or axis in declared]
 
 
+def _drift_report(assignments: dict[str, dict],
+                  drift: dict[str, dict] | None) -> list[dict]:
+    """Every row whose file no longer matches its frozen hash, plus every
+    declared exemption that is no longer doing anything.
+
+    Reported at the top level rather than buried in `errors`, because a gate
+    that cleared with N rows resting on a provenance ARGUMENT is a materially
+    weaker result than one where all 75 hashes matched, and any report derived
+    from it has to be able to say so.
+    """
+
+    report = []
+    seen = set()
+    for aid, source in sorted(assignments.items()):
+        path = ROOT / source["article_path"]
+        if not path.exists():
+            continue
+        actual = file_sha(path)
+        if actual == source["article_sha256"]:
+            continue
+        seen.add(aid)
+        verdict, note = _drift_verdict((drift or {}).get(aid), source, actual)
+        report.append({"assignment_id": aid,
+                       "article_path": source["article_path"],
+                       "frozen_sha256": source["article_sha256"],
+                       "observed_sha256": actual,
+                       "status": verdict, "note": note})
+    for aid, entry in sorted((drift or {}).items()):
+        if aid in seen or aid not in assignments:
+            continue
+        report.append({"assignment_id": aid,
+                       "article_path": entry.get("article_path"),
+                       "status": "stale",
+                       "note": "the file matches its frozen hash again; this "
+                               "exemption is no longer needed and should be "
+                               "removed from the policy"})
+    return report
+
+
 def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
           min_n: int = MIN_DIRECTION_N,
           min_minority: int = MIN_MINORITY_N,
           supplements: list[tuple[dict, dict, dict]] | None = None,
           exemptions: dict[str, dict[str, str]] | None = None,
-          min_rows: int = MIN_ROWS) -> dict:
+          min_rows: int = MIN_ROWS,
+          article_drift: dict[str, dict] | None = None) -> dict:
     errors: list[str] = []
     assignments = _assignment_index(assignments_doc, errors, min_rows)
     assignment_hash = assignments_doc.get("assignments_sha256")
     rows_a, errors_a, pending_a = _validate_pass(
-        assignments, assignment_hash, pass_a, "A"
+        assignments, assignment_hash, pass_a, "A", article_drift
     )
     rows_b, errors_b, pending_b = _validate_pass(
-        assignments, assignment_hash, pass_b, "B"
+        assignments, assignment_hash, pass_b, "B", article_drift
     )
+    provenance = _drift_report(assignments, article_drift)
     errors.extend(errors_a + errors_b)
     if errors:
         return {"status": "invalid", "passed": False,
-                "errors": errors, "axes": {}}
+                "errors": errors, "axes": {}, "provenance": provenance}
     if pending_a or pending_b:
         return {"status": "blocked_pending_humans", "passed": False,
-                "errors": ["both sealed human passes must be complete"], "axes": {}}
+                "errors": ["both sealed human passes must be complete"],
+                "axes": {}, "provenance": provenance}
 
     name_a, name_b = pass_a["adjudicator"], pass_b["adjudicator"]
     time_a = _parse_timestamp(pass_a["completed_at"])
@@ -432,7 +525,7 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
         if (time_b - time_a).total_seconds() < 7 * 24 * 60 * 60:
             return {"status": "invalid", "passed": False,
                     "errors": ["solo fallback passes must be at least seven days apart"],
-                    "axes": {}}
+                    "axes": {}, "provenance": provenance}
         method = "one_human_two_blinded_passes"
     else:
         method = "two_human_adjudicators"
@@ -448,11 +541,13 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
     supplement_report = []
     for sup_doc, sup_a, sup_b in (supplements or []):
         sup_result = score(sup_doc, sup_a, sup_b, min_n=0, min_minority=0,
-                           min_rows=MIN_SUPPLEMENT_ROWS)
+                           min_rows=MIN_SUPPLEMENT_ROWS,
+                           article_drift=article_drift)
         if sup_result["status"] not in ("passed", "failed_rubric_agreement",
                                         "low_precision", "withheld_insufficient_n",
                                         "insufficient_label_diversity"):
             return {"status": "invalid", "passed": False, "axes": {},
+                    "provenance": provenance + (sup_result.get("provenance") or []),
                     "errors": [f"supplement {sup_doc.get('sample')}: "
                                f"{sup_result['status']}"] + sup_result["errors"]}
         sup_keys = sorted(row["assignment_id"] for row in sup_doc["assignments"])
@@ -463,6 +558,7 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
                 continue
             pooled[axis] = ([sup_da[key][axis] for key in sup_keys],
                             [sup_db[key][axis] for key in sup_keys])
+        provenance.extend(sup_result.get("provenance") or [])
         supplement_report.append({
             "sample": sup_doc.get("sample"),
             "rows": len(sup_keys),
@@ -500,6 +596,7 @@ def score(assignments_doc: dict, pass_a: dict, pass_b: dict,
         "adjudicators": sorted({name_a, name_b}),
         "rows": len(keys),
         "supplements": supplement_report,
+        "provenance": provenance,
         "errors": [],
         "axes": axes,
     }
@@ -589,6 +686,7 @@ def main() -> int:
 
     min_n, min_minority = args.min_n, args.min_minority_n
     supplements, exemptions, policy = [], {}, None
+    article_drift: dict[str, dict] = {}
     if args.policy:
         policy = json.loads(Path(args.policy).read_text(encoding="utf-8"))
         min_n = policy.get("min_n", min_n)
@@ -603,9 +701,12 @@ def main() -> int:
         for entry in policy.get("exemptions") or []:
             exemptions.setdefault(entry["axis"], {})[entry["measure"]] = (
                 entry["reason"])
+        for entry in policy.get("article_drift_exemptions") or []:
+            article_drift[entry.get("assignment_id")] = entry
 
     result = score(assignments, pass_a, pass_b, min_n, min_minority,
-                   supplements or None, exemptions or None)
+                   supplements or None, exemptions or None,
+                   article_drift=article_drift or None)
     if policy:
         result["policy"] = {
             "path": args.policy,

@@ -494,5 +494,130 @@ class AgreementScoringTests(unittest.TestCase):
 
 
 
+    # ---- article-drift exemptions -----------------------------------------
+
+    def _drifted(self, observed=None, **overrides):
+        """A sample whose first row's frozen hash no longer matches the corpus,
+        plus the exemption that covers it. `observed` defaults to the file's
+        real current hash, i.e. a correctly-written exemption."""
+
+        sample = copy.deepcopy(self.assignments)
+        left, right = self.completed()
+        target = sample["assignments"][0]
+        fake_frozen = "0" * 64
+        target["article_sha256"] = fake_frozen
+        sample["assignments_sha256"] = scoring.canonical_sha(sample["assignments"])
+        for doc in (left, right):
+            for row in doc["rows"]:
+                if row["assignment_id"] == target["assignment_id"]:
+                    row["article_sha256"] = fake_frozen
+            doc["assignments_sha256"] = sample["assignments_sha256"]
+            doc["rows_sha256"] = scoring.canonical_sha(doc["rows"])
+        actual = scoring.file_sha(scoring.ROOT / target["article_path"])
+        entry = {"assignment_id": target["assignment_id"],
+                 "article_path": target["article_path"],
+                 "frozen_sha256": fake_frozen,
+                 "observed_sha256": observed if observed is not None else actual,
+                 "reason": "test"}
+        entry.update(overrides)
+        return sample, left, right, {target["assignment_id"]: entry}, actual
+
+    def test_a_declared_article_drift_exemption_is_honoured(self):
+        sample, left, right, drift, _ = self._drifted()
+        without = scoring.score(sample, left, right)
+        self.assertTrue(any("article hash moved" in e for e in without["errors"]))
+        result = scoring.score(sample, left, right, article_drift=drift)
+        self.assertEqual([e for e in result["errors"]
+                          if "article hash moved" in e], [])
+        honoured = [r for r in result["provenance"] if r["status"] == "honoured"]
+        self.assertEqual(len(honoured), 1)
+
+    def test_an_article_drift_exemption_refuses_a_second_drift(self):
+        """THE load-bearing property. The exemption is pinned to one observed
+        state, so a file that moves AGAIN fails the gate again. An exemption
+        that said only "this row may drift" would disable the guard for good."""
+
+        sample, left, right, drift, actual = self._drifted(observed="f" * 64)
+        result = scoring.score(sample, left, right, article_drift=drift)
+        self.assertTrue(any("drifted AGAIN" in e for e in result["errors"]),
+                        result["errors"])
+        self.assertNotIn(actual[:12], "f" * 64)
+        self.assertEqual([r["status"] for r in result["provenance"]], ["refused"])
+
+    def test_an_incomplete_article_drift_exemption_exempts_nothing(self):
+        """A malformed entry must refuse, not fall open. Every required field is
+        checked one at a time so a future field cannot be added to the constant
+        and left unenforced."""
+
+        for field in scoring.DRIFT_FIELDS:
+            with self.subTest(missing=field):
+                sample, left, right, drift, _ = self._drifted(**{field: ""})
+                result = scoring.score(sample, left, right, article_drift=drift)
+                self.assertTrue(
+                    any("article hash moved" in e for e in result["errors"]),
+                    f"missing {field} still exempted the row")
+
+    def test_an_article_drift_exemption_written_elsewhere_is_refused(self):
+        """It must name the frozen hash it was argued against. An exemption
+        carried over from another sample names a different one."""
+
+        sample, left, right, drift, _ = self._drifted(frozen_sha256="9" * 64)
+        result = scoring.score(sample, left, right, article_drift=drift)
+        self.assertTrue(any("different frozen hash" in e
+                            for e in result["errors"]), result["errors"])
+
+    def test_an_article_drift_exemption_waives_nothing_else(self):
+        """It covers the on-disk comparison and not one thing more — an
+        unsealed or edited pass must still be rejected."""
+
+        sample, left, right, drift, _ = self._drifted()
+        left["rows"][0]["decision"]["party_tone"] = "strong_favorable"
+        result = scoring.score(sample, left, right, article_drift=drift)
+        self.assertTrue(any("unsealed" in e or "row hash changed" in e
+                            for e in result["errors"]), result["errors"])
+
+    def test_the_shipped_drift_exemptions_are_complete_and_argued(self):
+        policy = json.loads((scoring.ROOT / "news" / "evals" /
+                             "editorial_treatment_v2" /
+                             "human-agreement-policy-2026-09-01.json")
+                            .read_text("utf-8"))
+        declared = policy.get("article_drift_exemptions") or []
+        for entry in declared:
+            for field in scoring.DRIFT_FIELDS + ("cause", "corroboration",
+                                                 "what_is_not_exempt"):
+                self.assertTrue(str(entry.get(field, "")).strip(),
+                                f"{entry.get('assignment_id')}: {field}")
+            # the pin must be a real pair, never the same hash twice
+            self.assertNotEqual(entry["frozen_sha256"], entry["observed_sha256"])
+
+    def test_the_shipped_drift_exemptions_are_never_refused(self):
+        """Against the corpus as it stands each shipped exemption must be
+        honoured, or stale because the file was restored. `refused` means the
+        file drifted again and the policy is out of date."""
+
+        policy = json.loads((scoring.ROOT / "news" / "evals" /
+                             "editorial_treatment_v2" /
+                             "human-agreement-policy-2026-09-01.json")
+                            .read_text("utf-8"))
+        drift = {e["assignment_id"]: e
+                 for e in policy.get("article_drift_exemptions") or []}
+        sample = json.loads((scoring.ROOT / "news" / "evals" /
+                             "editorial_treatment_v2" /
+                             "human-agreement-sample-2026-09-01.json")
+                            .read_text("utf-8"))
+        index = {r["assignment_id"]: r for r in sample["assignments"]}
+        for aid, entry in drift.items():
+            if aid not in index:
+                continue  # declared against the supplement, checked there
+            path = scoring.ROOT / index[aid]["article_path"]
+            if not path.exists():
+                continue
+            actual = scoring.file_sha(path)
+            if actual == index[aid]["article_sha256"]:
+                continue  # restored; the exemption is merely stale
+            verdict, note = scoring._drift_verdict(entry, index[aid], actual)
+            self.assertEqual(verdict, "honoured", f"{aid}: {note}")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
