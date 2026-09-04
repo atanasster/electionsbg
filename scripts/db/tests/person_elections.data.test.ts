@@ -10,8 +10,14 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import { allRows, end } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+// Module-anchored, NOT the module-graph analyser's `process.cwd()` one: this gate compares
+// against a corpus the loader resolves from its own file location, so both halves must find
+// the same tree whatever cwd a runner is invoked from.
+import { DATA_DIR } from "../lib/paths";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -701,6 +707,434 @@ test.skipIf(skip)(
     assert.ok(
       Number(r.inflated_cycles) > 0,
       "the shard array no longer inflates any cycle's region list — re-check the fidelity gate's restriction",
+    );
+  },
+);
+
+// ── campaign self-funding (person-candidate-display-unification-v1 Tier 3) ──────────────
+//
+// `person_election_stats.donated_*` is the ЕРИК „дарения от кандидати и членове" table
+// re-keyed by person_id. The tile used to fetch `candidates/{NAME}/donations.json`, which is
+// one file per NAME — so two namesakes shared one figure, exactly as they shared one history.
+//
+// ⚠️ The party filings are GITIGNORED (`/data/2*/parties/*`), so the reconciliation gate
+// skips on a fresh clone rather than passing on an absent corpus.
+
+/** Every self-funding row the party filings publish, keyed `{election}\t{party}\t{name}` —
+ *  read from the same files the loader reads, folded the same way, so the comparison is
+ *  independent of the loader's own bookkeeping rather than a restatement of it. */
+const filingDonations = (): Map<
+  string,
+  { monetary: number; nonMonetary: number; count: number }
+> | null => {
+  const out = new Map<
+    string,
+    { monetary: number; nonMonetary: number; count: number }
+  >();
+  const elections = fs
+    .readdirSync(DATA_DIR)
+    .filter((d) =>
+      fs.existsSync(path.join(DATA_DIR, d, "parties", "financing")),
+    );
+  if (elections.length === 0) return null;
+  for (const election of elections) {
+    const finDir = path.join(DATA_DIR, election, "parties", "financing");
+    for (const partyDir of fs.readdirSync(finDir)) {
+      const file = path.join(finDir, partyDir, "filing.json");
+      if (!fs.existsSync(file)) continue;
+      const filing = JSON.parse(fs.readFileSync(file, "utf8")) as {
+        party?: number;
+        data?: {
+          fromCandidates?: Array<{
+            name?: string;
+            monetary?: number;
+            nonMonetary?: number;
+          }>;
+        };
+      };
+      if (filing.party == null) continue;
+      for (const row of filing.data?.fromCandidates ?? []) {
+        if (!row?.name) continue;
+        const key = `${election}\t${filing.party}\t${row.name}`;
+        const acc = out.get(key) ?? { monetary: 0, nonMonetary: 0, count: 0 };
+        acc.monetary += row.monetary ?? 0;
+        acc.nonMonetary += row.nonMonetary ?? 0;
+        acc.count += 1;
+        out.set(key, acc);
+      }
+    }
+  }
+  return out;
+};
+
+/** `{election}\t{candidate_slug}` → the by-slug shard's display name.
+ *
+ *  ⚠️ The SHARD's name, not `person.display_name`. The loader keys the filing lookup on the
+ *  candidacy shard, and for a seated MP the resolver's canonical display name is the
+ *  parliament.bg spelling instead — measured, 5 attributed rows key on a name their person
+ *  row does not carry. Keying this gate on the person's name asks a different question and
+ *  fails on correct data.
+ *
+ *  Scoped to the cycles that publish financing: the map is only ever probed for a row with
+ *  `donation_count > 0`, so walking every election read 67,075 files to use 20,673 — 7.6 s
+ *  against 0.3 s, about a third of this file's runtime, under a suite that already runs ~16
+ *  concurrent workers. */
+const shardNames = (cycles: Iterable<string>): Map<string, string> | null => {
+  const out = new Map<string, string>();
+  for (const dir of new Set(cycles)) {
+    const bySlug = path.join(DATA_DIR, dir, "candidates", "by-slug");
+    if (!fs.existsSync(bySlug)) continue;
+    for (const file of fs.readdirSync(bySlug)) {
+      if (!file.endsWith(".json")) continue;
+      const c = JSON.parse(
+        fs.readFileSync(path.join(bySlug, file), "utf8"),
+      ) as { slug?: string; name?: string };
+      if (c.slug && c.name) out.set(`${dir}\t${c.slug}`, c.name);
+    }
+  }
+  return out.size > 0 ? out : null;
+};
+
+test.skipIf(skip)(
+  "every attributed self-funding figure reconciles with the party's own filing",
+  async () => {
+    const filings = filingDonations();
+    const cycles = [...(filings?.keys() ?? [])].map((k) => k.split("\t")[0]);
+    const names = filings ? shardNames(cycles) : null;
+    // ⚠️ `reportSkip`, not console.warn: vitest's default reporter swallows `console.*` when
+    // stdout is piped, i.e. every CI run — and this is the ONLY one of the four self-funding
+    // gates that compares the stored figures against an external source, so a silent
+    // stand-down here means the whole tier reports green having checked nothing. Reachable
+    // in the mixed state a `db:sync:cloud` leaves: Postgres populated, shard trees absent.
+    const noCorpus =
+      !filings || !names
+        ? "data/2*/parties/financing or candidates/by-slug is absent (gitignored) — the ONLY gate that checks the stored self-funding against an external source cannot run"
+        : null;
+    reportSkip(import.meta.url, noCorpus);
+    if (noCorpus || !filings || !names) return;
+    // ⚠️ ONE row per (person, cycle), with the person's candidacy slugs collected — the join
+    // to candidate_person is 1:N, not 1:1. 88 (person, cycle) pairs hold more than one
+    // candidacy shard and 50 of those hold two different `mp-{id}` shards (one person
+    // resolved from two parliament ids), so a per-candidacy comparison reports a mismatch for
+    // every shard that is not the one the loader keyed on. The claim to check is that the
+    // figure came from a filing row keyed by ONE OF this person's own candidacies.
+    const rows = await allRows<{
+      slug: string;
+      candidate_slugs: string[];
+      election_date: string;
+      party_num: number;
+      monetary: string;
+      non_monetary: string;
+      n: number;
+    }>(`
+      SELECT p.slug,
+             array_agg(cp.candidate_slug) AS candidate_slugs,
+             e.election_date, e.party_num,
+             e.donated_monetary_eur AS monetary,
+             e.donated_nonmonetary_eur AS non_monetary,
+             e.donation_count AS n
+        FROM person_election_stats e
+        JOIN person p USING (person_id)
+        -- LEFT, so an attributed row with no candidacy row is REPORTED rather than dropped
+        -- from the check. The loader argues that cannot happen (one transaction over both
+        -- tables); this is the gate that would notice if it did.
+        LEFT JOIN candidate_person cp
+          ON cp.person_id = e.person_id AND cp.election_date = e.election_date
+       WHERE e.donation_count > 0
+       GROUP BY p.slug, e.election_date, e.party_num,
+                e.donated_monetary_eur, e.donated_nonmonetary_eur, e.donation_count`);
+    assert.ok(
+      rows.length > 100,
+      `only ${rows.length} people carry self-funding — the corpus has none to check`,
+    );
+    const cents = (n: number): number => Math.round(n * 100);
+    const bad: string[] = [];
+    for (const r of rows) {
+      const candidates = (r.candidate_slugs ?? [])
+        .filter((cs): cs is string => !!cs)
+        .map((cs) => names.get(`${r.election_date}\t${cs}`))
+        .filter((n): n is string => !!n)
+        .map((n) => filings.get(`${r.election_date}\t${r.party_num}\t${n}`))
+        .filter((f): f is NonNullable<typeof f> => !!f);
+      if (candidates.length === 0) {
+        bad.push(
+          `${r.slug} @ ${r.election_date}: no filing row keyed by any of this person's candidacies (${r.candidate_slugs.join(", ")})`,
+        );
+        continue;
+      }
+      const ok = candidates.some(
+        (f) =>
+          f.count === Number(r.n) &&
+          cents(f.monetary) === cents(Number(r.monetary)) &&
+          cents(f.nonMonetary) === cents(Number(r.non_monetary)),
+      );
+      if (!ok)
+        bad.push(
+          `${r.slug} @ ${r.election_date}: stored ${r.n}/${r.monetary}/${r.non_monetary}, filings ${candidates
+            .map((f) => `${f.count}/${f.monetary}/${f.nonMonetary}`)
+            .join(" | ")}`,
+        );
+    }
+    assert.deepEqual(bad.slice(0, 5), [], `${bad.length} mismatched`);
+
+    // MUTATION: the comparison must DISCRIMINATE. Move every stored monetary figure by €1
+    // and require that NONE of them still reconciles — otherwise the equality above is
+    // satisfiable by a lookup that happens to agree, or by one that compares nothing.
+    const stillOk = rows.filter((r) =>
+      (r.candidate_slugs ?? [])
+        .filter((cs): cs is string => !!cs)
+        .map((cs) => names.get(`${r.election_date}\t${cs}`))
+        .filter((n): n is string => !!n)
+        .map((n) => filings.get(`${r.election_date}\t${r.party_num}\t${n}`))
+        .some(
+          (f) =>
+            !!f &&
+            f.count === Number(r.n) &&
+            cents(f.monetary) === cents(Number(r.monetary) + 1) &&
+            cents(f.nonMonetary) === cents(Number(r.non_monetary)),
+        ),
+    );
+    assert.deepEqual(
+      stillOk.map((r) => `${r.slug} @ ${r.election_date}`),
+      [],
+      "a €1 perturbation still reconciles — the comparison is not comparing",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "self-funding is only attributed for cycles that publish financing at all",
+  async () => {
+    // The key is (election, party, name), so a bug that dropped the election from it would
+    // attribute one cycle's filing to another cycle's candidacy — and a figure would appear
+    // on a page where no such number exists.
+    //
+    // The publishing set is DERIVED from the corpus, never a literal: ЕРИК is not 2024-only
+    // (`update-financing` exists to "ingest a new election's campaign financing"), so a
+    // hardcoded bound turns green into red the first time an earlier cycle is backfilled,
+    // with nothing wrong. It is also why this gate cannot see a 2024_06_09 → 2024_10_27
+    // mix-up: both publish. That class is caught by the reconciliation above.
+    const filings = filingDonations();
+    const noCorpus = !filings
+      ? "data/2*/parties/financing is absent (gitignored) — the publishing cycle set cannot be derived"
+      : null;
+    reportSkip(import.meta.url, noCorpus);
+    if (noCorpus || !filings) return;
+    const publishing = [
+      ...new Set([...filings.keys()].map((k) => k.split("\t")[0])),
+    ].sort();
+    const [r] = await allRows<{
+      attributed: string;
+      bad: string;
+      cycles: string | null;
+    }>(
+      `SELECT count(*) AS attributed,
+              count(*) FILTER (WHERE NOT (election_date = ANY($1::text[]))) AS bad,
+              string_agg(DISTINCT election_date, ',' ORDER BY election_date) AS cycles
+         FROM person_election_stats WHERE donation_count > 0`,
+      [publishing],
+    );
+    assert.ok(
+      Number(r.attributed) > 100,
+      `only ${r.attributed} attributed rows — nothing to check`,
+    );
+    assert.equal(
+      Number(r.bad),
+      0,
+      `self-funding attributed to a cycle that publishes no financing (attributed: ${r.cycles}; publishing: ${publishing.join(",")})`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "self-funding crosses to a second person ONLY where the identity layer already split one",
+  async () => {
+    // The whole reason this is re-keyed. A (cycle, party, name) triple names one candidacy,
+    // so its money must not land on a second person — and a name-ONLY key would break here:
+    // measured 2026-09-04, 12 of the 30 unmatched rows in 2024_10_27 are names that appear on
+    // a DIFFERENT party's list, and matching them would have paid one party's donation to
+    // another party's same-named candidate.
+    //
+    // ⚠️ One overlap is allowed, and the exemption is a CAP rather than a classification —
+    // the SQL below proves only that `candidate_person` itself names two people for the
+    // triple. That is the shape of the documented `mp-{id}`/`c-{party}` identity split
+    // (`docs/plans/person-cross-party-candidate-merge-v1.md`), which is the one live case
+    // (Мария Тодорова Тодорова, 2024_06_09, party 19 → mariya-todorova-1x5ama + mp-5064) —
+    // but it would equally cover two genuine same-party namesakes, since the loader's
+    // `isCollision` guard only fires on >1 party within a folder. So `split <= 5` is the
+    // actual guard. Note the grouping folds names while the loader keys on the raw string,
+    // so two people differing only in hyphen spacing (this corpus has that pattern) would
+    // count toward the cap rather than being recognised as unrelated.
+    const [r] = await allRows<{
+      attributed: string;
+      split: string;
+      unexplained: string;
+      sample: string | null;
+    }>(`
+      WITH triples AS (
+        SELECT cp.candidate_name_fold AS fold, e.election_date, e.party_num,
+               count(DISTINCT e.person_id) AS people
+          FROM person_election_stats e
+          JOIN candidate_person cp
+            ON cp.person_id = e.person_id AND cp.election_date = e.election_date
+         WHERE e.donation_count > 0
+         GROUP BY 1, 2, 3
+        HAVING count(DISTINCT e.person_id) > 1
+      ),
+      classified AS (
+        SELECT t.*,
+               (SELECT count(DISTINCT cp.person_id)
+                  FROM candidate_person cp
+                 WHERE cp.candidate_name_fold = t.fold
+                   AND cp.election_date = t.election_date
+                   AND cp.party_num = t.party_num) AS people_on_triple
+          FROM triples t
+      )
+      SELECT (SELECT count(*) FROM person_election_stats WHERE donation_count > 0)
+               AS attributed,
+             count(*) FILTER (WHERE people_on_triple > 1) AS split,
+             count(*) FILTER (WHERE people_on_triple <= 1) AS unexplained,
+             min(fold) FILTER (WHERE people_on_triple <= 1) AS sample
+        FROM classified`);
+    // Without this the gate reports green over a corpus where 085 landed and the loader never
+    // ran — every donation_count 0, every count 0, indistinguishable from a clean corpus.
+    assert.ok(
+      Number(r.attributed) > 100,
+      `only ${r.attributed} attributed rows — nothing to check`,
+    );
+    assert.equal(
+      Number(r.unexplained),
+      0,
+      `self-funding on more than one person for a triple the identity layer does NOT split (e.g. ${r.sample}) — the key has lost the party or the election`,
+    );
+    assert.ok(
+      Number(r.split) <= 5,
+      `${r.split} identity-split triples now carry self-funding on two pages (1 measured) — re-check docs/plans/person-cross-party-candidate-merge-v1.md`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "person_elections() publishes the self-funding columns under the right KEYS",
+  async () => {
+    // The four keys appear in exactly two places — the jsonb_build_object in 085 and
+    // `PersonElectionRow` — and nothing compared them. Two regressions ship silently
+    // otherwise: a renamed key (the route returns the row without it, and the frontend type
+    // declares a non-optional number, so a consumer reads `undefined`), and a SWAPPED pair,
+    // which renders in-kind as cash — non-monetary is €184,964 of €386,301 (48%) in
+    // 2024_06_09, so that is not a rounding difference.
+    //
+    // ⚠️ The `m <> nm` filter is load-bearing: on a row whose two figures happen to be equal
+    // a swap satisfies the comparison, so the sample must exclude them.
+    //
+    // ⚠️ Compared as `float8`, NOT `numeric`. The columns are `double precision` and casting
+    // one to numeric rounds to 15 significant digits — 2556.4594059810925 becomes
+    // 2556.45940598109 — while jsonb keeps the full value, so a numeric comparison reports 13
+    // of 20 sample rows as mismatched on correct data.
+    const [r] = await allRows<{ checked: string; bad: string }>(`
+      WITH pick AS (
+        SELECT p.slug, e.election_date,
+               e.donated_monetary_eur AS m, e.donated_nonmonetary_eur AS nm,
+               e.donation_count AS n, e.donations AS d
+          FROM person_election_stats e JOIN person p USING (person_id)
+         WHERE e.donation_count > 0
+           AND e.donated_nonmonetary_eur > 0
+           AND e.donated_monetary_eur <> e.donated_nonmonetary_eur
+         ORDER BY p.slug
+         LIMIT 20
+      )
+      SELECT count(*) AS checked,
+             count(*) FILTER (
+               WHERE (r->>'donatedMonetaryEur')::float8 IS DISTINCT FROM pick.m
+                  OR (r->>'donatedNonMonetaryEur')::float8 IS DISTINCT FROM pick.nm
+                  OR (r->>'donationCount')::int IS DISTINCT FROM pick.n
+                  OR r->'donations' IS DISTINCT FROM pick.d
+             ) AS bad
+        FROM pick, jsonb_array_elements(person_elections(pick.slug)) r
+       WHERE r->>'election' = pick.election_date`);
+    assert.ok(
+      Number(r.checked) >= 10,
+      `only ${r.checked} rows with a distinguishable monetary/in-kind pair — a swap would be invisible`,
+    );
+    assert.equal(
+      Number(r.bad),
+      0,
+      "person_elections() disagrees with the columns — a renamed or SWAPPED key",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "attribution coverage has not COLLAPSED against the filings",
+  async () => {
+    // The loader reports coverage rather than gating it, and that is right: the unmatched
+    // remainder is mostly party members who are not candidates at all (ЕРИК's table is
+    // „дарения от кандидати и членове"), so a tight floor would fail on a good corpus. What
+    // nothing noticed was the residue GROWING — if a future ЕРИК ingest changed its name
+    // spelling convention, attribution could fall from 85% to 40% with every other gate
+    // green, since none of them looks at coverage and the reconciliation only checks the rows
+    // that DID attribute.
+    //
+    // 756 of 886 = 85.3% measured 2026-09-04. Floored well below, because the residue's size
+    // legitimately moves; a collapse is what this catches.
+    const filings = filingDonations();
+    const noCorpus = !filings
+      ? "data/2*/parties/financing is absent (gitignored) — the coverage denominator cannot be read"
+      : null;
+    reportSkip(import.meta.url, noCorpus);
+    if (noCorpus || !filings) return;
+    const filingRows = [...filings.values()].reduce((t, f) => t + f.count, 0);
+    const [a] = await allRows<{ n: string }>(
+      "SELECT COALESCE(sum(donation_count), 0) n FROM person_election_stats",
+    );
+    assert.ok(
+      filingRows > 500,
+      `only ${filingRows} filing rows to attribute against`,
+    );
+    assert.ok(
+      Number(a.n) / filingRows > 0.7,
+      `only ${a.n} of ${filingRows} filing rows attributed (${((100 * Number(a.n)) / filingRows).toFixed(1)}%) — the name key or the filings moved`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the stored rows are the filing's rows, minus the donor name",
+  async () => {
+    // The raw array is what the tile renders, so its SHAPE is a contract. The donor name is
+    // stripped on purpose: it is this person by construction, and a name inside a per-person
+    // payload reads as evidence of identity on exactly the shared-name pages where it is not.
+    const [r] = await allRows<{
+      rows: string;
+      with_name: string;
+      wrong_count: string;
+      wrong_sum: string;
+    }>(`
+      SELECT count(*) AS rows,
+             count(*) FILTER (WHERE d ? 'name') AS with_name,
+             count(*) FILTER (WHERE jsonb_array_length(e.donations) <> e.donation_count)
+               AS wrong_count,
+             count(*) FILTER (
+               WHERE round((SELECT sum((y->>'monetary')::numeric)
+                              FROM jsonb_array_elements(e.donations) y), 2)
+                     IS DISTINCT FROM round(e.donated_monetary_eur::numeric, 2)) AS wrong_sum
+        FROM person_election_stats e, jsonb_array_elements(e.donations) d
+       WHERE e.donation_count > 0`);
+    assert.ok(Number(r.rows) > 100, `only ${r.rows} stored rows to check`);
+    assert.equal(
+      Number(r.with_name),
+      0,
+      "a stored row still carries the donor name",
+    );
+    assert.equal(
+      Number(r.wrong_count),
+      0,
+      "donation_count disagrees with the stored array's length",
+    );
+    assert.equal(
+      Number(r.wrong_sum),
+      0,
+      "donated_monetary_eur disagrees with the stored rows",
     );
   },
 );

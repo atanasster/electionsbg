@@ -284,15 +284,68 @@ of `CandidateDashboardCards`. Fold them:
 
 ### Tier 3 — donations, per person, with a per-cycle history
 
-1. In `load_person_elections_pg.ts`, read each `(election, partyNum)` filing's
+1. **DONE.** In `load_person_elections_pg.ts`, read each `(election, partyNum)` filing's
    `data.fromCandidates`, fold rows by the candidate's name within that party, and add to
    `person_election_stats`: `donated_monetary_eur double precision`,
    `donated_nonmonetary_eur double precision`, `donation_count int`,
-   `donations jsonb` (the raw rows, so the existing tile renders unchanged — the same
-   „raw shard arrays" contract the table already documents).
+   `donations jsonb` (the filing's own rows, so the existing tile renders unchanged — the
+   same „raw shard arrays" contract the table already documents).
    - `double precision`, never `numeric`: node-postgres serialises `numeric` as a string and
      every money cell renders blank with the value present in the payload (the 142 lesson).
-   - `ALTER TABLE … ADD COLUMN IF NOT EXISTS` reconcile block in 085 for warm databases.
+   - Declared in BOTH the `CREATE TABLE` and the reconcile `ALTER TABLE … ADD COLUMN IF NOT
+     EXISTS` block, this file's own convention for `party_nick`/`party_color` and the
+     `003_tr_search.sql` lesson: a canonical definition that describes a narrower table than
+     exists sends the next reader — or a future shape gate — to the wrong schema.
+   - Payload cost, recorded on the same basis as Tier 2's: **avg 7,102 bytes** per person
+     (from 6,896, +206 B / +3.0%), max 73,901 (from 73,001), **211.0 MB** corpus-wide (from
+     204.9 MB). ~99.2% of rows carry the four keys at zero. Accepted rather than optimised —
+     omitting them on zero rows would contradict the non-optional frontend type.
+   - **Publish (nothing runs it automatically, and the change is INERT until the loader
+     re-runs — the columns sit at their `DEFAULT 0` with every row count reconciling):**
+
+     ```bash
+     npm run db:load:person-elections:pg          # local: applies 085, fills the columns
+     npm run db:load:person-elections:pg:cloud    # the serving database
+     npm run deploy:db                            # no route change, but 085's new body
+     npm run deploy                               # the four keys on PersonElectionRow
+     ```
+
+     085 must be applied as a WHOLE file: `person_elections()`'s body selects the four
+     columns and a `LANGUAGE sql` body is validated at CREATE, so the ALTERs must precede the
+     function (they do). Order matters in one direction only — `PersonElectionRow` types the
+     four keys as non-optional, so hosting shipping ahead of the loader hands the client
+     `undefined` where the type promises a number. No consumer reads them until Tier 3b, so
+     today that is latent.
+   - ⚠️ **The PARTY is part of the key and is not optional.** ЕРИК's table is „дарения от
+     кандидати **и членове**", so a donor need not be a candidate at all. Measured 2026-09-04:
+     756 of 886 filing rows (85.3%) join on (election, party, name).
+   - ⚠️ **The 130 unmatched rows are THREE groups, not two, and one of them is LOST rather
+     than refused.** 65 are names on a DIFFERENT party's list — correctly refused, since
+     matching them pays one party's donation to another party's same-named candidate. 56 are
+     absent from the ballot entirely — party members, correctly unattributed, and still
+     visible on the party's own financing page. And **10 rows / €7,284.85 across 7 candidates
+     ARE on their own party's list under a shortened spelling** — a missing patronymic
+     („Даниел Георгиев" → „Даниел Георгиев Илчев") or hyphen spacing („Мая Манолова -
+     Найденова" → „Мая Божидарова Манолова-Найденова", €5,155 of the total). Case and
+     whitespace folding recover **0** of them. Closing that gap needs a name-token rule with
+     its own ambiguity refusal — the `aop_expert_person_links()` shape — and is its own tier;
+     do NOT loosen this key to chase it. It is not a regression (the retired name-keyed shard
+     could not render Мая Манолова either — her folder holds a `donations.json` and no
+     `regions.json`), but it is the reason **no surface may render a zero here as „gave
+     nothing"**: absence of a figure is absence of an attribution, and the tile self-hides on
+     an empty row set.
+   - The donor NAME is stripped from the stored rows: it is this person by construction, and a
+     name inside a per-person payload reads as evidence of identity on exactly the shared-name
+     pages where it is not.
+   - Loaded: **756 rows attributed**, and each cycle's total is split by basis because the mix
+     swings too far to leave implicit — in-kind is 48% of one cycle and 3% of another, so a
+     combined figure reads as money given:
+
+     | cycle | people | cash | in-kind |
+     | --- | --- | --- | --- |
+     | 2024_06_09 | 212 | €201,337 | €184,964 |
+     | 2024_10_27 | 173 | €585,179 | €18,523 |
+     | 2026_04_19 | 151 | €240,170 | €38,730 |
 2. `person_elections()` returns the four fields per cycle. `PersonElectoralSection` renders
    `CandidateDonationsTile` for the selected cycle — fed from the payload, not from a
    name-keyed fetch — under a `financing` section, gated on that CYCLE's `hasFinancials` from
@@ -309,10 +362,36 @@ of `CandidateDashboardCards`. Fold them:
    `person_role(source='donor').ref` already stores, so the presence-only block can become a
    figure later. Deliberately NOT in this tier: `source='donor'` is `public_default=false`, so
    attaching an amount to a named private individual is a decision, not a rendering change.
-6. Gates: `person_elections.data.test.ts` — the person-keyed totals reconcile against a fresh
-   sum of the party filings for that `(election, party, name)`; no donation row lands on a
-   cycle the person has no candidacy in; and a person in an ambiguous fold does not receive a
-   namesake's donations. Plus a `CandidateDonationsTile` test over the PG payload shape.
+6. Gates (six, in `person_elections.data.test.ts`): the person-keyed totals reconcile against
+   a fresh, INDEPENDENT read of the party filings, with a mutation arm that moves every stored
+   monetary figure by €1 and requires none of them to still reconcile; self-funding is
+   attributed only for cycles that publish financing, with the publishing set DERIVED from the
+   corpus (a hardcoded year turns green into red the first time an earlier cycle is
+   backfilled); `person_elections()` publishes the four columns under the right KEYS, compared
+   on rows whose cash and in-kind figures DIFFER so a swapped pair cannot satisfy it — and in
+   `float8`, since casting a `double precision` to `numeric` rounds to 15 significant digits
+   and reports 13 of 20 correct rows as mismatched; the stored rows carry no donor name and
+   their sum equals the stored total; coverage has not COLLAPSED against the filings (756/886
+   measured, floored at 70% because the residue's size legitimately moves); and self-funding
+   reaches a second person ONLY where the identity layer has already split one human in two.
+   Plus the client-side contract tests in `personDataCycles.test.ts` and a
+   `CandidateDonationsTile` test over the PG payload shape (Tier 3b).
+   - ⚠️ The reconciliation is the ONLY gate that compares against an external source, so its
+     corpus-absent path goes through `reportSkip`, not `console.warn` — vitest's default
+     reporter swallows `console.*` when stdout is piped, i.e. every CI run, and a silent
+     stand-down there means the tier reports green having checked nothing. Reachable in the
+     mixed state `db:sync:cloud` leaves: Postgres populated, shard trees absent.
+   - ⚠️ Two 1:N shapes the reconciliation had to be taught, both identity artifacts rather
+     than defects in this tier: **88** (person, cycle) pairs hold more than one candidacy
+     shard and **50** of those hold two different `mp-{id}` shards (one person resolved from
+     two parliament ids), so the gate checks that the figure came from a filing row keyed by
+     ONE OF the person's own candidacies. And **1** donation-carrying (fold, cycle, party)
+     triple is owned by two person rows — the `mp-{id}`/`c-{party}` split
+     (`person-cross-party-candidate-merge-v1.md`) — so that one figure legitimately shows on
+     two pages, and the gate caps rather than forbids it.
+   - The reconciliation keys on the **shard's** name, not `person.display_name`: for a seated
+     MP the resolver's canonical name is the parliament.bg spelling, and 5 attributed rows key
+     on a name their person row does not carry.
 
 ### Tier 4 — the two remaining parity gaps
 

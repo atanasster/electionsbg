@@ -12,7 +12,11 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CandidateStatsYearly, PreferencesInfo } from "../dataTypes";
+import {
+  CandidateStatsYearly,
+  FinancingFromCandidates,
+  PreferencesInfo,
+} from "../dataTypes";
 
 export type PersonElectionRow = {
   election: string;
@@ -22,7 +26,29 @@ export type PersonElectionRow = {
   history: CandidateStatsYearly[];
   topSettlements: PreferencesInfo[];
   topSections: PreferencesInfo[];
+  /** Campaign self-funding for THIS cycle — what the person declared giving to their own
+   *  party's campaign, from that party's ЕРИК filing, re-keyed by person_id (085). Per-cycle
+   *  by construction, so the person's rows ARE their donation history; only three cycles
+   *  publish financing at all (2024_06_09, 2024_10_27, 2026_04_19), and a cycle that does
+   *  not is 0 here — which is why a surface must gate on `hasFinancials` rather than render
+   *  the zero. */
+  donatedMonetaryEur: number;
+  donatedNonMonetaryEur: number;
+  donationCount: number;
+  /** The filing's own rows (date · goal · monetary · nonMonetary), minus the donor name —
+   *  it is this person by construction, and a name inside a per-person payload reads as
+   *  evidence of identity on exactly the shared-name pages where it is not. */
+  donations: PersonDonation[];
 };
+
+/** One self-funding row as the ЕРИК filing publishes it, minus the donor name.
+ *
+ *  DERIVED from the tile's own row type rather than restated. A hand-written twin with
+ *  `monetary?: number` is NOT assignable to it — `FinancingType` declares both money fields
+ *  required — so the tile could not be fed from this payload without a cast, which is the
+ *  whole point of re-keying the donations. (0 of 756 stored rows lack any of the four fields;
+ *  ЕРИК always publishes all of them.) */
+export type PersonDonation = Omit<FinancingFromCandidates, "name">;
 
 // A row "counts" only when the person actually ran with results — a roster-only candidacy
 // (an mp-{id} shard with no preference folder) has empty regions and zero votes.

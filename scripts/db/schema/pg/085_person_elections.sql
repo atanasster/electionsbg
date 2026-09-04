@@ -50,11 +50,55 @@ CREATE TABLE IF NOT EXISTS person_election_stats (
   stats           jsonb  NOT NULL DEFAULT '[]'::jsonb,   -- preferences_stats.stats (history)
   top_settlements jsonb  NOT NULL DEFAULT '[]'::jsonb,
   top_sections    jsonb  NOT NULL DEFAULT '[]'::jsonb,
+  -- Campaign self-funding: what this person declared GIVING to their own party's campaign
+  -- in this cycle, from that party's ЕРИК filing (`data/{election}/parties/financing/
+  -- {partyNum}/filing.json` → `data.fromCandidates[]`). Re-keyed here for the same reason
+  -- the electoral summary is: the shard the tile used to fetch is keyed by NAME
+  -- (`candidates/{NAME}/donations.json`), so two namesakes shared one figure.
+  --
+  -- ⚠️ The key is (election, partyNum, name) and the party is NOT optional. ЕРИК's table is
+  -- „дарения от кандидати И ЧЛЕНОВЕ", so a donor need not be a candidate at all, and
+  -- matching on name alone would pay one party's donation to a same-named candidate on
+  -- another ballot.
+  --
+  -- ⚠️ 131 of 886 filing rows do not join, and they are THREE groups, not two (measured
+  -- 2026-09-04). 65 are names on a DIFFERENT party's list — correctly refused. 56 are absent
+  -- from the ballot entirely — party members, correctly unattributed. And 10 rows /
+  -- €7,284.85 across 7 candidates ARE on their own party's list under a SHORTENED spelling:
+  -- a missing patronymic („Даниел Георгиев" → „Даниел Георгиев Илчев") or hyphen spacing
+  -- („Мая Манолова - Найденова" → „Мая Божидарова Манолова-Найденова", €5,155). Those are
+  -- LOST, not refused. Case/whitespace folding recovers 0 of them, so closing the gap needs
+  -- a name-token rule with its own ambiguity refusal — the `aop_expert_person_links()` shape,
+  -- and its own tier. Do NOT loosen this key to chase them.
+  --
+  -- ⚠️ Because of that residue, a surface must never render a ZERO here as „gave nothing":
+  -- absence of a figure is absence of an attribution. `CandidateDonationsTile` self-hides on
+  -- an empty row set, which is what keeps that honest.
+  --
+  -- ⚠️ `double precision`, never `numeric`: node-postgres serialises `numeric` as a STRING,
+  -- so every money cell renders blank while the value is present in the payload (the 142
+  -- lesson).
+  donated_monetary_eur    double precision NOT NULL DEFAULT 0,
+  donated_nonmonetary_eur double precision NOT NULL DEFAULT 0,
+  donation_count          int              NOT NULL DEFAULT 0,
+  -- The filing's own rows (date / goal / monetary / nonMonetary) minus the donor NAME — it is
+  -- this person by construction, and a name inside a per-person payload reads as evidence of
+  -- identity on exactly the shared-name pages where it is not. Same "raw shard arrays"
+  -- contract the table already keeps for `regions`, so the existing tile renders unchanged.
+  donations jsonb NOT NULL DEFAULT '[]'::jsonb,
   PRIMARY KEY (person_id, election_date)
 );
 -- Back-compat for an already-migrated DB (the CREATE TABLE above no-ops via IF NOT EXISTS).
 ALTER TABLE person_election_stats ADD COLUMN IF NOT EXISTS party_nick  text;
 ALTER TABLE person_election_stats ADD COLUMN IF NOT EXISTS party_color text;
+ALTER TABLE person_election_stats
+  ADD COLUMN IF NOT EXISTS donated_monetary_eur    double precision NOT NULL DEFAULT 0;
+ALTER TABLE person_election_stats
+  ADD COLUMN IF NOT EXISTS donated_nonmonetary_eur double precision NOT NULL DEFAULT 0;
+ALTER TABLE person_election_stats
+  ADD COLUMN IF NOT EXISTS donation_count          int              NOT NULL DEFAULT 0;
+ALTER TABLE person_election_stats
+  ADD COLUMN IF NOT EXISTS donations jsonb NOT NULL DEFAULT '[]'::jsonb;
 CREATE INDEX IF NOT EXISTS idx_person_election_stats_person
   ON person_election_stats (person_id);
 
@@ -112,6 +156,13 @@ CREATE INDEX IF NOT EXISTS idx_person_election_stats_person
 -- and `missingMigrationEmpty` degrades only 42883/42P01, so one malformed value would be a
 -- 500 on the whole electoral block rather than a missing chart.
 --
+-- ⚠️ The four `donated*` / `donations` keys come from columns declared in the CREATE TABLE
+-- above AND in the reconcile block beneath it, and they are INERT until the loader re-runs:
+-- a database that applied 085 and nothing else serves them as ZEROS, not as absent, with
+-- every row count reconciling. They are also the only money in this payload, so a renamed or
+-- SWAPPED key would publish in-kind as cash — non-monetary is 48% of one cycle's total — and
+-- `person_elections.data.test.ts` pins the key names against the columns for that reason.
+--
 -- ⚠️ The `stats` COLUMN is deliberately left in place and the loader is unchanged. Nothing on
 -- the serving path reads it any more (verified 2026-09-04: no function, view or matview
 -- references it), and it is kept for two reasons — it is the verbatim shard capture, and it
@@ -158,7 +209,13 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'regions', o.regions,
       'history', (SELECT h FROM arc),
       'topSettlements', o.top_settlements,
-      'topSections', o.top_sections
+      'topSections', o.top_sections,
+      -- Campaign self-funding for THIS cycle. Per-cycle by construction, so the same payload
+      -- is both the selected cycle's figure and the person's donation history.
+      'donatedMonetaryEur', o.donated_monetary_eur,
+      'donatedNonMonetaryEur', o.donated_nonmonetary_eur,
+      'donationCount', o.donation_count,
+      'donations', o.donations
     ) ORDER BY o.election_date DESC)
     FROM own o
   ), '[]'::jsonb);
