@@ -195,3 +195,22 @@ describe("vacuumAfterReload", () => {
     },
   );
 });
+
+describe("end()", () => {
+  // ⚠ THE PROPERTY 28 DATA GATES LEAN ON WITHOUT SAYING SO. They write
+  // `afterAll(() => { if (haveDb) await end(); })`, which reads as leak-avoidance and rests on
+  // an unmeasured belief about Vitest hook semantics — a file-level `afterAll` does NOT run
+  // when every test in the file is skipped, so the guard's false branch is unreachable and the
+  // guard is doing nothing.
+  //
+  // Rather than pin the framework's behaviour, pin the property that makes the guard
+  // unnecessary in the first place: `end()` is safe to call when no pool was ever opened, and
+  // safe to call twice. With that established, an unconditional teardown is correct in every
+  // state and no caller has to reason about when hooks fire — which is why
+  // `official_role_reconcile.data.test.ts` now calls it bare.
+  test("is a no-op when no pool was ever opened, and is idempotent", async () => {
+    // No query has run in this file, so no pool exists. Neither call may throw.
+    await expect(end()).resolves.toBeUndefined();
+    await expect(end()).resolves.toBeUndefined();
+  });
+});

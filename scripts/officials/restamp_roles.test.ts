@@ -89,6 +89,43 @@ describe("restampRoles", () => {
     expect(out.generatedAt).not.toBe("2026-01-01T00:00:00.000Z");
   });
 
+  it("un-promotes every mayor when filed_position is NULL — which is why the gate must SKIP", async () => {
+    // ⚠ THE STATE A FRESH CLONE IS IN, AND THE REASON `official_role_reconcile.data.test.ts`
+    // probes `filed_position` rather than `subject_ref`. Those columns are not in the
+    // declaration shards — they arrive by crawl or by `scripts/db/ship_filed_position.ts`,
+    // never from `db:refresh` — while `subject_ref` does come off the shards. So a database
+    // built the documented way joins every row and states nothing, and `reconcileRole` falls
+    // back to the LISTING role for all of them.
+    //
+    // Measured against the real corpus with the columns nulled: 4 flips, demoting Раднево,
+    // Разград, Мъглиж and Макреш from mayor — the four municipalities T2 exists for. The gate
+    // that ran on such a database would fail blaming the ingest and name a `--apply` that
+    // writes those demotions into the committed index. Hence: skip, never assert.
+    //
+    // It needs no Postgres: the row source is injected, which is the whole point of `opts`.
+    // ⚠ THE FIXTURE IS A ROW ALREADY PROMOTED PAST ITS LISTING. `roleRaw` is what the register
+    // printed ("Заместник кмет"); `role` is what an earlier restamp wrote from a filing that
+    // said otherwise. That gap is what a NULL `filed_position` reverts — a row whose listing
+    // ALREADY says mayor has nothing to lose and reports a clean run, which is how this test
+    // would have passed while pinning nothing.
+    const f = writeIndex([row({ role: "mayor", roleRaw: "Заместник кмет" })]);
+    const n = await restampRoles(false, false, {
+      indexPath: f,
+      source: source([
+        {
+          subject_ref: "a-1",
+          filed_position: null,
+          filed_institution: null,
+        },
+      ]),
+    });
+    expect(
+      n,
+      "a corpus with no filed_position reported a clean run — then the probe COULD use " +
+        "subject_ref as a proxy, and this test is not pinning anything",
+    ).toBeGreaterThan(0);
+  });
+
   it("a dry run reports the flip and leaves the file byte-identical", async () => {
     const f = writeIndex([row()]);
     const before = fs.readFileSync(f, "utf8");
