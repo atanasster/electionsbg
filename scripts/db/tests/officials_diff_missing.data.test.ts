@@ -30,8 +30,11 @@
 // declarant is the CIK-elected mayor of that municipality, then "has not filed" is false
 // however the shard got that way.
 //
-// Auto-skips when Postgres is down or the sidecars are absent — with DISTINCT reasons, because
-// "no sidecars on disk" must never read as "no false claims".
+// Auto-skips with a DISTINCT reason per state — Postgres unreachable, the declaration table
+// absent, no permission to read it, a column it lost, the muni declarations unloaded, the
+// register's `institution` unfilled, or no sidecars on disk — because "no sidecars on disk"
+// must never read as "no false claims", and neither must "the server is down". The two tests
+// have SEPARATE gates: they read different tables, written by different loaders.
 //
 //   npm run test:data
 
@@ -57,32 +60,124 @@ const cycles = existsSync(DATA_ROOT)
     )
   : [];
 
-const reachable = async (): Promise<boolean> => {
+/** ⚠ IT RETURNS A REASON, NOT A BOOLEAN, AND THE REASON IS THE POINT. A probe answering `false` both
+ *  when the server is down and when the table is empty forces ONE authored sentence onto two
+ *  different worlds — and the half it gets wrong is always "Postgres unreachable", which
+ *  `mp_arm_sql`'s header records as the string a real SQL bug hid behind for two days: "the one
+ *  warning an operator is trained to ignore". The slash in the old message was that conflation
+ *  written out rather than fixed. `report_skip_coverage.test.ts` finds the shape structurally.
+ *
+ *  ⚠ IT PROBES THE COLUMNS THE ASSERTION READS, NOT MERELY THE TABLE. The check folds
+ *  `declarant_name` AND scopes on `institution`. The scoping stops a homonym three oblasts
+ *  away FABRICATING a false claim against our join — see the in-body ⚠ on the município scope,
+ *  which owns that rule and its measurement. The probe guards the OTHER direction: with
+ *  `institution` unfilled every register key is `…@""`, no sidecar key can match it (0 of 1,412
+ *  sidecars carry a blank `obshtinaName`), so the sweep finds nothing and passes VACUOUSLY —
+ *  "no false claims" published by a corpus that was never asked. That is the shape
+ *  `official_role_reconcile.data.test.ts` shipped: a probe testing a column that is always
+ *  present, clearing a test that depends on one that is not.
+ *
+ *  ⚠ THE CATCH IS BRANCHED FOR THE SAME REASON. A bare `catch` reports a server that is UP and
+ *  missing 089 as "unreachable" — and once a probe is tri-state `conflatedProbes` is blind to
+ *  it (its exemption is satisfied by any `string` in the return type), so only review is left. */
+const reachable = async (): Promise<string | false> => {
   try {
-    const [c] = await allRows<{ n: string }>(
-      "SELECT count(*) n FROM declaration WHERE tier = 'muni'",
+    const [c] = await allRows<{ n: string; inst: string }>(
+      `SELECT count(*) n,
+              count(*) FILTER (WHERE institution IS NOT NULL AND btrim(institution) <> '') inst
+         FROM declaration WHERE tier = 'muni'`,
     );
-    return Number(c.n) > 0;
-  } catch {
+    if (Number(c.n) === 0)
+      return "no muni declarations loaded — run npm run db:load:declarations:pg";
+    if (Number(c.inst) === 0)
+      return "declaration.institution is empty for every muni filing — the município scoping this gate depends on cannot run";
     return false;
+  } catch (e) {
+    const code = (e as { code?: string }).code;
+    if (code === "42P01")
+      return "the declaration table does not exist — apply 089_declarations.sql to this database";
+    if (code === "42501")
+      return "no permission to read declaration — check the role this DATABASE_URL connects as";
+    if (code === "42703")
+      return "the declaration table is missing a column this probe reads (tier / institution) — re-apply 089_declarations.sql";
+    // ⚠ CARRY THE CODE. 28P01 (auth) and 3D000 (no such database) are servers that answered;
+    // describing them as unreachable sends an operator to restart a container that is running.
+    return `Postgres unreachable (${code ?? (e as Error).message})`;
   }
 };
 
-const haveDb = await reachable();
-const skip = !haveDb
-  ? "Postgres unreachable / no muni declarations — `npm run db:load:declarations:pg`"
-  : cycles.length === 0
-    ? "no data/<cycle>/officials_diff sidecars on disk (gitignored; `npm run data -- --resolve-local-canonicals`)"
-    : false;
+// `reachable()` returns the REASON, so the database half of the gate is the value itself.
+//
+// ⚠ EVERY BRANCH RETURNS A NON-EMPTY SENTENCE, AND THAT IS LOAD-BEARING. `""` is falsy, so an
+// empty reason would fall straight through this `||` and run the gate against an unusable
+// database with nothing printed.
+//
+// ⚠ COMPOSED INLINE, WITH NO INTERMEDIATE. A `const dbSkip = await reachable()` reads more
+// clearly and is a second GATE as far as `report_skip_coverage` is concerned — it holds a skip
+// reason that nothing reports, which is the `unreported` violation. One variable, one report.
+const skip =
+  (await reachable()) ||
+  (cycles.length === 0
+    ? "no data/<cycle>/officials_diff sidecars on disk (gitignored; run npm run data -- --resolve-local-canonicals)"
+    : false);
 reportSkip(import.meta.url, skip);
+
+/** The SECOND test's gate, and it is separate on purpose.
+ *
+ *  ⚠⚠ IT READS A DIFFERENT TABLE, WRITTEN BY A DIFFERENT LOADER. `official_roster` is
+ *  TRUNCATEd and reloaded only by `scripts/ngo/load_ngo_board_links_pg.ts`
+ *  (`db:load:ngo-board-links`), so "the declarations are loaded" says nothing about it, and the
+ *  two are independently loadable — by a standalone `db:load:declarations:pg`, by a cloud
+ *  target filled in the documented per-loader order, or transiently during the roster loader's
+ *  own TRUNCATE. (`db:refresh` runs the roster at step 29 and declarations at 51, so an
+ *  interrupted refresh is not the path.)
+ *
+ *  Both directions were wrong while the two shared one gate:
+ *
+ *  — FALSE RUN, and it is the damaging one. With `declaration` loaded and the roster EMPTY the
+ *    sweep returns no rows, `unexpected` passes vacuously, and `resolved` then fails with
+ *    „1 KNOWN_DOUBLE_MAYORS entr(ies) no longer occur — remove them". That message is an
+ *    instruction, and following it deletes PAZ20 — a município where the register genuinely
+ *    lists an outgoing and an incoming Кмет — permanently disarming the detector for the one
+ *    place it has ever fired. Same shape as the sibling's headline defect, where the remedy in
+ *    the failure message would have written a false claim into committed data.
+ *  — FALSE SKIP. Every declaration-shaped reason — including the new `institution` one — stood
+ *    this test down while the roster was perfectly loaded and the question perfectly answerable.
+ */
+const rosterReachable = async (): Promise<string | false> => {
+  try {
+    const [c] = await allRows<{ n: string }>(
+      "SELECT count(*) n FROM official_roster WHERE role = 'mayor' AND sitting",
+    );
+    if (Number(c.n) === 0)
+      return "official_roster holds no sitting mayor — run npm run db:load:ngo-board-links";
+    return false;
+  } catch (e) {
+    const code = (e as { code?: string }).code;
+    if (code === "42P01")
+      return "the official_roster table does not exist — run npm run db:load:ngo-board-links against this database";
+    if (code === "42501")
+      return "no permission to read official_roster — check the role this DATABASE_URL connects as";
+    return `Postgres unreachable (${code ?? (e as Error).message})`;
+  }
+};
+
+// ⚠ NOT `skip || …`. The declaration states have nothing to do with this question, and folding
+// them in is exactly the false skip above.
+const skipRoster = await rosterReachable();
+reportSkip(import.meta.url, skipRoster);
 afterAll(async () => {
   await end();
 });
 
+// ⚠ `mayor` IS OPTIONAL BECAUSE THIS IS PARSED JSON, not a value the compiler has seen. It is
+// present on all 1,412 sidecars today, so the `?.` below never fires — but a required type
+// beside an optional access is a disagreement about whether it can, and only one of them can
+// be right about a file read off disk.
 type Sidecar = {
   obshtinaCode: string;
   obshtinaName: string;
-  mayor: { status: string; cikName: string | null };
+  mayor?: { status: string; cikName: string | null };
 };
 
 test.skipIf(skip)(
@@ -95,7 +190,7 @@ test.skipIf(skip)(
     // the one every profile URL is built from — because inventing a second one here would
     // test our two folds against each other rather than testing the corpus.
     // ⚠️ SCOPED TO THE MUNICÍPIO, NOT JUST THE NAME. A fold alone is a homonym away from
-    // accusing the wrong join: measured, 30 folded municipal declarant names are held in more
+    // accusing the wrong join: measured 2026-09-04, 50 folded municipal declarant names are held in more
     // than one institution, and 19 sidecar mayors carry such a name. An unscoped check would
     // report "Ivan Ivanov HAS a municipal filing" because a different Ivan Ivanov filed three
     // oblasts away — an authoritative message about a defect that is not there, on a gate
@@ -109,6 +204,17 @@ test.skipIf(skip)(
       s
         .replace(/\/[^/]*\/$/u, "")
         .toLocaleLowerCase("bg")
+        // ⚠ THE РАЙОН FAMILY COULD NEVER JOIN, so a false „не е подал декларация" on any of
+        // Sofia's 22 district shards was undetectable however loudly the register contradicted
+        // it. The register writes „Район Красно село", and „Район \"Младост\" - Варна" for the
+        // Varna/Plovdiv shape; the sidecar writes the bare district name. Measured before this
+        // fold: 26 of 287 sidecar names had no counterpart in the `institution` vocabulary, 22
+        // of them districts. Latent rather than live — the corpus holds 0 `missing_official`
+        // today — and invisible to the floor below, which counts FILES rather than joinable
+        // municipalities.
+        .replace(/^район\s+/u, "")
+        .replace(/^"([^"]+)"\s*-\s*.+$/u, "$1")
+        .replace(/["„”]/gu, "")
         .replace(/\s+/g, " ")
         .trim();
     const filed = new Set(
@@ -155,6 +261,17 @@ test.skipIf(skip)(
         "mayor the register does hold a filing for. The roster is not silent — our join lost " +
         "them. Check the obshtina join (municipality_join.test.ts), the published role " +
         "(restamp_roles.ts) and the bench filter (currentBench), in that order.",
+    );
+
+    // ⚠️ AN ALL-UNNAMED SWEEP VERIFIED NOTHING, and until now said so only inside a TRUNCATION
+    // message that fires for an unrelated reason — so a corpus whose every `missing_official`
+    // lacks a `cikName` passed green and printed not a word. A sidecar in that state is itself
+    // a reconcile defect (the CIK winner is missing from the file), not a silent register.
+    assert.ok(
+      checked === 0 || unnamed < checked,
+      `all ${checked} missing_official sidecar(s) lack a cikName, so this sweep verified ` +
+        "NOTHING — the CIK winner is absent from the sidecar, which is a reconcile defect " +
+        "rather than a register that has nothing to say",
     );
 
     // ⚠️ NOT VACUOUS-BY-DEFAULT. Zero `missing_official` sidecars is the state this work
@@ -209,7 +326,27 @@ const KNOWN_DOUBLE_MAYORS: Record<string, string> = {
  *  legitimately as councils change chairs. */
 const MAX_DOUBLE_CHAIRS = 25;
 
-test.skipIf(skip)(
+test.skipIf(skipRoster)(
+  "the roster gate names the relation the double-mayor sweep reads",
+  async () => {
+    // ⚠ THE STRUCTURAL GATE CANNOT SEE THIS, and that is why the defect it guards survived a
+    // review. `report_skip_coverage` proves a probe is multi-state; it has no way to know
+    // WHICH relation the probe tests, so it reported this file clean while the double-mayor
+    // sweep below ran on an entirely unprobed `official_roster`. A floor here is what stops an
+    // empty roster passing `unexpected` vacuously and then failing `resolved` with a remedy
+    // that deletes the PAZ20 guard.
+    const [c] = await allRows<{ n: string }>(
+      "SELECT count(*) n FROM official_roster WHERE role = 'mayor' AND sitting",
+    );
+    assert.ok(
+      Number(c.n) > 200,
+      `${c.n} sitting mayors in official_roster — the sweep below cannot be read as "no ` +
+        'município gained a second mayor" on a roster this thin',
+    );
+  },
+);
+
+test.skipIf(skipRoster)(
   "no município gains a second MAYOR, and the double-chair population stays bounded",
   async () => {
     // ⚠️ THE OTHER DIRECTION. The sweep above polices `missing_official` being honest; with the
