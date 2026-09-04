@@ -12,6 +12,13 @@ import {
   useState,
 } from "react";
 import { trackSearch } from "@/lib/analytics";
+// The office + place that tell two namesakes apart, read off person_browse_table (120) by
+// 082's `person_browse_card`. All three keys are always PRESENT in the payload and may be
+// null — a null means "this person has no such value", never "this build predates the field".
+import {
+  toPersonOffice,
+  type PersonOfficeWire,
+} from "@/data/search/personOffice";
 
 const norm = (s: string): string => s.trim().toLowerCase();
 
@@ -27,7 +34,7 @@ type PersonHit = {
   party?: string | null;
   partyColor?: string | null;
   mpId?: number | null;
-};
+} & PersonOfficeWire;
 const fetchPersons = async (q: string): Promise<PersonHit[]> => {
   try {
     const res = await fetch(
@@ -148,6 +155,12 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
           party: p.party ?? undefined,
           partyColor: p.partyColor ?? undefined,
           mpId: p.mpId ?? undefined,
+          // Carried RAW, localized at render — a language switch must re-label the office
+          // without re-fetching, and `roleLabel` is a hook this module cannot call. Through
+          // `toPersonOffice` rather than three inline `?? undefined`s, so this half of the
+          // wiring and the render half share ONE mapper with its own test: every field here
+          // is optional, so a dropped one is invisible to tsc and to the render tests.
+          ...toPersonOffice(p),
         },
         refIndex: -1,
         score: 0,

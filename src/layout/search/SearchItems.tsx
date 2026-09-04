@@ -19,6 +19,9 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { PartyBadge } from "@/screens/components/PartyBadge";
+import { roleSubtitle } from "@/screens/components/search/personSearchSource";
+import { toRoleSubtitleInput } from "@/data/search/personOffice";
+import { usePersonLabels } from "@/lib/personLabels";
 
 type ItemType = SearchIndexType["type"];
 
@@ -64,6 +67,9 @@ export const SearchItems: FC<{
 }> = ({ onSelect }) => {
   const { t, i18n } = useTranslation();
   const { selected, items, searchTerm } = useContext(SearchContext);
+  // Localizes a `person_role.role` code for the person subtitle below. Memoized on `t`, so
+  // it does not churn per keystroke.
+  const { roleLabel } = usePersonLabels();
 
   const typeLabel = (type: ItemType) => {
     switch (type) {
@@ -189,6 +195,38 @@ export const SearchItems: FC<{
                         />
                       </div>
                     )}
+                    {/* „Кандидат · София 24 МИР" — the office + place, WITHOUT which two
+                        same-named people in one party render as two identical rows and the
+                        reader cannot tell a real namesake from a bug.
+
+                        ⚠️ `roleSubtitle` is the home finder's helper, reused rather than
+                        reimplemented: the two surfaces must not name different offices for
+                        one person. `toRoleSubtitleInput` is the snake_case + language bridge
+                        it needs, and it lives in its own module beside its twin so a field
+                        cannot be added to the payload map and forgotten here.
+
+                        `title` because the dropdown is a fixed 360px: 248 of 63,844 subtitles
+                        clip, the longest at 76 characters („…при Окръжна прокур…"), which
+                        removes the seat. No namesake pair currently shares its first 48
+                        characters, so nothing is ambiguous today — this is so the corpus
+                        cannot grow into it silently. */}
+                    {r.item.type === "p" &&
+                      (() => {
+                        const meta = roleSubtitle(
+                          toRoleSubtitleInput(r.item, isBg),
+                          isBg,
+                          roleLabel,
+                        );
+                        return meta ? (
+                          <div
+                            data-testid="person-meta"
+                            title={meta}
+                            className="truncate text-xs text-muted-foreground"
+                          >
+                            {meta}
+                          </div>
+                        ) : null;
+                      })()}
                     {parent && r.item.type !== "c" && (
                       <div className="truncate text-xs text-muted-foreground">
                         {parent}

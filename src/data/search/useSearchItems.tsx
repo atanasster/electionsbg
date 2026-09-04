@@ -12,6 +12,7 @@ import { SOFIA_CITY_GOVERNANCE_ID } from "@/data/local/placeViews";
 import { buildPlaceItems } from "./placeSearchItems";
 import { SEARCH_FUSE_OPTIONS } from "./searchConfig";
 import type { SearchVoteIndexFile } from "../parliament/votes/types";
+import type { PersonOffice } from "./personOffice";
 
 // Slim municipal-officials roster for search — served from Postgres
 // (municipal_officials_table, migration 102) via the municipal-officials-search-index
@@ -146,9 +147,21 @@ export type SearchIndexType = {
   // most-recent candidacy in person_search.
   party?: string;
   partyColor?: string;
+  // person (type "p") office + place — „Кандидат · София 24 МИР". Display-only, and the
+  // reason it exists: name + party badge alone renders two same-named people in one party
+  // as two BYTE-IDENTICAL rows, so a reader cannot tell a real namesake (or a split the
+  // resolver deliberately refused to merge) from a bug. Measured 2026-09-04 over the 63,844
+  // active public figures with a tier-P browse row: 4,527 sit in a cluster of more than one
+  // on name + badge alone, 2,312 once this line is added.
+  // From /api/db/person-lookup, which reads them off person_browse_table (120) via
+  // person_browse_card — NOT re-derived here, so the header and the home finder cannot name
+  // two different offices for one person. The three fields, and both bridges they cross,
+  // live in `personOffice.ts`; `placeLabelEn` is null for judicial bodies by design (120
+  // carries `name_en` only for place_dim), so the renderer falls back to the Bulgarian label.
   // person (type "p") only: the person's mp id → the MpAvatar photo. Absent for non-MPs.
   mpId?: number;
-};
+} & PersonOffice;
+
 export const useSearchItems = () => {
   const { selected } = useElectionContext();
   const { data: sections } = useQuery({

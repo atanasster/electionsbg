@@ -242,7 +242,13 @@ export type RoleLabeler = (role: string | null | undefined) => string;
  * mints role codes from source data and a new one appears before anyone writes its label.
  */
 export const roleSubtitle = (
-  h: PersonHit,
+  // The THREE fields it reads, not a whole `PersonHit`. Widened 2026-09-04 for the header
+  // dropdown, which has no `PersonHit` to hand: its rows come from /api/db/person-lookup and
+  // carry no `key`, so satisfying the full type meant fabricating identity fields — and a
+  // fabricated `key` is worse than an absent one here, because `personHref` (just below)
+  // branches on its `slug:` / `fold:` namespace and would route a real person to the
+  // name-fold URL. Both existing callers pass a full `PersonHit` and are unaffected.
+  h: Pick<PersonHit, "primary_role" | "position_type" | "place_label">,
   bg: boolean,
   roleLabel?: RoleLabeler,
 ): string => {
