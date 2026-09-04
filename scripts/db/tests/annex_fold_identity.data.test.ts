@@ -1,7 +1,10 @@
-// The annex linkage must be trustworthy in two independent ways: an annex must carry the RIGHT
-// contract's value (the fold identity, below), and it must still be ATTACHED to a contract at all
-// (the orphan gate). The second is the cheaper failure and the one that recurs — every eviction
-// pass orphans the annexes of the rows it removes, and only `db:load:annexes:pg` re-resolves them.
+// The annex linkage must be trustworthy in three independent ways: an annex must carry the RIGHT
+// contract's value (the fold identity, below), it must still be ATTACHED to a contract at all (the
+// orphan gate), and the TWO CONSUMERS of lib/annexResolve.ts must attach the same annexes (the
+// divergence gate, at the foot of this file). The second is the cheaper failure and the one that
+// recurs — every eviction pass orphans the annexes of the rows it removes, and only
+// `db:load:annexes:pg` re-resolves them. The third went unnoticed for months precisely because
+// this file compared CONTRACTS and never annex RECORDS.
 //
 // ── THE FOLD IDENTITY ───────────────────────────────────────────────────────────────────────
 //
@@ -38,8 +41,19 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, withClient, end } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import {
+  buildAnnexIndex,
+  consortiumGroupKey,
+  membersByConsortiumGroup,
+  resolveAnnexKey,
+  type ContractBasis,
+} from "../../procurement/lib/annexResolve";
+import type { Contract } from "../../procurement/types";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
@@ -343,5 +357,316 @@ test.skipIf(skip)(
         "annex, not the collision. Verify on ЦАИС ЕОП for УНП 00536-2023-0049, " +
         "then update this pin (and confirm the general invariant stayed green).",
     );
+  },
+);
+
+// ── THE TWO CONSUMERS MUST NOT DISAGREE ─────────────────────────────────────────────────────
+//
+// `anexi_current_value.ts` (the value fold, over the month shards) and `db:load:annexes:pg`
+// (this table, over Postgres) resolve the SAME annex cache with the SAME resolver. Nothing made
+// them agree, and for months they did not: the loader read post-087 rows through a divisor
+// written for the shard convention, so every consortium carrier was refused on the ±12%
+// continuity guard by exactly its member count. Both exit 0, every row count reconciles, and the
+// only reader-facing trace is a /contract/:key page that says the value moved and then lists no
+// modification that moved it. Plan: docs/plans/annex-linkage-consortium-basis-v1.md.
+//
+// ⚠️ THE FIRST ARM COMPARES ANNEX RECORDS, NOT CONTRACTS, and that is the whole point. The
+// divergence survived this file for months because every gate in it is contract-shaped: an annex
+// no contract claims is absent from both consumers with nothing to count it. Measured
+// 2026-09-04, before the per-row basis: 1,063 records linked by the fold and missing from this
+// table. After: 13.
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const MONTH_DIR = path.resolve(
+  __dirname,
+  "../../../data/procurement/contracts",
+);
+
+/** The resolver's inputs, from whichever corpus. `basis` and `members` are per row, exactly as
+ *  each consumer computes them — see load_annexes_pg.ts and lib/annexResolve.ts. */
+interface ResolvableRow {
+  unp?: string;
+  awarderEik?: string;
+  contractorEik?: string;
+  contractId?: string;
+  signed: number | null;
+  basis: ContractBasis;
+  members?: readonly string[];
+}
+
+/** The month shards, read the way anexi_current_value.ts reads them: the signing baseline is
+ *  `signingAmountEur ?? amountEur` (what makes the fold idempotent), and every shard row is on
+ *  the split basis with no consortium promotion. */
+const loadShardRows = (): ResolvableRow[] => {
+  const out: ResolvableRow[] = [];
+  if (!fs.existsSync(MONTH_DIR)) return out;
+  for (const y of fs.readdirSync(MONTH_DIR).filter((n) => /^\d{4}$/.test(n))) {
+    const dir = path.join(MONTH_DIR, y);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".json"))) {
+      const rows = JSON.parse(
+        fs.readFileSync(path.join(dir, f), "utf8"),
+      ) as Contract[];
+      if (!Array.isArray(rows)) continue;
+      for (const r of rows) {
+        if (r.tag !== "contract") continue;
+        out.push({
+          unp: r.unp,
+          awarderEik: r.awarderEik,
+          contractorEik: r.contractorEik,
+          contractId: r.contractId,
+          signed: r.signingAmountEur ?? r.amountEur ?? null,
+          basis: "split",
+        });
+      }
+    }
+  }
+  return out;
+};
+
+/** Postgres, read the way load_annexes_pg.ts reads it: per-row basis from 087's
+ *  `consortium_role`, and the member set keyed on 087's group identity. */
+const loadPgRows = async (): Promise<ResolvableRow[]> => {
+  const rows = await allRows<{
+    unp: string | null;
+    awarder_eik: string | null;
+    contractor_eik: string | null;
+    contract_id: string | null;
+    signed: number | null;
+    consortium_role: string | null;
+    ocid: string | null;
+  }>(
+    `SELECT unp, awarder_eik, contractor_eik, contract_id,
+            COALESCE(signing_amount_eur, amount_eur) AS signed,
+            consortium_role, ocid
+       FROM contracts WHERE tag = 'contract'`,
+  );
+  const gr = (r: (typeof rows)[number]) => ({
+    ocid: r.ocid,
+    contractId: r.contract_id,
+    contractorEik: r.contractor_eik,
+    consortiumRole: r.consortium_role,
+  });
+  const byGroup = membersByConsortiumGroup(rows.map(gr));
+  return rows.map((r) => ({
+    unp: r.unp ?? undefined,
+    awarderEik: r.awarder_eik ?? undefined,
+    contractorEik: r.contractor_eik ?? undefined,
+    contractId: r.contract_id ?? undefined,
+    signed: r.signed,
+    basis: (r.consortium_role === "carrier"
+      ? "full"
+      : "split") as ContractBasis,
+    members:
+      r.consortium_role === "carrier"
+        ? byGroup.get(consortiumGroupKey(gr(r)))
+        : undefined,
+  }));
+};
+
+/** The set of annex RECORDS a corpus reaches — the modifications the register published, not the
+ *  index keys that address them.
+ *
+ *  ⚠️ Keys are the WRONG unit and read as a huge false divergence. One annex record is indexed
+ *  under EVERY supplier it lists, so on the shards each of a consortium's N members claims its
+ *  own `<унп>|<member>` key while in Postgres only the carrier claims one — measured, comparing
+ *  keys reports 1,121 fold-only against a true 13. A record is what a reader sees on
+ *  /contract/:key, and it is what the loader emits rows from. */
+const reachedRecords = (
+  rows: ResolvableRow[],
+  idx: ReturnType<typeof buildAnnexIndex>["idx"],
+): Set<string> => {
+  const out = new Set<string>();
+  for (const r of rows) {
+    if (r.signed == null || r.signed <= 0) continue;
+    const hit = resolveAnnexKey(idx, r as unknown as Contract, r.signed, {
+      basis: r.basis,
+      members: r.members,
+    });
+    if (!hit) continue;
+    const recs =
+      (hit.via === "unp"
+        ? idx.recordsByUnpSupplier?.get(hit.key)
+        : idx.recordsByContractNo?.get(hit.key)) ?? [];
+    // The loader's own dedupe identity, minus the contract: a notice id when the feed publishes
+    // one, otherwise the (date, value) pair that distinguishes two null-id modifications.
+    for (const rec of recs)
+      out.add(
+        `${rec.noticeId ?? ""}|${rec.lotIdentifier ?? ""}|` +
+          `${rec.publicationDate ?? ""}|${rec.currentValueEur ?? ""}`,
+      );
+  }
+  return out;
+};
+
+const { idx: annexIdx, records: annexRecords } = haveDb
+  ? buildAnnexIndex({ retainRecords: true })
+  : { idx: undefined, records: 0 };
+
+// Distinct skip reasons. Neither absence may read as "the consumers agree".
+const divergenceSkip = skip
+  ? skip
+  : annexRecords === 0
+    ? "no annex cache on disk (raw_data/procurement/anexi)"
+    : !fs.existsSync(MONTH_DIR)
+      ? "no contract shards on disk (data/procurement/contracts)"
+      : false;
+reportSkip(import.meta.url, divergenceSkip);
+
+// A CEILING, not zero: the two corpora are not the same row set. Postgres additionally holds the
+// synthetic `obed-` carriers, which have no shard row at all, and the shards hold rows an
+// eviction pass has since removed. Measured 2026-09-04 after the per-row basis and the member-set
+// probe: 13 fold-only and 90 pg-only records against a union of ~25.6k, i.e. ~0.4%. Before them
+// it was 1,063 fold-only. 3% leaves room for ordinary corpus drift and is an order of magnitude
+// under the defect.
+const MAX_ONE_SIDED_RECORD_PCT = 3;
+
+test.skipIf(divergenceSkip)(
+  "the value fold and the annexes table reach the same annex records",
+  async () => {
+    const foldRecs = reachedRecords(loadShardRows(), annexIdx!);
+    const pgRecs = reachedRecords(await loadPgRows(), annexIdx!);
+    assert.ok(
+      foldRecs.size > 1000 && pgRecs.size > 1000,
+      `too few reached records to compare (fold ${foldRecs.size}, pg ${pgRecs.size}) — this ` +
+        `arm is vacuous, not green. Load the contracts corpus first.`,
+    );
+    const foldOnly = [...foldRecs].filter((k) => !pgRecs.has(k));
+    const pgOnly = [...pgRecs].filter((k) => !foldRecs.has(k));
+    const union = new Set([...foldRecs, ...pgRecs]).size;
+    const pct = (100 * (foldOnly.length + pgOnly.length)) / union;
+    assert.ok(
+      pct <= MAX_ONE_SIDED_RECORD_PCT,
+      `the two consumers of lib/annexResolve.ts have diverged: ${foldOnly.length} annex ` +
+        `record(s) reached only by the value fold and ${pgOnly.length} only by the annexes ` +
+        `table, ${pct.toFixed(2)}% of ${union}.\n` +
+        `Fold-only records are modifications folded into contracts.amount_eur that ` +
+        `/contract/:key cannot show; pg-only records are the reverse. Both are one resolver ` +
+        `reading two conventions — see docs/plans/annex-linkage-consortium-basis-v1.md and ` +
+        `check the per-row basis / member set in load_annexes_pg.ts.\n` +
+        `fold-only: ${foldOnly.slice(0, 5).join(" · ")}\n` +
+        `pg-only:   ${pgOnly.slice(0, 5).join(" · ")}`,
+    );
+  },
+);
+
+// ── the served-state symptom, PER ROW CLASS ─────────────────────────────────────────────────
+//
+// ⚠️ ASSERTED PER `consortium_role`, never in aggregate. Carriers are 4,040 of 407k contracts, so
+// a TOTAL carrier regression is 4.53% of the flipped population — inside any ceiling loose enough
+// to tolerate ordinary drift. Per class it reads 100%, which is what the failure message needs to
+// say.
+//
+// ⚠️ And note what the predicate means on a CARRIER. 087 recomputes `signing_amount_eur` and
+// `amount_eur` as NULL-skipping `sum()`s over the group, so on a carrier "signing <> current" is
+// evidence that the fold moved SOME member's value, not that this row's own annex chain accounts
+// for the difference. 20 of the 288 pre-fix carriers did not match their annex anchor to the
+// cent. The arm is therefore a PRESENCE test — "this contract can show a modification" — and the
+// value-identity question is the general gate at the top of this file.
+
+const FLIPPED_PREDICATE = `
+  c.tag = 'contract'
+  AND c.signing_amount_eur IS NOT NULL
+  AND c.signing_amount_eur <> c.amount_eur
+`;
+
+const FLIPPED_BY_ROLE_SQL = `
+  SELECT coalesce(c.consortium_role, '(plain)') AS role,
+         count(*)::text AS flipped,
+         count(*) FILTER (
+           WHERE NOT EXISTS (
+             SELECT 1 FROM procurement_annexes a WHERE a.contract_key = c.key)
+         )::text AS without_annex
+    FROM contracts c
+   WHERE ${FLIPPED_PREDICATE}
+   GROUP BY 1 ORDER BY 2 DESC
+`;
+
+interface RoleRow {
+  role: string;
+  flipped: string;
+  without_annex: string;
+}
+
+// Per class. 0% measured for every class after the fix; 100% for `carrier` before it.
+const MAX_FLIPPED_WITHOUT_ANNEX_PCT = 5;
+// The flip population is ~6.3k. A floor of 4,000 catches an unloaded or half-loaded corpus
+// without tolerating the 84% collapse a floor of 1,000 would have allowed.
+const MIN_FLIPPED = 4000;
+
+test.skipIf(skip)(
+  "a contract whose value the fold moved can show a modification — per row class",
+  async () => {
+    const rows = await allRows<RoleRow>(FLIPPED_BY_ROLE_SQL);
+    const total = rows.reduce((n, r) => n + Number(r.flipped), 0);
+    assert.ok(
+      total >= MIN_FLIPPED,
+      `only ${total} contracts carry a fold flip (expected ≥ ${MIN_FLIPPED}) — this arm is ` +
+        `vacuous, not green. Run \`npm run db:load:pg\` then \`npm run db:load:annexes:pg\`.`,
+    );
+    const bad = rows.filter(
+      (r) =>
+        (100 * Number(r.without_annex)) / Number(r.flipped) >
+        MAX_FLIPPED_WITHOUT_ANNEX_PCT,
+    );
+    assert.deepEqual(
+      bad.map((r) => r.role),
+      [],
+      `row class(es) whose flipped contracts cannot show the modification that flipped them:\n` +
+        rows
+          .map(
+            (r) =>
+              `  ${r.role}: ${r.without_annex} of ${r.flipped} ` +
+              `(${((100 * Number(r.without_annex)) / Number(r.flipped)).toFixed(2)}%)`,
+          )
+          .join("\n") +
+        `\nA failing 'carrier' class means load_annexes_pg.ts has stopped passing the per-row ` +
+        `basis or the member set (docs/plans/annex-linkage-consortium-basis-v1.md); a failing ` +
+        `'(plain)' class usually means procurement_annexes is simply stale — re-run ` +
+        `\`npm run db:load:annexes:pg\`.`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the per-class query still discriminates — a stripped carrier is caught",
+  async () => {
+    // Same convention as the orphan proof above: procurement_annexes is TRUNCATEd and rebuilt,
+    // so "0 without an annex" is the state immediately after every load and proves nothing on
+    // its own. Delete one class's annex rows inside a rolled-back transaction and require the
+    // query to flag exactly that class.
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        const { rows: victims } = await c.query<{ key: string }>(
+          `SELECT c.key FROM contracts c
+            WHERE ${FLIPPED_PREDICATE} AND c.consortium_role = 'carrier'
+              AND EXISTS (SELECT 1 FROM procurement_annexes a WHERE a.contract_key = c.key)
+            LIMIT 50`,
+        );
+        assert.ok(
+          victims.length > 0,
+          "no flipped carrier carries an annex — the per-class gate is vacuous, not green",
+        );
+        await c.query(
+          `DELETE FROM procurement_annexes WHERE contract_key = ANY($1::text[])`,
+          [victims.map((v) => v.key)],
+        );
+        const { rows: after } = await c.query<RoleRow>(FLIPPED_BY_ROLE_SQL);
+        const carrier = after.find((r) => r.role === "carrier");
+        assert.ok(
+          carrier,
+          "the carrier class vanished from the per-class query",
+        );
+        assert.equal(
+          Number(carrier.without_annex),
+          victims.length,
+          `stripping ${victims.length} carriers' annexes was not reflected in the query ` +
+            `(${carrier.without_annex}) — the per-class gate is decorative`,
+        );
+      } finally {
+        await c.query("ROLLBACK");
+      }
+    });
   },
 );
