@@ -507,18 +507,68 @@ describe("shell — the level's descriptor governs what is drawn", () => {
   });
 
   it.each(Object.entries(ALL_SURFACE_FIXTURES))(
-    "draws exactly the level's declared ranked columns — %s",
+    "draws the declared columns THIS BALLOT can fill, in the declared order — %s",
     (name, surface) => {
+      // ⚠ A SUBSET, NOT AN EQUALITY, AND THE CHANGE IS THE POINT. `rankedColumns` is declared
+      // per LEVEL and a level can carry two ballots answering different questions:
+      // `local/municipality` declares `round` and `elected` for its mayor ballot — where they
+      // are the whole point — and its council ballot fills neither. Asserting equality made the
+      // council table print „Тур" and „Избран" as two headers over blank columns, measured on
+      // all 289 published municipality surfaces.
       const level = levelOf(surface);
       const { container } = draw(<ElectionResultsShell surface={surface} />);
       for (const table of container.querySelectorAll("[data-ranked-result]")) {
         const cols = [...table.querySelectorAll("th[data-ranked-col]")].map(
           (n) => n.getAttribute("data-ranked-col"),
         );
-        expect(cols, name).toEqual([...level.rankedColumns]);
+        // ⚠ NON-EMPTY FIRST. A subset assertion is satisfied by `[]`, so a renderer that
+        // dropped every column would pass every clause below it — the vacuity a "narrowing"
+        // change is most likely to introduce.
+        expect(
+          cols.length,
+          `${name} rendered no columns at all`,
+        ).toBeGreaterThan(0);
+        // Every rendered column is declared…
+        for (const c of cols) expect(level.rankedColumns, name).toContain(c);
+        // …and the order is the descriptor's, not the ballot's.
+        expect(cols, `${name} reordered the columns`).toEqual(
+          level.rankedColumns.filter((c) => cols.includes(c)),
+        );
       }
     },
   );
+
+  it("drops a declared column this ballot cannot fill, and keeps it on the one that can", () => {
+    // ⚠ THE DISCRIMINATING HALF. A subset assertion alone passes on a renderer that dropped
+    // EVERY column, so the two ballots of one fixture are compared against each other: the
+    // mayor fills `round`/`elected` and the council fills neither, from the same declared set.
+    const { container } = draw(
+      <ElectionResultsShell surface={localMunicipalityRunoffSplit} />,
+    );
+    const colsOf = (kind: string) =>
+      [
+        ...container.querySelectorAll(
+          `[data-ranked-result='${kind}'] th[data-ranked-col]`,
+        ),
+      ].map((n) => n.getAttribute("data-ranked-col"));
+
+    const mayor = colsOf("municipality_mayor");
+    const council = colsOf("municipal_council");
+    // The council fills neither of the mayor's two…
+    expect(mayor).toContain("elected");
+    expect(mayor).toContain("round");
+    expect(council).not.toContain("elected");
+    expect(council).not.toContain("round");
+    // ⚠ …AND THE NARROWING RUNS BOTH WAYS. „Места" is the third blank column this change
+    // removes and the only one that goes from the MAYOR table: a mayoral ballot has no seats,
+    // so the level's declared `seats` was a header over 578/578 empty mayor tables. Asserting
+    // only the mayor→council direction would let a one-way implementation pass.
+    expect(council).toContain("seats");
+    expect(mayor).not.toContain("seats");
+    // …and each keeps what it does fill, so this is a narrowing rather than a collapse.
+    expect(council).toContain("votes");
+    expect(mayor).toContain("votes");
+  });
 
   it("says who was elected on a runoff, rather than leaving it to be inferred", () => {
     // The substantive loss when `rankedColumns` was ignored: the table showed 53.94% against

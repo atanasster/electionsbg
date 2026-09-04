@@ -1200,7 +1200,62 @@ const MunicipalityResults: FC<{
           ) : undefined
         }
         className="mb-4"
+        // ⚠ THE SCOPE COMPOSES INTO THE HEADER, never a second strip beneath the view pills
+        // (§Phase 4 item 1). `status` is the literal every artifact-level screen passes —
+        // `SectionsScreen` and `MunicipalitiesScreen` do the same — because the header renders
+        // ABOVE the boundary and so cannot read the surface's own status; only `DashboardScreen`
+        // derives it, and only because its level is `canonical` and hands the surface in.
+        scope={<ElectionScopeBar cycle={cycle} status="final" />}
       />
+
+      {/* ⚠ THE THIRD OF FOUR LOCAL LEVELS WHOSE ARTIFACT NOTHING READ. 289 published
+          municipality surfaces, Sofia's районы and the SOF aggregate among them, each carrying
+          the mayor ballot and the council ballot as SEPARATE canvases — which is §Phase 5's
+          item 2 and 3 ("show the decisive mayor result or runoff pair first", "render council
+          composition separately") answered by the producer and rendered by nobody.
+
+          ⚠ `level="municipality"` HERE EVEN FOR A SOFIA РАЙОН, where the header above says
+          `settlement`. The two answer different questions: the header's level picks the
+          place-view switcher, and a район is a settlement in the parliamentary tree; the
+          boundary's level names where the ARTIFACT lives, and a район's is
+          `surface/municipality/S2401.json` because in the local tree it is its own município. */}
+      {/* ⚠⚠ NOT WHEN A LATER BY-ELECTION HAS SUPERSEDED THIS CYCLE'S MAYOR. The surface's mayor
+          ballot carries `isElected` on the REGULAR-cycle winner and the shell renders that as a
+          „Избран · да" column — directly above a Кмет card naming somebody else, under the
+          by-election's own date. Measured across both published cycles: 8 pages would name two
+          different people as mayor, one immediately above the other (RSE08, TGV22, BLG03,
+          PAZ20, S2404, S2414 …), four of them Sofia районы.
+
+          The shell's statement is true OF THE CYCLE IT NAMES; what it breaks is the ordering
+          this page was built to guarantee. `showPartial`, computed above, exists precisely to
+          "lead the mayor section + Кмет card with it and relegate the regular results below the
+          timeline" — the shell has no notion of a superseding vote, so it must not pre-empt
+          that ordering. The SAME predicate, not a second one. */}
+      {showPartial ? null : (
+        <ElectionSurfaceBoundary
+          kind="local"
+          level="municipality"
+          cycle={cycle}
+          id={municipality.obshtinaCode}
+          // Four facts is the corpus maximum, and the skeleton reserves the tallest so no real
+          // page shifts downward. Measured against this level's OWN `factPriority` — which
+          // includes `turnout`, unlike country's and region's — 511 of 578 published surfaces
+          // render three and 67 render four. No map: the mayor ballot declares one and
+          // `MAP_ADAPTERS` registers no `local/*` entry to draw it.
+          skeleton={
+            <ElectionSurfaceSkeleton facts={4} canvases={2} withMap={false} />
+          }
+          fallback={null}
+        >
+          {(s) => (
+            <ElectionResultsShell
+              surface={s}
+              scope="header"
+              currentView="local"
+            />
+          )}
+        </ElectionSurfaceBoundary>
+      )}
 
       <StatsGrid
         bundle={municipality}
@@ -1623,8 +1678,12 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
         // ⚠ NO MAP — `MAP_ADAPTERS` registers no `local/*` entry, so the canvas renders one line
         // of "not available" where a map would go. Reserving a 320px box for it is a shift in
         // the other direction: the skeleton must reserve what the page renders, not what the
-        // artifact hopes for. Two facts is right — `winner` and `seats` are both in this
-        // level's `factPriority`.
+        // artifact hopes for.
+        //
+        // Two facts is this level's MAXIMUM, which is the same rule the município branch below
+        // states — `winner` and `seats` are both in `factPriority` and every published country
+        // artifact carries exactly those. Here the maximum and the exact count coincide; where
+        // they do not, the maximum is what avoids a downward shift on the tallest real page.
         skeleton={<ElectionSurfaceSkeleton facts={2} withMap={false} />}
         fallback={null}
       >

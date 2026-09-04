@@ -57,7 +57,13 @@ export const ElectionMapPanel: FC<ElectionMapPanelProps> = ({
         className="text-sm text-muted-foreground"
         data-map-unavailable={adapter}
       >
-        {t("election_map_placeholder")}
+        {/* ⚠ NOT „Картата се зарежда…". This branch is reached when the registry has NO adapter
+            for the key, so nothing is loading and nothing ever will — the message resolved for
+            no one. Measured: every `local/*` level declares a map and registers no adapter, so
+            all 289 municipality pages, both regions and the country page printed a permanent
+            "the map is loading" above a page that was otherwise complete. A state that cannot
+            change must not be described in the present continuous. */}
+        {t("election_map_unavailable")}
       </p>
     );
 

@@ -95,7 +95,27 @@ describe("an unwired level degrades to its text equivalent", () => {
         placeId="BG"
       />,
     );
-    expect(screen.getByText(bg.election_map_placeholder)).toBeInTheDocument();
+    expect(screen.getByText(bg.election_map_unavailable)).toBeInTheDocument();
+  });
+
+  it("does not describe a permanent state in the present continuous", () => {
+    // ⚠ THE COPY WAS „Картата се зарежда с данните за мястото." — "the map is loading" — on a
+    // branch reached only when the registry has NO adapter for the key, so nothing was loading
+    // and nothing ever would. Measured: every `local/*` level declares a map and registers no
+    // adapter, so all 289 municipality pages plus both regions and the country page carried a
+    // loading message that resolved for no one.
+    render(
+      <ElectionMapPanel
+        adapter={adapterKey("parliamentary", "country", "vote_share")}
+        {...presentational}
+        placeId="BG"
+      />,
+    );
+    expect(screen.queryByText(bg.election_map_placeholder)).toBeNull();
+    // …and the two really are different strings, so this is not passing on a copy change that
+    // merely renamed the key.
+    expect(bg.election_map_unavailable).not.toBe(bg.election_map_placeholder);
+    expect(bg.election_map_unavailable).not.toMatch(/зарежда/);
   });
 });
 

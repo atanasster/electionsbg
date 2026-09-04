@@ -235,6 +235,8 @@ export const SHELL_COPY_KEYS = [
   "election_source_title",
   // §8's "see the complete result" leaf, rendered in the source region.
   "election_complete_result_link",
+  // The no-adapter branch of the map panel, distinct from the LOADING message beside it.
+  "election_map_unavailable",
   // The party-bearing variants of two fact labels. Separate keys rather than an optional
   // placeholder: i18next prints an unmatched `{{party}}` verbatim, so one key would show the
   // braces on every level that carries no `labelParams` — which is every level but two.

@@ -58,16 +58,35 @@ const CRITICAL_PATH_BR = 363_000;
  *  A ratchet, not a ceiling to grow into: failing means "justify or split", never "raise the
  *  number". +5%.
  *
- *  ⚠ RAISED ONCE, 10,100 → 10,200, FOR A CORRECTNESS FIX AND WITH THE JUSTIFICATION THE RULE
- *  ASKS FOR. `factLabel` in the shell is what makes a fact's `labelParams` reach its label;
- *  without it the strip rendered „Първи · 106" with the party silently dropped on all 62
- *  `labelParams`-bearing facts in the corpus — a true number whose referent the adjacent table
- *  then supplied falsely. Measured after: 10,139 B. The alternative — dropping the `winner` fact
- *  from `buildCountrySurface` — removes a real figure to save 39 bytes, which is the wrong trade.
- *  Splitting was considered and rejected: the helper is nine lines and reads the same label
- *  resolver the ranked rows already import, so a separate chunk would add a request to defer
- *  nothing. */
-const SHELL_BUDGET_BR = 10_200;
+ *  ⚠ RAISED TWICE IN ONE RUN, 10,100 → 10,200 → 10,300, AND THIS COMMENT SAID OTHERWISE.
+ *  An earlier version of it claimed the raise was made once "covering two correctness fixes
+ *  made together", and described raising the number once per fix as the thing it had avoided.
+ *  The repository says otherwise: `2af130a202` shipped 10,200 for `factLabel`, and the column
+ *  narrowing then took it to 10,300 in the very next commit. A ratchet whose comment
+ *  misdescribes its own history is worse than one with no comment, because the next person
+ *  reads it as precedent — so the history is recorded as it happened.
+ *
+ *  What the two bought, both being the shell rendering something FALSE rather than something
+ *  large, and both surfaced by switching the local levels on:
+ *
+ *    `factLabel`         makes a fact's `labelParams` reach its label. Without it the strip
+ *                        rendered „Първи · 106" with the party silently dropped on all 62
+ *                        `labelParams`-bearing facts in the corpus — a true number whose
+ *                        referent the adjacent council table then supplied falsely.
+ *    `ballotFillsColumn` narrows a level's declared columns to what THIS ballot fills.
+ *                        `rankedColumns` is per level and `local/municipality` carries two
+ *                        ballots; measured, all 289 published municipality surfaces printed
+ *                        „Тур" and „Избран" as headers over blank columns on the council table.
+ *
+ *  Measured after both: 10,224 B. Splitting was considered and rejected — together the two
+ *  helpers are ~30 lines, one reading the label resolver the ranked rows already import, so a
+ *  separate chunk would add a request to defer nothing.
+ *
+ *  ⚠ THE HEADROOM IS NOW 0.74%, AGAINST THE +5% THIS FILE SETS AS ITS OWN CONVENTION. That is
+ *  deliberate and it is the point of a ratchet: the next change to this file gets ~76 bytes
+ *  before it has to make the same argument in public. It is not an invitation to round up.
+ */
+const SHELL_BUDGET_BR = 10_300;
 
 /** ⚠ `splitting: true`, AND IT IS THE WHOLE MEASUREMENT. Without it esbuild inlines every
  *  `import()` into one bundle, so the moment a real map adapter was registered the "shell's own

@@ -44,6 +44,7 @@ import type {
   ElectionPlaceLevel,
   ElectionSurfaceV1,
   ElectionStandout,
+  ElectionRankedEntry,
   ElectionSurfaceBallot,
   ElectionSurfaceFact,
   PlaceDigestCell,
@@ -359,6 +360,48 @@ const rankedCell = (
   }
 };
 
+/** Whether THIS ballot has anything to put in that column.
+ *
+ *  ⚠ ABSENCE, NOT EMPTINESS. A party that genuinely won no seats is `seats: 0` and the column
+ *  stays; a producer with no seat data leaves `undefined` on every row and it goes. The two look
+ *  identical in a rendered cell and are opposite facts, which is why this tests the field rather
+ *  than the formatted string.
+ *
+ *  ⚠ IT SAMPLES THE PREVIEW, NOT THE BALLOT. `preview` is the producer's top-N (≤8 rows), so a
+ *  column filled only on row 9 would be dropped. That is the right trade here — the table
+ *  renders exactly those rows, so a column no RENDERED row fills is a blank column to the
+ *  reader whatever the full result holds — but it is a statement about the table, not about the
+ *  ballot, and a future consumer that renders more rows must re-check against what it draws. */
+const ballotFillsColumn = (
+  ballot: ElectionSurfaceBallot,
+  col: ElectionRankedColumn,
+): boolean => {
+  const some = (f: (r: ElectionRankedEntry) => boolean) =>
+    ballot.preview.some(f);
+  switch (col) {
+    case "round":
+      return ballot.round !== undefined;
+    case "seats":
+      return some((r) => r.seats !== undefined);
+    case "margin":
+      return some((r) => r.marginPct !== undefined);
+    case "elected":
+      return some((r) => r.isElected !== undefined);
+    // ⚠ NAMED, NOT `default`. `rankedCell` switches exhaustively over the same union, so a
+    // seventh column added there would be a compile error; a `default: true` here would have
+    // silently declared it fillable and let a blank column through — the exact defect this
+    // helper exists to catch, reintroduced by the shape of its own fallback.
+    //
+    // ⚠ AND THESE TWO ARE NON-OPTIONAL IN THE SCHEMA, so a producer with nothing to say writes
+    // 0 and this can never see it. That case is real — `local/region` did exactly that — and is
+    // why the placeholder half of the problem has to be fixed where the column is DECLARED.
+    // `true` here says only "this check cannot speak to those two".
+    case "votes":
+    case "pct":
+      return true;
+  }
+};
+
 const RankedResult: FC<{
   ballot: ElectionSurfaceBallot;
   columns: readonly ElectionRankedColumn[];
@@ -368,7 +411,22 @@ const RankedResult: FC<{
   // ⚠ THE LEVEL'S DECLARED COLUMNS, not a fixed three. `elected` is the substantive one: on a
   // runoff the table otherwise shows 53.94% against 43.95% and leaves the reader to infer who
   // took the mayoralty, which is the single fact the page exists to answer.
-  const cols = columns;
+  //
+  // ⚠ NARROWED TO WHAT THIS BALLOT CAN FILL, because `rankedColumns` is declared PER LEVEL and a
+  // level can carry two ballots that answer different questions. `local/municipality` declares
+  // `round` and `elected` for its mayor ballot — where they are the whole point — and its
+  // council ballot fills neither: measured, all 289 published municipality surfaces rendered
+  // „Тур" and „Избран" as two headers over blank columns on the council table.
+  //
+  // ⚠ THIS IS NOT THE SAME FIX AS NARROWING A DECLARATION, and neither replaces the other. A
+  // producer that writes a PLACEHOLDER — `votes: 0` on a level with no vote total — fills the
+  // column as far as this check can tell, and would still print a fabricated zero; that one has
+  // to be caught where the column is declared. This catches the other half: a column that is
+  // real somewhere on the level and absent on this ballot.
+  // ⚠ NO `useMemo`. At most six columns against a ≤8-row preview is ~40 comparisons, nothing
+  // downstream depends on referential equality, and the call site passes `?? []` — a fresh
+  // array on every render, which defeats the memo it would be protecting.
+  const cols = columns.filter((c) => ballotFillsColumn(ballot, c));
   const electedLabel = t("election_elected_yes");
   return (
     <table className="w-full text-sm" data-ranked-result={ballot.kind}>

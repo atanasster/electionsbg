@@ -202,3 +202,71 @@ describe.skipIf(skip)(
     });
   },
 );
+
+// ─── and the narrowing must never empty a table ──────────────────────────────────────────────
+
+describe.skipIf(skip)(
+  "per-BALLOT narrowing leaves every table with columns",
+  () => {
+    // ⚠ THE LEVEL CHECK ABOVE CANNOT SEE THIS. It asks whether a column is fillable SOMEWHERE on
+    // the level; the reader sees one ballot at a time. `local/municipality` fills `round` and
+    // `elected` on its mayor ballot and neither on its council ballot, and `seats` the other way
+    // round — so the level passes while two of its tables printed headers over blank columns.
+    //
+    // ⚠ AND `local/region` IS THE ONE THAT COULD GO TO ZERO. It declares exactly one column
+    // (`seats`), so a single ballot whose rows all lack it would render a table with a participant
+    // column and nothing else — not a wrong figure, but a table that answers nothing.
+
+    /** The same narrowing `RankedResult` applies, kept in step with it by reading the same
+     *  fields. ⚠ Not imported from the shell: that module pulls React and the label resolvers, so
+     *  a node data test cannot load it. The duplication is deliberate and the two are pinned
+     *  together by the assertion below rather than by hoping they agree. */
+    const fillsForBallot = (
+      col: string,
+      b: B.Emitted["surface"]["ballots"][number],
+    ) => {
+      if (col === "round") return b.round !== undefined;
+      if (col === "seats") return b.preview.some((r) => r.seats !== undefined);
+      if (col === "margin")
+        return b.preview.some((r) => r.marginPct !== undefined);
+      if (col === "elected")
+        return b.preview.some((r) => r.isElected !== undefined);
+      return true;
+    };
+
+    it("no published ballot narrows to an empty column set", () => {
+      const empty: string[] = [];
+      for (const e of ALL) {
+        const d = descriptorFor(e.surface.kind, e.surface.place.level);
+        if (!d.available) continue;
+        for (const b of e.surface.ballots) {
+          if (b.preview.length === 0) continue;
+          const cols = d.rankedColumns.filter((c) => fillsForBallot(c, b));
+          if (cols.length === 0)
+            empty.push(
+              `${e.surface.kind}/${e.surface.place.level}/${e.id} ${b.kind}`,
+            );
+        }
+      }
+      expect(empty.slice(0, 5)).toEqual([]);
+    });
+
+    it("and the narrowing actually narrows — it is not a no-op", () => {
+      // ⚠ WITHOUT THIS, "no table is empty" passes on an implementation that never drops
+      // anything, which is the state this whole change replaced.
+      const narrowed = ALL.flatMap((e) => {
+        const d = descriptorFor(e.surface.kind, e.surface.place.level);
+        if (!d.available) return [];
+        return e.surface.ballots
+          .filter((b) => b.preview.length > 0)
+          .filter(
+            (b) =>
+              d.rankedColumns.filter((c) => fillsForBallot(c, b)).length <
+              d.rankedColumns.length,
+          )
+          .map((b) => `${e.surface.place.level}/${b.kind}`);
+      });
+      expect(narrowed.length).toBeGreaterThan(0);
+    });
+  },
+);
