@@ -22,14 +22,19 @@ import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
+import { orderSections } from "./sectionOrder";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
-const SECTION_TOPICS: readonly DashboardSectionId[] = [
+/** ⚠ WHICH topics, not what ORDER — the sequence comes from `orderSections` so this list
+ *  and the `<DashboardSection>` elements below cannot drift apart. They are two independent
+ *  orderings in one file, times seven files, and nothing compared any of them until
+ *  §Phase 7 item 4. */
+const SECTION_TOPICS: readonly DashboardSectionId[] = orderSections([
   "votes",
   "geography",
   "anomalies",
   "neighborhoods",
-];
+]);
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",

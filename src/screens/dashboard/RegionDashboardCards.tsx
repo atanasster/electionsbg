@@ -145,21 +145,35 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
       </DashboardSection>
 
       <DashboardSection
-        id="anomalies"
-        title={t("dashboard_section_anomalies")}
-        icon={AlertTriangle}
+        id="declarations"
+        title={t("dashboard_section_declarations")}
+        subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
+        icon={Briefcase}
       >
-        <FlashMemoryTile parties={data.parties} regionCode={regionCode} />
-        <SuspiciousSectionsTile
-          parties={data.parties}
-          regionCode={regionCode}
-        />
-        <RecountTile parties={data.parties} regionCode={regionCode} />
+        <div className="grid gap-3 grid-cols-1">
+          <CarMakesTile regionCode={regionCode} hideProvenance />
+        </div>
+        <MpAssetsTile regionCode={regionCode} />
       </DashboardSection>
 
       {/* "Рискови гласове" flags Roma-neighbourhood polling sections inside
           Bulgaria — there are no such sections abroad, so hide it for МИР 32. */}
       {diaspora ? null : (
+        <DashboardSection
+          id="anomalies"
+          title={t("dashboard_section_anomalies")}
+          icon={AlertTriangle}
+        >
+          <FlashMemoryTile parties={data.parties} regionCode={regionCode} />
+          <SuspiciousSectionsTile
+            parties={data.parties}
+            regionCode={regionCode}
+          />
+          <RecountTile parties={data.parties} regionCode={regionCode} />
+        </DashboardSection>
+      )}
+
+      {declarationsHaveContent && (
         <DashboardSection
           id="neighborhoods"
           title={t("dashboard_section_neighborhoods")}
@@ -170,20 +184,6 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
           {problemSectionsStats?.length ? (
             <HistoricalTrendsTile stats={problemSectionsStats} />
           ) : null}
-        </DashboardSection>
-      )}
-
-      {declarationsHaveContent && (
-        <DashboardSection
-          id="declarations"
-          title={t("dashboard_section_declarations")}
-          subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
-          icon={Briefcase}
-        >
-          <div className="grid gap-3 grid-cols-1">
-            <CarMakesTile regionCode={regionCode} hideProvenance />
-          </div>
-          <MpAssetsTile regionCode={regionCode} />
         </DashboardSection>
       )}
 

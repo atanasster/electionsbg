@@ -50,16 +50,21 @@ const AccuracyTrendsTile = lazy(() =>
 );
 import { ArticlesTile } from "./ArticlesTile";
 import { DashboardSection } from "./DashboardSection";
+import { orderSections } from "./sectionOrder";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
-const SECTION_TOPICS: readonly DashboardSectionId[] = [
+/** ⚠ WHICH topics, not what ORDER — the sequence comes from `orderSections` so this list
+ *  and the `<DashboardSection>` elements below cannot drift apart. They are two independent
+ *  orderings in one file, times seven files, and nothing compared any of them until
+ *  §Phase 7 item 4. */
+const SECTION_TOPICS: readonly DashboardSectionId[] = orderSections([
   "votes",
   "geography",
   "anomalies",
   "neighborhoods",
   "financing",
   "polling",
-];
+]);
 
 /** The country page's deeper sections — everything BELOW the shared result surface.
  *
@@ -153,20 +158,43 @@ export const DashboardCards: FC = () => {
         </DashboardSection>
 
         <DashboardSection
-          id="anomalies"
-          title={t("dashboard_section_anomalies")}
-          icon={AlertTriangle}
-          articleTopic="anomalies"
+          id="polling"
+          title={t("dashboard_section_polling")}
+          icon={CalendarDays}
+          articleTopic="polling"
         >
-          <CompositeIndexRibbon />
-          {hasFlash ? <FlashMemoryTile parties={data.parties} /> : null}
-          <SuspiciousSectionsTile parties={data.parties} />
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <RiskScoreTile />
-            <BenfordTile />
-          </div>
-          {hasRecount ? <RecountTile parties={data.parties} /> : null}
+          <PollsTile />
+          <Suspense fallback={null}>
+            <AccuracyTrendsTile />
+          </Suspense>
         </DashboardSection>
+
+        <DashboardSection
+          id="financing"
+          title={t("dashboard_section_financing")}
+          icon={Coins}
+          articleTopic="financing"
+        >
+          <TopFinancingTile parties={data.parties} />
+        </DashboardSection>
+
+        {hasFinancials ? (
+          <DashboardSection
+            id="anomalies"
+            title={t("dashboard_section_anomalies")}
+            icon={AlertTriangle}
+            articleTopic="anomalies"
+          >
+            <CompositeIndexRibbon />
+            {hasFlash ? <FlashMemoryTile parties={data.parties} /> : null}
+            <SuspiciousSectionsTile parties={data.parties} />
+            <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+              <RiskScoreTile />
+              <BenfordTile />
+            </div>
+            {hasRecount ? <RecountTile parties={data.parties} /> : null}
+          </DashboardSection>
+        ) : null}
 
         <DashboardSection
           id="neighborhoods"
@@ -181,29 +209,6 @@ export const DashboardCards: FC = () => {
               <HistoricalTrendsTile stats={problemSectionsStats} />
             </Suspense>
           ) : null}
-        </DashboardSection>
-
-        {hasFinancials ? (
-          <DashboardSection
-            id="financing"
-            title={t("dashboard_section_financing")}
-            icon={Coins}
-            articleTopic="financing"
-          >
-            <TopFinancingTile parties={data.parties} />
-          </DashboardSection>
-        ) : null}
-
-        <DashboardSection
-          id="polling"
-          title={t("dashboard_section_polling")}
-          icon={CalendarDays}
-          articleTopic="polling"
-        >
-          <PollsTile />
-          <Suspense fallback={null}>
-            <AccuracyTrendsTile />
-          </Suspense>
         </DashboardSection>
 
         <div className="mt-6">
