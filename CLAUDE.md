@@ -1494,9 +1494,22 @@ two commands works and costs a measured **~8 minutes of 500s** on `/persons`,
 resource has no `missingMigration` degrade). **Re-measured 2026-08-29 on
 `db-perf-optimized-N-2`, 61,743 filings: phase 1 = 39 s, phase 2 = 4m52s** — so the PAIR is
 ~5m30s of loader wall-clock. ⚠️ That is the loaders' runtime, NOT a re-measurement of the
-outage: nothing polled the four pages during that run, so the ~8-minute figure above stands
-un-rechecked. Note the window is bounded by the pair only when nothing runs BETWEEN them —
-insert a resolve, as the person chain does, and the degraded span is the whole span. The values are derived from immutable filings,
+outage. Note the window is bounded by the pair only when nothing runs BETWEEN them —
+insert a resolve, as the person chain does, and the degraded span is the whole span.
+
+⚠️⚠️ **THE OUTAGE WAS FINALLY POLLED ON 2026-09-04, AND IT DID NOT HAPPEN. Do not keep citing
+„~8 minutes of 500s" as a reason not to run this.** One probe every 30 s across a full
+`db:resolve:persons:cloud` → `db:load:declarations:pg:cloud -- --resolve` → 8-loader repair
+chain (14:41:37→15:02:35Z, 20m58s end to end): **38 samples, every one HTTP 200, zero 500s.**
+Probed `/api/db/table` for `persons`, `officials_rankings`, `crypto_holdings` and
+`abroad_holdings` — i.e. three of the four surfaces named above plus one more.
+
+Read that as ONE measurement, not a guarantee: `mp_assets_rankings` was not probed, a 30 s
+interval cannot exclude a sub-30 s blip, and this was an idle-hours run on
+`db-perf-optimized-N-2`. But the claim it replaces was never measured at all — the sentence
+here used to say so — and an unmeasured figure had been load-bearing in arguments against
+running the chain. If a future run does degrade these pages, re-measure and say so here rather
+than restoring the old number. The values are derived from immutable filings,
 so they are identical whichever database computes them — the `ship_filed_position.ts`
 argument — and `scripts/db/ship_held_abroad.ts` writes them into the rows already there:
 
