@@ -6,11 +6,11 @@
     2026
   ],
   "byRole": {
-    "mayor": 2,
-    "deputy_mayor": 2,
-    "council_chair": 2,
-    "councillor": 26,
-    "chief_architect": 3,
+    "mayor": 1,
+    "deputy_mayor": 1,
+    "council_chair": 1,
+    "councillor": 16,
+    "chief_architect": 2,
     "other": 0
   },
   "entries": [
@@ -33,16 +33,6 @@
       }
     },
     {
-      "slug": "peno-krasimirov-nenov-299884",
-      "name": "Пеньо Красимиров Ненов",
-      "normalizedName": "ПЕНЬО КРАСИМИРОВ НЕНОВ",
-      "role": "mayor",
-      "roleRaw": "Кмет",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
       "slug": "evgeni-georgiev-dimov-f5ba58",
       "name": "Евгени Георгиев Димов",
       "normalizedName": "ЕВГЕНИ ГЕОРГИЕВ ДИМОВ",
@@ -61,26 +51,6 @@
       }
     },
     {
-      "slug": "milena-dimitrova-katreva-panaiotova-155a8b",
-      "name": "Милена Димитрова Катрева-Панайотова",
-      "normalizedName": "МИЛЕНА ДИМИТРОВА КАТРЕВА-ПАНАЙОТОВА",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
-      "slug": "anastas-kostov-trendafilov-8d633c",
-      "name": "Анастас Костов Трендафилов",
-      "normalizedName": "АНАСТАС КОСТОВ ТРЕНДАФИЛОВ",
-      "role": "council_chair",
-      "roleRaw": "Председател на ОбС",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
       "slug": "marian-petrov-antonov-8ef990",
       "name": "Мариан Петров Антонов",
       "normalizedName": "МАРИАН ПЕТРОВ АНТОНОВ",
@@ -97,16 +67,6 @@
         "prefVotes": 57,
         "isElected": true
       }
-    },
-    {
-      "slug": "kristian-simeonov-saraliev-826d45",
-      "name": "Кристиан Симеонов Саралиев",
-      "normalizedName": "КРИСТИАН СИМЕОНОВ САРАЛИЕВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
     },
     {
       "slug": "mirela-nikolova-toteva-970b88",
@@ -147,36 +107,6 @@
       }
     },
     {
-      "slug": "aleksandr-todorov-doichev-0f089c",
-      "name": "Александър Тодоров Дойчев",
-      "normalizedName": "АЛЕКСАНДЪР ТОДОРОВ ДОЙЧЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
-      "slug": "anastasiya-pavlova-tretskova-2f1948",
-      "name": "Анастасия Павлова Трецкова",
-      "normalizedName": "АНАСТАСИЯ ПАВЛОВА ТРЕЦКОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
-      "slug": "blaga-georgieva-yanakieva-2b98a1",
-      "name": "Блага Георгиева Янакиева",
-      "normalizedName": "БЛАГА ГЕОРГИЕВА ЯНАКИЕВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
       "slug": "vasil-dimitrov-krchev-c4027a",
       "name": "Васил Димитров Кърчев",
       "normalizedName": "ВАСИЛ ДИМИТРОВ КЪРЧЕВ",
@@ -193,16 +123,6 @@
         "prefVotes": 41,
         "isElected": true
       }
-    },
-    {
-      "slug": "vasilena-todorova-banalieva-06f948",
-      "name": "Василена Тодорова Баналиева",
-      "normalizedName": "ВАСИЛЕНА ТОДОРОВА БАНАЛИЕВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
     },
     {
       "slug": "viktor-margaritov-iordanov-7b1f3d",
@@ -241,16 +161,6 @@
       }
     },
     {
-      "slug": "georgi-ivanov-ivanov-12c82e",
-      "name": "Георги Иванов Иванов",
-      "normalizedName": "ГЕОРГИ ИВАНОВ ИВАНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
       "slug": "georgi-petrov-dyakov-20869b",
       "name": "Георги Петров Дяков",
       "normalizedName": "ГЕОРГИ ПЕТРОВ ДЯКОВ",
@@ -267,16 +177,6 @@
         "prefVotes": 66,
         "isElected": true
       }
-    },
-    {
-      "slug": "deyan-kirilov-yanchev-f6e0a2",
-      "name": "Деян Кирилов Янчев",
-      "normalizedName": "ДЕЯН КИРИЛОВ ЯНЧЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
     },
     {
       "slug": "dimitr-angelov-vrbanov-3ac5f4",
@@ -387,16 +287,6 @@
       }
     },
     {
-      "slug": "mariyana-georgieva-nedelcheva-287b4b",
-      "name": "Марияна Георгиева Неделчева",
-      "normalizedName": "МАРИЯНА ГЕОРГИЕВА НЕДЕЛЧЕВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
       "slug": "milen-petrov-asenov-4faa88",
       "name": "Милен Петров Асенов",
       "normalizedName": "МИЛЕН ПЕТРОВ АСЕНОВ",
@@ -433,16 +323,6 @@
       }
     },
     {
-      "slug": "nikolai-svetoslavov-georgiev-1bbf85",
-      "name": "Николай Светославов Георгиев",
-      "normalizedName": "НИКОЛАЙ СВЕТОСЛАВОВ ГЕОРГИЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
-    },
-    {
       "slug": "pavlin-stoyanov-nunev-b50fec",
       "name": "Павлин Стоянов Нунев",
       "normalizedName": "ПАВЛИН СТОЯНОВ НУНЕВ",
@@ -459,16 +339,6 @@
         "prefVotes": 28,
         "isElected": true
       }
-    },
-    {
-      "slug": "pavlina-severinova-yurieva-076467",
-      "name": "Павлина Северинова Юриева",
-      "normalizedName": "ПАВЛИНА СЕВЕРИНОВА ЮРИЕВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
     },
     {
       "slug": "plamen-kirilov-marinov-8590ea",
@@ -505,16 +375,6 @@
         "prefVotes": 173,
         "isElected": true
       }
-    },
-    {
-      "slug": "hristina-ivanova-koicheva-d685c4",
-      "name": "Христина Иванова Койчева",
-      "normalizedName": "ХРИСТИНА ИВАНОВА КОЙЧЕВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Бяла/Варна/",
-      "latestDeclarationYear": 2026,
-      "descriptorYear": 2026
     }
   ]
 }

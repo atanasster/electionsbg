@@ -104,14 +104,14 @@ const decorateShard = (
   return { obshtina: shard.obshtina, total, partyHits, photoHits };
 };
 
-const main = (dryRun: boolean) => {
+const main = (dryRun: boolean, shardDir: string) => {
   const parliamentByName = loadParliamentByName();
   console.log(
     `[decorate] loaded parliament index: ${parliamentByName.size} MPs by name`,
   );
 
   const shardFiles = fs
-    .readdirSync(SHARD_DIR)
+    .readdirSync(shardDir)
     .filter((f) => f.endsWith(".json"));
   console.log(`[decorate] processing ${shardFiles.length} shards…`);
 
@@ -123,7 +123,7 @@ const main = (dryRun: boolean) => {
     const bundle = loadMiBundle(miCode);
     const slateIdx = bundle ? buildSlateIndex(bundle) : null;
     if (!slateIdx) noSlate.push(obshtina);
-    const shardPath = path.join(SHARD_DIR, f);
+    const shardPath = path.join(shardDir, f);
     if (dryRun) {
       // Skip write; just print would-decorate stats.
       const shard = JSON.parse(
@@ -166,4 +166,29 @@ const main = (dryRun: boolean) => {
 // Kept out of the CLI module for the reason ./merge.ts and ./categorise.ts
 // are: that module calls run() at import time, so importing it would execute
 // the CLI against the caller's argv.
-export const decorateCandidateLinks = (dryRun = false): void => main(dryRun);
+// `shardDir` mirrors emitShards' own option, which exists (its comment says) so "a
+// test/override apply never touches production shards". The two are chained, so a caller
+// that emitted to an isolated tree and then decorated the DEFAULT one would rewrite
+// production — exactly the accident that option was introduced to prevent.
+export const decorateCandidateLinks = (
+  dryRun = false,
+  shardDir: string = SHARD_DIR,
+): void => main(dryRun, shardDir);
+
+/** Throw unless everything `decorateCandidateLinks` reads before it writes is present.
+ *
+ *  ⚠️ CALL THIS **BEFORE** A SHARD RE-EMIT, NOT AFTER. `emitShards` rebuilds each shard from
+ *  index.json, which carries no `candidateLink`, so the enrichment exists only until the next
+ *  emit and this pass is the only thing that puts it back. A decorator that throws on its own
+ *  inputs AFTER the emit therefore leaves the tree in the 5,331-link-loss state described
+ *  above — the failure both callers chain this to avoid, behind a narrower trigger. */
+export const assertCanDecorate = (): void => {
+  const parliamentIndex = path.join(ROOT, "data", "parliament", "index.json");
+  if (!fs.existsSync(parliamentIndex)) {
+    throw new Error(
+      `${parliamentIndex} missing — decorateCandidateLinks() reads it before writing ` +
+        "anything, so a shard re-emit would strip every candidateLink and then fail to " +
+        "restore it. Run the parliament scrape first.",
+    );
+  }
+};

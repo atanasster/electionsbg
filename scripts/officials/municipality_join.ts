@@ -23,13 +23,62 @@
 //      key by the район NAME against a sub-map built from the S23/S24/S25
 //      oblast rows in data/municipalities.json.
 //
-//   4. Direct normalised name lookup against the deduped obshtina table.
-//      Trims, lowercases, collapses whitespace, and folds the few "<X>/<Y>/"
-//      disambiguator forms ("Бяла/Русе/" → "Бяла" + oblast hint "Русе").
+//   4. Direct normalised name lookup against the obshtina table, with the
+//      "<X>/<oblast>/" disambiguator form ("Бяла/Русе/") resolved by its
+//      oblast hint through the SHARED dictionary in
+//      ../parsers_local/oblastNames.ts.
 //
-//   5. If none match → null. The caller (municipal.ts) collects unmatched
-//      rows and fails loud once their count exceeds the operator-friendly
-//      threshold.
+//   5. If none match — or more than one does, with nothing to narrow it → null.
+//      Both callers escalate: municipal.ts warns per entry and throws above a
+//      threshold, build_municipal_shards.ts's CLI throws on any unmatched
+//      entry at all.
+//
+// ⚠️ AN AMBIGUOUS NAME RETURNS null — IT DOES NOT PICK ONE. Three catalogue
+// names collide in data/municipalities.json (бяла, искър, средец), but only
+// ONE of them — бяла (VAR05 + RSE04) — survives this file's partition as a
+// live ambiguity: искър and средец each pair a province município with a Sofia
+// район, and rule 3 resolves those under their own "Район X" spelling before
+// the generic map is consulted. So bare "Искър" → PVN23 and bare "Средец" →
+// BGS06 still resolve; only bare "Бяла" refuses. Read `duplicateNames()`
+// rather than this sentence — it is derived from the catalogue under the same
+// partition, so it stays true when the catalogue changes.
+//
+// Until 2026-09-04 this file described the collision and then took whatever
+// the deduped map happened to hold:
+//
+//     const bare = slashMatch[1]!.trim();   // slashMatch[2], the oblast, unread
+//     const code = byName.get(normalize(bare));
+//
+// Both "Бяла/Варна/" and "Бяла/Русе/" therefore resolved to RSE04, so obshtina
+// VAR05 was the ONE municipality of 288 with no shard at all while RSE04
+// published the merged roster of both — 36 rows carrying TWO mayors and TWO
+// council chairs, i.e. 15 named Бяла (Варна) officials attributed to Бяла
+// (Русе). Downstream that is not a gap but a false statement about named
+// people: the officials/CIK reconcile reported VAR05's elected mayor as having
+// filed no declaration, on a page whose only content is that claim.
+//
+// The CIK-side parsers hit the identical collision and fixed it first (see
+// oblastNames.ts's header and docs/plans/village-mayor-attribution-v1.md §T0).
+// This file imports THAT dictionary rather than keeping a second copy — the
+// two must not be able to disagree about which Бяла is which.
+//
+// Refusing is the right failure because both callers escalate it: municipal.ts
+// warns per entry and throws above a threshold, and build_municipal_shards.ts's
+// CLI throws on any unmatched entry at all. Either way an operator adds one
+// line to _aliases.json. A guess has no such destination — it is
+// indistinguishable from a correct answer at every layer below this one.
+//
+// ⚠️ RULE 4 ALSO REFUSES A **UNIQUE** NAME WHOSE OBLAST CONTRADICTS THE HINT,
+// which is wider than the ambiguity rule above and is deliberate:
+//
+//     Разлог/Благоевград/  → BLG37   the hint agrees
+//     Разлог/Марс/         → BLG37   unknown oblast spelling, unique name — resolves
+//     Разлог/Варна/        → null    unique name, CONTRADICTING oblast — refuses
+//
+// That third case is not a tie, so no tiebreak can see it; oblastNames.ts calls
+// it the "2011 Добрич shape" — a confidently wrong resolution. An UNKNOWN
+// oblast spelling still resolves a unique name, so nothing that matched before
+// stops matching, and only a hint that positively disagrees is refused.
 //
 // CLI dry-run mode prints unmatched entries grouped by similarity hint, so
 // the operator can size the alias map before committing a real shard write:
@@ -44,6 +93,11 @@ import type {
   MunicipalityInfo,
 } from "../../src/data/dataTypes";
 import { ROOT } from "./shared";
+// The oblast dictionary + name→oblast tiebreak are SHARED with the local-elections
+// parsers. Do not re-declare either here: oblastNames.ts's header records that the same
+// Бяла collision, resolved by two independent copies, is exactly how the CIK side
+// published 14 Бяла (Русе) village mayors as Варна office-holders.
+import { pickByOblast, oblastCodeForName } from "../parsers_local/oblastNames";
 
 const MUNICIPALITIES_PATH = path.join(ROOT, "data", "municipalities.json");
 const INDEX_PATH = path.join(
@@ -94,6 +148,14 @@ export type ResolveResult = {
   district: string | null;
 };
 
+/** Resolve one verbatim register institution name to an obshtina.
+ *
+ *  ⚠️ `null` MEANS "COULD NOT RESOLVE", NEVER "NO SUCH MUNICIPALITY", and a caller must
+ *  escalate rather than drop the row. It covers three distinct states, all of which need an
+ *  operator: an unknown name (a rename, or a new município), an ambiguous one (two obshtini
+ *  share it and the register gave no oblast hint), and a hint that positively contradicts
+ *  the catalogue. `municipality_join.ts --dry-run` names which. Dropping a `null` silently
+ *  removes real officials from the shard tree — the failure this file exists to prevent. */
 export type Resolver = (registryName: string) => ResolveResult | null;
 
 type Aliases = {
@@ -125,40 +187,83 @@ const CITY_RAYON_SUFFIXES: Record<string, string> = {
   "Стара Загора": "",
 };
 
-export const buildResolver = (): Resolver => {
+export type ObshtinaCandidate = { code: string; oblast: string };
+
+/** Is this catalogue row a Sofia район? They are excluded from the generic name map because
+ *  rule 3 owns them under their bare район name, and folding them in would make "искър" and
+ *  "средец" collide with the PROVINCE municipalities of the same name. */
+const isSofiaRayon = (oblast: string): boolean =>
+  oblast === "S23" || oblast === "S24" || oblast === "S25";
+
+type Catalogue = {
+  /** Normalised name → EVERY non-Sofia obshtina carrying it. A `Map<string,string>` here
+   *  was the defect: `data/municipalities.json` has one row per obshtina, but three of
+   *  those names are shared by two obshtini, so "deduped by obshtina" silently meant
+   *  last-write-wins across a collision. Keeping the candidates lets rule 4 narrow by
+   *  oblast and lets both rules REFUSE when nothing can. */
+  byName: Map<string, ObshtinaCandidate[]>;
+  /** Sofia районни keyed by район name — i.e. without the "Район " prefix. */
+  sofiaRayonByName: Map<string, string>;
+  /** City-with-districts lookup for rule 2. */
+  cityRayonObshtina: Map<string, string>;
+  /** Every obshtina code the catalogue declares, for the alias fail-loud check. */
+  knownCodes: Set<string>;
+};
+
+/** Read and PARTITION `data/municipalities.json` once. Both `buildResolver` and
+ *  `duplicateNames` call this rather than each re-stating the partition: the first version
+ *  of `duplicateNames` was a copy of these rules, so adding an `S26` — or changing the Sofia
+ *  rule — would have silently desynced the CLI's diagnosis from the resolution it explains.
+ *  That is the same "two copies of one rule" hazard this file's header cites as the reason
+ *  for importing oblastNames.ts instead of re-declaring it, one level in. */
+const readCatalogue = (): Catalogue => {
   const municipalities: MunicipalityInfo[] = JSON.parse(
     fs.readFileSync(MUNICIPALITIES_PATH, "utf-8"),
   );
-
-  // 1. Generic name → code map, deduped by obshtina. The data file already
-  //    carries one row per obshtina, so dedupe is just a guard.
-  const byName = new Map<string, string>();
-  // 2. Sofia districts (S23/S24/S25) keyed by район name only — i.e. without
-  //    the "Район " prefix.
+  const byName = new Map<string, ObshtinaCandidate[]>();
   const sofiaRayonByName = new Map<string, string>();
-  // 3. City-with-districts lookup, filled from data/municipalities.json.
   const cityRayonObshtina = new Map<string, string>();
-
+  const knownCodes = new Set<string>();
   for (const m of municipalities) {
+    knownCodes.add(m.obshtina);
     if (m.oblast === SKIP_OBLAST) continue;
     const key = normalize(m.name);
-    if (m.oblast === "S23" || m.oblast === "S24" || m.oblast === "S25") {
+    if (isSofiaRayon(m.oblast)) {
       sofiaRayonByName.set(key, m.obshtina);
     } else {
-      // Last-write-wins is safe — the data file has one row per obshtina.
-      byName.set(key, m.obshtina);
+      const list = byName.get(key);
+      if (list) list.push({ code: m.obshtina, oblast: m.oblast });
+      else byName.set(key, [{ code: m.obshtina, oblast: m.oblast }]);
     }
     if (m.name in CITY_RAYON_SUFFIXES) {
       cityRayonObshtina.set(m.name, m.obshtina);
     }
   }
+  return { byName, sofiaRayonByName, cityRayonObshtina, knownCodes };
+};
+
+/** Every normalised município name that more than one obshtina claims, with its claimants.
+ *
+ *  ⚠️ THIS IS THE COLLISION SET **AFTER** THE PARTITION, WHICH IS NARROWER THAN THE
+ *  CATALOGUE'S. `data/municipalities.json` has three shared names — бяла, искър, средец —
+ *  but искър and средец pair a province município with a SOFIA РАЙОН, and rule 3 resolves
+ *  those under their own "Район X" spelling, so only "бяла" (VAR05 + RSE04) survives here as
+ *  a live ambiguity.
+ *
+ *  The gate and the CLI read this rather than that literal, so a catalogue edit creating a
+ *  second collision surfaces as a refusal to resolve rather than as a silent pick. */
+export const duplicateNames = (): Map<string, ObshtinaCandidate[]> =>
+  new Map([...readCatalogue().byName].filter(([, v]) => v.length > 1));
+
+export const buildResolver = (): Resolver => {
+  const { byName, sofiaRayonByName, cityRayonObshtina, knownCodes } =
+    readCatalogue();
 
   const aliases = readAliases();
 
   // Fail-loud at startup if an alias points to a code that exists in
   // neither data/municipalities.json nor the synthetic-code set. A silent
   // typo here would manifest as a 404 shard or a wrong-page roster.
-  const knownCodes = new Set(municipalities.map((m) => m.obshtina));
   for (const [key, code] of Object.entries(aliases)) {
     if (!knownCodes.has(code) && !SYNTHETIC_CODES.has(code)) {
       throw new Error(
@@ -208,23 +313,33 @@ export const buildResolver = (): Resolver => {
       }
     }
 
-    // 4. Disambiguator form "<X>/<oblast hint>/" — e.g. "Бяла/Русе/" to
-    //    distinguish from "Бяла" in Варна. We try the bare name first;
-    //    if multiple obshtini share the name the operator must add an
-    //    alias. For now, return whatever the dedup map holds.
+    // 4. Disambiguator form "<X>/<oblast>/" — e.g. "Бяла/Русе/", which the register writes
+    //    precisely because the bare name is ambiguous. The oblast is the answer, so it is
+    //    read rather than discarded; `pickByOblast` is the same tiebreak the CIK-side
+    //    parsers use, so the two sides cannot disagree about which Бяла is which.
     const slashMatch = trimmed.match(/^([^/]+)\/([^/]+)\/$/);
     if (slashMatch) {
       const bare = slashMatch[1]!.trim();
-      const code = byName.get(normalize(bare));
-      if (code) {
-        return { code, isDistrict: false, district: null };
+      const oblastHint = slashMatch[2]!.trim();
+      const matches = byName.get(normalize(bare)) ?? [];
+      // ⚠️ An UNKNOWN oblast spelling must refuse a collision rather than fall through to
+      // the bare lookup below — falling through is what produced RSE04 for both Бяла.
+      // `pickByOblast` reports that case as `ambiguous`, and a single match with a
+      // contradicting oblast as `oblastMismatch`; neither may resolve here.
+      const picked = pickByOblast(matches, oblastHint);
+      if (picked.pick && !picked.ambiguous && !picked.oblastMismatch) {
+        return { code: picked.pick.code, isDistrict: false, district: null };
       }
+      return null;
     }
 
-    // 5. Direct normalised lookup.
-    const code = byName.get(normalize(trimmed));
-    if (code) {
-      return { code, isDistrict: false, district: null };
+    // 5. Direct normalised lookup. A name matching two obshtini carries no hint to narrow
+    //    it, so it REFUSES — the caller warns per entry and throws above a threshold, and
+    //    an operator pins it in _aliases.json (rule 1, which is checked before this and so
+    //    stays the escape hatch for a register spelling this file cannot resolve).
+    const matches = byName.get(normalize(trimmed)) ?? [];
+    if (matches.length === 1) {
+      return { code: matches[0]!.code, isDistrict: false, district: null };
     }
 
     return null;
@@ -280,6 +395,23 @@ const cmd = command({
       unmatched.push({ municipality: m, sampleNames });
     }
 
+    // An unmatched name has three quite different causes and three different fixes, so the
+    // dry-run names the cause rather than leaving the operator to guess from a bare list.
+    const dupes = duplicateNames();
+    const diagnose = (name: string): string => {
+      const slash = name.trim().match(/^([^/]+)\/([^/]+)\/$/);
+      if (slash) {
+        const hint = slash[2]!.trim();
+        if (!oblastCodeForName(hint))
+          return `unknown oblast spelling ${JSON.stringify(hint)} — add it to scripts/parsers_local/oblastNames.ts`;
+        return `oblast ${JSON.stringify(hint)} matches no obshtina of that name`;
+      }
+      const claimants = dupes.get(normalize(name.trim()));
+      if (claimants)
+        return `ambiguous — ${claimants.map((c) => `${c.code}/${c.oblast}`).join(" + ")}; pin it in _aliases.json`;
+      return "no catalogue entry — rename or new municipality";
+    };
+
     console.log(`total entries:       ${index.entries.length}`);
     console.log(`matched:             ${matched}`);
     console.log(`unmatched (entries): ${index.entries.length - matched}`);
@@ -292,7 +424,8 @@ const cmd = command({
         a.municipality.localeCompare(b.municipality, "bg"),
       )) {
         console.log(
-          `  ${JSON.stringify(u.municipality)} — e.g. ${u.sampleNames.join(", ")}`,
+          `  ${JSON.stringify(u.municipality)} — ${diagnose(u.municipality)}` +
+            ` — e.g. ${u.sampleNames.join(", ")}`,
         );
       }
     }

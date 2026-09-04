@@ -56,7 +56,7 @@ import { mergeIndexEntries, mergeYears } from "./merge";
 import { aliasedDeclarantName } from "./declarant_aliases";
 import { personGuid } from "./slug_identity";
 import { emitShards } from "./build_municipal_shards";
-import { decorateCandidateLinks } from "./candidate_links";
+import { decorateCandidateLinks, assertCanDecorate } from "./candidate_links";
 import { MUNICIPAL_CATEGORY_SUBSTRING } from "../watch/sources/cacbg_local";
 
 const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
@@ -431,6 +431,12 @@ const cmd = command({
     //    the current ones is simply wrong. Every other reader of the index
     //    (official_roster, the council-vote roster join, the header search
     //    index, company_links) wants the full history and gets it.
+    // ⚠️ BEFORE the emit. `emitShards` strips candidateLink from every shard and the
+    // decorate pass below is the only thing that restores it, so a decorator that cannot run
+    // must stop the write rather than follow it — otherwise a missing input leaves the tree
+    // stripped, which is the loss the chained call exists to prevent.
+    assertCanDecorate();
+
     const shardResult = emitShards(currentEntries, {
       generatedAt: indexFile.generatedAt,
       years: [currentYear],
@@ -464,7 +470,18 @@ const cmd = command({
     // command nothing invokes: skipping it once silently deleted 5317 links
     // across 276 of the 288 shards, and the only visible symptom was the
     // council tiles quietly falling back to grey initials.
-    decorateCandidateLinks();
+    try {
+      decorateCandidateLinks();
+    } catch (err) {
+      // The shards are already stripped, so this is not a no-op failure — it leaves the tree
+      // in the very state the call above exists to prevent. Name the recovery.
+      console.error(
+        "⚠ shards were rewritten but NOT re-decorated — every candidateLink is currently " +
+          "missing. Re-run `npx tsx scripts/officials/decorate_candidate_links.ts` once the " +
+          "cause below is fixed.",
+      );
+      throw err;
+    }
 
     // A /100 rewrite is a change to a published number; surface the batch so an
     // operator sees it, since check_suspicious_values.ts reads the parsed shards

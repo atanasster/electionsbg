@@ -8,8 +8,21 @@
 //     just the shards (a few seconds) without re-scraping the whole register
 //     (30-50 min cold). That's the standalone CLI path below.
 //
+// ⚠️ A REAL RUN REWRITES EVERY SHARD TWICE — once from index.json, then again
+// through decorateCandidateLinks(). That is not incidental: index.json carries
+// no `candidateLink`, so the emit STRIPS the party / ballot-position /
+// preference-vote / MP-photo enrichment from all ~289 shards and the decorate
+// pass is the only thing that restores it. Measured 2026-09-04, before the two
+// were chained: one bare re-emit deleted 5,331 links across 276 shards, whose
+// only visible symptom is council tiles falling back to grey initials.
+// ./municipal.ts has chained the same pair since it learned this; the CLI did
+// not, so the cheap "just re-emit the shards" path was the lossy one.
+//
+// So the blast radius of this command is every shard, not the ones whose
+// bucket changed — dry-run first if that matters.
+//
 // CLI:
-//   tsx scripts/officials/build_municipal_shards.ts          # rebuild from index.json
+//   tsx scripts/officials/build_municipal_shards.ts          # re-emit + re-decorate
 //   tsx scripts/officials/build_municipal_shards.ts --dry-run # report stats, no writes
 
 import fs from "fs";
@@ -23,6 +36,10 @@ import type {
 } from "../../src/data/dataTypes";
 import { ROOT, writeJson } from "./shared";
 import { buildResolver } from "./municipality_join";
+// Imported from ./candidate_links (the library) rather than ./decorate_candidate_links (the
+// CLI wrapper) — the latter calls `run(...)` at module scope, so importing it would fire its
+// own argument parser against THIS command's argv.
+import { decorateCandidateLinks, assertCanDecorate } from "./candidate_links";
 
 const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
 const SHARD_DIR = path.join(OUT_DIR, "by_obshtina");
@@ -83,18 +100,31 @@ export const currentBench = (
 };
 
 export type ShardEmitResult = {
+  /** Shards this run produced — counted on a dry run too, where none are written. */
   shardsWritten: number;
   unmatched: MunicipalIndexEntry[];
   maxShardBytes: number;
+  /** Shard files present in `shardDir` that this run did NOT produce. A município that
+   *  stopped resolving, whose stale file is still being served. Never empty-by-construction:
+   *  the emit does not delete. */
+  stale: string[];
 };
 
 /** Group entries by resolved obshtina code and write one shard per bucket.
- *  Callers receive the unmatched list so they can decide between throw and
- *  warn — the full ingest throws above a small threshold, the standalone
- *  CLI just reports.
  *
- *  `dryRun` skips disk writes. `entries` is the pre-sorted roster from the
- *  ingest, or the entries field of an existing index.json. */
+ *  Callers receive `unmatched` AND `stale` so they can decide how loudly to fail: the full
+ *  ingest tolerates up to 10 unmatched (it absorbs scrape flakiness), the standalone CLI
+ *  tolerates none (its input is an already-parsed index.json). Neither may ignore them —
+ *  an unmatched entry is an official missing from the tree, and a stale shard is a
+ *  município still being served its pre-refusal roster.
+ *
+ *  ⚠️ THIS STRIPS `candidateLink` FROM EVERY SHARD IT WRITES. The field is joined onto the
+ *  shards afterwards by candidate_links.ts and does not exist in index.json, so a caller
+ *  must chain `decorateCandidateLinks()` — both callers do, and one bare re-emit measured
+ *  2026-09-04 deleted 5,331 links across 276 shards.
+ *
+ *  `dryRun` skips disk writes (but still counts and still detects stale files). `entries` is
+ *  the pre-sorted roster from the ingest, or the entries field of an existing index.json. */
 export const emitShards = (
   entries: MunicipalIndexEntry[],
   meta: { generatedAt: string; years: number[] },
@@ -159,18 +189,37 @@ export const emitShards = (
         `  ⚠ shard ${code} is ${size} bytes (> ${SHARD_SIZE_WARN}) — consider splitting`,
       );
     }
-    if (!dryRun) {
-      writeJson(path.join(shardDir, `${code}.json`), shard);
-      shardsWritten++;
-    }
+    if (!dryRun) writeJson(path.join(shardDir, `${code}.json`), shard);
+    // Counted either way. Inside the `if`, a dry run reported `shards: 0` while a real run
+    // wrote 289 — telling an operator the opposite of the blast radius, on the command that
+    // exists to preview it. The `[dry-run]` prefix already carries the distinction.
+    shardsWritten++;
   }
-  return { shardsWritten, unmatched, maxShardBytes };
+
+  // ⚠️ THE EMIT IS ADDITIVE, so a shard is authoritative only while its município keeps
+  // resolving. Nothing here unlinks: before rule 4 could refuse, that was harmless because
+  // every name resolved; now a município that stops resolving keeps its PREVIOUS shard on
+  // disk, and every consumer keeps fetching the pre-refusal answer at a 200. The chained
+  // decorate pass makes it worse — it walks every *.json in the directory, so an orphan is
+  // rewritten with a fresh mtime and looks maintained exactly when it is stale.
+  //
+  // Reported, never deleted: an orphan may equally be a município this run failed to
+  // resolve, and unlinking on a bad run destroys the only copy. The caller decides.
+  const expected = new Set([...buckets.keys()].map((c) => `${c}.json`));
+  const stale = fs.existsSync(shardDir)
+    ? fs
+        .readdirSync(shardDir)
+        .filter((f) => f.endsWith(".json") && !expected.has(f))
+        .sort()
+    : [];
+
+  return { shardsWritten, unmatched, maxShardBytes, stale };
 };
 
 const cmd = command({
   name: "build-municipal-shards",
   description:
-    "Rebuild data/officials/municipal/by_obshtina/{code}.json from the current index.json. Skips the upstream scrape — use after editing scripts/officials/_aliases.json or after a typo fix that doesn't need a fresh ingest.",
+    "Rebuild data/officials/municipal/by_obshtina/{code}.json from the current index.json, then re-apply the candidateLink enrichment the rebuild strips (every shard is rewritten, not just the ones that changed). Skips the upstream scrape — use after editing scripts/officials/_aliases.json or after a typo fix that doesn't need a fresh ingest. Fails on an unresolved roster entry or an orphaned shard rather than exiting 0.",
   args: {
     dryRun: flag({
       type: boolean,
@@ -188,6 +237,11 @@ const cmd = command({
     const index: MunicipalIndexFile = JSON.parse(
       fs.readFileSync(INDEX_PATH, "utf-8"),
     );
+    // ⚠️ BEFORE THE EMIT, NOT AFTER. `emitShards` strips candidateLink from every shard and
+    // the decorate pass below is the only thing that puts it back, so a decorator that
+    // cannot run must stop the write rather than follow it.
+    if (!dryRun) assertCanDecorate();
+
     const bench = currentBench(index);
     const result = emitShards(
       bench.entries,
@@ -205,13 +259,68 @@ const cmd = command({
         `unmatched: ${result.unmatched.length}, ` +
         `max bytes: ${result.maxShardBytes}`,
     );
+    if (result.stale.length > 0) {
+      console.error(
+        `${result.stale.length} shard file(s) this run did not produce — a município that ` +
+          "stopped resolving, still being served from its pre-refusal shard: " +
+          result.stale.join(", "),
+      );
+    }
     if (result.unmatched.length > 0) {
-      console.log(
+      console.error(
         "unmatched (add to scripts/officials/_aliases.json):",
         [...new Set(result.unmatched.map((u) => u.municipality))].sort((a, b) =>
           a.localeCompare(b, "bg"),
         ),
       );
+    }
+
+    // ⚠️ THROW ON ANY UNMATCHED ENTRY — a stricter threshold than municipal.ts:445, which
+    // tolerates 10. That file absorbs scrape flakiness; this one takes an already-parsed
+    // index.json, so an unmatched entry is a resolution failure with nothing to absorb, and
+    // an official silently absent from the shard tree is exactly what T1 exists to end.
+    //
+    // Exiting 0 here would also invalidate municipality_join.ts's stated reason for refusing
+    // rather than guessing ("both callers escalate it"), on the path this command now owns.
+    if (!dryRun && (result.unmatched.length > 0 || result.stale.length > 0)) {
+      throw new Error(
+        `${result.unmatched.length} unresolved roster entr(ies) and ${result.stale.length} ` +
+          "orphaned shard(s) — pin names in scripts/officials/_aliases.json, and run " +
+          "`npx tsx scripts/officials/municipality_join.ts --dry-run` for the diagnosis",
+      );
+    }
+
+    // ⚠️ A SHARD WRITE DESTROYS THE candidateLink ENRICHMENT, SO IT MUST BE RE-APPLIED HERE.
+    // `emitShards` writes each bucket from index.json alone, and index.json does not carry
+    // `candidateLink` — the party, ballot position, preference votes and MP photo are joined
+    // onto the SHARDS afterwards, by ./candidate_links.ts. So a plain re-emit silently drops
+    // every one of them.
+    //
+    // ./municipal.ts already knew this and chains `decorateCandidateLinks()` right after its
+    // own emit, with a comment recording that skipping it once deleted 5,317 links across 276
+    // of 288 shards, visible only as council tiles falling back to grey initials. This CLI —
+    // advertised at the top of this file as the cheap "re-emit just the shards" path for an
+    // operator who edited _aliases.json — did not, so it reproduced that exact loss: measured
+    // 2026-09-04, one run took out 5,331 links across 276 shards.
+    //
+    // Chaining it here rather than documenting "remember to run decorate afterwards" is the
+    // point: the two writers of these files must not be able to disagree about what a
+    // complete shard contains, and a step an operator has to remember is a step that fails.
+    if (!dryRun) {
+      try {
+        decorateCandidateLinks();
+      } catch (err) {
+        // The shards are ALREADY stripped at this point, so a decorator failure is not a
+        // no-op — it leaves the tree in the exact 5,331-link-loss state the preflight above
+        // exists to prevent. Name the recovery rather than letting the stack trace stand as
+        // the whole message.
+        console.error(
+          "⚠ shards were rewritten but NOT re-decorated — every candidateLink is currently " +
+            "missing. Re-run `npx tsx scripts/officials/decorate_candidate_links.ts` once " +
+            "the cause below is fixed.",
+        );
+        throw err;
+      }
     }
   },
 });

@@ -34,6 +34,10 @@ const INDEX_PATH = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
   "../../../data/officials/municipal/index.json",
 );
+const MUNICIPALITIES_PATH = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../../data/municipalities.json",
+);
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -103,6 +107,90 @@ test.skipIf(skip)(
       row.placed,
       row.total,
       `${Number(row.total) - Number(row.placed)} official_muni role(s) have no typed obshtina place — db:resolve:persons ran against a roster without obshtina codes, or the fill regressed`,
+    );
+  },
+);
+
+// ─── the direction the four assertions above cannot express (T4.2) ──────────────────────
+//
+// Every one of them is SHARD-RELATIVE: they ask whether a shard's rows reached Postgres, and
+// whether a code in Postgres names a real shard. None asks whether the shard SET covers the
+// catalogue — so a município with NO shard at all is invisible to all four, and a shard
+// holding TWO municipalities' rosters merged is indistinguishable from a large município.
+//
+// That is not a hypothetical gap. From the day the officials roster was first sharded until
+// 2026-09-04, "Бяла/Варна/" and "Бяла/Русе/" both resolved to RSE04: obshtina VAR05 was the
+// ONE municipality of 288 with no shard, RSE04 carried 36 rows with TWO mayors and TWO
+// council chairs, and all four assertions were green throughout. These two need no database.
+
+test.skipIf(skipShards)(
+  "every município in data/municipalities.json has a roster shard",
+  () => {
+    const municipalities = JSON.parse(
+      readFileSync(MUNICIPALITIES_PATH, "utf8"),
+    ) as { obshtina: string; name: string; oblast: string }[];
+    const shards = new Set(
+      readdirSync(SHARD_DIR)
+        .filter((f) => f.endsWith(".json"))
+        .map((f) => f.replace(/\.json$/, "")),
+    );
+    // oblast "32" is the out-of-country pseudo-obshtini, which the register never names.
+    const missingShard = municipalities
+      .filter((m) => m.oblast !== "32" && !shards.has(m.obshtina))
+      .map((m) => `${m.obshtina} (${m.name})`)
+      .sort();
+    assert.deepEqual(
+      missingShard,
+      [],
+      `${missingShard.length} município(s) have no roster shard, so /governance and the ` +
+        "my-area tiles serve them no officials at all. Usually a registry name the " +
+        "obshtina join now refuses: `npx tsx scripts/officials/municipality_join.ts --dry-run`",
+    );
+  },
+);
+
+test.skipIf(skipShards)(
+  "no shard merges two municipalities' rosters onto one obshtina code",
+  () => {
+    // The other side of the coverage test above, and the half that is a WRONG ATTRIBUTION of
+    // named people rather than a gap: RSE04 published Бяла (Русе)'s roster AND Бяла (Варна)'s,
+    // 36 rows with two mayors and two council chairs, and nothing could see it.
+    //
+    // ⚠️ THE PROPERTY IS "ONE REGISTRY NAME PER SHARD", NOT "ONE MAYOR PER SHARD". A count of
+    // single-holder offices is the obvious test and it is wrong in both directions: Пловдив
+    // legitimately carries SEVEN mayors (the city's plus six район mayors, folded under PDV22
+    // by design and tagged with `district`), and 9 more shards carry two council chairs or two
+    // mayors because the register names both a departing and an arriving officeholder in the
+    // same year — Панагюрище's two 2026 `Кмет` rows are one município, not two. Measured
+    // 2026-09-04: that rule reports 10 offenders, all of them legitimate, while THIS one
+    // reports 0.
+    const offenders: string[] = [];
+    for (const f of readdirSync(SHARD_DIR)) {
+      if (!f.endsWith(".json")) continue;
+      const shard = JSON.parse(
+        readFileSync(path.join(SHARD_DIR, f), "utf8"),
+      ) as {
+        entries?: { municipality?: string; district?: string }[];
+      };
+      // `district` rows are the sanctioned fold (rule 2 of the obshtina join), so they are
+      // excluded — a Пловдив район SHOULD sit in the city's shard under its own label.
+      const names = new Set(
+        (shard.entries ?? [])
+          .filter((e) => !e.district)
+          .map((e) => e.municipality)
+          .filter(Boolean) as string[],
+      );
+      if (names.size > 1)
+        offenders.push(
+          `${f.replace(/\.json$/, "")}: ${[...names].sort().join(" + ")}`,
+        );
+    }
+    assert.deepEqual(
+      offenders,
+      [],
+      "a shard carries officials from more than one registry institution — two " +
+        "municipalities' rosters are merged onto one obshtina code, so one of them is " +
+        "published under the other's name and the other has no page",
     );
   },
 );
@@ -179,10 +267,33 @@ test.skipIf(skipShards)(
       jsonSlugs > 5_000,
       `only ${jsonSlugs} shard slugs — shards look truncated`,
     );
+    // ⚠️ THIS FAILURE HAS TWO OPPOSITE CAUSES AND THE ASSERTION CANNOT TELL THEM APART —
+    // so it must not claim to. The message said "the name→code join regressed", which is one
+    // of them; the other is a CORRECTED shard tree ahead of a database nobody has reloaded,
+    // where the fix is a reload and touching the join would undo it.
+    //
+    // They are indistinguishable from inside this gate because both leave the shard's slug in
+    // person_role under a different obshtina: a regression files it wrongly today, a stale
+    // database still holds yesterday's wrong filing. Direction of time is the discriminator
+    // and neither table records it. That is not hypothetical — on 2026-09-04 the Бяла join
+    // was repaired, 14 VAR05 rows appeared on disk, and this assertion reported the repair
+    // as the regression.
+    //
+    // What DOES decide it is scripts/officials/municipality_join.test.ts, which tests the
+    // join against the catalogue with no database involved. Green there ⇒ stale database.
+    const elsewhere = missing.filter((m) =>
+      [...pg.values()].some((set) => set.has(m.split("/")[1]!)),
+    );
     assert.deepEqual(
       missing.slice(0, 5),
       [],
-      `${missing.length} shard row(s) are absent from person_role, or filed under a different obshtina — the name→code join regressed`,
+      `${missing.length} shard row(s) are absent from person_role under their shard's obshtina ` +
+        `(${elsewhere.length} of them filed under a different one, e.g. ${missing[0]}). ` +
+        "Two causes, and this gate cannot separate them: (a) the name→code join regressed, " +
+        "or (b) the shards are correct and the database is stale. Run " +
+        "`npx vitest run scripts/officials/municipality_join.test.ts` — if it passes it is " +
+        "(b), and the fix is a reload: db:load:ngo-board-links → db:load:council:pg → " +
+        "db:resolve:persons",
     );
 
     // Every extra must be an official the register's newest listing no longer names.
