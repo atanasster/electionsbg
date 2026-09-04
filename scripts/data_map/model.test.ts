@@ -530,10 +530,18 @@ describe("the lateral-links tour", () => {
 
   it("quotes numbers that still match the measured overlaps", () => {
     // Each pair is (link, the figure the tour states).
+    //
+    // ⚠ RE-PIN BOTH SIDES OR NEITHER. The numbers live in `model.ts`'s tour prose, in BOTH
+    // languages, and the vacuity check below reads the English spelling out of that prose — so
+    // updating this table alone turns the gate red on the second assertion instead of the
+    // first, and updating only the English string leaves the Bulgarian one quoting a figure
+    // nobody measured. Re-measured 2026-09-04 against the watch-run reload (9f68471bb4):
+    // connections↔procurement 18,717 → 18,723 and connections↔officials 5,612 → 5,609, with
+    // connections↔funds unmoved at 40,269.
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18717],
+      ["connections", "procurement", "eik", 18723],
       ["connections", "funds", "eik", 40269],
-      ["connections", "officials", "person_id", 5612],
+      ["connections", "officials", "person_id", 5609],
     ];
     const drifted = quoted
       .filter(([a, b, k, n]) => overlapOf(a, b, k) !== n)
@@ -542,9 +550,19 @@ describe("the lateral-links tour", () => {
           `${a}↔${b} (${k}): tour says ${n}, measured ${overlapOf(a, b, k)}`,
       );
     expect(drifted).toEqual([]);
-    // and the prose really does contain them, so the check is not vacuous
+    // and the prose really does contain them, so the check is not vacuous.
+    //
+    // ⚠ BOTH LANGUAGES. Checking only the English spelling leaves the Bulgarian one free to
+    // quote a figure nobody measured — on the side most readers actually read, and on a panel
+    // that renders the live number next to it. The two spellings differ only in the thousands
+    // separator (a plain space in bg, a comma in en; verified as U+0020, not a non-breaking
+    // space), so both are derived here rather than typed.
     const prose = JSON.stringify(tour);
-    for (const [, , , n] of quoted)
-      expect(prose).toContain(n.toLocaleString("en-US"));
+    for (const [, , , n] of quoted) {
+      const en = n.toLocaleString("en-US");
+      expect(prose, `the English prose does not quote ${en}`).toContain(en);
+      const bg = en.replace(/,/g, " ");
+      expect(prose, `the Bulgarian prose does not quote ${bg}`).toContain(bg);
+    }
   });
 });

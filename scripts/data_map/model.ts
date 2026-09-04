@@ -3318,8 +3318,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:connections",
         text: {
-          bg: "Този ЕИК е ключът към Търговския регистър — 18 717 изпълнителя се намират там като фирми със собственици и управители.",
-          en: "That company number is the key into the Commerce Registry — 18,717 contractors are found there as companies with owners and directors.",
+          bg: "Този ЕИК е ключът към Търговския регистър — 18 723 изпълнителя се намират там като фирми със собственици и управители.",
+          en: "That company number is the key into the Commerce Registry — 18,723 contractors are found there as companies with owners and directors.",
         },
       },
       {
@@ -3339,8 +3339,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:officials",
         text: {
-          bg: "А през лицата се затваря кръгът: 5 612 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-          en: "And people close the circle: 5,612 officials who file asset declarations also hold a role in the company registry.",
+          bg: "А през лицата се затваря кръгът: 5 609 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+          en: "And people close the circle: 5,609 officials who file asset declarations also hold a role in the company registry.",
         },
       },
     ],
