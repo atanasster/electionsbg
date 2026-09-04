@@ -514,6 +514,54 @@ def seal_pass(path: Path) -> None:
                     encoding="utf-8")
 
 
+def _load_supplements(policy: dict) -> tuple[list[tuple[dict, dict, dict]], list[str]]:
+    """Load the policy's declared supplements, degrading a missing file to a
+    named refusal instead of a traceback.
+
+    ⚠️ A missing supplement pass must NOT be silently dropped, and that is the
+    whole reason this is a function rather than a comprehension. Dropping one
+    would score the main sample alone on a basis the policy does not declare:
+    the Russia supplement pools 23 rows into `russia_stance.direction`, so
+    without it that measure falls from n=30 to n=7 and the axis switches to
+    `low_precision` — a DIFFERENT verdict reached by quietly discarding
+    evidence, and in the other direction a thin measure could be made to pass.
+    So a supplement is either loaded whole or the run refuses.
+
+    The refusal is `invalid` rather than `blocked_pending_humans` because a
+    missing path and an unfinished pass are indistinguishable from here — a
+    completed pass lives in the gitignored `news/var/adjudication/` working
+    tree, so on a fresh clone both look identical. The message names the file
+    and both causes; the exit code is 1 either way.
+    """
+
+    supplements: list[tuple[dict, dict, dict]] = []
+    errors: list[str] = []
+    for index, entry in enumerate(policy.get("supplements") or []):
+        loaded = {}
+        for key in ("assignments", "pass_a", "pass_b"):
+            declared = entry.get(key)
+            if not declared:
+                errors.append(f"policy supplement {index}: no {key} declared")
+                continue
+            path = ROOT / declared
+            try:
+                loaded[key] = json.loads(path.read_text(encoding="utf-8"))
+            except OSError:
+                errors.append(
+                    f"policy supplement {index}: {key} not readable at "
+                    f"{declared} — either the path is wrong, or that pass has "
+                    "not been adjudicated on this machine (completed passes "
+                    "are gitignored under news/var/adjudication/)")
+            except json.JSONDecodeError as exc:
+                errors.append(
+                    f"policy supplement {index}: {key} at {declared} is not "
+                    f"valid JSON: {exc}")
+        if len(loaded) == 3:
+            supplements.append((loaded["assignments"], loaded["pass_a"],
+                                loaded["pass_b"]))
+    return supplements, errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--assignments", default=str(DEFAULT_SAMPLE))
@@ -545,10 +593,13 @@ def main() -> int:
         policy = json.loads(Path(args.policy).read_text(encoding="utf-8"))
         min_n = policy.get("min_n", min_n)
         min_minority = policy.get("min_minority_n", min_minority)
-        for entry in policy.get("supplements") or []:
-            supplements.append(tuple(
-                json.loads((ROOT / entry[key]).read_text(encoding="utf-8"))
-                for key in ("assignments", "pass_a", "pass_b")))
+        supplements, policy_errors = _load_supplements(policy)
+        if policy_errors:
+            print(json.dumps({"status": "invalid", "passed": False,
+                              "errors": policy_errors, "axes": {},
+                              "policy": {"path": args.policy}},
+                             ensure_ascii=False, indent=2))
+            return 1
         for entry in policy.get("exemptions") or []:
             exemptions.setdefault(entry["axis"], {})[entry["measure"]] = (
                 entry["reason"])

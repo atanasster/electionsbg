@@ -3,6 +3,7 @@
 import copy
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -409,14 +410,87 @@ class AgreementScoringTests(unittest.TestCase):
                              "editorial_treatment_v2" /
                              "human-agreement-policy-2026-09-01.json")
                             .read_text("utf-8"))
-        self.assertEqual(policy["method"], "one_human_two_blinded_passes")
+        # Pinned deliberately: the scorer hard-fails when this disagrees with
+        # the sealed passes, so a method change must be a decision rather than
+        # a drive-by edit. Superseded 2026-09-04 — a second adjudicator took
+        # both pass B files, so this is option (a), not the solo fallback (b).
+        self.assertEqual(policy["method"], "two_human_adjudicators")
         self.assertEqual(policy["gate"], scoring.GATE)
+        # Whatever the method, the history must say what it replaced: a policy
+        # that quietly acquires a stronger-sounding label is the thing this
+        # gate exists to prevent.
+        for entry in policy.get("method_history") or []:
+            for field in ("decided_on", "method", "reason"):
+                self.assertTrue(str(entry.get(field, "")).strip(), field)
         exemptions = policy["exemptions"]
         self.assertEqual(len(exemptions), 1)
         self.assertEqual((exemptions[0]["axis"], exemptions[0]["measure"]),
                          ("leaning", "applicability"))
         for field in ("reason", "corroboration", "what_is_not_exempt"):
             self.assertTrue(exemptions[0][field].strip(), field)
+
+
+    def test_a_missing_supplement_pass_is_named_not_a_traceback(self):
+        """A completed supplement pass lives in the gitignored working tree, so
+        on a fresh clone the policy's declared path does not exist. That must
+        refuse with the file named, not raise FileNotFoundError."""
+
+        policy = {"supplements": [{
+            "assignments": "news/evals/editorial_treatment_v2/"
+                           "russia-supplement-2026-09-01.json",
+            "pass_a": "news/var/adjudication/russia-supplement-a.json",
+            "pass_b": "news/var/adjudication/does-not-exist.json"}]}
+        supplements, errors = scoring._load_supplements(policy)
+        self.assertEqual(supplements, [])
+        self.assertEqual(len(errors), 1)
+        self.assertIn("pass_b", errors[0])
+        self.assertIn("does-not-exist.json", errors[0])
+
+    def test_a_missing_supplement_is_refused_never_silently_dropped(self):
+        """Mutation guard. Dropping the supplement instead of refusing would
+        score russia_stance.direction on the prevalence rows alone — a
+        different verdict on a basis the policy does not declare."""
+
+        policy = {"supplements": [{
+            "assignments": "news/evals/editorial_treatment_v2/"
+                           "russia-supplement-2026-09-01.json",
+            "pass_a": "news/var/adjudication/nope-a.json",
+            "pass_b": "news/var/adjudication/nope-b.json"}]}
+        supplements, errors = scoring._load_supplements(policy)
+        # Both halves matter: nothing loaded, AND an error raised. A loader
+        # that returned ([], []) would let the caller score on without it.
+        self.assertEqual(supplements, [])
+        self.assertTrue(errors)
+
+    def test_a_malformed_supplement_pass_is_named_not_a_traceback(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bad = Path(tmp) / "bad.json"
+            bad.write_text("{not json", encoding="utf-8")
+            policy = {"supplements": [{
+                "assignments": "news/evals/editorial_treatment_v2/"
+                               "russia-supplement-2026-09-01.json",
+                # absolute, so `ROOT / declared` resolves to it unchanged
+                "pass_a": str(bad),
+                "pass_b": "news/var/adjudication/russia-supplement-b.json"}]}
+            supplements, errors = scoring._load_supplements(policy)
+        self.assertEqual(supplements, [])
+        self.assertTrue(any("not valid JSON" in e for e in errors), errors)
+
+    def test_the_shipped_policy_supplement_paths_resolve_or_say_why(self):
+        """The shipped policy points at the completed working copies. On a
+        machine that has them the loader must succeed; on one that does not it
+        must produce a named error rather than a crash. Both are acceptable —
+        a traceback is not."""
+
+        policy = json.loads((scoring.ROOT / "news" / "evals" /
+                             "editorial_treatment_v2" /
+                             "human-agreement-policy-2026-09-01.json")
+                            .read_text("utf-8"))
+        supplements, errors = scoring._load_supplements(policy)
+        self.assertTrue(supplements or errors)
+        if errors:
+            self.assertTrue(all("news/var/adjudication/" in e or
+                                "not valid JSON" in e for e in errors), errors)
 
 
 
