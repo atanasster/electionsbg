@@ -212,19 +212,43 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "a município with two concurrent sitting-mayor listings is refused, not guessed",
   async () => {
-    // See 186's header: PAZ20 and RSE04 (measured 2026-08-25) each briefly carry
-    // two "sitting, no district" mayor listings with a real Annualy Кмет 2025
-    // filing apiece, and nothing on the roster says which is current. The
-    // function drops such municipalities rather than picking one by string
-    // sort — this pins the refusal so a future change that reintroduces a
-    // tie-break guess fails here instead of shipping a wrong name silently.
+    // See 186's header: a município can carry two "sitting, no district" mayor listings with a
+    // real Annualy Кмет filing apiece, with nothing on the roster saying which is current. The
+    // function drops those rather than picking one by string sort, and this pins the refusal so
+    // a change that reintroduces a tie-break guess fails here instead of shipping a wrong name.
+    //
+    // ⚠️ THE AMBIGUOUS SET IS DERIVED, NOT LISTED. It used to be the literal
+    // `('PAZ20','RSE04')`, measured 2026-08-25 — and RSE04 stopped being ambiguous on
+    // 2026-09-04, when the obshtina join was fixed: Бяла (Варна) had been resolving to Бяла
+    // (Русе)'s code, so RSE04 carried BOTH municipalities' mayors and the refusal was firing on
+    // our own defect rather than on the register's. The literal then made this test red for the
+    // best possible reason, which is not a reason a gate should be red.
+    // (docs/plans/officials-roster-missing-mayor-v1.md)
+    const ambiguous = await allRows<{ obshtina: string }>(
+      `SELECT obshtina
+         FROM official_roster
+        WHERE role = 'mayor' AND sitting AND district IS NULL AND obshtina IS NOT NULL
+        GROUP BY obshtina
+       HAVING count(DISTINCT name) > 1`,
+    );
+    // No ambiguity in the corpus is a legitimate state and would make this vacuous — say which
+    // it is rather than passing silently on nothing.
+    if (ambiguous.length === 0) {
+      console.warn(
+        "[mayor_pay] no município carries two sitting mayor listings — refusal untested",
+      );
+      return;
+    }
+    const codes = ambiguous.map((r) => r.obshtina);
     const rows = await allRows<MayorPayRow>(
-      `SELECT * FROM mayor_pay_ranking(NULL) WHERE obshtina IN ('PAZ20','RSE04')`,
+      `SELECT * FROM mayor_pay_ranking(NULL) WHERE obshtina = ANY($1)`,
+      [codes],
     );
     assert.deepEqual(
-      rows,
+      rows.map((r) => `${r.obshtina}: ${r.mayor_name}`),
       [],
-      "an ambiguous município (two candidates each with a valid filing) was resolved to one row instead of refused",
+      `an ambiguous município (two candidates each with a valid filing) was resolved to one ` +
+        `row instead of refused — ambiguous today: ${codes.join(", ")}`,
     );
   },
 );

@@ -45,7 +45,10 @@
 -- ⚠️ TWO CANDIDATES WITH A VALID FILING IS REFUSED, NOT TIE-BROKEN. Varna/Plovdiv-style
 -- within-city райони are excluded by `district IS NULL` above, but a SEPARATE, genuine
 -- shape survives it: a município mid-way through replacing its mayor can briefly carry two
--- "sitting, no district" listings for the SAME seat (measured 2026-08-25: PAZ20, RSE04),
+-- "sitting, no district" listings for the SAME seat (measured 2026-09-04: PAZ20 only —
+-- RSE04 was on this list until the obshtina join stopped resolving Бяла/Варна/ onto Бяла
+-- (Русе)'s code, which is what had given RSE04 two mayors; see
+-- docs/plans/officials-roster-missing-mayor-v1.md),
 -- and — unlike the within-city case — nothing on `municipal_officials_table` says which one
 -- is current (no term-start date). Both candidates in both measured cases have a real 2025
 -- Annualy Кмет declaration on file, so ANY tie-break here would silently attribute one

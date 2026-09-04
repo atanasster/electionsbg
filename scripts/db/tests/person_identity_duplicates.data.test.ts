@@ -90,12 +90,28 @@ const CEILINGS = {
    * (fold, role, place_code) TRIPLES naming two person rows across the two sources — one
    * name, one office, one place. The population a cross-source seat rule would close.
    *
-   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those 1,130 triples fall on
-   * **1,104** distinct folds (one person split across two offices contributes two triples).
-   * 1,104/1,214 = 90.9% is the coverage figure §2.7 quotes; 1,130 is what this ceiling
-   * counts. Naming both is deliberate — they were briefly one number in two places.
+   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those triples fall on ~1,104
+   * distinct folds (one person split across two offices contributes two triples).
+   * 1,104/1,214 = 90.9% is the coverage figure §2.7 quotes; this ceiling counts triples.
+   * Naming both is deliberate — they were briefly one number in two places.
+   *
+   * ⚠️ 1130 → 1132 on 2026-09-04, and the two are a GATE WORKING RATHER THAN A REGRESSION.
+   * `officials-roster-missing-mayor-v1` T2 takes a municipal official's published role from
+   * their own filing instead of the register's listing label, which promoted Раднево's
+   * Георги Йовчев Петров (listed „Общински съветник") and Разград's Добрин Младенов Добрев
+   * (listed „Заместник кмет") to `mayor`.
+   *
+   * Each of those two already had TWO officials slugs for one human — the slug's
+   * disambiguator carries the listing role, so the register relabelling somebody between
+   * folder years forks them — and each already had both rows on one `person_id`. What
+   * changed is that the two rows stopped naming different offices and started naming the
+   * same one, which is what they always were. So the split did not grow; it became visible
+   * to precisely the signal this ceiling exists to measure.
+   *
+   * That makes these two the CHEAPEST members of this population to close, and the only
+   * ones whose cause is fully documented: see docs/plans/officials-roster-missing-mayor-v1.md.
    */
-  exactSignatureTriples: 1130,
+  exactSignatureTriples: 1132,
   /** `person_search` P rows sitting in a same-(fold, place_label, primary_role) cluster of
    *  more than one — what a reader actually sees, in the finder and on /persons. */
   duplicateSearchRows: 4778,
