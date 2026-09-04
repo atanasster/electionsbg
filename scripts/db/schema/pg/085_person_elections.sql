@@ -69,25 +69,98 @@ CREATE INDEX IF NOT EXISTS idx_person_election_stats_person
 -- Every election row for one person (newest first) → the electoral block on /person/{slug}.
 -- The caller picks the globally-selected cycle and runs the existing reducer over `regions` +
 -- the preferences_stats fields.
+--
+-- ⚠️⚠️ `history` IS DERIVED FROM THE PERSON'S OWN ROWS, NOT from the `stats` column beside
+-- them, and that is a CORRECTNESS fix rather than a tidy-up
+-- (docs/plans/person-candidate-display-unification-v1.md §2).
+--
+-- `person_election_stats.stats` is the raw `preferences_stats.json` array copied out of the
+-- NAME folder, and that array accumulates the fold's history across every cycle. The
+-- loader's collision guard (`load_person_elections_pg.ts` → `candidacyRegions`.isCollision)
+-- is `distinctParties.size > 1` WITHIN ONE election folder, so a namesake who ran in a
+-- DIFFERENT cycle is invisible to it and their bar passes straight onto this person's chart.
+-- Measured 2026-09-03 over every person's trajectory: of 55,046 bars drawn, 5,111 (2,458
+-- people) were cycles the person has no row for — and 5,111 of those 5,111 are explained by
+-- a same-name candidate in that cycle belonging to a different person_id. 100%.
+--
+-- The person's own arc is fully recoverable from their own rows, so the fix costs no new
+-- data and no reload: `party_nick`/`party_color` and `regions[].{oblast, pref, totalVotes}`
+-- reproduce the shard's own entries exactly (verified against person 6461, 2024_10_27 →
+-- S24/116/18 and 2022_10_02 → S24/111/76).
+--
+-- Consequences, stated because most of them are a REDUCTION and that is correct: 5,111 wrong
+-- bars go, 367 currently-missing ones appear (300 people whose `stats` the collision guard
+-- had nulled, so they had no trajectory at all), and 1,906 people LOSE the tile entirely —
+-- their only second bar was a namesake's, and a candidate who ran once has no trajectory.
+--
+-- The arc is the person's WHOLE career and is therefore identical on every row. It is
+-- repeated per row rather than hoisted because the payload is an ARRAY of rows and a
+-- consumer reading `rows[k].history` must not get an empty one — the duplication is not new,
+-- since `stats` was per-row too.
+--
+-- Measured 2026-09-04 over all 29,715 public people: the payload SHRINKS on average — 7,300
+-- → 6,896 bytes (−5.5%), 216.9 MB → 204.9 MB corpus-wide, 26,862 of 29,715 smaller — because
+-- the shard array carried one entry per election in the corpus and most were EMPTY, while an
+-- arc entry is populated by construction. The WORST case grows: the 10-candidacy maximum went
+-- 67,280 → 73,001 bytes (+8.5%), which is where the per-row repetition shows. Costed and
+-- accepted either way — the alternative is a chart that draws other people's cycles.
+--
+-- The `::int` cast on `totalVotes` is the ONE way this function can now raise. 0 of 59,717
+-- region elements carry a non-integer value today, and an ABSENT key is safe (`->>` yields
+-- NULL, `NULL::int` is NULL, and DESC NULLS LAST already handles it) — but `regions` is
+-- stored verbatim from the shard by a deliberately permissive reader (candidateRegions.ts),
+-- and `missingMigrationEmpty` degrades only 42883/42P01, so one malformed value would be a
+-- 500 on the whole electoral block rather than a missing chart.
+--
+-- ⚠️ The `stats` COLUMN is deliberately left in place and the loader is unchanged. Nothing on
+-- the serving path reads it any more (verified 2026-09-04: no function, view or matview
+-- references it), and it is kept for two reasons — it is the verbatim shard capture, and it
+-- is the only in-database EVIDENCE that the pollution existed, which the sentinel gate in
+-- person_elections.data.test.ts measures and the shard-fidelity gate compares against.
+-- `top_settlements` / `top_sections` are SEPARATE columns fed by separate shard fields and do
+-- not depend on it. Do not "fix" the derivation back to it.
 DROP FUNCTION IF EXISTS person_elections(text);
 CREATE OR REPLACE FUNCTION person_elections(p_slug text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH pick AS (
     SELECT person_id FROM person
      WHERE slug = p_slug AND status = 'active' AND is_public_figure LIMIT 1
+  ),
+  own AS (
+    SELECT e.* FROM person_election_stats e, pick WHERE e.person_id = pick.person_id
+  ),
+  -- One entry per cycle the person ACTUALLY has results for. A row with no regions is a
+  -- roster-only candidacy: the chart filters empty `preferences` out anyway, so including it
+  -- would only inflate `history.length` past the ≥2 the tile needs to draw.
+  arc AS (
+    SELECT COALESCE(jsonb_agg(jsonb_build_object(
+             'elections_date', o.election_date,
+             'party', CASE WHEN o.party_nick IS NOT NULL
+                             THEN jsonb_build_object('nickName', o.party_nick,
+                                                     'color', o.party_color) END,
+             'preferences', COALESCE((
+                 SELECT jsonb_agg(jsonb_build_object(
+                          'oblast', x->>'oblast',
+                          'pref', x->>'pref',
+                          'preferences', (x->>'totalVotes')::int
+                        ) ORDER BY (x->>'totalVotes')::int DESC NULLS LAST, x->>'oblast')
+                   FROM jsonb_array_elements(o.regions) x
+               ), '[]'::jsonb)
+           ) ORDER BY o.election_date), '[]'::jsonb) AS h
+      FROM own o
+     WHERE jsonb_array_length(o.regions) > 0
   )
   SELECT COALESCE((
     SELECT jsonb_agg(jsonb_build_object(
-      'election', e.election_date,
-      'partyNum', e.party_num,
-      'totalVotes', e.total_votes,
-      'regions', e.regions,
-      'history', e.stats,
-      'topSettlements', e.top_settlements,
-      'topSections', e.top_sections
-    ) ORDER BY e.election_date DESC)
-    FROM person_election_stats e, pick
-    WHERE e.person_id = pick.person_id
+      'election', o.election_date,
+      'partyNum', o.party_num,
+      'totalVotes', o.total_votes,
+      'regions', o.regions,
+      'history', (SELECT h FROM arc),
+      'topSettlements', o.top_settlements,
+      'topSections', o.top_sections
+    ) ORDER BY o.election_date DESC)
+    FROM own o
   ), '[]'::jsonb);
 $$;
 

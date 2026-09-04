@@ -1,8 +1,14 @@
 // One person's electoral history re-keyed by person_id (person_election_stats via
 // /api/db/person-elections) — the PG source for the merged dashboard's electoral block. Each
-// row carries the RAW shard arrays so computeCandidateSummary runs over them unchanged
-// (person-candidate-merge-v1). Replaces the name-folder shard fetch (useCandidateSummary) on
-// the person page.
+// row carries the raw `regions` / `topSettlements` / `topSections` arrays so
+// computeCandidateSummary runs over them unchanged (person-candidate-merge-v1). Replaces the
+// name-folder shard fetch (useCandidateSummary) on the person page.
+//
+// ⚠️ `history` is the exception and is DERIVED, not raw: `person_elections()` builds the
+// person's whole arc from their own rows, because the shard's `stats` array accumulates every
+// namesake on the fold (5,111 of 55,046 drawn bars belonged to someone else — see
+// docs/plans/person-candidate-display-unification-v1.md §2). It is therefore identical on
+// every row, and there is nothing left for a consumer to assemble.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";

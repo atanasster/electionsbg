@@ -89,7 +89,7 @@ now IS — a decision, never an accident):
 | the geography section | gated on the ARRAYS on both, which also fixes an orphaned „География" heading the candidate page rendered whenever both tiles self-hid |
 | `CandidatePreferencesCard`'s drill-down | honours `linkSlug` on both (it fell back to the URL-encoded name while every sibling tile used the slug) |
 | the card grid on a cycle with no paper/machine split | 3 columns rather than a ragged empty fourth |
-| the trajectory ARRAY (`history`) | still divergent, and the only data divergence left — the person page plots the whole career, the candidate page the shard's array. Tier 2 removes the prop |
+| the trajectory ARRAY (`history`) | settled by Tier 2: the prop is GONE and both surfaces plot `summary.history`. On the person page that is now the arc `person_elections()` derives from the person's own rows; on the legacy candidate body it is still the shard's array, which is namesake-polluted — one more reason Tier 1 shrank that body's reach to the genuinely person-less URLs |
 
 ⚠️ **„Дарения" already means two different things and both pages print the same word.** The
 candidate tile's own hint says „Самофинансиране, декларирано от кандидата към кампанията на
@@ -235,25 +235,49 @@ of `CandidateDashboardCards`. Fold them:
 
 ### Tier 2 — de-pollute the trajectory
 
-1. Build `history` inside `person_elections()` (085) from the person's OWN rows:
-   one entry per `person_election_stats` row, `party` from `party_nick`/`party_color`,
-   `preferences` from `regions[].{oblast, pref, totalVotes→preferences}`, ordered by
-   `election_date`. Same `CandidateStatsYearly` shape, so `computeCandidateSummary` and
-   `CandidateHistoryChart` are untouched.
+1. Build `history` inside `person_elections()` (085) from the person's OWN rows: one entry
+   per `person_election_stats` row **with a non-empty `regions`**, `party` from
+   `party_nick`/`party_color`, `preferences` from `regions[].{oblast, pref,
+   totalVotes→preferences}`, ordered by `election_date`. Same `CandidateStatsYearly` shape, so
+   `computeCandidateSummary` and `CandidateHistoryChart` are untouched.
+   The result-bearing filter is load-bearing, not tidiness: a roster-only candidacy has no
+   bar, so excluding it keeps `history.length` equal to the number of bars drawn — which is
+   what stops the tile's `history.length < 2` guard and the chart's own
+   `filter(s => s.preferences.length)` from disagreeing. Measured: 16,679 of 66,977 rows are
+   roster-only and excluded, and **0** rows are a selectable cycle yet absent from the arc —
+   which is also the proof that the deleted `fullHistory` superset fallback was dead code
+   rather than merely unlikely.
    - SQL, not the loader: it needs no reload, no shard access, and no `:cloud` data step —
      `apply_functions.ts 085_person_elections.sql` is the whole publish.
 2. Drop `fullHistory` from `PersonElectoralSection` — its „longest history is a superset"
    heuristic (and the fallback its own comment flags as unenforced) exists only because the
    array was per-row and polluted. The payload now carries the person's whole arc directly.
-3. Leave the `stats` column and the loader alone. It stays the raw shard capture and the
-   source of `top_settlements`/`top_sections`; add a comment saying `history` is no longer
-   read from it, so a future reader does not "fix" the derivation back to it.
+3. Leave the `stats` column and the loader alone — but for the RIGHT reason. It is not the
+   source of `top_settlements`/`top_sections` (those are separate columns fed by separate
+   shard fields); after this change nothing on the serving path reads it at all. It is kept
+   because it is the verbatim shard capture and the only in-database evidence the pollution
+   existed, which two of the gates below rest on. Comment it so a future reader does not
+   "fix" the derivation back to it.
 4. Gates, in `person_elections.data.test.ts`:
    - **zero** foreign bars — every entry in the returned `history` is a cycle the person has a
-     row for. This is the assertion the file is missing today, and it fails on `main`.
-   - the derived bar count equals the person's rows with a non-empty `regions`.
-   - a mutation check: recompute from `stats` in a rolled-back transaction and require
-     strictly more foreign bars, so a derivation that quietly reverted cannot pass.
+     row for. This is the assertion the file was missing, and it fails on `main` at 5,111.
+   - the arc is the person's own result-bearing cycles, once each (both directions: a missing
+     cycle shortens a career, a duplicate draws one year twice).
+   - every bar's party and per-region figures re-derive from that person's own row — the
+     mutation check that stops "the right cycles" passing on an arc of empty bars.
+   - a second mutation check over the retired `stats` column, which is still present: it must
+     still yield >1,000 foreign bars, or the assertions above have stopped discriminating and
+     the reason is the corpus rather than the fix.
+   - a shard-FIDELITY gate: each arc bar must equal the same cycle's entry inside that row's
+     own `stats`. Gate 3 compares the function against its own input and cannot make this
+     check; this one can, only while the retired column is still there (49,828 pairs, 0
+     differing, measured 2026-09-04). It skips with a distinct reason once `stats` is dropped.
+   - Measured after the change: **50,298 bars** (from 55,046), 9,556 people keep the tile.
+     The payload SHRINKS on average — 7,300 → 6,896 bytes per person over all 29,715 public
+     people, 216.9 MB → 204.9 MB corpus-wide, 90.4% of payloads smaller — because a shard
+     entry for a cycle the person skipped was empty while an arc entry is populated by
+     construction. The worst case grows (67,280 → 73,001 bytes on a 10-candidacy MP), which
+     is where the per-row repetition of the arc shows.
 5. Optional, separate: `scripts/reports/save_preferences.ts` writes the polluted array in the
    first place, so `/candidate/:id/*` legacy drill-downs and the shard consumers stay wrong.
    Out of scope here — Tier 1 shrinks that path to a chooser — but worth its own ticket.

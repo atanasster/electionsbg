@@ -17,18 +17,23 @@
 //     owns its own IA (`votes`/`geography` carry the candidate page's article topics;
 //     `person-electoral`/`person-geography` are the person dashboard's anchors).
 //   • the trajectory CHART's bars. Recharts needs a measured layout jsdom does not provide,
-//     so the highlight rule is unit-tested where it lives, over the pure function that
-//     decides it — `candidateHistoryChartStyle.test.ts`. What is assertable here is whether
+//     so the highlight rule is unit-tested over the pure function that decides it —
+//     `barCellStyle`, in `CandidateHistoryChart.test.tsx`. What is assertable here is whether
 //     the tile mounts at all, which is what the `history` cases below cover.
-//   • trajectory PARITY between the surfaces. The two intentionally plot different arrays
-//     until Tier 2 lands (`history` is the person page's whole career, `summary.history` the
-//     shard's own array), so an equality there would fail today by design.
+//   • WHICH bars the chart draws. Both surfaces now plot `summary.history` and nothing else
+//     — Tier 2 retired the `history` prop by deriving the person's arc in
+//     `person_elections()` — so the arrays are equal here by construction, and what decides
+//     them is the SQL, gated in person_elections.data.test.ts.
 //   • the reducer. `computeCandidateSummary` is covered by its own unit test — this file's
 //     first draft asserted `build()` equalled `build()`, which is true of ANY pure
 //     implementation, including one returning `{}`.
 
 import "@testing-library/jest-dom/vitest";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { describe, it, expect, beforeAll, vi } from "vitest";
+import { stripComments } from "@/../scripts/lib/strip_comments";
+import { SRC_DIR } from "@/../scripts/lib/module_graph";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -255,39 +260,56 @@ describe("the electoral body is one component fed by two surfaces", () => {
     expect(hrefs(withoutSelector.container).length).toBeGreaterThan(0);
   });
 
-  it("plots the history override only when it can draw, and never suppresses a drawable one", () => {
-    const oneEntry = [HISTORY[1]];
-    const withHistory = (
-      summaryHistory: CandidateStatsYearly[],
-      override?: CandidateStatsYearly[],
-    ) =>
-      render(
-        <MemoryRouter>
-          <TooltipProvider>
-            <CandidateElectoralBody
-              summary={{ ...build(), history: summaryHistory }}
-              history={override}
-              {...PERSON_IA}
-            />
-          </TooltipProvider>
-        </MemoryRouter>,
-      );
-
-    // A 2-entry summary history draws with no override.
-    const plain = withHistory(HISTORY);
+  it("draws the trajectory from summary.history alone", () => {
+    // There is no second array to pass. The tile needs ≥2 entries, and the ONLY thing that
+    // decides whether it draws is the summary the surface's own hook produced — which is
+    // what makes the two pages' charts the same chart.
+    const drawable = render(
+      <MemoryRouter>
+        <TooltipProvider>
+          <CandidateElectoralBody summary={build()} {...PERSON_IA} />
+        </TooltipProvider>
+      </MemoryRouter>,
+    );
     expect(screen.getByText(TRAJECTORY_LABEL)).toBeInTheDocument();
-    plain.unmount();
+    drawable.unmount();
 
-    // A 1-entry OVERRIDE must not suppress it: the tile needs ≥2 entries, so preferring the
-    // override unconditionally would hide a trajectory the summary was going to draw.
-    const short = withHistory(HISTORY, oneEntry);
-    expect(screen.getByText(TRAJECTORY_LABEL)).toBeInTheDocument();
-    short.unmount();
-
-    // And with nothing drawable on either side the tile stays away rather than rendering an
-    // empty chart frame.
-    withHistory(oneEntry);
+    // One cycle is not a trajectory — the tile stays away rather than drawing a single bar
+    // under a „history" heading. 1,906 people are in exactly this state once the arc stops
+    // carrying their namesakes' cycles.
+    render(
+      <MemoryRouter>
+        <TooltipProvider>
+          <CandidateElectoralBody
+            summary={{ ...build(), history: [HISTORY[1]] }}
+            {...PERSON_IA}
+          />
+        </TooltipProvider>
+      </MemoryRouter>,
+    );
     expect(screen.queryByText(TRAJECTORY_LABEL)).toBeNull();
+  });
+
+  it("takes NO history array beside `summary`", () => {
+    // The file header carries this as a rule; nothing else enforces it. Adding
+    // `history?: CandidateStatsYearly[]` back and preferring it would pass every other test
+    // here, because each render site passes `summary` and the IA spread and nothing else —
+    // and a second array beside `summary` is exactly what let the two pages draw different
+    // charts before Tier 2 derived the arc in `person_elections()`.
+    //
+    // Comments are stripped first: this file's own header discusses the retired prop, and
+    // prose that MENTIONS a pattern is not an occurrence of it.
+    // Resolved from SRC_DIR rather than `import.meta.url`: this file runs in the jsdom
+    // project, where `import.meta.url` is an http URL and readFileSync refuses it.
+    const src = stripComments(
+      readFileSync(
+        path.join(SRC_DIR, "screens/dashboard/CandidateElectoralBody.tsx"),
+        "utf8",
+      ),
+    );
+    expect(src).not.toMatch(/history\??\s*:\s*CandidateStatsYearly\[\]/);
+    // ANTI-VACUITY: the file must still be the one we think it is.
+    expect(src).toMatch(/export const CandidateElectoralBody/);
   });
 
   it("omits the geography section when there is nothing to put in it", () => {

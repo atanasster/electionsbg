@@ -6492,7 +6492,10 @@ const DB_ROUTES = {
   },
   // Every election's re-keyed electoral summary for one person (newest first) → the electoral
   // block on the merged person dashboard (person-candidate-merge-v1). The caller runs the
-  // existing candidate reducer over each cycle's raw `regions` + preferences_stats fields.
+  // existing candidate reducer over each cycle's raw `regions` + `topSettlements` /
+  // `topSections`. ⚠️ `history` is the exception and is DERIVED per person inside
+  // `person_elections()` (085) — identical on every row — because the shard array it replaced
+  // accumulated every namesake on the name fold; see that file's header.
   "person-elections": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: [] };

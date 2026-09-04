@@ -21,17 +21,18 @@
 //     link. A page with no selector has no cycle of its own to name: its cards ARE the
 //     header's cycle, the header already prints the ballot, and there is nothing for a dim
 //     bar to contrast against. Splitting these into independent props is what let the §1.2
-//     divergence exist, so they are deliberately unstateable apart;
-//   • ⚠ `history` — the ONE remaining DATA divergence, and a scheduled removal. The person
-//     page plots the whole career, the candidate page the shard's own array. The prop exists
-//     only until Tier 2 derives the arc inside `person_elections()`; delete it then rather
-//     than extending it.
+//     divergence exist, so they are deliberately unstateable apart.
+//
+// There is deliberately NO `history` prop any more. It existed as the one DATA divergence —
+// the person page plotting a whole career the candidate page could not see — and Tier 2
+// retired it by deriving the arc inside `person_elections()`, so both surfaces now plot
+// `summary.history` and the trajectory has one source. Do not reintroduce it: a second array
+// beside `summary` is what let the two pages draw different charts.
 // Anything else that differs between the two pages is a defect in this file, not a prop.
 
-import { FC, ReactNode, useMemo } from "react";
+import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Gauge, Map } from "lucide-react";
-import { CandidateStatsYearly } from "@/data/dataTypes";
 import { CandidateDashboardSummary } from "@/data/dashboard/candidateDashboardTypes";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { dottedDate } from "@/data/utils";
@@ -76,10 +77,6 @@ export type CycleSelector = {
 
 type Props = {
   summary: CandidateDashboardSummary;
-  /** Full-arc history override. The person page's trajectory is the person's WHOLE career,
-   *  which is wider than the selected cycle's own row; omit it to plot `summary.history`.
-   *  Scheduled for removal — see the file header. */
-  history?: CandidateStatsYearly[];
   /** Slug for the drill-down links. When omitted, each child tile falls back to
    *  `encodeURIComponent(summary.name)` — the links still resolve, keyed by name rather
    *  than by slug, which is what the legacy bare-name candidate URLs do. */
@@ -119,7 +116,6 @@ const CycleHeading: FC<{ summary: CandidateDashboardSummary }> = ({
 
 export const CandidateElectoralBody: FC<Props> = ({
   summary,
-  history,
   linkSlug,
   selector,
   electoralSection,
@@ -128,16 +124,6 @@ export const CandidateElectoralBody: FC<Props> = ({
   const hasGeography =
     summary.topSettlements.length > 0 || summary.topSections.length > 0;
   const cycle = selector?.cycle;
-
-  // Prefer the override only when it can actually DRAW: the tile needs ≥2 entries, so a
-  // 1-entry override would SUPPRESS a trajectory `summary.history` was going to render.
-  // Memoised because the spread would otherwise hand a Recharts chart a fresh object on
-  // every render — and throw away the `useMemo` the person page already paid for.
-  const trajectory = useMemo(
-    () =>
-      (history?.length ?? 0) > 1 ? { ...summary, history: history! } : summary,
-    [summary, history],
-  );
 
   return (
     <>
@@ -181,7 +167,7 @@ export const CandidateElectoralBody: FC<Props> = ({
           linkSlug={linkSlug}
           election={cycle}
         />
-        <CandidateTrajectoryTile data={trajectory} highlightDate={cycle} />
+        <CandidateTrajectoryTile data={summary} highlightDate={cycle} />
       </DashboardSection>
 
       {/* Gated on the ARRAYS, not on the tiles: DashboardSection cannot see through a

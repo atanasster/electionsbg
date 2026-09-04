@@ -96,6 +96,9 @@ export const PersonElectoralSection: FC<Props> = ({
       priorElectionName: prevElections(selectedCycle)?.name,
       regionRows: row.regions,
       stats: {
+        // `row.history` IS the person's whole arc — derived per person in
+        // `person_elections()` (085), so there is no longest-history pick and no superset
+        // fallback here any more, and no namesake's cycles in it. Plan §2.
         stats: row.history,
         top_settlements: row.topSettlements,
         top_sections: row.topSections,
@@ -104,25 +107,6 @@ export const PersonElectoralSection: FC<Props> = ({
       findRegion,
     });
   }, [row, name, selectedCycle, prevElections, findParty, findRegion]);
-
-  // The trajectory is the person's WHOLE arc, so it always shows the fullest history — the
-  // longest snapshot across the person's rows — never clipped to the selected cycle (an older
-  // cycle's row only carries history up to that election).
-  const fullHistory = useMemo(() => {
-    const longest = rows
-      .map((r) => r.history)
-      .filter((h) => (h?.length ?? 0) > 0)
-      .sort((a, b) => b.length - a.length)[0];
-    // The chart is highlighted by `selectedCycle` below, which relies on the longest
-    // history being a SUPERSET containing every cycle — true today because each row
-    // accumulates cycles up to its own election, but not an enforced invariant. If a
-    // future data shape ever breaks it, fall back to the selected row's OWN history
-    // (which contains its own cycle by construction) rather than silently highlighting
-    // nothing.
-    if (longest?.some((h) => h.elections_date === selectedCycle))
-      return longest;
-    return row?.history?.length ? row.history : (longest ?? []);
-  }, [rows, selectedCycle, row]);
 
   // No election with actual results → no electoral section (a candidacy role alone isn't
   // enough to show a dashboard of empty cards). But while the async fetch is still in flight
@@ -166,7 +150,6 @@ export const PersonElectoralSection: FC<Props> = ({
   return (
     <CandidateElectoralBody
       summary={summary}
-      history={fullHistory}
       linkSlug={candidateSlug}
       selector={{ cycle: selectedCycle, control: selector ?? undefined }}
       electoralSection={electoralSection}
