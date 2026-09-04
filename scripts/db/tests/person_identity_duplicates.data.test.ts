@@ -78,7 +78,10 @@ pinLocalDatabase();
  *
  * A number that FALLS is only the fix landing if its FLOOR below still holds — that pairing
  * is the whole design (see the header). Re-cut a ceiling ONLY after checking the floors, and
- * say so in docs/plans/home-search-expansion-v1.md §2.6.
+ * say so in the plan that owns it: `home-search-expansion-v1.md` §2.6 for the first three,
+ * `person-search-duplicate-rows-v1.md` §5 C1 for `headerIdenticalRows` — which is a different
+ * surface with a different remedy, so a re-cutter sent to the wrong document would read the
+ * wrong argument for why the number is what it is.
  */
 const CEILINGS = {
   /** Name folds holding an `official_muni` AND a `local` role on ≥2 person rows. */
@@ -96,6 +99,23 @@ const CEILINGS = {
   /** `person_search` P rows sitting in a same-(fold, place_label, primary_role) cluster of
    *  more than one — what a reader actually sees, in the finder and on /persons. */
   duplicateSearchRows: 4778,
+  /**
+   * The same question for the HEADER dropdown, which renders a different set of fields and
+   * therefore has its own number. Measured 2026-09-04: rows sitting in a same-(fold,
+   * party badge, office, place) cluster of more than one.
+   *
+   * ⚠️ IT MUST GROUP ON `person_election_stats.party_nick`, NOT on `person_search.party`.
+   * The badge 082's `person_search(text,int)` emits comes from the first; `party_primary`
+   * (which `person_search.party` carries) is a different column with a different NULL
+   * population — 34,899 rows carry no party_nick against 25,046 with no party_primary — so
+   * grouping on the convenient one UNDERSTATES what the header shows. The plan's first draft
+   * did exactly that and reported 3,028 → 572 for a change that is really 4,527 → 2,312.
+   *
+   * The 4,527 is what the header rendered before the office+place line (13b8b9e2d4 /
+   * dcc03eec2b) and is re-derived by the companion assertion below rather than pinned as a
+   * constant — a stored "before" would go stale against a moving corpus and prove nothing.
+   */
+  headerIdenticalRows: 2312,
 } as const;
 
 /**
@@ -110,6 +130,9 @@ const FLOORS = {
   scopedRoleRows: 31966,
   /** `person_search` tier-P rows — the denominator of the 4,766. */
   searchPRows: 63836,
+  /** Active public figures carrying a tier-P browse row — the denominator of the 2,312.
+   *  Close to `searchPRows` but derived from a different relation, so it is its own floor. */
+  headerPersonRows: 63844,
 } as const;
 
 /** How far a denominator may fall before a lower numerator stops counting as progress. */
@@ -287,6 +310,123 @@ test.skipIf(skip)(
       n <= CEILINGS.duplicateSearchRows,
       `${n} public rows sit in a same-(name, place, role) duplicate cluster, up from ` +
         `${CEILINGS.duplicateSearchRows} — the home finder and /persons both show these`,
+    );
+  },
+);
+
+// What the HEADER dropdown shows, which is a different question from the one above and has a
+// different answer. The home finder renders `roleSubtitle` (office · place); the header
+// renders the party BADGE as well, and until 2026-09-04 rendered nothing else — so two
+// same-named people in one party were two byte-identical rows there while being
+// distinguishable in the finder. Tier A of docs/plans/person-search-duplicate-rows-v1.md
+// added the same office+place line to the header; this pins the result so it cannot regress.
+//
+// ⚠️ IT READS THE PRODUCER, NOT THE SERVED PAYLOAD, and that boundary is deliberate. This
+// gate is about the CORPUS — whether the office and place still tell same-named people apart
+// — and it fires if a resolve or a browse rebuild blanks either column for a large share of
+// people. Whether the API and the renderer still carry them is a different claim, held by
+// person_search_card.data.test.ts and SearchItems.test.tsx; duplicating it here would make
+// this file's numbers depend on a function's body.
+const HEADER_ROWS = `
+  WITH hdr AS (
+    SELECT p.name_fold, pty.party_nick, b.primary_role, b.place_label
+      FROM person p
+      -- ⚠️ LEFT, mirroring person_browse_card's SELECT … INTO: a person missing from 120 is
+      -- still SERVED by person_search(), as a name+badge row with a null subtitle — the most
+      -- indistinguishable row there is. An INNER join drops them from the numerator AND the
+      -- denominator together, so losing browse rows would read as the number improving, which
+      -- is the exact failure this file's header is written about. The floor does not pay for
+      -- it either: at FLOOR_BAND a browse rebuild could lose ~3,192 people and still pass.
+      -- Verified to change nothing today (63,844 / 2,312 / 4,527 either way).
+      --
+      -- tier = 'P' is redundant against p.is_public_figure — 120 derives tier from that
+      -- very column — and is kept only so the two notions of "public" cannot silently
+      -- diverge; person_browse_card applies no tier filter at all.
+      LEFT JOIN person_browse_table b ON b.slug = p.slug AND b.tier = 'P'
+      -- The badge exactly as 082's person_search() picks it: the most recent candidacy that
+      -- has one. Grouping on person_search.party instead is the understatement documented on
+      -- CEILINGS.headerIdenticalRows.
+      LEFT JOIN LATERAL (
+        SELECT pes.party_nick FROM person_election_stats pes
+         WHERE pes.person_id = p.person_id AND pes.party_nick IS NOT NULL
+         ORDER BY pes.election_date DESC LIMIT 1) pty ON true
+     WHERE p.status = 'active' AND p.is_public_figure)`;
+
+/** Rows in a cluster of more than one, grouped on whatever the header renders. */
+const headerClusterSql = (keys: string): string => `${HEADER_ROWS}
+  SELECT coalesce(sum(c), 0) n FROM (
+    SELECT count(*) c FROM hdr GROUP BY ${keys} HAVING count(*) > 1) z`;
+
+const NAME_AND_BADGE = "name_fold, coalesce(party_nick, '')";
+const PLUS_OFFICE_PLACE = `${NAME_AND_BADGE}, coalesce(primary_role, ''), coalesce(place_label, '')`;
+
+test.skipIf(skip)(
+  "what the header shows — identical person rows in the dropdown — does not grow",
+  async () => {
+    // person_browse_table and person_election_stats have their own loaders, so their absence
+    // says nothing about the resolver. Skipped explicitly rather than by an early `return`,
+    // which vitest reports as a PASS — a green line for a check that never ran.
+    const [t] = await allRows<{ ok: boolean }>(
+      `SELECT to_regclass('public.person_browse_table') IS NOT NULL
+          AND to_regclass('public.person_election_stats') IS NOT NULL AS ok`,
+    );
+    // ⚠️ ROW COUNTS, not just to_regclass — the sibling arm above makes the same distinction.
+    // A matview that EXISTS and is unloaded would otherwise reach the floor with built = 0
+    // and fail blaming the RESOLVER, which did nothing wrong; one created WITH NO DATA raises
+    // 55000 on read rather than returning zero rows, hence the catch. And an empty
+    // person_election_stats blanks every badge — merging clusters and moving both numbers for
+    // a reason that has nothing to do with identity — while person_browse_table stays full,
+    // so the floor would clear and the arm would pass on a number meaning something else.
+    const counts = t?.ok
+      ? await allRows<{ b: string; e: string }>(
+          `SELECT (SELECT count(*) FROM person_browse_table WHERE tier = 'P') b,
+                  (SELECT count(*) FROM person_election_stats) e`,
+        ).catch(() => null)
+      : null;
+    if (!counts || !Number(counts[0].b) || !Number(counts[0].e)) {
+      reportSkip(
+        import.meta.url,
+        "person_browse_table / person_election_stats not built — run " +
+          "npm run db:load:declarations:pg -- --resolve && npm run db:load:person-elections:pg",
+      );
+      return;
+    }
+    const built = await scalar(`${HEADER_ROWS} SELECT count(*) n FROM hdr`);
+    assertFloor("header person rows", built, FLOORS.headerPersonRows);
+
+    const n = await scalar(headerClusterSql(PLUS_OFFICE_PLACE));
+    assert.ok(
+      n > 0,
+      "zero identical header rows — see the non-vacuity note above",
+    );
+    assert.ok(
+      n <= CEILINGS.headerIdenticalRows,
+      `${n} people render as an indistinguishable header row — name, party badge, office ` +
+        `and place all equal — up from ${CEILINGS.headerIdenticalRows}`,
+    );
+
+    // ⚠️ THE PAIR IS THE POINT, and the ceiling alone is satisfied by the corpus losing the
+    // very columns it is measuring: blank every place_label and the clusters MERGE rather
+    // than grow, so the number goes UP — but blank one of the two and it can go DOWN while
+    // the surface gets worse. This re-derives the number the header showed BEFORE the
+    // office+place line and requires it to be substantially larger, i.e. that the line is
+    // still doing work.
+    //
+    // A MARGIN, not `>`. Strictly-greater is satisfied by ONE person out of 63,844 being
+    // separated, which is indistinguishable from the pair having collapsed. Measured
+    // 2026-09-04: 4,527 against 2,312, a ratio of 1.96 — so 1.25 is well below the real
+    // separation and well above the noise, and a corpus that genuinely stopped discriminating
+    // cannot creep under it.
+    const MIN_SEPARATION = 1.25;
+    const withoutSubtitle = await scalar(headerClusterSql(NAME_AND_BADGE));
+    assert.ok(
+      withoutSubtitle >= n * MIN_SEPARATION,
+      `the office+place line has stopped discriminating: ${withoutSubtitle} rows are ` +
+        `identical on name + badge alone against ${n} once office and place are added, a ` +
+        `ratio of ${(withoutSubtitle / Math.max(n, 1)).toFixed(2)} against the ${MIN_SEPARATION} ` +
+        "this asserts (1.96 when measured). Either person_browse_table's " +
+        "primary_role/place_label went blank, or the two columns no longer vary across " +
+        "same-named people.",
     );
   },
 );

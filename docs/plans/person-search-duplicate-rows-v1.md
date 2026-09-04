@@ -69,7 +69,7 @@ Over the 63,836 tier-P rows in `person_search`:
 | what a reader can distinguish by | rows sitting in a cluster of >1 |
 | --- | --- |
 | share a `name_fold` at all | **9,809** |
-| home finder renders `roleSubtitle` → `(fold, place_label, primary_role)` | **4,766** (the ceiling `person_identity_duplicates.data.test.ts` already holds) |
+| home finder renders `roleSubtitle` → `(fold, place_label, primary_role)` | **4,766** (measured 2026-09-03; the ceiling `person_identity_duplicates.data.test.ts` holds has since been re-cut to **4,778** for an officials ingest — quote the file, not this row, when re-cutting) |
 
 ⚠️ **The header's two rows in that table were WRONG in this plan's first draft, and the
 correction is worth keeping rather than editing away — it is the same mistake this repo
@@ -229,21 +229,37 @@ no election carrying the pair twice.
 
 ## 5. Tier C — the residue, and keeping the number honest
 
-After A + B, **2,312 − 197 = ~2,115** rows still render identically in the header. Tier B
+After A + B, **2,312 − 197 = ~2,115** rows still render identically in the header. The 197
+is the overlap between Tier B's mergeable set and the post-Tier-A residue, and it is derivable
+rather than asserted — group the candidate-only mentions by (fold, canonical party), keep the
+groups spanning ≥2 active public persons with no election carrying the pair twice, a 3-part
+name and `namesake_risk <= 12`, then intersect their people with the rows in a
+`(fold, party_nick, primary_role, place_label)` cluster of more than one. Measured twice on
+2026-09-04, against both the `person_search` proxy base and the faithful one: 197 either way.
+Tier B
 therefore closes 8.5% of the post-A residue, not the bulk of it — the plan's first draft said
 „~375" because it inherited the understated §2 base. Most of what is left is undecidable from
 the corpus, and 89% of it is people with no party badge, where the office+place line is doing
 all the work there is to do.
 
-1. **Extend the existing ratchet.** `scripts/db/tests/person_identity_duplicates.data.test.ts`
-   holds `duplicateSearchRows: 4766` for the HOME finder's `(fold, place_label, primary_role)`
-   cluster. Add `headerIdenticalRows` for what the header renders AFTER Tier A —
-   `(fold, party_nick, primary_role, place_label)`, **2,312 today** — so the drop from 4,527
-   is locked in and cannot silently regress. ⚠️ It must group on `person_election_stats
-.party_nick`, the badge 082 emits, NOT on `person_search.party`; grouping on the latter is
-   the proxy that understated §2. Follow the file's own house rule: every ceiling gets a floor
-   on its denominator (63,844 active public figures with a tier-P browse row), because a
-   ceiling alone reads a lost source as progress.
+1. **Extend the existing ratchet — SHIPPED 2026-09-04.**
+   `scripts/db/tests/person_identity_duplicates.data.test.ts` holds `duplicateSearchRows` for
+   the HOME finder's `(fold, place_label, primary_role)` cluster; it now also holds
+   `headerIdenticalRows: 2312` for what the header renders after Tier A —
+   `(fold, party_nick, primary_role, place_label)` — with a `headerPersonRows: 63844` floor on
+   its denominator, because a ceiling alone reads a lost source as progress.
+   ⚠️ It groups on `person_election_stats.party_nick`, the badge 082 emits, NOT on
+   `person_search.party`; grouping on the latter is the proxy that understated §2.
+
+   Two things about the arm are worth knowing. It reads the PRODUCER
+   (`person_browse_table`), not the served payload — it is a claim about the corpus, and
+   whether the API and renderer still carry the pair is held by
+   `person_search_card.data.test.ts` and `SearchItems.test.tsx`. And the ceiling is PAIRED
+   with a re-derivation of the pre-Tier-A number (name + badge alone, 4,527) asserted to be
+   strictly larger: a bare ceiling is satisfied by the corpus losing the very columns it
+   measures, since blanking one of the two can make clusters merge and the count fall while
+   the surface gets worse. The "before" is re-derived rather than pinned, so it cannot go
+   stale against a moving corpus.
 2. **Adjudicate one at a time with the existing primitive.** The ref-scoped merge that
    `person-cross-party-candidate-merge-v1.md` asked for **is implemented** —
    `person_link_override kind='merge'` with `ref_a`/`ref_b`. No new machinery is needed.
