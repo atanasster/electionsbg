@@ -314,6 +314,23 @@ export type ContractBasis = "split" | "full";
 export interface ResolveOpts {
   /** Defaults to "split" — the shard convention. See ContractBasis. */
   basis?: ContractBasis;
+  /**
+   * The member EIKs of THIS row's consortium award, for the member-set K2 probe below. Read
+   * only on the `"full"` basis, and only when the row's own K2 key is absent from the index.
+   *
+   * ⚠️ Its reason for existing is the SYNTHETIC carrier: `contractor_eik` is then OURS, not the
+   * register's — 087 mints `obed-<md5(member set)>` — so `canonicalEik` returns "" for it and no
+   * supplier-keyed index can ever hold it. Two consequences, and the second is the one that
+   * bites: the K2 arm silently probes the key `"<unp>|"` and always misses, AND guard 1
+   * (`me &&` …) is skipped entirely, so that arm runs with its supplier check disabled. Passing
+   * the members restores both. A NAMED carrier has a real EIK and normally resolves without
+   * this; it reaches the probe only when the index holds no key for that EIK at all.
+   *
+   * ⚠️ The members must be THIS award's — 087 groups by `(ocid, contract_id)`, and a named
+   * carrier's EIK recurs across awards, so a set gathered by carrier EIK alone unions unrelated
+   * groups (measured: 42 EIKs across 323 groups). See load_annexes_pg.ts's group key.
+   */
+  members?: readonly string[];
 }
 
 // FINDING-004/DUP-001: the divisor is the RULE, so it lives once. `perSupplier`
@@ -374,6 +391,61 @@ const perSupplier = (
   return Math.round(cur * 100) / 100; // cents — stable across re-runs
 };
 
+/** The minimum a row needs for 087's consortium group identity. */
+export interface ConsortiumGroupRow {
+  ocid?: string | null;
+  contractId?: string | null;
+  contractorEik?: string | null;
+  consortiumRole?: string | null;
+}
+
+/** 087's group identity — `(ocid, COALESCE(contract_id,''))`, the pair its own `_cg` CTE groups
+ *  on. NOT `consortium_eik`: that is the carrier's EIK, which for a NAMED carrier is a real ДЗЗД
+ *  company that recurs across awards (measured 2026-09-04: 42 such EIKs spanning 323 groups with
+ *  DIFFERENT member sets), so keying on it unions unrelated awards' members. */
+export const consortiumGroupKey = (r: ConsortiumGroupRow): string =>
+  `${r.ocid ?? ""}|${r.contractId ?? ""}`;
+
+/** Member EIKs per 087 consortium group, for `ResolveOpts.members`. Lives here, and is used by
+ *  the loader, the measurement harness and the data gate alike, because the grouping is part of
+ *  the probe's contract rather than of any one caller — and because keying it wrongly is a
+ *  cross-award attribution that no call-site regex can see. */
+export const membersByConsortiumGroup = (
+  rows: readonly ConsortiumGroupRow[],
+): Map<string, string[]> => {
+  const out = new Map<string, string[]>();
+  for (const r of rows) {
+    if (r.consortiumRole !== "member" || !r.contractorEik) continue;
+    const k = consortiumGroupKey(r);
+    const list = out.get(k);
+    if (list) list.push(r.contractorEik);
+    else out.set(k, [r.contractorEik]);
+  }
+  return out;
+};
+
+/** The member-set K2 probe's candidate gathering: every member key the index actually holds,
+ *  de-duplicated (2,246 of 4,040 carriers carry a repeated member EIK). Exported so the
+ *  measurement harness and the data gate replay the probe rather than each re-implementing it —
+ *  the probe is the RULE, and it was expressed three times before this. */
+export const memberProbeHits = (
+  idx: AnnexIndex,
+  unp: string | undefined,
+  members: readonly string[] | undefined,
+): { key: string; member: string; acc: AnnexAcc }[] => {
+  if (!unp || !UNP_RE.test(unp) || !members?.length) return [];
+  const out: { key: string; member: string; acc: AnnexAcc }[] = [];
+  const seen = new Set<string>();
+  for (const m of members) {
+    const me = normEik(m);
+    if (!me || seen.has(me)) continue;
+    seen.add(me);
+    const acc = idx.byUnpSupplier.get(`${unp}|${me}`);
+    if (acc) out.push({ key: `${unp}|${me}`, member: me, acc });
+  }
+  return out;
+};
+
 // Resolve one contract to the annex key it matches (and the current value),
 // trying the УНП+supplier key FIRST then (buyer, contractNumber). Returns the
 // matched KEY so the annexes loader can emit exactly that key's raw rows;
@@ -408,12 +480,89 @@ export const resolveAnnexKey = (
 ): { key: string; via: "unp" | "contract_no"; value: number } | undefined => {
   const basis = opts.basis ?? "split";
   if (signed <= 0) return undefined;
-  if (c.unp && UNP_RE.test(c.unp) && c.contractorEik) {
-    const key = `${c.unp}|${normEik(c.contractorEik)}`;
-    const hit = idx.byUnpSupplier.get(key);
+  const properUnp = c.unp && UNP_RE.test(c.unp) ? c.unp : undefined;
+  const ownKey =
+    properUnp && c.contractorEik
+      ? `${properUnp}|${normEik(c.contractorEik)}`
+      : undefined;
+  if (ownKey) {
+    const hit = idx.byUnpSupplier.get(ownKey);
     if (hit && hit.contractNos.size <= 1) {
       const v = perSupplier(hit, c, signed, basis);
-      if (v != null) return { key, via: "unp", value: v };
+      if (v != null) return { key: ownKey, via: "unp", value: v };
+    }
+  }
+  // K2 THROUGH THE MEMBER SET — for a row whose own key is ABSENT from the index. That is
+  // always true of a synthetic carrier (`normEik` gives "", so `ownKey` is "<unp>|", which the
+  // index never holds) and possible for a NAMED carrier whose EIK the annex feed did not
+  // publish; named carriers are deliberately included rather than filtered — 9 of them enter
+  // the arm on the current corpus.
+  //
+  // The `has` test is deliberately "absent", NOT "the own key was refused": routing a guard
+  // refusal through a sibling's key would let N members supply N chances to get past guard 1 or
+  // the continuity anchor, which is the opposite of what the guards are for.
+  if (
+    basis === "full" &&
+    properUnp &&
+    opts.members?.length &&
+    !idx.byUnpSupplier.has(ownKey ?? "")
+  ) {
+    const hits = memberProbeHits(idx, properUnp, opts.members);
+    // REFUSE DISAGREEMENT, NEVER VOTE. One annex record is indexed under EVERY supplier it
+    // lists, so a genuine joint modification gives every member an equivalent accumulator —
+    // and a member holding a SECOND contract under the same procedure gives a different one.
+    // Taking the first hit would attribute that other contract's annexes to this consortium,
+    // with N times the surface of the single-key collision the ambiguity refusal exists for.
+    // The shape carries every field the answer depends on, `lastSupplierCount` included: it is
+    // half the divisor (annexDivisor), so two hits agreeing on the values and disagreeing on it
+    // do NOT agree on the result. It is redundant while the arm is gated to "full" (divisor 1)
+    // and is the one line that would otherwise have to be remembered if that gate ever moves.
+    //
+    // ⚠️ NOTE a single hit satisfies both tests VACUOUSLY — and that is the shape a member's
+    // OTHER contract also produces, since only that member would have an accumulator. It is
+    // intended: one member carrying the award's annexes is the ordinary case, the rule exists to
+    // refuse CONTRADICTION rather than to demand corroboration, and requiring two hits would
+    // drop every consortium whose modification the register filed against a single member. What
+    // actually validates the N=1 case is guard 2 against the carrier's FULL signing value —
+    // measured 2026-09-04, 3 of 336 resolutions come from a single hit and all three carry a
+    // pre-annex value equal to the carrier's full joint value to the cent.
+    const nos = new Set<string>();
+    const shapes = new Set<string>();
+    for (const h of hits) {
+      for (const n of h.acc.contractNos) nos.add(n);
+      shapes.add(
+        `${h.acc.curEurFull}|${h.acc.lastEurFull}|${h.acc.curPub}|${h.acc.lastSupplierCount}`,
+      );
+    }
+    if (hits.length > 0 && nos.size <= 1 && shapes.size === 1) {
+      // Guard 1 against the MEMBER, never the carrier — the carrier's EIK folds to "" and
+      // would skip the check. A member absent from the latest annex is the supplier-
+      // substitution shape; the consortium still owns the annex if any member is on it.
+      // ⚠️ TOTAL ORDER, not `find`. `opts.members` arrives in Postgres row order (the loader's
+      // contracts query has no ORDER BY), and two eligible members can hold DIFFERENT record
+      // lists under an identical accumulator shape — measured, 27 carriers — because each annex
+      // record is indexed under the suppliers IT lists. The loader emits the chosen key's record
+      // list, so an unordered pick varies the rows written to procurement_annexes between
+      // reloads, and with them `annexCount` — the "one annex at the cap vs several summing to
+      // it" figure the table exists for.
+      const onLatest = hits
+        .filter(
+          (h) =>
+            h.acc.curSuppliers.length === 0 ||
+            h.acc.curSuppliers.includes(h.member),
+        )
+        .sort((a, b) =>
+          a.member < b.member ? -1 : a.member > b.member ? 1 : 0,
+        )[0];
+      if (onLatest) {
+        const v = perSupplier(
+          onLatest.acc,
+          { ...c, contractorEik: onLatest.member } as Contract,
+          signed,
+          basis,
+        );
+        if (v != null) return { key: onLatest.key, via: "unp", value: v };
+      }
     }
   }
   const buyer = normEik(c.awarderEik);

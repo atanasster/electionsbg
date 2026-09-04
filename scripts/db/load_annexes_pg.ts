@@ -22,10 +22,18 @@
 // `consortium_role = 'carrier'` below and nothing wider. See
 // docs/plans/annex-linkage-consortium-basis-v1.md.
 //
-// `consortium_role` is added by 087, which this loader does not apply — it applies
-// 114 only. That is safe because 087 ships with `db:load:pg`, so any database
-// holding a contracts corpus has the column; a database without one has no rows to
-// resolve anyway.
+// `consortium_role` / `consortium_eik` are added by 087, which this loader does not
+// apply — it applies 114 only. That is safe because 087 ships with `db:load:pg`, so
+// any database holding a contracts corpus has the columns; a database without one has
+// no rows to resolve anyway.
+//
+// The other half of 087 the resolver cannot see on its own: 2,686 of the 4,040 carriers
+// are SYNTHETIC (`obed-<md5>`), an id we mint from the member set, so the annex feed can
+// never publish it and no supplier-keyed index can hold it. Members are therefore passed
+// for EVERY carrier, and the probe fires on whichever ones the index holds no key for —
+// always the synthetic 2,686, plus 9 named carriers on the current corpus. It refuses
+// disagreement rather than voting; see resolveAnnexKey. Measured 2026-09-04: 336 synthetic
+// carriers resolve through it, against 0 before.
 //
 //   npm run db:load:annexes:pg          (needs `npm run db:pg:up`)
 //   npm run db:load:annexes:pg:cloud    (against the Cloud SQL proxy)
@@ -43,6 +51,8 @@ import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
   buildAnnexIndex,
+  consortiumGroupKey,
+  membersByConsortiumGroup,
   resolveAnnexKey,
   type AnnexRecordRow,
   type ContractBasis,
@@ -83,6 +93,8 @@ type ContractRow = {
   signing_amount_eur: number | null;
   amount_eur: number | null;
   consortium_role: string | null; // 087: 'carrier' | 'member' | NULL
+  consortium_eik: string | null; // 087: carrier EIK — self on carrier, link on members
+  ocid: string | null; // half of 087's group identity, with contract_id
 };
 
 const main = async (): Promise<void> => {
@@ -107,10 +119,29 @@ const main = async (): Promise<void> => {
   const contracts = (
     await getPool().query<ContractRow>(
       `SELECT key, unp, awarder_eik, contractor_eik, contract_id,
-              signing_amount_eur, amount_eur, consortium_role
+              signing_amount_eur, amount_eur, consortium_role, consortium_eik, ocid
          FROM contracts WHERE tag = 'contract'`,
     )
   ).rows;
+
+  // A synthetic carrier's EIK is ours, not the register's, so no supplier-keyed annex index can
+  // hold it — the K2 arm needs the members the register actually published. They are already in
+  // the rows above and cost no second query.
+  //
+  // ⚠️ KEY ON THE GROUP, NEVER ON `consortium_eik`. 087's group identity is
+  // `(ocid, COALESCE(contract_id,''))`. For a SYNTHETIC carrier the two coincide by construction
+  // — the id IS the member set — but a NAMED carrier's `consortium_eik` is a real ДЗЗД EIK that
+  // recurs across awards: measured 2026-09-04, 42 such EIKs span groups with DIFFERENT member
+  // sets across 323 groups, so keying on the EIK hands 288 carrier rows another award's members.
+  // Harmless today (the agreement rule refuses them) — but that is the cross-contract
+  // attribution this probe exists to refuse, arriving through the candidate set instead.
+  const groupRow = (cr: ContractRow) => ({
+    ocid: cr.ocid,
+    contractId: cr.contract_id,
+    contractorEik: cr.contractor_eik,
+    consortiumRole: cr.consortium_role,
+  });
+  const membersByGroup = membersByConsortiumGroup(contracts.map(groupRow));
 
   // De-dup on (contract_key, notice_id, lot) keeping the latest publication —
   // the feed republishes a notice as its value evolves. A notice_id identifies
@@ -142,7 +173,11 @@ const main = async (): Promise<void> => {
     // resolveAnnexKey.
     const basis: ContractBasis =
       cr.consortium_role === "carrier" ? "full" : "split";
-    const hit = resolveAnnexKey(idx, c, signed, { basis });
+    const members =
+      cr.consortium_role === "carrier"
+        ? membersByGroup.get(consortiumGroupKey(groupRow(cr)))
+        : undefined;
+    const hit = resolveAnnexKey(idx, c, signed, { basis, members });
     if (!hit) continue;
     matched++;
     const rows =

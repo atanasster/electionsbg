@@ -9,6 +9,8 @@
 import { describe, expect, it } from "vitest";
 import {
   resolveAnnexKey,
+  consortiumGroupKey,
+  membersByConsortiumGroup,
   lookup,
   indexAnnexRows,
   CONTINUITY_TOL,
@@ -371,6 +373,238 @@ describe("contract basis — the divisor the caller declares", () => {
       300,
     );
     expect(lookup(threeMembers(), contract(), 300)).toBeUndefined();
+  });
+});
+
+describe("synthetic carrier — K2 through the member set", () => {
+  // 087 mints an `obed-<md5>` id from the sorted member set for an unnamed consortium: 2,686 of
+  // 4,040 carriers. `canonicalEik` returns "" for it, so the own-key probe is `"<unp>|"` (never
+  // present) AND guard 1 is skipped — the arm runs with its supplier check disabled. The member
+  // set restores both.
+  const carrier = (over: Partial<Contract> = {}): Contract =>
+    contract({ contractorEik: "obed-1a2b3c4d5e6f", ...over });
+
+  const withMembers = (accs: Record<string, AnnexAcc>): AnnexIndex =>
+    index({
+      byUnpSupplier: new Map(
+        Object.entries(accs).map(([eik, a]) => [`00123-2024-0001|${eik}`, a]),
+      ),
+    });
+
+  it("resolves through the members when the carrier's own key cannot exist", () => {
+    const idx = withMembers({ "222": acc(), "333": acc() });
+    expect(
+      resolveAnnexKey(idx, carrier(), 100, {
+        basis: "full",
+        members: ["222", "333"],
+      }),
+    ).toMatchObject({ via: "unp", value: 150 });
+  });
+
+  it("returns undefined without the member set — nothing else can reach it", () => {
+    // The pre-Tier-2 behaviour, pinned: the K1 arm is the only thing left, and here there is
+    // no byContractNo entry. This is what made 2,687 obed- carriers carry 2 annex links.
+    const idx = withMembers({ "222": acc(), "333": acc() });
+    expect(
+      resolveAnnexKey(idx, carrier(), 100, { basis: "full" }),
+    ).toBeUndefined();
+  });
+
+  it("REFUSES when the members disagree on the contract number", () => {
+    // A member holding a SECOND contract under this procedure. Voting (taking the first hit)
+    // would file that other contract's annexes against this consortium — the single-key
+    // ambiguity collision with N times the surface.
+    const idx = withMembers({
+      "222": acc({ contractNos: new Set(["42"]) }),
+      "333": acc({ contractNos: new Set(["99"]) }),
+    });
+    expect(
+      resolveAnnexKey(idx, carrier(), 100, {
+        basis: "full",
+        members: ["222", "333"],
+      }),
+    ).toBeUndefined();
+  });
+
+  it("REFUSES when the members disagree on the annex's values", () => {
+    // One annex record is indexed under every supplier it lists, so a genuine joint
+    // modification gives every member an identical accumulator. A different one means the
+    // member is carrying something else.
+    const idx = withMembers({
+      "222": acc(),
+      "333": acc({ curEurFull: 900, lastEurFull: 100 }),
+    });
+    expect(
+      resolveAnnexKey(idx, carrier(), 100, {
+        basis: "full",
+        members: ["222", "333"],
+      }),
+    ).toBeUndefined();
+  });
+
+  it("evaluates guard 1 against the MEMBER, not the carrier", () => {
+    // The carrier's EIK folds to "", which makes `me &&` skip the check entirely. With the
+    // members supplied, a set none of whom is on the latest annex must still be refused.
+    const absent = acc({ curSuppliers: ["999"] });
+    expect(
+      resolveAnnexKey(
+        withMembers({ "222": absent, "333": absent }),
+        carrier(),
+        100,
+        {
+          basis: "full",
+          members: ["222", "333"],
+        },
+      ),
+    ).toBeUndefined();
+    // …and a member that IS on it resolves, so the guard discriminates rather than blocking.
+    const present = acc({ curSuppliers: ["333"] });
+    expect(
+      resolveAnnexKey(
+        withMembers({ "222": present, "333": present }),
+        carrier(),
+        100,
+        {
+          basis: "full",
+          members: ["222", "333"],
+        },
+      ),
+    ).toMatchObject({ via: "unp", value: 150 });
+  });
+
+  it("does NOT fire when the row's own key exists but was refused", () => {
+    // Otherwise N members are N chances to get past a guard, which inverts what the guards are
+    // for. ⚠️ The sibling here must be a genuine RESCUE candidate (anchor 500 == signing 500):
+    // with two identical accumulators the sibling fails the same continuity guard the own key
+    // just failed, so `toBeUndefined()` holds whether the precondition exists or not — that
+    // fixture passed with `!idx.byUnpSupplier.has(ownKey)` deleted, i.e. it pinned nothing.
+    const rescuer = acc({
+      lastEurFull: 500,
+      curEurFull: 600,
+      curSuppliers: ["333"],
+    });
+    const idx = index({
+      byUnpSupplier: new Map([
+        ["00123-2024-0001|222", acc()], // the own key — continuity-refused at signing 500
+        ["00123-2024-0001|333", rescuer],
+      ]),
+    });
+    expect(
+      resolveAnnexKey(idx, contract(), 500, {
+        basis: "full",
+        members: ["333"],
+      }),
+    ).toBeUndefined();
+    // Positive control: with no own key in the index the SAME sibling resolves. Without this the
+    // assertion above could go vacuous again the next time the fixture is edited.
+    expect(
+      resolveAnnexKey(idx, carrier(), 500, {
+        basis: "full",
+        members: ["333"],
+      }),
+    ).toMatchObject({ via: "unp", value: 600 });
+  });
+
+  it("is tried AFTER the own K2 key and BEFORE K1", () => {
+    // Placement, pinned in both directions. The carrier has a K1 key that would resolve to a
+    // different value, so a probe running after K1 — or not at all — is visible in the result.
+    const idx = index({
+      byUnpSupplier: new Map([["00123-2024-0001|222", acc()]]),
+      byContractNo: new Map([["111|42", acc({ curEurFull: 900 })]]),
+    });
+    expect(
+      resolveAnnexKey(idx, carrier(), 100, { basis: "full", members: ["222"] }),
+    ).toMatchObject({ via: "unp", value: 150 });
+    // …and with no member set it falls through to K1, which is the pre-Tier-2 answer.
+    expect(
+      resolveAnnexKey(idx, carrier(), 100, { basis: "full" }),
+    ).toMatchObject({ via: "contract_no", value: 900 });
+  });
+
+  it("does not fire on the split basis — Tier 2 is scoped to post-087 carriers", () => {
+    const idx = withMembers({ "222": acc(), "333": acc() });
+    expect(
+      resolveAnnexKey(idx, carrier(), 100, {
+        basis: "split",
+        members: ["222", "333"],
+      }),
+    ).toBeUndefined();
+  });
+});
+
+describe("membersByConsortiumGroup — 087's group identity", () => {
+  const member = (
+    ocid: string,
+    contractId: string,
+    eik: string,
+    consortiumEik = "111",
+  ) => ({
+    ocid,
+    contractId,
+    contractorEik: eik,
+    consortiumRole: "member",
+    consortiumEik,
+  });
+
+  it("does NOT merge two awards that share a named carrier EIK", () => {
+    // The whole reason the key is (ocid, contract_id): a named carrier's consortium_eik is a real
+    // ДЗЗД company that recurs across awards — 42 of them span groups with different member sets
+    // (323 groups measured) — so grouping by it hands one award the other's members, which is the
+    // cross-contract attribution the probe's agreement rule exists to refuse.
+    const m = membersByConsortiumGroup([
+      member("o1", "c1", "A"),
+      member("o2", "c2", "B"),
+    ]);
+    expect([...m.values()]).toEqual([["A"], ["B"]]);
+  });
+
+  it("groups members of the SAME award together", () => {
+    const m = membersByConsortiumGroup([
+      member("o1", "c1", "A"),
+      member("o1", "c1", "B"),
+    ]);
+    expect(m.get(consortiumGroupKey({ ocid: "o1", contractId: "c1" }))).toEqual(
+      ["A", "B"],
+    );
+  });
+
+  it("ignores carriers and non-consortium rows", () => {
+    const m = membersByConsortiumGroup([
+      {
+        ocid: "o1",
+        contractId: "c1",
+        contractorEik: "X",
+        consortiumRole: "carrier",
+      },
+      {
+        ocid: "o1",
+        contractId: "c1",
+        contractorEik: "Y",
+        consortiumRole: null,
+      },
+      member("o1", "c1", "A"),
+    ]);
+    expect([...m.values()]).toEqual([["A"]]);
+  });
+
+  it("treats a NULL contract_id as 087 does — the empty string, not a distinct group", () => {
+    // 087 groups on COALESCE(contract_id, ''), so two members of one ocid-only award must land
+    // in the same bucket rather than in two singletons.
+    const m = membersByConsortiumGroup([
+      {
+        ocid: "o1",
+        contractId: null,
+        contractorEik: "A",
+        consortiumRole: "member",
+      },
+      {
+        ocid: "o1",
+        contractId: null,
+        contractorEik: "B",
+        consortiumRole: "member",
+      },
+    ]);
+    expect([...m.values()]).toEqual([["A", "B"]]);
   });
 });
 

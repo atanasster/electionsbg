@@ -57,6 +57,9 @@ import {
   parseBgNumber,
   resolveAnnexKey,
   annexDivisor,
+  consortiumGroupKey,
+  memberProbeHits,
+  membersByConsortiumGroup,
   type AnnexAcc,
   type AnnexIndex,
   type ContractBasis,
@@ -112,6 +115,8 @@ interface Row {
   consortiumFullEur?: number;
   /** What THIS row's value means — see ContractBasis. Shards are always split. */
   basis: ContractBasis;
+  /** Member EIKs behind a post-087 synthetic carrier, for the member-set K2 probe. */
+  members?: readonly string[];
 }
 
 const isYearDir = (n: string): boolean => /^\d{4}$/.test(n);
@@ -163,11 +168,23 @@ const loadPg = async (): Promise<Row[]> => {
     amount_eur: number | null;
     consortium_full_eur: number | null;
     consortium_role: string | null;
+    consortium_eik: string | null;
+    ocid: string | null;
   }>(
     `SELECT key, unp, awarder_eik, contractor_eik, contract_id,
-            signing_amount_eur, amount_eur, consortium_full_eur, consortium_role
+            signing_amount_eur, amount_eur, consortium_full_eur, consortium_role,
+            consortium_eik, ocid
        FROM contracts WHERE tag = 'contract'`,
   );
+  // Mirrors load_annexes_pg.ts, including its GROUP key — 087 groups by (ocid, contract_id),
+  // and a named carrier's consortium_eik recurs across awards.
+  const gr = (r: (typeof rows)[number]) => ({
+    ocid: r.ocid,
+    contractId: r.contract_id,
+    contractorEik: r.contractor_eik,
+    consortiumRole: r.consortium_role,
+  });
+  const membersByGroup = membersByConsortiumGroup(rows.map(gr));
   return rows.map((r) => ({
     key: r.key,
     unp: r.unp ?? undefined,
@@ -177,6 +194,10 @@ const loadPg = async (): Promise<Row[]> => {
     signed: r.signing_amount_eur ?? r.amount_eur ?? null,
     consortiumFullEur: r.consortium_full_eur ?? undefined,
     basis: pgBasis(r.consortium_role),
+    members:
+      r.consortium_role === "carrier"
+        ? membersByGroup.get(consortiumGroupKey(gr(r)))
+        : undefined,
   }));
 };
 
@@ -274,6 +295,7 @@ const CAUSES = [
   "guard 2: no usable anchor",
   "guard 2: continuity — pre-annex value ≠ signing (±12%)",
   "guard 3: ratio cap",
+  "carrier member-set probe refused: members disagree",
   "unattributed",
 ] as const;
 type Cause = (typeof CAUSES)[number];
@@ -314,12 +336,17 @@ const attribute = (
   if (a.suppliers.length === 0) return { cause: CAUSES[1] };
   const under = byUnp.get(a.unp) ?? [];
   if (under.length === 0) return { cause: CAUSES[2] };
-  const cands = under.filter((c) =>
-    a.suppliers.includes(normEik(c.contractorEik)),
+  // A synthetic carrier's own EIK folds to "" and is never on the annex's supplier list, so it
+  // is admitted through its MEMBERS — otherwise every carrier refusal is misreported as "no
+  // contract under this УНП carries the annex's supplier".
+  const cands = under.filter(
+    (c) =>
+      a.suppliers.includes(normEik(c.contractorEik)) ||
+      (c.members ?? []).some((m) => a.suppliers.includes(normEik(m))),
   );
   if (cands.length === 0) return { cause: CAUSES[3] };
 
-  let out: { cause: Cause; anchorRatio?: number } = { cause: CAUSES[13] };
+  let out: { cause: Cause; anchorRatio?: number } = { cause: CAUSES[14] };
   for (const c of cands) {
     if (c.signed == null || c.signed <= 0) {
       out = { cause: c.consortiumFullEur != null ? CAUSES[4] : CAUSES[5] };
@@ -327,13 +354,43 @@ const attribute = (
     }
     let seen = false;
     // K2 first, exactly as resolveAnnexKey does.
-    const k2 = idx.byUnpSupplier.get(`${a.unp}|${normEik(c.contractorEik)}`);
+    const ownKey = `${a.unp}|${normEik(c.contractorEik)}`;
+    const k2 = idx.byUnpSupplier.get(ownKey);
     if (k2) {
       seen = true;
       out =
         k2.contractNos.size > 1
           ? { cause: CAUSES[7] }
-          : (guardRefusal(k2, c, c.signed) ?? { cause: CAUSES[13] });
+          : (guardRefusal(k2, c, c.signed) ?? { cause: CAUSES[14] });
+    } else if (c.members?.length) {
+      // …then the member-set probe, on the same terms resolveAnnexKey uses.
+      const hits = memberProbeHits(idx, a.unp, c.members);
+      if (hits.length > 0) {
+        seen = true;
+        const nos = new Set<string>();
+        const shapes = new Set<string>();
+        for (const h of hits) {
+          for (const n of h.acc.contractNos) nos.add(n);
+          shapes.add(
+            `${h.acc.curEurFull}|${h.acc.lastEurFull}|${h.acc.curPub}`,
+          );
+        }
+        if (nos.size > 1 || shapes.size > 1) out = { cause: CAUSES[13] };
+        else {
+          const onLatest = hits.find(
+            (h) =>
+              h.acc.curSuppliers.length === 0 ||
+              h.acc.curSuppliers.includes(h.member),
+          );
+          out = onLatest
+            ? (guardRefusal(
+                onLatest.acc,
+                { ...c, contractorEik: onLatest.member },
+                c.signed,
+              ) ?? { cause: CAUSES[14] })
+            : { cause: CAUSES[9] };
+        }
+      }
     }
     // …then K1, which is what an unlinked record with no usable K2 actually fell through to.
     const buyer = normEik(c.awarderEik);
@@ -344,7 +401,7 @@ const attribute = (
       out =
         k1.unps.size > 1
           ? { cause: CAUSES[8] }
-          : (guardRefusal(k1, c, c.signed) ?? { cause: CAUSES[13] });
+          : (guardRefusal(k1, c, c.signed) ?? { cause: CAUSES[14] });
     }
     if (!seen) out = { cause: CAUSES[6] };
   }
@@ -408,7 +465,7 @@ const measure = (
         contractId: c.contractId,
       } as Contract,
       c.signed,
-      { basis: c.basis },
+      { basis: c.basis, members: c.members },
     );
     if (hit) (hit.via === "unp" ? resolvedUnp : resolvedCn).add(hit.key);
   }
