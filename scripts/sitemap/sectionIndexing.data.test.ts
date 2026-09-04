@@ -36,6 +36,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { reportSkip } from "../lib/report_skip";
+import { assertCommitted } from "../lib/assert_committed";
+
+// ⚠ AN ASSERTION, NOT A SKIP. `sitemap_sections.xml` is COMMITTED, so its absence is a broken
+// working copy rather than a supported state — and a gate whose whole subject is "is this
+// family still submitted?" standing down because the sitemap is missing would answer that
+// question with silence. Only the dist half may skip; that tree is not committed.
+assertCommitted("public/sitemap_sections.xml");
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
