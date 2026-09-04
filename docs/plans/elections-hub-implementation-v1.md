@@ -1590,7 +1590,17 @@ Work:
 5. Keep `DashboardSection` for deep content; do not turn the result surface into the ordinary hub tile registry.
 6. Add a short methods disclosure explaining standout selection, limitations, and result status.
 
+**STATUS 2026-09-04 — items 1, 4, 5 and 6 are done; 2 and 3 are BLOCKED, and only on a human.**
+
+⚠️ **Item 2 cannot be done by an agent and must not be faked.** "Run the four research tasks with at least five readers across phone and desktop, including one keyboard-only walkthrough" is an observation of people. Substituting a heuristic read of the pages would produce findings-shaped text with no observation behind it, and item 3 then removes real content on their authority.
+
+⚠️ **Item 3 therefore waits, but its PRECONDITION is now met and was not before.** It requires "an existing reachable complete-results destination" for every removal — and `destinations.completeResult` had been generated, schema-gated and published since Phase 1 with **no consumer at all**, while 8,704 artifacts pointed it at their own page. Both are fixed: the leaf renders, and the generator refuses a self-link. So when findings exist, the removals can proceed against a destination that is actually reachable rather than one that only existed in the payload.
+
+The reductions already taken in Phases 4–6 stand and needed no findings: they removed only numbers the shared strip or canvas restates on the same screen, which is §4's own "remove only numbers duplicated by the new strip/canvas" rather than item 3's evidence-led cut.
+
 Exit criterion: primary-task completion improves or remains stable, no evidence destination loses reachability, and the first viewport meets the information budget at every level.
+
+**Of the three clauses, the middle one is met and testable and the other two need item 2.** No evidence destination lost reachability — one GAINED it (§8's complete-result leaf, on 12,721 section pages), and the surface's own exits are now instrumented so the first clause becomes measurable once there is traffic to measure. „Primary-task completion" and the information budget are reader observations.
 
 ### Phase 8 — optional URL migration, separately approved
 
