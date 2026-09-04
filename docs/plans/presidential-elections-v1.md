@@ -48,7 +48,11 @@ Not downloaded, known to exist: `before_2003/1991_1999.zip` (the 1992 and 1996 p
 - **`<round-1 date>_pvr` with `ТУР1/` / `ТУР2/` subfolders holding the ORIGINAL file names and original
   bytes.** Multi-round cycles already use `ТУР1/…` (local), and presidential is a two-round national ballot; the
   flat renamed layout (`votes.txt`, `protocols.txt`) is the single-round parliamentary convention and would lose
-  the per-round provenance. Encodings are left as published (§2.2) — the parsers decode.
+  the per-round provenance. Encodings are left as published (§2.2) — the parsers decode. One exception, and it
+  is the repo-wide one: `core.autocrlf = input` normalises the files' CRLF line endings to LF in the committed
+  blobs (220 of the text files warned on commit), exactly as every tracked parliamentary raw file already is
+  (`git ls-files --eol` reports `i/lf w/crlf` for `raw_data/2021_11_14/votes.txt` too). A fresh clone therefore
+  reads LF; every reader must accept both, and no gate may fingerprint a raw file's bytes.
 - **Tracked in git, unlike `_mi`/`_chmi`.** The local trees are gitignored because they are regenerable by
   `--local-ingest`; these are small (20 MB for five cycles, against 90 MB for one parliamentary `preferences.txt`)
   and two of the hosts are legacy archives that could vanish. No `.gitignore` rule is added.
