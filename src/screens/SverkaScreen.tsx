@@ -96,7 +96,7 @@ const MayorCell: FC<{ m: MunicipalityOfficialsDiff["mayor"] }> = ({ m }) => {
         <span className="text-sm">
           <span>{m.cikName}</span>
           <span className="ml-1.5 text-[11px] text-muted-foreground">
-            (без декларация)
+            {t("sverka_mayor_no_declaration")}
           </span>
         </span>
       );

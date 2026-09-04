@@ -188,7 +188,10 @@ describe("election surface — absence is not zero", () => {
     });
     // ⚠ THE FOURTH STATE, and the reason `agrees: boolean` was replaced by an outcome. The
     // officials roster carrying NO mayor record is not a contradiction of the CEC — it is
-    // silence — and six municipalities in the 2023 cycle are in exactly that state. A boolean
+    // silence. No municipality is in that state today (0 across all five cycles as of
+    // 2026-09-04 — every one turned out to be our own join losing the mayor), so this is a
+    // property of the SHAPE, not of the corpus: the state has to survive being unreachable. A
+    // boolean
     // has nowhere to put it, so every one of them published as a disagreement.
     const noRecord = surface({
       status: {

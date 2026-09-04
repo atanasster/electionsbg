@@ -47,15 +47,24 @@ export type { DestinationInput } from "../../src/data/elections/destinations";
 
 // ─── the second authority (§5) ──────────────────────────────────────────────────────────────
 
-/** The `/sverka` sidecar for one município in one local cycle, if the cycle ships one. */
-export const sverkaSidecarPath = (cycle: string, obshtina: string): string =>
-  path.join(DATA_ROOT, cycle, "officials_diff", `${obshtina}.json`);
+/** The `/sverka` sidecar for one município in one local cycle, if the cycle ships one.
+ *
+ *  `root` defaults to the real data tree and exists so a test can exercise a sidecar shape the
+ *  corpus does not currently contain — `missing_official` reached zero municipalities once the
+ *  obshtina join, the published role and the bench filter were fixed, which left the arm that
+ *  carries that state through covered by nothing. Same injection as `emitShards`'s `shardDir`. */
+export const sverkaSidecarPath = (
+  cycle: string,
+  obshtina: string,
+  root: string = DATA_ROOT,
+): string => path.join(root, cycle, "officials_diff", `${obshtina}.json`);
 
 export type Reconciliation = {
   against: "officials_roster";
-  /** ⚠ FOUR STATES, NEVER A BOOLEAN. See `surfaceTypes.ts` — `missing` is the roster being
-   *  SILENT about a mayor, and collapsing it into "does not agree" publishes a contradiction
-   *  that six municipalities' sidecars do not assert. */
+  /** ⚠ FOUR STATES, NEVER A BOOLEAN. See `surfaceTypes.ts` — `missing` is one side having no
+   *  record, and collapsing it into "does not agree" publishes a contradiction those sidecars
+   *  do not assert. (The count is per-cycle and moves with the roster vintage; it is
+   *  deliberately not written down here.) */
   outcome: MunicipalityOfficialsDiff["overallStatus"];
   to: string;
 };
@@ -66,8 +75,8 @@ export type Reconciliation = {
  *  it was last written.
  *
  *  ⚠ THE OUTCOME IS CARRIED WHOLE, NEVER REDUCED TO A BOOLEAN. `computeOverall(...) === "match"`
- *  was the first shape and it fabricated a contradiction for the six municipalities whose
- *  roster has no mayor record at all.
+ *  was the first shape and it fabricated a contradiction for every municipality whose roster
+ *  has no mayor record at all.
  *
  *  ⚠ RE-DERIVE THROUGH `computeOverall`, NEVER THROUGH A RULE RESTATED HERE. That is the whole
  *  difference between re-deriving and inventing a second, harsher test. The first draft of this
@@ -80,8 +89,9 @@ export type Reconciliation = {
 export const readReconciliation = (
   cycle: string,
   obshtina: string,
+  root: string = DATA_ROOT,
 ): Reconciliation | undefined => {
-  const p = sverkaSidecarPath(cycle, obshtina);
+  const p = sverkaSidecarPath(cycle, obshtina, root);
   if (!fs.existsSync(p)) return undefined;
   let raw: unknown;
   try {

@@ -382,12 +382,33 @@ export type ElectionSurfaceV1 = {
       /** ⚠ THE COMPARISON'S OWN FOUR-STATE OUTCOME, NOT A BOOLEAN — and the plan's §5 sketch
        *  said `agrees: boolean`, which this deliberately departs from with a measured reason.
        *
-       *  `missing` means one side HAS NO RECORD: on the 2023 cycle six municipalities (Разград,
-       *  Бяла, Искър, Мъглиж, Раднево, Макреш) carry `missing_official` with a null roster
-       *  mayor. Folding four states into "agrees" publishes every one of them as "the officials
-       *  roster contradicts the CEC here", which is a claim about a named council that the
-       *  corpus does not make — the roster is SILENT, not contradicting. A boolean has nowhere
-       *  to put that, so the fold is removed rather than documented against.
+       *  `missing` means one side HAS NO RECORD. Folding four states into "agrees" would
+       *  publish such a municipality as "the officials roster contradicts the CEC here" — a
+       *  claim about a named council that the corpus does not make, since the roster is silent
+       *  rather than contradicting. A boolean has nowhere to put that, so the fold is removed
+       *  rather than documented against.
+       *
+       *  ⚠️ DO NOT RE-STATE THE POPULATION HERE. This comment used to name "six municipalities
+       *  on the 2023 cycle (Разград, Бяла, Искър, Мъглиж, Раднево, Макреш)"; that was the
+       *  2019 cycle's set, mislabelled. The count is per-cycle AND per-roster-vintage — the
+       *  sidecars that produced it were themselves mixed, four frozen at 2026-08-10 and the
+       *  2023 one regenerated 2026-09-03 — which is the whole point: read
+       *  `data/<cycle>/officials_diff.json`'s own `summary` beside its own `generatedAt`,
+       *  never a number written down here. (It is 0 in every cycle as of 2026-09-04.)
+       *
+       *  ⚠️ AND `missing` IS NOT SELF-EVIDENTLY THE ROSTER'S FAULT. Of the sidecars carrying
+       *  it, the FOUR that were investigated — VAR05, SZR22, VID25, BLG37, the plan's §1 —
+       *  were all our own join losing the mayor: an obshtina name collision, a register
+       *  listing label taken over the declarant's own statement, and a year filter dropping an
+       *  incumbent. Each published "X has not filed a declaration" about someone who had.
+       *
+       *  Do NOT read the count reaching zero as "those three causes explain every one". The
+       *  earlier cycles' entries were never enumerated; the plan verified PVN23 (Искър) as
+       *  carrying the right mayor, and it appears in the six-municipality list above; and the
+       *  count fell in the same window as a roster reload, which the plan's §3 shows can heal
+       *  one upstream on its own — the register relabelled Разград's mayor itself.
+       *  `scripts/db/tests/officials_diff_missing.data.test.ts` now holds the difference; see
+       *  docs/plans/officials-roster-missing-mayor-v1.md.
        *
        *  Values are `OfficialsDiffOverall`'s, re-derived through `computeOverall` from the
        *  sidecar's own parts (§5's "re-derives rather than a stored copy"). */

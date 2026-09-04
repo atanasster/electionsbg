@@ -24,7 +24,20 @@ import {
 } from "./source_links";
 import { localUrl, placeViewUrl } from "../../src/data/local/placeViews";
 import { PLACE_DIGEST_ORDER } from "../../src/data/elections/surfaceTypes";
+import os from "node:os";
 import { stripComments } from "../lib/strip_comments";
+
+/** A council that fully reconciles — 21 elected, 21 matched. The mayor status is what varies
+ *  in the tests below, so the council is held constant and shared rather than re-typed. */
+const FULL_COUNCIL = {
+  cikSeats: 21,
+  cikElectedCount: 21,
+  officialSeats: 21,
+  matched: 21,
+  onlyInCik: [],
+  onlyInOfficial: [],
+};
+import { computeOverall } from "../parsers_local/reconcile_officials";
 
 const LOCAL_CYCLE = "2023_10_29_mi";
 const hasLocal = fs.existsSync(path.join(DATA_ROOT, LOCAL_CYCLE));
@@ -289,16 +302,86 @@ describe("the second authority (§5)", () => {
         const r = readReconciliation(LOCAL_CYCLE, f.replace(/\.json$/, ""));
         if (r) produced.add(r.outcome);
       }
+      // ⚠️ A CORPUS FLOOR, DELIBERATELY LOW. This used to require 3 and the corpus emits
+      // exactly 3, with the smallest bucket (`mismatch`) at 4 of 288 — so it sat ON its floor,
+      // one healed município from going red for the same reason the `missing` arm below did:
+      // the data got better. Discrimination is asserted against `computeOverall` instead, in
+      // its own test, where no corpus can retire it. What this keeps is the weaker property
+      // the corpus CAN speak to — that the derivation is not returning one constant.
       expect(
         produced.size,
         `the derivation emits only ${[...produced]} — it cannot be discriminating`,
-      ).toBeGreaterThanOrEqual(3);
-      // ⚠ `missing` SPECIFICALLY. It is the bucket a boolean `agrees` collapsed into "the
-      // roster contradicts the CEC", for six municipalities whose roster is merely silent.
-      expect([...produced]).toContain("missing");
+      ).toBeGreaterThanOrEqual(2);
       expect([...produced]).toContain("match");
+      // ⚠ `missing` IS **NOT** ASSERTED AGAINST THE CORPUS, AND THAT IS A DELIBERATE CHANGE.
+      // It used to be — the corpus reliably held a handful, so requiring one here also proved
+      // the state was reachable. Every one of those turned out to be OUR join losing the
+      // mayor rather than the roster being silent (an obshtina name collision, a register
+      // listing label taken over the declarant's own statement, a year filter dropping an
+      // incumbent), and fixing all three took the count to zero — at which point this
+      // assertion failed BECAUSE the defect it depended on was gone.
+      //
+      // A gate must not require a corpus to keep publishing a false statement in order to
+      // stay green, so reachability is proved against the RULE below instead, where it
+      // belongs and where no data can retire it.
+      // docs/plans/officials-roster-missing-mayor-v1.md
     },
   );
+
+  it("readReconciliation carries a `missing` sidecar through whole", () => {
+    // FINDING-006: with no municipality in that state, nothing exercised the path from a
+    // `missing_*` sidecar on disk to the payload — the arm most at risk from a future
+    // "simplification" of the four states, since it is the one with no live example.
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sidecar-"));
+    const cycleDir = path.join(dir, LOCAL_CYCLE, "officials_diff");
+    fs.mkdirSync(cycleDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(cycleDir, "ZZZ99.json"),
+      JSON.stringify({
+        obshtinaCode: "ZZZ99",
+        obshtinaName: "Тест",
+        mayor: { status: "missing_official", cikName: "Иван Иванов" },
+        council: FULL_COUNCIL,
+        overallStatus: "missing",
+      }),
+    );
+    const r = readReconciliation(LOCAL_CYCLE, "ZZZ99", dir);
+    expect(r?.outcome).toBe("missing");
+    expect(r?.against).toBe("officials_roster");
+    fs.rmSync(dir, { recursive: true, force: true });
+  });
+
+  it("carries `missing` whole rather than folding it into a contradiction", () => {
+    // The reachability half, moved off the corpus (see above). `missing` is the bucket a
+    // boolean `agrees` collapsed into "the officials roster contradicts the CEC here", which
+    // is a claim about a named council that a SILENT roster does not make. Asserted through
+    // `computeOverall` — the one rule — so it holds whether or not any municipality is
+    // currently in that state.
+    for (const mayorStatus of ["missing_official", "missing_cik"] as const)
+      expect(computeOverall(mayorStatus, FULL_COUNCIL)).toBe("missing");
+    // …and it is genuinely distinct from the neighbours it could be folded into.
+    expect(computeOverall("match", FULL_COUNCIL)).toBe("match");
+    expect(computeOverall("replaced", FULL_COUNCIL)).toBe("mismatch");
+    // TEST-002: the two branches no live sidecar reaches — the 80% council threshold, and the
+    // no-council case (Sofia районни) where the mayor decides alone.
+    expect(computeOverall("match", { ...FULL_COUNCIL, matched: 10 })).toBe(
+      "partial_mismatch",
+    );
+    expect(
+      computeOverall("match", {
+        ...FULL_COUNCIL,
+        cikElectedCount: 0,
+        matched: 0,
+      }),
+    ).toBe("match");
+    expect(
+      computeOverall("replaced", {
+        ...FULL_COUNCIL,
+        cikElectedCount: 0,
+        matched: 0,
+      }),
+    ).toBe("mismatch");
+  });
 
   it("reads the sidecar's PARTS, never its stored overallStatus", () => {
     // The structural half of the rule above, and it is a SOURCE scan — so it runs everywhere,
