@@ -122,7 +122,9 @@ export const CYCLE_SURFACE: Record<
  *
  * Emptied by plan T5, which adds `/presidential/:cycle`.
  */
-export const KINDS_WITHOUT_SURFACE: ElectionsHubKind[] = ["presidential"];
+export const KINDS_WITHOUT_SURFACE: readonly ElectionsHubKind[] = [
+  "presidential",
+];
 
 /** `2026_04_19` → `2026-04-19`. The parliamentary catalogue stores no date of its own; the
  *  folder id IS the date, which is why this conversion is safe here and nowhere near a label. */

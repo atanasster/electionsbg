@@ -916,8 +916,40 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
   ⚠️ The latest event is still `2026_04_19` — the newest presidential cycle is 2021 — so nothing about the
   default view moves.
-- **T4.3** `ElectionsSelect.tsx`: a third row kind with the winner's ticket surname and `decidedInRound`; arrows
-  keep skipping non-parliamentary rows.
+- **T4.3 ✅ DONE.** The header dropdown gains a third row kind — round-1 date, the winner's family name and
+  which round elected them, under a „Президентски" badge — and the arrows keep stepping through parliamentary
+  cycles only, for the same reason they skip local ones: an arrow that crossed electoral systems would change
+  what the whole page is about without the reader asking. Four things the step settled:
+
+  - ⚠️ **THE ROWS ARE BUILT AND THEN WITHHELD, not omitted.** `presidentialRows.ts` is complete and gated now;
+    the menu renders it only while `"presidential"` is off `KINDS_WITHOUT_SURFACE` — the SAME list the hub
+    resolves against, so the two cannot disagree about which kinds are servable. T5 empties it and the section
+    lights up with no further change. „No presidential section" and „the feature was never built" look
+    identical in a rendered menu, which is why the withholding is asserted rather than assumed.
+  - ⚠️ **`onPickRow`'s `else` WOULD HAVE OPENED THE WRONG ELECTION.** It sent every non-parliamentary row to
+    `/local/<id>`, so a presidential row navigated to `/local/2021_11_14_pvr` — a page about a different
+    electoral system, rendered from a tree that does not exist. It is a switch over the row kind now, routing
+    through `CYCLE_SURFACE`.
+  - ⚠️ **THE LABEL COMES FROM `round1Date` FOR A PROVENANCE REASON, NOT THE ONE A FIRST DRAFT CLAIMED.** That
+    draft said `localDate` would render the folder form from the id — and the gate asserting it could not fail.
+    Measured: `localDate` splits on „_" and reads the first three parts, so it IGNORES the `_pvr` suffix and
+    returns „14/11/2021" from either input, which also makes `not.toContain("_")` true of every possible return
+    including „Invalid Date". The real reason is that the id is a KEY that happens to begin with a date today
+    while the catalogue publishes the date as DATA; the gate now pins the exact rendered string, and that a
+    builder reading the runoff's date instead would be caught.
+  - ⚠️ **THE SURNAME CLOSES UP A SPACED HYPHEN FIRST.** „Митева - Матеева" and „Митева-Матеева" are the same
+    person, and this repo has already met both spellings of ONE name in the ИВСС register („… Средкова -
+    Петрова" 2025 against „…Средкова-Петрова" 2026, which minted two person rows for one human). Taking the
+    last raw token returns „Матеева" — half of a real person's surname, on a label naming an office-holder. It
+    also never returns empty: a whitespace-only name PASSES `isPresidentialElectionEntry` (its guard is a
+    truthiness test), and an empty label beside a date renders as a bare „ · ". It is a display label and never
+    an identity: nothing joins on it.
+  - ⚠️ **THE ROUND LABEL AND THE PICK DESTINATION ARE PURE FUNCTIONS, because as JSX they had no gate.** An
+    inverted ternary published „избран на първи тур" beside five presidents who every one of them reached
+    office in a runoff — in the header of every page — with the typecheck, the lint, the row gates and the i18n
+    gate all green. `decidedLabelKey` is exhaustive on the round (an out-of-range value says nothing rather
+    than „балотаж"), and `pickAction` is tested by behaviour, so `navigate("/local/" + r.name)` is caught in
+    every spelling rather than only the one a source-text match knew about.
 - **T4.4** `electionsRegistry.ts`: a `presidential` tile in the results band (`to: /presidential/<latest>`,
   `cycleScoped`) and, in the analysis band, the runoff-transfer tile once Tier 8 lands — never before, a tile must
   not seed a destination (`dashboard-hub` skill).

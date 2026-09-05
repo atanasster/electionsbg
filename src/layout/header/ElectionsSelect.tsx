@@ -20,11 +20,19 @@ import {
   ChevronLeft,
   ChevronRight,
   Landmark,
+  Star,
   Users,
 } from "lucide-react";
 import { FC, ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import {
+  decidedLabelKey,
+  pickAction,
+  presidentialRows as buildPresidentialRows,
+  type PresidentialRow,
+} from "./presidentialRows";
+import { KINDS_WITHOUT_SURFACE } from "@/screens/elections/electionsHubCycle";
 
 type ParliamentaryRow = {
   kind: "parliamentary";
@@ -42,11 +50,55 @@ type LocalRow = {
   local: string;
 };
 
-type ElectionRow = ParliamentaryRow | LocalRow;
+type ElectionRow = ParliamentaryRow | LocalRow | PresidentialRow;
+
+/**
+ * Whether the presidential section may be shown at all.
+ *
+ * ⚠ THE ROWS ARE WITHHELD, NOT ABSENT — see `presidentialRows.ts`. Picking one navigates
+ * to `/presidential/<cycle>`, and until plan T5 declares that route the menu would be
+ * offering five entries that land on a 404. This reads the SAME list the hub resolves
+ * against, so the menu and the hub cannot disagree about which kinds are servable, and
+ * `electionsHubCycle.test.ts`'s biconditional against `routes.tsx` makes emptying it
+ * mandatory the day the route exists.
+ */
+const PRESIDENTIAL_SERVABLE = !KINDS_WITHOUT_SURFACE.includes("presidential");
+
+/**
+ * A non-parliamentary cycle row: icon, stacked label, badge.
+ *
+ * ⚠ ONE HOME FOR THE BADGE, because it is the kind of markup that gets copied. The local
+ * and presidential rows were byte-identical apart from the icon and two strings — including
+ * the 10px uppercase badge, whose class list is long enough that a divergence in it reads
+ * as a rendering bug rather than an edit.
+ */
+const CycleRow: FC<{
+  icon: ReactNode;
+  onSelect: () => void;
+  badge: string;
+  children: ReactNode;
+}> = ({ icon, onSelect, badge, children }) => (
+  <DropdownMenuItem
+    onSelect={onSelect}
+    className="relative flex w-full cursor-default select-none flex-row items-center gap-2 rounded-sm py-2 pl-3 pr-9"
+  >
+    {icon}
+    <span className="flex flex-1 flex-col items-start gap-0.5">{children}</span>
+    <span className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+      {badge}
+    </span>
+  </DropdownMenuItem>
+);
 
 export const ElectionsSelect: FC = () => {
-  const { elections, localElections, selected, setSelected, stats } =
-    useElectionContext();
+  const {
+    elections,
+    localElections,
+    presidentialElections,
+    selected,
+    setSelected,
+    stats,
+  } = useElectionContext();
   const { colorFor } = useCanonicalParties();
   const { t } = useTranslation();
   const isTouch = useTouch();
@@ -107,21 +159,29 @@ export const ElectionsSelect: FC = () => {
       }));
   }, [localElections]);
 
+  // ⚠ BUILT UNCONDITIONALLY AND RENDERED CONDITIONALLY, so the builder's own gate covers
+  // the rows whether or not the section is on today — one row per catalogued cycle.
+  const presidentialRows: PresidentialRow[] = useMemo(
+    () => buildPresidentialRows(presidentialElections),
+    [presidentialElections],
+  );
+
   // Next/prev arrows iterate parliamentary cycles only — per the design
   // decision that locals appear in the dropdown but never become arrow
-  // targets.
+  // targets. Presidential cycles are skipped for the same reason: an arrow
+  // that stepped between electoral systems would change what the whole page
+  // is about without the reader asking.
   const currentIdx = elections.findIndex((v) => v === selected);
   const priorElection = elections[currentIdx + 1];
   const nextElection = currentIdx > 0 ? elections[currentIdx - 1] : undefined;
 
+  // ⚠ THE DECISION IS `pickAction`, IN THE BUILDER MODULE, so it can be tested by
+  // behaviour rather than by grepping this file for a spelling. All this closure does is
+  // perform it.
   const onPickRow = (r: ElectionRow) => {
-    if (r.kind === "parliamentary") {
-      setSelected(r.name);
-    } else {
-      // Step 1 deliverable: local-cycle selection navigates to the cycle
-      // stub route (full overview screen is step 3).
-      navigate(`/local/${r.name}`);
-    }
+    const action = pickAction(r);
+    if ("select" in action) setSelected(action.select);
+    else navigate(action.navigate);
   };
 
   return (
@@ -229,26 +289,63 @@ export const ElectionsSelect: FC = () => {
               )}
             </DropdownMenuItem>
           ))}
+          {PRESIDENTIAL_SERVABLE && presidentialRows.length > 0 ? (
+            <>
+              <DropdownMenuSeparator />
+              {presidentialRows.map((r) => (
+                <CycleRow
+                  key={r.name}
+                  onSelect={() => onPickRow(r)}
+                  badge={t("presidential_elections_badge")}
+                  icon={
+                    <Star
+                      aria-hidden
+                      className="size-3.5 text-muted-foreground shrink-0"
+                    />
+                  }
+                >
+                  <span className="text-sm font-medium text-secondary-foreground tabular-nums">
+                    {r.local}
+                  </span>
+                  {/* The winner and WHICH ROUND elected them — every cycle in this
+                      corpus went to a runoff, so „избран на балотаж" is the norm
+                      rather than the exception it would read as elsewhere.
+                      ⚠ EACH HALF RENDERS ONLY IF IT HAS SOMETHING TO SAY, so neither a
+                      blank name nor an unrecognised round leaves a bare „ · " beside a
+                      date. */}
+                  <span className="text-xs text-muted-foreground">
+                    {[
+                      r.winnerSurname.trim(),
+                      decidedLabelKey(r.decidedInRound)
+                        ? t(decidedLabelKey(r.decidedInRound)!)
+                        : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </span>
+                </CycleRow>
+              ))}
+            </>
+          ) : null}
           {localRows.length > 0 ? (
             <>
               <DropdownMenuSeparator />
               {localRows.map((r) => (
-                <DropdownMenuItem
+                <CycleRow
                   key={r.name}
                   onSelect={() => onPickRow(r)}
-                  className="relative flex w-full cursor-default select-none flex-row items-center gap-2 rounded-sm py-2 pl-3 pr-9"
+                  badge={t("local_elections_badge")}
+                  icon={
+                    <Landmark
+                      aria-hidden
+                      className="size-3.5 text-muted-foreground shrink-0"
+                    />
+                  }
                 >
-                  <Landmark
-                    aria-hidden
-                    className="size-3.5 text-muted-foreground shrink-0"
-                  />
-                  <span className="flex-1 text-sm font-medium text-secondary-foreground tabular-nums">
+                  <span className="text-sm font-medium text-secondary-foreground tabular-nums">
                     {r.local}
                   </span>
-                  <span className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-                    {t("local_elections_badge")}
-                  </span>
-                </DropdownMenuItem>
+                </CycleRow>
               ))}
             </>
           ) : null}
