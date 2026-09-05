@@ -34,6 +34,7 @@ import {
   type FlyoverArtifactV1,
 } from "../gen_home/flyover";
 import { OBLAST_CODES, oblastFromName } from "../gen_home/oblastCodes";
+import type { FlyoverWorld } from "../../../src/lib/flyover/types";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -67,6 +68,31 @@ reportSkip(import.meta.url, skip);
 const artifact: FlyoverArtifactV1 | null = haveFile
   ? (JSON.parse(fs.readFileSync(FILE, "utf8")) as FlyoverArtifactV1)
   : null;
+
+/**
+ * ⚠️ THE ENGINE DECLARES THE ARTIFACT'S SHAPE A SECOND TIME, AND THIS IS WHAT KEEPS THE TWO
+ * IN STEP. `src/lib/flyover/` may not import from `scripts/` — the generator pulls in
+ * `node:fs`, and the engine has to bundle for the browser, for Node canvas and for Remotion —
+ * so `FlyoverWorld` is a parallel declaration rather than a shared one. This assignability
+ * check fails at BUILD time (`tsc -b`), not at runtime, the moment the generator's output
+ * stops satisfying what the engine expects to draw.
+ */
+type ArtifactSatisfiesEngine = FlyoverArtifactV1 extends FlyoverWorld
+  ? true
+  : never;
+const _engineShape: ArtifactSatisfiesEngine = true;
+void _engineShape;
+
+/**
+ * Negative control: the one way the check above can go quiet is either side resolving to
+ * `any`, since `any extends X ? true : never` accepts `true` and compiles in silence. This
+ * line compiles only while a wrong shape is genuinely REJECTED.
+ */
+type EngineCheckRejectsWrongShape = { v: number } extends FlyoverWorld
+  ? never
+  : true;
+const _engineShapeDiscriminates: EngineCheckRejectsWrongShape = true;
+void _engineShapeDiscriminates;
 
 afterAll(async () => {
   await end();
