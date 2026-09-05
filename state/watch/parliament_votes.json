@@ -1,17 +1,11 @@
 {
-  "detail": "1 new session(s), 1 with roll-call CSV (latest id 11166, 2026-09-04)",
+  "detail": "no new sessions (max id 11166, 2026-09-04)",
   "fingerprint": "11166|2026-09-04",
   "lastChanged": "2026-09-04T21:37:50.904Z",
-  "lastChecked": "2026-09-04T21:37:50.904Z",
+  "lastChecked": "2026-09-05T21:39:10.420Z",
   "meta": {
     "maxId": 11166,
     "maxDate": "2026-09-04",
-    "newSinceLast": [
-      {
-        "id": 11166,
-        "date": "2026-09-04",
-        "hasRollcall": true
-      }
-    ]
+    "newSinceLast": []
   }
 }
