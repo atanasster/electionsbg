@@ -1,0 +1,122 @@
+[
+  {
+    "name": "2021_11_14_pvr",
+    "round1Date": "2021-11-14",
+    "round2Date": "2021-11-21",
+    "decidedInRound": 2,
+    "winnerTicket": {
+      "number": 6,
+      "president": "Румен Георгиев Радев",
+      "vicePresident": "Илияна Малинова Йотова"
+    },
+    "tickets": 23,
+    "rounds": {
+      "1": {
+        "machineVoting": true,
+        "flashRecords": true,
+        "noneOfTheAbove": true
+      },
+      "2": {
+        "machineVoting": true,
+        "flashRecords": true,
+        "noneOfTheAbove": true
+      }
+    }
+  },
+  {
+    "name": "2016_11_06_pvr",
+    "round1Date": "2016-11-06",
+    "round2Date": "2016-11-13",
+    "decidedInRound": 2,
+    "winnerTicket": {
+      "number": 13,
+      "president": "Румен Георгиев Радев",
+      "vicePresident": "Илияна Малинова Йотова"
+    },
+    "tickets": 21,
+    "rounds": {
+      "1": {
+        "machineVoting": true,
+        "flashRecords": false,
+        "noneOfTheAbove": true
+      },
+      "2": {
+        "machineVoting": true,
+        "flashRecords": false,
+        "noneOfTheAbove": true
+      }
+    }
+  },
+  {
+    "name": "2011_10_23_pvr",
+    "round1Date": "2011-10-23",
+    "round2Date": "2011-10-30",
+    "decidedInRound": 2,
+    "winnerTicket": {
+      "number": 2,
+      "president": "Росен Асенов Плевнелиев",
+      "vicePresident": "Маргарита Стефанова Попова"
+    },
+    "tickets": 18,
+    "rounds": {
+      "1": {
+        "machineVoting": false,
+        "flashRecords": false,
+        "noneOfTheAbove": false
+      },
+      "2": {
+        "machineVoting": false,
+        "flashRecords": false,
+        "noneOfTheAbove": false
+      }
+    }
+  },
+  {
+    "name": "2006_10_22_pvr",
+    "round1Date": "2006-10-22",
+    "round2Date": "2006-10-29",
+    "decidedInRound": 2,
+    "winnerTicket": {
+      "number": 3,
+      "president": "Георги Първанов",
+      "vicePresident": "Ангел Марин"
+    },
+    "tickets": 7,
+    "rounds": {
+      "1": {
+        "machineVoting": false,
+        "flashRecords": false,
+        "noneOfTheAbove": false
+      },
+      "2": {
+        "machineVoting": false,
+        "flashRecords": false,
+        "noneOfTheAbove": false
+      }
+    }
+  },
+  {
+    "name": "2001_11_11_pvr",
+    "round1Date": "2001-11-11",
+    "round2Date": "2001-11-18",
+    "decidedInRound": 2,
+    "winnerTicket": {
+      "number": 5,
+      "president": "Георги Седефчов Първанов",
+      "vicePresident": "Ангел Иванов Марин"
+    },
+    "tickets": 6,
+    "rounds": {
+      "1": {
+        "machineVoting": false,
+        "flashRecords": false,
+        "noneOfTheAbove": false
+      },
+      "2": {
+        "machineVoting": false,
+        "flashRecords": false,
+        "noneOfTheAbove": false
+      }
+    }
+  }
+]

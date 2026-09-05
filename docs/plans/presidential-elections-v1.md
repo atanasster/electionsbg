@@ -848,7 +848,36 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
 ## 8. Tier 4 — catalogue, context, hub (2 days)
 
-- **T4.1** `presidential_elections.json` (decision 2) + `ElectionContext.presidentialElections`.
+- **T4.1 ✅ DONE.** `src/data/json/presidential_elections.json` is DERIVED, by
+  `build_catalogue.ts --write`, and `ElectionContext` exposes it as `presidentialElections` on the same terms as
+  the local catalogue — never in `elections`, so prev/next arrows keep stepping through parliamentary cycles.
+  Two gates, and the split between them is the point: `presidentialCatalogue.test.ts` checks the SHAPE with no
+  corpus (so it runs wherever the unit suite does), `build_catalogue.test.ts` checks the CONTENT against the raw
+  tree. Three things the build settled:
+
+  - **Five of the six fields are measurements, so the file is generated** — only `name` and the two dates are
+    declared. `decidedInRound` and `winnerTicket` come from art. 93 (3) applied to the votes, the one rule this
+    plan refuses to copy from a source field; `tickets` is a count over round 1's 61,362 sections, and the two
+    capability flags are counts over all 122,716. A hand-written catalogue is a second opinion about every one
+    of them with nothing keeping the two in step, and it ships in the ENTRY BUNDLE, so a wrong row renders on
+    every page.
+  - ⚠️ **`flashRecords` IS THE ONE CAPABILITY NO READER CAN SEE, and 2016 is why it is a separate flag.** No
+    presidential reader ingests the machine flash tree, so it is invisible in the parsed corpus — while 2016
+    counted 41,585 votes on machines and published no flash records at all. Each round therefore DECLARES its
+    tree in `sources.ts` (`RoundSource.flashRecords`) and the build confirms the tree holds archives.
+    ⚠️ Round 1 of 2021 names the PARLIAMENTARY tree, and the gate MEASURES that rather than arguing it: one
+    export covers both ballots that day, discriminated by the block column, so it opens the first archive under
+    the declared tree and requires block 256 to yield exactly the round's 23 ticket rows — which the
+    parliamentary block, at 27 parties, cannot. The walk looks for a `.zip` rather than any file: a tree is
+    committed as its files, `raw_data/2021_11_14/suemg/.DS_Store` already exists, and „at least one file" would
+    call a tree that had lost all 11,859 archives „published".
+  - ⚠️ **THE RUNOFF DOES NOT RENUMBER — a first draft of the type said it did.** Measured on all five cycles,
+    the runoff keeps the round-1 ballot numbers (Радев 13 in both 2016 rounds, 6 in both 2021 ones). What the
+    number is not is an identity ACROSS cycles: 13 is Радев in 2016 and nobody in 2021.
+
+  Measured: 2021 machines + flash in both rounds, 2016 machines and no flash, „никого" from 2016 on, nothing
+  before it — and all five cycles decided in round 2, so a surface that assumes `decidedInRound === 1` is
+  testable only against a cycle that has not happened yet.
 - **T4.2** `electionsHubCycle.ts`: `ElectionsHubCycle.kind` gains `"presidential"`; `ELECTION_EVENTS` merges the
   third catalogue; the latest event on 2026-11-1x becomes the presidential cycle, which is the whole point of the
   sorted merge that file already insists on.

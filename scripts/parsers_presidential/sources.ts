@@ -69,6 +69,26 @@ export type RoundSource = {
   subtree: string;
   /** ISO date of this round's vote. */
   date: string;
+  /**
+   * Repo-relative path to this round's machine flash-memory (СУЕМГ) records.
+   *
+   * ⚠ ABSENT MEANS THE ERA PUBLISHED NONE, never „we did not look". It is the one
+   * capability in the catalogue that cannot be derived from the parsed corpus —
+   * `machineVoting` and „никого" both show up in the numbers, flash records do not,
+   * because no reader ingests them yet. Declaring the path is what makes the claim
+   * checkable: `build_catalogue.ts` reports the flag as „this declared tree exists and
+   * holds per-section archives", and `build_catalogue.test.ts` OPENS one and reads a
+   * presidential block out of it.
+   *
+   * ⚠ ROUND 1 OF 2021 NAMES THE PARLIAMENTARY TREE, and that is correct rather than a
+   * copy-paste slip: the two ballots were held the same day on the same machines, so
+   * ONE export carries both, discriminated by the block column (64 parliament, 256
+   * president — `scripts/machines_memory/index.ts`). That is the claim the gate checks
+   * rather than argues: block 256 in a round-1 archive of this tree yields exactly the
+   * round's 23 ticket rows. Duplicating its 11,859 zips under the presidential cycle
+   * would be two copies of one fact.
+   */
+  flashRecords?: string;
 };
 
 export type PresidentialSource = {
@@ -113,8 +133,19 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
       },
     },
     rounds: {
-      1: { archive: "tur1", subtree: "pvr", date: "2021-11-14" },
-      2: { archive: "tur2", subtree: "", date: "2021-11-21" },
+      1: {
+        archive: "tur1",
+        subtree: "pvr",
+        date: "2021-11-14",
+        // The JOINT export — see `RoundSource.flashRecords`.
+        flashRecords: "raw_data/2021_11_14/suemg",
+      },
+      2: {
+        archive: "tur2",
+        subtree: "",
+        date: "2021-11-21",
+        flashRecords: "raw_data/2021_11_14_pvr/ТУР2/suemg",
+      },
     },
     note:
       "Round 1 was held jointly with a parliamentary election, so its archive also " +

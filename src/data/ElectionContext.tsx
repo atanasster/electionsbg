@@ -2,8 +2,12 @@ import { useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import allElections from "../data/json/elections.json";
 import allLocalElections from "../data/json/local_elections.json";
+import allPresidentialElections from "../data/json/presidential_elections.json";
 import { ElectionInfo } from "./dataTypes";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
+import type { PresidentialElectionEntry } from "./presidentialCatalogue";
+
+export type { PresidentialElectionEntry };
 
 export type LocalElectionEntry = {
   name: string; // e.g. "2023_10_29_mi"
@@ -26,6 +30,21 @@ export const useElectionContext = () => {
   // parliamentary array) so next/prev arrow navigation skips them.
   const localElections = useMemo<LocalElectionEntry[]>(
     () => allLocalElections as LocalElectionEntry[],
+    [],
+  );
+  // Presidential cycles are a third catalogue, on the same terms as the local one: the
+  // selector renders them, and they never enter `elections`, so prev/next arrows keep
+  // stepping through parliamentary cycles only.
+  //
+  // ⚠ THE CAST IS AN ASSERTION, NOT A CHECK — TypeScript types the JSON structurally, so
+  // `decidedInRound` arrives as `number` and `rounds` as an index signature.
+  // `isPresidentialElectionEntry` is what actually validates the committed file, in
+  // `presidentialCatalogue.test.ts`.
+  //
+  // First consumer is `electionsHubCycle.ts` (plan T4.2) — until it lands nothing reads
+  // this, and an unused property on a returned object is invisible to `noUnusedLocals`.
+  const presidentialElections = useMemo<PresidentialElectionEntry[]>(
+    () => allPresidentialElections as PresidentialElectionEntry[],
     [],
   );
   const selected = useMemo(() => {
@@ -68,6 +87,7 @@ export const useElectionContext = () => {
   return {
     elections,
     localElections,
+    presidentialElections,
     selected,
     setSelected,
     priorElections,
