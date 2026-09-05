@@ -14,7 +14,7 @@ const A: FlyoverState = {
   arcs: 0,
   labels: 0.2,
   highlight: "SOF",
-  captionId: "one",
+  captionId: "columns_proc",
 };
 
 const B: FlyoverState = {
@@ -23,7 +23,7 @@ const B: FlyoverState = {
   arcs: 1,
   labels: 1,
   highlight: "VAR",
-  captionId: "two",
+  captionId: "columns_funds",
 };
 
 describe("blend", () => {
@@ -54,8 +54,8 @@ describe("blend", () => {
     // would say something nobody wrote.
     expect(blend(A, B, 0.49).highlight).toBe("SOF");
     expect(blend(A, B, 0.5).highlight).toBe("VAR");
-    expect(blend(A, B, 0.49).captionId).toBe("one");
-    expect(blend(A, B, 0.5).captionId).toBe("two");
+    expect(blend(A, B, 0.49).captionId).toBe("columns_proc");
+    expect(blend(A, B, 0.5).captionId).toBe("columns_funds");
   });
 
   it("clamps a NaN k to the start rather than producing a NaN frame", () => {
@@ -66,7 +66,7 @@ describe("blend", () => {
     const out = blend(A, B, Number.NaN);
     expect(out).toEqual(A);
     expect(Number.isNaN(out.camera.distance)).toBe(false);
-    expect(out.captionId).toBe("one");
+    expect(out.captionId).toBe("columns_proc");
   });
 
   it("is continuous in every number it interpolates", () => {
@@ -123,7 +123,7 @@ describe("applyPartial", () => {
     expect(out.arcs).toBe(1);
     expect(out.weights).toEqual(A.weights);
     expect(out.highlight).toBe("SOF");
-    expect(out.captionId).toBe("one");
+    expect(out.captionId).toBe("columns_proc");
   });
 
   it("lets a patch CLEAR an identity, which `??` alone would not", () => {

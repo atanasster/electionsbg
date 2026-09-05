@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+// ⚠️ PROSE THAT MENTIONS A PATTERN IS NOT AN OCCURRENCE OF IT — the repo's rule, and this
+// gate proved it immediately: `render.ts` documents a „ns:<date> window." and the naive scan
+// read it as `window.`. `entryGraph.test.ts` and the i18n gates share this same stripper.
+import { stripComments } from "@/../scripts/lib/strip_comments";
 
 // The engine's import isolation, enforced rather than asserted in a header comment.
 //
@@ -28,10 +32,27 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 const ALLOWED_BARE: string[] = [];
 
 describe("the flyover engine's import isolation", () => {
-  const files = fs
-    .readdirSync(DIR)
-    .filter((f) => f.endsWith(".ts") && !f.endsWith(".test.ts"))
-    .sort();
+  // ⚠️ RECURSIVE. Plan §4 puts the programmes in `src/lib/flyover/programmes/`, and a flat
+  // readdir would drop that directory out of this gate the day it lands — passing, and
+  // checking less. `tsconfig.flyover.json` carries the same fix for the same reason.
+  const walk = (dir: string): string[] =>
+    fs
+      .readdirSync(dir, { withFileTypes: true })
+      .flatMap((e) =>
+        e.isDirectory()
+          ? walk(path.join(dir, e.name)).map((f) => path.join(e.name, f))
+          : e.name.endsWith(".ts") && !e.name.endsWith(".test.ts")
+            ? [e.name]
+            : [],
+      );
+  const files = walk(DIR).sort();
+
+  it("strips comments before scanning, so prose is not an occurrence", () => {
+    // Non-vacuity for the stripper itself: without it this gate fails on its own subjects.
+    const withProse = stripComments("// window.foo\nconst a = 1;\n");
+    expect(withProse).not.toMatch(/window\./);
+    expect(withProse).toMatch(/const a = 1/);
+  });
 
   it("scans the files it thinks it scans", () => {
     // Non-vacuity: every assertion below is „X is absent", which an empty file list satisfies
@@ -42,7 +63,7 @@ describe("the flyover engine's import isolation", () => {
   });
 
   it.each(files)("%s imports nothing outside the engine", (f) => {
-    const src = fs.readFileSync(path.join(DIR, f), "utf8");
+    const src = stripComments(fs.readFileSync(path.join(DIR, f), "utf8"));
     const specs = [
       ...src.matchAll(/^\s*import[^"']*["']([^"']+)["']/gm),
       ...src.matchAll(/\bfrom\s+["']([^"']+)["']/g),
@@ -50,8 +71,11 @@ describe("the flyover engine's import isolation", () => {
     ].map((m) => m[1]);
     for (const spec of specs) {
       if (ALLOWED_BARE.includes(spec)) continue;
+      // `../` is legitimate once files nest (a programme importing `../types`); `@/`, `react`
+      // and `node:fs` still fail, which is the whole strength of requiring a form rather than
+      // denying a list.
       expect(
-        spec.startsWith("./"),
+        spec.startsWith("./") || spec.startsWith("../"),
         `${f} imports ${spec} — the engine may only import its own siblings. ` +
           `React, the DOM beyond CanvasRenderingContext2D, node: builtins and @/ are all out; ` +
           `see this file's header for which resolver each one breaks.`,
@@ -65,7 +89,7 @@ describe("the flyover engine's import isolation", () => {
     // context as ARGUMENTS. `Date.now()`/`performance.now()` are banned for a different
     // reason: plan §0.2 makes the clock explicit so two rebuilds of one frame are identical.
     for (const f of files) {
-      const src = fs.readFileSync(path.join(DIR, f), "utf8");
+      const src = stripComments(fs.readFileSync(path.join(DIR, f), "utf8"));
       for (const bad of [
         /\bdocument\./,
         /\bwindow\./,

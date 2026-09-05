@@ -1,0 +1,43 @@
+{
+  // The flyover engine, typechecked under the STRICTEST of its three callers.
+  //
+  // ⚠️ `video/tsconfig.json` sets `noUncheckedIndexedAccess` and the app's does not, so the
+  // engine can compile perfectly under `npm run build` and fail `npm run video:check` — which
+  // is a separate command, run at a different time, by a different person, in the step that
+  // adds the video. That is a whole tier later than the step that writes the code. This
+  // project pins the engine to the stricter setting NOW, inside `tsc -b`, so the failure
+  // arrives with the edit that causes it.
+  //
+  // It deliberately does NOT include the tests: they exist to poke at edges and a `!` there
+  // costs nothing, while a `!` in the engine is a claim about data that arrives from a fetch.
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.flyover.tsbuildinfo",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    // Both sibling projects set this, so without it this one is not the SUPERSET its header
+    // claims: an engine file could add a bare side-effect import the app project would reject.
+    "noUncheckedSideEffectImports": true,
+    // ⚠️ EMPTY, DELIBERATELY. Unset, TypeScript pulls in every package under `@types` —
+    // including `@types/node`, which makes `process.env`, `Buffer` and `setImmediate` ambient
+    // inside the one project that exists to keep Node out of a browser bundle. The isolation
+    // test catches a `node:` IMPORT; nothing else catches the globals. `CanvasLineJoin` and
+    // friends come from `lib: ["DOM"]`, and the tests that do need node: are excluded below.
+    "types": []
+  },
+  // ⚠️ RECURSIVE. Plan §4 puts the programmes in `src/lib/flyover/programmes/`, and a
+  // non-recursive glob would drop that whole directory out of this gate the day it lands —
+  // green, and checking less.
+  "include": ["src/lib/flyover/**/*.ts"],
+  "exclude": ["src/lib/flyover/**/*.test.ts"]
+}

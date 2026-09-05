@@ -14,10 +14,12 @@
 // arcs OFF must say `arcs: 0`; leaving the field out leaves them on (plan §14).
 
 import { blendCamera } from "./camera";
+// ⚠️ ONE `CaptionId`, and it lives with the table that defines the ids. A second declaration
+// here read as a union of the thirteen and was plain `string`, which is the worst of the
+// options: it looks like it would catch a typo and does not.
+import type { CaptionId } from "./captions";
 import { clamp01, lerp } from "./math";
 import type { Camera, LayerId } from "./types";
-
-export type CaptionId = string;
 
 /**
  * One frame's worth of scene, fully determined and fully blendable.
