@@ -49,6 +49,13 @@ convincing at 300 px wide. The production engine is the same idea with a real ca
   stored as integer tenths. Measured on `data/regions_map.json` (31 features): 1,282 points at a
   1.9 px tolerance = **17,088 bytes**; 1,977 points at 1.1 px = 25,204 bytes. The client never
   imports `d3-geo`.
+  ⚠️ **Those two figures are the CONCEPT PROTOTYPE's and the shipped implementation does not
+  reproduce them — budget against the implementation.** `scripts/geo/project_regions.ts`
+  measures **1,910 points and 25,625 bytes at 1.9 px** (2026-09-05), because its ring
+  simplifier cuts each closed ring at its farthest vertex and simplifies the two halves
+  independently — the prototype's single-pass form collapses a closed ring, which is cheaper
+  and wrong. So the `geo` block is 52% of the 48 KiB artifact budget, not ~35%, leaving §3's
+  layers, flow matrix and figures about 23 KB rather than 31 KB.
 - **The client draws with `CanvasRenderingContext2D`** — polygons, extruded boxes, lifted
   Bézier arcs, and labels — behind a pinhole camera (position, target, pitch, yaw, focal
   length) with painter's-order depth sorting. At this point budget (31 polygons, 28 columns,
