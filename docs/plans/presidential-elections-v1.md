@@ -629,21 +629,45 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ `isMobile` / `isShip` are `false` because this bundle publishes NO such flag — not because it publishes one
   saying no. „No mobile sections in 2001" is a claim this corpus cannot support. Residue: 7 named sections in
   round 1 (net −7), none in round 2.
-- **T2.6 Gates (Vitest, `scripts/parsers_presidential/*.test.ts`, no Postgres):**
-  - each era reader on a 3-section fixture cut from the real file, asserting one decoded Cyrillic ticket name;
-  - the **round-total anchor gate** over the full raw tree: the twenty figures in §2.4, exact;
-  - **the per-section residue** `Σ ticket votes − protocol valid` (2001 `[PROT]` carries both, 2006 col 16, 2011
-    col 27, 2016 pos 24, 2021 pos 18 on forms 24/28): reported per cycle and round, held under a ceiling seeded from
-    the §2.5-10 measurements (2021 R1 ≤ 17 sections / 2,393 votes, 2016 R1 ≤ 54 / 4,878, 2011 R1 ≤ 12), with the
-    disagreeing sections in a named allowlist so a NEW disagreement fails and a known one does not;
-  - `paper + machine == total` on every row that has both (E2016 flagged sections, E2021) — this one IS exact;
-  - runoff rounds carry exactly two tickets whose numbers exist in round 1;
-  - section counts per round equal the sections-file line count; abroad prefix is `32` except 2011 (`29`);
-  - **the majority rule** on the five real round-1 outcomes and one synthetic round-1 win, plus the mutation
-    case: with the ticket-sum denominator 2021 must WRONGLY elect Радев, with the valid-vote denominator it must
-    send him to the runoff — a rule test that passes under both implementations is not testing the denominator;
-  - the `decidedInRound` rule agrees with `result.txt` / the 2016 `elected` flag;
-  - every abroad section resolves to a country, or the unresolved ones are listed with their city string.
+- **T2.6 ✅ DONE.** Three new modules and two cross-era gates, on top of the five per-era suites:
+  `readers.ts` (the era dispatcher), `winnerRule.ts` (art. 93 (3)), `testCorpus.ts` (a per-round memo the two
+  gates share), `winnerRule.test.ts` and `anchors.test.ts`. 534 tests green across `scripts/parsers_presidential/`
+  and `scripts/lib/`. Five things the build settled:
+
+  - ⚠️⚠️ **THE MUTATION CASE HOLDS, AND IT IS THE POINT.** `validVotes = ticketVotes + „никого"` reproduces the
+    published 2,675,935 (2021) and 3,827,650 (2016) EXACTLY, and with it Радев's 2021 round 1 is **49.42%** — a
+    runoff. Over the ticket sum it is **50.57%**, which elects him outright. The gate computes the wrong answer
+    explicitly and requires the two to disagree, so a rule passing under both implementations cannot pass.
+  - ⚠️⚠️ **AND SO DOES THE THRESHOLD ITSELF — this was nearly missed.** The first strict-half „control" evaluated
+    `50 * 2 > 100` in its own test body: it never called `tallyRound`, and MEASURED, flipping both `>` to `>=` in
+    the rule passed all 284 tests in the directory. No real round sits at exactly half on either condition, so
+    the comparison deciding whether a president was elected a week early had no coverage at all. It now tallies a
+    contrived one-section round at exactly half and at one vote past it; `>=` fails.
+  - ⚠️ **BOTH CONDITIONS, AND THE CORPUS SEPARATES THEM.** 2006 has a 64.05% majority and 43.88% turnout; 2011 has
+    40.11% and 52.28%. So a rule checking only the majority elects a president in 2006, and an `||` elects one in
+    both. All five cycles went to a runoff, and `decidedInRound` agrees with 2011's `result.txt` and 2016's
+    `elected` flag. ⚠️ **2001 publishes a THIRD witness nothing reads yet** — its `[MAJ]` rows carry an outcome
+    marker (`2` for each runoff-bound ticket, `1` for the winner, `0` otherwise), which T3 should wire in. 2006
+    and 2021 publish none, so the rule stands unwitnessed there and no surface may imply otherwise.
+  - ⚠️ **`protocol.numValidVotes` CANNOT BE SUMMED NATIONALLY WITHOUT ITS MACHINE HALF.** 2016 splits paper and
+    machine across two fields and 2021 sets the paper one only on paper forms, so a bare sum gives 3,567,851 and
+    311,671 against ticket totals of 3,613,556 and 2,615,149. `protocolValidVotes` adds both fields and is
+    exposed as a SECOND basis — never the denominator — beside `validVotesResidue`: −7 (2001), −8 (2006), **+6**
+    (2011), +3,913 (2016), −1,929 (2021). The sign is not constant.
+  - **Turnout is signatures over registered voters, and `turnoutBasis` carries the wording** — because telling a
+    caller to „name the basis" without giving it one is how two pages describe the same number differently. ⚠️ In
+    2006 it is a DOMESTIC figure: all 144 abroad sections report neither registered voters nor signatures while
+    casting 46,113 valid votes, so they sit in neither half of the ratio. Round-1 turnout: 41.77% · 43.88% ·
+    52.28% · 57.65% · 40.30%.
+
+  ⚠️ **A cross-cycle person link CANNOT go through `canonicalKey`, and 2006 is why.** It is the only era
+  publishing TWO-part names — „Георги Първанов" where every other era gives „Георги Седефчов Първанов" — so Волен
+  Сидеров, who stood in 2006 and 2011, folds to two identities. Радев links 2016↔2021 and is asserted; the 2006
+  gap is pinned as a measurement, not asserted away. T4 needs another route.
+
+  ⚠️ **Naming**: this plan called the totals gate `presidential_totals.data.test.ts`. It shipped as
+  `anchors.test.ts` — `*.data.test.ts` is this repo's marker for a gate that needs Postgres and auto-skips
+  without it, and these read only committed files.
 
 ## 7. Tier 3 — aggregation and the output tree (2–3 days)
 
