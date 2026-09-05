@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readEra2016Round, readSections, readTickets } from "./era2016";
+import { assertCommitted } from "../lib/assert_committed";
 import { PRESIDENTIAL_SOURCES, roundFolderName } from "./sources";
 import type { PresidentialRound } from "./types";
 
@@ -13,7 +13,14 @@ const PROJECT_ROOT = path.resolve(
 const source = PRESIDENTIAL_SOURCES["2016_11_06_pvr"];
 const roundDir = (round: 1 | 2): string =>
   path.join(PROJECT_ROOT, "raw_data", source.cycle, roundFolderName(round));
-const have = (round: 1 | 2): boolean => fs.existsSync(roundDir(round));
+// ⚠ ASSERTED, NOT SKIPPED. Both rounds are COMMITTED under `raw_data/`, and CI does a
+// full checkout — so their absence is a broken working copy, not a supported state.
+// Standing down for it would hide that as one more skip in a suite where ~160 data gates
+// already skip for want of a database.
+assertCommitted(
+  `raw_data/${source.cycle}/${roundFolderName(1)}`,
+  `raw_data/${source.cycle}/${roundFolderName(2)}`,
+);
 const read = (round: 1 | 2): PresidentialRound =>
   readEra2016Round(roundDir(round), source, round);
 
@@ -33,8 +40,7 @@ const sum = (
 
 describe("era2016 — the official totals", () => {
   // ЦИК decisions № 3992-ПВР and № 4032-ПВР.
-  it("round 1 reproduces every published ticket total", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("round 1 reproduces every published ticket total", () => {
     const totals = ticketTotals(read(1));
     expect(totals.get(13), "Радев/Йотова").toBe(973_754);
     expect(totals.get(17), "Цачева/Манушев").toBe(840_635);
@@ -44,8 +50,7 @@ describe("era2016 — the official totals", () => {
     expect([...totals.values()].reduce((a, b) => a + b, 0)).toBe(3_613_556);
   });
 
-  it("round 2 reproduces the runoff", (ctx) => {
-    if (!have(2)) return ctx.skip("2016 round 2 absent");
+  it("round 2 reproduces the runoff", () => {
     const r = read(2);
     const totals = ticketTotals(r);
     expect(totals.get(13)).toBe(2_063_032);
@@ -60,8 +65,7 @@ describe("era2016 — the official totals", () => {
   // 312600105). Sections are re-numbered between rounds in every era, so a round-1 →
   // round-2 join must be keyed and its residue reported, never assumed total — which
   // an equal count would otherwise invite.
-  it("has the same COUNT in both rounds but not the same codes", (ctx) => {
-    if (!have(1) || !have(2)) return ctx.skip("2016 tree incomplete");
+  it("has the same COUNT in both rounds but not the same codes", () => {
     const a = read(1).sections.map((s) => s.code);
     const b = read(2).sections.map((s) => s.code);
     expect(a).toHaveLength(12_340);
@@ -74,8 +78,7 @@ describe("era2016 — the official totals", () => {
 });
 
 describe('era2016 — „не подкрепям никого" is not a ticket', () => {
-  it("is counted in the protocol and never as a ticket", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("is counted in the protocol and never as a ticket", () => {
     const r = read(1);
     const none = sum(
       r,
@@ -97,8 +100,7 @@ describe("era2016 — the machine half lives in COLUMNS, not rows", () => {
   // section; the machine figures are extra columns. Only 500 of 12,340 sections had a
   // machine at all, so a reader that took Б as "the paper vote" everywhere would zero
   // the paper vote for the other 11,840.
-  it("splits a machine section and leaves a paper one whole", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("splits a machine section and leaves a paper one whole", () => {
     const r = read(1);
     // 010300011 is machine-flagged; ticket 13 there is 126 = 86 paper + 40 machine.
     const machineSection = r.sections.find((s) => s.code === "010300011")!;
@@ -119,8 +121,7 @@ describe("era2016 — the machine half lives in COLUMNS, not rows", () => {
     );
   });
 
-  it("counts the 500 machine sections and their share of the vote", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("counts the 500 machine sections and their share of the vote", () => {
     const r = read(1);
     expect(r.sections.filter((s) => s.machines > 0)).toHaveLength(500);
     const machine = sum(r, (s) =>
@@ -139,8 +140,7 @@ describe("era2016 — the machine half lives in COLUMNS, not rows", () => {
   // The decomposition does not always add up: one cell in 259,140 states a total of 0
   // with a machine vote of 1. Summing Б+М would put the national total one vote above
   // ЦИК's published figure — a number a reader can check against the register.
-  it("trusts the stated total where the decomposition contradicts it", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("trusts the stated total where the decomposition contradicts it", () => {
     const s = read(1).sections.find((x) => x.code === "273100059")!;
     const t8 = s.votes.find((v) => v.partyNum === 8);
     expect(t8?.totalVotes).toBe(0);
@@ -155,8 +155,7 @@ describe("era2016 — the machine half lives in COLUMNS, not rows", () => {
 // ⚠ EVERY PROTOCOL FIELD, PINNED TO ROWS PRINTED HERE IN FULL, because none of them
 // feeds a vote total and a wrong column would leave the anchors green.
 describe("era2016 — the protocol field indices", () => {
-  it("maps a machine section's row (form 8, the only decomposing form)", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("maps a machine section's row (form 8, the only decomposing form)", () => {
     // 8;010300011;1;|7010009|…;700;606;10;385;218;167;479;1;0;0;0;2;385;218;167;
     //   17;8;9;368;341;195;146;27;15;12;9;8;17
     const p = read(1).sections.find((s) => s.code === "010300011")!.protocol;
@@ -182,8 +181,7 @@ describe("era2016 — the protocol field indices", () => {
     );
   });
 
-  it("maps a paper section's row (form 1)", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("maps a paper section's row (form 1)", () => {
     // 1;010100001;1;|3010005|…;600;596;7;429;;;170;1;0;0;0;0;429;;;14;;;415;405;;;10;;;;;14
     const p = read(1).sections.find((s) => s.code === "010100001")!.protocol;
     expect(p.ballotsReceived).toBe(600);
@@ -207,8 +205,7 @@ describe("era2016 — the protocol field indices", () => {
 });
 
 describe("era2016 — the ticket list", () => {
-  it("reads all 21 tickets, and the file's own elected flag", (ctx) => {
-    if (!have(1) || !have(2)) return ctx.skip("2016 tree incomplete");
+  it("reads all 21 tickets, and the file's own elected flag", () => {
     const r1 = readTickets(roundDir(1));
     expect(r1.tickets).toHaveLength(21);
     // Nobody is elected in round 1 — that is what a runoff means.
@@ -224,8 +221,7 @@ describe("era2016 — the ticket list", () => {
     expect(r2.electedNumbers).toEqual([13]);
   });
 
-  it("gives Радев the same canonical key as his 2021 ticket", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("gives Радев the same canonical key as his 2021 ticket", () => {
     const radev2016 = readTickets(roundDir(1)).tickets.find(
       (t) => t.number === 13,
     )!;
@@ -235,8 +231,7 @@ describe("era2016 — the ticket list", () => {
     expect(radev2016.number).not.toBe(6);
   });
 
-  it("does not call Обединени патриоти a party", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("does not call Обединени патриоти a party", () => {
     const t = readTickets(roundDir(1)).tickets.find((x) => x.number === 19)!;
     expect(t.nominatedBy.name).toContain("ОБЕДИНЕНИ ПАТРИОТИ");
     expect(t.nominatedBy.kind).toBe("coalition");
@@ -244,8 +239,7 @@ describe("era2016 — the ticket list", () => {
 });
 
 describe("era2016 — the sections file", () => {
-  it("pads ЕКАТТЕ and flags the machine sections", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("pads ЕКАТТЕ and flags the machine sections", () => {
     const meta = readSections(roundDir(1));
     expect(meta.size).toBe(12_340);
     expect(meta.get("010100001")!.ekatte).toBe("02676");
@@ -264,8 +258,7 @@ describe("era2016 — the sections file", () => {
 // downstream would flag it — which is exactly why it is pinned here, with each basis
 // named. A surface must say which one a "% cast on machines" figure came from.
 describe("era2016 — the two paper/machine bases disagree, and both are kept", () => {
-  it("keeps them apart and reports the divergence", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("keeps them apart and reports the divergence", () => {
     const r = read(1);
     const fromProtocol = sum(r, (s) => s.protocol.numValidMachineVotes ?? 0);
     const fromVotes = sum(r, (s) =>
@@ -296,8 +289,7 @@ describe("era2016 — the two paper/machine bases disagree, and both are kept", 
   // ballot more than it has signatures (397 + 90 = 487 against 486) — a discrepancy
   // in the СИК's own protocol, where its 5. total agrees with the found block and not
   // with its signatures.
-  it("takes both halves of the found total from the found block", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("takes both halves of the found total from the found block", () => {
     const broken = read(1)
       .sections.filter((s) => s.machines === 1)
       .filter(
@@ -319,8 +311,7 @@ describe("era2016 — a zero-machine form-8 section", () => {
   // machine fields non-zero" files them as paper, which publishes `machines: 1` beside
   // absent machine fields — destroying the absent-vs-zero distinction. The branch is
   // the section's own flag instead.
-  it("is still read as a machine section, with zeros rather than absences", (ctx) => {
-    if (!have(1)) return ctx.skip("2016 round 1 absent");
+  it("is still read as a machine section, with zeros rather than absences", () => {
     const zeroMachine = read(1)
       .sections.filter((s) => s.machines === 1)
       .filter((s) => (s.protocol.numMachineBallots ?? 0) === 0);

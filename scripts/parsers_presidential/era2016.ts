@@ -40,9 +40,8 @@
 //
 // Plan: docs/plans/presidential-elections-v1.md T2.2.
 
-import fs from "node:fs";
-import path from "node:path";
-import { decodeBundleText, parseSemicolonRows } from "./encoding";
+import { num, readBundleFile, sectionLookup } from "./readerKit";
+import type { PresidentialEncoding } from "./encoding";
 import {
   addTicketVotes,
   canonicalTicketKey,
@@ -54,6 +53,7 @@ import {
   type PresidentialSection,
   type Ticket,
 } from "./types";
+import { PRESIDENTIAL_SOURCES } from "./sources";
 import type { PresidentialSource, RoundNumber } from "./sources";
 
 /** Field indices, from the round's own readme (which numbers from 1). */
@@ -107,27 +107,23 @@ const F = {
 const VOTES_FIRST_TUPLE = 2;
 const VOTES_TUPLE_WIDTH = 5;
 
-const num = (raw: string | undefined): number => {
-  if (raw === undefined) return 0;
-  const t = raw.trim();
-  if (t === "") return 0;
-  const n = Number(t);
-  return Number.isFinite(n) ? n : 0;
-};
+/** The cycle's DECLARED encoding — read from `sources.ts`, never re-typed as a literal,
+ *  so a correction there actually reaches this parser. */
+const ENCODING_2016: PresidentialEncoding =
+  PRESIDENTIAL_SOURCES["2016_11_06_pvr"].encoding;
 
-const readFile = (dir: string, prefix: string): string[][] => {
-  const hit = fs
-    .readdirSync(dir)
-    .find((f) => f.startsWith(prefix) && f.endsWith(".txt"));
-  if (!hit) {
-    throw new Error(
-      `era2016: no "${prefix}*.txt" in ${dir} — found ${fs.readdirSync(dir).join(", ")}`,
-    );
-  }
-  return parseSemicolonRows(
-    decodeBundleText(fs.readFileSync(path.join(dir, hit)), "utf8"),
+const readFile = (
+  dir: string,
+  prefix: string,
+  encoding: PresidentialEncoding = ENCODING_2016,
+): string[][] =>
+  readBundleFile(
+    "era2016",
+    dir,
+    `${prefix}*.txt`,
+    (f) => f.startsWith(prefix) && f.endsWith(".txt"),
+    encoding,
   );
-};
 
 /**
  * Read the ticket list.
@@ -140,10 +136,11 @@ const readFile = (dir: string, prefix: string): string[][] => {
  */
 export const readTickets = (
   dir: string,
+  encoding: PresidentialEncoding = ENCODING_2016,
 ): { tickets: Ticket[]; electedNumbers: number[] } => {
   const tickets: Ticket[] = [];
   const electedNumbers: number[] = [];
-  for (const row of readFile(dir, "cik_candidates")) {
+  for (const row of readFile(dir, "cik_candidates", encoding)) {
     const number = Number(row[0]);
     if (!Number.isFinite(number)) continue;
     const nominator = (row[1] ?? "").trim();
@@ -179,9 +176,12 @@ type SectionMeta = {
 };
 
 /** `code; adminId; adminName; ekatte; place; mobile; ship; machineFlag` */
-export const readSections = (dir: string): Map<string, SectionMeta> => {
+export const readSections = (
+  dir: string,
+  encoding: PresidentialEncoding = ENCODING_2016,
+): Map<string, SectionMeta> => {
   const out = new Map<string, SectionMeta>();
-  for (const row of readFile(dir, "sections")) {
+  for (const row of readFile(dir, "sections", encoding)) {
     const code = (row[0] ?? "").trim();
     if (!code) continue;
     out.set(code, {
@@ -209,9 +209,10 @@ export const readEra2016Round = (
   source: PresidentialSource,
   round: RoundNumber,
 ): PresidentialRound => {
-  const { tickets } = readTickets(dir);
+  const encoding = source.encoding;
+  const { tickets } = readTickets(dir, encoding);
   const known = new Set(tickets.map((t) => t.number));
-  const meta = readSections(dir);
+  const meta = readSections(dir, encoding);
 
   const sections = new Map<string, PresidentialSection>();
   for (const [code, m] of meta) {
@@ -227,17 +228,9 @@ export const readEra2016Round = (
       votes: [],
     });
   }
-  const sectionOf = (code: string, where: string): PresidentialSection => {
-    const s = sections.get(code);
-    if (!s) {
-      throw new Error(
-        `era2016: section ${code} appears in ${where} but not in sections`,
-      );
-    }
-    return s;
-  };
+  const sectionOf = sectionLookup("era2016", sections);
 
-  for (const row of readFile(dir, "protocols")) {
+  for (const row of readFile(dir, "protocols", encoding)) {
     const code = (row[F.section] ?? "").trim();
     if (!code) continue;
     const p = sectionOf(code, "protocols").protocol;
@@ -281,7 +274,7 @@ export const readEra2016Round = (
 
   let clampedAway = 0;
   const clampedCells: string[] = [];
-  for (const row of readFile(dir, "votes")) {
+  for (const row of readFile(dir, "votes", encoding)) {
     const code = (row[0] ?? "").trim();
     if (!code) continue;
     const section = sectionOf(code, "votes");

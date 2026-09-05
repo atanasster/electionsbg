@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readEra2021Round, readSections, readTickets } from "./era2021";
+import { assertCommitted } from "../lib/assert_committed";
 import { PRESIDENTIAL_SOURCES, roundFolderName } from "./sources";
 import type { PresidentialRound } from "./types";
 
@@ -13,7 +13,14 @@ const PROJECT_ROOT = path.resolve(
 const source = PRESIDENTIAL_SOURCES["2021_11_14_pvr"];
 const roundDir = (round: 1 | 2): string =>
   path.join(PROJECT_ROOT, "raw_data", source.cycle, roundFolderName(round));
-const have = (round: 1 | 2): boolean => fs.existsSync(roundDir(round));
+// ⚠ ASSERTED, NOT SKIPPED. Both rounds are COMMITTED under `raw_data/`, and CI does a
+// full checkout — so their absence is a broken working copy, not a supported state.
+// Standing down for it would hide that as one more skip in a suite where ~160 data gates
+// already skip for want of a database.
+assertCommitted(
+  `raw_data/${source.cycle}/${roundFolderName(1)}`,
+  `raw_data/${source.cycle}/${roundFolderName(2)}`,
+);
 
 const read = (round: 1 | 2): PresidentialRound =>
   readEra2021Round(roundDir(round), source, round);
@@ -38,8 +45,7 @@ describe("era2021 — the official totals", () => {
   // ⚠ THE ANCHOR GATE. These are ЦИК's own published figures (decision № 956-ПВР),
   // and they are what a parser cannot satisfy by accident: dropping a form,
   // double-counting a machine row or mis-splitting a pair all move them.
-  it("round 1 reproduces every published ticket total", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("round 1 reproduces every published ticket total", () => {
     const totals = ticketTotals(read(1));
     expect(totals.get(6), "Радев/Йотова").toBe(1_322_385);
     expect(totals.get(15), "Герджиков/Митева").toBe(610_862);
@@ -49,8 +55,7 @@ describe("era2021 — the official totals", () => {
     expect([...totals.values()].reduce((a, b) => a + b, 0)).toBe(2_615_149);
   });
 
-  it("round 2 reproduces the runoff", (ctx) => {
-    if (!have(2)) return ctx.skip("2021 round 2 absent");
+  it("round 2 reproduces the runoff", () => {
     const r = read(2);
     const totals = ticketTotals(r);
     expect(totals.get(6)).toBe(1_539_650);
@@ -62,8 +67,7 @@ describe("era2021 — the official totals", () => {
     ]);
   });
 
-  it("counts every section the sections file lists", (ctx) => {
-    if (!have(1) || !have(2)) return ctx.skip("2021 tree incomplete");
+  it("counts every section the sections file lists", () => {
     expect(read(1).sections).toHaveLength(13_238);
     expect(read(2).sections).toHaveLength(13_234);
     // ⚠ Sections are RE-NUMBERED between rounds, so the two sets are not identical
@@ -78,8 +82,7 @@ describe('era2021 — „не подкрепям никого" is not a ticket',
   // ⚠ THE DENOMINATOR THE WHOLE WINNER RULE HANGS ON. Радев is 50.57% of the ticket
   // votes and 49.42% of the VALID votes; only the second is the official figure, and
   // only the second sends him to a runoff.
-  it("is counted in the protocol and never as a ticket", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("is counted in the protocol and never as a ticket", () => {
     const r = read(1);
     const none = sum(
       r,
@@ -107,8 +110,7 @@ describe("era2021 — a section is several rows", () => {
   // ⚠ THE ERA'S DEFINING TRAP. A section's paper protocol and EACH of its machines are
   // separate rows; a reader that takes the first row per section drops 84% of the
   // corpus. 010100001 is machine-only with two machines, verbatim from the tree.
-  it("sums both machines of a two-machine section", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("sums both machines of a two-machine section", () => {
     const s = read(1).sections.find((x) => x.code === "010100001");
     expect(s).toBeDefined();
     // Machine 1 gave Радев 111 and machine 2 gave him 99.
@@ -125,8 +127,7 @@ describe("era2021 — a section is several rows", () => {
   // A combined paper+machine section: its form-26 row's 7.x fields are the BOX, and
   // the machine half is a separate control-receipt row. Adding the two is right;
   // treating the form-26 total as the whole section would lose the machine votes.
-  it("adds the control-receipt row to the paper row", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("adds the control-receipt row to the paper row", () => {
     const s = read(1).sections.find((x) => x.code === "010300050");
     expect(s).toBeDefined();
     const total = s!.votes.reduce((a, v) => a + v.totalVotes, 0);
@@ -138,8 +139,7 @@ describe("era2021 — a section is several rows", () => {
     expect(s!.protocol.numValidMachineVotes).toBe(52);
   });
 
-  it("splits the corpus into the measured paper and machine shares", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("splits the corpus into the measured paper and machine shares", () => {
     const r = read(1);
     const paper = sum(r, (s) =>
       s.votes.reduce((a, v) => a + (v.paperVotes ?? 0), 0),
@@ -157,8 +157,7 @@ describe("era2021 — a section is several rows", () => {
 });
 
 describe("era2021 — the electorate figures", () => {
-  it("takes them from the one form per section that carries them", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("takes them from the one form per section that carries them", () => {
     const r = read(1);
     // Signatures reproduce the CIK activity page exactly; registered voters do not,
     // which is why the aggregator must declare its basis rather than infer one.
@@ -180,8 +179,7 @@ describe("era2021 — the electorate figures", () => {
 });
 
 describe("era2021 — the ticket list", () => {
-  it("reads all 23 tickets with both names and a nominator", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("reads all 23 tickets with both names and a nominator", () => {
     const tickets = readTickets(roundDir(1));
     expect(tickets).toHaveLength(23);
     const radev = tickets.find((t) => t.number === 6)!;
@@ -203,8 +201,7 @@ describe("era2021 — the ticket list", () => {
     }
   });
 
-  it("gives the same person the same canonical key in both rounds", (ctx) => {
-    if (!have(1) || !have(2)) return ctx.skip("2021 tree incomplete");
+  it("gives the same person the same canonical key in both rounds", () => {
     const r1 = readTickets(roundDir(1)).find((t) => t.number === 6)!;
     const r2 = readTickets(roundDir(2)).find((t) => t.number === 6)!;
     expect(r2.canonicalKey).toBe(r1.canonicalKey);
@@ -218,8 +215,7 @@ describe("era2021 — refusals", () => {
     ).toThrow(/no "cik_candidates\*\.txt"/);
   });
 
-  it("reads the section metadata the aggregator needs", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("reads the section metadata the aggregator needs", () => {
     const meta = readSections(roundDir(1));
     expect(meta.size).toBe(13_238);
     const bansko = meta.get("010100001")!;
@@ -245,8 +241,7 @@ describe("era2021 — refusals", () => {
 // because none of them feeds a vote count. The verbatim rows are the point — a reader
 // can check the mapping against them without opening the corpus.
 describe("era2021 — the protocol field indices", () => {
-  it("maps a machine-only section's row (form 25 + two form 32s)", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("maps a machine-only section's row (form 25 + two form 32s)", () => {
     // 25;010100001;1;|01110137|…;;;600;623;8;335;598;2;;;335;;;;
     // 32;010100001;1;;CHCA4E1A00008262;;;;;;;;;;;;166;164;2
     // 32;010100001;1;;CHCA4E1A00012276;;;;;;;;;;;;169;163;6
@@ -269,8 +264,7 @@ describe("era2021 — the protocol field indices", () => {
     );
   });
 
-  it("maps a paper+machine section's row (form 26 + form 27)", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("maps a paper+machine section's row (form 26 + form 27)", () => {
     // 26;010300050;1;|01120001|…;;;500;444;7;220;335;1;218;164;54;3;161;158;3
     // 27;010300050;1;|01130050|…;EPDA4E2A00019284;1;;;;;;;;;;;;54;52;2
     const p = read(1).sections.find((s) => s.code === "010300050")!.protocol;
@@ -299,8 +293,7 @@ describe("era2021 — the protocol field indices", () => {
   // section's own statement of its machine total disagrees with its machines on 97
   // sections, and where it does the machines are right: this one claims 712 against
   // 398 signatures, which is impossible, while its two machines report 197 + 155.
-  it("prefers the machines' own count over an impossible protocol figure", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("prefers the machines' own count over an impossible protocol figure", () => {
     const s = read(1).sections.find((x) => x.code === "244606005")!;
     expect(s.protocol.totalActualVoters).toBe(398);
     expect(s.protocol.numMachineBallots, "not the 712 the form claims").toBe(
@@ -322,8 +315,7 @@ describe("era2021 — the protocol field indices", () => {
   // by up to 1,040. That is a property of the source rather than a parsing error, so
   // it is reported under a pinned ceiling instead of being asserted away — the same
   // treatment the per-section vote residue gets in the plan's §2.5-10.
-  it("reconciles machine ballots against the machines' own tally", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("reconciles machine ballots against the machines' own tally", () => {
     const broken = read(1).sections.filter(
       (s) =>
         (s.protocol.numMachineBallots ?? 0) <
@@ -333,8 +325,7 @@ describe("era2021 — the protocol field indices", () => {
     expect(broken.map((s) => s.code)).toEqual([]);
   });
 
-  it("reports, rather than hides, the sections that out-count their signatures", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("reports, rather than hides, the sections that out-count their signatures", () => {
     const over = read(1).sections.filter(
       (s) =>
         (s.protocol.numMachineBallots ?? 0) >
@@ -371,8 +362,7 @@ describe("era2021 — the protocol field indices", () => {
 // distribution rather than per-ticket, so a rule change that starts asserting a legal
 // form the register never stated shows up here as a shift out of `unknown`.
 describe("era2021 — the nominators", () => {
-  it("claims a kind only where the label states one", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("claims a kind only where the label states one", () => {
     const byKind = new Map<string, number>();
     for (const t of readTickets(roundDir(1))) {
       byKind.set(t.nominatedBy.kind, (byKind.get(t.nominatedBy.kind) ?? 0) + 1);
@@ -388,8 +378,7 @@ describe("era2021 — the nominators", () => {
     expect([...byKind.values()].reduce((a, b) => a + b, 0)).toBe(23);
   });
 
-  it("does not call Патриотичен фронт a party", (ctx) => {
-    if (!have(1)) return ctx.skip("2021 round 1 absent");
+  it("does not call Патриотичен фронт a party", () => {
     const t = readTickets(roundDir(1)).find((x) => x.number === 4)!;
     expect(t.nominatedBy.name).toContain("ПАТРИОТИЧЕН ФРОНТ");
     expect(t.nominatedBy.kind).toBe("coalition");

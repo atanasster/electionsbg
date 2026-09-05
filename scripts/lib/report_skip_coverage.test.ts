@@ -61,7 +61,7 @@ const REPO = path.resolve(
  *  already grown twice unnoticed.
  *
  *  Lower it when you fix one. It must never go up. */
-const CONFLATED_PROBE_CEILING = 84;
+const CONFLATED_PROBE_CEILING = 83;
 
 const CONFLATED_PROBES = new Set<string>([
   "scripts/db/tests/accountability_gate.data.test.ts",
@@ -76,7 +76,6 @@ const CONFLATED_PROBES = new Set<string>([
   "scripts/db/tests/declaration_foreign_assets.data.test.ts",
   "scripts/db/tests/declaration_fx_conversion.data.test.ts",
   "scripts/db/tests/declaration_held_abroad.data.test.ts",
-  "scripts/db/tests/declaration_is_spouse.data.test.ts",
   "scripts/db/tests/declaration_obligations.data.test.ts",
   "scripts/db/tests/declarations_load.data.test.ts",
   "scripts/db/tests/declarations_schema.data.test.ts",
@@ -197,11 +196,20 @@ try {
   // and execFileSync's default is 1 MB. Overflowing it throws, which this file would then
   // report as "git unavailable" and SKIP — the gate quietly standing down on a healthy
   // machine, which is precisely the failure it exists to catch.
+  // ⚠️ `-z`, and it is not a style choice: without it `git ls-files` QUOTES and
+  // octal-escapes any path with a non-ASCII byte, so `raw_data/2011_10_23_pvr/ТУР1`
+  // arrives as `"raw_data/2011_10_23_pvr/\320\242\320\243\320\2401"` and matches no
+  // literal a test could write. The presidential corpus is entirely under Cyrillic round
+  // folders, so every one of them read as untracked — the same blindness to a tracked
+  // TREE the note below is about, one encoding layer down. `-z` emits raw NUL-separated
+  // bytes with no quoting.
   trackedFiles = execFileSync(
     "git",
-    ["ls-files", "data", "raw_data", "public"],
+    ["ls-files", "-z", "data", "raw_data", "public"],
     { cwd: REPO, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
-  ).split("\n");
+  )
+    .split("\0")
+    .filter(Boolean);
   tracked = new Set(trackedFiles);
   // ⚠️ `git ls-files` never emits DIRECTORIES, so a gate on a tracked TREE
   // (`data/parliament/votes/sessions`, 613 files) looks untracked and escapes the rule.

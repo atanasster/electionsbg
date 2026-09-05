@@ -518,9 +518,46 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
   ⚠️ `machines` is a FLAG here (1/0), not a count: this era publishes whether a section had machine voting, not
   how many machines it had. Machine voting was 1.2% of the vote in 2016 against 88% in 2021.
-- **T2.3 `era2011.ts`** — cp1251; pairs; 27-position protocol (fields 3–27 per the decoded readme: registered =
-  3, additional = 4 + 5, signatures = 7, ballots found = 20, invalid = 26, valid = 27); oblast grid via
-  `OIK_PREFIX_TO_OBLAST`; `result.txt` as the cross-check.
+- **T2.3 ✅ DONE.** `era2011.ts` reproduces every §2.5 anchor on both rounds (round 1 Плевнелиев 1,349,380 /
+  Калфин 974,300 / Кунева 470,808 / Сидеров 122,466 over 11,784 sections; round 2 1,698,136 / 1,531,193 over
+  11,779), and `result.txt` independently confirms both outcomes. Field map as specified: registered = 3,
+  additional = 4 + 5, signatures = 7, сгрешени = 10, ballots found = 20, invalid = 26, valid = 27. Six things
+  the build settled:
+
+  - ⚠️ **THE ABROAD PREFIX IS `29`, NOT `32`.** The election ran through the ОИК alongside that year's local
+    vote, so the codes are on the 28-oblast grid: prefix 22 is София-град and 16 is the WHOLE of Пловдив, which
+    the parliamentary grid splits into 16 and 17. Reading `32` — what every other era uses — finds nothing and
+    publishes zero votes abroad at no error. The nine digits do NOT join another election's sections.
+  - **„не подкрепям никого" is left ABSENT, not zero.** The option did not exist before 2016, so the valid
+    total IS the ticket total here; a stored 0 would claim nobody chose it, and the winner rule reads exactly
+    this field to build its denominator.
+  - ⚠️ **THE PROTOCOLS DO NOT ALWAYS RECONCILE WITH THEMSELVES, so nothing downstream may derive one figure
+    from the other two.** Measured over round 1: 19 of 11,784 sections have `found ≠ invalid + valid`, and 149
+    have an invalid count that is not the sum of its own five components. (The readme's own formula, „сумата от
+    числата по т. 19, т. 20, т. 21, т. 22 и т. 23", is a typo for fields 21–25 — which is what the rows that
+    do reconcile follow.)
+  - **The ticket-sum vs valid-column residue is ELEVEN named sections, net +6, in both directions** — held as
+    an allowlist rather than a ceiling, so a NEW disagreement fails while a known one does not.
+  - **`result.txt`'s `Б` is tested for explicitly, never inferred as „not `И`".** Falling through would turn a
+    mojibake byte into the positive assertion that a named candidate reached a balotage — and this file is the
+    INDEPENDENT cross-check on the computed winner rule, so an outcome invented here would agree with a broken
+    rule instead of catching it.
+  - **The readme declares a third section flag, `Е` (експериментална преброителна комисия), and the corpus
+    holds none** — only blank (11,702 / 11,699) and `П` (82 / 80). The reader REFUSES a round carrying one
+    rather than publishing it as an ordinary section, since `PresidentialSection` has nowhere to record it and
+    a silent pass would put a second count of the same ballots into the national total.
+
+  Two things landed beside it, both spanning the era readers rather than this one:
+
+  - **`readerKit.ts`** — `num`, `readBundleFile` and `sectionLookup` in one copy, where the three readers each
+    had their own (the `num` bodies were byte-identical). It also closes the gap `encoding.ts`'s banner
+    described but no reader honoured: **the encoding is now READ from `sources.ts`** and threaded through,
+    where all three previously passed a hardcoded literal, so the declaration and the behaviour were two
+    independent spellings of one fact.
+  - **The `raw_data` skips became ASSERTIONS.** Every presidential round is committed and CI does a full
+    checkout, so `existsSync` → skip was hiding a broken working copy as one more green tick. `assertCommitted`
+    states it instead. That also required fixing `report_skip_coverage.test.ts` to pass `git ls-files -z`:
+    without it git octal-escapes any non-ASCII path, so every Cyrillic `ТУРn` tree read as untracked.
 - **T2.4 `era2006.ts`** — cp1251; the readme is the ticket list; protocol cols 2–16 (registered = 5 + 6,
   signatures = 7, ballots found = 10, invalid = 15, valid = 16), votes cols 17+; abroad turnout from col 10
   (§2.5-3).

@@ -10,6 +10,7 @@ import {
   isParliamentaryFolder,
 } from "./electionFolders";
 import { stripComments } from "./strip_comments";
+import { assertCommitted } from "./assert_committed";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
@@ -317,15 +318,15 @@ describe("no sweep keeps a loose election-folder filter", () => {
   });
 });
 
+// ⚠ ASSERTED, NOT SKIPPED. Both roots are committed and CI does a full checkout, so an
+// absent one is a broken working copy — and a skip here would read as "every folder
+// classified" in the tally, which is the opposite of what happened.
+assertCommitted("data", "raw_data");
+
 describe("every directory on disk classifies", () => {
   for (const root of ["data", "raw_data"]) {
-    it(`${root}/`, (ctx) => {
+    it(`${root}/`, () => {
       const dir = path.join(PROJECT_ROOT, root);
-      // A real skip, not a bare `return`: Vitest renders a green tick for the
-      // latter, so "the root is absent" would read as "every folder classified".
-      if (!fs.existsSync(dir)) {
-        return ctx.skip(`${root}/ absent — inventory not checked`);
-      }
       const names = fs
         .readdirSync(dir, { withFileTypes: true })
         .filter((d) => d.isDirectory())

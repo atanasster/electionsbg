@@ -240,10 +240,7 @@ describe("roundIsPresent", () => {
   // committed round — if it were not, an operator running the command would re-fetch
   // ~170 MB and rewrite trees that are already correct.
   for (const cycle of Object.keys(PRESIDENTIAL_SOURCES)) {
-    it(`${cycle} is already on disk`, (ctx) => {
-      if (!fs.existsSync(path.join(RAW, cycle))) {
-        return ctx.skip(`raw_data/${cycle} absent`);
-      }
+    it(`${cycle} is already on disk`, () => {
       for (const round of [1, 2] as RoundNumber[]) {
         expect(roundIsPresent(cycle, round), `${cycle}/ТУР${round}`).toBe(true);
       }
@@ -257,9 +254,8 @@ describe("roundIsPresent", () => {
 
 describe("the committed SOURCE.json stamps", () => {
   for (const [cycle, src] of Object.entries(PRESIDENTIAL_SOURCES)) {
-    it(`${cycle} records its provenance`, (ctx) => {
+    it(`${cycle} records its provenance`, () => {
       const f = path.join(RAW, cycle, "SOURCE.json");
-      if (!fs.existsSync(f)) return ctx.skip(`${cycle}/SOURCE.json absent`);
       const stamp = JSON.parse(fs.readFileSync(f, "utf-8")) as SourceStamp;
       expect(stamp.cycle).toBe(cycle);
       expect(stamp.slug).toBe(src.slug);
@@ -295,9 +291,8 @@ describe("the committed SOURCE.json stamps", () => {
   // through the merge must reproduce it byte for byte — otherwise every skipped run
   // rewrites a tracked file and the diff is noise nobody reads.
   for (const [cycle, src] of Object.entries(PRESIDENTIAL_SOURCES)) {
-    it(`${cycle} is a fixed point of a skipped re-run`, (ctx) => {
+    it(`${cycle} is a fixed point of a skipped re-run`, () => {
       const f = path.join(RAW, cycle, "SOURCE.json");
-      if (!fs.existsSync(f)) return ctx.skip(`${cycle}/SOURCE.json absent`);
       const onDisk = fs.readFileSync(f, "utf-8");
       const prior = JSON.parse(onDisk) as SourceStamp;
       const rendered =
@@ -309,9 +304,8 @@ describe("the committed SOURCE.json stamps", () => {
   // The one archive nobody downloaded here, recorded honestly rather than filled in
   // from its sibling. If a future run does fetch it, this flips — and the test says
   // so rather than silently passing either way.
-  it("says plainly how the 2011 round-1 tree was obtained", (ctx) => {
+  it("says plainly how the 2011 round-1 tree was obtained", () => {
     const f = path.join(RAW, "2011_10_23_pvr", "SOURCE.json");
-    if (!fs.existsSync(f)) return ctx.skip("2011 stamp absent");
     const stamp = JSON.parse(fs.readFileSync(f, "utf-8")) as SourceStamp;
     if (stamp.archives.tur1.downloadedHere) {
       expect(stamp.archives.tur1.md5).toMatch(/^[0-9a-f]{32}$/);
@@ -348,11 +342,10 @@ describe("the digests sources.ts declares", () => {
 describe("the round folder name", () => {
   // Cyrillic ТУР — a typo here is invisible in review and would make every reader
   // look in a folder that does not exist.
-  it("is Cyrillic and matches the trees on disk", (ctx) => {
+  it("is Cyrillic and matches the trees on disk", () => {
     expect(roundFolderName(1)).toBe("ТУР1");
     expect(roundFolderName(2)).toBe("ТУР2");
     const dir = path.join(RAW, "2021_11_14_pvr");
-    if (!fs.existsSync(dir)) return ctx.skip("2021 tree absent");
     expect(fs.readdirSync(dir)).toEqual(
       expect.arrayContaining([roundFolderName(1), roundFolderName(2)]),
     );

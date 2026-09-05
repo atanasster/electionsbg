@@ -154,12 +154,11 @@ describe("the map matches the trees on disk", () => {
   // A plain loop rather than `it.each`, because each case needs its own `ctx` to SKIP
   // on an absent tree — `it.each`'s callback receives the tuple only.
   for (const cycle of Object.keys(PRESIDENTIAL_SOURCES)) {
-    it(cycle, (ctx) => {
+    it(cycle, () => {
       const dir = path.join(RAW, cycle);
       // A real skip, not a bare return: Vitest renders a green tick for the latter, so
       // a `git mv` of a tree would turn this test PASSED rather than red — the exact
       // defect it exists to catch.
-      if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
       for (const round of [1, 2] as RoundNumber[]) {
         const roundDir = path.join(dir, roundFolderName(round));
         expect(fs.existsSync(roundDir), `${cycle}/ТУР${round}`).toBe(true);
@@ -209,12 +208,11 @@ describe("the map matches the trees on disk", () => {
     }
   });
 
-  it("is right that 2011 is on the oblast grid, not the МИР grid", (ctx) => {
+  it("is right that 2011 is on the oblast grid, not the МИР grid", () => {
     const f = path.join(
       RAW,
       "2011_10_23_pvr/ТУР1/el2011_president_sections.txt",
     );
-    if (!fs.existsSync(f)) return ctx.skip("2011 tree absent");
     const prefixes = new Set(
       decodeBundleText(fs.readFileSync(f), "cp1251")
         .split(/\r\n|\n/)
@@ -261,10 +259,9 @@ describe("the map matches the trees on disk", () => {
   // it, declaring 2006 as "utf8" — the module's stated worst case — passes every
   // other test in both files.
   for (const cycle of Object.keys(PRESIDENTIAL_SOURCES)) {
-    it(`${cycle} decodes with its OWN declared encoding`, (ctx) => {
+    it(`${cycle} decodes with its OWN declared encoding`, () => {
       const source = PRESIDENTIAL_SOURCES[cycle];
       const dir = path.join(RAW, cycle, roundFolderName(1));
-      if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
       const file = fs
         .readdirSync(dir)
         .filter((f) => /\.(txt|201)$/i.test(f))
@@ -320,11 +317,10 @@ const ROUND_FINGERPRINT: Record<
 
 describe("each ТУРn holds its own round, not its sibling's", () => {
   for (const cycle of Object.keys(ROUND_FINGERPRINT)) {
-    it(cycle, (ctx) => {
+    it(cycle, () => {
       const source = PRESIDENTIAL_SOURCES[cycle];
       for (const round of [1, 2] as RoundNumber[]) {
         const dir = path.join(RAW, cycle, roundFolderName(round));
-        if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
         const names = fs.readdirSync(dir);
         const other = (round === 1 ? 2 : 1) as RoundNumber;
         const mine = ROUND_FINGERPRINT[cycle](round, source.rounds[round]);

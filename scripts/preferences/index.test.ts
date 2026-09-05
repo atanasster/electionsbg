@@ -1,27 +1,20 @@
 import { describe, expect, it } from "vitest";
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { listPreferenceFolders } from "./index";
 import { isParliamentaryFolder } from "../lib/electionFolders";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_ROOT = path.resolve(__dirname, "../../data");
+import { assertCommitted } from "../lib/assert_committed";
 
 // The defect this file exists for: a FILTER and an INDEX-BASED lookup fourteen lines
 // apart are coupled, and nothing said so. `createPreferencesFiles` reads
 // `folders[index - 1]` as "the previous election", so narrowing the list silently
 // repoints prev-year preference carry-over for every election in it. A pure test over
 // the list catches that; no assertion about the filter alone can.
-describe("listPreferenceFolders", () => {
-  const skipIfNoData = (): boolean => {
-    if (fs.existsSync(DATA_ROOT)) return false;
-    console.warn("[preferences] data/ absent — folder list not checked");
-    return true;
-  };
+// ⚠ ASSERTED, NOT SKIPPED. `data/` is committed and CI does a full checkout, so its
+// absence is a broken working copy rather than a supported state — and the previous
+// `console.warn` was invisible under Vitest's default reporter anyway.
+assertCommitted("data");
 
-  it("yields only parliamentary folders", (ctx) => {
-    if (skipIfNoData()) return ctx.skip("data/ absent");
+describe("listPreferenceFolders", () => {
+  it("yields only parliamentary folders", () => {
     const folders = listPreferenceFolders();
     expect(folders.length).toBeGreaterThan(0);
     const wrongKind = folders
@@ -33,8 +26,7 @@ describe("listPreferenceFolders", () => {
     ).toEqual([]);
   });
 
-  it("gives every election a parliamentary predecessor", (ctx) => {
-    if (skipIfNoData()) return ctx.skip("data/ absent");
+  it("gives every election a parliamentary predecessor", () => {
     const folders = listPreferenceFolders();
     folders.forEach((f, i) => {
       if (i === 0) return;
@@ -46,8 +38,7 @@ describe("listPreferenceFolders", () => {
     });
   });
 
-  it("is sorted ascending, which is what makes index-1 the PREVIOUS election", (ctx) => {
-    if (skipIfNoData()) return ctx.skip("data/ absent");
+  it("is sorted ascending, which is what makes index-1 the PREVIOUS election", () => {
     const names = listPreferenceFolders().map((f) => f.name);
     expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
   });

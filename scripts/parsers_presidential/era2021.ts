@@ -34,9 +34,8 @@
 //
 // Plan: docs/plans/presidential-elections-v1.md T2.1.
 
-import fs from "node:fs";
-import path from "node:path";
-import { decodeBundleText, parseSemicolonRows } from "./encoding";
+import { num, readBundleFile } from "./readerKit";
+import type { PresidentialEncoding } from "./encoding";
 import {
   addTicketVotes,
   canonicalTicketKey,
@@ -48,6 +47,7 @@ import {
   type PresidentialSection,
   type Ticket,
 } from "./types";
+import { PRESIDENTIAL_SOURCES } from "./sources";
 import type { PresidentialSource, RoundNumber } from "./sources";
 
 /** Protocol forms that carry the section's electorate figures. Exactly one per
@@ -92,27 +92,23 @@ const F = {
   noneOfTheAbove: 18,
 } as const;
 
-const num = (raw: string | undefined): number => {
-  if (raw === undefined) return 0;
-  const t = raw.trim();
-  if (t === "") return 0;
-  const n = Number(t);
-  return Number.isFinite(n) ? n : 0;
-};
+/** The cycle's DECLARED encoding — read from `sources.ts`, never re-typed as a literal,
+ *  so a correction there actually reaches this parser. */
+const ENCODING_2021: PresidentialEncoding =
+  PRESIDENTIAL_SOURCES["2021_11_14_pvr"].encoding;
 
-const readFile = (dir: string, prefix: string): string[][] => {
-  const hit = fs
-    .readdirSync(dir)
-    .find((f) => f.startsWith(prefix) && f.endsWith(".txt"));
-  if (!hit) {
-    throw new Error(
-      `era2021: no "${prefix}*.txt" in ${dir} — found ${fs.readdirSync(dir).join(", ")}`,
-    );
-  }
-  return parseSemicolonRows(
-    decodeBundleText(fs.readFileSync(path.join(dir, hit)), "utf8"),
+const readFile = (
+  dir: string,
+  prefix: string,
+  encoding: PresidentialEncoding = ENCODING_2021,
+): string[][] =>
+  readBundleFile(
+    "era2021",
+    dir,
+    `${prefix}*.txt`,
+    (f) => f.startsWith(prefix) && f.endsWith(".txt"),
+    encoding,
   );
-};
 
 /**
  * Read the ticket list.
@@ -123,8 +119,11 @@ const readFile = (dir: string, prefix: string): string[][] => {
  * Малинова Йотова") in which the pair name and the committee name are run together
  * with a hyphen, so splitting it yields neither cleanly.
  */
-export const readTickets = (dir: string): Ticket[] => {
-  const rows = readFile(dir, "cik_candidates");
+export const readTickets = (
+  dir: string,
+  encoding: PresidentialEncoding = ENCODING_2021,
+): Ticket[] => {
+  const rows = readFile(dir, "cik_candidates", encoding);
   const tickets: Ticket[] = [];
   for (const row of rows) {
     const number = Number(row[0]);
@@ -159,9 +158,12 @@ type SectionMeta = {
 };
 
 /** `code;adminId;adminName;ekatte;place;mobile;ship;machines` */
-export const readSections = (dir: string): Map<string, SectionMeta> => {
+export const readSections = (
+  dir: string,
+  encoding: PresidentialEncoding = ENCODING_2021,
+): Map<string, SectionMeta> => {
   const out = new Map<string, SectionMeta>();
-  for (const row of readFile(dir, "sections")) {
+  for (const row of readFile(dir, "sections", encoding)) {
     const code = (row[0] ?? "").trim();
     if (!code) continue;
     out.set(code, {
@@ -192,9 +194,10 @@ export const readEra2021Round = (
   source: PresidentialSource,
   round: RoundNumber,
 ): PresidentialRound => {
-  const tickets = readTickets(dir);
+  const encoding = source.encoding;
+  const tickets = readTickets(dir, encoding);
   const known = new Set(tickets.map((t) => t.number));
-  const meta = readSections(dir);
+  const meta = readSections(dir, encoding);
 
   const sections = new Map<string, PresidentialSection>();
   const sectionOf = (code: string): PresidentialSection => {
@@ -225,7 +228,7 @@ export const readEra2021Round = (
   // visible downstream as a section with an empty one rather than as an absent place.
   for (const code of meta.keys()) sectionOf(code);
 
-  for (const row of readFile(dir, "protocols")) {
+  for (const row of readFile(dir, "protocols", encoding)) {
     const form = (row[F.form] ?? "").trim();
     const code = (row[F.section] ?? "").trim();
     if (!code) continue;
@@ -262,7 +265,7 @@ export const readEra2021Round = (
     }
   }
 
-  for (const row of readFile(dir, "votes")) {
+  for (const row of readFile(dir, "votes", encoding)) {
     const form = (row[F.form] ?? "").trim();
     const code = (row[F.section] ?? "").trim();
     if (!code) continue;

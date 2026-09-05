@@ -9,15 +9,29 @@ import {
   parseSemicolonRows,
   stripBom,
 } from "./encoding";
+import { assertCommitted } from "../lib/assert_committed";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../..",
 );
-const read = (rel: string): Uint8Array | null => {
-  const f = path.join(PROJECT_ROOT, rel);
-  return fs.existsSync(f) ? fs.readFileSync(f) : null;
-};
+/**
+ * ⚠ THROWS RATHER THAN RETURNING NULL. Every path below is COMMITTED under `raw_data/`
+ * and CI does a full checkout, so an absent file is a broken working copy — not a
+ * supported state to stand down for. `assertCommitted` names the trees; this names the
+ * individual file, which a directory check cannot cover.
+ */
+const read = (rel: string): Uint8Array =>
+  fs.readFileSync(path.join(PROJECT_ROOT, rel));
+
+assertCommitted(
+  "raw_data/2001_11_11_pvr/ТУР1",
+  "raw_data/2001_11_11_pvr/ТУР2",
+  "raw_data/2006_10_22_pvr/ТУР1",
+  "raw_data/2011_10_23_pvr/ТУР1",
+  "raw_data/2016_11_06_pvr/ТУР1",
+  "raw_data/2021_11_14_pvr/ТУР1",
+);
 
 describe("decodeMik", () => {
   it("maps 0x80–0xBF onto the whole Cyrillic alphabet", () => {
@@ -55,9 +69,8 @@ describe("decodeMik", () => {
     expect(decodeMik(bad, { onUnmapped: "replace" })).toBe("И�");
   });
 
-  it("decodes the real 2001 archive", (ctx) => {
+  it("decodes the real 2001 archive", () => {
     const bytes = read("raw_data/2001_11_11_pvr/ТУР1/COMMON.201");
-    if (!bytes) return ctx.skip("2001 tree absent");
     const text = decodeMik(bytes);
     // The election's own name, and the six 2001 tickets by their presidents.
     expect(text).toContain("Президент и Вицепрезидент");
@@ -78,9 +91,8 @@ describe("decodeMik", () => {
     ["ТУР1", ".201"],
     ["ТУР2", ".301"],
   ] as const) {
-    it(`decodes every 2001 ${round} file without an unmapped byte`, (ctx) => {
+    it(`decodes every 2001 ${round} file without an unmapped byte`, () => {
       const dir = path.join(PROJECT_ROOT, "raw_data/2001_11_11_pvr", round);
-      if (!fs.existsSync(dir)) return ctx.skip("2001 tree absent");
       const files = fs.readdirSync(dir).filter((f) => f.endsWith(ext));
       // 31 МИР + `32` abroad + COMMON — the whole country, once per round.
       expect(files.length, `${round}: 32 oblast files + COMMON${ext}`).toBe(34);
@@ -95,11 +107,10 @@ describe("decodeMik", () => {
 });
 
 describe("decodeCp1251", () => {
-  it("decodes the real 2011 candidates file", (ctx) => {
+  it("decodes the real 2011 candidates file", () => {
     const bytes = read(
       "raw_data/2011_10_23_pvr/ТУР1/el2011_president_candidates.txt",
     );
-    if (!bytes) return ctx.skip("2011 tree absent");
     const text = decodeCp1251(bytes);
     expect(text).toContain("Меглена Щилиянова Кунева");
     expect(text).toContain("Росен Асенов Плевнелиев");
@@ -107,9 +118,8 @@ describe("decodeCp1251", () => {
     expect(new TextDecoder("utf-8").decode(bytes)).not.toContain("Кунева");
   });
 
-  it("decodes the real 2006 readme, whose ticket names live only there", (ctx) => {
+  it("decodes the real 2006 readme, whose ticket names live only there", () => {
     const bytes = read("raw_data/2006_10_22_pvr/ТУР1/Readme.txt");
-    if (!bytes) return ctx.skip("2006 tree absent");
     const text = decodeCp1251(bytes);
     expect(text).toContain("Георги Първанов");
     expect(text).toContain("Волен Сидеров");
@@ -132,11 +142,10 @@ describe("stripBom", () => {
   // `new TextDecoder("utf-8")` already strips the BOM, so the bundle path is safe on
   // its own; `stripBom` covers readers that do not (`ignoreBOM: true`, a
   // `Buffer.toString()`, a hand-concatenated string) and the two non-UTF-8 paths.
-  it("keeps the first field usable as a join key", (ctx) => {
+  it("keeps the first field usable as a join key", () => {
     const bytes = read(
       "raw_data/2016_11_06_pvr/ТУР2/cik_candidates_13.11.2016.txt",
     );
-    if (!bytes) return ctx.skip("2016 tree absent");
     // This file genuinely starts with one, and its round-1 sibling does not.
     // Array.from, because readFileSync hands back a Buffer and `toEqual` treats
     // Buffer and Uint8Array as different shapes even with identical bytes.
@@ -202,11 +211,10 @@ describe("parseSemicolonRows", () => {
 // because a `.filter(Boolean)` added to the splitter would silently shift every
 // column in both files.
 describe("parseSemicolonRows on the real bundles", () => {
-  it("keeps the 2011 sections' empty LEADING field", (ctx) => {
+  it("keeps the 2011 sections' empty LEADING field", () => {
     const bytes = read(
       "raw_data/2011_10_23_pvr/ТУР1/el2011_president_sections.txt",
     );
-    if (!bytes) return ctx.skip("2011 tree absent");
     const rows = parseSemicolonRows(decodeBundleText(bytes, "cp1251"));
     expect(rows.length).toBe(11784);
     // `;290100001;ЧУЖБИНА;…` — field 0 is the section-type flag and is blank here, so
@@ -216,11 +224,10 @@ describe("parseSemicolonRows on the real bundles", () => {
     expect(new Set(rows.map((r) => r.length)).size, "uniform width").toBe(1);
   });
 
-  it("keeps the 2006 protocols' trailing empty field", (ctx) => {
+  it("keeps the 2006 protocols' trailing empty field", () => {
     const bytes = read(
       "raw_data/2006_10_22_pvr/ТУР1/izbori2006_T1_protocols.txt",
     );
-    if (!bytes) return ctx.skip("2006 tree absent");
     const rows = parseSemicolonRows(decodeBundleText(bytes, "cp1251"));
     expect(rows.length).toBe(11809);
     expect(rows[0][0]).toMatch(/^\d{9}$/);
@@ -228,9 +235,8 @@ describe("parseSemicolonRows on the real bundles", () => {
     expect(rows[0][rows[0].length - 1]).toBe("");
   });
 
-  it("reads a whole 2021 votes file, CRLF or LF", (ctx) => {
+  it("reads a whole 2021 votes file, CRLF or LF", () => {
     const bytes = read("raw_data/2021_11_14_pvr/ТУР1/votes_14.11.2021.txt");
-    if (!bytes) return ctx.skip("2021 tree absent");
     const rows = parseSemicolonRows(decodeBundleText(bytes, "utf8"));
     expect(rows.length).toBe(15616);
     // No row may end in a stray carriage return, whichever ending the checkout has.

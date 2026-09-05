@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { assertCommitted } from "../lib/assert_committed";
 import {
   parseSectionRows,
   parseSectionFile,
@@ -322,16 +322,18 @@ describe("parseSectionRows — a block the file cannot discriminate", () => {
 // silently reverts every presidential read to the parliamentary tally while every
 // pure-function test above still passes. This reads the committed joint export, so
 // it needs no network and no database.
+// ⚠ ASSERTED, NOT SKIPPED. The joint export is COMMITTED and CI does a full checkout, so
+// an absent zip is a broken working copy rather than a supported state.
+assertCommitted("raw_data/2021_11_14/suemg/01/010100001.zip");
+
 describe("parseSectionFile — threads the block through to the parser", () => {
   const ZIP = path.join(
     PROJECT_ROOT,
     "raw_data/2021_11_14/suemg/01/010100001.zip",
   );
   const SECTION = "010100001";
-  const haveZip = fs.existsSync(ZIP);
 
-  it("reads the presidential tally from the joint export", async (ctx) => {
-    if (!haveZip) return ctx.skip("raw_data/2021_11_14/suemg absent");
+  it("reads the presidential tally from the joint export", async () => {
     const res = await parseSectionFile(
       ZIP,
       SECTION,
@@ -344,8 +346,7 @@ describe("parseSectionFile — threads the block through to the parser", () => {
     expect(res.votes.find((v) => v.partyNum === 99)).toBeUndefined();
   });
 
-  it("defaults to the parliamentary tally, a DIFFERENT answer", async (ctx) => {
-    if (!haveZip) return ctx.skip("raw_data/2021_11_14/suemg absent");
+  it("defaults to the parliamentary tally, a DIFFERENT answer", async () => {
     const parl = await parseSectionFile(ZIP, SECTION, "2021_11_14");
     expect(parl.votes.find((v) => v.partyNum === 2)?.votes).toBe(2);
     // Ticket 6 is presidential-only; its 99 appearing here would mean the block
