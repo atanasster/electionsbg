@@ -19,11 +19,17 @@ import { fileURLToPath } from "node:url";
 import {
   ABROAD_CITIES_PATH,
   AMBIGUOUS_CITIES,
-  COUNTRY_ALIASES,
   cityKey,
+  countryIndex,
   countryKey,
   type AbroadCityTable,
 } from "./abroad";
+
+// ⚠ `countryIndex` lives in `abroad.ts`, beside `COUNTRY_ALIASES`, and is re-exported
+// here only so this module's existing callers keep working. There is ONE builder: a
+// second copy is how the serving lookup and the table generator start answering the same
+// country name differently.
+export { countryIndex };
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -36,20 +42,6 @@ interface Settlement {
   ekatte: string;
   oblast: string;
 }
-
-/** Country name (lower-cased) → ISO-2 id, from the settlement catalogue plus aliases. */
-export const countryIndex = (
-  settlements: Settlement[],
-): Map<string, string> => {
-  const out = new Map<string, string>();
-  for (const s of settlements) {
-    if (s.oblast === ABROAD_OBLAST) out.set(countryKey(s.name), s.ekatte);
-  }
-  for (const [name, id] of Object.entries(COUNTRY_ALIASES)) {
-    out.set(countryKey(name), id);
-  }
-  return out;
-};
 
 export interface Harvest {
   /** `cityKey` → the country ids the corpus places it in. */
@@ -79,7 +71,7 @@ export interface Harvest {
  */
 export const harvest = (
   rawRoot: string,
-  countries: Map<string, string>,
+  countries: Record<string, string>,
 ): Harvest => {
   const cities = new Map<string, Set<string>>();
   const spelling = new Map<string, string>();
@@ -87,8 +79,12 @@ export const harvest = (
   const cyclesRead: string[] = [];
   const cyclesWithoutCountries: string[] = [];
 
-  const countryOf = (cell: string): string | undefined =>
-    countries.get(countryKey(cell));
+  const countryOf = (cell: string): string | undefined => {
+    const key = countryKey(cell);
+    return Object.prototype.hasOwnProperty.call(countries, key)
+      ? countries[key]
+      : undefined;
+  };
 
   for (const dir of fs
     .readdirSync(rawRoot)

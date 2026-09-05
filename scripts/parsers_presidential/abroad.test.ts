@@ -156,11 +156,10 @@ describe("the committed table", () => {
   // Measured: without the alias table, „Пърт" resolved cleanly to Australia, because the
   // UK spelling beside it had been discarded and the city then looked unambiguous.
   it("would make Perth look unambiguous if the aliases were dropped", () => {
-    const noAliases = new Map(
-      settlements
-        .filter((s) => s.oblast === "32")
-        .map((s) => [s.name.trim().toLowerCase(), s.ekatte] as const),
-    );
+    const noAliases: Record<string, string> = Object.create(null);
+    for (const x of settlements) {
+      if (x.oblast === "32") noAliases[countryKey(x.name)] = x.ekatte;
+    }
     const h = harvest(path.join(PROJECT_ROOT, "raw_data"), noAliases);
     expect(h.cities.get(cityKey("Пърт"))?.size, "one country, wrongly").toBe(1);
     // With them, the evidence is complete and the city is refused.
@@ -192,7 +191,7 @@ describe("the committed table", () => {
     const plain = "Босна и Херцеговина";
     expect(nbsp).not.toBe(plain);
     expect(countryKey(nbsp)).toBe(countryKey(plain));
-    expect(countryIndex(settlements).get(countryKey(nbsp))).toBe("BA");
+    expect(countryIndex(settlements)[countryKey(nbsp)]).toBe("BA");
     expect(resolveAbroadCity("Сараево")).toBe("BA");
   });
 

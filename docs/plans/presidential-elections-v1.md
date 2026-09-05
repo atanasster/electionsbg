@@ -707,6 +707,32 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     abroad. `--write` also refuses a narrowing rebuild, because the regeneration gate cannot catch one (file and
     fresh build narrow together).
 
+- **T3.1b ✅ DONE — placement.** `places.ts` turns a section into a settlement, municipality and oblast. Every
+  round places with nothing dropped. Four things the build settled:
+
+  - ⚠️⚠️ **THE PREFIX FALLBACK ALMOST REPRODUCED THE VERY DEFECT THE MODULE OPENS BY WARNING ABOUT.** No
+    prefix→oblast table is hard-coded (2011's `22` is София-град, 2021's is Смолян), and the map is derived per
+    round — but the first cut then took the PLURALITY of each prefix's witnesses. 2011's `22` splits 54/35/12
+    across S23/S24/S25, so **1,354 sections and 441,328 votes, 13.1% of round 1**, were filed in S25, two thirds
+    of them in the wrong МИР, with every count reconciling. A prefix now places nothing unless its witnesses
+    agree past `PREFIX_PURITY_FLOOR` (0.95, measured: no prefix sits between 0.975 and 1.0), and the refused
+    sections are REPORTED with a reason. Their votes stay in every national figure; what they lack is an oblast
+    attribution the evidence cannot support.
+  - ⚠️ **`data/settlements.json` IS NOT A COMPLETE ЕКАТТЕ CATALOGUE** — 5,364 rows, carrying neither София
+    (68134) nor absorbed quarters like Банево (02573) — so 12.1–13.2% of domestic sections fall back to the
+    prefix and get an oblast and nothing finer. `PlaceBasis` carries which, because „this section is in Пловдив"
+    and „this section is in a prefix whose other sections are in Пловдив" are different claims and only the
+    first supports a settlement figure.
+  - ⚠️ **AN ЕКАТТЕ CAN CONTRADICT ITS OWN SECTION CODE, AND THE CODE WINS.** 7 sections in 2001 and 5 in 2006:
+    `с.Зверино` is in Мездра, Враца, and its recorded ЕКАТТЕ resolves to Чирпан, Стара Загора. The discriminator
+    is the OBLAST, never the name — hundreds of sections spell their settlement differently from the catalogue
+    (Мусомища/Мосомище) with a perfectly good code, and a name check would refuse them all.
+  - **Abroad is decided structurally, per era.** The 2006 and 2011 readers mark it; 2016 and 2021 do not, so the
+    code prefix does (`ABROAD_PREFIX_BY_ERA` — `29` in 2011, `32` elsewhere; on the МИР grid `29` is Хасково).
+    2016/2021 then take the country from the name their sections carry, and only the three city-only eras reach
+    the derived table. ⚠️ That gate is load-bearing: the table answers `RS` for `гр.Димитровград`, of which 2021
+    has 58 DOMESTIC sections.
+
   Still open in T3.1: `aggregateRound()` itself — the ЕКАТТЕ → settlement → municipality → oblast join, the
   §3-3 output tree, and the `coveredCycles()` arm.
 - **T3.2** `national_summary.json` per cycle: per-round turnout (registered, signatures — ballots found for 2006

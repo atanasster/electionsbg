@@ -201,6 +201,52 @@ export const abroadCityTable = (): AbroadCityTable => {
 };
 
 /**
+ * A country's id from its NAME, or null when the catalogue has no such country.
+ *
+ * ⚠ This is the route for 2016 and 2021, whose sections name „Австралия, Канбера"
+ * outright — no city table is involved, and none should be: the source says the country.
+ *
+ * @param name - As the section file spells it, whitespace and case as found.
+ * @returns The ISO-2 id `data/settlements.json` uses at oblast 32, or null.
+ */
+export const resolveCountryName = (name: string): string | null => {
+  const rows = countryIndex();
+  const key = countryKey(name);
+  return Object.prototype.hasOwnProperty.call(rows, key) ? rows[key] : null;
+};
+
+let countryIndexCache: Record<string, string> | null = null;
+
+/**
+ * Country name → ISO-2 id: `data/settlements.json`'s oblast-32 rows plus
+ * `COUNTRY_ALIASES`.
+ *
+ * ⚠ ONE BUILDER, used by both the serving lookup above and the table generator, so a
+ * name the harvest resolved and a name a 2016 section carries cannot be answered
+ * differently. `settlements` is injectable only so the generator's tests can drive it
+ * without the alias table — see the „Perth looks unambiguous" control.
+ */
+export const countryIndex = (
+  settlements?: { name: string; ekatte: string; oblast: string }[],
+): Record<string, string> => {
+  if (!settlements && countryIndexCache) return countryIndexCache;
+  const rows =
+    settlements ??
+    (JSON.parse(
+      fs.readFileSync(path.join(PROJECT_ROOT, "data/settlements.json"), "utf8"),
+    ) as { name: string; ekatte: string; oblast: string }[]);
+  const out: Record<string, string> = Object.create(null);
+  for (const r of rows) {
+    if (r.oblast === "32") out[countryKey(r.name)] = r.ekatte;
+  }
+  for (const [name, id] of Object.entries(COUNTRY_ALIASES)) {
+    out[countryKey(name)] = id;
+  }
+  if (!settlements) countryIndexCache = out;
+  return out;
+};
+
+/**
  * A city's country id, or null when nothing in the corpus can say.
  *
  * ⚠ ONLY CALL THIS FOR A SECTION ALREADY KNOWN TO BE ABROAD — see the banner. Nine keys
