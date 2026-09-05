@@ -308,10 +308,44 @@ phase 2 runs 090's `DROP MATERIALIZED VIEW … CASCADE`, and a DbDataTable resou
 `missingMigration` degrade. Loader wall-clock is **5m30s** (39 s + 4m52s, measured 2026-08-29
 on `db-perf-optimized-N-2`); the OUTAGE itself was measured at ~8 minutes on an earlier run
 and has not been re-checked, so budget the larger figure. Off-peak only.
-The `ship_held_abroad.ts` shape (ship the derived column into the rows already there, keyed
-on `(source_url, seq)`) applies exactly here and is the better publish path if these tiers
-land more than once — `is_spouse` is derived from two immutable fields, so it is identical
-whichever database computes it.
+**The cloud publish is `scripts/db/restamp_is_spouse.ts`, not a reload.** `is_spouse` is a
+pure function of two columns the target ALREADY HAS — `holder_name` on the asset row and
+`declarant_name` on its filing — so nothing has to travel, and the tool re-derives the
+column in place:
+
+```bash
+npx tsx scripts/db/restamp_is_spouse.ts --to postgres://postgres@127.0.0.1:5434/electionsbg           # dry run
+npx tsx scripts/db/restamp_is_spouse.ts --to postgres://postgres@127.0.0.1:5434/electionsbg --apply
+```
+
+That makes it safer than `ship_held_abroad.ts`, which carries VALUES and therefore keys on
+`(source_url, seq)` and must prove that key lands on the same row on both sides. Here there
+is no key and no second corpus: every row is judged on its own two fields, so the tool
+converges any database onto the shipped rule regardless of vintage, and re-running is a
+no-op. It refuses above a 10% change share and reports the two directions separately,
+because a re-mark republishes „held by somebody else" against a named person.
+
+⚠️ **Restamp BEFORE re-applying 159/169.** Those two DROP and CREATE their matviews from
+`declaration_asset`, so applying them first rebuilds the registers on the OLD values.
+
+**Ran against Cloud SQL 2026-09-05**, in this order — 8,008 rows cleared, 0 re-marked;
+`/declarations/crypto` went 12 of 34 marked to 0, and the three registers reached exact
+parity with local (34/0, 1,022/219, 643/209):
+
+```bash
+npx tsx scripts/db/restamp_is_spouse.ts --to <proxy> --apply   # declaration_asset.is_spouse
+npm run db:load:mp-roster:pg:cloud                             # applies 104 + 105, fills mp_car.holder_name
+DATABASE_URL=<proxy> npx tsx scripts/db/apply_functions.ts 159_person_crypto.sql 169_person_abroad.sql
+```
+
+⚠️ **`information_schema.columns` DOES NOT LIST MATERIALIZED VIEWS**, so it reports
+`holder_name` absent from all three registers whether or not the migration landed. Verify a
+matview column through `pg_attribute`/`pg_class` instead — the preflight for this publish
+said „no" for three tables that were about to be rebuilt correctly anyway.
+
+`npm run deploy:db` is still outstanding: without it the API does not SELECT `holder_name`,
+so T0's benefit is inert on the serving side. Harmless — the deployed bundle does not read
+the field either — but the two ship together.
 
 ## 7. Deliberately out of scope
 
