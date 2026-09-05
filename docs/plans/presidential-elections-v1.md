@@ -680,6 +680,35 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   unresolved abroad section is written with `country: null` AND listed in the run summary — never dropped and
   never guessed. `coveredCycles()` in `scripts/elections/build_surfaces.ts` gains a `presidential` arm
   (`/^\d{4}_\d{2}_\d{2}_pvr$/`, latest cycle) once the tree exists.
+- **T3.1a ✅ DONE — abroad resolution.** `abroad.ts` + `build_abroad_cities.ts` +
+  `data/presidential/abroad_cities.json` (1,248 cities). The plan said „a committed `abroad_cities.json`
+  city→country table"; what shipped DERIVES it from the thirteen committed parliamentary `sections.txt`, which
+  name a country beside each abroad city. That is the point: a hand-written table is unfalsifiable, and a wrong
+  entry files a real polling station in the wrong country while looking exactly like a right one. Coverage on the
+  three city-only eras is **792 of 876 sections (90.4%)** and 245 of 286 city spellings; the rest are `null`.
+  Four things the build settled, three of them found only by reading MORE evidence:
+
+  - ⚠️⚠️ **FIVE `sections.txt` LAYOUTS ARE COMMITTED, AND THE FIRST CUT UNDERSTOOD ONE.** 2013 splits country and
+    city into separate cells, 2005 publishes a bare city with no country, and the pre-2017 files put the fields
+    in different columns — so four cycles matched nothing, were counted as read, and their evidence was thrown
+    away. The cost was not merely narrower coverage: **Бостън resolved confidently to GB, Оукланд to NZ and
+    Триполи to LY**, each a real city in two countries with Bulgarian sections in both. Partial evidence does not
+    look partial. The harvest now gates on the SECTION CODE — nine digits, oblast `32` — which is the one thing
+    every layout agrees on, and NAMES any cycle that yielded no country evidence (2005, legitimately).
+  - ⚠️ **A NON-BREAKING SPACE COST A COUNTRY.** The corpus spells Bosnia „Босна\u00a0и Херцеговина" and the
+    catalogue uses an ordinary space; the two render identically, compare unequal, and BA resolved to nothing.
+    Found only because a test printed two „identical" values that were not equal. `countryKey` collapses all
+    whitespace.
+  - ⚠️ **FOUR CITIES ARE REFUSED, NOT DECIDED** — Пърт, Бостън, Оукланд, Триполи. `AMBIGUOUS_CITIES` is checked
+    against the corpus in BOTH directions, so a stale „this is ambiguous" fails the build too.
+  - ⚠️ **THE TABLE ANSWERS FOR BULGARIAN VILLAGE NAMES.** Nine keys — Димитровград, Охрид, Сараево, Подгорица,
+    Прилеп, Тетово, Есен, Мугла, Кортен — are also domestic settlements, each a real foreign city. **The
+    caller's abroad flag is the gate, never this lookup**; T3.1b must pass it only sections already marked
+    abroad. `--write` also refuses a narrowing rebuild, because the regeneration gate cannot catch one (file and
+    fresh build narrow together).
+
+  Still open in T3.1: `aggregateRound()` itself — the ЕКАТТЕ → settlement → municipality → oblast join, the
+  §3-3 output tree, and the `coveredCycles()` arm.
 - **T3.2** `national_summary.json` per cycle: per-round turnout (registered, signatures — ballots found for 2006
   abroad), valid, invalid, „не подкрепям никого" where the form has it (2016+), the ticket ranking with shares
   over VALID votes (decision 5), the runoff pair, `decidedInRound`, abroad totals, and the R1→R2 swing (Δ votes
