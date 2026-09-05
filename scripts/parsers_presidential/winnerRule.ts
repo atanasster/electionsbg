@@ -91,6 +91,16 @@ export interface RoundTally {
    * abroad sections entirely.
    */
   turnoutBasis: string;
+  /**
+   * The same fact as a CODE, for a consumer that must not print the sentence.
+   *
+   * ⚠ IT EXISTS BECAUSE `build_catalogue.ts` WAS SUBSTRING-MATCHING THE PROSE. Rewording
+   * that sentence — a copy edit, „единствено в страната" — would silently reclassify 2006
+   * as national and caption a domestic-only rate as covering everyone, which is the exact
+   * defect the distinction was created to prevent. The sentence stays for surfaces that
+   * print it; this is what a machine reads.
+   */
+  turnoutScope: "all-sections" | "domestic-only";
   /** Whether the leader took more than half the valid votes. */
   meetsMajority: boolean;
   /** Whether more than half the registered voters took part. */
@@ -220,6 +230,7 @@ export const tallyRound = (r: PresidentialRound): RoundTally => {
     validVotesResidue: validVotes - protocolValidVotes,
     registeredVoters,
     signatures,
+    turnoutScope: abroadReportsNeither ? "domestic-only" : "all-sections",
     turnout,
     turnoutBasis,
     meetsMajority,

@@ -14,12 +14,16 @@
       "1": {
         "machineVoting": true,
         "flashRecords": true,
-        "noneOfTheAbove": true
+        "noneOfTheAbove": true,
+        "turnoutPct": 40.3,
+        "turnoutBasis": "all-sections"
       },
       "2": {
         "machineVoting": true,
         "flashRecords": true,
-        "noneOfTheAbove": true
+        "noneOfTheAbove": true,
+        "turnoutPct": 34.63,
+        "turnoutBasis": "all-sections"
       }
     }
   },
@@ -38,12 +42,16 @@
       "1": {
         "machineVoting": true,
         "flashRecords": false,
-        "noneOfTheAbove": true
+        "noneOfTheAbove": true,
+        "turnoutPct": 57.65,
+        "turnoutBasis": "all-sections"
       },
       "2": {
         "machineVoting": true,
         "flashRecords": false,
-        "noneOfTheAbove": true
+        "noneOfTheAbove": true,
+        "turnoutPct": 51.7,
+        "turnoutBasis": "all-sections"
       }
     }
   },
@@ -62,12 +70,16 @@
       "1": {
         "machineVoting": false,
         "flashRecords": false,
-        "noneOfTheAbove": false
+        "noneOfTheAbove": false,
+        "turnoutPct": 52.28,
+        "turnoutBasis": "all-sections"
       },
       "2": {
         "machineVoting": false,
         "flashRecords": false,
-        "noneOfTheAbove": false
+        "noneOfTheAbove": false,
+        "turnoutPct": 48.24,
+        "turnoutBasis": "all-sections"
       }
     }
   },
@@ -86,12 +98,16 @@
       "1": {
         "machineVoting": false,
         "flashRecords": false,
-        "noneOfTheAbove": false
+        "noneOfTheAbove": false,
+        "turnoutPct": 43.88,
+        "turnoutBasis": "domestic-only"
       },
       "2": {
         "machineVoting": false,
         "flashRecords": false,
-        "noneOfTheAbove": false
+        "noneOfTheAbove": false,
+        "turnoutPct": 41.69,
+        "turnoutBasis": "domestic-only"
       }
     }
   },
@@ -110,12 +126,16 @@
       "1": {
         "machineVoting": false,
         "flashRecords": false,
-        "noneOfTheAbove": false
+        "noneOfTheAbove": false,
+        "turnoutPct": 41.77,
+        "turnoutBasis": "all-sections"
       },
       "2": {
         "machineVoting": false,
         "flashRecords": false,
-        "noneOfTheAbove": false
+        "noneOfTheAbove": false,
+        "turnoutPct": 55.09,
+        "turnoutBasis": "all-sections"
       }
     }
   }

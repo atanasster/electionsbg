@@ -20,8 +20,15 @@
 //
 // Plan: docs/plans/presidential-elections-v1.md T4.1, decision 2.
 
-/** What a round's protocols and ballots actually support. */
-export interface PresidentialRoundCapabilities {
+/**
+ * What a round's protocols and ballots support, and its two headline figures.
+ *
+ * ⚠ THE FIGURES ARE HERE BECAUSE THE HUB'S HEAD BAND MAY NOT FETCH. `electionsHubFigures.ts`
+ * paints with the first frame and is never a skeleton — that is a stated property of the
+ * band, not an accident — so a figure it renders has to be bundled. The per-place corpus
+ * stays in `data/<cycle>/`; these two numbers are the whole of what the band needs.
+ */
+export interface PresidentialRoundInfo {
   /**
    * Votes were cast on machines somewhere in this round.
    *
@@ -50,7 +57,34 @@ export interface PresidentialRoundCapabilities {
    * changes with it (decision 5).
    */
   noneOfTheAbove: boolean;
+  /**
+   * Signatures in the rolls over registered voters, as a percentage — or `null` when the
+   * round's protocols cannot support a rate.
+   *
+   * ⚠ NOT ЦИК's OWN ACTIVITY FIGURE, and the two disagree. Summing the 2021 round-1
+   * protocols gives signatures of 2,687,307 — exactly what the activity page prints — while
+   * the registered count comes out at 6,667,895 against its 6,635,305, so neither of our
+   * bases reproduces its 40.50%. The page counts registration differently; chasing its
+   * number would mean inventing a third basis. §2.5-11.
+   */
+  turnoutPct: number | null;
+  /**
+   * WHICH sections that rate is over.
+   *
+   * ⚠ A CODE, NOT A SENTENCE. The corpus-side rule produces a Bulgarian sentence, and
+   * storing that would ship untranslated copy to the English band; the surface composes the
+   * caption from its own keys.
+   *
+   * ⚠ `"domestic-only"` IS 2006, AND IT IS NOT A ROUNDING CAVEAT. All 144 of that cycle's
+   * abroad sections report neither a roll nor a signature count while casting 46,113 valid
+   * votes, so they are in neither half of the ratio — a figure captioned as national would
+   * be describing a different population from every other cycle's.
+   */
+  turnoutBasis: "all-sections" | "domestic-only";
 }
+
+/** @deprecated The old name, kept so an outside import does not break silently. */
+export type PresidentialRoundCapabilities = PresidentialRoundInfo;
 
 /** One presidential cycle, as the selector and the hub see it. */
 export interface PresidentialElectionEntry {
@@ -92,7 +126,7 @@ export interface PresidentialElectionEntry {
    */
   tickets: number;
   /** Keyed by round number. `2` is absent for a cycle decided in round 1. */
-  rounds: Partial<Record<1 | 2, PresidentialRoundCapabilities>>;
+  rounds: Partial<Record<1 | 2, PresidentialRoundInfo>>;
 }
 
 /** ⚠ A shape, not a calendar: `2021-13-45` passes. It exists to refuse `"hello"`, which
@@ -120,13 +154,27 @@ const isBallotNumber = (v: unknown): boolean =>
  */
 export const LATEST_PRESIDENTIAL_CYCLE = "2021_11_14_pvr";
 
-const isCapabilities = (v: unknown): v is PresidentialRoundCapabilities => {
+const isRoundInfo = (v: unknown): v is PresidentialRoundInfo => {
   if (typeof v !== "object" || v === null) return false;
   const c = v as Record<string, unknown>;
+  if (
+    typeof c.machineVoting !== "boolean" ||
+    typeof c.flashRecords !== "boolean" ||
+    typeof c.noneOfTheAbove !== "boolean"
+  ) {
+    return false;
+  }
+  // ⚠ `null` IS A VALUE HERE, NOT AN ABSENCE — „this round's protocols cannot support a
+  // rate" is an answer. `undefined` is not: it means the field was never written, and a
+  // band reading it would render nothing while believing it had asked.
+  if (c.turnoutPct !== null && typeof c.turnoutPct !== "number") return false;
+  if (
+    typeof c.turnoutPct === "number" &&
+    !(c.turnoutPct > 0 && c.turnoutPct <= 100)
+  )
+    return false;
   return (
-    typeof c.machineVoting === "boolean" &&
-    typeof c.flashRecords === "boolean" &&
-    typeof c.noneOfTheAbove === "boolean"
+    c.turnoutBasis === "all-sections" || c.turnoutBasis === "domestic-only"
   );
 };
 
@@ -182,5 +230,5 @@ export const isPresidentialElectionEntry = (
   // hand-edit of a single field produces, on the field every consumer branches on to pick
   // which round to render as the result.
   if ((e.round2Date === null) !== (e.decidedInRound === 1)) return false;
-  return keys.every((k) => isCapabilities(rounds[k]));
+  return keys.every((k) => isRoundInfo(rounds[k]));
 };

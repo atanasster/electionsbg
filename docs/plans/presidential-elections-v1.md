@@ -1030,13 +1030,51 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   pin (without it the tile reads 7 November to every reader in the Americas while linking to the 8th — the
   control proves the zones really disagree on that date first), and `hasUpcomingLocalBallot`'s 365-day edge,
   which gates a whole side column on My-Area and flips around 2026-10-24.
-- **T4.7 The hub's figures band has a rule to decide, not just a kind to add.** `electionsHubFigures.ts` states
-  that cells 3 and 4 ALWAYS describe a parliamentary cycle because only that catalogue carries a protocol, and
-  falls back with a basis that says so when a local cycle is selected. A presidential cycle DOES carry a
-  protocol. Decision: a selected presidential cycle fills cells 3–4 from its OWN round-1 protocol (turnout on the
-  §2.5-11 basis, valid votes incl. „никого"), and the basis names the round; the fallback stays for local. The
-  turnout rule is imported from `ballotTotals.ts`, per that file's own warning — a presidential-only copy is how
-  the abroad 329.6% guard gets lost again.
+- **T4.7 ✅ DONE.** A selected presidential cycle fills cells 3–4 from its OWN round 1; a local one still falls
+  back to the latest parliamentary cycle and says so. Four things the step settled:
+
+  - ⚠️ **THE FIGURES HAD TO GO IN THE CATALOGUE, because the band may not fetch.** It paints with the first
+    frame and is never a skeleton — a stated property, not an accident — so anything it renders must be
+    bundled, while the per-place corpus stays in `data/<cycle>/`. Two numbers per round is the whole cost:
+    `turnoutPct` and `turnoutBasis`.
+  - ⚠️ **CELL 4 COUNTS TICKETS, NOT PARTIES — and not the VALID-VOTE TOTAL this step was planned around.**
+    „Партии" beside a presidential turnout is a category error: a ballot line is a president+vice-president
+    pair, and 2021's 23 of them are not 23 parties. And the parliamentary cell 4 is `results.votes.length`, a
+    count of ballot lines — so the ticket count is its analogue, while „valid votes incl. „никого"" would have
+    banded a vote MAGNITUDE against a count. The planned content was replaced, not forgotten.
+  - ⚠️ **THE BASIS NAMES THE ROUND, because round 2 is a different electorate** (2021: 40.30% against 34.63%),
+    so a caption reading only „presidential vote" would be true of neither. **And it names the POPULATION when
+    that is narrower**: 2006's 144 abroad sections report neither a roll nor a signature count while casting
+    46,113 valid votes, so its rate covers the country only and gets its own sentence rather than a footnote.
+    ⚠️ `turnoutBasis` is stored as a CODE — the corpus rule produces a Bulgarian sentence, and storing that
+    would ship untranslated copy to the English band.
+  - ⚠️ **AN UNANSWERABLE CYCLE RETURNS `null` RATHER THAN THE LATEST.** „The newest presidential cycle" is the
+    worst available answer: it puts one election's turnout under another's date, which is exactly what the
+    basis exists to prevent. The parliamentary fallback takes over instead, captioned as itself.
+
+  ⚠️⚠️ **THE TICKET CELL INHERITED THE TURNOUT'S BASIS, and 2006 is where that showed.** One shared string
+  captioned a NATIONAL count of 7 ballot lines „…само в страната" — a figure attributed to a population it is
+  not over and to a measurement it is not. The two bases are separate now, and the gate reads `cells[1].basis`,
+  which it never did.
+
+  ⚠️ **TWO TURNOUT RULES SHARE ONE SLOT, and the header used to claim `ballotTotals.ts` was „the one
+  definition".** It is the one definition of the PARLIAMENTARY cell — cast over registered PLUS additional
+  voters, with the `cast > denom` guard abroad's 329.6% needs. The presidential cell renders `tallyRound`'s
+  figure: signatures over the roll ALONE, the basis art. 93 (3) is argued on. Measured on round 1 they differ
+  by up to **1.63 points** (2021: 40.30% against 38.67%), so they are not commensurable and each cell's basis
+  names its own.
+
+  ⚠️ **AND `turnoutBasis` WAS DERIVED BY SUBSTRING-MATCHING A BULGARIAN SENTENCE** in `winnerRule.ts` — a copy
+  edit there („единствено в страната") would have silently reclassified 2006 as national. `RoundTally` now
+  publishes `turnoutScope` as a code beside the sentence it prints. `--write` also validates every row before
+  writing: `tallyRound` returns `0`, not `null`, for a round with a roll and no signatures, and the validator
+  rejects `0` — without the check the generator commits a file whose only complaint arrives later, in a shape
+  gate, naming nothing.
+
+  The gate mutation-checks four things: reading round 2, falling back to the newest cycle, sharing one basis,
+  and appending the presidential cells instead of returning them (which leaves the parliamentary turnout on
+  the page with every index-based assertion still green).
+
 - **T4.8** `electionsSearch.ts`: presidential cycles, tickets and the candidate names are searchable from the hub
   search box, landing on `/presidential/:cycle`; the exhaustiveness gate on `ElectionKind` catches the switch.
 - **T4.9** `scripts/data_map/model.ts` gains the source (the `/data` map lists every dataset), and the ingest

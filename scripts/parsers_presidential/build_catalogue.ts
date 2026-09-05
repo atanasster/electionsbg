@@ -36,7 +36,7 @@ import type { RoundNumber } from "./sources";
 import type { PresidentialRound } from "./types";
 import type {
   PresidentialElectionEntry,
-  PresidentialRoundCapabilities,
+  PresidentialRoundInfo,
 } from "@/data/presidentialCatalogue";
 
 const PROJECT_ROOT = path.resolve(
@@ -99,7 +99,7 @@ export const roundCapabilities = (
   round: PresidentialRound,
   tally: RoundTally,
   flashTree: string | undefined,
-): PresidentialRoundCapabilities => ({
+): PresidentialRoundInfo => ({
   machineVoting: round.sections.some((s) =>
     s.votes.some((v) => (v.machineVotes ?? 0) > 0),
   ),
@@ -109,6 +109,17 @@ export const roundCapabilities = (
   // not ask, which is the distinction this flag carries — and re-deriving it beside the
   // one `decideCycle` already holds creates a second opinion about the same round.
   noneOfTheAbove: tally.noneOfTheAbove !== undefined,
+  // ⚠ ROUNDED TO TWO PLACES SO THE FILE IS BYTE-STABLE. A raw double re-serialises
+  // identically today and would not survive a change in how the sum is accumulated; the
+  // band renders one decimal, so nothing is lost and the committed diff stays reviewable.
+  turnoutPct:
+    tally.turnout === null ? null : Math.round(tally.turnout * 10000) / 100,
+  // ⚠ DERIVED FROM THE SENTENCE the corpus rule produces, because that rule is the one
+  // definition of when abroad falls out of the ratio — re-deriving the condition here would
+  // be a second opinion about 2006 that nothing keeps in step.
+  turnoutBasis: tally.turnoutBasis.includes("само в страната")
+    ? "domestic-only"
+    : "all-sections",
 });
 
 /**
@@ -198,6 +209,9 @@ const main = (): void => {
         Object.entries(e.rounds)
           .map(
             ([r, c]) =>
+              // ⚠ THE TURNOUT IS IN THE LINE. Report-only mode exists so an operator can
+              // see what a regenerate would change; the two fields the head band actually
+              // renders were the ones it could not show.
               `r${r} [${
                 [
                   c.machineVoting ? "machines" : null,
@@ -206,7 +220,9 @@ const main = (): void => {
                 ]
                   .filter(Boolean)
                   .join(" ") || "paper only"
-              }]`,
+              }` +
+              `${c.turnoutPct === null ? " · no rate" : ` · ${c.turnoutPct}%`}` +
+              `${c.turnoutBasis === "domestic-only" ? " (domestic)" : ""}]`,
           )
           .join(" "),
     );

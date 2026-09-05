@@ -84,6 +84,27 @@ describe("presidential_elections.json", () => {
     expect(entry("2016_11_06_pvr").rounds[1].machineVoting).toBe(true);
     expect(entry("2016_11_06_pvr").rounds[1].flashRecords).toBe(false);
     expect(entry("2021_11_14_pvr").rounds[1].flashRecords).toBe(true);
+    // ⚠ The head band reads these, so they are pinned rather than merely shaped. 2006 is the
+    // one cycle whose rate excludes the country's abroad sections — 144 of them report
+    // neither a roll nor a signature count while casting 46,113 valid votes.
+    expect(entry("2021_11_14_pvr").rounds[1].turnoutPct).toBe(40.3);
+    expect(entry("2021_11_14_pvr").rounds[2].turnoutPct).toBe(34.63);
+    // ⚠ DERIVED, NOT LISTED — the claim is „2006 is the only cycle whose rate drops abroad",
+    // so a sixth cycle is covered the day it lands, and BOTH rounds are pinned because Tier 5
+    // renders round 2.
+    for (const e of catalogue)
+      for (const [r, info] of Object.entries(e.rounds))
+        expect(info.turnoutBasis, `${e.name} r${r}`).toBe(
+          e.name === "2006_10_22_pvr" ? "domestic-only" : "all-sections",
+        );
+    // The control: the corpus really holds both codes, so the line above is not one branch.
+    expect(
+      new Set(
+        catalogue.flatMap((e) =>
+          Object.values(e.rounds).map((r) => r.turnoutBasis),
+        ),
+      ),
+    ).toEqual(new Set(["all-sections", "domestic-only"]));
     // Nothing before 2016 had either.
     for (const name of ["2011_10_23_pvr", "2006_10_22_pvr", "2001_11_11_pvr"]) {
       expect(entry(name).rounds[1].machineVoting).toBe(false);
@@ -108,6 +129,27 @@ describe("presidential_elections.json", () => {
         rounds: { 1: { machineVoting: true, noneOfTheAbove: true } },
       }),
     ).toBe(false);
+    // ⚠ THE TWO FIGURES THE HEAD BAND RENDERS. `null` is a VALUE — „this round's protocols
+    // cannot support a rate" — while `undefined` means the field was never written, and a
+    // band reading it renders nothing while believing it asked. A percentage outside (0,100]
+    // is not a turnout, and an unknown basis code would caption a domestic-only rate as
+    // national.
+    const r1 = (good.rounds as Record<string, Record<string, unknown>>)["1"];
+    const withRound1 = (over: Record<string, unknown>) =>
+      isPresidentialElectionEntry({
+        ...good,
+        rounds: {
+          ...(good.rounds as Record<string, unknown>),
+          1: { ...r1, ...over },
+        },
+      });
+    expect(withRound1({ turnoutPct: null })).toBe(true);
+    expect(withRound1({ turnoutPct: undefined })).toBe(false);
+    expect(withRound1({ turnoutPct: 0 })).toBe(false);
+    expect(withRound1({ turnoutPct: 140 })).toBe(false);
+    expect(withRound1({ turnoutPct: "40.3" })).toBe(false);
+    expect(withRound1({ turnoutBasis: "national" })).toBe(false);
+    expect(withRound1({ turnoutBasis: "domestic-only" })).toBe(true);
     // A runoff date with no round-2 capabilities, and capabilities with no runoff date —
     // both directions, because only one of them looks like an omission.
     expect(
