@@ -51,6 +51,10 @@ export type Archive = {
    *  a claim like "both round URLs serve the same file" survives contact with a future
    *  re-publish. Absent means "not measured", never "any bytes will do". */
   md5?: string;
+  /** Size of that same archive. A field rather than a comment for the same reason —
+   *  and because `SOURCE.json` carries it as data, so a prose copy here would be a
+   *  second spelling of one fact with nothing keeping the two in step. */
+  bytes?: number;
   /** A sibling HTML page of the same cycle, visited first so the cf_clearance cookie
    *  is fresh for that path prefix. */
   warmUrl: string;
@@ -92,12 +96,18 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
     archives: {
       tur1: {
         url: `${RESULTS}/pvrns2021/tur1/export.zip`,
+        md5: "4faad1057ae3693b79b087f3a75eeb78",
+        bytes: 136_656_704,
+        // measured 2026-09-05,
         warmUrl: `${RESULTS}/pvrns2021/tur1/csv.html`,
         // ⚠ The one cycle that refuses `goto` — see the banner.
         strategy: "click",
       },
       tur2: {
         url: `${RESULTS}/pvrns2021/tur2/export.zip`,
+        md5: "845766071b27d8901a65ccd77faf05ed",
+        bytes: 26_071_892,
+        // measured 2026-09-05,
         warmUrl: `${RESULTS}/pvrns2021/tur2/csv.html`,
         strategy: "click",
       },
@@ -129,8 +139,10 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
         url: `${RESULTS}/pvrnr2016/tur1/export.zip`,
         warmUrl: `${RESULTS}/pvrnr2016/tur1/csv.html`,
         strategy: "goto",
-        // Measured 2026-09-05: `tur2/export.zip` downloads to this same digest.
+        // Measured 2026-09-05: `tur2/export.zip` downloads to this same digest,
+        // which is what "one archive, both rounds" rests on.
         md5: "2aff131307eb09487212582ac565a17e",
+        bytes: 1_194_252,
       },
     },
     rounds: {
@@ -153,9 +165,17 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
         url: `${RESULTS}/mipvr2011/el2011_t1.zip`,
         warmUrl: `${RESULTS}/mipvr2011/tur1/prezidentski/index.html`,
         strategy: "goto",
+        // ⚠ NO md5: this archive was never downloaded here. Round 1's presidential
+        // files were copied out of the pre-existing (gitignored) local tree
+        // raw_data/2011_10_23_mi/ТУР1/президент/, which came from the same zip. The
+        // URL is the right one; the digest is simply unmeasured, and inventing one
+        // would be worse than leaving it out.
       },
       tur2: {
         url: `${RESULTS}/mipvr2011/el2011_t2.zip`,
+        md5: "f9bcd5dcc0ce6d64931578bea99edd6a",
+        bytes: 626_112,
+        // measured 2026-09-05,
         warmUrl: `${RESULTS}/mipvr2011/tur2/prezidentski/index.html`,
         strategy: "goto",
       },
@@ -186,11 +206,17 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
       tur1: {
         // ⚠ A DIFFERENT HOST — the 2006 archive was never migrated to results.cik.bg.
         url: "https://pvr2006.cik.bg/results_1/export_t1.zip",
+        md5: "85413e0aa9cd8ba98be9819e4feaa7da",
+        bytes: 330_058,
+        // measured 2026-09-05,
         warmUrl: "https://pvr2006.cik.bg/results_1/",
         strategy: "goto",
       },
       tur2: {
         url: "https://pvr2006.cik.bg/results_2/export_t2.zip",
+        md5: "2f48d318dd93f6d74302bcf197ccdbee",
+        bytes: 280_078,
+        // measured 2026-09-05,
         warmUrl: "https://pvr2006.cik.bg/results_2/",
         strategy: "goto",
       },
@@ -212,6 +238,9 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
     archives: {
       both: {
         url: `${RESULTS}/before_2003/2001_prezident.zip`,
+        md5: "67748428e3f31fec76d4cebfd457f892",
+        bytes: 8_492_795,
+        // measured 2026-09-05,
         warmUrl: `${RESULTS}/`,
         strategy: "goto",
       },

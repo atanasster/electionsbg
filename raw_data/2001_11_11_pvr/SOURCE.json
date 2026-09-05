@@ -1,0 +1,28 @@
+{
+  "cycle": "2001_11_11_pvr",
+  "slug": "prezident2001",
+  "stampedAt": "2026-09-05T10:13:16.843Z",
+  "archives": {
+    "both": {
+      "url": "https://results.cik.bg/before_2003/2001_prezident.zip",
+      "strategy": "goto",
+      "bytes": 8492795,
+      "md5": "67748428e3f31fec76d4cebfd457f892",
+      "downloadedHere": true
+    }
+  },
+  "rounds": {
+    "1": {
+      "archive": "both",
+      "subtree": "DATA/izb01pr/tur1",
+      "date": "2001-11-11"
+    },
+    "2": {
+      "archive": "both",
+      "subtree": "DATA/izb01pr/tur2",
+      "date": "2001-11-18"
+    }
+  },
+  "note": "The „Деметра“ CD image. Only DATA/izb01pr/ is kept; the CD's own Read_WIN.txt (committed beside the rounds, and decodable with this module) lists FOUR top-level directories — DATA, DIAGRAMS (a PowerPoint viewer with Windows DLLs), INTERNET (HTML renderings of the same figures) and BACKUP (a duplicate of everything). Only DATA is machine-readable at section grain. Per-oblast INI-style files (.201 round 1, .301 round 2) rather than one file per concern, and its own (obl, obsht, sec) key space.",
+  "fetchedAt": "2026-09-05T00:00:00.000Z"
+}

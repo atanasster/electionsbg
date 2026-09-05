@@ -213,15 +213,37 @@ const gotoAndExtract = async (
  * for the live mi2019/mi2023 archives whose per-resource Turnstile is
  * stricter than the static minr2015/mipvr2011 ones.
  *
+ * ⚠ `strategy: "click"` EXISTS BECAUSE NAVIGATION IS NOT ALWAYS ENOUGH. The
+ * `goto` path above fires no `download` event at all for `results.cik.bg/
+ * pvrns2021/tur{1,2}/export.zip` — measured twice on 2026-09-05, ~50 s each,
+ * against four other presidential archives that download by navigation in
+ * 1–12 s. What works there is a real user gesture: warm the round's `csv.html`
+ * and CLICK the anchor whose href ends in the zip's basename (130 MB in 21 s,
+ * 200 application/zip). Per-cycle choice lives in
+ * `scripts/parsers_presidential/sources.ts`, not here.
+ *
  * Returns the absolute path on success, or null on timeout / failure so the
  * caller can fall back to the manual operator drop.
  */
 export const cikDownloadFile = async (
   url: string,
   destPath: string,
-  opts: { timeoutMs?: number; warmUrl?: string } = {},
+  opts: {
+    timeoutMs?: number;
+    warmUrl?: string;
+    /** `goto` (default) navigates at the zip; `click` warms `warmUrl` and clicks
+     *  the anchor pointing at it. See the banner. */
+    strategy?: "goto" | "click";
+  } = {},
 ): Promise<string | null> => {
-  const { timeoutMs = 120_000, warmUrl } = opts;
+  const { timeoutMs = 120_000, warmUrl, strategy = "goto" } = opts;
+  // `click` has nothing to click without a page to click it on.
+  if (strategy === "click" && !warmUrl) {
+    throw new Error(
+      `cikDownloadFile: strategy "click" needs a warmUrl — the anchor is on that ` +
+        `page, not on the zip's own URL (${url})`,
+    );
+  }
   const s = await initSession();
   fs.mkdirSync(path.dirname(destPath), { recursive: true });
   if (warmUrl) {
@@ -238,9 +260,42 @@ export const cikDownloadFile = async (
   try {
     // waitForEvent races the navigation; page.goto rejects with ERR_ABORTED
     // once the download takes over — that rejection is expected.
+    //
+    // Under `click` the race is against a real gesture instead.
+    //
+    // ⚠ THE SELECTOR MUST NOT BE THE BASENAME ALONE. Three of the presidential
+    // archives are named `export.zip`, and `page.click` takes the FIRST match
+    // without a strict-mode error — so a warm page carrying links to both
+    // rounds would silently download the wrong one, which the md5 check would
+    // then reject with a confusing message. Match the full href first, fall
+    // back to the PATH (the page may link relatively, `./export.zip`), and
+    // resolve each candidate against the page URL before clicking.
+    const clickTheArchive = async (): Promise<null> => {
+      const wanted = new URL(url);
+      const hrefs = await s.page.$$eval("a[href]", (as) =>
+        as.map((a) => a.getAttribute("href") ?? ""),
+      );
+      const match = hrefs.find((h) => {
+        try {
+          return new URL(h, s.page.url()).href === wanted.href;
+        } catch {
+          return false;
+        }
+      });
+      if (!match) {
+        throw new Error(
+          `No anchor on ${s.page.url()} resolves to ${url} — the warm page ` +
+            `does not link this archive (${hrefs.length} links seen)`,
+        );
+      }
+      await s.page.click(`a[href="${match}"]`, { timeout: timeoutMs });
+      return null;
+    };
     const [download] = await Promise.all([
       s.page.waitForEvent("download", { timeout: timeoutMs }),
-      s.page.goto(url, { timeout: timeoutMs }).catch(() => null),
+      strategy === "click"
+        ? clickTheArchive().catch(() => null)
+        : s.page.goto(url, { timeout: timeoutMs }).catch(() => null),
     ]);
     await download.saveAs(destPath);
     const stat = fs.statSync(destPath);

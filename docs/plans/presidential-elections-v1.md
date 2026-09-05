@@ -386,11 +386,38 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
   and would have published the runoff's protocols under round 1's date with every count reconciling.
   ⚠️ `scripts/parsers_local/download_csv_bundle.ts` names the SAME 2011 archive for the local races; both maps
   now cross-reference each other, and giving that URL one home is open work.
-- **T1.2** `cikDownloadFile` gains `strategy: "click"` — warm the listing page, `page.click` the anchor whose
-  `href` ends in the zip name, race `waitForEvent("download")`. Keep `"goto"` as the default; the map says which
-  cycle needs which (§1.2). `npm run data -- --pvr-download <slug>` mirrors `--local-csv`: flag-gated, pops a
-  window, extracts under `raw_data/<cycle>_pvr/`, never part of the watcher flow
-  ([[feedback_one_off_backfills]]).
+- **T1.2 ✅ DONE.** `cikDownloadFile` gains `strategy: "click"`, and `npm run data -- --pvr-download <cycle>`
+  mirrors `--local-csv`: flag-gated, pops a window, never part of the watcher flow. `--pvr-force` re-fetches a
+  cycle already on disk and `--pvr-allow-digest-change` accepts an archive ЦИК has re-published. Four things the
+  build settled:
+
+  - ⚠️ **The click selector cannot be the zip's BASENAME.** Three archives in the map are called `export.zip`,
+    and Playwright's `page.click` takes the first match with no strict-mode error — so a warm page linking both
+    rounds would quietly download the wrong one. Every anchor is resolved against the page URL and matched on
+    the full href, and a page with no matching anchor says so rather than reporting "Cloudflare or 404".
+  - ⚠️ **Placement is ATOMIC, and that is forced by the skip check.** `roundIsPresent` asks only whether the
+    round folder is non-empty, so a copy that threw halfway would leave a PARTIAL round that every later run
+    reports as "already on disk" and never re-fetches — a quietly incomplete corpus whose logs say `skipped`.
+    Files are built in `ТУРn.incoming` and swapped; an empty placement is refused outright.
+  - ⚠️ **The zip is removed in a `finally`.** `raw_data/**_pvr` is TRACKED, so a throw between download and
+    extraction would otherwise leave 130 MB in a committed directory. The sibling local downloader gets away
+    without this only because its output tree is gitignored wholesale.
+  - **The md5 is checked BEFORE extraction**, so a re-published archive can never reach the tree; the error
+    names the override and points at §2.4's totals for the re-verification.
+- **T1.4 ✅ DONE.** `raw_data/<cycle>_pvr/SOURCE.json` per cycle, written by `stamp_from_archives.ts` — a
+  COMMITTED producer rather than a throwaway snippet, matching archives to slots by CONTENT (the declared md5)
+  rather than by filename. Three distinctions it keeps that a simpler file would blur:
+
+  - `stampedAt` is when the file was written and `fetchedAt` when the bytes were fetched. The five historical
+    stamps were written in one pass ~1 ms apart, so a single timestamp claiming to be five download times would
+    have been false on its face; the stamper passes the real fetch date rather than its own run time.
+  - `downloadedHere: false` is paired with an `origin` saying what happened INSTEAD. The 2011 round-1 archive
+    was never fetched by this tooling — those files came from the pre-existing local `_mi` tree — so it carries
+    a null digest and that sentence, rather than borrowing its sibling's.
+  - The stamp MERGES rather than replaces, because the ordinary run measures nothing; and `readStamp` REFUSES a
+    present-but-unparseable file rather than reporting it absent, since reporting absent is the same erasure
+    reached through a different door. Both halves are gated, and the committed stamps are asserted to be a
+    fixed point of a skipped re-run so a no-op run cannot churn a tracked file.
 - **T1.3 ✅ DONE.** `scripts/parsers_presidential/encoding.ts`: `decodeMik` (a 256-entry table, `0x80–0xBF` →
   `U+0410–U+044F`, verified across the whole committed 2001 corpus — 111,437 high bytes, none above `0xBF`),
   `decodeCp1251`, `stripBom`, a `decodeBundleText` dispatcher keyed on the era's declared encoding, and
@@ -416,8 +443,7 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
   ⚠️ Open, and deliberately a separate commit: `scripts/parsers_local/augment_sections_2011.ts`'s `readLines` is
   a third copy of decode+split over the SAME 2011 bundle, with the weaker `/\r?\n/` split. Re-pointing it at
   `decodeBundleText` + `parseSemicolonRows` retires it.
-- **T1.4** A `raw_data/<cycle>_pvr/SOURCE.json` stamp written by the downloader: URL, byte size, md5, fetched-at —
-  the provenance the five hand-placed trees from this session lack; back-fill it from §1 for them.
+
 
 ## 6. Tier 2 — the readers (3–4 days)
 

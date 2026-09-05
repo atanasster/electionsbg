@@ -1,0 +1,28 @@
+{
+  "cycle": "2016_11_06_pvr",
+  "slug": "pvrnr2016",
+  "stampedAt": "2026-09-05T10:13:16.840Z",
+  "archives": {
+    "both": {
+      "url": "https://results.cik.bg/pvrnr2016/tur1/export.zip",
+      "strategy": "goto",
+      "bytes": 1194252,
+      "md5": "2aff131307eb09487212582ac565a17e",
+      "downloadedHere": true
+    }
+  },
+  "rounds": {
+    "1": {
+      "archive": "both",
+      "subtree": "06.11.2016",
+      "date": "2016-11-06"
+    },
+    "2": {
+      "archive": "both",
+      "subtree": "13.11.2016",
+      "date": "2016-11-13"
+    }
+  },
+  "note": "Held jointly with a national referendum, whose data is a separate download (tur1/csv_nr.html) and out of scope — but the two share a `sections` file, so a later referendum ingest is cheap.",
+  "fetchedAt": "2026-09-05T00:00:00.000Z"
+}

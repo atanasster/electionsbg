@@ -1,0 +1,35 @@
+{
+  "cycle": "2006_10_22_pvr",
+  "slug": "pvr2006",
+  "stampedAt": "2026-09-05T10:13:16.842Z",
+  "archives": {
+    "tur1": {
+      "url": "https://pvr2006.cik.bg/results_1/export_t1.zip",
+      "strategy": "goto",
+      "bytes": 330058,
+      "md5": "85413e0aa9cd8ba98be9819e4feaa7da",
+      "downloadedHere": true
+    },
+    "tur2": {
+      "url": "https://pvr2006.cik.bg/results_2/export_t2.zip",
+      "strategy": "goto",
+      "bytes": 280078,
+      "md5": "2f48d318dd93f6d74302bcf197ccdbee",
+      "downloadedHere": true
+    }
+  },
+  "rounds": {
+    "1": {
+      "archive": "tur1",
+      "subtree": "pre2006_t1",
+      "date": "2006-10-22"
+    },
+    "2": {
+      "archive": "tur2",
+      "subtree": "pre2006_t2",
+      "date": "2006-10-29"
+    }
+  },
+  "note": "No votes file at all: the per-ticket votes are extra COLUMNS on the protocol rows, and the ticket names exist only as column headings in Readme.txt.",
+  "fetchedAt": "2026-09-05T00:00:00.000Z"
+}

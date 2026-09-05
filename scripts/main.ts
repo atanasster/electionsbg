@@ -39,6 +39,7 @@ import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_cano
 import { buildLocalRollups } from "./parsers_local/build_region_json";
 import { buildChmiHistory } from "./parsers_local/build_chmi_history";
 import { buildElectionSurfaces } from "./elections/build_surfaces";
+import { downloadPresidentialCycle } from "./parsers_presidential/download";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -194,6 +195,25 @@ const app = command({
     // Playwright session, extracts it (CP866) under raw_data/<folder>/ТУР1/,
     // then re-parses the cycle so council vote share + per-station section
     // shards get backfilled. Flag-gated operator step (pops a browser window).
+    // `--pvr-download <cycle>` fetches a presidential bundle from ЦИК and lays it
+    // out under raw_data/<cycle>/ТУР1|ТУР2. Flag-gated and idempotent: all five
+    // historical cycles are committed, so the ordinary run downloads nothing. It
+    // exists so 2026 runs a path that has been exercised. See
+    // docs/plans/presidential-elections-v1.md T1.2.
+    pvrDownload: option({
+      type: optional(string),
+      long: "pvr-download",
+    }),
+    pvrForce: flag({
+      type: optional(boolean),
+      long: "pvr-force",
+      defaultValue: () => false,
+    }),
+    pvrAllowDigestChange: flag({
+      type: optional(boolean),
+      long: "pvr-allow-digest-change",
+      defaultValue: () => false,
+    }),
     localCsv: option({
       type: optional(string),
       long: "local-csv",
@@ -332,6 +352,9 @@ const app = command({
     localDate,
     localIngest,
     localCsv,
+    pvrDownload,
+    pvrForce,
+    pvrAllowDigestChange,
     localByElectionTurnout,
     resolveLocalCanonicals,
     localRollups,
@@ -346,6 +369,24 @@ const app = command({
     prevoteFlows,
   }) => {
     production = prod;
+    // ⚠ FIRST, before parseElections and the coords backfill. Every other
+    // flag-gated operator step sits below those, so it pays for a full
+    // cross-election section sweep it has no use for — measured, `--pvr-download`
+    // walked all 13 parliamentary trees before reaching its own handler. An
+    // acquisition step that only touches raw_data/<cycle>_pvr should do that and
+    // nothing else.
+    if (pvrDownload) {
+      try {
+        await downloadPresidentialCycle(pvrDownload, {
+          force: pvrForce,
+          allowDigestChange: pvrAllowDigestChange,
+        });
+      } finally {
+        // The headed browser keeps the process alive otherwise.
+        await shutdownCikFetch();
+      }
+      return;
+    }
     if (machines) {
       if (!date) {
         throw new Error("Machines suemg file with date parameter");

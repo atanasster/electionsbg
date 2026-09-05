@@ -1,0 +1,35 @@
+{
+  "cycle": "2021_11_14_pvr",
+  "slug": "pvrns2021",
+  "stampedAt": "2026-09-05T10:13:16.839Z",
+  "archives": {
+    "tur1": {
+      "url": "https://results.cik.bg/pvrns2021/tur1/export.zip",
+      "strategy": "click",
+      "bytes": 136656704,
+      "md5": "4faad1057ae3693b79b087f3a75eeb78",
+      "downloadedHere": true
+    },
+    "tur2": {
+      "url": "https://results.cik.bg/pvrns2021/tur2/export.zip",
+      "strategy": "click",
+      "bytes": 26071892,
+      "md5": "845766071b27d8901a65ccd77faf05ed",
+      "downloadedHere": true
+    }
+  },
+  "rounds": {
+    "1": {
+      "archive": "tur1",
+      "subtree": "pvr",
+      "date": "2021-11-14"
+    },
+    "2": {
+      "archive": "tur2",
+      "subtree": "",
+      "date": "2021-11-21"
+    }
+  },
+  "note": "Round 1 was held jointly with a parliamentary election, so its archive also carries `np/` — the parliamentary half, whose votes.txt matched raw_data/2021_11_14/votes.txt at md5 301ce3c301c5c95b10cb86c8573fe223 when measured on 2026-09-05 — and ONE `suemg/` machine tree covering both ballots — block 64 parliament, 256 president. The machine tree stays under raw_data/2021_11_14/ and is NOT duplicated here; round 2 was presidential-only and keeps its own.",
+  "fetchedAt": "2026-09-05T00:00:00.000Z"
+}

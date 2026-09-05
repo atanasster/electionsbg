@@ -1,0 +1,36 @@
+{
+  "cycle": "2011_10_23_pvr",
+  "slug": "mipvr2011",
+  "stampedAt": "2026-09-05T10:13:16.841Z",
+  "archives": {
+    "tur1": {
+      "url": "https://results.cik.bg/mipvr2011/el2011_t1.zip",
+      "strategy": "goto",
+      "bytes": null,
+      "md5": null,
+      "downloadedHere": false,
+      "origin": "copied from the pre-existing local tree raw_data/2011_10_23_mi/ТУР1/президент/, extracted from this same joint archive by the local-elections ingest"
+    },
+    "tur2": {
+      "url": "https://results.cik.bg/mipvr2011/el2011_t2.zip",
+      "strategy": "goto",
+      "bytes": 626112,
+      "md5": "f9bcd5dcc0ce6d64931578bea99edd6a",
+      "downloadedHere": true
+    }
+  },
+  "rounds": {
+    "1": {
+      "archive": "tur1",
+      "subtree": "президент",
+      "date": "2011-10-23"
+    },
+    "2": {
+      "archive": "tur2",
+      "subtree": "президент",
+      "date": "2011-10-30"
+    }
+  },
+  "note": "⚠ scripts/parsers_local/download_csv_bundle.ts ALSO points at el2011_t1.zip (for the LOCAL races, with its own `mestni` warm page) — if ЦИК moves this zip, both maps need it. A race folder inside the JOINT bundle: the same archive carries общински съветници / кмет на община / кмет на кметство. Because the election ran through the ОИК, its section codes are on the 28-OBLAST grid (22 = София-град, 29 = abroad) and do NOT join parliamentary sections.",
+  "fetchedAt": "2026-09-05T00:00:00.000Z"
+}
