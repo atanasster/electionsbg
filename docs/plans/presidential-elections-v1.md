@@ -788,8 +788,32 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   PAPER-ONLY in every era — a machine accepts no invalid ballot — which makes 2021's 9,487 read as 0.35% over
   valid votes and 3.0% over paper ones; only the second is a rate anybody means, so `invalidBasis` says which.
 
-- **T3.3** `tickets.json` with colours and `canonicalTicketKey`; a `scripts/parsers_presidential/ticket_defaults.json`
-  for the few nominating bodies whose `nickName` differs from the parliamentary spelling.
+- **T3.3 ✅ DONE.** `tickets.ts` builds both rounds' ballot for a cycle, with colours, `canonicalTicketKey` and
+  the rounds each ticket stood in. `ticket_defaults.json` ships EMPTY on purpose. Four things the build settled:
+
+  - ⚠️⚠️ **A COLOUR IS A CLAIM ABOUT A POLITICAL BRAND, AND THE CATALOGUE'S „UNKNOWN" VALUE IS NOT A COLOUR.**
+    `scripts/parsers/parties.ts` assigns `lightslategrey` to any party it has no default for and reads it back as
+    that sentinel — 143 of the 226 index entries carry it. Taking it as a brand fact stamped
+    `colorBasis: "parliamentary-party"` on **nine of 2021's fourteen matched tickets**, all rendering as one grey
+    a shade from the neutral palette's own first entry. Brand colours in 2021 are 6, not 14.
+  - ⚠️ **THE REASON TO MATCH ON THE NAME IS NOT THAT THE NUMBERINGS DISAGREE.** On a same-day ballot they largely
+    AGREE — all 14 numbers present in both of 2021's ballots name the identical formation, ticket 2 and party 2
+    both being Русофили за възраждане на отечеството — which is exactly what makes a number match dangerous: it
+    works until a cycle whose two sequences are drawn separately, and then paints one formation's brand onto
+    another's candidate. The first draft's comment claimed the opposite and its test could not fail on the defect
+    it named.
+  - ⚠️ **A GENERIC NOMINATION FORM IS NOT A FORMATION.** „Инициативен комитет" is what six of 2011's eighteen
+    tickets give; matching it would hand six unrelated candidates one shared brand. Refused before the lookup,
+    and the curated table cannot re-admit one.
+  - **The neutral palette is 24 entries, one more than the largest ballot.** At ten it wrapped and two candidates
+    on the same ballot came out the same colour in three of the five cycles. The one remaining collision is two
+    REAL brand colours — the catalogue gives Патриотичен фронт and ВМРО the same red and both 2021 nominees
+    inherit it — so it is REPORTED in `colorCollisions` rather than resolved: overriding one would replace a
+    published brand fact with an invented colour.
+
+  ⚠️ `unmatchedNominators` counts NAMES and `neutralTickets` counts TICKETS; several tickets can share one
+  nominator string, so a reader asking „how much of this ballot carries a colour that asserts nothing" wants the
+  second. 2001 and 2006 are entirely neutral by construction — they name no nominating body for any ticket.
 - **T3.4** `npm run data -- --pvr <cycle>` / `--pvr --all` wired in `main.ts` next to the local flags; folded into
   `--all` only after T0.1/T0.2 exist. A `data/data-changes.json` entry per ingest via
   `scripts/append-data-change.ts` ([[reference_two_changelogs]]).
