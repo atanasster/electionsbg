@@ -593,9 +593,42 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
   ⚠️ **Correction to §2.5-3 above**: its „69,679 valid votes (both rounds)" is round 2 alone. Round 1 is 46,113.
   The claim that all 144 abroad sections carry т.3 = 0 in both rounds is correct.
-- **T2.5 `era2001.ts`** — MIK; INI blocks; `[PROT]` `+`-joined fields (the Благоевград sample:
-  `813+1+347+347+0+1+1+0+346` then `2+148+58+12+124+2` for six tickets); `[NM]` for ЕКАТТЕ; `[MAJ]`/`[AGGR]` as
-  per-oblast cross-checks the reader must reproduce from its own sections.
+- **T2.5 ✅ DONE.** `era2001.ts` reads the MIK bundle — `COMMON.<ext>` plus 33 files per round — and reproduces
+  every figure the bundle publishes: round 1 Първанов 1,032,665 / Стоянов 991,680 / Бонев 546,801 / Инджова
+  139,680 / Ганчев 95,481 / Берон 31,394, registered 6,824,979, signatures 2,850,650, valid 2,837,708 over
+  12,191 sections; round 2 Първанов 2,043,443 / Стоянов 1,731,676 over 12,192. Six things the build settled:
+
+  - ⚠️⚠️ **THE VOTE VECTOR IS POSITIONAL AND THE TICKET NUMBERS DO NOT HELP.** `[PROT]`'s second `+`-joined
+    group is one figure per `[PARTII]` ROW, in that order, while the tickets keep their ROUND-1 numbers into the
+    runoff — round 2's two figures belong to tickets **02 and 05**. Reading the vector as „ticket 1, ticket 2"
+    hands 2,043,443 votes to a candidate who was not on the ballot, with the national total still exact. This is
+    T2.4's trap from the other side: there the mapping was column numbers in prose, here it is a row ORDER with
+    misleading numbers printed beside it.
+  - ⚠️ **`[MAJ]`/`[AGGR]` ARE ENFORCED, AND THE NATIONAL ONE NEEDS A SECOND PASS.** They reconcile with the
+    sections EXACTLY — 32 oblasts, both rounds, zero mismatches — so a dropped or duplicated section cannot pass.
+    But `000000z0` sorts FIRST by filename, so reconciling it inside one pass compared it against an empty
+    corpus and asserted nothing: measured, corrupting its registered/signatures/valid figures read perfectly
+    clean. Aggregate-only files are deferred to the end. The check also **fails closed** on a missing block —
+    returning quietly removed the cross-check exactly when the file was damaged, and stripping oblast 01's two
+    blocks beside a duplicated `[PROT]` row published Първанов at 1,032,789.
+  - ⚠️ **т. 8 IS VALID, NOT INVALID.** `[TOCHKI]` — the bundle's own field list, in the data rather than in a
+    readme — states „т. 7 = т. 5 + т. 6", so envelopes holding several ballots for the SAME list count as one
+    valid vote. Folding т. 8 into invalid moves **73,546 votes** nationally. The `[AGGR]` invalid check is what
+    defends that reading; without it the decision rests on one hand-picked section.
+  - ⚠️ **THE ROUND'S EXTENSION IS MAPPED, NOT DERIVED FROM THE FOLDER.** `.201` is round 1 and `.301` round 2,
+    and the reader takes `dir` and `round` separately — so deriving the extension made every folder
+    self-consistent: `readEra2001Round("…/ТУР2", source, 1)` published all 12,192 RUNOFF sections stamped round
+    1 and dated 2001-11-11, every internal gate green. Naming it turns that into a refusal.
+  - **The ballot was in an ENVELOPE**, so the protocol counts envelopes where later eras count ballots, and
+    `[PARTII]`'s initials column (`ПКБ+СВА`) is an INDEPENDENT check on splitting the pair on „и" — an ordinary
+    Bulgarian word, so a name containing it would cut in the wrong place and yield two plausible people.
+  - **62 sections serve MORE THAN ONE settlement**, so their ЕКАТТЕ is ambiguous and is left ABSENT rather than
+    resolved to whichever came first. Of the 261 round-1 sections with no ЕКАТТЕ: 134 abroad (the source
+    publishes none), 62 multi-settlement, 65 domestic settlements whose own `[NM]` row leaves the code blank.
+
+  ⚠️ `isMobile` / `isShip` are `false` because this bundle publishes NO such flag — not because it publishes one
+  saying no. „No mobile sections in 2001" is a claim this corpus cannot support. Residue: 7 named sections in
+  round 1 (net −7), none in round 2.
 - **T2.6 Gates (Vitest, `scripts/parsers_presidential/*.test.ts`, no Postgres):**
   - each era reader on a 3-section fixture cut from the real file, asserting one decoded Cyrillic ticket name;
   - the **round-total anchor gate** over the full raw tree: the twenty figures in §2.4, exact;
