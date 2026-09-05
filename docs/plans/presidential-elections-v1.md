@@ -4,8 +4,11 @@
 **Scope:** every presidential election ЦИК publishes machine-readably — 2001, 2006, 2011, 2016, 2021 — plus the
 2026 cycle (constitutional window: first Sunday of November; `upcomingElections.ts` carries 2026-11-08 as an
 *estimated* anchor until the decree is published)  
-**Version:** v1 — a third election kind (`presidential`) beside `parliamentary` and `local`, on the same raw → data
-→ surface grammar, with its own outcome contract (ticket ranking + runoff), never folded into a party ranking  
+**Version:** v1.1 — a third election kind (`presidential`) beside `parliamentary` and `local`, on the same raw → data
+→ surface grammar, with its own outcome contract (ticket ranking + runoff), never folded into a party ranking.
+Revised 2026-09-05 after review: the majority DENOMINATOR (§2.4, decision 5), per-section residues (§2.5-10,
+T2.6), abroad resolution for 2006/2011 (§2.5-12, T3.1), the turnout basis (§2.5-11, T3.2), the EIGHT folder
+sweeps (Tier 0), and the hub / adapter / perf integration points (T4.7–T4.9, T5, §14)  
 **Raw data:** downloaded 2026-09-05 and placed under `raw_data/<round-1 date>_pvr/` (§1). Every bundle reconciles
 to the vote with the official ЦИК totals (§2.4).
 
@@ -142,14 +145,22 @@ Summed from the section files in this session, compared with the ЦИК decision
 
 | cycle | round 1 | round 2 |
 | --- | --- | --- |
-| 2021 | Радев/Йотова **1,322,385** · Герджиков/Митева 610,862 · Карадайъ (ДПС) 309,681 · Костадинов 104,832 · Панов 98,488 — ticket total 2,615,149 | Радев **1,539,650** · Герджиков 733,791 |
-| 2016 | Радев/Йотова **973,754** · Цачева/Манушев 840,635 · Каракачанов 573,016 · Марешки 427,660 · Орешарски 253,726 | Радев **2,063,032** · Цачева 1,256,485 |
+| 2021 | Радев/Йотова **1,322,385** · Герджиков/Митева 610,862 · Карадайъ (ДПС) 309,681 · Костадинов 104,832 · Панов 98,488 — tickets 2,615,149 + „не подкрепям никого" 60,786 = **valid 2,675,935** | Радев **1,539,650** · Герджиков 733,791 |
+| 2016 | Радев/Йотова **973,754** · Цачева/Манушев 840,635 · Каракачанов 573,016 · Марешки 427,660 · Орешарски 253,726 — tickets 3,613,556 + „никого" 214,094 = **valid 3,827,650** | Радев **2,063,032** · Цачева 1,256,485 |
 | 2011 | Плевнелиев/Попова **1,349,380** · Калфин/Данаилов 974,300 · Кунева 470,808 · Сидеров 122,466 | Плевнелиев **1,698,136** · Калфин 1,531,193 |
 | 2006 | Първанов/Марин **1,780,119** · Сидеров/Шопов 597,175 · Беронов/Николова 271,078 · Марков 75,478 · Берон 21,812 · Велев 19,857 · Петров 13,854 — valid 2,779,381, signatures 2,809,725, registered 6,430,117 | Първанов **2,050,488** · Сидеров 649,387 |
 
 These twenty figures become the **hard-coded anchors of the round-total gate** (§7), the way
 `declaration_fx_conversion.data.test.ts` pins hand-verified ECB rates: a parser that drops a form, double-counts a
 machine row or mis-splits a tuple cannot pass it.
+
+⚠️⚠️ **A SHARE IS COMPUTED OVER ALL VALID VOTES, „НЕ ПОДКРЕПЯМ НИКОГО" INCLUDED — and the ticket sum is the
+WRONG denominator.** Радев's 1,322,385 is **50.57%** of the 2021 round-1 ticket votes and **49.42%** of the valid
+votes; the second is the official figure, and it is the one the round-1 decision reads. A parser summing the
+tickets would have ELECTED him in round 1. 2016 confirms the rule from the other side: 25.44% with the 214,094
+„никого" ballots in the denominator (the official figure), 26.95% without. The „никого" count is protocol field
+7.2 — index 18 across forms 24/26/28/32/41 in E2021 (60,786 = 3,859 + 219 + 2,242 + 52,490 + 1,814), position 27
+(index 26) in E2016 — and it does not exist before 2016, so the earlier eras' denominators ARE the ticket sums.
 
 ### 2.5 Traps found in the data (each one becomes a gate or a documented rule)
 
@@ -185,6 +196,25 @@ machine row or mis-splits a tuple cannot pass it.
 9. **The 2021 `suemg` block-256 rows use the SAME column shift as block 64** (`partyNumColumn("2021_11_14") = 2`,
    votes at `pCol + 1`, `99` = „не подкрепям никого"), so `parseSectionRows` needs a `block` parameter, not a
    second copy.
+10. **Per section, the ticket sum does NOT equal the protocol's valid count, in any era — the national totals
+    still match because ЦИК publishes the same per-ticket sums.** Measured on round 1: 2021 paper rows disagree
+    on 17 sections (|Δ| 2,393 votes), 2016 on 54 (|Δ| 4,878), 2011 on at least 10 in BOTH directions (net +6:
+    `224610044` has 524 valid against 551 ticket votes, `161200020` 435 against 411). An exact per-section
+    equality gate fails on the first run on ЦИК's own inconsistencies; the gate is a REPORTED residue with a
+    per-cycle ceiling and a named allowlist, and the surface renders the ticket votes while the protocol panel
+    shows the protocol's own figure, both labelled.
+11. **The turnout basis is not the one the CIK activity page prints, and it must be declared.** Summing the 2021
+    round-1 protocols gives signatures **2,687,307 — exactly the page's figure** — but registered voters of
+    6,667,895 over all forms or 6,609,634 over domestic forms against the page's 6,635,305; neither reproduces its
+    40.50% (40.30% / 37.20%). Anchor on signatures, publish the registered basis the aggregator uses (all forms,
+    abroad lists included), name it on the surface, and record that the activity page counts registration
+    differently rather than chasing its figure.
+12. **2006 and 2011 abroad rows carry a CITY and no country**, so `lookup_international_sections` — keyed on the
+    „32. Извън страната" region label plus a „Country, City" place string — fits only 2016 and 2021. 2011 rows read
+    `ЧУЖБИНА;Чужбина;Канбера;100001`, 2006 rows are a bare city with an EMPTY ЕКАТТЕ, and one of them is
+    „Mелбърн" with a LATIN M. Tier 3 adds a city→country table for the two eras (the helper's existing city
+    fallback is the seam) behind a fold that survives mixed-script typos, and a gate that every abroad section
+    resolves or is listed.
 
 ## 3. Fixed v1 decisions
 
@@ -192,9 +222,13 @@ machine row or mis-splits a tuple cannot pass it.
    and the URL segment in `/presidential/:cycle`. Never rendered as a label — the catalogue carries ISO dates,
    the `electionsHubCycle.ts` rule.
 2. **Catalogue `src/data/json/presidential_elections.json`**:
-   `{ name, round1Date, round2Date | null, decidedInRound: 1 | 2, winnerTicket, tickets: number }` — shape
-   parallel to `local_elections.json`, imported by `ElectionContext` as `presidentialElections`, never entering the
-   parliamentary `elections` array (so prev/next arrows keep skipping it, as locals do).
+   `{ name, round1Date, round2Date | null, decidedInRound: 1 | 2, winnerTicket, tickets: number,
+   rounds: { [1|2]: { machineVoting: boolean, flashRecords: boolean, noneOfTheAbove: boolean } } }` — shape
+   parallel to `local_elections.json` plus the per-round CAPABILITY flags the parliamentary `ElectionInfo`
+   carries as `hasSuemg` etc. (2021: machines + flash records both rounds; 2016: machines in 500 sections, no
+   flash; „никого" from 2016 on), so a tile never renders a paper/machine split for a round that has none.
+   Imported by `ElectionContext` as `presidentialElections`, never entering the parliamentary `elections` array
+   (so prev/next arrows keep skipping it, as locals do).
 3. **Output tree mirrors the parliamentary per-election tree, per round**:
    ```
    data/<cycle>_pvr/
@@ -218,10 +252,14 @@ machine row or mis-splits a tuple cannot pass it.
    repeat (`declared_label()`, `magistrate_current`).
 5. **Winner rule is computed and cross-checked, never copied.** Round 1 decides when a ticket has **more than half
    of the valid votes AND more than half of the registered voters took part** (Constitution, art. 93 (3)); otherwise
-   the top two go to a runoff a week later. 2001, 2006, 2011, 2016 and 2021 all went to a runoff — 2006 and 2021
-   on turnout (Първанов 64.05%, Радев 49.42%) — which is exactly the case a "majority = win" shortcut gets wrong.
-   `decidedInRound` is derived from the numbers and compared with `result.txt` (2011) and the `elected` flag
-   (2016) where those exist.
+   the top two go to a runoff a week later. **"Valid votes" is the protocol's total of valid ballots — the ticket
+   votes PLUS the „не подкрепям никого" ballots on the 2016+ forms — never the sum of the ticket rows** (§2.4). The
+   rule therefore reads two protocol fields (7.1 + 7.2) beside the ticket totals, and its unit test carries 2021
+   round 1 as a MUTATION case: the ticket-sum denominator elects Радев outright (50.57%), the correct one sends him
+   to a runoff (49.42%). 2001, 2006, 2011, 2016 and 2021 all went to a runoff — 2006 on turnout alone (Първанов
+   64.05% of valid votes, 42% turnout) and 2021 on both conditions — which is exactly the case a "majority = win"
+   shortcut gets wrong. `decidedInRound` is derived from the numbers and compared with `result.txt` (2011) and the
+   `elected` flag (2016) where those exist.
 6. **Abroad is an entity, not a region.** Prefix `32` (`29` in 2011) aggregates to `abroad.json` by country
    (`lookup_international_sections` already resolves section → country for the parliamentary tree); turnout abroad
    is votes cast, never a registered-voter denominator — the elections-hub plan's abroad rule.
@@ -237,12 +275,21 @@ machine row or mis-splits a tuple cannot pass it.
 
 ## 4. Tier 0 — guards before any output exists (½ day)
 
-- **T0.1** `parseElections`: filter `raw_data/` directories to `^\d{4}_\d{2}_\d{2}$` (parliamentary only) and
-  make the `--all` path say how many it skipped. Today `--all` maps every directory, including `agri/` and every
-  `_mi`; establish first whether that path is actually exercised (`npm run prod`) and what a missing
-  `cik_parties.txt` does — the `createReadStream` error is unhandled.
-- **T0.2** `runStats`: the `startsWith("20")` sweep over `data/` gains the same regex; a unit test asserts that a
-  directory named `2021_11_14_pvr` (and `2023_10_29_mi`) can never enter `elections.json`.
+- **T0.1** One predicate, `electionFolderKind(name): "parliamentary" | "local" | "chmi" | "presidential" | null`
+  in `scripts/lib/electionFolders.ts`, and EVERY sweep that enumerates election folders by name goes through it.
+  There are eight, not two — measured by grepping `readdirSync` callers that touch `data/` or `raw_data/`:
+  `scripts/parsers/parse_elections.ts` (`--all` maps every `raw_data/` directory, `agri/` and every `_mi`
+  included), `scripts/stats/collect_stats.ts` (`runStats` rewrites `elections.json` from every `data/` name
+  starting `20`/`19`), `scripts/parsers/findSection.ts:19` (`findSectionInOtherElections`, a bare
+  `startsWith("20")` that would open a `_pvr` tree looking for `section_votes.json`),
+  `scripts/parsers/backfill_section_coords.ts`, `scripts/parsers/split_sections.ts`,
+  `scripts/smetna_palata/index.ts`, `scripts/preferences/index.ts` and `scripts/officials/candidate_links.ts`.
+  `scripts/elections/build_surfaces.ts` already uses exact regexes and only needs the new arm (T3.1). Each call
+  site says how many folders it skipped and why; `electionFolders.test.ts` asserts that `2021_11_14_pvr` and
+  `2023_10_29_mi` resolve to their kinds and that `agri` resolves to `null`.
+- **T0.2** With the predicate in, establish what `npm run prod` (`--all`) actually does today against the `_mi`
+  and non-election directories — the `createReadStream` error on a missing `cik_parties.txt` is unhandled — and
+  add the `elections.json` gate: a `_pvr` or `_mi` name can never enter it.
 - **T0.3** `scripts/machines_memory/parseSectionRows` takes `block: "64" | "256"` (default `"64"`), so the
   presidential reader can reuse it; the existing test gains a block-256 fixture row from
   `raw_data/2021_11_14/suemg/01/010100001.zip` (`010100001;256;6;99;0` is the „никого" row, `256;15;42;0` the
@@ -303,22 +350,37 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 - **T2.6 Gates (Vitest, `scripts/parsers_presidential/*.test.ts`, no Postgres):**
   - each era reader on a 3-section fixture cut from the real file, asserting one decoded Cyrillic ticket name;
   - the **round-total anchor gate** over the full raw tree: the twenty figures in §2.4, exact;
-  - `Σ votes == protocol.numValidVotes` per section, with the per-era exception list stated (2001 `[PROT]` has
-    both, 2006 col 16, 2011 col 27, 2016 pos 24, 2021 pos 18);
-  - `paper + machine == total` on every row that has both (E2016 flagged sections, E2021);
+  - **the per-section residue** `Σ ticket votes − protocol valid` (2001 `[PROT]` carries both, 2006 col 16, 2011
+    col 27, 2016 pos 24, 2021 pos 18 on forms 24/28): reported per cycle and round, held under a ceiling seeded from
+    the §2.5-10 measurements (2021 R1 ≤ 17 sections / 2,393 votes, 2016 R1 ≤ 54 / 4,878, 2011 R1 ≤ 12), with the
+    disagreeing sections in a named allowlist so a NEW disagreement fails and a known one does not;
+  - `paper + machine == total` on every row that has both (E2016 flagged sections, E2021) — this one IS exact;
   - runoff rounds carry exactly two tickets whose numbers exist in round 1;
   - section counts per round equal the sections-file line count; abroad prefix is `32` except 2011 (`29`);
-  - the `decidedInRound` rule agrees with `result.txt` / the 2016 `elected` flag.
+  - **the majority rule** on the five real round-1 outcomes and one synthetic round-1 win, plus the mutation
+    case: with the ticket-sum denominator 2021 must WRONGLY elect Радев, with the valid-vote denominator it must
+    send him to the runoff — a rule test that passes under both implementations is not testing the denominator;
+  - the `decidedInRound` rule agrees with `result.txt` / the 2016 `elected` flag;
+  - every abroad section resolves to a country, or the unresolved ones are listed with their city string.
 
 ## 7. Tier 3 — aggregation and the output tree (2–3 days)
 
 - **T3.1** `aggregateRound()` — ЕКАТТЕ → `data/settlements.json` → municipality → oblast, reusing `addResults`
   and `regionCodes`; for the МИР-grid eras also the 9-digit-code join to the parliamentary section shards for
   GPS/address (the `backfillLocalSectionCoords` transfer, read-only). Writes the §3-3 tree; sections sharded by
-  oblast prefix.
+  oblast prefix. **Abroad resolution is per era**: 2016/2021 through `lookup_international_sections` as is
+  (region label + „Country, City"); 2006/2011 through a committed `abroad_cities.json` city→country table fed
+  into the helper's city fallback, after a fold that maps Latin homoglyphs onto Cyrillic (§2.5-12). An
+  unresolved abroad section is written with `country: null` AND listed in the run summary — never dropped and
+  never guessed. `coveredCycles()` in `scripts/elections/build_surfaces.ts` gains a `presidential` arm
+  (`/^\d{4}_\d{2}_\d{2}_pvr$/`, latest cycle) once the tree exists.
 - **T3.2** `national_summary.json` per cycle: per-round turnout (registered, signatures — ballots found for 2006
-  abroad), valid, invalid, „не подкрепям никого" where the form has it (2016+), the ticket ranking, the runoff
-  pair, `decidedInRound`, abroad totals, and the R1→R2 swing (Δ votes per surviving ticket, Δ turnout).
+  abroad), valid, invalid, „не подкрепям никого" where the form has it (2016+), the ticket ranking with shares
+  over VALID votes (decision 5), the runoff pair, `decidedInRound`, abroad totals, and the R1→R2 swing (Δ votes
+  per surviving ticket, Δ turnout). **Every turnout figure names its basis** — `registeredBasis:
+  "protocol-all-forms"`, `castBasis: "signatures"` — and the summary carries the CIK activity page's own
+  registered figure as a separate, labelled `cikActivity` field where the page is archived (2021: 6,635,305 /
+  2,687,307), so the two bases sit side by side instead of one masquerading as the other (§2.5-11).
 - **T3.3** `tickets.json` with colours and `canonicalTicketKey`; a `scripts/parsers_presidential/ticket_defaults.json`
   for the few nominating bodies whose `nickName` differs from the parliamentary spelling.
 - **T3.4** `npm run data -- --pvr <cycle>` / `--pvr --all` wired in `main.ts` next to the local flags; folded into
@@ -342,6 +404,17 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   bundle question settled by `scripts/i18n/bundles.ts`, not by hand.
 - **T4.6** `upcomingElections.ts`: flip the 2026 entry to `scheduled` with the decree date when it is published
   (the Народно събрание sets the date ≥ 60 days ahead); the My-Area tile already reads it.
+- **T4.7 The hub's figures band has a rule to decide, not just a kind to add.** `electionsHubFigures.ts` states
+  that cells 3 and 4 ALWAYS describe a parliamentary cycle because only that catalogue carries a protocol, and
+  falls back with a basis that says so when a local cycle is selected. A presidential cycle DOES carry a
+  protocol. Decision: a selected presidential cycle fills cells 3–4 from its OWN round-1 protocol (turnout on the
+  §2.5-11 basis, valid votes incl. „никого"), and the basis names the round; the fallback stays for local. The
+  turnout rule is imported from `ballotTotals.ts`, per that file's own warning — a presidential-only copy is how
+  the abroad 329.6% guard gets lost again.
+- **T4.8** `electionsSearch.ts`: presidential cycles, tickets and the candidate names are searchable from the hub
+  search box, landing on `/presidential/:cycle`; the exhaustiveness gate on `ElectionKind` catches the switch.
+- **T4.9** `scripts/data_map/model.ts` gains the source (the `/data` map lists every dataset), and the ingest
+  stamps `state/ingest/cik_presidential.json` via `scripts/stamp-ingest.ts` the way every skill does.
 
 ## 9. Tier 5 — screens and routes (5–7 days; product decisions marked ⚑)
 
@@ -360,7 +433,27 @@ Route family, parallel to `local/:cycle/…` in `src/routes.tsx`:
 Rules carried over from `elections-hub-implementation-v1.md` and not re-litigated: ranked result before the map
 on mobile; every map has a list twin; colour never the only encoding; the `?elections` contract; the surface
 projection only for levels that pass the emission test; prerender + sitemap `<loc>` + og:image for every route
-family member. The **outcome panel is ticket-shaped**: president + vice-president names, nominating body, votes,
+family member.
+
+What the shared system needs from this kind, named so it cannot be discovered halfway through:
+
+- **Map adapters.** `src/screens/elections/adapters/` holds four PARLIAMENTARY adapters (country, region,
+  municipality, settlement) and nothing for local, which renders through the legacy composition. Presidential
+  ships `PresidentialCountryMap` / `RegionMap` / `MunicipalityMap` / `SettlementMap`, each colouring by leading
+  TICKET with the ticket palette and taking the round as a prop; `electionMapSlots.ts` learns the kind.
+- **Eleven modules switch on `ElectionKind` today** (`electionMapSlots`, `electionSurfaceDescriptors`,
+  `electionsHubFigures`, `electionSurfaceAnalytics`, `electionsSearch`, `ElectionsHubScreen`,
+  `ElectionResultsShell`, `useElectionSurface`, `surfacePath`, `destinations`, `surfaceTypes`). The `never`
+  check and the existing kind-enumerating tests are what make the third member reach all of them; none is
+  extended by hand without the compiler saying so.
+- **`SURFACE_POLICY["presidential"]` is MEASURED before it is declared.** Every level row carries
+  `measuredMaxBytes` / `measuredCycle` / `measuredOn` from `npm run elections:budget` over the generated tree —
+  the country level is one `national_summary.json` (canonical, expected inside the 24 KiB budget), region and
+  municipality are decided by the measurement, settlement and section follow the parliamentary answer. A row
+  written without a measurement is the §5.0 defect the policy file exists to prevent.
+- **Screens are lazy routes** (`routes.tsx` has 288 `lazy(` entries and no eager screen), and NOTHING routing
+  imports from `electionsRegistry.ts` or a scene barrel — `src/entryGraph.test.ts` fails the build otherwise, and
+  it did once for ~265 KB. The **outcome panel is ticket-shaped**: president + vice-president names, nominating body, votes,
 share of valid, and — on round 1 — the two-condition decision rule stated in words with the turnout figure, since
 „49.42% and no winner" is the sentence a reader needs.
 
@@ -390,10 +483,20 @@ resolves the `[SEC]` code space — recommendation: hold, ship four cycles, add 
   dated four days after election day; the first-round results appear as HTML within hours, so a **provisional
   HTML path** (the per-МИР `rezultati/NN.html` pages, same shape the local ingest mirrors) is the ⚑ option for
   election night, with the CSV bundle as the authoritative re-ingest.
+- **T7.1b A joint bundle is handled, not assumed away.** If a snap parliamentary election coincides (2021's
+  shape), the round-1 zip carries `np/`, `pvr/` and ONE `suemg/` tree. The downloader routes `np/` to
+  `raw_data/<date>/` under the parliamentary flat names for the parliamentary ingest, `pvr/` to
+  `raw_data/<date>_pvr/ТУР1/`, and the machine tree ONCE into the parliamentary folder — the presidential reader
+  reads block 256 out of it (§1.1). A standalone `pvr2026` bundle is the same map with no `np/` arm.
 - **T7.2 Skill** `update-presidential-elections`: triggers, the download → parse → aggregate → surfaces →
-  `bucket:sync:paths -- <cycle>_pvr` → `data-changes` → `person:slugs`? (no — no PG) chain, the runoff re-check,
+  `bucket:sync:paths -- <cycle>_pvr` → `data-changes` chain (no PG, so no `person:slugs`), the runoff re-check,
   and the troubleshooting table (the §2.5 traps in operator form). Registered in `process-watch-report`'s map and
-  stamped in `state/ingest/cik_presidential.json`.
+  stamped in `state/ingest/cik_presidential.json`. **The orchestrator already couples every `cik_results` flip to
+  `update-persons` and `db:load:person-elections:pg`** (its map says a `cik_results` flip is what refreshes the
+  candidate data), and that loader reads the PARLIAMENTARY candidate files. A presidential flip therefore
+  either feeds it a ticket arm (Tier 8.1) or is registered as a SEPARATE watcher source (`cik_presidential`)
+  that the map routes to this skill only — v1 does the second, explicitly, so the chain neither stalls on a
+  tree it cannot read nor silently skips the new cycle.
 - **T7.3** `bucket:sync:dry` before the first publish; confirm `data/*_pvr/` is uploaded and nothing under
   `raw_data/` is (it never is — `bucket:sync` roots at `data/`).
 
@@ -435,6 +538,13 @@ after T2.5 reports the resolution rate.
 | i18n | `key_usage.test.ts`, `bundle_reachability.test.ts` | no unreachable `presidential_*` key; bundle membership proven |
 | SEO | `tests/seo.spec.ts`, `families.data.test.ts` | every `<loc>` has a `dist/` page; canonicals do not redirect |
 | block-256 | `machines_memory/index.test.ts` | the presidential block parses with the same column shift and the `99` row is excluded |
+| majority denominator | `winnerRule.test.ts` (mutation case) | 2021 R1 is a runoff under the valid-vote denominator and a round-1 win under the ticket-sum one — the test fails if both implementations agree |
+| per-section residue | `presidential_totals.data.test.ts` | residue per cycle/round under its ceiling; every disagreeing section in the allowlist; a new one fails |
+| abroad resolution | same file | every abroad section resolves to a country or is listed; the 2006 „Mелбърн" homoglyph row resolves |
+| turnout basis | `national_summary` shape test | `registeredBasis` / `castBasis` present on every round; the CIK activity figure, where carried, is a separate labelled field |
+| folder sweeps | `electionFolders.test.ts` + the eight call sites | every sweep routes through `electionFolderKind()`; `_pvr` never reaches a parliamentary reader |
+| perf | `src/entryGraph.test.ts`, `tests/perf.spec.ts`, `tests/ui.spec.ts` | no registry on the entry path; byte budgets hold; the presidential hub head passes the height budget with its `data-kpi-cell` count |
+| surface policy | `surfacePath` tests | every `presidential` level row carries a measurement; unmeasured rows are rejected |
 
 ## 15. Sequencing and effort
 
