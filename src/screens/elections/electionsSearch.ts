@@ -29,6 +29,7 @@ import { buildEntityIndex } from "@/lib/entitySearchIndex";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { SearchIndexType } from "@/data/search/useSearchItems";
 import { localUrl, placeViewUrl, type PlaceRef } from "@/data/local/placeViews";
+import type { ElectionsHubKind } from "./electionsHubCycle";
 
 /** Coarser grains first — the same rank the home finder uses, and for the same measured
  *  reason: without it, 11 of 294 municipalities („Бяла", „Ново село", „Лом", „Трън" …) are
@@ -66,13 +67,31 @@ export const placeRefOf = (i: SearchIndexType): PlaceRef | null => {
  *  в чужбина" — so for a local cycle `localUrl` legitimately declines it. */
 export const electionPlaceHref = (
   i: SearchIndexType,
-  cycle: { kind: "parliamentary" | "local"; id: string },
+  cycle: { kind: ElectionsHubKind; id: string },
 ): string | null => {
   const ref = placeRefOf(i);
   if (!ref) return null;
-  return cycle.kind === "local"
-    ? localUrl(ref, cycle.id)
-    : placeViewUrl("parliamentary", ref);
+  switch (cycle.kind) {
+    case "local":
+      return localUrl(ref, cycle.id);
+    case "parliamentary":
+      return placeViewUrl("parliamentary", ref);
+    case "presidential":
+      // ⚠ UNREACHABLE TODAY, AND `null` RATHER THAN A GUESS. `resolveHubCycle` refuses to
+      // return a kind in `KINDS_WITHOUT_SURFACE`, so this arm cannot be entered while the
+      // presidential screens are unbuilt — gated by `electionsHubCycle.test.ts`. Where a
+      // place goes for a presidential cycle is plan T4.8's decision; until it is made,
+      // declining the row puts it in the out-of-scope group. Reusing the parliamentary
+      // place view would send a reader to a page describing a different election under the
+      // label of the one they picked.
+      //
+      // ⚠ AND THE GROUP'S LABEL IS THE OTHER HALF OF THAT DECISION. The caller heads it
+      // „Места без местен вот (секции в чужбина)" — true for the local cycle it was
+      // written for, false about every settlement in the country under a presidential one.
+      // T4.8 owns both halves: where a place goes, and what the group it falls into is
+      // called. Declining is only safe while this arm is unreachable.
+      return null;
+  }
 };
 
 /** ⚠ ABROAD IS THE OUT-OF-SCOPE POPULATION, and it is decided by the DESTINATION rather than
@@ -81,7 +100,7 @@ export const electionPlaceHref = (
  *  joins the group automatically instead of vanishing from the box. */
 const partition = (
   items: SearchIndexType[],
-  cycle: { kind: "parliamentary" | "local"; id: string },
+  cycle: { kind: ElectionsHubKind; id: string },
 ) => {
   const inScope: SearchIndexType[] = [];
   const outScope: SearchIndexType[] = [];
@@ -116,7 +135,7 @@ export const ELECTIONS_SEARCH_LIMIT = 6;
 export const electionsSearchSources = (
   /** `null` while the catalog is unarmed or still in flight — a state, not an absence. */
   items: SearchIndexType[] | null,
-  cycle: { kind: "parliamentary" | "local"; id: string },
+  cycle: { kind: ElectionsHubKind; id: string },
   label: {
     inScope: { bg: string; en: string };
     outScope: { bg: string; en: string };

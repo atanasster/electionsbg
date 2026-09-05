@@ -15,7 +15,10 @@ import { initReactI18next } from "react-i18next";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { ElectionsHubScreen } from "./ElectionsHubScreen";
 import { ELECTIONS_BANDS, withLocalCycle } from "./electionsRegistry";
-import { LATEST_ELECTION_EVENT } from "./electionsHubCycle";
+import {
+  LATEST_ELECTION_EVENT,
+  LATEST_RESOLVABLE_EVENT,
+} from "./electionsHubCycle";
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
 
 await i18n.use(initReactI18next).init({
@@ -95,6 +98,28 @@ describe("the resolved cycle", () => {
     mount("?elections=not-a-cycle");
     const note = document.querySelector("[data-elections-fallback]")!;
     expect(note.textContent).toContain("not-a-cycle");
+    // ⚠ THE SENTENCE, not just the interpolated value. Both fallback sentences carry the
+    // value, so asserting only on it passes on a wholly inverted ternary — which would
+    // print „не показваме тук" about a string that is not a cycle at all.
+    expect(note.textContent).toContain("Не разпознахме");
+    expect(note.textContent).not.toContain("още не показваме");
+    expect(scope().textContent).toContain("2026");
+  });
+
+  it("says we cannot SHOW a catalogued cycle, never that we do not know it", () => {
+    // ⚠ THE STEP'S HEADLINE BEHAVIOUR. A presidential id is in our own catalogue and has
+    // no screens yet; „Не разпознахме „2021_11_14_pvr“ като изборен цикъл" is false and
+    // asks the reader to fix something that is on our side.
+    mount("?elections=2021_11_14_pvr");
+    const note = document.querySelector("[data-elections-fallback]")!;
+    expect(note.textContent).toContain("още не показваме");
+    expect(note.textContent).not.toContain("Не разпознахме");
+    // ⚠ AND IT NAMES THE CYCLE RATHER THAN PRINTING ITS FOLDER ID — this module's own „an
+    // id is a key and never a label" rule, in the one branch where we recognise the cycle
+    // well enough to obey it.
+    expect(note.textContent).toContain("Президентски вот");
+    expect(note.textContent).not.toContain("2021_11_14_pvr");
+    // The hub itself stays on a cycle it can actually open.
     expect(scope().textContent).toContain("2026");
   });
 
@@ -113,6 +138,10 @@ describe("the resolved cycle", () => {
       document.querySelector("[data-elections-switch-latest]"),
     ).toBeTruthy();
     expect(LATEST_ELECTION_EVENT.id).toBe("2026_04_19");
+    // ⚠ The control writes the latest RESOLVABLE event. Writing an id `resolveHubCycle`
+    // refuses would make the button a no-op that produces an apology — which is what the
+    // bare latest becomes the day a presidential cycle is the newest catalogued one.
+    expect(LATEST_RESOLVABLE_EVENT.id).toBe("2026_04_19");
   });
 });
 

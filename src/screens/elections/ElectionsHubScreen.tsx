@@ -30,7 +30,12 @@ import { formatDate } from "@/lib/formatDate";
 import { groupedInt } from "@/screens/analysis/analysisHubFigures";
 import { ELECTIONS_BANDS, withLocalCycle } from "./electionsRegistry";
 import { ELECTIONS_SCENES } from "./electionsScenes";
-import { LATEST_ELECTION_EVENT, resolveHubCycle } from "./electionsHubCycle";
+import {
+  CYCLE_SURFACE,
+  LATEST_RESOLVABLE_EVENT,
+  hubCycleHref,
+  resolveHubCycle,
+} from "./electionsHubCycle";
 import { electionsHubKpis } from "./electionsHubFigures";
 import { electionsSearchSources } from "./electionsSearch";
 
@@ -101,8 +106,12 @@ export const ElectionsHubScreen: FC = () => {
 
   // The canonical FULL result for the resolved cycle — the page this hub hands over to, and
   // the reason the hub does not try to be one.
-  const fullResultTo =
-    cycle.kind === "local" ? `/local/${cycle.id}` : `/elections/${cycle.id}`;
+  //
+  // ⚠ BUILT PER KIND, never by an implicit `else`. The ternary this replaces sent every
+  // non-local id to `/elections/<id>`, so the day a third catalogue joined the merge a
+  // presidential cycle would have linked to `/elections/2021_11_14_pvr` — a 404 the type
+  // system could not see.
+  const fullResultTo = hubCycleHref(cycle);
   // §Phase 3 item 4: ONE outcome canvas, and a compact adjacent link to the other kind — never
   // two simultaneous maps.
   const otherKindTo =
@@ -124,9 +133,8 @@ export const ElectionsHubScreen: FC = () => {
   }));
 
   const cycleLabel = t(
-    cycle.kind === "local"
-      ? "elections_scope_local"
-      : "elections_scope_parliamentary",
+    // The kind's own label key, so a new kind cannot silently borrow „Парламентарен вот".
+    CYCLE_SURFACE[cycle.kind].labelKey,
     // ⚠ `formatDate`, NEVER THE ID. A cycle identifier is a key; the folder form reached 31
     // surfaces once as „Този парламент · 2026-04-19". It also pins `timeZone: "UTC"` for a
     // date-only value, without which every reader west of Greenwich sees the previous day.
@@ -161,11 +169,15 @@ export const ElectionsHubScreen: FC = () => {
             </Link>
             {/* ⚠ AN EXPLICIT CONTROL, NEVER A SILENT DEFAULT (§3.2 rule 2). A hub showing 2013
                 must say 2013; „switch to the latest" is offered, not applied. */}
-            {cycle.id !== LATEST_ELECTION_EVENT.id ? (
+            {/* ⚠ THE LATEST RESOLVABLE EVENT, not the latest catalogued one. Writing an
+                id `resolveHubCycle` refuses turns this control into a no-op that produces
+                an apology — which is what the bare latest becomes the day a presidential
+                cycle is the newest. */}
+            {cycle.id !== LATEST_RESOLVABLE_EVENT.id ? (
               <button
                 type="button"
                 className="text-sm underline"
-                onClick={() => setParam(LATEST_ELECTION_EVENT.id)}
+                onClick={() => setParam(LATEST_RESOLVABLE_EVENT.id)}
                 data-elections-switch-latest
               >
                 {t("elections_scope_switch_latest")}
@@ -177,7 +189,24 @@ export const ElectionsHubScreen: FC = () => {
                 className="w-full text-sm text-muted-foreground"
                 data-elections-fallback
               >
-                {t("elections_scope_fallback", { requested: cycle.requested })}
+                {/* ⚠ TWO REASONS, TWO SENTENCES. „We did not recognise X" is false about a
+                    cycle we publish a catalogue of and simply cannot show yet, and it
+                    tells the reader to fix something on their side that is on ours. */}
+                {cycle.fellBackReason === "no-surface"
+                  ? t("elections_scope_not_yet", {
+                      // ⚠ THE CYCLE'S LABEL, NOT ITS FOLDER ID. „An id is a key and never a
+                      // label" is this module's own rule, and this is the one branch where
+                      // we recognise the cycle well enough to name it. The `unknown` branch
+                      // below has nothing but the reader's string, so it still echoes that.
+                      requested: cycle.requestedCycle
+                        ? t(CYCLE_SURFACE[cycle.requestedCycle.kind].labelKey, {
+                            date: formatDate(cycle.requestedCycle.date, lang),
+                          })
+                        : cycle.requested,
+                    })
+                  : t("elections_scope_fallback", {
+                      requested: cycle.requested,
+                    })}
               </p>
             ) : null}
           </div>

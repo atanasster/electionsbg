@@ -878,9 +878,44 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   Measured: 2021 machines + flash in both rounds, 2016 machines and no flash, „никого" from 2016 on, nothing
   before it — and all five cycles decided in round 2, so a surface that assumes `decidedInRound === 1` is
   testable only against a cycle that has not happened yet.
-- **T4.2** `electionsHubCycle.ts`: `ElectionsHubCycle.kind` gains `"presidential"`; `ELECTION_EVENTS` merges the
-  third catalogue; the latest event on 2026-11-1x becomes the presidential cycle, which is the whole point of the
-  sorted merge that file already insists on.
+- **T4.2 ✅ DONE.** `ElectionsHubCycle.kind` gains `"presidential"` and `ELECTION_EVENTS` merges the third
+  catalogue, dated from round 1 for the same reason the local entries are — the id ends in `_pvr`, so the
+  id→ISO conversion yields `2021-11-14-pvr`, which `formatDate` passes through VERBATIM rather than rejecting.
+  The sorted merge is what will make the 2026-11-1x cycle the latest event without a code change. Three things
+  the step settled, and the first is the one that would have shipped a defect:
+
+  - ⚠️⚠️ **A CATALOGUED CYCLE WITH NO SCREENS MUST NOT RESOLVE.** Every destination the hub renders for a
+    resolved cycle is built from the id, and each was an implicit `else` on „is it local" — so merging the
+    catalogue alone would have pointed the „пълен резултат" link at `/elections/2021_11_14_pvr`, a 404, with the
+    scope pill saying „Парламентарен вот". `KINDS_WITHOUT_SURFACE` withholds the kind from RESOLUTION while
+    leaving it in the catalogue, `hubCycleHref` is exhaustive over the kind, and the gate is a BICONDITIONAL
+    against `src/routes.tsx`: T5 adding `path="presidential/:cycle"` turns it red until the list is emptied, and
+    emptying it early turns it red too. That is the plan's own T4.4 rule — a surface must not seed a destination
+    — applied one control up.
+  - ⚠️ **THE FALLBACK NOTICE NEEDED A SECOND SENTENCE.** „Не разпознахме „2021_11_14_pvr“ като изборен цикъл" is
+    false about a cycle we publish a catalogue of, and it asks the reader to fix something that is on our side.
+    `fellBackReason` is `"unknown"` or `"no-surface"`, and `elections_scope_not_yet` says the true thing.
+  - **`electionsSearch` declines a presidential place rather than guessing one.** Where a place goes for a
+    presidential cycle is T4.8's decision; until it is made, `null` puts the row in the out-of-scope group, which
+    is the safe direction. Reusing the parliamentary place view would send a reader to a page describing a
+    different election under the label of the one they picked. The arm is unreachable today and the gate pins
+    that unreachability rather than assuming it.
+
+  ⚠️⚠️ **AND THE GUARD HAD A HOLE THE DATA WOULD HAVE OPENED.** It covered the MATCHED cycle only; the
+  no-param default and the fallback both returned `ELECTION_EVENTS[0]` whatever its kind. The merge is sorted by
+  date across three catalogues, so that becomes presidential the moment the 2026-11 cycle is catalogued (T7) —
+  at which point every reader arriving at `/elections` with no param at all gets a „пълен резултат" link to a
+  404, and „към последния вот" becomes a control that writes an id the resolver immediately refuses.
+  `LATEST_RESOLVABLE_EVENT` is the anchor for both exits and for that button. The failure would have arrived
+  during an election-night ingest, which is the worst moment to be diagnosing a hub default.
+
+  ⚠️ The `no-surface` notice NAMES the cycle („Президентски вот · 14.11.2021 г.") rather than printing its
+  folder id — this module's own „an id is a key and never a label" rule, in the one branch where we recognise
+  the cycle well enough to obey it. The `unknown` branch still echoes the reader's raw string, because there it
+  is all we have.
+
+  ⚠️ The latest event is still `2026_04_19` — the newest presidential cycle is 2021 — so nothing about the
+  default view moves.
 - **T4.3** `ElectionsSelect.tsx`: a third row kind with the winner's ticket surname and `decidedInRound`; arrows
   keep skipping non-parliamentary rows.
 - **T4.4** `electionsRegistry.ts`: a `presidential` tile in the results band (`to: /presidential/<latest>`,
