@@ -42,7 +42,8 @@ export interface FlyoverState {
   captionId: CaptionId | null;
 }
 
-const ZERO_WEIGHTS: Record<LayerId, number> = {
+/** Every layer off — the base a programme's weight patch is written against. */
+export const ZERO_WEIGHTS: Record<LayerId, number> = {
   proc: 0,
   funds: 0,
   agri: 0,
