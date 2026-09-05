@@ -493,8 +493,31 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ The `„<president> и <vice>"` split is 2016/2021 ONLY. 2006 joins the pair with a COMMA and 2011 publishes
   the two names in separate columns, so `splitTicketNames` returning null is an error for those eras and the
   ordinary case for these.
-- **T2.2 `era2016.ts`** — 5-tuples; protocol forms 1/7/8 (32 positions, readme lines 5–32); machine flag from
-  `sections[7]`; ticket split on ` и `.
+- **T2.2 ✅ DONE.** `era2016.ts` reproduces every §2.4 anchor on both rounds (Радев 973,754 / 2,063,032;
+  tickets 3,613,556; „никого" 214,094). Its shape is the OPPOSITE of 2021's — one protocol row and one votes
+  row per section, with the machine half in extra COLUMNS — so the two readers exist because the formats
+  disagree, not the elections. Four things the build settled:
+
+  - ⚠️ **TWO FILES STATE THE PAPER/MACHINE SPLIT AND THEY DISAGREE.** The protocol's 7.1 box/machine pair says
+    41,792 machine votes nationally; the votes file's Б/М columns say 41,585. They differ on **56 of the 500**
+    machine sections, including exact swaps, and BOTH reconcile to ЦИК's published per-ticket totals — so
+    nothing downstream would notice. Each is kept for the question it can answer (the protocol is the section's
+    own summary; the votes file is the only PER-TICKET split), the divergence is gated, and a surface must name
+    which basis a „% cast on machines" figure came from.
+  - **The ticket total comes from the source's own `valid` column and the split is DERIVED**, because the
+    decomposition does not always add up: `273100059` ticket 8 states valid = 0 with М = 1, and summing Б+М
+    would publish a national total one vote above ЦИК's. The clamped vote is counted and warned about rather
+    than dropped silently.
+  - **Both halves of the found total must come from the SAME block.** 5.а (found in box) and 5.б (found on
+    machine) are the pair; the signatures block's 3.а/3.б disagrees with them on 2 sections. One section then
+    remains where found exceeds signatures by one — `223100016`, 397 + 90 = 487 against 486 — which is the СИК's
+    own arithmetic and is pinned as the single exception.
+  - **The machine branch is the section's own FLAG, not "are the machine fields non-zero".** Six form-8
+    sections recorded zero machine votes; a truthiness test files them as paper and publishes `machines: 1`
+    beside absent machine fields, destroying the absent-vs-zero distinction the shape rests on.
+
+  ⚠️ `machines` is a FLAG here (1/0), not a count: this era publishes whether a section had machine voting, not
+  how many machines it had. Machine voting was 1.2% of the vote in 2016 against 88% in 2021.
 - **T2.3 `era2011.ts`** — cp1251; pairs; 27-position protocol (fields 3–27 per the decoded readme: registered =
   3, additional = 4 + 5, signatures = 7, ballots found = 20, invalid = 26, valid = 27); oblast grid via
   `OIK_PREFIX_TO_OBLAST`; `result.txt` as the cross-check.
