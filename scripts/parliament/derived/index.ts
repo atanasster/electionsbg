@@ -26,7 +26,6 @@ import { computeSearchIndex } from "./search_index";
 import { computeImportantVotes } from "./important_votes";
 import { computeDissents } from "./dissents";
 import { computePartyPairBreaks } from "./party_pair_breaks";
-import { writeMpShards } from "./per_mp_shards";
 import { computeHubNsStats, type HubStatsFile } from "./hub_stats";
 import { computeHubFeed } from "./hub_feed";
 import { mostDivergentPairSlug } from "../../../src/screens/parliament/seeds";
@@ -292,29 +291,16 @@ export const rebuildDerived = async (args: {
     `  ✓ ${nsKeys.map((k) => `${k}:${Object.keys(partyPairBreaksByNs[k].pairs).length}`).join(", ")} party pairs`,
   );
 
-  // Per-MP shards: candidate pages read one tiny JSON instead of the three
-  // monolithic NS aggregates above. Aggregate files stay in place for the
-  // browse-the-whole-chamber screens. Runs last so it can reuse the metrics
-  // already computed above without re-walking the session data.
-  console.log(`→ writing per-MP shards`);
-  let shardWritten = 0;
-  let shardUnchanged = 0;
-  let shardPruned = 0;
-  for (const ns of nsKeys) {
-    const res = writeMpShards(DERIVED_DIR, {
-      ns,
-      loyalty: loyaltyByNs[ns],
-      attendance: attendanceByNs[ns],
-      similarity: similarityByNs[ns],
-      dissents: dissentsByNs[ns],
-    });
-    shardWritten += res.written;
-    shardUnchanged += res.unchanged;
-    shardPruned += res.pruned;
-  }
-  console.log(
-    `  ✓ ${shardWritten} written, ${shardUnchanged} unchanged, ${shardPruned} pruned`,
-  );
+  // The per-MP shard tree (derived/per-mp/<ns>/<mpId>.json, 2,330 files / 43 MB) was
+  // written HERE until it was retired. Every reader is on Postgres — /api/db/mp-loyalty
+  // (182), /api/db/mp-dissents + mp-similarity (135), /api/db/party-pair-breaks (183) —
+  // the bucket objects were removed by json-retirement-v2 Tier 1, and bucket_sync_paths
+  // REFUSES the path. The writer outlived all of them: because loyalty/similarity/dissent
+  // are corpus-wide, one new sitting rewrote ~270 of the shards, and every ingest
+  // committed them for nobody. Retiring a reader does not retire its producer — the same
+  // shape as build_company_connections.ts, which was deleted for the same reason.
+  // The sync guard STAYS: nothing writes this tree now, so a stray re-upload would
+  // republish a permanently frozen snapshot rather than merely waste a request.
 
   // The hub blob — LAST, and from the objects above rather than from the files just
   // written. Re-reading them would work and would also be the thing that lets the hub's
@@ -487,17 +473,11 @@ export const rebuildDerived = async (args: {
       path.join(DERIVED_DIR, "hub_feed"),
       "parliament/votes/derived/hub_feed",
     );
-    // Per-MP shards live in per-mp/<ns>/<mpId>.json. ~2,400 files total
-    // across the 9 ingested NSes (one per MP that ever cast a vote). On the
-    // very first deploy after this code lands, expect ~2,400 net-new objects
-    // in the bucket — the data-changes diff-cap may flag it; subsequent runs
-    // touch only changed shards thanks to the writeIfChanged guard upstream.
-    // uploadTextTree streams them with the same defaults as everything else
-    // under derived/.
-    await uploadTextTree(
-      path.join(DERIVED_DIR, "per-mp"),
-      "parliament/votes/derived/per-mp",
-    );
+    // A per-mp uploadTextTree stood HERE. It was unreachable by the time it was
+    // removed — uploadText/uploadTextTree consult isExcluded() since Tier P1 and the
+    // guard refuses this path — but the tree it named is no longer written at all, so
+    // the call could only ever have re-created retired objects. Same reasoning as the
+    // dissents.json / party_pair_breaks.json note in the uploadText list above.
     console.log(`✓ uploaded`);
   }
 };

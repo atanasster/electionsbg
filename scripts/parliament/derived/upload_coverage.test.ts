@@ -50,9 +50,16 @@ const uploadedTrees = new Set(
   ].map((m) => m[1]),
 );
 
-/** writeMpShards writes per-mp/ through its own module rather than a DERIVED_DIR join here,
- *  so it is the one artifact the parser cannot see. Named, not silently tolerated. */
-const PARSER_BLIND = ["per-mp"];
+/** Trees a writer emits through its own module rather than a DERIVED_DIR join here, so the
+ *  regex above cannot see them. Named, not silently tolerated.
+ *
+ *  EMPTY since the per-mp retirement. "per-mp" was the sole entry — writeMpShards joined
+ *  its own path — and it had to go from this list in the same commit as the writer: the
+ *  "every written shard directory is uploaded" test unions PARSER_BLIND into the tree set,
+ *  so a leftover entry would have demanded an upload for a tree nothing writes any more,
+ *  failing on the exact absence the change intended. A stale exemption is not inert here;
+ *  it inverts into a false requirement. */
+const PARSER_BLIND: string[] = [];
 
 const skipDerived = !existsSync(DERIVED)
   ? "data/parliament/votes/derived absent — it is committed, so this is a sparse checkout"

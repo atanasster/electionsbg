@@ -248,9 +248,10 @@ export const useMpScorecard = (
     // floored at ATTENDANCE_MIN_ITEMS. That floor governs whether a member may be JUDGED on
     // their own rate; it is not a claim about who belongs in the comparison. Measured on the
     // 52nd the two differ by 1.1 pp (0.76252 over all 270 seats, 0.77379 over the 240 at
-    // ≥30 items), which moves the tile's amber cut by 0.8 pp. Flooring here would also have
-    // to change `cohortPresent` in scripts/parliament/derived/per_mp_shards.ts in the same
-    // commit, or the shard and aggregate paths would answer differently by that margin.
+    // ≥30 items), which moves the tile's amber cut by 0.8 pp. This used to carry a second
+    // obligation — keep `cohortPresent` in per_mp_shards.ts in step, or the shard and
+    // aggregate paths would answer differently by that margin. That module is gone with the
+    // per-mp tree it wrote, so this is now the single definition and the hazard is retired.
     const attendanceMedian =
       medianOf(attendancePcts) ?? loyaltyCohort?.presentPctMedian ?? null;
     // ⚠️ On the shard path this is the LOYALTY roster (268 on the 52nd), while `median` above
