@@ -461,10 +461,38 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
                            sections: PresidentialSection[]; sourceEra: "2001"|"2006"|"2011"|"2016"|"2021" };
 ```
 
-- **T2.1 `era2021.ts`** — parties + candidates (§2.2), sections (8 cols), protocols by form (positions from the
-  `isMachineOnlyVote` branch of `protocols.ts` — copy the POSITIONS into a per-form table with the readme's field
-  names beside each index, which the ladder never had), votes as pairs summed across rows per (section, form
-  class), `suemgVotes` from block 256. The `cik_parties` composite names are ignored for names.
+- **T2.1 ✅ DONE.** `era2021.ts` + the shared `types.ts`. Reproduces every §2.4 anchor exactly on both rounds
+  (Радев 1,322,385 / 1,539,650; tickets 2,615,149; „никого" 60,786; 13,238 and 13,234 sections). Five things the
+  build settled:
+
+  - **The form classification is measured, not assumed**, and is confirmed three ways: the round's own readme,
+    the data, and `scripts/parsers/protocols.ts`, which partitions the same nine forms identically for the
+    parliamentary ballot held the SAME DAY. Electorate figures come from the one form per section that carries
+    them ({24,25,26,28,29} = 13,238, exactly the section count); ticket votes are PAPER on 24/26/28 and MACHINE
+    on 27/31/32/41. ⚠ 27/31 (control receipts) do NOT duplicate 32/41 — 101 sections carry one, 37 also carry
+    machine data, and **0 (section, machine) pairs appear in both**.
+  - ⚠️ **`numMachineBallots` is summed from the MACHINES, not read off the form's own 5.2.** The two disagree on
+    97 sections and where they do the machines are right: `244606005` claims 712 machine ballots against 398
+    signatures — impossible — while its two machines report 197 + 155, each reconciling with its own valid +
+    „никого". This also matches what the parliamentary parser does.
+  - ⚠️ **ЕКАТТЕ IS PUBLISHED WITHOUT LEADING ZEROS HERE** — 10 codes are 2 characters, 250 are 3, 1,230 are 4 —
+    while `data/settlements.json` keys domestic settlements on 5. Reading it unpadded loses ~1,490 sections'
+    place with every vote still adding up. `normaliseEkatte` pads. ⚠️ Padding is necessary and NOT sufficient:
+    the catalogue is not uniformly 5-character (abroad is keyed ISO-2, Sofia's districts on a compound
+    `68134-2302`), so ~1,601 domestic sections — all of Sofia among them — and all 750 abroad still need T3.1.
+  - ⚠️ **`nominatorKind` REFUSES rather than defaulting to "party".** The plan assumed the register names the
+    kind; it does so only sometimes. Of 44 distinct nominator labels across 2016 and 2021, **24 carry no
+    coalition or committee marker at all**, and only 7 of those declare themselves with a `ПП` prefix. A
+    "party" default therefore published Реформаторски блок (five parties), Обединени патриоти – НФСБ, АТАКА и
+    ВМРО, Движение 21 – НДСВ and Патриотичен фронт as PARTIES — three of them while naming their own members in
+    the label. Those four are explicit overrides; everything else unmarked is `"unknown"`, which on the 2021
+    ballot is 10 of 23 tickets. A surface must render that as unknown rather than assert a legal form.
+  - **The 2021 machine records need no separate ingest**: `suemgVotes` comes from block 256 of the joint
+    `raw_data/2021_11_14/suemg/` tree via T0.3, which is why that parameter exists.
+
+  ⚠️ The `„<president> и <vice>"` split is 2016/2021 ONLY. 2006 joins the pair with a COMMA and 2011 publishes
+  the two names in separate columns, so `splitTicketNames` returning null is an error for those eras and the
+  ordinary case for these.
 - **T2.2 `era2016.ts`** — 5-tuples; protocol forms 1/7/8 (32 positions, readme lines 5–32); machine flag from
   `sections[7]`; ticket split on ` и `.
 - **T2.3 `era2011.ts`** — cp1251; pairs; 27-position protocol (fields 3–27 per the decoded readme: registered =
