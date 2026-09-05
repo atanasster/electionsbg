@@ -1,11 +1,21 @@
 import { describe, it, expect } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   parseSectionRows,
+  parseSectionFile,
   mergeSectionVotes,
   partyNumColumn,
   PARLIAMENT_BLOCK,
+  PRESIDENT_BLOCK,
   type MachineVotes,
 } from "./index";
+
+const PROJECT_ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../..",
+);
 
 // A post-2021 parliamentary suemg row: `section;64;partyNum;votes;<pref>`.
 // row[1] = election-type block (64 = parliament); pCol = 2, so party is row[2]
@@ -186,5 +196,161 @@ describe("mergeSectionVotes — cross-shard dedup (FINDING-002)", () => {
     mergeSectionVotes(all, shard());
     expect(all).toHaveLength(beforeLen);
     expect(all[0].votes).toEqual([{ partyNum: 1, votes: 200 }]);
+  });
+});
+
+// ─── the presidential half of the same files ────────────────────────────────
+//
+// 14 Nov 2021 held two national ballots in the same sections, and ONE machine export
+// covers both: `raw_data/2021_11_14/suemg/` is the joint tree, block 64 the National
+// Assembly and block 256 the president. The presidential ingest therefore reads these
+// very files rather than shipping a copy of them — so the block parameter, not a
+// second parser, is what keeps the two tallies from drifting apart.
+describe("parseSectionRows — the presidential block (256)", () => {
+  const SECTION = "010100001";
+  // A six-row SUBSET, verbatim, of raw_data/2021_11_14/suemg/01/010100001.zip →
+  // 010100001.csv, whose block-256 section is 23 tickets plus the `99` row
+  // („не подкрепям никого", not a ticket — hence 5 tickets in this subset, not 6).
+  //
+  // ⚠ Cross-checked against the SECOND (machine) row for this section in
+  // raw_data/2021_11_14_pvr/ТУР1/votes_14.11.2021.txt, which reads
+  // `…;6;99;…;15;42;…` — ticket 6 (Радев) 99 votes, ticket 15 (Герджиков) 42.
+  // NOT against raw_data/2021_11_14/votes.txt: that is the PARLIAMENTARY file from
+  // the same day and carries neither ticket, so following it would make this fixture
+  // look fabricated.
+  //
+  // Ticket 2 is omitted DELIBERATELY: the real file carries it in both blocks, and
+  // leaving it out of the 256 rows is what lets the "excludes the parliamentary rows"
+  // test below mean something.
+  const REAL_256 = [
+    ["010100001", "256", "1", "1", "0"],
+    ["010100001", "256", "5", "7", "0"],
+    ["010100001", "256", "6", "99", "0"],
+    ["010100001", "256", "15", "42", "0"],
+    ["010100001", "256", "23", "2", "0"],
+    ["010100001", "256", "99", "6", "0"],
+  ];
+  // The same file's parliamentary rows carry a SIXTH column (preference detail),
+  // which is the layout the block filter exists to keep out of the tally.
+  const REAL_64 = [
+    ["010100001", "64", "2", "2", "101", "0"],
+    ["010100001", "64", "2", "2", "102", "1"],
+  ];
+
+  it("reads the ticket votes when asked for block 256", () => {
+    const res = parseSectionRows(
+      [...REAL_256, ...REAL_64],
+      SECTION,
+      "2021_11_14",
+      PRESIDENT_BLOCK,
+    );
+    expect(res.votes.find((v) => v.partyNum === 6)?.votes).toBe(99);
+    expect(res.votes.find((v) => v.partyNum === 15)?.votes).toBe(42);
+    expect(res.votes.find((v) => v.partyNum === 5)?.votes).toBe(7);
+  });
+
+  it('excludes 99 — that is „не подкрепям никого", not a ticket', () => {
+    const res = parseSectionRows(
+      REAL_256,
+      SECTION,
+      "2021_11_14",
+      PRESIDENT_BLOCK,
+    );
+    expect(res.votes.find((v) => v.partyNum === 99)).toBeUndefined();
+    expect(res.votes).toHaveLength(5);
+  });
+
+  it("excludes the parliamentary rows sharing the file", () => {
+    const res = parseSectionRows(
+      [...REAL_256, ...REAL_64],
+      SECTION,
+      "2021_11_14",
+      PRESIDENT_BLOCK,
+    );
+    // Ticket 2 appears ONLY in the block-64 rows here; reading it would mean the
+    // block filter had stopped discriminating.
+    expect(res.votes.find((v) => v.partyNum === 2)).toBeUndefined();
+  });
+
+  // The mirror of the above, and the reason the parameter defaults rather than being
+  // required: every existing caller must keep counting the parliament and nothing else.
+  it("defaults to the parliamentary block, so no existing caller changes", () => {
+    const rows = [...REAL_256, ...REAL_64];
+    const def = parseSectionRows(rows, SECTION, "2021_11_14");
+    const explicit = parseSectionRows(
+      rows,
+      SECTION,
+      "2021_11_14",
+      PARLIAMENT_BLOCK,
+    );
+    expect(def).toEqual(explicit);
+    // …and that is the PARLIAMENTARY answer — ticket 2 from the block-64 rows, first
+    // occurrence kept. Asserting the CONTENT rather than the absence of ticket 6
+    // matters: `expect(undefined).not.toBe(99)` would also pass against an
+    // implementation that returned nothing at all.
+    expect(def.votes).toEqual([{ partyNum: 2, votes: 2 }]);
+  });
+});
+
+describe("parseSectionRows — a block the file cannot discriminate", () => {
+  // Before 2021-11 a flash export carried ONE ballot and no block column, so there is
+  // nothing to filter on. Answering such a request with the file's rows would publish
+  // the parliamentary tally under a presidential label — and four of the five _pvr
+  // cycles are pre-shift dates, so this is the branch a cycle-iterating reader hits.
+  const preShift = [
+    ["s", "5", "111", "0"],
+    ["s", "7", "222", "0"],
+  ];
+
+  it("refuses a non-default block on a single-ballot export", () => {
+    expect(() =>
+      parseSectionRows(preShift, "s", "2021_07_11", PRESIDENT_BLOCK),
+    ).toThrow(/no election-type block column/i);
+  });
+
+  it("still reads the parliamentary tally from the same file", () => {
+    const res = parseSectionRows(preShift, "s", "2021_07_11", PARLIAMENT_BLOCK);
+    expect(res.votes).toEqual([
+      { partyNum: 5, votes: 111 },
+      { partyNum: 7, votes: 222 },
+    ]);
+  });
+});
+
+// The one line the presidential reader depends on is `parseSectionRows(result,
+// section, date, block)` inside parseSectionFile — and deleting `block` from it
+// silently reverts every presidential read to the parliamentary tally while every
+// pure-function test above still passes. This reads the committed joint export, so
+// it needs no network and no database.
+describe("parseSectionFile — threads the block through to the parser", () => {
+  const ZIP = path.join(
+    PROJECT_ROOT,
+    "raw_data/2021_11_14/suemg/01/010100001.zip",
+  );
+  const SECTION = "010100001";
+  const haveZip = fs.existsSync(ZIP);
+
+  it("reads the presidential tally from the joint export", async (ctx) => {
+    if (!haveZip) return ctx.skip("raw_data/2021_11_14/suemg absent");
+    const res = await parseSectionFile(
+      ZIP,
+      SECTION,
+      "2021_11_14",
+      PRESIDENT_BLOCK,
+    );
+    expect(res.votes.find((v) => v.partyNum === 6)?.votes).toBe(99);
+    expect(res.votes.find((v) => v.partyNum === 15)?.votes).toBe(42);
+    expect(res.votes).toHaveLength(23);
+    expect(res.votes.find((v) => v.partyNum === 99)).toBeUndefined();
+  });
+
+  it("defaults to the parliamentary tally, a DIFFERENT answer", async (ctx) => {
+    if (!haveZip) return ctx.skip("raw_data/2021_11_14/suemg absent");
+    const parl = await parseSectionFile(ZIP, SECTION, "2021_11_14");
+    expect(parl.votes.find((v) => v.partyNum === 2)?.votes).toBe(2);
+    // Ticket 6 is presidential-only; its 99 appearing here would mean the block
+    // never reached the parser.
+    expect(parl.votes.find((v) => v.partyNum === 6)?.votes).not.toBe(99);
+    expect(parl.votes).not.toHaveLength(23);
   });
 });

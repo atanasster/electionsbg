@@ -343,13 +343,36 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
 - **T0.2** With the predicate in, establish what `npm run prod` (`--all`) actually does today against the `_mi`
   and non-election directories — the `createReadStream` error on a missing `cik_parties.txt` is unhandled — and
   add the `elections.json` gate: a `_pvr` or `_mi` name can never enter it.
-- **T0.3** `scripts/machines_memory/parseSectionRows` takes `block: "64" | "256"` (default `"64"`), so the
-  presidential reader can reuse it; the existing test gains a block-256 fixture row from
-  `raw_data/2021_11_14/suemg/01/010100001.zip` (`010100001;256;6;99;0` is the „никого" row, `256;15;42;0` the
-  Герджиков row).
-- **T0.4** i18n: reserve the key family `presidential_*` in `translation.json` (core) — the hub, selector and
-  upcoming-ballot tile name the kind on every page, so it cannot be a deferred bundle; the screens' own copy goes
-  into a new `elections.json` bundle only if `scripts/i18n/bundles.ts` proves it exclusive (T4.5).
+- **T0.3 ✅ DONE.** `parseSectionRows` takes `block: MachineBlock` (default `PARLIAMENT_BLOCK`), and
+  `parseSectionFile` threads it, so the presidential reader is the same parser with a different block rather
+  than a copy that can drift from it — it inherits the column shift, the `99` exclusion and the
+  first-occurrence rule for free. ⚠️ `parseMachinesFlashMemory` is deliberately NOT parameterised: it writes the
+  fixed `suemg.json` that `parseVotes` reads, so a presidential caller pointed at it would overwrite the
+  parliamentary tally under the same filename; T2.1 composes `parseSectionFile` and owns its own output path.
+  The fixture is verbatim from `raw_data/2021_11_14/suemg/01/010100001.zip`, cross-checked against the SECOND
+  (machine) row for that section in **`raw_data/2021_11_14_pvr/ТУР1/votes_14.11.2021.txt`** — ticket 6 → 99,
+  ticket 15 → 42. ⚠️ NOT against `raw_data/2021_11_14/votes.txt`: that is the parliamentary file from the same
+  day and carries neither ticket, so citing it (as an earlier draft of this bullet and of the test comment both
+  did) makes the fixture look fabricated to anyone who checks. ⚠️ Note also the row this plan first cited as
+  „никого" was misread: `010100001;256;6;99;0` is **ticket 6 with 99 votes**; the „никого" row is `256;99;6;0`
+  — party 99, six votes.
+
+  **Tests 1–3 are what a parameter-ignoring stub cannot pass** — each asserts a value only the 256 block can
+  produce, and all three were measured failing against such a stub. The fourth guards the OTHER direction, that
+  the default has not moved: it asserts the 3-argument call equals the explicit `PARLIAMENT_BLOCK` call and that
+  the result is the parliamentary content, so a flipped default fails it. (Crediting the mutation guarantee to
+  the fourth test, as an earlier draft did, would invite someone to consolidate 1–3 away and leave a green suite
+  that proves nothing.) Two more cover the refusal branch, and two read the committed zip through
+  `parseSectionFile`, because deleting the block argument from its one internal call reverts every presidential
+  read to the parliamentary tally while every pure-function test still passes.
+- **T0.4 ⛔ NOT DOABLE AT THIS TIER — it moves to T4.5, and the reason is a gate, not an oversight.**
+  `scripts/i18n/key_usage.test.ts` asserts `usage.unused` is EMPTY: every key in the corpus must be reachable
+  from a call site. "Reserving" a `presidential_*` family before any screen names it would therefore turn the
+  i18n gate red on the commit that reserved it. What survives from T0.4 is the DECISION, recorded here and
+  binding on T4.5: the hub, the selector and the upcoming-ballot tile name this kind on pages that are not
+  presidential pages, so those keys belong in **core `translation.json`** and cannot go in a deferred bundle;
+  only the presidential screens' own copy is a bundle candidate, and `scripts/i18n/bundles.ts` decides that by
+  proving exclusivity rather than by hand.
 
 ## 5. Tier 1 — acquisition tooling (1–2 days)
 
