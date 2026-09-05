@@ -376,19 +376,46 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
 
 ## 5. Tier 1 — acquisition tooling (1–2 days)
 
-- **T1.1** `scripts/parsers_presidential/sources.ts` — the per-cycle map: slug (`pvrns2021`, `pvrnr2016`,
-  `mipvr2011`, `pvr2006`, `prezident2001`), round → zip URL, warm URL, download strategy
-  (`"goto"` | `"click"`), extraction rule (which subtree becomes `ТУР1/`/`ТУР2/`), encoding. ONE map, read by the
-  downloader (T1.2), the watcher (T7.1) and the readers (Tier 2).
+- **T1.1 ✅ DONE.** `scripts/parsers_presidential/sources.ts` — the per-cycle map: slug, round → zip URL, warm
+  URL, download strategy, extraction subtree, encoding, and an md5 where one was measured. ONE map, read by the
+  downloader (T1.2), the watcher (T7.1) and the readers (Tier 2). Two structural facts fell out of building it:
+  **two rounds can name ONE archive** (2016 and 2001 publish a single zip holding both, and 2016's two round
+  URLs serve the same md5), so `archivesToFetch()` collapses them rather than fetching the file twice and
+  implying the source publishes two; and **`subtree` is the field that moves data between rounds**, so it has a
+  disk-backed gate — a mutation pointing 2016 round 1 at round 2's folder passed every other test in the file,
+  and would have published the runoff's protocols under round 1's date with every count reconciling.
+  ⚠️ `scripts/parsers_local/download_csv_bundle.ts` names the SAME 2011 archive for the local races; both maps
+  now cross-reference each other, and giving that URL one home is open work.
 - **T1.2** `cikDownloadFile` gains `strategy: "click"` — warm the listing page, `page.click` the anchor whose
   `href` ends in the zip name, race `waitForEvent("download")`. Keep `"goto"` as the default; the map says which
   cycle needs which (§1.2). `npm run data -- --pvr-download <slug>` mirrors `--local-csv`: flag-gated, pops a
   window, extracts under `raw_data/<cycle>_pvr/`, never part of the watcher flow
   ([[feedback_one_off_backfills]]).
-- **T1.3** Decoders in `scripts/parsers_presidential/encoding.ts`: `decodeMik(buf)` (64-entry table; the `Read_DOS`
-  / `COMMON.201` pair is the fixture — „Президент и Вицепрезидент" must round-trip), `decodeCp1251` via
-  `TextDecoder("windows-1251")`, and BOM stripping for E2016. `extractZipCp866` stays for the 2011 zip's
-  cp866 FILE NAMES — a different concern from the cp1251 CONTENTS.
+- **T1.3 ✅ DONE.** `scripts/parsers_presidential/encoding.ts`: `decodeMik` (a 256-entry table, `0x80–0xBF` →
+  `U+0410–U+044F`, verified across the whole committed 2001 corpus — 111,437 high bytes, none above `0xBF`),
+  `decodeCp1251`, `stripBom`, a `decodeBundleText` dispatcher keyed on the era's declared encoding, and
+  `parseSemicolonRows`. `extractZipCp866` stays for the 2011 zip's cp866 FILE NAMES — a different concern from
+  the cp1251 CONTENTS. Four things the build settled that this plan had wrong or unsaid:
+
+  - ⚠️ **MIK is not cp866, and cp866 is the trap rather than a fallback.** They agree on `0x80–0xAF` and diverge
+    at exactly `0xB0` — `р` against `░` — so a cp866 read yields „Избо░и за п░езиден▓", 75% right and therefore
+    survivable in review. `decodeMik` REFUSES a byte above `0xBF` by default: such a byte means the file is not
+    MIK at all.
+  - ⚠️ **The BOM hazard is string IDENTITY, not numeric parsing.** `Number("\uFEFF13")` is 13, not `NaN` —
+    U+FEFF is JS whitespace. What breaks is equality, and a ticket number is a JOIN KEY: the candidates file's
+    `"\uFEFF13"` never matches the votes file's `"13"`, so Радев's 2016 ticket drops out of the join with every
+    row count reconciling. `TextDecoder("utf-8")` already strips it; neither non-UTF-8 path can see it as a
+    character (cp1251 decodes it to „п»ї", MIK throws on `0xEF`), so those strip on the BYTES.
+  - **Line endings are BOTH**, per §1.1 — published CRLF, committed LF — so the splitter accepts either.
+  - **The naive `split(";")` is correct, and that is measured rather than assumed**: zero quote-wrapped fields
+    and zero semicolons inside quotes across all five trees, with a uniform field count per row in every data
+    file. Quote CHARACTERS do occur inside field text (`БДС "Радикали", БДФ`), so a CSV parser would in fact
+    mis-read that row. Empty leading and trailing FIELDS are preserved — the 2011 sections rows begin with one,
+    the 2006 protocol rows end with one, and a `.filter(Boolean)` would shift every column in both.
+
+  ⚠️ Open, and deliberately a separate commit: `scripts/parsers_local/augment_sections_2011.ts`'s `readLines` is
+  a third copy of decode+split over the SAME 2011 bundle, with the weaker `/\r?\n/` split. Re-pointing it at
+  `decodeBundleText` + `parseSemicolonRows` retires it.
 - **T1.4** A `raw_data/<cycle>_pvr/SOURCE.json` stamp written by the downloader: URL, byte size, md5, fetched-at —
   the provenance the five hand-placed trees from this session lack; back-fill it from §1 for them.
 

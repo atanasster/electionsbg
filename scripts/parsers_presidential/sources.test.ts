@@ -151,21 +151,25 @@ describe("the map matches the trees on disk", () => {
   // The trees are committed, so this is a real check on CI as well as locally — and
   // it is what would catch a cycle added to the map with nothing behind it, or a
   // rename on disk that leaves the map pointing at a folder that is gone.
-  it.each(Object.keys(PRESIDENTIAL_SOURCES))("%s", (cycle, ctx) => {
-    const dir = path.join(RAW, cycle);
-    // A real skip, not a bare return: Vitest renders a green tick for the latter, so
-    // a `git mv` of a tree would turn this test PASSED rather than red — the exact
-    // defect it exists to catch.
-    if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
-    for (const round of [1, 2] as RoundNumber[]) {
-      const roundDir = path.join(dir, roundFolderName(round));
-      expect(fs.existsSync(roundDir), `${cycle}/ТУР${round}`).toBe(true);
-      expect(
-        fs.readdirSync(roundDir).length,
-        `${cycle}/ТУР${round} is empty`,
-      ).toBeGreaterThan(0);
-    }
-  });
+  // A plain loop rather than `it.each`, because each case needs its own `ctx` to SKIP
+  // on an absent tree — `it.each`'s callback receives the tuple only.
+  for (const cycle of Object.keys(PRESIDENTIAL_SOURCES)) {
+    it(cycle, (ctx) => {
+      const dir = path.join(RAW, cycle);
+      // A real skip, not a bare return: Vitest renders a green tick for the latter, so
+      // a `git mv` of a tree would turn this test PASSED rather than red — the exact
+      // defect it exists to catch.
+      if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
+      for (const round of [1, 2] as RoundNumber[]) {
+        const roundDir = path.join(dir, roundFolderName(round));
+        expect(fs.existsSync(roundDir), `${cycle}/ТУР${round}`).toBe(true);
+        expect(
+          fs.readdirSync(roundDir).length,
+          `${cycle}/ТУР${round} is empty`,
+        ).toBeGreaterThan(0);
+      }
+    });
+  }
 
   // `click` is not a preference — it is the only thing that works for pvrns2021, and
   // a well-meaning simplification back to `goto` would silently break the 2026 ingest
@@ -256,9 +260,8 @@ describe("the map matches the trees on disk", () => {
   // TEST-003: joins the declared encoding to the tree it claims to describe. Without
   // it, declaring 2006 as "utf8" — the module's stated worst case — passes every
   // other test in both files.
-  it.each(Object.keys(PRESIDENTIAL_SOURCES))(
-    "%s decodes with its OWN declared encoding",
-    (cycle, ctx) => {
+  for (const cycle of Object.keys(PRESIDENTIAL_SOURCES)) {
+    it(`${cycle} decodes with its OWN declared encoding`, (ctx) => {
       const source = PRESIDENTIAL_SOURCES[cycle];
       const dir = path.join(RAW, cycle, roundFolderName(1));
       if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
@@ -278,8 +281,8 @@ describe("the map matches the trees on disk", () => {
           /[А-Яа-я]{4}/,
         );
       }
-    },
-  );
+    });
+  }
 });
 
 // ─── the subtree gate ───────────────────────────────────────────────────────
@@ -316,25 +319,27 @@ const ROUND_FINGERPRINT: Record<
 };
 
 describe("each ТУРn holds its own round, not its sibling's", () => {
-  it.each(Object.keys(ROUND_FINGERPRINT))("%s", (cycle, ctx) => {
-    const source = PRESIDENTIAL_SOURCES[cycle];
-    for (const round of [1, 2] as RoundNumber[]) {
-      const dir = path.join(RAW, cycle, roundFolderName(round));
-      if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
-      const names = fs.readdirSync(dir);
-      const other = (round === 1 ? 2 : 1) as RoundNumber;
-      const mine = ROUND_FINGERPRINT[cycle](round, source.rounds[round]);
-      const theirs = ROUND_FINGERPRINT[cycle](other, source.rounds[other]);
-      expect(
-        names.some((n) => mine.test(n)),
-        `${cycle}/ТУР${round} carries its own round (${mine})`,
-      ).toBe(true);
-      expect(
-        names.some((n) => theirs.test(n)),
-        `${cycle}/ТУР${round} leaked round ${other} (${theirs})`,
-      ).toBe(false);
-    }
-  });
+  for (const cycle of Object.keys(ROUND_FINGERPRINT)) {
+    it(cycle, (ctx) => {
+      const source = PRESIDENTIAL_SOURCES[cycle];
+      for (const round of [1, 2] as RoundNumber[]) {
+        const dir = path.join(RAW, cycle, roundFolderName(round));
+        if (!fs.existsSync(dir)) return ctx.skip(`raw_data/${cycle} absent`);
+        const names = fs.readdirSync(dir);
+        const other = (round === 1 ? 2 : 1) as RoundNumber;
+        const mine = ROUND_FINGERPRINT[cycle](round, source.rounds[round]);
+        const theirs = ROUND_FINGERPRINT[cycle](other, source.rounds[other]);
+        expect(
+          names.some((n) => mine.test(n)),
+          `${cycle}/ТУР${round} carries its own round (${mine})`,
+        ).toBe(true);
+        expect(
+          names.some((n) => theirs.test(n)),
+          `${cycle}/ТУР${round} leaked round ${other} (${theirs})`,
+        ).toBe(false);
+      }
+    });
+  }
 
   // …and the fingerprints must actually tell the two rounds apart, or the block above
   // is two vacuous assertions.

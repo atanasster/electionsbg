@@ -70,12 +70,15 @@ describe("decodeMik", () => {
 
   // Both rounds, and an EXACT count: `> 30` would pass with three oblast files
   // silently missing, and round 2 was never touched at all.
-  it.each([
+  //
+  // A plain loop rather than `it.each`, because each case needs its own `ctx` to
+  // SKIP on an absent tree — `it.each`'s callback is handed the tuple only, and a
+  // bare `return` would report the case as passed.
+  for (const [round, ext] of [
     ["ТУР1", ".201"],
     ["ТУР2", ".301"],
-  ])(
-    "decodes every 2001 %s file without an unmapped byte",
-    (round, ext, ctx) => {
+  ] as const) {
+    it(`decodes every 2001 ${round} file without an unmapped byte`, (ctx) => {
       const dir = path.join(PROJECT_ROOT, "raw_data/2001_11_11_pvr", round);
       if (!fs.existsSync(dir)) return ctx.skip("2001 tree absent");
       const files = fs.readdirSync(dir).filter((f) => f.endsWith(ext));
@@ -87,8 +90,8 @@ describe("decodeMik", () => {
           `${round}/${f}`,
         ).not.toThrow();
       }
-    },
-  );
+    });
+  }
 });
 
 describe("decodeCp1251", () => {
