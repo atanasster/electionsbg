@@ -270,7 +270,9 @@ corpus total and the `hub_stats` figure agree within 0.5% and that `buyerPlacedE
 `tr_company_place.oblast`, `fund_projects.oblast` and `agri_subsidies.oblast` carry names
 (`София (столица)`, `София`, `Пловдив`), while the artifact, `data/census_2021.json` and the
 election files carry codes (`SOF`, `SFO`, `PDV`). The generator owns ONE name→code map
-(`scripts/db/gen_home/oblastCodes.ts`, seeded from `src/data/json/regions.json`) and refuses to
+(`scripts/db/gen_home/oblastCodes.ts`, seeded from `data/census_2021.json` — NOT from
+`src/data/json/regions.json`, which is МИР-keyed, carries no `SOF` at all and spells the two
+provinces `обл. Пловдив` / `София област`, neither of which any input uses) and refuses to
 write if any name in any input maps to zero or two codes, or if fewer than 28 codes receive a
 value. `funds.oblast` uses codes already (`S22` for Sofia city — folded to `SOF`); the prices
 block keeps МИР keys (31) because its source `regions` are МИР-keyed and so are the polygons.
