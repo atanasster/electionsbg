@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-09-04T23:20:38.378Z",
+  "updatedAt": "2026-09-05T23:50:25.141Z",
   "entries": [
+    {
+      "timestamp": "2026-09-05T23:50:25.141Z",
+      "date": "2026-09-05",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП gap-fill: +138 rows/69 buyers, geo map 2183 entries, current-value fold net +€2277.9M",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-09-05T23:21:25.391Z",
+      "date": "2026-09-05",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 929 лица, 125 086 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-05T22:13:32.388Z",
+      "date": "2026-09-05",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-05 (+1 daily archive; 959,602 store rows, 169 settlements, 81 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-05"
+    },
     {
       "timestamp": "2026-09-04T23:20:38.378Z",
       "date": "2026-09-04",

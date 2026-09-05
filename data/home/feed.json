@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-04T23:59:59.999Z",
+  "computedAt": "2026-09-05T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:400g-kiselo-mlyako-balkan-3-6",
+      "id": "prices:promotion:krastavitsi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-04T00:00:00.000Z",
-      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "occurredAt": "2026-09-05T00:00:00.000Z",
+      "firstSeenAt": "2026-09-05T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,18 +22,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/400g-kiselo-mlyako-balkan-3-6",
+      "route": "/product/krastavitsi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "400Г КИСЕЛО МЛЯКО БАЛКАН 3.6%",
-        "pct": 46,
-        "promoEur": "0.49",
-        "regularEur": "0.90",
-        "chains": 2
+        "title": "КРАСТАВИЦИ",
+        "pct": 48,
+        "promoEur": "0.99",
+        "regularEur": "1.89",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6571428571428571,
+      "materiality": 0.6857142857142857,
       "actionability": 0.85
     },
     {
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kashkaval-bulgarche-tost",
+      "id": "prices:promotion:kromid-luk",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-04T00:00:00.000Z",
-      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "occurredAt": "2026-09-05T00:00:00.000Z",
+      "firstSeenAt": "2026-09-05T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kashkaval-bulgarche-tost",
+      "route": "/product/kromid-luk",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КАШКАВАЛ БУЛГАРЧЕ ТОСТ",
-        "pct": 45,
-        "promoEur": "5.99",
-        "regularEur": "10.99",
+        "title": "Кромид Лук",
+        "pct": 48,
+        "promoEur": "0.44",
+        "regularEur": "0.85",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6428571428571429,
+      "materiality": 0.6857142857142857,
       "actionability": 0.85
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:min-voda-1-5l-velingrad-6",
+      "id": "prices:promotion:portokali",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-04T00:00:00.000Z",
-      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "occurredAt": "2026-09-05T00:00:00.000Z",
+      "firstSeenAt": "2026-09-05T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/min-voda-1-5l-velingrad-6",
+      "route": "/product/portokali",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "МИН.ВОДА 1.5Л ВЕЛИНГРАД/6",
-        "pct": 44,
-        "promoEur": "0.33",
-        "regularEur": "0.59",
-        "chains": 4
+        "title": "ПОРТОКАЛИ",
+        "pct": 46,
+        "promoEur": "1.09",
+        "regularEur": "2.01",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6285714285714286,
+      "materiality": 0.6571428571428571,
       "actionability": 0.85
     },
     {
@@ -254,11 +254,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-09-04",
+      "id": "prices:basket_moved:2026-09-05",
       "kind": "basket_moved",
       "category": "prices",
-      "occurredAt": "2026-09-04T00:00:00.000Z",
-      "firstSeenAt": "2026-09-04T00:00:00.000Z",
+      "occurredAt": "2026-09-05T00:00:00.000Z",
+      "firstSeenAt": "2026-09-05T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -280,7 +280,7 @@
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.39625,
+      "materiality": 0.40425,
       "actionability": 0.5
     },
     {
@@ -1014,8 +1014,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-04",
-      "observedAt": "2026-09-04",
+      "asOf": "2026-09-05",
+      "observedAt": "2026-09-05",
       "staleAfterDays": 5,
       "stale": false
     }

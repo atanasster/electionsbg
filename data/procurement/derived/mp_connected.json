@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T21:25:12.756Z",
+  "generatedAt": "2026-09-05T22:17:32.153Z",
   "total": 114,
   "entries": [
     {
@@ -114,9 +114,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 358397800.91,
+      "totalEur": 358432240.91,
       "totalOther": {},
-      "contractCount": 355,
+      "contractCount": 356,
       "awardCount": 0,
       "byYear": [
         {
@@ -211,8 +211,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 34,
-          "totalEur": 33406624.27,
+          "contractCount": 35,
+          "totalEur": 33441064.27,
           "totalOther": {}
         }
       ],
@@ -6202,6 +6202,54 @@
       ]
     },
     {
+      "mpId": 801,
+      "mpName": "Стойко Илиев Танков",
+      "contractorEik": "202388240",
+      "contractorName": "Трахит БП ООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true
+        },
+        {
+          "kind": "stake",
+          "shareSize": "5%",
+          "declarationYear": 2022
+        }
+      ],
+      "totalEur": 100913.38,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 50413.38,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 50500,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000057179",
+          "name": "Община Поморие",
+          "contractCount": 4,
+          "totalEur": 100913.38,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 2727,
       "mpName": "Светла Маринова Бъчварова-Пиралкова",
       "contractorEik": "200810344",
@@ -6652,48 +6700,6 @@
           "name": "Министерство на туризма",
           "contractCount": 2,
           "totalEur": 51129.18,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 801,
-      "mpName": "Стойко Илиев Танков",
-      "contractorEik": "202388240",
-      "contractorName": "Трахит БП ООД",
-      "relations": [
-        {
-          "kind": "manager",
-          "isCurrent": true
-        },
-        {
-          "kind": "partner",
-          "isCurrent": true
-        },
-        {
-          "kind": "stake",
-          "shareSize": "5%",
-          "declarationYear": 2022
-        }
-      ],
-      "totalEur": 50413.38,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2024",
-          "contractCount": 2,
-          "totalEur": 50413.38,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000057179",
-          "name": "Община Поморие",
-          "contractCount": 2,
-          "totalEur": 50413.38,
           "totalOther": {}
         }
       ]

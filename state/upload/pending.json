@@ -1,0 +1,40 @@
+{
+  "session": "20260905T215716Z-b659",
+  "createdAt": "2026-09-05T23:56:22.802Z",
+  "skills": [
+    "update-prices",
+    "update-procurement"
+  ],
+  "paths": [
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "culture/derived/hub_stats.json",
+    "culture/derived/fund_sources.json",
+    "governance/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "home/hub_stats.json",
+    "home/price_events.json",
+    "home/feed.json",
+    "home/flyover.json",
+    "data-changes.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run prices:ingest:cloud",
+    "npm run myarea:alerts:cloud"
+  ],
+  "notes": "eop_procurement (+138 EOP rows) + kzp_prices (2026-09-05 daily archive). Person layer (db:resolve:persons) deliberately EXCLUDED from cloud publish — reproduced yesterday's already-flagged fold/review-group drop (3495->3443 / 3464->3412), held back pending investigation (see spawned task task_a472caf0); cloud's person_role/person tables must stay on their last-known-good state."
+}

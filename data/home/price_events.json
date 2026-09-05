@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-04",
+  "computedAt": "2026-09-05",
   "thresholds": {
     "basketPids": [
       1,
@@ -43,46 +43,46 @@
       "cohortShare": 0.8161
     },
     {
-      "peakDay": "2026-09-04",
+      "peakDay": "2026-09-05",
       "startDay": "2026-09-04",
-      "endDay": "2026-09-04",
-      "pctChange": -1.585,
-      "costEur": 15.614,
-      "prevCostEur": 15.865,
+      "endDay": "2026-09-05",
+      "pctChange": -1.617,
+      "costEur": 15.605,
+      "prevCostEur": 15.861,
       "cohortCells": 1683,
-      "cohortShare": 0.9266
+      "cohortShare": 0.9286
     }
   ],
   "promotions": [
     {
-      "slug": "400g-kiselo-mlyako-balkan-3-6",
-      "title": "400Г КИСЕЛО МЛЯКО БАЛКАН 3.6%",
-      "atOrBelowSince": "2026-09-04",
-      "promoEur": 0.49,
-      "regularEur": 0.9,
+      "slug": "krastavitsi",
+      "title": "КРАСТАВИЦИ",
+      "atOrBelowSince": "2026-08-31",
+      "promoEur": 0.99,
+      "regularEur": 1.89,
+      "discountPct": 48,
+      "stores": 208,
+      "chains": 3
+    },
+    {
+      "slug": "kromid-luk",
+      "title": "Кромид Лук",
+      "atOrBelowSince": "2026-09-02",
+      "promoEur": 0.44,
+      "regularEur": 0.85,
+      "discountPct": 48,
+      "stores": 47,
+      "chains": 2
+    },
+    {
+      "slug": "portokali",
+      "title": "ПОРТОКАЛИ",
+      "atOrBelowSince": "2026-09-05",
+      "promoEur": 1.09,
+      "regularEur": 2.01,
       "discountPct": 46,
-      "stores": 63,
-      "chains": 2
-    },
-    {
-      "slug": "kashkaval-bulgarche-tost",
-      "title": "КАШКАВАЛ БУЛГАРЧЕ ТОСТ",
-      "atOrBelowSince": "2026-09-01",
-      "promoEur": 5.99,
-      "regularEur": 10.99,
-      "discountPct": 45,
-      "stores": 4,
-      "chains": 2
-    },
-    {
-      "slug": "min-voda-1-5l-velingrad-6",
-      "title": "МИН.ВОДА 1.5Л ВЕЛИНГРАД/6",
-      "atOrBelowSince": "2026-08-29",
-      "promoEur": 0.33,
-      "regularEur": 0.59,
-      "discountPct": 44,
-      "stores": 41,
-      "chains": 4
+      "stores": 137,
+      "chains": 3
     }
   ]
 }
