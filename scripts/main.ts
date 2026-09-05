@@ -200,6 +200,17 @@ const app = command({
     // historical cycles are committed, so the ordinary run downloads nothing. It
     // exists so 2026 runs a path that has been exercised. See
     // docs/plans/presidential-elections-v1.md T1.2.
+    // `--pvr <cycle>` reads a committed presidential bundle and writes
+    // `data/<cycle>/` — the roll-ups, the section shards, `national_summary.json`
+    // and `tickets.json`. Pure and offline; `--pvr all` does every cycle.
+    // ⚠ NOT folded into `--all`: that flag rebuilds the parliamentary tree, and a
+    // presidential cycle is a different election with its own catalogue. Same
+    // reasoning as `--local`, which `--all` also leaves alone.
+    // See docs/plans/presidential-elections-v1.md T3.4.
+    pvr: option({
+      type: optional(string),
+      long: "pvr",
+    }),
     pvrDownload: option({
       type: optional(string),
       long: "pvr-download",
@@ -352,6 +363,7 @@ const app = command({
     localDate,
     localIngest,
     localCsv,
+    pvr,
     pvrDownload,
     pvrForce,
     pvrAllowDigestChange,
@@ -375,6 +387,23 @@ const app = command({
     // walked all 13 parliamentary trees before reaching its own handler. An
     // acquisition step that only touches raw_data/<cycle>_pvr should do that and
     // nothing else.
+    if (pvr) {
+      // ⚠ Before `--pvr-download`, because this one needs no network and is what a
+      // rebuild runs; the download is the operator step that precedes it once.
+      const { ingestAllPresidential, ingestPresidentialCycle } =
+        await import("./parsers_presidential/ingest");
+      // ⚠ The same `--prod` switch every other writer here obeys: minified in
+      // production, indented otherwise. Measured, the presidential tree is 134 MB
+      // minified across the five cycles, so the difference is not cosmetic.
+      const indent = production ? 0 : 2;
+      // ⚠ BOTH SPELLINGS. The plan writes `--pvr --all`; `--pvr all` is what the
+      // handler grew first. cmd-ts's `option` requires a value, so the flag form
+      // still needs a cycle beside it — accepting either means neither spelling
+      // fails with a message about the other.
+      if (all || pvr === "all") ingestAllPresidential({ indent });
+      else ingestPresidentialCycle(pvr, { indent });
+      return;
+    }
     if (pvrDownload) {
       try {
         await downloadPresidentialCycle(pvrDownload, {

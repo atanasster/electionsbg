@@ -5,6 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import {
   NEUTRAL_PALETTE,
+  PARTY_COLORS_PATH,
   PLACEHOLDER_COLOR,
   TICKET_DEFAULTS_PATH,
   buildTicketCatalogue,
@@ -13,13 +14,20 @@ import {
   ticketDefaults,
   type TicketCatalogue,
 } from "./tickets";
+import { fileURLToPath } from "node:url";
+import { buildPartyColors } from "./build_party_colors";
 import {
   COMMITTED_ROUND_DIRS,
   CYCLES_OLDEST_FIRST,
   corpusRound,
 } from "./testCorpus";
 
-assertCommitted(...COMMITTED_ROUND_DIRS);
+const PROJECT_ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../..",
+);
+
+assertCommitted(...COMMITTED_ROUND_DIRS, "data/presidential/party_colors.json");
 
 const cache = new Map<string, TicketCatalogue>();
 const catalogue = (cycle: string): TicketCatalogue => {
@@ -104,11 +112,19 @@ describe("where a colour comes from", () => {
   // entry — the exact confusion `colorBasis` exists to prevent, through the one door it
   // did not check.
   it("never treats the placeholder colour as a brand fact", () => {
+    // ⚠ The sentinel is widespread in the SOURCE — 143 of the 226 catalogue entries — and
+    // absent from the derived table, which is where the exclusion happens. Asserted on
+    // the source so the claim is about the corpus rather than about the filter.
+    const { table } = buildPartyColors(path.join(PROJECT_ROOT, "data"));
     const parties = parliamentaryParties();
-    const placeheld = [...parties.values()].filter(
-      (p) => p.color === PLACEHOLDER_COLOR,
-    );
-    expect(placeheld.length, "the sentinel is widespread").toBeGreaterThan(100);
+    expect(
+      Object.values(table.parties).filter((p) => p.color === PLACEHOLDER_COLOR),
+      "excluded from the table",
+    ).toHaveLength(0);
+    expect(
+      [...parties.values()].filter((p) => !p.color).length,
+      "and the entries it left colourless are still carried, for their nickName",
+    ).toBeGreaterThan(100);
     for (const cycle of CYCLES_OLDEST_FIRST) {
       for (const t of catalogue(cycle).tickets) {
         expect(t.color, `${cycle}/${t.number}`).not.toBe(PLACEHOLDER_COLOR);
@@ -367,13 +383,59 @@ describe("the curated defaults", () => {
 });
 
 describe("the party index", () => {
-  it("is built from the committed parliamentary catalogues, not typed by hand", () => {
+  // ⚠⚠ THE COLOUR TABLE IS COMMITTED BECAUSE ITS SOURCE IS NOT. `data/<cycle>/
+  // cik_parties.json` is gitignored — 0 tracked against 13 on disk — so reading those
+  // files directly made `tickets.json` lose every brand colour on a fresh clone or a CI
+  // runner, at exit 0, with every vote figure still reconciling. This is the control:
+  // pointed at an empty table, the build must produce a visibly different catalogue.
+  it("loses every brand colour when the table is empty", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "pvr-colors-"));
+    try {
+      const file = path.join(dir, "empty.json");
+      fs.writeFileSync(
+        file,
+        JSON.stringify({ builtFrom: "test", parties: {} }),
+      );
+      const without = buildTicketCatalogue(
+        [1, 2].map((r) => corpusRound("2021_11_14_pvr", r as 1 | 2)),
+        { partyColorsFile: file },
+      );
+      expect(without.neutralTickets, "everything goes neutral").toBe(
+        without.tickets.length,
+      );
+      // …against six real brand colours with the committed table.
+      expect(catalogue("2021_11_14_pvr").neutralTickets).toBe(17);
+      expect(
+        without.tickets.map((t) => t.color),
+        "and the colours actually differ",
+      ).not.toEqual(catalogue("2021_11_14_pvr").tickets.map((t) => t.color));
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("is committed, and holds no placeholder colour", () => {
+    // The generator excludes the catalogue's `lightslategrey` sentinel, so anything here
+    // with a `color` is a real brand fact.
+    const parties = parliamentaryParties();
+    for (const [key, p] of parties) {
+      expect(p.color, key).not.toBe(PLACEHOLDER_COLOR);
+    }
+  });
+
+  it("is derived from the parliamentary catalogues, not typed by hand", () => {
     const parties = parliamentaryParties();
     expect(parties.size).toBeGreaterThan(200);
     // Every entry carries at least one of the two things it exists to supply.
     for (const [key, p] of parties) {
       expect(Boolean(p.color || p.nickName), key).toBe(true);
     }
+    // …and the committed table is what the generator produces from this machine's tree.
+    const { table } = buildPartyColors(path.join(PROJECT_ROOT, "data"));
+    const committed = JSON.parse(
+      fs.readFileSync(PARTY_COLORS_PATH, "utf8"),
+    ) as { parties: Record<string, unknown> };
+    expect(table.parties).toEqual(committed.parties);
   });
 
   it("lets a later cycle's spelling win", () => {

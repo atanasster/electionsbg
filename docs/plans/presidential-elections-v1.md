@@ -814,11 +814,37 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ `unmatchedNominators` counts NAMES and `neutralTickets` counts TICKETS; several tickets can share one
   nominator string, so a reader asking „how much of this ballot carries a colour that asserts nothing" wants the
   second. 2001 and 2006 are entirely neutral by construction — they name no nominating body for any ticket.
-- **T3.4** `npm run data -- --pvr <cycle>` / `--pvr --all` wired in `main.ts` next to the local flags; folded into
-  `--all` only after T0.1/T0.2 exist. A `data/data-changes.json` entry per ingest via
-  `scripts/append-data-change.ts` ([[reference_two_changelogs]]).
-- **T3.5** Gate: a byte-stability test (a second run over the same raw tree writes identical files — nothing reads
-  the clock), and a `region_votes.json` ↔ `national_summary.json` reconciliation per round.
+- **T3.4 ✅ DONE + T3.5 ✅ DONE.** `ingest.ts` reads a committed cycle and writes `data/<cycle>/`; `npm run data
+  -- --pvr <cycle>` drives it, `--pvr all` or `--pvr <cycle> --all` does every cycle, and `--prod` minifies.
+  Measured: 5 cycles, 372 files, 134 MB minified. The tree is gitignored by the existing per-election-data rule
+  and ships via GCS, like the parliamentary one. Three things the build settled:
+
+  - ⚠️⚠️ **„EVERY INPUT IS COMMITTED" WAS FALSE, AND THE FAILURE WAS SILENT.** `tickets.ts` read the parliamentary
+    `data/<cycle>/cik_parties.json` catalogues, which are GITIGNORED — 0 tracked against 13 on disk — so on a
+    fresh clone or a CI runner `tickets.json` lost EVERY brand colour, at exit 0, with every vote figure still
+    reconciling. Colours now come from `data/presidential/party_colors.json`, a small derived table that IS
+    committed (`build_party_colors.ts`, which refuses to write an empty one). The gate points the build at an
+    empty table and requires the output to differ.
+  - ⚠️ **NOTHING IS WRITTEN UNTIL EVERY ROUND HAS BEEN READ AND AGGREGATED.** Every guard in this pipeline
+    throws, and a tree half-written by a run that then failed is a corpus where some files are the new vintage
+    and the rest the old, with nothing saying which. ⚠️ The control has to fire DOWNSTREAM of the reads — an
+    absent raw folder throws before anything is read, so it cannot tell „nothing was written" from „nothing
+    could have been"; the gate uses a round-1-only tree, which aggregates successfully and then fails in
+    `decideCycle`.
+  - **The run names what it could not place, and says nothing when there is nothing to say.** A line reading
+    „0 section(s) (0 votes)" on every clean round is noise an operator learns to skip, which is how the one
+    saying 1,354 gets skipped too — so the refusal and the country-less-abroad halves are separate lines and
+    each appears only when non-zero. 2006 exercises exactly that: nine abroad sections with no country, no
+    refusals.
+
+  ⚠️ **`--pvr` writes NO `data/data-changes.json` row, and that is the decision rather than an omission.** That
+  file is appended by `/process-watch-report` after a successful stamp-ingest, per `append-data-change.ts`'s own
+  header; an ingest writing its own row would double-count every orchestrated run, and this corpus is historical
+  and does not change between runs. The T7 watcher skill owns it.
+
+  T3.5's two halves both hold: `region_votes.json` + `abroad.json` + the refusals partition each round's ticket
+  votes exactly, on all ten rounds — and the gate OPENS both files rather than trusting the summary's own
+  figures — and a second ingest from a fresh read of the raw tree writes byte-identical files.
 
 ## 8. Tier 4 — catalogue, context, hub (2 days)
 

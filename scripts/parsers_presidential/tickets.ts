@@ -134,46 +134,35 @@ interface CikParty {
 
 let partyIndex: Map<string, CikParty> | null = null;
 
+/** Where the derived, COMMITTED colour table lives. */
+export const PARTY_COLORS_PATH = path.join(
+  PROJECT_ROOT,
+  "data/presidential/party_colors.json",
+);
+
 /**
- * Party name → its parliamentary colour and short label.
+ * Party name → its colour and short label.
  *
- * ⚠ Built from every committed `data/<parliamentary cycle>/cik_parties.json`, so it is a
- * MEASUREMENT over what this repo already publishes rather than a table somebody typed.
- * A later cycle wins, because a party that rebranded should render under its current
- * colour.
+ * ⚠⚠ READ FROM A COMMITTED, DERIVED TABLE — NOT from `data/<cycle>/cik_parties.json`,
+ * which is GITIGNORED — the gitignore rule for the per-election data trees covers it, 0
+ * files tracked against 13 on disk. Reading them directly made `tickets.json` lose every
+ * brand colour on a fresh
+ * clone or a CI runner, at exit 0, with every vote figure still reconciling. Rebuild the
+ * table with `build_party_colors.ts` when a parliamentary cycle lands.
+ *
+ * ⚠ The table already excludes the catalogue's `lightslategrey` placeholder, so anything
+ * here carrying a `color` is a real brand fact.
  */
-export const parliamentaryParties = (
-  dataRoot?: string,
-): Map<string, CikParty> => {
-  if (!dataRoot && partyIndex) return partyIndex;
-  const root = dataRoot ?? path.join(PROJECT_ROOT, "data");
+export const parliamentaryParties = (file?: string): Map<string, CikParty> => {
+  if (!file && partyIndex) return partyIndex;
+  const table = JSON.parse(
+    fs.readFileSync(file ?? PARTY_COLORS_PATH, "utf8"),
+  ) as { parties: Record<string, { color?: string; nickName?: string }> };
   const out = new Map<string, CikParty>();
-  for (const dir of fs
-    .readdirSync(root)
-    .filter((d) => /^\d{4}_\d{2}_\d{2}$/u.test(d))
-    .sort()) {
-    const file = path.join(root, dir, "cik_parties.json");
-    if (!fs.existsSync(file)) continue;
-    for (const p of JSON.parse(fs.readFileSync(file, "utf8")) as CikParty[]) {
-      if (!p.name || (!p.color && !p.nickName)) continue;
-      const key = nameKey(p.name);
-      const held = out.get(key);
-      // ⚠ A REAL COLOUR BEATS THE PLACEHOLDER, WHATEVER THE ORDER. „A later cycle wins"
-      // is right for a rebrand and wrong here: a party with a known colour in one cycle
-      // and none in a later one would be DOWNGRADED to `lightslategrey`, losing a brand
-      // fact this repo already publishes. Measured live on ВОЛЯ.
-      if (
-        held?.color &&
-        held.color !== PLACEHOLDER_COLOR &&
-        (!p.color || p.color === PLACEHOLDER_COLOR)
-      ) {
-        out.set(key, { ...p, color: held.color });
-        continue;
-      }
-      out.set(key, p);
-    }
+  for (const [key, p] of Object.entries(table.parties)) {
+    out.set(key, { name: key, ...p });
   }
-  if (!dataRoot) partyIndex = out;
+  if (!file) partyIndex = out;
   return out;
 };
 
@@ -264,10 +253,10 @@ const neutralColor = (assignedSoFar: number): string =>
  */
 export const buildTicketCatalogue = (
   rounds: PresidentialRound[],
-  options: { defaultsFile?: string } = {},
+  options: { defaultsFile?: string; partyColorsFile?: string } = {},
 ): TicketCatalogue => {
   if (!rounds.length) throw new Error("tickets: no rounds");
-  const parties = parliamentaryParties();
+  const parties = parliamentaryParties(options.partyColorsFile);
   const { nickNames } = ticketDefaults(options.defaultsFile);
 
   const byNumber = new Map<number, CatalogueTicket>();
