@@ -124,7 +124,11 @@ const shardSection = (
     basis: PlaceBasis;
   } | null,
 ): ShardSection => {
-  const { ekatte: _sourceEkatte, ...rest } = section;
+  // ⚠ The source's own `ekatte` is deliberately NOT spread through — see the type's
+  // docblock. `omit` rather than destructuring, so the discard is a statement rather
+  // than an unused binding a linter has to be told about.
+  const rest: Omit<PresidentialSection, "ekatte"> = { ...section };
+  delete (rest as { ekatte?: string }).ekatte;
   return {
     ...rest,
     ...(place?.ekatte ? { ekatte: place.ekatte } : {}),

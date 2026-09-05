@@ -760,13 +760,34 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ Open, and deliberately so: the roll-ups carry VOTES only, no protocol — so turnout, invalid and „никого"
   live in `national_summary.json` (T3.2), which is where T3.5's reconciliation will read them. Still open in
   T3.1: the `coveredCycles()` arm in `scripts/elections/build_surfaces.ts`.
-- **T3.2** `national_summary.json` per cycle: per-round turnout (registered, signatures — ballots found for 2006
-  abroad), valid, invalid, „не подкрепям никого" where the form has it (2016+), the ticket ranking with shares
-  over VALID votes (decision 5), the runoff pair, `decidedInRound`, abroad totals, and the R1→R2 swing (Δ votes
-  per surviving ticket, Δ turnout). **Every turnout figure names its basis** — `registeredBasis:
-  "protocol-all-forms"`, `castBasis: "signatures"` — and the summary carries the CIK activity page's own
-  registered figure as a separate, labelled `cikActivity` field where the page is archived (2021: 6,635,305 /
-  2,687,307), so the two bases sit side by side instead of one masquerading as the other (§2.5-11).
+- **T3.2 ✅ DONE.** `nationalSummary.ts` builds a cycle's outcome per round, with every basis named — which is
+  the file's job rather than decoration on it. All five cycles name the right winner, all decided in round 2.
+  Four things the build settled:
+
+  - ⚠️⚠️ **THE TWO ARRAYS WERE PAIRED BY POSITION AND NOTHING NOTICED A MISPAIR.** Reproduced: handing 2016's
+    aggregations with 2021's rounds published 325 abroad sections under `cycle: "2021_11_14_pvr"` with every vote
+    figure correct, because the roll-ups and the tallies are read from different arguments. `AggregatedRound`
+    already carries its cycle, round and date; they are now checked.
+  - ⚠️ **`abroad.votes` SAID „VOTES CAST" AND WAS THE TICKET SUM** — 104,457 against 114,776 ballots found in 2016
+    round 1, 9.0% short. It is now `ticketVotes` (comparable with `votes.tickets`) and `ballotsFound` (the only
+    turnout numerator there can be abroad, decision 6). ⚠️ The obvious recovery route is a trap: `section.abroad`
+    is unset for 2016 and 2021, so reading that flag returns a confident zero for the two cycles with the most
+    abroad sections — the code prefix is what decides.
+  - ⚠️ **THE SWING JOINS ON TICKET NUMBER, AND NOW CHECKS THE NAME.** 2006's runoff re-uses the round-1 numbers
+    and 2001's renumbers its survivors, so „ticket 2" is a different person in the two rounds of at least one era
+    here; joining on the number alone would print round 1's name over round 2's votes. It also covers ONLY the
+    surviving tickets: 2021 had 23 in round 1 and 2 in the runoff, so 21 would otherwise each show a delta equal
+    to minus their whole round-1 vote.
+  - **`signaturesUnreported` finally has a reader.** `abroad.sectionsWithoutSignatures` is 144 of 144 for 2006
+    and 0 everywhere else — the flag was added two steps ago and consumed by nothing, and an absent-vs-zero
+    distinction with no consumer is a comment rather than a guarantee.
+
+  ⚠️ `CIK_ACTIVITY` carries ЦИК's own 2021 round-1 figures beside ours, never instead: our cast figure matches
+  the page exactly (2,687,307) and our registered figure does not, so the two percentages differ. Adopting the
+  page's would mean inventing a third basis; dropping it would hide that they disagree. And `votes.invalid` is
+  PAPER-ONLY in every era — a machine accepts no invalid ballot — which makes 2021's 9,487 read as 0.35% over
+  valid votes and 3.0% over paper ones; only the second is a rate anybody means, so `invalidBasis` says which.
+
 - **T3.3** `tickets.json` with colours and `canonicalTicketKey`; a `scripts/parsers_presidential/ticket_defaults.json`
   for the few nominating bodies whose `nickName` differs from the parliamentary spelling.
 - **T3.4** `npm run data -- --pvr <cycle>` / `--pvr --all` wired in `main.ts` next to the local flags; folded into
