@@ -26,9 +26,10 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { buildPlaceItems } from "@/data/search/placeSearchItems";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { presidentialAsOf } from "@/data/presidentialAsOf";
 import { formatDate } from "@/lib/formatDate";
 import { groupedInt } from "@/screens/analysis/analysisHubFigures";
-import { ELECTIONS_BANDS, withLocalCycle } from "./electionsRegistry";
+import { ELECTIONS_BANDS, withCycle } from "./electionsRegistry";
 import { ELECTIONS_SCENES } from "./electionsScenes";
 import {
   CYCLE_SURFACE,
@@ -52,6 +53,17 @@ export const ElectionsHubScreen: FC = () => {
   // is the local government in effect as of the parliamentary vote they picked.
   const anchoredLocal = useLatestLocalCycle();
   const localCycle = cycle.kind === "local" ? cycle.id : anchoredLocal;
+  // ⚠ FROM THE RESOLVED CYCLE'S DATE, WHATEVER ITS KIND. A reader who selected a LOCAL
+  // cycle is standing at a point in time too, and a first draft passed `undefined` for
+  // them — which means „the newest", so the pill would read „Местен вот · 27 октомври 2019"
+  // beside a link to the 2021 presidency. That is the §3.2 disagreement this anchoring
+  // exists to prevent, reached by the one kind the special case did not cover.
+  // `presidentialAsOf` anchors on ROUND 1, so a vote held between the two rounds falls
+  // inside the election under way.
+  const presidentialCycle =
+    cycle.kind === "presidential"
+      ? cycle.id
+      : presidentialAsOf(cycle.date).cycle;
 
   // ⚠ ARMED ON INTENT. `useSettlementsInfo` + `useMunicipalities` are ~980 KB together;
   // `HubSearch` flips this on focus or the first keystroke, so a reader who never searches
@@ -124,7 +136,16 @@ export const ElectionsHubScreen: FC = () => {
       // ⚠ THE CYCLE THE READER SELECTED, not the one the registry was written against. A tile
       // pinned to the latest cycle while the scope bar names an older one is the silent
       // disagreement §3.2 is about, one control down.
-      to: tile.cycleScoped ? withLocalCycle(tile.to, localCycle) : tile.to,
+      // ⚠ THE KIND DECIDES WHICH CYCLE IS SUBSTITUTED. One rewrite over „does it embed a
+      // cycle" would have to guess the catalogue, and guessing wrong is a NO-OP — the
+      // pattern simply does not match — so the tile silently keeps pointing at the latest.
+      to: tile.cycleScoped
+        ? withCycle(
+            tile.to,
+            tile.cycleScoped,
+            tile.cycleScoped === "local" ? localCycle : presidentialCycle,
+          )
+        : tile.to,
       title: t(tile.titleKey),
       desc: t(tile.descKey),
       accent: tile.accent,

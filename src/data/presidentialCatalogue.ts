@@ -104,6 +104,22 @@ const isIsoDate = (v: unknown): boolean =>
 const isBallotNumber = (v: unknown): boolean =>
   typeof v === "number" && Number.isInteger(v) && v >= 1;
 
+/**
+ * The newest presidential cycle id, as a plain constant.
+ *
+ * ⚠ A LITERAL RATHER THAN `catalogue[0].name`, mirroring `LATEST_LOCAL_CYCLE`: the tile
+ * registry names a cycle without a `[0]` lookup into a file it does not otherwise read, and
+ * `presidentialCatalogue.test.ts` fails when the two disagree, so keeping it in step is not
+ * a manual chore.
+ *
+ * ⚠ IT IS NOT A BUNDLE GUARD, and a first draft of this comment said it was.
+ * `src/entryGraph.test.ts` covers only the two SECTOR registries — nothing polices
+ * `electionsRegistry.ts` — and that registry already reaches all three catalogues through
+ * `electionsHubCycle.ts` anyway. There is no byte cost either way: the registry is lazy and
+ * those JSONs are in the entry chunk through `ElectionContext`.
+ */
+export const LATEST_PRESIDENTIAL_CYCLE = "2021_11_14_pvr";
+
 const isCapabilities = (v: unknown): v is PresidentialRoundCapabilities => {
   if (typeof v !== "object" || v === null) return false;
   const c = v as Record<string, unknown>;

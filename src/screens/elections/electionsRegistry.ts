@@ -22,6 +22,8 @@
 
 import { TILE_ACCENTS } from "@/ux/infographic";
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
+import { CYCLE_SURFACE, type ElectionsHubKind } from "./electionsHubCycle";
+import { LATEST_PRESIDENTIAL_CYCLE } from "@/data/presidentialCatalogue";
 
 export interface ElectionsTile {
   /** Scene key (`ELECTIONS_SCENES`). */
@@ -33,8 +35,17 @@ export interface ElectionsTile {
   descKey: string;
   to: string;
   accent: string;
-  /** Whether `to` embeds a local-election cycle the screen must re-resolve. */
-  cycleScoped?: boolean;
+  /**
+   * Which KIND of cycle `to` embeds, when it embeds one at all — the screen re-resolves
+   * that segment to the cycle the reader actually selected.
+   *
+   * ⚠ IT WAS A BOOLEAN AND COULD NOT STAY ONE. „This path embeds a cycle" says nothing
+   * about WHICH catalogue's, so one rewrite would have to guess — and `withCycle` matches
+   * the latest id of a named kind, so guessing wrong is a no-op that silently leaves the
+   * reader on the latest cycle. Two kinds embed one today; the parliamentary tiles do not,
+   * because `/parliamentary` carries the cycle in `?elections` rather than in the path.
+   */
+  cycleScoped?: Exclude<ElectionsHubKind, "parliamentary">;
 }
 
 export interface ElectionsBand {
@@ -45,6 +56,75 @@ export interface ElectionsBand {
 }
 
 const c = LATEST_LOCAL_CYCLE;
+
+/**
+ * The presidential results tile — BUILT AND WITHHELD.
+ *
+ * ⚠ IT IS NOT IN A BAND, and „empty `KINDS_WITHOUT_SURFACE` and it joins" was WRONG — a
+ * first draft of this comment said so and it was measured false. Two things block it, and
+ * `WITHHELD_TILES` records both so they are checked rather than remembered:
+ *
+ *   • its route does not exist (`/presidential/:cycle`, plan T5) — a tile must not seed a
+ *     destination, the `dashboard-hub` rule this plan restates for the Tier 8 tile;
+ *   • the results band is FULL. Four bands of four is a layout rule, not a preference: the
+ *     grid is 4 columns at `xl`, so a fifth tile sits alone on its own row (§6.1). Placing
+ *     it means deciding what leaves the band, and this step does not make that decision.
+ *
+ * What is NOT a blocker, because it was fixed here: the accent. It was `amber`, which
+ * `runoffs` already holds on this page, and the accent rule is per PAGE rather than per
+ * band — so the collision would have surfaced only on the run that shipped it.
+ */
+const PRESIDENTIAL_TILE: ElectionsTile = {
+  id: "presidential",
+  titleKey: "elections_tile_presidential",
+  descKey: "elections_tile_presidential_desc",
+  to: CYCLE_SURFACE.presidential.href(LATEST_PRESIDENTIAL_CYCLE),
+  accent: TILE_ACCENTS.terracotta,
+  cycleScoped: "presidential",
+};
+
+/** Why a built tile is not on the page. Each value is re-checked by the gate. */
+export type TileBlocker = "route" | "band-full";
+
+export type WithheldTile = {
+  tile: ElectionsTile;
+  /** ⚠ Not `ElectionsHubKind`: `"parliamentary"` embeds no cycle, so a tile could name a
+   *  kind its own `to` cannot carry. It must equal `tile.cycleScoped`. */
+  kind: Exclude<ElectionsHubKind, "parliamentary">;
+  /** The band it is meant to join, once it can. */
+  band: string;
+  /**
+   * What stands in the way.
+   *
+   * ⚠ EVERY ENTRY IS ASSERTED STILL TRUE by `electionsHubBands.test.ts`, so a blocker that
+   * has been resolved turns the gate RED rather than sitting here as a stale excuse — the
+   * „a stale exception fails too" shape this repo uses for its exhaustiveness sweeps. It is
+   * what replaces three sentences that claimed the tile needed no further edit; measured,
+   * it needed two.
+   */
+  blockers: TileBlocker[];
+};
+
+const GATED: WithheldTile[] = [
+  {
+    tile: PRESIDENTIAL_TILE,
+    kind: "presidential",
+    band: "results",
+    blockers: ["route", "band-full"],
+  },
+];
+
+/**
+ * Tiles that exist and are not shown.
+ *
+ * ⚠ A SCENE WITH NO TILE HAS TWO CAUSES AND ONLY ONE IS A DEFECT. „Orphaned by a deletion"
+ * and „built, waiting" are indistinguishable in an id-set difference, so they are named
+ * here — and the gate checks each one is COMPLETE, so withholding cannot become a place to
+ * park a half-built tile.
+ */
+export const WITHHELD_TILES: WithheldTile[] = GATED.filter(
+  (w) => w.blockers.length > 0,
+);
 
 export const ELECTIONS_BANDS: ElectionsBand[] = [
   {
@@ -65,7 +145,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_local_desc",
         to: `/local/${c}`,
         accent: TILE_ACCENTS.emerald,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
       {
         id: "mayors-by-party",
@@ -73,7 +153,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_mayors_by_party_desc",
         to: `/local/${c}/mayors-by-party`,
         accent: TILE_ACCENTS.rose,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
       {
         id: "council-votes",
@@ -81,7 +161,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_council_votes_desc",
         to: `/local/${c}/council-votes`,
         accent: TILE_ACCENTS.teal,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
     ],
   },
@@ -96,7 +176,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_municipalities_desc",
         to: `/local/${c}/municipalities`,
         accent: TILE_ACCENTS.steel,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
       {
         id: "regions",
@@ -104,7 +184,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_regions_desc",
         to: `/local/${c}/regions`,
         accent: TILE_ACCENTS.azure,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
       {
         id: "runoffs",
@@ -112,7 +192,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_runoffs_desc",
         to: `/local/${c}/runoffs`,
         accent: TILE_ACCENTS.amber,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
       {
         id: "split-control",
@@ -120,7 +200,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_split_control_desc",
         to: `/local/${c}/split-control`,
         accent: TILE_ACCENTS.plum,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
     ],
   },
@@ -149,7 +229,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_strongest_mandates_desc",
         to: `/local/${c}/strongest-mandates`,
         accent: TILE_ACCENTS.brass,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
       {
         id: "closest-races",
@@ -157,7 +237,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_closest_races_desc",
         to: `/local/${c}/closest-races`,
         accent: TILE_ACCENTS.wine,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
     ],
   },
@@ -186,7 +266,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_independents_desc",
         to: `/local/${c}/independents`,
         accent: TILE_ACCENTS.moss,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
       {
         id: "swing",
@@ -194,7 +274,7 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         descKey: "elections_tile_swing_desc",
         to: `/local/${c}/swing`,
         accent: TILE_ACCENTS.copper,
-        cycleScoped: true,
+        cycleScoped: "local",
       },
     ],
   },
@@ -210,8 +290,56 @@ export const ELECTIONS_TILES: ElectionsTile[] = ELECTIONS_BANDS.flatMap(
  *  string replace would rewrite `/local/chmi` — whose second segment is a page, not a cycle —
  *  into a route that does not exist. A tile without `cycleScoped` is returned untouched, so the
  *  flag and this function are one decision rather than two. */
+/**
+ * Each kind's newest cycle.
+ *
+ * ⚠ A RECORD RATHER THAN A TERNARY, so a fourth cycle-scoped kind is a compile error here.
+ * `hubCycleHref`'s own comment states the rule: an implicit `else` gives a new kind the
+ * presidential latest, and by this function's documented behaviour a wrong latest is a
+ * silent NO-OP rather than an error.
+ */
+const LATEST_CYCLE: Record<
+  Exclude<ElectionsHubKind, "parliamentary">,
+  string
+> = {
+  local: LATEST_LOCAL_CYCLE,
+  presidential: LATEST_PRESIDENTIAL_CYCLE,
+};
+
+const rx = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 export const withLocalCycle = (to: string, cycle: string): string =>
-  to.replace(
-    new RegExp(`^/local/${LATEST_LOCAL_CYCLE}(?=/|$)`),
-    `/local/${cycle}`,
+  withCycle(to, "local", cycle);
+
+/**
+ * Rewrite the cycle segment of a scoped destination.
+ *
+ * ⚠ IT MATCHES THE KIND'S OWN LATEST ID, which is what makes it safe on a path that has no
+ * cycle: `/local/chmi` is the partial-elections feed and its second segment is a PAGE, so a
+ * positional rewrite would send a reader to `/local/2019_10_27_mi` — a route that does not
+ * exist. The `(?=/|$)` lookahead is the other half: without it a hypothetical
+ * `/local/<latest>x` is half-rewritten into a path naming neither cycle.
+ *
+ * @param to - The tile's literal destination.
+ * @param kind - Which catalogue's cycle the path embeds.
+ * @param cycle - The cycle the reader resolved.
+ * @returns The destination with its cycle segment replaced, or unchanged when it has none.
+ */
+export const withCycle = (
+  to: string,
+  kind: Exclude<ElectionsHubKind, "parliamentary">,
+  cycle: string,
+): string => {
+  // ⚠ `href("")` IS THE KIND'S PREFIX, and only while `href` is `base + id`. If a kind ever
+  // appended anything („/presidential/${id}/round-1") this yields „/presidential//round-1"
+  // and the rewrite silently stops matching — the „marks exactly the destinations that
+  // embed a cycle" gate is what fails then.
+  const base = CYCLE_SURFACE[kind].href("");
+  // ⚠ ESCAPED. Every id and prefix is metachar-free today, and a future one carrying „."
+  // would change the pattern's meaning with no error — a non-matching pattern here is a
+  // NO-OP, so the tile would quietly keep pointing at the latest cycle.
+  return to.replace(
+    new RegExp(`^${rx(base)}${rx(LATEST_CYCLE[kind])}(?=/|$)`),
+    `${base}${cycle}`,
   );
+};

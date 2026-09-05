@@ -484,8 +484,41 @@ const Swing: FC = () => (
   </SceneFrame>
 );
 
+/** Round 1's field narrowing to a runoff pair, and the single office it elects. */
+const Presidency: FC = () => (
+  <SceneFrame>
+    <circle cx="150" cy="40" r="16" fill="var(--sector)" />
+    <path
+      d="M126 92 a24 26 0 0 1 48 0 z"
+      fill="var(--sector)"
+      opacity=".45"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <Bars x={40} baseline={92} heights={[18, 30]} barWidth={16} gap={10} />
+    <path
+      d="M196 66 h20 m0 0 l-6 -6 m6 6 l-6 6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+    <rect x="228" y="52" width="18" height="40" rx="3" fill="var(--sector)" />
+    <rect
+      x="252"
+      y="70"
+      width="18"
+      height="22"
+      rx="3"
+      fill="var(--sector)"
+      opacity=".4"
+    />
+  </SceneFrame>
+);
+
 export const ELECTIONS_SCENES: Record<string, FC> = {
   parliamentary: Hemicycle,
+  presidential: Presidency,
   local: Mayor,
   "mayors-by-party": Ballot,
   "council-votes": Shares,

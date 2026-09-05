@@ -950,9 +950,44 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     gate all green. `decidedLabelKey` is exhaustive on the round (an out-of-range value says nothing rather
     than „балотаж"), and `pickAction` is tested by behaviour, so `navigate("/local/" + r.name)` is caught in
     every spelling rather than only the one a source-text match knew about.
-- **T4.4** `electionsRegistry.ts`: a `presidential` tile in the results band (`to: /presidential/<latest>`,
-  `cycleScoped`) and, in the analysis band, the runoff-transfer tile once Tier 8 lands — never before, a tile must
-  not seed a destination (`dashboard-hub` skill).
+- **T4.4 ✅ DONE (the tile; the runoff-transfer tile stays with Tier 8).** The presidential tile is defined,
+  scened, keyed and WITHHELD.
+
+  ⚠️⚠️ **„T5 EMPTIES `KINDS_WITHOUT_SURFACE` AND IT JOINS THE RESULTS BAND WITH NO FURTHER EDIT" WAS WRONG,
+  and it was written in three places before anyone measured it.** Emptying the list and re-running this hub's
+  own gates fails TWO of them: `PRESIDENTIAL_TILE`'s accent was `amber`, which the `runoffs` tile already holds
+  on this page (the accent rule is per PAGE, not per band), and the results band would become five tiles
+  against a four-column `xl` grid — four bands of four is a layout rule, not a preference. The accent is fixed
+  here; the band is not a decision this step can make, because every band is full and placing the tile means
+  deciding what leaves.
+
+  So `WITHHELD_TILES` now carries `blockers` — `"route"` and `"band-full"` — and the gate recomputes the set
+  that ACTUALLY applies and requires the list to equal it, in both directions. A blocker that has been resolved
+  fails; a real constraint someone dropped fails too. That turns three unverifiable sentences into a property,
+  and it is what T5 must read instead of this paragraph's predecessor. Four more things the step settled:
+
+  - ⚠️ **`cycleScoped` COULD NOT STAY A BOOLEAN.** „This path embeds a cycle" says nothing about WHICH
+    catalogue's, so one rewrite would have to guess — and `withCycle` matches the named kind's own latest id, so
+    a wrong guess is a silent NO-OP that leaves the tile pointing at the latest cycle rather than the reader's.
+    It carries the kind now, and the derived „marks exactly the destinations that embed a cycle" gate covers the
+    withheld tiles too, since their `to` is what T5 ships.
+  - ⚠️ **A SCENE WITH NO TILE HAS TWO CAUSES AND ONLY ONE IS A DEFECT.** „Orphaned by a deletion" and „built,
+    waiting for its route" are indistinguishable in an id-set difference, so `WITHHELD_TILES` names them — and a
+    second gate checks each withheld tile is COMPLETE (keys, scene, a `to` built from the shared surface map)
+    so withholding cannot become a place to park a half-built tile.
+  - ⚠️ **THE TILE IS TIME-ANCHORED, like the local ones — FROM THE RESOLVED CYCLE'S DATE, whatever its kind.**
+    A first draft passed `undefined` for any non-parliamentary selection, and `undefined` means „the newest", so
+    a reader on the 2019 LOCAL cycle would have seen „Местен вот · 27 октомври 2019" beside a link to the 2021
+    presidency — the §3.2 disagreement the anchoring exists to prevent, reached by the one kind the special case
+    did not cover. `presidentialAsOf` anchors on ROUND 1, so a vote held BETWEEN the two rounds (2011's are a
+    week apart) falls inside the election under way; anchoring on the runoff would name the previous cycle,
+    which is true of the office and false of the election, and the tile links to an election.
+  - **`LATEST_PRESIDENTIAL_CYCLE` is a literal, mirroring `LATEST_LOCAL_CYCLE`** — the registry names a cycle
+    without a `[0]` lookup into a file it does not otherwise read, and the catalogue gate fails when the two
+    disagree. ⚠️ It is NOT a bundle guard, and a first draft said it was: `src/entryGraph.test.ts` covers only
+    the two SECTOR registries, nothing polices `electionsRegistry.ts`, and that registry already reaches all
+    three catalogues through `electionsHubCycle.ts`. There is no byte cost either way — the registry is lazy
+    and those JSONs are in the entry chunk through `ElectionContext`.
 - **T4.5** i18n keys in both locales, run `npm run i18n:prune` dry to confirm reachability; the `elections`
   bundle question settled by `scripts/i18n/bundles.ts`, not by hand.
 - **T4.6** `upcomingElections.ts`: flip the 2026 entry to `scheduled` with the decree date when it is published

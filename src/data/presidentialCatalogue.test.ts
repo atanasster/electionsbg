@@ -12,7 +12,10 @@
 
 import { describe, expect, it } from "vitest";
 import catalogue from "./json/presidential_elections.json";
-import { isPresidentialElectionEntry } from "./presidentialCatalogue";
+import {
+  LATEST_PRESIDENTIAL_CYCLE,
+  isPresidentialElectionEntry,
+} from "./presidentialCatalogue";
 
 describe("presidential_elections.json", () => {
   it("is a non-empty array of well-formed entries", () => {
@@ -31,6 +34,15 @@ describe("presidential_elections.json", () => {
     // other way puts 2001 at the top of the dropdown with nothing failing.
     const dates = catalogue.map((e) => e.round1Date);
     expect(dates).toEqual([...dates].sort((a, b) => b.localeCompare(a)));
+  });
+
+  it("keeps LATEST_PRESIDENTIAL_CYCLE in step with the file", () => {
+    // ⚠ The constant exists so the tile registry can name a cycle without importing the
+    // catalogue — `src/entryGraph.test.ts` polices that edge — so this is the only thing
+    // stopping the two drifting. The registry's destination is built from it, and a stale
+    // value would point the presidential tile at a cycle that is no longer the latest,
+    // silently.
+    expect(LATEST_PRESIDENTIAL_CYCLE).toBe(catalogue[0].name);
   });
 
   it("names each cycle after its own round-1 date", () => {
