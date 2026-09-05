@@ -733,8 +733,33 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     the derived table. ⚠️ That gate is load-bearing: the table answers `RS` for `гр.Димитровград`, of which 2021
     has 58 DOMESTIC sections.
 
-  Still open in T3.1: `aggregateRound()` itself — the ЕКАТТЕ → settlement → municipality → oblast join, the
-  §3-3 output tree, and the `coveredCycles()` arm.
+- **T3.1c ✅ DONE — aggregation and the tree.** `aggregate.ts` rolls a round up and writes
+  `data/<cycle>/tur<n>/` — `region_votes.json`, `municipality_votes.json`, `settlement_votes.json`,
+  `abroad.json`, `placement.json` and `sections/<oblast>.json`. Byte-stable across runs (T3.5's first half).
+  Four things the build settled:
+
+  - ⚠️⚠️ **THE THREE LEVELS DO NOT COVER THE SAME VOTES, so every file carries a `coverage` block.** The oblast
+    roll-up plus abroad reconciles to the round exactly in four cycles; the municipality and settlement roll-ups
+    are 400k–690k votes narrower, because they need an ЕКАТТЕ the catalogue has no row for on an eighth of
+    sections. Summing a settlement file as a national total under-states by that much, so no bare array is
+    written and each block names its own basis, section count and vote total.
+  - ⚠️⚠️ **„NOTHING IS DROPPED" IS A CLAIM ABOUT THE WRITTEN TREE, AND IT WAS FALSE.** `placement.json` carried a
+    code and a reason per refused section and no votes, so 2011's **441,328 refused votes — 13.1% of round 1**
+    appeared in no file at all: every roll-up excludes them by design and nothing else named them. They now have
+    their own shard (`sections/_unplaced.json`, full protocols and votes) and a per-row total, and the gate
+    asserts the VOTES rather than a row count.
+  - ⚠️ **A SHARD MUST NOT REPUBLISH AN ЕКАТТЕ PLACEMENT OVERRULED.** Writing each section verbatim put
+    `с.Зверино`'s code — which resolves to Чирпан, Стара Загора — into `sections/VRC.json`, where a consumer had
+    no way to know it had been rejected. Shards now carry the PLACEMENT (`oblast`, `obshtina`, `placeBasis`) and
+    the overruled code is stripped.
+  - **The indent is a parameter and the shard directory is cleared before a write.** Measured, two-space
+    indentation costs **+102.4 MB** across the ten rounds in a tree that is both committed and bucket-synced, so
+    a hard-coded literal would put it outside the pipeline's `--prod` flag; and a shard left behind by a
+    previous vintage is a whole oblast every consumer reads as current.
+
+  ⚠️ Open, and deliberately so: the roll-ups carry VOTES only, no protocol — so turnout, invalid and „никого"
+  live in `national_summary.json` (T3.2), which is where T3.5's reconciliation will read them. Still open in
+  T3.1: the `coveredCycles()` arm in `scripts/elections/build_surfaces.ts`.
 - **T3.2** `national_summary.json` per cycle: per-round turnout (registered, signatures — ballots found for 2006
   abroad), valid, invalid, „не подкрепям никого" where the form has it (2016+), the ticket ranking with shares
   over VALID votes (decision 5), the runoff pair, `decidedInRound`, abroad totals, and the R1→R2 swing (Δ votes

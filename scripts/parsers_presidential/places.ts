@@ -159,6 +159,15 @@ export interface PlacementReport {
     placeName: string;
     ekatte?: string;
     reason: UnplacedReason;
+    /**
+     * The section's own total.
+     *
+     * ⚠ CARRIED, because „refused, not lost" is otherwise a claim the written tree does
+     * not support. Measured: 2011's 1,354 refusals hold 441,328 votes, 13.1% of round 1,
+     * and with only a code and a reason on the row those votes appear in no file at all
+     * — the roll-ups exclude them by design and nothing else names them.
+     */
+    votes: number;
   }[];
   abroadSections: number;
   /** Abroad sections whose country the corpus cannot name. Written, never dropped. */
@@ -325,6 +334,7 @@ export const placeRound = (round: PresidentialRound): PlacedRound => {
         placeName: s.placeName,
         ...(s.ekatte ? { ekatte: s.ekatte } : {}),
         reason: prefixCounts.has(prefix) ? "ambiguous-prefix" : "no-witnesses",
+        votes: s.votes.reduce((a, v) => a + v.totalVotes, 0),
       });
       continue;
     }
