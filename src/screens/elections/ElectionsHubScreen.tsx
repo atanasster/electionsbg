@@ -38,7 +38,7 @@ import {
   resolveHubCycle,
 } from "./electionsHubCycle";
 import { electionsHubKpis } from "./electionsHubFigures";
-import { electionsSearchSources } from "./electionsSearch";
+import { electionsHubSources } from "./electionsSearch";
 
 export const ElectionsHubScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -101,9 +101,15 @@ export const ElectionsHubScreen: FC = () => {
     [cycle, lang, t, formatInt, formatPct],
   );
 
+  // ⚠ ONE FUNCTION, so „is the presidential group appended at all" is testable. As a memo
+  // here it was unreachable by any gate: a dropped memo, or a hardcoded default in the
+  // builder, would leave the group silently absent the day its route lands, with every test
+  // still green. `electionsHubSources` reads the same withheld-kinds list the hub, the
+  // header and the tile registry do — a result that navigates to a 404 is worse than a query
+  // that finds nothing, because the reader has been TOLD the page exists.
   const sources = useMemo(
     () =>
-      electionsSearchSources(placeItems, cycle, {
+      electionsHubSources(placeItems, cycle, {
         inScope: {
           bg: "Места с резултат за този вот",
           en: "Places with a result for this vote",
@@ -111,6 +117,10 @@ export const ElectionsHubScreen: FC = () => {
         outScope: {
           bg: "Места без местен вот (секции в чужбина)",
           en: "Places with no local vote (polling sections abroad)",
+        },
+        presidential: {
+          bg: "Президентски избори",
+          en: "Presidential elections",
         },
       }),
     [placeItems, cycle],

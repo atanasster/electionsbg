@@ -294,8 +294,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "section-level protocols and results",
     },
     desc: {
-      bg: "Протоколите на секционните комисии и официалните резултати от results.cik.bg — за всички парламентарни избори от 2005 г. и местните избори от 2007 г. насам.",
-      en: "Section-commission protocols and official results from results.cik.bg — every parliamentary election since 2005 and local elections since 2007.",
+      bg: "Протоколите на секционните комисии и официалните резултати от results.cik.bg — за всички парламентарни избори от 2005 г., местните от 2007 г. и президентските от 2001 г. насам.",
+      en: "Section-commission protocols and official results from results.cik.bg — every parliamentary election since 2005, local elections since 2007 and presidential elections since 2001.",
     },
     url: "https://results.cik.bg/",
     origin: "state",
@@ -1774,6 +1774,10 @@ export const UNCLAIMED: Record<string, string> = {
   tmp_all_slugs: "scratch, from a person-slug audit",
   tmp_rank_slugs: "scratch, from a person-slug audit",
   price_stage: "UNLOGGED staging table for the daily price load",
+  agri_subsidies_stage:
+    "UNLOGGED staging table for the ДФЗ subsidies load — same shape as price_stage, dropped when the load commits",
+  contracts_stage:
+    "UNLOGGED staging table for the contracts merge — dropped when the load commits, so its presence means one is in flight or was interrupted",
 
   // ── ingest plumbing: about HOW data arrived, not about any dataset ─────────
   meta: "ingest bookkeeping (schema/corpus version markers)",
@@ -1841,6 +1845,24 @@ export const DATASETS: DatasetDef[] = [
     path: "data/{cycle}_mi/",
     serving: "bucket",
     tags: ["local", "elections"],
+  },
+  {
+    id: "presidential",
+    label: { bg: "Президентски избори", en: "Presidential elections" },
+    detail: {
+      bg: "2001–2021, двата тура, до ниво секция",
+      en: "2001–2021, both rounds, down to section level",
+    },
+    desc: {
+      bg: "Резултатите от всеки президентски вот от 2001 г. насам — по секции, населени места, общини и области, за двата тура поотделно, с кандидатските двойки и тези, които ги издигат. Пет цикъла, всеки решен на балотаж.",
+      en: "Every presidential vote since 2001 — by polling station, settlement, municipality and region, each round separately, with the candidate tickets and the bodies that nominated them. Five cycles, every one decided in a runoff.",
+    },
+    // ⚠ The FIVE publication formats behind this one path are the whole difficulty: 2001 is
+    // a DOS-era MIK export, 2006 and 2011 are windows-1251, and 2011 rides a 28-oblast
+    // section grid that does not join the parliamentary one.
+    path: "data/{cycle}_pvr/",
+    serving: "bucket",
+    tags: ["elections"],
   },
   {
     id: "parliament",
@@ -3010,6 +3032,7 @@ export const EDGES: [string, string][] = [
   // sources → datasets
   ["src:cik", "ds:elections"],
   ["src:cik", "ds:local"],
+  ["src:cik", "ds:presidential"],
   ["src:parliament", "ds:parliament"],
   ["src:parliament", "ds:connections"],
   ["src:sp", "ds:connections"],
@@ -3186,6 +3209,18 @@ export const EDGES: [string, string][] = [
 
   // datasets → features
   ["ds:elections", "f:elections"],
+  // ⚠ THE HUB, not a `/presidential` feature — that surface lands in Tier 5 of
+  // docs/plans/presidential-elections-v1.md, and an edge to a route that does not exist
+  // would be the map claiming a page, on the one page whose whole purpose is to show what
+  // we actually hold.
+  //
+  // ⚠ WHAT `/elections` DOES WITH IT TODAY IS THE BUNDLED CATALOGUE, not the served tree.
+  // The five cycles are in `ELECTION_EVENTS`, so the hub knows them, and a reader arriving
+  // with one selected is told by name that it cannot be shown YET rather than that it is
+  // unrecognised. Its head band and its search box are both built to answer for a
+  // presidential cycle and neither can be reached while the kind is withheld — so an edge
+  // justified by those two would be describing Tier 5.
+  ["ds:presidential", "f:elections"],
   ["ds:elections", "f:risk"],
   ["ds:elections", "f:polls"],
   ["ds:elections", "f:governance"],
@@ -3318,8 +3353,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:connections",
         text: {
-          bg: "Този ЕИК е ключът към Търговския регистър — 18 723 изпълнителя се намират там като фирми със собственици и управители.",
-          en: "That company number is the key into the Commerce Registry — 18,723 contractors are found there as companies with owners and directors.",
+          bg: "Този ЕИК е ключът към Търговския регистър — 18 729 изпълнителя се намират там като фирми със собственици и управители.",
+          en: "That company number is the key into the Commerce Registry — 18,729 contractors are found there as companies with owners and directors.",
         },
       },
       {

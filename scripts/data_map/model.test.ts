@@ -538,8 +538,14 @@ describe("the lateral-links tour", () => {
     // nobody measured. Re-measured 2026-09-04 against the watch-run reload (9f68471bb4):
     // connections↔procurement 18,717 → 18,723 and connections↔officials 5,612 → 5,609, with
     // connections↔funds unmoved at 40,269.
+    //
+    // ⚠ Re-measured again 2026-09-06: connections↔procurement 18,723 → 18,729, under a
+    // concurrent contracts reload. It read 18,728 and then 18,729 minutes apart while that
+    // load ran and settled at 18,729 across two readings twenty seconds apart — which is the
+    // only reason it is pinned rather than left: a value written mid-load is stale before it
+    // is committed.
     const quoted: [string, string, string, number][] = [
-      ["connections", "procurement", "eik", 18723],
+      ["connections", "procurement", "eik", 18729],
       ["connections", "funds", "eik", 40269],
       ["connections", "officials", "person_id", 5609],
     ];

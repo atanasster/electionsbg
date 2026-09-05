@@ -1075,10 +1075,55 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   and appending the presidential cells instead of returning them (which leaves the parliamentary turnout on
   the page with every index-based assertion still green).
 
-- **T4.8** `electionsSearch.ts`: presidential cycles, tickets and the candidate names are searchable from the hub
-  search box, landing on `/presidential/:cycle`; the exhaustiveness gate on `ElectionKind` catches the switch.
-- **T4.9** `scripts/data_map/model.ts` gains the source (the `/data` map lists every dataset), and the ingest
-  stamps `state/ingest/cik_presidential.json` via `scripts/stamp-ingest.ts` the way every skill does.
+- **T4.8 ✅ DONE (cycles and their winners; the full roster is Tier 7's).** `presidentialSearchSource` makes
+  every cycle findable by YEAR, by the president's name and by the VICE-president's — a ticket is a pair, and a
+  reader looking for Йотова is looking for somebody who stood and won — landing on `/presidential/:cycle`.
+
+  ⚠️ **IT SEARCHES THE CATALOGUE, NOT THE BALLOT: five cycles and five winners against the 75 tickets those
+  cycles carried.** The rosters live in `data/<cycle>/tickets.json`, bucket-served, and moving them into the
+  catalogue would put ~4 KB of names on the ENTRY CHUNK to serve a box most readers never open. Widening this
+  to every candidate is a fetch-on-arm source over the published tree, which needs that tree published (T7) —
+  so the group's own copy must not promise more than it holds.
+
+  ⚠️ **Withheld like the tile and the header rows**, on the same list. A search result that navigates to a 404
+  is worse than a query that finds nothing: the reader has been TOLD the page exists. The gate takes a
+  `withheld` seam so the index — every href, every search key, the newest-first order — is exercised as it WILL
+  be built, rather than shipping untested for the first reader to find; and the COMPOSITION moved out of the
+  screen into `electionsHubSources`, because as a `useMemo` „is the group appended at all" was unreachable by
+  any gate and a dropped memo would have left it silently absent at T5.
+
+  ⚠️ **Name parts are separate search keys.** `latinSkeleton` strips whitespace, so a whole name folds to ONE
+  token and „Радев" — the natural query here — could only ever reach the CONTAINS tier. Invisible at five rows
+  against a limit of six; a truncation the day this widens to 75 tickets.
+
+  ⚠️ **T5 must widen the finder's own copy with it.** `HubSearch`'s title, placeholder and hint name places
+  only, and the hint ENUMERATES the corpus („над 5000 населени места, 265 общини и 28 области"). Un-withholding
+  the group without widening all three leaves the box denying, in its own words, that it searches what it
+  searches. `electionPlaceHref`'s presidential arm belongs to the same step: where a place goes for a
+  presidential cycle, AND what the out-of-scope group it falls into is called.
+- **T4.9 ✅ DONE (the map; the ingest stamp belongs to T7).** `ds:presidential` joins the data map with the
+  `src:cik → ds:presidential → f:elections` chain, and the ЦИК source's description now names the presidential
+  corpus beside the parliamentary and local ones.
+
+  ⚠️ **THE FEATURE EDGE IS THE HUB, not a `/presidential` surface** — that lands in Tier 5, and an edge to a
+  route that does not exist would be the map claiming a page, on the one page whose whole purpose is to show
+  what we actually hold. ⚠️ What `/elections` does with the corpus today is the BUNDLED CATALOGUE: the five
+  cycles are in `ELECTION_EVENTS`, so a reader arriving with one selected is told BY NAME that it cannot be
+  shown yet rather than that it is unrecognised. A first draft of this bullet justified the edge by the head
+  band and the search box — both are built to answer for a presidential cycle and NEITHER can be reached while
+  the kind is withheld, so that justification was describing Tier 5.
+
+  ⚠️ **NO INGEST STAMP IS WRITTEN, and that is not an omission.** `stamp-ingest.ts` records
+  „this SKILL ran successfully"; the presidential skill lands in T7, and stamping now would put a successful
+  run in the ledger for something that has never run.
+
+  ⚠️ Unblocking the manifest needed two fixes that predate this step: `contracts_stage` and
+  `agri_subsidies_stage` — UNLOGGED staging tables their loads drop on commit — were claimed by no dataset
+  node, so `build_manifest` refused to write anything at all. Both join `UNCLAIMED` beside `price_stage`, their
+  exact precedent. The lateral-links tour's „18,723 contractors" was drifting under a concurrent contracts
+  reload (18,728, then 18,729 minutes apart); it is re-pinned at **18,729** only because it then held across
+  two readings twenty seconds apart — a value written mid-load is stale before it is committed, and that gate
+  re-pins BOTH sides or neither.
 
 ## 9. Tier 5 — screens and routes (5–7 days; product decisions marked ⚑)
 

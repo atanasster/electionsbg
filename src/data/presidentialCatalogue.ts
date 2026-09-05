@@ -20,6 +20,8 @@
 //
 // Plan: docs/plans/presidential-elections-v1.md T4.1, decision 2.
 
+import catalogue from "./json/presidential_elections.json";
+
 /**
  * What a round's protocols and ballots support, and its two headline figures.
  *
@@ -137,6 +139,17 @@ const isIsoDate = (v: unknown): boolean =>
 /** A ballot position: a whole number from 1 up. `0` and `-1` are not positions. */
 const isBallotNumber = (v: unknown): boolean =>
   typeof v === "number" && Number.isInteger(v) && v >= 1;
+
+/**
+ * The catalogue, typed — ONE cast, beside the guard that justifies it.
+ *
+ * ⚠ A JSON IMPORT IS STRUCTURAL, so every consumer has to assert the shape, and three of
+ * them were doing it independently (`electionsHubCycle`, `electionsHubFigures`,
+ * `electionsSearch`). The cast is unavoidable; three spellings of it are not, and the one
+ * thing that makes it safe — `isPresidentialElectionEntry`, run over the committed file by
+ * `presidentialCatalogue.test.ts` — lives here.
+ */
+export const PRESIDENTIAL_CATALOGUE = catalogue as PresidentialElectionEntry[];
 
 /**
  * The newest presidential cycle id, as a plain constant.
