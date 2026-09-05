@@ -558,9 +558,41 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     checkout, so `existsSync` → skip was hiding a broken working copy as one more green tick. `assertCommitted`
     states it instead. That also required fixing `report_skip_coverage.test.ts` to pass `git ls-files -z`:
     without it git octal-escapes any non-ASCII path, so every Cyrillic `ТУРn` tree read as untracked.
-- **T2.4 `era2006.ts`** — cp1251; the readme is the ticket list; protocol cols 2–16 (registered = 5 + 6,
-  signatures = 7, ballots found = 10, invalid = 15, valid = 16), votes cols 17+; abroad turnout from col 10
-  (§2.5-3).
+- **T2.4 ✅ DONE.** `era2006.ts` reproduces every §2.4 anchor on both rounds (round 1 Първанов 1,780,119 /
+  Сидеров 597,175 / Беронов 271,078 / Марков 75,478 / Берон 21,812 / Велев 19,857 / Петров 13,854, valid
+  2,779,381, signatures 2,809,725, registered + additional 6,430,117, over 11,809 sections; round 2 2,050,488 /
+  649,387). Field map as specified. Five things the build settled:
+
+  - ⚠️⚠️ **THE READ-ME IS THE BALLOT, AND IN THE RUNOFF ITS COLUMN ORDER IS NOT THE TICKET ORDER.** There is no
+    candidates file: the only statement of which column holds which ticket is prose inside `Readme.txt`. Round 2
+    keeps the survivors' round-1 numbers — column 17 is ticket **3**, column 18 is ticket **6** — so „first vote
+    column = ticket 1" publishes Първанов's 2,050,488 against a candidate who was not in the runoff, with the
+    national total still exact.
+  - ⚠️ **A READ-ME LINE THAT FAILS TO PARSE IS A WHOLE TICKET'S VOTES, so „did any line parse" is not a
+    completeness test.** Any proper subset of the ballot parsed happily. The reader now checks the ballot
+    columns are a CONTIGUOUS run from `F.valid + 1` — the protocol's own fields end there, so where the votes
+    start is known independently of the prose — and refuses a protocol row carrying a value past the last named
+    column. Measured over both rounds: every row is exactly 24 cells in R1 and 19 in R2, and not one carries a
+    non-blank cell past its last ballot column.
+  - ⚠️ **ABROAD SIGNATURE COUNTS ARE NOT COUNTS.** All 144 prefix-32 sections publish точка 3 = 0 while holding
+    46,113 valid votes in round 1, and not one of the 11,665 domestic sections does. The cell is a literal „0",
+    never empty, so this is an INFERENCE from the pattern rather than something the file states — and read as a
+    count it is 0% turnout abroad against real ballots, hidden inside a national sum that still reconciles.
+    `PresidentialSection.signaturesUnreported` carries it, because the shared `SectionProtocol` makes
+    `totalActualVoters` required. **T3.2 must read that flag** and fall back to точка 6, and say that it did.
+  - **The bundle names NO nominator for any ticket, in either round** — the only era where that is true — so
+    `nominatedBy` is empty with kind `unknown`. The two names are separated by a COMMA, not „и", so
+    `splitTicketNames` is not used; „Ангелова-Банкова" and „Цонева-Иванова" are why.
+  - **The per-section residue is ONE section in round 1** (`234615094`, −8) and none in round 2, held as a named
+    allowlist rather than a ceiling.
+
+  ⚠️ Two things a duplicate row does here that the reader's OUTPUT cannot show: a repeated protocols row DOUBLES
+  the section (votes are columns and `addTicketVotes` sums), and a repeated sections row moves its ЕКАТТЕ — the
+  aggregator's join key. Both are now refused, and the gate asserts over the RAW rows, since a Map keyed by code
+  and a fold by ticket number make the obvious assertions true by construction.
+
+  ⚠️ **Correction to §2.5-3 above**: its „69,679 valid votes (both rounds)" is round 2 alone. Round 1 is 46,113.
+  The claim that all 144 abroad sections carry т.3 = 0 in both rounds is correct.
 - **T2.5 `era2001.ts`** — MIK; INI blocks; `[PROT]` `+`-joined fields (the Благоевград sample:
   `813+1+347+347+0+1+1+0+346` then `2+148+58+12+124+2` for six tickets); `[NM]` for ЕКАТТЕ; `[MAJ]`/`[AGGR]` as
   per-oblast cross-checks the reader must reproduce from its own sections.

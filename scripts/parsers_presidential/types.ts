@@ -64,6 +64,28 @@ export type PresidentialSection = {
   isShip: boolean;
   /** Voting machines in the section; 0 before machine voting existed. */
   machines: number;
+  /**
+   * ⚠ `protocol.totalActualVoters` IS A LITERAL ZERO THAT MEANS „NOT ANSWERED".
+   *
+   * The shared `SectionProtocol` makes that field REQUIRED — it is the parliamentary
+   * shape, used site-wide — so a reader cannot leave it absent the way it leaves
+   * „никого" absent before 2016. This flag carries the distinction instead: `true` means
+   * the era's protocols do not report a signature count for this section, so the 0 is
+   * not a turnout figure.
+   *
+   * ⚠ `undefined` means „this reader does not distinguish", NOT „reported". Only
+   * `era2006` sets it today, so every 2011/2016/2021 section reads as falsy by omission
+   * rather than by statement. A new era whose protocols omit signatures must set it, and
+   * T3.2's turnout basis must read it rather than inferring from the zero.
+   *
+   * The live case is 2006 abroad. All 144 prefix-32 sections carry точка 3 = 0 while
+   * holding 46,113 valid votes in round 1, and NOT ONE domestic section does. Read as a
+   * count, that publishes 0% turnout abroad against real ballots — and, worse, it is
+   * the shape no aggregate notices, since the zeros vanish into a national sum that
+   * still reconciles. A turnout surface must fall back to ballots found (точка 6) here
+   * and SAY that it did. Plan §2.5-3.
+   */
+  signaturesUnreported?: boolean;
   protocol: SectionProtocol;
   /** `partyNum` is the TICKET number. */
   votes: Votes[];
