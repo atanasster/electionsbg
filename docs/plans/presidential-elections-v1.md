@@ -988,10 +988,48 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     the two SECTOR registries, nothing polices `electionsRegistry.ts`, and that registry already reaches all
     three catalogues through `electionsHubCycle.ts`. There is no byte cost either way — the registry is lazy
     and those JSONs are in the entry chunk through `ElectionContext`.
-- **T4.5** i18n keys in both locales, run `npm run i18n:prune` dry to confirm reachability; the `elections`
-  bundle question settled by `scripts/i18n/bundles.ts`, not by hand.
-- **T4.6** `upcomingElections.ts`: flip the 2026 entry to `scheduled` with the decree date when it is published
-  (the Народно събрание sets the date ≥ 60 days ahead); the My-Area tile already reads it.
+- **T4.5 ✅ DONE.** Seven presidential keys, both locales, all in CORE `translation.json` — which is the T0.4
+  decision holding: the hub, the selector and the tile registry name this kind on pages that are not
+  presidential pages, so a deferred bundle would render them as their own identifiers there. Verified rather
+  than asserted: `prune_translations.ts` reports **0 dead keys** across 6,797, and `split_bundles.ts` — which
+  proves exclusivity rather than taking a hand-written list — proposes no move for any of the seven. Only the
+  presidential SCREENS' own copy is a bundle candidate, and that decision belongs to whichever tier writes it.
+- **T4.6 ✅ DONE (the entry stays `estimated`; no decree is recorded).** The Народно събрание sets the day at
+  least 60 days ahead and nothing in this repo can attest one, so inventing a `scheduled` flag would be a claim
+  about a state act. What the step delivers instead is the two gates that make the anchor safe to leave alone:
+
+  - **An ESTIMATE is checked against the corpus.** The five ingested cycles put round 1 between 22 October and
+    14 November, 1,806–1,841 days after the previous one; `2026-11-08` is 1,820 days after 2021-11-14 and
+    inside the month-day range. A window DERIVED from the data catches a typo'd month or year — a hand-written
+    „about five years" would not — and a `scheduled` entry is exempt, because a decree outranks a pattern.
+  - ⚠️ **AND THE ANCHOR MUST BE RETIRED WHEN ITS ELECTION IS INGESTED.** `nextElection` filters on
+    `daysUntil >= 0`, so a stale entry does not error: it keeps being returned until its date passes. The
+    damage is the window BEFORE that — My-Area advertising a vote that has been held, counted and published,
+    with the tile rendering, the countdown counting and every figure on the page correct. The gate compares
+    the anchors against `presidential_elections.json` AND `local_elections.json`, so an ingest is what turns it
+    red. (`european` has no catalogue here and is unchecked — an omission with a reason.)
+
+  Three things review corrected, and two of them were the gate lying about itself:
+
+  - ⚠️ **THE `scheduled` EXEMPTION WAS ASSERTED IN THREE COMMENTS AND ENFORCED NOWHERE.** Written inline in a
+    loop over the real list it was unreachable — the committed list holds no scheduled presidential entry, so
+    deleting the exemption left every test green. It lives in a pure `cadenceViolations(list, round1)` now,
+    which a test can run over synthetic lists; deleting it turns that test red.
+  - ⚠️ **AND THE EXEMPTION'S TEST WAS A CALENDAR TRIPWIRE.** It routed a hard-coded `2026-12-20` through
+    `nextElection`, which filters on `daysUntil >= 0` — so it passes today and fails on 2026-12-21, in a file
+    nobody will have touched. `daysUntil` / `nextElection` / `hasUpcomingLocalBallot` now take an injectable
+    `now` (the shape `src/screens/home/daysUntil.ts` already uses), and NO assertion here depends on today's
+    date except one that is labelled and means to: „the list still names a future event at all".
+  - ⚠️ **THE DERIVED WINDOW CAN WIDEN INTO NEAR-VACUITY.** Art. 97 (4) requires an election within two months
+    of a vacancy; ingesting one extraordinary cycle takes the month-day span from 23 days to ~240 and the gap
+    floor from 1,806 to ~497 — the gate would keep PASSING and stop discriminating. A narrowness assertion
+    turns that into a failure, so somebody decides what the cadence means once the corpus holds an early
+    election.
+
+  Also gated here, both previously unenforced rules with a comment claiming otherwise: `formatLongDate`'s UTC
+  pin (without it the tile reads 7 November to every reader in the Americas while linking to the 8th — the
+  control proves the zones really disagree on that date first), and `hasUpcomingLocalBallot`'s 365-day edge,
+  which gates a whole side column on My-Area and flips around 2026-10-24.
 - **T4.7 The hub's figures band has a rule to decide, not just a kind to add.** `electionsHubFigures.ts` states
   that cells 3 and 4 ALWAYS describe a parliamentary cycle because only that catalogue carries a protocol, and
   falls back with a basis that says so when a local cycle is selected. A presidential cycle DOES carry a
