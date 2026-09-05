@@ -11,6 +11,11 @@ import { generateSearch } from "scripts/search";
 import { backupFileName } from "scripts/recount/backup_file";
 import { sectionVotesFileName } from "scripts/consts";
 import { preserveSectionCoords } from "./backfill_section_coords";
+import {
+  describeSkippedElectionFolders,
+  electionFolderKind,
+  isParliamentaryFolder,
+} from "scripts/lib/electionFolders";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -83,21 +88,50 @@ export const parseElections = async ({
   }
   const inFolder = path.resolve(__dirname, `../../raw_data/`);
   const dataFolders = fs.readdirSync(inFolder, { withFileTypes: true });
-  const folders = dataFolders
+  const allFolders = dataFolders
     .filter((file) => file.isDirectory())
-    .map((f) => f.name)
+    .map((f) => f.name);
+  // ⚠ PARLIAMENTARY ONLY. This used to map EVERY directory under `raw_data/` —
+  // `agri/`, `budget/`, `procurement/`, every `_mi` and `_chmi` — so `--all` handed
+  // each one to `parseParties`, whose `createReadStream` on a missing
+  // `cik_parties.txt` rejects unhandled. The other kinds have their own ingests
+  // (`--local-ingest`, and `--pvr` for presidential per
+  // docs/plans/presidential-elections-v1.md T3.4); none of them is parseable here.
+  const folders = allFolders
+    .filter((name) => isParliamentaryFolder(name))
     .sort((a, b) => b.localeCompare(a));
+  // ⚠ Counts OTHER ELECTION KINDS, not every skipped directory: `raw_data/` holds
+  // 24 unrelated dataset folders, so a raw difference reports a number nobody can
+  // act on and gets scrolled past.
+  const skipped = describeSkippedElectionFolders(allFolders);
+  if (all && skipped) {
+    console.log(
+      `[parse_elections] ${folders.length} parliamentary folder(s); skipped ${skipped}`,
+    );
+  }
 
-  const selectedFolders = date
-    ? folders.filter((f) => f === date)
-    : all
-      ? folders
-      : folders.length
-        ? [folders[0]]
-        : [];
+  // A `--date` naming a real tree of the WRONG kind is a different mistake from a
+  // typo, and saying so is what stops someone concluding the data is missing.
+  if (date && !isParliamentaryFolder(date)) {
+    const kind = electionFolderKind(date);
+    const hint =
+      kind === "local" || kind === "chmi"
+        ? `it is a ${kind} cycle — use \`npm run data -- --local-ingest <slug>\``
+        : kind === "presidential"
+          ? "it is a presidential cycle — the `--pvr` ingest is not built yet (presidential-elections-v1 T3.4)"
+          : "it is not an election folder";
+    throw new Error(
+      `Refusing to parse "${date}" as a parliamentary election: ${hint}.`,
+    );
+  }
+
+  // No third arm: the function returns early unless `date` or `all` is set, so the
+  // old `folders[0]` "latest" fallback was unreachable (and, before the filter above,
+  // resolved to `water` rather than to any election).
+  const selectedFolders = date ? folders.filter((f) => f === date) : folders;
   if (date && selectedFolders.length === 0) {
     throw new Error(
-      `Can not find specified folder: 
+      `Can not find specified folder:
     ${date}`,
     );
   }

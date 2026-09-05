@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { SectionInfo } from "@/data/dataTypes";
+import { isParliamentaryFolder } from "scripts/lib/electionFolders";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -13,10 +14,18 @@ export const findSectionInOtherElections = (
   // Election folders moved to /data/ during the GCS migration.
   const outFolder = path.resolve(__dirname, `../../data/`);
 
+  // ⚠ PARLIAMENTARY ONLY. This looks a section up in OTHER elections' shards to
+  // recover its settlement/coords, and the shards it reads are the parliamentary
+  // `sections/by-oblast/` bundles. A `startsWith("20")` test also opened `_mi` and
+  // (once the tree lands) `_pvr` folders, whose 9-digit codes are a DIFFERENT key
+  // space on the 2011 oblast grid — a match there would attribute one election's
+  // section to another. See scripts/lib/electionFolders.ts.
   const elections: string[] = fs
     .readdirSync(outFolder, { withFileTypes: true })
     .filter((file) => file.isDirectory())
-    .filter((file) => file.name.startsWith("20") && file.name !== yearMonth)
+    .filter(
+      (file) => isParliamentaryFolder(file.name) && file.name !== yearMonth,
+    )
     .map((f) => f.name)
     .sort((a, b) => a.localeCompare(b));
   // Per-election section data is now bundled by oblast (the leading 2

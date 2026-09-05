@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { saveCandidateResolved } from "./save_candidate_resolved";
+import { isParliamentaryFolder } from "scripts/lib/electionFolders";
 
 // Rebuild ONLY the per-candidate resolution shards
 // (`data/<election>/candidates/<name>/resolved.json` + `by-slug/<slug>.json`)
@@ -30,10 +31,10 @@ const __dirname = path.dirname(__filename);
 const dataFolder = path.resolve(__dirname, "../../data");
 
 const only = process.argv[2];
-// Parliamentary election folders only — YYYY_MM_DD with no _mi/_chmi suffix.
+// Parliamentary election folders only — YYYY_MM_DD with no _mi/_chmi/_pvr suffix.
 const folders = fs
   .readdirSync(dataFolder, { withFileTypes: true })
-  .filter((f) => f.isDirectory() && /^20\d\d_\d\d_\d\d$/.test(f.name))
+  .filter((f) => f.isDirectory() && isParliamentaryFolder(f.name))
   .map((f) => f.name)
   .filter((n) => !only || n === only)
   .sort();

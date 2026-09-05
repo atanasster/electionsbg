@@ -8,6 +8,7 @@
 
 import fs from "fs";
 import path from "path";
+import { isParliamentaryFolder } from "./lib/electionFolders";
 
 const publicFolder = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -16,7 +17,7 @@ const publicFolder = path.resolve(
 
 const electionDirs = fs
   .readdirSync(publicFolder, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && /^2\d{3}_\d{2}_\d{2}$/.test(d.name))
+  .filter((d) => d.isDirectory() && isParliamentaryFolder(d.name))
   .map((d) => d.name);
 
 let totalOldFiles = 0;

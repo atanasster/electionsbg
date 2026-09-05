@@ -275,18 +275,71 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
 
 ## 4. Tier 0 — guards before any output exists (½ day)
 
-- **T0.1** One predicate, `electionFolderKind(name): "parliamentary" | "local" | "chmi" | "presidential" | null`
-  in `scripts/lib/electionFolders.ts`, and EVERY sweep that enumerates election folders by name goes through it.
-  There are eight, not two — measured by grepping `readdirSync` callers that touch `data/` or `raw_data/`:
-  `scripts/parsers/parse_elections.ts` (`--all` maps every `raw_data/` directory, `agri/` and every `_mi`
-  included), `scripts/stats/collect_stats.ts` (`runStats` rewrites `elections.json` from every `data/` name
-  starting `20`/`19`), `scripts/parsers/findSection.ts:19` (`findSectionInOtherElections`, a bare
-  `startsWith("20")` that would open a `_pvr` tree looking for `section_votes.json`),
-  `scripts/parsers/backfill_section_coords.ts`, `scripts/parsers/split_sections.ts`,
-  `scripts/smetna_palata/index.ts`, `scripts/preferences/index.ts` and `scripts/officials/candidate_links.ts`.
-  `scripts/elections/build_surfaces.ts` already uses exact regexes and only needs the new arm (T3.1). Each call
-  site says how many folders it skipped and why; `electionFolders.test.ts` asserts that `2021_11_14_pvr` and
-  `2023_10_29_mi` resolve to their kinds and that `agri` resolves to `null`.
+- **T0.1 ✅ DONE.** One predicate, `electionFolderKind(name): "parliamentary" | "local" | "chmi" |
+  "presidential" | null` in `scripts/lib/electionFolders.ts`, and every LOOSE sweep goes through it.
+  ⚠️ **The count in v1.1 was wrong: it is FIVE sites, not eight.** That estimate came from grepping
+  `readdirSync` callers whose file mentions `data/` or `raw_data/` anywhere, and three of the eight turned out
+  not to enumerate election folders at all — `split_sections.ts` reads a single election's OUTPUT directory for
+  stale `*.json`, `smetna_palata/index.ts` reads the party-financing folder, and `officials/candidate_links.ts`
+  reads officials shards. Re-measured by the filter each caller actually applies, the real set is:
+
+  | site | filter before | why it was unsafe |
+  | --- | --- | --- |
+  | `scripts/parsers/parse_elections.ts` | **none at all** | `--all` handed every directory — `agri/`, `budget/`, every `_mi` — to `parseParties`, whose `createReadStream` on a missing `cik_parties.txt` rejects unhandled |
+  | `scripts/stats/collect_stats.ts` | `startsWith("20") \|\| startsWith("19")` | rewrites `elections.json`; `_mi` stays out only because those trees lack `region_votes.json`, which a `_pvr` tree WILL carry |
+  | `scripts/parsers/findSection.ts` | `startsWith("20")` | cross-election section lookup; 2011's oblast-grid codes are a different key space, so a hit there attributes one election's section to another |
+  | `scripts/preferences/index.ts` | `startsWith("20")` | preferences are a proportional-list mechanic; a presidential ballot has no list to prefer within |
+  | `scripts/bucket_gzip.ts` | `/^\d{4}_\d{2}_\d{2}/` **unanchored** | matched `_pvr` already — and that is the RIGHT behaviour (presidential data is bucket-served), so it is routed through `isElectionFolder()` to make it a decision rather than an accident |
+
+  ⚠️ **The 8 − 3 = 5 arithmetic is a coincidence, and the two adjustments matter to anyone reconciling the
+  lists.** `scripts/parsers/backfill_section_coords.ts` was in the original eight and is NOT in the five — it is
+  a real election sweep, but it already carries the anchored form, so it falls under the ~20 below rather than
+  under the three exonerations. And `scripts/bucket_gzip.ts` is in the five and was NOT in the original eight:
+  it was found by searching for the regex SHAPE rather than for `readdirSync`. Net: 8 − 3 − 1 + 1 = 5.
+
+  The ~20 remaining sites already use an anchored exact regex (`/^\d{4}_\d{2}_\d{2}$/`, `…_mi$/`) and are
+  correct as they stand; rewriting them would be a large unrelated refactor. `scripts/elections/build_surfaces.ts`
+  is one of those and only needs the new arm (T3.1). ⚠️ Two **variant** spellings existed that a grep for the
+  canonical literal cannot see — `/^20\d\d_\d\d_\d\d$/` in `scripts/preferences/rebuild_resolved.ts` and
+  `/^2\d{3}_\d{2}_\d{2}$/` in `scripts/migrate_sections_to_oblast.ts`; both were folded into the predicate, and
+  the module's header records the shapes so a future consolidation searches for them rather than for the text.
+
+  `parse_elections.ts` and `collect_stats.ts` report what they skipped; `findSection.ts` and `preferences/index.ts`
+  are silent narrowings and `bucket_gzip.ts` is kind-blind, so neither has anything to report. **The skip line
+  counts other ELECTION kinds only** (`describeSkippedElectionFolders`) — a raw "non-parliamentary" difference is
+  120 of 133 under `data/` and 96 of 109 under `raw_data/`, dominated by unrelated datasets, i.e. a number nobody
+  can act on printed on every run. A `--date` naming a tree of the wrong kind is REFUSED, naming the ingest that
+  would take it.
+
+  **Gates.** `electionFolders.test.ts` carries the unit cases, an on-disk inventory sweep over both roots (a real
+  `ctx.skip` when a root is absent, so "not checked" cannot read as "all classified"), and — because a new sweep
+  that never calls the predicate is invisible to unit tests — a **static gate** over `scripts/` and `src/`,
+  test files included, with comments stripped. It covers all three loose shapes: the year-prefix test, the
+  unanchored date regex, and — structurally, since it has no text to match — **the no-filter shape itself**, by
+  requiring that a file which enumerates a data root classify by kind somehow (the predicate, an anchored regex,
+  or a suffix test) or be allowlisted with a reason (three are: two walk a subdirectory through a root-named
+  variable, one is kind-blind by design). Both halves carry a **positive control**, because a gate whose patterns
+  are nine escaped metacharacters each fails green when one breaks.
+  `scripts/parsers/parse_elections.test.ts` covers the refusal branch and `scripts/preferences/index.test.ts` the
+  ordering contract below.
+
+  ⚠️ **T0.1 also carried two pre-existing defects out with it, both found by review rather than by the change:**
+
+  - **`preferences/index.ts` was not a no-op narrowing.** `folders` is INDEX-ORDERED and
+    `createPreferencesFiles` reads `folders[index - 1]` as "the previous election". Under the old
+    year-prefix filter that predecessor was the nearest `_chmi` folder for **12 of 13** elections — none of
+    which carries a `candidates.json`, against an unguarded `readFileSync`, so prev-year preference carry-over
+    could never have run for them. It now resolves to the previous PARLIAMENTARY election, which is what
+    `assignPrevYearPreference` means. That is the intended answer AND a change to generated output: the next
+    `--candidates` run may write carry-over that was never there. The read is now guarded so a missing prior
+    year degrades instead of aborting the whole `Promise.all`, and the list is a named export
+    (`listPreferenceFolders`) whose header states the coupling.
+  - **`runStats` read and wrote `public/`, which holds no election data at all.** The GCS migration moved the
+    tree to `data/` and updated the folder LIST without updating the reads and writes, so `npm run data -- --stats`
+    threw ENOENT on the first election and every guard this tier adds there was unreachable. All five targets
+    (`sofia_stats.json`, `regions/`, `municipalities/`, `settlements/`, `sections/`) exist under `data/` and were
+    last written by that migration commit; `publicFolder` now resolves to the data root, keeping the historical
+    name the whole pipeline uses for it.
 - **T0.2** With the predicate in, establish what `npm run prod` (`--all`) actually does today against the `_mi`
   and non-election directories — the `createReadStream` error on a missing `cik_parties.txt` is unhandled — and
   add the `elections.json` gate: a `_pvr` or `_mi` name can never enter it.

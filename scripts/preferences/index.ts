@@ -9,6 +9,7 @@ import { parseCandidates } from "./parse_candidates";
 import { addPreferences, assignPrevYearPreference } from "./pref_utils";
 import { saveCandidateStats } from "./save_candidate_stats";
 import { saveCandidateResolved } from "./save_candidate_resolved";
+import { isParliamentaryFolder } from "scripts/lib/electionFolders";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -19,15 +20,38 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 const dataFolder = path.resolve(__dirname, `../../data/`);
 const rawFolder = path.resolve(__dirname, `../../raw_data/`);
 
+/**
+ * The election folders preferences are built for, in ASCENDING date order.
+ *
+ * ⚠ PARLIAMENTARY ONLY, and the ORDER IS PART OF THE CONTRACT. Preferences
+ * (предпочитания) are a proportional-list mechanic: a presidential ballot has no
+ * candidate list to prefer within and a local cycle keeps its own tree, so neither
+ * belongs here — a reader expecting `raw_data/<date>/preferences.txt` would be handed
+ * a folder that has none.
+ *
+ * ⚠ AND NARROWING THIS LIST IS NOT A NO-OP, because the caller reads
+ * `folders[index - 1]` as "the previous election". Before this was
+ * parliamentary-only, the previous entry was whatever directory sorted just below —
+ * in practice the nearest `_chmi` folder for 12 of the 13 elections — none of which
+ * carries a `candidates.json`. So prev-year preference carry-over was reading a
+ * folder that could not answer, and now resolves to the previous PARLIAMENTARY
+ * election, which is what `assignPrevYearPreference` means by it. That is the
+ * intended answer, and it is a CHANGE to generated output rather than a tightened
+ * filter: the next `--candidates` run may write prev-year attribution that was never
+ * there before.
+ */
+export const listPreferenceFolders = (): fs.Dirent[] =>
+  fs
+    .readdirSync(dataFolder, { withFileTypes: true })
+    .filter((file) => file.isDirectory())
+    .filter((file) => isParliamentaryFolder(file.name))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
 export const createPreferencesFiles = async (
   stringify: (o: object) => string,
   election?: string,
 ) => {
-  const folders = fs
-    .readdirSync(dataFolder, { withFileTypes: true })
-    .filter((file) => file.isDirectory())
-    .filter((file) => file.name.startsWith("20"))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const folders = listPreferenceFolders();
 
   await Promise.all(
     folders.map(async (e, index) => {
@@ -51,24 +75,30 @@ export const createPreferencesFiles = async (
           stringify(preferences),
           "utf-8",
         );
+        // ⚠ `folders` is INDEX-ORDERED and this reads folders[index-1] as "the
+        // PREVIOUS election" — so the list's membership, not just its length, is
+        // load-bearing. See listPreferenceFolders' header.
         const ly = index > 0 ? folders[index - 1] : undefined;
         let lyCandidates: CandidatesInfo[] | undefined = undefined;
 
         if (candidates.length) {
           let lyPreferences: PreferencesInfo[] | undefined = undefined;
           if (ly) {
-            lyCandidates = JSON.parse(
-              fs.readFileSync(
-                `${dataFolder}/${ly.name}/candidates.json`,
-                "utf-8",
-              ),
-            );
-            lyPreferences = JSON.parse(
-              fs.readFileSync(
-                `${rawFolder}/${ly.name}/preferences.json`,
-                "utf-8",
-              ),
-            );
+            // Guarded because an unguarded read here aborts the whole
+            // `Promise.all` — which is what used to happen for 12 of 13
+            // elections, since the previous entry was a `_chmi` folder with no
+            // candidates.json. A missing prior year must degrade to "no
+            // carry-over", not kill the run.
+            const lyCandFile = `${dataFolder}/${ly.name}/candidates.json`;
+            const lyPrefFile = `${rawFolder}/${ly.name}/preferences.json`;
+            if (fs.existsSync(lyCandFile) && fs.existsSync(lyPrefFile)) {
+              lyCandidates = JSON.parse(fs.readFileSync(lyCandFile, "utf-8"));
+              lyPreferences = JSON.parse(fs.readFileSync(lyPrefFile, "utf-8"));
+            } else {
+              console.warn(
+                `[preferences] ${e.name}: previous-year inputs missing at ${ly.name} — carry-over skipped`,
+              );
+            }
           }
           const sections: SectionInfo[] = JSON.parse(
             fs.readFileSync(`${inFolder}/section_votes.json`, "utf-8"),

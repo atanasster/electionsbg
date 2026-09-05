@@ -33,6 +33,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { isExcluded } from "./bucket_sync_paths";
 import { BUCKET_GS } from "./db/lib/bucket";
+import { isElectionFolder } from "./lib/electionFolders";
 
 const BUCKET = BUCKET_GS;
 const CACHE_CONTROL = "public,max-age=300,must-revalidate";
@@ -134,8 +135,6 @@ const PER_ELECTION_FILES = [
   "sections_index.json",
 ];
 
-const isElectionDir = (n: string): boolean => /^\d{4}_\d{2}_\d{2}/.test(n);
-
 // Big local-election section shards: the multi-район city indexes (SOF ~2MB,
 // Plovdiv ~0.8MB, Varna ~0.7MB) are fetched whole by their dashboards; gzip cuts
 // them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
@@ -152,7 +151,7 @@ export const collect = (): string[] => {
     if (existsSync(join(DATA, rel))) out.push(rel);
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {
-    if (!entry.isDirectory() || !isElectionDir(entry.name)) continue;
+    if (!entry.isDirectory() || !isElectionFolder(entry.name)) continue;
     for (const f of PER_ELECTION_FILES) {
       const rel = `${entry.name}/${f}`;
       if (existsSync(join(DATA, rel))) out.push(rel);

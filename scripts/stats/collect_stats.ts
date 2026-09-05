@@ -18,6 +18,10 @@ import {
   settlementsVotesFileName,
 } from "../consts";
 import path from "path";
+import {
+  describeSkippedElectionFolders,
+  isParliamentaryFolder,
+} from "../lib/electionFolders";
 import { fileURLToPath } from "url";
 import { saveSplitObject } from "../dataReaders";
 
@@ -237,16 +241,42 @@ export const runStats = (stringify: (o: object) => string) => {
     fs.readFileSync(electionsFile, "utf-8"),
   );
 
-  const updatedElections: ElectionInfo[] = fs
+  // ⚠ PARLIAMENTARY ONLY, and by the shared predicate rather than a prefix test.
+  // This rewrites `src/data/json/elections.json` — the catalogue the selector, the
+  // hub and every `?elections=` consumer read — from whatever directories it finds.
+  // `startsWith("20")` accepted every kind; the local trees stayed out only because
+  // they carry no `region_votes.json`, an accident that a `data/<date>_pvr/` tree
+  // (which DOES carry one) would end. See scripts/lib/electionFolders.ts.
+  const allFolders = fs
     .readdirSync(outFolder, { withFileTypes: true })
-    .filter((file) => file.isDirectory())
-    .filter((file) => file.name.startsWith("20") || file.name.startsWith("19"))
+    .filter((file) => file.isDirectory());
+  const parliamentaryFolders = allFolders.filter((file) =>
+    isParliamentaryFolder(file.name),
+  );
+  // ⚠ Counts OTHER ELECTION KINDS, not every skipped directory — 53 of the 120
+  // non-parliamentary folders under `data/` are unrelated datasets.
+  const skipped = describeSkippedElectionFolders(allFolders.map((f) => f.name));
+  if (skipped) {
+    console.log(
+      `[collect_stats] ${parliamentaryFolders.length} parliamentary folder(s); skipped ${skipped}`,
+    );
+  }
+  const updatedElections: ElectionInfo[] = parliamentaryFolders
     .map((f) => ({
       name: f.name,
       ...elections.find((p) => p.name === f.name),
     }))
     .sort((a, b) => b.name.localeCompare(a.name));
-  const publicFolder = path.resolve(__dirname, `../../public`);
+  // ⚠ THIS IS THE DATA ROOT, NOT `public/` — and it was `public/` until now, which
+  // made every path below dead. The GCS migration moved the election tree to
+  // `data/` and updated the folder LIST (`outFolder`, above) without updating the
+  // reads and writes, so `--stats` threw ENOENT on the first election: `public/`
+  // holds no election directory, no `regions/`, no `municipalities/`. Every target
+  // named below exists under `data/` and was last written by that migration commit.
+  // The variable keeps its historical name because `collectStats` takes a
+  // `publicFolder` argument that means "the data output root" throughout this
+  // pipeline (see the note in scripts/main.ts).
+  const publicFolder = outFolder;
   const rawDataFolder = path.resolve(__dirname, `../../raw_data`);
   const { country, byRegion, byMunicipality, bySettlement, bySection, sofia } =
     collectStats({
