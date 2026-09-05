@@ -55,13 +55,17 @@ const GLOBAL_FILES = [
   "indicators.json",
   "macro.json",
   "regional.json",
-  // ⚠️ THE HOME PAGE'S TWO BLOBS. `/` is the entry page and reads exactly these; without them
+  // ⚠️ THE HOME PAGE'S THREE BLOBS. `/` is the entry page and reads them; without them
   // here `home:publish`'s `bucket:gz` half was a no-op and both were served `identity`, 30 KB
   // of feed.json uncompressed on the critical path. `home/price_events.json` stays OUT: it is
   // an intermediate the feed generator reads, published for inspectability, and no browser
   // fetches it. `runbook.test.ts` asserts this list covers `PUBLIC_ARTIFACTS`.
   "home/hub_stats.json",
   "home/feed.json",
+  // The flyover band's one object. It is fetched later than the other two (only once the band
+  // arms), but it is the largest of the three and compresses hard — 34 KB of geometry and
+  // integers — so serving it `identity` would undo most of what deferring the request buys.
+  "home/flyover.json",
   // parliament/index.json retired from the bucket (persons-pg-retirement-v1 T2.4): useMps + the
   // partyMps AI tool read mp_profile + mp_roster_meta via /api/db/mp-roster, so the roster is no
   // longer served or gzip-uploaded. It stays on disk as the loader source + for the build scripts.

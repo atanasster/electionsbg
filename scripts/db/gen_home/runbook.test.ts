@@ -44,7 +44,7 @@ describe("the home generators are operationally reachable", () => {
   it("there are some — the derivation is not vacuous", () => {
     // If the registry ever stopped naming them, every clause below would pass over an empty
     // list while nothing regenerated the entry page.
-    expect(HOME_GENERATORS.length).toBeGreaterThanOrEqual(3);
+    expect(HOME_GENERATORS.length).toBeGreaterThanOrEqual(4);
   });
 
   it("every one is inside the runbook's EXECUTABLE procedure", () => {
@@ -122,6 +122,13 @@ describe("the home generators are operationally reachable", () => {
       at("db:gen-home-price-events"),
     );
     expect(at("db:gen-home-price-events")).toBeGreaterThan(
+      at("db:gen-home-hub-stats"),
+    );
+    // The flyover reads hub_stats.json's procurement tile OFF DISK, precisely so the moving
+    // band and the /procurement tile one screen below cannot show two different euro totals.
+    // Run first it quotes the previous vintage and they disagree with nothing failing —
+    // ORDER_PAIRS covers the db:refresh chain, and this covers the orchestrator's.
+    expect(at("db:gen-home-flyover")).toBeGreaterThan(
       at("db:gen-home-hub-stats"),
     );
   });

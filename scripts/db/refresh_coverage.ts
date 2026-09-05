@@ -216,6 +216,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /governance hub's four KPI figures, seven tile metrics and four coverage rows. It is a FOLD, not an aggregate: every figure is the destination hub's OWN number, taken from that hub's serving function (budget_hub_stats, agri_hub_stats, council_overview), its payload row (fund_payloads kind='index') or its committed blob (procurement/derived/hub_stats.json, procurement/derived/sector_stats.json, parliament/votes/derived/hub_stats.json, governance/declarations_hub_stats.json). So its slot is LAST of the five generators — after db:gen-culture-hub-stats, which is itself after the final loader — because placed anywhere earlier it folds the PREVIOUS vintage of whichever sibling has not run yet, and two hubs one click apart then disagree",
     bucketPath: "governance/hub_stats.json",
   },
+  "db:gen-home-flyover": {
+    artifact: "data/home/flyover.json",
+    reason:
+      "the one object behind the home flyover band, the money-map article and the Remotion explainer: pre-projected geometry, three money layers by oblast, the buyer\u2192contractor flow matrix and the caption figures. Its slot is immediately AFTER db:gen-home-hub-stats, for two reasons that pull in the same direction \u2014 it reads `contracts`, `awarder_seats`, `tr_company_place`, `fund_projects` and `agri_subsidies`, so it must follow every loader that writes one (the binding one is db:load:tr-company-place:pg, the arcs' contractor side, which sits near the end of the chain); and its caption headline is READ OUT of data/home/hub_stats.json rather than recomputed, so running it BEFORE that generator would quote the previous vintage of a number the reader sees again on the tile one screen below \u2014 two figures on one screen, disagreeing by whatever the reload moved. \u26a0\ufe0f The three money layers are three TAPS and never a total \u2014 an \u0418\u0421\u0423\u041d-funded contract is in both fund_projects and contracts \u2014 and the arcs were 23.5% covered when this was written (2026-09-06), which `flows.coverage` states rather than hides",
+    bucketPath: "home/flyover.json",
+  },
   "db:gen-home-hub-stats": {
     artifact: "data/home/hub_stats.json",
     reason:

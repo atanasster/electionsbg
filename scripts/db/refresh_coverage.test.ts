@@ -87,6 +87,24 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:gen-home-flyover",
+    before: "db:load:tr-company-place:pg",
+    why:
+      "the arcs' contractor side is tr_company_place, which that loader rebuilds \u2014 " +
+      "run first, the flow matrix and its whole coverage decomposition are the PREVIOUS " +
+      "vintage's placements, and since coverage is stated as a share of a corpus that has " +
+      "moved underneath it, nothing about the artifact looks wrong",
+  },
+  {
+    after: "db:gen-home-flyover",
+    before: "db:gen-home-hub-stats",
+    why:
+      "the flyover's caption headline is data/home/hub_stats.json's procurement tile, READ " +
+      "from disk rather than recomputed \u2014 so run first it quotes the PREVIOUS vintage " +
+      "of a number the reader meets again on the tile one screen below, and the two " +
+      "disagree by whatever the reload moved with nothing failing",
+  },
+  {
     after: "db:gen-home-feed",
     before: "db:gen-home-price-events",
     why:

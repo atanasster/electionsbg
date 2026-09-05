@@ -57,10 +57,20 @@ const ROOT = path.resolve(
   "..",
 );
 
-/** The two objects a browser fetches, and the committed file each must equal. */
+/**
+ * The objects a browser fetches from `/`, and the committed file each must equal.
+ *
+ * ⚠️ `home/flyover.json` is fetched LATER than the other two — only once the flyover band
+ * arms (in view, visible, idle, motion allowed) — which is what keeps first paint at two
+ * requests. It is in this list anyway, because the failure this check exists for is
+ * „regenerated, committed, never uploaded", and that one does not care when the fetch
+ * happens. `loadArtifacts` deliberately does not parse it: its schema is the subject of
+ * `scripts/db/tests/flyover.data.test.ts`, which recounts every layer against Postgres.
+ */
 export const PUBLIC_ARTIFACTS = [
   { file: "data/home/hub_stats.json", object: "home/hub_stats.json" },
   { file: "data/home/feed.json", object: "home/feed.json" },
+  { file: "data/home/flyover.json", object: "home/flyover.json" },
 ] as const;
 
 /**
@@ -111,6 +121,16 @@ export interface HomeArtifacts {
   feed: HomeFeedV1 | null;
   problems: Problem[];
 }
+
+/**
+ * The artifacts `loadArtifacts` parses, and therefore already reports on. `checkPublic` uses it
+ * to tell „already reported" from „reported nowhere else" — without it, a missing
+ * `flyover.json` was the one committed artifact whose absence `home:health` passed in silence.
+ */
+const LOADED_ARTIFACTS = new Set([
+  "data/home/hub_stats.json",
+  "data/home/feed.json",
+]);
 
 /** Parse both artifacts ONCE, so a verdict and a summary can never describe different files. */
 export const loadArtifacts = (): HomeArtifacts => {
@@ -259,7 +279,14 @@ export const checkPublic = async (): Promise<Problem[]> => {
   const problems: Problem[] = [];
   for (const { file, object } of PUBLIC_ARTIFACTS) {
     const local = readJson<unknown>(file);
-    if (!local.ok) continue; // already reported by loadArtifacts
+    if (!local.ok) {
+      // hub_stats/feed are already reported by loadArtifacts — do not double-report. flyover is
+      // not parsed there, so this is the ONLY place its absence can be noticed at all, and it
+      // is committed: „absent locally" is the same broken-checkout state the other two report.
+      if (!LOADED_ARTIFACTS.has(file))
+        problems.push({ kind: local.why, detail: local.detail });
+      continue;
+    }
     let body: string;
     let storedEncoding: string | null;
     try {

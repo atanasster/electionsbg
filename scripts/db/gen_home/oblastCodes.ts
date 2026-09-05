@@ -230,6 +230,37 @@ export const oblastPopulation = (): Record<string, number> =>
 export type OblastFixTable = "NAME_ALIASES" | "CODE_FOLD";
 
 /**
+ * ⚠️ TWO DIFFERENT QUESTIONS, DELIBERATELY SEPARATE — „did every value this input produced
+ * resolve?" and „did all 28 oblasts receive one?".
+ *
+ * The first is always a fold defect and is always refused. The second is only a defect over a
+ * corpus wide enough to have covered the country: over a window a few days old — which the
+ * SITTING-parliament scope is, every time an election lands — an oblast with no contracts yet
+ * is a measurement, and refusing there would abort `db:refresh` for being right.
+ * `assertLayerCoverage` asks both; a caller with a narrow window asks only the first.
+ *
+ * `fixIn` is the caller's, because only the caller knows which resolver it used. Three of the
+ * four inputs are name-keyed and take `NAME_ALIASES`; `fund_projects.oblast` is code-keyed
+ * and takes `CODE_FOLD`. Naming the wrong one sends an operator to add `"S26": "SOF"` to a
+ * table `oblastFromCode` never reads, after which the refusal repeats with the fix apparently
+ * already applied.
+ */
+export const assertNamesResolved = (
+  layer: string,
+  unresolved: readonly string[],
+  fixIn: OblastFixTable = "NAME_ALIASES",
+): void => {
+  if (!unresolved.length) return;
+  const names = [...new Set(unresolved)].sort();
+  throw new Error(
+    `oblastCodes: ${layer} carries ${names.length} oblast value(s) this module cannot ` +
+      `place: ${names.map((n) => JSON.stringify(n)).join(", ")}. Add each to ` +
+      `${fixIn} in scripts/db/gen_home/oblastCodes.ts after checking which oblast it ` +
+      `is — never let it fall through.`,
+  );
+};
+
+/**
  * The generator's refusal (§3): every distinct value an input produced must have resolved,
  * and all 28 codes must have received a value. Throws with the offending strings rather than
  * writing a layer with a hole in it — a missing oblast renders as a zero column, and a zero
@@ -237,12 +268,6 @@ export type OblastFixTable = "NAME_ALIASES" | "CODE_FOLD";
  *
  * MEMBERSHIP is the test, never the value: an explicit `0` is a measurement and passes, an
  * absent key is „never computed" and does not. That is why `seen` may be any keyed shape.
- *
- * `fixIn` is the caller's, because only the caller knows which resolver it used. Three of the
- * four inputs are name-keyed and take `NAME_ALIASES`; `fund_projects.oblast` is code-keyed
- * and takes `CODE_FOLD`. Naming the wrong one sends an operator to add `"S26": "SOF"` to a
- * table `oblastFromCode` never reads, after which the refusal repeats with the fix apparently
- * already applied.
  */
 export const assertLayerCoverage = (
   layer: string,
@@ -253,15 +278,7 @@ export const assertLayerCoverage = (
   unresolved: readonly string[],
   fixIn: OblastFixTable = "NAME_ALIASES",
 ): void => {
-  if (unresolved.length) {
-    const names = [...new Set(unresolved)].sort();
-    throw new Error(
-      `oblastCodes: ${layer} carries ${names.length} oblast value(s) this module cannot ` +
-        `place: ${names.map((n) => JSON.stringify(n)).join(", ")}. Add each to ` +
-        `${fixIn} in scripts/db/gen_home/oblastCodes.ts after checking which oblast it ` +
-        `is — never let it fall through.`,
-    );
-  }
+  assertNamesResolved(layer, unresolved, fixIn);
   const has = (c: string) =>
     seen instanceof Map || seen instanceof Set
       ? seen.has(c)

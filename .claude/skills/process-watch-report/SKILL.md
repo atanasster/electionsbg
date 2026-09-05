@@ -568,11 +568,12 @@ The rule is therefore **once per run, after every selected skill has completed**
 after each source.
 
 It is **Final post-step 7b** in the Procedure below, run unconditionally. `db:refresh` carries
-the three generators at the end of its own chain, so a full refresh has already built them — but
+the four generators at the end of its own chain, so a full refresh has already built them — but
 it runs neither the health check nor the publish, so 7b is still required.
 
 ```bash
 npm run db:gen-home-hub-stats     # the four pulse figures + tile metrics — folds the sibling hubs
+npm run db:gen-home-flyover       # the flyover band's geometry, money layers and flow matrix
 npm run db:gen-home-price-events  # the basket + promotions, the ONE step that reads Postgres
 npm run db:gen-home-feed          # the „what changed" rows
 npm run home:health               # exits non-zero on missing/corrupt/unbuilt/unavailable/stale
@@ -589,6 +590,11 @@ touched subtrees in `state/upload/pending.json` and hands off to `/upload-watch-
   `procurement/derived/hub_stats.json` and `data/macro.json`, so it must follow the sibling
   generators; run earlier it publishes the previous vintage of whichever had not yet run, and
   `/` then disagrees with the page one click away.
+- `db:gen-home-flyover` must FOLLOW `db:gen-home-hub-stats`: its caption headline is that
+  file's procurement figure, read from disk rather than recomputed, precisely so the moving
+  band and the `/procurement` tile one screen below cannot show two different euro totals. Run
+  the other way round it quotes the previous vintage and they disagree by whatever the reload
+  moved, with every count reconciling. `ORDER_PAIRS` holds it for the `db:refresh` chain.
 - `db:gen-home-price-events` must precede `db:gen-home-feed`: the feed's price adapter reads
   the committed `data/home/price_events.json` rather than Postgres (which is what lets the feed
   build on a fresh clone), so run the other way round it folds the PREVIOUS vintage's basket
@@ -903,11 +909,13 @@ first, then re-run the orchestrator.
 
 7b. **Final post-step: rebuild the HOME dashboard's artifacts.** After the data map and
    **before** the artifact check below (which verifies these reached the bucket), unconditionally
-   run the three generators and the health check:
+   run the four generators and the health check:
 
    ```bash
    npm run -s perf:step -- run --run process-watch-report --session "$S" \
      --step "db:gen-home-hub-stats" --phase derive -- npm run db:gen-home-hub-stats
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "db:gen-home-flyover" --phase derive -- npm run db:gen-home-flyover
    npm run -s perf:step -- run --run process-watch-report --session "$S" \
      --step "db:gen-home-price-events" --phase derive -- npm run db:gen-home-price-events
    npm run -s perf:step -- run --run process-watch-report --session "$S" \
