@@ -12,6 +12,7 @@ import { describe, expect, it } from "vitest";
 import * as B from "./build_surfaces";
 import {
   SURFACE_BUDGET_BYTES,
+  SURFACE_POLICY,
   artifactPath,
   emittedLevels,
 } from "../../src/data/elections/surfacePath";
@@ -238,6 +239,12 @@ describe("the run reports what §5.0 asks for", () => {
       expect(counts.artifacts).toBe(all.length);
       expect(B.renderDeltas(withSections)).toContain("no new objects");
     }
+    // ⚠ §5.0's BOUND, AND IT IS WHAT WITHHOLDS PRESIDENTIAL FROM THE PUBLISH. Measured
+    // 2026-09-06: parliamentary 18,117 (one cycle) + local 5,548 (two) = 23,665. The five
+    // presidential cycles would add 81,553 — ~60,000 of it the SECTION level — taking the
+    // corpus to 105,218, which is 44% of the ~240,000-object shape §5.0 rejects rather than
+    // the tenth it asks for. `coveredCycles` withholds the kind for that reason and for the
+    // routes it names; see `KINDS_NOT_PUBLISHED`.
     expect(all.length).toBeGreaterThan(20_000);
     expect(all.length).toBeLessThan(60_000);
   });
@@ -383,8 +390,34 @@ describe("the CLI surface", () => {
 });
 
 describe("the kinds are exhaustive", () => {
-  it("dispatches both election kinds", () => {
-    for (const kind of ["parliamentary", "local"] as ElectionKind[])
+  it("dispatches EVERY election kind", () => {
+    // ⚠ DERIVED FROM THE POLICY, not a list of two. `generate` was a ternary that sent every
+    // non-parliamentary kind to the LOCAL builder, so a presidential cycle would have been
+    // read as a local one — and this gate, naming the two kinds that existed when it was
+    // written, could not see the branch that was added.
+    //
+    // ⚠ It is also one of the few arms here that runs in CI, because the presidential data
+    // tree is gitignored: a missing cycle must return empty rather than throw, on every kind.
+    const kinds = Object.keys(SURFACE_POLICY) as ElectionKind[];
+    expect(kinds.length).toBeGreaterThan(2);
+    for (const kind of kinds) {
       expect(() => B.generate(kind, "__no_such_cycle__")).not.toThrow();
+      expect(B.generate(kind, "__no_such_cycle__"), kind).toEqual([]);
+    }
+  });
+});
+
+describe("the kinds a publish withholds", () => {
+  it("withholds presidential, and says so rather than omitting it", () => {
+    // ⚠ „NO PRESIDENTIAL SURFACES" AND „NOBODY BUILT THEM" ARE INDISTINGUISHABLE in a publish,
+    // which is why the withholding is a named list rather than an absence. The builder is
+    // complete and gated by its own suite; what it may not do yet is publish, because its
+    // destinations name routes the app does not serve and its object count is 44% of the shape
+    // §5.0 rejects.
+    expect(B.kindsNotPublished()).toContain("presidential");
+    expect(CYCLES.some((c) => c.kind === "presidential")).toBe(false);
+    // …and the other two ARE published, so the list discriminates.
+    for (const kind of ["parliamentary", "local"] as ElectionKind[])
+      expect(B.kindsNotPublished(), kind).not.toContain(kind);
   });
 });

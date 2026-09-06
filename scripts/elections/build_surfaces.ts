@@ -38,6 +38,7 @@ import {
 } from "../../src/data/elections/surfaceTypes";
 import * as P from "./build_parliamentary_surface";
 import * as L from "./build_local_surface";
+import * as PR from "./build_presidential_surface";
 import {
   capStandouts,
   selectCloseContests,
@@ -50,10 +51,32 @@ import {
 
 export const DATA_ROOT = path.join(process.cwd(), "data");
 
-/** ⚠ CYCLE COVERAGE IS BOUNDED AND STATED (§5.0). v1 generates the latest parliamentary cycle
- *  and the latest two regular local cycles. Backfilling earlier ones is a separate decision with
- *  its own object-count line, and the shell falls back to the legacy composition for any cycle
- *  with no artifact — the same path a missing artifact already takes. */
+/**
+ * ⚠ CYCLE COVERAGE IS BOUNDED AND STATED (§5.0). v1 generates the latest parliamentary cycle
+ * and the latest two regular local cycles. Backfilling earlier ones is a separate decision with
+ * its own object-count line, and the shell falls back to the legacy composition for any cycle
+ * with no artifact — the same path a missing artifact already takes.
+ *
+ * ⚠⚠ PRESIDENTIAL IS BUILT AND WITHHELD, and the two reasons are both hard gates rather than
+ * caution. `build_presidential_surface.ts` is complete and tested; what it may not yet do is
+ * run in a PUBLISH, because:
+ *
+ *   • **Its destinations name routes the app does not serve.** Every surface links to
+ *     `/presidential/<cycle>/…`, and `routes.tsx` declares no such route — 81,256 unresolvable
+ *     destinations, measured. A surface that links to a 404 is the same defect the tile
+ *     registry, the header dropdown and the hub search each refused; this is that rule at the
+ *     producer.
+ *   • **The object count.** §5.0 rejects a ~240,000-object shape and requires v1 to stay an
+ *     order of magnitude below it. Five presidential cycles add 81,553 artifacts — of which
+ *     ~60,000 are the SECTION level — taking the corpus from 23,665 to 105,218, i.e. 44% of the
+ *     shape §5.0 rejects rather than a tenth of it. That is a coverage decision with its own
+ *     line, not something to slip in behind a builder.
+ *
+ * Removing `presidential` from this list is what turns the surfaces on, and `emittedLevels`
+ * already says which levels they are. Plan Tier 5 owns both — the routes and the coverage
+ * decision — and until then the builder is exercised by its own gates rather than by a publish.
+ */
+const KINDS_NOT_PUBLISHED: readonly ElectionKind[] = ["presidential"];
 export const coveredCycles = (
   root = DATA_ROOT,
 ): { kind: ElectionKind; cycle: string }[] => {
@@ -67,11 +90,23 @@ export const coveredCycles = (
     .filter((d) => /^\d{4}_\d{2}_\d{2}_mi$/.test(d))
     .sort()
     .slice(-2);
+  // ⚠ EVERY presidential cycle, not the latest two. There are five, they are historical and
+  // they do not change — and a reader arriving at 2001 needs the same surfaces as one
+  // arriving at 2021.
+  const pres = KINDS_NOT_PUBLISHED.includes("presidential")
+    ? []
+    : dirs.filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d)).sort();
   return [
     ...(parl ? [{ kind: "parliamentary" as const, cycle: parl }] : []),
     ...locals.map((cycle) => ({ kind: "local" as const, cycle })),
+    ...pres.map((cycle) => ({ kind: "presidential" as const, cycle })),
   ];
 };
+
+/** ⚠ Exported so a gate can assert the withholding is a decision rather than an omission —
+ *  „no presidential surfaces" and „nobody built them" are indistinguishable in a publish. */
+export const kindsNotPublished = (): readonly ElectionKind[] =>
+  KINDS_NOT_PUBLISHED;
 
 export type Emitted = {
   kind: ElectionKind;
@@ -168,6 +203,46 @@ const parliamentary = (cycle: string): Emitted[] => {
     }
   }
   return out;
+};
+
+/**
+ * Presidential surfaces.
+ *
+ * ⚠ ONE PRODUCER FOR ALL FOUR LEVELS, unlike the two arms above. `buildPresidentialSurfaces`
+ * reads the per-round roll-ups and returns every place already tagged with its level, because
+ * this tree has no per-place files to walk: below the country each level is ONE file per
+ * round, so „which places exist" is a property of that file rather than of the filesystem.
+ *
+ * ⚠ THE COVERAGE CHECK IS THE SAME CONTRACT the parliamentary arm states in its `default`
+ * arm: a level the policy says emits and this file cannot produce is a failure at the TOP of
+ * the run, not thousands of pages quietly keeping the legacy composition. That arm exists
+ * because `settlement` was once exactly that — the header said „only two" while the policy
+ * returned four.
+ */
+const presidential = (cycle: string): Emitted[] => {
+  const built = PR.buildPresidentialSurfaces(cycle);
+  if (!built.length) return [];
+  const emitted = new Set(emittedLevels("presidential"));
+  const produced = new Set(built.map((b) => b.level));
+  for (const level of emitted)
+    if (!produced.has(level))
+      throw new Error(
+        `presidential/${level} emits an artifact and has no producer in build_surfaces.ts`,
+      );
+  return built.map(({ level, id, surface }) => {
+    const file = artifactPath(level, cycle, id);
+    if (!file)
+      throw new Error(`no artifact path for presidential/${level}/${id}`);
+    return {
+      kind: "presidential" as const,
+      cycle,
+      level,
+      id,
+      file,
+      bytes: Buffer.byteLength(serialize(surface)),
+      surface,
+    };
+  });
 };
 
 const local = (cycle: string): Emitted[] => {
@@ -437,7 +512,15 @@ export const attachStandouts = (
 };
 
 export const generate = (kind: ElectionKind, cycle: string): Emitted[] => {
-  const out = kind === "parliamentary" ? parliamentary(cycle) : local(cycle);
+  // ⚠ EXHAUSTIVE OVER THE KIND. The ternary this replaces sent every non-parliamentary kind
+  // to `local`, so a presidential cycle would have been read as a local one — the same
+  // implicit-`else` trap the hub, the header and the tile registry each had.
+  const out =
+    kind === "parliamentary"
+      ? parliamentary(cycle)
+      : kind === "presidential"
+        ? presidential(cycle)
+        : local(cycle);
   attachStandouts(out, kind, cycle);
   return out;
 };

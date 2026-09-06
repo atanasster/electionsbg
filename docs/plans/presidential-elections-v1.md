@@ -3,7 +3,7 @@
 **Status:** ready to execute (Tiers 0–4 are fully specified; Tiers 5–8 carry product decisions listed in §9)  
 **Scope:** every presidential election ЦИК publishes machine-readably — 2001, 2006, 2011, 2016, 2021 — plus the
 2026 cycle (constitutional window: first Sunday of November; `upcomingElections.ts` carries 2026-11-08 as an
-*estimated* anchor until the decree is published)  
+_estimated_ anchor until the decree is published)  
 **Version:** v1.1 — a third election kind (`presidential`) beside `parliamentary` and `local`, on the same raw → data
 → surface grammar, with its own outcome contract (ticket ranking + runoff), never folded into a party ranking.
 Revised 2026-09-05 after review: the majority DENOMINATOR (§2.4, decision 5), per-section residues (§2.5-10,
@@ -34,13 +34,13 @@ All seven bundles were fetched on 2026-09-05 through the headed-Playwright sessi
 (`scripts/parsers_local/cik_fetch.ts`); every one of them, including the legacy `pvr2006.cik.bg` host and the
 `before_2003/` archive, is Cloudflare-walled to plain `curl` (403, 5.4 KB challenge page).
 
-| cycle (`raw_data/`) | R1 / R2 dates | source (results.cik.bg unless noted) | on disk | bytes |
-| --- | --- | --- | --- | --- |
-| `2021_11_14_pvr` | 2021-11-14 / 2021-11-21 | `pvrns2021/tur1/export.zip` (130.3 MB), `pvrns2021/tur2/export.zip` (24.9 MB) | `ТУР1/` = the bundle's `pvr/` half; `ТУР2/` = the round-2 files + `suemg/` (11,667 per-section zips) | 53 MB |
-| `2016_11_06_pvr` | 2016-11-06 / 2016-11-13 | `pvrnr2016/tur1/export.zip` — **`tur2/export.zip` is the same file** (md5 `2aff1313…`), one bundle carries both rounds as `06.11.2016/` and `13.11.2016/` | `ТУР1/`, `ТУР2/` | 8.1 MB |
-| `2011_10_23_pvr` | 2011-10-23 / 2011-10-30 | `mipvr2011/el2011_t1.zip` (already on disk under the gitignored `2011_10_23_mi/ТУР1/президент/`), `mipvr2011/el2011_t2.zip` | `ТУР1/`, `ТУР2/` — the `президент/` race folder of each joint bundle | 4.0 MB |
-| `2006_10_22_pvr` | 2006-10-22 / 2006-10-29 | `pvr2006.cik.bg/results_1/export_t1.zip`, `results_2/export_t2.zip` | `ТУР1/`, `ТУР2/` | 2.1 MB |
-| `2001_11_11_pvr` | 2001-11-11 / 2001-11-18 | `results.cik.bg/before_2003/2001_prezident.zip` (8.1 MB; only `DATA/izb01pr/` kept — `DIAGRAMS/` is a PowerPoint viewer with DLLs) | `ТУР1/` (32 `.201` files + `COMMON.201`), `ТУР2/` (`.301`), `Read_WIN.txt` / `Read_DOS.txt` | 2.1 MB |
+| cycle (`raw_data/`) | R1 / R2 dates           | source (results.cik.bg unless noted)                                                                                                                      | on disk                                                                                              | bytes  |
+| ------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------ |
+| `2021_11_14_pvr`    | 2021-11-14 / 2021-11-21 | `pvrns2021/tur1/export.zip` (130.3 MB), `pvrns2021/tur2/export.zip` (24.9 MB)                                                                             | `ТУР1/` = the bundle's `pvr/` half; `ТУР2/` = the round-2 files + `suemg/` (11,667 per-section zips) | 53 MB  |
+| `2016_11_06_pvr`    | 2016-11-06 / 2016-11-13 | `pvrnr2016/tur1/export.zip` — **`tur2/export.zip` is the same file** (md5 `2aff1313…`), one bundle carries both rounds as `06.11.2016/` and `13.11.2016/` | `ТУР1/`, `ТУР2/`                                                                                     | 8.1 MB |
+| `2011_10_23_pvr`    | 2011-10-23 / 2011-10-30 | `mipvr2011/el2011_t1.zip` (already on disk under the gitignored `2011_10_23_mi/ТУР1/президент/`), `mipvr2011/el2011_t2.zip`                               | `ТУР1/`, `ТУР2/` — the `президент/` race folder of each joint bundle                                 | 4.0 MB |
+| `2006_10_22_pvr`    | 2006-10-22 / 2006-10-29 | `pvr2006.cik.bg/results_1/export_t1.zip`, `results_2/export_t2.zip`                                                                                       | `ТУР1/`, `ТУР2/`                                                                                     | 2.1 MB |
+| `2001_11_11_pvr`    | 2001-11-11 / 2001-11-18 | `results.cik.bg/before_2003/2001_prezident.zip` (8.1 MB; only `DATA/izb01pr/` kept — `DIAGRAMS/` is a PowerPoint viewer with DLLs)                        | `ТУР1/` (32 `.201` files + `COMMON.201`), `ТУР2/` (`.301`), `Read_WIN.txt` / `Read_DOS.txt`          | 2.1 MB |
 
 Not downloaded, known to exist: `before_2003/1991_1999.zip` (the 1992 and 1996 presidential elections, same
 „Деметра" archive family as 2001 — Tier 9), and the 2016 national referendum half of `pvrnr2016`
@@ -84,13 +84,13 @@ The five cycles are five different file formats. Nothing in the parliamentary pa
 
 ### 2.1 Era table
 
-| era | files | sections file | protocols | votes | grid | encoding |
-| --- | --- | --- | --- | --- | --- | --- |
-| **E2021** | `cik_parties`, `cik_candidates`, `sections`, `protocols`, `votes` (+ `suemg/`) | 8 cols: code; admin-unit id; admin-unit name; ЕКАТТЕ; place; mobile; ship; **machines count** | forms 24 (Х), 25 (М), 26 (ХМ), 27 (КР), 28 (ЧХ), 29 (ЧМ), 31 (ЧКР), 32 (one row per machine), 41 (machine abroad) — field positions identical to the `isMachineOnlyVote("2021_11_14")` branch | `form;code;admin;` then **pairs** `ticket;valid` — one row per paper protocol (24/28) and one per machine (32/41) | 31 МИР + `32` abroad (750 abroad sections) | UTF-8 |
-| **E2016** | `cik_candidates`, `sections`, `protocols`, `votes` | 8 cols, last = **machine flag** (500 flagged sections) | forms 1 (paper), 7 (abroad), 8 (machine+paper), 32 positions, readme-documented | `code;admin;` then **5-tuples** `ticket;valid;paper(Б);machine(М);invalid` | 31 МИР + `32` (325 abroad) | UTF-8 with BOM |
-| **E2011** | `el2011_president_{candidates,protocols,readme,result,sections,votes}` | `flag;code;област;община;населено място;ЕКАТТЕ` | 27 positions (readme decoded in this session), row flag `П` (mobile) / `Е` (experimental count) | `flag;code;` then **pairs** | **28-oblast grid**, `29` abroad (see §2.3) | **windows-1251** |
-| **E2006** | `Readme`, `izbori2006_T{1,2}_protocols`, `izbori2006_t{1,2}_sections` — **no votes file** | `code;населено място;ЕКАТТЕ` | 16 protocol fields then the **ticket votes inline** (cols 17–23 in R1, 17–18 in R2) | inside protocols | 31 МИР + `32` (144 abroad) | windows-1251 |
-| **E2001** | per-oblast INI-style files `NN0000z0.201` (R1) / `.301` (R2), `COMMON.*` | `[NM]` block: `obsht;sec;place;ЕКАТТЕ;flag` | `[PROT]` block: `vid;obl;obsht;sec;` + `+`-joined protocol counters + `+`-joined ticket votes | inside `[PROT]` | `(obl 2)(obsht 4)(sec 3)` — its own key space | **MIK** (Bulgarian DOS: bytes `0x80–0xBF` → `А–я`), decoded cleanly with a 64-entry table; `iconv` has no name for it |
+| era       | files                                                                                     | sections file                                                                                 | protocols                                                                                                                                                                                     | votes                                                                                                             | grid                                          | encoding                                                                                                              |
+| --------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **E2021** | `cik_parties`, `cik_candidates`, `sections`, `protocols`, `votes` (+ `suemg/`)            | 8 cols: code; admin-unit id; admin-unit name; ЕКАТТЕ; place; mobile; ship; **machines count** | forms 24 (Х), 25 (М), 26 (ХМ), 27 (КР), 28 (ЧХ), 29 (ЧМ), 31 (ЧКР), 32 (one row per machine), 41 (machine abroad) — field positions identical to the `isMachineOnlyVote("2021_11_14")` branch | `form;code;admin;` then **pairs** `ticket;valid` — one row per paper protocol (24/28) and one per machine (32/41) | 31 МИР + `32` abroad (750 abroad sections)    | UTF-8                                                                                                                 |
+| **E2016** | `cik_candidates`, `sections`, `protocols`, `votes`                                        | 8 cols, last = **machine flag** (500 flagged sections)                                        | forms 1 (paper), 7 (abroad), 8 (machine+paper), 32 positions, readme-documented                                                                                                               | `code;admin;` then **5-tuples** `ticket;valid;paper(Б);machine(М);invalid`                                        | 31 МИР + `32` (325 abroad)                    | UTF-8 with BOM                                                                                                        |
+| **E2011** | `el2011_president_{candidates,protocols,readme,result,sections,votes}`                    | `flag;code;област;община;населено място;ЕКАТТЕ`                                               | 27 positions (readme decoded in this session), row flag `П` (mobile) / `Е` (experimental count)                                                                                               | `flag;code;` then **pairs**                                                                                       | **28-oblast grid**, `29` abroad (see §2.3)    | **windows-1251**                                                                                                      |
+| **E2006** | `Readme`, `izbori2006_T{1,2}_protocols`, `izbori2006_t{1,2}_sections` — **no votes file** | `code;населено място;ЕКАТТЕ`                                                                  | 16 protocol fields then the **ticket votes inline** (cols 17–23 in R1, 17–18 in R2)                                                                                                           | inside protocols                                                                                                  | 31 МИР + `32` (144 abroad)                    | windows-1251                                                                                                          |
+| **E2001** | per-oblast INI-style files `NN0000z0.201` (R1) / `.301` (R2), `COMMON.*`                  | `[NM]` block: `obsht;sec;place;ЕКАТТЕ;flag`                                                   | `[PROT]` block: `vid;obl;obsht;sec;` + `+`-joined protocol counters + `+`-joined ticket votes                                                                                                 | inside `[PROT]`                                                                                                   | `(obl 2)(obsht 4)(sec 3)` — its own key space | **MIK** (Bulgarian DOS: bytes `0x80–0xBF` → `А–я`), decoded cleanly with a 64-entry table; `iconv` has no name for it |
 
 Row counts measured: 2021 R1 13,238 sections / 15,616 vote rows / 25,174 protocol rows (R2: 13,234 / 15,375 /
 24,950); 2016 12,340 sections both rounds; 2011 11,784 / 11,779; 2006 11,809; 2001 32 oblast files (31 МИР + `32`
@@ -106,7 +106,7 @@ plan normalises to one `tickets.json`:
 - E2011 gives the two names in separate columns (`num;president;vicePresident;nominatedBy`) — the clean case
   and the fixture for the splitter.
 - E2016 / E2021 give ONE string „Румен Георгиев Радев **и** Илияна Малинова Йотова" in `cik_candidates`.
-  Split on the ` и ` that leaves 2–4 name tokens on each side; a hyphenated compound surname („Митева-Матеева",
+  Split on the `и` that leaves 2–4 name tokens on each side; a hyphenated compound surname („Митева-Матеева",
   „Касимова-Моасе") is one token. In 2021 `cik_parties` carries a DIFFERENT composite for the ИК rows („ИК за
   Румен Радев и Илияна Йотова-Румен Георгиев Радев и…") — **use `cik_candidates` for the names and
   `cik_parties` only for the nominating body**.
@@ -143,12 +143,12 @@ as an additional join only for the three МИР-grid eras.
 Summed from the section files in this session, compared with the ЦИК decisions (2016: № 3992-ПВР and
 № 4032-ПВР; 2021: № 956-ПВР; 2011 from the bundle's own `result.txt`):
 
-| cycle | round 1 | round 2 |
-| --- | --- | --- |
-| 2021 | Радев/Йотова **1,322,385** · Герджиков/Митева 610,862 · Карадайъ (ДПС) 309,681 · Костадинов 104,832 · Панов 98,488 — tickets 2,615,149 + „не подкрепям никого" 60,786 = **valid 2,675,935** | Радев **1,539,650** · Герджиков 733,791 |
-| 2016 | Радев/Йотова **973,754** · Цачева/Манушев 840,635 · Каракачанов 573,016 · Марешки 427,660 · Орешарски 253,726 — tickets 3,613,556 + „никого" 214,094 = **valid 3,827,650** | Радев **2,063,032** · Цачева 1,256,485 |
-| 2011 | Плевнелиев/Попова **1,349,380** · Калфин/Данаилов 974,300 · Кунева 470,808 · Сидеров 122,466 | Плевнелиев **1,698,136** · Калфин 1,531,193 |
-| 2006 | Първанов/Марин **1,780,119** · Сидеров/Шопов 597,175 · Беронов/Николова 271,078 · Марков 75,478 · Берон 21,812 · Велев 19,857 · Петров 13,854 — valid 2,779,381, signatures 2,809,725, registered 6,430,117 | Първанов **2,050,488** · Сидеров 649,387 |
+| cycle | round 1                                                                                                                                                                                                     | round 2                                     |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| 2021  | Радев/Йотова **1,322,385** · Герджиков/Митева 610,862 · Карадайъ (ДПС) 309,681 · Костадинов 104,832 · Панов 98,488 — tickets 2,615,149 + „не подкрепям никого" 60,786 = **valid 2,675,935**                 | Радев **1,539,650** · Герджиков 733,791     |
+| 2016  | Радев/Йотова **973,754** · Цачева/Манушев 840,635 · Каракачанов 573,016 · Марешки 427,660 · Орешарски 253,726 — tickets 3,613,556 + „никого" 214,094 = **valid 3,827,650**                                  | Радев **2,063,032** · Цачева 1,256,485      |
+| 2011  | Плевнелиев/Попова **1,349,380** · Калфин/Данаилов 974,300 · Кунева 470,808 · Сидеров 122,466                                                                                                                | Плевнелиев **1,698,136** · Калфин 1,531,193 |
+| 2006  | Първанов/Марин **1,780,119** · Сидеров/Шопов 597,175 · Беронов/Николова 271,078 · Марков 75,478 · Берон 21,812 · Велев 19,857 · Петров 13,854 — valid 2,779,381, signatures 2,809,725, registered 6,430,117 | Първанов **2,050,488** · Сидеров 649,387    |
 
 These twenty figures become the **hard-coded anchors of the round-total gate** (§7), the way
 `declaration_fx_conversion.data.test.ts` pins hand-verified ECB rates: a parser that drops a form, double-counts a
@@ -176,7 +176,7 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
    holding 69,679 valid votes (both rounds). Turnout abroad in 2006 therefore uses т.6 (ballots found, col 10);
    `Σ signatures < Σ valid` for the country is expected and must not trip the turnout gate.
 4. **2011 `result.txt`** marks `Б` (goes to runoff) / `И` (elected); the R2 file says `И;2;Росен Асенов
-   Плевнелиев;…;1698136`. Use it as a cross-check, never as the source of the winner — the winner rule is
+Плевнелиев;…;1698136`. Use it as a cross-check, never as the source of the winner — the winner rule is
    computed (§3, decision 5) and compared.
 5. **Encodings differ per era and two are not UTF-8** (windows-1251 for 2006/2011, MIK for 2001). Reading them
    with the default decoder does not throw — it stores mojibake ticket names that pass every count, exactly the
@@ -223,7 +223,7 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
    the `electionsHubCycle.ts` rule.
 2. **Catalogue `src/data/json/presidential_elections.json`**:
    `{ name, round1Date, round2Date | null, decidedInRound: 1 | 2, winnerTicket, tickets: number,
-   rounds: { [1|2]: { machineVoting: boolean, flashRecords: boolean, noneOfTheAbove: boolean } } }` — shape
+rounds: { [1|2]: { machineVoting: boolean, flashRecords: boolean, noneOfTheAbove: boolean } } }` — shape
    parallel to `local_elections.json` plus the per-round CAPABILITY flags the parliamentary `ElectionInfo`
    carries as `hasSuemg` etc. (2021: machines + flash records both rounds; 2016: machines in 500 sections, no
    flash; „никого" from 2016 on), so a tile never renders a paper/machine split for a round that has none.
@@ -271,25 +271,25 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
 8. **`ElectionKind` gains `"presidential"`**, and every switch over it must be exhaustive (the TypeScript
    `never` check, plus `surfaceIsNotAHub.test.ts`-style gates that already enumerate kinds). The outcome contract
    is a new discriminated member — `{ kind: "presidential", round1: TicketRanking, runoff?: TicketRanking,
-   decidedInRound }` — beside the parliamentary and local contracts, never a normalisation of either.
+decidedInRound }` — beside the parliamentary and local contracts, never a normalisation of either.
 
 ## 4. Tier 0 — guards before any output exists (½ day)
 
 - **T0.1 ✅ DONE.** One predicate, `electionFolderKind(name): "parliamentary" | "local" | "chmi" |
-  "presidential" | null` in `scripts/lib/electionFolders.ts`, and every LOOSE sweep goes through it.
+"presidential" | null` in `scripts/lib/electionFolders.ts`, and every LOOSE sweep goes through it.
   ⚠️ **The count in v1.1 was wrong: it is FIVE sites, not eight.** That estimate came from grepping
   `readdirSync` callers whose file mentions `data/` or `raw_data/` anywhere, and three of the eight turned out
   not to enumerate election folders at all — `split_sections.ts` reads a single election's OUTPUT directory for
   stale `*.json`, `smetna_palata/index.ts` reads the party-financing folder, and `officials/candidate_links.ts`
   reads officials shards. Re-measured by the filter each caller actually applies, the real set is:
 
-  | site | filter before | why it was unsafe |
-  | --- | --- | --- |
-  | `scripts/parsers/parse_elections.ts` | **none at all** | `--all` handed every directory — `agri/`, `budget/`, every `_mi` — to `parseParties`, whose `createReadStream` on a missing `cik_parties.txt` rejects unhandled |
-  | `scripts/stats/collect_stats.ts` | `startsWith("20") \|\| startsWith("19")` | rewrites `elections.json`; `_mi` stays out only because those trees lack `region_votes.json`, which a `_pvr` tree WILL carry |
-  | `scripts/parsers/findSection.ts` | `startsWith("20")` | cross-election section lookup; 2011's oblast-grid codes are a different key space, so a hit there attributes one election's section to another |
-  | `scripts/preferences/index.ts` | `startsWith("20")` | preferences are a proportional-list mechanic; a presidential ballot has no list to prefer within |
-  | `scripts/bucket_gzip.ts` | `/^\d{4}_\d{2}_\d{2}/` **unanchored** | matched `_pvr` already — and that is the RIGHT behaviour (presidential data is bucket-served), so it is routed through `isElectionFolder()` to make it a decision rather than an accident |
+  | site                                 | filter before                            | why it was unsafe                                                                                                                                                                         |
+  | ------------------------------------ | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `scripts/parsers/parse_elections.ts` | **none at all**                          | `--all` handed every directory — `agri/`, `budget/`, every `_mi` — to `parseParties`, whose `createReadStream` on a missing `cik_parties.txt` rejects unhandled                           |
+  | `scripts/stats/collect_stats.ts`     | `startsWith("20") \|\| startsWith("19")` | rewrites `elections.json`; `_mi` stays out only because those trees lack `region_votes.json`, which a `_pvr` tree WILL carry                                                              |
+  | `scripts/parsers/findSection.ts`     | `startsWith("20")`                       | cross-election section lookup; 2011's oblast-grid codes are a different key space, so a hit there attributes one election's section to another                                            |
+  | `scripts/preferences/index.ts`       | `startsWith("20")`                       | preferences are a proportional-list mechanic; a presidential ballot has no list to prefer within                                                                                          |
+  | `scripts/bucket_gzip.ts`             | `/^\d{4}_\d{2}_\d{2}/` **unanchored**    | matched `_pvr` already — and that is the RIGHT behaviour (presidential data is bucket-served), so it is routed through `isElectionFolder()` to make it a decision rather than an accident |
 
   ⚠️ **The 8 − 3 = 5 arithmetic is a coincidence, and the two adjustments matter to anyone reconciling the
   lists.** `scripts/parsers/backfill_section_coords.ts` was in the original eight and is NOT in the five — it is
@@ -324,7 +324,6 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
   ordering contract below.
 
   ⚠️ **T0.1 also carried two pre-existing defects out with it, both found by review rather than by the change:**
-
   - **`preferences/index.ts` was not a no-op narrowing.** `folders` is INDEX-ORDERED and
     `createPreferencesFiles` reads `folders[index - 1]` as "the previous election". Under the old
     year-prefix filter that predecessor was the nearest `_chmi` folder for **12 of 13** elections — none of
@@ -340,6 +339,7 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
     (`sofia_stats.json`, `regions/`, `municipalities/`, `settlements/`, `sections/`) exist under `data/` and were
     last written by that migration commit; `publicFolder` now resolves to the data root, keeping the historical
     name the whole pipeline uses for it.
+
 - **T0.2** With the predicate in, establish what `npm run prod` (`--all`) actually does today against the `_mi`
   and non-election directories — the `createReadStream` error on a missing `cik_parties.txt` is unhandled — and
   add the `elections.json` gate: a `_pvr` or `_mi` name can never enter it.
@@ -365,6 +365,7 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
   that proves nothing.) Two more cover the refusal branch, and two read the committed zip through
   `parseSectionFile`, because deleting the block argument from its one internal call reverts every presidential
   read to the parliamentary tally while every pure-function test still passes.
+
 - **T0.4 ⛔ NOT DOABLE AT THIS TIER — it moves to T4.5, and the reason is a gate, not an oversight.**
   `scripts/i18n/key_usage.test.ts` asserts `usage.unused` is EMPTY: every key in the corpus must be reachable
   from a call site. "Reserving" a `presidential_*` family before any screen names it would therefore turn the
@@ -390,7 +391,6 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
   mirrors `--local-csv`: flag-gated, pops a window, never part of the watcher flow. `--pvr-force` re-fetches a
   cycle already on disk and `--pvr-allow-digest-change` accepts an archive ЦИК has re-published. Four things the
   build settled:
-
   - ⚠️ **The click selector cannot be the zip's BASENAME.** Three archives in the map are called `export.zip`,
     and Playwright's `page.click` takes the first match with no strict-mode error — so a warm page linking both
     rounds would quietly download the wrong one. Every anchor is resolved against the page URL and matched on
@@ -404,10 +404,10 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
     without this only because its output tree is gitignored wholesale.
   - **The md5 is checked BEFORE extraction**, so a re-published archive can never reach the tree; the error
     names the override and points at §2.4's totals for the re-verification.
+
 - **T1.4 ✅ DONE.** `raw_data/<cycle>_pvr/SOURCE.json` per cycle, written by `stamp_from_archives.ts` — a
   COMMITTED producer rather than a throwaway snippet, matching archives to slots by CONTENT (the declared md5)
   rather than by filename. Three distinctions it keeps that a simpler file would blur:
-
   - `stampedAt` is when the file was written and `fetchedAt` when the bytes were fetched. The five historical
     stamps were written in one pass ~1 ms apart, so a single timestamp claiming to be five download times would
     have been false on its face; the stamper passes the real fetch date rather than its own run time.
@@ -418,12 +418,12 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
     present-but-unparseable file rather than reporting it absent, since reporting absent is the same erasure
     reached through a different door. Both halves are gated, and the committed stamps are asserted to be a
     fixed point of a skipped re-run so a no-op run cannot churn a tracked file.
+
 - **T1.3 ✅ DONE.** `scripts/parsers_presidential/encoding.ts`: `decodeMik` (a 256-entry table, `0x80–0xBF` →
   `U+0410–U+044F`, verified across the whole committed 2001 corpus — 111,437 high bytes, none above `0xBF`),
   `decodeCp1251`, `stripBom`, a `decodeBundleText` dispatcher keyed on the era's declared encoding, and
   `parseSemicolonRows`. `extractZipCp866` stays for the 2011 zip's cp866 FILE NAMES — a different concern from
   the cp1251 CONTENTS. Four things the build settled that this plan had wrong or unsaid:
-
   - ⚠️ **MIK is not cp866, and cp866 is the trap rather than a fallback.** They agree on `0x80–0xAF` and diverge
     at exactly `0xB0` — `р` against `░` — so a cp866 read yields „Избо░и за п░езиден▓", 75% right and therefore
     survivable in review. `decodeMik` REFUSES a byte above `0xBF` by default: such a byte means the file is not
@@ -444,27 +444,46 @@ tickets would have ELECTED him in round 1. 2016 confirms the rule from the other
   a third copy of decode+split over the SAME 2011 bundle, with the weaker `/\r?\n/` split. Re-pointing it at
   `decodeBundleText` + `parseSemicolonRows` retires it.
 
-
 ## 6. Tier 2 — the readers (3–4 days)
 
 Canonical shape, `scripts/parsers_presidential/types.ts`:
 
 ```ts
-type Ticket = { number: number; president: string; vicePresident: string;
-                nominatedBy: { name: string; kind: "party" | "coalition" | "committee" };
-                nickName?: string; color?: string };
-type PresidentialSection = { code: string; round: 1 | 2; ekatte?: string; oblast: string; obshtina?: string;
-                             placeName: string; abroad?: { country: string };
-                             isMobile: boolean; isShip: boolean; machines: number;
-                             protocol: SectionProtocol; votes: Votes[] /* partyNum := ticket number */ };
-type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: Ticket[];
-                           sections: PresidentialSection[]; sourceEra: "2001"|"2006"|"2011"|"2016"|"2021" };
+type Ticket = {
+  number: number;
+  president: string;
+  vicePresident: string;
+  nominatedBy: { name: string; kind: "party" | "coalition" | "committee" };
+  nickName?: string;
+  color?: string;
+};
+type PresidentialSection = {
+  code: string;
+  round: 1 | 2;
+  ekatte?: string;
+  oblast: string;
+  obshtina?: string;
+  placeName: string;
+  abroad?: { country: string };
+  isMobile: boolean;
+  isShip: boolean;
+  machines: number;
+  protocol: SectionProtocol;
+  votes: Votes[]; /* partyNum := ticket number */
+};
+type PresidentialRound = {
+  cycle: string;
+  round: 1 | 2;
+  date: string;
+  tickets: Ticket[];
+  sections: PresidentialSection[];
+  sourceEra: "2001" | "2006" | "2011" | "2016" | "2021";
+};
 ```
 
 - **T2.1 ✅ DONE.** `era2021.ts` + the shared `types.ts`. Reproduces every §2.4 anchor exactly on both rounds
   (Радев 1,322,385 / 1,539,650; tickets 2,615,149; „никого" 60,786; 13,238 and 13,234 sections). Five things the
   build settled:
-
   - **The form classification is measured, not assumed**, and is confirmed three ways: the round's own readme,
     the data, and `scripts/parsers/protocols.ts`, which partitions the same nine forms identically for the
     parliamentary ballot held the SAME DAY. Electorate figures come from the one form per section that carries
@@ -493,11 +512,11 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ The `„<president> и <vice>"` split is 2016/2021 ONLY. 2006 joins the pair with a COMMA and 2011 publishes
   the two names in separate columns, so `splitTicketNames` returning null is an error for those eras and the
   ordinary case for these.
+
 - **T2.2 ✅ DONE.** `era2016.ts` reproduces every §2.4 anchor on both rounds (Радев 973,754 / 2,063,032;
   tickets 3,613,556; „никого" 214,094). Its shape is the OPPOSITE of 2021's — one protocol row and one votes
   row per section, with the machine half in extra COLUMNS — so the two readers exist because the formats
   disagree, not the elections. Four things the build settled:
-
   - ⚠️ **TWO FILES STATE THE PAPER/MACHINE SPLIT AND THEY DISAGREE.** The protocol's 7.1 box/machine pair says
     41,792 machine votes nationally; the votes file's Б/М columns say 41,585. They differ on **56 of the 500**
     machine sections, including exact swaps, and BOTH reconcile to ЦИК's published per-ticket totals — so
@@ -518,12 +537,12 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
   ⚠️ `machines` is a FLAG here (1/0), not a count: this era publishes whether a section had machine voting, not
   how many machines it had. Machine voting was 1.2% of the vote in 2016 against 88% in 2021.
+
 - **T2.3 ✅ DONE.** `era2011.ts` reproduces every §2.5 anchor on both rounds (round 1 Плевнелиев 1,349,380 /
   Калфин 974,300 / Кунева 470,808 / Сидеров 122,466 over 11,784 sections; round 2 1,698,136 / 1,531,193 over
   11,779), and `result.txt` independently confirms both outcomes. Field map as specified: registered = 3,
   additional = 4 + 5, signatures = 7, сгрешени = 10, ballots found = 20, invalid = 26, valid = 27. Six things
   the build settled:
-
   - ⚠️ **THE ABROAD PREFIX IS `29`, NOT `32`.** The election ran through the ОИК alongside that year's local
     vote, so the codes are on the 28-oblast grid: prefix 22 is София-град and 16 is the WHOLE of Пловдив, which
     the parliamentary grid splits into 16 and 17. Reading `32` — what every other era uses — finds nothing and
@@ -548,7 +567,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     a silent pass would put a second count of the same ballots into the national total.
 
   Two things landed beside it, both spanning the era readers rather than this one:
-
   - **`readerKit.ts`** — `num`, `readBundleFile` and `sectionLookup` in one copy, where the three readers each
     had their own (the `num` bodies were byte-identical). It also closes the gap `encoding.ts`'s banner
     described but no reader honoured: **the encoding is now READ from `sources.ts`** and threaded through,
@@ -558,11 +576,11 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     checkout, so `existsSync` → skip was hiding a broken working copy as one more green tick. `assertCommitted`
     states it instead. That also required fixing `report_skip_coverage.test.ts` to pass `git ls-files -z`:
     without it git octal-escapes any non-ASCII path, so every Cyrillic `ТУРn` tree read as untracked.
+
 - **T2.4 ✅ DONE.** `era2006.ts` reproduces every §2.4 anchor on both rounds (round 1 Първанов 1,780,119 /
   Сидеров 597,175 / Беронов 271,078 / Марков 75,478 / Берон 21,812 / Велев 19,857 / Петров 13,854, valid
   2,779,381, signatures 2,809,725, registered + additional 6,430,117, over 11,809 sections; round 2 2,050,488 /
   649,387). Field map as specified. Five things the build settled:
-
   - ⚠️⚠️ **THE READ-ME IS THE BALLOT, AND IN THE RUNOFF ITS COLUMN ORDER IS NOT THE TICKET ORDER.** There is no
     candidates file: the only statement of which column holds which ticket is prose inside `Readme.txt`. Round 2
     keeps the survivors' round-1 numbers — column 17 is ticket **3**, column 18 is ticket **6** — so „first vote
@@ -593,11 +611,11 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
   ⚠️ **Correction to §2.5-3 above**: its „69,679 valid votes (both rounds)" is round 2 alone. Round 1 is 46,113.
   The claim that all 144 abroad sections carry т.3 = 0 in both rounds is correct.
+
 - **T2.5 ✅ DONE.** `era2001.ts` reads the MIK bundle — `COMMON.<ext>` plus 33 files per round — and reproduces
   every figure the bundle publishes: round 1 Първанов 1,032,665 / Стоянов 991,680 / Бонев 546,801 / Инджова
   139,680 / Ганчев 95,481 / Берон 31,394, registered 6,824,979, signatures 2,850,650, valid 2,837,708 over
   12,191 sections; round 2 Първанов 2,043,443 / Стоянов 1,731,676 over 12,192. Six things the build settled:
-
   - ⚠️⚠️ **THE VOTE VECTOR IS POSITIONAL AND THE TICKET NUMBERS DO NOT HELP.** `[PROT]`'s second `+`-joined
     group is one figure per `[PARTII]` ROW, in that order, while the tickets keep their ROUND-1 numbers into the
     runoff — round 2's two figures belong to tickets **02 and 05**. Reading the vector as „ticket 1, ticket 2"
@@ -629,11 +647,11 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ `isMobile` / `isShip` are `false` because this bundle publishes NO such flag — not because it publishes one
   saying no. „No mobile sections in 2001" is a claim this corpus cannot support. Residue: 7 named sections in
   round 1 (net −7), none in round 2.
+
 - **T2.6 ✅ DONE.** Three new modules and two cross-era gates, on top of the five per-era suites:
   `readers.ts` (the era dispatcher), `winnerRule.ts` (art. 93 (3)), `testCorpus.ts` (a per-round memo the two
   gates share), `winnerRule.test.ts` and `anchors.test.ts`. 534 tests green across `scripts/parsers_presidential/`
   and `scripts/lib/`. Five things the build settled:
-
   - ⚠️⚠️ **THE MUTATION CASE HOLDS, AND IT IS THE POINT.** `validVotes = ticketVotes + „никого"` reproduces the
     published 2,675,935 (2021) and 3,827,650 (2016) EXACTLY, and with it Радев's 2021 round 1 is **49.42%** — a
     runoff. Over the ticket sum it is **50.57%**, which elects him outright. The gate computes the wrong answer
@@ -687,7 +705,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   entry files a real polling station in the wrong country while looking exactly like a right one. Coverage on the
   three city-only eras is **792 of 876 sections (90.4%)** and 245 of 286 city spellings; the rest are `null`.
   Four things the build settled, three of them found only by reading MORE evidence:
-
   - ⚠️⚠️ **FIVE `sections.txt` LAYOUTS ARE COMMITTED, AND THE FIRST CUT UNDERSTOOD ONE.** 2013 splits country and
     city into separate cells, 2005 publishes a bare city with no country, and the pre-2017 files put the fields
     in different columns — so four cycles matched nothing, were counted as read, and their evidence was thrown
@@ -709,7 +726,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
 - **T3.1b ✅ DONE — placement.** `places.ts` turns a section into a settlement, municipality and oblast. Every
   round places with nothing dropped. Four things the build settled:
-
   - ⚠️⚠️ **THE PREFIX FALLBACK ALMOST REPRODUCED THE VERY DEFECT THE MODULE OPENS BY WARNING ABOUT.** No
     prefix→oblast table is hard-coded (2011's `22` is София-град, 2021's is Смолян), and the map is derived per
     round — but the first cut then took the PLURALITY of each prefix's witnesses. 2011's `22` splits 54/35/12
@@ -737,7 +753,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   `data/<cycle>/tur<n>/` — `region_votes.json`, `municipality_votes.json`, `settlement_votes.json`,
   `abroad.json`, `placement.json` and `sections/<oblast>.json`. Byte-stable across runs (T3.5's first half).
   Four things the build settled:
-
   - ⚠️⚠️ **THE THREE LEVELS DO NOT COVER THE SAME VOTES, so every file carries a `coverage` block.** The oblast
     roll-up plus abroad reconciles to the round exactly in four cycles; the municipality and settlement roll-ups
     are 400k–690k votes narrower, because they need an ЕКАТТЕ the catalogue has no row for on an eighth of
@@ -760,10 +775,10 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ Open, and deliberately so: the roll-ups carry VOTES only, no protocol — so turnout, invalid and „никого"
   live in `national_summary.json` (T3.2), which is where T3.5's reconciliation will read them. Still open in
   T3.1: the `coveredCycles()` arm in `scripts/elections/build_surfaces.ts`.
+
 - **T3.2 ✅ DONE.** `nationalSummary.ts` builds a cycle's outcome per round, with every basis named — which is
   the file's job rather than decoration on it. All five cycles name the right winner, all decided in round 2.
   Four things the build settled:
-
   - ⚠️⚠️ **THE TWO ARRAYS WERE PAIRED BY POSITION AND NOTHING NOTICED A MISPAIR.** Reproduced: handing 2016's
     aggregations with 2021's rounds published 325 abroad sections under `cycle: "2021_11_14_pvr"` with every vote
     figure correct, because the roll-ups and the tallies are read from different arguments. `AggregatedRound`
@@ -790,7 +805,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
 - **T3.3 ✅ DONE.** `tickets.ts` builds both rounds' ballot for a cycle, with colours, `canonicalTicketKey` and
   the rounds each ticket stood in. `ticket_defaults.json` ships EMPTY on purpose. Four things the build settled:
-
   - ⚠️⚠️ **A COLOUR IS A CLAIM ABOUT A POLITICAL BRAND, AND THE CATALOGUE'S „UNKNOWN" VALUE IS NOT A COLOUR.**
     `scripts/parsers/parties.ts` assigns `lightslategrey` to any party it has no default for and reads it back as
     that sentinel — 143 of the 226 index entries carry it. Taking it as a brand fact stamped
@@ -814,11 +828,11 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   ⚠️ `unmatchedNominators` counts NAMES and `neutralTickets` counts TICKETS; several tickets can share one
   nominator string, so a reader asking „how much of this ballot carries a colour that asserts nothing" wants the
   second. 2001 and 2006 are entirely neutral by construction — they name no nominating body for any ticket.
+
 - **T3.4 ✅ DONE + T3.5 ✅ DONE.** `ingest.ts` reads a committed cycle and writes `data/<cycle>/`; `npm run data
-  -- --pvr <cycle>` drives it, `--pvr all` or `--pvr <cycle> --all` does every cycle, and `--prod` minifies.
+-- --pvr <cycle>` drives it, `--pvr all` or `--pvr <cycle> --all` does every cycle, and `--prod` minifies.
   Measured: 5 cycles, 372 files, 134 MB minified. The tree is gitignored by the existing per-election-data rule
   and ships via GCS, like the parliamentary one. Three things the build settled:
-
   - ⚠️⚠️ **„EVERY INPUT IS COMMITTED" WAS FALSE, AND THE FAILURE WAS SILENT.** `tickets.ts` read the parliamentary
     `data/<cycle>/cik_parties.json` catalogues, which are GITIGNORED — 0 tracked against 13 on disk — so on a
     fresh clone or a CI runner `tickets.json` lost EVERY brand colour, at exit 0, with every vote figure still
@@ -854,7 +868,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   Two gates, and the split between them is the point: `presidentialCatalogue.test.ts` checks the SHAPE with no
   corpus (so it runs wherever the unit suite does), `build_catalogue.test.ts` checks the CONTENT against the raw
   tree. Three things the build settled:
-
   - **Five of the six fields are measurements, so the file is generated** — only `name` and the two dates are
     declared. `decidedInRound` and `winnerTicket` come from art. 93 (3) applied to the votes, the one rule this
     plan refuses to copy from a source field; `tickets` is a count over round 1's 61,362 sections, and the two
@@ -878,12 +891,12 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   Measured: 2021 machines + flash in both rounds, 2016 machines and no flash, „никого" from 2016 on, nothing
   before it — and all five cycles decided in round 2, so a surface that assumes `decidedInRound === 1` is
   testable only against a cycle that has not happened yet.
+
 - **T4.2 ✅ DONE.** `ElectionsHubCycle.kind` gains `"presidential"` and `ELECTION_EVENTS` merges the third
   catalogue, dated from round 1 for the same reason the local entries are — the id ends in `_pvr`, so the
   id→ISO conversion yields `2021-11-14-pvr`, which `formatDate` passes through VERBATIM rather than rejecting.
   The sorted merge is what will make the 2026-11-1x cycle the latest event without a code change. Three things
   the step settled, and the first is the one that would have shipped a defect:
-
   - ⚠️⚠️ **A CATALOGUED CYCLE WITH NO SCREENS MUST NOT RESOLVE.** Every destination the hub renders for a
     resolved cycle is built from the id, and each was an implicit `else` on „is it local" — so merging the
     catalogue alone would have pointed the „пълен резултат" link at `/elections/2021_11_14_pvr`, a 404, with the
@@ -916,11 +929,11 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 
   ⚠️ The latest event is still `2026_04_19` — the newest presidential cycle is 2021 — so nothing about the
   default view moves.
+
 - **T4.3 ✅ DONE.** The header dropdown gains a third row kind — round-1 date, the winner's family name and
   which round elected them, under a „Президентски" badge — and the arrows keep stepping through parliamentary
   cycles only, for the same reason they skip local ones: an arrow that crossed electoral systems would change
   what the whole page is about without the reader asking. Four things the step settled:
-
   - ⚠️ **THE ROWS ARE BUILT AND THEN WITHHELD, not omitted.** `presidentialRows.ts` is complete and gated now;
     the menu renders it only while `"presidential"` is off `KINDS_WITHOUT_SURFACE` — the SAME list the hub
     resolves against, so the two cannot disagree about which kinds are servable. T5 empties it and the section
@@ -950,6 +963,7 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     gate all green. `decidedLabelKey` is exhaustive on the round (an out-of-range value says nothing rather
     than „балотаж"), and `pickAction` is tested by behaviour, so `navigate("/local/" + r.name)` is caught in
     every spelling rather than only the one a source-text match knew about.
+
 - **T4.4 ✅ DONE (the tile; the runoff-transfer tile stays with Tier 8).** The presidential tile is defined,
   scened, keyed and WITHHELD.
 
@@ -965,7 +979,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   that ACTUALLY applies and requires the list to equal it, in both directions. A blocker that has been resolved
   fails; a real constraint someone dropped fails too. That turns three unverifiable sentences into a property,
   and it is what T5 must read instead of this paragraph's predecessor. Four more things the step settled:
-
   - ⚠️ **`cycleScoped` COULD NOT STAY A BOOLEAN.** „This path embeds a cycle" says nothing about WHICH
     catalogue's, so one rewrite would have to guess — and `withCycle` matches the named kind's own latest id, so
     a wrong guess is a silent NO-OP that leaves the tile pointing at the latest cycle rather than the reader's.
@@ -988,6 +1001,7 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     the two SECTOR registries, nothing polices `electionsRegistry.ts`, and that registry already reaches all
     three catalogues through `electionsHubCycle.ts`. There is no byte cost either way — the registry is lazy
     and those JSONs are in the entry chunk through `ElectionContext`.
+
 - **T4.5 ✅ DONE.** Seven presidential keys, both locales, all in CORE `translation.json` — which is the T0.4
   decision holding: the hub, the selector and the tile registry name this kind on pages that are not
   presidential pages, so a deferred bundle would render them as their own identifiers there. Verified rather
@@ -997,7 +1011,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
 - **T4.6 ✅ DONE (the entry stays `estimated`; no decree is recorded).** The Народно събрание sets the day at
   least 60 days ahead and nothing in this repo can attest one, so inventing a `scheduled` flag would be a claim
   about a state act. What the step delivers instead is the two gates that make the anchor safe to leave alone:
-
   - **An ESTIMATE is checked against the corpus.** The five ingested cycles put round 1 between 22 October and
     14 November, 1,806–1,841 days after the previous one; `2026-11-08` is 1,820 days after 2021-11-14 and
     inside the month-day range. A window DERIVED from the data catches a typo'd month or year — a hand-written
@@ -1010,7 +1023,6 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
     red. (`european` has no catalogue here and is unchecked — an omission with a reason.)
 
   Three things review corrected, and two of them were the gate lying about itself:
-
   - ⚠️ **THE `scheduled` EXEMPTION WAS ASSERTED IN THREE COMMENTS AND ENFORCED NOWHERE.** Written inline in a
     loop over the real list it was unreachable — the committed list holds no scheduled presidential entry, so
     deleting the exemption left every test green. It lives in a pure `cadenceViolations(list, round1)` now,
@@ -1030,9 +1042,9 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   pin (without it the tile reads 7 November to every reader in the Americas while linking to the 8th — the
   control proves the zones really disagree on that date first), and `hasUpcomingLocalBallot`'s 365-day edge,
   which gates a whole side column on My-Area and flips around 2026-10-24.
+
 - **T4.7 ✅ DONE.** A selected presidential cycle fills cells 3–4 from its OWN round 1; a local one still falls
   back to the latest parliamentary cycle and says so. Four things the step settled:
-
   - ⚠️ **THE FIGURES HAD TO GO IN THE CATALOGUE, because the band may not fetch.** It paints with the first
     frame and is never a skeleton — a stated property, not an accident — so anything it renders must be
     bundled, while the per-place corpus stays in `data/<cycle>/`. Two numbers per round is the whole cost:
@@ -1101,6 +1113,7 @@ type PresidentialRound = { cycle: string; round: 1 | 2; date: string; tickets: T
   the group without widening all three leaves the box denying, in its own words, that it searches what it
   searches. `electionPlaceHref`'s presidential arm belongs to the same step: where a place goes for a
   presidential cycle, AND what the out-of-scope group it falls into is called.
+
 - **T4.9 ✅ DONE (the map; the ingest stamp belongs to T7).** `ds:presidential` joins the data map with the
   `src:cik → ds:presidential → f:elections` chain, and the ЦИК source's description now names the presidential
   corpus beside the parliamentary and local ones.
@@ -1164,7 +1177,6 @@ What the shared system needs from this kind, named so it cannot be discovered ha
   The four vote-rollup levels grew 9% and the budget table above was re-measured; not one verdict moved.
 
   ⚠️⚠️ **REVIEW FOUND THE SAME DEFECT ONE LEVEL OVER, TWICE, AND BOTH WERE MEASURED RATHER THAN ARGUED:**
-
   - **`sectionsWithoutSignatures` was a hard zero outside 2006.** It read `section.signaturesUnreported`, which
     `era2006` is the ONLY reader to set — and whose `undefined` means „this reader does not distinguish". So
     the count reported „nothing to withhold" for the **25 sections of 2011/2016/2021 that report точка 3 = 0
@@ -1192,6 +1204,80 @@ What the shared system needs from this kind, named so it cannot be discovered ha
   and pinned as a band with a floor, so a gate that had been drifting toward a threshold nobody re-derived now
   states its own range.
 
+- **✅ DONE — `build_presidential_surface.ts`, the producer for all five emitting levels.**
+  `generate()` is exhaustive over the kind now; the ternary it replaces sent every
+  non-parliamentary kind to the LOCAL builder, so a presidential cycle would have been read as a
+  local one — the same implicit-`else` trap the hub, the header and the tile registry each had.
+
+  ⚠️⚠️ **IT IS BUILT AND WITHHELD FROM THE PUBLISH, and the two reasons are hard gates rather
+  than caution.** `coveredCycles` names the kind in `KINDS_NOT_PUBLISHED`; removing it is what
+  turns the surfaces on, and Tier 5's next unit owns both halves:
+  - **Its destinations name routes the app does not serve.** Every surface links to
+    `/presidential/<cycle>/…` and `routes.tsx` declares no such route — 81,256 unresolvable
+    destinations, measured by the repo's own gate. That is the same rule the tile registry, the
+    header dropdown and the hub search each obeyed, applied at the producer.
+  - **The object count.** §5.0 rejects a ~240,000-object shape and asks v1 to stay an order of
+    magnitude below it. Five presidential cycles add 81,553 artifacts — ~60,000 of them the
+    SECTION level — taking the corpus from 23,665 to 105,218, which is 44% of the rejected shape
+    rather than a tenth. That is a coverage decision with its own line, not something to slip in
+    behind a builder, and the honest options are bounding the section level to fewer cycles or
+    arguing the bound up with the arithmetic attached.
+
+  **Measured: 81,553 surfaces across the five cycles, every level inside its budget with room** —
+  max 4.7 KB against 16 KiB at region/municipality/settlement/abroad. A settlement reader goes from
+  the 14.4 MB whole-country file to 4.6 KB, which is the reduction §5.0's exit criterion asks for.
+  The corpus-wide artifact band was re-stated as a COMPOSITION rather than a round number
+  (parliamentary 18,117 · local 5,548 · presidential 81,553), because ~60,000 of the presidential
+  share is the SECTION level — permitted by the same object-count argument that bought 5,364
+  objects for parliamentary settlements, since that level is 307× over its budget — the corrected figure, not the retracted 425× that was measured on the
+  `_unplaced` residue bucket.
+
+  Four decisions the builder settled:
+  - ⚠️ **A RANKED ROW IS A PERSON, NOT A PARTY.** `partyId` is always `null` and `candidateName`
+    carries the president's name — the shape the mayoral ballot already uses, for the same reason.
+    A ticket's nominator may be a party, a coalition or an инициативен комитет, so resolving it to
+    a canonical party id would label two of the three wrongly on a page about a named person. The
+    ballot NUMBER rides in `localPartyNum`; the friction is in that field's name, not its meaning.
+  - ⚠️ **ONE SURFACE PER PLACE, ONE BALLOT PER ROUND, each stating its own `round`** — because all
+    six levels declare the `round` ranked column and `ballotFillsColumn` gates it on that field, so
+    omitting it drops the column silently on the one kind whose whole shape is „round 1 decided
+    nothing". The FACTS describe round 1, the round the page leads with; a strip mixing the two
+    would blend electorates that differ nationally by 5.7 points.
+  - ⚠️⚠️ **A BLANKET „NO SIGNATURES ⇒ NO RATE" WAS TRIED AND IS TOO BROAD.** Measured across all
+    five cycles the gap is FULL in 1 municipality and 10 settlements — every one of which the
+    SHARED rule already refuses, because 0 signatures against real votes fails its
+    self-consistency guard — and PARTIAL in exactly two regions, KNL 2011 at 4.0% of its sections
+    and S23 2016 at 0.2%. Suppressing those wipes a whole oblast's turnout for an eleven-section
+    gap, where the rate is understated by a bounded amount rather than meaningless. So the builder
+    adds ONE suppression of its own (abroad, definitional) and leans on the imported rule for the
+    rest — which is what „the turnout rule is imported from `ballotTotals.ts`" was asking for.
+  - **`paper_machine` DISCRIMINATES ON PRESENCE, not on the vote total.** „No machine" and „a
+    machine nobody used" both sum to zero machine votes and only the first must withhold the
+    fact: measured, 22 sections across 2016 and 2021 have `machines > 0` and zero machine votes,
+    and a total-based rule dropped a real measured 0% on every one of them. A section reads its
+    own count; a rolled-up place has none, so it falls back to whether the CYCLE had any — which
+    keeps 2001/2006/2011 silent, where a rendered „0% машинно" would present an absent
+    technology as a measured share.
+
+  Four things review caught, and the first would have shipped a false number on 48 pages:
+  - ⚠️⚠️ **`votes_cast: 0` ON EVERY 2006 ABROAD SURFACE, beside a positive valid-vote count.**
+    `ProtocolSum.signatures` is a `number`, so the shared rule's own `?? validVotes` fallback can
+    never fire on it — and `votes_cast` is SECOND in the abroad fact priority, so the zero
+    rendered. The true figure was in the same struct: §2.5-3 already prescribes falling back to
+    ballots found for exactly that population, and `totalsFrom` does it now where the signature
+    gap is TOTAL.
+  - ⚠️ **16 runoff-only polling sections were dropped against a comment saying they cannot
+    exist** — real stations opened for the runoff alone (mobile boxes, hospital sections, late
+    additions). They are counted and named on stderr rather than published: a one-ballot surface
+    whose strip describes „round 1" at a place that had none is a page about a round that did not
+    happen there. The same claim on the PLACE loop does hold — 0 round-2-only rows at every other
+    level, measured.
+  - The partial-gap enumeration is ROUND-1-ONLY and now says so; and a control that read
+    `expect(x || true).toBe(true)` — a tautology — is a real assertion.
+  - The kind-exhaustiveness gate iterated the two kinds that existed when it was written, so it
+    could not see the branch this change added. It derives from the policy now, which also makes
+    it one of the few arms here that runs in CI, since the presidential tree is gitignored.
+
 - **Map adapters.** `src/screens/elections/adapters/` holds four PARLIAMENTARY adapters (country, region,
   municipality, settlement) and nothing for local, which renders through the legacy composition. Presidential
   ships `PresidentialCountryMap` / `RegionMap` / `MunicipalityMap` / `SettlementMap`, each colouring by leading
@@ -1210,14 +1296,14 @@ What the shared system needs from this kind, named so it cannot be discovered ha
   about the others). The tree has NO per-place shards — below the country each level is one file per ROUND
   covering the whole country (decision 3) — so a reader of one settlement downloads every settlement:
 
-  | level | worst case | budget | over | verdict |
-  | --- | ---: | ---: | ---: | --- |
-  | country | 13.6 KB (2021) | 24 KiB | 0.6× | **canonical** — one file, inside budget |
-  | region | 113.9 KB (2021) | 16 KiB | 7.1× | artifact |
-  | abroad | 241.3 KB (2021) | 16 KiB | 15.1× | artifact |
-  | municipality | 974.6 KB (2021) | 16 KiB | 61× | artifact |
-  | settlement | 14.4 MB (2021) | 16 KiB | **924×** | artifact |
-  | section | 2.4 MB (2021, Бургас) | 8 KiB | 307× | artifact |
+  | level        |            worst case | budget |     over | verdict                                 |
+  | ------------ | --------------------: | -----: | -------: | --------------------------------------- |
+  | country      |        13.6 KB (2021) | 24 KiB |     0.6× | **canonical** — one file, inside budget |
+  | region       |       113.9 KB (2021) | 16 KiB |     7.1× | artifact                                |
+  | abroad       |       241.3 KB (2021) | 16 KiB |    15.1× | artifact                                |
+  | municipality |       974.6 KB (2021) | 16 KiB |      61× | artifact                                |
+  | settlement   |        14.4 MB (2021) | 16 KiB | **924×** | artifact                                |
+  | section      | 2.4 MB (2021, Бургас) |  8 KiB |     307× | artifact                                |
 
   ⚠️ **The section row was measured on `_unplaced.json` on the first pass, and review caught it.** That is
   2011's residue bucket — the 1,354 sections whose oblast placement was REFUSED rather than guessed — and it is
@@ -1247,8 +1333,8 @@ What the shared system needs from this kind, named so it cannot be discovered ha
 - **Screens are lazy routes** (`routes.tsx` has 288 `lazy(` entries and no eager screen), and NOTHING routing
   imports from `electionsRegistry.ts` or a scene barrel — `src/entryGraph.test.ts` fails the build otherwise, and
   it did once for ~265 KB. The **outcome panel is ticket-shaped**: president + vice-president names, nominating body, votes,
-share of valid, and — on round 1 — the two-condition decision rule stated in words with the turnout figure, since
-„49.42% and no winner" is the sentence a reader needs.
+  share of valid, and — on round 1 — the two-condition decision rule stated in words with the turnout figure, since
+  „49.42% and no winner" is the sentence a reader needs.
 
 ⚑ **Section maps for 2011**: the oblast-grid codes carry no GPS join; the map falls back to settlement
 centroids for that cycle (as the 2005 parliamentary tree does), and the page says so.
@@ -1319,25 +1405,25 @@ after T2.5 reports the resolution rate.
 
 ## 14. Gates — the full list
 
-| gate | where | what it holds |
-| --- | --- | --- |
-| sweep isolation | `parse_elections.test.ts`, `collect_stats.test.ts` | a `_pvr` / `_mi` directory can never enter `elections.json` or the parliamentary parse |
-| era fixtures | `scripts/parsers_presidential/era*.test.ts` | 3-section fixture per era; a decoded Cyrillic ticket name; the exact per-era protocol positions |
-| round-total anchors | `presidential_totals.data.test.ts` (node project, reads `raw_data/`) | the twenty §2.4 figures, exact; skips with a DISTINCT reason if a raw tree is absent |
-| protocol invariants | same file | `Σ votes = valid`, `paper + machine = total`, section counts, abroad prefix, runoff pair ⊂ R1 tickets, 2006 abroad signatures = 0 (documented, asserted so a "fix" cannot silently change the denominator) |
-| winner rule | `winnerRule.test.ts` | the two-condition rule on the five real outcomes plus a synthetic R1 win |
-| byte stability | `aggregate.test.ts` | two runs, identical output |
-| kind exhaustiveness | existing `surfaceIsNotAHub`, `electionsHubCycle`, `electionCopyCoverage` tests | every switch over `ElectionKind` handles `presidential` |
-| i18n | `key_usage.test.ts`, `bundle_reachability.test.ts` | no unreachable `presidential_*` key; bundle membership proven |
-| SEO | `tests/seo.spec.ts`, `families.data.test.ts` | every `<loc>` has a `dist/` page; canonicals do not redirect |
-| block-256 | `machines_memory/index.test.ts` | the presidential block parses with the same column shift and the `99` row is excluded |
-| majority denominator | `winnerRule.test.ts` (mutation case) | 2021 R1 is a runoff under the valid-vote denominator and a round-1 win under the ticket-sum one — the test fails if both implementations agree |
-| per-section residue | `presidential_totals.data.test.ts` | residue per cycle/round under its ceiling; every disagreeing section in the allowlist; a new one fails |
-| abroad resolution | same file | every abroad section resolves to a country or is listed; the 2006 „Mелбърн" homoglyph row resolves |
-| turnout basis | `national_summary` shape test | `registeredBasis` / `castBasis` present on every round; the CIK activity figure, where carried, is a separate labelled field |
-| folder sweeps | `electionFolders.test.ts` + the eight call sites | every sweep routes through `electionFolderKind()`; `_pvr` never reaches a parliamentary reader |
-| perf | `src/entryGraph.test.ts`, `tests/perf.spec.ts`, `tests/ui.spec.ts` | no registry on the entry path; byte budgets hold; the presidential hub head passes the height budget with its `data-kpi-cell` count |
-| surface policy | `surfacePath` tests | every `presidential` level row carries a measurement; unmeasured rows are rejected |
+| gate                 | where                                                                          | what it holds                                                                                                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| sweep isolation      | `parse_elections.test.ts`, `collect_stats.test.ts`                             | a `_pvr` / `_mi` directory can never enter `elections.json` or the parliamentary parse                                                                                                                     |
+| era fixtures         | `scripts/parsers_presidential/era*.test.ts`                                    | 3-section fixture per era; a decoded Cyrillic ticket name; the exact per-era protocol positions                                                                                                            |
+| round-total anchors  | `presidential_totals.data.test.ts` (node project, reads `raw_data/`)           | the twenty §2.4 figures, exact; skips with a DISTINCT reason if a raw tree is absent                                                                                                                       |
+| protocol invariants  | same file                                                                      | `Σ votes = valid`, `paper + machine = total`, section counts, abroad prefix, runoff pair ⊂ R1 tickets, 2006 abroad signatures = 0 (documented, asserted so a "fix" cannot silently change the denominator) |
+| winner rule          | `winnerRule.test.ts`                                                           | the two-condition rule on the five real outcomes plus a synthetic R1 win                                                                                                                                   |
+| byte stability       | `aggregate.test.ts`                                                            | two runs, identical output                                                                                                                                                                                 |
+| kind exhaustiveness  | existing `surfaceIsNotAHub`, `electionsHubCycle`, `electionCopyCoverage` tests | every switch over `ElectionKind` handles `presidential`                                                                                                                                                    |
+| i18n                 | `key_usage.test.ts`, `bundle_reachability.test.ts`                             | no unreachable `presidential_*` key; bundle membership proven                                                                                                                                              |
+| SEO                  | `tests/seo.spec.ts`, `families.data.test.ts`                                   | every `<loc>` has a `dist/` page; canonicals do not redirect                                                                                                                                               |
+| block-256            | `machines_memory/index.test.ts`                                                | the presidential block parses with the same column shift and the `99` row is excluded                                                                                                                      |
+| majority denominator | `winnerRule.test.ts` (mutation case)                                           | 2021 R1 is a runoff under the valid-vote denominator and a round-1 win under the ticket-sum one — the test fails if both implementations agree                                                             |
+| per-section residue  | `presidential_totals.data.test.ts`                                             | residue per cycle/round under its ceiling; every disagreeing section in the allowlist; a new one fails                                                                                                     |
+| abroad resolution    | same file                                                                      | every abroad section resolves to a country or is listed; the 2006 „Mелбърн" homoglyph row resolves                                                                                                         |
+| turnout basis        | `national_summary` shape test                                                  | `registeredBasis` / `castBasis` present on every round; the CIK activity figure, where carried, is a separate labelled field                                                                               |
+| folder sweeps        | `electionFolders.test.ts` + the eight call sites                               | every sweep routes through `electionFolderKind()`; `_pvr` never reaches a parliamentary reader                                                                                                             |
+| perf                 | `src/entryGraph.test.ts`, `tests/perf.spec.ts`, `tests/ui.spec.ts`             | no registry on the entry path; byte budgets hold; the presidential hub head passes the height budget with its `data-kpi-cell` count                                                                        |
+| surface policy       | `surfacePath` tests                                                            | every `presidential` level row carries a measurement; unmeasured rows are rejected                                                                                                                         |
 
 ## 15. Sequencing and effort
 
