@@ -1,0 +1,103 @@
+{
+  "detail": "4 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle",
+  "fingerprint": "4ef5155ce423ff23",
+  "lastChanged": "2026-09-06T21:39:15.256Z",
+  "lastChecked": "2026-09-06T21:39:15.256Z",
+  "meta": {
+    "cycles": [
+      {
+        "slug": "mipvr2011",
+        "year": "2011",
+        "known": true,
+        "rounds": [
+          {
+            "round": 1,
+            "url": "https://results.cik.bg/mipvr2011/el2011_t1.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          },
+          {
+            "round": 2,
+            "url": "https://results.cik.bg/mipvr2011/el2011_t2.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          }
+        ]
+      },
+      {
+        "slug": "pvr2006",
+        "year": "2006",
+        "known": true,
+        "rounds": [
+          {
+            "round": 1,
+            "url": "https://pvr2006.cik.bg/results_1/export_t1.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          },
+          {
+            "round": 2,
+            "url": "https://pvr2006.cik.bg/results_2/export_t2.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          }
+        ]
+      },
+      {
+        "slug": "pvrnr2016",
+        "year": "2016",
+        "known": true,
+        "rounds": [
+          {
+            "round": 1,
+            "url": "https://results.cik.bg/pvrnr2016/tur1/export.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          },
+          {
+            "round": 2,
+            "url": "https://results.cik.bg/pvrnr2016/tur1/export.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          }
+        ]
+      },
+      {
+        "slug": "pvrns2021",
+        "year": "2021",
+        "known": true,
+        "rounds": [
+          {
+            "round": 1,
+            "url": "https://results.cik.bg/pvrns2021/tur1/export.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          },
+          {
+            "round": 2,
+            "url": "https://results.cik.bg/pvrns2021/tur2/export.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          }
+        ]
+      }
+    ],
+    "discoveredAt": "2026-09-06T21:44:25.627Z"
+  }
+}
