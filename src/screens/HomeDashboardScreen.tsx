@@ -1,8 +1,16 @@
 // The global Bulgaria dashboard — `/`.
 //
-// A hub-of-hubs and nothing else: a national pulse and eight destinations. It deliberately
-// renders no map, no result chart and no duplicate of any destination's dashboard, because
-// every one of those is a page a tile already opens.
+// A hub-of-hubs and nothing else: a national pulse, one moving map and eight destinations. It
+// renders no result chart and no duplicate of any destination's dashboard, because every one
+// of those is a page a tile already opens.
+//
+// ⚠️ THE MAP IS A DEPENDENCY-FREE CANVAS SCENE, NOT A MAP LIBRARY, and the distinction is the
+// whole reason it may be here. `tests/perf.spec.ts` pins `/` in `MAP_FREE_HUBS` — no
+// `vendor-geo`, `vendor-leaflet` or `vendor-charts` in the home chunk — and the flyover
+// satisfies it because its geometry was projected at generation time and the client draws
+// plain 2D canvas behind a `lazy()` boundary. The band replaced this file's earlier „renders
+// no map" sentence; the gate that sentence described is unchanged and still green.
+// See docs/plans/home-flyover-v1.md §8.4.
 //
 // The finder belongs in the head's `search` slot and is NOT mounted yet — it lands in its
 // own phase, where it also breaks this head's height budget on purpose (see
@@ -33,6 +41,7 @@ import { usePersonLabels } from "@/lib/personLabels";
 import { HomeChangeFeed } from "./home/HomeChangeFeed";
 import { HOME_BANDS } from "./home/homeRegistry";
 import { HOME_SCENES } from "./home/homeScenes";
+import { HomeFlyoverSlot } from "./home/flyover/HomeFlyoverSlot";
 
 export const HomeDashboardScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -167,6 +176,11 @@ export const HomeDashboardScreen: FC = () => {
             : undefined
         }
       />
+
+      {/* Between the head and the destinations: the band is the page's one moving thing, and
+          it is above the tiles because it is an invitation into them rather than a summary of
+          them. Its own box is reserved in every state, so the tiles below never move. */}
+      <HomeFlyoverSlot />
 
       <div data-og="home-hub">
         <TileHubGrid sections={sections} className="mt-8" />

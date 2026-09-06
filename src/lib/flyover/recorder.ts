@@ -30,14 +30,17 @@ export const createRecorder = (): Recorder => {
   const push = (op: string, ...args: (number | string | number[])[]) => {
     calls.push({ op, args });
   };
-  const state: Record<string, string | number | number[]> = {};
+  // `unknown` because `Ctx2D`'s style properties are wider than the engine writes — they have
+  // to be, or the browser's own context is not assignable to the interface. What is LOGGED is
+  // still a string, so a gradient (which the engine never sets) would read as its own tag.
+  const state: Record<string, unknown> = {};
   const prop = (name: string, initial: string | number) => {
     state[name] = initial;
     return {
       get: () => state[name],
-      set: (v: string | number) => {
+      set: (v: unknown) => {
         state[name] = v;
-        push(`set:${name}`, v);
+        push(`set:${name}`, typeof v === "number" ? v : String(v));
       },
     };
   };

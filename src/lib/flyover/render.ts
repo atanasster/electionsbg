@@ -48,8 +48,12 @@ export interface Ctx2D {
   fillText(text: string, x: number, y: number): void;
   strokeText(text: string, x: number, y: number): void;
   setLineDash(segments: number[]): void;
-  fillStyle: string;
-  strokeStyle: string;
+  // ⚠️ WIDER THAN THE ENGINE WRITES, on purpose. The engine only ever assigns a string, but
+  // TypeScript compares mutable properties INVARIANTLY — so a narrow `string` here makes the
+  // browser's own `CanvasRenderingContext2D` not assignable to `Ctx2D`, and the host would
+  // have to cast at the one call site where a real mismatch should fail.
+  fillStyle: string | CanvasGradient | CanvasPattern;
+  strokeStyle: string | CanvasGradient | CanvasPattern;
   lineWidth: number;
   lineJoin: CanvasLineJoin;
   lineCap: CanvasLineCap;
