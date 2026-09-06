@@ -102,6 +102,9 @@ Pure and offline — reads `raw_data/`, writes `data/<cycle>_pvr/`. It stamps `s
 ```bash
 npm run data -- --pvr <cycle>          # (step 3 already did this)
 npm run elections:surfaces -- --write                   # the per-place surface artifacts
+# The ticket→/person map, IF the person layer has moved since it was last minted.
+# ⚠ LOCAL POSTGRES ONLY — person slugs are per-database, and the script refuses anything else.
+PGPASSFILE=$PWD/.pgpass npx tsx scripts/parsers_presidential/build_ticket_persons.ts --write
 npm run sitemap                                        # the presidential sitemap shard
 ```
 
@@ -122,6 +125,8 @@ npx vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/
 | Abroad shows a turnout percentage | A defect. There is no registered-voter denominator outside the country — abroad publishes a COUNT. |
 | „не подкрепям никого" shows 0 before 2016 | A defect. The form did not ask; the field must be ABSENT, never 0. |
 | The corpus section vanishes from `llms-full.txt` | The build ran without `data/*_pvr`. `REQUIRED_SECTIONS` refuses the write; restore the trees. |
+| A candidate's name is plain text where you expected a link | Either the person layer has no public figure by that name, or more than one does — the map refuses a shared name rather than guessing, and the page says how many share it. Not a defect. |
+| Every candidate is plain text | `data/presidential/ticket_persons.json` is stale or was minted against the wrong database. Re-run the builder above; it ships in the BUNDLE, so it needs a build and a deploy, not a bucket sync. |
 
 ### 6. Publish
 

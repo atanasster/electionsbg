@@ -27,6 +27,10 @@ import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
 import { formatInt, formatPct } from "@/lib/currency";
 import {
+  namesakeCountForTicket,
+  personHrefForTicket,
+} from "@/data/presidential/ticketPersons";
+import {
   leadersByPlace,
   useRoundRollup,
 } from "@/data/presidential/useRoundRollup";
@@ -53,6 +57,41 @@ const NOMINATOR_KEY: Record<string, string> = {
   party: "presidential_nominator_party",
   coalition: "presidential_nominator_coalition",
   committee: "presidential_nominator_committee",
+};
+
+/** A candidate's name, linked to their `/person` page where the corpus can name exactly one.
+ *
+ *  ⚠ NOT A COMPONENT THAT DECIDES — the decision was made at build time by
+ *  `build_ticket_persons.ts`, which REFUSES a shared name rather than scoring candidates. All
+ *  this does is render the refusal as plain text, and say WHY when the reason is ambiguity:
+ *  „no link" and „several people have this name" are different facts, and only the second is
+ *  worth a reader's attention. */
+const PersonName: FC<{ name: string }> = ({ name }) => {
+  const { t } = useTranslation();
+  const href = personHrefForTicket(name);
+  if (href)
+    return (
+      <Link className="underline" to={href}>
+        {name}
+      </Link>
+    );
+  const namesakes = namesakeCountForTicket(name);
+  return (
+    <>
+      {name}
+      {/* ⚠ THE EXPLANATION IS NOT IN A `title`. A tooltip reaches a mouse and nothing else —
+          not touch, not a keyboard, and a screen reader only sometimes — so the mark carries
+          the reason as its accessible name instead, and the visible text stays short. */}
+      {namesakes > 1 ? (
+        <span className="ml-1 text-xs text-muted-foreground">
+          <span aria-hidden="true">{t("presidential_namesake_mark")}</span>
+          <span className="sr-only">
+            {t("presidential_namesake_hint", { count: namesakes })}
+          </span>
+        </span>
+      ) : null}
+    </>
+  );
 };
 
 const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
@@ -139,10 +178,16 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
                   <td>{r.number}</td>
                   {/* ⚠ BULGARIAN IN BOTH LANGUAGES AND NEVER TRANSLITERATED — a reader is
                       matching these against a ballot or a protocol scan, both Cyrillic. */}
+                  {/* ⚠ A LINK ONLY WHERE THE NAME RESOLVES TO EXACTLY ONE PUBLIC FIGURE.
+                      Measured over all five ballots, 17 of 140 names are shared — „Иван
+                      Стефанов Иванов" by 15 people — and linking one of them would attribute
+                      this candidacy, and everything else on that profile, to somebody who
+                      merely shares a name. The refusal renders as plain text; the name is
+                      still there, which is what a reader needs. */}
                   <td>
-                    {r.president}
+                    <PersonName name={r.president} />
                     <span className="block text-muted-foreground">
-                      {r.vicePresident}
+                      <PersonName name={r.vicePresident} />
                     </span>
                   </td>
                   <td className="text-muted-foreground">
@@ -370,9 +415,11 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
               : "presidential_decided_runoff",
           )}
           {": "}
-          <strong>{summary.winner.president}</strong>
+          <strong>
+            <PersonName name={summary.winner.president} />
+          </strong>
           {" · "}
-          {summary.winner.vicePresident}
+          <PersonName name={summary.winner.vicePresident} />
         </p>
       </header>
 
@@ -415,7 +462,9 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           <ul className="mt-2 space-y-1 text-sm">
             {summary.swing.tickets.map((s) => (
               <li key={s.number}>
-                {s.president}
+                {/* The same rule as the ranked rows — one component, so a name cannot be a
+                    link in one list and bare text in the other on the same page. */}
+                <PersonName name={s.president} />
                 {": "}
                 <span className="tabular-nums">
                   {formatPct(s.round1Share, lang, PCT_DIGITS)} →{" "}

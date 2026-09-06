@@ -1,0 +1,1089 @@
+{
+  "builtFrom": "Resolved by scripts/parsers_presidential/build_ticket_persons.ts against the person layer in Postgres. A name matching more than one public figure is REFUSED, never scored — see the file header. Re-run after db:resolve:persons. Do not hand-edit.",
+  "links": {
+    "Александър Трифонов Томов": {
+      "name": "Александър Трифонов Томов",
+      "slug": "mp-1845",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Алексей Илиев Петров": {
+      "name": "Алексей Илиев Петров",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Анастас Георгиев Герджиков": {
+      "name": "Анастас Георгиев Герджиков",
+      "slug": "anastas-georgiev-gerdzhikov-830b98",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Ангел Бойчев Мирчев": {
+      "name": "Ангел Бойчев Мирчев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Ангел Иванов Марин": {
+      "name": "Ангел Иванов Марин",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Ангел Марин": {
+      "name": "Ангел Марин",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Андрей Аврамов Андреев": {
+      "name": "Андрей Аврамов Андреев",
+      "slug": "andrey-andreev-1mqsyz",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Андрей Иванов Чорбанов": {
+      "name": "Андрей Иванов Чорбанов",
+      "slug": "mp-4737",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Анелия Димитрова Делчева": {
+      "name": "Анелия Димитрова Делчева",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Атанас Иванов Железчев": {
+      "name": "Атанас Иванов Железчев",
+      "slug": "mp-1839",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Атанас Марков Семов": {
+      "name": "Атанас Марков Семов",
+      "slug": "mp-1001",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Биляна Дикова Велева-Грънчарова": {
+      "name": "Биляна Дикова Велева-Грънчарова",
+      "slug": "bilyana-veleva-grancharova-1fd2xa",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Бисер Георгиев Миланов": {
+      "name": "Бисер Георгиев Миланов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Благой Боянов Петревски": {
+      "name": "Благой Боянов Петревски",
+      "slug": "blagoy-petrevski-kve5rc",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Богомил Ангелов Бонев": {
+      "name": "Богомил Ангелов Бонев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Боян Боянов Станков-Расате": {
+      "name": "Боян Боянов Станков-Расате",
+      "reason": "ambiguous",
+      "candidates": 3,
+      "people": 3,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Валентина Иванова Гоцева": {
+      "name": "Валентина Иванова Гоцева",
+      "slug": "valentina-gotseva-1j0w85",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Валери Симеонов Симеонов": {
+      "name": "Валери Симеонов Симеонов",
+      "reason": "ambiguous",
+      "candidates": 2,
+      "people": 2,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Велизар Пенков Енчев": {
+      "name": "Велизар Пенков Енчев",
+      "slug": "mp-3064",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Венцислав Емилов Мицов": {
+      "name": "Венцислав Емилов Мицов",
+      "slug": "ventsislav-mitsov-2zancm",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Венцислав Йорданов Йосифов": {
+      "name": "Венцислав Йорданов Йосифов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Веселин Асенов Белоконски": {
+      "name": "Веселин Асенов Белоконски",
+      "slug": "veselin-belokonski-1xoawe",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Веселин Димитров Христов": {
+      "name": "Веселин Димитров Христов",
+      "reason": "ambiguous",
+      "candidates": 5,
+      "people": 5,
+      "foldPeople": 4,
+      "basis": "fold"
+    },
+    "Веселин Найденов Марешки": {
+      "name": "Веселин Найденов Марешки",
+      "slug": "mp-2706",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Веселин Стоянов Бончев": {
+      "name": "Веселин Стоянов Бончев",
+      "slug": "mp-1766",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Веска Атанасова Волева": {
+      "name": "Веска Атанасова Волева",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Владимир Емил Савов": {
+      "name": "Владимир Емил Савов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Волен Николов Сидеров": {
+      "name": "Волен Николов Сидеров",
+      "reason": "ambiguous",
+      "candidates": 2,
+      "people": 2,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Волен Сидеров": {
+      "name": "Волен Сидеров",
+      "reason": "ambiguous",
+      "candidates": 2,
+      "people": 2,
+      "foldPeople": 1,
+      "basis": "block"
+    },
+    "Габриел Георгиев Герасимов": {
+      "name": "Габриел Георгиев Герасимов",
+      "slug": "gabriel-gerasimov-44t1mz",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Галина Асенова Василева": {
+      "name": "Галина Асенова Василева",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Ганчо Иванов Попов": {
+      "name": "Ганчо Иванов Попов",
+      "reason": "ambiguous",
+      "candidates": 4,
+      "people": 4,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Георги Атанасов Тутанов": {
+      "name": "Георги Атанасов Тутанов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Георги Венелинов Георгиев": {
+      "name": "Георги Венелинов Георгиев",
+      "reason": "ambiguous",
+      "candidates": 6,
+      "people": 6,
+      "foldPeople": 3,
+      "basis": "fold"
+    },
+    "Георги Марков": {
+      "name": "Георги Марков",
+      "reason": "ambiguous",
+      "candidates": 9,
+      "people": 11,
+      "foldPeople": 3,
+      "basis": "block"
+    },
+    "Георги Първанов": {
+      "name": "Георги Първанов",
+      "reason": "ambiguous",
+      "candidates": 3,
+      "people": 5,
+      "foldPeople": 1,
+      "basis": "block"
+    },
+    "Георги Седефчов Първанов": {
+      "name": "Георги Седефчов Първанов",
+      "slug": "mp-2250",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Георги Стефанов Неделчев": {
+      "name": "Георги Стефанов Неделчев",
+      "reason": "ambiguous",
+      "candidates": 3,
+      "people": 3,
+      "foldPeople": 3,
+      "basis": "fold"
+    },
+    "Горан Тасев Благоев": {
+      "name": "Горан Тасев Благоев",
+      "slug": "goran-blagoev-1nua8d",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Господин Тончев Тонев": {
+      "name": "Господин Тончев Тонев",
+      "slug": "mp-1785",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Григор Велев": {
+      "name": "Григор Велев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Данаил Стоянов Папазов": {
+      "name": "Данаил Стоянов Папазов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Даниела Проданова Симидчиева - Димитрова": {
+      "name": "Даниела Проданова Симидчиева - Димитрова",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Диана Гервасова Димитрова": {
+      "name": "Диана Гервасова Димитрова",
+      "slug": "diana-dimitrova-1nb9iy",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Димитър Василев Маринов": {
+      "name": "Димитър Василев Маринов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Димитър Демиров Куцаров": {
+      "name": "Димитър Демиров Куцаров",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Елена Кирилова Ваташка": {
+      "name": "Елена Кирилова Ваташка",
+      "slug": "elena-vatashka-yaedp1",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Елена Цонева Гунчева": {
+      "name": "Елена Цонева Гунчева",
+      "slug": "mp-3619",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Емануил Николов Йорданов": {
+      "name": "Емануил Николов Йорданов",
+      "slug": "mp-2016",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Емилиян Крумов Димитров": {
+      "name": "Емилиян Крумов Димитров",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Жеко Стоянов Иванов": {
+      "name": "Жеко Стоянов Иванов",
+      "slug": "mp-1811",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Жельо Николов Желев": {
+      "name": "Жельо Николов Желев",
+      "slug": "zhelyo-zhelev-1ndr86",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Жорж Ганчев Ганчев": {
+      "name": "Жорж Ганчев Ганчев",
+      "slug": "mp-2209",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Ивайло Георгиев Калфин": {
+      "name": "Ивайло Георгиев Калфин",
+      "slug": "mp-2484",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Иван Стефанов Иванов": {
+      "name": "Иван Стефанов Иванов",
+      "reason": "ambiguous",
+      "candidates": 15,
+      "people": 15,
+      "foldPeople": 41,
+      "basis": "fold"
+    },
+    "Ивелина Колева Георгиева-Стойнова": {
+      "name": "Ивелина Колева Георгиева-Стойнова",
+      "reason": "ambiguous",
+      "candidates": 2,
+      "people": 2,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Иглена Димитрова Илиева": {
+      "name": "Иглена Димитрова Илиева",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Илияна Малинова Йотова": {
+      "name": "Илияна Малинова Йотова",
+      "slug": "mp-1588",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Искра Димитрова Михайлова-Копарова": {
+      "name": "Искра Димитрова Михайлова-Копарова",
+      "slug": "mp-5156",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Йоло Димитров Денев": {
+      "name": "Йоло Димитров Денев",
+      "slug": "yolo-denev-djzw4t",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Йордан Мутафчиев": {
+      "name": "Йордан Мутафчиев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Йорданка Радиева Колева": {
+      "name": "Йорданка Радиева Колева",
+      "slug": "yordanka-koleva-1fah7r",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Калин Димитров Крулев": {
+      "name": "Калин Димитров Крулев",
+      "slug": "kalin-krulev-6mk4ip",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Камелия Кирилова Тодорова": {
+      "name": "Камелия Кирилова Тодорова",
+      "slug": "kameliya-kirilova-todorova-1cddae",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Камен Славянов Попов": {
+      "name": "Камен Славянов Попов",
+      "reason": "ambiguous",
+      "candidates": 3,
+      "people": 3,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Кемил Ахмед Рамадан": {
+      "name": "Кемил Ахмед Рамадан",
+      "slug": "kemil-ramadan-0ffws6",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Кольо Петков Парамов": {
+      "name": "Кольо Петков Парамов",
+      "slug": "kolyo-paramov-12nlb7",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Костадин Тодоров Костадинов": {
+      "name": "Костадин Тодоров Костадинов",
+      "slug": "mp-5258",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 2,
+      "basis": "fold"
+    },
+    "Красимир Дончев Каракачанов": {
+      "name": "Красимир Дончев Каракачанов",
+      "slug": "mp-2829",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Красимир Петров Настев": {
+      "name": "Красимир Петров Настев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Кръстю Николов Илов": {
+      "name": "Кръстю Николов Илов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Лозан Йорданов Панов": {
+      "name": "Лозан Йорданов Панов",
+      "slug": "lozan-panov-1jg924",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Луна Йорданова Йорданова": {
+      "name": "Луна Йорданова Йорданова",
+      "slug": "luna-yordanova-innkdp",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Лъчезар Аспарухов Аврамов": {
+      "name": "Лъчезар Аспарухов Аврамов",
+      "reason": "ambiguous",
+      "candidates": 6,
+      "people": 6,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Любен Петров": {
+      "name": "Любен Петров",
+      "reason": "ambiguous",
+      "candidates": 5,
+      "people": 5,
+      "foldPeople": 1,
+      "basis": "block"
+    },
+    "Любомир Тодоров Халачев": {
+      "name": "Любомир Тодоров Халачев",
+      "reason": "ambiguous",
+      "candidates": 4,
+      "people": 4,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Любомир Христов Христов": {
+      "name": "Любомир Христов Христов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Магдалена Ламбова Ташева": {
+      "name": "Магдалена Ламбова Ташева",
+      "slug": "mp-2559",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Маргарита Стефанова Попова": {
+      "name": "Маргарита Стефанова Попова",
+      "slug": "margarita-stefanova-popova-98c4b9",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Марина Орфей Малчева": {
+      "name": "Марина Орфей Малчева",
+      "slug": "marina-malcheva-9x30tm",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Марио Цанков Филев": {
+      "name": "Марио Цанков Филев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Мария Василева Капон": {
+      "name": "Мария Василева Капон",
+      "slug": "mp-3351",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Мария Йорданова Цветкова": {
+      "name": "Мария Йорданова Цветкова",
+      "slug": "mp-2963",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Мария Петрова Колева": {
+      "name": "Мария Петрова Колева",
+      "slug": "mariya-koleva-si8zn2",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 3,
+      "basis": "fold"
+    },
+    "Мария Хиндова Касимова-Моасе": {
+      "name": "Мария Хиндова Касимова-Моасе",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Мария Цонева-Иванова": {
+      "name": "Мария Цонева-Иванова",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Меглена Щилиянова Кунева": {
+      "name": "Меглена Щилиянова Кунева",
+      "slug": "mp-2374",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Милен Василев Михов": {
+      "name": "Милен Василев Михов",
+      "slug": "mp-2775",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Минчо Викторов Спасов": {
+      "name": "Минчо Викторов Спасов",
+      "slug": "mp-186",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Момчил Добрев Добрев": {
+      "name": "Момчил Добрев Добрев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Мустафа Сали Карадайъ": {
+      "name": "Мустафа Сали Карадайъ",
+      "slug": "mp-4120",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Невяна Михайлова Митева-Матеева": {
+      "name": "Невяна Михайлова Митева-Матеева",
+      "slug": "nevyana-mihailova-miteva-mateeva-2fa387",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Неделчо Беронов": {
+      "name": "Неделчо Беронов",
+      "slug": "mp-2092",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "block"
+    },
+    "Нели Петрова Куцкова": {
+      "name": "Нели Петрова Куцкова",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 1,
+      "foldPeople": 1
+    },
+    "Нели Топалова": {
+      "name": "Нели Топалова",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Николай Йорданов Банев": {
+      "name": "Николай Йорданов Банев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Николай Кирилов Василев": {
+      "name": "Николай Кирилов Василев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Николай Личков Георгиев": {
+      "name": "Николай Личков Георгиев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Николай Нанков Ненчев": {
+      "name": "Николай Нанков Ненчев",
+      "slug": "mp-2555",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Николай Симеонов Малинов": {
+      "name": "Николай Симеонов Малинов",
+      "slug": "mp-1638",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Николай Христов Кисьов": {
+      "name": "Николай Христов Кисьов",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Павел Димитров Шопов": {
+      "name": "Павел Димитров Шопов",
+      "slug": "mp-2645",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Павел Михайлов Чернев": {
+      "name": "Павел Михайлов Чернев",
+      "slug": "mp-231",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Павел Шопов": {
+      "name": "Павел Шопов",
+      "slug": "mp-2645",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "block"
+    },
+    "Петър Берон": {
+      "name": "Петър Берон",
+      "slug": "mp-202",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "block"
+    },
+    "Петър Живков Петров": {
+      "name": "Петър Живков Петров",
+      "slug": "petar-petrov-1gcvpf",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 3,
+      "basis": "fold"
+    },
+    "Петър Кирилов Берон": {
+      "name": "Петър Кирилов Берон",
+      "slug": "mp-202",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Петър Стефанов Стоянов": {
+      "name": "Петър Стефанов Стоянов",
+      "slug": "mp-1935",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 2,
+      "basis": "fold"
+    },
+    "Пламен Василев Орешарски": {
+      "name": "Пламен Василев Орешарски",
+      "slug": "mp-1447",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Пламен Иванов Манушев": {
+      "name": "Пламен Иванов Манушев",
+      "slug": "mp-2791",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Пламен Панайотов Пасков": {
+      "name": "Пламен Панайотов Пасков",
+      "reason": "ambiguous",
+      "candidates": 4,
+      "people": 4,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Полина Цветославова Цанкова-Христова": {
+      "name": "Полина Цветославова Цанкова-Христова",
+      "slug": "mp-2831",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Поля Николова Станчева": {
+      "name": "Поля Николова Станчева",
+      "slug": "polya-stancheva-i0ce7y",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Радослав Йорданов Радославов": {
+      "name": "Радослав Йорданов Радославов",
+      "slug": "radoslav-radoslavov-1gwwgo",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Радослав Петров Петров": {
+      "name": "Радослав Петров Петров",
+      "reason": "ambiguous",
+      "candidates": 2,
+      "people": 2,
+      "foldPeople": 3,
+      "basis": "fold"
+    },
+    "Ренета Иванова Инджова": {
+      "name": "Ренета Иванова Инджова",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Росен Асенов Плевнелиев": {
+      "name": "Росен Асенов Плевнелиев",
+      "slug": "rosen-asenov-plevneliev-61b8e1",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Росен Пламенов Миленов": {
+      "name": "Росен Пламенов Миленов",
+      "slug": "rosen-milenov-1i2a4b",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Румен Георгиев Радев": {
+      "name": "Румен Георгиев Радев",
+      "slug": "mp-5142",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Румен Гълъбинов Гълъбинов": {
+      "name": "Румен Гълъбинов Гълъбинов",
+      "slug": "rumen-galabinov-1hnymv",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Румен Димитров Христов": {
+      "name": "Румен Димитров Христов",
+      "reason": "ambiguous",
+      "candidates": 2,
+      "people": 2,
+      "foldPeople": 4,
+      "basis": "fold"
+    },
+    "Савина Веселинова Луканова": {
+      "name": "Савина Веселинова Луканова",
+      "slug": "savina-lukanova-15oi7o",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Сали Шабан Ибрям": {
+      "name": "Сали Шабан Ибрям",
+      "slug": "sali-ibryam-1soss5",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Светлана Петрова Косева": {
+      "name": "Светлана Петрова Косева",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Светозар Стоянов Съев": {
+      "name": "Светозар Стоянов Съев",
+      "reason": "ambiguous",
+      "candidates": 6,
+      "people": 6,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Светослав Емилов Витков": {
+      "name": "Светослав Емилов Витков",
+      "slug": "svetoslav-vitkov-1d90se",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Севина Краснодарова Хаджийска": {
+      "name": "Севина Краснодарова Хаджийска",
+      "slug": "sevina-hadzhiyska-1coe3d",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Стела Ангелова-Банкова": {
+      "name": "Стела Ангелова-Банкова",
+      "slug": "mp-209",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "block"
+    },
+    "Стефан Георгиев Солаков": {
+      "name": "Стефан Георгиев Солаков",
+      "slug": "stefan-solakov-wjw61i",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Стефан Ламбов Данаилов": {
+      "name": "Стефан Ламбов Данаилов",
+      "slug": "mp-2686",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Стоян Андреев Цветков": {
+      "name": "Стоян Андреев Цветков",
+      "slug": "stoyan-tsvetkov-1ei8ae",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Стоян Вълчев Андреев": {
+      "name": "Стоян Вълчев Андреев",
+      "reason": "not_found",
+      "candidates": 0,
+      "people": 0,
+      "foldPeople": null
+    },
+    "Съби Иванов Събев": {
+      "name": "Съби Иванов Събев",
+      "slug": "sabi-sabev-7bzjae",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 2,
+      "basis": "fold"
+    },
+    "Татяна Дончева Тотева": {
+      "name": "Татяна Дончева Тотева",
+      "slug": "mp-3307",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Трайчо Димитров Трайков": {
+      "name": "Трайчо Димитров Трайков",
+      "slug": "traicho-dimitrov-traikov-207438",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Цвета Кирилова Кирилова": {
+      "name": "Цвета Кирилова Кирилова",
+      "slug": "tsveta-kirilova-1px49l",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Цветан Венциславов Манчев": {
+      "name": "Цветан Венциславов Манчев",
+      "reason": "ambiguous",
+      "candidates": 3,
+      "people": 3,
+      "foldPeople": 1,
+      "basis": "fold"
+    },
+    "Цецка Цачева Данговска": {
+      "name": "Цецка Цачева Данговска",
+      "slug": "mp-2518",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "fold"
+    },
+    "Юлиана Николова": {
+      "name": "Юлиана Николова",
+      "slug": "yuliana-nikolova-14czs2",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": null,
+      "basis": "block"
+    },
+    "Явор Божилов Нотев": {
+      "name": "Явор Божилов Нотев",
+      "slug": "mp-2713",
+      "candidates": 1,
+      "people": 1,
+      "foldPeople": 1,
+      "basis": "fold"
+    }
+  }
+}

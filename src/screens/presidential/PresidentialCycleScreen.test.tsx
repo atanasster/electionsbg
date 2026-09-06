@@ -367,6 +367,49 @@ describe("the presidential country page", () => {
       ).toBeTruthy();
   });
 
+  it("links a candidate the corpus can name, and refuses a shared name", async () => {
+    // ⚠ THE REFUSAL IS THE CLAIM WORTH PINNING. A link says this candidate and that profile
+    // are the same person; 17 of the 140 names on these ballots are shared — one by fifteen
+    // public figures — and linking one of them would attribute the candidacy, and everything
+    // else on that profile, to somebody who merely shares a name.
+    mount({
+      ...SUMMARY,
+      rounds: [
+        {
+          ...ROUND,
+          ranking: [
+            ROUND.ranking[0],
+            {
+              ...ROUND.ranking[1],
+              president: "Иван Стефанов Иванов",
+              vicePresident: "Иван Стефанов Иванов",
+            },
+          ],
+        },
+      ],
+      swing: null,
+      decidedInRound: 1,
+    });
+    // Радев resolves to exactly one public figure, so his name is a link — in the winner
+    // line AND in the ranked row, which is why this is `findAllBy`.
+    const links = await screen.findAllByRole("link", {
+      name: "Румен Георгиев Радев",
+    });
+    expect(links.length).toBeGreaterThan(0);
+    for (const l of links)
+      expect(l.getAttribute("href")).toMatch(/^\/person\//);
+    // …and the shared name is NOT a link — it is text, with the reason beside it.
+    expect(
+      screen.queryByRole("link", { name: "Иван Стефанов Иванов" }),
+    ).toBeNull();
+    expect(screen.getAllByText("Иван Стефанов Иванов").length).toBeGreaterThan(
+      0,
+    );
+    expect(
+      screen.getAllByText(bgCorpus.presidential_namesake_mark).length,
+    ).toBeGreaterThan(0);
+  });
+
   it("never prints the cycle folder id as a date", async () => {
     mount(SUMMARY);
     await screen.findByText(bgCorpus.presidential_ranking_heading);
