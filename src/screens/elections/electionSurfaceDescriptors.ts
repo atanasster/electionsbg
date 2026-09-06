@@ -206,6 +206,7 @@ export const STATUS_LABEL_KEYS: Record<ElectionResultStatus, string> = {
 
 export const BALLOT_LABEL_KEYS: Record<BallotKind, string> = {
   parliamentary_list: "election_ballot_parliamentary_list",
+  presidential_ticket: "election_ballot_presidential_ticket",
   municipality_mayor: "election_ballot_municipality_mayor",
   district_mayor: "election_ballot_district_mayor",
   settlement_mayor: "election_ballot_settlement_mayor",
@@ -723,12 +724,198 @@ const local: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   },
 };
 
+/**
+ * The presidential sections.
+ *
+ * ⚠ NO `financing` AND NO `polling` — the two the parliamentary list carries and this one
+ * cannot. `financing` reads the Сметна палата campaign-finance corpus, which is keyed to
+ * PARTIES in a parliamentary cycle; `polling` reads the pre-election poll series, which
+ * this repo holds for parliamentary voting intention only. Declaring either would put a
+ * section on the page whose producer has nothing to give it.
+ */
+const PRESIDENTIAL_SECTIONS = [
+  "votes",
+  "geography",
+  "anomalies",
+  "neighborhoods",
+] as const satisfies readonly DashboardSectionIdProp[];
+
+/**
+ * Presidential: one ballot, two rounds, and a winner who is a PAIR.
+ *
+ * ⚠ EVERY LEVEL DECLARES `presidential_ticket`, never `parliamentary_list`. The two are not
+ * a naming preference: a ticket's option is two names and its nominating body may be a
+ * party, a coalition or an инициативен комитет, so a renderer that read this as a party list
+ * would label an инициативен комитет a party on a page about a named person.
+ *
+ * ⚠ NO `seats`, NO `top_gainer`, NO `top_loser`, NO `split_control`. There are no seats to
+ * win; and the gain/loss cards compare a party against ITSELF at the previous cycle, which a
+ * ticket has no counterpart for — ballot numbers are positions, not identities, so „ticket 13
+ * gained" would compare Радев in 2016 against nobody in 2021. Cross-cycle comparison of the
+ * PEOPLE is real and belongs to the runoff-transfer analysis (plan Tier 8), not to a strip
+ * card that would have to invent the join.
+ *
+ * ⚠ `paper_machine` IS CYCLE-DEPENDENT HERE, unlike on the parliamentary column, and the
+ * producer must emit it ONLY where the cycle actually had both channels. Measured over the
+ * committed corpus: machine votes are literally 0 for 2001, 2006 and 2011, 2016 is a 1.2%
+ * pilot (41,585 of 3,509,099) and only 2021 is machine-dominated. A rendered „0% машинно"
+ * on a 2006 page presents an ABSENT TECHNOLOGY as a measured share — rule 2 of the surface
+ * contract, „absence is not zero" — and at `abroad` and `section` the code is 4th in a
+ * `maxFacts: 4` list, so it would render rather than fall off. It is declared rather than
+ * dropped because 2021 is the cycle most readers open and the split is a real integrity
+ * signal there; the level declares more than it will show, which is what `factPriority` is
+ * for.
+ *
+ * ⚠ `majority_threshold` LEADS THE COUNTRY STRIP, and only there. Art. 93 (3) decides a
+ * round-1 election on TWO conditions — more than half the valid votes AND more than half the
+ * registered voters taking part — and „49.42% and no winner" is the sentence a reader needs.
+ * It is a national test, so no level below the country may state it.
+ */
+const presidential: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
+  country: {
+    available: true,
+    ballots: [{ kind: "presidential_ticket" }],
+    maps: [
+      {
+        defaultMode: "winner",
+        allowedModes: ["winner", "margin", "selected_share", "turnout"],
+        posture: "interactive",
+        grain: "region",
+        questionKey: "election_map_q_who_led_region",
+      },
+    ],
+    // ⚠ `majority_threshold` FIRST: on round 1 the leader's share is not the outcome, and a
+    // strip that led with „Радев 49.42%" would read as a win.
+    factPriority: [
+      "majority_threshold",
+      "winner",
+      "turnout",
+      "valid_votes",
+      "runoff_pending",
+      "paper_machine",
+    ],
+    maxFacts: 4,
+    rankedColumns: ["votes", "pct", "margin", "round"],
+    sections: PRESIDENTIAL_SECTIONS,
+    emptyStateKey: "election_empty_country",
+    hasFinder: true,
+    hasOfficialProtocol: false,
+    hasChildPlacePreview: true,
+  },
+  abroad: {
+    available: true,
+    ballots: [{ kind: "presidential_ticket" }],
+    maps: [
+      {
+        defaultMode: "winner",
+        allowedModes: ["winner", "selected_share"],
+        posture: "interactive",
+        // The children are foreign COUNTRIES and `ElectionPlaceLevel` has no member for one
+        // — the same grain the parliamentary abroad level declares, for the same reason.
+        grain: "municipality",
+        questionKey: "election_map_q_who_led_country_abroad",
+      },
+    ],
+    // ⚠ NO `turnout`, and here it is a correctness requirement twice over. Abroad has no
+    // valid registered-voter denominator at all (§2 decision 10) — and in 2006 its 144
+    // sections report neither a roll nor a signature count while casting 46,113 valid votes,
+    // so even the numerator this level would fall back to is absent for a whole cycle.
+    factPriority: ["winner", "votes_cast", "valid_votes", "paper_machine"],
+    maxFacts: 4,
+    rankedColumns: ["votes", "pct", "round"],
+    sections: PRESIDENTIAL_SECTIONS,
+    emptyStateKey: "election_empty_abroad",
+    hasFinder: true,
+    hasOfficialProtocol: false,
+    hasChildPlacePreview: true,
+  },
+  region: {
+    available: true,
+    ballots: [{ kind: "presidential_ticket" }],
+    maps: [
+      {
+        defaultMode: "winner",
+        allowedModes: ["winner", "margin", "selected_share", "turnout"],
+        posture: "interactive",
+        grain: "municipality",
+        questionKey: "election_map_q_who_led_municipality",
+      },
+    ],
+    factPriority: ["winner", "margin", "turnout", "valid_votes"],
+    maxFacts: 4,
+    rankedColumns: ["votes", "pct", "margin", "round"],
+    sections: PRESIDENTIAL_SECTIONS,
+    emptyStateKey: "election_empty_region",
+    hasFinder: true,
+    hasOfficialProtocol: false,
+    hasChildPlacePreview: true,
+  },
+  municipality: {
+    available: true,
+    ballots: [{ kind: "presidential_ticket" }],
+    maps: [
+      {
+        defaultMode: "winner",
+        allowedModes: ["winner", "margin", "selected_share", "turnout"],
+        posture: "interactive",
+        grain: "settlement",
+        questionKey: "election_map_q_who_led_settlement",
+      },
+    ],
+    factPriority: ["winner", "margin", "turnout", "valid_votes"],
+    maxFacts: 4,
+    rankedColumns: ["votes", "pct", "margin", "round"],
+    sections: PRESIDENTIAL_SECTIONS,
+    emptyStateKey: "election_empty_municipality",
+    hasFinder: true,
+    hasOfficialProtocol: false,
+    hasChildPlacePreview: true,
+  },
+  settlement: {
+    available: true,
+    ballots: [{ kind: "presidential_ticket" }],
+    maps: [
+      {
+        defaultMode: "winner",
+        allowedModes: ["winner", "margin", "selected_share", "turnout"],
+        posture: "interactive",
+        grain: "section",
+        questionKey: "election_map_q_who_led_section",
+      },
+    ],
+    factPriority: ["winner", "margin", "turnout", "valid_votes"],
+    maxFacts: 4,
+    rankedColumns: ["votes", "pct", "margin", "round"],
+    sections: PRESIDENTIAL_SECTIONS,
+    emptyStateKey: "election_empty_settlement",
+    hasFinder: true,
+    hasOfficialProtocol: false,
+    hasChildPlacePreview: true,
+  },
+  section: {
+    available: true,
+    ballots: [{ kind: "presidential_ticket" }],
+    // ⚠ NO MAP — a single polling station has no geography to answer a question about, and
+    // this level is result-and-evidence-first (§8), which is what makes the section route the
+    // repo's canonical map-free page.
+    maps: [],
+    factPriority: ["winner", "turnout", "valid_votes", "paper_machine"],
+    maxFacts: 4,
+    rankedColumns: ["votes", "pct", "round"],
+    sections: PRESIDENTIAL_SECTIONS,
+    emptyStateKey: "election_empty_section",
+    hasFinder: false,
+    hasOfficialProtocol: true,
+    hasChildPlacePreview: false,
+  },
+};
+
 /** The matrix. Exhaustive by type: a new `ElectionKind` or `ElectionPlaceLevel` fails to
  *  compile until it has an entry here. */
 export const ELECTION_SURFACE_DESCRIPTORS: Record<
   ElectionKind,
   Record<ElectionPlaceLevel, ElectionSurfaceDescriptor>
-> = { parliamentary, local };
+> = { parliamentary, local, presidential };
 
 export const descriptorFor = (
   kind: ElectionKind,

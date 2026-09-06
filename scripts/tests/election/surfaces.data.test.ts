@@ -28,7 +28,10 @@ import {
   SURFACE_POLICY,
   emittedLevels,
 } from "../../../src/data/elections/surfacePath";
-import type { ElectionUnavailableReason } from "../../../src/data/elections/surfaceTypes";
+import type {
+  ElectionKind,
+  ElectionUnavailableReason,
+} from "../../../src/data/elections/surfaceTypes";
 import {
   ELECTION_SURFACE_VERSION,
   isWellFormedElectionSurfaceV1,
@@ -375,7 +378,7 @@ export const canonicalHasResult = (file: string): boolean => {
 
 /** The canonical file a level's first screen comes from today, in bytes, at its LARGEST place. */
 const canonicalMaxBytes = (
-  kind: "parliamentary" | "local",
+  kind: ElectionKind,
   level: string,
   cycle: string,
 ): number => {
@@ -387,6 +390,12 @@ const canonicalMaxBytes = (
       .filter((f) => f.endsWith(".json"))
       .reduce((a, f) => Math.max(a, fs.statSync(path.join(dir, f)).size), 0);
   };
+  // ⚠ PRESIDENTIAL EMITS NO SURFACE YET, so it contributes no row to `summarise(ALL)` and
+  // this arm is unreachable today. Returning 0 — „no single canonical file" — is the answer
+  // that would still be right if it were reached: below the country the presidential tree
+  // has no per-place shard at all, only one file per level per ROUND covering the whole
+  // country (plan decision 3), which is why every level below the country emits.
+  if (kind === "presidential") return 0;
   if (kind === "parliamentary") {
     if (level === "settlement") return maxIn(dirOf("settlements"));
     if (level === "section") return maxIn(dirOf("sections", "by-oblast"));

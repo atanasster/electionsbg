@@ -28,6 +28,7 @@ import type {
   ElectionKind,
   ElectionPlaceLevel,
 } from "../../src/data/elections/surfaceTypes";
+import { UNPLACED_SHARD } from "../parsers_presidential/aggregate";
 
 export const DATA_ROOT = path.join(process.cwd(), "data");
 
@@ -111,6 +112,60 @@ const canonicalSizes = (
         // No canonical file exists — the headline is a client-side fan-out, which is precisely
         // why the level emits. Reported as 0 rather than omitted, so the row stays in the table.
         return { sizes: [], measured: "(client-side fan-out, no single file)" };
+    }
+  }
+  if (kind === "presidential") {
+    // ⚠ THE TREE IS PER ROUND, AND EVERY LEVEL BELOW THE COUNTRY IS ONE FILE FOR THE WHOLE
+    // COUNTRY. There are no per-place shards (plan decision 3), so a reader of one
+    // settlement downloads every settlement — which is exactly the quantity §5.0 compares
+    // against the budget. Both rounds are measured and the LARGER wins, because a runoff
+    // page is a page.
+    const rounds = ["tur1", "tur2"];
+    const both = (...p: string[]): number[] =>
+      rounds.flatMap((r) => fileSize(j(r, ...p)));
+    switch (level) {
+      case "country":
+        return {
+          sizes: fileSize(j("national_summary.json")),
+          measured: "national_summary.json",
+        };
+      case "region":
+        return {
+          sizes: both("region_votes.json"),
+          measured: "tur*/region_votes.json",
+        };
+      case "municipality":
+        return {
+          sizes: both("municipality_votes.json"),
+          measured: "tur*/municipality_votes.json",
+        };
+      case "settlement":
+        return {
+          sizes: both("settlement_votes.json"),
+          measured: "tur*/settlement_votes.json",
+        };
+      case "section":
+        return {
+          // ⚠ `_unplaced.json` IS NOT A PLACE, and it is the largest file in the tree. It is
+          // the residue bucket — 2011's 1,354 sections whose oblast placement was REFUSED
+          // rather than guessed — so no reader ever opens it, and measuring a level's first
+          // screen on it reports a page nobody can reach. It made 2011 look like the worst
+          // case at 3.3 MB when the real one is Бургас 2021 at 2.4 MB.
+          sizes: rounds.flatMap((r) =>
+            sizesIn(j(r, "sections")).length
+              ? fs
+                  .readdirSync(j(r, "sections"))
+                  .filter(
+                    (f) =>
+                      f.endsWith(".json") && f !== `${UNPLACED_SHARD}.json`,
+                  )
+                  .map((f) => fs.statSync(j(r, "sections", f)).size)
+              : [],
+          ),
+          measured: "tur*/sections/<oblast>.json (excl. the _unplaced residue)",
+        };
+      case "abroad":
+        return { sizes: both("abroad.json"), measured: "tur*/abroad.json" };
     }
   }
   switch (level) {
@@ -204,8 +259,14 @@ const main = () => {
     .filter((d) => /^\d{4}_\d{2}_\d{2}_mi$/.test(d))
     .sort()
     .slice(-2);
+  // ⚠ EVERY presidential cycle, not the latest: the five differ by an order of magnitude in
+  // section count and by era in shape, and a policy row measured on one of them says nothing
+  // about the others. The parliamentary and local arms take the latest because their trees
+  // are one shape.
+  const pres = dirs.filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d)).sort();
   if (parl) cycles.push(["parliamentary", parl]);
   for (const l of locals) cycles.push(["local", l]);
+  for (const p of pres) cycles.push(["presidential", p]);
 
   const rows = cycles.flatMap(([k, c]) => measureCycle(k, c));
   if (asJson) {

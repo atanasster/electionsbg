@@ -27,9 +27,11 @@
 // `tsconfig.app.json` covers `scripts` with the `@/` alias, so the generator resolves it too.
 import type { PlaceView } from "@/data/local/placeViews";
 
-/** Parliamentary or local. The two outcome contracts stay discriminated end to end: mayor
- *  and council votes are never normalised into one ranking (§2 decision 4). */
-export type ElectionKind = "parliamentary" | "local";
+/** Parliamentary, local or presidential. The three outcome contracts stay discriminated end
+ *  to end: mayor and council votes are never normalised into one ranking (§2 decision 4),
+ *  and a presidential TICKET — a president+vice-president pair on a numbered ballot line —
+ *  is not a party list. */
+export type ElectionKind = "parliamentary" | "local" | "presidential";
 
 /** The REAL geographic level, which is not what the legacy route segment says — `/settlement/:id`
  *  serves a municipality and `/municipality/:id` a region. User-facing copy and these types use
@@ -59,6 +61,10 @@ export type TurnoutBasis =
 
 export type BallotKind =
   | "parliamentary_list"
+  /** A president+vice-president pair on a numbered ballot line. ⚠ NOT a party list: the
+   *  ballot number is a POSITION, the two names are the option, and the nominating body is a
+   *  party, a coalition or an инициативен комитет — three legally distinct things. */
+  | "presidential_ticket"
   | "municipality_mayor"
   | "district_mayor"
   | "settlement_mayor"
@@ -210,7 +216,16 @@ export type ElectionMapMeta = {
 
 export type ElectionSurfaceBallot = {
   kind: BallotKind;
-  /** 1 or 2 for a mayoral contest; absent for a list ballot, which has no rounds. */
+  /**
+   * The round this ballot reports. 1 or 2 for a mayoral contest AND for a presidential
+   * ticket, which is decided over two rounds under art. 93; absent for a parliamentary
+   * list, which has no rounds.
+   *
+   * ⚠ REQUIRED ON EVERY PRESIDENTIAL BALLOT. All six presidential levels declare the
+   * `round` ranked column, and `ballotFillsColumn` gates that column on this field being
+   * defined — so a producer that omits it DROPS the column silently, on the one kind whose
+   * whole shape is „round 1 decided nothing". The safe direction, and still a material loss.
+   */
   round?: number;
   resultStatus: ElectionResultStatus;
   /** At most 8 entries — a PREVIEW, and a stable prefix of the complete ranking. */

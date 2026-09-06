@@ -106,6 +106,74 @@ export const SURFACE_POLICY: Record<
   ElectionKind,
   Record<ElectionPlaceLevel, SurfaceLevelPolicy>
 > = {
+  // ⚠ MEASURED BEFORE DECLARED (plan T5), by `npm run elections:budget` over all FIVE
+  // committed cycles — not the latest, because they differ by an order of magnitude in
+  // section count and by era in shape, so a row measured on one says nothing about the
+  // others. 2021 is the worst case at every level, which is what a growing electorate and a
+  // 23-ticket ballot predict.
+  //
+  // ⚠ THE TREE HAS NO PER-PLACE SHARDS (plan decision 3): below the country, each level is
+  // ONE file per ROUND covering the whole country. So a reader of one settlement downloads
+  // EVERY settlement, and that is the quantity §5.0 compares against the budget — which is
+  // why five of the six levels emit and the margins are not close.
+  presidential: {
+    country: {
+      source: "canonical",
+      canonicalNote: "national_summary.json",
+      measuredMaxBytes: 13_945,
+      measuredCycle: "2021_11_14_pvr",
+      measuredOn: "2026-09-06",
+      reason:
+        "one file per cycle, 13.6 KB at the largest — inside the 24 KiB country budget",
+    },
+    region: {
+      source: "artifact",
+      canonicalNote: "tur*/region_votes.json — every oblast, both rounds",
+      measuredMaxBytes: 107_178,
+      measuredCycle: "2021_11_14_pvr",
+      measuredOn: "2026-09-06",
+      reason: "104.7 KB for ONE oblast's first screen — 6.5x over 16 KiB",
+    },
+    abroad: {
+      source: "artifact",
+      canonicalNote: "tur*/abroad.json — every country, both rounds",
+      measuredMaxBytes: 227_317,
+      measuredCycle: "2021_11_14_pvr",
+      measuredOn: "2026-09-06",
+      reason:
+        "222.0 KB, 13.9x over — and abroad is a page, not a fan-out, in this tree",
+    },
+    municipality: {
+      source: "artifact",
+      canonicalNote: "tur*/municipality_votes.json — all 265, both rounds",
+      measuredMaxBytes: 917_134,
+      measuredCycle: "2021_11_14_pvr",
+      measuredOn: "2026-09-06",
+      reason: "895.6 KB, 56x over 16 KiB",
+    },
+    settlement: {
+      source: "artifact",
+      canonicalNote: "tur*/settlement_votes.json — all ~5,000, both rounds",
+      measuredMaxBytes: 13_936_096,
+      measuredCycle: "2021_11_14_pvr",
+      measuredOn: "2026-09-06",
+      reason:
+        "13.3 MB for one settlement's first screen — 851x over 16 KiB, the widest margin in this table",
+    },
+    // ⚠ MEASURED OVER THE OBLAST SHARDS ONLY. A first cut read the whole `sections/` folder
+    // and so measured `_unplaced.json` — 2011's residue bucket, the 1,354 sections whose
+    // oblast placement was REFUSED rather than guessed. It is the largest file in the tree
+    // and no reader can open it, so it reported a page nobody reaches: 3.3 MB at 2011,
+    // against the real worst case of Бургас 2021.
+    section: {
+      source: "artifact",
+      canonicalNote: "tur*/sections/<oblast>.json — a whole oblast per file",
+      measuredMaxBytes: 2_513_751,
+      measuredCycle: "2021_11_14_pvr",
+      measuredOn: "2026-09-06",
+      reason: "2.4 MB for one section's first screen — 307x over 8 KiB",
+    },
+  },
   parliamentary: {
     country: {
       source: "canonical",

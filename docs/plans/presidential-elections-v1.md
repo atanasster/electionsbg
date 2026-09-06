@@ -1155,11 +1155,49 @@ What the shared system needs from this kind, named so it cannot be discovered ha
   `ElectionResultsShell`, `useElectionSurface`, `surfacePath`, `destinations`, `surfaceTypes`). The `never`
   check and the existing kind-enumerating tests are what make the third member reach all of them; none is
   extended by hand without the compiler saying so.
-- **`SURFACE_POLICY["presidential"]` is MEASURED before it is declared.** Every level row carries
-  `measuredMaxBytes` / `measuredCycle` / `measuredOn` from `npm run elections:budget` over the generated tree —
-  the country level is one `national_summary.json` (canonical, expected inside the 24 KiB budget), region and
-  municipality are decided by the measurement, settlement and section follow the parliamentary answer. A row
-  written without a measurement is the §5.0 defect the policy file exists to prevent.
+- **✅ DONE — `ElectionKind` gains `"presidential"`, and `SURFACE_POLICY["presidential"]` is MEASURED.**
+  The exhaustiveness design held: widening the union produced exactly THREE compile errors — the two
+  `Record<ElectionKind, …>` matrices and one data-test helper — so nothing had to be found by reading.
+
+  **Measured 2026-09-06 by `npm run elections:budget` over all FIVE committed cycles** (not the latest: they
+  differ by an order of magnitude in section count and by era in shape, so a row measured on one says nothing
+  about the others). The tree has NO per-place shards — below the country each level is one file per ROUND
+  covering the whole country (decision 3) — so a reader of one settlement downloads every settlement:
+
+  | level | worst case | budget | over | verdict |
+  | --- | ---: | ---: | ---: | --- |
+  | country | 13.6 KB (2021) | 24 KiB | 0.6× | **canonical** — one file, inside budget |
+  | region | 104.7 KB (2021) | 16 KiB | 6.5× | artifact |
+  | abroad | 222.0 KB (2021) | 16 KiB | 13.9× | artifact |
+  | municipality | 895.6 KB (2021) | 16 KiB | 56× | artifact |
+  | settlement | 13.3 MB (2021) | 16 KiB | **851×** | artifact |
+  | section | 2.4 MB (2021, Бургас) | 8 KiB | 307× | artifact |
+
+  ⚠️ **The section row was measured on `_unplaced.json` on the first pass, and review caught it.** That is
+  2011's residue bucket — the 1,354 sections whose oblast placement was REFUSED rather than guessed — and it is
+  the largest file in the tree, so the row reported a page no reader can open (3.3 MB at 2011) and carried a
+  falsifiable explanation about the 28-oblast grid to go with it. The walker excludes it now, the real worst
+  case is Бургас 2021, and the verdict never moved: 307× over budget instead of 425×.
+
+  ⚠️ **The gate that should have caught it did not cover the new rows.** `surface_budget.test.ts` built its
+  cycle list by hand, so the operator-facing tool measured presidential while the gate did not — the two halves
+  of one instrument diverged. Its cycle list now mirrors the tool's, its three hand-enumerated kind arrays read
+  `Object.keys(SURFACE_POLICY)` so a fourth kind joins every gate automatically, and `EXPECTED_MIN_FILES`
+  carries the six presidential rows so a walker that stopped finding files cannot report 0 and pass.
+
+  The descriptor column states four refusals as decisions rather than omissions: **no `seats`** (there are
+  none), **no `top_gainer`/`top_loser`** (those compare a party against ITSELF at the previous cycle, and a
+  ballot NUMBER is a position rather than an identity — „ticket 13 gained" would compare Радев in 2016 against
+  nobody in 2021; cross-cycle comparison of the PEOPLE is Tier 8's), **no `financing`/`polling` sections** (both
+  corpora are party-keyed and parliamentary-only), and **no `turnout` fact abroad** — which here is a
+  correctness requirement twice over, since 2006's 144 abroad sections report neither a roll nor a signature
+  count while casting 46,113 valid votes. `majority_threshold` LEADS the country strip and appears at no level
+  below it: art. 93 (3) is a national test, and a strip that led with „Радев 49.42%" would read as a win.
+
+  ⚠️ The shell's brotli ratchet moved 10,300 → 10,440 (measured 10,364). A third kind is ~140 B of DATA in the
+  descriptor matrix the shell imports; deferring it would mean a dynamic import on the render path to save that,
+  on a page that has already decided which election it is about.
+
 - **Screens are lazy routes** (`routes.tsx` has 288 `lazy(` entries and no eager screen), and NOTHING routing
   imports from `electionsRegistry.ts` or a scene barrel — `src/entryGraph.test.ts` fails the build otherwise, and
   it did once for ~265 KB. The **outcome panel is ticket-shaped**: president + vice-president names, nominating body, votes,

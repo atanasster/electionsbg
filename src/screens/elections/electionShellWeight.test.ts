@@ -82,11 +82,22 @@ const CRITICAL_PATH_BR = 363_000;
  *  helpers are ~30 lines, one reading the label resolver the ranked rows already import, so a
  *  separate chunk would add a request to defer nothing.
  *
- *  ⚠ THE HEADROOM IS NOW 0.74%, AGAINST THE +5% THIS FILE SETS AS ITS OWN CONVENTION. That is
+ *  ⚠ THE HEADROOM IS NOW 0.7%, AGAINST THE +5% THIS FILE SETS AS ITS OWN CONVENTION. That is
  *  deliberate and it is the point of a ratchet: the next change to this file gets ~76 bytes
  *  before it has to make the same argument in public. It is not an invitation to round up.
+ *
+ *  **10,300 → 10,440 (measured 10,364), 2026-09-06 — a THIRD `ElectionKind`.** The shell
+ *  imports the kind × level descriptor matrix, so a presidential column is ~140 B brotli of
+ *  DATA: six level entries declaring which ballot is active, what each map asks, which facts
+ *  the strip may show and which sections follow. Nothing executable was added.
+ *
+ *  Deferring it was considered and rejected. The shell selects its descriptor by `kind` at
+ *  render time, so splitting the matrix per kind means a dynamic import on the render path to
+ *  save ~140 B — one request to defer a third of a pure-data table, on a page that has already
+ *  decided which election it is about. The alternative that WOULD pay is dropping levels from
+ *  the presidential column, and every one of the six is a route this plan ships.
  */
-const SHELL_BUDGET_BR = 10_300;
+const SHELL_BUDGET_BR = 10_440;
 
 /** ⚠ `splitting: true`, AND IT IS THE WHOLE MEASUREMENT. Without it esbuild inlines every
  *  `import()` into one bundle, so the moment a real map adapter was registered the "shell's own

@@ -49,8 +49,21 @@ const LEVELS = Object.keys(
 const DROPPED_EVERYWHERE = [
   "top_loser",
 ] as const satisfies readonly ElectionFactCode[];
-const PARLIAMENTARY_ONLY = [
+/** ⚠ NOT „parliamentary only" any more — presidential declares it at three levels, and a
+ *  name that says otherwise asserts something untrue about the matrix it guards. What is
+ *  actually recorded is that LOCAL does not carry it: a municipal ballot has no machine
+ *  channel to split. */
+const NOT_IN_LOCAL = [
   "paper_machine",
+] as const satisfies readonly ElectionFactCode[];
+
+/** The presidential column's recorded refusals, TYPED — so deleting or renaming a code fails
+ *  `tsc` here rather than making the gate below trivially true. */
+const PRESIDENTIAL_REFUSES = [
+  "seats",
+  "top_gainer",
+  "top_loser",
+  "split_control",
 ] as const satisfies readonly ElectionFactCode[];
 const NO_PREFERENCE_COLUMN = [
   "round",
@@ -78,7 +91,7 @@ const eachAvailable = (
 describe("descriptor matrix — exhaustive and explicit", () => {
   it("covers every kind × level the unions admit", () => {
     // Derived keys, so this is a real check that the record was not built with a hole.
-    expect(KINDS.length).toBe(2);
+    expect(KINDS.length).toBe(3);
     expect(LEVELS.length).toBe(6);
     for (const kind of KINDS)
       for (const level of LEVELS)
@@ -185,17 +198,71 @@ describe("descriptor matrix — the §6.3 card diff stays a recorded decision", 
     for (const level of LEVELS) {
       const d = available("parliamentary", level);
       if (!d) continue;
-      for (const code of PARLIAMENTARY_ONLY)
+      for (const code of NOT_IN_LOCAL)
         expect(d.factPriority, `parliamentary/${level}`).toContain(code);
     }
   });
 
-  it("does not leak parliamentary-only facts into the local matrix", () => {
+  it("does not leak the paper/machine split into the local matrix", () => {
     for (const level of LEVELS) {
       const d = available("local", level);
       if (!d) continue;
-      for (const code of PARLIAMENTARY_ONLY)
+      for (const code of NOT_IN_LOCAL)
         expect(d.factPriority, `local/${level}`).not.toContain(code);
+    }
+  });
+
+  it("keeps the presidential paper/machine retention a stated decision", () => {
+    // ⚠ IT IS CYCLE-DEPENDENT, unlike on the parliamentary column: machine votes are 0
+    // corpus-wide for 2001/2006/2011 and a 1.2% pilot in 2016 (41,585 of 3,509,099). The
+    // declaration is deliberate — 2021 is machine-dominated and is the cycle most readers
+    // open — so it is pinned here rather than left looking like a copy of the parliamentary
+    // column. The producer must emit the fact only where the cycle had both channels.
+    for (const level of ["country", "abroad", "section"] as const)
+      expect(
+        available("presidential", level)!.factPriority,
+        `presidential/${level}`,
+      ).toContain("paper_machine" as ElectionFactCode);
+    // …and NOT where it would displace a figure the level does have: the three place levels
+    // rank margin and turnout above it and do not declare it at all.
+    for (const level of ["region", "municipality", "settlement"] as const)
+      expect(
+        available("presidential", level)!.factPriority,
+        `presidential/${level}`,
+      ).not.toContain("paper_machine" as ElectionFactCode);
+  });
+
+  it("declares no seat, gain/loss or split-control fact on any presidential level", () => {
+    // ⚠ THE COLUMN'S RECORDED REFUSALS, pinned rather than merely written down. There are no
+    // seats to win; and gain/loss compares a party against ITSELF at the previous cycle,
+    // which a ticket has no counterpart for — a ballot NUMBER is a position, not an
+    // identity, so „ticket 13 gained" would compare Радев in 2016 against nobody in 2021.
+    for (const level of LEVELS) {
+      const d = available("presidential", level);
+      if (!d) continue;
+      for (const code of PRESIDENTIAL_REFUSES)
+        expect(d.factPriority, `presidential/${level}`).not.toContain(code);
+    }
+    // Non-vacuity: these are real members other columns DO use.
+    expect(available("parliamentary", "region")!.factPriority).toContain(
+      "top_gainer" as ElectionFactCode,
+    );
+  });
+
+  it("states the art. 93 (3) test at the country level and nowhere below it", () => {
+    // ⚠ IT IS A NATIONAL TEST. A region strip claiming „no winner yet" would be a false
+    // claim about a place — the threshold is over the whole country's valid votes and the
+    // whole country's roll. It LEADS the country strip because on round 1 the leader's share
+    // is not the outcome: „Радев 49.42%" alone reads as a win.
+    expect(available("presidential", "country")!.factPriority[0]).toBe(
+      "majority_threshold",
+    );
+    for (const level of LEVELS.filter((l) => l !== "country")) {
+      const d = available("presidential", level);
+      if (!d) continue;
+      expect(d.factPriority, `presidential/${level}`).not.toContain(
+        "majority_threshold" as ElectionFactCode,
+      );
     }
   });
 
@@ -287,11 +354,13 @@ describe("descriptor matrix — ballots and maps", () => {
     });
   });
 
-  it("draws no map at a single polling section, in either kind", () => {
+  it("draws no map at a single polling section, in any kind", () => {
     // §8 makes the section result-and-evidence-first, and it is what makes that route the
-    // repo's canonical chart-free/map-free page (§10.1).
-    expect(available("parliamentary", "section")!.maps).toEqual([]);
-    expect(available("local", "section")!.maps).toEqual([]);
+    // repo's canonical chart-free/map-free page (§10.1). Derived over KINDS, so a fourth
+    // kind joins this gate rather than being exempt from it — „either kind" was already
+    // wrong the moment a third arrived.
+    for (const kind of KINDS)
+      expect(available(kind, "section")!.maps, `${kind}/section`).toEqual([]);
   });
 
   it("declares an allowed default mode on every map slot", () => {

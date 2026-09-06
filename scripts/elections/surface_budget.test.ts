@@ -58,9 +58,16 @@ const cycles = (): { kind: ElectionKind; cycle: string }[] => {
     .filter((d) => /^\d{4}_\d{2}_\d{2}_mi$/.test(d))
     .sort()
     .slice(-2);
+  // ⚠ EVERY presidential cycle, matching `surface_budget.ts`'s own arm. The two halves of
+  // one instrument had diverged: the operator-facing tool measured presidential rows while
+  // this gate's hand-written list did not, so a wrong `measuredMaxBytes` on those six rows
+  // was undetectable — which is exactly how one reached a commit, measured on the 2011
+  // `_unplaced` residue bucket instead of on a place.
+  const pres = dirs.filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d)).sort();
   return [
     ...(parl ? [{ kind: "parliamentary" as const, cycle: parl }] : []),
     ...locals.map((cycle) => ({ kind: "local" as const, cycle })),
+    ...pres.map((cycle) => ({ kind: "presidential" as const, cycle })),
   ];
 };
 
@@ -99,6 +106,16 @@ describe("surface budgets — §5.0's emit column against the corpus", () => {
         "local/region": 25,
         "local/municipality": 250,
         "local/section": 10_000,
+        // ⚠ The presidential tree is per ROUND and has no per-place shards, so every level
+        // below the country is TWO files — one per round — and `section` is one per oblast
+        // per round. A walker that stopped finding them would report 0 and pass without
+        // these rows.
+        "presidential/country": 1,
+        "presidential/region": 2,
+        "presidential/abroad": 2,
+        "presidential/municipality": 2,
+        "presidential/settlement": 2,
+        "presidential/section": 25,
       };
       const wrong: string[] = [];
       for (const { kind, cycle } of CYCLES)
@@ -220,7 +237,7 @@ describe("surface paths", () => {
   ];
 
   it("locates exactly the levels that emit at an artifact path", () => {
-    for (const kind of ["parliamentary", "local"] as ElectionKind[]) {
+    for (const kind of Object.keys(SURFACE_POLICY) as ElectionKind[]) {
       const emits = new Set(emittedLevels(kind));
       expect(emits.size, `${kind} emits nothing`).toBeGreaterThan(0);
       for (const level of LEVELS) {
@@ -280,7 +297,7 @@ describe("surface paths", () => {
   });
 
   it("writes every artifact inside its own cycle directory", () => {
-    for (const kind of ["parliamentary", "local"] as ElectionKind[])
+    for (const kind of Object.keys(SURFACE_POLICY) as ElectionKind[])
       for (const level of emittedLevels(kind)) {
         const p = artifactPath(level, "CYCLE", "ID")!;
         expect(p.startsWith("CYCLE/surface/"), `${kind}/${level}: ${p}`).toBe(
@@ -297,7 +314,7 @@ describe("surface paths", () => {
   });
 
   it("gives every kind × level a policy with a stated reason", () => {
-    for (const kind of ["parliamentary", "local"] as ElectionKind[])
+    for (const kind of Object.keys(SURFACE_POLICY) as ElectionKind[])
       for (const level of LEVELS) {
         const p = SURFACE_POLICY[kind][level];
         expect(p, `${kind}/${level}`).toBeTruthy();
