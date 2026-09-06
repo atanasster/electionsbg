@@ -23,6 +23,25 @@
 > `refresh_coverage.test.ts`, as `{ after, before, why }` (§3). Also recorded: the home HTML
 > is at 10,295 of its 18,000 characters, and caption i18n keys must be literals (§4, §8.4).
 >
+> **Audit — 2026-09-06, at §11.3, against the built `dist/`.** Three further corrections.
+> (10) §11.3's vendor rule was "the flyover chunk imports no `vendor-*` chunk other than
+> `vendor-react`", and the build disagrees for a harmless reason: the band is a React component
+> calling `useTranslation` and `useQuery`, so its chunk names `vendor-i18n` and `vendor-query`
+> too — both already in the ENTRY chunk, which `/` downloads before the band is reachable.
+> Banning them would gate a cost nobody pays. The rule implemented is **"no vendor chunk the
+> entry does not already load"**, which is what was meant: the flyover adds ZERO vendor bytes
+> to `/`, and `vendor-leaflet` / `vendor-charts` / a future split stay excluded by construction
+> rather than by an allowlist someone must remember to extend. (11) The chunk measures **7,619 B
+> brotli q11**, so §11.3's "≤ 16 KB" would be a ratchet with 115% slack; the gate is
+> `≤ 10,000 B` with the reading stamped beside it. (12) §8.3's prerendered paragraph belongs to
+> `GLOBAL_HOME_BODY_{BG,EN}` in `scripts/prerender/routes.ts`, NOT to `buildHomeBody` in
+> `bodyBuilders.ts` — those two now serve `/parliamentary`, so a paragraph added there would
+> advertise a picture that page does not show. Its `width`/`height` are imported from `box.ts`
+> and its `alt` is `flyover_alt_columns` verbatim, both gated by
+> `scripts/prerender/flyoverParagraph.test.ts`; the CLS rationale does NOT apply to it, because
+> `bodyHtml` is emitted inside `<div id="ssg-content" hidden>` and is never laid out or even
+> fetched.
+>
 > **What this plan changes about the home page, stated up front.** The home plan's §4.1 fixed
 > "no full-width map, decorative hero illustration, or election result chart appears above the
 > primary destinations", and `tests/perf.spec.ts` pins `/` in `MAP_FREE_HUBS` with the basis

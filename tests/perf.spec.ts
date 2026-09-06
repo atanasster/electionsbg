@@ -29,9 +29,12 @@ const staticImportsOf = (file: string): string[] => {
 
 // The prerendered home shell has grown legitimately since this budget was first set
 // (a 4th top-level nav view, richer "latest analyses" strip, bespoke OG tags). Raised
-// 14k → 18k to match; ~17.2k today leaves a little headroom. This still guards against a
-// runaway regression (e.g. a heavy chunk inlined into the shell) — re-tighten if the home
-// markup is ever trimmed back.
+// 14k → 18k to match. ⚠️ The "~17.2k today" this comment used to quote was measured against
+// the ELECTION home body, which now serves `/parliamentary`; `/` is the global home and is
+// 12,607 units as of 2026-09-06 (EN 10,864), flyover paragraph included — so there is ~30%
+// more slack here than the old figure implied, and a reader budgeting a new section should
+// re-measure rather than trust either number. This still guards against a runaway regression
+// (e.g. a heavy chunk inlined into the shell) — re-tighten if the home markup is trimmed back.
 const HOME_HTML_MAX_BYTES = 18_000;
 // Home's hint list is 6: vendor-react, vendor, vendor-i18n, vendor-query,
 // vendor-radix, vendor-search. The locale chunk is hinted too, but by an inline
@@ -317,6 +320,148 @@ test.describe("performance", () => {
     ).toBe(1);
   });
 
+  // ⚠️ THE GATE THE HOME PLAN'S §9.3a SPECIFIED AND NOBODY WROTE. `/` is the
+  // site's entry page and its first paint is budgeted in REQUESTS: two static
+  // GCS objects and no Cloud SQL at all, because `/api/db/*` is a pooled Cloud
+  // Function with a cold start and a 10 s statement timeout while a bucket
+  // object is a static GET. The flyover artifact is the THIRD request and is
+  // deferred behind the band's arming conditions, so it must not appear in the
+  // first wave — and nothing may ever add a fourth silently.
+  //
+  // ⚠️ NOT `requestsFor`, AND THAT IS THE WHOLE INSTRUMENT. That helper waits
+  // for `networkidle` — 500 ms with no connection in flight, i.e. precisely the
+  // window `requestIdleCallback` fires in — and the band's box sits above the
+  // fold at 1280×720 with a further 200 px root margin, so it ARMS and fetches
+  // inside the wait. Measured 3/3 at desktop and 1/1 at 412×915: at
+  // `networkidle` the log always holds flyover.json, at `load` it never does.
+  // The claim is "before the band arms", so `load` is the milestone; the wider
+  // window is then re-entered below, where a wider window is what you want.
+  //
+  // ⚠️ COUNTED BY PATH, NOT BY ORIGIN. `VITE_DATA_BASE_URL` is baked in at build
+  // time and CI SETS it (`.github/workflows/test.yml`), so these fetches leave
+  // for storage.googleapis.com — an origin filter written against the
+  // emulator's own 127.0.0.1:5002 would match zero requests and pass vacuously.
+  // A local build with no `.env.production` resolves an empty base and goes
+  // same-origin instead. The path is the one thing true in both.
+  test("/ makes exactly the budgeted requests at first paint", async ({
+    page,
+  }) => {
+    const urls: string[] = [];
+    page.on("request", (r) => urls.push(r.url()));
+    await page.goto("/", { waitUntil: "load" });
+    // ⚠️ THE SERVER IS WHOSE? `playwright.config.ts` hardcodes 127.0.0.1:5002 and sets
+    // `reuseExistingServer` outside CI, so ANY other project's Firebase emulator already on
+    // that port is silently adopted — and every assertion below then measures a site that has
+    // no flyover, no home artifacts and no `/api/db`, i.e. it fails as „zero requests" or
+    // passes as „no Cloud SQL". Both readings are about the wrong site. This happened twice
+    // while these gates were being written, and cost more than the gates did. Anchor on
+    // something only this build serves, so a squatter reports itself.
+    expect(
+      await page.locator("[data-flyover-band]").count(),
+      "no flyover band on `/` — if this is a local run, check that 127.0.0.1:5002 is THIS " +
+        "repo's emulator and not another project's (playwright.config.ts reuses whatever " +
+        "is already listening)",
+    ).toBe(1);
+    // ⚠️ Sorted on a COPY. `sort()` mutates, and the arguments of `expect` are
+    // evaluated left to right — sorting in place would make the failure message
+    // report alphabetical order on a test whose diagnostic value is arrival
+    // order.
+    const names = urls
+      .filter((u) => /\/home\/[a-z_]+\.json/.test(u))
+      .map((u) => u.split("/").pop()!);
+    expect(
+      [...names].sort(),
+      `/ first paint fetched, in arrival order: ${names.join(", ")}`,
+    ).toEqual(["feed.json", "hub_stats.json"]);
+    expect(
+      urls.filter((u) => u.includes("/home/flyover.json")),
+      "the flyover artifact must wait for the band to arm — it is the third request",
+    ).toEqual([]);
+    // Widened deliberately for the Cloud SQL claim: the plan's word there is
+    // "throughout", not "at paint", and this is the one assertion that gains
+    // from the later milestone rather than being defeated by it.
+    await page.waitForLoadState("networkidle");
+    const apiDb = urls.filter((u) => u.includes("/api/db/"));
+    expect(
+      apiDb,
+      `/ must reach no Cloud SQL route: ${apiDb.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  test("the flyover band arms into exactly one further request", async ({
+    page,
+  }) => {
+    // The other half, and the one that keeps the test above from being
+    // satisfied by a band that never works: deferring the fetch is only correct
+    // if it eventually happens.
+    //
+    // ⚠️ POLLED OVER THE COLLECTED LOG, NOT `waitForRequest`. A waiter
+    // registered after `goto` cannot see a request that already fired during
+    // load, so it would time out on the very build where the band armed
+    // fastest — and „it did not fire" and „I started listening too late" look
+    // identical.
+    //
+    // ⚠️ AND THE POLL ASSERTS ARRIVAL, THE `expect` BELOW ASSERTS THE COUNT.
+    // `expect.poll` returns the moment its assertion passes, so polling for
+    // `toBe(1)` would never observe a SECOND fetch — the „re-fetches on every
+    // re-render" regression this pair exists for. Let the page settle first.
+    const urls: string[] = [];
+    page.on("request", (r) => urls.push(r.url()));
+    // `?scene=arcs` pins the POSTER the band shows, so a failure screenshot is
+    // the same picture every run. It does not affect the request: one artifact
+    // serves all three programmes.
+    await page.goto("/?scene=arcs", { waitUntil: "networkidle" });
+    await page.locator("[data-flyover-band]").scrollIntoViewIfNeeded();
+    const flyoverRequests = () =>
+      urls.filter((u) => u.includes("/home/flyover.json"));
+    await expect
+      .poll(() => flyoverRequests().length, {
+        timeout: 15_000,
+        message:
+          "the band never armed — `useArm` also gates on prefers-reduced-motion " +
+          "and Save-Data, so check those on this runner before the fetch itself",
+      })
+      .toBeGreaterThan(0);
+    await page.waitForTimeout(2_000);
+    expect(
+      flyoverRequests(),
+      "the band re-fetched the 34 KB artifact",
+    ).toHaveLength(1);
+    expect(
+      urls.filter((u) => u.includes("/api/db/")),
+      "the band must reach no Cloud SQL route either",
+    ).toEqual([]);
+  });
+
+  // The third state, and the one the pair above cannot see: `useArm` refuses to
+  // arm at all under `prefers-reduced-motion: reduce` or Save-Data, so a reader
+  // who has asked for no animation must never pay the 34 KB. `useArm.test.ts`
+  // covers the hook's return value; only this covers the request consequence,
+  // which is the thing the reader actually experiences.
+  test("a reader who refuses motion never pays for the artifact", async ({
+    browser,
+  }) => {
+    const page = await browser.newPage({ reducedMotion: "reduce" });
+    try {
+      const urls: string[] = [];
+      page.on("request", (r) => urls.push(r.url()));
+      await page.goto("/", { waitUntil: "networkidle" });
+      await page.locator("[data-flyover-band]").scrollIntoViewIfNeeded();
+      await page.waitForTimeout(3_000);
+      expect(
+        urls.filter((u) => u.includes("/home/flyover.json")),
+        "reduced motion must suppress the fetch, not merely the animation",
+      ).toEqual([]);
+      // Non-vacuity: the page must actually have loaded, or „no flyover
+      // request" is true of a blank tab.
+      expect(
+        urls.filter((u) => /\/home\/hub_stats\.json/.test(u)).length,
+      ).toBeGreaterThan(0);
+    } finally {
+      await page.close();
+    }
+  });
+
   // The deferred bundles, end to end — the one assertion in this file that
   // watches the browser rather than the artifact.
   //
@@ -523,7 +668,17 @@ test.describe("performance", () => {
       {
         chunk: "HomeDashboardScreen",
         route: "/",
-        basis: "the screen header disclaims maps and charts (807f3c583e)",
+        // ⚠️ REWRITTEN, NOT RELAXED, and the distinction is the whole point.
+        // `/` now carries a moving map — the flyover band — and this gate still
+        // passes because the band is a dependency-free canvas scene behind its
+        // own `lazy()`: the geometry is projected at GENERATION time
+        // (scripts/geo/project_regions.ts) and the client draws plain 2D
+        // canvas, so no map library is reachable from the home chunk at all.
+        // What the row protects is unchanged; only the reason it holds is new.
+        // Map libraries stay banned here. See docs/plans/home-flyover-v1.md §8.4.
+        basis:
+          "a dependency-free canvas scene behind its own lazy boundary; map " +
+          "libraries stay banned (home-flyover-v1 §8.4)",
       },
       {
         chunk: "ElectionsHubScreen",
@@ -567,6 +722,87 @@ test.describe("performance", () => {
   // so every one of them is satisfied by X simply ceasing to exist — a
   // dependency upgrade that moves CodeMirror to an unmatched path would undo
   // the split with a fully green gate. Anchor them with a positive assertion.
+  // The flyover engine's own chunk. It is app code — a moving map that pulls in
+  // no mapping, charting or geometry library at all, which is the only reason
+  // one can sit on the map-free home page.
+  //
+  // ⚠️ THE RULE IS „NO VENDOR CHUNK THE ENTRY DOES NOT ALREADY LOAD", NOT „ONLY
+  // vendor-react". The plan's §11.3 wording said the latter, and the build
+  // disagrees with it for a harmless reason: the band is a React component that
+  // calls `useTranslation` and `useQuery`, so its chunk names `vendor-i18n` and
+  // `vendor-query` — both of which `/` has already downloaded as part of the
+  // ENTRY chunk before the band is even reachable. Banning them would be a gate
+  // against a cost nobody pays. Comparing against the entry's own vendor set is
+  // the assertion that was meant: the flyover adds ZERO vendor bytes to `/`,
+  // and vendor-leaflet / vendor-flow / a future charting split stay excluded by
+  // construction rather than by an allowlist someone has to remember to keep.
+  test("the flyover chunk adds no vendor bytes to the home page", () => {
+    const files = fs.readdirSync(`${DIST_DIR}/assets`);
+    const chunk = files.find((f) => /^HomeFlyover-.*\.js$/.test(f));
+    expect(
+      chunk,
+      `no HomeFlyover chunk — renamed, or the band stopped being a lazy import: ${files
+        .filter((f) => /^Home/.test(f))
+        .join(", ")}`,
+    ).toBeTruthy();
+    // ⚠️ THROUGH `staticImportsOf`, WHICH MATCHES BOTH IMPORT FORMS. A regex for
+    // the binding form alone (`from"./vendor-x.js"`) is blind to Rollup's
+    // side-effect form (`import"./vendor-x.js"`), of which this build has
+    // ~1,200 — and the flyover chunk is itself an instance: it names
+    // vendor-react / vendor-i18n / vendor-query as bindings and vendor /
+    // vendor-radix / vendor-search as side effects. With the narrow regex this
+    // gate passed by COINCIDENCE (the invisible three happen to be in the
+    // entry's binding set too), and a side-effect-only `vendor-leaflet` would
+    // have sailed through it green. `MAP_FREE_HUBS` cannot cover that either:
+    // it reads the ENTRY's `__vite__mapDeps` for HomeDashboardScreen, and the
+    // flyover is a nested lazy import whose deps are not in that list.
+    //
+    // Compared as BUILT FILENAMES, hash and all — both chunks reference the
+    // same files in the same build, so no name normalisation is needed and a
+    // hash-stripping regex cannot get the boundary wrong (`vendor-CA2kKej7.js`
+    // and `vendor-i18n-COGQOWo6.js` split at different places).
+    const vendorsOf = (file: string): string[] => [
+      ...new Set(staticImportsOf(file).filter((f) => f.startsWith("vendor"))),
+    ];
+    const chunkVendors = vendorsOf(chunk!);
+    // Non-vacuity, and it anchors the EXTRACTOR rather than the result: this
+    // chunk imports vendor-radix in the side-effect form only, so a future edit
+    // narrowing the regex back to `from"…"` fails here instead of quietly
+    // reopening the hole above.
+    const radix = files.find((f) =>
+      /^vendor-radix-[A-Za-z0-9_-]+\.js$/.test(f),
+    );
+    expect(
+      chunkVendors,
+      "the import extractor no longer sees side-effect imports",
+    ).toContain(radix);
+    const entryVendors = vendorsOf(
+      entryChunk(fs.readFileSync(`${DIST_DIR}/index.html`, "utf8")),
+    );
+    // The mirror: an entry that imported nothing would make the check below
+    // pass for any chunk at all.
+    expect(entryVendors.length).toBeGreaterThan(1);
+    const added = chunkVendors.filter((v) => !entryVendors.includes(v));
+    expect(
+      added,
+      `the flyover chunk pulls a vendor chunk \`/\` would not otherwise load: ${added.join(", ")}`,
+    ).toEqual([]);
+    const size = brotliCompressSync(
+      fs.readFileSync(`${DIST_DIR}/assets/${chunk}`),
+      {
+        params: { [constants.BROTLI_PARAM_QUALITY]: 11 },
+      },
+    ).length;
+    // Plan §11.3 says „≤ 16 KB"; this is tighter on purpose. Measured
+    // 2026-09-06: 7,619 B brotli q11, so a 16,384 ceiling leaves 115% slack —
+    // a ratchet the chunk could more than double without tripping is not a
+    // ratchet. ~30% headroom instead. Failing means „justify or split", not
+    // „raise it"; if it is raised, re-stamp the measurement with it.
+    expect(size, `flyover chunk is ${size} B brotli`).toBeLessThanOrEqual(
+      10_000,
+    );
+  });
+
   test("vendor-editor exists and owns the CodeMirror family", () => {
     const files = fs.readdirSync(`${DIST_DIR}/assets`);
     const editor = files.find((f) => /^vendor-editor-.*\.js$/.test(f));

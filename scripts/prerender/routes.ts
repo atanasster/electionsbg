@@ -88,6 +88,7 @@ import { oblastLabel } from "@/lib/oblastName";
 import { MO_ENTITIES } from "@/lib/defenseReferenceData";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
+import { FLYOVER_H, FLYOVER_W } from "@/screens/home/flyover/box";
 import {
   WATER_SECTOR_EIKS,
   VIK_HOLDING_SUB_EIKS,
@@ -621,9 +622,61 @@ const homeDestinationList = (lang: "bg" | "en"): string =>
       `<li><a href="${SITE_URL}${lang === "en" ? "/en" : ""}/${crawlPathOf(d)}">${lang === "bg" ? d.bg : d.en}</a></li>`,
   ).join("")}</ul>`;
 
+/**
+ * The flyover band's prerendered counterpart — `docs/plans/home-flyover-v1.md` §8.3.
+ *
+ * ⚠️ ONE PARAGRAPH AND ONE IMAGE, AND THE GEOMETRY IS NEVER INLINED. This page's built HTML
+ * is the tightest byte budget in the repo (see the warning above); the flyover artifact is
+ * 34 KB on its own. So a crawler gets the SENTENCE and the poster, and the map itself arrives
+ * with the canvas or not at all.
+ *
+ * ⚠️ THE POSTER CARRIES ITS INTRINSIC SIZE, AND NOT FOR CLS — that reasoning is wrong here and
+ * was written into this comment once. `bodyHtml` is emitted as `<div id="ssg-content" hidden>`
+ * (`scripts/prerender/index.ts`), so it is `display: none`: it is never laid out, it cannot
+ * shift anything, and the browser does not even FETCH this image (measured — loading `/` from
+ * `dist/` requests the React band's own poster and never this one). The eight destination
+ * tiles live in `#root`, a subtree React owns. The attributes are here so the two descriptions
+ * of the same picture cannot drift, and so the markup is already correct if the block is ever
+ * shown — which is why the numbers are IMPORTED from `box.ts` rather than re-typed.
+ *
+ * ⚠️ IT DESCRIBES `/` AND ONLY `/`. The band is mounted by `HomeDashboardScreen`, which serves
+ * the global home; `buildHomeBody` in `bodyBuilders.ts` now builds `/parliamentary`, so a
+ * paragraph added there would advertise a picture that page does not show.
+ *
+ * Every number the picture carries is a BASIS rather than a total: the three money layers are
+ * taps over overlapping corpora, so the copy names what each one measures and never adds them.
+ */
+/**
+ * ⚠️ THE `alt` IS THE CORPUS'S OWN `flyover_alt_columns`, CHARACTER FOR CHARACTER — a crawler
+ * and a screen reader must not be told the same picture by two independently maintained
+ * strings. It is re-typed rather than imported because pulling a ~400 KB translation corpus
+ * into this module for two sentences is the wrong trade; `flyoverParagraph.test.ts` asserts the
+ * equality instead, so the copies cannot drift silently. (They already had: the first cut
+ * dropped the full stop.)
+ */
+export const flyoverParagraph = (lang: "bg" | "en"): string => {
+  const alt =
+    lang === "bg"
+      ? "Триизмерна карта на България с колони по области."
+      : "A 3D map of Bulgaria with columns by province.";
+  const text =
+    lang === "bg"
+      ? "Картата горе се сменя: колони по области за обществените поръчки (по седалище на " +
+        "възложителя), за еврофондовете и за земеделските субсидии; дъги от възложител към " +
+        "изпълнител; и обиколка от пет спирки. Трите слоя са три отделни мерки, не сбор."
+      : "The map above rotates: columns by province for public procurement (at the buyer's " +
+        "seat), for EU funds and for farm subsidies; arcs from buyer to contractor; and a " +
+        "five-stop tour. The three layers are three separate measures, never a sum.";
+  return (
+    `<p><img src="${SITE_URL}/flyover/columns.webp" alt="${alt}" ` +
+    `width="${FLYOVER_W}" height="${FLYOVER_H}" loading="lazy" decoding="async"> ${text}</p>`
+  );
+};
+
 const GLOBAL_HOME_BODY_BG = `
 <h1>България в данни</h1>
 <p>Какво се случва в България, измерено с отворени данни: инфлация, безработица, растеж на БВП и държавен дълг по данни на Евростат, цени по магазини, държавният бюджет и изпълнението му, обществените поръчки, еврофондовете, изборите от 2005 г. насам и профил на всяка община.</p>
+${flyoverParagraph("bg")}
 <h2>Основни раздели</h2>
 ${homeDestinationList("bg")}
 <h2>Как се четат числата</h2>
@@ -632,6 +685,7 @@ ${homeDestinationList("bg")}
 const GLOBAL_HOME_BODY_EN = `
 <h1>Bulgaria in data</h1>
 <p>What is happening in Bulgaria, measured from open data: inflation, unemployment, GDP growth and government debt from Eurostat, shop prices, the state budget and its execution, public procurement, EU funds, every election since 2005, and a profile of each municipality.</p>
+${flyoverParagraph("en")}
 <h2>Main sections</h2>
 ${homeDestinationList("en")}
 <h2>How to read the numbers</h2>
