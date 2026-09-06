@@ -1,5 +1,5 @@
 {
-  "computedAt": "2026-09-05T23:29:53.732Z",
+  "computedAt": "2026-09-06T23:47:07.864Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
@@ -36,7 +36,7 @@
     },
     "funds": {
       "kind": "eur",
-      "value": 44185649229,
+      "value": 44131648338,
       "basis": "contracted"
     },
     "municipal-finance": {
@@ -51,7 +51,7 @@
     },
     "connections": {
       "kind": "count",
-      "value": 203628,
+      "value": 203560,
       "basis": "edges"
     }
   },
@@ -147,7 +147,7 @@
     },
     {
       "id": "fundsProjects",
-      "value": 82301,
+      "value": 82309,
       "to": "/funds/beneficiaries"
     }
   ],

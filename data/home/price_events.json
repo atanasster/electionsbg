@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-05",
+  "computedAt": "2026-09-06",
   "thresholds": {
     "basketPids": [
       1,
@@ -43,14 +43,14 @@
       "cohortShare": 0.8161
     },
     {
-      "peakDay": "2026-09-05",
+      "peakDay": "2026-09-06",
       "startDay": "2026-09-04",
-      "endDay": "2026-09-05",
-      "pctChange": -1.617,
-      "costEur": 15.605,
-      "prevCostEur": 15.861,
-      "cohortCells": 1683,
-      "cohortShare": 0.9286
+      "endDay": "2026-09-06",
+      "pctChange": -1.98,
+      "costEur": 15.521,
+      "prevCostEur": 15.834,
+      "cohortCells": 1687,
+      "cohortShare": 0.9294
     }
   ],
   "promotions": [
@@ -59,10 +59,20 @@
       "title": "КРАСТАВИЦИ",
       "atOrBelowSince": "2026-08-31",
       "promoEur": 0.99,
-      "regularEur": 1.89,
-      "discountPct": 48,
-      "stores": 208,
-      "chains": 3
+      "regularEur": 1.99,
+      "discountPct": 50,
+      "stores": 156,
+      "chains": 2
+    },
+    {
+      "slug": "yabalki-zlatna-prevazhodna",
+      "title": "ЯБЪЛКИ ЗЛАТНА ПРЕВЪЗХОДНА",
+      "atOrBelowSince": "2026-08-21",
+      "promoEur": 0.98,
+      "regularEur": 1.95,
+      "discountPct": 50,
+      "stores": 31,
+      "chains": 2
     },
     {
       "slug": "kromid-luk",
@@ -71,17 +81,7 @@
       "promoEur": 0.44,
       "regularEur": 0.85,
       "discountPct": 48,
-      "stores": 47,
-      "chains": 2
-    },
-    {
-      "slug": "portokali",
-      "title": "ПОРТОКАЛИ",
-      "atOrBelowSince": "2026-09-05",
-      "promoEur": 1.09,
-      "regularEur": 2.01,
-      "discountPct": 46,
-      "stores": 137,
+      "stores": 218,
       "chains": 3
     }
   ]
