@@ -574,6 +574,7 @@ it runs neither the health check nor the publish, so 7b is still required.
 ```bash
 npm run db:gen-home-hub-stats     # the four pulse figures + tile metrics — folds the sibling hubs
 npm run db:gen-home-flyover       # the flyover band's geometry, money layers and flow matrix
+npm run home:flyover-posters      # …and the nine stills that MUST match it
 npm run db:gen-home-price-events  # the basket + promotions, the ONE step that reads Postgres
 npm run db:gen-home-feed          # the „what changed" rows
 npm run home:health               # exits non-zero on missing/corrupt/unbuilt/unavailable/stale
@@ -590,6 +591,21 @@ touched subtrees in `state/upload/pending.json` and hands off to `/upload-watch-
   `procurement/derived/hub_stats.json` and `data/macro.json`, so it must follow the sibling
   generators; run earlier it publishes the previous vintage of whichever had not yet run, and
   `/` then disagrees with the page one click away.
+- ⚠️ **The posters are NOT bucket-served.** `home:flyover-posters` writes into `public/`, which
+  reaches production only via `npm run deploy` — Vite copies `public/` into `dist/` at build
+  time — while `bucket:sync` ships `data/` and nothing else. So an orchestrator run publishes
+  the new `data/home/flyover.json` immediately and leaves production serving the PREVIOUS
+  posters, at which point the moving band and its own reduced-motion / Save-Data / prerendered
+  fallback show two different vintages of the map, at a 200, with the local gate green because
+  both halves are current there. Flag a pending hosting deploy in the run summary whenever
+  this step wrote files.
+- `home:flyover-posters` must follow `db:gen-home-flyover` and is NOT optional. The posters
+  are committed files rendered from the artifact by the same engine, and
+  `flyover_posters.test.ts` pins the pair by the artifact's own `computedAt` — a regenerated
+  corpus whose posters were not re-rendered is a red gate, not a stale picture. `db:refresh`
+  carries the pair for the same reason. ⚠️ The comparison is CONTENT, never mtime: git does
+  not preserve modification times, so „is the poster newer than the artifact" has no answer on
+  a fresh clone or in CI.
 - `db:gen-home-flyover` must FOLLOW `db:gen-home-hub-stats`: its caption headline is that
   file's procurement figure, read from disk rather than recomputed, precisely so the moving
   band and the `/procurement` tile one screen below cannot show two different euro totals. Run
@@ -916,6 +932,8 @@ first, then re-run the orchestrator.
      --step "db:gen-home-hub-stats" --phase derive -- npm run db:gen-home-hub-stats
    npm run -s perf:step -- run --run process-watch-report --session "$S" \
      --step "db:gen-home-flyover" --phase derive -- npm run db:gen-home-flyover
+   npm run -s perf:step -- run --run process-watch-report --session "$S" \
+     --step "home:flyover-posters" --phase derive -- npm run home:flyover-posters
    npm run -s perf:step -- run --run process-watch-report --session "$S" \
      --step "db:gen-home-price-events" --phase derive -- npm run db:gen-home-price-events
    npm run -s perf:step -- run --run process-watch-report --session "$S" \
