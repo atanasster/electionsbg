@@ -13,7 +13,7 @@
 // dead one. The home registry's `descKey` comment records the same trap.
 //
 // ⚠️ AND EVERY CAPTION NAMES ITS BASIS. A number without one is a defect (plan §2.7): the
-// three money layers are three taps over overlapping corpora, and the arcs cover 23.5% of the
+// three money layers are three taps over overlapping corpora, and the arcs cover 46.6% of the
 // contract money. `params` therefore carries the coverage figures beside the headline ones, so
 // a translation cannot quietly drop the qualifier and leave the number.
 
@@ -101,9 +101,21 @@ export const CAPTIONS = {
     },
   }),
   /**
-   * ⚠️ CONTENT, NOT A DISCLAIMER (plan §14). „€22bn of €94bn has both ends placed" is the
+   * ⚠️ CONTENT, NOT A DISCLAIMER (plan §14). „€44bn of €94bn has both ends placed" is the
    * first thing a reader of the arcs must see; hiding it in a tooltip turns a partial view
    * into a false one.
+   *
+   * ⚠️ AND `placedPct` IS A MONEY SHARE, which the copy used to call „% от договорите" / "% of
+   * contracts". Measured: the euro share is 46.62% and the ROW share is 49.11%, so the sentence
+   * stated one and named the other — the undeclared-basis defect this module's header polices
+   * everywhere else. It says „% от парите по договори" / "% of the contracted money" now.
+   *
+   * ⚠️ AND IT NO LONGER SAYS „SEAT", which it did until T3.3. €9.8bn of the placed money is
+   * consortium money attributed to the largest member (`flows.carrierLead`) — those carriers
+   * have no seat and never will — so the old wording „и възложителят, и изпълнителят имат
+   * установено седалище" became a false claim about a tenth of what the arcs draw the moment
+   * the attribution shipped. The copy says „на картата" / „on the map" instead, and
+   * `arcs_consortia` states the attribution in its own keyframe rather than crowding this one.
    */
   arcs_coverage: (w) => ({
     key: "flyover_caption_arcs_coverage",
@@ -115,6 +127,32 @@ export const CAPTIONS = {
       notInTrBn: bn(w.flows.coverage.unplaced.notInTr),
     },
   }),
+  /**
+   * The consortium attribution, said out loud — plan §7 step 3.
+   *
+   * ⚠️ IT NAMES THE CHOICE AND THE COST IN ONE SENTENCE. A ДЗЗД has no seat of its own, so
+   * „where is it" has no answer in the corpus; placing it at its largest member is the best
+   * available answer and NOT a fact, and `multiOblast` is how many groups have members in
+   * more than one oblast — i.e. how often a true answer was discarded to draw one arc.
+   * Publishing the figure beside the attribution is what keeps this from being a silent
+   * precision claim.
+   *
+   * ⚠️ THE COPY NAMES ITS OWN DENOMINATOR rather than saying „of that". This caption is second
+   * in the ARCS loop, so an anaphor resolves against `arcs_coverage` there — and nowhere else:
+   * an article chapter, a poster, or a screen reader entering mid-loop would get a number with
+   * no whole to measure it against, which is the one thing every caption here must not do.
+   */
+  arcs_consortia: (w) =>
+    w.flows.carrierLead && w.flows.carrierLead.consortia > 0
+      ? {
+          key: "flyover_caption_arcs_consortia",
+          params: {
+            leadBn: bn(w.flows.carrierLead.eur),
+            groups: w.flows.carrierLead.consortia,
+            multi: w.flows.carrierLead.multiOblast,
+          },
+        }
+      : null,
 
   // ── the guided tour ───────────────────────────────────────────────────────────────────
   tour_buys: (w) => ({
@@ -165,7 +203,7 @@ export const CAPTIONS = {
 } satisfies Record<string, (w: FlyoverWorld) => Caption | null>;
 
 /**
- * The thirteen ids, as a real union.
+ * The fourteen ids, as a real union.
  *
  * ⚠️ `satisfies` above rather than a `Record<string, …>` ANNOTATION, because the annotation
  * makes `keyof typeof CAPTIONS` resolve to plain `string` — a type that reads like a union of
@@ -190,6 +228,7 @@ export const CAPTION_KEYS: readonly string[] = [
   "flyover_caption_arcs_out_of_sofia",
   "flyover_caption_arcs_top_flow",
   "flyover_caption_arcs_coverage",
+  "flyover_caption_arcs_consortia",
   "flyover_caption_tour_buys",
   "flyover_caption_tour_goes",
   "flyover_caption_tour_funds",

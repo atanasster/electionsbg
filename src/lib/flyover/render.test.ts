@@ -309,9 +309,12 @@ describe("captions", () => {
 
   it("carries the coverage beside the number, so a translation cannot drop it", () => {
     const c = captionFor("arcs_coverage", TEST_WORLD)!;
-    expect(c.params.placedBn).toBeCloseTo(22.1, 1);
-    expect(c.params.totalBn).toBeCloseTo(94.1, 1);
-    expect(c.params.placedPct).toBeCloseTo(23.5, 1);
+    // From `TEST_WORLD`, refreshed to one post-T3.3 artifact vintage on 2026-09-06 (it read
+    // 22.1 / 94.1 / 23.5 before). The point of the assertion is that all three params SHIP —
+    // a translation that dropped the coverage would leave a bare number — not what they are.
+    expect(c.params.placedBn).toBeCloseTo(43.9, 1);
+    expect(c.params.totalBn).toBeCloseTo(94.2, 1);
+    expect(c.params.placedPct).toBeCloseTo(46.6, 1);
   });
 
   it("publishes both funds figures, never the numerator alone", () => {

@@ -14,12 +14,12 @@
 //
 // ⚠️ EVERY NUMBER HERE NAMES ITS BASIS, because three of them are nearly equal and none is
 // interchangeable with another. Measured 2026-09-06 against the local corpus at
-// `computedAt=2026-09-03`; re-measure with `npm run db:gen-home-flyover -- --dry-run`, which
+// `computedAt=2026-09-04`; re-measure with `npm run db:gen-home-flyover -- --dry-run`, which
 // prints the whole table. The RELATIONSHIPS are the durable content, not the digits:
 //
-//   €94,117,596,157  the corpus at `tag = 'contract'`               → `flows.coverage.totalEur`
-//   €93,907,350,255  `data/home/hub_stats.json`'s procurement tile  → `figures.procTotalEur`
-//   €93,182,404,820  the sum whose BUYER has a resolved seat        → `coverage.buyerPlacedEur`
+//   €94,189,514,880  the corpus at `tag = 'contract'`               → `flows.coverage.totalEur`
+//   €93,979,268,978  `data/home/hub_stats.json`'s procurement tile  → `figures.procTotalEur`
+//   €93,254,399,806  the sum whose BUYER has a resolved seat        → `coverage.buyerPlacedEur`
 //
 // The first two differ by 0.22% (the tile excludes the 628 empty-`contractor_eik` rows); the
 // third is what the columns are actually built from, at 99.0% of the corpus. Do not
@@ -27,10 +27,13 @@
 // reader sees one screen below, and the columns quote the placed sum, because that is what
 // they draw.
 //
-// ⚠️ AND THE ARCS ARE ONLY A QUARTER COVERED. €22.1bn of €94.1bn has BOTH ends resolved to
-// an oblast — the contractor side is the gap — so `flows.coverage` carries the whole
-// decomposition and every arcs surface must say it in words. Hiding it in a tooltip turns a
-// partial view into a false one (plan §14).
+// ⚠️ AND THE ARCS COVER UNDER HALF THE MONEY. €43.9bn of €94.2bn has both ends ON THE MAP
+// — the contractor side is the gap — so `flows.coverage` carries the whole decomposition and
+// every arcs surface must say it in words. Hiding it in a tooltip turns a partial view into a
+// false one (plan §14). It was €22.1bn (a quarter) before T3.1 projected the CR deed seat and
+// T3.3 placed the consortium carriers, and €9.8bn of the current figure is there by
+// ATTRIBUTION rather than by a seat — see `flows.carrierLead`, which a surface must not fold
+// silently into „resolved“.
 //
 // A missing input DROPS its layer and records that in `available`; it never writes a zero,
 // because a zero column is a claim about that oblast rather than an absence of data. The
@@ -97,13 +100,42 @@ export interface FlyoverCoverage {
     trNoSeat: number;
     /** Contractor EIK is not in the Commerce Registry at all — foreign firms, BULSTAT bodies. */
     notInTr: number;
-    /** `obed-` consortium carriers: a member set, not a registered seat. */
+    /**
+     * Consortium carriers that could NOT be placed — a member set rather than a registered
+     * seat, and no member of theirs resolves to an oblast either. The ones that could are in
+     * `bothPlacedEur` / `buyerUnplaced`, and counted separately in `carrierLead`.
+     */
     carriers: number;
     /** `ph-` filler registration numbers and `np-` natural persons. */
     synthetic: number;
     /** Contractor placed, buyer not. */
     buyerUnplaced: number;
   };
+}
+
+/**
+ * How the consortium carriers were placed — plan §7 step 3.
+ *
+ * ⚠️ THE LEAD IS A CHOICE, NOT A FACT, and this object exists so a surface can say so. A
+ * carrier is a MEMBER SET, not a firm with a seat, and 087 records no lead — `consortium_role`
+ * is only `carrier` or `member`. So "where is this consortium" has no answer in the corpus,
+ * and `multiOblast` counts the groups whose placed members sit in more than one oblast: the
+ * ones for which any single answer discards a true one.
+ *
+ * ⚠️ BOTH KINDS OF CARRIER, and the counts and the money must never describe different ones.
+ * 1,640 are synthetic `obed-` keys minted from a member set; the rest are registered ДЗЗД
+ * carrying an ordinary 9-digit EIK — 47.5% of all consortium money, per 087's own header — and
+ * those are why `notInTr` moves as well as `carriers`.
+ */
+export interface FlyoverCarrierLead {
+  /** Money placed this way. ⚠️ A SUBSET of the placed money, never a sixth bucket. */
+  eur: number;
+  /** Seatless carriers that gained an oblast. */
+  consortia: number;
+  /** Seatless carriers with no placed member — they stay in `coverage.unplaced.carriers`. */
+  unplaced: number;
+  /** Of `consortia`, those whose placed members span more than one oblast. */
+  multiOblast: number;
 }
 
 export interface FlyoverFlows {
@@ -113,6 +145,7 @@ export interface FlyoverFlows {
   /** `m[buyer][contractor]` in whole M€. */
   m: number[][];
   coverage: FlyoverCoverage;
+  carrierLead: FlyoverCarrierLead;
 }
 
 export interface FlyoverElectionRegion {
@@ -166,11 +199,13 @@ export interface FlyoverArtifactV1 {
      */
     sofiaBuyerShare: number;
     /**
-     * ⚠️ THE NEXT THREE ARE SHARES OF `flows.coverage.bothPlacedEur` — 23.5% of the corpus,
-     * not of procurement — which is why each carries `Arc` in its name. A caption quoting one
-     * as „…% of procurement money" is false by a factor of four, and every arcs surface must
-     * state the coverage in words (plan §14). They sit two lines below `sofiaBuyerShare`,
-     * whose denominator is four times larger.
+     * ⚠️ THE NEXT THREE ARE SHARES OF `flows.coverage.bothPlacedEur` — 46.6% of the corpus,
+     * not of procurement — which is why each carries `Arc` in its name. ⚠️ That share moves
+     * with every placement step (23.5% before T3.1, 36.2% between T3.1 and T3.3), so read it
+     * from `flows.coverage` rather than from this comment. A caption quoting one
+     * as „…% of procurement money" is false by roughly a factor of two, and every arcs
+     * surface must state the coverage in words (plan §14). They sit two lines below
+     * `sofiaBuyerShare`, whose denominator is a bit over twice as large.
      */
     sameOblastArcShare: number;
     intoSofiaArcShare: number;
@@ -330,13 +365,97 @@ const sortedMeur = (acc: Map<string, number>): Record<string, number> => {
 };
 
 /** The buyer→contractor matrix, both ends placed, plus the coverage decomposition. */
+/**
+ * The lead-member attribution — plan §7 step 3 — as ONE piece of SQL with three readers: the
+ * flow matrix, the coverage partition and the `carrierLead` counts.
+ *
+ * ⚠️ IT WAS PASTED THREE TIMES AND HAD ALREADY DRIFTED — one copy's comment said 384 where the
+ * artifact published 546. Every fix that touches the rule (the synthetic-key guard, the
+ * null-oblast predicate, the collation) has to reach all three readers, or the matrix and the
+ * partition come to disagree about which carriers are placed — which the gate's ±392 M€
+ * rounding tolerance would not necessarily catch. It also recomputed a 407k-row aggregate
+ * three times per run.
+ */
+/**
+ * How far the six independently rounded coverage figures may sum from the independently rounded
+ * total before it means a bucket predicate stopped matching. Exported so `flyover.data.test.ts`
+ * and the generator cannot disagree about what counts as a hole.
+ */
+export const PARTITION_EPS_EUR = 3;
+
+const CARRIER_LEAD_CTE = `-- THE CONSORTIUM CARRIER'S OBLAST, AND IT IS AN ATTRIBUTION RATHER THAN A LOOKUP.
+-- An obed- key is minted from a MEMBER SET (087), so it has no seat and never will: it is not
+-- in tr_companies and cannot be in tr_company_place. That put EUR 6.23bn -- 6.6% of the corpus,
+-- the third-largest unplaced bucket -- permanently off the map. 087 does record the members,
+-- and 1,420 of the 1,640 obed- carriers have at least one placed one.
+--
+-- "Lead" is DEFINED here because the corpus does not define it: consortium_role is only
+-- 'carrier' or 'member', with no declared leader. The largest member by its OWN contract money
+-- is a real ordering that a caption can explain ("the biggest firm in the group"), and the
+-- tie-break on EIK is what makes it deterministic -- which the artifact's byte-stability needs.
+-- 546 of the placed groups have members in MORE THAN ONE oblast, so for those any single
+-- answer discards a true one; carrierLead.multiOblast publishes that count rather than letting
+-- the picture imply a precision it does not have.
+--
+-- p.oblast IS NOT NULL, NOT p.uic: a tr_company_place row with a null oblast places nobody, so
+-- a lead picked on row-existence could be a member the matrix cannot draw. The column is 100%
+-- populated today (0 of 354,584) -- a corpus property and not a constraint, since the resolver
+-- leaves an ambiguous name unresolved rather than guessing a village. The coverage query below
+-- already reads p.oblast for exactly this reason; the lead pick read p.uic.
+--
+-- COLLATE "C" on the tie-break, so this order and the TypeScript recount in
+-- flyover.data.test.ts are provably the same. 38 carriers tie at the top money and for 7 of
+-- them the tie-break decides the oblast; 33 of the member keys are non-numeric, and en_US.utf8
+-- does not compare punctuation at the primary weight while JavaScript's < compares UTF-16 code
+-- units. They agree on today's corpus by luck of the data, and the artifact's byte-stability
+-- across machines rests on it.
+WITH member_money AS (
+  SELECT contractor_eik AS eik, sum(amount_eur::numeric) AS own_eur
+    FROM contracts WHERE tag = 'contract' GROUP BY 1
+), carrier_lead AS (
+  SELECT DISTINCT ON (c.consortium_eik)
+         c.consortium_eik AS carrier_eik,
+         p.oblast         AS oblast
+    FROM contracts c
+    JOIN tr_company_place p ON p.uic = c.contractor_eik AND p.oblast IS NOT NULL
+    LEFT JOIN member_money mm ON mm.eik = c.contractor_eik
+   WHERE c.consortium_role = 'member' AND c.tag = 'contract'
+   ORDER BY c.consortium_eik, COALESCE(mm.own_eur, 0) DESC,
+            c.contractor_eik COLLATE "C"
+)`;
+
+/**
+ * The carrier rows the lead attribution may place.
+ *
+ * ⚠️ THE SYNTHETIC GUARD BELONGS HERE, NOT ONLY IN THE BUCKET CASE, and leaving it there alone
+ * was a live defect. `ph-` (a filler registration number) and `np-` (a natural person) are keys
+ * `supplier_identity.ts` mints precisely because the source token could not become one, and the
+ * CASE refuses to place them on principle — "the bucket is about what the KEY is, not about
+ * whether a join happened to miss, so it must not become reachable by a future placement
+ * route". T3.3 was that route. Measured before the guard: 18 such keys acquired a lead oblast,
+ * €19,857,818 was DRAWN as arcs while the coverage counted it in `unplaced.synthetic`, and 18
+ * non-firms were published inside `carrierLead.consortia` as "consortia".
+ */
+const CARRIER_PLACEABLE = `c.consortium_role = 'carrier'
+              AND c.contractor_eik NOT LIKE 'ph-%'
+              AND c.contractor_eik NOT LIKE 'np-%'`;
+
 export const buildFlows = async (): Promise<FlyoverFlows> => {
   const cells = (await allRows(
-    `SELECT s.oblast AS buyer, p.oblast AS con, sum(c.amount_eur::numeric) AS eur
+    `${CARRIER_LEAD_CTE}
+     SELECT s.oblast AS buyer, COALESCE(p.oblast, cl.oblast) AS con,
+            sum(c.amount_eur::numeric) AS eur
        FROM contracts c
        JOIN awarder_seats s ON s.eik = c.awarder_eik
-       JOIN tr_company_place p ON p.uic = c.contractor_eik
-      WHERE c.tag = 'contract'
+       LEFT JOIN tr_company_place p ON p.uic = c.contractor_eik
+       -- SCOPED TO THE CARRIER ROW, and the join key alone does not do that. A registered
+       -- ДЗЗД carries an ordinary 9-digit EIK, so its key is also its identity on the contracts
+       -- it won ALONE -- 1,014 rows / EUR 0.78bn -- and an unscoped join would place those at a
+       -- consortium's member, an attribution the corpus does not support and the plan does not
+       -- license. obed- keys are unaffected: 0 of their rows carry any other role.
+       LEFT JOIN carrier_lead cl
+              ON cl.carrier_eik = c.contractor_eik AND ${CARRIER_PLACEABLE}
+      WHERE c.tag = 'contract' AND COALESCE(p.oblast, cl.oblast) IS NOT NULL
       GROUP BY 1, 2`,
   )) as { buyer: string | null; con: string | null; eur: string }[];
 
@@ -357,20 +476,33 @@ export const buildFlows = async (): Promise<FlyoverFlows> => {
   assertLayerCoverage("flows", seen, unresolved, "NAME_ALIASES");
 
   const [cov] = (await allRows(
-    `WITH c AS (
+    `${CARRIER_LEAD_CTE}, c AS (
        SELECT c.amount_eur::numeric AS eur,
               c.contractor_eik AS eik,
               (s.eik IS NOT NULL) AS buyer_placed,
-              (p.uic IS NOT NULL) AS con_placed,
+              -- "Placed" now has TWO routes: a registered seat, or a carrier's lead member.
+              -- Note this reads p.oblast rather than p.uic -- a tr_company_place row with a
+              -- null oblast places nobody, and counting it would put money in bothPlaced that
+              -- the matrix above cannot draw.
+              (COALESCE(p.oblast, cl.oblast) IS NOT NULL) AS con_placed,
+              (cl.oblast IS NOT NULL AND p.oblast IS NULL) AS via_lead,
               (t.uic IS NOT NULL) AS in_tr
          FROM contracts c
          LEFT JOIN awarder_seats s ON s.eik = c.awarder_eik
          LEFT JOIN tr_company_place p ON p.uic = c.contractor_eik
+       -- SCOPED TO THE CARRIER ROW, and the join key alone does not do that. A registered
+       -- ДЗЗД carries an ordinary 9-digit EIK, so its key is also its identity on the contracts
+       -- it won ALONE -- 1,014 rows / EUR 0.78bn -- and an unscoped join would place those at a
+       -- consortium's member, an attribution the corpus does not support and the plan does not
+       -- license. obed- keys are unaffected: 0 of their rows carry any other role.
+         LEFT JOIN carrier_lead cl
+                ON cl.carrier_eik = c.contractor_eik AND ${CARRIER_PLACEABLE}
          LEFT JOIN tr_companies t ON t.uic = c.contractor_eik
         WHERE c.tag = 'contract'
      )
      SELECT sum(eur) AS total,
             sum(eur) FILTER (WHERE buyer_placed) AS buyer_placed,
+            sum(eur) FILTER (WHERE via_lead) AS carrier_lead_eur,
             sum(eur) FILTER (WHERE bucket = 'bothPlaced')    AS both_placed,
             sum(eur) FILTER (WHERE bucket = 'trNoSeat')      AS tr_no_seat,
             sum(eur) FILTER (WHERE bucket = 'notInTr')       AS not_in_tr,
@@ -378,17 +510,60 @@ export const buildFlows = async (): Promise<FlyoverFlows> => {
             sum(eur) FILTER (WHERE bucket = 'synthetic')     AS synthetic,
             sum(eur) FILTER (WHERE bucket = 'buyerUnplaced') AS buyer_unplaced
        FROM (
-         SELECT eur, buyer_placed,
+         SELECT eur, buyer_placed, via_lead,
                 CASE
-                  WHEN eik LIKE 'obed-%' THEN 'carriers'
+                  -- synthetic STAYS FIRST. A ph-/np- key is a filler registration number or a
+                  -- natural person; the bucket is about what the KEY is, not about whether a
+                  -- join happened to miss, so it must not become reachable by a future
+                  -- placement route.
                   WHEN eik LIKE 'ph-%' OR eik LIKE 'np-%' THEN 'synthetic'
+                  -- AND carriers MOVED BELOW bothPlaced, which is the whole change: it used to
+                  -- short-circuit every obed- row into "unplaced" before the placed test could
+                  -- run, so a carrier could never leave that bucket however well its members
+                  -- resolved. It now catches only the residue.
                   WHEN con_placed AND buyer_placed THEN 'bothPlaced'
                   WHEN con_placed THEN 'buyerUnplaced'
+                  WHEN eik LIKE 'obed-%' THEN 'carriers'
                   WHEN in_tr THEN 'trNoSeat'
                   ELSE 'notInTr'
                 END AS bucket
            FROM c
        ) b`,
+  )) as Record<string, string | null>[];
+
+  const [lead] = (await allRows(
+    `${CARRIER_LEAD_CTE}, carriers AS (
+       -- BOTH KINDS, because carrier_lead_eur above counts both. Counting only the obed- half
+       -- here would publish a rate over the wrong denominator.
+       SELECT DISTINCT c.contractor_eik AS eik FROM contracts c
+        WHERE ${CARRIER_PLACEABLE} AND c.tag = 'contract'
+     ), unseated AS (
+       -- Only a carrier with no seat of its OWN is a candidate: one that resolves normally
+       -- keeps its own place, and counting it here would inflate the contribution.
+       SELECT c.eik FROM carriers c
+        LEFT JOIN tr_company_place p ON p.uic = c.eik
+        WHERE p.oblast IS NULL
+     ), spread AS (
+       SELECT c.consortium_eik AS carrier_eik, count(DISTINCT p.oblast) AS oblasts
+         FROM contracts c
+         JOIN tr_company_place p ON p.uic = c.contractor_eik
+        WHERE c.consortium_role = 'member' AND c.tag = 'contract'
+          AND c.consortium_eik IN (SELECT eik FROM unseated)
+        GROUP BY 1
+     )
+     SELECT (SELECT count(*) FROM unseated
+              WHERE EXISTS (SELECT 1 FROM carrier_lead cl
+                             WHERE cl.carrier_eik = unseated.eik AND cl.oblast IS NOT NULL))
+              AS consortia,
+            (SELECT count(*) FROM unseated
+              -- NOT EXISTS, never NOT IN: one NULL in the subquery makes NOT IN return ZERO
+              -- rows, so this would read 0 rather than failing. consortium_eik is non-NULL on
+              -- all 11,404 member rows today, but the column is nullable and the failure would
+              -- be invisible.
+              WHERE NOT EXISTS (SELECT 1 FROM carrier_lead cl
+                                 WHERE cl.carrier_eik = unseated.eik AND cl.oblast IS NOT NULL))
+              AS unplaced,
+            (SELECT count(*) FROM spread WHERE oblasts > 1) AS multi_oblast`,
   )) as Record<string, string | null>[];
 
   const eur = (k: string) => Math.round(num(cov[k]));
@@ -411,10 +586,35 @@ export const buildFlows = async (): Promise<FlyoverFlows> => {
   const parts =
     coverage.bothPlacedEur +
     Object.values(coverage.unplaced).reduce((a, b) => a + b, 0);
-  if (Math.abs(parts - coverage.totalEur) > 1) {
+  // ⚠️ ±3, NOT ±1, AND THAT IS THE ROUNDING FLOOR RATHER THAN SLACK. `eur()` rounds each of
+  // the six figures independently and the total separately, so the worst case with NO defect
+  // is 3 whole euros — and the committed artifact sits at 1, i.e. at the old tolerance's edge.
+  // A contracts reload that shifted the cents would have aborted `db:gen-home-flyover`
+  // mid-`db:refresh` with a message naming the wrong cause. A real hole is a whole bucket,
+  // orders of magnitude above this.
+  if (Math.abs(parts - coverage.totalEur) > PARTITION_EPS_EUR) {
     throw new Error(
       `flyover: the coverage buckets sum to ${parts} against a corpus of ` +
         `${coverage.totalEur} — the partition has a hole`,
+    );
+  }
+
+  const n = (k: string) => Math.round(num(lead?.[k]));
+  const carrierLead: FlyoverCarrierLead = {
+    eur: eur("carrier_lead_eur"),
+    consortia: n("consortia"),
+    unplaced: n("unplaced"),
+    multiOblast: n("multi_oblast"),
+  };
+  // ⚠️ A SUBSET, NOT A SIXTH BUCKET, and this is what stops it being read as one. The lead
+  // money already sits inside `bothPlacedEur` (or `buyerUnplaced`, where the buyer is
+  // unplaced), so a consumer adding it to the partition would double-count it — and the
+  // partition check above cannot notice, because it does not read this field.
+  const placed = coverage.bothPlacedEur + coverage.unplaced.buyerUnplaced;
+  if (carrierLead.eur > placed) {
+    throw new Error(
+      `flyover: carrier-lead money ${carrierLead.eur} exceeds the ${placed} it is a subset ` +
+        `of — the lead join is matching rows the bucket CASE does not`,
     );
   }
 
@@ -423,6 +623,7 @@ export const buildFlows = async (): Promise<FlyoverFlows> => {
     keys: [...OBLAST_CODES],
     m: m.map((row) => row.map(meur)),
     coverage,
+    carrierLead,
   };
 };
 
@@ -728,6 +929,12 @@ export const buildArtifact = async (): Promise<FlyoverArtifactV1 | null> => {
       `  consortium carriers       ${pct(cov.unplaced.carriers)}%`,
       `  synthetic ids             ${pct(cov.unplaced.synthetic)}%`,
       `  buyer unplaced            ${pct(cov.unplaced.buyerUnplaced)}%`,
+      // The step's own headline, which the buckets above cannot show: this money is INSIDE
+      // "both ends placed" and is there by attribution rather than by a seat.
+      `  …of which at a lead member ${pct(flows.carrierLead.eur)}% — ` +
+        `${flows.carrierLead.consortia} consortia, ` +
+        `${flows.carrierLead.multiOblast} spanning >1 oblast, ` +
+        `${flows.carrierLead.unplaced} still unplaced`,
     ].join("\n"),
   );
 

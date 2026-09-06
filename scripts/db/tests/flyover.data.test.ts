@@ -33,6 +33,7 @@ import {
   MAX_BYTES,
   buildArtifact,
   type FlyoverArtifactV1,
+  PARTITION_EPS_EUR,
 } from "../gen_home/flyover";
 import { OBLAST_CODES, oblastFromName } from "../gen_home/oblastCodes";
 import type { FlyoverWorld } from "../../../src/lib/flyover/types";
@@ -324,20 +325,91 @@ test.skipIf(skip)(
 );
 
 test.skipIf(skip)(
-  "the flow matrix equals its SQL recount, cell by cell",
+  "the flow matrix equals its independent recount, cell by cell",
   async () => {
+    // ⚠️ THE LEAD IS RESOLVED IN TYPESCRIPT HERE, NOT WITH THE GENERATOR'S `DISTINCT ON`. Since
+    // T3.3 a carrier's oblast comes from its largest member, and a recount that pasted the
+    // generator's CTE would agree with it by construction — including on an ordering bug, which
+    // is the one defect a `DISTINCT ON` over three sort keys can actually have. Picking the max
+    // in a loop is a second implementation of the same RULE, which is what makes this a check.
+    const members = (await allRows(
+      `SELECT c.consortium_eik AS carrier, c.contractor_eik AS eik, p.oblast AS oblast
+         FROM contracts c
+         JOIN tr_company_place p ON p.uic = c.contractor_eik
+        WHERE c.consortium_role = 'member' AND c.tag = 'contract'
+          AND p.oblast IS NOT NULL
+        GROUP BY 1, 2, 3`,
+    )) as { carrier: string; eik: string; oblast: string }[];
+    // ⚠️ THE PREMISE THE TWO IMPLEMENTATIONS RESTED ON, ASSERTED. Until 2026-09-06 the
+    // generator picked the lead over every member with a `tr_company_place` ROW while this
+    // recount filtered on a non-null OBLAST — different rules in the two files, held in
+    // agreement only by the column being 100% populated. Both read `p.oblast` now; this pins
+    // the property, so a future divergence fails HERE rather than as a differing cell.
+    const [nulls] = await allRows<{ n: string }>(
+      "SELECT count(*)::text AS n FROM tr_company_place WHERE oblast IS NULL",
+    );
+    assert.equal(
+      Number(nulls.n),
+      0,
+      `${nulls.n} tr_company_place rows carry a null oblast — "placed" now means different ` +
+        `things in the lead pick, the matrix and the coverage`,
+    );
+    const own = new Map(
+      (
+        (await allRows(
+          `SELECT contractor_eik AS eik, sum(amount_eur::numeric) AS eur
+             FROM contracts WHERE tag = 'contract' GROUP BY 1`,
+        )) as { eik: string; eur: string }[]
+      ).map((r) => [r.eik, Number(r.eur)]),
+    );
+    const lead = new Map<string, string>();
+    const best = new Map<string, { eur: number; eik: string }>();
+    for (const r of members) {
+      const eur = own.get(r.eik) ?? 0;
+      const cur = best.get(r.carrier);
+      // Largest own money wins; EIK breaks the tie — the generator's ORDER BY, restated as a
+      // comparison so a disagreement about either key shows up as a differing cell.
+      // ⚠️ `<` on a string is UTF-16 CODE-UNIT order, which is why the generator's ORDER BY
+      // carries `COLLATE "C"`: en_US.utf8 does not compare punctuation at the primary weight,
+      // and 38 carriers tie at the top money with 7 of those ties deciding an oblast. Without
+      // the collation the two implementations agree by luck of the data rather than by rule.
+      if (!cur || eur > cur.eur || (eur === cur.eur && r.eik < cur.eik)) {
+        best.set(r.carrier, { eur, eik: r.eik });
+        lead.set(r.carrier, r.oblast);
+      }
+    }
+
     const rows = (await allRows(
-      `SELECT s.oblast AS buyer, p.oblast AS con, sum(c.amount_eur::numeric) AS eur
-       FROM contracts c
-       JOIN awarder_seats s ON s.eik = c.awarder_eik
-       JOIN tr_company_place p ON p.uic = c.contractor_eik
-      WHERE c.tag = 'contract' GROUP BY 1, 2`,
-    )) as { buyer: string; con: string; eur: string }[];
+      `SELECT s.oblast AS buyer, p.oblast AS con,
+              -- ⚠️ THE SYNTHETIC GUARD, HERE TOO. Without it this recount reproduces the
+              -- generator's own omission and agrees with it by construction — which is exactly
+              -- how €19,857,818 across 18 ph-/np- keys was drawn as arcs while the coverage
+              -- called it unplaced, with this test green.
+              CASE WHEN c.consortium_role = 'carrier'
+                    AND c.contractor_eik NOT LIKE 'ph-%'
+                    AND c.contractor_eik NOT LIKE 'np-%'
+                   THEN c.contractor_eik END AS carrier,
+              sum(c.amount_eur::numeric) AS eur
+         FROM contracts c
+         JOIN awarder_seats s ON s.eik = c.awarder_eik
+         LEFT JOIN tr_company_place p ON p.uic = c.contractor_eik
+        WHERE c.tag = 'contract'
+        GROUP BY 1, 2, 3`,
+    )) as {
+      buyer: string;
+      con: string | null;
+      carrier: string | null;
+      eur: string;
+    }[];
     const idx = new Map(OBLAST_CODES.map((c, i) => [c, i]));
     const m = OBLAST_CODES.map(() => OBLAST_CODES.map(() => 0));
+    let viaLead = 0;
     for (const r of rows) {
       const b = oblastFromName(r.buyer);
-      const k = oblastFromName(r.con);
+      const conName =
+        r.con ?? (r.carrier ? (lead.get(r.carrier) ?? null) : null);
+      if (!r.con && conName) viaLead += Number(r.eur);
+      const k = oblastFromName(conName);
       if (!b || !k) continue;
       m[idx.get(b)!][idx.get(k)!] += Number(r.eur);
     }
@@ -345,6 +417,13 @@ test.skipIf(skip)(
     assert.deepEqual(
       artifact!.flows.m,
       m.map((row) => row.map(meur)),
+    );
+    // Non-vacuity: the lead branch must have been exercised, or this reproduces the pre-T3.3
+    // matrix and would pass against a generator that had lost the attribution entirely.
+    assert.ok(
+      viaLead > 1e9,
+      `only €${viaLead} entered the matrix via a carrier's lead member — the attribution is ` +
+        `not being tested`,
     );
   },
 );
@@ -356,12 +435,21 @@ test.skipIf(skip)(
     const parts =
       cov.bothPlacedEur +
       Object.values(cov.unplaced).reduce((a, b) => a + b, 0);
+    // ⚠️ SHARED WITH THE GENERATOR rather than restated: six independently rounded euro
+    // figures against one rounded total can differ by 3 with no defect present, and this
+    // used to allow 1 — the value the committed artifact happens to sit at. A reload that
+    // shifted the cents would have failed here AND aborted `db:gen-home-flyover` mid-chain,
+    // both naming a hole that was not there.
     assert.ok(
-      Math.abs(parts - cov.totalEur) <= 1,
+      Math.abs(parts - cov.totalEur) <= PARTITION_EPS_EUR,
       `the buckets sum to ${parts} against a corpus of ${cov.totalEur} — ` +
         `\`unplaced\` is a decomposition, not a list of related figures`,
     );
     // The matrix's own total is the both-placed sum, to within the M€ rounding of 784 cells.
+    // ⚠️ THIS TOLERANCE IS 392 M€ AND CANNOT BE TIGHTENED — it is 784 cells of M€ rounding,
+    // measured at −24 M€ today. It is therefore blind to anything smaller, which is how a
+    // 19.9 M€ leak lived inside it; "the matrix draws exactly what the bothPlaced bucket
+    // counts" below is the assertion that compares the two in EUROS, before rounding.
     const matrixM = artifact!.flows.m.reduce(
       (a, row) => a + row.reduce((x, y) => x + y, 0),
       0,
@@ -385,11 +473,18 @@ test.skipIf(skip)(
     // had no seat at all now have one, and 99.6% of the seated corpus places. `trNoSeat`, the
     // largest unplaced bucket, fell from 45.5% to 32.6% of the money.
     //
+    // 0.33 → 0.42 the same day, when T3.3 placed the consortium carriers at their largest
+    // member: **36.24% → 46.62%**, €9.81bn moving out of `carriers` (6.6% → 0.8%) and out of
+    // `notInTr` (24.2% → 19.6%, the registered ДЗЗД half). ⚠️ That money is placed by
+    // ATTRIBUTION rather than by a seat, so this floor no longer measures only what the corpus
+    // knows — `carrierLead` is asserted separately below, and 546 of those groups have members
+    // in more than one oblast.
+    //
     // ⚠️ THE FLOOR SITS BELOW THE READING ON PURPOSE, and the margin is for CORPUS drift, not
     // for a regression: a contracts reload moves the denominator, and `db:load:tr:pg` is a
     // REFRESH_EXCLUSIONS member, so a machine can legitimately sit a TR vintage behind. ~9%
     // of headroom absorbs that and still fails long before the pre-T3.1 state.
-    const FLOOR = 0.33;
+    const FLOOR = 0.42;
     const cov = artifact!.flows.coverage;
     const placed = cov.bothPlacedEur / cov.totalEur;
     assert.ok(
@@ -522,3 +617,246 @@ test.skipIf(skip)("every population is the census's own", () => {
     ),
   );
 });
+
+test.skipIf(skip)(
+  "the consortium attribution is a declared subset, not a sixth bucket",
+  async () => {
+    // ⚠️ WHAT THIS EXISTS TO CATCH. `carrierLead.eur` is money that is ALREADY inside
+    // `bothPlacedEur` / `buyerUnplaced`; the partition test above cannot see it, because it
+    // does not read this field. A consumer that added it — or a generator change that started
+    // counting rows the bucket CASE does not — would over-state the corpus with every count
+    // still reconciling.
+    const lead = artifact!.flows.carrierLead;
+    assert.ok(lead, "the artifact carries no carrierLead — regenerate it");
+    const cov = artifact!.flows.coverage;
+    assert.ok(
+      lead.eur <= cov.bothPlacedEur + cov.unplaced.buyerUnplaced,
+      `carrier-lead money ${lead.eur} exceeds the ${cov.bothPlacedEur + cov.unplaced.buyerUnplaced} it is a subset of`,
+    );
+
+    // ⚠️ THE COUNTS AND THE MONEY MUST DESCRIBE ONE POPULATION. The first cut counted only the
+    // synthetic `obed-` carriers (1,420) while the euro figure covered those AND the registered
+    // ДЗЗД that carry an ordinary 9-digit EIK (611 more) — and NOT the 18 ph-/np- keys that also carry the role — a rate over the
+    // wrong denominator, and invisible because both numbers were individually right.
+    const [row] = await allRows<{ seatless: string; placed: string }>(
+      `WITH carriers AS (
+         -- ⚠️ THE SAME SYNTHETIC GUARD THE GENERATOR APPLIES. A ph-/np- key is a filler
+         -- registration number or a natural person, which is not a consortium — and this
+         -- recount admitted 22 of them (18 placed, 4 not) while the artifact excluded them,
+         -- which is what the equality below is for.
+         SELECT DISTINCT contractor_eik AS eik FROM contracts
+          WHERE consortium_role = 'carrier' AND tag = 'contract'
+            AND contractor_eik NOT LIKE 'ph-%' AND contractor_eik NOT LIKE 'np-%'
+       ), unseated AS (
+         SELECT c.eik FROM carriers c
+          LEFT JOIN tr_company_place p ON p.uic = c.eik
+          WHERE p.oblast IS NULL
+       )
+       SELECT (SELECT count(*)::text FROM unseated) AS seatless,
+              (SELECT count(DISTINCT c.consortium_eik)::text
+                 FROM contracts c
+                 JOIN tr_company_place p ON p.uic = c.contractor_eik
+                WHERE c.consortium_role = 'member' AND c.tag = 'contract'
+                  AND c.consortium_eik IN (SELECT eik FROM unseated)) AS placed`,
+    );
+    assert.equal(
+      lead.consortia + lead.unplaced,
+      Number(row.seatless),
+      `carrierLead counts ${lead.consortia + lead.unplaced} seatless carriers against ` +
+        `${row.seatless} in the corpus — the counts and the money are over different populations`,
+    );
+    assert.equal(lead.consortia, Number(row.placed));
+
+    // The multi-oblast count is the honesty field: it says how often the lead DISCARDS a true
+    // answer. It cannot exceed the groups it is drawn from, and it must not be zero — a zero
+    // would mean every consortium sits in one oblast, which would make the whole caveat
+    // unnecessary and is the shape a broken query returns.
+    assert.ok(
+      lead.multiOblast > 0 && lead.multiOblast <= lead.consortia,
+      `multiOblast ${lead.multiOblast} against ${lead.consortia} placed groups`,
+    );
+    // Non-vacuity: the attribution must actually be doing something.
+    assert.ok(
+      lead.consortia > 100 && lead.eur > 1e9,
+      `the carrier attribution placed ${lead.consortia} groups / €${lead.eur} — it has stopped working`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the matrix still refuses an unplaced contractor",
+  async () => {
+    // The mutation check for T3.3: the lead join must ADD carriers, never admit everything. If
+    // `COALESCE(p.oblast, cl.oblast)` ever stopped filtering, the matrix would absorb the
+    // `trNoSeat` and `notInTr` money too and `bothPlacedEur` would approach `buyerPlacedEur`.
+    const cov = artifact!.flows.coverage;
+    assert.ok(
+      cov.bothPlacedEur < cov.buyerPlacedEur * 0.75,
+      `both-placed ${cov.bothPlacedEur} is within 75% of buyer-placed ${cov.buyerPlacedEur} — ` +
+        `the contractor join has stopped discriminating`,
+    );
+    // …and the residue must survive: a corpus in which nothing is unplaced is not this one.
+    assert.ok(
+      cov.unplaced.trNoSeat > 1e10 && cov.unplaced.notInTr > 1e10,
+      "the unplaced buckets have collapsed — the contractor side is no longer being tested",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the matrix draws exactly what the bothPlaced bucket counts",
+  async () => {
+    // ⚠️ COMPARED BEFORE ROUNDING, which the sibling assertion above cannot do: it allows
+    // ±392 M€ for M€ rounding across 784 cells, and the leak it needed to catch was 19.9 M€ —
+    // twenty times smaller than its own tolerance. The two quantities are selected by two
+    // DIFFERENT predicates (the matrix's WHERE, the coverage's CASE), and T3.3 made them
+    // disagree by adding a placement route to one and not the other. In euros they must be
+    // identical.
+    const [r] = await allRows<{ matrix: string; bucket: string }>(
+      `WITH c AS (
+         SELECT c.amount_eur::numeric AS eur,
+                (s.eik IS NOT NULL) AS buyer_placed,
+                (COALESCE(p.oblast, cl.oblast) IS NOT NULL) AS con_placed,
+                c.contractor_eik AS eik
+           FROM contracts c
+           LEFT JOIN awarder_seats s ON s.eik = c.awarder_eik
+           LEFT JOIN tr_company_place p ON p.uic = c.contractor_eik
+           LEFT JOIN (
+             SELECT DISTINCT ON (m.consortium_eik) m.consortium_eik AS carrier_eik, q.oblast
+               FROM contracts m
+               JOIN tr_company_place q ON q.uic = m.contractor_eik AND q.oblast IS NOT NULL
+               LEFT JOIN (SELECT contractor_eik AS eik, sum(amount_eur::numeric) AS own_eur
+                            FROM contracts WHERE tag = 'contract' GROUP BY 1) mm
+                      ON mm.eik = m.contractor_eik
+              WHERE m.consortium_role = 'member' AND m.tag = 'contract'
+              ORDER BY m.consortium_eik, COALESCE(mm.own_eur, 0) DESC,
+                       m.contractor_eik COLLATE "C"
+           ) cl ON cl.carrier_eik = c.contractor_eik
+               AND c.consortium_role = 'carrier'
+               AND c.contractor_eik NOT LIKE 'ph-%'
+               AND c.contractor_eik NOT LIKE 'np-%'
+          WHERE c.tag = 'contract'
+       )
+       SELECT round(sum(eur) FILTER (WHERE con_placed AND buyer_placed))::text AS matrix,
+              round(sum(eur) FILTER (
+                WHERE NOT (eik LIKE 'ph-%' OR eik LIKE 'np-%')
+                  AND con_placed AND buyer_placed))::text AS bucket
+         FROM c`,
+    );
+    assert.equal(
+      r.matrix,
+      r.bucket,
+      "the matrix draws money the coverage calls unplaced — a placement route bypassed the CASE",
+    );
+    assert.equal(
+      Number(r.bucket),
+      artifact!.flows.coverage.bothPlacedEur,
+      "bothPlacedEur disagrees with its own recount",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the lead attribution counts only carriers a member set can stand for",
+  async () => {
+    // ⚠️ THE EQUALITY ABOVE CANNOT SEE THIS. `consortia + unplaced == seatless` is true of any
+    // partition of the same set — including one that admits `ph-`/`np-` keys on both sides,
+    // which is the state that shipped. This asserts the COMPOSITION rather than the split.
+    const [r] = await allRows<{ synthetic: string; obed: string; reg: string }>(
+      `SELECT count(*) FILTER (WHERE eik LIKE 'ph-%' OR eik LIKE 'np-%')::text AS synthetic,
+              count(*) FILTER (WHERE eik LIKE 'obed-%')::text AS obed,
+              count(*) FILTER (WHERE eik NOT LIKE 'obed-%' AND eik NOT LIKE 'ph-%'
+                                 AND eik NOT LIKE 'np-%')::text AS reg
+         FROM (
+           SELECT DISTINCT c.contractor_eik AS eik
+             FROM contracts c
+             LEFT JOIN tr_company_place p ON p.uic = c.contractor_eik
+            WHERE c.consortium_role = 'carrier' AND c.tag = 'contract' AND p.oblast IS NULL
+              AND c.contractor_eik NOT LIKE 'ph-%' AND c.contractor_eik NOT LIKE 'np-%'
+         ) q`,
+    );
+    assert.equal(
+      Number(r.synthetic),
+      0,
+      "a filler id or a natural person is not a consortium — the lead join lost the synthetic guard",
+    );
+    // Both real kinds must be present, or the guard has become a filter on everything: the
+    // synthetic `obed-` keys AND the registered ДЗЗД that carry an ordinary 9-digit EIK.
+    assert.ok(
+      Number(r.obed) > 1_000 && Number(r.reg) > 100,
+      `seatless carriers split ${r.obed} obed- / ${r.reg} registered — one kind has vanished`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "carrierLead.eur is recounted, not merely bounded",
+  async () => {
+    // The caption renders this as `leadBn`. Every other published figure gets an independent
+    // recount; this one had an inequality with €34bn of slack, which is why 19.9 M€ of
+    // contamination sat inside it unnoticed.
+    const [r] = await allRows<{ eur: string }>(
+      `WITH mm AS (SELECT contractor_eik AS eik, sum(amount_eur::numeric) AS own_eur
+                     FROM contracts WHERE tag = 'contract' GROUP BY 1),
+            cl AS (SELECT DISTINCT ON (m.consortium_eik) m.consortium_eik AS carrier_eik, q.oblast
+                     FROM contracts m
+                     JOIN tr_company_place q ON q.uic = m.contractor_eik AND q.oblast IS NOT NULL
+                     LEFT JOIN mm ON mm.eik = m.contractor_eik
+                    WHERE m.consortium_role = 'member' AND m.tag = 'contract'
+                    ORDER BY m.consortium_eik, COALESCE(mm.own_eur, 0) DESC,
+                             m.contractor_eik COLLATE "C")
+       SELECT round(sum(c.amount_eur::numeric))::text AS eur
+         FROM contracts c
+         JOIN cl ON cl.carrier_eik = c.contractor_eik
+         LEFT JOIN tr_company_place p ON p.uic = c.contractor_eik
+        WHERE c.tag = 'contract' AND c.consortium_role = 'carrier'
+          AND c.contractor_eik NOT LIKE 'ph-%' AND c.contractor_eik NOT LIKE 'np-%'
+          AND p.oblast IS NULL AND cl.oblast IS NOT NULL`,
+    );
+    assert.ok(
+      Math.abs(Number(r.eur) - artifact!.flows.carrierLead.eur) <= 1,
+      `carrierLead.eur is ${artifact!.flows.carrierLead.eur} against a recount of ${r.eur}`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "multiOblast is a subset of the placed groups, recounted",
+  async () => {
+    // The caption says „При {{multi}} от тях" — of THOSE groups — so containment is a claim
+    // about the published pair and not a bound. The generator's `spread` CTE ranges over every
+    // seatless carrier, placed or not, so the claim held only while no `tr_company_place` row
+    // carried a null oblast; this recounts it against the placed set.
+    const [r] = await allRows<{ multi: string }>(
+      `WITH mm AS (SELECT contractor_eik AS eik, sum(amount_eur::numeric) AS own_eur
+                     FROM contracts WHERE tag = 'contract' GROUP BY 1),
+            cl AS (SELECT DISTINCT ON (m.consortium_eik) m.consortium_eik AS carrier_eik, q.oblast
+                     FROM contracts m
+                     JOIN tr_company_place q ON q.uic = m.contractor_eik AND q.oblast IS NOT NULL
+                     LEFT JOIN mm ON mm.eik = m.contractor_eik
+                    WHERE m.consortium_role = 'member' AND m.tag = 'contract'
+                    ORDER BY m.consortium_eik, COALESCE(mm.own_eur, 0) DESC,
+                             m.contractor_eik COLLATE "C"),
+            seatless AS (
+              SELECT DISTINCT c.contractor_eik AS eik
+                FROM contracts c
+                LEFT JOIN tr_company_place p ON p.uic = c.contractor_eik
+               WHERE c.consortium_role = 'carrier' AND c.tag = 'contract' AND p.oblast IS NULL
+                 AND c.contractor_eik NOT LIKE 'ph-%' AND c.contractor_eik NOT LIKE 'np-%')
+       SELECT count(*)::text AS multi FROM (
+         SELECT m.consortium_eik
+           FROM contracts m
+           JOIN tr_company_place q ON q.uic = m.contractor_eik AND q.oblast IS NOT NULL
+          WHERE m.consortium_role = 'member' AND m.tag = 'contract'
+            AND m.consortium_eik IN (SELECT eik FROM seatless)
+            AND m.consortium_eik IN (SELECT carrier_eik FROM cl WHERE oblast IS NOT NULL)
+          GROUP BY 1 HAVING count(DISTINCT q.oblast) > 1) s`,
+    );
+    assert.equal(
+      Number(r.multi),
+      artifact!.flows.carrierLead.multiOblast,
+      `multiOblast is ${artifact!.flows.carrierLead.multiOblast} against a recount of ${r.multi} ` +
+        `over the PLACED groups — the caption's „of those" is not true of the published pair`,
+    );
+  },
+);

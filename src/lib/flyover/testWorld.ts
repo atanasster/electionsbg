@@ -69,17 +69,37 @@ export const TEST_WORLD: FlyoverWorld = {
       // VAR → …
       [15, 1005, 300],
     ],
+    // ⚠️ `coverage`, `figures` AND `carrierLead` COME FROM ONE ARTIFACT VINTAGE, and that is an
+    // invariant rather than tidiness. `carrierLead` was added with post-T3.3 values while these
+    // were left at their pre-T3.1 ones, which made the fixture assert simultaneously that 2,049
+    // carriers had been placed at a lead member AND that the `carriers` bucket still held every
+    // euro of unplaced consortium money — a state the generator cannot produce. The pair is
+    // rendered together in the ARCS loop, so `arcs_consortia` beside `arcs_coverage` then read
+    // „€9.8bn of €22.1bn" (44%) where production reads 22%, and any eyeball or snapshot check
+    // of the two captions calibrated against a relationship that cannot occur.
+    // Refreshed 2026-09-06 from `data/home/flyover.json`.
     coverage: {
-      totalEur: 94_117_596_157,
-      bothPlacedEur: 22_087_679_422,
-      buyerPlacedEur: 93_182_404_820,
+      totalEur: 94_189_514_880,
+      bothPlacedEur: 43_915_446_808,
+      buyerPlacedEur: 93_254_399_806,
       unplaced: {
-        trNoSeat: 42_800_962_607,
-        notInTr: 22_734_656_807,
-        carriers: 6_233_855_287,
+        trNoSeat: 30_673_505_354,
+        notInTr: 18_479_955_103,
+        carriers: 753_818_491,
         synthetic: 87_305_164,
-        buyerUnplaced: 173_136_871,
+        buyerUnplaced: 279_483_961,
       },
+    },
+    // ⚠️ PRESENT HERE EVEN THOUGH THE FIELD IS OPTIONAL. `captions.test.ts` resolves every
+    // caption against this world and asserts each gives at least one finite number, so a
+    // fixture without it would make `arcs_consortia` return null and drop out of that sweep —
+    // a caption shipped to readers with nothing checking its params. The absent case is
+    // covered by its own test instead, which is the half that must not be the default.
+    carrierLead: {
+      eur: 9_791_395_167,
+      consortia: 2_031,
+      unplaced: 331,
+      multiOblast: 540,
     },
   },
   // МИР keys again — the election corpus is per-МИР and Sofia's three vote separately.
@@ -107,9 +127,9 @@ export const TEST_WORLD: FlyoverWorld = {
     procTotalEur: 93_907_350_255,
     procContracts: 407_392,
     sofiaBuyerShare: 0.566,
-    sameOblastArcShare: 0.558,
-    intoSofiaArcShare: 0.311,
-    outOfSofiaArcShare: 0.073,
+    sameOblastArcShare: 0.565,
+    intoSofiaArcShare: 0.239,
+    outOfSofiaArcShare: 0.118,
     topFlow: ["PDV", "SOF", 1116],
     fundsPlacedEur: 16_062_388_216,
     fundsTotalEur: 33_695_060_498,

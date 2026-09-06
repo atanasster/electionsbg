@@ -179,7 +179,7 @@ describe("every programme", () => {
     (p: Programme) => {
       // ⚠️ Copied constants, exactly like the camera anchors — and `render.ts` compares them
       // by EQUALITY against `region.oblast`, so a typo is a silent no-op: the camera flies to
-      // Sofia, the caption says „31,1% отиват в софийски фирми", and nothing is picked out.
+      // Sofia, the caption says „23,9% отиват в софийски фирми", and nothing is picked out.
       // The artifact carries both `SFO` (София) and `SOF` (София-столица), which is exactly
       // the pair a copy-out confuses.
       const oblasts = new Set(

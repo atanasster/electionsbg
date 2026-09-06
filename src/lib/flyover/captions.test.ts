@@ -39,8 +39,10 @@ describe("the caption table", () => {
   it("reads its figures from the artifact rather than recomputing them", () => {
     // The data gate recounts `figures` against Postgres; a caption that derived its own
     // statistic would publish a number nothing checks.
+    // ⚠️ PINNED TO `TEST_WORLD`, so it moves with the fixture and NOT with the corpus. It read
+    // 31.1 until 2026-09-06, when T3.1/T3.3 took the fixture to the post-attribution vintage.
     expect(captionFor("arcs_into_sofia", TEST_WORLD)!.params.pct).toBeCloseTo(
-      31.1,
+      23.9,
       1,
     );
     expect(captionFor("arcs_top_flow", TEST_WORLD)!.params).toEqual({
@@ -124,5 +126,33 @@ describe("the caption table", () => {
         }
       }
     }
+  });
+});
+
+describe("the consortium caption on an artifact that predates it", () => {
+  it("says nothing rather than inventing a zero", () => {
+    // ⚠️ THE BUCKET COPY IS THE CASE. `flows.carrierLead` is optional in the engine's types
+    // because the browser fetches whatever object the bucket currently holds, and between a
+    // bundle deploy and the artifact sync that is one minted before the field existed. A
+    // caption that rendered „0 обединения" there would state a measurement nobody made; a
+    // null simply leaves the row empty for one loop.
+    const old = {
+      ...TEST_WORLD,
+      flows: { ...TEST_WORLD.flows, carrierLead: undefined },
+    };
+    expect(captionFor("arcs_consortia", old)).toBeNull();
+    // Non-vacuity: it must ALSO return null for a present-but-empty carrier set, and it must
+    // NOT be null on the real fixture — otherwise this passes against a caption that was
+    // deleted.
+    expect(
+      captionFor("arcs_consortia", {
+        ...TEST_WORLD,
+        flows: {
+          ...TEST_WORLD.flows,
+          carrierLead: { eur: 0, consortia: 0, unplaced: 0, multiOblast: 0 },
+        },
+      }),
+    ).toBeNull();
+    expect(captionFor("arcs_consortia", TEST_WORLD)).not.toBeNull();
   });
 });

@@ -53,6 +53,24 @@ export interface WorldCoverage {
   };
 }
 
+/**
+ * How the consortium carriers were placed — the generator's `FlyoverCarrierLead`.
+ *
+ * ⚠️ OPTIONAL HERE AND REQUIRED THERE, DELIBERATELY. The generator always emits it, but the
+ * browser fetches whatever object the bucket currently holds — and between shipping the bundle
+ * and syncing the artifact, that is an object minted before this field existed. Required, the
+ * shape gate in `useFlyoverArtifact` would reject it and `/` would fall back to the poster for
+ * the length of a deploy; optional, the arcs still draw and only the one caption stays quiet.
+ */
+export interface WorldCarrierLead {
+  /** Money placed at a lead member. A SUBSET of `coverage.bothPlacedEur`. */
+  eur: number;
+  consortia: number;
+  unplaced: number;
+  /** Groups whose placed members span more than one oblast — where the lead is a CHOICE. */
+  multiOblast: number;
+}
+
 export interface WorldFlows {
   scope: string;
   /** The 28 oblast codes, sorted — row and column keys of `m`. */
@@ -60,6 +78,7 @@ export interface WorldFlows {
   /** `m[buyer][contractor]` in whole M€. */
   m: number[][];
   coverage: WorldCoverage;
+  carrierLead?: WorldCarrierLead;
 }
 
 export interface WorldElectionRegion {
@@ -99,7 +118,7 @@ export interface FlyoverWorld {
     procTotalEur: number;
     procContracts: number;
     sofiaBuyerShare: number;
-    /** ⚠️ Shares of the both-placed QUARTER, not of procurement. See the artifact's own docs. */
+    /** ⚠️ Shares of the both-placed HALF, not of procurement. See the artifact's own docs. */
     sameOblastArcShare: number;
     intoSofiaArcShare: number;
     outOfSofiaArcShare: number;

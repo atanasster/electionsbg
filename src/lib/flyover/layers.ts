@@ -120,7 +120,7 @@ export const byMoneyThenKey = (a: FlowArc, b: FlowArc): number =>
 /**
  * The flows worth drawing, largest first.
  *
- * ⚠️ THE DIAGONAL IS EXCLUDED, and it is the largest single quantity in the matrix: 55.7% of
+ * ⚠️ THE DIAGONAL IS EXCLUDED, and it is the largest single quantity in the matrix: 56.5% of
  * the both-placed money stays inside the buyer's own oblast. An arc from a point to itself is
  * not a small arc, it is nothing — so that share is a CAPTION, never a curve, and a consumer
  * summing the drawn arcs is looking at 44% of the placed quarter rather than at the corpus.
@@ -179,8 +179,8 @@ export const arcLift = (dx: number, dz: number): number =>
 /**
  * The colour a flow is drawn in.
  *
- * The capital is the whole finding — 31.1% of the placed money flows INTO Sofia-city
- * contractors from buyers elsewhere and only 7.3% flows out — so the two directions are the
+ * The capital is the whole finding — 23.9% of the placed money flows INTO Sofia-city
+ * contractors from buyers elsewhere and 11.8% flows out — so the two directions are the
  * two colours, and everything else is neutral rather than a third opinion.
  */
 export const arcColor = (

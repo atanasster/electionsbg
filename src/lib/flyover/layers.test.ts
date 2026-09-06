@@ -64,7 +64,7 @@ describe("layerMax", () => {
 
 describe("topFlows", () => {
   it("excludes the diagonal, which is the largest quantity in the matrix", () => {
-    // 55.7% of the placed money stays inside the buyer's own oblast. An arc from a point to
+    // 56.5% of the placed money stays inside the buyer's own oblast. An arc from a point to
     // itself is not a small arc, it is nothing — so that share is a caption, never a curve.
     const flows = topFlows(TEST_WORLD);
     expect(flows.every((f) => f.from !== f.to)).toBe(true);
@@ -146,7 +146,7 @@ describe("arc geometry and colour", () => {
   });
 
   it("colours by direction relative to the capital", () => {
-    // 31.1% flows INTO Sofia and 7.3% out — the two directions are the finding, so they are
+    // 23.9% flows INTO Sofia and 11.8% out — the two directions are the finding, so they are
     // the two colours, and everything else is neutral rather than a third opinion.
     expect(arcColor({ from: "PDV", to: "SOF", eur: 1 }, TEST_PALETTE)).toBe(
       TEST_PALETTE.arcIn,
