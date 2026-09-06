@@ -57,24 +57,22 @@ export const DATA_ROOT = path.join(process.cwd(), "data");
  * its own object-count line, and the shell falls back to the legacy composition for any cycle
  * with no artifact — the same path a missing artifact already takes.
  *
- * ⚠⚠ PRESIDENTIAL IS BUILT AND WITHHELD, and the two reasons are both hard gates rather than
- * caution. `build_presidential_surface.ts` is complete and tested; what it may not yet do is
- * run in a PUBLISH, because:
+ * ⚠⚠ PRESIDENTIAL IS BUILT AND WITHHELD, FOR ONE REMAINING REASON. `build_presidential_surface.ts`
+ * is complete and tested; what it may not yet do is run in a PUBLISH, because **its destinations
+ * name routes the app does not serve** — every surface links to `/presidential/<cycle>/…` and
+ * `routes.tsx` declares no such route, 81,256 unresolvable destinations measured by this repo's
+ * own gate. A producer that links to a 404 is the same defect the tile registry, the header
+ * dropdown and the hub search each refused.
  *
- *   • **Its destinations name routes the app does not serve.** Every surface links to
- *     `/presidential/<cycle>/…`, and `routes.tsx` declares no such route — 81,256 unresolvable
- *     destinations, measured. A surface that links to a 404 is the same defect the tile
- *     registry, the header dropdown and the hub search each refused; this is that rule at the
- *     producer.
- *   • **The object count.** §5.0 rejects a ~240,000-object shape and requires v1 to stay an
- *     order of magnitude below it. Five presidential cycles add 81,553 artifacts — of which
- *     ~60,000 are the SECTION level — taking the corpus from 23,665 to 105,218, i.e. 44% of the
- *     shape §5.0 rejects rather than a tenth of it. That is a coverage decision with its own
- *     line, not something to slip in behind a builder.
+ * The OTHER reason is closed: the object count. Five cycles of section artifacts were ~60,000
+ * objects on their own, taking the corpus to 105,218 — 44% of the ~240,000-object shape §5.0
+ * rejects rather than the tenth it asks for. Sections are bounded to the latest cycle now
+ * (`sectionArtifactCycle`), which mirrors how every other kind is bounded and lands the corpus
+ * at 59,212. ⚠ That is 1.3% under the 60,000 gate, so the next level added here needs its own
+ * arithmetic rather than an assumption of room.
  *
  * Removing `presidential` from this list is what turns the surfaces on, and `emittedLevels`
- * already says which levels they are. Plan Tier 5 owns both — the routes and the coverage
- * decision — and until then the builder is exercised by its own gates rather than by a publish.
+ * already says which levels they are. Plan Tier 5's route family owns the last step.
  */
 const KINDS_NOT_PUBLISHED: readonly ElectionKind[] = ["presidential"];
 export const coveredCycles = (

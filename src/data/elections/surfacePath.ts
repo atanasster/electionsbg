@@ -177,6 +177,12 @@ export const SURFACE_POLICY: Record<
       measuredCycle: "2021_11_14_pvr",
       measuredOn: "2026-09-06",
       reason: "2.4 MB for one section's first screen — 307x over 8 KiB",
+      // ⚠ THE POLICY IS PER KIND; THE COVERAGE IS PER CYCLE, and only this level's differ.
+      // `source: "artifact"` says a section page SHOULD be served from one; how many cycles
+      // actually get them is `sectionArtifactCycle` in the builder, which bounds them to the
+      // latest because five cycles' sections are ~60,000 objects — 44% of the shape §5.0
+      // rejects. An older cycle's section page falls back to the legacy composition, the same
+      // path a missing artifact already takes.
     },
   },
   parliamentary: {

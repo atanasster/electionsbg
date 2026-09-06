@@ -1144,7 +1144,7 @@ Route family, parallel to `local/:cycle/…` in `src/routes.tsx`:
 
 ```
 /presidential/:cycle                       country: R1 ranking + runoff panel, map by leading ticket, turnout, abroad
-/presidential/:cycle/round/2               the runoff as its own page (map by winner, swing vs R1)   ⚑ or a toggle on the country page
+                                           ⚑ RESOLVED: the runoff is a TOGGLE on the country page, not a route
 /presidential/:cycle/region/:oblast        oblast: both rounds, municipalities table, map
 /presidential/:cycle/municipality/:obshtina
 /presidential/:cycle/settlement/:ekatte
@@ -1338,8 +1338,24 @@ What the shared system needs from this kind, named so it cannot be discovered ha
 
 ⚑ **Section maps for 2011**: the oblast-grid codes carry no GPS join; the map falls back to settlement
 centroids for that cycle (as the 2005 parliamentary tree does), and the page says so.
-⚑ **2001**: include in the selector from day one (its numbers are as verified as the rest) or hold until Tier 9
-resolves the `[SEC]` code space — recommendation: hold, ship four cycles, add 2001 with 1992/1996 together.
+⚑ **2001 — RESOLVED 2026-09-06: ship all five.** The plan's original recommendation was to hold it, and Tier 4
+overtook that: the catalogue, the header dropdown, the hub tile and the search already list five cycles, so
+holding 2001 in the screens alone would leave four surfaces offering a cycle the screens refuse. Its
+place-level numbers verified EXACTLY against the official totals (§2.4); what is unresolved is its `[SEC]` code
+space, which affects section pages alone — and those say so, the way 2011's missing GPS join already does.
+
+⚑ **THE RUNOFF IS A TOGGLE, NOT A ROUTE — RESOLVED 2026-09-06.** One `/presidential/:cycle` page with a round
+switch. Three things follow and each is the reason: the surfaces ALREADY carry both rounds as ballots on one
+artifact, so no producer changes; one canonical page per cycle rather than two competing for the same query;
+and the prerender and sitemap sets stay at one entry per cycle per language. The cost is stated rather than
+hidden — the runoff has no indexable URL of its own, so „балотаж 2021" ranks against the cycle page.
+
+⚑ **SECTION ARTIFACTS ARE BOUNDED TO THE LATEST CYCLE — RESOLVED 2026-09-06.** §5.0 rejects a ~240,000-object
+shape and asks v1 to stay an order of magnitude below it; five presidential cycles' sections are ~60,000
+objects on their own and would take the corpus to 105,218, i.e. 44% of the rejected shape. Bounding them
+mirrors how every other kind is bounded (parliamentary: the latest cycle; local: the latest two) and keeps
+every PLACE level for all five — the pages readers actually browse — at a corpus total near 59,000. An older
+cycle's section page falls back to the legacy composition, the same path a missing artifact already takes.
 
 ## 10. Tier 6 — SEO surface (1–2 days)
 

@@ -533,6 +533,31 @@ export const buildSectionSurface = (
  * @param root - Where the data tree lives; defaults to the repo's.
  * @returns One surface per (level, place), or an empty list when the cycle is not ingested.
  */
+/**
+ * The one cycle whose SECTION artifacts are emitted.
+ *
+ * ⚠⚠ SECTIONS ARE BOUNDED TO THE LATEST CYCLE, and it is an object-count decision rather than a
+ * data one. §5.0 rejects a ~240,000-object shape and asks v1 to stay an order of magnitude
+ * below it; five cycles' sections are ~60,000 objects on their own, which would take the corpus
+ * from 23,665 to 105,218 — 44% of the shape it rejects. Bounding them mirrors how every other
+ * kind is bounded (parliamentary: the latest cycle; local: the latest two) and keeps every
+ * PLACE level for all five, which is what a reader actually browses. An older cycle's section
+ * page falls back to the legacy composition — the same path a missing artifact already takes.
+ *
+ * ⚠ IT IS DERIVED FROM THE DATA, not written down: „the latest" must not become a literal that
+ * a new cycle silently invalidates.
+ */
+export const sectionArtifactCycle = (root = DATA_ROOT): string | null => {
+  if (!fs.existsSync(root)) return null;
+  return (
+    fs
+      .readdirSync(root)
+      .filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d))
+      .sort()
+      .at(-1) ?? null
+  );
+};
+
 export const buildPresidentialSurfaces = (
   cycle: string,
   root = DATA_ROOT,
@@ -628,16 +653,20 @@ export const buildPresidentialSurfaces = (
       });
     }
   }
-  // ⚠ SECTIONS ARE READ FROM THE PER-OBLAST SHARDS, and round 1 decides the population — but
-  // NOT because a runoff-only section is impossible. It is 16 real stations across the five
-  // cycles, opened for the runoff alone (mobile boxes, hospital sections, late additions), and
-  // an earlier draft of this comment asserted they could not exist while dropping every one of
-  // them silently. They are counted and named below rather than published: a one-ballot surface
-  // whose fact strip describes „round 1" at a place that had none is a page about a round that
-  // did not happen there.
+  // ⚠ SECTIONS ARE READ FROM THE PER-OBLAST SHARDS, and only for the LATEST cycle — see
+  // `sectionArtifactCycle`. The place levels above run for every cycle; this level is ~60,000
+  // objects across five, which is the object-count decision §5.0 forces.
+  if (cycle !== sectionArtifactCycle(root)) return out;
+
+  // Round 1 decides the population — but NOT because a runoff-only section is impossible. It is
+  // 16 real stations across the five cycles, opened for the runoff alone (mobile boxes, hospital
+  // sections, late additions), and an earlier draft asserted they could not exist while dropping
+  // every one silently. They are counted and named below rather than published: a one-ballot
+  // surface whose strip describes „round 1" at a place that had none is a page about a round
+  // that did not happen there.
   //
-  // ⚠ The PLACE loop above is different and its claim holds — measured, there are 0
-  // round-2-only rows at region, municipality, settlement and abroad in every cycle.
+  // ⚠ The PLACE loop above is different and its claim holds — measured, 0 round-2-only rows at
+  // region, municipality, settlement and abroad in every cycle.
   const laterSections = new Map<string, ShardSection>();
   for (const round of ROUNDS.slice(1) as RoundNo[])
     for (const oblast of sectionOblasts(cycle, round, root))

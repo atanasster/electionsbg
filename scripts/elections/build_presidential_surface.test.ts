@@ -12,6 +12,7 @@ import {
   loadTickets,
   presidentialFacts,
   rankedTickets,
+  sectionArtifactCycle,
   totalsFrom,
 } from "./build_presidential_surface";
 import { descriptorFor } from "../../src/screens/elections/electionSurfaceDescriptors";
@@ -45,6 +46,26 @@ const at = (cycle: string, level: string, id: string): ElectionSurfaceV1 =>
   built(cycle).find((b) => b.level === level && b.id === id)!.surface;
 
 describe.runIf(hasCorpus)("presidential surfaces", () => {
+  it("emits section artifacts for the LATEST cycle only", () => {
+    // ⚠ AN OBJECT-COUNT DECISION, not a data one. Five cycles' sections are ~60,000 objects and
+    // would take the corpus to 105,218 — 44% of the shape §5.0 rejects rather than the tenth it
+    // asks for. Bounding them mirrors how every other kind is bounded (parliamentary: the
+    // latest; local: the latest two) and keeps every PLACE level for all five, which is what a
+    // reader actually browses.
+    expect(sectionArtifactCycle()).toBe("2021_11_14_pvr");
+    expect(
+      built("2021_11_14_pvr").filter((b) => b.level === "section").length,
+    ).toBeGreaterThan(10_000);
+    for (const cycle of CYCLES.filter((c) => c !== "2021_11_14_pvr"))
+      expect(
+        built(cycle).filter((b) => b.level === "section"),
+        cycle,
+      ).toEqual([]);
+    // …and those cycles still get every PLACE level, so the bound is on sections alone.
+    for (const cycle of CYCLES)
+      expect(built(cycle).length, cycle).toBeGreaterThan(4_000);
+  });
+
   it("emits every level the policy says emits, and only those", () => {
     // ⚠ DERIVED FROM THE POLICY, not a list. The orchestrator throws when a level emits and
     // has no producer, so this is the other direction — a producer for a level the policy
