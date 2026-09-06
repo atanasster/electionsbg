@@ -138,7 +138,9 @@ const main = async (): Promise<void> => {
       console.log(
         `[tr/daily-refresh] CR Deeds projection: ${proj.companies.toLocaleString()} companies, ` +
           `${proj.parties.toLocaleString()} owner/officer rows merged, ` +
-          `${proj.subjects.toLocaleString()} предмет-на-дейност gaps filled`,
+          `${proj.subjects.toLocaleString()} предмет-на-дейност gaps filled, ` +
+          `${proj.seats.toLocaleString()} седалище gaps filled ` +
+          `(of ${proj.seatsOffered.toLocaleString()} captures carrying a seat)`,
       );
     } finally {
       store.close();

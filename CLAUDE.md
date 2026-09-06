@@ -3900,7 +3900,7 @@ The single-producer fix is `pd.name_en` on the prerender card (the locals query 
 `person:slugs:cloud` mint — the manifest is committed, so a card field changes nothing until
 the file is re-minted from the serving database.
 
-### The ЕТ owner, and the two fields the TR ingest used to drop
+### The ЕТ owner, and the three fields the TR ingest used to drop
 
 **`PhysicalPersonTrader` (FieldIdent 00180) — the natural person an ЕТ IS — was not parsed
 at all until 2026-08-26.** `PERSON_SECTION_TO_ROLE` in `parse_daily_filing.ts` is an
@@ -3983,6 +3983,66 @@ The gates are `scripts/db/tests/tr_sole_trader.data.test.ts` (which SKIPS with a
 reason on a corpus predating the fix — that must never read as "the rule is enforced"),
 `functions/db_routes.company_subject.test.js` for the 42703 degrade, and the parser tests in
 `scripts/declarations/tr/`.
+
+**`Седалище` (CR_F_5_L / CR_F_5a_L) was the THIRD drop, and the largest** — same shape again
+(parsed since the ingest was written, persisted by nothing), but it feeds the whole PLACE
+layer rather than one field on one page. `tr_company_place` resolves `tr_companies.seat` to
+an EKATTE, and that is where every governance „фирми, регистрирани тук" tile, the
+`/companies` oblast facet and the home flyover's contractor arcs get their oblast from.
+Measured 2026-09-06: **693,932 of 1,023,673 companies (67.8%) carry no seat at all**, because
+the daily feed only re-states the field when a company files — so a firm that has not filed
+since 2021 is invisible to every place surface on the site. The 29,777 CR captures answer for
+**29,417** of them, **26,152** of which are gaps.
+
+⚠️ **IT STORES A CANONICALISED FORM, NEVER THE RAW CR TEXT, and this is the half that fails
+silently.** CR renders the seat as a labelled block — „Държава: БЪЛГАРИЯ Област: Благоевград,
+Община: Разлог Населено място: гр. Разлог, п.к. 2760 бул./ул. … Телефон: … Адрес на
+електронна поща: …" — while the daily feed writes „БЪЛГАРИЯ, гр. Разлог, 2760". `parseSeat`
+(`scripts/db/load_tr_company_place_pg.ts`) splits the feed's string on commas and takes field
+1, so on a raw block it reads „Община: Разлог Населено място: гр. Разлог", resolves nothing,
+and leaves the company **unplaced with its seat column full and every row count reconciling**.
+`crSeatToFeedForm` (`parse_cr_deeds.ts`) rewrites it; `parsed.seat` keeps the original for
+provenance and nothing stores it. Two further reasons the canonical form is the right one to
+store: the raw carries a phone, fax and e-mail (7,867 of 29,417 captures carry a non-empty
+electronic-mail label; 7,899 carry an @ anywhere in the block) into a column that
+is rendered on `/company/:eik` and is a `companies` browse column, and it would make one
+field mean two different things depending on which source filled it.
+
+⚠️ **Same fill-if-null precedence as `subject_of_activity`, and here the cost of getting it
+wrong is MEASURED rather than argued.** On the 3,247 companies where both the capture and the
+feed carry a seat, the two resolve to the same EKATTE for **3,216 (99.05%)** — and every one
+of the 31 that differ is a company that **MOVED** (Несебър→Равда, Пазарджик→Септември,
+София→Пловдив). A capture is frozen at its `fetched_at`; the feed re-states on every change.
+Writing unconditionally would relocate those businesses backwards, to an address they have
+left, on a page that names them. That 99.05% agreement is also the only real validation the
+canonicaliser has — it is checked against an independent source rather than against its own
+fixtures.
+
+⚠️ **`db:load:tr:pg` is NOT the end of the chain.** `seat` reaching `tr_companies` places
+nobody; `tr_company_place` is written by a different loader. Local:
+
+```bash
+npm run tr:daily-refresh          # replay → state.sqlite → the CR projection fills the gaps
+npm run db:load:tr:pg
+npm run db:load:tr-company-place:pg   # ⚠️ the step that turns a seat into a place
+```
+
+Cloud, and nothing runs it automatically — the documented pair, in this order:
+`npm run db:load:tr:pg:cloud` (280 s) then `npm run db:load:tr-company-place:pg:cloud` (28 s).
+Skipping the second is the usual silent shape: prod's seats are current and its placements
+are a vintage behind, at a 200.
+
+`db:load:tr-company-place:pg` also REFRESHES `company_browse_table` (188), which LEFT JOINs
+it for `/companies`' settlement / obshtina / oblast columns — so skipping it leaves that
+facet a vintage behind as well as the governance tiles. Since 2026-09-06 it VACUUMs the
+matview afterwards too; see the visibility-map section for why a CONCURRENT refresh needs
+that at all.
+
+The gate is `scripts/db/tests/cr_seat_projection.data.test.ts`, which asserts the three
+distinct failures separately — no seat is stored as a raw block, a sample of seats still
+resolves through the real `EkatteResolver` (≥95%; the projected set measures 99.67%), and
+`tr_company_place` actually grew. It SKIPS with a distinct reason on a corpus predating the
+projection, keyed on the seated count against the pre-projection 329,741.
 
 ### `tr_owner_share` — the ONE definition of who owns what percentage of a company
 
@@ -4505,6 +4565,23 @@ stale map rather than data growth, which is why no row count reported it. What `
 actually shows is that a big, continuously-autovacuumed table survives; size and traffic are
 doing that work, not the merge shape. Wire the call regardless of shape.
 
+⚠️ **AND A `REFRESH MATERIALIZED VIEW CONCURRENTLY` IS A THIRD SHAPE, not a fourth exemption.**
+A concurrent refresh does not rewrite the heap — it DIFFS into the existing one — so it leaves
+dead tuples exactly as a stage merge does, and the same two thresholds miss them. Measured
+2026-09-06 on `company_browse_table` after an ordinary `tr:daily-refresh` chain: **8,921 of
+24,791 pages**, with `/companies`' `contractor_total_eur` sort at `OFFSET 20000` reading
+**644,916 buffers** against the ~20,000 the 193 indexes exist to give — a gate
+(`company_browse.data.test.ts`) failing for a reason no row count could show. Four loaders
+refresh that matview (`db:load:declarations:pg -- --resolve`, `db:load:pg`,
+`db:load:graph:pg`, `db:load:tr-company-place:pg`) and all four now vacuum it.
+
+⚠️ **The vacuum must be GUARDED on the refresh's return value.** `refreshMatviewConcurrently`
+returns `false` and does nothing when the matview has never been applied — which is the whole
+point of those call sites — while `vacuumAfterReload` has no such probe, and VACUUM on an
+absent relation is **42P01**. Unconditional, it aborts precisely the databases the refresh is
+written to survive: a cold `db:refresh` (188's only create path is step 55; `db:load:pg` is
+step 6) and any standalone `:cloud` publish against a database without it.
+
 **A bare `ANALYZE` is not half the fix — it is the disguise.** `db:load:graph:pg` ran
 `ANALYZE graph_edge, graph_company_node, graph_person_node` after its merge, which stamps
 `last_analyze` and never touches the visibility map, so `graph_company_node` sat at **20 of
@@ -4565,7 +4642,7 @@ failed repair. `company_founded` is the one member with no `RELOADED` entry — 
 passes the table as a VARIABLE, which the gate's string-literal scan cannot see:
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, tender_search_text, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme, price_last_seen, price_current, vote_item, vote_cast, mp_seat, party_dim, mp_attendance, party_cohesion, mp_dissent, mp_similarity, mp_vote_norm, person_browse_table;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, tender_search_text, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme, price_last_seen, price_current, vote_item, vote_cast, mp_seat, party_dim, mp_attendance, party_cohesion, mp_dissent, mp_similarity, mp_vote_norm, person_browse_table, company_browse_table;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

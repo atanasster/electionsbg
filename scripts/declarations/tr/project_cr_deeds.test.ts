@@ -280,6 +280,50 @@ describe("projectCrDeedsToState — additive merge", () => {
     expect(stats.subjects).toBe(1);
   });
 
+  it("fills a missing седалище and never overwrites the feed's", () => {
+    // Same precedence as предмет на дейност above, and here the cost of getting it wrong is
+    // measured rather than argued: on the 3,247 companies where BOTH the capture and the
+    // daily feed carry a seat, the two resolve to the same EKATTE for 3,216 (99.05%), and
+    // every one of the 31 that differ is a company that MOVED (Несебър→Равда, София→Пловдив).
+    // Writing unconditionally would relocate those businesses backwards, to an address they
+    // have left, on a page that names them.
+    const db = new DatabaseSync(statePath);
+    db.prepare(`INSERT INTO companies (uic, name, seat) VALUES (?, ?, ?)`).run(
+      "121587769",
+      "EOOD ONE",
+      "БЪЛГАРИЯ, гр. Пловдив, 4000",
+    );
+    db.prepare(`INSERT INTO companies (uic, name) VALUES (?, ?)`).run(
+      "203190680",
+      "OOD WITH NO SEAT",
+    );
+    db.close();
+
+    store.putAnswer("121587769", loadFixture("eood1"), 200, "t");
+    store.putAnswer("203190680", loadFixture("ood"), 200, "t");
+    const stats = projectCrDeedsToState(statePath, store);
+
+    const read = new DatabaseSync(statePath);
+    const seatOf = (uic: string) =>
+      (
+        read
+          .prepare(`SELECT seat AS s FROM companies WHERE uic = ?`)
+          .get(uic) as {
+          s: string | null;
+        }
+      ).s;
+    // The feed's answer stands…
+    expect(seatOf("121587769")).toBe("БЪЛГАРИЯ, гр. Пловдив, 4000");
+    // …and the silence is filled, in the shape `parseSeat` reads: country, locality,
+    // postcode. Asserting the SHAPE rather than merely truthiness is the point — a raw CR
+    // block would satisfy `toBeTruthy()` and place nobody.
+    expect(seatOf("203190680")).toBe("БЪЛГАРИЯ, гр. София, 1784");
+    read.close();
+
+    // The stat counts the FILL, not the attempt: both captures carry a seat, one row moved.
+    expect(stats.seats).toBe(1);
+  });
+
   it("a later capture that yields 0 parties leaves prior CR rows intact", () => {
     store.putAnswer("121587769", loadFixture("eood1"), 200, "t");
     const first = projectCrDeedsToState(statePath, store);

@@ -656,7 +656,13 @@ export const loadPg = async (): Promise<{
   // a fresh contracts publish. Without this a STANDALONE db:load:pg run leaves /companies'
   // "won a contract" signal and contractor totals on the previous vintage. Skips when 188 has
   // never been applied (returns false), same contract as load_graph_pg.ts's money refresh.
-  await refreshMatviewConcurrently("company_browse_table");
+  // Vacuum after the refresh — a CONCURRENT refresh leaves the visibility map stale, and no
+  // autovacuum threshold reaches it inside a chain. The `if` is required rather than defensive:
+  // the refresh returns false on a database without 188, and VACUUM on an absent relation is
+  // 42P01. Full reasoning and the measured cost sit at the same call in
+  // scripts/db/load_tr_company_place_pg.ts.
+  if (await refreshMatviewConcurrently("company_browse_table"))
+    await vacuumAfterReload("company_browse_table");
   // Cross-corpus leaderboard cache (077). Both source relations exist (015/016
   // applied above), so this refresh always succeeds; the intersection is empty
   // until funds are loaded, at which point load_funds_pg re-refreshes it. Must

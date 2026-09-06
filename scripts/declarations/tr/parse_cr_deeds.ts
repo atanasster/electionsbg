@@ -18,7 +18,8 @@
  *     → ЗМИП действителен собственик. A record may be a natural person OR a legal
  *     entity (ЕИК/ПИК or Идентификация inline) — the ownership chain (plan §8 A3).
  *   company meta — single value:
- *     CR_F_2_L name · CR_F_3_L legal form · CR_F_5_L/CR_F_5a_L seat · CR_F_6_L
+ *     CR_F_2_L name · CR_F_3_L legal form · CR_F_5_L seat (CR_F_5a_L is the
+ *     CORRESPONDENCE address and loses to it explicitly — see the switch) · CR_F_6_L
  *     предмет на дейност · CR_F_6a_L НКИД (parsed to a NACE code + 2-digit
  *     division, the grain the CPV mismatch flag keys on) · CR_F_31_L капитал.
  */
@@ -93,7 +94,18 @@ export type CrDeedParsed = {
   /** min(fieldEntryDate) — the founding date (earliest surviving current entry). */
   foundingDate: string | null;
   parties: CrDeedParty[];
+  /**
+   * The seat EXACTLY as CR renders it — a labelled block, phone/fax/e-mail included. Kept
+   * DELIBERATELY even though nothing stores it: it is the only witness to what
+   * `seatCanonical` was derived from, so an "unused field" sweep must not take it.
+   * `seatCanonical` is the field with consumers.
+   */
   seat: string | null;
+  /**
+   * The same seat rewritten into the DAILY FEED's shape („БЪЛГАРИЯ, гр. Разлог, 2760"),
+   * which is the only form anything downstream can read. See `crSeatToFeedForm`.
+   */
+  seatCanonical: string | null;
   capitalAmount: number | null;
   capitalCurrency: string | null;
   subjectOfActivity: string | null;
@@ -108,6 +120,79 @@ export type CrDeedParsed = {
    *  from the LABEL text (naceDivisionFromLabel), NOT the ambiguous code. Null when
    *  the label yields no confident sector. */
   naceDivision: string | null;
+};
+
+/**
+ * Rewrite a CR seat into the shape the daily feed writes — „БЪЛГАРИЯ, гр. Разлог, 2760".
+ *
+ * ⚠️ THE RAW CR SEAT IS UNREADABLE DOWNSTREAM, AND FAILS SILENTLY RATHER THAN LOUDLY.
+ * `parseSeat` (`scripts/db/load_tr_company_place_pg.ts`) splits the feed's string on commas
+ * and takes field 1 as the locality; the CR string is a LABELLED BLOCK, so on
+ * „Държава: БЪЛГАРИЯ Област: Благоевград, Община: Разлог Населено място: гр. Разлог, п.к.
+ * 2760 …" that field is „Община: Разлог Населено място: гр. Разлог". The resolver then
+ * matches nothing (or, worse, something) and the company is simply never placed — with the
+ * seat column full and every row count reconciling. So the projection stores THIS, not the
+ * raw text, and `seat` keeps the original for provenance.
+ *
+ * ⚠️ AND THE RAW CARRIES CONTACT DETAILS THE COLUMN HAS NEVER HELD — „Телефон:", „Факс:",
+ * „Адрес на електронна поща:" (7,867 of 29,417 captures carry one with a non-empty value;
+ * 7,899 carry an „@" anywhere in the block — the predicate is named so the next
+ * re-measurement is comparable), „Интернет страница:". `seat` is
+ * rendered on `/company/:eik` and is a `companies` browse column; quietly widening it into a
+ * contact field is a second change nobody asked for, on a page about named businesses.
+ * Canonicalising drops them.
+ *
+ * The structure is exactly regular across the whole capture set (measured 2026-09-06 over
+ * 29,417 seats): every one carries Държава / Област / Община / Населено място, and 28,974
+ * (98.5%) carry a п.к. TOKEN — but 144 of those carry an unusable VALUE („п.к. .", „п.к. --",
+ * and truncated forms like „п.к. 900" for 9000), which the 4–5 digit requirement correctly
+ * refuses rather than turning into a wrong postal match. So **587** canonical outputs are the
+ * two-field string, not 443: `parseSeat` accepts those (the feed itself has 4,059) and the
+ * resolver's name arm still places them.
+ *
+ * VALIDATED AGAINST AN INDEPENDENT SOURCE rather than against its own fixtures: on the 3,247
+ * companies where BOTH the capture and the daily feed carry a seat, the canonicalised CR form
+ * and the feed's own resolve to the SAME EKATTE for 3,216 (99.05%). The 31 that differ are
+ * companies that MOVED between the capture and the feed (Несебър→Равда, София→Пловдив), which
+ * is the measurement behind the projection's fill-if-null precedence — not a parse error.
+ *
+ * Returns null when the block names no locality; the caller then stores nothing.
+ */
+export const crSeatToFeedForm = (raw: string): string | null => {
+  const country = raw.match(/Държава:\s*(.+?)\s+Област:/)?.[1]?.trim();
+  // The locality runs to whichever of these comes first. Only „Телефон:" is `<label>:`
+  // shaped, which is why this is an explicit alternation rather than „up to the next
+  // capitalised word followed by a colon".
+  //
+  // ⚠️ `ж.к.` AND `бл.` ARE IN THE SET BECAUSE OF A MEASURED RESIDUE, not for symmetry. The
+  // usual block puts the postcode, then the district, then the street after the locality, and
+  // stopping at any of those covers 29,377 of 29,417 captures. The other 40 carry NONE of
+  // them and go straight from the locality to the neighbourhood, so the match ran to the end
+  // of the string and produced „гр. София ж.к. КВ. МАНАСТИРСКИ ЛИВАДИ-ЗАПАД" — which places
+  // nobody, at a filled column.
+  const locality = raw
+    .match(
+      /Населено място:\s*(.+?)(?:,\s*п\.к\.|\s+р-н\s|\s+бул\.\/ул\.|\s+ж\.к\.|\s+бл\.|\s+Телефон:|$)/,
+    )?.[1]
+    // A locality that ran to `$` can end on the comma that separated it from whatever
+    // followed; `parseSeat` splits on commas, so a trailing one becomes an empty field.
+    ?.replace(/[,\s]+$/, "")
+    .trim();
+  if (!country || !locality) return null;
+  // Matched over the WHOLE block rather than scoped to the locality. ⚠️ THE GUARANTEE IS
+  // ORDER, NOT UNIQUENESS, and an earlier draft of this comment claimed the latter: 7 captures
+  // DO carry a second „п.к." — always a PO box in the street part („…, п.к.132", „вх. п.к.176")
+  // — and none of them is reached, because the locality's п.к. is always the FIRST occurrence
+  // and this match is non-global. (No capture carries a second „Област:"; that half was right.)
+  // Do not lean on the PO boxes staying short: none is 4–5 digits today, which is luck, while
+  // the ordering is the property. Scoping to the locality would also drop the postcode whenever
+  // the locality match stopped at „бул./ул." — so re-measure before tightening this.
+  //
+  // Pinned by „takes the locality's postcode, not a PO box in the street part".
+  const postcode = raw.match(/п\.к\.\s*(\d{4,5})/)?.[1];
+  return postcode
+    ? `${country}, ${locality}, ${postcode}`
+    : `${country}, ${locality}`;
 };
 
 /**
@@ -318,6 +403,7 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
     foundingDate: minEntryDate(root),
     parties: [],
     seat: null,
+    seatCanonical: null,
     capitalAmount: null,
     capitalCurrency: null,
     subjectOfActivity: null,
@@ -325,6 +411,9 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
     naceCode: null,
     naceDivision: null,
   };
+
+  // Which field `out.seat` came from — see the CR_F_5_L / CR_F_5a_L case below.
+  let seatFrom: string | null = null;
 
   for (const sec of arrayProp(d, "sections")) {
     for (const sd of arrayProp(sec, "subDeeds")) {
@@ -349,9 +438,41 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
             case "CR_F_2_L":
               out.companyName ??= text;
               break;
+            // ⚠️ CR_F_5_L IS THE SEAT; CR_F_5a_L IS NOT THE SAME ADDRESS. Measured
+            // 2026-09-06: 6,735 captures carry BOTH, 5,137 of those differ in raw text and
+            // **2,198 canonicalise to a different address** — sometimes a different oblast
+            // (010951366 is Девня 9160 against Варна 9000). 5a is the correspondence address,
+            // not a synonym, and this now flows into `tr_company_place`, the governance
+            // „фирми, регистрирани тук" tiles and the flyover arcs rather than into one text
+            // field.
+            //
+            // ⚠️ SO THE PRECEDENCE IS STATED, NOT INHERITED FROM DOCUMENT ORDER. CR_F_5_L
+            // is rendered first on all 6,735 today, so a plain first-wins guard picks the
+            // right one — but that is a property of the register's output, not a rule, and
+            // if it ever changed those 2,198 companies would move to their correspondence
+            // address silently, at a 200, in the place layer. Writing the rule down costs one
+            // local and removes the dependence: 5_L overrides a value taken from 5a, whatever
+            // order they arrive in. Pinned by „prefers CR_F_5_L over CR_F_5a_L even when 5a
+            // comes first in the document", whose fixture puts 5a first — with 5_L first the
+            // test would pass against either implementation and prove nothing.
+            //
+            // ⚠️ DO NOT RELAX THE NULL ARM TO `out.seatCanonical == null`. It looks strictly
+            // more robust (it would let 5a fill in when 5_L failed to canonicalise) and is
+            // the one change that would prefer the correspondence address, in exactly the
+            // cases nobody is watching. Measured: `crSeatToFeedForm` returns null for 0 of
+            // the 29,417 seats, so the branch it would enable buys nothing and costs that.
             case "CR_F_5_L":
             case "CR_F_5a_L":
-              out.seat ??= text;
+              // Explicit precedence, NOT first-wins: CR_F_5_L overrides a value already taken
+              // from CR_F_5a_L, whatever order the two arrive in.
+              if (
+                out.seat == null ||
+                (code === "CR_F_5_L" && seatFrom !== code)
+              ) {
+                out.seat = text;
+                out.seatCanonical = crSeatToFeedForm(text);
+                seatFrom = code;
+              }
               break;
             case "CR_F_6_L":
               out.subjectOfActivity ??= text;

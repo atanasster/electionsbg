@@ -45,6 +45,7 @@ import {
   withTx,
   end,
   refreshMatviewConcurrently,
+  vacuumAfterReload,
 } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import {
@@ -254,10 +255,10 @@ export const loadTrCompanyPlacePg = async (): Promise<{
   // procurement-scopes step, company_public_money from the earlier db:load:graph:pg, and
   // tr_company_place from this run) — this loader is the last of the three in db:refresh's
   // order, so it is the correct place to self-heal a bootstrap that skipped the create.
-  const refreshedCompanyBrowse = await refreshMatviewConcurrently(
+  let haveCompanyBrowse = await refreshMatviewConcurrently(
     "company_browse_table",
   );
-  if (!refreshedCompanyBrowse) {
+  if (!haveCompanyBrowse) {
     const missing = (
       await allRows<{ rel: string }>(
         `SELECT rel FROM unnest($1::text[]) AS rel
@@ -273,8 +274,29 @@ export const loadTrCompanyPlacePg = async (): Promise<{
       );
     } else {
       await exec(readFileSync(COMPANY_BROWSE_SCHEMA, "utf8"));
+      // `CREATE MATERIALIZED VIEW … AS` leaves an empty visibility map, so the freshly built
+      // one wants the vacuum below just as much as a refreshed one does.
+      haveCompanyBrowse = true;
     }
   }
+  // ⚠️ AND VACUUM IT — BUT ONLY WHEN THE REFRESH ACTUALLY FOUND IT. `REFRESH MATERIALIZED VIEW
+  // CONCURRENTLY` does not rewrite the heap, it DIFFS into the existing one, so it leaves dead
+  // tuples behind and the visibility map goes stale; and neither autovacuum threshold reaches a
+  // matview refreshed this way inside a chain (the dead-tuple one is a 20% fraction, and the
+  // insert-threshold one fires under a held-back xmin horizon, marks nothing and resets its
+  // counter). `/companies` then plans no index-only scan: measured 2026-09-06, coverage on
+  // 8,921 of 24,791 pages and `contractor_total_eur` at OFFSET 20000 reading 644,916 buffers
+  // against the ~20,000 the 193 indexes exist to give. Same mechanism `interreg_partners`
+  // documents in CLAUDE.md — a merge-shaped write is NOT exempt from this, and neither is a
+  // CONCURRENT refresh.
+  //
+  // ⚠️ THE `if` IS LOAD-BEARING, not defensive. `refreshMatviewConcurrently` returns FALSE and
+  // does nothing when 188 has never been applied — every call site's comment says so — while
+  // `vacuumAfterReload` has no such probe and VACUUM on an absent relation is 42P01, which
+  // `withClient` rethrows. Unconditional, this line would abort on exactly the databases the
+  // refresh above is written to survive: a cold `db:refresh` (188's only create path is step
+  // 55, this is step 6) and any standalone `:cloud` publish against a database without it.
+  if (haveCompanyBrowse) await vacuumAfterReload("company_browse_table");
 
   return { rows: rows.length, seated: companies.length, unresolved };
 };

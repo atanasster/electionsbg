@@ -90,9 +90,19 @@ const RELOADED: ReadonlyArray<{
   // CREATE MATERIALIZED VIEW ... AS inside load_declarations_pg's phase 2, which is the
   // classic empty-map shape. The default page sorts by money over the has_signal-true slice
   // of ~1.02M rows, so that is an index-only scan or it is nothing.
+  //
+  // ⚠️ FOUR loaders write it, and until 2026-09-06 only the CREATE vacuumed. The other three
+  // `REFRESH MATERIALIZED VIEW CONCURRENTLY` it — which diffs into the existing heap rather
+  // than rewriting it, so it leaves dead tuples and a stale map exactly as a stage merge does.
+  // Measured after an ordinary tr:daily-refresh chain: 8,921 of 24,791 pages, and
+  // `company_browse.data.test.ts` red at 644,916 buffers. Naming one loader here is what sent
+  // a maintainer looking at the resolver for a chain that never ran it — the same drift the
+  // `contractor_search` entry below records.
   {
     table: "company_browse_table",
-    loader: "npm run db:load:declarations:pg -- --resolve",
+    loader:
+      "npm run db:load:declarations:pg -- --resolve (also db:load:pg, db:load:graph:pg, " +
+      "db:load:tr-company-place:pg — all four refresh it)",
   },
   // The НЗОК hospital-payment corpus and its coverage twin — both TRUNCATE +
   // INSERT inside ONE transaction, in the same loader. Added 2026-08-25, when the

@@ -161,7 +161,13 @@ const main = async (): Promise<void> => {
   // documents, one matview over.
   // Skips when 188 has never been applied (returns false), and falls back to a blocking refresh
   // when it exists unpopulated.
-  await refreshMatviewConcurrently("company_browse_table");
+  // Vacuum after the refresh — a CONCURRENT refresh leaves the visibility map stale, and no
+  // autovacuum threshold reaches it inside a chain. The `if` is required rather than defensive:
+  // the refresh returns false on a database without 188, and VACUUM on an absent relation is
+  // 42P01. Full reasoning and the measured cost sit at the same call in
+  // scripts/db/load_tr_company_place_pg.ts.
+  if (await refreshMatviewConcurrently("company_browse_table"))
+    await vacuumAfterReload("company_browse_table");
 
   await execEach(readFileSync(GRAPH, "utf8"));
   await execEach(readFileSync(PAYLOADS, "utf8"));

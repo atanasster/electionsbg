@@ -136,6 +136,13 @@ export type ProjectStats = {
   companies: number; // deeds that contributed ≥1 party
   parties: number; // company_persons rows written
   subjects: number; // предмет на дейност values that FILLED a gap (rows changed)
+  seats: number; // седалище values that FILLED a gap (rows changed)
+  // Captures that OFFERED a seat, so a `seats: 0` can be told apart from „the CR side
+  // contributed nothing". `reconstructState` rewrites state.sqlite every run, so a normal
+  // refresh re-opens all ~26k gaps and `seats` reads ~26,152 — but a bare re-run of the
+  // projection alone reports 0, which without this denominator is indistinguishable from a
+  // parser that stopped reading the field.
+  seatsOffered: number;
   founding: FoundingAnswer[]; // for company_founded (fetch_company_founded's job)
 };
 
@@ -153,6 +160,8 @@ export const projectCrDeedsToState = (
     companies: 0,
     parties: 0,
     subjects: 0,
+    seats: 0,
+    seatsOffered: 0,
     founding: [],
   };
   try {
@@ -185,6 +194,23 @@ export const projectCrDeedsToState = (
         WHERE uic = ? AND (subject_of_activity IS NULL OR subject_of_activity = '')`,
     );
 
+    // Седалище, GAP-FILL ONLY, on exactly the same precedence and for a reason that is
+    // MEASURED here rather than argued: on the 3,243 companies where both the capture and
+    // the daily feed carry a seat, the two resolve to the same EKATTE for 3,216 of 3,247
+    // (99.05%) —
+    // and every one of the 31 that differ is a company that MOVED (Несебър→Равда,
+    // София→Пловдив). A capture is frozen at its `fetched_at`; the feed re-states the field
+    // on every change. So writing unconditionally would relocate those 31 businesses
+    // BACKWARDS, to an address they have left, on a page that names them.
+    //
+    // ⚠️ IT STORES `seatCanonical`, NEVER `seat`. The raw CR text is a labelled block that
+    // `parseSeat` reads as „Община: X Населено място: гр. X" — so it would fill the column,
+    // place nobody, and reconcile perfectly. `crSeatToFeedForm`'s header has the rest.
+    const fillSeat = db.prepare(
+      `UPDATE companies SET seat = ?
+        WHERE uic = ? AND (seat IS NULL OR seat = '')`,
+    );
+
     // Every uic whose rows this run rewrote — the re-derivation pass below reads them
     // back with the CR rows in place.
     const touched = new Set<string>();
@@ -208,6 +234,16 @@ export const projectCrDeedsToState = (
           // one thing anybody reads it for is whether the CR side is contributing.
           const res = fillSubject.run(parsed.subjectOfActivity, uic);
           stats.subjects += Number(res.changes ?? 0);
+        }
+
+        // Same position and the same reason as the предмет above: a capture with no
+        // parseable party still states where the firm sits, and that is the whole point of
+        // this arm — the arcs need a contractor's oblast, not its owners. Counted as ROWS
+        // CHANGED, so the number says what was contributed rather than what was attempted.
+        if (parsed.seatCanonical) {
+          stats.seatsOffered++;
+          const res = fillSeat.run(parsed.seatCanonical, uic);
+          stats.seats += Number(res.changes ?? 0);
         }
 
         const rows = deedToPersonRows(parsed);

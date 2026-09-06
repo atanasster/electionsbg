@@ -22,6 +22,12 @@ import {
   stateAt,
 } from "../../src/lib/flyover/programmes";
 import { TOUR_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
+import { assertCommitted } from "../lib/assert_committed";
+
+// ⚠️ COMMITTED, so absence is a broken working copy and not something to skip past: the OG
+// card is rendered by `home:flyover-posters` and tracked, and every check below that reads it
+// would otherwise stand down quietly. Outside any gated suite, deliberately.
+assertCommitted("public/og/money-map.png");
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
