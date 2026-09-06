@@ -35,5 +35,12 @@
   "presidential_swing_note": "Only the tickets that stood in both rounds. A ticket absent from the runoff did not fall to zero — it was not standing.",
   "presidential_not_published": "Results for this presidential election have not been published yet.",
   "presidential_unusable": "The published data for this election could not be read.",
-  "presidential_place_not_published": "No result has been published for this place in this presidential election."
+  "presidential_place_not_published": "No result has been published for this place in this presidential election.",
+  "presidential_map_region_label": "{{place}}: {{president}} leads with {{pct}}",
+  "presidential_map_region_label_empty": "{{place}}: no votes cast",
+  "presidential_regions_heading": "Who led, by oblast",
+  "presidential_col_region": "Oblast",
+  "presidential_col_leader": "Leading",
+  "presidential_regions_share_note": "This share is of the votes cast for a pair in that oblast — “none of the above” is not in it, which is why it is higher than the share in the national ranking.",
+  "presidential_col_leader_share": "Leader's share"
 }

@@ -20,6 +20,20 @@
  * the bundle fails there, in seconds, rather than rendering the raw key at a
  * 200 on a page nobody is watching.
  *
+ * ⚠ A KEY NAMED FROM A SHARED MODULE IS CORE, WHATEVER ITS PREFIX. The five
+ * `presidential_map_q_who_led_*` keys live in translation.json rather than in
+ * the `presidential` bundle for exactly that reason: they are named by
+ * `electionSurfaceDescriptors.ts`, which the parliamentary and local routes
+ * import too, so the reachability analysis proves them non-exclusive and
+ * `split_bundles.ts` would move them straight back. The name says which family
+ * they describe; it does not say which chunk they can ship in.
+ *
+ * ⚠ AND A KEY THAT MATCHES A BUILT TEMPLATE CAN NEVER BE BUNDLED.
+ * `UnitCostMethodologyScreen` builds `` t(`${leg.key}_basis`) ``, and the
+ * analysis treats a template as naming EVERY key it could match — so any
+ * `*_basis` key is reachable from that route. Two presidential keys were named
+ * that way and had to be renamed. There is no error until the gate runs.
+ *
  * DELIBERATELY IMPORT-FREE. src/routes.tsx names these, and routes.tsx is a
  * static import of the entry chunk — see src/entryGraph.test.ts for the last
  * time a nav surface took one constant from a module that named a family.

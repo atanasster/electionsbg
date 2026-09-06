@@ -771,6 +771,13 @@ const PRESIDENTIAL_SECTIONS = [
  * registered voters taking part — and „49.42% and no winner" is the sentence a reader needs.
  * It is a national test, so no level below the country may state it.
  */
+// ⚠ THE MAP QUESTIONS ARE PRESIDENTIAL-SPECIFIC, NOT THE SHARED `election_map_q_*` KEYS. Those
+// five all read „Коя ПАРТИЯ води…" / „Which party led…", which is false on this ballot: a
+// ticket is a PAIR of named people, and its nominator may be a party, a coalition or an
+// инициативен комитет — the same reason a ranked row here carries `partyId: null` and a
+// `candidateName`. The shell renders `questionKey` as a heading whether or not an adapter is
+// registered for the level, so the wrong wording would print above „картата не е налична" on
+// every presidential place page.
 const presidential: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
   country: {
     available: true,
@@ -781,7 +788,7 @@ const presidential: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
         allowedModes: ["winner", "margin", "selected_share", "turnout"],
         posture: "interactive",
         grain: "region",
-        questionKey: "election_map_q_who_led_region",
+        questionKey: "presidential_map_q_who_led_region",
       },
     ],
     // ⚠ `majority_threshold` FIRST: on round 1 the leader's share is not the outcome, and a
@@ -813,7 +820,7 @@ const presidential: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
         // The children are foreign COUNTRIES and `ElectionPlaceLevel` has no member for one
         // — the same grain the parliamentary abroad level declares, for the same reason.
         grain: "municipality",
-        questionKey: "election_map_q_who_led_country_abroad",
+        questionKey: "presidential_map_q_who_led_country_abroad",
       },
     ],
     // ⚠ NO `turnout`, and here it is a correctness requirement twice over. Abroad has no
@@ -838,7 +845,7 @@ const presidential: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
         allowedModes: ["winner", "margin", "selected_share", "turnout"],
         posture: "interactive",
         grain: "municipality",
-        questionKey: "election_map_q_who_led_municipality",
+        questionKey: "presidential_map_q_who_led_municipality",
       },
     ],
     factPriority: ["winner", "margin", "turnout", "valid_votes"],
@@ -859,7 +866,7 @@ const presidential: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
         allowedModes: ["winner", "margin", "selected_share", "turnout"],
         posture: "interactive",
         grain: "settlement",
-        questionKey: "election_map_q_who_led_settlement",
+        questionKey: "presidential_map_q_who_led_settlement",
       },
     ],
     factPriority: ["winner", "margin", "turnout", "valid_votes"],
@@ -880,7 +887,7 @@ const presidential: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
         allowedModes: ["winner", "margin", "selected_share", "turnout"],
         posture: "interactive",
         grain: "section",
-        questionKey: "election_map_q_who_led_section",
+        questionKey: "presidential_map_q_who_led_section",
       },
     ],
     factPriority: ["winner", "margin", "turnout", "valid_votes"],

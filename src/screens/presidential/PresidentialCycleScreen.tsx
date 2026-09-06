@@ -18,7 +18,7 @@
 // verdict rather than re-deriving one — a second implementation of the constitutional test is
 // exactly the drift that makes two surfaces disagree about who was elected.
 
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePresidentialSummary } from "@/data/presidential/usePresidentialSummary";
@@ -26,6 +26,16 @@ import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
 import { formatInt, formatPct } from "@/lib/currency";
+import {
+  leadersByPlace,
+  useRoundRollup,
+} from "@/data/presidential/useRoundRollup";
+import { useTicketsByNumber } from "@/data/presidential/useTickets";
+import {
+  PresidentialRegionsMap,
+  type RegionLeader,
+} from "./PresidentialRegionsMap";
+import { PresidentialRegionsList } from "./PresidentialRegionsList";
 import type { PresidentialSummaryRound } from "@/data/presidential/summary";
 
 // ⚠ THE REPO'S FORMATTERS, NOT `toLocaleString("bg-BG")` AND `toFixed`. A hardcoded locale
@@ -53,6 +63,24 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   const lang = i18n.language;
   const entry = findPresidentialEntry(cycle);
   const info = entry?.rounds[round.round];
+  // ⚠ THE REGION ROLL-UP IS THE ONE LEVEL SMALL ENOUGH TO SERVE A MAP — 113.9 KB for the whole
+  // country at 2021, against 974.6 KB at municipality and 14.4 MB at settlement. Those two are
+  // exactly what the per-place surface artifacts exist to avoid, which is why no map below this
+  // one is drawn from them.
+  const rollup = useRoundRollup(cycle, round.round, "region");
+  // ⚠ ONLY A READY ROLL-UP MAY COLOUR A MAP. A place missing from a ready one genuinely cast
+  // no votes, which is what the map's „няма подадени гласове" label says; a place missing
+  // because nothing has loaded yet has not, and rendering that label for all 31 oblasts —
+  // above a ranking table showing millions of votes — is a false claim about named places.
+  // Absent is the COMMON case here: `data/*_pvr` is gitignored and has no bucket copy.
+  const leaders = useMemo(
+    () =>
+      rollup.status === "ready"
+        ? leadersByPlace(rollup.rollup)
+        : new Map<string, RegionLeader>(),
+    [rollup],
+  );
+  const tickets = useTicketsByNumber(cycle);
   const abroadTo = presidentialUrl(cycle, "abroad");
   return (
     <div className="space-y-6">
@@ -140,6 +168,43 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           {t("presidential_share_denominator")}
         </p>
       </section>
+
+      {/* ⚠ THE TWIN FIRST, THEN THE MAP. §4: the ranked result precedes the map in the DOM,
+          and on mobile that is the visual order too — the list is the accessible result as
+          well as the faster scan. Here it is load-bearing twice over: 17 of 2021's 23 tickets
+          carry a NEUTRAL-palette colour, because an инициативен комитет has no party colour to
+          inherit, so several fills are near-indistinguishable greys — and the table is the
+          only route from this page down to an oblast.
+
+          ⚠ BOTH OR NEITHER, gated on the roll-up having ANSWERED. They used to appear and
+          disappear separately: the list returns null with no rows while the map rendered 31
+          keyboard buttons asserting „няма подадени гласове" — a choropleth with no text
+          equivalent at all, saying something false, in the state this corpus is usually in. */}
+      {leaders.size > 0 ? (
+        <section aria-labelledby={`pvr-where-${round.round}`}>
+          {/* ⚠ VISIBLE, NOT `sr-only`. The shell renders a map's question as a visible heading
+              on every other kind, and hiding it here would make the same information sighted-
+              reader-only on the one page that draws its map outside the shell. */}
+          <h2
+            id={`pvr-where-${round.round}`}
+            className="font-semibold"
+            data-map-question
+          >
+            {t("presidential_map_q_who_led_region")}
+          </h2>
+          <PresidentialRegionsList
+            cycle={cycle}
+            leaders={leaders}
+            tickets={tickets}
+          />
+          <PresidentialRegionsMap
+            cycle={cycle}
+            round={round.round}
+            leaders={leaders}
+            tickets={tickets}
+          />
+        </section>
+      ) : null}
 
       <section aria-labelledby={`pvr-turnout-${round.round}`}>
         <h2 id={`pvr-turnout-${round.round}`} className="font-semibold">

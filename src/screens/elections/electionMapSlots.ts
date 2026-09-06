@@ -126,4 +126,34 @@ export const MAP_ADAPTERS: Partial<
     import("./adapters/ParliamentaryMunicipalityMap"),
   "parliamentary/settlement/winner": () =>
     import("./adapters/ParliamentarySettlementMap"),
+  // ⚠⚠ NO `presidential/*` ENTRY, AND IT IS A MEASURED REFUSAL RATHER THAN AN OMISSION.
+  //
+  // A choropleth needs its CHILDREN's results, and the presidential tree has no per-place
+  // shards: below the country each level is ONE file per round covering the whole country
+  // (`SURFACE_POLICY.presidential.*`, and that is exactly why those levels are `artifact`).
+  // Measured on 2021, the file a map at each level would have to fetch:
+  //
+  //     region page      → municipality_votes.json    974.6 KB
+  //     municipality     → settlement_votes.json       14.4 MB
+  //     settlement       → sections/<oblast>.json       2.4 MB (Бургас)
+  //
+  // ⚠ `abroad` IS NOT ON THAT LIST, AND IS STILL UNREGISTERED — a separate reason, stated so
+  // it is a decision rather than an oversight. Its 241.3 KB file IS servable, and the map it
+  // would draw is the continents geo the parliamentary МИР-32 adapter already loads. What is
+  // missing is the JOIN: this tree keys abroad by ISO-2 COUNTRY, while that geo's features are
+  // continents, so there is no crosswalk to colour by without inventing one. Building it is
+  // work with its own decisions (which continent holds a section whose country the corpus
+  // cannot name?), not a registry line.
+  //
+  // Downloading 974 KB to draw ten municipalities on a page whose artifact exists to avoid
+  // that download is the defect the artifact was built for, one layer up. Sharding the
+  // children instead would mint ~5,300 more objects, and the corpus is at 58,915 against a
+  // 60,000 bound — so it is a coverage decision with its own arithmetic, not something to
+  // slip in behind a map. The COUNTRY map is served instead, from the 113.9 KB region
+  // roll-up it genuinely needs in full: `PresidentialRegionsMap`, mounted directly on
+  // `PresidentialCycleScreen` because the country level is `canonical` and renders no surface.
+  //
+  // The consequence is stated on the page rather than hidden: with no adapter registered,
+  // `ElectionMapPanel` renders „картата не е налична" — a resolved sentence, not a spinner —
+  // and the ranked result beside it is the text equivalent §4 requires either way.
 };

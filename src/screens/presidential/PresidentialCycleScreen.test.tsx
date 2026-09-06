@@ -114,9 +114,30 @@ const SUMMARY: PresidentialSummary = {
 
 const ROUTE = `/presidential/${LATEST_PRESIDENTIAL_CYCLE}`;
 
+/** ⚠ URL-AWARE. The page fetches THREE things — the summary, the round's region roll-up and
+ *  `tickets.json` — plus `/regions_map.json` for the choropleth. A mock that answers every
+ *  request with the summary hands the map an object with no `features`, which is a render-time
+ *  `TypeError`; here only the summary URL is answered and the rest 404, which is also the
+ *  honest CI state (`data/*_pvr` is gitignored and has no bucket copy). */
+const wrapperAt =
+  (entry: string) =>
+  ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider
+      client={
+        new QueryClient({ defaultOptions: { queries: { retry: false } } })
+      }
+    >
+      <MemoryRouter initialEntries={[entry]}>
+        <Routes>
+          <Route path="/presidential/:cycle" element={children} />
+        </Routes>
+      </MemoryRouter>
+    </QueryClientProvider>
+  );
+
 const mount = (body: unknown, ok = true, entry = ROUTE) => {
-  globalThis.fetch = (async () =>
-    ok
+  globalThis.fetch = (async (url: RequestInfo | URL) =>
+    ok && String(url).includes("national_summary.json")
       ? new Response(JSON.stringify(body), {
           status: 200,
           headers: { "content-type": "application/json" },
@@ -226,14 +247,20 @@ describe("the presidential country page", () => {
     // never seeing the art. 93 (3) test this page leads with. Two clicks, and both controls
     // are on this page.
     globalThis.fetch = (async (url: RequestInfo | URL) =>
-      new Response(
-        JSON.stringify(
-          String(url).includes("2016_11_06_pvr")
-            ? { ...SUMMARY, cycle: "2016_11_06_pvr", round1Date: "2016-11-06" }
-            : SUMMARY,
-        ),
-        { status: 200 },
-      )) as typeof fetch;
+      String(url).includes("national_summary.json")
+        ? new Response(
+            JSON.stringify(
+              String(url).includes("2016_11_06_pvr")
+                ? {
+                    ...SUMMARY,
+                    cycle: "2016_11_06_pvr",
+                    round1Date: "2016-11-06",
+                  }
+                : SUMMARY,
+            ),
+            { status: 200 },
+          )
+        : new Response("", { status: 404 })) as typeof fetch;
 
     render(
       <QueryClientProvider
@@ -266,6 +293,78 @@ describe("the presidential country page", () => {
       await screen.findByText(bgCorpus.presidential_rule_runoff),
     ).toBeInTheDocument();
     expect(screen.queryByText(bgCorpus.presidential_rule_won)).toBeNull();
+  });
+
+  it("says NOTHING about the oblasts while the roll-up has not answered", async () => {
+    // ⚠⚠ THE STATE THIS SUITE ALREADY RUNS IN, AND NEVER LOOKED AT. `mount` answers only the
+    // summary and 404s the rest — the honest CI state, since `data/*_pvr` is gitignored with
+    // no bucket copy — and in that window the map used to render 31 keyboard buttons each
+    // announcing „няма подадени гласове", directly above a ranking table showing millions of
+    // votes. The text twin, correctly, rendered nothing at all: a choropleth with no text
+    // equivalent, saying something false.
+    mount(SUMMARY);
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    expect(document.body.textContent).not.toContain("няма подадени гласове");
+    expect(
+      screen.queryByText(bgCorpus.presidential_regions_heading),
+    ).toBeNull();
+    expect(document.querySelector("[data-map-question]")).toBeNull();
+  });
+
+  it("mounts the map and its text twin TOGETHER once the roll-up answers", async () => {
+    // ⚠ BOTH OR NEITHER. §4's rule is that a map always has a text equivalent, and this pair
+    // is also the only route from the country page down to an oblast — so a state where one
+    // renders without the other is either an unlabelled choropleth or a dead end.
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      if (u.includes("national_summary.json"))
+        return new Response(JSON.stringify(SUMMARY), { status: 200 });
+      if (u.includes("region_votes.json"))
+        return new Response(
+          JSON.stringify({
+            coverage: { basis: "x", sections: 1, excludedSections: 0 },
+            entries: [
+              {
+                key: "BLG",
+                results: { votes: [{ partyNum: 6, totalVotes: 9 }] },
+              },
+            ],
+          }),
+          { status: 200 },
+        );
+      if (u.includes("tickets.json"))
+        return new Response(
+          JSON.stringify({
+            cycle: LATEST_PRESIDENTIAL_CYCLE,
+            tickets: [
+              {
+                number: 6,
+                president: "Румен Георгиев Радев",
+                vicePresident: "Илияна Малинова Йотова",
+                nominatedBy: { name: "ИК", kind: "committee" },
+                color: "rgb(1, 2, 3)",
+              },
+            ],
+          }),
+          { status: 200 },
+        );
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+
+    render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+    expect(
+      await screen.findByText(bgCorpus.presidential_regions_heading),
+    ).toBeInTheDocument();
+    // The question heading is VISIBLE, as the shell renders it on every other kind.
+    const q = document.querySelector("[data-map-question]");
+    expect(q?.className ?? "").not.toContain("sr-only");
+    // …and the twin precedes the map in the DOM (§4: the ranked result comes first).
+    const list = screen.getByText(bgCorpus.presidential_regions_heading);
+    const svg = document.querySelector("svg");
+    if (svg)
+      expect(
+        list.compareDocumentPosition(svg) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
   });
 
   it("never prints the cycle folder id as a date", async () => {
