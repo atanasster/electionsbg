@@ -64,7 +64,13 @@ import {
 } from "../../src/screens/elections/electionSurfaceDescriptors";
 import { buildDestinations } from "./source_links";
 import {
+  PRESIDENTIAL_ABROAD_ID,
+  presidentialUrl,
+} from "../../src/data/elections/presidentialRoutes";
+import {
   UNPLACED_SHARD,
+  foldProtocolSums,
+  foldVotes,
   type ProtocolSum,
   type Rollup,
 } from "../parsers_presidential/aggregate";
@@ -378,6 +384,19 @@ export const buildPlaceSurface = (
   ctx: BuildContext,
   completeResultTo: string,
 ): ElectionSurfaceV1 => {
+  // ⚠ ONE ARTIFACT, ONE VERDICT ON ONE URL. The ballot leaf used to publish this target as a
+  // live link while `destinations.completeResult` three lines down refused the same string as
+  // `same_page` — a consumer got opposite instructions depending on which field it read. They
+  // are the same value now, so they cannot disagree.
+  const destinations = buildDestinations({
+    kind: "presidential",
+    level,
+    id,
+    cycle: ctx.cycle,
+    completeResultTo,
+    localCycle: ctx.localCycle,
+    inLocalCycle: ctx.inLocalCycle?.(id) ?? false,
+  });
   const ballots: ElectionSurfaceBallot[] = rounds.map((r) => {
     const totals = totalsFrom(r.protocol, r.votes);
     const preview = rankedTickets(r.votes, ctx.tickets, totals.validVotes);
@@ -392,7 +411,7 @@ export const buildPlaceSurface = (
       preview,
       totals,
       ...mapMeta(level),
-      completeResult: { to: completeResultTo, available: true },
+      completeResult: destinations.completeResult,
     };
   });
   const first = rounds[0];
@@ -411,15 +430,7 @@ export const buildPlaceSurface = (
       machineShare(first.votes, firstTotals.validVotes, ctx.cycleHadMachines),
     ),
     standouts: [],
-    destinations: buildDestinations({
-      kind: "presidential",
-      level,
-      id,
-      cycle: ctx.cycle,
-      completeResultTo,
-      localCycle: ctx.localCycle,
-      inLocalCycle: ctx.inLocalCycle?.(id) ?? false,
-    }),
+    destinations,
   };
 };
 
@@ -431,6 +442,10 @@ export type ShardSection = {
   machines: number;
   protocol: Protocol;
   votes: Votes[];
+  /** The parent settlement, where placement resolved one. ⚠ ABSENT ON 1,601 OF 2021's 12,488
+   *  sections — abroad stations, mobile boxes and ships have no ЕКАТТЕ — so it is the reason a
+   *  section's „пълен резултат" link is `available: false` rather than a defect. */
+  ekatte?: string | null;
 };
 
 /**
@@ -479,7 +494,23 @@ export const buildSectionSurface = (
   ctx: BuildContext,
 ): ElectionSurfaceV1 => {
   const code = rounds[0].section.code;
-  const to = `/presidential/${ctx.cycle}/section/${code}`;
+  // ⚠ THE COMPLETE RESULT IS THE PARENT SETTLEMENT, NOT THIS SECTION — the parliamentary
+  // producer's own rule, and here it is what keeps the field from being a link to the page the
+  // reader is already on. `buildDestinations` refuses a self-link with `reason: "same_page"`,
+  // which is the right answer for the four place levels (their complete result IS this page)
+  // and a wasted row at a section, whose fuller result genuinely exists one level up.
+  //
+  // ⚠ 1,601 OF 2021's 12,488 SECTIONS HAVE NO ЕКАТТЕ — abroad, mobile boxes, ships — so this
+  // is `null` for them and renders as „no data for this place" rather than a broken link.
+  const ekatte = rounds[0].section.ekatte;
+  const to = ekatte ? presidentialUrl(ctx.cycle, "settlement", ekatte) : null;
+  const destinations = buildDestinations({
+    kind: "presidential",
+    level: "section",
+    id: code,
+    cycle: ctx.cycle,
+    completeResultTo: to,
+  });
   const ballots: ElectionSurfaceBallot[] = rounds.map((r) => {
     const totals = ballotTotalsFrom(r.section.protocol, r.section.votes);
     return {
@@ -489,7 +520,7 @@ export const buildSectionSurface = (
       preview: rankedTickets(r.section.votes, ctx.tickets, totals.validVotes),
       totals,
       ...mapMeta("section"),
-      completeResult: { to, available: true },
+      completeResult: destinations.completeResult,
     };
   });
   return {
@@ -512,13 +543,7 @@ export const buildSectionSurface = (
       ),
     ),
     standouts: [],
-    destinations: buildDestinations({
-      kind: "presidential",
-      level: "section",
-      id: code,
-      cycle: ctx.cycle,
-      completeResultTo: to,
-    }),
+    destinations,
   };
 };
 
@@ -562,6 +587,10 @@ export const buildPresidentialSurfaces = (
   cycle: string,
   root = DATA_ROOT,
 ): { level: ElectionPlaceLevel; id: string; surface: ElectionSurfaceV1 }[] => {
+  // ⚠ VALIDATED ONCE, HERE. `presidentialUrl` returns null for an empty CYCLE as well as for an
+  // unusable id, so a per-row handler that blames the id would report every row of a cycle-less
+  // build as key-less and interpolate the empty value it is failing to name.
+  if (!cycle) throw new Error("buildPresidentialSurfaces: empty cycle");
   const r1Dir = path.join(root, cycle, "tur1");
   if (!fs.existsSync(r1Dir)) return [];
   // ⚠ ONE PASS OVER ROUND 1's SECTIONS, not per place: „did this cycle have machines" is a
@@ -582,33 +611,29 @@ export const buildPresidentialSurfaces = (
     id: string;
     surface: ElectionSurfaceV1;
   }[] = [];
+  // ⚠ NO `to` COLUMN. Each level's URL comes from `presidentialUrl`, the one builder both this
+  // producer and `routes.tsx` are gated against — four templates here were four places the
+  // route family could move out from under.
+  // ⚠ ABROAD IS NOT IN THIS LIST, AND THAT IS THE DIFFERENCE THIS TREE HAS FROM THE
+  // PARLIAMENTARY ONE. These three levels fan out one artifact per place; the abroad roll-up
+  // is keyed by COUNTRY (68 of them in 2021) while the route family serves ONE „чужбина" page
+  // with no id — `SURFACE_POLICY.presidential.abroad` says so in as many words („abroad is a
+  // page, not a fan-out, in this tree") and its 247 KB figure is the whole-abroad payload.
+  // Running abroad through this loop emitted 302 artifacts across five cycles that collapsed
+  // onto 5 URLs, i.e. 297 files no reader could ever reach and a page that fetched none of
+  // them. It is folded below instead.
+  // The level is a LITERAL UNION rather than `ElectionPlaceLevel`, so `presidentialUrl` picks
+  // its id-bearing overload here: a generic level would only match the no-id one and let an id
+  // be silently dropped, which is the defect the overloads exist to make unrepresentable.
   const LEVELS: {
     file: LevelFile;
-    level: ElectionPlaceLevel;
-    to: (id: string) => string;
+    level: "region" | "municipality" | "settlement";
   }[] = [
-    {
-      file: "region",
-      level: "region",
-      to: (id) => `/presidential/${cycle}/region/${id}`,
-    },
-    {
-      file: "municipality",
-      level: "municipality",
-      to: (id) => `/presidential/${cycle}/municipality/${id}`,
-    },
-    {
-      file: "settlement",
-      level: "settlement",
-      to: (id) => `/presidential/${cycle}/settlement/${id}`,
-    },
-    {
-      file: "abroad",
-      level: "abroad",
-      to: () => `/presidential/${cycle}/abroad`,
-    },
+    { file: "region", level: "region" },
+    { file: "municipality", level: "municipality" },
+    { file: "settlement", level: "settlement" },
   ];
-  for (const { file, level, to } of LEVELS) {
+  for (const { file, level } of LEVELS) {
     const byRound = ROUNDS.map((r) => readRollup(cycle, r, file, root));
     const first = byRound[0];
     if (!first) continue;
@@ -616,10 +641,6 @@ export const buildPresidentialSurfaces = (
       .slice(1)
       .map((r) => new Map((r?.entries ?? []).map((e) => [e.key, e])));
     for (const entry of first.entries) {
-      // ⚠ THE „" KEY IS A REAL BUCKET, not an absence: abroad sections whose country the
-      // corpus cannot name still cast real votes. It gets no page of its own — there is no
-      // place to name — so it is folded out here rather than emitted under an empty id.
-      if (level === "abroad" && entry.key === "") continue;
       const rounds: {
         round: RoundNo;
         votes: Votes[];
@@ -640,19 +661,64 @@ export const buildPresidentialSurfaces = (
             protocol: hit.results.protocol,
           });
       });
+      // ⚠ A NULL HERE IS A ROLL-UP ROW WITH NO KEY, not a routing gap. `presidentialUrl`
+      // refuses an empty id rather than emitting `/presidential/<cycle>/region/`, so the row
+      // is NAMED and skipped — publishing it would put a surface behind a URL nothing serves.
+      const to = presidentialUrl(cycle, level, entry.key);
+      if (to === null) {
+        process.stderr.write(
+          `presidential/${cycle}: ${level} roll-up row with an unusable key ` +
+            `${JSON.stringify(entry.key)} — no route, skipped\n`,
+        );
+        continue;
+      }
       out.push({
         level,
         id: entry.key,
-        surface: buildPlaceSurface(
-          entry.key,
-          level,
-          rounds,
-          ctx,
-          to(entry.key),
-        ),
+        surface: buildPlaceSurface(entry.key, level, rounds, ctx, to),
       });
     }
   }
+  // The one „чужбина" page: every country's rows folded into a single place, per round.
+  //
+  // ⚠ THE „" KEY IS FOLDED IN, NOT DROPPED. It holds the abroad sections whose country the
+  // corpus cannot name — real protocols and real votes — and while abroad fanned out they had
+  // no page to be, because there is no place to name. A national abroad total is exactly the
+  // question they DO answer, so excluding them here would under-count the page by whatever
+  // that bucket holds while every row count still reconciled.
+  const abroadTo = presidentialUrl(cycle, "abroad");
+  if (abroadTo !== null) {
+    const abroadRounds: {
+      round: RoundNo;
+      votes: Votes[];
+      protocol: ProtocolSum;
+    }[] = [];
+    ROUNDS.forEach((r, i) => {
+      const rollup = readRollup(cycle, r, "abroad", root);
+      if (!rollup || rollup.entries.length === 0) return;
+      abroadRounds.push({
+        round: (i + 1) as RoundNo,
+        votes: foldVotes(rollup.entries.map((e) => e.results.votes)),
+        protocol: foldProtocolSums(
+          rollup.entries.map((e) => e.results.protocol),
+        ),
+      });
+    });
+    // A cycle whose round 1 has no abroad rows at all gets no page rather than an empty one.
+    if (abroadRounds[0]?.round === 1)
+      out.push({
+        level: "abroad",
+        id: PRESIDENTIAL_ABROAD_ID,
+        surface: buildPlaceSurface(
+          PRESIDENTIAL_ABROAD_ID,
+          "abroad",
+          abroadRounds,
+          ctx,
+          abroadTo,
+        ),
+      });
+  }
+
   // ⚠ SECTIONS ARE READ FROM THE PER-OBLAST SHARDS, and only for the LATEST cycle — see
   // `sectionArtifactCycle`. The place levels above run for every cycle; this level is ~60,000
   // objects across five, which is the object-count decision §5.0 forces.

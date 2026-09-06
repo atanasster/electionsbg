@@ -20,6 +20,10 @@
 // formatted in the viewer's zone renders as the previous day for every reader west of
 // Greenwich, which shipped on 613 pages.
 
+import {
+  PRESIDENTIAL_ROUTE_PATTERNS,
+  presidentialUrl,
+} from "@/data/elections/presidentialRoutes";
 import allElections from "@/data/json/elections.json";
 import allLocalElections from "@/data/json/local_elections.json";
 import allPresidentialElections from "@/data/json/presidential_elections.json";
@@ -92,21 +96,42 @@ export type ElectionsHubCycle = {
  */
 export const CYCLE_SURFACE: Record<
   ElectionsHubKind,
-  { routePattern: string; href: (id: string) => string; labelKey: string }
+  {
+    routePattern: string;
+    /** The path a cycle id is appended to.
+     *
+     *  ⚠ IT IS DECLARED, NOT DERIVED AS `href("")`. That idiom is what every caller used, and
+     *  it only worked while a kind's URL was exactly `prefix + id` — the presidential row now
+     *  builds through `presidentialUrl`, which REFUSES an empty id (as it must: an empty id is
+     *  a link to nowhere), so `href("")` became `null` and two live callers crashed. Declared
+     *  here and gated against `href` in `electionsHubCycle.test.ts`, both properties hold. */
+    prefix: string;
+    href: (id: string) => string;
+    labelKey: string;
+  }
 > = {
   parliamentary: {
     routePattern: "elections/:date",
+    prefix: "/elections/",
     href: (id) => `/elections/${id}`,
     labelKey: "elections_scope_parliamentary",
   },
   local: {
     routePattern: "local/:cycle",
+    prefix: "/local/",
     href: (id) => `/local/${id}`,
     labelKey: "elections_scope_local",
   },
   presidential: {
-    routePattern: "presidential/:cycle",
-    href: (id) => `/presidential/${id}`,
+    // ⚠ NOT A TEMPLATE — `presidentialRoutes.ts` is this family's one builder, and this row was
+    // the sixth live copy of its country pattern. It is not decorative: `presidentialRows.ts`
+    // navigates the header dropdown by `CYCLE_SURFACE[kind].href(cycle)`, so a private copy
+    // here is a route that keeps working until the family moves and then nothing compares the
+    // two. The `!` is safe because the caller only ever passes a catalogued cycle id, and
+    // `presidentialUrl` refuses only an empty or separator-bearing one.
+    routePattern: PRESIDENTIAL_ROUTE_PATTERNS.country,
+    prefix: "/presidential/",
+    href: (id) => presidentialUrl(id, "country")!,
     labelKey: "elections_scope_presidential",
   },
 };

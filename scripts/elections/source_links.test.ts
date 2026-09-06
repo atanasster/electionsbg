@@ -573,6 +573,76 @@ describe("`completeResult` refuses a self-link, as `views` always did", () => {
     expect(d.completeResult.to).toBe("/municipality/BGS");
   });
 
+  // The presidential family's arm resolves BEFORE the `section` exemption below, and nothing
+  // exercised it: an `ownPageRoute` that returned `completeResultTo` verbatim for this kind —
+  // i.e. refused everything — passed every test in the repository.
+  const pres = (
+    level: "region" | "settlement" | "municipality" | "section",
+    id: string,
+    completeResultTo: string,
+  ) =>
+    buildDestinations({
+      kind: "presidential",
+      level,
+      id,
+      cycle: "2021_11_14_pvr",
+      completeResultTo,
+    });
+
+  it("refuses a presidential SECTION's own page — the one level parliamentary exempts", () => {
+    // ⚠ THE ARM'S WHOLE REASON FOR RESOLVING FIRST. A parliamentary section's own route
+    // (`/section/:code`) is NOT what `placeViewUrl` builds for it, so that family exempts the
+    // level; every presidential level has a page of its own, so exempting it here would let a
+    // section surface link to the page it is rendered on. Deleting the arm turns this red.
+    const own = "/presidential/2021_11_14_pvr/section/030604303";
+    const d = pres("section", "030604303", own);
+    expect(d.completeResult.available).toBe(false);
+    expect(d.completeResult.reason).toBe("same_page");
+    // …and the dead route is dropped, not kept beside the flag.
+    expect(d.completeResult.to).toBe("");
+  });
+
+  it("keeps a presidential destination that is a DIFFERENT page", () => {
+    // The discriminating half — this is what the producer actually emits at a section, whose
+    // fuller result is its parent settlement.
+    const d = pres(
+      "section",
+      "030604303",
+      "/presidential/2021_11_14_pvr/settlement/61813",
+    );
+    expect(d.completeResult.available).toBe(true);
+    expect(d.completeResult.to).toBe(
+      "/presidential/2021_11_14_pvr/settlement/61813",
+    );
+  });
+
+  it("refuses a presidential PLACE level's own page too", () => {
+    for (const [level, id] of [
+      ["region", "BGS"],
+      ["municipality", "PAZ19"],
+      ["settlement", "51041"],
+    ] as const) {
+      const own = `/presidential/2021_11_14_pvr/${level}/${id}`;
+      const d = pres(level, id, own);
+      expect(d.completeResult.available, own).toBe(false);
+      expect(d.completeResult.reason, own).toBe("same_page");
+    }
+  });
+
+  it("leaves the parliamentary section exemption untouched", () => {
+    // The arm must not have changed the other two families. A parliamentary section's complete
+    // result is its PARENT settlement's page, which is a different route and stays live.
+    const d = buildDestinations({
+      kind: "parliamentary",
+      level: "section",
+      id: "10135",
+      cycle: "2026_04_19",
+      completeResultTo: "/sections/10135",
+    });
+    expect(d.completeResult.available).toBe(true);
+    expect(d.completeResult.to).toBe("/sections/10135");
+  });
+
   it("leaves the SECTION level alone — its target is the parent settlement", () => {
     // ⚠ THE ONE LEVEL THE GUARD MUST NOT FIRE ON, and the one where a naive implementation
     // would. `placeViewUrl` maps a section ref to `/sections/:ekatte`, which is precisely the

@@ -1223,11 +1223,11 @@ What the shared system needs from this kind, named so it cannot be discovered ha
     behind a builder, and the honest options are bounding the section level to fewer cycles or
     arguing the bound up with the arithmetic attached.
 
-  **Measured: 81,553 surfaces across the five cycles, every level inside its budget with room** —
+  **Measured: 35,250 surfaces across the five cycles, every level inside its budget with room** —
   max 4.7 KB against 16 KiB at region/municipality/settlement/abroad. A settlement reader goes from
   the 14.4 MB whole-country file to 4.6 KB, which is the reduction §5.0's exit criterion asks for.
   The corpus-wide artifact band was re-stated as a COMPOSITION rather than a round number
-  (parliamentary 18,117 · local 5,548 · presidential 81,553), because ~60,000 of the presidential
+  (parliamentary 18,117 · local 5,548 · presidential 35,250, i.e. 58,915), because ~60,000 of the presidential
   share is the SECTION level — permitted by the same object-count argument that bought 5,364
   objects for parliamentary settlements, since that level is 307× over its budget — the corrected figure, not the retracted 425× that was measured on the
   `_unplaced` residue bucket.
@@ -1349,6 +1349,20 @@ switch. Three things follow and each is the reason: the surfaces ALREADY carry b
 artifact, so no producer changes; one canonical page per cycle rather than two competing for the same query;
 and the prerender and sitemap sets stay at one entry per cycle per language. The cost is stated rather than
 hidden — the runoff has no indexable URL of its own, so „балотаж 2021" ranks against the cycle page.
+
+⚠ **ABROAD IS ONE PAGE, AND THE PRODUCER FANNED IT OUT — caught by review 2026-09-06.** The
+abroad roll-up is keyed by COUNTRY, so running it through the per-place loop emitted one artifact
+per country (58/48/57/71/68) while `/presidential/:cycle/abroad` takes no id: **302 artifacts
+across five cycles collapsed onto 5 URLs**, and the page could open none of them —
+`locateSurface` answers `pending` without an id, which renders a permanent SKELETON rather than
+the documented fallback. `SURFACE_POLICY.presidential.abroad` had said „abroad is a page, not a
+fan-out, in this tree" and sized the 247 KB whole-abroad payload the producer never emitted. The
+level is folded now — every country's votes and protocol summed per round, stored under
+`PRESIDENTIAL_ABROAD_ID` (`ABROAD_OBLAST`, „32", this repo's existing id for чужбина, which
+cannot collide with the three-letter oblast keys) — and the „" bucket is folded IN rather than
+dropped, because a national abroad total is exactly the question those 996–1,669 unattributable
+votes answer. `presidentialUrl` is OVERLOADED so `country`/`abroad` cannot be handed an id at
+all: the 302 silent swallows are compile errors now.
 
 ⚑ **SECTION ARTIFACTS ARE BOUNDED TO THE LATEST CYCLE — RESOLVED 2026-09-06.** §5.0 rejects a ~240,000-object
 shape and asks v1 to stay an order of magnitude below it; five presidential cycles' sections are ~60,000

@@ -238,3 +238,30 @@ describe("resolution", () => {
     }
   });
 });
+
+describe("CYCLE_SURFACE", () => {
+  it("declares a prefix that agrees with its own href", () => {
+    // ⚠ THE TWO USED TO BE ONE, AS `href("")`, AND THAT IS WHY THIS GATE EXISTS. Callers took
+    // the prefix by calling `href` with an empty id — fine while every kind's URL was
+    // `prefix + id`, and a crash the moment the presidential row started building through
+    // `presidentialUrl`, which refuses an empty id. Declaring the prefix fixes the crash and
+    // creates a second declaration; this is what stops the two drifting.
+    for (const [kind, surface] of Object.entries(CYCLE_SURFACE)) {
+      expect(surface.href("SOME_CYCLE"), kind).toBe(
+        `${surface.prefix}SOME_CYCLE`,
+      );
+      // …and the prefix is a path, not a fragment of one.
+      expect(surface.prefix.startsWith("/"), kind).toBe(true);
+      expect(surface.prefix.endsWith("/"), kind).toBe(true);
+    }
+  });
+
+  it("gives every kind a route pattern its own href satisfies", () => {
+    for (const [kind, surface] of Object.entries(CYCLE_SURFACE)) {
+      const re = new RegExp(
+        `^/${surface.routePattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/:[A-Za-z]+/g, "[^/]+")}$`,
+      );
+      expect(re.test(surface.href("2021_11_14_pvr")), kind).toBe(true);
+    }
+  });
+});

@@ -224,7 +224,7 @@ describe("scenes", () => {
 
     for (const { tile, kind, band, blockers } of WITHHELD_TILES) {
       expect(tile.cycleScoped, tile.id).toBe(kind);
-      expect(tile.to.startsWith(CYCLE_SURFACE[kind].href("")), tile.id).toBe(
+      expect(tile.to.startsWith(CYCLE_SURFACE[kind].prefix), tile.id).toBe(
         true,
       );
       expect(ELECTIONS_SCENES[tile.id], tile.id).toBeTypeOf("function");

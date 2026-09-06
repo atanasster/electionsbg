@@ -67,9 +67,12 @@ export const DATA_ROOT = path.join(process.cwd(), "data");
  * The OTHER reason is closed: the object count. Five cycles of section artifacts were ~60,000
  * objects on their own, taking the corpus to 105,218 — 44% of the ~240,000-object shape §5.0
  * rejects rather than the tenth it asks for. Sections are bounded to the latest cycle now
- * (`sectionArtifactCycle`), which mirrors how every other kind is bounded and lands the corpus
- * at 59,212. ⚠ That is 1.3% under the 60,000 gate, so the next level added here needs its own
- * arithmetic rather than an assumption of room.
+ * (`sectionArtifactCycle`), which mirrors how every other kind is bounded; folding abroad into
+ * the one page its route serves took a further 297 off (302 artifacts on 5 URLs), and the
+ * corpus lands at 58,915 — parliamentary 18,117 · local 5,548 · presidential 35,250
+ * (region 155 · municipality 1,357 · settlement 21,245 · abroad 5 · section 12,488).
+ * ⚠ That is 1.8% under the 60,000 gate, so the next level added here needs its own arithmetic
+ * rather than an assumption of room.
  *
  * Removing `presidential` from this list is what turns the surfaces on, and `emittedLevels`
  * already says which levels they are. Plan Tier 5's route family owns the last step.

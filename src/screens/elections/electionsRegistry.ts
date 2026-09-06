@@ -330,11 +330,11 @@ export const withCycle = (
   kind: Exclude<ElectionsHubKind, "parliamentary">,
   cycle: string,
 ): string => {
-  // ⚠ `href("")` IS THE KIND'S PREFIX, and only while `href` is `base + id`. If a kind ever
-  // appended anything („/presidential/${id}/round-1") this yields „/presidential//round-1"
-  // and the rewrite silently stops matching — the „marks exactly the destinations that
-  // embed a cycle" gate is what fails then.
-  const base = CYCLE_SURFACE[kind].href("");
+  // ⚠ THE DECLARED PREFIX, NOT `href("")`. That idiom held only while a kind's URL was exactly
+  // `prefix + id`, and it broke the day the presidential row started building through
+  // `presidentialUrl` — which refuses an empty id, so `href("")` returned `null` and this line
+  // threw. `CYCLE_SURFACE[kind].prefix` is declared beside `href` and gated against it.
+  const base = CYCLE_SURFACE[kind].prefix;
   // ⚠ ESCAPED. Every id and prefix is metachar-free today, and a future one carrying „."
   // would change the pattern's meaning with no error — a non-matching pattern here is a
   // NO-OP, so the tile would quietly keep pointing at the latest cycle.

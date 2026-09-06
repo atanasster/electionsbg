@@ -12,10 +12,16 @@ import {
   loadTickets,
   presidentialFacts,
   rankedTickets,
+  readRollup,
   sectionArtifactCycle,
   totalsFrom,
 } from "./build_presidential_surface";
 import { descriptorFor } from "../../src/screens/elections/electionSurfaceDescriptors";
+import {
+  PRESIDENTIAL_ABROAD_ID,
+  PRESIDENTIAL_ROUTE_PATTERNS,
+  presidentialUrl,
+} from "../../src/data/elections/presidentialRoutes";
 import {
   SURFACE_BUDGET_BYTES,
   emittedLevels,
@@ -207,21 +213,167 @@ describe.runIf(hasCorpus)("presidential surfaces", () => {
       // …and it is at least the valid votes, because every valid vote was a ballot found.
       expect(cast!.value, `2006 abroad ${b.id}`).toBeGreaterThanOrEqual(valid);
     }
-    // The control: the population is non-empty, so the loop is not vacuous.
+    // ⚠ THE CONTROL IS THAT THE FALLBACK IS LOAD-BEARING, not that the loop ran. Abroad is one
+    // folded surface now, so „the population is non-empty" is a single row and would pass
+    // against an implementation that never falls back — as long as the signatures happened to
+    // be positive. They are not: every one of 2006's 144 abroad sections reports точка 3 = 0,
+    // so `ballotsFound` is the ONLY source a positive `votes_cast` can have come from.
+    const abroad2006 = built("2006_10_22_pvr").filter(
+      (x) => x.level === "abroad",
+    );
+    expect(abroad2006).toHaveLength(1);
+    const r1 = readRollup("2006_10_22_pvr", 1, "abroad");
+    const signatures = (r1?.entries ?? []).reduce(
+      (a, e) => a + e.results.protocol.signatures,
+      0,
+    );
+    expect(signatures, "2006 abroad signatures").toBe(0);
     expect(
-      built("2006_10_22_pvr").filter((x) => x.level === "abroad").length,
-    ).toBeGreaterThan(40);
+      abroad2006[0].surface.facts.find((f) => f.code === "votes_cast")?.value,
+    ).toBeGreaterThan(0);
   });
 
-  it("gives no page to the abroad bucket with no country", () => {
-    // ⚠ IT IS A REAL BUCKET — sections whose country the corpus cannot name still cast real
-    // votes, and the roll-up keeps them under a `""` key so nothing is silently dropped. What
-    // it has no claim to is a PAGE, because there is no place to name on it.
-    for (const cycle of CYCLES)
+  it("emits ONE abroad surface per cycle, at the id the abroad route serves", () => {
+    // ⚠ ABROAD IS A PAGE, NOT A FAN-OUT (`SURFACE_POLICY.presidential.abroad`). Run through
+    // the per-place loop it emitted one artifact per COUNTRY — 302 across the five cycles —
+    // onto a route that takes no id, so all 302 collapsed onto 5 URLs and the page could
+    // fetch none of them: `locateSurface` answers `pending` with no id, which renders a
+    // permanent skeleton rather than a fallback.
+    for (const cycle of CYCLES) {
+      const abroad = built(cycle).filter((b) => b.level === "abroad");
       expect(
-        built(cycle).filter((b) => b.level === "abroad" && b.id === ""),
+        abroad.map((b) => b.id),
         cycle,
-      ).toEqual([]);
+      ).toEqual([PRESIDENTIAL_ABROAD_ID]);
+      // And the id is one the route family can address — the point of having a shared one.
+      // ⚠ THE ROUTE TAKES NO ID; passing `abroad[0].id` here does not compile since the
+      // overloads landed, which is exactly the compile error that would have caught the
+      // fan-out at the keyboard.
+      expect(presidentialUrl(cycle, "abroad"), cycle).toBe(
+        `/presidential/${cycle}/abroad`,
+      );
+    }
+  });
+
+  it("folds the no-country abroad bucket IN rather than dropping it", () => {
+    // ⚠ IT IS A REAL BUCKET — abroad sections whose country the corpus cannot name still cast
+    // real votes (996 in 2001, 1,084 in 2006, 1,669 in 2011). While abroad fanned out they had
+    // no page to be, because there is no place to name; a national abroad total is exactly the
+    // question they DO answer, so dropping them here would under-count the page by that much
+    // with every row count still reconciling.
+    let cyclesWithBucket = 0;
+    for (const cycle of CYCLES) {
+      const rollup = readRollup(cycle, 1, "abroad");
+      if (!rollup) continue;
+      const bucket = rollup.entries.find((e) => e.key === "");
+      const total = (vs: { totalVotes: number }[]) =>
+        vs.reduce((a, v) => a + v.totalVotes, 0);
+      // ⚠ PER TICKET, NOT THE SUM. `rankedTickets` truncates at `MAX_BALLOT_PREVIEW`, so a
+      // whole-list total would disagree with the rollup by whatever the tail holds (1,400
+      // votes in 2011) and say nothing about the fold either way.
+      const perTicket = new Map<number, number>();
+      for (const e of rollup.entries)
+        for (const v of e.results.votes)
+          perTicket.set(
+            v.partyNum,
+            (perTicket.get(v.partyNum) ?? 0) + v.totalVotes,
+          );
+      const surface = built(cycle).find((b) => b.level === "abroad")!.surface;
+      for (const row of surface.ballots[0].preview)
+        expect(row.votes, `${cycle} ticket ${row.localPartyNum}`).toBe(
+          perTicket.get(row.localPartyNum!),
+        );
+      expect(surface.ballots[0].preview.length, cycle).toBeGreaterThan(0);
+      if (bucket && total(bucket.results.votes) > 0) cyclesWithBucket += 1;
+    }
+    // Non-vacuity: without a cycle that HAS such a bucket, the equality above is satisfied by
+    // an implementation that drops it.
+    expect(cyclesWithBucket).toBeGreaterThanOrEqual(3);
+  });
+
+  it("never offers `completeResult` as a link to the page the reader is on", () => {
+    // ⚠ THE GUARD IN `buildDestinations` COULD NOT FIRE FOR THIS KIND until `ownPageRoute`
+    // learned it. It compares `completeResultTo` against the surface's OWN page, computed
+    // through the router's builders — and for a presidential place both are the same
+    // `/presidential/<cycle>/<level>/<id>`, so before the arm existed every one of these
+    // artifacts carried a link to itself with `available: true`. That is the same defect
+    // measured at 29.8% of the published parliamentary corpus, which is why the guard exists.
+    let places = 0;
+    let sectionsWithLink = 0;
+    for (const cycle of CYCLES) {
+      for (const b of built(cycle)) {
+        const cr = b.surface.destinations.completeResult;
+        const where = `${cycle} ${b.level}/${b.id}`;
+        if (b.level === "section") {
+          // ⚠ THE DISCRIMINATING ARM. A section's fuller result is its PARENT SETTLEMENT, a
+          // different page — so the guard must NOT fire here. Without this arm the assertion
+          // above is `f(x) === f(x)`: the producer and the guard both call `presidentialUrl`
+          // with the same arguments, so "always same_page" would pass whatever that returns.
+          if (cr.available) {
+            expect(cr.to, where).toMatch(
+              new RegExp(`^/presidential/${cycle}/settlement/`),
+            );
+            sectionsWithLink += 1;
+          } else {
+            // 1,601 of 2021's sections have no ЕКАТТЕ — abroad, mobile boxes, ships.
+            expect(cr.reason, where).toBe("no_data_for_place");
+          }
+          continue;
+        }
+        expect(cr.available, where).toBe(false);
+        expect(cr.reason, where).toBe("same_page");
+        places += 1;
+      }
+    }
+    // Non-vacuity on BOTH arms: an empty corpus, or a corpus with no sections, would satisfy
+    // every assertion above.
+    expect(places).toBeGreaterThan(1_000);
+    expect(sectionsWithLink).toBeGreaterThan(1_000);
+  });
+
+  it("emits one artifact per URL, at every level", () => {
+    // ⚠ THE GATE THAT WOULD HAVE CAUGHT THE ABROAD FAN-OUT THE DAY IT WAS WRITTEN. 302 abroad
+    // artifacts collapsed onto 5 URLs, and every per-level count, every budget row and every
+    // byte-identical rebuild still passed — because none of them asks how many FILES answer
+    // one address. It generalises: any future level whose id space is finer than its route's
+    // fails here rather than shipping files no reader can open.
+    for (const cycle of CYCLES) {
+      const urls = new Map<string, string[]>();
+      for (const b of built(cycle)) {
+        const to =
+          b.level === "country" || b.level === "abroad"
+            ? presidentialUrl(cycle, b.level)
+            : presidentialUrl(cycle, b.level, b.id);
+        expect(to, `${cycle} ${b.level}/${b.id}: no route`).not.toBeNull();
+        urls.set(to!, [...(urls.get(to!) ?? []), `${b.level}/${b.id}`]);
+      }
+      const collisions = [...urls].filter(([, ids]) => ids.length > 1);
+      expect(collisions.slice(0, 5), cycle).toEqual([]);
+      expect(urls.size, cycle).toBeGreaterThan(100);
+    }
+  });
+
+  it("emits only ids the declared route patterns accept", () => {
+    // ⚠ NOTHING COMPARED THE PRODUCER TO THE PATTERN TABLE. `presidentialRoutes.test.ts` checks
+    // the builder against itself, and this file never imported the table — so a corpus key
+    // carrying a path separator would mint an extra segment and match a different route, or
+    // none, with the artifact written all the same.
+    const escaped = (p: string) =>
+      new RegExp(
+        `^/${p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/:[A-Za-z]+/g, "[^/]+")}$`,
+      );
+    for (const cycle of CYCLES) {
+      for (const b of built(cycle)) {
+        const to =
+          b.level === "country" || b.level === "abroad"
+            ? presidentialUrl(cycle, b.level)
+            : presidentialUrl(cycle, b.level, b.id);
+        expect(
+          escaped(PRESIDENTIAL_ROUTE_PATTERNS[b.level]).test(to!),
+          `${cycle} ${b.level}/${b.id}: ${to}`,
+        ).toBe(true);
+      }
+    }
   });
 
   it("rebuilds byte-identically", () => {

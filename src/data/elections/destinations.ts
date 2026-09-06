@@ -18,6 +18,7 @@ import {
   type PlaceRef,
   type PlaceView,
 } from "@/data/local/placeViews";
+import { presidentialUrl } from "./presidentialRoutes";
 import type {
   ElectionDestination,
   ElectionDestinations,
@@ -104,11 +105,24 @@ export type DestinationInput = {
  *  where to go next. §4.1 drops the digest entirely on a section for the same reason. */
 /** The route of the page a surface is RENDERED on, so a destination equal to it can be refused.
  *
- *  ⚠ SECTION IS DELIBERATELY EXEMPT AND MUST STAY SO. A section's own page is `/section/:code`,
- *  while `placeViewUrl` maps a section ref to its PARENT SETTLEMENT (`/sections/:ekatte`) —
- *  which is exactly the destination the section level is supposed to offer. Computing "self"
- *  through the router there would refuse the one level whose leaf is real, so it returns null
- *  and the guard does not fire.
+ *  @param kind - Which election family this surface belongs to; each has its own page routes.
+ *  @param level - The place level, which is what decides whether a "self" page exists at all.
+ *  @param id - The place's own id.
+ *  @param cycle - The surface's cycle. Only the presidential family's routes carry it; the
+ *    parliamentary pages are cycle-less and the local ones take `localCycle` instead.
+ *  @param localCycle - The local cycle whose pages a `local` surface is rendered on.
+ *
+ *  ⚠ SECTION IS EXEMPT FOR THE PARLIAMENTARY AND LOCAL FAMILIES, AND MUST STAY SO. There a
+ *  section's own page is `/section/:code` while `placeViewUrl` maps a section ref to its PARENT
+ *  SETTLEMENT (`/sections/:ekatte`) — exactly the destination the section level is supposed to
+ *  offer. Computing "self" through the router would refuse the one level whose leaf is real, so
+ *  it returns null and the guard does not fire.
+ *
+ *  ⚠ PRESIDENTIAL RESOLVES BEFORE THAT EXEMPTION, because its section page and its complete
+ *  result are not the same route: the page is `/presidential/:cycle/section/:code` and the
+ *  producer offers the parent SETTLEMENT as the fuller result. The guard therefore has real
+ *  work to do at every one of that family's levels — it refuses the four place levels, whose
+ *  complete result IS the page being read, and passes the section link through.
  *
  *  ⚠ AND THE ROUTES COME FROM THE ROUTER, never from a template here — the same rule
  *  `ElectionDestination.to` states. A hand-built `/sections/${id}` would keep matching after
@@ -117,8 +131,15 @@ const ownPageRoute = (
   kind: ElectionKind,
   level: ElectionPlaceLevel,
   id: string,
+  cycle: string,
   localCycle?: string,
 ): string | null => {
+  // ⚠ BEFORE THE `section` EXEMPTION — see the docblock. Every presidential level has a page of
+  // its own, so "self" is always computable here and the exemption below would be wrong.
+  if (kind === "presidential")
+    return level === "country" || level === "abroad"
+      ? presidentialUrl(cycle, level)
+      : presidentialUrl(cycle, level, id);
   if (level === "section") return null;
   // Abroad has no `toPlaceRef` of its own (it is not a Bulgarian place), but it IS served by
   // the region route, which is the page a reader would be on.
@@ -138,6 +159,7 @@ export const buildDestinations = (
     kind,
     level,
     id,
+    cycle,
     localCycle,
     inLocalCycle,
     completeResultTo,
@@ -161,7 +183,7 @@ export const buildDestinations = (
   // ⚠ THE REASON IS `same_page`, NOT `no_data_for_place`. A region's complete result EXISTS and
   // is what the reader is looking at; saying the place has no such result would be false, and a
   // consumer that renders reasons would publish it.
-  const selfTo = ownPageRoute(kind, level, id, localCycle);
+  const selfTo = ownPageRoute(kind, level, id, cycle, localCycle);
   const completeResult: ElectionDestination =
     completeResultTo !== null && completeResultTo === selfTo
       ? { to: "", available: false, reason: "same_page" }

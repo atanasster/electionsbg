@@ -66,6 +66,60 @@ const sortedVotes = (m: Map<number, Votes>): Votes[] =>
   [...m.values()].sort((a, b) => a.partyNum - b.partyNum);
 
 /**
+ * Fold several places' vote rows into one — the abroad roll-up's 68 countries into the one
+ * „чужбина" place the route family serves, and nothing else today.
+ *
+ * ⚠ IT REUSES `addVotes`, so the absent-stays-absent rule above holds unchanged: a cycle that
+ * recorded no machine split still folds to rows with no `machineVotes`, rather than to zeros
+ * that claim nobody used a machine.
+ */
+export const foldVotes = (parts: readonly (readonly Votes[])[]): Votes[] => {
+  const m = new Map<number, Votes>();
+  for (const part of parts) addVotes(m, [...part]);
+  return sortedVotes(m);
+};
+
+/**
+ * Fold several places' protocol sums into one.
+ *
+ * ⚠ `turnoutBasis` FOLDS TO `null` IF ANY PART HAS NONE, which is the only safe direction: a
+ * total containing one place with no honest denominator has no honest denominator either, and
+ * the opposite rule would let a single basis-less country license a rate over the whole fold.
+ *
+ * ⚠ `noneOfTheAbove` STAYS ABSENT unless some part answered it — the same rule `addProtocol`
+ * applies one level down, for the same reason: a stored 0 claims nobody chose an option that
+ * was never on the ballot.
+ */
+export const foldProtocolSums = (
+  parts: readonly ProtocolSum[],
+): ProtocolSum => {
+  const out: ProtocolSum = {
+    sections: 0,
+    registeredVoters: 0,
+    additionalVoters: 0,
+    signatures: 0,
+    sectionsWithoutSignatures: 0,
+    ballotsFound: 0,
+    invalidBallots: 0,
+    turnoutBasis: parts.every((p) => p.turnoutBasis === "registered-voters")
+      ? "registered-voters"
+      : null,
+  };
+  for (const p of parts) {
+    out.sections += p.sections;
+    out.registeredVoters += p.registeredVoters;
+    out.additionalVoters += p.additionalVoters;
+    out.signatures += p.signatures;
+    out.sectionsWithoutSignatures += p.sectionsWithoutSignatures;
+    out.ballotsFound += p.ballotsFound;
+    out.invalidBallots += p.invalidBallots;
+    if (p.noneOfTheAbove !== undefined)
+      out.noneOfTheAbove = (out.noneOfTheAbove ?? 0) + p.noneOfTheAbove;
+  }
+  return out;
+};
+
+/**
  * What a roll-up covers, carried in the file itself.
  *
  * ⚠ THE POINT OF THIS BLOCK IS THAT THE LEVELS DIFFER. A settlement roll-up is missing
