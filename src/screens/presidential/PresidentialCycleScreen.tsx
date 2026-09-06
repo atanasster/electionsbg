@@ -40,6 +40,7 @@ import {
   type RegionLeader,
 } from "./PresidentialRegionsMap";
 import { PresidentialRegionsList } from "./PresidentialRegionsList";
+import { ToLocalSameDay } from "@/screens/components/SameDayElectionLink";
 import { useRunoffTransfer } from "@/data/presidential/useRunoffTransfer";
 import { useSplitTicket } from "@/data/presidential/useSplitTicket";
 import { PresidentialSplitTicketTile } from "./PresidentialSplitTicketTile";
@@ -436,6 +437,13 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           {" · "}
           <PersonName name={summary.winner.vicePresident} />
         </p>
+        {/* ⚠ THE OTHER DIRECTION OF THE SAME CROSS-LINK. A pill on only one side is a route a
+            reader can take once and never find again — and this side is the one where „local
+            elections were held the same day" is the more surprising fact.
+            ⚠ THE SPACING RIDES ON THE PILL, not on a wrapper: the component self-hides on four
+            of the five cycles, and an unconditional `mt-2` div leaves a gap under the header on
+            every one of them. */}
+        <ToLocalSameDay cycle={cycle} className="mt-2" />
       </header>
 
       {/* ⚠ RENDERED ONLY WHEN THERE IS A SECOND ROUND. A one-round cycle showing a disabled

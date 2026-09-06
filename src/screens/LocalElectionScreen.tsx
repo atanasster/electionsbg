@@ -25,6 +25,7 @@ import {
   ShieldAlert,
   TrendingUp,
 } from "lucide-react";
+import { ToPresidentialSameDay } from "@/screens/components/SameDayElectionLink";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
@@ -1222,6 +1223,13 @@ const MunicipalityResults: FC<{
         // derives it, and only because its level is `canonical` and hands the surface in.
         scope={<ElectionScopeBar cycle={cycle} status="final" />}
       />
+      {/* ⚠ A CROSS-LINK, NOT A MERGE (plan §16 q5), AND IT KEEPS THE PLACE. 2011's local and
+          presidential votes came out of ONE ЦИК bundle and this tree ignores its `президент/`
+          folder, so without this a reader here has no route to the presidency decided the same
+          day — and sending them to the NATIONAL result would throw away the município they are
+          reading about, which 261 of 262 codes have a presidential page for. The pill self-hides
+          on every cycle with no such pair, which is four of the five. */}
+      <ToPresidentialSameDay cycle={cycle} obshtina={obshtinaCode} />
 
       {/* ⚠ THE THIRD OF FOUR LOCAL LEVELS WHOSE ARTIFACT NOTHING READ. 289 published
           municipality surfaces, Sofia's районы and the SOF aggregate among them, each carrying
@@ -1689,6 +1697,12 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
         // date, so a second copy would be the duplication §7.1 forbids.
         scope={<ElectionScopeBar cycle={cycle} status="final" />}
       />
+      {/* ⚠⚠ THE DESTINATION OF THE PRESIDENTIAL SIDE'S PILL, and the reason it is here rather
+          than only on the município page: `/presidential/:cycle` links to `/local/:cycle`, which
+          is THIS component. Mounted one level down, the round trip is one-way — a reader takes
+          the link once and lands somewhere with no way back. `sameDayMountCoverage.test.ts`
+          fails when either half goes missing. */}
+      <ToPresidentialSameDay cycle={cycle} />
       {/* ⚠ THE ARTIFACT EXISTED AND NOTHING READ IT. `local/country` has been generated,
           byte-budgeted, standout-attached and PUBLISHED since Phase 1 — verified 200 on the
           bucket — while this screen rendered only its legacy cards. It was one of four local

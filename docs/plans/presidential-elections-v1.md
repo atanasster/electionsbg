@@ -1676,6 +1676,26 @@ T0 ─► T1 ─► T2 ─► T3 ─► T4 ─► T5 ─► T6 ─► T7        
 3. Election-night provisional HTML ingest vs waiting ~4 days for the CSV bundle (T7.1).
 4. Whether a presidential candidacy should become a `person_role` now (PG migration + changelog) or after the
    JSON layer proves the identity links (recommendation: after).
-5. Whether the 2011 presidential half should ALSO surface on the existing `/local/2011_10_23_mi` pages, which
-   were built from the same joint bundle and currently ignore the `президент/` folder (recommendation: link out
-   to `/presidential/2011_10_23_pvr`, do not merge).
+5. ✅ **RESOLVED — the recommendation, taken, and in BOTH directions.** A „същия ден" pill links
+   `/local/2011_10_23_mi` to `/presidential/2011_10_23_pvr` and back
+   (`src/screens/components/SameDayElectionLink.tsx`); nothing is merged. ⚠ The join is
+   CATALOGUE-TO-CATALOGUE on the round-1 date, never a shared slug prefix — `2001_11_11_mi` does
+   not exist and a prefix match would mint a link to it — and the rule is general rather than a
+   hard-coded pair, because 2026's presidential decree is the live case for the calendar
+   repeating. Of the five regular local cycles only 2011 matches today, so the pill self-hides on
+   four of them. Gates: `sameDayPresidential.test.ts`, `SameDayElectionLink.test.tsx`.
+
+   ⚠ It links the CYCLE pages to each other and, on a município page, keeps the place —
+   `/local/2011_10_23_mi/SML09` → that município's presidential page, since 261 of the 262 local
+   2011 codes have one. The exception is the synthetic `SOF` aggregate, which has none.
+   ⚠ **A PARTIAL local cycle held on a presidential polling day is excluded by DECISION**, not by
+   absence: `2016_11_06_chmi` — two kmetstvo-mayor races — really was held on 2016-11-06 beside
+   the presidential round 1, and the pill would have labelled it „Местни избори 2016".
+   `local_elections.json` (regular cycles only) enforces it and the gate pins it.
+
+   Where the other four stand: **1** and **2** were decided by the user (a round toggle, and ship
+   all five cycles). **3** — election-night provisional HTML against the ~4-day CSV bundle — the
+   plan recorded no recommendation, and T7.1 shipped the watcher on the BUNDLE; the provisional
+   arm is unbuilt and is the one thing in §16 still genuinely open before 2026-11. **4** — a
+   presidential candidacy as a `person_role` — is still „after", and T8.1's ticket→person map is
+   the JSON-layer proof it was waiting for.
