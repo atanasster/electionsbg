@@ -291,6 +291,16 @@ describe("writing the tree", () => {
       expect(
         report.mixedPrefixes.some((m: { prefix: string }) => m.prefix === "22"),
       ).toBe(true);
+      // ⚠ WRITTEN, not merely returned — and `placement.json` is the ONLY place in the tree
+      // that records which abroad countries rest on the weakest evidence. `abroad.json` carries
+      // no basis at all, so a refactor dropping this field from the file would take the whole
+      // provenance of ten of 2011's stations with it, silently.
+      expect(report.abroadByCodeGroup).toHaveLength(10);
+      expect(report.abroadByCodeGroup[0]).toMatchObject({
+        code: expect.any(String),
+        city: expect.any(String),
+        country: expect.any(String),
+      });
     });
   });
 

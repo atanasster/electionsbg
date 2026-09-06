@@ -129,9 +129,27 @@ describe("nothing is dropped", () => {
   it("writes an unresolved abroad section with a null country rather than dropping it", () => {
     // T3.1 is explicit about this. The residue is real votes cast in a consulate the
     // corpus cannot place.
+    //
+    // ⚠ 6, NOT 22 — the T9 code-group fallback recovers 16 of them. The six that remain are
+    // the single-section countries whose group has no resolvable sibling (Луанда, Каракас,
+    // Адис Абеба, Хараре, Багдад, Сана); naming those would take world knowledge rather than
+    // evidence from the file, which is the line this parser does not cross.
     const p = placed("2001_11_11_pvr", 1);
     expect(p.report.abroadSections).toBe(134);
-    expect(p.report.abroadUnresolved).toHaveLength(22);
+    expect(p.report.abroadUnresolved).toHaveLength(6);
+    expect(p.report.abroadByCodeGroup).toHaveLength(16);
+    // ⚠ THE RUNOFF TOO. It is not a mirror — 132 abroad sections against round 1's 134 — so a
+    // regression confined to it would pass every round-1 arm.
+    const r2 = placed("2001_11_11_pvr", 2);
+    expect(r2.report.abroadSections).toBe(132);
+    expect(r2.report.abroadUnresolved).toHaveLength(6);
+    expect(r2.report.abroadByCodeGroup).toHaveLength(16);
+    // Триполи is Libya here because its group-mate is Бенгази — not because the name was
+    // matched against a list, which would have had to choose between Libya and Lebanon.
+    const tripoli = p.report.abroadByCodeGroup.find((r) =>
+      r.city.includes("Триполи"),
+    );
+    expect(tripoli?.country).toBe("LY");
     for (const u of p.report.abroadUnresolved) {
       expect(p.abroad.get(u.code)!.country, u.city).toBeNull();
       expect(p.abroad.get(u.code)!.city.length, u.code).toBeGreaterThan(1);
@@ -318,15 +336,128 @@ describe("abroad", () => {
       expect(p.report.abroadUnresolved, cycle).toHaveLength(0);
     }
     const canberra = placed("2021_11_14_pvr", 1).abroad.get("320100001")!;
-    expect(canberra).toEqual({ country: "AU", city: "Канбера" });
+    // ⚠ `countryBasis` IS PART OF THE RECORD NOW. „name" here says the section stated its own
+    // country, which is the strongest of the four routes and the reason no city table is
+    // consulted for this era.
+    expect(canberra).toEqual({
+      country: "AU",
+      city: "Канбера",
+      countryBasis: "name",
+    });
+  });
+
+  it("never finds a code-group holding two different countries", () => {
+    // ⚠⚠ THE PREMISE OF THE WHOLE FALLBACK, ASSERTED OVER THE CORPUS RATHER THAN ASSUMED. The
+    // second field of an abroad code is a per-round country ordinal; if any group ever held two
+    // countries the rule would be attaching stations to a neighbour's country. Measured across
+    // every committed cycle and round: not one does — and the rule refuses a mixed group
+    // anyway, so this is the check that says the refusal has never had to fire on a real one.
+    for (const cycle of CYCLES_OLDEST_FIRST) {
+      for (const round of [1, 2] as const) {
+        const p = placed(cycle, round);
+        const byGroup = new Map<string, Set<string>>();
+        for (const [code, where] of p.abroad) {
+          // ⚠ EVIDENCE ONLY. A `code-group` row carries its group's country BY CONSTRUCTION, so
+          // including it would let the fallback prove its own premise — and would let a partial
+          // override (rewriting only the sections whose city answer disagrees with their group)
+          // pass this gate while making the corpus look purer than it is.
+          if (!where.country || where.countryBasis === "code-group") continue;
+          const g = code.slice(2, 4);
+          if (!byGroup.has(g)) byGroup.set(g, new Set());
+          byGroup.get(g)!.add(where.country);
+        }
+        if (byGroup.size === 1) {
+          // 2006 and only 2006: a constant `99` field, so its ONE group legitimately spans 48
+          // countries. Hoisted out of the loop — the exemption is per ROUND, not per group, and
+          // inside the loop it read as the latter.
+          expect(cycle).toBe("2006_10_22_pvr");
+        } else {
+          for (const [g, set] of byGroup)
+            expect(set.size, `${cycle} r${round} group ${g}`).toBe(1);
+        }
+      }
+    }
+  });
+
+  it("recovers nothing in 2006, whose abroad codes carry a constant field", () => {
+    // ⚠ THE REFUSAL, MEASURED. 2006's single group holds 144 sections across 48 countries;
+    // adopting its commonest instead of requiring unanimity would file its 9 UNNAMED stations
+    // in Turkey — 43 of 135 resolved members, a plurality of nothing. Not all 144: the other
+    // 135 already carry a country from the city table, and the fallback only ever fills.
+    for (const round of [1, 2] as const) {
+      const p = placed("2006_10_22_pvr", round);
+      expect(p.report.abroadByCodeGroup, `r${round}`).toHaveLength(0);
+      // ⚠ PINNED, not bounded. 9 stations and 1,084 votes stay unattributed by design — the
+      // refusal's cost, which `> 0` would let drift in either direction.
+      expect(p.report.abroadUnresolved, `r${round}`).toHaveLength(9);
+      expect(
+        new Set([...p.abroad.keys()].map((c) => c.slice(2, 4))).size,
+        `r${round}`,
+      ).toBe(1);
+    }
+  });
+
+  it("never overrides a country the section already named", () => {
+    // ⚠ THE DISTRIBUTION, PINNED — not „at least one section kept its basis". That weaker form
+    // catches a TOTAL override and misses the likely one: „correct a section whose city-table
+    // answer disagrees with its group", which somebody reaches for after reading that Бостън,
+    // Оукланд and Триполи are each a real city in two countries. Post-override every group is
+    // homogeneous, so the premise test passes too. A `code-group` count that grew, or a
+    // `city`/`name` count that shrank, is an override by definition.
+    //
+    // It doubles as the record that the weakest basis carries 26 of 2,630 abroad sections
+    // corpus-wide, and that `file` — the fourth route — occurs nowhere.
+    const expected: Record<1 | 2, Record<string, Record<string, number>>> = {
+      1: {
+        "2001_11_11_pvr": { city: 112, "code-group": 16, none: 6 },
+        "2006_10_22_pvr": { city: 135, none: 9 },
+        "2011_10_23_pvr": { city: 150, "code-group": 10, none: 1 },
+        "2016_11_06_pvr": { name: 325 },
+        "2021_11_14_pvr": { name: 750 },
+      },
+      2: {
+        "2001_11_11_pvr": { city: 110, "code-group": 16, none: 6 },
+        "2006_10_22_pvr": { city: 135, none: 9 },
+        "2011_10_23_pvr": { city: 150, "code-group": 10, none: 1 },
+        "2016_11_06_pvr": { name: 325 },
+        "2021_11_14_pvr": { name: 749 },
+      },
+    };
+    for (const round of [1, 2] as const)
+      for (const cycle of CYCLES_OLDEST_FIRST) {
+        const p = placed(cycle, round);
+        const tally: Record<string, number> = {};
+        for (const a of p.abroad.values()) {
+          const key = a.countryBasis ?? "none";
+          tally[key] = (tally[key] ?? 0) + 1;
+          // ⚠ A BASIS IS PRESENT IFF A COUNTRY IS. The two fields are independent in the type,
+          // so `{ country: null, countryBasis: "name" }` typechecks; nothing but the
+          // construction of passes 1 and 4 keeps it from occurring.
+          expect(Boolean(a.countryBasis), `${cycle} r${round} ${a.city}`).toBe(
+            a.country !== null,
+          );
+        }
+        expect(tally, `${cycle} r${round}`).toEqual(expected[round][cycle]);
+        // …and the report is the map's own view of the same fact, in both directions.
+        expect(p.report.abroadByCodeGroup.length, `${cycle} r${round}`).toBe(
+          tally["code-group"] ?? 0,
+        );
+        for (const row of p.report.abroadByCodeGroup)
+          expect(p.abroad.get(row.code)?.countryBasis).toBe("code-group");
+      }
   });
 
   it("falls back to the city table only for the eras that name no country", () => {
-    // 2011 publishes a city and nothing else, so its country comes from the derived
-    // table — and 11 of its 161 sections still cannot be named.
+    // 2011 publishes a city and nothing else, so its country comes from the derived table —
+    // and 11 of its 161 sections were unnameable that way. ⚠ Ten of those are now recovered
+    // from their own code-group; the ONE that remains sits alone in its group.
+    for (const round of [1, 2] as const) {
+      const p = placed("2011_10_23_pvr", round);
+      expect(p.report.abroadSections, `r${round}`).toBe(161);
+      expect(p.report.abroadUnresolved, `r${round}`).toHaveLength(1);
+      expect(p.report.abroadByCodeGroup, `r${round}`).toHaveLength(10);
+    }
     const p = placed("2011_10_23_pvr", 1);
-    expect(p.report.abroadSections).toBe(161);
-    expect(p.report.abroadUnresolved).toHaveLength(11);
     const canberra = [...p.abroad.values()].find((a) => a.city === "Канбера")!;
     expect(canberra.country).toBe("AU");
   });

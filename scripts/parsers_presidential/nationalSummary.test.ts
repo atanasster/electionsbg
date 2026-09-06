@@ -355,10 +355,12 @@ describe("abroad and the residue", () => {
   });
 
   it("counts the sections whose country the corpus cannot name", () => {
-    // Their votes are inside `votes`; what is missing is only the attribution.
+    // Their votes are inside `votes`; what is missing is only the attribution. ⚠ 6 since the
+    // T9 code-group fallback — the 16 recovered ones are named by evidence in their own codes,
+    // and these six sit alone in their group with nothing to recover them from.
     expect(
       summary("2001_11_11_pvr").rounds[0].abroad.sectionsWithoutCountry,
-    ).toBe(22);
+    ).toBe(6);
     expect(
       summary("2021_11_14_pvr").rounds[0].abroad.sectionsWithoutCountry,
     ).toBe(0);

@@ -128,6 +128,21 @@ export type UnplacedReason =
 export interface AbroadPlace {
   country: string | null;
   city: string;
+  /**
+   * How the country was established.
+   *
+   * ⚠ `code-group` IS WEAKER THAN THE OTHERS AND IS STILL EVIDENCE FROM THE FILE. See
+   * `abroadCountryField`: it is the country the section's OWN code-group agrees on, adopted
+   * only when every resolved member of that group names the same one. It is not a guess from
+   * a city name — „Триполи" is Libya here because its group-mate is Бенгази, not because
+   * somebody knew.
+   */
+  /** ⚠ `file` IS RESERVED AND UNREACHABLE TODAY. Every reader that sets `section.abroad`
+   *  hard-codes `country: null` (era2001/2006/2011) and 2016/2021 set no `abroad` at all, so
+   *  only three of the four routes can occur — measured, `file` is 0 across all ten rounds. It
+   *  stays in the union because a reader that starts publishing a country is a change that
+   *  should not also have to widen a type. */
+  countryBasis?: "file" | "name" | "city" | "code-group";
 }
 
 export interface PlacedRound {
@@ -173,6 +188,16 @@ export interface PlacementReport {
   /** Abroad sections whose country the corpus cannot name. Written, never dropped. */
   abroadUnresolved: { code: string; city: string }[];
   /**
+   * Abroad sections whose country came from their code-group rather than their name.
+   *
+   * ⚠ REPORTED, because it is the weakest of the four routes and the only one that depends on
+   * a property of the CODE SPACE rather than on a name. 2001 recovers 16 sections this way and
+   * 2011 recovers 10; 2006 recovers none, because its abroad codes carry a constant `99` and
+   * the group spans 48 countries — which the rule refuses rather than resolving to the
+   * commonest.
+   */
+  abroadByCodeGroup: { code: string; city: string; country: string }[];
+  /**
    * Prefixes whose placed sections disagree about their oblast, with the counts.
    *
    * ⚠ NOT ALWAYS A DEFECT, WHICH IS WHY `purity` AND `witnesses` RIDE ALONG. Two shapes
@@ -217,6 +242,19 @@ export interface PlacementReport {
 }
 
 /**
+ * The country field of an abroad section code — `320100005` → `01`.
+ *
+ * ⚠⚠ IT IS A PER-ROUND ORDINAL, NOT A COUNTRY ID. It means „the first country in THIS file",
+ * so it is meaningless across cycles and across rounds, and nothing may key on it. Measured
+ * over the committed corpus: 2001 has 64 such groups and 2011 has 58, and **not one group in
+ * either contains two different countries** — which is what makes the fallback below evidence
+ * rather than a guess. 2006 is the counter-example that proves the refusal has to exist: every
+ * one of its abroad sections carries a constant `99`, so its single group spans 48 countries
+ * and resolves nothing.
+ */
+const abroadCountryField = (code: string): string => code.slice(2, 4);
+
+/**
  * Place every section of a round.
  *
  * @param round - A round as read by its era's reader.
@@ -250,11 +288,22 @@ export const placeRound = (round: PresidentialRound): PlacedRound => {
       const city =
         s.abroad?.city ??
         (named > 0 ? s.placeName.slice(named + 2).trim() : s.placeName);
-      const country =
-        s.abroad?.country ??
-        (named > 0 ? resolveCountryName(s.placeName.slice(0, named)) : null) ??
-        resolveAbroadCity(city);
-      abroad.set(s.code, { country, city });
+      const fromName =
+        named > 0 ? resolveCountryName(s.placeName.slice(0, named)) : null;
+      const fromCity = fromName ? null : resolveAbroadCity(city);
+      const country = s.abroad?.country ?? fromName ?? fromCity;
+      const countryBasis = s.abroad?.country
+        ? ("file" as const)
+        : fromName
+          ? ("name" as const)
+          : fromCity
+            ? ("city" as const)
+            : undefined;
+      abroad.set(s.code, {
+        country,
+        city,
+        ...(countryBasis ? { countryBasis } : {}),
+      });
       if (!country) abroadUnresolved.push({ code: s.code, city });
       continue;
     }
@@ -345,6 +394,49 @@ export const placeRound = (round: PresidentialRound): PlacedRound => {
     domestic.set(s.code, { oblast, basis: "code-prefix" });
   }
 
+  // Pass 4 — the country-ordinal fallback, for abroad sections whose name resolves to nothing.
+  //
+  // ⚠ THE GROUP MUST NAME EXACTLY ONE COUNTRY. 2006's single group holds 144 sections across 48
+  // countries, so adopting its commonest would file its 9 unnamed stations (1,084 votes) in
+  // Turkey — 43 of 135 resolved members, a plurality of nothing. Refusing there is the point.
+  // What the rule DOES recover is a station whose own group-mates are unambiguous: Триполи
+  // beside Бенгази is Libya, Бостън beside Ню Йорк and Вашингтон is the United States —
+  // evidence from the file, not a fact somebody knew.
+  //
+  // ⚠ IT NEVER OVERRIDES A NAME. A section already resolved keeps its basis; this only fills.
+  const groupCountries = new Map<string, Set<string>>();
+  for (const [code, where] of abroad) {
+    if (!where.country) continue;
+    const field = abroadCountryField(code);
+    if (!groupCountries.has(field)) groupCountries.set(field, new Set());
+    groupCountries.get(field)!.add(where.country);
+  }
+  const abroadByCodeGroup: PlacementReport["abroadByCodeGroup"] = [];
+  const stillUnresolved: PlacementReport["abroadUnresolved"] = [];
+  for (const row of abroadUnresolved) {
+    const set = groupCountries.get(abroadCountryField(row.code));
+    const country = set && set.size === 1 ? [...set][0] : null;
+    if (!country) {
+      stillUnresolved.push(row);
+      continue;
+    }
+    abroad.set(row.code, {
+      country,
+      city: row.city,
+      countryBasis: "code-group",
+    });
+  }
+  // ⚠ DERIVED FROM THE MAP, NOT PUSHED BESIDE IT. The basis and the report row are one claim;
+  // written by hand in two places they are kept in step by nothing, and a `placement.json` that
+  // under- or over-reports the weakest basis would still reconcile on every count.
+  for (const [code, where] of abroad)
+    if (where.countryBasis === "code-group" && where.country)
+      abroadByCodeGroup.push({
+        code,
+        city: where.city,
+        country: where.country,
+      });
+
   return {
     domestic,
     abroad,
@@ -361,7 +453,8 @@ export const placeRound = (round: PresidentialRound): PlacedRound => {
       unplaced,
       ekatteOblastConflicts,
       abroadSections: abroad.size,
-      abroadUnresolved,
+      abroadUnresolved: stillUnresolved,
+      abroadByCodeGroup,
       mixedPrefixes,
     },
   };
@@ -372,7 +465,11 @@ export const describePlacement = (r: PlacementReport): string =>
   `[places] ${r.cycle} round ${r.round}: ${r.sections} sections — ` +
   `${r.placedByEkatte} by ЕКАТТЕ, ${r.placedByPrefix} by code prefix (oblast only), ` +
   `${r.unplaced.length} unplaced, ${r.abroadSections} abroad ` +
-  `(${r.abroadUnresolved.length} without a country)` +
+  `(${r.abroadUnresolved.length} without a country` +
+  (r.abroadByCodeGroup.length
+    ? `, ${r.abroadByCodeGroup.length} placed by their code-group`
+    : "") +
+  `)` +
   (r.ekatteOblastConflicts.length
     ? `, ${r.ekatteOblastConflicts.length} ЕКАТТЕ overruled by their own code`
     : "");

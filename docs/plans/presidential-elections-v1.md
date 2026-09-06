@@ -704,6 +704,9 @@ type PresidentialRound = {
   name a country beside each abroad city. That is the point: a hand-written table is unfalsifiable, and a wrong
   entry files a real polling station in the wrong country while looking exactly like a right one. Coverage on the
   three city-only eras is **792 of 876 sections (90.4%)** and 245 of 286 city spellings; the rest are `null`.
+  ⚠ That is the TABLE's coverage and it is still exact — T9 did not touch `abroad.ts`. What T9 changed is what
+  happens to the 84 the table cannot name: 26 of them now take the country their section's own code-group agrees
+  on (§13), leaving 16 unresolved corpus-wide rather than 42.
   Four things the build settled, three of them found only by reading MORE evidence:
   - ⚠️⚠️ **FIVE `sections.txt` LAYOUTS ARE COMMITTED, AND THE FIRST CUT UNDERSTOOD ONE.** 2013 splits country and
     city into separate cells, 2005 publishes a bare city with no country, and the pre-2017 files put the fields
@@ -1566,10 +1569,69 @@ cycle's section page falls back to the legacy composition, the same path a missi
 
 ## 13. Tier 9 — the pre-2003 archives (stretch)
 
-`1991_1999.zip` (1992, 1996) and finishing 2001: the same „Деметра" INI format; the open question is the
-`[SEC]` code space (`01;0100;001;6;001` — the second field is not the `[NM]` obsht code) and whether settlement
-ЕКАТТЕ codes from 2001 still resolve in `data/settlements.json` (most will; renamed villages will not). Go/no-go
-after T2.5 reports the resolution rate.
+**The go/no-go was made on 2026-09-06 and it splits: finishing 2001 is ✅ DONE, and 1992/1996 is
+BLOCKED ON DATA ACQUISITION rather than on code.**
+
+### The resolution rate the go/no-go turned on — measured
+
+`placement.json`, round 1, every committed cycle:
+
+| cycle | sections | by ЕКАТТЕ | % of domestic | by prefix | unplaced |
+| --- | --- | --- | --- | --- | --- |
+| 2001 | 12,191 | 10,457 | **86.7%** | 1,600 | 0 |
+| 2006 | 11,809 | 10,138 | 86.9% | 1,527 | 0 |
+| 2011 | 11,784 | 10,208 | 87.8% | 61 | 1,354 |
+| 2016 | 12,340 | 10,557 | 87.9% | 1,458 | 0 |
+| 2021 | 13,238 | 10,887 | 87.2% | 1,601 | 0 |
+
+**2001 resolves within 1.2 points of every modern cycle and leaves nothing unplaced**, so the plan's
+worry — „renamed villages will not resolve" — did not materialise. The ~13% shortfall is present in
+EVERY cycle and is the documented `settlements.json` gap (no София, no absorbed quarters), not an
+era property. The `[SEC]` code space needed no further work for the domestic tiers: `era2001.ts`
+already reads it.
+
+### ✅ What „finishing 2001" turned out to be: the ABROAD code space
+
+The residue was not domestic. 2001 left **22 abroad sections with no country** (996 votes, 8.4% of
+its abroad vote) and 2011 left 11 (1,669 votes, 3.4%) — stations in postings that closed before
+2005, so the abroad city table, which is DERIVED from the parliamentary corpora (2005→2026), can
+never contain them.
+
+⚠ **The answer is in the section code, and it is evidence rather than world knowledge.** The
+second field of an abroad code is a per-round COUNTRY ORDINAL — `324700071/72/78` are Ставропол,
+Сочи and Ярославл, all in group `47`. Measured across all five cycles and both rounds: **2001 has
+64 such groups and 2011 has 58, and not one group in either holds two different countries.** So a
+station whose own name resolves to nothing can take the country its group agrees on:
+`placeRound`'s fourth pass does exactly that, and records `countryBasis: "code-group"`.
+
+| cycle | abroad sections without a country | after | votes recovered |
+| --- | --- | --- | --- |
+| 2001 | 22 | **6** | 996 → 174 (8.4% → 1.5%) |
+| 2011 | 11 | **1** | 1,669 → 248 (3.4% → 0.5%) |
+| 2006 | 9 | **9** | unchanged — refused, see below |
+
+⚠⚠ **THE REFUSAL IS THE DESIGN, AND 2006 IS WHY.** Every one of its 144 abroad sections carries a
+constant `99`, so its single group spans **48** countries. Adopting a group's COMMONEST country
+would file its **9 unnamed stations (1,084 votes)** in Turkey — 43 of 135 resolved members, a
+plurality of nothing; the other 135 already carry a country from the city table and the fallback
+cannot touch them, because it only ever fills. The rule requires the group to name exactly ONE,
+and 2006 therefore recovers nothing. The six that remain in 2001 (Луанда, Каракас, Адис Абеба, Хараре,
+Багдад, Сана) are single-section countries with no resolvable sibling — naming those would take
+world knowledge, which is the line this parser does not cross, and they stay counted in
+`abroad.json`'s `""` bucket. Gates: three arms in `places.test.ts` — no mixed group anywhere, 2006
+recovers nothing and has exactly one group, and the fallback never overrides a section that named
+its own country.
+
+### 🚫 1992 and 1996 — blocked on acquisition, not on code
+
+`raw_data/` holds the five catalogued `_pvr` trees and **no `1991_1999.zip`**. Acquiring it is the
+headed-Playwright Cloudflare download the skill documents as an operator step, and
+`PRESIDENTIAL_SOURCES` carries no entry for it — the plan names a FILENAME, not a URL, and inventing
+one is precisely the „resolve through the catalogue, never a shape" defect this plan corrected in
+T8.4. So the next move is an operator opening `results.cik.bg`, confirming the archive URL and its
+per-round layout, and adding the entry; the parser work (a sixth era reader, or a second cut of
+`era2001.ts` if the „Деметра" INI is unchanged) follows from what that shows. Nothing here can be
+decided from the repository as it stands.
 
 ## 14. Gates — the full list
 
