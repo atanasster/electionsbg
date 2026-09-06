@@ -26,6 +26,10 @@ type LinkDatum = SankeyExtraProperties & {
   votes: number;
 };
 
+/** ⚠ BESIDE THE CHART, because two tiles size the same chart. It lived in `VoteFlowTile` and
+ *  was copied into the presidential one; a chart's own render height belongs to the chart. */
+export const SANKEY_HEIGHT = 460;
+
 const NODE_WIDTH = 14;
 const NODE_PADDING = 10;
 

@@ -35,6 +35,7 @@ import path from "path";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
 import { LocalSectionDetail } from "../parsers_local/types";
 import { ABSTAIN_ID, EXITED_ID, JOINED_ID, ReconcileResult } from "./reconcile";
+import { ABSTAIN_LANE } from "./pseudoLanes";
 
 /** Heterogeneous bucket: every ballot line with no parliamentary canonical
  * id, plus canonical parties below the national share threshold. Pseudo
@@ -204,11 +205,7 @@ export const reconcileLocalCycles = ({
     en: "Local & other parties",
     color: "#94a3b8", // slate-400
   };
-  labels[ABSTAIN_ID] = {
-    bg: "Не гласували",
-    en: "Did not vote",
-    color: "#cbd5e1", // slate-300
-  };
+  labels[ABSTAIN_ID] = { ...ABSTAIN_LANE };
   labels[JOINED_ID] = {
     bg: "Нови в избирателните списъци",
     en: "Newly registered",

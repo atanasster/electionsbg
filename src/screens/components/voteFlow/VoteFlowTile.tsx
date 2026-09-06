@@ -4,12 +4,17 @@ import { GitFork } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
+import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useVoteFlow, VoteFlowScope } from "@/data/voteFlows/useVoteFlow";
 import { oblastToMir } from "@/data/parliament/nsFolders";
 import { localDate } from "@/data/utils";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import { VoteFlowSankey, SankeyClickInfo } from "./VoteFlowSankey";
+import {
+  SANKEY_HEIGHT,
+  VoteFlowSankey,
+  SankeyClickInfo,
+} from "./VoteFlowSankey";
 import { VoteFlowMobile } from "./VoteFlowMobile";
 import { VoteFlowTooltip, VoteFlowHover } from "./VoteFlowTooltip";
 import { VoteFlowOverlay } from "./VoteFlowOverlay";
@@ -22,8 +27,6 @@ type Props = {
    * fetched in parallel and merged. */
   regionCodes?: readonly string[];
 };
-
-const SANKEY_HEIGHT = 460;
 
 type Pinned = { id: string; side: "from" | "to"; yFrac: number };
 
@@ -57,16 +60,7 @@ export const VoteFlowTile: FC<Props> = ({ regionCode, regionCodes }) => {
 
   const [hover, setHover] = useState<VoteFlowHover | null>(null);
   const [pinned, setPinned] = useState<Pinned | null>(null);
-  const [width, setWidth] = useState(0);
-  const containerRef = useCallback((el: HTMLDivElement | null) => {
-    if (!el) return;
-    setWidth(el.clientWidth);
-    const ro = new ResizeObserver((entries) => {
-      for (const ent of entries) setWidth(ent.contentRect.width);
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+  const [containerRef, width] = useMeasuredWidth();
 
   // Switching cycles or scope clears any pinned overlay so the user doesn't
   // see stale node details for the old matrix.

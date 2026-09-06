@@ -32,6 +32,7 @@ import fs from "fs";
 import path from "path";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
 import { PartyInfo, SectionInfo } from "@/data/dataTypes";
+import { ABSTAIN_LANE } from "./pseudoLanes";
 import {
   ABSTAIN_ID,
   EXITED_ID,
@@ -266,11 +267,7 @@ export const reconcileParliamentaryToLocal = ({
     en: "Local & other parties",
     color: "#94a3b8", // slate-400
   };
-  labels[ABSTAIN_ID] = {
-    bg: "Не гласували",
-    en: "Did not vote",
-    color: "#cbd5e1", // slate-300
-  };
+  labels[ABSTAIN_ID] = { ...ABSTAIN_LANE };
   labels[JOINED_ID] = {
     bg: "Нови в избирателните списъци",
     en: "Newly registered",

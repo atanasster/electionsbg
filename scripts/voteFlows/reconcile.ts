@@ -26,7 +26,10 @@ import path from "path";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
 import { PartyInfo, SectionInfo } from "@/data/dataTypes";
 
-export const ABSTAIN_ID = "__abstain__";
+// ⚠ RE-EXPORTED, NOT RE-DECLARED. The presidential producer emits the same lane into the
+// same renderer; see `pseudoLanes.ts` for why one declaration rather than four.
+export { ABSTAIN_ID } from "./pseudoLanes";
+import { ABSTAIN_ID, ABSTAIN_LANE, FALLBACK_NODE_COLOR } from "./pseudoLanes";
 /** From-side pseudo: people who'll join T+1's rolls but weren't on T's. */
 export const JOINED_ID = "__joined__";
 /** To-side pseudo: people who left T's rolls before T+1. */
@@ -267,7 +270,7 @@ export const reconcileCycles = ({
     labels[id] = {
       bg: party?.displayName ?? id,
       en: party?.displayNameEn ?? party?.displayName ?? id,
-      color: party?.color ?? "#888888",
+      color: party?.color ?? FALLBACK_NODE_COLOR,
     };
   }
   labels[SMALL_ID] = {
@@ -275,11 +278,7 @@ export const reconcileCycles = ({
     en: "Other parties",
     color: "#9ca3af", // gray-400
   };
-  labels[ABSTAIN_ID] = {
-    bg: "Не гласували",
-    en: "Did not vote",
-    color: "#cbd5e1", // slate-300
-  };
+  labels[ABSTAIN_ID] = { ...ABSTAIN_LANE };
   labels[JOINED_ID] = {
     bg: "Нови в избирателните списъци",
     en: "Newly registered",

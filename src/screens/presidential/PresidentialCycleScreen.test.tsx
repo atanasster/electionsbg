@@ -5,7 +5,7 @@
 // something about voters who were never asked; and a runoff toggle on a cycle with one round
 // is a working control that leads nowhere.
 
-import { describe, expect, it, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -16,6 +16,8 @@ import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { PresidentialCycleScreen } from "./PresidentialCycleScreen";
 import type { PresidentialSummary } from "@/data/presidential/summary";
 import { LATEST_PRESIDENTIAL_CYCLE } from "@/data/presidentialCatalogue";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import type { RunoffTransfer } from "@/data/presidential/useRunoffTransfer";
 
 await i18n.use(initReactI18next).init({
   lng: "bg",
@@ -414,5 +416,168 @@ describe("the presidential country page", () => {
     mount(SUMMARY);
     await screen.findByText(bgCorpus.presidential_ranking_heading);
     expect(document.body.textContent).not.toContain(LATEST_PRESIDENTIAL_CYCLE);
+  });
+});
+
+// ⚠ THE TRANSFER SECTION HAS THREE STATES AND TWO OF THEM DRAW NOTHING — which is why every
+// other test in this file passes without ever having rendered it: their mocks 404 the transfer,
+// so `absent` (correct, and the ordinary state of this corpus) is all they ever exercise.
+describe("the runoff-transfer section", () => {
+  const TRANSFER: RunoffTransfer = {
+    cycle: LATEST_PRESIDENTIAL_CYCLE,
+    basis: "ОГРАДАТА ОТ ФАЙЛА",
+    basisEn: "THE CAVEAT FROM THE FILE",
+    finalists: [
+      { number: 6, president: "Румен Георгиев Радев", votes: 1451755 },
+      { number: 15, president: "Анастас Георгиев Герджиков", votes: 692640 },
+    ],
+    national: {
+      matrix: {
+        fromNodes: [
+          {
+            id: "t6",
+            label: "Румен Георгиев Радев",
+            labelEn: "Rumen Radev",
+            color: "#123456",
+            votes: 1000,
+          },
+        ],
+        toNodes: [
+          {
+            id: "t6",
+            label: "Румен Георгиев Радев",
+            labelEn: "Rumen Radev",
+            color: "#123456",
+            votes: 1200,
+          },
+        ],
+        flows: [{ from: "t6", to: "t6", votes: 1000 }],
+      },
+      sections: 12479,
+      droppedVotes: 0,
+      marginGap: 0.0281,
+    },
+    oblasts: [
+      {
+        oblast: "BLG",
+        sections: 10,
+        rasResidual: 0.0001,
+        w1: 1000,
+        w2: 1600,
+        elim: 1200,
+        v1: 3000,
+        v2: 2400,
+        n1: null,
+        n2: null,
+        a1: 3200,
+        a2: 2600,
+        reg1: 8000,
+        reg2: 8100,
+      },
+    ],
+    coverage: {
+      basis: "ОБХВАТ",
+      basisEn: "COVERAGE",
+      domesticSections: 12479,
+      abroadVotes: 127572,
+      unplacedSections: 0,
+      unplacedVotes: 0,
+      settlementsJoined: 4184,
+      sectionsWithEkatte: 10878,
+      sectionsWithoutEkatte: 1601,
+      votesWithoutEkatte: 406128,
+    },
+    residue: {
+      round1Only: [],
+      round2Only: [],
+      round1OnlyVotes: 0,
+      round2OnlyVotes: 0,
+    },
+  };
+
+  /** The page's own mock, plus an answer for `runoff_transfer.json`. */
+  const mountWithTransfer = (transfer: unknown, status = 200) => {
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      if (u.includes("national_summary.json"))
+        return new Response(JSON.stringify(SUMMARY), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        });
+      if (u.includes("runoff_transfer.json"))
+        return status === 200
+          ? new Response(JSON.stringify(transfer), {
+              status: 200,
+              headers: { "content-type": "application/json" },
+            })
+          : new Response("", { status });
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    const Wrapper = ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider
+        client={
+          new QueryClient({ defaultOptions: { queries: { retry: false } } })
+        }
+      >
+        <MemoryRouter initialEntries={[ROUTE]}>
+          <TooltipProvider>
+            <Routes>
+              <Route path="/presidential/:cycle" element={children} />
+            </Routes>
+          </TooltipProvider>
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+    return render(<PresidentialCycleScreen />, { wrapper: Wrapper });
+  };
+
+  beforeEach(() => {
+    // jsdom has no `matchMedia`; the tile calls it on first render. `false` puts it on the
+    // mobile branch, which is the readable one here — jsdom gives the container no width.
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({
+        matches: false,
+        addEventListener() {},
+        removeEventListener() {},
+      })),
+    );
+  });
+
+  it("renders the estimate and the observed pickup as SEPARATE claims", async () => {
+    // ⚠ TWO HEADINGS, NOT ONE. Above the second everything is an estimate; below it everything
+    // is arithmetic on published protocols. Running them together is how a reader carries the
+    // estimate's licence over to numbers that do not need it — and, worse, the other way round.
+    mountWithTransfer(TRANSFER);
+    expect(
+      await screen.findByText(bgCorpus.presidential_transfer_heading),
+    ).toBeInTheDocument();
+    expect(screen.getByText("ОГРАДАТА ОТ ФАЙЛА")).toBeInTheDocument();
+    expect(screen.getByText(bgCorpus.presidential_pickup_note)).toBeInTheDocument(); // prettier-ignore
+    // The winner is threaded into the observed half, so its table links down to the oblast.
+    expect(
+      screen.getByRole("link", { name: "Благоевград" }).getAttribute("href"),
+    ).toBe(`/presidential/${LATEST_PRESIDENTIAL_CYCLE}/region/BLG`);
+  });
+
+  it("draws NOTHING when the file is absent — the ordinary state of this corpus", async () => {
+    mountWithTransfer(null, 404);
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    expect(
+      screen.queryByText(bgCorpus.presidential_transfer_heading),
+    ).toBeNull();
+  });
+
+  it("draws NOTHING when the payload has lost its caveat", async () => {
+    // ⚠ THE WITHHOLDING, END TO END. A matrix without the sentence that qualifies it publishes
+    // individual behaviour inferred from aggregates — at a 200, looking like a working chart.
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    mountWithTransfer({ ...TRANSFER, basis: "", basisEn: "" });
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    expect(
+      screen.queryByText(bgCorpus.presidential_transfer_heading),
+    ).toBeNull();
+    expect(warn).toHaveBeenCalled();
+    warn.mockRestore();
   });
 });

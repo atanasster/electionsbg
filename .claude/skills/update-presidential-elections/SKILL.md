@@ -41,6 +41,9 @@ raw_data/<YYYY_MM_DD_pvr>/ТУР1|ТУР2/…              ← COMMITTED
 data/<YYYY_MM_DD_pvr>/
   national_summary.json                 ← the cycle's outcome per round, every basis named
   tickets.json                          ← the ballot, with each pair's colour
+  runoff_transfer.json                  ← the ESTIMATED round-1→balotage matrix + the observed
+                                          per-oblast pickup + what neither covers (abroad,
+                                          placement-refused); absent for a one-round cycle
   tur1|tur2/region_votes.json           ← per-oblast roll-up + protocol
   tur1|tur2/municipality_votes.json
   tur1|tur2/settlement_votes.json
@@ -125,6 +128,9 @@ npx vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/
 | Abroad shows a turnout percentage | A defect. There is no registered-voter denominator outside the country — abroad publishes a COUNT. |
 | „не подкрепям никого" shows 0 before 2016 | A defect. The form did not ask; the field must be ABSENT, never 0. |
 | The corpus section vanishes from `llms-full.txt` | The build ran without `data/*_pvr`. `REQUIRED_SECTIONS` refuses the write; restore the trees. |
+| „Откъде дойдоха гласовете на балотажа" is missing from a cycle page | Either the cycle was decided in round 1 (correct — there is no transfer to estimate) or `runoff_transfer.json` has not reached the bucket. It is written by the ingest, so a re-run of step 3 plus a bucket sync is the fix. |
+| The Sankey's node totals are below the published result (2011 especially) | Expected, and the size is the point. The matrix covers only DOMESTIC sections matched in both rounds; abroad is outside it (published by country, no roll for „не гласували"), and so are sections whose OBLAST placement was refused — 1,355 of them in 2011, all Sofia, 422,726 runoff votes. `coverage.abroadVotes` and `coverage.unplacedVotes` are the two figures that close the gap, and the tile prints both. A cycle whose `_unplaced` shard is empty (2001/2006/2016/2021) reconciles on abroad alone. |
+| The Sankey renders with no caveat above it | Impossible by construction, and if seen it is a defect in the hook: `useRunoffTransfer` refuses a payload whose `basis`/`basisEn` is missing, so the chart cannot mount without the sentence. Check the browser console for „missing the estimate's caveat". |
 | A candidate's name is plain text where you expected a link | Either the person layer has no public figure by that name, or more than one does — the map refuses a shared name rather than guessing, and the page says how many share it. Not a defect. |
 | Every candidate is plain text | `data/presidential/ticket_persons.json` is stale or was minted against the wrong database. Re-run the builder above; it ships in the BUNDLE, so it needs a build and a deploy, not a bucket sync. |
 

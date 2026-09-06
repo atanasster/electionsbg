@@ -40,6 +40,13 @@ import {
   type RegionLeader,
 } from "./PresidentialRegionsMap";
 import { PresidentialRegionsList } from "./PresidentialRegionsList";
+import { useRunoffTransfer } from "@/data/presidential/useRunoffTransfer";
+import { PresidentialTransferTile } from "./PresidentialTransferTile";
+import {
+  PresidentialRunoffSwingLegend,
+  PresidentialRunoffSwingList,
+  PresidentialRunoffSwingMap,
+} from "./PresidentialRunoffSwing";
 import type { PresidentialSummaryRound } from "@/data/presidential/summary";
 
 // ⚠ THE REPO'S FORMATTERS, NOT `toLocaleString("bg-BG")` AND `toFixed`. A hardcoded locale
@@ -345,6 +352,9 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
 };
 
 const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
+  // ⚠ CALLED UNCONDITIONALLY, above every early return in this component — React hook order.
+  // The four states are handled at the mount site far below.
+  const transfer = useRunoffTransfer(cycle);
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const state = usePresidentialSummary(cycle);
@@ -481,6 +491,47 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           <p className="mt-2 text-xs text-muted-foreground">
             {t("presidential_swing_note")}
           </p>
+        </section>
+      ) : null}
+
+      {/* ⚠ ONLY WHEN THE ESTIMATE HAS ACTUALLY ARRIVED. `absent` is the ordinary answer — a
+          cycle decided in round 1 has no transfer to estimate, and `data/*_pvr` reaches the
+          bucket only through a sync, so „not published yet" is the common state. Neither is a
+          reason to draw an empty chart, and `unusable` (a payload that lost its caveat) must
+          draw nothing at all. */}
+      {transfer.status === "ready" ? (
+        <section aria-labelledby="pvr-transfer" className="space-y-4">
+          <h2 id="pvr-transfer" className="font-semibold">
+            {t("presidential_transfer_heading")}
+          </h2>
+          <PresidentialTransferTile transfer={transfer.transfer} />
+          {/* ⚠ A SEPARATE QUESTION, ASKED SEPARATELY. Everything above this heading is an
+              estimate; everything below it is arithmetic on published protocols. Running them
+              together under one heading is how a reader carries the estimate's licence over
+              to numbers that do not need it — and, worse, the other way round. */}
+          <h3
+            className="font-semibold"
+            data-map-question
+            id="pvr-transfer-pickup"
+          >
+            {t("presidential_pickup_heading", {
+              president: transfer.transfer.finalists[0].president,
+            })}
+          </h3>
+          <p className="text-xs text-muted-foreground">
+            {t("presidential_pickup_note")}
+          </p>
+          <PresidentialRunoffSwingList
+            cycle={cycle}
+            winner={transfer.transfer.finalists[0].president}
+            oblasts={transfer.transfer.oblasts}
+          />
+          <PresidentialRunoffSwingLegend />
+          <PresidentialRunoffSwingMap
+            cycle={cycle}
+            winner={transfer.transfer.finalists[0].president}
+            oblasts={transfer.transfer.oblasts}
+          />
         </section>
       ) : null}
     </section>

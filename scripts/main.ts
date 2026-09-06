@@ -421,6 +421,17 @@ const app = command({
         pvr === "all"
           ? ingestAllPresidential({ indent })
           : [ingestPresidentialCycle(pvr, { indent })];
+      // ⚠ THE TRANSFER FILE IS PART OF THE INGEST, not a separate operator step. It is derived
+      // from the section shards the lines above just wrote, so leaving it to a hand-run script
+      // is the „green locally, stale on prod" shape this repo warns about everywhere else: the
+      // corpus moves and `/presidential/:cycle` keeps serving the previous runoff's estimate at
+      // a 200. A cycle decided in round 1 returns null and writes nothing.
+      const { writeRunoffTransfer } =
+        await import("./parsers_presidential/build_runoff_transfer");
+      for (const r of results) {
+        const written = writeRunoffTransfer(r.cycle, { indent });
+        if (written) r.files.push(written);
+      }
       // ⚠⚠ THE FILENAME IS THE LOOKUP KEY, so it must be the SKILL name — not the watcher
       // source, which is what this plan's own wording says („state/ingest/cik_presidential
       // .json"). `process-watch-report` reads `state/ingest/<skill>.json` BY PATH, and its

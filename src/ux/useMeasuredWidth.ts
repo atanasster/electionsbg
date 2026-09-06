@@ -14,6 +14,13 @@ import { useLayoutEffect, useState } from "react";
  * Returns a callback ref rather than taking a `RefObject` because charts
  * commonly mount only once their data has loaded, so an effect keyed on `[]`
  * would observe a still-null node.
+ *
+ * ⚠ THE FALLBACK ABOVE IS THIS CALLER'S CHOICE, NOT THE HOOK'S. The vote-flow Sankeys
+ * (`VoteFlowTile`, `PresidentialTransferTile`) deliberately pass the measured width straight
+ * through: a guessed grid-item width latches on first paint and blows the chart out on mobile,
+ * so a chart drawn at 0 until the observer fires is the correct failure — it appears late, it
+ * is never wrong. Both tiles kept a private copy of this hook until 2026-09-06; if a future
+ * caller needs a first-paint default it belongs at the call site, as `TaxRateCurve` has it.
  */
 export const useMeasuredWidth = (): [
   (el: HTMLElement | null) => void,

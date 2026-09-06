@@ -1417,9 +1417,60 @@ cycle's section page falls back to the legacy composition, the same path a missi
   resolution (`docs/plans/person-candidate-merge-v1.md`), refusing a name that folds to more than one person
   ([[feedback_name_match_not_identity]]). A presidential candidacy becomes a `person_role`
   (`source = 'pvr'`, `date_basis = 'term'`) only in a later PG tier.
-- **T8.2 Runoff transfer** — per section, `R2(winner) − R1(winner)` against the eliminated tickets' R1 votes and
-  the turnout change; a settlement-level map and a national Sankey (the `voteFlows/` machinery). Join on
-  `(code, ЕКАТТЕ)` with the residue reported (§2.5-8).
+- **T8.2 ✅ DONE (the Sankey and an OBLAST map; the settlement map is REFUSED, measured).**
+  `scripts/parsers_presidential/build_runoff_transfer.ts` writes `data/<cycle>/runoff_transfer.json`
+  from the ingest (`npm run data -- --pvr <cycle>` carries it — a hand-run analysis step would go
+  stale against the corpus it reads, silently, at a 200). The estimate is the repo's own
+  `scripts/voteFlows/estimate.ts` — per-oblast Goodman regression, then RAS — emitted as a
+  `VoteFlowMatrix` so `VoteFlowSankey` renders it with no second chart. Five decisions worth
+  carrying:
+
+  - **The caveat ships INSIDE the artifact** (`basis` / `basisEn`) and `useRunoffTransfer` refuses a
+    payload that has lost it. A translation key would let a producer change — a different method, a
+    narrower corpus — reach the reader without the sentence that qualifies it.
+  - **One pooled electorate per section, not the two published rolls.** They disagree by up to
+    **6.4% (Софийска област, 2006)**: rolls are corrected between the rounds and voters join at the
+    section on the day. Fed to RAS as two margins that is a matrix whose rows and columns cannot
+    both be satisfied — measured, ten 2006 oblasts sat above a 1% residual and 2021 above 0.39%;
+    pooled, 2021 is 0.0026%. The PUBLISHED rolls are still what the observed turnout figures use.
+  - **The edge floor is ABSOLUTE (20 votes), not the parliamentary generator's 0.005% of mass.**
+    That chart's smallest node is a party; this one's is „недействителни" — 2,776 votes against a
+    6.7M electorate — so a mass-relative floor deleted **22% of that lane** while the node still
+    printed its published total. What is left over is reported as `national.marginGap` and printed
+    on the tile: the estimate's own imprecision, stated rather than discovered by a reader adding
+    up ribbons.
+  - **⚠ THE SETTLEMENT MAP CANNOT EXIST, and the reason is COVERAGE rather than bytes** (unlike
+    T4.3's refusal). `places.ts` already records it: `data/settlements.json` carries neither София
+    (68134) nor the absorbed quarters, so 12–13% of domestic sections name a ЕКАТТЕ it does not
+    have — **1,445 of 2021's 1,601 unplaced sections are Sofia city**, and the excluded mass is
+    **~24% of a round's votes**. A national map missing the capital is not a partial map, it is a
+    false one. The `(code, ЕКАТТЕ)` join is still PERFORMED and its residue reported in
+    `coverage`; the map that ships is the OBLAST one, which is also the unit the regression is
+    estimated on, so map and Sankey are commensurable.
+  - **Abroad is outside the matrix**, and not merely because `abroad.json` is a per-country roll-up
+    with no section rows: its `turnoutBasis` is `null`, so „did not vote" — a category on both
+    sides of this matrix — has no denominator there. `coverage.abroadVotes` states the mass.
+  - ⚠ **The PLACEMENT-REFUSED sections are the sixth decision, and on 2011 the largest.**
+    `oblastsOf` excludes the `_unplaced` shard — a regression over „nowhere" is a regression over
+    a population that shares no geography — and that exclusion is right. Leaving it out of
+    `coverage` was not: measured, 2011 refuses **1,355 sections / 422,726 runoff votes**, all of
+    them Sofia and **nine times** the abroad figure beside it, so the Sankey labelled Плевнелиев
+    **1,421,775** against the **1,698,136** the ranking table on the same page prints, with
+    nothing in the artifact to account for the gap. `coverage.unplacedSections`/`unplacedVotes`
+    now declare it, the tile prints the clause (suppressed at zero — four of five cycles refuse
+    nothing, and „0 refused" is noise), and the gate reconciles `domesticSections + round2Only +
+    unplacedSections` against the **tur2** shard tree. That last word is load-bearing: 2011's two
+    rounds refuse a different number (1,354 and 1,355), so pairing tur1's tree with the runoff's
+    counter is off by one. The sibling `tur2/region_votes.json`, from the same ingest, already
+    declared the same mass as `excludedSections`/`excludedVotes`; this artifact simply had not.
+
+  The observed half (`oblasts[]`) is deliberately a SEPARATE claim with its own heading: the
+  winner's gain measured against the eliminated pairs' round-1 votes, which is arithmetic on
+  published protocols. The copy says „равен на" and never „отидоха при"; a component test fails on
+  the second. Gates: `scripts/parsers_presidential/runoff_transfer.test.ts` (a mutation check that
+  the estimate DISCRIMINATES — the identity matrix satisfies every margin assertion and is what a
+  collapsed NNLS returns), `src/data/presidential/useRunoffTransfer.test.ts`,
+  `src/screens/presidential/PresidentialRunoffSwing.test.tsx`, `PresidentialTransferTile.test.tsx`.
 - **T8.3 Split-ticket 2021** — per section, the ПВР ticket vote vs the НС list vote of the nominating party
   (Радев/ИК vs ПП+ИТН+БСП…, Герджиков vs ГЕРБ-СДС, Карадайъ vs ДПС, Костадинов vs Възраждане): the share of a
   party's list voters who did not vote for its ticket. Both files are on disk and byte-aligned on section code.
