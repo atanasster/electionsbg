@@ -81,6 +81,7 @@ import { capitalPrograms } from "./capital_programs";
 import { ipop } from "./ipop";
 import { bgpostPostcodes } from "./bgpost_postcodes";
 import { cikResults } from "./cik_results";
+import { cikPresidential } from "./cik_presidential";
 import { iisdaMayors } from "./iisda_mayors";
 import { iaosAirQuality } from "./iaos_air_quality";
 import { tiBgLisi } from "./ti_bg_lisi";
@@ -233,6 +234,7 @@ export const SOURCES: WatchSource[] = [
   worldbankWgi,
   eurobarometer,
   cikResults,
+  cikPresidential,
   iisdaMayors,
   iaosAirQuality,
   tiBgLisi,

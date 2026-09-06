@@ -299,8 +299,14 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     },
     url: "https://results.cik.bg/",
     origin: "state",
-    members: ["cik_results"],
-    skills: ["update-local-elections"],
+    // ⚠ TWO SOURCES, ONE NODE. The `desc` above has claimed „президентските от 2001 г. насам"
+    // since T4; `cik_presidential` is what actually watches them, and it is a separate id
+    // because `process-watch-report` couples every `cik_results` flip to a loader that reads
+    // the PARLIAMENTARY candidate files (plan T7.2). Listing only the first attributed
+    // presidential coverage to a source that does not produce it, and nothing gates that —
+    // `layouts.test.ts` checks layout tags, not source-id coverage.
+    members: ["cik_results", "cik_presidential"],
+    skills: ["update-local-elections", "update-presidential-elections"],
     tags: ["elections", "local"],
     issue: {
       label: { bg: "Проверка за сигурност", en: "Bot challenge" },
