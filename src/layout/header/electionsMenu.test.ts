@@ -60,11 +60,16 @@ describe("electionsMenu", () => {
     const groups = (electionsMenu[0].subMenu ?? [])
       .filter((m) => m.group)
       .map((m) => m.title);
+    // ⚠ THE BANDS' OWN KEYS, IN BAND ORDER. `elections_band_partial` was the fourth until the
+    // presidential tile was seated: `chmi` moved into `results` and `sverka` into `analysis`,
+    // and the two national leaderboards became `rankings`. Asserting the keys as literals is
+    // what stops the menu drifting from the hub — and `menuCopy.test.ts` is what stops those
+    // literals naming a key neither corpus has, which this test cannot see.
     expect(groups).toEqual([
       "elections_band_results",
       "elections_band_places",
+      "elections_band_rankings",
       "elections_band_analysis",
-      "elections_band_partial",
     ]);
   });
 });

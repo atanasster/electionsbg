@@ -435,38 +435,6 @@ const Reconcile: FC = () => (
   </SceneFrame>
 );
 
-/** An independent — one mark standing apart from the party blocks. */
-const Independent: FC = () => (
-  <SceneFrame>
-    {[0, 1, 2].map((i) => (
-      <rect
-        key={i}
-        x={72 + i * 30}
-        y="46"
-        width="22"
-        height="46"
-        rx="3"
-        fill="currentColor"
-        opacity=".28"
-      />
-    ))}
-    <circle cx="196" cy="52" r="18" fill="var(--sector)" />
-    <path
-      d="M196 74 v20"
-      stroke="var(--sector)"
-      strokeWidth="4"
-      strokeLinecap="round"
-    />
-    <path
-      d="M232 34 v58"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeDasharray="5 5"
-      opacity=".5"
-    />
-  </SceneFrame>
-);
-
 /** Swing — the change between two cycles. */
 const Swing: FC = () => (
   <SceneFrame>
@@ -484,28 +452,46 @@ const Swing: FC = () => (
   </SceneFrame>
 );
 
-/** Round 1's field narrowing to a runoff pair, and the single office it elects. */
+/**
+ * Round 1's field narrowing to a runoff pair, and the single office it elects.
+ *
+ * ⚠ THE EMBLEM IS ANCHORED AT THE LEFT EDGE, OUT OF THE FLOW. It sat between the field and
+ * the arrow in the first cut, which put the office in the middle of the very narrowing the
+ * arrow describes — field → office → arrow → pair reads as a sequence nobody meant. `Runoff`
+ * two scenes up sets the convention: bars → arrow → pair, contiguous and left to right.
+ *
+ * ⚠ FOUR BARS, NOT TWO. A field of two narrowing to a pair of two is not a narrowing, and it
+ * was two until this tile first shipped to the page.
+ */
 const Presidency: FC = () => (
   <SceneFrame>
-    <circle cx="150" cy="40" r="16" fill="var(--sector)" />
+    {/* the single office it elects */}
+    <circle cx="80" cy="40" r="16" fill="var(--sector)" />
     <path
-      d="M126 92 a24 26 0 0 1 48 0 z"
+      d="M56 92 a24 26 0 0 1 48 0 z"
       fill="var(--sector)"
       opacity=".45"
       stroke="currentColor"
       strokeWidth="2"
     />
-    <Bars x={40} baseline={92} heights={[18, 30]} barWidth={16} gap={10} />
+    {/* round 1's field → the runoff pair */}
+    <Bars
+      x={126}
+      baseline={92}
+      heights={[18, 30, 14, 10]}
+      barWidth={12}
+      gap={8}
+    />
     <path
-      d="M196 66 h20 m0 0 l-6 -6 m6 6 l-6 6"
+      d="M216 66 h20 m0 0 l-6 -6 m6 6 l-6 6"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
     />
-    <rect x="228" y="52" width="18" height="40" rx="3" fill="var(--sector)" />
+    <rect x="248" y="52" width="18" height="40" rx="3" fill="var(--sector)" />
     <rect
-      x="252"
+      x="270"
       y="70"
       width="18"
       height="22"
@@ -532,6 +518,5 @@ export const ELECTIONS_SCENES: Record<string, FC> = {
   "closest-races": CloseRace,
   chmi: Partial,
   sverka: Reconcile,
-  independents: Independent,
   swing: Swing,
 };

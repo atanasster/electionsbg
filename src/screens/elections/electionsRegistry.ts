@@ -14,9 +14,10 @@
 // A `to` has to be a literal absolute path for the gate to check it is routed at all, and
 // `LATEST_LOCAL_CYCLE` is a constant — but a reader who selected an older election must not be
 // handed the latest cycle's município list, which is the silent disagreement §3.2 is about. So a
-// cycle-scoped tile carries `cycleScoped: true` and the screen substitutes the cycle
-// `useLatestLocalCycle()` resolves for the selected election. `withLocalCycle` is that rewrite,
-// and it lives beside the flag so the two cannot drift.
+// cycle-scoped tile carries the KIND of cycle its path embeds, and the screen substitutes the
+// cycle the reader resolved for that kind. `withCycle` is that rewrite, and it lives beside the
+// `cycleScoped` flag so the two cannot drift. `withLocalCycle` is a convenience alias with no
+// production call site, retained for the local-only tests.
 //
 // Plan: docs/plans/elections-hub-implementation-v1.md §6.1, Phase 3 item 5.
 
@@ -58,30 +59,14 @@ export interface ElectionsBand {
 const c = LATEST_LOCAL_CYCLE;
 
 /**
- * The presidential results tile — BUILT AND WITHHELD.
+ * How many tiles a band holds.
  *
- * ⚠ IT IS NOT IN A BAND, and „empty `KINDS_WITHOUT_SURFACE` and it joins" was WRONG — a
- * first draft of this comment said so and it was measured false. Two things block it, and
- * `WITHHELD_TILES` records both so they are checked rather than remembered:
- *
- *   • its route does not exist (`/presidential/:cycle`, plan T5) — a tile must not seed a
- *     destination, the `dashboard-hub` rule this plan restates for the Tier 8 tile;
- *   • the results band is FULL. Four bands of four is a layout rule, not a preference: the
- *     grid is 4 columns at `xl`, so a fifth tile sits alone on its own row (§6.1). Placing
- *     it means deciding what leaves the band, and this step does not make that decision.
- *
- * What is NOT a blocker, because it was fixed here: the accent. It was `amber`, which
- * `runoffs` already holds on this page, and the accent rule is per PAGE rather than per
- * band — so the collision would have surfaced only on the run that shipped it.
+ * ⚠ A LAYOUT RULE, NOT A PREFERENCE: the grid is 4 columns at `xl`, so a fifth tile sits alone
+ * on its own row. It is exported because `electionsHubBands.test.ts` states the same rule twice
+ * — the per-band length and the `band-full` blocker — and a grid that moved to 5 columns with
+ * only one of them updated would report `band-full` for a band that has room.
  */
-const PRESIDENTIAL_TILE: ElectionsTile = {
-  id: "presidential",
-  titleKey: "elections_tile_presidential",
-  descKey: "elections_tile_presidential_desc",
-  to: CYCLE_SURFACE.presidential.href(LATEST_PRESIDENTIAL_CYCLE),
-  accent: TILE_ACCENTS.terracotta,
-  cycleScoped: "presidential",
-};
+export const TILES_PER_BAND = 4;
 
 /** Why a built tile is not on the page. Each value is re-checked by the gate. */
 export type TileBlocker = "route" | "band-full";
@@ -98,39 +83,49 @@ export type WithheldTile = {
    *
    * ⚠ EVERY ENTRY IS ASSERTED STILL TRUE by `electionsHubBands.test.ts`, so a blocker that
    * has been resolved turns the gate RED rather than sitting here as a stale excuse — the
-   * „a stale exception fails too" shape this repo uses for its exhaustiveness sweeps. It is
-   * what replaces three sentences that claimed the tile needed no further edit; measured,
-   * it needed two.
+   * „a stale exception fails too" shape this repo uses for its exhaustiveness sweeps.
    */
   blockers: TileBlocker[];
 };
 
-const GATED: WithheldTile[] = [
-  {
-    tile: PRESIDENTIAL_TILE,
-    kind: "presidential",
-    band: "results",
-    // ⚠ „route" IS GONE — plan T5 shipped `/presidential/:cycle`, and the gate RECOMPUTES
-    // this list from `KINDS_WITHOUT_SURFACE` and the band's own length, so leaving a resolved
-    // blocker here is red rather than a stale excuse. `band-full` stands: the results band is
-    // four tiles and the grid is four columns at `xl`, so placing this one means deciding what
-    // leaves — a decision this step does not make.
-    blockers: ["band-full"],
-  },
-];
-
 /**
- * Tiles that exist and are not shown.
+ * Tiles that are built and not on the page.
  *
- * ⚠ A SCENE WITH NO TILE HAS TWO CAUSES AND ONLY ONE IS A DEFECT. „Orphaned by a deletion"
- * and „built, waiting" are indistinguishable in an id-set difference, so they are named
- * here — and the gate checks each one is COMPLETE, so withholding cannot become a place to
- * park a half-built tile.
+ * ⚠ EMPTY IS THE CORRECT STATE, NOT A LEFTOVER. The presidential tile sat here from plan
+ * T4.4 until 2026-09-07, blocked by `band-full`: the results band was one parliamentary tile
+ * and three LOCAL ones against a four-column `xl` grid, so seating it meant deciding what
+ * leaves — which the registry could not decide for itself. That decision is made below.
+ *
+ * ⚠ THE MACHINERY STAYS because it is the seam a fourth kind arrives through, and because an
+ * empty list makes the gate's loop VACUOUS — so `electionsHubBands.test.ts` exercises the
+ * blocker recompute against a synthetic entry instead of against whatever happens to be
+ * parked here. Deleting the type would take that check with it.
  */
+const GATED: WithheldTile[] = [];
+
 export const WITHHELD_TILES: WithheldTile[] = GATED.filter(
   (w) => w.blockers.length > 0,
 );
 
+/**
+ * ⚠ THE FIRST BAND IS ONE TILE PER KIND OF VOTE — parliamentary, presidential, local, and the
+ * partial elections between cycles — which is what makes room for a third catalogue without a
+ * fifth band. The two national leaderboards it used to carry (`mayors-by-party`,
+ * `council-votes`) moved to `rankings`, which is what they always were.
+ *
+ * ⚠ `independents` LEFT THE PAGE for the seventeenth slot, and nothing became unreachable:
+ * `/local/:cycle/independents` is still routed, still linked from `LocalCountryDashboardCards`
+ * on the local cycle page and from the header menu, and still carries a crawlable link in the
+ * `/elections` prerendered body.
+ *
+ * ⚠ IT IS NOT PRERENDERED AND HAS NO SITEMAP `<loc>`, and a first draft of this comment claimed
+ * both. No member of the `LocalMunicipalityListScreen` family is: `enumerateLocalMunicipalities`
+ * emits one entry per obshtinaCode and can never emit a list segment. That makes the crawlable
+ * link in `ELECTIONS_HUB_SECTIONS` load-bearing rather than decorative — it is the page's only
+ * crawler-reachable entry outside the local cycle page, so do not drop it as "covered anyway".
+ *
+ * `TILES_PER_BAND` above is why there were only sixteen slots to begin with.
+ */
 export const ELECTIONS_BANDS: ElectionsBand[] = [
   {
     id: "results",
@@ -145,6 +140,17 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         accent: TILE_ACCENTS.indigo,
       },
       {
+        // ⚠ `terracotta` AND NOT `amber`: the accent rule is per PAGE rather than per band,
+        // and `runoffs` holds amber one band down. The collision this tile shipped with in
+        // draft would have surfaced only on the run that placed it.
+        id: "presidential",
+        titleKey: "elections_tile_presidential",
+        descKey: "elections_tile_presidential_desc",
+        to: CYCLE_SURFACE.presidential.href(LATEST_PRESIDENTIAL_CYCLE),
+        accent: TILE_ACCENTS.terracotta,
+        cycleScoped: "presidential",
+      },
+      {
         id: "local",
         titleKey: "elections_tile_local",
         descKey: "elections_tile_local_desc",
@@ -153,20 +159,14 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         cycleScoped: "local",
       },
       {
-        id: "mayors-by-party",
-        titleKey: "local_leaderboard_mayors_by_party",
-        descKey: "elections_tile_mayors_by_party_desc",
-        to: `/local/${c}/mayors-by-party`,
-        accent: TILE_ACCENTS.rose,
-        cycleScoped: "local",
-      },
-      {
-        id: "council-votes",
-        titleKey: "local_leaderboard_council_votes",
-        descKey: "elections_tile_council_votes_desc",
-        to: `/local/${c}/council-votes`,
-        accent: TILE_ACCENTS.teal,
-        cycleScoped: "local",
+        // ⚠ NOT `cycleScoped`: `/local/chmi`'s second segment is a PAGE, not a cycle, and the
+        // feed is cross-cycle by construction — every partial election since 2024, not the
+        // selected cycle's.
+        id: "chmi",
+        titleKey: "chmi_feed_title",
+        descKey: "elections_tile_chmi_desc",
+        to: "/local/chmi",
+        accent: TILE_ACCENTS.olive,
       },
     ],
   },
@@ -210,23 +210,25 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
     ],
   },
   {
-    id: "analysis",
-    labelKey: "elections_band_analysis",
-    descKey: "elections_band_analysis_desc",
+    id: "rankings",
+    labelKey: "elections_band_rankings",
+    descKey: "elections_band_rankings_desc",
     tiles: [
       {
-        id: "analysis-hub",
-        titleKey: "analysis_hub_nav",
-        descKey: "elections_tile_analysis_desc",
-        to: "/parliamentary/analysis",
-        accent: TILE_ACCENTS.mulberry,
+        id: "mayors-by-party",
+        titleKey: "local_leaderboard_mayors_by_party",
+        descKey: "elections_tile_mayors_by_party_desc",
+        to: `/local/${c}/mayors-by-party`,
+        accent: TILE_ACCENTS.rose,
+        cycleScoped: "local",
       },
       {
-        id: "reports-hub",
-        titleKey: "reports_hub_nav",
-        descKey: "elections_tile_reports_desc",
-        to: "/parliamentary/reports",
-        accent: TILE_ACCENTS.clay,
+        id: "council-votes",
+        titleKey: "local_leaderboard_council_votes",
+        descKey: "elections_tile_council_votes_desc",
+        to: `/local/${c}/council-votes`,
+        accent: TILE_ACCENTS.teal,
+        cycleScoped: "local",
       },
       {
         id: "strongest-mandates",
@@ -247,31 +249,23 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
     ],
   },
   {
-    id: "partial",
-    labelKey: "elections_band_partial",
-    descKey: "elections_band_partial_desc",
+    id: "analysis",
+    labelKey: "elections_band_analysis",
+    descKey: "elections_band_analysis_desc",
     tiles: [
       {
-        id: "chmi",
-        titleKey: "chmi_feed_title",
-        descKey: "elections_tile_chmi_desc",
-        to: "/local/chmi",
-        accent: TILE_ACCENTS.olive,
+        id: "analysis-hub",
+        titleKey: "analysis_hub_nav",
+        descKey: "elections_tile_analysis_desc",
+        to: "/parliamentary/analysis",
+        accent: TILE_ACCENTS.mulberry,
       },
       {
-        id: "sverka",
-        titleKey: "sverka_title",
-        descKey: "elections_tile_sverka_desc",
-        to: "/sverka",
-        accent: TILE_ACCENTS.slate,
-      },
-      {
-        id: "independents",
-        titleKey: "local_national_independents",
-        descKey: "elections_tile_independents_desc",
-        to: `/local/${c}/independents`,
-        accent: TILE_ACCENTS.moss,
-        cycleScoped: "local",
+        id: "reports-hub",
+        titleKey: "reports_hub_nav",
+        descKey: "elections_tile_reports_desc",
+        to: "/parliamentary/reports",
+        accent: TILE_ACCENTS.clay,
       },
       {
         id: "swing",
@@ -280,6 +274,13 @@ export const ELECTIONS_BANDS: ElectionsBand[] = [
         to: `/local/${c}/swing`,
         accent: TILE_ACCENTS.copper,
         cycleScoped: "local",
+      },
+      {
+        id: "sverka",
+        titleKey: "sverka_title",
+        descKey: "elections_tile_sverka_desc",
+        to: "/sverka",
+        accent: TILE_ACCENTS.slate,
       },
     ],
   },

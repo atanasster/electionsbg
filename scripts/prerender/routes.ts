@@ -793,14 +793,9 @@ const ELECTIONS_HUB_SECTIONS: {
         path: `local/${LATEST_LOCAL_CYCLE}`,
       },
       {
-        bg: "Избрани кметове по партии",
-        en: "Elected mayors by party",
-        path: `local/${LATEST_LOCAL_CYCLE}/mayors-by-party`,
-      },
-      {
-        bg: "Гласове за общински съветници по партии",
-        en: "Council votes by party",
-        path: `local/${LATEST_LOCAL_CYCLE}/council-votes`,
+        bg: "Извънредни местни избори",
+        en: "Extraordinary local elections",
+        path: "local/chmi",
       },
     ],
   },
@@ -831,11 +826,19 @@ const ELECTIONS_HUB_SECTIONS: {
     ],
   },
   {
-    bg: "Анализи и проверки",
-    en: "Analysis and review",
+    bg: "Класации",
+    en: "Rankings",
     links: [
-      { bg: "Анализи", en: "Analyses", path: "parliamentary/analysis" },
-      { bg: "Доклади", en: "Reports", path: "parliamentary/reports" },
+      {
+        bg: "Избрани кметове по партии",
+        en: "Elected mayors by party",
+        path: `local/${LATEST_LOCAL_CYCLE}/mayors-by-party`,
+      },
+      {
+        bg: "Гласове за общински съветници по партии",
+        en: "Council votes by party",
+        path: `local/${LATEST_LOCAL_CYCLE}/council-votes`,
+      },
       {
         bg: "Най-силни мандати",
         en: "Strongest mandates",
@@ -846,31 +849,34 @@ const ELECTIONS_HUB_SECTIONS: {
         en: "Closest races",
         path: `local/${LATEST_LOCAL_CYCLE}/closest-races`,
       },
+      {
+        // ⚠ A LINK WITHOUT A TILE, DELIBERATELY. `independents` left the hub's sixteen tile
+        // slots when the presidential one arrived. The PAGE is unchanged and still routed —
+        // but it is NOT prerendered and has no sitemap `<loc>` (no list page in this family
+        // is: `enumerateLocalMunicipalities` emits one entry per obshtinaCode, never a list
+        // segment), so this link is one of its few crawler-reachable entries. Dropping it
+        // would strand a live surface.
+        bg: "Независими кметове",
+        en: "Independent mayors",
+        path: `local/${LATEST_LOCAL_CYCLE}/independents`,
+      },
     ],
   },
   {
-    bg: "Частични избори и администрация",
-    en: "Partial elections and administration",
+    bg: "Анализи и проверки",
+    en: "Analysis and review",
     links: [
+      { bg: "Анализи", en: "Analyses", path: "parliamentary/analysis" },
+      { bg: "Доклади", en: "Reports", path: "parliamentary/reports" },
       {
-        bg: "Извънредни местни избори",
-        en: "Extraordinary local elections",
-        path: "local/chmi",
+        bg: "Промяна в съветите",
+        en: "Council swing",
+        path: `local/${LATEST_LOCAL_CYCLE}/swing`,
       },
       {
         bg: "Сверка избрани · действащи",
         en: "Elected vs sitting officials",
         path: "sverka",
-      },
-      {
-        bg: "Независими кметове",
-        en: "Independent mayors",
-        path: `local/${LATEST_LOCAL_CYCLE}/independents`,
-      },
-      {
-        bg: "Промяна в съветите",
-        en: "Council swing",
-        path: `local/${LATEST_LOCAL_CYCLE}/swing`,
       },
     ],
   },

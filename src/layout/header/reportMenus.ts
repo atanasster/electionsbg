@@ -1,12 +1,16 @@
 // Header dropdowns match the three-dashboard architecture (Elections home,
 // Local-elections home, Governance home):
 //
-//   electionsMenu   — BOTH electoral systems, merged: the parliamentary country
-//                     result and its analyses/reports hubs, the local
-//                     mayor/council leaderboards and município lists, and the
-//                     extraordinary elections plus the officials-vs-ЦИК
-//                     reconciliation. Four groups, reading the same heading keys
-//                     as the `/elections` hub's bands.
+//   electionsMenu   — ALL THREE electoral systems, merged: the parliamentary
+//                     country result and its analyses/reports hubs, the
+//                     presidential cycle, the local mayor/council leaderboards
+//                     and município lists, the extraordinary elections and the
+//                     officials-vs-ЦИК reconciliation. Four groups, reading the
+//                     same heading keys as the `/elections` hub's bands — so a
+//                     band that is renamed or re-seated has to be answered here
+//                     too, which `menuCopy.test.ts` now enforces rather than
+//                     leaving to memory (a deleted band key rendered as raw
+//                     ASCII in the global nav until it did).
 //   governanceMenu  — budget & spending, parliament, MP declarations,
 //                     indicators & context; the long-running pillars that
 //                     span parliament terms.
@@ -30,6 +34,8 @@
 // mobile tree — on desktop the split-button title already links to the
 // section dashboard, so they'd be redundant there.
 
+import { LATEST_PRESIDENTIAL_CYCLE } from "@/data/presidentialCatalogue";
+import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
 
 export type MenuItem = {
@@ -88,16 +94,18 @@ export const electionsMenu: MenuItem[] = [
         group: true,
         subMenu: [
           { title: "elections_tile_parliamentary", link: "/parliamentary" },
+          // ⚠ THROUGH `presidentialUrl`, NEVER A TEMPLATE. `presidentialRoutes.ts` is the
+          // family's one URL builder; a private `/presidential/${id}` here is the copy that
+          // keeps working until the family moves and then nothing compares the two. The `!`
+          // is safe on a CATALOGUED id — the builder returns null only for an empty or
+          // separator-bearing cycle — and `menuCopy.test.ts` asserts no menu link is empty,
+          // so a catalogue that ever went blank fails there rather than rendering `href=""`.
+          {
+            title: "elections_tile_presidential",
+            link: presidentialUrl(LATEST_PRESIDENTIAL_CYCLE, "country")!,
+          },
           { title: "elections_tile_local", link: `/local/${c}` },
-          {
-            title: "local_leaderboard_mayors_by_party",
-            link: `/local/${c}/mayors-by-party`,
-          },
-          { title: "mp_local_menu_title", link: "/governance/mayor-pay" },
-          {
-            title: "local_leaderboard_council_votes",
-            link: `/local/${c}/council-votes`,
-          },
+          { title: "chmi_feed_title", link: "/local/chmi" },
         ],
       },
       { title: "-" },
@@ -115,9 +123,40 @@ export const electionsMenu: MenuItem[] = [
             title: "local_national_split_control",
             link: `/local/${c}/split-control`,
           },
+          // ⚠ NO LONGER A HUB TILE, still a menu leaf. `independents` left the hub's sixteen
+          // slots when the presidential tile arrived; the page is neither prerendered nor in
+          // the sitemap, so this and the local cycle page are how a reader reaches it.
           {
             title: "local_national_independents",
             link: `/local/${c}/independents`,
+          },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "elections_band_rankings",
+        group: true,
+        subMenu: [
+          {
+            title: "local_leaderboard_mayors_by_party",
+            link: `/local/${c}/mayors-by-party`,
+          },
+          // ⚠ IMMEDIATELY AFTER THE MAYOR RESULTS, and `reportMenus.test.ts` pins the
+          // adjacency rather than the band: a reader looking at who won a mayoralty is one
+          // click from what that office pays. It travelled here with the mayor leaderboard
+          // when that moved out of `results`, and it stays canonical under Governance.
+          { title: "mp_local_menu_title", link: "/governance/mayor-pay" },
+          {
+            title: "local_leaderboard_council_votes",
+            link: `/local/${c}/council-votes`,
+          },
+          {
+            title: "local_leaderboard_strongest_mandates",
+            link: `/local/${c}/strongest-mandates`,
+          },
+          {
+            title: "local_leaderboard_closest_races",
+            link: `/local/${c}/closest-races`,
           },
         ],
       },
@@ -128,23 +167,7 @@ export const electionsMenu: MenuItem[] = [
         subMenu: [
           { title: "analysis_hub_nav", link: "/parliamentary/analysis" },
           { title: "reports_hub_nav", link: "/parliamentary/reports" },
-          {
-            title: "local_leaderboard_strongest_mandates",
-            link: `/local/${c}/strongest-mandates`,
-          },
-          {
-            title: "local_leaderboard_closest_races",
-            link: `/local/${c}/closest-races`,
-          },
           { title: "local_leaderboard_swing", link: `/local/${c}/swing` },
-        ],
-      },
-      { title: "-" },
-      {
-        title: "elections_band_partial",
-        group: true,
-        subMenu: [
-          { title: "chmi_feed_title", link: "/local/chmi" },
           { title: "sverka_title", link: "/sverka" },
         ],
       },

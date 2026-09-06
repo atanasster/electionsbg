@@ -10,6 +10,7 @@ import { describe, expect, it } from "vitest";
 import {
   ELECTIONS_BANDS,
   ELECTIONS_TILES,
+  TILES_PER_BAND,
   WITHHELD_TILES,
   withCycle,
   withLocalCycle,
@@ -17,7 +18,11 @@ import {
   type TileBlocker,
 } from "./electionsRegistry";
 import { ELECTIONS_SCENES } from "./electionsScenes";
-import { CYCLE_SURFACE, KINDS_WITHOUT_SURFACE } from "./electionsHubCycle";
+import {
+  CYCLE_SURFACE,
+  KINDS_WITHOUT_SURFACE,
+  type ElectionsHubKind,
+} from "./electionsHubCycle";
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
 import { LATEST_PRESIDENTIAL_CYCLE } from "@/data/presidentialCatalogue";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
@@ -25,13 +30,43 @@ import { bgCorpus, enCorpus } from "@/locales/allKeys";
 const REPO = path.resolve(__dirname, "../../..");
 const routerSrc = readFileSync(path.join(REPO, "src/routes.tsx"), "utf-8");
 
+/**
+ * The blockers that ACTUALLY apply to a tile of `kind` aimed at `band`, recomputed from the
+ * registry rather than read off the entry that claims them.
+ *
+ * ⚠ BOTH INPUTS ARE INJECTABLE, AND THAT IS NOT GENERALITY FOR ITS OWN SAKE. The live ones are
+ * DEGENERATE: `KINDS_WITHOUT_SURFACE` is empty and every band holds exactly `TILES_PER_BAND`
+ * tiles, so against them alone this function is indistinguishable from `() => ["band-full"]` —
+ * measured, deleting either arm left all 19 tests green. The synthetic cases below are what
+ * make the rule falsifiable while nothing is withheld.
+ *
+ * ⚠ IT THROWS ON AN UNKNOWN BAND rather than returning `[]`. An empty list is the answer
+ * „nothing is in the way", i.e. „ship it" — which is exactly the wrong answer for a tile
+ * pointed at a band nobody declares.
+ */
+const blockersFor = (
+  kind: Exclude<ElectionsHubKind, "parliamentary">,
+  band: string,
+  bands: readonly { id: string; tiles: readonly unknown[] }[] = ELECTIONS_BANDS,
+  without: readonly ElectionsHubKind[] = KINDS_WITHOUT_SURFACE,
+): TileBlocker[] => {
+  const home = bands.find((b) => b.id === band);
+  if (!home) throw new Error(`no band "${band}"`);
+  return [
+    ...(without.includes(kind) ? (["route"] as const) : []),
+    ...(home.tiles.length >= TILES_PER_BAND ? (["band-full"] as const) : []),
+  ];
+};
+
 describe("elections bands", () => {
   it("is four described bands of four tiles", () => {
     // ⚠ FOUR PER BAND IS A LAYOUT RULE, not a preference: the grid is 4 columns at `xl`, so a
-    // band of 5 leaves a lone tile on its last row (§6.1 — 4/3/4 beats 3/3/5).
+    // band of 5 leaves a lone tile on its last row (§6.1 — 4/3/4 beats 3/3/5). The number
+    // lives in the registry beside the rule; `blockersFor` reads the same constant, so a grid
+    // that moved to 5 columns cannot leave one of the two behind.
     expect(ELECTIONS_BANDS).toHaveLength(4);
     for (const b of ELECTIONS_BANDS) {
-      expect(b.tiles, b.id).toHaveLength(4);
+      expect(b.tiles, b.id).toHaveLength(TILES_PER_BAND);
       expect(b.labelKey, b.id).toBeTruthy();
       expect(b.descKey, b.id).toBeTruthy();
     }
@@ -213,8 +248,11 @@ describe("scenes", () => {
     //
     // ⚠ AND THE PAGE-LEVEL INVARIANTS ARE CHECKED, not just the tile's own fields. A first
     // draft asserted keys, scene and route prefix and called that „already right"; measured,
-    // the tile duplicated `runoffs`' accent and overflowed its band, so shipping it would
-    // have landed on two red gates. Neither is visible in the fields.
+    // the presidential tile duplicated `runoffs`' accent and overflowed its band, so shipping
+    // it would have landed on two red gates. Neither is visible in the fields.
+    // ⚠ RE-CHECKS WHAT THE „no accent repeats" TEST ALREADY COVERS while nothing is withheld
+    // — `composed` is `ELECTIONS_TILES` today — and becomes meaningful again the moment
+    // something is parked, which is the run that would otherwise discover the clash.
     const composed = [...ELECTIONS_TILES, ...WITHHELD_TILES.map((w) => w.tile)];
     const accents = composed.map((t) => t.accent);
     expect(
@@ -243,21 +281,43 @@ describe("scenes", () => {
       // dropping „band-full" while the band is full reads as „ready to ship" and lands on
       // the four-per-band gate instead. Recomputing the set makes the list a statement the
       // registry cannot get wrong in either direction.
-      const applies: TileBlocker[] = [
-        ...(KINDS_WITHOUT_SURFACE.includes(kind) ? (["route"] as const) : []),
-        ...(home!.tiles.length >= 4 ? (["band-full"] as const) : []),
-      ];
       expect(
         [...blockers].sort(),
         `${tile.id}: the blockers it lists are not the constraints that apply`,
-      ).toEqual([...applies].sort());
-      expect(
-        applies.length,
-        `${tile.id} is withheld and nothing blocks it — put it in ${band}`,
-      ).toBeGreaterThan(0);
+      ).toEqual([...blockersFor(kind, band)].sort());
+      // ⚠ NO `toBeGreaterThan(0)` HERE: `WITHHELD_TILES` is filtered on `blockers.length > 0`,
+      // so a non-empty `blockers` is guaranteed and the `toEqual` above already fails when the
+      // recompute returns nothing. The „withheld with nothing blocking it" case is caught by
+      // that comparison, not by a second assertion that can never fire first.
     }
-    // The control: there IS something withheld right now, so the loop is not vacuous.
-    expect(WITHHELD_TILES.map((w) => w.tile.id)).toEqual(["presidential"]);
+  });
+
+  it("the blocker rule still discriminates on an empty withheld list", () => {
+    // ⚠ THE LOOP ABOVE IS VACUOUS TODAY. Nothing is withheld since the presidential tile
+    // shipped on 2026-09-07, and a `for` over an empty list passes whatever the recompute
+    // says — including nothing at all. So the rule is exercised against the case the registry
+    // actually held: the presidential tile, waiting for the four-tile `results` band.
+    expect(blockersFor("presidential", "results")).toEqual(["band-full"]);
+    // ⚠ BOTH ARMS, AGAINST SYNTHETIC INPUTS. The live ones cannot separate the rule from a
+    // constant — measured: deleting the `route` arm, and replacing the tile-count test with
+    // `true`, each left this file entirely green.
+    expect(
+      blockersFor("presidential", "results", ELECTIONS_BANDS, ["presidential"]),
+      "the route arm no longer fires for a kind with no surface",
+    ).toEqual(["route", "band-full"]);
+    expect(
+      blockersFor("presidential", "half", [{ id: "half", tiles: [1, 2, 3] }]),
+      "the band-full arm fires on a band that still has room",
+    ).toEqual([]);
+    // …and a band that does not exist must not silently score as „ready".
+    expect(() => blockersFor("presidential", "no-such-band")).toThrow();
+    // The converse of the loop's „really is out of the bands": a tile ON the page is never
+    // also listed as withheld.
+    for (const t of ELECTIONS_TILES)
+      expect(
+        WITHHELD_TILES.some((w) => w.tile.id === t.id),
+        t.id,
+      ).toBe(false);
   });
 });
 
@@ -287,5 +347,55 @@ describe("i18n keys", () => {
       expect(bgCorpus[k], `bg is missing ${k}`).toBeTruthy();
       expect(enCorpus[k], `en is missing ${k}`).toBeTruthy();
     }
+  });
+});
+
+describe("the prerendered crawlable mirror", () => {
+  it("matches the tile registry exactly — headings, order and destinations", () => {
+    // ⚠ A SECOND LIST OF THE SAME SIXTEEN, across the Node/browser boundary: the prerender
+    // cannot import the registry (`TILE_ACCENTS` drags the React barrel in), so the comparison
+    // is TEXTUAL — the treatment `HOME_DESTINATIONS` already gets in `homeHubBands.test.ts`.
+    // Until this existed, `ELECTIONS_HUB_SECTIONS`' own comment was the only thing keeping the
+    // two in step, and it said so: „kept in step with the registry BY HAND".
+    const src = readFileSync(
+      path.join(REPO, "scripts/prerender/routes.ts"),
+      "utf-8",
+    );
+    const block = /const ELECTIONS_HUB_SECTIONS[\s\S]*?\n\];/.exec(src);
+    expect(
+      block,
+      "ELECTIONS_HUB_SECTIONS not found — did it move or change shape?",
+    ).toBeTruthy();
+
+    // Paths are written both "quoted" and `templated`; resolve the two cycle constants.
+    const resolve = (raw: string): string =>
+      "/" +
+      raw
+        .replace("${LATEST_LOCAL_CYCLE}", LATEST_LOCAL_CYCLE)
+        .replace("${LATEST_PRESIDENTIAL_CYCLE}", LATEST_PRESIDENTIAL_CYCLE);
+    const paths = [...block![0].matchAll(/path:\s*[`"]([^`"]+)[`"]/g)].map(
+      (m) => resolve(m[1]),
+    );
+
+    // ⚠ ALLOWLISTED BY NAME, never by relaxing the comparison: `independents` is a link with
+    // no tile ON PURPOSE — it left the sixteen slots when the presidential tile arrived, and
+    // the page is neither prerendered nor sitemapped, so this is one of its few crawlable
+    // entries.
+    const LINKS_WITHOUT_A_TILE = [`/local/${LATEST_LOCAL_CYCLE}/independents`];
+    expect(paths.filter((p) => !LINKS_WITHOUT_A_TILE.includes(p))).toEqual(
+      ELECTIONS_TILES.map((t) => t.to),
+    );
+    for (const extra of LINKS_WITHOUT_A_TILE) expect(paths).toContain(extra);
+
+    // Headings are the bands' own copy, in band order, in BOTH languages.
+    const headings = [
+      ...block![0].matchAll(/\n {4}bg:\s*"([^"]+)",\n {4}en:\s*"([^"]+)",/g),
+    ];
+    expect(headings.map((m) => m[1])).toEqual(
+      ELECTIONS_BANDS.map((b) => bgCorpus[b.labelKey]),
+    );
+    expect(headings.map((m) => m[2])).toEqual(
+      ELECTIONS_BANDS.map((b) => enCorpus[b.labelKey]),
+    );
   });
 });

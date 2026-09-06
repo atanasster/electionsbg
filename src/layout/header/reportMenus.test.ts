@@ -31,10 +31,16 @@ describe("header report menus", () => {
     // It is here on purpose and has been since before the merge: a reader looking at who won a
     // mayoralty is one click from what that office pays. It remains canonical under Governance,
     // where its own `mp_page_title` entry lives — this is the second, contextual route to it.
-    const resultsGroup = electionsMenu[0]?.subMenu?.find(
-      (item) => item.title === "elections_band_results",
+    // ⚠ FOUND BY THE LEADERBOARD IT MUST FOLLOW, NOT BY BAND. It lived in
+    // `elections_band_results` until the presidential tile was seated and the mayor
+    // leaderboard moved to `elections_band_rankings` — the leaf travelled with it, which is
+    // the invariant. Naming the band here would have failed on a move that kept the rule.
+    const resultsGroup = electionsMenu[0]?.subMenu?.find((item) =>
+      item.subMenu?.some(
+        (leaf) => leaf.title === "local_leaderboard_mayors_by_party",
+      ),
     );
-    assert.ok(resultsGroup?.subMenu, "elections results menu group is missing");
+    assert.ok(resultsGroup?.subMenu, "the mayor-results menu group is missing");
 
     const mayorResultsIndex = resultsGroup.subMenu.findIndex(
       (item) => item.title === "local_leaderboard_mayors_by_party",
