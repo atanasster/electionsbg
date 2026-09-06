@@ -112,6 +112,11 @@ export const SURFACE_POLICY: Record<
   // others. 2021 is the worst case at every level, which is what a growing electorate and a
   // 23-ticket ballot predict.
   //
+  // ⚠ RE-MEASURED 2026-09-06 after the aggregator began carrying a per-place PROTOCOL. The
+  // four vote-rollup levels grew 9% — an eight-field block per entry — and not one verdict
+  // moved, because the margins were never close. The country and section rows are unchanged:
+  // `national_summary.json` already carried its protocol, and a section shard always did.
+  //
   // ⚠ THE TREE HAS NO PER-PLACE SHARDS (plan decision 3): below the country, each level is
   // ONE file per ROUND covering the whole country. So a reader of one settlement downloads
   // EVERY settlement, and that is the quantity §5.0 compares against the budget — which is
@@ -129,36 +134,36 @@ export const SURFACE_POLICY: Record<
     region: {
       source: "artifact",
       canonicalNote: "tur*/region_votes.json — every oblast, both rounds",
-      measuredMaxBytes: 107_178,
+      measuredMaxBytes: 116_665,
       measuredCycle: "2021_11_14_pvr",
       measuredOn: "2026-09-06",
-      reason: "104.7 KB for ONE oblast's first screen — 6.5x over 16 KiB",
+      reason: "113.9 KB for ONE oblast's first screen — 7.1x over 16 KiB",
     },
     abroad: {
       source: "artifact",
       canonicalNote: "tur*/abroad.json — every country, both rounds",
-      measuredMaxBytes: 227_317,
+      measuredMaxBytes: 247_127,
       measuredCycle: "2021_11_14_pvr",
       measuredOn: "2026-09-06",
       reason:
-        "222.0 KB, 13.9x over — and abroad is a page, not a fan-out, in this tree",
+        "241.3 KB, 15.1x over — and abroad is a page, not a fan-out, in this tree",
     },
     municipality: {
       source: "artifact",
       canonicalNote: "tur*/municipality_votes.json — all 265, both rounds",
-      measuredMaxBytes: 917_134,
+      measuredMaxBytes: 997_987,
       measuredCycle: "2021_11_14_pvr",
       measuredOn: "2026-09-06",
-      reason: "895.6 KB, 56x over 16 KiB",
+      reason: "974.6 KB, 61x over 16 KiB",
     },
     settlement: {
       source: "artifact",
       canonicalNote: "tur*/settlement_votes.json — all ~5,000, both rounds",
-      measuredMaxBytes: 13_936_096,
+      measuredMaxBytes: 15_143_594,
       measuredCycle: "2021_11_14_pvr",
       measuredOn: "2026-09-06",
       reason:
-        "13.3 MB for one settlement's first screen — 851x over 16 KiB, the widest margin in this table",
+        "14.4 MB for one settlement's first screen — 924x over 16 KiB, the widest margin in this table",
     },
     // ⚠ MEASURED OVER THE OBLAST SHARDS ONLY. A first cut read the whole `sections/` folder
     // and so measured `_unplaced.json` — 2011's residue bucket, the 1,354 sections whose

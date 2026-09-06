@@ -393,9 +393,18 @@ describe("writing the tree", () => {
   });
 
   it("minifies when asked, which is what the tree's size depends on", () => {
-    // ⚠ The tree is committed AND bucket-synced; measured, two-space indentation costs
-    // +102.4 MB across the ten rounds. A hard-coded literal here would put this tree
-    // outside the pipeline's own `--prod` flag.
+    // ⚠ The tree is bucket-synced; measured, two-space indentation costs +102.4 MB across
+    // the ten rounds. A hard-coded literal here would put this tree outside the pipeline's
+    // own `--prod` flag.
+    //
+    // ⚠ THE BAND IS MEASURED, NOT „HALF". A `big / 2` rule of thumb held until the roll-ups
+    // gained a per-place protocol and went RED at 0.503 on the smallest file — not because
+    // minification stopped working but because the block is eight short-valued keys per
+    // entry, so the KEY TEXT dominates and indentation removal saves proportionally less.
+    // Re-measured 2026-09-06 across both eras and all four levels: 0.462 (2021 settlements
+    // and abroad) to 0.503 (2006 regions, the smallest file in the tree). The ceiling is
+    // 0.52 — a gate that had been quietly ratcheting toward a threshold nobody re-derived is
+    // worse than one that states its own range.
     withDir((pretty) => {
       withDir((min) => {
         const a = agg("2006_10_22_pvr", 1);
@@ -404,7 +413,11 @@ describe("writing the tree", () => {
         const rel = path.join("2006_10_22_pvr", "tur1", "region_votes.json");
         const big = fs.readFileSync(path.join(pretty, rel), "utf8");
         const small = fs.readFileSync(path.join(min, rel), "utf8");
-        expect(small.length).toBeLessThan(big.length / 2);
+        expect(small.length / big.length).toBeLessThan(0.52);
+        // …and it really is minifying, so the ceiling above cannot pass on an indent that
+        // silently stopped being applied.
+        expect(small.length / big.length).toBeGreaterThan(0.3);
+        expect(small).not.toContain("\n  ");
         expect(JSON.parse(small)).toEqual(JSON.parse(big));
       });
     });
@@ -427,5 +440,124 @@ describe("writing the tree", () => {
       expect(s.protocol.totalActualVoters).toBeGreaterThanOrEqual(0);
       expect(s.votes.length).toBeGreaterThan(0);
     });
+  });
+});
+
+describe("per-place protocol sums", () => {
+  // ⚠ WITHOUT THESE, A PLACE PAGE CANNOT STATE TURNOUT, VALID VOTES OR INVALID BALLOTS.
+  // None of the three is derivable from a ticket tally, so the levels below the country
+  // would declare those facts and never fill them — a slot the renderer silently drops
+  // rather than an error anyone sees.
+  // ⚠ THE FILE'S OWN MEMO, not a second `aggregateRound` call — the aggregation is seconds
+  // per round and this block asks for four of them.
+  const a2021 = agg("2021_11_14_pvr", 1);
+
+  it("sums each place's own sections and nothing else", () => {
+    // ⚠ AGAINST THE SECTIONS, not against another rollup: a region total that agreed with
+    // the municipality total would prove only that one derived from the other.
+    const oblast = "BGS";
+    const own = a2021.sectionsByOblast.get(oblast)!;
+    const entry = a2021.regions.entries.find((e) => e.key === oblast)!;
+    expect(entry.results.protocol.sections).toBe(own.length);
+    expect(entry.results.protocol.registeredVoters).toBe(
+      own.reduce((a, s) => a + (s.protocol.numRegisteredVoters ?? 0), 0),
+    );
+    expect(entry.results.protocol.signatures).toBe(
+      own.reduce((a, s) => a + (s.protocol.totalActualVoters ?? 0), 0),
+    );
+    // Non-vacuity: the figures are real rather than zero everywhere.
+    expect(entry.results.protocol.registeredVoters).toBeGreaterThan(100_000);
+  });
+
+  it("gives every entry of every rollup a protocol", () => {
+    // The rollup asserts non-null on the lookup, so a key written into the vote map by a
+    // loop that forgot the protocol would throw at build time — this is what proves it does
+    // not happen, on all four levels at once.
+    for (const [name, r] of [
+      ["regions", a2021.regions],
+      ["municipalities", a2021.municipalities],
+      ["settlements", a2021.settlements],
+      ["abroad", a2021.abroad],
+    ] as const)
+      for (const e of r.entries) {
+        expect(e.results.protocol, `${name}/${e.key}`).toBeDefined();
+        expect(e.results.protocol.sections, `${name}/${e.key}`).toBeGreaterThan(
+          0,
+        );
+      }
+  });
+
+  it("carries „никого“ from 2016 on and leaves it ABSENT before", () => {
+    // ⚠ ABSENT, NOT ZERO. The form did not ask before 2016, and a stored 0 would claim
+    // nobody chose an option nobody was offered — the distinction the whole corpus is built
+    // on, one level down.
+    const has = a2021.regions.entries[0].results.protocol.noneOfTheAbove;
+    expect(typeof has).toBe("number");
+    const old = agg("2011_10_23_pvr", 1);
+    for (const e of old.regions.entries)
+      expect(e.results.protocol.noneOfTheAbove, e.key).toBeUndefined();
+  });
+
+  it("counts the sections that report NO signature count", () => {
+    // ⚠ 2006's abroad sections publish точка 3 = 0 while casting real ballots, so a place
+    // folding them sums real zeros into a real total. A consumer dividing by the roll would
+    // publish 0% turnout against ballots that exist; this is the field that says so.
+    const y2006 = agg("2006_10_22_pvr", 1);
+    const abroadUnreported = y2006.abroad.entries.reduce(
+      (a, e) => a + e.results.protocol.sectionsWithoutSignatures,
+      0,
+    );
+    // ⚠ EXACT, matching the docblock: all 144 of that cycle's abroad sections.
+    expect(abroadUnreported).toBe(144);
+    // …and the domestic side has none, so the flag discriminates rather than being set
+    // everywhere.
+    const domesticUnreported = y2006.regions.entries.reduce(
+      (a, e) => a + e.results.protocol.sectionsWithoutSignatures,
+      0,
+    );
+    expect(domesticUnreported).toBe(0);
+  });
+
+  it("counts them OUTSIDE 2006 too, where no reader sets the flag", () => {
+    // ⚠⚠ THE FLAG IS `era2006`'s ALONE, so a count that read only it reported „nothing to
+    // withhold" for every other era. Бобошево (KNL05) in 2011 round 1 is all eleven of its
+    // sections: точка 3 = 0 against 1,812 ticket votes, which under the shared turnout rule
+    // renders 0.00% for a municipality that voted — the exact 2006 harm, one era over.
+    const y2011 = agg("2011_10_23_pvr", 1);
+    const knl05 = y2011.municipalities.entries.find((e) => e.key === "KNL05")!;
+    expect(knl05.results.protocol.sectionsWithoutSignatures).toBe(11);
+    expect(knl05.results.protocol.sections).toBe(11);
+    expect(knl05.results.protocol.signatures).toBe(0);
+    // …and the votes are real, which is what makes the zero a gap rather than an empty place.
+    expect(
+      knl05.results.votes.reduce((a, v) => a + v.totalVotes, 0),
+    ).toBeGreaterThan(1_000);
+    // The control: the flag-only rule would have said zero here.
+    const flagged = y2011.sectionsByOblast
+      .get("KNL")!
+      .filter((x) => x.signaturesUnreported).length;
+    expect(flagged).toBe(0);
+  });
+
+  it("refuses a turnout denominator abroad, and keeps one at home", () => {
+    // ⚠ BY DEFINITION, NOT BY ARITHMETIC (decision 6). Almost everyone abroad joins the list
+    // at the section on the day, so signatures over the roll measures a registration regime —
+    // and it does not look absurd: through the shared rule the abroad rollup renders 87–98%
+    // for every country, with the `cast > denom` guard never firing. The parliamentary path
+    // discriminates on the literal oblast key „32"; this rollup is keyed by COUNTRY, so the
+    // basis has to travel in the data.
+    for (const cycle of CYCLES_OLDEST_FIRST)
+      for (const e of agg(cycle, 1).abroad.entries)
+        expect(e.results.protocol.turnoutBasis, `${cycle}/${e.key}`).toBeNull();
+    // …and the domestic levels DO have one, so the marker discriminates.
+    for (const r of [
+      a2021.regions,
+      a2021.municipalities,
+      a2021.settlements,
+    ] as const)
+      for (const e of r.entries)
+        expect(e.results.protocol.turnoutBasis, e.key).toBe(
+          "registered-voters",
+        );
   });
 });

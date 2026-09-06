@@ -205,7 +205,14 @@ try {
   // bytes with no quoting.
   trackedFiles = execFileSync(
     "git",
-    ["ls-files", "-z", "data", "raw_data", "public"],
+    // ⚠ NO PREFIX LIST. The message this feeds says „git does not track", which is a claim
+    // about the REPO, and a three-prefix scan could not support it: a gate asserting a
+    // committed source file (a derived catalogue under `src/data/json/`) was reported as
+    // naming an untracked path while git tracked it perfectly well. Adding `src` fixed that
+    // one and left the same trap for the next directory, so the list is gone. Measured: the
+    // whole repo is 6.4 MB of paths against 6.1 MB for the four prefixes, and the offender
+    // set is identical.
+    ["ls-files", "-z"],
     { cwd: REPO, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
   )
     .split("\0")

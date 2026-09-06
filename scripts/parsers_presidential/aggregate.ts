@@ -84,6 +84,18 @@ export interface Coverage {
   votes: number;
   /** Votes of the round that are NOT in it. */
   excludedVotes: number;
+  /**
+   * What the per-place `ProtocolSum` blocks cover, when the file carries them.
+   *
+   * ⚠ IT IS THE SAME POPULATION AS `sections`, AND THAT IS THE POINT OF SAYING SO. The
+   * protocols are summed over exactly the sections that qualified for this file, so a level
+   * that under-covers the round under-covers its protocols by the same margin — 2011's
+   * municipality and settlement roll-ups reach only the sections whose ЕКАТТЕ
+   * `data/settlements.json` carries, which is 15% short of the round. A consumer adding the
+   * per-place figures to get a national one would be 15% low, and nothing else in the file
+   * says so.
+   */
+  protocolBasis?: string;
 }
 
 /** The shard key for sections placement refused. Not an oblast. */
@@ -109,9 +121,87 @@ export type ShardSection = Omit<PresidentialSection, "ekatte"> & {
   placeBasis: PlaceBasis | null;
 };
 
+/**
+ * The protocol figures a place's sections add up to.
+ *
+ * ⚠ IT EXISTS BECAUSE VOTES ALONE CANNOT ANSWER THE PAGE. A place surface states turnout
+ * and invalid ballots beside the ranking, and neither is derivable from a ticket tally
+ * (the VALID total is — it is the sum of the ticket rows, which is also the only figure a
+ * ranking can add up to — but „valid" is not what a reader compares an invalid count against
+ * without a denominator this block carries) — so without this the levels below the country could declare those
+ * facts and never fill them, which is a slot the renderer silently drops rather than an
+ * error anyone sees.
+ *
+ * ⚠ EVERY FIELD IS A SUM OVER THE SECTIONS THIS PLACE HOLDS, so it inherits their gaps
+ * rather than hiding them — see `sectionsWithoutSignatures`.
+ */
+export interface ProtocolSum {
+  /** Sections folded into this place. */
+  sections: number;
+  /** Точка 1 — the printed roll. */
+  registeredVoters: number;
+  /**
+   * Voters added to the list ON THE DAY — по настоящ адрес, mobile boxes, ships.
+   *
+   * ⚠ CARRIED, NOT PRESCRIBED. The parliamentary builder adds these to the denominator
+   * because 530 domestic sections there report more voters than registered; the presidential
+   * COUNTRY figure this repo publishes does not, because art. 93 (3) is argued on the roll
+   * alone (§2.5-11), and the two differ by up to 1.64 points (2021: 40.30% against 38.67%).
+   * Both are true of different questions, so this field states the quantity and `turnoutBasis`
+   * states whether a rate may be taken at all — neither says which denominator a surface
+   * should pick.
+   */
+  additionalVoters: number;
+  /** Точка 3 — signatures in the roll, the turnout numerator. */
+  signatures: number;
+  /**
+   * Sections that cast votes and report NO signature count.
+   *
+   * ⚠ THE ZERO IS NOT A COUNT, AND THIS IS WHAT SAYS SO. All 144 of 2006's abroad sections
+   * publish точка 3 = 0 while casting 46,113 valid votes, so a place folding them sums real
+   * zeros into a real total and a consumer dividing by the roll publishes 0% turnout against
+   * ballots that exist. A surface must withhold the rate where this is non-zero.
+   *
+   * ⚠⚠ DERIVED FROM THE DATA, NEVER FROM `signaturesUnreported` ALONE. That flag is set by
+   * `era2006` and by no other reader, and its `undefined` means „this reader does not
+   * distinguish" rather than „reported" — so counting only flagged sections reports „nothing
+   * to withhold" for the 25 sections of 2011/2016/2021 that report точка 3 = 0 while casting
+   * real votes. Eleven of those are ALL of Бобошево (KNL05) in 2011 round 1, which would
+   * publish 0.00% turnout for a municipality that cast 1,812 votes with the guard saying
+   * all-clear — the exact 2006 harm this field exists to prevent, on a different era.
+   */
+  sectionsWithoutSignatures: number;
+  /** ⚠ „Точка 5" from 2016 on and точка 6 before it — the number moved, and точка 6 is the
+   *  INVALID line on the current form, i.e. the field right below this one. Named by what it
+   *  counts: ballots found in the boxes and on the machines. */
+  ballotsFound: number;
+  /** ⚠ PAPER ONLY, IN EVERY ERA — a machine does not accept an invalid ballot. Rendering it
+   *  over the valid total understates the rate by the machine share. */
+  invalidBallots: number;
+  /** „не подкрепям никого". ⚠ ABSENT before 2016 — the form did not ask, and a stored 0
+   *  would claim nobody chose an option nobody was offered. */
+  noneOfTheAbove?: number;
+  /**
+   * The only honest turnout denominator for this place, or `null` where there is none.
+   *
+   * ⚠⚠ `null` ABROAD, BY DEFINITION rather than by arithmetic (decision 6, §2.5-3). Almost
+   * everyone abroad joins the list at the section on the day, so signatures over the roll
+   * measures a registration regime rather than participation — and it does not look absurd:
+   * fed through this repo's own `turnoutPctOf` the presidential abroad rollup renders 98.3%
+   * (2001), 87.6% (2016) and 90.2% (2021), for 68 of 68 countries, with the `cast > denom`
+   * guard never firing. The parliamentary path discriminates on the literal oblast key „32";
+   * this rollup is keyed by COUNTRY, so that discriminator does not exist here and the basis
+   * has to travel in the data.
+   */
+  turnoutBasis: "registered-voters" | null;
+}
+
 export interface Rollup<K extends string> {
   coverage: Coverage;
-  entries: { key: K; results: { votes: Votes[] } }[];
+  entries: {
+    key: K;
+    results: { votes: Votes[]; protocol: ProtocolSum };
+  }[];
 }
 
 /** Stamp a section with where it was placed, dropping a code placement overruled. */
@@ -151,11 +241,10 @@ export interface AggregatedRound {
   regions: Rollup<string>;
   municipalities: Rollup<string>;
   settlements: Rollup<string>;
-  abroad: {
-    coverage: Coverage;
-    /** Country id → votes. The `""` key holds the sections with no country. */
-    entries: { key: string; results: { votes: Votes[] } }[];
-  };
+  /** ⚠ A `Rollup` like the other three, NOT a narrower shape of its own. It carried an
+   *  inline entry type that stopped at `votes`, so when the roll-ups gained a protocol the
+   *  abroad level's was invisible to every consumer while the file on disk had it. */
+  abroad: Rollup<string>;
   /**
    * Section shards, keyed by the oblast they were placed in.
    *
@@ -193,12 +282,76 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
   const municipalities = new Map<string, Map<number, Votes>>();
   const settlements = new Map<string, Map<number, Votes>>();
   const abroad = new Map<string, Map<number, Votes>>();
+  // ⚠ PARALLEL TO THE VOTE BUCKETS, KEYED THE SAME WAY. One map per level rather than a
+  // field on the vote bucket, because a `Map<number, Votes>` is per TICKET and a protocol is
+  // per PLACE — folding it into the ticket map would have to pick a ticket to hang it on.
+  const regionProtocols = new Map<string, ProtocolSum>();
+  const municipalityProtocols = new Map<string, ProtocolSum>();
+  const settlementProtocols = new Map<string, ProtocolSum>();
+  const abroadProtocols = new Map<string, ProtocolSum>();
   const sectionsByOblast = new Map<string, ShardSection[]>();
 
   const inRegions: PresidentialSection[] = [];
   const inMunicipalities: PresidentialSection[] = [];
   const inSettlements: PresidentialSection[] = [];
   const inAbroad: PresidentialSection[] = [];
+
+  /**
+   * Fold one section's protocol into its place.
+   *
+   * ⚠ „никого" IS SPREAD, NEVER DEFAULTED. Before 2016 the form did not ask, so the field is
+   * absent on every section of those cycles — and a `?? 0` here would publish „0 chose none
+   * of the above" about voters who were never offered the option. A place accumulates it only
+   * once some section has answered it.
+   */
+  const addProtocol = (
+    m: Map<string, ProtocolSum>,
+    key: string,
+    section: PresidentialSection,
+    turnoutBasis: ProtocolSum["turnoutBasis"],
+  ): void => {
+    const p = section.protocol;
+    let sum = m.get(key);
+    if (!sum) {
+      sum = {
+        sections: 0,
+        registeredVoters: 0,
+        additionalVoters: 0,
+        signatures: 0,
+        sectionsWithoutSignatures: 0,
+        ballotsFound: 0,
+        invalidBallots: 0,
+        turnoutBasis,
+      };
+      m.set(key, sum);
+    }
+    sum.sections += 1;
+    sum.registeredVoters += p.numRegisteredVoters ?? 0;
+    sum.additionalVoters += p.numAdditionalVoters ?? 0;
+    sum.signatures += p.totalActualVoters ?? 0;
+    // ⚠ THE FLAG OR THE DATA — see the field's docblock. `era2006` is the only reader that
+    // sets the flag, so the inferred arm is what covers the other four eras; a section that
+    // cast nothing and signed nothing is simply a section where nobody voted, which is why
+    // the inference requires real votes.
+    const cast = section.votes.reduce((a, v) => a + (v.totalVotes ?? 0), 0);
+    if (
+      section.signaturesUnreported ||
+      ((p.totalActualVoters ?? 0) === 0 && cast > 0)
+    )
+      sum.sectionsWithoutSignatures += 1;
+    sum.ballotsFound +=
+      (p.numPaperBallotsFound ?? 0) + (p.numMachineBallots ?? 0);
+    sum.invalidBallots += p.numInvalidBallotsFound ?? 0;
+    // ⚠ ABSENT on BOTH fields means the form did not ask; one present means it did. A `??
+    // 0` on each would turn „not asked" into „nobody chose it".
+    const none =
+      p.numValidNoOnePaperVotes === undefined &&
+      p.numValidNoOneMachineVotes === undefined
+        ? undefined
+        : (p.numValidNoOnePaperVotes ?? 0) + (p.numValidNoOneMachineVotes ?? 0);
+    if (none !== undefined)
+      sum.noneOfTheAbove = (sum.noneOfTheAbove ?? 0) + none;
+  };
 
   const bucket = <K extends string>(
     m: Map<K, Map<number, Votes>>,
@@ -215,6 +368,7 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
   for (const [code, place] of placed.domestic) {
     const section = byCode.get(code)!;
     addVotes(bucket(regions, place.oblast), section.votes);
+    addProtocol(regionProtocols, place.oblast, section, "registered-voters");
     inRegions.push(section);
     if (!sectionsByOblast.has(place.oblast))
       sectionsByOblast.set(place.oblast, []);
@@ -228,10 +382,22 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
     // municipality on the strength of its neighbours — see `PlaceBasis`.
     if (place.obshtina) {
       addVotes(bucket(municipalities, place.obshtina), section.votes);
+      addProtocol(
+        municipalityProtocols,
+        place.obshtina,
+        section,
+        "registered-voters",
+      );
       inMunicipalities.push(section);
     }
     if (place.ekatte) {
       addVotes(bucket(settlements, place.ekatte), section.votes);
+      addProtocol(
+        settlementProtocols,
+        place.ekatte,
+        section,
+        "registered-voters",
+      );
       inSettlements.push(section);
     }
   }
@@ -252,6 +418,7 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
     // real votes, and dropping it would quietly shrink the abroad total; a consumer that
     // renders countries must show this bucket as „unknown" rather than skip it.
     addVotes(bucket(abroad, where.country ?? ""), section.votes);
+    addProtocol(abroadProtocols, where.country ?? "", section, null);
     inAbroad.push(section);
   }
 
@@ -262,6 +429,9 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
     covered: PresidentialSection[],
   ): Coverage => ({
     basis,
+    protocolBasis:
+      "summed over exactly the sections above — a level that under-covers the round " +
+      "under-covers its protocols by the same margin",
     sections: covered.length,
     excludedSections: all.length - covered.length,
     votes: totalVotes(covered),
@@ -270,12 +440,22 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
 
   const rollup = <K extends string>(
     m: Map<K, Map<number, Votes>>,
+    protocols: Map<string, ProtocolSum>,
     coverage: Coverage,
   ): Rollup<K> => ({
     coverage,
     entries: [...m.entries()]
       .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, votes]) => ({ key, results: { votes: sortedVotes(votes) } })),
+      .map(([key, votes]) => ({
+        key,
+        results: {
+          votes: sortedVotes(votes),
+          // ⚠ Non-null: every key in the vote map was written by a loop that stamped the
+          // protocol on the same iteration. A missing one is a code defect rather than a
+          // corpus gap, so it throws here instead of publishing an empty protocol.
+          protocol: protocols.get(key)!,
+        },
+      })),
   });
 
   for (const list of sectionsByOblast.values()) {
@@ -288,6 +468,7 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
     date: round.date,
     regions: rollup(
       regions,
+      regionProtocols,
       coverageOf(
         "every section placed in an oblast, by ЕКАТТЕ or by its code prefix; " +
           "excludes abroad (see abroad.json) and refusals (see placement.json)",
@@ -296,6 +477,7 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
     ),
     municipalities: rollup(
       municipalities,
+      municipalityProtocols,
       coverageOf(
         "sections whose ЕКАТТЕ data/settlements.json carries — NOT the whole round",
         inMunicipalities,
@@ -303,6 +485,7 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
     ),
     settlements: rollup(
       settlements,
+      settlementProtocols,
       coverageOf(
         "sections whose ЕКАТТЕ data/settlements.json carries — NOT the whole round",
         inSettlements,
@@ -310,6 +493,7 @@ export const aggregateRound = (round: PresidentialRound): AggregatedRound => {
     ),
     abroad: rollup(
       abroad,
+      abroadProtocols,
       coverageOf(
         'every section outside the country; a "" key, when present, holds those whose ' +
           "country the corpus cannot name",

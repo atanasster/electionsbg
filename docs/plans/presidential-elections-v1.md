@@ -1146,6 +1146,52 @@ family member.
 
 What the shared system needs from this kind, named so it cannot be discovered halfway through:
 
+- **✅ DONE — the aggregate carries a per-place PROTOCOL, which is what makes those levels answerable.**
+  Discovered while starting the surface builder: the roll-ups carried VOTES and nothing else, so turnout, valid
+  votes and invalid ballots — three of the facts the descriptor column declares — were underivable below the
+  country. A declared fact the producer cannot fill is a slot the renderer silently drops, not an error anyone
+  sees, so the gap would have shipped as three missing cards.
+
+  `ProtocolSum` is eight fields summed over the sections a place holds, and two of them exist to keep a gap
+  visible rather than to add a number: ⚠️ **`sectionsWithoutSignatures`**, because all 144 of 2006's abroad
+  sections publish точка 3 = 0 while casting 46,113 valid votes — a place folding them sums real zeros into a
+  real total, and a consumer dividing by the roll would publish 0% turnout against ballots that exist; and
+  ⚠️ **`noneOfTheAbove`, which is ABSENT rather than 0 before 2016**, because the form did not ask and a stored
+  zero claims nobody chose an option nobody was offered. `additionalVoters` is carried for the parliamentary
+  builder's own reason: the printed list is not the electorate, and omitting them publishes „no turnout" for
+  real sections that have one.
+
+  The four vote-rollup levels grew 9% and the budget table above was re-measured; not one verdict moved.
+
+  ⚠️⚠️ **REVIEW FOUND THE SAME DEFECT ONE LEVEL OVER, TWICE, AND BOTH WERE MEASURED RATHER THAN ARGUED:**
+
+  - **`sectionsWithoutSignatures` was a hard zero outside 2006.** It read `section.signaturesUnreported`, which
+    `era2006` is the ONLY reader to set — and whose `undefined` means „this reader does not distinguish". So
+    the count reported „nothing to withhold" for the **25 sections of 2011/2016/2021 that report точка 3 = 0
+    while casting real votes**, eleven of which are ALL of Бобошево (KNL05, 2011 r1): 0 signatures, 17
+    registered, 1,812 ticket votes, and 0.00% turnout under the shared rule with the guard saying all-clear.
+    It is derived from the DATA now — the flag OR (no signatures AND real votes) — and gated on that
+    municipality by name.
+  - **The abroad roll-up gained a registered-voter denominator with no basis marker.** Unifying it as a
+    `Rollup` was right for visibility and removed the last structural difference; the parliamentary path
+    discriminates on the literal oblast key „32", which cannot reach a rollup keyed by COUNTRY. Fed through
+    this repo's own `turnoutPctOf` it renders **98.3% (2001), 87.6% (2016), 90.2% (2021)** for 68 of 68
+    countries, with the `cast > denom` guard never firing — plausible, and forbidden by decision 6.
+    `turnoutBasis` is `null` abroad and `"registered-voters"` at home, so the basis travels in the data.
+
+  Three smaller corrections: `additionalVoters` CARRIES the quantity and no longer prescribes a denominator
+  (the parliamentary builder adds it, the presidential country figure does not, and the two differ by 1.64
+  points on 2021 — both true of different questions); `ballotsFound` is точка 5 from 2016 on and точка 6 is
+  the INVALID line beside it, so the field is named by what it counts; and `Coverage` states a
+  `protocolBasis`, because 2011's municipality and settlement roll-ups reach 15% fewer sections than the round
+  and a consumer summing per-place figures to a national one would be 15% low with nothing saying so.
+
+  ⚠️ The minification gate's `big / 2` rule of thumb went red at 0.503 — not because minification stopped
+  working but because the protocol block is eight short-valued keys per entry, so the key TEXT dominates and
+  indentation removal saves proportionally less. Re-measured across both eras and all four levels (0.462–0.503)
+  and pinned as a band with a floor, so a gate that had been drifting toward a threshold nobody re-derived now
+  states its own range.
+
 - **Map adapters.** `src/screens/elections/adapters/` holds four PARLIAMENTARY adapters (country, region,
   municipality, settlement) and nothing for local, which renders through the legacy composition. Presidential
   ships `PresidentialCountryMap` / `RegionMap` / `MunicipalityMap` / `SettlementMap`, each colouring by leading
@@ -1167,10 +1213,10 @@ What the shared system needs from this kind, named so it cannot be discovered ha
   | level | worst case | budget | over | verdict |
   | --- | ---: | ---: | ---: | --- |
   | country | 13.6 KB (2021) | 24 KiB | 0.6× | **canonical** — one file, inside budget |
-  | region | 104.7 KB (2021) | 16 KiB | 6.5× | artifact |
-  | abroad | 222.0 KB (2021) | 16 KiB | 13.9× | artifact |
-  | municipality | 895.6 KB (2021) | 16 KiB | 56× | artifact |
-  | settlement | 13.3 MB (2021) | 16 KiB | **851×** | artifact |
+  | region | 113.9 KB (2021) | 16 KiB | 7.1× | artifact |
+  | abroad | 241.3 KB (2021) | 16 KiB | 15.1× | artifact |
+  | municipality | 974.6 KB (2021) | 16 KiB | 61× | artifact |
+  | settlement | 14.4 MB (2021) | 16 KiB | **924×** | artifact |
   | section | 2.4 MB (2021, Бургас) | 8 KiB | 307× | artifact |
 
   ⚠️ **The section row was measured on `_unplaced.json` on the first pass, and review caught it.** That is
