@@ -179,3 +179,38 @@ describe("ingest-state I/O", () => {
     expect(readIngestState("no-such-skill", tmp())).toBeNull();
   });
 });
+
+// The same shape as the person-layer block above, and for the same reason: the generic sweep
+// pins filename === field, which a rename of the WRITER's literal satisfies trivially — the
+// committed marker simply stops being written to, the orchestrator keeps reading a file that
+// never moves, and this skill is queued on every run for ever, silently.
+describe("the presidential marker", () => {
+  const SKILL = "update-presidential-elections";
+
+  it("exists under the name the orchestrator looks up", () => {
+    // ⚠ THE LOOKUP IS BY FILENAME. `process-watch-report` reads
+    // `state/ingest/<skill>.json` by path; the `skill` field inside matters only to
+    // `readAllIngestStates`, which the orchestrator never calls. So a marker named after the
+    // WATCHER SOURCE — which is what this plan's own wording asked for — is a marker nothing
+    // ever finds.
+    expect(readIngestState(SKILL)).not.toBeNull();
+  });
+
+  it("names a skill that actually exists", () => {
+    expect(fs.existsSync(path.join(SKILLS_DIR, SKILL, "SKILL.md"))).toBe(true);
+  });
+
+  it("is the skill the watcher→skill map queues", () => {
+    const map = fs.readFileSync(WATCH_SKILL, "utf-8");
+    expect(
+      map.includes(`\`${SKILL}\``),
+      `${WATCH_SKILL} no longer queues \`${SKILL}\` — the marker would go unread`,
+    ).toBe(true);
+  });
+
+  it("is the name `--pvr` actually stamps", () => {
+    const src = fs.readFileSync(path.join(REPO, "scripts/main.ts"), "utf-8");
+    expect(src).toContain(`const PRESIDENTIAL_INGEST_SKILL = "${SKILL}"`);
+    expect(src).toContain("writeIngestState(PRESIDENTIAL_INGEST_SKILL");
+  });
+});

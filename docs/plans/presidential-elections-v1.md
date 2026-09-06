@@ -1400,7 +1400,7 @@ cycle's section page falls back to the legacy composition, the same path a missi
 - **T7.2 Skill** `update-presidential-elections`: triggers, the download → parse → aggregate → surfaces →
   `bucket:sync:paths -- <cycle>_pvr` → `data-changes` chain (no PG, so no `person:slugs`), the runoff re-check,
   and the troubleshooting table (the §2.5 traps in operator form). Registered in `process-watch-report`'s map and
-  stamped in `state/ingest/cik_presidential.json`. **The orchestrator already couples every `cik_results` flip to
+  stamped in `state/ingest/update-presidential-elections.json`. ⚠ **THE MARKER IS NAMED FOR THE SKILL, NOT THE SOURCE** — this line said `cik_presidential.json` until 2026-09-06, and that is a file nothing reads: `process-watch-report` looks up `state/ingest/<skill>.json` BY PATH, so a marker under the source's name reads as „never ran“ and re-queues the skill on every orchestrator run for ever. It happened once already, to the person layer. **The orchestrator already couples every `cik_results` flip to
   `update-persons` and `db:load:person-elections:pg`** (its map says a `cik_results` flip is what refreshes the
   candidate data), and that loader reads the PARLIAMENTARY candidate files. A presidential flip therefore
   either feeds it a ticket arm (Tier 8.1) or is registered as a SEPARATE watcher source (`cik_presidential`)

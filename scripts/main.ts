@@ -1,4 +1,12 @@
 import path from "path";
+
+/** The skill whose ingest marker a successful `--pvr` run stamps.
+ *
+ *  ⚠ NAMED, NOT INLINE, so a rename moves the constant AND the file together. As a bare
+ *  string literal a rename leaves the old marker on disk, the orchestrator queues the skill on
+ *  every run for ever, and every test stays green — `scripts/lib/ingest-state.test.ts` calls
+ *  that „the original bug, vouched for". */
+const PRESIDENTIAL_INGEST_SKILL = "update-presidential-elections";
 import { command, run, string, option, boolean, optional, flag } from "cmd-ts";
 import { fileURLToPath } from "url";
 import { runStats } from "./stats/collect_stats";
@@ -396,12 +404,42 @@ const app = command({
       // production, indented otherwise. Measured, the presidential tree is 134 MB
       // minified across the five cycles, so the difference is not cosmetic.
       const indent = production ? 0 : 2;
-      // ⚠ BOTH SPELLINGS. The plan writes `--pvr --all`; `--pvr all` is what the
-      // handler grew first. cmd-ts's `option` requires a value, so the flag form
-      // still needs a cycle beside it — accepting either means neither spelling
-      // fails with a message about the other.
-      if (all || pvr === "all") ingestAllPresidential({ indent });
-      else ingestPresidentialCycle(pvr, { indent });
+      // ⚠ BOTH SPELLINGS FOR „EVERY CYCLE". The plan writes `--pvr --all`; `--pvr all` is
+      // what the handler grew first. cmd-ts's `option` requires a value, so the flag form
+      // still needs one beside it — `--pvr all --all` and `--pvr all` are the same thing, and
+      // `--all` beside a NAMED cycle is refused below rather than silently widened.
+      // ⚠ `--all` BESIDE `--pvr <cycle>` IS A CONTRADICTION, NOT A DEFAULT. It used to widen
+      // silently to every cycle, so an operator asking for one got five and the parliamentary
+      // pipeline `--all` normally drives ran not at all — the `if (pvr)` arm returns before
+      // reaching it. Two spellings mean „every cycle" and both are explicit.
+      if (all && pvr !== "all")
+        throw new Error(
+          `--all with --pvr ${pvr} is ambiguous: --all means every presidential cycle here ` +
+            `and skips the parliamentary pipeline entirely. Use --pvr all, or --pvr ${pvr} alone.`,
+        );
+      const results =
+        pvr === "all"
+          ? ingestAllPresidential({ indent })
+          : [ingestPresidentialCycle(pvr, { indent })];
+      // ⚠⚠ THE FILENAME IS THE LOOKUP KEY, so it must be the SKILL name — not the watcher
+      // source, which is what this plan's own wording says („state/ingest/cik_presidential
+      // .json"). `process-watch-report` reads `state/ingest/<skill>.json` BY PATH, and its
+      // own step-5 stamp is `stamp-ingest.ts <skill-name>`; the `skill` FIELD inside the file
+      // matters only to `readAllIngestStates`, which the orchestrator never calls. So „the
+      // field is what counts, the filename is free" is exactly the wrong lesson — a marker
+      // filed under a name the map never asks for reads as „never ran" and re-queues this
+      // skill on every orchestrator run for ever, silently. That happened once already, to
+      // the person layer (`state/ingest/persons.json` against `update-persons`), and
+      // `scripts/lib/ingest-state.test.ts` exists because of it.
+      //
+      // ⚠ A NAMED CONSTANT, so a rename cannot leave the committed marker orphaned while
+      // every test stays green — the `resolve_persons.ts` precedent.
+      const { writeIngestState } = await import("./lib/ingest-state");
+      writeIngestState(PRESIDENTIAL_INGEST_SKILL, {
+        summary: results
+          .map((r) => `${r.cycle}: ${r.files.length} file(s)`)
+          .join("; "),
+      });
       return;
     }
     if (pvrDownload) {
