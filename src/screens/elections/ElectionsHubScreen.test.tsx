@@ -63,6 +63,19 @@ const linkTo = (path: string) =>
   [...document.querySelectorAll("a[href]")].find((a) => pathOf(a) === path) ??
   null;
 
+/**
+ * Tiles only.
+ *
+ * ⚠ THE SCOPE ROW RENDERS SOME OF THE SAME DESTINATIONS, so a document-wide `linkTo` passes
+ * on the scope link alone and stops proving the tile is there at all: measured, deleting the
+ * `/parliamentary` tile from the registry left the assertion below green. The collision was
+ * already there under the old binary toggle and widened when the row gained a link per kind.
+ */
+const tileLinkTo = (path: string) =>
+  [...document.querySelectorAll("a[href]")].find(
+    (a) => pathOf(a) === path && !a.closest("[data-elections-scope]"),
+  ) ?? null;
+
 describe("the resolved cycle", () => {
   it("follows `?elections` rather than defaulting to the latest", () => {
     // ⚠ THE PARAM CAN BE FORCED BY A LINK. `usePreserveParams` carries it, so a reader
@@ -83,13 +96,48 @@ describe("the resolved cycle", () => {
     expect(
       pathOf(within(scope()).getByText(bgCorpus.elections_hub_full_result)),
     ).toBe("/local/2019_10_27_mi");
-    // The compact adjacent link is to the OTHER kind — §Phase 3 item 4's "one canvas, never
-    // two simultaneous maps".
+    // The compact adjacent links are to the OTHER kinds — §Phase 3 item 4's "one canvas,
+    // never two simultaneous maps", once per kind this page is not showing.
     expect(
       pathOf(
         within(scope()).getByText(bgCorpus.elections_hub_other_parliamentary),
       ),
     ).toBe("/parliamentary");
+    // ⚠ 2016, NOT THE LATEST: the reader is standing on 27.10.2019, and the presidency in
+    // effect then was Радев's first term. Offering the 2021 cycle here would be the §3.2
+    // disagreement — a scope pill naming one date beside a link to a later election.
+    expect(
+      pathOf(
+        within(scope()).getByText(bgCorpus.elections_hub_other_presidential),
+      ),
+    ).toBe("/presidential/2016_11_06_pvr");
+    // …and never a link back to the kind the reader is already on.
+    expect(
+      within(scope()).queryByText(bgCorpus.elections_hub_other_local),
+    ).toBe(null);
+  });
+
+  it("offers EVERY other kind from the scope row, anchored to the resolved date", () => {
+    // ⚠ THIS ROW WAS A BINARY TOGGLE UNTIL THE PRESIDENTIAL TILE SHIPPED, and the omission
+    // was invisible: `local ? parliamentary : local` reads as "the other kind" while meaning
+    // "the other of the two I know about", so the presidency was unreachable from this page
+    // for every reader on a parliamentary cycle — the ordinary case.
+    mount("?elections=2021_11_14");
+    expect(
+      pathOf(within(scope()).getByText(bgCorpus.elections_hub_other_local)),
+    ).toBe("/local/2019_10_27_mi");
+    // ⚠ THE SAME DAY. 14.11.2021 carried both ballots — the one date in this corpus where
+    // they coincide — which is the point of the case AND its limit: because the anchored and
+    // the unanchored answer are equal here, this assertion alone cannot prove the anchoring.
+    // The 2019 local case above is what pins that, on both directions of the row.
+    expect(
+      pathOf(
+        within(scope()).getByText(bgCorpus.elections_hub_other_presidential),
+      ),
+    ).toBe("/presidential/2021_11_14_pvr");
+    expect(
+      within(scope()).queryByText(bgCorpus.elections_hub_other_parliamentary),
+    ).toBe(null);
   });
 
   it("falls back to the latest and NAMES what it could not read", () => {
@@ -119,6 +167,27 @@ describe("the resolved cycle", () => {
     // ⚠ THE FOLDER ID IS A KEY AND NEVER A LABEL — the defect that put „2026-04-19" on 31
     // surfaces, checked on the one page that now renders a `_pvr` cycle.
     expect(document.body.textContent).not.toContain("2021_11_14_pvr");
+    // …and from HERE the other two kinds are the ones offered, the presidency being where
+    // the reader already is.
+    expect(
+      pathOf(
+        within(scope()).getByText(bgCorpus.elections_hub_other_parliamentary),
+      ),
+    ).toBe("/parliamentary");
+    expect(
+      within(scope()).queryByText(bgCorpus.elections_hub_other_presidential),
+    ).toBe(null);
+    // ⚠⚠ THE LOCAL LINK IS ANCHORED TO *THIS* CYCLE'S DATE, and it was not until 2026-09-07.
+    // `useLatestLocalCycle()` reads `ElectionContext`, which validates its param against the
+    // PARLIAMENTARY catalogue only — so a `_pvr` id resolved to the newest parliamentary
+    // election and this link went to 2023 while the pill said 2021. The same value feeds ten
+    // `cycleScoped: "local"` tiles, so the disagreement was eleven destinations wide.
+    expect(
+      pathOf(within(scope()).getByText(bgCorpus.elections_hub_other_local)),
+    ).toBe("/local/2019_10_27_mi");
+    // …and the tiles agree with it, which is where the same value does the most damage.
+    expect(tileLinkTo("/local/2019_10_27_mi/municipalities")).toBeTruthy();
+    expect(tileLinkTo("/local/2023_10_29_mi/municipalities")).toBeNull();
   });
 
   it("says nothing about a fallback when no param was given", () => {
@@ -203,7 +272,7 @@ describe("the tile bands", () => {
     expect(linkTo(`/local/${LATEST_LOCAL_CYCLE}/runoffs`)).toBeNull();
     // …and the two that carry no cycle are untouched.
     expect(linkTo("/local/chmi")).toBeTruthy();
-    expect(linkTo("/parliamentary")).toBeTruthy();
+    expect(tileLinkTo("/parliamentary")).toBeTruthy();
   });
 });
 

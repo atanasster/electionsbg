@@ -25,12 +25,13 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { buildPlaceItems } from "@/data/search/placeSearchItems";
-import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { localAsOf } from "@/data/local/localAsOf";
 import { presidentialAsOf } from "@/data/presidentialAsOf";
 import { formatDate } from "@/lib/formatDate";
 import { groupedInt } from "@/screens/analysis/analysisHubFigures";
 import { ELECTIONS_BANDS, withCycle } from "./electionsRegistry";
 import { ELECTIONS_SCENES } from "./electionsScenes";
+import { otherKindLinks } from "./otherKinds";
 import {
   CYCLE_SURFACE,
   LATEST_RESOLVABLE_EVENT,
@@ -45,14 +46,22 @@ export const ElectionsHubScreen: FC = () => {
   const lang = i18n.language;
   const [param, setParam] = useSearchParam("elections", { replace: true });
   const cycle = useMemo(() => resolveHubCycle(param), [param]);
-  // ⚠ `useLatestLocalCycle()` RE-ANCHORS ON THE PARLIAMENTARY SELECTION AND CANNOT SEE A LOCAL
-  // ONE. It reads `ElectionContext`, whose `selected` is validated against the parliamentary
-  // catalogue only — so `?elections=2019_10_27_mi` leaves it on the latest local cycle while
-  // this hub's scope pill says 2019. Measured by this screen's own gate. When the reader has
-  // selected a local cycle, that IS the cycle; otherwise the anchored one is right, because it
-  // is the local government in effect as of the parliamentary vote they picked.
-  const anchoredLocal = useLatestLocalCycle();
-  const localCycle = cycle.kind === "local" ? cycle.id : anchoredLocal;
+  // ⚠ FROM THE RESOLVED CYCLE'S DATE, WHATEVER ITS KIND — the same rule as
+  // `presidentialCycle` below, and it did NOT hold here until 2026-09-07.
+  // `useLatestLocalCycle()` cannot serve this: it reads `ElectionContext`, whose `selected`
+  // is validated against the PARLIAMENTARY catalogue only, so a `_pvr` id never resolves
+  // there and silently becomes the newest parliamentary election. The `kind === "local"`
+  // special case rescued a local selection and nothing rescued a presidential one — measured,
+  // `?elections=2016_11_06_pvr` put a pill reading 6 November 2016 beside a link to
+  // `/local/2023_10_29_mi`, and the same value feeds the ten `cycleScoped: "local"` tiles, so
+  // eleven destinations disagreed with the pill on every one of the five presidential cycles.
+  //
+  // ⚠ THE `kind === "local"` ARM STAYS. `localAsOf` resolves REGULAR cycles only, so a
+  // partial (chmi) selection would anchor to the surrounding regular cycle rather than to
+  // itself. The catalogue holds no partials today; this is what keeps that safe if it gains
+  // one.
+  const localCycle =
+    cycle.kind === "local" ? cycle.id : localAsOf(cycle.date).cycle;
   // ⚠ FROM THE RESOLVED CYCLE'S DATE, WHATEVER ITS KIND. A reader who selected a LOCAL
   // cycle is standing at a point in time too, and a first draft passed `undefined` for
   // them — which means „the newest", so the pill would read „Местен вот · 27 октомври 2019"
@@ -134,10 +143,20 @@ export const ElectionsHubScreen: FC = () => {
   // presidential cycle would have linked to `/elections/2021_11_14_pvr` — a 404 the type
   // system could not see.
   const fullResultTo = hubCycleHref(cycle);
-  // §Phase 3 item 4: ONE outcome canvas, and a compact adjacent link to the other kind — never
-  // two simultaneous maps.
-  const otherKindTo =
-    cycle.kind === "local" ? "/parliamentary" : `/local/${anchoredLocal}`;
+  // §Phase 3 item 4: ONE outcome canvas, and a compact adjacent link to each of the OTHER
+  // kinds — never two simultaneous maps. The model is in `otherKinds.ts` so that „every kind
+  // is answered, with copy that exists" is a compile error plus a gate rather than a habit;
+  // this component only supplies the two resolved cycles.
+  //
+  // ⚠ EACH LINK CARRIES THE CYCLE THIS READER RESOLVED. `presidentialAsOf` anchors on ROUND 1,
+  // so selecting the 14.11.2021 parliamentary vote offers the presidential election held the
+  // SAME DAY — the one pairing in this corpus where the two ballots share a date, and the
+  // reason the anchoring is by date rather than by catalogue position.
+  const otherKinds = otherKindLinks({
+    current: cycle.kind,
+    localCycle,
+    presidentialCycle,
+  });
 
   const sections: TileHubSection[] = ELECTIONS_BANDS.map((band) => ({
     heading: t(band.labelKey),
@@ -191,13 +210,11 @@ export const ElectionsHubScreen: FC = () => {
             <Link to={fullResultTo} className="text-sm underline">
               {t("elections_hub_full_result")}
             </Link>
-            <Link to={otherKindTo} className="text-sm underline">
-              {t(
-                cycle.kind === "local"
-                  ? "elections_hub_other_parliamentary"
-                  : "elections_hub_other_local",
-              )}
-            </Link>
+            {otherKinds.map((o) => (
+              <Link key={o.kind} to={o.to} className="text-sm underline">
+                {t(o.labelKey)}
+              </Link>
+            ))}
             {/* ⚠ AN EXPLICIT CONTROL, NEVER A SILENT DEFAULT (§3.2 rule 2). A hub showing 2013
                 must say 2013; „switch to the latest" is offered, not applied. */}
             {/* ⚠ THE LATEST RESOLVABLE EVENT, not the latest catalogued one. Writing an
