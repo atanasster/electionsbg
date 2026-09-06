@@ -1,7 +1,7 @@
 {
   "constituentBudget": "state",
   "country": "BG",
-  "generatedAt": "2026-08-14T04:36:51.946Z",
+  "generatedAt": "2026-09-06T22:13:24.580Z",
   "observations": [
     {
       "asOf": "2021-06-30",
@@ -6782,6 +6782,121 @@
         "rowLabel": "I. Приходи, Помощи и дарения",
         "sheet": "81d1e37e-0e68-4733-b1d1-35d8a2b86c04"
       }
+    },
+    {
+      "asOf": "2026-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -1927382939,
+        "amountEur": -1927382939,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-07",
+      "planned": {
+        "amount": -7319804000,
+        "amountEur": -7319804000,
+        "currency": "EUR"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. Бюджетно салдо (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "255e86a9-2292-461e-99b1-82d755db126e"
+      }
+    },
+    {
+      "asOf": "2026-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 661723909,
+        "amountEur": 661723909,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-07",
+      "planned": {
+        "amount": 1282158200,
+        "amountEur": 1282158200,
+        "currency": "EUR"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. Вноска в общия бюджет на ЕС",
+        "sheet": "255e86a9-2292-461e-99b1-82d755db126e"
+      }
+    },
+    {
+      "asOf": "2026-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 16516289946,
+        "amountEur": 16516289946,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-07",
+      "planned": {
+        "amount": 34498492900,
+        "amountEur": 34498492900,
+        "currency": "EUR"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II. Разходи и трансфери",
+        "sheet": "255e86a9-2292-461e-99b1-82d755db126e"
+      }
+    },
+    {
+      "asOf": "2026-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1927382939,
+        "amountEur": 1927382939,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-07",
+      "planned": {
+        "amount": 7319804000,
+        "amountEur": 7319804000,
+        "currency": "EUR"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. Финансиране",
+        "sheet": "255e86a9-2292-461e-99b1-82d755db126e"
+      }
+    },
+    {
+      "asOf": "2026-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 15250630916,
+        "amountEur": 15250630916,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-07",
+      "planned": {
+        "amount": 28460847100,
+        "amountEur": 28460847100,
+        "currency": "EUR"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. Приходи, Помощи и дарения",
+        "sheet": "255e86a9-2292-461e-99b1-82d755db126e"
+      }
     }
   ],
   "snapshots": [
@@ -11144,17 +11259,17 @@
       ]
     },
     {
-      "asOf": "2026-06-30",
+      "asOf": "2026-07-31",
       "constituentBudget": "state",
       "currency": "EUR",
       "fiscalYear": 2026,
-      "period": "2026-06",
+      "period": "2026-07",
       "sections": [
         {
           "code": "I",
           "executed": {
-            "amount": 12796331646,
-            "amountEur": 12796331646,
+            "amount": 15250630916,
+            "amountEur": 15250630916,
             "currency": "EUR"
           },
           "kind": "revenue",
@@ -11164,8 +11279,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 11429348565,
-                "amountEur": 11429348565,
+                "amount": 13651612295,
+                "amountEur": 13651612295,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11173,13 +11288,17 @@
               "isSubtotal": true,
               "labelBg": "Данъчни приходи",
               "labelEn": "Tax revenue",
-              "planned": null
+              "planned": {
+                "amount": 25409470000,
+                "amountEur": 25409470000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 1491939365,
-                "amountEur": 1491939365,
+                "amount": 1764145245,
+                "amountEur": 1764145245,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11187,27 +11306,35 @@
               "isSubtotal": false,
               "labelBg": "Корпоративен данък",
               "labelEn": "Corporate income tax",
-              "planned": null
+              "planned": {
+                "amount": 3418730000,
+                "amountEur": 3418730000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 44257023,
-                "amountEur": 44257023,
+                "amount": 56729971,
+                "amountEur": 56729971,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
               "groupLabelEn": "Tax revenue",
               "isSubtotal": false,
-              "labelBg": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
-              "labelEn": "Taxes on dividends, liquidation shares and income of resident and foreign legal entities",
-              "planned": null
+              "labelBg": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чуждестранни юридически лица",
+              "labelEn": "",
+              "planned": {
+                "amount": 79730000,
+                "amountEur": 79730000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 2249600553,
-                "amountEur": 2249600553,
+                "amount": 2703756636,
+                "amountEur": 2703756636,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11215,13 +11342,17 @@
               "isSubtotal": false,
               "labelBg": "Данъци в/у доходите на физически лица",
               "labelEn": "Personal income tax",
-              "planned": null
+              "planned": {
+                "amount": 4752000000,
+                "amountEur": 4752000000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 5720993848,
-                "amountEur": 5720993848,
+                "amount": 6762270836,
+                "amountEur": 6762270836,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11229,13 +11360,17 @@
               "isSubtotal": false,
               "labelBg": "Данък върху добавената стойност",
               "labelEn": "Value added tax",
-              "planned": null
+              "planned": {
+                "amount": 12803830000,
+                "amountEur": 12803830000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 1691179838,
-                "amountEur": 1691179838,
+                "amount": 2083130428,
+                "amountEur": 2083130428,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11243,13 +11378,17 @@
               "isSubtotal": false,
               "labelBg": "Акцизи",
               "labelEn": "Excise duties",
-              "planned": null
+              "planned": {
+                "amount": 3963500000,
+                "amountEur": 3963500000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 20527419,
-                "amountEur": 20527419,
+                "amount": 30644279,
+                "amountEur": 30644279,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11257,13 +11396,17 @@
               "isSubtotal": false,
               "labelBg": "Данък върху застрахователните премии",
               "labelEn": "Insurance premium tax",
-              "planned": null
+              "planned": {
+                "amount": 43400000,
+                "amountEur": 43400000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 126023753,
-                "amountEur": 126023753,
+                "amount": 147543796,
+                "amountEur": 147543796,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11271,13 +11414,17 @@
               "isSubtotal": false,
               "labelBg": "Мита и митнически такси",
               "labelEn": "Customs duties",
-              "planned": null
+              "planned": {
+                "amount": 220000000,
+                "amountEur": 220000000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 84826766,
-                "amountEur": 84826766,
+                "amount": 103391104,
+                "amountEur": 103391104,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11285,13 +11432,17 @@
               "isSubtotal": false,
               "labelBg": "Други данъци",
               "labelEn": "Other taxes",
-              "planned": null
+              "planned": {
+                "amount": 128280000,
+                "amountEur": 128280000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 0,
               "executed": {
-                "amount": 1331974318,
-                "amountEur": 1331974318,
+                "amount": 1563004070,
+                "amountEur": 1563004070,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11299,13 +11450,17 @@
               "isSubtotal": true,
               "labelBg": "Неданъчни приходи",
               "labelEn": "Non-tax revenue",
-              "planned": null
+              "planned": {
+                "amount": 3051121500,
+                "amountEur": 3051121500,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 172268009,
-                "amountEur": 172268009,
+                "amount": 212265117,
+                "amountEur": 212265117,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11313,7 +11468,11 @@
               "isSubtotal": false,
               "labelBg": "Приходи и доходи  от собственост",
               "labelEn": "Property income",
-              "planned": null
+              "planned": {
+                "amount": 601597500,
+                "amountEur": 601597500,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
@@ -11327,13 +11486,17 @@
               "isSubtotal": false,
               "labelBg": "Превишение на приходите над разходите на БНБ",
               "labelEn": "Surplus of BNB revenue over expenditure",
-              "planned": null
+              "planned": {
+                "amount": 281000000,
+                "amountEur": 281000000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 663619645,
-                "amountEur": 663619645,
+                "amount": 784497939,
+                "amountEur": 784497939,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11341,13 +11504,17 @@
               "isSubtotal": false,
               "labelBg": "Приходи от такси",
               "labelEn": "Fees",
-              "planned": null
+              "planned": {
+                "amount": 1541653700,
+                "amountEur": 1541653700,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 116964910,
-                "amountEur": 116964910,
+                "amount": 138121536,
+                "amountEur": 138121536,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11355,13 +11522,17 @@
               "isSubtotal": false,
               "labelBg": "Глоби, санкции и наказателни лихви",
               "labelEn": "Fines and penalties",
-              "planned": null
+              "planned": {
+                "amount": 241812500,
+                "amountEur": 241812500,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 98121754,
-                "amountEur": 98121754,
+                "amount": 147119478,
+                "amountEur": 147119478,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11369,13 +11540,17 @@
               "isSubtotal": false,
               "labelBg": "Други неданъчни приходи",
               "labelEn": "Other non-tax revenue",
-              "planned": null
+              "planned": {
+                "amount": 385057800,
+                "amountEur": 385057800,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 0,
               "executed": {
-                "amount": 35008763,
-                "amountEur": 35008763,
+                "amount": 36014551,
+                "amountEur": 36014551,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11383,17 +11558,25 @@
               "isSubtotal": false,
               "labelBg": "Помощи",
               "labelEn": "Grants",
-              "planned": null
+              "planned": {
+                "amount": 255600,
+                "amountEur": 255600,
+                "currency": "EUR"
+              }
             }
           ],
-          "planned": null,
+          "planned": {
+            "amount": 28460847100,
+            "amountEur": 28460847100,
+            "currency": "EUR"
+          },
           "series": "revenue"
         },
         {
           "code": "II",
           "executed": {
-            "amount": 14150474073,
-            "amountEur": 14150474073,
+            "amount": 16516289946,
+            "amountEur": 16516289946,
             "currency": "EUR"
           },
           "kind": "expenditure",
@@ -11403,8 +11586,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 5984288918,
-                "amountEur": 5984288918,
+                "amount": 7070471304,
+                "amountEur": 7070471304,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11412,13 +11595,17 @@
               "isSubtotal": true,
               "labelBg": "Разходи",
               "labelEn": "Expenditure",
-              "planned": null
+              "planned": {
+                "amount": 17600574100,
+                "amountEur": 17600574100,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 3272676294,
-                "amountEur": 3272676294,
+                "amount": 3838155258,
+                "amountEur": 3838155258,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11426,13 +11613,17 @@
               "isSubtotal": false,
               "labelBg": "Персонал",
               "labelEn": "Personnel",
-              "planned": null
+              "planned": {
+                "amount": 6715112300,
+                "amountEur": 6715112300,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 827630807,
-                "amountEur": 827630807,
+                "amount": 991479046,
+                "amountEur": 991479046,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11440,13 +11631,17 @@
               "isSubtotal": false,
               "labelBg": "Издръжка",
               "labelEn": "Operations and maintenance",
-              "planned": null
+              "planned": {
+                "amount": 3460279300,
+                "amountEur": 3460279300,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 502344333,
-                "amountEur": 502344333,
+                "amount": 633578589,
+                "amountEur": 633578589,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11454,13 +11649,17 @@
               "isSubtotal": true,
               "labelBg": "Лихви - общо",
               "labelEn": "Interest — total",
-              "planned": null
+              "planned": {
+                "amount": 1030666200,
+                "amountEur": 1030666200,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 451914547,
-                "amountEur": 451914547,
+                "amount": 523359341,
+                "amountEur": 523359341,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11468,13 +11667,17 @@
               "isSubtotal": false,
               "labelBg": "Лихви по външни заеми",
               "labelEn": "Interest on external debt",
-              "planned": null
+              "planned": {
+                "amount": 880755700,
+                "amountEur": 880755700,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 50429786,
-                "amountEur": 50429786,
+                "amount": 110219248,
+                "amountEur": 110219248,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11482,13 +11685,17 @@
               "isSubtotal": false,
               "labelBg": "Лихви по вътрешни заеми",
               "labelEn": "Interest on domestic debt",
-              "planned": null
+              "planned": {
+                "amount": 149910500,
+                "amountEur": 149910500,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 517373467,
-                "amountEur": 517373467,
+                "amount": 600951819,
+                "amountEur": 600951819,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11496,13 +11703,17 @@
               "isSubtotal": false,
               "labelBg": "Социални разходи, стипендии",
               "labelEn": "Social spending and scholarships",
-              "planned": null
+              "planned": {
+                "amount": 2024184300,
+                "amountEur": 2024184300,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 462241125,
-                "amountEur": 462241125,
+                "amount": 542440063,
+                "amountEur": 542440063,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11510,13 +11721,17 @@
               "isSubtotal": false,
               "labelBg": "Субсидии",
               "labelEn": "Subsidies",
-              "planned": null
+              "planned": {
+                "amount": 1127210100,
+                "amountEur": 1127210100,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 1836645,
-                "amountEur": 1836645,
+                "amount": 2847092,
+                "amountEur": 2847092,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11524,13 +11739,17 @@
               "isSubtotal": false,
               "labelBg": "Предоставени текущи и капиталови трансфери за чужбина",
               "labelEn": "Current and capital transfers provided abroad",
-              "planned": null
+              "planned": {
+                "amount": 14194700,
+                "amountEur": 14194700,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 369683774,
-                "amountEur": 369683774,
+                "amount": 429634056,
+                "amountEur": 429634056,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11538,13 +11757,17 @@
               "isSubtotal": false,
               "labelBg": "Капиталови разходи",
               "labelEn": "Capital expenditure",
-              "planned": null
+              "planned": {
+                "amount": 3114253000,
+                "amountEur": 3114253000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 30502473,
-                "amountEur": 30502473,
+                "amount": 31385381,
+                "amountEur": 31385381,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11552,7 +11775,11 @@
               "isSubtotal": false,
               "labelBg": "Прираст на държавния резерв - нето",
               "labelEn": "Increase in state reserves (net)",
-              "planned": null
+              "planned": {
+                "amount": 47490700,
+                "amountEur": 47490700,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 0,
@@ -11560,15 +11787,19 @@
               "groupLabelBg": null,
               "groupLabelEn": null,
               "isSubtotal": false,
-              "labelBg": "Резерв за непредвидени и/или неотложни разходи:",
-              "labelEn": "Reserve for unforeseen and/or urgent expenditure",
-              "planned": null
+              "labelBg": "Резерв за непредвидени и/или неотложни разходи",
+              "labelEn": "",
+              "planned": {
+                "amount": 67183500,
+                "amountEur": 67183500,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 0,
               "executed": {
-                "amount": 8166185155,
-                "amountEur": 8166185155,
+                "amount": 9445818642,
+                "amountEur": 9445818642,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11576,13 +11807,17 @@
               "isSubtotal": true,
               "labelBg": "Трансфери (нето)",
               "labelEn": "Transfers (net)",
-              "planned": null
+              "planned": {
+                "amount": 16897918800,
+                "amountEur": 16897918800,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 8227915286,
-                "amountEur": 8227915286,
+                "amount": 9518567695,
+                "amountEur": 9518567695,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11590,13 +11825,17 @@
               "isSubtotal": true,
               "labelBg": "Предоставени трансфери",
               "labelEn": "Provided transfers",
-              "planned": null
+              "planned": {
+                "amount": 16904770200,
+                "amountEur": 16904770200,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 327058695,
-                "amountEur": 327058695,
+                "amount": 386085214,
+                "amountEur": 386085214,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11604,13 +11843,17 @@
               "isSubtotal": false,
               "labelBg": "ДВУ, БАН, ССА, БНТ, БНР и БТА",
               "labelEn": "State universities, BAS, SSA, BNT, BNR and BTA",
-              "planned": null
+              "planned": {
+                "amount": 838714000,
+                "amountEur": 838714000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 3266740514,
-                "amountEur": 3266740514,
+                "amount": 3750862636,
+                "amountEur": 3750862636,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11618,13 +11861,17 @@
               "isSubtotal": false,
               "labelBg": "Общини",
               "labelEn": "Municipalities",
-              "planned": null
+              "planned": {
+                "amount": 4927964000,
+                "amountEur": 4927964000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 4134409574,
-                "amountEur": 4134409574,
+                "amount": 4903020951,
+                "amountEur": 4903020951,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11632,13 +11879,17 @@
               "isSubtotal": false,
               "labelBg": "Социалноосигурителни фондове",
               "labelEn": "Social security funds",
-              "planned": null
+              "planned": {
+                "amount": 8797170800,
+                "amountEur": 8797170800,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 40092591,
-                "amountEur": 40092591,
+                "amount": 46105602,
+                "amountEur": 46105602,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11646,13 +11897,17 @@
               "isSubtotal": false,
               "labelBg": "Бюджети по чл.13 (4) от ЗПФ - нето",
               "labelEn": "Art. 13(4) Public Finance Act budgets (net)",
-              "planned": null
+              "planned": {
+                "amount": 111869400,
+                "amountEur": 111869400,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 459613912,
-                "amountEur": 459613912,
+                "amount": 432493292,
+                "amountEur": 432493292,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11660,13 +11915,17 @@
               "isSubtotal": false,
               "labelBg": "Други трансфери - нето",
               "labelEn": "Other transfers (net)",
-              "planned": null
+              "planned": {
+                "amount": 2229052000,
+                "amountEur": 2229052000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 61730131,
-                "amountEur": 61730131,
+                "amount": 72749053,
+                "amountEur": 72749053,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11674,13 +11933,17 @@
               "isSubtotal": true,
               "labelBg": "Получени трансфери",
               "labelEn": "Received transfers",
-              "planned": null
+              "planned": {
+                "amount": 6851400,
+                "amountEur": 6851400,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 6673968,
-                "amountEur": 6673968,
+                "amount": 8172651,
+                "amountEur": 8172651,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11688,59 +11951,79 @@
               "isSubtotal": false,
               "labelBg": "Общини",
               "labelEn": "Municipalities",
-              "planned": null
+              "planned": {
+                "amount": 3067800,
+                "amountEur": 3067800,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 2,
               "executed": {
-                "amount": 55056163,
-                "amountEur": 55056163,
+                "amount": 64576402,
+                "amountEur": 64576402,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
               "groupLabelEn": "Transfers (net)",
               "isSubtotal": false,
-              "labelBg": "Социалноосигурителни фондове",
-              "labelEn": "Social security funds",
-              "planned": null
+              "labelBg": "Социалноосигурителни фондове **",
+              "labelEn": "",
+              "planned": {
+                "amount": 3783600,
+                "amountEur": 3783600,
+                "currency": "EUR"
+              }
             }
           ],
-          "planned": null,
+          "planned": {
+            "amount": 34498492900,
+            "amountEur": 34498492900,
+            "currency": "EUR"
+          },
           "series": "expenditure"
         },
         {
           "code": "III",
           "executed": {
-            "amount": 560263445,
-            "amountEur": 560263445,
+            "amount": 661723909,
+            "amountEur": 661723909,
             "currency": "EUR"
           },
           "kind": "expenditure",
           "labelBg": "III. Вноска в общия бюджет на ЕС",
           "labelEn": "Contribution to the EU budget",
           "lines": [],
-          "planned": null,
+          "planned": {
+            "amount": 1282158200,
+            "amountEur": 1282158200,
+            "currency": "EUR"
+          },
           "series": "euContribution"
         },
         {
           "code": "IV",
           "executed": {
-            "amount": -1914405872,
-            "amountEur": -1914405872,
+            "amount": -1927382939,
+            "amountEur": -1927382939,
             "currency": "EUR"
           },
           "kind": "balance",
           "labelBg": "IV. Бюджетно салдо (дефицит \"-\" / излишък \"+\") = /I-II-III/",
           "labelEn": "Budget balance (deficit / surplus)",
           "lines": [],
-          "planned": null,
+          "planned": {
+            "amount": -7319804000,
+            "amountEur": -7319804000,
+            "currency": "EUR"
+          },
           "series": "balance"
         },
         {
           "code": "V",
           "executed": {
-            "amount": 1914405874,
-            "amountEur": 1914405874,
+            "amount": 1927382939,
+            "amountEur": 1927382939,
             "currency": "EUR"
           },
           "kind": "financing",
@@ -11750,8 +12033,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 329673159,
-                "amountEur": 329673159,
+                "amount": 2782557810,
+                "amountEur": 2782557810,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11759,13 +12042,17 @@
               "isSubtotal": true,
               "labelBg": "Външно финансиране  (нето)",
               "labelEn": "External financing (net)",
-              "planned": null
+              "planned": {
+                "amount": 5603231000,
+                "amountEur": 5603231000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 333826208,
-                "amountEur": 333826208,
+                "amount": 2786276208,
+                "amountEur": 2786276208,
                 "currency": "EUR"
               },
               "groupLabelBg": "Външно финансиране  (нето)",
@@ -11773,13 +12060,37 @@
               "isSubtotal": false,
               "labelBg": "Заеми и дълг, поет на межд. капит. пазари (нето)",
               "labelEn": "",
+              "planned": {
+                "amount": 5596231000,
+                "amountEur": 5596231000,
+                "currency": "EUR"
+              }
+            },
+            {
+              "depth": 1,
+              "executed": null,
+              "groupLabelBg": "Външно финансиране  (нето)",
+              "groupLabelEn": "External financing (net)",
+              "isSubtotal": false,
+              "labelBg": "Получени погашения по предоставени кредити на др. държави (+)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "depth": 1,
+              "executed": null,
+              "groupLabelBg": "Външно финансиране  (нето)",
+              "groupLabelEn": "External financing (net)",
+              "isSubtotal": false,
+              "labelBg": "Операции с ценни книжа и финансови активи (нето)",
+              "labelEn": "",
               "planned": null
             },
             {
               "depth": 1,
               "executed": {
-                "amount": -4153049,
-                "amountEur": -4153049,
+                "amount": -3718398,
+                "amountEur": -3718398,
                 "currency": "EUR"
               },
               "groupLabelBg": "Външно финансиране  (нето)",
@@ -11787,13 +12098,17 @@
               "isSubtotal": false,
               "labelBg": "Депозити (нето) в чужбина",
               "labelEn": "",
-              "planned": null
+              "planned": {
+                "amount": 7000000,
+                "amountEur": 7000000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 0,
               "executed": {
-                "amount": 1609396267,
-                "amountEur": 1609396267,
+                "amount": -706089986,
+                "amountEur": -706089986,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11801,7 +12116,11 @@
               "isSubtotal": true,
               "labelBg": "Вътрешно финансиране  (нето)",
               "labelEn": "Domestic financing (net)",
-              "planned": null
+              "planned": {
+                "amount": 1715573000,
+                "amountEur": 1715573000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
@@ -11815,13 +12134,17 @@
               "isSubtotal": false,
               "labelBg": "Небанково (нето)",
               "labelEn": "",
-              "planned": null
+              "planned": {
+                "amount": -580919100,
+                "amountEur": -580919100,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 1,
               "executed": {
-                "amount": 1609396267,
-                "amountEur": 1609396267,
+                "amount": -706089986,
+                "amountEur": -706089986,
                 "currency": "EUR"
               },
               "groupLabelBg": "Вътрешно финансиране  (нето)",
@@ -11829,7 +12152,11 @@
               "isSubtotal": false,
               "labelBg": "Банково (нето)",
               "labelEn": "",
-              "planned": null
+              "planned": {
+                "amount": 2296492100,
+                "amountEur": 2296492100,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 0,
@@ -11844,8 +12171,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": -24663552,
-                "amountEur": -24663552,
+                "amount": -149084885,
+                "amountEur": -149084885,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11853,7 +12180,11 @@
               "isSubtotal": false,
               "labelBg": "и възмездни  средства (нето)",
               "labelEn": "",
-              "planned": null
+              "planned": {
+                "amount": 1000000,
+                "amountEur": 1000000,
+                "currency": "EUR"
+              }
             },
             {
               "depth": 0,
@@ -11864,13 +12195,91 @@
               },
               "groupLabelBg": null,
               "groupLabelEn": null,
-              "isSubtotal": false,
+              "isSubtotal": true,
               "labelBg": "в т.ч.: приватизация на дялове, акции и участия",
+              "labelEn": "",
+              "planned": {
+                "amount": 1000000,
+                "amountEur": 1000000,
+                "currency": "EUR"
+              }
+            },
+            {
+              "depth": 1,
+              "executed": null,
+              "groupLabelBg": "в т.ч.: приватизация на дялове, акции и участия",
+              "groupLabelEn": null,
+              "isSubtotal": false,
+              "labelBg": "Забележки:",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "depth": 0,
+              "executed": null,
+              "groupLabelBg": null,
+              "groupLabelEn": null,
+              "isSubtotal": false,
+              "labelBg": "* Източник на данните са месечните отчети за касовото изпълнение на  разпоредителите с бюджет.",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "depth": 0,
+              "executed": null,
+              "groupLabelBg": null,
+              "groupLabelEn": null,
+              "isSubtotal": false,
+              "labelBg": "* В позицията \"Резерв за непредвидени и неотложени разходи\" се отразяват само данните по разчет,",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "depth": 0,
+              "executed": null,
+              "groupLabelBg": null,
+              "groupLabelEn": null,
+              "isSubtotal": false,
+              "labelBg": "разходите по отчет се отразяват по съответните разходни позиции, към които се отнасят извършените разходи",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "depth": 0,
+              "executed": null,
+              "groupLabelBg": null,
+              "groupLabelEn": null,
+              "isSubtotal": false,
+              "labelBg": "* Поради извършено закръгление в млн. евро., някои сумарни позиции в справката не се изчерпват от съставните им числа.",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "depth": 0,
+              "executed": null,
+              "groupLabelBg": null,
+              "groupLabelEn": null,
+              "isSubtotal": false,
+              "labelBg": "* Разходите за персонал включват средствата за: заплати и възнаграждения, други възнаграждения и плащания за персонала и осигурителни вноски.",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "depth": 0,
+              "executed": null,
+              "groupLabelBg": null,
+              "groupLabelEn": null,
+              "isSubtotal": false,
+              "labelBg": "** В получените трансфери на Социоалноосигурителни фондове се включват получените трансфери от НЗОК за одобрени разходи на държавни болници (ВРБ), отчитани по бюджета на съответния ПРБ",
               "labelEn": "",
               "planned": null
             }
           ],
-          "planned": null,
+          "planned": {
+            "amount": 7319804000,
+            "amountEur": 7319804000,
+            "currency": "EUR"
+          },
           "series": "financing"
         }
       ]

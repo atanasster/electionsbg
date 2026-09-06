@@ -1,60 +1,58 @@
 {
   "obshtina": "VAR13",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1369",
-      "title": "Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда „Армеец“, гр. Долни чифлик",
+      "contractNumber": "BG-RRP-4.023-1346",
+      "title": "Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда „Сокачев - 5“, гр. Долни чифлик, община Долни чифлик, ул. „Сокачев“ № 5",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 236451.22,
-      "totalEur": 235921.74,
-      "paidEur": 235921.74,
+      "prevTotalEur": 373366.5,
+      "totalEur": 372526.39,
+      "paidEur": 372526.39,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Долни чифлик",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2621",
-      "title": "Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда „Тича-2023“, гр. Долни чифлик",
+      "contractNumber": "BG05SFPR003-1.001-0073",
+      "title": "Топъл обяд в община Долни чифлик",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 298266.84,
+      "totalEur": 298266.84,
+      "paidEur": 222892.8,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Долни чифлик",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1357",
+      "title": "Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда „Арда 1\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 235611.28,
-      "totalEur": 235080.88,
-      "paidEur": 235080.88,
+      "prevTotalEur": 245659.36,
+      "totalEur": 245108.38,
+      "paidEur": 245108.38,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Долни чифлик",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2204",
-      "title": "Здравословна и безопасна работна среда в ОДЕСОС ПАК ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 64897.94,
-      "totalEur": 63520.7,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Одесос ПАК ООД",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
     }
   ]
 }

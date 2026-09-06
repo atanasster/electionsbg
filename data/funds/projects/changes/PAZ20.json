@@ -1,22 +1,78 @@
 {
   "obshtina": "PAZ20",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0117",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници с (АС) мощност 5 MW и ЛСС за съхранение на електроенергия с мощност 1.53 MW и капацитет 3.06 MWh",
+      "contractNumber": "BG-RRP-11.022-0031",
+      "title": "\"Райна Княгиня: 170 години вдъхновение и културно наследство за Панагюрище. Нови хоризонти за Панагюрище в областта на културните политики за устойчиво развитие\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1129140.06,
-      "totalEur": 1129140.06,
-      "paidEur": 564570.03,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 88736.83,
+      "totalEur": 50837.3,
+      "paidEur": 14197.9,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Керамик ООД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "община Панагюрище",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0148",
+      "title": "Безсмъртният и Инга: кино за нови хоризонти",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9077.99,
+      "totalEur": 7423.69,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ЕФ ПИ ЕС Филмс ЕООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0139",
+      "title": "Кино за добро: прожекции и дискусии за силата на общността",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9088.21,
+      "totalEur": 7324.5,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Аурис филм ООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0133",
+      "title": "По стъпките на Петя: Кино и дух",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9067.78,
+      "totalEur": 7303.7,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "БЪФ Пикчърс ЕООД",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

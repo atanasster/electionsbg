@@ -1,26 +1,10 @@
 {
   "obshtina": "PVN39",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0007",
-      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северозападен район",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 39956422.08,
-      "totalEur": 39956422.08,
-      "paidEur": 35499195.54,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2666",
-      "title": "Устойчиво енергийно обновяване на блок \"Септемврийци\", Община Кнежа",
+      "contractNumber": "BG-RRP-4.023-3014",
+      "title": "Устойчиво енергийно обновяване на блок \"Средна гора\", Община Кнежа",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -28,14 +12,49 @@
         "status",
         "durationMonths"
       ],
-      "prevTotalEur": 733523.73,
-      "totalEur": 731989.81,
-      "paidEur": 729781.04,
+      "prevTotalEur": 359923.43,
+      "totalEur": 359156.45,
+      "paidEur": 358119.25,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кнежа",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0138",
+      "title": "Проектно предложение за инвестиция в нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия с инсталирана мощност 1MW от фирма \"Борисов и син 2018\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 265871.8,
+      "totalEur": 265871.78,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Борисов и син 2018\" ЕООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0008",
+      "title": "Интегрирано културно развитие на Община Кнежа",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 127413.94,
+      "totalEur": 127400.85,
+      "paidEur": 20386.23,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кнежа",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

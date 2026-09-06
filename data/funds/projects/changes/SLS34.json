@@ -1,22 +1,38 @@
 {
   "obshtina": "SLS34",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0006",
-      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северен централен район",
+      "contractNumber": "BG05SFPR003-1.001-0244",
+      "title": "„Топъл обяд в Община Тутракан\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 28777113.55,
-      "totalEur": 28777113.55,
-      "paidEur": 25749375.37,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 1846178.92,
+      "totalEur": 1846178.92,
+      "paidEur": 1343685.16,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Тутракан",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0011",
+      "title": "Тутракан – мост между миналото и младото поколение",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 81837.25,
+      "totalEur": 81837.25,
+      "paidEur": 13093.96,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Тутракан",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

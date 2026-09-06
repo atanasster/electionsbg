@@ -1,41 +1,94 @@
 {
   "obshtina": "VRC27",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-2202",
-      "title": "Подкрепа за семейно предприятие - МОТОР АД",
+      "contractNumber": "BG-RRP-4.023-0767",
+      "title": "Енергийно обновяване на МЖС - гр. Мездра, ул. \"Св. Патриарх Евтимий\" № 35, бл. 1",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 102002.73,
-      "totalEur": 102002.72,
-      "paidEur": 76502.04,
+      "prevTotalEur": 412134.86,
+      "totalEur": 412118.93,
+      "paidEur": 412118.93,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Мотор АД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Мездра",
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG-RRP-13.011-0023",
-      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социалните услуги в Община Мездра",
+      "contractNumber": "BG-RRP-4.023-0853",
+      "title": "Енергийно обновяване на МЖС - гр. Мездра, ул. \"Св. Патриарх Евтимий\" № 4",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 393900.25,
+      "totalEur": 393276.49,
+      "paidEur": 393276.48,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Мездра",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0651",
+      "title": "Енергийно обновяване на МЖС - гр. Мездра, ул. \"Баданец\" № 4",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 304634.36,
+      "totalEur": 299716.68,
+      "paidEur": 299716.67,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Мездра",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0043",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Мездра\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 88143.29,
-      "totalEur": 88143.29,
-      "paidEur": 79080.53,
+      "prevTotalEur": 296008.86,
+      "totalEur": 296008.86,
+      "paidEur": 200305.18,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Мездра",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0539",
+      "title": "Енергийно обновяване на МЖС - гр. Мездра, ул. \"Св. Св. Кирил и Методий\" № 40",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 113584.65,
+      "totalEur": 113392.45,
+      "paidEur": 113392.44,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Мездра",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

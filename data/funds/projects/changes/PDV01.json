@@ -1,41 +1,42 @@
 {
   "obshtina": "PDV01",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0004",
-      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 41520255.34,
-      "totalEur": 41520255.34,
-      "paidEur": 35238468.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Цетин България\" ЕАД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2277",
-      "title": "Подобряване на производствения капацитет на \"Елкомо\" ЕООД",
+      "contractNumber": "BG-RRP-4.023-0202",
+      "title": "\"Внедряване на мерки за енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Асеновград, жк. \"Запад\", ул. \"Лозница\" № 10, бл. 7/5, вх. А,Б,В\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 92951.84,
-      "totalEur": 86020.81,
-      "paidEur": 64515.6,
+      "prevTotalEur": 945639.72,
+      "totalEur": 945610.98,
+      "paidEur": 942789.73,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Елкомо ООД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Асеновград",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1259",
+      "title": "Адаптиране на работната среда чрез осигуряване на социални придобивки за работещите",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 120598.63,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Милко ЕООД",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

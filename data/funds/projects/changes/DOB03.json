@@ -1,38 +1,92 @@
 {
   "obshtina": "DOB03",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.028-0074",
-      "title": "„Внедряване на енергийно ефективни системи за уличното осветление на територията на Община Балчик“",
+      "contractNumber": "BG-RRP-4.023-2553",
+      "title": "Внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда, находяща се в град Балчик, ж.к.Балик, бл.11, вх. А и Б",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 511144.22,
+      "totalEur": 509869.29,
+      "paidEur": 509869.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Балчик",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0218",
+      "title": "Инсталиране на фотоволтаични системи в две сгради за социални услуги в гр. Балчик и закупуване на електрическо превозно средство и свързана зарядна станция за предоставяне на социални услуги",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 660353.92,
-      "totalEur": 660353.92,
-      "paidEur": 652260.79,
+      "prevTotalEur": 191975.84,
+      "totalEur": 191975.84,
+      "paidEur": 138414.46,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0295",
-      "title": "Изграждане на нови мощности за производство на електрическа енергия от ВИ (слънчева енергия), в комбинация на локална система за съхраненение на енергия, разположени върху наземна конструкция",
+      "contractNumber": "BG-RRP-4.023-2543",
+      "title": "Внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда, находяща се в град Балчик, ул. “ген. Владимир Заимов“ № 2",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 132935.89,
-      "totalEur": 132935.89,
-      "paidEur": 66263.42,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 108859.43,
+      "totalEur": 108614.65,
+      "paidEur": 108614.64,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Санфол ЕООД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Балчик",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0598",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 35320.04,
+      "totalEur": 35320.04,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Екогруп",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0102",
+      "title": "Представяне на постановката \"Краят на градината\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9060.78,
+      "totalEur": 9060.76,
+      "paidEur": 2446.41,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Десислава",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

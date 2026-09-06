@@ -1,22 +1,24 @@
 {
   "obshtina": "VTR31",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0006",
-      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северен централен район",
+      "contractNumber": "BG-RRP-4.023-1972",
+      "title": "Енергийно обновяване на блок Център, ул. М.Друмев № 6 и № 8, град Стражица",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 28777113.55,
-      "totalEur": 28777113.55,
-      "paidEur": 25749375.37,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 1005559.4,
+      "totalEur": 1005558.26,
+      "paidEur": 1005558.26,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Стражица",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

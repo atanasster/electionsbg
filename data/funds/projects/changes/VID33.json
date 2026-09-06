@@ -1,22 +1,76 @@
 {
   "obshtina": "VID33",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0007",
-      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северозападен район",
+      "contractNumber": "BG05SFPR003-1.001-0210",
+      "title": "Предоставяне на услуги по осигуряване на топъл обяд и подкрепа на нуждаещи се лица на територията на Община Ружинци",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 39956422.08,
-      "totalEur": 39956422.08,
-      "paidEur": 35499195.54,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 1310018.49,
+      "totalEur": 1310018.49,
+      "paidEur": 938897.18,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ружинци",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0059",
+      "title": "Ружинци - Сцена на духа",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 119985.81,
+      "totalEur": 100246.94,
+      "paidEur": 19197.73,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Ружинци",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0172",
+      "title": "Историческо минало, бит и култура на село Дреновец и община Ружинци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 72964.37,
+      "totalEur": 72621.72,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Христо Ботев - 1926 НЧ, с. Дреновец",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0059",
+      "title": "Представяне пред публика на танцово представление с огън „Bright eye“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9087.92,
+      "totalEur": 9062.49,
+      "paidEur": 817.55,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение Театър-студия \"Студентина\"",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

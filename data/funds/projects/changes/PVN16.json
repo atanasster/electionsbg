@@ -1,25 +1,40 @@
 {
   "obshtina": "PVN16",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-1160",
-      "title": "Подкрепа за семейното предприятие БЕЛЛА ЕООД",
+      "contractNumber": "BG-RRP-11.022-0013",
+      "title": "Интегрирано културно развитие на Община Левски",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 102258.37,
-      "paidEur": 76693.77,
+      "prevTotalEur": 127721.69,
+      "totalEur": 124112.91,
+      "paidEur": 20435.47,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Белла ЕООД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Левски",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0573",
+      "title": "Изграждане на дигитален клуб в с.Стежерово , общ.Левски",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14111.66,
+      "totalEur": 14111.66,
+      "paidEur": 12108.67,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Съгласие 1895\"",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

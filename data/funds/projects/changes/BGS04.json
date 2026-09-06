@@ -1,362 +1,384 @@
 {
   "obshtina": "BGS04",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0132",
-      "title": "Повишаване на нивото на дигитализация на ХИМТЕХ ЕООД чрез инвестиции за въвеждане на технологии от областта на Индустрия 4.0",
-      "type": "new",
-      "totalEur": 435086.29,
+      "contractNumber": "BG-RRP-4.023-1190",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас,„Меден Рудник“ бл.81“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1975963.08,
+      "totalEur": 1958390.87,
+      "paidEur": 1958390.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0317",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Изгрев“ бл.66“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1612038.54,
+      "totalEur": 1592776.31,
+      "paidEur": 1574742.44,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1848",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден рудник“, бл. 91",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1542167.39,
+      "totalEur": 1528994.21,
+      "paidEur": 1472110.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0983",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл.405“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1521039.58,
+      "totalEur": 1505491.74,
+      "paidEur": 1424763.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1032",
+      "title": "\"Eнергийно обновяване на многофамилна жилищна сграда с административен адрес : гр.Бургас, ж.к. Меден Рудник бл.86\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1521368.11,
+      "totalEur": 1503733.89,
+      "paidEur": 1503733.89,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0322",
+      "title": "\" Енергийно обновяване на многофамилна жилищна сграда с административен адрес гр. Бургас, ж.к. „Славейков“ бл.10“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1468513.7,
+      "totalEur": 1448659.17,
+      "paidEur": 1448659.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2773",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл.100“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1363808.71,
+      "totalEur": 1349955.01,
+      "paidEur": 1349955.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0981",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл.8",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1253170.4,
+      "totalEur": 1233185.69,
+      "paidEur": 1233178.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1194",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл. 14, входове: от 5 до 11",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1161208.03,
+      "totalEur": 1148906.8,
+      "paidEur": 1123188.43,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.021-0005",
+      "title": "Бургас – пристан зелен на изкуствата",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1132288.71,
+      "totalEur": 1050482.32,
+      "paidEur": 149462.11,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1232",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к.„Изгрев“ бл.18“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 992864.52,
+      "totalEur": 981699.95,
+      "paidEur": 981693.19,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1538",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. Изгрев, бл.28А",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 988174.87,
+      "totalEur": 976830.62,
+      "paidEur": 976823.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0572",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл. 30",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 930930.33,
+      "totalEur": 920436.36,
+      "paidEur": 879729.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0567",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл.75",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 573693.09,
+      "totalEur": 563318.2,
+      "paidEur": 563318.19,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0110",
+      "title": "Пленер: Рибарството като поминък",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 80361.83,
+      "totalEur": 80361.82,
+      "paidEur": 21697.69,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Мосинов и партньори ЕООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0182",
+      "title": "\"НЕСТИНАРКА\" - филм",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 77593.94,
+      "totalEur": 76520.38,
+      "paidEur": 20824.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Пробуда- 1931\"- с. Чубра, община Сунгурларе, област Бургас",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.019-0014",
+      "title": "Представяне на КП „Странджански песни за морето“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 88059.11,
+      "totalEur": 71843.42,
+      "paidEur": 23775.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Тракийско дружество странджа град бургас Сдружение",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0060",
+      "title": "Създаване на музика заедно с популярната немска група Mo`Horizons в творческа музикална сесия и уъркшоп за миксиране, както и два концерта на групата пред българска публика.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 66467.94,
+      "totalEur": 66467.86,
       "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Химтех ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.034-0116",
-      "title": "Изграждане на самостоятелно съоръж. за съхранение на ел. енергия с инстал. мощност 150 MW и капацитет 600 MWh (от тях за финансиране по процедура BG-RRP-4.034 \"Национална инфраструктура за съхранение на електроенергия от възобновяеми източници\" инстал. мощност от 125 MW и номинален капацитет 500 MWh), с адрес в град Бургас 8127, местност Голямата нива, поземлен имот с идентификатор №07079.13.902",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 90000000.01,
-      "totalEur": 90000000.01,
-      "paidEur": 23521386.16,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Бесс бургас ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-7.008-0001",
-      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на Югоизточен район за планиране",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 37288536.83,
-      "totalEur": 37288536.83,
-      "paidEur": 33514268.25,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Виваком България\" ЕАД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-3.007-0004",
-      "title": "Инвестиции в развитието на индустриален парк Бургас",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 20039113.14,
-      "totalEur": 19687891.18,
-      "paidEur": 13151768.63,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Индустриален и логистичен парк - Бургас АД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Елия Мюзик ЕООД",
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0580",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: Бургас, Меден Рудник, бл.411",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 2325573.08,
-      "totalEur": 2325573.08,
-      "paidEur": 2267585.13,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0982",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл.29",
+      "contractNumber": "BG-RRP-11.016-0069",
+      "title": "Представяне на стендъп комедийно шоу на известният комик Луиана Матей и промотирането му пред българска публика в основните областни градове",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 2075593.72,
-      "totalEur": 2052807.33,
-      "paidEur": 2052807.31,
+      "prevTotalEur": 68170.55,
+      "totalEur": 56642.36,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Комеди България ЕООД",
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1188",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас,„Меден Рудник“ бл.13“",
+      "contractNumber": "BG-RRP-11.016-0041",
+      "title": "Представяне пред българската публика на европейският художествен продукт “Feuille de Tulipe”, високо стойностен шедьовър изработен с 24 каратово злато с техниката GRAPO, който е представен на изложба по време на 60то то юбилейно издание на Венецианското Биенале 2024 година и на международният ArtFire London Contemporary.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 2003070.38,
-      "totalEur": 1977248.31,
-      "paidEur": 1940284.84,
+      "prevTotalEur": 51103.98,
+      "totalEur": 50591.85,
+      "paidEur": 32968.11,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "\"Кино под звездите\" ЕООД",
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1191",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к.„Лазур“ бл.79“",
+      "contractNumber": "BG-RRP-11.016-0049",
+      "title": "10-ти Международен филмов фестивал Бургас - звук, експеримент, цифровизация",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 1527939.2,
-      "totalEur": 1515261.06,
-      "paidEur": 1492154.88,
+      "prevTotalEur": 25291.03,
+      "totalEur": 21787.15,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0576",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес:гр. Бургас, ж.к. „Меден Рудник“ бл.487\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1419463.86,
-      "totalEur": 1407291.82,
-      "paidEur": 1407285.09,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0718",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Изгрев“ бл.44“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1299221.46,
-      "totalEur": 1280682.32,
-      "paidEur": 1280682.32,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0303",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден рудник“, бл. 96",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1275578.85,
-      "totalEur": 1262018.92,
-      "paidEur": 1198659.26,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1028",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл.78“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1075337.24,
-      "totalEur": 1063252.16,
-      "paidEur": 1021286.73,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0306",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Изгрев“ бл.23, вх.1, 2, 3, 4“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1047013.34,
-      "totalEur": 1035921.23,
-      "paidEur": 1014535.15,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0229",
-      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи 22 сгради на социални услуги, делегирана от държавата дейност с 23 социални услуги на територията на Община Бургас и закупуване на 1 брой електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги от \"Домашен социален патронаж\" - Бургас\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 724598.66,
-      "totalEur": 724598.66,
-      "paidEur": 55107.9,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG65ISPR001-3.007-0004",
-      "title": "Повишаване капацитета на полицията при извършване огледи на местопроизшествия",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 691690.95,
-      "totalEur": 691690.95,
-      "paidEur": 131222.99,
-      "status": "Сключен",
-      "programCode": "2021BG65ISPR001",
-      "programName": "Програма на Република България по фонд „Вътрешна сигурност“",
-      "beneficiaryName": "Главна дирекция \"Национална полиция\"",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.019-0024",
-      "title": "Нови и специфични умения в Инкофудс ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 562421.04,
-      "totalEur": 562421.04,
-      "paidEur": 84985.84,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Инкофудс ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0203",
-      "title": "Здравословна и безопасна работна среда в Брайт Инженеринг ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 88942.78,
-      "totalEur": 86658.74,
-      "paidEur": 86658.74,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Брайт инженеринг ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0798",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 37749.7,
-      "totalEur": 37749.7,
-      "paidEur": 3396,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"НИПО-ТЕРМ\" ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0681",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 20077.4,
-      "totalEur": 20077.4,
-      "paidEur": 14054.19,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ХИТ-СТРОЙ ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-1246",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 15058.05,
-      "totalEur": 15058.05,
-      "paidEur": 10540.64,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Счетоводна къща - железчеви ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0287",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 5031.11,
-      "totalEur": 5031.11,
-      "paidEur": 3521.78,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Демараж ООД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Фондация \"Модерат\"",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

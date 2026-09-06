@@ -1,22 +1,96 @@
 {
   "obshtina": "PDV43",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0183",
-      "title": "Иновативни здравно-социални услуги в община Сопот",
+      "contractNumber": "BG-RRP-4.023-1278",
+      "title": "Устойчиво енергийно обновяване на жилищен сграден фонд - етап I на сграда с адрес общ. Сопот, гр. Сопот, ул. Иван Вазов №36",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 120837.38,
-      "totalEur": 120837.38,
-      "paidEur": 84526.93,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "prevTotalEur": 678374.92,
+      "totalEur": 676706.95,
+      "paidEur": 676706.95,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Сопот",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1581",
+      "title": "Устойчиво енергийно обновяване на жилищен сграден фонд - етап I на сграда с адрес общ. Сопот, гр. Сопот, ул. Иван Вазов №32",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 265958.94,
+      "totalEur": 265349.63,
+      "paidEur": 265349.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Сопот",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1586",
+      "title": "Устойчиво енергийно обновяване на жилищен сграден фонд - етап I на сграда с адрес общ. Сопот, гр. Сопот, ул. Иван Вазов №82",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 222617.1,
+      "totalEur": 222102.11,
+      "paidEur": 222102.11,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Сопот",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1530",
+      "title": "Устойчиво енергийно обновяване на жилищен сграден фонд - етап I на сграда с адрес общ. Сопот, гр. Сопот, ул. Александър Стамболийски №40",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 193995.25,
+      "totalEur": 193562.59,
+      "paidEur": 193562.59,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Сопот",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0074",
+      "title": "Сам",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9049.87,
+      "totalEur": 9036.16,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Никола",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

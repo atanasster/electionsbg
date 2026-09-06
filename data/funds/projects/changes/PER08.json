@@ -1,41 +1,40 @@
 {
   "obshtina": "PER08",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0003",
-      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Национален план за възстановяване и устойчивост (НПВУ) на Република България - Югозападен район за планиране",
+      "contractNumber": "BG-RRP-13.009-0121",
+      "title": "Инсталиране на фотоволтаични системи и закупуване на електрическo превознo средствo със зарядна станция за нуждите на Център за социални услуги от резидентен тип - Община Брезник.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 42468011.79,
-      "totalEur": 42468011.79,
-      "paidEur": 35408602.7,
+      "prevTotalEur": 156180.24,
+      "totalEur": 156180.24,
+      "paidEur": 150916.38,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Цетин България\" ЕАД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Брезник",
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2528",
-      "title": "Повишаване конкурентоспособността на БИБИ 75 ЕООД",
+      "contractNumber": "BG-RRP-11.020-0069",
+      "title": "Маскарадни чудеса: Сурва Фестивал",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 78546.36,
-      "totalEur": 77146.16,
-      "paidEur": 57859.62,
+      "prevTotalEur": 68762.78,
+      "totalEur": 65909.18,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Биби 75 ЕООД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Просвещение 1870 НЧ",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

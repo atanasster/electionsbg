@@ -64,6 +64,21 @@
       "title": "Закон за държавния бюджет на Република България за 2020 г."
     },
     {
+      "discovery": "auto",
+      "fiscalYear": 2021,
+      "id": "audit-2021",
+      "kind": "audit-report",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "role": "report",
+          "url": "https://www.bulnao.government.bg/bg/documents/17740/08_2026_OD_NAP_-_i-net_-_3.pdf"
+        }
+      ],
+      "title": "Одитен доклад за извършен одит „Администриране на приходите от големи данъкоплатци и осигурители“ за периода от 01.01.2021 г. до 31.12.2024"
+    },
+    {
       "discovery": "auto-confirmed",
       "fiscalYear": 2021,
       "id": "law-2021",
@@ -910,10 +925,16 @@
           "label": "Execution as of 2026-06-30",
           "role": "resource",
           "url": "https://data.egov.bg/resource/download/81d1e37e-0e68-4733-b1d1-35d8a2b86c04/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2026-07-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/255e86a9-2292-461e-99b1-82d755db126e/json"
         }
       ],
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-07-31T16:16:06.638Z"
+  "generatedAt": "2026-09-06T22:13:46.751Z"
 }

@@ -1,22 +1,24 @@
 {
   "obshtina": "VAR08",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0184",
-      "title": "\"Закупуване на електрическо превозно средство и свързана зарядна станция за предоставяне на социални услуги в община Ветрино\"",
+      "contractNumber": "BG-RRP-11.025-0125",
+      "title": "\"No More Many More – четвърти албум „Един от тях“ – достъп до българската публика\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 44037.6,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 9089.24,
+      "totalEur": 8557.45,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "община Ветрино",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Методи Любомиров Кръстев",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

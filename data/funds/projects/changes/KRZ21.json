@@ -1,38 +1,25 @@
 {
   "obshtina": "KRZ21",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0004",
-      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
+      "contractNumber": "BG-RRP-11.022-0049",
+      "title": "„КУЛТУРА С БЪДЕЩЕ“ - МОМЧИЛГРАД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 41520255.34,
-      "totalEur": 41520255.34,
-      "paidEur": 35238468.91,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 100068.82,
+      "totalEur": 100068.77,
+      "paidEur": 80055.04,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Цетин България\" ЕАД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0274",
-      "title": "Чиста енергия от МДД Инвест ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 378355.99,
-      "totalEur": 378355.99,
-      "paidEur": 188666.69,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "МДД Инвест ООД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Момчилград",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

@@ -1,70 +1,179 @@
 {
   "obshtina": "PDV13",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0004",
-      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 41520255.34,
-      "totalEur": 41520255.34,
-      "paidEur": 35238468.91,
+      "contractNumber": "BG05SFPR001-1.010-0293",
+      "title": "Системна превенция на насилието и развитие на медиацията в ПГИ „Тодор Г. Влайков“ – Клисура",
+      "type": "new",
+      "totalEur": 132900.75,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Цетин България\" ЕАД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по икономика тодор Генчов Влайков - Клисура",
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0304",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия с инсталирана АС мощност от 2000 kW в УПИ I - фотоволтаична електроцентрала, кв. 3 по УП на село Ведраре, Община Карлово, Област Пловдив",
+      "contractNumber": "BG-RRP-4.023-1748",
+      "title": "Внедряване на мерки за енергийна ефективност на блок с адрес ул. \"Генерал Скобелев\" № 12",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1759999.18,
-      "totalEur": 1759999.18,
-      "paidEur": 879743.92,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Олимпия билд ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0054",
-      "title": "„Изграждане на ЛСС с инсталирана мощност от 1,5 MW, като част от комбиниран проект с нова фотоволтаична производствена мощност от 3,2046 MW“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 955526.81,
-      "totalEur": 955526.81,
-      "paidEur": 477763.37,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "„Техноинженеринг“ ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0031",
-      "title": "Закупуване на електрическо превозно средство и зарядна станция за нуждите на социални услуги в община Карлово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 38906.87,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 501730.35,
+      "totalEur": 497567.24,
+      "paidEur": 497464.97,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Карлово",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1950",
+      "title": "Внедряване на мерки за енергийна ефективност на блок с адрес ул. \"Дъбенско шосе\" № 35 в гр. Карлово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 434242.69,
+      "totalEur": 433260.94,
+      "paidEur": 433158.69,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1706",
+      "title": "Внедряване на мерки за енергийна ефективност на блок с адрес ул. \"Парчевич\" № 37 в гр. Карлово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 400681.35,
+      "totalEur": 399686.75,
+      "paidEur": 399584.49,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1636",
+      "title": "Внедряване на мерки за енергийна ефективност на блок с адрес ул. \"Меден дол\" № 2 в гр. Карлово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 367078.07,
+      "totalEur": 366122.15,
+      "paidEur": 366122.15,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2683",
+      "title": "Внедряване на мерки за енергийна ефективност на блок с адрес ул. \"Дъбенско шосе\" № 44 в гр. Карлово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 254662.53,
+      "totalEur": 254066.73,
+      "paidEur": 254066.74,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-2366",
+      "title": "Подобряване на енергийната ефективност на \"Цилков“ ООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 87934.42,
+      "totalEur": 87934.42,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Цилков ООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0038",
+      "title": "Културни нишки от Карлово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102669.97,
+      "totalEur": 56640.01,
+      "paidEur": 45197.93,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Карлово",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0099",
+      "title": "Гласове без граници: Деца на Земята",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8998.74,
+      "totalEur": 8998.7,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"Нови гласове\"",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0022",
+      "title": "\"Музикален полет: Нови ноти - представяне пред българската публика на съвременен български музикален продукт на млад автор на музика текст и аранжимент - Анна - Мария Въртовска\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 5864.72,
+      "totalEur": 2663.73,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АННА-МАРИЯ Генчева Въртовска",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

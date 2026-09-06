@@ -1,6 +1,6 @@
 {
   "dimension": "economic",
-  "generatedAt": "2026-05-28T08:35:09.211Z",
+  "generatedAt": "2026-09-06T22:13:46.376Z",
   "nodes": [
     {
       "dimension": "economic",
@@ -324,8 +324,8 @@
         },
         {
           "fiscalYear": 2026,
-          "sourceCode": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
-          "sourceName": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица"
+          "sourceCode": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чуждестранни юридически лица",
+          "sourceName": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чуждестранни юридически лица"
         }
       ],
       "id": "eco-danatsi-varhu-dividentite-likvidats-dyalove-i-dohodite-na-me",
@@ -827,6 +827,20 @@
       "dimension": "economic",
       "history": [
         {
+          "fiscalYear": 2026,
+          "sourceCode": "* Източник на данните са месечните отчети за касовото изпълнение на  разпоредителите с бюджет.",
+          "sourceName": "* Източник на данните са месечните отчети за касовото изпълнение на  разпоредителите с бюджет."
+        }
+      ],
+      "id": "eco-iztochnik-na-dannite-sa-mesechnite-otcheti-za-kasovoto-izpal",
+      "nameBg": "* Източник на данните са месечните отчети за касовото изпълнение на  разпоредителите с бюджет.",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
           "fiscalYear": 2021,
           "sourceCode": "Капиталови разходи",
           "sourceName": "Капиталови разходи"
@@ -1197,6 +1211,20 @@
       "dimension": "economic",
       "history": [
         {
+          "fiscalYear": 2026,
+          "sourceCode": "Операции с ценни книжа и финансови активи (нето)",
+          "sourceName": "Операции с ценни книжа и финансови активи (нето)"
+        }
+      ],
+      "id": "eco-operatsii-s-tsenni-knizha-i-finansovi-aktivi-neto",
+      "nameBg": "Операции с ценни книжа и финансови активи (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
           "fiscalYear": 2021,
           "sourceCode": "Персонал",
           "sourceName": "Персонал"
@@ -1271,6 +1299,20 @@
       "history": [
         {
           "fiscalYear": 2026,
+          "sourceCode": "Получени погашения по предоставени кредити на др. държави (+)",
+          "sourceName": "Получени погашения по предоставени кредити на др. държави (+)"
+        }
+      ],
+      "id": "eco-polucheni-pogasheniya-po-predostaveni-krediti-na-dr-darzhavi",
+      "nameBg": "Получени погашения по предоставени кредити на др. държави (+)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
           "sourceCode": "Получени трансфери",
           "sourceName": "Получени трансфери"
         }
@@ -1318,6 +1360,20 @@
       "nameBg": "Помощи",
       "nameEn": "",
       "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "* Поради извършено закръгление в млн. евро., някои сумарни позиции в справката не се изчерпват от съставните им числа.",
+          "sourceName": "* Поради извършено закръгление в млн. евро., някои сумарни позиции в справката не се изчерпват от съставните им числа."
+        }
+      ],
+      "id": "eco-poradi-izvarsheno-zakraglenie-v-mln-evro-nyakoi-sumarni-pozi",
+      "nameBg": "* Поради извършено закръгление в млн. евро., някои сумарни позиции в справката не се изчерпват от съставните им числа.",
+      "nameEn": "",
+      "parentId": "eco-financing"
     },
     {
       "dimension": "economic",
@@ -1629,6 +1685,34 @@
       "dimension": "economic",
       "history": [
         {
+          "fiscalYear": 2026,
+          "sourceCode": "разходите по отчет се отразяват по съответните разходни позиции, към които се отнасят извършените разходи",
+          "sourceName": "разходите по отчет се отразяват по съответните разходни позиции, към които се отнасят извършените разходи"
+        }
+      ],
+      "id": "eco-razhodite-po-otchet-se-otrazyavat-po-saotvetnite-razhodni-po",
+      "nameBg": "разходите по отчет се отразяват по съответните разходни позиции, към които се отнасят извършените разходи",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "* Разходите за персонал включват средствата за: заплати и възнаграждения, други възнаграждения и плащания за персонала и осигурителни вноски.",
+          "sourceName": "* Разходите за персонал включват средствата за: заплати и възнаграждения, други възнаграждения и плащания за персонала и осигурителни вноски."
+        }
+      ],
+      "id": "eco-razhodite-za-personal-vklyuchvat-sredstvata-za-zaplati-i-vaz",
+      "nameBg": "* Разходите за персонал включват средствата за: заплати и възнаграждения, други възнаграждения и плащания за персонала и осигурителни вноски.",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
           "fiscalYear": 2021,
           "sourceCode": "I. Приходи, Помощи и дарения",
           "sourceName": "I. Приходи, Помощи и дарения"
@@ -1694,8 +1778,8 @@
         },
         {
           "fiscalYear": 2026,
-          "sourceCode": "Резерв за непредвидени и/или неотложни разходи:",
-          "sourceName": "Резерв за непредвидени и/или неотложни разходи:"
+          "sourceCode": "Резерв за непредвидени и/или неотложни разходи",
+          "sourceName": "Резерв за непредвидени и/или неотложни разходи"
         }
       ],
       "id": "eco-rezerv-za-nepredvideni-i-ili-neotlozhni-razhodi",
@@ -1795,12 +1879,12 @@
       "history": [
         {
           "fiscalYear": 2026,
-          "sourceCode": "Социалноосигурителни фондове",
-          "sourceName": "Социалноосигурителни фондове"
+          "sourceCode": "Социалноосигурителни фондове **",
+          "sourceName": "Социалноосигурителни фондове **"
         }
       ],
       "id": "eco-sotsialnoosiguritelni-fondove-2",
-      "nameBg": "Социалноосигурителни фондове",
+      "nameBg": "Социалноосигурителни фондове **",
       "nameEn": "",
       "parentId": "eco-expenditure"
     },
@@ -1881,6 +1965,34 @@
       "nameBg": "Трансфери  (нето)",
       "nameEn": "",
       "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "** В получените трансфери на Социоалноосигурителни фондове се включват получените трансфери от НЗОК за одобрени разходи на държавни болници (ВРБ), отчитани по бюджета на съответния ПРБ",
+          "sourceName": "** В получените трансфери на Социоалноосигурителни фондове се включват получените трансфери от НЗОК за одобрени разходи на държавни болници (ВРБ), отчитани по бюджета на съответния ПРБ"
+        }
+      ],
+      "id": "eco-v-poluchenite-transferi-na-sotsioalnoosiguritelni-fondove-se",
+      "nameBg": "** В получените трансфери на Социоалноосигурителни фондове се включват получените трансфери от НЗОК за одобрени разходи на държавни болници (ВРБ), отчитани по бюджета на съответния ПРБ",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "* В позицията \"Резерв за непредвидени и неотложени разходи\" се отразяват само данните по разчет,",
+          "sourceName": "* В позицията \"Резерв за непредвидени и неотложени разходи\" се отразяват само данните по разчет,"
+        }
+      ],
+      "id": "eco-v-pozitsiyata-rezerv-za-nepredvideni-i-neotlozheni-razhodi-s",
+      "nameBg": "* В позицията \"Резерв за непредвидени и неотложени разходи\" се отразяват само данните по разчет,",
+      "nameEn": "",
+      "parentId": "eco-financing"
     },
     {
       "dimension": "economic",
@@ -1996,6 +2108,20 @@
       ],
       "id": "eco-vatreshno-finansirane-neto",
       "nameBg": "Вътрешно финансиране  (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Забележки:",
+          "sourceName": "Забележки:"
+        }
+      ],
+      "id": "eco-zabelezhki",
+      "nameBg": "Забележки:",
       "nameEn": "",
       "parentId": "eco-financing"
     },

@@ -1,300 +1,78 @@
 {
   "obshtina": "RSE27",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0630",
-      "title": "Внедряване на лазерна технология от Индустрия 4.0 за повишаване конкурентоспособността",
-      "type": "new",
-      "totalEur": 868956.91,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Бат'м ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.008-0524",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в предприятие \"Евро Дом\" ООД",
-      "type": "new",
-      "totalEur": 156331.58,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Евро ДОМ ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-7.008-0006",
-      "title": "Изграждане на модерна и сигурна цифрова инфраструктура на територията на Северен централен район",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 28777113.55,
-      "totalEur": 28777113.55,
-      "paidEur": 25749375.37,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": ",,А1 България“ ЕАД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-3.007-0012",
-      "title": "Реконструкция, рехабилитация и изграждане на нова техническа довеждаща и вътрешна инфраструктура за \"Индустриален парк ЛВЗ\" гр. Русе, в това число и обновяване на сградния фонд",
+      "contractNumber": "BG-RRP-4.032-0227",
+      "title": "\"Изграждане на локална система за съхранение на енергията (ЛСС) с инсталирана мощност 0,4 MW и капацитет на съхранение 0,932 MWh към фотоволтаична централа с инсталирана мощност 1 MW\".",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 16963302.46,
-      "totalEur": 16933759.23,
-      "paidEur": 13327610.5,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 196284.96,
+      "totalEur": 196284.95,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Индустриален парк ЛВЗ\" ЕООД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "ПМ Инвест груп ООД",
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG16RFPR001-1.009-0001",
-      "title": "Предоставяне на комплексни услуги на предприятията от Северните райони на България с цел подкрепа на тяхното устойчиво развитие и растеж чрез подпомагане дейността на Изпълнителна агенция за насърчаване на малките и средните предприятия (ИАНМСП)",
+      "contractNumber": "BG-RRP-11.021-0006",
+      "title": "Русе Арт Фест",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 5000000,
-      "totalEur": 5000000,
-      "paidEur": 3071997.96,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Изпълнителна агенция на насърчаване на малките и средните предприятия (ИАНМСП)",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-11.018-0059",
-      "title": "Изграждане и оборудване на две социални услуги за Резидентна грижа за пълнолетни лица с психични разстройства (РГПЛПР)",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1550447.75,
-      "totalEur": 1550447.75,
-      "paidEur": 853001.22,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 135214.62,
+      "totalEur": 135008.55,
+      "paidEur": 18028.62,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Русе",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG16RFPR001-1.003-0381",
-      "title": "Внедряване на продуктова иновация в МИК-БГ",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 812954.09,
-      "totalEur": 812954.09,
-      "paidEur": 115271.24,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "МИК-БГ ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.019-0024",
-      "title": "Нови и специфични умения в Инкофудс ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 562421.04,
-      "totalEur": 562421.04,
-      "paidEur": 84985.84,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Инкофудс ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.001-0133",
-      "title": "Разработване на продуктова иновация",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 212910.12,
-      "totalEur": 212910.12,
-      "paidEur": 108647.38,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Екопластикс ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2232",
-      "title": "Адаптирана работна среда в ПЕСТИЦИД ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 172065.66,
-      "totalEur": 172065.56,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Пестицид ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05M9OP001-1.021-0281",
-      "title": "Повишаване на знания и умения на заети лица - гаранции за европейско обслужване",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 108800.34,
-      "totalEur": 108800.34,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2014BG05M9OP001",
-      "programName": "Развитие на човешките ресурси",
-      "beneficiaryName": "Хотел космополитан АД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0224",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Миланов - Г ЕООД.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 98845.24,
-      "totalEur": 98845.24,
-      "paidEur": 49422.62,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Миланов - Г ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1149",
-      "title": "Увеличаване на производствения капацитет и оптимизиране на бизнес процесите на фирма \"Авинера\" ЕООД",
+      "contractNumber": "BG-RRP-11.016-0048",
+      "title": "Представяне пред българската публика на произведенията на квартет \"Дестини\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 103575.2,
-      "totalEur": 86189.8,
-      "paidEur": 63780.47,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Авинера ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2167",
-      "title": "Подобряване на дейността и ефективността на процесите в ДИ ЕЛ 67 ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 80510.31,
-      "totalEur": 80488.74,
-      "paidEur": 60366.55,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ДИ ЕЛ 67 ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1306",
-      "title": "Осигуряване здравето и безопасността на заетите в ПРОКСИМА-3 ЕООД.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 64290.52,
-      "totalEur": 64290.52,
-      "paidEur": 61596.9,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ПРОКСИМА-3 ЕООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2306",
-      "title": "Подкрепа за развитието на семеен автосервиз",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 44072.34,
-      "totalEur": 44072.34,
-      "paidEur": 32276.87,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "МАСТЕР-Р ООД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0332",
-      "title": "Подобряване на производствения капацитет на ЕТ \"Златка Йорданова- Голд- 2\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 34857.97,
-      "totalEur": 34813.88,
-      "paidEur": 26110.41,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕТ Златка Йорданова - ГОЛД-2",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0241",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 33932.9,
-      "totalEur": 33932.9,
+      "prevTotalEur": 63103.64,
+      "totalEur": 55167.13,
       "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕС СИ ЕС ООД",
-      "detectedAt": "2026-09-02"
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "4 Дестини ЕООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0040",
+      "title": "100 години опера в Стара Загора",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 49553.31,
+      "totalEur": 49068.32,
+      "paidEur": 13230.44,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Държавна опера - Стара Загора",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

@@ -1,22 +1,24 @@
 {
   "obshtina": "BGS17",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-1344",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ СВЕТЛИНА - 1934 г.",
+      "contractNumber": "BG-RRP-11.022-0012",
+      "title": "Солена симфония: Изкуство и визия за културно развитие",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 12161.06,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 118441.41,
+      "totalEur": 118063.77,
+      "paidEur": 18950.52,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Светлина - 1934 г.",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Поморие",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

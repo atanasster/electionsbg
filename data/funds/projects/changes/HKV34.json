@@ -1,56 +1,42 @@
 {
   "obshtina": "HKV34",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0004",
-      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Националния план за въстановяване и устойчивост (НПВУ) на Република България - Южен централен район за планиране",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 41520255.34,
-      "totalEur": 41520255.34,
-      "paidEur": 35238468.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Цетин България\" ЕАД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG65ISPR001-3.007-0004",
-      "title": "Повишаване капацитета на полицията при извършване огледи на местопроизшествия",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 691690.95,
-      "totalEur": 691690.95,
-      "paidEur": 131222.99,
-      "status": "Сключен",
-      "programCode": "2021BG65ISPR001",
-      "programName": "Програма на Република България по фонд „Вътрешна сигурност“",
-      "beneficiaryName": "Главна дирекция \"Национална полиция\"",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2244",
-      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес гр. Хасково, ул. \"Св. Св. Кирил и Методий\" №110",
+      "contractNumber": "BG-RRP-4.023-2104",
+      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес гр. Хасково, ул. \"Веслец\" № 3",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 506539.56,
-      "totalEur": 504821.28,
-      "paidEur": 504577.91,
+      "prevTotalEur": 336888.65,
+      "totalEur": 336051.27,
+      "paidEur": 336051.28,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0024",
+      "title": "Създаване, популяризиране и разпространение на невербален куклен спектакъл",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 50315.13,
+      "totalEur": 45027.71,
+      "paidEur": 13585.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Театър дани и деси ООД",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

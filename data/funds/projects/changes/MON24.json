@@ -1,22 +1,58 @@
 {
   "obshtina": "MON24",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0042",
-      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания в община Лом",
+      "contractNumber": "BG-RRP-13.009-0154",
+      "title": "Въвеждане на ЕСМ и мерки за екологосъобразна мобилност на социалните услуги, делегирана от държавата дейност, в Община Лом",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 4669417.79,
-      "totalEur": 4669417.79,
-      "paidEur": 4557001.79,
+      "prevTotalEur": 192358.38,
+      "totalEur": 192358.38,
+      "paidEur": 158277.11,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община ЛОМ",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Община Лом",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.022-0010",
+      "title": "\"НОВО ПОКОЛЕНИЕ КУЛТУРА В ОБЩИНА ЛОМ\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 67102.77,
+      "totalEur": 66898.46,
+      "paidEur": 10736.44,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Лом",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0004",
+      "title": "„Двубой“ – пътуващ мюзикъл за социална топлина",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 7525.19,
+      "totalEur": 5024.7,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище постоянство 1856 НЧ",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

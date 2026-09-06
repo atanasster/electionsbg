@@ -1,39 +1,130 @@
 {
   "obshtina": "SML31",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.034-0130",
-      "title": "Съхраняване на електроенергия от \"СМОЛЯН ВЕ\" АД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 60373624.64,
-      "totalEur": 60373624.64,
-      "paidEur": 18785618.75,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Смолян ВЕ АД",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0098",
-      "title": "Повишаване на енергийната ефективност на Художествената галерия в град Смолян",
+      "contractNumber": "BG-RRP-4.023-2573",
+      "title": "\"Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Блок Възход, ул. Б. Шукеров №14, гр. Смолян\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 818349.87,
-      "totalEur": 813407.36,
-      "paidEur": 760795.42,
+      "prevTotalEur": 491597.69,
+      "totalEur": 471517.09,
+      "paidEur": 471517.09,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0169",
+      "title": "\"Инсталиране на фотоволтаични системи в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство и зарядна станция за предоставяне на социални услуги на територията на Община Смолян\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 223516.25,
+      "totalEur": 223516.25,
+      "paidEur": 220448.4,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Смолян",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2157",
+      "title": "„Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на блок Подвис, ул. Братан Шукеров №16, гр. Смолян“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 215682.38,
+      "totalEur": 215159.06,
+      "paidEur": 215159.07,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Смолян",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2017",
+      "title": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на Блок №7, на бул. България №48, гр. Смолян",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 182301.93,
+      "totalEur": 181868.16,
+      "paidEur": 181868.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Смолян",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0064",
+      "title": "Красотата на родопския фолклор",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 80640.96,
+      "totalEur": 59955.29,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда - 1903\" НЧ",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0051",
+      "title": "\"Градът и символите\": представяне пред българската публика на творчеството на Седрик Ван Парис, световноизвестен европейски художник и концептуалист",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 66944.42,
+      "totalEur": 58399.85,
+      "paidEur": 6024.55,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Кирил",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0059",
+      "title": "Представяне пред публика на танцово представление с огън „Bright eye“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9087.92,
+      "totalEur": 9062.49,
+      "paidEur": 817.55,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение Театър-студия \"Студентина\"",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

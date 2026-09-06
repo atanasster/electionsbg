@@ -1,22 +1,58 @@
 {
   "obshtina": "BLG52",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-7.008-0003",
-      "title": "Широкомащабно разгръщане на цифрова инфраструктура на територията на България от Национален план за възстановяване и устойчивост (НПВУ) на Република България - Югозападен район за планиране",
+      "contractNumber": "BG05SFPR003-1.001-0233",
+      "title": "Топъл обяд в община Хаджидимово",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 42468011.79,
-      "totalEur": 42468011.79,
-      "paidEur": 35408602.7,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 2305310.18,
+      "totalEur": 2305310.18,
+      "paidEur": 1962903.2,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Хаджидимово",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0144",
+      "title": "Атон в рисунки и фотографии",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 69102.88,
+      "totalEur": 69101.88,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Цетин България\" ЕАД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Декидис Филмс ЕООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0090",
+      "title": "Фолклорът ни събира - представяне на съвременна българска музикална продукция с корени в традицията",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9149.57,
+      "totalEur": 8813.37,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"Една мечта\"",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

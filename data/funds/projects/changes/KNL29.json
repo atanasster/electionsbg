@@ -1,25 +1,90 @@
 {
   "obshtina": "KNL29",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-2864",
-      "title": "Подобряване на производствения капацитет на дружеството",
+      "contractNumber": "BG05SFPR001-1.010-0299",
+      "title": "Професионална гимназия по селско стопанство „Св. Климент Охридски“ – подкрепяща среда за сигурност и доверие",
+      "type": "new",
+      "totalEur": 130424.63,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимазия по селско стопанство \"Св. Климент Охридски\"",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0077",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Кюстендил, ул. „Христо Ботев“ № 40, бл. 27",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 89299.17,
-      "totalEur": 89262.36,
-      "paidEur": 66946.77,
+      "prevTotalEur": 433470.16,
+      "totalEur": 431116.66,
+      "paidEur": 429296.41,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Амбулатория за индивидуална практика за първична медицинска помощ по дентална медицина - Артедент ЕООД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кюстендил",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0079",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Кюстендил, кв. Герена бл. 184",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 390854.29,
+      "totalEur": 389619.62,
+      "paidEur": 388412.04,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кюстендил",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0077",
+      "title": "Създаване на концерт–спектакъл „Песни, танци и приказки. Българският фолклор през очите на децата“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 68810.92,
+      "totalEur": 68591.87,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ДИ ЕН КЕЙ Медия груп ООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0029",
+      "title": "Представяне пред българска публика на европейската продукция – италианският филм „ЗАВРЪЩАНЕ НА ИЗТОК“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 67856.14,
+      "totalEur": 66971.71,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "БЪФ Пикчърс ЕООД",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

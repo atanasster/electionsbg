@@ -1,22 +1,58 @@
 {
   "obshtina": "SLV11",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0049",
-      "title": "Иновативни здравно-социални услуги в община Котел",
+      "contractNumber": "BG05SFPR003-1.001-0162",
+      "title": "Топъл обяд в Община Котел",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 197417.01,
-      "totalEur": 197417.01,
-      "paidEur": 150867.62,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "prevTotalEur": 3562924.29,
+      "totalEur": 3562924.29,
+      "paidEur": 3297608.02,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Котел",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0055",
+      "title": "Традиционната носия на българката – опознаване чрез картини, лекции и работилници",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8550.33,
+      "totalEur": 7985.75,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Дора Колева Куршумова",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0080",
+      "title": "Въвеждане на мерки за енергийна ефективност на \"Многофамилна жилищна сграда\" гр. Котел, ул. \"Еленица\" 2",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 107870.75,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Котел",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

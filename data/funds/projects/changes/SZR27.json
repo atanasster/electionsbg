@@ -1,22 +1,56 @@
 {
   "obshtina": "SZR27",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG14MFPR001-2.005-0008",
-      "title": "Усъвършенстване и практическо приложение на методи за развитие на аквакултури, съвместими с конкретните потребности на околната среда в яз. „Овчарица” и яз.”Бял кладенец”",
+      "contractNumber": "BG05SFPR003-1.001-0196",
+      "title": "\"Топъл обяд в община Раднево\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 153234.18,
-      "totalEur": 153234.18,
-      "paidEur": 45632.8,
+      "prevTotalEur": 209475.89,
+      "totalEur": 209475.89,
+      "paidEur": 157143.73,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Раднево",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0221",
+      "title": "Национален празник “Тракийска огърлица”",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 74111.76,
+      "totalEur": 72012.91,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Клуб за народни песни, Танци и обичаи \"Купонджии\" Сдружение",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0833",
+      "title": "\" Изграждане на дигитален клуб в НЧ \"Просвета-1915г\". гр. Раднево, кв. Гипсово\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 19326.83,
+      "totalEur": 19326.83,
+      "paidEur": 18950.33,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "НОМИКОМ-ФИШ ООД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета - 1915 г.\" гр. Раднево кв. \"Гипсово\"",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

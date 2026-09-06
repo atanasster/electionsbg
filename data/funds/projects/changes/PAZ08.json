@@ -1,41 +1,92 @@
 {
   "obshtina": "PAZ08",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0088",
-      "title": "Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрически автомобил и зарядна станция за предоставяне на социални услуги в община Велинград.",
+      "contractNumber": "BG-RRP-11.010-0004",
+      "title": "Изграждане на нов дом за стари хора „Ела“, гр. Велинград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 241942.29,
-      "totalEur": 241942.29,
-      "paidEur": 241942.29,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 3015969.4,
+      "totalEur": 3015969.4,
+      "paidEur": 2966967.23,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Велинград",
-      "detectedAt": "2026-09-02"
+      "detectedAt": "2026-09-06"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0757",
-      "title": "Повишаване на производствения капацитет на семейното предприятие на \"ВАС ТРАНС 88\" ЕООД",
+      "contractNumber": "BG05SFPR003-1.001-0024",
+      "title": "Топъл обяд в община Велинград",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 367058.1,
+      "totalEur": 367058.1,
+      "paidEur": 316441.36,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Велинград",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0148",
+      "title": "Безсмъртният и Инга: кино за нови хоризонти",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 97777,
-      "paidEur": 73332.75,
+      "prevTotalEur": 9077.99,
+      "totalEur": 7423.69,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ВАС Транс 88 ЕООД",
-      "detectedAt": "2026-09-02"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ЕФ ПИ ЕС Филмс ЕООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0139",
+      "title": "Кино за добро: прожекции и дискусии за силата на общността",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9088.21,
+      "totalEur": 7324.5,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Аурис филм ООД",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0133",
+      "title": "По стъпките на Петя: Кино и дух",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9067.78,
+      "totalEur": 7303.7,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "БЪФ Пикчърс ЕООД",
+      "detectedAt": "2026-09-06"
     }
   ]
 }

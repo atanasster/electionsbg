@@ -1,75 +1,40 @@
 {
   "obshtina": "SHU22",
-  "generatedAt": "2026-09-02T09:31:17.326Z",
+  "generatedAt": "2026-09-06T22:17:55.717Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0046",
-      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания в Община Нови пазар",
+      "contractNumber": "BG-RRP-11.022-0030",
+      "title": "Културна програма „Нова година – ново вдъхновение\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 90095.44,
+      "totalEur": 90081.26,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Нови пазар",
+      "detectedAt": "2026-09-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1150",
+      "title": "СЪЗДАВАНЕ НА ДИГИТАЛЕН КЛУБ В НАРОДНО ЧИТАЛИЩЕ \"ИВАН ВАЗОВ - 1911\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1321473.03,
-      "totalEur": 1321473.03,
-      "paidEur": 945878.67,
+      "prevTotalEur": 14300.73,
+      "totalEur": 14300.73,
+      "paidEur": 14168.76,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Нови пазар",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2851",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, находяща се в град Нови пазар, общ. Нови пазар, обл. Шумен, ул. Патриарх Евтимий\" № 9",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 880538.03,
-      "totalEur": 873891.74,
-      "paidEur": 871238.91,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Нови пазар",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2873",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, находяща се в град Нови пазар, общ. Нови пазар, обл. Шумен, ул. Цар Освободител № 7-9",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 301594.61,
-      "totalEur": 301449.84,
-      "paidEur": 300535.66,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Нови пазар",
-      "detectedAt": "2026-09-02"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2232",
-      "title": "Адаптирана работна среда в ПЕСТИЦИД ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 172065.66,
-      "totalEur": 172065.56,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Пестицид ЕООД",
-      "detectedAt": "2026-09-02"
+      "beneficiaryName": "Народно читалище \" Иван Вазов – 1911“",
+      "detectedAt": "2026-09-06"
     }
   ]
 }
