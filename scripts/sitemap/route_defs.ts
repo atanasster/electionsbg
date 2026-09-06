@@ -827,6 +827,16 @@ export const routeDefs = (year: string): RouteDefs => [
   // canonicalised to the município page to keep the URL count bounded.
   { path: "sverka", file: `src/screens/SverkaScreen.tsx` },
   { path: "local/chmi", file: `src/screens/ChmiFeedScreen.tsx` },
+  // ⚠ THE PRESIDENTIAL FAMILY STOPS AT MUNICIPALITY, like local. The settlement and section
+  // levels are ~87,500 pages across five cycles, against a `dist/` already holding ~248k files
+  // and a Firebase deploy that has failed at 453k; the prerender omits them too, and a `<loc>`
+  // with no prerendered HTML is a soft-404. `/presidential/:cycle/abroad` rides the cycle
+  // enumerator, because its route takes no id.
+  // ⚠ ONE ROW FOR FOUR LEVELS, because the enumerator calls the PRERENDER's own builders and
+  // they already know every level — cycle, abroad, region and municipality. The `:id` is what
+  // routes this entry to an enumerator at all; the path itself is never expanded.
+  { path: "presidential/:id", file: `presidential-family` },
+
   { path: "local/:id", file: `local-cycles` },
   { path: "local/:id/region/:id", file: `local-regions` },
   { path: "local/:id/:id", file: `local-municipalities` },

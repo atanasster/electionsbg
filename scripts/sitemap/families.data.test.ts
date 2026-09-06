@@ -36,6 +36,10 @@ assertCommitted(
   "data/person/prerender_slugs.json",
   "data/prices/product_slugs.json",
   "public/sitemap_static_2.xml",
+  // ⚠ THE INDEX REFERENCES IT AND IS TRACKED. An untracked shard means `sitemap_index.xml`
+  // ships pointing at a 404 — and `existsSync` is true on the machine that minted it, which
+  // is the one place the mistake is invisible.
+  "public/sitemap_presidential.xml",
 );
 
 const PROJECT_ROOT = path.resolve(
@@ -179,6 +183,23 @@ test("the sitemap names every gated family in both languages", () => {
     `only ${inFamily("/product/").length} /product <loc>s — product_slugs.json was ` +
       "likely missing or unparseable when the sitemap was minted",
   );
+  // ⚠ THE SAME SHAPE ON A CORPUS THAT IS LOCAL-ONLY. `/data/2*/*` is gitignored, so
+  // `data/*_pvr` exists on a developer machine and nowhere else — and `npm run sitemap`
+  // PRUNES every `sitemap_*.xml` before writing, so a mint on a machine without the trees
+  // DELETES the presidential shard, drops it from the index and exits 0. That loss is
+  // indistinguishable in review from a legitimate change, which is what this floor is for.
+  //
+  // 3,044 today (1,522 routes x 2 languages). The floor is set well below it so ordinary
+  // corpus movement — a re-parse that renames a place, a municipality that cast nothing —
+  // never trips it, while a collapse does. ⚠ This clause runs against the COMMITTED artifact
+  // and therefore in CI, unlike `presidentialFamily.data.test.ts`, whose corpus-driven half
+  // skips on exactly the machines this is about.
+  assert.ok(
+    inFamily("/presidential/").length >= 2500,
+    `only ${inFamily("/presidential/").length} /presidential <loc>s — the sitemap was ` +
+      "likely minted on a machine with no data/*_pvr trees, which DELETES the shard",
+  );
+
   // NOT `inFamily("/budget/").length > 0` — that is satisfied by the dynamic
   // /budget/ministry/* family alone (108 of the 144 budget <loc>s), so it would
   // survive the loss of every one of the module's hand-listed sub-pages, which

@@ -11,6 +11,13 @@ import { readSeoCouncils } from "../db/lib/seo_councils";
 import { kfnFundsFile, readSeoPensionFunds } from "../prerender/kfnFunds";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
 import {
+  buildPresidentialCycleRoutes,
+  buildPresidentialMunicipalityRoutes,
+  buildPresidentialRegionRoutes,
+} from "../prerender/presidentialRoutes";
+import regionsJson from "@/data/json/regions.json";
+import type { RegionInfo } from "@/data/dataTypes";
+import {
   readIndexableProcedures,
   PROCEDURES_INDEX_FILE,
 } from "../funds/procedures_index";
@@ -201,6 +208,12 @@ const bucketFor = (urlPath: string): string => {
   if (p.startsWith("/parliament/")) return "votes";
   if (p.startsWith("/elections/")) return "static";
   if (p.startsWith("/local/")) return "local";
+  // ⚠ ITS OWN SHARD, NOT `static`. The presidential family is ~3,000 URLs and it changes on
+  // its own schedule — once every five years, plus the runoff a week after a round 1 — while
+  // `static` is dominated by ~50k /person URLs whose 49,000 boundary sits inside them. Sharing
+  // it would reshuffle which file every presidential page lands in on every unrelated
+  // regeneration, which is pure diff noise in a committed artifact.
+  if (p.startsWith("/presidential/")) return "presidential";
   if (p.startsWith("/articles")) return "static";
   if (p.startsWith("/budget/ministry/")) return "budget";
   if (p.startsWith("/funds/")) return "funds";
@@ -514,6 +527,47 @@ const enumerateLocalMunicipalities = (rootUrl: string, routes: string[]) => {
         lastmod,
       );
     }
+  }
+};
+
+// The presidential family (plan T6).
+//
+// ⚠⚠ IT ENUMERATES BY CALLING THE PRERENDER'S OWN BUILDERS, not by re-deriving the population.
+// A `<loc>` with no `dist/<path>/index.html` is a soft-404 — it serves the homepage's title
+// and canonical — so the two sides must agree exactly, and a second derivation is a second
+// place for the rules to live. Review found three ways the copy could already diverge without
+// either side looking wrong: the prerender skips a whole cycle whose `national_summary.json`
+// is unparseable and the copy did not; the prerender skips a place whose ticket is missing
+// from `tickets.json`, a file the copy never opened; and the prerender required a NAME while
+// the copy required only a CODE. All three are gone with the copy.
+//
+// ⚠ THE LASTMOD IS THE CYCLE'S OWN SUMMARY FILE, not `today`. A per-URL `today` re-stamps all
+// 3,044 entries on every mint — the diff-noise this family was given its own shard to avoid,
+// and the signal a crawler uses to decide whether re-fetching is worth it.
+const enumeratePresidential = (rootUrl: string) => {
+  const lastmodOf = new Map<string, string>();
+  const cycleOf = (routePath: string): string => routePath.split("/")[1] ?? "";
+  const lastmodFor = (cycle: string): string => {
+    const hit = lastmodOf.get(cycle);
+    if (hit) return hit;
+    const v = safeFileMod(`${projectPath}/data/${cycle}/national_summary.json`);
+    lastmodOf.set(cycle, v);
+    return v;
+  };
+  for (const route of [
+    ...buildPresidentialCycleRoutes(projectPath),
+    ...buildPresidentialRegionRoutes(
+      projectPath,
+      regionsJson as unknown as RegionInfo[],
+    ),
+    ...buildPresidentialMunicipalityRoutes(projectPath),
+  ]) {
+    const lastmod = lastmodFor(cycleOf(route.path));
+    pushUrl(`${rootUrl}/${route.path}`, lastmod);
+    // Every presidential route carries an `english` block, so the mirror is unconditional —
+    // and `families.data.test.ts` compares each `<loc>` against a real `dist/` file, which is
+    // what would catch it if that ever stopped being true.
+    pushUrl(`${rootUrl}/en/${route.path}`, lastmod);
   }
 };
 
@@ -893,6 +947,11 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateLocalRegions(rootUrl, routes);
     if (route.file === "local-municipalities")
       return enumerateLocalMunicipalities(rootUrl, routes);
+    // ⚠ ONE ENTRY FOR THE WHOLE FAMILY. The builders already know every level, so three
+    // route-def rows would call the same function three times and triple every `<loc>`;
+    // `pushUrl` de-duplicates, but a `RouteDef` that does nothing is worse than none.
+    if (route.file === "presidential-family")
+      return enumeratePresidential(rootUrl);
     if (route.file === "articles-list")
       return enumerateArticles(rootUrl, routes);
     if (route.file === "budget-ministries-list")

@@ -30,6 +30,11 @@ import {
 } from "@/screens/reports/common/reportsMatrix";
 import { electionYearSuffix } from "./electionYear";
 import { DATA_URL, EN_HOME, PrerenderRoute, SITE_URL } from "./routes";
+import {
+  buildPresidentialCycleRoutes,
+  buildPresidentialMunicipalityRoutes,
+  buildPresidentialRegionRoutes,
+} from "./presidentialRoutes";
 import { buildCuratedProjectRoutes } from "./curatedProjectRoutes";
 import { readSessionFacts, tallyClause } from "./votesFacts";
 import {
@@ -4815,6 +4820,13 @@ export const buildDynamicRoutes = async (
     ...buildLocalCycleRoutes(projectRoot),
     ...buildLocalRegionRoutes(projectRoot, regions),
     ...buildLocalMunicipalityRoutes(projectRoot),
+    // The presidential family (plan T6). ⚠ CYCLE, ABROAD, REGION AND MUNICIPALITY ONLY — the
+    // settlement and section levels are ~87,500 pages across five cycles, against a `dist/`
+    // already holding ~248k files and a Firebase deploy that has failed at 453k. Local makes
+    // the same cut for the same reason. See `presidentialRoutes.ts`.
+    ...buildPresidentialCycleRoutes(projectRoot),
+    ...buildPresidentialRegionRoutes(projectRoot, regions),
+    ...buildPresidentialMunicipalityRoutes(projectRoot),
     ...buildSettlementRoutes(publicFolder, latest, oblastNames),
     // Governance view — place ladder (country node is a static page in
     // routes.ts; these are the region + município + settlement nodes).
