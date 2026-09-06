@@ -30,6 +30,7 @@ import {
 import { kfnFundName } from "@/lib/kfnFundSlug";
 import { kfnSharePct } from "@/lib/kfnPeriod";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
+import { PRESIDENTIAL_FOLDER_RE } from "../lib/electionFolders";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -201,6 +202,11 @@ const COPY = {
     budgetIntro: (siteUrl: string) =>
       `Модулът „Бюджет" (${siteUrl}/budget) е разделен на страници, всяка с една задача и една декларирана основа. КОЛОНАТА „ОСНОВА" Е НАЙ-ВАЖНАТА: числата на този сайт идват от ЧЕТИРИ различни периметъра, които не се събират помежду си. „Държавен бюджет" е касовият отчет по КФП на Министерството на финансите — 24,78 млрд. евро разходи за 2024 г. „Сектор S13" е Евростат: държава плюс общини плюс социални фондове — 41,06 млрд. евро за същата година. „Социални фондове" е касовият отчет на НОИ, а трансферът от държавния бюджет към ДОО (5,89 млрд. евро за 2024 г.) е ЕДНИ И СЪЩИ ПАРИ, видени от двата края — веднъж като „Трансфери (нето)" в разходите на държавния бюджет и веднъж като приход на фонда. „Общини" е трети периметър. Сборове през периметрите дават числа, които Министерството на финансите не публикува никъде.`,
     budgetTable: "| Страница | На какво отговаря | Основа | Обхват | URL |",
+    presidentialHeading: "Президентски избори — резултати по цикли",
+    presidentialIntro: (siteUrl: string, cycles: number) =>
+      `Всеки от ${cycles}-те цикъла има собствена страница на ${siteUrl}/presidential/{цикъл}, с резултати по области и общини под нея. ⚠ ВСИЧКИ СА РЕШЕНИ НА БАЛОТАЖ, така че „дял I тур“ НЕ е крайният резултат: през 2001 Първанов е избран с 54,13% на втория тур след 36,39% на първия. Досега водещата двойка на първия тур печели и балотажа във всеки цикъл. ⚠ 2006 показва защо чл. 93, ал. 3 е ДВЕ условия, а не едно: Първанов взема 64,05% от действителните гласове на първия тур и въпреки това няма избор, защото активността е 43,88% — под половината избиратели по списък. Дялът е спрямо ДЕЙСТВИТЕЛНИТЕ гласове, което включва „не подкрепям никого“ там, където формулярът го е питал (от 2016 нататък). Активността е подписи в списъците спрямо избирателите по списък; за 2006 тя е само за секциите в страната, защото протоколите от чужбина не съдържат нито списък, нито подписи. Тире значи, че такова число няма — не нула.`,
+    presidentialTable:
+      "| Избори | Избран президент | Вицепрезидент | Решен на | Двойки | Води на I тур | Дял I тур | Активност I тур | Страница |",
     pensionsHeading:
       "Частни пенсионни фондове (КФН) — нетни активи и осигурени лица",
     pensionsIntro: (siteUrl: string) =>
@@ -266,6 +272,11 @@ const COPY = {
     budgetIntro: (siteUrl: string) =>
       `The budget module (${siteUrl}/en/budget) is split into pages, each with one job and one declared basis. THE "BASIS" COLUMN IS THE IMPORTANT ONE: the figures on this site come from FOUR different perimeters that do not add together. "State budget" is the Ministry of Finance КФП cash report — €24.78bn of expenditure in 2024. "Sector S13" is Eurostat: the state plus municipalities plus the social funds — €41.06bn for the same year. "Social funds" is the NSSI cash report, and the state budget's transfer to the pension fund (€5.89bn in 2024) is THE SAME MONEY seen from both ends — once as "Transfers (net)" in state budget expenditure and once as fund revenue. "Municipalities" is a third perimeter. Summing across perimeters produces figures the Ministry of Finance publishes nowhere.`,
     budgetTable: "| Page | What it answers | Basis | Coverage | URL |",
+    presidentialHeading: "Presidential elections — results by cycle",
+    presidentialIntro: (siteUrl: string, cycles: number) =>
+      `Each of the ${cycles} cycles has its own page at ${siteUrl}/en/presidential/{cycle}, with results by province and municipality beneath it. ⚠ EVERY CYCLE WENT TO A RUNOFF, so the "round-1 share" is NOT the final result: in 2001 Parvanov (Първанов — the table below is Cyrillic, because a reader is matching it against a ballot) was elected with 54.13% in the second round after 36.39% in the first. So far the ticket leading round 1 has also won the runoff in every cycle. ⚠ 2006 shows why art. 93 (3) is TWO conditions rather than one: Parvanov took 64.05% of the valid votes in round 1 and was still not elected, because turnout was 43.88% — under half the registered voters. The share is of the VALID votes, which includes "none of the above" wherever the form asked for it (2016 onwards). Turnout is signatures in the rolls over registered voters; for 2006 it covers domestic sections only, because the protocols from abroad carry neither a roll nor a signature count. A dash means there is no such figure, not a zero.`,
+    presidentialTable:
+      "| Election | President elected | Vice-president | Decided in | Tickets | Led round 1 | Round-1 share | Round-1 turnout | Page |",
     pensionsHeading:
       "Private pension funds (FSC) — net assets and insured persons",
     pensionsIntro: (siteUrl: string) =>
@@ -283,6 +294,72 @@ const COPY = {
 const cell = (v: string | number | null | undefined): string =>
   v == null || v === "" ? "—" : String(v).replace(/\|/g, "\\|");
 
+/** One presidential cycle, as the corpus states it.
+ *
+ * ⚠ EVERY FIGURE NAMES ITS ROUND. Art. 93 (3) is a test on round 1 and every cycle in this
+ * corpus went to a runoff, so „Първанов 36.39%" without „на I тур" reads as the final result,
+ * which it never was — he was elected with 54.13% in round 2. The winner comes from the round
+ * that DECIDED it; the share and the turnout from round 1.
+ *
+ * ⚠ A DRAFT OF THIS BLOCK CLAIMED THE ROUND-1 LEADER AND THE PRESIDENT ELECTED ARE DIFFERENT
+ * PEOPLE IN 2001 AND 2011. Measured over all five cycles, they are the SAME in every one —
+ * the claim was written from memory and the corpus disproves it. The reason the two columns
+ * both exist is the SHARE, not the person: 2006's leader took 64.05% of the valid votes in
+ * round 1 and was still not elected, because turnout was 43.88%.
+ */
+type PresidentialCycleRow = {
+  cycle: string;
+  date: string;
+  decidedInRound: 1 | 2;
+  president: string;
+  vicePresident: string;
+  tickets: number;
+  leadPresident: string;
+  leadShareOfValid: number;
+  /** ⚠ `null` MEANS NO RATE, never 0% — the corpus cannot always support one. */
+  turnoutPct: number | null;
+};
+
+/** ⚠ DEGRADES TO `[]`, like `readSeoCourts` and `readSeoPensionFunds`. `data/*_pvr` is
+ *  gitignored, so a machine without the trees builds a corpus with no presidential section —
+ *  and `REQUIRED_SECTIONS` is what turns that into a refusal to publish rather than a silently
+ *  shorter committed file. */
+const readPresidentialCycles = (
+  projectRoot: string,
+): PresidentialCycleRow[] => {
+  const root = path.join(projectRoot, "data");
+  if (!fs.existsSync(root)) return [];
+  const out: PresidentialCycleRow[] = [];
+  // ⚠ THE SHARED CONSTANT, never a retyped literal — `electionFolders.ts` says so.
+  for (const cycle of fs
+    .readdirSync(root)
+    .filter((d) => PRESIDENTIAL_FOLDER_RE.test(d))
+    .sort()) {
+    const file = path.join(root, cycle, "national_summary.json");
+    if (!fs.existsSync(file)) continue;
+    try {
+      const s = JSON.parse(fs.readFileSync(file, "utf-8"));
+      const r1 = s.rounds?.[0];
+      if (!r1?.ranking?.length || !s.winner) continue;
+      const [y, m, d] = String(s.round1Date).split("-");
+      out.push({
+        cycle,
+        date: `${d}.${m}.${y}`,
+        decidedInRound: s.decidedInRound,
+        president: s.winner.president,
+        vicePresident: s.winner.vicePresident,
+        tickets: r1.ranking.length,
+        leadPresident: r1.ranking[0].president,
+        leadShareOfValid: r1.ranking[0].shareOfValid,
+        turnoutPct: r1.turnout?.pct ?? null,
+      });
+    } catch {
+      continue;
+    }
+  }
+  return out;
+};
+
 /** A markdown separator row from a per-column alignment: "r" right-aligns. */
 const sep = (align: string[]): string =>
   `| ${align.map((a) => (a === "r" ? "---:" : "---")).join(" | ")} |`;
@@ -292,6 +369,7 @@ const buildCorpus = (
   courts: SeoCourt[],
   councils: SeoCouncil[],
   funds: SeoPensionFund[],
+  presidentialCycles: PresidentialCycleRow[],
 ): string => {
   const t = COPY[lang];
   const lines: string[] = [];
@@ -634,6 +712,37 @@ const buildCorpus = (
     lines.push("");
   }
 
+  if (presidentialCycles.length) {
+    lines.push(`## ${t.presidentialHeading}`);
+    lines.push("");
+    lines.push(t.presidentialIntro(SITE_URL, presidentialCycles.length));
+    lines.push("");
+    lines.push(t.presidentialTable);
+    lines.push(sep(["-", "-", "-", "r", "r", "-", "r", "r", "-"]));
+    for (const c of presidentialCycles) {
+      const cells = [
+        cell(c.date),
+        // ⚠ Bulgarian in BOTH corpora and never transliterated — the reader is matching these
+        // against a ballot or a protocol scan, both of which print Cyrillic.
+        cell(c.president),
+        cell(c.vicePresident),
+        fmtInt(c.decidedInRound, lang),
+        fmtInt(c.tickets, lang),
+        cell(c.leadPresident),
+        // ⚠ `fmtPct`, NOT `.toFixed` — it is the file's own formatter and it writes a COMMA
+        // decimal in Bulgarian. Ten hand-rolled percentages here were the only dot decimals
+        // in any generated BG table, beside a `fmtInt` in the same row that was localised.
+        fmtPct(c.leadShareOfValid * 100, lang),
+        // A dash, never 0,00%: „the corpus cannot support a rate" and „nobody voted" are
+        // different statements and only the first is ever true here.
+        c.turnoutPct == null ? "—" : fmtPct(c.turnoutPct * 100, lang),
+        `${SITE_URL}${langPrefix}/presidential/${c.cycle}`,
+      ];
+      lines.push(`| ${cells.join(" | ")} |`);
+    }
+    lines.push("");
+  }
+
   if (funds.length) {
     const bg = lang === "bg";
     lines.push(`## ${t.pensionsHeading}`);
@@ -939,6 +1048,14 @@ const REQUIRED_SECTIONS: Array<{ heading: string; fix: string }> = [
     fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
   },
   {
+    heading: "## " + COPY.bg.presidentialHeading,
+    fix: "restore the data/*_pvr trees (gitignored — `npm run data -- --pvr all`) and re-run `npm run llms`",
+  },
+  {
+    heading: "## " + COPY.en.presidentialHeading,
+    fix: "restore the data/*_pvr trees (gitignored — `npm run data -- --pvr all`) and re-run `npm run llms`",
+  },
+  {
     heading: "## " + COPY.bg.pensionsHeading,
     fix: "restore data/budget/kfn/funds.json and re-run `npm run llms`",
   },
@@ -997,6 +1114,16 @@ const writeOutput = (filename: string, content: string) => {
 const courts = await readSeoCourts();
 const councils = await readSeoCouncils();
 const funds = readSeoPensionFunds(PROJECT_ROOT);
+// ⚠ THE SAME DEGRADE-TO-[] CONTRACT: `data/*_pvr` is gitignored, so this is [] on any machine
+// that has not ingested the presidential corpus — and `REQUIRED_SECTIONS` is what stops such a
+// build from publishing a shorter file over the committed one.
+const presidentialCycles = readPresidentialCycles(PROJECT_ROOT);
 
-writeOutput("llms-full.txt", buildCorpus("bg", courts, councils, funds));
-writeOutput("llms-full.en.txt", buildCorpus("en", courts, councils, funds));
+writeOutput(
+  "llms-full.txt",
+  buildCorpus("bg", courts, councils, funds, presidentialCycles),
+);
+writeOutput(
+  "llms-full.en.txt",
+  buildCorpus("en", courts, councils, funds, presidentialCycles),
+);

@@ -27,6 +27,7 @@ import path from "node:path";
 import { SITE_URL, type PrerenderRoute } from "./routes";
 import { buildWebPageLd } from "./jsonLd";
 import { escapeHtml } from "./html";
+import { PRESIDENTIAL_FOLDER_RE } from "../lib/electionFolders";
 import type { RegionInfo } from "../../src/data/dataTypes";
 
 /** ⚠ EVERY CORPUS STRING IN A `bodyHtml` GOES THROUGH THIS. `PrerenderRoute`'s own doc says
@@ -40,9 +41,11 @@ const esc = escapeHtml;
 export const presidentialCyclesFor = (projectRoot: string): string[] => {
   const root = path.join(projectRoot, "data");
   if (!fs.existsSync(root)) return [];
+  // ⚠ THE SHARED CONSTANT, never a retyped literal — `electionFolders.ts` says so in its own
+  // header, and there are already eight inline copies of this pattern in the tree.
   return fs
     .readdirSync(root)
-    .filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d))
+    .filter((d) => PRESIDENTIAL_FOLDER_RE.test(d))
     .sort();
 };
 
@@ -100,8 +103,14 @@ type Ticket = { number: number; president: string; vicePresident: string };
  *
  *  ⚠ THE DENOMINATOR IS THE TICKET SUM, not the valid votes — „не подкрепям никого" is valid
  *  and is not in these files. Every body that prints this share says so, because the same
- *  place's share in the national ranking is the smaller number. */
-const leadersOf = (
+ *  place's share in the national ranking is the smaller number.
+ *
+ *  ⚠ EXPORTED SO THERE IS ONE COPY. The sitemap was deliberately unified onto these builders
+ *  for exactly this reason, and the OG card generator then re-implemented the same rule a
+ *  third time — with a different ticket predicate, which is how two producers of „who led
+ *  here" start disagreeing about a named person. The tiebreak and the zero-vote skip live
+ *  here and nowhere else. */
+export const leadersOf = (
   file: string,
 ): Map<string, { number: number; votes: number; share: number }> => {
   const out = new Map<
@@ -219,6 +228,10 @@ export const buildPresidentialCycleRoutes = (
       path: `presidential/${cycle}`,
       title,
       description,
+      // ⚠ CYCLE AND REGION ONLY — `scripts/og/generate.ts` renders exactly this pair, which is
+      // the same cut the local family makes. A municipality `ogImage` naming a file nothing
+      // renders would serve a 404 to every social preview.
+      ogImage: `/og/presidential/${cycle}.png`,
       bodyHtml: `<h1>Президентски избори ${f.date}</h1><p>${r1.ranking.length} двойки на първи тур, ${int(r1.votes.valid)} действителни гласа.${turnout} Избрани: ${esc(w.president)} и ${esc(w.vicePresident)}.</p>`,
       jsonLd: [buildWebPageLd({ title, description, url })],
       english: {
@@ -306,6 +319,7 @@ export const buildPresidentialRegionRoutes = (
         path: `presidential/${cycle}/region/${code}`,
         title,
         description,
+        ogImage: `/og/presidential/region/${cycle}/${code}.png`,
         bodyHtml: `<h1>${esc(name)} — президентски избори ${f.date}</h1><p>На първи тур води двойката ${esc(t.president)} и ${esc(t.vicePresident)} с ${int(lead.votes)} гласа, или ${pct(lead.share, 1)} от подадените за двойки в областта.</p>`,
         jsonLd: [buildWebPageLd({ title, description, url })],
         english: {

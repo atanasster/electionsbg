@@ -26,6 +26,8 @@ import { allRows, dbReachable, end } from "../db/lib/pg";
 import { readSeoCourts } from "../db/lib/seo_courts";
 import { readSeoPensionFunds } from "../prerender/kfnFunds";
 import { reportSkip } from "../lib/report_skip";
+import catalogue from "../../src/data/json/presidential_elections.json";
+import type { PresidentialElectionEntry } from "../../src/data/presidentialCatalogue";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -64,15 +66,17 @@ const HEADINGS = {
   "llms-full.txt": {
     judiciary: "Съдебна власт — органи, натовареност и магистрати",
     pensions: "Частни пенсионни фондове (КФН) — нетни активи и осигурени лица",
+    presidential: "Президентски избори — резултати по цикли",
   },
   "llms-full.en.txt": {
     judiciary: "The judiciary — bodies, caseload and magistrates",
     pensions: "Private pension funds (FSC) — net assets and insured persons",
+    presidential: "Presidential elections — results by cycle",
   },
 } as const;
 
 for (const f of CORPORA) {
-  test(`${f}: both new sections are present and populated`, () => {
+  test(`${f}: every generated section is present and populated`, () => {
     const corpus = read(f);
     for (const heading of Object.values(HEADINGS[f])) {
       const rows = tableUnder(corpus, heading);
@@ -230,4 +234,56 @@ test("a build without Postgres refuses to rewrite the corpus shorter", () => {
       `${f} was rewritten by a Postgres-less run — the regression guard did not fire`,
     );
   }
+});
+
+// ⚠ THE PRESIDENTIAL TABLE IS A PUBLISHED CLAIM ABOUT NAMED OFFICE-HOLDERS, and a model will
+// repeat it verbatim. Its source is the gitignored `data/*_pvr` tree; the COMMITTED catalogue
+// carries six of the same eight fields, derived by a different producer from the same corpus.
+// Cross-checking the two is what turns „the table is populated" into „the table is right" —
+// and it is the only check here that could catch a row built from a stale or partial tree.
+test("llms-full.txt: every presidential row agrees with the committed catalogue", () => {
+  const rows = tableUnder(
+    read("llms-full.txt"),
+    HEADINGS["llms-full.txt"].presidential,
+  ).slice(2);
+  assert.ok(rows.length > 0, "no presidential rows");
+  const byDate = new Map(
+    (catalogue as PresidentialElectionEntry[]).map((e) => {
+      const [y, m, d] = e.round1Date.split("-");
+      return [`${d}.${m}.${y}`, e];
+    }),
+  );
+  for (const cells of rows) {
+    const [date, president, vice, decided, tickets] = cells;
+    const e = byDate.get(date);
+    assert.ok(e, `no catalogue entry for ${date}`);
+    assert.equal(president, e.winnerTicket.president, `${date}: president`);
+    assert.equal(vice, e.winnerTicket.vicePresident, `${date}: vice-president`);
+    assert.equal(decided, String(e.decidedInRound), `${date}: decided in`);
+    assert.equal(tickets, String(e.tickets), `${date}: ticket count`);
+  }
+  // Both directions: a cycle the catalogue lists and the corpus omits is a table built from a
+  // partial tree, which is exactly what REQUIRED_SECTIONS cannot see (it checks presence only).
+  assert.equal(
+    rows.length,
+    byDate.size,
+    "the corpus and the catalogue list different numbers of presidential cycles",
+  );
+});
+
+// ⚠ BULGARIAN WRITES A COMMA DECIMAL, and the BG table hand-rolled `.toFixed` at first — ten
+// dot decimals, the only ones in any generated BG table, beside a localised integer in the
+// same row.
+test("llms-full.txt: presidential percentages use the Bulgarian decimal comma", () => {
+  const rows = tableUnder(
+    read("llms-full.txt"),
+    HEADINGS["llms-full.txt"].presidential,
+  ).slice(2);
+  for (const cells of rows)
+    for (const c of cells)
+      if (c.endsWith("%"))
+        assert.ok(
+          !c.includes("."),
+          `"${c}" uses a dot decimal in the BG corpus`,
+        );
 });

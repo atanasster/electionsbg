@@ -112,6 +112,7 @@ import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 import { escapeHtml } from "./html";
 import { LATEST_LOCAL_CYCLE } from "../../src/data/local/useLatestLocalCycle";
+import { LATEST_PRESIDENTIAL_CYCLE } from "../../src/data/presidentialCatalogue";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -758,6 +759,13 @@ type StaticPageOpts = {
 // `TILE_ACCENTS`. Same Node/browser boundary `HOME_DESTINATIONS` sits on, and the same
 // consequence: the two lists are compared TEXTUALLY by a gate rather than derived from one
 // another. Order included — the sections are the page's table of contents.
+//
+// ⚠ THERE IS NO GATE ON THIS LIST, and a previous version of this comment said there was.
+// `HOME_DESTINATIONS` genuinely has one (`homeHubBands.test.ts` regex-extracts its block from
+// this file and compares it against `HOME_TILES`); nothing reads `ELECTIONS_HUB_SECTIONS`
+// outside this module. So a link added here is kept in step with the registry BY HAND —
+// which is worth saying, because a comment promising a safety net discourages the check that
+// actually catches a drift.
 const ELECTIONS_HUB_SECTIONS: {
   bg: string;
   en: string;
@@ -771,6 +779,13 @@ const ELECTIONS_HUB_SECTIONS: {
         bg: "Парламентарни избори",
         en: "Parliamentary elections",
         path: "parliamentary",
+      },
+      {
+        // ⚠ THE LATEST CYCLE, NOT A BARE `/presidential` — there is no such route. The family
+        // is `/presidential/:cycle`, and the hub's own tile links the same way.
+        bg: "Президентски избори",
+        en: "Presidential elections",
+        path: `presidential/${LATEST_PRESIDENTIAL_CYCLE}`,
       },
       {
         bg: "Местни избори",
@@ -873,8 +888,8 @@ const electionsHubBody = (lang: "bg" | "en"): string => {
         .join("")}</ul>`,
   ).join("");
   return lang === "bg"
-    ? `<h1>Избори в България</h1><p>Двете изборни системи на едно място: парламентарният вот от 2005 г. насам и местните избори за кметове и общински съвети в 265 общини, плюс частичните избори между редовните цикли. Резултатите слизат до отделната избирателна секция.</p>${sections}`
-    : `<h1>Elections in Bulgaria</h1><p>Both electoral systems in one place: the parliamentary vote since 2005 and local elections for mayors and municipal councils across 265 municipalities, plus the partial elections between regular cycles. Results go down to the individual polling section.</p>${sections}`;
+    ? `<h1>Избори в България</h1><p>Трите изборни системи на едно място: парламентарният вот от 2005 г. насам, президентският от 2001 г. и местните избори за кметове и общински съвети в 265 общини, плюс частичните избори между редовните цикли. Резултатите слизат до отделната избирателна секция.</p>${sections}`
+    : `<h1>Elections in Bulgaria</h1><p>All three electoral systems in one place: the parliamentary vote since 2005, the presidential one since 2001, and local elections for mayors and municipal councils across 265 municipalities, plus the partial elections between regular cycles. Results go down to the individual polling section.</p>${sections}`;
 };
 
 const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
@@ -1803,16 +1818,17 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "elections",
     ogImage: "/og/elections.png",
-    title: "Избори в България — парламентарни и местни | electionsbg.com",
+    title:
+      "Избори в България — парламентарни, президентски и местни | electionsbg.com",
     description:
-      "Входна точка към всички избори в България: парламентарни резултати по секции от 2005 г., местни избори за кметове и общински съвети, частични избори и анализи.",
+      "Входна точка към всички избори в България: парламентарни резултати по секции от 2005 г., президентски от 2001 г., местни избори за кметове и общински съвети, частични избори и анализи.",
     breadcrumbName: "Избори",
     bodyHtml: electionsHubBody("bg"),
     english: {
       title:
-        "Elections in Bulgaria — parliamentary and local | electionsbg.com",
+        "Elections in Bulgaria — parliamentary, presidential and local | electionsbg.com",
       description:
-        "The entry point to every election in Bulgaria: parliamentary results by polling section since 2005, local elections for mayors and municipal councils, partial elections and analyses.",
+        "The entry point to every election in Bulgaria: parliamentary results by polling section since 2005, presidential results since 2001, local elections for mayors and municipal councils, partial elections and analyses.",
       breadcrumbName: "Elections",
       bodyHtml: electionsHubBody("en"),
     },

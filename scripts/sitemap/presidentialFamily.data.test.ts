@@ -121,6 +121,38 @@ describe.skipIf(skipNoCorpus)("the committed presidential shard", () => {
   });
 });
 
+describe.skipIf(skipNoCorpus)("the presidential og:image set", () => {
+  it("declares a card for exactly the two levels that render one", () => {
+    // ⚠ TWO PRODUCERS, ONE SET. `scripts/og/generate.ts` renders a card per cycle and per
+    // (cycle, oblast); these builders declare `ogImage` on the same two levels and on no
+    // other. A declared card nothing renders is a 404 in every social preview; a rendered
+    // card nothing declares is a PNG the build ships and no page names. Neither side can see
+    // the other, so this is the only thing comparing them.
+    const withCard = new Map<string, string>();
+    for (const r of [
+      ...buildPresidentialCycleRoutes(ROOT),
+      ...buildPresidentialRegionRoutes(ROOT, regions as RegionInfo[]),
+      ...buildPresidentialMunicipalityRoutes(ROOT),
+    ])
+      if (r.ogImage) withCard.set(r.path, r.ogImage);
+
+    for (const [routePath, og] of withCard) {
+      // A cycle page or a region page — never a municipality or the abroad page.
+      expect(routePath, og).toMatch(
+        /^presidential\/[^/]+$|^presidential\/[^/]+\/region\/[^/]+$/,
+      );
+      expect(og, routePath).toMatch(/^\/og\/presidential\//);
+    }
+    // …and the two levels that carry none really carry none.
+    for (const r of buildPresidentialMunicipalityRoutes(ROOT))
+      expect(r.ogImage, r.path).toBeUndefined();
+    for (const r of buildPresidentialCycleRoutes(ROOT))
+      if (r.path.endsWith("/abroad")) expect(r.ogImage, r.path).toBeUndefined();
+    // Non-vacuity: 5 cycles + 155 regions today.
+    expect(withCard.size).toBeGreaterThan(100);
+  });
+});
+
 // ─── the skip rules, on a synthetic corpus ──────────────────────────────────────────────────
 //
 // ⚠ NO `data/` TREE, SO THIS RUNS IN CI. Every rule below is invisible on the healthy corpus —

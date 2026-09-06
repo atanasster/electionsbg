@@ -13,6 +13,20 @@ import { renderCard, PALETTE, type Tile, type CardSpec } from "./cardRenderer";
 import { renderCandidateCard } from "./candidateCard";
 import { loadCandidateCardData } from "./candidateData";
 import { createOgCache, hashFile } from "./cache";
+import { surnameOf } from "../../src/layout/header/presidentialRows";
+import {
+  leadersOf,
+  presidentialCyclesFor,
+} from "../prerender/presidentialRoutes";
+import { findPresidentialEntry } from "../../src/data/presidentialCatalogue";
+
+/** One presidential round's declared capabilities, from the COMMITTED catalogue.
+ *
+ *  ⚠ THE CATALOGUE IS THE ONLY PLACE A ROUND'S BASIS LIVES — whether its turnout rate covers
+ *  every section or only the domestic ones. Inferring it from `national_summary.json` means
+ *  re-reading a Bulgarian prose sentence; the catalogue stores a CODE for exactly this. */
+const catalogueRound = (cycle: string, round: 1 | 2) =>
+  findPresidentialEntry(cycle)?.rounds[round];
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -760,6 +774,133 @@ const main = async () => {
           { label: "балотажи", value: `${r.runoffCount}` },
         ],
         `local/region/${cycle}/${r.oblast}.png`,
+      );
+    }
+  }
+
+  // Presidential cards: one per cycle + one per (cycle, oblast), which is exactly the set the
+  // local family generates and exactly the set that is PRERENDERED with an `ogImage`.
+  //
+  // ⚠ NO MUNICIPALITY CARDS, deliberately, and local makes the same cut: 1,357 more PNGs for
+  // pages whose card would say the same four things one level down. Those pages fall back to
+  // the site default, which is what a local município page already does.
+  //
+  // ⚠ EVERY FIGURE IS ROUND 1 AND THE CARD SAYS SO. All five cycles went to a runoff, so a
+  // bare „49.42%" on a share card reads as the final result — which it never was.
+  type PvrSummary = {
+    round1Date: string;
+    decidedInRound: 1 | 2;
+    winner: { president: string; vicePresident: string };
+    rounds: {
+      ranking: { number: number; president: string; shareOfValid: number }[];
+      turnout: { pct: number | null };
+    }[];
+  };
+  const pvrCycles = presidentialCyclesFor(PROJECT_ROOT);
+  for (const cycle of pvrCycles) {
+    const readIf = <T>(f: string): T | null => {
+      if (!fs.existsSync(f)) return null;
+      try {
+        return JSON.parse(fs.readFileSync(f, "utf-8")) as T;
+      } catch {
+        return null;
+      }
+    };
+    const sum = readIf<PvrSummary>(
+      path.join(publicFolder, cycle, "national_summary.json"),
+    );
+    const r1 = sum?.rounds?.[0];
+    if (!sum || !r1?.ranking?.length) continue;
+    const tickets = readIf<{
+      tickets: { number: number; president: string; color?: string }[];
+    }>(path.join(publicFolder, cycle, "tickets.json"));
+    const colorOf = new Map(
+      (tickets?.tickets ?? []).map((t) => [t.number, t.color]),
+    );
+    const date = localizeDate(cycle.replace(/_pvr$/, ""));
+    renderStaticPageCard(
+      `Президентски избори ${date}`,
+      "Резултати по области и общини",
+      [
+        {
+          // ⚠ THE SURNAME, NOT THE FULL NAME. A card tile is sized for a short value and
+          // „Румен Георгиев Радев" overflows it — measured, it ran under the tile beside it.
+          // `surnameOf` is the header dropdown's own rule, imported rather than restated, so
+          // one person is spelled the same on the card and in the menu — the hyphenated
+          // „Боян Боянов Станков-Расате" (2021) is the only president whose name it has to
+          // normalise at all.
+          label: "избран президент",
+          value: surnameOf(sum.winner.president),
+        },
+        {
+          label: "решен на",
+          value: sum.decidedInRound === 2 ? "балотаж" : "първи тур",
+        },
+        { label: "двойки на I тур", value: `${r1.ranking.length}` },
+        {
+          // ⚠⚠ THE BASIS COMES FROM THE CATALOGUE, and it is part of the LABEL. 2006's rate
+          // excludes every section abroad — their protocols carry neither a roll nor a
+          // signature count — so „43.9% активност" on a card, the one artifact whose whole
+          // job is to be quoted out of context, is a national-looking figure over a
+          // different population. `presidentialCatalogue.ts` says a surface needing a
+          // round's basis must come to it rather than infer it from the summary, and reading
+          // it here is also what keeps a FUTURE domestic-only cycle qualified.
+          label:
+            catalogueRound(cycle, 1)?.turnoutBasis === "domestic-only"
+              ? "активност I тур (в страната)"
+              : "активност I тур",
+          // ⚠ A dash, never 0.00% — „no rate" and „nobody voted" are different statements.
+          value:
+            r1.turnout.pct == null
+              ? "—"
+              : `${(r1.turnout.pct * 100).toFixed(1)}%`,
+        },
+      ],
+      `presidential/${cycle}.png`,
+    );
+    // ⚠ THE PRERENDER'S OWN RULE, imported. A third implementation of „who led here" is a
+    // third place the tiebreak and the zero-vote skip can drift, and a card that disagrees
+    // with the page it advertises names the wrong person in a social preview.
+    const leaders = leadersOf(
+      path.join(publicFolder, cycle, "tur1", "region_votes.json"),
+    );
+    for (const [code, lead] of leaders) {
+      const name = regionNameOf.get(code);
+      // A code with no name gets no card, for the same reason it gets no page.
+      if (!name) continue;
+      const president = (tickets?.tickets ?? []).find(
+        (t) => t.number === lead.number,
+      )?.president;
+      if (!president) continue;
+      renderStaticPageCard(
+        `Президентски избори — ${name}`,
+        date,
+        [
+          {
+            label: "води на I тур",
+            // ⚠ THE SURNAME IS THE LAST WHITESPACE-SEPARATED PART, and on a NON-WINNER that
+            // can be the part nobody uses: in 2016 the leader in BGS, BLG, SHU and SLS is
+            // „Цецка Цачева Данговска", so those four cards read „Данговска" — a name no
+            // source calls her. The header dropdown, whose rule this is, only ever applies it
+            // to elected presidents. Accepted rather than special-cased: `surnameOf`'s own
+            // docstring says it is not an identity and nothing may join on it, and inventing
+            // a second naming rule here would give one person two spellings across surfaces.
+            value: surnameOf(president),
+            accent: colorOf.get(lead.number),
+          },
+          {
+            // ⚠ „от гласовете за двойки", not „от действителните" — „не подкрепям никого"
+            // is valid and is not in this file, so this share is the larger of the two.
+            label: "дял (гласове за двойки)",
+            value: `${(lead.share * 100).toFixed(1)}%`,
+          },
+          { label: "гласове", value: lead.votes.toLocaleString("bg-BG") },
+          {
+            label: "решен на",
+            value: sum.decidedInRound === 2 ? "балотаж" : "първи тур",
+          },
+        ],
+        `presidential/region/${cycle}/${code}.png`,
       );
     }
   }
