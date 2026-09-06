@@ -52,18 +52,41 @@ Expected output on a normal run:
 → wrote 45887 per-EIK beneficiary file(s)
 → cross-referencing beneficiaries against the MP↔company link set
   EIK linkage map: … EIK(s) with at least one MP link
-  303 MP↔beneficiary pair(s) → derived/mp_connected.json (… MP(s), … company(ies), €… contracted)
+  … MP↔beneficiary pair(s) → derived/mp_connected.json (… MP(s), … company(ies), €… contracted)
 ✓ index.json written
   52779 beneficiaries · 80705 contracts · €43,500,972,226 contracted · €16,494,577,249 paid · 45887 with EIK (86.9%)
 ```
 
-⚠️ **[2026-08-20] `303` is the anchor to check, and `43` is the failure it names.** The
+⚠️ **THE PAIR COUNT IS A RANGE THAT FALLS OVER TIME — a drop on its own is NOT a
+defect.** Measured on the same builder: **303** (2026-08-20), **173** (2026-09-02), **148**
+(2026-09-06), i.e. a healthy band of roughly **100–350**. Each step down followed a
+re-resolve of the gated person layer, where migration 148's `tr_name_fold_people` fold
+**refuses** a name the Commerce Registry says belongs to more than one human. That fold only
+ever tightens as the TR corpus grows, so the count is monotonically decreasing by design.
+This note has now pinned a single magic number twice and been wrong twice; do not restore
+one.
+
+**Check the two DISCRIMINATORS instead — both are printed by the run itself:**
+
+- **`EIK linkage map: N EIK(s)` must be in the LOW THOUSANDS** (1,200 on 2026-09-06). Near
+  zero is the real failure: the join is reading nothing, and the pair count collapses with
+  it.
+- **`€… contracted` must be STABLE across runs.** 2026-09-02 → 2026-09-06 moved
+  €3,605,817,496 → €3,589,702,338, i.e. **−0.4% of euro against −14% of pairs**. That
+  asymmetry IS the signature of the gate tightening — a few name-ambiguous MPs dropping out
+  moves the pair count and barely moves the money. A drop in pairs with a **matching collapse
+  in contracted euro** is a defect; a drop in pairs alone is not.
+
+⚠️ **`43` is the one number that still names a specific structural defect — keep it.** The
 payload is joined at the link set's **unrestricted** scope; the contract-restricted
-`company_politicians` answers only **43** of those pairs, because every row in that table is
-a politically linked *contractor* and an MP-linked company that took EU money and never won
-a public contract is exactly the row this payload exists to report. A pair count that lands
-near 43 means the builder is reading the wrong scope — see the ⚠️ in
-`scripts/lib/mp_linkage.ts`.
+`company_politicians` answered only **43** of the 2026-08-20 run's 303 pairs (~1 in 7),
+because every row in that table is a politically linked *contractor* — and an MP-linked
+company that took EU money and never won a public contract is exactly the row this payload
+exists to report. The tell is a **step-change to a small fraction of the previous run while
+the linkage map still reports thousands of EIKs**: gate tightening has moved the count by
+~15% per resolve, a scope error moves it by ~7×. That means the builder is reading the wrong
+scope — see the ⚠️ in `scripts/lib/mp_linkage.ts`. (`43` is itself a 2026-08-20-scale
+figure and will be smaller at today's totals; read it as the ratio, not as a floor.)
 
 Flags:
 
@@ -93,8 +116,14 @@ git diff --stat data/funds/
 You should see `index.json`, up to 11 `beneficiaries/*.json` shards, and
 `derived/mp_connected.json` changed. `withEik` should stay near ~87% — a sharp
 drop means EIK parsing regressed. `byOrgForm` carries the public-law vs
-private-law split; `crossReference.pairCount` (the MP-tied payload) should sit
-in the low hundreds.
+private-law split.
+
+`crossReference.pairCount` (the MP-tied payload) has no fixed expected value — it sits in a
+**roughly 100–350 band and falls with every person-layer re-resolve**, so verify it the way
+Step 1 says: against `crossReference.contractedEur`, which must stay stable (a pair drop with
+a matching euro collapse is the defect), and against the run's `EIK linkage map` count, which
+must stay in the low thousands. `git diff` it rather than eyeballing it — the two figures move
+together only when something is wrong.
 
 ## Step 3 — Contract-level ingest (Проекти)
 
@@ -393,7 +422,9 @@ Court-of-Audit declaration. Plan: `docs/plans/company-page-consolidation-v1.md` 
 contract-restricted — its loader inner-joins procurement money, so every row is a politically
 linked *contractor*. This join's population is ИСУН beneficiaries, where an MP-linked company
 that took EU money and never won a public contract is the whole point. Measured 2026-08-20:
-the restricted set answers **43 of this payload's 303 pairs**.
+the restricted set answers **43 of that run's 303 pairs**. (Both figures are frozen at
+that date — the unrestricted total was 148 on 2026-09-06 and keeps falling as the name gate
+tightens; Step 1 carries the live range and the discriminators.)
 
 **Absent vs empty are different answers, and only one is a skip.** The ingest probes
 `company_politicians` for reachability: **absent** (no Postgres, never loaded) is a fresh
