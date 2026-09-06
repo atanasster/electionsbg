@@ -968,7 +968,51 @@ type PresidentialRound = {
     every spelling rather than only the one a source-text match knew about.
 
 - **T4.4 ✅ DONE (the tile; the runoff-transfer tile stays with Tier 8).** The presidential tile is defined,
-  scened, keyed and WITHHELD.
+  scened, keyed and — **since 2026-09-07 — SHIPPED**. It was minted here at tier4 step 20 (`23fc83835d`) and
+  seated 36 commits later, after Tier 5 gave it a route and Tiers 8–9 came and went; what follows is the record
+  of why it waited, because the rules it teaches outlived the withholding.
+
+  **The band decision the registry could not make for itself, made.** `band-full` was the last blocker, and it
+  was not a formality: the results band held one parliamentary tile and three LOCAL ones against a four-column
+  `xl` grid, so seating a seventeenth tile meant deciding what leaves. The RESULTS band is now **one tile per
+  KIND of vote** — parliamentary · presidential · local · partial (`chmi`) — and the two national leaderboards
+  it used to carry moved into a new `rankings` band beside `strongest-mandates` / `closest-races`, with
+  `analysis` taking `swing` and `sverka`. The other three bands are grouped by question, as before.
+  `independents` left the page for the seventeenth slot.
+
+  Four things that decision turned up, each of which had to be answered before the tile could render:
+
+  - ⚠️⚠️ **THE HEADER MENU READS THE BANDS' OWN HEADING KEYS, so renaming a band breaks the GLOBAL NAV.**
+    `elections_band_partial` was deleted from both corpora with `reportMenus.ts` (line 144 as of
+    `f7274d6e86^`) still naming it, and
+    i18next renders a missing key as its own raw ASCII — so the Elections dropdown's section heading read
+    `elections_band_partial` on every page, in both languages, at a 200. Nothing was red: `electionsMenu.test.ts`
+    asserts the group titles as string LITERALS and never resolves them, `electionCopyCoverage.test.ts` cannot
+    see the header, and `key_usage.test.ts` checks the opposite direction. There is a second, quieter cost —
+    `saveMissing`/`healMissingKey` answers ANY missing key by eagerly importing every deferred locale bundle,
+    which a key in no bundle can never satisfy, handing back much of the −22% core-corpus win. The gate is
+    `src/layout/header/menuCopy.test.ts`: every title of every exported menu resolves, non-blank, in BOTH
+    corpora. The global nav's Elections DROPDOWN also gained the presidential leaf it never had — a different
+    control from T4.3's cycle-selector rows, which had carried the kind since that step.
+  - ⚠️ **`independents` IS NEITHER PRERENDERED NOR SITEMAPPED, and the first draft of both comments claimed it
+    was.** No member of the `LocalMunicipalityListScreen` family is — `enumerateLocalMunicipalities` emits one
+    `<loc>` per obshtinaCode and can never emit a list segment — so the crawlable link in the prerendered
+    `/elections` body and the header menu leaf are what a crawler has, i.e. MORE load-bearing than „not
+    orphaning" implies. The decision to drop the tile stands; the reasoning had to be inverted.
+  - ⚠️ **`ELECTIONS_HUB_SECTIONS` (the prerender's crawlable mirror) had no gate**, which its own comment said
+    honestly, and this is exactly the edit class that drifts it. It is now compared TEXTUALLY against the
+    registry — all sixteen destinations in order, and the four headings against BOTH corpora — the treatment
+    `HOME_DESTINATIONS` already had, with `independents` allowlisted BY NAME rather than by relaxing the
+    comparison. ⚠️ The per-LINK labels are still uncompared: they are the prerender's own prose, not the
+    tiles' copy keys.
+  - ⚠️ **AN EMPTY `WITHHELD_TILES` MAKES ITS OWN GATE VACUOUS.** The loop passes whatever the recompute says,
+    including nothing, so `blockersFor` takes injectable bands / kinds and is exercised against synthetic
+    inputs: measured, with the live values alone, deleting the `route` arm and replacing the tile-count test
+    with `true` each left the file entirely green (19 tests at the time of the experiment, 20 once the mirror
+    gate above landed). `TILES_PER_BAND` is now exported from the registry beside the rule, so the layout
+    constant and the blocker cannot drift.
+
+  **T4.4's original record follows.** The presidential tile was defined, scened, keyed and WITHHELD.
 
   ⚠️⚠️ **„T5 EMPTIES `KINDS_WITHOUT_SURFACE` AND IT JOINS THE RESULTS BAND WITH NO FURTHER EDIT" WAS WRONG,
   and it was written in three places before anyone measured it.** Emptying the list and re-running this hub's
@@ -1140,6 +1184,42 @@ type PresidentialRound = {
   reload (18,728, then 18,729 minutes apart); it is re-pinned at **18,729** only because it then held across
   two readings twenty seconds apart — a value written mid-load is stale before it is committed, and that gate
   re-pins BOTH sides or neither.
+
+- **T4.10 ✅ DONE (2026-09-07, added after the tier was written — T4.6 is the upcoming-ballot entry).** The
+  hub's scope row offers every OTHER kind, each anchored to the reader's own cycle. It rendered exactly ONE
+  link — `local ? "/parliamentary" : "/local/<latest>"` — which is not so much an omission as a two-catalogue
+  ASSUMPTION written into a ternary:
+  it reads „the other kind" while meaning „the other of the two I know about", so the presidency was
+  unreachable from this page for every reader on a parliamentary cycle, i.e. the ordinary case. Selecting
+  14.11.2021 now offers the presidential election held the SAME DAY, which is the one pairing in this corpus
+  where the two ballots share a date (§0, and Tier 8's split-ticket work).
+
+  ⚠️⚠️ **THE LOCAL CYCLE WAS NOT ANCHORED AT ALL, AND T5 IS WHAT MADE THAT REACHABLE.** `localCycle` fell
+  through to `useLatestLocalCycle()`, which reads `ElectionContext` — whose param is validated against the
+  PARLIAMENTARY catalogue only — so a `_pvr` id never resolved there and silently became the newest
+  parliamentary election. A `kind === "local"` special case rescued a local selection and nothing rescued a
+  presidential one. Measured: `?elections=2016_11_06_pvr` put a pill reading 6 November 2016 beside a link to
+  `/local/2023_10_29_mi`, and since the same value feeds the ten `cycleScoped: "local"` tiles, **eleven
+  destinations disagreed with the pill on every one of the five presidential cycles**. It is
+  `localAsOf(cycle.date)` now — the mirror image of the defect T4.4's own record describes, shipped by the one
+  kind that special case did not cover, exactly as that paragraph predicted in the other direction.
+
+  ⚠️ **THE `kind === "local"` ARM STAYS, and it is not redundant with the anchor.** `localAsOf` resolves
+  REGULAR cycles only — partials surface through the chmi feed — so a partial selection would anchor to the
+  surrounding regular cycle rather than to itself. The catalogue holds no partials today; the arm is what
+  keeps that safe if it gains one.
+
+  ⚠️ **A TUPLE IS NOT EXHAUSTIVE OVER THE UNION, and the comment claiming it was had to go.** Assigning
+  `["parliamentary","presidential","local"] as const` to a `{ kind: ElectionsHubKind }[]` compiles clean with a
+  fourth kind missing (measured on a fixture, exit 0): the narrow array is assignable to the wider one. The
+  model is now `Record`s over the union in `src/screens/elections/otherKinds.ts` — destination AND copy key,
+  the second because a template key would render `elections_hub_other_<newkind>` verbatim and, per
+  `src/locales/bundles.ts`, could never be deferred into a bundle. ⚠️ **The DISPLAY ORDER needs its own
+  device**, and it is the load-bearing half: `OTHER_KIND_ORDER` is annotated `CoversEveryKind<typeof ORDER>`,
+  a conditional type that resolves to `never` — so the assignment fails — the moment the tuple stops covering
+  the union. Drop that annotation for a plain `readonly ElectionsHubKind[]` and the exact defect this bullet
+  is about is back, silently. `otherKinds.test.ts` covers the half no type can state: that every kind's label
+  actually exists in both corpora.
 
 ## 9. Tier 5 — screens and routes (5–7 days; product decisions marked ⚑)
 
@@ -1644,6 +1724,9 @@ decided from the repository as it stands.
 | winner rule          | `winnerRule.test.ts`                                                           | the two-condition rule on the five real outcomes plus a synthetic R1 win                                                                                                                                   |
 | byte stability       | `aggregate.test.ts`                                                            | two runs, identical output                                                                                                                                                                                 |
 | kind exhaustiveness  | existing `surfaceIsNotAHub`, `electionsHubCycle`, `electionCopyCoverage` tests | every switch over `ElectionKind` handles `presidential`                                                                                                                                                    |
+| hub menu copy        | `src/layout/header/menuCopy.test.ts`                                          | every title of every exported header menu resolves, non-blank, in BOTH corpora — the gate the `i18n` row below structurally cannot be: it checks corpus keys against call sites, not call sites against the corpus, so a band key deleted while the nav still named it rendered raw ASCII globally with everything green |
+| hub crawlable mirror | `electionsHubBands.test.ts` (the prerender mirror arm)                         | `ELECTIONS_HUB_SECTIONS` matches the tile registry — sixteen destinations in order, four headings in both corpora, `independents` allowlisted by name                                                        |
+| cross-kind links     | `src/screens/elections/otherKinds.test.ts`                                     | every `ElectionsHubKind` has a destination AND copy that exists in both corpora; the reader's own kind is never offered                                                                                       |
 | i18n                 | `key_usage.test.ts`, `bundle_reachability.test.ts`                             | no unreachable `presidential_*` key; bundle membership proven                                                                                                                                              |
 | SEO                  | `tests/seo.spec.ts`, `families.data.test.ts`                                   | every `<loc>` has a `dist/` page; canonicals do not redirect                                                                                                                                               |
 | block-256            | `machines_memory/index.test.ts`                                                | the presidential block parses with the same column shift and the `99` row is excluded                                                                                                                      |

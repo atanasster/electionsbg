@@ -760,12 +760,16 @@ type StaticPageOpts = {
 // consequence: the two lists are compared TEXTUALLY by a gate rather than derived from one
 // another. Order included — the sections are the page's table of contents.
 //
-// ⚠ THERE IS NO GATE ON THIS LIST, and a previous version of this comment said there was.
-// `HOME_DESTINATIONS` genuinely has one (`homeHubBands.test.ts` regex-extracts its block from
-// this file and compares it against `HOME_TILES`); nothing reads `ELECTIONS_HUB_SECTIONS`
-// outside this module. So a link added here is kept in step with the registry BY HAND —
-// which is worth saying, because a comment promising a safety net discourages the check that
-// actually catches a drift.
+// ⚠ THERE IS A GATE SINCE 2026-09-07, and there was none for a long time before it — a
+// version of this comment said so, and one before that wrongly promised one. It is
+// `electionsHubBands.test.ts`' „the prerendered crawlable mirror" arm, which regex-extracts
+// the block below and compares it to `ELECTIONS_TILES`: all sixteen destinations in order,
+// and the four headings against BOTH corpora. Same treatment `HOME_DESTINATIONS` gets in
+// `homeHubBands.test.ts`.
+//
+// ⚠ WHAT IT DOES NOT CHECK is each link's own bg/en LABEL — that prose is written here and
+// nowhere else, so there is nothing to compare it against. And `independents` is allowlisted
+// BY NAME rather than by loosening the comparison: it is a link with no tile on purpose.
 const ELECTIONS_HUB_SECTIONS: {
   bg: string;
   en: string;
