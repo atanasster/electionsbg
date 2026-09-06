@@ -174,6 +174,26 @@ describe("the reachability analysis still discriminates", () => {
     ).toEqual([]);
   });
 
+  it("lets a PLURAL PAIR be deferred, resolving it through the base a call site writes", () => {
+    // ⚠ THE CASE THAT HAD NEVER OCCURRED. i18next resolves `t("x", { count })` to `x_one` /
+    // `x_other`, so the base is what a call site writes and only the suffixed forms are corpus
+    // keys. Until 2026-09-06 the owner index was filtered to corpus keys alone, so the base had
+    // no owner, the plural fallback found nothing, and every plural form in a bundle was sent
+    // back to core as „no call site names it" — an assertion failure with no obvious cause, on
+    // the first bundle to contain one. All 202 existing pairs live in `translation.json`, where
+    // the bundle question does not arise.
+    const plurals = [...analysis.verdicts].filter(([k]) =>
+      /_(?:one|other)$/.test(k),
+    );
+    expect(plurals.length).toBeGreaterThan(0);
+    const deferred = plurals.filter(([, v]) => v.bundle !== null);
+    expect(deferred.length).toBeGreaterThan(0);
+    // …and none of them is deferred for a reason that says nothing names it.
+    expect(
+      deferred.filter(([, v]) => /no call site names it/.test(v.reason)),
+    ).toEqual([]);
+  });
+
   it("keeps a key in core when the shell can name it", () => {
     // Not a synthetic key: an unknown string has no owner at all and would be
     // called core for the wrong reason. This asserts the SHELL arm specifically.

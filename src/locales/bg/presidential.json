@@ -65,5 +65,20 @@
   "presidential_pickup_band_q2": "25–50%",
   "presidential_pickup_band_q3": "50–75%",
   "presidential_pickup_band_q4": "над 75%",
-  "presidential_transfer_coverage_unplaced": "Извън нея са и {{sections}} секции ({{votes}} гласа), за които областта не е установена."
+  "presidential_transfer_coverage_unplaced": "Извън нея са и {{sections}} секции ({{votes}} гласа), за които областта не е установена.",
+  "presidential_split_title": "Едната бюлетина срещу другата",
+  "presidential_split_hint": "Гласовете за двойката и за листата на същия вносител, в същата секция, в същия ден. Числото е долна граница, не измерване.",
+  "presidential_split_col_pair": "Двойка · листа",
+  "presidential_split_col_ticket": "За двойката",
+  "presidential_split_col_list": "За листата",
+  "presidential_split_col_min": "Разминали се гласове",
+  "presidential_split_at_least": "поне {{votes}}",
+  "presidential_split_refused_finalists": "Сред тях са и двамата, стигнали до балотажа: {{names}}. Партиите, които са ги подкрепили, не са отбелязани в бюлетината и не се приписват тук.",
+  "presidential_split_coverage": "Сравнени са {{sections}} секции.",
+  "presidential_split_heading": "Кой раздели бюлетините си",
+  "presidential_split_refused_committee_one": "Още една двойка е издигната от инициативен комитет и няма листа, с която да бъде сравнена: {{names}}.",
+  "presidential_split_refused_committee_other": "Още {{count}} двойки са издигнати от инициативни комитети и нямат листа, с която да бъдат сравнени: {{names}}.",
+  "presidential_split_refused_unmatched_one": "За още една двойка вносителят не беше свързан еднозначно с листа в парламентарния каталог и затова не е сравнена: {{names}}.",
+  "presidential_split_refused_unmatched_other": "За още {{count}} двойки вносителят не беше свързан еднозначно с листа в парламентарния каталог и затова не са сравнени: {{names}}.",
+  "presidential_split_coverage_abroad": "Сравнени са {{sections}} секции; {{abroad}} секции извън страната остават извън сравнението, затова числата са под националните резултати."
 }

@@ -41,6 +41,8 @@ import {
 } from "./PresidentialRegionsMap";
 import { PresidentialRegionsList } from "./PresidentialRegionsList";
 import { useRunoffTransfer } from "@/data/presidential/useRunoffTransfer";
+import { useSplitTicket } from "@/data/presidential/useSplitTicket";
+import { PresidentialSplitTicketTile } from "./PresidentialSplitTicketTile";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
 import {
   PresidentialRunoffSwingLegend,
@@ -355,6 +357,9 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
   // ⚠ CALLED UNCONDITIONALLY, above every early return in this component — React hook order.
   // The four states are handled at the mount site far below.
   const transfer = useRunoffTransfer(cycle);
+  // ⚠ ABSENT IS THE NORMAL ANSWER HERE. Only 2021's presidential vote shared its day with a
+  // parliamentary one, so four of the five cycles have no such file by construction.
+  const split = useSplitTicket(cycle);
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const state = usePresidentialSummary(cycle);
@@ -532,6 +537,25 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
             winner={transfer.transfer.finalists[0].president}
             oblasts={transfer.transfer.oblasts}
           />
+        </section>
+      ) : null}
+
+      {/* ⚠ ITS OWN SECTION, AND ITS OWN KIND OF CLAIM. The transfer above is an ESTIMATE and
+          the pickup beside it is arithmetic; this is a LOWER BOUND — a third thing, and the
+          only one of the three that a reader is likely to quote as if it were a measurement.
+          Keeping it under its own heading is what stops the three licences blurring. */}
+      {/* ⚠ ROUND ONE ONLY, AND GATED ON THE VIEW. The comparison is against the parliamentary
+          ballot cast the SAME DAY, which is round 1's day; under a runoff view the tile would
+          be numbers from another ballot beneath a heading about this one. `coverage.basis`
+          says so in prose at the foot of the tile, but a reader who does not reach the last
+          paragraph has been shown the wrong round. Every other section on this page keys off
+          `shown.round`; this now does too. */}
+      {shown.round === 1 && split.status === "ready" ? (
+        <section aria-labelledby="pvr-split" className="space-y-3">
+          <h2 id="pvr-split" className="font-semibold">
+            {t("presidential_split_heading")}
+          </h2>
+          <PresidentialSplitTicketTile split={split.split} />
         </section>
       ) : null}
     </section>

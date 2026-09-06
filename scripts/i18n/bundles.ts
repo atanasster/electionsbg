@@ -187,6 +187,17 @@ export const analyzeBundles = (
   }));
 
   const keySet = new Set(keys);
+  // ⚠ PLURAL BASES BELONG IN THE INDEX, and until 2026-09-06 they did not. i18next resolves
+  // `t("x", { count })` to `x_one`/`x_other`, so the base is what a CALL SITE writes while only
+  // the suffixed forms are corpus keys — and `namedKeys` filters on this set, so without the
+  // base there is no owner to find and the plural fallback below falls through to
+  // „no call site names it", i.e. straight back to core. Every plural pair in the repo lived in
+  // the core corpus (202 of them in `translation.json`, none in a bundle), so a deferred bundle
+  // had never contained one and the gap had never fired.
+  for (const k of keys) {
+    const base = k.replace(PLURAL_SUFFIX, "");
+    if (base !== k) keySet.add(base);
+  }
   const owners = new Map<string, OwnerFile[]>();
   for (const f of files) {
     for (const k of namedKeys(f, keySet)) {

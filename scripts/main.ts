@@ -428,9 +428,16 @@ const app = command({
       // a 200. A cycle decided in round 1 returns null and writes nothing.
       const { writeRunoffTransfer } =
         await import("./parsers_presidential/build_runoff_transfer");
+      // ⚠ THE SPLIT-TICKET FILE IS THE SAME SHAPE OF DERIVED ARTIFACT, and it reads a SECOND
+      // corpus — the parliamentary election held the same day — so it goes stale when either
+      // side moves. Only 2021 has such a sibling; the other four cycles write nothing.
+      const { writeSplitTicket } =
+        await import("./parsers_presidential/build_split_ticket");
       for (const r of results) {
-        const written = writeRunoffTransfer(r.cycle, { indent });
-        if (written) r.files.push(written);
+        for (const write of [writeRunoffTransfer, writeSplitTicket]) {
+          const written = write(r.cycle, { indent });
+          if (written) r.files.push(written);
+        }
       }
       // ⚠⚠ THE FILENAME IS THE LOOKUP KEY, so it must be the SKILL name — not the watcher
       // source, which is what this plan's own wording says („state/ingest/cik_presidential
@@ -472,6 +479,22 @@ const app = command({
       await parseMachinesFlashMemory(inFolder, date, stringify);
     }
     await parseElections({ date, all, stringify, publicFolder });
+    // ⚠ THE SPLIT-TICKET FILE READS **BOTH** CORPORA, so the PARLIAMENTARY side moving stales it
+    // too — and only the `--pvr` arm above rebuilt it, which this path never reaches. Without
+    // this, `npm run data -- --date 2021_11_14` rewrites the НС section shards and leaves
+    // `data/2021_11_14_pvr/split_ticket.json` on the previous vintage, at a 200, with every row
+    // count reconciling. Cheap: it re-derives only for a presidential cycle whose same-day
+    // sibling is the tree just rebuilt, which today is one cycle and usually none.
+    {
+      const { presidentialCyclesFor, sameDayParliamentary, writeSplitTicket } =
+        await import("./parsers_presidential/build_split_ticket");
+      for (const c of presidentialCyclesFor()) {
+        const day = sameDayParliamentary(c);
+        if (!day || !(all || day === date)) continue;
+        const written = writeSplitTicket(c, { indent: production ? 0 : 2 });
+        if (written) console.log(`[pvr] re-derived data/${written}`);
+      }
+    }
     // Runs unconditionally. It used to be gated on `coords || all`, which meant
     // a plain `npm run data -- --date <older election>` rebuilt the section
     // files from a GPS-less source and then skipped the pass that puts the

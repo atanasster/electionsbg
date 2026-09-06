@@ -65,5 +65,20 @@
   "presidential_pickup_band_q2": "25–50%",
   "presidential_pickup_band_q3": "50–75%",
   "presidential_pickup_band_q4": "over 75%",
-  "presidential_transfer_coverage_unplaced": "A further {{sections}} sections ({{votes}} votes) could not be placed in an oblast and are outside it too."
+  "presidential_transfer_coverage_unplaced": "A further {{sections}} sections ({{votes}} votes) could not be placed in an oblast and are outside it too.",
+  "presidential_split_title": "One ballot against the other",
+  "presidential_split_hint": "Votes for the pair and for the same nominator's list, in the same section, on the same day. The figure is a lower bound, not a measurement.",
+  "presidential_split_col_pair": "Pair · list",
+  "presidential_split_col_ticket": "For the pair",
+  "presidential_split_col_list": "For the list",
+  "presidential_split_col_min": "Ballots that differed",
+  "presidential_split_at_least": "at least {{votes}}",
+  "presidential_split_refused_finalists": "The two who reached the runoff are among them: {{names}}. The parties that backed them are not recorded on the ballot and are not attributed here.",
+  "presidential_split_coverage": "{{sections}} sections compared.",
+  "presidential_split_heading": "Who split their ballots",
+  "presidential_split_refused_committee_one": "A further pair was nominated by an initiative committee and has no list to compare against: {{names}}.",
+  "presidential_split_refused_committee_other": "A further {{count}} pairs were nominated by initiative committees and have no list to compare against: {{names}}.",
+  "presidential_split_refused_unmatched_one": "For a further pair the nominator could not be resolved to exactly one list in the parliamentary catalogue, so it is not compared: {{names}}.",
+  "presidential_split_refused_unmatched_other": "For a further {{count}} pairs the nominator could not be resolved to exactly one list in the parliamentary catalogue, so they are not compared: {{names}}.",
+  "presidential_split_coverage_abroad": "{{sections}} sections compared; {{abroad}} sections outside the country stay out of the comparison, so the figures sit below the national results."
 }

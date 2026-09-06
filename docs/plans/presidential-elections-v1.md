@@ -1471,9 +1471,46 @@ cycle's section page falls back to the legacy composition, the same path a missi
   the estimate DISCRIMINATES — the identity matrix satisfies every margin assertion and is what a
   collapsed NNLS returns), `src/data/presidential/useRunoffTransfer.test.ts`,
   `src/screens/presidential/PresidentialRunoffSwing.test.tsx`, `PresidentialTransferTile.test.tsx`.
-- **T8.3 Split-ticket 2021** — per section, the ПВР ticket vote vs the НС list vote of the nominating party
-  (Радев/ИК vs ПП+ИТН+БСП…, Герджиков vs ГЕРБ-СДС, Карадайъ vs ДПС, Костадинов vs Възраждане): the share of a
-  party's list voters who did not vote for its ticket. Both files are on disk and byte-aligned on section code.
+- **T8.3 ✅ DONE — but as a LOWER BOUND over 14 tickets, not a share over 23.** Two things in
+  this bullet's own wording turned out to be unsupportable, and both are corrected in the build
+  (`scripts/parsers_presidential/build_split_ticket.ts` → `data/<cycle>/split_ticket.json`,
+  written by the ingest):
+
+  - ⚠ **„the share of a party's list voters who did not vote for its ticket" is an ecological
+    inference and is not published.** Nobody sees which ballot a voter put in which box. What is
+    observable is set cardinality: in one section, the list voters A and the ticket voters B are
+    both subsets of that section's voters, so the number who voted differently on the two ballots
+    is `|A △ B| ≥ ||A| − |B||`. Summed over sections (disjoint), `minSplitVoters` is a floor that
+    assumes nothing. Every surface says „поне" / „at least". ⚠ It MUST be summed per section:
+    2021's ПАТРИОТИЧЕН ФРОНТ took 8,302 on the ticket and 8,389 on the list — a national
+    difference of **87** against a per-section floor of **8,025**, almost the entire vote. The
+    gate carries that as a mutation check, because `|Σticket − Σlist|` is also a valid bound and
+    a far weaker one.
+  - ⚠ **„Радев/ИК vs ПП+ИТН+БСП…, Герджиков vs ГЕРБ-СДС" is not derivable and is REFUSED.** Both
+    were nominated by инициативни комитети; the parties that BACKED them are a political fact the
+    ballot does not record, and asserting it would be this repo attaching an affiliation to a
+    named person on the strength of common knowledge. **9 of 23 tickets are refused for that
+    reason, including both finalists** — the two most interesting candidates are the two this
+    analysis cannot cover, which the tile states rather than hiding behind a table of the other
+    fourteen.
+
+  What IS register-backed: 14 nominators are parties or coalitions that also ran a list that day,
+  matched on the register's own name and **cross-checked against the ballot number** — ЦИК draws
+  one numbering covering both ballots, so all 14 agree, and a name match whose numbers disagree is
+  refused. Measured: ДПС 222,598 vs 253,257 (≥41,235 split), Възраждане 93,828 vs 113,813
+  (≥30,233), ВМРО 12,914 vs 27,492 (≥18,080), and Атака's ticket **outpolled** its own list
+  (14,262 vs 11,740). ⚠ **Those vote figures are DOMESTIC-ONLY**: the 750 abroad sections (MIR 32)
+  have no presidential row in `tur1/sections`, so they sit below the published national results —
+  ДПС's 253,257 against 341,000, a 25.7% gap. The artifact says so in `coverage.basis`, the tile
+  prints `sectionsNsOnly` beside the matched count, and the floor is unaffected: a subset of
+  disjoint sections yields a weaker bound, never an overstated one. Round 1 only — the runoff is a
+  week later with no parliamentary ballot, and the section is gated on the round-1 view for that
+  reason.
+  2011 and 2016 also shared their day, with LOCAL elections; a mayoral or council ballot is not a
+  party list, so the builder looks for the parliamentary sibling `data/<YYYY_MM_DD>` and nothing
+  else. Gates: `scripts/parsers_presidential/split_ticket.test.ts`,
+  `src/data/presidential/useSplitTicket.test.ts`,
+  `src/screens/presidential/PresidentialSplitTicketTile.test.tsx`.
 - **T8.4** The AI chat: a `presidentialResults(cycle, round, place?)` tool over the JSON tree; the data map
   (`scripts/data_map`) gains the source.
 
