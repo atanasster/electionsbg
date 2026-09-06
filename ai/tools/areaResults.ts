@@ -25,6 +25,7 @@ import {
   fmtPct,
 } from "./format";
 import { muniLocator, oblastLocator } from "./geo";
+import { noData as sharedNoData } from "./envelope";
 import { resolveMunicipality, resolveOblast } from "./place";
 import type {
   Column,
@@ -52,25 +53,21 @@ type RegionVoteRow = { key: string } & VoteRow;
 // to S23 alone, so the whole-city result must sum them; SFO (Sofia PROVINCE) is a
 // separate place and stays a normal single oblast.
 const SOFIA_CITY = "SOF_CITY";
-const SOFIA_CITY_CODES = ["S23", "S24", "S25"];
+/** ⚠ EXPORTED, because `presidential.ts` needs the same three МИР for the same reason: `SOF`
+ *  is a resolver alias and is a key in no vote file, in either corpus. */
+export const SOFIA_CITY_CODES = ["S23", "S24", "S25"];
 
 const MAX_ROWS = 12;
 const MAX_TREND_LINES = 6;
 
+// ⚠ ONE DECLARATION, in `envelope.ts`. `domain` is dropped because `runTool` stamps it from
+// the registry unconditionally — a value set here can only diverge from it.
 const noData = (
   tool: string,
   title: string,
   provenance: string[],
   facts: Record<string, string | number> = {},
-): Envelope => ({
-  tool,
-  domain: "elections",
-  kind: "scalar",
-  title,
-  viz: "none",
-  facts,
-  provenance,
-});
+): Envelope => sharedNoData(tool, title, provenance, facts);
 
 const parseNum = (raw: unknown): number | undefined => {
   const n = typeof raw === "number" ? raw : parseInt(String(raw ?? ""), 10);

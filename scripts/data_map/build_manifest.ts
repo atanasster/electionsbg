@@ -209,7 +209,10 @@ const walkTs = (dir: string, out: string[] = []): string[] => {
   return out;
 };
 
-const deriveAiEdges = (): { edges: [string, string][]; paths: number } => {
+export const deriveAiEdges = (): {
+  edges: [string, string][];
+  paths: number;
+} => {
   const datasetIds = new Set(DATASETS.map((d) => d.id));
   const found = new Map<string, string[]>(); // normalised path -> files
   for (const file of walkTs(AI_DIR)) {

@@ -259,6 +259,7 @@ import {
   regionResults,
   regionResultsTrend,
 } from "./areaResults";
+import { presidentialResults } from "./presidential";
 import {
   municipalityWinners,
   sectionWinners,
@@ -303,6 +304,67 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nationalResults,
+  },
+  {
+    name: "presidentialResults",
+    domain: "elections",
+    description: {
+      bg: "Резултати от президентски избор: двойките, гласовете и дали някой е избран в този тур. По подразбиране турът, в който е избран президентът. Може и за една община или област.",
+      en: "Presidential election results: the pairs, their votes, and whether anyone was elected in that round. Defaults to the round that elected the president. Optionally for one municipality or oblast.",
+    },
+    params: [
+      {
+        name: "cycle",
+        type: "cycle",
+        description: {
+          bg: "Година или цикъл (2001, 2006, 2011, 2016, 2021); по подразбиране последният.",
+          en: "Year or cycle (2001, 2006, 2011, 2016, 2021); defaults to the latest.",
+        },
+      },
+      {
+        name: "round",
+        type: "count",
+        description: {
+          bg: "1 или 2 (балотаж). По подразбиране турът, в който е избран президентът.",
+          en: "1 or 2 (the runoff). Defaults to the round that elected the president.",
+        },
+      },
+      {
+        name: "place",
+        type: "place",
+        description: {
+          bg: "Община (по избор); празно = национално. За област използвайте `oblast` или напишете „област X“.",
+          en: "Municipality (optional); empty = national. For a province use `oblast`, or write „област X“.",
+        },
+      },
+      {
+        name: "oblast",
+        type: "oblast",
+        description: {
+          bg: "Област (по избор) — отделен параметър, защото всички областни центрове носят и име на община.",
+          en: "Oblast (optional) — a separate parameter, because every oblast centre is also a municipality name.",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какви бяха резултатите от президентските избори през 2021?",
+        en: "What were the results of the 2021 presidential election?",
+      },
+      {
+        bg: "Кой спечели първия тур през 2016 и избран ли беше?",
+        en: "Who won the first round in 2016, and were they elected?",
+      },
+      {
+        bg: "Резултатите от балотажа в община Пловдив",
+        en: "The runoff result in Plovdiv municipality",
+      },
+      {
+        bg: "Кой водеше в област Варна на президентските избори?",
+        en: "Who led in Varna oblast at the presidential election?",
+      },
+    ],
+    run: presidentialResults,
   },
   {
     name: "regionWinners",

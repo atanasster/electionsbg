@@ -170,6 +170,12 @@ export interface TourDef {
  */
 export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/ai\//, dataset: null }, // internal eval artifacts
+  // ⚠ BEFORE THE `{cycle}` RULE, AND THE ORDER IS THE WHOLE POINT. `ai/tools/presidential.ts`
+  // reads `/${pvrCycle}/…`; had it named the variable `cycle` — the obvious name, and the one
+  // local elections already use — every presidential read would have matched the rule below and
+  // been attributed to the LOCAL corpus. The build fails on an UNMATCHED path and never on a
+  // wrongly matched one, so that edge would have been silently false on the published map.
+  { pattern: /^\/\{pvrCycle\}\//, dataset: "presidential" },
   { pattern: /^\/\{cycle\}\//, dataset: "local" },
   { pattern: /^\/local_chmi_history/, dataset: "local" },
   { pattern: /^\/\{e(lection|\.name)?\}\//, dataset: "elections" },

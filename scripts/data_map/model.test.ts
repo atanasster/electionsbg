@@ -9,6 +9,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
+import { deriveAiEdges } from "./build_manifest";
 import {
   TOURS,
   DATASETS,
@@ -17,6 +18,7 @@ import {
   FEATURES,
   UNCLAIMED,
   LINKS,
+  AI_PATH_RULES,
 } from "./model";
 import type { DatasetDef } from "./model";
 import { validateDatasetServing, validateLinks } from "./build_manifest";
@@ -58,6 +60,59 @@ describe("data-map model", () => {
     const keepEu = EDGES.filter(([from]) => from === "src:keep_eu");
     expect(keepEu).toEqual([["src:keep_eu", "ds:interreg"]]);
     expect(DATASETS.map((d) => d.id)).toContain("interreg");
+  });
+
+  it("derives an AI edge for every corpus the assistant actually reads", () => {
+    // ⚠ `EDGES` IS HAND-WRITTEN; THE `ds:* → f:ai` EDGES ARE DERIVED. The manifest test below
+    // compares only the declared half, so a tool that starts reading a new corpus can leave the
+    // published map an edge short with every gate green — the same silent mis-attribution the
+    // `pvrCycle` rule exists to prevent, one layer up.
+    const derived = new Set(deriveAiEdges().edges.map(([from]) => from));
+    expect(derived.has("ds:presidential")).toBe(true);
+    expect(derived.size).toBeGreaterThan(20);
+
+    // Nothing in the manifest claims an AI edge the derivation no longer produces — that is a
+    // dataset the assistant stopped reading, and an edge nobody would notice going stale.
+    const inManifest = manifest.edges
+      .filter((e) => e.to === "f:ai")
+      .map((e) => e.from);
+    expect(inManifest.filter((d) => !derived.has(d))).toEqual([]);
+
+    // ⚠ THE OTHER DIRECTION IS A RATCHET, NOT AN EQUALITY. `data/data_map.json` is regenerated
+    // by `prebuild`, which needs a complete local Postgres; on a machine whose declarations
+    // corpus has not been resolved it aborts on an unrelated link check, so a freshly derived
+    // edge can legitimately be waiting for the next successful build. A named pending list keeps
+    // that visible and still fails on the NEXT dataset to fall behind. Shrink it after a
+    // rebuild; never widen it to make a red test green.
+    const PENDING_MANIFEST_REBUILD = new Set(["ds:presidential"]);
+    const behind = [...derived].filter(
+      (d) => !inManifest.includes(d) && !PENDING_MANIFEST_REBUILD.has(d),
+    );
+    expect(behind).toEqual([]);
+  });
+
+  it("routes each per-cycle AI path to the corpus it actually reads", () => {
+    // ⚠⚠ FIRST MATCH WINS, AND THE BUILD ONLY FAILS ON AN *UNMATCHED* PATH — never on a
+    // wrongly matched one. `ai/tools/presidential.ts` reads `/${pvrCycle}/…`; had it used the
+    // obvious variable name `cycle`, every presidential read would have matched the LOCAL rule
+    // and the published map would have said the assistant reads the presidential corpus out of
+    // the local-elections one, silently and forever. The three variable names are the only
+    // discriminator between three per-cycle trees, so their ORDER is an invariant, not a
+    // formatting detail.
+    const routeOf = (p: string) =>
+      AI_PATH_RULES.find((r) => r.pattern.test(p))?.dataset ?? "UNMATCHED";
+    expect(routeOf("/{pvrCycle}/national_summary.json")).toBe("presidential");
+    expect(routeOf("/{pvrCycle}/tur{round}/region_votes.json")).toBe(
+      "presidential",
+    );
+    expect(routeOf("/{cycle}/index.json")).toBe("local");
+    expect(routeOf("/{election}/national_summary.json")).toBe("elections");
+    // …and the presidential rule precedes the local one, which is what makes the first two
+    // assertions above true rather than lucky.
+    const idx = (needle: string) =>
+      AI_PATH_RULES.findIndex((r) => r.pattern.source.includes(needle));
+    expect(idx("pvrCycle")).toBeGreaterThanOrEqual(0);
+    expect(idx("pvrCycle")).toBeLessThan(idx("\\{cycle"));
   });
 
   it("gives every dataset node a source and at least one consumer", () => {
