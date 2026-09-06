@@ -6,18 +6,37 @@
 // one (they are WITHHELD until `/presidential/:cycle` exists) is invisible in a rendered
 // menu, which is exactly the shape that needs a gate.
 //
-// ⚠ THE ROWS ARE BUILT AND THEN WITHHELD, not omitted. `presidentialRows` is complete and
-// tested now; `ElectionsSelect` renders it only when the kind has a surface. Plan T5
-// removes `"presidential"` from `KINDS_WITHOUT_SURFACE` and the menu lights up with no
-// further change — and the gate in `electionsHubCycle.test.ts` makes that removal
-// mandatory the day the route lands.
+// ⚠ THE ROWS WERE BUILT AND WITHHELD, and since plan T5 they are shown. `ElectionsSelect`
+// renders them only when the kind has a surface, which it asks `presidentialServable` — and
+// that predicate reads the SAME list the hub and the search source read, so the three cannot
+// disagree about which kinds are servable. It survives the withholding being lifted because
+// the next kind added to the catalogue arrives the same way.
 //
 // Plan: docs/plans/presidential-elections-v1.md T4.3.
 
 import { localDate } from "@/data/utils";
-import { CYCLE_SURFACE } from "@/screens/elections/electionsHubCycle";
+import {
+  CYCLE_SURFACE,
+  KINDS_WITHOUT_SURFACE,
+} from "@/screens/elections/electionsHubCycle";
 import type { ElectionsHubKind } from "@/screens/elections/electionsHubCycle";
 import type { PresidentialElectionEntry } from "@/data/presidentialCatalogue";
+
+/**
+ * May the header show presidential cycles?
+ *
+ * ⚠ A PREDICATE RATHER THAN A MODULE CONSTANT, and the difference is testability. As
+ * `const PRESIDENTIAL_SERVABLE = !KINDS_WITHOUT_SURFACE.includes("presidential")` inside the
+ * component file it was unreachable from any gate: the only way to observe it was to render
+ * Radix and count rows, and once the list emptied there was no way at all to check the RULE
+ * still applied. Passing the list in is the same seam `presidentialSearchSource` uses.
+ *
+ * @param withheld - The kinds with no per-cycle screens. Defaults to the real list.
+ * @returns Whether the dropdown may offer presidential cycles.
+ */
+export const presidentialServable = (
+  withheld: readonly ElectionsHubKind[] = KINDS_WITHOUT_SURFACE,
+): boolean => !withheld.includes("presidential");
 
 export type PresidentialRow = {
   kind: "presidential";

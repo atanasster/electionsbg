@@ -24,6 +24,10 @@
  * static import of the entry chunk — see src/entryGraph.test.ts for the last
  * time a nav surface took one constant from a module that named a family.
  */
-export const LOCALE_BUNDLES = ["budget", "methodology"] as const;
+export const LOCALE_BUNDLES = [
+  "budget",
+  "methodology",
+  "presidential",
+] as const;
 
 export type LocaleBundle = (typeof LOCALE_BUNDLES)[number];

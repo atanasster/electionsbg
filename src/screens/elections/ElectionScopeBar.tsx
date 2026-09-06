@@ -22,7 +22,8 @@ export const ElectionScopeBar: FC<{
   /** The election folder id, or an ISO date when the caller already has one. */
   cycle: string;
   status: ElectionResultStatus;
-  /** Round 1 or 2, for a mayoral contest. Absent on a list ballot, which has no rounds. */
+  /** Round 1 or 2 — a mayoral contest, or a presidential cycle. Absent on a list ballot,
+   *  which has no rounds. */
   round?: number;
   className?: string;
 }> = ({ cycle, status, round, className }) => {

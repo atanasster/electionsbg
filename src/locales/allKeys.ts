@@ -16,18 +16,22 @@
 import bgTranslation from "./bg/translation.json";
 import bgBudget from "./bg/budget.json";
 import bgMethodology from "./bg/methodology.json";
+import bgPresidential from "./bg/presidential.json";
 import enTranslation from "./en/translation.json";
 import enBudget from "./en/budget.json";
 import enMethodology from "./en/methodology.json";
+import enPresidential from "./en/presidential.json";
 
 export const bgCorpus: Record<string, string> = {
   ...bgTranslation,
   ...bgBudget,
   ...bgMethodology,
+  ...bgPresidential,
 };
 
 export const enCorpus: Record<string, string> = {
   ...enTranslation,
   ...enBudget,
   ...enMethodology,
+  ...enPresidential,
 };

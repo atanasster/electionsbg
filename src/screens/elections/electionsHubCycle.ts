@@ -145,11 +145,13 @@ export const CYCLE_SURFACE: Record<
  * 404. The plan's own rule for the tile registry, one control up: a surface must not seed
  * a destination that does not exist.
  *
- * Emptied by plan T5, which adds `/presidential/:cycle`.
+ * ⚠ EMPTY SINCE PLAN T5 SHIPPED `/presidential/:cycle`, and it stays declared rather than
+ * deleted for two reasons. The list is what `electionsHubCycle.test.ts` compares against
+ * `routes.tsx` — a BICONDITIONAL, so emptying it early is as red as filling it late — and it
+ * is the seam a fourth kind arrives through. An empty array is the correct state, not a
+ * leftover: every catalogued kind is resolvable today.
  */
-export const KINDS_WITHOUT_SURFACE: readonly ElectionsHubKind[] = [
-  "presidential",
-];
+export const KINDS_WITHOUT_SURFACE: readonly ElectionsHubKind[] = [];
 
 /** `2026_04_19` → `2026-04-19`. The parliamentary catalogue stores no date of its own; the
  *  folder id IS the date, which is why this conversion is safe here and nowhere near a label. */

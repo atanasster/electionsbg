@@ -1,9 +1,11 @@
 // The presidential group in the `/elections` search box.
 //
-// ⚠ THE SOURCE IS WITHHELD, and that is the assertion this file exists for. A result that
-// navigates to a route which does not exist is worse than a query that finds nothing: the
-// reader has been TOLD the page is there. „No presidential group" and „nobody built one"
-// look identical in a rendered dropdown, so the withholding is pinned rather than assumed.
+// ⚠ THE SOURCE IS LIVE SINCE T5, and the RULE it was withheld under is what this file now
+// pins. A result that navigates to a route which does not exist is worse than a query that
+// finds nothing — the reader has been TOLD the page is there — so the source consults
+// `KINDS_WITHOUT_SURFACE` rather than a constant, and both directions of that are asserted:
+// an empty list produces the group, a list naming the kind still refuses it. The second arm
+// is what keeps the withholding mechanism honest now that nothing is withheld.
 
 import { describe, expect, it } from "vitest";
 import catalogue from "@/data/json/presidential_elections.json";
@@ -18,12 +20,19 @@ import type { IndexSource } from "@/ux/search/hubSearchSources";
 const LABEL = { bg: "Президентски избори", en: "Presidential elections" };
 
 describe("presidentialSearchSource", () => {
-  it("is withheld while the kind has no surface", () => {
-    expect(presidentialSearchSource(LABEL)).toBeNull();
-    // ⚠ NON-VACUITY: the kind really is withheld right now, and the two kinds with routes
-    // are not — so this suite cannot pass on a list that has silently emptied.
-    expect(KINDS_WITHOUT_SURFACE).toContain("presidential");
-    expect(KINDS_WITHOUT_SURFACE).not.toContain("local");
+  it("is produced now that the kind has a surface", () => {
+    expect(presidentialSearchSource(LABEL)).not.toBeNull();
+    // ⚠ THE DEFAULT IS THE REAL LIST, and it is empty — so this is only meaningful beside the
+    // refusal arm below, which proves the group is produced BECAUSE nothing withholds it
+    // rather than because the check was removed.
+    expect(KINDS_WITHOUT_SURFACE).toEqual([]);
+  });
+
+  it("still refuses when a kind IS withheld — the mechanism, not the current state", () => {
+    // ⚠ THIS IS THE ONE THAT CANNOT GO VACUOUS. With the list empty, „produces the group" is
+    // satisfied by deleting the check; feeding the withheld list back in is what proves the
+    // check is there. It is also the shape a fourth kind arrives in.
+    expect(presidentialSearchSource(LABEL, ["presidential"])).toBeNull();
   });
 
   it("reads the REAL withheld list by default, not a copy of it", () => {
@@ -31,13 +40,17 @@ describe("presidentialSearchSource", () => {
     // would hide: `presidentialSearchSource(LABEL)` must consult the same constant the hub,
     // the header and the tile registry do, or the group appears — or fails to — on its own
     // schedule. Both directions, driven from that constant.
-    expect(presidentialSearchSource(LABEL, KINDS_WITHOUT_SURFACE)).toBeNull();
+    // The list is empty today, so passing it EXPLICITLY must give the same answer as passing
+    // nothing — that equality is what says the default is the constant rather than a copy.
     expect(
-      presidentialSearchSource(
-        LABEL,
-        KINDS_WITHOUT_SURFACE.filter((k) => k !== "presidential"),
-      ),
+      presidentialSearchSource(LABEL, KINDS_WITHOUT_SURFACE),
     ).not.toBeNull();
+    expect(
+      presidentialSearchSource(LABEL, [
+        ...KINDS_WITHOUT_SURFACE,
+        "presidential",
+      ]),
+    ).toBeNull();
   });
 
   it("is APPENDED to the hub's sources once servable, and absent until then", () => {
@@ -50,22 +63,22 @@ describe("presidentialSearchSource", () => {
       presidential: LABEL,
     };
     const cycle = { kind: "parliamentary" as const, id: "2026_04_19" };
-    const withheldNow = electionsHubSources(null, cycle, labels).map(
-      (s) => s.id,
-    );
-    expect(withheldNow).not.toContain("election-presidential");
-    const servable = electionsHubSources(null, cycle, labels, []).map(
-      (s) => s.id,
-    );
+    const servable = electionsHubSources(null, cycle, labels).map((s) => s.id);
     // Places FIRST — the finder is a place box that also knows the cycles, not the reverse.
     expect(servable.at(-1)).toBe("election-presidential");
-    expect(servable.slice(0, -1)).toEqual(withheldNow);
+    // …and the withheld composition still drops it, so the append is conditional rather than
+    // unconditional — the one difference a passing suite could otherwise not see.
+    const withheld = electionsHubSources(null, cycle, labels, [
+      "presidential",
+    ]).map((s) => s.id);
+    expect(withheld).not.toContain("election-presidential");
+    expect(servable.slice(0, -1)).toEqual(withheld);
   });
 
   it("finds every cycle by year, by president and by vice-president", () => {
-    // ⚠ THE SEAM. The source is withheld today, so without a way to build it as it WILL be
-    // built the whole index — every href, every search key — ships untested and the first
-    // person to see it is a reader.
+    // ⚠ THE SEAM, kept explicit even though the default now produces the source: it is what
+    // let the whole index — every href, every search key — be tested while the group was
+    // withheld, and it is how the next withheld kind gets the same treatment.
     const src = presidentialSearchSource(LABEL, []) as IndexSource;
     expect(src.kind).toBe("index");
     expect(src.id).toBe("election-presidential");

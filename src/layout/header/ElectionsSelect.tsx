@@ -30,9 +30,9 @@ import {
   decidedLabelKey,
   pickAction,
   presidentialRows as buildPresidentialRows,
+  presidentialServable,
   type PresidentialRow,
 } from "./presidentialRows";
-import { KINDS_WITHOUT_SURFACE } from "@/screens/elections/electionsHubCycle";
 
 type ParliamentaryRow = {
   kind: "parliamentary";
@@ -55,14 +55,14 @@ type ElectionRow = ParliamentaryRow | LocalRow | PresidentialRow;
 /**
  * Whether the presidential section may be shown at all.
  *
- * ⚠ THE ROWS ARE WITHHELD, NOT ABSENT — see `presidentialRows.ts`. Picking one navigates
- * to `/presidential/<cycle>`, and until plan T5 declares that route the menu would be
- * offering five entries that land on a 404. This reads the SAME list the hub resolves
- * against, so the menu and the hub cannot disagree about which kinds are servable, and
- * `electionsHubCycle.test.ts`'s biconditional against `routes.tsx` makes emptying it
- * mandatory the day the route exists.
+ * ⚠ TRUE SINCE PLAN T5, and the CHECK stays. The rows were built and withheld — picking one
+ * navigates to `/presidential/<cycle>`, and before that route existed the menu would have
+ * offered five entries landing on a 404. `presidentialServable` reads the SAME list the hub
+ * resolves against, so the menu and the hub cannot disagree about which kinds are servable,
+ * and `electionsHubCycle.test.ts`'s biconditional against `routes.tsx` is what made emptying
+ * the list mandatory the day the route landed. A fourth kind arrives the same way.
  */
-const PRESIDENTIAL_SERVABLE = !KINDS_WITHOUT_SURFACE.includes("presidential");
+const PRESIDENTIAL_SERVABLE = presidentialServable();
 
 /**
  * A non-parliamentary cycle row: icon, stacked label, badge.

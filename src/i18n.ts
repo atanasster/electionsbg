@@ -90,6 +90,10 @@ const BUNDLE_IMPORTS: Record<
     bg: () => import("@/locales/bg/methodology.json"),
     en: () => import("@/locales/en/methodology.json"),
   },
+  presidential: {
+    bg: () => import("@/locales/bg/presidential.json"),
+    en: () => import("@/locales/en/presidential.json"),
+  },
 };
 
 /** Bundles this SESSION has asked for, independent of language — so a language

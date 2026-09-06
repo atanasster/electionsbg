@@ -106,21 +106,19 @@ describe("the resolved cycle", () => {
     expect(scope().textContent).toContain("2026");
   });
 
-  it("says we cannot SHOW a catalogued cycle, never that we do not know it", () => {
-    // ⚠ THE STEP'S HEADLINE BEHAVIOUR. A presidential id is in our own catalogue and has
-    // no screens yet; „Не разпознахме „2021_11_14_pvr“ като изборен цикъл" is false and
-    // asks the reader to fix something that is on our side.
+  it("OPENS a catalogued presidential cycle rather than falling back from it", () => {
+    // ⚠ THIS ASSERTED THE OPPOSITE UNTIL T5, and the inversion is the step's headline. The
+    // presidential kind had no screens, so a reader arriving with that id got „…още не
+    // показваме" — true then, and false the moment `/presidential/:cycle` existed. What the
+    // banner must never say is „Не разпознахме", because the id is in our own catalogue; that
+    // branch is pinned by the test above, on a genuinely unknown value.
     mount("?elections=2021_11_14_pvr");
-    const note = document.querySelector("[data-elections-fallback]")!;
-    expect(note.textContent).toContain("още не показваме");
-    expect(note.textContent).not.toContain("Не разпознахме");
-    // ⚠ AND IT NAMES THE CYCLE RATHER THAN PRINTING ITS FOLDER ID — this module's own „an
-    // id is a key and never a label" rule, in the one branch where we recognise the cycle
-    // well enough to obey it.
-    expect(note.textContent).toContain("Президентски вот");
-    expect(note.textContent).not.toContain("2021_11_14_pvr");
-    // The hub itself stays on a cycle it can actually open.
-    expect(scope().textContent).toContain("2026");
+    expect(document.querySelector("[data-elections-fallback]")).toBeNull();
+    // …and the hub is actually ON that cycle, not merely quiet about it.
+    expect(scope().textContent).toContain("2021");
+    // ⚠ THE FOLDER ID IS A KEY AND NEVER A LABEL — the defect that put „2026-04-19" on 31
+    // surfaces, checked on the one page that now renders a `_pvr` cycle.
+    expect(document.body.textContent).not.toContain("2021_11_14_pvr");
   });
 
   it("says nothing about a fallback when no param was given", () => {

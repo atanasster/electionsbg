@@ -57,29 +57,31 @@ export const DATA_ROOT = path.join(process.cwd(), "data");
  * its own object-count line, and the shell falls back to the legacy composition for any cycle
  * with no artifact — the same path a missing artifact already takes.
  *
- * ⚠⚠ PRESIDENTIAL IS BUILT AND WITHHELD, FOR ONE REMAINING REASON. `build_presidential_surface.ts`
- * is complete and tested; what it may not yet do is run in a PUBLISH, because **its destinations
- * name routes the app does not serve** — every surface links to `/presidential/<cycle>/…` and
- * `routes.tsx` declares no such route, 81,256 unresolvable destinations measured by this repo's
- * own gate. A producer that links to a 404 is the same defect the tile registry, the header
- * dropdown and the hub search each refused.
+ * ⚠ EMPTY SINCE PLAN T5, and it stays DECLARED rather than deleted. It is the seam a fourth
+ * kind arrives through, and `kindsNotPublished()` is what lets a gate tell „no presidential
+ * surfaces" from „nobody built them" — an absence cannot say which.
  *
- * The OTHER reason is closed: the object count. Five cycles of section artifacts were ~60,000
- * objects on their own, taking the corpus to 105,218 — 44% of the ~240,000-object shape §5.0
- * rejects rather than the tenth it asks for. Sections are bounded to the latest cycle now
- * (`sectionArtifactCycle`), which mirrors how every other kind is bounded; folding abroad into
- * the one page its route serves took a further 297 off (302 artifacts on 5 URLs), and the
- * corpus lands at 58,915 — parliamentary 18,117 · local 5,548 · presidential 35,250
+ * Presidential was on it for two reasons and both are closed:
+ *   • its destinations named routes the app did not serve — 81,256 unresolvable links measured
+ *     by this repo's own gate — and `routes.tsx` declares all six patterns now;
+ *   • the object count. Five cycles of section artifacts were ~60,000 objects on their own,
+ *     taking the corpus to 105,218 — 44% of the ~240,000-object shape §5.0 rejects rather than
+ *     the tenth it asks for. Sections are bounded to the latest cycle (`sectionArtifactCycle`),
+ *     which mirrors how every other kind is bounded, and folding abroad onto the one page its
+ *     route serves took a further 297 off (302 artifacts on 5 URLs).
+ *
+ * The corpus lands at 58,915 — parliamentary 18,117 · local 5,548 · presidential 35,250
  * (region 155 · municipality 1,357 · settlement 21,245 · abroad 5 · section 12,488).
- * ⚠ That is 1.8% under the 60,000 gate, so the next level added here needs its own arithmetic
+ * ⚠ That is 1.8% under the 60,000 gate, so the NEXT level added here needs its own arithmetic
  * rather than an assumption of room.
- *
- * Removing `presidential` from this list is what turns the surfaces on, and `emittedLevels`
- * already says which levels they are. Plan Tier 5's route family owns the last step.
  */
-const KINDS_NOT_PUBLISHED: readonly ElectionKind[] = ["presidential"];
+const KINDS_NOT_PUBLISHED: readonly ElectionKind[] = [];
 export const coveredCycles = (
   root = DATA_ROOT,
+  /** ⚠ A SEAM, NOT A SETTING. The real list is empty, so „presidential is published" is no
+   *  longer falsifiable by reading it — a gate has to feed a withheld list back in to prove
+   *  the check is still there. Same shape as `presidentialSearchSource`'s second argument. */
+  withheld: readonly ElectionKind[] = KINDS_NOT_PUBLISHED,
 ): { kind: ElectionKind; cycle: string }[] => {
   if (!fs.existsSync(root)) return [];
   const dirs = fs.readdirSync(root);
@@ -94,7 +96,7 @@ export const coveredCycles = (
   // ⚠ EVERY presidential cycle, not the latest two. There are five, they are historical and
   // they do not change — and a reader arriving at 2001 needs the same surfaces as one
   // arriving at 2021.
-  const pres = KINDS_NOT_PUBLISHED.includes("presidential")
+  const pres = withheld.includes("presidential")
     ? []
     : dirs.filter((d) => /^\d{4}_\d{2}_\d{2}_pvr$/.test(d)).sort();
   return [
@@ -207,6 +209,35 @@ const parliamentary = (cycle: string): Emitted[] => {
 };
 
 /**
+ * The levels a publish should produce for ONE cycle — the policy, narrowed by coverage.
+ *
+ * ⚠ THE POLICY IS PER KIND AND THE COVERAGE IS PER CYCLE, and only the presidential section
+ * level differs today. `SURFACE_POLICY` says a section page SHOULD be served from an artifact;
+ * `sectionArtifactCycle` says how many cycles actually get one, because five cycles' sections
+ * are ~60,000 objects — 44% of the shape §5.0 rejects. Without the narrowing the coverage
+ * check fires on the four older cycles and aborts a publish behaving exactly as the decision
+ * requires.
+ *
+ * ⚠ ONE DEFINITION, TWO READERS — the producer below and `build_surfaces.test.ts`'s coverage
+ * gate. Restating the rule in the gate would make it assert its own copy of the bound, so a
+ * bound that moved would keep passing on the side that matters least.
+ *
+ * @param kind - The election family.
+ * @param cycle - The cycle being published.
+ * @returns The levels this cycle owes an artifact for.
+ */
+export const emittedLevelsFor = (
+  kind: ElectionKind,
+  cycle: string,
+): readonly ElectionPlaceLevel[] => {
+  const levels = emittedLevels(kind);
+  if (kind !== "presidential") return levels;
+  return cycle === PR.sectionArtifactCycle()
+    ? levels
+    : levels.filter((l) => l !== "section");
+};
+
+/**
  * Presidential surfaces.
  *
  * ⚠ ONE PRODUCER FOR ALL FOUR LEVELS, unlike the two arms above. `buildPresidentialSurfaces`
@@ -223,7 +254,7 @@ const parliamentary = (cycle: string): Emitted[] => {
 const presidential = (cycle: string): Emitted[] => {
   const built = PR.buildPresidentialSurfaces(cycle);
   if (!built.length) return [];
-  const emitted = new Set(emittedLevels("presidential"));
+  const emitted = new Set(emittedLevelsFor("presidential", cycle));
   const produced = new Set(built.map((b) => b.level));
   for (const level of emitted)
     if (!produced.has(level))

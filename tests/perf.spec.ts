@@ -471,12 +471,34 @@ test.describe("performance", () => {
   // fetch is serialised behind the screen's own chunk, or a merge that lands
   // after the paint. The symptom of all three is the same and is invisible to
   // every other gate here: i18next renders the key itself, at a 200.
-  const BUNDLED_ROUTES: { bundle: string; path: string; other: string }[] = [
+  const BUNDLED_ROUTES: {
+    bundle: string;
+    path: string;
+    other: string;
+    /** ⚠ THE EMPTY-PAGE ANCHOR, PER ROUTE. „No raw keys" is what a blank page says too, so
+     *  each route needs a floor — and they are not the same floor. The presidential cycle
+     *  page renders its "not published" branch here, because `data/*_pvr` is gitignored and
+     *  has no bucket copy until plan T7: that body is a heading plus one sentence, and
+     *  lowering the SHARED anchor to fit it would stop the other two rows catching a blank
+     *  page. It still exercises the wrapper, which is what this test is about. */
+    minLength: number;
+  }[] = [
     // One route per bundle. Not exhaustive by design — what a second route of
     // the same bundle would exercise is the same wrapper — but every bundle
     // needs one, or a family can ship untested.
-    { bundle: "budget", path: "/budget", other: "methodology" },
-    { bundle: "methodology", path: "/risk-score/methodology", other: "budget" },
+    { bundle: "budget", path: "/budget", other: "methodology", minLength: 500 },
+    {
+      bundle: "methodology",
+      path: "/risk-score/methodology",
+      other: "budget",
+      minLength: 500,
+    },
+    {
+      bundle: "presidential",
+      path: "/presidential/2021_11_14_pvr",
+      other: "budget",
+      minLength: 60,
+    },
   ];
 
   for (const route of BUNDLED_ROUTES) {
@@ -508,7 +530,7 @@ test.describe("performance", () => {
       // Anchor: "no raw keys" is what an empty page says too, and these routes
       // render through a Suspense boundary whose fallback is empty.
       expect(length, `${route.path} rendered almost nothing`).toBeGreaterThan(
-        500,
+        route.minLength,
       );
       expect(raw, `${route.path} rendered raw translation keys`).toEqual([]);
     });
@@ -1069,6 +1091,10 @@ test.describe("performance", () => {
     const BUNDLE_BUDGETS: Record<string, Record<string, number>> = {
       budget: { bg: 28_600, en: 24_100 },
       methodology: { bg: 13_800, en: 10_500 },
+      // Measured 2026-09-06 at 36 keys: the raw JSON is 1,116 B br (bg) / 773 B
+      // br (en), and the emitted chunk adds a small JS wrapper — the same ~5%
+      // headroom `methodology` carries.
+      presidential: { bg: 1_800, en: 1_400 },
     };
     for (const bundle of LOCALE_BUNDLES) {
       const marker = bgOnlyMarker(bundle);
@@ -1083,6 +1109,16 @@ test.describe("performance", () => {
         `expected one ${bundle} chunk per language, found ${chunks.length}: ${chunks.join(", ")}`,
       ).toBe(2);
       const seen = new Set<string>();
+      // ⚠ A NAMED FAILURE, NOT A `TypeError`. `LOCALE_BUNDLES` drives this loop and the table
+      // is hand-maintained, so a bundle added without step 4 of `src/locales/bundles.ts`'s own
+      // checklist used to blow up on `undefined[lang]` — in a file no tsc project includes, so
+      // nothing caught it before CI.
+      const budgets = BUNDLE_BUDGETS[bundle];
+      expect(
+        budgets,
+        `no BUNDLE_BUDGETS entry for "${bundle}" — a bundle added to LOCALE_BUNDLES needs one`,
+      ).toBeTruthy();
+
       for (const f of chunks) {
         const lang = fs
           .readFileSync(`${DIST_DIR}/assets/${f}`, "utf8")
@@ -1091,7 +1127,7 @@ test.describe("performance", () => {
           : "en";
         seen.add(lang);
         expect(br(f), `${lang} ${bundle} bundle`).toBeLessThanOrEqual(
-          BUNDLE_BUDGETS[bundle][lang],
+          budgets[lang],
         );
       }
       expect(

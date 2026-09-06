@@ -442,6 +442,24 @@ const LocalRegionDashboardScreen = lazy(() =>
     default: m.LocalRegionDashboardScreen,
   })),
 );
+// The presidential family (`docs/plans/presidential-elections-v1.md` §9). ⚠ FIVE OF THE SIX
+// ROUTES SHARE ONE SCREEN — `PresidentialPlaceScreen` is parameterised by level, so the
+// per-level differences stay in the surface descriptor where every other kind keeps them.
+// ⚠ The RUNOFF has no route: it is a toggle on the country page (resolved 2026-09-06).
+// ⚠ `withBundle`, NOT `lazy` — the family's 36 strings are a DEFERRED locale bundle rather
+// than core corpus. They are reachable only from these six routes, so shipping them in the
+// chunk every page downloads before it can paint is exactly what the bundle mechanism exists
+// to avoid; `bundle_reachability.test.ts` is what keeps the exclusivity true as the app moves.
+const PresidentialCycleScreen = withBundle("presidential", () =>
+  import("./screens/presidential/PresidentialCycleScreen").then((m) => ({
+    default: m.PresidentialCycleScreen,
+  })),
+);
+const PresidentialPlaceScreen = withBundle("presidential", () =>
+  import("./screens/presidential/PresidentialPlaceScreen").then((m) => ({
+    default: m.PresidentialPlaceScreen,
+  })),
+);
 const LocalAllRegionsScreen = lazy(() =>
   import("./screens/LocalAllRegionsScreen").then((m) => ({
     default: m.LocalAllRegionsScreen,
@@ -2249,6 +2267,60 @@ export const AuthRoutes = () => {
           <Route
             path="data-changes"
             element={<Navigate to="/data/updates" replace />}
+          />
+          {/* The presidential family. ⚠ THE PATTERNS ARE `PRESIDENTIAL_ROUTE_PATTERNS`'s —
+              `presidentialRouteFamily.test.ts` reads this file and fails when the two
+              disagree, so the producer's destinations and the router cannot drift. */}
+          <Route
+            path="presidential/:cycle"
+            element={
+              <LayoutScreen>
+                <PresidentialCycleScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* ⚠ BEFORE `region/:oblast` AND FRIENDS IS NOT REQUIRED — `abroad` is a literal
+              segment and React Router ranks a static segment above a dynamic one regardless
+              of order — but it is written first so a reader sees that it is not an oblast. */}
+          <Route
+            path="presidential/:cycle/abroad"
+            element={
+              <LayoutScreen>
+                <PresidentialPlaceScreen level="abroad" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="presidential/:cycle/region/:oblast"
+            element={
+              <LayoutScreen>
+                <PresidentialPlaceScreen level="region" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="presidential/:cycle/municipality/:obshtina"
+            element={
+              <LayoutScreen>
+                <PresidentialPlaceScreen level="municipality" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="presidential/:cycle/settlement/:ekatte"
+            element={
+              <LayoutScreen>
+                <PresidentialPlaceScreen level="settlement" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="presidential/:cycle/section/:code"
+            element={
+              <LayoutScreen>
+                <PresidentialPlaceScreen level="section" />
+              </LayoutScreen>
+            }
           />
           <Route
             path="local/:cycle"

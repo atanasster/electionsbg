@@ -32,7 +32,12 @@ describe("coverage — the policy and the producers cannot drift", () => {
       for (const { kind, cycle } of CYCLES) {
         const emitted = B.generate(kind, cycle);
         const seen = new Set(emitted.map((e) => e.level));
-        for (const level of emittedLevels(kind))
+        // ⚠ `emittedLevelsFor`, NOT `emittedLevels` — the policy is per KIND and the coverage
+        // is per CYCLE. The presidential section level is bounded to the latest cycle
+        // (~60,000 objects across five, 44% of the shape §5.0 rejects), so the four older
+        // ones legitimately produce none; restating that bound here rather than importing it
+        // would give the rule a second definition, on the side least likely to be updated.
+        for (const level of B.emittedLevelsFor(kind, cycle))
           expect(
             seen.has(level),
             `${kind}/${level} emits an artifact and this run produced none`,
@@ -239,18 +244,19 @@ describe("the run reports what §5.0 asks for", () => {
       expect(counts.artifacts).toBe(all.length);
       expect(B.renderDeltas(withSections)).toContain("no new objects");
     }
-    // ⚠ §5.0's BOUND, AND IT IS WHAT WITHHOLDS PRESIDENTIAL FROM THE PUBLISH. Measured
-    // 2026-09-06: parliamentary 18,117 (one cycle) + local 5,548 (two) = 23,665. The five
-    // presidential cycles would add 81,553 — ~60,000 of it the SECTION level — taking the
-    // corpus to 105,218, which is 44% of the ~240,000-object shape §5.0 rejects rather than
-    // the tenth it asks for. `coveredCycles` withholds the kind for that reason and for the
-    // routes it names; see `KINDS_NOT_PUBLISHED`.
+    // ⚠ §5.0's BOUND, AND IT IS WHAT BOUNDED THE PRESIDENTIAL SECTION LEVEL. Measured
+    // 2026-09-06: parliamentary 18,117 (one cycle) + local 5,548 (two) + presidential 35,250
+    // (five) = 58,915, i.e. 1.8% of headroom. Unbounded, the five presidential cycles' sections
+    // alone are ~60,000 objects and would take the corpus to 105,218 — 44% of the
+    // ~240,000-object shape §5.0 rejects rather than the tenth it asks for. `sectionArtifactCycle`
+    // bounds them to the latest cycle and abroad is one page rather than 302; see
+    // `KINDS_NOT_PUBLISHED`, which is empty now that both reasons are closed.
     expect(all.length).toBeGreaterThan(20_000);
     expect(all.length).toBeLessThan(60_000);
   });
 
   it.runIf(hasCorpus)("dry-runs by default and writes nothing", () => {
-    // ⚠ 23,665 ARTIFACTS IS AN EXPLICIT ACT. Under `--all` this reports and stops.
+    // ⚠ 58,915 ARTIFACTS IS AN EXPLICIT ACT. Under `--all` this reports and stops.
     const before = fs.existsSync(
       path.join(B.DATA_ROOT, CYCLES[0].cycle, "surface"),
     );
@@ -408,16 +414,36 @@ describe("the kinds are exhaustive", () => {
 });
 
 describe("the kinds a publish withholds", () => {
-  it("withholds presidential, and says so rather than omitting it", () => {
+  it("withholds nothing, and still refuses a kind that IS withheld", () => {
     // ⚠ „NO PRESIDENTIAL SURFACES" AND „NOBODY BUILT THEM" ARE INDISTINGUISHABLE in a publish,
-    // which is why the withholding is a named list rather than an absence. The builder is
-    // complete and gated by its own suite; what it may not do yet is publish, because its
-    // destinations name routes the app does not serve and its object count is 44% of the shape
-    // §5.0 rejects.
-    expect(B.kindsNotPublished()).toContain("presidential");
-    expect(CYCLES.some((c) => c.kind === "presidential")).toBe(false);
-    // …and the other two ARE published, so the list discriminates.
-    for (const kind of ["parliamentary", "local"] as ElectionKind[])
-      expect(B.kindsNotPublished(), kind).not.toContain(kind);
+    // which is why withholding is a named list rather than an absence. Presidential was on it
+    // for two reasons and both are closed: its destinations named routes `routes.tsx` did not
+    // serve (plan T5 declares all six), and its object count was 44% of the shape §5.0 rejects
+    // (sections are bounded to the latest cycle, and abroad is one page rather than 302).
+    //
+    // ⚠ AN EMPTY LIST CANNOT DISCRIMINATE, so the mechanism is fed one — the same seam
+    // `presidentialSearchSource(LABEL, ["presidential"])` uses a module over. A first draft
+    // asserted instead that a publish COVERS each kind, which is a fact about the DISK: both
+    // `data/*_pvr` and `data/*_mi` are gitignored (`/data/2*/*`), so on a fresh clone and in
+    // CI `coveredCycles()` sees the parliamentary tree alone and that assertion fails for two
+    // kinds — while `hasCorpus` stays true, because the parliamentary directory survives on a
+    // few tracked files. Invisible on a developer machine, red in CI.
+    expect(B.kindsNotPublished()).toEqual([]);
+    expect(
+      B.coveredCycles(undefined, ["presidential"]).some(
+        (c) => c.kind === "presidential",
+      ),
+    ).toBe(false);
   });
+
+  it.runIf(CYCLES.some((c) => c.kind === "presidential"))(
+    "covers EVERY presidential cycle, not the latest two",
+    () => {
+      // A fact about the disk, so it is gated on the corpus being there. The kind is covered
+      // in full because the five cycles are historical and do not change — a reader arriving
+      // at 2001 needs the same surfaces as one arriving at 2021.
+      const pres = CYCLES.filter((c) => c.kind === "presidential");
+      expect(pres.length).toBeGreaterThanOrEqual(5);
+    },
+  );
 });

@@ -85,9 +85,6 @@ export interface PresidentialRoundInfo {
   turnoutBasis: "all-sections" | "domestic-only";
 }
 
-/** @deprecated The old name, kept so an outside import does not break silently. */
-export type PresidentialRoundCapabilities = PresidentialRoundInfo;
-
 /** One presidential cycle, as the selector and the hub see it. */
 export interface PresidentialElectionEntry {
   /** Folder id and URL segment — `2021_11_14_pvr`. ⚠ Never rendered as a label. */
@@ -166,6 +163,23 @@ export const PRESIDENTIAL_CATALOGUE = catalogue as PresidentialElectionEntry[];
  * those JSONs are in the entry chunk through `ElectionContext`.
  */
 export const LATEST_PRESIDENTIAL_CYCLE = "2021_11_14_pvr";
+
+/**
+ * One cycle's catalogue row, by folder id.
+ *
+ * ⚠ THE CATALOGUE IS THE ONLY PLACE A ROUND'S CAPABILITIES LIVE — whether it carried
+ * machines, whether „не подкрепям никого" was on the form, and WHICH sections its turnout
+ * rate is over. A screen that needs one of those must come here rather than infer it from
+ * the summary: 2006's `turnout.basis` is a Bulgarian sentence, and rendering it would ship
+ * untranslated corpus prose to the English band.
+ *
+ * @param cycle - The folder id, e.g. `2021_11_14_pvr`.
+ * @returns The row, or `undefined` for a cycle this build does not catalogue.
+ */
+export const findPresidentialEntry = (
+  cycle?: string,
+): PresidentialElectionEntry | undefined =>
+  cycle ? PRESIDENTIAL_CATALOGUE.find((e) => e.name === cycle) : undefined;
 
 const isRoundInfo = (v: unknown): v is PresidentialRoundInfo => {
   if (typeof v !== "object" || v === null) return false;

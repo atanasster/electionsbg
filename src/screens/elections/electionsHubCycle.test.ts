@@ -76,12 +76,15 @@ describe("the event catalogue", () => {
   });
 });
 
-describe("per-kind surfaces", () => {
-  const ROUTES = fs.readFileSync(
-    path.join(process.cwd(), "src/routes.tsx"),
-    "utf8",
-  );
+/** ⚠ MODULE SCOPE — two describes read it now. The `resolution` block asserts that every
+ *  resolvable kind has a declared route, which is the claim `KINDS_WITHOUT_SURFACE` used to
+ *  stand in for and can no longer, being empty. */
+const ROUTES = fs.readFileSync(
+  path.join(process.cwd(), "src/routes.tsx"),
+  "utf8",
+);
 
+describe("per-kind surfaces", () => {
   it("declares a route for exactly the kinds that have one", () => {
     // ⚠ A BICONDITIONAL AGAINST `routes.tsx`, not a hand-flipped boolean. Adding
     // `/presidential/:cycle` turns this red until `KINDS_WITHOUT_SURFACE` is emptied, and
@@ -173,11 +176,20 @@ describe("resolution", () => {
         `${e.id} resolved to ${r.kind}, which has no surface`,
       ).toBe(false);
     }
-    // …and it is NOT vacuous: there really is a catalogued kind being withheld.
-    expect(KINDS_WITHOUT_SURFACE.length).toBeGreaterThan(0);
-    expect(
-      ELECTION_EVENTS.some((e) => KINDS_WITHOUT_SURFACE.includes(e.kind)),
-    ).toBe(true);
+    // ⚠ THE LIST IS EMPTY SINCE T5, so the loop above is now satisfied by every event and
+    // cannot fail — „no kind is withheld" makes the assertion trivially true. What it was
+    // protecting was that a RESOLVED cycle has a page, so that is asserted directly instead,
+    // against `routes.tsx` rather than against the list.
+    expect(KINDS_WITHOUT_SURFACE).toEqual([]);
+    for (const e of ELECTION_EVENTS) {
+      const r = resolveHubCycle(e.id);
+      expect(
+        ROUTES.includes(`path="${CYCLE_SURFACE[r.kind].routePattern}"`),
+        `${e.id} resolved to ${r.kind}, whose route is not declared`,
+      ).toBe(true);
+    }
+    // …and it covers a presidential event, so the widening is exercised rather than assumed.
+    expect(ELECTION_EVENTS.some((e) => e.kind === "presidential")).toBe(true);
   });
 
   it("anchors the default and the fallback on an event it can OPEN", () => {
@@ -210,16 +222,12 @@ describe("resolution", () => {
     // ⚠ TWO DIFFERENT STATEMENTS ABOUT THE READER'S SELECTION. „We did not recognise
     // 2021_11_14_pvr" is false — we publish a catalogue of it — and it asks the reader to
     // fix something that is on our side.
+    // ⚠ THE PRESIDENTIAL CYCLE NO LONGER FALLS BACK — T5 gave it a page, so „we cannot show
+    // it" stopped being true of the only kind that was ever withheld. It resolves to itself.
     const r = resolveHubCycle("2021_11_14_pvr");
-    expect(r.id).toBe(LATEST_ELECTION_EVENT.id);
-    expect(r.fellBack).toBe(true);
-    expect(r.fellBackReason).toBe("no-surface");
-    expect(r.requested).toBe("2021_11_14_pvr");
-    // ⚠ And it carries the CYCLE, so the notice can name it without printing a folder id.
-    expect(r.requestedCycle).toEqual({
-      kind: "presidential",
-      date: "2021-11-14",
-    });
+    expect(r.id).toBe("2021_11_14_pvr");
+    expect(r.kind).toBe("presidential");
+    expect(r.fellBack).toBe(false);
     // The control: a genuinely unknown value still reports `unknown`, so the two reasons
     // are not one reason under two names — and carries no cycle, because there is none.
     const unknown = resolveHubCycle("2021_11_14_zzz");

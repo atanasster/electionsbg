@@ -110,7 +110,12 @@ const GATED: WithheldTile[] = [
     tile: PRESIDENTIAL_TILE,
     kind: "presidential",
     band: "results",
-    blockers: ["route", "band-full"],
+    // ⚠ „route" IS GONE — plan T5 shipped `/presidential/:cycle`, and the gate RECOMPUTES
+    // this list from `KINDS_WITHOUT_SURFACE` and the band's own length, so leaving a resolved
+    // blocker here is red rather than a stale excuse. `band-full` stands: the results band is
+    // four tiles and the grid is four columns at `xl`, so placing this one means deciding what
+    // leaves — a decision this step does not make.
+    blockers: ["band-full"],
   },
 ];
 

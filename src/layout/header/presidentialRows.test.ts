@@ -16,6 +16,7 @@ import {
   decidedLabelKey,
   pickAction,
   presidentialRows,
+  presidentialServable,
   surnameOf,
 } from "./presidentialRows";
 
@@ -149,19 +150,23 @@ describe("the section is WITHHELD until the route exists", () => {
     // no rendered output can show; the two behavioural facts it used to assert here — where
     // a pick goes, and which label a round gets — are unit-tested above instead, so a
     // reflow or a rename can no longer redden a correct component.
-    expect(SRC).toContain("KINDS_WITHOUT_SURFACE");
-    expect(SRC).toContain("PRESIDENTIAL_SERVABLE");
+    // ⚠ THE COMPONENT NO LONGER NAMES THE LIST — it asks `presidentialServable()`, which
+    // reads it. Asserting on the list's NAME here would fail a correct component and pass a
+    // wrong one that merely imported the constant without consulting it.
+    expect(SRC).toContain("presidentialServable()");
     // …and that the decisions really are delegated rather than re-spelled inline.
     expect(SRC).toContain("pickAction(r)");
     expect(SRC).toContain("decidedLabelKey(r.decidedInRound)");
   });
 
-  it("is genuinely withheld right now, and would not be for a servable kind", () => {
-    // The control: this suite would pass vacuously against a build where nothing is
-    // withheld, so pin that presidential IS on the list and that the two kinds with routes
-    // are not.
-    expect(KINDS_WITHOUT_SURFACE).toContain("presidential");
-    expect(KINDS_WITHOUT_SURFACE).not.toContain("parliamentary");
-    expect(KINDS_WITHOUT_SURFACE).not.toContain("local");
+  it("is servable now, and the withholding mechanism it went through still works", () => {
+    // ⚠ T5 SHIPPED `/presidential/:cycle`, so the list is empty and „is it withheld" is no
+    // longer a question this file can answer by inspection. What must stay checkable is that
+    // the section CONSULTS the list — that is asserted one test up, against the source — and
+    // that a withheld kind would still be refused, which is asserted by feeding the predicate
+    // a list rather than by hoping the real one is non-empty.
+    expect(KINDS_WITHOUT_SURFACE).toEqual([]);
+    expect(presidentialServable(KINDS_WITHOUT_SURFACE)).toBe(true);
+    expect(presidentialServable(["presidential"])).toBe(false);
   });
 });
