@@ -248,6 +248,11 @@ export const SHELL_COPY_KEYS = [
   "dashboard_see_details",
   // The no-adapter branch of the map panel, distinct from the LOADING message beside it.
   "election_map_unavailable",
+  // The ROUND, appended to a ballot heading where the ballot states one. A level can carry the
+  // same ballot KIND twice — presidential round 1 and its runoff, a mayoral race and its
+  // балотаж — and two canvases under one title put two maps of DIFFERENT electorates under one
+  // question. Shared with the map tooltips, which name the round for the same reason.
+  "election_round",
   // The party-bearing variants of two fact labels. Separate keys rather than an optional
   // placeholder: i18next prints an unmatched `{{party}}` verbatim, so one key would show the
   // braces on every level that carries no `labelParams` — which is every level but two.

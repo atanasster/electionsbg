@@ -215,3 +215,145 @@ describe("the presidential place page", () => {
     ).toBeInTheDocument();
   });
 });
+
+describe("what the ranked rows say about a candidate", () => {
+  /** A surface with BOTH rounds, so the two canvases can be told apart. Rows are people:
+   *  `partyId` is null and the ballot number rides in `localPartyNum`, which is the shape the
+   *  producer emits and the reason the shell cannot resolve a colour or a link for them. */
+  const SURFACE = {
+    schemaVersion: 1,
+    kind: "presidential",
+    cycle: LATEST_PRESIDENTIAL_CYCLE,
+    place: { level: "region", id: "BLG" },
+    status: { result: "final", sourceLabel: "cik", updatedAt: "2026-01-01" },
+    facts: [],
+    standouts: [],
+    // ⚠ REQUIRED BY `isWellFormedElectionSurfaceV1`, and its absence is INVISIBLE at the
+    // fixture: the boundary rejects the payload as malformed and renders the „not published"
+    // fallback, so every assertion below fails on a missing element rather than on a wrong one.
+    destinations: { completeResult: { to: "/presidential", available: true } },
+    ballots: [1, 2].map((round) => ({
+      kind: "presidential_ticket",
+      round,
+      resultStatus: "final",
+      preview: [
+        {
+          partyId: null,
+          localPartyNum: 6,
+          candidateName: "Румен Георгиев Радев",
+          votes: 100,
+          pct: 60,
+        },
+      ],
+      totals: { votesCast: 100, validVotes: 100, turnoutBasis: "unavailable" },
+    })),
+  };
+
+  const mountSurface = () => {
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      if (u.includes("/surface/"))
+        return new Response(JSON.stringify(SURFACE), { status: 200 });
+      if (u.includes("tickets.json"))
+        return new Response(
+          JSON.stringify({
+            cycle: LATEST_PRESIDENTIAL_CYCLE,
+            tickets: [
+              {
+                number: 6,
+                president: "Румен Георгиев Радев",
+                vicePresident: "Илияна Малинова Йотова",
+                nominatedBy: { name: "ИК", kind: "committee" },
+                color: "rgb(9, 9, 9)",
+              },
+            ],
+          }),
+          { status: 200 },
+        );
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    // ⚠ NOT `mount()`. That helper installs its OWN always-404 fetch as its first act, so
+    // calling it here would silently discard the stub above and every assertion below would
+    // fail against the „not published" fallback rather than against a rendered surface — which
+    // is exactly what it did until this was written out.
+    const path = `/presidential/${LATEST_PRESIDENTIAL_CYCLE}/region/BLG`;
+    const Wrapper = ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider
+        client={
+          new QueryClient({ defaultOptions: { queries: { retry: false } } })
+        }
+      >
+        <MemoryRouter initialEntries={[path]}>
+          <Routes>
+            <Route
+              path="/presidential/:cycle/region/:oblast"
+              element={children}
+            />
+          </Routes>
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+    return render(<PresidentialPlaceScreen level="region" />, {
+      wrapper: Wrapper,
+    });
+  };
+
+  it("names the ROUND on each canvas, not just inside the table", async () => {
+    // ⚠ TWO CANVASES, ONE TITLE. Both ballots are `presidential_ticket`, so both headings read
+    // „Кандидатски двойки" and the round was recoverable only from a „Тур" column inside the
+    // table — with two MAPS below them, of electorates 5.7 points apart nationally that name
+    // different leaders in whole oblasts. A map under an unlabelled heading is a map of an
+    // unstated question.
+    mountSurface();
+    // ⚠ WAIT ON THE CAPTION, NOT THE HEADING. The heading now carries the round in a child
+    // <span>, so its text is split across elements and an exact-string matcher never finds it —
+    // which is the change under test.
+    // Two canvases (one per round) means two captions — All, not one.
+    await screen.findAllByText(bgCorpus.election_ranked_caption);
+    const rounds = [...document.querySelectorAll("h2")]
+      .map((h) => h.textContent ?? "")
+      .filter((t) => t.includes(bgCorpus.election_ballot_presidential_ticket));
+    expect(rounds).toHaveLength(2);
+    expect(rounds[0]).toContain(
+      bgCorpus.election_round.replace("{{round}}", "1"),
+    );
+    expect(rounds[1]).toContain(
+      bgCorpus.election_round.replace("{{round}}", "2"),
+    );
+  });
+
+  it("gives a candidate row the ticket's colour, as a party row gets its party's", async () => {
+    // ⚠ THE SHELL CANNOT RESOLVE THIS AND MUST NOT GUESS. A presidential row carries
+    // `partyId: null` — the nominator may be a party, a coalition or an инициативен комитет —
+    // so the canonical party corpus has nothing to say about it and the rows rendered with no
+    // swatch at all, on a page whose MAP is coloured by exactly that ticket. The screen passes
+    // the colour in from `tickets.json`.
+    mountSurface();
+    // Two canvases (one per round) means two captions — All, not one.
+    await screen.findAllByText(bgCorpus.election_ranked_caption);
+    const swatches = [
+      ...document.querySelectorAll(
+        "[data-canvas-slot=ranked] span[aria-hidden]",
+      ),
+    ].filter((n) => (n as HTMLElement).style.backgroundColor);
+    expect(swatches.length).toBeGreaterThan(0);
+    expect((swatches[0] as HTMLElement).style.backgroundColor).toBe(
+      "rgb(9, 9, 9)",
+    );
+  });
+
+  it("links a candidate to their /person page", async () => {
+    // The row is a PERSON, so its destination is `/person/:slug` rather than `/party/:id` —
+    // and the resolver is `personHrefForTicket`, the same one the country page's ranking uses,
+    // so one candidate cannot be a link on one page and plain text on the other.
+    mountSurface();
+    // Two canvases (one per round) means two captions — All, not one.
+    await screen.findAllByText(bgCorpus.election_ranked_caption);
+    const links = [
+      ...document.querySelectorAll("a[data-ranked-entry-link]"),
+    ] as HTMLAnchorElement[];
+    expect(links.length).toBeGreaterThan(0);
+    for (const a of links)
+      expect(a.getAttribute("href")).toMatch(/^\/person\//);
+  });
+});

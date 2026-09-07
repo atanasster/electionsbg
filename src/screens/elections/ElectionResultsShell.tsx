@@ -90,6 +90,27 @@ type Props = {
    *  are fetched in parallel with the screen instead of two hops behind it. See
    *  `ElectionMapPanel`'s `preloaded` for why only such a screen may do this. */
   preloadedMap?: FC<ElectionMapAdapterProps>;
+  /** A ranked row's swatch colour, where the SHELL cannot resolve one.
+   *
+   *  ⚠ IT EXISTS FOR THE KINDS WHOSE ROWS ARE NOT PARTIES. `rankedLabel` resolves a colour from
+   *  the canonical party corpus, and a presidential row carries `partyId: null` by design — its
+   *  nominator may be a party, a coalition or an инициативен комитет, so resolving all three to
+   *  a party would mislabel two. Those rows had no swatch at all while every parliamentary row
+   *  had one, on a page whose map IS coloured by ticket.
+   *
+   *  ⚠ THE SHELL DOES NOT FETCH IT. `tickets.json` is a presidential-only object, and reaching
+   *  for it here would put a per-kind fetch — and its module — into the closure of a component
+   *  that also serves the polling-section route. The screen that knows the kind supplies it. */
+  rowColor?: (row: ElectionRankedEntry) => string | undefined;
+  /** Where a ranked row's ENTRY links, where the shell cannot resolve it — the same split as
+   *  `rowColor`, for the same reason. A presidential row is a PERSON, so its destination is a
+   *  `/person` page rather than `/party/:id`.
+   *
+   *  ⚠ RETURNING `undefined` IS A REFUSAL AND MUST STAY ONE. The presidential corpus shares 17
+   *  of 140 candidate names — „Иван Стефанов Иванов" between fifteen people — and the producer
+   *  refuses those rather than scoring them. The row renders as plain text then, which is the
+   *  honest answer; never fall back to a guess. */
+  rowHref?: (row: ElectionRankedEntry) => string | undefined;
   scope?: "shell" | "header";
 };
 
@@ -336,7 +357,19 @@ const RankedResult: FC<{
   kind: ElectionKind;
   level: ElectionPlaceLevel;
   placeId: string;
-}> = ({ ballot, columns, cycle, details, kind, level, placeId }) => {
+  rowColor?: (row: ElectionRankedEntry) => string | undefined;
+  rowHref?: (row: ElectionRankedEntry) => string | undefined;
+}> = ({
+  ballot,
+  columns,
+  cycle,
+  details,
+  kind,
+  level,
+  placeId,
+  rowColor,
+  rowHref,
+}) => {
   const { t } = useTranslation();
   const { rankedLabel: label, partySlug } = useSurfaceLabels();
   // ⚠ THE LEVEL'S DECLARED COLUMNS, not a fixed three. `elected` is the substantive one: on a
@@ -428,9 +461,15 @@ const RankedResult: FC<{
             // the row: only a resolved canonical party has either. A local list, an independent
             // and an unresolved id each render as plain text with no dot — which is the honest
             // answer, and never a grey dot standing in for a party nobody could name.
-            const color = l.kind === "party" ? l.color : undefined;
+            // ⚠ THE SHELL'S OWN ANSWER WINS; the caller's is a FALLBACK for the rows it
+            // cannot resolve. A parliamentary row keeps the canonical party colour and the
+            // `/party/:id` link it has always had — a screen cannot override those from
+            // outside, which is what would let two pages colour one party differently.
+            const color =
+              (l.kind === "party" ? l.color : undefined) ?? rowColor?.(row);
             const slug =
               l.kind === "party" ? partySlug(row.partyId, cycle) : undefined;
+            const href = slug ? partyHref(slug) : rowHref?.(row);
             const barPct = Math.max(2, (row.pct / maxPct) * 100);
             return (
               <tr key={`${row.partyId ?? "ind"}-${i}`}>
@@ -453,9 +492,9 @@ const RankedResult: FC<{
                         style={{ backgroundColor: color }}
                       />
                     ) : null}
-                    {slug ? (
+                    {href ? (
                       <a
-                        href={partyHref(slug)}
+                        href={href}
                         className="truncate font-medium"
                         onClick={() =>
                           trackSurfaceLink({
@@ -536,6 +575,8 @@ const OutcomeCanvas: FC<{
   kind: ElectionKind;
   level: ElectionPlaceLevel;
   placeId: string;
+  rowColor?: (row: ElectionRankedEntry) => string | undefined;
+  rowHref?: (row: ElectionRankedEntry) => string | undefined;
 }> = ({
   ballot,
   columns,
@@ -546,6 +587,8 @@ const OutcomeCanvas: FC<{
   level,
   placeId,
   preloadedMap,
+  rowColor,
+  rowHref,
 }) => {
   const { t } = useTranslation();
   return (
@@ -565,6 +608,8 @@ const OutcomeCanvas: FC<{
           kind={kind}
           level={level}
           placeId={placeId}
+          rowColor={rowColor}
+          rowHref={rowHref}
         />
       </div>
       {ballot.map ? (
@@ -623,6 +668,8 @@ export const ElectionResultsShell: FC<Props> = ({
   digest,
   currentView,
   preloadedMap,
+  rowColor,
+  rowHref,
   scope = "shell",
 }) => {
   const { t } = useTranslation();
@@ -706,11 +753,27 @@ export const ElectionResultsShell: FC<Props> = ({
             className="my-4"
             data-surface-region="canvas"
           >
+            {/* ⚠ THE ROUND IS IN THE HEADING WHEN THERE IS ONE. A level can carry the same
+                ballot KIND twice — presidential round 1 and its runoff, a mayoral race and its
+                балотаж — and the two canvases were headed identically („Кандидатски двойки"
+                over both), with the round recoverable only from a „Тур" column inside the
+                table. Two maps of DIFFERENT electorates under one title is the map-of-an-
+                unstated-question defect, one level up: nationally the two presidential rounds
+                are 5.7 points apart and name different leaders in whole oblasts.
+                ⚠ Omitted, not defaulted, when the ballot states no round — „1-и тур" on a
+                single-round ballot invents a distinction the election did not have. */}
             <h2 id={rid(`ballot-${slug}`)} className="text-lg font-semibold">
               {t(BALLOT_LABEL_KEYS[b.kind])}
+              {b.round === undefined ? null : (
+                <span className="ml-2 font-normal text-muted-foreground">
+                  {t("election_round", { round: b.round })}
+                </span>
+              )}
             </h2>
             <OutcomeCanvas
               preloadedMap={preloadedMap}
+              rowColor={rowColor}
+              rowHref={rowHref}
               ballot={b}
               cycle={surface.cycle}
               details={completeResult}

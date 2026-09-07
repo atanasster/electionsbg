@@ -41,6 +41,8 @@ import {
   presidentialUrl,
 } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
+import { useTicketsByNumber } from "@/data/presidential/useTickets";
+import { personHrefForTicket } from "@/data/presidential/ticketPersons";
 import type { ElectionPlaceLevel } from "@/data/elections/surfaceTypes";
 
 /** The levels this screen serves.
@@ -92,6 +94,9 @@ export const PresidentialPlaceScreen: FC<{
   const { t } = useTranslation();
   const { placeLabel } = useSurfaceLabels();
   const cycle = params.cycle;
+  // ⚠ CALLED UNCONDITIONALLY, above the `!cycle` early return — React hook order. It is a
+  // no-op for an empty cycle and its result is only read inside the render prop.
+  const tickets = useTicketsByNumber(cycle ?? "");
   const id =
     level === "abroad" ? PRESIDENTIAL_ABROAD_ID : params[ID_PARAM[level]];
 
@@ -147,7 +152,34 @@ export const PresidentialPlaceScreen: FC<{
           </p>
         }
       >
-        {(s) => <ElectionResultsShell surface={s} scope="header" />}
+        {(s) => (
+          <ElectionResultsShell
+            surface={s}
+            scope="header"
+            // ⚠ THE SHELL CANNOT RESOLVE EITHER OF THESE, for the same reason: a presidential
+            // ranked row is a PERSON with `partyId: null` — its nominator may be a party, a
+            // coalition or an инициативен комитет, so resolving all three to a canonical party
+            // would mislabel two — and the party corpus the shell reads colours and links from
+            // therefore has nothing to say about it. The ballot number rides in `localPartyNum`.
+            //
+            // ⚠ THE LINK RULE IS `personHrefForTicket` AND NOTHING ELSE — the same resolver
+            // `PresidentialPersonName` uses on the country page, so one candidate cannot be a
+            // link on one page and plain text on the other. It REFUSES a shared name (17 of the
+            // 140 names across the five ballots; „Иван Стефанов Иванов" is fifteen people), and
+            // an undefined href renders as plain text, which is the honest answer rather than a
+            // link that attributes this candidacy to somebody who merely shares a name.
+            rowColor={(r) =>
+              r.localPartyNum === undefined
+                ? undefined
+                : tickets.get(r.localPartyNum)?.color
+            }
+            rowHref={(r) =>
+              r.candidateName
+                ? (personHrefForTicket(r.candidateName) ?? undefined)
+                : undefined
+            }
+          />
+        )}
       </ElectionSurfaceBoundary>
     </section>
   );
