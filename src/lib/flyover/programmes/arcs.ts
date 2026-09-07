@@ -10,6 +10,10 @@
 // members in more than one oblast. Naming a specific Plovdiv→Sofia pair before saying that
 // would hand the reader a precision the picture does not have.
 //
+// The other deliberately placeless population is visible as ONE off-map endpoint throughout
+// this programme. Its euro figure comes from `coverage.unplaced.notInTr`; no buyer is connected
+// to it, because the artifact carries no defensible contractor oblast for that money.
+//
 // The camera stays flat-ish and turns slowly: an arc reads as a direction only if the viewer
 // can see both of its ends, which a steep pitch takes away.
 //

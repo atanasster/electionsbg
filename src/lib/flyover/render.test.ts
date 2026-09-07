@@ -96,6 +96,39 @@ describe("render", () => {
     expect(arcs.length).toBeLessThanOrEqual(6);
   });
 
+  it("bends reciprocal flows onto distinguishable curves", () => {
+    const curves = draw(state({ arcs: 1 }), { maxFlows: 6 }).ops(
+      "quadraticCurveTo",
+    );
+    expect(curves).toHaveLength(6);
+    // The three reciprocal pairs used to share three control points exactly, leaving one
+    // colour painted over the other. A direction-sensitive perpendicular produces six.
+    expect(
+      new Set(curves.map((c) => JSON.stringify(c.args.slice(0, 2)))).size,
+    ).toBe(curves.length);
+  });
+
+  it("renders non-TR money once, beyond the map, without inventing an oblast", () => {
+    const flat = draw(state());
+    expect(flat.ops("fillText")).toHaveLength(0);
+
+    const arcs = draw(state({ arcs: 1 }));
+    const labels = arcs.ops("fillText").map((c) => c.args[0]);
+    // The fixture's 18.48bn is one aggregate marker — not one guessed endpoint per buyer —
+    // and the notation is language-neutral because the DOM caption owns the explanation.
+    expect(labels).toEqual(["18.5B"]);
+    expect(arcs.ops("strokeText").map((c) => c.args[0])).toEqual(labels);
+    expect(String(labels[0])).not.toMatch(/[\u0400-\u04ff]/);
+
+    // The endpoint is screen-space by design, so it remains visible on the narrow rendering
+    // while the flow count falls from 40 to 20.
+    const narrow = draw(state({ arcs: 1 }), {
+      viewport: { w: 320, h: 200 },
+      maxFlows: 2,
+    });
+    expect(narrow.ops("fillText").map((c) => c.args[0])).toEqual(labels);
+  });
+
   it("moves the arc dash with the clock, and nothing else", () => {
     const s = state({ arcs: 1 });
     const a = draw(s, { clock: 0 });
@@ -296,6 +329,10 @@ describe("render", () => {
     );
     expect(rec.ops("fill")).toHaveLength(0);
     expect(rec.ops("clearRect")).toHaveLength(1);
+    expect(rec.ops("stroke")).toHaveLength(0);
+    expect(rec.ops("fillText")).toHaveLength(0);
+    expect(rec.ops("strokeText")).toHaveLength(0);
+    expect(rec.ops("quadraticCurveTo")).toHaveLength(0);
   });
 });
 

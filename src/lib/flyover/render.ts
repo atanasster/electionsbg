@@ -89,6 +89,84 @@ interface Drawable {
 
 const CAPITAL = "SOF";
 
+/**
+ * The one endpoint that deliberately has no place on the map (plan §7 step 4).
+ *
+ * `coverage.unplaced.notInTr` combines foreign suppliers and Bulgarian public bodies that
+ * have no Commerce-Registry row. Giving either population an oblast would be a guess, so the
+ * renderer keeps the amount in SCREEN space, beyond the geography, instead of inventing a
+ * world coordinate. The first arcs caption names what the marker means; the canvas carries
+ * only the euro figure, preserving the rule that translatable prose stays in the DOM.
+ */
+const drawOffMapEndpoint = (
+  ctx: Ctx2D,
+  eur: number,
+  palette: FlyoverPalette,
+  alpha: number,
+  viewport: Viewport,
+): void => {
+  if (!(eur > 0) || !(alpha > 0)) return;
+
+  const r = Math.max(6, Math.min(12, Math.min(viewport.w, viewport.h) * 0.016));
+  const x = viewport.w - Math.max(42, viewport.w * 0.075);
+  const y = Math.max(36, viewport.h * 0.16);
+  const label = `${(eur / 1e9).toFixed(1)}B`;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.strokeStyle = palette.arcNeutral;
+  ctx.fillStyle = palette.arcNeutral;
+  ctx.lineWidth = Math.max(1.5, r * 0.22);
+  ctx.lineCap = "round";
+  ctx.setLineDash([Math.max(3, r * 0.6), Math.max(3, r * 0.6)]);
+  ctx.beginPath();
+  ctx.moveTo(x - r * 4.2, y);
+  ctx.lineTo(x - r * 1.35, y);
+  ctx.stroke();
+
+  // An open diamond: a destination outside the mapped key space, not a 29th oblast.
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.moveTo(x, y - r);
+  ctx.lineTo(x + r, y);
+  ctx.lineTo(x, y + r);
+  ctx.lineTo(x - r, y);
+  ctx.closePath();
+  ctx.stroke();
+
+  const amountTop = y + r + 5;
+  const amountPx = Math.max(10, Math.round(viewport.h / 30));
+  const euroX = x - r * 1.35;
+  const euroY = amountTop + amountPx * 0.5;
+  const euroR = amountPx * 0.34;
+  // Draw the currency mark as geometry. The portable Node-canvas fallback used for the
+  // committed posters has no € glyph; putting it in `fillText` renders a tofu box even though
+  // the browser is fine. Two short bars across an open, angular C remain legible at 10 px.
+  ctx.beginPath();
+  ctx.moveTo(euroX + euroR * 0.65, euroY - euroR);
+  ctx.lineTo(euroX - euroR * 0.3, euroY - euroR);
+  ctx.lineTo(euroX - euroR, euroY);
+  ctx.lineTo(euroX - euroR * 0.3, euroY + euroR);
+  ctx.lineTo(euroX + euroR * 0.65, euroY + euroR);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(euroX - euroR * 0.85, euroY - euroR * 0.28);
+  ctx.lineTo(euroX + euroR * 0.45, euroY - euroR * 0.28);
+  ctx.moveTo(euroX - euroR * 0.85, euroY + euroR * 0.28);
+  ctx.lineTo(euroX + euroR * 0.45, euroY + euroR * 0.28);
+  ctx.stroke();
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.font = fontFor(amountPx);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = palette.labelHalo;
+  ctx.fillStyle = palette.label;
+  ctx.strokeText(label, x - r * 0.4, amountTop);
+  ctx.fillText(label, x - r * 0.4, amountTop);
+  ctx.restore();
+};
+
 const fontFor = (px: number): string =>
   `600 ${px}px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;
 
@@ -227,9 +305,22 @@ const drawArc = (
   const az = a[1] / 10;
   const bx = b[0] / 10;
   const bz = b[1] / 10;
-  const lift = arcLift(bx - ax, bz - az);
+  const dx = bx - ax;
+  const dz = bz - az;
+  const length = Math.hypot(dx, dz) || 1;
+  const lift = arcLift(dx, dz);
+  // Reciprocal flows must not occupy the SAME Bézier. The direction's left-hand normal
+  // reverses with it, so A→B and B→A bend to opposite sides without another identity or a
+  // special case. Static posters can now distinguish the two colours; animation direction is
+  // no longer the only evidence that two quantities are present.
+  const bend = Math.min(18, length * 0.12);
+  const nx = -dz / length;
+  const nz = dx / length;
   const p0 = project([ax, 0, az], basis);
-  const p1 = project([(ax + bx) / 2, lift, (az + bz) / 2], basis);
+  const p1 = project(
+    [(ax + bx) / 2 + nx * bend, lift, (az + bz) / 2 + nz * bend],
+    basis,
+  );
   const p2 = project([bx, 0, bz], basis);
   if (!p0 || !p1 || !p2) return null;
   const width = arcWidth(flow.eur, maxEur);
@@ -380,6 +471,21 @@ export const render = (
 
   raised.sort((a, b) => b.depth - a.depth);
   for (const r of raised) r.draw();
+
+  // This is NOT another flow cell: the corpus has no contractor oblast to put on the other
+  // end. One aggregate endpoint and its euro amount make the missing geography visible without
+  // manufacturing a location or implying that the map's 28×28 matrix contains it.
+  // A collapsed camera projects no country; do not leave a contextless euro marker floating
+  // on an otherwise blank frame. `polys` is the rendering result, not a second validity rule.
+  if (polys.length > 0) {
+    drawOffMapEndpoint(
+      ctx,
+      world.flows.coverage.unplaced.notInTr,
+      palette,
+      state.arcs,
+      viewport,
+    );
+  }
 
   // ── city labels ─────────────────────────────────────────────────────────────────────
   if (state.labels > 0) {
