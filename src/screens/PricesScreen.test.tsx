@@ -162,12 +162,15 @@ describe("PricesScreen", () => {
     expect(document.querySelector("h1")?.textContent).toBe("prices_head_title");
   });
 
-  it("puts the search box in the head's slot, not loose above the grid", async () => {
+  it("carries NO search box — /consumption owns the one copy", async () => {
     mount();
     await waitFor(() => expect(head()).not.toBeNull());
-    // The /persons and /parliament shape. A search field inside the head is why those two
-    // budgets are wider than /procurement's.
-    expect(head()!.querySelector("input")).not.toBeNull();
+    // Both pages rendered the SAME `ConsumptionSearchTile` over the same corpus, one click
+    // apart, so this one was a duplicate rather than a second entry point. The assertion is
+    // over the whole page, not just the head: re-adding it loose above the grid — where it
+    // sat before it moved into the head's slot — is the same duplication back.
+    expect(head()!.querySelector("input")).toBeNull();
+    expect(document.querySelectorAll("input")).toHaveLength(0);
   });
 
   it("renders the four band cells at their own destinations", async () => {
@@ -313,9 +316,10 @@ describe("PricesScreen", () => {
       (li) => li.textContent ?? "",
     );
     expect(railRows.length).toBeGreaterThan(0);
-    // ⚠️ A TEST HOOK, not `.grid` — that matched an earlier grid on the page (the search
-    // tile's), so the loop below ran over an element containing none of the tiles and passed
-    // against a map tile that WAS repeating the rail's first row. Measured.
+    // ⚠️ A TEST HOOK, not `.grid` — back when the page carried a search tile, `.grid`
+    // matched THAT tile's own grid, so the loop below ran over an element containing none of
+    // the tiles and passed against a map tile that WAS repeating the rail's first row.
+    // Measured. The hook stays: the next element to grow a grid would do it again.
     const grid = document.querySelector('[data-testid="prices-grid"]')!;
     for (const row of railRows) {
       const label = row.replace(/[\d\s,.€]+$/, "").trim();

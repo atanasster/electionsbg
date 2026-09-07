@@ -837,14 +837,15 @@ const HUB_HEAD_BUDGETS: {
     cells: 2,
     asideRows: 3,
   },
-  // Identity + deck + a full ConsumptionSearchTile in the slot + a 4-cell band + a two-clause
-  // note, plus an evidence rail of the four cheapest oblasts. No scope control — the corpus
-  // is one continuous daily series, not a windowed one.
+  // Identity + deck + a 4-cell band + a two-clause note, plus an evidence rail of the four
+  // cheapest oblasts. No scope control — the corpus is one continuous daily series, not a
+  // windowed one — and, since 2026-09-07, NO search slot either.
   //
-  // ⚠️ THE SEARCH SLOT IS WHY THIS SITS WITH /funds AND /budget rather than with the compact
-  // heads: it is a whole TILE, not an input — „колко струва X" is the question most readers
-  // arrive at this page with, and the trade docs/plans/funds-module-v2.md §5.2 asks for is
-  // look-up before read.
+  // ⚠️ THE SEARCH TILE IS GONE, AND THAT IS WHY THIS NO LONGER SITS WITH /funds AND /budget.
+  // It rendered the SAME `ConsumptionSearchTile` as the /consumption hub one click above it,
+  // over the same corpus — a duplicate rather than a second entry point — so „колко струва X"
+  // is now answered once, there. `PricesScreen.test.tsx` asserts the page carries no input at
+  // all, so re-adding it loose above the grid trips a gate rather than this ceiling.
   //
   // ⚠️ IF THIS TRIPS, DO NOT SHORTEN THE NOTE. Its second clause — „това не е официалната
   // инфлация на НСИ" — is the single most likely misreading of this page: the sibling
@@ -852,13 +853,12 @@ const HUB_HEAD_BUDGETS: {
   // and every other disclaimer saying so is far below the fold. Check for a fifth cell, or
   // for a basis growing a clause, first.
   //
-  // ⚠️ THE RAIL DOES NOT DRIVE THE HEIGHT HERE, unlike /governance/sectors and /indicators:
-  // the search TILE fills the identity column beside it at `lg`, so the aside sits alongside
-  // rather than under. Measured — 492 both with and without it.
+  // ⚠️ THE RAIL STILL DOES NOT DRIVE THE HEIGHT, unlike /governance/sectors and /indicators:
+  // the identity column beside it is taller than the four rows even without the search tile.
   //
-  // 508 px with a sentence title; 492 once it shortened to „Цените след еврото". Measured
-  // 2026-08-31 at 1280.
-  { path: "/prices", maxPx: 570, measured: 492, cells: 4, asideRows: 4 },
+  // 508 px with a sentence title; 492 once it shortened to „Цените след еврото"; 442 once the
+  // search tile left. Measured 2026-09-07 at 1280.
+  { path: "/prices", maxPx: 510, measured: 442, cells: 4, asideRows: 4 },
   // A RANKING, and a third shape again: identity + freshness + deck + a full search field +
   // a 4-cell band + a one-line note, with NO scope control (the page has no `?pscope` — its
   // window is whatever year each mayor last filed for) and NO evidence rail (the ranked

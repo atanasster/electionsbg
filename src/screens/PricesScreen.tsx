@@ -1,7 +1,9 @@
 // /prices — the КЗП "Колко струва" BASKET DASHBOARD.
 //
-// A `HubHead` first — identity, deck, the „колко струва X" search box in its own slot, and a
-// four-cell KPI band whose figures live in `prices/pricesHubFigures.ts` rather than here.
+// A `HubHead` first — identity, deck and a four-cell KPI band whose figures live in
+// `prices/pricesHubFigures.ts` rather than here. NO search slot: the „колко струва X" box
+// lives once, on the /consumption hub above this page, and a second copy of the same
+// `ConsumptionSearchTile` one click below it was duplication rather than a second entry point.
 // Four of the page's numbers are the band's now, and §3.1 rule 5 is resolved four different
 // ways below because each tile held its figure differently; the module beside the band
 // documents which and why.
@@ -65,7 +67,6 @@ import {
   priceChangeColor,
 } from "@/data/prices/usePrices";
 import { usePricePli } from "@/data/macro/useMacroPeers";
-import { ConsumptionSearchTile } from "@/screens/components/consumption/ConsumptionSearchTile";
 import { ConsumptionAreaBanner } from "@/screens/components/consumption/ConsumptionAreaBanner";
 import { useAreaAnchor } from "@/data/area/areaAnchor";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
@@ -380,9 +381,10 @@ export const PricesScreen: FC = () => {
           gone rather than kept beside it — two <h1>s is the defect `hubHead.gates.test.ts`
           globs for, and two <SEO>s is a last-writer-wins race over the canonical.
 
-          "Колко струва X" is the question most readers arrive with, and the search box now
-          sits in the head's own slot rather than loose above the grid — the /persons and
-          /parliament shape, and the reason those two heads are wider than /procurement's. */}
+          ⚠️ NO `search` SLOT. „Колко струва X" is still the question most readers arrive
+          with, but it is answered ONCE — by the `ConsumptionSearchTile` on the /consumption
+          hub this page hangs off. Both rendered the same component over the same corpus, so
+          the copy here was a duplicate rather than a second entry point. */}
       <HubHead
         eyebrow={t("prices_head_eyebrow")}
         // ⚠️ A SHORT NOUN PHRASE, not the sentence it started as. `HubHead`'s `title` feeds
@@ -393,7 +395,6 @@ export const PricesScreen: FC = () => {
         title={t("prices_head_title")}
         seoDescription={description}
         deck={t("prices_head_deck")}
-        search={<ConsumptionSearchTile />}
         kpis={kpis}
         // ⚠️ CONDITIONAL, never a bare `{4}`. A 404 is an ANSWER — the band, the note and
         // three tile demotions all key off this blob, so without a reservation the head grows
@@ -417,8 +418,8 @@ export const PricesScreen: FC = () => {
           already jumped.
 
           EIGHT tiles — seven whenever the head's rail renders, which withholds „Най-евтини
-          области": the fuel tile merged into "Спрямо ЕС" and the place tile replaced it. The search box is not one of them and no longer sits above the grid
-          either — it is in the head's own `search` slot; see the <HubHead> comment. */}
+          области": the fuel tile merged into "Спрямо ЕС" and the place tile replaced it.
+          There is no search box on this page at all any more; see the <HubHead> comment. */}
       <div
         data-testid="prices-grid"
         className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
