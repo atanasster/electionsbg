@@ -881,9 +881,29 @@ export const PricesScreen: FC = () => {
               row is `oblastLevels[0]`, i.e. literally the head rail's first row — same label,
               same formatter, same string — so while the rail renders this card leads with the
               DEAREST end and the GAP. The gap is what actually earns the card: it is the
-              reason to open a map, and the rail does not show it. */}
+              reason to open a map, and the rail does not show it.
+
+              ⚠️⚠️ THE DIRECTION LABEL IS NOT DECORATION — it is what stops the demoted form
+              being read backwards. With the rail up, this card shows ONE place and one €, in
+              a grid whose neighbours („Най-евтини вериги", „€ на килограм") are all
+              cheapest-first lists — so an unlabelled „Кърджали 18,37 €" reads as the top of
+              another cheapest ranking. Red is a hint and not a label; the caption above the
+              row is. The sibling „Най-евтини области" tile has carried one all along, which
+              is why only the demoted form ever looked ambiguous.
+
+              And the gap sentence is anchored to the row that is actually on screen. „разлика
+              4,82 € между най-евтината и най-скъпата" names two ends where one is rendered,
+              so a reader looks for a cheapest row that is deliberately not here. */}
           {oblastSpread ? (
             <div className="text-xs">
+              <div className="mb-1 text-[11px] text-muted-foreground">
+                {promoted.has("oblasts")
+                  ? T("най-скъпа област", "dearest oblast")
+                  : T(
+                      "най-евтина и най-скъпа област",
+                      "cheapest and dearest oblast",
+                    )}
+              </div>
               {promoted.has("oblasts") ? null : (
                 <div className="flex justify-between gap-2">
                   <span className="min-w-0 truncate">
@@ -903,10 +923,15 @@ export const PricesScreen: FC = () => {
                 </span>
               </div>
               <div className="mt-1 text-[11px] text-muted-foreground">
-                {T(
-                  `разлика ${fmtEur(oblastSpread.gap, lang)} между най-евтината и най-скъпата област`,
-                  `${fmtEur(oblastSpread.gap, lang)} between the cheapest and dearest oblast`,
-                )}
+                {promoted.has("oblasts")
+                  ? T(
+                      `с ${fmtEur(oblastSpread.gap, lang)} над най-евтината област`,
+                      `${fmtEur(oblastSpread.gap, lang)} above the cheapest oblast`,
+                    )
+                  : T(
+                      `разлика ${fmtEur(oblastSpread.gap, lang)} между двете`,
+                      `${fmtEur(oblastSpread.gap, lang)} apart`,
+                    )}
               </div>
             </div>
           ) : (

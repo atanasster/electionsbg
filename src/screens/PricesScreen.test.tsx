@@ -332,6 +332,26 @@ describe("PricesScreen", () => {
     }
   });
 
+  it("⚠️ the map tile SAYS which end it shows, and anchors its gap to it", async () => {
+    // The demoted form renders ONE place and one €, in a grid whose neighbours („Най-евтини
+    // вериги", „€ на килограм", the cheapest-oblasts tile in its undemoted form) are all
+    // cheapest-first lists — so an unlabelled „Кърджали 18,37 €" reads as the top of another
+    // cheapest ranking, which is the opposite of what it is. `text-red-600` is a hint, not a
+    // label, and no test can see a colour anyway.
+    mount();
+    await waitFor(() => expect(cells()).toHaveLength(4));
+    const tile = [...document.querySelectorAll('a[href="/prices/map"]')]
+      .map((a) => a.closest("[class]")?.parentElement)
+      .find((el) => el?.textContent?.includes("Price map"))!;
+    expect(tile, "no /prices/map tile").toBeTruthy();
+    expect(tile.textContent).toContain("dearest oblast");
+    // ⚠️ AND THE GAP NAMES ONLY THE ROW THAT IS ON SCREEN. „X between the cheapest and the
+    // dearest" cites two ends where one is rendered — the other is deliberately up in the
+    // rail — so a reader hunts the tile for a cheapest row that is not there by design.
+    expect(tile.textContent).toContain("above the cheapest oblast");
+    expect(tile.textContent).not.toContain("between the cheapest and dearest");
+  });
+
   it("keeps the oblasts tile when the rail was refused", async () => {
     // ⚠️ THE PAYLOAD DROPPED HERE IS `ranking`, WHICH IS ALSO THE TILE'S OWN SOURCE, so what
     // this pins is only that the tile's HEADING comes back — it renders a skeleton, and there
