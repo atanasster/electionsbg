@@ -5,6 +5,7 @@ import { ExternalLink, ListOrdered } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { ElectionAccuracy, Poll, PollDetail } from "@/data/polls/pollsTypes";
 import { resolveActualKey } from "@/data/polls/aliases";
+import { fieldworkEndMs } from "@/data/polls/fieldwork";
 import { localDate } from "@/data/utils";
 import { partyHref } from "@/lib/utils";
 
@@ -29,65 +30,11 @@ const localizeFieldwork = (fw: string, isBg: boolean): string => {
 
 // normKey / POLL_TO_ACTUAL / stripCoalitionPrefix / resolveActualKey live in
 // @/data/polls/aliases so the analyzer script and this view can't drift.
-
-// Try to extract the fieldwork END date from the free-text "fieldwork" field
-// so polls can be sorted reliably newest-first and used to derive the next
-// election. Handles three observed formats:
-//   "Mar 13-19 2026"         → end = Mar 19 2026
-//   "May 27 - Jun 2 2024"    → end = Jun 2 2024 (cross-month)
-//   "Mar 16 2017"            → end = Mar 16 2017 (single day)
-const MONTHS = [
-  "jan",
-  "feb",
-  "mar",
-  "apr",
-  "may",
-  "jun",
-  "jul",
-  "aug",
-  "sep",
-  "oct",
-  "nov",
-  "dec",
-];
-
-const fieldworkEndKey = (fieldwork: string): number => {
-  const cross = fieldwork.match(
-    /([A-Za-z]+)\s+\d{1,2}\s*[-–]\s*([A-Za-z]+)\s+(\d{1,2})\s+(\d{4})/,
-  );
-  if (cross) {
-    const idx = MONTHS.indexOf(cross[2].slice(0, 3).toLowerCase());
-    if (idx >= 0)
-      return new Date(
-        parseInt(cross[4], 10),
-        idx,
-        parseInt(cross[3], 10),
-      ).getTime();
-  }
-  const range = fieldwork.match(
-    /([A-Za-z]+)\s+\d{1,2}\s*[-–]\s*(\d{1,2})\s+(\d{4})/,
-  );
-  if (range) {
-    const idx = MONTHS.indexOf(range[1].slice(0, 3).toLowerCase());
-    if (idx >= 0)
-      return new Date(
-        parseInt(range[3], 10),
-        idx,
-        parseInt(range[2], 10),
-      ).getTime();
-  }
-  const single = fieldwork.match(/([A-Za-z]+)\s+(\d{1,2})\s+(\d{4})/);
-  if (single) {
-    const idx = MONTHS.indexOf(single[1].slice(0, 3).toLowerCase());
-    if (idx >= 0)
-      return new Date(
-        parseInt(single[3], 10),
-        idx,
-        parseInt(single[2], 10),
-      ).getTime();
-  }
-  return 0;
-};
+// `fieldworkEndMs` is imported for the same reason, and it arrived later: this
+// view carried its own parser until 2026-09-07, and the two DISAGREED — the
+// local copy accepted trailing notes, so `md-2013-05-10` sorted and displayed
+// here as a real May 2013 poll while `analyze_accuracy.ts` could not read it at
+// all and dropped it from scoring. Two pages, two answers, no error.
 
 export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
   const { t, i18n } = useTranslation();
@@ -134,11 +81,13 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
 
   const nextElectionFor = (poll: Poll): string | null => {
     if (poll.electionDate) return poll.electionDate;
-    const fwKey = fieldworkEndKey(poll.fieldwork);
-    if (!fwKey) return null;
+    const fwKey = fieldworkEndMs(poll.fieldwork);
+    if (fwKey === null) return null;
     for (const iso of electionDatesAsc) {
-      const [y, m, d] = iso.split("-").map(Number);
-      if (new Date(y, m - 1, d).getTime() > fwKey) return iso;
+      // UTC on both sides: a local-time election date sits 2-3h later than the
+      // UTC poll key in Sofia, which would pick the wrong election for a poll
+      // whose fieldwork ends on election day itself.
+      if (Date.parse(`${iso}T00:00:00Z`) > fwKey) return iso;
     }
     return null;
   };
@@ -146,7 +95,12 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
   const sortedPolls = useMemo(
     () =>
       [...polls].sort(
-        (a, b) => fieldworkEndKey(b.fieldwork) - fieldworkEndKey(a.fieldwork),
+        // Unreadable fieldwork sorts to the bottom of this newest-first list
+        // rather than to 1970 — explicit, so a future ascending sort does not
+        // silently promote it to the top.
+        (a, b) =>
+          (fieldworkEndMs(b.fieldwork) ?? -Infinity) -
+          (fieldworkEndMs(a.fieldwork) ?? -Infinity),
       ),
     [polls],
   );

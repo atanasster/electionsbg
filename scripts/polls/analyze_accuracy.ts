@@ -15,6 +15,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, option, string } from "cmd-ts";
 import { normKey, resolveActualKey } from "@/data/polls/aliases";
+// The fieldwork string is a contract shared with the ingest and the UI —
+// see src/data/polls/fieldwork.ts. This script used to carry a private copy
+// of the parser, which is how a writer could emit a form the scorer silently
+// dropped.
+import { parseFieldworkEnd } from "@/data/polls/fieldwork";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -142,69 +147,6 @@ const daysBetween = (a: string, b: string) => {
   const da = new Date(a).getTime();
   const db = new Date(b).getTime();
   return Math.round((db - da) / 86400000);
-};
-
-// Parse the *end* date of a fieldwork string we wrote during scrape.
-// Format examples produced by scrape_polls.ts:
-//   "Mar 12-20 2026"        → 2026-03-20
-//   "Feb 23 - Mar 2 2026"   → 2026-03-02
-//   "Mar 19 2026"           → 2026-03-19
-//   "Mar 2024"              → 2024-03-15 (mid-month)
-const MONTH_EN: Record<string, number> = {
-  jan: 0,
-  feb: 1,
-  mar: 2,
-  apr: 3,
-  may: 4,
-  jun: 5,
-  jul: 6,
-  aug: 7,
-  sep: 8,
-  oct: 9,
-  nov: 10,
-  dec: 11,
-};
-const parseFieldworkEnd = (fw: string): string | null => {
-  const s = fw.trim();
-  // "through Mon D YYYY" — used for ML records where we know the publication date but
-  // not the exact fieldwork range.
-  let m = s.match(/^through\s+([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/i);
-  if (m) {
-    const mo = MONTH_EN[m[1].toLowerCase()];
-    if (mo === undefined) return null;
-    return `${m[3]}-${String(mo + 1).padStart(2, "0")}-${m[2].padStart(2, "0")}`;
-  }
-  // Cross-month range: "Mon D - Mon D YYYY"
-  m = s.match(
-    /^([A-Za-z]{3})\s+\d{1,2}\s*-\s*([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/,
-  );
-  if (m) {
-    const mo = MONTH_EN[m[2].toLowerCase()];
-    if (mo === undefined) return null;
-    return `${m[4]}-${String(mo + 1).padStart(2, "0")}-${m[3].padStart(2, "0")}`;
-  }
-  // Same-month range: "Mon D-D YYYY"
-  m = s.match(/^([A-Za-z]{3})\s+\d{1,2}-(\d{1,2})\s+(\d{4})$/);
-  if (m) {
-    const mo = MONTH_EN[m[1].toLowerCase()];
-    if (mo === undefined) return null;
-    return `${m[3]}-${String(mo + 1).padStart(2, "0")}-${m[2].padStart(2, "0")}`;
-  }
-  // Single date: "Mon D YYYY"
-  m = s.match(/^([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/);
-  if (m) {
-    const mo = MONTH_EN[m[1].toLowerCase()];
-    if (mo === undefined) return null;
-    return `${m[3]}-${String(mo + 1).padStart(2, "0")}-${m[2].padStart(2, "0")}`;
-  }
-  // Fuzzy "Mon YYYY" or "Early Jul YYYY" etc — fall back to mid-month if a month/year are present.
-  m = s.match(/([A-Za-z]{3})[a-z]*\s+(\d{4})/);
-  if (m) {
-    const mo = MONTH_EN[m[1].toLowerCase().slice(0, 3)];
-    if (mo === undefined) return null;
-    return `${m[2]}-${String(mo + 1).padStart(2, "0")}-15`;
-  }
-  return null;
 };
 
 type ElectionAgencyError = {

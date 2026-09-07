@@ -39,6 +39,7 @@ import { fileURLToPath } from "url";
 import { command, run, flag, optional, boolean, option, string } from "cmd-ts";
 import * as cheerio from "cheerio";
 import type { Element } from "domhandler";
+import { formatFieldwork, pollId as mintPollId } from "@/data/polls/fieldwork";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -272,20 +273,6 @@ const MONTH_BG = [
   "ноември",
   "декември",
 ];
-const MONTH_EN_SHORT = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 
 const collapseSpaces = (s: string) => s.replace(/\s+/g, " ").trim();
 
@@ -299,6 +286,10 @@ const matchAgency = (text: string): { id: string; agency: Agency } | null => {
   return null;
 };
 
+// Bulgarian period text → the canonical fieldwork string. The STRING itself is
+// written by `formatFieldwork` (@/data/polls/fieldwork), which the analyzer and
+// the UI both read back — this function only resolves the Bulgarian month names
+// and the range shape.
 // "7 – 14 април 2026"  →  { endIso: "2026-04-14", fieldwork: "Apr 7-14 2026" }
 // "30 март – 5 април 2026" → { endIso: "2026-04-05", fieldwork: "Mar 30 - Apr 5 2026" }
 // "19 април 2026" → { endIso: "2026-04-19", fieldwork: "Apr 19 2026" }
@@ -319,31 +310,46 @@ const parseFieldwork = (
 
   const monthIndex = (m: string) => MONTH_BG.indexOf(m.toLowerCase());
 
+  const iso = (year: string, monthIdx: number, day: string) =>
+    `${year}-${String(monthIdx + 1).padStart(2, "0")}-${day.padStart(2, "0")}`;
+
+  // `formatFieldwork` throws on a date it cannot represent (31 April, a range
+  // that ends before it starts). A wiki cell can carry one, and a throw here
+  // would abort the whole scrape — so it is caught and the ROW is dropped with
+  // a warning, which is this parser's documented cell-level resilience.
+  const write = (
+    startIso: string | null,
+    endIso: string,
+  ): { endIso: string; fieldwork: string } | null => {
+    try {
+      return { endIso, fieldwork: formatFieldwork(startIso, endIso) };
+    } catch (e) {
+      console.warn(
+        `  ! unrepresentable fieldwork "${raw.trim()}": ${e instanceof Error ? e.message : String(e)}`,
+      );
+      return null;
+    }
+  };
+
   let mr: RegExpMatchArray | null;
   if ((mr = cleaned.match(reCross))) {
     const [, d1, mo1Bg, d2, mo2Bg, year] = mr;
     const mo1 = monthIndex(mo1Bg);
     const mo2 = monthIndex(mo2Bg);
     if (mo1 < 0 || mo2 < 0) return null;
-    const endIso = `${year}-${String(mo2 + 1).padStart(2, "0")}-${d2.padStart(2, "0")}`;
-    const fieldwork = `${MONTH_EN_SHORT[mo1]} ${d1} - ${MONTH_EN_SHORT[mo2]} ${d2} ${year}`;
-    return { endIso, fieldwork };
+    return write(iso(year, mo1, d1), iso(year, mo2, d2));
   }
   if ((mr = cleaned.match(reRange))) {
     const [, d1, d2, moBg, year] = mr;
     const mo = monthIndex(moBg);
     if (mo < 0) return null;
-    const endIso = `${year}-${String(mo + 1).padStart(2, "0")}-${d2.padStart(2, "0")}`;
-    const fieldwork = `${MONTH_EN_SHORT[mo]} ${d1}-${d2} ${year}`;
-    return { endIso, fieldwork };
+    return write(iso(year, mo, d1), iso(year, mo, d2));
   }
   if ((mr = cleaned.match(reSingle))) {
     const [, d, moBg, year] = mr;
     const mo = monthIndex(moBg);
     if (mo < 0) return null;
-    const endIso = `${year}-${String(mo + 1).padStart(2, "0")}-${d.padStart(2, "0")}`;
-    const fieldwork = `${MONTH_EN_SHORT[mo]} ${d} ${year}`;
-    return { endIso, fieldwork };
+    return write(iso(year, mo, d), iso(year, mo, d));
   }
   return null;
 };
@@ -627,7 +633,7 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
         : null;
     const sample = sampleCell ? parseSample(sampleCell.text()) : null;
 
-    const pollId = `${matched.id.toLowerCase()}-${fw.endIso}`;
+    const pollId = mintPollId(matched.id, fw.endIso);
     if (polls.some((p) => p.id === pollId)) continue; // de-dupe within cycle
 
     const rowSource = extractRowSource($, row, noteMap);
