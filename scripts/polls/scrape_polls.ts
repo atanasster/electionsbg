@@ -40,6 +40,11 @@ import { command, run, flag, optional, boolean, option, string } from "cmd-ts";
 import * as cheerio from "cheerio";
 import type { Element } from "domhandler";
 import { formatFieldwork, pollId as mintPollId } from "@/data/polls/fieldwork";
+// The agency registry moved out of this file: the listers, the press watcher,
+// the cross-check and the ingest all need it, and a second copy is how one of
+// them ends up recognising a name the others do not.
+import { matchAgency } from "./lib/agencies";
+import type { Agency, Poll, PollDetail } from "@/data/polls/pollsTypes";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -53,61 +58,10 @@ const HEADERS = {
   "Accept-Language": "bg,en;q=0.7",
 };
 
-type Lang = { en: string; bg: string };
-
-type Agency = {
-  id: string;
-  website: string | null;
-  name_bg: string;
-  name_en: string;
-  abbr_bg: string;
-  abbr_en: string;
-  // Optional ЕИК of the agency's legal entity (Commerce Registry). Preserved
-  // across scrapes by mergeAgencies (existing records win), so it can be
-  // curated directly in data/polls/agencies.json.
-  eik?: string | null;
-};
-
-type PollGenre = "raw_attitudes" | "forecast" | "both_published" | "unclear";
-
-type PollResidual = {
-  undecided: number | null;
-  wontVote: number | null;
-  wontSay: number | null;
-  otherNamedMinor: number | null;
-  notes?: string;
-};
-
-type PollLock = {
-  by:
-    | "agency_spreadsheet"
-    | "agency_pdf"
-    | "agency_website"
-    | "third_party_consensus";
-  note?: string;
-  lockedAt: string;
-};
-
-type Poll = {
-  id: string;
-  agencyId: string;
-  fieldwork: string;
-  electionDate: string | null;
-  respondents: number | null;
-  methodology: Lang;
-  source: string;
-  genre?: PollGenre;
-  residual?: PollResidual | null;
-  locked?: PollLock;
-};
-
-type PollDetail = {
-  pollId: string;
-  agencyId: string;
-  support: number;
-  nickName_bg: string;
-  nickName_en: string;
-};
+// Poll / PollDetail / Agency and friends live in @/data/polls/pollsTypes — the
+// same module the UI reads — so a field added for the ingest cannot exist on one
+// side of the corpus only. This file carried private copies of all seven until
+// 2026-09-07.
 
 type Cycle = {
   url: string;
@@ -120,142 +74,6 @@ const CYCLES: Cycle[] = [
   {
     url: "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2026)",
     electionDate: "2026-04-19",
-  },
-];
-
-// Agency lookup keyed by lowercased aliases that may appear in Wikipedia tables.
-// Add new entries here when an unknown agency surfaces during a scrape.
-const AGENCY_ALIASES: { id: string; aliases: string[]; agency: Agency }[] = [
-  {
-    id: "AR",
-    aliases: [
-      "alpha research",
-      "alpha reasearch",
-      "алфа рисърч",
-      "alpharesearch",
-    ],
-    agency: {
-      id: "AR",
-      website: "https://alpharesearch.bg/",
-      name_bg: "Алфа Рисърч",
-      name_en: "Alpha Research",
-      abbr_bg: "АР",
-      abbr_en: "AR",
-    },
-  },
-  {
-    id: "SH",
-    aliases: ["sova haris", "sova harris", "сова харис"],
-    agency: {
-      id: "SH",
-      website: "https://sovaharris.com/",
-      name_bg: "Сова Харис",
-      name_en: "Sova Harris",
-      abbr_bg: "СХ",
-      abbr_en: "SH",
-    },
-  },
-  {
-    id: "TR",
-    aliases: ["trend", "тренд", "research center trend"],
-    agency: {
-      id: "TR",
-      website: "https://rc-trend.bg/",
-      name_bg: "Тренд",
-      name_en: "Trend",
-      abbr_bg: "ТР",
-      abbr_en: "TR",
-    },
-  },
-  {
-    id: "GIB",
-    aliases: [
-      "gallup",
-      "gallup international",
-      "gallup international balkan",
-      "галъп",
-      "галъп интернешънъл",
-      "галъп интернешънъл болкан",
-    ],
-    agency: {
-      id: "GIB",
-      website: "https://www.gallup-international.bg/",
-      name_bg: "Галъп Интернешънъл Болкан",
-      name_en: "Gallup Intl. Balkan",
-      abbr_bg: "ГИБ",
-      abbr_en: "GIB",
-    },
-  },
-  {
-    id: "MD",
-    aliases: ["mediana", "медиана"],
-    agency: {
-      id: "MD",
-      website: "http://www.mediana.bg/",
-      name_bg: "Медиана",
-      name_en: "Mediana",
-      abbr_bg: "МД",
-      abbr_en: "MD",
-    },
-  },
-  {
-    id: "ML",
-    aliases: [
-      "market links",
-      "marketlinks",
-      "маркет линкс",
-      "маркет линкс",
-      "маркет линкс",
-    ],
-    agency: {
-      id: "ML",
-      website: "https://www.marketlinks.bg/",
-      name_bg: "Маркет ЛИНКС",
-      name_en: "Market Links",
-      abbr_bg: "МЛ",
-      abbr_en: "ML",
-    },
-  },
-  {
-    id: "AF",
-    aliases: ["afis", "афис"],
-    agency: {
-      id: "AF",
-      website: "https://www.afis.bg/",
-      name_bg: "АФИС",
-      name_en: "AFIS",
-      abbr_bg: "АФИС",
-      abbr_en: "AFIS",
-    },
-  },
-  {
-    id: "MY",
-    aliases: ["myara", "мяра"],
-    agency: {
-      id: "MY",
-      website: null,
-      name_bg: "Мяра",
-      name_en: "Myara",
-      abbr_bg: "МЯ",
-      abbr_en: "MY",
-    },
-  },
-  {
-    id: "CAM",
-    aliases: [
-      "цам",
-      "center for analysis and marketing",
-      "цам - център за анализи и маркетинг",
-      "център за анализи и маркетинг",
-    ],
-    agency: {
-      id: "CAM",
-      website: null,
-      name_bg: "ЦАМ",
-      name_en: "Center for Analysis and Marketing",
-      abbr_bg: "ЦАМ",
-      abbr_en: "CAM",
-    },
   },
 ];
 
@@ -275,16 +93,6 @@ const MONTH_BG = [
 ];
 
 const collapseSpaces = (s: string) => s.replace(/\s+/g, " ").trim();
-
-const matchAgency = (text: string): { id: string; agency: Agency } | null => {
-  const norm = text.toLowerCase().normalize("NFC");
-  for (const entry of AGENCY_ALIASES) {
-    for (const alias of entry.aliases) {
-      if (norm.includes(alias)) return { id: entry.id, agency: entry.agency };
-    }
-  }
-  return null;
-};
 
 // Bulgarian period text → the canonical fieldwork string. The STRING itself is
 // written by `formatFieldwork` (@/data/polls/fieldwork), which the analyzer and
@@ -802,8 +610,10 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
     );
   }
 
+  const unknownAcrossCycles = new Set<string>();
   for (const cycle of CYCLES) {
     const r = await scrapeCycle(cycle);
+    for (const u of r.unknownAgencies) unknownAcrossCycles.add(u);
     const lockedIds = new Set(polls.filter(isLocked).map((p) => p.id));
     polls = mergePolls(polls, r.polls);
     details = mergeDetails(details, r.details, lockedIds);
@@ -833,6 +643,15 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
   console.log(
     `✓ wrote ${polls.length} polls / ${details.length} details / ${agencies.length} agencies → ${opts.outDir}`,
   );
+  // Repeated beside the counts a human actually reads. The per-cycle warning is
+  // buried mid-run, and this is the ONLY signal that a pollster exists which no
+  // watcher routes — the completeness claim in the plan's §2.1 is only true
+  // while the registry keeps up with the tables.
+  if (unknownAcrossCycles.size)
+    console.warn(
+      `! ${unknownAcrossCycles.size} agency name(s) not in scripts/polls/lib/agencies.ts — ` +
+        `no watcher routes them: ${[...unknownAcrossCycles].join(" | ")}`,
+    );
 };
 
 const cli = command({

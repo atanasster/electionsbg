@@ -20,6 +20,19 @@ import { normKey, resolveActualKey } from "@/data/polls/aliases";
 // of the parser, which is how a writer could emit a form the scorer silently
 // dropped.
 import { parseFieldworkEnd } from "@/data/polls/fieldwork";
+import type {
+  Agency,
+  AgencyGrade,
+  AgencyProfile,
+  BlocId,
+  ElectionAccuracy,
+  ElectionAgencyError,
+  Poll,
+  PollDetail,
+  PollGenre,
+  PollResidual,
+  PollsAccuracy,
+} from "@/data/polls/pollsTypes";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,46 +40,20 @@ const __dirname = path.dirname(__filename);
 const POLLS_DIR = path.resolve(__dirname, "../../data/polls");
 const DATA_DIR = path.resolve(__dirname, "../../data");
 
-type Lang = { en: string; bg: string };
-
-type Agency = {
-  id: string;
-  website: string | null;
-  name_bg: string;
-  name_en: string;
-  abbr_bg: string;
-  abbr_en: string;
-};
-
-type PollGenre = "raw_attitudes" | "forecast" | "both_published" | "unclear";
-
-type PollResidual = {
-  undecided: number | null;
-  wontVote: number | null;
-  wontSay: number | null;
-  otherNamedMinor: number | null;
-  notes?: string;
-};
-
-type Poll = {
-  id: string;
-  agencyId: string;
-  fieldwork: string;
-  electionDate: string | null;
-  respondents: number | null;
-  methodology: Lang;
-  source: string;
-  genre?: PollGenre;
-  residual?: PollResidual | null;
-};
-
-type PollDetail = {
-  pollId: string;
-  agencyId: string;
-  support: number;
-  nickName_bg: string;
-  nickName_en: string;
-};
+// Every polls type — the INPUTS (Poll / PollDetail / Agency / PollGenre /
+// PollResidual) and the OUTPUTS (ElectionAccuracy / ElectionAgencyError /
+// AgencyProfile / BlocId / AgencyGrade, assembled into PollsAccuracy) — lives in
+// @/data/polls/pollsTypes, the same module the UI reads.
+//
+// This script carried private copies of all ten. The output half was the
+// dangerous one: this is accuracy.json's ONLY writer and `usePolls.tsx` reads
+// that file back as `PollsAccuracy`, so a field added to the local
+// `AgencyProfile` and emitted compiled cleanly while the UI's type never learnt
+// about it — and neither side was a type error.
+//
+// `ActualParty` / `NationalSummary` below stay local: they describe
+// national_summary.json, a different corpus, and are not part of the polls
+// contract.
 
 type ActualParty = {
   partyNum: number;
@@ -86,15 +73,6 @@ type NationalSummary = {
 // src/data/polls/aliases.ts so the frontend and this script can't drift.
 
 // Ideological blocs for "lean" computation. Keys are normalized actual-result nicknames.
-type BlocId =
-  | "right_govt"
-  | "reformist"
-  | "nationalist"
-  | "left"
-  | "minority"
-  | "populist"
-  | "other";
-
 const BLOC_OF: Record<string, BlocId> = {
   "ГЕРБ-СДС": "right_govt",
   ГЕРБ: "right_govt",
@@ -147,88 +125,6 @@ const daysBetween = (a: string, b: string) => {
   const da = new Date(a).getTime();
   const db = new Date(b).getTime();
   return Math.round((db - da) / 86400000);
-};
-
-type ElectionAgencyError = {
-  agencyId: string;
-  pollId: string;
-  fieldworkEnd: string;
-  daysBefore: number;
-  respondents: number | null;
-  genre?: PollGenre;
-  // Proportional redistribution applied to polled shares before scoring against
-  // the official result. `redistributed` is the total residual (in pp) that was
-  // spread across the named parties: undecided + wontSay. wontVote is excluded
-  // since those respondents don't appear in the official-result denominator either.
-  normalization: { applied: boolean; redistributed: number };
-  errors: {
-    key: string;
-    polled: number;
-    polledRaw: number;
-    actual: number;
-    error: number;
-  }[];
-  mae: number;
-  rmse: number;
-  biggestMiss: { key: string; error: number };
-};
-
-type ElectionAccuracy = {
-  electionDate: string;
-  actualResults: { key: string; pct: number; passedThreshold: boolean }[];
-  agencies: ElectionAgencyError[];
-};
-
-type AgencyGrade = "A+" | "A" | "B+" | "B" | "C+" | "C" | "D" | "F";
-
-type AgencyProfile = {
-  agencyId: string;
-  name_bg: string;
-  name_en: string;
-  totalPolls: number;
-  preElectionPolls: number;
-  electionsCovered: string[];
-  overallMAE: number;
-  overallRMSE: number;
-  // Sample-weighted, industry-bias-subtracted MAE. Each per-party error has the
-  // cross-agency mean error for that (election, party) subtracted before |·| is
-  // taken, then errors are pooled across the agency's polls with weight = √n so
-  // larger samples count for more. Captures "skill relative to peers" rather
-  // than absolute MAE, which mixes agency-specific error with industry-wide
-  // cycle shocks (e.g. ПрБ 2026 missed -8 to -15 pp across every agency).
-  overallMAEAdjusted: number;
-  // MAE shrunk toward the cross-agency mean using k pseudo-elections, so a single-cycle
-  // agency cannot rank above a long-running one purely on luck. Formula:
-  //   shrunk = (n × raw + k × overallMean) / (n + k)
-  shrunkMAE: number;
-  // Adjusted MAE put through the same Bayesian shrinkage as shrunkMAE. The
-  // letter grade is derived from this — it's the most defensible aggregate.
-  shrunkMAEAdjusted: number;
-  // Median days-before-vote across the agency's scored polls. A small number means the
-  // agency typically polls right before vote (a structural advantage on accuracy);
-  // a large number means stale polls drive the score.
-  medianDaysBefore: number | null;
-  // Per-poll signed difference vs. the consensus of *other* agencies on the same cycle.
-  // Positive = this agency was closer to the actual result than the rest of the field.
-  // Captures whether an agency adds information beyond what the consensus already gives.
-  plusMinus: number | null;
-  plusMinusSamples: number;
-  // Share of (party, agency-poll, election) triples where the agency's polled share
-  // correctly placed the party on the right side of the 4% barrier (above/below).
-  // Range 0..1; null if no scored parties.
-  barrierCallRate: number | null;
-  barrierCallTotal: number;
-  // Composite grade derived from shrunkMAE + plusMinus + barrierCallRate. Tunable
-  // thresholds in `gradeFor` below.
-  grade: AgencyGrade;
-  // MAE per election the agency covered, for the per-agency trend sparkline.
-  maeHistory: { electionDate: string; mae: number; rmse: number }[];
-  partyBias: { key: string; meanError: number; samples: number }[];
-  blocLean: Record<BlocId, { meanError: number; samples: number }>;
-  // Relative-to-consensus house effect: how each agency differs from the cross-agency mean
-  // *of the same election cycle* — flags lean even without ground truth (useful for inter-
-  // election polls).
-  houseEffect: { key: string; meanDiff: number; samples: number }[];
 };
 
 // Bayesian shrinkage strength. k=4 means an agency with 4 elections sits halfway between
@@ -789,7 +685,8 @@ const main = async (opts: { pollsDir: string }) => {
     (a, b) => a.shrunkMAEAdjusted - b.shrunkMAEAdjusted,
   );
 
-  const out = {
+  // Typed as the artifact's own contract, which is what the UI reads back.
+  const out: PollsAccuracy = {
     generatedAt: new Date().toISOString(),
     elections,
     agencyProfiles: profiles,

@@ -110,7 +110,7 @@ on the zone, not a challenge, and would not be solved by a browser either (measu
 
 So **no active agency lacks a watcher**: every pollster that published in 2024–2026 is either a site source or
 a `polls_press` query. The alias map (decision 14) gains `Екзакта`, `Барометър България`, `ИМП` and
-`Online solutions` so the press arm and the cross-check recognise them, each with `siteSource: false`.
+`Online solutions` so the press arm and the cross-check recognise them, each with `reach: "press"`.
 
 Three consequences that shape the design:
 
@@ -233,7 +233,8 @@ carries the schema. And the cross-check parser needs the four header vocabularie
     for its 20 MB — two of these hosts are already gone, and „the agency never archived a primary" is a
     case the corpus has nine times over.
 14. **ONE home for the alias map and ONE for the types.** `AGENCY_ALIASES` moves from `scrape_polls.ts` to
-    `scripts/polls/lib/agencies.ts` (the id, aliases, `siteSource` flag, press query strings), used by the
+    `scripts/polls/lib/agencies.ts` (the id, two alias tiers, a `reach: "site" | "press"` enum, press query
+    strings), used by the
     listers, `polls_press`, the cross-check and `accept`; `agencies.json` stays the record store (names,
     website, ЕИК). Scripts import `Poll` / `PollDetail` / `PollLock` from `src/data/polls/pollsTypes.ts`
     (as `analyze_accuracy.ts` already imports `aliases.ts`) instead of the two private copies they carry
@@ -336,7 +337,7 @@ branch), except:
   keeps reporting the polls Gallup gives to the press. When the site is back, the site arm resumes with no
   code change. A Gallup poll reached only through the press arm is locked `third_party_consensus` like any
   other press-verified poll until the site publication is captured.
-- **`polls_press`** covers every alias-map agency with `siteSource: false` — Медиана, АФИС, ЦАМ, Екзакта,
+- **`polls_press`** covers every alias-map agency with `reach: "press"` — Медиана, АФИС, ЦАМ, Екзакта,
   Барометър, ИМП, and any name added later — and DEDUPES against the site sources by construction (Gallup
   is not queried here): one Google News RSS query per agency (`hl=bg&gl=BG&ceid=BG:bg`), electoral-title
   rule, fingerprint on the newest `pubDate` + GUID. ⚠ **The feed gives discovery, not the article**: each
@@ -608,7 +609,7 @@ come from the agencies. What today's probes found, per cycle:
 | corpus invariants     | `scripts/polls/polls_corpus.test.ts`                  | every poll locked; ids unique and derived from `fieldwork`; details reference real polls; share sums; Wikipedia hosts only under `third_party_consensus`; single-line files; `_inbox` ignored — run over BOTH families |
 | fieldwork contract    | `src/data/polls/fieldwork.test.ts`                    | `formatFieldwork` ↔ `parseFieldworkEnd` round-trip on every accepted form; the fuzzy form is never emitted                                                                                                             |
 | listers               | `scripts/polls/agencies/*.test.ts`                    | fixture → `Publication[]`; `isElectoral` truth tables incl. a presidential title and an excluded exit poll; AR spam links refused                                                                                      |
-| watchers              | `scripts/watch/sources/polls_*.test.ts`               | monotonic fingerprint (roll-off does not flip, a new id does); `describe()` lines; Gallup two-arm union and single-arm degrade; `polls_press` skips `siteSource` agencies; `cadence.test.ts` (existing)                |
+| watchers              | `scripts/watch/sources/polls_*.test.ts`               | monotonic fingerprint (roll-off does not flip, a new id does); `describe()` lines; Gallup two-arm union and single-arm degrade; `polls_press` skips site-reach agencies; `cadence.test.ts` (existing)                  |
 | extractors            | `scripts/polls/extract/*.test.ts`                     | fixture text → draft; determinism; residual flag on a raw draft without one; `classifyRace` on both framings                                                                                                           |
 | evidence gate         | `scripts/polls/lib/evidence_gate.test.ts`             | the two mutation cases; an OCR `96`-for-`%` line normalised before checking                                                                                                                                            |
 | candidate resolver    | `scripts/polls/presidential/resolve.test.ts`          | exactly-one resolves; a shared first+last is refused; the guard-removed mutation turns a refusal into a wrong key; provisional → `canonicalKey` on rekey                                                               |
@@ -706,3 +707,13 @@ land, and shows 2016 and 2021 on their pages.
 | 34  | the prerendered presidential body was not required to carry the band — a client-only band leaves the static HTML without it                                                                                                     | T4.4, §9                 |
 | 35  | „no polls for this cycle" had no rendering rule; an empty band and a short band look alike                                                                                                                                      | T4.4, T4b.2 (the ledger) |
 | 36  | `accept`/`analyze` keyed scorability on `electionDate` alone; a presidential poll is scorable only when its CYCLE's tree exists                                                                                                 | §6.2, decision 11        |
+
+### v1.2 → as-built (2026-09-07, during implementation)
+
+| #   | as-planned                                                                | as-built, and why                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| --- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 37  | `siteSource: boolean` on the alias map                                    | `reach: "site" \| "press"`. A boolean cannot say what Gallup is — site-reach WITH a live press arm, because its own domain is TLS-broken — and `PRESS_ONLY_AGENCIES` has to exclude it so one poll is not reported twice.                                                                                                                                                                                                                                                                                                                      |
+| 38  | one flat `aliases` list                                                   | TWO tiers, `aliases` (bare substring, ≥4 chars) and `wordAliases` (whole-word only). Measured on the flat list: „Олимп" and „Импулс" resolved to ИМП, „Trends in Bulgarian politics" to Тренд, „Медианата на доходите" to Медиана, „Политически барометър на НЦИОМ" to Барометър. A non-null match is what keeps a row OUT of `unknownAgencies`, so each was a silent misattribution onto a named third party's accuracy record. `\b` is unusable here (ASCII-only, never fires after Cyrillic), so the boundary is a `\p{L}\p{N}` lookaround. |
+| 39  | `matchAgency` returns one agency                                          | It REFUSES when the text names two („Тренд и Галъп с различни данни" — an ordinary headline, and the press arm's input is headlines), because any tie-break would be a property of how verbosely each agency is spelled in the registry rather than of the text. `matchAgencies` reports all of them for a caller that wants to see the ambiguity. The `aop_expert_person_links()` precedent decision 16 already cites.                                                                                                                        |
+| 40  | decision 6 assumed every stored poll id derives from its fieldwork string | 18 of 124 are keyed on the PUBLICATION date and one fieldwork string does not parse at all, so the contract binds NEW polls only and the legacy count is frozen by a gate.                                                                                                                                                                                                                                                                                                                                                                     |
+| 41  | decision 14 named `Poll` / `PollDetail` / `PollLock`                      | The OUTPUT types (`ElectionAccuracy`, `ElectionAgencyError`, `AgencyProfile`, `BlocId`, `AgencyGrade` → `PollsAccuracy`) were the more dangerous half: `analyze_accuracy.ts` is `accuracy.json`'s only writer and the UI reads that file back through the shared copies, so a field added on one side was invisible to the other with neither side a type error. All ten now come from `@/data/polls/pollsTypes`; verified the emitted artifact is unchanged apart from its timestamp.                                                         |
