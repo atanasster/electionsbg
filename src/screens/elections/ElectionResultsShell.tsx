@@ -32,6 +32,10 @@ import {
   CANVAS_RANKED_SLOT_CLASS,
 } from "./electionSurfaceLayout";
 import { ElectionMapPanel } from "./ElectionMapPanel";
+// ⚠ THE STRIP LIVES IN ITS OWN MODULE because a second surface renders it: the presidential
+// COUNTRY level is `canonical` and draws its own page, so the band there must be this component
+// rather than a lookalike. See `ElectionFactsGrid`'s header.
+import { ElectionFactsGrid } from "./ElectionFactsGrid";
 import { ElectionScopeBar } from "./ElectionScopeBar";
 import { trackSurfaceLink } from "./electionSurfaceAnalytics";
 import { adapterKey, type ElectionMapAdapterProps } from "./electionMapSlots";
@@ -39,14 +43,18 @@ import {
   useSurfaceLabels,
   type RankedRowLabel,
 } from "@/data/elections/useSurfaceLabels";
+// ⚠ THE LEAF, NOT `@/lib/utils`. Same function, re-exported there — but `utils` carries `cn`,
+// and importing it here put `clsx` + `tailwind-merge` into this file's static closure and took
+// the shell from 10,300 to 16,968 B brotli against a 10,440 budget.
+import { partyHref } from "@/lib/partyHref";
 import type {
+  ElectionDestination,
   ElectionKind,
   ElectionPlaceLevel,
   ElectionSurfaceV1,
   ElectionStandout,
   ElectionRankedEntry,
   ElectionSurfaceBallot,
-  ElectionSurfaceFact,
   PlaceDigestCell,
 } from "@/data/elections/surfaceTypes";
 import {
@@ -58,8 +66,6 @@ import {
   BALLOT_LABEL_KEYS,
   BASELINE_LABEL_KEYS,
   descriptorFor,
-  FACT_BASIS_LABEL_KEYS,
-  FACT_LABEL_KEYS,
   RANKED_COLUMN_LABEL_KEYS,
   SOURCE_LABEL_KEYS,
   UNAVAILABLE_REASON_LABEL_KEYS,
@@ -87,24 +93,6 @@ type Props = {
   scope?: "shell" | "header";
 };
 
-/** Format a fact's value for display. Numbers only — the LABEL comes from i18n and the party
- *  name from the canonical corpus at render time (§5.3). */
-const factValue = (f: ElectionSurfaceFact): string => {
-  if (f.value === undefined) return "";
-  switch (f.unit) {
-    case "pct":
-      return `${f.value.toFixed(2)}%`;
-    case "pct_point":
-      return `${f.value > 0 ? "+" : ""}${f.value.toFixed(2)} pp`;
-    case "votes":
-    case "count":
-    case "seats":
-      return f.value.toLocaleString("bg-BG");
-    default:
-      return String(f.value);
-  }
-};
-
 /** §7 caps standouts at three AND at one per category, so a place with three close contests
  *  does not spend the whole strip on one signal. A blind `.slice(0, 3)` satisfies the first
  *  cap and not the second, which is why the dedupe happens BEFORE the slice. */
@@ -121,12 +109,6 @@ const cappedStandouts = (
   }
   return kept;
 };
-
-/** A fact whose basis names the same quantity as the fact itself restates its own label as
- *  its denominator — "Действителни гласове · 168 · от действителните гласове". The caption is
- *  exactly right for `winner` / `turnout` / `margin` and noise here. */
-const basisIsTautological = (f: ElectionSurfaceFact): boolean =>
-  f.basis === (f.code as string);
 
 /** What a resolved row header prints. ⚠ AN UNRESOLVED ID PRINTS THE ID. A blank row header
  *  beside a real vote count attributes a percentage to nobody; the id is ugly and honest, and
@@ -244,94 +226,6 @@ const PlaceDigestStrip: FC<{
   );
 };
 
-/** A fact's label, WITH its interpolation values.
- *
- *  ⚠ `labelParams` WAS DECLARED, POPULATED AND DROPPED. The schema documents it as
- *  "interpolation values for the label" and the strip rendered `t(FACT_LABEL_KEYS[f.code])`
- *  with no second argument — harmless while no artifact carried any, and wrong the moment the
- *  local country and region levels were switched on: measured, all 62 `labelParams`-bearing
- *  facts in the corpus belong to those two levels and every other level has none.
- *
- *  ⚠ THE DAMAGE IS A TRUE NUMBER WITH NO REFERENT, which is worse than a missing one. The
- *  country card read „Първи · 106" — 106 MAYORALTIES — sitting directly above a council table
- *  whose top row is ГЕРБ with 521,444 votes, so the adjacent table supplied a false referent for
- *  a figure measured on a different ballot in a different unit.
- *
- *  ⚠ THE PARTY-BEARING KEY IS A SEPARATE ONE, not the same key with an optional placeholder.
- *  i18next leaves an unmatched `{{party}}` in the output verbatim, so a single
- *  „Първи · {{party}}" would render the braces on every level that carries no params — which is
- *  every other level in the corpus. */
-const factLabel = (
-  f: ElectionSurfaceFact,
-  t: (k: string, o?: Record<string, string | number>) => string,
-  label: (e: {
-    partyId: string | null;
-    localPartyName?: string;
-    isIndependent?: boolean;
-  }) => RankedRowLabel,
-): string => {
-  const partyId = f.labelParams?.partyId;
-  if (typeof partyId !== "string" || !partyId)
-    return t(FACT_LABEL_KEYS[f.code]);
-  const resolved = label({ partyId, isIndependent: false });
-  // An id the canonical corpus cannot name resolves to `unresolved`, and printing a raw
-  // `p_16` beside a seat count is worse than printing no party at all.
-  if (resolved.kind !== "party") return t(FACT_LABEL_KEYS[f.code]);
-  const keyed = `${FACT_LABEL_KEYS[f.code]}_party`;
-  return t(keyed, { party: resolved.label });
-};
-
-const OutcomeStrip: FC<{
-  facts: ElectionSurfaceFact[];
-  titleId: string;
-}> = ({ facts, titleId }) => {
-  const { t } = useTranslation();
-  // The SAME resolver the ranked rows use, so a party named in a fact and the same party named
-  // in the table beneath it cannot come out differently.
-  const { rankedLabel: label } = useSurfaceLabels();
-  // ⚠ SLICE FIRST, THEN GUARD. On an unavailable kind × level `maxFacts` is 0, so guarding on
-  // the INPUT renders a named landmark — "Основни резултати" — wrapping an empty grid.
-  if (facts.length === 0) return null;
-  return (
-    <section
-      aria-labelledby={titleId}
-      className="my-4"
-      data-surface-region="facts"
-    >
-      <h2 id={titleId} className="sr-only">
-        {t("election_facts_title")}
-      </h2>
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {facts.map((f, i) => (
-          <div
-            key={`${f.code}-${f.ballot ?? ""}-${i}`}
-            data-fact={f.code}
-            className="rounded-lg border bg-card p-3"
-          >
-            <span className="block text-xs uppercase tracking-wide text-muted-foreground">
-              {factLabel(f, t, label)}
-            </span>
-            {/* A qualitative fact (`split_control`, `runoff_pending`) carries no value, and an
-                empty `text-2xl` box is a blank line the height of a number. */}
-            {factValue(f) ? (
-              <span className="block text-2xl font-bold tabular-nums">
-                {factValue(f)}
-              </span>
-            ) : null}
-            {/* The basis, in the reader's words, under the value — §0's "state the
-                denominator in one clause", done as visual design. */}
-            {f.basis && !basisIsTautological(f) ? (
-              <span className="block text-xs text-muted-foreground">
-                {t(FACT_BASIS_LABEL_KEYS[f.basis])}
-              </span>
-            ) : null}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
-
 /** The cell for one declared column. The row HEADER (the party or candidate) is not a member
  *  of `ElectionRankedColumn` — it is drawn separately and is never optional. */
 const rankedCell = (
@@ -351,6 +245,13 @@ const rankedCell = (
       return row.marginPct === undefined
         ? ""
         : `${row.marginPct.toFixed(2)} pp`;
+    case "delta":
+      // ⚠ SIGNED, AND IN pp. „13,00" and „−13,00" are opposite claims about a party, so the
+      // sign is not decoration; and the unit is the one `margin` prints one column over,
+      // because a „%" here would relabel a CHANGE in share as a share.
+      return row.deltaPct === undefined
+        ? ""
+        : `${row.deltaPct > 0 ? "+" : ""}${row.deltaPct.toFixed(2)} pp`;
     case "round":
       return ballot.round === undefined ? "" : String(ballot.round);
     case "elected":
@@ -385,6 +286,10 @@ const ballotFillsColumn = (
       return some((r) => r.seats !== undefined);
     case "margin":
       return some((r) => r.marginPct !== undefined);
+    case "delta":
+      // Absent on every row means this cycle has no prior to compare against — a first cycle,
+      // or a producer that carries none — and the column goes rather than printing a blank one.
+      return some((r) => r.deltaPct !== undefined);
     case "elected":
       return some((r) => r.isElected !== undefined);
     // ⚠ NAMED, NOT `default`. `rankedCell` switches exhaustively over the same union, so a
@@ -402,12 +307,38 @@ const ballotFillsColumn = (
   }
 };
 
+/** The two columns the party tile printed one size down — the vote count in muted text and the
+ *  change beside it. Cosmetic on a wide canvas and not on a phone: at 375 px the five columns
+ *  wanted 403 px in a 359 px box, so the last one could only be reached by scrolling. */
+const SMALL_CELL: Partial<Record<ElectionRankedColumn, string>> = {
+  votes: "text-xs text-muted-foreground",
+  delta: "text-xs",
+};
+
+/** The class for a signed change — the same three the party tile used, so „падна" and „вдигна се"
+ *  are not carried by the sign alone. ⚠ ZERO IS ITS OWN CASE and must stay muted: a green „0,00"
+ *  reads as a gain. */
+const deltaToneClass = (d: number): string =>
+  d > 0 ? "text-positive" : d < 0 ? "text-negative" : "text-muted-foreground";
+
 const RankedResult: FC<{
   ballot: ElectionSurfaceBallot;
   columns: readonly ElectionRankedColumn[];
-}> = ({ ballot, columns }) => {
+  /** The cycle this ballot was cast in. ⚠ REQUIRED FOR THE LINK, not decoration: `/party/:id`
+   *  is keyed on the nickname the CEC printed for THAT election. */
+  cycle: string;
+  /** Where "the complete result" lives — the caption's „виж детайли" leaf. The SURFACE's
+   *  destination rather than the ballot's raw one, because only that one is marked
+   *  `same_page`, and a caption linking to the page it is on is the dead link §Phase 7
+   *  removed from the standouts. */
+  details?: ElectionDestination;
+  /** The surface's own coordinates, for the click event only. */
+  kind: ElectionKind;
+  level: ElectionPlaceLevel;
+  placeId: string;
+}> = ({ ballot, columns, cycle, details, kind, level, placeId }) => {
   const { t } = useTranslation();
-  const { rankedLabel: label } = useSurfaceLabels();
+  const { rankedLabel: label, partySlug } = useSurfaceLabels();
   // ⚠ THE LEVEL'S DECLARED COLUMNS, not a fixed three. `elected` is the substantive one: on a
   // runoff the table otherwise shows 53.94% against 43.95% and leaves the reader to infer who
   // took the mayoralty, which is the single fact the page exists to answer.
@@ -428,55 +359,173 @@ const RankedResult: FC<{
   // array on every render, which defeats the memo it would be protecting.
   const cols = columns.filter((c) => ballotFillsColumn(ballot, c));
   const electedLabel = t("election_elected_yes");
+  // ⚠ THE BAR IS SCALED TO THE LEADER, NOT TO 100%. That is the scale the party tile this canvas
+  // replaced used, and the only one on which a 3% row is a visible bar rather than a hairline.
+  // It is a comparison WITHIN the preview and never a claim about the whole ballot, which is why
+  // the share itself is printed beside it.
+  const maxPct = Math.max(1, ...ballot.preview.map((r) => r.pct));
   return (
-    <table className="w-full text-sm" data-ranked-result={ballot.kind}>
-      <caption className="sr-only">{t("election_ranked_caption")}</caption>
-      <thead>
-        <tr>
-          <th scope="col" className="text-left">
-            {t("election_col_entry")}
-          </th>
-          {cols.map((c) => (
-            <th key={c} scope="col" className="text-right" data-ranked-col={c}>
-              {t(RANKED_COLUMN_LABEL_KEYS[c])}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {ballot.preview.map((row, i) => (
-          <tr key={`${row.partyId ?? "ind"}-${i}`}>
-            <th
-              scope="row"
-              className="text-left font-normal"
-              data-entry-kind={row.candidateName ? "person" : label(row).kind}
-            >
-              {/* ⚠ A PERSON'S NAME RENDERS AS-IS and everything else resolves from its id at
-                  render time (§5.3). `rankedLabel` is the one resolver: it also distinguishes a
-                  local-only list — whose Bulgarian name travels on the row because no English
-                  form exists anywhere in the corpus — from an id nothing can resolve, which is
-                  SHOWN rather than blanked, because the row still carries a real vote count. */}
-              {row.candidateName ?? entryLabel(label(row), t)}
+    // ⚠ THE TABLE SCROLLS INSIDE ITS OWN BOX RATHER THAN OFF THE PAGE. Measured on the running
+    // page at 375 px, with the bar and the change column in: the table wants 393 px in a 359 px
+    // slot (423 before the vote count and the change dropped to `text-xs`), and the slot's own
+    // `overflow: visible` simply CUT the last column off — a „Места" header over a number
+    // nobody on a phone could reach. The four columns the party tile had are inside 359 px;
+    // „Места" is the one this canvas keeps beyond it, and it is the one that scrolls.
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm" data-ranked-result={ballot.kind}>
+        {/* ⚠ THE CAPTION IS VISIBLE NOW, and it is still the table's `<caption>` rather than an
+          `<h3>` beside it — one element, so a screen reader is not read the same title twice,
+          and the map slot's own question heading gets a counterpart on the list. */}
+        {/* ⚠ THE FLEX GOES ON A SPAN INSIDE, NEVER ON THE `<caption>`. `display: flex` overrides
+          `display: table-caption`, so the element stops being the table's caption box and is
+          laid out as an anonymous box beside the first column — measured on the running page:
+          the title and its link rendered INSIDE the header row, squeezing every column. */}
+        <caption className="mb-2 text-left">
+          <span className="flex items-center justify-between gap-3">
+            <span className="text-sm font-medium">
+              {t("election_ranked_caption")}
+            </span>
+            {details?.available && details.to ? (
+              <a
+                href={details.to}
+                className="text-xs text-primary hover:underline"
+                onClick={() =>
+                  trackSurfaceLink({
+                    target: "complete_result",
+                    kind,
+                    level,
+                    placeId,
+                  })
+                }
+                data-ranked-details
+              >
+                {t("dashboard_see_details")} →
+              </a>
+            ) : null}
+          </span>
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" className="text-left">
+              {t("election_col_entry")}
             </th>
             {cols.map((c) => (
-              <td
+              <th
                 key={c}
-                className="text-right tabular-nums"
-                data-ranked-cell={c}
+                scope="col"
+                className="text-right pl-2 sm:pl-3 font-normal"
+                data-ranked-col={c}
               >
-                {rankedCell(c, row, ballot, electedLabel)}
-              </td>
+                {t(RANKED_COLUMN_LABEL_KEYS[c])}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {ballot.preview.map((row, i) => {
+            const l = label(row);
+            // ⚠ THE COLOUR AND THE LINK ARE THE SAME QUESTION, asked of the corpus rather than of
+            // the row: only a resolved canonical party has either. A local list, an independent
+            // and an unresolved id each render as plain text with no dot — which is the honest
+            // answer, and never a grey dot standing in for a party nobody could name.
+            const color = l.kind === "party" ? l.color : undefined;
+            const slug =
+              l.kind === "party" ? partySlug(row.partyId, cycle) : undefined;
+            const barPct = Math.max(2, (row.pct / maxPct) * 100);
+            return (
+              <tr key={`${row.partyId ?? "ind"}-${i}`}>
+                <th
+                  scope="row"
+                  className="text-left font-normal py-1"
+                  data-entry-kind={row.candidateName ? "person" : l.kind}
+                >
+                  {/* ⚠ A PERSON'S NAME RENDERS AS-IS and everything else resolves from its id at
+                    render time (§5.3). `rankedLabel` is the one resolver: it also distinguishes
+                    a local-only list — whose Bulgarian name travels on the row because no
+                    English form exists anywhere in the corpus — from an id nothing can resolve,
+                    which is SHOWN rather than blanked, because the row still carries a real
+                    vote count. */}
+                  <span className="flex items-center gap-2 min-w-0">
+                    {color ? (
+                      <span
+                        aria-hidden
+                        className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{ backgroundColor: color }}
+                      />
+                    ) : null}
+                    {slug ? (
+                      <a
+                        href={partyHref(slug)}
+                        className="truncate font-medium"
+                        onClick={() =>
+                          trackSurfaceLink({
+                            target: "ranked_entry",
+                            kind,
+                            level,
+                            placeId,
+                          })
+                        }
+                        data-ranked-entry-link
+                      >
+                        {row.candidateName ?? entryLabel(l, t)}
+                      </a>
+                    ) : (
+                      <span className="truncate">
+                        {row.candidateName ?? entryLabel(l, t)}
+                      </span>
+                    )}
+                  </span>
+                </th>
+                {cols.map((c) => {
+                  const v = rankedCell(c, row, ballot, electedLabel);
+                  return (
+                    <td
+                      key={c}
+                      className={`text-right tabular-nums pl-2 sm:pl-3 py-1 ${SMALL_CELL[c] ?? ""}`}
+                      data-ranked-cell={c}
+                    >
+                      {c === "pct" ? (
+                        <span className="flex items-center justify-end gap-2">
+                          {/* ⚠ ONE ELEMENT AND A GRADIENT, not a track with a fill inside it. Two
+                            nested spans per row is ~80 B brotli in a file with a ratchet on it,
+                            and `background-image` over the track's own `bg-muted` paints the
+                            same bar. ⚠ `aria-hidden`: the bar IS the number beside it, and a
+                            screen reader reading both says the share twice. */}
+                          <span
+                            aria-hidden
+                            className="h-2 min-w-[28px] flex-1 rounded-full bg-muted"
+                            style={{
+                              backgroundImage: `linear-gradient(to right, ${color ?? "#888"} ${barPct}%, transparent ${barPct}%)`,
+                            }}
+                          />
+                          <span>{v}</span>
+                        </span>
+                      ) : c === "delta" && row.deltaPct !== undefined ? (
+                        <span className={deltaToneClass(row.deltaPct)}>
+                          {v}
+                        </span>
+                      ) : (
+                        v
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
 const OutcomeCanvas: FC<{
   ballot: ElectionSurfaceBallot;
   columns: readonly ElectionRankedColumn[];
+  /** The cycle, for the ranked rows' party links — see `RankedResult`. */
+  cycle: string;
+  /** "The complete result", offered from the ranked caption — see `RankedResult`. */
+  details?: ElectionDestination;
   questionKey?: string;
   /** A screen that ALWAYS draws a map may hand its adapter in already-loaded, so the browser
    *  fetches the map libraries in parallel with the screen rather than two hops behind it. See
@@ -487,7 +536,17 @@ const OutcomeCanvas: FC<{
   kind: ElectionKind;
   level: ElectionPlaceLevel;
   placeId: string;
-}> = ({ ballot, columns, questionKey, kind, level, placeId, preloadedMap }) => {
+}> = ({
+  ballot,
+  columns,
+  cycle,
+  details,
+  questionKey,
+  kind,
+  level,
+  placeId,
+  preloadedMap,
+}) => {
   const { t } = useTranslation();
   return (
     <div
@@ -498,7 +557,15 @@ const OutcomeCanvas: FC<{
       data-outcome-canvas={ballot.kind}
     >
       <div className={CANVAS_RANKED_SLOT_CLASS} data-canvas-slot="ranked">
-        <RankedResult ballot={ballot} columns={columns} />
+        <RankedResult
+          ballot={ballot}
+          columns={columns}
+          cycle={cycle}
+          details={details}
+          kind={kind}
+          level={level}
+          placeId={placeId}
+        />
       </div>
       {ballot.map ? (
         <div
@@ -617,7 +684,7 @@ export const ElectionResultsShell: FC<Props> = ({
       ) : null}
 
       {/* 3. this election's outcome facts. */}
-      <OutcomeStrip facts={shownFacts} titleId={rid("facts")} />
+      <ElectionFactsGrid facts={shownFacts} titleId={rid("facts")} />
 
       {/* 4. the canvas, one per ballot — never merged (§2 decision 4). */}
       {surface.ballots.map((b) => {
@@ -639,6 +706,8 @@ export const ElectionResultsShell: FC<Props> = ({
             <OutcomeCanvas
               preloadedMap={preloadedMap}
               ballot={b}
+              cycle={surface.cycle}
+              details={completeResult}
               kind={surface.kind}
               level={surface.place.level}
               placeId={surface.place.id}

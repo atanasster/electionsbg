@@ -155,6 +155,15 @@ export type ElectionRankedEntry = {
   seats?: number;
   /** Margin over the NEXT entry, in percentage points. Present on the leader only. */
   marginPct?: number;
+  /** Change in SHARE against the prior cycle, in percentage points.
+   *
+   *  ⚠ ABSENT IS NOT ZERO, and here the two are opposite claims about a named party. A party
+   *  that stood in both cycles and held its share exactly is `0`; a party that has never stood
+   *  before — or a producer with no comparable prior result for this place — is `undefined`, and
+   *  the renderer drops the column rather than printing „0,00 pp" beside a party whose share
+   *  cannot be compared to anything. Only the country producer fills it today: the município
+   *  shard carries no prior cycle. */
+  deltaPct?: number;
   isElected?: boolean;
 };
 

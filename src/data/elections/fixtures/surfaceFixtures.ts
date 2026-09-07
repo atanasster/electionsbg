@@ -44,15 +44,32 @@ export const parliamentaryCountry: ElectionSurfaceV1 = {
       kind: "parliamentary_list",
       resultStatus: "final",
       preview: [
+        // ⚠ `deltaPct` IS THE SHARD'S OWN PRIOR-CYCLE COMPARISON, and ПрБ's +44.59 is the whole
+        // of its share because it did not stand in 2024 — the case that makes „absent is not
+        // zero" more than a slogan, since a party with no prior row carries NO delta at all
+        // rather than a 0. All three below did have one.
         {
           partyId: "p_20",
           votes: 1_444_920,
           pct: 44.59,
           seats: 131,
           marginPct: 31.21,
+          deltaPct: 44.59,
         },
-        { partyId: "gerb", votes: 433_755, pct: 13.39, seats: 39 },
-        { partyId: "p_6", votes: 408_846, pct: 12.62, seats: 37 },
+        {
+          partyId: "gerb",
+          votes: 433_755,
+          pct: 13.39,
+          seats: 39,
+          deltaPct: -13.0,
+        },
+        {
+          partyId: "p_6",
+          votes: 408_846,
+          pct: 12.62,
+          seats: 37,
+          deltaPct: -1.6,
+        },
       ],
       totals: {
         votesCast: 3_360_330,

@@ -41,7 +41,7 @@ export type RankedRowLabel =
 export const useSurfaceLabels = () => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language?.startsWith("bg") ?? true;
-  const { displayNameForId, colorFor } = useCanonicalParties();
+  const { byId, displayNameForId, colorFor } = useCanonicalParties();
   const obshtinaLabel = useObshtinaLabel();
   const { findRegion } = useRegions();
   const { findSettlement } = useSettlementsInfo();
@@ -70,6 +70,34 @@ export const useSurfaceLabels = () => {
       return { kind: "unresolved", id: "" };
     },
     [displayNameForId, colorFor],
+  );
+
+  /** The `/party/<nickName>` slug a ranked row links to, or `undefined` when the corpus cannot
+   *  name one.
+   *
+   *  ⚠ THE NICKNAME OF *THIS* CYCLE, not the lineage's current one. `/party/:id` is keyed on the
+   *  nickname the CEC printed for that election, so linking a 2005 row to „ГЕРБ-СДС" would send
+   *  a reader to a coalition formed twenty years later — the same rule `buildHistoryNameIndex`
+   *  states for colour, one field over. `displayName` is the fallback and is itself the LATEST
+   *  cycle's nickname, so it is right for a row whose own cycle the corpus does not record.
+   *
+   *  ⚠ AND IT RESOLVES AT RENDER TIME, like the label. The artifact carries the id; a producer
+   *  that emitted a URL would keep emitting the old shape after the routing rule moved, with
+   *  both sides green — §5.3's rule, and the reason this hook exists at all. */
+  const partySlug = useCallback(
+    (
+      partyId: string | null | undefined,
+      election?: string,
+    ): string | undefined => {
+      if (!partyId) return undefined;
+      const p = byId.get(partyId);
+      if (!p) return undefined;
+      const inCycle = election
+        ? p.history.find((h) => h.election === election)?.nickName
+        : undefined;
+      return inCycle || p.displayName || undefined;
+    },
+    [byId],
   );
 
   /** A place code → the name a reader can read, in the active language.
@@ -117,5 +145,5 @@ export const useSurfaceLabels = () => {
     [t, isBg, findRegion, obshtinaLabel, findSettlement],
   );
 
-  return { rankedLabel, placeLabel };
+  return { rankedLabel, partySlug, placeLabel };
 };

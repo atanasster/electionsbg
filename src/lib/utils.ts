@@ -5,13 +5,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Build a URL path to a party page, encoding the nickName so coalition names
-// containing a slash (e.g. "ВОЛЯ/НФСБ", ballot 24 in April 2021) don't get
-// chopped by React Router's path-segment matching.
-export const partyHref = (
-  nickName: string | number | null | undefined,
-  suffix = "",
-): string => `/party/${encodeURIComponent(String(nickName ?? ""))}${suffix}`;
+// Re-exported, not defined here: the rule lives in a leaf module so a consumer with a byte
+// budget can take it without `clsx` + `tailwind-merge` coming along. See `lib/partyHref.ts`.
+export { partyHref } from "./partyHref";
 
 export const initials = (name?: string | null): string => {
   if (!name) return "?";

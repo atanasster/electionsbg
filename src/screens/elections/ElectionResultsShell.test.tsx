@@ -96,7 +96,11 @@ const PARTIES = {
       displayName: "ГЕРБ",
       displayNameEn: "GERB",
       color: "rgb(4,5,6)",
-      history: [],
+      // ⚠ THE ONE FIXTURE PARTY WITH A HISTORY, and it disagrees with its own `displayName` on
+      // purpose: this lineage is DISPLAYED as „ГЕРБ" and stood in 2026 as „ГЕРБ-СДС", so a row
+      // link built from the display name would send a reader to a different ballot's page. Only
+      // a fixture where the two differ can tell the two implementations apart.
+      history: [{ election: "2026_04_19", partyNum: 5, nickName: "ГЕРБ-СДС" }],
     },
   ],
   byNickName: {},
@@ -1157,5 +1161,130 @@ describe("§Phase 7's methods disclosure", () => {
       <ElectionResultsShell surface={parliamentaryCountry} />,
     );
     expect(container.querySelector("details")).toBeNull();
+  });
+});
+
+// ─── the ranked rows carry what the party tile carried ───────────────────────────────────────
+//
+// ⚠ WHY THIS BLOCK EXISTS. `/parliamentary` led with a PLAIN TABLE from the moment this canvas
+// replaced `PartyResultsTile` — the right numbers, and none of the four things the tile had: the
+// party's colour, a bar to read the share against, the change since the prior cycle, and a way
+// to reach the party from its own row. Every column gate above passes on exactly that table,
+// which is why each of the four is asserted here rather than left to them.
+
+describe("shell — the ranked rows are the party tile's presentation", () => {
+  const rankedLinks = (c: HTMLElement) => [
+    ...c.querySelectorAll("[data-ranked-result] tbody a"),
+  ];
+
+  it("links a resolved row to /party under the nickname of THIS cycle", () => {
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const links = rankedLinks(container);
+    // ⚠ TWO OF THE THREE ROWS, NOT „at least one". `p_6` resolves to no party in this fixture,
+    // and a link promising it a page would be the dead link §Phase 7 removed from the standouts.
+    expect(links).toHaveLength(2);
+    expect(links.map((a) => a.getAttribute("href"))).toEqual([
+      `/party/${encodeURIComponent("ПрБ")}`,
+      // …and NOT „/party/ГЕРБ", which is what the lineage is displayed as.
+      `/party/${encodeURIComponent("ГЕРБ-СДС")}`,
+    ]);
+  });
+
+  it("leaves a row the corpus cannot name as text, and still shows it", () => {
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const unresolved = container.querySelector(
+      "[data-ranked-result] tbody th[data-entry-kind='unresolved']",
+    )!;
+    expect(unresolved).toBeTruthy();
+    expect(unresolved.querySelector("a")).toBeNull();
+    // The id is SHOWN rather than blanked — the row carries a real vote count either way.
+    expect(unresolved.textContent).toContain("p_6");
+  });
+
+  it("carries the party's colour, and never as the only encoding", () => {
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const first = container.querySelector("[data-ranked-result] tbody tr")!;
+    const dot = first.querySelector("th span[aria-hidden]")!;
+    expect(dot.getAttribute("style")).toContain("rgb(1, 2, 3)");
+    // ⚠ THE RULE THE SHELL'S OWN HEADER STATES: colour is never the only encoding. The share is
+    // in the row as text beside the bar, so a reader who cannot see either still has the number.
+    expect(
+      first.querySelector("td[data-ranked-cell='pct']")!.textContent,
+    ).toContain("44.59%");
+  });
+
+  it("states the change against the prior cycle, signed and in pp", () => {
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    const deltas = [
+      ...container.querySelectorAll("td[data-ranked-cell='delta']"),
+    ].map((n) => (n.textContent ?? "").trim());
+    // ⚠ THE SIGN IS NOT DECORATION: „13,00" and „−13,00" are opposite claims about a party. And
+    // the unit is pp, the one `margin` prints one column over — a „%" would relabel a CHANGE in
+    // share as a share.
+    expect(deltas).toEqual(["+44.59 pp", "-13.00 pp", "-1.60 pp"]);
+  });
+
+  it("drops the column entirely when no row has a prior to compare against", () => {
+    // ⚠ ABSENT IS NOT ZERO, and this is the half that keeps that true on screen. Without it a
+    // first cycle would print „0,00 pp" against every party — a measurement nobody made.
+    const noPrior: ElectionSurfaceV1 = {
+      ...parliamentaryCountry,
+      ballots: parliamentaryCountry.ballots.map((b) => ({
+        ...b,
+        // ⚠ `delete`, not a rest-destructure: the row must come out with NO `deltaPct` key at
+        // all, which is what „the producer measured nothing here" looks like on the wire.
+        preview: b.preview.map((row) => {
+          const stripped = { ...row };
+          delete stripped.deltaPct;
+          return stripped;
+        }),
+      })),
+    };
+    const { container } = draw(<ElectionResultsShell surface={noPrior} />);
+    expect(
+      container.querySelector("th[data-ranked-col='delta']"),
+      "the column survived a ballot with nothing to put in it",
+    ).toBeNull();
+    // …and the rest of the table is untouched, so this is a narrowing rather than a collapse.
+    expect(container.querySelector("th[data-ranked-col='pct']")).toBeTruthy();
+  });
+
+  it("offers the complete result from the caption, and not when it is this page", () => {
+    const { container } = draw(
+      <ElectionResultsShell surface={parliamentaryCountry} />,
+    );
+    // The tile's own „Виж детайли →", back where the tile had it — the same destination the
+    // source panel names at the foot of the page, offered where a reader is already reading.
+    expect(
+      container
+        .querySelector("caption [data-ranked-details]")!
+        .getAttribute("href"),
+    ).toBe("/parliamentary");
+
+    // ⚠ AND NOT WHEN IT IS THIS PAGE. `buildDestinations` marks the region and município levels
+    // `same_page` — their complete result IS what the reader is looking at — and a caption
+    // linking there is the dead link §Phase 7 removed from the standouts, one region over.
+    const samePage: ElectionSurfaceV1 = {
+      ...parliamentaryCountry,
+      destinations: {
+        ...parliamentaryCountry.destinations,
+        completeResult: { to: "", available: false, reason: "same_page" },
+      },
+    };
+    const second = draw(<ElectionResultsShell surface={samePage} />);
+    expect(
+      second.container.querySelector("caption [data-ranked-details]"),
+      "the caption linked to the page it is on",
+    ).toBeNull();
+    // …and the caption itself stays, so this suppresses the link rather than the title.
+    expect(second.container.querySelector("caption")).toBeTruthy();
   });
 });

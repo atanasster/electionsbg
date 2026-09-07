@@ -58,6 +58,10 @@ export const parliamentaryCanonicalSurface = (args: {
   votes: readonly PartyVote[];
   /** Seats, where the level publishes them — the country does, a município does not. */
   seatsByPartyNum?: ReadonlyMap<number, number>;
+  /** The change in share against the prior cycle, in pp, where the shard carries one — the
+   *  country's does, a município's does not. ⚠ A party the shard leaves unmeasured must be
+   *  ABSENT from the map rather than present at 0: see `deltaPct`'s own header. */
+  deltaByPartyNum?: ReadonlyMap<number, number>;
   protocol?: Protocol;
   partyIndex: PartyIndex | null;
   /** The machine share of valid votes, where the page has it. */
@@ -75,6 +79,7 @@ export const parliamentaryCanonicalSurface = (args: {
     cycle,
     votes,
     seatsByPartyNum,
+    deltaByPartyNum,
     protocol,
     partyIndex,
     paperMachinePct,
@@ -93,13 +98,21 @@ export const parliamentaryCanonicalSurface = (args: {
     partyIndex ?? new Map<string, string>(),
     cycle,
     totals.validVotes,
-  ).map((e) =>
-    // Seats are not part of the generator's ranked shape — only the country publishes them —
-    // so they are folded in here rather than by a second ranking pass.
-    seatsByPartyNum?.has(e.localPartyNum ?? -1)
-      ? { ...e, seats: seatsByPartyNum.get(e.localPartyNum!) }
-      : e,
-  );
+  ).map((e) => {
+    // Neither seats nor the prior-cycle change is part of the generator's ranked shape — only
+    // the country publishes either — so both are folded in here rather than by a second
+    // ranking pass. ⚠ SPREAD ONLY WHEN PRESENT: writing `seats: undefined` / `deltaPct:
+    // undefined` onto every row satisfies the type and makes `ballotFillsColumn` see a filled
+    // column on a ballot that has nothing to put in it.
+    const num = e.localPartyNum ?? -1;
+    const seats = seatsByPartyNum?.get(num);
+    const deltaPct = deltaByPartyNum?.get(num);
+    return {
+      ...e,
+      ...(seats === undefined ? {} : { seats }),
+      ...(deltaPct === undefined ? {} : { deltaPct }),
+    };
+  });
   const map = ballotMapMeta("parliamentary", level, "parliamentary_list");
   return {
     schemaVersion: ELECTION_SURFACE_VERSION,
@@ -162,6 +175,15 @@ export const parliamentaryCountrySurface = (args: {
       args.summary.parties
         .filter((p) => p.seats !== undefined)
         .map((p) => [p.partyNum, p.seats!]),
+    ),
+    // ⚠ ONLY THE PARTIES THE SHARD ACTUALLY COMPARED. `national_summary.json` leaves `deltaPct`
+    // undefined for a party with no prior-cycle row — ПрБ's first cycle, a coalition that did
+    // not exist — and a `0` there would publish „held its share" about a party that had never
+    // stood. The filter is what keeps absence absent.
+    deltaByPartyNum: new Map(
+      args.summary.parties
+        .filter((p) => p.deltaPct !== undefined)
+        .map((p) => [p.partyNum, p.deltaPct!]),
     ),
     protocol: args.protocol,
     partyIndex: args.partyIndex,

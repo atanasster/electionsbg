@@ -279,7 +279,7 @@ describe("descriptor matrix — the §6.3 card diff stays a recorded decision", 
       expect(d.rankedColumns.length, label).toBeGreaterThanOrEqual(1);
       for (const c of d.rankedColumns)
         expect(
-          ["votes", "pct", "seats", "margin", ...NO_PREFERENCE_COLUMN],
+          ["votes", "pct", "delta", "seats", "margin", ...NO_PREFERENCE_COLUMN],
           `${label} unknown column ${c}`,
         ).toContain(c);
     });

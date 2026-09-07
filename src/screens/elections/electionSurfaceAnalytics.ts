@@ -30,6 +30,10 @@ export type SurfaceLinkTarget =
   | "digest"
   | "standout_evidence"
   | "complete_result"
+  // A ranked row's own party page. ⚠ THE TARGET, NEVER THE PARTY: the id would be a name-ish
+  // field on an event whose whole allowlist is codes, and „which way out of a result surface do
+  // readers take" is answered by the affordance rather than by which row was clicked.
+  | "ranked_entry"
   | "finder";
 
 export const SURFACE_EVENT = "election_surface_link";

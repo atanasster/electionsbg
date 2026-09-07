@@ -47,6 +47,11 @@ import type {
 export type ElectionRankedColumn =
   | "votes"
   | "pct"
+  // ⚠ NOT `margin` UNDER ANOTHER NAME, and the two sit one column apart. `margin` is the
+  // leader's lead over the runner-up IN THIS cycle; `delta` is one party's own share against
+  // the PRIOR cycle. Both are percentage points and they answer different questions, so both
+  // print „pp" — a „%" on either would relabel a change in share as a share.
+  | "delta"
   | "seats"
   | "margin"
   | "round"
@@ -159,6 +164,7 @@ export const MAP_MODE_LABEL_KEYS: Record<ElectionMapMode, string> = {
 export const RANKED_COLUMN_LABEL_KEYS: Record<ElectionRankedColumn, string> = {
   votes: "election_col_votes",
   pct: "election_col_pct",
+  delta: "election_col_delta",
   seats: "election_col_seats",
   margin: "election_col_margin",
   round: "election_col_round",
@@ -236,6 +242,10 @@ export const SHELL_COPY_KEYS = [
   "election_source_title",
   // §8's "see the complete result" leaf, rendered in the source region.
   "election_complete_result_link",
+  // The same destination, offered a second time from the ranked table's own caption — the
+  // „Виж детайли →" the party tile carried before this canvas replaced it. Reused rather than
+  // minted: a second key for one label is exactly the defect this list was written after.
+  "dashboard_see_details",
   // The no-adapter branch of the map panel, distinct from the LOADING message beside it.
   "election_map_unavailable",
   // The party-bearing variants of two fact labels. Separate keys rather than an optional
@@ -397,7 +407,18 @@ const parliamentary: Record<ElectionPlaceLevel, ElectionSurfaceDescriptor> = {
       "seats",
     ],
     maxFacts: 4,
-    rankedColumns: ["votes", "pct", "seats", "margin"],
+    // ⚠ `delta` IS DECLARED ONLY HERE, because the country is the only parliamentary level
+    // whose shard carries a prior cycle. It sits where the party tile this canvas replaced put
+    // it — „Промяна" beside the share — and `ballotFillsColumn` drops it on any ballot that
+    // cannot fill it, so a cycle with no prior comparison renders the same four columns as
+    // before rather than a blank fifth.
+    // ⚠ NO `margin` HERE, and it is a DUPLICATE rather than a narrowing of the data. On this
+    // level the strip always draws „Преднина" — it is second in `factPriority` and the country
+    // always fills it — so the column repeated that one number on row 1 and was blank on every
+    // other, in a slot that now has to hold the share bar and the change as well. A
+    // leader-only figure belongs in the strip that names it; the other levels keep the column
+    // because their canvas is not carrying `delta`.
+    rankedColumns: ["votes", "pct", "delta", "seats"],
     sections: PARL_SECTIONS,
     emptyStateKey: "election_empty_country",
     hasFinder: true,

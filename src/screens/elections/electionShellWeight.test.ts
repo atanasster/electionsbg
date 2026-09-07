@@ -96,8 +96,35 @@ const CRITICAL_PATH_BR = 363_000;
  *  save ~140 B — one request to defer a third of a pure-data table, on a page that has already
  *  decided which election it is about. The alternative that WOULD pay is dropping levels from
  *  the presidential column, and every one of the six is a route this plan ships.
+ *
+ *  **10,440 → 11,130 (measured 11,053), 2026-09-07 — the ranked result renders the party tile's
+ *  own presentation again.** `/parliamentary` had led with a plain table ever since the canvas
+ *  replaced `PartyResultsTile`: no party colours, no share bars, no prior-cycle column and — the
+ *  substantive loss — no link from a row to that party's page. The rows carry the dot, the bar,
+ *  the signed change and an anchor again, the caption is visible and offers „виж детайли", and a
+ *  `delta` column joins the union for the one level whose shard can fill it. The last ~64 B of
+ *  it are the phone: the table gained its own `overflow-x-auto` box and two columns dropped to
+ *  `text-xs`, because at 375 px the five columns wanted 423 px in a 359 px slot and the slot
+ *  clipped rather than scrolled.
+ *
+ *  Measured in halves, because only one of them is presentation: the schema, the producer, the
+ *  descriptor and the label resolver together are **+99 B** (10,358 → 10,457, measured on an
+ *  otherwise pristine HEAD tree). ⚠ THE REST IS NOT PURELY THIS CHANGE — the working tree it was
+ *  measured in also carried the facts-grid extraction, a code MOVE that should be ~neutral but
+ *  was not measured apart, so the shell half is an upper bound on what the rows cost.
+ *
+ *  ⚠ AND ONE IMPORT COST 6.6 KB BEFORE IT WAS SPLIT. `partyHref` lived in `lib/utils.ts`, whose
+ *  first two lines are `clsx` and `tailwind-merge` for `cn` — so taking a three-line URL builder
+ *  from there took the shell to **16,968 B** at a stroke, 63% over budget for a function that
+ *  concatenates a path. The rule moved to `lib/partyHref.ts`, a leaf with no imports that
+ *  `utils` re-exports, so every other call site is unchanged and there is still one definition.
+ *  A budget that only ever gets raised would have absorbed that without anyone seeing it.
+ *
+ *  Splitting the ranked table into a chunk of its own was considered and rejected: it is the
+ *  FIRST thing in the canvas's DOM and the page's primary content, so deferring it would put a
+ *  request in front of the result the page exists to show.
  */
-const SHELL_BUDGET_BR = 10_440;
+const SHELL_BUDGET_BR = 11_130;
 
 /** ⚠ `splitting: true`, AND IT IS THE WHOLE MEASUREMENT. Without it esbuild inlines every
  *  `import()` into one bundle, so the moment a real map adapter was registered the "shell's own
@@ -162,8 +189,11 @@ describe("the shell's own weight", () => {
     expect(br, `the shell grew to ${br} B brotli`).toBeLessThanOrEqual(
       SHELL_BUDGET_BR,
     );
-    // Recorded against §10.1's total, as item 4 asks: ~2.5% of the critical path today.
-    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.03);
+    // Recorded against §10.1's total, as item 4 asks: 3.03% of the critical path today, up from
+    // ~2.5%. ⚠ THE BOUND TRACKS THE BUDGET ABOVE (11,130 / 363,000 = 3.07%) so that a change
+    // which passes the byte budget cannot fail here instead — two ratchets on one number, one of
+    // which nobody remembers to update, is how a gate starts failing for the wrong reason.
+    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.031);
   });
 
   it("is not measuring an empty bundle", { timeout: 60_000 }, async () => {
