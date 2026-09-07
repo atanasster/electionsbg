@@ -170,6 +170,11 @@ const PER_ROUND_FILES = [
   "municipality_votes.json",
   "settlement_votes.json",
   "abroad.json",
+  // ⚠ TINY (2.2 KB) AND HERE ANYWAY, because this list is not only about compression — for the
+  // presidential tree it is the only thing that PUBLISHES a file at all. `data/2*` is
+  // gitignored and the presidential tree is not rsynced, so a path absent from here never
+  // reaches the bucket and the tile that reads it 404s in production while working locally.
+  "flash.json",
 ];
 
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors
