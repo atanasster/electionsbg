@@ -227,6 +227,11 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     // the same index as every other article.
     "articles/2026-07-21-machine-only-sections":
       "buildArticleRoutes() — public/articles/index.json",
+    // Like the machine-only scenario, the money map has its own hard-coded route because the
+    // SPA progressively enhances the same markdown with a scroll-driven canvas. Its static
+    // body, canonical, sitemap entry and English mirror still come from buildArticleRoutes.
+    "articles/2026-09-07-money-map":
+      "buildArticleRoutes() — public/articles/index.json",
   };
   const prerendered = new Set([
     ...prerenderRoutes.map((r) => r.path),

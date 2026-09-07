@@ -922,6 +922,39 @@ test.describe("prerender: cross-cutting", () => {
     expect(text).not.toMatch(/Това е 100[.,]0%/);
   });
 
+  test("the money-map article ships six static chapters, its own OG and both sitemap URLs", async ({
+    request,
+  }) => {
+    for (const [prefix, canonical] of [
+      ["", "/articles/2026-09-07-money-map"],
+      ["/en", "/en/articles/2026-09-07-money-map"],
+    ] as const) {
+      const { status, body } = await fetchOk(
+        request,
+        `${prefix}/articles/2026-09-07-money-map`,
+      );
+      expect(status).toBe(200);
+      const articleBody = body.split("<nav ", 1)[0];
+      expect(articleBody.match(/<h1>/g)).toHaveLength(1);
+      expect(articleBody.match(/<h2>/g)).toHaveLength(6);
+      expect(
+        articleBody.match(/\/articles\/money-map\/[a-z-]+\.webp/g),
+      ).toHaveLength(6);
+      const meta = extract(body);
+      expect(meta.canonical).toBe(`${ORIGIN}${canonical}`);
+      // postbuild converts the committed PNG to WebP in dist and rewrites references; the
+      // basename is the page-specific identity this gate protects.
+      expect(meta.ogImage).toMatch(
+        new RegExp(`^${ORIGIN}/og/money-map\\.(?:png|webp)$`),
+      );
+    }
+
+    const sitemap = await request.get("/sitemap_static_2.xml");
+    const sitemapXml = await sitemap.text();
+    expect(sitemapXml).toContain(`${ORIGIN}/articles/2026-09-07-money-map`);
+    expect(sitemapXml).toContain(`${ORIGIN}/en/articles/2026-09-07-money-map`);
+  });
+
   test("robots.txt references the sitemap", async ({ request }) => {
     const res = await request.get("/robots.txt");
     expect(res.status()).toBe(200);

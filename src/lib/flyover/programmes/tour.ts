@@ -1,4 +1,4 @@
-// „The guided tour" — five chapters, 40 seconds, auto-advancing on `/`.
+// „The guided tour" — five home chapters, plus the article-only elections chapter.
 //
 // ⚠️ THIS TABLE IS THE SPINE OF THREE SURFACES, WHICH IS WHY THE CHAPTER STATES ARE EXPORTED
 // SEPARATELY FROM THE PROGRAMME. The home band reads it through `stateAt` on a timer; the
@@ -26,8 +26,8 @@ export interface TourChapter {
 }
 
 /**
- * The five chapters, in order. The article renders one `<section>` per entry and the video one
- * scene; both read `id` and `state`, and only the home band reads `t`.
+ * The five HOME chapters, in order. The article and video extend this table below; only the
+ * home band reads `t`.
  */
 export const TOUR_CHAPTERS: readonly TourChapter[] = [
   {
@@ -90,6 +90,29 @@ export const TOUR_CHAPTERS: readonly TourChapter[] = [
       weights: { ...OFF, prices: 1 },
       labels: 0.7,
       captionId: "tour_prices",
+    },
+    dwell: 4,
+  },
+];
+
+/**
+ * The article's six chapters. The first five are the exact home-tour objects; the sixth keeps
+ * the election result off `/` while still sharing the same camera/state vocabulary with the
+ * article posters and Remotion. Keeping this as one exported table is what prevents those two
+ * surfaces from quietly acquiring different pictures for the same chapter.
+ */
+export const ARTICLE_CHAPTERS: readonly TourChapter[] = [
+  ...TOUR_CHAPTERS,
+  {
+    id: "elections",
+    t: 40,
+    state: {
+      camera: { target: OVERVIEW, distance: 900, pitch: 62, yaw: 0 },
+      weights: { ...OFF, elections: 1 },
+      arcs: 0,
+      labels: 0.55,
+      highlight: null,
+      captionId: null,
     },
     dwell: 4,
   },

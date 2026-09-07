@@ -195,6 +195,39 @@ describe("render", () => {
     );
   });
 
+  it("cross-fades explicit election endpoints without a midpoint cut", () => {
+    const electionState = state({
+      weights: { ...STATE_ZERO.weights, elections: 1 },
+    });
+    const transition = (progress: number) =>
+      draw(electionState, {
+        electionTransition: {
+          from: "2024_10_27",
+          to: "2026_04_19",
+          progress,
+        },
+      }).log();
+    const start = transition(0);
+    const midpoint = transition(0.5);
+    const end = transition(1);
+    expect(midpoint).not.toEqual(start);
+    expect(midpoint).not.toEqual(end);
+    expect(start).not.toEqual(end);
+  });
+
+  it("uses tint strength to carry the winning share", () => {
+    const voted = draw(
+      state({ weights: { ...STATE_ZERO.weights, elections: 1 } }),
+      { electionDate: "2026_04_19" },
+    );
+    const fills = voted
+      .ops("set:fillStyle")
+      .map((call) => call.args[0] as string)
+      .filter((color) => color !== TEST_PALETTE.land);
+    // S23 and S24 have the same winner colour but different shares in the fixture.
+    expect(new Set(fills).size).toBeGreaterThan(1);
+  });
+
   it("reads the МИР key space for the overlays and the OBLAST one for the money", () => {
     // The renderer reads both, and swapping them is the easiest mistake in the file: the
     // fixture keeps them disjoint (Sofia is МИР S23+S24 over money oblast SOF) so a swap
@@ -294,6 +327,18 @@ describe("render", () => {
     const en = draw(state({ labels: 1 }), { lang: "en" });
     expect(bg.ops("fillText").map((c) => c.args[0])).toContain("Пловдив");
     expect(en.ops("fillText").map((c) => c.args[0])).toContain("Plovdiv");
+  });
+
+  it("drops colliding city labels instead of painting unreadable text", () => {
+    const crowded = structuredClone(TEST_WORLD);
+    const anchor = Object.values(crowded.geo.cities)[0]!;
+    for (const [key, city] of Object.entries(crowded.geo.cities)) {
+      crowded.geo.cities[key] = [anchor[0], anchor[1], city[2], city[3]];
+    }
+    const rec = createRecorder();
+    render(rec, crowded, state({ labels: 1 }), opts());
+    expect(rec.ops("fillText")).toHaveLength(1);
+    expect(rec.ops("strokeText")).toHaveLength(1);
   });
 
   it("survives a world with no overlays at all", () => {

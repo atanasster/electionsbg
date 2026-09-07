@@ -1,9 +1,8 @@
 // The flyover's static posters, drawn in Node by the SAME engine the browser runs.
 // `docs/plans/home-flyover-v1.md` §8.3.
 //
-//   npm run home:flyover-posters                       # the three home posters
-//   npm run home:flyover-posters -- --og               # …and the article's share card
-//   npm run home:flyover-posters -- --chapters         # …and the article's six chapter stills
+//   npm run home:flyover-posters                       # every committed poster and share card
+//   npm run home:flyover-posters -- --home-only        # only the three home posters
 //   npm run home:flyover-posters -- --programme columns --t 12 --out /tmp/f.png
 //
 // ⚠️⚠️ THE POSTER IS NOT DECORATIVE AND NOT OPTIONAL. It is the reserved box that holds CLS at
@@ -25,6 +24,7 @@
 // be declared or exempt ON MERIT and a tuning page has no merit to claim.
 
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { createCanvas, type Canvas, type SKRSContext2D } from "@napi-rs/canvas";
@@ -35,7 +35,10 @@ import {
   PROGRAMME_IDS,
   stateAt,
 } from "../../src/lib/flyover/programmes";
-import { TOUR_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
+import {
+  ARTICLE_CHAPTERS,
+  TOUR_CHAPTERS,
+} from "../../src/lib/flyover/programmes/tour";
 import { applyPartial, STATE_ZERO } from "../../src/lib/flyover/state";
 import type { ProgrammeId } from "../../src/lib/flyover/programmes";
 import type { FlyoverWorld } from "../../src/lib/flyover/types";
@@ -46,6 +49,21 @@ const ROOT = path.resolve(
   "..",
   "..",
 );
+const ARTIFACT_REL = "data/home/flyover.json";
+
+const artifactBytes = (): Buffer => {
+  const p = path.join(ROOT, ARTIFACT_REL);
+  if (!fs.existsSync(p)) {
+    throw new Error(
+      `flyover_posters: ${ARTIFACT_REL} is missing — run npm run db:gen-home-flyover`,
+    );
+  }
+  return fs.readFileSync(p);
+};
+
+/** SHA-256 of the exact served artifact bytes: the poster freshness correctness key. */
+export const artifactSha256 = (): string =>
+  createHash("sha256").update(artifactBytes()).digest("hex");
 
 /** The frame the artifact is projected into, and therefore the poster's aspect ratio. */
 export const POSTER_W = 1000;
@@ -82,13 +100,7 @@ export const BRAND_PALETTE: FlyoverPalette = {
 const BACKDROP = BRAND_PALETTE.labelHalo;
 
 export const loadWorld = (): FlyoverWorld => {
-  const p = path.join(ROOT, "data/home/flyover.json");
-  if (!fs.existsSync(p)) {
-    throw new Error(
-      `flyover_posters: data/home/flyover.json is missing — run npm run db:gen-home-flyover`,
-    );
-  }
-  return JSON.parse(fs.readFileSync(p, "utf8")) as FlyoverWorld;
+  return JSON.parse(artifactBytes().toString("utf8")) as FlyoverWorld;
 };
 
 export interface FrameSpec {
@@ -146,8 +158,8 @@ const writeImage = (canvas: Canvas, rel: string): number => {
   // tuned the camera against a stale file or concluded the harness was broken.
   const dest = path.resolve(ROOT, rel);
   fs.mkdirSync(path.dirname(dest), { recursive: true });
-  // WebP where the encoder has it (a third of the bytes at this size), PNG otherwise; the
-  // gate accepts either, because the encoder is a property of the build machine.
+  // Committed poster paths are WebP and therefore require @napi-rs/canvas WebP support. The
+  // tuning harness may use PNG when its explicit --out path ends in .png.
   const buf = dest.endsWith(".webp")
     ? canvas.toBuffer("image/webp")
     : canvas.toBuffer("image/png");
@@ -161,10 +173,11 @@ const writeImage = (canvas: Canvas, rel: string): number => {
  * ⚠️ A MANIFEST RATHER THAN AN MTIME COMPARISON, which is what the plan's §8.3 asks for and
  * cannot have: git does not preserve modification times, so on a fresh clone or in CI both the
  * posters and the artifact carry the checkout time and „is the poster newer" has no answer.
- * `computedAt` is the artifact's own max-source-date stamp, so this pins the pair by CONTENT —
- * a regenerated artifact whose posters were not re-rendered fails, on any machine.
+ * `artifactSha256` pins the exact bytes. `computedAt` is retained only as useful operator
+ * metadata: it is the latest contract date and does not change when another layer changes.
  */
 export interface PosterManifest {
+  artifactSha256: string;
   computedAt: string;
   posters: string[];
 }
@@ -173,6 +186,7 @@ export const MANIFEST_REL = "public/flyover/manifest.json";
 
 const writeManifest = (world: FlyoverWorld, posters: string[]): string => {
   const body: PosterManifest = {
+    artifactSha256: artifactSha256(),
     computedAt: world.computedAt,
     posters: [...posters].sort(),
   };
@@ -233,7 +247,7 @@ export const renderOgCard = (world: FlyoverWorld): WrittenFile => {
 export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
   const out: WrittenFile[] = [];
   let running = STATE_ZERO;
-  for (const chapter of TOUR_CHAPTERS) {
+  for (const chapter of ARTICLE_CHAPTERS) {
     // The chapters ACCRETE, exactly as the loop does — a still drawn from one chapter's patch
     // alone would be missing every field the chapters before it set.
     //
@@ -267,6 +281,19 @@ export interface PosterArgs {
 }
 
 export const parseArgs = (argv: readonly string[]): PosterArgs => {
+  const valueFlags = new Set(["--programme", "--t", "--out"]);
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === "--home-only") continue;
+    if (!valueFlags.has(arg)) {
+      throw new Error(`flyover_posters: unknown argument ${arg}`);
+    }
+    const value = argv[i + 1];
+    if (value === undefined || value.startsWith("--")) {
+      throw new Error(`flyover_posters: ${arg} needs a value`);
+    }
+    i++;
+  }
   const flag = (name: string): string | undefined => {
     const i = argv.indexOf(`--${name}`);
     if (i === -1) return undefined;

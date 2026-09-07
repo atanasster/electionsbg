@@ -1254,6 +1254,11 @@ const MachineOnlyScenarioScreen = lazy(() =>
     default: m.MachineOnlyScenarioScreen,
   })),
 );
+const MoneyMapArticleScreen = lazy(() =>
+  import("./screens/scenarios/MoneyMapArticleScreen").then((m) => ({
+    default: m.MoneyMapArticleScreen,
+  })),
+);
 const AllPartiesScreen = lazy(() =>
   import("./screens/AllPartiesScreen").then((m) => ({
     default: m.AllPartiesScreen,
@@ -4189,6 +4194,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <MachineOnlyScenarioScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="articles/2026-09-07-money-map"
+            element={
+              <LayoutScreen>
+                <MoneyMapArticleScreen />
               </LayoutScreen>
             }
           />

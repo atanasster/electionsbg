@@ -10,7 +10,7 @@ import {
   validateProgramme,
   type Programme,
 } from "./index";
-import { TOUR_CHAPTERS } from "./tour";
+import { ARTICLE_CHAPTERS, TOUR_CHAPTERS } from "./tour";
 import { ANCHOR_SOURCES, ANCHOR_TOLERANCE_PX, OVERVIEW } from "./anchors";
 import { CAPTIONS } from "../captions";
 import { LAYER_IDS } from "../types";
@@ -373,6 +373,19 @@ describe("the tour's chapter table", () => {
     const ids = TOUR_CHAPTERS.map((c) => c.id);
     expect(new Set(ids).size).toBe(5);
     expect(ids).toEqual(["buys", "goes", "funds", "agri", "prices"]);
+  });
+
+  it("extends the article to six chapters without putting elections on home", () => {
+    expect(ARTICLE_CHAPTERS.slice(0, 5)).toEqual(TOUR_CHAPTERS);
+    expect(ARTICLE_CHAPTERS.map((c) => c.id)).toEqual([
+      "buys",
+      "goes",
+      "funds",
+      "agri",
+      "prices",
+      "elections",
+    ]);
+    expect(ARTICLE_CHAPTERS.at(-1)?.state.weights?.elections).toBe(1);
   });
 
   it("leaves the elections overlay out of the HOME tour", () => {

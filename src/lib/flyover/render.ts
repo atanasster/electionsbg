@@ -79,6 +79,12 @@ export interface RenderOptions {
   maxFlows?: number;
   /** Which election the overlay shows. Defaults to the most recent in the artifact. */
   electionDate?: string;
+  /** Continuously blend two explicit election results; used by article/video chapter six. */
+  electionTransition?: {
+    from: string;
+    to: string;
+    progress: number;
+  };
 }
 
 /** A primitive with a depth, so painter's order can be a single sort. */
@@ -216,6 +222,7 @@ const regionFill = (
   state: FlyoverState,
   palette: FlyoverPalette,
   electionDate?: string,
+  electionTransition?: RenderOptions["electionTransition"],
 ): string => {
   const region = world.geo.regions[key];
   let fill = palette.land;
@@ -225,9 +232,46 @@ const regionFill = (
     fill = mixHex(fill, priceColor(world.prices.byMir[key], palette), priceW);
   }
   const electionW = state.weights.elections;
-  if (electionW > 0 && electionDate && world.elections) {
-    const win = world.elections[electionDate]?.[key];
-    if (win) fill = mixHex(fill, win.color, electionW * 0.85);
+  if (electionW > 0 && world.elections) {
+    const toHex = (color: string): string => {
+      if (/^#?[0-9a-f]{3}([0-9a-f]{3})?$/i.test(color.trim())) return color;
+      const rgb = /^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i.exec(
+        color.trim(),
+      );
+      if (!rgb) return color;
+      return `#${rgb
+        .slice(1)
+        .map((part) =>
+          Math.max(0, Math.min(255, Number(part)))
+            .toString(16)
+            .padStart(2, "0"),
+        )
+        .join("")}`;
+    };
+    let overlay: { color: string; share: number } | undefined;
+    if (electionTransition) {
+      const from = world.elections[electionTransition.from]?.[key];
+      const to = world.elections[electionTransition.to]?.[key];
+      if (from && to) {
+        const progress = Math.max(0, Math.min(1, electionTransition.progress));
+        overlay = {
+          color: mixHex(toHex(from.color), toHex(to.color), progress),
+          share: from.share + (to.share - from.share) * progress,
+        };
+      } else if (to ?? from) {
+        const result = (to ?? from)!;
+        overlay = { color: toHex(result.color), share: result.share };
+      }
+    } else if (electionDate) {
+      const win = world.elections[electionDate]?.[key];
+      if (win) overlay = { color: toHex(win.color), share: win.share };
+    }
+    if (overlay) {
+      // Hue names the winner; tint strength carries their vote share. Retain a base tint so a
+      // low plurality is still identifiable, then devote the remaining range to the share.
+      const share = Math.max(0, Math.min(100, overlay.share)) / 100;
+      fill = mixHex(fill, overlay.color, electionW * (0.45 + 0.45 * share));
+    }
   }
   if (state.highlight && region.oblast === state.highlight) {
     fill = mixHex(fill, palette.landHighlight, 0.6);
@@ -387,7 +431,14 @@ export const render = (
   // ── the land ────────────────────────────────────────────────────────────────────────
   const polys: Drawable[] = [];
   for (const [key, region] of Object.entries(world.geo.regions)) {
-    const fill = regionFill(world, key, state, palette, electionDate);
+    const fill = regionFill(
+      world,
+      key,
+      state,
+      palette,
+      electionDate,
+      opts.electionTransition,
+    );
     for (const ring of region.rings) {
       const pts = projectRing(ring, basis);
       if (!pts) continue;
@@ -493,7 +544,8 @@ export const render = (
     ctx.globalAlpha = state.labels;
     ctx.textAlign = "center";
     ctx.textBaseline = "bottom";
-    ctx.font = fontFor(Math.max(9, Math.round(viewport.h / 34)));
+    const fontSize = Math.max(9, Math.round(viewport.h / 34));
+    ctx.font = fontFor(fontSize);
     ctx.lineWidth = 3;
     ctx.strokeStyle = palette.labelHalo;
     ctx.fillStyle = palette.label;
@@ -504,7 +556,30 @@ export const render = (
       labels.push({ p, text: lang === "en" ? city[3] : city[2] });
     }
     labels.sort((a, b) => b.p.depth - a.p.depth);
+    const occupied: Array<{ l: number; r: number; t: number; b: number }> = [];
     for (const l of labels) {
+      // Canvas hosts disagree slightly on text metrics, so use one deterministic conservative
+      // estimate rather than `measureText`. Dense oblast capitals then disappear as a whole
+      // label instead of colliding into an unreadable string in committed poster fallbacks.
+      const width = Math.max(fontSize * 2, l.text.length * fontSize * 0.58);
+      const box = {
+        l: l.p.x - width / 2 - 2,
+        r: l.p.x + width / 2 + 2,
+        t: l.p.y - fontSize - 8,
+        b: l.p.y,
+      };
+      if (
+        occupied.some(
+          (other) =>
+            box.l < other.r &&
+            box.r > other.l &&
+            box.t < other.b &&
+            box.b > other.t,
+        )
+      ) {
+        continue;
+      }
+      occupied.push(box);
       // Halo first, so a label over a dark column stays readable without a background box.
       ctx.strokeText(l.text, l.p.x, l.p.y - 4);
       ctx.fillText(l.text, l.p.x, l.p.y - 4);

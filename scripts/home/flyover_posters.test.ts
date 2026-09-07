@@ -11,6 +11,7 @@ import {
   OG_W,
   POSTER_H,
   POSTER_W,
+  artifactSha256,
   drawFrame,
   loadWorld,
   parseArgs,
@@ -21,7 +22,7 @@ import {
   PROGRAMME_IDS,
   stateAt,
 } from "../../src/lib/flyover/programmes";
-import { TOUR_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
+import { ARTICLE_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
 import { assertCommitted } from "../lib/assert_committed";
 
 // ⚠️ COMMITTED, so absence is a broken working copy and not something to skip past: the OG
@@ -77,8 +78,8 @@ describe("the committed posters", () => {
     });
   });
 
-  it("carries one still per tour chapter", async () => {
-    for (const c of TOUR_CHAPTERS) {
+  it("carries one still per article chapter", async () => {
+    for (const c of ARTICLE_CHAPTERS) {
       const rel = `public/articles/money-map/${c.id}.webp`;
       expect(fs.existsSync(path.join(ROOT, rel)), rel).toBe(true);
       expect(await decode(rel), rel).toEqual({ w: POSTER_W, h: POSTER_H });
@@ -88,8 +89,9 @@ describe("the committed posters", () => {
   it("was rendered from the artifact that is on disk now", () => {
     // ⚠️ CONTENT, NOT MTIME. Git does not preserve modification times, so „is the poster newer
     // than the artifact" has no answer on a fresh clone or in CI — both carry the checkout
-    // time. `computedAt` is the artifact's max-source-date stamp, so a regenerated corpus
-    // whose posters were not re-rendered fails here on any machine.
+    // time. The digest sees every layer and same-date corrections; `computedAt` is merely the
+    // latest CONTRACT date, so it is human-readable metadata rather than the correctness key.
+    expect(readManifest().artifactSha256).toBe(artifactSha256());
     expect(readManifest().computedAt).toBe(loadWorld().computedAt);
   });
 
@@ -97,7 +99,7 @@ describe("the committed posters", () => {
     const expected = [
       ...PROGRAMME_IDS.map((id) => `public/flyover/${id}.webp`),
       "public/og/money-map.png",
-      ...TOUR_CHAPTERS.map((c) => `public/articles/money-map/${c.id}.webp`),
+      ...ARTICLE_CHAPTERS.map((c) => `public/articles/money-map/${c.id}.webp`),
     ].sort();
     expect(
       readManifest().posters,
@@ -219,9 +221,9 @@ describe("parseArgs", () => {
     expect(parseArgs([])).toEqual({ homeOnly: false });
     expect(parseArgs(["--home-only"])).toEqual({ homeOnly: true });
     expect(
-      PROGRAMME_IDS.length + 1 + TOUR_CHAPTERS.length,
+      PROGRAMME_IDS.length + 1 + ARTICLE_CHAPTERS.length,
       "the gate's expected set must equal what the default invocation renders",
-    ).toBe(9);
+    ).toBe(10);
   });
 
   it("reads the single-frame tuning flags", () => {
@@ -244,13 +246,17 @@ describe("parseArgs", () => {
     expect(() => parseArgs(["--programme"])).toThrow(/needs a value/);
     expect(() => parseArgs(["--programme", "map"])).toThrow(/not one of/);
     expect(() => parseArgs(["--t", "soon"])).toThrow(/not a number/);
+    expect(() => parseArgs(["--chapters"])).toThrow(/unknown argument/);
+    expect(() => parseArgs(["--out", "/tmp/f.png", "typo"])).toThrow(
+      /unknown argument/,
+    );
   });
 });
 
 describe("createCanvas sanity", () => {
-  it("encodes webp, which the poster writer prefers", () => {
-    // If a build machine's encoder lacks it, the writer falls back to PNG and the gate above
-    // accepts either — this records which one this machine has.
+  it("encodes webp, which every committed poster path requires", () => {
+    // This is a build dependency, not a format fallback: the manifest and article paths are
+    // fixed `.webp` URLs, so silently writing PNG under another name would ship bad media.
     const c = createCanvas(4, 4) as Canvas;
     expect(c.toBuffer("image/webp").length).toBeGreaterThan(0);
   });

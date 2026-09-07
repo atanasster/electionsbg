@@ -206,7 +206,10 @@ export const buildArticleRoutes = async (
   // hands off to the SPA.
   const imageDimensions = await collectImageDimensions(
     publicFolder,
-    "articles/images",
+    // Bespoke articles may keep generated stills beside the markdown family rather than in
+    // the hand-authored `images/` subtree (the money-map tour does). Scan the article root so
+    // every prerendered image receives intrinsic dimensions and cannot move the body at handoff.
+    "articles",
   );
 
   const routes: PrerenderRoute[] = [];
