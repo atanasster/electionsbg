@@ -56,6 +56,12 @@ import { useSplitTicket } from "@/data/presidential/useSplitTicket";
 import { PresidentialSplitTicketTile } from "./PresidentialSplitTicketTile";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
 import { PresidentialFlashMemoryTile } from "./PresidentialFlashMemoryTile";
+import { PresidentialSuspiciousTile } from "./PresidentialSuspiciousTile";
+import {
+  hasSuspiciousContent,
+  usePresidentialSuspicious,
+} from "@/data/presidential/useSuspiciousSettlements";
+import { useFlashDiff } from "@/data/presidential/useFlashDiff";
 import { PresidentialTopRegionsTile } from "./PresidentialTopRegionsTile";
 import { PresidentialCleavagesTile } from "./PresidentialCleavagesTile";
 import { usePresidentialCleavages } from "@/data/presidential/usePresidentialCleavages";
@@ -114,6 +120,12 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // electorates and different fields of candidates, so their cleavages are different analyses —
   // and the producer writes one file per round for that reason.
   const cleavages = usePresidentialCleavages(cycle, round.round);
+  // ⚠ PER ROUND AGAIN, and both of the anomalies section's inputs are usually ABSENT: only
+  // 2021 published flash records at all, and `suspicious_settlements.json` reaches the bucket
+  // only through `bucket:gz`. React Query dedupes these against the tiles' own calls, so
+  // reading them here to gate the heading costs no second request.
+  const flash = useFlashDiff(cycle, round.round);
+  const suspicious = usePresidentialSuspicious(cycle, round.round);
   // ⚠⚠ CONTENT, NOT QUERY STATUS. `ready` is not „has something to draw" for either tile:
   // `isRollup` accepts an entries-empty or all-zero roll-up, and both tiles self-hide on an
   // empty result — so a status gate leaves the heading standing over an empty grid, which is
@@ -124,6 +136,20 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   const hasCleavages =
     cleavages.status === "ready" &&
     selectCleavageRows(cleavages.cleavages.rows).length > 0;
+  // ⚠⚠ CONTENT, NOT QUERY STATUS — the same rule as the geography pair above, and here each
+  // predicate is the TILE'S OWN. `flash` can be a readable file with no comparable ticket, and
+  // a `ready` suspicious payload can have no measurable rule at all; either would leave
+  // „Аномалии" standing over an empty grid, which reports the corpus's ordinary silence as a
+  // defect.
+  // ⚠ THE TILE'S REAL PREDICATE, not `tickets.length`. `PresidentialFlashMemoryTile` renders
+  // whenever it has any ticket and then filters to the rows worth reading — so an all-zero
+  // ticket set opens the heading and draws a table with no body under it.
+  const hasFlash =
+    !!flash &&
+    flash.tickets.some((r) => r.machineVotes > 0 || r.flashVotes > 0);
+  const hasSuspicious =
+    suspicious.status === "ready" &&
+    hasSuspiciousContent(suspicious.suspicious);
   const abroadTo = presidentialUrl(cycle, "abroad");
   // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
   // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
@@ -337,13 +363,44 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
         </p>
       </section>
 
-      {/* 6. the machines' own records against the protocol — „Разлика с флаш паметта".
-             ⚠ IT SELF-HIDES ON FOUR OF THE FIVE CYCLES and that is the corpus, not a bug: only
-             2021 published its СУЕМГ records. 2016 is the case that makes the distinction —
-             machines counted votes in 500 of its 12,340 round-1 sections and ЦИК published
-             nothing from them — so the tile keys on the RECORDS existing, never on
-             `machineVoting`. */}
-      <PresidentialFlashMemoryTile cycle={cycle} round={round.round} />
+      {/* 6. anomalies — the two „is anything odd here" surfaces, in one section, in the order
+             a reader can act on: first what the MACHINES recorded against what the commissions
+             wrote down, then the settlements whose protocols trip a threshold.
+
+             ⚠⚠ NEITHER TILE ALLEGES ANYTHING, and the section heading must not be read as
+             doing so either. „Аномалии" is the parliamentary dashboard's own heading for the
+             same pair of questions, which is why it is that key rather than a presidential
+             one — a second wording for one concept is how two dashboards come to imply
+             different things about the same kind of finding.
+
+             ⚠ FLASH SELF-HIDES ON FOUR OF THE FIVE CYCLES and that is the corpus, not a bug:
+             only 2021 published its СУЕМГ records. 2016 is the case that makes the
+             distinction — machines counted votes in 500 of its 12,340 round-1 sections and
+             ЦИК published nothing from them — so the tile keys on the RECORDS existing, never
+             on `machineVoting`. */}
+      {hasFlash || hasSuspicious ? (
+        <section aria-labelledby={`pvr-anomalies-${round.round}`}>
+          <h2
+            id={`pvr-anomalies-${round.round}`}
+            className="text-lg font-semibold"
+          >
+            {t("dashboard_section_anomalies")}
+          </h2>
+          {/* ⚠ ONE DISCIPLINE FOR BOTH TILES, and the same one the geography section uses:
+              the section's OWN predicate gates the mount, and the tile's early return is the
+              belt to that braces. Relying on the self-hide alone works until a tile loses it,
+              at which point the section silently regains the empty-grid failure it was built
+              to prevent — and a reader of this JSX cannot tell which gate is load-bearing. */}
+          <div className="mt-2 space-y-3">
+            {hasFlash ? (
+              <PresidentialFlashMemoryTile cycle={cycle} round={round.round} />
+            ) : null}
+            {hasSuspicious && suspicious.status === "ready" ? (
+              <PresidentialSuspiciousTile suspicious={suspicious.suspicious} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       <section aria-labelledby={`pvr-turnout-${round.round}`}>
         <h2 id={`pvr-turnout-${round.round}`} className="text-lg font-semibold">

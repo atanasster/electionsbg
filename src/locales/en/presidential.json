@@ -102,5 +102,13 @@
   "presidential_top_regions_hint": "The oblasts that cast the most votes for a pair in this round, and which pair led each.",
   "presidential_top_regions_note": "The share is of the votes cast for a pair in this round, not of turnout: „none of the above“ and invalid ballots are not in it.",
   "presidential_cleavages_note": "Each dot is a pair that took at least 3% of the round's valid vote — a readability cut, not a legal threshold; a presidential ballot has none. Its horizontal position is the Pearson correlation between the pair's share across municipalities and that row's characteristic.",
-  "presidential_cleavages_unplaced": "A further {{votes}} votes could not be placed in a municipality and are outside the calculation."
+  "presidential_cleavages_unplaced": "A further {{votes}} votes could not be placed in a municipality and are outside the calculation.",
+  "presidential_suspicious_title": "Suspicious settlements",
+  "presidential_suspicious_hint": "Three signals from the protocols — a concentration of votes, many invalid ballots, and many voters added on the day. Each is a reason to look, not proof of wrongdoing.",
+  "presidential_suspicious_concentrated_hint": "Settlements where one pair took at least 80% of the valid votes. In a two-name runoff that is ordinary, which is why the national rate is printed beside it.",
+  "presidential_suspicious_invalid_hint": "Settlements where at least 10% of the paper ballots found were invalid. Where voting was mostly by machine there is no denominator, and the place is not counted.",
+  "presidential_suspicious_added_hint": "Settlements where at least 10% of those who voted were added to the roll on the day. A protocol reporting more added than voted at all is refused — that figure cannot be true.",
+  "presidential_suspicious_of": "Threshold {{threshold}} · measurable for {{measurable}} settlements · national rate {{national}}",
+  "presidential_suspicious_not_discriminating": "This signal separates nothing in this round — it covers {{share}} of the measurable settlements, so it describes the year rather than particular places. No names are listed here.",
+  "presidential_suspicious_coverage": "Computed across {{settlements}} settlements. Outside it are {{sections}} sections with {{votes}} votes that carry no ЕКАТТЕ — Sofia among them."
 }

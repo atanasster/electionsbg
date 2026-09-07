@@ -15,6 +15,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { guardedFetch, makeWarnOnce, str } from "./guardedFetch";
 import type { VoteFlowMatrix } from "@/data/voteFlows/voteFlowTypes";
 
 /** One oblast's row. ⚠ THE FIRST THREE FIELDS DESCRIBE THE ESTIMATE; the rest are arithmetic
@@ -87,8 +88,6 @@ export type RunoffTransferState =
   | { status: "absent" }
   | { status: "unusable" };
 
-const str = (v: unknown): v is string => typeof v === "string" && v.length > 0;
-
 export const isRunoffTransfer = (v: unknown): v is RunoffTransfer => {
   if (typeof v !== "object" || v === null) return false;
   const o = v as Record<string, unknown>;
@@ -112,57 +111,32 @@ export const isRunoffTransfer = (v: unknown): v is RunoffTransfer => {
 export const runoffTransferPath = (cycle: string): string =>
   `${cycle}/runoff_transfer.json`;
 
-const logged = new Set<string>();
-/** ⚠ ONCE PER PROCESS PER REASON. „Not published" (expected) and „malformed" (a defect) must
- *  not be indistinguishable, and a per-render warning is a log nobody reads. */
-const warnOnce = (key: string, message: string): void => {
-  if (logged.has(key)) return;
-  logged.add(key);
-  console.warn(message);
-};
+// ⚠ ONE SET PER MODULE, so a broken origin on one artifact cannot silence another's
+// first warning. The state machine itself lives in `guardedFetch`.
+const { warnOnce, reset } = makeWarnOnce();
 
 /** Test-only: the guard above is module state, so a suite asserting on it needs a way back. */
-export const __resetRunoffTransferWarnings = (): void => logged.clear();
+export const __resetRunoffTransferWarnings = reset;
 
 export const fetchRunoffTransfer = async (
   cycle: string,
 ): Promise<RunoffTransferState> => {
-  let res: Response;
-  try {
-    res = await fetch(dataUrl(`/${runoffTransferPath(cycle)}`));
-  } catch (e) {
-    // ⚠ A REJECTED FETCH LOOKS EXACTLY LIKE ROUTINE ABSENCE — a CORS misconfiguration on the
-    // data bucket takes every cycle out at once, and uncaught it would reach the reader as
-    // „this cycle has no runoff estimate". Caught here so it gets its own line.
-    warnOnce(
-      `rt:net:${cycle}`,
-      `runoff transfer ${cycle}: fetch failed (${e})`,
-    );
-    return { status: "unusable" };
-  }
-  if (res.status === 404) return { status: "absent" };
-  if (!res.ok) {
-    warnOnce(
-      `rt:http:${cycle}`,
-      `runoff transfer ${cycle}: HTTP ${res.status}`,
-    );
-    return { status: "unusable" };
-  }
-  let body: unknown;
-  try {
-    body = await res.json();
-  } catch {
-    warnOnce(`rt:json:${cycle}`, `runoff transfer ${cycle}: not JSON`);
-    return { status: "unusable" };
-  }
-  if (!isRunoffTransfer(body)) {
-    warnOnce(
-      `rt:shape:${cycle}`,
-      `runoff transfer ${cycle}: missing the estimate's caveat or its matrix — refusing to render it`,
-    );
-    return { status: "unusable" };
-  }
-  return { status: "ready", transfer: body };
+  const got = await guardedFetch({
+    path: runoffTransferPath(cycle),
+    id: cycle,
+    prefix: "rt",
+    subject: "runoff transfer",
+    guard: isRunoffTransfer,
+    shapeMessage:
+      "missing the estimate's caveat or its matrix — refusing to render it",
+    warnOnce,
+    toUrl: (path) => dataUrl(`/${path}`),
+  });
+  // ⚠ THE PAYLOAD KEEPS ITS OWN NAME. `transfer` is what every consumer destructures;
+  // renaming it to a generic `value` would rewrite five surfaces for no reader's benefit.
+  return got.status === "ready"
+    ? { status: "ready", transfer: got.value }
+    : got;
 };
 
 export const useRunoffTransfer = (

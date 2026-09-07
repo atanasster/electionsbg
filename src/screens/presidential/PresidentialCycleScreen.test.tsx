@@ -841,3 +841,199 @@ describe("the geography section", () => {
     expect(screen.getByText("ЕКОЛОГИЧНАТА ОГРАДА")).toBeTruthy();
   });
 });
+
+describe("the anomalies section", () => {
+  // ⚠⚠ SAME RULE AS GEOGRAPHY ABOVE, and here the trap is sharper: a `ready`
+  // `suspicious_settlements.json` whose every rule was UNMEASURABLE renders three zeros over
+  // „измеримо за 0 населени места", which a reader takes as „nothing was wrong here" when the
+  // truth is that nothing could be checked.
+  const serve = (files: Record<string, unknown>) => {
+    const seen: string[] = [];
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      seen.push(u);
+      for (const [needle, body] of Object.entries(files))
+        if (u.includes(needle))
+          return new Response(JSON.stringify(body), {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          });
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+    return seen;
+  };
+
+  const category = (over: Record<string, unknown> = {}) => ({
+    count: 3,
+    threshold: 80,
+    nationalPct: 49.4,
+    measurableSettlements: 2341,
+    flaggedShare: 0.001,
+    discriminating: true,
+    top: [
+      {
+        ekatte: "00012",
+        oblast: "BLG",
+        settlement: "с. Аномалия",
+        region_name: "Благоевград",
+        value: 96.4,
+      },
+    ],
+    votesAffected: 812,
+    ...over,
+  });
+
+  const SUSPICIOUS = {
+    cycle: LATEST_PRESIDENTIAL_CYCLE,
+    round: 1,
+    basis: "СИГНАЛНАТА ОГРАДА",
+    basisEn: "THE FLAG CAVEAT",
+    coverage: {
+      settlements: 4921,
+      sections: 11132,
+      sectionsWithoutEkatte: 1355,
+      votesWithoutEkatte: 502133,
+    },
+    concentrated: category(),
+    invalidBallots: category({ count: 0, top: [] }),
+    additionalVoters: category({ count: 0, top: [] }),
+  };
+
+  const FLASH = {
+    cycle: LATEST_PRESIDENTIAL_CYCLE,
+    round: 1,
+    coverage: {
+      protocolSections: 12488,
+      comparedSections: 9355,
+      uncomparedMachineVotes: 3089,
+    },
+    tickets: [{ number: 6, machineVotes: 1_000_000, flashVotes: 1_000_010 }],
+  };
+
+  it("renders NO heading when neither artifact is published", async () => {
+    // The ordinary state of this corpus: `data/*_pvr` is gitignored and both files reach the
+    // bucket only through `bucket:gz`.
+    const seen = serve({ "national_summary.json": SUMMARY });
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    // ⚠ WAIT FOR THE REQUESTS, or the negative assertion passes against the very gate it is
+    // written to reject — nothing renders while a query is still loading either.
+    await waitFor(() =>
+      expect(seen.some((u) => u.includes("suspicious_settlements.json"))).toBe(
+        true,
+      ),
+    );
+    await waitFor(() =>
+      expect(document.querySelector("[data-outcome-canvas]")).toBeTruthy(),
+    );
+    expect(screen.queryByText(bgCorpus.dashboard_section_anomalies)).toBeNull();
+  });
+
+  it("renders NO heading when the payload is READY but nothing was measurable", async () => {
+    // ⚠⚠ THE STATE A STATUS GATE GETS WRONG, and the reason `hasSuspiciousContent` exists.
+    const seen = serve({
+      "national_summary.json": SUMMARY,
+      "suspicious_settlements.json": {
+        ...SUSPICIOUS,
+        concentrated: category({
+          count: 0,
+          measurableSettlements: 0,
+          top: [],
+        }),
+        invalidBallots: category({
+          count: 0,
+          measurableSettlements: 0,
+          top: [],
+        }),
+        additionalVoters: category({
+          count: 0,
+          measurableSettlements: 0,
+          top: [],
+        }),
+      },
+    });
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await waitFor(() =>
+      expect(seen.some((u) => u.includes("suspicious_settlements.json"))).toBe(
+        true,
+      ),
+    );
+    await waitFor(() =>
+      expect(document.querySelector("[data-outcome-canvas]")).toBeTruthy(),
+    );
+    expect(screen.queryByText(bgCorpus.dashboard_section_anomalies)).toBeNull();
+  });
+
+  it("renders the heading, the caveat and the flagged place once it is published", async () => {
+    // ⚠ THE MUTATION CHECK for the two above: „no heading" is also satisfied by a gate that had
+    // silently become unreachable, which would take the whole section with it.
+    serve({
+      "national_summary.json": SUMMARY,
+      "suspicious_settlements.json": SUSPICIOUS,
+    });
+    expect(
+      await screen.findByText(bgCorpus.dashboard_section_anomalies),
+    ).toBeInTheDocument();
+    expect(screen.getByText("СИГНАЛНАТА ОГРАДА")).toBeTruthy();
+    expect(screen.getByText("с. Аномалия, Благоевград")).toBeTruthy();
+  });
+
+  it("keeps the heading for flash while the suspicious tile stays away", async () => {
+    // ⚠⚠ THE MIXED STATE, and the only one where the section's two gates differ. `hasFlash`
+    // opens the heading; the suspicious payload is `ready` and has nothing measurable, so its
+    // tile must not add three zeros under it — „nothing was wrong here" where the truth is
+    // „nothing could be checked". A machine-heavy round is exactly how this arises.
+    serve({
+      "national_summary.json": SUMMARY,
+      "flash.json": FLASH,
+      "suspicious_settlements.json": {
+        ...SUSPICIOUS,
+        concentrated: category({ count: 0, measurableSettlements: 0, top: [] }),
+        invalidBallots: category({
+          count: 0,
+          measurableSettlements: 0,
+          top: [],
+        }),
+        additionalVoters: category({
+          count: 0,
+          measurableSettlements: 0,
+          top: [],
+        }),
+      },
+    });
+    expect(
+      await screen.findByText(bgCorpus.dashboard_section_anomalies),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("СИГНАЛНАТА ОГРАДА")).toBeNull();
+  });
+
+  it("renders NO heading for a flash file whose every ticket is zero", async () => {
+    // ⚠ THE TILE'S REAL PREDICATE IS NOT `tickets.length`. It renders on any ticket and then
+    // filters to the rows worth reading, so an all-zero set opens the heading and draws a table
+    // with no body — the empty-grid failure one level down.
+    const seen = serve({
+      "national_summary.json": SUMMARY,
+      "flash.json": {
+        ...FLASH,
+        tickets: [{ number: 6, machineVotes: 0, flashVotes: 0 }],
+      },
+    });
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await waitFor(() =>
+      expect(seen.some((u) => u.includes("flash.json"))).toBe(true),
+    );
+    await waitFor(() =>
+      expect(document.querySelector("[data-outcome-canvas]")).toBeTruthy(),
+    );
+    expect(screen.queryByText(bgCorpus.dashboard_section_anomalies)).toBeNull();
+  });
+
+  it("renders the heading for the flash records alone — either tile is enough", async () => {
+    // The two artifacts have different publish paths and 2021 is the only cycle with flash
+    // records at all, so gating the section on both would hide one that is there.
+    serve({ "national_summary.json": SUMMARY, "flash.json": FLASH });
+    expect(
+      await screen.findByText(bgCorpus.dashboard_section_anomalies),
+    ).toBeInTheDocument();
+  });
+});

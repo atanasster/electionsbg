@@ -4,7 +4,6 @@ import { AlertTriangle, BarChart3, FileX2, UserPlus } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import {
   SuspiciousCategory,
-  SuspiciousTopSettlement,
   useSuspiciousSettlements,
 } from "@/data/dashboard/useSuspiciousSections";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
@@ -12,6 +11,7 @@ import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { settlementLabel } from "./settlementLabel";
 
 type Props = {
   parties: NationalPartyResult[];
@@ -29,18 +29,6 @@ type ColumnDef = {
   link: string;
   data: SuspiciousCategory;
   showParty?: boolean;
-};
-
-const stripRegionPrefix = (name?: string) =>
-  (name ?? "").replace(/^\d+\.\s*/, "");
-
-const settlementLabel = (s: SuspiciousTopSettlement, isBg: boolean) => {
-  const settlement = isBg ? s.settlement : (s.settlement_en ?? s.settlement);
-  const region = isBg
-    ? stripRegionPrefix(s.region_name)
-    : (s.region_name_en ?? stripRegionPrefix(s.region_name));
-  const parts = [settlement, region].filter(Boolean);
-  return parts.join(", ") || s.ekatte;
 };
 
 export const SuspiciousSectionsTile: FC<Props> = ({

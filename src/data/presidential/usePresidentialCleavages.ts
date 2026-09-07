@@ -14,6 +14,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { guardedFetch, makeWarnOnce, num, str } from "./guardedFetch";
 import type { CensusMetric } from "@/data/census/censusTypes";
 
 export interface PresidentialCleavageTicket {
@@ -55,10 +56,6 @@ export type PresidentialCleavagesState =
   | { status: "ready"; cleavages: PresidentialCleavages }
   | { status: "absent" }
   | { status: "unusable" };
-
-const str = (v: unknown): v is string => typeof v === "string" && v.length > 0;
-const num = (v: unknown): v is number =>
-  typeof v === "number" && Number.isFinite(v);
 
 export const isPresidentialCleavages = (
   v: unknown,
@@ -105,58 +102,33 @@ export const presidentialCleavagesPath = (
   round: 1 | 2,
 ): string => `${cycle}/tur${round}/demographic_cleavages.json`;
 
-const logged = new Set<string>();
-/** ⚠ ONCE PER PROCESS PER REASON — the family's rule. „Not published" is expected and
- *  „malformed" is a defect, and a per-render warning is a log nobody reads. */
-const warnOnce = (key: string, message: string): void => {
-  if (logged.has(key)) return;
-  logged.add(key);
-  console.warn(message);
-};
+// ⚠ ONE SET PER MODULE, so a broken origin on one artifact cannot silence another's
+// first warning. The state machine itself lives in `guardedFetch`.
+const { warnOnce, reset } = makeWarnOnce();
 
 /** Test-only: the guard above is module state, so a suite asserting on it needs a way back. */
-export const __resetPresidentialCleavagesWarnings = (): void => logged.clear();
+export const __resetPresidentialCleavagesWarnings = reset;
 
 export const fetchPresidentialCleavages = async (
   cycle: string,
   round: 1 | 2,
 ): Promise<PresidentialCleavagesState> => {
-  const id = `${cycle}/tur${round}`;
-  let res: Response;
-  try {
-    res = await fetch(dataUrl(`/${presidentialCleavagesPath(cycle, round)}`));
-  } catch (e) {
-    // ⚠ A REJECTED FETCH LOOKS EXACTLY LIKE ROUTINE ABSENCE — a CORS misconfiguration on the
-    // bucket takes every cycle out at once, and uncaught it reads as „no such analysis".
-    warnOnce(
-      `pc:net:${id}`,
-      `presidential cleavages ${id}: fetch failed (${e})`,
-    );
-    return { status: "unusable" };
-  }
-  if (res.status === 404) return { status: "absent" };
-  if (!res.ok) {
-    warnOnce(
-      `pc:http:${id}`,
-      `presidential cleavages ${id}: HTTP ${res.status}`,
-    );
-    return { status: "unusable" };
-  }
-  let body: unknown;
-  try {
-    body = await res.json();
-  } catch {
-    warnOnce(`pc:json:${id}`, `presidential cleavages ${id}: not JSON`);
-    return { status: "unusable" };
-  }
-  if (!isPresidentialCleavages(body)) {
-    warnOnce(
-      `pc:shape:${id}`,
-      `presidential cleavages ${id}: missing the ecological caveat or its rows — refusing to render it`,
-    );
-    return { status: "unusable" };
-  }
-  return { status: "ready", cleavages: body };
+  const got = await guardedFetch({
+    path: presidentialCleavagesPath(cycle, round),
+    id: `${cycle}/tur${round}`,
+    prefix: "pc",
+    subject: "presidential cleavages",
+    guard: isPresidentialCleavages,
+    shapeMessage:
+      "missing the ecological caveat or its rows — refusing to render it",
+    warnOnce,
+    toUrl: (path) => dataUrl(`/${path}`),
+  });
+  // ⚠ THE PAYLOAD KEEPS ITS OWN NAME. `cleavages` is what every consumer destructures;
+  // renaming it to a generic `value` would rewrite five surfaces for no reader's benefit.
+  return got.status === "ready"
+    ? { status: "ready", cleavages: got.value }
+    : got;
 };
 
 export const usePresidentialCleavages = (

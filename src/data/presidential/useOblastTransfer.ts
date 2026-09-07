@@ -15,6 +15,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { guardedFetch, makeWarnOnce, str } from "./guardedFetch";
 import type { VoteFlowMatrix } from "@/data/voteFlows/voteFlowTypes";
 
 export interface OblastTransfer {
@@ -57,8 +58,6 @@ export type OblastTransferState =
   | { status: "absent" }
   | { status: "unusable" };
 
-const str = (v: unknown): v is string => typeof v === "string" && v.length > 0;
-
 export const isOblastTransfer = (v: unknown): v is OblastTransfer => {
   if (typeof v !== "object" || v === null) return false;
   const o = v as Record<string, unknown>;
@@ -90,53 +89,33 @@ export const oblastTransferPath = (cycle: string, oblast: string): string =>
 // read-only bucket, no credentials are attached, and whatever comes back must satisfy
 // `isOblastTransfer` before anything renders. Worth doing for the family in its own pass.
 
-const logged = new Set<string>();
-/** ⚠ ONCE PER PROCESS PER REASON — `useRunoffTransfer`'s rule. „Not published" is expected and
- *  „malformed" is a defect, and a per-render warning is a log nobody reads. */
-const warnOnce = (key: string, message: string): void => {
-  if (logged.has(key)) return;
-  logged.add(key);
-  console.warn(message);
-};
+// ⚠ ONE SET PER MODULE, so a broken origin on one artifact cannot silence another's
+// first warning. The state machine itself lives in `guardedFetch`.
+const { warnOnce, reset } = makeWarnOnce();
 
 /** Test-only: the guard above is module state, so a suite asserting on it needs a way back. */
-export const __resetOblastTransferWarnings = (): void => logged.clear();
+export const __resetOblastTransferWarnings = reset;
 
 export const fetchOblastTransfer = async (
   cycle: string,
   oblast: string,
 ): Promise<OblastTransferState> => {
-  const id = `${cycle}/${oblast}`;
-  let res: Response;
-  try {
-    res = await fetch(dataUrl(`/${oblastTransferPath(cycle, oblast)}`));
-  } catch (e) {
-    // ⚠ A REJECTED FETCH LOOKS EXACTLY LIKE ROUTINE ABSENCE — a CORS misconfiguration on the
-    // data bucket takes every oblast out at once, and uncaught it reaches the reader as „this
-    // oblast has no runoff estimate".
-    warnOnce(`ot:net:${id}`, `oblast transfer ${id}: fetch failed (${e})`);
-    return { status: "unusable" };
-  }
-  if (res.status === 404) return { status: "absent" };
-  if (!res.ok) {
-    warnOnce(`ot:http:${id}`, `oblast transfer ${id}: HTTP ${res.status}`);
-    return { status: "unusable" };
-  }
-  let body: unknown;
-  try {
-    body = await res.json();
-  } catch {
-    warnOnce(`ot:json:${id}`, `oblast transfer ${id}: not JSON`);
-    return { status: "unusable" };
-  }
-  if (!isOblastTransfer(body)) {
-    warnOnce(
-      `ot:shape:${id}`,
-      `oblast transfer ${id}: missing the estimate's caveat, the coverage refusal or its matrix — refusing to render it`,
-    );
-    return { status: "unusable" };
-  }
-  return { status: "ready", transfer: body };
+  const got = await guardedFetch({
+    path: oblastTransferPath(cycle, oblast),
+    id: `${cycle}/${oblast}`,
+    prefix: "ot",
+    subject: "oblast transfer",
+    guard: isOblastTransfer,
+    shapeMessage:
+      "missing the estimate's caveat, the coverage refusal or its matrix — refusing to render it",
+    warnOnce,
+    toUrl: (path) => dataUrl(`/${path}`),
+  });
+  // ⚠ THE PAYLOAD KEEPS ITS OWN NAME. `transfer` is what every consumer destructures;
+  // renaming it to a generic `value` would rewrite five surfaces for no reader's benefit.
+  return got.status === "ready"
+    ? { status: "ready", transfer: got.value }
+    : got;
 };
 
 export const useOblastTransfer = (

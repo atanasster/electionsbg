@@ -12,6 +12,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { guardedFetch, makeWarnOnce, num, str } from "./guardedFetch";
 
 export interface SplitPair {
   /** The ballot number, which is the SAME on both ballots — that is what confirms the match. */
@@ -64,11 +65,6 @@ export type SplitTicketState =
   | { status: "absent" }
   | { status: "unusable" };
 
-const str = (v: unknown): v is string => typeof v === "string" && v.length > 0;
-
-const num = (v: unknown): v is number =>
-  typeof v === "number" && Number.isFinite(v);
-
 export const isSplitTicket = (v: unknown): v is SplitTicket => {
   if (typeof v !== "object" || v === null) return false;
   const o = v as Record<string, unknown>;
@@ -89,50 +85,30 @@ export const isSplitTicket = (v: unknown): v is SplitTicket => {
 export const splitTicketPath = (cycle: string): string =>
   `${cycle}/split_ticket.json`;
 
-const logged = new Set<string>();
-const warnOnce = (key: string, message: string): void => {
-  if (logged.has(key)) return;
-  logged.add(key);
-  console.warn(message);
-};
+// ⚠ ONE SET PER MODULE, so a broken origin on one artifact cannot silence another's
+// first warning. The state machine itself lives in `guardedFetch`.
+const { warnOnce, reset } = makeWarnOnce();
 
 /** Test-only: the guard above is module state, so a suite asserting on it needs a way back. */
-export const __resetSplitTicketWarnings = (): void => logged.clear();
+export const __resetSplitTicketWarnings = reset;
 
 export const fetchSplitTicket = async (
   cycle: string,
 ): Promise<SplitTicketState> => {
-  let res: Response;
-  try {
-    res = await fetch(dataUrl(`/${splitTicketPath(cycle)}`));
-  } catch (e) {
-    warnOnce(`st:net:${cycle}`, `split ticket ${cycle}: fetch failed (${e})`);
-    return { status: "unusable" };
-  }
-  if (res.status === 404) return { status: "absent" };
-  if (!res.ok) {
-    warnOnce(`st:http:${cycle}`, `split ticket ${cycle}: HTTP ${res.status}`);
-    return { status: "unusable" };
-  }
-  let body: unknown;
-  try {
-    body = await res.json();
-  } catch {
-    // ⚠ A 200 CARRYING THE SPA SHELL. A `data/**` fetch that misses the bucket falls through to
-    // the catch-all, which `firebase.json` stamps `application/json` — successful right up to
-    // `JSON.parse`, and the one signature that separates a misconfigured data origin from an
-    // absent file.
-    warnOnce(`st:json:${cycle}`, `split ticket ${cycle}: not JSON`);
-    return { status: "unusable" };
-  }
-  if (!isSplitTicket(body)) {
-    warnOnce(
-      `st:shape:${cycle}`,
-      `split ticket ${cycle}: missing the lower bound's derivation — refusing to render it`,
-    );
-    return { status: "unusable" };
-  }
-  return { status: "ready", split: body };
+  const got = await guardedFetch({
+    path: splitTicketPath(cycle),
+    id: cycle,
+    prefix: "st",
+    subject: "split ticket",
+    guard: isSplitTicket,
+    shapeMessage:
+      "missing the lower bound's derivation — refusing to render it",
+    warnOnce,
+    toUrl: (path) => dataUrl(`/${path}`),
+  });
+  // ⚠ THE PAYLOAD KEEPS ITS OWN NAME. `split` is what every consumer destructures;
+  // renaming it to a generic `value` would rewrite five surfaces for no reader's benefit.
+  return got.status === "ready" ? { status: "ready", split: got.value } : got;
 };
 
 export const useSplitTicket = (cycle: string | undefined): SplitTicketState => {
