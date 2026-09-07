@@ -314,10 +314,6 @@ export const filterCanonicalOblasts = <T extends { code: string }>(
 ): T[] =>
   rows.filter((r) => oblastToCanon(r.code) === r.code && !!OBLAST_NAME[r.code]);
 
-/** How many oblasts Bulgaria has — the rail's true denominator, and NOT the payload's row
- *  count, which is 31 МИР codes. */
-export const OBLAST_TOTAL = 28;
-
 /** How many places the rail names. Four, like the tile it replaces — a rail is a sample the
  *  reader can scan, and the action beside it goes to all thirty. */
 export const EVIDENCE_PLACES = 4;
@@ -358,16 +354,26 @@ export const pricesHubEvidence = (
   if (!meta.asOf || !meta.products) return undefined;
   return {
     heading: t("prices_evidence_heading"),
+    // ⚠️ TWO CLAUSES, AND THE COVERAGE ONE IS DELIBERATELY GONE (2026-09-07). It read
+    // „4 от 27 области (от 28, без София-град — публикува се по МИР)" and took the caption to
+    // four lines in an 11px column, which is what made the rail read as dense small print
+    // beside a grid of one-line tiles.
+    //
+    // What that clause protected was the omission of the capital — „a 'where is it cheapest'
+    // list silently missing the largest city is its own defect", per `filterCanonicalOblasts`'
+    // docblock, which still states it. The reason it can go from HERE rather than needing a
+    // new home: the omission is an OBLAST-TIER artifact only, and this rail's own action link
+    // goes to /prices/map, which is município-grained and carries Sofia as `SOF46` (verified
+    // against the live ranking payload — `muni` tier, 159 rows). So the reader who wonders is
+    // one click away on the page the rail already points at.
+    //
+    // ⚠️ IF A COUNT EVER COMES BACK, INTERPOLATE IT. It was the only `*_evidence_basis` in the
+    // corpus to hardcode its own row count, and `EVIDENCE_PLACES`' docblock invites the
+    // one-token edit that would then ship a five-row list captioned „4 от 27" in both
+    // languages with every test green.
     basis: t("prices_evidence_basis", {
-      // ⚠️ INTERPOLATED, never a literal „4" in the string. It is the only `*_evidence_basis`
-      // in the corpus that hardcoded its own row count, and `EVIDENCE_PLACES`' docblock
-      // invites the one-token edit that would then ship a five-row list captioned „4 от 27"
-      // in both languages with every test green.
-      shown: nf.format(EVIDENCE_PLACES),
       products: nf.format(meta.products),
       asOf: fmtPriceDate(meta.asOf, lang),
-      ranked: nf.format(oblasts.length),
-      total: nf.format(OBLAST_TOTAL),
     }),
     rows: oblasts.slice(0, EVIDENCE_PLACES).map((o) => ({
       // The oblast CODE, not the name: two places can share a name and React then reuses the

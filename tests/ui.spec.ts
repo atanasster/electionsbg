@@ -855,10 +855,13 @@ const HUB_HEAD_BUDGETS: {
   //
   // ⚠️ THE RAIL STILL DOES NOT DRIVE THE HEIGHT, unlike /governance/sectors and /indicators:
   // the identity column beside it is taller than the four rows even without the search tile.
+  // At 428 the aside is 246 of it, so the ceiling below is the identity column's.
   //
   // 508 px with a sentence title; 492 once it shortened to „Цените след еврото"; 442 once the
-  // search tile left. Measured 2026-09-07 at 1280.
-  { path: "/prices", maxPx: 510, measured: 442, cells: 4, asideRows: 4 },
+  // search tile left; 428 once the rail's basis dropped its coverage clause and went from
+  // four 11px lines to three. Measured 2026-09-07 at 1280. (EN is 414 — the clause wraps
+  // shorter there — but this ceiling is read on the BG path, which is the taller one.)
+  { path: "/prices", maxPx: 495, measured: 428, cells: 4, asideRows: 4 },
   // A RANKING, and a third shape again: identity + freshness + deck + a full search field +
   // a 4-cell band + a one-line note, with NO scope control (the page has no `?pscope` — its
   // window is whatever year each mayor last filed for) and NO evidence rail (the ranked

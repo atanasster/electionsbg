@@ -312,22 +312,35 @@ describe("the evidence rail", () => {
     expect(bgCorpus.prices_evidence_basis).toMatch(/медиана/);
   });
 
-  it("⚠️ carries BOTH denominators, its day, and the omission of Sofia", () => {
-    // Four rows out of the ones that could be ranked, out of 28 oblasts. „30" was the
-    // payload's МИР row count and is not a number of oblasts at all — Bulgaria has 28.
+  it("carries its basket size and its day — and NO coverage clause", () => {
+    // ⚠️ THIS TEST USED TO ASSERT THE OPPOSITE HALF, and the inversion is a DECISION rather
+    // than a regression, so it is pinned rather than deleted. It required „28" (the oblast
+    // count), the ranked denominator, and the words „София-град"/„Sofia city" — because a
+    // „where is it cheapest" list silently missing the largest city is its own defect, and
+    // Sofia-grad appears in this payload ONLY as its three МИР slices.
     //
-    // ⚠️ AND THE MISSING CAPITAL IS NAMED. Sofia-grad appears in this payload ONLY as its
-    // three МИР slices, so a list of real oblasts has no Sofia — and a „where is it cheapest"
-    // list silently missing the largest city is its own defect.
+    // Dropped 2026-09-07: those three facts took the caption to four lines of 11px small
+    // print beside a grid of one-line tiles, which is what made the rail read as dense. The
+    // omission is an OBLAST-TIER artifact only — the rail's own action goes to /prices/map,
+    // which is município-grained and carries Sofia as `SOF46` — so the fact stays reachable
+    // one click away, on the page this rail already points at. `filterCanonicalOblasts`'
+    // docblock still states the rule; what is gone is the caption's restatement of it.
     const basis = rail()!.basis!;
-    expect(basis).toContain("28");
     expect(basis).toContain("12");
     expect(basis).toContain("2026");
     // ⚠️ ON THE ARGUMENTS, not the string — the test `t` renders „key:arg1:arg2:…" and the
     // DATE is „30.08.2026 г.", so a naive `not.toContain("30")` fails against correct code.
     expect(basis.split(":").slice(1)).not.toContain("30");
-    expect(bgCorpus.prices_evidence_basis).toMatch(/София-град/);
-    expect(enCorpus.prices_evidence_basis).toMatch(/Sofia city/i);
+    // The clause must not creep back one locale at a time: a caption naming a denominator in
+    // BG and not in EN is worse than one naming it nowhere.
+    for (const corpus of [bgCorpus, enCorpus]) {
+      expect(corpus.prices_evidence_basis).not.toMatch(
+        /\{\{(shown|ranked|total)\}\}/,
+      );
+      expect(corpus.prices_evidence_basis).not.toMatch(
+        /София-град|Sofia city/i,
+      );
+    }
   });
 
   it("REFUSES rather than shortening when the ranking cannot fill it", () => {
@@ -343,14 +356,16 @@ describe("the evidence rail", () => {
     expect(rail(OBLASTS, { asOf: "2026-08-30", products: 0 })).toBeUndefined();
   });
 
-  it("⚠️ the basis's row count IS `EVIDENCE_PLACES`, not a literal beside it", () => {
-    // It was a bare „4" in both locales while the value producing it was a TypeScript
-    // constant whose own docblock invites the one-token edit — which would then ship a
-    // five-row list captioned „4 от 27" in both languages with every test green. It is the
-    // only `*_evidence_basis` in the corpus that hardcoded its count.
+  it("⚠️ the basis states no row count at all — and if one returns, it is interpolated", () => {
+    // The count went with the coverage clause above. The hazard it guarded is NOT retired,
+    // which is why this reads as a ban rather than being deleted: it was a bare „4" in both
+    // locales while the value producing it is a TypeScript constant whose own docblock
+    // invites the one-token edit — which would then ship a five-row list captioned „4 от 27"
+    // in both languages with every test green. `EVIDENCE_PLACES` still drives the row slice.
     for (const corpus of [bgCorpus, enCorpus])
-      expect(corpus.prices_evidence_basis).toContain("{{shown}}");
-    expect(rail()!.basis!.split(":")).toContain(String(EVIDENCE_PLACES));
+      expect(corpus.prices_evidence_basis).not.toMatch(
+        new RegExp(`(^|[^0-9])${EVIDENCE_PLACES}([^0-9]|$)`),
+      );
   });
 
   it("shows exactly EVIDENCE_PLACES rows, however long the ranking is", () => {
