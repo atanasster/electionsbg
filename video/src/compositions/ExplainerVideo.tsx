@@ -11,15 +11,14 @@ import {
 import { Stage16x9, STAGE } from "../components/Stage16x9";
 import { InflationCanvas } from "../scenes/InflationCanvas";
 import { RiskCanvas } from "../scenes/RiskCanvas";
+import { FlyoverCanvas } from "../canvases/FlyoverCanvas";
 import { ScreenPlate } from "../scenes/ScreenPlate";
 import { Captions } from "../components/Captions";
 import { THEME } from "../theme";
 import { audioPath } from "../lib/spec";
-import { resolveCanvas, type CanvasState } from "../lib/canvasState";
-import {
-  resolveRiskCanvas,
-  type RiskCanvasState,
-} from "../lib/riskCanvasState";
+import { resolveCanvas } from "../lib/canvasState";
+import { resolveRiskCanvas } from "../lib/riskCanvasState";
+import { resolveFlyoverCanvas } from "../lib/flyoverCanvasState";
 import type { ExplainerProps } from "./explainerMetadata";
 
 /** The right-hand rail: the one thing this scene is saying. */
@@ -160,10 +159,10 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
               zoomAt={activeScreen.zoomAt}
               cursor={activeScreen.cursor}
             />
-          ) : spec.canvasKind === "risk" ? (
-            <RiskCanvas
-              state={resolveRiskCanvas(
-                spec.scenes as { canvas?: Partial<RiskCanvasState> }[],
+          ) : spec.canvasKind === "flyover" ? (
+            <FlyoverCanvas
+              state={resolveFlyoverCanvas(
+                spec.scenes,
                 sceneDurations,
                 frame,
                 fps,
@@ -171,14 +170,15 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
               width={chartW}
               height={chartH}
             />
+          ) : spec.canvasKind === "risk" ? (
+            <RiskCanvas
+              state={resolveRiskCanvas(spec.scenes, sceneDurations, frame, fps)}
+              width={chartW}
+              height={chartH}
+            />
           ) : (
             <InflationCanvas
-              state={resolveCanvas(
-                spec.scenes as { canvas?: Partial<CanvasState> }[],
-                sceneDurations,
-                frame,
-                fps,
-              )}
+              state={resolveCanvas(spec.scenes, sceneDurations, frame, fps)}
               width={chartW}
               height={chartH}
             />

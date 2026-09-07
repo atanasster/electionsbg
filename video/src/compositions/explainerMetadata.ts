@@ -3,6 +3,7 @@ import { audioPath, type ExplainerSpec } from "../lib/spec";
 import { EXPLAINER_TAIL_SECONDS, sceneFrames } from "../lib/audio";
 import type { CanvasState } from "../lib/canvasState";
 import type { RiskCanvasState } from "../lib/riskCanvasState";
+import type { FlyoverState } from "../../../src/lib/flyover/state";
 
 /**
  * The composition's props and the length measurement that fills them in.
@@ -20,8 +21,9 @@ import type { RiskCanvasState } from "../lib/riskCanvasState";
  * union of every canvas's fields.
  */
 export type AnyExplainerSpec =
-  | ExplainerSpec<CanvasState>
-  | ExplainerSpec<RiskCanvasState>;
+  | (ExplainerSpec<CanvasState> & { canvasKind: "inflation" })
+  | (ExplainerSpec<RiskCanvasState> & { canvasKind: "risk" })
+  | (ExplainerSpec<FlyoverState> & { canvasKind: "flyover" });
 
 export type ExplainerProps = {
   spec: AnyExplainerSpec;
