@@ -93,6 +93,7 @@ describe("an unwired level degrades to its text equivalent", () => {
         adapter={adapterKey("parliamentary", "country", "vote_share")}
         {...presentational}
         placeId="BG"
+        cycle="2026_04_19"
       />,
     );
     expect(screen.getByText(bg.election_map_unavailable)).toBeInTheDocument();
@@ -101,14 +102,16 @@ describe("an unwired level degrades to its text equivalent", () => {
   it("does not describe a permanent state in the present continuous", () => {
     // ⚠ THE COPY WAS „Картата се зарежда с данните за мястото." — "the map is loading" — on a
     // branch reached only when the registry has NO adapter for the key, so nothing was loading
-    // and nothing ever would. Measured: every `local/*` level declares a map and registers no
-    // adapter, so all 289 municipality pages plus both regions and the country page carried a
-    // loading message that resolved for no one.
+    // and nothing ever would. Measured then: every `local/*` level declared a map and registered
+    // no adapter, so all 289 municipality pages plus both regions and the country page carried a
+    // loading message that resolved for no one. `local/country/winner` has since been wired; the
+    // levels below it have not, so the branch is still live and this case still has a subject.
     render(
       <ElectionMapPanel
         adapter={adapterKey("parliamentary", "country", "vote_share")}
         {...presentational}
         placeId="BG"
+        cycle="2026_04_19"
       />,
     );
     expect(screen.queryByText(bg.election_map_placeholder)).toBeNull();
@@ -133,11 +136,21 @@ describe("a registered adapter is loaded lazily and only once", () => {
     (MAP_ADAPTERS as Record<string, unknown>)[key] = loader;
     try {
       const { rerender } = render(
-        <ElectionMapPanel adapter={key} placeId="BG" {...presentational} />,
+        <ElectionMapPanel
+          adapter={key}
+          placeId="BG"
+          cycle="2026_04_19"
+          {...presentational}
+        />,
       );
       await waitFor(() => expect(screen.getByTestId("adapter")).toBeTruthy());
       rerender(
-        <ElectionMapPanel adapter={key} placeId="BG" {...presentational} />,
+        <ElectionMapPanel
+          adapter={key}
+          placeId="BG"
+          cycle="2026_04_19"
+          {...presentational}
+        />,
       );
       await waitFor(() => expect(screen.getByTestId("adapter")).toBeTruthy());
       expect(loader).toHaveBeenCalledTimes(1);

@@ -38,10 +38,8 @@ import {
 } from "@/screens/elections/electionSurfaceLayout";
 import { presidentialCountryFacts } from "@/data/presidential/countryFacts";
 import { formatInt, formatPct } from "@/lib/currency";
-import {
-  namesakeCountForTicket,
-  personHrefForTicket,
-} from "@/data/presidential/ticketPersons";
+import { PresidentialPersonName } from "./PresidentialPersonName";
+import { PresidentialTicketRanking } from "./PresidentialTicketRanking";
 import {
   leadersByPlace,
   useRoundRollup,
@@ -79,41 +77,6 @@ const NOMINATOR_KEY: Record<string, string> = {
   party: "presidential_nominator_party",
   coalition: "presidential_nominator_coalition",
   committee: "presidential_nominator_committee",
-};
-
-/** A candidate's name, linked to their `/person` page where the corpus can name exactly one.
- *
- *  ⚠ NOT A COMPONENT THAT DECIDES — the decision was made at build time by
- *  `build_ticket_persons.ts`, which REFUSES a shared name rather than scoring candidates. All
- *  this does is render the refusal as plain text, and say WHY when the reason is ambiguity:
- *  „no link" and „several people have this name" are different facts, and only the second is
- *  worth a reader's attention. */
-const PersonName: FC<{ name: string }> = ({ name }) => {
-  const { t } = useTranslation();
-  const href = personHrefForTicket(name);
-  if (href)
-    return (
-      <Link className="underline" to={href}>
-        {name}
-      </Link>
-    );
-  const namesakes = namesakeCountForTicket(name);
-  return (
-    <>
-      {name}
-      {/* ⚠ THE EXPLANATION IS NOT IN A `title`. A tooltip reaches a mouse and nothing else —
-          not touch, not a keyboard, and a screen reader only sometimes — so the mark carries
-          the reason as its accessible name instead, and the visible text stays short. */}
-      {namesakes > 1 ? (
-        <span className="ml-1 text-xs text-muted-foreground">
-          <span aria-hidden="true">{t("presidential_namesake_mark")}</span>
-          <span className="sr-only">
-            {t("presidential_namesake_hint", { count: namesakes })}
-          </span>
-        </span>
-      ) : null}
-    </>
-  );
 };
 
 const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
@@ -156,6 +119,76 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
              first. */}
       <ElectionFactsGrid facts={facts} titleId={`pvr-facts-${round.round}`} />
 
+      {/* 2. the canvas — the map and the national result side by side, the arrangement
+             `/parliamentary` opens with and the reason this block moved above the rule strip
+             and the full table.
+
+             ⚠ THE PAIR BESIDE THE MAP IS THE NATIONAL RANKING, not the per-oblast table. §4's
+             rule is that a map has a text equivalent and that colour is never the only encoding
+             of a winner; on every other kind that equivalent is the ranked result, and putting
+             the oblast table there instead answered a different question one level down. The
+             oblast table follows immediately (section 3) and keeps BOTH of its own jobs: the
+             map's per-region twin, and the only route from this page to an oblast.
+
+             ⚠ THE RANKING IS UNGATED AND THE MAP IS NOT. `round.ranking` is in the summary this
+             page already has; the map's fills come from a region ROLL-UP that is usually absent
+             (`data/*_pvr` is gitignored and has no bucket copy). So the list renders alone in
+             that state — a canvas with one column — rather than the whole first screen
+             disappearing with the map, which is what gating the pair on `leaders` would do.
+
+             ⚠ THE SHELL'S OWN GRID CONSTANTS. The DOM order is ranked-then-map and at `lg` the
+             map is PLACED into column 1 — placement, never `order`, so the reading order on a
+             phone is the list first. Hand-writing the ratio here is what would drift from
+             `/parliamentary` the first time either side changed it. */}
+      <section aria-labelledby={`pvr-canvas-${round.round}`}>
+        <h2 id={`pvr-canvas-${round.round}`} className="text-lg font-semibold">
+          {t("election_ballot_presidential_ticket")}
+        </h2>
+        <div
+          className={`mt-2 ${CANVAS_GRID_CLASS}`}
+          data-outcome-canvas="presidential_ticket"
+        >
+          <div className={CANVAS_RANKED_SLOT_CLASS} data-canvas-slot="ranked">
+            <PresidentialTicketRanking
+              round={round}
+              tickets={tickets}
+              detailsHref={`#pvr-ranking-${round.round}`}
+            />
+          </div>
+          {leaders.size > 0 ? (
+            <div className={CANVAS_MAP_SLOT_CLASS} data-canvas-slot="map">
+              {/* ⚠ VISIBLE, NOT `sr-only`, AND INSIDE THE SLOT. The shell renders a map's
+                  question as a visible `<h3>` above the map on every other kind. */}
+              <h3 className="text-sm font-medium" data-map-question>
+                {t("presidential_map_q_who_led_region")}
+              </h3>
+              <PresidentialRegionsMap
+                cycle={cycle}
+                round={round.round}
+                leaders={leaders}
+                tickets={tickets}
+              />
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      {/* 3. the per-oblast table — the map's region-by-region twin, and the only route from
+             this page down to an oblast, which is why it renders on exactly the same condition
+             as the map. ⚠ BOTH OR NEITHER: they used to appear and disappear separately, and a
+             map with no per-region text at all asserts „няма подадени гласове" about 31 named
+             places in the state this corpus is usually in. */}
+      {leaders.size > 0 ? (
+        <PresidentialRegionsList
+          cycle={cycle}
+          leaders={leaders}
+          tickets={tickets}
+        />
+      ) : null}
+
+      {/* 4. art. 93 (3), both conditions. ⚠ IT SITS BELOW THE CANVAS NOW and still above the
+             full table: the strip answers „why was there a second round", which is a question a
+             reader asks after seeing the result, not before it. */}
       <section
         aria-labelledby={`pvr-rule-${round.round}`}
         className="rounded-lg border p-4"
@@ -186,6 +219,11 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
         </ul>
       </section>
 
+      {/* 5. the FULL table — every ticket, with the vice-president and the nominator. ⚠ NOT A
+             DUPLICATE OF THE CANVAS LIST: that one is a top-eight preview of one column, and
+             these three columns are what a canvas column cannot hold. For an инициативен
+             комитет the nominator is also the difference between a committee and a party, which
+             is a false statement about a named pair if it is dropped. */}
       <section aria-labelledby={`pvr-ranking-${round.round}`}>
         <h2 id={`pvr-ranking-${round.round}`} className="text-lg font-semibold">
           {t("presidential_ranking_heading")}
@@ -218,9 +256,9 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
                       merely shares a name. The refusal renders as plain text; the name is
                       still there, which is what a reader needs. */}
                   <td>
-                    <PersonName name={r.president} />
+                    <PresidentialPersonName name={r.president} />
                     <span className="block text-muted-foreground">
-                      <PersonName name={r.vicePresident} />
+                      <PresidentialPersonName name={r.vicePresident} />
                     </span>
                   </td>
                   <td className="text-muted-foreground">
@@ -246,58 +284,6 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           {t("presidential_share_denominator")}
         </p>
       </section>
-
-      {/* ⚠ THE TWIN FIRST, THEN THE MAP. §4: the ranked result precedes the map in the DOM,
-          and on mobile that is the visual order too — the list is the accessible result as
-          well as the faster scan. Here it is load-bearing twice over: 17 of 2021's 23 tickets
-          carry a NEUTRAL-palette colour, because an инициативен комитет has no party colour to
-          inherit, so several fills are near-indistinguishable greys — and the table is the
-          only route from this page down to an oblast.
-
-          ⚠ BOTH OR NEITHER, gated on the roll-up having ANSWERED. They used to appear and
-          disappear separately: the list returns null with no rows while the map rendered 31
-          keyboard buttons asserting „няма подадени гласове" — a choropleth with no text
-          equivalent at all, saying something false, in the state this corpus is usually in. */}
-      {leaders.size > 0 ? (
-        <section aria-labelledby={`pvr-where-${round.round}`}>
-          {/* ⚠ VISIBLE, NOT `sr-only`. The shell renders a map's question as a visible heading
-              on every other kind, and hiding it here would make the same information sighted-
-              reader-only on the one page that draws its map outside the shell. */}
-          <h2
-            id={`pvr-where-${round.round}`}
-            className="text-lg font-semibold"
-            data-map-question
-          >
-            {t("presidential_map_q_who_led_region")}
-          </h2>
-          {/* ⚠ THE SHELL'S OWN CANVAS GRID, from the shell's own constants — one column on
-              mobile, table-beside-map at `lg`, with the map PLACED into column 1 rather than
-              reordered. The DOM order is unchanged: the list is still first, so it is still the
-              text equivalent §4 requires and still the reading order on a phone, and only the
-              desktop placement moves. Hand-writing the ratio here is what would drift from
-              `/parliamentary` the first time either side changed it. */}
-          <div
-            className={`mt-2 ${CANVAS_GRID_CLASS}`}
-            data-outcome-canvas="presidential_ticket"
-          >
-            <div className={CANVAS_RANKED_SLOT_CLASS} data-canvas-slot="ranked">
-              <PresidentialRegionsList
-                cycle={cycle}
-                leaders={leaders}
-                tickets={tickets}
-              />
-            </div>
-            <div className={CANVAS_MAP_SLOT_CLASS} data-canvas-slot="map">
-              <PresidentialRegionsMap
-                cycle={cycle}
-                round={round.round}
-                leaders={leaders}
-                tickets={tickets}
-              />
-            </div>
-          </div>
-        </section>
-      ) : null}
 
       <section aria-labelledby={`pvr-turnout-${round.round}`}>
         <h2 id={`pvr-turnout-${round.round}`} className="text-lg font-semibold">
@@ -473,10 +459,10 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           )}
           {": "}
           <strong>
-            <PersonName name={summary.winner.president} />
+            <PresidentialPersonName name={summary.winner.president} />
           </strong>
           {" · "}
-          <PersonName name={summary.winner.vicePresident} />
+          <PresidentialPersonName name={summary.winner.vicePresident} />
         </p>
         {/* ⚠ THE OTHER DIRECTION OF THE SAME CROSS-LINK. A pill on only one side is a route a
             reader can take once and never find again — and this side is the one where „local
@@ -528,7 +514,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
               <li key={s.number}>
                 {/* The same rule as the ranked rows — one component, so a name cannot be a
                     link in one list and bare text in the other on the same page. */}
-                <PersonName name={s.president} />
+                <PresidentialPersonName name={s.president} />
                 {": "}
                 <span className="tabular-nums">
                   {formatPct(s.round1Share, lang, PCT_DIGITS)} →{" "}

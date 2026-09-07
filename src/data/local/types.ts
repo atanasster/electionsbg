@@ -280,6 +280,13 @@ export type LocalPartySeats = {
   seats: number;
 };
 
+export type LocalPartyVotes = {
+  canonicalId: string;
+  displayName: string;
+  color: string;
+  votes: number;
+};
+
 export type LocalTurnout = {
   numRegisteredVoters: number;
   totalActualVoters: number;
@@ -359,6 +366,19 @@ export type LocalRegionsSummaryRow = {
   // (pre-breakdown) still type-check; the tooltip falls back to topMayor.
   mayorsWon?: LocalPartyTally[];
   councilSeats?: LocalPartySeats[];
+  // Council VOTES across the oblast — what the country map is coloured by.
+  //
+  // ⚠ NOT `councilSeats` IN ANOTHER UNIT. Seats are apportioned per município
+  // under a local threshold, so the two disagree about who leads an oblast: in
+  // 2023 they name different parties in Благоевград and Ямбол, in 2007 in six
+  // oblasts. The country surface's ranked list is in VOTES, so a map filled by
+  // seats would colour an oblast for a party the list beside it does not lead.
+  //
+  // ⚠ OPTIONAL, AND ABSENT MEANS „this summary predates the field", never „no
+  // votes". A cached or not-yet-republished `regions_summary.json` has none, and
+  // the map leaves those oblasts unfilled rather than borrowing the seats
+  // leader's colour — which would publish one quantity under the other's label.
+  councilVotes?: LocalPartyVotes[];
   // Sofia only: the directly-elected районни кметове (24 district mayors)
   // tallied by party. The national mayor map shows this on hover instead of
   // the single city mayoralty; the Sofia-city skyline shortcut keeps the city

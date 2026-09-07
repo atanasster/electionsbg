@@ -360,13 +360,62 @@ describe("the presidential country page", () => {
     // The question heading is VISIBLE, as the shell renders it on every other kind.
     const q = document.querySelector("[data-map-question]");
     expect(q?.className ?? "").not.toContain("sr-only");
-    // …and the twin precedes the map in the DOM (§4: the ranked result comes first).
+    // ⚠ THE TWIN BESIDE THE MAP IS THE NATIONAL RANKING NOW, and the oblast table follows the
+    // canvas. §4's DOM rule binds on the pair that SHARE the row — the ranked result first, the
+    // map placed into column 1 at `lg` — which is `/parliamentary`'s arrangement.
+    const canvas = document.querySelector("[data-outcome-canvas]")!;
+    const ranked = canvas.querySelector("[data-canvas-slot=ranked]")!;
+    const map = canvas.querySelector("[data-canvas-slot=map]")!;
+    expect(
+      ranked.compareDocumentPosition(map) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    // …and the oblast table is BELOW the canvas rather than inside it — still on the page,
+    // because it is the only route down to an oblast, and still gated with the map.
     const list = screen.getByText(bgCorpus.presidential_regions_heading);
-    const svg = document.querySelector("svg");
-    if (svg)
-      expect(
-        list.compareDocumentPosition(svg) & Node.DOCUMENT_POSITION_FOLLOWING,
-      ).toBeTruthy();
+    expect(canvas.contains(list)).toBe(false);
+    expect(
+      canvas.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("opens with the national ranking beside the map, as `/parliamentary` does", async () => {
+    // ⚠ THE FIRST THING BESIDE THE MAP USED TO BE THE OBLAST TABLE — a different question,
+    // answered one level down, in the slot every other kind fills with „who won". This asserts
+    // the slot's CONTENT, not just that a slot exists: a canvas whose ranked column had gone
+    // back to region rows would still report `["ranked", "map"]`.
+    mount(SUMMARY);
+    const canvas = await screen.findByText(
+      bgCorpus.election_ballot_presidential_ticket,
+    );
+    const ranked = document.querySelector("[data-canvas-slot=ranked]")!;
+    expect(canvas).toBeInTheDocument();
+    expect(
+      within(ranked as HTMLElement).getByText(/Румен Георгиев Радев/),
+    ).toBeInTheDocument();
+    // The shell's own caption and entry header, so the two pages name the same thing alike.
+    expect(
+      within(ranked as HTMLElement).getByText(bgCorpus.election_ranked_caption),
+    ).toBeInTheDocument();
+    // ⚠ AND NOT THE OBLAST TABLE'S COLUMNS. „Област" in this slot is the regression.
+    expect(
+      within(ranked as HTMLElement).queryByText(
+        bgCorpus.presidential_col_region,
+      ),
+    ).toBeNull();
+  });
+
+  it("keeps the ranking when the roll-up has NOT answered — only the map goes", async () => {
+    // ⚠ THE TWO HALVES OF THE CANVAS HAVE DIFFERENT SOURCES, and this is the state the corpus is
+    // usually in: `round.ranking` is in the summary the page already holds, while the map's
+    // fills come from a region roll-up that is gitignored and has no bucket copy. Gating the
+    // PAIR on the roll-up — the obvious reading of „both or neither" — would delete the first
+    // screen of the page in the ordinary case, on a page whose result is fully known.
+    mount(SUMMARY);
+    const ranked = await screen.findByText(bgCorpus.election_ranked_caption);
+    expect(ranked).toBeInTheDocument();
+    expect(document.querySelector("[data-canvas-slot=ranked]")).toBeTruthy();
+    expect(document.querySelector("[data-canvas-slot=map]")).toBeNull();
+    expect(document.querySelector("[data-map-question]")).toBeNull();
   });
 
   it("opens with the same four-card band `/parliamentary` does", async () => {

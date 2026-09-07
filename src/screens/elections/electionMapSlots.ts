@@ -92,6 +92,23 @@ export type ElectionMapAdapterProps = ElectionMapSlot & {
    *  would draw a different place from the one the ranked list beside it describes on any page
    *  that renders two surfaces — which §4.1's whole premise says is the expected case. */
   placeId: string;
+  /** WHICH ELECTION this map colours — `2023_10_29_mi`, `2026_04_19`.
+   *
+   *  ⚠ IT COMES FROM THE SURFACE FOR THE SAME REASON `placeId` DOES, and here the alternative
+   *  is worse than a router read: the local dashboards' own `useLocalAsOf()` resolves the cycle
+   *  in effect at the SELECTED PARLIAMENTARY election, so an adapter defaulting to it would
+   *  colour `/local/2019_10_27_mi` with 2023's result whenever the header's date sat after
+   *  2023 — a full-country map of the wrong election, at a 200, beside a ranked list of the
+   *  right one. */
+  cycle: string;
+  /** WHICH BALLOT of that election, when the level carries more than one (§2 decision 9).
+   *
+   *  ⚠ `local/country` DECLARES TWO SLOTS — mayor control and council support — that resolve to
+   *  the SAME adapter key, because both declare `defaultMode: "winner"`. Without this the
+   *  adapter cannot tell "how many mayoralties" from "how many votes", and those are different
+   *  quantities with different denominators. Optional because a single-ballot level has nothing
+   *  to disambiguate. */
+  ballot?: string;
 };
 
 /** ⚠ EVERY VALUE IS A LOADER, NEVER A COMPONENT. A static reference here would pull the
@@ -126,6 +143,15 @@ export const MAP_ADAPTERS: Partial<
     import("./adapters/ParliamentaryMunicipalityMap"),
   "parliamentary/settlement/winner": () =>
     import("./adapters/ParliamentarySettlementMap"),
+  // The local country map — oblasts filled by the leading COUNCIL party.
+  //
+  // ⚠ ONE ENTRY FOR TWO DECLARED SLOTS. `local/country` declares a mayor-control map and a
+  // council-support map, and both carry `defaultMode: "winner"`, so both resolve here; the
+  // adapter branches on the `ballot` prop rather than on a key it cannot see. Only the council
+  // ballot is generated today (`buildCountrySurface` emits one `municipal_council` ballot,
+  // because a mayor "result" at this level is a COUNT of mayoralties and would print under
+  // „Гласове"), so the mayor arm is reachable only if that changes.
+  "local/country/winner": () => import("./adapters/LocalCountryMap"),
   // ⚠⚠ NO `presidential/*` ENTRY, AND IT IS A MEASURED REFUSAL RATHER THAN AN OMISSION.
   //
   // A choropleth needs its CHILDREN's results, and the presidential tree has no per-place

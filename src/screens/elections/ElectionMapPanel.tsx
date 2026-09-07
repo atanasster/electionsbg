@@ -59,10 +59,12 @@ export const ElectionMapPanel: FC<ElectionMapPanelProps> = ({
       >
         {/* ⚠ NOT „Картата се зарежда…". This branch is reached when the registry has NO adapter
             for the key, so nothing is loading and nothing ever will — the message resolved for
-            no one. Measured: every `local/*` level declares a map and registers no adapter, so
-            all 289 municipality pages, both regions and the country page printed a permanent
-            "the map is loading" above a page that was otherwise complete. A state that cannot
-            change must not be described in the present continuous. */}
+            no one. Measured then: every `local/*` level declared a map and registered no
+            adapter, so all 289 municipality pages, both regions and the country page printed a
+            permanent "the map is loading" above a page that was otherwise complete. A state
+            that cannot change must not be described in the present continuous.
+            ⚠ `local/country/winner` IS REGISTERED NOW and the rest of that family is not, so
+            this branch is still the one every `local` page below the country level takes. */}
         {t("election_map_unavailable")}
       </p>
     );

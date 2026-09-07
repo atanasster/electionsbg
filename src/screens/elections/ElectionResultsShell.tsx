@@ -599,6 +599,11 @@ const OutcomeCanvas: FC<{
             adapter={adapterKey(kind, level, ballot.map.defaultMode)}
             preloaded={preloadedMap}
             placeId={placeId}
+            // ⚠ THE SURFACE'S OWN CYCLE AND BALLOT, for the same reason `placeId` is the
+            // surface's: an adapter that resolved either for itself would draw a different
+            // election — or a different question — from the ranked list it sits beside.
+            cycle={cycle}
+            ballot={ballot.map.ballot ?? ballot.kind}
             question={questionKey ? t(questionKey) : undefined}
             posture="presentational"
             ariaLabel={

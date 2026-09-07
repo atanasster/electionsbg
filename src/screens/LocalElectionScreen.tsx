@@ -1718,16 +1718,18 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
         level="country"
         cycle={cycle}
         id="BG"
-        // ⚠ NO MAP — `MAP_ADAPTERS` registers no `local/*` entry, so the canvas renders one line
-        // of "not available" where a map would go. Reserving a 320px box for it is a shift in
-        // the other direction: the skeleton must reserve what the page renders, not what the
-        // artifact hopes for.
+        // ⚠ THE MAP BOX IS RESERVED AGAIN — `MAP_ADAPTERS` now registers `local/country/winner`
+        // (`LocalCountryMap`, oblasts filled by the leading council party BY VOTES), so the
+        // canvas draws a map here rather than one line of "not available". The rule is
+        // unchanged and it is what makes this a required edit: the skeleton must reserve what
+        // the page RENDERS, so registering an adapter without flipping this back trades the
+        // old dead message for a 360px shift when the map lands.
         //
         // Two facts is this level's MAXIMUM, which is the same rule the município branch below
         // states — `winner` and `seats` are both in `factPriority` and every published country
         // artifact carries exactly those. Here the maximum and the exact count coincide; where
         // they do not, the maximum is what avoids a downward shift on the tallest real page.
-        skeleton={<ElectionSurfaceSkeleton facts={2} withMap={false} />}
+        skeleton={<ElectionSurfaceSkeleton facts={2} />}
         fallback={null}
       >
         {(s) => (

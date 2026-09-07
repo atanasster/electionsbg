@@ -21,10 +21,11 @@
 // showing 2.6 million votes. `RoundPanel` gates the mount on `status === "ready"`; inside a
 // ready roll-up the label is true, and that is the only state this component is asked about.
 //
-// ⚠ COLOUR IS NEVER THE ONLY ENCODING. `PresidentialRegionsList` is the text twin and precedes
-// this in the DOM (§4: the ranked result comes first, and on mobile that is the visual order
-// too). It is also the only route from the country page down to a region, which is why the two
-// appear and disappear together.
+// ⚠ COLOUR IS NEVER THE ONLY ENCODING, and there are two text twins. `PresidentialTicketRanking`
+// shares the canvas row with this map and PRECEDES it in the DOM (§4: the ranked result comes
+// first, and on mobile that is the visual order too); `PresidentialRegionsList` follows the
+// canvas with the per-region answer. The second one is also the only route from the country page
+// down to a region, which is why it and this map appear and disappear together.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";

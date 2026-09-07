@@ -6,6 +6,12 @@
 // reader who cannot distinguish two neutral-palette greys — 17 of 2021's 23 tickets carry one,
 // because an инициативен комитет has no party colour to inherit.
 //
+// ⚠ IT NOW FOLLOWS THE MAP RATHER THAN SHARING ITS ROW, and it is still that text equivalent.
+// The canvas puts the NATIONAL ranking beside the map — `/parliamentary`'s arrangement, which
+// `PresidentialTicketRanking` exists to match — and this table sits directly below the pair,
+// answering the per-region question the map poses. Two twins, not none: the ranking says who
+// won, this says where.
+//
 // ⚠ IT IS ALSO THE ONLY ROUTE DOWN. `ElectionResultsShell` draws no parent or child
 // navigation, and the presidential place pages have no `PlaceHeader` (see
 // `PresidentialPlaceScreen`), so without this table `/presidential/:cycle/region/:oblast` is

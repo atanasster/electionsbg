@@ -123,8 +123,28 @@ const CRITICAL_PATH_BR = 363_000;
  *  Splitting the ranked table into a chunk of its own was considered and rejected: it is the
  *  FIRST thing in the canvas's DOM and the page's primary content, so deferring it would put a
  *  request in front of the result the page exists to show.
+ *
+ *  **11,130 → 11,300 (measured 11,221), 2026-09-07 — a FIFTH lazy map adapter.**
+ *  `local/country/winner` joins `MAP_ADAPTERS` (`LocalCountryMap`, the oblast choropleth the
+ *  local country page draws instead of one line of „картата не е налична").
+ *
+ *  ⚠ NONE OF THE +172 B IS SHELL CODE, AND THAT IS THE THING TO KNOW BEFORE HUNTING FOR IT.
+ *  The shell's own chunk moved 6,075 → 6,088 B — thirteen bytes, the two extra props on the
+ *  `ElectionMapPanel` call (`cycle`, `ballot`). The rest is esbuild RE-SPLITTING the chunks
+ *  shared between the entry and the lazily-imported adapters: with four adapters the shared
+ *  modules landed in two chunks (3,165 + 1,386 B), with five they land in six (1,876 + 1,367 +
+ *  1,268 + 247 + 229 + 179 B) — the same modules, more chunk boundaries, and a boundary is a
+ *  module wrapper plus an export list that brotli cannot fold into its neighbour. Measured by
+ *  removing ONLY the registry line: the gate passes without it and fails with it, and the
+ *  adapter itself is never in these bytes (that is what the lazy indirection buys, and the
+ *  „keeps the map slot out of the shell's own bytes" case below still holds).
+ *
+ *  So this raise cannot be worked off by writing the adapter differently — it is the price of
+ *  the fifth entry, and the sixth will be cheaper rather than dearer, since the re-split has
+ *  already happened. What WOULD work it off is the opposite of what this change is for: an
+ *  unregistered level renders a permanent „not available" where its map belongs.
  */
-const SHELL_BUDGET_BR = 11_130;
+const SHELL_BUDGET_BR = 11_300;
 
 /** ⚠ `splitting: true`, AND IT IS THE WHOLE MEASUREMENT. Without it esbuild inlines every
  *  `import()` into one bundle, so the moment a real map adapter was registered the "shell's own
@@ -189,11 +209,11 @@ describe("the shell's own weight", () => {
     expect(br, `the shell grew to ${br} B brotli`).toBeLessThanOrEqual(
       SHELL_BUDGET_BR,
     );
-    // Recorded against §10.1's total, as item 4 asks: 3.03% of the critical path today, up from
-    // ~2.5%. ⚠ THE BOUND TRACKS THE BUDGET ABOVE (11,130 / 363,000 = 3.07%) so that a change
+    // Recorded against §10.1's total, as item 4 asks: 3.09% of the critical path today, up from
+    // ~2.5%. ⚠ THE BOUND TRACKS THE BUDGET ABOVE (11,300 / 363,000 = 3.11%) so that a change
     // which passes the byte budget cannot fail here instead — two ratchets on one number, one of
     // which nobody remembers to update, is how a gate starts failing for the wrong reason.
-    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.031);
+    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.0312);
   });
 
   it("is not measuring an empty bundle", { timeout: 60_000 }, async () => {

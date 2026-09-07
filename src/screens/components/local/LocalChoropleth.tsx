@@ -23,6 +23,7 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
   mapGeo,
   colorOf,
   tooltipOf,
+  ariaLabelOf,
   onClickPath,
   overlay,
 }: {
@@ -30,6 +31,17 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
   mapGeo?: GeoJSONMap<DType>;
   colorOf: (props: DType) => string | undefined;
   tooltipOf: (props: DType) => ReactNode;
+  /** What a screen reader announces for one region — and, because `FeatureMap`
+   *  derives keyboard access as `!!ariaLabel && !!onClick`, ALSO what makes the
+   *  region focusable and activatable at all.
+   *
+   *  ⚠ WITHOUT IT EVERY FEATURE HERE IS MOUSE-ONLY, silently: the fill, the
+   *  tooltip and the click-through all work, so nothing looks wrong, and a
+   *  keyboard reaches none of them. It is optional only so existing callers
+   *  keep their current behaviour until each states its own label; a caller
+   *  that declares an `interactive` posture to the election shell must pass it,
+   *  because that posture is a claim this prop is what honours. */
+  ariaLabelOf?: (props: DType) => string | undefined;
   onClickPath: (props: DType) => NavigateParams;
   // Absolutely-positioned corner overlay(s) rendered over the map — e.g. the
   // Sofia-city shortcut tile. Positioned by the overlay itself relative to
@@ -58,6 +70,7 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
               geoPath={path}
               feature={feature}
               fillColor={colorOf(feature.properties) ?? "hsl(var(--muted))"}
+              ariaLabel={ariaLabelOf?.(feature.properties)}
               onMouseEnter={(e) =>
                 onMouseEnter(
                   { pageX: e.pageX, pageY: e.pageY },

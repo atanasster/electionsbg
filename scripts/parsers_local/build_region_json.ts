@@ -180,6 +180,24 @@ export type RegionsSummaryRow = {
     color: string;
     seats: number;
   }[];
+  // Council VOTES across the oblast, summed over its municipalities (sorted
+  // desc). ⚠ A DIFFERENT QUANTITY FROM `councilSeats`, NOT A RESTATEMENT OF IT:
+  // seats are apportioned per município under a 5% local threshold, so a party
+  // spread thinly across many councils can lead an oblast on votes and hold
+  // fewer seats than one concentrated in a big município — and the country
+  // map's ranked twin (`buildCountrySurface`'s preview) is in VOTES, so a map
+  // coloured by seats would disagree with the list beside it.
+  //
+  // ⚠ EVERY LIST, NOT ONLY THE ONES THAT WON A SEAT. `councilSeats` skips
+  // `mandatesWon <= 0`; a votes rollup that copied that filter would silently
+  // drop every below-threshold list from the denominator and inflate every
+  // share printed against it.
+  councilVotes: {
+    canonicalId: string;
+    displayName: string;
+    color: string;
+    votes: number;
+  }[];
   // Sofia only: the 24 районни кметове (directly-elected district mayors)
   // tallied by party. The national mayor map surfaces this on hover instead of
   // the single city mayoralty in `mayorsWon` (which stays on the Sofia-city
@@ -275,10 +293,21 @@ export type NationalLeaders = {
   independentMayors: { count: number; rows: IndependentMayorRow[] };
 };
 
-const sorted = <T extends { count?: number; seats?: number }>(arr: T[]): T[] =>
+// ⚠ `votes` IS IN THE UNION, and it has to be: without it a votes rollup sorts
+// by `?? 0` on every row — a no-op that leaves the array in Map-insertion order,
+// i.e. whichever município happened to be read first. That is not an empty
+// result and not an error; it is a leaderboard whose first row is arbitrary, and
+// the choropleth reads [0] as the oblast's leader.
+const sorted = <T extends { count?: number; seats?: number; votes?: number }>(
+  arr: T[],
+): T[] =>
   arr
     .slice()
-    .sort((a, b) => (b.count ?? b.seats ?? 0) - (a.count ?? a.seats ?? 0));
+    .sort(
+      (a, b) =>
+        (b.count ?? b.seats ?? b.votes ?? 0) -
+        (a.count ?? a.seats ?? a.votes ?? 0),
+    );
 
 /**
  * Build region rollups + the national region-control summary for one cycle.
@@ -418,6 +447,10 @@ export const buildRegionRollups = (opts: {
   for (const [oblast, group] of byOblast) {
     const mayorsWon = new Map<string, number>();
     const councilSeats = new Map<string, number>();
+    // ⚠ SEPARATE FROM `councilSeats`, not derivable from it — see `councilVotes`
+    // on `RegionsSummaryRow`. It also has a WIDER membership: every list that
+    // stood, seated or not.
+    const councilVotes = new Map<string, number>();
     let reg = 0;
     let act = 0;
     let val = 0;
@@ -427,8 +460,13 @@ export const buildRegionRollups = (opts: {
       .map((b) => {
         const seats = b.council.reduce((a, p) => a + p.mandatesWon, 0);
         for (const p of b.council) {
-          if (p.mandatesWon <= 0) continue;
           const id = councilBucketId(p);
+          // ⚠ THE VOTES LINE IS OUTSIDE THE SEAT GUARD. A list that cleared no
+          // 5% threshold anywhere still took votes, and dropping it here would
+          // shrink the denominator every share on the oblast map is printed
+          // against.
+          councilVotes.set(id, (councilVotes.get(id) ?? 0) + p.totalVotes);
+          if (p.mandatesWon <= 0) continue;
           councilSeats.set(id, (councilSeats.get(id) ?? 0) + p.mandatesWon);
         }
         const elected = b.mayor.elected;
@@ -561,6 +599,17 @@ export const buildRegionRollups = (opts: {
         };
       }),
     );
+    const councilVotesRollup = sorted(
+      Array.from(councilVotes.entries()).map(([id, votes]) => {
+        const meta = metaFor(id);
+        return {
+          canonicalId: id,
+          displayName: meta.displayName,
+          color: meta.color,
+          votes,
+        };
+      }),
+    );
     const turnoutPct = reg > 0 ? (act / reg) * 100 : null;
 
     // Sofia: tally the directly-elected районни кметове across the SOF bundle's
@@ -633,6 +682,7 @@ export const buildRegionRollups = (opts: {
       topCouncil: councilRollup[0] ?? null,
       mayorsWon: mayorsRollup,
       councilSeats: councilRollup,
+      councilVotes: councilVotesRollup,
       districtMayors,
     });
   }
