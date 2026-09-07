@@ -39,7 +39,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { PRESIDENTIAL_FOLDER_RE } from "../lib/electionFolders";
+import { presidentialCyclesIn } from "../lib/electionFolders";
 import { UNPLACED_SHARD } from "./aggregate";
 import { nameKey } from "./tickets";
 
@@ -154,13 +154,10 @@ const readJson = <T>(f: string): T | null => {
   }
 };
 
+/** Every ingested presidential cycle, oldest first. ⚠ A THIN RE-EXPORT of the shared lister —
+ *  see `presidentialCyclesIn`'s header for the three copies this replaces. */
 export const presidentialCyclesFor = (root = DATA_ROOT): string[] =>
-  fs.existsSync(root)
-    ? fs
-        .readdirSync(root)
-        .filter((d) => PRESIDENTIAL_FOLDER_RE.test(d))
-        .sort()
-    : [];
+  presidentialCyclesIn(root);
 
 /** `2021_11_14_pvr` → `2021_11_14`, when that parliamentary tree exists. */
 export const sameDayParliamentary = (

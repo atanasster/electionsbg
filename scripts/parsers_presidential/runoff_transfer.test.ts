@@ -21,6 +21,7 @@ import {
   NONE_ID,
   TRANSFER_FILE,
   buildRunoffTransfer,
+  oblastTransferFile,
   presidentialCyclesFor,
   sectionCounts,
   sectionPool,
@@ -53,14 +54,23 @@ const hasCorpus = cycles.length > 0;
  *  blocks need it and both are `runIf(hasCorpus)` — on a fresh clone `cycles` is empty, so
  *  this is an empty array and costs nothing. */
 const built = cycles
-  .map((cycle) => ({
-    cycle,
-    transfer: buildRunoffTransfer(cycle, DATA_ROOT),
-  }))
+  .map((cycle) => ({ cycle, build: buildRunoffTransfer(cycle, DATA_ROOT) }))
   .filter(
-    (r): r is { cycle: string; transfer: NonNullable<typeof r.transfer> } =>
-      r.transfer !== null,
-  );
+    (r): r is { cycle: string; build: NonNullable<typeof r.build> } =>
+      r.build !== null,
+  )
+  // ⚠ FLATTENED, so `transfer` still means the CYCLE file. One build now yields two artifacts
+  // and `shards` is the second — the per-oblast matrices a region page fetches.
+  .map(({ cycle, build }) => ({
+    cycle,
+    transfer: build.transfer,
+    shards: build.oblasts,
+  }));
+/** ⚠ NOT `hasCorpus`. That is „any presidential folder"; `built` holds only cycles WITH a
+ *  runoff, so an arm that dereferences `built[0]` under `hasCorpus` throws rather than skips
+ *  on a corpus of round-1-decided cycles. Unreachable with today's five and exactly the shape
+ *  this file's header says must skip cleanly. */
+const hasRunoff = built.length > 0;
 
 const section = (
   votes: Record<number, number>,
@@ -170,20 +180,134 @@ describe("the edge floor", () => {
     // measurement that says so: with a 6.7M electorate the floor would be 335 votes, which
     // deletes a „недействителни" lane of 2,776 almost entirely while the node still prints its
     // published total. What makes an edge noise is its own size, not the electorate's.
+    // ⚠ t2 CARRIES A SECOND, LARGER CELL so this fixture keeps testing the FLOOR rather than
+    // the orphan rescue below it: with `[19, 0]` the 19-vote cell is the whole of t2's row and
+    // comes back as its only ribbon, which is a different rule being exercised.
     const flows = [
       [6_700_000 - 300, 300],
-      [19, 0],
+      [19, 500],
     ];
     const { edges, droppedVotes } = edgesOf(
       ["t1", "t2"],
       ["t1", "t2"],
       flows,
       new Set(["t1", "t2"]),
+      new Set(["t1", "t2"]),
     );
-    expect(edges.map((e) => e.votes)).toEqual([6_699_700, 300]);
+    expect(edges.map((e) => e.votes)).toEqual([6_699_700, 300, 500]);
     // The 19-vote cell is the only thing dropped — under a mass-relative floor the 300 would
     // go too, which is the whole finding.
     expect(droppedVotes).toBe(19);
+  });
+
+  it("never leaves a node drawn with no ribbon at all, however small the node", () => {
+    // ⚠ AN ABSOLUTE FLOOR EVENTUALLY MEETS A NODE WHOSE WHOLE MASS IS UNDER IT, and cutting
+    // the matrix per oblast is what makes that ordinary rather than theoretical: measured,
+    // Sofia's S25 „недействителни" is **20 votes** in 2021 and every cell of its row falls
+    // below 20. Drawn, that is a labelled bar with nothing attached — a chart printing a total
+    // it accounts for none of, and `marginGap` 1.0. The node's LARGEST lost cell comes back,
+    // because relative to the node it is most of it rather than noise.
+    const flows = [
+      [10_000, 5_000],
+      [7, 4],
+    ];
+    const { edges, droppedVotes } = edgesOf(
+      ["t1", "t2"],
+      ["t1", "t2"],
+      flows,
+      new Set(["t1", "t2"]),
+      new Set(["t1", "t2"]),
+    );
+    // ⚠ THE WHOLE ARRAY, so the canonical `(from, to)` order is pinned too: a restored edge
+    // appended at the end would make the committed artifact's diff depend on which nodes
+    // happened to be orphaned.
+    expect(edges).toEqual([
+      { from: "t1", to: "t1", votes: 10_000 },
+      { from: "t1", to: "t2", votes: 5_000 },
+      { from: "t2", to: "t1", votes: 7 },
+    ]);
+    // The rescued cell leaves the dropped mass, so the two still account for the matrix.
+    expect(droppedVotes).toBe(4);
+  });
+
+  it("still drops a hairline whose node is already drawn", () => {
+    // ⚠ THE MUTATION CHECK for the rescue above: „no node is orphaned" is also satisfied by a
+    // floor that stopped filtering, which would put every 1-vote cell back on the chart.
+    const flows = [
+      [10_000, 900],
+      [12, 40],
+    ];
+    const { edges, droppedVotes } = edgesOf(
+      ["t1", "t2"],
+      ["t1", "t2"],
+      flows,
+      new Set(["t1", "t2"]),
+      new Set(["t1", "t2"]),
+    );
+    expect(edges.map((e) => e.votes)).toEqual([10_000, 900, 40]);
+    expect(droppedVotes).toBe(12);
+  });
+
+  it("rescues a node whose every cell rounds to ZERO", () => {
+    // ⚠ THE ROUNDED CELL IS NOT THE RANKING KEY. A node whose margin rounds to 1 while every
+    // one of its cells rounds to 0 has no rounded candidate at all — so a rescue that ranked
+    // on `Math.round(flow)` skipped it and left the exact orphan it exists to prevent, with
+    // `marginGap` 1. The raw magnitude is what decides, and the restored ribbon is floored at
+    // one vote, because a 0-vote ribbon is the same orphan wearing a different mask.
+    const { edges } = edgesOf(
+      ["t1", "t2"],
+      ["t1", "t2"],
+      [
+        [10_000, 5_000],
+        [0.3, 0.3],
+      ],
+      new Set(["t1", "t2"]),
+      new Set(["t1", "t2"]),
+    );
+    const rescued = edges.filter((e) => e.from === "t2");
+    expect(rescued.length).toBe(1);
+    expect(rescued[0].votes).toBeGreaterThanOrEqual(1);
+  });
+
+  it("draws no ribbon from a node the FROM axis does not carry", () => {
+    // ⚠ ONE UNION SET CANNOT ANSWER TWO QUESTIONS. A finalist survives on the to-axis and is
+    // dropped from the from-axis in an oblast where they polled nothing in round 1; asked
+    // „is this id drawn anywhere", a union says yes and admits a ribbon LEAVING a node the
+    // chart does not draw.
+    const { edges, droppedVotes } = edgesOf(
+      ["t1", "t2"],
+      ["t1", "t2"],
+      [
+        [120, 0],
+        [900, 40],
+      ],
+      new Set(["t2"]),
+      new Set(["t1", "t2"]),
+    );
+    expect(edges.every((e) => e.from === "t2")).toBe(true);
+    expect(droppedVotes).toBe(120);
+  });
+
+  it("rescues a pseudo lane on EACH side independently", () => {
+    // ⚠ A PSEUDO LANE IS BOTH A FROM-NODE AND A TO-NODE, so „the largest cell this node lost"
+    // is two questions, not one. Answered with a single map, S25's „недействителни" was
+    // rescued by its largest INCOMING cell and left with no outgoing ribbon — still orphaned,
+    // on the side the rescue existed for, with the gate green.
+    const flows = [
+      [10_000, 15],
+      [9, 4],
+    ];
+    const { edges } = edgesOf(
+      ["t1", "__invalid__"],
+      ["t1", "__invalid__"],
+      flows,
+      new Set(["t1", "__invalid__"]),
+      new Set(["t1", "__invalid__"]),
+    );
+    const out = edges.filter((e) => e.from === "__invalid__");
+    const into = edges.filter((e) => e.to === "__invalid__");
+    expect(out.length).toBeGreaterThan(0);
+    expect(into.length).toBeGreaterThan(0);
   });
 });
 
@@ -260,22 +384,53 @@ describe("writeRunoffTransfer", () => {
     return root;
   };
 
-  it("writes NOTHING and returns null for a cycle with no runoff", () => {
-    // ⚠ THE CASE `scripts/main.ts` DEPENDS ON — `if (written) r.files.push(written)`. A build
-    // that returned a path here would put a file the ingest never wrote into its own manifest.
+  it("writes NOTHING and returns an EMPTY list for a cycle with no runoff", () => {
+    // ⚠ THE CASE `scripts/main.ts` DEPENDS ON — it spreads the answer into `r.files`. A build
+    // that returned a path here would put a file the ingest never wrote into its own manifest,
+    // and one that created an empty `runoff_transfer/` directory would publish a shard folder
+    // for a cycle that has no transfer to shard.
     const root = fixture();
     fs.writeFileSync(
       path.join(root, "2099_01_01_pvr", "tickets.json"),
       JSON.stringify({ tickets: [{ number: 1, president: "А", rounds: [1] }] }),
     );
-    expect(writeRunoffTransfer("2099_01_01_pvr", { root })).toBeNull();
+    expect(writeRunoffTransfer("2099_01_01_pvr", { root })).toEqual([]);
     expect(fs.readdirSync(path.join(root, "2099_01_01_pvr"))).toEqual([
       "tickets.json",
     ]);
     fs.rmSync(root, { recursive: true, force: true });
   });
 
-  it.runIf(hasCorpus)(
+  it.runIf(hasRunoff)(
+    "deletes a shard the rebuild no longer produces, and keeps the ones it does",
+    () => {
+      // ⚠ THE MODULE'S ONLY IRREVERSIBLE OPERATION, and until this test it never executed:
+      // the other cases write into a FRESH temp root, so `readdirSync` always returns exactly
+      // the files just written and the delete branch is skipped. A regression that dropped
+      // the `!` would delete every shard it had just written and pass the whole suite, because
+      // the returned path list is built from `build.oblasts` rather than from disk.
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), "rt-"));
+      const cycle = built[0].cycle;
+      fs.cpSync(path.join(DATA_ROOT, cycle), path.join(root, cycle), {
+        recursive: true,
+      });
+      const dir = path.join(root, cycle, "runoff_transfer");
+      fs.mkdirSync(dir, { recursive: true });
+      // An oblast the corpus no longer produces, plus a non-JSON file that must survive.
+      fs.writeFileSync(path.join(dir, "ZZZ.json"), "{}");
+      fs.writeFileSync(path.join(dir, "notes.txt"), "keep me");
+      const rels = writeRunoffTransfer(cycle, { root });
+      expect(fs.existsSync(path.join(dir, "ZZZ.json"))).toBe(false);
+      // ⚠ THE OTHER HALF. „Deletes the stale one" is also satisfied by „deletes everything".
+      expect(
+        fs.readdirSync(dir).filter((f) => f.endsWith(".json")).length,
+      ).toBe(rels.length - 1);
+      expect(fs.existsSync(path.join(dir, "notes.txt"))).toBe(true);
+      fs.rmSync(root, { recursive: true, force: true });
+    },
+  );
+
+  it.runIf(hasRunoff)(
     "returns a ROOT-relative path and honours the indent the pipeline passes",
     () => {
       // ⚠ THE SHAPE `ingestPresidentialCycle` PUTS IN ITS `files` LIST is cycle-relative; an
@@ -286,11 +441,17 @@ describe("writeRunoffTransfer", () => {
       fs.cpSync(path.join(DATA_ROOT, cycle), path.join(root, cycle), {
         recursive: true,
       });
-      const rel = writeRunoffTransfer(cycle, { root, indent: 0 });
-      expect(rel).toBe(path.join(cycle, TRANSFER_FILE));
-      const text = fs.readFileSync(path.join(root, rel as string), "utf8");
-      expect(text.includes("\n  ")).toBe(false);
-      expect(JSON.parse(text).cycle).toBe(cycle);
+      const rels = writeRunoffTransfer(cycle, { root, indent: 0 });
+      // ⚠ THE CYCLE FILE FIRST, then one shard per oblast. The order is what lets a reader of
+      // the ingest's manifest tell the two artifacts apart at a glance.
+      expect(rels[0]).toBe(path.join(cycle, TRANSFER_FILE));
+      expect(rels.length).toBe(1 + built[0].shards.length);
+      for (const rel of rels) {
+        expect(path.isAbsolute(rel)).toBe(false);
+        const text = fs.readFileSync(path.join(root, rel), "utf8");
+        expect(text.includes("\n  ")).toBe(false);
+        expect(JSON.parse(text).cycle).toBe(cycle);
+      }
       fs.rmSync(root, { recursive: true, force: true });
     },
   );
@@ -486,4 +647,253 @@ describe.runIf(hasCorpus)("the committed corpus", () => {
     for (const s of [transfer.basis, transfer.basisEn, transfer.coverage.basis, transfer.coverage.basisEn]) // prettier-ignore
       expect(s.length).toBeGreaterThan(80);
   });
+});
+
+describe.runIf(hasCorpus)("the per-oblast shards", () => {
+  it.each(built)(
+    "$cycle: has one for every oblast the cycle file carries a row for",
+    ({ transfer, shards }) => {
+      expect(shards.map((s) => s.oblast).sort()).toEqual(
+        transfer.oblasts.map((o) => o.oblast).sort(),
+      );
+      expect(shards.length).toBeGreaterThan(25);
+    },
+  );
+
+  it.each(built)(
+    "$cycle: sums EXACTLY to the national margins, both sides",
+    ({ transfer, shards }) => {
+      // ⚠⚠ THE ASSERTION THAT SAYS THESE ARE THE SAME ESTIMATE. A shard built from a second
+      // regression would render a perfectly plausible Sankey and disagree with the country
+      // page's by an amount no reader could see — the exact drift `basis` exists to prevent,
+      // one level down. Node totals come from the oblast's own margins, and the margins are
+      // what RAS scaled to the published totals, so equality here is not an approximation.
+      for (const side of ["fromNodes", "toNodes"] as const) {
+        const summed = new Map<string, number>();
+        for (const shard of shards)
+          for (const n of shard.matrix[side])
+            summed.set(n.id, (summed.get(n.id) ?? 0) + n.votes);
+        for (const n of transfer.national.matrix[side])
+          expect({ id: n.id, votes: summed.get(n.id) ?? 0 }).toEqual({
+            id: n.id,
+            votes: n.votes,
+          });
+      }
+    },
+  );
+
+  it.each(built)(
+    "$cycle: never draws a node with no ribbon at all",
+    ({ shards }) => {
+      // ⚠ THE PER-OBLAST CUT IS WHAT MAKES THIS POSSIBLE — nationally no node is orphaned
+      // (worst gap 0.047), and the same absolute floor strands whole lanes once the matrix is
+      // one oblast wide. A bare labelled bar is the chart printing a total it accounts for
+      // none of.
+      for (const shard of shards) {
+        const out = new Map<string, number>();
+        const into = new Map<string, number>();
+        for (const e of shard.matrix.flows) {
+          out.set(e.from, (out.get(e.from) ?? 0) + e.votes);
+          into.set(e.to, (into.get(e.to) ?? 0) + e.votes);
+        }
+        for (const [nodes, side] of [
+          [shard.matrix.fromNodes, out],
+          [shard.matrix.toNodes, into],
+        ] as const)
+          for (const n of nodes)
+            if (n.votes > 0)
+              expect({
+                oblast: shard.oblast,
+                id: n.id,
+                ribbons: (side.get(n.id) ?? 0) > 0,
+              }).toEqual({ oblast: shard.oblast, id: n.id, ribbons: true });
+        // ⚠ AND THE GAP IS BOUNDED, not merely non-total. A shard whose worst node showed a
+        // tenth of its own votes would satisfy the loop above and still be unreadable.
+        // RATCHETED ON THE MEASURED MAXIMUM (0.70, at 2011/S23), not on a round number above
+        // it: at 0.75 the assertion admitted a shard drawing a quarter of a node's votes,
+        // which is the condition the comment says it exists to refuse.
+        expect({ oblast: shard.oblast, ok: shard.marginGap <= 0.7 }).toEqual({
+          oblast: shard.oblast,
+          ok: true,
+        });
+      }
+      // ⚠ AND THE SHAPE, not only the worst case. A regression that lifts the whole
+      // distribution — the estimator converging less well everywhere — leaves the maximum
+      // where it is and is invisible to the ceiling above.
+      //
+      // ⚠ THE BOUND IS PER CYCLE AND THE CORPUS-WIDE FIGURE IS NOT IT. Over all 155 shards
+      // the p90 is 0.287; per cycle it ranges 0.068 (2006) to 0.458 (2021), because the
+      // residual is much larger in the cycles with more eliminated tickets. A ceiling set
+      // from the pooled number fails two cycles that are behaving exactly as measured.
+      // Per-cycle medians / p90s / maxima, 2026-09-07:
+      //   2001 0.072 / 0.227 / 0.311    2006 0.029 / 0.068 / 0.286
+      //   2011 0.077 / 0.422 / 0.700    2016 0.159 / 0.284 / 0.616
+      //   2021 0.175 / 0.458 / 0.549
+      const gaps = shards.map((s) => s.marginGap).sort((a, b) => a - b);
+      expect(gaps[Math.floor(0.9 * (gaps.length - 1))]).toBeLessThan(0.5);
+      expect(gaps[Math.floor(0.5 * (gaps.length - 1))]).toBeLessThan(0.25);
+    },
+  );
+
+  it.each(built)(
+    "$cycle: carries the coverage REFUSAL in every shard, verbatim",
+    ({ transfer, shards }) => {
+      // ⚠⚠ THE OTHER HALF OF THE CAVEAT, and on 2011 it is the larger half: the ingest refused
+      // to place 1,355 sections / 422,726 runoff votes, all Sofia, against 32,024 inside
+      // Sofia's three shards — 93% of Sofia's runoff vote outside its own shards. A region
+      // page fetches one shard and nothing else, so a refusal declared only in the cycle file
+      // is a refusal nobody can see.
+      for (const shard of shards) {
+        expect(shard.coverage.basis).toBe(transfer.coverage.basis);
+        expect(shard.coverage.basisEn).toBe(transfer.coverage.basisEn);
+        expect(shard.coverage.unplacedSectionsInCycle).toBe(
+          transfer.coverage.unplacedSections,
+        );
+        expect(shard.coverage.unplacedVotesInCycle).toBe(
+          transfer.coverage.unplacedVotes,
+        );
+        expect(shard.coverage.abroadVotesInCycle).toBe(
+          transfer.coverage.abroadVotes,
+        );
+      }
+    },
+  );
+
+  it("has a cycle whose shards declare a NON-ZERO placement refusal", () => {
+    // ⚠ THE MUTATION CHECK for the rule above. Four of the five cycles refuse nothing, so a
+    // field that had silently stopped being carried passes at 0 on all of them.
+    expect(
+      built.some((b) =>
+        b.shards.some((s) => s.coverage.unplacedVotesInCycle > 0),
+      ),
+    ).toBe(true);
+  });
+
+  it.each(built)(
+    "$cycle: no shard draws an edge to a node it does not carry",
+    ({ shards }) => {
+      // The shard twin of the national gate. This is where the precondition is reachable: a
+      // node's row sum and its margin routinely disagree once the matrix is one oblast wide,
+      // which is what `marginGap` reports.
+      for (const shard of shards) {
+        const from = new Set(shard.matrix.fromNodes.map((n) => n.id));
+        const to = new Set(shard.matrix.toNodes.map((n) => n.id));
+        for (const e of shard.matrix.flows)
+          expect({
+            oblast: shard.oblast,
+            from: from.has(e.from),
+            to: to.has(e.to),
+          }).toEqual({ oblast: shard.oblast, from: true, to: true });
+      }
+    },
+  );
+
+  it.each(built)(
+    "$cycle: no shard drops a meaningful share of its own mass",
+    ({ shards }) => {
+      // The shard twin of the national 0.1% bound, loosened to match what the per-oblast cut
+      // costs: the floor is absolute, so it bites hardest on the smallest shards. Measured
+      // worst case 1.305% (2011/S24).
+      for (const shard of shards) {
+        const mass = shard.matrix.fromNodes.reduce((a, n) => a + n.votes, 0);
+        expect({
+          oblast: shard.oblast,
+          ok: shard.droppedVotes < mass * 0.02,
+        }).toEqual({ oblast: shard.oblast, ok: true });
+      }
+    },
+  );
+
+  it.each(built)(
+    "$cycle: the shards on disk are the shards the builder makes",
+    ({ cycle, shards }) => {
+      // The cycle file has this gate; the shards did not, so a change to `oblastTransferFile`
+      // or a half-completed write would have been invisible to the suite.
+      for (const shard of shards) {
+        const file = path.join(
+          DATA_ROOT,
+          cycle,
+          oblastTransferFile(shard.oblast),
+        );
+        expect({ oblast: shard.oblast, exists: fs.existsSync(file) }).toEqual({
+          oblast: shard.oblast,
+          exists: true,
+        });
+        // ⚠ PARSED, NOT BYTES — `--prod` minifies and a dev run indents.
+        expect(JSON.parse(fs.readFileSync(file, "utf8"))).toEqual(shard);
+      }
+    },
+  );
+
+  it.each(built)(
+    "$cycle: carries the caveat in EVERY shard, verbatim",
+    ({ transfer, shards }) => {
+      // ⚠⚠ A REGION PAGE FETCHES ONE SHARD AND NOTHING ELSE. `basis` living only in the cycle
+      // file would be a matrix rendered with no caveat anywhere in the document — the failure
+      // `useRunoffTransfer`'s refusal exists to prevent, one level down. Identity rather than
+      // „non-empty", so the two surfaces cannot state different qualifications.
+      for (const shard of shards) {
+        expect(shard.basis).toBe(transfer.basis);
+        expect(shard.basisEn).toBe(transfer.basisEn);
+      }
+    },
+  );
+
+  it.each(built)(
+    "$cycle: keeps the NATIONAL winner first and reports the oblast's own votes",
+    ({ transfer, shards }) => {
+      // ⚠ NOT RE-RANKED LOCALLY. „Winner first" is a fact about the runoff, not about this
+      // oblast: re-sorting per shard would name Герджиков the winner on Кърджали's page in
+      // 2021 — a claim the runoff did not make.
+      const order = transfer.finalists.map((f) => f.number);
+      for (const shard of shards) {
+        expect(shard.finalists.map((f) => f.number)).toEqual(order);
+        // The shard's own figures, and they must be the matrix's own node totals rather than
+        // a second read of the shards — otherwise the header and the chart can disagree.
+        for (const f of shard.finalists) {
+          const node = shard.matrix.toNodes.find(
+            (n) => n.id === ticketNodeId(f.number),
+          );
+          expect(f.votes).toBe(node?.votes ?? 0);
+        }
+      }
+    },
+  );
+
+  it.runIf(hasRunoff)(
+    "has an oblast SOMEWHERE that the national runner-up carried",
+    () => {
+      // ⚠ THE MUTATION CHECK for the rule above: „winner first" is also satisfied by a shard
+      // that happens to be sorted by votes, on a corpus where the winner led everywhere. Two of
+      // the five cycles are exactly that (2006 and 2016 have no flipped oblast at all), so this
+      // is asserted ACROSS the corpus and never per cycle.
+      const flipped = built.flatMap(({ cycle, shards }) =>
+        shards
+          .filter((s) => s.finalists[1].votes > s.finalists[0].votes)
+          .map((s) => `${cycle}/${s.oblast}`),
+      );
+      expect(flipped.length).toBeGreaterThan(0);
+    },
+  );
+
+  it.each(built)(
+    "$cycle: is small enough to be a page's own fetch",
+    ({ shards }) => {
+      // ⚠ THE WHOLE REASON THESE ARE SEPARATE FILES. Folded into `runoff_transfer.json` they
+      // would grow the COUNTRY page's payload several-fold to answer a question it never asks.
+      // ⚠ THE BYTES ACTUALLY SERVED — indented, UTF-8 — not `JSON.stringify().length`, which
+      // is minified CHARACTERS and runs ~40% under on a corpus of Cyrillic labels. Measured
+      // 6.3-15.2 KB on disk, mean 10.4 KB, ~2.3 KB after `bucket:gz`.
+      for (const shard of shards) {
+        const bytes = Buffer.byteLength(
+          `${JSON.stringify(shard, null, 2)}\n`,
+          "utf8",
+        );
+        expect({ oblast: shard.oblast, ok: bytes < 20_000 }).toEqual({
+          oblast: shard.oblast,
+          ok: true,
+        });
+      }
+    },
+  );
 });

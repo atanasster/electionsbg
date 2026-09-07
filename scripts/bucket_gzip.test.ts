@@ -17,7 +17,7 @@
 // for the same reason; see its header.
 
 import { describe, expect, test } from "vitest";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { isExcluded } from "./bucket_sync_paths";
 
 const SRC = readFileSync("scripts/bucket_gzip.ts", "utf8");
@@ -31,6 +31,8 @@ const arrayLiteral = (name: string): string[] => {
 
 const GLOBAL_FILES = arrayLiteral("GLOBAL_FILES");
 const PER_ELECTION_FILES = arrayLiteral("PER_ELECTION_FILES");
+const PER_CYCLE_FILES = arrayLiteral("PER_CYCLE_FILES");
+const PER_ROUND_FILES = arrayLiteral("PER_ROUND_FILES");
 
 /**
  * Directory prefixes the collector walks wholesale. These never appear in a quoted array, so
@@ -116,5 +118,93 @@ describe("bucket_gzip upload set", () => {
       "",
     );
     expect(collectBody).toContain("isExcluded(");
+  });
+});
+
+/**
+ * ⚠⚠ THIS PASS IS THE ONLY THING THAT PUBLISHES THE PRESIDENTIAL TREE AT ALL. `data/2*` is
+ * gitignored and `_pvr` cycles are not rsynced, so a path absent from `collect()` never
+ * reaches the bucket — and every presidential hook reads a missing file as `absent` by design,
+ * which means the tile that needs it simply never renders in production while working
+ * perfectly on a developer's machine. No error, no log, nothing red.
+ *
+ * That is not hypothetical. Measured against the live bucket on 2026-09-07:
+ *
+ *     2021_11_14_pvr/tickets.json           200
+ *     2021_11_14_pvr/national_summary.json  200
+ *     2021_11_14_pvr/runoff_transfer.json   404   ← „Откъде дойдоха гласовете на балотажа"
+ *     2021_11_14_pvr/split_ticket.json      404   ← the split-ticket tile
+ *
+ * So the gate is derived from the BROWSER's own path builders rather than from a list somebody
+ * maintains: every `${cycle}/…` template in `src/data/presidential/` must be reachable from
+ * this file's lists or directory walks. A new hook that invents a path nobody publishes fails
+ * here instead of in production.
+ */
+describe("the presidential tree this pass publishes", () => {
+  const HOOK_DIR = "src/data/presidential";
+  /** Every `${cycle}/…` path template the hooks build, with their interpolations blanked. */
+  const templates = readdirSync(HOOK_DIR)
+    .filter((f) => f.endsWith(".ts") && !f.endsWith(".test.ts"))
+    .flatMap((f) => [
+      ...readFileSync(`${HOOK_DIR}/${f}`, "utf8").matchAll(
+        /`\$\{cycle\}\/([^`]*)`/g,
+      ),
+    ])
+    .map((m) => m[1]);
+
+  /** ⚠ ONE TEMPLATE NAMES NO FILE. `useRoundRollup` builds its filename from a level→file
+   *  map, so `tur${round}/${FILE_OF[level]}` has to be resolved against that module's own
+   *  source — restating the four names here would be a second list to keep in step, and the
+   *  whole point of this gate is not having one. */
+  const FILE_OF = [
+    ...readFileSync(`${HOOK_DIR}/useRoundRollup.ts`, "utf8").matchAll(
+      /^\s*\w+: "([^"]+\.json)",$/gm,
+    ),
+  ].map((m) => m[1]);
+  const expand = (tpl: string): string[] =>
+    tpl.includes("${FILE_OF[level]}")
+      ? FILE_OF.map((f) => tpl.replace("${FILE_OF[level]}", f))
+      : [tpl];
+
+  test("the scan still finds the hooks' path builders", () => {
+    // Without this, a rename or a reformat leaves the assertion below iterating nothing.
+    expect(templates.length).toBeGreaterThanOrEqual(6);
+    expect(templates).toContain("national_summary.json");
+    // The four levels `useRoundRollup` serves — country, region, município, abroad.
+    expect(FILE_OF.length).toBe(4);
+  });
+
+  test("every path a presidential hook fetches is on this pass's upload set", () => {
+    const cycleRoot = new Set([...PER_CYCLE_FILES, ...PER_ELECTION_FILES]);
+    const perRound = new Set(PER_ROUND_FILES);
+    // Directory walks inside `collect()`, keyed by the template they cover. Pinned to the
+    // source below so a walk that is deleted cannot keep satisfying this list.
+    const WALKED: Record<string, string> = {
+      "tur${round}/sections/${oblast}.json": "/sections",
+      "runoff_transfer/${oblast}.json": "runoff_transfer",
+    };
+    const unpublished = templates.flatMap(expand).filter((tpl) => {
+      if (WALKED[tpl]) return false;
+      const round = /^tur\$\{round\}\/(.+)$/.exec(tpl);
+      if (round) return !perRound.has(round[1]);
+      // `${FILE_OF[level]}` and friends are resolved by the per-round list above; anything
+      // else is a literal at the cycle root.
+      return !cycleRoot.has(tpl);
+    });
+    expect(unpublished).toEqual([]);
+  });
+
+  test("the directory walks those templates rely on are still in collect()", () => {
+    // ⚠ THE LIST ABOVE IS ONLY AS GOOD AS THIS. A walk removed from `collect()` would leave
+    // its template silently „covered" by a `WALKED` entry describing code that no longer runs.
+    expect(SRC).toContain('join(DATA, entry.name, round, "sections")');
+    expect(SRC).toContain('join(DATA, entry.name, "runoff_transfer")');
+  });
+
+  test("the two files that were 404 in production are named", () => {
+    // ⚠ THE REGRESSION ANCHOR. The derived gate above passes the day somebody deletes both the
+    // list entry AND the hook; this says the artifacts themselves stay published.
+    expect(PER_CYCLE_FILES).toContain("runoff_transfer.json");
+    expect(PER_CYCLE_FILES).toContain("split_ticket.json");
   });
 });

@@ -27,7 +27,7 @@ import path from "node:path";
 import { SITE_URL, type PrerenderRoute } from "./routes";
 import { buildWebPageLd } from "./jsonLd";
 import { escapeHtml } from "./html";
-import { PRESIDENTIAL_FOLDER_RE } from "../lib/electionFolders";
+import { presidentialCyclesIn } from "../lib/electionFolders";
 import type { RegionInfo } from "../../src/data/dataTypes";
 
 /** ⚠ EVERY CORPUS STRING IN A `bodyHtml` GOES THROUGH THIS. `PrerenderRoute`'s own doc says
@@ -37,17 +37,12 @@ import type { RegionInfo } from "../../src/data/dataTypes";
  *  escapes for exactly that reason. Numbers do not need it; names do. */
 const esc = escapeHtml;
 
-/** Every ingested presidential cycle, oldest first. */
-export const presidentialCyclesFor = (projectRoot: string): string[] => {
-  const root = path.join(projectRoot, "data");
-  if (!fs.existsSync(root)) return [];
-  // ⚠ THE SHARED CONSTANT, never a retyped literal — `electionFolders.ts` says so in its own
-  // header, and there are already eight inline copies of this pattern in the tree.
-  return fs
-    .readdirSync(root)
-    .filter((d) => PRESIDENTIAL_FOLDER_RE.test(d))
-    .sort();
-};
+/** Every ingested presidential cycle, oldest first. ⚠ A THIN RE-EXPORT of the shared lister,
+ *  differing from its siblings only in taking a PROJECT root — `scripts/og/generate.ts` imports
+ *  this one while `scripts/main.ts` imports `build_split_ticket`'s, so before the consolidation
+ *  two call sites reached two different functions for one question. */
+export const presidentialCyclesFor = (projectRoot: string): string[] =>
+  presidentialCyclesIn(path.join(projectRoot, "data"));
 
 type SummaryRound = {
   round: 1 | 2;

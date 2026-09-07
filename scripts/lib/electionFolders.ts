@@ -32,6 +32,8 @@
 // SKIP; a future kind must be added here rather than left to fall through, or every
 // sweep silently drops it.
 
+import fs from "node:fs";
+
 export type ElectionFolderKind =
   | "parliamentary"
   | "local"
@@ -156,3 +158,27 @@ export const describeSkippedElectionFolders = (
   const parts = [...byKind.entries()].map(([k, n]) => `${n} ${k}`);
   return `${skipped.length} other election folder(s): ${parts.join(", ")}`;
 };
+
+/**
+ * Every ingested presidential cycle directly under `root`, oldest first.
+ *
+ * @param root - The directory to list — `data/` or a test's temp root. NOT a project root:
+ *   the caller joins `"data"` itself, because two of the three callers already hold the data
+ *   root and only the prerender holds a project root.
+ * @returns The `_pvr` folder NAMES, sorted, or `[]` when `root` does not exist.
+ *
+ *   ⚠ THE ONE LISTER. Three copies of this seven-line function existed — in
+ *   `build_runoff_transfer.ts`, in `build_split_ticket.ts` (byte-identical) and in
+ *   `scripts/prerender/presidentialRoutes.ts` — all three reading the shared
+ *   `PRESIDENTIAL_FOLDER_RE` and none of them reading each other, so `scripts/og/generate.ts`
+ *   and `scripts/main.ts` already called two DIFFERENT functions to answer one question. The
+ *   constant was shared; the function around it was not, which is the half that matters when
+ *   the answer has to be stable across a build.
+ */
+export const presidentialCyclesIn = (root: string): string[] =>
+  fs.existsSync(root)
+    ? fs
+        .readdirSync(root)
+        .filter((d) => PRESIDENTIAL_FOLDER_RE.test(d))
+        .sort()
+    : [];

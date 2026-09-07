@@ -30,7 +30,8 @@
 import { spawn } from "node:child_process";
 import { gzipSync } from "node:zlib";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { isExcluded } from "./bucket_sync_paths";
 import { BUCKET_GS } from "./db/lib/bucket";
 import { electionFolderKind, isElectionFolder } from "./lib/electionFolders";
@@ -144,6 +145,27 @@ const PER_ELECTION_FILES = [
 // them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
 const SECTION_SHARD_GZIP_MIN = 120_000;
 
+// Presidential CYCLE-ROOT files (`<cycle>/…`). ⚠ NOT `PER_ELECTION_FILES`, which is matched
+// at the root of EVERY election folder — these three exist only under a `_pvr` cycle, and the
+// list they would join is already the reason `region_votes.json` was looked for in the wrong
+// place once.
+//
+// ⚠⚠ TWO OF THEM WERE 404 IN PRODUCTION UNTIL 2026-09-07 — measured against the live bucket,
+// `runoff_transfer.json` and `split_ticket.json` both answered 404 while `tickets.json` and
+// `national_summary.json` answered 200. Nothing failed: both hooks read a missing file as
+// `absent` by design, so „Откъде дойдоха гласовете на балотажа" and the split-ticket tile
+// simply never rendered on the live site while working perfectly on a developer's machine.
+// That is precisely the failure the per-round header below warns about, and it had already
+// happened.
+//
+// The per-oblast `runoff_transfer/` shards ride the same branch, walked rather than listed —
+// measured 6.3-15.2 KB raw each, ~2.3 KB gzipped, 155 files.
+const PER_CYCLE_FILES = [
+  "runoff_transfer.json",
+  "split_ticket.json",
+  "tickets.json",
+];
+
 // Presidential per-round roll-ups (`<cycle>/tur<1|2>/…`). The tree has NO per-place shards
 // below the country — each of these covers the whole country for one round — so a place page's
 // map downloads all of it. Measured on 2021, raw → gzipped:
@@ -198,6 +220,19 @@ export const collect = (): string[] => {
     // lives at `<cycle>/tur1/` here — so the presidential country map was being served
     // uncompressed while the parliamentary one of the same name was not.
     if (electionFolderKind(entry.name) === "presidential") {
+      for (const f of PER_CYCLE_FILES) {
+        const rel = `${entry.name}/${f}`;
+        if (existsSync(join(DATA, rel))) out.push(rel);
+      }
+      // The per-oblast runoff transfer shards — one region page's Sankey each, 4.6-11.1 KB
+      // raw. ⚠ SAME „no size threshold" ARGUMENT as the section shards below: each is one
+      // chart's whole input, and being small is not a reason to serve it uncompressed when
+      // this pass is also the only thing that publishes it at all.
+      const transferDir = join(DATA, entry.name, "runoff_transfer");
+      if (existsSync(transferDir))
+        for (const f of readdirSync(transferDir))
+          if (f.endsWith(".json"))
+            out.push(`${entry.name}/runoff_transfer/${f}`);
       for (const round of ["tur1", "tur2"]) {
         for (const f of PER_ROUND_FILES) {
           const rel = `${entry.name}/${round}/${f}`;
@@ -332,7 +367,14 @@ const run = async (): Promise<void> => {
 // full 156-object upload to the PRODUCTION bucket as a side effect. That is exactly what
 // happened: `runbook.test.ts`'s coverage clause imported `collect`, and every run of it
 // published. A script that does something when you load it cannot export anything.
-if (process.argv[1] && process.argv[1].includes("bucket_gzip")) {
+// ⚠️ EXACT PATH IDENTITY, NEVER A SUBSTRING. `.includes("bucket_gzip")` is also satisfied by
+// `bucket_gzip.test.ts`, by a `bucket_gzip_report.ts`, and by any wrapper whose path happens to
+// contain the name — and what sits on the other side of this `if` is a 682-object upload to the
+// production bucket. The strict form is the one every other CLI in this tree uses.
+if (
+  process.argv[1] &&
+  fileURLToPath(import.meta.url) === resolve(process.argv[1])
+) {
   run().catch((e) => {
     console.error(e);
     process.exit(1);

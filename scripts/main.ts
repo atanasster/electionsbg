@@ -435,9 +435,23 @@ const app = command({
         await import("./parsers_presidential/build_split_ticket");
       for (const r of results) {
         for (const write of [writeRunoffTransfer, writeSplitTicket]) {
+          // ⚠ ONE PATH OR MANY. `writeRunoffTransfer` writes the cycle file AND one shard per
+          // oblast, so it answers with an array; `writeSplitTicket` still answers with one
+          // path or null. A `files` list that kept only the first would under-report a
+          // presidential ingest by 31 paths per cycle — and that list is what the ingest
+          // reports as having been written.
           const written = write(r.cycle, { indent });
-          if (written) r.files.push(written);
+          for (const f of Array.isArray(written)
+            ? written
+            : written
+              ? [written]
+              : [])
+            r.files.push(f);
         }
+        // ⚠ RE-SORTED. `ingestPresidentialCycle` returns `files.sort()` deliberately, and the
+        // block above appends up to 32 more paths onto the end — so without this the manifest
+        // is sorted-then-appended, which is neither ordering anybody can rely on.
+        r.files.sort();
       }
       // ⚠⚠ THE FILENAME IS THE LOOKUP KEY, so it must be the SKILL name — not the watcher
       // source, which is what this plan's own wording says („state/ingest/cik_presidential

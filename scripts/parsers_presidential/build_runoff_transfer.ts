@@ -51,7 +51,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { estimateOblast } from "../voteFlows/estimate";
-import { PRESIDENTIAL_FOLDER_RE } from "../lib/electionFolders";
+import { presidentialCyclesIn } from "../lib/electionFolders";
 import { UNPLACED_SHARD } from "./aggregate";
 import {
   ABSTAIN_ID,
@@ -195,6 +195,92 @@ export type RunoffTransfer = {
   };
 };
 
+/**
+ * ONE OBLAST'S transition matrix — the same estimate the national Sankey is summed from,
+ * emitted per oblast so a region page can draw its own.
+ *
+ * ⚠⚠ IT IS ITS OWN FILE, AND THE CAVEAT IS REPEATED IN IT RATHER THAN LINKED. A region page
+ * fetches this shard and nothing else, so `basis` living only in `runoff_transfer.json`
+ * would be a matrix rendered with no caveat anywhere in the document — the exact failure
+ * `RunoffTransfer.basis` exists to prevent, one level down. The strings are the SAME strings,
+ * copied from the one build, so the two surfaces cannot state different qualifications.
+ *
+ * ⚠ SEPARATE FILES RATHER THAN A FIELD ON `oblasts[]`. `runoff_transfer.json` is fetched by
+ * the COUNTRY page, which needs no per-oblast matrix at all; folding 31 of them into it grows
+ * that page's payload several-fold to serve a question it never asks. Measured 2026-09-07, a
+ * shard is 6.3-15.2 KB on disk (mean 10.4 KB; 155 files, 1.57 MB in all) and ~2.3 KB gzipped,
+ * which is what `bucket:gz` actually stores — and only the oblast being read is fetched.
+ *
+ * ⚠ `flows` IS `est.flows` VERBATIM, from the same pass that feeds `national`. Re-estimating
+ * per oblast would be a second answer to „where did this oblast's votes go", and the two would
+ * disagree the first time either side of the pipeline moved.
+ */
+export type OblastTransfer = {
+  cycle: string;
+  oblast: string;
+  /** ⚠ THE CAVEAT, IN EVERY SHARD — see the type's header. */
+  basis: string;
+  basisEn: string;
+  /** The runoff pair, WINNER FIRST, with this oblast's own round-2 votes. */
+  finalists: { number: number; president: string; votes: number }[];
+  /** Sections in THIS oblast that opened in both rounds — the shard's population. */
+  sections: number;
+  /**
+   * ⚠⚠ WHAT THIS SHARD DOES NOT COVER — the `basis` argument applied to the OTHER half of the
+   * caveat, and on one cycle it is the larger half. A region page fetches this file and
+   * nothing else, so a refusal declared only in `runoff_transfer.json` is a refusal nobody
+   * can see.
+   *
+   * Measured on 2011: the ingest refused to place **1,355 sections / 422,726 runoff votes**,
+   * all of them Sofia, against **32,024** votes inside Sofia's three shards — so **93% of
+   * Sofia's runoff vote is outside its own shards**. Without these fields that page renders a
+   * complete-looking Sankey, a winner-first pair and a `sections: 35` with no denominator,
+   * and a reader has no way to discover any of it.
+   *
+   * ⚠ CYCLE-WIDE, NOT PER-OBLAST, AND THAT IS NOT AN APPROXIMATION. The `_unplaced` shard
+   * carries no oblast BY CONSTRUCTION — that is what „unplaced" means — so the mass cannot be
+   * attributed to one, which is precisely why a shard that omits it invites a reader to
+   * assume it is complete. The field names say `InCycle` so no surface can render it as this
+   * oblast's own.
+   */
+  coverage: {
+    basis: string;
+    basisEn: string;
+    unplacedSectionsInCycle: number;
+    unplacedVotesInCycle: number;
+    /** Votes cast outside the country in the runoff — outside every matrix, national and
+     *  per-oblast alike, because abroad sections have no oblast and no electoral roll. */
+    abroadVotesInCycle: number;
+  };
+  matrix: VoteFlowMatrix;
+  /** Votes in cells below the drawing threshold, or on a lane no node was kept for. */
+  droppedVotes: number;
+  /**
+   * The largest relative gap between a node's total and its drawn ribbons, in this oblast.
+   *
+   * ⚠⚠ AN ORDER OF MAGNITUDE WORSE THAN THE NATIONAL FIGURE, for a structural reason: the RAS
+   * residual cancels when 31 oblasts are summed and does not cancel inside one. Measured over
+   * 155 shards — median 0.09, p90 0.287, max 0.70 — against 0.012-0.047 nationally. At 0.54
+   * (2016/LOV) „Недействителни" prints 2,884 beside ribbons summing to 1,314. A surface that
+   * prints a node's total beside its ribbons owes the reader this number — the same
+   * obligation `national.marginGap` carries, and more so here.
+   */
+  marginGap: number;
+  /** RAS mass-balance residual, normalised by the oblast's electorate — the same number the
+   *  national file's `oblasts[]` row carries, repeated so a shard is readable on its own. */
+  rasResidual: number;
+};
+
+/** What ONE build produces: the cycle-level file and its per-oblast shards.
+ *
+ *  ⚠ TWO ARTIFACTS, ONE ESTIMATE. They are returned together rather than by two functions
+ *  because the second would have to re-run the regression — a full NNLS+RAS pass per cycle —
+ *  and could then disagree with the first. */
+export type RunoffTransferBuild = {
+  transfer: RunoffTransfer;
+  oblasts: OblastTransfer[];
+};
+
 type ShardSection = {
   code: string;
   ekatte?: string;
@@ -221,13 +307,11 @@ const readJson = <T>(f: string): T | null => {
   }
 };
 
+/** Every ingested presidential cycle, oldest first. ⚠ A THIN RE-EXPORT of the shared lister
+ *  — the function lived here, in `build_split_ticket.ts` and in the prerender, three times
+ *  over, and this module's own CLI and test import it by this name. */
 export const presidentialCyclesFor = (root = DATA_ROOT): string[] =>
-  fs.existsSync(root)
-    ? fs
-        .readdirSync(root)
-        .filter((d) => PRESIDENTIAL_FOLDER_RE.test(d))
-        .sort()
-    : [];
+  presidentialCyclesIn(root);
 
 /** One round's sections for one oblast. */
 const readShard = (
@@ -372,7 +456,14 @@ export const edgesOf = (
   fromIds: string[],
   toIds: string[],
   flows: number[][],
-  keep: Set<string>,
+  /** ⚠ TWO SETS, ONE PER AXIS, and a union is NOT the same question. A finalist can survive
+   *  on the to-axis while being dropped from the from-axis in an oblast where they polled
+   *  nothing in round 1 — a union then admits a ribbon LEAVING a node the chart does not
+   *  draw. Zero such edges on today's 155 shards; the precondition is a row sum disagreeing
+   *  with its margin, which `marginGap` shows happens routinely once the matrix is one
+   *  oblast wide. */
+  keepFrom: Set<string>,
+  keepTo: Set<string>,
 ): { edges: VoteFlowEdge[]; droppedVotes: number } => {
   // ⚠ THE PARLIAMENTARY GENERATOR'S THRESHOLD (0.005% OF TOTAL MASS) DOES NOT TRANSFER, and
   // adopting it cost a fifth of a lane. That chart's smallest node is a party; this one's is
@@ -383,13 +474,81 @@ export const edgesOf = (
   const min = 20;
   const edges: VoteFlowEdge[] = [];
   let droppedVotes = 0;
+  /** The largest cell each node LOST to the floor. ⚠ TWO MAPS, ONE PER SIDE, and that is not
+   *  tidiness: a pseudo lane is BOTH a from-node and a to-node, so a single map keyed by id
+   *  holds one cell for two independent questions. Measured — with one map, S25's
+   *  „недействителни" was rescued by its largest INCOMING cell and left with no outgoing
+   *  ribbon at all, i.e. still orphaned on the side the rescue was for. */
+  type Candidate = { cell: VoteFlowEdge; raw: number };
+  const bestFrom = new Map<string, Candidate>();
+  const bestTo = new Map<string, Candidate>();
+  /** ⚠ RANKED ON THE RAW FLOW, not on the rounded cell. A node whose margin rounds to 1 while
+   *  every one of its cells rounds to 0 has no rounded candidate at all, so the rescue below
+   *  would skip it and leave exactly the orphan it exists to prevent. */
+  const remember = (side: Map<string, Candidate>, id: string, c: Candidate) => {
+    const cur = side.get(id);
+    if (!cur || c.raw > cur.raw) side.set(id, c);
+  };
   fromIds.forEach((from, i) =>
     toIds.forEach((to, j) => {
-      const votes = Math.round(flows[i][j]);
-      if (votes >= min && keep.has(from) && keep.has(to))
+      const raw = flows[i][j];
+      const votes = Math.round(raw);
+      if (!keepFrom.has(from) || !keepTo.has(to)) {
+        droppedVotes += votes;
+        return;
+      }
+      if (votes >= min) {
         edges.push({ from, to, votes });
-      else droppedVotes += votes;
+        return;
+      }
+      droppedVotes += votes;
+      remember(bestFrom, from, { cell: { from, to, votes }, raw });
+      remember(bestTo, to, { cell: { from, to, votes }, raw });
     }),
+  );
+
+  // ⚠⚠ A NODE MAY NEVER BE DRAWN WITH NO RIBBON AT ALL, and an ABSOLUTE floor does exactly
+  // that once the matrix is cut per oblast. Nationally „недействителни" is 2,776 votes and
+  // every one of its cells clears 20; in Sofia's S25 the same lane is **20 votes**, all of its
+  // cells fall under the floor, and the node renders as a labelled bar with nothing attached —
+  // `marginGap` 1.0, i.e. the chart asserting it cannot account for any of a total it prints.
+  // So a node's LARGEST lost cell is restored: by definition that cell is not noise relative
+  // to the node, since it is most of it. Measured, this is a NO-OP on all five national
+  // matrices — none has an orphaned node (worst gap 0.047) — and fires on 4 of 155 shards,
+  // rescuing 18 nodes in all (2011: S23 5, S24 9, S25 2; 2021: S25 2).
+  const drawnFrom = new Set(edges.map((e) => e.from));
+  const drawnTo = new Set(edges.map((e) => e.to));
+  const restored = new Set<string>();
+  for (const [side, drawn] of [
+    [bestFrom, drawnFrom],
+    [bestTo, drawnTo],
+  ] as const)
+    for (const [id, best] of side) {
+      if (drawn.has(id) || best.raw <= 0) continue;
+      // ⚠ AT LEAST ONE VOTE. A cell that rounds to 0 is still the node's largest, and a
+      // 0-vote ribbon is this same orphan wearing a different mask.
+      const cell = { ...best.cell, votes: Math.max(1, best.cell.votes) };
+      // ⚠ ONE CELL CAN RESCUE BOTH ITS ENDS, so it must not be pushed twice.
+      const key = `${cell.from}\u0000${cell.to}`;
+      if (restored.has(key)) continue;
+      restored.add(key);
+      edges.push(cell);
+      droppedVotes -= cell.votes;
+      // ⚠ THE SNAPSHOTS FOLLOW THE RESCUE. A cell restored for its from-node also un-orphans
+      // its to-node; without this the second pass restores a redundant second edge.
+      drawnFrom.add(cell.from);
+      drawnTo.add(cell.to);
+    }
+
+  // ⚠ CANONICAL ORDER, so a rescued edge does not land at the end and make the committed
+  // artifact's diff depend on which nodes happened to be orphaned. A no-op when nothing was
+  // rescued — the loop above already emits `(i, j)` order.
+  const fromIdx = new Map(fromIds.map((id, i) => [id, i]));
+  const toIdx = new Map(toIds.map((id, j) => [id, j]));
+  edges.sort(
+    (a, b) =>
+      (fromIdx.get(a.from) ?? 0) - (fromIdx.get(b.from) ?? 0) ||
+      (toIdx.get(a.to) ?? 0) - (toIdx.get(b.to) ?? 0),
   );
   return { edges, droppedVotes };
 };
@@ -437,7 +596,7 @@ const abroadVotesOf = (cycle: string, root: string): number => {
 export const buildRunoffTransfer = (
   cycle: string,
   root = DATA_ROOT,
-): RunoffTransfer | null => {
+): RunoffTransferBuild | null => {
   const tickets =
     readJson<{ tickets: Ticket[] }>(path.join(root, cycle, "tickets.json"))
       ?.tickets ?? [];
@@ -474,6 +633,20 @@ export const buildRunoffTransfer = (
   // until every oblast has been summed, so the row's `w1`/`w2` are filled in afterwards
   // rather than guessed from ballot order.
   const finalistFigures = new Map<string, { w1: number; w2: number }[]>();
+  // ⚠ THE ESTIMATE, RETAINED PER OBLAST — not re-run afterwards. The shards are built below,
+  // once `hasNone` is known, because whether the ballot carried „не подкрепям никого" is a
+  // fact about the CYCLE: derived per oblast it would draw the lane in one region and omit it
+  // in the next, for the same ballot. Holding `est.flows` costs 31 × 26 × 5 numbers.
+  const estimated = new Map<
+    string,
+    {
+      flows: number[][];
+      from: number[];
+      to: number[];
+      sections: number;
+      rasResidual: number;
+    }
+  >();
   let sectionsWithEkatte = 0;
   let sectionsWithoutEkatte = 0;
   let votesWithoutEkatte = 0;
@@ -593,23 +766,25 @@ export const buildRunoffTransfer = (
         `${cycle}/${oblast}: pooled margins disagree (${fromMass} vs ${toMass}) — ` +
           "estimateOblast would rescale them and w2 would stop being a published figure",
       );
+    // ⚠ ROUNDED ONCE, HERE. The residual is a convergence diagnostic, and printing it to 17
+    // significant figures implies a precision the estimate does not have — while making the
+    // committed artifact's diff unreadable, which is how a corpus change is reviewed. Rounded
+    // once because `OblastTransfer.rasResidual` promises to be the SAME number the national
+    // row carries, and two `toPrecision` literals make that a coincidence rather than a fact.
     const est = estimateOblast({
       oblast,
       sections,
       fromTotals: oFrom,
       toTotals: oTo,
     });
+    const rasResidual = Number(est.rasResidual.toPrecision(4));
     // ⚠ THE WINNER'S ROUND-2 VOTES COME FROM THE MARGINALS, not from a second pass over the
     // shards: `oTo` is what the estimate was scaled to, so a row whose `w2` disagreed with it
     // would be a map contradicting the Sankey it sits beside.
     rows.push({
       oblast,
       sections: sections.length,
-      // ⚠ ROUNDED. The residual is a convergence diagnostic, and printing it to 17
-      // significant figures implies a precision the estimate does not have — while
-      // making the committed artifact's diff unreadable, which is how a corpus change
-      // is reviewed here.
-      rasResidual: Number(est.rasResidual.toPrecision(4)),
+      rasResidual,
       // ⚠ PLACEHOLDERS. Filled in below, once the round-2 totals say who won.
       w1: 0,
       w2: 0,
@@ -627,6 +802,13 @@ export const buildRunoffTransfer = (
       oblast,
       toNums.map((_, i) => ({ w1: obs.w[i], w2: Math.round(oTo[i]) })),
     );
+    estimated.set(oblast, {
+      flows: est.flows,
+      from: oFrom,
+      to: oTo,
+      sections: sections.length,
+      rasResidual,
+    });
     est.flows.forEach((row, i) =>
       row.forEach((v, j) => {
         national[i][j] += v;
@@ -647,10 +829,8 @@ export const buildRunoffTransfer = (
 
   const fromNodes = nodesOf(fromNums, tickets, fromTotals, hasNone);
   const toNodes = nodesOf(toNums, tickets, toTotals, hasNone);
-  const keep = new Set([
-    ...fromNodes.map((n) => n.id),
-    ...toNodes.map((n) => n.id),
-  ]);
+  const keepFrom = new Set(fromNodes.map((n) => n.id));
+  const keepTo = new Set(toNodes.map((n) => n.id));
   const fromIds = [
     ...fromNums.map(ticketNodeId),
     NONE_ID,
@@ -658,7 +838,7 @@ export const buildRunoffTransfer = (
     ABSTAIN_ID,
   ];
   const toIds = [...toNums.map(ticketNodeId), NONE_ID, INVALID_ID, ABSTAIN_ID];
-  const edges = edgesOf(fromIds, toIds, national, keep);
+  const edges = edgesOf(fromIds, toIds, national, keepFrom, keepTo);
 
   // ⚠ THE WINNER IS READ FROM THE TOTALS, never assumed from ballot order. `toNums` is sorted
   // by ballot number, and in 2001 the lower number lost.
@@ -674,24 +854,50 @@ export const buildRunoffTransfer = (
     row.w2 = figures.w2;
   }
 
-  return {
+  // ⚠ HOISTED SO THE SHARDS CARRY THE SAME SENTENCE, not a second one. `OblastTransfer.basis`
+  // is this string — a region page renders the matrix with no other caveat in the document, so
+  // two literals here would be two qualifications a reader could be shown either of.
+  const basis =
+    "Оценка, не наблюдение. Никой не вижда как отделен избирател сменя вота си между " +
+    "двата тура — вижда се само че числата на секцията са се променили. Матрицата е " +
+    "екологична регресия по области, мащабирана така че сборовете ѝ да съвпадат с " +
+    "публикуваните резултати; тя показва движение, СЪВМЕСТИМО с данните, а не преброени " +
+    "хора.";
+  const basisEn =
+    "An estimate, not an observation. Nobody sees an individual voter change sides " +
+    "between the two rounds — what is seen is that a polling station's numbers changed. " +
+    "The matrix is an ecological regression by oblast, scaled so its margins match the " +
+    "published results; it shows movement CONSISTENT WITH the data, not counted people.";
+  const finalists = ranked.map((f) => ({
+    number: f.n,
+    president: nameOf(f.n),
+    votes: f.votes,
+  }));
+
+  // ⚠ HOISTED FOR THE SAME REASON `basis` IS — every shard repeats this sentence verbatim,
+  // because a region page fetches one shard and nothing else and a refusal it cannot see is
+  // indistinguishable from no refusal at all.
+  const coverageBasis =
+    "Само секции в страната, отворени и в двата тура. Гласовете в чужбина са извън " +
+    "матрицата: те се публикуват по държави, без секции, и нямат избирателен списък, " +
+    "спрямо който „не гласували“ да значи нещо. Извън нея са и секциите, за които " +
+    "областта не е установена — регресия по „никъде“ няма смисъл, но гласовете са " +
+    "истински и затова са преброени тук. Свързването секция→населено място е направено и " +
+    "измерено, но не става карта: каталогът няма София.";
+  const coverageBasisEn =
+    "Domestic sections that opened in both rounds only. Votes cast abroad are outside " +
+    "the matrix: they are published by country rather than by section, and have no " +
+    "electoral roll for „did not vote“ to be measured against. So are sections whose " +
+    "oblast could not be established — a regression over „nowhere“ means nothing, but the " +
+    "votes are real and are counted here. The section→settlement join is performed and " +
+    "measured but does not become a map: the catalogue has no entry for Sofia.";
+  const abroadVotes = abroadVotesOf(cycle, root);
+
+  const transfer: RunoffTransfer = {
     cycle,
-    basis:
-      "Оценка, не наблюдение. Никой не вижда как отделен избирател сменя вота си между " +
-      "двата тура — вижда се само че числата на секцията са се променили. Матрицата е " +
-      "екологична регресия по области, мащабирана така че сборовете ѝ да съвпадат с " +
-      "публикуваните резултати; тя показва движение, СЪВМЕСТИМО с данните, а не преброени " +
-      "хора.",
-    basisEn:
-      "An estimate, not an observation. Nobody sees an individual voter change sides " +
-      "between the two rounds — what is seen is that a polling station's numbers changed. " +
-      "The matrix is an ecological regression by oblast, scaled so its margins match the " +
-      "published results; it shows movement CONSISTENT WITH the data, not counted people.",
-    finalists: ranked.map((f) => ({
-      number: f.n,
-      president: nameOf(f.n),
-      votes: f.votes,
-    })),
+    basis,
+    basisEn,
+    finalists,
     national: {
       matrix: { fromNodes, toNodes, flows: edges.edges },
       sections: matchedSections,
@@ -702,22 +908,10 @@ export const buildRunoffTransfer = (
     },
     oblasts: rows,
     coverage: {
-      basis:
-        "Само секции в страната, отворени и в двата тура. Гласовете в чужбина са извън " +
-        "матрицата: те се публикуват по държави, без секции, и нямат избирателен списък, " +
-        "спрямо който „не гласували“ да значи нещо. Извън нея са и секциите, за които " +
-        "областта не е установена — регресия по „никъде“ няма смисъл, но гласовете са " +
-        "истински и затова са преброени тук. Свързването секция→населено място е направено и " +
-        "измерено, но не става карта: каталогът няма София.",
-      basisEn:
-        "Domestic sections that opened in both rounds only. Votes cast abroad are outside " +
-        "the matrix: they are published by country rather than by section, and have no " +
-        "electoral roll for „did not vote“ to be measured against. So are sections whose " +
-        "oblast could not be established — a regression over „nowhere“ means nothing, but the " +
-        "votes are real and are counted here. The section→settlement join is performed and " +
-        "measured but does not become a map: the catalogue has no entry for Sofia.",
+      basis: coverageBasis,
+      basisEn: coverageBasisEn,
       domesticSections: matchedSections,
-      abroadVotes: abroadVotesOf(cycle, root),
+      abroadVotes,
       unplacedSections: unplaced.length,
       unplacedVotes,
       settlementsJoined: settlements.size,
@@ -732,14 +926,123 @@ export const buildRunoffTransfer = (
       round2OnlyVotes,
     },
   };
+
+  // ⚠ ONE SHARD PER OBLAST, FROM THE RETAINED `est.flows`. `nodesOf` is given the oblast's OWN
+  // margins, so a ticket that polled nothing here is dropped from this shard and still drawn
+  // nationally — which is the point of a per-region view. The three pseudo lanes survive at 0
+  // („nobody spoiled a ballot here" is a result), except the one the ballot did not carry,
+  // which is `hasNone` — a CYCLE-wide fact, deliberately not re-derived per oblast.
+  const oblastShards: OblastTransfer[] = [...estimated.entries()].map(
+    ([oblast, e]) => {
+      const oFromNodes = nodesOf(fromNums, tickets, e.from, hasNone);
+      const oToNodes = nodesOf(toNums, tickets, e.to, hasNone);
+      const oEdges = edgesOf(
+        fromIds,
+        toIds,
+        e.flows,
+        new Set(oFromNodes.map((n) => n.id)),
+        new Set(oToNodes.map((n) => n.id)),
+      );
+      return {
+        cycle,
+        oblast,
+        basis,
+        basisEn,
+        // ⚠ THIS OBLAST'S OWN ROUND-2 VOTES, in the national WINNER-FIRST order. A shard that
+        // re-ranked locally would name a different „winner" in the eleven oblasts the runner-up
+        // carried in 2021 — a claim about the runoff that the runoff did not make.
+        finalists: finalists.map((f) => ({
+          ...f,
+          votes: Math.round(e.to[toNums.indexOf(f.number)] ?? 0),
+        })),
+        sections: e.sections,
+        coverage: {
+          basis: coverageBasis,
+          basisEn: coverageBasisEn,
+          unplacedSectionsInCycle: unplaced.length,
+          unplacedVotesInCycle: unplacedVotes,
+          abroadVotesInCycle: abroadVotes,
+        },
+        matrix: {
+          fromNodes: oFromNodes,
+          toNodes: oToNodes,
+          flows: oEdges.edges,
+        },
+        droppedVotes: oEdges.droppedVotes,
+        marginGap: Number(
+          marginGap(oFromNodes, oToNodes, oEdges.edges).toPrecision(3),
+        ),
+        rasResidual: e.rasResidual,
+      };
+    },
+  );
+
+  return { transfer, oblasts: oblastShards };
 };
 
 export const TRANSFER_FILE = "runoff_transfer.json";
+/** The per-oblast shards, beside the cycle file. ⚠ A DIRECTORY WHOSE NAME IS THE CYCLE FILE'S
+ *  STEM — `runoff_transfer.json` and `runoff_transfer/` coexist on a filesystem and in the
+ *  bucket, and the pairing is what makes the relationship obvious in a listing. */
+export const TRANSFER_DIR = "runoff_transfer";
+
+/** One oblast's shard path, relative to the cycle folder. ⚠ THE ONE PLACE THE LAYOUT IS
+ *  SPELLED — the writer here and the browser's fetch both have to agree, and a second literal
+ *  is a page requesting a file nobody wrote. */
+export const oblastTransferFile = (oblast: string): string =>
+  path.join(TRANSFER_DIR, `${oblast}.json`);
 
 /**
- * Build one cycle's transfer file and write it. Returns the path RELATIVE TO `root` — the
- * shape `ingestPresidentialCycle` puts in its `files` list — or `null` for a cycle with no
- * runoff.
+ * Write ONE already-built pair — the cycle file and its per-oblast shards. Returns the paths
+ * RELATIVE TO `root`, the shape `ingestPresidentialCycle` puts in its `files` list.
+ *
+ * ⚠ STALE SHARDS ARE DELETED, not left. An oblast that disappears from a rebuild would
+ * otherwise keep serving the previous vintage at a 200 — the „green locally, stale on prod"
+ * shape — and unlike the cycle file, which is overwritten whole, nothing else ever touches it.
+ */
+const writeBuild = (
+  build: RunoffTransferBuild,
+  { indent, root }: { indent: number; root: string },
+): string[] => {
+  const { cycle } = build.transfer;
+  const dir = path.join(root, cycle, TRANSFER_DIR);
+  fs.mkdirSync(dir, { recursive: true });
+  const written = new Set(build.oblasts.map((o) => `${o.oblast}.json`));
+  const stale = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".json") && !written.has(f));
+  // ⚠ NAMED, NOT SILENT. This is the module's only irreversible operation, and a partial
+  // corpus — a half-copied `tur1/sections/` tree — is indistinguishable from a genuine
+  // retirement without the list. Every loader in this repo that deletes on a rebuild either
+  // refuses a shrink or reports it; a rebuild here is cheap, so it reports.
+  if (stale.length)
+    console.log(
+      `  removing ${stale.length} stale shard(s) under ${cycle}/${TRANSFER_DIR}: ` +
+        stale.join(", "),
+    );
+  for (const f of stale) fs.unlinkSync(path.join(dir, f));
+  const shards = build.oblasts.map((o) => {
+    const shardRel = path.join(cycle, oblastTransferFile(o.oblast));
+    fs.writeFileSync(
+      path.join(root, shardRel),
+      `${JSON.stringify(o, null, indent)}\n`,
+    );
+    return shardRel;
+  });
+  // ⚠ THE CYCLE FILE LAST. It names how many oblasts the build found, so writing it FIRST and
+  // then throwing in the shard loop leaves a manifest claiming 31 beside a directory holding
+  // some other number — the one ordering in which a crash produces a self-contradicting pair.
+  const rel = path.join(cycle, TRANSFER_FILE);
+  fs.writeFileSync(
+    path.join(root, rel),
+    `${JSON.stringify(build.transfer, null, indent)}\n`,
+  );
+  return [rel, ...shards];
+};
+
+/**
+ * Build one cycle's transfer artifacts and write them. Returns every path written, RELATIVE TO
+ * `root`, or an EMPTY ARRAY for a cycle with no runoff.
  *
  * ⚠ ONE WRITER FOR BOTH ENTRY POINTS — this CLI and `scripts/main.ts --pvr`. The pipeline used
  * to be the only way most derived presidential artifacts appeared; a second `writeFileSync`
@@ -749,15 +1052,10 @@ export const TRANSFER_FILE = "runoff_transfer.json";
 export const writeRunoffTransfer = (
   cycle: string,
   { indent = 2, root = DATA_ROOT }: { indent?: number; root?: string } = {},
-): string | null => {
-  const transfer = buildRunoffTransfer(cycle, root);
-  if (!transfer) return null;
-  const rel = path.join(cycle, TRANSFER_FILE);
-  fs.writeFileSync(
-    path.join(root, rel),
-    `${JSON.stringify(transfer, null, indent)}\n`,
-  );
-  return rel;
+): string[] => {
+  const build = buildRunoffTransfer(cycle, root);
+  if (!build) return [];
+  return writeBuild(build, { indent, root });
 };
 
 const main = (): void => {
@@ -773,12 +1071,17 @@ const main = (): void => {
   }
   const cycles = target === "all" ? presidentialCyclesFor() : [target];
   for (const cycle of cycles) {
-    const transfer = buildRunoffTransfer(cycle);
-    if (!transfer) {
+    const build = buildRunoffTransfer(cycle);
+    if (!build) {
       console.log(`${cycle}: no runoff — nothing to build`);
       continue;
     }
+    const { transfer } = build;
     const json = `${JSON.stringify(transfer, null, 2)}\n`;
+    const shardBytes = build.oblasts.reduce(
+      (a, o) => a + JSON.stringify(o, null, 2).length + 1,
+      0,
+    );
     const c = transfer.coverage;
     console.log(
       `${cycle}: ${c.domesticSections} sections in ${transfer.oblasts.length} oblasts, ` +
@@ -793,14 +1096,20 @@ const main = (): void => {
         `${c.abroadVotes} abroad), ` +
         `residue ${transfer.residue.round1Only.length}/${transfer.residue.round2Only.length} ` +
         `(${transfer.residue.round1OnlyVotes}/${transfer.residue.round2OnlyVotes} votes) — ` +
-        `${(json.length / 1024).toFixed(1)} KB`,
+        `${(json.length / 1024).toFixed(1)} KB` +
+        // ⚠ THE SHARDS ARE REPORTED SEPARATELY, because they are what a REGION page downloads
+        // and the cycle file is what the COUNTRY page downloads. One combined figure would
+        // describe a request nobody makes.
+        ` + ${build.oblasts.length} oblast shards, ` +
+        `${(shardBytes / 1024).toFixed(1)} KB total / ` +
+        `${(shardBytes / Math.max(1, build.oblasts.length) / 1024).toFixed(1)} KB each`,
     );
     if (!write) continue;
     // ⚠ THE OBJECT ALREADY BUILT, not a second `buildRunoffTransfer`. The summary above and
     // the bytes on disk must describe ONE build — and a second costs a full NNLS+RAS pass per
     // cycle (~1 s each) for nothing.
-    fs.writeFileSync(path.join(DATA_ROOT, cycle, TRANSFER_FILE), json);
-    console.log(`  wrote data/${path.join(cycle, TRANSFER_FILE)}`);
+    for (const rel of writeBuild(build, { indent: 2, root: DATA_ROOT }))
+      console.log(`  wrote data/${rel}`);
   }
 };
 
