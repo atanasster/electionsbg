@@ -26,6 +26,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { isExcluded } from "./bucket_sync_paths";
 import { CLEAVAGES_FILE } from "./parsers_presidential/build_demographics";
 import { SUSPICIOUS_FILE } from "./parsers_presidential/build_suspicious";
+import { NEIGHBORHOODS_FILE } from "./parsers_presidential/build_neighborhoods";
 
 const SRC = readFileSync("scripts/bucket_gzip.ts", "utf8");
 
@@ -191,13 +192,13 @@ describe("the presidential tree this pass publishes", () => {
       "runoff_transfer/${oblast}.json": "runoff_transfer",
     };
     const expanded = templates.flatMap(expand);
-    // ⚠ PIN WHAT THE `.json` FILTER SWALLOWS, rather than only applying it. Three templates name
-    // no file today, and all three are `warnOnce` LOG KEYS — `useOblastTransfer`'s
-    // `${cycle}/${oblast}`, and the per-round `${cycle}/tur${round}` built by both
-    // `usePresidentialCleavages` and `useSuspiciousSettlements`. A FOURTH is either another log
-    // key (added here, deliberately) or an unguarded fetch path, and an unbounded filter cannot
-    // tell those apart — which is the shape that left two artifacts 404 in production, per this
-    // describe block's own header.
+    // ⚠ PIN WHAT THE `.json` FILTER SWALLOWS, rather than only applying it. Four templates name
+    // no file today, and all four are `warnOnce` LOG KEYS — `useOblastTransfer`'s
+    // `${cycle}/${oblast}`, and the per-round `${cycle}/tur${round}` built by
+    // `usePresidentialCleavages`, `useSuspiciousSettlements` and `useNeighborhoods`. A FIFTH is
+    // either another log key (added here, deliberately) or an unguarded fetch path, and an
+    // unbounded filter cannot tell those apart — which is the shape that left two artifacts 404
+    // in production, per this describe block's own header.
     //
     // ⚠ AND THIS ASSERTION IS WHY THE PIN IS WORTH ITS MAINTENANCE COST: adding the cleavages
     // hook turned it red, which is exactly what it is for. It went unnoticed for one commit
@@ -206,6 +207,7 @@ describe("the presidential tree this pass publishes", () => {
     // suspicious-settlements hook turned it red the same way and was caught in its own step.
     expect(expanded.filter((tpl) => !tpl.endsWith(".json")).sort()).toEqual([
       "${oblast}",
+      "tur${round}",
       "tur${round}",
       "tur${round}",
     ]);
@@ -250,6 +252,10 @@ describe("the presidential tree this pass publishes", () => {
 
   test("the presidential suspicious-settlements file is published", () => {
     expect(PER_ROUND_FILES).toContain(SUSPICIOUS_FILE);
+  });
+
+  test("the presidential flagged-districts file is published", () => {
+    expect(PER_ROUND_FILES).toContain(NEIGHBORHOODS_FILE);
   });
 
   test("the two files that were 404 in production are named", () => {

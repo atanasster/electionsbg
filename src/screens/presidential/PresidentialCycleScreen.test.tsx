@@ -1037,3 +1037,124 @@ describe("the anomalies section", () => {
     ).toBeInTheDocument();
   });
 });
+
+describe("the risk-votes section", () => {
+  // ⚠⚠ THE EMPTY STATE IS THE DANGEROUS ONE HERE. „Рискови гласове" over a blank is an
+  // insinuation about eight named Roma districts with no figures under it, so the section is
+  // gated on the tile's OWN content predicate rather than on the query settling.
+  const serve = (files: Record<string, unknown>) => {
+    const seen: string[] = [];
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      seen.push(u);
+      for (const [needle, body] of Object.entries(files))
+        if (u.includes(needle))
+          return new Response(JSON.stringify(body), {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          });
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+    return seen;
+  };
+
+  const rates = {
+    turnoutPct: 48.09,
+    invalidPct: 5.31,
+    additionalPct: 2.73,
+    paperBallots: 45979,
+    actualVoters: 40012,
+  };
+
+  const HOODS = {
+    cycle: LATEST_PRESIDENTIAL_CYCLE,
+    round: 1,
+    basis: "КВАРТАЛНАТА ОГРАДА",
+    basisEn: "THE DISTRICT CAVEAT",
+    coverage: {
+      catalogue: 8,
+      located: 1,
+      missing: [],
+      sections: 133,
+      sectionsInCycle: 12015,
+      validVotes: 40734,
+      pctOfValid: 1.16,
+    },
+    national: { ...rates, turnoutPct: 56.26, invalidPct: 3.05 },
+    totals: rates,
+    tickets: [
+      {
+        number: 6,
+        president: "Румен Георгиев Радев",
+        votes: 10139,
+        pct: 24.89,
+        pctNational: 21.96,
+      },
+    ],
+    places: [
+      {
+        id: "stolipinovo",
+        name_bg: "Столипиново / Шекер махала",
+        name_en: "Stolipinovo / Sheker mahala",
+        city_bg: "Пловдив",
+        city_en: "Plovdiv",
+        sourceUrl: "https://www.segabg.com/hot/x",
+        sections: 70,
+        valid: 18997,
+        ...rates,
+        leader: { number: 6, president: "Румен Георгиев Радев", pct: 26.45 },
+      },
+    ],
+  };
+
+  it("renders NO heading when the artifact is not published", async () => {
+    const seen = serve({ "national_summary.json": SUMMARY });
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await waitFor(() =>
+      expect(seen.some((u) => u.includes("neighborhoods.json"))).toBe(true),
+    );
+    await waitFor(() =>
+      expect(document.querySelector("[data-outcome-canvas]")).toBeTruthy(),
+    );
+    expect(
+      screen.queryByText(bgCorpus.dashboard_section_neighborhoods),
+    ).toBeNull();
+  });
+
+  it("renders NO heading when the payload located no district", async () => {
+    // ⚠⚠ THE STATE A STATUS GATE GETS WRONG, and the reason `hasNeighborhoodContent` exists.
+    const seen = serve({
+      "national_summary.json": SUMMARY,
+      "neighborhoods.json": {
+        ...HOODS,
+        coverage: { ...HOODS.coverage, located: 0, sections: 0, validVotes: 0 },
+        places: [],
+      },
+    });
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    await waitFor(() =>
+      expect(seen.some((u) => u.includes("neighborhoods.json"))).toBe(true),
+    );
+    await waitFor(() =>
+      expect(document.querySelector("[data-outcome-canvas]")).toBeTruthy(),
+    );
+    expect(
+      screen.queryByText(bgCorpus.dashboard_section_neighborhoods),
+    ).toBeNull();
+  });
+
+  it("renders the heading, the caveat and the district once it is published", async () => {
+    // ⚠ THE MUTATION CHECK for the two above, and it also pins that the section uses the SAME
+    // heading key the parliamentary dashboard does — one question, one name.
+    serve({
+      "national_summary.json": SUMMARY,
+      "neighborhoods.json": HOODS,
+    });
+    expect(
+      await screen.findByText(bgCorpus.dashboard_section_neighborhoods),
+    ).toBeInTheDocument();
+    expect(screen.getByText("КВАРТАЛНАТА ОГРАДА")).toBeTruthy();
+    expect(screen.getByText("Столипиново / Шекер махала")).toBeTruthy();
+  });
+});

@@ -445,20 +445,40 @@ const app = command({
       // on exactly one trigger: those shards moving.
       const { writePresidentialSuspicious } =
         await import("./parsers_presidential/build_suspicious");
+      // ⚠ THE FIFTH, and it reads a second corpus like the split-ticket one does — but the
+      // PARLIAMENTARY sections rather than one sibling election, because the flagged-district
+      // catalogue resolves its address rules against every parliamentary cycle from 2022 on.
+      // So it goes stale when the presidential shards move AND when a parliamentary ingest adds
+      // or re-addresses a station in one of the eight districts.
+      const { writePresidentialNeighborhoods } =
+        await import("./parsers_presidential/build_neighborhoods");
+      const { buildNeighborhoodSectionCodes } =
+        await import("./reports/problem_sections/index");
+      // ⚠ WALKED ONCE FOR THE WHOLE RUN, which is that writer's own documented contract. It
+      // reads every parliamentary election from 2022 on (~600 ms) and `--pvr all` is five
+      // cycles, so calling it per cycle spends ~3 s re-deriving a value that cannot have
+      // changed. The other four writers take no such input, which is why this one is threaded
+      // explicitly rather than the loop being generalised.
+      const resolvedSectionCodes = buildNeighborhoodSectionCodes(publicFolder);
       for (const r of results) {
         for (const write of [
           writeRunoffTransfer,
           writeSplitTicket,
           writePresidentialCleavages,
           writePresidentialSuspicious,
+          writePresidentialNeighborhoods,
         ]) {
-          // ⚠ ONE PATH OR MANY. Three of the four answer with an ARRAY — the transfer writes a
-          // cycle file plus one shard per oblast (32 paths), the cleavages and the
-          // suspicious-settlement flags one file per round each (2 + 2) — and `writeSplitTicket`
-          // answers with one path or null. Keeping only the first of each would under-report a
-          // presidential ingest by up to **33** paths per cycle (31 + 1 + 1), and that list is
-          // what the ingest reports as having been written.
-          const written = write(r.cycle, { indent });
+          // ⚠ ONE PATH OR MANY. Four of the five answer with an ARRAY — the transfer writes a
+          // cycle file plus one shard per oblast (32 paths), and the cleavages, the
+          // suspicious-settlement flags and the flagged districts one file per round each
+          // (2 + 2 + 2) — while `writeSplitTicket` answers with one path or null. Keeping only
+          // the first of each would under-report a presidential ingest by up to **34** paths per
+          // cycle (31 + 1 + 1 + 1), and that list is what the ingest reports as having been
+          // written.
+          const written =
+            write === writePresidentialNeighborhoods
+              ? write(r.cycle, { indent, resolved: resolvedSectionCodes })
+              : write(r.cycle, { indent });
           for (const f of Array.isArray(written)
             ? written
             : written

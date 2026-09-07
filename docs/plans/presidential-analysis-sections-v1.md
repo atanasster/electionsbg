@@ -124,20 +124,53 @@ rayons alone, i.e. **7% of its votes** plotted against the census profile of all
   presidential screening must be built from the procedural signals alone or restate that
   caveat; copying the composite would import a known defect.
 
-### 2.4 Рискови гласове / the Roma neighbourhoods — YES, via the section-code join
-
-`problem_sections.json` and `problem_membership.json` are keyed by the 9-digit CIK section
-code, and the presidential tree uses that same scheme. Verified: the identical join carries
-the settlement map's coordinates at **96.9–97.7%** — ⚠ measured over a **150-settlement SAMPLE
-of the 2021 corpus** against four parliamentary cycles, per `PresidentialSectionsMap`'s own
-header. The four cycles are on the PARLIAMENTARY side; the presidential side is one cycle and a
-sample, so **2001 / 2006 / 2011 / 2016 are unmeasured** and should be sampled before T4 commits
-to them — plausibly the weakest, being furthest from any published parliamentary archive.
+### 2.4 Рискови гласове / the Roma neighbourhoods — YES, via the section-code join ✅ MEASURED
 
 ⚠ The membership catalogue is a claim about a PLACE, not about an election, which is what
 makes reusing it legitimate — the same argument that licenses the coordinate join. A
-neighbourhood's sections do not change because a different ballot was counted in them. What
-must still be stated on the surface is the ~3% of stations the join does not reach.
+neighbourhood's sections do not change because a different ballot was counted in them.
+
+**The four unmeasured cycles have now been measured, over the FULL corpus rather than a
+sample** (2026-09-08). The join is by SECTION CODE only: presidential shards carry no `address`
+at all (0 of 12,488 on 2021 r1), so the catalogue's `ekatte` + `addressIncludes` arm can never
+fire, and Sofia's entries are keyed on a synthetic district ЕКАТТЕ (`68134-2511`) no shard
+carries. What bridges them is `buildNeighborhoodSectionCodes`, which unions the codes those
+address rules resolve to across every parliamentary election from 2022 on. Sections matched per
+district, round 1:
+
+| district | 2001 | 2006 | 2011 | 2016 | 2021 |
+| --- | --- | --- | --- | --- | --- |
+| stolipinovo | 70 | 70 | 70 | 70 | 70 |
+| fakulteta | 10 | 10 | **0** | 11 | 11 |
+| filipovci | 4 | 4 | 4 | 4 | 5 |
+| nadezhda_sliven | 8 | 8 | **0** | 8 | 8 |
+| pobeda_burgas | 8 | 8 | 8 | 8 | 8 |
+| gorno_ezerovo | 3 | 3 | 3 | 3 | 3 |
+| dolno_ezerovo | 7 | **0** | **0** | 7 | 7 |
+| maksuda | 22 | 22 | 22 | 22 | 23 |
+| **located (of 8)** | **8** | **7** | **5** | **8** | **8** |
+
+⚠⚠ **COVERAGE IS NOT MONOTONIC IN TIME, so „older is worse" is the wrong prediction and the
+weakest cycle is the MIDDLE one.** 2001 — twenty years older than the archive the codes are
+resolved from — locates all eight, and 2011 locates five. That is section RENUMBERING, which
+means a cycle here cannot be read against another cycle: the 2011 aggregate is a different set
+of places. `coverage.located` / `coverage.missing` are on the artifact and the tile prints the
+missing districts BY NAME.
+
+⚠ **The `sectionSuffixes` rule was verified rather than assumed.** It matches the 9-digit code
+minus its МИР prefix, which could in principle attach a station in another oblast to a Sofia
+махала; measured across all five cycles, every suffix resolves to at most ONE section.
+
+⚠⚠ **TWO DEFECTS SHIPPED DURING THE BUILD AND BOTH ARE NOW GATED.** Skipping the
+placement-refused shard — correct in `build_suspicious.ts`, which aggregates by ЕКАТТЕ — cost
+FOUR of 2011's eight districts, because that cycle's `_unplaced` holds 1,354 София sections. And
+an unfloored invalid-ballot rate published „3.51% here against 2.93% nationally" for 2021 out of
+**228 paper ballots** (78 in the runoff) — these districts voted almost entirely on machines,
+and Столипиново's seventy stations report ZERO paper in both rounds. `INVALID_MIN_PAPER` is the
+floor; the smallest genuine per-district denominator in any other cycle is 706.
+
+The matched stations are **0.90–1.26% of the valid vote** in every round — a lens on eight named
+districts, never a national statistic.
 
 ## 3. The local pages — what they need, and what they cannot have
 
@@ -215,9 +248,18 @@ Geography/demographics on local is DONE (above), not merely feasible.
   the region roll-up the map already fetches, and `PresidentialCleavagesTile` over a new
   per-round `demographic_cleavages.json` — see §2.2a above for why its producer reads the
   SECTION shards). **Local needed nothing**: both halves were already built — see §3.
-- **T3 — suspicious settlements** from the presidential protocols.
-- **T4 — risky votes / neighbourhoods** via the section-code join, with the unjoined share
-  stated on the surface.
+- **T3 — suspicious settlements.** ✅ DONE. `build_suspicious.ts` writes a per-round
+  `suspicious_settlements.json` at SETTLEMENT grain from the presidential protocols, and
+  `PresidentialSuspiciousTile` renders it inside an „Аномалии" section beside the flash-memory
+  tile. Every category carries its own `nationalPct` and `flaggedShare`, and `discriminating`
+  is what stops a top-3 being drawn from a flag that separated nothing — 2011's invalid rule
+  catches 35.5% of the country and 2006's runoff concentration rule 59.6%.
+- **T4 — risky votes / neighbourhoods.** ✅ DONE. A per-round `neighborhoods.json` producer
+  (`build_neighborhoods.ts`) joins the shared `PROBLEM_NEIGHBORHOODS` catalogue to the
+  presidential sections by CODE, and `PresidentialNeighborhoodsTile` renders it under the same
+  `dashboard_section_neighborhoods` key the parliamentary dashboard uses. Coverage, the
+  districts that could NOT be located, and the sources that named each district are all on the
+  surface — see §2.4 for the full-corpus measurement that replaced the 150-settlement sample.
 - **T5 — section screening**, procedural signals only.
 - **T0 — Разлика с флаш паметта.** ✅ DONE, 2021 only and for ever. It needed a PROJECTION over
   the СУЕМГ trees already on disk, not the new ingest tier §2.3 predicted.
@@ -230,17 +272,19 @@ Worth stating plainly, because the request reads as UI work and most of it is no
 | --- | --- | --- | --- |
 | T1 vote flow | tile mounts, round-1 table form | per-oblast matrix | ✅ done |
 | T2 geography | tiles, kind-aware copy | per-round cleavages | ✅ done |
-| T3 suspicious settlements | tile | **a pass over the section protocols** | open |
-| T4 risky votes | tile + the section-code join | — (catalogue exists) | open |
+| T3 suspicious settlements | tile | **a pass over the section protocols** | ✅ done |
+| T4 risky votes | tile + the section-code join | **a per-round join over the section protocols** | ✅ done |
 | T5 section screening | tile | **a procedural-only score** | open |
 | flash memory | tile | a projection over the СУЕМГ trees on disk (operator-run), 2021 only | ✅ done |
 
-⚠ **TWO OF THIS TABLE'S OWN PREDICTIONS WERE WRONG, both in the „no producer needed" column.**
-T2 was listed as client-side because the roll-ups exist; the municipality one cannot see София
-(§2.2a), so it needed a producer after all. And „flash memory" was listed as out of scope
-needing an ingest that turned out to be a projection over the СУЕМГ trees already on disk. The
-remaining „— (catalogue exists)" on T4 is the same shape of claim and has not been measured
-against the corpus yet.
+⚠ **THREE OF THIS TABLE'S OWN PREDICTIONS WERE WRONG, and all three sat in the „no producer
+needed" column.** T2 was listed as client-side because the roll-ups exist; the municipality one
+cannot see София (§2.2a), so it needed a producer after all. „Flash memory" was listed as out of
+scope needing an ingest that turned out to be a projection over the СУЕМГ trees already on disk.
+And T4's „— (catalogue exists)" was wrong in the same way: the catalogue does exist, and the
+presidential shards carry no `address` for it to match on, so the join needs the parliamentary
+corpus walked at build time and a per-round artifact written from it. The lesson is now three
+for three — „the data is already there" has never once meant „no producer needed".
 
 ## 5. The rule every tier inherits
 

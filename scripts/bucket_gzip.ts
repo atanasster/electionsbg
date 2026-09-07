@@ -205,6 +205,11 @@ const PER_ROUND_FILES = [
   // tile reads a missing file as „no such analysis", so an omission here is a section that
   // never appears in production while working perfectly on a developer's machine.
   "suspicious_settlements.json",
+  // ⚠ AND AGAIN. The list this file keeps is not an optimisation for the presidential tree; it
+  // is the publish. Four entries above now carry the same sentence, which is the point: every
+  // new per-round artifact needs a line here or it is 404 in production, silently, because
+  // every presidential hook reads a missing file as `absent`.
+  "neighborhoods.json",
 ];
 
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors

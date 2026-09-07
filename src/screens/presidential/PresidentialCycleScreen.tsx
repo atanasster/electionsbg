@@ -62,6 +62,11 @@ import {
   usePresidentialSuspicious,
 } from "@/data/presidential/useSuspiciousSettlements";
 import { useFlashDiff } from "@/data/presidential/useFlashDiff";
+import { PresidentialNeighborhoodsTile } from "./PresidentialNeighborhoodsTile";
+import {
+  hasNeighborhoodContent,
+  usePresidentialNeighborhoods,
+} from "@/data/presidential/useNeighborhoods";
 import { PresidentialTopRegionsTile } from "./PresidentialTopRegionsTile";
 import { PresidentialCleavagesTile } from "./PresidentialCleavagesTile";
 import { usePresidentialCleavages } from "@/data/presidential/usePresidentialCleavages";
@@ -126,6 +131,10 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // reading them here to gate the heading costs no second request.
   const flash = useFlashDiff(cycle, round.round);
   const suspicious = usePresidentialSuspicious(cycle, round.round);
+  // ⚠ PER ROUND AGAIN. The eight districts are the same places in both rounds, but the
+  // protocols are not — 2021's runoff turnout there is 20.5% against 23.9% in round 1 — so the
+  // figures are rebuilt rather than lifted to the page.
+  const hoods = usePresidentialNeighborhoods(cycle, round.round);
   // ⚠⚠ CONTENT, NOT QUERY STATUS. `ready` is not „has something to draw" for either tile:
   // `isRollup` accepts an entries-empty or all-zero roll-up, and both tiles self-hide on an
   // empty result — so a status gate leaves the heading standing over an empty grid, which is
@@ -150,6 +159,10 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   const hasSuspicious =
     suspicious.status === "ready" &&
     hasSuspiciousContent(suspicious.suspicious);
+  // ⚠ CONTENT AGAIN, and here the empty state is the dangerous one: a „Рискови гласове" heading
+  // over a blank is an insinuation about eight named districts with no figures under it.
+  const hasHoods =
+    hoods.status === "ready" && hasNeighborhoodContent(hoods.neighborhoods);
   const abroadTo = presidentialUrl(cycle, "abroad");
   // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
   // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
@@ -398,6 +411,30 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
             {hasSuspicious && suspicious.status === "ready" ? (
               <PresidentialSuspiciousTile suspicious={suspicious.suspicious} />
             ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {/* 6b. рискови гласове — the eight flagged districts, under the SAME heading key the
+             parliamentary dashboard uses for the same question. It sits after „Аномалии"
+             because it is a lens on named places rather than a screen over the whole country,
+             and a reader arrives at it having already read what the protocol flags do and do
+             not prove.
+
+             ⚠ ITS OWN SECTION, NOT A THIRD TILE UNDER „Аномалии". The two are different kinds
+             of claim: the anomalies section screens every settlement and lets the numbers name
+             the places, while this one starts from eight districts somebody else has already
+             named in print. Folding them together would let the second borrow the first's
+             „we found this in the data" framing. */}
+      {hasHoods && hoods.status === "ready" ? (
+        <section aria-labelledby={`pvr-hoods-${round.round}`}>
+          <h2 id={`pvr-hoods-${round.round}`} className="text-lg font-semibold">
+            {t("dashboard_section_neighborhoods")}
+          </h2>
+          <div className="mt-2">
+            <PresidentialNeighborhoodsTile
+              neighborhoods={hoods.neighborhoods}
+            />
           </div>
         </section>
       ) : null}
