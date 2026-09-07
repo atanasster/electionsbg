@@ -31,6 +31,11 @@ import { createCanvas, type Canvas, type SKRSContext2D } from "@napi-rs/canvas";
 import { registerFonts } from "../brand/lib/brandMark";
 import { render, type Ctx2D } from "../../src/lib/flyover/render";
 import {
+  ARTICLE_BACKGROUND,
+  ARTICLE_PALETTE,
+  articlePresentationState,
+} from "../../src/lib/flyover/articlePresentation";
+import {
   PROGRAMMES,
   PROGRAMME_IDS,
   stateAt,
@@ -114,6 +119,8 @@ export interface FrameSpec {
   height: number;
   lang?: "bg" | "en";
   maxFlows?: number;
+  palette?: FlyoverPalette;
+  background?: string;
 }
 
 /**
@@ -137,7 +144,7 @@ export const drawFrame = (spec: FrameSpec): Canvas => {
     spec.state ?? stateAt(PROGRAMMES[spec.programme ?? "columns"], spec.t ?? 0);
   render(ctx as unknown as Ctx2D, spec.world, state, {
     viewport: { w: spec.width, h: spec.height },
-    palette: BRAND_PALETTE,
+    palette: spec.palette ?? BRAND_PALETTE,
     clock: 0,
     lang: spec.lang ?? "bg",
     maxFlows: spec.maxFlows,
@@ -147,7 +154,7 @@ export const drawFrame = (spec: FrameSpec): Canvas => {
   // theme shows. `destination-over` is what puts it under the scene instead.
   ctx.save();
   ctx.globalCompositeOperation = "destination-over";
-  ctx.fillStyle = BACKDROP;
+  ctx.fillStyle = spec.background ?? BACKDROP;
   ctx.fillRect(0, 0, spec.width, spec.height);
   ctx.restore();
   return canvas;
@@ -241,7 +248,14 @@ export const renderOgCard = (world: FlyoverWorld): WrittenFile => {
   return {
     rel,
     bytes: writeImage(
-      drawFrame({ world, state, width: OG_W, height: OG_H }),
+      drawFrame({
+        world,
+        state: articlePresentationState(state),
+        palette: ARTICLE_PALETTE,
+        background: ARTICLE_BACKGROUND,
+        width: OG_W,
+        height: OG_H,
+      }),
       rel,
     ),
   };
@@ -260,7 +274,14 @@ export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
     out.push({
       rel,
       bytes: writeImage(
-        drawFrame({ world, state: running, width: POSTER_W, height: POSTER_H }),
+        drawFrame({
+          world,
+          state: articlePresentationState(running),
+          palette: ARTICLE_PALETTE,
+          background: ARTICLE_BACKGROUND,
+          width: POSTER_W,
+          height: POSTER_H,
+        }),
         rel,
       ),
     });

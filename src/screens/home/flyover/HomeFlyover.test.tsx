@@ -9,6 +9,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { TEST_WORLD } from "@/lib/flyover/testWorld";
 import type { FlyoverWorld } from "@/lib/flyover/types";
+import { PROGRAMMES } from "@/lib/flyover/programmes";
 
 const stub = vi.hoisted(() => ({
   armed: false,
@@ -72,6 +73,48 @@ afterEach(() => {
 });
 
 describe("the flyover band", () => {
+  it("starts at animation one again after a refresh, regardless of the old session seed", () => {
+    sessionStorage.setItem("naiasno.flyover.seed", "1");
+    renderBand();
+    expect(document.querySelector("[data-flyover-band]")).toHaveAttribute(
+      "data-flyover-band",
+      "columns",
+    );
+    act(() =>
+      screen.getByRole("button", { name: "flyover_scene_arcs" }).click(),
+    );
+    cleanup();
+    renderBand();
+    expect(document.querySelector("[data-flyover-band]")).toHaveAttribute(
+      "data-flyover-band",
+      "columns",
+    );
+    sessionStorage.removeItem("naiasno.flyover.seed");
+  });
+
+  it("advances all three programmes on the animation clock and loops back to one", () => {
+    stub.armed = true;
+    stub.running = true;
+    let frame: FrameRequestCallback;
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
+      frame = callback;
+      return 1;
+    });
+    renderBand();
+    for (const [from, to] of [
+      ["columns", "arcs"],
+      ["arcs", "tour"],
+      ["tour", "columns"],
+    ] as const) {
+      act(() => frame(100));
+      act(() => frame(100 + PROGRAMMES[from].duration * 1000));
+      expect(document.querySelector("[data-flyover-band]")).toHaveAttribute(
+        "data-flyover-band",
+        to,
+      );
+    }
+  });
+
   it("renders a poster in a reserved box before anything arms", () => {
     renderBand();
     const img = screen.getByRole("presentation", { hidden: true });
@@ -183,20 +226,20 @@ describe("the flyover band", () => {
     ).toHaveAttribute("href", "/en/articles/2026-09-07-money-map");
   });
 
-  it("honours ?scene= over the rotation, for capture and tests", () => {
+  it("honours ?scene= as the starting scene, for capture and tests", () => {
     renderBand("?scene=arcs");
     expect(
       screen.getByRole("presentation", { hidden: true }).getAttribute("src"),
     ).toBe("/flyover/arcs.webp");
   });
 
-  it("falls back to the rotation for a ?scene= it does not know", () => {
+  it("starts on columns for a ?scene= it does not know", () => {
     // The value comes straight out of a URL; the failure must be „the usual scene", never an
     // empty band.
     renderBand("?scene=satellite");
     expect(
       screen.getByRole("presentation", { hidden: true }).getAttribute("src"),
-    ).toMatch(/^\/flyover\/(columns|arcs|tour)\.webp$/);
+    ).toBe("/flyover/columns.webp");
   });
 
   it("renders the caption as DOM text through t(), never on the canvas", () => {

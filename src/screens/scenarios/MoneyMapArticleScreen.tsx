@@ -2,7 +2,8 @@
 //
 // The prose comes from the same committed markdown that prerendering gives crawlers. React
 // only supplies the progressive enhancement: each `##` becomes one observed chapter and the
-// sticky canvas blends between the exact states used by the home tour and poster renderer.
+// sticky canvas shares the tour's data states, with article-specific framing and colors
+// matched by the poster renderer.
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Markdown from "react-markdown";
@@ -19,7 +20,10 @@ import { render } from "@/lib/flyover/render";
 import type { FlyoverState } from "@/lib/flyover/state";
 import type { Viewport } from "@/lib/flyover/types";
 import { useFlyoverArtifact } from "@/screens/home/flyover/useFlyoverArtifact";
-import { readPalette } from "@/screens/home/flyover/palette";
+import {
+  ARTICLE_BACKGROUND,
+  ARTICLE_PALETTE,
+} from "@/lib/flyover/articlePresentation";
 import { ShareButton } from "@/ux/ShareButton";
 import { usePreserveParams } from "@/ux/usePreserveParams";
 import {
@@ -116,7 +120,7 @@ const MoneyMapCanvas: FC<{
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     render(ctx, world, state, {
       viewport,
-      palette: readPalette(canvas),
+      palette: ARTICLE_PALETTE,
       clock: 0,
       lang,
       electionTransition: moneyMapElectionTransitionAt(chapter, progress),
@@ -136,8 +140,8 @@ const MoneyMapCanvas: FC<{
 
   return (
     <div
-      className="sticky top-16 z-10 mb-6 overflow-hidden rounded-lg border border-border bg-[#0b1224] shadow-sm lg:top-24 lg:mb-0"
-      style={{ aspectRatio: "1000 / 625" }}
+      className="sticky top-16 z-10 mb-6 overflow-hidden rounded-lg border border-border shadow-sm lg:top-24 lg:mb-0"
+      style={{ aspectRatio: "1000 / 625", background: ARTICLE_BACKGROUND }}
       role="img"
       aria-label={label}
       data-money-map-canvas

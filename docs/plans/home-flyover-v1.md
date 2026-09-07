@@ -1,10 +1,20 @@
 # Bulgaria flyover — money columns, money arcs, and the guided tour
 
-**Status:** ready to execute
+**Status:** implemented through Step 18; video operator Gate 2 pending
 **Scope:** one dependency-free 3D-like scene engine over pre-projected Bulgaria geometry; three programmes (money columns, money arcs, guided tour) rotating in ONE slot on `/`; then a scroll-driven article built from the same scenes; then a Remotion explainer rendered from the same engine
 **Version:** v1 — oblast grain, three money layers plus elections and prices, no terrain, no municipality zoom
 **Decided:** 2026-09-05 from the concept gallery (concepts 1 + 2 + 6 chosen; 3, 4, 5, 7, 8 not in scope except where noted)
 **Related:** [home-dashboard-implementation-v1.md](./home-dashboard-implementation-v1.md) (the home contract this plan amends), [explainer-video-v1.md](./explainer-video-v1.md) (the video pipeline this plan reuses), [cr-deeds-capture-v1.md](./cr-deeds-capture-v1.md) (the contractor-seat gap this plan closes part of)
+
+> **User-directed visual revision — 2026-09-07.** The home view is now a 280px preview
+> beside search (a shallow row on mobile), superseding the full-width band below. Refresh
+> starts with columns; playback cycles columns → arcs → tour → columns, superseding the
+> visitor-day selection in §0.4/§8.2. Manual scene selection, pause and reduced-motion
+> behavior remain. The article's live canvas, six stills and share card use one warm palette
+> and a full-country camera from `articlePresentation.ts`; tour closeups clipped the country
+> and column tops, while theme-colored land over a fixed navy backdrop mixed two palettes.
+> Article chapters hold their picture until the final quarter of their scroll interval.
+> These are article presentation overrides; the rendered video's approved art is unchanged.
 
 > **Audit — 2026-09-05, same day, against the tree.** Nine corrections, folded into the
 > sections below rather than appended: (1) article markdown lives in

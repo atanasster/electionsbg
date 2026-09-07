@@ -14,9 +14,8 @@
 // per-frame numeric pipeline over a fetched artifact on the site's ENTRY page; without a
 // boundary, any throw from it is a white screen where a missing decoration should be.
 //
-// The fallback's poster is `columns` rather than the rotated programme: the rotation lives
-// inside the lazy chunk (it reads `PROGRAMME_IDS`), and importing it here to pick the right
-// still would put the engine back in the entry chunk for one filename.
+// The fallback is `columns`, matching normal startup. An explicit ?scene= is resolved inside
+// the lazy chunk so this entry surface never imports the programme registry.
 
 import { Component, FC, ReactNode, Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";

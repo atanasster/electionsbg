@@ -49,8 +49,10 @@ describe("the money-map article contract", () => {
     expect(MONEY_MAP_STATES[5].weights.prices).toBe(0);
   });
 
-  it("maps intra-chapter scroll progress continuously toward the next state", () => {
+  it("holds each chapter's picture, then eases into the next near the section's end", () => {
     expect(moneyMapStateAt(0, 0)).toEqual(MONEY_MAP_STATES[0]);
+    expect(moneyMapStateAt(0, 0.75)).toEqual(MONEY_MAP_STATES[0]);
+    expect(moneyMapStateAt(0, 0.875).arcs).toBeCloseTo(0.5);
     expect(moneyMapStateAt(0, 1)).toEqual(MONEY_MAP_STATES[1]);
     expect(moneyMapStateAt(5, 1)).toEqual(MONEY_MAP_STATES[5]);
   });

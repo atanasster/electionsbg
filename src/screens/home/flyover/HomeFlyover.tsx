@@ -11,9 +11,8 @@
 // CLS < 0.1 and this band sits ABOVE the eight destination tiles. Anything that resizes here
 // moves every one of them under the reader's cursor.
 //
-// ⚠️ ONE PROGRAMME PER VISIT. Three moving scenes above the eight destinations would compete
-// with the routing job the page exists to do, so the band shows one, rotated per visitor-day,
-// with three buttons to reach the others (plan §0.4).
+// One preview cycles columns → arcs → tour, starting with columns on refresh. The dots
+// select a programme immediately; offscreen/hidden-tab pauses preserve its playback time.
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +26,7 @@ import {
   stateAt,
   type ProgrammeId,
 } from "@/lib/flyover/programmes";
-import { mintSeed, programmeFor, utcDayIndex } from "@/lib/flyover/rotation";
+import { nextProgramme, startingProgramme } from "@/lib/flyover/rotation";
 import {
   FLYOVER_ASPECT,
   FLYOVER_H,
@@ -56,8 +55,6 @@ const NARROW_PX = 640;
 /** Retina is worth it; 3× is not — it triples the fill rate for a difference nobody sees. */
 const MAX_DPR = 2;
 
-const SEED_KEY = "naiasno.flyover.seed";
-
 /**
  * ⚠️ LITERAL KEYS, NEVER `` `flyover_scene_${id}` ``. `scripts/i18n/key_usage.test.ts` and
  * `bundle_reachability.test.ts` treat a built template as naming EVERY key it could match, so
@@ -85,27 +82,6 @@ const SCENE_ALT_KEYS: Record<ProgrammeId, string> = {
   tour: "flyover_alt_tour",
 };
 
-/**
- * The session seed — minted once, stored, and read through a try/catch.
- *
- * ⚠️ `sessionStorage` THROWS in a private window in some browsers and when a reader has
- * blocked site data; an unguarded read would take the whole band down for exactly the people
- * most likely to have blocked it. A failure degrades to a fresh random seed, which costs a
- * reader nothing except that the band may show a different scene after a reload.
- */
-const sessionSeed = (): number => {
-  try {
-    const stored = sessionStorage.getItem(SEED_KEY);
-    const n = stored === null ? Number.NaN : Number.parseInt(stored, 10);
-    if (Number.isFinite(n)) return n;
-    const minted = mintSeed(Math.random);
-    sessionStorage.setItem(SEED_KEY, String(minted));
-    return minted;
-  } catch {
-    return mintSeed(Math.random);
-  }
-};
-
 export const HomeFlyover: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = isBg(i18n.language) ? "bg" : "en";
@@ -117,27 +93,9 @@ export const HomeFlyover: FC = () => {
   const sizeRef = useRef({ w: 0, h: 0 });
   const [painted, setPainted] = useState(false);
 
-  // ⚠️ BOTH minted ONCE per mount. React re-renders for reasons that have nothing to do with
-  // the band — a fetch settling, a language change, any query-string edit — and `params`
-  // changes identity on every one of those. Re-reading the clock there would re-roll the
-  // scene across UTC midnight, mid-visit, which is exactly what `rotation.ts`'s determinism
-  // note rules out.
-  const [seed] = useState(sessionSeed);
-  const [dayIndex] = useState(() => utcDayIndex(Date.now()));
-  const rotated = useMemo(
-    () =>
-      programmeFor({
-        dayIndex,
-        seed,
-        // `?scene=` is for OG capture, Playwright and screenshots. It is deliberately NOT in
-        // `usePreserveParams`: preserved, it would ride onto every tile link and hand each
-        // destination a parameter it cannot read (plan §14).
-        override: params.get("scene"),
-      }),
-    [dayIndex, seed, params],
-  );
-  const [chosen, setChosen] = useState<ProgrammeId | null>(null);
-  const programme = chosen ?? rotated;
+  const initialProgramme = startingProgramme(params.get("scene"));
+  const [programme, setProgramme] = useState<ProgrammeId>(initialProgramme);
+  useEffect(() => setProgramme(initialProgramme), [initialProgramme]);
 
   // Seeded by the effect below and then overwritten per frame by the loop. `world` is always
   // undefined on the first render — nothing is fetched before the band arms.
@@ -259,6 +217,10 @@ export const HomeFlyover: FC = () => {
       if (dt < frameMs) return;
       last = now;
       elapsedRef.current += dt / 1000;
+      if (elapsedRef.current >= PROGRAMMES[programme].duration) {
+        setProgramme(nextProgramme(programme));
+        return;
+      }
       const id = draw(elapsedRef.current);
       if (id !== null) setPainted(true);
       if (id !== prevCaption) {
@@ -331,7 +293,10 @@ export const HomeFlyover: FC = () => {
               type="button"
               aria-pressed={id === programme}
               aria-describedby="flyover-switch-label"
-              onClick={() => setChosen(id)}
+              onClick={() => {
+                elapsedRef.current = 0;
+                setProgramme(id);
+              }}
               // 24 px of target around a 10 px dot: WCAG 2.2 SC 2.5.8, and no exception applies
               // — these are not inline text and there is no equivalent control on the page.
               className="grid h-6 w-6 place-items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"

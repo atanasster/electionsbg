@@ -1,4 +1,6 @@
 import { ARTICLE_CHAPTERS } from "@/lib/flyover/programmes/tour";
+import { articlePresentationState } from "@/lib/flyover/articlePresentation";
+import { smoothstep } from "@/lib/flyover/math";
 import {
   applyPartial,
   blend,
@@ -41,7 +43,7 @@ export const MONEY_MAP_STATES: readonly FlyoverState[] = (() => {
   let running = STATE_ZERO;
   for (const chapter of ARTICLE_CHAPTERS) {
     running = applyPartial(running, chapter.state);
-    states.push(running);
+    states.push(articlePresentationState(running));
   }
   return states;
 })();
@@ -53,7 +55,13 @@ export const moneyMapStateAt = (
   const index = Math.max(0, Math.min(MONEY_MAP_STATES.length - 1, chapter));
   const here = MONEY_MAP_STATES[index];
   const next = MONEY_MAP_STATES[index + 1] ?? here;
-  return blend(here, next, Math.max(0, Math.min(1, progress)));
+  // Hold the chapter's own picture while its prose is being read. Blending throughout
+  // the whole section washed out the current layer and introduced the next one too early.
+  return blend(
+    here,
+    next,
+    smoothstep(Math.max(0, Math.min(1, (progress - 0.75) / 0.25))),
+  );
 };
 
 /** Explicit election endpoints; artifact ordering must not silently change the story. */

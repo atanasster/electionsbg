@@ -24,6 +24,13 @@ import {
 } from "../../src/lib/flyover/programmes";
 import { ARTICLE_CHAPTERS } from "../../src/lib/flyover/programmes/tour";
 import { assertCommitted } from "../lib/assert_committed";
+import {
+  articlePresentationState,
+  ARTICLE_PALETTE,
+} from "../../src/lib/flyover/articlePresentation";
+import { createRecorder } from "../../src/lib/flyover/recorder";
+import { render } from "../../src/lib/flyover/render";
+import { applyPartial, STATE_ZERO } from "../../src/lib/flyover/state";
 
 // ⚠️ COMMITTED, so absence is a broken working copy and not something to skip past: the OG
 // card is rendered by `home:flyover-posters` and tracked, and every check below that reads it
@@ -60,6 +67,34 @@ const decode = async (rel: string): Promise<{ w: number; h: number }> => {
 };
 
 describe("the committed posters", () => {
+  it("frames every article chapter with room for the whole country and raised geometry", () => {
+    const world = loadWorld();
+    let state = STATE_ZERO;
+    for (const chapter of ARTICLE_CHAPTERS) {
+      state = applyPartial(state, chapter.state);
+      const ctx = createRecorder();
+      render(ctx, world, articlePresentationState(state), {
+        viewport: { w: 1000, h: 625 },
+        palette: ARTICLE_PALETTE,
+        clock: 0,
+      });
+      const points = ctx.calls.filter(({ op }) =>
+        ["moveTo", "lineTo", "quadraticCurveTo"].includes(op),
+      );
+      expect(points.length).toBeGreaterThan(100);
+      for (const point of points) {
+        for (let i = 0; i < point.args.length; i += 2) {
+          const x = Number(point.args[i]);
+          const y = Number(point.args[i + 1]);
+          expect(x, `${chapter.id}: x`).toBeGreaterThanOrEqual(8);
+          expect(x, `${chapter.id}: x`).toBeLessThanOrEqual(992);
+          expect(y, `${chapter.id}: y`).toBeGreaterThanOrEqual(8);
+          expect(y, `${chapter.id}: y`).toBeLessThanOrEqual(617);
+        }
+      }
+    }
+  });
+
   it("exist for all three programmes, in the reserved aspect ratio", async () => {
     // ⚠️ The poster is the reserved box that holds CLS at zero on the entry page, the
     // reduced-motion state, the Save-Data state, the Suspense fallback AND the image in the
