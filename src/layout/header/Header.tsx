@@ -49,7 +49,7 @@ import { AreaPill } from "./AreaPill";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticles } from "@/data/articles/useArticles";
 import { siteChrome } from "@/layout/siteChrome";
-import { headerSection } from "./headerSection";
+import { balanceGroups, headerSection } from "./headerSection";
 
 // Sub-menus are Radix flyouts on desktop, but a flyout anchors beside its
 // trigger and gets clipped by the viewport edge on phones — the hamburger
@@ -260,25 +260,46 @@ export const Header = () => {
           // Cap tall panels to the space Radix leaves before collision and
           // scroll past it.
           "max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto",
-          // A `columns` menu lays its section groups out side by side so a
-          // four-group panel (governance) is half as tall; one group per grid
-          // cell keeps every leaf one open away, matching the flat layout.
-          topMenu.columns === 2 ? "grid w-[30rem] grid-cols-2 gap-x-2" : "w-56",
+          // ⚠ THE WIDTH IS CONTENT-DRIVEN, and that replaced three measured constants.
+          // `w-56`, then `w-72`, then `w-[30rem]` were each fitted by hand to the longest
+          // label in the longer of the two corpora — a number that goes stale the next time
+          // anyone edits a menu string, in a way only a screenshot shows. `w-max` sizes each
+          // column to its own widest leaf instead, so a label can no longer wrap by
+          // construction and no menu is wider than it needs to be. `max-w` is the only cap
+          // that has to stay: a runaway label must not push the panel off-screen.
+          "w-max max-w-[calc(100vw-2rem)] whitespace-nowrap",
+          // Section groups sit side by side once a menu has enough of them — see `columns`
+          // in reportMenus.ts. All three carry it: single-column Избори measured 677px tall
+          // at a 900px viewport and already scrolled inside its own panel.
+          topMenu.columns === 2 && "flex gap-x-4",
         )}
       >
         {topMenu.columns === 2
-          ? topMenu.subMenu
-              ?.filter(
+          ? // ⚠ BALANCED FLEX COLUMNS, NOT A 2-COLUMN GRID. A grid aligns ROWS, so two groups
+            // of unequal length leave a hole under the shorter one — visibly, under „Държавни
+            // сектори" on Управление and under „Промоции" on Потребление. Packing each group
+            // onto the currently-shortest column removes the hole and preserves the reading
+            // order the grid produced anyway (row-major placement of N groups into 2 columns
+            // and greedy min-fill agree on every menu here).
+            balanceGroups(
+              topMenu.subMenu?.filter(
                 (menu) => menu.group && (import.meta.env.DEV || !menu.devOnly),
-              )
-              .map((menu, idx) => (
-                <div key={`${menu.title}-${idx}`}>
-                  <DropdownMenuLabel>{t(menu.title)}</DropdownMenuLabel>
-                  {menu.subMenu?.map((sub, subIdx) => (
-                    <RenderMenuItem key={`${sub.title}-${subIdx}`} item={sub} />
-                  ))}
-                </div>
-              ))
+              ) ?? [],
+            ).map((column, colIdx) => (
+              <div key={`col-${colIdx}`} className="min-w-0">
+                {column.map((menu, idx) => (
+                  <div key={`${menu.title}-${idx}`}>
+                    <DropdownMenuLabel>{t(menu.title)}</DropdownMenuLabel>
+                    {menu.subMenu?.map((sub, subIdx) => (
+                      <RenderMenuItem
+                        key={`${sub.title}-${subIdx}`}
+                        item={sub}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))
           : topMenu.subMenu?.map((menu, idx) => (
               <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
             ))}
@@ -425,7 +446,19 @@ export const Header = () => {
           <DropdownMenuContent
             // Inline-expanded sub-menus can run the tree tall — cap to the
             // space Radix leaves before collision and scroll past it.
-            className="w-56 max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto"
+            //
+            // ⚠ THE WIDTH IS NOT `w-56`, AND THE REASON IS THE NESTING RATHER THAN THE
+            // LABELS. A mobile group is an inline accordion (`MenuSub`), and each level costs
+            // `ml-2 pl-1` — so a leaf inside a group inside a section sits 24px in, leaving a
+            // `w-56` panel just 168px of text. Every Elections leaf over „Парламентарни
+            // избори" wrapped to two lines there, and the Управление and Потребление trees
+            // joined them the day they gained groups. 19rem restores ~248px, which clears the
+            // widest label in both corpora („Общини с разделено управление", 230px).
+            //
+            // ⚠ CAPPED AGAINST THE VIEWPORT, not a bare 19rem: this panel opens on phones as
+            // narrow as 320px, where a fixed 304px would leave no margin and hand Radix a
+            // collision to solve on every open.
+            className="w-[min(19rem,calc(100vw-2rem))] max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto"
           >
             {electionsMenu.map((main, idx) => (
               <RenderMenuItem

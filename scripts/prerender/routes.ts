@@ -839,7 +839,7 @@ const ELECTIONS_HUB_SECTIONS: {
         path: `local/${LATEST_LOCAL_CYCLE}/mayors-by-party`,
       },
       {
-        bg: "Гласове за общински съветници по партии",
+        bg: "Гласове за съветници по партии",
         en: "Council votes by party",
         path: `local/${LATEST_LOCAL_CYCLE}/council-votes`,
       },

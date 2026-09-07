@@ -78,15 +78,22 @@ const c = LATEST_LOCAL_CYCLE;
 //   • THE ROOT LEAF IS GONE and stays gone. `/` is the global home, reached through the logo;
 //     a menu entry labelled „Избори" that opens it is a link to the wrong page that navigates
 //     perfectly. `electionsMenu.test.ts` holds it.
-//   • `/governance/mayor-pay` STAYS, beside the mayor results. It is a GOVERNANCE leaf and it
-//     is here on purpose: a reader looking at who won a mayoralty is one click from what that
-//     office pays, and `reportMenus.test.ts` pins the adjacency. Absorbing it would be the
-//     accident; keeping it deliberately is not — it remains canonical under Governance, which
-//     is where its own `mp_page_title` entry lives.
+//   • THE LEAVES ARE EXACTLY THE HUB'S SIXTEEN TILES — no more and no fewer. Two extras were
+//     pruned on 2026-09-07 and neither left an orphan, which is the only reason they could go:
+//     `independents` keeps its card on `/local/:cycle` AND a crawlable link in the `/elections`
+//     prerendered body (`ELECTIONS_HUB_SECTIONS`, where it is allowlisted as a link with no
+//     tile), and `/governance/mayor-pay` is canonical under Governance, where it has both a
+//     hub tile and its own `mp_page_title` leaf. `hubMenuCoverage.test.ts` now holds the
+//     equality in both directions.
 export const electionsMenu: MenuItem[] = [
   {
     title: "nav_elections",
     link: "/elections",
+    // ⚠ TWO COLUMNS LIKE THE OTHER TWO, since 2026-09-07. It was the last single-column
+    // dropdown and it was also the TALLEST — measured 677px at a 900px viewport, i.e. already
+    // scrolling inside its own panel, while Потребление used two columns for 13 leaves. The
+    // audit that found the mismatch is in hubMenuCoverage.test.ts.
+    columns: 2,
     subMenu: [
       { title: "menu_overview", link: "/elections", mobileOnly: true },
       {
@@ -123,13 +130,6 @@ export const electionsMenu: MenuItem[] = [
             title: "local_national_split_control",
             link: `/local/${c}/split-control`,
           },
-          // ⚠ NO LONGER A HUB TILE, still a menu leaf. `independents` left the hub's sixteen
-          // slots when the presidential tile arrived; the page is neither prerendered nor in
-          // the sitemap, so this and the local cycle page are how a reader reaches it.
-          {
-            title: "local_national_independents",
-            link: `/local/${c}/independents`,
-          },
         ],
       },
       { title: "-" },
@@ -141,11 +141,6 @@ export const electionsMenu: MenuItem[] = [
             title: "local_leaderboard_mayors_by_party",
             link: `/local/${c}/mayors-by-party`,
           },
-          // ⚠ IMMEDIATELY AFTER THE MAYOR RESULTS, and `reportMenus.test.ts` pins the
-          // adjacency rather than the band: a reader looking at who won a mayoralty is one
-          // click from what that office pays. It travelled here with the mayor leaderboard
-          // when that moved out of `results`, and it stays canonical under Governance.
-          { title: "mp_local_menu_title", link: "/governance/mayor-pay" },
           {
             title: "local_leaderboard_council_votes",
             link: `/local/${c}/council-votes`,
@@ -179,57 +174,174 @@ export const governanceMenu: MenuItem[] = [
   {
     title: "nav_governance",
     link: "/governance",
-    // Collapsed from the old 4-group / 18-leaf mega-menu to the curated set of
-    // sub-hubs (governance-hub-v1 plan). Each links to a hub that carries its
-    // own shortcut tiles — the depth lives in the hubs, not the dropdown. The
-    // deep leaves (tax calculator, simulator, votes, cohesion, mp-assets,
-    // officials, indicator themes, demographics…) are surfaced as shortcut
-    // tiles inside /budget, /parliament, /governance/declarations, /indicators.
+    // ⚠ THE HUB'S OWN FIVE CLUSTERS, ONE LEAF PER TILE. It was a curated 12-leaf flat list
+    // („the depth lives in the hubs, not the dropdown"), which meant FOURTEEN of the hub's
+    // twenty-five tiles had no menu entry at all — /council, /governments, /persons,
+    // /connections, /companies, the six /indicators domains, /demographics, the tax
+    // calculator and the simulator. None was unreachable, but the two surfaces answered
+    // different questions about what Управление contains, and only one of them was on
+    // every page. The group headings are `GOV_HUB_CLUSTERS`' own label keys, so the menu
+    // and the hub cannot disagree about the sections — the same rule `electionsMenu` uses
+    // for the `/elections` bands, and `hubMenuCoverage.test.ts` is what enforces it.
+    //
+    // ⚠ `/indicators` IS DELIBERATELY NOT A LEAF. The hub explodes it into its six domain
+    // tiles, so a leaf for the landing would be the one menu entry with no tile — the exact
+    // asymmetry this restructure removes. It stays reachable from the `GovernanceBreadcrumb`
+    // („Показатели →") that `IndicatorsNav` renders on every one of those six sub-pages.
+    //
+    // ⚠ `columns: 2` IS LOAD-BEARING NOW, not cosmetic: at 25 leaves the single-column panel
+    // runs past the viewport. It also FILTERS OUT every non-group child on desktop, so a leaf
+    // added outside a group would silently vanish there while still rendering on mobile.
+    columns: 2,
     subMenu: [
       { title: "menu_overview", link: "/governance", mobileOnly: true },
-      { title: "budget_link_label", link: "/budget" },
-      { title: "procurement_link_label", link: "/procurement" },
-      { title: "funds_index_title", link: "/funds" },
-      { title: "subsidies_nav", link: "/subsidies" },
-      { title: "sectors_hub_nav", link: "/governance/sectors" },
-      { title: "mf_browse_nav", link: "/governance/municipal-finance" },
-      { title: "mp_page_title", link: "/governance/mayor-pay" },
-      { title: "sector_schools_title", link: "/education" },
-      { title: "gov_hub_parliament_title", link: "/parliament" },
-      { title: "menu_group_declarations", link: "/governance/declarations" },
-      { title: "gov_hub_indicators_title", link: "/indicators" },
-      { title: "gov_hub_overview_title", link: "/governance/overview" },
+      {
+        title: "gov_hub_cluster_money",
+        group: true,
+        subMenu: [
+          { title: "budget_link_label", link: "/budget" },
+          { title: "procurement_link_label", link: "/procurement" },
+          { title: "funds_index_title", link: "/funds" },
+          { title: "subsidies_nav", link: "/subsidies" },
+          { title: "mf_browse_nav", link: "/governance/municipal-finance" },
+          { title: "sectors_hub_nav", link: "/governance/sectors" },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "gov_hub_cluster_accountability",
+        group: true,
+        subMenu: [
+          { title: "gov_hub_parliament_title", link: "/parliament" },
+          { title: "council_hub_title", link: "/council" },
+          { title: "governments_title", link: "/governments" },
+          {
+            title: "menu_group_declarations",
+            link: "/governance/declarations",
+          },
+          // ⚠ THE ONLY MENU HOME THIS DESTINATION HAS. It was ALSO a leaf in the elections
+          // menu (under its own `mp_local_menu_title` key, beside the mayor leaderboard)
+          // until the dropdowns were reduced to their hubs' tiles; `reportMenus.test.ts`
+          // now pins both halves — one governance leaf, and no `/governance/*` link left
+          // in the elections tree.
+          { title: "mp_page_title", link: "/governance/mayor-pay" },
+          { title: "persons_title", link: "/persons" },
+          { title: "connections_link_label", link: "/connections" },
+          { title: "companies_browse_title", link: "/companies" },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "gov_hub_cluster_indicators",
+        group: true,
+        subMenu: [
+          { title: "gov_hub_overview_title", link: "/governance/overview" },
+          { title: "indicators_nav_economy", link: "/indicators/economy" },
+          { title: "indicators_nav_fiscal", link: "/indicators/fiscal" },
+          { title: "indicators_nav_budgets", link: "/indicators/budgets" },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "gov_hub_cluster_society",
+        group: true,
+        subMenu: [
+          {
+            title: "indicators_nav_governance",
+            link: "/indicators/governance",
+          },
+          { title: "indicators_nav_society", link: "/indicators/society" },
+          { title: "demographics_title", link: "/demographics" },
+          { title: "sector_schools_title", link: "/education" },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "gov_hub_cluster_tools",
+        group: true,
+        subMenu: [
+          { title: "indicators_nav_compare", link: "/indicators/compare" },
+          {
+            title: "budget_tax_calculator_link_label",
+            link: "/budget/tax-calculator",
+          },
+          { title: "budget_policy_page_title", link: "/budget/simulator" },
+        ],
+      },
     ],
   },
 ];
 
-// Consumption (Потребление) — the cost-of-living dashboard. Phase 1 surfaces
-// the КЗП basket views (overview + price map + the per-product/place explorer);
-// fuel, wages and property land in later phases.
-// Curated flat list of the Consumption sub-pages — same pattern as
-// governanceMenu: one link per sub-page, each a hub/browser that carries its own
-// depth (the /consumption tiles + the breadcrumbs do the rest). Order mirrors
-// the hub sections (browse the prices · personal tools · analysis · vs Europe).
+// Consumption (Потребление) — the cost-of-living dashboard.
+//
+// ⚠ THE HUB'S OWN FOUR SECTIONS, ONE LEAF PER TILE, reading `CONSUMPTION_SECTIONS`' label
+// keys — the same rule the two menus above follow. The flat curated list it replaced had
+// drifted from the hub in three ways at once: its „Карта на цените" leaf opened `/prices`,
+// which is the BASKET hub and a different tile's destination; the real map (`/prices/map`)
+// had no entry; and neither did `/consumption/unit-prices`. So one label named the wrong
+// page and two pages were reachable only from the hub itself.
+//
+// ⚠ THE THREE `#hash` TILES GET NO LEAF OF THEIR OWN. „Виновно ли е еврото?", „Инфлация"
+// and „Достъпност" are anchors into `/consumption/overview`, which „Анализ" already opens —
+// four menu entries for one page is noise, so `hubMenuCoverage.test.ts` compares PATHNAMES.
 export const consumptionMenu: MenuItem[] = [
   {
     title: "nav_consumption",
     link: "/consumption",
+    columns: 2,
     subMenu: [
       { title: "menu_overview", link: "/consumption", mobileOnly: true },
-      { title: "consumption_menu_products", link: "/consumption/products" },
-      { title: "consumption_menu_categories", link: "/consumption/categories" },
-      { title: "consumption_menu_chains", link: "/consumption/chains" },
-      { title: "prices_section_map", link: "/prices" },
-      { title: "consumption_menu_basket", link: "/consumption/basket" },
-      { title: "consumption_menu_deals", link: "/consumption/deals" },
-      { title: "consumption_menu_overview", link: "/consumption/overview" },
-      { title: "consumption_menu_eu", link: "/consumption/eu" },
-      { title: "consumption_menu_fuel", link: "/consumption/fuel" },
       {
-        title: "consumption_menu_electricity",
-        link: "/consumption/electricity",
+        title: "consumption_section_explore",
+        group: true,
+        subMenu: [
+          // ⚠ `prices_section_overview`, NOT `prices_section_map`. This is the basket hub;
+          // the map is the leaf two below, and the two labels were swapped onto one link.
+          { title: "prices_section_overview", link: "/prices" },
+          { title: "consumption_menu_products", link: "/consumption/products" },
+          {
+            title: "consumption_menu_categories",
+            link: "/consumption/categories",
+          },
+          { title: "consumption_menu_chains", link: "/consumption/chains" },
+          { title: "prices_section_map", link: "/prices/map" },
+          {
+            title: "consumption_menu_unit_prices",
+            link: "/consumption/unit-prices",
+          },
+        ],
       },
-      { title: "consumption_menu_gas", link: "/consumption/gas" },
+      { title: "-" },
+      {
+        title: "consumption_section_foryou",
+        group: true,
+        subMenu: [
+          { title: "consumption_menu_basket", link: "/consumption/basket" },
+          { title: "consumption_menu_deals", link: "/consumption/deals" },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "consumption_section_analysis",
+        group: true,
+        subMenu: [
+          { title: "consumption_menu_overview", link: "/consumption/overview" },
+        ],
+      },
+      { title: "-" },
+      {
+        title: "consumption_section_europe",
+        group: true,
+        subMenu: [
+          { title: "consumption_menu_eu", link: "/consumption/eu" },
+          { title: "consumption_menu_fuel", link: "/consumption/fuel" },
+          {
+            title: "consumption_menu_electricity",
+            link: "/consumption/electricity",
+          },
+          { title: "consumption_menu_gas", link: "/consumption/gas" },
+        ],
+      },
     ],
   },
 ];

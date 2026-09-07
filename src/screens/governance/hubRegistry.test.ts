@@ -15,7 +15,7 @@ import { GOV_HUB_CLUSTERS } from "./governanceRegistry";
 import { GOV_HUB_SCENES } from "./governanceScenes";
 import { DECLARATION_TILES } from "./declarationsRegistry";
 import { DECLARATION_SCENES } from "./declarationsScenes";
-import { governanceMenu } from "@/layout/header/reportMenus";
+import { governanceMenu, type MenuItem } from "@/layout/header/reportMenus";
 
 describe("the governance hub registries", () => {
   test("every /governance tile id has a scene", () => {
@@ -114,7 +114,14 @@ describe("the governance hub registries", () => {
   });
 
   test("the header menu keeps the mayor-pay entry point", () => {
-    const leaves = governanceMenu.flatMap((item) => item.subMenu ?? []);
+    // ⚠ RECURSIVE. This flattened ONE level while the governance dropdown was a flat list of
+    // twelve leaves; when the menu adopted the hub's five cluster groups (2026-09-07) every
+    // leaf moved a level deeper and this test read zero of them — reporting that the entry
+    // point was gone when it had merely moved. A one-level flatten encodes the menu's SHAPE
+    // into a test about one leaf's presence.
+    const flatten = (items: MenuItem[]): MenuItem[] =>
+      items.flatMap((item) => [item, ...flatten(item.subMenu ?? [])]);
+    const leaves = flatten(governanceMenu);
     const mayorPay = leaves.filter(
       (item) =>
         item.title === "mp_page_title" && item.link === "/governance/mayor-pay",

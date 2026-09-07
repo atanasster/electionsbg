@@ -15,13 +15,7 @@
 
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  TileHubGrid,
-  TileHubSection,
-  TILE_ACCENTS,
-  HubHead,
-  HubKpi,
-} from "@/ux/infographic";
+import { TileHubGrid, TileHubSection, HubHead, HubKpi } from "@/ux/infographic";
 import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
 import {
   consumptionHubKpis,
@@ -31,6 +25,7 @@ import {
 import { ConsumptionSearchTile } from "@/screens/components/consumption/ConsumptionSearchTile";
 import { ConsumptionAreaBanner } from "@/screens/components/consumption/ConsumptionAreaBanner";
 import { CONSUMPTION_SCENES } from "@/screens/consumption/consumptionScenes";
+import { CONSUMPTION_SECTIONS } from "@/screens/consumption/consumptionRegistry";
 import { useHubStats } from "@/data/prices/usePrices";
 
 export const ConsumptionScreen = () => {
@@ -142,167 +137,34 @@ export const ConsumptionScreen = () => {
     [s, loc, i18n.language, t],
   );
 
-  // Tile definitions, grouped into the four hub sections.
   // ⚠️ DERIVED FROM THE CELLS THAT RENDERED, never a constant list — see `promotedTiles`.
   // A blob older than this bundle carries a figure without its window, so the cell drops;
   // blanking the tile anyway would delete the number from the page entirely.
   const promoted = promotedTiles(kpis);
-  const tile = (
-    id: string,
-    to: string,
-    ttl: string,
-    desc: string,
-    accent: string,
-  ) => ({
-    to,
-    title: ttl,
-    desc,
-    accent,
-    scene: CONSUMPTION_SCENES[id],
-    // ⚠️ §3.1 rule 5 — a figure is never in the band AND on a tile. Resolved by demoting
-    // the TILE, which is the rule's own remedy: the band is where a figure gets a stated
-    // basis, and a tile caption („спрямо еврото") has no room for one. This also clears a
-    // pre-existing duplicate — `prices` and `overview` rendered the SAME basketChangePct
-    // with the SAME caption, so „−0,5%" appeared twice in one grid.
-    metric: promoted.has(id) ? undefined : stat[id]?.metric,
-    metricCaption:
-      !promoted.has(id) && stat[id]?.metric ? stat[id]?.caption : undefined,
-  });
-
-  const sections: TileHubSection[] = [
-    {
-      heading: T("Разгледай цените", "Explore prices"),
-      tiles: [
-        tile(
-          "prices",
-          "/prices",
-          T("Кошница на цените", "Price basket"),
-          T("Обзор на цените от еврото", "The basket since the euro"),
-          TILE_ACCENTS.clay,
-        ),
-        tile(
-          "products",
-          "/consumption/products",
-          T("Продукти", "Products"),
-          T("Търси и сравни хиляди продукти", "Search & compare thousands"),
-          TILE_ACCENTS.clay,
-        ),
-        tile(
-          "categories",
-          "/consumption/categories",
-          T("Категории", "Categories"),
-          T("Цените по категории храни", "Prices by food category"),
-          TILE_ACCENTS.olive,
-        ),
-        tile(
-          "chains",
-          "/consumption/chains",
-          T("Вериги", "Chains"),
-          T("Коя верига е най-евтина", "Which chain is cheapest"),
-          TILE_ACCENTS.copper,
-        ),
-        tile(
-          "map",
-          "/prices/map",
-          T("Карта на цените", "Price map"),
-          T("Кошницата по общини", "The basket by municipality"),
-          TILE_ACCENTS.teal,
-        ),
-        tile(
-          "unit",
-          "/consumption/unit-prices",
-          T("€ на килограм", "€ per kilo"),
-          T("Най-много храна за парите", "Most food per euro"),
-          TILE_ACCENTS.brass,
-        ),
-      ],
-    },
-    {
-      heading: T("За теб", "For you"),
-      tiles: [
-        tile(
-          "basket",
-          "/consumption/basket",
-          T("Моята кошница", "My basket"),
-          T("Състави своя кошница и следи цената", "Build & track your basket"),
-          TILE_ACCENTS.rose,
-        ),
-        tile(
-          "deals",
-          "/consumption/deals",
-          T("Промоции", "Deals"),
-          T("Най-големите намаления днес", "The biggest cuts today"),
-          TILE_ACCENTS.terracotta,
-        ),
-      ],
-    },
-    {
-      heading: T("Анализи", "Analysis"),
-      tiles: [
-        tile(
-          "overview",
-          "/consumption/overview",
-          T("Анализ", "Analysis"),
-          T("Инфлация, еврото и достъпност", "Inflation, the euro & incomes"),
-          TILE_ACCENTS.brass,
-        ),
-        tile(
-          "euro",
-          "/consumption/overview#euro",
-          T("Виновно ли е еврото?", "Is the euro to blame?"),
-          T("Цените спрямо 2 януари", "Prices vs 2 January"),
-          TILE_ACCENTS.amber,
-        ),
-        tile(
-          "inflation",
-          "/consumption/overview#macro",
-          T("Инфлация", "Inflation"),
-          T("Кошница спрямо официалния ИПЦ", "Basket vs the official CPI"),
-          TILE_ACCENTS.azure,
-        ),
-        tile(
-          "affordability",
-          "/consumption/overview#finances",
-          T("Достъпност", "Affordability"),
-          T("Кошница спрямо доходите по региони", "Basket vs regional incomes"),
-          TILE_ACCENTS.green,
-        ),
-      ],
-    },
-    {
-      heading: T("Спрямо Европа", "vs Europe"),
-      tiles: [
-        tile(
-          "eu",
-          "/consumption/eu",
-          T("Спрямо ЕС", "vs the EU"),
-          T("Цените у нас спрямо Европа", "Our prices vs Europe"),
-          TILE_ACCENTS.indigo,
-        ),
-        tile(
-          "fuel",
-          "/consumption/fuel",
-          T("Горива", "Fuel"),
-          T("Бензин и дизел спрямо ЕС", "Petrol & diesel vs the EU"),
-          TILE_ACCENTS.slate,
-        ),
-        tile(
-          "electricity",
-          "/consumption/electricity",
-          T("Ток", "Electricity"),
-          T("Цената на тока спрямо ЕС", "Power prices vs the EU"),
-          TILE_ACCENTS.gold,
-        ),
-        tile(
-          "gas",
-          "/consumption/gas",
-          T("Природен газ", "Natural gas"),
-          T("Цената на газа спрямо ЕС", "Gas prices vs the EU"),
-          TILE_ACCENTS.copper,
-        ),
-      ],
-    },
-  ];
+  // ⚠️ THE TILES COME FROM `CONSUMPTION_SECTIONS`, not from a list built here. They were
+  // inline literals until 2026-09-07, which put the hub's destinations somewhere no gate
+  // could read them — and the header dropdown drifted exactly the way that allows: its
+  // „Карта на цените" leaf opened `/prices` (the BASKET hub) while `/prices/map` and
+  // `/consumption/unit-prices` had no menu entry at all. `hubMenuCoverage.test.ts` now reads
+  // the registry and fails on a tile the menu does not carry.
+  const sections: TileHubSection[] = CONSUMPTION_SECTIONS.map((section) => ({
+    heading: t(section.labelKey),
+    tiles: section.tiles.map(({ id, to, title, desc, accent }) => ({
+      to,
+      title: T(title.bg, title.en),
+      desc: T(desc.bg, desc.en),
+      accent,
+      scene: CONSUMPTION_SCENES[id],
+      // ⚠️ §3.1 rule 5 — a figure is never in the band AND on a tile. Resolved by demoting
+      // the TILE, which is the rule's own remedy: the band is where a figure gets a stated
+      // basis, and a tile caption („спрямо еврото") has no room for one. This also clears a
+      // pre-existing duplicate — `prices` and `overview` rendered the SAME basketChangePct
+      // with the SAME caption, so „−0,5%" appeared twice in one grid.
+      metric: promoted.has(id) ? undefined : stat[id]?.metric,
+      metricCaption:
+        !promoted.has(id) && stat[id]?.metric ? stat[id]?.caption : undefined,
+    })),
+  }));
 
   return (
     <>

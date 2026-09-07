@@ -1,3 +1,17 @@
+// Where `/governance/mayor-pay` lives in the header, and why it lives there exactly once.
+//
+// ⚠ THIS FILE USED TO ASSERT THE OPPOSITE, and the change is deliberate. The leaf had TWO
+// homes — canonical under Governance, plus a contextual copy in the elections menu directly
+// after the mayor leaderboard („a reader looking at who won a mayoralty is one click from what
+// that office pays") — and this test pinned that adjacency. The dropdowns are now the hub tile
+// registries' own contents, one leaf per tile and no others (`hubMenuCoverage.test.ts`), so a
+// GOVERNANCE destination sitting in the elections menu is the one thing that rule forbids.
+//
+// ⚠ NOTHING WAS STRANDED BY THE PRUNE, which is the only reason it could happen: the page
+// keeps its `/governance` hub tile (`hubRegistry.test.ts` holds it), its own `mp_page_title`
+// leaf under Власт и отчетност, its prerendered page and its sitemap `<loc>`. If the
+// contextual cross-link is ever wanted back, it goes in `MENU_ONLY` in
+// `hubMenuCoverage.test.ts` with its reason — not silently.
 import assert from "node:assert/strict";
 import { describe, test } from "vitest";
 import { electionsMenu, governanceMenu, type MenuItem } from "./reportMenus";
@@ -6,57 +20,45 @@ const flatten = (items: MenuItem[]): MenuItem[] =>
   items.flatMap((item) => [item, ...flatten(item.subMenu ?? [])]);
 
 describe("header report menus", () => {
-  test("exposes mayor pay from governance and local elections", () => {
+  test("gives mayor pay exactly one home, under Governance", () => {
     const governanceLinks = flatten(governanceMenu).filter(
       (item) => item.link === "/governance/mayor-pay",
     );
-    // ⚠ THE SECOND HOME IS THE MERGED ELECTIONS MENU. It was `localMenu` until Phase 3 folded
-    // the two election menus into one; the leaf did not move, its container did.
-    const electionLinks = flatten(electionsMenu).filter(
-      (item) => item.link === "/governance/mayor-pay",
-    );
-
     assert.deepEqual(
       governanceLinks.map((item) => item.title),
       ["mp_page_title"],
     );
+  });
+
+  test("keeps the governance leaf out of the elections menu", () => {
+    // ⚠ BY DESTINATION, NOT BY KEY. The copy that used to sit here carried a DIFFERENT title
+    // (`mp_local_menu_title`), so a test asserting the key's absence would pass on a
+    // reintroduction under the canonical one.
+    const strays = flatten(electionsMenu).filter((item) =>
+      item.link?.startsWith("/governance/"),
+    );
     assert.deepEqual(
-      electionLinks.map((item) => item.title),
-      ["mp_local_menu_title"],
+      strays.map((item) => item.link),
+      [],
+      "a Governance destination is back in the Elections dropdown",
     );
   });
 
-  test("places the canonical mayor-pay link beside the mayor results", () => {
-    // ⚠ THE PLAN WARNS AGAINST ABSORBING THIS GOVERNANCE LEAF INTO ELECTIONS "BY ACCIDENT".
-    // It is here on purpose and has been since before the merge: a reader looking at who won a
-    // mayoralty is one click from what that office pays. It remains canonical under Governance,
-    // where its own `mp_page_title` entry lives — this is the second, contextual route to it.
-    // ⚠ FOUND BY THE LEADERBOARD IT MUST FOLLOW, NOT BY BAND. It lived in
-    // `elections_band_results` until the presidential tile was seated and the mayor
-    // leaderboard moved to `elections_band_rankings` — the leaf travelled with it, which is
-    // the invariant. Naming the band here would have failed on a move that kept the rule.
-    const resultsGroup = electionsMenu[0]?.subMenu?.find((item) =>
-      item.subMenu?.some(
-        (leaf) => leaf.title === "local_leaderboard_mayors_by_party",
-      ),
+  test("every elections leaf is scoped to an election surface", () => {
+    // The positive half of the rule above: what the merged menu may contain. Without it,
+    // „no /governance/*" is satisfied by a leaf pointing anywhere else off-section.
+    const leaves = flatten(electionsMenu).filter(
+      (item) => item.link && item.title !== "-",
     );
-    assert.ok(resultsGroup?.subMenu, "the mayor-results menu group is missing");
-
-    const mayorResultsIndex = resultsGroup.subMenu.findIndex(
-      (item) => item.title === "local_leaderboard_mayors_by_party",
-    );
-    const mayorPayIndex = resultsGroup.subMenu.findIndex(
-      (item) => item.title === "mp_local_menu_title",
-    );
-    assert.equal(mayorPayIndex, mayorResultsIndex + 1);
-    assert.equal(
-      resultsGroup.subMenu[mayorPayIndex]?.link,
-      "/governance/mayor-pay",
-    );
-    assert.equal(
-      resultsGroup.subMenu[mayorPayIndex]?.link?.startsWith("/local/"),
-      false,
-      "the current-mayor dashboard must not be scoped to an election cycle",
-    );
+    assert.ok(leaves.length > 10, "the elections menu came back empty");
+    const off = leaves
+      .map((item) => item.link as string)
+      .filter(
+        (link) =>
+          !/^\/(elections|parliamentary|presidential|local|sverka)(\/|$)/.test(
+            link,
+          ),
+      );
+    assert.deepEqual(off, []);
   });
 });

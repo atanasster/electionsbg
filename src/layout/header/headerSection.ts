@@ -4,7 +4,8 @@
 // ⚠️ IMPORT-FREE ON PURPOSE. Header.tsx is a static import of the entry chunk
 // (src/entryGraph.test.ts), so anything this module reaches is downloaded by
 // every page before it can paint. Keep it string comparisons only — never take
-// a path constant from a route or sector registry.
+// a path constant from a route or sector registry. `MenuItem` below is a
+// TYPE-only import, which erases at compile time and adds no edge.
 //
 // It lives outside Header.tsx so the gate can execute the REAL rule instead of
 // a copy: src/layout/header/electionsMenu.test.ts used to restate the prefix
@@ -143,3 +144,40 @@ export const headerSection = (pathname: string): HeaderSection => {
 /** The Elections tint on its own — the negative default above. */
 export const inElections = (pathname: string): boolean =>
   headerSection(pathname).inElections;
+
+/**
+ * Deal a dropdown's section groups onto its columns so both end up about as tall.
+ *
+ * ⚠ IT COUNTS ROWS, NOT GROUPS. A group costs its leaves plus its own heading, so splitting
+ * five groups 3/2 by count puts Управление's 6+4+3 beside its 8+4 and looks balanced while
+ * being two rows out. Greedy min-fill is enough at three to five groups.
+ *
+ * ⚠ DECLARATION ORDER IS PRESERVED, AND THAT COSTS SOME BALANCE ON PURPOSE. The textbook
+ * improvement is to assign largest-group-first (LPT), which levels Потребление's 7-vs-10
+ * split to 9-vs-8 — and moves „Пари и разходи", the first section Управление declares, into
+ * the RIGHT column. A menu whose first section is not top-left is worse than a menu with
+ * some slack at the bottom of one column.
+ *
+ * ⚠ IT REPLACED A 2-COLUMN CSS GRID, whose real defect was not balance but HOLES: a grid
+ * aligns rows, so a 6-leaf group beside an 8-leaf one left two empty rows in the middle of
+ * the shorter column — under „Държавни сектори" on Управление, under „Промоции" on
+ * Потребление. Stacked flex columns cannot do that; any slack falls at the bottom.
+ *
+ * @param groups - The `group: true` items, in the order the menu declares them.
+ * @param columns - How many columns to fill.
+ * @returns One array of groups per column, each in declaration order. Empty columns are
+ *   dropped, so a menu with fewer groups than columns renders no stray gap.
+ */
+export const balanceGroups = <T extends { subMenu?: unknown[] }>(
+  groups: T[],
+  columns = 2,
+): T[][] => {
+  const cols: T[][] = Array.from({ length: columns }, () => []);
+  const rows = new Array<number>(columns).fill(0);
+  for (const group of groups) {
+    const target = rows.indexOf(Math.min(...rows));
+    cols[target].push(group);
+    rows[target] += (group.subMenu?.length ?? 0) + 1;
+  }
+  return cols.filter((c) => c.length > 0);
+};
