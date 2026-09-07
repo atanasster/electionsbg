@@ -16,7 +16,7 @@
  * `defaultProps` must survive JSON serialization — a component cannot travel in
  * props, so the composition resolves the name to one.
  */
-export type CanvasKind = "inflation" | "risk";
+export type CanvasKind = "inflation" | "risk" | "flyover";
 
 /**
  * The 16:9 explainer. Unlike a short, scenes do not own a full-screen visual:
