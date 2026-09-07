@@ -67,7 +67,10 @@ export const PERCENT_METRICS: CensusMetric[] = [
 // (SOF46). All Sofia rayon codes therefore aggregate into that single entity.
 // Abroad continent buckets (AF, AS, EU, NA, OC, SA) have no census entity and
 // are dropped.
-const SOFIA_CITY_CENSUS_CODE = "SOF46";
+/** ⚠ EXPORTED — the presidential producer folds the three Sofia-city МИР onto the same code,
+ *  from a different input (a shard name rather than a rayon code), and a second literal is a
+ *  second answer to „which census municipality is София". */
+export const SOFIA_CITY_CENSUS_CODE = "SOF46";
 const isSofiaRayonCode = (obshtina: string) => /^S2[345]/.test(obshtina);
 
 const sumEthnic = (e?: CensusEntity["ethnic"]) =>

@@ -433,13 +433,24 @@ const app = command({
       // side moves. Only 2021 has such a sibling; the other four cycles write nothing.
       const { writeSplitTicket } =
         await import("./parsers_presidential/build_split_ticket");
+      // ⚠ THE THIRD DERIVED ARTIFACT, AND IT DEPENDS ON A FILE OUTSIDE THIS TREE —
+      // `data/census_2021.json`. It reads the SECTION shards the lines above just wrote (not
+      // the municipality roll-up, which cannot see София), so like the two above it goes stale
+      // the moment the corpus moves; unlike them it also goes stale when the census is rebuilt,
+      // and simply writes nothing when the census file is absent.
+      const { writePresidentialCleavages } =
+        await import("./parsers_presidential/build_demographics");
       for (const r of results) {
-        for (const write of [writeRunoffTransfer, writeSplitTicket]) {
-          // ⚠ ONE PATH OR MANY. `writeRunoffTransfer` writes the cycle file AND one shard per
-          // oblast, so it answers with an array; `writeSplitTicket` still answers with one
-          // path or null. A `files` list that kept only the first would under-report a
-          // presidential ingest by 31 paths per cycle — and that list is what the ingest
-          // reports as having been written.
+        for (const write of [
+          writeRunoffTransfer,
+          writeSplitTicket,
+          writePresidentialCleavages,
+        ]) {
+          // ⚠ ONE PATH OR MANY. Two of the three answer with an ARRAY — the transfer writes a
+          // cycle file plus one shard per oblast, the cleavages one file per round — and
+          // `writeSplitTicket` answers with one path or null. A `files` list that kept only the
+          // first would under-report a presidential ingest by up to 33 paths per cycle, and
+          // that list is what the ingest reports as having been written.
           const written = write(r.cycle, { indent });
           for (const f of Array.isArray(written)
             ? written

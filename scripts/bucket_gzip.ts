@@ -197,6 +197,10 @@ const PER_ROUND_FILES = [
   // gitignored and the presidential tree is not rsynced, so a path absent from here never
   // reaches the bucket and the tile that reads it 404s in production while working locally.
   "flash.json",
+  // ⚠ THE SAME ARGUMENT — 4.8 KB, and this pass is the only thing that publishes it. Its tile
+  // reads a missing file as „no such analysis", so an omission here is a section that never
+  // appears in production while working perfectly on a developer's machine.
+  "demographic_cleavages.json",
 ];
 
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors

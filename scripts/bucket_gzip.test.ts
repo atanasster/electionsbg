@@ -11,14 +11,20 @@
 // `officials/municipal/search_index.json` removals both record having to delete from HERE as
 // well as from the rsync list). Nothing enforced it until now.
 //
-// READS THE SOURCE rather than importing the module, for two reasons: `bucket_gzip.ts` has
-// zero exports, and it calls `run()` at module scope — importing it would start an upload.
-// `scripts/parliament/derived/upload_coverage.test.ts` established this pattern in the repo
-// for the same reason; see its header.
+// READS THE SOURCE to get at the `PER_*_FILES` lists, which are module-private — that, and
+// nothing else, is why the regex parse below exists.
+//
+// ⚠️ ITS ORIGINAL RATIONALE IS NOW FALSE ON BOTH COUNTS, and the correction matters: the file
+// USED to have zero exports and to call `run()` at module scope, so importing it started a
+// production upload. `collect` is exported now and `run()` sits behind an exact-path
+// entry-point guard, so importing this module is safe — which is what lets the assertions
+// below import a producer's own constant instead of retyping it. Left as source-parsing only
+// for the four private arrays.
 
 import { describe, expect, test } from "vitest";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { isExcluded } from "./bucket_sync_paths";
+import { CLEAVAGES_FILE } from "./parsers_presidential/build_demographics";
 
 const SRC = readFileSync("scripts/bucket_gzip.ts", "utf8");
 
@@ -183,14 +189,30 @@ describe("the presidential tree this pass publishes", () => {
       "tur${round}/sections/${oblast}.json": "/sections",
       "runoff_transfer/${oblast}.json": "runoff_transfer",
     };
-    const unpublished = templates.flatMap(expand).filter((tpl) => {
-      if (WALKED[tpl]) return false;
-      const round = /^tur\$\{round\}\/(.+)$/.exec(tpl);
-      if (round) return !perRound.has(round[1]);
-      // `${FILE_OF[level]}` and friends are resolved by the per-round list above; anything
-      // else is a literal at the cycle root.
-      return !cycleRoot.has(tpl);
-    });
+    const expanded = templates.flatMap(expand);
+    // ⚠ PIN WHAT THE `.json` FILTER SWALLOWS, rather than only applying it. Today exactly one
+    // template names no file — `useOblastTransfer`'s `${cycle}/${oblast}` log key. A SECOND one
+    // is either a new log key (added here, deliberately) or an unguarded fetch path, and an
+    // unbounded filter cannot tell those apart — which is the shape that left two artifacts 404
+    // in production, per this describe block's own header.
+    expect(expanded.filter((tpl) => !tpl.endsWith(".json"))).toEqual([
+      "${oblast}",
+    ]);
+    const unpublished = expanded
+      // ⚠ A FETCHED PATH ENDS IN `.json`. The scan matches every `${cycle}/…` template in the
+      // module, and not all of them are paths: `useOblastTransfer` builds `${cycle}/${oblast}`
+      // as a LOG key. Filtering on the extension keeps the gate about files without needing a
+      // list of exceptions — and a template that ends in an unresolved `${…}` (the `FILE_OF`
+      // shape) still has to be expanded above rather than skipped here.
+      .filter((tpl) => tpl.endsWith(".json"))
+      .filter((tpl) => {
+        if (WALKED[tpl]) return false;
+        const round = /^tur\$\{round\}\/(.+)$/.exec(tpl);
+        if (round) return !perRound.has(round[1]);
+        // `${FILE_OF[level]}` and friends are resolved by the per-round list above; anything
+        // else is a literal at the cycle root.
+        return !cycleRoot.has(tpl);
+      });
     expect(unpublished).toEqual([]);
   });
 
@@ -199,6 +221,13 @@ describe("the presidential tree this pass publishes", () => {
     // its template silently „covered" by a `WALKED` entry describing code that no longer runs.
     expect(SRC).toContain('join(DATA, entry.name, round, "sections")');
     expect(SRC).toContain('join(DATA, entry.name, "runoff_transfer")');
+  });
+
+  test("the presidential cleavages file is published", () => {
+    // ⚠ NO HOOK READS IT YET, so the derived gate above is vacuous for it — verified by
+    // mutation: deleting the entry left every other test in this file green. The producer's own
+    // constant is imported rather than retyped, so a rename there fails here.
+    expect(PER_ROUND_FILES).toContain(CLEAVAGES_FILE);
   });
 
   test("the two files that were 404 in production are named", () => {
