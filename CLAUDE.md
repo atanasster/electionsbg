@@ -4038,6 +4038,37 @@ facet a vintage behind as well as the governance tiles. Since 2026-09-06 it VACU
 matview afterwards too; see the visibility-map section for why a CONCURRENT refresh needs
 that at all.
 
+⚠️⚠️ **`reconstructState` WIPES THE CR PROJECTION, AND THE TELL IS THAT `tr_companies` DOES
+NOT MOVE.** It rewrites `state.sqlite` from the daily-filings replay and nothing else, so a
+bare reconstruct — rather than the full `npm run tr:daily-refresh` — drops every projected
+row and never restores it. `project_cr_deeds.ts`'s header states the rule ("must re-run
+after each reconstruct, before `db:load:tr:pg`"); what it does not give you is how to
+RECOGNISE the state afterwards, which is the expensive half.
+
+Measured 2026-09-06, when exactly this happened: `tr_companies` was byte-identical at
+1,023,673 across the loss while `tr_officers` fell 895,095 → 858,545 and `tr_person_roles`
+1,373,571 → 1,309,082. A `db:resolve:persons` then propagated it and `person` went
+134,451 → 114,241, which is what the gates finally reported — three steps downstream of the
+cause, and reading like a person-layer regression.
+
+**The one-line discriminator:**
+
+```sql
+SELECT coalesce(persons_source,'(feed)'), count(*) FROM company_persons GROUP BY 1;
+```
+
+All rows `(feed)` with **zero `'cr'`** means the projection was wiped, not that the corpus
+changed. 1,373,571 − 1,309,082 = 64,489 is the whole projected set, and it is also where the
+4,383 „Заличено обстоятелство." placeholders and every седалище gap-fill live — so the
+placeholder count going to 0 and `tr_company_place` falling back to ~328k are the same event,
+not three. Re-running the reconstruct reproduces the feed-only figure exactly, which is how
+you confirm the feed half was never at fault before spending time in the parser.
+
+The repair is `npm run tr:daily-refresh` (reconstruct → projection → the four PG loads), then
+`db:resolve:persons` **and its nine-step repair chain** — the person layer does not come back
+on its own. Do not go looking for a code defect first: the parser and projection carry 61
+unit tests and a green run here proves nothing about whether the projection was APPLIED.
+
 The gate is `scripts/db/tests/cr_seat_projection.data.test.ts`, which asserts the three
 distinct failures separately — no seat is stored as a raw block, a sample of seats still
 resolves through the real `EkatteResolver` (≥95%; the projected set measures 99.67%), and
