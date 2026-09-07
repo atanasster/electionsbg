@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  CAPTION_ROW_CLASS,
   FLYOVER_ASPECT,
   FLYOVER_H,
   FLYOVER_W,
@@ -34,15 +33,14 @@ describe("the reserved box", () => {
       expect(src, `${file} re-types the aspect ratio`).not.toContain(
         `"${FLYOVER_ASPECT}"`,
       );
-      expect(src, `${file} re-types the caption row`).not.toContain(
-        "min-h-[3.25rem]",
-      );
     }
-    expect(read("FlyoverCaptions.tsx")).not.toContain("min-h-[3.25rem]");
-    // …and the shared value is the one every row actually reserves.
-    expect(CAPTION_ROW_CLASS).toContain("min-h-[3.25rem]");
-    expect(read("FlyoverCaptions.tsx")).toContain("CAPTION_ROW_CLASS");
-    expect(read("HomeFlyoverSlot.tsx")).toContain("CAPTION_ROW_CLASS");
+    // The responsive preview and its fallback use the same layout, including controls.
+    for (const file of ["HomeFlyover.tsx", "HomeFlyoverSlot.tsx"]) {
+      expect(read(file)).toContain('from "./HomeFlyover.module.css"');
+      expect(read(file)).toContain("className={styles.band}");
+      expect(read(file)).toContain("className={styles.visual}");
+      expect(read(file)).toContain("className={styles.controls}");
+    }
   });
 
   it("reserves a switch row tall enough for a WCAG target", () => {

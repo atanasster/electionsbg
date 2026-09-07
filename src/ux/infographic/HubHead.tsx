@@ -170,6 +170,8 @@ export const HubHead: FC<{
    *  above them, which is where /procurement keeps it today. */
   scope?: ReactNode;
   search?: ReactNode;
+  /** A compact companion to search, placed in the existing right-hand column. */
+  searchPreview?: ReactNode;
   /** 3–5 figures. Read from the SAME blob the tiles read; a band that needs its own fetch has
    *  become a sub-page. */
   kpis?: HubKpi[];
@@ -191,6 +193,7 @@ export const HubHead: FC<{
   deck,
   scope,
   search,
+  searchPreview,
   kpis,
   kpisPending,
   evidence,
@@ -240,6 +243,12 @@ export const HubHead: FC<{
           {scope ? <div className="mt-4">{scope}</div> : null}
           {search ? <div className="mt-4">{search}</div> : null}
         </div>
+
+        {searchPreview ? (
+          <div className="mt-4 min-w-0 self-end lg:col-start-2 lg:row-start-1 lg:mt-0">
+            {searchPreview}
+          </div>
+        ) : null}
 
         {(kpis && kpis.length > 0) || kpisPending ? (
           <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2">

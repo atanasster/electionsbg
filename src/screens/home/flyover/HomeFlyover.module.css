@@ -1,0 +1,51 @@
+.band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 8.5rem;
+  grid-template-areas: "heading visual" "controls visual";
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.75rem;
+  background: hsl(var(--card));
+}
+
+.heading {
+  grid-area: heading;
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.visual {
+  grid-area: visual;
+  position: relative;
+  min-width: 0;
+  align-self: center;
+  overflow: hidden;
+}
+
+.controls {
+  grid-area: controls;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  min-height: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .band {
+    max-width: 17.5rem;
+    margin-left: auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "heading" "visual" "controls";
+  }
+
+  .controls {
+    justify-content: space-between;
+  }
+}

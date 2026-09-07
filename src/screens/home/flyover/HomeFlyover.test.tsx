@@ -16,6 +16,7 @@ const stub = vi.hoisted(() => ({
   reducedMotion: false,
   world: undefined as FlyoverWorld | undefined,
   fetches: 0,
+  language: "bg",
 }));
 
 vi.mock("./useArm", () => ({
@@ -43,7 +44,7 @@ vi.mock("react-i18next", () => ({
       opts && Object.keys(opts).length
         ? `${key}(${Object.keys(opts).sort().join(",")})`
         : key,
-    i18n: { language: "bg" },
+    i18n: { language: stub.language },
   }),
 }));
 
@@ -62,6 +63,7 @@ beforeEach(() => {
   stub.reducedMotion = false;
   stub.world = TEST_WORLD;
   stub.fetches = 0;
+  stub.language = "bg";
   vi.restoreAllMocks();
 });
 
@@ -167,6 +169,18 @@ describe("the flyover band", () => {
       .getAllByRole("button")
       .filter((b) => b.getAttribute("aria-pressed") === "true");
     expect(pressed).toHaveLength(1);
+  });
+
+  it("lets the router add the English base to the full-map link exactly once", () => {
+    stub.language = "en";
+    render(
+      <MemoryRouter basename="/en" initialEntries={["/en"]}>
+        <HomeFlyover />
+      </MemoryRouter>,
+    );
+    expect(
+      screen.getByRole("link", { name: "flyover_explore" }),
+    ).toHaveAttribute("href", "/en/articles/2026-09-07-money-map");
   });
 
   it("honours ?scene= over the rotation, for capture and tests", () => {

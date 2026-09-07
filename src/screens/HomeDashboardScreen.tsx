@@ -157,6 +157,7 @@ export const HomeDashboardScreen: FC = () => {
             }}
           />
         }
+        searchPreview={<HomeFlyoverSlot />}
         kpis={kpis}
         // Reserve the band's REAL height while the artifact is in flight. Without it the
         // slot is 0 cells and then jumps to four — a layout shift on the site's most-visited
@@ -176,11 +177,6 @@ export const HomeDashboardScreen: FC = () => {
             : undefined
         }
       />
-
-      {/* Between the head and the destinations: the band is the page's one moving thing, and
-          it is above the tiles because it is an invitation into them rather than a summary of
-          them. Its own box is reserved in every state, so the tiles below never move. */}
-      <HomeFlyoverSlot />
 
       <div data-og="home-hub">
         <TileHubGrid sections={sections} className="mt-8" />

@@ -5,14 +5,12 @@
 // copyable, readable by a screen reader and present in the accessibility tree. A string
 // painted into a bitmap is none of those.
 //
-// ⚠️ AND THE ROW IS A FIXED HEIGHT, taken from `box.ts` rather than written here. This text
-// changes every few seconds on a page budgeted at CLS < 0.1, above eight destination tiles;
-// a row that grew with the caption would move all of them under a reader's cursor.
+// The home thumbnail keeps this description available to assistive technology. Visible
+// explanatory copy lives in the full article, reached by the preview's link.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import type { Caption } from "@/lib/flyover/captions";
-import { CAPTION_ROW_CLASS } from "./box";
 
 export const FlyoverCaptions: FC<{ caption: Caption | null }> = ({
   caption,
@@ -20,7 +18,7 @@ export const FlyoverCaptions: FC<{ caption: Caption | null }> = ({
   const { t } = useTranslation();
   return (
     <p
-      className={`${CAPTION_ROW_CLASS} leading-snug text-muted-foreground`}
+      className="sr-only"
       // Announced as one unit when it changes, and only when the reader is idle: this is a
       // decorative band, so interrupting a screen reader mid-sentence would be worse than
       // saying nothing.

@@ -113,6 +113,7 @@ export interface FrameSpec {
   width: number;
   height: number;
   lang?: "bg" | "en";
+  maxFlows?: number;
 }
 
 /**
@@ -139,6 +140,7 @@ export const drawFrame = (spec: FrameSpec): Canvas => {
     palette: BRAND_PALETTE,
     clock: 0,
     lang: spec.lang ?? "bg",
+    maxFlows: spec.maxFlows,
   });
   // ⚠️ BEHIND, AFTER THE FACT. `render` opens with `clearRect`, so a backdrop painted first is
   // erased — and the poster then ships with a transparent sea, through which the page's own
@@ -210,8 +212,10 @@ export const renderHomePosters = (world: FlyoverWorld): WrittenFile[] =>
       bytes: writeImage(
         drawFrame({
           world,
-          programme: id,
-          t: 0,
+          // The home view is a small preview beside search; preserve full labels in the
+          // article stills, but avoid microscopic names on the three home thumbnails.
+          state: { ...stateAt(PROGRAMMES[id], 0), labels: 0 },
+          maxFlows: 12,
           width: POSTER_W,
           height: POSTER_H,
         }),
@@ -250,12 +254,7 @@ export const renderChapterStills = (world: FlyoverWorld): WrittenFile[] => {
   for (const chapter of ARTICLE_CHAPTERS) {
     // The chapters ACCRETE, exactly as the loop does — a still drawn from one chapter's patch
     // alone would be missing every field the chapters before it set.
-    //
-    // ⚠️ CHAPTER 1's STILL IS BYTE-IDENTICAL TO `public/flyover/tour.webp`, and that is
-    // arithmetic rather than an oversight: the tour poster is the loop at t=0, which IS this
-    // chapter's state. Two paths, one picture — kept because the article's section wants a
-    // file under its own path, and 33 KB is cheaper than a cross-reference the next reader
-    // has to untangle.
+    // The article keeps its labels and full flow detail; home posters use a simpler preview.
     running = applyPartial(running, chapter.state);
     const rel = `public/articles/money-map/${chapter.id}.webp`;
     out.push({

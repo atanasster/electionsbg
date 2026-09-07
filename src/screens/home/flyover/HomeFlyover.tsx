@@ -7,7 +7,7 @@
 // the client draws plain canvas. The gate stays; what changed is the reason it passes.
 //
 // ⚠️ FOUR STATES, ONE RESERVED BOX. Suspense fallback, poster, canvas and reduced-motion all
-// render the same box — from `box.ts`, shared rather than copied — because `/` is budgeted at
+// render the same box — shared dimensions and CSS — because `/` is budgeted at
 // CLS < 0.1 and this band sits ABOVE the eight destination tiles. Anything that resizes here
 // moves every one of them under the reader's cursor.
 //
@@ -17,11 +17,10 @@
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { isBg } from "@/i18n";
 import { captionFor, type Caption } from "@/lib/flyover/captions";
 import { render } from "@/lib/flyover/render";
-import { TOP_FLOWS, TOP_FLOWS_NARROW } from "@/lib/flyover/layers";
 import {
   PROGRAMMES,
   PROGRAMME_IDS,
@@ -40,6 +39,7 @@ import { FlyoverCaptions } from "./FlyoverCaptions";
 import { readPalette } from "./palette";
 import { useArm } from "./useArm";
 import { useFlyoverArtifact } from "./useFlyoverArtifact";
+import styles from "./HomeFlyover.module.css";
 
 /**
  * 30 fps, and 24 on a narrow viewport (plan §8.5).
@@ -50,7 +50,7 @@ import { useFlyoverArtifact } from "./useFlyoverArtifact";
 const FPS = 30;
 const FPS_NARROW = 24;
 
-/** Below this width the band drops to 24 fps and draws the top 20 flows instead of 40. */
+/** Below this width the preview drops to 24 fps. */
 const NARROW_PX = 640;
 
 /** Retina is worth it; 3× is not — it triples the fill rate for a difference nobody sees. */
@@ -215,13 +215,20 @@ export const HomeFlyover: FC = () => {
       // would cost more than the assignment.
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const state = stateAt(PROGRAMMES[programme], clockSeconds);
-      render(ctx, world, state, {
-        viewport: { w, h },
-        palette: readPalette(canvas),
-        clock: clockSeconds,
-        lang,
-        maxFlows: w < NARROW_PX ? TOP_FLOWS_NARROW : TOP_FLOWS,
-      });
+      // This is a thumbnail beside search. City labels belong in the full article; at
+      // 136–254 CSS pixels they crowd out the geography. Match the home poster treatment.
+      render(
+        ctx,
+        world,
+        { ...state, labels: 0 },
+        {
+          viewport: { w, h },
+          palette: readPalette(canvas),
+          clock: clockSeconds,
+          lang,
+          maxFlows: 12,
+        },
+      );
       return state.captionId;
     },
     [world, programme, lang],
@@ -272,15 +279,15 @@ export const HomeFlyover: FC = () => {
   return (
     <section
       ref={ref}
-      className="mt-6"
+      className={styles.band}
       aria-labelledby="flyover-heading"
       data-flyover-band={programme}
     >
-      <h2 id="flyover-heading" className="sr-only">
+      <h2 id="flyover-heading" className={styles.heading}>
         {t("flyover_heading")}
       </h2>
       <div
-        className="relative overflow-hidden rounded-lg border border-border bg-card"
+        className={styles.visual}
         style={{ aspectRatio: FLYOVER_ASPECT }}
         // The band as a whole is one picture to assistive technology; the caption beneath it
         // is the same sentence as live text, so a screen reader is never told to look at a map.
@@ -313,30 +320,38 @@ export const HomeFlyover: FC = () => {
         ) : null}
       </div>
       <FlyoverCaptions caption={caption} />
-      <div className={SWITCH_ROW_CLASS}>
-        <span className="sr-only" id="flyover-switch-label">
-          {t("flyover_switch_label")}
-        </span>
-        {PROGRAMME_IDS.map((id) => (
-          <button
-            key={id}
-            type="button"
-            aria-pressed={id === programme}
-            aria-describedby="flyover-switch-label"
-            onClick={() => setChosen(id)}
-            // 24 px of target around a 10 px dot: WCAG 2.2 SC 2.5.8, and no exception applies
-            // — these are not inline text and there is no equivalent control on the page.
-            className="grid h-6 w-6 place-items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
-          >
-            <span
-              aria-hidden="true"
-              className={`${SWITCH_DOT_CLASS} ${
-                id === programme ? "bg-foreground" : "bg-muted-foreground/40"
-              }`}
-            />
-            <span className="sr-only">{t(SCENE_NAME_KEYS[id])}</span>
-          </button>
-        ))}
+      <div className={styles.controls}>
+        <div className={SWITCH_ROW_CLASS}>
+          <span className="sr-only" id="flyover-switch-label">
+            {t("flyover_switch_label")}
+          </span>
+          {PROGRAMME_IDS.map((id) => (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={id === programme}
+              aria-describedby="flyover-switch-label"
+              onClick={() => setChosen(id)}
+              // 24 px of target around a 10 px dot: WCAG 2.2 SC 2.5.8, and no exception applies
+              // — these are not inline text and there is no equivalent control on the page.
+              className="grid h-6 w-6 place-items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+            >
+              <span
+                aria-hidden="true"
+                className={`${SWITCH_DOT_CLASS} ${
+                  id === programme ? "bg-foreground" : "bg-muted-foreground/40"
+                }`}
+              />
+              <span className="sr-only">{t(SCENE_NAME_KEYS[id])}</span>
+            </button>
+          ))}
+        </div>
+        <Link
+          to="/articles/2026-09-07-money-map"
+          className="inline-flex min-h-6 items-center gap-1 text-xs text-muted-foreground underline decoration-border underline-offset-4 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {t("flyover_explore")} <span aria-hidden="true">↗</span>
+        </Link>
       </div>
     </section>
   );

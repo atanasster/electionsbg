@@ -12,14 +12,10 @@
 // five hand-copied literals across a boundary the code cannot cross, held in step by a comment
 // asking a future reader to remember.
 
-/** The frame the artifact is projected into, and therefore the band's aspect ratio. */
+/** The map keeps the artifact's aspect ratio inside a width-capped editorial card. */
 export const FLYOVER_ASPECT = "1000 / 625";
 export const FLYOVER_W = 1000;
 export const FLYOVER_H = 625;
-
-/** Two lines' worth, reserved whether or not there is a caption — it changes every few seconds. */
-export const CAPTION_ROW_CLASS =
-  "min-h-[3.25rem] sm:min-h-[2.5rem] mt-2 text-sm";
 
 /**
  * The scene switch's row.
@@ -28,7 +24,7 @@ export const CAPTION_ROW_CLASS =
  * applies here — these are not inline text, not user-agent-controlled, and there is no
  * equivalent control elsewhere on the page. The dot stays 10 px as the visual.
  */
-export const SWITCH_ROW_CLASS = "mt-1 flex items-center gap-1 h-6";
+export const SWITCH_ROW_CLASS = "flex items-center gap-1 h-6";
 export const SWITCH_DOT_CLASS = "h-2.5 w-2.5 rounded-full";
 
 // ⚠️ THE 19 `flyover_*` KEYS STAY IN THE CORE CORPUS, and that is a decision rather than an
