@@ -269,6 +269,7 @@
     "prices": "NODE_OPTIONS=--max-old-space-size=6144 tsx ./scripts/prices/ingest.ts",
     "prod": "tsx ./scripts/main.ts --all --prod",
     "sitemap": "tsx ./scripts/sitemap/index.ts",
+    "presidential:flash": "tsx ./scripts/parsers_presidential/build_flash_diff.ts",
     "elections:budget": "tsx ./scripts/elections/surface_budget.ts",
     "elections:surfaces": "tsx ./scripts/elections/build_surfaces.ts",
     "build:project-members": "tsx ./scripts/procurement/build_project_members.ts",

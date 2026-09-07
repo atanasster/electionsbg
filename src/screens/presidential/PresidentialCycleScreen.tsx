@@ -55,6 +55,7 @@ import { useRunoffTransfer } from "@/data/presidential/useRunoffTransfer";
 import { useSplitTicket } from "@/data/presidential/useSplitTicket";
 import { PresidentialSplitTicketTile } from "./PresidentialSplitTicketTile";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
+import { PresidentialFlashMemoryTile } from "./PresidentialFlashMemoryTile";
 import {
   PresidentialRunoffSwingLegend,
   PresidentialRunoffSwingList,
@@ -284,6 +285,14 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           {t("presidential_share_denominator")}
         </p>
       </section>
+
+      {/* 6. the machines' own records against the protocol — „Разлика с флаш паметта".
+             ⚠ IT SELF-HIDES ON FOUR OF THE FIVE CYCLES and that is the corpus, not a bug: only
+             2021 published its СУЕМГ records. 2016 is the case that makes the distinction —
+             machines counted votes in 500 of its 12,340 round-1 sections and ЦИК published
+             nothing from them — so the tile keys on the RECORDS existing, never on
+             `machineVoting`. */}
+      <PresidentialFlashMemoryTile cycle={cycle} round={round.round} />
 
       <section aria-labelledby={`pvr-turnout-${round.round}`}>
         <h2 id={`pvr-turnout-${round.round}`} className="text-lg font-semibold">

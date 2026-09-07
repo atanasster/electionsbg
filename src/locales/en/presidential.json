@@ -78,5 +78,11 @@
   "presidential_split_refused_committee_other": "A further {{count}} pairs were nominated by initiative committees and have no list to compare against: {{names}}.",
   "presidential_split_refused_unmatched_one": "For a further pair the nominator could not be resolved to exactly one list in the parliamentary catalogue, so it is not compared: {{names}}.",
   "presidential_split_refused_unmatched_other": "For a further {{count}} pairs the nominator could not be resolved to exactly one list in the parliamentary catalogue, so they are not compared: {{names}}.",
-  "presidential_split_coverage_abroad": "{{sections}} sections compared; {{abroad}} sections outside the country stay out of the comparison, so the figures sit below the national results."
+  "presidential_split_coverage_abroad": "{{sections}} sections compared; {{abroad}} sections outside the country stay out of the comparison, so the figures sit below the national results.",
+  "presidential_flash_title": "Difference against the flash memory",
+  "presidential_flash_hint": "What the voting machine itself recorded, against what the section commission wrote in the protocol. The two documents are produced independently, so the difference is a cross-check rather than arithmetic.",
+  "presidential_flash_col_protocol": "Machine (protocol)",
+  "presidential_flash_col_flash": "Flash memory",
+  "presidential_flash_col_diff": "Difference",
+  "presidential_flash_coverage_note": "{{pct}} of machine votes compared, across {{sections}} sections; {{left}} machine votes sit outside the comparison, in sections with no flash record. The difference is between two independently produced documents and is not in itself an irregularity."
 }
