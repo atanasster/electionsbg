@@ -14,6 +14,7 @@ import { initReactI18next } from "react-i18next";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
+import { SANKEY_MAX_FROM_NODES } from "./PresidentialTransferTable";
 import type { RunoffTransfer } from "@/data/presidential/useRunoffTransfer";
 
 await i18n.use(initReactI18next).init({
@@ -135,7 +136,38 @@ describe("PresidentialTransferTile", () => {
   it("draws the flow itself", () => {
     // The chart is mounted through `VoteFlowSankey`; on jsdom the container has no width, so
     // this asserts the mobile twin's node list rather than the SVG's geometry.
+    // ⚠ IT DOES NOT PIN WHICH RENDERER RAN. The table prints these same names in its row
+    // headers, so this passes under both — which is why the two branch tests below exist.
     mount(transfer());
     expect(screen.getAllByText("Румен Радев").length).toBeGreaterThan(0);
+  });
+
+  /** A matrix with `n` from-nodes, for straddling `SANKEY_MAX_FROM_NODES`. */
+  const wideMatrix = (n: number) => ({
+    fromNodes: Array.from({ length: n }, (_, i) =>
+      node(`t${i}`, `Кандидат ${i}`, 1000 - i),
+    ),
+    toNodes: [node("t0", "Кандидат 0", 1200)],
+    flows: [{ from: "t0", to: "t0", votes: 900 }],
+  });
+  const withMatrix = (n: number) =>
+    transfer({
+      national: { ...transfer().national, matrix: wideMatrix(n) },
+    });
+
+  it("switches to the TABLE once the round-1 side is too wide to trace", () => {
+    // ⚠⚠ THE LINE THE WHOLE CHANGE TURNS ON, and nothing exercised it: both fixtures in this
+    // file and in `PresidentialCycleScreen.test.tsx` carry 2 and 1 from-nodes, so every test
+    // ran the Sankey branch. Inverting the condition kept them all green, because the table
+    // renders the same candidate names the chart's mobile twin does.
+    mount(withMatrix(SANKEY_MAX_FROM_NODES + 1));
+    expect(screen.getByRole("table")).toBeTruthy();
+  });
+
+  it("keeps the CHART at the threshold, so 2001 (8) and 2006 (9) are unaffected", () => {
+    // ⚠ THE BOUNDARY CASE, which is what pins `>` against `>=`. The real cycles sit at 8, 9,
+    // 20, 24 and 26 from-nodes.
+    mount(withMatrix(SANKEY_MAX_FROM_NODES));
+    expect(screen.queryByRole("table")).toBeNull();
   });
 });

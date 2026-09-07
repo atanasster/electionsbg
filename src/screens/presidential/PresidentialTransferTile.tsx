@@ -11,6 +11,13 @@
 // „накъде отидоха гласовете" is exactly the right one here. The producer emits
 // `VoteFlowMatrix` for that reason.
 //
+// ⚠⚠ AND IT STOPS REUSING IT ONCE THE ROUND-1 SIDE IS WIDE, which on three of the five cycles
+// it is. A Sankey is the right grammar for a claim a reader can trace; 2021's matrix is 26 → 5
+// and 2016's is 24 → 5, where the ribbons cross so densely that „where did this candidate's
+// voters go" — the one question the artifact answers — cannot be read off the picture at all.
+// `PresidentialTransferTable` is the DEFAULT above `SANKEY_MAX_FROM_NODES`, not a degraded
+// fallback, and the chart keeps the two cycles it serves (2001: 8 nodes, 2006: 9).
+//
 // ⚠ NO PIN/OVERLAY. The parliamentary tile pins a node and opens a detail card; this matrix
 // has at most five columns and a reader can follow a ribbon by eye, so the extra state is cost
 // with no benefit. Hover tooltip only.
@@ -31,6 +38,10 @@ import {
   SANKEY_HEIGHT,
   VoteFlowSankey,
 } from "@/screens/components/voteFlow/VoteFlowSankey";
+import {
+  PresidentialTransferTable,
+  SANKEY_MAX_FROM_NODES,
+} from "./PresidentialTransferTable";
 import { VoteFlowMobile } from "@/screens/components/voteFlow/VoteFlowMobile";
 import {
   VoteFlowTooltip,
@@ -53,6 +64,10 @@ export const PresidentialTransferTile: FC<{ transfer: RunoffTransfer }> = ({
 
   const { matrix, marginGap } = transfer.national;
   const cov = transfer.coverage;
+  // ⚠ THE FROM SIDE ONLY. The to side is two candidates plus three lanes on every cycle ever
+  // held; what varies — and what makes the chart unreadable — is how many pairs stood in
+  // round 1. Measured: 8, 9, 20, 24, 26.
+  const wide = matrix.fromNodes.length > SANKEY_MAX_FROM_NODES;
 
   return (
     <StatCard
@@ -71,26 +86,36 @@ export const PresidentialTransferTile: FC<{ transfer: RunoffTransfer }> = ({
       <p className="text-xs text-muted-foreground">
         {isEn ? transfer.basisEn : transfer.basis}
       </p>
-      <div
-        ref={containerRef}
-        className="relative mt-3 min-w-0"
-        style={{ minHeight: SANKEY_HEIGHT }}
-      >
-        {isMd ? (
-          <>
-            <VoteFlowSankey
-              matrix={matrix}
-              width={Math.max(0, width)}
-              height={SANKEY_HEIGHT}
-              hoveredId={hover?.kind === "node" ? hover.id : null}
-              onHover={setHover}
-            />
-            <VoteFlowTooltip matrix={matrix} hover={hover} />
-          </>
-        ) : (
-          <VoteFlowMobile matrix={matrix} />
-        )}
-      </div>
+      {/* ⚠ THE TABLE NEEDS NO RESERVED HEIGHT and must not inherit the chart's. `minHeight`
+          exists so a measuring Sankey does not collapse the tile while `useMeasuredWidth`
+          settles; applied to a table it reserves 460px that a five-row 2001 matrix never
+          fills, which is the layout shift in the other direction. */}
+      {wide ? (
+        <div className="mt-3 min-w-0">
+          <PresidentialTransferTable matrix={matrix} />
+        </div>
+      ) : (
+        <div
+          ref={containerRef}
+          className="relative mt-3 min-w-0"
+          style={{ minHeight: SANKEY_HEIGHT }}
+        >
+          {isMd ? (
+            <>
+              <VoteFlowSankey
+                matrix={matrix}
+                width={Math.max(0, width)}
+                height={SANKEY_HEIGHT}
+                hoveredId={hover?.kind === "node" ? hover.id : null}
+                onHover={setHover}
+              />
+              <VoteFlowTooltip matrix={matrix} hover={hover} />
+            </>
+          ) : (
+            <VoteFlowMobile matrix={matrix} />
+          )}
+        </div>
+      )}
       <p className="mt-2 text-xs text-muted-foreground">
         {t("presidential_transfer_precision", {
           pct: formatPct(marginGap, lang, 1),

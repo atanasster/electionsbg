@@ -84,5 +84,13 @@
   "presidential_flash_col_protocol": "Machine (protocol)",
   "presidential_flash_col_flash": "Flash memory",
   "presidential_flash_col_diff": "Difference",
-  "presidential_flash_coverage_note": "{{pct}} of machine votes compared, across {{sections}} sections; {{left}} machine votes sit outside the comparison, in sections with no flash record. The difference is between two independently produced documents and is not in itself an irregularity."
+  "presidential_flash_coverage_note": "{{pct}} of machine votes compared, across {{sections}} sections; {{left}} machine votes sit outside the comparison, in sections with no flash record. The difference is between two independently produced documents and is not in itself an irregularity.",
+  "presidential_transfer_table_caption": "Where the first-round votes went, as estimated — one row per first-round line, one column per runoff option.",
+  "presidential_transfer_table_col_line": "Round 1",
+  "presidential_transfer_table_col_round1_votes": "Votes",
+  "presidential_transfer_table_none": "—",
+  "presidential_transfer_table_note": "Each row shows where that first-round line's votes went, as estimated; the columns are the runoff options and the percentages are shares of the row's own votes. A dash means a flow below the estimate's threshold, not a zero flow, which is why the rows do not add up to exactly 100%. A „< {{pct}}“ cell is a real but very small flow.",
+  "presidential_transfer_table_tiny": "< {{pct}}",
+  "presidential_transfer_table_none_a11y": "a flow below the estimate's threshold, not a zero flow",
+  "presidential_transfer_table_cell_a11y": "{{votes}} votes from „{{from}}“ to „{{to}}“"
 }
