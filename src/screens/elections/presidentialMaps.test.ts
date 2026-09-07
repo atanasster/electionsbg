@@ -9,6 +9,8 @@
 // keys, leaves every existing gate green.
 
 import { describe, expect, it } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
 import { MAP_ADAPTERS } from "./electionMapSlots";
 import {
   descriptorFor,
@@ -16,6 +18,8 @@ import {
 } from "./electionSurfaceDescriptors";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import type { ElectionPlaceLevel } from "@/data/elections/surfaceTypes";
+
+const ROOT = path.resolve(import.meta.dirname, "../../..");
 
 /** ⚠ A DESCRIPTOR MAY BE `ElectionLevelUnavailable`, which has no `maps` at all — the union is
  *  „this level exists" vs „this kind does not serve it", and that is a real state (a
@@ -30,26 +34,73 @@ const LEVELS = Object.keys(
   ELECTION_SURFACE_DESCRIPTORS.presidential,
 ) as ElectionPlaceLevel[];
 
-describe("the presidential map refusal", () => {
-  it("registers no presidential adapter, which is the measured decision", () => {
-    // ⚠ REGISTERING ONE IS THE DEFECT, not the fix. Every presidential level below the country
-    // would have to fetch a whole-country roll-up to colour its children, and the corpus is at
-    // 58,915 objects against a 60,000 bound — so sharding those children instead is a coverage
-    // decision with its own arithmetic. The country map is served OUTSIDE this registry, by
-    // `PresidentialRegionsMap` on the cycle page, from the 113.9 KB region roll-up it needs in
-    // full anyway.
-    const presidential = Object.keys(MAP_ADAPTERS).filter((k) =>
-      k.startsWith("presidential/"),
-    );
+describe("the presidential map registry", () => {
+  it("serves the two levels whose roll-up is small enough, and refuses the rest", () => {
+    // ⚠ THIS CASE USED TO ASSERT THAT NOTHING WAS REGISTERED, and the argument it carried was
+    // about RAW bytes: „every presidential level below the country would have to fetch a
+    // whole-country roll-up". The fetch is still whole-country — the tree has no per-place
+    // shards — but the sizes were re-measured against what a reader actually pays, which is the
+    // GZIPPED object, and two of them are servable: 0.96 MB → 47 KB at region, 14.63 MB →
+    // 346 KB at município. `settlement` and `abroad` stay refused for reasons that are NOT
+    // size (a marker map at section grain, and a missing country→continent crosswalk).
+    //
+    // Pinned as an exact set rather than „at least these": a third entry appearing here is
+    // either the section level, which needs a different component, or `abroad`, which needs a
+    // join nobody has built — both worth failing on.
     expect(
-      presidential,
-      "an adapter was registered — see electionMapSlots.ts for the measured sizes it would fetch",
-    ).toEqual([]);
+      Object.keys(MAP_ADAPTERS)
+        .filter((k) => k.startsWith("presidential/"))
+        .sort(),
+    ).toEqual([
+      "presidential/municipality/winner",
+      "presidential/region/winner",
+    ]);
     // The control: the registry is not simply empty.
     expect(
       Object.keys(MAP_ADAPTERS).filter((k) => k.startsWith("parliamentary/"))
         .length,
     ).toBeGreaterThan(3);
+  });
+
+  it("keeps every registered level's roll-up on the gzip hot list", () => {
+    // ⚠⚠ THE REGISTRATION AND THE GZIP LIST ARE ONE DECISION, AND NOTHING ELSE COUPLES THEM.
+    // The bucket stores objects UNCOMPRESSED unless `scripts/bucket_gzip.ts` re-uploads them
+    // with `Content-Encoding: gzip` — verified live, GCS answers
+    // `x-goog-stored-content-encoding: identity` for a data object that is not on that list.
+    // So dropping `settlement_votes.json` from it does not fail a build, break a page or move a
+    // row count: it silently turns every presidential município page into a 14.6 MB download.
+    //
+    // Read off the SOURCE rather than imported: `bucket_gzip.ts` is a node script with
+    // `process.argv` at module scope, and pulling it into this project to check a string list
+    // would be worse than reading the string list.
+    const gz = fs.readFileSync(
+      path.join(ROOT, "scripts/bucket_gzip.ts"),
+      "utf8",
+    );
+    const block = gz.slice(
+      gz.indexOf("const PER_ROUND_FILES"),
+      gz.indexOf("]", gz.indexOf("const PER_ROUND_FILES")),
+    );
+    // The file each registered level's adapter fetches, by the grain its descriptor declares.
+    const NEEDED: Record<string, string> = {
+      "presidential/region/winner": "municipality_votes.json",
+      "presidential/municipality/winner": "settlement_votes.json",
+    };
+    for (const key of Object.keys(MAP_ADAPTERS).filter((k) =>
+      k.startsWith("presidential/"),
+    )) {
+      const file = NEEDED[key];
+      expect(
+        file,
+        `${key} is registered but this gate does not know which roll-up it fetches — add it to NEEDED`,
+      ).toBeTruthy();
+      expect(
+        block,
+        `${key} is registered while ${file} is NOT gzip-uploaded — that page ships the raw file`,
+      ).toContain(file);
+    }
+    // Anti-vacuity: the block really is the list, not an empty slice.
+    expect(block).toContain("region_votes.json");
   });
 });
 

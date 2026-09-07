@@ -63,6 +63,10 @@ import { LocalCouncilTrendsTile } from "./dashboard/local/LocalCouncilTrendsTile
 import { LocalPlaceTrendsTile } from "./dashboard/local/LocalPlaceTrendsTile";
 import { useLocalPlaceTrend } from "@/data/local/useLocalPlaceTrends";
 import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
+import {
+  mayorSectionLegend,
+  mayorVoteFieldFor,
+} from "./dashboard/local/mayorSectionMap";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
 import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
@@ -1097,19 +1101,10 @@ const MunicipalityResults: FC<{
   // Mayor-candidate legend (ballot list № → name + party colour) for the mayor
   // map, built from the regular-cycle mayor candidates — their list numbers
   // match the КО/КР per-section vote rows.
-  const NEUTRAL = "#9ca3af";
-  const mayorLegend = new Map<number, { name: string; color: string }>();
-  for (const c of municipality.mayor.round1) {
-    mayorLegend.set(c.localPartyNum, {
-      name: c.candidateName,
-      color: c.primaryCanonicalId
-        ? (colorFor(c.primaryCanonicalId) ?? NEUTRAL)
-        : NEUTRAL,
-    });
-  }
-  // A район reads its own район-mayor ballot (КР); everywhere else the
-  // município-mayor ballot (КО).
-  const mayorVoteField = isRayon ? "rayonMayorVotes" : "mayorVotes";
+  // ⚠ THE RULE IS SHARED WITH THE SHELL'S `local/municipality/winner` ADAPTER, which draws the
+  // same station map in the canvas above. See `mayorSectionMap.ts`.
+  const mayorLegend = mayorSectionLegend(municipality.mayor.round1, colorFor);
+  const mayorVoteField = mayorVoteFieldFor(isRayon);
   const hasMayorMapData = !!shard?.sections.some(
     (s) => (s[mayorVoteField]?.length ?? 0) > 0,
   );
@@ -1143,17 +1138,10 @@ const MunicipalityResults: FC<{
   // Partial (by-election) mayor map — same КО/КР field, but its own legend (the
   // by-election candidates; their № == localPartyNum) and its own per-section
   // shard. Self-hides until the shard is ingested.
-  const partialMayorLegend = new Map<number, { name: string; color: string }>();
-  if (showPartial && partialBundle) {
-    for (const c of partialBundle.mayor.round1) {
-      partialMayorLegend.set(c.localPartyNum, {
-        name: c.candidateName,
-        color: c.primaryCanonicalId
-          ? (colorFor(c.primaryCanonicalId) ?? NEUTRAL)
-          : NEUTRAL,
-      });
-    }
-  }
+  const partialMayorLegend =
+    showPartial && partialBundle
+      ? mayorSectionLegend(partialBundle.mayor.round1, colorFor)
+      : new Map<number, { name: string; color: string }>();
   const partialHasMayorMapData = !!partialShard?.sections.some(
     (s) => (s[mayorVoteField]?.length ?? 0) > 0,
   );
@@ -1263,8 +1251,13 @@ const MunicipalityResults: FC<{
           // Four facts is the corpus maximum, and the skeleton reserves the tallest so no real
           // page shifts downward. Measured against this level's OWN `factPriority` — which
           // includes `turnout`, unlike country's and region's — 511 of 578 published surfaces
-          // render three and 67 render four. No map: the mayor ballot declares one and
-          // `MAP_ADAPTERS` registers no `local/*` entry to draw it.
+          // render three and 67 render four.
+          //
+          // ⚠ STILL NO MAP, and now for a measured reason rather than „no adapter exists".
+          // This level's slot is the mayor ballot at SECTION grain — a marker map — and the
+          // stations carry no coordinates: 0 of 289 município shards in the committed 2023
+          // corpus, and the same on the live bucket. `LocalMunicipalityMap` is written and
+          // deliberately UNREGISTERED until a backfill lands; see `electionMapSlots.ts`.
           //
           // ⚠ `rows` IS PER CANVAS BECAUSE THE TWO BALLOTS ARE NOT THE SAME SHAPE, and the
           // „reserve the tallest" rule above does not survive being applied to both at once.

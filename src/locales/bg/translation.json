@@ -3965,6 +3965,10 @@
   "local_map_council_region_label": "{{place}}: води {{party}} с {{pct}} от вота за общинските съвети",
   "local_map_mayors_region_label": "{{place}}: води {{party}} по кметски места",
   "local_map_mayors_region_label_empty": "{{place}}: няма данни за кметските места",
+  "local_map_muni_mayor_label": "{{place}}: кмет от {{party}}",
+  "local_map_muni_mayor_label_empty": "{{place}}: няма избран кмет",
+  "local_map_muni_council_label": "{{place}}: води {{party}} в общинския съвет",
+  "local_map_muni_council_label_empty": "{{place}}: няма данни за съвета",
   "local_map_council_region_label_empty": "{{place}}: няма данни за вота за съветите",
   "local_map_council_votes_note": "Оцветено по гласовете за общинските съвети — не по спечелени места. Двете могат да сочат различна партия в една и съща област.",
   "local_map_mayors_note": "Оцветено по броя кметски места, спечелени от всяка партия в областта.",
@@ -5585,6 +5589,7 @@
   "election_map_mode_winner": "Кой води",
   "election_map_placeholder": "Картата се зарежда с данните за мястото.",
   "election_map_unavailable": "Няма карта за това ниво.",
+  "election_map_no_data_here": "Няма карта с данни за това място.",
   "election_map_q_council_control_municipality": "Коя партия води в съвета във всяка община?",
   "election_map_q_council_control_region": "Коя партия води в съветите по области?",
   "election_map_q_mayor_control_municipality": "От коя партия е кметът във всяка община?",
@@ -5713,6 +5718,8 @@
   "presidential_map_q_who_led_municipality": "Коя двойка води във всяка община?",
   "presidential_map_q_who_led_settlement": "Коя двойка води по населени места?",
   "presidential_map_q_who_led_section": "Коя двойка води по секции?",
+  "presidential_map_region_label": "{{place}}: води {{president}} с {{pct}}",
+  "presidential_map_region_label_empty": "{{place}}: няма подадени гласове",
   "same_day_to_presidential": "Президентски избори {{year}} — същия ден",
   "same_day_to_local": "Местни избори {{year}} — същия ден"
 }

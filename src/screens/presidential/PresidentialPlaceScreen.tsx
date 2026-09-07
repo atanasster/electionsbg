@@ -74,6 +74,17 @@ const FACT_SLOTS: Record<PresidentialPlaceLevel, number> = {
   section: 4,
 };
 
+/** The levels whose map slot `MAP_ADAPTERS` actually fills.
+ *
+ *  ⚠ IT MIRRORS THE REGISTRY AND IS NOT DERIVED FROM IT ON PURPOSE. Importing `MAP_ADAPTERS`
+ *  here would put the registry — and the `import()` edges to every adapter — into this screen's
+ *  static closure, which is the one thing the lazy indirection exists to prevent. The pairing is
+ *  held by `presidentialMaps.test.ts` instead, so the two cannot drift silently. */
+const MAPPED_LEVELS = new Set<PresidentialPlaceLevel>([
+  "region",
+  "municipality",
+]);
+
 export const PresidentialPlaceScreen: FC<{
   level: PresidentialPlaceLevel;
 }> = ({ level }) => {
@@ -121,9 +132,13 @@ export const PresidentialPlaceScreen: FC<{
         skeleton={
           <ElectionSurfaceSkeleton
             facts={FACT_SLOTS[level]}
-            // ⚠ A SECTION DRAWS NO MAP — one polling station has no geography to answer a
-            // question about, which is what makes this the repo's canonical map-free page.
-            withMap={level !== "section"}
+            // ⚠ RESERVE WHAT THE PAGE RENDERS, WHICH IS NOT WHAT THE DESCRIPTOR DECLARES.
+            // Every level except `section` declares a map slot; only two have an adapter to
+            // fill it (`presidential/region|municipality/winner`). A section has no geography
+            // to answer a question about — the repo's canonical map-free page — and `settlement`
+            // and `abroad` declare a slot that `MAP_ADAPTERS` deliberately does not serve, so
+            // reserving 360px on those two is the layout shift in the other direction.
+            withMap={MAPPED_LEVELS.has(level)}
           />
         }
         fallback={

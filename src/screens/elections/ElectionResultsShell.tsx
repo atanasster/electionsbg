@@ -604,6 +604,7 @@ const OutcomeCanvas: FC<{
             // election — or a different question — from the ranked list it sits beside.
             cycle={cycle}
             ballot={ballot.map.ballot ?? ballot.kind}
+            round={ballot.round}
             question={questionKey ? t(questionKey) : undefined}
             posture="presentational"
             ariaLabel={

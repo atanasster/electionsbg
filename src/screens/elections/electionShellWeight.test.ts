@@ -143,8 +143,20 @@ const CRITICAL_PATH_BR = 363_000;
  *  the fifth entry, and the sixth will be cheaper rather than dearer, since the re-split has
  *  already happened. What WOULD work it off is the opposite of what this change is for: an
  *  unregistered level renders a permanent „not available" where its map belongs.
+ *
+ *  **11,300 → 11,510 (measured 11,433), 2026-09-07 — four more lazy adapters, and the
+ *  prediction above held.** `local/region`, `local/municipality`, `presidential/region` and
+ *  `presidential/municipality` join the registry, so every place page below the country draws
+ *  the map its descriptor declares instead of „картата не е налична".
+ *
+ *  ⚠ +133 B FOR FOUR, against +172 B for the one before them — ~33 B each rather than ~172.
+ *  That is the re-split being a ONE-TIME cost, as the entry above said it would be: the shared
+ *  chunks between the entry and the lazy adapters were re-cut when the fifth adapter arrived,
+ *  and the sixth through ninth pay only their own registry line. Measured by removing exactly
+ *  those four entries: the gate passes without them and fails with them. Read that as the shape
+ *  of the next raise too — a tenth adapter is ~30 B, not a re-argument.
  */
-const SHELL_BUDGET_BR = 11_300;
+const SHELL_BUDGET_BR = 11_510;
 
 /** ⚠ `splitting: true`, AND IT IS THE WHOLE MEASUREMENT. Without it esbuild inlines every
  *  `import()` into one bundle, so the moment a real map adapter was registered the "shell's own
@@ -209,11 +221,11 @@ describe("the shell's own weight", () => {
     expect(br, `the shell grew to ${br} B brotli`).toBeLessThanOrEqual(
       SHELL_BUDGET_BR,
     );
-    // Recorded against §10.1's total, as item 4 asks: 3.09% of the critical path today, up from
-    // ~2.5%. ⚠ THE BOUND TRACKS THE BUDGET ABOVE (11,300 / 363,000 = 3.11%) so that a change
+    // Recorded against §10.1's total, as item 4 asks: 3.15% of the critical path today, up from
+    // ~2.5%. ⚠ THE BOUND TRACKS THE BUDGET ABOVE (11,510 / 363,000 = 3.17%) so that a change
     // which passes the byte budget cannot fail here instead — two ratchets on one number, one of
     // which nobody remembers to update, is how a gate starts failing for the wrong reason.
-    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.0312);
+    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.0318);
   });
 
   it("is not measuring an empty bundle", { timeout: 60_000 }, async () => {

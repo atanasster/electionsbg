@@ -69,11 +69,15 @@ export const LocalRegionDashboardScreen: FC = () => {
         level="region"
         cycle={cycle}
         id={oblast}
-        // ⚠ ONE FACT, NOT TWO, AND NO MAP — the skeleton must reserve what the page renders.
-        // The artifact carries `seats` and `turnout`, but this level's `factPriority` has no
-        // `turnout`, so only one card ever appears; and `MAP_ADAPTERS` registers no `local/*`
-        // entry, so the map slot renders one line of "not available" rather than a map.
-        skeleton={<ElectionSurfaceSkeleton facts={1} withMap={false} />}
+        // ⚠ ONE FACT, NOT TWO — the artifact carries `seats` and `turnout`, but this level's
+        // `factPriority` has no `turnout`, so only one card ever appears.
+        //
+        // ⚠ THE MAP BOX IS RESERVED AGAIN: `local/region/winner` is registered now
+        // (`LocalRegionMap`, the oblast's municipalities), so the canvas draws a map here
+        // instead of one line of "not available". The skeleton must reserve what the page
+        // RENDERS — leaving `withMap={false}` would trade the old dead message for a 360px
+        // shift when the map lands.
+        skeleton={<ElectionSurfaceSkeleton facts={1} />}
         fallback={null}
       >
         {(s) => (

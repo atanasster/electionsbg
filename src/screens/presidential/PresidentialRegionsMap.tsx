@@ -10,6 +10,13 @@
 // components to serve one kind would put a branch in the busiest maps on the site; this draws
 // on the same primitives (`FeatureMap`, `getDataProjection`, `SVGMapContainer`) one level down.
 //
+// ⚠ ITS TWO LABEL KEYS LIVE IN `translation.json`, NOT IN THE `presidential` BUNDLE, and the
+// prefix does not decide that — `bundles.ts` does: „a key named from a SHARED module is core,
+// whatever its prefix". `presidential_map_region_label` and its `_empty` twin are now also
+// named by `PresidentialChildMap`, which the elections map REGISTRY reaches, so every route can
+// reach them and `bundle_reachability.test.ts` fails if they sit in the bundle. Same reason the
+// five `presidential_map_q_who_led_*` keys have always been core.
+//
 // ⚠ THE COLOUR COMES FROM `tickets.json`, never from a palette chosen here. The ingest already
 // resolved each pair's colour — a party's own where the nominator has one, a neutral-palette
 // slot otherwise (17 of 2021's 23) — and a second choice would give one pair two colours.

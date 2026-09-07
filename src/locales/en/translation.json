@@ -3965,6 +3965,10 @@
   "local_map_council_region_label": "{{place}}: {{party}} leads with {{pct}} of the council vote",
   "local_map_mayors_region_label": "{{place}}: {{party}} leads on mayoralties",
   "local_map_mayors_region_label_empty": "{{place}}: no mayoralty figures",
+  "local_map_muni_mayor_label": "{{place}}: mayor from {{party}}",
+  "local_map_muni_mayor_label_empty": "{{place}}: no elected mayor",
+  "local_map_muni_council_label": "{{place}}: {{party}} leads the municipal council",
+  "local_map_muni_council_label_empty": "{{place}}: no council figures",
   "local_map_council_region_label_empty": "{{place}}: no council-vote figures",
   "local_map_council_votes_note": "Coloured by municipal-council votes, not by seats won. The two can name a different party in the same province.",
   "local_map_mayors_note": "Coloured by how many mayoralties each party holds in the province.",
@@ -5585,6 +5589,7 @@
   "election_map_mode_winner": "Who leads",
   "election_map_placeholder": "The map loads with the place's data.",
   "election_map_unavailable": "No map for this level.",
+  "election_map_no_data_here": "No map data for this place.",
   "election_map_q_council_control_municipality": "Which party leads the council in each municipality?",
   "election_map_q_council_control_region": "Which party leads the councils by province?",
   "election_map_q_mayor_control_municipality": "Which party holds the mayoralty in each municipality?",
@@ -5713,6 +5718,8 @@
   "presidential_map_q_who_led_municipality": "Which pair led in each municipality?",
   "presidential_map_q_who_led_settlement": "Which pair led by settlement?",
   "presidential_map_q_who_led_section": "Which pair led by polling section?",
+  "presidential_map_region_label": "{{place}}: {{president}} leads with {{pct}}",
+  "presidential_map_region_label_empty": "{{place}}: no votes cast",
   "same_day_to_presidential": "Presidential election {{year}} — the same day",
   "same_day_to_local": "Local elections {{year}} — the same day"
 }

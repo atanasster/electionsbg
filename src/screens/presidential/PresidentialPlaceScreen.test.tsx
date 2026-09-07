@@ -13,6 +13,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { MAP_ADAPTERS } from "@/screens/elections/electionMapSlots";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { PresidentialPlaceScreen } from "./PresidentialPlaceScreen";
 import { PRESIDENTIAL_ABROAD_ID } from "@/data/elections/presidentialRoutes";
@@ -141,10 +142,29 @@ describe("the presidential place page", () => {
     expect(asked.some((u) => u.includes("/section/by-oblast/02/"))).toBe(true);
   });
 
-  it("reserves no map slot for a section, and one for every other level", () => {
-    // The other per-level difference: a single polling station has no geography to answer a
-    // question about, so reserving a box nothing ever fills is the layout shift in the other
-    // direction.
+  it("reserves a map slot only where an adapter fills one", () => {
+    // ⚠ DERIVED FROM `MAP_ADAPTERS`, never retyped. A hand-written list here would agree with
+    // the screen's hand-written list and both could be wrong about the registry together.
+    const MAPPED = new Set(
+      Object.keys(MAP_ADAPTERS)
+        .filter((k) => k.startsWith("presidential/"))
+        .map((k) => k.split("/")[1]),
+    );
+    // Anti-vacuity: an empty set would make this assert „no level reserves a box" and pass on a
+    // screen that reserves none.
+    expect(MAPPED.size).toBeGreaterThan(0);
+    // The other per-level difference. It used to be „none for a section, one for everything
+    // else", because a single polling station has no geography to answer a question about and
+    // every other level DECLARED a map. Declaring one is not drawing one: `MAP_ADAPTERS` serves
+    // `presidential/region|municipality/winner` and deliberately refuses `settlement` (its
+    // grain is `section` — a marker map, a different component) and `abroad` (no
+    // country→continent crosswalk). Reserving 360px on those two is the same layout shift in
+    // the same direction as reserving it for a section.
+    //
+    // ⚠ THIS IS WHAT PINS `MAPPED_LEVELS` TO THE REGISTRY. The screen mirrors the registry by
+    // hand rather than importing it — importing would pull every adapter's `import()` edge into
+    // that screen's static closure, which is what the lazy indirection exists to prevent — so
+    // this case is the only thing stopping the two drifting.
     //
     // ⚠ ASSERTED BEFORE THE FETCH RESOLVES. The skeleton is what the boundary renders while
     // LOADING; once the 404 lands the fallback replaces it, so an awaited assertion here would
@@ -158,7 +178,7 @@ describe("the presidential place page", () => {
       expect(
         container.querySelectorAll('[data-skeleton-slot="map"]').length,
         c.level,
-      ).toBe(c.level === "section" ? 0 : 1);
+      ).toBe(MAPPED.has(c.level) ? 1 : 0);
       // …and the skeleton really is what is on screen, so the count above is not zero
       // because nothing rendered.
       expect(

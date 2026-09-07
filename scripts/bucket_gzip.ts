@@ -33,7 +33,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { isExcluded } from "./bucket_sync_paths";
 import { BUCKET_GS } from "./db/lib/bucket";
-import { isElectionFolder } from "./lib/electionFolders";
+import { electionFolderKind, isElectionFolder } from "./lib/electionFolders";
 
 const BUCKET = BUCKET_GS;
 const CACHE_CONTROL = "public,max-age=300,must-revalidate";
@@ -144,6 +144,29 @@ const PER_ELECTION_FILES = [
 // them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
 const SECTION_SHARD_GZIP_MIN = 120_000;
 
+// Presidential per-round roll-ups (`<cycle>/tur<1|2>/…`). The tree has NO per-place shards
+// below the country — each of these covers the whole country for one round — so a place page's
+// map downloads all of it. Measured on 2021, raw → gzipped:
+//
+//     region_votes.json          0.11 MB →   8 KB   (the country map)
+//     municipality_votes.json    0.96 MB →  47 KB   (a region page's map)
+//     settlement_votes.json     14.63 MB → 346 KB   (a município page's map)
+//
+// ⚠⚠ THE MAPS ARE REGISTERED AGAINST THESE NUMBERS. `electionMapSlots.ts` wires
+// `presidential/region/winner` and `presidential/municipality/winner` only because the gzipped
+// column is servable; dropping a path from here does not fail anything, it silently turns a
+// município page into a 14.6 MB download. Unregister the adapter in the same change, or leave
+// these alone.
+//
+// `abroad.json` (241.3 KB) is included for the same reason the others are — it is the same
+// shape and the same cost class — even though no map reads it yet.
+const PER_ROUND_FILES = [
+  "region_votes.json",
+  "municipality_votes.json",
+  "settlement_votes.json",
+  "abroad.json",
+];
+
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors
 // / awarders), the by_ns slices and the derived/contract_index year shards used
 // to be gzip-uploaded here. Procurement now serves from Cloud SQL (/api/db/*),
@@ -159,6 +182,18 @@ export const collect = (): string[] => {
     for (const f of PER_ELECTION_FILES) {
       const rel = `${entry.name}/${f}`;
       if (existsSync(join(DATA, rel))) out.push(rel);
+    }
+    // Presidential cycles (YYYY_MM_DD_pvr) keep their roll-ups one level down, per round.
+    // ⚠ NOT `PER_ELECTION_FILES`: those are matched at the folder ROOT, and `region_votes.json`
+    // lives at `<cycle>/tur1/` here — so the presidential country map was being served
+    // uncompressed while the parliamentary one of the same name was not.
+    if (electionFolderKind(entry.name) === "presidential") {
+      for (const round of ["tur1", "tur2"]) {
+        for (const f of PER_ROUND_FILES) {
+          const rel = `${entry.name}/${round}/${f}`;
+          if (existsSync(join(DATA, rel))) out.push(rel);
+        }
+      }
     }
     // Local cycles (YYYY_MM_DD_mi) carry per-município section shards under
     // sections/; gzip only the large ones.

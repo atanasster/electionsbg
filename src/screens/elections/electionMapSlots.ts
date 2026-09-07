@@ -109,6 +109,14 @@ export type ElectionMapAdapterProps = ElectionMapSlot & {
    *  quantities with different denominators. Optional because a single-ballot level has nothing
    *  to disambiguate. */
   ballot?: string;
+  /** WHICH ROUND of that ballot, where the level carries more than one.
+   *
+   *  ⚠ A PRESIDENTIAL PLACE ARTIFACT CARRIES TWO BALLOTS OF THE SAME KIND — one per round —
+   *  and both declare a map. `ballot` cannot separate them (both are `presidential_ticket`), so
+   *  without this an adapter colours the runoff canvas with round 1's leaders. The two are
+   *  different electorates: nationally 5.7 points apart in 2021, and they name a different
+   *  leader in whole oblasts. */
+  round?: number;
 };
 
 /** ⚠ EVERY VALUE IS A LOADER, NEVER A COMPONENT. A static reference here would pull the
@@ -152,34 +160,81 @@ export const MAP_ADAPTERS: Partial<
   // because a mayor "result" at this level is a COUNT of mayoralties and would print under
   // „Гласове"), so the mayor arm is reachable only if that changes.
   "local/country/winner": () => import("./adapters/LocalCountryMap"),
-  // ⚠⚠ NO `presidential/*` ENTRY, AND IT IS A MEASURED REFUSAL RATHER THAN AN OMISSION.
+  // The oblast's municipalities. ⚠ TWO DECLARED SLOTS RESOLVE HERE — mayor control and council
+  // support — because both carry `defaultMode: "winner"`; `LocalRegionMap` branches on the
+  // `ballot` prop. It costs no data fetch: the region rollup it colours by is the file the
+  // region dashboard already loads for its tables.
+  "local/region/winner": () => import("./adapters/LocalRegionMap"),
+  // ⚠⚠ NO `local/municipality` ENTRY, AND IT IS A CORPUS MEASUREMENT RATHER THAN A DESIGN
+  // CHOICE. That level's one map slot is the MAYOR ballot at `section` grain — a per-station
+  // marker map — and the stations have no coordinates to plot. `LocalSectionResult.longitude`
+  // is backfilled from the parliamentary section archive
+  // (`scripts/parsers_local/backfill_local_section_coords.ts`), and measured 2026-09-07 across
+  // the committed 2023 corpus: **0 of 289 município shards carry a single coordinate** — and
+  // the same is true of the LIVE bucket copy, checked directly rather than inferred from the
+  // local tree.
   //
-  // A choropleth needs its CHILDREN's results, and the presidential tree has no per-place
-  // shards: below the country each level is ONE file per round covering the whole country
-  // (`SURFACE_POLICY.presidential.*`, and that is exactly why those levels are `artifact`).
-  // Measured on 2021, the file a map at each level would have to fetch:
+  // So `LocalMunicipalityMap` exists, is correct, and self-hides everywhere. Registering it
+  // would put „Как е гласувано за кмет по секции?" over an empty slot on all 289 municipality
+  // pages — a question the page asks and cannot answer, which is worse than the „картата не е
+  // налична" line an unregistered key renders. Register it in the same change that backfills
+  // the coordinates, not before; the adapter is ready and the gate below will notice.
+  // ⚠⚠ NO `local/settlement` ENTRY, AND IT IS A DATA REFUSAL RATHER THAN AN OMISSION.
   //
-  //     region page      → municipality_votes.json    974.6 KB
-  //     municipality     → settlement_votes.json       14.4 MB
-  //     settlement       → sections/<oblast>.json       2.4 MB (Бургас)
+  // That level declares ONE ballot — `settlement_mayor`, the кметство's own mayoral contest —
+  // and its map slot names that ballot at `section` grain. The corpus carries no such
+  // breakdown: `LocalSectionResult` has `partyVotes` (общински съвет), `mayorVotes` (КО, the
+  // MUNICÍPIO mayor) and `rayonMayorVotes` (КР, a район mayor), and nothing for КК. Verified
+  // against the committed shards, not inferred from the type: a 2023 section carries exactly
+  // `partyVotes` / `mayorVotes` and no fourth vote array.
   //
-  // ⚠ `abroad` IS NOT ON THAT LIST, AND IS STILL UNREGISTERED — a separate reason, stated so
-  // it is a decision rather than an oversight. Its 241.3 KB file IS servable, and the map it
-  // would draw is the continents geo the parliamentary МИР-32 adapter already loads. What is
-  // missing is the JOIN: this tree keys abroad by ISO-2 COUNTRY, while that geo's features are
-  // continents, so there is no crosswalk to colour by without inventing one. Building it is
+  // So the only thing a map here COULD be filled with is the parent município's mayoral race,
+  // under a heading that says settlement mayor — which is precisely what this level's own
+  // descriptor forbids („a settlement surface must never attribute a parent council as a
+  // settlement office"). A wrong map is worse than none; the ranked result beside it is the
+  // text equivalent §4 requires either way, and `ElectionMapPanel` says „картата не е налична"
+  // rather than drawing somebody else's election.
+  // The presidential place maps — the oblast's municipalities and the município's settlements.
+  //
+  // ⚠⚠ THIS WAS A MEASURED REFUSAL AND THE MEASUREMENT HAS BEEN RE-TAKEN, NOT WAIVED. The
+  // argument against it was that a choropleth needs its CHILDREN's results and the presidential
+  // tree has no per-place shards: below the country each level is ONE file per round covering
+  // the whole country, which is exactly why those levels are `artifact` in `SURFACE_POLICY`.
+  // That is still true. What changed is that the numbers it was argued from were RAW bytes:
+  //
+  //     level        file                       raw        gzipped   entries
+  //     region    →  municipality_votes.json    0.96 MB     47 KB      272
+  //     município →  settlement_votes.json     14.63 MB    346 KB    4,184
+  //
+  // ⚠ AND THE BUCKET SERVES RAW BY DEFAULT, so the raw column is what a reader pays unless the
+  // path is on `scripts/bucket_gzip.ts`'s hot list. Verified live rather than assumed: GCS
+  // answers `x-goog-stored-content-encoding: identity` for a data object that is not on it, and
+  // `gzip` for one that is — `gsutil rsync -j` is TRANSPORT encoding and stores identity, which
+  // that script's own header records. The presidential `tur*/` roll-ups are on the list now.
+  //
+  // ⚠ SO THE REGISTRATION AND THE GZIP LIST ARE ONE CHANGE. Dropping those paths from
+  // `bucket_gzip.ts` turns the município map into a 14.6 MB download with nothing failing —
+  // unregister the adapter rather than leave it to ship that. The PARSE was measured too and is
+  // not the constraint: 19 ms for the settlement file on a laptop, ~54 MB heap.
+  //
+  // Sharding the roll-ups per parent is still the better shape and is still unbuilt: it would
+  // mint ~5,300 objects against a corpus at 58,915, which is a coverage decision with its own
+  // arithmetic rather than something to slip in behind a map.
+  "presidential/region/winner": () =>
+    import("./adapters/PresidentialRegionMap"),
+  "presidential/municipality/winner": () =>
+    import("./adapters/PresidentialMunicipalityMap"),
+  //
+  // ⚠ NO `presidential/settlement` ENTRY. Its declared grain is `section`, and the file that
+  // would fill it is `tur<r>/sections/<oblast>.json` — 2.4 MB raw / 62 KB gzipped for Бургас,
+  // servable — but the SECTION level is where the object-count argument bites hardest (~60,000
+  // of the presidential share) and the map would be markers rather than a choropleth, which is
+  // a different component from the two above. Left for the tier that ships the section pages.
+  //
+  // ⚠ `abroad` IS STILL UNREGISTERED, for a reason that is not about size. Its 241.3 KB file IS
+  // servable and the geo is the continents one the parliamentary МИР-32 adapter already loads.
+  // What is missing is the JOIN: this tree keys abroad by ISO-2 COUNTRY while that geo's
+  // features are continents, so there is no crosswalk to colour by without inventing one —
   // work with its own decisions (which continent holds a section whose country the corpus
   // cannot name?), not a registry line.
-  //
-  // Downloading 974 KB to draw ten municipalities on a page whose artifact exists to avoid
-  // that download is the defect the artifact was built for, one layer up. Sharding the
-  // children instead would mint ~5,300 more objects, and the corpus is at 58,915 against a
-  // 60,000 bound — so it is a coverage decision with its own arithmetic, not something to
-  // slip in behind a map. The COUNTRY map is served instead, from the 113.9 KB region
-  // roll-up it genuinely needs in full: `PresidentialRegionsMap`, mounted directly on
-  // `PresidentialCycleScreen` because the country level is `canonical` and renders no surface.
-  //
-  // The consequence is stated on the page rather than hidden: with no adapter registered,
-  // `ElectionMapPanel` renders „картата не е налична" — a resolved sentence, not a spinner —
-  // and the ranked result beside it is the text equivalent §4 requires either way.
 };
