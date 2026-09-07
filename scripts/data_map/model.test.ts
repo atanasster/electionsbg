@@ -599,10 +599,18 @@ describe("the lateral-links tour", () => {
     // load ran and settled at 18,729 across two readings twenty seconds apart — which is the
     // only reason it is pinned rather than left: a value written mid-load is stale before it
     // is committed.
+    //
+    // ⚠ Re-pinned 2026-09-07 against the manifest the 07:17Z watch run committed:
+    // connections↔funds 40,269 → 40,271 and connections↔officials 5,609 → 5,602, with
+    // connections↔procurement unmoved at 18,729. THE OFFICIALS FIGURE HAD BEEN STALE THROUGH
+    // AT LEAST TWO REGENERATIONS — the manifest before this one carried 5,643 against the
+    // prose's 5,609 — so this gate was already red when it was last re-pinned, and only the
+    // procurement pair was updated. Read all three out of `data/data_map.json` when re-pinning,
+    // not just the one the failure names.
     const quoted: [string, string, string, number][] = [
       ["connections", "procurement", "eik", 18729],
-      ["connections", "funds", "eik", 40269],
-      ["connections", "officials", "person_id", 5609],
+      ["connections", "funds", "eik", 40271],
+      ["connections", "officials", "person_id", 5602],
     ];
     const drifted = quoted
       .filter(([a, b, k, n]) => overlapOf(a, b, k) !== n)

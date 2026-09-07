@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-06T23:18:15.742Z",
+  "generatedAt": "2026-09-07T07:17:42.359Z",
   "nodes": [
     {
       "id": "src:water",
@@ -7240,8 +7240,8 @@
         {
           "node": "ds:funds",
           "text": {
-            "bg": "Същият ключ показва кой получава и европейски средства: 40 269 фирми се появяват и в двата масива.",
-            "en": "The same key shows who also receives EU money: 40,269 companies appear in both corpora."
+            "bg": "Същият ключ показва кой получава и европейски средства: 40 271 фирми се появяват и в двата масива.",
+            "en": "The same key shows who also receives EU money: 40,271 companies appear in both corpora."
           }
         },
         {
@@ -7254,8 +7254,8 @@
         {
           "node": "ds:officials",
           "text": {
-            "bg": "А през лицата се затваря кръгът: 5 609 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-            "en": "And people close the circle: 5,609 officials who file asset declarations also hold a role in the company registry."
+            "bg": "А през лицата се затваря кръгът: 5 602 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,602 officials who file asset declarations also hold a role in the company registry."
           }
         }
       ]
@@ -7570,7 +7570,7 @@
         "bg": "къде са регистрирани фирмите",
         "en": "where companies are registered"
       },
-      "overlap": 4019,
+      "overlap": 4080,
       "of": {
         "bg": "от фирмите с разпознато седалище",
         "en": "of the companies with a resolved seat"
@@ -7586,7 +7586,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5643,
+      "overlap": 5602,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7599,7 +7599,7 @@
         "bg": "кой кандидат после заема публична длъжност",
         "en": "which candidates later hold public office"
       },
-      "overlap": 3244
+      "overlap": 3218
     },
     {
       "id": "connections|elections|person_id",
@@ -7611,7 +7611,7 @@
         "bg": "кой кандидат участва и във фирми",
         "en": "which candidates also hold company roles"
       },
-      "overlap": 7444
+      "overlap": 7388
     }
   ]
 }

@@ -15,7 +15,7 @@
 // the loader gets the real check. ~48 s over ~170 files (the parse is shared across
 // all four tests; pdftotext dominates), inside the node project's 120 s budget.
 
-import { test, expect } from "vitest";
+import { test, expect, beforeAll } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -156,6 +156,30 @@ if (FILES.length < MIN_USABLE)
 // Parsed once and shared: 176 spawns of pdftotext is the whole cost of this file.
 let PARSED: Parsed[] | null = null;
 const parsed = (): Parsed[] => (PARSED ??= parseAll());
+
+/** ⚠ THE PARSE IS BILLED TO A HOOK, NOT TO WHICHEVER TEST TOUCHES IT FIRST.
+ *
+ *  It used to be purely lazy, so the 176 `pdftotext` spawns were charged to the first
+ *  assertion that called `parsed()` — „no parsed facility name ends in a stray sign" — against
+ *  the node project's 120 s per-TEST timeout. Measured 2026-09-07 on an idle machine: the file
+ *  takes 72.7 s end to end, essentially all of it here. That is 47 s of headroom, and vitest
+ *  runs ~16 workers over CPU-bound subprocesses, so a full `npm run test:unit` loses it: the
+ *  run that prompted this failed at exactly that assertion with „Test timed out in 120000ms".
+ *
+ *  Two things change. The cost lands in a hook, so a slow parse now reports itself as a slow
+ *  SETUP rather than as a failing claim about hyphens — the old message named an assertion that
+ *  was never evaluated. And the budget is stated where the cost is, sized at ~4x the measured
+ *  idle time so contention has somewhere to go while the run stays bounded.
+ *
+ *  ⚠ IT STAYS MEMOISED. The hook fills the same cache the lazy accessor reads, so a future test
+ *  added to this file cannot re-spawn 176 processes by calling `parsed()` — and the accessor
+ *  keeps working if this hook is ever removed. */
+const PARSE_BUDGET_MS = 300_000;
+beforeAll(() => {
+  // Nothing to parse when the cached corpus is short — the tests are skipped anyway, and
+  // spawning the parse here would make a skipped file the slowest one in the suite.
+  if (FILES.length >= MIN_USABLE) parsed();
+}, PARSE_BUDGET_MS);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Fingerprint 1 — a swallowed minus sign. HARD ZERO.

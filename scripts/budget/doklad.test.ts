@@ -132,6 +132,13 @@ describe.skipIf(cached.length === 0 || !fs.existsSync(PERSONNEL))(
         const fixed = { ...old[side] };
         // The one sanctioned change: the fragment becomes the whole name. Both
         // carry count 1, so nothing about the numbers moves.
+        //
+        // ⚠ A NO-OP AGAINST THE CURRENT ARTIFACT, kept deliberately rather than
+        // deleted. `personnel.json` was regenerated after the fix (the ingest
+        // committed in c554eed0a0), so it carries the whole name and this branch
+        // no longer fires — but it is what lets the arm run green against an
+        // artifact from before that, which is the only thing standing between a
+        // stale checkout and a diff nobody can read.
         if ("на Министерския съвет" in fixed) {
           fixed["Администрация на Министерския съвет"] =
             fixed["на Министерския съвет"];
@@ -142,23 +149,42 @@ describe.skipIf(cached.length === 0 || !fs.existsSync(PERSONNEL))(
     });
 
     it("actually fixed something — the fragment is gone everywhere", () => {
+      // ⚠ THE NON-VACUITY CHECK USED TO READ THE COMMITTED ARTIFACT — „it must still carry the
+      // old fragment, otherwise this arm is comparing a fix against itself" — and that premise
+      // EXPIRED the moment `personnel.json` was regenerated with the fix in it (c554eed0a0,
+      // the 2026-09-06 budget ingest). It cannot come back: no future ingest will reintroduce
+      // the fragment, so the assertion was permanently red and said nothing about the parser.
+      //
+      // What actually keeps this arm honest is the INPUT, not the output it is compared
+      // against: the cached Доклад text must still contain the wrapped left-gutter line that
+      // WOULD yield „на Министерския съвет" under the old case-insensitive rule. While that
+      // shape is in the source, „the fragment never appears in the parse" is a claim about the
+      // glue; if the register ever re-typesets Table 1 without it, this fails and says the arm
+      // has stopped exercising the bug — which is the right time to revisit it, rather than
+      // years later.
+      const GUTTER = /Централна\s+Администрация на Министерския съвет/u;
+      const exercised: number[] = [];
       for (const y of cached) {
         const txt = fs.readFileSync(
           path.join(CACHE, `doklad-${y}.txt`),
           "utf8",
         );
+        if (GUTTER.test(txt)) exercised.push(y);
         const out = parseStructureCounts(txt);
-        expect(Object.keys(out.central)).not.toContain("на Министерския съвет");
+        expect(Object.keys(out.central), `${y}`).not.toContain(
+          "на Министерския съвет",
+        );
+        // …and the whole name is what took its place, so „gone" is not „dropped".
+        expect(Object.keys(out.central), `${y}`).toContain(
+          "Администрация на Министерския съвет",
+        );
       }
-      // Non-vacuity: the committed artifact must still carry the old fragment,
-      // otherwise this whole arm is comparing a fix against itself.
+      // Measured 2026-09-07: all five cached years (2021-2025) carry the wrapped gutter; the
+      // four earlier Доклади in the cache are not in `YEARS` and are never parsed here.
       expect(
-        cached.some(
-          (y) =>
-            "на Министерския съвет" in
-            stored[String(y)].structureCounts.central,
-        ),
-      ).toBe(true);
+        exercised,
+        "no cached Доклад still carries the wrapped left gutter — this arm no longer exercises the glue",
+      ).toEqual(cached);
     });
   },
 );

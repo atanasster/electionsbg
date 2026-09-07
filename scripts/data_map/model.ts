@@ -3372,8 +3372,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:funds",
         text: {
-          bg: "Същият ключ показва кой получава и европейски средства: 40 269 фирми се появяват и в двата масива.",
-          en: "The same key shows who also receives EU money: 40,269 companies appear in both corpora.",
+          bg: "Същият ключ показва кой получава и европейски средства: 40 271 фирми се появяват и в двата масива.",
+          en: "The same key shows who also receives EU money: 40,271 companies appear in both corpora.",
         },
       },
       {
@@ -3386,8 +3386,8 @@ export const TOURS: TourDef[] = [
       {
         node: "ds:officials",
         text: {
-          bg: "А през лицата се затваря кръгът: 5 609 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-          en: "And people close the circle: 5,609 officials who file asset declarations also hold a role in the company registry.",
+          bg: "А през лицата се затваря кръгът: 5 602 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+          en: "And people close the circle: 5,602 officials who file asset declarations also hold a role in the company registry.",
         },
       },
     ],

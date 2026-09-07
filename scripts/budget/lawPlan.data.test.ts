@@ -147,12 +147,36 @@ describe("ЗДБРБ-2026", () => {
     expect(plan!.euContributionEur).toBe(1_282_158_200);
   });
 
-  // The whole reason the law path exists: the feed we hold was ingested before
-  // the ЗДБРБ was promulgated, so it carries no plan for 2026. If this ever
-  // fails, the feed has caught up and `feedPlan` will start winning on its own
-  // — nothing to fix, but the fallback stops being the live path.
-  it("is the only plan source for 2026 — the feed carries none", () => {
+  // ⚠ THE FEED HAS CAUGHT UP — this case used to assert the opposite and its own comment
+  // predicted the flip: „the feed we hold was ingested before the ЗДБРБ was promulgated, so it
+  // carries no plan for 2026. If this ever fails, the feed has caught up and `feedPlan` will
+  // start winning on its own." It did, in the 2026-07 report, and `fy2026Frame`'s precedence
+  // (`feedPlan(...) ?? opts.lawPlan`) means the served frame now stamps `source: "feed"`.
+  //
+  // So the claim worth holding is no longer „the feed is silent" — that one expired and can
+  // never come back — but that THE TWO SOURCES DO NOT DISAGREE. Two published plans for one
+  // year, differing, is the failure this year is exposed to now: the law path stays wired as
+  // the fallback, so a divergence would mean the number a reader sees depends on which month's
+  // feed happened to be ingested. Measured 2026-09-07: all four quantities agree to the euro.
+  //
+  // ⚠ NOT REDUNDANT WITH THE EQUALITY GATE ABOVE, and not a substitute for it either. That one
+  // iterates `comparableYears`, which 2026 only joined when the feed caught up — so before the
+  // 2026-07 report it covered this year not at all, and if a future ingest ever drops the 2026
+  // plan column it would silently stop covering it again without failing. This case names the
+  // year, so the coverage cannot lapse in silence.
+  it("agrees with the feed, now that the feed publishes a 2026 plan", () => {
+    // The state change itself, asserted rather than assumed — otherwise the equality below is
+    // vacuously true against three nulls.
     for (const series of ["revenue", "expenditure", "euContribution"])
-      expect(feedPlanned(2026, series), series).toBeNull();
+      expect(feedPlanned(2026, series), `feed ${series}`).not.toBeNull();
+    expect(comparableYears).toContain(2026);
+
+    expect(plan!.revenueEur).toBe(feedPlanned(2026, "revenue"));
+    expect(plan!.expenditureEur).toBe(feedPlanned(2026, "expenditure"));
+    expect(plan!.euContributionEur).toBe(feedPlanned(2026, "euContribution"));
+    // ⚠ THE €1 TOLERANCE THE UNAMENDED-YEAR GATE USES DOES NOT APPLY HERE. The 2026 law tables
+    // are in EURO, so neither side converts and the balance is exact; a residue would mean the
+    // derivation drifted, not that the peg rounded.
+    expect(plan!.balanceEur).toBe(feedPlanned(2026, "balance"));
   });
 });
