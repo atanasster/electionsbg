@@ -5,10 +5,16 @@ import { e2 } from "./specs/e2-risk";
 import { e3 } from "./specs/e3-money-map";
 import { v3 } from "./specs/v3-real-screen";
 import { ExplainerVideo } from "./compositions/ExplainerVideo";
+import { FlyoverReel } from "./compositions/FlyoverReel";
 import {
   calculateExplainerMetadata,
   type ExplainerProps,
 } from "./compositions/explainerMetadata";
+import {
+  calculateFlyoverReelMetadata,
+  MONEY_MAP_REEL_EDITS,
+  type FlyoverReelProps,
+} from "./compositions/flyoverReelMetadata";
 
 /**
  * The 16:9 explainer is the format (decided 2026-08-08). The portrait shorts that
@@ -61,6 +67,24 @@ export const RemotionRoot: React.FC = () => {
           { spec: e3, sceneDurations: [], captions: false } as ExplainerProps
         }
         calculateMetadata={calculateExplainerMetadata}
+      />
+      {/* The plan's social cut: a portrait re-layout of explainer scenes 1, 2, 4. */}
+      <Composition
+        id={`${e3.slug}--reel`}
+        component={FlyoverReel}
+        durationInFrames={2100}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={
+          {
+            spec: e3,
+            edits: MONEY_MAP_REEL_EDITS,
+            sceneDurations: [],
+            captions: true,
+          } as FlyoverReelProps
+        }
+        calculateMetadata={calculateFlyoverReelMetadata}
       />
       {/* V3 — the real-screen treatment, for comparison against E1's canvas. */}
       <Composition
