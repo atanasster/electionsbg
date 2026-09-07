@@ -492,8 +492,14 @@ export const writePresidentialCleavages = (
     );
   const written: string[] = [];
   for (const round of [1, 2] as const) {
+    // ⚠ `in`, NOT `??`. An explicit `{ 1: null }` means „already built, and there is nothing
+    // for this round" — `??` reads it as „not supplied" and pays for the whole build again,
+    // which on a CLI that has just reported on it is a second pass whose bytes could disagree
+    // with the line it printed.
     const built =
-      prebuilt?.[round] ?? buildPresidentialCleavages(cycle, round, root);
+      prebuilt && round in prebuilt
+        ? prebuilt[round]
+        : buildPresidentialCleavages(cycle, round, root);
     if (!built) continue;
     const rel = path.join(cycle, cleavagesFileFor(round));
     fs.writeFileSync(

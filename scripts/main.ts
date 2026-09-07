@@ -440,17 +440,24 @@ const app = command({
       // and simply writes nothing when the census file is absent.
       const { writePresidentialCleavages } =
         await import("./parsers_presidential/build_demographics");
+      // ⚠ THE FOURTH, and the only one that reads NOTHING but the section shards the lines
+      // above just wrote — no census, no parliamentary sibling, no ЦИК re-fetch. It goes stale
+      // on exactly one trigger: those shards moving.
+      const { writePresidentialSuspicious } =
+        await import("./parsers_presidential/build_suspicious");
       for (const r of results) {
         for (const write of [
           writeRunoffTransfer,
           writeSplitTicket,
           writePresidentialCleavages,
+          writePresidentialSuspicious,
         ]) {
-          // ⚠ ONE PATH OR MANY. Two of the three answer with an ARRAY — the transfer writes a
-          // cycle file plus one shard per oblast, the cleavages one file per round — and
-          // `writeSplitTicket` answers with one path or null. A `files` list that kept only the
-          // first would under-report a presidential ingest by up to 33 paths per cycle, and
-          // that list is what the ingest reports as having been written.
+          // ⚠ ONE PATH OR MANY. Three of the four answer with an ARRAY — the transfer writes a
+          // cycle file plus one shard per oblast (32 paths), the cleavages and the
+          // suspicious-settlement flags one file per round each (2 + 2) — and `writeSplitTicket`
+          // answers with one path or null. Keeping only the first of each would under-report a
+          // presidential ingest by up to **33** paths per cycle (31 + 1 + 1), and that list is
+          // what the ingest reports as having been written.
           const written = write(r.cycle, { indent });
           for (const f of Array.isArray(written)
             ? written

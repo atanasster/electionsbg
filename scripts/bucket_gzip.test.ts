@@ -25,6 +25,7 @@ import { describe, expect, test } from "vitest";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { isExcluded } from "./bucket_sync_paths";
 import { CLEAVAGES_FILE } from "./parsers_presidential/build_demographics";
+import { SUSPICIOUS_FILE } from "./parsers_presidential/build_suspicious";
 
 const SRC = readFileSync("scripts/bucket_gzip.ts", "utf8");
 
@@ -190,13 +191,20 @@ describe("the presidential tree this pass publishes", () => {
       "runoff_transfer/${oblast}.json": "runoff_transfer",
     };
     const expanded = templates.flatMap(expand);
-    // ⚠ PIN WHAT THE `.json` FILTER SWALLOWS, rather than only applying it. Today exactly one
-    // template names no file — `useOblastTransfer`'s `${cycle}/${oblast}` log key. A SECOND one
-    // is either a new log key (added here, deliberately) or an unguarded fetch path, and an
-    // unbounded filter cannot tell those apart — which is the shape that left two artifacts 404
-    // in production, per this describe block's own header.
-    expect(expanded.filter((tpl) => !tpl.endsWith(".json"))).toEqual([
+    // ⚠ PIN WHAT THE `.json` FILTER SWALLOWS, rather than only applying it. Two templates name
+    // no file today, and both are `warnOnce` LOG KEYS — `useOblastTransfer`'s `${cycle}/${oblast}`
+    // and `usePresidentialCleavages`'s `${cycle}/tur${round}`. A THIRD is either another log key
+    // (added here, deliberately) or an unguarded fetch path, and an unbounded filter cannot tell
+    // those apart — which is the shape that left two artifacts 404 in production, per this
+    // describe block's own header.
+    //
+    // ⚠ AND THIS ASSERTION IS WHY THE PIN IS WORTH ITS MAINTENANCE COST: adding the cleavages
+    // hook turned it red, which is exactly what it is for. It went unnoticed for one commit
+    // because that step's verification ran the `src/` and i18n suites and not this file — a
+    // reminder that the publish gate lives in `scripts/`, not beside the hook it guards.
+    expect(expanded.filter((tpl) => !tpl.endsWith(".json")).sort()).toEqual([
       "${oblast}",
+      "tur${round}",
     ]);
     const unpublished = expanded
       // ⚠ A FETCHED PATH ENDS IN `.json`. The scan matches every `${cycle}/…` template in the
@@ -228,6 +236,13 @@ describe("the presidential tree this pass publishes", () => {
     // mutation: deleting the entry left every other test in this file green. The producer's own
     // constant is imported rather than retyped, so a rename there fails here.
     expect(PER_ROUND_FILES).toContain(CLEAVAGES_FILE);
+  });
+
+  test("the presidential suspicious-settlements file is published", () => {
+    // ⚠ NO HOOK READS IT YET, so the derived gate above is vacuous for it — the same hazard the
+    // cleavages test three lines up documents as mutation-verified. The producer's own constant
+    // is imported rather than retyped, so a rename there fails here.
+    expect(PER_ROUND_FILES).toContain(SUSPICIOUS_FILE);
   });
 
   test("the two files that were 404 in production are named", () => {

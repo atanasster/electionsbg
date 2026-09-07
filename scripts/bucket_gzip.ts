@@ -201,6 +201,10 @@ const PER_ROUND_FILES = [
   // reads a missing file as „no such analysis", so an omission here is a section that never
   // appears in production while working perfectly on a developer's machine.
   "demographic_cleavages.json",
+  // ⚠ SAME ARGUMENT AGAIN — a few KB, and this pass is the only thing that publishes it. Its
+  // tile reads a missing file as „no such analysis", so an omission here is a section that
+  // never appears in production while working perfectly on a developer's machine.
+  "suspicious_settlements.json",
 ];
 
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors
