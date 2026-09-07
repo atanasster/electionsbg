@@ -24,12 +24,12 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { e1 } from "../../video/src/specs/e1-inflation";
-import { e2 } from "../../video/src/specs/e2-risk";
-import { v3 } from "../../video/src/specs/v3-real-screen";
-import type { ExplainerSpec } from "../../video/src/lib/spec";
-
-const SPECS: Record<string, ExplainerSpec> = { e1, e2, v3 };
+import { VOICEABLE_SPECS as SPECS } from "../../video/src/specs/registry";
+import {
+  carriesDisplayNumber,
+  displayNumbers,
+  numericTokens,
+} from "./gate1Numbers";
 
 /**
  * Measured on Rasalgethi — references/voice.md.
@@ -63,28 +63,6 @@ const at = (root: unknown, path: string): unknown =>
       (acc, k) => (acc == null ? acc : (acc as Record<string, unknown>)[k]),
       root,
     );
-
-/** Every number a viewer can read off the `onScreen` string. */
-const numericTokens = (s: string): string[] =>
-  (s.match(/\d[\d\s .,]*\d|\d/g) ?? []).map((t) => t.trim());
-
-/** Normalize for comparison: BG thousands spaces out, decimal comma to dot. */
-const asNumber = (t: string): number =>
-  Number(t.replace(/[\s ]/g, "").replace(",", "."));
-
-/** Does `value` (a scalar or an object of scalars) carry `n` anywhere in it? */
-const carries = (value: unknown, n: number): boolean => {
-  if (value == null) return false;
-  if (typeof value === "number") return Math.abs(value - n) < 0.005;
-  if (typeof value === "string")
-    return numericTokens(value).some((t) => Math.abs(asNumber(t) - n) < 0.005);
-  if (Array.isArray(value)) return value.some((v) => carries(v, n));
-  if (typeof value === "object")
-    return Object.values(value as Record<string, unknown>).some((v) =>
-      carries(v, n),
-    );
-  return false;
-};
 
 const main = () => {
   const key = process.argv[2];
@@ -135,25 +113,62 @@ const main = () => {
         `scene ${s.id}: voiceOver is ${chars} chars (ceiling ${SCENE_CHAR_CEILING})`,
       );
 
-    // Grounding — every number shown must exist at the declared path.
+    // Grounding — every number shown must exist at its declared path. Multiple
+    // paths require explicit token assignments so a broad union cannot hide a
+    // miss and the audit log stays claim-specific.
     let groundLine = "—";
     if (s.grounding) {
-      const value = at(load(s.grounding.file), s.grounding.path);
-      if (value === undefined) {
-        problems.push(
-          `scene ${s.id}: grounding path ${s.grounding.path} resolves to nothing`,
-        );
-        groundLine = `MISSING ${s.grounding.path}`;
-      } else {
-        const missing = numericTokens(s.onScreen)
-          .map(asNumber)
-          .filter((n) => Number.isFinite(n) && !carries(value, n));
+      const display = displayNumbers(s.onScreen);
+      const refs = Array.isArray(s.grounding) ? s.grounding : [s.grounding];
+      const assigned = new Set<string>();
+      const groundLines: string[] = [];
+      for (const ref of refs) {
+        const requested =
+          refs.length === 1
+            ? display
+            : (ref.tokens ?? []).flatMap((raw) => {
+                const found = display.find((token) => token.raw === raw);
+                if (!found)
+                  problems.push(
+                    `scene ${s.id}: grounding token ${raw} is not in onScreen`,
+                  );
+                return found ? [found] : [];
+              });
+        if (refs.length > 1 && !ref.tokens?.length)
+          problems.push(
+            `scene ${s.id}: multiple grounding paths require token assignments`,
+          );
+        for (const token of requested) assigned.add(token.raw);
+
+        const value = at(load(ref.file), ref.path);
+        if (value === undefined) {
+          problems.push(
+            `scene ${s.id}: grounding path ${ref.path} resolves to nothing`,
+          );
+          groundLines.push(`MISSING ${ref.path}`);
+          continue;
+        }
+        const missing = requested
+          .filter((token) => !carriesDisplayNumber(value, token))
+          .map((token) => token.raw);
         if (missing.length)
           problems.push(
-            `scene ${s.id}: onScreen ${missing.join(", ")} not found at ${s.grounding.path}`,
+            `scene ${s.id}: onScreen ${missing.join(", ")} not found at ${ref.path}`,
           );
-        groundLine = `${s.grounding.path} = ${JSON.stringify(value)}`;
+        groundLines.push(
+          `${ref.path} [${requested.map((token) => token.raw).join(" · ")}] = ${JSON.stringify(value)}`,
+        );
       }
+      if (refs.length > 1) {
+        const unassigned = display
+          .map((token) => token.raw)
+          .filter((raw) => !assigned.has(raw));
+        if (unassigned.length)
+          problems.push(
+            `scene ${s.id}: onScreen ${unassigned.join(", ")} has no assigned grounding path`,
+          );
+      }
+      groundLine = groundLines.join("\n              ");
     } else if (numericTokens(s.onScreen).length) {
       problems.push(
         `scene ${s.id}: onScreen shows a figure with no grounding block`,

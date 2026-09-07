@@ -2,6 +2,7 @@ import React from "react";
 import { Composition } from "remotion";
 import { e1 } from "./specs/e1-inflation";
 import { e2 } from "./specs/e2-risk";
+import { e3 } from "./specs/e3-money-map";
 import { v3 } from "./specs/v3-real-screen";
 import { ExplainerVideo } from "./compositions/ExplainerVideo";
 import {
@@ -45,6 +46,19 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         defaultProps={
           { spec: e2, sceneDurations: [], captions: false } as ExplainerProps
+        }
+        calculateMetadata={calculateExplainerMetadata}
+      />
+      {/* E3 — the shared home/article flyover, timed by its narration. */}
+      <Composition
+        id={`${e3.slug}--yt`}
+        component={ExplainerVideo}
+        durationInFrames={3600}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={
+          { spec: e3, sceneDurations: [], captions: false } as ExplainerProps
         }
         calculateMetadata={calculateExplainerMetadata}
       />

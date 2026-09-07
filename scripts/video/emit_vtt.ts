@@ -13,14 +13,9 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { e1 } from "../../video/src/specs/e1-inflation";
-import { e2 } from "../../video/src/specs/e2-risk";
-import { v3 } from "../../video/src/specs/v3-real-screen";
-import { audioPath, type VoiceableSpec } from "../../video/src/lib/spec";
+import { VOICEABLE_SPECS as SPECS } from "../../video/src/specs/registry";
+import { audioPath } from "../../video/src/lib/spec";
 import { toVtt } from "../../video/src/lib/captions";
-
-/** Shorts and explainers share the fields these scripts touch (slug, kind, voice, scenes[].id/voiceOver). */
-const SPECS: Record<string, VoiceableSpec> = { e1, e2, v3 };
 
 /**
  * The tail and the tempo BOTH come from the same places the composition reads

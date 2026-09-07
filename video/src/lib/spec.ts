@@ -18,6 +18,13 @@
  */
 export type CanvasKind = "inflation" | "risk" | "flyover";
 
+export type GroundingRef = {
+  file: string;
+  path: string;
+  /** Required on every ref when a scene uses more than one grounding path. */
+  tokens?: string[];
+};
+
 /**
  * The 16:9 explainer. Unlike a short, scenes do not own a full-screen visual:
  * ONE canvas persists for the whole video and each scene declares only what it
@@ -35,7 +42,7 @@ export type ExplainerScene<C = unknown> = {
   body?: string;
   onScreen: string;
   voiceOver: string;
-  grounding?: { file: string; path: string };
+  grounding?: GroundingRef | GroundingRef[];
   canvas?: Partial<C>;
   /**
    * Show a captured REAL page in the chart column for this scene instead of the

@@ -28,13 +28,8 @@ import { existsSync, mkdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { CHOSEN_VOICE, gemini } from "./tts_bakeoff";
-import { e1 } from "../../video/src/specs/e1-inflation";
-import { e2 } from "../../video/src/specs/e2-risk";
-import { v3 } from "../../video/src/specs/v3-real-screen";
-import type { VoiceableSpec } from "../../video/src/lib/spec";
+import { VOICEABLE_SPECS as SPECS } from "../../video/src/specs/registry";
 
-/** Shorts and explainers share the fields these scripts touch (slug, kind, voice, scenes[].id/voiceOver). */
-const SPECS: Record<string, VoiceableSpec> = { e1, e2, v3 };
 const OUT_ROOT = resolve("video/public/voiceover");
 
 const ffmpeg = (args: string[]): string => {
