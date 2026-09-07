@@ -6,7 +6,13 @@
 // is a working control that leads nowhere.
 
 import { describe, expect, it, beforeEach, vi } from "vitest";
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { Link, MemoryRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
@@ -129,11 +135,18 @@ const wrapperAt =
         new QueryClient({ defaultOptions: { queries: { retry: false } } })
       }
     >
-      <MemoryRouter initialEntries={[entry]}>
-        <Routes>
-          <Route path="/presidential/:cycle" element={children} />
-        </Routes>
-      </MemoryRouter>
+      {/* ⚠ THE PROVIDER IS PART OF THE MOUNT, because the page's tiles use `Hint`, which is a
+          Radix tooltip — and Radix THROWS („`Tooltip` must be used within `TooltipProvider`")
+          rather than degrading. In the app it comes from `main.tsx`; a test that omits it
+          reports a missing provider as a broken page, which is how the geography section first
+          failed here. */}
+      <TooltipProvider>
+        <MemoryRouter initialEntries={[entry]}>
+          <Routes>
+            <Route path="/presidential/:cycle" element={children} />
+          </Routes>
+        </MemoryRouter>
+      </TooltipProvider>
     </QueryClientProvider>
   );
 
@@ -145,20 +158,10 @@ const mount = (body: unknown, ok = true, entry = ROUTE) => {
           headers: { "content-type": "application/json" },
         })
       : new Response("", { status: 404 })) as typeof fetch;
-  const Wrapper = ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider
-      client={
-        new QueryClient({ defaultOptions: { queries: { retry: false } } })
-      }
-    >
-      <MemoryRouter initialEntries={[entry]}>
-        <Routes>
-          <Route path="/presidential/:cycle" element={children} />
-        </Routes>
-      </MemoryRouter>
-    </QueryClientProvider>
-  );
-  return render(<PresidentialCycleScreen />, { wrapper: Wrapper });
+  // ⚠ ONE WRAPPER, NOT A SECOND COPY OF IT. This used to rebuild `wrapperAt`'s tree by hand,
+  // so the two mount paths could silently test different trees — and adding the
+  // `TooltipProvider` to only one of them is exactly how that would show up.
+  return render(<PresidentialCycleScreen />, { wrapper: wrapperAt(entry) });
 };
 
 beforeEach(() => i18n.changeLanguage("bg"));
@@ -723,5 +726,118 @@ describe("the runoff-transfer section", () => {
     ).toBeNull();
     expect(warn).toHaveBeenCalled();
     warn.mockRestore();
+  });
+});
+
+describe("the geography section", () => {
+  // ⚠⚠ IT IS GATED ON CONTENT, NOT ON QUERY STATUS, and „ready" is not „has something to draw"
+  // for either tile: `isRollup` accepts an all-zero roll-up and both tiles self-hide on an empty
+  // result. Gated on status, the page renders a bare „География" heading over an empty grid —
+  // reporting a routine absence as a defect, which is the one thing the gate exists to prevent.
+  const serve = (files: Record<string, unknown>) => {
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      for (const [needle, body] of Object.entries(files))
+        if (u.includes(needle))
+          return new Response(JSON.stringify(body), {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          });
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    return render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+  };
+
+  const CLEAVAGES = {
+    cycle: LATEST_PRESIDENTIAL_CYCLE,
+    round: 1,
+    basis: "ЕКОЛОГИЧНАТА ОГРАДА",
+    basisEn: "THE ECOLOGICAL CAVEAT",
+    municipalities: 265,
+    votes: 1,
+    abroadVotes: 1,
+    unmappedVotes: 0,
+    tickets: [
+      { number: 6, president: "Румен Георгиев Радев", pctNational: 49.4 },
+      {
+        number: 15,
+        president: "Анастас Георгиев Герджиков",
+        pctNational: 22.8,
+      },
+    ],
+    rows: [{ metric: "ethnicBulgarian", rs: [0.86, -0.87], spread: 1.73 }],
+  };
+
+  it("renders NO heading when the roll-up is READY but every oblast cast ZERO", async () => {
+    // ⚠ THE STATE A STATUS GATE GETS WRONG. `isRollup` accepts this payload, so it is `ready`
+    // — and the tile still draws nothing, because there is nothing to rank. Gated on status the
+    // page would show „География" over an empty grid.
+    const seen: string[] = [];
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      seen.push(u);
+      if (u.includes("national_summary.json"))
+        return new Response(JSON.stringify(SUMMARY), { status: 200 });
+      if (u.includes("region_votes.json"))
+        return new Response(
+          JSON.stringify({
+            coverage: { basis: "x", sections: 1, excludedSections: 0 },
+            entries: [
+              {
+                key: "BLG",
+                results: { votes: [{ partyNum: 6, totalVotes: 0 }] },
+              },
+            ],
+          }),
+          { status: 200 },
+        );
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+    await screen.findByText(bgCorpus.presidential_ranking_heading);
+    // ⚠ THE ROLL-UP MUST HAVE SETTLED BEFORE THE NEGATIVE ASSERTION, or the test passes against
+    // the very gate it is written to reject — nothing renders while a query is still loading
+    // either. Waiting for the request and then letting React Query commit is what makes the
+    // assertion mean „ready and empty" rather than „not yet".
+    await waitFor(() =>
+      expect(seen.some((u) => u.includes("region_votes.json"))).toBe(true),
+    );
+    await waitFor(() =>
+      expect(document.querySelector("[data-outcome-canvas]")).toBeTruthy(),
+    );
+    expect(screen.queryByText(bgCorpus.dashboard_section_geography)).toBeNull();
+  });
+
+  it("renders the heading and the oblast rows once an oblast HAS votes", async () => {
+    // ⚠ THE MUTATION CHECK for the test above: „no heading" is also satisfied by a gate that
+    // had silently become unreachable, which would take the whole section with it.
+    serve({
+      "national_summary.json": SUMMARY,
+      "region_votes.json": {
+        coverage: { basis: "x", sections: 1, excludedSections: 0 },
+        entries: [
+          { key: "BLG", results: { votes: [{ partyNum: 6, totalVotes: 9 }] } },
+        ],
+      },
+    });
+    expect(
+      await screen.findByText(bgCorpus.dashboard_section_geography),
+    ).toBeInTheDocument();
+    expect(
+      document.querySelectorAll('a[href*="/region/BLG"]').length,
+    ).toBeGreaterThan(0);
+  });
+
+  it("renders the heading once the cleavages arrive, even with no roll-up", async () => {
+    // ⚠ EITHER TILE IS ENOUGH. The two artifacts have different publish paths, so gating the
+    // section on both would hide one that is there.
+    serve({
+      "national_summary.json": SUMMARY,
+      "demographic_cleavages.json": CLEAVAGES,
+    });
+    expect(
+      await screen.findByText(bgCorpus.dashboard_section_geography),
+    ).toBeInTheDocument();
+    expect(screen.getByText("ЕКОЛОГИЧНАТА ОГРАДА")).toBeTruthy();
   });
 });

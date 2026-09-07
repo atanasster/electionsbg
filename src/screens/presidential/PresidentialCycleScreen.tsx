@@ -56,6 +56,10 @@ import { useSplitTicket } from "@/data/presidential/useSplitTicket";
 import { PresidentialSplitTicketTile } from "./PresidentialSplitTicketTile";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
 import { PresidentialFlashMemoryTile } from "./PresidentialFlashMemoryTile";
+import { PresidentialTopRegionsTile } from "./PresidentialTopRegionsTile";
+import { PresidentialCleavagesTile } from "./PresidentialCleavagesTile";
+import { usePresidentialCleavages } from "@/data/presidential/usePresidentialCleavages";
+import { selectCleavageRows } from "@/screens/dashboard/selectCleavageRows";
 import {
   PresidentialRunoffSwingLegend,
   PresidentialRunoffSwingList,
@@ -106,6 +110,20 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
     [rollup],
   );
   const tickets = useTicketsByNumber(cycle);
+  // ⚠ PER ROUND, LIKE EVERY OTHER SECTION OF THIS PANEL. Round 1 and the runoff are different
+  // electorates and different fields of candidates, so their cleavages are different analyses —
+  // and the producer writes one file per round for that reason.
+  const cleavages = usePresidentialCleavages(cycle, round.round);
+  // ⚠⚠ CONTENT, NOT QUERY STATUS. `ready` is not „has something to draw" for either tile:
+  // `isRollup` accepts an entries-empty or all-zero roll-up, and both tiles self-hide on an
+  // empty result — so a status gate leaves the heading standing over an empty grid, which is
+  // the one thing the section's own comment says it exists to prevent. `leaders.size > 0` is
+  // the same check the map and the oblast table above already use, and it is equivalent to the
+  // tile's own „at least one oblast cast a vote".
+  const hasTopRegions = leaders.size > 0;
+  const hasCleavages =
+    cleavages.status === "ready" &&
+    selectCleavageRows(cleavages.cleavages.rows).length > 0;
   const abroadTo = presidentialUrl(cycle, "abroad");
   // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
   // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
@@ -185,6 +203,39 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           leaders={leaders}
           tickets={tickets}
         />
+      ) : null}
+
+      {/* 3b. geography — where the votes were, and which places went which way. The pair
+             `/parliamentary`'s own „География" section carries, in the same order.
+
+             ⚠ EACH TILE SELF-HIDES ON ITS OWN INPUT. The regions tile needs the roll-up the map
+             also needs (usually absent — `data/*_pvr` is gitignored and reaches the bucket only
+             through `bucket:gz`); the cleavages tile needs its own per-round artifact, which the
+             producer writes only where two tickets clear its readability cut. A heading over an
+             empty grid would report a routine absence as a defect, so the SECTION is gated on
+             at least one of them having something to draw — the tiles' OWN predicates, not
+             their query status. */}
+      {hasTopRegions || hasCleavages ? (
+        <section aria-labelledby={`pvr-geography-${round.round}`}>
+          <h2
+            id={`pvr-geography-${round.round}`}
+            className="text-lg font-semibold"
+          >
+            {t("dashboard_section_geography")}
+          </h2>
+          <div className="mt-2 space-y-3">
+            {hasTopRegions && rollup.status === "ready" ? (
+              <PresidentialTopRegionsTile
+                cycle={cycle}
+                rollup={rollup.rollup}
+                tickets={tickets}
+              />
+            ) : null}
+            {hasCleavages && cleavages.status === "ready" ? (
+              <PresidentialCleavagesTile cleavages={cleavages.cleavages} />
+            ) : null}
+          </div>
+        </section>
       ) : null}
 
       {/* 4. art. 93 (3), both conditions. ⚠ IT SITS BELOW THE CANVAS NOW and still above the

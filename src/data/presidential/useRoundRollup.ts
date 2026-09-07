@@ -140,6 +140,33 @@ export const useRoundRollup = (
  *
  * ⚠ TIES BREAK ON THE BALLOT NUMBER, so the same corpus always colours the same way.
  */
+/**
+ * One place's ticket votes and its leading pair — the ONE definition of both.
+ *
+ * ⚠ TIES BREAK ON THE BALLOT NUMBER, so the same corpus always colours and ranks the same way.
+ * This was a five-line loop copied into `PresidentialTopRegionsTile`, whose comment asserted
+ * „the same rule `leadersByPlace` uses, so the map and this list cannot name different leaders
+ * for the same oblast" — a claim nothing enforced, since the two were independent copies. The
+ * tile could not call `leadersByPlace` itself because it also needs each place's TOTAL, which
+ * that function computes internally and discards; returning both makes the claim structural.
+ */
+export const foldPlace = (
+  e: RollupEntry,
+): { key: string; total: number; best?: RollupVotes } => {
+  let best: RollupVotes | undefined;
+  let total = 0;
+  for (const v of e.results.votes) {
+    total += v.totalVotes;
+    if (
+      !best ||
+      v.totalVotes > best.totalVotes ||
+      (v.totalVotes === best.totalVotes && v.partyNum < best.partyNum)
+    )
+      best = v;
+  }
+  return { key: e.key, total, best };
+};
+
 export const leadersByPlace = (
   rollup: RoundRollup | null,
 ): Map<
@@ -152,17 +179,7 @@ export const leadersByPlace = (
   >();
   if (!rollup) return out;
   for (const e of rollup.entries) {
-    let best: RollupVotes | undefined;
-    let total = 0;
-    for (const v of e.results.votes) {
-      total += v.totalVotes;
-      if (
-        !best ||
-        v.totalVotes > best.totalVotes ||
-        (v.totalVotes === best.totalVotes && v.partyNum < best.partyNum)
-      )
-        best = v;
-    }
+    const { best, total } = foldPlace(e);
     // ⚠ A PLACE THAT CAST NOTHING HAS NO LEADER — not ticket 1 with 0 votes. Colouring it
     // would put a named pair's colour on a place nobody voted in.
     if (!best || best.totalVotes === 0 || total === 0) continue;

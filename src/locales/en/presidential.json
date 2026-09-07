@@ -94,5 +94,13 @@
   "presidential_transfer_table_none_a11y": "a flow below the estimate's threshold, not a zero flow",
   "presidential_transfer_table_cell_a11y": "{{votes}} votes from „{{from}}“ to „{{to}}“",
   "presidential_oblast_transfer_coverage": "The estimate covers {{sections}} sections in this oblast that opened in both rounds. A further {{abroad}} votes cast abroad are outside every matrix.",
-  "presidential_oblast_transfer_unplaced": "A further {{sections}} sections ({{votes}} votes) could not be placed in an oblast and are outside every matrix for this cycle."
+  "presidential_oblast_transfer_unplaced": "A further {{sections}} sections ({{votes}} votes) could not be placed in an oblast and are outside every matrix for this cycle.",
+  "presidential_cleavages_title": "Demographic divides",
+  "presidential_cleavages_hint": "For each Census 2021 characteristic — how closely it tracks each pair's share across municipalities. A dot on the right means municipalities with more of that characteristic gave the pair a larger share.",
+  "presidential_cleavages_coverage": "Computed across {{municipalities}} municipalities. Votes cast abroad ({{abroad}}) are outside it — there is no municipality for the census to describe.",
+  "presidential_top_regions_title": "Where the votes were",
+  "presidential_top_regions_hint": "The oblasts that cast the most votes for a pair in this round, and which pair led each.",
+  "presidential_top_regions_note": "The share is of the votes cast for a pair in this round, not of turnout: „none of the above“ and invalid ballots are not in it.",
+  "presidential_cleavages_note": "Each dot is a pair that took at least 3% of the round's valid vote — a readability cut, not a legal threshold; a presidential ballot has none. Its horizontal position is the Pearson correlation between the pair's share across municipalities and that row's characteristic.",
+  "presidential_cleavages_unplaced": "A further {{votes}} votes could not be placed in a municipality and are outside the calculation."
 }

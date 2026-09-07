@@ -23,6 +23,12 @@ import {
   writePresidentialCleavages,
 } from "./build_demographics";
 import { presidentialCyclesIn } from "../lib/electionFolders";
+// ⚠ THE BROWSER'S OWN DECLARATION OF THIS FILE. A test in `scripts/` is the one place that may
+// import both sides — `runoff_transfer.test.ts`'s argument, one artifact over.
+import {
+  isPresidentialCleavages,
+  presidentialCleavagesPath,
+} from "../../src/data/presidential/usePresidentialCleavages";
 import {
   PERCENT_METRICS,
   censusMetricShare,
@@ -297,6 +303,33 @@ describe.runIf(hasBuilt)(
       // RAYON. Those are the only rows the check above may skip, and a fold that had stopped
       // firing would take this to 0 while leaving the rate untouched.
       expect(sofiaFolded).toBeGreaterThan(1_000);
+    });
+  },
+);
+
+describe.runIf(hasBuilt)(
+  "one artifact, named and shaped from both sides",
+  () => {
+    it("agrees with the browser on the path", () => {
+      // ⚠ TWO PINS THAT NEVER MEET OTHERWISE. A rename on one side passes both suites and 404s
+      // in production — where `fetchPresidentialCleavages` reads a 404 as `absent`, the EXPECTED
+      // state, so nothing is logged either and the section simply stops appearing.
+      expect(presidentialCleavagesPath("2021_11_14_pvr", 1)).toBe(
+        path.join("2021_11_14_pvr", cleavagesFileFor(1)),
+      );
+      expect(presidentialCleavagesPath("2021_11_14_pvr", 2)).toBe(
+        path.join("2021_11_14_pvr", cleavagesFileFor(2)),
+      );
+    });
+
+    it.each(built)("$id: passes the BROWSER's own guard", ({ payload }) => {
+      // ⚠⚠ THE PRODUCER'S OUTPUT AGAINST THE CONSUMER'S REFUSAL, which no other test can do:
+      // the browser suite asserts the guard against hand-written payloads and the producer suite
+      // asserts the payload against hand-written rules, so a field the producer stopped emitting
+      // — or one the guard started demanding — is invisible to both. A real artifact failing
+      // here would render as „no such analysis" in production, silently, because a shape refusal
+      // logs once to a console nobody reads.
+      expect(isPresidentialCleavages(payload)).toBe(true);
     });
   },
 );
