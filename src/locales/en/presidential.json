@@ -92,5 +92,7 @@
   "presidential_transfer_table_note": "Each row shows where that first-round line's votes went, as estimated; the columns are the runoff options and the percentages are shares of the row's own votes. A dash means a flow below the estimate's threshold, not a zero flow, which is why the rows do not add up to exactly 100%. A „< {{pct}}“ cell is a real but very small flow.",
   "presidential_transfer_table_tiny": "< {{pct}}",
   "presidential_transfer_table_none_a11y": "a flow below the estimate's threshold, not a zero flow",
-  "presidential_transfer_table_cell_a11y": "{{votes}} votes from „{{from}}“ to „{{to}}“"
+  "presidential_transfer_table_cell_a11y": "{{votes}} votes from „{{from}}“ to „{{to}}“",
+  "presidential_oblast_transfer_coverage": "The estimate covers {{sections}} sections in this oblast that opened in both rounds. A further {{abroad}} votes cast abroad are outside every matrix.",
+  "presidential_oblast_transfer_unplaced": "A further {{sections}} sections ({{votes}} votes) could not be placed in an oblast and are outside every matrix for this cycle."
 }

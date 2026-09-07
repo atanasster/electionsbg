@@ -38,13 +38,23 @@ import {
   runoffTransferPath,
   type RunoffTransfer as ServedTransfer,
 } from "../../src/data/presidential/useRunoffTransfer";
-import type { RunoffTransfer as ProducedTransfer } from "./build_runoff_transfer";
+import {
+  oblastTransferPath,
+  type OblastTransfer as ServedOblast,
+} from "../../src/data/presidential/useOblastTransfer";
+import type {
+  RunoffTransfer as ProducedTransfer,
+  OblastTransfer as ProducedOblast,
+} from "./build_runoff_transfer";
 
 /** ⚠ THE STATIC HALF, AND IT IS AN ASSIGNMENT RATHER THAN AN ASSERTION. A producer change the
  *  browser type cannot describe — a field narrowed, a key removed — is a compile error on this
  *  line, i.e. `tsc -b` and therefore CI, not a runtime skip on a machine without the corpus. */
 const _assignable: (t: ProducedTransfer) => ServedTransfer = (t) => t;
 void _assignable;
+/** The same static pin for the SHARD, which is the half a region page reads on its own. */
+const _shardAssignable: (o: ProducedOblast) => ServedOblast = (o) => o;
+void _shardAssignable;
 
 const DATA_ROOT = path.join(process.cwd(), "data");
 const cycles = presidentialCyclesFor(DATA_ROOT);
@@ -373,6 +383,14 @@ describe("one file, named from both sides", () => {
     // so nothing is logged either and the section simply stops appearing.
     expect(runoffTransferPath("2021_11_14_pvr")).toBe(
       path.join("2021_11_14_pvr", TRANSFER_FILE),
+    );
+  });
+
+  it("agrees on the SHARD path too, which fails even more quietly", () => {
+    // ⚠ THE SHARD'S 404 IS `absent` AS WELL, so a rename here does not error anywhere: the
+    // region page's transfer section simply never appears, on a page that otherwise works.
+    expect(oblastTransferPath("2021_11_14_pvr", "BGS")).toBe(
+      path.join("2021_11_14_pvr", oblastTransferFile("BGS")),
     );
   });
 });

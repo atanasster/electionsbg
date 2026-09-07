@@ -7,7 +7,7 @@
 // the failure this file pins.
 
 import { describe, expect, it, beforeEach, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -15,6 +15,7 @@ import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { PresidentialTransferTile } from "./PresidentialTransferTile";
 import { SANKEY_MAX_FROM_NODES } from "./PresidentialTransferTable";
+import { MARGIN_GAP_LOUD } from "./PresidentialTransferCard";
 import type { RunoffTransfer } from "@/data/presidential/useRunoffTransfer";
 
 await i18n.use(initReactI18next).init({
@@ -116,6 +117,29 @@ describe("PresidentialTransferTile", () => {
     mount(transfer());
     expect(screen.getByText("THE ENGLISH CAVEAT")).toBeTruthy();
     expect(screen.queryByText("БЪЛГАРСКАТА ОГРАДА")).toBeNull();
+  });
+
+  it("makes the precision line LOUD once the estimate stops being a footnote", () => {
+    // ⚠⚠ THE SAME KEY AT 2.8% AND AT 70% IS THE PROBLEM. Nationally `marginGap` is 0.012-0.047
+    // — a genuine footnote — but the region shards it now shares this card with run to 0.70
+    // (2011/S23), with 16 of 155 at or above 0.30. Rendered identically, a page where the
+    // ribbons miss their labels by two thirds looks exactly like one where they miss by 3%.
+    const caption = (gap: number) => {
+      cleanup();
+      mount(
+        transfer({
+          national: { ...transfer().national, marginGap: gap },
+        }),
+      );
+      return screen.getByText(/лентите се разминават/).className;
+    };
+    expect(caption(MARGIN_GAP_LOUD - 0.01)).toContain("text-muted-foreground");
+    expect(caption(MARGIN_GAP_LOUD)).toContain("text-foreground");
+    // ⚠ THE THRESHOLD IS PINNED TOO, so it cannot silently drift above every shard the corpus
+    // has and stop discriminating. Measured: 16 of 155 shards are ≥ 0.30, 8 are ≥ 0.50.
+    expect(MARGIN_GAP_LOUD).toBeGreaterThan(0.05);
+    expect(MARGIN_GAP_LOUD).toBeLessThan(0.5);
+    cleanup();
   });
 
   it("states how far the ribbons fall short of the column labels", () => {

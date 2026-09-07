@@ -43,6 +43,7 @@ import {
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { personHrefForTicket } from "@/data/presidential/ticketPersons";
+import { PresidentialPlaceTransfer } from "./PresidentialPlaceTransfer";
 import type { ElectionPlaceLevel } from "@/data/elections/surfaceTypes";
 
 /** The levels this screen serves.
@@ -183,6 +184,15 @@ export const PresidentialPlaceScreen: FC<{
           />
         )}
       </ElectionSurfaceBoundary>
+      {/* ⚠ OUTSIDE THE BOUNDARY, DELIBERATELY. The transfer shard and the place surface are
+          different artifacts with different publish paths, so an oblast whose surface has not
+          shipped can still have its estimate — and gating one on the other would hide a file
+          that is there. It self-hides in every state but `ready`.
+
+          ⚠ WHICH LEVELS HAVE AN ARM IS THE COMPONENT'S OWN RULE (`TRANSFER_LEVELS`), not a
+          `level === "region"` written here: that is a fact about the corpus, and this screen
+          has no other reason to hold one. */}
+      <PresidentialPlaceTransfer cycle={cycle} level={level} id={id} />
     </section>
   );
 };
