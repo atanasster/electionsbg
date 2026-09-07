@@ -369,6 +369,101 @@ describe("the presidential country page", () => {
       ).toBeTruthy();
   });
 
+  it("opens with the same four-card band `/parliamentary` does", async () => {
+    // ⚠ THE COMPONENT, NOT A LOOKALIKE. `ElectionFactsGrid` is the strip the shell renders on
+    // every other kind, so a band that stopped matching would be this page importing something
+    // else — which is exactly what `data-fact` pins: the hook is the shell's, not this file's.
+    //
+    // ⚠ AND IT DESCRIBES THE ROUND ON SCREEN. Round 1 and the runoff are different electorates
+    // — nationally 5.7 points apart in 2021 — so a band lifted to the page would put round 1's
+    // majority threshold above the runoff's result.
+    mount(SUMMARY);
+    await screen.findByText(bgCorpus.presidential_rule_heading);
+    const codes = () =>
+      [...document.querySelectorAll("[data-fact]")].map((n) =>
+        n.getAttribute("data-fact"),
+      );
+    expect(codes()).toEqual([
+      "majority_threshold",
+      "winner",
+      "turnout",
+      "valid_votes",
+    ]);
+    fireEvent.click(screen.getByRole("button", { name: /2/ }));
+    // ⚠ ART. 93 (4) HAS NO MAJORITY TEST, so the card that led round 1 must be GONE rather
+    // than restated with the runoff's numbers.
+    expect(codes()).not.toContain("majority_threshold");
+    expect(codes()[0]).toBe("winner");
+  });
+
+  it("keeps the map INSIDE a positioned box, beside its text twin", async () => {
+    // ⚠ THIS IS THE DEFECT THE CANVAS WAS BUILT ON. `SVGMapContainer` renders its `<svg>` as
+    // `absolute`, so with no positioned ancestor the map is laid out against the page shell and
+    // paints over the header, the promo banner and the title — a page that looks broken
+    // everywhere except where the map belongs, with nothing failing. `MeasuredMapBox` owns the
+    // containing block now; this asserts the map has one at all.
+    //
+    // ⚠ AND THE SLOTS ARE THE SHELL'S OWN, so the desktop arrangement is `/parliamentary`'s:
+    // the twin FIRST in the DOM, the map PLACED into column 1 rather than reordered.
+    globalThis.fetch = (async (url: RequestInfo | URL) => {
+      const u = String(url);
+      if (u.includes("national_summary.json"))
+        return new Response(JSON.stringify(SUMMARY), { status: 200 });
+      if (u.includes("region_votes.json"))
+        return new Response(
+          JSON.stringify({
+            coverage: { basis: "x", sections: 1, excludedSections: 0 },
+            entries: [
+              {
+                key: "BLG",
+                results: { votes: [{ partyNum: 6, totalVotes: 9 }] },
+              },
+            ],
+          }),
+          { status: 200 },
+        );
+      if (u.includes("regions_map.json"))
+        return new Response(
+          JSON.stringify({
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: { nuts3: "BLG" },
+                geometry: {
+                  type: "Polygon",
+                  coordinates: [
+                    [
+                      [23, 41],
+                      [24, 41],
+                      [24, 42],
+                      [23, 41],
+                    ],
+                  ],
+                },
+              },
+            ],
+          }),
+          { status: 200 },
+        );
+      return new Response("", { status: 404 });
+    }) as typeof fetch;
+    render(<PresidentialCycleScreen />, { wrapper: wrapperAt(ROUTE) });
+    await screen.findByText(bgCorpus.presidential_regions_heading);
+    const slots = [...document.querySelectorAll("[data-canvas-slot]")].map(
+      (n) => n.getAttribute("data-canvas-slot"),
+    );
+    expect(slots).toEqual(["ranked", "map"]);
+    // ⚠ THE BOX, NOT THE `<svg>`. jsdom reports every element at zero size and has no
+    // `ResizeObserver`, so `MeasuredMapBox` never hands a size down and the map itself does not
+    // mount here — which is why the twin test above guards its own `svg` lookup. What DOES
+    // render is the box, and the box is where the containing block lives: that is the claim
+    // that broke, and it is checkable.
+    const box = document.querySelector("[data-canvas-slot=map] > div");
+    expect(box).toBeTruthy();
+    expect(box!.className).toContain("relative");
+  });
+
   it("links a candidate the corpus can name, and refuses a shared name", async () => {
     // ⚠ THE REFUSAL IS THE CLAIM WORTH PINNING. A link says this candidate and that profile
     // are the same person; 17 of the 140 names on these ballots are shared — one by fifteen

@@ -25,6 +25,18 @@ import { usePresidentialSummary } from "@/data/presidential/usePresidentialSumma
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+// ⚠ THE PARLIAMENTARY DASHBOARD'S OWN BAND AND ITS OWN GRID, imported rather than reproduced.
+// `/parliamentary` opens with a four-card KPI strip above a map-beside-a-table canvas, and this
+// page is the same kind of page; a lookalike built here would match on the day it was written
+// and drift the first time either moved. `ElectionFactsGrid` is the strip `ElectionResultsShell`
+// renders, and the three layout constants are the ones its canvas and its skeleton share.
+import { ElectionFactsGrid } from "@/screens/elections/ElectionFactsGrid";
+import {
+  CANVAS_GRID_CLASS,
+  CANVAS_MAP_SLOT_CLASS,
+  CANVAS_RANKED_SLOT_CLASS,
+} from "@/screens/elections/electionSurfaceLayout";
+import { presidentialCountryFacts } from "@/data/presidential/countryFacts";
 import { formatInt, formatPct } from "@/lib/currency";
 import {
   namesakeCountForTicket,
@@ -131,13 +143,24 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   );
   const tickets = useTicketsByNumber(cycle);
   const abroadTo = presidentialUrl(cycle, "abroad");
+  // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
+  // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
+  // section of this panel, rather than being lifted to the page.
+  const facts = useMemo(() => presidentialCountryFacts(round), [round]);
   return (
     <div className="space-y-6">
+      {/* 1. the outcome strip — the same component and the same four-card grid `/parliamentary`
+             opens with, so the two dashboards read as one kind of page. ⚠ ITS OWN `<h2>` is
+             `sr-only` and its ids are scoped by the ROUND, because both panels can be mounted
+             in one document and two nodes sharing an id make both landmarks announce the
+             first. */}
+      <ElectionFactsGrid facts={facts} titleId={`pvr-facts-${round.round}`} />
+
       <section
         aria-labelledby={`pvr-rule-${round.round}`}
         className="rounded-lg border p-4"
       >
-        <h2 id={`pvr-rule-${round.round}`} className="font-semibold">
+        <h2 id={`pvr-rule-${round.round}`} className="text-lg font-semibold">
           {t("presidential_rule_heading")}
         </h2>
         <p className="mt-2 text-sm">
@@ -164,7 +187,7 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
       </section>
 
       <section aria-labelledby={`pvr-ranking-${round.round}`}>
-        <h2 id={`pvr-ranking-${round.round}`} className="font-semibold">
+        <h2 id={`pvr-ranking-${round.round}`} className="text-lg font-semibold">
           {t("presidential_ranking_heading")}
         </h2>
         <div className="mt-2 overflow-x-auto">
@@ -242,27 +265,42 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
               reader-only on the one page that draws its map outside the shell. */}
           <h2
             id={`pvr-where-${round.round}`}
-            className="font-semibold"
+            className="text-lg font-semibold"
             data-map-question
           >
             {t("presidential_map_q_who_led_region")}
           </h2>
-          <PresidentialRegionsList
-            cycle={cycle}
-            leaders={leaders}
-            tickets={tickets}
-          />
-          <PresidentialRegionsMap
-            cycle={cycle}
-            round={round.round}
-            leaders={leaders}
-            tickets={tickets}
-          />
+          {/* ⚠ THE SHELL'S OWN CANVAS GRID, from the shell's own constants — one column on
+              mobile, table-beside-map at `lg`, with the map PLACED into column 1 rather than
+              reordered. The DOM order is unchanged: the list is still first, so it is still the
+              text equivalent §4 requires and still the reading order on a phone, and only the
+              desktop placement moves. Hand-writing the ratio here is what would drift from
+              `/parliamentary` the first time either side changed it. */}
+          <div
+            className={`mt-2 ${CANVAS_GRID_CLASS}`}
+            data-outcome-canvas="presidential_ticket"
+          >
+            <div className={CANVAS_RANKED_SLOT_CLASS} data-canvas-slot="ranked">
+              <PresidentialRegionsList
+                cycle={cycle}
+                leaders={leaders}
+                tickets={tickets}
+              />
+            </div>
+            <div className={CANVAS_MAP_SLOT_CLASS} data-canvas-slot="map">
+              <PresidentialRegionsMap
+                cycle={cycle}
+                round={round.round}
+                leaders={leaders}
+                tickets={tickets}
+              />
+            </div>
+          </div>
         </section>
       ) : null}
 
       <section aria-labelledby={`pvr-turnout-${round.round}`}>
-        <h2 id={`pvr-turnout-${round.round}`} className="font-semibold">
+        <h2 id={`pvr-turnout-${round.round}`} className="text-lg font-semibold">
           {t("presidential_turnout_heading")}
         </h2>
         <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-4">
@@ -327,7 +365,7 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
       </section>
 
       <section aria-labelledby={`pvr-abroad-${round.round}`}>
-        <h2 id={`pvr-abroad-${round.round}`} className="font-semibold">
+        <h2 id={`pvr-abroad-${round.round}`} className="text-lg font-semibold">
           {t("presidential_abroad_heading")}
         </h2>
         <p className="mt-2 text-sm">
@@ -379,7 +417,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
   if (state.status !== "ready")
     return (
       <section className="my-4">
-        <h1 className="text-xl font-semibold">
+        <h1 className="text-2xl md:text-3xl font-bold">
           {t("presidential_cycle_title")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -405,7 +443,10 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
         {/* ⚠ THE YEAR IS IN THE HEADING, not only in the scope line beneath it. Five pages
             sharing one `<h1>` is the duplicate-signal shape this repo takes seriously; the
             bare title stays as the BACK-LINK text on a place page, where a year is wrong. */}
-        <h1 className="text-xl font-semibold">
+        {/* ⚠ THE SAME SCALE AS `PlaceHeader`'s title on `/parliamentary`. Two result dashboards
+            whose headline sizes differ read as two products, and this page's `<h1>` is the same
+            kind of thing: the name of the cycle the numbers beneath it describe. */}
+        <h1 className="text-2xl md:text-3xl font-bold">
           {t("presidential_cycle_title_year", {
             year: summary.round1Date.slice(0, 4),
           })}
@@ -479,7 +520,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           delta equal to minus their whole round-1 vote, Карадайъ's 309,681 among them. */}
       {summary.swing ? (
         <section aria-labelledby="pvr-swing">
-          <h2 id="pvr-swing" className="font-semibold">
+          <h2 id="pvr-swing" className="text-lg font-semibold">
             {t("presidential_swing_heading")}
           </h2>
           <ul className="mt-2 space-y-1 text-sm">
@@ -514,7 +555,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           draw nothing at all. */}
       {transfer.status === "ready" ? (
         <section aria-labelledby="pvr-transfer" className="space-y-4">
-          <h2 id="pvr-transfer" className="font-semibold">
+          <h2 id="pvr-transfer" className="text-lg font-semibold">
             {t("presidential_transfer_heading")}
           </h2>
           <PresidentialTransferTile transfer={transfer.transfer} />
@@ -560,7 +601,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           `shown.round`; this now does too. */}
       {shown.round === 1 && split.status === "ready" ? (
         <section aria-labelledby="pvr-split" className="space-y-3">
-          <h2 id="pvr-split" className="font-semibold">
+          <h2 id="pvr-split" className="text-lg font-semibold">
             {t("presidential_split_heading")}
           </h2>
           <PresidentialSplitTicketTile split={split.split} />

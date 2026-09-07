@@ -1454,6 +1454,51 @@ mirrors how every other kind is bounded (parliamentary: the latest cycle; local:
 every PLACE level for all five — the pages readers actually browse — at a corpus total near 59,000. An older
 cycle's section page falls back to the legacy composition, the same path a missing artifact already takes.
 
+⚠⚠ **THE MAP ESCAPED THE PAGE, AND IT WAS `MeasuredMapBox` RATHER THAN THIS SCREEN — fixed
+2026-09-07.** `SVGMapContainer` renders its `<svg>` as `absolute top-0 left-0`, and the box that
+owns the measured size carried no `position`, so on every `/presidential/:cycle` the choropleth
+was laid out against the page shell: 722×420 of Bulgaria painted OVER the header, the promo
+banner and the title. `RegionsMap` never showed it because it adds its own `relative` wrapper
+INSIDE that box; the two presidential maps mount `SVGMapContainer` directly and did. The
+containing block now lives on `MeasuredMapBox`, unconditionally and outside its `className`
+fallback — a caller that forgets it produces a page that looks broken everywhere except where
+the map belongs, and nothing fails. Gate: the canvas arm of `PresidentialCycleScreen.test.tsx`,
+which asserts the box, not the `<svg>` — jsdom reports every element at zero size and has no
+`ResizeObserver`, so the map never mounts there and only the box's class is checkable.
+
+⚑ **THE COUNTRY PAGE READS LIKE `/parliamentary` — RESOLVED 2026-09-07.** Both are national
+result dashboards and they were laid out as unrelated pages: `/parliamentary` opens with a
+four-card KPI band above a map-beside-a-table canvas, while this one opened with a bordered rule
+box and then stacked a full-width table, a full-width list and a full-width map. The order is now
+the shell's — band, rule, ranked result, canvas, turnout, abroad — and the shared parts are
+SHARED rather than reproduced:
+
+- **The band is `ElectionFactsGrid`**, extracted from `ElectionResultsShell` so the shell and this
+  page render the same component. The country level is `canonical` and draws its own page, so the
+  alternative was a second card grid that matched on the day it was written and drifted the first
+  time a padding, a basis caption or the `data-fact` hook moved. ⚠ Measured: the extraction is
+  **4 B brotli** on the shell's own closure (10,985 inlined vs 10,989 extracted) — it is a file
+  boundary, not new code, so the ratchet has nothing to absorb.
+- **The canvas is `CANVAS_GRID_CLASS` + the two slot constants**, from the same module the shell's
+  canvas and its skeleton read. ⚠ THE MAP'S TEXT TWIN IS THE REGIONS LIST, NOT THE PAIRS TABLE, so
+  the twin is what sits in the ranked slot: §4's rule is that the map's own content — who led
+  where — has a text equivalent, and that list is also the only route from this page down to an
+  oblast. The pairs ranking stays full width above it, where 23 tickets × five columns belong.
+- **The facts producer is `presidentialCountryFacts`** (`src/data/presidential/countryFacts.ts`),
+  a browser-side twin of the generator's `presidentialFacts` — the producer module opens with
+  node-adjacent imports no browser chunk may pull in, the same reason `summary.ts` re-declares the
+  published shape. It reads `descriptorFor("presidential", "country")` for the order and the cap
+  rather than restating them, and it emits the two codes the generator never can:
+  `majority_threshold` and `runoff_pending`, both declared at the country level and nowhere below
+  it because art. 93 (3) is a national test.
+
+  ⚠⚠ **`majority_threshold` IS ROUND 1 ONLY, and that is the constitution rather than layout.**
+  Art. 93 (4) elects whichever pair takes MORE votes in the runoff, with no majority requirement
+  at all — so the card that leads round 1 must be GONE on round 2, not restated with the runoff's
+  numbers, and the runoff band is three cards. Its value is `floor(valid / 2) + 1`: „more than
+  half", never „at least half", because on an even total the two differ by exactly the tie the
+  article refuses to call a win. Gate: `countryFacts.test.ts`.
+
 ## 10. Tier 6 — SEO surface (1–2 days)
 
 - Prerender routes for every family member above (`scripts/prerender/routes.ts`, both languages, no-slash URLs;
