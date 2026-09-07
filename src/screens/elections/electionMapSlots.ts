@@ -224,12 +224,19 @@ export const MAP_ADAPTERS: Partial<
     import("./adapters/PresidentialRegionMap"),
   "presidential/municipality/winner": () =>
     import("./adapters/PresidentialMunicipalityMap"),
+  // The settlement's polling stations, as MARKERS — a station has no boundary to fill, so this
+  // level takes a component of its own rather than another choropleth grain.
   //
-  // ⚠ NO `presidential/settlement` ENTRY. Its declared grain is `section`, and the file that
-  // would fill it is `tur<r>/sections/<oblast>.json` — 2.4 MB raw / 62 KB gzipped for Бургас,
-  // servable — but the SECTION level is where the object-count argument bites hardest (~60,000
-  // of the presidential share) and the map would be markers rather than a choropleth, which is
-  // a different component from the two above. Left for the tier that ships the section pages.
+  // ⚠ IT IS SERVABLE BECAUSE THE SECTION LEVEL IS THE ONE PART OF THIS TREE SHARDED PER PARENT:
+  // `tur<r>/sections/<oblast>.json`, 2.4 MB raw / 62 KB gzipped for Бургас, the largest —
+  // against the 14.63 MB whole-country file the município level has to take. The records carry
+  // no coordinates, so the geography is joined from the parliamentary settlement shard on the
+  // 9-digit station code; measured over 150 settlements against four parliamentary cycles,
+  // 96.9%-97.7% of stations find one, and the sub-point spread across cycles is the evidence
+  // that these are station geography rather than a cycle's own data. What misses is omitted and
+  // COUNTED under the map, never placed approximately.
+  "presidential/settlement/winner": () =>
+    import("./adapters/PresidentialSettlementMap"),
   //
   // ⚠ `abroad` IS STILL UNREGISTERED, for a reason that is not about size. Its 241.3 KB file IS
   // servable and the geo is the continents one the parliamentary МИР-32 adapter already loads.

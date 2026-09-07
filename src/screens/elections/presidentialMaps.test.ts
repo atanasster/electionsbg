@@ -54,6 +54,7 @@ describe("the presidential map registry", () => {
     ).toEqual([
       "presidential/municipality/winner",
       "presidential/region/winner",
+      "presidential/settlement/winner",
     ]);
     // The control: the registry is not simply empty.
     expect(
@@ -77,14 +78,28 @@ describe("the presidential map registry", () => {
       path.join(ROOT, "scripts/bucket_gzip.ts"),
       "utf8",
     );
-    const block = gz.slice(
-      gz.indexOf("const PER_ROUND_FILES"),
-      gz.indexOf("]", gz.indexOf("const PER_ROUND_FILES")),
-    );
+    // ⚠ THE WHOLE PRESIDENTIAL BRANCH, not just `PER_ROUND_FILES`. The per-round files are a
+    // literal list, but the section shards are collected by a DIRECTORY WALK (one file per
+    // oblast, so there is no filename to list) — a slice that stopped at the array would report
+    // the settlement map as unprotected while it is in fact covered, and, worse, would go on
+    // passing if that walk were deleted.
+    const block =
+      gz.slice(
+        gz.indexOf("const PER_ROUND_FILES"),
+        gz.indexOf("];", gz.indexOf("const PER_ROUND_FILES")),
+      ) +
+      gz.slice(
+        gz.indexOf('electionFolderKind(entry.name) === "presidential"'),
+        gz.indexOf("Local cycles (YYYY_MM_DD_mi)"),
+      );
     // The file each registered level's adapter fetches, by the grain its descriptor declares.
     const NEEDED: Record<string, string> = {
       "presidential/region/winner": "municipality_votes.json",
       "presidential/municipality/winner": "settlement_votes.json",
+      // ⚠ NOT A `PER_ROUND_FILES` MEMBER — the section shards are picked up by their own walk,
+      // keyed on the directory rather than on a filename, because there is one per oblast. The
+      // check below looks for that walk instead.
+      "presidential/settlement/winner": "sections",
     };
     for (const key of Object.keys(MAP_ADAPTERS).filter((k) =>
       k.startsWith("presidential/"),
@@ -99,8 +114,9 @@ describe("the presidential map registry", () => {
         `${key} is registered while ${file} is NOT gzip-uploaded — that page ships the raw file`,
       ).toContain(file);
     }
-    // Anti-vacuity: the block really is the list, not an empty slice.
+    // Anti-vacuity: the slice really did capture both halves, not an empty range.
     expect(block).toContain("region_votes.json");
+    expect(block).toContain("readdirSync(secDir)");
   });
 });
 

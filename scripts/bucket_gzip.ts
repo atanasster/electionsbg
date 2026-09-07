@@ -160,6 +160,11 @@ const SECTION_SHARD_GZIP_MIN = 120_000;
 //
 // `abroad.json` (241.3 KB) is included for the same reason the others are — it is the same
 // shape and the same cost class — even though no map reads it yet.
+//
+// ⚠ THE SECTION SHARDS ARE ON THIS LIST TOO, and they are the reason the settlement map exists:
+// that level is the ONLY part of the presidential tree cut per parent, so a settlement page
+// reads just its own oblast — 2.4 MB raw for Бургас, 62 KB gzipped. ~31 oblasts x 2 rounds x 5
+// cycles, so they dominate the file COUNT of this pass while adding little to its bytes.
 const PER_ROUND_FILES = [
   "region_votes.json",
   "municipality_votes.json",
@@ -193,6 +198,14 @@ export const collect = (): string[] => {
           const rel = `${entry.name}/${round}/${f}`;
           if (existsSync(join(DATA, rel))) out.push(rel);
         }
+        // The per-oblast section shards behind the settlement map. ⚠ NO SIZE THRESHOLD, unlike
+        // the local `sections/` walk below: every one of these is a map's whole input, and a
+        // small oblast served raw is still a page that fetches uncompressed JSON for a map.
+        const secDir = join(DATA, entry.name, round, "sections");
+        if (existsSync(secDir))
+          for (const f of readdirSync(secDir))
+            if (f.endsWith(".json"))
+              out.push(`${entry.name}/${round}/sections/${f}`);
       }
     }
     // Local cycles (YYYY_MM_DD_mi) carry per-município section shards under

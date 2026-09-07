@@ -85,6 +85,7 @@ const FACT_SLOTS: Record<PresidentialPlaceLevel, number> = {
 const MAPPED_LEVELS = new Set<PresidentialPlaceLevel>([
   "region",
   "municipality",
+  "settlement",
 ]);
 
 export const PresidentialPlaceScreen: FC<{
@@ -138,11 +139,12 @@ export const PresidentialPlaceScreen: FC<{
           <ElectionSurfaceSkeleton
             facts={FACT_SLOTS[level]}
             // ⚠ RESERVE WHAT THE PAGE RENDERS, WHICH IS NOT WHAT THE DESCRIPTOR DECLARES.
-            // Every level except `section` declares a map slot; only two have an adapter to
-            // fill it (`presidential/region|municipality/winner`). A section has no geography
-            // to answer a question about — the repo's canonical map-free page — and `settlement`
-            // and `abroad` declare a slot that `MAP_ADAPTERS` deliberately does not serve, so
-            // reserving 360px on those two is the layout shift in the other direction.
+            // Every level except `section` declares a map slot; three have an adapter to fill
+            // it (`presidential/region|municipality|settlement/winner`). A section has no
+            // geography to answer a question about — the repo's canonical map-free page — and
+            // `abroad` declares a slot `MAP_ADAPTERS` deliberately does not serve (no
+            // country→continent crosswalk), so reserving 360px on those two is the layout shift
+            // in the other direction.
             withMap={MAPPED_LEVELS.has(level)}
           />
         }
