@@ -27,6 +27,25 @@ export interface SplitPair {
   sections: number;
 }
 
+/**
+ * A pair joined to a list by a published ENDORSEMENT rather than by the ballot's nominator.
+ *
+ * ⚠⚠ IT LIVES IN ITS OWN ARRAY AND MUST STAY THERE. The floor is computed identically — the
+ * arithmetic holds for any two columns of the same protocols — but „ДПС's list voters against
+ * ДПС's ticket" is one entity on one ballot, while „ГЕРБ-СДС's list against the pair ГЕРБ-СДС
+ * backed" is two entities joined by a political fact somebody else published. Merging the two
+ * arrays would let one render under the other's heading.
+ */
+export interface EndorsedPair extends SplitPair {
+  /** The parliamentary ballot number compared against. ⚠ NOT equal to `number` — for a
+   *  nominator-matched pair the two agree and that agreement is the proof; here they are two
+   *  different entities, which is exactly what this field records. */
+  listNumber: number;
+  /** ⚠ REQUIRED WHEREVER A ROW IS. The join is the one claim this family makes that the
+   *  register does not, so the evidence travels with the figure. */
+  sourceUrl: string;
+}
+
 export interface RefusedTicket {
   number: number;
   president: string;
@@ -49,6 +68,14 @@ export interface SplitTicket {
   basis: string;
   basisEn: string;
   pairs: SplitPair[];
+  /** ⚠ OPTIONAL ON PURPOSE — DEPLOY ORDER. `split_ticket.json` is gitignored and reaches the
+   *  bucket only through `bucket:gz`, so a bundle carrying this field will meet an artifact
+   *  built before it. Required, the guard would reject that file and take the WHOLE tile down
+   *  to teach a reader nothing; optional, the main table renders and the endorsement block
+   *  simply is not there yet. */
+  endorsed?: EndorsedPair[];
+  endorsedBasis?: string;
+  endorsedBasisEn?: string;
   refused: RefusedTicket[];
   coverage: {
     basis: string;
@@ -76,9 +103,33 @@ export const isSplitTicket = (v: unknown): v is SplitTicket => {
   // `formatInt` and a pair missing `minSplitVoters` render as „поне undefined" — a refusal is
   // the right posture for both, the same as for a lost derivation.
   if (!num(cov?.sectionsMatched) || !num(cov?.sectionsNsOnly)) return false;
-  return (o.pairs as unknown[]).every((p) => {
+  if (
+    !(o.pairs as unknown[]).every((p) => {
+      const r = p as Record<string, unknown>;
+      return num(r?.minSplitVoters) && num(r?.listVotes) && num(r?.ticketVotes);
+    })
+  )
+    return false;
+  // ⚠ ABSENT IS FINE (see the field); PRESENT AND MALFORMED IS NOT. An endorsement row without
+  // its `sourceUrl` is this site asserting that a party backed a named candidate, with nothing
+  // a reader can check — the row's whole licence — so a payload carrying one is refused rather
+  // than rendered with a dead „източник".
+  if (o.endorsed === undefined) return true;
+  if (!Array.isArray(o.endorsed)) return false;
+  if (o.endorsed.length && (!str(o.endorsedBasis) || !str(o.endorsedBasisEn)))
+    return false;
+  return (o.endorsed as unknown[]).every((p) => {
     const r = p as Record<string, unknown>;
-    return num(r?.minSplitVoters) && num(r?.listVotes) && num(r?.ticketVotes);
+    return (
+      num(r?.minSplitVoters) &&
+      num(r?.listVotes) &&
+      num(r?.ticketVotes) &&
+      num(r?.listNumber) &&
+      str(r?.president) &&
+      str(r?.listName) &&
+      str(r?.sourceUrl) &&
+      (r.sourceUrl as string).startsWith("https://")
+    );
   });
 };
 

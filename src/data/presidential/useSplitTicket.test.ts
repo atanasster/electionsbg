@@ -63,6 +63,67 @@ describe("isSplitTicket", () => {
     // the ballot.
     expect(isSplitTicket(payload({ refused: undefined }))).toBe(false);
   });
+
+  const endorsedRow = {
+    number: 15,
+    president: "Анастас Георгиев Герджиков",
+    nominator: "ИК за Анастас Герджиков и Невяна Митева",
+    listName: "ГЕРБ-СДС",
+    listNumber: 32,
+    sourceUrl: "https://example.org/backing",
+    ticketVotes: 590594,
+    listVotes: 578726,
+    minSplitVoters: 96708,
+    sections: 12488,
+  };
+
+  it("ACCEPTS a payload with no `endorsed` field — deploy order", () => {
+    // ⚠⚠ THE OPPOSITE POSTURE FROM `refused`, AND THE REASON IS THE PUBLISH PATH.
+    // `split_ticket.json` is gitignored and reaches the bucket only through `bucket:gz`, so a
+    // bundle carrying this feature WILL meet an artifact built before it. Required, the guard
+    // would take the whole tile down to teach a reader nothing.
+    expect(isSplitTicket(payload({ endorsed: undefined }))).toBe(true);
+    expect(isSplitTicket(payload({ endorsed: [] }))).toBe(true);
+  });
+
+  it("accepts a well-formed endorsement row", () => {
+    expect(
+      isSplitTicket(
+        payload({
+          endorsed: [endorsedRow],
+          endorsedBasis: "подкрепа",
+          endorsedBasisEn: "backing",
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it.each([
+    ["no source at all", { sourceUrl: undefined }],
+    ["an http source", { sourceUrl: "http://example.org/backing" }],
+    ["no list number", { listNumber: undefined }],
+    ["no list name", { listName: "" }],
+  ])("refuses an endorsement row with %s", (_name, over) => {
+    // ⚠⚠ THE JOIN IS THE ONE CLAIM THIS FAMILY MAKES THAT THE REGISTER DOES NOT. A row without
+    // its source is the site asserting that a party backed a named candidate with nothing a
+    // reader can check — and React renders a `sourceUrl`-less anchor as underlined,
+    // non-navigable text, which looks like a link and is not.
+    expect(
+      isSplitTicket(
+        payload({
+          endorsed: [{ ...endorsedRow, ...over }],
+          endorsedBasis: "подкрепа",
+          endorsedBasisEn: "backing",
+        }),
+      ),
+    ).toBe(false);
+  });
+
+  it("refuses endorsement rows that arrive without their basis", () => {
+    // The rows may not render without the sentence saying what joins the two columns — the same
+    // rule `basis` follows for the main table.
+    expect(isSplitTicket(payload({ endorsed: [endorsedRow] }))).toBe(false);
+  });
 });
 
 describe("fetchSplitTicket", () => {

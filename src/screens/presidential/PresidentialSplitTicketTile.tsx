@@ -8,10 +8,21 @@
 // sentence this tile exists to NOT write.
 //
 // ⚠ THE REFUSED LIST IS RENDERED, NOT HIDDEN. Nine of 2021's 23 tickets were nominated by
-// инициативни комитети and have no list to compare against — including BOTH finalists. A tile
-// showing only the fourteen comparable ones would read as „these are the candidates", with the
-// two everyone came to read about quietly missing. The parties that backed Радев and Герджиков
-// are a political fact the ballot does not record and this repo does not assert.
+// инициативни комитети and have no list of their own to compare against. A tile showing only
+// the fourteen comparable ones would read as „these are the candidates", with the ones everyone
+// came to read about quietly missing.
+//
+// ⚠⚠ TWO OF THOSE NINE HAVE A SECOND TABLE, AND IT IS A SECOND KIND OF CLAIM. `endorsed` pairs
+// a committee-nominated candidate with the list of the party that publicly BACKED them —
+// ГЕРБ-СДС behind Герджиков, Демократична България behind Панов — and every row cites the
+// announcement. It renders under its own heading, with its own basis sentence, and NEVER in the
+// table above: the floor is computed identically, but „ДПС's list against ДПС's ticket" is one
+// entity on one ballot while this is two entities joined by somebody else's published decision.
+// „Подкрепен от" is not „кандидат на", and Герджиков said so himself.
+//
+// ⚠⚠ РАДЕВ IS STILL NOT IN EITHER TABLE, AND THE COPY GIVES THE REASON. He was backed by
+// several parties standing on separate lists, so no single list can stand for his vote. Showing
+// one finalist and not the other with no explanation reads as a choice about the two men.
 //
 // ⚠ THE CAVEAT COMES FROM THE ARTIFACT (`basis` / `basisEn`), so a producer change reaches the
 // reader with the numbers rather than waiting for somebody to remember a locale file.
@@ -31,8 +42,18 @@ export const PresidentialSplitTicketTile: FC<{ split: SplitTicket }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const isEn = lang === "en";
-  const runoffRefusals = split.refused.filter((r) => r.reachedRunoff);
-  const committee = split.refused.filter((r) => r.reason === "committee");
+  // ⚠ THE ENDORSED TWO ARE SUBTRACTED FROM BOTH REFUSAL SENTENCES. They are still
+  // committee-nominated — that is a ballot fact and the second table's own basis says it — but
+  // „нямат листа, с която да бъдат сравнени" is no longer true of them, and naming them there
+  // while comparing them below is the page contradicting itself.
+  const endorsed = split.endorsed ?? [];
+  const isEndorsed = (n: number) => endorsed.some((e) => e.number === n);
+  const runoffRefusals = split.refused.filter(
+    (r) => r.reachedRunoff && !isEndorsed(r.number),
+  );
+  const committee = split.refused.filter(
+    (r) => r.reason === "committee" && !isEndorsed(r.number),
+  );
   const unmatched = split.refused.filter((r) => r.reason !== "committee");
 
   return (
@@ -102,6 +123,86 @@ export const PresidentialSplitTicketTile: FC<{ split: SplitTicket }> = ({
           </tbody>
         </table>
       </div>
+      {endorsed.length ? (
+        <div className="mt-5">
+          {/* ⚠ ITS OWN HEADING AND ITS OWN BASIS, ABOVE THE NUMBERS. A reader who scrolls into
+              this table must meet the licence before the figures, not after them — the rule the
+              caveat at the top of the tile follows for the main one. */}
+          <h4
+            id="pvr-split-endorsed"
+            className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+          >
+            {t("presidential_split_endorsed_heading")}
+          </h4>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {isEn ? split.endorsedBasisEn : split.endorsedBasis}
+          </p>
+          <div className="mt-2 overflow-x-auto">
+            {/* ⚠ `aria-labelledby`, NOT A SECOND `<caption>` CARRYING THE SAME STRING — the
+                heading is already on the page, and duplicating it makes a screen reader
+                announce the same sentence twice while giving the table no name of its own.
+                The runoff-pickup table two files over is named the same way. */}
+            <table
+              aria-labelledby="pvr-split-endorsed"
+              className="w-full text-sm tabular-nums"
+            >
+              <thead className="text-left text-xs text-muted-foreground">
+                <tr>
+                  <th scope="col" className="py-1 pr-3 font-normal">
+                    {t("presidential_split_col_pair")}
+                  </th>
+                  <th scope="col" className="py-1 pr-3 text-right font-normal">
+                    {t("presidential_split_col_ticket")}
+                  </th>
+                  <th scope="col" className="py-1 pr-3 text-right font-normal">
+                    {t("presidential_split_col_list")}
+                  </th>
+                  <th scope="col" className="py-1 text-right font-normal">
+                    {t("presidential_split_col_min")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {endorsed.map((p) => (
+                  <tr key={p.number} className="border-t">
+                    <th scope="row" className="py-1 pr-3 text-left font-normal">
+                      {p.president}
+                      <span className="text-muted-foreground">
+                        {" · "}
+                        {p.listName}
+                      </span>
+                      {/* ⚠⚠ THE SOURCE IS ON THE ROW, not in a footnote. The join between this
+                          candidate and this list is the one thing here the ballot does not say,
+                          so the evidence sits beside the figure a reader might copy out. */}
+                      <span className="block text-xs text-muted-foreground">
+                        <a
+                          className="underline"
+                          href={p.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {t("source")}
+                        </a>
+                      </span>
+                    </th>
+                    <td className="py-1 pr-3 text-right">
+                      {formatInt(p.ticketVotes, lang)}
+                    </td>
+                    <td className="py-1 pr-3 text-right">
+                      {formatInt(p.listVotes, lang)}
+                    </td>
+                    <td className="py-1 text-right">
+                      {t("presidential_split_at_least", {
+                        votes: formatInt(p.minSplitVoters, lang),
+                      })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
       {split.refused.length ? (
         <div className="mt-3 text-xs text-muted-foreground">
           {/* ⚠⚠ TWO ARMS, BECAUSE THEY ARE TWO DIFFERENT CLAIMS. `committee` is a fact about
@@ -129,7 +230,12 @@ export const PresidentialSplitTicketTile: FC<{ split: SplitTicket }> = ({
           ) : null}
           {runoffRefusals.length ? (
             <p className="mt-1">
+              {/* ⚠ `count` IS WHAT SELECTS THE PLURAL, and without it i18next finds no
+                  `presidential_split_refused_finalists` key at all and renders the KEY NAME on
+                  the page — measured, exactly that shipped for one render here. The set is now
+                  variable (an endorsed finalist leaves it), so the singular is reachable. */}
               {t("presidential_split_refused_finalists", {
+                count: runoffRefusals.length,
                 names: runoffRefusals.map((r) => r.president).join(", "),
               })}
             </p>

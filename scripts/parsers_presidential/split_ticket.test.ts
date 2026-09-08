@@ -249,11 +249,75 @@ describe.runIf(hasCorpus)("the committed corpus", () => {
     "$cycle: never claims more split voters than the section could hold",
     ({ split }) => {
       // A sanity ceiling on the bound itself: the floor cannot exceed the two vote counts put
-      // together, since |A △ B| ≤ |A| + |B|.
-      for (const p of split.pairs)
+      // together, since |A △ B| ≤ |A| + |B|. ⚠ THE ENDORSEMENT ROWS TOO — the arithmetic is
+      // identical there and only the pairing's licence differs, so a bound that broke on one
+      // arm and not the other would mean the two are no longer computed by one code path.
+      for (const p of [...split.pairs, ...split.endorsed])
         expect(p.minSplitVoters).toBeLessThanOrEqual(
           p.ticketVotes + p.listVotes,
         );
     },
   );
+
+  it.each(built)(
+    "$cycle: an endorsement row never sits in `pairs`, and always cites its source",
+    ({ split }) => {
+      // ⚠⚠ THE SEPARATION IS THE WHOLE DESIGN. `pairs` is joined by the ballot's own nominator
+      // field, confirmed by the ballot number; `endorsed` is joined by a political fact
+      // somebody else published. Merged, a consumer renders the second under the first's
+      // heading and the site asserts an affiliation no register carries.
+      const inPairs = new Set(split.pairs.map((p) => p.number));
+      for (const e of split.endorsed) {
+        expect(inPairs.has(e.number)).toBe(false);
+        // The evidence travels with the row, not in a footnote.
+        expect(e.sourceUrl).toMatch(/^https:\/\//);
+        // ⚠ AND THE TWO BALLOT NUMBERS DIFFER BY CONSTRUCTION. For a nominator match they
+        // AGREE and that agreement is the proof; here they are two different entities, so an
+        // endorsement row whose numbers coincided would mean the pairing came from the
+        // nominator after all and belongs in `pairs`.
+        expect(e.listNumber).not.toBe(e.number);
+      }
+      // Every endorsed pair is still recorded as refused by the nominator match — that is the
+      // ballot fact, and dropping it would hide WHY the row needs a separate basis.
+      const refused = new Set(split.refused.map((r) => r.number));
+      for (const e of split.endorsed) expect(refused.has(e.number)).toBe(true);
+    },
+  );
+
+  it.each(built)(
+    "$cycle: says an endorsement was used, and why a finalist may still be missing",
+    ({ split }) => {
+      // ⚠⚠ THE ASYMMETRY MUST BE ON THE PAGE. Comparing one 2021 finalist on an endorsement and
+      // not the other, with no reason given, reads as a choice about the two men — the reason
+      // being that several parties on SEPARATE lists backed Радев, so no single list stands for
+      // his vote.
+      if (split.endorsed.length) {
+        expect(split.endorsedBasis.length).toBeGreaterThan(80);
+        expect(split.endorsedBasisEn.length).toBeGreaterThan(80);
+        expect(split.coverage.basis).toContain("подкрепи");
+        expect(split.coverage.basisEn).toContain("backed");
+      }
+      const uncovered = split.refused.filter(
+        (r) =>
+          r.reachedRunoff && !split.endorsed.some((e) => e.number === r.number),
+      );
+      for (const r of uncovered) {
+        expect(split.coverage.basis).toContain(r.president);
+        expect(split.coverage.basis).toContain("отделни листи");
+      }
+    },
+  );
+
+  it("compares BOTH 2021 endorsements, against the lists that backed them", () => {
+    // ⚠ THE MUTATION CHECK for the three above — every one of them passes vacuously on a cycle
+    // with no curated endorsement, and four of the five cycles have none.
+    const y = built.find((b) => b.cycle === "2021_11_14_pvr");
+    if (!y) return;
+    const by = new Map(y.split.endorsed.map((e) => [e.president, e]));
+    expect(by.get("Анастас Георгиев Герджиков")?.listName).toBe("ГЕРБ-СДС");
+    expect(by.get("Лозан Йорданов Панов")?.listName).toBe("ДБ");
+    // ⚠ AND РАДЕВ IS NOT AMONG THEM. Several parties on separate lists backed him; picking one
+    // would publish an affiliation he did not have.
+    expect(by.has("Румен Георгиев Радев")).toBe(false);
+  });
 });

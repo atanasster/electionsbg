@@ -15,12 +15,23 @@
 // the ticket. Every surface must say „поне" / „at least".
 //
 // ⚠⚠ NINE OF 2021'S 23 TICKETS HAVE NO LIST, AND BOTH FINALISTS ARE AMONG THEM. Радев and
-// Герджиков were nominated by инициативни комитети; the parties that BACKED them are a
-// political fact the ballot does not record, and attributing a named candidate's votes to
-// ГЕРБ-СДС because everyone knows it would be this repo asserting an affiliation no register
-// carries. They are listed in `refused` with the reason instead. The consequence is worth
-// stating plainly rather than burying: the two most interesting candidates are the two this
-// analysis cannot cover.
+// Герджиков were nominated by инициативни комитети, so the ballot gives them no list to be set
+// against; they stay in `refused`, with the reason.
+//
+// ⚠⚠ TWO OF THOSE NINE ARE ALSO PUBLISHED SEPARATELY, IN `endorsed`, AND THE SEPARATION IS THE
+// POINT. `./endorsements` curates the party that publicly BACKED a committee-nominated pair —
+// ГЕРБ-СДС behind Герджиков, Демократична България behind Панов — each with the announcement it
+// is curated from. The arithmetic is identical (the floor is Σ|ticket − list| over disjoint
+// sections, and it holds for any two columns of the same protocols); the CLAIM is not, because
+// the join is a political fact somebody else published rather than a field on the ballot. So
+// the two never share an array, a heading or a sentence, and a consumer that wants „all pairs"
+// has to ask for both and thereby notice it is mixing two bases.
+//
+// ⚠⚠ RADEV IS STILL NOT COVERED, AND THAT ASYMMETRY MUST BE ON THE PAGE. He was backed by
+// several parties standing on SEPARATE lists, so no single list can stand for his vote — see
+// `./endorsements`. The consequence is that this analysis reaches ONE of 2021's two finalists,
+// and `coverage.basis` says so: a table showing Герджиков and not Радев, with no reason given,
+// reads as a choice about the two men.
 //
 // ⚠ THE MATCH IS THE REGISTER'S OWN NAME, CROSS-CHECKED AGAINST THE BALLOT NUMBER. ЦИК draws
 // one numbering covering both ballots, so an entity standing in both carries the same number on
@@ -42,6 +53,7 @@ import { fileURLToPath } from "node:url";
 import { presidentialCyclesIn } from "../lib/electionFolders";
 import { UNPLACED_SHARD } from "./aggregate";
 import { nameKey } from "./tickets";
+import { endorsementsFor } from "./endorsements";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -85,6 +97,23 @@ export type SplitPair = {
   sections: number;
 };
 
+/**
+ * A pair joined to a list by a published ENDORSEMENT rather than by the ballot's nominator.
+ *
+ * ⚠ IT CARRIES ITS OWN SOURCE, per row. The join is the one claim in this family that the
+ * register does not make, so the evidence travels with the figure rather than sitting in a
+ * footnote a reader may not reach — the same rule the flagged-districts artifact follows for
+ * „рисков".
+ */
+export type EndorsedPair = SplitPair & {
+  /** The parliamentary ballot number the ticket is compared against. ⚠ DELIBERATELY NOT equal
+   *  to `number`: for a nominator-matched pair the two agree and that agreement is the proof,
+   *  and here they are two different entities, which is exactly what this field records. */
+  listNumber: number;
+  /** Where the backing was published. */
+  sourceUrl: string;
+};
+
 export type RefusedTicket = {
   number: number;
   president: string;
@@ -113,6 +142,14 @@ export type SplitTicket = {
   basis: string;
   basisEn: string;
   pairs: SplitPair[];
+  /** ⚠ A SEPARATE ARRAY, NEVER MERGED INTO `pairs` — see the header. Empty for a cycle with no
+   *  curated endorsement, which is the default. */
+  endorsed: EndorsedPair[];
+  /** The endorsement rows' own derivation. ⚠ SEPARATE FROM `basis` because it states a
+   *  different thing: not how the floor is computed (that is unchanged) but what joins the two
+   *  columns, and that the join is somebody else's published claim. */
+  endorsedBasis: string;
+  endorsedBasisEn: string;
   refused: RefusedTicket[];
   coverage: {
     basis: string;
@@ -254,15 +291,62 @@ export const buildSplitTicket = (
   }
   if (!pairs.length) return null;
 
+  // ⚠ CURATED, AND EVERY LEAF CHECKED AGAINST THIS CYCLE'S OWN CATALOGUES. An entry naming a
+  // ticket or a list this ballot does not carry is a stale curation, and publishing it would
+  // put a made-up pairing on the page — so it is DROPPED and reported, never guessed at.
+  const byNumber = new Map(parties.map((p) => [p.number, p]));
+  const ticketByNumber = new Map(tickets.map((t) => [t.number, t]));
+  const endorsed: EndorsedPair[] = [];
+  const endorsedList = new Map<number, CikParty>();
+  for (const e of endorsementsFor(cycle)) {
+    const t = ticketByNumber.get(e.ticket);
+    const party = byNumber.get(e.listNumber);
+    if (!t || !party || !e.sourceUrl) {
+      console.warn(
+        `[split ticket] ${cycle}: endorsement ${e.ticket}→${e.listNumber} does not resolve ` +
+          `against this cycle's tickets.json / cik_parties.json — dropped`,
+      );
+      continue;
+    }
+    // ⚠ AND ONLY FOR A TICKET THE NOMINATOR MATCH ALREADY REFUSED. An endorsement on a pair
+    // that HAS its own list would publish the same candidate twice on two different bases —
+    // and the weaker one would sit in the same tile as the ballot's own.
+    if (matched.has(e.ticket)) {
+      console.warn(
+        `[split ticket] ${cycle}: ticket ${e.ticket} is matched by its own nominator — the ` +
+          `endorsement row is redundant and was dropped`,
+      );
+      continue;
+    }
+    endorsedList.set(e.ticket, party);
+    endorsed.push({
+      number: t.number,
+      president: t.president,
+      nominator: t.nominatedBy.name,
+      listName: party.nickName ?? party.name,
+      listNumber: party.number,
+      sourceUrl: e.sourceUrl,
+      ticketVotes: 0,
+      listVotes: 0,
+      minSplitVoters: 0,
+      sections: 0,
+    });
+  }
+
   const ns = nsSectionsByCode(day, root);
   const dir = path.join(root, cycle, "tur1", "sections");
   // ⚠ NULL, LIKE EVERY OTHER MISSING INPUT HERE. An interrupted ingest must skip this cycle,
   // not abort `--pvr all` after its siblings have already been written — and in `main.ts` the
   // throw would escape the loop before the ingest marker is stamped.
   if (!fs.existsSync(dir)) return null;
+  // ⚠ ONE WALK, ONE ACCUMULATOR, FOR BOTH KINDS. The endorsement rows differ in what their
+  // pairing MEANS, never in how the floor is summed — a second loop would be a second
+  // implementation of the per-section bound, i.e. the one thing the throw below exists to stop
+  // drifting.
   const acc = new Map<number, Map<string, OblastSplit>>(
-    pairs.map((p) => [p.number, new Map()]),
+    [...pairs, ...endorsed].map((p) => [p.number, new Map()]),
   );
+  const compared = new Map<number, CikParty>([...matched, ...endorsedList]);
   let sectionsMatched = 0;
   let sectionsPvrOnly = 0;
   const seen = new Set<string>();
@@ -284,7 +368,7 @@ export const buildSplitTicket = (
       }
       sectionsMatched += 1;
       if (oblast === UNPLACED_SHARD) continue;
-      for (const [num, party] of matched) {
+      for (const [num, party] of compared) {
         const ticketVotes = sumVotes(s.votes, num);
         const listVotes = sumVotes(other.results?.votes, party.number);
         const rows = acc.get(num)!;
@@ -304,7 +388,7 @@ export const buildSplitTicket = (
     }
   }
 
-  for (const p of pairs) {
+  for (const p of [...pairs, ...endorsed]) {
     const rows = [...acc.get(p.number)!.values()];
     for (const o of rows) {
       p.sections += o.sections;
@@ -322,6 +406,7 @@ export const buildSplitTicket = (
       );
   }
   pairs.sort((a, b) => b.listVotes - a.listVotes || a.number - b.number);
+  endorsed.sort((a, b) => b.listVotes - a.listVotes || a.number - b.number);
   refused.sort((a, b) => a.number - b.number);
 
   let sectionsNsOnly = 0;
@@ -332,13 +417,44 @@ export const buildSplitTicket = (
   // different ballot — and the tile renders `coverage.basis` unaltered, so it reaches the reader
   // with no gate in between. `2026_11_08_pvr` is already this skill's worked example.
   const committees = refused.filter((r) => r.reason === "committee").length;
-  const finalists = refused.filter((r) => r.reachedRunoff).length;
   const unmatched = refused.length - committees;
+  // ⚠⚠ THE FINALIST SENTENCE COUNTS THE ONES STILL UNCOVERED, not every finalist the nominator
+  // match refused. Once Герджиков is compared below on an endorsement, „сред тях са и двамата,
+  // стигнали до балотажа" is false — and it is false in the direction that matters, because a
+  // reader then cannot tell why one finalist has a row and the other does not.
+  const uncoveredFinalists = refused.filter(
+    (r) => r.reachedRunoff && !endorsed.some((e) => e.number === r.number),
+  );
+  const finalists = uncoveredFinalists.length;
   const bgFinalists = finalists
-    ? ` Сред тях ${finalists === 1 ? "е и единият, стигнал" : `са и ${finalists === 2 ? "двамата" : finalists}, стигнали`} до балотаж.`
+    ? ` Сред тях ${finalists === 1 ? "е и единият, стигнал" : `са и ${finalists === 2 ? "двамата" : finalists}, стигнали`} до балотаж` +
+      // ⚠ NAMED, AND WITH THE REASON. „Един от финалистите не е тук" invites a reader to supply
+      // their own explanation for which one, on the most contested table on the page.
+      ` (${uncoveredFinalists.map((r) => r.president).join(", ")}) — зад ` +
+      // ⚠ THE PRONOUN AGREES WITH THE COUNT. „зад тях … да бъдат сравнени" beside a single
+      // named man is the kind of sentence that reads as machine output on the most contested
+      // paragraph of the page.
+      // ⚠ „ТАЗИ КАНДИДАТУРА", NOT A PRONOUN. Bulgarian would need a gendered one here, and the
+      // set is whoever this cycle leaves uncovered — the copy must not assume.
+      `${finalists === 1 ? "тази кандидатура" : "тези кандидатури"} застанаха няколко партии с` +
+      ` отделни листи, така че няма една листа, с която да ${finalists === 1 ? "бъде сравнена" : "бъдат сравнени"}.`
     : "";
   const enFinalists = finalists
-    ? ` ${finalists === 1 ? "The one who reached" : `The ${finalists} who reached`} the runoff ${finalists === 1 ? "is" : "are"} among them.`
+    ? ` ${finalists === 1 ? "The one who reached" : `The ${finalists} who reached`} the runoff ${finalists === 1 ? "is" : "are"} among them` +
+      ` (${uncoveredFinalists.map((r) => r.president).join(", ")}) — several parties standing` +
+      " on separate lists backed them, so there is no single list to compare against."
+    : "";
+  // ⚠ THE SENTENCE THAT STOPS THE COMMITTEE COUNT READING AS „nine we could say nothing about".
+  const bgEndorsed = endorsed.length
+    ? ` ${endorsed.length} от тях са сравнени отделно по-долу — с листата на партията, която ги` +
+      " подкрепи публично. Това е политически факт, обявен от самата партия, а не запис в" +
+      " бюлетината: те са издигнати от инициативни комитети и не са кандидати на тези партии."
+    : "";
+  const enEndorsed = endorsed.length
+    ? ` ${endorsed.length} of them are compared separately below, against the list of the party` +
+      " that publicly backed them. That is a political fact the party itself announced, not a" +
+      " record on the ballot: they were nominated by initiative committees and are not those" +
+      " parties' candidates."
     : "";
 
   return {
@@ -357,13 +473,28 @@ export const buildSplitTicket = (
       "number who voted differently on the two ballots is AT LEAST the difference between " +
       "their sizes. The figure is a minimum: the true number may be far larger, never smaller.",
     pairs,
+    endorsed,
+    // ⚠ IT SAYS WHAT JOINS THE TWO COLUMNS, not how the floor is computed — `basis` above
+    // already carries that and is unchanged, because the arithmetic is the same. What differs
+    // is the licence, and a surface must be unable to render these rows without it.
+    endorsedBasis:
+      "Тези двойки са издигнати от инициативни комитети — на бюлетината няма листа, която да е " +
+      "тяхна. Сравнени са с листата на партията, която публично ги подкрепи; подкрепата е " +
+      "обявена от самата партия и е посочена на всеки ред. Долната граница се смята по същия " +
+      "начин, но връзката двойка→листа тук не идва от бюлетината, а от политическо решение. " +
+      "„Подкрепен от“ не значи „кандидат на“.",
+    endorsedBasisEn:
+      "These pairs were nominated by initiative committees — no list on the ballot is theirs. " +
+      "They are compared against the list of the party that publicly backed them; the backing " +
+      "was announced by the party itself and is cited on every row. The lower bound is computed " +
+      "the same way, but the pair→list link here comes from a political decision rather than " +
+      "from the ballot. „Backed by“ is not „candidate of“.",
     refused,
     coverage: {
       basis:
         "Само първият тур — балотажът е седмица по-късно и няма парламентарна бюлетина до " +
         `него. ${committees} от двойките са издигнати от инициативни комитети и нямат листа, ` +
-        `с която да се сравнят.${bgFinalists} Партиите, които са ги подкрепили, не са ` +
-        "отбелязани в бюлетината и не се приписват тук." +
+        `с която да се сравнят.${bgFinalists}${bgEndorsed}` +
         (unmatched
           ? ` За още ${unmatched} вносителят не беше свързан еднозначно с листа в ` +
             "парламентарния каталог."
@@ -383,8 +514,7 @@ export const buildSplitTicket = (
       basisEn:
         "Round one only — the runoff is a week later with no parliamentary ballot beside it. " +
         `${committees} tickets were nominated by initiative committees and have no list to ` +
-        `compare against.${enFinalists} The parties that backed them are not recorded on the ` +
-        "ballot and are not attributed here." +
+        `compare against.${enFinalists}${enEndorsed}` +
         (unmatched
           ? ` For a further ${unmatched}, the nominator could not be resolved to exactly one ` +
             "list in the parliamentary catalogue."
@@ -464,6 +594,13 @@ const main = (): void => {
       console.log(
         `    #${p.number} ${p.listName}: ticket ${p.ticketVotes} vs list ${p.listVotes}, ` +
           `at least ${p.minSplitVoters} split`,
+      );
+    // ⚠ REPORTED SEPARATELY IN THE SUMMARY TOO, and labelled — an operator reading this log is
+    // the first consumer of the artifact, and „endorsed by" is the whole distinction.
+    for (const p of built.endorsed)
+      console.log(
+        `    #${p.number} ${p.president} ← ${p.listName} (#${p.listNumber}, endorsed): ` +
+          `ticket ${p.ticketVotes} vs list ${p.listVotes}, at least ${p.minSplitVoters} split`,
       );
     if (!write) continue;
     console.log(`  wrote data/${writeSplitTicket(cycle, { built })}`);
