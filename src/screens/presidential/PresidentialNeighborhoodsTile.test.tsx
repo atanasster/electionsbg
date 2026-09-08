@@ -2,6 +2,7 @@
 
 import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
@@ -78,12 +79,17 @@ const neighborhoods = (
   ...over,
 });
 
-// ⚠ `Hint` IS A RADIX TOOLTIP AND RADIX THROWS WITHOUT ITS PROVIDER.
+// ⚠ BOTH WRAPPERS. `Hint` is a Radix tooltip and Radix THROWS without its provider; and the
+// candidate names go through `PresidentialPersonName`, which renders a react-router `Link` for
+// a name the corpus resolves — without a router that throws „Cannot destructure property
+// 'basename'", i.e. missing scaffolding reported as a broken tile.
 const mount = (n: PresidentialNeighborhoods) =>
   render(
-    <TooltipProvider>
-      <PresidentialNeighborhoodsTile neighborhoods={n} />
-    </TooltipProvider>,
+    <MemoryRouter>
+      <TooltipProvider>
+        <PresidentialNeighborhoodsTile neighborhoods={n} />
+      </TooltipProvider>
+    </MemoryRouter>,
   );
 
 beforeEach(async () => {
@@ -125,6 +131,8 @@ describe("PresidentialNeighborhoodsTile", () => {
     // „22,0%" never appears and a literal would assert the locale rather than the pairing this
     // test is about.
     mount(neighborhoods());
+    // ⚠ `closest("tr")` FROM THE NAME, which is now inside an `<a>` — the row is still the
+    // ancestor either way, so this survives the link and would survive its removal.
     const row = screen.getByText("Цецка Цачева Данговска").closest("tr");
     expect(row?.textContent).toContain(formatPct(0.2489, "bg", 1));
     expect(row?.textContent).toContain(formatPct(0.2196, "bg", 1));
@@ -175,7 +183,7 @@ describe("PresidentialNeighborhoodsTile", () => {
     expect(screen.getByText(/Факултета/)).toBeTruthy();
   });
 
-  it("marks a machine-only row as such, rather than as a bare dash", () => {
+  it("answers the invalid-ballot column in its own terms, not with a fragment", () => {
     // ⚠⚠ ON 2021 ALL EIGHT ROWS ARE IN THIS STATE AT ONCE, so a „—" column reads as eight holes
     // in our data under a „Недействителни" header — directly below a sentence that has just
     // explained the same state in words for the aggregate.
@@ -187,9 +195,7 @@ describe("PresidentialNeighborhoodsTile", () => {
         ],
       }),
     );
-    const cell = screen.getByText(
-      bgCorpus.presidential_hoods_invalid_machines_short,
-    );
+    const cell = screen.getByText(bgCorpus.presidential_hoods_invalid_no_paper);
     expect(cell.getAttribute("title")).toContain("машини");
   });
 
@@ -238,6 +244,24 @@ describe("PresidentialNeighborhoodsTile", () => {
     // The coverage line interpolates the same field the hint does, and unlike a Radix tooltip
     // it is in the document without a hover.
     expect(screen.getByText(/9/, { selector: "p" }).textContent).toContain("9");
+  });
+
+  it("links the leading pair, like every other candidate name on the page", () => {
+    // ⚠ ONE COMPONENT OWNS THE DECISION. `PresidentialPersonName` refuses a name the corpus
+    // cannot resolve to exactly one person, so a candidate who is a link in the ranking above
+    // and bare text here would read as two different people.
+    mount(neighborhoods());
+    const cell = screen
+      .getAllByRole("cell")
+      .find((c) => c.textContent?.includes("Румен Георгиев Радев"));
+    expect(cell).toBeDefined();
+    // ⚠ AN ACTUAL LINK, not merely the name in a cell. Радев resolves to `/person/mp-5142` in
+    // the committed corpus, so a tile that stopped linking would still pass a text assertion.
+    const link = cell?.querySelector("a");
+    expect(link?.getAttribute("href")).toBe("/person/mp-5142");
+    // The share sits on the same line as the name rather than wrapping under it.
+    expect(cell?.querySelectorAll("br").length ?? 0).toBe(0);
+    expect(cell?.textContent).toContain(formatPct(0.2645, "bg", 1));
   });
 
   it("renders NOTHING when no district could be located", () => {

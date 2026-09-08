@@ -29,6 +29,7 @@ import { ShieldAlert } from "lucide-react";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatInt, formatPct } from "@/lib/currency";
+import { PresidentialPersonName } from "./PresidentialPersonName";
 import {
   hasNeighborhoodContent,
   type NeighborhoodPlace,
@@ -125,11 +126,13 @@ export const PresidentialNeighborhoodsTile: FC<{
           <caption className="sr-only">{t("presidential_hoods_title")}</caption>
           <thead>
             <tr className="text-left text-muted-foreground">
-              <th scope="col">{t("presidential_hoods_col_ticket")}</th>
-              <th scope="col" className="text-right">
+              <th scope="col" className="px-2 py-1.5">
+                {t("presidential_hoods_col_ticket")}
+              </th>
+              <th scope="col" className="px-2 py-1.5 text-right">
                 {t("presidential_hoods_col_here")}
               </th>
-              <th scope="col" className="text-right">
+              <th scope="col" className="px-2 py-1.5 text-right">
                 {t("presidential_hoods_col_national")}
               </th>
             </tr>
@@ -138,13 +141,19 @@ export const PresidentialNeighborhoodsTile: FC<{
             {tickets.slice(0, TOP_TICKETS).map((tk) => (
               <tr key={tk.number} className="border-t">
                 {/* ⚠ BULGARIAN IN BOTH LANGUAGES AND NEVER TRANSLITERATED — a reader is
-                    matching these against a ballot or a protocol scan, both Cyrillic. And NOT
-                    a link: `PresidentialPersonName` would attach this district's figures to a
-                    person's profile, which is a claim about them rather than about seventy
-                    protocols. */}
-                <td>{tk.president}</td>
-                <td className="text-right tabular-nums">{pct(tk.pct, lang)}</td>
-                <td className="text-right tabular-nums text-muted-foreground">
+                    matching these against a ballot or a protocol scan, both Cyrillic.
+                    ⚠ THE SAME LINK RULE AS EVERY OTHER PRESIDENTIAL NAME on this page, through
+                    the one component that owns it — `PresidentialPersonName` refuses a name the
+                    corpus cannot resolve to exactly one person, so it links nobody by
+                    coincidence. A candidate who is a link in the ranking above and bare text
+                    here reads as two different people. */}
+                <td className="px-2 py-1.5">
+                  <PresidentialPersonName name={tk.president} />
+                </td>
+                <td className="whitespace-nowrap px-2 py-1.5 text-right tabular-nums">
+                  {pct(tk.pct, lang)}
+                </td>
+                <td className="whitespace-nowrap px-2 py-1.5 text-right tabular-nums text-muted-foreground">
                   {pct(tk.pctNational, lang)}
                 </td>
               </tr>
@@ -169,18 +178,26 @@ export const PresidentialNeighborhoodsTile: FC<{
             {t("presidential_hoods_places_caption")}
           </caption>
           <thead>
+            {/* ⚠ EVERY CELL IS PADDED, HEADERS INCLUDED. Without it „Недействителни" and
+                „Водеща двойка" touch in the header row and the leading pair's name starts hard
+                against the column before it — measured on 2021, which is the round where the
+                invalid column carries words rather than a short percentage. */}
             <tr className="text-left text-muted-foreground">
-              <th scope="col">{t("presidential_hoods_col_place")}</th>
-              <th scope="col" className="text-right">
+              <th scope="col" className="px-2 py-1.5">
+                {t("presidential_hoods_col_place")}
+              </th>
+              <th scope="col" className="px-2 py-1.5 text-right">
                 {t("presidential_hoods_col_sections")}
               </th>
-              <th scope="col" className="text-right">
+              <th scope="col" className="px-2 py-1.5 text-right">
                 {t("presidential_hoods_col_turnout")}
               </th>
-              <th scope="col" className="text-right">
+              <th scope="col" className="px-2 py-1.5 text-right">
                 {t("presidential_hoods_col_invalid")}
               </th>
-              <th scope="col">{t("presidential_hoods_col_leader")}</th>
+              <th scope="col" className="px-2 py-1.5">
+                {t("presidential_hoods_col_leader")}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -188,7 +205,7 @@ export const PresidentialNeighborhoodsTile: FC<{
               <tr key={p.id} className="border-t">
                 {/* ⚠ A ROW HEADER, NOT A CELL — so „Столипиново" is announced with each figure
                     beside it rather than four bare numbers in a row. */}
-                <th scope="row" className="text-left font-normal">
+                <th scope="row" className="px-2 py-1.5 text-left font-normal">
                   {nameOf(p)}
                   <span className="block text-xs text-muted-foreground">
                     {cityOf(p)}
@@ -205,38 +222,48 @@ export const PresidentialNeighborhoodsTile: FC<{
                     </a>
                   </span>
                 </th>
-                <td className="text-right tabular-nums">
+                <td className="whitespace-nowrap px-2 py-1.5 text-right tabular-nums">
                   {formatInt(p.sections, lang)}
                 </td>
-                <td className="text-right tabular-nums">
+                <td className="whitespace-nowrap px-2 py-1.5 text-right tabular-nums">
                   {pct(p.turnoutPct, lang)}
                 </td>
-                <td className="text-right tabular-nums">
+                <td className="whitespace-nowrap px-2 py-1.5 text-right tabular-nums">
                   {p.invalidPct == null ? (
                     // ⚠⚠ THE SAME RULE AS THE TOTALS LINE ABOVE, and it bites harder here: on
                     // 2021 ALL EIGHT rows are in this state at once, so a bare „—" column reads
                     // as eight holes in our data under a „Недействителни" header — directly
                     // beneath a sentence that has just explained the same state in words.
+                    //
+                    // ⚠ THE CELL MUST ANSWER ITS OWN COLUMN. „на машини" did not: under
+                    // „Недействителни" it reads as a fragment of some other sentence. The
+                    // answer to „how many were invalid" when nothing was on paper is „there
+                    // were no paper ballots", which names the reason in the column's own terms.
                     <span
-                      className="text-muted-foreground"
+                      className="text-xs text-muted-foreground"
                       title={t("presidential_hoods_invalid_unmeasurable", {
                         paper: formatInt(p.paperBallots, lang),
                       })}
                     >
-                      {t("presidential_hoods_invalid_machines_short")}
+                      {t("presidential_hoods_invalid_no_paper")}
                     </span>
                   ) : (
                     pct(p.invalidPct, lang)
                   )}
                 </td>
-                <td>
+                <td className="px-2 py-1.5">
                   {p.leader ? (
-                    <>
-                      {p.leader.president}
-                      <span className="block text-xs text-muted-foreground tabular-nums">
+                    // ⚠ ONE LINE, AND LINKED. The share used to sit in a `block` span under the
+                    // name, which with an unpadded cell wrapped into the row beneath it; and the
+                    // name was bare text while the same candidate is a link in every other
+                    // table on this page. `PresidentialPersonName` is the one component that
+                    // owns that decision and refuses a name the corpus cannot resolve.
+                    <span className="inline-flex flex-wrap items-baseline gap-x-1.5">
+                      <PresidentialPersonName name={p.leader.president} />
+                      <span className="whitespace-nowrap text-xs text-muted-foreground tabular-nums">
                         {pct(p.leader.pct, lang)}
                       </span>
-                    </>
+                    </span>
                   ) : null}
                 </td>
               </tr>
