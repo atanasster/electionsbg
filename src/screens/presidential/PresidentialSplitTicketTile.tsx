@@ -53,18 +53,23 @@ export const PresidentialSplitTicketTile: FC<{ split: SplitTicket }> = ({
       </p>
       <div className="mt-3 overflow-x-auto">
         <table className="w-full text-sm tabular-nums">
+          {/* ⚠ NAMES LEFT, NUMBERS RIGHT — and the `text-left` on `<thead>` reaches ONLY these
+              header cells. A `<th>` defaults to `text-align: center`, so the row headers in
+              `<tbody>` below need their own `text-left`: without it every district name sat
+              centred in its column while the counts beside it sat left, i.e. the site's
+              alignment rule inverted in both columns at once. */}
           <thead className="text-left text-xs text-muted-foreground">
             <tr>
               <th scope="col" className="py-1 pr-3 font-normal">
                 {t("presidential_split_col_pair")}
               </th>
-              <th scope="col" className="py-1 pr-3 font-normal">
+              <th scope="col" className="py-1 pr-3 text-right font-normal">
                 {t("presidential_split_col_ticket")}
               </th>
-              <th scope="col" className="py-1 pr-3 font-normal">
+              <th scope="col" className="py-1 pr-3 text-right font-normal">
                 {t("presidential_split_col_list")}
               </th>
-              <th scope="col" className="py-1 font-normal">
+              <th scope="col" className="py-1 text-right font-normal">
                 {t("presidential_split_col_min")}
               </th>
             </tr>
@@ -72,18 +77,22 @@ export const PresidentialSplitTicketTile: FC<{ split: SplitTicket }> = ({
           <tbody>
             {split.pairs.map((p) => (
               <tr key={p.number} className="border-t">
-                <th scope="row" className="py-1 pr-3 font-normal">
+                <th scope="row" className="py-1 pr-3 text-left font-normal">
                   {p.president}
                   <span className="text-muted-foreground">
                     {" · "}
                     {p.listName}
                   </span>
                 </th>
-                <td className="py-1 pr-3">{formatInt(p.ticketVotes, lang)}</td>
-                <td className="py-1 pr-3">{formatInt(p.listVotes, lang)}</td>
+                <td className="py-1 pr-3 text-right">
+                  {formatInt(p.ticketVotes, lang)}
+                </td>
+                <td className="py-1 pr-3 text-right">
+                  {formatInt(p.listVotes, lang)}
+                </td>
                 {/* ⚠ „ПОНЕ" IS IN THE CELL, not only in the column head — a figure copied out
                     of a table takes its caption with it only if the caption is beside it. */}
-                <td className="py-1">
+                <td className="py-1 text-right">
                   {t("presidential_split_at_least", {
                     votes: formatInt(p.minSplitVoters, lang),
                   })}

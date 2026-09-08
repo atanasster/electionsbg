@@ -196,16 +196,19 @@ export const PresidentialRunoffSwingList: FC<Props> = ({
                     31-row tables differently, in one locale only. */}
                 {t("presidential_col_region")}
               </th>
-              <th scope="col" className="py-1 pr-3 font-normal">
+              {/* ⚠ NAMES LEFT, NUMBERS RIGHT. The `text-left` on `<thead>` reaches only these
+                  header cells — the row header in `<tbody>` carries its own, because a `<th>`
+                  defaults to `text-align: center`. */}
+              <th scope="col" className="py-1 pr-3 text-right font-normal">
                 {t("presidential_pickup_col_votes")}
               </th>
-              <th scope="col" className="py-1 pr-3 font-normal">
+              <th scope="col" className="py-1 pr-3 text-right font-normal">
                 {t("presidential_pickup_col_pool")}
               </th>
-              <th scope="col" className="py-1 pr-3 font-normal">
+              <th scope="col" className="py-1 pr-3 text-right font-normal">
                 {t("presidential_pickup_col_ratio")}
               </th>
-              <th scope="col" className="py-1 font-normal">
+              <th scope="col" className="py-1 text-right font-normal">
                 {t("presidential_pickup_col_turnout")}
               </th>
             </tr>
@@ -219,18 +222,23 @@ export const PresidentialRunoffSwingList: FC<Props> = ({
               const turnout2 = turnoutRate(o.a2, o.reg2);
               return (
                 <tr key={o.oblast} className="border-t">
-                  <th scope="row" className="py-1 pr-3 font-normal">
+                  <th scope="row" className="py-1 pr-3 text-left font-normal">
                     {to ? <Link to={to}>{name}</Link> : name}
                   </th>
-                  <td className="py-1 pr-3">
+                  {/* ⚠ `whitespace-nowrap` ON THE TWO ARROW CELLS. Right-aligned, „56 179 →
+                      67 474" is free to break after the arrow, which would put the second
+                      figure on its own line under the first and read as two rows. */}
+                  <td className="whitespace-nowrap py-1 pr-3 text-right">
                     {formatInt(o.w1, lang)} → {formatInt(o.w2, lang)}
                   </td>
-                  <td className="py-1 pr-3">{formatInt(o.elim, lang)}</td>
-                  <td className="py-1 pr-3">
+                  <td className="py-1 pr-3 text-right">
+                    {formatInt(o.elim, lang)}
+                  </td>
+                  <td className="py-1 pr-3 text-right">
                     {/* ⚠ „—“, NEVER „0%“, where nobody was eliminated. */}
                     {ratio === null ? "—" : formatPct(ratio, lang, 0)}
                   </td>
-                  <td className="py-1">
+                  <td className="whitespace-nowrap py-1 text-right">
                     {turnout1 === null || turnout2 === null
                       ? "—"
                       : `${formatPct(turnout1, lang, 1)} → ${formatPct(turnout2, lang, 1)}`}
