@@ -1081,9 +1081,13 @@ describe("the anomalies section", () => {
         ],
       },
     });
-    const header = await screen.findByText(
-      bgCorpus.presidential_flash_col_president,
-    );
+    // ⚠ BY ROLE, NOT `findByText`. The PlaceViewNav switcher's own "Президент" pill (a fifth
+    // view added alongside this tile) carries the exact same string, so a plain text match is
+    // no longer unique on this page — `columnheader` scopes to the `<th>` deterministically
+    // regardless of what else on the page happens to render the same label.
+    const header = await screen.findByRole("columnheader", {
+      name: bgCorpus.presidential_flash_col_president,
+    });
     // ⚠ SCOPED TO THIS TABLE. „Президент и вицепрезидент" is still on the page and belongs
     // there — the FULL ranking below renders both names — so a document-wide negative would
     // assert the wrong thing and fail for the right reason.

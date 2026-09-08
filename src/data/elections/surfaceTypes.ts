@@ -578,10 +578,18 @@ export const isSplitControl = (
   return Boolean(a && b && a !== b);
 };
 
-/** Cell order — `PlaceViewNav`'s own ORDER, so the two controls cannot disagree. */
+/** Cell order — `PlaceViewNav`'s own ORDER, so the two controls cannot disagree.
+ *
+ *  ⚠ "presidential" IS LISTED HERE BUT `buildPlaceDigest` HAS NO CELL FOR IT — the ORDER
+ *  gate compares this array against the pill row's positionally, not against which views
+ *  actually produce a digest cell. `placeDigestFacts.ts`'s `byView` Map carries no
+ *  "presidential" entry, so `.get("presidential")` returns `undefined` and the filter drops
+ *  it, the same as any other view whose cell builder declined — no crash, no card, exactly
+ *  today's behaviour for a place the presidential corpus does not cover. */
 export const PLACE_DIGEST_ORDER = [
   "governance",
   "parliamentary",
+  "presidential",
   "local",
   "consumption",
 ] as const satisfies readonly PlaceViewName[];
@@ -599,8 +607,9 @@ export const PLACE_DIGEST_LINK_VIEWS = [
 ] as const satisfies readonly PlaceViewName[];
 
 /** ⚠️ DERIVED, NEVER RESTATED. `as const satisfies` is what makes this possible: a plain
- *  `readonly PlaceViewName[]` annotation widens the element type back to all four members,
- *  so `as const` contributes nothing and `[number]` is useless. With `satisfies` the literal
+ *  `readonly PlaceViewName[]` annotation widens the element type back to the full
+ *  `PlaceViewName` union, so `as const` contributes nothing and `[number]` is useless. With
+ *  `satisfies` the literal
  *  tuple survives AND a typo still errors — so moving a view between the two lists moves the
  *  cell types with it, instead of leaving them silently stating the old split. */
 export type PlaceDigestFigureView = (typeof PLACE_DIGEST_FIGURE_VIEWS)[number];

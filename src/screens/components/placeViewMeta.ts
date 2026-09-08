@@ -10,6 +10,7 @@
 import {
   Scale,
   Landmark,
+  Crown,
   Building2,
   ShoppingBasket,
   LucideIcon,
@@ -39,6 +40,13 @@ export const PLACE_VIEW_META: Record<
     border: "border-l-sky-500",
     text: "text-sky-600 dark:text-sky-400",
     activePill: "bg-sky-600 text-white",
+  },
+  presidential: {
+    icon: Crown,
+    labelKey: "cross_to_presidential",
+    border: "border-l-violet-500",
+    text: "text-violet-600 dark:text-violet-400",
+    activePill: "bg-violet-600 text-white",
   },
   local: {
     icon: Building2,

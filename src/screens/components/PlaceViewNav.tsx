@@ -1,16 +1,22 @@
-// Segmented switcher mounted at the top of a place's four "views" — the
+// Segmented switcher mounted at the top of a place's five "views" — the
 // Governance dashboard (how the place is run now), the parliamentary-elections
-// results, the local-elections results, and the Consumption / cost-of-living
-// view. It lets a reader pivot between the four angles on the SAME place (e.g.
-// район Средец) without going back through search. The Governance and
-// Consumption pills resolve at every tier (country → settlement) except a
-// polling section.
+// results, the presidential-elections results, the local-elections results, and
+// the Consumption / cost-of-living view. It lets a reader pivot between the five
+// angles on the SAME place (e.g. район Средец) without going back through
+// search. The Governance and Consumption pills resolve at every tier
+// (country → settlement) except a polling section.
 //
-// All four URLs are pure rewrites of the shared geographic identifiers —
-// see placeViews.ts. The local pill self-hides when the place has no data
-// in the active local cycle (the cycle index is the guard, same rule as
-// CrossElectionLink's ToLocalLink). The whole control hides when fewer than
-// two views are reachable (nothing to switch to).
+// Governance/parliamentary/consumption/local are pure rewrites of the shared
+// geographic identifiers — see placeViews.ts. Presidential is the one exception:
+// presidentialViewUrl (data/elections/presidentialViewUrl.ts) resolves whenever
+// the CODE SHAPE is one it can place, without checking whether that cycle
+// actually published a surface there, because an uncovered presidential place
+// still renders an honest "not published" page rather than a dead link — see
+// that file's header. The local pill is different: it self-hides when the place
+// has no data in the active local cycle (the cycle index is the guard, same rule
+// as CrossElectionLink's ToLocalLink), because that destination is a genuine
+// 404. The whole control hides when fewer than two views are reachable (nothing
+// to switch to).
 //
 // The active view always renders (highlighted, non-clickable) so the control
 // reads as "you are here / here is where else you can go". Each view owns one
@@ -34,12 +40,15 @@ import {
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
+import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
+import { presidentialViewUrl } from "@/data/elections/presidentialViewUrl";
 import { PLACE_VIEW_META } from "./placeViewMeta";
 
 // Stable left-to-right order of the views.
 const ORDER: PlaceView[] = [
   "governance",
   "parliamentary",
+  "presidential",
   "local",
   "consumption",
 ];
@@ -67,6 +76,7 @@ export const PlaceViewNav: FC<Props> = ({
   const { search } = useLocation();
   const cycle = useLatestLocalCycle();
   const { data: index } = useLocalElectionIndex(cycle);
+  const presidentialCycle = useLatestPresidentialCycle();
 
   const place = { level, ekatte, obshtina, oblast };
 
@@ -97,6 +107,8 @@ export const PlaceViewNav: FC<Props> = ({
     if (view === "governance") return governanceUrl(place);
     if (view === "parliamentary") return parliamentaryUrl(place);
     if (view === "consumption") return consumptionUrl(place);
+    if (view === "presidential")
+      return presidentialViewUrl(place, presidentialCycle);
     return localAvailable ? localUrl(place, cycle) : null;
   };
 

@@ -46,6 +46,7 @@ export type PlaceLevel =
 export type PlaceView =
   | "governance"
   | "parliamentary"
+  | "presidential"
   | "local"
   | "consumption";
 
@@ -217,6 +218,14 @@ export const placeViewUrl = (
       return consumptionUrl(p);
     case "local":
       return cycle ? localUrl(p, cycle) : null;
+    case "presidential":
+      // ⚠ STUBBED, NOT WIRED — presidentialViewUrl (data/elections/presidentialViewUrl.ts)
+      // needs the PRESIDENTIAL cycle, not the `cycle` this dispatcher takes (which is the
+      // local one), and importing it here would cycle back through presidentialRoutes.ts,
+      // which already imports ABROAD_OBLAST from this file. PlaceViewNav calls
+      // presidentialViewUrl directly instead; no current caller of this dispatcher passes
+      // "presidential".
+      return null;
   }
 };
 

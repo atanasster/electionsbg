@@ -25,6 +25,7 @@ import { usePresidentialSummary } from "@/data/presidential/usePresidentialSumma
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
 // ⚠ THE PARLIAMENTARY DASHBOARD'S OWN SECTION SHELL, imported rather than reproduced — the same
 // argument `ElectionFactsGrid` below is imported on. Every analysis section on `/parliamentary`
 // is a `DashboardSection` (micro-caps kicker, icon, trailing rule); this page was hand-rolling
@@ -703,11 +704,14 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
             OUTSIDE the surface boundary, and this page has no artifact at all, being served
             from the canonical summary. A future LIVE cycle must read the producer's answer
             rather than this literal. */}
-        <ElectionScopeBar
-          cycle={shown.date || summary.round1Date}
-          status="final"
-          round={shown.round}
-        />
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <PlaceViewNav active="presidential" level="country" align="start" />
+          <ElectionScopeBar
+            cycle={shown.date || summary.round1Date}
+            status="final"
+            round={shown.round}
+          />
+        </div>
         <p className="mt-1 text-sm">
           {t(
             summary.decidedInRound === 1

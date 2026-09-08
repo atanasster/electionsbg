@@ -10,6 +10,11 @@
 // „Този парламент · 2026-04-19" on all 31 surfaces that mount it. `formatDate` also pins
 // `timeZone: "UTC"` for a date-only value, without which a calendar day renders as the previous
 // one for every reader west of Greenwich — which shipped on 613 pages.
+//
+// ⚠ "final" IS OMITTED, NOT LABELLED. It is the common case — nearly every page on the site
+// shows final results — so spelling it out on every one is boilerplate rather than information.
+// The other four statuses (projection/provisional/runoff_pending/partial_election) DO say so,
+// because each is the exception a reader needs to be told about.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -29,6 +34,8 @@ export const ElectionScopeBar: FC<{
 }> = ({ cycle, status, round, className }) => {
   const { t, i18n } = useTranslation();
   const iso = /^\d{4}-\d{2}-\d{2}$/.test(cycle) ? cycle : cycleIsoDate(cycle);
+  const hasRound = round !== undefined;
+  const showStatus = status !== "final";
   return (
     <p
       className={`text-sm text-muted-foreground ${className ?? ""}`}
@@ -41,14 +48,18 @@ export const ElectionScopeBar: FC<{
       {iso ? (
         <span data-scope-cycle>{formatDate(iso, i18n.language)}</span>
       ) : null}
-      {iso ? " · " : null}
-      {round !== undefined ? (
+      {hasRound ? (
         <>
+          {iso ? " · " : null}
           <span data-scope-round>{t("election_round", { round })}</span>
-          {" · "}
         </>
       ) : null}
-      <span>{t(STATUS_LABEL_KEYS[status])}</span>
+      {showStatus ? (
+        <>
+          {iso || hasRound ? " · " : null}
+          <span>{t(STATUS_LABEL_KEYS[status])}</span>
+        </>
+      ) : null}
     </p>
   );
 };

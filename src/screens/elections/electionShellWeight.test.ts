@@ -169,8 +169,20 @@ const CRITICAL_PATH_BR = 363_000;
  *  So the rule is not „an adapter is ~30 B" but „~30 B when it shares its imports with one
  *  already registered, and a re-split otherwise". Measure rather than assume when the next
  *  adapter reaches a module no other one touches.
+ *
+ *  **11,680 → 11,810 (measured 11,735), 2026-09-08 — the „final" status is omitted, not
+ *  labelled.** `ElectionScopeBar` used to render `STATUS_LABEL_KEYS[status]` unconditionally;
+ *  it is the common case — nearly every page on the site shows final results — so it now
+ *  renders nothing for `status="final"` and keeps the other four (a reader DOES need to be
+ *  told about a projection, a provisional count, a pending runoff or a partial election).
+ *
+ *  ⚠ +55 B FOR A CONDITIONAL, not a new feature area. With the status span sometimes absent,
+ *  the separators either side of it have to depend on which of the three segments (date /
+ *  round / status) actually render, which the previous unconditional-status shape never
+ *  needed. That branching is the whole of the growth. Measured by reverting only
+ *  `ElectionScopeBar.tsx`: the gate passes without it and fails with it.
  */
-const SHELL_BUDGET_BR = 11_680;
+const SHELL_BUDGET_BR = 11_810;
 
 /** ⚠ `splitting: true`, AND IT IS THE WHOLE MEASUREMENT. Without it esbuild inlines every
  *  `import()` into one bundle, so the moment a real map adapter was registered the "shell's own
@@ -235,11 +247,11 @@ describe("the shell's own weight", () => {
     expect(br, `the shell grew to ${br} B brotli`).toBeLessThanOrEqual(
       SHELL_BUDGET_BR,
     );
-    // Recorded against §10.1's total, as item 4 asks: 3.20% of the critical path today, up from
-    // ~2.5%. ⚠ THE BOUND TRACKS THE BUDGET ABOVE (11,680 / 363,000 = 3.22%) so that a change
+    // Recorded against §10.1's total, as item 4 asks: 3.23% of the critical path today, up from
+    // ~2.5%. ⚠ THE BOUND TRACKS THE BUDGET ABOVE (11,810 / 363,000 = 3.25%) so that a change
     // which passes the byte budget cannot fail here instead — two ratchets on one number, one of
     // which nobody remembers to update, is how a gate starts failing for the wrong reason.
-    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.0323);
+    expect(br / CRITICAL_PATH_BR).toBeLessThan(0.0326);
   });
 
   it("is not measuring an empty bundle", { timeout: 60_000 }, async () => {
