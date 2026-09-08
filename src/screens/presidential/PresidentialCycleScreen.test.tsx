@@ -1063,6 +1063,46 @@ describe("the anomalies section", () => {
     expect(screen.getByText("СКРИНИНГОВАТА ОГРАДА")).toBeTruthy();
   });
 
+  it("names the flash column after the president alone, and links them", async () => {
+    // ⚠ THE HEADER USED TO SAY „Президент и вицепрезидент" while the column renders ONLY the
+    // president — `presidential_col_pair` belongs to the full ranking, which shows both. A
+    // header naming a person the row does not carry is a claim about whose votes these are.
+    serve({
+      "national_summary.json": SUMMARY,
+      "flash.json": FLASH,
+      "tickets.json": {
+        cycle: LATEST_PRESIDENTIAL_CYCLE,
+        tickets: [
+          {
+            number: 6,
+            president: "Румен Георгиев Радев",
+            vicePresident: "Илияна Малинова Йотова",
+          },
+        ],
+      },
+    });
+    const header = await screen.findByText(
+      bgCorpus.presidential_flash_col_president,
+    );
+    // ⚠ SCOPED TO THIS TABLE. „Президент и вицепрезидент" is still on the page and belongs
+    // there — the FULL ranking below renders both names — so a document-wide negative would
+    // assert the wrong thing and fail for the right reason.
+    const flashTable = header.closest("table");
+    expect(flashTable?.textContent).not.toContain(
+      bgCorpus.presidential_col_pair,
+    );
+    // ⚠ AN ACTUAL LINK, AND SCOPED TO THIS TABLE. Радев resolves to `/person/mp-5142` in the
+    // committed corpus, so a tile that stopped linking would still pass a text assertion — and
+    // he is named in the ranking below too, so an unscoped lookup matches the wrong element.
+    const cell = [...(flashTable?.querySelectorAll("tbody td") ?? [])].find(
+      (c) => c.textContent?.includes("Румен Георгиев Радев"),
+    );
+    expect(cell).toBeDefined();
+    expect(cell?.querySelector("a")?.getAttribute("href")).toBe(
+      "/person/mp-5142",
+    );
+  });
+
   it("renders the heading for the flash records alone — either tile is enough", async () => {
     // The two artifacts have different publish paths and 2021 is the only cycle with flash
     // records at all, so gating the section on both would hide one that is there.

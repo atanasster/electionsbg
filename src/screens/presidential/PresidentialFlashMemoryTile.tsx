@@ -23,6 +23,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatInt, formatPct } from "@/lib/currency";
 import { useFlashDiff } from "@/data/presidential/useFlashDiff";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
+import { PresidentialPersonName } from "./PresidentialPersonName";
 
 /** ⚠ ZERO IS ITS OWN CASE AND STAYS MUTED. A green „0" reads as a gain and a red one as a
  *  problem; an exact match between two independent documents is neither. */
@@ -67,7 +68,11 @@ export const PresidentialFlashMemoryTile: FC<{
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-muted-foreground">
-              <th scope="col">{t("presidential_col_pair")}</th>
+              {/* ⚠ „Президент", NOT „Президент и вицепрезидент". `presidential_col_pair` is
+                  the FULL ranking's header, where both names are rendered; this column carries
+                  the president alone, and a header naming a person the row does not show is a
+                  claim about whose votes these are. */}
+              <th scope="col">{t("presidential_flash_col_president")}</th>
               <th scope="col" className="text-right">
                 {t("presidential_flash_col_protocol")}
               </th>
@@ -96,9 +101,18 @@ export const PresidentialFlashMemoryTile: FC<{
                         />
                       ) : null}
                       {/* ⚠ THE NUMBER IS THE FALLBACK, never a blank: a row with a real vote
-                          count and no name attributes it to nobody. */}
+                          count and no name attributes it to nobody — and a bare ticket number
+                          is never a link, because it names no one to link to.
+                          ⚠ THE SAME LINK RULE AS EVERY OTHER PRESIDENTIAL NAME on this page,
+                          through the one component that owns it — it refuses a name the corpus
+                          cannot resolve to exactly one person, so nobody is linked by
+                          coincidence. */}
                       <span className="truncate">
-                        {ticket?.president ?? r.number}
+                        {ticket?.president ? (
+                          <PresidentialPersonName name={ticket.president} />
+                        ) : (
+                          r.number
+                        )}
                       </span>
                     </span>
                   </td>
