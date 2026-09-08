@@ -1254,12 +1254,6 @@ const MunicipalityResults: FC<{
           // includes `turnout`, unlike country's and region's — 511 of 578 published surfaces
           // render three and 67 render four.
           //
-          // ⚠ STILL NO MAP, and now for a measured reason rather than „no adapter exists".
-          // This level's slot is the mayor ballot at SECTION grain — a marker map — and the
-          // stations carry no coordinates: 0 of 289 município shards in the committed 2023
-          // corpus, and the same on the live bucket. `LocalMunicipalityMap` is written and
-          // deliberately UNREGISTERED until a backfill lands; see `electionMapSlots.ts`.
-          //
           // ⚠ `rows` IS PER CANVAS BECAUSE THE TWO BALLOTS ARE NOT THE SAME SHAPE, and the
           // „reserve the tallest" rule above does not survive being applied to both at once.
           // All 578 pages publish the mayor ballot first and the council ballot second; the
@@ -1268,12 +1262,19 @@ const MunicipalityResults: FC<{
           // single value of 5 — `[2, 8]` costs 2.19. The ORDER is the whole risk of the array
           // form and is pinned in `declaredColumns.data.test.ts` against the corpus, kind by
           // kind, because reversed it still type-checks and still renders two tables.
+          //
+          // ⚠ `withMap` IS NOW TRUE. This level's slot is the mayor ballot at SECTION grain —
+          // a marker map — and it was reserved as absent while the stations carried no
+          // coordinates (0 of 289 município shards). `backfillLocalSectionCoords` has since
+          // been run (99% coverage) and `local/municipality/winner` registered in
+          // `electionMapSlots.ts`; reserving no space here would now be the layout shift in
+          // the other direction, the exact defect this skeleton exists to prevent.
           skeleton={
             <ElectionSurfaceSkeleton
               facts={4}
               canvases={2}
               rows={[2, 8]}
-              withMap={false}
+              withMap={true}
             />
           }
           fallback={null}

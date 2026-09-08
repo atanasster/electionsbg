@@ -165,20 +165,19 @@ export const MAP_ADAPTERS: Partial<
   // `ballot` prop. It costs no data fetch: the region rollup it colours by is the file the
   // region dashboard already loads for its tables.
   "local/region/winner": () => import("./adapters/LocalRegionMap"),
-  // ⚠⚠ NO `local/municipality` ENTRY, AND IT IS A CORPUS MEASUREMENT RATHER THAN A DESIGN
-  // CHOICE. That level's one map slot is the MAYOR ballot at `section` grain — a per-station
-  // marker map — and the stations have no coordinates to plot. `LocalSectionResult.longitude`
-  // is backfilled from the parliamentary section archive
-  // (`scripts/parsers_local/backfill_local_section_coords.ts`), and measured 2026-09-07 across
-  // the committed 2023 corpus: **0 of 289 município shards carry a single coordinate** — and
-  // the same is true of the LIVE bucket copy, checked directly rather than inferred from the
-  // local tree.
+  // The município's mayor race, at `section` grain — a per-station marker map.
   //
-  // So `LocalMunicipalityMap` exists, is correct, and self-hides everywhere. Registering it
-  // would put „Как е гласувано за кмет по секции?" over an empty slot on all 289 municipality
-  // pages — a question the page asks and cannot answer, which is worse than the „картата не е
-  // налична" line an unregistered key renders. Register it in the same change that backfills
-  // the coordinates, not before; the adapter is ready and the gate below will notice.
+  // ⚠ REGISTERED ONLY ONCE THE COORDINATES EXIST, AND THAT IS THE WHOLE HISTORY OF THIS ENTRY.
+  // `LocalSectionResult.longitude` is backfilled from the parliamentary section archive
+  // (`scripts/parsers_local/backfill_local_section_coords.ts` — idempotent, no network), and it
+  // measured 0 of 289 município shards with a coordinate until the backfill was actually RUN
+  // (2026-09-08: 99% coverage, 13,154 building + 687 village of 13,942 sections for 2023_10_29_mi).
+  // Before that this key was deliberately absent — registering it over an empty coordinate set
+  // would have put „Как е гласувано за кмет по секции?" over a blank slot on all 289 municipality
+  // pages, worse than the „картата не е налична" line an unregistered key renders. Re-run the
+  // backfill (folded into `--all`) after any local-cycle re-ingest or a fresh parliamentary
+  // cycle lands new coordinates; it is what keeps this entry meaningful rather than a one-time fix.
+  "local/municipality/winner": () => import("./adapters/LocalMunicipalityMap"),
   // ⚠⚠ NO `local/settlement` ENTRY, AND IT IS A DATA REFUSAL RATHER THAN AN OMISSION.
   //
   // That level declares ONE ballot — `settlement_mayor`, the кметство's own mayoral contest —
