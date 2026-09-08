@@ -17,6 +17,10 @@
 
 import { FC, Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
+import { Shuffle } from "lucide-react";
+// ⚠ THE PARLIAMENTARY DASHBOARD'S SECTION SHELL, so this page's analysis sections wear the same
+// micro-caps kicker the country page's do — see `PresidentialCycleScreen`'s import note.
+import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { useOblastTransfer } from "@/data/presidential/useOblastTransfer";
 import { TRANSFER_LEVELS } from "./transferLevels";
 import type { PresidentialPlaceLevel } from "./PresidentialPlaceScreen";
@@ -49,10 +53,12 @@ export const PresidentialPlaceTransfer: FC<{
   // reader cannot act on is worse than a missing section.
   if (state.status !== "ready") return null;
   return (
-    <section aria-labelledby="pvr-place-transfer" className="space-y-2">
-      <h2 id="pvr-place-transfer" className="text-lg font-semibold">
-        {t("presidential_transfer_heading")}
-      </h2>
+    <DashboardSection
+      id="presidential-transfer"
+      title={t("presidential_transfer_heading")}
+      icon={Shuffle}
+      headingLevel={2}
+    >
       {/* ⚠ THE FALLBACK RESERVES HEIGHT rather than being `null`. This file's own rule is that
           a heading over an empty box reports a routine absence as a defect — and with no
           fallback that is exactly the visible state while the chart chunk downloads on a cold
@@ -66,6 +72,6 @@ export const PresidentialPlaceTransfer: FC<{
       >
         <OblastTransferTile transfer={state.transfer} />
       </Suspense>
-    </section>
+    </DashboardSection>
   );
 };

@@ -44,6 +44,7 @@ import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { personHrefForTicket } from "@/data/presidential/ticketPersons";
 import { PresidentialPlaceTransfer } from "./PresidentialPlaceTransfer";
+import { PresidentialPlaceNeighborhoods } from "./PresidentialPlaceNeighborhoods";
 import type { ElectionPlaceLevel } from "@/data/elections/surfaceTypes";
 
 /** The levels this screen serves.
@@ -193,6 +194,10 @@ export const PresidentialPlaceScreen: FC<{
           `level === "region"` written here: that is a fact about the corpus, and this screen
           has no other reason to hold one. */}
       <PresidentialPlaceTransfer cycle={cycle} level={level} id={id} />
+      {/* ⚠ OUTSIDE THE BOUNDARY FOR THE SAME REASON AS THE TRANSFER ABOVE — a different
+          artifact with a different publish path — and self-hiding at every level and place
+          that has no catalogued district, which is almost all of them. */}
+      <PresidentialPlaceNeighborhoods cycle={cycle} level={level} id={id} />
     </section>
   );
 };

@@ -48,7 +48,24 @@ const place = (over: Record<string, unknown> = {}) => ({
   sections: 70,
   valid: 18997,
   ...rates(),
-  leader: { number: 13, president: "Румен Георгиев Радев", pct: 26.45 },
+  oblasts: ["PDV-00"],
+  obshtini: ["PDV22"],
+  ekattes: ["56784"],
+  tickets: [
+    {
+      number: 13,
+      president: "Румен Георгиев Радев",
+      votes: 5025,
+      pct: 26.45,
+      pctNational: 25.44,
+    },
+  ],
+  leader: {
+    number: 13,
+    president: "Румен Георгиев Радев",
+    votes: 5025,
+    pct: 26.45,
+  },
   ...over,
 });
 
@@ -138,6 +155,61 @@ describe("isPresidentialNeighborhoods", () => {
         payload({ places: [place(over)], coverage: { ...payload().coverage } }),
       ),
     ).toBe(false);
+  });
+
+  it.each([
+    ["no oblast list", { oblasts: undefined }],
+    ["a code list that is not a list", { ekattes: "56784" }],
+    ["a non-string code", { obshtini: [42] }],
+  ])("refuses a place with %s", (_name, over) => {
+    // ⚠⚠ A MISSING LIST AND AN EMPTY ONE ARE DIFFERENT ANSWERS, and only the second is
+    // publishable. Absent, `placeInScope` would have nothing to test and a place-scoped page
+    // would either show every district everywhere or none anywhere — silently, since the
+    // country page keeps rendering either way.
+    expect(
+      isPresidentialNeighborhoods(payload({ places: [place(over)] })),
+    ).toBe(false);
+  });
+
+  it("ACCEPTS a place with EMPTY code lists — Sofia's districts are unplaced", () => {
+    // ⚠ THE MUTATION CHECK for the arms above. The placement pass refuses Филиповци and
+    // Факултета in every cycle, so a guard that required a non-empty list would take two of
+    // eight districts off the country page as well.
+    expect(
+      isPresidentialNeighborhoods(
+        payload({ places: [place({ obshtini: [], ekattes: [] })] }),
+      ),
+    ).toBe(true);
+  });
+
+  it.each([
+    ["no per-district tickets", { tickets: undefined }],
+    ["an unnamed per-district ticket", { tickets: [{ number: 1, votes: 1 }] }],
+  ])("refuses a place with %s", (_name, over) => {
+    // ⚠ A PLACE PAGE AGGREGATES THESE. Without them a region page can only publish the
+    // COUNTRY's shares under a place's name.
+    expect(
+      isPresidentialNeighborhoods(payload({ places: [place(over)] })),
+    ).toBe(false);
+  });
+
+  it("refuses a leader with no vote count, and ACCEPTS a null leader", () => {
+    // ⚠ The table prints the count beside the share, so a leader missing it renders a blank
+    // cell in a „Гласа" column; `null` is a published answer („no ticket took a vote here").
+    expect(
+      isPresidentialNeighborhoods(
+        payload({
+          places: [
+            place({ leader: { number: 13, president: "Радев", pct: 26.45 } }),
+          ],
+        }),
+      ),
+    ).toBe(false);
+    expect(
+      isPresidentialNeighborhoods(
+        payload({ places: [place({ leader: null })] }),
+      ),
+    ).toBe(true);
   });
 
   it("refuses a rates block with no actual-voter denominator", () => {

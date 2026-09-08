@@ -65,7 +65,26 @@ export interface NeighborhoodPlace {
   invalidPct: number | null;
   additionalPct: number | null;
   paperBallots: number;
-  leader: { number: number; president: string; pct: number } | null;
+  /** ⚠ THE „ГЛАСУВАЛИ" COLUMN, and it is the protocols' own count rather than `valid` — a
+   *  voter who spoiled a ballot voted. The two are close and not equal. */
+  actualVoters: number;
+  /** ⚠ WHERE THE DISTRICT'S STATIONS SIT — ARRAYS, because a neighbourhood is not an
+   *  administrative unit. ⚠⚠ ALL THREE CAN BE EMPTY: the placement pass refuses Sofia's
+   *  Филиповци and Факултета in every cycle (no município, no ЕКАТТЕ) and on 2011 gives them no
+   *  oblast either. A place page reads an empty list as „not here", never as a hole in the
+   *  corpus — the country page still carries the district. */
+  oblasts: string[];
+  obshtini: string[];
+  ekattes: string[];
+  /** ⚠ THE SAME TICKET SET AS THE TOP-LEVEL ARRAY, per district, so a place-scoped view can
+   *  re-aggregate its own answer instead of showing the country's under a place's name. */
+  tickets: NeighborhoodTicket[];
+  leader: {
+    number: number;
+    president: string;
+    votes: number;
+    pct: number;
+  } | null;
 }
 
 export interface PresidentialNeighborhoods {
@@ -111,6 +130,32 @@ const isRates = (v: unknown): v is NeighborhoodRates => {
   );
 };
 
+/** ⚠ ONE PREDICATE FOR BOTH TICKET ARRAYS — the top-level one and every district's. Written
+ *  twice, the district arm is the copy that quietly stops checking. */
+const isTicket = (t: unknown): t is NeighborhoodTicket => {
+  if (typeof t !== "object" || t === null) return false;
+  const x = t as Record<string, unknown>;
+  return (
+    num(x.number) &&
+    str(x.president) &&
+    num(x.votes) &&
+    num(x.pct) &&
+    num(x.pctNational)
+  );
+};
+
+const isLeader = (v: unknown): v is NeighborhoodPlace["leader"] => {
+  if (v === null) return true;
+  if (typeof v !== "object") return false;
+  const x = v as Record<string, unknown>;
+  return num(x.number) && str(x.president) && num(x.votes) && num(x.pct);
+};
+
+/** An array of place codes: present, and every entry a string. EMPTY IS VALID — see
+ *  `NeighborhoodPlace.oblasts`. */
+const codes = (v: unknown): v is string[] =>
+  Array.isArray(v) && v.every((c) => str(c));
+
 export const isPresidentialNeighborhoods = (
   v: unknown,
 ): v is PresidentialNeighborhoods => {
@@ -138,21 +183,7 @@ export const isPresidentialNeighborhoods = (
   // ⚠ EVERY LEAF A ROW DEREFERENCES. A ticket with no name renders as a blank row beside a
   // percentage on a list about vote-buying risk, which attributes the figure to nobody a reader
   // can check — and a place with no name does the same one table down.
-  if (
-    !(o.tickets as unknown[]).every((t) => {
-      const x = t as Record<string, unknown>;
-      return (
-        typeof t === "object" &&
-        t !== null &&
-        num(x.number) &&
-        str(x.president) &&
-        num(x.votes) &&
-        num(x.pct) &&
-        num(x.pctNational)
-      );
-    })
-  )
-    return false;
+  if (!(o.tickets as unknown[]).every(isTicket)) return false;
   return (o.places as unknown[]).every((p) => {
     const x = p as Record<string, unknown>;
     return (
@@ -160,6 +191,17 @@ export const isPresidentialNeighborhoods = (
       p !== null &&
       str(x.id) &&
       str(x.name_bg) &&
+      // ⚠ THE PLACE CODES ARE REQUIRED AND MAY BE EMPTY — a missing ARRAY and an empty one are
+      // different answers, and only the second is publishable. Absent, a place-scoped view
+      // silently shows every district on every page.
+      codes(x.oblasts) &&
+      codes(x.obshtini) &&
+      codes(x.ekattes) &&
+      Array.isArray(x.tickets) &&
+      (x.tickets as unknown[]).every(isTicket) &&
+      // ⚠ NULL IS A PUBLISHED ANSWER („no ticket took a vote here"); a leader missing its vote
+      // count is not, because the table prints that count beside the share.
+      isLeader(x.leader) &&
       // ⚠⚠ THE SOURCE IS AN INVARIANT, NOT A DECORATION, and it stands with `basis` rather
       // than below it. „Рисков" is somebody else's published finding; a row that cannot link
       // to it presents that finding as this site's own — and with the attribute absent React

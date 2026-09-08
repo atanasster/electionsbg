@@ -1178,7 +1178,27 @@ describe("the risk-votes section", () => {
         sections: 70,
         valid: 18997,
         ...rates,
-        leader: { number: 6, president: "Румен Георгиев Радев", pct: 26.45 },
+        // ⚠ THE PLACE CODES AND THE PER-DISTRICT TICKETS ARE REQUIRED LEAVES. The hook's guard
+        // refuses a payload without them, and a fixture that omitted them would make this whole
+        // describe assert the SECTION IS ABSENT while believing it had published one.
+        oblasts: ["PDV-00"],
+        obshtini: ["PDV22"],
+        ekattes: ["56784"],
+        tickets: [
+          {
+            number: 6,
+            president: "Румен Георгиев Радев",
+            votes: 5025,
+            pct: 26.45,
+            pctNational: 21.96,
+          },
+        ],
+        leader: {
+          number: 6,
+          president: "Румен Георгиев Радев",
+          votes: 5025,
+          pct: 26.45,
+        },
       },
     ],
   };

@@ -54,6 +54,7 @@ import { LocalMayorRunoffBar } from "./dashboard/local/LocalMayorRunoffBar";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { LocalSectionsMapTile } from "./dashboard/local/LocalSectionsMapTile";
 import { LocalProblemVotesByPartyTile } from "./dashboard/local/LocalProblemVotesByPartyTile";
+import { LocalProblemSectionsTile } from "./dashboard/local/LocalProblemSectionsTile";
 import { useLocalProblemSections } from "@/data/local/useLocalProblemSections";
 import { TopMayorsTile } from "./dashboard/local/TopMayorsTile";
 import { TopCouncilPartiesTile } from "./dashboard/local/TopCouncilPartiesTile";
@@ -1509,6 +1510,15 @@ const MunicipalityResults: FC<{
           title={t("dashboard_section_neighborhoods")}
           icon={ShieldAlert}
         >
+          {/* ⚠ THE DISTRICTS FIRST, THEN HOW THE VOTE SPLIT INSIDE THEM — the parliamentary
+              and presidential dashboards' order for the same block. This half was missing
+              until now, so the section published a split with nothing to say what it was a
+              split OF. */}
+          <LocalProblemSectionsTile
+            obshtinaCode={problemParent}
+            rayonCode={problemRayonCode}
+            cycle={cycle}
+          />
           <LocalProblemVotesByPartyTile
             obshtinaCode={problemParent}
             rayonCode={problemRayonCode}
@@ -2007,6 +2017,11 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
           title={t("dashboard_section_neighborhoods")}
           icon={ShieldAlert}
         >
+          <LocalProblemSectionsTile
+            obshtinaCode={rayon.obshtina}
+            rayonCode={rayon.code}
+            cycle={cycle}
+          />
           <LocalProblemVotesByPartyTile
             obshtinaCode={rayon.obshtina}
             rayonCode={rayon.code}

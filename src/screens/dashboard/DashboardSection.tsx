@@ -47,6 +47,17 @@ export type DashboardSectionIdProp =
   | "local-extraordinary"
   | "local-history"
   | "local-overview"
+  // The presidential country page's own sections. ⚠ THE THREE IT SHARES WITH THE PARLIAMENTARY
+  // DASHBOARD — `geography`, `anomalies`, `neighborhoods` — are NOT restated here: they are
+  // already `DashboardSectionId`s, and minting `presidential-geography` beside them would give
+  // one question two ids and let the two pages drift apart in ordering and in article topics.
+  | "presidential-rule"
+  | "presidential-ranking"
+  | "presidential-turnout"
+  | "presidential-abroad"
+  | "presidential-swing"
+  | "presidential-transfer"
+  | "presidential-split"
   | "sources"
   | "changes"
   | "downloads"

@@ -183,11 +183,43 @@ export interface NeighborhoodRates {
   actualVoters: number;
 }
 
+/**
+ * Which places a district's matched stations sit in — ARRAYS, because a district is a
+ * neighbourhood and not an administrative unit, so nothing guarantees it falls inside one
+ * ЕКАТТЕ.
+ *
+ * ⚠⚠ ALL THREE CAN BE EMPTY, AND THAT IS NOT „NOWHERE". This producer reads the
+ * placement-REFUSED shard deliberately — see the loop's own note, where skipping it cost four
+ * of eight districts on 2011 — and those rows carry no `ekatte`, no `obshtina` and, on 2011,
+ * no `oblast` either. Measured over the five committed cycles at round 1:
+ *
+ *     cycle   fully placed   oblast only   nothing
+ *     2001         10,457          1,600         0
+ *     2006         10,138          1,527         0
+ *     2011         10,208             61     1,354
+ *     2016         10,557          1,458         0
+ *     2021         10,887          1,601         0
+ *
+ * So Sofia's Филиповци and Факултета carry an oblast and no município in four cycles and
+ * NOTHING in 2011. A place page reads an empty list as „not here"; dropping the district
+ * instead would be worse, because the country page would lose a row the protocols do answer
+ * for.
+ */
+export interface NeighborhoodPlaceCodes {
+  /** Oblast codes, e.g. `PDV-00`, `S25`. */
+  oblasts: string[];
+  /** Municipality codes, e.g. `PDV22`. */
+  obshtini: string[];
+  /** Settlement ЕКАТТЕ, e.g. `56784`. */
+  ekattes: string[];
+}
+
 /** ⚠ IT EXTENDS THE RATES rather than restating three of the four. The literal spreads
  *  `...ratesOf(acc)`, and TypeScript applies no excess-property check to a spread — so a
  *  hand-kept copy of the field list compiles while describing an artifact that carries more
  *  than it says, which is what a producer-side reader would then trust. */
-export interface NeighborhoodPlace extends NeighborhoodRates {
+export interface NeighborhoodPlace
+  extends NeighborhoodRates, NeighborhoodPlaceCodes {
   id: string;
   name_bg: string;
   name_en: string;
@@ -197,7 +229,20 @@ export interface NeighborhoodPlace extends NeighborhoodRates {
   sections: number;
   /** ⚠ THE PUBLISHED BASE — tickets plus „не подкрепям никого", per `denomOf`. */
   valid: number;
-  leader: { number: number; president: string; pct: number } | null;
+  /** ⚠ THE SAME TICKET SET AS THE TOP-LEVEL ARRAY, per district — so a page scoped to one
+   *  oblast can re-aggregate „кой води в рисковите квартали ТУК" from the districts that sit in
+   *  it, rather than showing the country's answer under a place's name. `pct` divides by THIS
+   *  district's `valid`. */
+  tickets: NeighborhoodTicket[];
+  /** ⚠ `votes` BESIDE `pct`, because the share alone cannot be re-derived into a count: `pct`
+   *  is rounded to two places, so `pct * valid` is off by up to a few votes on a table that
+   *  publishes exact counts everywhere else. */
+  leader: {
+    number: number;
+    president: string;
+    votes: number;
+    pct: number;
+  } | null;
 }
 
 export interface PresidentialNeighborhoods {
@@ -228,7 +273,11 @@ export interface PresidentialNeighborhoods {
 
 type ShardSection = {
   code: string;
+  /** ⚠ PRESENT ON 10,887 OF 12,488 SECTIONS (2021 r1) — the placement-refused shard carries
+   *  none. `oblast` / `obshtina` are on every row. */
   ekatte?: string;
+  obshtina?: string;
+  oblast?: string;
   protocol?: Record<string, number>;
   votes: { partyNum: number; totalVotes: number }[];
 };
@@ -294,6 +343,11 @@ type Acc = {
   registered: number;
   additional: number;
   byTicket: Map<number, number>;
+  /** ⚠ SETS, and read only per DISTRICT — the national accumulator collects them too and
+   *  nothing reads that, which is the price of one `add` for both. */
+  oblasts: Set<string>;
+  obshtini: Set<string>;
+  ekattes: Set<string>;
 };
 
 const emptyAcc = (): Acc => ({
@@ -306,6 +360,9 @@ const emptyAcc = (): Acc => ({
   registered: 0,
   additional: 0,
   byTicket: new Map(),
+  oblasts: new Set(),
+  obshtini: new Set(),
+  ekattes: new Set(),
 });
 
 const add = (a: Acc, s: ShardSection): void => {
@@ -329,6 +386,11 @@ const add = (a: Acc, s: ShardSection): void => {
   a.actual += p.totalActualVoters ?? 0;
   a.registered += p.numRegisteredVoters ?? 0;
   a.additional += p.numAdditionalVoters ?? 0;
+  // ⚠ ONLY WHAT THE ROW CARRIES. An absent `ekatte` is the placement-refused shard, and adding
+  // an empty string would put a code nothing matches into the published list.
+  if (s.oblast) a.oblasts.add(s.oblast);
+  if (s.obshtina) a.obshtini.add(s.obshtina);
+  if (s.ekatte) a.ekattes.add(s.ekatte);
   for (const v of s.votes)
     a.byTicket.set(
       v.partyNum,
@@ -438,6 +500,9 @@ export const buildPresidentialNeighborhoods = (
     matched.additional += acc.additional;
     for (const [num, v] of acc.byTicket)
       matched.byTicket.set(num, (matched.byTicket.get(num) ?? 0) + v);
+    for (const c of acc.oblasts) matched.oblasts.add(c);
+    for (const c of acc.obshtini) matched.obshtini.add(c);
+    for (const c of acc.ekattes) matched.ekattes.add(c);
   }
   // ⚠ NOTHING LOCATED IS NOT AN EMPTY REPORT, it is NO report. A payload with eight „missing"
   // districts and no figures would render a heading over an accusation-shaped blank.
@@ -465,23 +530,38 @@ export const buildPresidentialNeighborhoods = (
     (catalogue?.tickets ?? []).map((t) => [t.number, t.president]),
   );
 
-  const rows: NeighborhoodTicket[] = [];
-  for (const [number, pctNational] of published) {
-    if (pctNational < MIN_PCT) continue;
-    const president = nameOf.get(number);
-    // ⚠ A NUMBER IS NOT A NAME. A row reading „№ 6 — 74%" on a list of flagged districts names
-    // nobody a reader can check, so an unnamed ticket is dropped rather than rendered bare.
-    if (!president) continue;
-    const votes = matched.byTicket.get(number) ?? 0;
-    rows.push({
-      number,
-      president,
-      votes,
-      pct: round2((100 * votes) / denomOf(matched)),
-      pctNational: round2(pctNational),
-    });
-  }
-  rows.sort((a, b) => b.votes - a.votes || a.number - b.number);
+  /** The ticket rows for ONE accumulator — the country's matched sections, or one district.
+   *
+   *  ⚠ ONE BUILDER FOR BOTH, so a district's rows cannot come to be filtered, named or divided
+   *  differently from the country's. The two were written separately in the first cut and the
+   *  district arm silently used its own denominator convention. */
+  const ticketRows = (acc: Acc): NeighborhoodTicket[] => {
+    const denom = denomOf(acc);
+    // ⚠ NO ROWS RATHER THAN ZEROES. A district whose protocols carry no valid vote at all has
+    // no shares; publishing „0%" for every ticket asserts a result nobody cast.
+    if (denom === 0) return [];
+    const out: NeighborhoodTicket[] = [];
+    for (const [number, pctNational] of published) {
+      if (pctNational < MIN_PCT) continue;
+      const president = nameOf.get(number);
+      // ⚠ A NUMBER IS NOT A NAME. A row reading „№ 6 — 74%" on a list of flagged districts
+      // names nobody a reader can check, so an unnamed ticket is dropped rather than rendered
+      // bare.
+      if (!president) continue;
+      const votes = acc.byTicket.get(number) ?? 0;
+      out.push({
+        number,
+        president,
+        votes,
+        pct: round2((100 * votes) / denom),
+        pctNational: round2(pctNational),
+      });
+    }
+    out.sort((a, b) => b.votes - a.votes || a.number - b.number);
+    return out;
+  };
+
+  const rows = ticketRows(matched);
 
   const places: NeighborhoodPlace[] = [];
   for (const n of PROBLEM_NEIGHBORHOODS) {
@@ -496,6 +576,7 @@ export const buildPresidentialNeighborhoods = (
       leader = {
         number,
         president,
+        votes,
         pct: round2((100 * votes) / denomOf(acc)),
       };
       break;
@@ -510,6 +591,12 @@ export const buildPresidentialNeighborhoods = (
       sections: acc.sections,
       valid: denomOf(acc),
       ...ratesOf(acc),
+      // ⚠ SORTED, for the reason the shard walk above is: a `Set`'s order is insertion order,
+      // i.e. filesystem order, and a rebuild on another machine must produce the same bytes.
+      oblasts: [...acc.oblasts].sort(),
+      obshtini: [...acc.obshtini].sort(),
+      ekattes: [...acc.ekattes].sort(),
+      tickets: ticketRows(acc),
       leader,
     });
   }

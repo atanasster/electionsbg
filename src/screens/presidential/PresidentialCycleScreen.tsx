@@ -25,6 +25,28 @@ import { usePresidentialSummary } from "@/data/presidential/usePresidentialSumma
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+// ⚠ THE PARLIAMENTARY DASHBOARD'S OWN SECTION SHELL, imported rather than reproduced — the same
+// argument `ElectionFactsGrid` below is imported on. Every analysis section on `/parliamentary`
+// is a `DashboardSection` (micro-caps kicker, icon, trailing rule); this page was hand-rolling
+// `<section><h2 class="text-lg font-semibold">`, which `src/index.css` renders in the DISPLAY
+// serif — so the two dashboards read as two products at every heading. The outcome canvas keeps
+// its own `<h2>`, because that is what `ElectionResultsShell` renders on the parliamentary side.
+import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import {
+  AlertTriangle,
+  ArrowLeftRight,
+  Building2,
+  Globe,
+  ListOrdered,
+  // ⚠ ALIASED. A bare `Map` import from lucide-react SHADOWS the global `Map` constructor in
+  // this module, and `new Map<string, RegionLeader>()` a hundred lines down then fails to
+  // compile with an error that names neither the import nor the icon.
+  Map as MapIcon,
+  Scale,
+  Shuffle,
+  Split,
+  UserCheck,
+} from "lucide-react";
 // ⚠ THE PARLIAMENTARY DASHBOARD'S OWN BAND AND ITS OWN GRID, imported rather than reproduced.
 // `/parliamentary` opens with a four-card KPI strip above a map-beside-a-table canvas, and this
 // page is the same kind of page; a lookalike built here would match on the day it was written
@@ -62,7 +84,9 @@ import {
   usePresidentialSuspicious,
 } from "@/data/presidential/useSuspiciousSettlements";
 import { useFlashDiff } from "@/data/presidential/useFlashDiff";
-import { PresidentialNeighborhoodsTile } from "./PresidentialNeighborhoodsTile";
+import { PresidentialProblemSectionsTile } from "./PresidentialProblemSectionsTile";
+import { PresidentialProblemVotesTile } from "./PresidentialProblemVotesTile";
+import { scopeNeighborhoods } from "@/data/presidential/neighborhoodScope";
 import { PresidentialScreeningTile } from "./PresidentialScreeningTile";
 import {
   hasScreeningContent,
@@ -171,6 +195,16 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // over a blank is an insinuation about eight named districts with no figures under it.
   const hasHoods =
     hoods.status === "ready" && hasNeighborhoodContent(hoods.neighborhoods);
+  // ⚠ THE COUNTRY SCOPE IS THE ARTIFACT ITSELF — `scopeNeighborhoods` returns the published
+  // `tickets` array verbatim at this level rather than re-deriving it, so the country page and
+  // the place pages cannot disagree about a share by a rounding step.
+  const scopedHoods = useMemo(
+    () =>
+      hoods.status === "ready"
+        ? scopeNeighborhoods(hoods.neighborhoods, { level: "country" })
+        : null,
+    [hoods],
+  );
   // ⚠ CONTENT. A round nothing could be scored publishes four zero bands, which reads as „every
   // section was clean" when the truth is that none was measurable.
   const hasScreening =
@@ -222,7 +256,11 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
             <PresidentialTicketRanking
               round={round}
               tickets={tickets}
-              detailsHref={`#pvr-ranking-${round.round}`}
+              // ⚠ THE SHARED SECTION SHELL OWNS THE ID NOW — `DashboardSection` renders
+              // `id={id}` and derives its heading's id from it, so the anchor is the section's
+              // own name rather than a round-scoped one. Safe because the round is a toggle:
+              // exactly one `RoundPanel` is mounted at a time.
+              detailsHref="#presidential-ranking"
             />
           </div>
           {leaders.size > 0 ? (
@@ -267,71 +305,74 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
              at least one of them having something to draw — the tiles' OWN predicates, not
              their query status. */}
       {hasTopRegions || hasCleavages ? (
-        <section aria-labelledby={`pvr-geography-${round.round}`}>
-          <h2
-            id={`pvr-geography-${round.round}`}
-            className="text-lg font-semibold"
-          >
-            {t("dashboard_section_geography")}
-          </h2>
-          <div className="mt-2 space-y-3">
-            {hasTopRegions && rollup.status === "ready" ? (
-              <PresidentialTopRegionsTile
-                cycle={cycle}
-                rollup={rollup.rollup}
-                tickets={tickets}
-              />
-            ) : null}
-            {hasCleavages && cleavages.status === "ready" ? (
-              <PresidentialCleavagesTile cleavages={cleavages.cleavages} />
-            ) : null}
-          </div>
-        </section>
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={MapIcon}
+          headingLevel={2}
+        >
+          {hasTopRegions && rollup.status === "ready" ? (
+            <PresidentialTopRegionsTile
+              cycle={cycle}
+              rollup={rollup.rollup}
+              tickets={tickets}
+            />
+          ) : null}
+          {hasCleavages && cleavages.status === "ready" ? (
+            <PresidentialCleavagesTile cleavages={cleavages.cleavages} />
+          ) : null}
+        </DashboardSection>
       ) : null}
 
       {/* 4. art. 93 (3), both conditions. ⚠ IT SITS BELOW THE CANVAS NOW and still above the
              full table: the strip answers „why was there a second round", which is a question a
              reader asks after seeing the result, not before it. */}
-      <section
-        aria-labelledby={`pvr-rule-${round.round}`}
-        className="rounded-lg border p-4"
+      <DashboardSection
+        id="presidential-rule"
+        title={t("presidential_rule_heading")}
+        icon={Scale}
+        headingLevel={2}
       >
-        <h2 id={`pvr-rule-${round.round}`} className="text-lg font-semibold">
-          {t("presidential_rule_heading")}
-        </h2>
-        <p className="mt-2 text-sm">
-          {round.outcome.winsOutright
-            ? t("presidential_rule_won")
-            : t("presidential_rule_runoff")}
-        </p>
-        <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-          <li>
-            {t(
-              round.outcome.meetsMajority
-                ? "presidential_rule_majority_met"
-                : "presidential_rule_majority_unmet",
-            )}
-          </li>
-          <li>
-            {t(
-              round.outcome.meetsTurnout
-                ? "presidential_rule_turnout_met"
-                : "presidential_rule_turnout_unmet",
-            )}
-          </li>
-        </ul>
-      </section>
+        {/* ⚠ THE BORDER MOVED INSIDE. It used to sit on the `<section>`, which under the shared
+            section shell would put the kicker and its rule inside the box — every other section
+            on this page keeps its heading outside and its content in a card. */}
+        <div className="rounded-lg border p-4">
+          <p className="text-sm">
+            {round.outcome.winsOutright
+              ? t("presidential_rule_won")
+              : t("presidential_rule_runoff")}
+          </p>
+          <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+            <li>
+              {t(
+                round.outcome.meetsMajority
+                  ? "presidential_rule_majority_met"
+                  : "presidential_rule_majority_unmet",
+              )}
+            </li>
+            <li>
+              {t(
+                round.outcome.meetsTurnout
+                  ? "presidential_rule_turnout_met"
+                  : "presidential_rule_turnout_unmet",
+              )}
+            </li>
+          </ul>
+        </div>
+      </DashboardSection>
 
       {/* 5. the FULL table — every ticket, with the vice-president and the nominator. ⚠ NOT A
              DUPLICATE OF THE CANVAS LIST: that one is a top-eight preview of one column, and
              these three columns are what a canvas column cannot hold. For an инициативен
              комитет the nominator is also the difference between a committee and a party, which
              is a false statement about a named pair if it is dropped. */}
-      <section aria-labelledby={`pvr-ranking-${round.round}`}>
-        <h2 id={`pvr-ranking-${round.round}`} className="text-lg font-semibold">
-          {t("presidential_ranking_heading")}
-        </h2>
-        <div className="mt-2 overflow-x-auto">
+      <DashboardSection
+        id="presidential-ranking"
+        title={t("presidential_ranking_heading")}
+        icon={ListOrdered}
+        headingLevel={2}
+      >
+        <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-muted-foreground">
@@ -383,10 +424,10 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-xs text-muted-foreground">
+        <p className="text-xs text-muted-foreground">
           {t("presidential_share_denominator")}
         </p>
-      </section>
+      </DashboardSection>
 
       {/* 6. anomalies — the two „is anything odd here" surfaces, in one section, in the order
              a reader can act on: first what the MACHINES recorded against what the commissions
@@ -404,34 +445,31 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
              ЦИК published nothing from them — so the tile keys on the RECORDS existing, never
              on `machineVoting`. */}
       {hasFlash || hasSuspicious || hasScreening ? (
-        <section aria-labelledby={`pvr-anomalies-${round.round}`}>
-          <h2
-            id={`pvr-anomalies-${round.round}`}
-            className="text-lg font-semibold"
-          >
-            {t("dashboard_section_anomalies")}
-          </h2>
+        <DashboardSection
+          id="anomalies"
+          title={t("dashboard_section_anomalies")}
+          icon={AlertTriangle}
+          headingLevel={2}
+        >
           {/* ⚠ ONE DISCIPLINE FOR BOTH TILES, and the same one the geography section uses:
               the section's OWN predicate gates the mount, and the tile's early return is the
               belt to that braces. Relying on the self-hide alone works until a tile loses it,
               at which point the section silently regains the empty-grid failure it was built
               to prevent — and a reader of this JSX cannot tell which gate is load-bearing. */}
-          <div className="mt-2 space-y-3">
-            {hasFlash ? (
-              <PresidentialFlashMemoryTile cycle={cycle} round={round.round} />
-            ) : null}
-            {hasSuspicious && suspicious.status === "ready" ? (
-              <PresidentialSuspiciousTile suspicious={suspicious.suspicious} />
-            ) : null}
-            {/* ⚠ THE SCREEN BELONGS WITH THE ANOMALIES, not in „Рискови гласове". Both this and
-                the settlement flags start from the whole country and let the protocols name the
-                places; the districts section starts from eight places somebody else named in
-                print. Putting the screen there would let it borrow that framing. */}
-            {hasScreening && screening.status === "ready" ? (
-              <PresidentialScreeningTile screening={screening.screening} />
-            ) : null}
-          </div>
-        </section>
+          {hasFlash ? (
+            <PresidentialFlashMemoryTile cycle={cycle} round={round.round} />
+          ) : null}
+          {hasSuspicious && suspicious.status === "ready" ? (
+            <PresidentialSuspiciousTile suspicious={suspicious.suspicious} />
+          ) : null}
+          {/* ⚠ THE SCREEN BELONGS WITH THE ANOMALIES, not in „Рискови гласове". Both this and
+              the settlement flags start from the whole country and let the protocols name the
+              places; the districts section starts from eight places somebody else named in
+              print. Putting the screen there would let it borrow that framing. */}
+          {hasScreening && screening.status === "ready" ? (
+            <PresidentialScreeningTile screening={screening.screening} />
+          ) : null}
+        </DashboardSection>
       ) : null}
 
       {/* 6b. рискови гласове — the eight flagged districts, under the SAME heading key the
@@ -445,24 +483,36 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
              the places, while this one starts from eight districts somebody else has already
              named in print. Folding them together would let the second borrow the first's
              „we found this in the data" framing. */}
-      {hasHoods && hoods.status === "ready" ? (
-        <section aria-labelledby={`pvr-hoods-${round.round}`}>
-          <h2 id={`pvr-hoods-${round.round}`} className="text-lg font-semibold">
-            {t("dashboard_section_neighborhoods")}
-          </h2>
-          <div className="mt-2">
-            <PresidentialNeighborhoodsTile
-              neighborhoods={hoods.neighborhoods}
-            />
-          </div>
-        </section>
+      {hasHoods && hoods.status === "ready" && scopedHoods ? (
+        <DashboardSection
+          id="neighborhoods"
+          title={t("dashboard_section_neighborhoods")}
+          icon={Building2}
+          headingLevel={2}
+        >
+          {/* ⚠ THE PARLIAMENTARY DASHBOARD'S OWN PAIR OF TILES, in its order: the districts
+              first, then how the vote inside them split. One tile carrying both tables read as
+              a data dump rather than as the same block a reader already knows from
+              `/parliamentary`. */}
+          <PresidentialProblemSectionsTile
+            neighborhoods={hoods.neighborhoods}
+            scoped={scopedHoods}
+            tickets={tickets}
+          />
+          <PresidentialProblemVotesTile
+            scoped={scopedHoods}
+            tickets={tickets}
+          />
+        </DashboardSection>
       ) : null}
 
-      <section aria-labelledby={`pvr-turnout-${round.round}`}>
-        <h2 id={`pvr-turnout-${round.round}`} className="text-lg font-semibold">
-          {t("presidential_turnout_heading")}
-        </h2>
-        <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-4">
+      <DashboardSection
+        id="presidential-turnout"
+        title={t("presidential_turnout_heading")}
+        icon={UserCheck}
+        headingLevel={2}
+      >
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-4">
           <div>
             <dt className="text-muted-foreground">
               {t("presidential_turnout_pct")}
@@ -521,13 +571,15 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
         <p className="mt-1 text-xs text-muted-foreground">
           {t("presidential_invalid_note")}
         </p>
-      </section>
+      </DashboardSection>
 
-      <section aria-labelledby={`pvr-abroad-${round.round}`}>
-        <h2 id={`pvr-abroad-${round.round}`} className="text-lg font-semibold">
-          {t("presidential_abroad_heading")}
-        </h2>
-        <p className="mt-2 text-sm">
+      <DashboardSection
+        id="presidential-abroad"
+        title={t("presidential_abroad_heading")}
+        icon={Globe}
+        headingLevel={2}
+      >
+        <p className="text-sm">
           {t("presidential_abroad_summary", {
             sections: round.abroad.sections,
             countries: round.abroad.countries,
@@ -542,11 +594,11 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           {t("presidential_abroad_no_turnout")}
         </p>
         {abroadTo ? (
-          <Link className="mt-2 inline-block text-sm underline" to={abroadTo}>
+          <Link className="inline-block text-sm underline" to={abroadTo}>
             {t("presidential_abroad_link")}
           </Link>
         ) : null}
-      </section>
+      </DashboardSection>
     </div>
   );
 };
@@ -678,11 +730,13 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           did not fall to zero — it was not standing — so 2021's other 21 would each show a
           delta equal to minus their whole round-1 vote, Карадайъ's 309,681 among them. */}
       {summary.swing ? (
-        <section aria-labelledby="pvr-swing">
-          <h2 id="pvr-swing" className="text-lg font-semibold">
-            {t("presidential_swing_heading")}
-          </h2>
-          <ul className="mt-2 space-y-1 text-sm">
+        <DashboardSection
+          id="presidential-swing"
+          title={t("presidential_swing_heading")}
+          icon={ArrowLeftRight}
+          headingLevel={2}
+        >
+          <ul className="space-y-1 text-sm">
             {summary.swing.tickets.map((s) => (
               <li key={s.number}>
                 {/* The same rule as the ranked rows — one component, so a name cannot be a
@@ -701,10 +755,10 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             {t("presidential_swing_note")}
           </p>
-        </section>
+        </DashboardSection>
       ) : null}
 
       {/* ⚠ ONLY WHEN THE ESTIMATE HAS ACTUALLY ARRIVED. `absent` is the ordinary answer — a
@@ -713,10 +767,12 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           reason to draw an empty chart, and `unusable` (a payload that lost its caveat) must
           draw nothing at all. */}
       {transfer.status === "ready" ? (
-        <section aria-labelledby="pvr-transfer" className="space-y-4">
-          <h2 id="pvr-transfer" className="text-lg font-semibold">
-            {t("presidential_transfer_heading")}
-          </h2>
+        <DashboardSection
+          id="presidential-transfer"
+          title={t("presidential_transfer_heading")}
+          icon={Shuffle}
+          headingLevel={2}
+        >
           <PresidentialTransferTile transfer={transfer.transfer} />
           {/* ⚠ A SEPARATE QUESTION, ASKED SEPARATELY. Everything above this heading is an
               estimate; everything below it is arithmetic on published protocols. Running them
@@ -745,7 +801,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
             winner={transfer.transfer.finalists[0].president}
             oblasts={transfer.transfer.oblasts}
           />
-        </section>
+        </DashboardSection>
       ) : null}
 
       {/* ⚠ ITS OWN SECTION, AND ITS OWN KIND OF CLAIM. The transfer above is an ESTIMATE and
@@ -759,12 +815,14 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
           paragraph has been shown the wrong round. Every other section on this page keys off
           `shown.round`; this now does too. */}
       {shown.round === 1 && split.status === "ready" ? (
-        <section aria-labelledby="pvr-split" className="space-y-3">
-          <h2 id="pvr-split" className="text-lg font-semibold">
-            {t("presidential_split_heading")}
-          </h2>
+        <DashboardSection
+          id="presidential-split"
+          title={t("presidential_split_heading")}
+          icon={Split}
+          headingLevel={2}
+        >
           <PresidentialSplitTicketTile split={split.split} />
-        </section>
+        </DashboardSection>
       ) : null}
     </section>
   );

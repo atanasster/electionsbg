@@ -302,6 +302,80 @@ describe.runIf(hasBuilt)("the presidential flagged-districts corpus", () => {
     },
   );
 
+  it.each(built.map((b) => [b.id, b] as const))(
+    "%s makes each district answerable on its own — tickets, leader votes, places",
+    (_id, b) => {
+      // ⚠⚠ THE PER-DISTRICT TICKET ROWS ARE WHAT A PLACE PAGE AGGREGATES. Without them a
+      // region page could only show the COUNTRY's shares under a place's name — the exact
+      // „right number, wrong subject" shape the country/district split exists to prevent — so
+      // they must sum to the top-level array ticket by ticket.
+      const total = new Map<number, number>();
+      for (const p of b.payload.places)
+        for (const tk of p.tickets)
+          total.set(tk.number, (total.get(tk.number) ?? 0) + tk.votes);
+      for (const tk of b.payload.tickets)
+        expect(total.get(tk.number) ?? 0).toBe(tk.votes);
+      // And a district's own rows must divide by ITS base, not the country's.
+      for (const p of b.payload.places) {
+        for (const tk of p.tickets)
+          expect(tk.pct).toBeCloseTo(
+            Math.round((100 * tk.votes * 100) / p.valid) / 100,
+            2,
+          );
+        // ⚠ THE LEADER IS ONE OF THOSE ROWS, NOT A SEPARATE DERIVATION. The table prints its
+        // vote count beside its share, and a count that disagreed with the row it came from
+        // would be a fabricated number about a named district.
+        if (!p.leader) continue;
+        const row = p.tickets.find((tk) => tk.number === p.leader!.number);
+        // ⚠ NOT EVERY LEADER HAS A ROW: `tickets` is cut at 3% of the NATIONAL share, and the
+        // leader is whoever took most votes HERE. Where the row exists the two must agree.
+        if (row) expect(p.leader.votes).toBe(row.votes);
+        expect(p.leader.pct).toBeCloseTo(
+          Math.round((100 * p.leader.votes * 100) / p.valid) / 100,
+          2,
+        );
+      }
+    },
+  );
+
+  it.each(built.map((b) => [b.id, b] as const))(
+    "%s says where each district's stations sit, and never invents a code",
+    (_id, b) => {
+      for (const p of b.payload.places) {
+        // ⚠⚠ ALL THREE LISTS MAY BE EMPTY — the placement-refused shard, which this producer
+        // reads deliberately. 2011's Филиповци carries no code at all. What is forbidden is a
+        // BLANK STRING: it matches no page and reads as a code, so an absent field must be an
+        // absent entry rather than an empty one.
+        for (const code of [...p.oblasts, ...p.obshtini, ...p.ekattes])
+          expect(code).not.toBe("");
+        // Sorted, so a rebuild on another machine produces the same bytes.
+        expect(p.oblasts).toEqual([...p.oblasts].sort());
+        expect(p.obshtini).toEqual([...p.obshtini].sort());
+        expect(p.ekattes).toEqual([...p.ekattes].sort());
+        // ⚠ A CODE NEVER APPEARS WITHOUT ITS PARENT. An ЕКАТТЕ with no município would place a
+        // district on a settlement page and not on the município above it.
+        if (p.ekattes.length) expect(p.obshtini.length).toBeGreaterThan(0);
+        if (p.obshtini.length) expect(p.oblasts.length).toBeGreaterThan(0);
+      }
+    },
+  );
+
+  it("places Столипиново in Пловдив, and leaves Sofia's two without a município", () => {
+    // ⚠ THE MUTATION CHECK FOR THE PAIR ABOVE — „every list is non-empty" and „every list is
+    // empty" both satisfy a shape assertion. This pins that the corpus straddles it, and names
+    // the known gap so a future fix to the placement pass shows up here rather than silently.
+    const b = built.find((x) => x.id === "2021_11_14_pvr tur1");
+    if (!b) return;
+    const by = new Map(b.payload.places.map((p) => [p.id, p]));
+    expect(by.get("stolipinovo")?.obshtini).toEqual(["PDV22"]);
+    expect(by.get("stolipinovo")?.ekattes).toEqual(["56784"]);
+    for (const id of ["filipovci", "fakulteta"]) {
+      expect(by.get(id)?.oblasts.length).toBeGreaterThan(0);
+      expect(by.get(id)?.obshtini).toEqual([]);
+      expect(by.get(id)?.ekattes).toEqual([]);
+    }
+  });
+
   it("finds a non-zero none-of-the-above from 2016 on, so the guard above bites", () => {
     // ⚠ WITHOUT THIS THE RE-DERIVATION IS VACUOUS on every cycle: before 2016 the protocols
     // carry no such field, so `ticketVotes + noOne` and `ticketVotes` are the same number and
