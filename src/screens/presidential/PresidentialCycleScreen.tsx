@@ -25,7 +25,7 @@ import { usePresidentialSummary } from "@/data/presidential/usePresidentialSumma
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 // ⚠ THE PARLIAMENTARY DASHBOARD'S OWN SECTION SHELL, imported rather than reproduced — the same
 // argument `ElectionFactsGrid` below is imported on. Every analysis section on `/parliamentary`
 // is a `DashboardSection` (micro-caps kicker, icon, trailing rule); this page was hand-rolling
@@ -683,35 +683,26 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
 
   return (
     <section className="my-4 space-y-6">
-      <header>
-        {/* ⚠ THE YEAR IS IN THE HEADING, not only in the scope line beneath it. Five pages
-            sharing one `<h1>` is the duplicate-signal shape this repo takes seriously; the
-            bare title stays as the BACK-LINK text on a place page, where a year is wrong. */}
-        {/* ⚠ THE SAME SCALE AS `PlaceHeader`'s title on `/parliamentary`. Two result dashboards
-            whose headline sizes differ read as two products, and this page's `<h1>` is the same
-            kind of thing: the name of the cycle the numbers beneath it describe. */}
-        <h1 className="text-2xl md:text-3xl font-bold">
-          {t("presidential_cycle_title_year", {
-            year: summary.round1Date.slice(0, 4),
-          })}
-        </h1>
-        {/* ⚠ THE ROUND-1 DATE, NOT THE CYCLE ID. `cycleIsoDate` returns "" for a `_pvr`
-            folder, and `formatDate` passes an unparseable string through verbatim — i.e. the
-            folder id on the page, the exact defect that shipped on 613 pages once. */}
-        {/* ⚠ `status="final"` IS A LITERAL, and the justification is that every catalogued
-            presidential cycle is historical: the newest is 2021 and the corpus is a closed
-            record. The artifact's own `status.result` cannot be read here — the header sits
-            OUTSIDE the surface boundary, and this page has no artifact at all, being served
-            from the canonical summary. A future LIVE cycle must read the producer's answer
-            rather than this literal. */}
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <PlaceViewNav active="presidential" level="country" align="start" />
+      {/* The country result uses the same shared place header as `/parliamentary` and
+          `/local/:cycle`: accented card, view eyebrow, „Bulgaria“ h1, and the view switcher
+          composed with the election scope. The cycle remains explicit in the scope, so the
+          five presidential pages are still distinguishable without making this view look like
+          a different product. */}
+      <PlaceHeader
+        active="presidential"
+        level="country"
+        cycle={cycle}
+        scope={
+          // Every catalogued presidential cycle is historical. A future live cycle must take
+          // this status from its producer rather than inheriting this literal.
           <ElectionScopeBar
             cycle={shown.date || summary.round1Date}
             status="final"
             round={shown.round}
           />
-        </div>
+        }
+      />
+      <div>
         <p className="mt-1 text-sm">
           {t(
             summary.decidedInRound === 1
@@ -732,7 +723,7 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
             of the five cycles, and an unconditional `mt-2` div leaves a gap under the header on
             every one of them. */}
         <ToLocalSameDay cycle={cycle} className="mt-2" />
-      </header>
+      </div>
 
       {/* ⚠ RENDERED ONLY WHEN THERE IS A SECOND ROUND. A one-round cycle showing a disabled
           „2-и тур" control offers a page that does not exist. All five committed cycles went

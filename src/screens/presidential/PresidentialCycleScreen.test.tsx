@@ -167,6 +167,32 @@ const mount = (body: unknown, ok = true, entry = ROUTE) => {
 beforeEach(() => i18n.changeLanguage("bg"));
 
 describe("the presidential country page", () => {
+  it("uses the shared country heading layout from parliamentary and local results", async () => {
+    mount(SUMMARY);
+
+    const title = await screen.findByRole("heading", {
+      level: 1,
+      name: bgCorpus.bulgaria,
+    });
+    const card = title.closest(".rounded-xl");
+    expect(card).not.toBeNull();
+    expect(card!.className).toContain("border-l-4");
+    expect(card!.className).toContain("border-l-violet-500");
+    expect(
+      within(card as HTMLElement).getByText(bgCorpus.cross_to_presidential, {
+        selector: "[aria-current='page'] span",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      within(card as HTMLElement).getByText("14.11.2021 г."),
+    ).toBeInTheDocument();
+    expect(
+      within(card as HTMLElement).getByText(
+        bgCorpus.election_round.replace("{{round}}", "1"),
+      ),
+    ).toBeInTheDocument();
+  });
+
   it("states BOTH art. 93 (3) conditions, not just the leader's share", async () => {
     // ⚠ „49.42%" beside a name is a page that reads as a win. The two conditions are what make
     // „nobody was elected" legible, and the producer decides them — this asserts the page
