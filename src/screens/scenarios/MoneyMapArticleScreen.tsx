@@ -30,6 +30,7 @@ import {
   MONEY_MAP_SLUG,
   moneyMapElectionTransitionAt,
   moneyMapStateAt,
+  moneyMapTitleFromBody,
   splitMoneyMapChapters,
 } from "./moneyMapArticle";
 
@@ -196,7 +197,7 @@ export const MoneyMapArticleScreen: FC = () => {
 
   return (
     <ArticleLayout
-      title={meta?.title[lang] ?? MONEY_MAP_SLUG}
+      title={meta?.title[lang] ?? moneyMapTitleFromBody(body) ?? MONEY_MAP_SLUG}
       description={meta?.summary[lang] ?? ""}
       date={meta?.publishedAt}
       author={meta?.author}

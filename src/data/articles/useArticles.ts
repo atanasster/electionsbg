@@ -45,7 +45,10 @@ export type ArticleMeta = {
 };
 
 const indexQueryFn = async (): Promise<ArticleMeta[]> => {
-  const res = await fetch(`/articles/index.json`);
+  // The index is the metadata source for every article page. Revalidate it on
+  // navigation so a newly deployed body cannot be paired with a day-old cached
+  // index and render its slug in place of the title.
+  const res = await fetch(`/articles/index.json`, { cache: "no-cache" });
   if (!res.ok) return [];
   const all = (await res.json()) as ArticleMeta[];
   // Drafts surface only in dev. We don't gate by Vite mode keyword because

@@ -17,6 +17,12 @@ export interface MoneyMapChapterBody {
   markdown: string;
 }
 
+/** Keep the bespoke page usable if its separately fetched article index is stale. */
+export const moneyMapTitleFromBody = (
+  body: string | undefined,
+): string | undefined =>
+  body ? /^\s*#\s+(.+)$/m.exec(body)?.[1].trim() : undefined;
+
 /** Split the committed article at level-two headings; the H1 remains ArticleLayout's job. */
 export const splitMoneyMapChapters = (body: string): MoneyMapChapterBody[] => {
   const chapters: MoneyMapChapterBody[] = [];

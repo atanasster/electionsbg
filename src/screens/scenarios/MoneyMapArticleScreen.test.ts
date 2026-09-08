@@ -9,12 +9,30 @@ import {
   MONEY_MAP_STATES,
   moneyMapElectionTransitionAt,
   moneyMapStateAt,
+  moneyMapTitleFromBody,
   splitMoneyMapChapters,
 } from "./moneyMapArticle";
 
 const ROOT = process.cwd();
 
 describe("the money-map article contract", () => {
+  it.each(["bg", "en"] as const)(
+    "can recover the %s title from the article body when the index is stale",
+    (lang) => {
+      const index = JSON.parse(
+        fs.readFileSync(path.join(ROOT, "public/articles/index.json"), "utf8"),
+      ) as Array<{ slug: string; title: Record<typeof lang, string> }>;
+      const body = fs.readFileSync(
+        path.join(ROOT, `public/articles/${MONEY_MAP_SLUG}-${lang}.md`),
+        "utf8",
+      );
+      const meta = index.find((article) => article.slug === MONEY_MAP_SLUG);
+
+      expect(meta).toBeTruthy();
+      expect(moneyMapTitleFromBody(body)).toBe(meta?.title[lang]);
+    },
+  );
+
   it.each(["bg", "en"] as const)(
     "has six ordered %s chapters, one poster and one owner link each",
     (lang) => {
