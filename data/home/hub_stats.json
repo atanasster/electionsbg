@@ -5,7 +5,7 @@
   "figures": [
     {
       "id": "gdp_growth",
-      "value": 2.7,
+      "value": 2.8,
       "basis": {
         "period": "2026-Q2",
         "frequency": "quarterly",
@@ -54,7 +54,7 @@
   "tiles": {
     "budget": {
       "tileId": "budget",
-      "value": 29577990982,
+      "value": 34498492900,
       "unit": "eur",
       "basisKey": "home_basis_budget_kfp",
       "to": "/budget",
@@ -87,7 +87,7 @@
     },
     "procurement": {
       "tileId": "procurement",
-      "value": 93979268978,
+      "value": 93979275835,
       "unit": "eur",
       "basisKey": "home_basis_procurement_contracted_all",
       "to": "/procurement?pscope=all",

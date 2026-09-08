@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-09-06T23:47:07.864Z",
+  "computedAt": "2026-09-08T06:06:18.078Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 93979268978,
+      "value": 93979275835,
       "basis": "contracts"
     },
     "sectors": {
@@ -18,10 +18,9 @@
     },
     "budget": {
       "kind": "eur",
-      "value": 29577990982,
-      "basis": "projected_expenditure",
-      "year": 2026,
-      "basisYear": 2025
+      "value": 34498492900,
+      "basis": "planned_expenditure",
+      "year": 2026
     },
     "subsidies": {
       "kind": "eur",
@@ -132,7 +131,7 @@
   "coverage": [
     {
       "id": "contracts",
-      "value": 411000,
+      "value": 411001,
       "to": "/procurement/contracts?pscope=all"
     },
     {

@@ -1,6 +1,55 @@
 {
-  "updatedAt": "2026-09-06T23:42:19.829Z",
+  "updatedAt": "2026-09-08T06:10:41.407Z",
   "entries": [
+    {
+      "timestamp": "2026-09-08T06:10:41.407Z",
+      "date": "2026-09-08",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: 408 312 договора (€94,19 млрд.), 238 624 процедури; TED — 219 019 обявления (+125)",
+      "source": "ЦАИС ЕОП + TED"
+    },
+    {
+      "timestamp": "2026-09-08T05:59:40.616Z",
+      "date": "2026-09-08",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 929 лица, 125 001 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-09-08T05:23:57.837Z",
+      "date": "2026-09-08",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-09-07 (+1 daily archive; 817,220 store rows, 169 settlements, 81 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-09-07"
+    },
+    {
+      "timestamp": "2026-09-08T05:17:30.760Z",
+      "date": "2026-09-08",
+      "skill": "update-nzok",
+      "summary": "Цените на лекарства по болници: добавени юни и юли 2026 (19 периода, 3 345 сравними опаковки)",
+      "source": "НЗОК Справка 5 (ПЛС2)"
+    },
+    {
+      "timestamp": "2026-09-08T05:03:22.392Z",
+      "date": "2026-09-08",
+      "skill": "update-budget",
+      "summary": "Tax-policy simulator re-based: consumption COICOP + policy baseline refreshed",
+      "source": "Eurostat policy-baseline (BG)"
+    },
+    {
+      "timestamp": "2026-09-08T05:02:42.834Z",
+      "date": "2026-09-08",
+      "skill": "update-macro",
+      "summary": "Eurostat Q2 2026 national accounts + productivity block; peers + PLI refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-09-06T23:42:19.829Z",
       "date": "2026-09-06",

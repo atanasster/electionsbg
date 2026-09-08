@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T22:24:14.016Z",
+  "generatedAt": "2026-09-08T05:28:45.003Z",
   "nodes": [
     {
       "id": "contractor:121699202",
@@ -40,6 +40,11 @@
       "id": "contractor:831609046",
       "type": "contractor",
       "label": "Топлофикация софия ЕАД"
+    },
+    {
+      "id": "contractor:831453003",
+      "type": "contractor",
+      "label": "Демакс АД"
     },
     {
       "id": "contractor:130800278",
@@ -120,6 +125,11 @@
       "id": "contractor:205251243",
       "type": "contractor",
       "label": "Света Марина фарма ЕООД"
+    },
+    {
+      "id": "awarder:121410441",
+      "type": "awarder",
+      "label": "Изпълнителна агенция \"Автомобилна администрация\""
     },
     {
       "id": "awarder:121683408",
@@ -220,6 +230,11 @@
       "id": "mp:2670",
       "type": "mp",
       "label": "Валентин Алексиев Николов"
+    },
+    {
+      "id": "mp:4719",
+      "type": "mp",
+      "label": "Петър Георгиев Кънев"
     },
     {
       "id": "mp:3693",
@@ -805,11 +820,6 @@
       "id": "official:mihail-mariov-milkov-69b592",
       "type": "official",
       "label": "Михаил Мариов Милков"
-    },
-    {
-      "id": "official:nikolai-atanasov-donchev-62d717",
-      "type": "official",
-      "label": "Николай Атанасов Дончев"
     }
   ],
   "links": [
@@ -1374,6 +1384,11 @@
       "valueEur": 60033613.44
     },
     {
+      "source": "contractor:831453003",
+      "target": "mp:4719",
+      "valueEur": 58769483.52
+    },
+    {
       "source": "awarder:175203478",
       "target": "contractor:831373560",
       "valueEur": 52674043.76
@@ -1559,14 +1574,14 @@
       "valueEur": 44680073.88
     },
     {
-      "source": "contractor:175203485",
-      "target": "official:nikolai-atanasov-donchev-62d717",
-      "valueEur": 44680073.88
-    },
-    {
       "source": "awarder:831917834",
       "target": "contractor:831609046",
       "valueEur": 18992090.02
+    },
+    {
+      "source": "awarder:121410441",
+      "target": "contractor:831453003",
+      "valueEur": 30873937.73
     },
     {
       "source": "awarder:128000893",

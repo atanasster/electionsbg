@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-09-07T07:17:42.359Z",
+  "generatedAt": "2026-09-08T06:11:10.329Z",
   "nodes": [
     {
       "id": "src:water",
@@ -578,7 +578,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-06T21:39:15.256Z",
+      "freshness": "2026-09-07T21:39:01.375Z",
       "skills": [
         "update-procurement"
       ],
@@ -588,7 +588,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-09-06T21:39:15.256Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         }
       ],
       "x": 28,
@@ -979,7 +979,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-04T21:37:50.904Z",
+      "freshness": "2026-09-07T21:39:01.375Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -1084,7 +1084,7 @@
           "label": "НЗОК Справка 5 (ПЛС2) — реимбурсирани лекарства по лечебни заведения",
           "url": "https://nhif.bg/bg/nzok/medicine/5",
           "cadence": "monthly",
-          "freshness": "2026-07-11T06:08:58.769Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         },
         {
           "id": "nzok_execution_b1",
@@ -1098,7 +1098,7 @@
           "label": "НЗОК — брой случаи и ЗОЛ по клинични пътеки (месечно)",
           "url": "https://nhif.bg/bg/hospitalcare-report/activities/2026",
           "cadence": "monthly",
-          "freshness": "2026-08-09T06:09:32.970Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         },
         {
           "id": "nzok_nrd_tariffs",
@@ -1192,7 +1192,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-06T21:39:15.256Z",
+      "freshness": "2026-09-07T21:39:01.375Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1211,7 +1211,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-09-06T21:39:15.256Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         },
         {
           "id": "municipal_naredba",
@@ -1431,7 +1431,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-09-06T21:39:15.256Z",
+      "freshness": "2026-09-07T21:39:01.375Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1443,14 +1443,14 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-09-06T21:39:15.256Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         },
         {
           "id": "eurostat_policy",
           "label": "Eurostat policy-baseline (BG): consumption + tax aggregates",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table",
           "cadence": "monthly",
-          "freshness": "2026-08-09T05:16:22.934Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         },
         {
           "id": "eurostat_regional",
@@ -1758,7 +1758,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-09-06T21:39:15.256Z",
+      "freshness": "2026-09-07T21:39:01.375Z",
       "skills": [
         "update-prices"
       ],
@@ -1768,7 +1768,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-09-06T21:39:15.256Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         }
       ],
       "issue": {
@@ -2303,7 +2303,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-09-04T21:37:50.904Z",
+      "freshness": "2026-09-07T21:39:01.375Z",
       "skills": [
         "update-procurement"
       ],
@@ -2313,7 +2313,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-09-04T21:37:50.904Z"
+          "freshness": "2026-09-07T21:39:01.375Z"
         }
       ],
       "issue": {

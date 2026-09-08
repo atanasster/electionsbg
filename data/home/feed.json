@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-06T23:59:59.999Z",
+  "computedAt": "2026-09-07T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krastavitsi",
+      "id": "prices:promotion:kromid-luk",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-06T00:00:00.000Z",
-      "firstSeenAt": "2026-09-06T00:00:00.000Z",
+      "occurredAt": "2026-09-07T00:00:00.000Z",
+      "firstSeenAt": "2026-09-07T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,18 +22,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krastavitsi",
+      "route": "/product/kromid-luk",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАСТАВИЦИ",
-        "pct": 50,
-        "promoEur": "0.99",
-        "regularEur": "1.99",
+        "title": "Кромид Лук",
+        "pct": 48,
+        "promoEur": "0.44",
+        "regularEur": "0.85",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7142857142857143,
+      "materiality": 0.6857142857142857,
       "actionability": 0.85
     },
     {
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:yabalki-zlatna-prevazhodna",
+      "id": "prices:promotion:400g-kiselo-mlyako-balkan-3-6",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-06T00:00:00.000Z",
-      "firstSeenAt": "2026-09-06T00:00:00.000Z",
+      "occurredAt": "2026-09-07T00:00:00.000Z",
+      "firstSeenAt": "2026-09-07T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/yabalki-zlatna-prevazhodna",
+      "route": "/product/400g-kiselo-mlyako-balkan-3-6",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЯБЪЛКИ ЗЛАТНА ПРЕВЪЗХОДНА",
-        "pct": 50,
-        "promoEur": "0.98",
-        "regularEur": "1.95",
+        "title": "400Г КИСЕЛО МЛЯКО БАЛКАН 3.6%",
+        "pct": 46,
+        "promoEur": "0.49",
+        "regularEur": "0.90",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7142857142857143,
+      "materiality": 0.6571428571428571,
       "actionability": 0.85
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kromid-luk",
+      "id": "prices:promotion:400gr-grah-bonduelle",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-06T00:00:00.000Z",
-      "firstSeenAt": "2026-09-06T00:00:00.000Z",
+      "occurredAt": "2026-09-07T00:00:00.000Z",
+      "firstSeenAt": "2026-09-07T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kromid-luk",
+      "route": "/product/400gr-grah-bonduelle",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "Кромид Лук",
-        "pct": 48,
-        "promoEur": "0.44",
-        "regularEur": "0.85",
-        "chains": 3
+        "title": "400ГР ГРАХ BONDUELLE",
+        "pct": 46,
+        "promoEur": "1.24",
+        "regularEur": "2.30",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.6571428571428571,
       "actionability": 0.85
     },
     {
@@ -1014,8 +1014,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-06",
-      "observedAt": "2026-09-06",
+      "asOf": "2026-09-07",
+      "observedAt": "2026-09-07",
       "staleAfterDays": 5,
       "stale": false
     }

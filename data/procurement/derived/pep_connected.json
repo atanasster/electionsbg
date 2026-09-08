@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-09-06T22:24:07.922Z",
-  "total": 821,
-  "officialCount": 757,
+  "generatedAt": "2026-09-08T05:28:39.756Z",
+  "total": 827,
+  "officialCount": 763,
   "entries": [
     {
       "slug": "daniel-stanimirov-mihalev-b6f569",
       "name": "Даниел Станимиров Михалев",
-      "tier": "municipal",
-      "role": "deputy_mayor",
+      "tier": "",
+      "role": "",
       "contractorEik": "831646048",
       "contractorName": "Автомагистрали ЕАД",
       "totalEur": 983347084.42,
@@ -109,8 +109,8 @@
     {
       "slug": "geno-ivanov-georgiev-caa806",
       "name": "Гено Иванов Георгиев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831646048",
       "contractorName": "Автомагистрали ЕАД",
       "totalEur": 983347084.42,
@@ -1382,8 +1382,8 @@
     {
       "slug": "evgeni-simeonov-simeonov-e721bd",
       "name": "Евгени Симеонов Симеонов",
-      "tier": "executive",
-      "role": "agency_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "121699202",
       "contractorName": "ЛУКОЙЛ-БЪЛГАРИЯ ЕООД",
       "totalEur": 845618890.24,
@@ -1688,8 +1688,8 @@
     {
       "slug": "dimitr-ivanov-radev-364ab0",
       "name": "Димитър Иванов Радев",
-      "tier": "executive",
-      "role": "academic",
+      "tier": "",
+      "role": "",
       "contractorEik": "200852966",
       "contractorName": "Бент ОЙЛ АД",
       "totalEur": 633186780.93,
@@ -1845,8 +1845,8 @@
     {
       "slug": "diyana-georgieva-tomova-704486",
       "name": "Дияна Георгиева Томова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831641791",
       "contractorName": "Информационно обслужване АД",
       "totalEur": 358432240.91,
@@ -3375,8 +3375,8 @@
     {
       "slug": "elena-georgieva-aleksandrova-georgieva-1d1d4c",
       "name": "Елена Георгиева Александрова-Георгиева",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "121396123",
       "contractorName": "Български пощи ЕАД",
       "totalEur": 209981277.59,
@@ -3528,8 +3528,8 @@
     {
       "slug": "elitsa-kirilova-popova-4f097b",
       "name": "Елица Кирилова Попова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121396123",
       "contractorName": "Български пощи ЕАД",
       "totalEur": 209981277.59,
@@ -3681,8 +3681,8 @@
     {
       "slug": "emiliya-dimitrova-facheva-82c030",
       "name": "Емилия Димитрова Фачева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121396123",
       "contractorName": "Български пощи ЕАД",
       "totalEur": 209981277.59,
@@ -3834,8 +3834,8 @@
     {
       "slug": "filip-nikolov-aleksiev-003584",
       "name": "Филип Николов Алексиев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121396123",
       "contractorName": "Български пощи ЕАД",
       "totalEur": 209981277.59,
@@ -5682,8 +5682,8 @@
     {
       "slug": "aleksandr-slavchev-aleksandrov-127a85",
       "name": "Александър Славчев Александров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831609046",
       "contractorName": "Топлофикация софия ЕАД",
       "totalEur": 185778021.27,
@@ -6298,8 +6298,8 @@
     {
       "slug": "elitsa-aleksandrova-stoichev-5eed73",
       "name": "Елица Александрова Стойчев",
-      "tier": "public_sector",
-      "role": "medical_center",
+      "tier": "",
+      "role": "",
       "contractorEik": "205251243",
       "contractorName": "Света Марина фарма ЕООД",
       "totalEur": 153499649.12,
@@ -6370,8 +6370,8 @@
     {
       "slug": "daniel-toshkov-gospodinov-9cfca9",
       "name": "Даниел Тошков Господинов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "205615476",
       "contractorName": "Софекострой ЕАД",
       "totalEur": 116959714.87,
@@ -6604,8 +6604,8 @@
     {
       "slug": "biser-hristov-petkov-91dd65",
       "name": "Бисер Христов Петков",
-      "tier": "executive",
-      "role": "cabinet",
+      "tier": "",
+      "role": "",
       "contractorEik": "203740812",
       "contractorName": "Фонд мениджър на финансови инструменти в България ЕАД",
       "totalEur": 108903119.99,
@@ -6687,6 +6687,10 @@
       "contractCount": 4,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "declared_role",
+          "confidence": "high"
+        },
         {
           "role": "director",
           "confidence": "high"
@@ -6904,8 +6908,8 @@
     {
       "slug": "branislav-krasimirov-georgiev-107d3f",
       "name": "Бранислав Красимиров Георгиев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "205677435",
       "contractorName": "Транспортно строителство и възстановяване ЕАД",
       "totalEur": 108053166.57,
@@ -7003,8 +7007,8 @@
     {
       "slug": "georgi-dimitrov-stamov-ce57cc",
       "name": "Георги Димитров Стамов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "205677435",
       "contractorName": "Транспортно строителство и възстановяване ЕАД",
       "totalEur": 108053166.57,
@@ -7807,8 +7811,8 @@
     {
       "slug": "anton-metodiev-lazarov-74a78e",
       "name": "Антон Методиев Лазаров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "129008074",
       "contractorName": "Терем – холдинг ЕАД",
       "totalEur": 85207311.23,
@@ -7921,8 +7925,8 @@
     {
       "slug": "dimitr-spiridonov-stoichev-d57b44",
       "name": "Димитър Спиридонов Стойчев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "129008074",
       "contractorName": "Терем – холдинг ЕАД",
       "totalEur": 85207311.23,
@@ -8035,8 +8039,8 @@
     {
       "slug": "dimitr-stefkov-zlatarov-b2640d",
       "name": "Димитър Стефков Златаров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "129008074",
       "contractorName": "Терем – холдинг ЕАД",
       "totalEur": 85207311.23,
@@ -8491,8 +8495,8 @@
     {
       "slug": "aleksandr-plamenov-tsrnorechki-e022da",
       "name": "Александър Пламенов Църноречки",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831373560",
       "contractorName": "Български енергиен холдинг ЕАД",
       "totalEur": 78637643.66,
@@ -8533,8 +8537,8 @@
     {
       "slug": "andrei-stefanov-zhivkov-380d83",
       "name": "Андрей Стефанов Живков",
-      "tier": "executive",
-      "role": "cabinet",
+      "tier": "",
+      "role": "",
       "contractorEik": "831373560",
       "contractorName": "Български енергиен холдинг ЕАД",
       "totalEur": 78637643.66,
@@ -8579,8 +8583,8 @@
     {
       "slug": "angel-emilov-yankov-98a0a1",
       "name": "Ангел Емилов Янков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831373560",
       "contractorName": "Български енергиен холдинг ЕАД",
       "totalEur": 78637643.66,
@@ -8588,6 +8592,10 @@
       "contractCount": 3,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "declared_role",
+          "confidence": "high"
+        },
         {
           "role": "director",
           "confidence": "high"
@@ -8621,8 +8629,8 @@
     {
       "slug": "diyan-atanasov-ivanov-6bd0e3",
       "name": "Диян Атанасов Иванов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831373560",
       "contractorName": "Български енергиен холдинг ЕАД",
       "totalEur": 78637643.66,
@@ -8663,8 +8671,8 @@
     {
       "slug": "galina-tsvetanova-todorova-aa8d75",
       "name": "Галина Цветанова Тодорова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831373560",
       "contractorName": "Български енергиен холдинг ЕАД",
       "totalEur": 78637643.66,
@@ -8965,8 +8973,8 @@
     {
       "slug": "chavdar-naidenov-gigov-2f8dce",
       "name": "Чавдар Найденов Гигов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "206671456",
       "contractorName": "Софинвест ЕАД",
       "totalEur": 78608953.52,
@@ -9055,8 +9063,8 @@
     {
       "slug": "delyana-antonova-panaiotova-100fac",
       "name": "Деляна Антонова Панайотова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "206671456",
       "contractorName": "Софинвест ЕАД",
       "totalEur": 78608953.52,
@@ -9489,8 +9497,8 @@
     {
       "slug": "atanas-valentinov-kovachganev-ed5ac7",
       "name": "Атанас Валентинов Ковачганев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "206705510",
       "contractorName": "ВиК Енерджи груп ЕООД",
       "totalEur": 48989885.21,
@@ -9576,8 +9584,8 @@
     {
       "slug": "desislava-hristova-chalmova-af183e",
       "name": "Десислава Христова Чалъмова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "206705510",
       "contractorName": "ВиК Енерджи груп ЕООД",
       "totalEur": 48989885.21,
@@ -9837,8 +9845,8 @@
     {
       "slug": "elvira-petrova-shopova-c52d82",
       "name": "Елвира Петрова Шопова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "833017552",
       "contractorName": "Мини марица - изток ЕАД",
       "totalEur": 48948214.15,
@@ -10925,8 +10933,8 @@
     {
       "slug": "daniela-mihova-koleva-dimitrova-05eeb5",
       "name": "Даниела Михова Колева-Димитрова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "103552229",
       "contractorName": "Ученическо и столово хранене ЕАД",
       "totalEur": 46785244.4,
@@ -11028,8 +11036,8 @@
     {
       "slug": "dobrinka-peneva-iordanova-3d024c",
       "name": "Добринка Пенева Йорданова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "103552229",
       "contractorName": "Ученическо и столово хранене ЕАД",
       "totalEur": 46785244.4,
@@ -11626,8 +11634,8 @@
     {
       "slug": "anzhela-svetlozarova-slavova-7eef0d",
       "name": "Анжела Светлозарова Славова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175203485",
       "contractorName": "Булгаргаз ЕАД",
       "totalEur": 44680073.88,
@@ -11725,8 +11733,8 @@
     {
       "slug": "byanka-svetlozar-racheva-3bdfc3",
       "name": "Бянка Светлозар Рачева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175203485",
       "contractorName": "Булгаргаз ЕАД",
       "totalEur": 44680073.88,
@@ -11824,8 +11832,8 @@
     {
       "slug": "denitsa-zlatkova-zlateva-281fce",
       "name": "Деница Златкова Златева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175203485",
       "contractorName": "Булгаргаз ЕАД",
       "totalEur": 44680073.88,
@@ -11927,8 +11935,8 @@
     {
       "slug": "diana-stoyanova-boneva-06a7ca",
       "name": "Диана Стоянова Бонева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175203485",
       "contractorName": "Булгаргаз ЕАД",
       "totalEur": 44680073.88,
@@ -12026,8 +12034,8 @@
     {
       "slug": "dimitr-vladimirov-spasov-e45aa5",
       "name": "Димитър Владимиров Спасов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175203485",
       "contractorName": "Булгаргаз ЕАД",
       "totalEur": 44680073.88,
@@ -12634,6 +12642,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "director",
           "confidence": "high"
         }
@@ -13123,8 +13135,8 @@
     {
       "slug": "asya-petrova-stankova-f49721",
       "name": "Ася Петрова Станкова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175331015",
       "contractorName": "Фонд Флаг ЕАД",
       "totalEur": 42389317.91,
@@ -13192,8 +13204,8 @@
     {
       "slug": "dobrinka-veselinova-krsteva-587fcb",
       "name": "Добринка Веселинова Кръстева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175331015",
       "contractorName": "Фонд Флаг ЕАД",
       "totalEur": 42389317.91,
@@ -13261,8 +13273,8 @@
     {
       "slug": "dobromir-prodanov-simidchiev-8aed0d",
       "name": "Добромир Проданов Симидчиев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175331015",
       "contractorName": "Фонд Флаг ЕАД",
       "totalEur": 42389317.91,
@@ -13330,8 +13342,8 @@
     {
       "slug": "gergana-angelova-tonova-3f0024",
       "name": "Гергана Ангелова Тонова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175331015",
       "contractorName": "Фонд Флаг ЕАД",
       "totalEur": 42389317.91,
@@ -13675,8 +13687,8 @@
     {
       "slug": "emil-stoyanov-botov-546b40",
       "name": "Емил Стоянов Ботов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "129006778",
       "contractorName": "Интендантско обслужване ЕАД",
       "totalEur": 41156927.46,
@@ -14398,8 +14410,8 @@
     {
       "slug": "angel-nedkov-ivanov-e439fc",
       "name": "Ангел Недков Иванов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121517799",
       "contractorName": "фьосталпине Рейлуей Системс България ООД",
       "totalEur": 39232838.62,
@@ -14827,6 +14839,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "1/2",
+          "valueEur": 1278.23
         }
       ],
       "byYear": [
@@ -14971,6 +14989,10 @@
       "contractCount": 56,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "declared_role",
+          "confidence": "high"
+        },
         {
           "role": "representative",
           "confidence": "high"
@@ -15436,8 +15458,8 @@
     {
       "slug": "aleksandr-lenkov-kolyachev-f737ef",
       "name": "Александър Ленков Колячев",
-      "tier": "executive",
-      "role": "agency_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "000649348",
       "contractorName": "Национална Електрическа компания ЕАД",
       "totalEur": 27814999.93,
@@ -15535,8 +15557,8 @@
     {
       "slug": "aleksandr-yuliyanov-rusanov-0455d4",
       "name": "Александър Юлиянов Русанов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "000649348",
       "contractorName": "Национална Електрическа компания ЕАД",
       "totalEur": 27814999.93,
@@ -16992,8 +17014,8 @@
     {
       "slug": "evgeni-simeonov-simeonov-e721bd",
       "name": "Евгени Симеонов Симеонов",
-      "tier": "executive",
-      "role": "agency_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "175015362",
       "contractorName": "Лукойл ейвиейшън българия ЕООД",
       "totalEur": 23876526.96,
@@ -17248,8 +17270,8 @@
     {
       "slug": "elitsa-velizarova-nikolova-22507d",
       "name": "Елица Велизарова Николова",
-      "tier": "executive",
-      "role": "central_bank",
+      "tier": "",
+      "role": "",
       "contractorEik": "201374120",
       "contractorName": "Монетен двор ЕАД",
       "totalEur": 23576116.15,
@@ -17350,6 +17372,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "director",
           "confidence": "high"
         }
@@ -17432,8 +17458,8 @@
     {
       "slug": "georgi-georgiev-terziiski-546d02",
       "name": "Георги Георгиев Терзийски",
-      "tier": "executive",
-      "role": "regional_governor",
+      "tier": "",
+      "role": "",
       "contractorEik": "201892554",
       "contractorName": "Новако Строй ЕООД",
       "totalEur": 20663895.28,
@@ -17714,8 +17740,8 @@
     {
       "slug": "dimitrinka-velichkova-dimitrova-db438d",
       "name": "Димитринка Величкова Димитрова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121660480",
       "contractorName": "ЕГИДА-СОФИЯ ЕАД",
       "totalEur": 19985696.2,
@@ -17934,8 +17960,8 @@
     {
       "slug": "dian-krasimirov-boev-070228",
       "name": "Диан Красимиров Боев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "202880940",
       "contractorName": "Българска независима енергийна борса ЕАД",
       "totalEur": 19712280.78,
@@ -18118,6 +18144,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "director",
           "confidence": "high"
         }
@@ -18205,6 +18235,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%"
         }
       ],
       "byYear": [
@@ -19011,6 +19046,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "director",
           "confidence": "high"
         }
@@ -19157,8 +19196,8 @@
     {
       "slug": "atanas-stefanov-ionkov-19c618",
       "name": "Атанас Стефанов Йонков",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "831605795",
       "contractorName": "Университетска многопрофилна болница за активно лечение \"Александровска\" ЕАД",
       "totalEur": 14913532.02,
@@ -19352,8 +19391,8 @@
     {
       "slug": "antoaneta-nikolova-drndova-6c1176",
       "name": "Антоанета Николова Дръндова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831160078",
       "contractorName": "Напоителни системи ЕАД",
       "totalEur": 13011437.77,
@@ -19499,8 +19538,8 @@
     {
       "slug": "biser-nikolov-mihailov-8c3dcf",
       "name": "Бисер Николов Михайлов",
-      "tier": "executive",
-      "role": "eu_funds_controller",
+      "tier": "",
+      "role": "",
       "contractorEik": "831160078",
       "contractorName": "Напоителни системи ЕАД",
       "totalEur": 13011437.77,
@@ -19646,8 +19685,8 @@
     {
       "slug": "dragomir-gospodinov-gospodinov-469659",
       "name": "Драгомир Господинов Господинов",
-      "tier": "executive",
-      "role": "regional_director",
+      "tier": "",
+      "role": "",
       "contractorEik": "831160078",
       "contractorName": "Напоителни системи ЕАД",
       "totalEur": 13011437.77,
@@ -21855,8 +21894,8 @@
     {
       "slug": "anton-iliev-glbov-45ad65",
       "name": "Антон Илиев Гълъбов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "115010670",
       "contractorName": "Водоснабдяване и канализация ЕООД",
       "totalEur": 12861082.75,
@@ -22248,8 +22287,8 @@
     {
       "slug": "dilyana-tsvyatkova-ivanova-d13faa",
       "name": "Диляна Цвяткова Иванова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "000632256",
       "contractorName": "Метрополитен ЕАД",
       "totalEur": 11606325.7,
@@ -22566,8 +22605,8 @@
     {
       "slug": "bogdana-vladimirova-panaiotova-f7456e",
       "name": "Богдана Владимирова Панайотова",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "126720807",
       "contractorName": "ЕН АР Консулт ЕООД",
       "totalEur": 10862282.94,
@@ -22733,6 +22772,11 @@
         {
           "role": "actual_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "256917"
         }
       ],
       "byYear": [
@@ -22821,8 +22865,8 @@
     {
       "slug": "chavdar-kirilov-trendafilov-315173",
       "name": "Чавдар Кирилов Трендафилов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175403856",
       "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
       "totalEur": 9554819.74,
@@ -22932,8 +22976,8 @@
     {
       "slug": "dian-nikolov-boev-7fa310",
       "name": "Диан Николов Боев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175403856",
       "contractorName": "БДЖ-ТОВАРНИ Превози ЕООД",
       "totalEur": 9554819.74,
@@ -23154,8 +23198,8 @@
     {
       "slug": "ekaterina-angelova-stefanova-a6a92a",
       "name": "Екатерина Ангелова Стефанова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "202218735",
       "contractorName": "Център за Градска мобилност ЕАД",
       "totalEur": 9476556.76,
@@ -24119,8 +24163,8 @@
     {
       "slug": "desislava-kostova-pacheva-chompalova-47cc2f",
       "name": "Десислава Костова Пачева-Чомпалова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121683785",
       "contractorName": "Столичен електротранспорт ЕАД",
       "totalEur": 8905427.69,
@@ -24239,8 +24283,8 @@
     {
       "slug": "dimitr-vasilev-vladimirov-99b0b2",
       "name": "Димитър Василев Владимиров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121683785",
       "contractorName": "Столичен електротранспорт ЕАД",
       "totalEur": 8905427.69,
@@ -24359,8 +24403,8 @@
     {
       "slug": "elena-kostadinova-simeonova-9d151e",
       "name": "Елена Костадинова Симеонова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121683785",
       "contractorName": "Столичен електротранспорт ЕАД",
       "totalEur": 8905427.69,
@@ -24479,8 +24523,8 @@
     {
       "slug": "evgenii-manolov-ganchev-5eadaa",
       "name": "Евгений Манолов Ганчев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121683785",
       "contractorName": "Столичен електротранспорт ЕАД",
       "totalEur": 8905427.69,
@@ -24603,8 +24647,8 @@
     {
       "slug": "georgi-yavorov-avramov-3e58a2",
       "name": "Георги Яворов Аврамов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121683785",
       "contractorName": "Столичен електротранспорт ЕАД",
       "totalEur": 8905427.69,
@@ -25231,8 +25275,8 @@
     {
       "slug": "antonii-nikolaev-andonov-1ed026",
       "name": "Антоний Николаев Андонов",
-      "tier": "executive",
-      "role": "regional_governor",
+      "tier": "",
+      "role": "",
       "contractorEik": "119547647",
       "contractorName": "Общинска охрана и СОТ-СЛИВЕН ЕООД",
       "totalEur": 7604949.51,
@@ -25400,6 +25444,10 @@
       "relations": [
         {
           "role": "director",
+          "confidence": "high"
+        },
+        {
+          "role": "stake",
           "confidence": "high"
         }
       ],
@@ -25876,8 +25924,8 @@
     {
       "slug": "donka-vasileva-hristova-61aa6d",
       "name": "Донка Василева Христова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "102657921",
       "contractorName": "Бургаски пазари ЕООД",
       "totalEur": 6452013.23,
@@ -26058,8 +26106,8 @@
     {
       "slug": "aleksandr-veselinov-vetskov-0877f9",
       "name": "Александър Веселинов Вецков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "130823243",
       "contractorName": "Национална компания \"Железопътна инфраструктура\" ДП",
       "totalEur": 6214272.94,
@@ -27203,8 +27251,8 @@
     {
       "slug": "diana-stoyanova-boneva-06a7ca",
       "name": "Диана Стоянова Бонева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121644736",
       "contractorName": "Метро КЕШ ЕНД кери българия ЕООД",
       "totalEur": 5664751.55,
@@ -27437,8 +27485,8 @@
     {
       "slug": "bobi-spiridonov-bachev-d47a52",
       "name": "Боби Спиридонов Бачев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "200609341",
       "contractorName": "Костинброд ЕКО АД",
       "totalEur": 5109209.72,
@@ -27677,8 +27725,8 @@
     {
       "slug": "evelina-pavlova-slavcheva-4cb690",
       "name": "Евелина Павлова Славчева",
-      "tier": "executive",
-      "role": "academic",
+      "tier": "",
+      "role": "",
       "contractorEik": "111028849",
       "contractorName": "Монбат АД",
       "totalEur": 4832813.27,
@@ -28389,8 +28437,8 @@
     {
       "slug": "dobromira-angelova-kareva-3b28de",
       "name": "Добромира Ангелова Карева",
-      "tier": "executive",
-      "role": "deputy_minister",
+      "tier": "",
+      "role": "",
       "contractorEik": "206121950",
       "contractorName": "Викторум ЕООД",
       "totalEur": 4105833.33,
@@ -28405,6 +28453,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100 %",
+          "valueEur": 2556.46
         }
       ],
       "byYear": [
@@ -28537,8 +28591,8 @@
     {
       "slug": "atanas-asenov-kostov-ed51bb",
       "name": "Атанас Асенов Костов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121758166",
       "contractorName": "Агроводинвест ЕАД",
       "totalEur": 3790740.9,
@@ -28664,8 +28718,8 @@
     {
       "slug": "dimitr-boyanov-mladenov-f2a253",
       "name": "Димитър Боянов Младенов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121758166",
       "contractorName": "Агроводинвест ЕАД",
       "totalEur": 3790740.9,
@@ -28787,8 +28841,8 @@
     {
       "slug": "galya-viktorova-bogdanova-edf2c7",
       "name": "Галя Викторова Богданова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121758166",
       "contractorName": "Агроводинвест ЕАД",
       "totalEur": 3790740.9,
@@ -29358,6 +29412,12 @@
         {
           "role": "procurator",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "20%",
+          "valueEur": 511.29
         }
       ],
       "byYear": [
@@ -29426,8 +29486,8 @@
     {
       "slug": "georgi-kirov-kirkov-eb4131",
       "name": "Георги Киров Кирков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "202058513",
       "contractorName": "АЕЦ Козлодуй - нови мощности ЕАД",
       "totalEur": 3462889.83,
@@ -29549,8 +29609,8 @@
     {
       "slug": "elena-velinova-hristeva-961be1",
       "name": "Елена Велинова Христева",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "131069757",
       "contractorName": "Консултантска инженерна група ООД",
       "totalEur": 3406071.47,
@@ -30452,8 +30512,8 @@
     {
       "slug": "branimira-konstantinova-marinova-44f135",
       "name": "Бранимира Константинова Маринова",
-      "tier": "public_sector",
-      "role": "medical_center",
+      "tier": "",
+      "role": "",
       "contractorEik": "103761360",
       "contractorName": "Света Марина трейдинг ЕООД",
       "totalEur": 2823012.91,
@@ -30517,8 +30577,8 @@
     {
       "slug": "anastasiya-grigorova-boneva-25ff22",
       "name": "Анастасия Григорова Бонева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831643269",
       "contractorName": "ОБРАЗОВАНИЕ И НАУКА ЕАД",
       "totalEur": 2749011.22,
@@ -30619,8 +30679,8 @@
     {
       "slug": "ginka-pavlova-eftimova-41f9f4",
       "name": "Гинка Павлова Ефтимова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831643269",
       "contractorName": "ОБРАЗОВАНИЕ И НАУКА ЕАД",
       "totalEur": 2749011.22,
@@ -30721,8 +30781,8 @@
     {
       "slug": "dimitr-petrov-gandzhov-1740ec",
       "name": "Димитър Петров Ганджов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "812115210",
       "contractorName": "Водоснабдяване и канализация ЕАД",
       "totalEur": 2699157.47,
@@ -30838,8 +30898,8 @@
     {
       "slug": "evgeni-zhechev-popov-971f7f",
       "name": "Евгени Жечев Попов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "812115210",
       "contractorName": "Водоснабдяване и канализация ЕАД",
       "totalEur": 2699157.47,
@@ -31423,8 +31483,8 @@
     {
       "slug": "emil-viktorov-gogoshev-fb36a4",
       "name": "Емил Викторов Гогошев",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "106510388",
       "contractorName": "Многопрофилна болница за активно лечение \"СВ.ИВАН Рилски\"- козлодуй\" ЕООД",
       "totalEur": 2675026.46,
@@ -31744,8 +31804,8 @@
     {
       "slug": "doncho-simeonov-zhivkov-2f1ccc",
       "name": "Дончо Симеонов Живков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831555095",
       "contractorName": "Реставрация ЕАД",
       "totalEur": 2647506.35,
@@ -32096,8 +32156,8 @@
     {
       "slug": "denitsa-atanasova-pavlova-petrova-38cb6f",
       "name": "Деница Атанасова Павлова-Петрова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "208403279",
       "contractorName": "ВиК Елин Пелин ЕООД",
       "totalEur": 2502819.15,
@@ -32512,8 +32572,8 @@
     {
       "slug": "anton-vasilev-antonov-85815a",
       "name": "Антон Василев Антонов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831635354",
       "contractorName": "Национална спортна база ЕАД",
       "totalEur": 2376981.98,
@@ -32621,8 +32681,8 @@
     {
       "slug": "avgustina-veselinova-kaikova-2ac036",
       "name": "Августина Веселинова Кайкова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831635354",
       "contractorName": "Национална спортна база ЕАД",
       "totalEur": 2376981.98,
@@ -32726,8 +32786,8 @@
     {
       "slug": "elena-vladimirova-todorovska-afda0d",
       "name": "Елена Владимирова Тодоровска",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831635354",
       "contractorName": "Национална спортна база ЕАД",
       "totalEur": 2376981.98,
@@ -32840,6 +32900,10 @@
       "contractCount": 24,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "declared_role",
+          "confidence": "high"
+        },
         {
           "role": "director",
           "confidence": "high"
@@ -33369,6 +33433,10 @@
       "contractCount": 24,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "declared_role",
+          "confidence": "high"
+        },
         {
           "role": "director",
           "confidence": "high"
@@ -34022,8 +34090,8 @@
     {
       "slug": "dimitr-georgiev-karakashev-7f486e",
       "name": "Димитър Георгиев Каракашев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "837103415",
       "contractorName": "БКС ЕООД",
       "totalEur": 2097227.57,
@@ -34158,8 +34226,8 @@
     {
       "slug": "chavdar-todorov-stefanov-5d0831",
       "name": "Чавдар Тодоров Стефанов",
-      "tier": "executive",
-      "role": "procurement_officer",
+      "tier": "",
+      "role": "",
       "contractorEik": "131288789",
       "contractorName": "ТЕРЕМ - ЦАР САМУИЛ ЕООД",
       "totalEur": 2041168.99,
@@ -34286,8 +34354,8 @@
     {
       "slug": "bozhidar-atanasov-zhelyazkov-384d26",
       "name": "Божидар Атанасов Желязков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "126004284",
       "contractorName": "Водоснабдяване и канализация ЕООД",
       "totalEur": 1904588.92,
@@ -34696,8 +34764,8 @@
     {
       "slug": "borislav-stefanov-arnaudov-d76713",
       "name": "Борислав Стефанов Арнаудов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "130822878",
       "contractorName": "Холдинг Български държавни железници ЕАД",
       "totalEur": 1840645.65,
@@ -34750,8 +34818,8 @@
     {
       "slug": "georgi-krasimirov-velkov-619fe4",
       "name": "Георги Красимиров Велков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "130822878",
       "contractorName": "Холдинг Български държавни железници ЕАД",
       "totalEur": 1840645.65,
@@ -35263,8 +35331,8 @@
     {
       "slug": "anatoli-stoyanov-chaushev-53ed48",
       "name": "Анатоли Стоянов Чаушев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201222671",
       "contractorName": "Стосин 2010 ООД",
       "totalEur": 1793421.04,
@@ -35279,6 +35347,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50",
+          "valueEur": 1278
         }
       ],
       "byYear": [
@@ -35395,8 +35469,8 @@
     {
       "slug": "aneliya-atanasova-dimitrova-77bd86",
       "name": "Анелия Атанасова Димитрова",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "831040933",
       "contractorName": "Застрахователно акционерно дружество \"Енергия\"",
       "totalEur": 1718400.79,
@@ -35556,8 +35630,8 @@
     {
       "slug": "anna-prvanova-mancheva-dimova-a9acc3",
       "name": "Анна Първанова Манчева-Димова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121003449",
       "contractorName": "Лозана ЕАД",
       "totalEur": 1561015.58,
@@ -35765,8 +35839,8 @@
     {
       "slug": "angel-petrov-uchikov-2af55e",
       "name": "Ангел Петров Учиков",
-      "tier": "executive",
-      "role": "academic",
+      "tier": "",
+      "role": "",
       "contractorEik": "115576405",
       "contractorName": "Университетска многопрофилна болница за активно лечение \"Свети георги\" ЕАД",
       "totalEur": 1510404,
@@ -36173,8 +36247,8 @@
     {
       "slug": "galina-simeonova-simeonova-a73d4f",
       "name": "Галина Симеонова Симеонова",
-      "tier": "executive",
-      "role": "eu_funds_controller",
+      "tier": "",
+      "role": "",
       "contractorEik": "131045382",
       "contractorName": "Предприятие за управление на дейностите по опазване на околната среда (ПУДООС) ТПП",
       "totalEur": 1414523.16,
@@ -37019,8 +37093,8 @@
     {
       "slug": "elitsa-emilova-gieva-3ca1b7",
       "name": "Елица Емилова Гиева",
-      "tier": "executive",
-      "role": "academic",
+      "tier": "",
+      "role": "",
       "contractorEik": "130506225",
       "contractorName": "Технически УНИВЕРСИТЕТ-СОФИЯ-ТЕХНОЛОГИИ ЕООД",
       "totalEur": 1367012.99,
@@ -37626,8 +37700,8 @@
     {
       "slug": "dimitr-ivanov-radev-364ab0",
       "name": "Димитър Иванов Радев",
-      "tier": "executive",
-      "role": "academic",
+      "tier": "",
+      "role": "",
       "contractorEik": "203066057",
       "contractorName": "Застрахователно акционерно дружество „Асет иншурънс\" АД",
       "totalEur": 1261358.59,
@@ -38617,8 +38691,8 @@
     {
       "slug": "danail-krasimirov-sbevski-61507f",
       "name": "Данаил Красимиров Събевски",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "110549443",
       "contractorName": "в и К АД",
       "totalEur": 1075771.72,
@@ -38859,8 +38933,8 @@
     {
       "slug": "aleksandr-slavchev-aleksandrov-127a85",
       "name": "Александър Славчев Александров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "000635619",
       "contractorName": "Авионамс АД",
       "totalEur": 1053261.27,
@@ -38910,8 +38984,8 @@
     {
       "slug": "atanas-hristev-todorov-cbccf4",
       "name": "Атанас Христев Тодоров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "000635619",
       "contractorName": "Авионамс АД",
       "totalEur": 1053261.27,
@@ -39145,8 +39219,8 @@
     {
       "slug": "gichka-angelova-kutova-kamenova-9993fa",
       "name": "Гичка Ангелова Кутова-Каменова",
-      "tier": "executive",
-      "role": "academic",
+      "tier": "",
+      "role": "",
       "contractorEik": "203580133",
       "contractorName": "Университет по архитектура строителство и геодезия - център за научни изследвания и проектиране /уасг - цнип/ ЕООД",
       "totalEur": 1034452.03,
@@ -39613,8 +39687,8 @@
     {
       "slug": "angel-tsvetkov-prestoiski-21d601",
       "name": "Ангел Цветков Престойски",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "816090199",
       "contractorName": "Водоснабдяване и канализация ООД",
       "totalEur": 1007646.13,
@@ -39790,8 +39864,8 @@
     {
       "slug": "emigyul-ali-korenarska-83cfc0",
       "name": "Емигюл Али Коренарска",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "101551993",
       "contractorName": "СТРОИТЕЛ-2001 ЕООД",
       "totalEur": 999272.78,
@@ -39867,8 +39941,8 @@
     {
       "slug": "fikret-daud-ibryam-91d123",
       "name": "Фикрет Дауд Ибрям",
-      "tier": "executive",
-      "role": "regional_governor",
+      "tier": "",
+      "role": "",
       "contractorEik": "206068832",
       "contractorName": "Хигиямед ООД",
       "totalEur": 986319.88,
@@ -39883,6 +39957,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "250 лева"
         }
       ],
       "byYear": [
@@ -40118,8 +40197,8 @@
     {
       "slug": "emil-hristov-shushkov-c8e102",
       "name": "Емил Христов Шушков",
-      "tier": "executive",
-      "role": "procurement_officer",
+      "tier": "",
+      "role": "",
       "contractorEik": "205816109",
       "contractorName": "Тотал секюрити ООД",
       "totalEur": 961934.61,
@@ -40244,8 +40323,8 @@
     {
       "slug": "eduard-hubanov-hubanov-b80c8e",
       "name": "Едуард Хубанов Хубанов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "117690845",
       "contractorName": "Общински транспорт русе ЕАД",
       "totalEur": 954132.07,
@@ -40612,8 +40691,8 @@
     {
       "slug": "georgi-iordanov-pepelanov-d8ee86",
       "name": "Георги Йорданов Пепеланов",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "200337126",
       "contractorName": "Данигма ЕООД",
       "totalEur": 908157.23,
@@ -42862,8 +42941,8 @@
     {
       "slug": "ani-aleksandrova-aleksandrova-naidenova-0c49a6",
       "name": "Ани Александрова Александрова-Найденова",
-      "tier": "executive",
-      "role": "procurement_officer",
+      "tier": "",
+      "role": "",
       "contractorEik": "207939249",
       "contractorName": "БУЛ БИО - Нцзпб ЕАД",
       "totalEur": 698359.95,
@@ -42937,8 +43016,8 @@
     {
       "slug": "bistra-krumova-koleva-madzharova-6aff5d",
       "name": "Бистра Крумова Колева-Маджарова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "207939249",
       "contractorName": "БУЛ БИО - Нцзпб ЕАД",
       "totalEur": 698359.95,
@@ -43012,8 +43091,8 @@
     {
       "slug": "desislava-georgieva-bileva-45aecf",
       "name": "Десислава Георгиева Билева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "207939249",
       "contractorName": "БУЛ БИО - Нцзпб ЕАД",
       "totalEur": 698359.95,
@@ -43545,8 +43624,8 @@
     {
       "slug": "galina-pencheva-boneva-926768",
       "name": "Галина Пенчева Бонева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "206484688",
       "contractorName": "Еко груп рисайклинг ООД",
       "totalEur": 656364.55,
@@ -43676,8 +43755,8 @@
     {
       "slug": "emil-metodiev-borisov-fd1633",
       "name": "Емил Методиев Борисов",
-      "tier": "executive",
-      "role": "security_service",
+      "tier": "",
+      "role": "",
       "contractorEik": "117634273",
       "contractorName": "Аква пуулс ООД",
       "totalEur": 645217.9,
@@ -43757,6 +43836,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50",
+          "valueEur": 1278.23
         }
       ],
       "byYear": [
@@ -43862,8 +43947,8 @@
     {
       "slug": "boryana-sashova-aleksova-424bb6",
       "name": "Боряна Сашова Алексова",
-      "tier": "executive",
-      "role": "agency_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "204030861",
       "contractorName": "Проактив консултинг ЕООД",
       "totalEur": 587689.25,
@@ -43882,6 +43967,12 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 511.29
         }
       ],
       "byYear": [
@@ -43999,8 +44090,8 @@
     {
       "slug": "dilyana-miroslavova-iordanova-8e6066",
       "name": "Диляна Мирославова Йорданова",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "103562052",
       "contractorName": "Университетска многопрофилна болница за активно лечение \"Света Марина ЕАД",
       "totalEur": 577409.59,
@@ -44140,6 +44231,10 @@
       "contractCount": 2,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "declared_role",
+          "confidence": "high"
+        },
         {
           "role": "director",
           "confidence": "high"
@@ -44345,8 +44440,8 @@
     {
       "slug": "daniel-nikolov-ormankov-2c8abe",
       "name": "Даниел Николов Орманков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "200167154",
       "contractorName": "Кюстендилска вода ЕООД",
       "totalEur": 559380.58,
@@ -45257,6 +45352,107 @@
       ]
     },
     {
+      "slug": "ivan-aleksiev-aleksiev-b65ca8",
+      "name": "Иван Алексиев Алексиев",
+      "tier": "",
+      "role": "",
+      "contractorEik": "175401944",
+      "contractorName": "Кодас Консултинг ЕООД",
+      "totalEur": 487253.51,
+      "totalOther": {},
+      "contractCount": 41,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 0
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 138048.81,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 4,
+          "totalEur": 22560.75,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 10,
+          "totalEur": 35043.95,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 9,
+          "totalEur": 19981.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 3,
+          "totalEur": 5619.09,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 10,
+          "totalEur": 84721.08,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 4,
+          "totalEur": 181278.53,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000696327",
+          "name": "Район \"Красна поляна\"",
+          "contractCount": 14,
+          "totalEur": 252772.48,
+          "totalOther": {}
+        },
+        {
+          "eik": "831661388",
+          "name": "Министерство на регионалното развитие и благоустройството /МРРБ/ - Старо наименование - Министерство на регионалното развитие - /Старо наименование - Министерство на регионалното развитие и благоустройството /МРРБ/.",
+          "contractCount": 1,
+          "totalEur": 138048.81,
+          "totalOther": {}
+        },
+        {
+          "eik": "000193115",
+          "name": "Община Враца",
+          "contractCount": 16,
+          "totalEur": 67646.47,
+          "totalOther": {}
+        },
+        {
+          "eik": "000931721",
+          "name": "Община Шумен",
+          "contractCount": 1,
+          "totalEur": 15108.68,
+          "totalOther": {}
+        },
+        {
+          "eik": "000193371",
+          "name": "Община Мездра",
+          "contractCount": 9,
+          "totalEur": 13677.07,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "abil-ismet-abil-ae3d82",
       "name": "Абил Исмет Абил",
       "tier": "executive",
@@ -45271,6 +45467,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 51
         }
       ],
       "byYear": [
@@ -45313,8 +45515,8 @@
     {
       "slug": "gergana-krasimirova-kirilova-a23cbe",
       "name": "Гергана Красимирова Кирилова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831917453",
       "contractorName": "Студентски столове и общежития ЕАД- клон Велико Търново",
       "totalEur": 485426.39,
@@ -45487,8 +45689,8 @@
     {
       "slug": "biser-hristov-petkov-91dd65",
       "name": "Бисер Христов Петков",
-      "tier": "executive",
-      "role": "cabinet",
+      "tier": "",
+      "role": "",
       "contractorEik": "121837308",
       "contractorName": "КООП-ТЪРГОВИЯ И ТУРИЗЪМ АД",
       "totalEur": 474537.74,
@@ -45580,8 +45782,8 @@
     {
       "slug": "dimitr-stefkov-zlatarov-b2640d",
       "name": "Димитър Стефков Златаров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "205479460",
       "contractorName": "Иновативни системи и технологии ЕООД",
       "totalEur": 472077.63,
@@ -45592,6 +45794,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "Едноличен собственик на капитала (100% дял)"
         }
       ],
       "byYear": [
@@ -45673,8 +45880,8 @@
     {
       "slug": "evgeni-simeonov-simeonov-e721bd",
       "name": "Евгени Симеонов Симеонов",
-      "tier": "executive",
-      "role": "agency_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "200151591",
       "contractorName": "Лукойл - българия бункер ЕООД",
       "totalEur": 447179.07,
@@ -45851,6 +46058,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "80",
+          "valueEur": 2045.17
         }
       ],
       "byYear": [
@@ -45910,6 +46123,12 @@
         {
           "role": "manager",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50",
+          "valueEur": 51.13
         }
       ],
       "byYear": [
@@ -46251,8 +46470,8 @@
     {
       "slug": "asen-borislavov-ivanov-7f71e0",
       "name": "Асен Бориславов Иванов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201619580",
       "contractorName": "Териториално поделение \"Държавно горско стопанство пазарджик\"",
       "totalEur": 372917.3,
@@ -46356,8 +46575,8 @@
     {
       "slug": "boto-malinov-arabadzhiev-5041a9",
       "name": "Ботьо Малинов Арабаджиев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201619580",
       "contractorName": "Териториално поделение \"Държавно горско стопанство пазарджик\"",
       "totalEur": 372917.3,
@@ -46566,8 +46785,8 @@
     {
       "slug": "ertach-halil-salim-d1a32d",
       "name": "Ертач Халил Салим",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "828026941",
       "contractorName": "СТРОИТЕЛСТВО, ОЗЕЛЕНЯВАНЕ И ЧИСТОТА ЕООД - Дулово",
       "totalEur": 370686.62,
@@ -46679,6 +46898,12 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "5000",
+          "valueEur": 2556.46
         }
       ],
       "byYear": [
@@ -46754,8 +46979,8 @@
     {
       "slug": "gyunai-ibryamov-tefikov-70c90d",
       "name": "Гюнай Ибрямов Тефиков",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "200192872",
       "contractorName": "Стройконтрол - ГТ ООД",
       "totalEur": 361156.08,
@@ -46936,6 +47161,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "98%",
+          "valueEur": 2505.33
         }
       ],
       "byYear": [
@@ -47051,8 +47282,8 @@
     {
       "slug": "andrei-aleksandrovich-krasnocharov-c296d9",
       "name": "АНДРЕЙ АЛЕКСАНДРОВИЧ КРАСНОЧАРОВ",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "106513772",
       "contractorName": "АЕЦ КОЗЛОДУЙ ЕАД",
       "totalEur": 324834.59,
@@ -47112,8 +47343,8 @@
     {
       "slug": "boyan-ventsev-rosmanov-0b785e",
       "name": "Боян Венцев Росманов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "106513772",
       "contractorName": "АЕЦ КОЗЛОДУЙ ЕАД",
       "totalEur": 324834.59,
@@ -47173,8 +47404,8 @@
     {
       "slug": "dragomir-zdravkov-dimitrov-55c400",
       "name": "Драгомир Здравков Димитров",
-      "tier": "executive",
-      "role": "security_service",
+      "tier": "",
+      "role": "",
       "contractorEik": "106513772",
       "contractorName": "АЕЦ КОЗЛОДУЙ ЕАД",
       "totalEur": 324834.59,
@@ -47234,8 +47465,8 @@
     {
       "slug": "georgi-kirov-kirkov-eb4131",
       "name": "Георги Киров Кирков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "106513772",
       "contractorName": "АЕЦ КОЗЛОДУЙ ЕАД",
       "totalEur": 324834.59,
@@ -47299,8 +47530,8 @@
     {
       "slug": "georgi-stefanov-kaschiev-df51c3",
       "name": "Георги Стефанов Касчиев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "106513772",
       "contractorName": "АЕЦ КОЗЛОДУЙ ЕАД",
       "totalEur": 324834.59,
@@ -47795,8 +48026,8 @@
     {
       "slug": "angelin-nikolaev-tsachev-63f078",
       "name": "Ангелин Николаев Цачев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "175201304",
       "contractorName": "ЕЛЕКТРОЕНЕРГИЕН СИСТЕМЕН ОПЕРАТОР ЕАД",
       "totalEur": 323996.24,
@@ -47856,8 +48087,8 @@
     {
       "slug": "aleksandr-lyubomirov-panov-e875d5",
       "name": "Александър Любомиров Панов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "206533975",
       "contractorName": "Златия ЕКО ООД",
       "totalEur": 316464.63,
@@ -47916,6 +48147,12 @@
         {
           "role": "manager",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%",
+          "valueEur": 2556
         }
       ],
       "byYear": [
@@ -48132,6 +48369,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "manager",
           "confidence": "high"
         }
@@ -48182,8 +48423,8 @@
     {
       "slug": "gancho-koichev-penchev-2c2dc4",
       "name": "Ганчо Койчев Пенчев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "812108739",
       "contractorName": "Айтос-автотранспорт ЕООД - Айтос",
       "totalEur": 300772.44,
@@ -48217,8 +48458,8 @@
     {
       "slug": "atanas-ivanov-kundurdzhiev-3093b4",
       "name": "Атанас Иванов Кундурджиев",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "000715054",
       "contractorName": "Университетска многопрофилна болница за активно лечение \"СВ. Иван Рилски\" ЕАД",
       "totalEur": 298078.05,
@@ -48276,8 +48517,8 @@
     {
       "slug": "decho-petrov-dechev-154400",
       "name": "Дечо Петров Дечев",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "000715054",
       "contractorName": "Университетска многопрофилна болница за активно лечение \"СВ. Иван Рилски\" ЕАД",
       "totalEur": 298078.05,
@@ -48414,6 +48655,11 @@
         {
           "role": "manager",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%"
         }
       ],
       "byYear": [
@@ -48481,8 +48727,8 @@
     {
       "slug": "boiko-borisov-kadinov-7b6e61",
       "name": "Бойко Борисов Кадинов",
-      "tier": "executive",
-      "role": "deputy_minister",
+      "tier": "",
+      "role": "",
       "contractorEik": "121230913",
       "contractorName": "АРХИТЕКТУРНА АГЕНЦИЯ БРАТЯ КАДИНОВИ ЕООД",
       "totalEur": 282335.38,
@@ -48552,8 +48798,8 @@
     {
       "slug": "boiko-georgiev-mirazchiiski-d0c566",
       "name": "Бойко Георгиев Миразчийски",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "102274111",
       "contractorName": "Университетска многопрофилна болница за активно лечение - бургас АД",
       "totalEur": 278206.82,
@@ -48905,6 +49151,12 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%",
+          "valueEur": 2556.46
         }
       ],
       "byYear": [
@@ -48998,6 +49250,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 25.56
         }
       ],
       "byYear": [
@@ -49313,8 +49571,8 @@
     {
       "slug": "anton-stoitsov-petrov-ead5d1",
       "name": "Антон Стоицов Петров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "129008786",
       "contractorName": "АРМСТРОЙИНВЕСТ ЕООД",
       "totalEur": 240502.6,
@@ -49729,8 +49987,8 @@
     {
       "slug": "detelin-ivanov-ivanov-2a6e30",
       "name": "Детелин Иванов Иванов",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "206830873",
       "contractorName": "ИВАЙЛО ВЕД ЕООД",
       "totalEur": 223920.43,
@@ -49914,8 +50172,8 @@
     {
       "slug": "chanko-mindov-mirchev-d0a58e",
       "name": "Чанко Миндов Мирчев",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "102927808",
       "contractorName": "Транспортен ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН център ЕООД",
       "totalEur": 217550.86,
@@ -49985,8 +50243,8 @@
     {
       "slug": "daniela-prodanova-bozdukova-6edf7c",
       "name": "Даниела Проданова Боздукова",
-      "tier": "public_sector",
-      "role": "medical_center",
+      "tier": "",
+      "role": "",
       "contractorEik": "102927808",
       "contractorName": "Транспортен ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН център ЕООД",
       "totalEur": 217550.86,
@@ -50494,8 +50752,8 @@
     {
       "slug": "elena-petkova-iotova-7ad407",
       "name": "Елена Петкова Йотова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "205701046",
       "contractorName": "Съобщително строителство и възстановяване ЕАД",
       "totalEur": 208612.2,
@@ -50672,8 +50930,8 @@
     {
       "slug": "desislava-hristova-chalmova-af183e",
       "name": "Десислава Христова Чалъмова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121031861",
       "contractorName": "Държавна консолидационна компания ЕАД",
       "totalEur": 201238.35,
@@ -50707,8 +50965,8 @@
     {
       "slug": "donko-venkov-uzunov-90172c",
       "name": "Донко Венков Узунов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121031861",
       "contractorName": "Държавна консолидационна компания ЕАД",
       "totalEur": 201238.35,
@@ -50742,8 +51000,8 @@
     {
       "slug": "elena-hristova-boltadzhieva-7260fc",
       "name": "Елена Христова Болтаджиева",
-      "tier": "executive",
-      "role": "secretary_general",
+      "tier": "",
+      "role": "",
       "contractorEik": "121031861",
       "contractorName": "Държавна консолидационна компания ЕАД",
       "totalEur": 201238.35,
@@ -50896,6 +51154,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "representative",
           "confidence": "high"
         }
@@ -51034,8 +51296,8 @@
     {
       "slug": "anastasiya-ilieva-marinova-f537a8",
       "name": "Анастасия Илиева Маринова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201570119",
       "contractorName": "Национален дворец на културата - конгресен център софия ЕАД",
       "totalEur": 196935.13,
@@ -51069,8 +51331,8 @@
     {
       "slug": "boryana-aleksandrova-lozanova-6b1181",
       "name": "Боряна Александрова Лозанова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201570119",
       "contractorName": "Национален дворец на културата - конгресен център софия ЕАД",
       "totalEur": 196935.13,
@@ -51104,8 +51366,8 @@
     {
       "slug": "desislav-petkov-danov-1dbf21",
       "name": "Десислав Петков Данов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201570119",
       "contractorName": "Национален дворец на културата - конгресен център софия ЕАД",
       "totalEur": 196935.13,
@@ -51139,8 +51401,8 @@
     {
       "slug": "ekaterina-dimitrova-dotseva-486c70",
       "name": "Екатерина Димитрова Доцева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201570119",
       "contractorName": "Национален дворец на културата - конгресен център софия ЕАД",
       "totalEur": 196935.13,
@@ -51174,8 +51436,8 @@
     {
       "slug": "elena-georgieva-karapaunova-96bc7a",
       "name": "Елена Георгиева Карапаунова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201570119",
       "contractorName": "Национален дворец на културата - конгресен център софия ЕАД",
       "totalEur": 196935.13,
@@ -51504,8 +51766,8 @@
     {
       "slug": "elisaveta-georgieva-georgieva-0561b9",
       "name": "Елисавета Георгиева Георгиева",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "126652270",
       "contractorName": "ВИТРАЖ ООД",
       "totalEur": 177763.91,
@@ -52079,6 +52341,100 @@
       ]
     },
     {
+      "slug": "kalin-filipov-haitov-f02615",
+      "name": "Калин Филипов Хайтов",
+      "tier": "",
+      "role": "",
+      "contractorEik": "111582001",
+      "contractorName": "КА МОБИЛ ООД",
+      "totalEur": 152814.65,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "15",
+          "valueEur": 766.94
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 1278.23,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 1065.53,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 752.2,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 1994.03,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 35790.43,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 37281.7,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 4,
+          "totalEur": 74652.53,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "176538885",
+          "name": "ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО ТЕХНИКА И ЕЛЕКТРОТЕХНИКА \"ХРИСТО БОТЕВ",
+          "contractCount": 3,
+          "totalEur": 73161.26,
+          "totalOther": {}
+        },
+        {
+          "eik": "821152916",
+          "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ООД",
+          "contractCount": 2,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        },
+        {
+          "eik": "121858220",
+          "name": "РАЙОННА ЗДРАВНООСИГУРИТЕЛНА КАСА - МОНТАНА",
+          "contractCount": 6,
+          "totalEur": 7569.76,
+          "totalOther": {}
+        },
+        {
+          "eik": "121082521",
+          "name": "Териториално поделение \"Социално осигуряване\" на Национален осигурителен институт /ТП на НОИ/ - Монтана",
+          "contractCount": 1,
+          "totalEur": 502.77,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "plamen-pankov-petkov-73a5e6",
       "name": "Пламен Панков Петков",
       "tier": "",
@@ -52122,8 +52478,8 @@
     {
       "slug": "anton-gaborov-todorov-74b706",
       "name": "Антон Габоров Тодоров",
-      "tier": "executive",
-      "role": "agency_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "200765778",
       "contractorName": "НЮ АЙ АД",
       "totalEur": 150798.36,
@@ -52131,6 +52487,10 @@
       "contractCount": 6,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "declared_role",
+          "confidence": "high"
+        },
         {
           "role": "director",
           "confidence": "high"
@@ -52213,8 +52573,8 @@
     {
       "slug": "atanas-mitkov-kandurov-a1a149",
       "name": "Атанас Митков Кандуров",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "201254167",
       "contractorName": "КАНДУРОВ - 76 ЕООД",
       "totalEur": 149297.23,
@@ -52410,8 +52770,8 @@
     {
       "slug": "angel-georgiev-tsigularov-ef24cd",
       "name": "Ангел Георгиев Цигуларов",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "200357965",
       "contractorName": "Ай Ди 555 ООД - Царево",
       "totalEur": 144335.05,
@@ -52452,8 +52812,8 @@
     {
       "slug": "georgi-pavlov-nikolov-963ffc",
       "name": "Георги Павлов Николов",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "130920692",
       "contractorName": "Лифтсервиз ООД",
       "totalEur": 137201.82,
@@ -52512,8 +52872,8 @@
     {
       "slug": "daniel-dimitrov-salabashev-ba34fc",
       "name": "Даниел Димитров Салабашев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "833067740",
       "contractorName": "Мересев ЕООД",
       "totalEur": 136201.15,
@@ -52767,8 +53127,8 @@
     {
       "slug": "detelin-tsvetanov-tsvetkov-fdefe1",
       "name": "Детелин Цветанов Цветков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "107027467",
       "contractorName": "Общински Пътнически транспорт ЕООД",
       "totalEur": 127996.96,
@@ -52846,8 +53206,8 @@
     {
       "slug": "ekaterina-markova-karakoleva-b5a5aa",
       "name": "Екатерина Маркова Караколева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "107027467",
       "contractorName": "Общински Пътнически транспорт ЕООД",
       "totalEur": 127996.96,
@@ -52970,8 +53330,8 @@
     {
       "slug": "encho-stamenov-mirchev-33b464",
       "name": "Енчо Стаменов Мирчев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121577013",
       "contractorName": "ПРОФИЛАКТИКА, РЕХАБИЛИТАЦИЯ И ОТДИХ ЕАД",
       "totalEur": 122710.05,
@@ -53021,6 +53381,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "director",
           "confidence": "high"
         }
@@ -53063,6 +53427,47 @@
       "relations": [
         {
           "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 51129.19,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "130823243",
+          "name": "НАЦИОНАЛНА КОМПАНИЯ \"ЖЕЛЕЗОПЪТНА ИНФРАСТРУКТУРА\" ДП",
+          "contractCount": 2,
+          "totalEur": 122710.05,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "lyubomir-hristov-lalev-8e1fcd",
+      "name": "Любомир Христов Лалев",
+      "tier": "",
+      "role": "",
+      "contractorEik": "121577013",
+      "contractorName": "ПРОФИЛАКТИКА, РЕХАБИЛИТАЦИЯ И ОТДИХ ЕАД",
+      "totalEur": 122710.05,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "declared_role",
           "confidence": "high"
         }
       ],
@@ -53455,8 +53860,8 @@
     {
       "slug": "erhan-sabahtin-ismail-1a1c8e",
       "name": "Ерхан Сабахтин Исмаил",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "200788606",
       "contractorName": "Тим РС ООД",
       "totalEur": 109459.17,
@@ -53576,6 +53981,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "15%",
+          "valueEur": 383.47
         }
       ],
       "byYear": [
@@ -53768,6 +54179,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "5%"
         }
       ],
       "byYear": [
@@ -53797,8 +54213,8 @@
     {
       "slug": "bilyana-stanimirova-atanasova-e1a172",
       "name": "Биляна Станимирова Атанасова",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "203064800",
       "contractorName": "ЕКО РИМА ООД",
       "totalEur": 97642.46,
@@ -54022,8 +54438,8 @@
     {
       "slug": "blagoi-mihailov-milev-2d1242",
       "name": "Благой Михайлов Милев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201627506",
       "contractorName": "ЮГОЗАПАДНО ДЪРЖАВНО ПРЕДПРИЯТИЕ ДП",
       "totalEur": 87794.59,
@@ -54090,8 +54506,8 @@
     {
       "slug": "damyan-iliev-damyanov-5dea1f",
       "name": "Дамян Илиев Дамянов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201627506",
       "contractorName": "ЮГОЗАПАДНО ДЪРЖАВНО ПРЕДПРИЯТИЕ ДП",
       "totalEur": 87794.59,
@@ -54420,8 +54836,8 @@
     {
       "slug": "antoniya-dimova-ivanova-7dd28e",
       "name": "Антония Димова Иванова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121683408",
       "contractorName": "Столичен автотранспорт ЕАД",
       "totalEur": 77339.82,
@@ -54455,8 +54871,8 @@
     {
       "slug": "galina-pencheva-boneva-926768",
       "name": "Галина Пенчева Бонева",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "121683408",
       "contractorName": "Столичен автотранспорт ЕАД",
       "totalEur": 77339.82,
@@ -54689,8 +55105,8 @@
     {
       "slug": "daniela-asenova-metodieva-ed7a2d",
       "name": "Даниела Асенова Методиева",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "000761361",
       "contractorName": "Народно читалище \"РИЛА-1898\" НЧ",
       "totalEur": 76723.83,
@@ -54794,8 +55210,8 @@
     {
       "slug": "evgeni-antonov-dermanski-4107f7",
       "name": "Евгени Антонов Дермански",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "207152607",
       "contractorName": "КаЕМ Билдинг Груп ООД",
       "totalEur": 76673.08,
@@ -54833,8 +55249,8 @@
     {
       "slug": "deyan-milenov-gerasimov-f3406d",
       "name": "Деян Миленов Герасимов",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "117605866",
       "contractorName": "АСПРО МГ ЕООД",
       "totalEur": 76343.49,
@@ -55346,8 +55762,8 @@
     {
       "slug": "danail-pavlov-vlkov-4ca2d2",
       "name": "Данаил Павлов Вълков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "103003668",
       "contractorName": "Градски транспорт ЕАД",
       "totalEur": 72547.19,
@@ -55357,6 +55773,66 @@
       "relations": [
         {
           "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 14827.46,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 6301.67,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 7784.42,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 3,
+          "totalEur": 43633.64,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "131063188",
+          "name": "Териториална дирекция на национална агенция за приходите - варна",
+          "contractCount": 5,
+          "totalEur": 44937.43,
+          "totalOther": {}
+        },
+        {
+          "eik": "121396123",
+          "name": "Български пощи ЕАД",
+          "contractCount": 1,
+          "totalEur": 27609.76,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "dimcho-georgiev-georgiev-5c472e",
+      "name": "Димчо Георгиев Георгиев",
+      "tier": "",
+      "role": "",
+      "contractorEik": "103003668",
+      "contractorName": "Градски транспорт ЕАД",
+      "totalEur": 72547.19,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "declared_role",
           "confidence": "high"
         }
       ],
@@ -55720,6 +56196,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "director",
           "confidence": "high"
         }
@@ -55818,8 +56298,8 @@
     {
       "slug": "angel-tsenov-angelov-f30800",
       "name": "Ангел Ценов Ангелов",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "204807303",
       "contractorName": "АНИ 25 ЕООД",
       "totalEur": 71336.08,
@@ -55834,6 +56314,11 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%"
         }
       ],
       "byYear": [
@@ -55863,8 +56348,8 @@
     {
       "slug": "gncho-koichev-gnchev-3f08d6",
       "name": "Гънчо Койчев Гънчев",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "201339475",
       "contractorName": "Еклат Комерс  ООД, Сопот",
       "totalEur": 68640.94,
@@ -55922,6 +56407,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50%",
+          "valueEur": 1278
         }
       ],
       "byYear": [
@@ -55957,6 +56448,11 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "5000 дяла - 100%"
         }
       ],
       "byYear": [
@@ -56006,8 +56502,8 @@
     {
       "slug": "evgeni-veselinov-chervenyashki-e4733f",
       "name": "Евгени Веселинов Червеняшки",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "203323936",
       "contractorName": "БЪЛВАН ООД",
       "totalEur": 68184.01,
@@ -56053,8 +56549,8 @@
     {
       "slug": "elena-asenova-trichkova-77575e",
       "name": "ЕЛЕНА АСЕНОВА ТРИЧКОВА",
-      "tier": "executive",
-      "role": "eu_funds_controller",
+      "tier": "",
+      "role": "",
       "contractorEik": "206556340",
       "contractorName": "ПЛАНИРАНЕ И ПРОЕКТИРАНЕ 21 ЕООД",
       "totalEur": 67388.27,
@@ -56276,6 +56772,12 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%",
+          "valueEur": 51.13
         }
       ],
       "byYear": [
@@ -56299,8 +56801,8 @@
     {
       "slug": "borislava-stefanova-sirakova-hristova-c7af18",
       "name": "Борислава Стефанова Сиракова-Христова",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "175350784",
       "contractorName": "БС Юнивърс ЕООД - София",
       "totalEur": 61355.03,
@@ -56311,6 +56813,12 @@
         {
           "role": "manager",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 2556.46
         }
       ],
       "byYear": [
@@ -56332,10 +56840,92 @@
       ]
     },
     {
+      "slug": "nadezhda-georgieva-iordanova-67a65b",
+      "name": "Надежда Георгиева Йорданова",
+      "tier": "",
+      "role": "",
+      "contractorEik": "175271486",
+      "contractorName": "Научни иновативни решения ООД",
+      "totalEur": 60920.42,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "1000"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 4,
+          "totalEur": 9049.87,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 5,
+          "totalEur": 16591.41,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 4857.27,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 30421.87,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000320566",
+          "name": "ОБЩИНА БОЙЧИНОВЦИ",
+          "contractCount": 1,
+          "totalEur": 30421.87,
+          "totalOther": {}
+        },
+        {
+          "eik": "130169256",
+          "name": "Министерство на икономиката и енергетиката /Мие/ - Старо наименование - Министерство на икономиката, енергетиката и туризма /миет/ /Старо наименование - Министерство на икономиката и енергетиката /мие//",
+          "contractCount": 4,
+          "totalEur": 9049.87,
+          "totalOther": {}
+        },
+        {
+          "eik": "000056814",
+          "name": "Община Бургас",
+          "contractCount": 1,
+          "totalEur": 8405.64,
+          "totalOther": {}
+        },
+        {
+          "eik": "000351558",
+          "name": "Община Белово",
+          "contractCount": 3,
+          "totalEur": 6099.7,
+          "totalOther": {}
+        },
+        {
+          "eik": "000852544",
+          "name": "Община Балчик",
+          "contractCount": 1,
+          "totalEur": 4857.27,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "daniel-tochev-delchev-4391fe",
       "name": "Даниел Точев Делчев",
-      "tier": "municipal",
-      "role": "deputy_mayor",
+      "tier": "",
+      "role": "",
       "contractorEik": "200067887",
       "contractorName": "Българска финансова група ООД - Кърджали",
       "totalEur": 60402.75,
@@ -56346,6 +56936,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "2500",
+          "valueEur": 1278.23
         }
       ],
       "byYear": [
@@ -56534,8 +57130,8 @@
     {
       "slug": "ekaterina-boyanova-bahanova-lazarova-5bc1b9",
       "name": "Екатерина Боянова Баханова-Лазарова",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "204669364",
       "contractorName": "Беър диджитал арт ЕООД",
       "totalEur": 54310.95,
@@ -56569,8 +57165,8 @@
     {
       "slug": "chavdar-kirilov-trendafilov-315173",
       "name": "Чавдар Кирилов Трендафилов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "200699075",
       "contractorName": "БДЖ - Булвагон АД - гр.София",
       "totalEur": 53992.42,
@@ -56702,6 +57298,12 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 2556.46
         }
       ],
       "byYear": [
@@ -56725,8 +57327,8 @@
     {
       "slug": "eleonora-hristova-stoyanova-2c9115",
       "name": "Елеонора Христова Стоянова",
-      "tier": "public_sector",
-      "role": "kindergarten",
+      "tier": "",
+      "role": "",
       "contractorEik": "200969777",
       "contractorName": "АЙ ВИ Трейд груп - София",
       "totalEur": 51129.19,
@@ -56838,8 +57440,8 @@
     {
       "slug": "anita-kostadinova-handruleva-c69c72",
       "name": "Анита Костадинова Хандрулева",
-      "tier": "executive",
-      "role": "eu_funds_controller",
+      "tier": "",
+      "role": "",
       "contractorEik": "206538214",
       "contractorName": "Европейски Цифров иновационен ХЪБ в сектор строителство Сдружение",
       "totalEur": 49404.94,
@@ -56873,8 +57475,8 @@
     {
       "slug": "gichka-angelova-kutova-kamenova-9993fa",
       "name": "Гичка Ангелова Кутова-Каменова",
-      "tier": "executive",
-      "role": "academic",
+      "tier": "",
+      "role": "",
       "contractorEik": "206538214",
       "contractorName": "Европейски Цифров иновационен ХЪБ в сектор строителство Сдружение",
       "totalEur": 49404.94,
@@ -56908,8 +57510,8 @@
     {
       "slug": "atanas-todorov-pchkov-da0f38",
       "name": "Атанас Тодоров Пъчков",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "206081511",
       "contractorName": "СМР Сървисес ЕООД",
       "totalEur": 48868.93,
@@ -56956,8 +57558,8 @@
     {
       "slug": "dimitr-vlchinov-dimitrov-2b9ad8",
       "name": "Димитър Вълчинов Димитров",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "000662769",
       "contractorName": "СБАЛАГ Майчин дом ЕАД",
       "totalEur": 48572.73,
@@ -56991,8 +57593,8 @@
     {
       "slug": "ekaterina-lazarova-trenkova-22521b",
       "name": "Екатерина Лазарова Тренкова",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "000662769",
       "contractorName": "СБАЛАГ Майчин дом ЕАД",
       "totalEur": 48572.73,
@@ -57026,8 +57628,8 @@
     {
       "slug": "gergana-vasileva-dermendzhieva-10cca5",
       "name": "Гергана Василева Дерменджиева",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "000662769",
       "contractorName": "СБАЛАГ Майчин дом ЕАД",
       "totalEur": 48572.73,
@@ -57355,6 +57957,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "33.33"
         }
       ],
       "byYear": [
@@ -57378,8 +57985,8 @@
     {
       "slug": "georgi-spasov-peichev-840b69",
       "name": "Георги Спасов Пейчев",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "112115775",
       "contractorName": "Пейчеви ООД",
       "totalEur": 46076.04,
@@ -57538,8 +58145,8 @@
     {
       "slug": "aneliya-atanasova-dimitrova-77bd86",
       "name": "Анелия Атанасова Димитрова",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "831605845",
       "contractorName": "Университетска многопрофилна болница за активно лечение \"Света Екатерина\" ЕАД",
       "totalEur": 43475.4,
@@ -57765,8 +58372,8 @@
     {
       "slug": "georgi-tomov-savkov-cb1f60",
       "name": "Георги Томов Савков",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "130128163",
       "contractorName": "Многопрофилна болница за активно лечение  \"Свети Николай Чудотворец\" - Лом ЕООД",
       "totalEur": 41420.9,
@@ -57952,8 +58559,8 @@
     {
       "slug": "georgi-hristov-yanushev-bbc33a",
       "name": "Георги Христов Янушев",
-      "tier": "public_sector",
-      "role": "school",
+      "tier": "",
+      "role": "",
       "contractorEik": "112077952",
       "contractorName": "Образцово народно читалище \"Будилник\" 1898 гр.Ракитово НЧ",
       "totalEur": 40114.73,
@@ -58005,6 +58612,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "33,6%",
+          "valueEur": 257691.11
         }
       ],
       "byYear": [
@@ -58053,6 +58666,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100 %"
         }
       ],
       "byYear": [
@@ -58210,8 +58828,8 @@
     {
       "slug": "emil-georgiev-kovachev-9b0251",
       "name": "Емил Георгиев Ковачев",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "000090065",
       "contractorName": "Специализирана болница по акушерство и гинекология за активно лечение проф. Д-Р димитър СТАМАТОВ-ВАРНА ЕООД",
       "totalEur": 35790.43,
@@ -58245,8 +58863,8 @@
     {
       "slug": "daniela-vlcheva-borisova-0387d2",
       "name": "Даниела Вълчева Борисова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "102093591",
       "contractorName": "АСОЦИАЦИЯ НА ЕКОЛОЗИТЕ ОТ ОБЩИНИТЕ В БЪЛГАРИЯ Сдружение",
       "totalEur": 35483.66,
@@ -58315,8 +58933,8 @@
     {
       "slug": "elena-nikolova-dimitrova-e72ed8",
       "name": "Елена Николова Димитрова",
-      "tier": "public_sector",
-      "role": "school",
+      "tier": "",
+      "role": "",
       "contractorEik": "201384680",
       "contractorName": "Лена агромашини ЕООД",
       "totalEur": 34999.97,
@@ -58455,8 +59073,8 @@
     {
       "slug": "aleksandra-boteva-sariiska-791f35",
       "name": "Александра Ботева Сарийска",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831629999",
       "contractorName": "Монтажи ЕАД – гр.София",
       "totalEur": 33873.34,
@@ -58490,8 +59108,8 @@
     {
       "slug": "daniel-miloslavov-petrov-f5282c",
       "name": "Даниел Милославов Петров",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831629999",
       "contractorName": "Монтажи ЕАД – гр.София",
       "totalEur": 33873.34,
@@ -58525,8 +59143,8 @@
     {
       "slug": "dobromir-prodanov-simidchiev-8aed0d",
       "name": "Добромир Проданов Симидчиев",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831629999",
       "contractorName": "Монтажи ЕАД – гр.София",
       "totalEur": 33873.34,
@@ -58560,8 +59178,8 @@
     {
       "slug": "donko-venkov-uzunov-90172c",
       "name": "Донко Венков Узунов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "831629999",
       "contractorName": "Монтажи ЕАД – гр.София",
       "totalEur": 33873.34,
@@ -58774,8 +59392,8 @@
     {
       "slug": "daniela-georgieva-petkova-886676",
       "name": "Даниела Георгиева Петкова",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "130423167",
       "contractorName": "Сдружение \"БУЛПРОФОР- браншово сдружение на лесовъдите на частна практика в горите и околната среда",
       "totalEur": 32671.55,
@@ -58844,8 +59462,8 @@
     {
       "slug": "gencho-ivanov-iliev-0d6e65",
       "name": "Генчо Иванов Илиев",
-      "tier": "executive",
-      "role": "regional_director",
+      "tier": "",
+      "role": "",
       "contractorEik": "175969784",
       "contractorName": "Булинфосек Сдружение",
       "totalEur": 28095.49,
@@ -58979,6 +59597,11 @@
         {
           "role": "manager",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%"
         }
       ],
       "byYear": [
@@ -59060,8 +59683,8 @@
     {
       "slug": "aneliya-peneva-hristova-62fec7",
       "name": "Анелия Пенева Христова",
-      "tier": "municipal",
-      "role": "deputy_mayor",
+      "tier": "",
+      "role": "",
       "contractorEik": "200552100",
       "contractorName": "ЕвроИнвестКонсулт ООД",
       "totalEur": 26758.46,
@@ -59664,8 +60287,8 @@
     {
       "slug": "andrean-ivanov-vanov-e3fbfa",
       "name": "Андреан Иванов Ваньов",
-      "tier": "municipal",
-      "role": "deputy_mayor",
+      "tier": "",
+      "role": "",
       "contractorEik": "175050395",
       "contractorName": "Марвел Инвест ЕООД, гр. София",
       "totalEur": 21317.07,
@@ -59769,8 +60392,8 @@
     {
       "slug": "deyan-ivanov-belemezov-edb37e",
       "name": "Деян Иванов Белемезов",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "201617654",
       "contractorName": "Бултекс 99 ЕООД",
       "totalEur": 20294.35,
@@ -59817,8 +60440,8 @@
     {
       "slug": "dimcho-dinev-radev-00f83c",
       "name": "Димчо Динев Радев",
-      "tier": "executive",
-      "role": "procurement_officer",
+      "tier": "",
+      "role": "",
       "contractorEik": "201617654",
       "contractorName": "Бултекс 99 ЕООД",
       "totalEur": 20294.35,
@@ -59925,6 +60548,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%",
+          "valueEur": 766.94
         }
       ],
       "byYear": [
@@ -59993,8 +60622,8 @@
     {
       "slug": "diana-dimitrova-mladenova-829e84",
       "name": "Диана Димитрова Младенова",
-      "tier": "executive",
-      "role": "political_cabinet",
+      "tier": "",
+      "role": "",
       "contractorEik": "833172830",
       "contractorName": "Статис АД, Стара Загора",
       "totalEur": 18397.3,
@@ -60028,8 +60657,8 @@
     {
       "slug": "filka-nikolova-simeonova-7fcefb",
       "name": "Филка Николова Симеонова",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "123535874",
       "contractorName": "Университетска многопрофилна болница за активно лечение - проф., Д-Р стоян киркович АД",
       "totalEur": 18321.29,
@@ -60098,8 +60727,8 @@
     {
       "slug": "emil-sarkis-indzhiyan-ea9bb5",
       "name": "Емил Саркис Инджиян",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "204744347",
       "contractorName": "Бенстар компютърс ЕООД",
       "totalEur": 17686.07,
@@ -60304,8 +60933,8 @@
     {
       "slug": "dobrin-mladenov-dobrev-0fcbae",
       "name": "Добрин Младенов Добрев",
-      "tier": "municipal",
-      "role": "mayor",
+      "tier": "",
+      "role": "",
       "contractorEik": "121399226",
       "contractorName": "Национално сдружение на общините в Република България - София",
       "totalEur": 16616.99,
@@ -60339,8 +60968,8 @@
     {
       "slug": "georgi-rangelov-maradzhiev-43b3f3",
       "name": "Георги Рангелов Мараджиев",
-      "tier": "executive",
-      "role": "eu_funds_controller",
+      "tier": "",
+      "role": "",
       "contractorEik": "121399226",
       "contractorName": "Национално сдружение на общините в Република България - София",
       "totalEur": 16616.99,
@@ -60625,8 +61254,8 @@
     {
       "slug": "georgi-boyanov-tonev-345fc4",
       "name": "Георги Боянов Тонев",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "020177905",
       "contractorName": "АРКА-РУСЕ ООД",
       "totalEur": 16484.05,
@@ -60678,6 +61307,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "500 дружествени дяла = 100 % собственост"
         }
       ],
       "byYear": [
@@ -60848,6 +61482,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "25",
+          "valueEur": 1278.23
         }
       ],
       "byYear": [
@@ -61055,8 +61695,8 @@
     {
       "slug": "georgi-ventsislavov-donevichin-28562b",
       "name": "Георги Венциславов Доневичин",
-      "tier": "municipal",
-      "role": "deputy_mayor",
+      "tier": "",
+      "role": "",
       "contractorEik": "205856819",
       "contractorName": "Прогед ЕООД",
       "totalEur": 11492.31,
@@ -61090,8 +61730,8 @@
     {
       "slug": "galinka-ivanova-pavlova-95b8fc",
       "name": "Галинка Иванова Павлова",
-      "tier": "public_sector",
-      "role": "medical_center",
+      "tier": "",
+      "role": "",
       "contractorEik": "813152934",
       "contractorName": "Диагностично - консултативен център V варна - света Екатерина ЕООД",
       "totalEur": 11386.47,
@@ -61149,6 +61789,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "10%"
         }
       ],
       "byYear": [
@@ -61357,8 +62002,8 @@
     {
       "slug": "delo-stoyanov-delov-62069f",
       "name": "Дело Стоянов Делов",
-      "tier": "municipal",
-      "role": "councillor",
+      "tier": "",
+      "role": "",
       "contractorEik": "204407180",
       "contractorName": "Бети и Дело Делов ЕООД",
       "totalEur": 8196.28,
@@ -61392,8 +62037,8 @@
     {
       "slug": "anton-dimitrov-raichev-7f7f2d",
       "name": "Антон Димитров Райчев",
-      "tier": "public_sector",
-      "role": "school",
+      "tier": "",
+      "role": "",
       "contractorEik": "203728288",
       "contractorName": "„ЕЛ КА ВЕ АИК” ЕООД",
       "totalEur": 8180.67,
@@ -61466,8 +62111,8 @@
     {
       "slug": "dimitr-plamenov-mitev-ce92f4",
       "name": "Димитър Пламенов Митев",
-      "tier": "executive",
-      "role": "hospital_head",
+      "tier": "",
+      "role": "",
       "contractorEik": "205002797",
       "contractorName": "Метеосторм ООД",
       "totalEur": 7851.4,
@@ -61478,6 +62123,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "33",
+          "valueEur": 5.11
         }
       ],
       "byYear": [
@@ -61501,8 +62152,8 @@
     {
       "slug": "chavdar-hristov-georgiev-faee89",
       "name": "Чавдар Христов Георгиев",
-      "tier": "executive",
-      "role": "deputy_minister",
+      "tier": "",
+      "role": "",
       "contractorEik": "202999541",
       "contractorName": "Георгиев дизайн студио ЕООД",
       "totalEur": 7669.38,
@@ -61517,6 +62168,11 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%"
         }
       ],
       "byYear": [
@@ -61540,8 +62196,8 @@
     {
       "slug": "dora-nikolova-todorova-c0c5d9",
       "name": "Дора Николова Тодорова",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "122007856",
       "contractorName": "Формсинтез ООД - Ботевград",
       "totalEur": 7643.81,
@@ -61591,6 +62247,12 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "1/2",
+          "valueEur": 14418.43
         }
       ],
       "byYear": [
@@ -61638,8 +62300,8 @@
     {
       "slug": "georgi-vasilev-minkov-152306",
       "name": "Георги Василев Минков",
-      "tier": "executive",
-      "role": "state_enterprise",
+      "tier": "",
+      "role": "",
       "contractorEik": "202966915",
       "contractorName": "Градски транспорт Добрич ЕООД",
       "totalEur": 7288.88,
@@ -61881,6 +62543,10 @@
       "awardCount": 0,
       "relations": [
         {
+          "role": "declared_role",
+          "confidence": "high"
+        },
+        {
           "role": "manager",
           "confidence": "high"
         }
@@ -61961,8 +62627,8 @@
     {
       "slug": "dimitr-hristov-kochev-ece1ee",
       "name": "Димитър Христов Кочев",
-      "tier": "public_sector",
-      "role": "medical_center",
+      "tier": "",
+      "role": "",
       "contractorEik": "110530756",
       "contractorName": "Медицински център - ловеч ЕООД",
       "totalEur": 4561.58,
@@ -62079,8 +62745,8 @@
     {
       "slug": "deyan-ivanov-statulov-627c02",
       "name": "Деян Иванов Статулов",
-      "tier": "executive",
-      "role": "regional_director",
+      "tier": "",
+      "role": "",
       "contractorEik": "000703504",
       "contractorName": "Съюз на българските филмови дейци Сдружение",
       "totalEur": 4260.76,
@@ -62184,8 +62850,8 @@
     {
       "slug": "emiliya-georgieva-toncheva-d83856",
       "name": "Емилия Георгиева Тончева",
-      "tier": "executive",
-      "role": "eu_funds_controller",
+      "tier": "",
+      "role": "",
       "contractorEik": "114063022",
       "contractorName": "Сдружение \"Развитие на личността и човешките общности\" Сдружение",
       "totalEur": 3932.69,
@@ -62219,8 +62885,8 @@
     {
       "slug": "evelina-getova-stoichkova-1fe250",
       "name": "Евелина Гетова Стоичкова",
-      "tier": "public_sector",
-      "role": "school",
+      "tier": "",
+      "role": "",
       "contractorEik": "000196937",
       "contractorName": "ДОМ на Науката и техниката Сдружение",
       "totalEur": 3593.87,
@@ -62386,8 +63052,8 @@
     {
       "slug": "bogdana-vladimirova-panaiotova-f7456e",
       "name": "Богдана Владимирова Панайотова",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "126722345",
       "contractorName": "Хасковски имоти ООД",
       "totalEur": 2556.46,
@@ -62414,6 +63080,43 @@
           "name": "Община Свиленград",
           "contractCount": 1,
           "totalEur": 2556.46,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "dobromir-dobrev-boyadzhiev-21813f",
+      "name": "Добромир Добрев Бояджиев",
+      "tier": "",
+      "role": "",
+      "contractorEik": "124628254",
+      "contractorName": "Модус ООД - Добрич",
+      "totalEur": 2454.2,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50%",
+          "valueEur": 1278.23
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 2454.2,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000852932",
+          "name": "Община град Добрич",
+          "contractCount": 1,
+          "totalEur": 2454.2,
           "totalOther": {}
         }
       ]
@@ -62594,8 +63297,8 @@
     {
       "slug": "eleonora-miteva-kostadinova-f19535",
       "name": "Елеонора Митева Костадинова",
-      "tier": "public_sector",
-      "role": "medical_center",
+      "tier": "",
+      "role": "",
       "contractorEik": "128057410",
       "contractorName": "Диагностично - консултативен център 1 ямбол ЕООД",
       "totalEur": 2099.36,
@@ -62670,8 +63373,8 @@
     {
       "slug": "doroteya-iordanova-hristova-b4ee8c",
       "name": "Доротея Йорданова Христова",
-      "tier": "municipal",
-      "role": "chief_architect",
+      "tier": "",
+      "role": "",
       "contractorEik": "123750777",
       "contractorName": "Архи - Тея ЕООД - Казанлък",
       "totalEur": 1942.91,
@@ -62779,8 +63482,8 @@
     {
       "slug": "efimiya-ivanova-pavlova-e39b54",
       "name": "Ефимия Иванова Павлова",
-      "tier": "public_sector",
-      "role": "cultural_institute",
+      "tier": "",
+      "role": "",
       "contractorEik": "200581511",
       "contractorName": "Арх. Павлов ЕООД - Сливен",
       "totalEur": 1533.88,
@@ -62830,6 +63533,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "70%",
+          "valueEur": 1789.52
         }
       ],
       "byYear": [
@@ -62927,8 +63636,8 @@
     {
       "slug": "bozhidar-dimitrov-borisov-020304",
       "name": "Божидар Димитров Борисов",
-      "tier": "executive",
-      "role": "procurement_officer",
+      "tier": "",
+      "role": "",
       "contractorEik": "114107675",
       "contractorName": "СДРУЖЕНИЕ \"АСОЦИАЦИЯ НА ДУНАВСКИТЕ ОБЩИНИ-ДУНАВ\" гр. Белене",
       "totalEur": 1012.36,
@@ -63013,6 +63722,12 @@
         {
           "role": "sole_owner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%",
+          "valueEur": 2556.46
         }
       ],
       "byYear": [
@@ -63201,6 +63916,12 @@
         {
           "role": "partner",
           "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "2000",
+          "valueEur": 1022.58
         }
       ],
       "byYear": [
