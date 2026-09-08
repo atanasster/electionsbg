@@ -20,6 +20,7 @@ import {
 import {
   PENSION_POLICY_CURRENT,
   resolveSpendingBases,
+  scoreMinWageFreeze,
   scoreMpPayFreeze,
   scorePensionIndexation,
   scoreSpendingChange,
@@ -1452,9 +1453,17 @@ const run = async () => {
     ],
     ["съкращаване на администрацията с 10%", 30e6],
     // NET of the two channels: the SSC/PIT forgone on private below-floor
-    // wages (−€229M) MINUS the public-sector payroll the budget avoids paying
-    // its own low-wage staff (+€114M) — see scoreMinWageFreeze.
-    ["freeze the minimum wage", -115e6],
+    // wages MINUS the public-sector payroll the budget avoids paying its own
+    // low-wage staff — see scoreMinWageFreeze. `formulaEur` rides the same
+    // live wageGrowthPct (Eurostat) as the pension/MP-pay levers above, so a
+    // frozen literal drifts on every baseline regeneration exactly as those
+    // did (a 12.05→9.05 wage-growth print moved this lever −115M→−85M on the
+    // 2026-09-08 watch ingest). Derive it from the baseline the same way
+    // scripts/budget/__test_ai_parity.ts does, instead of pinning a literal.
+    [
+      "freeze the minimum wage",
+      scoreMinWageFreeze(baseline.earnings.bands, exp!.minWage).netEur,
+    ],
     // Phase-5 levers (same balance convention). Defense is priced against
     // the projection's €123.9B 2026 GDP (commit a760b1d5d) — (3.0−2.06)% ×
     // €123.9B ≈ −€1165M. Current NATO-definition defense = 2.06% of GDP
