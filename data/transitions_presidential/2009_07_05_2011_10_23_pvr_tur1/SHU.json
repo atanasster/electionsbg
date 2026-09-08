@@ -1,0 +1,595 @@
+{
+  "from": "2009_07_05",
+  "to": "2011_10_23_pvr_tur1",
+  "scope": "SHU",
+  "matrix": {
+    "fromNodes": [
+      {
+        "id": "gerb",
+        "label": "ГЕРБ-СДС",
+        "labelEn": "GERB-SDS",
+        "color": "rgb(12, 69, 135)",
+        "votes": 35738
+      },
+      {
+        "id": "bsp",
+        "label": "БСП-ОЛ",
+        "labelEn": "BSP-UL",
+        "color": "rgb(237, 28, 36)",
+        "votes": 18131
+      },
+      {
+        "id": "p_16",
+        "label": "ДПС",
+        "labelEn": "DPS",
+        "color": "rgb(33, 125, 223)",
+        "votes": 29809
+      },
+      {
+        "id": "ataka",
+        "label": "Атака",
+        "labelEn": "Ataka",
+        "color": "#006400",
+        "votes": 9352
+      },
+      {
+        "id": "p_163",
+        "label": "СК",
+        "labelEn": "BC",
+        "color": "rgb(66, 0, 255)",
+        "votes": 2498
+      },
+      {
+        "id": "p_131",
+        "label": "РЗС",
+        "labelEn": "RZS",
+        "color": "lightslategrey",
+        "votes": 2939
+      },
+      {
+        "id": "p_138",
+        "label": "Лидер",
+        "labelEn": "Lider",
+        "color": "lightslategrey",
+        "votes": 3898
+      },
+      {
+        "id": "p_58",
+        "label": "НДСВ",
+        "labelEn": "NMSP",
+        "color": "#f5ce42",
+        "votes": 3121
+      },
+      {
+        "id": "__parl_other",
+        "label": "Други партии (парламент)",
+        "labelEn": "Other parties (parliament)",
+        "color": "#9ca3af",
+        "votes": 912,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 73231,
+        "pseudo": true
+      },
+      {
+        "id": "__joined__",
+        "label": "Нови в избирателните списъци",
+        "labelEn": "Newly registered",
+        "color": "#86efac",
+        "votes": 9396,
+        "pseudo": true
+      }
+    ],
+    "toNodes": [
+      {
+        "id": "pvr-2",
+        "label": "Росен Асенов Плевнелиев",
+        "labelEn": "Росен Асенов Плевнелиев",
+        "color": "rgb(12, 69, 135)",
+        "votes": 28252
+      },
+      {
+        "id": "pvr-8",
+        "label": "Ивайло Георгиев Калфин",
+        "labelEn": "Ивайло Георгиев Калфин",
+        "color": "rgb(161, 136, 127)",
+        "votes": 30851
+      },
+      {
+        "id": "pvr-1",
+        "label": "Меглена Щилиянова Кунева",
+        "labelEn": "Меглена Щилиянова Кунева",
+        "color": "rgb(96, 125, 139)",
+        "votes": 12059
+      },
+      {
+        "id": "pvr-9",
+        "label": "Волен Николов Сидеров",
+        "labelEn": "Волен Николов Сидеров",
+        "color": "#006400",
+        "votes": 2662
+      },
+      {
+        "id": "pvr-6",
+        "label": "Стефан Георгиев Солаков",
+        "labelEn": "Стефан Георгиев Солаков",
+        "color": "rgb(255, 167, 38)",
+        "votes": 2121
+      },
+      {
+        "id": "pvr-14",
+        "label": "Атанас Марков Семов",
+        "labelEn": "Атанас Марков Семов",
+        "color": "rgb(255, 138, 101)",
+        "votes": 1464
+      },
+      {
+        "id": "pvr-4",
+        "label": "Румен Димитров Христов",
+        "labelEn": "Румен Димитров Христов",
+        "color": "rgb(77, 182, 172)",
+        "votes": 1075
+      },
+      {
+        "id": "pvr-3",
+        "label": "Сали Шабан Ибрям",
+        "labelEn": "Сали Шабан Ибрям",
+        "color": "rgb(121, 134, 203)",
+        "votes": 2501
+      },
+      {
+        "id": "pvr-20",
+        "label": "Светослав Емилов Витков",
+        "labelEn": "Светослав Емилов Витков",
+        "color": "rgb(129, 212, 250)",
+        "votes": 810
+      },
+      {
+        "id": "pvr-5",
+        "label": "Мария Василева Капон",
+        "labelEn": "Мария Василева Капон",
+        "color": "rgb(32, 115, 190)",
+        "votes": 630
+      },
+      {
+        "id": "pvr-12",
+        "label": "Алексей Илиев Петров",
+        "labelEn": "Алексей Илиев Петров",
+        "color": "rgb(149, 117, 205)",
+        "votes": 531
+      },
+      {
+        "id": "__pvr_other",
+        "label": "Други двойки",
+        "labelEn": "Other pairs",
+        "color": "#94a3b8",
+        "votes": 1593,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 104476,
+        "pseudo": true
+      },
+      {
+        "id": "__exited__",
+        "label": "Отпаднали от списъците",
+        "labelEn": "Removed from rolls",
+        "color": "#fca5a5",
+        "votes": 0,
+        "pseudo": true
+      }
+    ],
+    "flows": [
+      {
+        "from": "gerb",
+        "to": "pvr-2",
+        "votes": 18961
+      },
+      {
+        "from": "gerb",
+        "to": "pvr-8",
+        "votes": 1701
+      },
+      {
+        "from": "gerb",
+        "to": "pvr-1",
+        "votes": 2440
+      },
+      {
+        "from": "gerb",
+        "to": "pvr-9",
+        "votes": 1265
+      },
+      {
+        "from": "gerb",
+        "to": "pvr-20",
+        "votes": 198
+      },
+      {
+        "from": "gerb",
+        "to": "__abstain__",
+        "votes": 11172
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-2",
+        "votes": 1109
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-8",
+        "votes": 5356
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-1",
+        "votes": 338
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-6",
+        "votes": 289
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-14",
+        "votes": 388
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-4",
+        "votes": 129
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-5",
+        "votes": 70
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-12",
+        "votes": 41
+      },
+      {
+        "from": "bsp",
+        "to": "__pvr_other",
+        "votes": 363
+      },
+      {
+        "from": "bsp",
+        "to": "__abstain__",
+        "votes": 10048
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-2",
+        "votes": 3815
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-8",
+        "votes": 7843
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-1",
+        "votes": 2276
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-9",
+        "votes": 50
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-6",
+        "votes": 236
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-14",
+        "votes": 152
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-4",
+        "votes": 208
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-3",
+        "votes": 1420
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-5",
+        "votes": 147
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-12",
+        "votes": 38
+      },
+      {
+        "from": "p_16",
+        "to": "__pvr_other",
+        "votes": 353
+      },
+      {
+        "from": "p_16",
+        "to": "__abstain__",
+        "votes": 13262
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-2",
+        "votes": 1183
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-8",
+        "votes": 5777
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-1",
+        "votes": 520
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-9",
+        "votes": 434
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-6",
+        "votes": 1060
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-14",
+        "votes": 352
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-3",
+        "votes": 26
+      },
+      {
+        "from": "p_163",
+        "to": "pvr-1",
+        "votes": 461
+      },
+      {
+        "from": "p_163",
+        "to": "pvr-4",
+        "votes": 185
+      },
+      {
+        "from": "p_163",
+        "to": "pvr-20",
+        "votes": 83
+      },
+      {
+        "from": "p_163",
+        "to": "__abstain__",
+        "votes": 1770
+      },
+      {
+        "from": "p_131",
+        "to": "pvr-2",
+        "votes": 571
+      },
+      {
+        "from": "p_131",
+        "to": "pvr-8",
+        "votes": 1103
+      },
+      {
+        "from": "p_131",
+        "to": "pvr-1",
+        "votes": 1170
+      },
+      {
+        "from": "p_131",
+        "to": "pvr-9",
+        "votes": 60
+      },
+      {
+        "from": "p_131",
+        "to": "pvr-12",
+        "votes": 28
+      },
+      {
+        "from": "p_138",
+        "to": "pvr-8",
+        "votes": 297
+      },
+      {
+        "from": "p_138",
+        "to": "pvr-1",
+        "votes": 157
+      },
+      {
+        "from": "p_138",
+        "to": "pvr-3",
+        "votes": 211
+      },
+      {
+        "from": "p_138",
+        "to": "__abstain__",
+        "votes": 3218
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-2",
+        "votes": 687
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-8",
+        "votes": 1336
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-1",
+        "votes": 794
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-9",
+        "votes": 21
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-6",
+        "votes": 26
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-14",
+        "votes": 38
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-3",
+        "votes": 36
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-12",
+        "votes": 27
+      },
+      {
+        "from": "p_58",
+        "to": "__pvr_other",
+        "votes": 138
+      },
+      {
+        "from": "__parl_other",
+        "to": "pvr-2",
+        "votes": 777
+      },
+      {
+        "from": "__parl_other",
+        "to": "pvr-8",
+        "votes": 121
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-8",
+        "votes": 6355
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-1",
+        "votes": 2856
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-9",
+        "votes": 47
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-12",
+        "votes": 38
+      },
+      {
+        "from": "__abstain__",
+        "to": "__pvr_other",
+        "votes": 85
+      },
+      {
+        "from": "__abstain__",
+        "to": "__abstain__",
+        "votes": 63834
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-2",
+        "votes": 1149
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-8",
+        "votes": 962
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-1",
+        "votes": 1046
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-9",
+        "votes": 777
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-6",
+        "votes": 509
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-14",
+        "votes": 519
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-4",
+        "votes": 553
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-3",
+        "votes": 808
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-20",
+        "votes": 498
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-5",
+        "votes": 396
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-12",
+        "votes": 358
+      },
+      {
+        "from": "__joined__",
+        "to": "__pvr_other",
+        "votes": 650
+      },
+      {
+        "from": "__joined__",
+        "to": "__abstain__",
+        "votes": 1172
+      }
+    ]
+  },
+  "persistence": {
+    "stayedVotes": 0,
+    "votedBothNamed": 65157,
+    "stayRate": 0,
+    "topDefection": {
+      "fromId": "gerb",
+      "toId": "pvr-2",
+      "votes": 18961,
+      "share": 0.7718536624883559
+    }
+  }
+}

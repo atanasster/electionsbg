@@ -44,6 +44,7 @@ import {
   Map as MapIcon,
   Scale,
   Shuffle,
+  GitFork,
   Split,
   UserCheck,
 } from "lucide-react";
@@ -84,6 +85,8 @@ import {
   usePresidentialSuspicious,
 } from "@/data/presidential/useSuspiciousSettlements";
 import { useFlashDiff } from "@/data/presidential/useFlashDiff";
+import { PresidentialFlowTile } from "./PresidentialFlowTile";
+import { usePresidentialFlow } from "@/data/presidential/usePresidentialFlow";
 import { PresidentialProblemSectionsTile } from "./PresidentialProblemSectionsTile";
 import { PresidentialProblemVotesTile } from "./PresidentialProblemVotesTile";
 import { scopeNeighborhoods } from "@/data/presidential/neighborhoodScope";
@@ -198,6 +201,14 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // ⚠ THE COUNTRY SCOPE IS THE ARTIFACT ITSELF — `scopeNeighborhoods` returns the published
   // `tickets` array verbatim at this level rather than re-deriving it, so the country page and
   // the place pages cannot disagree about a share by a rounding step.
+  // ⚠⚠ THE SECTION'S OWN GATE, NOT THE TILE'S SELF-HIDE. `DashboardSection` CANNOT see through
+  // a component boundary — `isRenderable` returns true for `<PresidentialFlowTile />` whatever
+  // it renders — so a tile that returns null leaves the heading standing over nothing. Measured
+  // on 2006, whose flow the producer refuses on coverage: „Прехвърляне на гласове" drew with an
+  // empty body. React Query dedupes this call against the tile's own, so the gate costs no
+  // second request.
+  const flow = usePresidentialFlow(cycle, round.round, "national");
+  const hasFlow = flow.hasPair && flow.hasFile;
   const scopedHoods = useMemo(
     () =>
       hoods.status === "ready"
@@ -321,6 +332,27 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
           {hasCleavages && cleavages.status === "ready" ? (
             <PresidentialCleavagesTile cleavages={cleavages.cleavages} />
           ) : null}
+        </DashboardSection>
+      ) : null}
+
+      {/* 3c. where the parliamentary vote went. ⚠ ITS OWN SECTION AND ITS OWN KIND OF CLAIM —
+             everything above it is arithmetic on published protocols and this is an ESTIMATE.
+             The tile self-hides on the three cycles that legitimately have none (no
+             parliamentary predecessor, a refused section join, an unshipped artifact) — and the
+             SECTION carries its own gate, because `DashboardSection` cannot see through a
+             component boundary and would otherwise draw the heading over nothing. */}
+      {hasFlow ? (
+        <DashboardSection
+          id="presidential-flow"
+          // ⚠ THE SECTION AND THE TILE MUST NOT SAY THE SAME THING. Rendered with the tile's own
+          // title, the heading read „Как гласуваха партийните избиратели" twice in a row — the
+          // duplication `/local` avoids by heading its section „Прехвърляне на гласове" and its
+          // card „Поток на гласовете".
+          title={t("presidential_flow_section")}
+          icon={GitFork}
+          headingLevel={2}
+        >
+          <PresidentialFlowTile cycle={cycle} round={round.round} />
         </DashboardSection>
       ) : null}
 

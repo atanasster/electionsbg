@@ -42,7 +42,11 @@ const known = new Set(canonical.parties.map((p) => p.id));
 
 // Not parties: synthetic buckets the flow/trend artifacts use for
 // non-party mass (abstentions, new voters, a place-local slate).
-const PSEUDO_PREFIXES = ["__", "local:", "other", "unmatched"];
+// ⚠ `pvr-` IS A PRESIDENTIAL TICKET, NOT A PARTY. The presidential flow's TO side is a ballot
+// number (`pvr-6`), which no canonical party index will ever carry — it names a candidate pair
+// rather than a party lineage, and its label and colour come from the cycle's own
+// `tickets.json`. Without this prefix the gate reports all 16 of them as unknown canonical ids.
+const PSEUDO_PREFIXES = ["__", "local:", "other", "unmatched", "pvr-"];
 const isPseudo = (id: string) => PSEUDO_PREFIXES.some((p) => id.startsWith(p));
 
 // The families that bake a canonical id and are fetched by the browser.
@@ -53,6 +57,11 @@ const SERVED_DIRS = [
     .map((e) => path.join(DATA, e.name, "sections")),
   path.join(DATA, "transitions_local"),
   path.join(DATA, "transitions_prevote"),
+  // The presidential flow's FROM side is canonical parliamentary parties — the same ids, the
+  // same served shape — so it is checked here too. Its TO side is presidential tickets
+  // (`pvr-<n>`), which are not party ids at all; they are excluded by the `pvr-` entry added
+  // to `PSEUDO_PREFIXES` above, which this root is the first and only source of.
+  path.join(DATA, "transitions_presidential"),
   path.join(DATA, "local_place_trends"),
   path.join(DATA, "officials", "municipal", "by_obshtina"),
 ];

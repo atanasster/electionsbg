@@ -150,5 +150,9 @@
   "presidential_screen_place_unknown": "no place recorded",
   "presidential_screen_table_caption": "Sections to review, round {{round}}",
   "presidential_screen_overlap": "{{overlap}} of the {{listed}} sections listed here lie in one of the eight neighbourhoods the press has flagged as risk areas. That is a floor on the overlap, not its extent — the eight are a curated list.",
-  "presidential_flash_col_president": "President"
+  "presidential_flash_col_president": "President",
+  "presidential_flow_title": "How the parties’ voters voted",
+  "presidential_flow_hint": "An estimate of where the parliamentary vote went in the presidential ballot. An estimate, not an observation: nobody sees an individual change their vote — only that a section’s numbers moved. The matrix is an ecological regression by oblast and shows movement CONSISTENT WITH the data, not counted people.",
+  "presidential_flow_caption": "Estimated transfer from the parliamentary vote of {{from}} into round {{round}} of the presidential ballot. Pairs taking at least 1% of the valid vote are shown; the rest are in “Other pairs”. Hover a band to follow it; click a node to pin the detail.",
+  "presidential_flow_section": "Vote transfer"
 }

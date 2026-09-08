@@ -1,0 +1,292 @@
+{
+  "from": "2009_07_05",
+  "to": "2011_10_23_pvr_tur2",
+  "scope": "VID",
+  "matrix": {
+    "fromNodes": [
+      {
+        "id": "gerb",
+        "label": "ГЕРБ-СДС",
+        "labelEn": "GERB-SDS",
+        "color": "rgb(12, 69, 135)",
+        "votes": 20273
+      },
+      {
+        "id": "bsp",
+        "label": "БСП-ОЛ",
+        "labelEn": "BSP-UL",
+        "color": "rgb(237, 28, 36)",
+        "votes": 15906
+      },
+      {
+        "id": "p_16",
+        "label": "ДПС",
+        "labelEn": "DPS",
+        "color": "rgb(33, 125, 223)",
+        "votes": 2830
+      },
+      {
+        "id": "ataka",
+        "label": "Атака",
+        "labelEn": "Ataka",
+        "color": "#006400",
+        "votes": 3408
+      },
+      {
+        "id": "p_163",
+        "label": "СК",
+        "labelEn": "BC",
+        "color": "rgb(66, 0, 255)",
+        "votes": 3103
+      },
+      {
+        "id": "p_131",
+        "label": "РЗС",
+        "labelEn": "RZS",
+        "color": "lightslategrey",
+        "votes": 2093
+      },
+      {
+        "id": "p_138",
+        "label": "Лидер",
+        "labelEn": "Lider",
+        "color": "lightslategrey",
+        "votes": 1844
+      },
+      {
+        "id": "p_58",
+        "label": "НДСВ",
+        "labelEn": "NMSP",
+        "color": "#f5ce42",
+        "votes": 3724
+      },
+      {
+        "id": "__parl_other",
+        "label": "Други партии (парламент)",
+        "labelEn": "Other parties (parliament)",
+        "color": "#9ca3af",
+        "votes": 689,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 49296,
+        "pseudo": true
+      },
+      {
+        "id": "__joined__",
+        "label": "Нови в избирателните списъци",
+        "labelEn": "Newly registered",
+        "color": "#86efac",
+        "votes": 0,
+        "pseudo": true
+      }
+    ],
+    "toNodes": [
+      {
+        "id": "pvr-2",
+        "label": "Росен Асенов Плевнелиев",
+        "labelEn": "Росен Асенов Плевнелиев",
+        "color": "rgb(12, 69, 135)",
+        "votes": 20708
+      },
+      {
+        "id": "pvr-8",
+        "label": "Ивайло Георгиев Калфин",
+        "labelEn": "Ивайло Георгиев Калфин",
+        "color": "rgb(161, 136, 127)",
+        "votes": 25780
+      },
+      {
+        "id": "__pvr_other",
+        "label": "Други двойки",
+        "labelEn": "Other pairs",
+        "color": "#94a3b8",
+        "votes": 0,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 54087,
+        "pseudo": true
+      },
+      {
+        "id": "__exited__",
+        "label": "Отпаднали от списъците",
+        "labelEn": "Removed from rolls",
+        "color": "#fca5a5",
+        "votes": 2591,
+        "pseudo": true
+      }
+    ],
+    "flows": [
+      {
+        "from": "gerb",
+        "to": "pvr-2",
+        "votes": 7728
+      },
+      {
+        "from": "gerb",
+        "to": "pvr-8",
+        "votes": 5600
+      },
+      {
+        "from": "gerb",
+        "to": "__abstain__",
+        "votes": 6612
+      },
+      {
+        "from": "gerb",
+        "to": "__exited__",
+        "votes": 333
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-2",
+        "votes": 4386
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-8",
+        "votes": 11310
+      },
+      {
+        "from": "bsp",
+        "to": "__exited__",
+        "votes": 210
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-2",
+        "votes": 625
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-8",
+        "votes": 2029
+      },
+      {
+        "from": "p_16",
+        "to": "__exited__",
+        "votes": 176
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-2",
+        "votes": 2702
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-8",
+        "votes": 531
+      },
+      {
+        "from": "ataka",
+        "to": "__exited__",
+        "votes": 175
+      },
+      {
+        "from": "p_163",
+        "to": "pvr-2",
+        "votes": 2000
+      },
+      {
+        "from": "p_163",
+        "to": "__abstain__",
+        "votes": 882
+      },
+      {
+        "from": "p_163",
+        "to": "__exited__",
+        "votes": 222
+      },
+      {
+        "from": "p_131",
+        "to": "__abstain__",
+        "votes": 1733
+      },
+      {
+        "from": "p_131",
+        "to": "__exited__",
+        "votes": 360
+      },
+      {
+        "from": "p_138",
+        "to": "pvr-2",
+        "votes": 393
+      },
+      {
+        "from": "p_138",
+        "to": "__abstain__",
+        "votes": 1119
+      },
+      {
+        "from": "p_138",
+        "to": "__exited__",
+        "votes": 317
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-2",
+        "votes": 920
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-8",
+        "votes": 2592
+      },
+      {
+        "from": "p_58",
+        "to": "__exited__",
+        "votes": 212
+      },
+      {
+        "from": "__parl_other",
+        "to": "__abstain__",
+        "votes": 417
+      },
+      {
+        "from": "__parl_other",
+        "to": "__exited__",
+        "votes": 272
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-2",
+        "votes": 1955
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-8",
+        "votes": 3703
+      },
+      {
+        "from": "__abstain__",
+        "to": "__abstain__",
+        "votes": 43324
+      },
+      {
+        "from": "__abstain__",
+        "to": "__exited__",
+        "votes": 314
+      }
+    ]
+  },
+  "persistence": {
+    "stayedVotes": 0,
+    "votedBothNamed": 40830,
+    "stayRate": 0,
+    "topDefection": {
+      "fromId": "bsp",
+      "toId": "pvr-8",
+      "votes": 11310,
+      "share": 0.720574071867357
+    }
+  }
+}

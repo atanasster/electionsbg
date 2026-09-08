@@ -55,6 +55,7 @@ export type DashboardSectionIdProp =
   | "presidential-ranking"
   | "presidential-turnout"
   | "presidential-abroad"
+  | "presidential-flow"
   | "presidential-swing"
   | "presidential-transfer"
   | "presidential-split"

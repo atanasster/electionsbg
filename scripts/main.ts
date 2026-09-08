@@ -31,6 +31,7 @@ import { generateLocalProblemSections } from "./parsers_local/problem_sections_l
 import { generateVoteFlows } from "./voteFlows";
 import { generateLocalVoteFlows } from "./voteFlows/local_index";
 import { generatePrevoteFlows } from "./voteFlows/parl_local_index";
+import { generatePresidentialFlows } from "./voteFlows/parl_presidential_index";
 import { generateLocalPlaceTrends } from "./reports/local/build_local_place_trends";
 import { parseLocalElections } from "./parsers_local/parse_local_elections";
 import {
@@ -347,6 +348,14 @@ const app = command({
       long: "prevote-flows",
       defaultValue: () => false,
     }),
+    // Estimated presidential flow: the parliamentary vote at or before each presidential
+    // cycle → each of its rounds. Writes data/transitions_presidential/. Flag-gated for the
+    // same reason as `--prevote-flows` — presidential cycles land every five years.
+    presidentialFlows: flag({
+      type: optional(boolean),
+      long: "presidential-flows",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -387,6 +396,7 @@ const app = command({
     localProblemSections,
     localPlaceTrends,
     prevoteFlows,
+    presidentialFlows,
   }) => {
     production = prod;
     // ⚠ FIRST, before parseElections and the coords backfill. Every other
@@ -754,6 +764,9 @@ const app = command({
     }
     if (prevoteFlows) {
       generatePrevoteFlows({ publicFolder, stringify });
+    }
+    if (presidentialFlows) {
+      generatePresidentialFlows({ publicFolder, stringify });
     }
     // Regenerate the /analysis hub blobs LAST — after every upstream source this
     // run may have rewritten (national summary, risk, benford, the vote-flow

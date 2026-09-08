@@ -1,0 +1,282 @@
+{
+  "from": "2009_07_05",
+  "to": "2011_10_23_pvr_tur2",
+  "scope": "PDV-00",
+  "matrix": {
+    "fromNodes": [
+      {
+        "id": "gerb",
+        "label": "ГЕРБ-СДС",
+        "labelEn": "GERB-SDS",
+        "color": "rgb(12, 69, 135)",
+        "votes": 88930
+      },
+      {
+        "id": "bsp",
+        "label": "БСП-ОЛ",
+        "labelEn": "BSP-UL",
+        "color": "rgb(237, 28, 36)",
+        "votes": 31777
+      },
+      {
+        "id": "p_16",
+        "label": "ДПС",
+        "labelEn": "DPS",
+        "color": "rgb(33, 125, 223)",
+        "votes": 9375
+      },
+      {
+        "id": "ataka",
+        "label": "Атака",
+        "labelEn": "Ataka",
+        "color": "#006400",
+        "votes": 11548
+      },
+      {
+        "id": "p_163",
+        "label": "СК",
+        "labelEn": "BC",
+        "color": "rgb(66, 0, 255)",
+        "votes": 16423
+      },
+      {
+        "id": "p_131",
+        "label": "РЗС",
+        "labelEn": "RZS",
+        "color": "lightslategrey",
+        "votes": 10753
+      },
+      {
+        "id": "p_138",
+        "label": "Лидер",
+        "labelEn": "Lider",
+        "color": "lightslategrey",
+        "votes": 5439
+      },
+      {
+        "id": "p_58",
+        "label": "НДСВ",
+        "labelEn": "NMSP",
+        "color": "#f5ce42",
+        "votes": 5358
+      },
+      {
+        "id": "__parl_other",
+        "label": "Други партии (парламент)",
+        "labelEn": "Other parties (parliament)",
+        "color": "#9ca3af",
+        "votes": 2797,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 124621,
+        "pseudo": true
+      },
+      {
+        "id": "__joined__",
+        "label": "Нови в избирателните списъци",
+        "labelEn": "Newly registered",
+        "color": "#86efac",
+        "votes": 1099,
+        "pseudo": true
+      }
+    ],
+    "toNodes": [
+      {
+        "id": "pvr-2",
+        "label": "Росен Асенов Плевнелиев",
+        "labelEn": "Росен Асенов Плевнелиев",
+        "color": "rgb(12, 69, 135)",
+        "votes": 86914
+      },
+      {
+        "id": "pvr-8",
+        "label": "Ивайло Георгиев Калфин",
+        "labelEn": "Ивайло Георгиев Калфин",
+        "color": "rgb(161, 136, 127)",
+        "votes": 53934
+      },
+      {
+        "id": "__pvr_other",
+        "label": "Други двойки",
+        "labelEn": "Other pairs",
+        "color": "#94a3b8",
+        "votes": 0,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 167272,
+        "pseudo": true
+      },
+      {
+        "id": "__exited__",
+        "label": "Отпаднали от списъците",
+        "labelEn": "Removed from rolls",
+        "color": "#fca5a5",
+        "votes": 0,
+        "pseudo": true
+      }
+    ],
+    "flows": [
+      {
+        "from": "gerb",
+        "to": "pvr-2",
+        "votes": 49902
+      },
+      {
+        "from": "gerb",
+        "to": "pvr-8",
+        "votes": 6222
+      },
+      {
+        "from": "gerb",
+        "to": "__abstain__",
+        "votes": 32806
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-2",
+        "votes": 5582
+      },
+      {
+        "from": "bsp",
+        "to": "pvr-8",
+        "votes": 26195
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-2",
+        "votes": 1405
+      },
+      {
+        "from": "p_16",
+        "to": "pvr-8",
+        "votes": 5049
+      },
+      {
+        "from": "p_16",
+        "to": "__abstain__",
+        "votes": 2922
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-2",
+        "votes": 3821
+      },
+      {
+        "from": "ataka",
+        "to": "pvr-8",
+        "votes": 2780
+      },
+      {
+        "from": "ataka",
+        "to": "__abstain__",
+        "votes": 4947
+      },
+      {
+        "from": "p_163",
+        "to": "pvr-2",
+        "votes": 14624
+      },
+      {
+        "from": "p_163",
+        "to": "pvr-8",
+        "votes": 1799
+      },
+      {
+        "from": "p_131",
+        "to": "pvr-2",
+        "votes": 3777
+      },
+      {
+        "from": "p_131",
+        "to": "pvr-8",
+        "votes": 2237
+      },
+      {
+        "from": "p_131",
+        "to": "__abstain__",
+        "votes": 4739
+      },
+      {
+        "from": "p_138",
+        "to": "pvr-2",
+        "votes": 305
+      },
+      {
+        "from": "p_138",
+        "to": "pvr-8",
+        "votes": 5134
+      },
+      {
+        "from": "p_58",
+        "to": "pvr-8",
+        "votes": 1438
+      },
+      {
+        "from": "p_58",
+        "to": "__abstain__",
+        "votes": 3920
+      },
+      {
+        "from": "__parl_other",
+        "to": "pvr-2",
+        "votes": 321
+      },
+      {
+        "from": "__parl_other",
+        "to": "pvr-8",
+        "votes": 2476
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-2",
+        "votes": 6807
+      },
+      {
+        "from": "__abstain__",
+        "to": "pvr-8",
+        "votes": 237
+      },
+      {
+        "from": "__abstain__",
+        "to": "__abstain__",
+        "votes": 117577
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-2",
+        "votes": 372
+      },
+      {
+        "from": "__joined__",
+        "to": "pvr-8",
+        "votes": 366
+      },
+      {
+        "from": "__joined__",
+        "to": "__abstain__",
+        "votes": 361
+      }
+    ]
+  },
+  "persistence": {
+    "stayedVotes": 0,
+    "votedBothNamed": 130269,
+    "stayRate": 0,
+    "topDefection": {
+      "fromId": "gerb",
+      "toId": "pvr-2",
+      "votes": 49902,
+      "share": 0.8891320640360391
+    }
+  }
+}
