@@ -1028,6 +1028,41 @@ describe("the anomalies section", () => {
     expect(screen.queryByText(bgCorpus.dashboard_section_anomalies)).toBeNull();
   });
 
+  it("renders the heading for the SCREENING alone — any of the three is enough", async () => {
+    // The three artifacts have three publish paths and three availability profiles, so gating
+    // the section on all of them would hide the ones that are there.
+    serve({
+      "national_summary.json": SUMMARY,
+      "section_screening.json": {
+        cycle: LATEST_PRESIDENTIAL_CYCLE,
+        round: 1,
+        basis: "СКРИНИНГОВАТА ОГРАДА",
+        basisEn: "THE SCREENING CAVEAT",
+        coverage: {
+          sections: 12488,
+          scored: 10967,
+          bothSignals: 1722,
+          unscored: 1521,
+          flaggedDistrictOverlap: 0,
+        },
+        cuts: { elevated: 20, high: 40, critical: 60 },
+        bands: [
+          { band: "low", count: 9901, share: 0.9028 },
+          { band: "elevated", count: 836, share: 0.0762 },
+          { band: "high", count: 175, share: 0.016 },
+          { band: "critical", count: 55, share: 0.005 },
+        ],
+        elevatedShare: 0.0972,
+        discriminating: false,
+        top: [],
+      },
+    });
+    expect(
+      await screen.findByText(bgCorpus.dashboard_section_anomalies),
+    ).toBeInTheDocument();
+    expect(screen.getByText("СКРИНИНГОВАТА ОГРАДА")).toBeTruthy();
+  });
+
   it("renders the heading for the flash records alone — either tile is enough", async () => {
     // The two artifacts have different publish paths and 2021 is the only cycle with flash
     // records at all, so gating the section on both would hide one that is there.

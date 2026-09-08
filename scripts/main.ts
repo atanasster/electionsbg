@@ -452,6 +452,11 @@ const app = command({
       // or re-addresses a station in one of the eight districts.
       const { writePresidentialNeighborhoods } =
         await import("./parsers_presidential/build_neighborhoods");
+      // ⚠ THE SIXTH, and like the fourth it reads NOTHING but the section shards the lines
+      // above just wrote — the procedural half of the parliamentary risk score, which needs no
+      // party corpus by construction.
+      const { writePresidentialScreening } =
+        await import("./parsers_presidential/build_screening");
       const { buildNeighborhoodSectionCodes } =
         await import("./reports/problem_sections/index");
       // ⚠ WALKED ONCE FOR THE WHOLE RUN, which is that writer's own documented contract. It
@@ -467,18 +472,29 @@ const app = command({
           writePresidentialCleavages,
           writePresidentialSuspicious,
           writePresidentialNeighborhoods,
+          writePresidentialScreening,
         ]) {
-          // ⚠ ONE PATH OR MANY. Four of the five answer with an ARRAY — the transfer writes a
+          // ⚠ ONE PATH OR MANY. Five of the six answer with an ARRAY — the transfer writes a
           // cycle file plus one shard per oblast (32 paths), and the cleavages, the
-          // suspicious-settlement flags and the flagged districts one file per round each
-          // (2 + 2 + 2) — while `writeSplitTicket` answers with one path or null. Keeping only
-          // the first of each would under-report a presidential ingest by up to **34** paths per
-          // cycle (31 + 1 + 1 + 1), and that list is what the ingest reports as having been
-          // written.
+          // suspicious-settlement flags, the flagged districts and the section screening one
+          // file per round each (2 × 4) — while `writeSplitTicket` answers with one path or
+          // null. Keeping only the first of each would under-report a presidential ingest by up
+          // to **35** paths per cycle (31 + 1 + 1 + 1 + 1), and that list is what the ingest
+          // reports as having been written.
+          // ⚠ TWO WRITERS TAKE THE RESOLVED DISTRICT CODES, under different option names — the
+          // neighbourhoods producer JOINS on them, and the screening producer counts how many
+          // of the sections it names fall inside those districts, which is what turns its
+          // invalid-ballot confound caveat from prose into a per-round measurement. Both read
+          // the same walk, done once above.
           const written =
             write === writePresidentialNeighborhoods
               ? write(r.cycle, { indent, resolved: resolvedSectionCodes })
-              : write(r.cycle, { indent });
+              : write === writePresidentialScreening
+                ? write(r.cycle, {
+                    indent,
+                    resolvedDistrictCodes: resolvedSectionCodes,
+                  })
+                : write(r.cycle, { indent });
           for (const f of Array.isArray(written)
             ? written
             : written

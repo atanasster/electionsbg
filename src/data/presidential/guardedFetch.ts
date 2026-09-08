@@ -60,7 +60,8 @@ export interface GuardedFetchOptions<T> {
   path: string;
   /** What the log line calls this request: a cycle, or `<cycle>/tur<round>`. */
   id: string;
-  /** The log-key namespace — `ss`, `pc`, `rt`, `st`, `ot`. Keeps two hooks' warnings apart. */
+  /** The log-key namespace — `ss`, `pc`, `rt`, `st`, `ot`, `nb`, `sc`. Keeps two hooks'
+   *  warnings apart, so a broken origin on one artifact cannot silence another's first line. */
   prefix: string;
   /** What the log line calls this artifact, e.g. „suspicious settlements". */
   subject: string;

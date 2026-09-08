@@ -118,11 +118,46 @@ rayons alone, i.e. **7% of its votes** plotted against the census profile of all
   first-digit frequencies off per-section party votes; the presidential section shards carry
   `votes[].totalVotes` at the same grain, so it needs no new input at all. It is listed in §0
   and had no verdict here until 2026-09-07.
-- **Скрининг на секции / risk score** — ⚠ possible but NOT a port. The parliamentary
-  `risk_score` mixes procedural signals with vote-DISTRIBUTION ones, and this repo has a
-  standing caveat that only the procedural half may be used for claims about a party. A
-  presidential screening must be built from the procedural signals alone or restate that
-  caveat; copying the composite would import a known defect.
+- **Скрининг на секции / risk score** — ✅ DONE, and it is NOT a port. See §2.5.
+
+### 2.5 The screening, and the two signals of four it could not have
+
+The parliamentary `risk_score` fuses four procedural signals with three vote-DISTRIBUTION ones,
+and its own header records why the composite cannot answer a question about vote distribution:
+ranking by it still tracks the distribution family, measured at 2.81x apparent concentration for
+one party. `build_screening.ts` therefore takes `PROCEDURAL_SIGNALS` and stops — the screen
+cannot rank a candidate's sections, because nothing it reads knows who won.
+
+⚠⚠ **TWO OF THE FOUR PROCEDURAL SIGNALS ARE NOT COMPUTABLE HERE, AND THEY ARE NAMED ON THE
+SURFACE.** `recount` needs a recount report no presidential protocol field in any of the five
+cycles carries. `suemgMismatch` needs a PER-SECTION flash comparison; the projection behind
+`flash.json` aggregates its per-section map away, and re-deriving it would read the СУЕМГ trees
+— gitignored host state, 2021 only. Adding a signal present on one cycle and absent on four,
+from an input a fresh clone does not have, is precisely what T4 had to refuse.
+
+⚠⚠ **SO THE SCORE IS TWO SIGNALS, AND OFTEN ONE.** The invalid-ballot signal needs a PAPER
+denominator, and 2021 counted on machines: at round 1 only **1,722 of 10,967** scored sections
+carry both signals. `signalsAvailable` is on every row and the tile says so at round level,
+because a one-signal score is that signal wearing a composite's grammar.
+
+⚠⚠ **THE BANDS ARE THE SHARED ABSOLUTE CUTS AND THE PER-CYCLE RATE IS PUBLISHED BESIDE THEM** —
+this plan's own established answer, from `build_suspicious.ts`. Share of SCORED sections above „low",
+round 1, read back off the committed artifacts:
+
+| 2001 | 2006 | 2011 | 2016 | 2021 |
+| --- | --- | --- | --- | --- |
+| 0.71 % | 2.36 % | **16.03 %** | 6.80 % | 9.72 % |
+
+A fixed cut is what lets „повишено" mean one thing sitewide — `BAND_CUTS` and `CAPS` are
+IMPORTED from `risk_score.ts`, which is why that file now exports its caps — but it also means
+2011 puts a sixth of its scored sections above the bar, which is a statement about the year
+rather than about 1,733 named stations. `discriminating` is false above 5%, and four of the ten rounds
+(2011 r1, 2016 r1, 2021 both) name no sections at all.
+
+⚠ **THE INVALID SIGNAL IS NOT DEMOGRAPHICALLY NEUTRAL** and the caveat says so in the artifact:
+it correlates with Roma population share (r = +0.36 at municipality level), with documented
+explanations such as ballot complexity. That is `risk_score.ts`'s own measurement, carried
+rather than restated.
 
 ### 2.4 Рискови гласове / the Roma neighbourhoods — YES, via the section-code join ✅ MEASURED
 
@@ -260,7 +295,11 @@ Geography/demographics on local is DONE (above), not merely feasible.
   `dashboard_section_neighborhoods` key the parliamentary dashboard uses. Coverage, the
   districts that could NOT be located, and the sources that named each district are all on the
   surface — see §2.4 for the full-corpus measurement that replaced the 150-settlement sample.
-- **T5 — section screening**, procedural signals only.
+- **T5 — section screening.** ✅ DONE, procedural signals only. `build_screening.ts` writes a
+  per-round `section_screening.json` and `PresidentialScreeningTile` renders it inside the
+  „Аномалии" section beside the flash-memory and suspicious-settlement tiles. The composite was
+  NOT ported: only `PROCEDURAL_SIGNALS` is read, so the screen cannot rank a candidate's
+  sections — see §2.5 for what that costs and what it buys.
 - **T0 — Разлика с флаш паметта.** ✅ DONE, 2021 only and for ever. It needed a PROJECTION over
   the СУЕМГ trees already on disk, not the new ingest tier §2.3 predicted.
 
@@ -274,7 +313,7 @@ Worth stating plainly, because the request reads as UI work and most of it is no
 | T2 geography | tiles, kind-aware copy | per-round cleavages | ✅ done |
 | T3 suspicious settlements | tile | **a pass over the section protocols** | ✅ done |
 | T4 risky votes | tile + the section-code join | **a per-round join over the section protocols** | ✅ done |
-| T5 section screening | tile | **a procedural-only score** | open |
+| T5 section screening | tile | **a procedural-only score** | ✅ done |
 | flash memory | tile | a projection over the СУЕМГ trees on disk (operator-run), 2021 only | ✅ done |
 
 ⚠ **THREE OF THIS TABLE'S OWN PREDICTIONS WERE WRONG, and all three sat in the „no producer

@@ -27,6 +27,7 @@ import { isExcluded } from "./bucket_sync_paths";
 import { CLEAVAGES_FILE } from "./parsers_presidential/build_demographics";
 import { SUSPICIOUS_FILE } from "./parsers_presidential/build_suspicious";
 import { NEIGHBORHOODS_FILE } from "./parsers_presidential/build_neighborhoods";
+import { SCREENING_FILE } from "./parsers_presidential/build_screening";
 
 const SRC = readFileSync("scripts/bucket_gzip.ts", "utf8");
 
@@ -115,8 +116,11 @@ describe("bucket_gzip upload set", () => {
   // same single definition the rsync uses — so a retired tree cannot be republished by
   // `cp -Z` merely because nobody updated this file.
   //
-  // Asserted against the source for the reason in the header: bucket_gzip.ts has no exports
-  // and calls run() at module scope, so importing it would start an upload.
+  // ⚠ ASSERTED AGAINST THE SOURCE TEXT, and the reason is NOT that importing the module is
+  // unsafe — this very file imports `collect` and four producer constants from it, and `run()`
+  // has sat behind an entry-point guard since the 682-object accidental upload. The surviving
+  // reason is narrower: the four `PER_*_FILES` arrays and `collect()`'s body are module-PRIVATE,
+  // so a static read is the only way to see them.
   test("collect() filters its result through isExcluded()", () => {
     expect(SRC).toMatch(/import \{ isExcluded \} from "\.\/bucket_sync_paths"/);
     // Inside collect(), not merely imported somewhere in the file.
@@ -192,13 +196,13 @@ describe("the presidential tree this pass publishes", () => {
       "runoff_transfer/${oblast}.json": "runoff_transfer",
     };
     const expanded = templates.flatMap(expand);
-    // ⚠ PIN WHAT THE `.json` FILTER SWALLOWS, rather than only applying it. Four templates name
-    // no file today, and all four are `warnOnce` LOG KEYS — `useOblastTransfer`'s
+    // ⚠ PIN WHAT THE `.json` FILTER SWALLOWS, rather than only applying it. Five templates name
+    // no file today, and all five are `warnOnce` LOG KEYS — `useOblastTransfer`'s
     // `${cycle}/${oblast}`, and the per-round `${cycle}/tur${round}` built by
-    // `usePresidentialCleavages`, `useSuspiciousSettlements` and `useNeighborhoods`. A FIFTH is
-    // either another log key (added here, deliberately) or an unguarded fetch path, and an
-    // unbounded filter cannot tell those apart — which is the shape that left two artifacts 404
-    // in production, per this describe block's own header.
+    // `usePresidentialCleavages`, `useSuspiciousSettlements`, `useNeighborhoods` and
+    // `useScreening`. A SIXTH is either another log key (added here, deliberately) or an
+    // unguarded fetch path, and an unbounded filter cannot tell those apart — which is the
+    // shape that left two artifacts 404 in production, per this describe block's own header.
     //
     // ⚠ AND THIS ASSERTION IS WHY THE PIN IS WORTH ITS MAINTENANCE COST: adding the cleavages
     // hook turned it red, which is exactly what it is for. It went unnoticed for one commit
@@ -207,6 +211,7 @@ describe("the presidential tree this pass publishes", () => {
     // suspicious-settlements hook turned it red the same way and was caught in its own step.
     expect(expanded.filter((tpl) => !tpl.endsWith(".json")).sort()).toEqual([
       "${oblast}",
+      "tur${round}",
       "tur${round}",
       "tur${round}",
       "tur${round}",
@@ -256,6 +261,10 @@ describe("the presidential tree this pass publishes", () => {
 
   test("the presidential flagged-districts file is published", () => {
     expect(PER_ROUND_FILES).toContain(NEIGHBORHOODS_FILE);
+  });
+
+  test("the presidential section-screening file is published", () => {
+    expect(PER_ROUND_FILES).toContain(SCREENING_FILE);
   });
 
   test("the two files that were 404 in production are named", () => {

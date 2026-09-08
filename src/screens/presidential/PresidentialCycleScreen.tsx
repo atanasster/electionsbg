@@ -63,6 +63,11 @@ import {
 } from "@/data/presidential/useSuspiciousSettlements";
 import { useFlashDiff } from "@/data/presidential/useFlashDiff";
 import { PresidentialNeighborhoodsTile } from "./PresidentialNeighborhoodsTile";
+import { PresidentialScreeningTile } from "./PresidentialScreeningTile";
+import {
+  hasScreeningContent,
+  usePresidentialScreening,
+} from "@/data/presidential/useScreening";
 import {
   hasNeighborhoodContent,
   usePresidentialNeighborhoods,
@@ -135,6 +140,9 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // protocols are not — 2021's runoff turnout there is 20.5% against 23.9% in round 1 — so the
   // figures are rebuilt rather than lifted to the page.
   const hoods = usePresidentialNeighborhoods(cycle, round.round);
+  // ⚠ PER ROUND. The two rounds are different paperwork — 2011's invalid rate halves between
+  // them — so the screen is rebuilt rather than lifted to the page.
+  const screening = usePresidentialScreening(cycle, round.round);
   // ⚠⚠ CONTENT, NOT QUERY STATUS. `ready` is not „has something to draw" for either tile:
   // `isRollup` accepts an entries-empty or all-zero roll-up, and both tiles self-hide on an
   // empty result — so a status gate leaves the heading standing over an empty grid, which is
@@ -163,6 +171,10 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
   // over a blank is an insinuation about eight named districts with no figures under it.
   const hasHoods =
     hoods.status === "ready" && hasNeighborhoodContent(hoods.neighborhoods);
+  // ⚠ CONTENT. A round nothing could be scored publishes four zero bands, which reads as „every
+  // section was clean" when the truth is that none was measurable.
+  const hasScreening =
+    screening.status === "ready" && hasScreeningContent(screening.screening);
   const abroadTo = presidentialUrl(cycle, "abroad");
   // ⚠ THE ROUND ON SCREEN, never the cycle. Round 1 and the runoff are different electorates —
   // nationally 5.7 points apart in 2021 — so the band is rebuilt per round like every other
@@ -391,7 +403,7 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
              distinction — machines counted votes in 500 of its 12,340 round-1 sections and
              ЦИК published nothing from them — so the tile keys on the RECORDS existing, never
              on `machineVoting`. */}
-      {hasFlash || hasSuspicious ? (
+      {hasFlash || hasSuspicious || hasScreening ? (
         <section aria-labelledby={`pvr-anomalies-${round.round}`}>
           <h2
             id={`pvr-anomalies-${round.round}`}
@@ -410,6 +422,13 @@ const RoundPanel: FC<{ round: PresidentialSummaryRound; cycle: string }> = ({
             ) : null}
             {hasSuspicious && suspicious.status === "ready" ? (
               <PresidentialSuspiciousTile suspicious={suspicious.suspicious} />
+            ) : null}
+            {/* ⚠ THE SCREEN BELONGS WITH THE ANOMALIES, not in „Рискови гласове". Both this and
+                the settlement flags start from the whole country and let the protocols name the
+                places; the districts section starts from eight places somebody else named in
+                print. Putting the screen there would let it borrow that framing. */}
+            {hasScreening && screening.status === "ready" ? (
+              <PresidentialScreeningTile screening={screening.screening} />
             ) : null}
           </div>
         </section>

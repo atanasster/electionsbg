@@ -210,6 +210,7 @@ const PER_ROUND_FILES = [
   // new per-round artifact needs a line here or it is 404 in production, silently, because
   // every presidential hook reads a missing file as `absent`.
   "neighborhoods.json",
+  "section_screening.json",
 ];
 
 // NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors

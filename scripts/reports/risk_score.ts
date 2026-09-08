@@ -103,7 +103,13 @@ const PROCEDURAL_SET: ReadonlySet<RiskSignalId> = new Set(PROCEDURAL_SIGNALS);
 
 // Normalization caps — any value above the cap saturates the signal at
 // 1.0. Chosen so a "noticeable" anomaly is roughly mid-range.
-const CAPS = {
+//
+// ⚠ EXPORTED because the PRESIDENTIAL screening
+// (scripts/parsers_presidential/build_screening.ts) normalizes its two procedural
+// signals against the same caps. A second copy would make „elevated" mean two
+// different things on two dashboards a reader reaches from one header — the same
+// argument that makes SUSPICIOUS_THRESHOLDS shared.
+export const CAPS = {
   // Recount churn / total votes. The original 0.5 cap was an order of
   // magnitude too generous for real churn — the 99th percentile of
   // observed churn is ~7.7%, so under a 50% cap the signal contributed a
