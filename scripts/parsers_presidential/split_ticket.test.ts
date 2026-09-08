@@ -20,6 +20,10 @@ import {
   sameDayParliamentary,
   writeSplitTicket,
 } from "./build_split_ticket";
+// ⚠ MUTATED IN ONE TEST, AND RESTORED IN ITS `finally`. It is module state shared by every
+// arm below, so a throw mid-test would otherwise leave the corpus arms asserting against a
+// Радев row this file put there.
+import { TICKET_ENDORSEMENTS } from "./endorsements";
 
 const DATA_ROOT = path.join(process.cwd(), "data");
 const cycles = presidentialCyclesFor(DATA_ROOT);
@@ -307,6 +311,49 @@ describe.runIf(hasCorpus)("the committed corpus", () => {
       }
     },
   );
+
+  it("refuses an endorsement for a pair several lists backed", () => {
+    // ⚠⚠ THE GUARD THAT KEEPS РАДЕВ OUT, exercised rather than trusted. Eleven parties backed
+    // him and five stood on their own list, so „разминали се гласове" against any one of them
+    // counts the other backers' voters: measured, a Радев×БСП row reads „поне 976 574" — a
+    // million-vote defection that is really a coalition's arithmetic. The entry declares the
+    // backer count and the builder rejects anything but one.
+    const y = built.find((b) => b.cycle === "2021_11_14_pvr");
+    if (!y) return;
+    const real = TICKET_ENDORSEMENTS["2021_11_14_pvr"];
+    // A Радев-shaped entry: a genuine ticket, a genuine list, a real source — everything the
+    // other checks look at — and five backers.
+    TICKET_ENDORSEMENTS["2021_11_14_pvr"] = [
+      ...real,
+      {
+        ticket: 6,
+        listNumber: 33,
+        sourceUrl: "https://example.org/bsp-backs-radev",
+        backersWithLists: 5,
+      },
+    ];
+    try {
+      const built2 = buildSplitTicket("2021_11_14_pvr", DATA_ROOT);
+      expect(built2?.endorsed.map((e) => e.number)).toEqual(
+        y.split.endorsed.map((e) => e.number),
+      );
+      // ⚠ THE MUTATION CHECK: the same entry with ONE backer IS published, so the refusal is
+      // the backer count doing the work rather than some other leaf being rejected.
+      TICKET_ENDORSEMENTS["2021_11_14_pvr"] = [
+        ...real,
+        {
+          ticket: 6,
+          listNumber: 33,
+          sourceUrl: "https://example.org/bsp-backs-radev",
+          backersWithLists: 1,
+        },
+      ];
+      const built3 = buildSplitTicket("2021_11_14_pvr", DATA_ROOT);
+      expect(built3?.endorsed.map((e) => e.number)).toContain(6);
+    } finally {
+      TICKET_ENDORSEMENTS["2021_11_14_pvr"] = real;
+    }
+  });
 
   it("compares BOTH 2021 endorsements, against the lists that backed them", () => {
     // ⚠ THE MUTATION CHECK for the three above — every one of them passes vacuously on a cycle

@@ -27,9 +27,10 @@
 // the two never share an array, a heading or a sentence, and a consumer that wants „all pairs"
 // has to ask for both and thereby notice it is mixing two bases.
 //
-// ⚠⚠ RADEV IS STILL NOT COVERED, AND THAT ASYMMETRY MUST BE ON THE PAGE. He was backed by
-// several parties standing on SEPARATE lists, so no single list can stand for his vote — see
-// `./endorsements`. The consequence is that this analysis reaches ONE of 2021's two finalists,
+// ⚠⚠ RADEV IS STILL NOT COVERED, AND THAT ASYMMETRY MUST BE ON THE PAGE. Eleven parties backed
+// him and FIVE of them stood on their own list, so no single one can stand for his vote — the
+// measured cost of pretending otherwise is in `./endorsements`, where a Радев×БСП row comes out
+// at „поне 976 574". The consequence is that this analysis reaches ONE of 2021's two finalists,
 // and `coverage.basis` says so: a table showing Герджиков and not Радев, with no reason given,
 // reads as a choice about the two men.
 //
@@ -305,6 +306,19 @@ export const buildSplitTicket = (
       console.warn(
         `[split ticket] ${cycle}: endorsement ${e.ticket}→${e.listNumber} does not resolve ` +
           `against this cycle's tickets.json / cik_parties.json — dropped`,
+      );
+      continue;
+    }
+    // ⚠⚠ ONE BACKER WITH A LIST, OR NO ROW. With two or more, „разминали се гласове" against
+    // any one of them counts the OTHER backers' voters and publishes a coalition's arithmetic
+    // as a defection — measured in `./endorsements`, a Радев×БСП row would read „поне 976 574".
+    // The entry DECLARES the count rather than this file inferring it, so adding such a pair
+    // means typing a number that gets rejected instead of shipping a row that looks ordinary.
+    if (e.backersWithLists !== 1) {
+      console.warn(
+        `[split ticket] ${cycle}: ${t.president} was backed by ${e.backersWithLists} parties ` +
+          `with their own list — no single list can stand for the ticket's vote, so the ` +
+          `endorsement row is refused`,
       );
       continue;
     }

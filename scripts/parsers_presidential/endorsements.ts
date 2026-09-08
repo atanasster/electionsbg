@@ -17,15 +17,36 @@
 // keeps them in separate arrays so a surface cannot render one under the other's heading, and
 // so a future consumer summing „all pairs" cannot silently mix the two bases.
 //
-// ⚠⚠ A MULTI-PARTY ENDORSEMENT HAS NO ENTRY, AND RUMEN RADEV IS THE CASE THAT MATTERS. In
-// November 2021 he was backed by several parties standing on SEPARATE lists (БСП за България,
-// Има такъв народ, Изправи се БГ), so there is no single list his ticket can be set against —
-// picking one would publish an affiliation he did not have, and summing them would compare his
-// vote against a coalition that did not exist on the ballot. The consequence is asymmetric and
-// has to be said out loud rather than left for a reader to notice: this file lets the analysis
-// cover ONE of 2021's two finalists. `build_split_ticket` states that in the artifact's own
-// copy, because a table showing Герджиков and not Радев, with no reason given, reads as a
-// choice about the two men.
+// ⚠⚠ THE RULE IS ONE BACKER WITH A LIST, AND RUMEN RADEV IS WHY. He was backed by ELEVEN
+// parties in November 2021 — ИТН, Изправи се.БГ, МИР, БСП, ВОЛТ, ПП, АБВ, Движение 21, ССД,
+// ОБТ, ПДС — of which FIVE stood on their own list in the same-day parliamentary ballot (ИТН
+// #24, ПП #25, МИР #26, ИСБ #31, БСП #33). No single one of them can stand for his vote.
+//
+// ⚠⚠ AND THE COST OF GETTING THAT WRONG IS MEASURED, NOT ARGUED. Computed over the 12,488
+// shared sections, this is what a Radev row WOULD have published:
+//
+//     list        Радев      листа        floor   ratio
+//     ПП      1,238,811    624,104      614,743   1.98x
+//     БСП     1,238,811    262,705      976,574   4.72x
+//     ИТН     1,238,811    225,189    1,013,832   5.50x
+//     ИСБ     1,238,811     57,417    1,181,410  21.58x
+//
+// „поне 976 574 разминали се гласове" between Радев and БСП is arithmetically true and reads as
+// a million-vote defection, when what it actually measures is that ten other parties also backed
+// him. Against the two rows this file DOES publish, the contrast is the whole argument:
+// Герджиков 590,594 against ГЕРБ-СДС's 578,726 (1.02x) and Панов 87,567 against ДБ's 149,396
+// (0.59x) — one list accounting for the candidate's vote, so the residue is churn between two
+// ballots rather than the arithmetic of a coalition.
+//
+// ⚠ THE GUARD IS DECLARATIVE, NOT A RATIO, and the table above is why: ПП at 1.98x sits right
+// beside Панов's 0.59x, so no threshold separates them without also being arbitrary. What
+// separates them is a fact about the world — how many of the backers had a list — so the entry
+// DECLARES it and `build_split_ticket` refuses anything but one.
+//
+// The consequence is asymmetric and has to be said out loud rather than left for a reader to
+// notice: this file lets the analysis cover ONE of 2021's two finalists. `build_split_ticket`
+// puts that in the artifact's own copy, because a table showing Герджиков and not Радев, with
+// no reason given, reads as a choice about the two men.
 //
 // ⚠ ADDING A CYCLE IS NOT MECHANICAL. Endorsement is a judgement about what „backed" means —
 // a party leader campaigning beside a candidate is not a party decision, and a coalition
@@ -39,6 +60,18 @@ export interface TicketEndorsement {
   listNumber: number;
   /** ⚠ REQUIRED — see this file's header. Where the backing was published. */
   sourceUrl: string;
+  /**
+   * How many of the parties that backed this pair stood on their OWN list in the same-day
+   * parliamentary ballot.
+   *
+   * ⚠⚠ IT MUST BE 1, AND THE BUILDER REFUSES ANYTHING ELSE. With two or more, the candidate's
+   * vote is drawn from several lists and „разминали се гласове" against any one of them counts
+   * the OTHER backers' voters — see the measured table in this file's header, where Радев
+   * against БСП comes out at 976,574. Declaring the number here rather than inferring it keeps
+   * the claim explicit: adding a multi-backed pair means typing a figure the builder will
+   * reject, instead of quietly shipping a row that looks like every other one.
+   */
+  backersWithLists: number;
 }
 
 /**
@@ -62,6 +95,9 @@ export const TICKET_ENDORSEMENTS: Record<string, TicketEndorsement[]> = {
       listNumber: 32,
       sourceUrl:
         "https://webcafe.bg/politika/gerb-podkrepya-kandidaturata-na-atanas-gerdzhikov-za-prezident.html",
+      // ГЕРБ, СДС, БЗНС and Движение „Гергьовден" backed him; ГЕРБ and СДС stood on the JOINT
+      // list #32 and the other two on no list at all, so exactly one list is his.
+      backersWithLists: 1,
     },
     {
       // Лозан Панов / Мария Касимова-Моасе ← Демократична България (list #30).
@@ -74,6 +110,8 @@ export const TICKET_ENDORSEMENTS: Record<string, TicketEndorsement[]> = {
       listNumber: 30,
       sourceUrl:
         "https://dabulgaria.bg/demokratichna-balgariya-podkrepya-lozan-panov-za-prezident/",
+      // Демократична България alone.
+      backersWithLists: 1,
     },
   ],
 };
