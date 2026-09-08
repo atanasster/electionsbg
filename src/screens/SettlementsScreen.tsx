@@ -17,6 +17,7 @@ import { SectionsScreen } from "./SectionsScreen";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
 import { buildPartyIndex } from "@/data/elections/partyIndex";
 import { parliamentaryMunicipalitySurface } from "@/data/elections/canonicalSurface";
 import { useElectionSurface } from "@/data/elections/useElectionSurface";
@@ -38,6 +39,7 @@ export const SettlementsScreen = () => {
   const { selected } = useElectionContext();
   const { data: canonicalParties } = useCanonicalParties();
   const localCycle = useLatestLocalCycle();
+  const presidentialCycle = useLatestPresidentialCycle();
   // ⚠ EVERY HOOK ABOVE THE EARLY RETURNS. This screen bails on four conditions — no code, an
   // EKATTE, Sofia city, an unresolvable município — and a hook after any of them would be a
   // conditional call.
@@ -76,6 +78,7 @@ export const SettlementsScreen = () => {
         place: { level: "municipality", obshtina: muniCode ?? "" },
         parliamentaryCycle: selected,
         localCycle,
+        presidentialCycle,
         winner:
           surface?.ballots[0]?.preview[0] &&
           surface.ballots[0].preview[0].marginPct !== undefined
@@ -90,7 +93,7 @@ export const SettlementsScreen = () => {
         ),
         currentView: "parliamentary",
       }),
-    [muniCode, selected, localCycle, surface, local],
+    [muniCode, selected, localCycle, presidentialCycle, surface, local],
   );
   if (!muniCode) {
     return null;

@@ -29,7 +29,12 @@ import {
   type ElectionSurfaceV1,
   type PlaceViewName,
 } from "@/data/elections/surfaceTypes";
-import { localUrl, placeViewUrl, type PlaceRef } from "@/data/local/placeViews";
+import {
+  localUrl,
+  placeViewUrl,
+  presidentialViewUrl,
+  type PlaceRef,
+} from "@/data/local/placeViews";
 
 /** The winner row a parliamentary figure cell states — the FIRST ROW of the same ranked list the
  *  view already draws, never a second aggregation over the same votes (§4.1). */
@@ -106,7 +111,7 @@ export const localDigestCell = (args: {
 /** The two views whose numbers this plan cannot reach. A LINK makes no claim, so it cannot go
  *  stale — which is the whole reason they are links rather than figures. */
 export const linkDigestCell = (
-  view: PlaceDigestLinkCell["view"],
+  view: Exclude<PlaceDigestLinkCell["view"], "presidential">,
   place: PlaceRef,
 ): PlaceDigestLinkCell | undefined => {
   const to = placeViewUrl(view, place);
@@ -122,12 +127,33 @@ export const linkDigestCell = (
   };
 };
 
+/** Presidential's own link cell — separate from `linkDigestCell` because, unlike governance/
+ *  consumption, its URL needs a CYCLE (`presidentialViewUrl`, not the generic `placeViewUrl`
+ *  dispatcher — see that function's own header for why). Absent `cycle` drops the cell, the
+ *  same "no route, no card" rule every other cell here follows. */
+export const presidentialDigestCell = (
+  place: PlaceRef,
+  cycle?: string,
+): PlaceDigestLinkCell | undefined => {
+  const to = cycle ? presidentialViewUrl(place, cycle) : null;
+  if (!to) return undefined;
+  return {
+    kind: "link",
+    view: "presidential",
+    to,
+    descriptorKey: "place_digest_presidential_desc",
+  };
+};
+
 export type PlaceDigestInput = {
   place: PlaceRef;
   /** The parliamentary cycle the figure cell is for. */
   parliamentaryCycle: string;
   /** The local cycle, when one covers this place. Absent drops the Местни cell entirely. */
   localCycle?: string;
+  /** The presidential cycle, when one covers this place. Absent drops the Президент cell
+   *  entirely — same rule as `localCycle`. */
+  presidentialCycle?: string;
   winner?: ParliamentaryWinner;
   local?: LocalDigestSource;
   /** The view the reader is already on — its cell restates the page (§7.1). */
@@ -155,6 +181,10 @@ export const buildPlaceDigest = (
         cycle: input.parliamentaryCycle,
         winner: input.winner,
       }),
+    ],
+    [
+      "presidential",
+      presidentialDigestCell(input.place, input.presidentialCycle),
     ],
     [
       "local",

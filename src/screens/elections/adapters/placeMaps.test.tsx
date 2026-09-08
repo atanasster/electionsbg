@@ -22,6 +22,17 @@ await i18n.use(initReactI18next).init({
   react: { useSuspense: false },
 });
 
+// jsdom has no `matchMedia`; LocalChoropleth's MapMarker (mounted once the presidential child
+// map wires infoOf/markerValueOf) calls it on first render via useMediaQueryMatch.
+vi.stubGlobal(
+  "matchMedia",
+  vi.fn(() => ({
+    matches: false,
+    addEventListener() {},
+    removeEventListener() {},
+  })),
+);
+
 const MAYOR_COLOR = "#aa0000";
 const COUNCIL_COLOR = "#0000bb";
 const R1_COLOR = "#111111";

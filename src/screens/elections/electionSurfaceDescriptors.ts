@@ -279,6 +279,7 @@ export const UNAVAILABLE_REASON_LABEL_KEYS: Record<
   string
 > = {
   no_local_cycle: "election_unavailable_no_local_cycle",
+  no_presidential_cycle: "election_unavailable_no_presidential_cycle",
   not_at_section: "election_unavailable_not_at_section",
   not_abroad: "election_unavailable_not_abroad",
   no_data_for_place: "election_unavailable_no_data_for_place",

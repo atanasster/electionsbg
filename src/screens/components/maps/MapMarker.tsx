@@ -1,6 +1,5 @@
 import type { GeoProjection } from "d3-geo";
-import { LocationInfo, Votes } from "@/data/dataTypes";
-import { totalActualVoters } from "@/data/utils";
+import { LocationInfo } from "@/data/dataTypes";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 const scaleVotes = ({
@@ -28,13 +27,16 @@ export const MapMarker = ({
   info,
   minVotes,
   maxVotes,
-  votes,
+  value,
 }: {
   projection: GeoProjection;
   info?: LocationInfo;
   minVotes: number;
   maxVotes: number;
-  votes?: Votes[];
+  /** What the marker's size is scaled by — e.g. total votes cast at this place. The caller
+   *  computes it (from a `Votes[]` sum, a presidential ticket total, or anything else), so this
+   *  component stays agnostic to what kind of election the value came from. */
+  value?: number;
 }) => {
   const loc = info?.loc?.split(",");
   const isMedium = useMediaQueryMatch("md");
@@ -47,10 +49,9 @@ export const MapMarker = ({
     : isMedium
       ? { minMarkerScale: 0.5, maxMarkerScale: 1.5 }
       : { minMarkerScale: 0.4, maxMarkerScale: 1.0 };
-  const totalVoters = totalActualVoters(votes);
-  const scale = totalVoters
+  const scale = value
     ? scaleVotes({
-        value: totalVoters,
+        value,
         minVotes,
         maxVotes,
         ...markersSize,

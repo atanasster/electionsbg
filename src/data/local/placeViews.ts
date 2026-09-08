@@ -36,6 +36,12 @@
 import regions from "@/data/json/regions.json";
 import { canonicalObshtina } from "@/lib/obshtinaPlace";
 import { findCityRayon } from "./cityRayonCatalog";
+import { presidentialUrl } from "@/data/elections/presidentialRoutes";
+// Re-exported below (not just imported) so every existing
+// `import { ABROAD_OBLAST } from "@/data/local/placeViews"` keeps working — see
+// abroadOblast.ts's header for why the constant moved out of this file.
+import { ABROAD_OBLAST } from "./abroadOblast";
+export { ABROAD_OBLAST };
 
 export type PlaceLevel =
   | "country"
@@ -75,20 +81,8 @@ export const isSofiaRayonObshtina = (code?: string | null): boolean =>
 // set is NOT restated here: `canonicalObshtina` in src/lib/obshtinaPlace.ts declares itself
 // its authority, and a second hand-maintained list is how `useAreaResolver` came to accept
 // two of the three.
-/** МИР 32 — the abroad-voters district.
- *
- *  ⚠ AN ABROAD PLACE HAS EXACTLY ONE VIEW, AND THE OTHER THREE MUST REFUSE RATHER THAN
- *  TEMPLATE. Its "settlements" are COUNTRIES carrying ISO codes where an EKATTE would be
- *  (IT, DE, FR…), so every builder below happily produced `/governance/IT` and
- *  `/consumption/IT` — pages that do not exist and cannot. Measured 2026-09-04 on
- *  `/sections/IT`: the place digest rendered both, captioned „депутатите и общинският съвет",
- *  about Italy. `PlaceHeaderView` already dropped the SWITCHER for abroad, which is what hid
- *  this — the pills were gone while the digest, a different consumer of the same builders,
- *  kept them.
- *
- *  Refusing here rather than at each call site is the point: `isAbroad` was a rendering flag
- *  held by one component, and a second consumer had no way to know. */
-export const ABROAD_OBLAST = "32";
+// ABROAD_OBLAST ("32", МИР 32 — the abroad-voters district) is imported above, from
+// ./abroadOblast.ts, and re-exported from this module for every existing caller.
 
 /** ⚠ THE ID ALONE SETTLES IT, AND THAT IS WHAT MAKES THE ANSWER SYNCHRONOUS. Every domestic
  *  EKATTE is five digits, and a Sofia район composite („68134-2401") also begins with one;
@@ -198,12 +192,58 @@ export const parliamentaryUrl = (p: PlaceRef): string | null => {
   return null;
 };
 
+// Presidential-elections results URL, anchored to the given cycle.
+//
+// ⚠ DECLINES RATHER THAN GUESSES on every place whose code shape in the presidential corpus is
+// unverified:
+//   - the Sofia city aggregate (SOF00 / SOF / SFO_CITY) — the presidential municipality file
+//     carries no such row; Sofia is split by МИР (S23/S24/S25 at region level) and by район at
+//     a numbering ("S2317", "S2323", …) that does NOT match this file's own S2xxx район scheme,
+//     so it cannot be mapped without guessing;
+//   - every Пловдив/Варна район, for the same "no verified mapping" reason;
+//   - a composite settlement id (a Sofia район's "68134-2401") — the presidential settlement
+//     file keys on plain numeric EKATTE only.
+// A polling section drops to its parent settlement, the same rule every other view here applies
+// (section numbering does not carry across election kinds).
+//
+// ⚠ AN UNCOVERED PLACE IS NOT A DEAD LINK. Roughly a fifth of settlements have no presidential
+// surface in a given cycle (measured on 2021: 4,184 of 5,364) — smaller settlements with no
+// polling station, the same population every other view silently has nothing to show for. Unlike
+// "local" (whose pill self-hides via useLocalElectionIndex, because the destination is a genuine
+// 404), a presidential settlement/section page always renders: ElectionSurfaceBoundary's own
+// fallback states "not published for this place" rather than erroring. So this builder resolves
+// the URL whenever the CODE SHAPE is one it can place, without checking whether that cycle
+// actually published a surface there — the reader lands on an honest empty state, not a 404.
+export const presidentialViewUrl = (
+  p: PlaceRef,
+  cycle: string,
+): string | null => {
+  if (!cycle) return null;
+  if (isAbroadPlace(p)) return presidentialUrl(cycle, "abroad");
+  if (p.level === "country") return presidentialUrl(cycle, "country");
+  if (p.level === "region" && p.oblast)
+    return presidentialUrl(cycle, "region", p.oblast);
+  if (p.level === "municipality" && p.obshtina) {
+    if (isSofiaCityObshtina(p.obshtina)) return null;
+    if (isSofiaRayonObshtina(p.obshtina)) return null;
+    if (findCityRayon(p.obshtina)) return null;
+    return presidentialUrl(cycle, "municipality", p.obshtina);
+  }
+  if ((p.level === "settlement" || p.level === "section") && p.ekatte) {
+    if (!/^\d+$/.test(p.ekatte)) return null;
+    return presidentialUrl(cycle, "settlement", p.ekatte);
+  }
+  return null;
+};
+
 // One place + one view → its URL. The dispatcher PlaceViewNav and PlaceHeader
 // both use to keep the active view sticky when pivoting or drilling up the
 // hierarchy: a reader on the local-elections page for a settlement who clicks
 // its parent município/oblast should land on THAT place's local page, not its
-// parliamentary default. `cycle` is only consulted for the local view (null
-// without it, since a local URL has no meaning outside a cycle).
+// parliamentary default. `cycle` is consulted for whichever view is
+// cycle-scoped — "local" or "presidential" — and ignored by the other three;
+// a caller passing "presidential" is expected to pass the PRESIDENTIAL cycle,
+// not the local one (PlaceHeader picks the right one for its own `active`).
 export const placeViewUrl = (
   view: PlaceView,
   p: PlaceRef,
@@ -219,13 +259,7 @@ export const placeViewUrl = (
     case "local":
       return cycle ? localUrl(p, cycle) : null;
     case "presidential":
-      // ⚠ STUBBED, NOT WIRED — presidentialViewUrl (data/elections/presidentialViewUrl.ts)
-      // needs the PRESIDENTIAL cycle, not the `cycle` this dispatcher takes (which is the
-      // local one), and importing it here would cycle back through presidentialRoutes.ts,
-      // which already imports ABROAD_OBLAST from this file. PlaceViewNav calls
-      // presidentialViewUrl directly instead; no current caller of this dispatcher passes
-      // "presidential".
-      return null;
+      return cycle ? presidentialViewUrl(p, cycle) : null;
   }
 };
 

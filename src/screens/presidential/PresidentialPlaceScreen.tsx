@@ -13,24 +13,24 @@
 // page has nothing else to show, so the fallback is a stated absence — „this cycle's place
 // pages are not published" — rather than `null`, which would render a heading over nothing.
 //
-// ⚠ NO `PlaceHeader`, BUT `PlaceViewNav` IS MOUNTED — presidential is now a fifth `PlaceView`
-// (`placeViews.ts`), so the pill row appears on every place page site-wide, this one included.
-// The full `PlaceHeader` is still NOT used here: it resolves identity from settlements.json /
-// municipalities.json / regions.json / GRAO and its `PlaceLevel` has no "abroad" member, none
-// of which fits this screen's own identity resolution (`useSurfaceLabels`) or its five levels.
-// Reusing it would be a much larger, riskier rewrite for no benefit over the bespoke header
-// below, which already carries the year/date/round the way `PlaceHeader`'s narrative would.
+// ⚠ `PlaceHeader` IS MOUNTED FOR region/municipality/settlement — the same colored-card
+// header (left border, eyebrow badge, h1, narrative, thumbnail) governance/parliamentary/local
+// already share, now that presidential is a fifth `PlaceView` (`placeViews.ts`) with a working
+// URL builder for those three levels. `useSurfaceLabels` (this screen's own identity source)
+// already pulls in settlements.json/municipalities.json/regions.json — the same corpus
+// `PlaceHeader` resolves identity from — so there is no new bundle cost, and presidential's
+// region/municipality/settlement ids are verified to match the site's ordinary oblast/obshtina/
+// EKATTE codes (e.g. `SFO18` is Etropole everywhere), so `PlaceHeader`'s own resolution works
+// without this screen doing anything special.
 //
-// The pill row itself is rendered only for region/municipality/settlement — the three levels
-// where this screen already has an exact oblast/obshtina/ekatte to hand it. `section` drops
-// through `ElectionResultsShell`'s own drill-up rather than through the pill row (its parent
-// settlement id is not directly in this screen's props), and `abroad` has no PlaceRef at all
-// (one page, no id) — both simply render no pills, same as any place where fewer than two
-// views resolve. The cost of skipping `PlaceHeader` entirely is stated rather than hidden: a
-// reader here gets a link back to the country page and nothing upward, so the parent and child
-// navigation `ElectionResultsShell` does not draw is missing at this level. Closing it properly
-// means a parent link built from `surface.place.parent`, which the artifact already carries and
-// nothing reads.
+// `section` and `abroad` keep the ORIGINAL bare header instead — `PlaceLevel` has no "abroad"
+// member at all (one page, no PlaceRef), and a section's PARENT SETTLEMENT id is not directly
+// in this screen's props (the route only carries the polling-station `code`), so `PlaceHeader`'s
+// breadcrumb has nothing to drill up to. Both simply render no pills, same as any place where
+// fewer than two views resolve. The cost is stated rather than hidden: a reader on either level
+// gets a link back to the country page and nothing upward, so the parent/child navigation
+// `ElectionResultsShell` does not draw is missing there. Closing it properly means a parent link
+// built from `surface.place.parent`, which the artifact already carries and nothing reads.
 //
 // ⚠ THE ABROAD ID IS A CONSTANT, NOT A ROUTE PARAM. `/presidential/:cycle/abroad` carries no
 // id; the artifact needs one, and `PRESIDENTIAL_ABROAD_ID` is the single value the producer and
@@ -43,8 +43,9 @@ import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoun
 import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
 import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
 import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import type { PlaceRef } from "@/data/local/placeViews";
+import { formatDate } from "@/lib/formatDate";
 import { useSurfaceLabels } from "@/data/elections/useSurfaceLabels";
 import {
   PRESIDENTIAL_ABROAD_ID,
@@ -104,7 +105,7 @@ export const PresidentialPlaceScreen: FC<{
   level: PresidentialPlaceLevel;
 }> = ({ level }) => {
   const params = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { placeLabel } = useSurfaceLabels();
   const cycle = params.cycle;
   // ⚠ CALLED UNCONDITIONALLY, above the `!cycle` early return — React hook order. It is a
@@ -123,8 +124,8 @@ export const PresidentialPlaceScreen: FC<{
   // is the one case with nothing to name, which the boundary then reports as `loading`.
   const name = id ? placeLabel(level, id) : "";
 
-  // The pill row's PlaceRef, for the three levels this screen has an exact id for — see the
-  // file header for why `section` and `abroad` render no pills.
+  // The header's PlaceRef, for the three levels this screen has an exact id for — see the
+  // file header for why `section` and `abroad` keep the bare fallback below instead.
   const placeRef: PlaceRef | null =
     id && level === "region"
       ? { level: "region", oblast: id }
@@ -134,37 +135,46 @@ export const PresidentialPlaceScreen: FC<{
           ? { level: "settlement", ekatte: id }
           : null;
 
+  // ⚠ THE ROUND-1 DATE, NOT THE CYCLE ID — `cycleIsoDate` returns "" for a `_pvr` folder and
+  // `formatDate` would print the folder name verbatim. A cycle the build does not catalogue
+  // simply gets no scope line rather than a fabricated one.
+  const scope = entry ? (
+    <ElectionScopeBar cycle={entry.round1Date} status="final" />
+  ) : undefined;
+
   return (
     <section className="my-4 space-y-6">
-      <header>
-        {countryTo ? (
-          <Link
-            className="text-sm text-muted-foreground underline"
-            to={countryTo}
-          >
-            {t("presidential_cycle_title")}
-          </Link>
-        ) : null}
-        <h1 className="text-xl font-semibold">{name}</h1>
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
-          {placeRef ? (
-            <PlaceViewNav
-              active="presidential"
-              level={placeRef.level}
-              ekatte={placeRef.ekatte}
-              obshtina={placeRef.obshtina}
-              oblast={placeRef.oblast}
-              align="start"
-            />
+      {placeRef ? (
+        <PlaceHeader
+          active="presidential"
+          level={placeRef.level}
+          ekatte={placeRef.ekatte}
+          obshtina={placeRef.obshtina}
+          oblast={placeRef.oblast}
+          eyebrowTo={countryTo ?? undefined}
+          eyebrowSuffix={
+            entry ? formatDate(entry.round1Date, i18n.language) : undefined
+          }
+          fallbackName={name}
+          cycle={cycle}
+          scope={scope}
+        />
+      ) : (
+        <header>
+          {countryTo ? (
+            <Link
+              className="text-sm text-muted-foreground underline"
+              to={countryTo}
+            >
+              {t("presidential_cycle_title")}
+            </Link>
           ) : null}
-          {/* ⚠ THE ROUND-1 DATE, NOT THE CYCLE ID — `cycleIsoDate` returns "" for a `_pvr`
-              folder and `formatDate` would print the folder name verbatim. A cycle the build
-              does not catalogue simply gets no scope line rather than a fabricated one. */}
-          {entry ? (
-            <ElectionScopeBar cycle={entry.round1Date} status="final" />
-          ) : null}
-        </div>
-      </header>
+          <h1 className="text-xl font-semibold">{name}</h1>
+          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+            {scope}
+          </div>
+        </header>
+      )}
       <ElectionSurfaceBoundary
         kind="presidential"
         level={level}

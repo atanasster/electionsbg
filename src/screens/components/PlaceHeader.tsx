@@ -39,6 +39,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { oblastNarrativeName } from "@/lib/oblastName";
 import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
 import { parseLoc } from "@/lib/geo";
 import { PlaceHeaderView } from "./place/PlaceHeaderView";
 import { renderPlaceNarrative } from "./place/placeNarrative";
@@ -62,10 +63,12 @@ type Props = {
   // Per-view cross-link rendered under the breadcrumb (e.g. район → all of
   // Sofia).
   extra?: ReactNode;
-  // The local-elections cycle this page is anchored to (only the /local/:cycle/…
-  // screens pass it). It keeps the breadcrumb's parent links on the SAME cycle
-  // when active="local"; for the other views the cycle is irrelevant. Defaults
-  // to the cycle in effect as of the selected election when omitted.
+  // The cycle this page is anchored to, for whichever view is cycle-scoped —
+  // the /local/:cycle/… and /presidential/:cycle/… screens both pass it. It
+  // keeps the breadcrumb's parent links on the SAME cycle when
+  // active="local"/"presidential"; for the other three views the cycle is
+  // irrelevant. Defaults to the cycle in effect as of the selected election
+  // (local) or the newest catalogued cycle (presidential) when omitted.
   cycle?: string;
   // Replaces the default PlaceViewNav switcher (e.g. SOF city keeps a single
   // → parliamentary pill instead of the three-way control).
@@ -97,12 +100,18 @@ export const PlaceHeader: FC<Props> = ({
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
-  // Cycle the breadcrumb's local-view parent links anchor to: the page's own
-  // cycle when given (the /local/:cycle/… screens pass it), else the cycle in
-  // effect as of the selected election — same source PlaceViewNav uses to point
-  // its Местни pill.
-  const fallbackCycle = useLatestLocalCycle();
-  const activeCycle = cycle ?? fallbackCycle;
+  // Cycle the breadcrumb's local-/presidential-view parent links anchor to: the page's own
+  // cycle when given (the /local/:cycle/… and /presidential/:cycle/… screens both pass it),
+  // else the cycle in effect for whichever view is active — same sources PlaceViewNav uses to
+  // point its Местни / Президент pills. Both hooks are called unconditionally (rules of
+  // hooks); only the one matching `active` is ever read.
+  const fallbackLocalCycle = useLatestLocalCycle();
+  const fallbackPresidentialCycle = useLatestPresidentialCycle();
+  const activeCycle =
+    cycle ??
+    (active === "presidential"
+      ? fallbackPresidentialCycle
+      : fallbackLocalCycle);
 
   const isSettlement = level === "settlement";
   const isSection = level === "section";

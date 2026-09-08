@@ -15,6 +15,7 @@
 import {
   localUrl,
   placeViewUrl,
+  presidentialViewUrl,
   type PlaceRef,
   type PlaceView,
 } from "@/data/local/placeViews";
@@ -28,12 +29,13 @@ import type {
   PlaceViewName,
 } from "./surfaceTypes";
 
-/** The four views, in `PlaceViewNav`'s order — imported rather than restated would be better,
+/** The five views, in `PlaceViewNav`'s order — imported rather than restated would be better,
  *  but the nav's order lives in `PLACE_DIGEST_ORDER` (a browser module the generator already
  *  imports) and this is the same list; `source_links.test.ts` asserts they agree. */
 export const VIEW_NAMES: readonly PlaceViewName[] = [
   "governance",
   "parliamentary",
+  "presidential",
   "local",
   "consumption",
 ];
@@ -92,6 +94,16 @@ export type DestinationInput = {
   /** Whether this place actually appears in `localCycle`. The caller checks the cycle index;
    *  a resolvable URL is not evidence that a place has data behind it. */
   inLocalCycle?: boolean;
+  /** The presidential cycle to point `views.presidential` at.
+   *
+   *  ⚠ NOT EVERY PRODUCER THREADS THIS YET — `destinations.views` has no reader today (see
+   *  `ElectionResultsShell.tsx`'s own note), so leaving it unset here is inert rather than a
+   *  rendered defect. Unlike `inLocalCycle`, there is no matching "was this place covered"
+   *  flag: presidential's code-shape declines (Sofia's city aggregate and райони, a composite
+   *  settlement id) already live in `presidentialViewUrl`, and an uncovered ordinary place
+   *  still resolves to an honest "not published" page rather than a 404 — see that function's
+   *  header for why the presidential pill needs no availability index the way `local` does. */
+  presidentialCycle?: string;
   /** Route to the complete result for this place, from the caller's own routing helper. */
   completeResultTo: string | null;
   childPlacesTo?: string | null;
@@ -162,6 +174,7 @@ export const buildDestinations = (
     cycle,
     localCycle,
     inLocalCycle,
+    presidentialCycle,
     completeResultTo,
     childPlacesTo,
     parentPlaceTo,
@@ -210,7 +223,29 @@ export const buildDestinations = (
     if (view === kind) continue;
     if (!ref) {
       // Abroad: there is no governance/consumption/local page for a place outside Bulgaria.
+      //
+      // ⚠ PRESIDENTIAL IS THE ONE EXCEPTION, AND IT IS NOT HANDLED HERE. Unlike the other
+      // three, `/presidential/:cycle/abroad` genuinely exists (`PRESIDENTIAL_ABROAD_ID`) — so
+      // marking it `not_abroad` at the ABROAD LEVEL (as opposed to a diaspora settlement,
+      // which is a different case entirely) is imprecise. Left this way because nothing reads
+      // `destinations.views` yet (see `ElectionResultsShell.tsx`'s own note) — closing it
+      // properly means a dedicated branch above this one, keyed on `level === "abroad"`.
       views[view] = { to: "", available: false, reason: "not_abroad" };
+      continue;
+    }
+    if (view === "presidential") {
+      // ⚠ SAME SHAPE AS "local" BELOW: a resolvable URL is not evidence this cycle actually
+      // published a surface here — `presidentialViewUrl`'s own header explains why that is
+      // fine for presidential specifically (an uncovered place still renders an honest "not
+      // published" page). What IS distinguished is "no cycle given" vs "declined/resolved" —
+      // see `no_presidential_cycle` on `ElectionUnavailableReason`.
+      const to = presidentialCycle
+        ? presidentialViewUrl(ref, presidentialCycle)
+        : null;
+      views[view] = dest(
+        to,
+        presidentialCycle ? "no_data_for_place" : "no_presidential_cycle",
+      );
       continue;
     }
     if (view === "local") {

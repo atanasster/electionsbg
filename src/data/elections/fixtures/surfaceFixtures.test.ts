@@ -13,7 +13,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   ALL_SURFACE_FIXTURES,
-  digestAllFourViews,
+  digestAllFiveViews,
   digestNoLocalCycle,
   localCountry,
   localMunicipalityRunoffSplit,
@@ -198,17 +198,19 @@ describe("fixtures — each exercises the branch its name claims", () => {
 });
 
 describe("fixtures — the place digest", () => {
-  it("renders four cells when all four views resolve, in PlaceViewNav's order", () => {
-    expect(digestAllFourViews).toHaveLength(4);
-    expect(digestAllFourViews.map((c) => c.view)).toEqual([
+  it("renders five cells when all five views resolve, in PlaceViewNav's order", () => {
+    expect(digestAllFiveViews).toHaveLength(5);
+    expect(digestAllFiveViews.map((c) => c.view)).toEqual([
       ...PLACE_DIGEST_ORDER,
     ]);
   });
 
-  it("gives the two Postgres-only views NO number", () => {
+  it("gives the three LINK views NO number, each for its own reason", () => {
     // §5.1: Управление has no bucket producer at all and Потребление is Cloud-SQL-served and
-    // moves daily. A link cell makes no claim, so it cannot go stale.
-    const links = digestAllFourViews.filter((c) => c.kind === "link");
+    // moves daily. Президент is a link for a third, unrelated reason — its roll-up is a
+    // whole-country file, not a per-place shard (see `presidentialDigestCell`). A link cell
+    // makes no claim, so none of the three can go stale.
+    const links = digestAllFiveViews.filter((c) => c.kind === "link");
     expect(links.map((c) => c.view).sort()).toEqual(
       [...PLACE_DIGEST_LINK_VIEWS].sort(),
     );
@@ -219,7 +221,7 @@ describe("fixtures — the place digest", () => {
   });
 
   it("gives both bucket-native views a number", () => {
-    const figures = digestAllFourViews.filter((c) => c.kind === "figure");
+    const figures = digestAllFiveViews.filter((c) => c.kind === "figure");
     expect(figures).toHaveLength(2);
     for (const c of figures) {
       const values = Object.values(c).filter((v) => typeof v === "number");
@@ -228,12 +230,13 @@ describe("fixtures — the place digest", () => {
   });
 
   it("OMITS an unreachable view rather than zeroing it", () => {
-    expect(digestNoLocalCycle).toHaveLength(3);
+    expect(digestNoLocalCycle).toHaveLength(4);
     expect(digestNoLocalCycle.map((c) => c.view)).not.toContain("local");
     // …and the survivors keep their order.
     expect(digestNoLocalCycle.map((c) => c.view)).toEqual([
       "governance",
       "parliamentary",
+      "presidential",
       "consumption",
     ]);
     // Still above the floor, so the digest renders at all.
@@ -243,7 +246,7 @@ describe("fixtures — the place digest", () => {
   });
 
   it("states mayor/council agreement once, as a boolean the standout can reuse", () => {
-    const local = digestAllFourViews.find((c) => c.view === "local");
+    const local = digestAllFiveViews.find((c) => c.view === "local");
     expect(local?.kind).toBe("figure");
     if (local?.kind === "figure" && local.view === "local") {
       // ⚠ CHECKED AGAINST THE SHARED RULE, NOT A LOCAL `===`. Restating it here as an equality
@@ -406,7 +409,7 @@ describe("fixtures — every party id resolves in the canonical corpus", () => {
   });
 
   it("resolves every partyId the digest publishes", () => {
-    for (const cell of digestAllFourViews) {
+    for (const cell of digestAllFiveViews) {
       if (cell.kind !== "figure") continue;
       const ids =
         cell.view === "parliamentary"
@@ -591,7 +594,7 @@ describe("fixtures — checked against the corpus they claim to come from", () =
     const valid = votes.reduce((a, b) => a + b, 0);
     const [first, second] = [...votes].sort((a, b) => b - a);
 
-    const cell = digestAllFourViews.find((c) => c.view === "parliamentary");
+    const cell = digestAllFiveViews.find((c) => c.view === "parliamentary");
     expect(cell?.kind).toBe("figure");
     if (cell?.kind === "figure" && cell.view === "parliamentary") {
       expect(cell.winnerPct).toBeCloseTo((first / valid) * 100, 1);
@@ -610,7 +613,7 @@ describe("fixtures — checked against the corpus they claim to come from", () =
     );
     const seats = council.reduce((n, r) => n + (r.mandatesWon ?? 0), 0);
 
-    const cell = digestAllFourViews.find((c) => c.view === "local");
+    const cell = digestAllFiveViews.find((c) => c.view === "local");
     expect(cell?.kind).toBe("figure");
     if (cell?.kind === "figure" && cell.view === "local") {
       expect(cell.mayorName).toBe(elected.candidateName);

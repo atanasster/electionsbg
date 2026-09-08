@@ -7,7 +7,7 @@ import { MapText } from "./MapText";
 import { MapMarker } from "./MapMarker";
 import { MapShiftArrow } from "./MapShiftArrow";
 import { RegionShift } from "./computeShifts";
-import { minMaxVotes } from "@/data/utils";
+import { minMaxVotes, totalActualVoters } from "@/data/utils";
 import { getDataProjection } from "@/screens/components/maps/d3_utils";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { NavigateParams } from "@/ux/useNavigateParams";
@@ -127,7 +127,7 @@ export function useMapElements<DType extends GeoJSONProps>({
                       projection={projection}
                       minVotes={minVotes}
                       maxVotes={maxVotes}
-                      votes={v?.results.votes}
+                      value={totalActualVoters(v?.results.votes)}
                     />
                   ) : undefined,
                 ],

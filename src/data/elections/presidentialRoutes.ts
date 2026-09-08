@@ -12,7 +12,10 @@
 // round switch, because the surfaces already carry both rounds as ballots on ONE artifact.
 // So there is no `round` parameter here and adding one would mint URLs nothing serves.
 
-import { ABROAD_OBLAST } from "@/data/local/placeViews";
+// ⚠ FROM abroadOblast.ts, NOT placeViews.ts. placeViews.ts imports presidentialUrl (below)
+// from this file to build the presidential PlaceViewNav pill, so importing ABROAD_OBLAST back
+// from placeViews.ts would cycle; both files import the constant from this shared leaf instead.
+import { ABROAD_OBLAST } from "@/data/local/abroadOblast";
 import type { ElectionPlaceLevel } from "./surfaceTypes";
 
 /**

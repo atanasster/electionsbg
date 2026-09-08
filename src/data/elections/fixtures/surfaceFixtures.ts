@@ -572,9 +572,11 @@ export const localSectionMultipleBallots: ElectionSurfaceV1 = {
 
 // ─── the place digest fixtures (§4.1) ───────────────────────────────────────────────────
 
-/** 7. A municipality where all four views resolve. The two FIGURE cells carry numbers; the two
- *  LINK cells carry none, because neither fact has a bucket producer (§5.1). */
-export const digestAllFourViews: PlaceDigestCell[] = [
+/** 7. A municipality where all five views resolve. The two FIGURE cells carry numbers; the
+ *  three LINK cells carry none — governance and consumption because neither fact has a bucket
+ *  producer (§5.1), presidential because its roll-up is a whole-country file rather than a
+ *  per-place shard (see `presidentialDigestCell`). */
+export const digestAllFiveViews: PlaceDigestCell[] = [
   {
     kind: "link",
     view: "governance",
@@ -592,6 +594,12 @@ export const digestAllFourViews: PlaceDigestCell[] = [
     // 16.40% in Plovdiv — not to the national runner-up ГЕРБ-СДС at 13.15%. An earlier draft
     // subtracted the wrong row and published a margin 3.26 pp too wide.
     marginPct: 29.87,
+  },
+  {
+    kind: "link",
+    view: "presidential",
+    to: "/presidential/2021_11_14_pvr/municipality/PDV22",
+    descriptorKey: "place_digest_presidential_desc",
   },
   {
     kind: "figure",
@@ -614,8 +622,8 @@ export const digestAllFourViews: PlaceDigestCell[] = [
 ];
 
 /** 8. The same shape where the LOCAL view does not resolve — a place with no local cycle. The
- *  cell is OMITTED, never zeroed, so the digest renders three. */
-export const digestNoLocalCycle: PlaceDigestCell[] = digestAllFourViews.filter(
+ *  cell is OMITTED, never zeroed, so the digest renders four. */
+export const digestNoLocalCycle: PlaceDigestCell[] = digestAllFiveViews.filter(
   (c) => c.view !== "local",
 );
 

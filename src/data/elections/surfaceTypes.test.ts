@@ -247,13 +247,19 @@ describe("place digest — the figure/link split is read, not restated", () => {
     expect(cell.kind).toBe("link");
   });
 
-  it("the two Postgres-only views carry no figure", () => {
+  it("the two Postgres-only views carry no figure, and presidential is a link for its own reason", () => {
     // §4.1/§5.1: Управление has no bucket producer at all and Потребление is Cloud-SQL-served
     // and moves daily. If either ever moves to the figure list, that is a decision that has
     // to argue past those measurements — not a quiet edit.
+    //
+    // Президент is ALSO a link, but for an unrelated third reason — see
+    // `presidentialDigestCell`'s header: its roll-up is a whole-country file, not a per-place
+    // shard, so a same-page figure would cost a second fetch this digest does not make. Listed
+    // separately so a reviewer does not read "Postgres-only" as presidential's reason too.
     expect([...PLACE_DIGEST_LINK_VIEWS].sort()).toEqual([
       "consumption",
       "governance",
+      "presidential",
     ]);
     expect([...PLACE_DIGEST_FIGURE_VIEWS].sort()).toEqual([
       "local",

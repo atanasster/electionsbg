@@ -50,7 +50,7 @@ import {
 } from "./electionSurfaceLayout";
 import {
   ALL_SURFACE_FIXTURES,
-  digestAllFourViews,
+  digestAllFiveViews,
   digestNoLocalCycle,
   localMunicipalityRunoffSplit,
   localSectionMultipleBallots,
@@ -219,7 +219,7 @@ describe("shell — landmarks and headings", () => {
     "names every region it renders — %s",
     (_name, surface) => {
       const { container } = draw(
-        <ElectionResultsShell surface={surface} digest={digestAllFourViews} />,
+        <ElectionResultsShell surface={surface} digest={digestAllFiveViews} />,
       );
       const regions = [...container.querySelectorAll("section")];
       expect(regions.length).toBeGreaterThan(0);
@@ -237,7 +237,7 @@ describe("shell — landmarks and headings", () => {
       // An aria-labelledby referencing a missing node names the section "" rather than leaving
       // it unnamed, which is worse — it looks named to a checker and is silent to a reader.
       const { container } = draw(
-        <ElectionResultsShell surface={surface} digest={digestAllFourViews} />,
+        <ElectionResultsShell surface={surface} digest={digestAllFiveViews} />,
       );
       for (const r of container.querySelectorAll("section")) {
         const id = r.getAttribute("aria-labelledby")!;
@@ -252,7 +252,7 @@ describe("shell — landmarks and headings", () => {
     const seen = new Set<string>();
     for (const surface of Object.values(ALL_SURFACE_FIXTURES)) {
       const { container } = draw(
-        <ElectionResultsShell surface={surface} digest={digestAllFourViews} />,
+        <ElectionResultsShell surface={surface} digest={digestAllFiveViews} />,
       );
       for (const r of container.querySelectorAll("[data-surface-region]"))
         seen.add(r.getAttribute("data-surface-region")!);
@@ -689,9 +689,9 @@ describe("shell — a standout carries its baseline", () => {
 
 describe("shell — the place digest", () => {
   it("renders one cell per reachable view, in PlaceViewNav's order", () => {
-    // ⚠ SHUFFLED AT THE CALL SITE. `digestAllFourViews` is authored in order, so the previous
+    // ⚠ SHUFFLED AT THE CALL SITE. `digestAllFiveViews` is authored in order, so the previous
     // form was satisfied by deleting the sort outright.
-    const shuffled = [3, 1, 0, 2].map((i) => digestAllFourViews[i]);
+    const shuffled = [2, 4, 0, 3, 1].map((i) => digestAllFiveViews[i]);
     const { container } = draw(
       <ElectionResultsShell surface={parliamentaryCountry} digest={shuffled} />,
     );
@@ -706,7 +706,7 @@ describe("shell — the place digest", () => {
     const { container } = draw(
       <ElectionResultsShell
         surface={parliamentaryCountry}
-        digest={digestAllFourViews}
+        digest={digestAllFiveViews}
         currentView="parliamentary"
       />,
     );
@@ -714,7 +714,7 @@ describe("shell — the place digest", () => {
       (n) => n.getAttribute("data-digest-cell"),
     );
     expect(cells).not.toContain("parliamentary");
-    expect(cells).toHaveLength(3);
+    expect(cells).toHaveLength(4);
   });
 
   it("renders NO number in a link cell", () => {
@@ -723,13 +723,13 @@ describe("shell — the place digest", () => {
     const { container } = draw(
       <ElectionResultsShell
         surface={parliamentaryCountry}
-        digest={digestAllFourViews}
+        digest={digestAllFiveViews}
       />,
     );
     const links = [...container.querySelectorAll("[data-digest-kind='link']")];
     // Non-vacuity: a zero-length NodeList passes every loop body ever written.
     expect(links.length).toBe(
-      digestAllFourViews.filter((c) => c.kind === "link").length,
+      digestAllFiveViews.filter((c) => c.kind === "link").length,
     );
     for (const cell of links)
       expect(
@@ -742,14 +742,14 @@ describe("shell — the place digest", () => {
     const { container } = draw(
       <ElectionResultsShell
         surface={parliamentaryCountry}
-        digest={digestAllFourViews}
+        digest={digestAllFiveViews}
       />,
     );
     const figures = [
       ...container.querySelectorAll("[data-digest-kind='figure']"),
     ];
     expect(figures.length).toBe(
-      digestAllFourViews.filter((c) => c.kind === "figure").length,
+      digestAllFiveViews.filter((c) => c.kind === "figure").length,
     );
     // The parliamentary cell shows a share; the local cell shows the mayor's name, which is
     // the fact that view leads with — so only the former is asserted numeric.
@@ -764,7 +764,9 @@ describe("shell — the place digest", () => {
     const { container } = draw(
       <ElectionResultsShell
         surface={parliamentaryCountry}
-        digest={digestNoLocalCycle}
+        // Sliced to 3 (governance/parliamentary/presidential) so dropping the current view
+        // lands EXACTLY on the floor — digestNoLocalCycle's own 4 would land one above it.
+        digest={digestNoLocalCycle.slice(0, 3)}
         currentView="parliamentary"
       />,
     );
@@ -800,7 +802,7 @@ describe("shell — the place digest", () => {
     const { container } = draw(
       <ElectionResultsShell
         surface={localSectionMultipleBallots}
-        digest={digestAllFourViews}
+        digest={digestAllFiveViews}
       />,
     );
     expect(
@@ -830,7 +832,7 @@ describe("shell — no raw identifier reaches the DOM", () => {
       // A missing key renders as its own identifier at a 200 — the `votes_outcome_undefined`
       // shape. Every key this shell names must resolve in the loaded corpus.
       const { container } = draw(
-        <ElectionResultsShell surface={surface} digest={digestAllFourViews} />,
+        <ElectionResultsShell surface={surface} digest={digestAllFiveViews} />,
       );
       const text = container.textContent ?? "";
       for (const k of NAMEABLE)
@@ -969,7 +971,7 @@ describe("labels are resolved from ids at render time (§5.3)", () => {
     const { container } = draw(
       <ElectionResultsShell
         surface={parliamentaryCountry}
-        digest={digestAllFourViews}
+        digest={digestAllFiveViews}
       />,
     );
     const cell = container.querySelector(
@@ -988,7 +990,7 @@ describe("labels are resolved from ids at render time (§5.3)", () => {
     const { container } = draw(
       <ElectionResultsShell
         surface={parliamentaryCountry}
-        digest={digestAllFourViews}
+        digest={digestAllFiveViews}
       />,
     );
     const cell = container.querySelector(

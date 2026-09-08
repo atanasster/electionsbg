@@ -81,6 +81,7 @@ export type ElectionSourceLabel = "cik" | "officials_roster";
  *  was held here in this cycle" is an answer, a silently missing link is not. */
 export type ElectionUnavailableReason =
   | "no_local_cycle"
+  | "no_presidential_cycle"
   | "not_at_section"
   | "not_abroad"
   | "no_data_for_place"
@@ -466,6 +467,7 @@ export type PlaceDigestCellKind = "figure" | "link";
  *  fixed here is the SHAPE — a union, so the gate can enumerate it. */
 export type PlaceDigestDescriptorKey =
   | "place_digest_governance_desc"
+  | "place_digest_presidential_desc"
   | "place_digest_consumption_desc";
 
 /** Парламент's figure cell — the first row of the same ranked list the view draws, plus the
@@ -578,14 +580,7 @@ export const isSplitControl = (
   return Boolean(a && b && a !== b);
 };
 
-/** Cell order — `PlaceViewNav`'s own ORDER, so the two controls cannot disagree.
- *
- *  ⚠ "presidential" IS LISTED HERE BUT `buildPlaceDigest` HAS NO CELL FOR IT — the ORDER
- *  gate compares this array against the pill row's positionally, not against which views
- *  actually produce a digest cell. `placeDigestFacts.ts`'s `byView` Map carries no
- *  "presidential" entry, so `.get("presidential")` returns `undefined` and the filter drops
- *  it, the same as any other view whose cell builder declined — no crash, no card, exactly
- *  today's behaviour for a place the presidential corpus does not cover. */
+/** Cell order — `PlaceViewNav`'s own ORDER, so the two controls cannot disagree. */
 export const PLACE_DIGEST_ORDER = [
   "governance",
   "parliamentary",
@@ -601,8 +596,14 @@ export const PLACE_DIGEST_FIGURE_VIEWS = [
   "local",
 ] as const satisfies readonly PlaceViewName[];
 
+/** ⚠ PRESIDENTIAL IS A LINK, NOT A FIGURE, for the SAME reason governance/consumption are:
+ *  no bucket producer for "which pair led here" that this digest can read without a second
+ *  fetch — the роll-up a presidential map colours from is a whole-country file (§ see
+ *  `PresidentialChildMap`), not a per-place shard. `presidentialDigestCell` (below) links to
+ *  the place's presidential result rather than stating one. */
 export const PLACE_DIGEST_LINK_VIEWS = [
   "governance",
+  "presidential",
   "consumption",
 ] as const satisfies readonly PlaceViewName[];
 

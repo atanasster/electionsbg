@@ -25,6 +25,7 @@ import type { PlaceRef } from "@/data/local/placeViews";
 const MUNI: PlaceRef = { level: "municipality", obshtina: "PAZ19" };
 const CYCLE = "2026_04_19";
 const LOCAL = "2023_10_29_mi";
+const PRESIDENTIAL = "2021_11_14_pvr";
 
 const winner = { partyId: "p_20", pct: 39.84, marginPct: 20.08 };
 const local = {
@@ -160,6 +161,7 @@ describe("the digest as a whole", () => {
       place: MUNI,
       parliamentaryCycle: CYCLE,
       localCycle: LOCAL,
+      presidentialCycle: PRESIDENTIAL,
       winner,
       local,
     });

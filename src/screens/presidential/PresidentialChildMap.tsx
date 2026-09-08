@@ -44,6 +44,7 @@ import {
 import { formatPct } from "@/lib/currency";
 import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 import {
+  foldPlace,
   leadersByPlace,
   useRoundRollup,
   type RollupLevel,
@@ -106,6 +107,17 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
     [rollup],
   );
 
+  // Total votes cast at each place — for the marker's size, the same "how much happened here"
+  // quantity a parliamentary map sizes its pins by (there, the sum over all parties; here, the
+  // sum over all tickets). `foldPlace` already computes it alongside the leader, so this is a
+  // second read of the same rows rather than a second rule — see its own header.
+  const totals = useMemo(() => {
+    const out = new Map<string, number>();
+    if (rollup.status === "ready")
+      for (const e of rollup.rollup.entries) out.set(e.key, foldPlace(e).total);
+    return out;
+  }, [rollup]);
+
   const nameOf = (key: string): string => {
     if (isMuni) {
       const m = findMunicipality(key);
@@ -166,6 +178,8 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
           presidentialUrl(cycle, "municipality", p.nuts4) ??
           `/presidential/${cycle}`,
       })}
+      infoOf={(p) => findMunicipality(p.nuts4)}
+      markerValueOf={(p) => totals.get(p.nuts4)}
     />
   ) : (
     <LocalChoropleth<SettlementJSONProps>
@@ -179,6 +193,8 @@ const Inner: FC<Props & { size: MapCoordinates }> = ({
           presidentialUrl(cycle, "settlement", p.ekatte) ??
           `/presidential/${cycle}`,
       })}
+      infoOf={(p) => findSettlement(p.ekatte)}
+      markerValueOf={(p) => totals.get(p.ekatte)}
     />
   );
 };

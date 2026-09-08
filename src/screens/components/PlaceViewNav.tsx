@@ -8,11 +8,11 @@
 //
 // Governance/parliamentary/consumption/local are pure rewrites of the shared
 // geographic identifiers — see placeViews.ts. Presidential is the one exception:
-// presidentialViewUrl (data/elections/presidentialViewUrl.ts) resolves whenever
-// the CODE SHAPE is one it can place, without checking whether that cycle
-// actually published a surface there, because an uncovered presidential place
-// still renders an honest "not published" page rather than a dead link — see
-// that file's header. The local pill is different: it self-hides when the place
+// presidentialViewUrl (also in placeViews.ts) resolves whenever the CODE SHAPE
+// is one it can place, without checking whether that cycle actually published a
+// surface there, because an uncovered presidential place still renders an
+// honest "not published" page rather than a dead link — see its own header. The
+// local pill is different: it self-hides when the place
 // has no data in the active local cycle (the cycle index is the guard, same rule
 // as CrossElectionLink's ToLocalLink), because that destination is a genuine
 // 404. The whole control hides when fewer than two views are reachable (nothing
@@ -35,13 +35,13 @@ import {
   parliamentaryUrl,
   localUrl,
   consumptionUrl,
+  presidentialViewUrl,
   isSofiaCityObshtina,
 } from "@/data/local/placeViews";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
-import { presidentialViewUrl } from "@/data/elections/presidentialViewUrl";
 import { PLACE_VIEW_META } from "./placeViewMeta";
 
 // Stable left-to-right order of the views.

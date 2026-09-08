@@ -13,6 +13,7 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { SettlementDashboardCards } from "./dashboard/SettlementDashboardCards";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
 import { useElectionSurface } from "@/data/elections/useElectionSurface";
 import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
 import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
@@ -32,6 +33,7 @@ export const SectionsScreen = () => {
   const { i18n } = useTranslation();
   const { selected } = useElectionContext();
   const localCycle = useLatestLocalCycle();
+  const presidentialCycle = useLatestPresidentialCycle();
   // ⚠ EVERY HOOK ABOVE THE EARLY RETURN — `if (!ekatte) return null` is below.
   //
   // ⚠ THE МЕСТНИ CELL READS THE LOCAL SETTLEMENT SURFACE, the same artifact the Местни tab
@@ -58,12 +60,13 @@ export const SectionsScreen = () => {
         },
         parliamentaryCycle: selected,
         localCycle,
+        presidentialCycle,
         local: localDigestFromSurface(
           local.status === "ready" ? local.surface : undefined,
         ),
         currentView: "parliamentary",
       }),
-    [ekatte, selected, localCycle, local, findSettlement],
+    [ekatte, selected, localCycle, presidentialCycle, local, findSettlement],
   );
   if (!ekatte) return null;
   const lang = i18n.language === "bg" ? "bg" : "en";
