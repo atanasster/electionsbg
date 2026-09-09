@@ -447,23 +447,28 @@ export const budgetByFunction = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const c = await fetchData<CofogData>("/cofog.json");
-  const allYears = (c.series.TOTAL ?? Object.values(c.series)[0] ?? []).map(
-    (p) => p.year,
-  );
+  const allYears = [
+    ...new Set(
+      Object.values(c.series).flatMap((points) => points.map((p) => p.year)),
+    ),
+  ];
   const yr = resolveYear(
     args.year,
     allYears.length ? allYears : [c.latestYear],
   );
   const year = yr.year;
-  const rows = Object.entries(c.series)
-    .map(([gf, pts]) => {
-      const p = pts.find((x) => x.year === year) ?? pts[pts.length - 1];
+  const components = Object.entries(c.series).filter(([gf]) => gf !== "TOTAL");
+  const rows = components
+    .flatMap(([gf, pts]) => {
+      const p = pts.find((x) => x.year === year);
+      if (!p || !Number.isFinite(p.valueEur)) return [];
       const label = (COFOG[gf] ?? { bg: gf, en: gf })[ctx.lang];
-      return { gf, label, value: p ? p.valueEur : 0 };
+      return [{ gf, label, value: p.valueEur }];
     })
-    .filter((r) => r.value > 0)
     .sort((a, b) => b.value - a.value);
-  const total = rows.reduce((s, r) => s + r.value, 0);
+  const total = c.series.TOTAL?.find((p) => p.year === year)?.valueEur;
+  const hasTotal = total != null && Number.isFinite(total) && total > 0;
+  const missing = components.length - rows.length;
 
   const columns: Column[] = [
     { key: "fn", label: ctx.lang === "bg" ? "Функция" : "Function" },
@@ -476,7 +481,9 @@ export const budgetByFunction = async (
   ];
   const facts: Record<string, string | number> = {
     year,
-    total: fmtEurCompact(total, ctx.lang),
+    total: hasTotal ? fmtEurCompact(total, ctx.lang) : "—",
+    covered_functions: rows.length,
+    missing_functions: missing,
     top_function: rows[0]?.label ?? "—",
   };
   rows.slice(0, 3).forEach((r) => {
@@ -491,12 +498,27 @@ export const budgetByFunction = async (
       ctx.lang === "bg"
         ? `Бюджет по функция (COFOG, ${year})`
         : `Budget by function (COFOG, ${year})`,
-    subtitle: yearMissingNote(yr, ctx.lang),
+    subtitle:
+      [
+        yearMissingNote(yr, ctx.lang),
+        missing > 0
+          ? ctx.lang === "bg"
+            ? `Липсват ${missing} функции за избраната година.`
+            : `${missing} functions missing for the selected year.`
+          : null,
+        !hasTotal
+          ? ctx.lang === "bg"
+            ? "Няма обща сума за годината; дяловете не са налични."
+            : "No total for this year; shares are unavailable."
+          : null,
+      ]
+        .filter(Boolean)
+        .join(" ") || undefined,
     columns,
     rows: rows.map((r) => ({
       fn: r.label,
       amount: fmtEurCompact(r.value, ctx.lang),
-      pct: total > 0 ? round2((100 * r.value) / total) : 0,
+      pct: hasTotal ? round2((100 * r.value) / total) : "—",
     })),
     categories: rows.map((r) => r.label),
     series: [

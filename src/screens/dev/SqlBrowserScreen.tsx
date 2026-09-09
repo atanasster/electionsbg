@@ -38,7 +38,7 @@ import {
   writeSqlQuestionUrl,
 } from "@/lib/questions/sql/url";
 import type { RenderedSqlQuestion } from "@/lib/questions/sql/types";
-import { ALL_QUERIES, LIBRARY } from "./sqlLibrary";
+import { LIBRARY } from "./sqlLibrary";
 import { Input } from "@/components/ui/input";
 import { useNoindex } from "@/lib/useNoindex";
 
@@ -735,7 +735,12 @@ export const SqlBrowserScreen = () => {
             role="status"
             aria-live="polite"
           >
-            {ALL_QUERIES.length} {lang === "bg" ? "SQL справки" : "SQL queries"}
+            {
+              serverQuestionCatalog.questions.filter(
+                (q) => q.sql.status === "ready",
+              ).length
+            }{" "}
+            {lang === "bg" ? "SQL справки" : "SQL queries"}
             {serverCapabilities &&
               ` · ${lang === "bg" ? "схема" : "schema"} ${serverCapabilities.schemaVersion ?? (lang === "bg" ? "стара" : "legacy")} · ${lang === "bg" ? "данни" : "data"} ${serverCapabilities.sourceVersion?.slice(0, 8) ?? (lang === "bg" ? "неизвестни" : "unknown")}`}
             {activeCapabilityBlocked &&

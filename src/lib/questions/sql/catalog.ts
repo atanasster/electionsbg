@@ -1,3 +1,4 @@
+import { SQL_TOPICS } from "./topics";
 import { QUESTION_CATEGORIES, QUESTION_DEFINITIONS } from "../catalog";
 import type {
   LocalizedText,
@@ -73,32 +74,6 @@ const bgQuestions: Record<string, string> = {
   "corpus-sizes": "Какъв е приблизителният размер на всеки масив?",
 };
 
-const categoryFor = (id: string, purpose: string): [string, string] => {
-  if (["voting-twins", "party-cohesion", "a-day-in-the-chamber"].includes(id))
-    return ["institutions", "parliament"];
-  if (id === "municipal-financial-health") return ["public-money", "municipal"];
-  if (id.includes("hospital")) return ["health", "hospitals"];
-  if (id.includes("medicine")) return ["health", "medicines"];
-  if (purpose.startsWith("EU money")) return ["funds", "calls"];
-  if (purpose.startsWith("Cross-border")) return ["funds", "regional"];
-  if (purpose === "People & roles") return ["business", "assets"];
-  if (purpose === "Companies & ownership") return ["business", "ownership"];
-  if (purpose === "Places") return ["demographics", "my-area"];
-  if (purpose === "Risk & competition")
-    return id.startsWith("appeals")
-      ? ["procurement", "control"]
-      : ["procurement", "competition"];
-  if (purpose.startsWith("Public money"))
-    return id.includes("tender") || id.includes("forecast")
-      ? ["procurement", "tenders"]
-      : ["procurement", "contracts"];
-  if (purpose === "Search across everything")
-    return ["data-coverage", "search"];
-  if (purpose === "Data quality & freshness")
-    return ["data-coverage", id.includes("changed") ? "freshness" : "coverage"];
-  return ["data-coverage", "coverage"];
-};
-
 const parameterLabel = (id: string): LocalizedText =>
   ({
     eik: { bg: "ЕИК", en: "EIK" },
@@ -135,7 +110,7 @@ const questionKind = (
 
 export const SQL_QUESTION_DEFINITIONS: QuestionDefinition[] =
   LEGACY_SQL_RECIPES.map((recipe) => {
-    const [categoryId, subcategoryId] = categoryFor(recipe.id, recipe.purpose);
+    const [categoryId, subcategoryId] = SQL_TOPICS[recipe.id];
     return {
       id: recipe.questionId,
       categoryId,
