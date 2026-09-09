@@ -1,6 +1,6 @@
 ---
 name: update-polls
-description: Refresh the polling-accuracy data — scrape new polls from BG Wikipedia, recompute accuracy metrics, and write a hand-crafted narrative for the new election. Use when the user asks to update polls, add polls for a new election cycle, refresh poll accuracy, regenerate polling analysis, or import the latest pre-election surveys.
+description: Refresh the polling corpus from each agency's own publication (Trend, Alpha Research, Market Links, Sova Harris, Мяра, Global Metrics, Gallup, press-only agencies) — capture, extract, review the evidence, and accept into data/polls/. Use when the user asks to update polls, add polls for a new election cycle, refresh poll accuracy, regenerate polling analysis, or process a polls_* watcher flip.
 allowed-tools:
   - Read
   - Bash
@@ -11,188 +11,241 @@ allowed-tools:
 
 # Update Polls skill
 
-Walks through the full refresh cycle for `public/polls/*.json`. The pipeline has four files and three scripts:
+Walks through the full refresh cycle for `data/polls/*.json`. Plan:
+`docs/plans/polls-agency-watchers-v1.md`.
+
+⚠️ **The corpus's primary source is each agency's OWN publication, never
+Wikipedia** (decision 1). `scrape_polls.ts` — which used to scrape BG
+Wikipedia and merge the result straight into `polls.json` — is retired;
+Wikipedia's polling tables have measured defects (renormalized values,
+dropped small parties, outright mislabels, publication-vs-fieldwork date
+drift) that made them unsafe to trust unread. It survives only as
+`polls:crosscheck`, a read-only report (§6.5, Step 3 below).
 
 | File | What it is | Updated by |
 |---|---|---|
-| `public/polls/agencies.json` | Polling agency directory | `scrape_polls.ts` |
-| `public/polls/polls.json` | Per-poll metadata (agency, fieldwork dates, source) | `scrape_polls.ts` |
-| `public/polls/polls_details.json` | Per-poll, per-party support % | `scrape_polls.ts` |
-| `public/polls/accuracy.json` | Computed errors, MAE, party bias, bloc lean | `analyze_accuracy.ts` |
-| `public/polls/analysis.json` | AI-written narrative (headlines + story per election + agency takes) | hand-written by Claude (preferred) OR `generate_analysis.ts` (Gemini fallback) |
+| `data/polls/agencies.json` | Polling agency directory | hand-maintained (`scripts/polls/lib/agencies.ts`) |
+| `data/polls/polls.json` | Per-poll metadata (agency, fieldwork dates, source, `locked`, `provenance`) | `polls:accept` / `polls:restamp` |
+| `data/polls/polls_details.json` | Per-poll, per-party support % | `polls:accept` |
+| `data/polls/accuracy.json` | Computed errors, MAE, party bias, bloc lean | `polls:analyze` |
+| `data/polls/analysis.json` | AI-written narrative (headlines + story per election + agency takes) | hand-written by Claude (preferred) OR `polls:gen-analysis` (calls the Anthropic API directly, non-interactively) |
+| `data/polls/_inbox/*.json` | Auto-extracted drafts awaiting operator review | `polls:extract`; consumed (and deleted) by `polls:accept` |
+| `raw_data/polls/<agency>/<pubId>/` | Captured HTML/PDF/images + `SOURCE.json` | `polls:fetch` |
 
-The scripts live in `scripts/polls/`. The frontend reads the JSONs at `/polls` and via the `PollsTile` / `AccuracyTrendsTile` on the dashboard.
+The scripts live in `scripts/polls/`. The frontend reads `data/polls/*.json`
+via `dataUrl("/polls/…")` (bucket-served — see "The upload" below) at `/polls`
+and via the `PollsTile` / `AccuracyTrendsTile` on the dashboard.
+
+Presidential polls (decision 10) are a separate, not-yet-shipped file family
+(`data/polls/presidential/*.json`). `accept` (from the draft's own `race`
+field), `restamp` and `crosscheck` (both via `--race`) explicitly refuse a
+presidential run rather than guessing at a schema that hasn't landed;
+`fetch`/`extract`/`analyze` have no race concept at all today — they simply
+operate on the one parliamentary corpus unconditionally. Tier 4 of the plan
+covers the presidential build-out.
 
 ## When to run this
 
-- **A new election just happened** — scrape the new pre-election polls and write the narrative for that cycle.
-- **An inter-election polling cycle has accumulated new polls** (e.g., 6+ months of fresh polls between elections) — refresh polls.json so trends stay current.
-- **A new polling agency surfaces in the wild** — surfaces as an "unknown agency skipped" warning in scrape output; needs to be added to the alias map.
-- **The accuracy formula or bloc definitions changed** — `analyze_accuracy.ts` only.
+- **A `polls_*` watcher flipped** — the daily report names the agency(ies)
+  with a new electoral publication. This is the normal case; run Steps 0–5
+  below.
+- **A new election just happened** — same steps; the new poll(s) captured in
+  the run before the vote get `--election <iso>` at accept time, and Step 4
+  writes the narrative for the new election.
+- **A parliamentary vote just became `scheduled`** (or a previously-estimated
+  date moved) — run `polls:restamp` (Step 1.5 below) so every null-dated poll
+  between the last election and the new one gets stamped and scored.
+- **A new polling agency surfaces** — a `polls_press` flip naming an agency
+  not in `scripts/polls/lib/agencies.ts`, or an `unknown agencies skipped`
+  warning from `polls:crosscheck` (the only script that scans free-text
+  agency names against the registry; `polls:extract`'s own
+  `unknown or unbuilt --agency` error only fires on an explicit `--agency`
+  value). Add it there (id, alias
+  spellings, `reach: "site" | "press"`) before re-running.
 
-## Step 1 — Decide what changed
-
-Before running anything, figure out which steps are needed:
-
-1. **Is there a new election?** Check `public/` for a `YYYY_MM_DD/` folder that doesn't appear in `accuracy.elections[]`:
-   ```bash
-   ls public/ | grep -E '^\d{4}_\d{2}_\d{2}$'
-   node -e "console.log(JSON.parse(require('fs').readFileSync('public/polls/accuracy.json')).elections.map(e=>e.electionDate))"
-   ```
-   If yes, you'll need to add a `Cycle` entry to `scripts/polls/scrape_polls.ts` (see Step 2).
-
-2. **Should the existing cycle be re-scraped?** If it's been weeks since the last scrape and new polls likely appeared, re-run scrape — `polls.json` dedupes by poll id so it's safe.
-
-3. **Did party labels change?** Mergers, splits, or a new party joining the ballot may need new aliases in `analyze_accuracy.ts` `POLL_TO_ACTUAL`. Often you'll hit this only when the analyzer reports tons of `?` errors.
-
-## Step 2 — Scrape new polls
-
-The scraper reads BG Wikipedia's "Парламентарни избори в България (YYYY)" pages — that's where every Bulgarian agency's published polls get aggregated, license-clean, well-structured. Per-agency website scraping is 3-4× the work for ~5% more coverage.
-
-### 2a. Add a new election cycle (only if new election)
-
-Open `scripts/polls/scrape_polls.ts` and find the `CYCLES` array near the top:
-
-```ts
-const CYCLES: Cycle[] = [
-  {
-    url: "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2026)",
-    electionDate: "2026-04-19",
-  },
-];
-```
-
-Add a new entry. **First verify the page exists** with a quick `WebFetch` before running the scrape — Wikipedia's URL convention is consistent but not guaranteed:
-
-```
-https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(YYYY)
-```
-
-For inter-election polling buckets (no upcoming election yet), set `electionDate: null` and leave the URL as the most recent cycle's page (BG Wiki keeps adding inter-election polls there until the next election is scheduled).
-
-### 2b. Run the scrape
+## Step 0 — See what's new
 
 ```bash
-npm run polls:scrape
+cat state/watch/polls_trend.json state/watch/polls_alpha_research.json \
+    state/watch/polls_market_links.json state/watch/polls_sova_harris.json \
+    state/watch/polls_myara.json state/watch/polls_global_metrics.json \
+    state/watch/polls_gallup.json state/watch/polls_press.json 2>/dev/null
+cat state/ingest/update-polls.json 2>/dev/null
 ```
 
-First-time-ever run (no existing data, importing from izboriai seed):
+Each `state/watch/polls_*.json` is one of the eight `polls_*` sources
+(decision 2 — one watcher per agency, plus `polls_press` for every
+site-less agency). `meta.items` lists what is NEW since the last run for
+the six single-arm site watchers; Gallup's two-armed watcher splits that
+into `meta.site.items`/`meta.press.items`; `polls_press` itself keys by
+agency instead, `meta.agencies.<agencyId>.items` (one Google News query per
+site-less agency). This is the exact backlog `polls:fetch` below picks up
+automatically, so this step is for YOU to know what to expect, not
+something the CLI needs told to it.
+
+`state/ingest/update-polls.json`'s `lastSuccessfulIngest` is what the
+orchestrator (`process-watch-report`) compares each source's
+`lastChanged` against to decide whether to queue this skill at all.
+
+## Step 1 — Fetch, extract, review, accept
+
 ```bash
-npm run polls:scrape -- --seed-izboriai
+npm run polls:fetch                    # every pending item across all 7 fetchable agencies
+npm run polls:extract                  # text acquisition + extraction + the evidence gate — TR/AR only, see below
 ```
 
-Expected output:
-```
-→ https://bg.wikipedia.org/wiki/...
-  ✓ NN polls, NNN party rows, agencies: ML, MY, ...
-✓ wrote NN polls / NNN details / N agencies → public/polls
-```
+`polls:fetch` downloads the page HTML, every PDF attachment, and (for
+Trend/Alpha Research/Sova Harris — decision 18) each agency's own
+chart/passport IMAGES, into `raw_data/polls/<agency>/<pubId>/` with a
+`SOURCE.json`. Safe to re-run: it skips a `pubId` whose `SOURCE.json`
+already exists unless `--force`. Narrow to one agency/publication with
+`--agency TR [--pub <id>]`; capture a press article or a Wayback snapshot
+of an agency's own page with `--url <articleUrl> --agency <ID>` /
+`--archive <waybackUrl> --agency <ID>`.
 
-### 2c. Handle "unknown agencies skipped" warnings
+⚠️ **`polls:extract` only has a built extractor for TR and AR today**
+(`scripts/polls/extract.ts`'s own header names the gap: ML/GM's
+aligned-row rule, MY, SH's OCR+table rule, and GIB are not yet built). A
+bare `polls:extract` silently iterates just those two — a captured ML, SH,
+MY, GM, or GIB publication sits in `raw_data/` with **no path to a draft
+and no warning printed**. Running `polls:extract -- --agency SH` (or any
+other unbuilt agency) errors immediately (`unknown or unbuilt --agency`)
+rather than attempting anything. For TR/AR, it runs text acquisition
+(plain text first, then **tesseract** OCR on the captured images when the
+text yield is short — decision 18; the Gemini-Vision half of that fallback
+is planned but not yet implemented, so a chart-only post below the
+`< 3 shares` threshold is refused rather than OCR'd by Vision), then that
+agency's deterministic sentence-rule extractor, then the evidence gate
+(every share/passport value needs a verbatim quote that both occurs in the
+text AND states that value). It writes one pretty-printed draft per
+publication to `data/polls/_inbox/<pollId>.json` — `<agency>-pub-<pubId>.json` when no
+fieldwork end date resolved (a PROVISIONAL id; superseded automatically once
+a later re-extraction resolves a real one).
 
-If you see:
-```
-! unknown agencies skipped: Foo Research | Bar Institute
-```
-
-A new agency has appeared. Add to `AGENCY_ALIASES` in `scripts/polls/scrape_polls.ts`:
-
-```ts
-{
-  id: "FR",                                    // 2-3 letter id, must be unique
-  aliases: ["foo research", "фоо рисърч"],     // lowercase substrings to match
-  agency: {
-    id: "FR",
-    website: "https://fooresearch.example/",   // or null
-    name_bg: "Фоо Рисърч",
-    name_en: "Foo Research",
-    abbr_bg: "ФР",
-    abbr_en: "FR",
-  },
-},
-```
-
-Then re-run the scrape. The scraper merges by `pollId = ${agencyId}-${endDate}`, so reruns are idempotent.
-
-### 2d. Sanity-check the scraped output
+**Print the evidence table and review each draft before accepting.** For
+every file under `data/polls/_inbox/`:
 
 ```bash
 node -e "
-const polls = require('./public/polls/polls.json');
-const details = require('./public/polls/polls_details.json');
-console.log('Total polls:', polls.length);
-console.log('Newest 5:');
-polls.slice(0, 5).forEach(p => {
-  const d = details.filter(x => x.pollId === p.id).slice(0, 4).map(x => x.nickName_bg+'='+x.support).join(', ');
-  console.log('  '+p.id+' | '+p.fieldwork+' | n='+p.respondents+' | '+d);
-});
+const fs = require('fs');
+for (const f of fs.readdirSync('data/polls/_inbox')) {
+  const d = JSON.parse(fs.readFileSync('data/polls/_inbox/'+f, 'utf8'));
+  console.log(f, '|', d.race, '|', d.poll.agencyId, '|', d.poll.fieldwork, '| n='+d.poll.respondents,
+    '| genre='+d.genre, '| residual='+JSON.stringify(d.residual),
+    '| shares:', d.details.map(x => x.nickName_bg+'='+x.support).join(' '),
+    '| refused:', d.refused.map(r => r.field).join(','));
+}
 "
 ```
 
-Watch for:
-- **Wonky decimals** like `29.49`, `20.764` — the cell contains `<b>29</b><br><small>49</small>` (pct + seats). The parser strips `<small>` before reading; if you see this, `parsePct()` regressed.
-- **"Mar 2024"-style fieldwork** — vague single-month dates fall back to mid-month. Acceptable for old izboriai-seed data but new polls should always have specific date ranges.
-- **Sample sizes of `null`** — Wikipedia row didn't have a sample column, or the column was at an unexpected index. Check the source page manually.
+Columns to look at: **race** (parliamentary only today — see the file
+header), **agency**, **fieldwork**, **n** (sample size), **genre**
+(`raw_attitudes`/`forecast`/`both_published`/`unclear` — decision 8),
+**residual** (undecided/wontVote, redistributed by the analyzer),
+**shares with quotes** (open the draft file itself to read
+`evidence`/`provenance.quotes` beside each value), and **refused fields**
+(what the gate couldn't verify — a chart-only post whose OCR yield was
+short, a passport field with no matching quote). `methodology` is
+**never** resolved by the extractor (decision 5 — an English translation
+of an agency's own methodology text can't be quote-verified against a
+Bulgarian source) — **edit the draft file by hand** to fill in
+`poll.methodology.bg`/`.en` before accepting; this is also the moment to
+fix anything else a human reading the source page caught that the
+extractor didn't.
 
-## Step 3 — Recompute accuracy
+Then, for each draft the operator confirms:
 
 ```bash
-npm run polls:analyze
+npm run polls:accept -- <pollId>
+npm run polls:accept -- <pollId> --genre forecast              # override the extractor's genre call
+npm run polls:accept -- <pollId> --election 2026-11-08          # this poll IS scorable against a known date
+npm run polls:accept -- <pollId> --locked-by agency_pdf         # override the default agency_website tier
+npm run polls:accept -- <pollId> --replace                      # supersede an already-locked/genre-protected poll
 ```
 
-Expected output:
-```
-→ analyzing N elections, NN polls, N agencies
-✓ wrote .../public/polls/accuracy.json
+`polls:accept` refuses: a zero-share draft (pass `--allow-empty` if that's
+correct — e.g. a chart-only post with no OCR fallback built yet),
+a provisional (`-pub-<id>`) id, and an existing poll already protected by
+`locked` OR the legacy `genre` marker unless `--replace` (which records the
+superseded values under `locked.supersedes` rather than discarding them).
+On success it deletes the inbox file and, if the accepted poll now has an
+`electionDate`, reminds you to run `polls:analyze`.
 
-Agency leaderboard (overall MAE across all pre-election last-polls):
-  GIB   MAE=1.67  RMSE=3.12  elections=7  polls=7
-  ...
+## Step 1.5 — Restamp (only when a vote becomes scheduled)
 
-Most recent election (YYYY-MM-DD) — agency last-poll MAE:
-  ML    MAE=1.96  5d before  worst=ПрБ (-6.59)
-  ...
-```
-
-### 3a. Watch for unmatched parties
-
-If many new errors look like party-name mismatches, open `analyze_accuracy.ts` `POLL_TO_ACTUAL` and add aliases:
-
-```ts
-const POLL_TO_ACTUAL: Record<string, string> = {
-  "Прогресивна България": "ПрБ",
-  "БСП за България": "БСП",
-  // ... add new entry, e.g.:
-  "ПП-ДБ-Зелено движение": "ПП-ДБ",
-};
+```bash
+npm run polls:restamp -- --race parliamentary --to <iso>
 ```
 
-Test by checking the agency MAEs — a poll with all parties matched should have errors comparable to other agencies in the same cycle. If one agency shows MAE >> 5pp where others are <2pp, party labels probably aren't matching.
+Stamps every still-null-dated parliamentary poll whose fieldwork falls
+after the most recently HELD parliamentary election and before `<iso>`,
+then **always** runs `polls:analyze` — this is the one command that exists
+so nobody has to remember that follow-up step. Not part of the routine
+per-publication flow above; run it only when a new vote's date is
+announced (or an estimated date moves).
 
-### 3b. Watch for new bloc memberships
+## Step 2 — Third-party verification (press-arm flips only)
 
-For ideological-bloc lean to work, new parties need an entry in the `BLOC_OF` map in `analyze_accuracy.ts`. Default is `"other"`. Pick from:
+A `polls_press` flip (or Gallup's press arm) names an article about an
+agency with **no site of its own** (Медиана, АФИС, ЦАМ, and — per §2.1 —
+Екзакта/Барометър България/ИМП/Online Solutions when they surface). Google
+News RSS only finds the article; it does not capture it, and its `<link>`
+is a `consent.google.com`-walled redirect token that cannot be fetched
+server-side.
 
-| Bloc | Examples |
-|---|---|
-| `right_govt` | GERB(-SDS), traditional centre-right |
-| `reformist` | PP-DB, DB, ПрБ, Реформаторски блок |
-| `nationalist` | Възраждане, Атака, ОП, Сияние, МЕЧ, Величие |
-| `left` | БСП, БСП-ОЛ |
-| `minority` | ДПС / ДПС-НН / АПС |
-| `populist` | ИТН, Воля, Български възход, ИСМВ |
+1. Resolve the real article URL on the outlet by hand (WebFetch or a browser).
+2. `npm run polls:fetch -- --agency <ID> --url <resolvedArticleUrl>`, then
+   `polls:extract` as in Step 1.
+3. Lock as `third_party_consensus` (`polls:accept -- <pollId> --locked-by
+   third_party_consensus`) **only** when a second, independent outlet's
+   capture agrees with the first on every figure — the corpus's existing
+   rule, now with the press watcher finding the citations instead of a
+   human googling them.
 
-When in doubt, leave it as `"other"` rather than mis-classify — the user prefers honest gaps to wrong categories.
+## Step 3 — Cross-check (report only)
 
-## Step 4 — Write the narrative (THIS IS THE VALUABLE STEP)
+```bash
+npm run polls:crosscheck
+```
 
-**Strongly preferred: Claude writes the narrative directly** rather than calling the Gemini script. Claude Opus produces materially better analysis with hedged language and specific story-telling. Gemini-2.5-flash output looked like an LLM doing a numbers recitation and the user explicitly downgraded it.
+Reads the current BG Wikipedia parliamentary polling page and diffs it
+against `data/polls/polls.json`, printing **missing here** (on Wikipedia,
+not in the corpus — each with a citation URL; capture it with
+`polls:fetch --url` if it looks like a real publication we missed),
+**missing there** (in the corpus, not on Wikipedia — informational; a
+recent inter-election poll Wikipedia hasn't caught up with yet is normal),
+**disagreements** (>0.5pp on a shared label, or a differing sample size —
+this is where Wikipedia's renormalization defect shows up, and the corpus's
+own agency-sourced number is the one to trust), and **extra labels** (a
+small party Wikipedia lists that the corpus poll doesn't carry —
+informational). Exits 0 for any set of FINDINGS on a normal run — missing
+or disagreeing rows are the point, never a failure — but still throws on a
+genuine fetch/parse error (the page restructured, a network failure) and
+exits 1 on an unsupported `--race`. A run where crosscheck was the ONLY
+thing that changed (`wiki_polls` flipped, nothing else) still does Steps 0
+and 5 — that is what stops it re-queuing every day.
+
+## Step 4 — Write the narrative (only for a NEW election)
+
+Skip this step entirely unless a poll accepted in this run was the FIRST
+one carrying a genuinely new `electionDate` (or a `cik_presidential` flip
+once Tier 4 ships, T4.7). `agencyTakes` stays one-per-`agencyProfiles`
+entry from `accuracy.json` — an agency with no scored polls (e.g. GM until
+2026's presidential results land) needs no entry at all.
+
+**Strongly preferred: Claude writes the narrative directly** in this
+session rather than invoking `polls:gen-analysis` non-interactively —
+writing it interactively produces materially better analysis with hedged
+language and real story-telling; the non-interactive path (which also
+calls a Claude/Opus model, just via a raw API request with no
+conversational context) reads more like a numbers recitation and was
+explicitly downgraded by the user once already.
 
 ### 4a. Read the inputs
 
 ```bash
 node -e "
-const a = require('./public/polls/accuracy.json');
+const a = require('./data/polls/accuracy.json');
 console.log('=== ELECTIONS ===');
 a.elections.filter(e => e.agencies.length > 0).forEach(e => {
   console.log('\n'+e.electionDate);
@@ -211,7 +264,7 @@ a.agencyProfiles.forEach(p => {
 "
 ```
 
-Read the existing `public/polls/analysis.json` for tone and structure — match it.
+Read the existing `data/polls/analysis.json` for tone and structure — match it.
 
 ### 4b. Output schema
 
@@ -220,7 +273,7 @@ Read the existing `public/polls/analysis.json` for tone and structure — match 
 ```jsonc
 {
   "generatedAt": "<ISO timestamp>",
-  "model": "Claude Opus 4.7 (1M context)",      // or whatever Claude model is writing
+  "model": "Claude Opus 4.7 (1M context)",      // whatever Claude model is writing
   "inputAccuracyGeneratedAt": "<value from accuracy.json>",
   "agencyTakes": [
     {
@@ -270,104 +323,102 @@ Read the existing `public/polls/analysis.json` for tone and structure — match 
 
 - Per election: 4-5 headlines × ~30 words EN; story ~60 words EN; same in BG → ~420 words total per election
 - Per agency take: ~80 words EN total (summary + lean + warning); same in BG → ~160 words total per agency
-- For 11 elections + 9 agencies, the file is ~6,000 words. Manageable in one Claude Opus turn.
 
 ### 4d. Write `analysis.json`
 
-Use the `Write` tool to overwrite `public/polls/analysis.json`. **Always set `model` to your actual Claude model name** (e.g., "Claude Opus 4.7 (1M context)") — the frontend displays this as "Editorial · Claude Opus 4.7 (1M context)" in the headlines tile footer.
+Use the `Write` tool to overwrite `data/polls/analysis.json`. **Always set
+`model` to your actual Claude model name** — the frontend displays this as
+"Editorial · <model>" in the headlines tile footer. Keep existing entries
+when only a new election needs writing — read the file first, append the
+new election's entry to `byElection[]`, regenerate `agencyTakes` only if an
+agency's stats meaningfully shifted.
 
-Keep the existing entries when only a new election needs writing — read the file first, append the new election's entry to `byElection[]`, regenerate `agencyTakes` if any agency's stats meaningfully shifted (an extra election may have rebalanced the leaderboard).
+### 4e. Non-interactive fallback (only if explicitly asked)
 
-### 4e. Gemini fallback (only if explicitly asked)
-
-If the user *explicitly* says "use Gemini" or "I don't want to write narratives manually":
-
-```bash
-npm run polls:gen-analysis             # all elections (~12 calls, ~2 min)
-npm run polls:gen-analysis -- --only YYYY-MM-DD  # one election (1 call)
-```
-
-Default model is `gemini-2.5-pro`. Output quality is noticeably worse than Claude Opus — Gemini tends to recite numbers without weaving narrative. Use only when speed is more important than quality.
-
-## Step 5 — Verify
-
-### 5a. Type-check
+Calls the Anthropic API directly (needs `ANTHROPIC_API_KEY` in `.env.local`)
+rather than writing the file through this session:
 
 ```bash
-npx tsc -b --noEmit 2>&1 | grep -E "polls|byElection|story" | head -10
+npm run polls:gen-analysis                        # all elections (~12 calls, ~2 min)
+npm run polls:gen-analysis -- --only YYYY-MM-DD    # one election (1 call)
 ```
 
-Should return nothing if all UI types match the new `analysis.json` shape.
-
-### 5b. Browser check
-
-Use the preview server (`mcp__Claude_Preview__preview_*` tools or `npm run dev`):
-
-1. Navigate to `/polls?elections=YYYY_MM_DD` for the new election.
-2. Confirm the **HEADLINES — DD/MM/YYYY** card shows the new headlines.
-3. Confirm the **ELECTION STORY — DD/MM/YYYY** card shows the new story.
-4. Confirm **FINAL-POLL ERRORS — DD/MM/YYYY** lists the agencies with correct MAEs.
-5. Switch to a different election in the date picker and confirm the narratives update accordingly.
-6. Check the homepage (`/?elections=YYYY_MM_DD`):
-   - **Polling accuracy trends** chart should include a new bar for this election.
-   - **Polls accuracy** tile should show the new election's agency leaderboard with the AI headline preview.
-7. Check the BG locale (toggle to `bg`) for any rough translations.
-
-### 5c. Console check
+## Step 5 — Recompute accuracy, stamp, publish
 
 ```bash
-# in the eval/console of the preview
-preview_console_logs --level error
+npm run polls:analyze
 ```
 
-A new election with no `byElection` entry will throw — that means the narrative wasn't saved correctly.
+(Restamp already ran this in Step 1.5 if that step applied — running it
+again here is harmless and idempotent.)
 
-## Data-integrity contract
+Then:
 
-The scraper is designed to **fail loud rather than write a stale or empty polls.json** when upstream restructures.
+```bash
+node -e "JSON.parse(require('fs').readFileSync('data/polls/analysis.json'))" && echo "analysis.json valid"
+npx tsx scripts/stamp-ingest.ts update-polls --summary "<BG one-liner — race · agency · what happened>"
+if [ -n "$(git diff --stat data/polls/)" ]; then
+  npx tsx scripts/append-data-change.ts update-polls \
+    --summary "<same one-line recap>" \
+    --source "<agency name(s)>"
+fi
+```
 
-Fail-loud surfaces (the script throws and writes nothing):
+`update-polls`'s `/polls` link already exists in `linksForSkill`
+(`scripts/lib/data-changes.ts`), so no separate wiring is needed there.
+Note `polls` as a touched bucket subtree for `/upload-watch-changes`'s
+manifest — `data/polls/_inbox/` is excluded from every sync path
+(`isExcluded`/`CHILD_EXCLUDES`/the `-x` regex in `bucket:sync*`) so an
+unaccepted draft never reaches the bucket, only the accepted corpus files
+do.
 
-| Surface | Trigger |
-|---|---|
-| HTTP non-2xx on the Wikipedia cycle URL | `fetch ${cycle.url}: ${status}` |
-| No polling table detected on the page | "no polling table found at … — the BG Wikipedia page likely restructured" |
-| Accuracy analyzer fed missing inputs (`polls.json` / `polls_details.json`) | Throws naming the missing file |
-| Claude API call from `generate_analysis.ts` returns non-2xx | Throws with status + body excerpt |
+## Troubleshooting (the §2 landscape, in operator form)
 
-Intentional non-fatal skips (warned but ingest continues):
-
-| Surface | Behaviour | Why not a hard fail |
+| Symptom | What it means | What to do |
 |---|---|---|
-| Unknown agency name (not in `AGENCY_ALIASES`) | Logged as `unknown agencies skipped: …` | A genuinely new pollster surfaced; the user adds an alias and re-runs |
-| Period text that doesn't parse (`could not parse period`) | Row dropped with a warning | One row's malformed cell shouldn't reject the whole table |
-| Individual party-cell parse failures (`pct === null`) | Row dropped if no party details parse | Same — cell-level resilience |
-| Filler rows (campaign-close markers, CEC actual-result rows) | Silently skipped | Intentional; CEC results come from `national_summary.json`, not the polls table |
-
-The downstream `analyze_accuracy.ts` step has its own loud failure when a party label can't be matched against actual results — surfaces as ?-prefixed errors in the leaderboard output and is documented under "Handle unmatched parties" above.
+| TR (Trend) `polls:fetch` finds nothing new for a long time | TR's RSS feed is frozen at 2018 — the lister must use `wp-json/wp/v2/project`, never the feed. If this happens, it's a code regression in `scripts/polls/agencies/trend.ts`, not an agency outage. | Check the lister's endpoint, not the RSS. |
+| AR (Alpha Research) extraction yields odd tokens or spam-looking text | The site injects casino/gambling spam LINKS on its blog *listing* page (`/blog/?page=N`), not inside article bodies — `isOwnPostLink()` in `scripts/polls/agencies/alpha_research.ts` filters them out before any article is ever fetched. `stripUrls()` in `text_acquisition.ts` is a generic bare-URL stripper applied to every agency, not an AR-specific spam-token list. | If a real quote in an extracted ARTICLE looks corrupted, check `stripUrls()`; if spam links are reaching the lister's output at all, check `isOwnPostLink()`. |
+| SH (Sova Harris) has no extractor yet | `polls:extract` has no built extractor for SH (only TR/AR today) — `-- --agency SH` errors immediately rather than producing a draft. Sova Harris publishes ONLY as bulletin page JPGs (no text, no PDF), so its extractor needs the OCR+table rule §6.2 describes, not yet built. | Not actionable today beyond capturing with `polls:fetch` — the images land under `raw_data/polls/sova_harris/<pubId>/` and wait until the extractor ships. |
+| ML (Market Links) PDF attachments fail with HTTP 403 | A WAF block on `/storage/` PDFs, confirmed live across curl/Node with every header variation tried (see the dated comment in `scripts/polls/fetch.ts`) — not a link-discovery problem. The page HTML still captures; only the PDF attachment fails. | No known workaround short of an operator manually retrieving the PDF; `polls:extract` has no ML extractor yet regardless (aligned-row rule, not yet built). |
+| GIB (Gallup) site arm errors | gallup-international.bg has a broken TLS cert (confirmed 2026-09-05) — the press arm (Google News RSS) still works independently. | Capture via `--archive <waybackUrl>` instead of `--url` until the cert is fixed; `meta.armErrors` on the watcher state records which arm failed. |
+| A press-arm item's link 404s or redirects to a Google consent page | Google News RSS `<link>` is a `consent.google.com`-walled redirect token, never fetchable server-side by design. | Resolve the real article URL on the outlet by hand (Step 2), then `--url` that. |
+| A draft's filename ends in `.v2.json` (or higher) | The agency re-issued a corrected publication at the same URL; `polls:fetch --force` detected a changed hash and versioned it rather than silently overwriting. | Review it like any other draft — `polls:accept` finds the latest version automatically. |
+| `polls:crosscheck` warns `unknown agencies skipped` | A pollster's Wikipedia-table name doesn't fold to any entry in `scripts/polls/lib/agencies.ts` (a genuinely new one, or a spelling variant). | Add an id + alias entry there (and `reach: "site"\|"press"`) if it's real, then re-run. |
+| A draft's `refused` array names a field with no quote | The evidence gate found no verbatim text supporting a value (a chart image the tesseract pass couldn't read — the Gemini-Vision fallback for this is planned but not built, decision 18 — or a passport field styled unusually). | Read the raw capture yourself; either fix the extractor's pattern or hand-edit the draft (methodology already requires this) before accepting. |
 
 ## Common pitfalls
 
-- **JSON validation**: BG strings with embedded `«»` or em-dashes are fine, but watch for unescaped quotes in stories. Always run `node -e "JSON.parse(require('fs').readFileSync('public/polls/analysis.json'))"` after writing.
-- **Date format**: `byElection` keys are ISO dates with hyphens (`2026-04-19`). Folder paths use underscores (`2026_04_19`). The frontend converts via `selected.replace(/_/g, '-')`.
-- **Agency ordering**: `agencyTakes[]` should match the order of `agencyProfiles[]` from accuracy.json (sorted by `overallMAE` ascending). The frontend doesn't re-sort, so an out-of-order array shows agencies in the wrong order.
-- **The izboriai seed**: Older polls (pre-2024) were imported once from `/Users/atanasster/izboriai/public/`. Don't re-seed unless polls.json is empty — `--seed-izboriai` is safe to re-run because of pollId deduplication, but it's not necessary on a populated repo.
-- **Wikipedia table layout drift**: BG Wiki occasionally restructures the polling table. If `parseTable()` returns null or finds 0 party columns, manually inspect the page HTML for header changes.
-- **The `NA` agency**: An "Общ консенсус" placeholder from the izboriai seed (id `NA`). The analyzer filters it out of leaderboards. Don't include it in agencyTakes.
+- **Never run `polls:accept` on a whole batch unattended.** Decision 7's
+  whole point is a human reviews the evidence table once per run — an
+  `--auto-accept` mode is explicitly future work (Tier 5, ⚑ §11.2), not
+  something to fake by scripting repeated `polls:accept` calls.
+- **`data/polls/polls.json`/`polls_details.json` stay MINIFIED, single-line
+  JSON** — `polls:accept`/`polls:restamp` already write them that way;
+  never hand-format them. `_inbox/*.json` is pretty-printed on purpose (for
+  humans) and excluded from the bucket sync.
+- **Date format**: corpus `fieldwork`/`electionDate` are ISO with hyphens
+  (`2026-04-19`); `raw_data/`/folder names use underscores. Never format
+  one as the other.
+- **The `NA` ("Общ консенсус") placeholder agency and the old `izboriai`
+  seed are both already gone**, in separate cleanups predating this pipeline
+  — `NA` was dropped from `agencies.json` entirely, and
+  `--seed-izboriai` no longer exists (decision 1 deleted it with
+  `scrape_polls.ts`). Neither should reappear; the corpus is populated
+  exclusively through `fetch`/`extract`/`accept` now.
+- **`methodology` is never auto-filled.** Every draft needs it hand-edited
+  before `polls:accept` will take it (decision 5) — this is not a bug in
+  the extractor.
 
 ## Quick command reference
 
 ```bash
-# Full refresh after a new election (commands in order):
-npm run polls:scrape                   # 1. fetch new polls
-npm run polls:analyze                  # 2. recompute accuracy
-# 3. Hand-write analysis.json (use Read+Write, NOT the Gemini script)
-# 4. Verify in browser
-
-# Or for a quick "is everything still valid" pass:
-npm run polls:scrape && npm run polls:analyze
-node -e "JSON.parse(require('fs').readFileSync('public/polls/analysis.json'))" && echo "analysis.json valid"
-
-# To regenerate just the analysis with Gemini (only when explicitly asked):
-npm run polls:gen-analysis -- --only YYYY-MM-DD
+npm run polls:fetch                                       # Step 1 (capture pending publications)
+npm run polls:extract                                     # Step 1 (text/OCR + extractor + evidence gate — TR/AR only)
+#    review data/polls/_inbox/*.json by hand               # Step 1
+npm run polls:accept -- <pollId>                           # Step 1 (promote a reviewed draft)
+npm run polls:restamp -- --race parliamentary --to <iso>   # Step 1.5 (only when a vote is scheduled)
+npm run polls:crosscheck                                   # Step 3 (Wikipedia diff, report only)
+#    write data/polls/analysis.json by hand                # Step 4 (only for a new election)
+npm run polls:analyze                                      # Step 5 (recompute accuracy)
+npx tsx scripts/stamp-ingest.ts update-polls --summary "…" # Step 5
 ```
