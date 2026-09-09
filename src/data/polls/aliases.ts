@@ -56,6 +56,14 @@ export const POLL_TO_ACTUAL: Record<string, string> = {
   // Поляризация: polls call it "ДПС" pre-2024, "ДПС-НН" after the split. The actual
   // 2024-10-27 result has "ДПС-НН"; the actual 2024-06 has "ДПС". We let the year resolve it
   // — see resolveActualKey below.
+  // "Има такъв народ" is how agencies (Trend measured 2026-09-09) write out the
+  // ballot nickname "ИТН" in full — the ballot never abbreviates it in prose.
+  "Има такъв народ": "ИТН",
+  // The definite-article form ("the Alliance") a declined Bulgarian sentence
+  // uses instead of the bare name — same party as "Алианс за права и свободи"
+  // above (Trend, measured 2026-09-09: "Алиансът за права и свободи разполага
+  // с 1,7%").
+  "Алиансът за права и свободи": "АПС",
 };
 
 // Strip a "Коалиция " ("Coalition ") prefix that some agencies — notably ML in
@@ -63,6 +71,15 @@ export const POLL_TO_ACTUAL: Record<string, string> = {
 // Прогресивна България" silently fails to match the actual-result key "ПрБ".
 export const stripCoalitionPrefix = (s: string): string =>
   s.replace(/^\s*Коалиция\s+/i, "").trim();
+
+// A case-folded index of POLL_TO_ACTUAL's keys, built once — the fallback
+// path below for a label whose CASE differs from the table's own spelling
+// (e.g. an agency headline in all caps). Keyed on `normKey(...).toLowerCase()`
+// so it folds the same dash/whitespace variants `normKey` already does, on
+// top of case.
+const POLL_TO_ACTUAL_FOLDED: Record<string, string> = Object.fromEntries(
+  Object.entries(POLL_TO_ACTUAL).map(([k, v]) => [normKey(k).toLowerCase(), v]),
+);
 
 // Resolve a poll's party label to the matching actual-results nickName for that election.
 // Returns null if no match — those parties are excluded from MAE (the agency didn't poll
@@ -87,7 +104,15 @@ export const resolveActualKey = (
       const resolved = resolveAmbiguous(direct);
       if (resolved) return resolved;
     }
-    return resolveAmbiguous(normKey(label));
+    const viaNormKey = resolveAmbiguous(normKey(label));
+    if (viaNormKey) return viaNormKey;
+    // Case-insensitive fallback — a poll-extraction pipeline (e.g. the
+    // sentence-rule extractor in scripts/polls/lib/sentence_rule.ts, which
+    // deliberately recognises a label regardless of case) can hand this a
+    // label whose casing differs from the table's own, and the exact-match
+    // paths above would otherwise refuse it even though the party is known.
+    const folded = POLL_TO_ACTUAL_FOLDED[normKey(label).toLowerCase()];
+    return folded ? resolveAmbiguous(folded) : null;
   };
   const first = tryOne(polledBg);
   if (first) return first;

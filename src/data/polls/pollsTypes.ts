@@ -45,6 +45,46 @@ export type PollLock = {
     | "third_party_consensus";
   note?: string;
   lockedAt: string;
+  // Recorded by `polls:accept --replace` when a locked poll is overwritten —
+  // decision 7. Absent on every poll that has never been superseded.
+  // Deliberately the FULL prior `Poll` (not a flattened summary) — a poll
+  // corrected more than once nests each generation inside the next, which
+  // is the intended shape for a rare, manual, exceptional path: a full
+  // audit trail of every prior value, not just the immediately-previous one.
+  supersedes?: { pollId: string; poll: Poll; details: PollDetail[] };
+};
+
+// A poll's electoral family (docs/plans/polls-agency-watchers-v1.md decision
+// 10) — presidential polls live in a SEPARATE file family
+// (`data/polls/presidential/`), never mixed with parliamentary ones, but
+// share this one type module rather than each family forking its own copy
+// (decision 14).
+export type Race = "parliamentary" | "presidential";
+
+/**
+ * Where a poll's numbers came from, and the evidence for each one — decision
+ * 5 (every share/passport field is quote-grounded) and decision 7 (an
+ * auto-extracted poll is provenance-visible, never silently trusted).
+ * Written by the Tier 2 extractor into the inbox draft; carried unchanged
+ * into `Poll.provenance` by `polls:accept`.
+ */
+export type PollProvenance = {
+  url: string;
+  archiveUrl?: string;
+  fetchedAt: string;
+  sha256: string;
+  // The agency id (deterministic extractor) or "gemini-flash" (LLM fallback,
+  // decision 5's "< 3 shares" trigger).
+  extractor: string;
+  fieldworkStart: string | null;
+  fieldworkEnd: string | null;
+  // The exact sentence the genre was decided from (decision 8), verbatim —
+  // `null` when no known base phrase matched (`genre: "unclear"`).
+  basePhrase: string | null;
+  // field name (e.g. "share:ГЕРБ-СДС", "sampleSize") → the verbatim quote
+  // that grounds it. Only ACCEPTED claims appear here — a refused one is
+  // never silently promoted by carrying its quote along anyway.
+  quotes: Record<string, string>;
 };
 
 export type Poll = {
@@ -58,6 +98,10 @@ export type Poll = {
   genre?: PollGenre;
   residual?: PollResidual | null;
   locked?: PollLock;
+  // Omitted on every poll hand-curated before decision 10/14 shipped —
+  // absent is read as "parliamentary" (the only family that existed then).
+  race?: Race;
+  provenance?: PollProvenance;
 };
 
 export type PollDetail = {
