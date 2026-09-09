@@ -42,7 +42,6 @@ const {
 // with the cloud entries in ai/llm/models.ts.
 const ALLOWED_MODELS = new Set([
   "google/gemini-3.1-flash-lite",
-  "google/gemma-4-31b-it:free",
 ]);
 
 // Origins allowed to use the proxy (the AI app + local dev).

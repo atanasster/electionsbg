@@ -120,7 +120,7 @@ export const runToolChoice = async (
 
 export class HeuristicProvider implements LLMProvider {
   id = "rules";
-  label = { bg: "Без AI (офлайн)", en: "Basic (offline)" };
+  label = { bg: "Без AI", en: "No AI" };
 
   status(): ProviderStatus {
     return "ready";

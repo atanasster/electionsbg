@@ -42,7 +42,7 @@ import {
   type FcTool,
 } from "./fcEval";
 import { registrySuite } from "./fcEval.registry";
-import { modelById } from "./models";
+import { experimentalModelById as modelById } from "./experimentalModels";
 
 const MODEL_ID = "functiongemma-270m-it-q4f32_1-MLC";
 const LS_KEY = "__fgEvalResults";

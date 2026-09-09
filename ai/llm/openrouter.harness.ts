@@ -168,7 +168,7 @@ const run = async () => {
   const r3 = await p.respond("Колко гласа взе ГЕРБ?", ctx);
   assert(r3.tool === "partyResult", "API down -> deterministic router answers");
   assert(
-    r3.meta?.model.bg === "Без AI (офлайн)",
+    r3.meta?.model.bg === "Без AI",
     "full fallback -> header credits Rules, NOT the cloud model",
   );
 

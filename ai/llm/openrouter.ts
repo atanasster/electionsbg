@@ -54,7 +54,7 @@ type Usage = { input: number; output: number };
 // Shown in the answer header when the cloud model contributed NOTHING (both the
 // routing and narration calls failed/declined) — so a fallback answer is never
 // mislabelled as model-generated. Mirrors HeuristicProvider.label.
-const RULES_LABEL = { bg: "Без AI (офлайн)", en: "Basic (offline)" };
+const RULES_LABEL = { bg: "Без AI", en: "No AI" };
 
 // Past this many older (already-windowed-out) exchanges, the deterministic topic
 // digest is rewritten into one natural sentence by a cheap model call — only
