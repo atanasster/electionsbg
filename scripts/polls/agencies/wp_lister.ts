@@ -11,7 +11,9 @@ import type { Publication } from "./types";
 // sites (measured), but every one of them has blocked the bare Node UA on at
 // least one endpoint in this repo's other ingests — a browser UA is what the
 // rest of scripts/polls/ already sends (scrape_polls.ts's HEADERS).
-const UA =
+// Exported so the two custom-CMS listers (alpha_research.ts, market_links.ts)
+// share it rather than each declaring a third and fourth byte-identical copy.
+export const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
 
 export interface WpPost {
