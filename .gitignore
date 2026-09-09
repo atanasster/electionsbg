@@ -477,3 +477,17 @@ __pycache__/
 /news/data/evals/feedback-improvement/
 /news/data/evals/feedback-target-registries/
 /news/data/evals/entity-link-benchmark/
+
+# Polls agency captures (docs/plans/polls-agency-watchers-v1.md decision 13).
+# raw_data/polls/ is TRACKED BY DEFAULT — unlike every other raw_data/
+# subtree above, the HTML/PDF/SOURCE.json here ARE the provenance a locked
+# poll rests on, not a regenerable cache. The one exception is bulletin
+# page IMAGES, which are large and regenerable from the same URL for every
+# agency EXCEPT Sova Harris, whose bulletin scan is its ONLY primary (no
+# text/PDF alternative) — see scripts/polls/lib/capture.ts.
+/raw_data/polls/**/*.png
+/raw_data/polls/**/*.jpg
+/raw_data/polls/**/*.jpeg
+!/raw_data/polls/sova_harris/**/*.png
+!/raw_data/polls/sova_harris/**/*.jpg
+!/raw_data/polls/sova_harris/**/*.jpeg

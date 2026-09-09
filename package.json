@@ -276,6 +276,7 @@
     "build:project-members:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run build:project-members",
     "llms": "tsx ./scripts/llms/buildFull.ts",
     "polls:scrape": "tsx ./scripts/polls/scrape_polls.ts",
+    "polls:fetch": "tsx ./scripts/polls/fetch.ts",
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",
     "polls:gen-analysis": "tsx ./scripts/polls/generate_analysis.ts",
     "polls": "npm run polls:scrape && npm run polls:analyze && npm run polls:gen-analysis",
