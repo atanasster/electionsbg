@@ -363,7 +363,6 @@ export const Chat = ({
   // the active disambiguation chooser (a tool needs the user to pick which
   // same-name entity they meant), shown as a modal; null when none is pending.
   const [clarify, setClarify] = useState<ClarifyRequest | null>(null);
-  const [showQuestionSelector, setShowQuestionSelector] = useState(false);
   const [selectedQuestion, setSelectedQuestion] =
     useState<ResolvedQuestionSelection | null>(null);
   const questionLookupAdapters = useQuestionLookupAdapters();
@@ -528,7 +527,6 @@ export const Chat = ({
     );
     await send(intent.text);
     setSelectedQuestion("parameters" in selection ? selection : null);
-    setShowQuestionSelector(false);
   };
 
   const selectCatalogQuestion = (selection: ResolvedQuestionSelection) => {
@@ -1037,33 +1035,22 @@ export const Chat = ({
         {/* Shared catalog discovery after the conversation has begun. */}
         {hasChat && (
           <div className="mt-2 space-y-2">
-            <button
-              type="button"
-              className={CHIP}
-              disabled={busy}
-              aria-expanded={showQuestionSelector}
-              onClick={() => setShowQuestionSelector((current) => !current)}
-            >
-              {t("Разгледай въпросите", "Browse questions")}
-            </button>
             {sqlHref && (
               <a className={CHIP} href={sqlHref}>
                 {t("Отвори като SQL", "Open as SQL")}
               </a>
             )}
-            {showQuestionSelector && (
-              <QuestionSelector
-                compact
-                catalog={QUESTION_CATALOG}
-                surface="chat"
-                lang={lang}
-                lookupAdapters={questionLookupAdapters}
-                valuesForQuestion={(question) =>
-                  question.legacyChatArgs?.[lang] ?? question.defaults
-                }
-                onSelect={selectCatalogQuestion}
-              />
-            )}
+            <QuestionSelector
+              compact
+              catalog={QUESTION_CATALOG}
+              surface="chat"
+              lang={lang}
+              lookupAdapters={questionLookupAdapters}
+              valuesForQuestion={(question) =>
+                question.legacyChatArgs?.[lang] ?? question.defaults
+              }
+              onSelect={selectCatalogQuestion}
+            />
           </div>
         )}
       </div>

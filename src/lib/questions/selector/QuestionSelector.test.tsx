@@ -103,7 +103,83 @@ const openLeaf = async () => {
 
 afterEach(cleanup);
 
+// Radix uses browser pointer and scrolling APIs that jsdom does not implement.
+HTMLElement.prototype.hasPointerCapture ??= () => false;
+HTMLElement.prototype.setPointerCapture ??= () => {};
+HTMLElement.prototype.releasePointerCapture ??= () => {};
+HTMLElement.prototype.scrollIntoView ??= () => {};
+
 describe("QuestionSelector", () => {
+  it("resets lookup display and submitted defaults when switching questions", async () => {
+    const base = catalog.questions.find((q) => q.id === "place")!;
+    const onSelect = vi.fn();
+    render(
+      <QuestionSelector
+        compact
+        catalog={{
+          ...catalog,
+          questions: [
+            { ...base, defaults: { place: "София" } },
+            {
+              ...base,
+              id: "other-place",
+              question: { bg: "Друг регион", en: "Other region" },
+              defaults: { place: "Варна" },
+            },
+          ],
+        }}
+        surface="chat"
+        lang="bg"
+        initialQuestionId="place"
+        onSelect={onSelect}
+        lookupAdapters={{ place: { search: async () => [] } }}
+      />,
+    );
+    expect(screen.getByRole("combobox", { name: "Място" })).toHaveValue(
+      "София",
+    );
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("combobox", { name: "Въпрос" }));
+    await user.click(screen.getByRole("option", { name: "Друг регион" }));
+    expect(screen.getByRole("combobox", { name: "Място" })).toHaveValue(
+      "Варна",
+    );
+    await user.click(screen.getByRole("button", { name: "Използвай въпроса" }));
+    expect(onSelect).toHaveBeenCalledWith({
+      questionId: "other-place",
+      parameters: { place: "Варна" },
+    });
+  });
+  it.each(["chat", "sql"] as const)(
+    "shows global search results immediately on %s",
+    async (surface) => {
+      render(
+        <QuestionSelector
+          compact
+          catalog={catalog}
+          surface={surface}
+          lang="bg"
+          onSelect={vi.fn()}
+        />,
+      );
+      const user = userEvent.setup();
+      const search = screen.getByRole("searchbox", {
+        name: "Търсене на въпрос",
+      });
+      expect(search).toBeVisible();
+      expect(document.querySelector("details")).toBeNull();
+      await user.type(search, "Results for a place");
+      await user.click(
+        screen.getByRole("button", { name: "Резултати за място" }),
+      );
+      expect(screen.getByRole("combobox", { name: "Теми" })).toHaveTextContent(
+        "Избори",
+      );
+      await user.clear(search);
+      await user.type(search, "zzzzmissing");
+      expect(screen.getByText("Няма въпроси за този избор.")).toBeVisible();
+    },
+  );
   it("uses compact dropdown breadcrumbs, resets descendants, and submits explicitly", async () => {
     const onSelect = vi.fn();
     render(
@@ -122,18 +198,22 @@ describe("QuestionSelector", () => {
     expect(subtopic).toBeDisabled();
     expect(choice).toBeDisabled();
     expect(screen.queryByRole("button", { name: "Избори" })).toBeNull();
-    await user.selectOptions(topic, "elections");
-    await user.selectOptions(subtopic, "parliamentary");
-    await user.selectOptions(choice, "one");
+    await user.click(topic);
+    await user.click(screen.getByRole("option", { name: "Избори" }));
+    await user.click(subtopic);
+    await user.click(screen.getByRole("option", { name: "Парламентарни" }));
+    await user.click(choice);
+    await user.click(screen.getByRole("option", { name: "Въпрос one" }));
     expect(onSelect).not.toHaveBeenCalled();
     await user.click(screen.getByRole("button", { name: "Използвай въпроса" }));
     expect(onSelect).toHaveBeenCalledWith({
       questionId: "one",
       parameters: {},
     });
-    await user.selectOptions(topic, "");
-    expect(subtopic).toHaveValue("");
-    expect(choice).toHaveValue("");
+    await user.click(topic);
+    await user.click(screen.getByRole("option", { name: "Теми" }));
+    expect(subtopic).toHaveTextContent("Подтема");
+    expect(choice).toHaveTextContent("Въпрос");
     expect(
       screen.queryByRole("button", { name: "Използвай въпроса" }),
     ).toBeNull();

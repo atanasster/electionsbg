@@ -1,4 +1,11 @@
 import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import {
   FormEvent,
   KeyboardEvent,
   useEffect,
@@ -312,7 +319,7 @@ export const QuestionSelector = ({
   const question = catalog.questions.find((item) => item.id === questionId);
   const matches = useMemo(
     () =>
-      query
+      query.trim()
         ? searchQuestions(catalog, surface, lang, query, includeUnavailable)
         : categoryId && subcategoryId
           ? questionsForLeaf(
@@ -384,6 +391,8 @@ export const QuestionSelector = ({
     }
   };
   const chooseQuestion = (selected: QuestionDefinition) => {
+    setCategoryId(selected.categoryId);
+    setSubcategoryId(selected.subcategoryId);
     setQuestionId(selected.id);
     setValues(valuesForQuestion?.(selected) ?? selected.defaults);
     setLookupChoice({});
@@ -430,7 +439,7 @@ export const QuestionSelector = ({
 
   return (
     <div
-      className={`rounded-xl border border-border bg-card p-3 text-card-foreground sm:p-4 ${className}`}
+      className={`rounded-lg border border-border bg-card text-card-foreground ${compact ? "p-2" : "p-3 sm:p-4"} ${className}`}
       onKeyDown={onKeyDown}
       aria-label={copy.categories}
     >
@@ -439,82 +448,89 @@ export const QuestionSelector = ({
           aria-label={copy.categories}
           className="flex min-w-0 flex-wrap items-center gap-2"
         >
-          <select
-            id="question-category"
-            aria-label={copy.categories}
-            className={`${controlClass} min-w-0 flex-1 basis-32 sm:max-w-60`}
+          <Select
             value={categoryId ?? ""}
-            onChange={(event) => {
+            onValueChange={(value) => {
               clearQuestion();
-              setCategoryId(event.target.value || undefined);
+              setCategoryId(value === "__all" ? undefined : value);
               setSubcategoryId(undefined);
               setQuery("");
             }}
           >
-            <option value="">{copy.categories}</option>
-            {catalog.categories
-              .filter((item) =>
-                catalog.questions.some(
-                  (q) =>
-                    q.categoryId === item.id &&
-                    (includeUnavailable ||
-                      surfaceStatus(q, surface) === "ready"),
-                ),
-              )
-              .map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.label[lang]}
-                </option>
-              ))}
-          </select>
+            <SelectTrigger
+              id="question-category"
+              aria-label={copy.categories}
+              className="h-8 min-w-0 flex-1 basis-32 sm:max-w-48 bg-background px-2 text-xs"
+            >
+              <SelectValue placeholder={copy.categories} />
+            </SelectTrigger>
+            <SelectContent className="max-w-[calc(100vw-2rem)]">
+              <SelectItem value="__all">{copy.categories}</SelectItem>
+              {catalog.categories
+                .filter((item) =>
+                  catalog.questions.some(
+                    (q) =>
+                      q.categoryId === item.id &&
+                      (includeUnavailable ||
+                        surfaceStatus(q, surface) === "ready"),
+                  ),
+                )
+                .map((item) => (
+                  <SelectItem key={item.id} value={item.id}>
+                    {item.label[lang]}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
           <span aria-hidden="true" className="text-muted-foreground">
             ›
           </span>
-          <select
-            id="question-subcategory"
-            aria-label={copy.subcategory}
-            className={`${controlClass} min-w-0 flex-1 basis-32 sm:max-w-60`}
+          <Select
             disabled={!category}
             value={subcategoryId ?? ""}
-            onChange={(event) => {
+            onValueChange={(value) => {
               clearQuestion();
-              setSubcategoryId(event.target.value || undefined);
+              setSubcategoryId(value === "__all" ? undefined : value);
               setQuery("");
             }}
           >
-            <option value="">{copy.subcategory}</option>
-            {category?.subcategories
-              .filter((item) =>
-                catalog.questions.some(
-                  (q) =>
-                    q.categoryId === category.id &&
-                    q.subcategoryId === item.id &&
-                    (includeUnavailable ||
-                      surfaceStatus(q, surface) === "ready"),
-                ),
-              )
-              .map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.label[lang]}
-                </option>
-              ))}
-          </select>
+            <SelectTrigger
+              id="question-subcategory"
+              aria-label={copy.subcategory}
+              className="h-8 min-w-0 flex-1 basis-32 sm:max-w-48 bg-background px-2 text-xs"
+            >
+              <SelectValue placeholder={copy.subcategory} />
+            </SelectTrigger>
+            <SelectContent className="max-w-[calc(100vw-2rem)]">
+              <SelectItem value="__all">{copy.subcategory}</SelectItem>
+              {category?.subcategories
+                .filter((item) =>
+                  catalog.questions.some(
+                    (q) =>
+                      q.categoryId === category.id &&
+                      q.subcategoryId === item.id &&
+                      (includeUnavailable ||
+                        surfaceStatus(q, surface) === "ready"),
+                  ),
+                )
+                .map((item) => (
+                  <SelectItem key={item.id} value={item.id}>
+                    {item.label[lang]}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
           <span
             aria-hidden="true"
             className="hidden text-muted-foreground sm:inline"
           >
             ›
           </span>
-          <select
-            id="question-select"
-            aria-label={copy.question}
-            className={`${controlClass} min-w-0 flex-1 basis-full sm:basis-64`}
+          <Select
             disabled={!subcategoryId && !query}
             value={questionId ?? ""}
-            onChange={(event) => {
-              const selected = matches.find(
-                (item) => item.id === event.target.value,
-              );
+            onValueChange={(value) => {
+              const selected = matches.find((item) => item.id === value);
               if (selected && surfaceStatus(selected, surface) === "ready") {
                 setCategoryId(selected.categoryId);
                 setSubcategoryId(selected.subcategoryId);
@@ -522,24 +538,43 @@ export const QuestionSelector = ({
               } else clearQuestion();
             }}
           >
-            <option value="">
-              {(subcategoryId || query) && !matches.length
-                ? copy.noQuestions
-                : copy.question}
-            </option>
-            {matches.map((item) => (
-              <option
-                key={item.id}
-                value={item.id}
-                disabled={surfaceStatus(item, surface) !== "ready"}
-              >
-                {item.question[lang]}
-                {surfaceStatus(item, surface) !== "ready"
-                  ? ` — ${item[surface].reason?.[lang] ?? copy.unavailable}`
-                  : ""}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger
+              id="question-select"
+              aria-label={copy.question}
+              className="h-8 min-w-0 flex-1 basis-full sm:basis-52 bg-background px-2 text-xs"
+            >
+              <SelectValue placeholder={copy.question} />
+            </SelectTrigger>
+            <SelectContent className="max-w-[calc(100vw-2rem)]">
+              <SelectItem value="__all">{copy.question}</SelectItem>
+              {matches.map((item) => (
+                <SelectItem
+                  key={item.id}
+                  className="whitespace-normal break-words"
+                  value={item.id}
+                  disabled={surfaceStatus(item, surface) !== "ready"}
+                >
+                  {item.question[lang]}
+                  {surfaceStatus(item, surface) !== "ready"
+                    ? ` — ${item[surface].reason?.[lang] ?? copy.unavailable}`
+                    : ""}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <input
+            id="question-search"
+            type="search"
+            aria-label={copy.search}
+            placeholder={copy.search}
+            className="h-8 min-w-0 flex-1 basis-44 rounded-md border border-input bg-background px-2 text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              clearQuestion();
+              setShowAll(false);
+            }}
+          />
         </nav>
       ) : (
         <>
@@ -639,78 +674,56 @@ export const QuestionSelector = ({
                 ))}
             </div>
           )}
-
-          {(query || subcategoryId) && !question && (
-            <div className="mt-3 space-y-2">
-              {visibleQuestions.map((item) => {
-                const status = surfaceStatus(item, surface);
-                return (
-                  <button
-                    key={item.id}
-                    id={`question-choice-${item.id}`}
-                    type="button"
-                    className={`${choiceClass} block w-full ${status !== "ready" ? "opacity-70" : ""}`}
-                    aria-disabled={status !== "ready"}
-                    onClick={() => {
-                      if (status === "ready") chooseQuestion(item);
-                    }}
-                  >
-                    <span className="block">{item.question[lang]}</span>
-                    {status !== "ready" && item[surface].reason && (
-                      <span className="mt-1 block text-xs text-muted-foreground">
-                        {item[surface].reason?.[lang]}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-              {!visibleQuestions.length && (
-                <p className="py-4 text-sm text-muted-foreground">
-                  {copy.noQuestions}
-                </p>
-              )}
-              {matches.length > 5 && (
-                <button
-                  type="button"
-                  className={choiceClass}
-                  onClick={() => setShowAll((current) => !current)}
-                >
-                  {showAll ? copy.fewer : copy.more}
-                </button>
-              )}
-            </div>
-          )}
         </>
       )}
-      {compact && (
-        <details className="mt-2 text-sm text-muted-foreground">
-          <summary className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-            {copy.search}
-          </summary>
-          <input
-            id="question-search"
-            type="search"
-            aria-label={copy.search}
-            className={`${controlClass} mt-2`}
-            value={query}
-            onChange={(event) => {
-              setQuery(event.target.value);
-              clearQuestion();
-            }}
-          />
-          <label className="flex min-h-10 items-center gap-2">
-            <input
-              type="checkbox"
-              checked={includeUnavailable}
-              onChange={(event) => setIncludeUnavailable(event.target.checked)}
-            />
-            {copy.unavailable}
-          </label>
-        </details>
+      {(query.trim() || (!compact && subcategoryId)) && !question && (
+        <div className="mt-3 space-y-2">
+          {visibleQuestions.map((item) => {
+            const status = surfaceStatus(item, surface);
+            return (
+              <button
+                key={item.id}
+                id={`question-choice-${item.id}`}
+                type="button"
+                className={`${choiceClass} block w-full ${status !== "ready" ? "opacity-70" : ""}`}
+                aria-disabled={status !== "ready"}
+                onClick={() => {
+                  if (status === "ready") chooseQuestion(item);
+                }}
+              >
+                <span className="block">{item.question[lang]}</span>
+                {status !== "ready" && item[surface].reason && (
+                  <span className="mt-1 block text-xs text-muted-foreground">
+                    {item[surface].reason?.[lang]}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+          {!visibleQuestions.length && (
+            <p className="py-4 text-sm text-muted-foreground">
+              {copy.noQuestions}
+            </p>
+          )}
+          {matches.length > 5 && (
+            <button
+              type="button"
+              className={choiceClass}
+              onClick={() => setShowAll((current) => !current)}
+            >
+              {showAll ? copy.fewer : copy.more}
+            </button>
+          )}
+        </div>
       )}
 
       {question && (
-        <form className="mt-4 space-y-3" onSubmit={submit} noValidate>
+        <form
+          key={question.id}
+          className="mt-4 space-y-3"
+          onSubmit={submit}
+          noValidate
+        >
           <h3
             ref={questionHeading}
             tabIndex={-1}
@@ -823,8 +836,8 @@ export const QuestionSelector = ({
         </form>
       )}
 
-      {!compact && (
-        <label className="mt-4 flex min-h-10 items-center gap-2 text-sm text-muted-foreground">
+      {(!compact || query.trim()) && (
+        <label className="mt-2 flex min-h-8 items-center gap-2 text-xs text-muted-foreground">
           <input
             type="checkbox"
             checked={includeUnavailable}

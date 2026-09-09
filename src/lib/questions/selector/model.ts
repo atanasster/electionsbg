@@ -52,6 +52,23 @@ export const searchQuestions = (
   return catalog.questions.filter(
     (question) =>
       (includeUnavailable || surfaceStatus(question, surface) === "ready") &&
-      terms.every((term) => searchableText(question, lang).includes(term)),
+      terms.every((term) => {
+        const category = catalog.categories.find(
+          (item) => item.id === question.categoryId,
+        );
+        const subcategory = category?.subcategories.find(
+          (item) => item.id === question.subcategoryId,
+        );
+        const haystack = [
+          searchableText(question, lang),
+          category?.label.bg,
+          category?.label.en,
+          subcategory?.label.bg,
+          subcategory?.label.en,
+        ]
+          .join(" ")
+          .toLocaleLowerCase(lang);
+        return haystack.includes(term);
+      }),
   );
 };

@@ -47,6 +47,18 @@ const catalog: QuestionCatalog = {
 };
 
 describe("question selector model", () => {
+  it("finds questions by category and subcategory labels in either language", () => {
+    expect(
+      searchQuestions(catalog, "chat", "bg", "elections parliamentary").map(
+        (q) => q.id,
+      ),
+    ).toEqual(["results"]);
+    expect(
+      searchQuestions(catalog, "sql", "en", "избори парламентарни").map(
+        (q) => q.id,
+      ),
+    ).toEqual(["review"]);
+  });
   it("filters each host independently", () => {
     expect(
       questionsForLeaf(catalog, "chat", "elections", "parliamentary"),
