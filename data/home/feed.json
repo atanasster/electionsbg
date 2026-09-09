@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-07T23:59:59.999Z",
+  "computedAt": "2026-09-08T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kromid-luk",
+      "id": "prices:promotion:kartofi-chetkani-na-kg",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-07T00:00:00.000Z",
-      "firstSeenAt": "2026-09-07T00:00:00.000Z",
+      "occurredAt": "2026-09-08T00:00:00.000Z",
+      "firstSeenAt": "2026-09-08T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,18 +22,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kromid-luk",
+      "route": "/product/kartofi-chetkani-na-kg",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "Кромид Лук",
-        "pct": 48,
-        "promoEur": "0.44",
-        "regularEur": "0.85",
+        "title": "КАРТОФИ ЧЕТКАНИ НА КГ",
+        "pct": 51,
+        "promoEur": "0.39",
+        "regularEur": "0.79",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.7285714285714285,
       "actionability": 0.85
     },
     {
@@ -98,11 +98,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:400g-kiselo-mlyako-balkan-3-6",
+      "id": "prices:promotion:svinski-but-bez-kost",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-07T00:00:00.000Z",
-      "firstSeenAt": "2026-09-07T00:00:00.000Z",
+      "occurredAt": "2026-09-08T00:00:00.000Z",
+      "firstSeenAt": "2026-09-08T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -115,18 +115,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/400g-kiselo-mlyako-balkan-3-6",
+      "route": "/product/svinski-but-bez-kost",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "400Г КИСЕЛО МЛЯКО БАЛКАН 3.6%",
-        "pct": 46,
-        "promoEur": "0.49",
-        "regularEur": "0.90",
+        "title": "СВИНСКИ БУТ БЕЗ КОСТ",
+        "pct": 51,
+        "promoEur": "2.99",
+        "regularEur": "6.15",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6571428571428571,
+      "materiality": 0.7285714285714285,
       "actionability": 0.85
     },
     {
@@ -191,11 +191,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:400gr-grah-bonduelle",
+      "id": "prices:promotion:krastavitsi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-09-07T00:00:00.000Z",
-      "firstSeenAt": "2026-09-07T00:00:00.000Z",
+      "occurredAt": "2026-09-08T00:00:00.000Z",
+      "firstSeenAt": "2026-09-08T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -208,18 +208,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/400gr-grah-bonduelle",
+      "route": "/product/krastavitsi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "400ГР ГРАХ BONDUELLE",
-        "pct": 46,
-        "promoEur": "1.24",
-        "regularEur": "2.30",
-        "chains": 2
+        "title": "КРАСТАВИЦИ",
+        "pct": 50,
+        "promoEur": "0.99",
+        "regularEur": "1.99",
+        "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6571428571428571,
+      "materiality": 0.7142857142857143,
       "actionability": 0.85
     },
     {
@@ -1002,7 +1002,7 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-08-09",
-      "observedAt": "2026-09-01",
+      "observedAt": "2026-09-08",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -1014,8 +1014,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-09-07",
-      "observedAt": "2026-09-07",
+      "asOf": "2026-09-08",
+      "observedAt": "2026-09-08",
       "staleAfterDays": 5,
       "stale": false
     }

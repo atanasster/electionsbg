@@ -1,0 +1,32 @@
+{
+  "session": "20260908T220222Z-c609",
+  "createdAt": "2026-09-08T23:44:01.432Z",
+  "skills": [],
+  "paths": [],
+  "cloudCommands": [
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:cprs:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:adfi:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run db:load:clean-delivery:pg:cloud",
+    "npm run db:load:open-calls:pg:cloud",
+    "npm run prices:ingest:cloud",
+    "npm run db:load:interreg:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:person-search:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud"
+  ]
+}

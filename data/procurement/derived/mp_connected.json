@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-08T05:28:39.981Z",
-  "total": 105,
+  "generatedAt": "2026-09-08T22:31:22.877Z",
+  "total": 113,
   "entries": [
     {
       "mpId": 3271,
@@ -3507,9 +3507,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 2699157.47,
+      "totalEur": 2716239.99,
       "totalOther": {},
-      "contractCount": 44,
+      "contractCount": 45,
       "awardCount": 0,
       "byYear": [
         {
@@ -3568,8 +3568,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 5,
-          "totalEur": 374500,
+          "contractCount": 6,
+          "totalEur": 391582.52,
           "totalOther": {}
         }
       ],
@@ -4094,6 +4094,62 @@
           "name": "Община Марица, област Пловдив",
           "contractCount": 1,
           "totalEur": 110030.01,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 152,
+      "mpName": "Евгения Тодорова Живкова",
+      "contractorEik": "121704934",
+      "contractorName": "Калебо ЕООД - София",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 1455222.12,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 242612.91,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 739621.34,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 472987.87,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "121023551",
+          "name": "Летище София ЕАД",
+          "contractCount": 2,
+          "totalEur": 1212609.21,
+          "totalOther": {}
+        },
+        {
+          "eik": "831901901",
+          "name": "Болница \"Лозенец\" - София",
+          "contractCount": 1,
+          "totalEur": 242612.91,
           "totalOther": {}
         }
       ]
@@ -5283,6 +5339,10 @@
           "isCurrent": true
         },
         {
+          "kind": "sole_owner",
+          "isCurrent": true
+        },
+        {
           "kind": "stake",
           "valueEur": 2556,
           "shareSize": "100%",
@@ -5573,6 +5633,71 @@
           "name": "Комплексен онкологичен център - бургас ЕООД",
           "contractCount": 6,
           "totalEur": 278206.82,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5086,
+      "mpName": "Иво Севдалинов Цанев",
+      "contractorEik": "131476144",
+      "contractorName": "КСБВ ЕООД - София",
+      "relations": [
+        {
+          "kind": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "kind": "stake",
+          "valueEur": 2556.46,
+          "shareSize": "50",
+          "declarationYear": 2025
+        }
+      ],
+      "totalEur": 266429.08,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 117085.84,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 4,
+          "totalEur": 147425.9,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 1917.34,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000689022",
+          "name": "Втора многопрофилна болница за активно лечение /II МБАЛ/ - София ЕАД",
+          "contractCount": 2,
+          "totalEur": 123983.16,
+          "totalOther": {}
+        },
+        {
+          "eik": "000133972",
+          "name": "Община Стражица",
+          "contractCount": 1,
+          "totalEur": 117085.84,
+          "totalOther": {}
+        },
+        {
+          "eik": "000776491",
+          "name": "Община Самоков",
+          "contractCount": 3,
+          "totalEur": 25360.08,
           "totalOther": {}
         }
       ]
@@ -6002,6 +6127,39 @@
           "name": "ОБЩИНА КОСТЕНЕЦ",
           "contractCount": 1,
           "totalEur": 28760.17,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2366,
+      "mpName": "Семир Хусеин Абу Мелих",
+      "contractorEik": "203587334",
+      "contractorName": "Стефанов Клийн ЕООД",
+      "relations": [
+        {
+          "kind": "sole_owner",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 101033.32,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 101033.32,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "200800019",
+          "name": "Многопрофилна болница за активно лечение/МБАЛ/ - Дева Мария ЕООД, гр. Бургас",
+          "contractCount": 1,
+          "totalEur": 101033.32,
           "totalOther": {}
         }
       ]
@@ -6581,6 +6739,43 @@
       ]
     },
     {
+      "mpId": 890,
+      "mpName": "Галина Димитрова Банковска",
+      "contractorEik": "107029685",
+      "contractorName": "Ведна консулт ЕООД - Габрово",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 46374.16,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2017",
+          "contractCount": 5,
+          "totalEur": 46374.16,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000133965",
+          "name": "Община Свищов",
+          "contractCount": 5,
+          "totalEur": 46374.16,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 667,
       "mpName": "Мария Вердова Гигова",
       "contractorEik": "121330447",
@@ -6615,6 +6810,39 @@
           "name": "Министерство на туризма",
           "contractCount": 3,
           "totalEur": 46016.27,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 185,
+      "mpName": "Стоян Проданов Иванов",
+      "contractorEik": "128563607",
+      "contractorName": "Зенитстрой инженеринг ЕООД - Елхово",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 39754.99,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 39754.99,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000970165",
+          "name": "Община Елхово",
+          "contractCount": 1,
+          "totalEur": 39754.99,
           "totalOther": {}
         }
       ]
@@ -6921,6 +7149,43 @@
       ]
     },
     {
+      "mpId": 221,
+      "mpName": "Борислав Георгиев Владимиров",
+      "contractorEik": "206452466",
+      "contractorName": "Диарт Архитекти ЕООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 19786.99,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 19786.99,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000261616",
+          "name": "Община Сапарева баня",
+          "contractCount": 2,
+          "totalEur": 19786.99,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 1622,
       "mpName": "Милка Дончева Христова",
       "contractorEik": "104688050",
@@ -6953,6 +7218,43 @@
           "name": "Община Павликени",
           "contractCount": 1,
           "totalEur": 18601.36,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 608,
+      "mpName": "Атанас Петров Василев",
+      "contractorEik": "200951195",
+      "contractorName": "А в проекти ЕООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 17043.06,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 17043.06,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000472182",
+          "name": "Община Марица",
+          "contractCount": 1,
+          "totalEur": 17043.06,
           "totalOther": {}
         }
       ]
@@ -7180,6 +7482,41 @@
       ]
     },
     {
+      "mpId": 4171,
+      "mpName": "Константин Живков Бачийски",
+      "contractorEik": "102683542",
+      "contractorName": "Лидер Техноложис ЕООД - гр.Бургас",
+      "relations": [
+        {
+          "kind": "stake",
+          "valueEur": 2556.46,
+          "shareSize": "100%",
+          "declarationYear": 2023
+        }
+      ],
+      "totalEur": 4683.43,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 4683.43,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000044541",
+          "name": "Университет \"Проф. д-р Асен Златаров\" - Бургас",
+          "contractCount": 1,
+          "totalEur": 4683.43,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 4372,
       "mpName": "Радослав Красенов Василев",
       "contractorEik": "123139451",
@@ -7259,6 +7596,10 @@
       "relations": [
         {
           "kind": "manager",
+          "isCurrent": true
+        },
+        {
+          "kind": "sole_owner",
           "isCurrent": true
         }
       ],

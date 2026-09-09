@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T05:28:45.003Z",
+  "generatedAt": "2026-09-08T22:31:58.240Z",
   "nodes": [
     {
       "id": "contractor:121699202",
@@ -60,6 +60,16 @@
       "id": "contractor:831646048",
       "type": "contractor",
       "label": "Автомагистрали ЕАД"
+    },
+    {
+      "id": "awarder:000695235",
+      "type": "awarder",
+      "label": "Министерство на вътрешните работи"
+    },
+    {
+      "id": "contractor:000641974",
+      "type": "contractor",
+      "label": "Безконтактни мултиплексорни вериги ЕООД"
     },
     {
       "id": "awarder:000695324",
@@ -139,7 +149,7 @@
     {
       "id": "awarder:123531939",
       "type": "awarder",
-      "label": "ТЕЦ Марица изток 2 ЕАД"
+      "label": "ТЕЦ МАРИЦА ИЗТОК 2 ЕАД"
     },
     {
       "id": "contractor:833017552",
@@ -602,6 +612,11 @@
       "label": "Стефан Добрев Стайков"
     },
     {
+      "id": "official:filip-andreev-vasilev-dbcd40",
+      "type": "official",
+      "label": "Филип Андреев Василев"
+    },
+    {
       "id": "official:aleksandr-plamenov-tsrnorechki-e022da",
       "type": "official",
       "label": "Александър Пламенов Църноречки"
@@ -810,16 +825,6 @@
       "id": "official:lyudmil-ventsislavov-iotsov-86b261",
       "type": "official",
       "label": "Людмил Венциславов Йоцов"
-    },
-    {
-      "id": "official:marin-asenov-filipovski-0dec12",
-      "type": "official",
-      "label": "Марин Асенов Филиповски"
-    },
-    {
-      "id": "official:mihail-mariov-milkov-69b592",
-      "type": "official",
-      "label": "Михаил Мариов Милков"
     }
   ],
   "links": [
@@ -1264,6 +1269,11 @@
       "valueEur": 84369815.13
     },
     {
+      "source": "contractor:000641974",
+      "target": "official:filip-andreev-vasilev-dbcd40",
+      "valueEur": 83747128.3
+    },
+    {
       "source": "awarder:180680495",
       "target": "contractor:831641791",
       "valueEur": 81523612.81
@@ -1372,6 +1382,11 @@
       "source": "awarder:000695406",
       "target": "contractor:831641791",
       "valueEur": 72409063.47
+    },
+    {
+      "source": "awarder:000695235",
+      "target": "contractor:000641974",
+      "valueEur": 71372348.32
     },
     {
       "source": "awarder:121683408",
@@ -1561,16 +1576,6 @@
     {
       "source": "contractor:175203485",
       "target": "official:lyudmil-ventsislavov-iotsov-86b261",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
-      "target": "official:marin-asenov-filipovski-0dec12",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
-      "target": "official:mihail-mariov-milkov-69b592",
       "valueEur": 44680073.88
     },
     {
