@@ -57,7 +57,7 @@ export const WATER_TOOL: ToolDef = {
         },
       ],
       rows: data.years.map((y) => ({
-        year: y.year,
+        year: String(y.year),
         connectedWaterPct: y.connectedWaterPct,
         wasteTreatmentPct: y.wasteTreatmentPct,
         rationingPct: y.rationingPct,

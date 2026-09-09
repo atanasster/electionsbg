@@ -1,0 +1,877 @@
+{
+  "basis": "Local app_readonly, 8s timeout, default parameters. Execution checks do not establish every measure or arbitrary input parity.",
+  "results": [
+    {
+      "id": "top-contractors",
+      "sqlSha256": "9d891c9466ddd10a65602328b2b33fd28b9ed1474fa83b6a3d75f9ea30a61adb",
+      "rows": 25,
+      "columns": [
+        "contractor_eik",
+        "contractor_name",
+        "eur",
+        "n"
+      ]
+    },
+    {
+      "id": "companies-by-all-public-money",
+      "sqlSha256": "6124e8cd2978524daa25e10802ad820c5398ca2be7a2ef86f4aeaa70c2a6d3d5",
+      "rows": 25,
+      "columns": [
+        "eik",
+        "all_public_money_eur",
+        "of_which_interreg_eur"
+      ]
+    },
+    {
+      "id": "contractors-ranked-and-scoped",
+      "sqlSha256": "14016afd1e9d0a9de9684c7a44f4f36a40043f700323f28033aed3f8fc4c1481",
+      "rows": 25,
+      "columns": [
+        "scope_key",
+        "eik",
+        "name",
+        "eur",
+        "contract_count",
+        "is_mp_tied"
+      ]
+    },
+    {
+      "id": "top-awarders",
+      "sqlSha256": "26f380f58e5f0dc4c1f248ee8ab41f93e13dd72c2bb31a7e2ffc6d8f70f6e632",
+      "rows": 25,
+      "columns": [
+        "awarder_eik",
+        "awarder_name",
+        "eur",
+        "n"
+      ]
+    },
+    {
+      "id": "where-a-buyer-sits",
+      "sqlSha256": "a16f34f2d9001997eb43d8b53e3c740147b7bbfb0a070714aa5d3211bf685532",
+      "rows": 50,
+      "columns": [
+        "eik",
+        "settlement",
+        "municipality",
+        "oblast",
+        "tier",
+        "is_local_hq"
+      ]
+    },
+    {
+      "id": "biggest-tenders",
+      "sqlSha256": "6553d009fca8639613858d59eb6410c4d96082006b24c905ab6287b17d2d4b49",
+      "rows": 50,
+      "columns": [
+        "publication_date",
+        "buyer_name",
+        "subject",
+        "forecast_eur",
+        "procedure_type"
+      ]
+    },
+    {
+      "id": "forecast-vs-actual",
+      "sqlSha256": "a4d18259553ea2eae1d5dfd772fa350177fb1a1e4e905f351c909269eafdcc39",
+      "rows": 50,
+      "columns": [
+        "buyer_name",
+        "subject",
+        "forecast_eur",
+        "awarded_eur"
+      ]
+    },
+    {
+      "id": "one-buyer-s-procurement-profile",
+      "sqlSha256": "a5347a25b6f71cb21618e471b6d7f8d9d47bb94b6865b6167deecb0b6d9e05e6",
+      "rows": 1,
+      "columns": [
+        "total_eur",
+        "contracts",
+        "awards",
+        "amendments",
+        "top_contracts"
+      ]
+    },
+    {
+      "id": "single-bidder-contracts",
+      "sqlSha256": "8ae0611cff7e7d0ac28dec960b7c1850775ee0f2147ac3be2b448ee344509cd0",
+      "rows": 50,
+      "columns": [
+        "date",
+        "awarder_name",
+        "contractor_name",
+        "amount_eur"
+      ]
+    },
+    {
+      "id": "riskiest-buyers",
+      "sqlSha256": "0e125d19325d9a652413071e558c2c9ff08d80144a79368ab97edb8857a65bce",
+      "rows": 20,
+      "columns": [
+        "eik",
+        "awarder",
+        "grade",
+        "score"
+      ]
+    },
+    {
+      "id": "appeals-and-how-they-ended",
+      "sqlSha256": "bca5886b2c083e3154fb34c1a49ca46cc5dd890efa56351e1da08f947bb6e20a",
+      "rows": 30,
+      "columns": [
+        "complaint",
+        "filed",
+        "buyer",
+        "complainant",
+        "status",
+        "outcome"
+      ]
+    },
+    {
+      "id": "find-a-person",
+      "sqlSha256": "255d6431386895480a96a2f520606a25e625f87c4f8fc54c785e835c90550a41",
+      "rows": 25,
+      "columns": [
+        "name",
+        "tier",
+        "primary_role",
+        "party",
+        "place_label",
+        "firms_count",
+        "public_money_eur"
+      ]
+    },
+    {
+      "id": "a-person-s-declared-wealth-by-year",
+      "sqlSha256": "afc6d6817c717bbd4278a9a1cc76427f8ad3c59ec0eab452150777ec5df8d036",
+      "rows": 25,
+      "columns": [
+        "display_name",
+        "period_year",
+        "assets_eur",
+        "debts_eur",
+        "net_eur",
+        "excluded_asset_rows",
+        "imputed_asset_rows"
+      ]
+    },
+    {
+      "id": "money-declared-abroad",
+      "sqlSha256": "a972581b6d91cd3467c67a083d1bc43ba8d72dc7112ac55687b5d0bbf55c8eb4",
+      "rows": 25,
+      "columns": [
+        "person_name",
+        "institution",
+        "period_year",
+        "held_country",
+        "value_eur"
+      ]
+    },
+    {
+      "id": "who-owns-a-company",
+      "sqlSha256": "db1aef285d3fb92ea28e283e883f2df60c181e15e278adae89e857297a752b46",
+      "rows": 2,
+      "columns": [
+        "uic",
+        "name_fold",
+        "role",
+        "share_pct",
+        "share_eur"
+      ]
+    },
+    {
+      "id": "officers-of-a-company",
+      "sqlSha256": "9bc012c9845427801f09c5532712e59647a20c1b3f1939f3762c5128a793a595",
+      "rows": 30,
+      "columns": [
+        "name",
+        "role",
+        "share",
+        "share_eur",
+        "share_amount",
+        "share_currency",
+        "added_at",
+        "erased_at",
+        "active"
+      ]
+    },
+    {
+      "id": "politically-connected-companies",
+      "sqlSha256": "58eb57f81ea687992e057b71cf57d27ca01f4a803c91100e5d7922f3b2f0f59f",
+      "rows": 25,
+      "columns": [
+        "eik",
+        "politician",
+        "kind",
+        "role",
+        "total_eur"
+      ]
+    },
+    {
+      "id": "companies-registered-in-a-place",
+      "sqlSha256": "f9546f432ecf648fc3afac5157bd8b2b303e80f4525c181df972e0e906b607d3",
+      "rows": 25,
+      "columns": [
+        "uic",
+        "ekatte",
+        "settlement",
+        "obshtina",
+        "municipality",
+        "oblast",
+        "is_village",
+        "confidence",
+        "name",
+        "money_eur",
+        "political_n",
+        "person_link_n"
+      ]
+    },
+    {
+      "id": "municipal-financial-health",
+      "sqlSha256": "fab1e651cba55b92ccf170430f2e6a45e354b064f604ef21d369046f9e25e98b",
+      "rows": 50,
+      "columns": [
+        "obshtina",
+        "fiscal_year",
+        "quarter",
+        "arrears_eur",
+        "commitments_eur"
+      ]
+    },
+    {
+      "id": "what-is-open-right-now",
+      "sqlSha256": "2502fefed90c004efeb94fb044a39e4021ed9e9aad97aeaa262da46a0cfe3e4f",
+      "rows": 47,
+      "columns": [
+        "id",
+        "source",
+        "source_key",
+        "code",
+        "kind",
+        "title",
+        "programme_code",
+        "programme_name",
+        "objective",
+        "status",
+        "date_precision",
+        "opens_at",
+        "closes_at",
+        "period_label",
+        "days_left",
+        "budget_eur",
+        "budget_note",
+        "aid_rate_pct",
+        "grant_min_eur",
+        "grant_max_eur",
+        "beneficiaries_raw",
+        "audience",
+        "territory",
+        "source_url",
+        "docs",
+        "enrichment",
+        "first_seen_at",
+        "last_seen_at",
+        "checked_at"
+      ]
+    },
+    {
+      "id": "base-rates-for-a-procedure",
+      "sqlSha256": "8d0728a3f5b5844bfe3d569725113c66ec7dd26087cbfad898f403258fb9cc8b",
+      "rows": 25,
+      "columns": [
+        "procedure_code",
+        "program_code",
+        "program_name",
+        "procedure_name",
+        "sample_title",
+        "project_count",
+        "beneficiary_count",
+        "paid_project_count",
+        "total_eur",
+        "grant_eur",
+        "paid_eur",
+        "grant_p25",
+        "grant_median",
+        "grant_p75",
+        "org_forms",
+        "org_kinds",
+        "oblasti",
+        "search_text"
+      ]
+    },
+    {
+      "id": "clean-delivery-register",
+      "sqlSha256": "7772d03b708313eccb9e5c0318a62418dd81b8c4cf5d01008f912a0dfb38e27b",
+      "rows": 1,
+      "columns": [
+        "id",
+        "built_at",
+        "contract_criterion",
+        "beneficiary_criterion",
+        "absence_meaning",
+        "contracts",
+        "beneficiaries",
+        "natural_persons_excluded",
+        "on_time_contracts_declared",
+        "programmes"
+      ]
+    },
+    {
+      "id": "interreg-operations",
+      "sqlSha256": "388f462579ae367d34f3a1166b5aebe77eb19da4462174907145c078bc3704ca",
+      "rows": 25,
+      "columns": [
+        "keep_id",
+        "title",
+        "programme_code",
+        "total_eur",
+        "eu_eur"
+      ]
+    },
+    {
+      "id": "bulgarian-interreg-partners",
+      "sqlSha256": "288d8d540280995d37977ba4536aaf8a606879c4efa7229c19e7a8c7046c6f32",
+      "rows": 25,
+      "columns": [
+        "partner_name",
+        "eik",
+        "country",
+        "eur",
+        "ekatte",
+        "oblast"
+      ]
+    },
+    {
+      "id": "voting-twins",
+      "sqlSha256": "41d1c62cd115e17b2a43a9e2851163737c66cdc68e3b1794ee873d582ffd9d0b",
+      "rows": 25,
+      "columns": [
+        "ns",
+        "a_mp",
+        "b_mp",
+        "overlap",
+        "cosine"
+      ]
+    },
+    {
+      "id": "party-cohesion",
+      "sqlSha256": "b66cd9ac7f2a5d002a6bfdb2258a5e0a6b1b8d449b8597f10b55a367a0edaf47",
+      "rows": 30,
+      "columns": [
+        "ns",
+        "party_label",
+        "items_covered",
+        "members_tracked",
+        "mean_cohesion"
+      ]
+    },
+    {
+      "id": "a-day-in-the-chamber",
+      "sqlSha256": "4df7e875e91b5415e4a54a2ec91139958796a135873215350e9798b406031702",
+      "rows": 30,
+      "columns": [
+        "ns",
+        "date",
+        "items",
+        "yes",
+        "no"
+      ]
+    },
+    {
+      "id": "what-the-health-fund-pays-each-hospital",
+      "sqlSha256": "6fae1cd9d1824f2afa27bf7d54eb977b18f75b05577db2d53369e63a1e1966e2",
+      "rows": 25,
+      "columns": [
+        "name",
+        "eik",
+        "period",
+        "rzok_name",
+        "stream",
+        "ownership",
+        "cumulative_eur"
+      ]
+    },
+    {
+      "id": "medicine-reimbursement-by-molecule",
+      "sqlSha256": "05beb2f99f2b8da8a3e2abfddc71d4b7f34db5492e25851fd29c3f8f7cac85f1",
+      "rows": 24,
+      "columns": [
+        "molecule",
+        "eur",
+        "packs"
+      ]
+    },
+    {
+      "id": "contractors-in-the-registry",
+      "sqlSha256": "ac4f58228289592163ade91e261873940eabe23e6d2017dc6c61aaa2c1d3e90d",
+      "rows": 25,
+      "columns": [
+        "uic",
+        "name",
+        "legal_form",
+        "status",
+        "eur",
+        "contracts"
+      ]
+    },
+    {
+      "id": "both-contracts-and-eu-funds",
+      "sqlSha256": "c0566707156a4ecf23d444db5f8907e5653ada52d47cb63f419389a3a8c8a825",
+      "rows": 25,
+      "columns": [
+        "eik",
+        "beneficiary",
+        "funds_contracted_eur",
+        "procurement_eur"
+      ]
+    },
+    {
+      "id": "officials-who-hold-company-roles",
+      "sqlSha256": "80c490bd2c8c195851dec5fda179867a7e683bc3421227a0ad318de78d64dbde",
+      "rows": 25,
+      "columns": [
+        "display_name",
+        "company_roles",
+        "institution"
+      ]
+    },
+    {
+      "id": "hospitals-that-also-buy",
+      "sqlSha256": "5c780c7fffbdb4404bf7d18a732524efe2f962adea644331444754196326bf68",
+      "rows": 25,
+      "columns": [
+        "eik",
+        "hospital",
+        "nzok_eur",
+        "awarded_eur"
+      ]
+    },
+    {
+      "id": "name-search",
+      "sqlSha256": "51e679f46eb8569b44df7a3b4ba80665921fe3707761033e17b684cdd7ad97d3",
+      "rows": 20,
+      "columns": [
+        "uic",
+        "name",
+        "legal_form",
+        "status",
+        "contracts",
+        "contracts_eur",
+        "sim"
+      ]
+    },
+    {
+      "id": "unified-search",
+      "sqlSha256": "b7bcdd0a9f0d09d160568e8db5cfd47123ade285c0544049666e13bba39c4ab1",
+      "rows": 30,
+      "columns": [
+        "kind",
+        "eik",
+        "name",
+        "detail",
+        "contracts",
+        "contracts_eur",
+        "own_eur",
+        "primary_name",
+        "sim"
+      ]
+    },
+    {
+      "id": "what-changed-recently",
+      "sqlSha256": "367c8563bd8eff18d9d5d717803b4a540699bff85b4eb0b495bf4bb08aedf4f1",
+      "rows": 100,
+      "columns": [
+        "kind",
+        "id",
+        "eik",
+        "name",
+        "detail",
+        "changed_at",
+        "amount_eur"
+      ]
+    },
+    {
+      "id": "corpus-sizes",
+      "sqlSha256": "da8802875af3a3fdd7c5b16eca3941d8a4d21d161ee5e9cc497a2ecc28f831e6",
+      "rows": 40,
+      "columns": [
+        "relation",
+        "kind",
+        "estimated_rows"
+      ]
+    },
+    {
+      "id": "budgetVariance",
+      "sqlSha256": "9b99c9997ab2dd380686d8406c97ce969964620471b2804c3b47faa3e7226c09",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budgetPersonnel",
+      "sqlSha256": "18e49df83757d5c9b3d2e49e2e9fa9c26dc824332e71d791033839284965a7fc",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budgetPersonnelByMinistry",
+      "sqlSha256": "4509c4ba7b750cb6114f5df33284256ca8f8c0d3b95e76a46fa315af463cf022",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budgetDocuments",
+      "sqlSha256": "2a526c1c146aacc183f4d4aa783454adb77fc0a2531348920f5398c2ae39bfcf",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budgetMinistries",
+      "sqlSha256": "ef638b03ce0f59695cc5ded2786d7c13675ebdb38e0666ac77bd1d28766adee7",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budgetMunicipalTransfers",
+      "sqlSha256": "725452d616fdc91d4dc832db65d42890671eb24b56b3f9018e165677362f1007",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budgetCapitalByMunicipality",
+      "sqlSha256": "75b98c5378a59712e44e8e3f8783e85f0574f720d5f23a85fdb586ae4a86c53c",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budgetInvestmentPayments",
+      "sqlSha256": "7ab4e25a9db092c92fae6c73a15ab13c6cb2b8e665b72eb2cf4fd0bf1fb2774d",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "nationalResults",
+      "sqlSha256": "b69e604f5e564192e24eab58680a8c54b03e171509e3d8f1a0935775be1327f7",
+      "rows": 25,
+      "columns": [
+        "election_id",
+        "contest_key",
+        "election_type",
+        "result_grain",
+        "election_date",
+        "round",
+        "registered_voters",
+        "actual_voters",
+        "pct_denominator_votes",
+        "none_of_above_votes",
+        "invalid_votes",
+        "percentage_basis",
+        "choice_key",
+        "choice_kind",
+        "choice_number",
+        "canonical_party_id",
+        "president_name",
+        "vice_president_name",
+        "choice_name",
+        "choice_short",
+        "votes",
+        "pct",
+        "seats",
+        "passed_threshold",
+        "source_path",
+        "source_sha256",
+        "granular_source_path",
+        "granular_sha256"
+      ]
+    },
+    {
+      "id": "presidentialResults",
+      "sqlSha256": "7ec952f419779ce9537597e4c562a82f51abe76c89f22c6b57689ac171f90c64",
+      "rows": 2,
+      "columns": [
+        "election_id",
+        "contest_key",
+        "election_type",
+        "result_grain",
+        "election_date",
+        "round",
+        "registered_voters",
+        "actual_voters",
+        "pct_denominator_votes",
+        "none_of_above_votes",
+        "invalid_votes",
+        "percentage_basis",
+        "choice_key",
+        "choice_kind",
+        "choice_number",
+        "canonical_party_id",
+        "president_name",
+        "vice_president_name",
+        "choice_name",
+        "choice_short",
+        "votes",
+        "pct",
+        "seats",
+        "passed_threshold",
+        "source_path",
+        "source_sha256",
+        "granular_source_path",
+        "granular_sha256"
+      ]
+    },
+    {
+      "id": "municipalFiscalRanking",
+      "sqlSha256": "901796e89e8e4ede986668acc1d4e4dfb91aeaff8fc58cfc69ef41eabe315d15",
+      "rows": 25,
+      "columns": [
+        "obshtina",
+        "name_bg",
+        "name_en",
+        "fiscal_year",
+        "quarter",
+        "commitments_eur",
+        "expense_obligations_eur",
+        "arrears_eur",
+        "debt_stock_eur",
+        "meets_threshold",
+        "criteria_evaluable"
+      ]
+    },
+    {
+      "id": "personWealth",
+      "sqlSha256": "954f9c9b9734aadb0e61c7b7163ba0a51f7f3874b44491900894489436bfde3f",
+      "rows": 1,
+      "columns": [
+        "status",
+        "matches",
+        "name",
+        "year",
+        "assets_eur",
+        "debts_eur",
+        "net_eur",
+        "filings"
+      ]
+    },
+    {
+      "id": "topContractors",
+      "sqlSha256": "098796be77b60424b4c11398ad5915c6a7f1fe99effc018703858e0eceec78b7",
+      "rows": 12,
+      "columns": [
+        "eik",
+        "name",
+        "total_eur",
+        "contract_count",
+        "is_mp_tied"
+      ]
+    },
+    {
+      "id": "procurementAppeals",
+      "sqlSha256": "d398b76cb49d6dade2b5c8d8ad56ede78b0558e4e1bee4c27edf6981cf2d4a00",
+      "rows": 1,
+      "columns": [
+        "summary"
+      ]
+    },
+    {
+      "id": "companyConnections",
+      "sqlSha256": "8fa711a324c5e24ee06a269e9fa397ddda594bec474e694a6446269eba4d516e",
+      "rows": 1,
+      "columns": [
+        "connections"
+      ]
+    },
+    {
+      "id": "budget-programme-detail",
+      "sqlSha256": "7e51fbbc8843ff65b685fd814f40c308c0787fdc68fba39cf693cc7f708047f7",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budget-functional-explorer",
+      "sqlSha256": "fb68eb31b7825f28a57c44523b3322f57d13caa59c087a4c229b1e8bb1365fef",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budget-monthly-series",
+      "sqlSha256": "67c14f366e909a82d10abff3363a199ca4cfbaaf5ccce8c31f15d1189a0787b0",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "budget-municipality-detail",
+      "sqlSha256": "df59293ec519a7bfa57d6cfea8017898949b0d6782deb68792ad2ae76af6308d",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "school-directory",
+      "sqlSha256": "e0749ff1d37fecc8777d393b682d0ccb6ea626fdc5465b10a44710653524cc4a",
+      "rows": 1,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "school-results",
+      "sqlSha256": "4a8f7061d842c0e0373517e5af474f62ce11ff0fe65b49e2e7ed71a331f8b2ad",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "school-context",
+      "sqlSha256": "509d114a46e1b284e8e92c488d526eb423e8a5fb2ae5a18c5bcb02c6195d07a9",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "agriculture-payments",
+      "sqlSha256": "19d1f25875e2570966ea7d592f602e2b8b13cb63dbd2bcbd7a393d48eee91661",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "agriculture-schemes",
+      "sqlSha256": "bec58cab9f4348a713b634cb278bface15833b020b626190999710a7adaeec2d",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "ngo-funding",
+      "sqlSha256": "156182af0467e5c7241d16c30e7a8c464ed6c74011101f897202cdf890f61bdb",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "retail-products",
+      "sqlSha256": "e924ac7c3a3980d81e48afdd8f7fb7fc1af748f41ed932794b9ca5b546984702",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "retail-current",
+      "sqlSha256": "4f494f7b725fb167e4d1e60b729c4a7bf621e2da7051a991df19df3ba6e67056",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "declaration-income",
+      "sqlSha256": "7c14512834527df48ceb1b34870a62c66adec2e33f1bd4dbf6778ab0addc4b54",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "declaration-obligations",
+      "sqlSha256": "e85c6c896fc2a92558abdb81ccabe681cdd4c95b74f3db81385e47a79a094607",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "declaration-changes",
+      "sqlSha256": "36a5ecd63cdce60fc07975a3d79c742273346008bdc6c8b6879fdafcdebe63ea",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "council-resolutions",
+      "sqlSha256": "c0e60a8a5496c8ffa7330fa909e4393174da103d282e4afa3f523ab9a7efbd70",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "council-votes",
+      "sqlSha256": "56c034718c8c475b09af875efd566a80a2285b03a90843ca0c14751878bc3d20",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "legislation-register",
+      "sqlSha256": "9e09b6c4482721be9653be8a125aeb20ee2544193e008569dce4d8c6d8b1d650",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "magistrate-assets",
+      "sqlSha256": "f9e66955d2ca83baa0f586ef4e3cd10d38f02da27d632eb1be2808f77bf9ae96",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "water-operators",
+      "sqlSha256": "50a9d95721fecb105615acb38d76c0d2254ac46714a90af8eee7d24179f4db30",
+      "rows": 45,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "administrative-services",
+      "sqlSha256": "5d7c84a3da841471026cc0097122dd55d5ef66cb23ef868b4437cb682af3f974",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    },
+    {
+      "id": "excise-warehouses",
+      "sqlSha256": "692ad93445d57420c7fa0b8391d5677d03151f0385e32ad862fcecd8ca012ad8",
+      "rows": 50,
+      "columns": [
+        "data"
+      ]
+    }
+  ]
+}

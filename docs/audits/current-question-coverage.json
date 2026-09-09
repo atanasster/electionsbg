@@ -1,0 +1,1313 @@
+{
+  "basis": "Runtime question catalog; readiness does not assert complete data coverage or current production deployment.",
+  "totals": {
+    "categories": 19,
+    "leaves": 83,
+    "chat": 282,
+    "sql": 74,
+    "dual": 15,
+    "tools": 227,
+    "recipes": 74
+  },
+  "missingToolStarters": [],
+  "missingSourceIds": [],
+  "leaves": [
+    {
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "label": {
+        "bg": "Избори / Парламентарни",
+        "en": "Elections / Parliamentary"
+      },
+      "chat": [
+        "nationalResults",
+        "parliamentSeats",
+        "seatsHistory",
+        "partyResult",
+        "candidateResult",
+        "wastedVotesByParty",
+        "wastedVotes",
+        "wastedVotesTrend"
+      ],
+      "sql": [
+        "nationalResults"
+      ]
+    },
+    {
+      "category": "elections",
+      "subcategory": "presidential",
+      "label": {
+        "bg": "Избори / Президентски",
+        "en": "Elections / Presidential"
+      },
+      "chat": [
+        "presidentialResults"
+      ],
+      "sql": [
+        "presidentialResults"
+      ]
+    },
+    {
+      "category": "elections",
+      "subcategory": "local",
+      "label": {
+        "bg": "Избори / Местни и частични",
+        "en": "Elections / Local and by-elections"
+      },
+      "chat": [
+        "localCouncilTrend",
+        "localMayorsTrend",
+        "localOblastMayors",
+        "localMunicipality",
+        "localMayorRace",
+        "localMayorHistory",
+        "localSubMayors",
+        "localCouncil",
+        "localCouncilVoteShare",
+        "localMayorsWon",
+        "localVoteFlows",
+        "localPrevoteFlow",
+        "localPlaceTrend",
+        "localMayorSections",
+        "chmiEvents"
+      ],
+      "sql": []
+    },
+    {
+      "category": "elections",
+      "subcategory": "geography",
+      "label": {
+        "bg": "Избори / Вотът по места и в чужбина",
+        "en": "Elections / Local and overseas voting"
+      },
+      "chat": [
+        "municipalityWinners",
+        "settlementWinners",
+        "sectionWinners",
+        "sectionResults",
+        "settlementResults",
+        "settlementHistory",
+        "municipalityResults",
+        "municipalityHistory",
+        "regionResults",
+        "regionResultsTrend",
+        "regionHistory",
+        "diasporaVote",
+        "diasporaVoteTrend",
+        "regionWinners",
+        "regionBreakdown",
+        "municipalityBreakdown",
+        "sectionHistory",
+        "settlementBreakdown"
+      ],
+      "sql": []
+    },
+    {
+      "category": "elections",
+      "subcategory": "integrity",
+      "label": {
+        "bg": "Избори / Честност на вота",
+        "en": "Elections / Election integrity"
+      },
+      "chat": [
+        "sectionRiskHistory",
+        "flashMemoryByParty",
+        "machineVoteByParty",
+        "riskIndex",
+        "riskScore",
+        "riskClusters",
+        "clusterPersistence",
+        "benfordAnomalies",
+        "suspiciousSettlements",
+        "electionAnomalies",
+        "recountByParty",
+        "problemSections",
+        "romaVoteTrend"
+      ],
+      "sql": []
+    },
+    {
+      "category": "elections",
+      "subcategory": "polls",
+      "label": {
+        "bg": "Избори / Социологически проучвания",
+        "en": "Elections / Opinion polls"
+      },
+      "chat": [
+        "pollAccuracy",
+        "agencyProfile",
+        "latestPolls",
+        "agencyPolls",
+        "agencyAccuracyHistory",
+        "accuracyTrend"
+      ],
+      "sql": []
+    },
+    {
+      "category": "elections",
+      "subcategory": "participation",
+      "label": {
+        "bg": "Избори / Активност и начин на гласуване",
+        "en": "Elections / Turnout and voting methods"
+      },
+      "chat": [
+        "machineVoteShare",
+        "machineVoteSeries",
+        "turnoutSeries",
+        "turnout"
+      ],
+      "sql": []
+    },
+    {
+      "category": "elections",
+      "subcategory": "trends",
+      "label": {
+        "bg": "Избори / Промени между избори",
+        "en": "Elections / Changes between elections"
+      },
+      "chat": [
+        "partyDemographics",
+        "demographicCleavages",
+        "compareElections",
+        "partyTimeline",
+        "voteTransitions",
+        "voterPersistence"
+      ],
+      "sql": []
+    },
+    {
+      "category": "institutions",
+      "subcategory": "parliament",
+      "label": {
+        "bg": "Парламент и управление / Депутати и гласувания",
+        "en": "Parliament and government / MPs and roll calls"
+      },
+      "chat": [
+        "mpLoyalty",
+        "mpAttendance",
+        "mpVotingProfile",
+        "mpSimilarity",
+        "partyMps",
+        "factionCohesion",
+        "voteSearch"
+      ],
+      "sql": [
+        "voting-twins",
+        "party-cohesion",
+        "a-day-in-the-chamber"
+      ]
+    },
+    {
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "label": {
+        "bg": "Парламент и управление / Правителства и длъжности",
+        "en": "Parliament and government / Cabinets and offices"
+      },
+      "chat": [
+        "governments",
+        "personProfile"
+      ],
+      "sql": [
+        "find-a-person"
+      ]
+    },
+    {
+      "category": "institutions",
+      "subcategory": "councils",
+      "label": {
+        "bg": "Парламент и управление / Общински съвети",
+        "en": "Parliament and government / Municipal councils"
+      },
+      "chat": [
+        "councilResolutions"
+      ],
+      "sql": [
+        "council-resolutions",
+        "council-votes"
+      ]
+    },
+    {
+      "category": "institutions",
+      "subcategory": "services",
+      "label": {
+        "bg": "Парламент и управление / Администрация и услуги",
+        "en": "Parliament and government / Administration and services"
+      },
+      "chat": [
+        "administrationOverview",
+        "digitalSkills"
+      ],
+      "sql": [
+        "administrative-services"
+      ]
+    },
+    {
+      "category": "institutions",
+      "subcategory": "transparency",
+      "label": {
+        "bg": "Парламент и управление / Прозрачност и отчетност",
+        "en": "Parliament and government / Transparency and accountability"
+      },
+      "chat": [
+        "governanceProfile",
+        "transparencyScore",
+        "macro-wgiRuleOfLaw",
+        "macro-wgiControlOfCorruption",
+        "macro-wgiGovEffectiveness",
+        "macro-cpi"
+      ],
+      "sql": []
+    },
+    {
+      "category": "institutions",
+      "subcategory": "legislation",
+      "label": {
+        "bg": "Парламент и управление / Законопроекти",
+        "en": "Parliament and government / Legislation"
+      },
+      "chat": [],
+      "sql": [
+        "legislation-register"
+      ]
+    },
+    {
+      "category": "public-money",
+      "subcategory": "budget",
+      "label": {
+        "bg": "Бюджет и данъци / Приходи и разходи",
+        "en": "Budget and taxes / Revenue and expenditure"
+      },
+      "chat": [
+        "budgetTrend",
+        "budgetByFunction",
+        "budgetFunction",
+        "budgetExecution",
+        "budgetOverview",
+        "budgetVariance",
+        "macro-budgetBalance",
+        "macro-esaBalanceAnnual",
+        "macro-budgetBalanceNominal",
+        "macro-govRevenue",
+        "macro-govExpenditure",
+        "macro-arrears",
+        "macro-cashBalance"
+      ],
+      "sql": [
+        "budgetVariance",
+        "budget-functional-explorer",
+        "budget-monthly-series"
+      ]
+    },
+    {
+      "category": "public-money",
+      "subcategory": "ministries",
+      "label": {
+        "bg": "Бюджет и данъци / Министерства и програми",
+        "en": "Budget and taxes / Ministries and programmes"
+      },
+      "chat": [
+        "ministryBudget",
+        "budgetMinistries"
+      ],
+      "sql": [
+        "budgetMinistries",
+        "budget-programme-detail"
+      ]
+    },
+    {
+      "category": "public-money",
+      "subcategory": "municipal",
+      "label": {
+        "bg": "Бюджет и данъци / Общински финанси",
+        "en": "Budget and taxes / Municipal finances"
+      },
+      "chat": [
+        "municipalTransfers",
+        "municipalFiscalRanking",
+        "budgetMunicipalTransfers",
+        "macro-municipalCommitments",
+        "macro-municipalExpenseObligations",
+        "macro-municipalArrears"
+      ],
+      "sql": [
+        "municipalFiscalRanking",
+        "budgetMunicipalTransfers",
+        "municipal-financial-health",
+        "budget-municipality-detail"
+      ]
+    },
+    {
+      "category": "public-money",
+      "subcategory": "debt",
+      "label": {
+        "bg": "Бюджет и данъци / Дълг и дефицит",
+        "en": "Budget and taxes / Debt and deficit"
+      },
+      "chat": [
+        "govDebt",
+        "macro-govDebt",
+        "macro-govDebtNominal",
+        "macro-fiscalReserve"
+      ],
+      "sql": []
+    },
+    {
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "label": {
+        "bg": "Бюджет и данъци / Данъчни сценарии",
+        "en": "Budget and taxes / Tax scenarios"
+      },
+      "chat": [
+        "simulateTaxChange"
+      ],
+      "sql": []
+    },
+    {
+      "category": "public-money",
+      "subcategory": "taxes",
+      "label": {
+        "bg": "Бюджет и данъци / Данъчни приходи и акцизи",
+        "en": "Budget and taxes / Tax revenues and excise"
+      },
+      "chat": [
+        "revenueBreakdown",
+        "exciseRegister",
+        "exciseWarehouses",
+        "localTaxes",
+        "macro-taxWedge"
+      ],
+      "sql": [
+        "excise-warehouses"
+      ]
+    },
+    {
+      "category": "public-money",
+      "subcategory": "personnel",
+      "label": {
+        "bg": "Бюджет и данъци / Персонал и издръжка",
+        "en": "Budget and taxes / Personnel and operating costs"
+      },
+      "chat": [
+        "institutionMaintenance",
+        "budgetPersonnel",
+        "budgetPersonnelByMinistry"
+      ],
+      "sql": [
+        "budgetPersonnel",
+        "budgetPersonnelByMinistry"
+      ]
+    },
+    {
+      "category": "public-money",
+      "subcategory": "capital",
+      "label": {
+        "bg": "Бюджет и данъци / Капиталови проекти",
+        "en": "Budget and taxes / Capital projects"
+      },
+      "chat": [
+        "investmentProjects",
+        "budgetCapitalByMunicipality",
+        "budgetInvestmentPayments"
+      ],
+      "sql": [
+        "budgetCapitalByMunicipality",
+        "budgetInvestmentPayments"
+      ]
+    },
+    {
+      "category": "public-money",
+      "subcategory": "documents",
+      "label": {
+        "bg": "Бюджет и данъци / Бюджетни закони и документи",
+        "en": "Budget and taxes / Budget laws and documents"
+      },
+      "chat": [
+        "budgetDocuments"
+      ],
+      "sql": [
+        "budgetDocuments"
+      ]
+    },
+    {
+      "category": "procurement",
+      "subcategory": "tenders",
+      "label": {
+        "bg": "Обществени поръчки / Текущи търгове и процедури",
+        "en": "Public procurement / Tenders and procedures"
+      },
+      "chat": [
+        "openTenders",
+        "tenderLookup"
+      ],
+      "sql": [
+        "biggest-tenders"
+      ]
+    },
+    {
+      "category": "procurement",
+      "subcategory": "contracts",
+      "label": {
+        "bg": "Обществени поръчки / Договори и изпълнители",
+        "en": "Public procurement / Contracts and suppliers"
+      },
+      "chat": [
+        "procurementTotals",
+        "topContractors",
+        "contractSearch",
+        "awarderProcurement"
+      ],
+      "sql": [
+        "topContractors",
+        "top-contractors",
+        "contractors-ranked-and-scoped",
+        "top-awarders",
+        "forecast-vs-actual"
+      ]
+    },
+    {
+      "category": "procurement",
+      "subcategory": "competition",
+      "label": {
+        "bg": "Обществени поръчки / Конкуренция и риск",
+        "en": "Public procurement / Competition and risk"
+      },
+      "chat": [
+        "procurementRedFlags",
+        "procurementSingleBidSectors",
+        "procurementNormalcy"
+      ],
+      "sql": [
+        "single-bidder-contracts",
+        "riskiest-buyers"
+      ]
+    },
+    {
+      "category": "procurement",
+      "subcategory": "control",
+      "label": {
+        "bg": "Обществени поръчки / Жалби и контрол",
+        "en": "Public procurement / Appeals and oversight"
+      },
+      "chat": [
+        "procurementAppeals",
+        "procurementDebarred"
+      ],
+      "sql": [
+        "procurementAppeals",
+        "appeals-and-how-they-ended"
+      ]
+    },
+    {
+      "category": "procurement",
+      "subcategory": "projects",
+      "label": {
+        "bg": "Обществени поръчки / Строежи и проектни досиета",
+        "en": "Public procurement / Construction and project dossiers"
+      },
+      "chat": [
+        "roadsSpending",
+        "projectLifecycle"
+      ],
+      "sql": []
+    },
+    {
+      "category": "procurement",
+      "subcategory": "local",
+      "label": {
+        "bg": "Обществени поръчки / Поръчки по места",
+        "en": "Public procurement / Procurement by place"
+      },
+      "chat": [
+        "procurementBySettlement",
+        "procurementByOblast"
+      ],
+      "sql": [
+        "where-a-buyer-sits",
+        "one-buyer-s-procurement-profile"
+      ]
+    },
+    {
+      "category": "business",
+      "subcategory": "ownership",
+      "label": {
+        "bg": "Фирми, интереси и имущество / Собственици и връзки",
+        "en": "Companies, interests and assets / Ownership and connections"
+      },
+      "chat": [
+        "mpProcurement",
+        "mpConnectionsTop",
+        "mpConnectionsByParty",
+        "companyConnections",
+        "personConnections"
+      ],
+      "sql": [
+        "companyConnections",
+        "companies-by-all-public-money",
+        "who-owns-a-company",
+        "officers-of-a-company",
+        "politically-connected-companies",
+        "contractors-in-the-registry",
+        "officials-who-hold-company-roles",
+        "name-search"
+      ]
+    },
+    {
+      "category": "business",
+      "subcategory": "assets",
+      "label": {
+        "bg": "Фирми, интереси и имущество / Имуществени декларации",
+        "en": "Companies, interests and assets / Asset declarations"
+      },
+      "chat": [
+        "personWealth",
+        "mpAssetsTop",
+        "mpAssetsByParty",
+        "officialsAssetsTop"
+      ],
+      "sql": [
+        "personWealth",
+        "a-person-s-declared-wealth-by-year",
+        "money-declared-abroad"
+      ]
+    },
+    {
+      "category": "business",
+      "subcategory": "party-funding",
+      "label": {
+        "bg": "Фирми, интереси и имущество / Партийно финансиране",
+        "en": "Companies, interests and assets / Party funding"
+      },
+      "chat": [
+        "partyFinance",
+        "financingOverview"
+      ],
+      "sql": []
+    },
+    {
+      "category": "business",
+      "subcategory": "ngos",
+      "label": {
+        "bg": "Фирми, интереси и имущество / НПО и читалища",
+        "en": "Companies, interests and assets / NGOs and community centres"
+      },
+      "chat": [
+        "ngoOverview",
+        "ngoTopFunded",
+        "ngoConflictAwarders",
+        "ngoRiskSignals",
+        "ngoBySignal"
+      ],
+      "sql": [
+        "ngo-funding"
+      ]
+    },
+    {
+      "category": "business",
+      "subcategory": "political-links",
+      "label": {
+        "bg": "Фирми, интереси и имущество / Политически връзки",
+        "en": "Companies, interests and assets / Political connections"
+      },
+      "chat": [],
+      "sql": []
+    },
+    {
+      "category": "business",
+      "subcategory": "income-debt",
+      "label": {
+        "bg": "Фирми, интереси и имущество / Доходи и задължения",
+        "en": "Companies, interests and assets / Income and liabilities"
+      },
+      "chat": [],
+      "sql": [
+        "declaration-income",
+        "declaration-obligations"
+      ]
+    },
+    {
+      "category": "business",
+      "subcategory": "changes",
+      "label": {
+        "bg": "Фирми, интереси и имущество / Промени в декларациите",
+        "en": "Companies, interests and assets / Declaration changes"
+      },
+      "chat": [],
+      "sql": [
+        "declaration-changes"
+      ]
+    },
+    {
+      "category": "funds",
+      "subcategory": "calls",
+      "label": {
+        "bg": "Еврофондове и земеделие / Кандидатстване и срокове",
+        "en": "EU funds and agriculture / Applications and deadlines"
+      },
+      "chat": [
+        "openCalls"
+      ],
+      "sql": [
+        "what-is-open-right-now",
+        "base-rates-for-a-procedure"
+      ]
+    },
+    {
+      "category": "funds",
+      "subcategory": "projects",
+      "label": {
+        "bg": "Еврофондове и земеделие / Финансирани проекти",
+        "en": "EU funds and agriculture / Funded projects"
+      },
+      "chat": [
+        "fundsOverview",
+        "fundsProjects",
+        "placeEuProjects"
+      ],
+      "sql": [
+        "clean-delivery-register",
+        "both-contracts-and-eu-funds"
+      ]
+    },
+    {
+      "category": "funds",
+      "subcategory": "regional",
+      "label": {
+        "bg": "Еврофондове и земеделие / Регионално развитие и Interreg",
+        "en": "EU funds and agriculture / Regional development and Interreg"
+      },
+      "chat": [
+        "mrrbSpending",
+        "cohesionAbsorption",
+        "regionalInvestment",
+        "macro-euFunds",
+        "macro-euContribution"
+      ],
+      "sql": [
+        "interreg-operations",
+        "bulgarian-interreg-partners"
+      ]
+    },
+    {
+      "category": "funds",
+      "subcategory": "agriculture",
+      "label": {
+        "bg": "Еврофондове и земеделие / Земеделски субсидии",
+        "en": "EU funds and agriculture / Agricultural subsidies"
+      },
+      "chat": [
+        "subsidiesOverview",
+        "subsidiesByScheme",
+        "subsidiesForEntity"
+      ],
+      "sql": [
+        "agriculture-payments",
+        "agriculture-schemes"
+      ]
+    },
+    {
+      "category": "cost-living",
+      "subcategory": "basket",
+      "label": {
+        "bg": "Цени и семейни разходи / Храни и пазаруване",
+        "en": "Prices and household spending / Food and shopping"
+      },
+      "chat": [
+        "settlementPrices",
+        "localDeals",
+        "cheapestChains",
+        "priceRanking",
+        "chainProfile",
+        "productPrice"
+      ],
+      "sql": [
+        "retail-products",
+        "retail-current"
+      ]
+    },
+    {
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "label": {
+        "bg": "Цени и семейни разходи / Инфлация и евро",
+        "en": "Prices and household spending / Inflation and euro"
+      },
+      "chat": [
+        "basketVsInflation",
+        "euFoodPriceLevels",
+        "priceIndex",
+        "basketAffordability",
+        "macro-inflation",
+        "macro-inflationMonthly",
+        "macro-inflationFood",
+        "macro-inflationEnergy",
+        "macro-inflationServices",
+        "macro-inflationCore",
+        "macro-priceIndex"
+      ],
+      "sql": []
+    },
+    {
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "label": {
+        "bg": "Цени и семейни разходи / Горива",
+        "en": "Prices and household spending / Fuel"
+      },
+      "chat": [
+        "fuelPrices"
+      ],
+      "sql": []
+    },
+    {
+      "category": "economy-work",
+      "subcategory": "macro",
+      "label": {
+        "bg": "Икономика и работа / Икономика и ЕС",
+        "en": "Economy and work / Economy and EU"
+      },
+      "chat": [
+        "macroIndicator",
+        "macroOverview",
+        "macroByCategory",
+        "euComparison",
+        "macro-gdpGrowth",
+        "macro-gdpPerCapita",
+        "macro-nominalGdp",
+        "macro-currentAccount",
+        "macro-currentAccountNominal",
+        "macro-fdiInward",
+        "macro-industrialProd",
+        "macro-retailVolume",
+        "macro-consumerConfidence",
+        "macro-economicSentiment"
+      ],
+      "sql": []
+    },
+    {
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "label": {
+        "bg": "Икономика и работа / Заплати и заетост",
+        "en": "Economy and work / Wages and employment"
+      },
+      "chat": [
+        "subnationalIndicator",
+        "regionIndicator",
+        "rankPlaces",
+        "macro-unemployment",
+        "macro-unemploymentMonthly",
+        "macro-employmentRate",
+        "macro-activityRate",
+        "macro-labourSlack",
+        "macro-youthUnemployment",
+        "macro-labourIncome",
+        "macro-labourProductivity",
+        "macro-unitLabourCost",
+        "macro-compensationPerEmployee"
+      ],
+      "sql": []
+    },
+    {
+      "category": "economy-work",
+      "subcategory": "investment",
+      "label": {
+        "bg": "Икономика и работа / Инвестиции и бизнес среда",
+        "en": "Economy and work / Investment and business environment"
+      },
+      "chat": [
+        "fdiFlows"
+      ],
+      "sql": []
+    },
+    {
+      "category": "health",
+      "subcategory": "budget",
+      "label": {
+        "bg": "Здравеопазване / Финансиране на здравеопазването",
+        "en": "Healthcare / Healthcare funding"
+      },
+      "chat": [
+        "nzokBudget"
+      ],
+      "sql": []
+    },
+    {
+      "category": "health",
+      "subcategory": "hospitals",
+      "label": {
+        "bg": "Здравеопазване / Болници и дейности",
+        "en": "Healthcare / Hospitals and activity"
+      },
+      "chat": [
+        "nzokHospitals",
+        "nzokPublicPrivate",
+        "nzokPrivateHospitals",
+        "nzokHospitalScorecard"
+      ],
+      "sql": [
+        "what-the-health-fund-pays-each-hospital",
+        "hospitals-that-also-buy"
+      ]
+    },
+    {
+      "category": "health",
+      "subcategory": "medicines",
+      "label": {
+        "bg": "Здравеопазване / Лекарства и цени",
+        "en": "Healthcare / Medicines and prices"
+      },
+      "chat": [
+        "nzokDrugs",
+        "nzokDrugGrowth",
+        "nzokDrugMolecule",
+        "nzokDrugSavings"
+      ],
+      "sql": [
+        "medicine-reimbursement-by-molecule"
+      ]
+    },
+    {
+      "category": "health",
+      "subcategory": "access",
+      "label": {
+        "bg": "Здравеопазване / Достъп и права на пациента",
+        "en": "Healthcare / Access and patient rights"
+      },
+      "chat": [],
+      "sql": []
+    },
+    {
+      "category": "health",
+      "subcategory": "activities",
+      "label": {
+        "bg": "Здравеопазване / Дейности и клинични пътеки",
+        "en": "Healthcare / Activities and clinical pathways"
+      },
+      "chat": [
+        "nzokActivities",
+        "nzokPathwayHospitals"
+      ],
+      "sql": []
+    },
+    {
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "label": {
+        "bg": "Пенсии и социална подкрепа / Държавни пенсии",
+        "en": "Pensions and social support / State pensions"
+      },
+      "chat": [
+        "noiPensionDistribution",
+        "noiPensionByOblast",
+        "noiPensionSeries"
+      ],
+      "sql": []
+    },
+    {
+      "category": "pensions-support",
+      "subcategory": "private",
+      "label": {
+        "bg": "Пенсии и социална подкрепа / Допълнително осигуряване",
+        "en": "Pensions and social support / Supplementary pensions"
+      },
+      "chat": [
+        "kfnFunds"
+      ],
+      "sql": []
+    },
+    {
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "label": {
+        "bg": "Пенсии и социална подкрепа / Помощи и бедност",
+        "en": "Pensions and social support / Benefits and poverty"
+      },
+      "chat": [
+        "socialPovertyImpact",
+        "socialSpending",
+        "socialBenefits"
+      ],
+      "sql": []
+    },
+    {
+      "category": "pensions-support",
+      "subcategory": "funds",
+      "label": {
+        "bg": "Пенсии и социална подкрепа / Фондове на ДОО",
+        "en": "Pensions and social support / Social security funds"
+      },
+      "chat": [
+        "noiFunds"
+      ],
+      "sql": []
+    },
+    {
+      "category": "education",
+      "subcategory": "schools",
+      "label": {
+        "bg": "Образование / Училища и изпити",
+        "en": "Education / Schools and exams"
+      },
+      "chat": [
+        "schoolMatura",
+        "schoolScores"
+      ],
+      "sql": [
+        "school-directory",
+        "school-results"
+      ]
+    },
+    {
+      "category": "education",
+      "subcategory": "access",
+      "label": {
+        "bg": "Образование / Детски градини и достъп",
+        "en": "Education / Childcare and access"
+      },
+      "chat": [],
+      "sql": [
+        "school-context"
+      ]
+    },
+    {
+      "category": "education",
+      "subcategory": "universities",
+      "label": {
+        "bg": "Образование / Университети и наука",
+        "en": "Education / Universities and science"
+      },
+      "chat": [],
+      "sql": []
+    },
+    {
+      "category": "demographics",
+      "subcategory": "population",
+      "label": {
+        "bg": "Население и моето място / Население и миграция",
+        "en": "Population and my area / Population and migration"
+      },
+      "chat": [
+        "census",
+        "graoPopulation"
+      ],
+      "sql": []
+    },
+    {
+      "category": "demographics",
+      "subcategory": "my-area",
+      "label": {
+        "bg": "Население и моето място / Моето населено място",
+        "en": "Population and my area / My area"
+      },
+      "chat": [
+        "comparePlaces",
+        "myAreaAlerts"
+      ],
+      "sql": [
+        "companies-registered-in-a-place"
+      ]
+    },
+    {
+      "category": "demographics",
+      "subcategory": "inequality",
+      "label": {
+        "bg": "Население и моето място / Регионални различия",
+        "en": "Population and my area / Regional disparities"
+      },
+      "chat": [
+        "macro-gini",
+        "macro-povertyRate"
+      ],
+      "sql": []
+    },
+    {
+      "category": "justice-security",
+      "subcategory": "courts",
+      "label": {
+        "bg": "Правосъдие и сигурност / Съдилища и магистрати",
+        "en": "Justice and security / Courts and magistrates"
+      },
+      "chat": [
+        "judiciaryBudget",
+        "judiciaryCaseload",
+        "judiciaryWorkload",
+        "judiciaryCourtLoad",
+        "judiciaryDeclarations"
+      ],
+      "sql": [
+        "magistrate-assets"
+      ]
+    },
+    {
+      "category": "justice-security",
+      "subcategory": "crime",
+      "label": {
+        "bg": "Правосъдие и сигурност / Престъпност и защита",
+        "en": "Justice and security / Crime and protection"
+      },
+      "chat": [
+        "macro-intentionalHomicideRate",
+        "macro-prisonPopulationRate"
+      ],
+      "sql": []
+    },
+    {
+      "category": "justice-security",
+      "subcategory": "defense",
+      "label": {
+        "bg": "Правосъдие и сигурност / Отбрана и международна сигурност",
+        "en": "Justice and security / Defence and international security"
+      },
+      "chat": [
+        "defenseSpending",
+        "defenseProgram",
+        "defensePeerCompare",
+        "armsExports",
+        "defenseReadiness"
+      ],
+      "sql": []
+    },
+    {
+      "category": "energy",
+      "subcategory": "prices",
+      "label": {
+        "bg": "Енергетика / Ток, газ и отопление",
+        "en": "Energy / Electricity, gas and heating"
+      },
+      "chat": [
+        "electricityPrices",
+        "gasPrices"
+      ],
+      "sql": []
+    },
+    {
+      "category": "energy",
+      "subcategory": "production",
+      "label": {
+        "bg": "Енергетика / Производство и преход",
+        "en": "Energy / Production and transition"
+      },
+      "chat": [
+        "generationMix",
+        "powerPlants"
+      ],
+      "sql": []
+    },
+    {
+      "category": "water-environment",
+      "subcategory": "water",
+      "label": {
+        "bg": "Води и околна среда / Вода и воден режим",
+        "en": "Water and environment / Water supply and rationing"
+      },
+      "chat": [
+        "waterServices"
+      ],
+      "sql": [
+        "water-operators"
+      ]
+    },
+    {
+      "category": "water-environment",
+      "subcategory": "floods",
+      "label": {
+        "bg": "Води и околна среда / Реки и наводнения",
+        "en": "Water and environment / Rivers and floods"
+      },
+      "chat": [
+        "riverbedCleaning"
+      ],
+      "sql": []
+    },
+    {
+      "category": "water-environment",
+      "subcategory": "air",
+      "label": {
+        "bg": "Води и околна среда / Въздух",
+        "en": "Water and environment / Air"
+      },
+      "chat": [
+        "airQuality"
+      ],
+      "sql": []
+    },
+    {
+      "category": "water-environment",
+      "subcategory": "waste",
+      "label": {
+        "bg": "Води и околна среда / Отпадъци и опазване",
+        "en": "Water and environment / Waste and conservation"
+      },
+      "chat": [
+        "wasteRecycling"
+      ],
+      "sql": []
+    },
+    {
+      "category": "water-environment",
+      "subcategory": "land",
+      "label": {
+        "bg": "Води и околна среда / Земеползване",
+        "en": "Water and environment / Land use"
+      },
+      "chat": [
+        "landUse"
+      ],
+      "sql": []
+    },
+    {
+      "category": "water-environment",
+      "subcategory": "spending",
+      "label": {
+        "bg": "Води и околна среда / Разходи и екопроекти",
+        "en": "Water and environment / Spending and environmental projects"
+      },
+      "chat": [
+        "environmentSpending",
+        "environmentFunds"
+      ],
+      "sql": []
+    },
+    {
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "label": {
+        "bg": "Транспорт и жилища / Влакове и обществен транспорт",
+        "en": "Transport and housing / Rail and public transport"
+      },
+      "chat": [
+        "transportSpending",
+        "transportEuFunds",
+        "railSubsidy"
+      ],
+      "sql": []
+    },
+    {
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "label": {
+        "bg": "Транспорт и жилища / Пътища и безопасност",
+        "en": "Transport and housing / Roads and safety"
+      },
+      "chat": [
+        "securityRoadSafety"
+      ],
+      "sql": []
+    },
+    {
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "label": {
+        "bg": "Транспорт и жилища / Жилища и градска среда",
+        "en": "Transport and housing / Housing and urban environment"
+      },
+      "chat": [
+        "macro-housePricesYoY"
+      ],
+      "sql": []
+    },
+    {
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "label": {
+        "bg": "Култура и туризъм / Култура и финансиране",
+        "en": "Culture and tourism / Culture and funding"
+      },
+      "chat": [
+        "cultureOverview",
+        "topCultureGrantees",
+        "cultureGrantSuccess",
+        "cultureCommissions",
+        "cultureMunicipal"
+      ],
+      "sql": []
+    },
+    {
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "label": {
+        "bg": "Култура и туризъм / Туризъм",
+        "en": "Culture and tourism / Tourism"
+      },
+      "chat": [
+        "tourismSeasonality",
+        "tourismSourceMarkets"
+      ],
+      "sql": []
+    },
+    {
+      "category": "culture-tourism",
+      "subcategory": "films",
+      "label": {
+        "bg": "Култура и туризъм / Филмово финансиране",
+        "en": "Culture and tourism / Film funding"
+      },
+      "chat": [
+        "filmSubsidyForProducer"
+      ],
+      "sql": []
+    },
+    {
+      "category": "media-society",
+      "subcategory": "trust",
+      "label": {
+        "bg": "Медии и обществени нагласи / Доверие и обществени приоритети",
+        "en": "Media and public attitudes / Trust and public priorities"
+      },
+      "chat": [
+        "macro-trustParliament",
+        "macro-trustGovernment",
+        "macro-trustEu"
+      ],
+      "sql": []
+    },
+    {
+      "category": "media-society",
+      "subcategory": "media",
+      "label": {
+        "bg": "Медии и обществени нагласи / Новини и проверка на твърдения",
+        "en": "Media and public attitudes / News and claim checking"
+      },
+      "chat": [],
+      "sql": []
+    },
+    {
+      "category": "data-coverage",
+      "subcategory": "search",
+      "label": {
+        "bg": "Данни и покритие / Търсене",
+        "en": "Data and coverage / Search"
+      },
+      "chat": [],
+      "sql": [
+        "unified-search"
+      ]
+    },
+    {
+      "category": "data-coverage",
+      "subcategory": "freshness",
+      "label": {
+        "bg": "Данни и покритие / Актуалност",
+        "en": "Data and coverage / Freshness"
+      },
+      "chat": [],
+      "sql": [
+        "what-changed-recently"
+      ]
+    },
+    {
+      "category": "data-coverage",
+      "subcategory": "coverage",
+      "label": {
+        "bg": "Данни и покритие / Обхват",
+        "en": "Data and coverage / Coverage"
+      },
+      "chat": [],
+      "sql": [
+        "corpus-sizes"
+      ]
+    }
+  ]
+}

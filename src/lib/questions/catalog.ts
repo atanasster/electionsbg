@@ -1,3 +1,5 @@
+import toolSourcesJson from "../../../ai/app/toolSources.json";
+const toolSources: Record<string, string[]> = toolSourcesJson;
 import editorialAliasesJson from "../../../ai/app/editorialAliases.json";
 const editorialAliases: Record<string, string[]> = editorialAliasesJson;
 import { BUDGET_QUESTIONS } from "./contracts/budget";
@@ -242,7 +244,8 @@ export const QUESTION_DEFINITIONS: QuestionDefinition[] = rawPrompts.map(
               en: "The SQL version has not been reviewed yet.",
             },
           },
-      sourceIds: REVIEWED_CHAT_SQL_SOURCES[prompt.id] ?? [],
+      sourceIds:
+        REVIEWED_CHAT_SQL_SOURCES[prompt.id] ?? toolSources[prompt.tool] ?? [],
     };
   },
 );

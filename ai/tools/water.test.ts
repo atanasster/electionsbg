@@ -20,7 +20,7 @@ it("preserves missing water observations and national-only scope", async () => {
   }));
   const env = await WATER_TOOL.run({}, { lang: "bg", election: "2026_04_19" });
   expect(env.rows?.[0]).toEqual({
-    year: 2024,
+    year: "2024",
     connectedWaterPct: 99.4,
     wasteTreatmentPct: null,
     rationingPct: 6.2,
