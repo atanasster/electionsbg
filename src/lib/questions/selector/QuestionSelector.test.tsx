@@ -144,7 +144,7 @@ describe("QuestionSelector", () => {
     expect(screen.getByRole("combobox", { name: "Място" })).toHaveValue(
       "Варна",
     );
-    await user.click(screen.getByRole("button", { name: "Използвай въпроса" }));
+    await user.click(screen.getByRole("button", { name: "Попитай" }));
     expect(onSelect).toHaveBeenCalledWith({
       questionId: "other-place",
       parameters: { place: "Варна" },
@@ -163,18 +163,22 @@ describe("QuestionSelector", () => {
         />,
       );
       const user = userEvent.setup();
+      await user.click(screen.getByRole("tab", { name: "Търсене" }));
+      expect(screen.queryByRole("combobox", { name: "Теми" })).toBeNull();
       const search = screen.getByRole("searchbox", {
-        name: "Търсене на въпрос",
+        name: "Търси във всички въпроси",
       });
       expect(search).toBeVisible();
+      expect(search.closest("nav")).toBeNull();
+      expect(search).toHaveAccessibleDescription(/цялата библиотека/);
       expect(document.querySelector("details")).toBeNull();
       await user.type(search, "Results for a place");
       await user.click(
-        screen.getByRole("button", { name: "Резултати за място" }),
+        screen.getByRole("button", { name: /Резултати за място/ }),
       );
-      expect(screen.getByRole("combobox", { name: "Теми" })).toHaveTextContent(
-        "Избори",
-      );
+      expect(
+        screen.getByRole("heading", { name: "Резултати за място" }),
+      ).toBeVisible();
       await user.clear(search);
       await user.type(search, "zzzzmissing");
       expect(screen.getByText("Няма въпроси за този избор.")).toBeVisible();
@@ -205,7 +209,7 @@ describe("QuestionSelector", () => {
     await user.click(choice);
     await user.click(screen.getByRole("option", { name: "Въпрос one" }));
     expect(onSelect).not.toHaveBeenCalled();
-    await user.click(screen.getByRole("button", { name: "Използвай въпроса" }));
+    await user.click(screen.getByRole("button", { name: "Попитай" }));
     expect(onSelect).toHaveBeenCalledWith({
       questionId: "one",
       parameters: {},
@@ -214,11 +218,104 @@ describe("QuestionSelector", () => {
     await user.click(screen.getByRole("option", { name: "Теми" }));
     expect(subtopic).toHaveTextContent("Подтема");
     expect(choice).toHaveTextContent("Въпрос");
-    expect(
-      screen.queryByRole("button", { name: "Използвай въпроса" }),
-    ).toBeNull();
+    expect(screen.queryByRole("button", { name: "Попитай" })).toBeNull();
   });
 
+  it("preserves browse selection, edited parameters and search when switching icon modes", async () => {
+    const onSelect = vi.fn();
+    render(
+      <QuestionSelector
+        compact
+        catalog={catalog}
+        surface="chat"
+        lang="bg"
+        initialQuestionId="bounded"
+        onSelect={onSelect}
+      />,
+    );
+    const user = userEvent.setup();
+    const year = screen.getByRole("spinbutton", { name: "Година" });
+    await user.clear(year);
+    await user.type(year, "2024");
+    await user.click(screen.getByRole("tab", { name: "Търсене" }));
+    await user.keyboard("{Escape}");
+    const search = screen.getByRole("searchbox", {
+      name: "Търси във всички въпроси",
+    });
+    await user.type(search, "results");
+    expect(
+      screen.getByRole("button", { name: /Резултати за място/ }),
+    ).toHaveTextContent("Избори › Парламентарни");
+    await user.click(screen.getByRole("tab", { name: "По теми" }));
+    expect(screen.queryByRole("searchbox")).toBeNull();
+    expect(screen.getByRole("combobox", { name: "Подтема" })).toHaveTextContent(
+      "Парламентарни",
+    );
+    expect(screen.getByRole("combobox", { name: "Въпрос" })).toHaveTextContent(
+      "Година за справка",
+    );
+    expect(screen.getByRole("spinbutton", { name: "Година" })).toHaveValue(
+      2024,
+    );
+    await user.click(screen.getByRole("button", { name: "Попитай" }));
+    expect(onSelect).toHaveBeenCalledWith({
+      questionId: "bounded",
+      parameters: { year: 2024 },
+    });
+    await user.click(screen.getByRole("tab", { name: "Търсене" }));
+    expect(screen.getByRole("searchbox")).toHaveValue("results");
+    expect(
+      screen.getByRole("button", { name: /Резултати за място/ }),
+    ).toBeVisible();
+  });
+  it("restores distinct lookup values for the same question in each mode", async () => {
+    const base = catalog.questions.find((q) => q.id === "place")!;
+    const onSelect = vi.fn();
+    render(
+      <QuestionSelector
+        compact
+        catalog={{
+          ...catalog,
+          questions: [{ ...base, defaults: { place: "София" } }],
+        }}
+        surface="chat"
+        lang="bg"
+        initialQuestionId="place"
+        onSelect={onSelect}
+        lookupAdapters={{
+          place: { search: async () => [{ value: "VAR", label: "Варна" }] },
+        }}
+      />,
+    );
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("tab", { name: "Търсене" }));
+    await user.type(screen.getByRole("searchbox"), "results");
+    await user.click(
+      screen.getByRole("button", { name: /Резултати за място/ }),
+    );
+    const input = screen.getByRole("combobox", { name: "Място" });
+    await user.clear(input);
+    await user.type(input, "Вар");
+    await user.click(await screen.findByRole("option", { name: "Варна" }));
+    await user.click(screen.getByRole("tab", { name: "По теми" }));
+    expect(screen.getByRole("combobox", { name: "Място" })).toHaveValue(
+      "София",
+    );
+    await user.click(screen.getByRole("button", { name: "Попитай" }));
+    expect(onSelect).toHaveBeenLastCalledWith({
+      questionId: "place",
+      parameters: { place: "София" },
+    });
+    await user.click(screen.getByRole("tab", { name: "Търсене" }));
+    expect(screen.getByRole("combobox", { name: "Място" })).toHaveValue(
+      "Варна",
+    );
+    await user.click(screen.getByRole("button", { name: "Попитай" }));
+    expect(onSelect).toHaveBeenLastCalledWith({
+      questionId: "place",
+      parameters: { place: "VAR" },
+    });
+  });
   it("navigates without dispatch, reveals more, then submits explicitly", async () => {
     const onSelect = vi.fn();
     render(
@@ -470,7 +567,9 @@ describe("QuestionSelector", () => {
       />,
     );
     const user = userEvent.setup();
-    const search = screen.getByRole("searchbox", { name: "Search questions" });
+    const search = screen.getByRole("searchbox", {
+      name: "Search all questions",
+    });
     await user.type(search, "Results for a place");
     expect(
       screen.getByRole("button", { name: "Results for a place" }),
