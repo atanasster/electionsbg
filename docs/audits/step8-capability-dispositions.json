@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-09-09",
+  "scope": "Tier 3 Step 8 election and geography-sensitive civic slices. Ready election rows are loaded from the named committed CIK-derived source artifact and expose its SHA-256 version.",
+  "outcomes": [
+    {
+      "id": "latest-parliamentary-national-results",
+      "chat": "ready",
+      "sql": "ready",
+      "sources": [
+        "{election}/national_summary.json",
+        "election_national_results"
+      ],
+      "prerequisite": null
+    },
+    {
+      "id": "presidential-national-round-results",
+      "chat": "ready",
+      "sql": "ready",
+      "sources": [
+        "{cycle}_pvr/national_summary.json",
+        "election_national_results"
+      ],
+      "prerequisite": null
+    },
+    {
+      "id": "parliamentary-results-by-mir",
+      "chat": "ready",
+      "sql": "review",
+      "sources": ["{election}/region_votes.json"],
+      "prerequisite": "Normalize region_votes at the MIR grain with the separate abroad district, then reconcile every MIR sum to election_national_result before adding a SQL recipe."
+    },
+    {
+      "id": "parliamentary-results-by-oblast",
+      "chat": "ready",
+      "sql": "review",
+      "sources": ["{election}/region_votes.json", "src:cik"],
+      "prerequisite": "Publish a reviewed MIR-to-administrative-oblast rollup that keeps Sofia's three MIR and the two-MIR oblasts explicit; never label a MIR row as an oblast row."
+    },
+    {
+      "id": "local-election-results",
+      "chat": "ready",
+      "sql": "review",
+      "sources": [
+        "{local-cycle}/municipality_votes",
+        "{local-cycle}/mayors",
+        "{local-cycle}/councils"
+      ],
+      "prerequisite": "Normalize separate municipality, mayoral round, council and settlement result facts. Local elections have no meaningful national-party result and must not enter election_national_results."
+    },
+    {
+      "id": "presidential-results-by-oblast",
+      "chat": "ready",
+      "sql": "review",
+      "sources": ["{cycle}_pvr/tur{round}/region_votes.json"],
+      "prerequisite": "Normalize presidential ticket totals at the MIR grain and publish a reviewed MIR-to-oblast rollup, including Sofia city's three MIR, before adding an oblast SQL recipe."
+    },
+    {
+      "id": "presidential-results-by-municipality",
+      "chat": "ready",
+      "sql": "review",
+      "sources": ["{cycle}_pvr/tur{round}/municipality_votes.json"],
+      "prerequisite": "Normalize presidential ticket totals at the municipality grain with stable municipality codes and reconcile them to MIR and national totals before adding a SQL recipe."
+    },
+    {
+      "id": "water-rationing-and-outages",
+      "chat": "unavailable",
+      "sql": "unavailable",
+      "sources": ["src:water"],
+      "prerequisite": "Ingest dated official operator notices with affected settlements, start/end times and status. Procurement or river-cleaning rows are not outage evidence."
+    },
+    {
+      "id": "water-operator-service-coverage",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["water_operator_geo", "src:water"],
+      "prerequisite": "Add an official service-area crosswalk from operator to covered municipalities/settlements and an observed-validity period. water_operator_geo stores headquarters and procurement metrics only."
+    },
+    {
+      "id": "administrative-service-discovery",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["admin_services", "administration/services_catalog.json"],
+      "prerequisite": "Extend the IISDA ingest with provider identity and the official service URL before promotion. The current table contains only service ID, name and tier, so it cannot satisfy the official-link contract."
+    },
+    {
+      "id": "school-matura-profile",
+      "chat": "ready",
+      "sql": "review",
+      "sources": [
+        "education-payload",
+        "schools",
+        "school_scores",
+        "school_context"
+      ],
+      "prerequisite": "Add a shared school identity lookup and a canonical profile function that returns one resolved school, cohort size, subject/year, percentile denominator and socioeconomic context."
+    },
+    {
+      "id": "municipality-school-comparison",
+      "chat": "ready",
+      "sql": "review",
+      "sources": ["education-muni-scores", "schools", "school_scores"],
+      "prerequisite": "Change the serving query to one common subject/year cohort for all compared schools and expose that year and cohort rule before adding the starter and SQL recipe."
+    },
+    {
+      "id": "school-context-and-history",
+      "chat": "ready",
+      "sql": "review",
+      "sources": ["school_context", "school_scores", "education-payload"],
+      "prerequisite": "Publish one canonical school identity query with year-aligned score history, cohort sizes and socioeconomic context, retaining missing context separately from zero values."
+    },
+    {
+      "id": "textbook-detail",
+      "chat": "unavailable",
+      "sql": "unavailable",
+      "sources": ["src:mon", "src:eop"],
+      "prerequisite": "Ingest textbook title, subject, grade, approval period and publisher from the official MON list; procurement concentration alone cannot answer textbook-content or approval questions."
+    }
+  ]
+}

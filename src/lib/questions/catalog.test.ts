@@ -9,7 +9,7 @@ import { TOOLS } from "../../../ai/tools/registry";
 
 describe("shared question catalog", () => {
   it("preserves the original 150 and includes reviewed additions", () => {
-    expect(QUESTION_DEFINITIONS).toHaveLength(152);
+    expect(QUESTION_DEFINITIONS).toHaveLength(153);
     expect(QUESTION_CATEGORIES).toHaveLength(19);
     expect(QUESTION_CATALOG.questions).toBe(QUESTION_DEFINITIONS);
   });

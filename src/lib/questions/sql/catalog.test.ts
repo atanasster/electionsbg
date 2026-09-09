@@ -22,6 +22,8 @@ describe("SQL question catalog", () => {
 
   it("promotes reviewed DB-backed chat questions without duplicate IDs", () => {
     expect(CHAT_SQL_RECIPES.map((recipe) => recipe.questionId)).toEqual([
+      "nationalResults",
+      "presidentialResults",
       "municipalFiscalRanking",
       "personWealth",
       "topContractors",
@@ -44,6 +46,45 @@ describe("SQL question catalog", () => {
       });
       expect(question?.sourceIds, recipe.id).toEqual(recipe.relations);
     }
+  });
+
+  it("keeps parliamentary and presidential result queries on distinct types and rounds", () => {
+    expect(renderSqlQuestion("nationalResults").sql).toBe(
+      "SELECT * FROM election_national_results('parliamentary', E'2026_04_19', NULL);",
+    );
+    expect(
+      renderSqlQuestion("presidentialResults", {
+        cycle: "2021_11_14_pvr",
+        round: 2,
+      }).sql,
+    ).toBe(
+      "SELECT * FROM election_national_results('presidential', E'2021_11_14_pvr', 2);",
+    );
+    expect(() =>
+      renderSqlQuestion("presidentialResults", {
+        cycle: "2021_11_14_pvr",
+        round: 3,
+      }),
+    ).toThrow();
+  });
+
+  it("validates presidential values once across selector and SQL generation", () => {
+    const question = SQL_QUESTION_CATALOG.questions.find(
+      (candidate) => candidate.id === "presidentialResults",
+    )!;
+    for (const values of [
+      { cycle: "1980_01_01_pvr", round: 2 },
+      { cycle: "2021_11_14_pvr", round: 3 },
+      { cycle: "2021_11_14_pvr", round: 1.5 },
+    ])
+      expect(() => resolveQuestionSelection(question, values)).toThrow();
+    const resolved = resolveQuestionSelection(question, {
+      cycle: "2021_11_14_pvr",
+      round: 1,
+    });
+    expect(() =>
+      renderSqlQuestion(question.id, resolved.parameters),
+    ).not.toThrow();
   });
 
   it("keeps all SQL questions on valid shared category paths", () => {

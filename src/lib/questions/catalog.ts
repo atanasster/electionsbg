@@ -16,6 +16,12 @@ import {
   MUNICIPAL_FISCAL_MAX_RESULTS,
   MUNICIPAL_FISCAL_METRICS,
 } from "./contracts/municipalFiscal";
+import {
+  ELECTION_ROUND_MAX,
+  ELECTION_ROUND_MIN,
+  LATEST_PARLIAMENTARY_CONTEST,
+  PRESIDENTIAL_CONTESTS,
+} from "./contracts/elections";
 
 type RawPrompt = (typeof rawPrompts)[number];
 
@@ -39,6 +45,8 @@ const labelFor = (id: string): LocalizedText =>
   labels[id] ?? { bg: id, en: id };
 
 const requiredByTool: Record<string, string[]> = {
+  nationalResults: ["election"],
+  presidentialResults: ["cycle", "round"],
   partyResult: ["party"],
   candidateResult: ["name"],
   agencyProfile: ["agency"],
@@ -92,6 +100,8 @@ const parameterKind = (tool: string, id: string): QuestionParameterKind => {
   if (tool === "compareElections" && (id === "a" || id === "b"))
     return "election";
   if (id === "year") return "year";
+  if (id === "cycle") return "year";
+  if (id === "round") return "number";
   if (/^(years|n|count|limit)$/.test(id)) return "number";
   if (/(^|_)(date|from|to)($|_)/.test(id)) return "date";
   if (/election|^a$|^b$/.test(id)) return "election";
@@ -106,6 +116,8 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
   const ids = [
     ...new Set(Object.values(prompt.args).flatMap((args) => Object.keys(args))),
   ];
+  if (prompt.tool === "nationalResults" && !ids.includes("election"))
+    ids.push("election");
   const required = new Set(requiredByTool[prompt.tool] ?? []);
   return ids.map((id) => {
     const kind = parameterKind(prompt.tool, id);
@@ -121,18 +133,30 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
       return { ...base, max: MUNICIPAL_FISCAL_MAX_RESULTS };
     if (prompt.tool === "municipalFiscalRanking" && id === "metric")
       return { ...base, kind: "enum", values: [...MUNICIPAL_FISCAL_METRICS] };
+    if (prompt.tool === "presidentialResults" && id === "cycle")
+      return { ...base, kind: "enum", values: [...PRESIDENTIAL_CONTESTS] };
+    if (prompt.tool === "presidentialResults" && id === "round")
+      return {
+        ...base,
+        min: ELECTION_ROUND_MIN,
+        max: ELECTION_ROUND_MAX,
+      };
     return base;
   });
 };
 
-const canonicalDefaults = (prompt: RawPrompt): Record<string, unknown> =>
-  Object.fromEntries(
+const canonicalDefaults = (prompt: RawPrompt): Record<string, unknown> => ({
+  ...Object.fromEntries(
     Object.entries(prompt.args.bg).filter(
       ([key, value]) =>
         JSON.stringify(value) ===
         JSON.stringify((prompt.args.en as Record<string, unknown>)[key]),
     ),
-  );
+  ),
+  ...(prompt.tool === "nationalResults"
+    ? { election: LATEST_PARLIAMENTARY_CONTEST }
+    : {}),
+});
 
 export const QUESTION_CATEGORIES: QuestionCategory[] = [
   ...rawCategories.map((category) => ({

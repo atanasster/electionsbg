@@ -1,6 +1,8 @@
 /** Reviewed SQL adapters for existing chat questions. Kept free of SQL text so
  * the chat bundle can expose cross-surface links without importing recipes. */
 export const REVIEWED_CHAT_SQL_ADAPTERS: Record<string, string> = {
+  nationalResults: "nationalResults",
+  presidentialResults: "presidentialResults",
   topContractors: "topContractors",
   procurementAppeals: "procurementAppeals",
   companyConnections: "companyConnections",
@@ -12,6 +14,8 @@ export const REVIEWED_CHAT_SQL_ADAPTERS: Record<string, string> = {
  * beside availability so chat discovery and SQL coverage report the same
  * provenance without importing SQL text into the AI bundle. */
 export const REVIEWED_CHAT_SQL_SOURCES: Record<string, string[]> = {
+  nationalResults: ["election_national_results"],
+  presidentialResults: ["election_national_results"],
   topContractors: ["contractor_rank"],
   procurementAppeals: ["kzk_appeals_summary_cache"],
   companyConnections: ["company_political_links"],

@@ -40,7 +40,7 @@ const resolveValue = (
       );
     if (
       (parameter.kind === "year" ||
-        /^(years|n|count|limit)$/.test(parameter.id)) &&
+        /^(years|n|count|limit|round)$/.test(parameter.id)) &&
       !Number.isSafeInteger(number)
     )
       throw new QuestionParameterError(parameter.id, "Expected a whole number");

@@ -2057,6 +2057,24 @@
     }
   },
   {
+    "id": "presidentialResults",
+    "category": "elections",
+    "subcategory": "presidential",
+    "tool": "presidentialResults",
+    "bg": "Какви бяха резултатите от балотажа на президентските избори през 2021 г.?",
+    "en": "What were the results of the 2021 presidential runoff?",
+    "args": {
+      "bg": {
+        "cycle": "2021_11_14_pvr",
+        "round": 2
+      },
+      "en": {
+        "cycle": "2021_11_14_pvr",
+        "round": 2
+      }
+    }
+  },
+  {
     "id": "municipalFiscalRanking",
     "category": "public-money",
     "subcategory": "municipal",
