@@ -1,6 +1,7 @@
 import { FC, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ExternalLink } from "lucide-react";
 import { ElectionsBreadcrumb } from "@/screens/components/ElectionsBreadcrumb";
 import { Title } from "@/ux/Title";
 import {
@@ -70,6 +71,20 @@ export const PollsAgencyScreen: FC = () => {
 
   const title = agency ? (isBg ? agency.name_bg : agency.name_en) : agencyId;
 
+  // Shared by every branch below except the loading skeleton, so a future
+  // breadcrumb/title change needs one edit rather than three.
+  const header = (
+    <>
+      <ElectionsBreadcrumb
+        hub="analysis"
+        section={{ labelKey: "polls_title", to: "/polls" }}
+        current={title ?? undefined}
+        className="mt-4 mb-1"
+      />
+      <Title>{title ?? ""}</Title>
+    </>
+  );
+
   if (!ready) {
     return (
       <>
@@ -82,16 +97,10 @@ export const PollsAgencyScreen: FC = () => {
     );
   }
 
-  if (!profile || !agency) {
+  if (!agency) {
     return (
       <>
-        <ElectionsBreadcrumb
-          hub="analysis"
-          section={{ labelKey: "polls_title", to: "/polls" }}
-          current={title ?? undefined}
-          className="mt-4 mb-1"
-        />
-        <Title>{title ?? ""}</Title>
+        {header}
         <section className="w-full max-w-7xl mx-auto px-4 pb-12">
           <div className="mt-4 rounded-xl border bg-card p-4 shadow-sm text-sm text-muted-foreground">
             {t("polls_agency_not_found")}
@@ -101,15 +110,70 @@ export const PollsAgencyScreen: FC = () => {
     );
   }
 
+  // The agency is real (it has a row in agencies.json) but `accuracy.json`'s
+  // agencyProfiles only ever covers agencies with at least one SCORED poll —
+  // a newly registered agency (e.g. one whose first poll is presidential and
+  // therefore never enters the parliamentary accuracy corpus) has a real page
+  // and zero polls, not a missing one. Conflating that with "not found" is
+  // what the not-found branch used to do.
+  if (!profile) {
+    return (
+      <>
+        {header}
+        <section className="w-full max-w-7xl mx-auto px-4 pb-12">
+          <div className="mt-3 rounded-xl border bg-card p-4 shadow-sm">
+            <div className="flex items-center justify-between gap-2">
+              <div className="text-sm font-semibold">{title}</div>
+              <div className="flex items-center gap-2 shrink-0">
+                {agency.eik ? (
+                  <Link
+                    to={`/company/${agency.eik}`}
+                    className="text-[10px] font-medium text-primary hover:underline"
+                    title={t("polls_public_money_hint")}
+                    aria-label={t("polls_public_money_hint")}
+                  >
+                    {isBg ? "ТР" : "TR"}
+                  </Link>
+                ) : null}
+                {agency.website ? (
+                  <a
+                    href={agency.website}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="text-[10px] text-primary hover:underline flex items-center gap-1"
+                    title={agency.website}
+                  >
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                ) : null}
+              </div>
+            </div>
+            {/* Only shown when the agency HAS polls that simply were not
+                scored (e.g. a presidential-only publication) — with zero
+                polls, AgencyPollsList's own empty state below is the single
+                message, so the two do not stack as near-duplicates. */}
+            {agencyPolls.length > 0 ? (
+              <div className="mt-2 text-sm text-muted-foreground">
+                {t("polls_agency_no_profile_yet")}
+              </div>
+            ) : null}
+          </div>
+
+          <div className="mt-3">
+            <AgencyPollsList
+              polls={agencyPolls}
+              details={agencyDetails}
+              elections={accuracy.elections}
+            />
+          </div>
+        </section>
+      </>
+    );
+  }
+
   return (
     <>
-      <ElectionsBreadcrumb
-        hub="analysis"
-        section={{ labelKey: "polls_title", to: "/polls" }}
-        current={title ?? undefined}
-        className="mt-4 mb-1"
-      />
-      <Title>{title ?? ""}</Title>
+      {header}
       <section className="w-full max-w-7xl mx-auto px-4 pb-12">
         <div className="mt-3">
           <AgencyProfileCard
