@@ -1,0 +1,1679 @@
+{
+  "createdAt": "2026-09-09T22:13:18.339Z",
+  "scope": "Small smoke comparison; not a representative accuracy benchmark. Narration checks language and numerical grounding, not full factual entailment.",
+  "maxReservedUSD": 1.24,
+  "rows": [
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Каква беше активността през 2023?",
+      "expected": "turnout",
+      "expectedArgs": {
+        "election": [
+          "2023",
+          "2023_04_02"
+        ]
+      },
+      "parsed": {
+        "tool": "turnout",
+        "args": {
+          "election": "2023"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"turnout\", \"args\": {\"election\": \"2023\"}}",
+      "ms": 1442,
+      "usage": {
+        "prompt_tokens": 11566,
+        "completion_tokens": 19,
+        "total_tokens": 11585,
+        "cost": 0.00292,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00292,
+          "upstream_inference_prompt_cost": 0.0028915,
+          "upstream_inference_completions_cost": 0.0000285
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Колко гласа получи ГЕРБ?",
+      "expected": "partyResult",
+      "expectedArgs": {
+        "party": [
+          "ГЕРБ",
+          "GERB"
+        ]
+      },
+      "parsed": {
+        "tool": "partyResult",
+        "args": {
+          "party": "ГЕРБ"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"partyResult\", \"args\": {\"party\": \"ГЕРБ\"}}",
+      "ms": 777,
+      "usage": {
+        "prompt_tokens": 11563,
+        "completion_tokens": 18,
+        "total_tokens": 11581,
+        "cost": 0.00291775,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00291775,
+          "upstream_inference_prompt_cost": 0.00289075,
+          "upstream_inference_completions_cost": 0.000027
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Какъв е делът на машинното гласуване в последните 5 избора?",
+      "expected": "machineVoteSeries",
+      "expectedArgs": {
+        "n": [
+          "5"
+        ]
+      },
+      "parsed": {
+        "tool": "machineVoteSeries",
+        "args": {
+          "n": 5
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"machineVoteSeries\", \"args\": {\"n\": 5}}",
+      "ms": 954,
+      "usage": {
+        "prompt_tokens": 11574,
+        "completion_tokens": 17,
+        "total_tokens": 11591,
+        "cost": 0.002919,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002919,
+          "upstream_inference_prompt_cost": 0.0028935,
+          "upstream_inference_completions_cost": 0.0000255
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Сравни изборите през октомври 2022 и октомври 2024",
+      "expected": "compareElections",
+      "expectedArgs": {
+        "a": [
+          "2022_10_02"
+        ],
+        "b": [
+          "2024_10_27"
+        ]
+      },
+      "parsed": {
+        "tool": "compareElections",
+        "args": {
+          "a": "2022_10_02",
+          "b": "2024_10_27"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"compareElections\", \"args\": {\"a\": \"2022_10_02\", \"b\": \"2024_10_27\"}}",
+      "ms": 934,
+      "usage": {
+        "prompt_tokens": 11577,
+        "completion_tokens": 41,
+        "total_tokens": 11618,
+        "cost": 0.00295575,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00295575,
+          "upstream_inference_prompt_cost": 0.00289425,
+          "upstream_inference_completions_cost": 0.0000615
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Какви са местните данъци в Русе?",
+      "expected": "localTaxes",
+      "expectedArgs": {
+        "place": [
+          "Русе",
+          "Ruse"
+        ]
+      },
+      "parsed": {
+        "tool": "localTaxes",
+        "args": {
+          "place": "Русе"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localTaxes\", \"args\": {\"place\": \"Русе\"}}",
+      "ms": 1119,
+      "usage": {
+        "prompt_tokens": 11566,
+        "completion_tokens": 18,
+        "total_tokens": 11584,
+        "cost": 0.0029185,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0029185,
+          "upstream_inference_prompt_cost": 0.0028915,
+          "upstream_inference_completions_cost": 0.000027
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Покажи общия държавен бюджет",
+      "expected": "budgetOverview",
+      "expectedArgs": {},
+      "parsed": {
+        "tool": "budgetOverview",
+        "args": {}
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"budgetOverview\", \"args\": {}}",
+      "ms": 887,
+      "usage": {
+        "prompt_tokens": 11564,
+        "completion_tokens": 12,
+        "total_tokens": 11576,
+        "cost": 0.002909,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002909,
+          "upstream_inference_prompt_cost": 0.002891,
+          "upstream_inference_completions_cost": 0.000018
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Колко точна е Алфа Рисърч?",
+      "expected": "agencyProfile",
+      "expectedArgs": {
+        "agency": [
+          "Алфа Рисърч",
+          "Alpha Research"
+        ]
+      },
+      "parsed": {
+        "tool": "agencyProfile",
+        "args": {
+          "agency": "Алфа Рисърч"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"agencyProfile\", \"args\": {\"agency\": \"Алфа Рисърч\"}}",
+      "ms": 1092,
+      "usage": {
+        "prompt_tokens": 11566,
+        "completion_tokens": 21,
+        "total_tokens": 11587,
+        "cost": 0.002923,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002923,
+          "upstream_inference_prompt_cost": 0.0028915,
+          "upstream_inference_completions_cost": 0.0000315
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Кой е кметът на Пловдив?",
+      "expected": "localMunicipality",
+      "expectedArgs": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ]
+      },
+      "parsed": {
+        "tool": "localMunicipality",
+        "args": {
+          "place": "Пловдив"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localMunicipality\", \"args\": {\"place\": \"Пловдив\"}}",
+      "ms": 1093,
+      "usage": {
+        "prompt_tokens": 11565,
+        "completion_tokens": 20,
+        "total_tokens": 11585,
+        "cost": 0.00292125,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00292125,
+          "upstream_inference_prompt_cost": 0.00289125,
+          "upstream_inference_completions_cost": 0.00003
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "narration",
+      "ok": true,
+      "raw": "Тестови данни за активност. Стойността на активността отбелязва спад от 42,7 на 38,2 в сравнение с предходния период. Това понижение показва намаляване на общата интензивност на измерваните показатели.",
+      "ms": 890,
+      "usage": {
+        "prompt_tokens": 194,
+        "completion_tokens": 63,
+        "total_tokens": 257,
+        "cost": 0.000143,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000143,
+          "upstream_inference_prompt_cost": 0.0000485,
+          "upstream_inference_completions_cost": 0.0000945
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "bg",
+      "kind": "narration",
+      "prior": "Earlier answer: 999 people, 99%.",
+      "ok": true,
+      "raw": "Тестови данни за активност\n\nНивото на активност отбелязва спад от 42,7 на 38,2. Тази низходяща тенденция показва намаление на общия показател спрямо предходния отчетен период. По-ниската стойност отразява свиване в наблюдаваната активност в сравнение с предишните данни.",
+      "ms": 936,
+      "usage": {
+        "prompt_tokens": 246,
+        "completion_tokens": 84,
+        "total_tokens": 330,
+        "cost": 0.0001875,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001875,
+          "upstream_inference_prompt_cost": 0.0000615,
+          "upstream_inference_completions_cost": 0.000126
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "What was voter turnout in 2023?",
+      "expected": "turnout",
+      "expectedArgs": {
+        "election": [
+          "2023",
+          "2023_04_02"
+        ]
+      },
+      "parsed": {
+        "tool": "turnout",
+        "args": {
+          "election": "2023"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"turnout\", \"args\": {\"election\": \"2023\"}}",
+      "ms": 802,
+      "usage": {
+        "prompt_tokens": 8376,
+        "completion_tokens": 19,
+        "total_tokens": 8395,
+        "cost": 0.0021225,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0021225,
+          "upstream_inference_prompt_cost": 0.002094,
+          "upstream_inference_completions_cost": 0.0000285
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "How many votes did GERB receive?",
+      "expected": "partyResult",
+      "expectedArgs": {
+        "party": [
+          "ГЕРБ",
+          "GERB"
+        ]
+      },
+      "parsed": {
+        "tool": "partyResult",
+        "args": {
+          "party": "ГЕРБ"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"partyResult\", \"args\": {\"party\": \"ГЕРБ\"}}",
+      "ms": 1047,
+      "usage": {
+        "prompt_tokens": 8373,
+        "completion_tokens": 18,
+        "total_tokens": 8391,
+        "cost": 0.00212025,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00212025,
+          "upstream_inference_prompt_cost": 0.00209325,
+          "upstream_inference_completions_cost": 0.000027
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Machine voting share in the last 5 elections?",
+      "expected": "machineVoteSeries",
+      "expectedArgs": {
+        "n": [
+          "5"
+        ]
+      },
+      "parsed": {
+        "tool": "machineVoteSeries",
+        "args": {
+          "n": 5
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"machineVoteSeries\", \"args\": {\"n\": 5}}",
+      "ms": 1021,
+      "usage": {
+        "prompt_tokens": 8375,
+        "completion_tokens": 17,
+        "total_tokens": 8392,
+        "cost": 0.00211925,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00211925,
+          "upstream_inference_prompt_cost": 0.00209375,
+          "upstream_inference_completions_cost": 0.0000255
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Compare the October 2022 and October 2024 elections",
+      "expected": "compareElections",
+      "expectedArgs": {
+        "a": [
+          "2022_10_02"
+        ],
+        "b": [
+          "2024_10_27"
+        ]
+      },
+      "parsed": {
+        "tool": "compareElections",
+        "args": {
+          "a": "2022_10_02",
+          "b": "2024_10_27"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"compareElections\", \"args\": {\"a\": \"2022_10_02\", \"b\": \"2024_10_27\"}}",
+      "ms": 1186,
+      "usage": {
+        "prompt_tokens": 8381,
+        "completion_tokens": 41,
+        "total_tokens": 8422,
+        "cost": 0.00215675,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00215675,
+          "upstream_inference_prompt_cost": 0.00209525,
+          "upstream_inference_completions_cost": 0.0000615
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "What are the local taxes in Ruse?",
+      "expected": "localTaxes",
+      "expectedArgs": {
+        "place": [
+          "Русе",
+          "Ruse"
+        ]
+      },
+      "parsed": {
+        "tool": "localTaxes",
+        "args": {
+          "place": "Русе"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localTaxes\", \"args\": {\"place\": \"Русе\"}}",
+      "ms": 923,
+      "usage": {
+        "prompt_tokens": 8374,
+        "completion_tokens": 18,
+        "total_tokens": 8392,
+        "cost": 0.0021205,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0021205,
+          "upstream_inference_prompt_cost": 0.0020935,
+          "upstream_inference_completions_cost": 0.000027
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Show the state budget overview",
+      "expected": "budgetOverview",
+      "expectedArgs": {},
+      "parsed": {
+        "tool": "budgetOverview",
+        "args": {}
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"budgetOverview\", \"args\": {}}",
+      "ms": 1171,
+      "usage": {
+        "prompt_tokens": 8370,
+        "completion_tokens": 12,
+        "total_tokens": 8382,
+        "cost": 0.0021105,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0021105,
+          "upstream_inference_prompt_cost": 0.0020925,
+          "upstream_inference_completions_cost": 0.000018
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "How accurate is Alpha Research?",
+      "expected": "agencyProfile",
+      "expectedArgs": {
+        "agency": [
+          "Алфа Рисърч",
+          "Alpha Research"
+        ]
+      },
+      "parsed": {
+        "tool": "agencyProfile",
+        "args": {
+          "agency": "Алфа Рисърч"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"agencyProfile\", \"args\": {\"agency\": \"Алфа Рисърч\"}}",
+      "ms": 926,
+      "usage": {
+        "prompt_tokens": 8371,
+        "completion_tokens": 21,
+        "total_tokens": 8392,
+        "cost": 0.00212425,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00212425,
+          "upstream_inference_prompt_cost": 0.00209275,
+          "upstream_inference_completions_cost": 0.0000315
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Who is the mayor of Plovdiv?",
+      "expected": "localMunicipality",
+      "expectedArgs": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ]
+      },
+      "parsed": {
+        "tool": "localMunicipality",
+        "args": {
+          "place": "Пловдив"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localMunicipality\", \"args\": {\"place\": \"Пловдив\"}}",
+      "ms": 983,
+      "usage": {
+        "prompt_tokens": 8374,
+        "completion_tokens": 20,
+        "total_tokens": 8394,
+        "cost": 0.0021235,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0021235,
+          "upstream_inference_prompt_cost": 0.0020935,
+          "upstream_inference_completions_cost": 0.00003
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "narration",
+      "ok": true,
+      "raw": "**Synthetic Turnout Data**\n\nVoter turnout decreased from 42.7 percent in the previous period to 38.2 percent in the current period. This downward trend indicates a decline in civic participation between the two recorded intervals. This shift suggests that a smaller proportion of the eligible population engaged in the electoral process compared to the prior cycle.",
+      "ms": 811,
+      "usage": {
+        "prompt_tokens": 187,
+        "completion_tokens": 71,
+        "total_tokens": 258,
+        "cost": 0.00015325,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00015325,
+          "upstream_inference_prompt_cost": 0.00004675,
+          "upstream_inference_completions_cost": 0.0001065
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "lang": "en",
+      "kind": "narration",
+      "prior": "Earlier answer: 999 people, 99%.",
+      "ok": true,
+      "raw": "Synthetic turnout data: The participation rate fell from 42.7 percent to 38.2 percent. This downward trend indicates a decrease in the overall engagement level compared to the previous measurement. This shift reflects a lower proportion of the population participating in the civic process.",
+      "ms": 922,
+      "usage": {
+        "prompt_tokens": 239,
+        "completion_tokens": 55,
+        "total_tokens": 294,
+        "cost": 0.00014225,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00014225,
+          "upstream_inference_prompt_cost": 0.00005975,
+          "upstream_inference_completions_cost": 0.0000825
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Каква беше активността през 2023?",
+      "expected": "turnout",
+      "expectedArgs": {
+        "election": [
+          "2023",
+          "2023_04_02"
+        ]
+      },
+      "parsed": {
+        "tool": "turnout",
+        "args": {
+          "election": "2023"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"turnout\", \"args\": {\"election\": \"2023\"}}",
+      "ms": 1093,
+      "usage": {
+        "prompt_tokens": 11566,
+        "completion_tokens": 19,
+        "total_tokens": 11585,
+        "cost": 0.0035173,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035173,
+          "upstream_inference_prompt_cost": 0.0034698,
+          "upstream_inference_completions_cost": 0.0000475
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Колко гласа получи ГЕРБ?",
+      "expected": "partyResult",
+      "expectedArgs": {
+        "party": [
+          "ГЕРБ",
+          "GERB"
+        ]
+      },
+      "parsed": {
+        "tool": "partyResult",
+        "args": {
+          "party": "ГЕРБ"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\":\"partyResult\",\"args\":{\"party\":\"ГЕРБ\"}}",
+      "ms": 880,
+      "usage": {
+        "prompt_tokens": 11563,
+        "completion_tokens": 14,
+        "total_tokens": 11577,
+        "cost": 0.0035039,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035039,
+          "upstream_inference_prompt_cost": 0.0034689,
+          "upstream_inference_completions_cost": 0.000035
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Какъв е делът на машинното гласуване в последните 5 избора?",
+      "expected": "machineVoteSeries",
+      "expectedArgs": {
+        "n": [
+          "5"
+        ]
+      },
+      "parsed": {
+        "tool": "machineVoteSeries",
+        "args": {
+          "n": 5
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"machineVoteSeries\", \"args\": {\"n\": 5}}",
+      "ms": 857,
+      "usage": {
+        "prompt_tokens": 11574,
+        "completion_tokens": 17,
+        "total_tokens": 11591,
+        "cost": 0.0035147,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035147,
+          "upstream_inference_prompt_cost": 0.0034722,
+          "upstream_inference_completions_cost": 0.0000425
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Сравни изборите през октомври 2022 и октомври 2024",
+      "expected": "compareElections",
+      "expectedArgs": {
+        "a": [
+          "2022_10_02"
+        ],
+        "b": [
+          "2024_10_27"
+        ]
+      },
+      "parsed": {
+        "tool": "compareElections",
+        "args": {
+          "a": "2022_10_02",
+          "b": "2024_10_27"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\":\"compareElections\",\"args\":{\"a\":\"2022_10_02\",\"b\":\"2024_10_27\"}}",
+      "ms": 896,
+      "usage": {
+        "prompt_tokens": 11577,
+        "completion_tokens": 35,
+        "total_tokens": 11612,
+        "cost": 0.0035606,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035606,
+          "upstream_inference_prompt_cost": 0.0034731,
+          "upstream_inference_completions_cost": 0.0000875
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Какви са местните данъци в Русе?",
+      "expected": "localTaxes",
+      "expectedArgs": {
+        "place": [
+          "Русе",
+          "Ruse"
+        ]
+      },
+      "parsed": {
+        "tool": "localTaxes",
+        "args": {
+          "place": "Русе"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localTaxes\", \"args\": {\"place\": \"Русе\"}}",
+      "ms": 855,
+      "usage": {
+        "prompt_tokens": 11566,
+        "completion_tokens": 18,
+        "total_tokens": 11584,
+        "cost": 0.0035148,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035148,
+          "upstream_inference_prompt_cost": 0.0034698,
+          "upstream_inference_completions_cost": 0.000045
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Покажи общия държавен бюджет",
+      "expected": "budgetOverview",
+      "expectedArgs": {},
+      "parsed": {
+        "tool": "budgetOverview",
+        "args": {}
+      },
+      "ok": true,
+      "raw": "{\"tool\":\"budgetOverview\",\"args\":{}}",
+      "ms": 1023,
+      "usage": {
+        "prompt_tokens": 11564,
+        "completion_tokens": 10,
+        "total_tokens": 11574,
+        "cost": 0.0034942,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0034942,
+          "upstream_inference_prompt_cost": 0.0034692,
+          "upstream_inference_completions_cost": 0.000025
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Колко точна е Алфа Рисърч?",
+      "expected": "agencyProfile",
+      "expectedArgs": {
+        "agency": [
+          "Алфа Рисърч",
+          "Alpha Research"
+        ]
+      },
+      "parsed": {
+        "tool": "agencyProfile",
+        "args": {
+          "agency": "Алфа Рисърч"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"agencyProfile\", \"args\": {\"agency\": \"Алфа Рисърч\"}}",
+      "ms": 1051,
+      "usage": {
+        "prompt_tokens": 11566,
+        "completion_tokens": 21,
+        "total_tokens": 11587,
+        "cost": 0.0035223,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035223,
+          "upstream_inference_prompt_cost": 0.0034698,
+          "upstream_inference_completions_cost": 0.0000525
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "routing",
+      "query": "Кой е кметът на Пловдив?",
+      "expected": "localMunicipality",
+      "expectedArgs": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ]
+      },
+      "parsed": {
+        "tool": "localMunicipality",
+        "args": {
+          "place": "Пловдив"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localMunicipality\", \"args\": {\"place\": \"Пловдив\"}}",
+      "ms": 1044,
+      "usage": {
+        "prompt_tokens": 11565,
+        "completion_tokens": 20,
+        "total_tokens": 11585,
+        "cost": 0.0035195,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0035195,
+          "upstream_inference_prompt_cost": 0.0034695,
+          "upstream_inference_completions_cost": 0.00005
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "narration",
+      "ok": true,
+      "raw": "Тестови данни за активност: През текущия период стойността е 38,2, което бележи спад спрямо предходния период, когато тя е била 42,7. Този спад показва намаляване на измерената активност между двата последователни интервала от данни. Изменението отразява промяната в показателите за активност въз основа на предоставените синтетични тестови данни.",
+      "ms": 1056,
+      "usage": {
+        "prompt_tokens": 194,
+        "completion_tokens": 98,
+        "total_tokens": 292,
+        "cost": 0.0003032,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0003032,
+          "upstream_inference_prompt_cost": 0.0000582,
+          "upstream_inference_completions_cost": 0.000245
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "bg",
+      "kind": "narration",
+      "prior": "Earlier answer: 999 people, 99%.",
+      "ok": true,
+      "raw": "Тестови данни за активност\n\nСтойността е намаляла от предишните 42.7 до текущите 38.2. Това понижение отразява спад в измерваните нива на активност според синтетичните тестови данни.",
+      "ms": 904,
+      "usage": {
+        "prompt_tokens": 246,
+        "completion_tokens": 61,
+        "total_tokens": 307,
+        "cost": 0.0002263,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002263,
+          "upstream_inference_prompt_cost": 0.0000738,
+          "upstream_inference_completions_cost": 0.0001525
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "What was voter turnout in 2023?",
+      "expected": "turnout",
+      "expectedArgs": {
+        "election": [
+          "2023",
+          "2023_04_02"
+        ]
+      },
+      "parsed": {
+        "tool": "turnout",
+        "args": {
+          "election": "2023"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"turnout\", \"args\": {\"election\": \"2023\"}}",
+      "ms": 749,
+      "usage": {
+        "prompt_tokens": 8376,
+        "completion_tokens": 19,
+        "total_tokens": 8395,
+        "cost": 0.0025603,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0025603,
+          "upstream_inference_prompt_cost": 0.0025128,
+          "upstream_inference_completions_cost": 0.0000475
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "How many votes did GERB receive?",
+      "expected": "partyResult",
+      "expectedArgs": {
+        "party": [
+          "ГЕРБ",
+          "GERB"
+        ]
+      },
+      "parsed": {
+        "tool": "partyResult",
+        "args": {
+          "party": "ГЕРБ"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"partyResult\", \"args\": {\"party\": \"ГЕРБ\"}}",
+      "ms": 834,
+      "usage": {
+        "prompt_tokens": 8373,
+        "completion_tokens": 18,
+        "total_tokens": 8391,
+        "cost": 0.0025569,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0025569,
+          "upstream_inference_prompt_cost": 0.0025119,
+          "upstream_inference_completions_cost": 0.000045
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Machine voting share in the last 5 elections?",
+      "expected": "machineVoteSeries",
+      "expectedArgs": {
+        "n": [
+          "5"
+        ]
+      },
+      "parsed": {
+        "tool": "machineVoteSeries",
+        "args": {
+          "n": 5
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\":\"machineVoteSeries\",\"args\":{\"n\":5}}",
+      "ms": 974,
+      "usage": {
+        "prompt_tokens": 8375,
+        "completion_tokens": 13,
+        "total_tokens": 8388,
+        "cost": 0.002545,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002545,
+          "upstream_inference_prompt_cost": 0.0025125,
+          "upstream_inference_completions_cost": 0.0000325
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Compare the October 2022 and October 2024 elections",
+      "expected": "compareElections",
+      "expectedArgs": {
+        "a": [
+          "2022_10_02"
+        ],
+        "b": [
+          "2024_10_27"
+        ]
+      },
+      "parsed": {
+        "tool": "compareElections",
+        "args": {
+          "a": "2022_10_02",
+          "b": "2024_10_27"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\":\"compareElections\",\"args\":{\"a\":\"2022_10_02\",\"b\":\"2024_10_27\"}}",
+      "ms": 819,
+      "usage": {
+        "prompt_tokens": 8381,
+        "completion_tokens": 35,
+        "total_tokens": 8416,
+        "cost": 0.0026018,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0026018,
+          "upstream_inference_prompt_cost": 0.0025143,
+          "upstream_inference_completions_cost": 0.0000875
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "What are the local taxes in Ruse?",
+      "expected": "localTaxes",
+      "expectedArgs": {
+        "place": [
+          "Русе",
+          "Ruse"
+        ]
+      },
+      "parsed": {
+        "tool": "localTaxes",
+        "args": {
+          "place": "Русе"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localTaxes\", \"args\": {\"place\": \"Русе\"}}",
+      "ms": 1013,
+      "usage": {
+        "prompt_tokens": 8374,
+        "completion_tokens": 18,
+        "total_tokens": 8392,
+        "cost": 0.0025572,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0025572,
+          "upstream_inference_prompt_cost": 0.0025122,
+          "upstream_inference_completions_cost": 0.000045
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Show the state budget overview",
+      "expected": "budgetOverview",
+      "expectedArgs": {},
+      "parsed": {
+        "tool": "budgetOverview",
+        "args": {}
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"budgetOverview\", \"args\": {}}",
+      "ms": 795,
+      "usage": {
+        "prompt_tokens": 8370,
+        "completion_tokens": 12,
+        "total_tokens": 8382,
+        "cost": 0.002541,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002541,
+          "upstream_inference_prompt_cost": 0.002511,
+          "upstream_inference_completions_cost": 0.00003
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "How accurate is Alpha Research?",
+      "expected": "agencyProfile",
+      "expectedArgs": {
+        "agency": [
+          "Алфа Рисърч",
+          "Alpha Research"
+        ]
+      },
+      "parsed": {
+        "tool": "agencyProfile",
+        "args": {
+          "agency": "Алфа Рисърч"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\":\"agencyProfile\",\"args\":{\"agency\":\"Алфа Рисърч\"}}",
+      "ms": 1039,
+      "usage": {
+        "prompt_tokens": 8371,
+        "completion_tokens": 17,
+        "total_tokens": 8388,
+        "cost": 0.0025538,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0025538,
+          "upstream_inference_prompt_cost": 0.0025113,
+          "upstream_inference_completions_cost": 0.0000425
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "routing",
+      "query": "Who is the mayor of Plovdiv?",
+      "expected": "localMunicipality",
+      "expectedArgs": {
+        "place": [
+          "Пловдив",
+          "Plovdiv"
+        ]
+      },
+      "parsed": {
+        "tool": "localMunicipality",
+        "args": {
+          "place": "Пловдив"
+        }
+      },
+      "ok": true,
+      "raw": "{\"tool\": \"localMunicipality\", \"args\": {\"place\": \"Пловдив\"}}",
+      "ms": 1048,
+      "usage": {
+        "prompt_tokens": 8374,
+        "completion_tokens": 20,
+        "total_tokens": 8394,
+        "cost": 0.0025622,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0025622,
+          "upstream_inference_prompt_cost": 0.0025122,
+          "upstream_inference_completions_cost": 0.00005
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "narration",
+      "ok": true,
+      "raw": "Synthetic turnout data drops between election cycles. The current turnout rate fell to 38.2 from the previous rate of 42.7. This downward trend shows a decrease in voter participation from one period to the next.",
+      "ms": 820,
+      "usage": {
+        "prompt_tokens": 187,
+        "completion_tokens": 46,
+        "total_tokens": 233,
+        "cost": 0.0001711,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001711,
+          "upstream_inference_prompt_cost": 0.0000561,
+          "upstream_inference_completions_cost": 0.000115
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "model": "google/gemini-3.5-flash-lite",
+      "lang": "en",
+      "kind": "narration",
+      "prior": "Earlier answer: 999 people, 99%.",
+      "ok": true,
+      "raw": "Synthetic turnout data records a decrease in participation over the observed periods. The metric dropped from a previous figure of 42.7 down to a current level of 38.2. This downward trend shows a contraction in the measured activity between the two reporting cycles.",
+      "ms": 774,
+      "usage": {
+        "prompt_tokens": 239,
+        "completion_tokens": 54,
+        "total_tokens": 293,
+        "cost": 0.0002067,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002067,
+          "upstream_inference_prompt_cost": 0.0000717,
+          "upstream_inference_completions_cost": 0.000135
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ]
+}

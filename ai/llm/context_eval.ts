@@ -1,20 +1,15 @@
-// Real-model context eval — runs multi-turn scenarios through OpenRouterProvider
-// against the LIVE /api/llm proxy to sanity-check routing-with-context QUALITY.
-// The mocked harness (openrouter.harness.ts) locks the PLUMBING (context reaches
-// the prompt, fallbacks hold); this checks the thing a mock can't — that a real
-// model actually USES the conversation to resolve a reference ("а в Пловдив?",
-// "compare that to 2024"). Read-only: it only asks questions.
-//
-// Run:   npx tsx ai/llm/context_eval.ts        (or: npm run ai:eval:context)
-// Proxy: LLM_PROXY_URL env var, default https://ai.electionsbg.com/api/llm
-// It costs a few cheap flash-lite calls; NOT wired into ai:test:all (network).
+// Operator-only live context smoke test, using the current public model.
+// Run: node --env-file=.env.local --import tsx ai/llm/context_eval.ts
+// Uses the local OpenRouter key directly; never bypasses the public proxy.
+// At most 20 calls at the same payload/price caps as production.
 
+import { createRequire } from "node:module";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { gistOf, type TurnMemory } from "../orchestrator/memory";
 import { setFetcher } from "../tools/dataClient";
 import type { Lang, ToolContext } from "../tools/types";
-import { modelById } from "./models";
+import { DEFAULT_MODEL_ID, modelById } from "./models";
 import { OpenRouterProvider } from "./openrouter";
 
 // Tools read the local data tree (same as the other harnesses).
@@ -27,16 +22,27 @@ setFetcher(async (path: string) =>
   ),
 );
 
-// The provider posts to "/api/llm" (a relative path the browser resolves
-// same-origin). In Node there's no origin, so rewrite it to the live proxy.
-const PROXY = process.env.LLM_PROXY_URL || "https://ai.electionsbg.com/api/llm";
+const key = process.env.OPENROUTER_API_KEY;
+if (!key) throw new Error("OPENROUTER_API_KEY missing; no live evaluation");
+const PROXY = "https://openrouter.ai/api/v1/chat/completions";
+const { payload } = createRequire(import.meta.url)(
+  "../../functions/llm_security.js",
+);
 const realFetch = globalThis.fetch.bind(globalThis);
+let calls = 0;
 globalThis.fetch = ((url: string | URL | Request, init?: RequestInit) => {
-  const u = typeof url === "string" ? url : url.toString();
-  return realFetch(u.includes("/api/llm") ? PROXY : u, init);
+  if (String(url) !== "/api/llm") return realFetch(url, init);
+  if (++calls > 20) throw new Error("Evaluation call cap reached");
+  return realFetch(PROXY, {
+    ...init,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+    body: JSON.stringify(payload(JSON.parse(String(init?.body)))),
+  });
 }) as typeof fetch;
-
-const model = modelById("google/gemini-3.1-flash-lite");
+const model = modelById(DEFAULT_MODEL_ID);
 if (!model) throw new Error("cloud model not found in registry");
 
 type Scenario = { lang: Lang; title: string; turns: string[] };
@@ -66,7 +72,10 @@ const lastTool = (h: TurnMemory[]) => {
 };
 
 const run = async () => {
-  const provider = new OpenRouterProvider(model);
+  const provider = new OpenRouterProvider(model, {
+    start: async () => ({ sessionToken: "operator", questionId: "operator" }),
+    finish: async () => {},
+  });
   console.log(`=== context eval vs ${PROXY} (${model.id}) ===\n`);
   let reachedModel = false;
   for (const sc of SCENARIOS) {
@@ -78,7 +87,7 @@ const run = async () => {
         history: [...history],
         prev: lastTool(history),
       });
-      if (res.meta?.model.bg !== "Без AI (офлайн)") reachedModel = true;
+      if (res.meta?.model.bg === model.label.bg) reachedModel = true;
       console.log(`  Q: ${q}`);
       console.log(
         `    → tool=${res.tool ?? "—"}  args=${JSON.stringify(res.args ?? {})}  narratedBy=${res.meta?.narratedBy}`,
@@ -96,12 +105,13 @@ const run = async () => {
     }
     console.log("");
   }
-  if (!reachedModel)
+  if (!reachedModel) {
+    process.exitCode = 1;
     console.log(
       "NOTE: every turn fell back to the offline router — the proxy was unreachable,\n" +
-        "so this run did NOT exercise the real model. Check LLM_PROXY_URL / deploy.",
+        "so this run did NOT exercise the real model. Check the operator key/provider.",
     );
-  else
+  } else
     console.log(
       "Eyeball the 2nd turn of each scenario: its tool/args should reflect the reference\n" +
         "(place carried from the prior party question; the comparison; the topic switch).",

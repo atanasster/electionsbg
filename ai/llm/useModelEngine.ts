@@ -1,6 +1,6 @@
 // Public chat lifecycle: deterministic answers or one hosted assistant.
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { modelById } from "./models";
+import { DEFAULT_MODEL_ID, modelById } from "./models";
 import { OpenRouterProvider } from "./openrouter";
 import { HeuristicProvider, type LLMProvider } from "./provider";
 
@@ -18,7 +18,9 @@ export const useModelEngine = (): ModelEngine => {
   const [providerId, setProviderId] = useState("rules");
   const select = useCallback(
     async (id: string) => {
-      const model = modelById(id);
+      const model = modelById(
+        id === "google/gemini-3.1-flash-lite" ? DEFAULT_MODEL_ID : id,
+      );
       const next =
         model?.ready && model.runtime === "cloud" ? model.id : "rules";
       setProvider(

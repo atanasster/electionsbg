@@ -48,8 +48,8 @@ export type ModelOption = {
 // evaluation captures remain available to development tools, not the picker.
 export const MODELS: ModelOption[] = [
   {
-    id: "google/gemini-3.1-flash-lite",
-    label: { bg: "Gemini 3.1 Flash-Lite", en: "Gemini 3.1 Flash-Lite" },
+    id: "google/gemini-3.5-flash-lite",
+    label: { bg: "Gemini 3.5 Flash-Lite", en: "Gemini 3.5 Flash-Lite" },
     sizeNote: { bg: "В облака", en: "Cloud" },
     advantage: {
       bg: "Въпроси и обяснения по данните",

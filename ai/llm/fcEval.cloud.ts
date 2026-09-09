@@ -4,10 +4,9 @@
 //   npx tsx ai/llm/fcEval.cloud.ts google/gemma-4-31b-it:free
 //   FC_EVAL_DELAY_MS=4500 npx tsx ai/llm/fcEval.cloud.ts google/gemma-4-31b-it:free
 //
-// It hits the SAME Firebase proxy (/api/llm) the app uses, with NO Origin header
-// (node) — which the proxy allows — so this is a faithful, repeatable measure of
-// the production cloud routing path (JSON-mode + a tool-listing system prompt).
-// makeCloudComplete()/runCloudModel() are imported by fcEval.artifact.ts.
+// Operator-only adapter: uses OPENROUTER_API_KEY directly, never the public
+// Turnstile-protected proxy. Load a local env file explicitly when running the CLI.
+// Historical experiment models remain available to this operator path only.
 
 import {
   buildJsonToolPrompt,
@@ -19,7 +18,7 @@ import {
 } from "./fcEval";
 
 export const DEFAULT_PROXY_URL =
-  process.env.FC_EVAL_PROXY_URL || "https://ai.electionsbg.com/api/llm";
+  "https://openrouter.ai/api/v1/chat/completions";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -30,6 +29,11 @@ export const makeCloudComplete = (
   opts: { proxyUrl?: string; delayMs?: number; maxRetries?: number } = {},
 ): CompleteFn => {
   const proxyUrl = opts.proxyUrl ?? DEFAULT_PROXY_URL;
+  if (proxyUrl !== DEFAULT_PROXY_URL)
+    throw new Error("Operator evaluations only send credentials to OpenRouter");
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey)
+    throw new Error("OPENROUTER_API_KEY required for live evaluation");
   const delayMs = opts.delayMs ?? 0;
   const maxRetries = opts.maxRetries ?? 5;
   return async (query: string, tools: FcTool[]): Promise<string> => {
@@ -48,7 +52,10 @@ export const makeCloudComplete = (
       try {
         const res = await fetch(proxyUrl, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
           body,
         });
         if (res.status === 429) {

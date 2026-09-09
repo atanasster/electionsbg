@@ -1,7 +1,7 @@
 // All monetary values are integer micro-USD. Reserve the worst case BEFORE a
 // question starts; failed/abandoned calls retain their reservation.
 const crypto = require("node:crypto");
-const MODEL = "google/gemini-3.1-flash-lite";
+const MODEL = "google/gemini-3.5-flash-lite";
 const POLICY = Object.freeze({
   inputBytes: 96000,
   outputTokens: 512,
