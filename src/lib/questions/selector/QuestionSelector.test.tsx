@@ -104,6 +104,41 @@ const openLeaf = async () => {
 afterEach(cleanup);
 
 describe("QuestionSelector", () => {
+  it("uses compact dropdown breadcrumbs, resets descendants, and submits explicitly", async () => {
+    const onSelect = vi.fn();
+    render(
+      <QuestionSelector
+        compact
+        catalog={catalog}
+        surface="chat"
+        lang="bg"
+        onSelect={onSelect}
+      />,
+    );
+    const user = userEvent.setup();
+    const topic = screen.getByRole("combobox", { name: "Теми" });
+    const subtopic = screen.getByRole("combobox", { name: "Подтема" });
+    const choice = screen.getByRole("combobox", { name: "Въпрос" });
+    expect(subtopic).toBeDisabled();
+    expect(choice).toBeDisabled();
+    expect(screen.queryByRole("button", { name: "Избори" })).toBeNull();
+    await user.selectOptions(topic, "elections");
+    await user.selectOptions(subtopic, "parliamentary");
+    await user.selectOptions(choice, "one");
+    expect(onSelect).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: "Използвай въпроса" }));
+    expect(onSelect).toHaveBeenCalledWith({
+      questionId: "one",
+      parameters: {},
+    });
+    await user.selectOptions(topic, "");
+    expect(subtopic).toHaveValue("");
+    expect(choice).toHaveValue("");
+    expect(
+      screen.queryByRole("button", { name: "Използвай въпроса" }),
+    ).toBeNull();
+  });
+
   it("navigates without dispatch, reveals more, then submits explicitly", async () => {
     const onSelect = vi.fn();
     render(

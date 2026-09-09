@@ -719,6 +719,7 @@ export const SqlBrowserScreen = () => {
       <main className="flex min-w-0 flex-1 flex-col">
         <div className="border-b border-border p-2">
           <QuestionSelector
+            compact
             key={`${seeded?.recipeId ?? "new"}:${JSON.stringify(seeded?.parameters ?? {})}`}
             catalog={serverQuestionCatalog}
             surface="sql"

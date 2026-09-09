@@ -47,6 +47,7 @@ export interface QuestionSelectorProps {
   valuesForQuestion?: (
     question: QuestionDefinition,
   ) => Record<string, unknown> | undefined;
+  compact?: boolean;
   className?: string;
 }
 
@@ -54,6 +55,8 @@ const text = {
   bg: {
     search: "Търсене на въпрос",
     categories: "Теми",
+    subcategory: "Подтема",
+    question: "Въпрос",
     more: "Още въпроси",
     fewer: "По-малко",
     use: "Използвай въпроса",
@@ -65,6 +68,8 @@ const text = {
   en: {
     search: "Search questions",
     categories: "Topics",
+    subcategory: "Subtopic",
+    question: "Question",
     more: "More questions",
     fewer: "Show fewer",
     use: "Use question",
@@ -257,6 +262,7 @@ export const QuestionSelector = ({
   initialQuestionId,
   initialParameterValues = {},
   valuesForQuestion,
+  compact = false,
   className = "",
 }: QuestionSelectorProps) => {
   const copy = text[lang];
@@ -333,16 +339,19 @@ export const QuestionSelector = ({
     queueMicrotask(() => {
       document.getElementById(id)?.focus();
     });
-  const clearQuestion = () => {
+  const clearQuestion = (restoreFocus = false) => {
     const previousQuestionId = questionId;
     setQuestionId(undefined);
     setValues({});
     setLookupChoice({});
     setErrors({});
-    if (previousQuestionId) focusAfter(`question-choice-${previousQuestionId}`);
+    if (previousQuestionId && (!compact || restoreFocus))
+      focusAfter(
+        compact ? "question-select" : `question-choice-${previousQuestionId}`,
+      );
   };
   const back = () => {
-    if (questionId) return clearQuestion();
+    if (questionId) return clearQuestion(true);
     if (query) {
       setQuery("");
       focusAfter("question-search");
@@ -351,13 +360,21 @@ export const QuestionSelector = ({
     if (subcategoryId) {
       const previousSubcategoryId = subcategoryId;
       setSubcategoryId(undefined);
-      focusAfter(`question-subcategory-${previousSubcategoryId}`);
+      focusAfter(
+        compact
+          ? "question-subcategory"
+          : `question-subcategory-${previousSubcategoryId}`,
+      );
       return;
     }
     if (categoryId) {
       const previousCategoryId = categoryId;
       setCategoryId(undefined);
-      focusAfter(`question-category-${previousCategoryId}`);
+      focusAfter(
+        compact
+          ? "question-category"
+          : `question-category-${previousCategoryId}`,
+      );
     }
   };
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -417,142 +434,279 @@ export const QuestionSelector = ({
       onKeyDown={onKeyDown}
       aria-label={copy.categories}
     >
-      <div className="flex flex-wrap items-center gap-2 text-sm">
-        {(categoryId || query) && (
-          <button type="button" className={choiceClass} onClick={back}>
-            ← {copy.back}
-          </button>
-        )}
-        <nav aria-label="Breadcrumb" className="text-muted-foreground">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>{copy.categories}</li>
-            {category && (
-              <li aria-current={!subcategory ? "page" : undefined}>
-                / {category.label[lang]}
-              </li>
-            )}
-            {subcategory && (
-              <li aria-current={!question ? "page" : undefined}>
-                / {subcategory.label[lang]}
-              </li>
-            )}
-          </ol>
+      {compact ? (
+        <nav
+          aria-label={copy.categories}
+          className="flex min-w-0 flex-wrap items-center gap-2"
+        >
+          <select
+            id="question-category"
+            aria-label={copy.categories}
+            className={`${controlClass} min-w-0 flex-1 basis-32 sm:max-w-60`}
+            value={categoryId ?? ""}
+            onChange={(event) => {
+              clearQuestion();
+              setCategoryId(event.target.value || undefined);
+              setSubcategoryId(undefined);
+              setQuery("");
+            }}
+          >
+            <option value="">{copy.categories}</option>
+            {catalog.categories
+              .filter((item) =>
+                catalog.questions.some(
+                  (q) =>
+                    q.categoryId === item.id &&
+                    (includeUnavailable ||
+                      surfaceStatus(q, surface) === "ready"),
+                ),
+              )
+              .map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.label[lang]}
+                </option>
+              ))}
+          </select>
+          <span aria-hidden="true" className="text-muted-foreground">
+            ›
+          </span>
+          <select
+            id="question-subcategory"
+            aria-label={copy.subcategory}
+            className={`${controlClass} min-w-0 flex-1 basis-32 sm:max-w-60`}
+            disabled={!category}
+            value={subcategoryId ?? ""}
+            onChange={(event) => {
+              clearQuestion();
+              setSubcategoryId(event.target.value || undefined);
+              setQuery("");
+            }}
+          >
+            <option value="">{copy.subcategory}</option>
+            {category?.subcategories
+              .filter((item) =>
+                catalog.questions.some(
+                  (q) =>
+                    q.categoryId === category.id &&
+                    q.subcategoryId === item.id &&
+                    (includeUnavailable ||
+                      surfaceStatus(q, surface) === "ready"),
+                ),
+              )
+              .map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.label[lang]}
+                </option>
+              ))}
+          </select>
+          <span
+            aria-hidden="true"
+            className="hidden text-muted-foreground sm:inline"
+          >
+            ›
+          </span>
+          <select
+            id="question-select"
+            aria-label={copy.question}
+            className={`${controlClass} min-w-0 flex-1 basis-full sm:basis-64`}
+            disabled={!subcategoryId && !query}
+            value={questionId ?? ""}
+            onChange={(event) => {
+              const selected = matches.find(
+                (item) => item.id === event.target.value,
+              );
+              if (selected && surfaceStatus(selected, surface) === "ready") {
+                setCategoryId(selected.categoryId);
+                setSubcategoryId(selected.subcategoryId);
+                chooseQuestion(selected);
+              } else clearQuestion();
+            }}
+          >
+            <option value="">
+              {(subcategoryId || query) && !matches.length
+                ? copy.noQuestions
+                : copy.question}
+            </option>
+            {matches.map((item) => (
+              <option
+                key={item.id}
+                value={item.id}
+                disabled={surfaceStatus(item, surface) !== "ready"}
+              >
+                {item.question[lang]}
+                {surfaceStatus(item, surface) !== "ready"
+                  ? ` — ${item[surface].reason?.[lang] ?? copy.unavailable}`
+                  : ""}
+              </option>
+            ))}
+          </select>
         </nav>
-      </div>
-
-      <label
-        className="mt-3 block text-sm font-medium"
-        htmlFor="question-search"
-      >
-        {copy.search}
-      </label>
-      <input
-        id="question-search"
-        type="search"
-        className={`${controlClass} mt-1`}
-        value={query}
-        onChange={(event) => {
-          setQuery(event.target.value);
-          setQuestionId(undefined);
-          setShowAll(false);
-        }}
-      />
-
-      {!query && !categoryId && (
-        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {catalog.categories
-            .filter((item) =>
-              catalog.questions.some(
-                (questionItem) =>
-                  questionItem.categoryId === item.id &&
-                  (includeUnavailable ||
-                    surfaceStatus(questionItem, surface) === "ready"),
-              ),
-            )
-            .map((item) => (
-              <button
-                key={item.id}
-                id={`question-category-${item.id}`}
-                type="button"
-                className={choiceClass}
-                onClick={() => {
-                  setCategoryId(item.id);
-                  setSubcategoryId(undefined);
-                }}
-              >
-                {item.label[lang]}
+      ) : (
+        <>
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            {(categoryId || query) && (
+              <button type="button" className={choiceClass} onClick={back}>
+                ← {copy.back}
               </button>
-            ))}
-        </div>
-      )}
-
-      {!query && category && !subcategoryId && (
-        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {category.subcategories
-            .filter((item) =>
-              catalog.questions.some(
-                (questionItem) =>
-                  questionItem.categoryId === category.id &&
-                  questionItem.subcategoryId === item.id &&
-                  (includeUnavailable ||
-                    surfaceStatus(questionItem, surface) === "ready"),
-              ),
-            )
-            .map((item) => (
-              <button
-                key={item.id}
-                id={`question-subcategory-${item.id}`}
-                type="button"
-                className={choiceClass}
-                onClick={() => {
-                  setSubcategoryId(item.id);
-                }}
-              >
-                {item.label[lang]}
-              </button>
-            ))}
-        </div>
-      )}
-
-      {(query || subcategoryId) && !question && (
-        <div className="mt-3 space-y-2">
-          {visibleQuestions.map((item) => {
-            const status = surfaceStatus(item, surface);
-            return (
-              <button
-                key={item.id}
-                id={`question-choice-${item.id}`}
-                type="button"
-                className={`${choiceClass} block w-full ${status !== "ready" ? "opacity-70" : ""}`}
-                aria-disabled={status !== "ready"}
-                onClick={() => {
-                  if (status === "ready") chooseQuestion(item);
-                }}
-              >
-                <span className="block">{item.question[lang]}</span>
-                {status !== "ready" && item[surface].reason && (
-                  <span className="mt-1 block text-xs text-muted-foreground">
-                    {item[surface].reason?.[lang]}
-                  </span>
+            )}
+            <nav aria-label="Breadcrumb" className="text-muted-foreground">
+              <ol className="flex flex-wrap items-center gap-1">
+                <li>{copy.categories}</li>
+                {category && (
+                  <li aria-current={!subcategory ? "page" : undefined}>
+                    / {category.label[lang]}
+                  </li>
                 )}
-              </button>
-            );
-          })}
-          {!visibleQuestions.length && (
-            <p className="py-4 text-sm text-muted-foreground">
-              {copy.noQuestions}
-            </p>
+                {subcategory && (
+                  <li aria-current={!question ? "page" : undefined}>
+                    / {subcategory.label[lang]}
+                  </li>
+                )}
+              </ol>
+            </nav>
+          </div>
+
+          <label
+            className="mt-3 block text-sm font-medium"
+            htmlFor="question-search"
+          >
+            {copy.search}
+          </label>
+          <input
+            id="question-search"
+            type="search"
+            className={`${controlClass} mt-1`}
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setQuestionId(undefined);
+              setShowAll(false);
+            }}
+          />
+
+          {!query && !categoryId && (
+            <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {catalog.categories
+                .filter((item) =>
+                  catalog.questions.some(
+                    (questionItem) =>
+                      questionItem.categoryId === item.id &&
+                      (includeUnavailable ||
+                        surfaceStatus(questionItem, surface) === "ready"),
+                  ),
+                )
+                .map((item) => (
+                  <button
+                    key={item.id}
+                    id={`question-category-${item.id}`}
+                    type="button"
+                    className={choiceClass}
+                    onClick={() => {
+                      setCategoryId(item.id);
+                      setSubcategoryId(undefined);
+                    }}
+                  >
+                    {item.label[lang]}
+                  </button>
+                ))}
+            </div>
           )}
-          {matches.length > 5 && (
-            <button
-              type="button"
-              className={choiceClass}
-              onClick={() => setShowAll((current) => !current)}
-            >
-              {showAll ? copy.fewer : copy.more}
-            </button>
+
+          {!query && category && !subcategoryId && (
+            <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {category.subcategories
+                .filter((item) =>
+                  catalog.questions.some(
+                    (questionItem) =>
+                      questionItem.categoryId === category.id &&
+                      questionItem.subcategoryId === item.id &&
+                      (includeUnavailable ||
+                        surfaceStatus(questionItem, surface) === "ready"),
+                  ),
+                )
+                .map((item) => (
+                  <button
+                    key={item.id}
+                    id={`question-subcategory-${item.id}`}
+                    type="button"
+                    className={choiceClass}
+                    onClick={() => {
+                      setSubcategoryId(item.id);
+                    }}
+                  >
+                    {item.label[lang]}
+                  </button>
+                ))}
+            </div>
           )}
-        </div>
+
+          {(query || subcategoryId) && !question && (
+            <div className="mt-3 space-y-2">
+              {visibleQuestions.map((item) => {
+                const status = surfaceStatus(item, surface);
+                return (
+                  <button
+                    key={item.id}
+                    id={`question-choice-${item.id}`}
+                    type="button"
+                    className={`${choiceClass} block w-full ${status !== "ready" ? "opacity-70" : ""}`}
+                    aria-disabled={status !== "ready"}
+                    onClick={() => {
+                      if (status === "ready") chooseQuestion(item);
+                    }}
+                  >
+                    <span className="block">{item.question[lang]}</span>
+                    {status !== "ready" && item[surface].reason && (
+                      <span className="mt-1 block text-xs text-muted-foreground">
+                        {item[surface].reason?.[lang]}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+              {!visibleQuestions.length && (
+                <p className="py-4 text-sm text-muted-foreground">
+                  {copy.noQuestions}
+                </p>
+              )}
+              {matches.length > 5 && (
+                <button
+                  type="button"
+                  className={choiceClass}
+                  onClick={() => setShowAll((current) => !current)}
+                >
+                  {showAll ? copy.fewer : copy.more}
+                </button>
+              )}
+            </div>
+          )}
+        </>
+      )}
+      {compact && (
+        <details className="mt-2 text-sm text-muted-foreground">
+          <summary className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            {copy.search}
+          </summary>
+          <input
+            id="question-search"
+            type="search"
+            aria-label={copy.search}
+            className={`${controlClass} mt-2`}
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              clearQuestion();
+            }}
+          />
+          <label className="flex min-h-10 items-center gap-2">
+            <input
+              type="checkbox"
+              checked={includeUnavailable}
+              onChange={(event) => setIncludeUnavailable(event.target.checked)}
+            />
+            {copy.unavailable}
+          </label>
+        </details>
       )}
 
       {question && (
@@ -669,15 +823,17 @@ export const QuestionSelector = ({
         </form>
       )}
 
-      <label className="mt-4 flex min-h-10 items-center gap-2 text-sm text-muted-foreground">
-        <input
-          type="checkbox"
-          checked={includeUnavailable}
-          onChange={(event) => setIncludeUnavailable(event.target.checked)}
-          className="h-4 w-4 accent-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-        {copy.unavailable}
-      </label>
+      {!compact && (
+        <label className="mt-4 flex min-h-10 items-center gap-2 text-sm text-muted-foreground">
+          <input
+            type="checkbox"
+            checked={includeUnavailable}
+            onChange={(event) => setIncludeUnavailable(event.target.checked)}
+            className="h-4 w-4 accent-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+          {copy.unavailable}
+        </label>
+      )}
     </div>
   );
 };

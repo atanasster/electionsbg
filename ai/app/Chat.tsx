@@ -958,6 +958,7 @@ export const Chat = ({
             onPick={(questionId) => void runCatalogIntent({ questionId })}
           />
           <QuestionSelector
+            compact
             catalog={QUESTION_CATALOG}
             surface="chat"
             lang={lang}
@@ -1123,6 +1124,7 @@ export const Chat = ({
             )}
             {showQuestionSelector && (
               <QuestionSelector
+                compact
                 catalog={QUESTION_CATALOG}
                 surface="chat"
                 lang={lang}
