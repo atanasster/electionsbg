@@ -325,6 +325,63 @@ rather than on a resolver regression — confirmed by re-running the ratchet fil
 an idle database (reproducible, not the lock-contention flake `migration_drop_dependents`
 warns about) and by the floors holding. No new adjudication needed.
 
+⚠️ **Ceilings re-cut again 2026-09-08** — 1,214/1,132 → **1,215/1,133** after a
+`tr:daily-refresh` (+150 companies, 3 daily batches) and the `db:resolve:persons` inside
+`db:refresh`. Distinct-fold coverage 1,104 → **1,106 of 1,215 (91.0%)**. The two
+`person_search` / header ceilings were NOT touched (4,649 against 4,778; 2,186 against
+2,312), and both population floors held **exactly unchanged** — `crossSourceFolds` 5,244,
+`scopedRoleRows` 31,966 — so no new `official_muni`/`local` rows entered the corpus. Exactly
+one fold moved from merged to split (4,030 → 4,029 / 1,214 → 1,215), and diffing the two
+databases' split-fold lists names it with no ambiguity: **one fold and one triple, both
+`plamen yasenov gorumov` / `councillor` / `PAZ24`.**
+
+**The human.** Пламен Ясенов Горумов, общински съветник in обшина Ракитово (PAZ24,
+Pazardzhik), is now published as two `/person` pages — `plamen-yasenov-gorumov-f0fd62`
+(person 44966, his 2019 + 2023 council terms) and `plamen-yasenov-gorumov-f0fd62-2`
+(person 44967, his Сметна палата roster record; the retired slug
+`plamen-yasenov-gorumov-fa6a03` redirects into it).
+
+**The cause is one Commerce-Registry row, and Cloud SQL proves it rather than suggesting
+it.** Until 2026-09-05 the fold's only TR role was a `manager` at ИБЧО МЕБЕЛ
+(ЕИК 201429467, added 2024-04-02), so `officer_name_counts.company_count` was 1 and Tier 2a
+(`namesake_risk <= 1`) licensed the union. That day's daily batch added a `partner` role at
+ВИП ГОР (ЕИК 205845514); the count went to 2 and the 2026-09-08 resolve refused the merge.
+Cloud SQL last resolved **2026-09-04, before that batch**, and still publishes him as ONE
+person (44927) carrying `local` + `official_muni` + `tr` — with `namesake_risk` **1** there
+against **2** locally, off an **identical** `officer_name_counts` (both read 2 today),
+because the field is stamped at resolve time and not read live. This is §2.7's mechanism
+with nothing else moving.
+
+He is one human, not two: ИБЧО МЕБЕЛ is seated in **с. Дорково**, which `place_dim` places
+in **PAZ24** — the very municipality he is a councillor of. The resolver reads no seat; that
+is evidence for this record, not a licence.
+
+⚠️ **New finding — the split also HIDES the companies that caused it.** `bridgeB.ts`'s
+people-uniqueness guard requires a fold to map to exactly ONE `person` row, so once Tier 2a
+splits it neither row is eligible for Bridge B. Measured: cloud's merged person carries the
+ИБЧО МЕБЕЛ `tr` role, and **neither** local row carries any `tr`/`ngo` role at all — even
+though `tr_name_fold_people.people_n` is still 1 and the footprint is 2, well inside
+`FOOTPRINT_CAP`. So a second company makes a councillor two people and then takes both
+companies off both of his pages. A split page showing no company holdings is therefore not
+evidence that the person holds none, which matters for any future audit of this population.
+
+**Re-cut rather than closed, deliberately.** Unlike the 2026-09-04 pair — roster artifacts
+with a documented shape and their own plan — this is the canonical class member §2.7
+describes. Closing it needs the cross-source (fold, role, place_code) seat tier that this
+plan scopes out, and `person_link_override` remains the wrong instrument for a class. The
+diagnosis assertion still holds at 99.85% merged / 1.73% split.
+
+⚠️ **A GAP IN THIS RECORD, closed here.** The triples ceiling above reads 1,132 and not the
+1,130 the 2026-09-04 note ends on, because a SECOND bump landed later that day (commit
+`2cd2fe1cf3`) and was written into the test file's `CEILINGS` comment and nowhere else —
+`officials-roster-missing-mayor-v1` T2 promoted Раднево's Георги Йовчев Петров and
+Разград's Добрин Младенов Добрев from their listing labels to `mayor`, which made two
+already-split humans name the same office and so visible to this signal. The file header's
+own instruction is to record the reasoning in this section; that one did not arrive, and a
+reader reconciling 1,130 against 1,133 would have found two unexplained triples. Anyone
+re-cutting these numbers should check the constant's comment as well as this section until
+the two are known to agree.
+
 ### 2.7 WHICH tier misses, and why it is a resolver fix rather than 1,211 adjudications
 
 Diagnosed 2026-09-02. `resolve_persons.ts` unions two mentions of one name only when a tier
@@ -376,6 +433,108 @@ that may fall and never rise, non-vacuity assertions so an unresolved corpus can
 fix, the merged-vs-split diagnosis pinned as its own assertion so a future tier change fails
 loudly rather than silently invalidating this section, and a source gate on `cluster.ts` so
 `namesake_risk` changing meaning is caught rather than assumed.
+
+### 2.7a Re-derived 2026-09-09 — three corrections to the section above
+
+Prompted by the 2026-09-08 re-cut. All figures are local Postgres on that corpus, and each is
+one query against the relations named. **Two of the three corrections cut AGAINST the fix this
+section proposes**, so read them before quoting §2.7's plan of work.
+
+**(a) NEW HARM — the split HIDES the companies that caused it, at scale.** Bridge B's
+people-uniqueness guard (`bridgeB.ts`) requires a fold to map to exactly ONE `person` row, so
+a Tier-2a split disqualifies BOTH resulting rows. Applying Bridge B's other three guards
+(3-part public figure, `tr_name_fold_people.people_n = 1`, footprint 1–5) to cross-source
+folds and splitting by merge state is a natural experiment — same corpus, same test, one
+difference:
+
+| fold state | eligible folds | carrying no tr/ngo role | company links hidden | suppressed |
+| --- | ---: | ---: | ---: | ---: |
+| merged | 1,295 | 1 | 3 | **0.1%** |
+| split | 646 | 637 | **1,682** | **98.6%** |
+
+So **637 public figures are missing 1,682 company links**, and the trigger for losing them is
+having acquired a second company — the suppression is worst exactly where the connection is
+most worth publishing. Two consequences: a split `/person` page showing no holdings is NOT
+evidence the person holds none, and any audit of this population must not read it as one.
+Bridge B is not independently fixable here — it cannot know the two rows are one human — so
+this is downstream of the split, not a second defect.
+
+**(b) The discriminator only ratchets UPWARD, and the cliff is crowded.** `officer_name_counts`
+counts a LIFETIME association: `tr_officers` retains officers whose roles were erased (95,622
+rows sit on a (fold, uic) pair whose every `tr_person_roles` row is erased) and the matview
+filters `added_at`, never `erased_at`. Leaving a company does not reduce the count. Merged
+cross-source folds by live count:
+
+| live company_count | merged folds |
+| --- | ---: |
+| 0 (two companies away) | 2,719 |
+| 1 (**one** away) | **1,305** |
+| 2+ (merged via another tier) | 5 |
+
+**1,305 of 4,029 merged folds are one Commerce-Registry row from splitting**, and the count
+never falls back — so this is a slowly worsening defect, not a steady state, and the ratchet
+should be expected to need re-cuts indefinitely. One piece of good news: there is **no pending
+backlog** — zero merged folds carry a stored `namesake_risk <= 1` against a live count >= 2, so
+the 2026-09-08 resolve fully absorbed what the corpus currently implies.
+
+**(c) ⚠️ THE CLASS IS NOT HOMOGENEOUS, AND THE EXCLUSIVITY ARGUMENT TRANSFERS TO 9% OF IT.**
+This is the correction that matters, because §2.7 above reasons from "1,101 of 1,211 carry an
+identical triple" to a homogeneous class closable by one tier. Two independent measurements say
+otherwise.
+
+First, the Commerce Registry's own people count disagrees about who is even one person:
+
+| registry verdict on the fold | split folds |
+| --- | ---: |
+| one person | 717 |
+| **2 or more people** | **483** |
+| never observed | 15 |
+
+Nearly 40% of splits sit on names the registry says more than one human bears — for those the
+split may be CORRECT. Carrying the triple and being one human are different claims, and 483
+folds separate them. The intersection — exact triple AND registry-confirmed single person — is
+**658 folds**, not 1,101.
+
+Second, and more decisive: the triple's exclusivity argument is „a село has ONE кмет", and the
+role split says it mostly is not a mayor.
+
+| role on the triple | triples | of which registry says one person |
+| --- | ---: | ---: |
+| councillor | 1,032 | 593 |
+| **mayor** | **101** | **65** |
+
+A municipality has ONE mayor, so „mayor of PAZ24" identifies a person independently of the
+name — which is why `sameLocalSeat` already grants mayors `NO_NAMESAKE_CAP` while councillors
+get `LOCAL_SEAT_NAMESAKE_CAP`. „Councillor of PAZ24" identifies one of 10–40 people and
+therefore is NOT a name-independent link. So the argument §2.7 borrows covers **101 of 1,133
+triples (8.9%)**, and a councillor-wide cross-source tier would have to satisfy
+`person_resolve.data.test.ts`'s „no cross-source merge on a common name without a
+name-independent link" — which it could not honestly do. **The buildable safe core is the 101
+mayor triples (65 registry-corroborated), not 1,101 folds.**
+
+**(d) The obvious cheap fix does NOT work — do not attempt it.** Swapping Tier 2a's
+discriminator from `officer_name_counts.company_count` to a people count looks right (the
+constant's own comment calls the company count „the wrong number") and fails twice:
+
+- **It un-merges live profiles.** Tier 2a's comment already states the reason it is kept
+  despite being wrong: dropping it „would UN-merge people who are merged today — a separate
+  decision from adding merges, and one that re-splits live public profiles". Folds at
+  `company_count <= 1` but `people_n >= 2` are merged now and would come apart.
+- **`tr_name_fold_people.people_n` cannot anchor a `local` component.** It has the SAME
+  structural blind spot as `registerPeople`, which is what Tier 2b's condition 3 exists for:
+  it counts people the COMMERCE REGISTRY has seen, and a councillor who never appeared in it
+  is invisible to the count. Substituting one register's blind spot for another's does not
+  close the hole — it moves it. Tier 2b's condition 3 refuses a `local`-only component for
+  precisely this reason and would have to refuse this too.
+
+An ADDITIVE disjunct (merge if `namesakeRisk <= 1` OR `people_n = 1`) avoids the first
+objection but not the second, so it is not a shortcut either.
+
+**Net effect on the plan of work.** §2.7's decision to scope the tier out still stands and is
+now better supported: the class is smaller than it looked, most of it has no sound licence, and
+the part that does is ~101 triples. Whoever picks it up should build the MAYOR arm only, treat
+the councillor arm as unresolved rather than pending, and expect the ratchet to keep drifting
+upward regardless because of (b).
 
 ## 3. Design decisions
 

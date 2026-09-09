@@ -34,13 +34,21 @@
 // their own officials record, which is exactly why Васил Александров Терзиев, a businessman,
 // is published twice as mayor of Столична община.
 //
-// ⚠️ IT IS A CLASS, NOT A CASE, so `person_link_override` is the wrong instrument. 1,101 of
-// the 1,211 split folds carry an IDENTICAL (fold, role, place_code) triple across the two
-// sources — one name, one office, one place — which is the same exclusivity argument
-// `sameLocalSeat` already rests on ("a село has ONE кмет"), applied across the two sources
-// instead of across two cycles. Closing it is a resolver tier and belongs in scripts/person/
-// with its own gate; docs/plans/home-search-expansion-v1.md §2.6-2.7 / Phase 2a records the
-// decision to scope it out of the home-search work rather than ship 1,211 adjudications.
+// ⚠️ IT IS A CLASS, NOT A CASE, so `person_link_override` is the wrong instrument. Most split
+// folds carry an IDENTICAL (fold, role, place_code) triple across the two sources — one name,
+// one office, one place. Closing it is a resolver tier and belongs in scripts/person/ with its
+// own gate; docs/plans/home-search-expansion-v1.md §2.6-2.7 / Phase 2a records the decision to
+// scope it out of the home-search work rather than ship ~1,200 adjudications.
+//
+// ⚠️ BUT THE TRIPLE IS NOT A LICENCE ON ITS OWN, and this file said it was until 2026-09-09.
+// The exclusivity argument being borrowed is `sameLocalSeat`'s "a село has ONE кмет" — and
+// measured by role, only 101 of the 1,133 triples ARE a mayor. "Councillor of PAZ24" names one
+// of 10-40 people, so it is not the name-independent link `person_resolve.data.test.ts`'s
+// cross-source invariant requires; and the Commerce Registry says 483 of the 1,215 split folds
+// are borne by 2+ people, i.e. some of these splits are CORRECT. The buildable safe core is the
+// mayor arm, not the whole class. §2.7a carries the measurements, the Bridge B harm the split
+// causes downstream, and why swapping this rule's discriminator for a people count does not
+// work — read it before quoting the paragraph above.
 //
 // ⚠️ THE ASSERTIONS PULL IN TWO DIRECTIONS ON PURPOSE, and that is not decoration — it is
 // the house rule `local_person_continuity.data.test.ts` states two files away: "a gate in
@@ -85,14 +93,14 @@ pinLocalDatabase();
  */
 const CEILINGS = {
   /** Name folds holding an `official_muni` AND a `local` role on ≥2 person rows. */
-  splitFolds: 1214,
+  splitFolds: 1215,
   /**
    * (fold, role, place_code) TRIPLES naming two person rows across the two sources — one
    * name, one office, one place. The population a cross-source seat rule would close.
    *
-   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those triples fall on ~1,104
+   * ⚠️ A COUNT OF TRIPLES, NOT OF FOLDS, and the two differ: those triples fall on 1,106
    * distinct folds (one person split across two offices contributes two triples).
-   * 1,104/1,214 = 90.9% is the coverage figure §2.7 quotes; this ceiling counts triples.
+   * 1,106/1,215 = 91.0% is the coverage figure §2.7 quotes; this ceiling counts triples.
    * Naming both is deliberate — they were briefly one number in two places.
    *
    * ⚠️ 1130 → 1132 on 2026-09-04, and the two are a GATE WORKING RATHER THAN A REGRESSION.
@@ -110,8 +118,40 @@ const CEILINGS = {
    *
    * That makes these two the CHEAPEST members of this population to close, and the only
    * ones whose cause is fully documented: see docs/plans/officials-roster-missing-mayor-v1.md.
+   *
+   * ⚠️ 1132 → 1133 on 2026-09-08, and unlike that pair this one is the CLASS ITSELF caught
+   * in the act — the plain `namesake_risk` mechanism §2.7 names, so it is a re-cut and not
+   * something to close here. Пламен Ясенов Горумов, общински съветник in Ракитово
+   * (PAZ24), is now published as `plamen-yasenov-gorumov-f0fd62` (his 2019 + 2023 council
+   * terms) AND `plamen-yasenov-gorumov-f0fd62-2` (his Сметна палата roster record).
+   *
+   * ONE Commerce-Registry row is the whole cause. Until 2026-09-05 the fold's only TR role
+   * was a manager at ИБЧО МЕБЕЛ (ЕИК 201429467, added 2024-04-02), so
+   * `officer_name_counts.company_count` was 1 and Tier 2a licensed the union. That day's
+   * daily batch added a partner role at ВИП ГОР (ЕИК 205845514), the count went to 2,
+   * and the 2026-09-08 resolve refused the merge.
+   *
+   * Cloud SQL is what makes that decisive rather than inferred: resolved 2026-09-04, BEFORE
+   * the batch, it still publishes him as ONE person carrying both sources — `namesake_risk`
+   * is 1 there and 2 here off an IDENTICAL `officer_name_counts` (both read 2 today),
+   * because the field is stamped at resolve time. Both population floors held EXACTLY
+   * (5,244 / 31,966), neither other ceiling moved up (4,649 and 2,186), and the diagnosis
+   * assertion still reads 99.85% / 1.73%.
+   *
+   * He is one human: ИБЧО МЕБЕЛ is seated in с. Дорково, which `place_dim` puts in
+   * PAZ24 — the municipality he is a councillor of. The resolver reads no seat; that is
+   * evidence for this comment, not a licence.
+   *
+   * ⚠️ AND THE SPLIT HIDES THE COMPANIES THAT CAUSED IT, on both resulting pages. Bridge B's
+   * people-uniqueness guard (`bridgeB.ts`) requires the fold to map to exactly ONE `person`
+   * row, so once it splits neither row is eligible: cloud's merged person carries the ИБЧО
+   * МЕБЕЛ `tr` role and NEITHER local row carries any tr/ngo role at all — though
+   * `tr_name_fold_people.people_n` is still 1 and the footprint is 2, well under
+   * FOOTPRINT_CAP. A second company makes a councillor two people and then takes both
+   * companies off both of them, which is worth knowing before reading a split page as
+   * evidence that somebody holds nothing.
    */
-  exactSignatureTriples: 1132,
+  exactSignatureTriples: 1133,
   /** `person_search` P rows sitting in a same-(fold, place_label, primary_role) cluster of
    *  more than one — what a reader actually sees, in the finder and on /persons. */
   duplicateSearchRows: 4778,
