@@ -1,6 +1,6 @@
 ---
 name: update-procurement
-description: Ingest new public-procurement (АОП) data from data.egov.bg into data/procurement/. Use when the daily watch report flags "data.egov.bg АОП", "АОП debarred-suppliers register", or "ЦАИС ЕОП open data" (the storage.eop.bg flat-договори gap-fill) as changed, when the user asks to refresh procurement data, backfill prior periods, or investigate flagged contracts (huge amounts, canary mismatch). Also use after a fresh clone if data/procurement/ is empty.
+description: Ingest new public-procurement (АОП) data from data.egov.bg into data/procurement/. Use when the daily watch report flags "data.egov.bg АОП", "АОП debarred-suppliers register", or "ЦАИС ЕОП open data" (the storage.eop.bg flat-договори gap-fill) as changed, when it flags `cprs_register` (ЦПРС — the KSB builder register, Step 5b — the crawl MUST carry `--refresh` or it re-parses the cached previous crawl), when the user asks to refresh procurement data, backfill prior periods, or investigate flagged contracts (huge amounts, canary mismatch). Also use after a fresh clone if data/procurement/ is empty.
 allowed-tools:
   - Read
   - Bash
@@ -19,6 +19,7 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 | Daily watcher reports `data.egov.bg АОП: N new fortnight bundle(s) on top` | Incremental ingest (`npm run procurement:ingest`) |
 | Daily watcher reports `data.egov.bg АОП: N new annual contracts dataset(s)` | Legacy discovery (`npm run procurement:ingest-legacy -- --discover`) — picks up a newly-published year; see "Pre-OCDS backfill" |
 | Daily watcher reports `АОП debarred-suppliers register: N entries` changed | Re-scrape the debarred list (`npx tsx scripts/procurement/debarred.ts`) — see Step 5 below |
+| Daily watcher reports `ЦПРС — регистър на строителя (register.ksb.bg)` changed (`cprs_register`) | Re-crawl the builder register (`npm run cprs:ingest -- --apply --refresh` — **with `--refresh`**, or the cached crawl is re-parsed) — see Step 5b below |
 | Daily watcher reports `ЦАИС ЕОП open data: N new publication day(s)` | Incremental EOP gap-fill (Step 1b) **and** tender-stage ingest (Step 1f) — both read the same storage.eop.bg buckets |
 | User asks to "refresh procurement" / "ingest new contracts" | Same — incremental |
 | `data/procurement/` empty (fresh clone) | Cold-start ingest of every visible bundle (~24 fortnights ≈ 1 year) |
@@ -432,6 +433,41 @@ git commit -m "procurement: refresh АОП debarred-suppliers list"
 
 If the watcher flips and the scraper writes no changes (typical when the page is recompiled but the row set is the same), skip the commit. Use `git diff data/procurement/debarred.json` to verify.
 
+## Step 5b — Refresh the ЦПРС builder register (gated on watcher)
+
+The Централен професионален регистър на строителя (register.ksb.bg, Камарата на строителите) is the eligibility check on every works contract — `cprs_licence` / `cprs_firm` (migration 170) answer „did this contractor hold the class on the award date". The committed artifact is `data/procurement/cprs.json`; the crawl is a 1,620-query cartesian grid (30 области × 54 licence classes, ~42 s).
+
+Run this step ONLY when the daily watcher reports `cprs_register` as changed, or when explicitly asked to refresh the builder register:
+
+```bash
+npm run cprs:ingest -- --apply --refresh          # ⚠️ --refresh, or nothing is fetched — see below
+npm run db:load:cprs:pg
+npm run db:load:cprs:pg:cloud                     # nothing runs this automatically
+npx vitest run scripts/db/tests/cprs.data.test.ts
+```
+
+⚠️ **`--refresh` is the whole step, and the command is easy to get wrong because the wrong one succeeds.** Every cell of the crawl is cached under `raw_data/procurement/cprs/` so a re-run after a mid-crawl timeout can resume, and WITHOUT the flag every cached cell is reused: a bare `--apply` on a watcher flip re-parses the previous crawl in ~6 s, fetches nothing from register.ksb.bg, exits 0 with plausible counts and republishes the old register. Measured 2026-09-08: 106,508 licences / 8,379 firms without the flag (the 2026-08-19 cache) against 107,034 / 8,414 with it. The ingest prints a loud „EVERY ONE OF THE 1,620 CELLS CAME FROM THE CACHE" line and keeps the artifact's `fetchedAt` at the cache's vintage when that happens — read either as the step NOT having run.
+
+Resume survives the flag: under `--refresh` a cell fetched within the last hour is still reused, so after a timeout re-run the SAME command and it continues where it stopped. Do not drop the flag to resume — a re-run without it reuses the not-yet-refreshed cells too and publishes a register that is half this crawl and half the last one, with no count moving. The completeness guard refuses to write when more than 2% of cells failed, and the loader refuses a >5% shrink.
+
+Expected tail of a real refresh:
+
+```
+  1,620 cell(s) fetched from register.ksb.bg · 0 served from raw_data/procurement/cprs (cache vintage —)
+
+  312,xxx table rows → 107,034 (eik, class) licences across 8,414 firms
+  107,008 dated · 4 with a non-ЕИК id
+
+✓ wrote data/procurement/cprs.json
+```
+
+Commit the artifact with the rest of the ingest:
+
+```bash
+git add data/procurement/cprs.json
+git commit -m "procurement: refresh the ЦПРС builder register"
+```
+
 ## Backfill
 
 To backfill prior OCDS periods (e.g. on first ingest), pass `--since` for a cutoff:
@@ -708,6 +744,9 @@ npm run db:load:employer-links:pg:cloud   # also needs declarations PHASE 1
 npm run db:load:grant-links:pg:cloud      # needs contracts + tenders + fund_projects (no declarations)
 git add data/procurement/ tests/fixtures/procurement/
 git commit -m "procurement: ingest"
+
+# ЦПРС builder register, on a cprs_register watcher flip (Step 5b) — --refresh or nothing is fetched
+npm run cprs:ingest -- --apply --refresh && npm run db:load:cprs:pg && npm run db:load:cprs:pg:cloud
 
 # Backfill from a cutoff
 npm run procurement:ingest -- --since 2026-01-01
