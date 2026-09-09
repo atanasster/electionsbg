@@ -83,8 +83,8 @@ export const tourismSeasonality = async (
     facts: {
       year: v.seasonalityYear,
       peakMonth: names[v.peakMonth - 1],
-      summerShareForeign: fmtPct(v.summerShareForeign, ctx.lang),
-      winterShareForeign: fmtPct(v.winterShareForeign, ctx.lang),
+      summerShareForeign: fmtPct(v.summerShareForeign * 100, ctx.lang),
+      winterShareForeign: fmtPct(v.winterShareForeign * 100, ctx.lang),
       foreignNightsLatest: fmtInt(latestForeign, ctx.lang),
     },
     provenance: ["tourism/visitors.json"],
@@ -99,11 +99,11 @@ export const tourismSourceMarkets = async (
   const v = await fetchData<VisitorsFile | null>("/tourism/visitors.json");
   if (!v || !v.sourceMarkets?.length) return noData("tourismSourceMarkets", bg);
 
-  const total = v.sourceMarketsForeignTotal || 1;
+  const total = v.sourceMarketsForeignTotal;
   const rows = v.sourceMarkets.slice(0, 10).map((m) => ({
     country: bg ? (TOURISM_MARKET_NAMES_BG[m.code] ?? m.name) : m.name,
     nights: fmtInt(m.nights, ctx.lang),
-    share: fmtPct(m.nights / total, ctx.lang),
+    share: total > 0 ? fmtPct((100 * m.nights) / total, ctx.lang) : "—",
   }));
   const lead = v.sourceMarkets[0];
 
@@ -131,7 +131,8 @@ export const tourismSourceMarkets = async (
           ? (TOURISM_MARKET_NAMES_BG[lead.code] ?? lead.name)
           : lead.name
         : "—",
-      topShare: lead ? fmtPct(lead.nights / total, ctx.lang) : "—",
+      topShare:
+        lead && total > 0 ? fmtPct((100 * lead.nights) / total, ctx.lang) : "—",
       marketCount: fmtInt(v.sourceMarkets.length, ctx.lang),
     },
     provenance: ["tourism/visitors.json"],

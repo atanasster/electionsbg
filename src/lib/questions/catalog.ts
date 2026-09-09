@@ -1,3 +1,5 @@
+import editorialAliasesJson from "../../../ai/app/editorialAliases.json";
+const editorialAliases: Record<string, string[]> = editorialAliasesJson;
 import { BUDGET_QUESTIONS } from "./contracts/budget";
 import { parameterLabels as labels } from "./parameterLabels";
 import rawToolParameters from "../../../ai/app/toolParameters.json";
@@ -226,7 +228,7 @@ export const QUESTION_DEFINITIONS: QuestionDefinition[] = rawPrompts.map(
       categoryId: prompt.category,
       subcategoryId: prompt.subcategory,
       question: { bg: prompt.bg, en: prompt.en },
-      aliases: {},
+      aliases: { bg: editorialAliases[prompt.id] ?? [] },
       parameters: parametersFor(prompt),
       defaults: canonicalDefaults(prompt),
       legacyChatArgs: prompt.args,

@@ -3153,5 +3153,897 @@
       "bg": {},
       "en": {}
     }
+  },
+  {
+    "id": "macro-gdpGrowth",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Растеж на реалния БВП“.",
+    "en": "Show the indicator “Real GDP growth”.",
+    "args": {
+      "bg": {
+        "indicator": "gdpGrowth"
+      },
+      "en": {
+        "indicator": "gdpGrowth"
+      }
+    }
+  },
+  {
+    "id": "macro-inflation",
+    "tool": "macroIndicator",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "bg": "Покажи показателя „Инфлация (ХИПЦ)“.",
+    "en": "Show the indicator “Inflation (HICP)”.",
+    "args": {
+      "bg": {
+        "indicator": "inflation"
+      },
+      "en": {
+        "indicator": "inflation"
+      }
+    }
+  },
+  {
+    "id": "macro-unemployment",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Безработица“.",
+    "en": "Show the indicator “Unemployment rate”.",
+    "args": {
+      "bg": {
+        "indicator": "unemployment"
+      },
+      "en": {
+        "indicator": "unemployment"
+      }
+    }
+  },
+  {
+    "id": "macro-unemploymentMonthly",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Безработица (месечна)“.",
+    "en": "Show the indicator “Unemployment rate (monthly)”.",
+    "args": {
+      "bg": {
+        "indicator": "unemploymentMonthly"
+      },
+      "en": {
+        "indicator": "unemploymentMonthly"
+      }
+    }
+  },
+  {
+    "id": "macro-inflationMonthly",
+    "tool": "macroIndicator",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "bg": "Покажи показателя „Инфлация, ХИПЦ (месечна)“.",
+    "en": "Show the indicator “Inflation, HICP (monthly)”.",
+    "args": {
+      "bg": {
+        "indicator": "inflationMonthly"
+      },
+      "en": {
+        "indicator": "inflationMonthly"
+      }
+    }
+  },
+  {
+    "id": "macro-employmentRate",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Коефициент на заетост (20-64)“.",
+    "en": "Show the indicator “Employment rate (20-64)”.",
+    "args": {
+      "bg": {
+        "indicator": "employmentRate"
+      },
+      "en": {
+        "indicator": "employmentRate"
+      }
+    }
+  },
+  {
+    "id": "macro-activityRate",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Коефициент на икономическа активност (20-64)“.",
+    "en": "Show the indicator “Activity rate (20-64)”.",
+    "args": {
+      "bg": {
+        "indicator": "activityRate"
+      },
+      "en": {
+        "indicator": "activityRate"
+      }
+    }
+  },
+  {
+    "id": "macro-labourSlack",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Разширена безработица (20-64)“.",
+    "en": "Show the indicator “Labour market slack (20-64)”.",
+    "args": {
+      "bg": {
+        "indicator": "labourSlack"
+      },
+      "en": {
+        "indicator": "labourSlack"
+      }
+    }
+  },
+  {
+    "id": "macro-gdpPerCapita",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „БВП на човек от населението“.",
+    "en": "Show the indicator “GDP per capita”.",
+    "args": {
+      "bg": {
+        "indicator": "gdpPerCapita"
+      },
+      "en": {
+        "indicator": "gdpPerCapita"
+      }
+    }
+  },
+  {
+    "id": "macro-nominalGdp",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Номинален БВП“.",
+    "en": "Show the indicator “Nominal GDP”.",
+    "args": {
+      "bg": {
+        "indicator": "nominalGdp"
+      },
+      "en": {
+        "indicator": "nominalGdp"
+      }
+    }
+  },
+  {
+    "id": "macro-govDebt",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "debt",
+    "bg": "Покажи показателя „Брутен държавен дълг“.",
+    "en": "Show the indicator “Government gross debt”.",
+    "args": {
+      "bg": {
+        "indicator": "govDebt"
+      },
+      "en": {
+        "indicator": "govDebt"
+      }
+    }
+  },
+  {
+    "id": "macro-budgetBalance",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Бюджетен баланс“.",
+    "en": "Show the indicator “Government budget balance”.",
+    "args": {
+      "bg": {
+        "indicator": "budgetBalance"
+      },
+      "en": {
+        "indicator": "budgetBalance"
+      }
+    }
+  },
+  {
+    "id": "macro-esaBalanceAnnual",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Бюджетно салдо (годишно, ПСД)“.",
+    "en": "Show the indicator “Government budget balance (annual, EDP)”.",
+    "args": {
+      "bg": {
+        "indicator": "esaBalanceAnnual"
+      },
+      "en": {
+        "indicator": "esaBalanceAnnual"
+      }
+    }
+  },
+  {
+    "id": "macro-currentAccount",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Текуща сметка“.",
+    "en": "Show the indicator “Current account balance”.",
+    "args": {
+      "bg": {
+        "indicator": "currentAccount"
+      },
+      "en": {
+        "indicator": "currentAccount"
+      }
+    }
+  },
+  {
+    "id": "macro-govDebtNominal",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "debt",
+    "bg": "Покажи показателя „Брутен държавен дълг (номинален)“.",
+    "en": "Show the indicator “Government gross debt (nominal)”.",
+    "args": {
+      "bg": {
+        "indicator": "govDebtNominal"
+      },
+      "en": {
+        "indicator": "govDebtNominal"
+      }
+    }
+  },
+  {
+    "id": "macro-budgetBalanceNominal",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Бюджетен баланс (номинален)“.",
+    "en": "Show the indicator “Budget balance (nominal)”.",
+    "args": {
+      "bg": {
+        "indicator": "budgetBalanceNominal"
+      },
+      "en": {
+        "indicator": "budgetBalanceNominal"
+      }
+    }
+  },
+  {
+    "id": "macro-currentAccountNominal",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Текуща сметка (номинална)“.",
+    "en": "Show the indicator “Current account balance (nominal)”.",
+    "args": {
+      "bg": {
+        "indicator": "currentAccountNominal"
+      },
+      "en": {
+        "indicator": "currentAccountNominal"
+      }
+    }
+  },
+  {
+    "id": "macro-govRevenue",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Държавни приходи“.",
+    "en": "Show the indicator “Government revenue”.",
+    "args": {
+      "bg": {
+        "indicator": "govRevenue"
+      },
+      "en": {
+        "indicator": "govRevenue"
+      }
+    }
+  },
+  {
+    "id": "macro-govExpenditure",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Държавни разходи“.",
+    "en": "Show the indicator “Government expenditure”.",
+    "args": {
+      "bg": {
+        "indicator": "govExpenditure"
+      },
+      "en": {
+        "indicator": "govExpenditure"
+      }
+    }
+  },
+  {
+    "id": "macro-fdiInward",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Преки чуждестранни инвестиции (нетно входящи)“.",
+    "en": "Show the indicator “Foreign direct investment (net inward)”.",
+    "args": {
+      "bg": {
+        "indicator": "fdiInward"
+      },
+      "en": {
+        "indicator": "fdiInward"
+      }
+    }
+  },
+  {
+    "id": "macro-inflationFood",
+    "tool": "macroIndicator",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "bg": "Покажи показателя „Инфлация — храна“.",
+    "en": "Show the indicator “Inflation — food”.",
+    "args": {
+      "bg": {
+        "indicator": "inflationFood"
+      },
+      "en": {
+        "indicator": "inflationFood"
+      }
+    }
+  },
+  {
+    "id": "macro-inflationEnergy",
+    "tool": "macroIndicator",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "bg": "Покажи показателя „Инфлация — енергия“.",
+    "en": "Show the indicator “Inflation — energy”.",
+    "args": {
+      "bg": {
+        "indicator": "inflationEnergy"
+      },
+      "en": {
+        "indicator": "inflationEnergy"
+      }
+    }
+  },
+  {
+    "id": "macro-inflationServices",
+    "tool": "macroIndicator",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "bg": "Покажи показателя „Инфлация — услуги“.",
+    "en": "Show the indicator “Inflation — services”.",
+    "args": {
+      "bg": {
+        "indicator": "inflationServices"
+      },
+      "en": {
+        "indicator": "inflationServices"
+      }
+    }
+  },
+  {
+    "id": "macro-inflationCore",
+    "tool": "macroIndicator",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "bg": "Покажи показателя „Инфлация — базова (без храна и енергия)“.",
+    "en": "Show the indicator “Inflation — core (ex. food + energy)”.",
+    "args": {
+      "bg": {
+        "indicator": "inflationCore"
+      },
+      "en": {
+        "indicator": "inflationCore"
+      }
+    }
+  },
+  {
+    "id": "macro-industrialProd",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Промишлено производство“.",
+    "en": "Show the indicator “Industrial production”.",
+    "args": {
+      "bg": {
+        "indicator": "industrialProd"
+      },
+      "en": {
+        "indicator": "industrialProd"
+      }
+    }
+  },
+  {
+    "id": "macro-retailVolume",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Обем на търговията на дребно“.",
+    "en": "Show the indicator “Retail trade volume”.",
+    "args": {
+      "bg": {
+        "indicator": "retailVolume"
+      },
+      "en": {
+        "indicator": "retailVolume"
+      }
+    }
+  },
+  {
+    "id": "macro-consumerConfidence",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Потребителско доверие“.",
+    "en": "Show the indicator “Consumer confidence”.",
+    "args": {
+      "bg": {
+        "indicator": "consumerConfidence"
+      },
+      "en": {
+        "indicator": "consumerConfidence"
+      }
+    }
+  },
+  {
+    "id": "macro-economicSentiment",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "bg": "Покажи показателя „Индикатор за икономически нагласи“.",
+    "en": "Show the indicator “Economic Sentiment Indicator”.",
+    "args": {
+      "bg": {
+        "indicator": "economicSentiment"
+      },
+      "en": {
+        "indicator": "economicSentiment"
+      }
+    }
+  },
+  {
+    "id": "macro-youthUnemployment",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Младежка безработица (15-24)“.",
+    "en": "Show the indicator “Youth unemployment (15-24)”.",
+    "args": {
+      "bg": {
+        "indicator": "youthUnemployment"
+      },
+      "en": {
+        "indicator": "youthUnemployment"
+      }
+    }
+  },
+  {
+    "id": "macro-housePricesYoY",
+    "tool": "macroIndicator",
+    "category": "transport-housing",
+    "subcategory": "housing",
+    "bg": "Покажи показателя „Цени на жилищата (YoY)“.",
+    "en": "Show the indicator “House prices (YoY)”.",
+    "args": {
+      "bg": {
+        "indicator": "housePricesYoY"
+      },
+      "en": {
+        "indicator": "housePricesYoY"
+      }
+    }
+  },
+  {
+    "id": "macro-gini",
+    "tool": "macroIndicator",
+    "category": "demographics",
+    "subcategory": "inequality",
+    "bg": "Покажи показателя „Коефициент на Джини (доходно неравенство)“.",
+    "en": "Show the indicator “Gini coefficient (income inequality)”.",
+    "args": {
+      "bg": {
+        "indicator": "gini"
+      },
+      "en": {
+        "indicator": "gini"
+      }
+    }
+  },
+  {
+    "id": "macro-povertyRate",
+    "tool": "macroIndicator",
+    "category": "demographics",
+    "subcategory": "inequality",
+    "bg": "Покажи показателя „Под прага на бедността“.",
+    "en": "Show the indicator “At-risk-of-poverty rate”.",
+    "args": {
+      "bg": {
+        "indicator": "povertyRate"
+      },
+      "en": {
+        "indicator": "povertyRate"
+      }
+    }
+  },
+  {
+    "id": "macro-intentionalHomicideRate",
+    "tool": "macroIndicator",
+    "category": "justice-security",
+    "subcategory": "crime",
+    "bg": "Покажи показателя „Умишлени убийства“.",
+    "en": "Show the indicator “Intentional homicide rate”.",
+    "args": {
+      "bg": {
+        "indicator": "intentionalHomicideRate"
+      },
+      "en": {
+        "indicator": "intentionalHomicideRate"
+      }
+    }
+  },
+  {
+    "id": "macro-prisonPopulationRate",
+    "tool": "macroIndicator",
+    "category": "justice-security",
+    "subcategory": "crime",
+    "bg": "Покажи показателя „Затворници“.",
+    "en": "Show the indicator “Prison population”.",
+    "args": {
+      "bg": {
+        "indicator": "prisonPopulationRate"
+      },
+      "en": {
+        "indicator": "prisonPopulationRate"
+      }
+    }
+  },
+  {
+    "id": "macro-labourIncome",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Доход от труд (номинален, YoY)“.",
+    "en": "Show the indicator “Labour income (nominal, YoY)”.",
+    "args": {
+      "bg": {
+        "indicator": "labourIncome"
+      },
+      "en": {
+        "indicator": "labourIncome"
+      }
+    }
+  },
+  {
+    "id": "macro-labourProductivity",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Реална производителност на труда“.",
+    "en": "Show the indicator “Real labour productivity”.",
+    "args": {
+      "bg": {
+        "indicator": "labourProductivity"
+      },
+      "en": {
+        "indicator": "labourProductivity"
+      }
+    }
+  },
+  {
+    "id": "macro-unitLabourCost",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Разходи за труд на единица продукция“.",
+    "en": "Show the indicator “Nominal unit labour cost”.",
+    "args": {
+      "bg": {
+        "indicator": "unitLabourCost"
+      },
+      "en": {
+        "indicator": "unitLabourCost"
+      }
+    }
+  },
+  {
+    "id": "macro-compensationPerEmployee",
+    "tool": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "bg": "Покажи показателя „Разход за труд на нает“.",
+    "en": "Show the indicator “Compensation per employee”.",
+    "args": {
+      "bg": {
+        "indicator": "compensationPerEmployee"
+      },
+      "en": {
+        "indicator": "compensationPerEmployee"
+      }
+    }
+  },
+  {
+    "id": "macro-priceIndex",
+    "tool": "macroIndicator",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "bg": "Покажи показателя „Ценово равнище (ХИПЦ)“.",
+    "en": "Show the indicator “Consumer price level (HICP)”.",
+    "args": {
+      "bg": {
+        "indicator": "priceIndex"
+      },
+      "en": {
+        "indicator": "priceIndex"
+      }
+    }
+  },
+  {
+    "id": "macro-taxWedge",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "taxes",
+    "bg": "Покажи показателя „Данъчна тежест върху труда“.",
+    "en": "Show the indicator “Tax wedge on labour costs”.",
+    "args": {
+      "bg": {
+        "indicator": "taxWedge"
+      },
+      "en": {
+        "indicator": "taxWedge"
+      }
+    }
+  },
+  {
+    "id": "macro-wgiRuleOfLaw",
+    "tool": "macroIndicator",
+    "category": "institutions",
+    "subcategory": "transparency",
+    "bg": "Покажи показателя „WGI: върховенство на правото“.",
+    "en": "Show the indicator “WGI Rule of Law”.",
+    "args": {
+      "bg": {
+        "indicator": "wgiRuleOfLaw"
+      },
+      "en": {
+        "indicator": "wgiRuleOfLaw"
+      }
+    }
+  },
+  {
+    "id": "macro-wgiControlOfCorruption",
+    "tool": "macroIndicator",
+    "category": "institutions",
+    "subcategory": "transparency",
+    "bg": "Покажи показателя „WGI: контрол върху корупцията“.",
+    "en": "Show the indicator “WGI Control of Corruption”.",
+    "args": {
+      "bg": {
+        "indicator": "wgiControlOfCorruption"
+      },
+      "en": {
+        "indicator": "wgiControlOfCorruption"
+      }
+    }
+  },
+  {
+    "id": "macro-wgiGovEffectiveness",
+    "tool": "macroIndicator",
+    "category": "institutions",
+    "subcategory": "transparency",
+    "bg": "Покажи показателя „WGI: ефективност на управлението“.",
+    "en": "Show the indicator “WGI Government Effectiveness”.",
+    "args": {
+      "bg": {
+        "indicator": "wgiGovEffectiveness"
+      },
+      "en": {
+        "indicator": "wgiGovEffectiveness"
+      }
+    }
+  },
+  {
+    "id": "macro-cpi",
+    "tool": "macroIndicator",
+    "category": "institutions",
+    "subcategory": "transparency",
+    "bg": "Покажи показателя „Корупционен индекс (Transparency Int'l)“.",
+    "en": "Show the indicator “Transparency Int'l CPI”.",
+    "args": {
+      "bg": {
+        "indicator": "cpi"
+      },
+      "en": {
+        "indicator": "cpi"
+      }
+    }
+  },
+  {
+    "id": "macro-trustParliament",
+    "tool": "macroIndicator",
+    "category": "media-society",
+    "subcategory": "trust",
+    "bg": "Покажи показателя „Доверие в Народното събрание“.",
+    "en": "Show the indicator “Trust in National Parliament”.",
+    "args": {
+      "bg": {
+        "indicator": "trustParliament"
+      },
+      "en": {
+        "indicator": "trustParliament"
+      }
+    }
+  },
+  {
+    "id": "macro-trustGovernment",
+    "tool": "macroIndicator",
+    "category": "media-society",
+    "subcategory": "trust",
+    "bg": "Покажи показателя „Доверие в правителството“.",
+    "en": "Show the indicator “Trust in National Government”.",
+    "args": {
+      "bg": {
+        "indicator": "trustGovernment"
+      },
+      "en": {
+        "indicator": "trustGovernment"
+      }
+    }
+  },
+  {
+    "id": "macro-trustEu",
+    "tool": "macroIndicator",
+    "category": "media-society",
+    "subcategory": "trust",
+    "bg": "Покажи показателя „Доверие в Европейския съюз“.",
+    "en": "Show the indicator “Trust in the European Union”.",
+    "args": {
+      "bg": {
+        "indicator": "trustEu"
+      },
+      "en": {
+        "indicator": "trustEu"
+      }
+    }
+  },
+  {
+    "id": "macro-euFunds",
+    "tool": "macroIndicator",
+    "category": "funds",
+    "subcategory": "regional",
+    "bg": "Покажи показателя „Средства от ЕС, получени от България“.",
+    "en": "Show the indicator “EU funds received by Bulgaria”.",
+    "args": {
+      "bg": {
+        "indicator": "euFunds"
+      },
+      "en": {
+        "indicator": "euFunds"
+      }
+    }
+  },
+  {
+    "id": "macro-euContribution",
+    "tool": "macroIndicator",
+    "category": "funds",
+    "subcategory": "regional",
+    "bg": "Покажи показателя „Вноска на България в бюджета на ЕС“.",
+    "en": "Show the indicator “Bulgaria's contribution to the EU budget”.",
+    "args": {
+      "bg": {
+        "indicator": "euContribution"
+      },
+      "en": {
+        "indicator": "euContribution"
+      }
+    }
+  },
+  {
+    "id": "macro-fiscalReserve",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "debt",
+    "bg": "Покажи показателя „Фискален резерв“.",
+    "en": "Show the indicator “Fiscal reserve (фискален резерв)”.",
+    "args": {
+      "bg": {
+        "indicator": "fiscalReserve"
+      },
+      "en": {
+        "indicator": "fiscalReserve"
+      }
+    }
+  },
+  {
+    "id": "macro-arrears",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Просрочени задължения“.",
+    "en": "Show the indicator “Overdue obligations (просрочени задължения)”.",
+    "args": {
+      "bg": {
+        "indicator": "arrears"
+      },
+      "en": {
+        "indicator": "arrears"
+      }
+    }
+  },
+  {
+    "id": "macro-municipalCommitments",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "municipal",
+    "bg": "Покажи показателя „Поети ангажименти на общините“.",
+    "en": "Show the indicator “Municipal commitments (поети ангажименти)”.",
+    "args": {
+      "bg": {
+        "indicator": "municipalCommitments"
+      },
+      "en": {
+        "indicator": "municipalCommitments"
+      }
+    }
+  },
+  {
+    "id": "macro-municipalExpenseObligations",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "municipal",
+    "bg": "Покажи показателя „Задължения за разходи на общините“.",
+    "en": "Show the indicator “Municipal expenditure obligations (задължения за разходи)”.",
+    "args": {
+      "bg": {
+        "indicator": "municipalExpenseObligations"
+      },
+      "en": {
+        "indicator": "municipalExpenseObligations"
+      }
+    }
+  },
+  {
+    "id": "macro-municipalArrears",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "municipal",
+    "bg": "Покажи показателя „Просрочени задължения на общините“.",
+    "en": "Show the indicator “Municipal arrears (просрочени задължения)”.",
+    "args": {
+      "bg": {
+        "indicator": "municipalArrears"
+      },
+      "en": {
+        "indicator": "municipalArrears"
+      }
+    }
+  },
+  {
+    "id": "macro-cashBalance",
+    "tool": "macroIndicator",
+    "category": "public-money",
+    "subcategory": "budget",
+    "bg": "Покажи показателя „Касов бюджетен баланс (КФП)“.",
+    "en": "Show the indicator “Cash budget balance (КФП)”.",
+    "args": {
+      "bg": {
+        "indicator": "cashBalance"
+      },
+      "en": {
+        "indicator": "cashBalance"
+      }
+    }
+  },
+  {
+    "id": "waterServices",
+    "tool": "waterServices",
+    "category": "water-environment",
+    "subcategory": "water",
+    "bg": "Какъв дял от населението е на воден режим по години?",
+    "en": "What share of the population has water rationing by year?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
   }
 ]

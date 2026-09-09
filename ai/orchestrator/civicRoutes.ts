@@ -1,3 +1,4 @@
+import { resolveMacroLabel } from "../tools/macro";
 /** Specific civic intents before broad budget, place and election fallbacks.
  * These rules inspect ordinary user text; they do not import the starter catalog.
  */
@@ -23,6 +24,39 @@ export const routeCivicQuestion = (
       cycle: q.match(/20\d{2}/)?.[0],
       round: Number(q.match(/(?:кръг|round)\s*([12])/)?.[1]),
     });
+  if (hit(/воден режим|water rationing/) && hit(/дял|share|процент|percentage/))
+    return result("waterServices");
+  const labelledMacro = resolveMacroLabel(raw);
+  if (labelledMacro && hit(/показател|indicator/))
+    return result("macroIndicator", {
+      indicator: labelledMacro,
+      ...(q.match(/(?:19|20)\d{2}/)
+        ? { year: Number(q.match(/(?:19|20)\d{2}/)![0]) }
+        : {}),
+    });
+  if (hit(/активност/) && hit(/от 2005.*насам/)) return result("turnoutSeries");
+  if (hit(/подкрепата за партиите/) && hit(/между изборите/))
+    return result("latestPolls");
+  if (hit(/депутати/) && hit(/най-рядко.*гласувания/))
+    return result("mpAttendance");
+  if (hit(/данъците ни/)) return result("budgetByFunction");
+  if (hit(/приходите покриват.*разходите/)) return result("budgetOverview");
+  if (hit(/разходите надвишават.*бюджет/)) return result("budgetVariance");
+  if (hit(/дял от бюджета/) && hit(/здраве|образование/))
+    return result("budgetByFunction");
+  if (hit(/харчи всяко министерство/)) return result("budgetMinistries");
+  if (hit(/разходите за заплати в администрацията/))
+    return result("budgetPersonnel");
+  if (hit(/жалби/) && hit(/уважени|отказано производство/))
+    return result("procurementAppeals");
+  if (hit(/отстранените изпълнители/)) return result("procurementDebarred");
+  if (hit(/подават.*партиите.*отчет.*навреме/))
+    return result("financingOverview");
+  if (hit(/схеми.*най-много средства/)) return result("subsidiesByScheme");
+  if (hit(/болници получават най-много/)) return result("nzokHospitals");
+  if (hit(/разходи за лекарства растат/)) return result("nzokDrugGrowth");
+  if (hit(/цените на газа.*ес/)) return result("gasPrices");
+  if (hit(/оценителните комисии/)) return result("cultureCommissions");
   const budgetYear = q.match(/20\d{2}/)?.[0];
   const fiscalArgs = budgetYear ? { year: Number(budgetYear) } : {};
   if (hit(/бюджетните закони|budget laws.*annex/))
@@ -114,10 +148,11 @@ export const routeCivicQuestion = (
     return result("airQuality", { place: place() });
   if (hit(/регистриран.*адрес|registered by address/))
     return result("graoPopulation", { place: place() });
-  if (hit(/прозрачна.*община|transparent/))
-    return result("transparencyScore", {
-      place: captured(/община\s+(.+)/i) ?? captured(/transparent is\s+(.+)/i),
-    });
+  if (hit(/прозрачна.*община|transparent/)) {
+    const namedPlace =
+      captured(/община\s+(.+)/i) ?? captured(/transparent is\s+(.+)/i);
+    if (namedPlace) return result("transparencyScore", { place: namedPlace });
+  }
   if (hit(/европейски проекти|eu projects/) && place())
     return result("placeEuProjects", {
       place: place()?.replace(/\s+munic[ií]pio$/i, ""),

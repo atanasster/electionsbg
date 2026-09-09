@@ -1,3 +1,4 @@
+import macroLabels from "./macroLabels.json";
 // Governance — macro indicator tools (national Eurostat/WB time series).
 
 import { pickYearPoint } from "./args";
@@ -114,8 +115,28 @@ export const MACRO_ALIASES: Record<string, string> = {
   корупц: "cpi",
 };
 
+/** Source indicator names are a vocabulary, independent of starter IDs/text. */
+export const resolveMacroLabel = (raw: string): string | undefined => {
+  const q = raw.toLocaleLowerCase();
+  return Object.entries(macroLabels)
+    .flatMap(([key, labels]) =>
+      Object.values(labels).map((label) => ({
+        key,
+        label: label.toLocaleLowerCase(),
+      })),
+    )
+    .sort((a, b) => b.label.length - a.label.length)
+    .find(({ label }) => q.includes(label))?.key;
+};
+
 export const resolveMacroKey = (raw: string): string | undefined => {
   const q = raw.toLowerCase().trim();
+  const named = Object.entries(macroLabels).find(
+    ([key]) => key.toLowerCase() === q,
+  );
+  if (named) return named[0];
+  const label = resolveMacroLabel(raw);
+  if (label) return label;
   // Cash КФП balance and overdue obligations are checked first so "касов
   // дефицит" / "просрочени задължения" win over the generic "дефицит" → ESA
   // budgetBalance alias below.

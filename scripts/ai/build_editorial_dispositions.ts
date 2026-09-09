@@ -1,3 +1,4 @@
+import { QUESTION_DEFINITIONS } from "../../src/lib/questions/catalog";
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -59,8 +60,12 @@ export const buildEditorialDispositions = (
         category: question.category,
         subcategory: question.subcategory,
         questionBg: question.bg,
-        chat: "ready" as const,
-        sql: "ready" as const,
+        chat:
+          QUESTION_DEFINITIONS.find((q) => q.id === decision.capabilityId)?.chat
+            .status ?? "unavailable",
+        sql:
+          QUESTION_DEFINITIONS.find((q) => q.id === decision.capabilityId)?.sql
+            .status ?? "unavailable",
       };
     if (decision.outcome === "new_official_ingestion")
       return {

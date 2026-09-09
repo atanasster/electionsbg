@@ -1305,7 +1305,7 @@ const routeText = (question: string, ctx: ToolContext): Route => {
     // last few elections"): default to the two most recent elections so a bare
     // compare still answers. A party-named compare ("сравни ... за ГЕРБ") is
     // skipped here and falls through to partyTimeline, which fits better.
-    if (!a && !detectParty(q)) {
+    if (!a && !detectParty(q) && /избор|вот|election|vote/.test(q)) {
       const recent = ALL_ELECTIONS.map((e) => e.name); // newest-first
       b = ctx.election ?? recent[0];
       a = recent.find((n) => n !== b) ?? recent[1];
@@ -2879,7 +2879,6 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       // single-producer tool just because it contains "продуцент".
       const ranking = has(
         q,
-        "кой",
         "кои",
         "най-много",
         "топ",
@@ -4468,7 +4467,6 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       "won",
       "победител",
       "winner",
-      "кой",
       "какво стана",
       "какво показа",
       "what happened",
@@ -4569,7 +4567,26 @@ export const route = (question: string, ctx: ToolContext): Route => {
     (line, index) => index === 0 || !line.includes(":"),
   );
   const context = lines.slice(1).filter((line) => line.includes(":"));
-  const selected = routeText(subjectLines.join(" "), ctx);
+  const subject = subjectLines.join(" ");
+  // A deictic/placeholder entity is not a place name. Ask for the missing
+  // subject instead of allowing fuzzy lookup to match a substring village.
+  if (
+    /\b(my|near me|a specific)\b|моя(?:та|т|то)?\s|моето\s|конкрет(?:ен|на|но)\s|дадена?\s/i.test(
+      subject,
+    )
+  )
+    return null;
+  if (/доходност.*пенсионн|pension.*(?:yield|return)/i.test(subject))
+    return null;
+  if (/колко хора.*отопление/i.test(subject)) return null; // source counts households
+  if (/дял от бюджета.*пенсии/i.test(subject)) return null; // COFOG social protection is broader
+  if (
+    /агенци.*прогнозира.*последните избори|пътната безопасност.*ес/i.test(
+      subject,
+    )
+  )
+    return null;
+  const selected = routeText(subject, ctx);
   if (!selected || !context.length) return selected;
   const params = TOOLS_BY_NAME[selected.tool]?.params ?? [];
   const args: Record<string, unknown> = { ...selected.args };

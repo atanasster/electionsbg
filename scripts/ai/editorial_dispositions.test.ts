@@ -1,3 +1,5 @@
+import { route } from "../../ai/orchestrator/router";
+import aliases from "../../ai/app/editorialAliases.json";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { QUESTION_DEFINITIONS } from "../../src/lib/questions/catalog";
@@ -30,7 +32,11 @@ describe("editorial question dispositions", () => {
     for (const row of committed.dispositions) {
       expect(row.questionBg.length, row.id).toBeGreaterThan(10);
       if (row.outcome === "promote_existing") {
-        expect([row.chat, row.sql], row.id).toEqual(["ready", "ready"]);
+        expect(row.chat, row.id).toBe("ready");
+        expect(row.sql, row.id).toBe(
+          QUESTION_DEFINITIONS.find((q) => q.id === row.capabilityId)?.sql
+            .status,
+        );
         expect(row.capabilityId, row.id).toBeTruthy();
         expect(row.validationEvidence.length, row.id).toBeGreaterThan(80);
       } else if (row.outcome === "new_official_ingestion") {
@@ -48,27 +54,24 @@ describe("editorial question dispositions", () => {
     }
   });
 
-  it("maps promotions to validated dual-ready shared capabilities", () => {
-    const promoted: Record<string, string> = {
-      "elections.parliamentary.01": "nationalResults",
-      "elections.presidential.01": "presidentialResults",
-    };
-    for (const row of committed.dispositions) {
-      if (row.outcome !== "promote_existing") continue;
-      expect(row.capabilityId, row.id).toBe(promoted[row.id]);
+  it("routes each promoted wording and follows actual surface availability", () => {
+    for (const row of committed.dispositions.filter(
+      (r: { outcome: string }) => r.outcome === "promote_existing",
+    )) {
       const capability = QUESTION_DEFINITIONS.find(
-        (question) => question.id === row.capabilityId,
-      );
+        (q) => q.id === row.capabilityId,
+      )!;
       expect(capability?.chat.status, row.id).toBe("ready");
-      expect(capability?.sql.status, row.id).toBe("ready");
+      expect(row.sql, row.id).toBe(capability.sql.status);
+      expect(
+        route(row.questionBg, { lang: "bg", election: "2026_04_19" })?.tool,
+        row.id,
+      ).toBe(row.capabilityId);
+      expect(
+        (aliases as Record<string, string[]>)[row.capabilityId],
+        row.id,
+      ).toContain(row.questionBg);
     }
-    expect(
-      committed.dispositions
-        .filter(
-          (row: { outcome: string }) => row.outcome === "promote_existing",
-        )
-        .map((row: { id: string }) => row.id),
-    ).toEqual(Object.keys(promoted));
   });
 
   it("keeps unsupported editorial IDs out of ready starter actions", () => {
@@ -108,11 +111,11 @@ describe("editorial question dispositions", () => {
     const expectedTerms = {
       "health.access.01": "specialty",
       "education.access.01": "offered places",
-      "water-environment.water.02": "start/end time",
+      "water-environment.water.02": "settlement outage list",
       "water-environment.water.03": "tariff components",
       "transport-housing.rail.04": "exact requested measure",
       "transport-housing.housing.04": "permit number",
-      "media-society.trust.03": "EU/euro question wording",
+      "media-society.trust.03": "different survey question",
     };
     for (const [id, term] of Object.entries(expectedTerms)) {
       const row = byId.get(id) as Record<string, string>;

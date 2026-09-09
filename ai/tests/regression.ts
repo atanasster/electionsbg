@@ -212,7 +212,7 @@ const CASES: Case[] = [
     tool: "regionWinners",
     kind: "table",
     minRows: 25,
-    facts: { leading_party: /\S/, regions: { num: 32 } },
+    facts: { leading_party: /\S/, areas: { num: 28 } },
     geo: {
       level: "oblast",
       mode: "choropleth",
@@ -437,8 +437,8 @@ const CASES: Case[] = [
   {
     q: "Сравни изборите от 2022 и 2024",
     tool: "compareElections",
-    kind: "table",
-    minRows: 4,
+    kind: "scalar",
+    clarify: { minOptions: 2 },
   },
   {
     // bare compare, no explicit year -> default to the two most recent elections
@@ -2092,8 +2092,8 @@ const CASES: Case[] = [
   {
     q: "сравни 2021 и 2023",
     tool: "compareElections",
-    kind: "table",
-    minRows: 4,
+    kind: "scalar",
+    clarify: { minOptions: 3 },
   },
   // general "results / what happened / overview" -> nationalResults, never machine
   {

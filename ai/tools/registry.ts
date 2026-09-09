@@ -1,3 +1,4 @@
+import { WATER_TOOL } from "./water";
 import { BUDGET_TOOLS } from "./budgetServing";
 // The tool registry: the single surface the orchestrator (and the dropdown
 // harness) sees. The grammar-constrained LLM picks a tool name + args from here.
@@ -279,6 +280,7 @@ import type {
 
 export const TOOLS: ToolDef[] = [
   ...BUDGET_TOOLS,
+  WATER_TOOL,
   // ---- parliamentary elections ----------------------------------------------
   {
     name: "nationalResults",

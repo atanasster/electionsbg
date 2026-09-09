@@ -1,0 +1,222 @@
+{
+  "gdpGrowth": {
+    "bg": "Растеж на реалния БВП",
+    "en": "Real GDP growth"
+  },
+  "inflation": {
+    "bg": "Инфлация (ХИПЦ)",
+    "en": "Inflation (HICP)"
+  },
+  "unemployment": {
+    "bg": "Безработица",
+    "en": "Unemployment rate"
+  },
+  "unemploymentMonthly": {
+    "bg": "Безработица (месечна)",
+    "en": "Unemployment rate (monthly)"
+  },
+  "inflationMonthly": {
+    "bg": "Инфлация, ХИПЦ (месечна)",
+    "en": "Inflation, HICP (monthly)"
+  },
+  "employmentRate": {
+    "bg": "Коефициент на заетост (20-64)",
+    "en": "Employment rate (20-64)"
+  },
+  "activityRate": {
+    "bg": "Коефициент на икономическа активност (20-64)",
+    "en": "Activity rate (20-64)"
+  },
+  "labourSlack": {
+    "bg": "Разширена безработица (20-64)",
+    "en": "Labour market slack (20-64)"
+  },
+  "gdpPerCapita": {
+    "bg": "БВП на човек от населението",
+    "en": "GDP per capita"
+  },
+  "nominalGdp": {
+    "bg": "Номинален БВП",
+    "en": "Nominal GDP"
+  },
+  "govDebt": {
+    "bg": "Брутен държавен дълг",
+    "en": "Government gross debt"
+  },
+  "budgetBalance": {
+    "bg": "Бюджетен баланс",
+    "en": "Government budget balance"
+  },
+  "esaBalanceAnnual": {
+    "bg": "Бюджетно салдо (годишно, ПСД)",
+    "en": "Government budget balance (annual, EDP)"
+  },
+  "currentAccount": {
+    "bg": "Текуща сметка",
+    "en": "Current account balance"
+  },
+  "govDebtNominal": {
+    "bg": "Брутен държавен дълг (номинален)",
+    "en": "Government gross debt (nominal)"
+  },
+  "budgetBalanceNominal": {
+    "bg": "Бюджетен баланс (номинален)",
+    "en": "Budget balance (nominal)"
+  },
+  "currentAccountNominal": {
+    "bg": "Текуща сметка (номинална)",
+    "en": "Current account balance (nominal)"
+  },
+  "govRevenue": {
+    "bg": "Държавни приходи",
+    "en": "Government revenue"
+  },
+  "govExpenditure": {
+    "bg": "Държавни разходи",
+    "en": "Government expenditure"
+  },
+  "fdiInward": {
+    "bg": "Преки чуждестранни инвестиции (нетно входящи)",
+    "en": "Foreign direct investment (net inward)"
+  },
+  "inflationFood": {
+    "bg": "Инфлация — храна",
+    "en": "Inflation — food"
+  },
+  "inflationEnergy": {
+    "bg": "Инфлация — енергия",
+    "en": "Inflation — energy"
+  },
+  "inflationServices": {
+    "bg": "Инфлация — услуги",
+    "en": "Inflation — services"
+  },
+  "inflationCore": {
+    "bg": "Инфлация — базова (без храна и енергия)",
+    "en": "Inflation — core (ex. food + energy)"
+  },
+  "industrialProd": {
+    "bg": "Промишлено производство",
+    "en": "Industrial production"
+  },
+  "retailVolume": {
+    "bg": "Обем на търговията на дребно",
+    "en": "Retail trade volume"
+  },
+  "consumerConfidence": {
+    "bg": "Потребителско доверие",
+    "en": "Consumer confidence"
+  },
+  "economicSentiment": {
+    "bg": "Индикатор за икономически нагласи",
+    "en": "Economic Sentiment Indicator"
+  },
+  "youthUnemployment": {
+    "bg": "Младежка безработица (15-24)",
+    "en": "Youth unemployment (15-24)"
+  },
+  "housePricesYoY": {
+    "bg": "Цени на жилищата (YoY)",
+    "en": "House prices (YoY)"
+  },
+  "gini": {
+    "bg": "Коефициент на Джини (доходно неравенство)",
+    "en": "Gini coefficient (income inequality)"
+  },
+  "povertyRate": {
+    "bg": "Под прага на бедността",
+    "en": "At-risk-of-poverty rate"
+  },
+  "intentionalHomicideRate": {
+    "bg": "Умишлени убийства",
+    "en": "Intentional homicide rate"
+  },
+  "prisonPopulationRate": {
+    "bg": "Затворници",
+    "en": "Prison population"
+  },
+  "labourIncome": {
+    "bg": "Доход от труд (номинален, YoY)",
+    "en": "Labour income (nominal, YoY)"
+  },
+  "labourProductivity": {
+    "bg": "Реална производителност на труда",
+    "en": "Real labour productivity"
+  },
+  "unitLabourCost": {
+    "bg": "Разходи за труд на единица продукция",
+    "en": "Nominal unit labour cost"
+  },
+  "compensationPerEmployee": {
+    "bg": "Разход за труд на нает",
+    "en": "Compensation per employee"
+  },
+  "priceIndex": {
+    "bg": "Ценово равнище (ХИПЦ)",
+    "en": "Consumer price level (HICP)"
+  },
+  "taxWedge": {
+    "bg": "Данъчна тежест върху труда",
+    "en": "Tax wedge on labour costs"
+  },
+  "wgiRuleOfLaw": {
+    "bg": "WGI: върховенство на правото",
+    "en": "WGI Rule of Law"
+  },
+  "wgiControlOfCorruption": {
+    "bg": "WGI: контрол върху корупцията",
+    "en": "WGI Control of Corruption"
+  },
+  "wgiGovEffectiveness": {
+    "bg": "WGI: ефективност на управлението",
+    "en": "WGI Government Effectiveness"
+  },
+  "cpi": {
+    "bg": "Корупционен индекс (Transparency Int'l)",
+    "en": "Transparency Int'l CPI"
+  },
+  "trustParliament": {
+    "bg": "Доверие в Народното събрание",
+    "en": "Trust in National Parliament"
+  },
+  "trustGovernment": {
+    "bg": "Доверие в правителството",
+    "en": "Trust in National Government"
+  },
+  "trustEu": {
+    "bg": "Доверие в Европейския съюз",
+    "en": "Trust in the European Union"
+  },
+  "euFunds": {
+    "bg": "Средства от ЕС, получени от България",
+    "en": "EU funds received by Bulgaria"
+  },
+  "euContribution": {
+    "bg": "Вноска на България в бюджета на ЕС",
+    "en": "Bulgaria's contribution to the EU budget"
+  },
+  "fiscalReserve": {
+    "bg": "Фискален резерв",
+    "en": "Fiscal reserve (фискален резерв)"
+  },
+  "arrears": {
+    "bg": "Просрочени задължения",
+    "en": "Overdue obligations (просрочени задължения)"
+  },
+  "municipalCommitments": {
+    "bg": "Поети ангажименти на общините",
+    "en": "Municipal commitments (поети ангажименти)"
+  },
+  "municipalExpenseObligations": {
+    "bg": "Задължения за разходи на общините",
+    "en": "Municipal expenditure obligations (задължения за разходи)"
+  },
+  "municipalArrears": {
+    "bg": "Просрочени задължения на общините",
+    "en": "Municipal arrears (просрочени задължения)"
+  },
+  "cashBalance": {
+    "bg": "Касов бюджетен баланс (КФП)",
+    "en": "Cash budget balance (КФП)"
+  }
+}

@@ -69,3 +69,24 @@ it("routes the full multiline subject", () => {
   expect(route(q, ctx)).toEqual(route(q.replace("\n", " "), ctx));
   expect(route(q, ctx)?.tool).toBe("presidentialResults");
 });
+it.each([
+  "Кой притежава дадена фирма?",
+  "Кой е собственикът на медия?",
+  "Как гласува моята община?",
+  "Колко хора получават помощи за отопление?",
+  "Каква доходност отчитат пенсионните фондове?",
+])(
+  "does not substitute an unrelated measure or a guessed entity: %s",
+  (text) => {
+    expect(route(text, ctx)).toBeNull();
+  },
+);
+it.each([
+  "Покажи показателя Безработица за 2020 г.",
+  "Show the indicator Unemployment rate for 2020",
+])("preserves the explicitly requested macro year: %s", (text) => {
+  expect(route(text, ctx)).toEqual({
+    tool: "macroIndicator",
+    args: { indicator: "unemployment", year: 2020 },
+  });
+});
