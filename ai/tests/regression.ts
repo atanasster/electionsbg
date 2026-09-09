@@ -1243,13 +1243,13 @@ const CASES: Case[] = [
   },
   {
     q: "За какво се харчи бюджетът?",
-    tool: "budgetByFunction",
+    tool: "budgetOverview",
     kind: "table",
-    minRows: 5,
+    minRows: 4,
   },
   {
     // year selection on the functional breakdown
-    q: "За какво се харчи бюджетът през 2021?",
+    q: "Бюджет по функции COFOG през 2021?",
     tool: "budgetByFunction",
     kind: "table",
     facts: { year: { num: 2021 } },

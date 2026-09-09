@@ -266,8 +266,8 @@ export const narrate = (env: Envelope, lang: Lang): string => {
         : `Mayor of ${f(env, "municipality")}: ${f(env, "mayor")} (${f(env, "mayor_pct")}). Top council party: ${f(env, "top_council_party")}. Turnout: ${f(env, "turnout")}.`;
     case "budgetOverview":
       return lang === "bg"
-        ? `Бюджет ${f(env, "year")}: приходи ${f(env, "revenue")}, разходи ${f(env, "expenditure")}, салдо ${f(env, "balance")}.`
-        : `Budget ${f(env, "year")}: revenue ${f(env, "revenue")}, expenditure ${f(env, "expenditure")}, balance ${f(env, "balance")}.`;
+        ? `Държавен бюджет ${f(env, "year")}: отчетени приходи ${f(env, "revenue")}, разходи ${f(env, "expenditure")} при годишен план ${f(env, "planned_expenditure")}, салдо ${f(env, "balance")}.`
+        : `State budget ${f(env, "year")}: actual revenue ${f(env, "revenue")}, expenditure ${f(env, "expenditure")} against an annual plan of ${f(env, "planned_expenditure")}, balance ${f(env, "balance")}.`;
     case "simulateTaxChange": {
       if (!env.facts.delta_per_year) return env.title;
       const note = env.facts.note ? ` ${f(env, "note")}` : "";

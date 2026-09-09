@@ -1895,8 +1895,8 @@ export const TOOLS: ToolDef[] = [
     name: "budgetOverview",
     domain: "fiscal",
     description: {
-      bg: "Държавен бюджет — приходи, разходи, салдо за година.",
-      en: "State budget — revenue, expenditure, balance for a year.",
+      bg: "Държавен бюджет — годишен план и касово изпълнение: приходи, разходи, салдо. По подразбиране последната налична година, включително непълна.",
+      en: "State budget — annual plan and cash execution: revenue, expenditure, balance. Defaults to latest available year, including partial years.",
     },
     params: [
       {
@@ -2100,14 +2100,17 @@ export const TOOLS: ToolDef[] = [
     name: "budgetByFunction",
     domain: "fiscal",
     description: {
-      bg: "Бюджетни разходи по функция (COFOG).",
-      en: "Budget spending by function (COFOG).",
+      bg: "Отчетени разходи на държавното управление по функция (COFOG); исторически данни, не текущ бюджетен план.",
+      en: "Historical general-government expenditure by function (COFOG), not the current budget plan.",
     },
     params: [
       { name: "year", type: "year", description: { bg: "Година", en: "Year" } },
     ],
     examples: [
-      { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
+      {
+        bg: "Разходи на държавното управление по функции (COFOG)?",
+        en: "Government spending by function (COFOG)?",
+      },
     ],
     run: budgetByFunction,
   },

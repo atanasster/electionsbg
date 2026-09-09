@@ -35,6 +35,8 @@ type Money = { amount: number; amountEur: number; currency: string };
 type FiscalYear = {
   fiscalYear: number;
   complete?: boolean;
+  asOf?: string;
+  planned?: FiscalYear["actual"];
   actual?: {
     revenue?: Money;
     expenditure?: Money;
@@ -53,7 +55,7 @@ const resolveYear = (
   available: number[],
 ): { year: number; requested?: number; missing: boolean } => {
   const want = requested != null && requested !== "" ? Number(requested) : NaN;
-  const latest = available[available.length - 1];
+  const latest = Math.max(...available);
   if (!Number.isFinite(want)) return { year: latest, missing: false };
   if (available.includes(want)) return { year: want, missing: false };
   return { year: latest, requested: want, missing: true };
@@ -74,18 +76,14 @@ export const budgetOverview = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const idx = await fetchData<BudgetIndex>("/budget/index.json");
-  const withActual = idx.fiscalYears.filter((y) => y.actual?.balance);
+  const withActual = idx.fiscalYears
+    .filter((y) => y.actual?.balance)
+    .sort((a, b) => a.fiscalYear - b.fiscalYear);
   const requested =
     args.year &&
     withActual.find((y) => String(y.fiscalYear) === String(args.year));
-  // default to the latest COMPLETE fiscal year (a partial in-progress year would
-  // understate the full-year figures); fall back to the latest with actuals.
-  const complete = withActual.filter((y) => y.complete);
-  const year =
-    requested ||
-    (complete.length
-      ? complete[complete.length - 1]
-      : withActual[withActual.length - 1]);
+  // Show the newest available execution; coverage explicitly marks partial years.
+  const year = requested || withActual[withActual.length - 1];
   if (!year) {
     return {
       tool: "budgetOverview",
@@ -100,46 +98,69 @@ export const budgetOverview = async (
   const a = year.actual!;
   // the user named a year we don't have actuals for -> show latest, but say so
   const requestedMissing = !!args.year && !requested;
-  const eur = (m?: Money) => (m ? m.amountEur : 0);
+  const moneyText = (m?: Money) =>
+    m && Number.isFinite(m.amountEur)
+      ? fmtEurCompact(m.amountEur, ctx.lang)
+      : "—";
   const rows: Row[] = [
     {
       metric: ctx.lang === "bg" ? "Приходи" : "Revenue",
-      value: fmtEurCompact(eur(a.revenue), ctx.lang),
+      value: moneyText(a.revenue),
     },
     {
       metric: ctx.lang === "bg" ? "Разходи" : "Expenditure",
-      value: fmtEurCompact(eur(a.expenditure), ctx.lang),
+      value: moneyText(a.expenditure),
     },
     {
       metric: ctx.lang === "bg" ? "Салдо" : "Balance",
-      value: fmtEurCompact(eur(a.balance), ctx.lang),
+      value: moneyText(a.balance),
     },
     {
       metric:
         ctx.lang === "bg"
           ? "Принос към бюджета на ЕС"
           : "Contribution to the EU budget",
-      value: fmtEurCompact(eur(a.euContribution), ctx.lang),
+      value: moneyText(a.euContribution),
     },
   ];
+  const keys = ["revenue", "expenditure", "balance", "euContribution"] as const;
+  rows.forEach((row, i) => {
+    const plan = year.planned?.[keys[i]];
+    row.planned = plan ? fmtEurCompact(plan.amountEur, ctx.lang) : "—";
+    if (!a[keys[i]]) row.value = "—";
+  });
+  const coverage =
+    ctx.lang === "bg"
+      ? `Касово изпълнение на държавния бюджет към ${year.asOf ?? year.fiscalYear}. ${year.complete ? "Пълна година." : "Непълна година."} Не обхваща целия сектор „Държавно управление“ (COFOG).`
+      : `State-budget cash execution as of ${year.asOf ?? year.fiscalYear}. ${year.complete ? "Complete year." : "Partial year."} Does not cover the entire general-government sector (COFOG).`;
   return {
     tool: "budgetOverview",
     domain: "fiscal",
     kind: "table",
     title:
       ctx.lang === "bg"
-        ? `Държавен бюджет — изпълнение ${year.fiscalYear}`
-        : `State budget — ${year.fiscalYear} execution`,
-    subtitle: requestedMissing
-      ? ctx.lang === "bg"
-        ? `Няма данни за ${args.year}; показана е ${year.fiscalYear}.`
-        : `No data for ${args.year}; showing ${year.fiscalYear}.`
-      : undefined,
+        ? `Държавен бюджет — план и изпълнение ${year.fiscalYear}`
+        : `State budget — ${year.fiscalYear} plan and execution`,
+    subtitle: [
+      requestedMissing
+        ? ctx.lang === "bg"
+          ? `Няма данни за ${args.year}; показана е ${year.fiscalYear}.`
+          : `No data for ${args.year}; showing ${year.fiscalYear}.`
+        : "",
+      coverage,
+    ]
+      .filter(Boolean)
+      .join(" "),
     columns: [
       { key: "metric", label: ctx.lang === "bg" ? "Показател" : "Metric" },
       {
+        key: "planned",
+        label: ctx.lang === "bg" ? "План за годината" : "Annual plan",
+        numeric: true,
+      },
+      {
         key: "value",
-        label: ctx.lang === "bg" ? "Сума" : "Amount",
+        label: ctx.lang === "bg" ? "Изпълнение" : "Actual",
         numeric: true,
       },
     ],
@@ -147,10 +168,14 @@ export const budgetOverview = async (
     viz: "none",
     facts: {
       year: year.fiscalYear,
-      revenue: fmtEurCompact(eur(a.revenue), ctx.lang),
-      expenditure: fmtEurCompact(eur(a.expenditure), ctx.lang),
-      eu_contribution: fmtEurCompact(eur(a.euContribution), ctx.lang),
-      balance: fmtEurCompact(eur(a.balance), ctx.lang),
+      coverage,
+      planned_expenditure: year.planned?.expenditure
+        ? fmtEurCompact(year.planned.expenditure.amountEur, ctx.lang)
+        : "—",
+      revenue: moneyText(a.revenue),
+      expenditure: moneyText(a.expenditure),
+      eu_contribution: moneyText(a.euContribution),
+      balance: moneyText(a.balance),
       reconciliation:
         ctx.lang === "bg"
           ? "салдо = приходи − разходи − принос към бюджета на ЕС"
@@ -441,6 +466,14 @@ const COFOG: Record<string, { bg: string; en: string }> = {
 
 type CofogPoint = { year: number; valueEur: number };
 type CofogData = { latestYear: number; series: Record<string, CofogPoint[]> };
+const cofogCoverage = (c: CofogData, ctx: ToolContext) => {
+  const latest = Math.max(
+    ...Object.values(c.series).flatMap((p) => p.map((v) => v.year)),
+  );
+  return ctx.lang === "bg"
+    ? `Последни налични данни COFOG: ${latest}. Отчетени разходи на сектор „Държавно управление“ по методология ESA; не е текущият бюджетен план. Публикуват се с приблизително 14 месеца закъснение.`
+    : `Latest available COFOG data: ${latest}. General-government expenditure on an ESA basis; not the current budget plan. Published with an approximately 14-month lag.`;
+};
 
 export const budgetByFunction = async (
   args: ToolArgs,
@@ -482,6 +515,7 @@ export const budgetByFunction = async (
   const facts: Record<string, string | number> = {
     year,
     total: hasTotal ? fmtEurCompact(total, ctx.lang) : "—",
+    coverage: cofogCoverage(c, ctx),
     covered_functions: rows.length,
     missing_functions: missing,
     top_function: rows[0]?.label ?? "—",
@@ -501,6 +535,7 @@ export const budgetByFunction = async (
     subtitle:
       [
         yearMissingNote(yr, ctx.lang),
+        cofogCoverage(c, ctx),
         missing > 0
           ? ctx.lang === "bg"
             ? `Липсват ${missing} функции за избраната година.`
@@ -580,16 +615,23 @@ export const budgetFunction = async (
     pts.length ? pts.map((p) => p.year) : [c.latestYear],
   );
   const year = yr.year;
-  const at = (arr: CofogPoint[]) =>
-    arr.find((p) => p.year === year) ?? arr[arr.length - 1];
-  const value = at(pts)?.valueEur ?? 0;
-  const total = at(c.series.TOTAL ?? [])?.valueEur ?? 0;
-  const pct = total > 0 ? round2((100 * value) / total) : 0;
-  const ranking = Object.entries(c.series)
-    .filter(([k]) => k !== "TOTAL")
-    .map(([k, a]) => ({ k, v: at(a)?.valueEur ?? 0 }))
+  const at = (arr: CofogPoint[]) => arr.find((p) => p.year === year);
+  const value = at(pts)?.valueEur;
+  const total = at(c.series.TOTAL ?? [])?.valueEur;
+  const hasTotal = total != null && Number.isFinite(total) && total > 0;
+  const pct =
+    hasTotal && value != null ? `${round2((100 * value) / total)}%` : "—";
+  const components = Object.entries(c.series).filter(([k]) => k !== "TOTAL");
+  const ranking = components
+    .flatMap(([k, a]) => {
+      const v = at(a)?.valueEur;
+      return v != null && Number.isFinite(v) ? [{ k, v }] : [];
+    })
     .sort((a, b) => b.v - a.v);
-  const rank = ranking.findIndex((r) => r.k === gf) + 1;
+  const rank =
+    ranking.length === components.length
+      ? ranking.findIndex((r) => r.k === gf) + 1
+      : "—";
   const label = (COFOG[gf] ?? { bg: gf, en: gf })[ctx.lang];
 
   return {
@@ -600,7 +642,9 @@ export const budgetFunction = async (
       ctx.lang === "bg"
         ? `Разходи за „${label}“ (COFOG)`
         : `Spending on "${label}" (COFOG)`,
-    subtitle: yearMissingNote(yr, ctx.lang),
+    subtitle: [yearMissingNote(yr, ctx.lang), cofogCoverage(c, ctx)]
+      .filter(Boolean)
+      .join(" "),
     categories: pts.map((p) => String(p.year)),
     series: [
       {
@@ -616,10 +660,11 @@ export const budgetFunction = async (
     facts: {
       function: label,
       year,
-      amount: fmtEurCompact(value, ctx.lang),
-      share_of_budget: `${pct}%`,
+      coverage: cofogCoverage(c, ctx),
+      amount: value != null ? fmtEurCompact(value, ctx.lang) : "—",
+      share_of_budget: pct,
       rank,
-      total: fmtEurCompact(total, ctx.lang),
+      total: hasTotal ? fmtEurCompact(total, ctx.lang) : "—",
     },
     provenance: ["cofog.json"],
   } as Envelope;

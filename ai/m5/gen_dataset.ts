@@ -280,7 +280,11 @@ add("en", "Any partial local elections?", "chmiEvents");
 
 add("bg", "Какъв е държавният бюджет?", "budgetOverview");
 add("en", "What's the state budget?", "budgetOverview");
-add("bg", "За какво се харчи бюджетът?", "budgetByFunction");
+add(
+  "bg",
+  "Разходи на държавното управление по функции (COFOG)?",
+  "budgetByFunction",
+);
 add("bg", "Бюджетни разходи по функция", "budgetByFunction");
 add("bg", "Покажи изпълнението на бюджета по месеци", "budgetExecution");
 add("en", "Show monthly budget execution", "budgetExecution");

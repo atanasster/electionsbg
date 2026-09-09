@@ -3207,9 +3207,14 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       tool: "budgetFunction",
       args: promptYear ? { category: gf, year: promptYear } : { category: gf },
     };
-  if (has(q, "бюджет", "budget")) {
+  if (has(q, "бюджет", "budget", "cofog")) {
     if (has(q, "министерств", "ministry", "ведомств"))
       return { tool: "ministryBudget", args: { ministry: q } };
+    if (has(q, "план и изпълнение", "plan and actual"))
+      return {
+        tool: "budgetOverview",
+        args: promptYear ? { year: promptYear } : {},
+      };
     if (
       has(
         q,
@@ -3222,9 +3227,7 @@ const routeText = (question: string, ctx: ToolContext): Route => {
       )
     )
       return { tool: "budgetExecution", args: { series: q } };
-    if (
-      has(q, "функц", "cofog", "за какво", "spent on", "spend on", "разход по")
-    )
+    if (has(q, "функц", "cofog", "by function", "разход по"))
       return {
         tool: "budgetByFunction",
         args: promptYear ? { year: promptYear } : {},

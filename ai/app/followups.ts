@@ -476,8 +476,8 @@ export const followUps = (env: Envelope): FollowUp[] => {
       break;
     case "budgetOverview":
       out.push({
-        bg: "За какво се харчи бюджетът?",
-        en: "What is the budget spent on?",
+        bg: "Разходи на държавното управление по функции (COFOG)?",
+        en: "Government spending by function (COFOG)?",
       });
       out.push({
         bg: "Какво става, ако ДДС стане 22%?",

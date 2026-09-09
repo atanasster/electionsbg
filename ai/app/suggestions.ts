@@ -127,7 +127,10 @@ const BASE: Suggestion[] = [
     en: "Were there irregularities in the latest election?",
   },
   { bg: "Какъв е държавният бюджет?", en: "What is the state budget?" },
-  { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
+  {
+    bg: "Какъв е държавният бюджет — план и изпълнение?",
+    en: "What is the state budget — plan and actual spending?",
+  },
   {
     bg: "Какво става, ако ДДС стане 22%?",
     en: "What if VAT goes to 22%?",
