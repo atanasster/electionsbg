@@ -25,21 +25,29 @@ function mockDb(result) {
 const migrationMissing = (code = "42883") =>
   Object.assign(new Error("no migration"), { code });
 
-// ─── person-connections: the ?private toggle → 2nd SQL arg ───────────────────────────────
-test("person-connections passes ?private=1 as the boolean 2nd arg (default false)", async () => {
-  const db = mockDb([{ r: { subject: { slug: "x" }, related: [] } }]);
-  await DB_ROUTES["person-connections"](db, { slug: "ivan-a", private: "1" });
-  assert.equal(db.calls.length, 1);
-  assert.match(db.calls[0].sql, /person_connections\(\$1, \$2\)/);
-  assert.deepEqual(db.calls[0].params, ["ivan-a", true]);
-
-  const db2 = mockDb([{ r: null }]);
-  await DB_ROUTES["person-connections"](db2, { slug: "ivan-a" });
-  assert.deepEqual(db2.calls[0].params, ["ivan-a", false], "absent ?private ⇒ false");
-
-  const db3 = mockDb([{ r: null }]);
-  await DB_ROUTES["person-connections"](db3, { slug: "ivan-a", private: "yes" });
-  assert.deepEqual(db3.calls[0].params, ["ivan-a", false], "non-'1' ?private ⇒ false");
+// ─── person-connections: the ?private toggle is RETIRED (2026-09-09) ─────────────────────
+// The Tier-V arm was removed from person_connections: it had no consumer and named non-public
+// individuals as connections of named public figures. This asserts ?private cannot bring it back
+// through the query string — the route must pass ONE argument and ignore the parameter entirely.
+// A forwarded 2nd arg would now also be a hard error, since the 2-arg overload no longer exists.
+// graph-ego KEEPS its toggle and is asserted separately below. docs/plans/connections-guard-v2.md.
+test("person-connections ignores ?private and calls the 1-arg function", async () => {
+  for (const q of [
+    { slug: "ivan-a", private: "1" },
+    { slug: "ivan-a" },
+    { slug: "ivan-a", private: "yes" },
+  ]) {
+    const db = mockDb([{ r: { subject: { slug: "x" }, related: [] } }]);
+    await DB_ROUTES["person-connections"](db, q);
+    assert.equal(db.calls.length, 1);
+    assert.match(db.calls[0].sql, /person_connections\(\$1\)/);
+    assert.doesNotMatch(
+      db.calls[0].sql,
+      /\$2/,
+      `?private=${q.private ?? "(absent)"} reached the SQL — the retired Tier-V arm is back`,
+    );
+    assert.deepEqual(db.calls[0].params, ["ivan-a"]);
+  }
 });
 
 test("person-connections returns null for a missing slug and does not hit the DB", async () => {

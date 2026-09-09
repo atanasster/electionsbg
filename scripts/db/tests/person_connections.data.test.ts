@@ -37,18 +37,17 @@ type Payload = {
   disclaimer: string;
 } | null;
 
-const connections = (slug: string, includePrivate = false): Promise<Payload> =>
-  allRows<{ r: Payload }>("SELECT person_connections($1, $2) AS r", [
-    slug,
-    includePrivate,
-  ]).then((x) => x[0]?.r ?? null);
+const connections = (slug: string): Promise<Payload> =>
+  allRows<{ r: Payload }>("SELECT person_connections($1) AS r", [slug]).then(
+    (x) => x[0]?.r ?? null,
+  );
 
-// SOURCE-side probe: the 2-arg function + the graph edge set it reads. Probes the function SIGNATURE
-// (text, boolean) — the 1-arg is retired — and that the co-ownership edge set is non-empty.
+// SOURCE-side probe: the function + the graph edge set it reads. Probes the SIGNATURE (text) — the 2-arg
+// toggle overload is retired — and that the co-ownership edge set is non-empty.
 const reachable = async (): Promise<boolean> => {
   try {
     const [t] = await allRows<{ ok: boolean }>(
-      "SELECT to_regprocedure('person_connections(text,boolean)') IS NOT NULL AS ok",
+      "SELECT to_regprocedure('person_connections(text)') IS NOT NULL AS ok",
     );
     if (!t?.ok) return false;
     const [c] = await allRows<{ n: string }>(
@@ -272,151 +271,89 @@ test.skipIf(skip)("the privacy gate holds LIVE on both endpoints", async () => {
   });
 });
 
-// ── Tier-V private-owner toggle (the P3.5 addition) ───────────────────────────
+// ── The RETIRED Tier-V private arm ───────────────────────────────────────────
 
 test.skipIf(skip)(
-  "the Tier-V toggle admits verified private owners; default suppresses them",
+  "the Tier-V private arm is retired — no overload, and a private person is neither subject nor endpoint",
   async () => {
-    // A verified private owner (is_public_figure=false, identity_confidence='verified') is not
-    // servable as a subject by default, but IS with the toggle.
+    // 1. THE OVERLOAD IS GONE, and asserting its absence is not pedantry. Left in place beside the
+    // 1-arg it does not merely linger: person_connections('slug') becomes AMBIGUOUS (42725) and every
+    // caller errors. Re-creating it is also how the retired surface would come back by accident.
+    const [sig] = await allRows<{ two: string | null; one: string | null }>(
+      `SELECT to_regprocedure('person_connections(text,boolean)')::text AS two,
+              to_regprocedure('person_connections(text)')::text        AS one`,
+    );
+    assert.equal(
+      sig?.two,
+      null,
+      "person_connections(text, boolean) still exists — the Tier-V arm was not retired, and the 1-arg " +
+        "call every caller makes is now ambiguous (42725). See docs/plans/connections-guard-v2.md.",
+    );
+    assert.ok(sig?.one, "person_connections(text) is missing");
+
+    // 2. A verified private owner is not servable as a SUBJECT. There is no longer any argument that
+    // makes them one; before the retirement the toggle did.
     const vslug = await pickSlug(
       `SELECT slug FROM graph_person_node
         WHERE identity_confidence = 'verified' AND NOT is_public_figure
         ORDER BY degree DESC, person_id LIMIT 1`,
     );
-    if (vslug) {
+    if (vslug)
       assert.equal(
-        await connections(vslug, false),
+        await connections(vslug),
         null,
-        `verified private ${vslug} was served on the DEFAULT (public) path`,
+        `verified private ${vslug} was served as a subject`,
       );
-      assert.ok(
-        (await connections(vslug, true)) !== null,
-        `verified private ${vslug} was NOT served even with the toggle`,
-      );
-    }
 
-    // And on a public subject sharing a GENUINELY SMALL company (coowner_count 2-6) that also carries
-    // verified private co-owners, the toggle keeps every default edge that survives BOTH guards, drops
-    // every default edge that survives only the public one, and may add verified endpoints on top.
-    //
-    // ⚠️ "THE TOGGLE ONLY ADDS" IS NOT THE CONTRACT, and this test asserted it until 2026-09-09. Per
-    // 084's header the guard population FOLLOWS the toggle: the DEFAULT view bounds a bridge company by
-    // public_officer_count <= 6, the PRIVATE view by coowner_count <= 6 — so a 1-public + 123-verified
-    // кооперация cannot fan a subject out to scores of named private individuals (the over-link test
-    // below). A company with coowner_count > 6 AND public_officer_count <= 6 is therefore a bridge by
-    // DEFAULT and NOT under the toggle, and a default edge whose every bridge is such a company
-    // legitimately vanishes. Measured 2026-09-08 on local: 1,507 companies sit in that band, and the old
-    // picker's top subject (zlatko-zlatanov-dm4zqj) reached its one default edge through exactly one of
-    // them (ЕИК 112577345, 7 co-owners / 2 public) — green on 2026-09-07 only because the picker had
-    // chosen someone else. Both directions below are the function's real contract, and the second is
-    // the over-link guard applied to an ordinary subject rather than to the worst offender.
-    //
-    // Why the subset/superset reasoning is sound: coowner_count >= public_officer_count on every company
-    // node (asserted below — 0 of 88,953 violate it), so the toggle's bridge set is a SUBSET of the
-    // default's, and an edge's toggle bridges are a subset of its default bridges.
-    //
-    // The picker requires a both-guard company that carries ANOTHER public officer (so at least one
-    // default edge is guaranteed to survive — the subset check cannot go vacuous) and a non-public
-    // eligible co-owner (so the toggle has something to add). 1,098 subjects qualify on the 2026-09-08
-    // corpus.
-    const [inv] = await allRows<{ n: string }>(
-      `SELECT count(*) AS n FROM graph_company_node WHERE coowner_count < public_officer_count`,
-    );
-    assert.equal(
-      Number(inv?.n ?? 0),
-      0,
-      `${inv?.n} company nodes have coowner_count < public_officer_count — the toggle's bridge set is ` +
-        `no longer a subset of the default's, and the assertions below no longer follow from 084`,
-    );
+    // 3. And never as an ENDPOINT — asserted where it would actually bite, on a public subject whose
+    // small company DOES carry verified private co-owners (public_officer_count < coowner_count). A
+    // subject with no private co-owners nearby cannot discriminate.
     const pslug = await pickSlug(
       `SELECT gp.slug
          FROM graph_person_node gp
          JOIN graph_edge e ON e.person_id = gp.person_id AND e.kind IN ('tr_role','tr_owner')
          JOIN graph_company_node cn ON cn.eik = e.eik AND cn.coowner_count BETWEEN 2 AND 6
-          AND cn.public_officer_count BETWEEN 2 AND cn.coowner_count - 1
+          AND cn.public_officer_count < cn.coowner_count
         WHERE gp.is_public_figure
         GROUP BY gp.slug ORDER BY count(*) DESC, gp.slug LIMIT 1`,
     );
     assert.ok(
       pslug,
-      "no public subject on a 2-6 co-owner company with another public officer AND a private co-owner — fixture pool is empty",
+      "no public subject on a small company with a private co-owner — fixture pool is empty",
     );
-    const def = await connections(pslug, false);
-    const tog = await connections(pslug, true);
-    assert.ok(def && tog, `person_connections returned null for ${pslug}`);
-    const togSet = new Set(tog.related.map((e) => e.slug));
-
-    // Partition the default edges by whether ANY of their bridge companies satisfies BOTH guards.
-    const bridgeEiks = [
-      ...new Set(
-        def.related.flatMap((e) => (e.companies ?? []).map((c) => c.eik)),
-      ),
-    ];
-    const bothGuard = new Set(
-      (
-        await allRows<{ eik: string }>(
-          `SELECT eik FROM graph_company_node WHERE eik = ANY($1) AND coowner_count <= 6`,
-          [bridgeEiks],
-        )
-      ).map((r) => r.eik),
-    );
-    const hasBothGuardBridge = (e: Edge) =>
-      (e.companies ?? []).some((c) => bothGuard.has(c.eik));
-    const survivors = def.related.filter(hasBothGuardBridge);
-    const mustVanish = def.related.filter((e) => !hasBothGuardBridge(e));
-    assert.ok(
-      survivors.length > 0,
-      `${pslug} has no default edge through a coowner_count <= 6 company — the picker no longer ` +
-        `guarantees a non-vacuous subset check`,
-    );
-    for (const e of survivors)
-      assert.ok(
-        togSet.has(e.slug),
-        `default edge ${e.slug} (bridged by a coowner_count <= 6 company) vanished under the toggle for ${pslug}`,
+    const r = await connections(pslug);
+    assert.ok(r, `person_connections returned null for ${pslug}`);
+    const reached = [...r.related, ...r.indirect].map((e) => e.slug);
+    if (reached.length) {
+      const leaked = await allRows<{ slug: string }>(
+        `SELECT slug FROM person WHERE slug = ANY($1) AND NOT is_public_figure`,
+        [reached],
       );
-    // The other direction — the guard FOLLOWS the toggle. An edge whose every bridge is a >6-co-owner
-    // company has no admissible bridge in the private view and must not be kept there; keeping it is
-    // the public-only guard leaking into the toggle path, i.e. the FINDING-001 over-link.
-    for (const e of mustVanish)
-      assert.ok(
-        !togSet.has(e.slug),
-        `default edge ${e.slug} survived the toggle for ${pslug} although every bridge company ` +
-          `(${(e.companies ?? []).map((c) => c.eik).join(", ")}) has coowner_count > 6 — the private ` +
-          `view is bounding public_officer_count instead of coowner_count`,
+      assert.equal(
+        leaked.length,
+        0,
+        `non-public persons surfaced for ${pslug}: ${leaked.map((l) => l.slug).join(", ")}`,
       );
+    }
   },
 );
 
-// OVER-LINK GUARD (the FINDING-001 regression). The private toggle bounds TOTAL co-owners
-// (coowner_count), not just the public count — so a few-public-officer mass-ownership vehicle
-// (кооперация: 1 public + scores of verified) must NEVER bridge an edge UNDER THE TOGGLE. Bounds the
-// defamation-sensitive fan-out that named ~123 private individuals through one company before the fix.
+// OVER-LINK GUARD (the FINDING-001 regression, and since 2026-09-09 the guard's ONLY definition). A
+// mass-ownership vehicle — a кооперация or professional association — must NEVER bridge an edge. There
+// is no longer a toggle to qualify that: `coowner_count <= 6` is the single bound on every path, so the
+// claim is unconditional, which is what the original "in EITHER toggle state" wording was reaching for.
 //
-// ⚠️ "IN EITHER TOGGLE STATE" WAS THE OLD CLAIM AND IT IS NOT WHAT 084 IMPLEMENTS — it never fired only
-// because the picker above was vacuous. The DEFAULT view bounds public_officer_count, so a 97-co-owner
-// кооперация with 2 public officers IS a default bridge, by design: it names 2 public figures, which is
-// a small public tie, not a fan-out. The harm this guard exists to prevent is naming SCORES OF PRIVATE
-// INDIVIDUALS, and that is reachable only through the private view. Measured 2026-09-08: on the default
-// path no admitted bridge company names more than MAX_CO_OFFICERS people (max 6, and 0 of 88,953 exceed
-// it), while ЕИК 204133950 and 811202228 would name 88 and 114 people respectively if the private view
-// bounded the public count instead of coowner_count. So the two arms below assert DIFFERENT properties:
-// private = must not bridge at all; default = may bridge, but the fan-out stays bounded.
+// ⚠️ THE PUBLIC-MEMBER REQUIREMENT MUST STAY IN THE PICKER, NOT BE A SKIP AFTER IT. Picking the global
+// worst offender first and skipping when it has no public member made this gate VACUOUS ON EVERY RUN:
+// the corpus-wide maximum is ЕИК 811202228 at 123 co-owners and **0** public officers, so it can never
+// have one, and the guard had simply stopped executing while printing a tidy skip reason. Severity here
+// ANTI-CORRELATES with testability — the purest кооперация has the fewest public members — so
+// `ORDER BY coowner_count DESC LIMIT 1` selects an untestable fixture by construction. Measured
+// 2026-09-08: 1,507 companies in the band, 849 with a public member, the worst being ШИЙП ГРУП – 2016
+// (ЕИК 204133950, 97 co-owners / 2 public).
 test.skipIf(skip)(
-  "the toggle does not over-link through mass-ownership companies",
+  "does not over-link through mass-ownership companies",
   async (ctx) => {
-    // The worst offender THAT IS ACTUALLY QUERYABLE: many total co-owners, few public officers (passes
-    // the OLD public-only guard), AND carrying a public member so the default path can reach it as a
-    // subject.
-    //
-    // ⚠️ THE PUBLIC-MEMBER REQUIREMENT MUST BE IN THE PICKER, NOT A SKIP AFTER IT. Picking the global
-    // worst offender first and skipping when it has no public member made this gate VACUOUS ON EVERY
-    // RUN: the corpus-wide maximum is ЕИК 811202228 at 123 co-owners and **0** public officers, so it
-    // can never have one, and the FINDING-001 over-link guard — the defamation-sensitive one — had
-    // simply stopped executing while reporting a tidy skip reason. Measured 2026-09-08: 1,507 companies
-    // sit in the band and 849 of them DO carry a public member, the worst being ШИЙП ГРУП – 2016
-    // (ЕИК 204133950, 97 co-owners / 2 public). The skip below now fires only when NONE is queryable,
-    // which is the genuinely-not-exercisable case.
     const [big] = await allRows<{
       eik: string;
       coowners: string;
@@ -442,51 +379,70 @@ test.skipIf(skip)(
       }
       return;
     }
-    const slug = big.slug;
-    const bridgesFor = async (priv: boolean) => {
-      const r = await connections(slug, priv);
-      return {
-        r,
-        bridges: [
-          ...(r?.related ?? []).flatMap((e) =>
-            (e.companies ?? []).map((c) => c.eik),
-          ),
-          ...(r?.indirect ?? []).flatMap((e) => [e.c1?.eik, e.c2?.eik]),
-        ].filter(Boolean) as string[],
-      };
-    };
+    const bridgesOf = (r: Payload): string[] =>
+      [
+        ...(r?.related ?? []).flatMap((e) =>
+          (e.companies ?? []).map((c) => c.eik),
+        ),
+        ...(r?.indirect ?? []).flatMap((e) => [e.c1?.eik, e.c2?.eik]),
+      ].filter(Boolean) as string[];
 
-    // PRIVATE — the FINDING-001 regression proper. coowner_count > 6, so it must not bridge at all.
-    const priv = await bridgesFor(true);
     assert.ok(
-      !priv.bridges.includes(big.eik),
+      !bridgesOf(await connections(big.slug)).includes(big.eik),
       `company ${big.eik} (${big.coowners} co-owners, ${big.pub} public) bridged an edge for ` +
-        `${slug} with private=true — the toggle guard does not bound total co-ownership degree, so ` +
-        `this subject is being fanned out to named private individuals`,
+        `${big.slug} — the guard is not bounding total co-ownership degree. If it is bounding ` +
+        `public_officer_count again, that is the 2026-09-09 regression: see 084's header.`,
     );
 
-    // DEFAULT — it may bridge (public_officer_count <= 6 is the default guard), but the fan-out through
-    // it must stay bounded by that same count. This is the property that makes the asymmetry safe; an
-    // unbounded default fan-out would be the over-link arriving through the other door.
-    const def = await bridgesFor(false);
-    if (def.bridges.includes(big.eik)) {
-      const named = new Set(
-        [
-          ...(def.r?.related ?? [])
-            .filter((e) => (e.companies ?? []).some((c) => c.eik === big.eik))
-            .map((e) => e.slug),
-          ...(def.r?.indirect ?? [])
-            .filter((e) => e.c1?.eik === big.eik || e.c2?.eik === big.eik)
-            .map((e) => e.slug),
-        ].filter(Boolean),
-      );
-      assert.ok(
-        named.size <= 6,
-        `company ${big.eik} (${big.coowners} co-owners, ${big.pub} public) named ${named.size} people ` +
-          `for ${slug} on the DEFAULT path — the public-officer guard is no longer bounding the ` +
-          `fan-out, so a mass-ownership vehicle is over-linking through the public view`,
-      );
-    }
+    // MUTATION CHECK. The assertion above passes trivially if the subject simply has no edges, and it
+    // also passes on any body that happens not to reach this company. Restore the PRE-2026-09-09 guard
+    // (public_officer_count on the default path) in a rolled-back transaction and require the company to
+    // bridge under it — otherwise this gate is not measuring the thing it names.
+    const under_old_guard = await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        await c.query(`
+          CREATE OR REPLACE FUNCTION person_connections(p_slug text)
+          RETURNS jsonb LANGUAGE sql STABLE AS $fn$
+            WITH subj AS (
+              SELECT person_id FROM person
+               WHERE slug = p_slug AND status = 'active' AND is_public_figure LIMIT 1
+            ),
+            subj_co AS (
+              SELECT DISTINCT e.eik
+                FROM graph_edge e
+                JOIN subj ON subj.person_id = e.person_id
+                JOIN graph_company_node cn ON cn.eik = e.eik
+               WHERE e.kind IN ('tr_role','tr_owner') AND cn.public_officer_count <= 6
+            )
+            SELECT jsonb_build_object(
+              'subject', jsonb_build_object('slug', p_slug, 'name', p_slug),
+              'related', COALESCE((
+                SELECT jsonb_agg(jsonb_build_object('slug', p.slug, 'name', p.display_name,
+                         'companies', jsonb_build_array(jsonb_build_object('eik', e.eik))))
+                  FROM graph_edge e
+                  JOIN person p ON p.person_id = e.person_id AND p.status = 'active'
+                   AND p.is_public_figure
+                  JOIN subj_co sc ON sc.eik = e.eik
+                 WHERE e.kind IN ('tr_role','tr_owner')
+                   AND e.person_id <> (SELECT person_id FROM subj)), '[]'::jsonb),
+              'indirect', '[]'::jsonb, 'disclaimer', 'x')
+            FROM subj;
+          $fn$;`);
+        const { rows } = await c.query<{ r: Payload }>(
+          "SELECT person_connections($1) AS r",
+          [big.slug],
+        );
+        return bridgesOf(rows[0]?.r ?? null);
+      } finally {
+        await c.query("ROLLBACK").catch(() => {});
+      }
+    });
+    assert.ok(
+      under_old_guard.includes(big.eik),
+      `the mutation check no longer discriminates: with the pre-2026-09-09 public_officer_count guard ` +
+        `restored, ${big.eik} did NOT bridge for ${big.slug}, so the assertion above proves nothing.`,
+    );
   },
 );
 
@@ -554,14 +510,16 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
       `whole-corpus officer-count scan — see scripts/db/schema/pg/084_person_connections.sql.`,
   );
 
-  // Control: restore the expensive pre-fix body (the whole-corpus `co` CTE) as a 2-arg overload and
-  // confirm this assertion would have caught it. NOT the whole old body — it keeps `co` + subj_co and
-  // drops the rest, a LOWER BOUND (11,229 buffers) on what the ceiling must reject.
+  // Control: restore the expensive pre-fix body (the whole-corpus `co` CTE) and confirm this assertion
+  // would have caught it. NOT the whole old body — it keeps `co` + subj_co and drops the rest, a LOWER
+  // BOUND (11,229 buffers) on what the ceiling must reject. ⚠️ It must be created 1-ARG: a
+  // 2-arg-with-default beside the real 1-arg makes every `person_connections($1)` call here ambiguous
+  // (42725), so the control would fail as a syntax error rather than as a buffer measurement.
   const regressed = await withClient(async (c) => {
     await c.query("BEGIN");
     try {
       await c.query(`
-        CREATE OR REPLACE FUNCTION person_connections(p_slug text, p_include_private boolean DEFAULT false)
+        CREATE OR REPLACE FUNCTION person_connections(p_slug text)
         RETURNS jsonb LANGUAGE sql STABLE AS $fn$
           WITH subj AS (
             SELECT person_id, slug, display_name FROM person
@@ -595,45 +553,3 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
       `under the ${BUFFER_CEILING} ceiling. This test has stopped measuring anything.`,
   );
 });
-
-// The DEFAULT ceiling above never exercises the TOGGLE path (bufferCost binds p_include_private=false).
-// The private view admits verified co-owners, so it costs more — but the coowner_count≤6 guard bounds
-// the fan-out, so it stays FINITE. Measured 464 on the highest-verified-degree small-company subject;
-// a regression that dropped the guard (fanning to scores of private co-owners, then indirect over their
-// companies) would blow well past this. 2000 sits ~4× above the measurement.
-const PRIVATE_BUFFER_CEILING = 2000;
-
-const bufferCostPrivate = async (
-  c: PoolClient,
-  slug: string,
-): Promise<number> => {
-  await c.query("SELECT person_connections($1, true)", [slug]);
-  const { rows } = await c.query<{ "QUERY PLAN": string }>(
-    "EXPLAIN (ANALYZE, BUFFERS) SELECT person_connections($1, true)",
-    [slug],
-  );
-  return sumExecutionBuffers(rows);
-};
-
-test.skipIf(skip)(
-  "the toggle path stays bounded (guard limits the fan-out)",
-  async () => {
-    // The subject most likely to be expensive under the toggle: the highest verified-private-degree
-    // public figure on genuinely small (coowner_count 2-6) companies.
-    const slug = await pickSlug(`
-    SELECT gp.slug FROM graph_person_node gp
-      JOIN graph_edge e ON e.person_id = gp.person_id AND e.kind IN ('tr_role','tr_owner')
-      JOIN graph_company_node cn ON cn.eik = e.eik
-       AND cn.coowner_count BETWEEN 2 AND 6 AND cn.public_officer_count < cn.coowner_count
-     WHERE gp.is_public_figure
-     GROUP BY gp.slug ORDER BY count(*) DESC, gp.slug LIMIT 1`);
-    if (!slug) return; // no public subject on a small verified-carrying company — nothing to bound
-    const cost = await withClient((c) => bufferCostPrivate(c, slug));
-    assert.ok(
-      cost < PRIVATE_BUFFER_CEILING,
-      `person_connections(…, true) read ${cost} buffers for ${slug} (ceiling ${PRIVATE_BUFFER_CEILING}). ` +
-        `The coowner_count<=6 guard should bound the private fan-out — check subj_co/p_co still key on ` +
-        `coowner_count when p_include_private.`,
-    );
-  },
-);

@@ -12,57 +12,66 @@
 -- /person tile and the ego endpoint now share ONE lineage.
 --
 -- SAFETY (this is the defamation-sensitive surface):
---   • DEFAULT (p_include_private=false): both endpoints must be is_public_figure. The privacy gate is
---     the LIVE person.status='active' + is_public_figure join in EVERY surfacing CTE — that, not the
---     graph snapshot, is what enforces it, so a status flip drops someone immediately. graph_person_node
---     happens to be all-active today (retired persons' roles are reassigned, leaving no edges) but the
---     loader does NOT filter on status, so do not rely on the snapshot as the guarantee.
+--   • BOTH ENDPOINTS MUST BE is_public_figure. The privacy gate is the LIVE person.status='active' +
+--     is_public_figure join in EVERY surfacing CTE — that, not the graph snapshot, is what enforces it,
+--     so a status flip drops someone immediately. graph_person_node happens to be all-active today
+--     (retired persons' roles are reassigned, leaving no edges) but the loader does NOT filter on
+--     status, so do not rely on the snapshot as the guarantee.
 --   • ASSOCIATION-NOISE GUARD: a company with too many co-owners is a board / professional association /
---     кооперация, not a business tie — dropped at > MAX_CO_OFFICERS (6). The guard population FOLLOWS the
---     toggle: the DEFAULT bounds PUBLIC officers (public_officer_count); the PRIVATE view bounds ALL
---     co-owners (coowner_count). Bounding only the public count in the private view would let a
---     few-public-officer mass-ownership vehicle fan a subject out to scores of named private individuals
---     (measured: 1 public + 123 verified) — which is precisely the over-link the guard exists to stop.
---   • TIER-V TOGGLE (p_include_private=true): relaxes endpoint eligibility to also admit
---     identity_confidence='verified' private owners (never name_fold — those are not real person rows,
---     so they are not in graph_person_node at all) AND switches the guard to coowner_count (above). This
---     is the opt-in surface P4 exposes; the default path is unchanged and behaviour-preserving.
+--     кооперация, not a business tie — dropped at > MAX_CO_OFFICERS (6) on `coowner_count`, the count of
+--     ELIGIBLE co-owners (public ∪ verified), i.e. a property of the COMPANY.
+--
+--     ⚠️ IT IS `coowner_count`, NEVER `public_officer_count`, AND THE DISTINCTION IS THE WHOLE POINT.
+--     The rationale above is a claim about the company; `public_officer_count` answers a different
+--     question — how many of its members happen to be public figures — so a mass-membership vehicle
+--     passed whenever few of its members were public. This view bounded that column until 2026-09-09,
+--     and the measured cost was 2,154 of 8,060 directed edge slots (26.7%) bridged SOLELY by companies
+--     with >6 co-owners: ЕИК 000703172, a 54-member федерация of scientific-technical unions with 6
+--     public officers, was publishing 6 public figures as each other's business connections on /person
+--     and through the AI personConnections tool. `graph_company_node` already stores the right column,
+--     and `officer_count` agrees with it closely on the offenders (96/96, 97/97, 55/54) while
+--     `public_officer_count` reads 2, 2, 6. See docs/plans/connections-guard-v2.md.
+--   • NO TIER-V TOGGLE. `p_include_private` was retired here on 2026-09-09: it had NO product consumer
+--     (the /connections EgoPanel toggles person_graph_ego, and both PersonProfileScreen and
+--     ai/tools/person.ts call this route without a flag) while being a publicly reachable surface that
+--     named 4,302 non-public individuals from 3,128 public entry points. person_graph_ego KEEPS its
+--     toggle and must not be "finished off" to match: it returns the subject's OWN person→company star,
+--     names no third party, and so needs no fan-out guard at all.
 --   • The identity disclaimer is baked into the payload so a consumer can never drop it.
 
 -- The per-request public_officer_count(eik) is RETIRED — it had no caller but this function, and the
 -- graph_company_node.public_officer_count column replaces it single-sourced. Drop it so it cannot rot.
 DROP FUNCTION IF EXISTS public_officer_count(text);
 
--- The 1-arg person_connections(text) is SUPERSEDED by the 2-arg (…, boolean DEFAULT false) below.
--- CREATE OR REPLACE with the extra parameter mints a NEW overload rather than replacing the old one,
--- so the old 1-arg must be dropped explicitly — otherwise person_connections('slug') is ambiguous
--- between the 1-arg and the 2-arg-with-default. DROP first so a re-apply is idempotent.
+-- ⚠️ BOTH OVERLOADS ARE DROPPED, AND THE 2-ARG ONE IS THE LOAD-BEARING DROP. Leaving
+-- person_connections(text, boolean DEFAULT false) in place beside the 1-arg below makes
+-- person_connections('slug') AMBIGUOUS (42725) rather than resolving to either — so a database that
+-- has ever held the retired toggle must lose it here or every caller starts erroring. The 1-arg drop
+-- is belt-and-braces: CREATE OR REPLACE cannot change an existing function's return type, so an
+-- ancient 1-arg with a different one would fail the apply instead of being replaced.
+DROP FUNCTION IF EXISTS person_connections(text, boolean);
 DROP FUNCTION IF EXISTS person_connections(text);
 
-CREATE OR REPLACE FUNCTION person_connections(p_slug text, p_include_private boolean DEFAULT false)
+CREATE OR REPLACE FUNCTION person_connections(p_slug text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   -- ELIGIBILITY IS GATED LIVE ON `person`, not on the graph snapshot. The graph supplies the EDGES,
   -- the guard and the money (all precomputed); WHICH PERSONS may surface is read live from person, so a
   -- status flip to 'review' or a de-flag of is_public_figure drops someone IMMEDIATELY, not at the next
-  -- graph rebuild — the privacy contract the old body had. status='active' + is_public_figure (or, with
-  -- the toggle, identity_confidence='verified').
+  -- graph rebuild — the privacy contract the old body had. status='active' + is_public_figure.
   WITH subj AS (
     SELECT person_id, slug, display_name AS name FROM person
-     WHERE slug = p_slug AND status = 'active'
-       AND (is_public_figure OR (p_include_private AND identity_confidence = 'verified'))
+     WHERE slug = p_slug AND status = 'active' AND is_public_figure
      LIMIT 1
   ),
-  -- the subject's own co-ownership companies small enough to be a real tie. The guard population
-  -- follows the toggle: DEFAULT bounds PUBLIC officers (public_officer_count); the PRIVATE view bounds
-  -- ALL co-owners (coowner_count), so a few-public-officer mass-ownership vehicle (1 public + 123
-  -- verified) is excluded from the private fan-out too, not just from the public one.
+  -- the subject's own co-ownership companies small enough to be a real tie: ONE bound, on
+  -- coowner_count, per the guard note in the header. Do not reintroduce public_officer_count here.
   subj_co AS (
     SELECT DISTINCT e.eik
       FROM graph_edge e
       JOIN subj ON subj.person_id = e.person_id
       JOIN graph_company_node cn ON cn.eik = e.eik
      WHERE e.kind IN ('tr_role','tr_owner')
-       AND (CASE WHEN p_include_private THEN cn.coowner_count ELSE cn.public_officer_count END) <= 6
+       AND cn.coowner_count <= 6
   ),
   -- every OTHER eligible person on one of those companies (DIRECT). Eligibility LIVE from person.
   rel AS (
@@ -71,7 +80,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       JOIN person p ON p.person_id = e.person_id AND p.status = 'active'
       JOIN subj_co s ON s.eik = e.eik
      WHERE e.kind IN ('tr_role','tr_owner')
-       AND (p.is_public_figure OR (p_include_private AND p.identity_confidence = 'verified'))
+       AND p.is_public_figure
        AND e.person_id <> (SELECT person_id FROM subj)
   ),
   agg AS (
@@ -95,7 +104,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       JOIN graph_edge e ON e.person_id = a.person_id AND e.kind IN ('tr_role','tr_owner')
       JOIN graph_company_node cn ON cn.eik = e.eik
      WHERE e.eik NOT IN (SELECT eik FROM subj_co)
-       AND (CASE WHEN p_include_private THEN cn.coowner_count ELSE cn.public_officer_count END) <= 6
+       AND cn.coowner_count <= 6
   ),
   -- B on C2, excluding the subject, the direct connections, and P itself. One path per B.
   indirect AS (
@@ -103,7 +112,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       FROM p_co pc
       JOIN graph_edge e ON e.eik = pc.eik AND e.kind IN ('tr_role','tr_owner')
       JOIN person p ON p.person_id = e.person_id AND p.status = 'active'
-     WHERE (p.is_public_figure OR (p_include_private AND p.identity_confidence = 'verified'))
+     WHERE p.is_public_figure
        AND e.person_id <> (SELECT person_id FROM subj)
        AND e.person_id NOT IN (SELECT person_id FROM agg)
        AND e.person_id <> pc.p_id

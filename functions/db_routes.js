@@ -6310,18 +6310,21 @@ const DB_ROUTES = {
   },
   // Person↔person edges (shared company, association-noise-guarded) → the Connections
   // component (§8) + the future personConnections AI tool. Reads the unified graph (128/084).
-  // Public-safe endpoints only by default; ?private=1 opts into the Tier-V verified-owner view
-  // (relaxes endpoint eligibility to identity_confidence='verified' AND switches the
-  // association-noise guard from public_officer_count to coowner_count — 084's header — so a
-  // default edge bridged only by a >6-co-owner company legitimately drops under ?private=1).
-  // The payload carries its own "лид, не доказателство" disclaimer.
+  // Public-safe endpoints ONLY: both ends must be an active public figure, and a bridging company is
+  // bounded at 6 co-owners so a professional association is not published as a business tie. The
+  // payload carries its own "лид, не доказателство" disclaimer.
+  //
+  // ⚠️ THERE IS NO ?private=1 HERE, deliberately (2026-09-09). The Tier-V toggle was retired from
+  // person_connections: nothing consumed it, and it named non-public individuals as connections of
+  // named public figures. `graph-ego` below KEEPS its toggle — that one is consumed by the
+  // /connections EgoPanel and returns only the subject's own companies, naming no third party. Adding
+  // a private arm back here is a defamation-surface change, not a parameter change; see
+  // docs/plans/connections-guard-v2.md.
   "person-connections": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: null };
-    const includePrivate = s(q, "private") === "1";
-    const rows = await dbRows("SELECT person_connections($1, $2) AS r", [
+    const rows = await dbRows("SELECT person_connections($1) AS r", [
       slug,
-      includePrivate,
     ]).catch(missingMigration(null));
     return { body: rows[0]?.r ?? null };
   },
