@@ -25,6 +25,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { extractAlphaResearch } from "./extractors/alpha_research";
 import { extractTrend } from "./extractors/trend";
+import { flagReader } from "./lib/argv";
 import { dirSlugFor, latestVersionSuffix } from "./lib/capture";
 import type { InboxDraft } from "./lib/draft";
 
@@ -183,12 +184,7 @@ export interface Opts {
 }
 
 export const parseArgv = (argv: string[]): Opts => {
-  const flag = (name: string): string | undefined => {
-    const i = argv.indexOf(`--${name}`);
-    if (i < 0) return undefined;
-    const v = argv[i + 1];
-    return v !== undefined && !v.startsWith("--") ? v : undefined;
-  };
+  const flag = flagReader(argv);
   return { agency: flag("agency"), pub: flag("pub") };
 };
 

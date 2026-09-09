@@ -27,6 +27,7 @@ import {
   isRealIsoDate,
   parseFieldworkEnd,
 } from "../../src/data/polls/fieldwork";
+import { flagReader } from "./lib/argv";
 import type { Poll } from "../../src/data/polls/pollsTypes";
 
 const PROD_REPO_ROOT = path.resolve(
@@ -122,12 +123,7 @@ export interface Opts {
 }
 
 export const parseArgv = (argv: string[]): Opts => {
-  const flag = (name: string): string | undefined => {
-    const i = argv.indexOf(`--${name}`);
-    if (i < 0) return undefined;
-    const v = argv[i + 1];
-    return v !== undefined && !v.startsWith("--") ? v : undefined;
-  };
+  const flag = flagReader(argv);
   return { race: flag("race"), to: flag("to") };
 };
 

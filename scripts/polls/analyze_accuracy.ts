@@ -625,7 +625,7 @@ const main = async (opts: { pollsDir: string }) => {
   );
   if (!polls || !details || !agencies) {
     throw new Error(
-      `missing polls files in ${opts.pollsDir} — run scrape_polls first`,
+      `missing polls files in ${opts.pollsDir} — run polls:fetch, polls:extract and polls:accept first (or restore data/polls/ from the committed corpus)`,
     );
   }
 

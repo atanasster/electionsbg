@@ -25,9 +25,13 @@ interface WikiPollsMeta {
   presRows: number;
 }
 
-const PARLIAMENTARY_PAGE =
+// Exported so `scripts/polls/crosscheck.ts` (§6.5) reads the SAME URL this
+// watcher fingerprints — decision 14's "one home" rule, one commit late: two
+// copies of this URL is how a page rename would flip this watcher without
+// crosscheck ever reading the new one, or vice versa.
+export const PARLIAMENTARY_PAGE =
   "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2026)";
-const PRESIDENTIAL_PAGE =
+export const PRESIDENTIAL_PAGE =
   "https://bg.wikipedia.org/wiki/Президентски_избори_в_България_(2026)";
 
 const countPollRows = (html: string): number => {

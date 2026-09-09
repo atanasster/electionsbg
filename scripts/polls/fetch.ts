@@ -25,6 +25,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { fetchText } from "../watch/fingerprint";
 import { UA } from "./agencies/wp_lister";
 import { agencyById } from "./lib/agencies";
+import { flagReader } from "./lib/argv";
 import {
   type CaptureTarget,
   FETCHABLE_SITE_AGENCIES,
@@ -330,12 +331,7 @@ export const parseArgv = (argv: string[]): Opts => {
   // `--flag`) resolves to `undefined` rather than swallowing the next
   // flag's own name as its value — `--agency --force` must not set
   // `agency: "--force"`.
-  const flag = (name: string): string | undefined => {
-    const i = argv.indexOf(`--${name}`);
-    if (i < 0) return undefined;
-    const v = argv[i + 1];
-    return v !== undefined && !v.startsWith("--") ? v : undefined;
-  };
+  const flag = flagReader(argv);
   return {
     since: flag("since"),
     agency: flag("agency"),

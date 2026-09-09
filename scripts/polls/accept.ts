@@ -33,6 +33,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { flagReader } from "./lib/argv";
 import type { InboxDraft } from "./lib/draft";
 import type { Poll, PollDetail } from "../../src/data/polls/pollsTypes";
 
@@ -130,12 +131,7 @@ export interface Opts {
 }
 
 export const parseArgv = (argv: string[]): Opts => {
-  const flag = (name: string): string | undefined => {
-    const i = argv.indexOf(`--${name}`);
-    if (i < 0) return undefined;
-    const v = argv[i + 1];
-    return v !== undefined && !v.startsWith("--") ? v : undefined;
-  };
+  const flag = flagReader(argv);
   const positional = argv.find((a) => !a.startsWith("--"));
   return {
     pollId: positional,
