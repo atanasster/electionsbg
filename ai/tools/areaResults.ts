@@ -11,6 +11,7 @@
 // `*History` suffix; only the oblast tier collides, hence `*ResultsTrend` here.
 
 import type { ElectionInfo } from "../../src/data/dataTypes";
+import { matchParty } from "./matchParty";
 import { resolveElection } from "./args";
 import {
   fetchCanonicalParties,
@@ -107,11 +108,67 @@ const resultsEnvelope = (opts: {
   reg: number;
   act: number;
   partyByNum: Map<number, NSParty>;
+  partyQuery?: string;
+  metric?: string;
   geo?: GeoOverlay;
   provenance: string[];
   baseFacts: Record<string, string | number>;
 }): Envelope => {
   const bg = opts.lang === "bg";
+  if (opts.metric === "turnout") {
+    if (opts.reg <= 0)
+      return noData(
+        opts.tool,
+        bg
+          ? "Няма данни за местната активност"
+          : "Local turnout data unavailable",
+        opts.provenance,
+        opts.baseFacts,
+      );
+    return {
+      tool: opts.tool,
+      kind: "scalar",
+      viz: "none",
+      title: `${bg ? "Активност" : "Turnout"} — ${opts.title}`,
+      geo: opts.geo,
+      facts: {
+        ...opts.baseFacts,
+        turnout: fmtPct(round2((100 * opts.act) / opts.reg), opts.lang),
+        registered: fmtInt(opts.reg, opts.lang),
+        voters: fmtInt(opts.act, opts.lang),
+      },
+      provenance: opts.provenance,
+    };
+  }
+  if (opts.partyQuery) {
+    const party = matchParty(opts.partyQuery, [...opts.partyByNum.values()]);
+    if (!party)
+      return noData(
+        opts.tool,
+        bg
+          ? `Няма намерена партия „${opts.partyQuery}“`
+          : `No party matched "${opts.partyQuery}"`,
+        opts.provenance,
+        { ...opts.baseFacts, query: opts.partyQuery },
+      );
+    const votes = opts.votesByNum.get(party.partyNum) ?? 0;
+    const pct = opts.total > 0 ? round2((100 * votes) / opts.total) : 0;
+    return {
+      tool: opts.tool,
+      kind: "scalar",
+      viz: "none",
+      title: `${party.nickName} — ${opts.title}`,
+      geo: opts.geo,
+      facts: {
+        ...opts.baseFacts,
+        party: party.nickName,
+        votes: fmtInt(votes, opts.lang),
+        pct: fmtPct(pct, opts.lang),
+        total_votes: fmtInt(opts.total, opts.lang),
+      },
+      provenance: opts.provenance,
+    };
+  }
   const ranked = [...opts.votesByNum.entries()]
     .filter(([, votes]) => votes > 0)
     .map(([num, votes]) => {
@@ -400,6 +457,8 @@ export const municipalityResults = async (
     reg: agg.reg,
     act: agg.act,
     partyByNum: new Map(ns.parties.map((p) => [p.partyNum, p])),
+    partyQuery: typeof args.party === "string" ? args.party : undefined,
+    metric: typeof args.metric === "string" ? args.metric : undefined,
     geo: muniLocator(muni.obshtina, muni.oblast, name),
     provenance: [
       `${election}/municipalities/by/${muni.oblast}.json`,
@@ -561,6 +620,8 @@ export const regionResults = async (
     reg: agg.reg,
     act: agg.act,
     partyByNum: new Map(ns.parties.map((p) => [p.partyNum, p])),
+    partyQuery: typeof args.party === "string" ? args.party : undefined,
+    metric: typeof args.metric === "string" ? args.metric : undefined,
     geo: reg.geo,
     provenance: [
       `${election}/region_votes.json`,

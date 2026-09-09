@@ -33,10 +33,34 @@ model calls only, not infrastructure, verification, or payment fees. Bulgarian
 routing prompts are about 58 KB; do not use a tiny generic prompt estimate to budget
 this app. Production reserves a conservative maximum before admitting each question.
 
-The operator context evaluator was adapted to use a local key directly and report
-failure when no model was reached. Its additional live run was blocked by automatic
-approval review because it would transmit local data-derived facts/context. It has
-not been counted as passing. Existing mocked context/fallback checks passed.
+## Follow-up context validation and fixes
+
+After explicit user authorization, the live context test ran against local tool
+results through OpenRouter. The first run preserved the comparison and topic-switch
+references, but dropped GERB from “а в Пловдив?”. It also selected October for the
+ambiguous comparison year 2024. Therefore the initial visual inspection was not a
+sufficient acceptance gate.
+
+The fixes cover the shared rules/cloud path: check all compatible entity fields,
+retain the original ballot when a route omitted it, carry party filters into local
+results, show structured tool arguments to the model, and preserve bare-year scopes.
+Local party percentages use the whole area's vote total; they never reuse national
+seats or percentages. A bare city uses municipal scope; an explicit province uses
+regional scope, both named in the answer. Complete new questions do not inherit
+unrelated filters. Local turnout retains geography; changing place retains the
+metric, while choosing a party resets it. Unsupported local metric switches
+explicitly decline instead of answering nationally. Explicit non-center municipality
+names such as Дупница are retained in both providers. These are conservative common-follow-up rules, not a general
+natural-language reference resolver.
+
+The live rerun passed **6/6 explicit scope assertions with 8 model calls** on
+Gemini 3.5 Flash-Lite. GERB → Plovdiv retained party, municipality and the October
+2024 ballot; “compare that to 2024” now requests ballot clarification; switching
+from turnout to machine voting retained 2023. A template-only defect found in the
+run (empty comparison facts beside the chooser) was then fixed and regression-tested:
+clarification responses now narrate the actual clarification prompt. The evaluation
+now exits unsuccessfully for mismatched scopes rather than merely checking that a
+model answered. This remains a small smoke test, not representative accuracy evidence.
 
 ## Reproduce
 

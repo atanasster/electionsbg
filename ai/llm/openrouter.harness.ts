@@ -275,7 +275,7 @@ const run = async () => {
     lastRouteUser.includes("колко гласа взе ГЕРБ"),
     "turn 2 routing prompt carries turn 1",
   );
-  await turn("сравни последните избори");
+  await turn("каква е инфлацията");
   assert(
     lastRouteUser.includes("колко гласа взе ГЕРБ") &&
       lastRouteUser.includes("какво е положението в Бургас"),
@@ -392,6 +392,26 @@ const run = async () => {
     "routing and narration carry same reserved credentials",
   );
   assert(finished === 2, "successful question finishes exactly once");
+
+  lastRouteUser = "";
+  setFetch(
+    mockFetch({
+      routeContent: '{"tool":"partyResult","args":{"party":"ГЕРБ"}}',
+    }),
+  );
+  const localAnswer = await shared.respond(
+    "Колко гласа взе ГЕРБ в Дупница през 2023?",
+    ctx,
+  );
+  assert(
+    localAnswer.tool === "municipalityResults" &&
+      localAnswer.args?.place === "дупница",
+    "explicit local scope survives even a model that would choose national results",
+  );
+  assert(
+    lastRouteUser === "",
+    "resolved local scope needs no model routing call",
+  );
 
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — cloud provider`,

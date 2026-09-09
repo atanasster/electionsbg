@@ -1150,6 +1150,23 @@ export const TOOLS: ToolDef[] = [
     },
     params: [
       {
+        name: "metric",
+        type: "metric",
+        values: ["turnout"],
+        description: {
+          bg: "Само местна активност (по избор)",
+          en: "Local turnout only (optional)",
+        },
+      },
+      {
+        name: "party",
+        type: "party",
+        description: {
+          bg: "Само тази партия (по избор)",
+          en: "Only this party (optional)",
+        },
+      },
+      {
         name: "place",
         type: "place",
         required: true,
@@ -1213,10 +1230,27 @@ export const TOOLS: ToolDef[] = [
     name: "regionResults",
     domain: "elections",
     description: {
-      bg: "Резултати в една област/МИР: гласове и % по партия + активност (вкл. София-град = трите столични МИР сборно).",
-      en: "Results in one region/oblast: votes and % per party + turnout (incl. Sofia city = its three MIR combined).",
+      bg: "Резултати в една област/МИР, по избор за една партия: гласове и % по партия + активност (вкл. София-град = трите столични МИР сборно).",
+      en: "Results in one region/oblast, optionally filtered to one party: votes and % per party + turnout (incl. Sofia city = its three MIR combined).",
     },
     params: [
+      {
+        name: "metric",
+        type: "metric",
+        values: ["turnout"],
+        description: {
+          bg: "Само местна активност (по избор)",
+          en: "Local turnout only (optional)",
+        },
+      },
+      {
+        name: "party",
+        type: "party",
+        description: {
+          bg: "Само тази партия (по избор)",
+          en: "Only this party (optional)",
+        },
+      },
       {
         name: "oblast",
         type: "oblast",

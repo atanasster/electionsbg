@@ -17,7 +17,13 @@ import {
   buildNarrationPrompt,
   buildToolSystemPrompt,
 } from "../orchestrator/prompts";
-import { resolveFollowOn, route, type Route } from "../orchestrator/router";
+import {
+  followOnScopeNotice,
+  pinElectionContext,
+  resolveFollowOn,
+  route,
+  type Route,
+} from "../orchestrator/router";
 import { parseToolCall } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
@@ -207,7 +213,19 @@ export class OpenRouterProvider implements LLMProvider {
     usage: Usage,
     routingCtx: string,
   ): Promise<{ route: Route; byModel: boolean }> {
-    const fallback = () => ({ route: route(question, ctx), byModel: false });
+    const deterministic = route(question, ctx);
+    const fallback = () => ({ route: deterministic, byModel: false });
+    // These explicit scopes are already resolved by the shared router. Do not
+    // let an otherwise valid model call discard a named party/place or ballot.
+    if (
+      deterministic &&
+      (deterministic.tool === "compareElections" ||
+        (["municipalityResults", "regionResults"].includes(
+          deterministic.tool,
+        ) &&
+          deterministic.args.party))
+    )
+      return { route: deterministic, byModel: false };
     // Prepend the conversation context (when there is any) so the model can
     // resolve references the keyword router can't, then label the live question.
     const userContent = routingCtx
@@ -353,6 +371,8 @@ export class OpenRouterProvider implements LLMProvider {
     onDelta?: (partial: string) => void,
     opts?: RespondOpts,
   ): Promise<ChatResponse> {
+    if (followOnScopeNotice(question, opts?.prev, ctx.lang))
+      return new HeuristicProvider().respond(question, ctx, undefined, opts);
     return this.authorized(
       () => this.respondAuthorized(question, ctx, onDelta, opts),
       () => new HeuristicProvider().respond(question, ctx, undefined, opts),
@@ -394,9 +414,10 @@ export class OpenRouterProvider implements LLMProvider {
     // A bare follow-on ("а ДПС?") reuses the previous tool deterministically —
     // no routing call needed (and the keyword swap is reliable for ellipsis).
     const followOn = resolveFollowOn(question, opts?.prev);
-    const { route: r, byModel: routedByModel } = followOn
+    const { route: selectedRoute, byModel: routedByModel } = followOn
       ? { route: followOn, byModel: false }
       : await this.selectRoute(question, ctx, usage, routingCtx);
+    const r = pinElectionContext(selectedRoute, ctx);
     // `usedModel` = the cloud model produced the route OR the prose. When false
     // (both fell back), the answer IS the rules engine, so label it as such —
     // never claim the cloud model on a fallback/error.
@@ -462,6 +483,7 @@ export class OpenRouterProvider implements LLMProvider {
     ctx: ToolContext,
     onDelta?: (partial: string) => void,
   ): Promise<ChatResponse> {
+    args = pinElectionContext({ tool, args }, ctx)!.args;
     const t0 = performance.now();
     const usage: Usage = { input: 0, output: 0 };
     const meta = (

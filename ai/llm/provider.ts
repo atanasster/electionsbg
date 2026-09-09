@@ -6,7 +6,12 @@
 
 import type { TurnMemory } from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
-import { resolveFollowOn, route } from "../orchestrator/router";
+import {
+  followOnScopeNotice,
+  pinElectionContext,
+  resolveFollowOn,
+  route,
+} from "../orchestrator/router";
 import { runTool } from "../tools/registry";
 import type { Envelope, ToolArgs, ToolContext } from "../tools/types";
 import { clarify } from "./lang";
@@ -96,6 +101,7 @@ export const runToolChoice = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<ChatResponse> => {
+  args = pinElectionContext({ tool, args }, ctx)!.args;
   const t0 = performance.now();
   const meta = (): ResponseMeta => ({
     model: label,
@@ -138,9 +144,14 @@ export class HeuristicProvider implements LLMProvider {
       durationMs: performance.now() - t0,
       narratedBy: "rules",
     });
+    const scopeNotice = followOnScopeNotice(question, opts?.prev, ctx.lang);
+    if (scopeNotice) return { text: scopeNotice, env: null, meta: meta() };
     // A bare follow-on ("а ДПС?") reuses the previous tool with the new entity;
     // otherwise route the question on its own.
-    const r = resolveFollowOn(question, opts?.prev) ?? route(question, ctx);
+    const r = pinElectionContext(
+      resolveFollowOn(question, opts?.prev) ?? route(question, ctx),
+      ctx,
+    );
     if (!r) return { text: clarify(ctx.lang), env: null, meta: meta() };
     try {
       const env = await runTool(r.tool, r.args, ctx);

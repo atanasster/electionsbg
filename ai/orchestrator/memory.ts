@@ -133,7 +133,7 @@ const summarize = (older: ReadonlyArray<TurnMemory>): string => {
 };
 
 const turnText = (t: TurnMemory): string =>
-  t.gist ? `${t.question} ${t.gist}` : t.question;
+  `${t.question} ${t.gist ?? ""} ${t.tool ?? ""} ${JSON.stringify(t.args ?? {})}`;
 
 // Build the windowed + compacted context. Deterministic: the newest exchanges
 // stay verbatim (up to the turn cap), then the window is tightened one turn at a
@@ -178,6 +178,10 @@ export const renderRoutingContext = (
   if (ctx.summary) lines.push(`${bg ? "По-рано" : "Earlier"}: ${ctx.summary}`);
   for (const t of ctx.recent) {
     lines.push(`- ${bg ? "Въпрос" : "Q"}: ${t.question}`);
+    if (t.tool)
+      lines.push(
+        `  Tool: ${JSON.stringify({ tool: t.tool, args: t.args ?? {} })}`,
+      );
     if (t.gist) lines.push(`  ${bg ? "Отговор" : "A"}: ${t.gist}`);
   }
   return lines.join("\n");

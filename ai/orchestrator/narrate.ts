@@ -19,6 +19,7 @@ const seriesScope = (e: Envelope, lang: Lang): string => {
 };
 
 export const narrate = (env: Envelope, lang: Lang): string => {
+  if (env.clarify) return env.clarify.prompt;
   switch (env.tool) {
     case "machineVoteSeries": {
       const last = f(env, "latest");

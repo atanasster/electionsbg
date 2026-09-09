@@ -4381,6 +4381,40 @@ const routeText = (question: string, ctx: ToolContext): Route => {
 
   // 4. a specific party
   if (party) {
+    // A single named area is not a nationwide party result or a ranking of areas.
+    const localHit = findOblastInText(q);
+    const explicitPlace = q
+      .match(
+        /(?:^|\s)(?:в|във|in)\s+(?:(?:община|град|област|municipality|city|region|province)\s+)?(.+?)(?=\s+(?:през|за|in|during|for)\s+20\d{2}|\s+20\d{2}|[?!.]|$)/i,
+      )?.[1]
+      ?.trim();
+    const localPlace =
+      localHit?.name.bg.replace(/\s*\([^)]*\)/g, "") ?? explicitPlace;
+    if (
+      localPlace &&
+      !/(?:избор|парламент|election|parliament|last|latest|последн)/i.test(
+        localPlace,
+      ) &&
+      !["парламента", "parliament", "българия", "bulgaria"].includes(
+        localPlace,
+      ) &&
+      /(?:^|\s)(?:в|във|in)\s/i.test(q) &&
+      !isTrend &&
+      !isAggregation(q) &&
+      !has(q, "по общини", "по населени", "by municipality", "by settlement")
+    ) {
+      const regional = hasRegionMarker(q);
+      return {
+        tool: regional ? "regionResults" : "municipalityResults",
+        args: {
+          party,
+          [regional ? "oblast" : "place"]: regional
+            ? (localHit?.code ?? localPlace)
+            : localPlace,
+          ...(election ? { election } : {}),
+        },
+      };
+    }
     // a party's per-settlement breakdown within one município ("ГЕРБ по
     // населени места в община Варна"). Checked before the municipality rule so
     // the "община" in such a query doesn't divert it.
@@ -4435,7 +4469,12 @@ const routeText = (question: string, ctx: ToolContext): Route => {
     const wantsTimeline =
       has(q, "през годините", "over time", "история", "history", "timeline") ||
       (isTrend && !election);
-    if (wantsTimeline) return { tool: "partyTimeline", args: { party } };
+    const latestBallot =
+      /(?:last|latest) election(?:[?!.,]|$)|последните избори|последния вот/i.test(
+        q,
+      );
+    if (wantsTimeline && !latestBallot)
+      return { tool: "partyTimeline", args: { party } };
     return {
       tool: "partyResult",
       args: election ? { party, election } : { party },
@@ -4528,6 +4567,57 @@ const ENTITY_DETECTORS: Record<
   place: (_q, raw) => extractPlaceCandidates(raw)[0],
 };
 
+// Attach the selected ballot before storing a completed route. Otherwise a
+// later UI election change silently changes the meaning of an ellipsis.
+export const pinElectionContext = (r: Route, ctx: ToolContext): Route => {
+  if (
+    !r ||
+    !TOOLS_BY_NAME[r.tool]?.params.some(
+      (p) => p.name === "election" && p.type === "election",
+    ) ||
+    r.args.election
+  )
+    return r;
+  return { ...r, args: { ...r.args, election: ctx.election } };
+};
+
+const localScope = (prev: { args: ToolArgs }) =>
+  ["place", "oblast", "ekatte", "section", "obshtina", "mir"].some(
+    (k) => prev.args[k] != null,
+  );
+const followOnTopic = (question: string) => {
+  if (!FOLLOWON_CUE.test(question.trim())) return undefined;
+  const bare = question
+    .trim()
+    .replace(FOLLOWON_CUE, "")
+    .replace(/[?!.,]+$/u, "");
+  if (/^(?:машинното гласуване|машинния вот|machine voting)$/i.test(bare))
+    return "machine";
+  if (
+    /^(?:активността|избирателната активност|turnout|voter turnout)$/i.test(
+      bare,
+    )
+  )
+    return "turnout";
+};
+// Unsupported scoped requests must not fall through to the cloud/national router.
+export const followOnScopeNotice = (
+  question: string,
+  prev: { tool: string; args: ToolArgs } | undefined,
+  lang: ToolContext["lang"],
+): string | undefined => {
+  const topic = followOnTopic(question);
+  if (!prev || !topic || !localScope(prev)) return undefined;
+  if (
+    topic === "turnout" &&
+    ["municipalityResults", "regionResults"].includes(prev.tool)
+  )
+    return undefined;
+  return lang === "bg"
+    ? "Не мога да покажа този показател със същия местен обхват. Посочете изрично, ако искате национални данни."
+    : "I cannot show that metric for the same local area. Please specify if you want national data.";
+};
+
 export const resolveFollowOn = (
   question: string,
   prev: { tool: string; args: ToolArgs } | undefined,
@@ -4535,27 +4625,117 @@ export const resolveFollowOn = (
   if (!prev) return null;
   const tool = TOOLS_BY_NAME[prev.tool];
   if (!tool) return null;
-
-  // the tool's primary entity slot, if it has one
-  const param = tool.params.find((p) =>
-    ["party", "person", "oblast", "place"].includes(p.type),
+  if (followOnTopic(question) && localScope(prev)) {
+    if (
+      followOnTopic(question) === "turnout" &&
+      ["municipalityResults", "regionResults"].includes(prev.tool)
+    ) {
+      const args: ToolArgs = { ...prev.args, metric: "turnout" };
+      delete args.party;
+      return { tool: prev.tool, args };
+    }
+    return null;
+  }
+  const raw = question.trim().replace(/[?!.,]+$/u, "");
+  const cue = FOLLOWON_CUE.test(raw);
+  const bare = raw.replace(FOLLOWON_CUE, "").trim();
+  const valid = (name: string, args: ToolArgs): Route => {
+    const checked = validateToolArgs(name, args);
+    return checked ? { tool: name, args: checked } : null;
+  };
+  // A year is a scope, not a guess at the last ballot in that year.
+  const year = bare.match(/^(?:(?:in|for|през|за)\s+)?(20\d{2})$/i)?.[1];
+  if (year && tool.params.some((p) => p.name === "election"))
+    return valid(prev.tool, { ...prev.args, election: year });
+  const comparison = raw.match(
+    /^(?:compare (?:that|it|this) (?:to|with)|сравни (?:това|го) с)\s+(20\d{2})$/i,
+  )?.[1];
+  if (
+    comparison &&
+    prev.args.election &&
+    [
+      "nationalResults",
+      "turnout",
+      "machineVoteShare",
+      "compareElections",
+    ].includes(prev.tool)
+  )
+    return valid("compareElections", { a: prev.args.election, b: comparison });
+  // Only narrowly worded topic switches inherit the previous ballot. Full new
+  // questions route independently, so history cannot overwrite an explicit scope.
+  if (cue && prev.args.election) {
+    if (/^(?:машинното гласуване|машинния вот|machine voting)$/i.test(bare))
+      return valid("machineVoteShare", { election: prev.args.election });
+    if (
+      /^(?:активността|избирателната активност|turnout|voter turnout)$/i.test(
+        bare,
+      )
+    )
+      return valid("turnout", { election: prev.args.election });
+  }
+  const entity = bare.replace(/^(?:in|for|в|във|за)\s+/i, "");
+  const remainder = normEntity(entity);
+  // Check ALL compatible fields, not only the first (party used to hide place).
+  for (const param of tool.params.filter((p) =>
+    ["party", "person"].includes(p.type),
+  )) {
+    const value = ENTITY_DETECTORS[param.type]?.(entity.toLowerCase(), entity);
+    if (value && normEntity(value) === remainder) {
+      const args: ToolArgs = { ...prev.args, [param.name]: value };
+      if (
+        param.type === "party" &&
+        ["municipalityResults", "regionResults"].includes(prev.tool)
+      )
+        delete args.metric;
+      return valid(prev.tool, args);
+    }
+  }
+  const regionExplicit = /^(?:област|province|region|oblast)\s+/i.test(entity);
+  const placeName = entity.replace(
+    /^(?:област|община|град|province|region|oblast|municipality|city)\s+/i,
+    "",
   );
+  const hit = findOblastInText(placeName);
+  const known =
+    hit &&
+    Object.values(hit.name).some(
+      (n) => normEntity(n.replace(/\([^)]*\)/g, "")) === normEntity(placeName),
+    );
+  const placeCandidate = ENTITY_DETECTORS.place(
+    placeName.toLowerCase(),
+    placeName,
+  );
+  const isPlace =
+    known ||
+    (/^(?:in|в|във|област|община|град|province|region|oblast|municipality|city)\s+/i.test(
+      bare,
+    ) &&
+      placeCandidate &&
+      normEntity(placeCandidate) === normEntity(placeName));
+  if (!isPlace) return null;
+  // A party + city needs a party-scoped local result, not all regional parties.
+  if (
+    ["partyResult", "municipalityResults", "regionResults"].includes(prev.tool)
+  ) {
+    const regional =
+      regionExplicit ||
+      (prev.tool === "regionResults" &&
+        !/^(?:община|град|municipality|city)\s+/i.test(entity));
+    return valid(regional ? "regionResults" : "municipalityResults", {
+      ...(prev.args.party ? { party: prev.args.party } : {}),
+      ...(prev.args.metric ? { metric: prev.args.metric } : {}),
+      ...(prev.args.election ? { election: prev.args.election } : {}),
+      [regional ? "oblast" : "place"]: placeName,
+    });
+  }
+  const param =
+    tool.params.find((p) => p.type === (regionExplicit ? "oblast" : "place")) ??
+    tool.params.find((p) => p.type === "oblast");
   if (!param) return null;
-
-  const q = question.toLowerCase().trim();
-  const detect = ENTITY_DETECTORS[param.type];
-  const value = detect?.(q, question);
-  if (!value) return null;
-
-  // Drop a leading particle, then the remainder must equal the entity exactly.
-  const remainder = normEntity(q.replace(FOLLOWON_CUE, ""));
-  const target = normEntity(value);
-  if (remainder !== target) return null;
-
-  // Don't re-fire on the same entity (e.g. echoing the previous answer).
-  if (normEntity(String(prev.args[param.name] ?? "")) === target) return null;
-
-  return { tool: prev.tool, args: { ...prev.args, [param.name]: value } };
+  const args = { ...prev.args, [param.name]: placeName };
+  if (param.name === "place") delete args.oblast;
+  if (param.name === "oblast") delete args.place;
+  return valid(prev.tool, args);
 };
 
 /** A multiline question may include explicit, human-readable parameter labels.

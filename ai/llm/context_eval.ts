@@ -45,22 +45,46 @@ globalThis.fetch = ((url: string | URL | Request, init?: RequestInit) => {
 const model = modelById(DEFAULT_MODEL_ID);
 if (!model) throw new Error("cloud model not found in registry");
 
-type Scenario = { lang: Lang; title: string; turns: string[] };
+type Scenario = {
+  lang: Lang;
+  title: string;
+  turns: string[];
+  expected: { tool: string; args: Record<string, string>; clarify?: boolean }[];
+};
 const SCENARIOS: Scenario[] = [
   {
     lang: "bg",
     title: "reference carry: party → place",
     turns: ["колко гласа взе ГЕРБ", "а в Пловдив?"],
+    expected: [
+      { tool: "partyResult", args: { party: "герб", election: "2024_10_27" } },
+      {
+        tool: "municipalityResults",
+        args: { party: "герб", place: "пловдив", election: "2024_10_27" },
+      },
+    ],
   },
   {
     lang: "en",
     title: "comparison reference",
     turns: ["results of the 2022 election", "compare that to 2024"],
+    expected: [
+      { tool: "nationalResults", args: { election: "2022" } },
+      {
+        tool: "compareElections",
+        args: { a: "2022", b: "2024" },
+        clarify: true,
+      },
+    ],
   },
   {
     lang: "bg",
     title: "topic switch after a carry",
     turns: ["каква беше активността през 2023", "а машинното гласуване?"],
+    expected: [
+      { tool: "turnout", args: { election: "2023" } },
+      { tool: "machineVoteShare", args: { election: "2023" } },
+    ],
   },
 ];
 
@@ -78,11 +102,13 @@ const run = async () => {
   });
   console.log(`=== context eval vs ${PROXY} (${model.id}) ===\n`);
   let reachedModel = false;
+  let checked = 0;
+  let failures = 0;
   for (const sc of SCENARIOS) {
     console.log(`• ${sc.title}  [${sc.lang}]`);
     const history: TurnMemory[] = [];
     const ctx: ToolContext = { lang: sc.lang, election: "2024_10_27" };
-    for (const q of sc.turns) {
+    for (const [index, q] of sc.turns.entries()) {
       const res = await provider.respond(q, ctx, undefined, {
         history: [...history],
         prev: lastTool(history),
@@ -95,6 +121,26 @@ const run = async () => {
       console.log(
         `    "${(res.text || "").replace(/\s+/g, " ").slice(0, 110)}"`,
       );
+      const expected = sc.expected[index];
+      const same = (got: unknown, want: string) => {
+        const value = String(got ?? "").toLowerCase();
+        // A single-ballot year and its exact date are equivalent here.
+        return (
+          value === want ||
+          (want === "2022" && value === "2022_10_02") ||
+          (want === "2023" && value === "2023_04_02")
+        );
+      };
+      const ok =
+        res.tool === expected.tool &&
+        Object.entries(expected.args).every(([k, v]) =>
+          same(res.args?.[k], v),
+        ) &&
+        (!expected.clarify ||
+          (!!res.env?.clarify && res.text === res.env.clarify.prompt));
+      checked++;
+      if (!ok) failures++;
+      console.log(`    scope check: ${ok ? "PASS" : "FAIL"}`);
       history.push({
         question: q,
         tool: res.tool,
@@ -111,11 +157,12 @@ const run = async () => {
       "NOTE: every turn fell back to the offline router — the proxy was unreachable,\n" +
         "so this run did NOT exercise the real model. Check the operator key/provider.",
     );
-  } else
+  } else {
     console.log(
-      "Eyeball the 2nd turn of each scenario: its tool/args should reflect the reference\n" +
-        "(place carried from the prior party question; the comparison; the topic switch).",
+      `${checked - failures}/${checked} scope checks passed; ${calls} model calls attempted.`,
     );
+    if (failures) process.exitCode = 1;
+  }
 };
 
 run().catch((e) => {
