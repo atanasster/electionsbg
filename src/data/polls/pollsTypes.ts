@@ -102,6 +102,11 @@ export type Poll = {
   // absent is read as "parliamentary" (the only family that existed then).
   race?: Race;
   provenance?: PollProvenance;
+  // Presidential only (decision 10/11) — the round-1 folder id
+  // ("2026_11_08_pvr") once the cycle's results tree exists, `null` while
+  // only an estimated electionDate is known. Always absent on a
+  // parliamentary poll; never read there.
+  cycle?: string | null;
 };
 
 export type PollDetail = {
@@ -110,6 +115,84 @@ export type PollDetail = {
   support: number;
   nickName_bg: string;
   nickName_en: string;
+};
+
+/**
+ * A presidential candidate/abstention/placeholder identity — decision 16's
+ * candidate resolver (`scripts/polls/presidential/candidate_resolver.ts`)
+ * is the one place any of these are minted; every field below that is
+ * typed `CandidateKey` holds exactly one of:
+ *   - a real ticket's `canonicalKey` (`tickets.json[].canonicalKey`) once
+ *     the resolver matched exactly one candidate;
+ *   - `"provisional:<first>-<last>"` before ЦИК registers the tickets, or
+ *     when the resolver refused an ambiguous or unmatched name;
+ *   - the literal `"none"` for a "Не подкрепям никого" row (decision 10);
+ *   - `"placeholder:<partyKey>"` for a row published before a party has
+ *     nominated anyone ("Кандидат на <party>", decision 12) — never
+ *     resolved as a name at all, since there is no person to fold.
+ */
+export type CandidateKey = string;
+
+/**
+ * A presidential poll's per-candidate row — decision 10's separate file
+ * family (`data/polls/presidential/polls_details.json`), never mixed with
+ * the parliamentary `PollDetail` above: a presidential row identifies a
+ * CANDIDATE, not a party, and candidate identity needs the resolver
+ * (decision 16) rather than a bare nickname pair.
+ */
+export type PresidentialPollDetail = {
+  pollId: string;
+  agencyId: string;
+  candidateKey: CandidateKey;
+  candidateName_bg: string;
+  // Default `transliterateName(candidateName_bg)` (src/data/candidates/
+  // transliterateName.ts — the same Streamlined-System fallback the MP/
+  // person pages already use for a name with no curated EN form); a human
+  // may override it by hand-editing the draft before accepting, same as
+  // `methodology` on the parliamentary side.
+  candidateName_en: string;
+  nominator: string | null;
+  // Set only for a placeholder row ("Кандидат на <party>") published
+  // before a party has nominated anyone — the party's own key, decision
+  // 12. `null` for every named-candidate row. (`candidateKey` is then
+  // `"placeholder:<this value>"` — see `CandidateKey` above.)
+  placeholderFor: string | null;
+  support: number;
+};
+
+/**
+ * A runoff pairing published by one poll — decision 10's presidential-only
+ * fact, several per poll for an agency polling more than one hypothetical
+ * second round. Stored beside `polls_details.json`, never folded into it:
+ * a pairing is a joint claim about two candidates, not a per-candidate row.
+ */
+export type Runoff = {
+  pollId: string;
+  agencyId: string;
+  a: CandidateKey;
+  b: CandidateKey;
+  supportA: number;
+  supportB: number;
+  residual: PollResidual | null;
+};
+
+/**
+ * One cycle's candidate directory (`data/polls/presidential/candidates.json`)
+ * — a PROJECTION of that cycle's `tickets.json` plus every provisional key
+ * a draft has minted, rebuilt by `polls:presidential:rekey` and never
+ * hand-edited (decision 16). `ticketNumber`/`colour` are `null` until ЦИК
+ * registers the ticket — there is nothing to score against before then,
+ * which is the correct state, not a gap.
+ */
+export type PresidentialCandidate = {
+  candidateKey: CandidateKey;
+  name_bg: string;
+  // Same `transliterateName()` default as `PresidentialPollDetail`'s
+  // `candidateName_en` above.
+  name_en: string;
+  nominator: string | null;
+  ticketNumber: number | null;
+  colour: string | null;
 };
 
 export type PartyError = {
