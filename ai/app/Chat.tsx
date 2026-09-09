@@ -526,83 +526,12 @@ export const Chat = ({
       lang,
       "parameters" in selection ? selection.parameters : undefined,
     );
-    speech.stop();
-    pinned.current = true;
-    setInput("");
-    setPromptHistory((history) =>
-      history[0] === intent.text
-        ? history
-        : [intent.text, ...history].slice(0, PROMPT_HISTORY_MAX),
-    );
-    histIdx.current = -1;
-    histDraft.current = "";
-    const aId = nextId();
-    setMessages((current) => [
-      ...current,
-      { id: nextId(), role: "user", text: intent.text },
-      { id: aId, role: "assistant", text: "", env: null },
-    ]);
-    setBusy(true);
-    const provider = engine.provider;
-    const onDelta = (partial: string) =>
-      setMessages((current) =>
-        current.map((message) =>
-          message.id === aId ? { ...message, text: partial } : message,
-        ),
-      );
-    try {
-      const response = provider.runChoice
-        ? await provider.runChoice(
-            intent.tool,
-            intent.args,
-            { lang, election, area: readArea() },
-            onDelta,
-          )
-        : await runToolChoice(
-            { bg: "Без AI (офлайн)", en: "Basic (offline)" },
-            intent.tool,
-            intent.args,
-            { lang, election, area: readArea() },
-          );
-      setMessages((current) =>
-        current.map((message) =>
-          message.id === aId
-            ? {
-                ...message,
-                text: response.text,
-                env: response.env,
-                meta: response.meta,
-                tool: response.tool,
-                args: response.args,
-                lang,
-              }
-            : message,
-        ),
-      );
-      if (response.env?.clarify) setClarify(response.env.clarify);
-    } catch {
-      setMessages((current) =>
-        current.map((message) =>
-          message.id === aId
-            ? {
-                ...message,
-                text: t(
-                  "Въпросът не можа да бъде изпълнен. Опитайте отново.",
-                  "The question could not be run. Please try again.",
-                ),
-              }
-            : message,
-        ),
-      );
-    } finally {
-      setBusy(false);
-      setShowQuestionSelector(false);
-      taRef.current?.focus();
-    }
+    await send(intent.text);
+    setSelectedQuestion("parameters" in selection ? selection : null);
+    setShowQuestionSelector(false);
   };
 
   const selectCatalogQuestion = (selection: ResolvedQuestionSelection) => {
-    setSelectedQuestion(selection);
     void runCatalogIntent(selection);
   };
 

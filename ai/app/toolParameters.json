@@ -1,0 +1,2204 @@
+{
+  "nationalResults": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора (по подразбиране последния).",
+        "en": "Election date (defaults to latest)."
+      }
+    }
+  ],
+  "presidentialResults": [
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "values": [2001, 2006, 2011, 2016, 2021],
+      "description": {
+        "bg": "Година или цикъл (2001, 2006, 2011, 2016, 2021); по подразбиране последният.",
+        "en": "Year or cycle (2001, 2006, 2011, 2016, 2021); defaults to the latest."
+      }
+    },
+    {
+      "name": "round",
+      "type": "count",
+      "values": [1, 2],
+      "description": {
+        "bg": "1 или 2 (балотаж). По подразбиране турът, в който е избран президентът.",
+        "en": "1 or 2 (the runoff). Defaults to the round that elected the president."
+      }
+    },
+    {
+      "name": "place",
+      "type": "place",
+      "description": {
+        "bg": "Община (по избор); празно = национално. За област използвайте `oblast` или напишете „област X“.",
+        "en": "Municipality (optional); empty = national. For a province use `oblast`, or write „област X“."
+      }
+    },
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "description": {
+        "bg": "Област (по избор) — отделен параметър, защото всички областни центрове носят и име на община.",
+        "en": "Oblast (optional) — a separate parameter, because every oblast centre is also a municipality name."
+      }
+    },
+    {
+      "name": "candidate",
+      "type": "person",
+      "description": {
+        "bg": "Име на кандидат за открояване в резултата",
+        "en": "Candidate name to highlight in the result"
+      }
+    }
+  ],
+  "regionWinners": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора (по подразбиране последния).",
+        "en": "Election date (defaults to latest)."
+      }
+    },
+    {
+      "name": "geography",
+      "type": "metric",
+      "default": "oblast",
+      "values": ["oblast", "mir"],
+      "description": {
+        "bg": "Административна област или МИР",
+        "en": "Administrative oblast or electoral district"
+      }
+    }
+  ],
+  "parliamentSeats": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора (по подразбиране последния — действащото НС).",
+        "en": "Election date (defaults to latest — the sitting Assembly)."
+      }
+    }
+  ],
+  "seatsHistory": [
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец, не брой избори)",
+        "en": "Number of years back (date window, not an election count)"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    }
+  ],
+  "partyResult": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия",
+        "en": "Party"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "candidateResult": [
+    {
+      "name": "name",
+      "type": "person",
+      "required": true,
+      "description": {
+        "bg": "Име на кандидата",
+        "en": "Candidate name"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "machineVoteShare": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "turnout": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "compareElections": [
+    {
+      "name": "a",
+      "type": "election",
+      "required": true,
+      "description": {
+        "bg": "Първи избор",
+        "en": "First election"
+      }
+    },
+    {
+      "name": "b",
+      "type": "election",
+      "description": {
+        "bg": "Втори избор",
+        "en": "Second election"
+      }
+    }
+  ],
+  "machineVoteSeries": [
+    {
+      "name": "n",
+      "type": "count",
+      "default": 7,
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    },
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец, не брой избори)",
+        "en": "Number of years back (date window, not an election count)"
+      }
+    }
+  ],
+  "turnoutSeries": [
+    {
+      "name": "n",
+      "type": "count",
+      "default": 7,
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    },
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец, не брой избори)",
+        "en": "Number of years back (date window, not an election count)"
+      }
+    }
+  ],
+  "partyTimeline": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия",
+        "en": "Party"
+      }
+    }
+  ],
+  "pollAccuracy": [],
+  "agencyProfile": [
+    {
+      "name": "agency",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Агенция",
+        "en": "Agency"
+      }
+    }
+  ],
+  "latestPolls": [],
+  "agencyPolls": [
+    {
+      "name": "agency",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Агенция",
+        "en": "Agency"
+      }
+    }
+  ],
+  "agencyAccuracyHistory": [
+    {
+      "name": "agency",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Агенция",
+        "en": "Agency"
+      }
+    }
+  ],
+  "accuracyTrend": [],
+  "regionBreakdown": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия",
+        "en": "Party"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    },
+    {
+      "name": "geography",
+      "type": "metric",
+      "default": "oblast",
+      "values": ["oblast", "mir"],
+      "description": {
+        "bg": "Административна област или МИР",
+        "en": "Administrative oblast or electoral district"
+      }
+    }
+  ],
+  "municipalityBreakdown": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия",
+        "en": "Party"
+      }
+    },
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област",
+        "en": "Oblast"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "municipalityWinners": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област",
+        "en": "Oblast"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "settlementWinners": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "sectionWinners": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място / община",
+        "en": "Settlement / municipality"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "sectionResults": [
+    {
+      "name": "section",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Номер на секция (9 цифри), напр. 050900092",
+        "en": "Section number (9 digits), e.g. 050900092"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "sectionHistory": [
+    {
+      "name": "section",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Номер на секция (9 цифри), напр. 050900092",
+        "en": "Section number (9 digits), e.g. 050900092"
+      }
+    }
+  ],
+  "sectionRiskHistory": [
+    {
+      "name": "section",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Номер на секция (9 цифри), напр. 162202002",
+        "en": "Section number (9 digits), e.g. 162202002"
+      }
+    }
+  ],
+  "settlementResults": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място",
+        "en": "Settlement"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "settlementHistory": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място",
+        "en": "Settlement"
+      }
+    },
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец, не брой избори)",
+        "en": "Number of years back (date window, not an election count)"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    }
+  ],
+  "municipalityResults": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "municipalityHistory": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец, не брой избори)",
+        "en": "Number of years back (date window, not an election count)"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    }
+  ],
+  "regionResults": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област / МИР",
+        "en": "Region / oblast"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "regionResultsTrend": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област / МИР",
+        "en": "Region / oblast"
+      }
+    },
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец, не брой избори)",
+        "en": "Number of years back (date window, not an election count)"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    }
+  ],
+  "settlementBreakdown": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия",
+        "en": "Party"
+      }
+    },
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "electionAnomalies": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "flashMemoryByParty": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "machineVoteByParty": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "wastedVotesByParty": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "recountByParty": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "regionHistory": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област",
+        "en": "Oblast"
+      }
+    }
+  ],
+  "voteTransitions": [
+    {
+      "name": "party",
+      "type": "party",
+      "description": {
+        "bg": "Партия — показва откъде идват (или накъде отиват) гласовете ѝ",
+        "en": "Party — shows where its votes came from (or went to)"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Целеви избор",
+        "en": "Target election"
+      }
+    },
+    {
+      "name": "direction",
+      "type": "metric",
+      "values": ["in", "out"],
+      "description": {
+        "bg": "Входящи или изходящи потоци",
+        "en": "Incoming or outgoing flows"
+      }
+    }
+  ],
+  "localCouncilVoteShare": [
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен цикъл (по подразбиране последния)",
+        "en": "Local cycle (defaults to latest)"
+      }
+    }
+  ],
+  "localMayorsWon": [
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен цикъл",
+        "en": "Local cycle"
+      }
+    }
+  ],
+  "localCouncilTrend": [],
+  "localVoteFlows": [],
+  "localPrevoteFlow": [],
+  "localPlaceTrend": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място или район",
+        "en": "Settlement or район"
+      }
+    }
+  ],
+  "localMayorsTrend": [],
+  "localOblastMayors": [
+    {
+      "name": "place",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област / провинция",
+        "en": "Province (oblast)"
+      }
+    },
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен цикъл",
+        "en": "Local cycle"
+      }
+    }
+  ],
+  "localMunicipality": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен цикъл",
+        "en": "Local cycle"
+      }
+    }
+  ],
+  "localMayorRace": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен цикъл",
+        "en": "Local cycle"
+      }
+    }
+  ],
+  "localMayorSections": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община или район",
+        "en": "Municipality or district"
+      }
+    },
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен цикъл",
+        "en": "Local cycle"
+      }
+    }
+  ],
+  "localMayorHistory": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    }
+  ],
+  "localSubMayors": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    }
+  ],
+  "localCouncil": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "cycle",
+      "type": "cycle",
+      "description": {
+        "bg": "Местен цикъл",
+        "en": "Local cycle"
+      }
+    }
+  ],
+  "chmiEvents": [
+    {
+      "name": "place",
+      "type": "place",
+      "description": {
+        "bg": "Община (по избор)",
+        "en": "Municipality (optional)"
+      }
+    }
+  ],
+  "budgetOverview": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "ngoOverview": [],
+  "ngoTopFunded": [],
+  "ngoConflictAwarders": [],
+  "ngoRiskSignals": [],
+  "ngoBySignal": [
+    {
+      "name": "code",
+      "type": "text",
+      "description": {
+        "bg": "Код на сигнала (напр. eu_funds, public_contracts, foreign_funded).",
+        "en": "Signal code (e.g. eu_funds, public_contracts, foreign_funded)."
+      }
+    }
+  ],
+  "budgetTrend": [],
+  "institutionMaintenance": [
+    {
+      "name": "institution",
+      "type": "metric",
+      "description": {
+        "bg": "Ведомство (напр. „отбрана“, „МРРБ“, „министерски съвет“)",
+        "en": "Institution (e.g. defence, regional development, council of ministers)"
+      }
+    }
+  ],
+  "simulateTaxChange": [
+    {
+      "name": "change",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Описание на промяната (напр. „ДДС 22%“)",
+        "en": "The change to score (e.g. \"VAT 22%\")"
+      }
+    }
+  ],
+  "budgetByFunction": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година",
+        "en": "Year"
+      }
+    }
+  ],
+  "budgetFunction": [
+    {
+      "name": "category",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Функция / категория",
+        "en": "Function / category"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година",
+        "en": "Year"
+      }
+    }
+  ],
+  "nzokBudget": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "judiciaryBudget": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Бюджетна година",
+        "en": "Fiscal year"
+      }
+    }
+  ],
+  "judiciaryCaseload": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година",
+        "en": "Year"
+      }
+    }
+  ],
+  "riverbedCleaning": [],
+  "judiciaryWorkload": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година",
+        "en": "Year"
+      }
+    }
+  ],
+  "judiciaryCourtLoad": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година",
+        "en": "Year"
+      }
+    },
+    {
+      "name": "court",
+      "type": "text",
+      "description": {
+        "bg": "Име на съд или град (по избор)",
+        "en": "Court or city name (optional)"
+      }
+    }
+  ],
+  "judiciaryDeclarations": [],
+  "defenseSpending": [],
+  "armsExports": [],
+  "defenseProgram": [],
+  "defenseReadiness": [],
+  "securityRoadSafety": [],
+  "transportSpending": [],
+  "transportEuFunds": [],
+  "railSubsidy": [],
+  "socialSpending": [],
+  "socialBenefits": [],
+  "socialPovertyImpact": [],
+  "mrrbSpending": [],
+  "cohesionAbsorption": [],
+  "regionalInvestment": [],
+  "environmentSpending": [],
+  "environmentFunds": [],
+  "wasteRecycling": [],
+  "defensePeerCompare": [],
+  "generationMix": [],
+  "electricityPrices": [],
+  "gasPrices": [],
+  "powerPlants": [],
+  "nzokDrugs": [
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой лекарства",
+        "en": "Number of medicines"
+      }
+    }
+  ],
+  "nzokDrugGrowth": [],
+  "nzokHospitals": [
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой болници",
+        "en": "Number of hospitals"
+      }
+    }
+  ],
+  "nzokActivities": [
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой процедури",
+        "en": "Number of procedures"
+      }
+    }
+  ],
+  "nzokDrugSavings": [
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой болници",
+        "en": "Number of hospitals"
+      }
+    }
+  ],
+  "nzokHospitalScorecard": [
+    {
+      "name": "hospital",
+      "type": "text",
+      "description": {
+        "bg": "Име на болница, напр. Свети Георги Пловдив",
+        "en": "Hospital name, e.g. Sveti Georgi Plovdiv"
+      }
+    }
+  ],
+  "nzokPathwayHospitals": [
+    {
+      "name": "procedure",
+      "type": "text",
+      "description": {
+        "bg": "Клинична пътека по име или код, напр. хемодиализа / A01.1",
+        "en": "Clinical pathway by name or code, e.g. haemodialysis / A01.1"
+      }
+    },
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой болници",
+        "en": "Number of hospitals"
+      }
+    }
+  ],
+  "nzokPublicPrivate": [],
+  "nzokPrivateHospitals": [
+    {
+      "name": "filter",
+      "type": "text",
+      "description": {
+        "bg": "notenders — само болниците без поръчки; иначе по приход",
+        "en": "notenders — only hospitals with no tenders; otherwise by revenue"
+      }
+    },
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой болници",
+        "en": "Number of hospitals"
+      }
+    }
+  ],
+  "nzokDrugMolecule": [
+    {
+      "name": "inn",
+      "type": "text",
+      "description": {
+        "bg": "Молекула / активно вещество (INN), напр. BEVACIZUMAB",
+        "en": "Molecule / active substance (INN), e.g. BEVACIZUMAB"
+      }
+    },
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой лекарства",
+        "en": "Number of medicines"
+      }
+    }
+  ],
+  "procurementTotals": [],
+  "topContractors": [
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой",
+        "en": "How many"
+      }
+    }
+  ],
+  "procurementAppeals": [
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой възложители",
+        "en": "How many buyers"
+      }
+    },
+    {
+      "name": "awarder",
+      "type": "metric",
+      "description": {
+        "bg": "Възложител (име) — за жалбите на един възложител",
+        "en": "Buyer (name) — for one buyer's appeals"
+      }
+    }
+  ],
+  "contractSearch": [
+    {
+      "name": "company",
+      "type": "person",
+      "description": {
+        "bg": "Име на фирма или ЕИК",
+        "en": "Company name or EIK"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година (по избор)",
+        "en": "Year (optional)"
+      }
+    }
+  ],
+  "procurementRedFlags": [],
+  "procurementDebarred": [],
+  "procurementSingleBidSectors": [],
+  "mpProcurement": [
+    {
+      "name": "person",
+      "type": "person",
+      "description": {
+        "bg": "Депутат или служител (по избор)",
+        "en": "MP or official (optional)"
+      }
+    }
+  ],
+  "awarderProcurement": [
+    {
+      "name": "org",
+      "type": "metric",
+      "description": {
+        "bg": "Институция (име или ЕИК)",
+        "en": "Institution (name or EIK)"
+      }
+    }
+  ],
+  "procurementNormalcy": [
+    {
+      "name": "key",
+      "type": "text",
+      "description": {
+        "bg": "12-знаков идентификатор на договора (напр. от адреса /procurement/contract/…)",
+        "en": "12-character contract id (e.g. from /procurement/contract/…)"
+      }
+    }
+  ],
+  "roadsSpending": [],
+  "openTenders": [
+    {
+      "name": "query",
+      "type": "metric",
+      "description": {
+        "bg": "Ключова дума/тема за предмета (напр. „мантинели“, „асфалт“) — по избор",
+        "en": "Subject keyword/topic (e.g. 'guardrails', 'asphalt') — optional"
+      }
+    },
+    {
+      "name": "topic",
+      "type": "metric",
+      "description": {
+        "bg": "Съвместим псевдоним на ключовата дума/тема",
+        "en": "Compatibility alias for the subject keyword/topic"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година на обявяване (напр. 2025) — по избор",
+        "en": "Announcement year (e.g. 2025) — optional"
+      }
+    },
+    {
+      "name": "org",
+      "type": "metric",
+      "description": {
+        "bg": "Възложител (име или ЕИК) — по избор",
+        "en": "Buyer (name or EIK) — optional"
+      }
+    }
+  ],
+  "tenderLookup": [
+    {
+      "name": "unp",
+      "type": "metric",
+      "description": {
+        "bg": "УНП (00000-0000-0000) или ключова дума",
+        "en": "УНП (00000-0000-0000) or a keyword"
+      }
+    }
+  ],
+  "openCalls": [
+    {
+      "name": "audience",
+      "type": "metric",
+      "description": {
+        "bg": "Кой кандидатства — фирма/МСП, земеделец, община, НПО, физическо лице, училище, институция (по избор)",
+        "en": "Who is applying — business/SME, farmer, municipality, NGO, individual, school, institution (optional)"
+      }
+    },
+    {
+      "name": "query",
+      "type": "text",
+      "description": {
+        "bg": "Свободен текст на въпроса, от който се разчита кой кандидатства (по избор)",
+        "en": "The question's free text, used to infer who is applying (optional)"
+      }
+    }
+  ],
+  "fundsOverview": [],
+  "projectLifecycle": [
+    {
+      "name": "project",
+      "type": "text",
+      "description": {
+        "bg": "Идентификатор на досие (slug), напр. hemus, mashinno-glasuvane",
+        "en": "Project-file slug, e.g. hemus, mashinno-glasuvane"
+      }
+    }
+  ],
+  "subsidiesOverview": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Финансова година (по подразбиране: всички години)",
+        "en": "Financial year (default: all years)"
+      }
+    }
+  ],
+  "subsidiesByScheme": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Финансова година (по подразбиране: всички години)",
+        "en": "Financial year (default: all years)"
+      }
+    }
+  ],
+  "subsidiesForEntity": [
+    {
+      "name": "company",
+      "type": "person",
+      "description": {
+        "bg": "Име или ЕИК на получателя",
+        "en": "Recipient name or EIK"
+      }
+    }
+  ],
+  "cultureOverview": [],
+  "topCultureGrantees": [],
+  "filmSubsidyForProducer": [
+    {
+      "name": "company",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Продуцент (име на дружество)",
+        "en": "Producer (company name)"
+      }
+    }
+  ],
+  "cultureGrantSuccess": [],
+  "cultureCommissions": [],
+  "cultureMunicipal": [],
+  "revenueBreakdown": [
+    {
+      "name": "category",
+      "type": "metric",
+      "description": {
+        "bg": "Вид (акциз / ДДС / ДДФЛ)",
+        "en": "Kind (excise / VAT / PIT)"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година",
+        "en": "Year"
+      }
+    }
+  ],
+  "exciseRegister": [
+    {
+      "name": "category",
+      "type": "metric",
+      "description": {
+        "bg": "Категория (горива / тютюн / алкохол)",
+        "en": "Category (fuels / tobacco / alcohol)"
+      }
+    }
+  ],
+  "exciseWarehouses": [
+    {
+      "name": "place",
+      "type": "place",
+      "description": {
+        "bg": "Град (напр. Русе) — за складовете там",
+        "en": "City (e.g. Ruse) — for the warehouses located there"
+      }
+    },
+    {
+      "name": "category",
+      "type": "metric",
+      "description": {
+        "bg": "Категория (горива / тютюн / алкохол)",
+        "en": "Category (fuels / tobacco / alcohol)"
+      }
+    }
+  ],
+  "fundsProjects": [],
+  "municipalFiscalRanking": [
+    {
+      "name": "year",
+      "type": "year",
+      "required": true,
+      "description": {
+        "bg": "Отчетна година",
+        "en": "Reporting year"
+      }
+    },
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой общини",
+        "en": "Number of municipalities"
+      }
+    },
+    {
+      "name": "metric",
+      "type": "metric",
+      "required": true,
+      "values": ["commitments", "expense_obligations", "arrears"],
+      "description": {
+        "bg": "Показател за подреждане",
+        "en": "Metric used for ranking"
+      }
+    }
+  ],
+  "municipalTransfers": [
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година",
+        "en": "Year"
+      }
+    }
+  ],
+  "govDebt": [],
+  "noiFunds": [],
+  "noiPensionDistribution": [],
+  "noiPensionByOblast": [],
+  "noiPensionSeries": [],
+  "kfnFunds": [
+    {
+      "name": "count",
+      "type": "count",
+      "description": {
+        "bg": "Брой фондове",
+        "en": "Number of funds"
+      }
+    }
+  ],
+  "budgetExecution": [
+    {
+      "name": "series",
+      "type": "metric",
+      "description": {
+        "bg": "Приходи/разходи/салдо",
+        "en": "Revenue/expenditure/balance"
+      }
+    }
+  ],
+  "ministryBudget": [
+    {
+      "name": "ministry",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Министерство или ведомство",
+        "en": "Ministry or agency"
+      }
+    }
+  ],
+  "investmentProjects": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "description": {
+        "bg": "Област (по избор)",
+        "en": "Oblast (optional)"
+      }
+    }
+  ],
+  "personProfile": [
+    {
+      "name": "name",
+      "type": "person",
+      "description": {
+        "bg": "Пълно име на лицето (публична личност).",
+        "en": "Full name of the person (a public figure)."
+      }
+    }
+  ],
+  "personConnections": [
+    {
+      "name": "name",
+      "type": "person",
+      "description": {
+        "bg": "Пълно име на лицето (публична личност).",
+        "en": "Full name of the person (a public figure)."
+      }
+    }
+  ],
+  "personWealth": [
+    {
+      "name": "name",
+      "type": "person",
+      "description": {
+        "bg": "Пълно име на лицето (публична личност).",
+        "en": "Full name of the person (a public figure)."
+      }
+    }
+  ],
+  "governments": [],
+  "mpAssetsTop": [],
+  "mpConnectionsTop": [],
+  "mpAssetsByParty": [],
+  "mpConnectionsByParty": [],
+  "officialsAssetsTop": [
+    {
+      "name": "category",
+      "type": "metric",
+      "description": {
+        "bg": "Категория (кабинет, управители…)",
+        "en": "Category (cabinet, governors…)"
+      }
+    }
+  ],
+  "financingOverview": [],
+  "partyFinance": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия",
+        "en": "Party"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Избори",
+        "en": "Election"
+      }
+    }
+  ],
+  "companyConnections": [
+    {
+      "name": "company",
+      "type": "person",
+      "required": true,
+      "description": {
+        "bg": "ЕИК на фирмата",
+        "en": "Company EIK"
+      }
+    }
+  ],
+  "macroIndicator": [
+    {
+      "name": "indicator",
+      "type": "indicator",
+      "description": {
+        "bg": "Показател",
+        "en": "Indicator"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой периоди",
+        "en": "Number of periods"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година (по подразбиране последната)",
+        "en": "Year (defaults to latest)"
+      }
+    }
+  ],
+  "fdiFlows": [],
+  "macroOverview": [],
+  "macroByCategory": [
+    {
+      "name": "category",
+      "type": "indicator",
+      "description": {
+        "bg": "Тема",
+        "en": "Theme"
+      }
+    }
+  ],
+  "euComparison": [
+    {
+      "name": "indicator",
+      "type": "indicator",
+      "required": true,
+      "description": {
+        "bg": "Показател",
+        "en": "Indicator"
+      }
+    }
+  ],
+  "subnationalIndicator": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "indicator",
+      "type": "indicator",
+      "description": {
+        "bg": "Показател",
+        "en": "Indicator"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година (по подразбиране последната)",
+        "en": "Year (defaults to latest)"
+      }
+    }
+  ],
+  "schoolMatura": [
+    {
+      "name": "school",
+      "type": "person",
+      "required": true,
+      "description": {
+        "bg": "Име на училище (напр. СМГ, Първа езикова Варна)",
+        "en": "School name (e.g. SMG, First Language School Varna)"
+      }
+    }
+  ],
+  "rankPlaces": [
+    {
+      "name": "indicator",
+      "type": "indicator",
+      "required": true,
+      "description": {
+        "bg": "Показател + посока",
+        "en": "Indicator + direction"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой",
+        "en": "How many"
+      }
+    }
+  ],
+  "regionIndicator": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област",
+        "en": "Oblast"
+      }
+    },
+    {
+      "name": "indicator",
+      "type": "indicator",
+      "description": {
+        "bg": "Показател",
+        "en": "Indicator"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Година (по подразбиране последната)",
+        "en": "Year (defaults to latest)"
+      }
+    }
+  ],
+  "transparencyScore": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    }
+  ],
+  "localTaxes": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    }
+  ],
+  "landUse": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "description": {
+        "bg": "Област (по избор)",
+        "en": "Oblast (optional)"
+      }
+    }
+  ],
+  "priceIndex": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "description": {
+        "bg": "Област (по избор)",
+        "en": "Oblast (optional)"
+      }
+    }
+  ],
+  "settlementPrices": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място",
+        "en": "Settlement"
+      }
+    },
+    {
+      "name": "product",
+      "type": "metric",
+      "description": {
+        "bg": "Конкретен продукт (по избор), напр. мляко, хляб",
+        "en": "A specific product (optional), e.g. milk, bread"
+      }
+    }
+  ],
+  "localDeals": [
+    {
+      "name": "place",
+      "type": "place",
+      "description": {
+        "bg": "Община/населено място (по избор); празно = национално",
+        "en": "Município/settlement (optional); empty = national"
+      }
+    },
+    {
+      "name": "product",
+      "type": "metric",
+      "description": {
+        "bg": "Конкретен продукт (по избор), напр. кафе, олио",
+        "en": "A specific product (optional), e.g. coffee, oil"
+      }
+    }
+  ],
+  "productPrice": [
+    {
+      "name": "product",
+      "type": "metric",
+      "required": true,
+      "description": {
+        "bg": "Продукт по име, напр. кафе Лаваца, олио, мляко Верея",
+        "en": "A product by name, e.g. Lavazza coffee, sunflower oil, Vereya milk"
+      }
+    }
+  ],
+  "cheapestChains": [
+    {
+      "name": "place",
+      "type": "place",
+      "description": {
+        "bg": "Община (по избор)",
+        "en": "Municipality (optional)"
+      }
+    }
+  ],
+  "priceRanking": [
+    {
+      "name": "metric",
+      "type": "metric",
+      "description": {
+        "bg": "Посока: най-евтини / най-голямо поскъпване; ниво: места / области",
+        "en": "Direction: cheapest / biggest rise; level: places / oblasts"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой",
+        "en": "How many"
+      }
+    }
+  ],
+  "basketAffordability": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "description": {
+        "bg": "Област (по избор)",
+        "en": "Oblast (optional)"
+      }
+    }
+  ],
+  "basketVsInflation": [],
+  "euFoodPriceLevels": [],
+  "fuelPrices": [],
+  "chainProfile": [
+    {
+      "name": "chain",
+      "type": "text",
+      "required": true,
+      "description": {
+        "bg": "Име на търговската верига (напр. Кауфланд, Метро, Билла).",
+        "en": "The retail chain name (e.g. Kaufland, Metro, Billa)."
+      }
+    }
+  ],
+  "governanceProfile": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място",
+        "en": "Place"
+      }
+    },
+    {
+      "name": "year",
+      "type": "year",
+      "description": {
+        "bg": "Към коя година (по подразбиране последните данни)",
+        "en": "As-of year (defaults to latest data)"
+      }
+    }
+  ],
+  "comparePlaces": [
+    {
+      "name": "a",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Първо място",
+        "en": "First place"
+      }
+    },
+    {
+      "name": "b",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Второ място",
+        "en": "Second place"
+      }
+    }
+  ],
+  "census": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    }
+  ],
+  "procurementBySettlement": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място",
+        "en": "Settlement"
+      }
+    }
+  ],
+  "myAreaAlerts": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място или община",
+        "en": "Place or município"
+      }
+    }
+  ],
+  "placeEuProjects": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място или община",
+        "en": "Place or município"
+      }
+    }
+  ],
+  "procurementByOblast": [
+    {
+      "name": "oblast",
+      "type": "oblast",
+      "required": true,
+      "description": {
+        "bg": "Област",
+        "en": "Oblast"
+      }
+    }
+  ],
+  "airQuality": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място",
+        "en": "Place"
+      }
+    }
+  ],
+  "graoPopulation": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Населено място",
+        "en": "Place"
+      }
+    }
+  ],
+  "councilResolutions": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    }
+  ],
+  "problemSections": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "romaVoteTrend": [
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Прозорец в години (напр. 5)",
+        "en": "Window in years (e.g. 5)"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой последни избори",
+        "en": "Number of recent elections"
+      }
+    }
+  ],
+  "riskIndex": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "riskScore": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "riskClusters": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "clusterPersistence": [],
+  "benfordAnomalies": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "wastedVotes": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "wastedVotesTrend": [
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец)",
+        "en": "Number of years back (date window)"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    }
+  ],
+  "suspiciousSettlements": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "diasporaVote": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "diasporaVoteTrend": [
+    {
+      "name": "years",
+      "type": "count",
+      "description": {
+        "bg": "Брой години назад (времеви прозорец)",
+        "en": "Number of years back (date window)"
+      }
+    },
+    {
+      "name": "n",
+      "type": "count",
+      "description": {
+        "bg": "Брой избори",
+        "en": "Number of elections"
+      }
+    }
+  ],
+  "voterPersistence": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Целеви избор",
+        "en": "Target election"
+      }
+    }
+  ],
+  "partyDemographics": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия",
+        "en": "Party"
+      }
+    },
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "demographicCleavages": [
+    {
+      "name": "election",
+      "type": "election",
+      "description": {
+        "bg": "Дата на избора",
+        "en": "Election date"
+      }
+    }
+  ],
+  "mpLoyalty": [
+    {
+      "name": "ns",
+      "type": "count",
+      "description": {
+        "bg": "Номер на Народното събрание",
+        "en": "National Assembly number"
+      }
+    }
+  ],
+  "mpAttendance": [
+    {
+      "name": "ns",
+      "type": "count",
+      "description": {
+        "bg": "Номер на Народното събрание",
+        "en": "National Assembly number"
+      }
+    }
+  ],
+  "factionCohesion": [
+    {
+      "name": "ns",
+      "type": "count",
+      "description": {
+        "bg": "Номер на Народното събрание",
+        "en": "National Assembly number"
+      }
+    }
+  ],
+  "mpVotingProfile": [
+    {
+      "name": "name",
+      "type": "person",
+      "required": true,
+      "description": {
+        "bg": "Име на депутата",
+        "en": "MP name"
+      }
+    },
+    {
+      "name": "ns",
+      "type": "count",
+      "description": {
+        "bg": "Номер на Народното събрание",
+        "en": "National Assembly number"
+      }
+    }
+  ],
+  "mpSimilarity": [
+    {
+      "name": "name",
+      "type": "person",
+      "required": true,
+      "description": {
+        "bg": "Име на депутата",
+        "en": "MP name"
+      }
+    },
+    {
+      "name": "ns",
+      "type": "count",
+      "description": {
+        "bg": "Номер на Народното събрание",
+        "en": "National Assembly number"
+      }
+    }
+  ],
+  "voteSearch": [
+    {
+      "name": "query",
+      "type": "metric",
+      "description": {
+        "bg": "Тема или дума",
+        "en": "Topic or keyword"
+      }
+    },
+    {
+      "name": "ns",
+      "type": "count",
+      "description": {
+        "bg": "Номер на Народното събрание",
+        "en": "National Assembly number"
+      }
+    }
+  ],
+  "partyMps": [
+    {
+      "name": "party",
+      "type": "party",
+      "required": true,
+      "description": {
+        "bg": "Партия / парламентарна група",
+        "en": "Party / parliamentary group"
+      }
+    }
+  ],
+  "schoolScores": [
+    {
+      "name": "place",
+      "type": "place",
+      "required": true,
+      "description": {
+        "bg": "Община",
+        "en": "Municipality"
+      }
+    },
+    {
+      "name": "subject",
+      "type": "indicator",
+      "description": {
+        "bg": "Предмет (БЕЛ/математика)",
+        "en": "Subject (Bulgarian/math)"
+      }
+    }
+  ],
+  "administrationOverview": [],
+  "digitalSkills": [],
+  "tourismSeasonality": [],
+  "tourismSourceMarkets": []
+}

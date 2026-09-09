@@ -1,3 +1,6 @@
+import { parameterLabels } from "@/lib/questions/parameterLabels";
+import { validateToolArgs } from "./toolSchema";
+import { routeCivicQuestion } from "./civicRoutes";
 // Deterministic intent router (the v1 fallback / no-model path).
 //
 // Maps a BG/EN question to { tool, args } using keyword + entity heuristics.
@@ -78,7 +81,7 @@ const extractPlaceCandidates = (raw: string): string[] => {
   const caps =
     raw.match(/[А-ЯЁA-Z][а-яёa-z]+(?:\s+[А-ЯЁA-Z][а-яёa-z]+)?/g) ?? [];
   return caps
-    .map((s) => s.trim())
+    .map((s) => s.trim().replace(/^(?:Сравни|Compare)\s+/i, ""))
     .filter((s) => {
       const l = s.toLowerCase();
       return !COMPARE_VERBS.has(l) && !detectParty(l);
@@ -809,9 +812,11 @@ const extractAppealAwarder = (question: string): string | undefined => {
   return cand.length > 1 ? cand : undefined;
 };
 
-export const route = (question: string, ctx: ToolContext): Route => {
+const routeText = (question: string, ctx: ToolContext): Route => {
   const q = question.toLowerCase().trim();
   if (!q) return null;
+  const civic = routeCivicQuestion(question);
+  if (civic) return civic;
 
   // Riverbed-cleaning / flood-maintenance procurement (Води). Specific enough
   // not to hijack generic water or procurement questions.
@@ -4553,4 +4558,35 @@ export const resolveFollowOn = (
   if (normEntity(String(prev.args[param.name] ?? "")) === target) return null;
 
   return { tool: prev.tool, args: { ...prev.args, [param.name]: value } };
+};
+
+/** A multiline question may include explicit, human-readable parameter labels.
+ * Route its subject first; context can only change that tool's declared inputs.
+ */
+export const route = (question: string, ctx: ToolContext): Route => {
+  const lines = question.split("\n");
+  const subjectLines = lines.filter(
+    (line, index) => index === 0 || !line.includes(":"),
+  );
+  const context = lines.slice(1).filter((line) => line.includes(":"));
+  const selected = routeText(subjectLines.join(" "), ctx);
+  if (!selected || !context.length) return selected;
+  const params = TOOLS_BY_NAME[selected.tool]?.params ?? [];
+  const args: Record<string, unknown> = { ...selected.args };
+  for (const line of context) {
+    const colon = line.indexOf(":");
+    if (colon < 0) continue;
+    const label = line.slice(0, colon).trim();
+    const value = line.slice(colon + 1).trim();
+    const p = params.find(
+      (p) =>
+        p.name === label ||
+        Object.values(parameterLabels[p.name] ?? {}).includes(label) ||
+        Object.values(p.description).includes(label),
+    );
+    if (!p) continue;
+    args[p.name] = value;
+  }
+  const valid = validateToolArgs(selected.tool, args);
+  return valid ? { tool: selected.tool, args: valid } : null;
 };

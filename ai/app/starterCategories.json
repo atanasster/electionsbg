@@ -31,8 +31,18 @@
       },
       {
         "id": "polls",
-        "bg": "Проучвания и поведение",
-        "en": "Polls and voting patterns"
+        "bg": "Социологически проучвания",
+        "en": "Opinion polls"
+      },
+      {
+        "id": "participation",
+        "bg": "Активност и начин на гласуване",
+        "en": "Turnout and voting methods"
+      },
+      {
+        "id": "trends",
+        "bg": "Промени между избори",
+        "en": "Changes between elections"
       }
     ]
   },
@@ -60,6 +70,16 @@
         "id": "services",
         "bg": "Администрация и услуги",
         "en": "Administration and services"
+      },
+      {
+        "id": "transparency",
+        "bg": "Прозрачност и отчетност",
+        "en": "Transparency and accountability"
+      },
+      {
+        "id": "legislation",
+        "bg": "Законопроекти",
+        "en": "Legislation"
       }
     ]
   },
@@ -92,6 +112,26 @@
         "id": "scenarios",
         "bg": "Данъчни сценарии",
         "en": "Tax scenarios"
+      },
+      {
+        "id": "taxes",
+        "bg": "Данъчни приходи и акцизи",
+        "en": "Tax revenues and excise"
+      },
+      {
+        "id": "personnel",
+        "bg": "Персонал и издръжка",
+        "en": "Personnel and operating costs"
+      },
+      {
+        "id": "capital",
+        "bg": "Капиталови проекти",
+        "en": "Capital projects"
+      },
+      {
+        "id": "documents",
+        "bg": "Бюджетни закони и документи",
+        "en": "Budget laws and documents"
       }
     ]
   },
@@ -156,6 +196,21 @@
         "id": "ngos",
         "bg": "НПО и читалища",
         "en": "NGOs and community centres"
+      },
+      {
+        "id": "political-links",
+        "bg": "Политически връзки",
+        "en": "Political connections"
+      },
+      {
+        "id": "income-debt",
+        "bg": "Доходи и задължения",
+        "en": "Income and liabilities"
+      },
+      {
+        "id": "changes",
+        "bg": "Промени в декларациите",
+        "en": "Declaration changes"
       }
     ]
   },
@@ -254,6 +309,11 @@
         "id": "access",
         "bg": "Достъп и права на пациента",
         "en": "Access and patient rights"
+      },
+      {
+        "id": "activities",
+        "bg": "Дейности и клинични пътеки",
+        "en": "Activities and clinical pathways"
       }
     ]
   },
@@ -276,6 +336,11 @@
         "id": "benefits",
         "bg": "Помощи и бедност",
         "en": "Benefits and poverty"
+      },
+      {
+        "id": "funds",
+        "bg": "Фондове на ДОО",
+        "en": "Social security funds"
       }
     ]
   },
@@ -386,6 +451,16 @@
         "id": "waste",
         "bg": "Отпадъци и опазване",
         "en": "Waste and conservation"
+      },
+      {
+        "id": "land",
+        "bg": "Земеползване",
+        "en": "Land use"
+      },
+      {
+        "id": "spending",
+        "bg": "Разходи и екопроекти",
+        "en": "Spending and environmental projects"
       }
     ]
   },
@@ -425,6 +500,11 @@
         "id": "tourism",
         "bg": "Туризъм",
         "en": "Tourism"
+      },
+      {
+        "id": "films",
+        "bg": "Филмово финансиране",
+        "en": "Film funding"
       }
     ]
   },

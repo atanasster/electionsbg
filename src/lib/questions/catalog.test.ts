@@ -9,7 +9,9 @@ import { TOOLS } from "../../../ai/tools/registry";
 
 describe("shared question catalog", () => {
   it("preserves the original 150 and includes reviewed additions", () => {
-    expect(QUESTION_DEFINITIONS).toHaveLength(153);
+    expect(
+      new Set(QUESTION_DEFINITIONS.map((q) => q.chat.capabilityId)),
+    ).toEqual(new Set(TOOLS.map((t) => t.name)));
     expect(QUESTION_CATEGORIES).toHaveLength(19);
     expect(QUESTION_CATALOG.questions).toBe(QUESTION_DEFINITIONS);
   });

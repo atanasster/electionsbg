@@ -19,20 +19,36 @@ const intentText = (
   const legacy = question.legacyChatArgs?.[lang] ?? {};
   const baseline: Record<string, unknown> = { ...question.defaults, ...legacy };
   if (question.id === "presidentialResults" && baseline.cycle)
-    baseline.cycle = String(baseline.cycle).slice(0, 4);
+    baseline.cycle = Number(String(baseline.cycle).slice(0, 4));
   const changed = Object.entries(args).filter(
     ([key, value]) => JSON.stringify(value) !== JSON.stringify(baseline[key]),
   );
   if (!changed.length) return question.question[lang];
+  if (question.id === "presidentialResults")
+    return lang === "bg"
+      ? `Резултати от президентските избори през ${args.cycle} г., кръг ${args.round}.`
+      : `Presidential election results in ${args.cycle}, round ${args.round}.`;
+  if (question.id === "comparePlaces")
+    return lang === "bg"
+      ? `Сравни ${args.a} и ${args.b}`
+      : `Compare ${args.a} and ${args.b}`;
   let rendered = question.question[lang];
   let allReplaced = true;
   for (const [key, value] of changed) {
     const oldValue = legacy[key];
-    if (oldValue == null || !rendered.includes(String(oldValue))) {
+    const escaped = String(oldValue ?? "").replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&",
+    );
+    const token = new RegExp(
+      `(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`,
+      "iu",
+    );
+    if (oldValue == null || !token.test(rendered)) {
       allReplaced = false;
       break;
     }
-    rendered = rendered.split(String(oldValue)).join(String(value));
+    rendered = rendered.replace(token, () => String(value));
   }
   if (allReplaced) return rendered;
   const labels = new Map(
@@ -44,10 +60,10 @@ const intentText = (
   const detail = Object.entries(args)
     .filter(([, value]) => value !== undefined)
     .map(([key, value]) => `${labels.get(key) ?? key}: ${String(value)}`)
-    .join(", ");
+    .join("\n");
   return lang === "bg"
-    ? `Справка по избрания въпрос — ${detail}`
-    : `Selected question lookup — ${detail}`;
+    ? `${question.question[lang]}\n${detail}`
+    : `${question.question[lang]}\n${detail}`;
 };
 
 export const toChatQuestionIntent = (

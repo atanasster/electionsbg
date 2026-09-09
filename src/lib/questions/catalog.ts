@@ -1,3 +1,5 @@
+import { parameterLabels as labels } from "./parameterLabels";
+import rawToolParameters from "../../../ai/app/toolParameters.json";
 import rawCategories from "../../../ai/app/starterCategories.json";
 import rawPrompts from "../../../ai/app/starterPrompts.json";
 import type {
@@ -27,22 +29,15 @@ import {
 } from "./contracts/elections";
 
 type RawPrompt = (typeof rawPrompts)[number];
-
-const labels: Record<string, LocalizedText> = {
-  a: { bg: "Първа стойност", en: "First value" },
-  b: { bg: "Втора стойност", en: "Second value" },
-  agency: { bg: "Агенция", en: "Agency" },
-  oblast: { bg: "Област или МИР", en: "Oblast or district" },
-  party: { bg: "Партия", en: "Party" },
-  place: { bg: "Място", en: "Place" },
-  section: { bg: "Секция", en: "Polling section" },
-  year: { bg: "Година", en: "Year" },
-  years: { bg: "Брой години", en: "Number of years" },
-  name: { bg: "Име", en: "Name" },
-  company: { bg: "Фирма", en: "Company" },
-  count: { bg: "Брой резултати", en: "Number of results" },
-  metric: { bg: "Показател", en: "Metric" },
+type ParameterMetadata = {
+  name: string;
+  type: string;
+  required?: boolean;
+  default?: string | number;
+  values?: (string | number)[];
+  description: LocalizedText;
 };
+const toolParameters = rawToolParameters as Record<string, ParameterMetadata[]>;
 
 const labelFor = (id: string): LocalizedText =>
   labels[id] ?? { bg: id, en: id };
@@ -117,18 +112,32 @@ const parameterKind = (tool: string, id: string): QuestionParameterKind => {
 
 const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
   const ids = [
-    ...new Set(Object.values(prompt.args).flatMap((args) => Object.keys(args))),
+    ...new Set([
+      ...Object.values(prompt.args).flatMap((args) => Object.keys(args)),
+      ...(toolParameters[prompt.tool] ?? []).map((p) => p.name),
+    ]),
   ];
   if (prompt.tool === "nationalResults" && !ids.includes("election"))
     ids.push("election");
-  const required = new Set(requiredByTool[prompt.tool] ?? []);
+  const required = new Set([
+    ...(requiredByTool[prompt.tool] ?? []),
+    ...(toolParameters[prompt.tool] ?? [])
+      .filter((p) => p.required)
+      .map((p) => p.name),
+  ]);
   return ids.map((id) => {
-    const kind = parameterKind(prompt.tool, id);
+    const metadata = toolParameters[prompt.tool]?.find((p) => p.name === id);
+    const kind = metadata?.values
+      ? "enum"
+      : metadata?.type === "count"
+        ? "number"
+        : parameterKind(prompt.tool, id);
     const base: QuestionParameter = {
       id,
       kind,
       required: required.has(id),
-      label: labelFor(id),
+      label: labels[id] ?? metadata?.description ?? labelFor(id),
+      ...(metadata?.values ? { values: metadata.values.map(String) } : {}),
       ...(kind === "year" ? { min: 1900, max: 2100 } : {}),
       ...(/^(years|n|count|limit)$/.test(id) ? { min: 1, max: 5000 } : {}),
     };
@@ -143,7 +152,9 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
     if (prompt.tool === "municipalFiscalRanking" && id === "metric")
       return { ...base, kind: "enum", values: [...MUNICIPAL_FISCAL_METRICS] };
     if (prompt.tool === "presidentialResults" && id === "cycle") {
-      const { min: _min, max: _max, ...withoutNumericBounds } = base;
+      const withoutNumericBounds = { ...base };
+      delete withoutNumericBounds.min;
+      delete withoutNumericBounds.max;
       return {
         ...withoutNumericBounds,
         kind: "enum",
@@ -153,6 +164,8 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
     if (prompt.tool === "presidentialResults" && id === "round")
       return {
         ...base,
+        kind: "number",
+        values: undefined,
         min: ELECTION_ROUND_MIN,
         max: ELECTION_ROUND_MAX,
       };
