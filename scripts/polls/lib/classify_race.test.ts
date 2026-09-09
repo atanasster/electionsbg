@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { classifyRace } from "./classify_race";
+import { classifyRace, classifyTitle } from "./classify_race";
 
 describe("classifyRace", () => {
   it("classifies a real Trend title as parliamentary", () => {
@@ -75,5 +75,24 @@ describe("classifyRace", () => {
     expect(
       classifyRace("Резултатите от парламентарните избори вече са ясни"),
     ).toBe("parliamentary");
+  });
+});
+
+describe("classifyTitle — the honestly-ambiguous title-only signal", () => {
+  it("returns the real race when the title states it explicitly", () => {
+    expect(
+      classifyTitle(
+        "Обществени нагласи: Президентски избори 2026 — Global Metrics",
+      ),
+    ).toBe("presidential");
+    expect(
+      classifyTitle(
+        "Електорални нагласи спрямо предстоящите парламентарни избори",
+      ),
+    ).toBe("parliamentary");
+  });
+
+  it("returns null (never a defaulted race) when the title states neither", () => {
+    expect(classifyTitle("Обичайният месечен коментар")).toBeNull();
   });
 });

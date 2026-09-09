@@ -29,6 +29,14 @@ const PRESIDENTIAL_RE =
 const PARLIAMENTARY_RE =
   /парламентарн[\p{L}\p{N}]*\s+избор|народн[\p{L}\p{N}]*\s+събрани/u;
 
+/** `null` when `text` states neither race explicitly — never a default. */
+const raceStatedBy = (text: string): Race | null => {
+  const t = text.toLowerCase();
+  if (PRESIDENTIAL_RE.test(t)) return "presidential";
+  if (PARLIAMENTARY_RE.test(t)) return "parliamentary";
+  return null;
+};
+
 /**
  * `title` is checked alone first — the reliable, always-available signal.
  * `bodyText` (the article's own narrative, or a PDF/OCR transcription) is
@@ -42,12 +50,23 @@ const PARLIAMENTARY_RE =
  * presidential-specific release, which always names the race explicitly
  * in BG polling convention.
  */
-export const classifyRace = (title: string, bodyText = ""): Race => {
-  const t = title.toLowerCase();
-  if (PRESIDENTIAL_RE.test(t)) return "presidential";
-  if (PARLIAMENTARY_RE.test(t)) return "parliamentary";
-  const b = bodyText.toLowerCase();
-  if (PRESIDENTIAL_RE.test(b)) return "presidential";
-  if (PARLIAMENTARY_RE.test(b)) return "parliamentary";
-  return "parliamentary";
-};
+export const classifyRace = (title: string, bodyText = ""): Race =>
+  raceStatedBy(title) ?? raceStatedBy(bodyText) ?? "parliamentary";
+
+/**
+ * The title-only signal, honestly reported: `null` when the title states
+ * neither race explicitly, rather than `classifyRace`'s defaulted
+ * `"parliamentary"`. Exists for an extractor whose fast path needs to
+ * reject BEFORE paying for OCR/PDF acquisition — an extractor that builds
+ * only PARLIAMENTARY drafts can safely reject on
+ * `classifyRace(title) !== "parliamentary"`, since that value is only
+ * ever `"presidential"` there via a genuine regex match (never the
+ * default). An extractor that builds only PRESIDENTIAL drafts has no such
+ * safe mirror: `classifyRace(title) !== "presidential"` would also be
+ * true for an ambiguous title, incorrectly rejecting a real presidential
+ * capture before its body text is ever read. `classifyTitle(title) ===
+ * "parliamentary"` is the safe rejection condition for that extractor
+ * instead — true only for a genuine, explicit parliamentary signal.
+ */
+export const classifyTitle = (title: string): Race | null =>
+  raceStatedBy(title);

@@ -64,6 +64,29 @@ export const POLL_TO_ACTUAL: Record<string, string> = {
   // above (Trend, measured 2026-09-09: "Алиансът за права и свободи разполага
   // с 1,7%").
   "Алиансът за права и свободи": "АПС",
+  // Global Metrics' presidential placeholder table (July 2026 capture,
+  // pubId 658): the candidate-of-party row for ПП-ДБ wraps its label
+  // across a line break with the percentage sandwiched in the middle
+  // ("Кандидат на Продължаваме промяната –\n...\nДемократична България"),
+  // so `scripts/polls/extractors/global_metrics.ts` deliberately captures
+  // only the truncated form (through the trailing en-dash) rather than
+  // reconstructing the wrapped continuation — see that file's own header
+  // for why.
+  //
+  // ⚠ Unlike the ДПС/БСП cycle-rename pair `resolveAmbiguous` handles
+  // below, this entry has no cross-cycle counterpart: ПП ran as the bare
+  // ballot nickname "ПП" in 2021-11/2022-10 and only as "ПП-ДБ" from
+  // 2023-04 onward, and `resolveActualKey` has no ПП ↔ ПП-ДБ rename rule.
+  // That is a pre-existing, unchanged scope limit (the bare full name
+  // never matched the bare abbreviation either way, before or after this
+  // entry) rather than a regression — it just means this alias only ever
+  // helps a 2023+ actual-key set. `global_metrics.ts`'s own use of this
+  // table (via `placeholderPartyKey`, a direct dictionary lookup with no
+  // `actualKeys` set at all) is unaffected either way. "БСП – Обединена
+  // левица" is that same table's single-line ballot spelling of БСП-ОЛ,
+  // and DOES ride the existing БСП ↔ БСП-ОЛ rename rule below.
+  "Продължаваме промяната": "ПП-ДБ",
+  "БСП – Обединена левица": "БСП-ОЛ",
 };
 
 // Strip a "Коалиция " ("Coalition ") prefix that some agencies — notably ML in
