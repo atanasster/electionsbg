@@ -128,7 +128,7 @@ order because the bundle hash moves.
 - The buffer ceiling holds.
 - `andrey-ivanov-1bxuxb` returns no related edges through `000703172`.
 
-## Status — CODE LANDED 2026-09-09, NOT YET DEPLOYED
+## Status — SHIPPED 2026-09-09
 
 Steps 1-5 done and verified on local Postgres:
 
@@ -145,6 +145,23 @@ Steps 1-5 done and verified on local Postgres:
 - Step 5 needed no change: `PersonConnectionCheck` calls `/api/db/connection` and only mentions
   `person_connections` in a comment, which the unified guard makes MORE accurate rather than less.
 
-**Pending: the production deploy**, in the order in the Cloud section above and not before.
-`deploy:db` must precede the migration. Until both run, production still bridges through
-mass-membership companies and still answers `?private=1`.
+**Deployed 2026-09-09**, in the documented order, and verified on production:
+
+- `npm run deploy:db` first. Confirmed the new function was actually serving BEFORE touching the
+  database, on a cache-busted request: `?private=1` came back ignored. The plain URL still answered
+  from a stale edge entry (`x-cache: HIT`, `s-maxage=3600`), so verify this with a cache-buster or
+  you will read the pre-deploy answer and conclude the deploy failed.
+- `apply_functions.ts 084` against Cloud SQL: **1.1 s**, no collateral drops. It replaces two
+  functions and rebuilds nothing, so there is no reader-visible window and no off-peak requirement.
+- On production: `andrey-ivanov-1bxuxb` 5 related → **0**; an unaffected subject (`mp-801`) still
+  returns its 6; `graph-ego` answers 200 in both toggle states; and over the 400 highest-degree
+  public figures, 356 bridge companies with **0** at `coowner_count > 6`.
+
+**No hosting deploy was needed and the three-step order did not apply.** Nothing in this change
+touches `src/`, and `deploy:db` is `firebase deploy --only functions:db` with no build predeploy, so
+the bundle hash cannot move. Verified either side: hosting `/` and all five function-served families
+(`/person`, `/company`, `/funds/contract`, `/funds/interreg`, `/council/resolution`) serve
+`index-CPHYCUWA.js`, so there was no stale-shell window to purge.
+
+One residue, immaterial: `?private=1` responses cached at the edge before the deploy keep answering
+for up to `s-maxage` (1 hour). Nothing links to that URL.
