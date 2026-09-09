@@ -6,18 +6,22 @@
 // 2017-2019 ML waves carry `2021-04-04`) — then ALWAYS runs
 // `polls:analyze`, so nobody has to remember that step by hand.
 //
-// Decision 11's parenthetical "(or a previously-estimated date moves)" is
-// presidential's case — only a presidential poll ever carries a non-null
-// "estimated" `electionDate` to begin with — and is not handled by this
-// file, which only ever touches `electionDate === null` and refuses
-// `--race presidential` outright (see below).
-//
 //   npm run polls:restamp -- --race parliamentary --to 2027-03-14
+//   npm run polls:restamp -- --race presidential --cycle 2026_11_08_pvr
 //
-// Presidential restamp (`--cycle`, decision 10's separate file family) is
-// NOT supported here yet — Tier 4 has not shipped that family's schema,
-// the same scoping `polls:accept` already uses. Passing --race
-// presidential is refused cleanly rather than attempted.
+// Decision 11's parenthetical "(or a previously-estimated date moves)" IS
+// presidential's case: `UPCOMING_ELECTIONS` (src/data/myarea/upcomingElections.ts)
+// carries an "estimated" `electionDate` from the day a presidential poll
+// is first accepted (`accept.ts`'s own `electionDate: draft.poll.electionDate`),
+// so unlike the parliamentary side there is no `electionDate === null`
+// window to fill — every presidential poll already carries the ESTIMATE.
+// What changes when the decree lands is that the estimate becomes a
+// DECREED date, and every presidential poll gets its `cycle` (still
+// `null` pre-decree, decision 11) stamped to the real round-1 folder id
+// — `<cycle>`'s own name (`YYYY_MM_DD_pvr`) IS that date, so this needs
+// no separate `--to`. `polls:presidential:rekey` is a SEPARATE, later
+// step (once `tickets.json` exists, months after the decree) — this file
+// never touches `candidateKey`.
 
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -44,6 +48,7 @@ export const __setRestampRootForTests = (root?: string): void => {
 };
 
 const POLLS_DIR = () => path.join(REPO_ROOT, "data/polls");
+const PRESIDENTIAL_DIR = () => path.join(POLLS_DIR(), "presidential");
 const ELECTIONS_JSON = () =>
   path.join(REPO_ROOT, "src/data/json/elections.json");
 
@@ -83,16 +88,22 @@ const readJsonArray = <T>(file: string): T[] =>
 // via a temp file + rename so a crash mid-write can never leave a
 // truncated corpus file (rename is atomic on the same filesystem).
 const writeJsonArray = (file: string, arr: unknown[]): void => {
+  // `data/polls/presidential/` may not exist yet on a fresh checkout that
+  // has never accepted a presidential poll — accept.ts's own
+  // `writeJsonArray` learned this the hard way (an ENOENT review finding);
+  // mirrored here rather than assumed away.
+  fs.mkdirSync(path.dirname(file), { recursive: true });
   const tmp = `${file}.tmp-${process.pid}`;
   fs.writeFileSync(tmp, JSON.stringify(arr));
   fs.renameSync(tmp, file);
 };
 
-type RunAnalyze = () => boolean;
+type RunAnalyze = (race?: "presidential") => boolean;
 
-const defaultRunAnalyze = (): boolean => {
+const defaultRunAnalyze = (race?: "presidential"): boolean => {
   const scriptPath = path.join(REPO_ROOT, "scripts/polls/analyze_accuracy.ts");
-  const res = spawnSync("npx", ["tsx", scriptPath], {
+  const args = race ? ["tsx", scriptPath, "--race", race] : ["tsx", scriptPath];
+  const res = spawnSync("npx", args, {
     stdio: "inherit",
     cwd: REPO_ROOT,
   });
@@ -120,36 +131,28 @@ export const __setRunAnalyzeForTests = (fn?: RunAnalyze): void => {
 export interface Opts {
   race?: string;
   to?: string;
+  cycle?: string;
 }
 
 export const parseArgv = (argv: string[]): Opts => {
   const flag = flagReader(argv);
-  return { race: flag("race"), to: flag("to") };
+  return { race: flag("race"), to: flag("to"), cycle: flag("cycle") };
 };
 
-export const main = (argv: string[]): void => {
-  const opts = parseArgv(argv);
-  if (!opts.race || !opts.to) {
-    console.error(
-      "usage: polls:restamp -- --race <parliamentary|presidential> --to <iso>",
-    );
-    process.exitCode = 1;
-    return;
-  }
-  if (opts.race !== "parliamentary") {
-    console.error(
-      `--race "${opts.race}" is not supported yet — polls:restamp only supports parliamentary today (decision 10's presidential family is a separate, not-yet-built schema)`,
-    );
-    process.exitCode = 1;
-    return;
-  }
-  if (!ISO_DATE_RE.test(opts.to) || !isRealIsoDate(opts.to)) {
-    console.error(`--to "${opts.to}" must be a real ISO date (YYYY-MM-DD)`);
-    process.exitCode = 1;
-    return;
-  }
+// The round-1 folder id shape (`data/<date>_pvr/`) — same rule as
+// accept.ts's own `CYCLE_ID_RE`, restated here rather than imported
+// since neither file exports it and duplicating one regex literal is
+// cheaper than a cross-file dependency for it.
+const CYCLE_ID_RE = /^(\d{4})_(\d{2})_(\d{2})_pvr$/;
 
-  const toIso = opts.to;
+/** `"2026_11_08_pvr"` → `"2026-11-08"` — the cycle folder's own name IS
+ *  its round-1 date, so no separate `--to` is needed for presidential. */
+const round1DateFromCycleId = (cycleId: string): string | null => {
+  const m = CYCLE_ID_RE.exec(cycleId);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+};
+
+const restampParliamentary = (toIso: string): void => {
   const previousElection = latestHeldElection();
   if (previousElection !== null && toIso <= previousElection) {
     console.error(
@@ -191,6 +194,97 @@ export const main = (argv: string[]): void => {
     console.error("polls:analyze failed — see its output above");
     process.exitCode = 1;
   }
+};
+
+/** Decision 11's presidential arm: every presidential poll with `cycle
+ *  === null` (decision 11 — nothing is stamped to a real cycle before
+ *  the decree) gets BOTH `cycle` and `electionDate` set from the
+ *  decreed `--cycle` id. Unlike the parliamentary side there is no
+ *  fieldwork WINDOW to compute — a presidential poll's `electionDate`
+ *  already carries the pre-decree estimate (`accept.ts` sets it from the
+ *  draft, ultimately `UPCOMING_ELECTIONS`), so every null-cycle poll
+ *  belongs to whichever decree just landed, unconditionally. */
+const restampPresidential = (cycleId: string): void => {
+  const round1Date = round1DateFromCycleId(cycleId);
+  if (!round1Date) {
+    console.error(
+      `--cycle "${cycleId}" must be a round-1 folder id (e.g. "2026_11_08_pvr")`,
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  const pollsFile = path.join(PRESIDENTIAL_DIR(), "polls.json");
+  const polls = readJsonArray<Poll>(pollsFile);
+
+  let stamped = 0;
+  const nextPolls = polls.map((p) => {
+    if (p.race !== "presidential") return p;
+    if (p.cycle !== null && p.cycle !== undefined) return p;
+    stamped++;
+    return { ...p, cycle: cycleId, electionDate: round1Date };
+  });
+
+  if (stamped > 0) {
+    writeJsonArray(pollsFile, nextPolls);
+    console.log(
+      `stamped ${stamped} presidential poll(s) with cycle ${cycleId} (electionDate ${round1Date})`,
+    );
+  } else {
+    console.log(
+      `no presidential poll has an un-stamped (null) cycle — nothing to stamp`,
+    );
+  }
+
+  // Always — decision 11's point is that nobody has to remember this
+  // step. Presidential runs the PRESIDENTIAL analyzer, not the
+  // parliamentary one — the two are separate corpora, separate outputs.
+  if (!runAnalyze("presidential")) {
+    console.error(
+      "polls:analyze --race presidential failed — see its output above",
+    );
+    process.exitCode = 1;
+  }
+};
+
+export const main = (argv: string[]): void => {
+  const opts = parseArgv(argv);
+  if (!opts.race) {
+    console.error(
+      "usage: polls:restamp -- --race <parliamentary|presidential> --to <iso> | --cycle <cycle-id>",
+    );
+    process.exitCode = 1;
+    return;
+  }
+  if (opts.race === "presidential") {
+    if (!opts.cycle) {
+      console.error(
+        "usage: polls:restamp -- --race presidential --cycle <cycle-id>",
+      );
+      process.exitCode = 1;
+      return;
+    }
+    restampPresidential(opts.cycle);
+    return;
+  }
+  if (opts.race !== "parliamentary") {
+    console.error(
+      `--race "${opts.race}" must be "parliamentary" or "presidential"`,
+    );
+    process.exitCode = 1;
+    return;
+  }
+  if (!opts.to) {
+    console.error("usage: polls:restamp -- --race parliamentary --to <iso>");
+    process.exitCode = 1;
+    return;
+  }
+  if (!ISO_DATE_RE.test(opts.to) || !isRealIsoDate(opts.to)) {
+    console.error(`--to "${opts.to}" must be a real ISO date (YYYY-MM-DD)`);
+    process.exitCode = 1;
+    return;
+  }
+  restampParliamentary(opts.to);
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {

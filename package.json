@@ -283,6 +283,7 @@
     "polls:restamp": "tsx ./scripts/polls/restamp.ts",
     "polls:crosscheck": "tsx ./scripts/polls/crosscheck.ts",
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",
+    "polls:presidential:rekey": "tsx ./scripts/polls/presidential/rekey.ts",
     "polls:gen-analysis": "tsx ./scripts/polls/generate_analysis.ts",
     "census": "tsx ./scripts/census/build_census.ts",
     "party:bundle": "tsx ./scripts/parties/bundle_party_data.ts",

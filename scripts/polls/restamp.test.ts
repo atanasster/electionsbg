@@ -18,11 +18,26 @@ describe("parseArgv", () => {
     ).toEqual({
       race: "parliamentary",
       to: "2027-03-14",
+      cycle: undefined,
     });
   });
 
-  it("defaults both to undefined", () => {
-    expect(parseArgv([])).toEqual({ race: undefined, to: undefined });
+  it("reads --race and --cycle (presidential)", () => {
+    expect(
+      parseArgv(["--race", "presidential", "--cycle", "2026_11_08_pvr"]),
+    ).toEqual({
+      race: "presidential",
+      to: undefined,
+      cycle: "2026_11_08_pvr",
+    });
+  });
+
+  it("defaults all three to undefined", () => {
+    expect(parseArgv([])).toEqual({
+      race: undefined,
+      to: undefined,
+      cycle: undefined,
+    });
   });
 });
 
@@ -143,13 +158,21 @@ describe("main", () => {
     expect(readPolls()[0].electionDate).toBe("2027-03-14");
   });
 
-  it("refuses --race presidential — not supported yet", () => {
-    main(["--race", "presidential", "--to", "2026-11-08"]);
+  it("refuses --race presidential with no --cycle", () => {
+    main(["--race", "presidential"]);
     expect(process.exitCode).toBe(1);
     expect(errorSpy).toHaveBeenCalledWith(
-      expect.stringContaining("polls:restamp only supports parliamentary"),
+      expect.stringContaining("--race presidential --cycle"),
     );
     expect(analyzeSpy).not.toHaveBeenCalled();
+  });
+
+  it("refuses an unknown --race value", () => {
+    main(["--race", "bogus", "--to", "2026-11-08"]);
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining('must be "parliamentary" or "presidential"'),
+    );
   });
 
   it("refuses a malformed --to value", () => {
@@ -280,5 +303,127 @@ describe("main", () => {
       "analyze_accuracy.ts",
     );
     expect(fs.existsSync(scriptPath)).toBe(true);
+  });
+});
+
+describe("main — presidential (decision 11's cycle-stamping arm)", () => {
+  let scratchRoot: string;
+  let logSpy: ReturnType<typeof vi.spyOn>;
+  let errorSpy: ReturnType<typeof vi.spyOn>;
+  let analyzeSpy: ReturnType<typeof vi.fn>;
+
+  const presPollsFile = () =>
+    path.join(scratchRoot, "data/polls/presidential/polls.json");
+  const writePresPolls = (polls: Poll[]) => {
+    fs.mkdirSync(path.join(scratchRoot, "data/polls/presidential"), {
+      recursive: true,
+    });
+    fs.writeFileSync(presPollsFile(), JSON.stringify(polls));
+  };
+  const readPresPolls = (): Poll[] =>
+    JSON.parse(fs.readFileSync(presPollsFile(), "utf8"));
+
+  const BASE_PRES_POLL: Poll = {
+    id: "gm-2026-07-11",
+    agencyId: "GM",
+    fieldwork: "Jun 23 - Jul 11 2026",
+    electionDate: "2026-11-08", // pre-decree ESTIMATE, per UPCOMING_ELECTIONS
+    cycle: null,
+    respondents: 1503,
+    methodology: { bg: "x", en: "x" },
+    source: "https://example.test/",
+    race: "presidential",
+  };
+
+  beforeEach(() => {
+    scratchRoot = fs.mkdtempSync(
+      path.join(os.tmpdir(), "polls-restamp-pres-test-"),
+    );
+    __setRestampRootForTests(scratchRoot);
+    analyzeSpy = vi.fn(() => true);
+    __setRunAnalyzeForTests(analyzeSpy as unknown as () => boolean);
+    logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    __setRestampRootForTests();
+    __setRunAnalyzeForTests();
+    fs.rmSync(scratchRoot, { recursive: true, force: true });
+    logSpy.mockRestore();
+    errorSpy.mockRestore();
+    process.exitCode = undefined;
+  });
+
+  it("stamps every null-cycle presidential poll to the decreed cycle, and runs the PRESIDENTIAL analyzer", () => {
+    writePresPolls([BASE_PRES_POLL]);
+
+    main(["--race", "presidential", "--cycle", "2026_11_08_pvr"]);
+
+    expect(process.exitCode).toBeUndefined();
+    const polls = readPresPolls();
+    expect(polls[0].cycle).toBe("2026_11_08_pvr");
+    // The decree's own date wins over whatever estimate was there before.
+    expect(polls[0].electionDate).toBe("2026-11-08");
+    expect(analyzeSpy).toHaveBeenCalledWith("presidential");
+  });
+
+  it("does not touch a poll whose cycle is already stamped", () => {
+    writePresPolls([{ ...BASE_PRES_POLL, cycle: "2026_11_08_pvr" }]);
+
+    main(["--race", "presidential", "--cycle", "2026_11_08_pvr"]);
+
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("nothing to stamp"),
+    );
+  });
+
+  it("does not touch a parliamentary poll even when it has no cycle field", () => {
+    writePresPolls([
+      {
+        ...BASE_PRES_POLL,
+        id: "other",
+        race: "parliamentary",
+        cycle: undefined,
+      },
+    ]);
+
+    main(["--race", "presidential", "--cycle", "2026_11_08_pvr"]);
+
+    expect(readPresPolls()[0].cycle).toBeUndefined();
+  });
+
+  it("refuses a malformed --cycle value", () => {
+    writePresPolls([BASE_PRES_POLL]);
+
+    main(["--race", "presidential", "--cycle", "not-a-cycle"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("round-1 folder id"),
+    );
+    expect(analyzeSpy).not.toHaveBeenCalled();
+  });
+
+  it("reports failure when polls:analyze --race presidential fails", () => {
+    writePresPolls([BASE_PRES_POLL]);
+    analyzeSpy.mockImplementation(() => false);
+
+    main(["--race", "presidential", "--cycle", "2026_11_08_pvr"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("polls:analyze --race presidential failed"),
+    );
+  });
+
+  it("does nothing (and does not throw) when no presidential corpus exists at all", () => {
+    // No writePresPolls call — data/polls/presidential/ does not exist.
+    // readJsonArray degrades to [] for a missing file, so there is
+    // nothing to stamp; the run must still complete cleanly.
+    main(["--race", "presidential", "--cycle", "2026_11_08_pvr"]);
+    expect(process.exitCode).toBeUndefined();
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("nothing to stamp"),
+    );
   });
 });
