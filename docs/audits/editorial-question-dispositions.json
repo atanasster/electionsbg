@@ -1,0 +1,2614 @@
+{
+  "generatedAt": "2026-09-09",
+  "source": "docs/audits/bulgarian-civic-questions.json",
+  "decisions": "docs/audits/editorial-question-decisions.json",
+  "sourceSha256": "117b4642f18cde0e2d6e911267e242cbc030ce9e50e32d8529ea11963524ae88",
+  "decisionsSha256": "36779c1056c1e51db3ad40c17f18dad40dc0bcf20f07e7ee80457dd987920c96",
+  "policy": "Every ID has an independently reviewed decision. Topic-adjacent relatedTools are never accepted as answerability evidence. News claims require dated retrieval and citations outside unrestricted SQL.",
+  "dispositions": [
+    {
+      "id": "elections.parliamentary.01",
+      "outcome": "promote_existing",
+      "capabilityId": "nationalResults",
+      "validationEvidence": "scripts/db/tests/election_national_results.data.test.ts verifies the exact 2026 contest, top party, totals, source hash and chat/SQL row parity.",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "questionBg": "Кой спечели последните парламентарни избори?",
+      "chat": "ready",
+      "sql": "ready"
+    },
+    {
+      "id": "elections.parliamentary.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко гласа останаха без представителство в парламента?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nationalResults, partyResult, candidateResult, parliamentSeats, seatsHistory, compareElections, partyTimeline, turnout, turnoutSeries, machineVoteShare, machineVoteSeries, wastedVotes, wastedVotesTrend, wastedVotesByParty.",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "questionBg": "Колко гласа останаха без представителство в парламента?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.parliamentary.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се промени избирателната активност от 2005 г. насам?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nationalResults, partyResult, candidateResult, parliamentSeats, seatsHistory, compareElections, partyTimeline, turnout, turnoutSeries, machineVoteShare, machineVoteSeries, wastedVotes, wastedVotesTrend, wastedVotesByParty.",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "questionBg": "Как се промени избирателната активност от 2005 г. насам?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.parliamentary.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои партии спечелиха и кои загубиха подкрепа спрямо предишния вот?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nationalResults, partyResult, candidateResult, parliamentSeats, seatsHistory, compareElections, partyTimeline, turnout, turnoutSeries, machineVoteShare, machineVoteSeries, wastedVotes, wastedVotesTrend, wastedVotesByParty.",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "questionBg": "Кои партии спечелиха и кои загубиха подкрепа спрямо предишния вот?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.presidential.01",
+      "outcome": "promote_existing",
+      "capabilityId": "presidentialResults",
+      "validationEvidence": "scripts/db/tests/election_national_results.data.test.ts verifies the exact 2021 contest and runoff, winning ticket, totals, source hash and chat/SQL row parity.",
+      "category": "elections",
+      "subcategory": "presidential",
+      "questionBg": "Кой спечели президентските избори през 2021 г.?",
+      "chat": "ready",
+      "sql": "ready"
+    },
+    {
+      "id": "elections.presidential.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се различават резултатите от първия тур и балотажа?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: presidentialResults.",
+      "category": "elections",
+      "subcategory": "presidential",
+      "questionBg": "Как се различават резултатите от първия тур и балотажа?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.presidential.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как гласува моята община за президент?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: presidentialResults.",
+      "category": "elections",
+      "subcategory": "presidential",
+      "questionBg": "Как гласува моята община за президент?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.presidential.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко избиратели подкрепиха различни партии и президентски кандидати в един и същ ден?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: presidentialResults.",
+      "category": "elections",
+      "subcategory": "presidential",
+      "questionBg": "Колко избиратели подкрепиха различни партии и президентски кандидати в един и същ ден?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.local.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой беше избран за кмет на моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: localCouncilVoteShare, localMayorsWon, localCouncilTrend, localVoteFlows, localPrevoteFlow, localPlaceTrend, localMayorsTrend, localOblastMayors, localMunicipality, localMayorRace, localMayorSections, localMayorHistory, localSubMayors, localCouncil, chmiEvents.",
+      "category": "elections",
+      "subcategory": "local",
+      "questionBg": "Кой беше избран за кмет на моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.local.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои партии имат най-много общински съветници?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: localCouncilVoteShare, localMayorsWon, localCouncilTrend, localVoteFlows, localPrevoteFlow, localPlaceTrend, localMayorsTrend, localOblastMayors, localMunicipality, localMayorRace, localMayorSections, localMayorHistory, localSubMayors, localCouncil, chmiEvents.",
+      "category": "elections",
+      "subcategory": "local",
+      "questionBg": "Кои партии имат най-много общински съветници?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.local.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде имаше частични местни избори?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: localCouncilVoteShare, localMayorsWon, localCouncilTrend, localVoteFlows, localPrevoteFlow, localPlaceTrend, localMayorsTrend, localOblastMayors, localMunicipality, localMayorRace, localMayorSections, localMayorHistory, localSubMayors, localCouncil, chmiEvents.",
+      "category": "elections",
+      "subcategory": "local",
+      "questionBg": "Къде имаше частични местни избори?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.local.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се смени управлението на общината през последните мандати?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: localCouncilVoteShare, localMayorsWon, localCouncilTrend, localVoteFlows, localPrevoteFlow, localPlaceTrend, localMayorsTrend, localOblastMayors, localMunicipality, localMayorRace, localMayorSections, localMayorHistory, localSubMayors, localCouncil, chmiEvents.",
+      "category": "elections",
+      "subcategory": "local",
+      "questionBg": "Как се смени управлението на общината през последните мандати?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.geography.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как гласуваха хората в моето населено място?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: regionWinners, regionBreakdown, municipalityBreakdown, municipalityWinners, settlementWinners, sectionWinners, sectionResults, sectionHistory, settlementResults, settlementHistory, municipalityResults, municipalityHistory, regionResults, regionResultsTrend, settlementBreakdown, regionHistory, diasporaVote, diasporaVoteTrend.",
+      "category": "elections",
+      "subcategory": "geography",
+      "questionBg": "Как гласуваха хората в моето населено място?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.geography.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “По какво се различава вотът в чужбина от този в България?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: regionWinners, regionBreakdown, municipalityBreakdown, municipalityWinners, settlementWinners, sectionWinners, sectionResults, sectionHistory, settlementResults, settlementHistory, municipalityResults, municipalityHistory, regionResults, regionResultsTrend, settlementBreakdown, regionHistory, diasporaVote, diasporaVoteTrend.",
+      "category": "elections",
+      "subcategory": "geography",
+      "questionBg": "По какво се различава вотът в чужбина от този в България?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.geography.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви са резултатите в моята избирателна секция?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: regionWinners, regionBreakdown, municipalityBreakdown, municipalityWinners, settlementWinners, sectionWinners, sectionResults, sectionHistory, settlementResults, settlementHistory, municipalityResults, municipalityHistory, regionResults, regionResultsTrend, settlementBreakdown, regionHistory, diasporaVote, diasporaVoteTrend.",
+      "category": "elections",
+      "subcategory": "geography",
+      "questionBg": "Какви са резултатите в моята избирателна секция?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.geography.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде дадена партия увеличава подкрепата си?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: regionWinners, regionBreakdown, municipalityBreakdown, municipalityWinners, settlementWinners, sectionWinners, sectionResults, sectionHistory, settlementResults, settlementHistory, municipalityResults, municipalityHistory, regionResults, regionResultsTrend, settlementBreakdown, regionHistory, diasporaVote, diasporaVoteTrend.",
+      "category": "elections",
+      "subcategory": "geography",
+      "questionBg": "Къде дадена партия увеличава подкрепата си?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.integrity.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои секции имат статистически сигнали за изборен риск?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electionAnomalies, flashMemoryByParty, machineVoteByParty, recountByParty, problemSections, romaVoteTrend, riskIndex, riskScore, riskClusters, clusterPersistence, benfordAnomalies, suspiciousSettlements, sectionRiskHistory.",
+      "category": "elections",
+      "subcategory": "integrity",
+      "questionBg": "Кои секции имат статистически сигнали за изборен риск?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.integrity.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко недействителни бюлетини има и къде са най-много?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electionAnomalies, flashMemoryByParty, machineVoteByParty, recountByParty, problemSections, romaVoteTrend, riskIndex, riskScore, riskClusters, clusterPersistence, benfordAnomalies, suspiciousSettlements, sectionRiskHistory.",
+      "category": "elections",
+      "subcategory": "integrity",
+      "questionBg": "Колко недействителни бюлетини има и къде са най-много?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.integrity.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво се промени след повторното преброяване?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electionAnomalies, flashMemoryByParty, machineVoteByParty, recountByParty, problemSections, romaVoteTrend, riskIndex, riskScore, riskClusters, clusterPersistence, benfordAnomalies, suspiciousSettlements, sectionRiskHistory.",
+      "category": "elections",
+      "subcategory": "integrity",
+      "questionBg": "Какво се промени след повторното преброяване?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.integrity.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Каква е разликата между статистическа аномалия и доказано нарушение?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electionAnomalies, flashMemoryByParty, machineVoteByParty, recountByParty, problemSections, romaVoteTrend, riskIndex, riskScore, riskClusters, clusterPersistence, benfordAnomalies, suspiciousSettlements, sectionRiskHistory.",
+      "category": "elections",
+      "subcategory": "integrity",
+      "questionBg": "Каква е разликата между статистическа аномалия и доказано нарушение?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.polls.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Коя агенция прогнозира най-точно последните избори?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: pollAccuracy, agencyProfile, latestPolls, agencyPolls, agencyAccuracyHistory, accuracyTrend, voteTransitions, voterPersistence, partyDemographics, demographicCleavages.",
+      "category": "elections",
+      "subcategory": "polls",
+      "questionBg": "Коя агенция прогнозира най-точно последните избори?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.polls.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се движи подкрепата за партиите между изборите?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: pollAccuracy, agencyProfile, latestPolls, agencyPolls, agencyAccuracyHistory, accuracyTrend, voteTransitions, voterPersistence, partyDemographics, demographicCleavages.",
+      "category": "elections",
+      "subcategory": "polls",
+      "questionBg": "Как се движи подкрепата за партиите между изборите?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.polls.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко голяма е грешката на социологическите проучвания?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: pollAccuracy, agencyProfile, latestPolls, agencyPolls, agencyAccuracyHistory, accuracyTrend, voteTransitions, voterPersistence, partyDemographics, demographicCleavages.",
+      "category": "elections",
+      "subcategory": "polls",
+      "questionBg": "Колко голяма е грешката на социологическите проучвания?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "elections.polls.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Показват ли данните действително преливане на хора между партии или само оценка?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: pollAccuracy, agencyProfile, latestPolls, agencyPolls, agencyAccuracyHistory, accuracyTrend, voteTransitions, voterPersistence, partyDemographics, demographicCleavages.",
+      "category": "elections",
+      "subcategory": "polls",
+      "questionBg": "Показват ли данните действително преливане на хора между партии или само оценка?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.parliament.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как гласува моят депутат по бюджета?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mpLoyalty, mpAttendance, factionCohesion, mpVotingProfile, mpSimilarity, voteSearch, partyMps.",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "questionBg": "Как гласува моят депутат по бюджета?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.parliament.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои депутати участват най-рядко в гласуванията?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mpLoyalty, mpAttendance, factionCohesion, mpVotingProfile, mpSimilarity, voteSearch, partyMps.",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "questionBg": "Кои депутати участват най-рядко в гласуванията?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.parliament.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кога парламентарните групи гласуват заедно?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mpLoyalty, mpAttendance, factionCohesion, mpVotingProfile, mpSimilarity, voteSearch, partyMps.",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "questionBg": "Кога парламентарните групи гласуват заедно?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.parliament.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои законопроекти стигнаха до второ четене?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mpLoyalty, mpAttendance, factionCohesion, mpVotingProfile, mpSimilarity, voteSearch, partyMps.",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "questionBg": "Кои законопроекти стигнаха до второ четене?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.cabinet.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой заема тази публична длъжност и от кога?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governments, personProfile.",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "questionBg": "Кой заема тази публична длъжност и от кога?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.cabinet.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко дълго управляваха последните правителства?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governments, personProfile.",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "questionBg": "Колко дълго управляваха последните правителства?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.cabinet.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои партии участваха във всяка управляваща коалиция?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governments, personProfile.",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "questionBg": "Кои партии участваха във всяка управляваща коалиция?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.cabinet.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се промени икономиката при различните правителства?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governments, personProfile.",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "questionBg": "Как се промени икономиката при различните правителства?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.councils.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви решения взе общинският съвет последния месец?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: councilResolutions.",
+      "category": "institutions",
+      "subcategory": "councils",
+      "questionBg": "Какви решения взе общинският съвет последния месец?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.councils.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как гласува конкретен общински съветник?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: councilResolutions.",
+      "category": "institutions",
+      "subcategory": "councils",
+      "questionBg": "Как гласува конкретен общински съветник?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.councils.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде мога да прочета решението за общински имот?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: councilResolutions.",
+      "category": "institutions",
+      "subcategory": "councils",
+      "questionBg": "Къде мога да прочета решението за общински имот?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.councils.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои общински съвети са обхванати от данните?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: councilResolutions.",
+      "category": "institutions",
+      "subcategory": "councils",
+      "questionBg": "Кои общински съвети са обхванати от данните?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.services.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои административни услуги мога да заявя онлайн?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: administrationOverview, digitalSkills.",
+      "category": "institutions",
+      "subcategory": "services",
+      "questionBg": "Кои административни услуги мога да заявя онлайн?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.services.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Коя институция отговаря за проблема ми?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: administrationOverview, digitalSkills.",
+      "category": "institutions",
+      "subcategory": "services",
+      "questionBg": "Коя институция отговаря за проблема ми?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.services.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко струва издръжката на администрацията?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: administrationOverview, digitalSkills.",
+      "category": "institutions",
+      "subcategory": "services",
+      "questionBg": "Колко струва издръжката на администрацията?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "institutions.services.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко време отнема дадена административна услуга?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: administrationOverview, digitalSkills.",
+      "category": "institutions",
+      "subcategory": "services",
+      "questionBg": "Колко време отнема дадена административна услуга?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.budget.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “За какво отиват данъците ни?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: budgetOverview, budgetTrend, budgetByFunction, budgetFunction, budgetExecution, revenueBreakdown.",
+      "category": "public-money",
+      "subcategory": "budget",
+      "questionBg": "За какво отиват данъците ни?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.budget.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Приходите покриват ли разходите на държавата?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: budgetOverview, budgetTrend, budgetByFunction, budgetFunction, budgetExecution, revenueBreakdown.",
+      "category": "public-money",
+      "subcategory": "budget",
+      "questionBg": "Приходите покриват ли разходите на държавата?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.budget.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде разходите надвишават първоначалния бюджет?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: budgetOverview, budgetTrend, budgetByFunction, budgetFunction, budgetExecution, revenueBreakdown.",
+      "category": "public-money",
+      "subcategory": "budget",
+      "questionBg": "Къде разходите надвишават първоначалния бюджет?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.budget.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какъв дял от бюджета отива за здраве, образование и пенсии?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: budgetOverview, budgetTrend, budgetByFunction, budgetFunction, budgetExecution, revenueBreakdown.",
+      "category": "public-money",
+      "subcategory": "budget",
+      "questionBg": "Какъв дял от бюджета отива за здраве, образование и пенсии?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.ministries.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко харчи всяко министерство?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ministryBudget, institutionMaintenance, investmentProjects.",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "questionBg": "Колко харчи всяко министерство?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.ministries.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко са разходите за заплати в администрацията?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ministryBudget, institutionMaintenance, investmentProjects.",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "questionBg": "Колко са разходите за заплати в администрацията?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.ministries.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои инвестиционни проекти са заложени в бюджета?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ministryBudget, institutionMaintenance, investmentProjects.",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "questionBg": "Кои инвестиционни проекти са заложени в бюджета?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.ministries.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво е изпълнението на конкретна бюджетна програма?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ministryBudget, institutionMaintenance, investmentProjects.",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "questionBg": "Какво е изпълнението на конкретна бюджетна програма?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.municipal.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко пари получава моята община от държавата?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: municipalTransfers, localTaxes.",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "questionBg": "Колко пари получава моята община от държавата?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.municipal.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко просрочени задължения има общината?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: municipalTransfers, localTaxes.",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "questionBg": "Колко просрочени задължения има общината?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.municipal.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви са местните данъци в сравнение със съседните общини?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: municipalTransfers, localTaxes.",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "questionBg": "Какви са местните данъци в сравнение със съседните общини?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.municipal.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко получава кметът според декларацията си?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: municipalTransfers, localTaxes.",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "questionBg": "Колко получава кметът според декларацията си?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.debt.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко е държавният дълг на човек?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: govDebt.",
+      "category": "public-money",
+      "subcategory": "debt",
+      "questionBg": "Колко е държавният дълг на човек?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.debt.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко плащаме за лихви по държавния дълг?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: govDebt.",
+      "category": "public-money",
+      "subcategory": "debt",
+      "questionBg": "Колко плащаме за лихви по държавния дълг?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.debt.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Каква е разликата между дефицит и дълг?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: govDebt.",
+      "category": "public-money",
+      "subcategory": "debt",
+      "questionBg": "Каква е разликата между дефицит и дълг?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.debt.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои общини са в най-тежко финансово състояние?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: govDebt.",
+      "category": "public-money",
+      "subcategory": "debt",
+      "questionBg": "Кои общини са в най-тежко финансово състояние?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.scenarios.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как би се променил бюджетът при ДДС от 22%?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: simulateTaxChange.",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "questionBg": "Как би се променил бюджетът при ДДС от 22%?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.scenarios.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко би струвал необлагаем минимум от 620 евро?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: simulateTaxChange.",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "questionBg": "Колко би струвал необлагаем минимум от 620 евро?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.scenarios.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви са ограниченията на данъчния симулатор?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: simulateTaxChange.",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "questionBg": "Какви са ограниченията на данъчния симулатор?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "public-money.scenarios.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какъв разход означава отбрана на ниво 3% от БВП?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: simulateTaxChange.",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "questionBg": "Какъв разход означава отбрана на ниво 3% от БВП?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.tenders.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви нови обществени поръчки обяви общината?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openTenders, tenderLookup.",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "questionBg": "Какви нови обществени поръчки обяви общината?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.tenders.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли отворени търгове за строителство в моята област?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openTenders, tenderLookup.",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "questionBg": "Има ли отворени търгове за строителство в моята област?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.tenders.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде са документите на конкретна процедура?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openTenders, tenderLookup.",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "questionBg": "Къде са документите на конкретна процедура?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.tenders.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какъв е срокът за подаване на оферти?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openTenders, tenderLookup.",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "questionBg": "Какъв е срокът за подаване на оферти?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.contracts.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои фирми печелят най-много обществени поръчки?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementTotals, topContractors, contractSearch, awarderProcurement.",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "questionBg": "Кои фирми печелят най-много обществени поръчки?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.contracts.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви договори има конкретна фирма?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementTotals, topContractors, contractSearch, awarderProcurement.",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "questionBg": "Какви договори има конкретна фирма?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.contracts.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой изпълнява ремонта на тази улица?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementTotals, topContractors, contractSearch, awarderProcurement.",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "questionBg": "Кой изпълнява ремонта на тази улица?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.contracts.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “С колко се увеличи стойността на договора след анексите?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementTotals, topContractors, contractSearch, awarderProcurement.",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "questionBg": "С колко се увеличи стойността на договора след анексите?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.competition.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко поръчки са с един кандидат?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementRedFlags, procurementSingleBidSectors, procurementNormalcy.",
+      "category": "procurement",
+      "subcategory": "competition",
+      "questionBg": "Колко поръчки са с един кандидат?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.competition.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко често се използват процедури без открита конкуренция?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementRedFlags, procurementSingleBidSectors, procurementNormalcy.",
+      "category": "procurement",
+      "subcategory": "competition",
+      "questionBg": "Колко често се използват процедури без открита конкуренция?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.competition.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои възложители работят с тесен кръг доставчици?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementRedFlags, procurementSingleBidSectors, procurementNormalcy.",
+      "category": "procurement",
+      "subcategory": "competition",
+      "questionBg": "Кои възложители работят с тесен кръг доставчици?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.competition.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Печели ли винаги най-ниската цена?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementRedFlags, procurementSingleBidSectors, procurementNormalcy.",
+      "category": "procurement",
+      "subcategory": "competition",
+      "questionBg": "Печели ли винаги най-ниската цена?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.control.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои поръчки са обжалвани пред КЗК?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementAppeals, procurementDebarred.",
+      "category": "procurement",
+      "subcategory": "control",
+      "questionBg": "Кои поръчки са обжалвани пред КЗК?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.control.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко жалби са уважени и колко са с отказано производство?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementAppeals, procurementDebarred.",
+      "category": "procurement",
+      "subcategory": "control",
+      "questionBg": "Колко жалби са уважени и колко са с отказано производство?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.control.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои фирми са в списъка на отстранените изпълнители?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementAppeals, procurementDebarred.",
+      "category": "procurement",
+      "subcategory": "control",
+      "questionBg": "Кои фирми са в списъка на отстранените изпълнители?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.control.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво установи АДФИ при проверката на тази институция?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementAppeals, procurementDebarred.",
+      "category": "procurement",
+      "subcategory": "control",
+      "questionBg": "Какво установи АДФИ при проверката на тази институция?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.projects.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко е договорено за конкретна магистрала?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: projectLifecycle, roadsSpending.",
+      "category": "procurement",
+      "subcategory": "projects",
+      "questionBg": "Колко е договорено за конкретна магистрала?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.projects.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои фирми участват в обединението изпълнител?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: projectLifecycle, roadsSpending.",
+      "category": "procurement",
+      "subcategory": "projects",
+      "questionBg": "Кои фирми участват в обединението изпълнител?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.projects.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли обявени подизпълнители по договора?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: projectLifecycle, roadsSpending.",
+      "category": "procurement",
+      "subcategory": "projects",
+      "questionBg": "Има ли обявени подизпълнители по договора?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.projects.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променя цената на проекта през годините?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: projectLifecycle, roadsSpending.",
+      "category": "procurement",
+      "subcategory": "projects",
+      "questionBg": "Как се променя цената на проекта през годините?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.local.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой получава парите от поръчките на моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementBySettlement, procurementByOblast.",
+      "category": "procurement",
+      "subcategory": "local",
+      "questionBg": "Кой получава парите от поръчките на моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.local.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои населени места имат най-много възложени договори?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementBySettlement, procurementByOblast.",
+      "category": "procurement",
+      "subcategory": "local",
+      "questionBg": "Кои населени места имат най-много възложени договори?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.local.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде е възложителят и къде всъщност се изпълнява проектът?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementBySettlement, procurementByOblast.",
+      "category": "procurement",
+      "subcategory": "local",
+      "questionBg": "Къде е възложителят и къде всъщност се изпълнява проектът?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "procurement.local.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се сравняват поръчките на две общини за една и съща година?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: procurementBySettlement, procurementByOblast.",
+      "category": "procurement",
+      "subcategory": "local",
+      "questionBg": "Как се сравняват поръчките на две общини за една и съща година?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ownership.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой притежава дадена фирма?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: companyConnections, personConnections, mpConnectionsTop, mpConnectionsByParty, mpProcurement.",
+      "category": "business",
+      "subcategory": "ownership",
+      "questionBg": "Кой притежава дадена фирма?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ownership.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли публично документирана връзка между тази фирма и политик?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: companyConnections, personConnections, mpConnectionsTop, mpConnectionsByParty, mpProcurement.",
+      "category": "business",
+      "subcategory": "ownership",
+      "questionBg": "Има ли публично документирана връзка между тази фирма и политик?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ownership.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои хора свързват две фирми?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: companyConnections, personConnections, mpConnectionsTop, mpConnectionsByParty, mpProcurement.",
+      "category": "business",
+      "subcategory": "ownership",
+      "questionBg": "Кои хора свързват две фирми?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ownership.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко публични средства получават фирмите, свързани с дадено лице?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: companyConnections, personConnections, mpConnectionsTop, mpConnectionsByParty, mpProcurement.",
+      "category": "business",
+      "subcategory": "ownership",
+      "questionBg": "Колко публични средства получават фирмите, свързани с дадено лице?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.assets.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво имущество е декларирал конкретен политик?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: personWealth, mpAssetsTop, mpAssetsByParty, officialsAssetsTop.",
+      "category": "business",
+      "subcategory": "assets",
+      "questionBg": "Какво имущество е декларирал конкретен политик?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.assets.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променя декларираното му имущество по години?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: personWealth, mpAssetsTop, mpAssetsByParty, officialsAssetsTop.",
+      "category": "business",
+      "subcategory": "assets",
+      "questionBg": "Как се променя декларираното му имущество по години?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.assets.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои публични лица декларират банкови средства в чужбина?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: personWealth, mpAssetsTop, mpAssetsByParty, officialsAssetsTop.",
+      "category": "business",
+      "subcategory": "assets",
+      "questionBg": "Кои публични лица декларират банкови средства в чужбина?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.assets.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои публични лица декларират криптоактиви?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: personWealth, mpAssetsTop, mpAssetsByParty, officialsAssetsTop.",
+      "category": "business",
+      "subcategory": "assets",
+      "questionBg": "Кои публични лица декларират криптоактиви?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.assets.05",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои имоти и автомобили са собствени и кои само се ползват?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: personWealth, mpAssetsTop, mpAssetsByParty, officialsAssetsTop.",
+      "category": "business",
+      "subcategory": "assets",
+      "questionBg": "Кои имоти и автомобили са собствени и кои само се ползват?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.party-funding.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой дарява на партиите?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: financingOverview, partyFinance.",
+      "category": "business",
+      "subcategory": "party-funding",
+      "questionBg": "Кой дарява на партиите?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.party-funding.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко струва предизборната кампания на една партия?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: financingOverview, partyFinance.",
+      "category": "business",
+      "subcategory": "party-funding",
+      "questionBg": "Колко струва предизборната кампания на една партия?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.party-funding.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Подават ли партиите финансовите си отчети навреме?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: financingOverview, partyFinance.",
+      "category": "business",
+      "subcategory": "party-funding",
+      "questionBg": "Подават ли партиите финансовите си отчети навреме?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.party-funding.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли дарители с фирми, които печелят обществени поръчки?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: financingOverview, partyFinance.",
+      "category": "business",
+      "subcategory": "party-funding",
+      "questionBg": "Има ли дарители с фирми, които печелят обществени поръчки?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ngos.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои НПО получават най-много публично финансиране?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ngoOverview, ngoTopFunded, ngoConflictAwarders, ngoRiskSignals, ngoBySignal.",
+      "category": "business",
+      "subcategory": "ngos",
+      "questionBg": "Кои НПО получават най-много публично финансиране?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ngos.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “От кои източници се финансира конкретно сдружение?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ngoOverview, ngoTopFunded, ngoConflictAwarders, ngoRiskSignals, ngoBySignal.",
+      "category": "business",
+      "subcategory": "ngos",
+      "questionBg": "От кои източници се финансира конкретно сдружение?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ngos.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли общински съветници в управлението на финансирани НПО?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ngoOverview, ngoTopFunded, ngoConflictAwarders, ngoRiskSignals, ngoBySignal.",
+      "category": "business",
+      "subcategory": "ngos",
+      "questionBg": "Има ли общински съветници в управлението на финансирани НПО?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "business.ngos.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко пари получават читалищата в моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: ngoOverview, ngoTopFunded, ngoConflictAwarders, ngoRiskSignals, ngoBySignal.",
+      "category": "business",
+      "subcategory": "ngos",
+      "questionBg": "Колко пари получават читалищата в моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.calls.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “По кои програми мога да кандидатствам сега?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openCalls.",
+      "category": "funds",
+      "subcategory": "calls",
+      "questionBg": "По кои програми мога да кандидатствам сега?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.calls.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли финансиране за малък бизнес?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openCalls.",
+      "category": "funds",
+      "subcategory": "calls",
+      "questionBg": "Има ли финансиране за малък бизнес?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.calls.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви програми са отворени за земеделски стопани?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openCalls.",
+      "category": "funds",
+      "subcategory": "calls",
+      "questionBg": "Какви програми са отворени за земеделски стопани?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.calls.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какъв е крайният срок и къде са официалните условия?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: openCalls.",
+      "category": "funds",
+      "subcategory": "calls",
+      "questionBg": "Какъв е крайният срок и къде са официалните условия?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.projects.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви европроекти се изпълняват в моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fundsOverview, fundsProjects, placeEuProjects.",
+      "category": "funds",
+      "subcategory": "projects",
+      "questionBg": "Какви европроекти се изпълняват в моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.projects.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко от договорените средства са действително изплатени?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fundsOverview, fundsProjects, placeEuProjects.",
+      "category": "funds",
+      "subcategory": "projects",
+      "questionBg": "Колко от договорените средства са действително изплатени?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.projects.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Финансиран ли е проект, подобен на моя?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fundsOverview, fundsProjects, placeEuProjects.",
+      "category": "funds",
+      "subcategory": "projects",
+      "questionBg": "Финансиран ли е проект, подобен на моя?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.projects.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои договори са публикувани като приключили без финансова корекция?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fundsOverview, fundsProjects, placeEuProjects.",
+      "category": "funds",
+      "subcategory": "projects",
+      "questionBg": "Кои договори са публикувани като приключили без финансова корекция?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.regional.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко средства получават пограничните общини по Interreg?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mrrbSpending, cohesionAbsorption, regionalInvestment.",
+      "category": "funds",
+      "subcategory": "regional",
+      "questionBg": "Колко средства получават пограничните общини по Interreg?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.regional.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои партньори участват в трансграничен проект?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mrrbSpending, cohesionAbsorption, regionalInvestment.",
+      "category": "funds",
+      "subcategory": "regional",
+      "questionBg": "Кои партньори участват в трансграничен проект?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.regional.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се различава усвояването по програми?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mrrbSpending, cohesionAbsorption, regionalInvestment.",
+      "category": "funds",
+      "subcategory": "regional",
+      "questionBg": "Как се различава усвояването по програми?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.regional.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко средства на жител достигат до отделните общини?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: mrrbSpending, cohesionAbsorption, regionalInvestment.",
+      "category": "funds",
+      "subcategory": "regional",
+      "questionBg": "Колко средства на жител достигат до отделните общини?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.agriculture.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои са най-големите получатели на земеделски субсидии?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subsidiesOverview, subsidiesByScheme, subsidiesForEntity.",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "questionBg": "Кои са най-големите получатели на земеделски субсидии?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.agriculture.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “По кои схеми се разпределят най-много средства?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subsidiesOverview, subsidiesByScheme, subsidiesForEntity.",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "questionBg": "По кои схеми се разпределят най-много средства?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.agriculture.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви субсидии е получила конкретна фирма?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subsidiesOverview, subsidiesByScheme, subsidiesForEntity.",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "questionBg": "Какви субсидии е получила конкретна фирма?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "funds.agriculture.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко концентрирани са земеделските плащания?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subsidiesOverview, subsidiesByScheme, subsidiesForEntity.",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "questionBg": "Колко концентрирани са земеделските плащания?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.basket.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде е най-евтина една и съща потребителска кошница?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: settlementPrices, localDeals, productPrice, cheapestChains, priceRanking, chainProfile.",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "questionBg": "Къде е най-евтина една и съща потребителска кошница?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.basket.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко струва млякото в моя град?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: settlementPrices, localDeals, productPrice, cheapestChains, priceRanking, chainProfile.",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "questionBg": "Колко струва млякото в моя град?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.basket.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви промоции има наблизо?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: settlementPrices, localDeals, productPrice, cheapestChains, priceRanking, chainProfile.",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "questionBg": "Какви промоции има наблизо?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.basket.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “За кои магазини няма актуални цени?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: settlementPrices, localDeals, productPrice, cheapestChains, priceRanking, chainProfile.",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "questionBg": "За кои магазини няма актуални цени?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.inflation.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко се промениха цените след въвеждането на еврото?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: priceIndex, basketVsInflation, euFoodPriceLevels, basketAffordability.",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "questionBg": "Колко се промениха цените след въвеждането на еврото?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.inflation.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Защо официалната инфлация се различава от личните ми разходи?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: priceIndex, basketVsInflation, euFoodPriceLevels, basketAffordability.",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "questionBg": "Защо официалната инфлация се различава от личните ми разходи?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.inflation.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “По-скъпа ли е храната у нас в сравнение с ЕС?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: priceIndex, basketVsInflation, euFoodPriceLevels, basketAffordability.",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "questionBg": "По-скъпа ли е храната у нас в сравнение с ЕС?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.inflation.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Растат ли доходите по-бързо от цените?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: priceIndex, basketVsInflation, euFoodPriceLevels, basketAffordability.",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "questionBg": "Растат ли доходите по-бързо от цените?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.fuel.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се движат цените на бензина и дизела?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fuelPrices.",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "questionBg": "Как се движат цените на бензина и дизела?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.fuel.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “По-евтини ли са горивата в България от средното за ЕС?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fuelPrices.",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "questionBg": "По-евтини ли са горивата в България от средното за ЕС?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.fuel.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Каква част от цената на горивото са данъци?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fuelPrices.",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "questionBg": "Каква част от цената на горивото са данъци?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "cost-living.fuel.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “От коя дата е последната налична цена?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fuelPrices.",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "questionBg": "От коя дата е последната налична цена?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.macro.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Настигаме ли средното ниво на живот в ЕС?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: macroIndicator, macroOverview, macroByCategory, euComparison.",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "questionBg": "Настигаме ли средното ниво на живот в ЕС?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.macro.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как расте българската икономика?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: macroIndicator, macroOverview, macroByCategory, euComparison.",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "questionBg": "Как расте българската икономика?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.macro.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се сравняваме с Румъния и Гърция?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: macroIndicator, macroOverview, macroByCategory, euComparison.",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "questionBg": "Как се сравняваме с Румъния и Гърция?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.macro.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои икономически показатели се подобряват и кои се влошават?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: macroIndicator, macroOverview, macroByCategory, euComparison.",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "questionBg": "Кои икономически показатели се подобряват и кои се влошават?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.jobs.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “В кои общини безработицата е най-висока?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subnationalIndicator, rankPlaces, regionIndicator.",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "questionBg": "В кои общини безработицата е най-висока?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.jobs.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се различават заплатите по области?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subnationalIndicator, rankPlaces, regionIndicator.",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "questionBg": "Как се различават заплатите по области?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.jobs.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко хора работят, но остават в бедност?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subnationalIndicator, rankPlaces, regionIndicator.",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "questionBg": "Колко хора работят, но остават в бедност?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.jobs.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде да подам сигнал за неизплатена заплата?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: subnationalIndicator, rankPlaces, regionIndicator.",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "questionBg": "Къде да подам сигнал за неизплатена заплата?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.investment.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променят преките чуждестранни инвестиции?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fdiFlows, exciseRegister, exciseWarehouses.",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "questionBg": "Как се променят преките чуждестранни инвестиции?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.investment.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои отрасли привличат най-много инвестиции?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fdiFlows, exciseRegister, exciseWarehouses.",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "questionBg": "Кои отрасли привличат най-много инвестиции?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.investment.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко нови фирми се регистрират в моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fdiFlows, exciseRegister, exciseWarehouses.",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "questionBg": "Колко нови фирми се регистрират в моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "economy-work.investment.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои фирми имат действащ лиценз за акцизен склад?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: fdiFlows, exciseRegister, exciseWarehouses.",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "questionBg": "Кои фирми имат действащ лиценз за акцизен склад?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.budget.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко пари харчи НЗОК?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokBudget, nzokHospitals, nzokPublicPrivate, nzokPrivateHospitals.",
+      "category": "health",
+      "subcategory": "budget",
+      "questionBg": "Колко пари харчи НЗОК?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.budget.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои болници получават най-много средства?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokBudget, nzokHospitals, nzokPublicPrivate, nzokPrivateHospitals.",
+      "category": "health",
+      "subcategory": "budget",
+      "questionBg": "Кои болници получават най-много средства?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.budget.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се разпределят плащанията между държавни и частни болници?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokBudget, nzokHospitals, nzokPublicPrivate, nzokPrivateHospitals.",
+      "category": "health",
+      "subcategory": "budget",
+      "questionBg": "Как се разпределят плащанията между държавни и частни болници?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.budget.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променят разходите за здравеопазване?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokBudget, nzokHospitals, nzokPublicPrivate, nzokPrivateHospitals.",
+      "category": "health",
+      "subcategory": "budget",
+      "questionBg": "Как се променят разходите за здравеопазване?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.hospitals.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко дейности отчита конкретна болница?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokActivities, nzokHospitalScorecard, nzokPathwayHospitals.",
+      "category": "health",
+      "subcategory": "hospitals",
+      "questionBg": "Колко дейности отчита конкретна болница?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.hospitals.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои болници извършват дадена клинична процедура?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokActivities, nzokHospitalScorecard, nzokPathwayHospitals.",
+      "category": "health",
+      "subcategory": "hospitals",
+      "questionBg": "Кои болници извършват дадена клинична процедура?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.hospitals.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво показват финансовите отчети на болницата?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokActivities, nzokHospitalScorecard, nzokPathwayHospitals.",
+      "category": "health",
+      "subcategory": "hospitals",
+      "questionBg": "Какво показват финансовите отчети на болницата?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.hospitals.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Каква е съпоставимостта между изплатени средства и отчетена дейност?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokActivities, nzokHospitalScorecard, nzokPathwayHospitals.",
+      "category": "health",
+      "subcategory": "hospitals",
+      "questionBg": "Каква е съпоставимостта между изплатени средства и отчетена дейност?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.medicines.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “За кои лекарства НЗОК плаща най-много?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokDrugs, nzokDrugGrowth, nzokDrugSavings, nzokDrugMolecule.",
+      "category": "health",
+      "subcategory": "medicines",
+      "questionBg": "За кои лекарства НЗОК плаща най-много?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.medicines.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Различават ли се платените цени за една и съща лекарствена опаковка?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokDrugs, nzokDrugGrowth, nzokDrugSavings, nzokDrugMolecule.",
+      "category": "health",
+      "subcategory": "medicines",
+      "questionBg": "Различават ли се платените цени за една и съща лекарствена опаковка?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.medicines.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои разходи за лекарства растат най-бързо?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokDrugs, nzokDrugGrowth, nzokDrugSavings, nzokDrugMolecule.",
+      "category": "health",
+      "subcategory": "medicines",
+      "questionBg": "Кои разходи за лекарства растат най-бързо?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.medicines.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви са ограниченията на изчислените потенциални икономии?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: nzokDrugs, nzokDrugGrowth, nzokDrugSavings, nzokDrugMolecule.",
+      "category": "health",
+      "subcategory": "medicines",
+      "questionBg": "Какви са ограниченията на изчислените потенциални икономии?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "health.access.01",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "NZOK or provider waiting-time observations by specialty, provider, geography and dated measurement window, with the collection method and official URL.",
+      "category": "health",
+      "subcategory": "access",
+      "questionBg": "Колко чакам за преглед при специалист?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "health.access.02",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "The versioned NZOK benefit package by treatment/clinical-path code, eligibility and referral rule, effective date, exclusions and official document URL.",
+      "category": "health",
+      "subcategory": "access",
+      "questionBg": "Какво покрива здравната каса за конкретно лечение?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "health.access.03",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A versioned Ministry of Health/NZOK patient-rights service directory with complaint authority, channel, eligibility, response deadline and official URL.",
+      "category": "health",
+      "subcategory": "access",
+      "questionBg": "Къде мога да подам жалба за отказана медицинска помощ?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "health.access.04",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "The official NHIF/NCPHA GP register joined to service population by municipality and observation date, with vacancy/shortage denominator and coverage.",
+      "category": "health",
+      "subcategory": "access",
+      "questionBg": "Къде няма достатъчно общопрактикуващи лекари?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "pensions-support.pensions.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко е средната пенсия по области?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: noiFunds, noiPensionDistribution, noiPensionByOblast, noiPensionSeries.",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "questionBg": "Колко е средната пенсия по области?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.pensions.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко пенсионери получават минимална пенсия?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: noiFunds, noiPensionDistribution, noiPensionByOblast, noiPensionSeries.",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "questionBg": "Колко пенсионери получават минимална пенсия?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.pensions.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променят пенсиите спрямо инфлацията?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: noiFunds, noiPensionDistribution, noiPensionByOblast, noiPensionSeries.",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "questionBg": "Как се променят пенсиите спрямо инфлацията?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.pensions.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко от пенсионните разходи се покриват с осигуровки?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: noiFunds, noiPensionDistribution, noiPensionByOblast, noiPensionSeries.",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "questionBg": "Колко от пенсионните разходи се покриват с осигуровки?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.private.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Каква доходност отчитат пенсионните фондове?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: kfnFunds.",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "questionBg": "Каква доходност отчитат пенсионните фондове?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.private.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се различават таксите и активите на фондовете?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: kfnFunds.",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "questionBg": "Как се различават таксите и активите на фондовете?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.private.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво означава отрицателна реална доходност?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: kfnFunds.",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "questionBg": "Какво означава отрицателна реална доходност?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.private.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как да сравня фондове за еднакъв период?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: kfnFunds.",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "questionBg": "Как да сравня фондове за еднакъв период?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.benefits.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко хора получават помощи за отопление?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: socialSpending, socialBenefits, socialPovertyImpact.",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "questionBg": "Колко хора получават помощи за отопление?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.benefits.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какъв е обхватът на детските помощи?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: socialSpending, socialBenefits, socialPovertyImpact.",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "questionBg": "Какъв е обхватът на детските помощи?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.benefits.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Намалява ли бедността след социалните плащания?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: socialSpending, socialBenefits, socialPovertyImpact.",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "questionBg": "Намалява ли бедността след социалните плащания?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "pensions-support.benefits.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви са условията за получаване на конкретна помощ?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: socialSpending, socialBenefits, socialPovertyImpact.",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "questionBg": "Какви са условията за получаване на конкретна помощ?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "education.schools.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се представят училищата в моя град на матурите?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: schoolMatura, schoolScores.",
+      "category": "education",
+      "subcategory": "schools",
+      "questionBg": "Как се представят училищата в моя град на матурите?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "education.schools.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Подобряват ли се резултатите на конкретно училище?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: schoolMatura, schoolScores.",
+      "category": "education",
+      "subcategory": "schools",
+      "questionBg": "Подобряват ли се резултатите на конкретно училище?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "education.schools.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко ученици са се явили на изпита?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: schoolMatura, schoolScores.",
+      "category": "education",
+      "subcategory": "schools",
+      "questionBg": "Колко ученици са се явили на изпита?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "education.schools.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Отчитат ли класациите различния прием на ученици?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: schoolMatura, schoolScores.",
+      "category": "education",
+      "subcategory": "schools",
+      "questionBg": "Отчитат ли класациите различния прием на ученици?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "education.access.01",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "Municipal childcare applications, ranked choices, offered places and enrolled children by campaign, age cohort and facility, with a deduplicated child/application denominator.",
+      "category": "education",
+      "subcategory": "access",
+      "questionBg": "Колко деца остават без място в детска градина?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "education.access.02",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "MON school-register status events by institution code, closure/merger decision date, school year, successor institution and official decision URL.",
+      "category": "education",
+      "subcategory": "access",
+      "questionBg": "Къде се закриват училища?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "education.access.03",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "NSI/MON enrolled and early-leaver cohorts by school year and geography, with the exact dropout definition, denominator and revision date.",
+      "category": "education",
+      "subcategory": "access",
+      "questionBg": "Колко деца отпадат от образование?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "education.access.04",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A versioned municipal childcare application directory with eligible ages, address rules, scoring criteria, campaign deadlines and official application URL.",
+      "category": "education",
+      "subcategory": "access",
+      "questionBg": "Как се кандидатства за общинска детска градина?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "education.universities.01",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "Ministry of Education state-transfer and programme funding by university code, fiscal/academic year, funding component, amount and official budget source.",
+      "category": "education",
+      "subcategory": "universities",
+      "questionBg": "Колко публични средства получават университетите?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "education.universities.02",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "Public-procurement contracts resolved to BAN and university EIKs, with awarder identity, contract date/value basis, supplier and official procedure URL.",
+      "category": "education",
+      "subcategory": "universities",
+      "questionBg": "Какви обществени поръчки възлагат БАН и висшите училища?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "education.universities.03",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "The official graduate-tracking survey/register by university, specialty, graduation cohort, observation window, employment definition and income basis.",
+      "category": "education",
+      "subcategory": "universities",
+      "questionBg": "Как се реализират завършилите различни специалности?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "education.universities.04",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "National Science Fund and ministry research awards by call, institution, project, decision date, requested/awarded amount and official decision URL.",
+      "category": "education",
+      "subcategory": "universities",
+      "questionBg": "Как се финансират научните изследвания?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "demographics.population.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко души живеят в моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: census, graoPopulation.",
+      "category": "demographics",
+      "subcategory": "population",
+      "questionBg": "Колко души живеят в моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.population.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои населени места обезлюдяват най-бързо?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: census, graoPopulation.",
+      "category": "demographics",
+      "subcategory": "population",
+      "questionBg": "Кои населени места обезлюдяват най-бързо?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.population.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде населението застарява най-силно?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: census, graoPopulation.",
+      "category": "demographics",
+      "subcategory": "population",
+      "questionBg": "Къде населението застарява най-силно?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.population.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Каква е разликата между преброено и адресно регистрирано население?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: census, graoPopulation.",
+      "category": "demographics",
+      "subcategory": "population",
+      "questionBg": "Каква е разликата между преброено и адресно регистрирано население?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.my-area.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво показват основните данни за моя град?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governanceProfile, comparePlaces, myAreaAlerts.",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "questionBg": "Какво показват основните данни за моя град?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.my-area.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво ново е регистрирано в моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governanceProfile, comparePlaces, myAreaAlerts.",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "questionBg": "Какво ново е регистрирано в моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.my-area.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се сравняват Варна и Бургас?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governanceProfile, comparePlaces, myAreaAlerts.",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "questionBg": "Как се сравняват Варна и Бургас?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.my-area.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви данни липсват за моето село?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: governanceProfile, comparePlaces, myAreaAlerts.",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "questionBg": "Какви данни липсват за моето село?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.inequality.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде регионалните различия са най-големи?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transparencyScore.",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "questionBg": "Къде регионалните различия са най-големи?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.inequality.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои общини имат по-прозрачно управление според наличния индекс?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transparencyScore.",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "questionBg": "Кои общини имат по-прозрачно управление според наличния индекс?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.inequality.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се различават доходите и възможностите за работа по места?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transparencyScore.",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "questionBg": "Как се различават доходите и възможностите за работа по места?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "demographics.inequality.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “С кои общини е смислено да сравня моята?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transparencyScore.",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "questionBg": "С кои общини е смислено да сравня моята?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.courts.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои съдилища са най-натоварени?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: judiciaryBudget, judiciaryCaseload, judiciaryWorkload, judiciaryCourtLoad, judiciaryDeclarations.",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "questionBg": "Кои съдилища са най-натоварени?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.courts.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко дела приключват в срок?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: judiciaryBudget, judiciaryCaseload, judiciaryWorkload, judiciaryCourtLoad, judiciaryDeclarations.",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "questionBg": "Колко дела приключват в срок?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.courts.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Подават ли магистратите имуществените си декларации?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: judiciaryBudget, judiciaryCaseload, judiciaryWorkload, judiciaryCourtLoad, judiciaryDeclarations.",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "questionBg": "Подават ли магистратите имуществените си декларации?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.courts.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви публични връзки са установени за конкретен магистрат?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: judiciaryBudget, judiciaryCaseload, judiciaryWorkload, judiciaryCourtLoad, judiciaryDeclarations.",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "questionBg": "Какви публични връзки са установени за конкретен магистрат?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.crime.01",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "MVR/NSI registered offences by offence definition, reporting period and published geography, including revisions and an explicit population denominator.",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "questionBg": "Как се променя регистрираната престъпност?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "justice-security.crime.02",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A versioned authoritative domestic-violence help directory with emergency/non-emergency channel, responsible service, locality, hours and official URL.",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "questionBg": "Къде да подам сигнал за домашно насилие?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "justice-security.crime.03",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "MVR registered and cleared offences on the same offence classification, cohort/reporting period and geography, with the clearance-rate denominator.",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "questionBg": "Колко престъпления се разкриват?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "justice-security.crime.04",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "Comparable victimization-survey prevalence and police-registered offences with distinct populations, reference periods, definitions and uncertainty intervals.",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "questionBg": "Как се различават полицейската статистика и реалната честота на престъпленията?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "justice-security.defense.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко харчим за отбрана като дял от БВП?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: defenseSpending, armsExports, defenseProgram, defenseReadiness, defensePeerCompare.",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "questionBg": "Колко харчим за отбрана като дял от БВП?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.defense.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко средства отиват за техника и колко за персонал?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: defenseSpending, armsExports, defenseProgram, defenseReadiness, defensePeerCompare.",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "questionBg": "Колко средства отиват за техника и колко за персонал?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.defense.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се сравняваме с останалите страни от НАТО?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: defenseSpending, armsExports, defenseProgram, defenseReadiness, defensePeerCompare.",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "questionBg": "Как се сравняваме с останалите страни от НАТО?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "justice-security.defense.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какъв е износът на оръжие по публикуваните отчети?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: defenseSpending, armsExports, defenseProgram, defenseReadiness, defensePeerCompare.",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "questionBg": "Какъв е износът на оръжие по публикуваните отчети?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.prices.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променя цената на тока за домакинствата?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electricityPrices, gasPrices.",
+      "category": "energy",
+      "subcategory": "prices",
+      "questionBg": "Как се променя цената на тока за домакинствата?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.prices.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се сравняват цените на газа с тези в ЕС?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electricityPrices, gasPrices.",
+      "category": "energy",
+      "subcategory": "prices",
+      "questionBg": "Как се сравняват цените на газа с тези в ЕС?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.prices.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Каква е разликата между регулирана и пазарна цена?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electricityPrices, gasPrices.",
+      "category": "energy",
+      "subcategory": "prices",
+      "questionBg": "Каква е разликата между регулирана и пазарна цена?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.prices.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво влиза в сметката за отопление?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: electricityPrices, gasPrices.",
+      "category": "energy",
+      "subcategory": "prices",
+      "questionBg": "Какво влиза в сметката за отопление?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.production.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “От какви източници произвеждаме електроенергия?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: generationMix, powerPlants.",
+      "category": "energy",
+      "subcategory": "production",
+      "questionBg": "От какви източници произвеждаме електроенергия?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.production.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променя делът на въглищата и ВЕИ?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: generationMix, powerPlants.",
+      "category": "energy",
+      "subcategory": "production",
+      "questionBg": "Как се променя делът на въглищата и ВЕИ?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.production.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде се намират електроцентралите?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: generationMix, powerPlants.",
+      "category": "energy",
+      "subcategory": "production",
+      "questionBg": "Къде се намират електроцентралите?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "energy.production.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какво означава енергийният преход за работните места в засегнатите региони?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: generationMix, powerPlants.",
+      "category": "energy",
+      "subcategory": "production",
+      "questionBg": "Какво означава енергийният преход за работните места в засегнатите региони?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.water.01",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "EWRC/operator input and billed water volumes by operator and year, network scope, loss formula, denominator, revisions and official report URL.",
+      "category": "water-environment",
+      "subcategory": "water",
+      "questionBg": "Колко вода се губи по водопроводната мрежа?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "water-environment.water.02",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "Dated operator/municipal outage notices by settlement, start/end time, planned/unplanned state, restoration status, observation time and official URL.",
+      "category": "water-environment",
+      "subcategory": "water",
+      "questionBg": "Кои населени места са на воден режим?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "water-environment.water.03",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "EWRC-approved tariff components by operator, customer class, VAT basis, effective interval, unit and official price-decision URL.",
+      "category": "water-environment",
+      "subcategory": "water",
+      "questionBg": "Колко струва водата при различните ВиК оператори?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "water-environment.water.04",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A versioned operator/municipality service-area and asset-owner register plus approved investment plans by project, period, responsible entity and official source.",
+      "category": "water-environment",
+      "subcategory": "water",
+      "questionBg": "Кой отговаря за инвестициите във ВиК мрежата?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "water-environment.floods.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой почиства речните корита и за колко пари?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: riverbedCleaning.",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "questionBg": "Кой почиства речните корита и за колко пари?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.floods.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои общини възлагат най-много дейности срещу наводнения?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: riverbedCleaning.",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "questionBg": "Кои общини възлагат най-много дейности срещу наводнения?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.floods.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви договори има за конкретна река?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: riverbedCleaning.",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "questionBg": "Какви договори има за конкретна река?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.floods.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли данни за резултата от извършената поддръжка?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: riverbedCleaning.",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "questionBg": "Има ли данни за резултата от извършената поддръжка?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.air.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви концентрации на фини прахови частици са измерени в моя град?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: airQuality.",
+      "category": "water-environment",
+      "subcategory": "air",
+      "questionBg": "Какви концентрации на фини прахови частици са измерени в моя град?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.air.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “От кой период са измерванията на въздуха?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: airQuality.",
+      "category": "water-environment",
+      "subcategory": "air",
+      "questionBg": "От кой период са измерванията на въздуха?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.air.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Има ли измервателна станция близо до мен?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: airQuality.",
+      "category": "water-environment",
+      "subcategory": "air",
+      "questionBg": "Има ли измервателна станция близо до мен?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.air.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Може ли тримесечна средна стойност да показва въздуха днес?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: airQuality.",
+      "category": "water-environment",
+      "subcategory": "air",
+      "questionBg": "Може ли тримесечна средна стойност да показва въздуха днес?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.waste.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какъв дял от отпадъците се рециклира?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: environmentSpending, environmentFunds, wasteRecycling, landUse.",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "questionBg": "Какъв дял от отпадъците се рециклира?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.waste.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко струва сметосъбирането в моята община?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: environmentSpending, environmentFunds, wasteRecycling, landUse.",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "questionBg": "Колко струва сметосъбирането в моята община?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.waste.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се използва земята в моята област?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: environmentSpending, environmentFunds, wasteRecycling, landUse.",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "questionBg": "Как се използва земята в моята област?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "water-environment.waste.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои екологични проекти са получили европейско финансиране?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: environmentSpending, environmentFunds, wasteRecycling, landUse.",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "questionBg": "Кои екологични проекти са получили европейско финансиране?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.rail.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко субсидии получава железопътният транспорт?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transportSpending, transportEuFunds, railSubsidy.",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "questionBg": "Колко субсидии получава железопътният транспорт?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.rail.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Увеличава ли се броят на пътниците във влаковете?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transportSpending, transportEuFunds, railSubsidy.",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "questionBg": "Увеличава ли се броят на пътниците във влаковете?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.rail.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои железопътни проекти се финансират от ЕС?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transportSpending, transportEuFunds, railSubsidy.",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "questionBg": "Кои железопътни проекти се финансират от ЕС?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.rail.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Какви данни има за закъсненията и отменените влакове?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: transportSpending, transportEuFunds, railSubsidy.",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "questionBg": "Какви данни има за закъсненията и отменените влакове?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.roads.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променят загиналите при пътни произшествия?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: securityRoadSafety.",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "questionBg": "Как се променят загиналите при пътни произшествия?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.roads.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се сравнява пътната безопасност с тази в ЕС?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: securityRoadSafety.",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "questionBg": "Как се сравнява пътната безопасност с тази в ЕС?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.roads.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой отговаря за ремонта на конкретен път?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: securityRoadSafety.",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "questionBg": "Кой отговаря за ремонта на конкретен път?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.roads.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Къде са участъците с най-много тежки катастрофи?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: securityRoadSafety.",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "questionBg": "Къде са участъците с най-много тежки катастрофи?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "transport-housing.housing.01",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "NSI house-price indices and disposable-income series on compatible periods/geographies, with index base, household definition and affordability formula.",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "questionBg": "Как се променят цените на жилищата спрямо доходите?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "transport-housing.housing.02",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "EU-SILC housing-cost-overburden estimates by population group and year, including threshold definition, weights and uncertainty/coverage metadata.",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "questionBg": "Колко хора са затруднени от жилищните си разходи?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "transport-housing.housing.03",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "Official renovation-programme building awards by address/building ID, municipality, application/approval status, amount, decision date and official URL.",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "questionBg": "Кои сгради получават финансиране за саниране?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "transport-housing.housing.04",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A municipal construction-permit register by property/building identity, permit number/type/date/status, issuing authority and official lookup URL.",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "questionBg": "Къде мога да проверя строително разрешение?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "culture-tourism.culture.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои филми получават най-големи субсидии?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: cultureOverview, topCultureGrantees, filmSubsidyForProducer, cultureGrantSuccess, cultureCommissions, cultureMunicipal.",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "questionBg": "Кои филми получават най-големи субсидии?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "culture-tourism.culture.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кои организации получават средства от Национален фонд „Култура“?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: cultureOverview, topCultureGrantees, filmSubsidyForProducer, cultureGrantSuccess, cultureCommissions, cultureMunicipal.",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "questionBg": "Кои организации получават средства от Национален фонд „Култура“?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "culture-tourism.culture.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Кой участва в оценителните комисии?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: cultureOverview, topCultureGrantees, filmSubsidyForProducer, cultureGrantSuccess, cultureCommissions, cultureMunicipal.",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "questionBg": "Кой участва в оценителните комисии?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "culture-tourism.culture.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко харчи моята община за култура?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: cultureOverview, topCultureGrantees, filmSubsidyForProducer, cultureGrantSuccess, cultureCommissions, cultureMunicipal.",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "questionBg": "Колко харчи моята община за култура?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "culture-tourism.tourism.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “От кои държави идват туристите?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: tourismSeasonality, tourismSourceMarkets.",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "questionBg": "От кои държави идват туристите?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "culture-tourism.tourism.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко силна е сезонността на туризма?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: tourismSeasonality, tourismSourceMarkets.",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "questionBg": "Колко силна е сезонността на туризма?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "culture-tourism.tourism.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Как се променят нощувките през годините?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: tourismSeasonality, tourismSourceMarkets.",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "questionBg": "Как се променят нощувките през годините?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "culture-tourism.tourism.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "No validated capability answers the exact requested measure “Колко зависими са отделните региони от летния сезон?”. Required evidence is a dated official record for that measure with stable subject/geography identity, period, unit or denominator, coverage, and source URL. Topic-adjacent tools are explicitly excluded: tourismSeasonality, tourismSourceMarkets.",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "questionBg": "Колко зависими са отделните региони от летния сезон?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "media-society.trust.01",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A versioned survey corpus with exact issue-priority question wording, response options, population, sample, fieldwork dates, sponsor, methodology and source.",
+      "category": "media-society",
+      "subcategory": "trust",
+      "questionBg": "Кои проблеми хората смятат за най-важни?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "media-society.trust.02",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A versioned survey corpus with the same institution, trust scale, population and fieldwork method across waves, including sample and source.",
+      "category": "media-society",
+      "subcategory": "trust",
+      "questionBg": "Как се променя доверието в институциите?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "media-society.trust.03",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A versioned survey corpus with exact EU/euro question wording, response scale, population, fieldwork dates, sponsor, sample, methodology and source.",
+      "category": "media-society",
+      "subcategory": "trust",
+      "questionBg": "Какви са нагласите към ЕС и еврото?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "media-society.trust.04",
+      "outcome": "new_official_ingestion",
+      "ingestionContract": "A survey-comparability registry that records wording, response scale, universe, fieldwork mode/dates, sample design, weighting and sponsor for each poll.",
+      "category": "media-society",
+      "subcategory": "trust",
+      "questionBg": "Съпоставими ли са различните проучвания на общественото мнение?",
+      "chat": "review",
+      "sql": "review"
+    },
+    {
+      "id": "media-society.media.01",
+      "outcome": "unavailable",
+      "blockingEvidence": "A dated and attributed news/ article index with full coverage window and reviewed topic labels is absent; SQL over presumed article rows is not allowed.",
+      "newsContract": {
+        "retrievalCorpus": "news/",
+        "articleDate": true,
+        "sourceAttribution": true,
+        "claimVsVerifiedData": true,
+        "authoritativeSource": true,
+        "sqlAllowed": false
+      },
+      "category": "media-society",
+      "subcategory": "media",
+      "questionBg": "Кои медии отразяват дадена тема?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "media-society.media.02",
+      "outcome": "unavailable",
+      "blockingEvidence": "A time-versioned official media-ownership register with company and beneficial-owner identities is absent; article metadata cannot establish ownership.",
+      "newsContract": {
+        "retrievalCorpus": "news/",
+        "articleDate": true,
+        "sourceAttribution": true,
+        "claimVsVerifiedData": true,
+        "authoritativeSource": true,
+        "sqlAllowed": false
+      },
+      "category": "media-society",
+      "subcategory": "media",
+      "questionBg": "Кой е собственикът на конкретна медия?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "media-society.media.03",
+      "outcome": "unavailable",
+      "blockingEvidence": "A citation-bearing news/ retrieval path that stores article date/source/claim separately from the authoritative statistical series used for verification is absent.",
+      "newsContract": {
+        "retrievalCorpus": "news/",
+        "articleDate": true,
+        "sourceAttribution": true,
+        "claimVsVerifiedData": true,
+        "authoritativeSource": true,
+        "sqlAllowed": false
+      },
+      "category": "media-society",
+      "subcategory": "media",
+      "questionBg": "Подкрепя ли официалната статистика твърдение от новините?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    },
+    {
+      "id": "media-society.media.04",
+      "outcome": "unavailable",
+      "blockingEvidence": "A dated multi-outlet news/ corpus and reviewed framing comparison method are absent; unrestricted SQL over article text is not allowed.",
+      "newsContract": {
+        "retrievalCorpus": "news/",
+        "articleDate": true,
+        "sourceAttribution": true,
+        "claimVsVerifiedData": true,
+        "authoritativeSource": true,
+        "sqlAllowed": false
+      },
+      "category": "media-society",
+      "subcategory": "media",
+      "questionBg": "Как се различава отразяването на една и съща новина?",
+      "chat": "unavailable",
+      "sql": "unavailable"
+    }
+  ]
+}
