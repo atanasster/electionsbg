@@ -70,3 +70,25 @@ describe("election routing integrity", () => {
     });
   });
 });
+
+describe("municipal fiscal routing integrity", () => {
+  it.each([
+    ["Кои общини имат най-големи поети ангажименти през 2024?", "commitments"],
+    [
+      "Кои общини имат най-големи задължения за разходи през 2024?",
+      "expense_obligations",
+    ],
+    ["Кои общини имат най-големи просрочия през 2024?", "arrears"],
+  ])("preserves the requested ranking metric: %s", (question, metric) => {
+    expect(route(question, ctx)).toEqual({
+      tool: "municipalFiscalRanking",
+      args: { year: 2024, count: 25, metric },
+    });
+  });
+
+  it("does not turn an unresolved named municipality into a national ranking", () => {
+    expect(
+      route("Какви просрочия има община Варна през 2024?", ctx),
+    ).toBeNull();
+  });
+});

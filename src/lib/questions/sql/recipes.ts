@@ -1,6 +1,12 @@
 import { LIBRARY as LEGACY_LIBRARY } from "./legacy";
 import { sqlCode, sqlDate, sqlInteger, sqlText } from "./literals";
 import type { SqlRecipe, SqlRecipeParameter } from "./types";
+import {
+  MUNICIPAL_FISCAL_LATEST_VALIDATED_YEAR,
+  MUNICIPAL_FISCAL_MAX_RESULTS,
+  MUNICIPAL_FISCAL_METRICS,
+  type MunicipalFiscalMetric,
+} from "../contracts/municipalFiscal";
 
 type ParameterizedRecipe = {
   parameters: SqlRecipeParameter[];
@@ -573,6 +579,124 @@ export const LEGACY_SQL_RECIPES = SQL_RECIPE_GROUPS.flatMap(
 );
 
 export const CHAT_SQL_RECIPES: SqlRecipe[] = [
+  {
+    id: "municipalFiscalRanking",
+    questionId: "municipalFiscalRanking",
+    version: 1,
+    label: "Municipal financial indicators",
+    answers:
+      "Year-end commitments, expense obligations and arrears as separate Ministry of Finance measures",
+    purpose: "Places",
+    parameters: [
+      {
+        id: "year",
+        kind: "year",
+        required: true,
+        default: MUNICIPAL_FISCAL_LATEST_VALIDATED_YEAR,
+        min: 2000,
+        max: 2100,
+      },
+      {
+        id: "count",
+        kind: "integer",
+        required: false,
+        default: 25,
+        min: 1,
+        max: MUNICIPAL_FISCAL_MAX_RESULTS,
+      },
+      {
+        id: "metric",
+        kind: "enum",
+        required: true,
+        default: "commitments",
+        values: MUNICIPAL_FISCAL_METRICS,
+      },
+    ],
+    relations: ["municipal_fiscal_ranking"],
+    outputColumns: [
+      "obshtina",
+      "name_bg",
+      "name_en",
+      "fiscal_year",
+      "quarter",
+      "commitments_eur",
+      "expense_obligations_eur",
+      "arrears_eur",
+      "debt_stock_eur",
+      "meets_threshold",
+      "criteria_evaluable",
+    ],
+    build: (parameters) => {
+      const metric = String(parameters.metric) as MunicipalFiscalMetric;
+      const orderColumn = {
+        commitments: "commitments_eur",
+        expense_obligations: "expense_obligations_eur",
+        arrears: "arrears_eur",
+      }[metric];
+      return `-- Ministry of Finance year-end (Q4) municipal indicators.
+-- The three liability stocks overlap and must not be added. NULL is unpublished, not zero.
+SELECT obshtina, name_bg, name_en, fiscal_year, quarter,
+       commitments_eur, expense_obligations_eur, arrears_eur, debt_stock_eur,
+       meets_threshold, criteria_evaluable
+FROM municipal_fiscal_ranking(${sqlInteger(parameters.year, "year", 2000, 2100)}, 1000)
+ORDER BY ${orderColumn} DESC NULLS LAST, obshtina
+LIMIT ${sqlInteger(parameters.count ?? 25, "count", 1, MUNICIPAL_FISCAL_MAX_RESULTS)};`;
+    },
+  },
+  {
+    id: "personWealth",
+    questionId: "personWealth",
+    version: 1,
+    label: "Declared wealth by person",
+    answers:
+      "Assets, debts and net value declared to the Court of Audit; declared, not audited",
+    purpose: "People & roles",
+    parameters: [
+      {
+        id: "name",
+        kind: "text",
+        required: true,
+        default: "Бойко Борисов",
+      },
+    ],
+    relations: ["person", "person_wealth_series"],
+    outputColumns: [
+      "status",
+      "matches",
+      "name",
+      "year",
+      "assets_eur",
+      "debts_eur",
+      "net_eur",
+      "filings",
+    ],
+    build: (
+      parameters,
+    ) => `-- Declared to the Court of Audit, not audited. Resolution status is explicit.
+WITH hit AS (
+  SELECT slug, display_name AS name
+  FROM person
+  WHERE status = 'active' AND is_public_figure
+    AND name_fold = translit_bg_latin(${sqlText(parameters.name, "name")})
+), resolution AS (
+  SELECT count(*)::int AS matches FROM hit
+)
+SELECT CASE WHEN r.matches = 0 THEN 'missing'
+            WHEN r.matches > 1 THEN 'ambiguous'
+            WHEN point IS NULL THEN 'no_data'
+            ELSE 'ready' END AS status,
+       r.matches, h.name, (point->>'year')::int AS year,
+       (point->>'assetsEur')::numeric AS assets_eur,
+       (point->>'debtsEur')::numeric AS debts_eur,
+       (point->>'netEur')::numeric AS net_eur,
+       (point->>'filings')::int AS filings
+FROM resolution r
+LEFT JOIN hit h ON r.matches = 1
+LEFT JOIN LATERAL jsonb_array_elements(
+  COALESCE(person_wealth_series(h.slug)->'series', '[]'::jsonb)
+) AS point ON true
+ORDER BY year NULLS FIRST;`,
+  },
   {
     id: "topContractors",
     questionId: "topContractors",

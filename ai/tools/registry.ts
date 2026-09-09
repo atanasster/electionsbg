@@ -209,6 +209,8 @@ import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { simulateTaxChange } from "./taxPolicy";
 import { candidateResult } from "./candidate";
 import { personProfile, personConnections, personWealth } from "./person";
+import { municipalFiscalRanking } from "./municipalFiscal";
+import { MUNICIPAL_FISCAL_METRICS } from "../../src/lib/questions/contracts/municipalFiscal";
 import {
   nationalResults,
   parliamentSeats,
@@ -3740,6 +3742,44 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: fundsProjects,
+  },
+  {
+    name: "municipalFiscalRanking",
+    domain: "fiscal",
+    description: {
+      bg: "Годишна класация на общините по отделните финансови показатели на МФ: поети ангажименти, задължения за разходи и просрочия. NULL е непубликувана стойност, не нула.",
+      en: "Year-end municipal ranking across the Ministry of Finance's separate liability measures: commitments, expense obligations and arrears. NULL is unpublished, not zero.",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        required: true,
+        description: { bg: "Отчетна година", en: "Reporting year" },
+      },
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой общини", en: "Number of municipalities" },
+      },
+      {
+        name: "metric",
+        type: "metric",
+        required: true,
+        values: [...MUNICIPAL_FISCAL_METRICS],
+        description: {
+          bg: "Показател за подреждане",
+          en: "Metric used for ranking",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои общини имат най-големи поети ангажименти през 2024 г.?",
+        en: "Which municipalities had the largest commitments in 2024?",
+      },
+    ],
+    run: municipalFiscalRanking,
   },
   {
     name: "municipalTransfers",

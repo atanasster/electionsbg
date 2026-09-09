@@ -19,6 +19,7 @@ import {
 import { detectTaxChange } from "../tools/taxPolicy";
 import { TOOLS_BY_NAME } from "../tools/registry";
 import { detectTopic } from "@/lib/tenderTopics";
+import { MUNICIPAL_FISCAL_LATEST_VALIDATED_YEAR } from "@/lib/questions/contracts/municipalFiscal";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
 export type Route = { tool: string; args: ToolArgs } | null;
@@ -1990,6 +1991,34 @@ export const route = (question: string, ctx: ToolContext): Route => {
           },
         };
     }
+  }
+
+  // Municipal liabilities are public-finance measures, not local-election
+  // results. Resolve them before the broad "municipal" local-election arm.
+  const municipalLiabilityMetric = has(q, "просроч", "arrears")
+    ? "arrears"
+    : has(q, "задължения за разходи", "expense obligations")
+      ? "expense_obligations"
+      : has(q, "поети ангажименти", "commitments")
+        ? "commitments"
+        : undefined;
+  if (has(q, "общин", "municipalit") && municipalLiabilityMetric) {
+    const ranking = has(
+      q,
+      "кои общини",
+      "which municipalities",
+      "ranking",
+      "класац",
+      "най-",
+    );
+    if (!ranking) return null;
+    const year = Number(
+      q.match(/\b(20[0-2]\d)\b/)?.[1] ?? MUNICIPAL_FISCAL_LATEST_VALIDATED_YEAR,
+    );
+    return {
+      tool: "municipalFiscalRanking",
+      args: { year, count: 25, metric: municipalLiabilityMetric },
+    };
   }
 
   // 1b. local elections (municipal) — before party/turnout so a local question

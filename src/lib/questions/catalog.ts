@@ -8,7 +8,14 @@ import type {
   QuestionParameter,
   QuestionParameterKind,
 } from "./types";
-import { REVIEWED_CHAT_SQL_ADAPTERS } from "./sql/availability";
+import {
+  REVIEWED_CHAT_SQL_ADAPTERS,
+  REVIEWED_CHAT_SQL_SOURCES,
+} from "./sql/availability";
+import {
+  MUNICIPAL_FISCAL_MAX_RESULTS,
+  MUNICIPAL_FISCAL_METRICS,
+} from "./contracts/municipalFiscal";
 
 type RawPrompt = (typeof rawPrompts)[number];
 
@@ -24,6 +31,8 @@ const labels: Record<string, LocalizedText> = {
   years: { bg: "Брой години", en: "Number of years" },
   name: { bg: "Име", en: "Name" },
   company: { bg: "Фирма", en: "Company" },
+  count: { bg: "Брой резултати", en: "Number of results" },
+  metric: { bg: "Показател", en: "Metric" },
 };
 
 const labelFor = (id: string): LocalizedText =>
@@ -73,9 +82,12 @@ const requiredByTool: Record<string, string[]> = {
   mpVotingProfile: ["name"],
   mpSimilarity: ["name"],
   partyMps: ["party"],
+  personWealth: ["name"],
+  municipalFiscalRanking: ["year", "metric"],
 };
 
 const parameterKind = (tool: string, id: string): QuestionParameterKind => {
+  if (tool === "personWealth" && id === "name") return "person";
   if (tool === "comparePlaces" && (id === "a" || id === "b")) return "place";
   if (tool === "compareElections" && (id === "a" || id === "b"))
     return "election";
@@ -97,7 +109,7 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
   const required = new Set(requiredByTool[prompt.tool] ?? []);
   return ids.map((id) => {
     const kind = parameterKind(prompt.tool, id);
-    return {
+    const base: QuestionParameter = {
       id,
       kind,
       required: required.has(id),
@@ -105,6 +117,11 @@ const parametersFor = (prompt: RawPrompt): QuestionParameter[] => {
       ...(kind === "year" ? { min: 1900, max: 2100 } : {}),
       ...(/^(years|n|count|limit)$/.test(id) ? { min: 1, max: 5000 } : {}),
     };
+    if (prompt.tool === "municipalFiscalRanking" && id === "count")
+      return { ...base, max: MUNICIPAL_FISCAL_MAX_RESULTS };
+    if (prompt.tool === "municipalFiscalRanking" && id === "metric")
+      return { ...base, kind: "enum", values: [...MUNICIPAL_FISCAL_METRICS] };
+    return base;
   });
 };
 
@@ -163,7 +180,7 @@ export const QUESTION_DEFINITIONS: QuestionDefinition[] = rawPrompts.map(
               en: "The SQL version has not been reviewed yet.",
             },
           },
-      sourceIds: [],
+      sourceIds: REVIEWED_CHAT_SQL_SOURCES[prompt.id] ?? [],
     };
   },
 );

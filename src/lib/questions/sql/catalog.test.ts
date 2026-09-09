@@ -22,6 +22,8 @@ describe("SQL question catalog", () => {
 
   it("promotes reviewed DB-backed chat questions without duplicate IDs", () => {
     expect(CHAT_SQL_RECIPES.map((recipe) => recipe.questionId)).toEqual([
+      "municipalFiscalRanking",
+      "personWealth",
       "topContractors",
       "procurementAppeals",
       "companyConnections",
@@ -57,5 +59,41 @@ describe("SQL question catalog", () => {
         question.id,
       ).toBe(true);
     }
+  });
+
+  it("renders each municipal ranking metric with shared count boundaries", () => {
+    const orderBy = {
+      commitments: "commitments_eur",
+      expense_obligations: "expense_obligations_eur",
+      arrears: "arrears_eur",
+    };
+    for (const [metric, column] of Object.entries(orderBy)) {
+      const rendered = renderSqlQuestion("municipalFiscalRanking", {
+        year: 2024,
+        count: 100,
+        metric,
+      });
+      expect(rendered.sql).toContain(`ORDER BY ${column} DESC NULLS LAST`);
+      expect(rendered.sql).toContain("debt_stock_eur");
+      expect(rendered.outputColumns).toContain("criteria_evaluable");
+    }
+    for (const count of [101, 1.5, Number.POSITIVE_INFINITY])
+      expect(() =>
+        renderSqlQuestion("municipalFiscalRanking", {
+          year: 2024,
+          count,
+          metric: "commitments",
+        }),
+      ).toThrow();
+  });
+
+  it("keeps person identity and absent wealth states explicit", () => {
+    const sql = renderSqlQuestion("personWealth", {
+      name: "Иван Иванов",
+    }).sql;
+    expect(sql).toContain("WHEN r.matches = 0 THEN 'missing'");
+    expect(sql).toContain("WHEN r.matches > 1 THEN 'ambiguous'");
+    expect(sql).toContain("WHEN point IS NULL THEN 'no_data'");
+    expect(sql).toContain("name_fold = translit_bg_latin(");
   });
 });

@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2026-09-09",
+  "scope": "Tier 3 Step 7 fiscal, declarations and procurement-accountability slices. A source or route name records discovery only; ready requires a reviewed chat adapter and SQL recipe with equivalent semantics.",
+  "outcomes": [
+    {
+      "id": "municipal-fiscal-ranking",
+      "question": "Rank municipalities by commitments, expense obligations or arrears for a year",
+      "chat": "ready",
+      "sql": "ready",
+      "sources": ["municipal_fiscal_ranking"],
+      "prerequisite": null
+    },
+    {
+      "id": "municipal-fiscal-profile",
+      "question": "Show one municipality's fiscal profile with quarter, debt, commitments, obligations, arrears and evaluable criteria",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["municipal_fiscal", "municipal-fiscal-*"],
+      "prerequisite": "Add and review a canonical municipal_fiscal_by_obshtina(obshtina, year, quarter) serving function plus shared obshtina lookup; singular free-text questions must remain unresolved until then."
+    },
+    {
+      "id": "municipal-fiscal-history",
+      "question": "Show one municipality's fiscal indicators over time",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["municipal_fiscal", "municipal-fiscal-years"],
+      "prerequisite": "Add a canonical municipal_fiscal_history(obshtina, from_year, to_year) function that preserves quarter and null observations."
+    },
+    {
+      "id": "municipal-debt-ranking",
+      "question": "Rank municipalities by municipal debt stock",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["municipal_fiscal"],
+      "prerequisite": "Validate the debt_stock_eur basis and eligible-population denominator, then add debt as a reviewed ranking metric instead of treating it as a liability-flow synonym."
+    },
+    {
+      "id": "budget-plan-versus-execution",
+      "question": "Compare a budget plan with execution on the same accounting basis",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["budget-variance"],
+      "prerequisite": "Publish and contract a canonical budget_variance(period, entity, basis) function with plan, execution, variance, currency and reporting-period columns."
+    },
+    {
+      "id": "budget-personnel-series",
+      "question": "Compare budgeted personnel costs and positions over time",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["budget-personnel"],
+      "prerequisite": "Publish a canonical budget_personnel_series(entity, from_year, to_year) function with an explicit position/payroll basis and comparable periods."
+    },
+    {
+      "id": "budget-ministry-programmes",
+      "question": "Break a ministry budget down by programme and plan/execution",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["budget-ministry"],
+      "prerequisite": "Contract the ministry/programme serving route as a stable SQL function with ministry identity, programme code, plan, execution and basis metadata."
+    },
+    {
+      "id": "budget-municipality-detail",
+      "question": "Inspect a municipality's revenue and expenditure detail",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["budget-municipality"],
+      "prerequisite": "Add a municipality-identity lookup and a canonical budget_municipality_detail(obshtina, year, basis) function; document municipal coverage."
+    },
+    {
+      "id": "budget-municipal-capital-projects",
+      "question": "Inspect named municipal capital projects and their funding",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["budget-municipal-capital"],
+      "prerequisite": "Normalize the partial municipal annex corpus behind a coverage-bearing budget_municipal_capital(obshtina, year) function."
+    },
+    {
+      "id": "budget-law-detail",
+      "question": "Trace a budget figure to a law article or annex",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["budget-law", "src:dv"],
+      "prerequisite": "Expose stable law/article/annex identifiers and quoted source links from a canonical budget_law_detail(year, document_id) function."
+    },
+    {
+      "id": "person-declared-wealth-series",
+      "question": "Show a uniquely resolved public person's declared assets, debts and net value by year",
+      "chat": "ready",
+      "sql": "ready",
+      "sources": ["person", "person_wealth_series"],
+      "prerequisite": null
+    },
+    {
+      "id": "declaration-detail",
+      "question": "Inspect one declaration by reporting year and filing type",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["declaration-detail", "declaration"],
+      "prerequisite": "Add a declaration identifier lookup and reviewed declaration_detail(declaration_id) function carrying register year, covered year, filing type and provenance."
+    },
+    {
+      "id": "person-declaration-filings",
+      "question": "List a person's declarations by year and filing type",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["person-declarations", "declaration"],
+      "prerequisite": "Add canonical person_declarations(person_slug) output that distinguishes annual, entry, exit and correction filings and explicit missing years."
+    },
+    {
+      "id": "declaration-asset-liability-breakdown",
+      "question": "Break declared assets and liabilities down by kind and value basis",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["person-breakdowns", "declaration_asset"],
+      "prerequisite": "Contract declaration_breakdown(declaration_id) with asset/liability class, declared value, converted value, currency and conversion basis."
+    },
+    {
+      "id": "declaration-ownership-versus-use",
+      "question": "Distinguish property owned by the declarant from property only used or attributed through relatives",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["declaration_asset", "person-declaration-events"],
+      "prerequisite": "Expose held_scope, ownership/use right and relative attribution in a reviewed declaration-asset serving function; preserve missing relationship labels."
+    },
+    {
+      "id": "declaration-events-and-accumulation",
+      "question": "Compare entry, annual and exit declarations and explain accumulation gaps",
+      "chat": "review",
+      "sql": "review",
+      "sources": [
+        "person-declaration-events",
+        "person-accumulation-gap",
+        "person-cohort-benchmark"
+      ],
+      "prerequisite": "Define comparable event pairs and cohort denominators, then expose canonical functions that never infer unexplained wealth from unmatched filing periods."
+    },
+    {
+      "id": "declaration-stakes-and-procurement",
+      "question": "Show declared company stakes and attributed procurement relationships",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["person-declared-stake-status", "person-stake-procurement"],
+      "prerequisite": "Contract direct versus relative stake attribution, company identity and unmatched relationships in one reviewed serving snapshot."
+    },
+    {
+      "id": "mayor-income-versus-salary",
+      "question": "Compare a mayor's declared income with the official salary basis",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["mayor-pay", "mayor-pay-ranking", "declaration_income"],
+      "prerequisite": "Join a canonical mayor term/person identity to salary resolutions and declaration income; keep gross official salary, declared employment income and other income separate."
+    },
+    {
+      "id": "adfi-inspection-findings",
+      "question": "Show ADFI procurement findings, source document and outcome",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["src:adfi"],
+      "prerequisite": "Ingest finding-level ADFI inspection documents and outcomes with stable inspection, entity, contract, date and source-document identifiers."
+    },
+    {
+      "id": "contract-base-and-amendments",
+      "question": "Compare the signed contract value with amendments and current value",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["contract-annexes", "contracts"],
+      "prerequisite": "Publish a deduplicated contract_annexes(contract_id) function with signed base, dated amendments, reason, delta, current value and currency basis."
+    },
+    {
+      "id": "contract-subcontractors",
+      "question": "List subcontractors and their declared roles or shares",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["tender_subcontracting"],
+      "prerequisite": "Complete and validate the subcontractor loader, then expose contract_subcontractors(contract_id) with party identity, role, amount/share and missingness."
+    },
+    {
+      "id": "contract-consortium-participants",
+      "question": "Show consortium carrier and member roles without double-counting value",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["contracts", "tr_company"],
+      "prerequisite": "Expose a canonical contract_participants(contract_id) function that labels carrier/member roles and attributes the contract value once."
+    },
+    {
+      "id": "tender-dossier-documents",
+      "question": "Inspect a tender's notice, award, contract and source documents",
+      "chat": "review",
+      "sql": "review",
+      "sources": ["tender-dossier", "tender-document", "src:eop"],
+      "prerequisite": "Normalize document lineage and stable official URLs behind tender_dossier(tender_id) and tender_documents(tender_id)."
+    },
+    {
+      "id": "contract-execution-evidence",
+      "question": "Compare awarded, contracted, amended and actually executed or paid value",
+      "chat": "unavailable",
+      "sql": "unavailable",
+      "sources": ["contracts", "src:eop"],
+      "prerequisite": "Ingest dated acceptance/payment/execution records linked to canonical contract IDs; awarded or current contract value alone is not execution evidence."
+    }
+  ]
+}

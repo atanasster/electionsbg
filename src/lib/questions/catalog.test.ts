@@ -8,8 +8,8 @@ import { resolveQuestionSelection } from "./resolve";
 import { TOOLS } from "../../../ai/tools/registry";
 
 describe("shared question catalog", () => {
-  it("preserves the 150 chat questions and adds one utility category", () => {
-    expect(QUESTION_DEFINITIONS).toHaveLength(150);
+  it("preserves the original 150 and includes reviewed additions", () => {
+    expect(QUESTION_DEFINITIONS).toHaveLength(152);
     expect(QUESTION_CATEGORIES).toHaveLength(19);
     expect(QUESTION_CATALOG.questions).toBe(QUESTION_DEFINITIONS);
   });
@@ -96,5 +96,47 @@ describe("shared question catalog", () => {
     };
     expect(() => withParameter(date, "2025-02-31")).toThrow("valid YYYY-MM-DD");
     expect(() => withParameter(date, true)).toThrow("Expected text");
+  });
+
+  it("shares municipal fiscal metric, count, freshness and provenance constraints", () => {
+    const question = QUESTION_DEFINITIONS.find(
+      (candidate) => candidate.id === "municipalFiscalRanking",
+    )!;
+    expect(question.defaults).toEqual({
+      year: 2024,
+      count: 25,
+      metric: "commitments",
+    });
+    expect(question.sourceIds).toEqual(["municipal_fiscal_ranking"]);
+    for (const count of [1, 100])
+      expect(
+        resolveQuestionSelection(question, {
+          year: 2024,
+          count,
+          metric: "arrears",
+        }).parameters,
+      ).toMatchObject({ count, metric: "arrears" });
+    for (const count of [101, 1.5, Number.POSITIVE_INFINITY])
+      expect(() =>
+        resolveQuestionSelection(question, {
+          year: 2024,
+          count,
+          metric: "commitments",
+        }),
+      ).toThrow();
+    expect(() =>
+      resolveQuestionSelection(question, {
+        year: 2024,
+        count: 25,
+        metric: "debt",
+      }),
+    ).toThrow("Value is not allowed");
+  });
+
+  it("records sources for every dual-ready question", () => {
+    for (const question of QUESTION_DEFINITIONS.filter(
+      (candidate) => candidate.sql.status === "ready",
+    ))
+      expect(question.sourceIds.length, question.id).toBeGreaterThan(0);
   });
 });

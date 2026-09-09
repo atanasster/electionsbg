@@ -2055,5 +2055,41 @@
       "bg": {},
       "en": {}
     }
+  },
+  {
+    "id": "municipalFiscalRanking",
+    "category": "public-money",
+    "subcategory": "municipal",
+    "tool": "municipalFiscalRanking",
+    "bg": "Кои общини имат най-големи поети ангажименти през 2024 г.?",
+    "en": "Which municipalities had the largest commitments in 2024?",
+    "args": {
+      "bg": {
+        "year": 2024,
+        "count": 25,
+        "metric": "commitments"
+      },
+      "en": {
+        "year": 2024,
+        "count": 25,
+        "metric": "commitments"
+      }
+    }
+  },
+  {
+    "id": "personWealth",
+    "category": "business",
+    "subcategory": "assets",
+    "tool": "personWealth",
+    "bg": "Какво имущество е декларирал Бойко Борисов?",
+    "en": "What wealth has Boyko Borisov declared?",
+    "args": {
+      "bg": {
+        "name": "Бойко Борисов"
+      },
+      "en": {
+        "name": "Boyko Borisov"
+      }
+    }
   }
 ]

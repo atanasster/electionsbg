@@ -38,8 +38,12 @@ const resolveValue = (
         parameter.id,
         "Expected a finite number",
       );
-    if (parameter.kind === "year" && !Number.isInteger(number))
-      throw new QuestionParameterError(parameter.id, "Expected a whole year");
+    if (
+      (parameter.kind === "year" ||
+        /^(years|n|count|limit)$/.test(parameter.id)) &&
+      !Number.isSafeInteger(number)
+    )
+      throw new QuestionParameterError(parameter.id, "Expected a whole number");
     if (parameter.min != null && number < parameter.min)
       throw new QuestionParameterError(
         parameter.id,
