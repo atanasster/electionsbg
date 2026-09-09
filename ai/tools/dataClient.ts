@@ -8,6 +8,18 @@
 
 type Fetcher = (path: string) => Promise<unknown>;
 
+type CacheEntry = { value: Promise<unknown>; expiresAt: number };
+const STATIC_TTL_MS = 5 * 60_000;
+const LIVE_TTL_MS = 60_000;
+const deadlineSensitive = (key: string): boolean => {
+  const normalized = key.toLowerCase();
+  if (/^(?:price(?:s)?-|open-calls(?:-|$)|poll(?:s)?(?:-|$))/.test(normalized))
+    return true;
+  return /^\/(?:opencalls|prices|polls)(?:\/|$)/.test(normalized);
+};
+const ttlFor = (key: string): number =>
+  deadlineSensitive(key) ? LIVE_TTL_MS : STATIC_TTL_MS;
+
 const browserFetcher: Fetcher = async (path: string) => {
   const env = (import.meta as unknown as { env?: Record<string, string> }).env;
   const base = env?.VITE_DATA_BASE_URL ?? "";
@@ -26,18 +38,22 @@ export const setFetcher = (f: Fetcher): void => {
 };
 
 // Simple in-memory cache so repeated tool calls within a session don't re-fetch.
-const cache = new Map<string, Promise<unknown>>();
+const cache = new Map<string, CacheEntry>();
 
 export const fetchData = <T>(path: string): Promise<T> => {
-  let p = cache.get(path);
-  if (!p) {
-    p = fetcher(path);
+  const now = Date.now();
+  let entry = cache.get(path);
+  if (!entry || entry.expiresAt <= now) {
+    const p = fetcher(path);
     // Don't negatively-cache a failed fetch: evict on rejection so the next
     // call retries instead of re-returning the rejected promise.
-    p.catch(() => cache.delete(path));
-    cache.set(path, p);
+    entry = { value: p, expiresAt: now + ttlFor(path) };
+    cache.set(path, entry);
+    p.catch(() => {
+      if (cache.get(path)?.value === p) cache.delete(path);
+    });
   }
-  return p as Promise<T>;
+  return entry.value as Promise<T>;
 };
 
 // DB-query seam — mirrors the JSON fetcher above, but targets the `/api/db/*`
@@ -75,7 +91,7 @@ export const setDbFetcher = (f: DbFetcher): void => {
   dbFetcher = f;
 };
 
-const dbCache = new Map<string, Promise<unknown>>();
+const dbCache = new Map<string, CacheEntry>();
 
 /** Fetch one `/api/db/<route>` payload (the route's `body`). Cached per
  *  (route, params) for the session, like fetchData. */
@@ -84,14 +100,18 @@ export const fetchDb = <T>(
   params: DbParams = {},
 ): Promise<T> => {
   const key = `${route}?${JSON.stringify(params)}`;
-  let p = dbCache.get(key);
-  if (!p) {
-    p = dbFetcher(route, params);
+  const now = Date.now();
+  let entry = dbCache.get(key);
+  if (!entry || entry.expiresAt <= now) {
+    const p = dbFetcher(route, params);
     // Evict on rejection so a transient failure doesn't poison the session.
-    p.catch(() => dbCache.delete(key));
-    dbCache.set(key, p);
+    entry = { value: p, expiresAt: now + ttlFor(route) };
+    dbCache.set(key, entry);
+    p.catch(() => {
+      if (dbCache.get(key)?.value === p) dbCache.delete(key);
+    });
   }
-  return p as Promise<T>;
+  return entry.value as Promise<T>;
 };
 
 export const clearDataCache = (): void => {

@@ -944,6 +944,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
   const isMachine = has(q, "машин", "machine", "суемг", "suemg");
   const isTurnout = has(q, "активн", "turnout", "гласувал", "voters");
   const isCompare = has(q, "сравн", "compare", "срещу", " vs ", "спрямо");
+  const assembly = q.match(
+    /(?:^|\s)(4\d|5\d)(?:-?(?:о|то|ото)|th)?\s*(?:нс|народно събрание|national assembly)/,
+  )?.[1];
   // "which party / by party" — a request to RANK parties, not filter to one. Used
   // to re-aim aggregate tools (machine share, MP assets, risk) at a per-party
   // breakdown instead of a party-blind national figure.
@@ -960,6 +963,32 @@ export const route = (question: string, ctx: ToolContext): Route => {
     "by party",
     "per party",
   );
+
+  // Presidential elections are a distinct corpus and must win before every
+  // generic parliamentary-election branch below. Keep each scope token in a
+  // declared argument instead of letting a year/place disappear into the
+  // nationalResults fallback.
+  if (has(q, "президент", "president", "балотаж", "runoff")) {
+    const args: ToolArgs = {};
+    const cycle = q.match(/\b(2001|2006|2011|2016|2021)\b/)?.[1];
+    if (cycle) args.cycle = cycle;
+    if (has(q, "първ", "1 тур", "1-ви тур", "first round")) args.round = 1;
+    else if (has(q, "втори тур", "2 тур", "2-ри тур", "балотаж", "runoff"))
+      args.round = 2;
+    const oblast = has(q, "област", "oblast", "province")
+      ? findOblastInText(question)
+      : undefined;
+    if (oblast) args.oblast = oblast.name.bg;
+    else {
+      const place = question.match(
+        /(?:^|\s)(?:в|in|община|municipality(?:\s+of)?)\s+([А-ЯЁA-Z][\p{L}-]+(?:\s+[А-ЯЁA-Z][\p{L}-]+)?)/u,
+      )?.[1];
+      if (place) args.place = place.trim();
+    }
+    const candidate = extractPersonName(question);
+    if (candidate) args.candidate = candidate;
+    return { tool: "presidentialResults", args };
+  }
 
   // 0. machine-vote adoption per party ("машинно гласуване по партия"). Before
   // the compare block so an EN "machine vs paper by party" isn't read as a
@@ -1257,8 +1286,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
       if (cands.length >= 2)
         return { tool: "comparePlaces", args: { a: cands[0], b: cands[1] } };
     }
-    const pick = (y?: string) =>
-      y ? ALL_ELECTIONS.find((e) => e.name.startsWith(y))?.name : undefined;
+    const pick = (y?: string) => {
+      if (!y) return undefined;
+      const inYear = ALL_ELECTIONS.filter((e) => e.name.startsWith(`${y}_`));
+      // Preserve a multi-ballot year. compareElections turns this into an
+      // explicit choice instead of silently selecting the latest ballot.
+      return inYear.length > 1 ? y : inYear[0]?.name;
+    };
     let a = pick(years[0]);
     let b = pick(years[1]) ?? ctx.election;
     // No explicit year ("сравни изборите последните 5 години", "compare the
@@ -1336,7 +1370,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
     ) &&
     personName
   )
-    return { tool: "mpSimilarity", args: { name: personName } };
+    return {
+      tool: "mpSimilarity",
+      args: assembly
+        ? { name: personName, ns: Number(assembly) }
+        : { name: personName },
+    };
   // a named MP + a roll-call cue -> that MP's voting profile (not preferences)
   if (
     personName &&
@@ -1353,7 +1392,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "roll-call",
     )
   )
-    return { tool: "mpVotingProfile", args: { name: personName } };
+    return {
+      tool: "mpVotingProfile",
+      args: assembly
+        ? { name: personName, ns: Number(assembly) }
+        : { name: personName },
+    };
   // A named public person + a declared-wealth cue -> their имуществени декларации
   // (personWealth: assets/debts/net worth by year from the Сметна палата register).
   // Placed before personProfile/personConnections so a wealth question wins over the
@@ -1470,12 +1514,18 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "vote together",
     )
   )
-    return { tool: "factionCohesion", args: {} };
+    return {
+      tool: "factionCohesion",
+      args: assembly ? { ns: Number(assembly) } : {},
+    };
   if (
     has(q, "лоялн", "loyal", "дисциплин", "party line", "с групата") &&
     has(q, "депутат", " mp", " mps", "парламент", "групи", "групите", "faction")
   )
-    return { tool: "mpLoyalty", args: {} };
+    return {
+      tool: "mpLoyalty",
+      args: assembly ? { ns: Number(assembly) } : {},
+    };
   if (
     has(q, "присъстви", "отсъств", "attendance", "absent", "absentee") &&
     has(
@@ -1489,7 +1539,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "заседани",
     )
   )
-    return { tool: "mpAttendance", args: {} };
+    return {
+      tool: "mpAttendance",
+      args: assembly ? { ns: Number(assembly) } : {},
+    };
   if (
     has(
       q,
@@ -1499,7 +1552,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "ключови гласувания",
     )
   )
-    return { tool: "voteSearch", args: {} };
+    return {
+      tool: "voteSearch",
+      args: assembly ? { ns: Number(assembly) } : {},
+    };
   if (
     has(q, "поименно гласуване", "roll call", "roll-call") ||
     (has(q, "гласува", "гласуван", "vote", "voted") &&
@@ -1514,7 +1570,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
       ) &&
       !personName)
   )
-    return { tool: "voteSearch", args: { query: question } };
+    return {
+      tool: "voteSearch",
+      args: assembly
+        ? { query: question, ns: Number(assembly) }
+        : { query: question },
+    };
 
   // --- demographics (census correlations) ---
   if (
@@ -1909,14 +1970,25 @@ export const route = (question: string, ctx: ToolContext): Route => {
         has(
           q,
           "област",
+          "мир",
           "region",
+          "electoral district",
+          "constituency",
           "oblast",
           "по области",
           "по региони",
           "региони",
         )
       )
-        return { tool: "regionWinners", args: election ? { election } : {} };
+        return {
+          tool: "regionWinners",
+          args: {
+            ...(election ? { election } : {}),
+            geography: has(q, "мир", "electoral district", "constituency")
+              ? "mir"
+              : "oblast",
+          },
+        };
     }
   }
 
@@ -4305,7 +4377,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
       has(
         q,
         "област",
+        "мир",
         "region",
+        "electoral district",
+        "constituency",
         "по области",
         "къде",
         "where",
@@ -4316,7 +4391,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
       return {
         tool: "regionBreakdown",
-        args: election ? { party, election } : { party },
+        args: {
+          party,
+          ...(election ? { election } : {}),
+          geography: has(q, "мир", "electoral district", "constituency")
+            ? "mir"
+            : "oblast",
+        },
       };
     const wantsTimeline =
       has(q, "през годините", "over time", "история", "history", "timeline") ||

@@ -12,11 +12,17 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { TOOLS } from "../tools/registry";
+import { toolDocText } from "./semanticRetrieve";
 
 const vectors = JSON.parse(
   readFileSync(path.join(__dirname, "tool_vectors.json"), "utf-8"),
-) as { vectors: { name: string; v: number[] }[]; dim?: number };
+) as {
+  vectors: { name: string; v: number[] }[];
+  dim?: number;
+  inputsHash?: string;
+};
 
 describe("tool_vectors.json covers the registry", () => {
   it("has one vector per registered tool, and no orphans", () => {
@@ -39,5 +45,23 @@ describe("tool_vectors.json covers the registry", () => {
     const dims = new Set(vectors.vectors.map((v) => v.v.length));
     expect(dims.size).toBe(1);
     if (vectors.dim) expect([...dims][0]).toBe(vectors.dim);
+  });
+
+  it("was built from the current descriptions, examples, and parameter schemas", () => {
+    const current = createHash("sha256")
+      .update(
+        JSON.stringify(
+          TOOLS.map((t) => ({
+            name: t.name,
+            doc: toolDocText(t.name),
+            params: t.params,
+          })),
+        ),
+      )
+      .digest("hex");
+    expect(
+      vectors.inputsHash,
+      "tool semantics changed — run: npx tsx ai/llm/buildToolVectors.ts",
+    ).toBe(current);
   });
 });

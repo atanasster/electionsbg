@@ -1,6 +1,7 @@
 import { questionById } from "../../src/lib/questions/catalog";
 import { resolveQuestionSelection } from "../../src/lib/questions/resolve";
 import type { Language } from "../../src/lib/questions/types";
+import { validateToolArgs } from "../orchestrator/toolSchema";
 
 export interface ChatQuestionIntent {
   questionId: string;
@@ -22,10 +23,16 @@ export const toChatQuestionIntent = (
     question,
     values ?? question.legacyChatArgs?.[lang] ?? {},
   );
+  const args = validateToolArgs(
+    question.chat.capabilityId,
+    resolved.parameters,
+  );
+  if (!args)
+    throw new Error(`Invalid chat arguments for question: ${questionId}`);
   return {
     questionId,
     text: question.question[lang],
     tool: question.chat.capabilityId,
-    args: resolved.parameters,
+    args,
   };
 };

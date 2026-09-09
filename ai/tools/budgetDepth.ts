@@ -13,7 +13,10 @@ const SERIES_LABELS: Record<string, { bg: string; en: string }> = {
   revenue: { bg: "Приходи", en: "Revenue" },
   expenditure: { bg: "Разходи", en: "Expenditure" },
   balance: { bg: "Салдо", en: "Balance" },
-  euContribution: { bg: "Принос от ЕС", en: "EU contribution" },
+  euContribution: {
+    bg: "Принос към бюджета на ЕС",
+    en: "Contribution to the EU budget",
+  },
   financing: { bg: "Финансиране", en: "Financing" },
 };
 

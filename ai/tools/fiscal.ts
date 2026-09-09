@@ -115,7 +115,10 @@ export const budgetOverview = async (
       value: fmtEurCompact(eur(a.balance), ctx.lang),
     },
     {
-      metric: ctx.lang === "bg" ? "Принос от ЕС" : "EU contribution",
+      metric:
+        ctx.lang === "bg"
+          ? "Принос към бюджета на ЕС"
+          : "Contribution to the EU budget",
       value: fmtEurCompact(eur(a.euContribution), ctx.lang),
     },
   ];
@@ -146,7 +149,16 @@ export const budgetOverview = async (
       year: year.fiscalYear,
       revenue: fmtEurCompact(eur(a.revenue), ctx.lang),
       expenditure: fmtEurCompact(eur(a.expenditure), ctx.lang),
+      eu_contribution: fmtEurCompact(eur(a.euContribution), ctx.lang),
       balance: fmtEurCompact(eur(a.balance), ctx.lang),
+      reconciliation:
+        ctx.lang === "bg"
+          ? "салдо = приходи − разходи − принос към бюджета на ЕС"
+          : "balance = revenue − expenditure − contribution to the EU budget",
+      basis:
+        ctx.lang === "bg"
+          ? "изпълнение на държавния бюджет"
+          : "state-budget execution",
     },
     provenance: ["budget/index.json"],
   };

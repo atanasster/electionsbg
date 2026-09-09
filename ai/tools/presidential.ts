@@ -43,6 +43,7 @@ import { fetchData } from "./dataClient";
 import { barTable, firstString, noData } from "./envelope";
 import { round2 } from "./dataset";
 import { fmtInt, fmtPct } from "./format";
+import { translitKey } from "./translit";
 import { muniLocator, oblastChoropleth, oblastLocator } from "./geo";
 import { resolveMunicipality, resolveOblast } from "./place";
 import type {
@@ -346,6 +347,21 @@ export const presidentialResults = async (
     [bg ? "избран президент" : "president elected"]:
       `${summary.winner.president} (${bg ? "тур" : "round"} ${summary.decidedInRound})`,
   };
+  const candidateQuery = firstString(args.candidate);
+  if (candidateQuery) {
+    const queryTokens = translitKey(candidateQuery).split(" ").filter(Boolean);
+    const candidate = (sr.ranking ?? []).find((r) =>
+      queryTokens.every((token) =>
+        translitKey(`${r.president} ${r.vicePresident}`).includes(token),
+      ),
+    );
+    facts[bg ? "търсен кандидат" : "requested candidate"] = candidateQuery;
+    facts[bg ? "резултат на кандидата" : "candidate result"] = candidate
+      ? `${candidate.president}: ${fmtInt(candidate.votes, lang)} (${fmtPct(round2(100 * candidate.shareOfValid), lang)})`
+      : bg
+        ? "не е намерен в този тур"
+        : "not found in this round";
+  }
   // ⚠ A SUBSTITUTED CYCLE IS RECORDED, the way an unresolvable place is. The fallback is right
   // — better the latest than a 404 — but the LLM narrates `facts`, so „резултатите през 2019"
   // would otherwise come back as a confident 2021 answer with nothing saying which year it is.

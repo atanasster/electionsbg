@@ -46,7 +46,7 @@ const FEW_SHOT: { q: string; call: string }[] = [
     call: '{"tool":"agencyProfile","args":{"agency":"Алфа Рисърч"}}',
   },
   {
-    q: "Compare the 2022 and 2024 elections",
+    q: "Compare the October 2022 and October 2024 elections",
     call: '{"tool":"compareElections","args":{"a":"2022_10_02","b":"2024_10_27"}}',
   },
   {

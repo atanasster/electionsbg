@@ -8,6 +8,12 @@ import {
 } from "./dataClient";
 import { electionsChrono, round2 } from "./dataset";
 import {
+  electionAreaLabel,
+  expandAdministrativeAreas,
+  groupElectionRegions,
+  type ElectionGeography,
+} from "./electionGeography";
+import {
   electionFullLabel,
   electionShortLabel,
   fmtInt,
@@ -15,7 +21,6 @@ import {
 } from "./format";
 import { oblastChoropleth } from "./geo";
 import { matchParty } from "./matchParty";
-import { oblastName } from "./place";
 import type {
   Column,
   Envelope,
@@ -64,8 +69,10 @@ const winnerByOblast = async (
   election: string,
   parties: NSParty[],
   lang: Lang,
+  geography: ElectionGeography = "mir",
 ): Promise<OblastWinner[]> => {
-  const regions = await fetchRegionVotes<RegionVotes[]>(election);
+  const raw = await fetchRegionVotes<RegionVotes[]>(election);
+  const regions = groupElectionRegions(raw, geography);
   const byNum = new Map(parties.map((p) => [p.partyNum, p]));
   return regions
     .map((r) => {
@@ -83,7 +90,7 @@ const winnerByOblast = async (
       const p = byNum.get(top.partyNum);
       return {
         code: r.key,
-        label: oblastName(r.key)[lang],
+        label: electionAreaLabel(r.key, geography, lang),
         color: p?.color,
         party: p?.nickName ?? String(top.partyNum),
         votes: top.totalVotes,
@@ -179,23 +186,39 @@ export const nationalResults = async (
   };
 };
 
-// Per-region winners: a list of every oblast/МИР with the party that led there
-// (votes + share), plus the same winner-per-oblast colour map. Answers the "by
-// region" intent — distinct from nationalResults, which ranks parties nationally.
+// Per-district winners: 31 domestic MIR plus the separate abroad district.
+// These are electoral districts, not Bulgaria's 28 administrative oblasts.
 export const regionWinners = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const election = resolveElection(args, ctx);
+  const geography: ElectionGeography =
+    args.geography === "mir" ? "mir" : "oblast";
   const ns = await fetchNationalSummary<NationalSummary>(election);
-  const winners = await winnerByOblast(election, ns.parties, ctx.lang);
+  const winners = await winnerByOblast(
+    election,
+    ns.parties,
+    ctx.lang,
+    geography,
+  );
   // Alphabetical by region name — a plain, scannable list of regions.
   const sorted = [...winners].sort((a, b) =>
     a.label.localeCompare(b.label, ctx.lang === "bg" ? "bg" : "en"),
   );
 
   const columns: Column[] = [
-    { key: "oblast", label: ctx.lang === "bg" ? "Област" : "Region" },
+    {
+      key: "area",
+      label:
+        geography === "mir"
+          ? ctx.lang === "bg"
+            ? "МИР"
+            : "Electoral district"
+          : ctx.lang === "bg"
+            ? "Област"
+            : "Administrative oblast",
+    },
     {
       key: "winner",
       label: ctx.lang === "bg" ? "Първа партия" : "Leading party",
@@ -209,7 +232,7 @@ export const regionWinners = async (
     { key: "pct", label: "%", numeric: true, format: "pct" },
   ];
   const rows: Row[] = sorted.map((w) => ({
-    oblast: w.label,
+    area: w.label,
     winner: w.party,
     votes: w.votes,
     pct: w.pct,
@@ -225,12 +248,28 @@ export const regionWinners = async (
 
   const facts: Record<string, string | number> = {
     election: electionFullLabel(election, ctx.lang),
-    regions: winners.length,
+    geography:
+      geography === "mir"
+        ? ctx.lang === "bg"
+          ? "31 МИР в страната и МИР Чужбина"
+          : "31 domestic electoral districts plus abroad"
+        : ctx.lang === "bg"
+          ? "28 административни области; Чужбина е изключена"
+          : "28 administrative oblasts; abroad excluded",
+    areas: winners.length,
     leading_party: leadParty,
     leading_wins: leadWins,
   };
   ranked.slice(0, 5).forEach(([name, n]) => {
-    facts[name] = `${n} ${ctx.lang === "bg" ? "области" : "regions"}`;
+    facts[name] = `${n} ${
+      geography === "mir"
+        ? ctx.lang === "bg"
+          ? "МИР"
+          : "electoral districts"
+        : ctx.lang === "bg"
+          ? "области"
+          : "oblasts"
+    }`;
   });
 
   return {
@@ -239,19 +278,21 @@ export const regionWinners = async (
     kind: "table",
     title:
       ctx.lang === "bg"
-        ? `Резултати по области — ${electionFullLabel(election, "bg")}`
-        : `Results by region — ${electionFullLabel(election, "en")}`,
-    subtitle:
-      ctx.lang === "bg"
-        ? "Водещата партия във всяка област"
-        : "The leading party in each region",
+        ? `Резултати по ${geography === "mir" ? "МИР" : "области"} — ${electionFullLabel(election, "bg")}`
+        : `Results by ${geography === "mir" ? "electoral district" : "administrative oblast"} — ${electionFullLabel(election, "en")}`,
+    subtitle: String(facts.geography),
     columns,
     rows,
     viz: "none",
-    geo: oblastChoropleth(winnerAreasFor(winners), {
-      metricLabel: ctx.lang === "bg" ? "Първа партия" : "Leading party",
-      colorMode: "explicit",
-    }),
+    geo: oblastChoropleth(
+      geography === "oblast"
+        ? expandAdministrativeAreas(winnerAreasFor(winners))
+        : winnerAreasFor(winners),
+      {
+        metricLabel: ctx.lang === "bg" ? "Първа партия" : "Leading party",
+        colorMode: "explicit",
+      },
+    ),
     facts,
     provenance: [
       `${election}/national_summary.json`,

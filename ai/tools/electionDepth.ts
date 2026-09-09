@@ -10,6 +10,12 @@ import {
 } from "./dataClient";
 import { ALL_ELECTIONS, round2 } from "./dataset";
 import {
+  electionAreaLabel,
+  expandAdministrativeAreas,
+  groupElectionRegions,
+  type ElectionGeography,
+} from "./electionGeography";
+import {
   electionFullLabel,
   electionShortLabel,
   fmtInt,
@@ -20,7 +26,6 @@ import { translitKey } from "./translit";
 import {
   findOblastInText,
   loadMunis,
-  oblastName,
   resolveMunicipality,
   resolveOblast,
 } from "./place";
@@ -51,6 +56,8 @@ export const regionBreakdown = async (
 ): Promise<Envelope> => {
   const election = resolveElection(args, ctx);
   const query = String(args.party ?? "");
+  const geography: ElectionGeography =
+    args.geography === "mir" ? "mir" : "oblast";
   const ns = await fetchNationalSummary<{ parties: NSParty[] }>(election);
   const party = matchParty(query, ns.parties);
   if (!party) {
@@ -67,7 +74,8 @@ export const regionBreakdown = async (
       provenance: [`${election}/national_summary.json`],
     };
   }
-  const regions = await fetchRegionVotes<RegionEntry[]>(election);
+  const raw = await fetchRegionVotes<RegionEntry[]>(election);
+  const regions = groupElectionRegions(raw, geography);
   const rows = regions
     .map((r) => {
       const total = r.results.votes.reduce(
@@ -79,7 +87,7 @@ export const regionBreakdown = async (
           ?.totalVotes ?? 0;
       return {
         code: r.key,
-        oblast: oblastName(r.key)[ctx.lang],
+        area: electionAreaLabel(r.key, geography, ctx.lang),
         votes: got,
         pct: total > 0 ? round2((100 * got) / total) : 0,
       };
@@ -89,7 +97,17 @@ export const regionBreakdown = async (
   const top = rows.slice(0, 14);
 
   const columns: Column[] = [
-    { key: "oblast", label: ctx.lang === "bg" ? "Област" : "Oblast" },
+    {
+      key: "area",
+      label:
+        geography === "mir"
+          ? ctx.lang === "bg"
+            ? "МИР"
+            : "Electoral district"
+          : ctx.lang === "bg"
+            ? "Област"
+            : "Administrative oblast",
+    },
     {
       key: "votes",
       label: ctx.lang === "bg" ? "Гласове" : "Votes",
@@ -106,28 +124,42 @@ export const regionBreakdown = async (
     kind: "table",
     title:
       ctx.lang === "bg"
-        ? `${party.nickName} по области — ${electionFullLabel(election, "bg")}`
-        : `${party.nickName} by oblast — ${electionFullLabel(election, "en")}`,
+        ? `${party.nickName} по ${geography === "mir" ? "МИР" : "области"} — ${electionFullLabel(election, "bg")}`
+        : `${party.nickName} by ${geography === "mir" ? "electoral district" : "administrative oblast"} — ${electionFullLabel(election, "en")}`,
+    subtitle:
+      ctx.lang === "bg"
+        ? geography === "mir"
+          ? "31 МИР в страната и отделен МИР „Чужбина“"
+          : "28 административни области; Чужбина е изключена"
+        : geography === "mir"
+          ? "31 domestic districts plus the separate abroad district"
+          : "28 administrative oblasts; abroad excluded",
     columns,
-    rows: top.map((r) => ({ oblast: r.oblast, votes: r.votes, pct: r.pct })),
-    categories: top.map((r) => r.oblast),
+    rows: top.map((r) => ({
+      area: r.area,
+      votes: r.votes,
+      pct: r.pct,
+    })),
+    categories: top.map((r) => r.area),
     series: [
       {
         key: "pct",
         label: party.nickName,
-        points: top.map((r) => ({ x: r.oblast, y: r.pct })),
+        points: top.map((r) => ({ x: r.area, y: r.pct })),
       },
     ],
     viz: "bar",
     // Oblast choropleth shaded by this party's share (all oblasts, not just the
     // top-14 shown in the table); abroad МИР "32" has no polygon and is skipped.
     geo: oblastChoropleth(
-      rows.map((r) => ({
-        code: r.code,
-        label: r.oblast,
-        value: r.pct,
-        display: fmtPct(r.pct, ctx.lang),
-      })),
+      (geography === "oblast" ? expandAdministrativeAreas(rows) : rows).map(
+        (r) => ({
+          code: r.code,
+          label: r.area,
+          value: r.pct,
+          display: fmtPct(r.pct, ctx.lang),
+        }),
+      ),
       {
         metricLabel:
           ctx.lang === "bg"
@@ -140,11 +172,19 @@ export const regionBreakdown = async (
     facts: {
       party: party.nickName,
       strongest: strongest
-        ? `${strongest.oblast} (${fmtPct(strongest.pct, ctx.lang)})`
+        ? `${strongest.area} (${fmtPct(strongest.pct, ctx.lang)})`
         : "—",
       weakest: weakest
-        ? `${weakest.oblast} (${fmtPct(weakest.pct, ctx.lang)})`
+        ? `${weakest.area} (${fmtPct(weakest.pct, ctx.lang)})`
         : "—",
+      geography:
+        ctx.lang === "bg"
+          ? geography === "mir"
+            ? "изборни райони (МИР), включително Чужбина"
+            : "28 административни области; Чужбина е изключена"
+          : geography === "mir"
+            ? "electoral districts, including abroad"
+            : "28 administrative oblasts; abroad excluded",
     },
     provenance: [`${election}/region_votes.json`],
   } as Envelope;
@@ -1173,6 +1213,10 @@ export const municipalityBreakdown = async (
       weakest: weakest
         ? `${weakest.muni} (${fmtPct(weakest.pct, ctx.lang)})`
         : "—",
+      geography:
+        ctx.lang === "bg"
+          ? `общини в ${ob.name.bg}; Чужбина не е част от този набор`
+          : `municipalities in ${ob.name.en}; abroad is outside this dataset`,
     },
     provenance: [`${election}/municipalities/by/${ob.code}.json`],
   };

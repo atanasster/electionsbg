@@ -165,6 +165,7 @@ export type ToolParam = {
   type: ParamType;
   required?: boolean;
   default?: string | number;
+  values?: readonly (string | number)[];
   description: { bg: string; en: string };
 };
 

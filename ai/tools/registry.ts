@@ -316,6 +316,7 @@ export const TOOLS: ToolDef[] = [
       {
         name: "cycle",
         type: "cycle",
+        values: [2001, 2006, 2011, 2016, 2021],
         description: {
           bg: "Година или цикъл (2001, 2006, 2011, 2016, 2021); по подразбиране последният.",
           en: "Year or cycle (2001, 2006, 2011, 2016, 2021); defaults to the latest.",
@@ -324,6 +325,7 @@ export const TOOLS: ToolDef[] = [
       {
         name: "round",
         type: "count",
+        values: [1, 2],
         description: {
           bg: "1 или 2 (балотаж). По подразбиране турът, в който е избран президентът.",
           en: "1 or 2 (the runoff). Defaults to the round that elected the president.",
@@ -343,6 +345,14 @@ export const TOOLS: ToolDef[] = [
         description: {
           bg: "Област (по избор) — отделен параметър, защото всички областни центрове носят и име на община.",
           en: "Oblast (optional) — a separate parameter, because every oblast centre is also a municipality name.",
+        },
+      },
+      {
+        name: "candidate",
+        type: "person",
+        description: {
+          bg: "Име на кандидат за открояване в резултата",
+          en: "Candidate name to highlight in the result",
         },
       },
     ],
@@ -370,8 +380,8 @@ export const TOOLS: ToolDef[] = [
     name: "regionWinners",
     domain: "elections",
     description: {
-      bg: "Резултати по области: водещата партия във всяка област (списък + карта).",
-      en: "Results by region: the leading party in each oblast (list + map).",
+      bg: "Водещата партия по 28 административни области или, при избор на МИР, по 31 района в страната и Чужбина.",
+      en: "The leading party by 28 administrative oblasts or, when MIR is selected, by 31 domestic electoral districts plus abroad.",
     },
     params: [
       {
@@ -382,15 +392,25 @@ export const TOOLS: ToolDef[] = [
           en: "Election date (defaults to latest).",
         },
       },
+      {
+        name: "geography",
+        type: "metric",
+        default: "oblast",
+        values: ["oblast", "mir"],
+        description: {
+          bg: "Административна област или МИР",
+          en: "Administrative oblast or electoral district",
+        },
+      },
     ],
     examples: [
       {
-        bg: "Покажи резултатите по области.",
-        en: "Show the results by region.",
+        bg: "Покажи резултатите по МИР.",
+        en: "Show the results by electoral district.",
       },
       {
-        bg: "Коя партия спечели във всяка област?",
-        en: "Which party won in each region?",
+        bg: "Коя партия води във всеки МИР?",
+        en: "Which party led in each electoral district?",
       },
     ],
     run: regionWinners,
@@ -807,6 +827,16 @@ export const TOOLS: ToolDef[] = [
         name: "election",
         type: "election",
         description: { bg: "Дата на избора", en: "Election date" },
+      },
+      {
+        name: "geography",
+        type: "metric",
+        default: "oblast",
+        values: ["oblast", "mir"],
+        description: {
+          bg: "Административна област или МИР",
+          en: "Administrative oblast or electoral district",
+        },
       },
     ],
     examples: [{ bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" }],
@@ -1406,8 +1436,8 @@ export const TOOLS: ToolDef[] = [
     name: "voteTransitions",
     domain: "elections",
     description: {
-      bg: "Преливане на гласове между два последователни избора. Без партия — общата картина; с партия — откъде идват гласовете ѝ (или, при „къде отидоха“, накъде отиват), с дял в проценти.",
-      en: "Vote transitions between two consecutive elections. With no party — the national overview; with a party — where its votes came from (or, for 'where did they go', where they went), each as a percentage.",
+      bg: "Статистически оценени потоци на гласове между два последователни избора по агрегирани секционни резултати. Не проследява как е гласувал отделен човек.",
+      en: "Statistically estimated vote flows between two consecutive elections from aggregate section results. It does not track how an individual voted.",
     },
     params: [
       {
@@ -1422,6 +1452,15 @@ export const TOOLS: ToolDef[] = [
         name: "election",
         type: "election",
         description: { bg: "Целеви избор", en: "Target election" },
+      },
+      {
+        name: "direction",
+        type: "metric",
+        values: ["in", "out"],
+        description: {
+          bg: "Входящи или изходящи потоци",
+          en: "Incoming or outgoing flows",
+        },
       },
     ],
     examples: [
@@ -2401,8 +2440,8 @@ export const TOOLS: ToolDef[] = [
     params: [],
     examples: [
       {
-        bg: "Колко харчи държавата за социално подпомагане?",
-        en: "How much does the state spend on social assistance?",
+        bg: "Колко са обществените поръчки на институциите за социално подпомагане?",
+        en: "How much procurement do the social-assistance institutions award?",
       },
       { bg: "Поръчки на АСП и МТСП", en: "АСП and МТСП procurement" },
     ],
@@ -3220,6 +3259,14 @@ export const TOOLS: ToolDef[] = [
         description: {
           bg: "Ключова дума/тема за предмета (напр. „мантинели“, „асфалт“) — по избор",
           en: "Subject keyword/topic (e.g. 'guardrails', 'asphalt') — optional",
+        },
+      },
+      {
+        name: "topic",
+        type: "metric",
+        description: {
+          bg: "Съвместим псевдоним на ключовата дума/тема",
+          en: "Compatibility alias for the subject keyword/topic",
         },
       },
       {
@@ -4055,7 +4102,10 @@ export const TOOLS: ToolDef[] = [
     },
     params: [],
     examples: [
-      { bg: "Кои депутати са най-богати?", en: "Which MPs are richest?" },
+      {
+        bg: "Кои депутати декларират най-много активи?",
+        en: "Which MPs declare the most assets?",
+      },
     ],
     run: mpAssetsTop,
   },
@@ -4085,8 +4135,8 @@ export const TOOLS: ToolDef[] = [
     params: [],
     examples: [
       {
-        bg: "Коя партия има най-богати депутати?",
-        en: "Which party has the richest MPs?",
+        bg: "Коя партия има най-високи средни декларирани активи на депутат?",
+        en: "Which party's MPs have the highest average declared assets?",
       },
     ],
     run: mpAssetsByParty,
@@ -4126,8 +4176,8 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [
       {
-        bg: "Кои министри са най-богати?",
-        en: "Which cabinet officials are richest?",
+        bg: "Кои министри декларират най-много активи?",
+        en: "Which cabinet officials declare the most assets?",
       },
     ],
     run: officialsAssetsTop,
@@ -4692,8 +4742,8 @@ export const TOOLS: ToolDef[] = [
     name: "basketAffordability",
     domain: "indicators",
     description: {
-      bg: "Достъпност на потребителската кошница спрямо доходите по области — цената на кошницата спрямо БВП на човек (Евростат). Национална класация + ранг на дадена област. БВП на човек е приблизителен измерител на дохода, не нетна заплата.",
-      en: "Affordability of the consumer basket vs income by oblast — basket cost relative to GDP-per-capita (Eurostat). National ranking + a given oblast's rank. GDP-per-capita proxies income, not net wage.",
+      bg: "Цена на потребителската кошница спрямо БВП на човек по области (Евростат). Това е икономически контекст, не измерител на дохода или покупателната способност на домакинство.",
+      en: "Consumer-basket cost relative to regional GDP per capita (Eurostat). This is economic context, not a measure of household income or purchasing power.",
     },
     params: [
       {
@@ -4704,12 +4754,12 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [
       {
-        bg: "Къде е най-достъпна кошницата спрямо доходите?",
-        en: "Where is the basket most affordable relative to income?",
+        bg: "Къде е най-ниска цената на кошницата спрямо БВП на човек?",
+        en: "Where is the basket cost lowest relative to GDP per capita?",
       },
       {
-        bg: "Каква е покупателната способност по области?",
-        en: "What is purchasing power by oblast?",
+        bg: "Сравни кошницата с БВП на човек по области.",
+        en: "Compare the basket with GDP per capita by oblast.",
       },
     ],
     run: basketAffordability,
@@ -4972,8 +5022,8 @@ export const TOOLS: ToolDef[] = [
     name: "airQuality",
     domain: "place",
     description: {
-      bg: "Качество на въздуха (ФПЧ10/ФПЧ2.5) от станции близо до населено място.",
-      en: "Air quality (PM10/PM2.5) from stations near a place.",
+      bg: "Тримесечни средни стойности за ФПЧ10/ФПЧ2.5 от станции в общината или обозначени станции в областта.",
+      en: "Quarterly PM10/PM2.5 averages from stations in the municipality, or explicitly labelled stations elsewhere in its oblast.",
     },
     params: [
       {
@@ -5099,8 +5149,8 @@ export const TOOLS: ToolDef[] = [
     name: "riskIndex",
     domain: "elections",
     description: {
-      bg: "Индекс на изборния риск — главната оценка 0–100 и 10-те компонента (изборен интегритет + контекст).",
-      en: "Election risk index — the 0–100 headline score and its 10 components (process integrity + context).",
+      bg: "Статистически индекс за скрининг на изборния риск — оценка 0–100 и 10 компонента. Сигнализира отклонения, без да установява нарушение или престъпление.",
+      en: "Statistical election-risk screening index — a 0–100 score and 10 components. It flags anomalies; it does not establish misconduct or a crime.",
     },
     params: [
       {
@@ -5421,7 +5471,16 @@ export const TOOLS: ToolDef[] = [
       bg: "Партийна лоялност на депутатите — дял на гласовете, съвпадащи с групата.",
       en: "MP party loyalty — share of votes cast with the MP's group.",
     },
-    params: [],
+    params: [
+      {
+        name: "ns",
+        type: "count",
+        description: {
+          bg: "Номер на Народното събрание",
+          en: "National Assembly number",
+        },
+      },
+    ],
     examples: [
       { bg: "Кои депутати са най-лоялни?", en: "Which MPs are most loyal?" },
       {
@@ -5438,7 +5497,16 @@ export const TOOLS: ToolDef[] = [
       bg: "Присъствие на депутатите при гласуванията.",
       en: "MP attendance at roll-call votes.",
     },
-    params: [],
+    params: [
+      {
+        name: "ns",
+        type: "count",
+        description: {
+          bg: "Номер на Народното събрание",
+          en: "National Assembly number",
+        },
+      },
+    ],
     examples: [
       {
         bg: "Кои депутати отсъстват най-много?",
@@ -5454,7 +5522,16 @@ export const TOOLS: ToolDef[] = [
       bg: "Сплотеност на парламентарните групи — колко единно гласуват.",
       en: "Faction cohesion — how uniformly the groups vote.",
     },
-    params: [],
+    params: [
+      {
+        name: "ns",
+        type: "count",
+        description: {
+          bg: "Номер на Народното събрание",
+          en: "National Assembly number",
+        },
+      },
+    ],
     examples: [
       {
         bg: "Коя група гласува най-единно?",
@@ -5476,6 +5553,14 @@ export const TOOLS: ToolDef[] = [
         type: "person",
         required: true,
         description: { bg: "Име на депутата", en: "MP name" },
+      },
+      {
+        name: "ns",
+        type: "count",
+        description: {
+          bg: "Номер на Народното събрание",
+          en: "National Assembly number",
+        },
       },
     ],
     examples: [
@@ -5500,6 +5585,14 @@ export const TOOLS: ToolDef[] = [
         required: true,
         description: { bg: "Име на депутата", en: "MP name" },
       },
+      {
+        name: "ns",
+        type: "count",
+        description: {
+          bg: "Номер на Народното събрание",
+          en: "National Assembly number",
+        },
+      },
     ],
     examples: [
       {
@@ -5521,6 +5614,14 @@ export const TOOLS: ToolDef[] = [
         name: "query",
         type: "metric",
         description: { bg: "Тема или дума", en: "Topic or keyword" },
+      },
+      {
+        name: "ns",
+        type: "count",
+        description: {
+          bg: "Номер на Народното събрание",
+          en: "National Assembly number",
+        },
       },
     ],
     examples: [

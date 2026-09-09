@@ -17,17 +17,18 @@ type RollcallIndex = {
   mpProfileByNs: Record<string, { mpNames: Record<string, string> }>;
 };
 
-let indexCache: Promise<RollcallIndex> | null = null;
-const loadIndex = (): Promise<RollcallIndex> => {
-  if (!indexCache)
-    indexCache = fetchData<RollcallIndex>("/parliament/votes/index.json");
-  return indexCache;
+const loadIndex = (): Promise<RollcallIndex> =>
+  fetchData<RollcallIndex>("/parliament/votes/index.json");
+
+const assemblyFor = (args: ToolArgs, idx: RollcallIndex): string => {
+  const requested = args.ns == null ? "" : String(args.ns);
+  return requested || idx.ns;
 };
 
 const norm = (s: string): string =>
   s
     .toLowerCase()
-    .replace(/[\s.\-_]+/g, " ")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
     .trim();
 
 // Resolve a free-text MP name to {id, name} in the current parliament, in either
@@ -89,21 +90,22 @@ const noParliament = (
   tool: string,
   ctx: ToolContext,
   prov: string,
+  ns?: string,
 ): Envelope => ({
   tool,
   domain: "people",
   kind: "scalar",
   title:
     ctx.lang === "bg"
-      ? "Няма данни за това Народно събрание"
-      : "No data for this parliament",
+      ? `Няма данни за${ns ? ` ${ns}-ото` : " това"} Народно събрание`
+      : `No data for${ns ? ` the ${ns}th` : " this"} parliament`,
   viz: "none",
-  facts: {},
+  facts: ns ? { ns } : {},
   provenance: [prov],
 });
 
 export const mpLoyalty = async (
-  _args: ToolArgs,
+  args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
@@ -111,14 +113,16 @@ export const mpLoyalty = async (
   const d = await fetchData<DerivedFile<LoyaltyEntry>>(
     "/parliament/votes/derived/loyalty.json",
   );
-  const slice = d.byNs[idx.ns];
+  const ns = assemblyFor(args, idx);
+  const slice = d.byNs[ns];
   if (!slice?.entries?.length)
     return noParliament(
       "mpLoyalty",
       ctx,
       "parliament/votes/derived/loyalty.json",
+      ns,
     );
-  const names = idx.mpProfileByNs[idx.ns]?.mpNames ?? {};
+  const names = idx.mpProfileByNs[ns]?.mpNames ?? {};
   const named = slice.entries.map((e) => ({
     mp: titleCase(names[String(e.mpId)] ?? `#${e.mpId}`),
     party: e.partyShort,
@@ -149,8 +153,8 @@ export const mpLoyalty = async (
     domain: "people",
     kind: "table",
     title: bg
-      ? `Партийна лоялност на депутатите (${idx.ns}-о НС)`
-      : `MP party loyalty (${idx.ns}th National Assembly)`,
+      ? `Партийна лоялност на депутатите (${ns}-о НС)`
+      : `MP party loyalty (${ns}th National Assembly)`,
     subtitle: bg
       ? "Дял на гласовете, съвпадащи с групата"
       : "Share of votes cast with the MP's group",
@@ -158,7 +162,7 @@ export const mpLoyalty = async (
     rows: top as Row[],
     viz: "none",
     facts: {
-      ns: idx.ns,
+      ns,
       most_loyal: top[0]
         ? `${top[0].mp} (${top[0].party}, ${top[0].loyalty}%)`
         : "—",
@@ -181,7 +185,7 @@ type AttendanceEntry = {
 };
 
 export const mpAttendance = async (
-  _args: ToolArgs,
+  args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
@@ -189,14 +193,16 @@ export const mpAttendance = async (
   const d = await fetchData<DerivedFile<AttendanceEntry>>(
     "/parliament/votes/derived/attendance.json",
   );
-  const slice = d.byNs[idx.ns];
+  const ns = assemblyFor(args, idx);
+  const slice = d.byNs[ns];
   if (!slice?.entries?.length)
     return noParliament(
       "mpAttendance",
       ctx,
       "parliament/votes/derived/attendance.json",
+      ns,
     );
-  const names = idx.mpProfileByNs[idx.ns]?.mpNames ?? {};
+  const names = idx.mpProfileByNs[ns]?.mpNames ?? {};
   const named = slice.entries.map((e) => ({
     mp: titleCase(names[String(e.mpId)] ?? `#${e.mpId}`),
     party: e.partyShort,
@@ -210,8 +216,8 @@ export const mpAttendance = async (
     domain: "people",
     kind: "table",
     title: bg
-      ? `Присъствие на депутатите (${idx.ns}-о НС)`
-      : `MP attendance (${idx.ns}th National Assembly)`,
+      ? `Присъствие на депутатите (${ns}-о НС)`
+      : `MP attendance (${ns}th National Assembly)`,
     subtitle: bg
       ? "Дял на гласуванията, в които депутатът е участвал"
       : "Share of votes the MP took part in",
@@ -228,7 +234,7 @@ export const mpAttendance = async (
     rows: top as Row[],
     viz: "none",
     facts: {
-      ns: idx.ns,
+      ns,
       best_attendance: top[0] ? `${top[0].mp} (${top[0].present}%)` : "—",
       worst_attendance: worst ? `${worst.mp} (${worst.present}%)` : "—",
     },
@@ -246,7 +252,7 @@ type CohesionEntry = {
 };
 
 export const factionCohesion = async (
-  _args: ToolArgs,
+  args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
@@ -254,12 +260,14 @@ export const factionCohesion = async (
   const d = await fetchData<DerivedFile<CohesionEntry>>(
     "/parliament/votes/derived/cohesion.json",
   );
-  const slice = d.byNs[idx.ns];
+  const ns = assemblyFor(args, idx);
+  const slice = d.byNs[ns];
   if (!slice?.entries?.length)
     return noParliament(
       "factionCohesion",
       ctx,
       "parliament/votes/derived/cohesion.json",
+      ns,
     );
   const ranked = [...slice.entries].sort(
     (a, b) => b.meanCohesion - a.meanCohesion,
@@ -277,8 +285,8 @@ export const factionCohesion = async (
     domain: "people",
     kind: "table",
     title: bg
-      ? `Сплотеност на парламентарните групи (${idx.ns}-о НС)`
-      : `Faction cohesion (${idx.ns}th National Assembly)`,
+      ? `Сплотеност на парламентарните групи (${ns}-о НС)`
+      : `Faction cohesion (${ns}th National Assembly)`,
     subtitle: bg
       ? "Колко единно гласува всяка група"
       : "How uniformly each group votes",
@@ -306,7 +314,7 @@ export const factionCohesion = async (
     rows,
     viz: "none",
     facts: {
-      ns: idx.ns,
+      ns,
       most_cohesive: top
         ? `${top.partyShort} (${round2(top.meanCohesion * 100)}%)`
         : "—",
@@ -327,7 +335,8 @@ export const mpVotingProfile = async (
   const bg = ctx.lang === "bg";
   const query = String(args.name ?? "");
   const idx = await loadIndex();
-  const names = idx.mpProfileByNs[idx.ns]?.mpNames ?? {};
+  const ns = assemblyFor(args, idx);
+  const names = idx.mpProfileByNs[ns]?.mpNames ?? {};
   const mp = findMp(query, names);
   if (!mp) {
     return {
@@ -335,8 +344,8 @@ export const mpVotingProfile = async (
       domain: "people",
       kind: "scalar",
       title: bg
-        ? `Не намерих депутат „${query}“ в ${idx.ns}-о НС`
-        : `No MP matched "${query}" in the ${idx.ns}th Assembly`,
+        ? `Не намерих депутат „${query}“ в ${ns}-о НС`
+        : `No MP matched "${query}" in the ${ns}th Assembly`,
       viz: "none",
       facts: { query },
       provenance: ["parliament/votes/index.json"],
@@ -350,11 +359,11 @@ export const mpVotingProfile = async (
       "/parliament/votes/derived/attendance.json",
     ),
   ]);
-  const l = loy.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
-  const a = att.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
+  const l = loy.byNs[ns]?.entries?.find((e) => e.mpId === mp.id);
+  const a = att.byNs[ns]?.entries?.find((e) => e.mpId === mp.id);
   const facts: Record<string, string | number> = {
     name: titleCase(mp.name),
-    ns: idx.ns,
+    ns,
     // deep-link key (hidden from the UI; consumed by ai/render/links.ts)
     mp_id: mp.id,
   };
@@ -369,8 +378,8 @@ export const mpVotingProfile = async (
     domain: "people",
     kind: "scalar",
     title: bg
-      ? `${titleCase(mp.name)} — парламентарен профил (${idx.ns}-о НС)`
-      : `${titleCase(mp.name)} — voting profile (${idx.ns}th Assembly)`,
+      ? `${titleCase(mp.name)} — парламентарен профил (${ns}-о НС)`
+      : `${titleCase(mp.name)} — voting profile (${ns}th Assembly)`,
     viz: "none",
     facts,
     provenance: [
@@ -394,7 +403,8 @@ export const mpSimilarity = async (
   const bg = ctx.lang === "bg";
   const query = String(args.name ?? "");
   const idx = await loadIndex();
-  const names = idx.mpProfileByNs[idx.ns]?.mpNames ?? {};
+  const selectedNs = assemblyFor(args, idx);
+  const names = idx.mpProfileByNs[selectedNs]?.mpNames ?? {};
   const mp = findMp(query, names);
   if (!mp) {
     return {
@@ -402,8 +412,8 @@ export const mpSimilarity = async (
       domain: "people",
       kind: "scalar",
       title: bg
-        ? `Не намерих депутат „${query}“ в ${idx.ns}-о НС`
-        : `No MP matched "${query}" in the ${idx.ns}th Assembly`,
+        ? `Не намерих депутат „${query}“ в ${selectedNs}-о НС`
+        : `No MP matched "${query}" in the ${selectedNs}th Assembly`,
       viz: "none",
       facts: { query },
       provenance: ["parliament/votes/index.json"],
@@ -420,12 +430,12 @@ export const mpSimilarity = async (
   // similar MPs are that assembly's, so `rowNames` follows the assembly we actually read;
   // the deep-link and the person's name stay the CURRENT MP (so /parliament/similarity/:id
   // still resolves them). Newest-first, first hit wins.
-  let entry = d.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
-  let dataNs = idx.ns;
+  let entry = d.byNs[selectedNs]?.entries?.find((e) => e.mpId === mp.id);
+  let dataNs = selectedNs;
   let rowNames = names;
-  if (!entry?.topK?.length) {
+  if (!entry?.topK?.length && args.ns == null) {
     const older = Object.keys(d.byNs)
-      .filter((n) => Number(n) < Number(idx.ns))
+      .filter((n) => Number(n) < Number(selectedNs))
       .sort((a, b) => Number(b) - Number(a));
     for (const ns of older) {
       const nm = idx.mpProfileByNs[ns]?.mpNames ?? {};
@@ -525,7 +535,15 @@ export const voteSearch = async (
   const d = await fetchData<{
     byNs: Record<string, { entries: TopicEntry[] }>;
   }>("/parliament/votes/derived/topic_index.json");
-  const all = (d.byNs[idx.ns]?.entries ?? []).filter(
+  const ns = assemblyFor(args, idx);
+  if (!d.byNs[ns])
+    return noParliament(
+      "voteSearch",
+      ctx,
+      "parliament/votes/derived/topic_index.json",
+      ns,
+    );
+  const all = (d.byNs[ns]?.entries ?? []).filter(
     (e) => typeof e.title === "string" && e.title.length > 0,
   );
   const query = norm(String(args.query ?? ""));
@@ -544,14 +562,32 @@ export const voteSearch = async (
     "решен",
     "votes",
     "voted",
+    "vote",
     "parli",
     "assem",
+    "about",
+    "topic",
   ]);
-  const stems = query
-    .split(" ")
-    .filter((t) => t.length >= 4)
-    .map((t) => t.slice(0, 5))
-    .filter((s) => !STOP.has(s));
+  const EN_TOPIC_STEMS: Record<string, string[]> = {
+    budget: ["бюдже"],
+    health: ["здрав"],
+    healthcare: ["здрав"],
+    education: ["образ"],
+    defence: ["отбра"],
+    defense: ["отбра"],
+    pension: ["пенси"],
+    pensions: ["пенси"],
+    tax: ["данък", "данъч"],
+    taxes: ["данък", "данъч"],
+  };
+  const queryTokens = query.split(" ").filter(Boolean);
+  const stems = [
+    ...queryTokens
+      .filter((t) => t.length >= 4)
+      .map((t) => t.slice(0, 5))
+      .filter((s) => !STOP.has(s)),
+    ...queryTokens.flatMap((t) => EN_TOPIC_STEMS[t] ?? []),
+  ];
   const matched =
     stems.length > 0
       ? all
@@ -569,7 +605,7 @@ export const voteSearch = async (
         ? `Няма намерени гласувания за „${args.query ?? ""}“`
         : `No votes found for "${args.query ?? ""}"`,
       viz: "none",
-      facts: { query: String(args.query ?? ""), ns: idx.ns },
+      facts: { query: String(args.query ?? ""), ns },
       provenance: ["parliament/votes/derived/topic_index.json"],
     };
   }
@@ -590,11 +626,11 @@ export const voteSearch = async (
     kind: "table",
     title: toks.length
       ? bg
-        ? `Гласувания за „${args.query}“ (${idx.ns}-о НС)`
-        : `Votes on "${args.query}" (${idx.ns}th Assembly)`
+        ? `Гласувания за „${args.query}“ (${ns}-о НС)`
+        : `Votes on "${args.query}" (${ns}th Assembly)`
       : bg
-        ? `Най-оспорваните гласувания (${idx.ns}-о НС)`
-        : `Most contested votes (${idx.ns}th Assembly)`,
+        ? `Най-оспорваните гласувания (${ns}-о НС)`
+        : `Most contested votes (${ns}th Assembly)`,
     subtitle: bg ? "за–против–въздържал се" : "yes–no–abstain",
     columns: [
       { key: "date", label: bg ? "Дата" : "Date" },
@@ -605,7 +641,7 @@ export const voteSearch = async (
     rows,
     viz: "none",
     facts: {
-      ns: idx.ns,
+      ns,
       matches: matched.length,
       top: top[0]
         ? `${short(top[0].title)} — ${outcomeLabel(top[0].outcome, ctx.lang)}`

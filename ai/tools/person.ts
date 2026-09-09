@@ -13,6 +13,7 @@
 
 import { isNameMatch } from "../../src/screens/components/linkBasis";
 import { isOfficialSource } from "../../src/lib/officialSources";
+import { clarifyEnvelope } from "./clarify";
 import { fetchDb } from "./dataClient";
 import { officeLabel } from "./officeLabel";
 import type { Envelope, ToolArgs, ToolContext } from "./types";
@@ -79,6 +80,59 @@ type ConnectionsPayload = {
   disclaimer: string;
 } | null;
 
+type PersonLookupHit = { slug?: string; name?: string };
+type ResolvedPerson = NonNullable<PersonProfilePayload>;
+type PersonResolution =
+  | { kind: "found"; profile: ResolvedPerson }
+  | { kind: "ambiguous"; hits: { slug: string; name: string }[] }
+  | { kind: "missing" };
+
+// person_by_name deliberately requires a unique folded full name. For a Latin
+// two-part query, resolve through the shared transliterating person search and
+// then load the stable slug. We only accept a single leading identity; a tie is
+// left unresolved instead of attaching the question to an arbitrary person.
+const resolvePersonProfile = async (
+  query: string,
+): Promise<PersonResolution> => {
+  const direct = await fetchDb<PersonProfilePayload>("person-profile", {
+    name: query,
+  });
+  if (direct?.slug) return { kind: "found", profile: direct };
+  const hits = await fetchDb<PersonLookupHit[]>("person-lookup", {
+    q: query,
+    limit: 10,
+  });
+  const unique = (hits ?? []).filter(
+    (hit): hit is { slug: string; name: string } => !!hit.slug && !!hit.name,
+  );
+  if (unique.length > 1) return { kind: "ambiguous", hits: unique };
+  if (unique.length === 0) return { kind: "missing" };
+  const profile = await fetchDb<PersonProfilePayload>("person-profile", {
+    slug: unique[0].slug,
+  });
+  return profile?.slug ? { kind: "found", profile } : { kind: "missing" };
+};
+
+const ambiguousPerson = (
+  query: string,
+  bg: boolean,
+  tool: "personProfile" | "personConnections" | "personWealth",
+  hits: { slug: string; name: string }[],
+): Envelope =>
+  clarifyEnvelope(
+    bg
+      ? `Кое лице „${query}“ имате предвид?`
+      : `Which person "${query}" do you mean?`,
+    hits.map((hit) => ({
+      label: hit.name,
+      sublabel: hit.slug,
+      tool,
+      args: { name: hit.slug },
+    })),
+    ["person-lookup", "person_by_slug (082_person_api.sql)"],
+    "people",
+  );
+
 const notFound = (
   query: string,
   bg: boolean,
@@ -115,10 +169,11 @@ export const personProfile = async (
   const query = String(args.name ?? args.person ?? "").trim();
   if (!query) return notFound(query, bg);
 
-  const p = await fetchDb<PersonProfilePayload>("person-profile", {
-    name: query,
-  });
-  if (!p || !p.slug) return notFound(query, bg);
+  const resolved = await resolvePersonProfile(query);
+  if (resolved.kind === "ambiguous")
+    return ambiguousPerson(query, bg, "personProfile", resolved.hits);
+  if (resolved.kind === "missing") return notFound(query, bg);
+  const p = resolved.profile;
 
   const offices = p.roles.filter(
     (r) =>
@@ -259,10 +314,12 @@ export const personConnections = async (
 
   // Resolve the name → the person's stable slug (person-profile does slug-or-name), then
   // pull their edges by slug.
-  const prof = await fetchDb<PersonProfilePayload>("person-profile", {
-    name: query,
-  });
-  if (!prof || !prof.slug) return notFound(query, bg, "personConnections");
+  const resolved = await resolvePersonProfile(query);
+  if (resolved.kind === "ambiguous")
+    return ambiguousPerson(query, bg, "personConnections", resolved.hits);
+  if (resolved.kind === "missing")
+    return notFound(query, bg, "personConnections");
+  const prof = resolved.profile;
 
   const conn = await fetchDb<ConnectionsPayload>("person-connections", {
     slug: prof.slug,
@@ -371,10 +428,11 @@ export const personWealth = async (
   if (!query) return notFound(query, bg, "personWealth");
 
   // Resolve name → stable slug (same path personConnections uses), then the series.
-  const prof = await fetchDb<PersonProfilePayload>("person-profile", {
-    name: query,
-  });
-  if (!prof || !prof.slug) return notFound(query, bg, "personWealth");
+  const resolved = await resolvePersonProfile(query);
+  if (resolved.kind === "ambiguous")
+    return ambiguousPerson(query, bg, "personWealth", resolved.hits);
+  if (resolved.kind === "missing") return notFound(query, bg, "personWealth");
+  const prof = resolved.profile;
 
   const wealth = await fetchDb<WealthPayload>("person-wealth", {
     slug: prof.slug,

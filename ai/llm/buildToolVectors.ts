@@ -9,6 +9,7 @@
 // lazy chunk imported by semanticRetrieve.ts only when the constrained router runs.
 
 import { writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { pipeline } from "@huggingface/transformers";
 import { TOOLS } from "../tools/registry";
@@ -30,6 +31,17 @@ const main = async () => {
   });
   const names = TOOLS.map((t) => t.name);
   const texts = names.map((n) => docPrefix(toolDocText(n)));
+  const inputsHash = createHash("sha256")
+    .update(
+      JSON.stringify(
+        TOOLS.map((t) => ({
+          name: t.name,
+          doc: toolDocText(t.name),
+          params: t.params,
+        })),
+      ),
+    )
+    .digest("hex");
 
   const vectors: { name: string; v: number[] }[] = [];
   let dim = 0;
@@ -49,7 +61,13 @@ const main = async () => {
   const out = join(process.cwd(), "ai/llm/tool_vectors.json");
   writeFileSync(
     out,
-    JSON.stringify({ model: EMBED_MODEL, dtype: EMBED_DTYPE, dim, vectors }),
+    JSON.stringify({
+      model: EMBED_MODEL,
+      dtype: EMBED_DTYPE,
+      dim,
+      inputsHash,
+      vectors,
+    }),
   );
   console.error(`wrote ${out}: ${vectors.length} vectors, dim ${dim}`);
 };

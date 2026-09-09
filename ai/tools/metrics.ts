@@ -3,6 +3,7 @@
 
 import { resolveElection } from "./args";
 import {
+  electionsChrono,
   electionByName,
   machinePct,
   totalPartyVotes,
@@ -89,6 +90,41 @@ export const compareElections = (
   args: ToolArgs,
   ctx: ToolContext,
 ): Envelope => {
+  const ambiguous = [args.a, args.b].find((value) => {
+    if (typeof value !== "string" || !/^20\d{2}$/.test(value)) return false;
+    return (
+      electionsChrono().filter((e) => e.name.startsWith(`${value}_`)).length > 1
+    );
+  });
+  if (typeof ambiguous === "string") {
+    const choices = electionsChrono().filter((e) =>
+      e.name.startsWith(`${ambiguous}_`),
+    );
+    const slot = args.a === ambiguous ? "a" : "b";
+    return {
+      tool: "compareElections",
+      domain: "elections",
+      kind: "scalar",
+      title:
+        ctx.lang === "bg"
+          ? `Кои избори през ${ambiguous} г. да сравня?`
+          : `Which ${ambiguous} election should I compare?`,
+      clarify: {
+        prompt:
+          ctx.lang === "bg"
+            ? `През ${ambiguous} г. има повече от един парламентарен вот.`
+            : `There was more than one parliamentary election in ${ambiguous}.`,
+        options: choices.map((e) => ({
+          label: electionFullLabel(e.name, ctx.lang),
+          tool: "compareElections",
+          args: { ...args, [slot]: e.name },
+        })),
+      },
+      viz: "none",
+      facts: { ambiguous_year: ambiguous, elections: choices.length },
+      provenance: ["elections.json"],
+    };
+  }
   const a = resolveElection({ election: args.a }, ctx);
   // `b` defaults to the context election (latest) if omitted
   const b = resolveElection({ election: args.b }, ctx);

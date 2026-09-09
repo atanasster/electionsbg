@@ -33,6 +33,9 @@ type Station = {
   latestReadings?: { pm10?: number; pm25?: number };
 };
 type AirData = {
+  indexName?: string;
+  snapshotAsOf?: string;
+  note?: string;
   pollutants: Record<
     string,
     { bg: string; en: string; unit: string; euLimit?: number }
@@ -49,7 +52,8 @@ export const airQuality = async (
   const d = await fetchData<AirData>("/air/index.json");
   const prefix = place.obshtina.slice(0, 3);
   let stations = d.stations.filter((s) => s.obshtina === place.obshtina);
-  if (stations.length === 0)
+  const exactMunicipality = stations.length > 0;
+  if (!exactMunicipality)
     stations = d.stations.filter((s) => s.obshtina?.startsWith(prefix));
   if (stations.length === 0) {
     return {
@@ -76,15 +80,30 @@ export const airQuality = async (
     pm10: s.latestReadings?.pm10 != null ? round2(s.latestReadings.pm10) : null,
     pm25: s.latestReadings?.pm25 != null ? round2(s.latestReadings.pm25) : null,
   }));
-  const worst = Math.max(...stations.map((s) => s.latestReadings?.pm10 ?? 0));
+  const pm10 = stations
+    .map((s) => s.latestReadings?.pm10)
+    .filter((v): v is number => v != null && Number.isFinite(v));
+  const worst = pm10.length ? Math.max(...pm10) : null;
+  const scopeLabel = exactMunicipality
+    ? ctx.lang === "bg"
+      ? `станции в община ${place.name}`
+      : `stations in ${place.nameEn} municipality`
+    : ctx.lang === "bg"
+      ? `налични станции другаде в област ${place.oblast}`
+      : `available stations elsewhere in ${place.oblastName.en}`;
   return {
     tool: "airQuality",
     domain: "place",
     kind: "table",
     title:
       ctx.lang === "bg"
-        ? `Качество на въздуха — ${place.name}`
-        : `Air quality — ${place.nameEn}`,
+        ? `Средни стойности за тримесечието — ${scopeLabel}`
+        : `Quarterly averages — ${scopeLabel}`,
+    subtitle: d.snapshotAsOf
+      ? ctx.lang === "bg"
+        ? `Период до ${d.snapshotAsOf}; това не са текущи измервания.`
+        : `Period ending ${d.snapshotAsOf}; these are not live readings.`
+      : undefined,
     columns,
     rows,
     viz: "none",
@@ -96,16 +115,26 @@ export const airQuality = async (
     facts: {
       place: place.name,
       stations: stations.length,
-      worst_pm10: round2(worst),
-      eu_limit_pm10: pm10Limit,
-      over_limit:
-        worst > pm10Limit
+      station_scope: scopeLabel,
+      observation_period: d.snapshotAsOf ?? "unknown",
+      averaging_basis:
+        ctx.lang === "bg" ? "тримесечна средна" : "quarterly average",
+      pm10_measurements: pm10.length,
+      worst_pm10:
+        worst == null
           ? ctx.lang === "bg"
-            ? "над нормата"
-            : "over limit"
+            ? "няма данни"
+            : "no data"
+          : round2(worst),
+      eu_daily_limit_pm10: pm10Limit,
+      threshold_comparison:
+        worst == null
+          ? ctx.lang === "bg"
+            ? "неизвестно — няма измерване"
+            : "unknown — no measurement"
           : ctx.lang === "bg"
-            ? "в нормата"
-            : "within limit",
+            ? "не се прилага — тримесечната средна не е съпоставима с дневната норма"
+            : "not applied — a quarterly average is not comparable to the daily limit",
     },
     provenance: ["air/index.json"],
   };
