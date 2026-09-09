@@ -195,7 +195,12 @@ server-side.
 
 1. Resolve the real article URL on the outlet by hand (WebFetch or a browser).
 2. `npm run polls:fetch -- --agency <ID> --url <resolvedArticleUrl>`, then
-   `polls:extract` as in Step 1.
+   `polls:extract` — ⚠️ **only if `<ID>` is TR or AR.** Every press-only
+   agency (Медиана, АФИС, ЦАМ, and the rest of §2.1's site-less list) has no
+   built extractor either (same TR/AR-only gap as Step 1), so
+   `polls:extract -- --agency <ID>` errors for them today. Read the capture
+   yourself and hand-write the draft's evidence, or wait for that agency's
+   extractor to ship.
 3. Lock as `third_party_consensus` (`polls:accept -- <pollId> --locked-by
    third_party_consensus`) **only** when a second, independent outlet's
    capture agrees with the first on every figure — the corpus's existing
