@@ -1421,6 +1421,32 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     },
   },
   {
+    id: "pollsters",
+    label: { bg: "Социологически агенции", en: "Polling agencies" },
+    detail: {
+      bg: "проучвания директно от агенциите",
+      en: "polls straight from the agencies",
+    },
+    desc: {
+      bg: "Осемте наблюдавани социологически агенции — Тренд, Алфа Рисърч, Маркет ЛИНКС, Сова Харис, Мяра, Глобал Метрикс и Галъп Интернешънъл Болкан (собствен сайт + Google News за пресата, тъй като сайтът ѝ е недостъпен) — плюс откриване през Google News за агенциите без сайт (Медиана, АФИС, ЦАМ, Екзакта, Барометър България, ИМП, Online Solutions). Всяко проучване се заключва към собствената публикация на агенцията; Уикипедия служи само за проверка (виж групата по-долу).",
+      en: "The eight watched polling-agency sources — Trend, Alpha Research, Market Links, Sova Harris, Myara, Global Metrics and Gallup International Balkan (own site + a Google News press query, since its own site is unreachable) — plus Google News discovery for the agencies with no website at all (Mediana, AFIS, CAM, Exacta, Barometer Bulgaria, IMP, Online Solutions). Every poll is locked to the agency's own publication; Wikipedia is cross-check only (see the group below).",
+    },
+    url: "https://alpharesearch.bg/",
+    origin: "community",
+    members: [
+      "polls_trend",
+      "polls_alpha_research",
+      "polls_market_links",
+      "polls_sova_harris",
+      "polls_myara",
+      "polls_global_metrics",
+      "polls_gallup",
+      "polls_press",
+    ],
+    skills: ["update-polls"],
+    tags: ["elections", "indicators"],
+  },
+  {
     id: "wiki",
     label: { bg: "Уикипедия", en: "Wikipedia" },
     detail: {
@@ -3216,6 +3242,7 @@ export const EDGES: [string, string][] = [
   ["src:oil_bulletin", "ds:prices"],
   ["src:tibg", "ds:localgov"],
   ["src:ipi", "ds:localgov"],
+  ["src:pollsters", "ds:polls"],
   ["src:wiki", "ds:polls"],
   ["src:wiki", "ds:macro"],
   ["src:geo", "ds:geo"],

@@ -2,6 +2,14 @@ import type { WatchSource } from "../types";
 import { parliamentMps } from "./parliament_mps";
 import { parliamentVotes } from "./parliament_votes";
 import { wikiPolls } from "./wiki_polls";
+import { pollsTrend } from "./polls_trend";
+import { pollsAlphaResearch } from "./polls_alpha_research";
+import { pollsMarketLinks } from "./polls_market_links";
+import { pollsSovaHarris } from "./polls_sova_harris";
+import { pollsMyara } from "./polls_myara";
+import { pollsGlobalMetrics } from "./polls_global_metrics";
+import { pollsGallup } from "./polls_gallup";
+import { pollsPress } from "./polls_press";
 import { wikiGovernments } from "./wiki_governments";
 import { cprsRegister } from "./cprs_register";
 import { cacbgDeclarations } from "./cacbg_declarations";
@@ -150,7 +158,15 @@ export const SOURCES: WatchSource[] = [
   nfcFilmRegister,
   ncfGrantResults,
   nfcCommissions,
-  wikiPolls,
+  wikiPolls, // cross-check only (decision 1) — the eight below are the primary sources
+  pollsTrend,
+  pollsAlphaResearch,
+  pollsMarketLinks,
+  pollsSovaHarris,
+  pollsMyara,
+  pollsGlobalMetrics,
+  pollsGallup,
+  pollsPress,
   wikiGovernments,
   cprsRegister,
   cacbgDeclarations,
