@@ -1,0 +1,140 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2026-03-19",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-2/",
+    "electionDate": null,
+    "respondents": 1001,
+    "genre": "raw_attitudes",
+    "fieldwork": "Mar 13-19 2026",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-2/",
+      "fetchedAt": "2026-09-09T13:16:25.406Z",
+      "sha256": "8a9f7140442b8bba19b80f5bfbdcfdcef3e9c7190d9ecc97147b6fce609ef571",
+      "extractor": "TR",
+      "fieldworkStart": "2026-03-13",
+      "fieldworkEnd": "2026-03-19",
+      "basePhrase": "подкрепа сред заявяващите, че ще гласуват на предстоящите избори",
+      "quotes": {
+        "share:БСП": "БСП на ръба с 4%",
+        "share:Прогресивна България": "Прогресивна България остава лидер в подредбата с 31,1% подкрепа сред заявяващите, че ще гласуват на предстоящите избори",
+        "share:ГЕРБ": "ГЕРБ с 19,7%, а на трета позиция са ",
+        "share:ПП-ДБ": "ПП-ДБ с 11,8%",
+        "share:ДПС": "ДПС с 10,5%, а ",
+        "share:Възраждане": "Възраждане е на пета позиция с 7,9%",
+        "share:БСП-ОЛ": "БСП-ОЛ остава точно на ръба на парламентарната бариера с 4% подкрепа сред гласуващите",
+        "share:Сияние": "Сияние“ с 2,9%",
+        "share:Има такъв народ": "Има такъв народ“ (2,6%), ",
+        "share:АПС": "АПС (1,7%) и ",
+        "share:Величие": "Величие (1,5%)",
+        "sampleSize": "1001 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 13-19 март 2026 г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 4,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 31.1,
+      "nickName_bg": "Прогресивна България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 19.7,
+      "nickName_bg": "ГЕРБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 11.8,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 10.5,
+      "nickName_bg": "ДПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 7.9,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 4,
+      "nickName_bg": "БСП-ОЛ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 2.9,
+      "nickName_bg": "Сияние",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 2.6,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 1.7,
+      "nickName_bg": "АПС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-03-19",
+      "agencyId": "TR",
+      "support": 1.5,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:БСП": "БСП на ръба с 4%",
+    "share:Прогресивна България": "Прогресивна България остава лидер в подредбата с 31,1% подкрепа сред заявяващите, че ще гласуват на предстоящите избори",
+    "share:ГЕРБ": "ГЕРБ с 19,7%, а на трета позиция са ",
+    "share:ПП-ДБ": "ПП-ДБ с 11,8%",
+    "share:ДПС": "ДПС с 10,5%, а ",
+    "share:Възраждане": "Възраждане е на пета позиция с 7,9%",
+    "share:БСП-ОЛ": "БСП-ОЛ остава точно на ръба на парламентарната бариера с 4% подкрепа сред гласуващите",
+    "share:Сияние": "Сияние“ с 2,9%",
+    "share:Има такъв народ": "Има такъв народ“ (2,6%), ",
+    "share:АПС": "АПС (1,7%) и ",
+    "share:Величие": "Величие (1,5%)",
+    "sampleSize": "1001 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 13-19 март 2026 г"
+  },
+  "refused": [
+    {
+      "field": "share:МЕЧ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "МЕЧ с 3,2%"
+    }
+  ]
+}

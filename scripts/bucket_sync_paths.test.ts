@@ -94,6 +94,25 @@ describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
     expect(isExcluded("council/votes/SOF.json")).toBeTruthy();
   });
 
+  // polls-agency-watchers-v1 decision 7 + §6.4: polls/_inbox/ is committed,
+  // pretty-printed operator-review debt (refused claims, provisional ids,
+  // unvetted party shares) and must never reach the bucket — but polls/
+  // ITSELF stays served (polls.json, polls_details.json, agencies.json,
+  // accuracy.json, analysis.json), so this is a CHILD_EXCLUDES case like
+  // budget/municipal_fiscal, not a top-level refusal.
+  it("excludes polls/_inbox/ in both the -x regexes and isExcluded(), while sparing polls/ itself", () => {
+    expect(pkg["bucket:sync"]).toContain("^polls/_inbox/.*");
+    expect(pkg["bucket:sync:dry"]).toContain("^polls/_inbox/.*");
+    expect(isExcluded("polls/_inbox")).toBeTruthy();
+    expect(isExcluded("polls/_inbox/tr-2026-02-18.json")).toBeTruthy();
+    expect(isExcluded("polls")).toBeNull();
+    expect(isExcluded("polls/polls.json")).toBeNull();
+    expect(isExcluded("polls/polls_details.json")).toBeNull();
+    // The CHILD_EXCLUDES twin — a scoped `bucket:sync:paths -- polls` must
+    // not re-carry _inbox/ up with the corpus it IS meant to sync.
+    expect(childExcludeRegexes("polls")).toContain("^_inbox/.*");
+  });
+
   it("both bucket:sync and bucket:sync:dry -x regexes exclude the officials families", () => {
     for (const k of ["bucket:sync", "bucket:sync:dry"] as const) {
       const x = pkg[k].match(/-x '([^']*)'/)?.[1];

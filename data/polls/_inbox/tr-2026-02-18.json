@@ -1,0 +1,113 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2026-02-18",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f/",
+    "electionDate": null,
+    "respondents": 1002,
+    "genre": "raw_attitudes",
+    "fieldwork": "Feb 12-18 2026",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f/",
+      "fetchedAt": "2026-09-09T11:14:53.782Z",
+      "sha256": "59325a710aa798f2d0fe81d03eedef724265dbea2d949f58fea592fbe0c10596",
+      "extractor": "TR",
+      "fieldworkStart": "2026-02-12",
+      "fieldworkEnd": "2026-02-18",
+      "basePhrase": "подкрепата на 32.7% от гласуващите",
+      "quotes": {
+        "share:ГЕРБ-СДС": "ГЕРБ-СДС с 20,4%",
+        "share:ПП-ДБ": "ПП-ДБ (10,9%) и ",
+        "share:ДПС-Ново начало": "ДПС-Ново начало (10,5%)",
+        "share:Възраждане": "Възраждане е на пета позиция със 7,8% подкрепа сред гласуващите",
+        "share:БСП": "БСП (3,8%), както и ",
+        "share:Има такъв народ": "Има такъв народ“ може да разчита на 2,5%, ",
+        "share:Алиансът за права и свободи": "Алиансът за права и свободи разполага с 1,7%, а ",
+        "share:Величие": "Величие има подкрепата на 1,6% сред гласуващите",
+        "sampleSize": "1002 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 12-18 февруари 2026 г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 20.4,
+      "nickName_bg": "ГЕРБ-СДС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 10.9,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 10.5,
+      "nickName_bg": "ДПС-Ново начало",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 7.8,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 3.8,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 2.5,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 1.7,
+      "nickName_bg": "Алиансът за права и свободи",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-02-18",
+      "agencyId": "TR",
+      "support": 1.6,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:ГЕРБ-СДС": "ГЕРБ-СДС с 20,4%",
+    "share:ПП-ДБ": "ПП-ДБ (10,9%) и ",
+    "share:ДПС-Ново начало": "ДПС-Ново начало (10,5%)",
+    "share:Възраждане": "Възраждане е на пета позиция със 7,8% подкрепа сред гласуващите",
+    "share:БСП": "БСП (3,8%), както и ",
+    "share:Има такъв народ": "Има такъв народ“ може да разчита на 2,5%, ",
+    "share:Алиансът за права и свободи": "Алиансът за права и свободи разполага с 1,7%, а ",
+    "share:Величие": "Величие има подкрепата на 1,6% сред гласуващите",
+    "sampleSize": "1002 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 12-18 февруари 2026 г"
+  },
+  "refused": [
+    {
+      "field": "share:МЕЧ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "МЕЧ (3,6%)"
+    }
+  ]
+}

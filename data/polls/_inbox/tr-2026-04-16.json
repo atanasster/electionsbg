@@ -1,0 +1,140 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "tr-2026-04-16",
+    "agencyId": "TR",
+    "source": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-3/",
+    "electionDate": null,
+    "respondents": 1004,
+    "genre": "raw_attitudes",
+    "fieldwork": "Apr 13-16 2026",
+    "provenance": {
+      "url": "https://rctrend.bg/project/%d0%b5%d0%bb%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b0%d0%bb%d0%bd%d0%b8-%d0%bd%d0%b0%d0%b3%d0%bb%d0%b0%d1%81%d0%b8-%d1%81%d0%bf%d1%80%d1%8f%d0%bc%d0%be-%d0%bf%d1%80%d0%b5%d0%b4%d1%81%d1%82%d0%be%d1%8f-3/",
+      "fetchedAt": "2026-09-09T11:14:49.474Z",
+      "sha256": "9cab9cf1dd0422808e032250aad9756dd8dbcbed923b1c7d14d8e9f28daa01a8",
+      "extractor": "TR",
+      "fieldworkStart": "2026-04-13",
+      "fieldworkEnd": "2026-04-16",
+      "basePhrase": "подкрепа сред заявилите, че ще упражнят правото си на глас",
+      "quotes": {
+        "share:Прогресивна България": "Прогресивна България остава лидер с 33,2% подкрепа сред заявилите, че ще упражнят правото си на глас",
+        "share:ГЕРБ-СДС": "ГЕРБ-СДС с 19,1%",
+        "share:ПП-ДБ": "ПП-ДБ (11,2%) запазва крехка преднина пред ",
+        "share:Възраждане": "Възраждане“ с 7,1% сред гласуващите",
+        "share:БСП": "БСП декларират, че ще гласуват 4%, но по-висока активност ще изложи на риск тяхното представителство",
+        "share:Сияние": "Сияние“ декларират подкрепа 3,9% от гласуващите, а ",
+        "share:МЕЧ": "МЕЧ също остава близо до бариерата с 3,7%",
+        "share:Има такъв народ": "Има такъв народ (2,1%), ",
+        "share:Величие": "Величие (1,7%), ",
+        "share:Алианс за права и свободи": "Алианс за права и свободи (1,6%) и ",
+        "share:Синя България": "Синя България (1%)",
+        "sampleSize": "1004 ефективни интервюта",
+        "fieldwork": "Период на провеждане: 13-16 април 2026 г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 33.2,
+      "nickName_bg": "Прогресивна България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 19.1,
+      "nickName_bg": "ГЕРБ-СДС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 11.2,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 7.1,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 4,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 3.9,
+      "nickName_bg": "Сияние",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 3.7,
+      "nickName_bg": "МЕЧ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 2.1,
+      "nickName_bg": "Има такъв народ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 1.7,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 1.6,
+      "nickName_bg": "Алианс за права и свободи",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "tr-2026-04-16",
+      "agencyId": "TR",
+      "support": 1,
+      "nickName_bg": "Синя България",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "TR",
+  "evidence": {
+    "share:Прогресивна България": "Прогресивна България остава лидер с 33,2% подкрепа сред заявилите, че ще упражнят правото си на глас",
+    "share:ГЕРБ-СДС": "ГЕРБ-СДС с 19,1%",
+    "share:ПП-ДБ": "ПП-ДБ (11,2%) запазва крехка преднина пред ",
+    "share:Възраждане": "Възраждане“ с 7,1% сред гласуващите",
+    "share:БСП": "БСП декларират, че ще гласуват 4%, но по-висока активност ще изложи на риск тяхното представителство",
+    "share:Сияние": "Сияние“ декларират подкрепа 3,9% от гласуващите, а ",
+    "share:МЕЧ": "МЕЧ също остава близо до бариерата с 3,7%",
+    "share:Има такъв народ": "Има такъв народ (2,1%), ",
+    "share:Величие": "Величие (1,7%), ",
+    "share:Алианс за права и свободи": "Алианс за права и свободи (1,6%) и ",
+    "share:Синя България": "Синя България (1%)",
+    "sampleSize": "1004 ефективни интервюта",
+    "fieldwork": "Период на провеждане: 13-16 април 2026 г"
+  },
+  "refused": [
+    {
+      "field": "share:ДПС",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "ДПС (10,2%)"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2026-03-26",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1045-obshtestveni-i-elektoralni-naglasi.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Mar 19-26 2026",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1045-obshtestveni-i-elektoralni-naglasi.html",
+      "fetchedAt": "2026-09-09T11:14:56.628Z",
+      "sha256": "11370977f2d5c1654e3716d2d32d4191c3c0962ad8e07f800335c1e89eaa0d41",
+      "extractor": "AR",
+      "fieldworkStart": "2026-03-19",
+      "fieldworkEnd": "2026-03-26",
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "Обем на извадката: 1000 души",
+        "fieldwork": "Период на провеждане: 19 - 26 март 2026 г"
+      }
+    }
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "Обем на извадката: 1000 души",
+    "fieldwork": "Период на провеждане: 19 - 26 март 2026 г"
+  },
+  "refused": [
+    {
+      "field": "shares",
+      "reason": "text yielded only 0 share(s) and 2 chart image(s) look like a labelled table — likely a chart-only post (decision 18); the Gemini Vision fallback this needs is not yet built",
+      "quote": ""
+    }
+  ]
+}

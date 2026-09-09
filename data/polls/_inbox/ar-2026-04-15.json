@@ -1,0 +1,122 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2026-04-15",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1047-obshtestveni-naglasi-na-finala-na-predizbornata-kampania.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "raw_attitudes",
+    "fieldwork": "Apr 13-15 2026",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1047-obshtestveni-naglasi-na-finala-na-predizbornata-kampania.html",
+      "fetchedAt": "2026-09-09T11:14:56.458Z",
+      "sha256": "76393bf6e016d5257dd2b2b7e70b9b3b92f9c538aa0f69a97c67f9536a601081",
+      "extractor": "AR",
+      "fieldworkStart": "2026-04-13",
+      "fieldworkEnd": "2026-04-15",
+      "basePhrase": "от сигурните, че ще гласуват в неделя",
+      "quotes": {
+        "share:Прогресивна България": "Прогресивна България – 34.2% от сигурните, че ще гласуват в неделя",
+        "share:ГЕРБ-СДС": "ГЕРБ-СДС с 19.5%",
+        "share:ПП-ДБ": "ПП-ДБ с 11.6%",
+        "share:Възраждане": "Възраждане се очертава като петата почти сигурна партия в 52-ия Парламент с подкрепа от 5.8%",
+        "share:БСП": "БСП показа способност за мобилизация в хода на кампанията и финишира на ръба на парламентарното представителство с 4%",
+        "share:Сияние": "Сияние“ също придобива видимост и различимост по време на кампанията с плавен възходящ тренд (3.2%)",
+        "share:Величие": "Величие (2.9%) и ",
+        "share:ИТН": "ИТН (1.7%) и ",
+        "share:АПС": "АПС (1.3%) се очертават с най-ниска подкрепа от сегашните парламентарни партии",
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 13- 15 април 2026г"
+      }
+    }
+  },
+  "details": [
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 34.2,
+      "nickName_bg": "Прогресивна България",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 19.5,
+      "nickName_bg": "ГЕРБ-СДС",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 11.6,
+      "nickName_bg": "ПП-ДБ",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 5.8,
+      "nickName_bg": "Възраждане",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 4,
+      "nickName_bg": "БСП",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 3.2,
+      "nickName_bg": "Сияние",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 2.9,
+      "nickName_bg": "Величие",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 1.7,
+      "nickName_bg": "ИТН",
+      "nickName_en": ""
+    },
+    {
+      "pollId": "ar-2026-04-15",
+      "agencyId": "AR",
+      "support": 1.3,
+      "nickName_bg": "АПС",
+      "nickName_en": ""
+    }
+  ],
+  "residual": null,
+  "genre": "raw_attitudes",
+  "extractor": "AR",
+  "evidence": {
+    "share:Прогресивна България": "Прогресивна България – 34.2% от сигурните, че ще гласуват в неделя",
+    "share:ГЕРБ-СДС": "ГЕРБ-СДС с 19.5%",
+    "share:ПП-ДБ": "ПП-ДБ с 11.6%",
+    "share:Възраждане": "Възраждане се очертава като петата почти сигурна партия в 52-ия Парламент с подкрепа от 5.8%",
+    "share:БСП": "БСП показа способност за мобилизация в хода на кампанията и финишира на ръба на парламентарното представителство с 4%",
+    "share:Сияние": "Сияние“ също придобива видимост и различимост по време на кампанията с плавен възходящ тренд (3.2%)",
+    "share:Величие": "Величие (2.9%) и ",
+    "share:ИТН": "ИТН (1.7%) и ",
+    "share:АПС": "АПС (1.3%) се очертават с най-ниска подкрепа от сегашните парламентарни партии",
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 13- 15 април 2026г"
+  },
+  "refused": [
+    {
+      "field": "share:МЕЧ",
+      "reason": "quote too short to be evidence (<12 chars after normalisation)",
+      "quote": "МЕЧ (2.8%)"
+    }
+  ]
+}

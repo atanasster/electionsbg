@@ -55,6 +55,14 @@ const GZIP_EXTS = "json,svg,xml,txt,html,css,md";
 export const isExcluded = (rel: string): string | null => {
   if (rel === "_cache" || rel.startsWith("_cache/"))
     return "_cache/ is a local build cache";
+  // polls-agency-watchers-v1 decision 7 + §6.4: an inbox draft is committed,
+  // pretty-printed, operator-review debt — refused claims, provisional ids,
+  // party shares a sentence-rule heuristic pulled and the evidence gate has
+  // not yet been asked to verify by a human. `polls/` ITSELF stays served
+  // (the corpus files `usePolls` reads), so this is a CHILD_EXCLUDES case
+  // (the twin below), not a top-level `rel === "polls"` refusal.
+  if (rel === "polls/_inbox" || rel.startsWith("polls/_inbox/"))
+    return "polls/_inbox/ is committed operator-review debt (decision 7) — never published to the bucket";
   if (rel === "funds" || rel.startsWith("funds/"))
     return "funds/ is served from Cloud SQL (db:load:funds:pg:cloud)";
   // Open calls are Cloud-SQL-served (open_calls, migration 142) exactly like funds/. The
@@ -446,6 +454,11 @@ export const isExcluded = (rel: string): string | null => {
 // blanket `search_index.json` match: parliament/votes/derived/search_index.json IS bucket-
 // served, so the pattern must be anchored to the officials path.
 const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
+  // Under the still-served polls/ parent (polls.json, polls_details.json,
+  // agencies.json, accuracy.json, analysis.json) — a scoped
+  // `bucket:sync:paths -- polls` must not carry committed inbox drafts
+  // (decision 7) up with the corpus.
+  { path: "polls/_inbox", isDir: true },
   // Under the still-served person/ parent (prerender_slugs.json), so a scoped
   // `bucket:sync:paths -- person` must not carry the 12 MB load source up with it.
   { path: "person/tr_name_fold_people.tsv", isDir: false },
