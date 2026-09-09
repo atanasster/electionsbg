@@ -20,6 +20,20 @@ describe("chat question adapter", () => {
     }
   });
 
+  it.each(rawPrompts)(
+    "preserves $id legacy scope through selector dispatch",
+    (prompt) => {
+      for (const lang of ["bg", "en"] as const) {
+        const intent = toChatQuestionIntent(prompt.id, lang, {});
+        const expectedArgs = {
+          ...prompt.args[lang],
+          ...(prompt.id === "openTenders" ? { year: 2025 } : {}),
+        };
+        expect(intent.args).toEqual(expectedArgs);
+      }
+    },
+  );
+
   it("uses the language-specific compatibility fixture when no values are supplied", () => {
     expect(questionById("partyResult")?.defaults).toEqual({});
     expect(toChatQuestionIntent("partyResult", "bg").args).toEqual({
@@ -28,5 +42,14 @@ describe("chat question adapter", () => {
     expect(toChatQuestionIntent("partyResult", "en").args).toEqual({
       party: "gerb",
     });
+  });
+
+  it("overlays a selector value and shows the exact executed entity", () => {
+    const intent = toChatQuestionIntent("companyConnections", "bg", {
+      company: "000012345",
+    });
+    expect(intent.args.company).toBe("000012345");
+    expect(intent.text).toContain("000012345");
+    expect(intent.text).not.toContain("831646048");
   });
 });

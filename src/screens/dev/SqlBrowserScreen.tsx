@@ -9,6 +9,7 @@
 // See docs/plans/postgres-migration-v1.md.
 
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Fragment,
   useCallback,
@@ -23,16 +24,15 @@ import { Prec } from "@codemirror/state";
 import { sql, PostgreSQL } from "@codemirror/lang-sql";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { useQuestionLookupAdapters } from "@/components/questions/useQuestionLookupAdapters";
+import { QuestionSelector } from "@/lib/questions/selector";
+import { SQL_QUESTION_CATALOG } from "@/lib/questions/sql/catalog";
+import { renderSqlQuestion } from "@/lib/questions/sql/render";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  parseSqlQuestionUrl,
+  writeSqlQuestionUrl,
+} from "@/lib/questions/sql/url";
+import type { RenderedSqlQuestion } from "@/lib/questions/sql/types";
 import { ALL_QUERIES, LIBRARY } from "./sqlLibrary";
 import { Input } from "@/components/ui/input";
 import { useNoindex } from "@/lib/useNoindex";
@@ -208,6 +208,9 @@ export const SqlBrowserScreen = () => {
   // stable to index: the body is a query console whose content is whatever the
   // reader typed. Not prerendered, not in the sitemap (site-hygiene-v1 T2).
   useNoindex();
+  const { i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
+  const questionLookupAdapters = useQuestionLookupAdapters();
   const [schema, setSchema] = useState<SchemaResponse | null>(null);
   // `?q=<library id>` seeds the editor, so the map's "Links to" rows can offer
   // "run this query" and the map's claim ("these two join on ЕИК") becomes
@@ -215,13 +218,23 @@ export const SqlBrowserScreen = () => {
   // — never raw SQL from the URL, which would let a link hand a visitor a
   // query written by whoever sent it.
   const [searchParams, setSearchParams] = useSearchParams();
-  const seeded = useMemo(() => {
-    const id = searchParams.get("q");
-    return id ? ALL_QUERIES.find((x) => x.id === id) : undefined;
-  }, [searchParams]);
+  const parsedUrl = useMemo(
+    () => parseSqlQuestionUrl(searchParams),
+    [searchParams],
+  );
+  const seeded = parsedUrl.kind === "valid" ? parsedUrl.rendered : undefined;
+  const urlError =
+    parsedUrl.kind === "invalid"
+      ? lang === "bg"
+        ? `Невалидна връзка към SQL справка: ${parsedUrl.error}`
+        : `Invalid SQL question link: ${parsedUrl.error}`
+      : null;
   const [sqlText, setSqlText] = useState(
     () => seeded?.sql ?? LIBRARY[0].queries[0].sql,
   );
+  const [activeRendered, setActiveRendered] =
+    useState<RenderedSqlQuestion | null>(seeded ?? null);
+  const viewRef = useRef<EditorView | null>(null);
 
   /**
    * Set the editor AND keep `?q=` honest. Anything that is not a library pick
@@ -230,16 +243,12 @@ export const SqlBrowserScreen = () => {
    * somebody else different SQL from what the sender was looking at.
    */
   const setSql = useCallback(
-    (sql: string, libraryId?: string) => {
+    (sql: string, rendered?: RenderedSqlQuestion) => {
       setSqlText(sql);
-      setSearchParams(
-        (p) => {
-          if (libraryId) p.set("q", libraryId);
-          else p.delete("q");
-          return p;
-        },
-        { replace: true },
-      );
+      setActiveRendered(rendered ?? null);
+      setSearchParams((current) => writeSqlQuestionUrl(current, rendered), {
+        replace: !rendered,
+      });
     },
     [setSearchParams],
   );
@@ -262,7 +271,6 @@ export const SqlBrowserScreen = () => {
   const [sort, setSort] = useState<{ col: string; dir: 1 | -1 } | null>(null);
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
 
-  const viewRef = useRef<EditorView | null>(null);
   const runRef = useRef<(explain: boolean) => void>(() => {});
   const dark = useDarkMode();
 
@@ -273,6 +281,36 @@ export const SqlBrowserScreen = () => {
       .catch((e) => setError(String(e)));
   }, []);
   useEffect(() => loadSchema(), [loadSchema]);
+
+  useEffect(() => {
+    if (!seeded) return;
+    setActiveRendered(seeded);
+    if (seeded.sql === sqlText) return;
+    setSqlText(seeded.sql);
+    viewRef.current?.dispatch({ selection: { anchor: 0 } });
+    // `seeded` changes on browser Back/Forward or a valid shared URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seeded]);
+
+  const generateSql = useCallback(
+    (selection: {
+      questionId: string;
+      parameters: Record<string, unknown>;
+    }) => {
+      try {
+        const rendered = renderSqlQuestion(
+          selection.questionId,
+          selection.parameters,
+        );
+        setError(null);
+        setSql(rendered.sql, rendered);
+        viewRef.current?.dispatch({ selection: { anchor: 0 } });
+      } catch (generationError) {
+        setError(String(generationError));
+      }
+    },
+    [setSql],
+  );
 
   const execute = useCallback(
     async (text: string, plan: boolean) => {
@@ -646,62 +684,20 @@ export const SqlBrowserScreen = () => {
 
       {/* Main */}
       <main className="flex min-w-0 flex-1 flex-col">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-border p-2">
-          {/* One grouped menu, not a pill row: 31 queries across 12 purposes is
-              not a toolbar, and the row already wrapped at 10. Radix
-              DropdownMenu (never Select, never a native <select>) — see
-              PackSelect.tsx for why modal={false} is load-bearing. */}
-          <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="flex h-7 items-center gap-2 rounded-md border border-input px-2 text-xs text-secondary-foreground focus:outline-none focus:ring-1 focus:ring-ring [&[data-state=open]>svg]:rotate-180"
-              >
-                Query library
-                <ChevronDown className="size-4 shrink-0 opacity-50 transition-transform duration-200" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="start"
-              className="max-h-[70vh] w-[26rem] overflow-y-auto"
-            >
-              {LIBRARY.map((g, gi) => (
-                <DropdownMenuGroup key={g.purpose}>
-                  {gi > 0 && <DropdownMenuSeparator />}
-                  <DropdownMenuLabel className="text-[10px] uppercase tracking-wide text-muted-foreground/70">
-                    {g.purpose}
-                  </DropdownMenuLabel>
-                  {g.queries.map((q) => (
-                    <DropdownMenuItem
-                      key={q.label}
-                      onSelect={() => {
-                        // replace, not push: flipping through the library
-                        // should not fill the back button with editor states.
-                        setSql(q.sql, q.id);
-                      }}
-                      className="flex cursor-default flex-col items-start gap-0.5 py-1.5"
-                    >
-                      <span className="text-xs font-medium">
-                        {q.label}
-                        {q.cost && q.cost !== "fast" && (
-                          <span className="ml-1.5 font-normal text-muted-foreground">
-                            · {q.cost}
-                          </span>
-                        )}
-                      </span>
-                      {/* What the reader learns, not what the SQL does. */}
-                      <span className="text-[11px] leading-snug text-muted-foreground">
-                        {q.answers}
-                      </span>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuGroup>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <span className="text-[11px] text-muted-foreground">
-            {ALL_QUERIES.length} queries · {LIBRARY.length} topics
-          </span>
+        <div className="border-b border-border p-2">
+          <QuestionSelector
+            key={`${seeded?.recipeId ?? "new"}:${JSON.stringify(seeded?.parameters ?? {})}`}
+            catalog={SQL_QUESTION_CATALOG}
+            surface="sql"
+            lang={lang}
+            lookupAdapters={questionLookupAdapters}
+            initialQuestionId={seeded?.questionId}
+            initialParameterValues={seeded?.parameters}
+            onSelect={generateSql}
+          />
+          <p className="mt-1 text-[11px] text-muted-foreground">
+            {ALL_QUERIES.length} {lang === "bg" ? "SQL справки" : "SQL queries"}
+          </p>
         </div>
 
         <div className="border-b border-border">
@@ -710,7 +706,13 @@ export const SqlBrowserScreen = () => {
             height="34vh"
             theme={dark ? oneDark : undefined}
             extensions={extensions}
-            onChange={(v) => setSql(v)}
+            onChange={(value) => {
+              if (activeRendered?.sql === value) {
+                setSqlText(value);
+                return;
+              }
+              setSql(value);
+            }}
             onCreateEditor={(view) => (viewRef.current = view)}
             basicSetup={{ autocompletion: true }}
           />
@@ -784,9 +786,9 @@ export const SqlBrowserScreen = () => {
           )}
         </div>
 
-        {error && (
+        {(error || urlError) && (
           <pre className="m-2 whitespace-pre-wrap rounded border border-destructive/40 bg-destructive/10 p-2 text-xs text-destructive">
-            {error}
+            {error || urlError}
           </pre>
         )}
 

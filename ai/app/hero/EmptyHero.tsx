@@ -8,6 +8,7 @@
 import { useContext } from "react";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark } from "@/theme/utils";
+import { questionById } from "@/lib/questions/catalog";
 import type { Lang } from "../../tools/types";
 import heroLight from "../../assets/hero-bg-light.webp";
 import heroDark from "../../assets/hero-bg-dark.webp";
@@ -24,12 +25,14 @@ export const EmptyHero = ({
   onPick,
 }: {
   lang: Lang;
-  onPick: (q: string) => void;
+  onPick: (questionId: string) => void;
 }) => {
   const { theme } = useContext(ThemeContext);
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const bg = theme === themeDark ? heroDark : heroLight;
-  const q = (bg: string, en: string) => () => onPick(lang === "bg" ? bg : en);
+  const q = (questionId: string) => () => onPick(questionId);
+  const question = (questionId: string) =>
+    questionById(questionId)?.question[lang] ?? questionId;
 
   return (
     <div className="relative isolate flex min-h-[360px] flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl border border-border/60">
@@ -66,69 +69,39 @@ export const EmptyHero = ({
             rotate={-3}
             title={t("Резултати", "Results")}
             source={t("Избори · ЦИК", "Elections · CEC")}
-            ariaLabel={t(
-              "Попитай за резултатите от последните избори",
-              "Ask about the latest election results",
-            )}
-            onClick={q(
-              "Какви са резултатите от последните избори?",
-              "What are the results of the latest election?",
-            )}
+            ariaLabel={question("nationalResults")}
+            onClick={q("nationalResults")}
           />
           <MiniLineCard
             rotate={3}
             className="translate-y-3"
             title={t("Активност", "Turnout")}
-            source={t("2005–2024", "2005–2024")}
-            ariaLabel={t(
-              "Попитай как се променя активността",
-              "Ask how turnout has changed",
-            )}
-            onClick={q(
-              "Как се променя избирателната активност от 2005 насам?",
-              "How has voter turnout changed since 2005?",
-            )}
+            source={t("Исторически данни", "Historical data")}
+            ariaLabel={question("turnoutSeries")}
+            onClick={q("turnoutSeries")}
           />
           <MiniMapCard
             rotate={-4}
             title={t("По области", "By region")}
-            source={t("28 области", "28 regions")}
-            ariaLabel={t(
-              "Попитай за резултатите по области",
-              "Ask about results by region",
-            )}
-            onClick={q(
-              "Покажи резултатите по области.",
-              "Show the results by region.",
-            )}
+            source={t("Области и МИР", "Regions and districts")}
+            ariaLabel={question("regionResults")}
+            onClick={q("regionResults")}
           />
           <MiniHemicycleCard
             rotate={4}
             className="hidden translate-y-3 sm:block"
             title={t("Депутати", "Seats")}
             source={t("Народно събрание", "National Assembly")}
-            ariaLabel={t(
-              "Попитай колко места има всяка партия",
-              "Ask how many seats each party holds",
-            )}
-            onClick={q(
-              "Колко места има всяка партия в парламента?",
-              "How many seats does each party hold in parliament?",
-            )}
+            ariaLabel={question("parliamentSeats")}
+            onClick={q("parliamentSeats")}
           />
           <MiniDonutCard
             rotate={-3}
             className="hidden sm:block"
             title={t("Бюджет", "Budget")}
             source={t("Министерство на финансите", "Ministry of Finance")}
-            ariaLabel={t(
-              "Попитай за държавния бюджет",
-              "Ask about the state budget",
-            )}
-            onClick={q(
-              "За какво се харчи държавният бюджет?",
-              "What is the state budget spent on?",
-            )}
+            ariaLabel={question("budgetByFunction")}
+            onClick={q("budgetByFunction")}
           />
         </div>
 

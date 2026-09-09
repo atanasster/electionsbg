@@ -43,6 +43,10 @@ export interface QuestionSelectorProps {
   initialCategoryId?: string;
   initialSubcategoryId?: string;
   initialQuestionId?: string;
+  initialParameterValues?: Record<string, unknown>;
+  valuesForQuestion?: (
+    question: QuestionDefinition,
+  ) => Record<string, unknown> | undefined;
   className?: string;
 }
 
@@ -251,6 +255,8 @@ export const QuestionSelector = ({
   initialCategoryId,
   initialSubcategoryId,
   initialQuestionId,
+  initialParameterValues = {},
+  valuesForQuestion,
   className = "",
 }: QuestionSelectorProps) => {
   const copy = text[lang];
@@ -275,7 +281,13 @@ export const QuestionSelector = ({
   const [showAll, setShowAll] = useState(false);
   const [includeUnavailable, setIncludeUnavailable] = useState(false);
   const [values, setValues] = useState<Record<string, unknown>>(
-    requestedQuestion?.defaults ?? {},
+    requestedQuestion
+      ? {
+          ...(valuesForQuestion?.(requestedQuestion) ??
+            requestedQuestion.defaults),
+          ...initialParameterValues,
+        }
+      : {},
   );
   const [lookupChoice, setLookupChoice] = useState<
     Record<string, QuestionLookupOption | undefined>
@@ -356,7 +368,7 @@ export const QuestionSelector = ({
   };
   const chooseQuestion = (selected: QuestionDefinition) => {
     setQuestionId(selected.id);
-    setValues(selected.defaults);
+    setValues(valuesForQuestion?.(selected) ?? selected.defaults);
     setLookupChoice({});
     setErrors({});
   };

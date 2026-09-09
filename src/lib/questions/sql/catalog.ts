@@ -112,16 +112,26 @@ const parameterLabel = (id: string): LocalizedText =>
     limit: { bg: "Брой резултати", en: "Result limit" },
   })[id] ?? { bg: id, en: id };
 
-const questionKind = (kind: string): QuestionParameterKind =>
-  kind === "integer" || kind === "quarter"
-    ? "number"
-    : kind === "year"
-      ? "year"
-      : kind === "date"
-        ? "date"
-        : kind === "enum"
-          ? "enum"
-          : "string";
+const questionKind = (
+  recipeId: string,
+  id: string,
+  kind: string,
+): QuestionParameterKind =>
+  kind === "code" && (id === "eik" || id === "company")
+    ? "company"
+    : kind === "code" && id === "ekatte"
+      ? "place"
+      : recipeId === "find-a-person" && id === "name"
+        ? "person"
+        : kind === "integer" || kind === "quarter"
+          ? "number"
+          : kind === "year"
+            ? "year"
+            : kind === "date"
+              ? "date"
+              : kind === "enum"
+                ? "enum"
+                : "string";
 
 export const SQL_QUESTION_DEFINITIONS: QuestionDefinition[] =
   LEGACY_SQL_RECIPES.map((recipe) => {
@@ -137,7 +147,7 @@ export const SQL_QUESTION_DEFINITIONS: QuestionDefinition[] =
       aliases: { en: [recipe.label] },
       parameters: recipe.parameters.map((parameter) => ({
         id: parameter.id,
-        kind: questionKind(parameter.kind),
+        kind: questionKind(recipe.id, parameter.id, parameter.kind),
         required: parameter.required,
         label: parameterLabel(parameter.id),
         min: parameter.min,
@@ -173,11 +183,6 @@ export const SQL_QUESTION_CATALOG: QuestionCatalog = {
       return recipe
         ? {
             ...question,
-            sql: {
-              status: "ready" as const,
-              capabilityId: recipe.id,
-              version: 1,
-            },
             sourceIds: [
               ...new Set([...question.sourceIds, ...recipe.relations]),
             ],

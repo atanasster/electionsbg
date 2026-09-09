@@ -24,7 +24,12 @@ import {
   Volume2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQuestionLookupAdapters } from "@/components/questions/useQuestionLookupAdapters";
 import { cn } from "@/lib/utils";
+import { QUESTION_CATALOG, questionById } from "@/lib/questions/catalog";
+import { QuestionSelector } from "@/lib/questions/selector";
+import { questionSqlHref } from "@/lib/questions/sql/availability";
+import type { ResolvedQuestionSelection } from "@/lib/questions/types";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,7 +61,7 @@ import {
 import { followUps } from "./followups";
 import { EmptyHero } from "./hero/EmptyHero";
 import { ModelPicker } from "./ModelPicker";
-import { STARTERS } from "./starters";
+import { toChatQuestionIntent } from "./questionAdapter";
 import { matchSuggestions } from "./suggestions";
 import { useSpeech } from "./useSpeech";
 import { useVoiceInput } from "./voice";
@@ -86,27 +91,11 @@ const STORAGE_KEY = "naiasno.chat.v1";
 const PROMPT_HISTORY_KEY = "naiasno.chat.history.v1";
 const PROMPT_HISTORY_MAX = 50;
 
-// How many starter chips to show under the composer.
-const STARTER_COUNT = 5;
-
 // Shared suggestion-chip styling (starters + follow-ups). A comfortable ~40px
 // tap target on a phone (min-h), compacting to a denser pill from sm up where a
 // pointer is likelier and vertical room is scarcer.
 const CHIP =
   "inline-flex min-h-[40px] items-center rounded-full border border-input bg-card px-3 text-xs text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50 sm:min-h-0 sm:px-2.5 sm:py-1 sm:text-[11px]";
-
-const normPrompt = (s: string): string =>
-  s.toLowerCase().replace(/\s+/g, " ").trim();
-
-// Fisher-Yates; returns a new shuffled copy (never mutates the input).
-const shuffle = <T,>(arr: T[]): T[] => {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-};
 
 // Nearest scrollable ancestor of `el` (the element that actually scrolls). Used
 // to auto-scroll the conversation: we scroll the scrollport itself to its foot
@@ -374,6 +363,10 @@ export const Chat = ({
   // the active disambiguation chooser (a tool needs the user to pick which
   // same-name entity they meant), shown as a modal; null when none is pending.
   const [clarify, setClarify] = useState<ClarifyRequest | null>(null);
+  const [showQuestionSelector, setShowQuestionSelector] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] =
+    useState<ResolvedQuestionSelection | null>(null);
+  const questionLookupAdapters = useQuestionLookupAdapters();
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
@@ -468,6 +461,7 @@ export const Chat = ({
   const send = async (text: string) => {
     const q = text.trim();
     if (!q || busy) return;
+    setSelectedQuestion(null);
     speech.stop();
     pinned.current = true; // a fresh question always follows to the foot
     setInput("");
@@ -523,6 +517,95 @@ export const Chat = ({
     taRef.current?.focus();
   };
 
+  const runCatalogIntent = async (
+    selection: ResolvedQuestionSelection | { questionId: string },
+  ) => {
+    if (busy) return;
+    const intent = toChatQuestionIntent(
+      selection.questionId,
+      lang,
+      "parameters" in selection ? selection.parameters : undefined,
+    );
+    speech.stop();
+    pinned.current = true;
+    setInput("");
+    setPromptHistory((history) =>
+      history[0] === intent.text
+        ? history
+        : [intent.text, ...history].slice(0, PROMPT_HISTORY_MAX),
+    );
+    histIdx.current = -1;
+    histDraft.current = "";
+    const aId = nextId();
+    setMessages((current) => [
+      ...current,
+      { id: nextId(), role: "user", text: intent.text },
+      { id: aId, role: "assistant", text: "", env: null },
+    ]);
+    setBusy(true);
+    const provider = engine.provider;
+    const onDelta = (partial: string) =>
+      setMessages((current) =>
+        current.map((message) =>
+          message.id === aId ? { ...message, text: partial } : message,
+        ),
+      );
+    try {
+      const response = provider.runChoice
+        ? await provider.runChoice(
+            intent.tool,
+            intent.args,
+            { lang, election, area: readArea() },
+            onDelta,
+          )
+        : await runToolChoice(
+            { bg: "Без AI (офлайн)", en: "Basic (offline)" },
+            intent.tool,
+            intent.args,
+            { lang, election, area: readArea() },
+          );
+      setMessages((current) =>
+        current.map((message) =>
+          message.id === aId
+            ? {
+                ...message,
+                text: response.text,
+                env: response.env,
+                meta: response.meta,
+                tool: response.tool,
+                args: response.args,
+                lang,
+              }
+            : message,
+        ),
+      );
+      if (response.env?.clarify) setClarify(response.env.clarify);
+    } catch {
+      setMessages((current) =>
+        current.map((message) =>
+          message.id === aId
+            ? {
+                ...message,
+                text: t(
+                  "Въпросът не можа да бъде изпълнен. Опитайте отново.",
+                  "The question could not be run. Please try again.",
+                ),
+              }
+            : message,
+        ),
+      );
+    } finally {
+      setBusy(false);
+      setShowQuestionSelector(false);
+      taRef.current?.focus();
+    }
+  };
+
+  const selectCatalogQuestion = (selection: ResolvedQuestionSelection) => {
+    setSelectedQuestion(selection);
+    void runCatalogIntent(selection);
+  };
+
   // The user picked one option from a disambiguation chooser: re-run the tool
   // with the pinned id (no routing — the entity is now unambiguous). Mirrors
   // `send`, but goes straight to the provider's runChoice (falls back to a
@@ -532,6 +615,7 @@ export const Chat = ({
   const choose = async (opt: ClarifyOption) => {
     setClarify(null);
     if (busy) return;
+    setSelectedQuestion(null);
     speech.stop();
     pinned.current = true;
     const aId = nextId();
@@ -772,35 +856,17 @@ export const Chat = ({
   const canNarrate =
     engine.providerId !== "rules" && engine.load.phase === "ready";
 
-  // Stable key of every question the user has already asked. Recomputed each
-  // render but yields the same string while the conversation's questions don't
-  // change — so the starters memo below only reshuffles when a new prompt is
-  // actually sent, not on every keystroke or streaming token.
-  const askedKey = useMemo(
-    () =>
-      [
-        ...new Set(
-          messages
-            .filter((m) => m.role === "user")
-            .map((m) => normPrompt(m.text)),
-        ),
-      ]
-        .sort()
-        .join("|"),
-    [messages],
-  );
-
-  // Randomized starter chips with already-asked prompts dropped, so a just-used
-  // suggestion doesn't reappear. Fresh (unasked) prompts come first; if every
-  // prompt has been asked we top up with the asked ones rather than show none.
-  const starters = useMemo(() => {
-    const asked = new Set(askedKey ? askedKey.split("|") : []);
-    const isAsked = (s: { bg: string; en: string }) =>
-      asked.has(normPrompt(s.bg)) || asked.has(normPrompt(s.en));
-    const fresh = shuffle(STARTERS.filter((s) => !isAsked(s)));
-    const stale = shuffle(STARTERS.filter(isAsked));
-    return [...fresh, ...stale].slice(0, STARTER_COUNT);
-  }, [askedKey]);
+  const selectedSqlQuestion = selectedQuestion
+    ? questionById(selectedQuestion.questionId)
+    : undefined;
+  const sqlHref =
+    selectedQuestion && selectedSqlQuestion?.sql.status === "ready"
+      ? questionSqlHref(
+          selectedSqlQuestion.sql.capabilityId ?? selectedQuestion.questionId,
+          selectedSqlQuestion.sql.version ?? 1,
+          selectedQuestion.parameters,
+        )
+      : undefined;
 
   return (
     <div className="flex flex-1 flex-col gap-4">
@@ -826,7 +892,10 @@ export const Chat = ({
               // h-9 to match the App header's icon buttons (Info/EN/theme) so
               // the portaled chat actions line up as one even-height toolbar.
               className="h-9"
-              onClick={() => setMessages([])}
+              onClick={() => {
+                setMessages([]);
+                setSelectedQuestion(null);
+              }}
               title={t("Нов чат", "New chat")}
             >
               <Plus />
@@ -882,7 +951,24 @@ export const Chat = ({
           actionSlot,
         )}
 
-      {!hasChat && <EmptyHero lang={lang} onPick={send} />}
+      {!hasChat && (
+        <div className="space-y-4">
+          <EmptyHero
+            lang={lang}
+            onPick={(questionId) => void runCatalogIntent({ questionId })}
+          />
+          <QuestionSelector
+            catalog={QUESTION_CATALOG}
+            surface="chat"
+            lang={lang}
+            lookupAdapters={questionLookupAdapters}
+            valuesForQuestion={(question) =>
+              question.legacyChatArgs?.[lang] ?? question.defaults
+            }
+            onSelect={selectCatalogQuestion}
+          />
+        </div>
+      )}
 
       <div className="flex flex-col gap-4">
         {messages.map((m, i) =>
@@ -1018,32 +1104,35 @@ export const Chat = ({
             <ModelPicker engine={engine} lang={lang} />
           </div>
         </div>
-        {/* Sample prompts under the composer — only once a chat has begun. In
-            the empty state the hero's mini answer-cards already serve as
-            starters, so a second chip row there is redundant. On the row below
-            the toolbar, label-free. On a phone they're a single horizontally
-            scrollable row (so 5 long prompts can't balloon into 5 stacked rows
-            and eat the screen); they wrap normally from sm up. Hidden on a phone
-            once an answer offers follow-ups, since those carry the next steps
-            there and two chip zones around the composer is clutter. */}
+        {/* Shared catalog discovery after the conversation has begun. */}
         {hasChat && (
-          <div
-            className={cn(
-              "mt-2 flex items-center gap-1.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-x-visible sm:pb-0",
-              "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-              followups.length > 0 && "hidden sm:flex",
+          <div className="mt-2 space-y-2">
+            <button
+              type="button"
+              className={CHIP}
+              disabled={busy}
+              aria-expanded={showQuestionSelector}
+              onClick={() => setShowQuestionSelector((current) => !current)}
+            >
+              {t("Разгледай въпросите", "Browse questions")}
+            </button>
+            {sqlHref && (
+              <a className={CHIP} href={sqlHref}>
+                {t("Отвори като SQL", "Open as SQL")}
+              </a>
             )}
-          >
-            {starters.map((s) => (
-              <button
-                key={s.en}
-                onClick={() => send(s[lang])}
-                disabled={busy}
-                className={cn(CHIP, "shrink-0 whitespace-nowrap")}
-              >
-                {s[lang]}
-              </button>
-            ))}
+            {showQuestionSelector && (
+              <QuestionSelector
+                catalog={QUESTION_CATALOG}
+                surface="chat"
+                lang={lang}
+                lookupAdapters={questionLookupAdapters}
+                valuesForQuestion={(question) =>
+                  question.legacyChatArgs?.[lang] ?? question.defaults
+                }
+                onSelect={selectCatalogQuestion}
+              />
+            )}
           </div>
         )}
       </div>

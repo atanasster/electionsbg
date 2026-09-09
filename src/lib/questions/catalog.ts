@@ -8,6 +8,7 @@ import type {
   QuestionParameter,
   QuestionParameterKind,
 } from "./types";
+import { REVIEWED_CHAT_SQL_ADAPTERS } from "./sql/availability";
 
 type RawPrompt = (typeof rawPrompts)[number];
 
@@ -141,25 +142,30 @@ export const QUESTION_CATEGORIES: QuestionCategory[] = [
 ];
 
 export const QUESTION_DEFINITIONS: QuestionDefinition[] = rawPrompts.map(
-  (prompt) => ({
-    id: prompt.id,
-    categoryId: prompt.category,
-    subcategoryId: prompt.subcategory,
-    question: { bg: prompt.bg, en: prompt.en },
-    aliases: {},
-    parameters: parametersFor(prompt),
-    defaults: canonicalDefaults(prompt),
-    legacyChatArgs: prompt.args,
-    chat: { status: "ready", capabilityId: prompt.tool },
-    sql: {
-      status: "review",
-      reason: {
-        bg: "SQL вариантът още не е проверен.",
-        en: "The SQL version has not been reviewed yet.",
-      },
-    },
-    sourceIds: [],
-  }),
+  (prompt) => {
+    const sqlCapabilityId = REVIEWED_CHAT_SQL_ADAPTERS[prompt.id];
+    return {
+      id: prompt.id,
+      categoryId: prompt.category,
+      subcategoryId: prompt.subcategory,
+      question: { bg: prompt.bg, en: prompt.en },
+      aliases: {},
+      parameters: parametersFor(prompt),
+      defaults: canonicalDefaults(prompt),
+      legacyChatArgs: prompt.args,
+      chat: { status: "ready", capabilityId: prompt.tool },
+      sql: sqlCapabilityId
+        ? { status: "ready", capabilityId: sqlCapabilityId, version: 1 }
+        : {
+            status: "review",
+            reason: {
+              bg: "SQL вариантът още не е проверен.",
+              en: "The SQL version has not been reviewed yet.",
+            },
+          },
+      sourceIds: [],
+    };
+  },
 );
 
 export const QUESTION_CATALOG: QuestionCatalog = {
