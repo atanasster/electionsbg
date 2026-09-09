@@ -281,6 +281,7 @@
     "polls:fetch": "tsx ./scripts/polls/fetch.ts",
     "polls:extract": "tsx ./scripts/polls/extract.ts",
     "polls:accept": "tsx ./scripts/polls/accept.ts",
+    "polls:restamp": "tsx ./scripts/polls/restamp.ts",
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",
     "polls:gen-analysis": "tsx ./scripts/polls/generate_analysis.ts",
     "polls": "npm run polls:scrape && npm run polls:analyze && npm run polls:gen-analysis",

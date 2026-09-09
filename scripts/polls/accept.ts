@@ -374,7 +374,11 @@ export const main = (argv: string[]): void => {
   );
   if (poll.electionDate) {
     console.log(
-      `  electionDate is set — run \`npm run polls:analyze -- --race parliamentary\` to rescore it`,
+      // analyze_accuracy.ts's own CLI takes no --race flag (it reads the
+      // one parliamentary polls.json unconditionally — Tier 4's separate
+      // presidential file family isn't wired into it yet), so the command
+      // named here must match what that CLI actually accepts.
+      `  electionDate is set — run \`npm run polls:analyze\` to rescore it`,
     );
   }
 };
