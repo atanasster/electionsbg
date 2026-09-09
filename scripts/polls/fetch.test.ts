@@ -690,6 +690,69 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     ).toBe(false);
   });
 
+  it("retries a whole attachment set once when --force sees a previously-succeeding attachment newly fail, rather than minting a downgraded version", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body><a href="/flaky.pdf">flaky</a></body></html>`,
+    );
+
+    let flakyCalls = 0;
+    fetchSpy.mockImplementation(async (input: unknown) => {
+      if (!String(input).endsWith("/flaky.pdf"))
+        return new Response(new Uint8Array([1, 2, 3]), {
+          status: 200,
+        }) as unknown as Response;
+      flakyCalls += 1;
+      // Succeeds on the base capture (call 1); on the --force re-check,
+      // fails once with a PERMANENT-shaped 403 (call 2, so fetchBinary's
+      // own internal retry — which only fires for 5xx/network errors —
+      // never kicks in) and then succeeds again on the outer retry this
+      // fix adds (call 3), with the SAME bytes both times.
+      if (flakyCalls === 2)
+        return new Response(null, { status: 403 }) as unknown as Response;
+      return new Response(new Uint8Array([9, 9, 9]), {
+        status: 200,
+      }) as unknown as Response;
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await main(["--agency", "TR"]); // base capture: /flaky.pdf succeeds (call 1)
+    await main(["--agency", "TR", "--force"]); // re-check: call 2 fails, the retry's call 3 succeeds
+
+    // The retry absorbed the blip — no spurious downgraded .v2, and the
+    // original stamp (no attachmentFailures) is untouched.
+    expect(flakyCalls).toBe(3);
+    expect(
+      fs.existsSync(path.join(scratchRoot, "raw_data/polls/trend/10.v2")),
+    ).toBe(false);
+    const stamp = JSON.parse(
+      fs.readFileSync(
+        path.join(scratchRoot, "raw_data/polls/trend/10", "SOURCE.json"),
+        "utf8",
+      ),
+    );
+    expect("attachmentFailures" in stamp).toBe(false);
+  });
+
   it("carries no attachmentFailures key at all when every attachment succeeds", async () => {
     mockedReadState.mockImplementation((id: string) =>
       id === "polls_trend"

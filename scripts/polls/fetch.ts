@@ -31,8 +31,8 @@ import {
   backlogTargets,
   captureDir,
   combinedSha256,
+  discoverAgencyImages,
   discoverPdfLinks,
-  discoverSovaHarrisBulletinImages,
   latestVersionSuffix,
   nextVersionSuffix,
   pendingPressNotices,
@@ -63,8 +63,8 @@ interface SourceStamp {
   sha256: string;
   bytes: number;
   archiveUrl?: string;
-  /** Attachment URLs `discoverPdfLinks`/`discoverSovaHarrisBulletinImages`
-   *  found but could not fetch — e.g. Market Links' `/storage/` PDFs
+  /** Attachment URLs `discoverPdfLinks`/`discoverAgencyImages` found but
+   *  could not fetch — e.g. Market Links' `/storage/` PDFs
    *  currently answer every request (curl, Node, no UA/Referer variation
    *  helped) with a bare WAF `403`, measured live 2026-09-09. Present only
    *  when non-empty, so a capture with every attachment fetched carries no
@@ -207,13 +207,37 @@ const captureOne = async (
   if (html === null) throw new Error(`empty response: ${target.fetchUrl}`);
 
   const pdfUrls = discoverPdfLinks(html, target.fetchUrl);
-  const imageUrls =
-    target.agencyId === "SH" ? discoverSovaHarrisBulletinImages(html) : [];
-  const [pdfResults, imageResults] = await Promise.all([
+  const imageUrls = discoverAgencyImages(
+    target.agencyId,
+    html,
+    target.fetchUrl,
+  );
+  let [pdfResults, imageResults] = await Promise.all([
     fetchAttachments(pdfUrls),
     fetchAttachments(imageUrls),
   ]);
-  const failures = [...pdfResults, ...imageResults].filter((r) => r.error);
+  let failures = [...pdfResults, ...imageResults].filter((r) => r.error);
+
+  // A `--force` re-check is comparing against DURABLE, git-tracked
+  // provenance (decision 13), not a disposable cache — so an attachment
+  // that succeeded in the stored version failing now is very plausibly a
+  // transient blip (one retry here, on the WHOLE attachment set, beyond
+  // whatever `fetchBinary` already absorbed internally), not the agency
+  // actually removing content. Retrying once is cheap; silently minting a
+  // spuriously downgraded `.vN` into tracked history on a network hiccup
+  // is not. Only fires on a re-check that has somewhere to regress FROM —
+  // a fresh capture's failures are just failures.
+  const latestStamp = latest !== null ? readStamp(`${baseDir}${latest}`) : null;
+  if (latestStamp) {
+    const previouslyFailed = new Set(latestStamp.attachmentFailures ?? []);
+    if (failures.some((f) => !previouslyFailed.has(f.url))) {
+      [pdfResults, imageResults] = await Promise.all([
+        fetchAttachments(pdfUrls),
+        fetchAttachments(imageUrls),
+      ]);
+      failures = [...pdfResults, ...imageResults].filter((r) => r.error);
+    }
+  }
   for (const f of failures)
     console.error(`  attachment FAILED: ${f.url} — ${f.error}`);
 
@@ -224,7 +248,7 @@ const captureOne = async (
     ...okBytes(imageResults),
   ]);
 
-  if (latest !== null && readStamp(`${baseDir}${latest}`)?.sha256 === newHash) {
+  if (latestStamp?.sha256 === newHash) {
     console.log(
       `unchanged ${target.agencyId} ${target.pubId} — same content as ${baseDir}${latest}, no re-capture`,
     );

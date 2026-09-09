@@ -262,23 +262,56 @@ export const discoverPdfLinks = (html: string, pageUrl: string): string[] => {
   return [...seen];
 };
 
-// Sova Harris's bulletin — a multi-page scan of party-support tables — ships
-// as `Buletin_<slug>_page-NNNN.jpg` images embedded in the post body
-// (sova_harris.ts's own header comment; it is this agency's ONLY primary,
-// which is why raw_data/polls/sova_harris/** is the one exception to the
-// image .gitignore rule below).
-//
-// ⚠️ Requires an ABSOLUTE `https?://` URL, unlike `discoverPdfLinks` (which
-// resolves a relative href against the page). WordPress's media library
-// always emits absolute URLs, which is presumably why this has not bitten
-// in practice — but the two discovery functions are inconsistent on this
-// point, so re-check if a bulletin image is ever missed.
-const SH_BULLETIN_IMAGE_RE =
-  /https?:\/\/[^\s"'<>]+Buletin_[^\s"'<>]*?page-\d+\.jpe?g/gi;
+/**
+ * Every `<img>` on the page whose `src` matches the given agency's OWN
+ * image-as-primary-source pattern, resolved absolute against the page URL
+ * — decision 18: three agencies now carry data ONLY inside an image, not
+ * in any extractable text, so a lister-level image discoverer is a shared
+ * need, not a Sova-Harris-specific one.
+ *
+ *  - SH: `Buletin_<slug>_page-NNNN.jpg` — a multi-page scan of party-
+ *    support tables, this agency's ONLY primary (sova_harris.ts's header).
+ *  - TR: `SlideN.png` — the passport (sample size, fieldwork dates) is
+ *    published ONLY this way; the party shares themselves are ordinary
+ *    `.et_pb_text_inner` text (measured 2026-09-09, decision 18).
+ *  - AR: `GraphN.jpg` (`N` sometimes omitted a leading zero — "Graph1.jpg"
+ *    and "Graph01.jpg" both occur) — roughly half of AR's real posts carry
+ *    every party share ONLY this way, no narrative text at all (decision 18).
+ *
+ * Absent from `AGENCY_IMAGE_PATTERNS` means "this agency has no known
+ * image-as-primary-source shape" — not an error, just nothing to discover.
+ *
+ * Each pattern tolerates a trailing `-N` before the extension — WordPress's
+ * own media-library de-duplication suffix, appended whenever an upload's
+ * filename collides with one already on the site (an ordinary occurrence,
+ * not a rare one: `raw_data/polls/trend/212732/page.html`, a real capture
+ * already in this repo, embeds `Slide2-2.png`/`Slide3-2.png`). Without the
+ * tolerance the match anchors on a bare `$` right after the extension and
+ * silently returns zero images for a page that has them — no error, no
+ * attachment-fetch-failure entry, because no fetch is even attempted.
+ */
+const AGENCY_IMAGE_PATTERNS: Record<string, RegExp> = {
+  SH: /Buletin_[^/?#]*?page-\d+(?:-\d+)?\.jpe?g$/i,
+  TR: /Slide\d+(?:-\d+)?\.png$/i,
+  AR: /Graph\d*(?:-\d+)?\.jpe?g$/i,
+};
 
-export const discoverSovaHarrisBulletinImages = (html: string): string[] => {
-  const matches = html.match(SH_BULLETIN_IMAGE_RE) ?? [];
-  return [...new Set(matches)];
+export const discoverAgencyImages = (
+  agencyId: string,
+  html: string,
+  pageUrl: string,
+): string[] => {
+  const pattern = AGENCY_IMAGE_PATTERNS[agencyId];
+  if (!pattern) return [];
+  const $ = cheerio.load(html);
+  const seen = new Set<string>();
+  $("img[src]").each((_, el) => {
+    const src = $(el).attr("src") ?? "";
+    if (!pattern.test(src)) return;
+    const abs = resolveHref(src, pageUrl);
+    if (abs) seen.add(abs);
+  });
+  return [...seen];
 };
 
 /** A single hash over the page plus every attachment, in a stable order —

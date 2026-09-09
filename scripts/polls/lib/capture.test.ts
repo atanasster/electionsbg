@@ -1,4 +1,12 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
+const REPO_ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../..",
+);
 
 vi.mock("../../watch/state", () => ({ readState: vi.fn() }));
 vi.mock("../agencies/trend", () => ({
@@ -17,8 +25,8 @@ import {
   captureDir,
   combinedSha256,
   dirSlugFor,
+  discoverAgencyImages,
   discoverPdfLinks,
-  discoverSovaHarrisBulletinImages,
   latestVersionSuffix,
   nextVersionSuffix,
   parseWaybackOriginalUrl,
@@ -325,23 +333,111 @@ describe("discoverPdfLinks", () => {
   });
 });
 
-describe("discoverSovaHarrisBulletinImages", () => {
-  it("extracts every Buletin_*_page-NNNN.jpg URL, deduplicated", () => {
+describe("discoverAgencyImages", () => {
+  it("SH: extracts every Buletin_*_page-NNNN.jpg URL, deduplicated, absolute srcs pass through", () => {
     const html = `<img src="https://sovaharris.com/wp-content/Buletin_2026-07_page-0001.jpg">
       <img src="https://sovaharris.com/wp-content/Buletin_2026-07_page-0002.jpeg">
       <img src="https://sovaharris.com/wp-content/Buletin_2026-07_page-0001.jpg">
       <img src="https://sovaharris.com/wp-content/unrelated.jpg">`;
-    const images = discoverSovaHarrisBulletinImages(html);
+    const images = discoverAgencyImages(
+      "SH",
+      html,
+      "https://sovaharris.com/p/1",
+    );
     expect(images).toEqual([
       "https://sovaharris.com/wp-content/Buletin_2026-07_page-0001.jpg",
       "https://sovaharris.com/wp-content/Buletin_2026-07_page-0002.jpeg",
     ]);
   });
 
-  it("returns an empty array when no bulletin images are present", () => {
+  it("TR: extracts SlideN.png images (the passport — decision 18), absolute srcs", () => {
+    const html = `<img src="https://rctrend.bg/wp-content/uploads/2026/04/Slide2.png">
+      <img src="https://rctrend.bg/wp-content/uploads/2026/04/Slide3.png">
+      <img src="https://rctrend.bg/wp-content/uploads/2019/04/trend_logo.svg">`;
+    const images = discoverAgencyImages(
+      "TR",
+      html,
+      "https://rctrend.bg/project/x/",
+    );
+    expect(images).toEqual([
+      "https://rctrend.bg/wp-content/uploads/2026/04/Slide2.png",
+      "https://rctrend.bg/wp-content/uploads/2026/04/Slide3.png",
+    ]);
+  });
+
+  it("AR: extracts GraphN.jpg images (party shares on chart-only posts — decision 18), RESOLVED against the page (relative srcs)", () => {
+    const html = `<img src="../api/uploads/Articles%202026/24%20Mar/Graph01.jpg">
+      <img src="../api/uploads/Articles%202026/24%20Mar/Graph2.jpg">
+      <img src="../api/uploads/Articles%202026/24%20Mar/unrelated.jpg">`;
+    const images = discoverAgencyImages(
+      "AR",
+      html,
+      "https://alpharesearch.bg/post/1044-x.html",
+    );
+    expect(images).toEqual([
+      "https://alpharesearch.bg/api/uploads/Articles%202026/24%20Mar/Graph01.jpg",
+      "https://alpharesearch.bg/api/uploads/Articles%202026/24%20Mar/Graph2.jpg",
+    ]);
+  });
+
+  it("returns an empty array for an agency with no known image-as-primary-source pattern", () => {
+    const html = `<img src="https://x/Graph1.jpg"><img src="https://x/Slide1.png">`;
+    expect(discoverAgencyImages("ML", html, "https://x/")).toEqual([]);
+    expect(discoverAgencyImages("GM", html, "https://x/")).toEqual([]);
+  });
+
+  it("returns an empty array when the pattern matches nothing on the page", () => {
     expect(
-      discoverSovaHarrisBulletinImages("<html>no bulletin here</html>"),
+      discoverAgencyImages("SH", "<html>no bulletin here</html>", "https://x/"),
     ).toEqual([]);
+  });
+
+  it("tolerates WordPress's own '-N' collision suffix, for every agency with a pattern", () => {
+    // WordPress's media library appends "-2", "-3", ... whenever an upload's
+    // filename collides with one already on the site — an ordinary
+    // occurrence, not a rare one (see the real-fixture test below).
+    expect(
+      discoverAgencyImages(
+        "SH",
+        `<img src="https://sovaharris.com/Buletin_2026-07_page-0001-2.jpg">`,
+        "https://sovaharris.com/p/1",
+      ),
+    ).toEqual(["https://sovaharris.com/Buletin_2026-07_page-0001-2.jpg"]);
+    expect(
+      discoverAgencyImages(
+        "TR",
+        `<img src="https://rctrend.bg/wp-content/uploads/2026/03/Slide2-2.png">`,
+        "https://rctrend.bg/project/x/",
+      ),
+    ).toEqual(["https://rctrend.bg/wp-content/uploads/2026/03/Slide2-2.png"]);
+    expect(
+      discoverAgencyImages(
+        "AR",
+        `<img src="../api/uploads/Articles%202026/24%20Mar/Graph01-2.jpg">`,
+        "https://alpharesearch.bg/post/1044-x.html",
+      ),
+    ).toEqual([
+      "https://alpharesearch.bg/api/uploads/Articles%202026/24%20Mar/Graph01-2.jpg",
+    ]);
+  });
+
+  it("TR: still finds the passport slides on a real capture whose filenames collided (raw_data/polls/trend/212732)", () => {
+    // A real 2026-09 Trend capture already tracked in this repo — its
+    // uploads collided with an earlier post's, so WordPress served
+    // Slide2-2.png/Slide3-2.png rather than Slide2.png/Slide3.png. Before
+    // the collision-suffix tolerance this returned [] for a page that
+    // unambiguously carries the passport (decision 18).
+    const html = fs.readFileSync(
+      path.join(REPO_ROOT, "raw_data/polls/trend/212732/page.html"),
+      "utf8",
+    );
+    const images = discoverAgencyImages(
+      "TR",
+      html,
+      "https://rctrend.bg/project/212732/",
+    );
+    expect(images).toHaveLength(2);
+    expect(images.every((u) => /Slide\d+-2\.png$/i.test(u))).toBe(true);
   });
 });
 

@@ -261,6 +261,23 @@ carries the schema. And the cross-check parser needs the four header vocabularie
     wrongly. `provenance.archiveUrl` carries the capture; `SOURCE.json` records both URLs. **An exit poll is
     not a pre-election poll** and never enters either corpus — Sova Harris's 06.11.2016 and 13.11.2016 posts
     are exit polls and are excluded by the classifier (⚑ §11.9 for a future exit-poll surface).
+18. **The tesseract-then-Gemini-Vision fallback is NOT Sova-Harris-only — Trend and Alpha Research need it
+    too, decided 2026-09-09 after ⚑11's measurement.** Trend's passport (sample size, fieldwork dates) is
+    published ONLY as an image (`Slide2.png`/`Slide3.png`, per post), never in the `.et_pb_text_inner`
+    narrative text that carries the party shares — so a fully-text-only extractor would always leave TR's
+    passport fields unresolved even on a post with a complete narrative. Alpha Research is worse: roughly
+    half of its real posts (measured: 2 of 4 captured) carry NO party shares in `#content` text at all —
+    every share is rendered solely in `GraphN.jpg` chart images. The fix is symmetric with Sova Harris's own
+    design, not a new mechanism: `polls:fetch` discovers and captures each agency's own image pattern
+    (`Slide\d+\.png` for Trend, `Graph\d*\.jpg` for Alpha Research, `Buletin_*_page-NNNN\.jpg` for Sova
+    Harris), `raw_data/polls/{trend,alpha_research}/**` join `sova_harris/**` as the `.gitignore` image
+    exception (decision 13 — these images are now primary sources for at least some captures, not a
+    regenerable cache), and the tesseract-then-Vision text-acquisition step runs on WHICHEVER of a post's
+    images exist, same as it already does for Sova Harris's bulletin pages. The deterministic extractor
+    still tries plain text FIRST for Trend/Alpha Research (most AR posts and all measured TR posts have it);
+    the image path only fires when the text yield is short (decision 5's `< 3 shares` trigger, generalised
+    from "send text to Gemini" to "send text, and if that still yields <3 shares AND images exist, OCR/Vision
+    the images too").
 
 ## 5. Tier 0 — guards and repointing (½ day)
 
@@ -368,7 +385,7 @@ article for the third-party path; `--archive` captures a Wayback snapshot of an 
 
 | agency | text acquisition                                                                                                                                                                                 | deterministic extractor                                                                                                                                                  | residual / passport                                                                                                                  |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| TR     | article container text (`.et_pb_post_content`) + tesseract `bul --psm 6` over the passport slide                                                                                                 | sentence rule: `<party> … <n>,<d>%` within one clause                                                                                                                    | passport from OCR („N ефективни интервюта", „Период на провеждане: D-D месец YYYY", „Възложител"); undecided when the text states it |
+| TR     | article container text (`.et_pb_text_inner` — `.et_pb_post_content`, this table's original assumption, matches nothing on a real Trend page, measured 2026-09-09) + tesseract `bul --psm 6` over the passport slide | sentence rule: `<party> … <n>,<d>%` within one clause                                                                                                                    | passport from OCR („N ефективни интервюта", „Период на провеждане: D-D месец YYYY", „Възложител"); undecided when the text states it |
 | AR     | `#content` text only, spam tokens stripped                                                                                                                                                       | sentence rule                                                                                                                                                            | passport in text („в периода D-D месец YYYY", „сред N пълнолетни"); „не подкрепям никого" / „нерешили" when stated                   |
 | ML     | `pdftotext -layout`                                                                                                                                                                              | aligned-row rule: `^\s*(Коалиция )?<label>\s{2,}<n>\.<d>%` in the block after „Ако тази неделя има парламентарни избори"                                                 | passport rows „Обем на извадката", „Метод на регистрация", „Период"; undecided from the „Не съм решил" row of the same block         |
 | GM     | `pdftotext -layout` on both PDFs                                                                                                                                                                 | same aligned-row rule; both the candidate-name and the „Кандидат на <party>" framing (presidential, Tier 4)                                                              | passport in the press release                                                                                                        |
@@ -482,7 +499,7 @@ The skill quotes it in its summary, and Tier 4b uses it as the index of what to 
 | stage           | mechanism                                                                                                                                                                                                            | gate                                                                                          |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | discover        | the SAME eight watchers — a presidential publication is an electoral publication (`isElectoral` includes „президент" / „president"; `polls_press` queries carry it too)                                              | `isElectoral` truth tables include a presidential title per site (T1.6)                       |
-| classify        | `classifyRace(text, title)` → `presidential` on „президент" / „балотаж" / „кандидат за президент" / a candidate-column header; else `parliamentary`; a GM-style publication carrying BOTH framings yields two drafts | GM July 2026 fixture yields a named draft AND a placeholder draft (T4.1)                      |
+| classify        | `classifyRace(title, bodyText)` (shipped Tier 2 signature, title-first — see `scripts/polls/lib/classify_race.ts`) → `presidential` on „президент" / „балотаж" / „кандидат за президент" / a candidate-column header; else `parliamentary`; a GM-style publication carrying BOTH framings yields two drafts | GM July 2026 fixture yields a named draft AND a placeholder draft (T4.1)                      |
 | extract         | T4.1 arms: named candidates, placeholders, runoff pairings, residuals                                                                                                                                                | extractor fixtures; the evidence gate                                                         |
 | resolve         | decision 16 — `canonicalKey` or provisional slug, refusal listed                                                                                                                                                     | resolver uniqueness + mutation test (T4.5)                                                    |
 | inbox → accept  | the shared inbox; `accept --cycle`; `runoffs.json` written beside the details                                                                                                                                        | `accept` round-trip on the presidential files                                                 |
@@ -659,27 +676,10 @@ land, and shows 2016 and 2021 on their pages.
     `npm run polls:analyze -- --race presidential` as its last step, and the `cik_presidential` map row needs
     the `update-polls` second hop (T3.2 here). Not edited in that plan by this one — it is under active
     implementation by another session (tier4 step 22 committed 2026-09-06).
-11. ⚑ **BLOCKING for T2c: §6.2's "AR: `#content` text only" row is wrong for a real fraction of AR's own
-    posts, measured 2026-09-09 on all 4 captures in `raw_data/polls/alpha_research/`.** Two of the four
-    (1043 — Feb 2026, full narrative, 12,389 chars of `#content` text carrying every party share inline —
-    „проекта на Р. Радев, който събира 32.6% от гласуващите, пред ГЕРБ – с 19.7%" — sentence-rule-extractable
-    as documented) carry the numbers in TEXT. The other two (1044, 1045 — both short "campaign start/end"
-    posts) carry only the passport paragraph in `#content` (~400 chars, no percentages at all) — every party
-    share is rendered SOLELY inside `Graph01.jpg`/`Graph02.jpg`-style chart images
-    (`../api/uploads/Articles <year>/<post-slug>/GraphN.jpg`) the current lister/fetcher never even
-    discovers (only Sova Harris's `Buletin_*_page-NNNN.jpg` pattern and generic `.pdf` links are captured
-    today — see `scripts/polls/lib/capture.ts`). Sending an LLM fallback the EXTRACTED TEXT (§6.2's stated
-    fallback path) cannot recover these — the numbers are not in the text to send. This needs one of:
-    (a) extend the Gemini VISION fallback (currently scoped to Sova Harris only) to any AR post whose
-    deterministic text yield is < 3 shares AND which carries `GraphN.jpg` images, discovering and capturing
-    those images the same way bulletin pages are; (b) accept AR posts as text-only and treat a chart-only
-    post as a permanently-`refused` draft (decision 5's escape hatch: "a draft with no accepted shares is
-    written anyway"), losing roughly half of AR's real publication history to no extraction at all; or
-    (c) some other resolution. Not decided here because the tradeoff (OCR/Vision cost and complexity vs.
-    losing real AR coverage) is a product decision, not an implementation default — see the audit log
-    entry this session added for the measurement. GM's July 2026 capture was ALSO measured this session:
-    it is genuinely presidential ("Ако президентските избори бяха следващата неделя за кандидат
-    президент... Кандидат на Прогресивна България 39.7%..."), confirming decision 2's own framing (§7) —
+11. ~~⚑ BLOCKING for T2c~~ **RESOLVED 2026-09-09 — see decision 18.** GM's July 2026 capture was ALSO
+    measured this session: it is genuinely presidential ("Ако президентските избори бяха следващата неделя
+    за кандидат президент... Кандидат на Прогресивна България 39.7%..."), confirming decision 2's own
+    framing (§7) —
     not a new problem, but a second live confirmation that Tier 2's extractor work and Tier 4's must be
     sequenced or built together for GM specifically, since its ONLY real capture to date is presidential.
 
