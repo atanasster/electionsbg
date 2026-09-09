@@ -15,6 +15,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, option, string } from "cmd-ts";
 import { normKey, resolveActualKey } from "@/data/polls/aliases";
+import { main as analyzePresidential } from "./presidential/analyze_accuracy";
+import { mean, readJson, round } from "./lib/scoring_utils";
 // The fieldwork string is a contract shared with the ingest and the UI —
 // see src/data/polls/fieldwork.ts. This script used to carry a private copy
 // of the parser, which is how a writer could emit a form the scorer silently
@@ -173,15 +175,6 @@ const gradeFor = (
   if (score < 2.2) return "D";
   return "F";
 };
-
-const readJson = <T>(file: string): T | null => {
-  if (!fs.existsSync(file)) return null;
-  return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
-};
-
-const mean = (xs: number[]) =>
-  xs.length === 0 ? 0 : xs.reduce((a, b) => a + b, 0) / xs.length;
-const round = (n: number, dp = 2) => Math.round(n * 10 ** dp) / 10 ** dp;
 
 // Apply proportional redistribution of the will-vote residual (undecided + wontSay)
 // across the named-party shares — standard proportional reallocation:
@@ -734,8 +727,29 @@ const cli = command({
       long: "polls",
       defaultValue: () => POLLS_DIR,
     }),
+    // Tier 4, T4.7: the results→accuracy coupling names this command as
+    // `npm run polls:analyze -- --race presidential`, so the ONE
+    // operator-facing entry point dispatches by race rather than making
+    // the presidential family a second npm script to remember. `--polls`
+    // is parliamentary-only (its historical meaning, `data/polls/`) —
+    // the presidential module locates its own `data/polls/presidential/`
+    // internally and takes no directory override here.
+    race: option({
+      type: string,
+      long: "race",
+      defaultValue: () => "parliamentary",
+    }),
   },
   handler: async (args) => {
+    if (args.race === "presidential") {
+      analyzePresidential();
+      return;
+    }
+    if (args.race !== "parliamentary") {
+      throw new Error(
+        `--race must be "parliamentary" or "presidential", got "${args.race}"`,
+      );
+    }
     await main({ pollsDir: args.pollsDir });
   },
 });

@@ -302,3 +302,95 @@ export type PollsAnalysis = {
   // and story actually describe *that* election rather than always 2026.
   byElection: Record<string, ElectionNarrative>;
 };
+
+/**
+ * Presidential accuracy scoring — Tier 4 T4.2
+ * (docs/plans/polls-agency-watchers-v1.md §7), written by
+ * `scripts/polls/presidential/analyze_accuracy.ts` to
+ * `data/polls/presidential/accuracy.json`. Deliberately a SEPARATE, much
+ * smaller shape than `PollsAccuracy` above — there is no `AgencyProfile`
+ * (grading/shrinkage/bloc-lean) yet, because that needs several cycles of
+ * an agency's own history, which the presidential corpus does not have
+ * until Tier 4b's historical backfill lands. `key` fields throughout are
+ * `CandidateKey` — a real ticket's `canonicalKey`, the literal `"none"`
+ * (Не подкрепям никого), or the literal `"други"` (a synthetic bucket —
+ * see `PresidentialAgencyError.errors`'s own doc comment).
+ */
+export type PresidentialCandidateResultError = {
+  key: CandidateKey | "други";
+  name_bg: string;
+  polled: number;
+  actual: number;
+  error: number;
+};
+
+export type PresidentialAgencyError = {
+  agencyId: string;
+  pollId: string;
+  fieldworkEnd: string;
+  daysBefore: number;
+  respondents: number | null;
+  genre?: PollGenre;
+  /**
+   * One row per real named candidate whose ACTUAL round-1 share is ≥1%,
+   * plus (at most) one synthetic `"други"` row folding together every
+   * OTHER named-candidate row this poll happened to publish individually
+   * (a real candidate whose actual share came out <1%) — decision 12's
+   * "named candidates with actual ≥ 1% plus the polled minors folded
+   * into „други"". A `"none"` (Не подкрепям никого) row, when the poll
+   * carried one, is its own row here too, scored like any other — never
+   * folded into `"други"`, which is reserved for minor CANDIDATES. A row
+   * this analyzer could not resolve to a real ticket (an ambiguous or
+   * still-provisional `candidateKey`) is silently excluded from both —
+   * decision 16's refuse-rather-than-guess rule, carried through scoring.
+   */
+  errors: PresidentialCandidateResultError[];
+  mae: number;
+  rmse: number;
+  biggestMiss: { key: CandidateKey | "други"; error: number };
+  // This poll's own top-supported named row = the actual round-1 winner.
+  leaderCalled: boolean;
+  // This poll's own top-2 named rows (as a SET) = the actual round-1
+  // top-2. `null` when the cycle's round 1 decided the election outright
+  // (no real runoff pairing to have "called") or the poll named fewer
+  // than two resolvable real candidates.
+  runoffPairCalled: boolean | null;
+  // This poll's own top-supported row polled >50% ⟺ the actual round 1
+  // `outcome.winsOutright`. `null` when the poll resolved no real
+  // candidate at all (e.g. its only resolvable row was `"none"`) — there
+  // is then no leader claim to have been right or wrong about.
+  decidedInRoundCalled: boolean | null;
+  // Scored only when this poll ALSO published a `runoffs.json` pairing
+  // whose two candidates are BOTH resolvable AND are the exact pairing
+  // that actually reached round 2 ("the pairing that happened", decision
+  // 12) — a poll's speculative pairing that never occurred is not scored.
+  // `null` when the cycle had no real runoff, this poll published none,
+  // or its pairing did not resolve to the real one.
+  runoff: {
+    a: CandidateKey;
+    b: CandidateKey;
+    errors: {
+      key: CandidateKey;
+      polled: number;
+      actual: number;
+      error: number;
+    }[];
+    mae: number;
+  } | null;
+};
+
+export type PresidentialCycleAccuracy = {
+  cycle: string;
+  round1Date: string;
+  decidedInRound: 1 | 2;
+  winner: CandidateKey;
+  // Round-1 actual results, real candidates at ≥1% only (a display list,
+  // not itself the scored set of any one poll — see `PresidentialAgencyError`).
+  actualResults: { key: CandidateKey; name_bg: string; pct: number }[];
+  agencies: PresidentialAgencyError[];
+};
+
+export type PresidentialPollsAccuracy = {
+  generatedAt: string;
+  cycles: PresidentialCycleAccuracy[];
+};
