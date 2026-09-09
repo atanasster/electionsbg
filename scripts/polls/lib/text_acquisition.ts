@@ -59,17 +59,48 @@ const stripUrls = (text: string): string =>
     .replace(/\s+/g, " ")
     .trim();
 
+// cheerio's own multi-element `.text()` concatenates every matched
+// element's text with NO separator — verified against the real 212750
+// capture, whose Divi "text module" blocks join as
+// "...office@rctrend.bg" + "Последвайте ни..." with zero characters
+// between "bg" and "Последвайте", gluing the end of one block's last
+// word to the start of the next block's first word. Joining with "\n"
+// first (later collapsed to a single space by the whitespace-normalising
+// step below, same as every other run of whitespace) guarantees at least
+// a WORD boundary between two blocks. It does not, and cannot, guarantee
+// a SENTENCE boundary — if a real post ever splits one sentence across
+// two adjacent blocks, `sentence_rule.ts`'s window would still run past
+// it, which is the safer of the two directions (a window running too
+// far risks the "more than one % found" refusal, not a wrong value).
+const blockText = ($: cheerio.CheerioAPI, selector: string): string =>
+  $(selector)
+    .toArray()
+    .map((el) => $(el).text())
+    .join("\n");
+
 export const extractArticleText = (agencyId: string, html: string): string => {
   const $ = cheerio.load(html);
   const selector = AGENCY_TEXT_SELECTOR[agencyId];
   if (selector)
-    return stripUrls($(selector).text().replace(/\s+/g, " ").trim());
+    return stripUrls(blockText($, selector).replace(/\s+/g, " ").trim());
   for (const sel of GENERIC_CONTENT_SELECTORS) {
-    const text = stripUrls($(sel).text().replace(/\s+/g, " ").trim());
+    const text = stripUrls(blockText($, sel).replace(/\s+/g, " ").trim());
     if (text.length > 0) return text;
   }
   return "";
 };
+
+/**
+ * The page's own `<title>` text (cheerio decodes entities like `&mdash;`
+ * automatically), agency-name suffix and all — a self-contained source for
+ * `classifyRace`'s title argument, rather than depending on the watcher's
+ * separately-tracked `Publication.title` (which `polls:fetch` does not
+ * persist into the capture directory at all). The agency-name suffix
+ * ("... — ТРЕНД") is harmless noise for a race classifier and left in
+ * rather than parsed out with an agency-specific rule.
+ */
+export const extractPageTitle = (html: string): string =>
+  cheerio.load(html)("title").text().trim();
 
 export interface AcquiredAttachmentText {
   file: string;

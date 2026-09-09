@@ -39,11 +39,12 @@ import { fileURLToPath } from "url";
 import { command, run, flag, optional, boolean, option, string } from "cmd-ts";
 import * as cheerio from "cheerio";
 import type { Element } from "domhandler";
-import { formatFieldwork, pollId as mintPollId } from "@/data/polls/fieldwork";
+import { pollId as mintPollId } from "@/data/polls/fieldwork";
 // The agency registry moved out of this file: the listers, the press watcher,
 // the cross-check and the ingest all need it, and a second copy is how one of
 // them ends up recognising a name the others do not.
 import { matchAgency } from "./lib/agencies";
+import { collapseSpaces, parseBgFieldworkRange } from "./lib/fieldwork_bg";
 import type { Agency, Poll, PollDetail } from "@/data/polls/pollsTypes";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -77,90 +78,11 @@ const CYCLES: Cycle[] = [
   },
 ];
 
-const MONTH_BG = [
-  "януари",
-  "февруари",
-  "март",
-  "април",
-  "май",
-  "юни",
-  "юли",
-  "август",
-  "септември",
-  "октомври",
-  "ноември",
-  "декември",
-];
-
-const collapseSpaces = (s: string) => s.replace(/\s+/g, " ").trim();
-
-// Bulgarian period text → the canonical fieldwork string. The STRING itself is
-// written by `formatFieldwork` (@/data/polls/fieldwork), which the analyzer and
-// the UI both read back — this function only resolves the Bulgarian month names
-// and the range shape.
-// "7 – 14 април 2026"  →  { endIso: "2026-04-14", fieldwork: "Apr 7-14 2026" }
-// "30 март – 5 април 2026" → { endIso: "2026-04-05", fieldwork: "Mar 30 - Apr 5 2026" }
-// "19 април 2026" → { endIso: "2026-04-19", fieldwork: "Apr 19 2026" }
-const parseFieldwork = (
-  raw: string,
-): { endIso: string; fieldwork: string } | null => {
-  const cleaned = collapseSpaces(
-    raw.replace(/[–—]/g, "-").replace(/\u00A0/g, " "),
-  );
-  // Possibilities:
-  //   D-D MONTH YYYY
-  //   D MONTH - D MONTH YYYY
-  //   D MONTH YYYY
-  const reRange = /^(\d{1,2})\s*-\s*(\d{1,2})\s+([а-я]+)\s+(\d{4})$/i;
-  const reCross =
-    /^(\d{1,2})\s+([а-я]+)\s*-\s*(\d{1,2})\s+([а-я]+)\s+(\d{4})$/i;
-  const reSingle = /^(\d{1,2})\s+([а-я]+)\s+(\d{4})$/i;
-
-  const monthIndex = (m: string) => MONTH_BG.indexOf(m.toLowerCase());
-
-  const iso = (year: string, monthIdx: number, day: string) =>
-    `${year}-${String(monthIdx + 1).padStart(2, "0")}-${day.padStart(2, "0")}`;
-
-  // `formatFieldwork` throws on a date it cannot represent (31 April, a range
-  // that ends before it starts). A wiki cell can carry one, and a throw here
-  // would abort the whole scrape — so it is caught and the ROW is dropped with
-  // a warning, which is this parser's documented cell-level resilience.
-  const write = (
-    startIso: string | null,
-    endIso: string,
-  ): { endIso: string; fieldwork: string } | null => {
-    try {
-      return { endIso, fieldwork: formatFieldwork(startIso, endIso) };
-    } catch (e) {
-      console.warn(
-        `  ! unrepresentable fieldwork "${raw.trim()}": ${e instanceof Error ? e.message : String(e)}`,
-      );
-      return null;
-    }
-  };
-
-  let mr: RegExpMatchArray | null;
-  if ((mr = cleaned.match(reCross))) {
-    const [, d1, mo1Bg, d2, mo2Bg, year] = mr;
-    const mo1 = monthIndex(mo1Bg);
-    const mo2 = monthIndex(mo2Bg);
-    if (mo1 < 0 || mo2 < 0) return null;
-    return write(iso(year, mo1, d1), iso(year, mo2, d2));
-  }
-  if ((mr = cleaned.match(reRange))) {
-    const [, d1, d2, moBg, year] = mr;
-    const mo = monthIndex(moBg);
-    if (mo < 0) return null;
-    return write(iso(year, mo, d1), iso(year, mo, d2));
-  }
-  if ((mr = cleaned.match(reSingle))) {
-    const [, d, moBg, year] = mr;
-    const mo = monthIndex(moBg);
-    if (mo < 0) return null;
-    return write(iso(year, mo, d), iso(year, mo, d));
-  }
-  return null;
-};
+// Bulgarian period text -> the canonical fieldwork string. Lives in
+// scripts/polls/lib/fieldwork_bg.ts (decision 14's "one home" rule) --
+// the Tier 2c agency extractors parse the exact same shape out of an
+// agency's own published passport text and must not fork this a second
+// time; `collapseSpaces` moved there with it for the same reason.
 
 const parsePct = (cell: cheerio.Cheerio<Element>): number | null => {
   // Cells often look like  <b>44,6</b><br><small>131</small>  — the <small> holds the seat
@@ -427,7 +349,7 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
       unknownAgencies.add(agencyText);
       continue;
     }
-    const fw = parseFieldwork(periodText);
+    const fw = parseBgFieldworkRange(periodText);
     if (!fw) {
       console.warn(
         `  ! could not parse period "${periodText}" for ${agencyText}`,

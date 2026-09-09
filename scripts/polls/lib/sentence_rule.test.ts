@@ -22,14 +22,14 @@ describe("extractSharesBySentenceRule — synthetic cases", () => {
       {
         label: "Прогресивна България",
         value: 33.2,
-        quote: "Прогресивна България остава лидер с 33,2%",
+        quote: "Прогресивна България остава лидер с 33,2% подкрепа",
       },
     ]);
   });
 
   it("extracts the parenthetical form", () => {
     expect(extractSharesBySentenceRule("ПП-ДБ (11,2%) запазва...")).toEqual([
-      { label: "ПП-ДБ", value: 11.2, quote: "ПП-ДБ (11,2%" },
+      { label: "ПП-ДБ", value: 11.2, quote: "ПП-ДБ (11,2%) запазва" },
     ]);
   });
 
@@ -38,11 +38,11 @@ describe("extractSharesBySentenceRule — synthetic cases", () => {
       "ще спорят ПП-ДБ (10,9%) и ДПС-Ново начало (10,5%).",
     );
     expect(claims).toEqual([
-      { label: "ПП-ДБ", value: 10.9, quote: "ПП-ДБ (10,9%" },
+      { label: "ПП-ДБ", value: 10.9, quote: "ПП-ДБ (10,9%) и " },
       {
         label: "ДПС-Ново начало",
         value: 10.5,
-        quote: "ДПС-Ново начало (10,5%",
+        quote: "ДПС-Ново начало (10,5%)",
       },
     ]);
   });
@@ -62,7 +62,7 @@ describe("extractSharesBySentenceRule — synthetic cases", () => {
       {
         label: "ДПС-Ново начало",
         value: 10.5,
-        quote: "ДПС-Ново начало (10,5%",
+        quote: "ДПС-Ново начало (10,5%)",
       },
     ]);
   });
@@ -114,9 +114,32 @@ describe("extractSharesBySentenceRule — synthetic cases", () => {
       {
         label: "ГЕРБ-СДС",
         value: 20.4,
-        quote: "ГЕРБ-СДС е на 20,4%",
+        quote: "ГЕРБ-СДС е на 20,4%, ръст спрямо миналия месец",
       },
     ]);
+  });
+
+  it("extracts a single value written with a period decimal, not a comma", () => {
+    // A period followed by a digit is NOT a sentence end — Trend's own
+    // real HTML mixes period- and comma-decimals in one article. Before
+    // this was fixed, the window truncated right before ".4" and this
+    // returned [] with no trace in refused either.
+    expect(extractSharesBySentenceRule("ГЕРБ-СДС е на 20.4% отпред.")).toEqual([
+      { label: "ГЕРБ-СДС", value: 20.4, quote: "ГЕРБ-СДС е на 20.4% отпред" },
+    ]);
+  });
+
+  it("still refuses an ambiguous window when the second number uses a period decimal", () => {
+    // The comma-decimal sibling of this sentence is the "refuses to
+    // guess" test above. Before the fix, the period truncated the window
+    // right before ".8", leaving only "4%" (the barrier) as a candidate —
+    // which the extractor then confidently, and WRONGLY, attributed to
+    // БСП as its own share. It must refuse here exactly as it does there.
+    expect(
+      extractSharesBySentenceRule(
+        "БСП е под 4% бариера, но всъщност регистрира 3.8% подкрепа.",
+      ),
+    ).toEqual([]);
   });
 });
 

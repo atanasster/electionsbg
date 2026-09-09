@@ -58,7 +58,15 @@ const percentMatchesIn = (window: string): RegExpExecArray[] => {
   return out;
 };
 
-const SENTENCE_END_RE = /[.!?]/g;
+// A "." followed by a digit is a decimal separator ("20.4%"), not a
+// sentence end — Trend's own real HTML mixes period- and comma-decimals
+// in one article (212637: "32.7% от гласуващите. Втори ... с 20,4%."),
+// and treating the decimal point as a sentence end truncates the window
+// BEFORE the digits after it — silently dropping a labelled share (zero
+// candidates found, no refusal recorded either) or, worse, leaving
+// exactly one OTHER percent-shaped number in the truncated window that
+// then gets confidently — and wrongly — attributed to the label.
+const SENTENCE_END_RE = /[!?]|\.(?!\d)/g;
 
 /** The position of the first sentence-ending punctuation at or after
  *  `from`, or `text.length` when the label's sentence runs to the end of
@@ -120,6 +128,16 @@ const findLabelMatches = (text: string): LabelMatch[] => {
  * wrong in a way nothing downstream catches: the resulting quote states
  * the WRONG value beside the right label, which is self-consistent
  * evidence and sails straight through the gate.
+ *
+ * The QUOTE extends to the full window boundary, not just to the end of
+ * the matched percentage — every remaining character up to the next label
+ * (or sentence end) is already known to be safe context (it is what the
+ * ambiguity check just scanned for a SECOND percent and found none in).
+ * This matters beyond readability: `evidence_gate.ts`'s grounding check
+ * refuses any quote under `MIN_QUOTE_CHARS` (12) once normalised, and a
+ * short label's own tightest possible span — "БСП (3,8%" — normalises to
+ * under that floor, which would refuse a real, correctly-extracted share
+ * for being too short to be its OWN evidence.
  */
 export const extractSharesBySentenceRule = (text: string): ShareClaim[] => {
   const labelMatches = findLabelMatches(text);
@@ -132,11 +150,10 @@ export const extractSharesBySentenceRule = (text: string): ShareClaim[] => {
     const candidates = percentMatchesIn(window);
     if (candidates.length !== 1) continue;
     const pm = candidates[0];
-    const quoteEnd = end + pm.index + pm[0].length;
     claims.push({
       label,
       value: parsePercent(pm[1]),
-      quote: text.slice(start, quoteEnd),
+      quote: text.slice(start, boundary),
     });
   }
   return claims;

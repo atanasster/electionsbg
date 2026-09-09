@@ -3,7 +3,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { acquireText, extractArticleText } from "./text_acquisition";
+import {
+  acquireText,
+  extractArticleText,
+  extractPageTitle,
+} from "./text_acquisition";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -38,6 +42,22 @@ if (!HAS_OCR_BINARIES) {
   );
 }
 const runWithBinaries = HAS_OCR_BINARIES ? it : it.skip;
+
+describe("extractPageTitle", () => {
+  it("TR: reads the real <title> tag, entities decoded", () => {
+    const html = fs.readFileSync(
+      path.join(rawCapture("trend", "212750"), "page.html"),
+      "utf8",
+    );
+    expect(extractPageTitle(html)).toBe(
+      "Електорални нагласи спрямо предстоящите парламентарни избори (Април 2026) — ТРЕНД",
+    );
+  });
+
+  it("returns an empty string when there is no <title> tag", () => {
+    expect(extractPageTitle("<html><body>x</body></html>")).toBe("");
+  });
+});
 
 describe("extractArticleText", () => {
   it("TR: reads the real narrative text via .et_pb_text_inner, not .et_pb_post_content", () => {
