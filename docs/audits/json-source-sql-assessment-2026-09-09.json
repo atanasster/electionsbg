@@ -1,0 +1,172 @@
+{
+  "asOf": "2026-09-09",
+  "scope": "Source-specific SQL serving assessment. No new SQL schema or production load performed by this assessment.",
+  "sources": [
+    {
+      "id": "party-finance",
+      "source": "data/financing/reports.json",
+      "sha256": "130f8fae656398e7f9bd4657cda0467b02a5f49be0643153c7b43210c324ca7b",
+      "chatCapabilities": ["financingOverview"],
+      "grain": "party slug × filing year",
+      "limits": "Filing status and report links, not parsed donations or campaign amounts.",
+      "sqlDesign": "Normalize annual filings separately from campaign finance and donor transactions. Preserve absent filing vs missing corpus; use report URL and source hash.",
+      "missingLayer": "serving",
+      "sqlStatus": "unavailable",
+      "sourceKeys": [
+        "scrapedAt",
+        "source",
+        "statusKeys",
+        "legalRef",
+        "totals",
+        "years"
+      ]
+    },
+    {
+      "id": "energy-generation",
+      "source": "data/energy/generation.json",
+      "sha256": "933bb117aebaf3c42c9acfe79b91a3f9093164b15b6e58f8788fa3cc081a20a6",
+      "chatCapabilities": ["generationMix"],
+      "grain": "year × fuel",
+      "limits": "Generation in TWh; demand, imports and emissions have different units.",
+      "sqlDesign": "Normalize fuel observations and a separate annual system record. Negative net imports mean exports; do not sum emissions with electricity.",
+      "missingLayer": "loading",
+      "sqlStatus": "unavailable",
+      "sourceKeys": ["updated", "source", "sourceUrl", "latestYear", "years"]
+    },
+    {
+      "id": "energy-prices",
+      "source": "data/energy/prices.json",
+      "sha256": "34cfc241ab7bdbece5dc36a1899b68351ddbb2d98e6cc56ce78c5b35ffe1af3c",
+      "chatCapabilities": ["electricityPrices"],
+      "grain": "country × half-year × consumption band",
+      "limits": "EUR/kWh, household band and taxes fixed by source dataset.",
+      "sqlDesign": "Retain country, period, household consumption band and tax basis; never treat this as a spot-market series. Gas needs its own band/source.",
+      "missingLayer": "loading",
+      "sqlStatus": "unavailable",
+      "sourceKeys": [
+        "updated",
+        "source",
+        "sourceUrl",
+        "unit",
+        "latest",
+        "series"
+      ]
+    },
+    {
+      "id": "social-benefits",
+      "source": "data/social/benefits.json",
+      "sha256": "4d34fea531168a4d9d12a5edf4c0745c2fdd90c3dd803ac00a7462685ef63c26",
+      "chatCapabilities": ["socialBenefits"],
+      "grain": "benefit family × reporting year",
+      "limits": "Four benefit families with distinct recipient nouns; amountBgn and eurRate.",
+      "sqlDesign": "Normalize family and annual observations. Keep household/person recipients distinct, annual vs campaign periods, national-only geography and BGN/EUR basis.",
+      "missingLayer": "loading",
+      "sqlStatus": "unavailable",
+      "sourceKeys": ["fetchedAt", "source", "latestYear", "eurRate", "families"]
+    },
+    {
+      "id": "tourism",
+      "source": "data/tourism/visitors.json",
+      "sha256": "989de7bb863888acabbd705d7412ec22d79c447b2502c7e1647dae042820b0e4",
+      "chatCapabilities": ["tourismSeasonality", "tourismSourceMarkets"],
+      "grain": "month / year / residence country",
+      "limits": "Nights in hotels (NACE I551), not unique tourists or arrivals.",
+      "sqlDesign": "Separate monthly seasonality, annual foreign nights and residence-market totals. Preserve seasonalityYear and sourceMarketsYear independently.",
+      "missingLayer": "loading",
+      "sqlStatus": "unavailable",
+      "sourceKeys": [
+        "source",
+        "generatedAt",
+        "unit",
+        "seasonalityYear",
+        "peakMonth",
+        "summerShareForeign",
+        "winterShareForeign",
+        "seasonality",
+        "annualForeign",
+        "sourceMarketsYear",
+        "sourceMarketsForeignTotal",
+        "sourceMarkets"
+      ]
+    },
+    {
+      "id": "local-elections",
+      "source": "data/2023_10_29_mi/index.json",
+      "sha256": "b18921a7e9dba90577fee672fcd814cc0ba2dc336aa1a1698e473cc0917bdc5a",
+      "chatCapabilities": [
+        "localCouncilVoteShare",
+        "localMayorsWon",
+        "localMayorRace"
+      ],
+      "grain": "cycle × contest × round × OIK / municipality × candidate / list",
+      "limits": "Council vote shares, mandates and elected mayors are separate measures. The index has 289 entries; do not assume 265 unique municipal observations.",
+      "sqlDesign": "Normalize from contest bundles, not by flattening the index alone. Deduplicate verified municipality identity, preserve local coalition labels, canonical-party attribution and missing second rounds. Partial cycles are excluded by the current regular-cycle chat registry.",
+      "missingLayer": "serving",
+      "sqlStatus": "unavailable",
+      "sourceKeys": [
+        "cycle",
+        "round1Date",
+        "round2Date",
+        "municipalities",
+        "councilVoteShare",
+        "mayorsByCanonical"
+      ]
+    },
+    {
+      "id": "macro",
+      "source": "data/macro.json",
+      "sha256": "b7fae61783581cd583017e2725b81ac5bb39cd06f5879255abb2d5a21221b858",
+      "chatCapabilities": [
+        "macroIndicator",
+        "macroOverview",
+        "macroByCategory"
+      ],
+      "grain": "indicator × country × native period",
+      "limits": "Mixed annual/quarterly/monthly cadence and indicator-specific units.",
+      "sqlDesign": "Normalize indicator metadata separately from observations. Preserve native period, seasonal adjustment, revisions and missing values. Do not interpolate or join unmatched periods.",
+      "missingLayer": "loading",
+      "sqlStatus": "unavailable",
+      "sourceKeys": [
+        "sources",
+        "fetchedAt",
+        "country",
+        "indicators",
+        "series",
+        "latestMonthly"
+      ]
+    },
+    {
+      "id": "campaign-finance",
+      "source": "data/2024_10_27/parties/financing.json",
+      "sha256": "7e6b275f645e2f866ca5eb4e5c3de053b895c96333d13adac53e24b3a76dade0",
+      "chatCapabilities": ["partyFinance"],
+      "grain": "election × CIK party number × income/expense component",
+      "limits": "Parsed campaign income and expenses in EUR exist; donor totals are not named-donor records.",
+      "sqlDesign": "Load all hasFinancials cycles with their CIK party dictionary; preserve monetary/non-monetary components and nested expenses. Do not substitute another cycle for an explicitly unsupported period.",
+      "missingLayer": "loading",
+      "sqlStatus": "unavailable",
+      "sourceKeys": ["array"],
+      "records": 28
+    },
+    {
+      "id": "household-gas",
+      "source": "data/energy/gas_prices.json",
+      "sha256": "510aa161a44717ffafca06c0ee64c487bc13be7c544ffa3a650ab268f8913bea",
+      "chatCapabilities": ["gasPrices"],
+      "grain": "country × half-year × consumption band",
+      "limits": "nrg_pc_202, household 20–199 GJ, all taxes, EUR/kWh.",
+      "sqlDesign": "Use an explicit gas series contract retaining band and tax basis; keep separate from household electricity and wholesale gas.",
+      "missingLayer": "loading",
+      "sqlStatus": "unavailable",
+      "sourceKeys": [
+        "updated",
+        "source",
+        "sourceUrl",
+        "unit",
+        "latest",
+        "series"
+      ],
+      "records": 6
+    }
+  ]
+}
