@@ -1,0 +1,2059 @@
+[
+  {
+    "id": "nationalResults",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "nationalResults",
+    "bg": "Какви са резултатите от последните парламентарни избори?",
+    "en": "What were the results of the latest parliamentary election?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "parliamentSeats",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "parliamentSeats",
+    "bg": "Колко места има всяка партия в парламента?",
+    "en": "How many seats does each party hold in parliament?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "seatsHistory",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "seatsHistory",
+    "bg": "Колко места има всяка партия в парламента последните 5 години?",
+    "en": "How many seats has each party held in parliament over the last 5 years?",
+    "args": {
+      "bg": {
+        "years": 5
+      },
+      "en": {
+        "years": 5
+      }
+    }
+  },
+  {
+    "id": "partyResult",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "partyResult",
+    "bg": "Колко гласа взе ГЕРБ?",
+    "en": "How many votes did GERB get?",
+    "args": {
+      "bg": {
+        "party": "герб"
+      },
+      "en": {
+        "party": "gerb"
+      }
+    }
+  },
+  {
+    "id": "candidateResult",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "candidateResult",
+    "bg": "Резултатите за Божидар Божанов",
+    "en": "Results for Bozhidar Bozhanov",
+    "args": {
+      "bg": {
+        "name": "Божидар Божанов"
+      },
+      "en": {
+        "name": "Bozhidar Bozhanov"
+      }
+    }
+  },
+  {
+    "id": "machineVoteShare",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "machineVoteShare",
+    "bg": "Машинно гласуване през 2023?",
+    "en": "Machine voting in 2023?",
+    "args": {
+      "bg": {
+        "election": "2023_04_02"
+      },
+      "en": {
+        "election": "2023_04_02"
+      }
+    }
+  },
+  {
+    "id": "machineVoteSeries",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "machineVoteSeries",
+    "bg": "Машинно гласуване в последните 7 избора?",
+    "en": "Machine voting in the last 7 elections?",
+    "args": {
+      "bg": {
+        "n": 7
+      },
+      "en": {
+        "n": 7
+      }
+    }
+  },
+  {
+    "id": "turnoutSeries",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "turnoutSeries",
+    "bg": "Как се променя активността през годините?",
+    "en": "How has turnout changed over the years?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "pollAccuracy",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "pollAccuracy",
+    "bg": "Коя социологическа агенция е най-точна?",
+    "en": "Which pollster is most accurate?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "agencyProfile",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "agencyProfile",
+    "bg": "Колко е точна Алфа Рисърч?",
+    "en": "How accurate is Alpha Research?",
+    "args": {
+      "bg": {
+        "agency": "колко е точна алфа рисърч?"
+      },
+      "en": {
+        "agency": "how accurate is alpha research?"
+      }
+    }
+  },
+  {
+    "id": "latestPolls",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "latestPolls",
+    "bg": "Какво показват последните проучвания?",
+    "en": "What do the latest polls show?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "agencyPolls",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "agencyPolls",
+    "bg": "История на проучванията на Маркет Линкс",
+    "en": "Market Links poll history",
+    "args": {
+      "bg": {
+        "agency": "история на проучванията на маркет линкс"
+      },
+      "en": {
+        "agency": "market links poll history"
+      }
+    }
+  },
+  {
+    "id": "agencyAccuracyHistory",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "agencyAccuracyHistory",
+    "bg": "Как се променя точността на Алфа Рисърч през годините?",
+    "en": "How has Alpha Research's accuracy changed over time?",
+    "args": {
+      "bg": {
+        "agency": "как се променя точността на алфа рисърч през годините?"
+      },
+      "en": {
+        "agency": "how has alpha research's accuracy changed over time?"
+      }
+    }
+  },
+  {
+    "id": "accuracyTrend",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "accuracyTrend",
+    "bg": "Как се променя точността на агенциите през годините?",
+    "en": "How has pollster accuracy changed over the years?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "municipalityWinners",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "municipalityWinners",
+    "bg": "Покажи резултатите по общини в Благоевград",
+    "en": "Show the results by municipality in Blagoevgrad",
+    "args": {
+      "bg": {
+        "oblast": "BLG"
+      },
+      "en": {
+        "oblast": "BLG"
+      }
+    }
+  },
+  {
+    "id": "settlementWinners",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "settlementWinners",
+    "bg": "Покажи резултатите по населени места в община Банско",
+    "en": "Show the results by settlement in Bansko",
+    "args": {
+      "bg": {
+        "place": "банско"
+      },
+      "en": {
+        "place": "by bansko"
+      }
+    }
+  },
+  {
+    "id": "sectionWinners",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "sectionWinners",
+    "bg": "Покажи резултатите по секции в Банско",
+    "en": "Show the results by polling station in Bansko",
+    "args": {
+      "bg": {
+        "place": "банско"
+      },
+      "en": {
+        "place": "by bansko"
+      }
+    }
+  },
+  {
+    "id": "sectionResults",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "sectionResults",
+    "bg": "Резултатите в секция 050900092",
+    "en": "Results in section 050900092",
+    "args": {
+      "bg": {
+        "section": "050900092"
+      },
+      "en": {
+        "section": "050900092"
+      }
+    }
+  },
+  {
+    "id": "sectionRiskHistory",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "sectionRiskHistory",
+    "bg": "Каква е историята на риска за секция 162202002?",
+    "en": "What's the risk history of section 162202002?",
+    "args": {
+      "bg": {
+        "section": "162202002"
+      },
+      "en": {
+        "section": "162202002"
+      }
+    }
+  },
+  {
+    "id": "settlementResults",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "settlementResults",
+    "bg": "Резултатите в с. Иново",
+    "en": "Results in the village of Inovo",
+    "args": {
+      "bg": {
+        "place": "иново"
+      },
+      "en": {
+        "place": "inovo"
+      }
+    }
+  },
+  {
+    "id": "settlementHistory",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "settlementHistory",
+    "bg": "Резултатите в с. Иново за последните 5 години",
+    "en": "Results in the village of Inovo over the last 5 years",
+    "args": {
+      "bg": {
+        "place": "иново",
+        "years": 5
+      },
+      "en": {
+        "place": "inovo",
+        "years": 5
+      }
+    }
+  },
+  {
+    "id": "municipalityResults",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "municipalityResults",
+    "bg": "Резултатите в община Пловдив",
+    "en": "Results in Plovdiv municipality",
+    "args": {
+      "bg": {
+        "place": "пловдив"
+      },
+      "en": {
+        "place": "plovdiv"
+      }
+    }
+  },
+  {
+    "id": "municipalityHistory",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "municipalityHistory",
+    "bg": "Резултатите в община Пловдив за последните 5 години",
+    "en": "Results in Plovdiv municipality over the last 5 years",
+    "args": {
+      "bg": {
+        "place": "пловдив",
+        "years": 5
+      },
+      "en": {
+        "place": "plovdiv",
+        "years": 5
+      }
+    }
+  },
+  {
+    "id": "regionResults",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "regionResults",
+    "bg": "Резултатите в област Варна",
+    "en": "Results in Varna region",
+    "args": {
+      "bg": {
+        "oblast": "VAR"
+      },
+      "en": {
+        "oblast": "VAR"
+      }
+    }
+  },
+  {
+    "id": "regionResultsTrend",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "regionResultsTrend",
+    "bg": "Резултатите в област Варна за последните 5 години",
+    "en": "Results in Varna region over the last 5 years",
+    "args": {
+      "bg": {
+        "oblast": "VAR",
+        "years": 5
+      },
+      "en": {
+        "oblast": "VAR",
+        "years": 5
+      }
+    }
+  },
+  {
+    "id": "flashMemoryByParty",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "flashMemoryByParty",
+    "bg": "Кои партии загубиха най-много от липсваща флаш памет?",
+    "en": "Which parties lost the most from missing flash memory?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "machineVoteByParty",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "machineVoteByParty",
+    "bg": "Кои партии гласуват най-много машинно?",
+    "en": "Which parties vote on machines the most?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "wastedVotesByParty",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "wastedVotesByParty",
+    "bg": "Коя партия прахоса най-много гласове?",
+    "en": "Which party wasted the most votes?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "regionHistory",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "regionHistory",
+    "bg": "Как се променя активността в Хасково?",
+    "en": "How has turnout changed in Haskovo?",
+    "args": {
+      "bg": {
+        "oblast": "HKV"
+      },
+      "en": {
+        "oblast": "HKV"
+      }
+    }
+  },
+  {
+    "id": "localCouncilTrend",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localCouncilTrend",
+    "bg": "Как се променя вотът за общинските съвети през годините?",
+    "en": "How has the council vote changed across cycles?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "localMayorsTrend",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localMayorsTrend",
+    "bg": "Как се променят кметовете по партии през годините?",
+    "en": "How have mayoralties per party changed across cycles?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "localOblastMayors",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localOblastMayors",
+    "bg": "Колко кмета спечели всяка партия в област Пловдив?",
+    "en": "How many mayors did each party win in Plovdiv province?",
+    "args": {
+      "bg": {
+        "place": "PDV"
+      },
+      "en": {
+        "place": "PDV"
+      }
+    }
+  },
+  {
+    "id": "localMunicipality",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localMunicipality",
+    "bg": "Кой е кметът на Пловдив?",
+    "en": "Who is the mayor of Plovdiv?",
+    "args": {
+      "bg": {
+        "place": "пловдив"
+      },
+      "en": {
+        "place": "plovdiv"
+      }
+    }
+  },
+  {
+    "id": "localMayorRace",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localMayorRace",
+    "bg": "Кои бяха кандидатите за кмет на Варна?",
+    "en": "Who ran for mayor of Varna?",
+    "args": {
+      "bg": {
+        "place": "бяха кандидатите варна"
+      },
+      "en": {
+        "place": "ran for varna"
+      }
+    }
+  },
+  {
+    "id": "localMayorHistory",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localMayorHistory",
+    "bg": "Кои са последните кметове на София?",
+    "en": "Who are the last mayors of Sofia?",
+    "args": {
+      "bg": {
+        "place": "са софия"
+      },
+      "en": {
+        "place": "are mayors sofia"
+      }
+    }
+  },
+  {
+    "id": "localSubMayors",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localSubMayors",
+    "bg": "Кои са районните кметове на София?",
+    "en": "Who are Sofia's district mayors?",
+    "args": {
+      "bg": {
+        "place": "са районните софия"
+      },
+      "en": {
+        "place": "are sofia s district mayors"
+      }
+    }
+  },
+  {
+    "id": "localCouncil",
+    "category": "elections",
+    "subcategory": "local",
+    "tool": "localCouncil",
+    "bg": "Какъв е общинският съвет на Бургас?",
+    "en": "What's the Burgas council?",
+    "args": {
+      "bg": {
+        "place": "бургас"
+      },
+      "en": {
+        "place": "s burgas"
+      }
+    }
+  },
+  {
+    "id": "ngoOverview",
+    "category": "business",
+    "subcategory": "ngos",
+    "tool": "ngoOverview",
+    "bg": "Колко НПО има в България?",
+    "en": "How many NGOs are there?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "ngoTopFunded",
+    "category": "business",
+    "subcategory": "ngos",
+    "tool": "ngoTopFunded",
+    "bg": "Кои НПО получават най-много пари от ЕС?",
+    "en": "Which NGOs get the most EU money?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "ngoConflictAwarders",
+    "category": "business",
+    "subcategory": "ngos",
+    "tool": "ngoConflictAwarders",
+    "bg": "Кои институции дават поръчки на свързани фирми?",
+    "en": "Which authorities award contracts to linked companies?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "ngoRiskSignals",
+    "category": "business",
+    "subcategory": "ngos",
+    "tool": "ngoRiskSignals",
+    "bg": "Колко НПО имат сигнали за публичен интерес?",
+    "en": "How many NGOs have public-interest signals?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "ngoBySignal",
+    "category": "business",
+    "subcategory": "ngos",
+    "tool": "ngoBySignal",
+    "bg": "Кои НПО имат сигнал за средства от ЕС?",
+    "en": "Which NGOs are flagged for EU funds?",
+    "args": {
+      "bg": {
+        "code": "eu_funds"
+      },
+      "en": {
+        "code": "eu_funds"
+      }
+    }
+  },
+  {
+    "id": "budgetTrend",
+    "category": "public-money",
+    "subcategory": "budget",
+    "tool": "budgetTrend",
+    "bg": "Как се променя бюджетът през годините?",
+    "en": "How has the budget changed over the years?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "simulateTaxChange",
+    "category": "public-money",
+    "subcategory": "scenarios",
+    "tool": "simulateTaxChange",
+    "bg": "Какво става, ако ДДС стане 22%?",
+    "en": "What if VAT goes to 22%?",
+    "args": {
+      "bg": {
+        "change": "какво става, ако ддс стане 22%?"
+      },
+      "en": {
+        "change": "what if vat goes to 22%?"
+      }
+    }
+  },
+  {
+    "id": "budgetByFunction",
+    "category": "public-money",
+    "subcategory": "budget",
+    "tool": "budgetByFunction",
+    "bg": "За какво се харчи бюджетът?",
+    "en": "What is the budget spent on?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "budgetFunction",
+    "category": "public-money",
+    "subcategory": "budget",
+    "tool": "budgetFunction",
+    "bg": "Колко пари отиват за здравеопазване?",
+    "en": "How much goes to health?",
+    "args": {
+      "bg": {
+        "category": "GF07"
+      },
+      "en": {
+        "category": "GF07"
+      }
+    }
+  },
+  {
+    "id": "nzokBudget",
+    "category": "health",
+    "subcategory": "budget",
+    "tool": "nzokBudget",
+    "bg": "Къде отиват парите на НЗОК?",
+    "en": "Where does the NHIF money go?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "judiciaryBudget",
+    "category": "justice-security",
+    "subcategory": "courts",
+    "tool": "judiciaryBudget",
+    "bg": "Какъв е бюджетът на съдебната власт?",
+    "en": "What is the judiciary's budget?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "judiciaryCaseload",
+    "category": "justice-security",
+    "subcategory": "courts",
+    "tool": "judiciaryCaseload",
+    "bg": "Колко дела постъпват в съдилищата?",
+    "en": "How many cases enter the courts?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "riverbedCleaning",
+    "category": "water-environment",
+    "subcategory": "floods",
+    "tool": "riverbedCleaning",
+    "bg": "Колко се харчи за почистване на речните корита?",
+    "en": "How much is spent cleaning riverbeds?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "judiciaryWorkload",
+    "category": "justice-security",
+    "subcategory": "courts",
+    "tool": "judiciaryWorkload",
+    "bg": "Колко натоварени са съдиите?",
+    "en": "How heavily loaded are the judges?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "judiciaryCourtLoad",
+    "category": "justice-security",
+    "subcategory": "courts",
+    "tool": "judiciaryCourtLoad",
+    "bg": "Кой е най-натовареният съд?",
+    "en": "Which court is the busiest?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "judiciaryDeclarations",
+    "category": "justice-security",
+    "subcategory": "courts",
+    "tool": "judiciaryDeclarations",
+    "bg": "Подават ли магистратите декларациите си навреме?",
+    "en": "Do magistrates file their asset declarations on time?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "defenseSpending",
+    "category": "justice-security",
+    "subcategory": "defense",
+    "tool": "defenseSpending",
+    "bg": "Какъв е делът за военна техника?",
+    "en": "What share goes to military equipment?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "defenseProgram",
+    "category": "justice-security",
+    "subcategory": "defense",
+    "tool": "defenseProgram",
+    "bg": "Колко струват F-16?",
+    "en": "How much do the F-16s cost?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "transportSpending",
+    "category": "transport-housing",
+    "subcategory": "rail",
+    "tool": "transportSpending",
+    "bg": "Къде отиват парите за железници?",
+    "en": "Where does the railway money go?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "transportEuFunds",
+    "category": "transport-housing",
+    "subcategory": "rail",
+    "tool": "transportEuFunds",
+    "bg": "Усвояване на еврофондовете за железници",
+    "en": "EU-funds absorption for railways",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "railSubsidy",
+    "category": "transport-housing",
+    "subcategory": "rail",
+    "tool": "railSubsidy",
+    "bg": "Колко субсидира държавата влака?",
+    "en": "How much does the state subsidise the railway?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "socialPovertyImpact",
+    "category": "pensions-support",
+    "subcategory": "benefits",
+    "tool": "socialPovertyImpact",
+    "bg": "Намаляват ли социалните помощи бедността?",
+    "en": "Do social benefits reduce poverty?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "mrrbSpending",
+    "category": "funds",
+    "subcategory": "regional",
+    "tool": "mrrbSpending",
+    "bg": "Колко харчи МРРБ за поръчки?",
+    "en": "How much does МРРБ spend on procurement?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "cohesionAbsorption",
+    "category": "funds",
+    "subcategory": "regional",
+    "tool": "cohesionAbsorption",
+    "bg": "Усвоени ли са парите по „Развитие на регионите“?",
+    "en": "Are the „Развитие на регионите“ funds absorbed?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "environmentSpending",
+    "category": "water-environment",
+    "subcategory": "waste",
+    "tool": "environmentSpending",
+    "bg": "Колко харчи МОСВ за обществени поръчки?",
+    "en": "How much does МОСВ spend on procurement?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "environmentFunds",
+    "category": "water-environment",
+    "subcategory": "waste",
+    "tool": "environmentFunds",
+    "bg": "Колко усвоява ОП Околна среда?",
+    "en": "How much does ОП Околна среда absorb?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "wasteRecycling",
+    "category": "water-environment",
+    "subcategory": "waste",
+    "tool": "wasteRecycling",
+    "bg": "Колко рециклира България?",
+    "en": "How much does Bulgaria recycle?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "defensePeerCompare",
+    "category": "justice-security",
+    "subcategory": "defense",
+    "tool": "defensePeerCompare",
+    "bg": "Кой харчи повече за отбрана — България или Румъния?",
+    "en": "Who spends more on defence — Bulgaria or Romania?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "generationMix",
+    "category": "energy",
+    "subcategory": "production",
+    "tool": "generationMix",
+    "bg": "Откъде идва токът в България?",
+    "en": "Where does Bulgaria's electricity come from?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "electricityPrices",
+    "category": "energy",
+    "subcategory": "prices",
+    "tool": "electricityPrices",
+    "bg": "Колко струва токът в България спрямо ЕС?",
+    "en": "How expensive is electricity in Bulgaria vs the EU?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "gasPrices",
+    "category": "energy",
+    "subcategory": "prices",
+    "tool": "gasPrices",
+    "bg": "Колко струва природният газ в България спрямо ЕС?",
+    "en": "How expensive is natural gas in Bulgaria vs the EU?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "powerPlants",
+    "category": "energy",
+    "subcategory": "production",
+    "tool": "powerPlants",
+    "bg": "Колко въглищни централи има в България?",
+    "en": "How many coal power plants does Bulgaria have?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "nzokDrugs",
+    "category": "health",
+    "subcategory": "medicines",
+    "tool": "nzokDrugs",
+    "bg": "За кои лекарства плаща най-много НЗОК?",
+    "en": "Which drugs does the NHIF reimburse most?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "nzokDrugGrowth",
+    "category": "health",
+    "subcategory": "medicines",
+    "tool": "nzokDrugGrowth",
+    "bg": "Кои лекарства растат най-бързо в разходите на НЗОК?",
+    "en": "Which NHIF drugs are growing fastest in spend?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "nzokHospitals",
+    "category": "health",
+    "subcategory": "budget",
+    "tool": "nzokHospitals",
+    "bg": "Кои болници получават най-много от НЗОК?",
+    "en": "Which hospitals are paid most by the NHIF?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "nzokPublicPrivate",
+    "category": "health",
+    "subcategory": "budget",
+    "tool": "nzokPublicPrivate",
+    "bg": "Публични срещу частни болници",
+    "en": "Public vs private hospitals",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "nzokPrivateHospitals",
+    "category": "health",
+    "subcategory": "budget",
+    "tool": "nzokPrivateHospitals",
+    "bg": "Какъв е приходът на частните болници?",
+    "en": "What is the revenue of private hospitals?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "nzokDrugMolecule",
+    "category": "health",
+    "subcategory": "medicines",
+    "tool": "nzokDrugMolecule",
+    "bg": "Кои болници надплащат за BEVACIZUMAB?",
+    "en": "Which hospitals overpay for BEVACIZUMAB?",
+    "args": {
+      "bg": {
+        "inn": "Кои болници надплащат за BEVACIZUMAB?"
+      },
+      "en": {
+        "inn": "Which hospitals overpay for BEVACIZUMAB?"
+      }
+    }
+  },
+  {
+    "id": "procurementTotals",
+    "category": "procurement",
+    "subcategory": "contracts",
+    "tool": "procurementTotals",
+    "bg": "Колко са обществените поръчки?",
+    "en": "How much public procurement is there?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "topContractors",
+    "category": "procurement",
+    "subcategory": "contracts",
+    "tool": "topContractors",
+    "bg": "Кои са най-големите изпълнители по обществени поръчки?",
+    "en": "Who are the biggest public-procurement contractors?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "procurementAppeals",
+    "category": "procurement",
+    "subcategory": "control",
+    "tool": "procurementAppeals",
+    "bg": "Колко обществени поръчки са обжалвани пред КЗК?",
+    "en": "How many procurement appeals were there at КЗК?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "procurementRedFlags",
+    "category": "procurement",
+    "subcategory": "competition",
+    "tool": "procurementRedFlags",
+    "bg": "Покажи сигналите за риск в обществените поръчки",
+    "en": "Show the procurement red flags",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "procurementDebarred",
+    "category": "procurement",
+    "subcategory": "control",
+    "tool": "procurementDebarred",
+    "bg": "Покажи отстранените изпълнители от обществени поръчки",
+    "en": "Show the debarred public-procurement suppliers",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "procurementSingleBidSectors",
+    "category": "procurement",
+    "subcategory": "competition",
+    "tool": "procurementSingleBidSectors",
+    "bg": "В кои сектори един участник е нормално?",
+    "en": "In which sectors is a single bidder normal?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "mpProcurement",
+    "category": "business",
+    "subcategory": "ownership",
+    "tool": "mpProcurement",
+    "bg": "Поръчки към фирми, свързани с депутати",
+    "en": "Procurement to companies connected to MPs",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "roadsSpending",
+    "category": "procurement",
+    "subcategory": "projects",
+    "tool": "roadsSpending",
+    "bg": "Колко харчи АПИ за магистрали и по какво?",
+    "en": "How much does АПИ spend on motorways and on what?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "openTenders",
+    "category": "procurement",
+    "subcategory": "tenders",
+    "tool": "openTenders",
+    "bg": "Покажи ми всички търгове за пътни предпазни съоръжения през 2025",
+    "en": "Show me all road-guardrail tenders in 2025",
+    "args": {
+      "bg": {
+        "topic": "guardrails",
+        "year": "2025"
+      },
+      "en": {
+        "topic": "guardrails",
+        "year": "2025"
+      }
+    }
+  },
+  {
+    "id": "tenderLookup",
+    "category": "procurement",
+    "subcategory": "tenders",
+    "tool": "tenderLookup",
+    "bg": "Покажи поръчката 00044-2025-0125",
+    "en": "Show tender 00044-2025-0125",
+    "args": {
+      "bg": {
+        "unp": "00044-2025-0125"
+      },
+      "en": {
+        "unp": "00044-2025-0125"
+      }
+    }
+  },
+  {
+    "id": "fundsOverview",
+    "category": "funds",
+    "subcategory": "projects",
+    "tool": "fundsOverview",
+    "bg": "Кой получава най-много европейски средства?",
+    "en": "Who gets the most EU funds?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "subsidiesOverview",
+    "category": "funds",
+    "subcategory": "agriculture",
+    "tool": "subsidiesOverview",
+    "bg": "Кой получава най-много земеделски субсидии?",
+    "en": "Who gets the most farm subsidies?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "subsidiesByScheme",
+    "category": "funds",
+    "subcategory": "agriculture",
+    "tool": "subsidiesByScheme",
+    "bg": "Земеделски субсидии по схема",
+    "en": "Farm subsidies by scheme",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "cultureOverview",
+    "category": "culture-tourism",
+    "subcategory": "culture",
+    "tool": "cultureOverview",
+    "bg": "Как се разпределя субсидията за кино по вид?",
+    "en": "How is the film subsidy split by type?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "topCultureGrantees",
+    "category": "culture-tourism",
+    "subcategory": "culture",
+    "tool": "topCultureGrantees",
+    "bg": "Кои продуценти получават най-много субсидии за филми?",
+    "en": "Which producers get the most film subsidies?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "cultureGrantSuccess",
+    "category": "culture-tourism",
+    "subcategory": "culture",
+    "tool": "cultureGrantSuccess",
+    "bg": "Каква е успеваемостта на грантовете за култура?",
+    "en": "What's the success rate for culture grants?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "cultureCommissions",
+    "category": "culture-tourism",
+    "subcategory": "culture",
+    "tool": "cultureCommissions",
+    "bg": "Кой решава за филмовите субсидии?",
+    "en": "Who decides the film subsidies?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "cultureMunicipal",
+    "category": "culture-tourism",
+    "subcategory": "culture",
+    "tool": "cultureMunicipal",
+    "bg": "Каква е държавната субсидия за читалищата?",
+    "en": "What's the state subsidy for community centres?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "revenueBreakdown",
+    "category": "public-money",
+    "subcategory": "budget",
+    "tool": "revenueBreakdown",
+    "bg": "Деклариран ДДС по сектор",
+    "en": "Declared VAT by sector",
+    "args": {
+      "bg": {
+        "category": "деклариран ддс по сектор"
+      },
+      "en": {
+        "category": "declared vat by sector"
+      }
+    }
+  },
+  {
+    "id": "exciseRegister",
+    "category": "economy-work",
+    "subcategory": "investment",
+    "tool": "exciseRegister",
+    "bg": "Кои фирми имат лиценз за акцизни складове за горива?",
+    "en": "Which companies have licensed fuel excise warehouses?",
+    "args": {
+      "bg": {
+        "category": "кои фирми имат лиценз за акцизни складове за горива?"
+      },
+      "en": {
+        "category": "which companies have licensed fuel excise warehouses?"
+      }
+    }
+  },
+  {
+    "id": "exciseWarehouses",
+    "category": "economy-work",
+    "subcategory": "investment",
+    "tool": "exciseWarehouses",
+    "bg": "В кои градове има най-много акцизни складове?",
+    "en": "Which cities have the most excise warehouses?",
+    "args": {
+      "bg": {
+        "category": "в кои градове има най-много акцизни складове?"
+      },
+      "en": {
+        "category": "which cities have the most excise warehouses?"
+      }
+    }
+  },
+  {
+    "id": "municipalTransfers",
+    "category": "public-money",
+    "subcategory": "municipal",
+    "tool": "municipalTransfers",
+    "bg": "Държавни трансфери към общините по вид",
+    "en": "State transfers to municipalities by type",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "noiFunds",
+    "category": "pensions-support",
+    "subcategory": "pensions",
+    "tool": "noiFunds",
+    "bg": "Колко харчи НОИ?",
+    "en": "How much does NSSI spend?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "noiPensionDistribution",
+    "category": "pensions-support",
+    "subcategory": "pensions",
+    "tool": "noiPensionDistribution",
+    "bg": "Колко пенсионери взимат минимална пенсия?",
+    "en": "How many pensioners get the minimum pension?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "noiPensionByOblast",
+    "category": "pensions-support",
+    "subcategory": "pensions",
+    "tool": "noiPensionByOblast",
+    "bg": "Средна пенсия по област",
+    "en": "Average pension by region",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "noiPensionSeries",
+    "category": "pensions-support",
+    "subcategory": "pensions",
+    "tool": "noiPensionSeries",
+    "bg": "Каква е средната пенсия спрямо заплатата?",
+    "en": "How does the average pension compare to the wage?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "kfnFunds",
+    "category": "pensions-support",
+    "subcategory": "private",
+    "tool": "kfnFunds",
+    "bg": "Кои са най-големите частни пенсионни фондове?",
+    "en": "Which are the biggest private pension funds?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "budgetExecution",
+    "category": "public-money",
+    "subcategory": "budget",
+    "tool": "budgetExecution",
+    "bg": "Покажи изпълнението на бюджета по месеци",
+    "en": "Show monthly budget execution",
+    "args": {
+      "bg": {
+        "series": "покажи изпълнението на бюджета по месеци"
+      },
+      "en": {
+        "series": "show monthly budget execution"
+      }
+    }
+  },
+  {
+    "id": "investmentProjects",
+    "category": "public-money",
+    "subcategory": "ministries",
+    "tool": "investmentProjects",
+    "bg": "Кои са най-големите инвестиционни проекти?",
+    "en": "What are the biggest investment projects?",
+    "args": {
+      "bg": {
+        "oblast": "са най-големите инвестиционни проекти"
+      },
+      "en": {
+        "oblast": "are biggest investment projects"
+      }
+    }
+  },
+  {
+    "id": "governments",
+    "category": "institutions",
+    "subcategory": "cabinet",
+    "tool": "governments",
+    "bg": "Кои са правителствата от 2005?",
+    "en": "What governments since 2005?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "mpConnectionsTop",
+    "category": "business",
+    "subcategory": "ownership",
+    "tool": "mpConnectionsTop",
+    "bg": "Кои депутати имат най-много фирмени връзки?",
+    "en": "Which MPs have the most company links?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "mpConnectionsByParty",
+    "category": "business",
+    "subcategory": "ownership",
+    "tool": "mpConnectionsByParty",
+    "bg": "Кои партии имат най-много бизнес връзки?",
+    "en": "Which parties have the most business connections?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "partyFinance",
+    "category": "business",
+    "subcategory": "party-funding",
+    "tool": "partyFinance",
+    "bg": "Колко дарения получи ГЕРБ?",
+    "en": "How much did GERB raise from donations?",
+    "args": {
+      "bg": {
+        "party": "герб"
+      },
+      "en": {
+        "party": "gerb"
+      }
+    }
+  },
+  {
+    "id": "companyConnections",
+    "category": "business",
+    "subcategory": "ownership",
+    "tool": "companyConnections",
+    "bg": "Какви политически връзки има ЕИК 831646048?",
+    "en": "What political connections does EIK 831646048 have?",
+    "args": {
+      "bg": {
+        "company": "831646048"
+      },
+      "en": {
+        "company": "831646048"
+      }
+    }
+  },
+  {
+    "id": "macroIndicator",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "tool": "macroIndicator",
+    "bg": "Каква е инфлацията?",
+    "en": "What's inflation?",
+    "args": {
+      "bg": {
+        "indicator": "каква е инфлацията?"
+      },
+      "en": {
+        "indicator": "what's inflation?"
+      }
+    }
+  },
+  {
+    "id": "fdiFlows",
+    "category": "economy-work",
+    "subcategory": "investment",
+    "tool": "fdiFlows",
+    "bg": "Колко чужди инвестиции привлече България тази година?",
+    "en": "How much FDI did Bulgaria attract this year?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "macroOverview",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "tool": "macroOverview",
+    "bg": "Как е икономиката?",
+    "en": "How is the economy doing?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "macroByCategory",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "tool": "macroByCategory",
+    "bg": "Покажи показателите за управление",
+    "en": "Show the governance indicators",
+    "args": {
+      "bg": {
+        "category": "покажи показателите за управление"
+      },
+      "en": {
+        "category": "show the governance indicators"
+      }
+    }
+  },
+  {
+    "id": "euComparison",
+    "category": "economy-work",
+    "subcategory": "macro",
+    "tool": "euComparison",
+    "bg": "Сравни безработицата с останалите страни в ЕС",
+    "en": "Compare unemployment with the rest of the EU",
+    "args": {
+      "bg": {
+        "indicator": "сравни безработицата с останалите страни в ес"
+      },
+      "en": {
+        "indicator": "compare unemployment with the rest of the eu"
+      }
+    }
+  },
+  {
+    "id": "subnationalIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "tool": "subnationalIndicator",
+    "bg": "Каква е безработицата в Сливен?",
+    "en": "Unemployment in Sliven?",
+    "args": {
+      "bg": {
+        "place": "безработицата сливен",
+        "indicator": "каква е безработицата в сливен?"
+      },
+      "en": {
+        "place": "unemployment sliven",
+        "indicator": "unemployment in sliven?"
+      }
+    }
+  },
+  {
+    "id": "regionIndicator",
+    "category": "economy-work",
+    "subcategory": "jobs",
+    "tool": "regionIndicator",
+    "bg": "БВП на човек във Варна?",
+    "en": "GDP per capita in Varna oblast?",
+    "args": {
+      "bg": {
+        "oblast": "VAR",
+        "indicator": "бвп на човек във варна?"
+      },
+      "en": {
+        "oblast": "VAR",
+        "indicator": "gdp per capita in varna oblast?"
+      }
+    }
+  },
+  {
+    "id": "localTaxes",
+    "category": "public-money",
+    "subcategory": "municipal",
+    "tool": "localTaxes",
+    "bg": "Какви са данъците в Пловдив?",
+    "en": "What are the taxes in Plovdiv?",
+    "args": {
+      "bg": {
+        "place": "какви са данъците пловдив"
+      },
+      "en": {
+        "place": "are taxes plovdiv"
+      }
+    }
+  },
+  {
+    "id": "landUse",
+    "category": "water-environment",
+    "subcategory": "waste",
+    "tool": "landUse",
+    "bg": "Колко гора има в България?",
+    "en": "How much forest is in Bulgaria?",
+    "args": {
+      "bg": {
+        "oblast": "гора има българия"
+      },
+      "en": {
+        "oblast": "much forest bulgaria"
+      }
+    }
+  },
+  {
+    "id": "settlementPrices",
+    "category": "cost-living",
+    "subcategory": "basket",
+    "tool": "settlementPrices",
+    "bg": "Какви са цените в Пловдив?",
+    "en": "What are the prices in Plovdiv?",
+    "args": {
+      "bg": {
+        "place": "какви са пловдив"
+      },
+      "en": {
+        "place": "are plovdiv",
+        "product": "what are the prices in plovdiv?"
+      }
+    }
+  },
+  {
+    "id": "localDeals",
+    "category": "cost-living",
+    "subcategory": "basket",
+    "tool": "localDeals",
+    "bg": "Какви промоции има в Пловдив?",
+    "en": "What deals are in Plovdiv?",
+    "args": {
+      "bg": {
+        "place": "какви има пловдив"
+      },
+      "en": {
+        "place": "are plovdiv"
+      }
+    }
+  },
+  {
+    "id": "cheapestChains",
+    "category": "cost-living",
+    "subcategory": "basket",
+    "tool": "cheapestChains",
+    "bg": "Коя верига е най-евтина?",
+    "en": "Which retail chain is the cheapest?",
+    "args": {
+      "bg": {},
+      "en": {
+        "place": "which retail"
+      }
+    }
+  },
+  {
+    "id": "priceRanking",
+    "category": "cost-living",
+    "subcategory": "basket",
+    "tool": "priceRanking",
+    "bg": "Кой град е най-евтин за пазаруване?",
+    "en": "Which town is cheapest to shop in?",
+    "args": {
+      "bg": {
+        "metric": "кой град е най-евтин за пазаруване?"
+      },
+      "en": {
+        "metric": "which town is cheapest to shop in?"
+      }
+    }
+  },
+  {
+    "id": "basketVsInflation",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "tool": "basketVsInflation",
+    "bg": "Изпреварва ли кошницата официалната инфлация?",
+    "en": "Is the basket outpacing official inflation?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "euFoodPriceLevels",
+    "category": "cost-living",
+    "subcategory": "inflation",
+    "tool": "euFoodPriceLevels",
+    "bg": "По-скъпа ли е храната у нас от ЕС?",
+    "en": "Is food here more expensive than the EU?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "fuelPrices",
+    "category": "cost-living",
+    "subcategory": "fuel",
+    "tool": "fuelPrices",
+    "bg": "Колко струва бензинът в България спрямо ЕС?",
+    "en": "How expensive is petrol in Bulgaria vs the EU?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "chainProfile",
+    "category": "cost-living",
+    "subcategory": "basket",
+    "tool": "chainProfile",
+    "bg": "Какви обществени поръчки печели Кауфланд?",
+    "en": "What public contracts does Kaufland win?",
+    "args": {
+      "bg": {
+        "chain": "какви обществени поръчки печели кауфланд?"
+      },
+      "en": {
+        "chain": "what public contracts does kaufland win?"
+      }
+    }
+  },
+  {
+    "id": "governanceProfile",
+    "category": "demographics",
+    "subcategory": "my-area",
+    "tool": "governanceProfile",
+    "bg": "Разкажи ми за Габрово",
+    "en": "Tell me about Gabrovo",
+    "args": {
+      "bg": {
+        "place": "разкажи ми габрово"
+      },
+      "en": {
+        "place": "tell me about gabrovo"
+      }
+    }
+  },
+  {
+    "id": "comparePlaces",
+    "category": "demographics",
+    "subcategory": "my-area",
+    "tool": "comparePlaces",
+    "bg": "Сравни Варна и Бургас",
+    "en": "Compare Varna and Burgas",
+    "args": {
+      "bg": {
+        "a": "Сравни Варна",
+        "b": "Бургас"
+      },
+      "en": {
+        "a": "Compare Varna",
+        "b": "Burgas"
+      }
+    }
+  },
+  {
+    "id": "census",
+    "category": "demographics",
+    "subcategory": "population",
+    "tool": "census",
+    "bg": "Колко жители има Видин?",
+    "en": "What's the population of Vidin?",
+    "args": {
+      "bg": {
+        "place": "жители има видин"
+      },
+      "en": {
+        "place": "s population vidin"
+      }
+    }
+  },
+  {
+    "id": "procurementBySettlement",
+    "category": "procurement",
+    "subcategory": "local",
+    "tool": "procurementBySettlement",
+    "bg": "Колко поръчки има в Русе?",
+    "en": "How much procurement in Ruse?",
+    "args": {
+      "bg": {
+        "place": "поръчки има русе"
+      },
+      "en": {
+        "place": "much procurement ruse"
+      }
+    }
+  },
+  {
+    "id": "myAreaAlerts",
+    "category": "demographics",
+    "subcategory": "my-area",
+    "tool": "myAreaAlerts",
+    "bg": "Какво ново в община Бургас?",
+    "en": "What's new in Burgas?",
+    "args": {
+      "bg": {
+        "place": "ново бургас"
+      },
+      "en": {
+        "place": "s new burgas"
+      }
+    }
+  },
+  {
+    "id": "councilResolutions",
+    "category": "institutions",
+    "subcategory": "councils",
+    "tool": "councilResolutions",
+    "bg": "Какво реши общинският съвет на Русе?",
+    "en": "What did Ruse council decide?",
+    "args": {
+      "bg": {
+        "place": "реши русе"
+      },
+      "en": {
+        "place": "did ruse decide"
+      }
+    }
+  },
+  {
+    "id": "riskIndex",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "riskIndex",
+    "bg": "Какъв е индексът на изборния риск?",
+    "en": "What is the election risk index?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "riskScore",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "riskScore",
+    "bg": "Колко критични секции има?",
+    "en": "How many critical sections?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "riskClusters",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "riskClusters",
+    "bg": "Има ли клъстери на изборния риск?",
+    "en": "Are there election-risk clusters?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "clusterPersistence",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "clusterPersistence",
+    "bg": "Кои места са с устойчив изборен риск?",
+    "en": "Which places have persistent election risk?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "benfordAnomalies",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "benfordAnomalies",
+    "bg": "Какво показва тестът на Бенфорд?",
+    "en": "What does the Benford test show?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "wastedVotes",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "wastedVotes",
+    "bg": "Колко гласове са прахосани под прага?",
+    "en": "How many votes were wasted below the threshold?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "wastedVotesTrend",
+    "category": "elections",
+    "subcategory": "parliamentary",
+    "tool": "wastedVotesTrend",
+    "bg": "Как се променят прахосаните гласове през годините?",
+    "en": "How have wasted votes changed over time?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "suspiciousSettlements",
+    "category": "elections",
+    "subcategory": "integrity",
+    "tool": "suspiciousSettlements",
+    "bg": "Кои населени места са съмнителни?",
+    "en": "Which settlements are suspicious?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "diasporaVote",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "diasporaVote",
+    "bg": "Как гласува диаспората?",
+    "en": "How did the diaspora vote?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "diasporaVoteTrend",
+    "category": "elections",
+    "subcategory": "geography",
+    "tool": "diasporaVoteTrend",
+    "bg": "Как се променя гласът в чужбина през годините?",
+    "en": "How has the out-of-country vote changed over time?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "partyDemographics",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "partyDemographics",
+    "bg": "Кой гласува за Възраждане?",
+    "en": "Who votes for Vazrazhdane?",
+    "args": {
+      "bg": {
+        "party": "възраждане"
+      },
+      "en": {
+        "party": "vazrazhdane"
+      }
+    }
+  },
+  {
+    "id": "demographicCleavages",
+    "category": "elections",
+    "subcategory": "polls",
+    "tool": "demographicCleavages",
+    "bg": "Какво разделя гласоподавателите?",
+    "en": "What divides the electorate?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "mpLoyalty",
+    "category": "institutions",
+    "subcategory": "parliament",
+    "tool": "mpLoyalty",
+    "bg": "Кои депутати са най-лоялни?",
+    "en": "Which MPs are most loyal?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "mpAttendance",
+    "category": "institutions",
+    "subcategory": "parliament",
+    "tool": "mpAttendance",
+    "bg": "Кои депутати отсъстват най-много?",
+    "en": "Which MPs are most absent?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
+    "id": "mpVotingProfile",
+    "category": "institutions",
+    "subcategory": "parliament",
+    "tool": "mpVotingProfile",
+    "bg": "Как гласува Бойко Борисов в парламента?",
+    "en": "How does Boyko Borisov vote in parliament?",
+    "args": {
+      "bg": {
+        "name": "Бойко Борисов"
+      },
+      "en": {
+        "name": "Boyko Borisov"
+      }
+    }
+  },
+  {
+    "id": "mpSimilarity",
+    "category": "institutions",
+    "subcategory": "parliament",
+    "tool": "mpSimilarity",
+    "bg": "Кой гласува като Асен Василев?",
+    "en": "Who votes like Asen Vasilev?",
+    "args": {
+      "bg": {
+        "name": "Асен Василев"
+      },
+      "en": {
+        "name": "Asen Vasilev"
+      }
+    }
+  },
+  {
+    "id": "partyMps",
+    "category": "institutions",
+    "subcategory": "parliament",
+    "tool": "partyMps",
+    "bg": "Кои са депутатите от ПП?",
+    "en": "Who are the MPs from PP?",
+    "args": {
+      "bg": {
+        "party": "пп"
+      },
+      "en": {
+        "party": "pp"
+      }
+    }
+  },
+  {
+    "id": "administrationOverview",
+    "category": "institutions",
+    "subcategory": "services",
+    "tool": "administrationOverview",
+    "bg": "Колко голяма е държавната администрация?",
+    "en": "How big is the state administration?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  }
+]

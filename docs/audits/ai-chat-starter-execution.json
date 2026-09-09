@@ -1,0 +1,5819 @@
+{
+  "asOf": "2026-09-09",
+  "scope": "Local JSON and local PostgreSQL. First registry example per tool whose BG and EN routes match and have required parameters. No LLM or production execution. No exceptions does not imply correct answers. Active selection includes editorial review; withheld reasons below.",
+  "probedTools": 177,
+  "executions": 354,
+  "activePrompts": 150,
+  "withheld": {
+    "regionWinners": "Labels 32 electoral districts (including abroad) as oblasts; Bulgaria has 28 oblasts.",
+    "regionBreakdown": "Electoral-district data described as oblast data; needs explicit geography scope.",
+    "rankPlaces": "Oblast ranking includes MIR geography (31 domestic rows); needs geographic reconciliation.",
+    "airQuality": "Missing readings can become zero/within limit; station fallback and averaging period need correction.",
+    "basketAffordability": "GDP per capita is used as an income proxy; cannot present household affordability as measured.",
+    "budgetOverview": "EU contribution is omitted from narration facts and mislabeled in the table; balance cannot reconcile from facts.",
+    "compareElections": "2024 has two elections; the example silently picks October.",
+    "institutionMaintenance": "English example falls back to a national ranking instead of the requested ministry history.",
+    "socialSpending": "Broad question asks total assistance spending, but answer covers procurement only.",
+    "sectionHistory": "Example section has no local data.",
+    "contractSearch": "English contractor name is not extracted; local result has no match.",
+    "awarderProcurement": "Bulgarian example has no matched awarder.",
+    "subsidiesForEntity": "Example is a placeholder with no entity/EIK.",
+    "ministryBudget": "English ministry name is not resolved.",
+    "personProfile": "Short-name example does not resolve in local person lookup.",
+    "personConnections": "Short-name example does not resolve in local person lookup.",
+    "personWealth": "Short-name example does not resolve in local person lookup.",
+    "voteSearch": "English example returns no matching Bulgarian vote title.",
+    "openCalls": "No open rows returned in this local snapshot; recheck current deadlines before promotion.",
+    "problemSections": "Neighbourhood aggregates must not be presented as individual ethnicity or voting behaviour.",
+    "romaVoteTrend": "Example generalizes tracked neighbourhoods to all Roma voters.",
+    "voteTransitions": "Prompt needs to say model estimate, not observed individual voter movements.",
+    "localVoteFlows": "Prompt needs explicit model-estimate wording.",
+    "mpAssetsTop": "Richest wording overstates coverage of declared assets.",
+    "mpAssetsByParty": "Richest wording overstates coverage of declared assets.",
+    "officialsAssetsTop": "Richest wording overstates coverage of declared assets.",
+    "schoolScores": "Best schools wording overstates a ranking by one exam metric."
+  },
+  "results": [
+    {
+      "tool": "nationalResults",
+      "bg": "Какви са резултатите от последните парламентарни избори?",
+      "en": "What were the results of the latest parliamentary election?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Национални резултати — 19 апр 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/national_summary.json",
+            "2026_04_19/region_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "National results — Apr 19, 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/national_summary.json",
+            "2026_04_19/region_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "regionWinners",
+      "bg": "Покажи резултатите по области.",
+      "en": "Show the results by region.",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Резултати по области — 19 апр 2026",
+          "kind": "table",
+          "rows": 32,
+          "provenance": [
+            "2026_04_19/national_summary.json",
+            "2026_04_19/region_votes.json"
+          ],
+          "facts": {
+            "election": "19 апр 2026",
+            "regions": 32,
+            "leading_party": "ПрБ",
+            "leading_wins": 31,
+            "ПрБ": "31 области",
+            "ДПС": "1 области"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Results by region — Apr 19, 2026",
+          "kind": "table",
+          "rows": 32,
+          "provenance": [
+            "2026_04_19/national_summary.json",
+            "2026_04_19/region_votes.json"
+          ],
+          "facts": {
+            "election": "Apr 19, 2026",
+            "regions": 32,
+            "leading_party": "ПрБ",
+            "leading_wins": 31,
+            "ПрБ": "31 regions",
+            "ДПС": "1 regions"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "parliamentSeats",
+      "bg": "Колко места има всяка партия в парламента?",
+      "en": "How many seats does each party hold in parliament?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Места в парламента — 19 апр 2026",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Seats in parliament — Apr 19, 2026",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "seatsHistory",
+      "bg": "Колко места има всяка партия в парламента последните 5 години?",
+      "en": "How many seats has each party held in parliament over the last 5 years?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "years": 5
+          },
+          "title": "Места в парламента по партия (последните 5 години)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/national_summary.json",
+            "2021_11_14/national_summary.json",
+            "2022_10_02/national_summary.json",
+            "2023_04_02/national_summary.json",
+            "2024_06_09/national_summary.json",
+            "2024_10_27/national_summary.json",
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "years": 5
+          },
+          "title": "Parliament seats by party (last 5 years)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/national_summary.json",
+            "2021_11_14/national_summary.json",
+            "2022_10_02/national_summary.json",
+            "2023_04_02/national_summary.json",
+            "2024_06_09/national_summary.json",
+            "2024_10_27/national_summary.json",
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "partyResult",
+      "bg": "Колко гласа взе ГЕРБ?",
+      "en": "How many votes did GERB get?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "party": "герб"
+          },
+          "title": "ГЕРБ-СДС — 19 апр 2026",
+          "kind": "scalar",
+          "provenance": [
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "party": "gerb"
+          },
+          "title": "ГЕРБ-СДС — Apr 19, 2026",
+          "kind": "scalar",
+          "provenance": [
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "candidateResult",
+      "bg": "Резултатите за Божидар Божанов",
+      "en": "Results for Bozhidar Bozhanov",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "name": "Божидар Божанов"
+          },
+          "title": "Преференции — Божидар Пламенов Божанов (ПП-ДБ) — 19 апр 2026",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "2026_04_19/candidates/Божидар Пламенов Божанов/preferences_stats.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "name": "Bozhidar Bozhanov"
+          },
+          "title": "Preferential votes — Bozhidar  Plamenov  Bozhanov (ПП-ДБ) — Apr 19, 2026",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "2026_04_19/candidates/Божидар Пламенов Божанов/preferences_stats.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "machineVoteShare",
+      "bg": "Машинно гласуване през 2023?",
+      "en": "Machine voting in 2023?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "election": "2023_04_02"
+          },
+          "title": "Машинно гласуване — 2 апр 2023",
+          "kind": "scalar",
+          "provenance": [
+            "elections.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "election": "2023_04_02"
+          },
+          "title": "Machine voting — Apr 2, 2023",
+          "kind": "scalar",
+          "provenance": [
+            "elections.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "compareElections",
+      "bg": "Сравни 2022 и 2024",
+      "en": "Compare 2022 and 2024",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "a": "2022_10_02",
+            "b": "2024_10_27"
+          },
+          "title": "Сравнение: 2 окт 2022 срещу 27 окт 2024",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "elections.json"
+          ],
+          "facts": {
+            "a": "2 окт 2022",
+            "b": "27 окт 2024",
+            "turnout_a": "39,17%",
+            "turnout_b": "38,83%",
+            "machine_a": "90,23%",
+            "machine_b": "38,04%"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "a": "2022_10_02",
+            "b": "2024_10_27"
+          },
+          "title": "Compare: Oct 2, 2022 vs Oct 27, 2024",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "elections.json"
+          ],
+          "facts": {
+            "a": "Oct 2, 2022",
+            "b": "Oct 27, 2024",
+            "turnout_a": "39.17%",
+            "turnout_b": "38.83%",
+            "machine_a": "90.23%",
+            "machine_b": "38.04%"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "machineVoteSeries",
+      "bg": "Машинно гласуване в последните 7 избора?",
+      "en": "Machine voting in the last 7 elections?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "n": 7
+          },
+          "title": "Дял на машинното гласуване (последните 7 избора)",
+          "kind": "series",
+          "provenance": [
+            "elections.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "n": 7
+          },
+          "title": "Machine voting share (last 7 elections)",
+          "kind": "series",
+          "provenance": [
+            "elections.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "turnoutSeries",
+      "bg": "Как се променя активността през годините?",
+      "en": "How has turnout changed over the years?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Избирателна активност (от 2005 насам)",
+          "kind": "series",
+          "provenance": [
+            "elections.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Voter turnout (since 2005)",
+          "kind": "series",
+          "provenance": [
+            "elections.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "pollAccuracy",
+      "bg": "Коя социологическа агенция е най-точна?",
+      "en": "Which pollster is most accurate?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Точност на социологическите агенции",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "polls/accuracy.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Polling-agency accuracy",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "polls/accuracy.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "agencyProfile",
+      "bg": "Колко е точна Алфа Рисърч?",
+      "en": "How accurate is Alpha Research?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "agency": "колко е точна алфа рисърч?"
+          },
+          "title": "Алфа Рисърч — социологически профил",
+          "kind": "scalar",
+          "provenance": [
+            "polls/accuracy.json",
+            "polls/agencies.json",
+            "polls/analysis.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "agency": "how accurate is alpha research?"
+          },
+          "title": "Alpha Research — pollster profile",
+          "kind": "scalar",
+          "provenance": [
+            "polls/accuracy.json",
+            "polls/agencies.json",
+            "polls/analysis.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "latestPolls",
+      "bg": "Какво показват последните проучвания?",
+      "en": "What do the latest polls show?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Последно проучване — Алфа Рисърч (ако изборите бяха сега)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "polls/polls.json",
+            "polls/polls_details.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Latest poll — Alpha Research (if elections were now)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "polls/polls.json",
+            "polls/polls_details.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "agencyPolls",
+      "bg": "История на проучванията на Маркет Линкс",
+      "en": "Market Links poll history",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "agency": "история на проучванията на маркет линкс"
+          },
+          "title": "Маркет ЛИНКС — история на проучванията",
+          "kind": "series",
+          "provenance": [
+            "polls/polls.json",
+            "polls/polls_details.json",
+            "polls/agencies.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "agency": "market links poll history"
+          },
+          "title": "Market Links — poll history",
+          "kind": "series",
+          "provenance": [
+            "polls/polls.json",
+            "polls/polls_details.json",
+            "polls/agencies.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "bg": "Как се променя точността на Алфа Рисърч през годините?",
+      "en": "How has Alpha Research's accuracy changed over time?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "agency": "как се променя точността на алфа рисърч през годините?"
+          },
+          "title": "Алфа Рисърч — точност през годините",
+          "kind": "series",
+          "provenance": [
+            "polls/accuracy.json",
+            "polls/agencies.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "agency": "how has alpha research's accuracy changed over time?"
+          },
+          "title": "Alpha Research — accuracy over time",
+          "kind": "series",
+          "provenance": [
+            "polls/accuracy.json",
+            "polls/agencies.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "accuracyTrend",
+      "bg": "Как се променя точността на агенциите през годините?",
+      "en": "How has pollster accuracy changed over the years?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Точност на агенциите през годините",
+          "kind": "series",
+          "provenance": [
+            "polls/accuracy.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Pollster accuracy over time",
+          "kind": "series",
+          "provenance": [
+            "polls/accuracy.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "regionBreakdown",
+      "bg": "Къде е силна ГЕРБ?",
+      "en": "Where is GERB strongest?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "party": "герб"
+          },
+          "title": "ГЕРБ-СДС по области — 19 апр 2026",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ],
+          "facts": {
+            "party": "ГЕРБ-СДС",
+            "strongest": "Ловеч (20,06%)",
+            "weakest": "Чужбина (4,67%)"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "party": "gerb"
+          },
+          "title": "ГЕРБ-СДС by oblast — Apr 19, 2026",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ],
+          "facts": {
+            "party": "ГЕРБ-СДС",
+            "strongest": "Lovech (20.06%)",
+            "weakest": "Abroad (4.67%)"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "municipalityWinners",
+      "bg": "Покажи резултатите по общини в Благоевград",
+      "en": "Show the results by municipality in Blagoevgrad",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "oblast": "BLG"
+          },
+          "title": "Резултати по общини — Благоевград (19 апр 2026)",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/municipalities/by/BLG.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "oblast": "BLG"
+          },
+          "title": "Results by municipality — Blagoevgrad (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/municipalities/by/BLG.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "settlementWinners",
+      "bg": "Покажи резултатите по населени места в община Банско",
+      "en": "Show the results by settlement in Bansko",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "банско"
+          },
+          "title": "Резултати по населени места — Банско (19 апр 2026)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "2026_04_19/settlements/by/BLG01.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "by bansko"
+          },
+          "title": "Results by settlement — Bansko (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "2026_04_19/settlements/by/BLG01.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "sectionWinners",
+      "bg": "Покажи резултатите по секции в Банско",
+      "en": "Show the results by polling station in Bansko",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "банско"
+          },
+          "title": "Резултати по секции — гр.Банско (19 апр 2026)",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "2026_04_19/sections/by-oblast/01.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "by bansko"
+          },
+          "title": "Results by section — гр.Банско (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "2026_04_19/sections/by-oblast/01.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "sectionResults",
+      "bg": "Резултатите в секция 050900092",
+      "en": "Results in section 050900092",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "section": "050900092"
+          },
+          "title": "Секция 050900092 — с.Иново (19 апр 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/sections/by-oblast/05.json",
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "section": "050900092"
+          },
+          "title": "Section 050900092 — с.Иново (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/sections/by-oblast/05.json",
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "sectionHistory",
+      "bg": "Тренд на секция 234600045",
+      "en": "Trend for section 234600045",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "section": "234600045"
+          },
+          "title": "Няма данни за секция 234600045.",
+          "kind": "scalar",
+          "provenance": [
+            "*/sections/by-oblast/23.json"
+          ],
+          "facts": {
+            "section": "234600045"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "section": "234600045"
+          },
+          "title": "No data for section 234600045.",
+          "kind": "scalar",
+          "provenance": [
+            "*/sections/by-oblast/23.json"
+          ],
+          "facts": {
+            "section": "234600045"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "sectionRiskHistory",
+      "bg": "Каква е историята на риска за секция 162202002?",
+      "en": "What's the risk history of section 162202002?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "section": "162202002"
+          },
+          "title": "Секция 162202002 — история на риска",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "sections/risk_history/162202002.json",
+            "cluster_persistence_membership.json",
+            "2026_04_19/problem_membership.json",
+            "canonical_parties.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "section": "162202002"
+          },
+          "title": "Section 162202002 — risk history",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "sections/risk_history/162202002.json",
+            "cluster_persistence_membership.json",
+            "2026_04_19/problem_membership.json",
+            "canonical_parties.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "settlementResults",
+      "bg": "Резултатите в с. Иново",
+      "en": "Results in the village of Inovo",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "иново"
+          },
+          "title": "Резултати — с. Иново (19 апр 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/settlements/by/VID09.json",
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "inovo"
+          },
+          "title": "Results — Inovo (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/settlements/by/VID09.json",
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "settlementHistory",
+      "bg": "Резултатите в с. Иново за последните 5 години",
+      "en": "Results in the village of Inovo over the last 5 years",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "иново",
+            "years": 5
+          },
+          "title": "Резултати по партии — с. Иново (последните 5 години)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/settlements/by/VID09.json",
+            "2021_11_14/settlements/by/VID09.json",
+            "2022_10_02/settlements/by/VID09.json",
+            "2023_04_02/settlements/by/VID09.json",
+            "2024_06_09/settlements/by/VID09.json",
+            "2024_10_27/settlements/by/VID09.json",
+            "2026_04_19/settlements/by/VID09.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "inovo",
+            "years": 5
+          },
+          "title": "Results by party — Inovo (last 5 years)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/settlements/by/VID09.json",
+            "2021_11_14/settlements/by/VID09.json",
+            "2022_10_02/settlements/by/VID09.json",
+            "2023_04_02/settlements/by/VID09.json",
+            "2024_06_09/settlements/by/VID09.json",
+            "2024_10_27/settlements/by/VID09.json",
+            "2026_04_19/settlements/by/VID09.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "municipalityResults",
+      "bg": "Резултатите в община Пловдив",
+      "en": "Results in Plovdiv municipality",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "пловдив"
+          },
+          "title": "Резултати — община Пловдив (19 апр 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/municipalities/by/PDV-00.json",
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "plovdiv"
+          },
+          "title": "Results — Plovdiv municipality (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/municipalities/by/PDV-00.json",
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "municipalityHistory",
+      "bg": "Резултатите в община Пловдив за последните 5 години",
+      "en": "Results in Plovdiv municipality over the last 5 years",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "пловдив",
+            "years": 5
+          },
+          "title": "Резултати по партии — община Пловдив (последните 5 години)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/municipalities/by/PDV-00.json",
+            "2021_11_14/municipalities/by/PDV-00.json",
+            "2022_10_02/municipalities/by/PDV-00.json",
+            "2023_04_02/municipalities/by/PDV-00.json",
+            "2024_06_09/municipalities/by/PDV-00.json",
+            "2024_10_27/municipalities/by/PDV-00.json",
+            "2026_04_19/municipalities/by/PDV-00.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "plovdiv",
+            "years": 5
+          },
+          "title": "Results by party — Plovdiv municipality (last 5 years)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/municipalities/by/PDV-00.json",
+            "2021_11_14/municipalities/by/PDV-00.json",
+            "2022_10_02/municipalities/by/PDV-00.json",
+            "2023_04_02/municipalities/by/PDV-00.json",
+            "2024_06_09/municipalities/by/PDV-00.json",
+            "2024_10_27/municipalities/by/PDV-00.json",
+            "2026_04_19/municipalities/by/PDV-00.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "regionResults",
+      "bg": "Резултатите в област Варна",
+      "en": "Results in Varna region",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "oblast": "VAR"
+          },
+          "title": "Резултати — Варна (19 апр 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/region_votes.json",
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "oblast": "VAR"
+          },
+          "title": "Results — Varna (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/region_votes.json",
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "regionResultsTrend",
+      "bg": "Резултатите в област Варна за последните 5 години",
+      "en": "Results in Varna region over the last 5 years",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "oblast": "VAR",
+            "years": 5
+          },
+          "title": "Резултати по партии — Варна (последните 5 години)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/region_votes.json",
+            "2021_11_14/region_votes.json",
+            "2022_10_02/region_votes.json",
+            "2023_04_02/region_votes.json",
+            "2024_06_09/region_votes.json",
+            "2024_10_27/region_votes.json",
+            "2026_04_19/region_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "oblast": "VAR",
+            "years": 5
+          },
+          "title": "Results by party — Varna (last 5 years)",
+          "kind": "series",
+          "provenance": [
+            "canonical_parties.json",
+            "2021_07_11/region_votes.json",
+            "2021_11_14/region_votes.json",
+            "2022_10_02/region_votes.json",
+            "2023_04_02/region_votes.json",
+            "2024_06_09/region_votes.json",
+            "2024_10_27/region_votes.json",
+            "2026_04_19/region_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "flashMemoryByParty",
+      "bg": "Кои партии загубиха най-много от липсваща флаш памет?",
+      "en": "Which parties lost the most from missing flash memory?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Машинни гласове срещу флаш памет по партия — 19 апр 2026",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Machine votes vs flash memory by party — Apr 19, 2026",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "machineVoteByParty",
+      "bg": "Кои партии гласуват най-много машинно?",
+      "en": "Which parties vote on machines the most?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Машинно срещу хартиено гласуване по партия — 19 апр 2026",
+          "kind": "table",
+          "rows": 16,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Machine vs paper voting by party — Apr 19, 2026",
+          "kind": "table",
+          "rows": 16,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "wastedVotesByParty",
+      "bg": "Коя партия прахоса най-много гласове?",
+      "en": "Which party wasted the most votes?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Прахосани гласове по партия (под прага) — 19 апр 2026",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/national_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Wasted votes by party (below threshold) — Apr 19, 2026",
+          "kind": "table",
+          "rows": 14,
+          "provenance": [
+            "2026_04_19/national_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "regionHistory",
+      "bg": "Как се променя активността в Хасково?",
+      "en": "How has turnout changed in Haskovo?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "oblast": "HKV"
+          },
+          "title": "Избирателна активност — Хасково",
+          "kind": "series",
+          "provenance": [
+            "regions/HKV_history.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "oblast": "HKV"
+          },
+          "title": "Voter turnout — Haskovo",
+          "kind": "series",
+          "provenance": [
+            "regions/HKV_history.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "voteTransitions",
+      "bg": "От кои партии идват гласовете за Прогресивна България?",
+      "en": "Which parties did Progressive Bulgaria's votes come from?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "party": "от кои партии идват гласовете за прогресивна българия?",
+            "direction": "in"
+          },
+          "title": "Откъде идват гласовете за ПрБ (окт 2024 → апр 2026)",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "transitions/2024_10_27_2026_04_19/national.json"
+          ],
+          "facts": {
+            "pair": "Oct 2024 → Apr 2026",
+            "party": "ПрБ",
+            "direction": "inflows",
+            "total_votes": "1 371 154",
+            "top_source": "Не гласували (50,12%)"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "party": "which parties did progressive bulgaria's votes come from?",
+            "direction": "in"
+          },
+          "title": "Where PB's votes came from (Oct 2024 → Apr 2026)",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "transitions/2024_10_27_2026_04_19/national.json"
+          ],
+          "facts": {
+            "pair": "Oct 2024 → Apr 2026",
+            "party": "PB",
+            "direction": "inflows",
+            "total_votes": "1,371,154",
+            "top_source": "Did not vote (50.12%)"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "localCouncilTrend",
+      "bg": "Как се променя вотът за общинските съвети през годините?",
+      "en": "How has the council vote changed across cycles?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Общински съвети — дял на гласовете по партия (2007–2023)",
+          "kind": "series",
+          "provenance": [
+            "2007_10_28_mi/index.json",
+            "2011_10_23_mi/index.json",
+            "2015_10_25_mi/index.json",
+            "2019_10_27_mi/index.json",
+            "2023_10_29_mi/index.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Council vote share by party (2007–2023)",
+          "kind": "series",
+          "provenance": [
+            "2007_10_28_mi/index.json",
+            "2011_10_23_mi/index.json",
+            "2015_10_25_mi/index.json",
+            "2019_10_27_mi/index.json",
+            "2023_10_29_mi/index.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localVoteFlows",
+      "bg": "Преливане на гласове между местните избори",
+      "en": "Vote transitions between local elections",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Преливане на гласове (местни избори) 2019 → 2023",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "transitions_local/2019_10_27_mi_2023_10_29_mi/national.json"
+          ],
+          "facts": {
+            "pair": "2019 → 2023",
+            "biggest": "ГЕРБ-СДС → Не гласували (159 162)"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Local-council vote transitions 2019 → 2023",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "transitions_local/2019_10_27_mi_2023_10_29_mi/national.json"
+          ],
+          "facts": {
+            "pair": "2019 → 2023",
+            "biggest": "GERB-SDS → Did not vote (159,162)"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "localMayorsTrend",
+      "bg": "Как се променят кметовете по партии през годините?",
+      "en": "How have mayoralties per party changed across cycles?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Спечелени кметски места по партия (2007–2023)",
+          "kind": "series",
+          "provenance": [
+            "2007_10_28_mi/index.json",
+            "2011_10_23_mi/index.json",
+            "2015_10_25_mi/index.json",
+            "2019_10_27_mi/index.json",
+            "2023_10_29_mi/index.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Mayors won by party (2007–2023)",
+          "kind": "series",
+          "provenance": [
+            "2007_10_28_mi/index.json",
+            "2011_10_23_mi/index.json",
+            "2015_10_25_mi/index.json",
+            "2019_10_27_mi/index.json",
+            "2023_10_29_mi/index.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localOblastMayors",
+      "bg": "Колко кмета спечели всяка партия в област Пловдив?",
+      "en": "How many mayors did each party win in Plovdiv province?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "PDV"
+          },
+          "title": "Спечелени кметски места по партия — Пловдив (област) (2023)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "2023_10_29_mi/index.json",
+            "2023_10_29_mi/municipalities/*.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "PDV"
+          },
+          "title": "Mayors won by party — Plovdiv (province) (2023)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "2023_10_29_mi/index.json",
+            "2023_10_29_mi/municipalities/*.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localMunicipality",
+      "bg": "Кой е кметът на Пловдив?",
+      "en": "Who is the mayor of Plovdiv?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "пловдив"
+          },
+          "title": "Пловдив — Местни избори 2023",
+          "kind": "scalar",
+          "provenance": [
+            "2023_10_29_mi/municipalities/PDV22.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "plovdiv"
+          },
+          "title": "Plovdiv — 2023 local elections",
+          "kind": "scalar",
+          "provenance": [
+            "2023_10_29_mi/municipalities/PDV22.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localMayorRace",
+      "bg": "Кои бяха кандидатите за кмет на Варна?",
+      "en": "Who ran for mayor of Varna?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "бяха кандидатите варна"
+          },
+          "title": "Кмет на Варна — 2023 (II тур)",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "2023_10_29_mi/municipalities/VAR06.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "ran for varna"
+          },
+          "title": "Mayor of Varna — 2023 (runoff)",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "2023_10_29_mi/municipalities/VAR06.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localMayorHistory",
+      "bg": "Кои са последните кметове на София?",
+      "en": "Who are the last mayors of Sofia?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "са софия"
+          },
+          "title": "Кметове на Столична община по мандати",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "2023_10_29_mi/municipalities/SOF.json",
+            "2019_10_27_mi/municipalities/SOF.json",
+            "2015_10_25_mi/municipalities/SOF.json",
+            "2011_10_23_mi/municipalities/SOF.json",
+            "2007_10_28_mi/municipalities/SOF.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "are mayors sofia"
+          },
+          "title": "Mayors of Sofia by term",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "2023_10_29_mi/municipalities/SOF.json",
+            "2019_10_27_mi/municipalities/SOF.json",
+            "2015_10_25_mi/municipalities/SOF.json",
+            "2011_10_23_mi/municipalities/SOF.json",
+            "2007_10_28_mi/municipalities/SOF.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localSubMayors",
+      "bg": "Кои са районните кметове на София?",
+      "en": "Who are Sofia's district mayors?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "са районните софия"
+          },
+          "title": "Районни кметове — Столична община (2023)",
+          "kind": "table",
+          "rows": 24,
+          "provenance": [
+            "2023_10_29_mi/municipalities/SOF.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "are sofia s district mayors"
+          },
+          "title": "District mayors — Sofia (2023)",
+          "kind": "table",
+          "rows": 24,
+          "provenance": [
+            "2023_10_29_mi/municipalities/SOF.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localCouncil",
+      "bg": "Какъв е общинският съвет на Бургас?",
+      "en": "What's the Burgas council?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "бургас"
+          },
+          "title": "Общински съвет на Бургас — 2023",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "2023_10_29_mi/municipalities/BGS04.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "s burgas"
+          },
+          "title": "Burgas municipal council — 2023",
+          "kind": "table",
+          "rows": 13,
+          "provenance": [
+            "2023_10_29_mi/municipalities/BGS04.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "budgetOverview",
+      "bg": "Какъв е държавният бюджет?",
+      "en": "What's the state budget?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Държавен бюджет — изпълнение 2025",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "budget/index.json"
+          ],
+          "facts": {
+            "year": 2025,
+            "revenue": "26,3 млрд €",
+            "expenditure": "28,4 млрд €",
+            "balance": "-3,1 млрд €"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "State budget — 2025 execution",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "budget/index.json"
+          ],
+          "facts": {
+            "year": 2025,
+            "revenue": "€26.3bn",
+            "expenditure": "€28.4bn",
+            "balance": "€-3.1bn"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "ngoOverview",
+      "bg": "Колко НПО има в България?",
+      "en": "How many NGOs are there?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Организации с нестопанска цел — обзор",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Non-profit organisations — overview",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "ngoTopFunded",
+      "bg": "Кои НПО получават най-много пари от ЕС?",
+      "en": "Which NGOs get the most EU money?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Най-финансирани НПО (външно финансиране)",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Best-funded NGOs (external funding)",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "ngoConflictAwarders",
+      "bg": "Кои институции дават поръчки на свързани фирми?",
+      "en": "Which authorities award contracts to linked companies?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Възложители със свързани изпълнители (К-индекс)",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Authorities with linked suppliers (K-Index)",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "ngoRiskSignals",
+      "bg": "Колко НПО имат сигнали за публичен интерес?",
+      "en": "How many NGOs have public-interest signals?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "НПО по публично-значими сигнали",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "NGOs by public-interest signal",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "ngoBySignal",
+      "bg": "Кои НПО имат сигнал за средства от ЕС?",
+      "en": "Which NGOs are flagged for EU funds?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "code": "eu_funds"
+          },
+          "title": "НПО със сигнал: Средства от ЕС",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "code": "eu_funds"
+          },
+          "title": "NGOs with signal: EU funds",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "ngo/ai_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "budgetTrend",
+      "bg": "Как се променя бюджетът през годините?",
+      "en": "How has the budget changed over the years?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Държавен бюджет — приходи и разходи (2021–2025)",
+          "kind": "series",
+          "provenance": [
+            "budget/index.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "State budget — revenue and spending (2021–2025)",
+          "kind": "series",
+          "provenance": [
+            "budget/index.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "institutionMaintenance",
+      "bg": "Издръжка на Министерството на отбраната по години",
+      "en": "Defence ministry operating costs over the years",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "institution": "издръжка на министерството на отбраната по години"
+          },
+          "title": "Издръжка — Отбрана (2018–2026)",
+          "kind": "series",
+          "provenance": [
+            "budget/izdrazhka_by_institution.json"
+          ],
+          "facts": {
+            "institution": "Отбрана",
+            "latest_year": 2026,
+            "izdrazhka": "369,2 млн €",
+            "yoy": "+47%",
+            "vs_peak": "0%"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "institution": "defence ministry operating costs over the years"
+          },
+          "title": "Operating cost by institution — biggest 2026 increase",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/izdrazhka_by_institution.json"
+          ],
+          "facts": {
+            "institutions": 49,
+            "top": "МРРБ",
+            "top_change": "+32%"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "simulateTaxChange",
+      "bg": "Какво става, ако ДДС стане 22%?",
+      "en": "What if VAT goes to 22%?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "change": "какво става, ако ддс стане 22%?"
+          },
+          "title": "Какво става, ако: ДДС 22%",
+          "kind": "scalar",
+          "provenance": [
+            "budget/derived/policy_baseline.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "change": "what if vat goes to 22%?"
+          },
+          "title": "What if: VAT 22%",
+          "kind": "scalar",
+          "provenance": [
+            "budget/derived/policy_baseline.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "budgetByFunction",
+      "bg": "За какво се харчи бюджетът?",
+      "en": "What is the budget spent on?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Бюджет по функция (COFOG, 2024)",
+          "kind": "table",
+          "rows": 11,
+          "provenance": [
+            "cofog.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Budget by function (COFOG, 2024)",
+          "kind": "table",
+          "rows": 11,
+          "provenance": [
+            "cofog.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "budgetFunction",
+      "bg": "Колко пари отиват за здравеопазване?",
+      "en": "How much goes to health?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "category": "GF07"
+          },
+          "title": "Разходи за „Здравеопазване“ (COFOG)",
+          "kind": "series",
+          "provenance": [
+            "cofog.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "category": "GF07"
+          },
+          "title": "Spending on \"Health\" (COFOG)",
+          "kind": "series",
+          "provenance": [
+            "cofog.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "nzokBudget",
+      "bg": "Къде отиват парите на НЗОК?",
+      "en": "Where does the NHIF money go?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Къде отиват парите на НЗОК (2026)",
+          "kind": "table",
+          "rows": 11,
+          "provenance": [
+            "budget/nzok/budget.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Where the NHIF money goes (2026)",
+          "kind": "table",
+          "rows": 11,
+          "provenance": [
+            "budget/nzok/budget.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "judiciaryBudget",
+      "bg": "Какъв е бюджетът на съдебната власт?",
+      "en": "What is the judiciary's budget?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Бюджетът на съдебната власт по органи (2025)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "budget/vss/budget.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "The judiciary's budget by spending body (2025)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "budget/vss/budget.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "judiciaryCaseload",
+      "bg": "Колко дела постъпват в съдилищата?",
+      "en": "How many cases enter the courts?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Движение на делата в съдилищата (2025)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "judiciary/caseload.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "The movement of cases through the courts (2025)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "judiciary/caseload.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "riverbedCleaning",
+      "bg": "Колко се харчи за почистване на речните корита?",
+      "en": "How much is spent cleaning riverbeds?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Почистване на речни корита — обществени поръчки",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "water/flood_maintenance.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Riverbed cleaning — public procurement",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "water/flood_maintenance.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "judiciaryWorkload",
+      "bg": "Колко натоварени са съдиите?",
+      "en": "How heavily loaded are the judges?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Натовареност на съдиите по съдебен ред (2025)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "judiciary/caseload.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Judges' workload by court tier (2025)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "judiciary/caseload.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "judiciaryCourtLoad",
+      "bg": "Кой е най-натовареният съд?",
+      "en": "Which court is the busiest?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Най-натоварените съдилища (2025)",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "judiciary/court_load.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "The busiest courts (2025)",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "judiciary/court_load.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "judiciaryDeclarations",
+      "bg": "Подават ли магистратите декларациите си навреме?",
+      "en": "Do magistrates file their asset declarations on time?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Имуществени декларации на магистратите (ИВСС)",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "db:judiciary_payloads"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Magistrates' asset declarations (Inspectorate to the SJC)",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "db:judiciary_payloads"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "defenseSpending",
+      "bg": "Какъв е делът за военна техника?",
+      "en": "What share goes to military equipment?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Разходи за отбрана като дял от БВП",
+          "kind": "series",
+          "provenance": [
+            "defense/gdp_share.json",
+            "defense/category_split.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Defence spending as a share of GDP",
+          "kind": "series",
+          "provenance": [
+            "defense/gdp_share.json",
+            "defense/category_split.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "defenseProgram",
+      "bg": "Колко струват F-16?",
+      "en": "How much do the F-16s cost?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Големите оръжейни програми",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "defense/programs.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "The flagship defence programs",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "defense/programs.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "transportSpending",
+      "bg": "Къде отиват парите за железници?",
+      "en": "Where does the railway money go?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Транспорт — държавната група (МТС, НКЖИ, БДЖ, пристанища)",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "db:awarder-group-model"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Transport — the state group (МТС, НКЖИ, БДЖ, ports)",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "db:awarder-group-model"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "transportEuFunds",
+      "bg": "Усвояване на еврофондовете за железници",
+      "en": "EU-funds absorption for railways",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Европейски средства за транспорт (ИСУН)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:awarder-funds-rollup (ИСУН)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "EU funds for transport (ИСУН)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:awarder-funds-rollup (ИСУН)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "railSubsidy",
+      "bg": "Колко субсидира държавата влака?",
+      "en": "How much does the state subsidise the railway?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Субсидия за железниците на пътник",
+          "kind": "series",
+          "provenance": [
+            "transport/rail_subsidy.json (ЗДБ)",
+            "transport/rail_ridership.json (Eurostat rail_pa_total)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Rail subsidy per passenger",
+          "kind": "series",
+          "provenance": [
+            "transport/rail_subsidy.json (ЗДБ)",
+            "transport/rail_ridership.json (Eurostat rail_pa_total)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "socialSpending",
+      "bg": "Колко харчи държавата за социално подпомагане?",
+      "en": "How much does the state spend on social assistance?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Социално подпомагане — поръчките на групата (МТСП, АСП, АЗ, ГИТ)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "db:awarder-group-model"
+          ],
+          "facts": {
+            "total_value": "326,5 млн €",
+            "contracts": "3022",
+            "asp_share": "44%",
+            "top_function": "Административни и стопански услуги (80 млн €)",
+            "single_bid_share": "34%",
+            "direct_award_share": "13%",
+            "top_contractor": "Фонд мениджър на финансови инструменти в България ЕАД (33 млн €)",
+            "note": "Това са само обществените поръчки на групата. Помощите, които АСП плаща на домакинствата (~€2–3 млрд./год.), не са поръчки и не са тук. Пенсиите (НОИ) са отделен изглед."
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Social assistance — the group's procurement (МТСП, АСП, АЗ, ГИТ)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "db:awarder-group-model"
+          ],
+          "facts": {
+            "total_value": "€326.5m",
+            "contracts": "3,022",
+            "asp_share": "44%",
+            "top_function": "Administrative & business services (€80m)",
+            "single_bid_share": "34%",
+            "direct_award_share": "13%",
+            "top_contractor": "Фонд мениджър на финансови инструменти в България ЕАД (€33m)",
+            "note": "This is only the group's procurement. The benefits АСП pays households (~€2–3bn/yr) are not procurement and are not here. Pensions (НОИ) are a separate view."
+          }
+        }
+      ]
+    },
+    {
+      "tool": "socialPovertyImpact",
+      "bg": "Намаляват ли социалните помощи бедността?",
+      "en": "Do social benefits reduce poverty?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Социалните трансфери и бедността",
+          "kind": "series",
+          "provenance": [
+            "social/poverty_impact.json (Eurostat ilc_li10 / ilc_li02)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Social transfers and poverty",
+          "kind": "series",
+          "provenance": [
+            "social/poverty_impact.json (Eurostat ilc_li10 / ilc_li02)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mrrbSpending",
+      "bg": "Колко харчи МРРБ за поръчки?",
+      "en": "How much does МРРБ spend on procurement?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Регионално развитие — поръчките на групата (МРРБ, АГКК, ДНСК, области)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:awarder-group-model"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Regional development — the group's procurement (МРРБ, АГКК, ДНСК, oblasts)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:awarder-group-model"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "cohesionAbsorption",
+      "bg": "Усвоени ли са парите по „Развитие на регионите“?",
+      "en": "Are the „Развитие на регионите“ funds absorbed?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Усвояване на кохезионните средства за регионите",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:fund-payload (ИСУН absorption)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Absorption of the regional cohesion funds",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:fund-payload (ИСУН absorption)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "environmentSpending",
+      "bg": "Колко харчи МОСВ за обществени поръчки?",
+      "en": "How much does МОСВ spend on procurement?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Околна среда — държавната група (МОСВ, ИАОС, ПУДООС, паркове)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "db:awarder-group-model"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Environment — the state group (МОСВ, ИАОС, ПУДООС, parks)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "db:awarder-group-model"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "environmentFunds",
+      "bg": "Колко усвоява ОП Околна среда?",
+      "en": "How much does ОП Околна среда absorb?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Европейски средства за околна среда (ИСУН)",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "db:fund-payload (ИСУН absorption)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "EU funds for the environment (ИСУН)",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "db:fund-payload (ИСУН absorption)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "wasteRecycling",
+      "bg": "Колко рециклира България?",
+      "en": "How much does Bulgaria recycle?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Рециклиране на битови отпадъци — спрямо целта на ЕС",
+          "kind": "series",
+          "provenance": [
+            "environment/waste.json (Eurostat cei_wm011 / env_wasmun)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Municipal waste recycling — vs the EU target",
+          "kind": "series",
+          "provenance": [
+            "environment/waste.json (Eurostat cei_wm011 / env_wasmun)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "defensePeerCompare",
+      "bg": "Кой харчи повече за отбрана — България или Румъния?",
+      "en": "Who spends more on defence — Bulgaria or Romania?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Разходи за отбрана (% от БВП) — България и съседите",
+          "kind": "series",
+          "provenance": [
+            "defense/peers.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Defence spending (% of GDP) — Bulgaria and peers",
+          "kind": "series",
+          "provenance": [
+            "defense/peers.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "generationMix",
+      "bg": "Откъде идва токът в България?",
+      "en": "Where does Bulgaria's electricity come from?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Производство на ток по източник (2025)",
+          "kind": "series",
+          "provenance": [
+            "energy/generation.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Electricity generation by source (2025)",
+          "kind": "series",
+          "provenance": [
+            "energy/generation.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "electricityPrices",
+      "bg": "Колко струва токът в България спрямо ЕС?",
+      "en": "How expensive is electricity in Bulgaria vs the EU?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Цена на тока за домакинствата — България и ЕС",
+          "kind": "series",
+          "provenance": [
+            "energy/prices.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Household electricity price — Bulgaria vs the EU",
+          "kind": "series",
+          "provenance": [
+            "energy/prices.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "gasPrices",
+      "bg": "Колко струва природният газ в България спрямо ЕС?",
+      "en": "How expensive is natural gas in Bulgaria vs the EU?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Цена на природния газ за домакинствата — България и ЕС",
+          "kind": "series",
+          "provenance": [
+            "energy/gas_prices.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Household natural-gas price — Bulgaria vs the EU",
+          "kind": "series",
+          "provenance": [
+            "energy/gas_prices.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "powerPlants",
+      "bg": "Колко въглищни централи има в България?",
+      "en": "How many coal power plants does Bulgaria have?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Въглищни централи в България",
+          "kind": "series",
+          "provenance": [
+            "energy/plants.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Bulgaria's coal power plants",
+          "kind": "series",
+          "provenance": [
+            "energy/plants.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "nzokDrugs",
+      "bg": "За кои лекарства плаща най-много НЗОК?",
+      "en": "Which drugs does the NHIF reimburse most?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "За кои лекарства плаща най-много НЗОК (2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/drug_reimbursement.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Which medicines the NHIF reimburses most (2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/drug_reimbursement.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "nzokDrugGrowth",
+      "bg": "Кои лекарства растат най-бързо в разходите на НЗОК?",
+      "en": "Which NHIF drugs are growing fastest in spend?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Най-бързо растящи лекарства на НЗОК (2024→2025)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/drug_reimbursement.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Fastest-rising NHIF medicines (2024→2025)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/drug_reimbursement.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "nzokHospitals",
+      "bg": "Кои болници получават най-много от НЗОК?",
+      "en": "Which hospitals are paid most by the NHIF?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Кои болници получават най-много от НЗОК (2026-07-31)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/hospital_payments.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Which hospitals the NHIF pays most (2026-07-31)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/hospital_payments.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "nzokPublicPrivate",
+      "bg": "Публични срещу частни болници",
+      "en": "Public vs private hospitals",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Публични срещу частни болници (НЗОК)",
+          "kind": "table",
+          "rows": 3,
+          "provenance": [
+            "budget/nzok/public_private.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Public vs private hospitals (НЗОК)",
+          "kind": "table",
+          "rows": 3,
+          "provenance": [
+            "budget/nzok/public_private.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "nzokPrivateHospitals",
+      "bg": "Какъв е приходът на частните болници?",
+      "en": "What is the revenue of private hospitals?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Частни болници по приход (ГФО)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/public_private.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Private hospitals by revenue (ГФО)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "budget/nzok/public_private.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "nzokDrugMolecule",
+      "bg": "Кои болници надплащат за BEVACIZUMAB?",
+      "en": "Which hospitals overpay for BEVACIZUMAB?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "inn": "Кои болници надплащат за BEVACIZUMAB?"
+          },
+          "title": "Кои болници плащат над медианата за BEVACIZUMAB (2025)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "nzok_drug_overpay (PG)",
+            "nzok_drug_overpay_by_inn (PG)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "inn": "Which hospitals overpay for BEVACIZUMAB?"
+          },
+          "title": "Which hospitals pay above median for BEVACIZUMAB (2025)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "nzok_drug_overpay (PG)",
+            "nzok_drug_overpay_by_inn (PG)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "procurementTotals",
+      "bg": "Колко са обществените поръчки?",
+      "en": "How much public procurement is there?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Обществени поръчки — общо (АОП)",
+          "kind": "scalar",
+          "provenance": [
+            "db:procurement-overview"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Public procurement — totals (AOP)",
+          "kind": "scalar",
+          "provenance": [
+            "db:procurement-overview"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "topContractors",
+      "bg": "Кои са най-големите изпълнители по обществени поръчки?",
+      "en": "Who are the biggest public-procurement contractors?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Най-големи изпълнители по обществени поръчки (АОП)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:procurement-rankings"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Largest public-procurement contractors (AOP)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:procurement-rankings"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "procurementAppeals",
+      "bg": "Колко обществени поръчки са обжалвани пред КЗК?",
+      "en": "How many procurement appeals were there at КЗК?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Жалби пред КЗК по обществени поръчки",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:kzk-appeals-summary"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "КЗК procurement appeals",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:kzk-appeals-summary"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "contractSearch",
+      "bg": "Покажи договорите на Софарма трейдинг",
+      "en": "Show the contracts won by Sofarma Trading",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "company": "Покажи договорите на Софарма трейдинг"
+          },
+          "title": "Договори на Софарма трейдинг АД",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:procurement-search",
+            "db:table/contracts"
+          ],
+          "facts": {
+            "company": "Софарма трейдинг АД",
+            "eik_id": "103267194",
+            "contracts": "8544",
+            "total_value": "2,5 млрд €",
+            "single_bidder": 1310,
+            "biggest_awarder": "Министерство на здравеопазването - централен орган за покупки",
+            "biggest_value": "81,7 млн €",
+            "contract_id": "0325e41fabfd"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "company": "Show the contracts won by Sofarma Trading"
+          },
+          "title": "No procurement contractor matching “Show the contracts won by Sofarma Trading”",
+          "kind": "scalar",
+          "provenance": [
+            "db:procurement-search"
+          ],
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "tool": "procurementRedFlags",
+      "bg": "Покажи сигналите за риск в обществените поръчки",
+      "en": "Show the procurement red flags",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Сигнали за риск в обществените поръчки",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:procurement-risk-feed",
+            "db:debarred"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Public-procurement red flags",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:procurement-risk-feed",
+            "db:debarred"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "procurementDebarred",
+      "bg": "Покажи отстранените изпълнители от обществени поръчки",
+      "en": "Show the debarred public-procurement suppliers",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Изпълнители в черния списък (АОП)",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:debarred"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Debarred suppliers (AOP)",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:debarred"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "procurementSingleBidSectors",
+      "bg": "В кои сектори един участник е нормално?",
+      "en": "In which sectors is a single bidder normal?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Сектори, в които един участник е нормално",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:procurement-risk-indexes"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Sectors where a single bidder is the norm",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:procurement-risk-indexes"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mpProcurement",
+      "bg": "Поръчки към фирми, свързани с депутати",
+      "en": "Procurement to companies connected to MPs",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Поръчки към фирми, свързани с депутати (АОП)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:procurement-rankings"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Procurement to MP-connected companies (AOP)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:procurement-rankings"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "awarderProcurement",
+      "bg": "Колко похарчи СУ „Добри Чинтулов“ за обществени поръчки?",
+      "en": "How much did the Ministry of Defence spend on procurement?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "org": "Колко похарчи СУ „Добри Чинтулов“ за обществени поръчки?"
+          },
+          "title": "Не открих такъв възложител в данните за поръчки",
+          "kind": "scalar",
+          "provenance": [
+            "db:procurement-search"
+          ],
+          "facts": {
+            "query": "Колко похарчи СУ „Добри Чинтулов“ за обществени поръчки?"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "org": "000695324"
+          },
+          "title": "Public procurement — Министерство на отбраната /МО/",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:procurement-search",
+            "db:awarder-procurement"
+          ],
+          "facts": {
+            "buyer": "Министерство на отбраната /МО/",
+            "eik": "000695324",
+            "total_value": "€1.2bn",
+            "contracts": "1,692",
+            "suppliers": 50,
+            "years": "2011–2026",
+            "top_supplier": "Сакса ООД"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "roadsSpending",
+      "bg": "Колко харчи АПИ за магистрали и по какво?",
+      "en": "How much does АПИ spend on motorways and on what?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Пътна инфраструктура — Агенция \"Пътна инфраструктура\" (АПИ)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "db:awarder-procurement",
+            "db:awarder-contracts"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Road infrastructure — Road Infrastructure Agency (АПИ)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "db:awarder-procurement",
+            "db:awarder-contracts"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "openTenders",
+      "bg": "Покажи ми всички търгове за пътни предпазни съоръжения през 2025",
+      "en": "Show me all road-guardrail tenders in 2025",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "topic": "guardrails",
+            "year": "2025"
+          },
+          "title": "Обявени поръчки — Пътни предпазни (ограничителни) съоръжения / мантинели (2025)",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:tender-corpus-search"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "topic": "guardrails",
+            "year": "2025"
+          },
+          "title": "Tenders — Road safety barriers / guardrails (2025)",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "db:tender-corpus-search"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "tenderLookup",
+      "bg": "Покажи поръчката 00044-2025-0125",
+      "en": "Show tender 00044-2025-0125",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "unp": "00044-2025-0125"
+          },
+          "title": "Изграждане, ремонт и възстановяване на ограничителни системи",
+          "kind": "scalar",
+          "provenance": [
+            "db:tender"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "unp": "00044-2025-0125"
+          },
+          "title": "Изграждане, ремонт и възстановяване на ограничителни системи",
+          "kind": "scalar",
+          "provenance": [
+            "db:tender"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "openCalls",
+      "bg": "Има ли отворена програма за малка фирма?",
+      "en": "Is there an open programme for a small business?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "query": "Има ли отворена програма за малка фирма?"
+          },
+          "title": "Отворени процедури — по какво може да се кандидатства",
+          "kind": "table",
+          "rows": 0,
+          "provenance": [
+            "db:open-calls (ИСУН /Active + ДФЗ индикативен график)"
+          ],
+          "facts": {
+            "calls": "0",
+            "indicative": "4",
+            "consultations": "0",
+            "audience": "business",
+            "checked": "2026-09-08",
+            "coverage": "ИСУН 2020 + ДФЗ Стратегически план. Interreg се управлява в Jems и не е включен."
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "query": "Is there an open programme for a small business?"
+          },
+          "title": "Open calls — what you can apply for",
+          "kind": "table",
+          "rows": 0,
+          "provenance": [
+            "db:open-calls (ИСУН /Active + ДФЗ индикативен график)"
+          ],
+          "facts": {
+            "calls": "0",
+            "indicative": "4",
+            "consultations": "0",
+            "audience": "business",
+            "checked": "2026-09-08",
+            "coverage": "ИСУН 2020 + the ДФЗ Strategic Plan. Interreg runs in Jems and is not included."
+          }
+        }
+      ]
+    },
+    {
+      "tool": "fundsOverview",
+      "bg": "Кой получава най-много европейски средства?",
+      "en": "Who gets the most EU funds?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Европейски средства — топ бенефициенти (ИСУН)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:fund-payload (ИСУН index)",
+            "db:interreg-overview (keep.eu)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "EU funds — top beneficiaries (ISUN)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:fund-payload (ИСУН index)",
+            "db:interreg-overview (keep.eu)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "subsidiesOverview",
+      "bg": "Кой получава най-много земеделски субсидии?",
+      "en": "Who gets the most farm subsidies?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Земеделски субсидии (ДФ „Земеделие\") — всички години",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:agri-payload"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Farm subsidies (State Fund Agriculture) — all years",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:agri-payload"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "subsidiesByScheme",
+      "bg": "Земеделски субсидии по схема",
+      "en": "Farm subsidies by scheme",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Земеделски субсидии по схема — всички години",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:agri-payload"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Farm subsidies by scheme — all years",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:agri-payload"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "subsidiesForEntity",
+      "bg": "Земеделски субсидии за фирма по ЕИК",
+      "en": "Farm subsidies for a company by EIK",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "company": "Земеделски субсидии за фирма по ЕИК"
+          },
+          "title": "Не намерих земеделски субсидии за „Земеделски субсидии за фирма по ЕИК\"",
+          "kind": "scalar",
+          "provenance": [
+            "db:agri_subsidies"
+          ],
+          "facts": {}
+        },
+        {
+          "lang": "en",
+          "args": {
+            "company": "Farm subsidies for a company by EIK"
+          },
+          "title": "No farm subsidies found for “Farm subsidies for a company by EIK”",
+          "kind": "scalar",
+          "provenance": [
+            "db:agri_subsidies"
+          ],
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "tool": "cultureOverview",
+      "bg": "Как се разпределя субсидията за кино по вид?",
+      "en": "How is the film subsidy split by type?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Държавна субсидия за кино (НФЦ) — 2014–2025",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "culture/overview.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "State film subsidy (НФЦ) — 2014–2025",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "culture/overview.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "topCultureGrantees",
+      "bg": "Кои продуценти получават най-много субсидии за филми?",
+      "en": "Which producers get the most film subsidies?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Най-финансирани продуценти (НФЦ)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "culture/overview.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Top-funded producers (НФЦ)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "culture/overview.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "cultureGrantSuccess",
+      "bg": "Каква е успеваемостта на грантовете за култура?",
+      "en": "What's the success rate for culture grants?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Успеваемост на грантовете на НФК",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "culture/grants.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "НФК grant success rate",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "culture/grants.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "cultureCommissions",
+      "bg": "Кой решава за филмовите субсидии?",
+      "en": "Who decides the film subsidies?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Кой решава за филмовите пари (НФЦ комисии)",
+          "kind": "table",
+          "rows": 21,
+          "provenance": [
+            "culture/commissions.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Who decides the film money (НФЦ commissions)",
+          "kind": "table",
+          "rows": 21,
+          "provenance": [
+            "culture/commissions.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "cultureMunicipal",
+      "bg": "Каква е държавната субсидия за читалищата?",
+      "en": "What's the state subsidy for community centres?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Общинска и читалищна култура (Столична програма + читалища)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "culture/municipal.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Municipal & community-centre culture (Sofia programme + читалища)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "culture/municipal.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "revenueBreakdown",
+      "bg": "Деклариран ДДС по сектор",
+      "en": "Declared VAT by sector",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "category": "деклариран ддс по сектор"
+          },
+          "title": "Деклариран нетен ДДС по сектор (2024)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "budget/revenue_breakdown/vat/2024.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "category": "declared vat by sector"
+          },
+          "title": "Declared net VAT by sector (2024)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "budget/revenue_breakdown/vat/2024.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "exciseRegister",
+      "bg": "Кои фирми имат лиценз за акцизни складове за горива?",
+      "en": "Which companies have licensed fuel excise warehouses?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "category": "кои фирми имат лиценз за акцизни складове за горива?"
+          },
+          "title": "Лицензирани складодържатели — Горива и енергия",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "customs/excise_register.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "category": "which companies have licensed fuel excise warehouses?"
+          },
+          "title": "Licensed warehouse keepers — Fuels & energy",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "customs/excise_register.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "exciseWarehouses",
+      "bg": "В кои градове има най-много акцизни складове?",
+      "en": "Which cities have the most excise warehouses?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "category": "в кои градове има най-много акцизни складове?"
+          },
+          "title": "Данъчни складове по градове",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:excise-warehouses"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "category": "which cities have the most excise warehouses?"
+          },
+          "title": "Excise warehouses by city",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:excise-warehouses"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "municipalTransfers",
+      "bg": "Държавни трансфери към общините по вид",
+      "en": "State transfers to municipalities by type",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Трансфери държава → общини (2026)",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "budget/municipal_transfers/2026/totals.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "State → municipality transfers (2026)",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "budget/municipal_transfers/2026/totals.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "noiFunds",
+      "bg": "Колко харчи НОИ?",
+      "en": "How much does NSSI spend?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Социалноосигурителни фондове (НОИ) — 2024",
+          "kind": "table",
+          "rows": 3,
+          "provenance": [
+            "budget/noi/funds.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Social-security funds (NSSI) — 2024",
+          "kind": "table",
+          "rows": 3,
+          "provenance": [
+            "budget/noi/funds.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "noiPensionDistribution",
+      "bg": "Колко пенсионери взимат минимална пенсия?",
+      "en": "How many pensioners get the minimum pension?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Как се разпределят пенсиите по размер (2024)",
+          "kind": "table",
+          "rows": 17,
+          "provenance": [
+            "budget/noi/pensions.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "How pensions spread out by size (2024)",
+          "kind": "table",
+          "rows": 17,
+          "provenance": [
+            "budget/noi/pensions.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "noiPensionByOblast",
+      "bg": "Средна пенсия по област",
+      "en": "Average pension by region",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Средна пенсия по област (2024)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "budget/noi/pensions.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Average pension by oblast (2024)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "budget/noi/pensions.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "noiPensionSeries",
+      "bg": "Каква е средната пенсия спрямо заплатата?",
+      "en": "How does the average pension compare to the wage?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Заплата, осигурителен доход и пенсия във времето",
+          "kind": "series",
+          "provenance": [
+            "budget/noi/pensions.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Wage, insurable income and pension over time",
+          "kind": "series",
+          "provenance": [
+            "budget/noi/pensions.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "kfnFunds",
+      "bg": "Кои са най-големите частни пенсионни фондове?",
+      "en": "Which are the biggest private pension funds?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Частни пенсионни фондове (2026 Q1)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "budget/kfn/funds.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Private pension funds (2026 Q1)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "budget/kfn/funds.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "budgetExecution",
+      "bg": "Покажи изпълнението на бюджета по месеци",
+      "en": "Show monthly budget execution",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "series": "покажи изпълнението на бюджета по месеци"
+          },
+          "title": "Изпълнение на бюджета — Приходи (месечно)",
+          "kind": "series",
+          "provenance": [
+            "budget/kfp.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "series": "show monthly budget execution"
+          },
+          "title": "Budget execution — Revenue (monthly)",
+          "kind": "series",
+          "provenance": [
+            "budget/kfp.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "ministryBudget",
+      "bg": "Какъв е бюджетът на Министерството на транспорта?",
+      "en": "What's the transport ministry's budget?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "ministry": "какъв е бюджетът на министерството на транспорта?"
+          },
+          "title": "Бюджет — Министерство на транспорта и съобщенията (2026)",
+          "kind": "table",
+          "rows": 3,
+          "provenance": [
+            "budget/derived/admin_flow.json",
+            "budget/ministries/admin-ministerstvo-na-transporta-i-saobshteniyata.json"
+          ],
+          "facts": {
+            "ministry": "Министерство на транспорта и съобщенията",
+            "year": 2026,
+            "expenditure": "571,7 млн €",
+            "programs": 3
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "ministry": "what's the transport ministry's budget?"
+          },
+          "title": "No ministry matched \"what's the transport ministry's budget?\"",
+          "kind": "scalar",
+          "provenance": [
+            "budget/derived/admin_flow.json"
+          ],
+          "facts": {
+            "query": "what's the transport ministry's budget?"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "investmentProjects",
+      "bg": "Кои са най-големите инвестиционни проекти?",
+      "en": "What are the biggest investment projects?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "oblast": "са най-големите инвестиционни проекти"
+          },
+          "title": "Инвестиционна програма 2025",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "budget/investment_program/2025.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "oblast": "are biggest investment projects"
+          },
+          "title": "Investment programme 2025",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "budget/investment_program/2025.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "personProfile",
+      "bg": "Какъв е профилът на Бойко Борисов?",
+      "en": "What is the profile of Boyko Borisov?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "name": "Бойко Борисов"
+          },
+          "title": "Не е намерено лице „Бойко Борисов“",
+          "kind": "scalar",
+          "provenance": [
+            "person_by_slug (082_person_api.sql)"
+          ],
+          "facts": {
+            "търсене": "Бойко Борисов",
+            "подсказка": "Опитайте с пълно име (име, презиме и фамилия) на публична личност — депутат, кмет, съветник, магистрат или дарител."
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "name": "Boyko Borisov"
+          },
+          "title": "No person found for \"Boyko Borisov\"",
+          "kind": "scalar",
+          "provenance": [
+            "person_by_slug (082_person_api.sql)"
+          ],
+          "facts": {
+            "query": "Boyko Borisov",
+            "hint": "Try a full name of a public figure — MP, mayor, councillor, magistrate or donor."
+          }
+        }
+      ]
+    },
+    {
+      "tool": "personConnections",
+      "bg": "С кого е свързан Бойко Борисов?",
+      "en": "Who is Boyko Borisov connected to?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "name": "Бойко Борисов"
+          },
+          "title": "Не е намерено лице „Бойко Борисов“",
+          "kind": "scalar",
+          "provenance": [
+            "person_by_slug (082_person_api.sql)"
+          ],
+          "facts": {
+            "търсене": "Бойко Борисов",
+            "подсказка": "Опитайте с пълно име (име, презиме и фамилия) на публична личност — депутат, кмет, съветник, магистрат или дарител."
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "name": "Boyko Borisov"
+          },
+          "title": "No person found for \"Boyko Borisov\"",
+          "kind": "scalar",
+          "provenance": [
+            "person_by_slug (082_person_api.sql)"
+          ],
+          "facts": {
+            "query": "Boyko Borisov",
+            "hint": "Try a full name of a public figure — MP, mayor, councillor, magistrate or donor."
+          }
+        }
+      ]
+    },
+    {
+      "tool": "personWealth",
+      "bg": "Какво имущество е декларирал Бойко Борисов?",
+      "en": "What wealth has Boyko Borisov declared?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "name": "Бойко Борисов"
+          },
+          "title": "Не е намерено лице „Бойко Борисов“",
+          "kind": "scalar",
+          "provenance": [
+            "person_by_slug (082_person_api.sql)"
+          ],
+          "facts": {
+            "търсене": "Бойко Борисов",
+            "подсказка": "Опитайте с пълно име (име, презиме и фамилия) на публична личност — депутат, кмет, съветник, магистрат или дарител."
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "name": "Boyko Borisov"
+          },
+          "title": "No person found for \"Boyko Borisov\"",
+          "kind": "scalar",
+          "provenance": [
+            "person_by_slug (082_person_api.sql)"
+          ],
+          "facts": {
+            "query": "Boyko Borisov",
+            "hint": "Try a full name of a public figure — MP, mayor, councillor, magistrate or donor."
+          }
+        }
+      ]
+    },
+    {
+      "tool": "governments",
+      "bg": "Кои са правителствата от 2005?",
+      "en": "What governments since 2005?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Правителства от 2005",
+          "kind": "table",
+          "rows": 18,
+          "provenance": [
+            "governments.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Governments since 2005",
+          "kind": "table",
+          "rows": 18,
+          "provenance": [
+            "governments.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mpAssetsTop",
+      "bg": "Кои депутати са най-богати?",
+      "en": "Which MPs are richest?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Депутати с най-големи декларирани активи",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:mp_assets_rankings"
+          ],
+          "facts": {
+            "richest": "Делян Славчев Пеевски",
+            "richest_assets": "9,8 млн €"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "MPs by declared assets",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:mp_assets_rankings"
+          ],
+          "facts": {
+            "richest": "Делян Славчев Пеевски",
+            "richest_assets": "€9.8m"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "mpConnectionsTop",
+      "bg": "Кои депутати имат най-много фирмени връзки?",
+      "en": "Which MPs have the most company links?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Депутати с най-много бизнес връзки",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "/api/db/graph-mp-rankings"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "MPs by business connections",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "/api/db/graph-mp-rankings"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mpAssetsByParty",
+      "bg": "Коя партия има най-богати депутати?",
+      "en": "Which party has the richest MPs?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Декларирани активи по партия (средно на депутат)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "db:mp_assets_rankings"
+          ],
+          "facts": {
+            "richest_party": "ДПС (600,1 хил €)"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Declared assets by party (average per MP)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "db:mp_assets_rankings"
+          ],
+          "facts": {
+            "richest_party": "ДПС (€600.1k)"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "mpConnectionsByParty",
+      "bg": "Кои партии имат най-много бизнес връзки?",
+      "en": "Which parties have the most business connections?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Бизнес връзки по партия",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "/api/db/graph-mp-rankings"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Business connections by party",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "/api/db/graph-mp-rankings"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "officialsAssetsTop",
+      "bg": "Кои министри са най-богати?",
+      "en": "Which cabinet officials are richest?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "category": "кои министри са най-богати?"
+          },
+          "title": "Висши служители с най-големи активи (министри)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:officials_rankings"
+          ],
+          "facts": {
+            "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+            "richest_assets": "9,5 млн €"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "category": "which cabinet officials are richest?"
+          },
+          "title": "Officials by declared assets (cabinet)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "db:officials_rankings"
+          ],
+          "facts": {
+            "richest": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+            "richest_assets": "€9.5m"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "partyFinance",
+      "bg": "Колко дарения получи ГЕРБ?",
+      "en": "How much did GERB raise from donations?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "party": "герб"
+          },
+          "title": "Кампанийни финанси — ГЕРБ-СДС (19.04.2026)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "2026_04_19/parties/financing.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "party": "gerb"
+          },
+          "title": "Campaign finance — ГЕРБ-СДС (19.04.2026)",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "2026_04_19/parties/financing.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "companyConnections",
+      "bg": "Какви политически връзки има ЕИК 831646048?",
+      "en": "What political connections does EIK 831646048 have?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "company": "831646048"
+          },
+          "title": "Връзки с публични длъжности — АВТОМАГИСТРАЛИ",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "company_political_links (158_company_political_links.sql)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "company": "831646048"
+          },
+          "title": "Links to public office — АВТОМАГИСТРАЛИ",
+          "kind": "table",
+          "rows": 15,
+          "provenance": [
+            "company_political_links (158_company_political_links.sql)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "macroIndicator",
+      "bg": "Каква е инфлацията?",
+      "en": "What's inflation?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "indicator": "каква е инфлацията?"
+          },
+          "title": "Инфлация (ХИПЦ) (% спрямо предходната година (ХИПЦ, тримес. ср.))",
+          "kind": "series",
+          "provenance": [
+            "macro.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "indicator": "what's inflation?"
+          },
+          "title": "Inflation (HICP) (% YoY (HICP, quarterly avg))",
+          "kind": "series",
+          "provenance": [
+            "macro.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "fdiFlows",
+      "bg": "Колко чужди инвестиции привлече България тази година?",
+      "en": "How much FDI did Bulgaria attract this year?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Преки чуждестранни инвестиции в България: €2.17B за януари – юни 2026",
+          "kind": "series",
+          "provenance": [
+            "macro_fdi.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Foreign direct investment in Bulgaria: €2.17B in January – June 2026",
+          "kind": "series",
+          "provenance": [
+            "macro_fdi.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "macroOverview",
+      "bg": "Как е икономиката?",
+      "en": "How is the economy doing?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Макроикономически преглед",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "macro.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Macro snapshot",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "macro.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "macroByCategory",
+      "bg": "Покажи показателите за управление",
+      "en": "Show the governance indicators",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "category": "покажи показателите за управление"
+          },
+          "title": "Показатели — Управление",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "macro.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "category": "show the governance indicators"
+          },
+          "title": "Indicators — Governance",
+          "kind": "table",
+          "rows": 6,
+          "provenance": [
+            "macro.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "euComparison",
+      "bg": "Сравни безработицата с останалите страни в ЕС",
+      "en": "Compare unemployment with the rest of the EU",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "indicator": "сравни безработицата с останалите страни в ес"
+          },
+          "title": "Безработица: България спрямо ЕС",
+          "kind": "series",
+          "provenance": [
+            "macro_peers.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "indicator": "compare unemployment with the rest of the eu"
+          },
+          "title": "Unemployment: Bulgaria vs the EU",
+          "kind": "series",
+          "provenance": [
+            "macro_peers.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "subnationalIndicator",
+      "bg": "Каква е безработицата в Сливен?",
+      "en": "Unemployment in Sliven?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "безработицата сливен",
+            "indicator": "каква е безработицата в сливен?"
+          },
+          "title": "Регистрирана безработица — Сливен (%)",
+          "kind": "series",
+          "provenance": [
+            "indicators.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "unemployment sliven",
+            "indicator": "unemployment in sliven?"
+          },
+          "title": "Registered unemployment — Sliven (%)",
+          "kind": "series",
+          "provenance": [
+            "indicators.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "rankPlaces",
+      "bg": "Коя област е с най-висок БВП на човек?",
+      "en": "Which oblast has the highest GDP per capita?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "indicator": "коя област е с най-висок бвп на човек?"
+          },
+          "title": "Класация: БВП на човек от населението — най-високи (области)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "regional.json"
+          ],
+          "facts": {
+            "indicator": "БВП на човек от населението",
+            "level": "области",
+            "order": "най-високи",
+            "leader": "София (23 МИР): 35 400 евро на човек",
+            "ranked": 31
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "indicator": "which oblast has the highest gdp per capita?"
+          },
+          "title": "Ranking: GDP per capita — highest (oblasts)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "regional.json"
+          ],
+          "facts": {
+            "indicator": "GDP per capita",
+            "level": "oblasts",
+            "order": "highest",
+            "leader": "Sofia (MIR 23): 35,400 EUR per inhabitant",
+            "ranked": 31
+          }
+        }
+      ]
+    },
+    {
+      "tool": "regionIndicator",
+      "bg": "БВП на човек във Варна?",
+      "en": "GDP per capita in Varna oblast?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "oblast": "VAR",
+            "indicator": "бвп на човек във варна?"
+          },
+          "title": "БВП на човек от населението — Варна (евро на човек)",
+          "kind": "series",
+          "provenance": [
+            "regional.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "oblast": "VAR",
+            "indicator": "gdp per capita in varna oblast?"
+          },
+          "title": "GDP per capita — Varna (EUR per inhabitant)",
+          "kind": "series",
+          "provenance": [
+            "regional.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localTaxes",
+      "bg": "Какви са данъците в Пловдив?",
+      "en": "What are the taxes in Plovdiv?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "какви са данъците пловдив"
+          },
+          "title": "Местни данъци — Пловдив",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "local_taxes/index.json",
+            "local_taxes/PDV22.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "are taxes plovdiv"
+          },
+          "title": "Local taxes — Plovdiv",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "local_taxes/index.json",
+            "local_taxes/PDV22.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "landUse",
+      "bg": "Колко гора има в България?",
+      "en": "How much forest is in Bulgaria?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "oblast": "гора има българия"
+          },
+          "title": "Земеползване — България (2023)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "landuse/index.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "oblast": "much forest bulgaria"
+          },
+          "title": "Land use — Bulgaria (2023)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "landuse/index.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "settlementPrices",
+      "bg": "Какви са цените в Пловдив?",
+      "en": "What are the prices in Plovdiv?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "какви са пловдив"
+          },
+          "title": "Цени — Пловдив",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "are plovdiv",
+            "product": "what are the prices in plovdiv?"
+          },
+          "title": "Pearl rice 1kg — Plovdiv",
+          "kind": "scalar",
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "localDeals",
+      "bg": "Какви промоции има в Пловдив?",
+      "en": "What deals are in Plovdiv?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "какви има пловдив"
+          },
+          "title": "Промоции (Пловдив)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "are plovdiv"
+          },
+          "title": "Promotions (Plovdiv)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "cheapestChains",
+      "bg": "Коя верига е най-евтина?",
+      "en": "Which retail chain is the cheapest?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Най-евтини вериги за кошницата (национално)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "which retail"
+          },
+          "title": "Cheapest chains for the basket (national)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "priceRanking",
+      "bg": "Кой град е най-евтин за пазаруване?",
+      "en": "Which town is cheapest to shop in?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "metric": "кой град е най-евтин за пазаруване?"
+          },
+          "title": "Класация на цените: най-евтини (места)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "metric": "which town is cheapest to shop in?"
+          },
+          "title": "Price ranking: cheapest (places)",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "price_payloads (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "basketAffordability",
+      "bg": "Къде е най-достъпна кошницата спрямо доходите?",
+      "en": "Where is the basket most affordable relative to income?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Достъпност на кошницата по области (спрямо доходите)",
+          "kind": "table",
+          "rows": 28,
+          "provenance": [
+            "price_payloads (PG)",
+            "regional.json",
+            "kolkostruva.bg (КЗП)"
+          ],
+          "facts": {
+            "most_affordable": "София (столица): 17,13 € · 35.4 хил. €",
+            "least_affordable": "Сливен: 18,31 € · 6.7 хил. €",
+            "oblasts_ranked": 28,
+            "note": "Достъпност = цена на кошницата спрямо БВП на човек в областта (Евростат). БВП на човек е приблизителен измерител на регионалния доход, не нетна работна заплата."
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Basket affordability by oblast (vs income)",
+          "kind": "table",
+          "rows": 28,
+          "provenance": [
+            "price_payloads (PG)",
+            "regional.json",
+            "kolkostruva.bg (КЗП)"
+          ],
+          "facts": {
+            "most_affordable": "Sofia (capital): €17.13 · €35.4k",
+            "least_affordable": "Sliven: €18.31 · €6.7k",
+            "oblasts_ranked": 28,
+            "note": "Affordability = basket cost relative to the oblast's GDP-per-capita (Eurostat). GDP-per-capita proxies regional income, not net household wage."
+          }
+        }
+      ]
+    },
+    {
+      "tool": "basketVsInflation",
+      "bg": "Изпреварва ли кошницата официалната инфлация?",
+      "en": "Is the basket outpacing official inflation?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Кошница на КЗП спрямо официалната инфлация (ХИПЦ)",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "price_payloads (PG)",
+            "macro.json",
+            "kolkostruva.bg (КЗП)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "CPC basket vs official inflation (HICP)",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "price_payloads (PG)",
+            "macro.json",
+            "kolkostruva.bg (КЗП)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "euFoodPriceLevels",
+      "bg": "По-скъпа ли е храната у нас от ЕС?",
+      "en": "Is food here more expensive than the EU?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Храната у нас спрямо ЕС (Евростат, ЕС=100)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "macro_peers.json",
+            "Eurostat prc_ppp_ind_1"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Food here vs the EU (Eurostat, EU=100)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "macro_peers.json",
+            "Eurostat prc_ppp_ind_1"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "fuelPrices",
+      "bg": "Колко струва бензинът в България спрямо ЕС?",
+      "en": "How expensive is petrol in Bulgaria vs the EU?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Цени на горивата — България и ЕС",
+          "kind": "series",
+          "provenance": [
+            "fuel.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Fuel prices — Bulgaria vs the EU",
+          "kind": "series",
+          "provenance": [
+            "fuel.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "chainProfile",
+      "bg": "Какви обществени поръчки печели Кауфланд?",
+      "en": "What public contracts does Kaufland win?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "chain": "какви обществени поръчки печели кауфланд?"
+          },
+          "title": "Кауфланд България",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "price_payloads (PG)",
+            "contracts (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "chain": "what public contracts does kaufland win?"
+          },
+          "title": "Кауфланд България",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "price_payloads (PG)",
+            "contracts (PG)",
+            "kolkostruva.bg (КЗП)"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "governanceProfile",
+      "bg": "Разкажи ми за Габрово",
+      "en": "Tell me about Gabrovo",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "разкажи ми габрово"
+          },
+          "title": "Профил на Габрово",
+          "kind": "scalar",
+          "provenance": [
+            "municipalities.json",
+            "census/municipalities/GAB05.json",
+            "2023_10_29_mi/municipalities/GAB05.json",
+            "indicators.json",
+            "municipal_transparency/index.json",
+            "db:procurement-settlement",
+            "grao_population.json",
+            "db:council-muni"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "tell me about gabrovo"
+          },
+          "title": "Gabrovo — governance profile",
+          "kind": "scalar",
+          "provenance": [
+            "municipalities.json",
+            "census/municipalities/GAB05.json",
+            "2023_10_29_mi/municipalities/GAB05.json",
+            "indicators.json",
+            "municipal_transparency/index.json",
+            "db:procurement-settlement",
+            "grao_population.json",
+            "db:council-muni"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "comparePlaces",
+      "bg": "Сравни Варна и Бургас",
+      "en": "Compare Varna and Burgas",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "a": "Сравни Варна",
+            "b": "Бургас"
+          },
+          "title": "Сравнение: Варна срещу Бургас",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "municipalities.json",
+            "census/municipalities/VAR06.json",
+            "2023_10_29_mi/municipalities/VAR06.json",
+            "indicators.json",
+            "municipal_transparency/index.json",
+            "db:procurement-settlement",
+            "grao_population.json",
+            "air/index.json",
+            "db:council-muni"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "a": "Compare Varna",
+            "b": "Burgas"
+          },
+          "title": "Comparison: Варна vs Бургас",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "municipalities.json",
+            "census/municipalities/VAR06.json",
+            "2023_10_29_mi/municipalities/VAR06.json",
+            "indicators.json",
+            "municipal_transparency/index.json",
+            "db:procurement-settlement",
+            "grao_population.json",
+            "air/index.json",
+            "db:council-muni"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "census",
+      "bg": "Колко жители има Видин?",
+      "en": "What's the population of Vidin?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "жители има видин"
+          },
+          "title": "Преброяване 2021 — Видин",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "census/municipalities/VID09.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "s population vidin"
+          },
+          "title": "Census 2021 — Vidin",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "census/municipalities/VID09.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "procurementBySettlement",
+      "bg": "Колко поръчки има в Русе?",
+      "en": "How much procurement in Ruse?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "поръчки има русе"
+          },
+          "title": "Обществени поръчки — Русе",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:procurement-settlement"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "much procurement ruse"
+          },
+          "title": "Public procurement — Ruse",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "db:procurement-settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "myAreaAlerts",
+      "bg": "Какво ново в община Бургас?",
+      "en": "What's new in Burgas?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "ново бургас"
+          },
+          "title": "Скорошна активност — Бургас",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "/api/db/myarea-alerts?obshtina=BGS04"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "s new burgas"
+          },
+          "title": "Recent activity — Burgas",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "/api/db/myarea-alerts?obshtina=BGS04"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "airQuality",
+      "bg": "Какъв е въздухът в Перник?",
+      "en": "How's the air in Pernik?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "въздухът перник"
+          },
+          "title": "Качество на въздуха — Перник",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "air/index.json"
+          ],
+          "facts": {
+            "place": "Перник",
+            "stations": 2,
+            "worst_pm10": 34.01,
+            "eu_limit_pm10": 50,
+            "over_limit": "в нормата"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "s air pernik"
+          },
+          "title": "Air quality — Pernik",
+          "kind": "table",
+          "rows": 2,
+          "provenance": [
+            "air/index.json"
+          ],
+          "facts": {
+            "place": "Перник",
+            "stations": 2,
+            "worst_pm10": 34.01,
+            "eu_limit_pm10": 50,
+            "over_limit": "within limit"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "councilResolutions",
+      "bg": "Какво реши общинският съвет на Русе?",
+      "en": "What did Ruse council decide?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "реши русе"
+          },
+          "title": "Решения на Общински съвет — Община Русе",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:council-muni"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "did ruse decide"
+          },
+          "title": "Municipal council resolutions — Община Русе",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "db:council-muni"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "problemSections",
+      "bg": "Как гласуват ромските квартали?",
+      "en": "How do the Roma neighbourhoods vote?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Наблюдавани ромски квартали — 19 апр 2026",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "2026_04_19/problem_sections.json"
+          ],
+          "facts": {
+            "election": "19 апр 2026",
+            "neighborhoods": 8,
+            "total_sections": 138,
+            "top": "Столипиново / Шекер махала (Пловдив): ПрБ 50,48%"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Tracked Roma neighbourhoods — Apr 19, 2026",
+          "kind": "table",
+          "rows": 8,
+          "provenance": [
+            "2026_04_19/problem_sections.json"
+          ],
+          "facts": {
+            "election": "Apr 19, 2026",
+            "neighborhoods": 8,
+            "total_sections": 138,
+            "top": "Stolipinovo / Sheker mahala (Plovdiv): ПрБ 50.48%"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "romaVoteTrend",
+      "bg": "Коя партия спечели ромските гласове последните 5 години?",
+      "en": "Which party won the Roma vote over the last 5 years?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "years": 5
+          },
+          "title": "Кой печели ромския вот (последните 5 години)",
+          "kind": "series",
+          "provenance": [
+            "2021_07_11/problem_sections.json",
+            "2021_07_11/national_summary.json",
+            "2021_11_14/problem_sections.json",
+            "2021_11_14/national_summary.json",
+            "2022_10_02/problem_sections.json",
+            "2022_10_02/national_summary.json",
+            "2023_04_02/problem_sections.json",
+            "2023_04_02/national_summary.json",
+            "2024_06_09/problem_sections.json",
+            "2024_06_09/national_summary.json",
+            "2024_10_27/problem_sections.json",
+            "2024_10_27/national_summary.json",
+            "2026_04_19/problem_sections.json",
+            "2026_04_19/national_summary.json"
+          ],
+          "facts": {
+            "elections_count": 7,
+            "window_years": 5,
+            "юли 2021": "ИТН 27,09%",
+            "ное 2021": "ПП 28,29%",
+            "окт 2022": "ГЕРБ-СДС 26,24%",
+            "апр 2023": "ГЕРБ-СДС 28,52%",
+            "юни 2024": "ГЕРБ-СДС 32,71%",
+            "окт 2024": "ГЕРБ-СДС 36,12%",
+            "апр 2026": "ПрБ 50,46%",
+            "most_frequent_winner": "ГЕРБ-СДС (4/7)",
+            "latest": "ПрБ 50,46% (апр 2026)"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "years": 5
+          },
+          "title": "Who wins the Roma vote (last 5 years)",
+          "kind": "series",
+          "provenance": [
+            "2021_07_11/problem_sections.json",
+            "2021_07_11/national_summary.json",
+            "2021_11_14/problem_sections.json",
+            "2021_11_14/national_summary.json",
+            "2022_10_02/problem_sections.json",
+            "2022_10_02/national_summary.json",
+            "2023_04_02/problem_sections.json",
+            "2023_04_02/national_summary.json",
+            "2024_06_09/problem_sections.json",
+            "2024_06_09/national_summary.json",
+            "2024_10_27/problem_sections.json",
+            "2024_10_27/national_summary.json",
+            "2026_04_19/problem_sections.json",
+            "2026_04_19/national_summary.json"
+          ],
+          "facts": {
+            "elections_count": 7,
+            "window_years": 5,
+            "Jul 2021": "ИТН 27.09%",
+            "Nov 2021": "ПП 28.29%",
+            "Oct 2022": "ГЕРБ-СДС 26.24%",
+            "Apr 2023": "ГЕРБ-СДС 28.52%",
+            "Jun 2024": "ГЕРБ-СДС 32.71%",
+            "Oct 2024": "ГЕРБ-СДС 36.12%",
+            "Apr 2026": "ПрБ 50.46%",
+            "most_frequent_winner": "ГЕРБ-СДС (4/7)",
+            "latest": "ПрБ 50.46% (Apr 2026)"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "riskIndex",
+      "bg": "Какъв е индексът на изборния риск?",
+      "en": "What is the election risk index?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Индекс на изборния риск — 19 апр 2026",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "2026_04_19/reports/section/risk_score_summary.json",
+            "2026_04_19/region_votes.json",
+            "2026_04_19/dashboard/suspicious_settlements.json",
+            "2026_04_19/reports/benford.json",
+            "2026_04_19/problem_sections.json",
+            "problem_sections_stats.json",
+            "polls/accuracy.json",
+            "2026_04_19/reports/section/risk_clusters.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Election risk index — Apr 19, 2026",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "2026_04_19/reports/section/risk_score_summary.json",
+            "2026_04_19/region_votes.json",
+            "2026_04_19/dashboard/suspicious_settlements.json",
+            "2026_04_19/reports/benford.json",
+            "2026_04_19/problem_sections.json",
+            "problem_sections_stats.json",
+            "polls/accuracy.json",
+            "2026_04_19/reports/section/risk_clusters.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "riskScore",
+      "bg": "Колко критични секции има?",
+      "en": "How many critical sections?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Индекс на изборния риск — 19 апр 2026",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "2026_04_19/reports/section/risk_score_summary.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Election risk index — Apr 19, 2026",
+          "kind": "table",
+          "rows": 4,
+          "provenance": [
+            "2026_04_19/reports/section/risk_score_summary.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "riskClusters",
+      "bg": "Има ли клъстери на изборния риск?",
+      "en": "Are there election-risk clusters?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Клъстери на изборния риск — 19 апр 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/reports/section/risk_clusters.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Election-risk clusters — Apr 19, 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/reports/section/risk_clusters.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "clusterPersistence",
+      "bg": "Кои места са с устойчив изборен риск?",
+      "en": "Which places have persistent election risk?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Устойчиви рискови огнища",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "cluster_persistence.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Persistent risk loci",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "cluster_persistence.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "benfordAnomalies",
+      "bg": "Какво показва тестът на Бенфорд?",
+      "en": "What does the Benford test show?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Тест на Бенфорд (първа цифра) — 19 апр 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/reports/benford.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Benford's-law test (first digit) — Apr 19, 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/reports/benford.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "wastedVotes",
+      "bg": "Колко гласове са прахосани под прага?",
+      "en": "How many votes were wasted below the threshold?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Прахосани гласове (под прага) — 19 апр 2026",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "2026_04_19/dashboard/wasted_votes.json",
+            "2026_04_19/reports/region/wasted_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Wasted votes (below threshold) — Apr 19, 2026",
+          "kind": "table",
+          "rows": 5,
+          "provenance": [
+            "2026_04_19/dashboard/wasted_votes.json",
+            "2026_04_19/reports/region/wasted_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "wastedVotesTrend",
+      "bg": "Как се променят прахосаните гласове през годините?",
+      "en": "How have wasted votes changed over time?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Прахосани гласове под прага (от 2005 насам)",
+          "kind": "series",
+          "provenance": [
+            "2005_06_25/reports/region/wasted_votes.json",
+            "2009_07_05/reports/region/wasted_votes.json",
+            "2013_05_12/reports/region/wasted_votes.json",
+            "2014_10_05/reports/region/wasted_votes.json",
+            "2017_03_26/reports/region/wasted_votes.json",
+            "2021_04_04/reports/region/wasted_votes.json",
+            "2021_07_11/reports/region/wasted_votes.json",
+            "2021_11_14/reports/region/wasted_votes.json",
+            "2022_10_02/reports/region/wasted_votes.json",
+            "2023_04_02/reports/region/wasted_votes.json",
+            "2024_06_09/reports/region/wasted_votes.json",
+            "2024_10_27/reports/region/wasted_votes.json",
+            "2026_04_19/reports/region/wasted_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Wasted votes below the threshold (since 2005)",
+          "kind": "series",
+          "provenance": [
+            "2005_06_25/reports/region/wasted_votes.json",
+            "2009_07_05/reports/region/wasted_votes.json",
+            "2013_05_12/reports/region/wasted_votes.json",
+            "2014_10_05/reports/region/wasted_votes.json",
+            "2017_03_26/reports/region/wasted_votes.json",
+            "2021_04_04/reports/region/wasted_votes.json",
+            "2021_07_11/reports/region/wasted_votes.json",
+            "2021_11_14/reports/region/wasted_votes.json",
+            "2022_10_02/reports/region/wasted_votes.json",
+            "2023_04_02/reports/region/wasted_votes.json",
+            "2024_06_09/reports/region/wasted_votes.json",
+            "2024_10_27/reports/region/wasted_votes.json",
+            "2026_04_19/reports/region/wasted_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "suspiciousSettlements",
+      "bg": "Кои населени места са съмнителни?",
+      "en": "Which settlements are suspicious?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Съмнителни населени места — 19 апр 2026",
+          "kind": "table",
+          "rows": 3,
+          "provenance": [
+            "2026_04_19/dashboard/suspicious_settlements.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Suspicious settlements — Apr 19, 2026",
+          "kind": "table",
+          "rows": 3,
+          "provenance": [
+            "2026_04_19/dashboard/suspicious_settlements.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "diasporaVote",
+      "bg": "Как гласува диаспората?",
+      "en": "How did the diaspora vote?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Гласове в чужбина (МИР 32) — 19 апр 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Out-of-country vote (MIR 32) — Apr 19, 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/region_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "diasporaVoteTrend",
+      "bg": "Как се променя гласът в чужбина през годините?",
+      "en": "How has the out-of-country vote changed over time?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Кой печели гласа в чужбина (от 2005 насам)",
+          "kind": "series",
+          "provenance": [
+            "2005_06_25/region_votes.json",
+            "2009_07_05/region_votes.json",
+            "2013_05_12/region_votes.json",
+            "2014_10_05/region_votes.json",
+            "2017_03_26/region_votes.json",
+            "2021_04_04/region_votes.json",
+            "2021_07_11/region_votes.json",
+            "2021_11_14/region_votes.json",
+            "2022_10_02/region_votes.json",
+            "2023_04_02/region_votes.json",
+            "2024_06_09/region_votes.json",
+            "2024_10_27/region_votes.json",
+            "2026_04_19/region_votes.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Who wins the diaspora vote (since 2005)",
+          "kind": "series",
+          "provenance": [
+            "2005_06_25/region_votes.json",
+            "2009_07_05/region_votes.json",
+            "2013_05_12/region_votes.json",
+            "2014_10_05/region_votes.json",
+            "2017_03_26/region_votes.json",
+            "2021_04_04/region_votes.json",
+            "2021_07_11/region_votes.json",
+            "2021_11_14/region_votes.json",
+            "2022_10_02/region_votes.json",
+            "2023_04_02/region_votes.json",
+            "2024_06_09/region_votes.json",
+            "2024_10_27/region_votes.json",
+            "2026_04_19/region_votes.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "partyDemographics",
+      "bg": "Кой гласува за Възраждане?",
+      "en": "Who votes for Vazrazhdane?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "party": "възраждане"
+          },
+          "title": "Демографски корелации — Възраждане (19 апр 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/parties/demographics/8.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "party": "vazrazhdane"
+          },
+          "title": "Demographic correlations — Възраждане (Apr 19, 2026)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/parties/demographics/8.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "demographicCleavages",
+      "bg": "Какво разделя гласоподавателите?",
+      "en": "What divides the electorate?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Демографски разделения — 19 апр 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/dashboard/demographic_cleavages.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "Demographic cleavages — Apr 19, 2026",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "2026_04_19/dashboard/demographic_cleavages.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mpLoyalty",
+      "bg": "Кои депутати са най-лоялни?",
+      "en": "Which MPs are most loyal?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Партийна лоялност на депутатите (52-о НС)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "parliament/votes/derived/loyalty.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "MP party loyalty (52th National Assembly)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "parliament/votes/derived/loyalty.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mpAttendance",
+      "bg": "Кои депутати отсъстват най-много?",
+      "en": "Which MPs are most absent?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Присъствие на депутатите (52-о НС)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "parliament/votes/derived/attendance.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "MP attendance (52th National Assembly)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "parliament/votes/derived/attendance.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mpVotingProfile",
+      "bg": "Как гласува Бойко Борисов в парламента?",
+      "en": "How does Boyko Borisov vote in parliament?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "name": "Бойко Борисов"
+          },
+          "title": "Бойко Методиев Борисов — парламентарен профил (52-о НС)",
+          "kind": "scalar",
+          "provenance": [
+            "parliament/votes/derived/loyalty.json",
+            "parliament/votes/derived/attendance.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "name": "Boyko Borisov"
+          },
+          "title": "Бойко Методиев Борисов — voting profile (52th Assembly)",
+          "kind": "scalar",
+          "provenance": [
+            "parliament/votes/derived/loyalty.json",
+            "parliament/votes/derived/attendance.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "mpSimilarity",
+      "bg": "Кой гласува като Асен Василев?",
+      "en": "Who votes like Asen Vasilev?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "name": "Асен Василев"
+          },
+          "title": "Кой гласува като Асен Васков Василев? (51-о НС)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "parliament/votes/derived/similarity.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "name": "Asen Vasilev"
+          },
+          "title": "Who votes like Асен Васков Василев? (51th Assembly)",
+          "kind": "table",
+          "rows": 10,
+          "provenance": [
+            "parliament/votes/derived/similarity.json"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "voteSearch",
+      "bg": "Как гласува парламентът за бюджета?",
+      "en": "How did parliament vote on the budget?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "query": "Как гласува парламентът за бюджета?"
+          },
+          "title": "Гласувания за „Как гласува парламентът за бюджета?“ (52-о НС)",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "parliament/votes/derived/topic_index.json"
+          ],
+          "facts": {
+            "ns": "52",
+            "matches": 328,
+            "top": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване -… — приет"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "query": "How did parliament vote on the budget?"
+          },
+          "title": "No votes found for \"How did parliament vote on the budget?\"",
+          "kind": "scalar",
+          "provenance": [
+            "parliament/votes/derived/topic_index.json"
+          ],
+          "facts": {
+            "query": "How did parliament vote on the budget?",
+            "ns": "52"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "partyMps",
+      "bg": "Кои са депутатите от ПП?",
+      "en": "Who are the MPs from PP?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "party": "пп"
+          },
+          "title": "Депутати от Продължаваме Промяната — 52-ро Народно събрание",
+          "kind": "table",
+          "rows": 16,
+          "provenance": [
+            "db:mp_roster"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {
+            "party": "pp"
+          },
+          "title": "MPs from Продължаваме Промяната — 52th National Assembly",
+          "kind": "table",
+          "rows": 16,
+          "provenance": [
+            "db:mp_roster"
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "schoolScores",
+      "bg": "Кои са най-добрите училища в Пловдив?",
+      "en": "What are the best schools in Plovdiv?",
+      "active": false,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {
+            "place": "са най-добрите училища пловдив"
+          },
+          "title": "Училища по ДЗИ по БЕЛ — Пловдив",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "education-muni-scores"
+          ],
+          "facts": {
+            "place": "Пловдив",
+            "subject": "ДЗИ по БЕЛ",
+            "schools": 48,
+            "top_school": "Езикова гимназия \"Пловдив\" (5.55)"
+          }
+        },
+        {
+          "lang": "en",
+          "args": {
+            "place": "are best schools plovdiv"
+          },
+          "title": "Schools by matura, Bulgarian — Plovdiv",
+          "kind": "table",
+          "rows": 12,
+          "provenance": [
+            "education-muni-scores"
+          ],
+          "facts": {
+            "place": "Plovdiv",
+            "subject": "matura, Bulgarian",
+            "schools": 48,
+            "top_school": "Езикова гимназия \"Пловдив\" (5.55)"
+          }
+        }
+      ]
+    },
+    {
+      "tool": "administrationOverview",
+      "bg": "Колко голяма е държавната администрация?",
+      "en": "How big is the state administration?",
+      "active": true,
+      "responses": [
+        {
+          "lang": "bg",
+          "args": {},
+          "title": "Държавна администрация — преглед (2025)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "budget/personnel.json",
+            "administration/egov.json",
+            "administration/service_quality.json",
+            "administration/services_overview.json",
+            "cofog.json"
+          ]
+        },
+        {
+          "lang": "en",
+          "args": {},
+          "title": "State administration — overview (2025)",
+          "kind": "table",
+          "rows": 7,
+          "provenance": [
+            "budget/personnel.json",
+            "administration/egov.json",
+            "administration/service_quality.json",
+            "administration/services_overview.json",
+            "cofog.json"
+          ]
+        }
+      ]
+    }
+  ]
+}

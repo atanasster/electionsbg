@@ -1,0 +1,3177 @@
+{
+  "asOf": "2026-09-09",
+  "method": "Editorial question synthesis informed by public-priority surveys and repository coverage; not user logs, search-volume rankings, verbatim survey questions, or a claim of exhaustive public demand. All questions require individual tool/argument/data validation before promotion. relatedTools indicates topic adjacency only, not answerability.",
+  "sources": [
+    {
+      "title": "Alpha Research — prices and government measures, May 2026",
+      "url": "https://alpharesearch.bg/post/1051-merkite-na-pravitelstvoto-za-ovladiavane-na-cenite-podkrepiani-no-vse-oshte-neiasni.html"
+    },
+    {
+      "title": "Alpha Research — priorities for Budget 2025",
+      "url": "https://alpharesearch.bg/post/1032-zdraveopazvaneto-absoliuten-prioritet-na-bulgarskite-grajdani-v-biudjet-2025-spored-65-durjavata-triabva-da-harchi-tolkova-kolkoto-ima-a-ne-da-zadlujniava.html"
+    },
+    {
+      "title": "European Parliament — Eurobarometer, March 2025",
+      "url": "https://www.europarl.europa.eu/news/bg/press-room/20250317IPR27385/eurobarometer-obcania-od-eu-ziadaju-ochranu-a-jednotu"
+    },
+    {
+      "title": "European Parliament Autumn 2025 Eurobarometer",
+      "url": "https://europa.eu/eurobarometer/surveys/detail/3632"
+    }
+  ],
+  "questions": [
+    {
+      "id": "elections.parliamentary.01",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "bg": "Кой спечели последните парламентарни избори?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nationalResults",
+        "partyResult",
+        "candidateResult",
+        "parliamentSeats",
+        "seatsHistory",
+        "compareElections",
+        "partyTimeline",
+        "turnout",
+        "turnoutSeries",
+        "machineVoteShare",
+        "machineVoteSeries",
+        "wastedVotes",
+        "wastedVotesTrend",
+        "wastedVotesByParty"
+      ]
+    },
+    {
+      "id": "elections.parliamentary.02",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "bg": "Колко гласа останаха без представителство в парламента?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nationalResults",
+        "partyResult",
+        "candidateResult",
+        "parliamentSeats",
+        "seatsHistory",
+        "compareElections",
+        "partyTimeline",
+        "turnout",
+        "turnoutSeries",
+        "machineVoteShare",
+        "machineVoteSeries",
+        "wastedVotes",
+        "wastedVotesTrend",
+        "wastedVotesByParty"
+      ]
+    },
+    {
+      "id": "elections.parliamentary.03",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "bg": "Как се промени избирателната активност от 2005 г. насам?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nationalResults",
+        "partyResult",
+        "candidateResult",
+        "parliamentSeats",
+        "seatsHistory",
+        "compareElections",
+        "partyTimeline",
+        "turnout",
+        "turnoutSeries",
+        "machineVoteShare",
+        "machineVoteSeries",
+        "wastedVotes",
+        "wastedVotesTrend",
+        "wastedVotesByParty"
+      ]
+    },
+    {
+      "id": "elections.parliamentary.04",
+      "category": "elections",
+      "subcategory": "parliamentary",
+      "bg": "Кои партии спечелиха и кои загубиха подкрепа спрямо предишния вот?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nationalResults",
+        "partyResult",
+        "candidateResult",
+        "parliamentSeats",
+        "seatsHistory",
+        "compareElections",
+        "partyTimeline",
+        "turnout",
+        "turnoutSeries",
+        "machineVoteShare",
+        "machineVoteSeries",
+        "wastedVotes",
+        "wastedVotesTrend",
+        "wastedVotesByParty"
+      ]
+    },
+    {
+      "id": "elections.presidential.01",
+      "category": "elections",
+      "subcategory": "presidential",
+      "bg": "Кой спечели президентските избори през 2021 г.?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "presidentialResults"
+      ]
+    },
+    {
+      "id": "elections.presidential.02",
+      "category": "elections",
+      "subcategory": "presidential",
+      "bg": "Как се различават резултатите от първия тур и балотажа?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "presidentialResults"
+      ]
+    },
+    {
+      "id": "elections.presidential.03",
+      "category": "elections",
+      "subcategory": "presidential",
+      "bg": "Как гласува моята община за президент?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "presidentialResults"
+      ]
+    },
+    {
+      "id": "elections.presidential.04",
+      "category": "elections",
+      "subcategory": "presidential",
+      "bg": "Колко избиратели подкрепиха различни партии и президентски кандидати в един и същ ден?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "presidentialResults"
+      ]
+    },
+    {
+      "id": "elections.local.01",
+      "category": "elections",
+      "subcategory": "local",
+      "bg": "Кой беше избран за кмет на моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "localCouncilVoteShare",
+        "localMayorsWon",
+        "localCouncilTrend",
+        "localVoteFlows",
+        "localPrevoteFlow",
+        "localPlaceTrend",
+        "localMayorsTrend",
+        "localOblastMayors",
+        "localMunicipality",
+        "localMayorRace",
+        "localMayorSections",
+        "localMayorHistory",
+        "localSubMayors",
+        "localCouncil",
+        "chmiEvents"
+      ]
+    },
+    {
+      "id": "elections.local.02",
+      "category": "elections",
+      "subcategory": "local",
+      "bg": "Кои партии имат най-много общински съветници?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "localCouncilVoteShare",
+        "localMayorsWon",
+        "localCouncilTrend",
+        "localVoteFlows",
+        "localPrevoteFlow",
+        "localPlaceTrend",
+        "localMayorsTrend",
+        "localOblastMayors",
+        "localMunicipality",
+        "localMayorRace",
+        "localMayorSections",
+        "localMayorHistory",
+        "localSubMayors",
+        "localCouncil",
+        "chmiEvents"
+      ]
+    },
+    {
+      "id": "elections.local.03",
+      "category": "elections",
+      "subcategory": "local",
+      "bg": "Къде имаше частични местни избори?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "localCouncilVoteShare",
+        "localMayorsWon",
+        "localCouncilTrend",
+        "localVoteFlows",
+        "localPrevoteFlow",
+        "localPlaceTrend",
+        "localMayorsTrend",
+        "localOblastMayors",
+        "localMunicipality",
+        "localMayorRace",
+        "localMayorSections",
+        "localMayorHistory",
+        "localSubMayors",
+        "localCouncil",
+        "chmiEvents"
+      ]
+    },
+    {
+      "id": "elections.local.04",
+      "category": "elections",
+      "subcategory": "local",
+      "bg": "Как се смени управлението на общината през последните мандати?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "localCouncilVoteShare",
+        "localMayorsWon",
+        "localCouncilTrend",
+        "localVoteFlows",
+        "localPrevoteFlow",
+        "localPlaceTrend",
+        "localMayorsTrend",
+        "localOblastMayors",
+        "localMunicipality",
+        "localMayorRace",
+        "localMayorSections",
+        "localMayorHistory",
+        "localSubMayors",
+        "localCouncil",
+        "chmiEvents"
+      ]
+    },
+    {
+      "id": "elections.geography.01",
+      "category": "elections",
+      "subcategory": "geography",
+      "bg": "Как гласуваха хората в моето населено място?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "regionWinners",
+        "regionBreakdown",
+        "municipalityBreakdown",
+        "municipalityWinners",
+        "settlementWinners",
+        "sectionWinners",
+        "sectionResults",
+        "sectionHistory",
+        "settlementResults",
+        "settlementHistory",
+        "municipalityResults",
+        "municipalityHistory",
+        "regionResults",
+        "regionResultsTrend",
+        "settlementBreakdown",
+        "regionHistory",
+        "diasporaVote",
+        "diasporaVoteTrend"
+      ]
+    },
+    {
+      "id": "elections.geography.02",
+      "category": "elections",
+      "subcategory": "geography",
+      "bg": "По какво се различава вотът в чужбина от този в България?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "regionWinners",
+        "regionBreakdown",
+        "municipalityBreakdown",
+        "municipalityWinners",
+        "settlementWinners",
+        "sectionWinners",
+        "sectionResults",
+        "sectionHistory",
+        "settlementResults",
+        "settlementHistory",
+        "municipalityResults",
+        "municipalityHistory",
+        "regionResults",
+        "regionResultsTrend",
+        "settlementBreakdown",
+        "regionHistory",
+        "diasporaVote",
+        "diasporaVoteTrend"
+      ]
+    },
+    {
+      "id": "elections.geography.03",
+      "category": "elections",
+      "subcategory": "geography",
+      "bg": "Какви са резултатите в моята избирателна секция?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "regionWinners",
+        "regionBreakdown",
+        "municipalityBreakdown",
+        "municipalityWinners",
+        "settlementWinners",
+        "sectionWinners",
+        "sectionResults",
+        "sectionHistory",
+        "settlementResults",
+        "settlementHistory",
+        "municipalityResults",
+        "municipalityHistory",
+        "regionResults",
+        "regionResultsTrend",
+        "settlementBreakdown",
+        "regionHistory",
+        "diasporaVote",
+        "diasporaVoteTrend"
+      ]
+    },
+    {
+      "id": "elections.geography.04",
+      "category": "elections",
+      "subcategory": "geography",
+      "bg": "Къде дадена партия увеличава подкрепата си?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "regionWinners",
+        "regionBreakdown",
+        "municipalityBreakdown",
+        "municipalityWinners",
+        "settlementWinners",
+        "sectionWinners",
+        "sectionResults",
+        "sectionHistory",
+        "settlementResults",
+        "settlementHistory",
+        "municipalityResults",
+        "municipalityHistory",
+        "regionResults",
+        "regionResultsTrend",
+        "settlementBreakdown",
+        "regionHistory",
+        "diasporaVote",
+        "diasporaVoteTrend"
+      ]
+    },
+    {
+      "id": "elections.integrity.01",
+      "category": "elections",
+      "subcategory": "integrity",
+      "bg": "Кои секции имат статистически сигнали за изборен риск?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electionAnomalies",
+        "flashMemoryByParty",
+        "machineVoteByParty",
+        "recountByParty",
+        "problemSections",
+        "romaVoteTrend",
+        "riskIndex",
+        "riskScore",
+        "riskClusters",
+        "clusterPersistence",
+        "benfordAnomalies",
+        "suspiciousSettlements",
+        "sectionRiskHistory"
+      ]
+    },
+    {
+      "id": "elections.integrity.02",
+      "category": "elections",
+      "subcategory": "integrity",
+      "bg": "Колко недействителни бюлетини има и къде са най-много?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electionAnomalies",
+        "flashMemoryByParty",
+        "machineVoteByParty",
+        "recountByParty",
+        "problemSections",
+        "romaVoteTrend",
+        "riskIndex",
+        "riskScore",
+        "riskClusters",
+        "clusterPersistence",
+        "benfordAnomalies",
+        "suspiciousSettlements",
+        "sectionRiskHistory"
+      ]
+    },
+    {
+      "id": "elections.integrity.03",
+      "category": "elections",
+      "subcategory": "integrity",
+      "bg": "Какво се промени след повторното преброяване?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electionAnomalies",
+        "flashMemoryByParty",
+        "machineVoteByParty",
+        "recountByParty",
+        "problemSections",
+        "romaVoteTrend",
+        "riskIndex",
+        "riskScore",
+        "riskClusters",
+        "clusterPersistence",
+        "benfordAnomalies",
+        "suspiciousSettlements",
+        "sectionRiskHistory"
+      ]
+    },
+    {
+      "id": "elections.integrity.04",
+      "category": "elections",
+      "subcategory": "integrity",
+      "bg": "Каква е разликата между статистическа аномалия и доказано нарушение?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electionAnomalies",
+        "flashMemoryByParty",
+        "machineVoteByParty",
+        "recountByParty",
+        "problemSections",
+        "romaVoteTrend",
+        "riskIndex",
+        "riskScore",
+        "riskClusters",
+        "clusterPersistence",
+        "benfordAnomalies",
+        "suspiciousSettlements",
+        "sectionRiskHistory"
+      ]
+    },
+    {
+      "id": "elections.polls.01",
+      "category": "elections",
+      "subcategory": "polls",
+      "bg": "Коя агенция прогнозира най-точно последните избори?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "pollAccuracy",
+        "agencyProfile",
+        "latestPolls",
+        "agencyPolls",
+        "agencyAccuracyHistory",
+        "accuracyTrend",
+        "voteTransitions",
+        "voterPersistence",
+        "partyDemographics",
+        "demographicCleavages"
+      ]
+    },
+    {
+      "id": "elections.polls.02",
+      "category": "elections",
+      "subcategory": "polls",
+      "bg": "Как се движи подкрепата за партиите между изборите?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "pollAccuracy",
+        "agencyProfile",
+        "latestPolls",
+        "agencyPolls",
+        "agencyAccuracyHistory",
+        "accuracyTrend",
+        "voteTransitions",
+        "voterPersistence",
+        "partyDemographics",
+        "demographicCleavages"
+      ]
+    },
+    {
+      "id": "elections.polls.03",
+      "category": "elections",
+      "subcategory": "polls",
+      "bg": "Колко голяма е грешката на социологическите проучвания?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "pollAccuracy",
+        "agencyProfile",
+        "latestPolls",
+        "agencyPolls",
+        "agencyAccuracyHistory",
+        "accuracyTrend",
+        "voteTransitions",
+        "voterPersistence",
+        "partyDemographics",
+        "demographicCleavages"
+      ]
+    },
+    {
+      "id": "elections.polls.04",
+      "category": "elections",
+      "subcategory": "polls",
+      "bg": "Показват ли данните действително преливане на хора между партии или само оценка?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "pollAccuracy",
+        "agencyProfile",
+        "latestPolls",
+        "agencyPolls",
+        "agencyAccuracyHistory",
+        "accuracyTrend",
+        "voteTransitions",
+        "voterPersistence",
+        "partyDemographics",
+        "demographicCleavages"
+      ]
+    },
+    {
+      "id": "institutions.parliament.01",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "bg": "Как гласува моят депутат по бюджета?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mpLoyalty",
+        "mpAttendance",
+        "factionCohesion",
+        "mpVotingProfile",
+        "mpSimilarity",
+        "voteSearch",
+        "partyMps"
+      ]
+    },
+    {
+      "id": "institutions.parliament.02",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "bg": "Кои депутати участват най-рядко в гласуванията?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mpLoyalty",
+        "mpAttendance",
+        "factionCohesion",
+        "mpVotingProfile",
+        "mpSimilarity",
+        "voteSearch",
+        "partyMps"
+      ]
+    },
+    {
+      "id": "institutions.parliament.03",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "bg": "Кога парламентарните групи гласуват заедно?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mpLoyalty",
+        "mpAttendance",
+        "factionCohesion",
+        "mpVotingProfile",
+        "mpSimilarity",
+        "voteSearch",
+        "partyMps"
+      ]
+    },
+    {
+      "id": "institutions.parliament.04",
+      "category": "institutions",
+      "subcategory": "parliament",
+      "bg": "Кои законопроекти стигнаха до второ четене?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mpLoyalty",
+        "mpAttendance",
+        "factionCohesion",
+        "mpVotingProfile",
+        "mpSimilarity",
+        "voteSearch",
+        "partyMps"
+      ]
+    },
+    {
+      "id": "institutions.cabinet.01",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "bg": "Кой заема тази публична длъжност и от кога?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governments",
+        "personProfile"
+      ]
+    },
+    {
+      "id": "institutions.cabinet.02",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "bg": "Колко дълго управляваха последните правителства?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governments",
+        "personProfile"
+      ]
+    },
+    {
+      "id": "institutions.cabinet.03",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "bg": "Кои партии участваха във всяка управляваща коалиция?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governments",
+        "personProfile"
+      ]
+    },
+    {
+      "id": "institutions.cabinet.04",
+      "category": "institutions",
+      "subcategory": "cabinet",
+      "bg": "Как се промени икономиката при различните правителства?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governments",
+        "personProfile"
+      ]
+    },
+    {
+      "id": "institutions.councils.01",
+      "category": "institutions",
+      "subcategory": "councils",
+      "bg": "Какви решения взе общинският съвет последния месец?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "councilResolutions"
+      ]
+    },
+    {
+      "id": "institutions.councils.02",
+      "category": "institutions",
+      "subcategory": "councils",
+      "bg": "Как гласува конкретен общински съветник?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "councilResolutions"
+      ]
+    },
+    {
+      "id": "institutions.councils.03",
+      "category": "institutions",
+      "subcategory": "councils",
+      "bg": "Къде мога да прочета решението за общински имот?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "councilResolutions"
+      ]
+    },
+    {
+      "id": "institutions.councils.04",
+      "category": "institutions",
+      "subcategory": "councils",
+      "bg": "Кои общински съвети са обхванати от данните?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "councilResolutions"
+      ]
+    },
+    {
+      "id": "institutions.services.01",
+      "category": "institutions",
+      "subcategory": "services",
+      "bg": "Кои административни услуги мога да заявя онлайн?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "administrationOverview",
+        "digitalSkills"
+      ]
+    },
+    {
+      "id": "institutions.services.02",
+      "category": "institutions",
+      "subcategory": "services",
+      "bg": "Коя институция отговаря за проблема ми?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "administrationOverview",
+        "digitalSkills"
+      ]
+    },
+    {
+      "id": "institutions.services.03",
+      "category": "institutions",
+      "subcategory": "services",
+      "bg": "Колко струва издръжката на администрацията?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "administrationOverview",
+        "digitalSkills"
+      ]
+    },
+    {
+      "id": "institutions.services.04",
+      "category": "institutions",
+      "subcategory": "services",
+      "bg": "Колко време отнема дадена административна услуга?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "administrationOverview",
+        "digitalSkills"
+      ]
+    },
+    {
+      "id": "public-money.budget.01",
+      "category": "public-money",
+      "subcategory": "budget",
+      "bg": "За какво отиват данъците ни?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "budgetOverview",
+        "budgetTrend",
+        "budgetByFunction",
+        "budgetFunction",
+        "budgetExecution",
+        "revenueBreakdown"
+      ]
+    },
+    {
+      "id": "public-money.budget.02",
+      "category": "public-money",
+      "subcategory": "budget",
+      "bg": "Приходите покриват ли разходите на държавата?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "budgetOverview",
+        "budgetTrend",
+        "budgetByFunction",
+        "budgetFunction",
+        "budgetExecution",
+        "revenueBreakdown"
+      ]
+    },
+    {
+      "id": "public-money.budget.03",
+      "category": "public-money",
+      "subcategory": "budget",
+      "bg": "Къде разходите надвишават първоначалния бюджет?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "budgetOverview",
+        "budgetTrend",
+        "budgetByFunction",
+        "budgetFunction",
+        "budgetExecution",
+        "revenueBreakdown"
+      ]
+    },
+    {
+      "id": "public-money.budget.04",
+      "category": "public-money",
+      "subcategory": "budget",
+      "bg": "Какъв дял от бюджета отива за здраве, образование и пенсии?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "budgetOverview",
+        "budgetTrend",
+        "budgetByFunction",
+        "budgetFunction",
+        "budgetExecution",
+        "revenueBreakdown"
+      ]
+    },
+    {
+      "id": "public-money.ministries.01",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "bg": "Колко харчи всяко министерство?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ministryBudget",
+        "institutionMaintenance",
+        "investmentProjects"
+      ]
+    },
+    {
+      "id": "public-money.ministries.02",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "bg": "Колко са разходите за заплати в администрацията?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ministryBudget",
+        "institutionMaintenance",
+        "investmentProjects"
+      ]
+    },
+    {
+      "id": "public-money.ministries.03",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "bg": "Кои инвестиционни проекти са заложени в бюджета?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ministryBudget",
+        "institutionMaintenance",
+        "investmentProjects"
+      ]
+    },
+    {
+      "id": "public-money.ministries.04",
+      "category": "public-money",
+      "subcategory": "ministries",
+      "bg": "Какво е изпълнението на конкретна бюджетна програма?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ministryBudget",
+        "institutionMaintenance",
+        "investmentProjects"
+      ]
+    },
+    {
+      "id": "public-money.municipal.01",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "bg": "Колко пари получава моята община от държавата?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "municipalTransfers",
+        "localTaxes"
+      ]
+    },
+    {
+      "id": "public-money.municipal.02",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "bg": "Колко просрочени задължения има общината?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "municipalTransfers",
+        "localTaxes"
+      ]
+    },
+    {
+      "id": "public-money.municipal.03",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "bg": "Какви са местните данъци в сравнение със съседните общини?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "municipalTransfers",
+        "localTaxes"
+      ]
+    },
+    {
+      "id": "public-money.municipal.04",
+      "category": "public-money",
+      "subcategory": "municipal",
+      "bg": "Колко получава кметът според декларацията си?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "municipalTransfers",
+        "localTaxes"
+      ]
+    },
+    {
+      "id": "public-money.debt.01",
+      "category": "public-money",
+      "subcategory": "debt",
+      "bg": "Колко е държавният дълг на човек?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "govDebt"
+      ]
+    },
+    {
+      "id": "public-money.debt.02",
+      "category": "public-money",
+      "subcategory": "debt",
+      "bg": "Колко плащаме за лихви по държавния дълг?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "govDebt"
+      ]
+    },
+    {
+      "id": "public-money.debt.03",
+      "category": "public-money",
+      "subcategory": "debt",
+      "bg": "Каква е разликата между дефицит и дълг?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "govDebt"
+      ]
+    },
+    {
+      "id": "public-money.debt.04",
+      "category": "public-money",
+      "subcategory": "debt",
+      "bg": "Кои общини са в най-тежко финансово състояние?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "govDebt"
+      ]
+    },
+    {
+      "id": "public-money.scenarios.01",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "bg": "Как би се променил бюджетът при ДДС от 22%?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "simulateTaxChange"
+      ]
+    },
+    {
+      "id": "public-money.scenarios.02",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "bg": "Колко би струвал необлагаем минимум от 620 евро?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "simulateTaxChange"
+      ]
+    },
+    {
+      "id": "public-money.scenarios.03",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "bg": "Какви са ограниченията на данъчния симулатор?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "simulateTaxChange"
+      ]
+    },
+    {
+      "id": "public-money.scenarios.04",
+      "category": "public-money",
+      "subcategory": "scenarios",
+      "bg": "Какъв разход означава отбрана на ниво 3% от БВП?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "simulateTaxChange"
+      ]
+    },
+    {
+      "id": "procurement.tenders.01",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "bg": "Какви нови обществени поръчки обяви общината?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openTenders",
+        "tenderLookup"
+      ]
+    },
+    {
+      "id": "procurement.tenders.02",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "bg": "Има ли отворени търгове за строителство в моята област?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openTenders",
+        "tenderLookup"
+      ]
+    },
+    {
+      "id": "procurement.tenders.03",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "bg": "Къде са документите на конкретна процедура?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openTenders",
+        "tenderLookup"
+      ]
+    },
+    {
+      "id": "procurement.tenders.04",
+      "category": "procurement",
+      "subcategory": "tenders",
+      "bg": "Какъв е срокът за подаване на оферти?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openTenders",
+        "tenderLookup"
+      ]
+    },
+    {
+      "id": "procurement.contracts.01",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "bg": "Кои фирми печелят най-много обществени поръчки?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementTotals",
+        "topContractors",
+        "contractSearch",
+        "awarderProcurement"
+      ]
+    },
+    {
+      "id": "procurement.contracts.02",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "bg": "Какви договори има конкретна фирма?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementTotals",
+        "topContractors",
+        "contractSearch",
+        "awarderProcurement"
+      ]
+    },
+    {
+      "id": "procurement.contracts.03",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "bg": "Кой изпълнява ремонта на тази улица?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementTotals",
+        "topContractors",
+        "contractSearch",
+        "awarderProcurement"
+      ]
+    },
+    {
+      "id": "procurement.contracts.04",
+      "category": "procurement",
+      "subcategory": "contracts",
+      "bg": "С колко се увеличи стойността на договора след анексите?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementTotals",
+        "topContractors",
+        "contractSearch",
+        "awarderProcurement"
+      ]
+    },
+    {
+      "id": "procurement.competition.01",
+      "category": "procurement",
+      "subcategory": "competition",
+      "bg": "Колко поръчки са с един кандидат?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementRedFlags",
+        "procurementSingleBidSectors",
+        "procurementNormalcy"
+      ]
+    },
+    {
+      "id": "procurement.competition.02",
+      "category": "procurement",
+      "subcategory": "competition",
+      "bg": "Колко често се използват процедури без открита конкуренция?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementRedFlags",
+        "procurementSingleBidSectors",
+        "procurementNormalcy"
+      ]
+    },
+    {
+      "id": "procurement.competition.03",
+      "category": "procurement",
+      "subcategory": "competition",
+      "bg": "Кои възложители работят с тесен кръг доставчици?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementRedFlags",
+        "procurementSingleBidSectors",
+        "procurementNormalcy"
+      ]
+    },
+    {
+      "id": "procurement.competition.04",
+      "category": "procurement",
+      "subcategory": "competition",
+      "bg": "Печели ли винаги най-ниската цена?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementRedFlags",
+        "procurementSingleBidSectors",
+        "procurementNormalcy"
+      ]
+    },
+    {
+      "id": "procurement.control.01",
+      "category": "procurement",
+      "subcategory": "control",
+      "bg": "Кои поръчки са обжалвани пред КЗК?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementAppeals",
+        "procurementDebarred"
+      ]
+    },
+    {
+      "id": "procurement.control.02",
+      "category": "procurement",
+      "subcategory": "control",
+      "bg": "Колко жалби са уважени и колко са с отказано производство?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementAppeals",
+        "procurementDebarred"
+      ]
+    },
+    {
+      "id": "procurement.control.03",
+      "category": "procurement",
+      "subcategory": "control",
+      "bg": "Кои фирми са в списъка на отстранените изпълнители?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementAppeals",
+        "procurementDebarred"
+      ]
+    },
+    {
+      "id": "procurement.control.04",
+      "category": "procurement",
+      "subcategory": "control",
+      "bg": "Какво установи АДФИ при проверката на тази институция?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementAppeals",
+        "procurementDebarred"
+      ]
+    },
+    {
+      "id": "procurement.projects.01",
+      "category": "procurement",
+      "subcategory": "projects",
+      "bg": "Колко е договорено за конкретна магистрала?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "projectLifecycle",
+        "roadsSpending"
+      ]
+    },
+    {
+      "id": "procurement.projects.02",
+      "category": "procurement",
+      "subcategory": "projects",
+      "bg": "Кои фирми участват в обединението изпълнител?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "projectLifecycle",
+        "roadsSpending"
+      ]
+    },
+    {
+      "id": "procurement.projects.03",
+      "category": "procurement",
+      "subcategory": "projects",
+      "bg": "Има ли обявени подизпълнители по договора?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "projectLifecycle",
+        "roadsSpending"
+      ]
+    },
+    {
+      "id": "procurement.projects.04",
+      "category": "procurement",
+      "subcategory": "projects",
+      "bg": "Как се променя цената на проекта през годините?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "projectLifecycle",
+        "roadsSpending"
+      ]
+    },
+    {
+      "id": "procurement.local.01",
+      "category": "procurement",
+      "subcategory": "local",
+      "bg": "Кой получава парите от поръчките на моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementBySettlement",
+        "procurementByOblast"
+      ]
+    },
+    {
+      "id": "procurement.local.02",
+      "category": "procurement",
+      "subcategory": "local",
+      "bg": "Кои населени места имат най-много възложени договори?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementBySettlement",
+        "procurementByOblast"
+      ]
+    },
+    {
+      "id": "procurement.local.03",
+      "category": "procurement",
+      "subcategory": "local",
+      "bg": "Къде е възложителят и къде всъщност се изпълнява проектът?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementBySettlement",
+        "procurementByOblast"
+      ]
+    },
+    {
+      "id": "procurement.local.04",
+      "category": "procurement",
+      "subcategory": "local",
+      "bg": "Как се сравняват поръчките на две общини за една и съща година?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "procurementBySettlement",
+        "procurementByOblast"
+      ]
+    },
+    {
+      "id": "business.ownership.01",
+      "category": "business",
+      "subcategory": "ownership",
+      "bg": "Кой притежава дадена фирма?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "companyConnections",
+        "personConnections",
+        "mpConnectionsTop",
+        "mpConnectionsByParty",
+        "mpProcurement"
+      ]
+    },
+    {
+      "id": "business.ownership.02",
+      "category": "business",
+      "subcategory": "ownership",
+      "bg": "Има ли публично документирана връзка между тази фирма и политик?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "companyConnections",
+        "personConnections",
+        "mpConnectionsTop",
+        "mpConnectionsByParty",
+        "mpProcurement"
+      ]
+    },
+    {
+      "id": "business.ownership.03",
+      "category": "business",
+      "subcategory": "ownership",
+      "bg": "Кои хора свързват две фирми?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "companyConnections",
+        "personConnections",
+        "mpConnectionsTop",
+        "mpConnectionsByParty",
+        "mpProcurement"
+      ]
+    },
+    {
+      "id": "business.ownership.04",
+      "category": "business",
+      "subcategory": "ownership",
+      "bg": "Колко публични средства получават фирмите, свързани с дадено лице?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "companyConnections",
+        "personConnections",
+        "mpConnectionsTop",
+        "mpConnectionsByParty",
+        "mpProcurement"
+      ]
+    },
+    {
+      "id": "business.assets.01",
+      "category": "business",
+      "subcategory": "assets",
+      "bg": "Какво имущество е декларирал конкретен политик?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "personWealth",
+        "mpAssetsTop",
+        "mpAssetsByParty",
+        "officialsAssetsTop"
+      ]
+    },
+    {
+      "id": "business.assets.02",
+      "category": "business",
+      "subcategory": "assets",
+      "bg": "Как се променя декларираното му имущество по години?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "personWealth",
+        "mpAssetsTop",
+        "mpAssetsByParty",
+        "officialsAssetsTop"
+      ]
+    },
+    {
+      "id": "business.assets.03",
+      "category": "business",
+      "subcategory": "assets",
+      "bg": "Кои публични лица декларират банкови средства в чужбина?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "personWealth",
+        "mpAssetsTop",
+        "mpAssetsByParty",
+        "officialsAssetsTop"
+      ]
+    },
+    {
+      "id": "business.assets.04",
+      "category": "business",
+      "subcategory": "assets",
+      "bg": "Кои публични лица декларират криптоактиви?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "personWealth",
+        "mpAssetsTop",
+        "mpAssetsByParty",
+        "officialsAssetsTop"
+      ]
+    },
+    {
+      "id": "business.assets.05",
+      "category": "business",
+      "subcategory": "assets",
+      "bg": "Кои имоти и автомобили са собствени и кои само се ползват?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "personWealth",
+        "mpAssetsTop",
+        "mpAssetsByParty",
+        "officialsAssetsTop"
+      ]
+    },
+    {
+      "id": "business.party-funding.01",
+      "category": "business",
+      "subcategory": "party-funding",
+      "bg": "Кой дарява на партиите?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "financingOverview",
+        "partyFinance"
+      ]
+    },
+    {
+      "id": "business.party-funding.02",
+      "category": "business",
+      "subcategory": "party-funding",
+      "bg": "Колко струва предизборната кампания на една партия?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "financingOverview",
+        "partyFinance"
+      ]
+    },
+    {
+      "id": "business.party-funding.03",
+      "category": "business",
+      "subcategory": "party-funding",
+      "bg": "Подават ли партиите финансовите си отчети навреме?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "financingOverview",
+        "partyFinance"
+      ]
+    },
+    {
+      "id": "business.party-funding.04",
+      "category": "business",
+      "subcategory": "party-funding",
+      "bg": "Има ли дарители с фирми, които печелят обществени поръчки?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "financingOverview",
+        "partyFinance"
+      ]
+    },
+    {
+      "id": "business.ngos.01",
+      "category": "business",
+      "subcategory": "ngos",
+      "bg": "Кои НПО получават най-много публично финансиране?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ngoOverview",
+        "ngoTopFunded",
+        "ngoConflictAwarders",
+        "ngoRiskSignals",
+        "ngoBySignal"
+      ]
+    },
+    {
+      "id": "business.ngos.02",
+      "category": "business",
+      "subcategory": "ngos",
+      "bg": "От кои източници се финансира конкретно сдружение?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ngoOverview",
+        "ngoTopFunded",
+        "ngoConflictAwarders",
+        "ngoRiskSignals",
+        "ngoBySignal"
+      ]
+    },
+    {
+      "id": "business.ngos.03",
+      "category": "business",
+      "subcategory": "ngos",
+      "bg": "Има ли общински съветници в управлението на финансирани НПО?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ngoOverview",
+        "ngoTopFunded",
+        "ngoConflictAwarders",
+        "ngoRiskSignals",
+        "ngoBySignal"
+      ]
+    },
+    {
+      "id": "business.ngos.04",
+      "category": "business",
+      "subcategory": "ngos",
+      "bg": "Колко пари получават читалищата в моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "ngoOverview",
+        "ngoTopFunded",
+        "ngoConflictAwarders",
+        "ngoRiskSignals",
+        "ngoBySignal"
+      ]
+    },
+    {
+      "id": "funds.calls.01",
+      "category": "funds",
+      "subcategory": "calls",
+      "bg": "По кои програми мога да кандидатствам сега?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openCalls"
+      ]
+    },
+    {
+      "id": "funds.calls.02",
+      "category": "funds",
+      "subcategory": "calls",
+      "bg": "Има ли финансиране за малък бизнес?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openCalls"
+      ]
+    },
+    {
+      "id": "funds.calls.03",
+      "category": "funds",
+      "subcategory": "calls",
+      "bg": "Какви програми са отворени за земеделски стопани?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openCalls"
+      ]
+    },
+    {
+      "id": "funds.calls.04",
+      "category": "funds",
+      "subcategory": "calls",
+      "bg": "Какъв е крайният срок и къде са официалните условия?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "openCalls"
+      ]
+    },
+    {
+      "id": "funds.projects.01",
+      "category": "funds",
+      "subcategory": "projects",
+      "bg": "Какви европроекти се изпълняват в моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fundsOverview",
+        "fundsProjects",
+        "placeEuProjects"
+      ]
+    },
+    {
+      "id": "funds.projects.02",
+      "category": "funds",
+      "subcategory": "projects",
+      "bg": "Колко от договорените средства са действително изплатени?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fundsOverview",
+        "fundsProjects",
+        "placeEuProjects"
+      ]
+    },
+    {
+      "id": "funds.projects.03",
+      "category": "funds",
+      "subcategory": "projects",
+      "bg": "Финансиран ли е проект, подобен на моя?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fundsOverview",
+        "fundsProjects",
+        "placeEuProjects"
+      ]
+    },
+    {
+      "id": "funds.projects.04",
+      "category": "funds",
+      "subcategory": "projects",
+      "bg": "Кои договори са публикувани като приключили без финансова корекция?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fundsOverview",
+        "fundsProjects",
+        "placeEuProjects"
+      ]
+    },
+    {
+      "id": "funds.regional.01",
+      "category": "funds",
+      "subcategory": "regional",
+      "bg": "Колко средства получават пограничните общини по Interreg?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mrrbSpending",
+        "cohesionAbsorption",
+        "regionalInvestment"
+      ]
+    },
+    {
+      "id": "funds.regional.02",
+      "category": "funds",
+      "subcategory": "regional",
+      "bg": "Кои партньори участват в трансграничен проект?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mrrbSpending",
+        "cohesionAbsorption",
+        "regionalInvestment"
+      ]
+    },
+    {
+      "id": "funds.regional.03",
+      "category": "funds",
+      "subcategory": "regional",
+      "bg": "Как се различава усвояването по програми?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mrrbSpending",
+        "cohesionAbsorption",
+        "regionalInvestment"
+      ]
+    },
+    {
+      "id": "funds.regional.04",
+      "category": "funds",
+      "subcategory": "regional",
+      "bg": "Колко средства на жител достигат до отделните общини?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "mrrbSpending",
+        "cohesionAbsorption",
+        "regionalInvestment"
+      ]
+    },
+    {
+      "id": "funds.agriculture.01",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "bg": "Кои са най-големите получатели на земеделски субсидии?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subsidiesOverview",
+        "subsidiesByScheme",
+        "subsidiesForEntity"
+      ]
+    },
+    {
+      "id": "funds.agriculture.02",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "bg": "По кои схеми се разпределят най-много средства?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subsidiesOverview",
+        "subsidiesByScheme",
+        "subsidiesForEntity"
+      ]
+    },
+    {
+      "id": "funds.agriculture.03",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "bg": "Какви субсидии е получила конкретна фирма?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subsidiesOverview",
+        "subsidiesByScheme",
+        "subsidiesForEntity"
+      ]
+    },
+    {
+      "id": "funds.agriculture.04",
+      "category": "funds",
+      "subcategory": "agriculture",
+      "bg": "Колко концентрирани са земеделските плащания?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subsidiesOverview",
+        "subsidiesByScheme",
+        "subsidiesForEntity"
+      ]
+    },
+    {
+      "id": "cost-living.basket.01",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "bg": "Къде е най-евтина една и съща потребителска кошница?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "settlementPrices",
+        "localDeals",
+        "productPrice",
+        "cheapestChains",
+        "priceRanking",
+        "chainProfile"
+      ]
+    },
+    {
+      "id": "cost-living.basket.02",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "bg": "Колко струва млякото в моя град?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "settlementPrices",
+        "localDeals",
+        "productPrice",
+        "cheapestChains",
+        "priceRanking",
+        "chainProfile"
+      ]
+    },
+    {
+      "id": "cost-living.basket.03",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "bg": "Какви промоции има наблизо?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "settlementPrices",
+        "localDeals",
+        "productPrice",
+        "cheapestChains",
+        "priceRanking",
+        "chainProfile"
+      ]
+    },
+    {
+      "id": "cost-living.basket.04",
+      "category": "cost-living",
+      "subcategory": "basket",
+      "bg": "За кои магазини няма актуални цени?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "settlementPrices",
+        "localDeals",
+        "productPrice",
+        "cheapestChains",
+        "priceRanking",
+        "chainProfile"
+      ]
+    },
+    {
+      "id": "cost-living.inflation.01",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "bg": "Колко се промениха цените след въвеждането на еврото?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "priceIndex",
+        "basketVsInflation",
+        "euFoodPriceLevels",
+        "basketAffordability"
+      ]
+    },
+    {
+      "id": "cost-living.inflation.02",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "bg": "Защо официалната инфлация се различава от личните ми разходи?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "priceIndex",
+        "basketVsInflation",
+        "euFoodPriceLevels",
+        "basketAffordability"
+      ]
+    },
+    {
+      "id": "cost-living.inflation.03",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "bg": "По-скъпа ли е храната у нас в сравнение с ЕС?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "priceIndex",
+        "basketVsInflation",
+        "euFoodPriceLevels",
+        "basketAffordability"
+      ]
+    },
+    {
+      "id": "cost-living.inflation.04",
+      "category": "cost-living",
+      "subcategory": "inflation",
+      "bg": "Растат ли доходите по-бързо от цените?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "priceIndex",
+        "basketVsInflation",
+        "euFoodPriceLevels",
+        "basketAffordability"
+      ]
+    },
+    {
+      "id": "cost-living.fuel.01",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "bg": "Как се движат цените на бензина и дизела?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fuelPrices"
+      ]
+    },
+    {
+      "id": "cost-living.fuel.02",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "bg": "По-евтини ли са горивата в България от средното за ЕС?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fuelPrices"
+      ]
+    },
+    {
+      "id": "cost-living.fuel.03",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "bg": "Каква част от цената на горивото са данъци?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fuelPrices"
+      ]
+    },
+    {
+      "id": "cost-living.fuel.04",
+      "category": "cost-living",
+      "subcategory": "fuel",
+      "bg": "От коя дата е последната налична цена?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fuelPrices"
+      ]
+    },
+    {
+      "id": "economy-work.macro.01",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "bg": "Настигаме ли средното ниво на живот в ЕС?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "macroIndicator",
+        "macroOverview",
+        "macroByCategory",
+        "euComparison"
+      ]
+    },
+    {
+      "id": "economy-work.macro.02",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "bg": "Как расте българската икономика?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "macroIndicator",
+        "macroOverview",
+        "macroByCategory",
+        "euComparison"
+      ]
+    },
+    {
+      "id": "economy-work.macro.03",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "bg": "Как се сравняваме с Румъния и Гърция?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "macroIndicator",
+        "macroOverview",
+        "macroByCategory",
+        "euComparison"
+      ]
+    },
+    {
+      "id": "economy-work.macro.04",
+      "category": "economy-work",
+      "subcategory": "macro",
+      "bg": "Кои икономически показатели се подобряват и кои се влошават?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "macroIndicator",
+        "macroOverview",
+        "macroByCategory",
+        "euComparison"
+      ]
+    },
+    {
+      "id": "economy-work.jobs.01",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "bg": "В кои общини безработицата е най-висока?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subnationalIndicator",
+        "rankPlaces",
+        "regionIndicator"
+      ]
+    },
+    {
+      "id": "economy-work.jobs.02",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "bg": "Как се различават заплатите по области?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subnationalIndicator",
+        "rankPlaces",
+        "regionIndicator"
+      ]
+    },
+    {
+      "id": "economy-work.jobs.03",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "bg": "Колко хора работят, но остават в бедност?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subnationalIndicator",
+        "rankPlaces",
+        "regionIndicator"
+      ]
+    },
+    {
+      "id": "economy-work.jobs.04",
+      "category": "economy-work",
+      "subcategory": "jobs",
+      "bg": "Къде да подам сигнал за неизплатена заплата?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "subnationalIndicator",
+        "rankPlaces",
+        "regionIndicator"
+      ]
+    },
+    {
+      "id": "economy-work.investment.01",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "bg": "Как се променят преките чуждестранни инвестиции?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fdiFlows",
+        "exciseRegister",
+        "exciseWarehouses"
+      ]
+    },
+    {
+      "id": "economy-work.investment.02",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "bg": "Кои отрасли привличат най-много инвестиции?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fdiFlows",
+        "exciseRegister",
+        "exciseWarehouses"
+      ]
+    },
+    {
+      "id": "economy-work.investment.03",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "bg": "Колко нови фирми се регистрират в моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fdiFlows",
+        "exciseRegister",
+        "exciseWarehouses"
+      ]
+    },
+    {
+      "id": "economy-work.investment.04",
+      "category": "economy-work",
+      "subcategory": "investment",
+      "bg": "Кои фирми имат действащ лиценз за акцизен склад?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "fdiFlows",
+        "exciseRegister",
+        "exciseWarehouses"
+      ]
+    },
+    {
+      "id": "health.budget.01",
+      "category": "health",
+      "subcategory": "budget",
+      "bg": "Колко пари харчи НЗОК?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokBudget",
+        "nzokHospitals",
+        "nzokPublicPrivate",
+        "nzokPrivateHospitals"
+      ]
+    },
+    {
+      "id": "health.budget.02",
+      "category": "health",
+      "subcategory": "budget",
+      "bg": "Кои болници получават най-много средства?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokBudget",
+        "nzokHospitals",
+        "nzokPublicPrivate",
+        "nzokPrivateHospitals"
+      ]
+    },
+    {
+      "id": "health.budget.03",
+      "category": "health",
+      "subcategory": "budget",
+      "bg": "Как се разпределят плащанията между държавни и частни болници?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokBudget",
+        "nzokHospitals",
+        "nzokPublicPrivate",
+        "nzokPrivateHospitals"
+      ]
+    },
+    {
+      "id": "health.budget.04",
+      "category": "health",
+      "subcategory": "budget",
+      "bg": "Как се променят разходите за здравеопазване?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokBudget",
+        "nzokHospitals",
+        "nzokPublicPrivate",
+        "nzokPrivateHospitals"
+      ]
+    },
+    {
+      "id": "health.hospitals.01",
+      "category": "health",
+      "subcategory": "hospitals",
+      "bg": "Колко дейности отчита конкретна болница?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokActivities",
+        "nzokHospitalScorecard",
+        "nzokPathwayHospitals"
+      ]
+    },
+    {
+      "id": "health.hospitals.02",
+      "category": "health",
+      "subcategory": "hospitals",
+      "bg": "Кои болници извършват дадена клинична процедура?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokActivities",
+        "nzokHospitalScorecard",
+        "nzokPathwayHospitals"
+      ]
+    },
+    {
+      "id": "health.hospitals.03",
+      "category": "health",
+      "subcategory": "hospitals",
+      "bg": "Какво показват финансовите отчети на болницата?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokActivities",
+        "nzokHospitalScorecard",
+        "nzokPathwayHospitals"
+      ]
+    },
+    {
+      "id": "health.hospitals.04",
+      "category": "health",
+      "subcategory": "hospitals",
+      "bg": "Каква е съпоставимостта между изплатени средства и отчетена дейност?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokActivities",
+        "nzokHospitalScorecard",
+        "nzokPathwayHospitals"
+      ]
+    },
+    {
+      "id": "health.medicines.01",
+      "category": "health",
+      "subcategory": "medicines",
+      "bg": "За кои лекарства НЗОК плаща най-много?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokDrugs",
+        "nzokDrugGrowth",
+        "nzokDrugSavings",
+        "nzokDrugMolecule"
+      ]
+    },
+    {
+      "id": "health.medicines.02",
+      "category": "health",
+      "subcategory": "medicines",
+      "bg": "Различават ли се платените цени за една и съща лекарствена опаковка?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokDrugs",
+        "nzokDrugGrowth",
+        "nzokDrugSavings",
+        "nzokDrugMolecule"
+      ]
+    },
+    {
+      "id": "health.medicines.03",
+      "category": "health",
+      "subcategory": "medicines",
+      "bg": "Кои разходи за лекарства растат най-бързо?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokDrugs",
+        "nzokDrugGrowth",
+        "nzokDrugSavings",
+        "nzokDrugMolecule"
+      ]
+    },
+    {
+      "id": "health.medicines.04",
+      "category": "health",
+      "subcategory": "medicines",
+      "bg": "Какви са ограниченията на изчислените потенциални икономии?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "nzokDrugs",
+        "nzokDrugGrowth",
+        "nzokDrugSavings",
+        "nzokDrugMolecule"
+      ]
+    },
+    {
+      "id": "health.access.01",
+      "category": "health",
+      "subcategory": "access",
+      "bg": "Колко чакам за преглед при специалист?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "health.access.02",
+      "category": "health",
+      "subcategory": "access",
+      "bg": "Какво покрива здравната каса за конкретно лечение?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "health.access.03",
+      "category": "health",
+      "subcategory": "access",
+      "bg": "Къде мога да подам жалба за отказана медицинска помощ?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "health.access.04",
+      "category": "health",
+      "subcategory": "access",
+      "bg": "Къде няма достатъчно общопрактикуващи лекари?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "pensions-support.pensions.01",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "bg": "Колко е средната пенсия по области?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "noiFunds",
+        "noiPensionDistribution",
+        "noiPensionByOblast",
+        "noiPensionSeries"
+      ]
+    },
+    {
+      "id": "pensions-support.pensions.02",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "bg": "Колко пенсионери получават минимална пенсия?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "noiFunds",
+        "noiPensionDistribution",
+        "noiPensionByOblast",
+        "noiPensionSeries"
+      ]
+    },
+    {
+      "id": "pensions-support.pensions.03",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "bg": "Как се променят пенсиите спрямо инфлацията?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "noiFunds",
+        "noiPensionDistribution",
+        "noiPensionByOblast",
+        "noiPensionSeries"
+      ]
+    },
+    {
+      "id": "pensions-support.pensions.04",
+      "category": "pensions-support",
+      "subcategory": "pensions",
+      "bg": "Колко от пенсионните разходи се покриват с осигуровки?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "noiFunds",
+        "noiPensionDistribution",
+        "noiPensionByOblast",
+        "noiPensionSeries"
+      ]
+    },
+    {
+      "id": "pensions-support.private.01",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "bg": "Каква доходност отчитат пенсионните фондове?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "kfnFunds"
+      ]
+    },
+    {
+      "id": "pensions-support.private.02",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "bg": "Как се различават таксите и активите на фондовете?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "kfnFunds"
+      ]
+    },
+    {
+      "id": "pensions-support.private.03",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "bg": "Какво означава отрицателна реална доходност?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "kfnFunds"
+      ]
+    },
+    {
+      "id": "pensions-support.private.04",
+      "category": "pensions-support",
+      "subcategory": "private",
+      "bg": "Как да сравня фондове за еднакъв период?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "kfnFunds"
+      ]
+    },
+    {
+      "id": "pensions-support.benefits.01",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "bg": "Колко хора получават помощи за отопление?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "socialSpending",
+        "socialBenefits",
+        "socialPovertyImpact"
+      ]
+    },
+    {
+      "id": "pensions-support.benefits.02",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "bg": "Какъв е обхватът на детските помощи?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "socialSpending",
+        "socialBenefits",
+        "socialPovertyImpact"
+      ]
+    },
+    {
+      "id": "pensions-support.benefits.03",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "bg": "Намалява ли бедността след социалните плащания?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "socialSpending",
+        "socialBenefits",
+        "socialPovertyImpact"
+      ]
+    },
+    {
+      "id": "pensions-support.benefits.04",
+      "category": "pensions-support",
+      "subcategory": "benefits",
+      "bg": "Какви са условията за получаване на конкретна помощ?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "socialSpending",
+        "socialBenefits",
+        "socialPovertyImpact"
+      ]
+    },
+    {
+      "id": "education.schools.01",
+      "category": "education",
+      "subcategory": "schools",
+      "bg": "Как се представят училищата в моя град на матурите?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "schoolMatura",
+        "schoolScores"
+      ]
+    },
+    {
+      "id": "education.schools.02",
+      "category": "education",
+      "subcategory": "schools",
+      "bg": "Подобряват ли се резултатите на конкретно училище?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "schoolMatura",
+        "schoolScores"
+      ]
+    },
+    {
+      "id": "education.schools.03",
+      "category": "education",
+      "subcategory": "schools",
+      "bg": "Колко ученици са се явили на изпита?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "schoolMatura",
+        "schoolScores"
+      ]
+    },
+    {
+      "id": "education.schools.04",
+      "category": "education",
+      "subcategory": "schools",
+      "bg": "Отчитат ли класациите различния прием на ученици?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "schoolMatura",
+        "schoolScores"
+      ]
+    },
+    {
+      "id": "education.access.01",
+      "category": "education",
+      "subcategory": "access",
+      "bg": "Колко деца остават без място в детска градина?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "education.access.02",
+      "category": "education",
+      "subcategory": "access",
+      "bg": "Къде се закриват училища?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "education.access.03",
+      "category": "education",
+      "subcategory": "access",
+      "bg": "Колко деца отпадат от образование?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "education.access.04",
+      "category": "education",
+      "subcategory": "access",
+      "bg": "Как се кандидатства за общинска детска градина?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "education.universities.01",
+      "category": "education",
+      "subcategory": "universities",
+      "bg": "Колко публични средства получават университетите?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "education.universities.02",
+      "category": "education",
+      "subcategory": "universities",
+      "bg": "Какви обществени поръчки възлагат БАН и висшите училища?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "education.universities.03",
+      "category": "education",
+      "subcategory": "universities",
+      "bg": "Как се реализират завършилите различни специалности?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "education.universities.04",
+      "category": "education",
+      "subcategory": "universities",
+      "bg": "Как се финансират научните изследвания?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "demographics.population.01",
+      "category": "demographics",
+      "subcategory": "population",
+      "bg": "Колко души живеят в моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "census",
+        "graoPopulation"
+      ]
+    },
+    {
+      "id": "demographics.population.02",
+      "category": "demographics",
+      "subcategory": "population",
+      "bg": "Кои населени места обезлюдяват най-бързо?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "census",
+        "graoPopulation"
+      ]
+    },
+    {
+      "id": "demographics.population.03",
+      "category": "demographics",
+      "subcategory": "population",
+      "bg": "Къде населението застарява най-силно?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "census",
+        "graoPopulation"
+      ]
+    },
+    {
+      "id": "demographics.population.04",
+      "category": "demographics",
+      "subcategory": "population",
+      "bg": "Каква е разликата между преброено и адресно регистрирано население?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "census",
+        "graoPopulation"
+      ]
+    },
+    {
+      "id": "demographics.my-area.01",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "bg": "Какво показват основните данни за моя град?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governanceProfile",
+        "comparePlaces",
+        "myAreaAlerts"
+      ]
+    },
+    {
+      "id": "demographics.my-area.02",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "bg": "Какво ново е регистрирано в моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governanceProfile",
+        "comparePlaces",
+        "myAreaAlerts"
+      ]
+    },
+    {
+      "id": "demographics.my-area.03",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "bg": "Как се сравняват Варна и Бургас?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governanceProfile",
+        "comparePlaces",
+        "myAreaAlerts"
+      ]
+    },
+    {
+      "id": "demographics.my-area.04",
+      "category": "demographics",
+      "subcategory": "my-area",
+      "bg": "Какви данни липсват за моето село?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "governanceProfile",
+        "comparePlaces",
+        "myAreaAlerts"
+      ]
+    },
+    {
+      "id": "demographics.inequality.01",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "bg": "Къде регионалните различия са най-големи?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transparencyScore"
+      ]
+    },
+    {
+      "id": "demographics.inequality.02",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "bg": "Кои общини имат по-прозрачно управление според наличния индекс?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transparencyScore"
+      ]
+    },
+    {
+      "id": "demographics.inequality.03",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "bg": "Как се различават доходите и възможностите за работа по места?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transparencyScore"
+      ]
+    },
+    {
+      "id": "demographics.inequality.04",
+      "category": "demographics",
+      "subcategory": "inequality",
+      "bg": "С кои общини е смислено да сравня моята?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transparencyScore"
+      ]
+    },
+    {
+      "id": "justice-security.courts.01",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "bg": "Кои съдилища са най-натоварени?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "judiciaryBudget",
+        "judiciaryCaseload",
+        "judiciaryWorkload",
+        "judiciaryCourtLoad",
+        "judiciaryDeclarations"
+      ]
+    },
+    {
+      "id": "justice-security.courts.02",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "bg": "Колко дела приключват в срок?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "judiciaryBudget",
+        "judiciaryCaseload",
+        "judiciaryWorkload",
+        "judiciaryCourtLoad",
+        "judiciaryDeclarations"
+      ]
+    },
+    {
+      "id": "justice-security.courts.03",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "bg": "Подават ли магистратите имуществените си декларации?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "judiciaryBudget",
+        "judiciaryCaseload",
+        "judiciaryWorkload",
+        "judiciaryCourtLoad",
+        "judiciaryDeclarations"
+      ]
+    },
+    {
+      "id": "justice-security.courts.04",
+      "category": "justice-security",
+      "subcategory": "courts",
+      "bg": "Какви публични връзки са установени за конкретен магистрат?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "judiciaryBudget",
+        "judiciaryCaseload",
+        "judiciaryWorkload",
+        "judiciaryCourtLoad",
+        "judiciaryDeclarations"
+      ]
+    },
+    {
+      "id": "justice-security.crime.01",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "bg": "Как се променя регистрираната престъпност?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "justice-security.crime.02",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "bg": "Къде да подам сигнал за домашно насилие?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "justice-security.crime.03",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "bg": "Колко престъпления се разкриват?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "justice-security.crime.04",
+      "category": "justice-security",
+      "subcategory": "crime",
+      "bg": "Как се различават полицейската статистика и реалната честота на престъпленията?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "justice-security.defense.01",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "bg": "Колко харчим за отбрана като дял от БВП?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "defenseSpending",
+        "armsExports",
+        "defenseProgram",
+        "defenseReadiness",
+        "defensePeerCompare"
+      ]
+    },
+    {
+      "id": "justice-security.defense.02",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "bg": "Колко средства отиват за техника и колко за персонал?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "defenseSpending",
+        "armsExports",
+        "defenseProgram",
+        "defenseReadiness",
+        "defensePeerCompare"
+      ]
+    },
+    {
+      "id": "justice-security.defense.03",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "bg": "Как се сравняваме с останалите страни от НАТО?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "defenseSpending",
+        "armsExports",
+        "defenseProgram",
+        "defenseReadiness",
+        "defensePeerCompare"
+      ]
+    },
+    {
+      "id": "justice-security.defense.04",
+      "category": "justice-security",
+      "subcategory": "defense",
+      "bg": "Какъв е износът на оръжие по публикуваните отчети?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "defenseSpending",
+        "armsExports",
+        "defenseProgram",
+        "defenseReadiness",
+        "defensePeerCompare"
+      ]
+    },
+    {
+      "id": "energy.prices.01",
+      "category": "energy",
+      "subcategory": "prices",
+      "bg": "Как се променя цената на тока за домакинствата?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electricityPrices",
+        "gasPrices"
+      ]
+    },
+    {
+      "id": "energy.prices.02",
+      "category": "energy",
+      "subcategory": "prices",
+      "bg": "Как се сравняват цените на газа с тези в ЕС?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electricityPrices",
+        "gasPrices"
+      ]
+    },
+    {
+      "id": "energy.prices.03",
+      "category": "energy",
+      "subcategory": "prices",
+      "bg": "Каква е разликата между регулирана и пазарна цена?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electricityPrices",
+        "gasPrices"
+      ]
+    },
+    {
+      "id": "energy.prices.04",
+      "category": "energy",
+      "subcategory": "prices",
+      "bg": "Какво влиза в сметката за отопление?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "electricityPrices",
+        "gasPrices"
+      ]
+    },
+    {
+      "id": "energy.production.01",
+      "category": "energy",
+      "subcategory": "production",
+      "bg": "От какви източници произвеждаме електроенергия?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "generationMix",
+        "powerPlants"
+      ]
+    },
+    {
+      "id": "energy.production.02",
+      "category": "energy",
+      "subcategory": "production",
+      "bg": "Как се променя делът на въглищата и ВЕИ?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "generationMix",
+        "powerPlants"
+      ]
+    },
+    {
+      "id": "energy.production.03",
+      "category": "energy",
+      "subcategory": "production",
+      "bg": "Къде се намират електроцентралите?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "generationMix",
+        "powerPlants"
+      ]
+    },
+    {
+      "id": "energy.production.04",
+      "category": "energy",
+      "subcategory": "production",
+      "bg": "Какво означава енергийният преход за работните места в засегнатите региони?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "generationMix",
+        "powerPlants"
+      ]
+    },
+    {
+      "id": "water-environment.water.01",
+      "category": "water-environment",
+      "subcategory": "water",
+      "bg": "Колко вода се губи по водопроводната мрежа?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "water-environment.water.02",
+      "category": "water-environment",
+      "subcategory": "water",
+      "bg": "Кои населени места са на воден режим?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "water-environment.water.03",
+      "category": "water-environment",
+      "subcategory": "water",
+      "bg": "Колко струва водата при различните ВиК оператори?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "water-environment.water.04",
+      "category": "water-environment",
+      "subcategory": "water",
+      "bg": "Кой отговаря за инвестициите във ВиК мрежата?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "water-environment.floods.01",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "bg": "Кой почиства речните корита и за колко пари?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "riverbedCleaning"
+      ]
+    },
+    {
+      "id": "water-environment.floods.02",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "bg": "Кои общини възлагат най-много дейности срещу наводнения?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "riverbedCleaning"
+      ]
+    },
+    {
+      "id": "water-environment.floods.03",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "bg": "Какви договори има за конкретна река?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "riverbedCleaning"
+      ]
+    },
+    {
+      "id": "water-environment.floods.04",
+      "category": "water-environment",
+      "subcategory": "floods",
+      "bg": "Има ли данни за резултата от извършената поддръжка?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "riverbedCleaning"
+      ]
+    },
+    {
+      "id": "water-environment.air.01",
+      "category": "water-environment",
+      "subcategory": "air",
+      "bg": "Какви концентрации на фини прахови частици са измерени в моя град?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "airQuality"
+      ]
+    },
+    {
+      "id": "water-environment.air.02",
+      "category": "water-environment",
+      "subcategory": "air",
+      "bg": "От кой период са измерванията на въздуха?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "airQuality"
+      ]
+    },
+    {
+      "id": "water-environment.air.03",
+      "category": "water-environment",
+      "subcategory": "air",
+      "bg": "Има ли измервателна станция близо до мен?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "airQuality"
+      ]
+    },
+    {
+      "id": "water-environment.air.04",
+      "category": "water-environment",
+      "subcategory": "air",
+      "bg": "Може ли тримесечна средна стойност да показва въздуха днес?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "airQuality"
+      ]
+    },
+    {
+      "id": "water-environment.waste.01",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "bg": "Какъв дял от отпадъците се рециклира?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "environmentSpending",
+        "environmentFunds",
+        "wasteRecycling",
+        "landUse"
+      ]
+    },
+    {
+      "id": "water-environment.waste.02",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "bg": "Колко струва сметосъбирането в моята община?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "environmentSpending",
+        "environmentFunds",
+        "wasteRecycling",
+        "landUse"
+      ]
+    },
+    {
+      "id": "water-environment.waste.03",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "bg": "Как се използва земята в моята област?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "environmentSpending",
+        "environmentFunds",
+        "wasteRecycling",
+        "landUse"
+      ]
+    },
+    {
+      "id": "water-environment.waste.04",
+      "category": "water-environment",
+      "subcategory": "waste",
+      "bg": "Кои екологични проекти са получили европейско финансиране?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "environmentSpending",
+        "environmentFunds",
+        "wasteRecycling",
+        "landUse"
+      ]
+    },
+    {
+      "id": "transport-housing.rail.01",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "bg": "Колко субсидии получава железопътният транспорт?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transportSpending",
+        "transportEuFunds",
+        "railSubsidy"
+      ]
+    },
+    {
+      "id": "transport-housing.rail.02",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "bg": "Увеличава ли се броят на пътниците във влаковете?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transportSpending",
+        "transportEuFunds",
+        "railSubsidy"
+      ]
+    },
+    {
+      "id": "transport-housing.rail.03",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "bg": "Кои железопътни проекти се финансират от ЕС?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transportSpending",
+        "transportEuFunds",
+        "railSubsidy"
+      ]
+    },
+    {
+      "id": "transport-housing.rail.04",
+      "category": "transport-housing",
+      "subcategory": "rail",
+      "bg": "Какви данни има за закъсненията и отменените влакове?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "transportSpending",
+        "transportEuFunds",
+        "railSubsidy"
+      ]
+    },
+    {
+      "id": "transport-housing.roads.01",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "bg": "Как се променят загиналите при пътни произшествия?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "securityRoadSafety"
+      ]
+    },
+    {
+      "id": "transport-housing.roads.02",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "bg": "Как се сравнява пътната безопасност с тази в ЕС?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "securityRoadSafety"
+      ]
+    },
+    {
+      "id": "transport-housing.roads.03",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "bg": "Кой отговаря за ремонта на конкретен път?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "securityRoadSafety"
+      ]
+    },
+    {
+      "id": "transport-housing.roads.04",
+      "category": "transport-housing",
+      "subcategory": "roads",
+      "bg": "Къде са участъците с най-много тежки катастрофи?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "securityRoadSafety"
+      ]
+    },
+    {
+      "id": "transport-housing.housing.01",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "bg": "Как се променят цените на жилищата спрямо доходите?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "transport-housing.housing.02",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "bg": "Колко хора са затруднени от жилищните си разходи?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "transport-housing.housing.03",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "bg": "Кои сгради получават финансиране за саниране?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "transport-housing.housing.04",
+      "category": "transport-housing",
+      "subcategory": "housing",
+      "bg": "Къде мога да проверя строително разрешение?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "culture-tourism.culture.01",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "bg": "Кои филми получават най-големи субсидии?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "cultureOverview",
+        "topCultureGrantees",
+        "filmSubsidyForProducer",
+        "cultureGrantSuccess",
+        "cultureCommissions",
+        "cultureMunicipal"
+      ]
+    },
+    {
+      "id": "culture-tourism.culture.02",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "bg": "Кои организации получават средства от Национален фонд „Култура“?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "cultureOverview",
+        "topCultureGrantees",
+        "filmSubsidyForProducer",
+        "cultureGrantSuccess",
+        "cultureCommissions",
+        "cultureMunicipal"
+      ]
+    },
+    {
+      "id": "culture-tourism.culture.03",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "bg": "Кой участва в оценителните комисии?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "cultureOverview",
+        "topCultureGrantees",
+        "filmSubsidyForProducer",
+        "cultureGrantSuccess",
+        "cultureCommissions",
+        "cultureMunicipal"
+      ]
+    },
+    {
+      "id": "culture-tourism.culture.04",
+      "category": "culture-tourism",
+      "subcategory": "culture",
+      "bg": "Колко харчи моята община за култура?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "cultureOverview",
+        "topCultureGrantees",
+        "filmSubsidyForProducer",
+        "cultureGrantSuccess",
+        "cultureCommissions",
+        "cultureMunicipal"
+      ]
+    },
+    {
+      "id": "culture-tourism.tourism.01",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "bg": "От кои държави идват туристите?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "tourismSeasonality",
+        "tourismSourceMarkets"
+      ]
+    },
+    {
+      "id": "culture-tourism.tourism.02",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "bg": "Колко силна е сезонността на туризма?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "tourismSeasonality",
+        "tourismSourceMarkets"
+      ]
+    },
+    {
+      "id": "culture-tourism.tourism.03",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "bg": "Как се променят нощувките през годините?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "tourismSeasonality",
+        "tourismSourceMarkets"
+      ]
+    },
+    {
+      "id": "culture-tourism.tourism.04",
+      "category": "culture-tourism",
+      "subcategory": "tourism",
+      "bg": "Колко зависими са отделните региони от летния сезон?",
+      "status": "editorial-review",
+      "relatedTools": [
+        "tourismSeasonality",
+        "tourismSourceMarkets"
+      ]
+    },
+    {
+      "id": "media-society.trust.01",
+      "category": "media-society",
+      "subcategory": "trust",
+      "bg": "Кои проблеми хората смятат за най-важни?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "media-society.trust.02",
+      "category": "media-society",
+      "subcategory": "trust",
+      "bg": "Как се променя доверието в институциите?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "media-society.trust.03",
+      "category": "media-society",
+      "subcategory": "trust",
+      "bg": "Какви са нагласите към ЕС и еврото?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "media-society.trust.04",
+      "category": "media-society",
+      "subcategory": "trust",
+      "bg": "Съпоставими ли са различните проучвания на общественото мнение?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "media-society.media.01",
+      "category": "media-society",
+      "subcategory": "media",
+      "bg": "Кои медии отразяват дадена тема?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "media-society.media.02",
+      "category": "media-society",
+      "subcategory": "media",
+      "bg": "Кой е собственикът на конкретна медия?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "media-society.media.03",
+      "category": "media-society",
+      "subcategory": "media",
+      "bg": "Подкрепя ли официалната статистика твърдение от новините?",
+      "status": "editorial-review",
+      "relatedTools": []
+    },
+    {
+      "id": "media-society.media.04",
+      "category": "media-society",
+      "subcategory": "media",
+      "bg": "Как се различава отразяването на една и съща новина?",
+      "status": "editorial-review",
+      "relatedTools": []
+    }
+  ]
+}

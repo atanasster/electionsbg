@@ -1,0 +1,448 @@
+[
+  {
+    "id": "elections",
+    "bg": "Избори",
+    "en": "Elections",
+    "subcategories": [
+      {
+        "id": "parliamentary",
+        "bg": "Парламентарни",
+        "en": "Parliamentary"
+      },
+      {
+        "id": "presidential",
+        "bg": "Президентски",
+        "en": "Presidential"
+      },
+      {
+        "id": "local",
+        "bg": "Местни и частични",
+        "en": "Local and by-elections"
+      },
+      {
+        "id": "geography",
+        "bg": "Вотът по места и в чужбина",
+        "en": "Local and overseas voting"
+      },
+      {
+        "id": "integrity",
+        "bg": "Честност на вота",
+        "en": "Election integrity"
+      },
+      {
+        "id": "polls",
+        "bg": "Проучвания и поведение",
+        "en": "Polls and voting patterns"
+      }
+    ]
+  },
+  {
+    "id": "institutions",
+    "bg": "Парламент и управление",
+    "en": "Parliament and government",
+    "subcategories": [
+      {
+        "id": "parliament",
+        "bg": "Депутати и гласувания",
+        "en": "MPs and roll calls"
+      },
+      {
+        "id": "cabinet",
+        "bg": "Правителства и длъжности",
+        "en": "Cabinets and offices"
+      },
+      {
+        "id": "councils",
+        "bg": "Общински съвети",
+        "en": "Municipal councils"
+      },
+      {
+        "id": "services",
+        "bg": "Администрация и услуги",
+        "en": "Administration and services"
+      }
+    ]
+  },
+  {
+    "id": "public-money",
+    "bg": "Бюджет и данъци",
+    "en": "Budget and taxes",
+    "subcategories": [
+      {
+        "id": "budget",
+        "bg": "Приходи и разходи",
+        "en": "Revenue and expenditure"
+      },
+      {
+        "id": "ministries",
+        "bg": "Министерства и програми",
+        "en": "Ministries and programmes"
+      },
+      {
+        "id": "municipal",
+        "bg": "Общински финанси",
+        "en": "Municipal finances"
+      },
+      {
+        "id": "debt",
+        "bg": "Дълг и дефицит",
+        "en": "Debt and deficit"
+      },
+      {
+        "id": "scenarios",
+        "bg": "Данъчни сценарии",
+        "en": "Tax scenarios"
+      }
+    ]
+  },
+  {
+    "id": "procurement",
+    "bg": "Обществени поръчки",
+    "en": "Public procurement",
+    "subcategories": [
+      {
+        "id": "tenders",
+        "bg": "Текущи търгове и процедури",
+        "en": "Tenders and procedures"
+      },
+      {
+        "id": "contracts",
+        "bg": "Договори и изпълнители",
+        "en": "Contracts and suppliers"
+      },
+      {
+        "id": "competition",
+        "bg": "Конкуренция и риск",
+        "en": "Competition and risk"
+      },
+      {
+        "id": "control",
+        "bg": "Жалби и контрол",
+        "en": "Appeals and oversight"
+      },
+      {
+        "id": "projects",
+        "bg": "Строежи и проектни досиета",
+        "en": "Construction and project dossiers"
+      },
+      {
+        "id": "local",
+        "bg": "Поръчки по места",
+        "en": "Procurement by place"
+      }
+    ]
+  },
+  {
+    "id": "business",
+    "bg": "Фирми, интереси и имущество",
+    "en": "Companies, interests and assets",
+    "subcategories": [
+      {
+        "id": "ownership",
+        "bg": "Собственици и връзки",
+        "en": "Ownership and connections"
+      },
+      {
+        "id": "assets",
+        "bg": "Имуществени декларации",
+        "en": "Asset declarations"
+      },
+      {
+        "id": "party-funding",
+        "bg": "Партийно финансиране",
+        "en": "Party funding"
+      },
+      {
+        "id": "ngos",
+        "bg": "НПО и читалища",
+        "en": "NGOs and community centres"
+      }
+    ]
+  },
+  {
+    "id": "funds",
+    "bg": "Еврофондове и земеделие",
+    "en": "EU funds and agriculture",
+    "subcategories": [
+      {
+        "id": "calls",
+        "bg": "Кандидатстване и срокове",
+        "en": "Applications and deadlines"
+      },
+      {
+        "id": "projects",
+        "bg": "Финансирани проекти",
+        "en": "Funded projects"
+      },
+      {
+        "id": "regional",
+        "bg": "Регионално развитие и Interreg",
+        "en": "Regional development and Interreg"
+      },
+      {
+        "id": "agriculture",
+        "bg": "Земеделски субсидии",
+        "en": "Agricultural subsidies"
+      }
+    ]
+  },
+  {
+    "id": "cost-living",
+    "bg": "Цени и семейни разходи",
+    "en": "Prices and household spending",
+    "subcategories": [
+      {
+        "id": "basket",
+        "bg": "Храни и пазаруване",
+        "en": "Food and shopping"
+      },
+      {
+        "id": "inflation",
+        "bg": "Инфлация и евро",
+        "en": "Inflation and euro"
+      },
+      {
+        "id": "fuel",
+        "bg": "Горива",
+        "en": "Fuel"
+      }
+    ]
+  },
+  {
+    "id": "economy-work",
+    "bg": "Икономика и работа",
+    "en": "Economy and work",
+    "subcategories": [
+      {
+        "id": "macro",
+        "bg": "Икономика и ЕС",
+        "en": "Economy and EU"
+      },
+      {
+        "id": "jobs",
+        "bg": "Заплати и заетост",
+        "en": "Wages and employment"
+      },
+      {
+        "id": "investment",
+        "bg": "Инвестиции и бизнес среда",
+        "en": "Investment and business environment"
+      }
+    ]
+  },
+  {
+    "id": "health",
+    "bg": "Здравеопазване",
+    "en": "Healthcare",
+    "subcategories": [
+      {
+        "id": "budget",
+        "bg": "Финансиране на здравеопазването",
+        "en": "Healthcare funding"
+      },
+      {
+        "id": "hospitals",
+        "bg": "Болници и дейности",
+        "en": "Hospitals and activity"
+      },
+      {
+        "id": "medicines",
+        "bg": "Лекарства и цени",
+        "en": "Medicines and prices"
+      },
+      {
+        "id": "access",
+        "bg": "Достъп и права на пациента",
+        "en": "Access and patient rights"
+      }
+    ]
+  },
+  {
+    "id": "pensions-support",
+    "bg": "Пенсии и социална подкрепа",
+    "en": "Pensions and social support",
+    "subcategories": [
+      {
+        "id": "pensions",
+        "bg": "Държавни пенсии",
+        "en": "State pensions"
+      },
+      {
+        "id": "private",
+        "bg": "Допълнително осигуряване",
+        "en": "Supplementary pensions"
+      },
+      {
+        "id": "benefits",
+        "bg": "Помощи и бедност",
+        "en": "Benefits and poverty"
+      }
+    ]
+  },
+  {
+    "id": "education",
+    "bg": "Образование",
+    "en": "Education",
+    "subcategories": [
+      {
+        "id": "schools",
+        "bg": "Училища и изпити",
+        "en": "Schools and exams"
+      },
+      {
+        "id": "access",
+        "bg": "Детски градини и достъп",
+        "en": "Childcare and access"
+      },
+      {
+        "id": "universities",
+        "bg": "Университети и наука",
+        "en": "Universities and science"
+      }
+    ]
+  },
+  {
+    "id": "demographics",
+    "bg": "Население и моето място",
+    "en": "Population and my area",
+    "subcategories": [
+      {
+        "id": "population",
+        "bg": "Население и миграция",
+        "en": "Population and migration"
+      },
+      {
+        "id": "my-area",
+        "bg": "Моето населено място",
+        "en": "My area"
+      },
+      {
+        "id": "inequality",
+        "bg": "Регионални различия",
+        "en": "Regional disparities"
+      }
+    ]
+  },
+  {
+    "id": "justice-security",
+    "bg": "Правосъдие и сигурност",
+    "en": "Justice and security",
+    "subcategories": [
+      {
+        "id": "courts",
+        "bg": "Съдилища и магистрати",
+        "en": "Courts and magistrates"
+      },
+      {
+        "id": "crime",
+        "bg": "Престъпност и защита",
+        "en": "Crime and protection"
+      },
+      {
+        "id": "defense",
+        "bg": "Отбрана и международна сигурност",
+        "en": "Defence and international security"
+      }
+    ]
+  },
+  {
+    "id": "energy",
+    "bg": "Енергетика",
+    "en": "Energy",
+    "subcategories": [
+      {
+        "id": "prices",
+        "bg": "Ток, газ и отопление",
+        "en": "Electricity, gas and heating"
+      },
+      {
+        "id": "production",
+        "bg": "Производство и преход",
+        "en": "Production and transition"
+      }
+    ]
+  },
+  {
+    "id": "water-environment",
+    "bg": "Води и околна среда",
+    "en": "Water and environment",
+    "subcategories": [
+      {
+        "id": "water",
+        "bg": "Вода и воден режим",
+        "en": "Water supply and rationing"
+      },
+      {
+        "id": "floods",
+        "bg": "Реки и наводнения",
+        "en": "Rivers and floods"
+      },
+      {
+        "id": "air",
+        "bg": "Въздух",
+        "en": "Air"
+      },
+      {
+        "id": "waste",
+        "bg": "Отпадъци и опазване",
+        "en": "Waste and conservation"
+      }
+    ]
+  },
+  {
+    "id": "transport-housing",
+    "bg": "Транспорт и жилища",
+    "en": "Transport and housing",
+    "subcategories": [
+      {
+        "id": "rail",
+        "bg": "Влакове и обществен транспорт",
+        "en": "Rail and public transport"
+      },
+      {
+        "id": "roads",
+        "bg": "Пътища и безопасност",
+        "en": "Roads and safety"
+      },
+      {
+        "id": "housing",
+        "bg": "Жилища и градска среда",
+        "en": "Housing and urban environment"
+      }
+    ]
+  },
+  {
+    "id": "culture-tourism",
+    "bg": "Култура и туризъм",
+    "en": "Culture and tourism",
+    "subcategories": [
+      {
+        "id": "culture",
+        "bg": "Култура и финансиране",
+        "en": "Culture and funding"
+      },
+      {
+        "id": "tourism",
+        "bg": "Туризъм",
+        "en": "Tourism"
+      }
+    ]
+  },
+  {
+    "id": "media-society",
+    "bg": "Медии и обществени нагласи",
+    "en": "Media and public attitudes",
+    "subcategories": [
+      {
+        "id": "trust",
+        "bg": "Доверие и обществени приоритети",
+        "en": "Trust and public priorities"
+      },
+      {
+        "id": "media",
+        "bg": "Новини и проверка на твърдения",
+        "en": "News and claim checking"
+      }
+    ]
+  }
+]
