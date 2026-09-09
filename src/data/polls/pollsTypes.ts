@@ -51,7 +51,17 @@ export type PollLock = {
   // corrected more than once nests each generation inside the next, which
   // is the intended shape for a rare, manual, exceptional path: a full
   // audit trail of every prior value, not just the immediately-previous one.
-  supersedes?: { pollId: string; poll: Poll; details: PollDetail[] };
+  // `details` is a UNION, not `PollDetail[]` alone — `poll.race` decides
+  // which shape it actually is (Tier 4's presidential family supersedes
+  // its own polls the same way, via the same `PollLock`), and a consumer
+  // must narrow on that before reading a family-specific field
+  // (`nickName_bg` vs `candidateKey`) rather than assuming the
+  // parliamentary shape.
+  supersedes?: {
+    pollId: string;
+    poll: Poll;
+    details: PollDetail[] | PresidentialPollDetail[];
+  };
 };
 
 // A poll's electoral family (docs/plans/polls-agency-watchers-v1.md decision

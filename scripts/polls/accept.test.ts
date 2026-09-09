@@ -3,8 +3,13 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { __setAcceptRootForTests, main, parseArgv } from "./accept";
-import type { InboxDraft } from "./lib/draft";
-import type { Poll, PollDetail } from "../../src/data/polls/pollsTypes";
+import type { InboxDraft, PresidentialInboxDraft } from "./lib/draft";
+import type {
+  Poll,
+  PollDetail,
+  PresidentialPollDetail,
+  Runoff,
+} from "../../src/data/polls/pollsTypes";
 
 describe("parseArgv", () => {
   it("reads the positional pollId plus every flag", () => {
@@ -27,6 +32,19 @@ describe("parseArgv", () => {
       lockedBy: "agency_pdf",
       replace: true,
       allowEmpty: true,
+      cycle: undefined,
+    });
+  });
+
+  it("reads --cycle (presidential-only)", () => {
+    expect(parseArgv(["gm-2026-07-11", "--cycle", "2026_11_08_pvr"])).toEqual({
+      pollId: "gm-2026-07-11",
+      election: undefined,
+      genre: undefined,
+      lockedBy: undefined,
+      replace: false,
+      allowEmpty: false,
+      cycle: "2026_11_08_pvr",
     });
   });
 
@@ -38,6 +56,7 @@ describe("parseArgv", () => {
       lockedBy: undefined,
       replace: false,
       allowEmpty: false,
+      cycle: undefined,
     });
   });
 });
@@ -199,26 +218,6 @@ describe("main", () => {
     // but nothing here asserts it survives (accept only ever deletes the
     // file it read).
     expect(fs.existsSync(inboxFile("tr-2026-04-16.v2.json"))).toBe(false);
-  });
-
-  it("refuses a presidential draft — not supported yet", () => {
-    // accept.ts refuses on `race` alone, before ever inspecting `details`
-    // or `runoffs` — the presidential shape's exact contents don't matter
-    // for this test, only that the race check fires first.
-    writeDraft("gm-x.json", {
-      ...BASE_DRAFT,
-      race: "presidential",
-      details: [],
-      runoffs: [],
-    });
-    writeCorpus([], []);
-
-    main(["gm-x"]);
-
-    expect(process.exitCode).toBe(1);
-    expect(errorSpy).toHaveBeenCalledWith(
-      expect.stringContaining("polls:accept only supports parliamentary"),
-    );
   });
 
   it("refuses a provisional-id draft with a numeric pubId", () => {
@@ -508,6 +507,42 @@ describe("main", () => {
     ]);
   });
 
+  it("scopes supersedes.details to only the replaced poll's own rows, not the whole details file", () => {
+    writeDraft("tr-2026-04-16.json", BASE_DRAFT);
+    const oldPoll = {
+      id: "tr-2026-04-16",
+      agencyId: "TR",
+      fieldwork: "Apr 13-16 2026",
+      electionDate: null,
+      respondents: 999,
+      methodology: { bg: "old", en: "old" },
+      source: "https://old.example/",
+      locked: { by: "agency_pdf", lockedAt: "2026-01-01", note: "manual" },
+    };
+    const oldDetailForThisPoll = {
+      pollId: "tr-2026-04-16",
+      agencyId: "TR",
+      support: 50,
+      nickName_bg: "СТАРА",
+      nickName_en: "",
+    };
+    const unrelatedDetail = {
+      pollId: "ar-2020-01-01",
+      agencyId: "AR",
+      support: 12,
+      nickName_bg: "ДРУГА",
+      nickName_en: "",
+    };
+    writeCorpus([oldPoll], [oldDetailForThisPoll, unrelatedDetail]);
+
+    main(["tr-2026-04-16", "--replace"]);
+
+    const { polls } = readCorpus();
+    expect(polls[0].locked!.supersedes!.details).toEqual([
+      oldDetailForThisPoll,
+    ]);
+  });
+
   it("--genre and --election override the draft's own values", () => {
     writeDraft("tr-2026-04-16.json", BASE_DRAFT);
     writeCorpus([], []);
@@ -619,6 +654,460 @@ describe("main", () => {
     const { details } = readCorpus();
     expect(details.some((d: PollDetail) => d.pollId === "gm-2020-01-01")).toBe(
       true,
+    );
+  });
+});
+
+describe("main — presidential drafts (Tier 4, decision 10's separate file family)", () => {
+  let scratchRoot: string;
+  let logSpy: ReturnType<typeof vi.spyOn>;
+  let errorSpy: ReturnType<typeof vi.spyOn>;
+  let warnSpy: ReturnType<typeof vi.spyOn>;
+
+  const inboxFile = (name: string) =>
+    path.join(scratchRoot, "data/polls/_inbox", name);
+  const writeDraft = (name: string, draft: InboxDraft) => {
+    fs.mkdirSync(path.join(scratchRoot, "data/polls/_inbox"), {
+      recursive: true,
+    });
+    fs.writeFileSync(inboxFile(name), JSON.stringify(draft, null, 2));
+  };
+
+  const presPollsFile = () =>
+    path.join(scratchRoot, "data/polls/presidential/polls.json");
+  const presDetailsFile = () =>
+    path.join(scratchRoot, "data/polls/presidential/polls_details.json");
+  const presRunoffsFile = () =>
+    path.join(scratchRoot, "data/polls/presidential/runoffs.json");
+  const writePresCorpus = (
+    polls: unknown[],
+    details: unknown[],
+    runoffs: unknown[] = [],
+  ) => {
+    fs.mkdirSync(path.join(scratchRoot, "data/polls/presidential"), {
+      recursive: true,
+    });
+    fs.writeFileSync(presPollsFile(), JSON.stringify(polls));
+    fs.writeFileSync(presDetailsFile(), JSON.stringify(details));
+    fs.writeFileSync(presRunoffsFile(), JSON.stringify(runoffs));
+  };
+  const readPresCorpus = (): {
+    polls: Poll[];
+    details: PresidentialPollDetail[];
+    runoffs: Runoff[];
+  } => ({
+    polls: JSON.parse(fs.readFileSync(presPollsFile(), "utf8")),
+    details: JSON.parse(fs.readFileSync(presDetailsFile(), "utf8")),
+    runoffs: JSON.parse(fs.readFileSync(presRunoffsFile(), "utf8")),
+  });
+  // The plain (non-presidential) corpus, to prove the two families never
+  // cross-write each other's files.
+  const parliamentaryPollsFile = () =>
+    path.join(scratchRoot, "data/polls/polls.json");
+  const parliamentaryDetailsFile = () =>
+    path.join(scratchRoot, "data/polls/polls_details.json");
+
+  const BASE_PRESIDENTIAL_DRAFT: PresidentialInboxDraft = {
+    race: "presidential",
+    poll: {
+      id: "gm-2026-07-11",
+      agencyId: "GM",
+      source: "https://globalmetrics.eu/x/",
+      electionDate: "2026-11-08",
+      cycle: null,
+      respondents: 1503,
+      genre: "raw_attitudes",
+      fieldwork: "Jun 23 - Jul 11 2026",
+      methodology: { bg: "Пряко интервю", en: "Direct interview" },
+      provenance: {
+        url: "https://globalmetrics.eu/x/",
+        fetchedAt: "2026-09-09T00:00:00.000Z",
+        sha256: "b".repeat(64),
+        extractor: "GM",
+        fieldworkStart: "2026-06-23",
+        fieldworkEnd: "2026-07-11",
+        basePhrase: "сред заявилите, че ще гласуват",
+        quotes: { "share:Прогресивна България": "Кандидат на ПрБ 39.7%" },
+      },
+    },
+    details: [
+      {
+        pollId: "gm-2026-07-11",
+        agencyId: "GM",
+        candidateKey: "placeholder:прб",
+        candidateName_bg: "Прогресивна България",
+        candidateName_en: "",
+        nominator: null,
+        placeholderFor: "ПрБ",
+        support: 39.7,
+      },
+    ],
+    runoffs: [],
+    residual: null,
+    genre: "raw_attitudes",
+    extractor: "GM",
+    evidence: { "share:Прогресивна България": "Кандидат на ПрБ 39.7%" },
+    refused: [],
+  };
+
+  beforeEach(() => {
+    scratchRoot = fs.mkdtempSync(
+      path.join(os.tmpdir(), "polls-accept-pres-test-"),
+    );
+    __setAcceptRootForTests(scratchRoot);
+    logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    __setAcceptRootForTests();
+    fs.rmSync(scratchRoot, { recursive: true, force: true });
+    logSpy.mockRestore();
+    errorSpy.mockRestore();
+    warnSpy.mockRestore();
+    process.exitCode = undefined;
+  });
+
+  it("creates data/polls/presidential/ itself on the true first-ever presidential accept (no pre-existing directory, no pre-existing files)", () => {
+    // Deliberately does NOT call writePresCorpus — every other test in this
+    // block does, which pre-creates the directory as a side effect and so
+    // never exercises a fresh clone's actual first run. Confirmed absent
+    // before main() runs, so a regression back to a bare `writeFileSync`
+    // (no `mkdirSync`) fails with ENOENT here rather than passing by
+    // accident.
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    expect(
+      fs.existsSync(path.join(scratchRoot, "data/polls/presidential")),
+    ).toBe(false);
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBeUndefined();
+    const { polls, details, runoffs } = readPresCorpus();
+    expect(polls).toHaveLength(1);
+    expect(details).toHaveLength(1);
+    expect(runoffs).toEqual([]);
+  });
+
+  it("accepts a valid presidential draft: writes the presidential corpus, never the parliamentary one", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBeUndefined();
+    const { polls, details, runoffs } = readPresCorpus();
+    expect(polls).toHaveLength(1);
+    expect(polls[0].race).toBe("presidential");
+    expect(polls[0].cycle).toBeNull();
+    expect(details).toHaveLength(1);
+    expect(details[0].candidateKey).toBe("placeholder:прб");
+    expect(runoffs).toEqual([]);
+    expect(fs.existsSync(inboxFile("gm-2026-07-11.json"))).toBe(false);
+    // Never touched the parliamentary files at all.
+    expect(fs.existsSync(parliamentaryPollsFile())).toBe(false);
+    expect(fs.existsSync(parliamentaryDetailsFile())).toBe(false);
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("candidate/placeholder row(s)"),
+    );
+  });
+
+  it("carries a runoff pairing through to runoffs.json, keyed on pollId", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      runoffs: [
+        {
+          pollId: "gm-2026-07-11",
+          agencyId: "GM",
+          a: "provisional:ivan-ivanov",
+          b: "provisional:petar-petrov",
+          supportA: 55,
+          supportB: 45,
+          residual: null,
+        },
+      ],
+    });
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBeUndefined();
+    const { runoffs } = readPresCorpus();
+    expect(runoffs).toHaveLength(1);
+    expect(runoffs[0].a).toBe("provisional:ivan-ivanov");
+  });
+
+  it("--cycle stamps the round-1 folder id; the draft's own null cycle is the default", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11", "--cycle", "2026_11_08_pvr"]);
+
+    expect(readPresCorpus().polls[0].cycle).toBe("2026_11_08_pvr");
+  });
+
+  it("refuses a malformed --cycle value", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11", "--cycle", "not-a-cycle"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("round-1 folder id"),
+    );
+  });
+
+  it("refuses --cycle on a parliamentary draft", () => {
+    writeDraft("tr-2026-04-16.json", {
+      race: "parliamentary",
+      poll: BASE_PRESIDENTIAL_DRAFT.poll,
+      details: [],
+      residual: null,
+      genre: "raw_attitudes",
+      extractor: "TR",
+      evidence: {},
+      refused: [],
+    });
+    fs.mkdirSync(path.join(scratchRoot, "data/polls"), { recursive: true });
+    fs.writeFileSync(parliamentaryPollsFile(), "[]");
+    fs.writeFileSync(parliamentaryDetailsFile(), "[]");
+
+    main(["tr-2026-04-16", "--cycle", "2026_11_08_pvr", "--allow-empty"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("--cycle is presidential-only"),
+    );
+  });
+
+  it("refuses a zero-row presidential draft unless --allow-empty", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      details: [],
+    });
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("nothing to publish"),
+    );
+  });
+
+  it("refuses a presidential draft with a blank candidateName_bg", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      details: [
+        { ...BASE_PRESIDENTIAL_DRAFT.details[0], candidateName_bg: "" },
+      ],
+    });
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("candidateName_bg is missing or blank"),
+    );
+  });
+
+  it("refuses a presidential draft with a non-finite runoff supportA", () => {
+    writeDraft("gm-2026-07-11.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      runoffs: [
+        {
+          pollId: "gm-2026-07-11",
+          agencyId: "GM",
+          a: "a",
+          b: "b",
+          supportA: Number.NaN,
+          supportB: 45,
+          residual: null,
+        },
+      ],
+    });
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("runoffs[0].supportA must be a finite number"),
+    );
+  });
+
+  it("--replace overwrites a locked presidential poll and records supersedes, keyed by pollId across all three files", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    const oldPoll = {
+      id: "gm-2026-07-11",
+      agencyId: "GM",
+      fieldwork: "old fieldwork",
+      electionDate: "2026-11-08",
+      cycle: null,
+      respondents: 1000,
+      methodology: { bg: "old", en: "old" },
+      source: "https://old.example/",
+      race: "presidential",
+      locked: { by: "agency_pdf", lockedAt: "2026-01-01", note: "manual" },
+    };
+    const oldDetail = {
+      pollId: "gm-2026-07-11",
+      agencyId: "GM",
+      candidateKey: "placeholder:old",
+      candidateName_bg: "СТАРА ПАРТИЯ",
+      candidateName_en: "",
+      nominator: null,
+      placeholderFor: "СТАРА",
+      support: 10,
+    };
+    const oldRunoff = {
+      pollId: "gm-2026-07-11",
+      agencyId: "GM",
+      a: "a",
+      b: "b",
+      supportA: 60,
+      supportB: 40,
+      residual: null,
+    };
+    writePresCorpus([oldPoll], [oldDetail], [oldRunoff]);
+
+    main(["gm-2026-07-11", "--replace"]);
+
+    expect(process.exitCode).toBeUndefined();
+    const { polls, details, runoffs } = readPresCorpus();
+    expect(polls).toHaveLength(1);
+    expect(polls[0].source).toBe("https://globalmetrics.eu/x/");
+    expect(polls[0].locked!.supersedes!.poll.source).toBe(
+      "https://old.example/",
+    );
+    expect(polls[0].locked!.supersedes!.details).toEqual([oldDetail]);
+    expect(details).toEqual(BASE_PRESIDENTIAL_DRAFT.details);
+    // The old runoff for this pollId is gone, replaced by the new draft's
+    // own (empty) runoff set.
+    expect(runoffs).toEqual([]);
+  });
+
+  it("scopes supersedes.details to only the replaced presidential poll's own rows", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    const oldPoll = {
+      id: "gm-2026-07-11",
+      agencyId: "GM",
+      fieldwork: "old fieldwork",
+      electionDate: "2026-11-08",
+      cycle: null,
+      respondents: 1000,
+      methodology: { bg: "old", en: "old" },
+      source: "https://old.example/",
+      race: "presidential",
+      locked: { by: "agency_pdf", lockedAt: "2026-01-01", note: "manual" },
+    };
+    const oldDetailForThisPoll = {
+      pollId: "gm-2026-07-11",
+      agencyId: "GM",
+      candidateKey: "placeholder:old",
+      candidateName_bg: "СТАРА ПАРТИЯ",
+      candidateName_en: "",
+      nominator: null,
+      placeholderFor: "СТАРА",
+      support: 10,
+    };
+    const unrelatedDetail = {
+      pollId: "sh-2020-01-01",
+      agencyId: "SH",
+      candidateKey: "provisional:x-y",
+      candidateName_bg: "Х",
+      candidateName_en: "",
+      nominator: null,
+      placeholderFor: null,
+      support: 5,
+    };
+    writePresCorpus([oldPoll], [oldDetailForThisPoll, unrelatedDetail]);
+
+    main(["gm-2026-07-11", "--replace"]);
+
+    const { polls } = readPresCorpus();
+    expect(polls[0].locked!.supersedes!.details).toEqual([
+      oldDetailForThisPoll,
+    ]);
+  });
+
+  it("writes all three presidential corpus files minified, no trailing newline", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    writePresCorpus([], []);
+
+    main(["gm-2026-07-11"]);
+
+    for (const f of [presPollsFile(), presDetailsFile(), presRunoffsFile()]) {
+      expect(fs.readFileSync(f, "utf8").includes("\n")).toBe(false);
+    }
+  });
+
+  it("refuses a locked existing presidential poll without --replace", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    writePresCorpus(
+      [
+        {
+          id: "gm-2026-07-11",
+          agencyId: "GM",
+          fieldwork: "old",
+          electionDate: null,
+          respondents: null,
+          methodology: { bg: "old", en: "old" },
+          source: "https://old.example/",
+          locked: { by: "agency_pdf", lockedAt: "2026-01-01" },
+        },
+      ],
+      [],
+    );
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("pass --replace to overwrite it"),
+    );
+  });
+
+  it("warns about an orphaned presidential polls_details.json row with no matching poll", () => {
+    writeDraft("gm-2026-07-11.json", BASE_PRESIDENTIAL_DRAFT);
+    writePresCorpus(
+      [],
+      [
+        {
+          pollId: "sh-2020-01-01",
+          agencyId: "SH",
+          candidateKey: "provisional:x-y",
+          candidateName_bg: "Х",
+          candidateName_en: "",
+          nominator: null,
+          placeholderFor: null,
+          support: 10,
+        },
+      ],
+    );
+
+    main(["gm-2026-07-11"]);
+
+    expect(process.exitCode).toBeUndefined();
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining("sh-2020-01-01"),
+    );
+  });
+
+  it("refuses a provisional-id presidential draft the same way as a parliamentary one", () => {
+    writeDraft("gm-pub-658.json", {
+      ...BASE_PRESIDENTIAL_DRAFT,
+      poll: { ...BASE_PRESIDENTIAL_DRAFT.poll, id: "gm-pub-658" },
+    });
+    writePresCorpus([], []);
+
+    main(["gm-pub-658"]);
+
+    expect(process.exitCode).toBe(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("PROVISIONAL id"),
     );
   });
 });
